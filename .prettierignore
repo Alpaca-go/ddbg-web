@@ -9,6 +9,10 @@ docs/rulings.md
 docs/rulings-notes.md
 docs/spec
 packages/data/extract/corebox
+packages/data/dictionary/icon-dictionary-v1.1.json
+packages/data/dictionary/icon-dictionary-v1.1.csv
+packages/data/dictionary/icon-dictionary-v1.1-CHANGELOG.md
+packages/data/dictionary/start_locations_by_placement.csv
 tools/pipeline/extract-print/UPSTREAM.md
 tools/pipeline/extract-print/REPORT.md
 tools/pipeline/extract-print/scripts

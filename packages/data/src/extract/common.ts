@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-/** 图标聚类 id。含义未标注，见 R-048。 */
+/** 图标聚类 id。含义在词典里，本层不回填；未确认的不命名，见 R-048。 */
 export const iconIdSchema = z.string().regex(/^[0-9a-f]{10}$/);
 
 /** 毫米。原点在 TrimBox 左上角，y 向下。[x0, y0, x1, y1]。 */
