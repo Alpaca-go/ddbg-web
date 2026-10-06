@@ -1,6 +1,8 @@
 packages/data/extract/corebox/**/*.json linguist-generated=true
 packages/data/extract/corebox/**/*.md linguist-generated=true
-packages/data/dictionary/icon-dictionary-v1.1.json linguist-generated=true
-packages/data/dictionary/icon-dictionary-v1.1.csv linguist-generated=true
 packages/data/dictionary/icon-dictionary-v1.1-CHANGELOG.md linguist-generated=true
+packages/data/dictionary/icon-dictionary-v1.2.json linguist-generated=true
+packages/data/dictionary/icon-dictionary-v1.2.csv linguist-generated=true
+packages/data/dictionary/icon-dictionary-v1.2-CHANGELOG.md linguist-generated=true
 packages/data/dictionary/start_locations_by_placement.csv linguist-generated=true
+packages/data/normalized/corebox/**/*.json linguist-generated=true

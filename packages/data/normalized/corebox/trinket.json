@@ -1,0 +1,6599 @@
+{
+ "schema": "ddbg-normalized-v0",
+ "dictionary_version": "1.2",
+ "category": "trinket",
+ "sources": {
+  "parsed": "extract/corebox/parsed/trinket.json",
+  "raw": "extract/corebox/raw/trinket.json",
+  "dictionary": "dictionary/icon-dictionary-v1.2.json"
+ },
+ "stats": {
+  "cards": 38,
+  "verified": 0,
+  "unverified": 38
+ },
+ "cards": [
+  {
+   "id": "trinket:p001",
+   "pages": [
+    1
+   ],
+   "copies": 1,
+   "name": "Accuracy Stone",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Accuracy Stone",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc+1"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Accuracy Stone",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc-1"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "7ac91ac027",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c2a399f571",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:7ac91ac027",
+     "icon:c2a399f571"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p002",
+   "pages": [
+    2
+   ],
+   "copies": 1,
+   "name": "Archer’s Ring",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Archer’s Ring",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc+2 when in "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "d8557730a4",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_d8557730a4",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Archer’s Ring",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc-1"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "7c928f9b47",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "d8557730a4",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_d8557730a4",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3273bc5781",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:3273bc5781",
+     "icon:7c928f9b47",
+     "icon:d8557730a4"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p003",
+   "pages": [
+    3
+   ],
+   "copies": 1,
+   "name": "Bleed Charm",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Bleed Charm",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When you hit with a Skill"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "inflict an additional 2 "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "d07276858c",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "bleed",
+        "kind": "status",
+        "meaning_en": "Bleed",
+        "meaning_zh": "流血",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 2t"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Bleed Charm",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "-1t to a Condition you are causing"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "514145709a",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "d07276858c",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed",
+     "meaning_zh": "流血",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "5b76b6044f",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0bda5a65b4",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "text_plate",
+     "kind": "other",
+     "meaning_en": "Trinket name plate (text background)",
+     "meaning_zh": "饰品名称底板（文字背景）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:514145709a",
+     "icon:5b76b6044f"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p004",
+   "pages": [
+    4
+   ],
+   "copies": 1,
+   "name": "Blight Charm",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Blight Charm",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When you hit with a Skill"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "inflict an additional 2 "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "b75805594c",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "blight",
+        "kind": "status",
+        "meaning_en": "Blight (as removed condition)",
+        "meaning_zh": "枯萎（被移除）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 2t"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Blight Charm",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "-1t to a Condition you are causing"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "184487eb61",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b75805594c",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "blight",
+     "kind": "status",
+     "meaning_en": "Blight (as removed condition)",
+     "meaning_zh": "枯萎（被移除）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9ce5cbc01d",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c4673f6f5c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "fecb71daa7",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_fecb71daa7",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:184487eb61",
+     "icon:c4673f6f5c",
+     "icon:fecb71daa7"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p005",
+   "pages": [
+    5
+   ],
+   "copies": 1,
+   "name": "Caution Cloak",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Caution Cloak",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Scout without suffering any"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Caution Cloak",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "edc2ad45fb",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "light",
+        "kind": "other",
+        "meaning_en": "Flame with down-arrow (trinket) – possibly Light decrease",
+        "meaning_zh": "火焰+下箭头（饰品）– 可能为光照降低",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " -1"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "595a8ad50f",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "da7dc436c3",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_da7dc436c3",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b5ab209baa",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_b5ab209baa",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c72009d6f9",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "edc2ad45fb",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Flame with down-arrow (trinket) – possibly Light decrease",
+     "meaning_zh": "火焰+下箭头（饰品）– 可能为光照降低",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:595a8ad50f",
+     "icon:b5ab209baa",
+     "icon:c72009d6f9",
+     "icon:da7dc436c3"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p006",
+   "pages": [
+    6
+   ],
+   "copies": 1,
+   "name": "Critical Stone",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Critical Stone",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Crit+2"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Critical Stone",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc-2"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "2895426437",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "9ce5cbc01d",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ca9cb6ff63",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:2895426437",
+     "icon:ca9cb6ff63"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p007",
+   "pages": [
+    7
+   ],
+   "copies": 1,
+   "name": "Damage Stone",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Damage Stone",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "c09318dfea",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "damage",
+        "kind": "damage_type",
+        "meaning_en": "Damage +3",
+        "meaning_zh": "伤害 +3",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " +3"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Damage Stone",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When you take Damage:"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "suffer 2 "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "48ca9f366e",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_48ca9f366e",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "966135ff4e",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c09318dfea",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage +3",
+     "meaning_zh": "伤害 +3",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a54d817382",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e39caa936e",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "2527d01768",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "48ca9f366e",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_48ca9f366e",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:2527d01768",
+     "icon:48ca9f366e",
+     "icon:966135ff4e"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p008",
+   "pages": [
+    8
+   ],
+   "copies": 1,
+   "name": "Debuff Charm",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Debuff Charm",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When you hit with a Skill"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "inflict an additional "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "aa731a7f72",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_aa731a7f72",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 2t"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Debuff Charm",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "-1t to a Condition you are causing"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "e8277b12e9",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "aa731a7f72",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_aa731a7f72",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "9ce5cbc01d",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e39caa936e",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "b93f44b5d8",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:aa731a7f72",
+     "icon:b93f44b5d8",
+     "icon:e8277b12e9"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p009",
+   "pages": [
+    9
+   ],
+   "copies": 1,
+   "name": "Sage’s Book",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Sage’s Book",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc+2 when in "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "f4539842c2",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_f4539842c2",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Sage’s Book",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc-1"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "c80192cfcc",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_c80192cfcc",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f4539842c2",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_f4539842c2",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "032fd6cccd",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_032fd6cccd",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "fecb71daa7",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_fecb71daa7",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:032fd6cccd",
+     "icon:c80192cfcc",
+     "icon:f4539842c2",
+     "icon:fecb71daa7"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p010",
+   "pages": [
+    10
+   ],
+   "copies": 1,
+   "name": "Speed Stone",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Speed Stone",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "+ "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "4648c9e5ec",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "speed",
+        "kind": "other",
+        "meaning_en": "Speed (movement)",
+        "meaning_zh": "速度（移动）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " or "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "22c0a26f50",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "trinket_stat_glyph",
+        "kind": "other",
+        "meaning_en": "Trinket stat glyph (Speed Stone) – possibly Speed",
+        "meaning_zh": "饰品属性图标（速度石）– 可能为速度",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " +1"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Speed Stone",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "- "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "b0f4ca8612",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "speed",
+        "kind": "other",
+        "meaning_en": "Speed (movement)",
+        "meaning_zh": "速度（移动）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " or "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "003b470410",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_003b470410",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " -1"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "f12310ec0f",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "22c0a26f50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "trinket_stat_glyph",
+     "kind": "other",
+     "meaning_en": "Trinket stat glyph (Speed Stone) – possibly Speed",
+     "meaning_zh": "饰品属性图标（速度石）– 可能为速度",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "6398aa2440",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "003b470410",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_003b470410",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b0f4ca8612",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:003b470410",
+     "icon:6398aa2440",
+     "icon:f12310ec0f"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p011",
+   "pages": [
+    11
+   ],
+   "copies": 1,
+   "name": "Stun Charm",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Stun Charm",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When you hit with a skill"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "inflict an additional "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "f122d682f4",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "stun",
+        "kind": "status",
+        "meaning_en": "Stun (large, quirk)",
+        "meaning_zh": "眩晕（大，怪癖卡）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 1t"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Stun Charm",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "-1t to a Condition you are causing"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "7d4f72667e",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_7d4f72667e",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "3dd52e05c6",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f122d682f4",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stun",
+     "kind": "status",
+     "meaning_en": "Stun (large, quirk)",
+     "meaning_zh": "眩晕（大，怪癖卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7e05c9a61f",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:3dd52e05c6",
+     "icon:7d4f72667e",
+     "icon:7e05c9a61f"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p012",
+   "pages": [
+    12
+   ],
+   "copies": 1,
+   "name": "Survival Guide",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Survival Guide",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When exploring:"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "ignore a "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "07a4208ff9",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_07a4208ff9",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " or "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "66254314c8",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_66254314c8",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Survival Guide",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When exploring, turn"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "an Exploration Die that"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "is not a "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "1edc13cad2",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_1edc13cad2",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " , to "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "1edc13cad2",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_1edc13cad2",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "a08da49488",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_a08da49488",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "66254314c8",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_66254314c8",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "07a4208ff9",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_07a4208ff9",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "1edc13cad2",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_1edc13cad2",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "1edc13cad2",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_1edc13cad2",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4225deba9e",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:07a4208ff9",
+     "icon:1edc13cad2",
+     "icon:4225deba9e",
+     "icon:66254314c8",
+     "icon:a08da49488"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p013",
+   "pages": [
+    13
+   ],
+   "copies": 1,
+   "name": "Warrior’s Bracer",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Warrior’s Bracer",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc+2 Acc when in"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Warrior’s Bracer",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc-1"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "2a24f84417",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "trinket_picture",
+     "kind": "other",
+     "meaning_en": "Trinket picture (likely art)",
+     "meaning_zh": "饰品插图（疑似插画）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "fe18ec5b80",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_fe18ec5b80",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "6549384f13",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "trinket_picture",
+     "kind": "other",
+     "meaning_en": "Trinket picture (likely art)",
+     "meaning_zh": "饰品插图（疑似插画）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:fe18ec5b80"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p014",
+   "pages": [
+    14
+   ],
+   "copies": 1,
+   "name": "Warrior’s Cap",
+   "level": 1,
+   "back_level": 1,
+   "upright_half": {
+    "name": "Warrior’s Cap",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc+2 when in "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "f7bd151d17",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_f7bd151d17",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Warrior’s Cap",
+    "level": 1,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc-1"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "a08da49488",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_a08da49488",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f7bd151d17",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_f7bd151d17",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "6549384f13",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "trinket_picture",
+     "kind": "other",
+     "meaning_en": "Trinket picture (likely art)",
+     "meaning_zh": "饰品插图（疑似插画）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:a08da49488",
+     "icon:f7bd151d17"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p015",
+   "pages": [
+    15
+   ],
+   "copies": 1,
+   "name": "Bloodthirst Ring",
+   "level": 2,
+   "back_level": 2,
+   "upright_half": {
+    "name": "Bloodthirst Ring",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Consume one "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "6e68b2add8",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "food",
+        "kind": "other",
+        "meaning_en": "Food (provision)",
+        "meaning_zh": "食物（补给）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " and "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "7f0a59a7a0",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "heal",
+        "kind": "other",
+        "meaning_en": "Heal",
+        "meaning_zh": "治疗",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 10 "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "910a0c12fe",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "heal",
+        "kind": "other",
+        "meaning_en": "Heal",
+        "meaning_zh": "治疗",
+        "value": null,
+        "naming": "confirmed"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Bloodthirst Ring",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When hit: Suffer 3 "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "a64616e9c5",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_a64616e9c5",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 2t"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "e9208ef6e9",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "6e68b2add8",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "food",
+     "kind": "other",
+     "meaning_en": "Food (provision)",
+     "meaning_zh": "食物（补给）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7f0a59a7a0",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "910a0c12fe",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "5f535810c0",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a64616e9c5",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_a64616e9c5",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:5f535810c0",
+     "icon:a64616e9c5",
+     "icon:e9208ef6e9"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p016",
+   "pages": [
+    16
+   ],
+   "copies": 1,
+   "name": "Book of Constitution",
+   "level": 2,
+   "back_level": 2,
+   "upright_half": {
+    "name": "Book of Constitution",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When you suffer a"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "discard it immediately"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Book of Constitution",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "- "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "b0f4ca8612",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "speed",
+        "kind": "other",
+        "meaning_en": "Speed (movement)",
+        "meaning_zh": "速度（移动）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "b0f4ca8612",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "speed",
+        "kind": "other",
+        "meaning_en": "Speed (movement)",
+        "meaning_zh": "速度（移动）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "c80192cfcc",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_c80192cfcc",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "96dfcd2af2",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "disease",
+     "kind": "other",
+     "meaning_en": "Disease",
+     "meaning_zh": "疾病",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "1b4fcbe0ae",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b0f4ca8612",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "b0f4ca8612",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:1b4fcbe0ae",
+     "icon:c80192cfcc"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p017",
+   "pages": [
+    17
+   ],
+   "copies": 1,
+   "name": "Book of Holiness",
+   "level": 2,
+   "back_level": 2,
+   "upright_half": {
+    "name": "Book of Holiness",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "33b2d5bc22",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "stress",
+        "kind": "stress",
+        "meaning_en": "Stress (parchment cards)",
+        "meaning_zh": "压力（羊皮纸卡）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " -3"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Book of Holiness",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Turn a hit against you into a Crit."
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "2005cb4c49",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9ce5cbc01d",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e39caa936e",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a7f9d5bd10",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:2005cb4c49",
+     "icon:a7f9d5bd10"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p018",
+   "pages": [
+    18
+   ],
+   "copies": 1,
+   "name": "Book of Relaxation",
+   "level": 2,
+   "back_level": 2,
+   "upright_half": {
+    "name": "Book of Relaxation",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "33b2d5bc22",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "stress",
+        "kind": "stress",
+        "meaning_en": "Stress (parchment cards)",
+        "meaning_zh": "压力（羊皮纸卡）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " -2"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Book of Relaxation",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "003b470410",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_003b470410",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " -2"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "c80192cfcc",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_c80192cfcc",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "032fd6cccd",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_032fd6cccd",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "003b470410",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_003b470410",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:003b470410",
+     "icon:032fd6cccd",
+     "icon:c80192cfcc"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p019",
+   "pages": [
+    19
+   ],
+   "copies": 1,
+   "name": "Camouflage Cloak",
+   "level": 2,
+   "back_level": 2,
+   "upright_half": {
+    "name": "Camouflage Cloak",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "22c0a26f50",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "trinket_stat_glyph",
+        "kind": "other",
+        "meaning_en": "Trinket stat glyph (Speed Stone) – possibly Speed",
+        "meaning_zh": "饰品属性图标（速度石）– 可能为速度",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " +2 if "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "78d1cc55d3",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "light",
+        "kind": "other",
+        "meaning_en": "Light (torch)",
+        "meaning_zh": "光照（火把）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " is 3"
+      }
+     ],
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "206c655597",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_206c655597",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " <"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Camouflage Cloak",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When hit: Suffer "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "ccca0ec836",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_ccca0ec836",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 1t"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "857f920639",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "22c0a26f50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "trinket_stat_glyph",
+     "kind": "other",
+     "meaning_en": "Trinket stat glyph (Speed Stone) – possibly Speed",
+     "meaning_zh": "饰品属性图标（速度石）– 可能为速度",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "78d1cc55d3",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Light (torch)",
+     "meaning_zh": "光照（火把）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "206c655597",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_206c655597",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a54d817382",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e39caa936e",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "f93cec8923",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "ccca0ec836",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_ccca0ec836",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:206c655597",
+     "icon:857f920639",
+     "icon:ccca0ec836",
+     "icon:f93cec8923"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p020",
+   "pages": [
+    20
+   ],
+   "copies": 1,
+   "name": "Chirurgeon’s Charm",
+   "level": 2,
+   "back_level": 2,
+   "upright_half": {
+    "name": "Chirurgeon’s Charm",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When healing: heal "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "8404726857",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "heal",
+        "kind": "other",
+        "meaning_en": "Heal",
+        "meaning_zh": "治疗",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " +2 "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "910a0c12fe",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "heal",
+        "kind": "other",
+        "meaning_en": "Heal",
+        "meaning_zh": "治疗",
+        "value": null,
+        "naming": "confirmed"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Chirurgeon’s Charm",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When healed: recieve "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "9939df0801",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_9939df0801",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " -4 "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "c890c74db0",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_c890c74db0",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "e479e31fcd",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8404726857",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "910a0c12fe",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "837c317b01",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c890c74db0",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_c890c74db0",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "9939df0801",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_9939df0801",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:837c317b01",
+     "icon:9939df0801",
+     "icon:c890c74db0",
+     "icon:e479e31fcd"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p021",
+   "pages": [
+    21
+   ],
+   "copies": 1,
+   "name": "Dark Bracer",
+   "level": 2,
+   "back_level": 2,
+   "upright_half": {
+    "name": "Dark Bracer",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Crit+2 if "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "78d1cc55d3",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "light",
+        "kind": "other",
+        "meaning_en": "Light (torch)",
+        "meaning_zh": "光照（火把）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "c1d74de856",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_c1d74de856",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " < 3"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Dark Bracer",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "b3f370e3ec",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_b3f370e3ec",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " <"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "When a Skill Hits the Target:"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "if "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "c4fa19b296",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_c4fa19b296",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 3 Deal no "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "c09318dfea",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "damage",
+        "kind": "damage_type",
+        "meaning_en": "Damage +3",
+        "meaning_zh": "伤害 +3",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " ."
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "7d4f72667e",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_7d4f72667e",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "7f666ef205",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "78d1cc55d3",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Light (torch)",
+     "meaning_zh": "光照（火把）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c1d74de856",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_c1d74de856",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c09318dfea",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage +3",
+     "meaning_zh": "伤害 +3",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "73f552cf40",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c4fa19b296",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_c4fa19b296",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b3f370e3ec",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_b3f370e3ec",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0bda5a65b4",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "text_plate",
+     "kind": "other",
+     "meaning_en": "Trinket name plate (text background)",
+     "meaning_zh": "饰品名称底板（文字背景）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:73f552cf40",
+     "icon:7d4f72667e",
+     "icon:7f666ef205",
+     "icon:b3f370e3ec",
+     "icon:c1d74de856",
+     "icon:c4fa19b296"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p022",
+   "pages": [
+    22
+   ],
+   "copies": 1,
+   "name": "Protective Padlock",
+   "level": 2,
+   "back_level": 2,
+   "upright_half": {
+    "name": "Protective Padlock",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When hit: Suffer half the"
+      }
+     ],
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "c09318dfea",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "damage",
+        "kind": "damage_type",
+        "meaning_en": "Damage +3",
+        "meaning_zh": "伤害 +3",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " X rounded up"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Protective Padlock",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "- "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "b0f4ca8612",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "speed",
+        "kind": "other",
+        "meaning_en": "Speed (movement)",
+        "meaning_zh": "速度（移动）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "3c1b5623f6",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c09318dfea",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage +3",
+     "meaning_zh": "伤害 +3",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a54d817382",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ccf64b2935",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b0f4ca8612",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:3c1b5623f6",
+     "icon:ccf64b2935"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p023",
+   "pages": [
+    23
+   ],
+   "copies": 1,
+   "name": "Bloodcourse Medallion",
+   "level": 2,
+   "back_level": 2,
+   "upright_half": {
+    "name": "Bloodcourse Medallion",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When healed, receive "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "7f0a59a7a0",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "heal",
+        "kind": "other",
+        "meaning_en": "Heal",
+        "meaning_zh": "治疗",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "910a0c12fe",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "heal",
+        "kind": "other",
+        "meaning_en": "Heal",
+        "meaning_zh": "治疗",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 4"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Bloodcourse Medallion",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When hit: Suffer 1 "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "a64616e9c5",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_a64616e9c5",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 3t"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "ad4858a9f9",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "7f0a59a7a0",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "910a0c12fe",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9ce5cbc01d",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e39caa936e",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "54868f605f",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a64616e9c5",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_a64616e9c5",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:54868f605f",
+     "icon:a64616e9c5",
+     "icon:ad4858a9f9"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p024",
+   "pages": [
+    24
+   ],
+   "copies": 1,
+   "name": "Camper’s Helmet",
+   "level": 2,
+   "back_level": 2,
+   "upright_half": {
+    "name": "Camper’s Helmet",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When Camping, roll 2 "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "686ca3dd0a",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "provisions",
+        "kind": "other",
+        "meaning_en": "Provisions (player aid heading picture: die with Wild 'DD' face)",
+        "meaning_zh": "补给（玩家辅助卡标题图：含万能“DD”面的骰子）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Camper’s Helmet",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "dd86508746",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "stress",
+        "kind": "stress",
+        "meaning_en": "Stress",
+        "meaning_zh": "压力",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " +1 when Scouting"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "803c6d0f09",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "686ca3dd0a",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "provisions",
+     "kind": "other",
+     "meaning_en": "Provisions (player aid heading picture: die with Wild 'DD' face)",
+     "meaning_zh": "补给（玩家辅助卡标题图：含万能“DD”面的骰子）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9ce5cbc01d",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e39caa936e",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "48dc3d37f2",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "dd86508746",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:48dc3d37f2",
+     "icon:803c6d0f09"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p025",
+   "pages": [
+    25
+   ],
+   "copies": 1,
+   "name": "Fortunate Armlet",
+   "level": 2,
+   "back_level": 2,
+   "upright_half": {
+    "name": "Fortunate Armlet",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc+1 and Crit+1"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Fortunate Armlet",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "dd86508746",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "stress",
+        "kind": "stress",
+        "meaning_en": "Stress",
+        "meaning_zh": "压力",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " +1"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "fc3594bb8c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "46e70cf52a",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "dd86508746",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:46e70cf52a",
+     "icon:fc3594bb8c"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p026",
+   "pages": [
+    26
+   ],
+   "copies": 1,
+   "name": "Solar Bracer",
+   "level": 2,
+   "back_level": 2,
+   "upright_half": {
+    "name": "Solar Bracer",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Crit+2 if "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "9f080685f9",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_9f080685f9",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 3"
+      }
+     ],
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "ed3b7ac902",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_ed3b7ac902",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " <"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Solar Bracer",
+    "level": 2,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When a Skill Hits the Target:"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "if "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "edc2ad45fb",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "light",
+        "kind": "other",
+        "meaning_en": "Flame with down-arrow (trinket) – possibly Light decrease",
+        "meaning_zh": "火焰+下箭头（饰品）– 可能为光照降低",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "8c829e3754",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_8c829e3754",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " < 3 Deal no "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "c09318dfea",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "damage",
+        "kind": "damage_type",
+        "meaning_en": "Damage +3",
+        "meaning_zh": "伤害 +3",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " ."
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "7d4f72667e",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_7d4f72667e",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "fc00a39cf5",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "9f080685f9",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_9f080685f9",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "ed3b7ac902",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_ed3b7ac902",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c09318dfea",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage +3",
+     "meaning_zh": "伤害 +3",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "cb0bebf0b6",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "edc2ad45fb",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Flame with down-arrow (trinket) – possibly Light decrease",
+     "meaning_zh": "火焰+下箭头（饰品）– 可能为光照降低",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8c829e3754",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_8c829e3754",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:7d4f72667e",
+     "icon:8c829e3754",
+     "icon:9f080685f9",
+     "icon:cb0bebf0b6",
+     "icon:ed3b7ac902",
+     "icon:fc00a39cf5"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p027",
+   "pages": [
+    27
+   ],
+   "copies": 1,
+   "name": "Berserk Charm",
+   "level": 3,
+   "back_level": 3,
+   "upright_half": {
+    "name": "Berserk Charm",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Gain +1 Action"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Berserk Charm",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "dd86508746",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "stress",
+        "kind": "stress",
+        "meaning_en": "Stress",
+        "meaning_zh": "压力",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " +1"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "57b98e6bb8",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7685db4856",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "dd86508746",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:57b98e6bb8",
+     "icon:7685db4856"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p028",
+   "pages": [
+    28
+   ],
+   "copies": 1,
+   "name": "Dark Crown",
+   "level": 3,
+   "back_level": 3,
+   "upright_half": {
+    "name": "Dark Crown",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "33b2d5bc22",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "stress",
+        "kind": "stress",
+        "meaning_en": "Stress (parchment cards)",
+        "meaning_zh": "压力（羊皮纸卡）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " -9 if "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "9f080685f9",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_9f080685f9",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "c1d74de856",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_c1d74de856",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " < 3"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Dark Crown",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "When the result is determined,"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "-2 Virtue Chance if "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "edc2ad45fb",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "light",
+        "kind": "other",
+        "meaning_en": "Flame with down-arrow (trinket) – possibly Light decrease",
+        "meaning_zh": "火焰+下箭头（饰品）– 可能为光照降低",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "599b5b0881",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_599b5b0881",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " < 3"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "92ee4154b9",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "9f080685f9",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_9f080685f9",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c1d74de856",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_c1d74de856",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ee6aa010a5",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "edc2ad45fb",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Flame with down-arrow (trinket) – possibly Light decrease",
+     "meaning_zh": "火焰+下箭头（饰品）– 可能为光照降低",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "599b5b0881",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_599b5b0881",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0bda5a65b4",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "text_plate",
+     "kind": "other",
+     "meaning_en": "Trinket name plate (text background)",
+     "meaning_zh": "饰品名称底板（文字背景）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:599b5b0881",
+     "icon:92ee4154b9",
+     "icon:9f080685f9",
+     "icon:c1d74de856",
+     "icon:ee6aa010a5"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p029",
+   "pages": [
+    29
+   ],
+   "copies": 1,
+   "name": "Fasting Seal",
+   "level": 3,
+   "back_level": 3,
+   "upright_half": {
+    "name": "Fasting Seal",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "22c0a26f50",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "trinket_stat_glyph",
+        "kind": "other",
+        "meaning_en": "Trinket stat glyph (Speed Stone) – possibly Speed",
+        "meaning_zh": "饰品属性图标（速度石）– 可能为速度",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " +5"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Fasting Seal",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Consume a "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "8fc1e0c2e9",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_8fc1e0c2e9",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " gaining no effect"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "134545d87a",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "22c0a26f50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "trinket_stat_glyph",
+     "kind": "other",
+     "meaning_en": "Trinket stat glyph (Speed Stone) – possibly Speed",
+     "meaning_zh": "饰品属性图标（速度石）– 可能为速度",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "5ba2b54c10",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8fc1e0c2e9",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_8fc1e0c2e9",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:134545d87a",
+     "icon:5ba2b54c10",
+     "icon:8fc1e0c2e9"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p030",
+   "pages": [
+    30
+   ],
+   "copies": 1,
+   "name": "Recovery Charm",
+   "level": 3,
+   "back_level": 3,
+   "upright_half": {
+    "name": "Recovery Charm",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "7f0a59a7a0",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "heal",
+        "kind": "other",
+        "meaning_en": "Heal",
+        "meaning_zh": "治疗",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "c80e839741",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_c80e839741",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 9"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Recovery Charm",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "dd86508746",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "stress",
+        "kind": "stress",
+        "meaning_en": "Stress",
+        "meaning_zh": "压力",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " +2"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "e528def849",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "7f0a59a7a0",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c80e839741",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_c80e839741",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "52779b6cc8",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "dd86508746",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:52779b6cc8",
+     "icon:c80e839741",
+     "icon:e528def849"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p031",
+   "pages": [
+    31
+   ],
+   "copies": 1,
+   "name": "Sniper’s Ring",
+   "level": 3,
+   "back_level": 3,
+   "upright_half": {
+    "name": "Sniper’s Ring",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Crit+4 if in "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "d8557730a4",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_d8557730a4",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Sniper’s Ring",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc-2 if not in "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "3e15d1efba",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_3e15d1efba",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "28f0232002",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "d8557730a4",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_d8557730a4",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3e15d1efba",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_3e15d1efba",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "624a476888",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:28f0232002",
+     "icon:3e15d1efba",
+     "icon:624a476888",
+     "icon:d8557730a4"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p032",
+   "pages": [
+    32
+   ],
+   "copies": 1,
+   "name": "Warrior’s Ring",
+   "level": 3,
+   "back_level": 3,
+   "upright_half": {
+    "name": "Warrior’s Ring",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Crit+4 if in "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "fe18ec5b80",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_fe18ec5b80",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Warrior’s Ring",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc-2 if not in "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "bb21fa4f0f",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_bb21fa4f0f",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "2a24f84417",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "trinket_picture",
+     "kind": "other",
+     "meaning_en": "Trinket picture (likely art)",
+     "meaning_zh": "饰品插图（疑似插画）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "fe18ec5b80",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_fe18ec5b80",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "bb21fa4f0f",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_bb21fa4f0f",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "6549384f13",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "trinket_picture",
+     "kind": "other",
+     "meaning_en": "Trinket picture (likely art)",
+     "meaning_zh": "饰品插图（疑似插画）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:bb21fa4f0f",
+     "icon:fe18ec5b80"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p033",
+   "pages": [
+    33
+   ],
+   "copies": 1,
+   "name": "Defender’s Ring",
+   "level": 3,
+   "back_level": 3,
+   "upright_half": {
+    "name": "Defender’s Ring",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Crit+4 if in "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "f7bd151d17",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_f7bd151d17",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Defender’s Ring",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc-2 if not in "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "8b801d29d7",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_8b801d29d7",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "ecfbc6800c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f7bd151d17",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_f7bd151d17",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8b801d29d7",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_8b801d29d7",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "d876d6e8c3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:8b801d29d7",
+     "icon:d876d6e8c3",
+     "icon:ecfbc6800c",
+     "icon:f7bd151d17"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p034",
+   "pages": [
+    34
+   ],
+   "copies": 1,
+   "name": "Scholar’s Ring",
+   "level": 3,
+   "back_level": 3,
+   "upright_half": {
+    "name": "Scholar’s Ring",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Crit+4 if in "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "f4539842c2",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_f4539842c2",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Scholar’s Ring",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Acc-2 if not in "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "7faa97dbde",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_7faa97dbde",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "2c64de3af7",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f4539842c2",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_f4539842c2",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7faa97dbde",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_7faa97dbde",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "bf43d23b79",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:2c64de3af7",
+     "icon:7faa97dbde",
+     "icon:bf43d23b79",
+     "icon:f4539842c2"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p035",
+   "pages": [
+    35
+   ],
+   "copies": 1,
+   "name": "Solar Crown",
+   "level": 3,
+   "back_level": 3,
+   "upright_half": {
+    "name": "Solar Crown",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "33b2d5bc22",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "stress",
+        "kind": "stress",
+        "meaning_en": "Stress (parchment cards)",
+        "meaning_zh": "压力（羊皮纸卡）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " -3 if 3"
+      }
+     ],
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "ed3b7ac902",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_ed3b7ac902",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " < "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "49cd46c0d4",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_49cd46c0d4",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Solar Crown",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "be2e32545a",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_be2e32545a",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " < "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "edc2ad45fb",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "light",
+        "kind": "other",
+        "meaning_en": "Flame with down-arrow (trinket) – possibly Light decrease",
+        "meaning_zh": "火焰+下箭头（饰品）– 可能为光照降低",
+        "value": null,
+        "naming": "confirmed"
+       }
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "When the result is determined,"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "-2 Virtue Chance if 3"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "2a24f84417",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "trinket_picture",
+     "kind": "other",
+     "meaning_en": "Trinket picture (likely art)",
+     "meaning_zh": "饰品插图（疑似插画）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "49cd46c0d4",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_49cd46c0d4",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ed3b7ac902",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_ed3b7ac902",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "bc084f9ee3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "edc2ad45fb",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Flame with down-arrow (trinket) – possibly Light decrease",
+     "meaning_zh": "火焰+下箭头（饰品）– 可能为光照降低",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "be2e32545a",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_be2e32545a",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0bda5a65b4",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "text_plate",
+     "kind": "other",
+     "meaning_en": "Trinket name plate (text background)",
+     "meaning_zh": "饰品名称底板（文字背景）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:49cd46c0d4",
+     "icon:bc084f9ee3",
+     "icon:be2e32545a",
+     "icon:ed3b7ac902"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p036",
+   "pages": [
+    36
+   ],
+   "copies": 1,
+   "name": "Book of Sanity",
+   "level": 3,
+   "back_level": 3,
+   "upright_half": {
+    "name": "Book of Sanity",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "33b2d5bc22",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "stress",
+        "kind": "stress",
+        "meaning_en": "Stress (parchment cards)",
+        "meaning_zh": "压力（羊皮纸卡）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " -4"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Book of Sanity",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Suffer "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "c09318dfea",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "damage",
+        "kind": "damage_type",
+        "meaning_en": "Damage +3",
+        "meaning_zh": "伤害 +3",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 6"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "721833cbfb",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9ce5cbc01d",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e39caa936e",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "1fdbb57836",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c09318dfea",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage +3",
+     "meaning_zh": "伤害 +3",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:1fdbb57836",
+     "icon:721833cbfb"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p037",
+   "pages": [
+    37
+   ],
+   "copies": 1,
+   "name": "Candle of Life",
+   "level": 3,
+   "back_level": 3,
+   "upright_half": {
+    "name": "Candle of Life",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "You and every Hero in"
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "the same Area "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "8404726857",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "heal",
+        "kind": "other",
+        "meaning_en": "Heal",
+        "meaning_zh": "治疗",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "9824e0b432",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "heal",
+        "kind": "other",
+        "meaning_en": "Heal",
+        "meaning_zh": "治疗",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " 6"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Candle of Life",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "edc2ad45fb",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "light",
+        "kind": "other",
+        "meaning_en": "Flame with down-arrow (trinket) – possibly Light decrease",
+        "meaning_zh": "火焰+下箭头（饰品）– 可能为光照降低",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " -2"
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "e78188c405",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8404726857",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9824e0b432",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a54d817382",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "5eb228c3fb",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "edc2ad45fb",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Flame with down-arrow (trinket) – possibly Light decrease",
+     "meaning_zh": "火焰+下箭头（饰品）– 可能为光照降低",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:5eb228c3fb",
+     "icon:e78188c405"
+    ]
+   }
+  },
+  {
+   "id": "trinket:p038",
+   "pages": [
+    38
+   ],
+   "copies": 1,
+   "name": "Cleansing Crystal",
+   "level": 3,
+   "back_level": 3,
+   "upright_half": {
+    "name": "Cleansing Crystal",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Remove all "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "d07276858c",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "bleed",
+        "kind": "status",
+        "meaning_en": "Bleed",
+        "meaning_zh": "流血",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " , "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "90558ded71",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "blight",
+        "kind": "status",
+        "meaning_en": "Blight",
+        "meaning_zh": "枯萎",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " , "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "aa731a7f72",
+        "in_dictionary": true,
+        "status": "unreviewed",
+        "key": "unknown_aa731a7f72",
+        "kind": "",
+        "meaning_en": "",
+        "meaning_zh": "",
+        "value": null,
+        "naming": "unverified"
+       }
+      },
+      {
+       "type": "text",
+       "text": " , "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "f122d682f4",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "stun",
+        "kind": "status",
+        "meaning_en": "Stun (large, quirk)",
+        "meaning_zh": "眩晕（大，怪癖卡）",
+        "value": null,
+        "naming": "confirmed"
+       }
+      },
+      {
+       "type": "text",
+       "text": " , "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "192ea1fea9",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "mark",
+        "kind": "status",
+        "meaning_en": "Mark",
+        "meaning_zh": "标记",
+        "value": null,
+        "naming": "confirmed"
+       }
+      }
+     ],
+     [
+      {
+       "type": "text",
+       "text": "from all Heroes"
+      }
+     ]
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Cleansing Crystal",
+    "level": 3,
+    "effect_lines": [
+     [
+      {
+       "type": "text",
+       "text": "Gain a "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "b7d0cfd524",
+        "in_dictionary": false,
+        "status": null,
+        "key": null,
+        "kind": null,
+        "meaning_en": null,
+        "meaning_zh": null,
+        "value": null,
+        "naming": "unverified"
+       }
+      }
+     ]
+    ],
+    "printed_rotation": 180
+   },
+   "front_icons": [
+    {
+     "iconId": "10061b9d0d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f122d682f4",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stun",
+     "kind": "status",
+     "meaning_en": "Stun (large, quirk)",
+     "meaning_zh": "眩晕（大，怪癖卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "192ea1fea9",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "mark",
+     "kind": "status",
+     "meaning_en": "Mark",
+     "meaning_zh": "标记",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "d07276858c",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed",
+     "meaning_zh": "流血",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "aa731a7f72",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_aa731a7f72",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "90558ded71",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "blight",
+     "kind": "status",
+     "meaning_en": "Blight",
+     "meaning_zh": "枯萎",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "0c9e989b70",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Level badge (trinkets/boss/quest)",
+     "meaning_zh": "等级徽章（饰品/Boss/任务）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "b7d0cfd524",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "afb3fe2d69",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [
+    {
+     "iconId": "3f3ab3a88f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:10061b9d0d",
+     "icon:aa731a7f72",
+     "icon:afb3fe2d69",
+     "icon:b7d0cfd524"
+    ]
+   }
+  }
+ ]
+}

@@ -90,6 +90,16 @@ export function iconKeyConventionIssues(icon: {
   if (icon.status === "decor" && icon.key !== "decor") {
     issues.push("decor 行的 key 应为 decor");
   }
+  if (icon.status === "needs_review") {
+    if (icon.key !== `pending_${icon.iconId}`) {
+      issues.push("needs_review 的 key 应为 pending_<iconId>");
+    }
+    if (icon.kind !== "") {
+      issues.push("needs_review 的 kind 应为空");
+    }
+  } else if (icon.key.startsWith("pending_")) {
+    issues.push("pending_ 只用于 needs_review");
+  }
   if (icon.key.startsWith("start_") && !START_KEY.test(icon.key)) {
     issues.push("start_ key 应为 start_<hero|monster|any>_<站位|any>");
   }
@@ -223,7 +233,7 @@ const iconEntryDocSchema = z.strictObject({
   notes: iconFieldDocSchema,
 });
 
-/** `icon-dictionary-v1.1.json`。含字段说明、元数据、已知不一致和 906 条图标。 */
+/** `icon-dictionary-v1.2.json`。含字段说明、元数据、已知不一致和 906 条图标。 */
 export const iconDictionarySchema = z
   .strictObject({
     schema: z.strictObject({
@@ -247,7 +257,7 @@ export const iconDictionarySchema = z
     }),
     meta: z.strictObject({
       name: z.string().min(1),
-      version: z.literal("1.1"),
+      version: z.literal("1.2"),
       generated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
       based_on: z.string().min(1),
       input: z.string().min(1),
@@ -275,6 +285,7 @@ export const iconDictionarySchema = z
         }),
       }),
       resolved_in_v1_1: z.array(z.string().min(1)),
+      resolved_in_v1_2: z.array(z.string().min(1)).min(1),
     }),
     inconsistencies: z.array(
       z.strictObject({
