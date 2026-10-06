@@ -19,5 +19,25 @@ export {
 } from "./extract/common";
 export { RAW_CARD_CATEGORIES, RAW_SHEET_CATEGORIES, rawFileSchema } from "./extract/raw";
 export type { RawFile } from "./extract/raw";
+export {
+  heroSkillCardSchema,
+  heroSkillFileSchema,
+  monsterLargeCardSchema,
+  monsterLargeFileSchema,
+  monsterMediumCardSchema,
+  monsterMediumFileSchema,
+  trinketCardSchema,
+  trinketFileSchema,
+} from "./extract/parsed";
+export type {
+  HeroSkillCard,
+  HeroSkillFile,
+  MonsterLargeCard,
+  MonsterLargeFile,
+  MonsterMediumCard,
+  MonsterMediumFile,
+  TrinketCard,
+  TrinketFile,
+} from "./extract/parsed";
 export { extractSummarySchema, reconciliationReportSchema } from "./extract/reports";
 export type { ExtractSummary, ReconciliationReport } from "./extract/reports";
