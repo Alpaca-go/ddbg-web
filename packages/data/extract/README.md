@@ -6,7 +6,7 @@
 - `corebox/parsed/`：`ddbg-parsed-v0`，只有 hero_skill、monster_medium、monster_large、trinket。
 - `corebox/reports/`：`summary.json`（每个输出的 sha1）、`reconciliation.json`、`reconciliation.md`。
 
-这些文件与提取器输出逐字节一致。raw、sha1 和部件对账由 `packages/data/src/extract/fixtures.test.ts` 校验。parsed JSON 已入库，对应的 Zod schema 在下一步。
+这些文件与提取器输出逐字节一致。raw、sha1 和部件对账在 `fixtures.test.ts`；parsed schema 和交叉校验在 `parsed.test.ts`。
 
 ## 版面类为什么也入库
 
