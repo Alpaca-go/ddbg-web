@@ -1,0 +1,2156 @@
+{
+ "schema": "ddbg-raw-v1",
+ "extractor_version": "1.0.4",
+ "category": "disease",
+ "kind": "card",
+ "units": {
+  "length": "mm",
+  "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+  "y_axis": "down",
+  "font_size": "pt"
+ },
+ "sources": [
+  {
+   "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+   "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+   "source_set": "base",
+   "kind": "card",
+   "front_pages": 11,
+   "back_pages": 11
+  }
+ ],
+ "n_pages": 11,
+ "n_unique": 11,
+ "n_copies_total": 11,
+ "cards": [
+  {
+   "id": "disease:p001",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    1
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+     "page": 1,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "996736996d326c98",
+     "spans": [
+      {
+       "t": "Black Plague",
+       "bbox": [
+        11.96,
+        8.34,
+        32.04,
+        13.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#c6d07d"
+      },
+      {
+       "t": "/Hero Level",
+       "bbox": [
+        20.71,
+        55.41,
+        34.5,
+        59.27
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 10.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        15.04,
+        45.49,
+        17.29,
+        54.45
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.23,
+       "color": "#c6d07d"
+      },
+      {
+       "t": "2t",
+       "bbox": [
+        24.02,
+        45.49,
+        29.47,
+        54.45
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.23,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "5f34280843",
+       "bbox": [
+        17.99,
+        19.4,
+        26.46,
+        29.28
+       ]
+      },
+      {
+       "iconId": "ddb1074c57",
+       "bbox": [
+        18.76,
+        23.71,
+        19.41,
+        25.19
+       ]
+      },
+      {
+       "iconId": "907f6b8c43",
+       "bbox": [
+        14.9,
+        32.62,
+        29.63,
+        45.53
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "59cefe7f08",
+       "bbox": [
+        17.29,
+        46.57,
+        22.58,
+        52.56
+       ],
+       "bbox_full": [
+        15.48,
+        44.66,
+        24.5,
+        54.44
+       ]
+      },
+      {
+       "iconId": "e5fd164ffd",
+       "bbox": [
+        10.0,
+        53.12,
+        16.03,
+        59.15
+       ],
+       "bbox_full": [
+        8.39,
+        51.51,
+        17.66,
+        60.78
+       ]
+      },
+      {
+       "iconId": "b8913b788c",
+       "bbox": [
+        13.76,
+        55.01,
+        19.79,
+        61.04
+       ],
+       "bbox_full": [
+        12.15,
+        53.4,
+        21.42,
+        62.67
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Black Plague",
+       "bbox": [
+        11.96,
+        8.34,
+        32.04,
+        13.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:5f34280843} {icon:ddb1074c57}",
+       "bbox": [
+        17.99,
+        19.4,
+        26.46,
+        29.28
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 {icon:59cefe7f08} 2t",
+       "bbox": [
+        15.04,
+        45.49,
+        29.47,
+        54.45
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e5fd164ffd} {icon:b8913b788c} /Hero Level",
+       "bbox": [
+        10.0,
+        53.12,
+        34.5,
+        61.04
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+     "page": 1,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9cc6731934666d39",
+     "spans": [
+      {
+       "t": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#c6d07d"
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "disease:p002",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    2
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+     "page": 2,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "999e266466c3dbc8",
+     "spans": [
+      {
+       "t": "Bulimic",
+       "bbox": [
+        16.2,
+        8.34,
+        27.81,
+        13.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#c6d07d"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        23.25,
+        53.11,
+        26.81,
+        59.38
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.26,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "6e68b2add8",
+       "bbox": [
+        16.81,
+        18.62,
+        27.72,
+        29.51
+       ]
+      },
+      {
+       "iconId": "907f6b8c43",
+       "bbox": [
+        14.9,
+        32.62,
+        29.63,
+        45.53
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "6e68b2add8",
+       "bbox": [
+        19.55,
+        47.0,
+        24.98,
+        52.41
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        17.64,
+        53.97,
+        22.93,
+        58.91
+       ],
+       "bbox_full": [
+        16.59,
+        53.08,
+        23.83,
+        59.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Bulimic",
+       "bbox": [
+        16.2,
+        8.34,
+        27.81,
+        13.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:6e68b2add8}",
+       "bbox": [
+        16.81,
+        18.62,
+        27.72,
+        29.51
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:6e68b2add8}",
+       "bbox": [
+        19.55,
+        47.0,
+        24.98,
+        52.41
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:33b2d5bc22} +1",
+       "bbox": [
+        17.64,
+        53.11,
+        26.81,
+        59.38
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+     "page": 2,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9cc6731934666d39",
+     "spans": [
+      {
+       "t": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#c6d07d"
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "disease:p003",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    3
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+     "page": 3,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9c36269959e666c9",
+     "spans": [
+      {
+       "t": "Ennui",
+       "bbox": [
+        17.7,
+        8.34,
+        26.3,
+        13.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#c6d07d"
+      },
+      {
+       "t": "Resolve Tested",
+       "bbox": [
+        10.9,
+        21.29,
+        33.63,
+        26.56
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.65,
+       "color": "#ffffff"
+      },
+      {
+       "t": "-1 Virtue Chance",
+       "bbox": [
+        9.48,
+        50.51,
+        35.05,
+        55.77
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "907f6b8c43",
+       "bbox": [
+        14.9,
+        32.62,
+        29.63,
+        45.53
+       ],
+       "decor": true
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Ennui",
+       "bbox": [
+        17.7,
+        8.34,
+        26.3,
+        13.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Resolve Tested",
+       "bbox": [
+        10.9,
+        21.29,
+        33.63,
+        26.56
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "-1 Virtue Chance",
+       "bbox": [
+        9.48,
+        50.51,
+        35.05,
+        55.77
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+     "page": 3,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9cc6731934666d39",
+     "spans": [
+      {
+       "t": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#c6d07d"
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "disease:p004",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    4
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+     "page": 4,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "996636994c3366dc",
+     "spans": [
+      {
+       "t": "Hemophilia",
+       "bbox": [
+        13.44,
+        8.59,
+        30.56,
+        13.99
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#c6d07d"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.97,
+        45.46,
+        17.22,
+        54.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.23,
+       "color": "#d2232a"
+      },
+      {
+       "t": "2t",
+       "bbox": [
+        24.09,
+        45.46,
+        29.55,
+        54.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.23,
+       "color": "#ffffff"
+      },
+      {
+       "t": "/Hero Level",
+       "bbox": [
+        20.71,
+        55.41,
+        34.5,
+        59.27
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 10.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "c43c46e6de",
+       "bbox": [
+        16.22,
+        16.9,
+        27.77,
+        31.76
+       ],
+       "container": true
+      },
+      {
+       "iconId": "816fdf045e",
+       "bbox": [
+        18.7,
+        19.4,
+        25.05,
+        29.28
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "d37db751b5",
+       "bbox": [
+        19.0,
+        19.56,
+        25.0,
+        28.93
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "999538a901",
+       "bbox": [
+        19.09,
+        23.79,
+        20.82,
+        24.82
+       ]
+      },
+      {
+       "iconId": "dbe7e40350",
+       "bbox": [
+        23.08,
+        26.33,
+        24.19,
+        27.42
+       ]
+      },
+      {
+       "iconId": "907f6b8c43",
+       "bbox": [
+        14.9,
+        32.62,
+        29.63,
+        45.53
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "b67c3cefe7",
+       "bbox": [
+        17.64,
+        45.86,
+        22.58,
+        53.27
+       ],
+       "bbox_full": [
+        15.85,
+        43.96,
+        24.61,
+        55.14
+       ]
+      },
+      {
+       "iconId": "e5fd164ffd",
+       "bbox": [
+        10.0,
+        53.12,
+        16.03,
+        59.15
+       ],
+       "bbox_full": [
+        8.39,
+        51.51,
+        17.66,
+        60.78
+       ]
+      },
+      {
+       "iconId": "b8913b788c",
+       "bbox": [
+        13.76,
+        55.01,
+        19.79,
+        61.04
+       ],
+       "bbox_full": [
+        12.15,
+        53.4,
+        21.42,
+        62.67
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Hemophilia",
+       "bbox": [
+        13.44,
+        8.59,
+        30.56,
+        13.99
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:999538a901}",
+       "bbox": [
+        19.09,
+        23.79,
+        20.82,
+        24.82
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:dbe7e40350}",
+       "bbox": [
+        23.08,
+        26.33,
+        24.19,
+        27.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 {icon:b67c3cefe7} 2t",
+       "bbox": [
+        14.97,
+        45.46,
+        29.55,
+        54.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e5fd164ffd} {icon:b8913b788c} /Hero Level",
+       "bbox": [
+        10.0,
+        53.12,
+        34.5,
+        61.04
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+     "page": 4,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9cc6731934666d39",
+     "spans": [
+      {
+       "t": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#c6d07d"
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "disease:p005",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    5
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+     "page": 5,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "984e37994d7266cc",
+     "spans": [
+      {
+       "t": "Lethargy",
+       "bbox": [
+        14.9,
+        8.34,
+        29.1,
+        13.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#c6d07d"
+      },
+      {
+       "t": "/Hero Level",
+       "bbox": [
+        19.16,
+        50.46,
+        32.94,
+        54.31
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 10.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "4648c9e5ec",
+       "bbox": [
+        15.83,
+        17.0,
+        28.71,
+        29.88
+       ]
+      },
+      {
+       "iconId": "907f6b8c43",
+       "bbox": [
+        14.9,
+        32.62,
+        29.63,
+        45.53
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "202a92746e",
+       "bbox": [
+        10.95,
+        48.27,
+        19.2,
+        56.52
+       ],
+       "bbox_full": [
+        8.64,
+        45.96,
+        21.47,
+        58.78
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Lethargy",
+       "bbox": [
+        14.9,
+        8.34,
+        29.1,
+        13.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:4648c9e5ec}",
+       "bbox": [
+        15.83,
+        17.0,
+        28.71,
+        29.88
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:202a92746e} /Hero Level",
+       "bbox": [
+        10.95,
+        48.27,
+        32.94,
+        56.52
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+     "page": 5,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9cc6731934666d39",
+     "spans": [
+      {
+       "t": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#c6d07d"
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "disease:p006",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    6
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+     "page": 6,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "986e26994d7267c9",
+     "spans": [
+      {
+       "t": "Syphilis",
+       "bbox": [
+        15.86,
+        8.34,
+        28.13,
+        13.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#c6d07d"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        20.61,
+        20.09,
+        23.53,
+        27.77
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 19.92,
+       "color": "#840b01"
+      },
+      {
+       "t": "/Hero Level",
+       "bbox": [
+        19.16,
+        50.97,
+        32.94,
+        54.82
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 10.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "151dbc7818",
+       "bbox": [
+        15.53,
+        18.08,
+        29.76,
+        30.52
+       ]
+      },
+      {
+       "iconId": "907f6b8c43",
+       "bbox": [
+        14.9,
+        32.62,
+        29.63,
+        45.53
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "202a92746e",
+       "bbox": [
+        10.95,
+        48.78,
+        19.2,
+        57.03
+       ],
+       "bbox_full": [
+        8.64,
+        46.46,
+        21.47,
+        59.29
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Syphilis",
+       "bbox": [
+        15.86,
+        8.34,
+        28.13,
+        13.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:151dbc7818} X",
+       "bbox": [
+        15.53,
+        18.08,
+        29.76,
+        30.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:202a92746e} /Hero Level",
+       "bbox": [
+        10.95,
+        48.78,
+        32.94,
+        57.03
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+     "page": 6,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9cc6731934666d39",
+     "spans": [
+      {
+       "t": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#c6d07d"
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "disease:p007",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    7
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+     "page": 7,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "993626d94c6666d9",
+     "spans": [
+      {
+       "t": "Vertigo",
+       "bbox": [
+        16.2,
+        8.34,
+        27.81,
+        13.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#c6d07d"
+      },
+      {
+       "t": "+2",
+       "bbox": [
+        23.05,
+        48.73,
+        28.89,
+        57.5
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 22.75,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "31f483557e",
+       "bbox": [
+        17.4,
+        19.46,
+        27.13,
+        29.0
+       ]
+      },
+      {
+       "iconId": "907f6b8c43",
+       "bbox": [
+        14.9,
+        32.62,
+        29.63,
+        45.53
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        13.71,
+        48.06,
+        23.99,
+        57.96
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        14.34,
+        49.07,
+        23.36,
+        56.56
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.52,
+        49.39,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "d3854361b8",
+       "bbox": [
+        20.18,
+        49.68,
+        20.77,
+        50.75
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.59,
+        49.74,
+        22.12,
+        56.26
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "cb7e51e2f5",
+       "bbox": [
+        15.34,
+        50.37,
+        16.71,
+        51.46
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.1,
+        50.96,
+        21.6,
+        54.83
+       ]
+      },
+      {
+       "iconId": "87e6f4c5a5",
+       "bbox": [
+        20.3,
+        54.85,
+        20.91,
+        55.59
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.14,
+        54.89,
+        19.17,
+        56.38
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Vertigo",
+       "bbox": [
+        16.2,
+        8.34,
+        27.81,
+        13.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:31f483557e}",
+       "bbox": [
+        17.4,
+        19.46,
+        27.13,
+        29.0
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:cb7e51e2f5}",
+       "bbox": [
+        15.34,
+        50.37,
+        16.71,
+        51.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34}",
+       "bbox": [
+        16.1,
+        50.96,
+        21.6,
+        54.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:c71ddd3685} {icon:d3854361b8} {icon:87e6f4c5a5} +2",
+       "bbox": [
+        18.14,
+        48.73,
+        28.89,
+        57.5
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+     "page": 7,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9cc6731934666d39",
+     "spans": [
+      {
+       "t": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#c6d07d"
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "disease:p008",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    8
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+     "page": 8,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "993626cd196363d9",
+     "spans": [
+      {
+       "t": "The Worries",
+       "bbox": [
+        11.99,
+        8.34,
+        32.01,
+        13.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#c6d07d"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        22.27,
+        46.04,
+        26.43,
+        53.36
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 19.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "+ X",
+       "bbox": [
+        22.47,
+        19.98,
+        28.71,
+        27.95
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 20.68,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        13.97,
+        19.42,
+        23.24,
+        28.44
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        14.58,
+        20.42,
+        22.71,
+        27.15
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "6a66001b1d",
+       "bbox": [
+        15.52,
+        20.81,
+        21.87,
+        27.16
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        19.85,
+        20.95,
+        20.39,
+        21.92
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.68,
+        21.0,
+        21.61,
+        26.93
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        15.46,
+        21.57,
+        16.7,
+        22.56
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.15,
+        22.11,
+        21.15,
+        25.62
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.01,
+        25.68,
+        18.93,
+        27.04
+       ]
+      },
+      {
+       "iconId": "907f6b8c43",
+       "bbox": [
+        14.9,
+        32.62,
+        29.63,
+        45.53
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        15.87,
+        47.27,
+        21.52,
+        52.56
+       ],
+       "bbox_full": [
+        14.69,
+        46.03,
+        22.82,
+        53.78
+       ]
+      },
+      {
+       "iconId": "e3ac175262",
+       "bbox": [
+        14.68,
+        53.89,
+        21.36,
+        60.57
+       ],
+       "bbox_full": [
+        12.87,
+        52.08,
+        23.15,
+        62.36
+       ]
+      },
+      {
+       "iconId": "34de89a6d3",
+       "bbox": [
+        22.05,
+        53.89,
+        28.72,
+        60.57
+       ],
+       "bbox_full": [
+        20.23,
+        52.08,
+        30.52,
+        62.36
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "The Worries",
+       "bbox": [
+        11.99,
+        8.34,
+        32.01,
+        13.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        15.46,
+        21.57,
+        16.7,
+        22.56
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34}",
+       "bbox": [
+        16.15,
+        22.11,
+        21.15,
+        25.62
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:c71ddd3685} {icon:a36e3446f7} + X",
+       "bbox": [
+        18.01,
+        19.98,
+        28.71,
+        27.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:33b2d5bc22} +1",
+       "bbox": [
+        15.87,
+        46.04,
+        26.43,
+        53.36
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e3ac175262} {icon:34de89a6d3}",
+       "bbox": [
+        14.68,
+        53.89,
+        28.72,
+        60.57
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+     "page": 8,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9cc6731934666d39",
+     "spans": [
+      {
+       "t": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#c6d07d"
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "disease:p009",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    9
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+     "page": 9,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "996626994c7367cc",
+     "spans": [
+      {
+       "t": "Creeping Cough",
+       "bbox": [
+        9.72,
+        8.34,
+        34.29,
+        13.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#c6d07d"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        15.01,
+        47.98,
+        17.26,
+        56.94
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.23,
+       "color": "#d2232a"
+      },
+      {
+       "t": "4t",
+       "bbox": [
+        24.13,
+        47.98,
+        29.5,
+        56.94
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.23,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "1b35bda956",
+       "bbox": [
+        16.65,
+        18.3,
+        27.88,
+        29.5
+       ]
+      },
+      {
+       "iconId": "907f6b8c43",
+       "bbox": [
+        14.9,
+        32.62,
+        29.63,
+        45.53
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "c43c46e6de",
+       "bbox": [
+        17.99,
+        48.33,
+        22.58,
+        55.74
+       ],
+       "bbox_full": [
+        15.89,
+        46.49,
+        24.66,
+        57.66
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Creeping Cough",
+       "bbox": [
+        9.72,
+        8.34,
+        34.29,
+        13.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:1b35bda956}",
+       "bbox": [
+        16.65,
+        18.3,
+        27.88,
+        29.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 {icon:c43c46e6de} 4t",
+       "bbox": [
+        15.01,
+        47.98,
+        29.5,
+        56.94
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+     "page": 9,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9cc6731934666d39",
+     "spans": [
+      {
+       "t": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#c6d07d"
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "disease:p010",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    10
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+     "page": 10,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "996627994c7366cc",
+     "spans": [
+      {
+       "t": "Tapeworm",
+       "bbox": [
+        13.7,
+        8.34,
+        30.3,
+        13.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#c6d07d"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        15.01,
+        48.26,
+        17.26,
+        57.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.23,
+       "color": "#d2232a"
+      },
+      {
+       "t": "4t",
+       "bbox": [
+        24.13,
+        48.26,
+        29.5,
+        57.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.23,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "7fa9369a45",
+       "bbox": [
+        16.65,
+        18.13,
+        27.88,
+        29.33
+       ]
+      },
+      {
+       "iconId": "907f6b8c43",
+       "bbox": [
+        14.9,
+        32.62,
+        29.63,
+        45.53
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "c43c46e6de",
+       "bbox": [
+        17.99,
+        48.68,
+        22.58,
+        56.09
+       ],
+       "bbox_full": [
+        15.89,
+        46.76,
+        24.66,
+        57.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Tapeworm",
+       "bbox": [
+        13.7,
+        8.34,
+        30.3,
+        13.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:7fa9369a45}",
+       "bbox": [
+        16.65,
+        18.13,
+        27.88,
+        29.33
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 {icon:c43c46e6de} 4t",
+       "bbox": [
+        15.01,
+        48.26,
+        29.5,
+        57.22
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+     "page": 10,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9cc6731934666d39",
+     "spans": [
+      {
+       "t": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#c6d07d"
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "disease:p011",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    11
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+     "page": 11,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "99262799796664d9",
+     "spans": [
+      {
+       "t": "Spotted Fever",
+       "bbox": [
+        11.11,
+        8.34,
+        32.89,
+        13.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#c6d07d"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        20.61,
+        20.09,
+        23.53,
+        27.77
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 19.92,
+       "color": "#840b01"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        15.05,
+        47.94,
+        17.3,
+        56.9
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.23,
+       "color": "#c6d07d"
+      },
+      {
+       "t": "2t",
+       "bbox": [
+        24.03,
+        47.94,
+        29.49,
+        56.9
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.23,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "151dbc7818",
+       "bbox": [
+        15.53,
+        18.08,
+        29.76,
+        30.52
+       ]
+      },
+      {
+       "iconId": "907f6b8c43",
+       "bbox": [
+        14.9,
+        32.62,
+        29.63,
+        45.53
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "90558ded71",
+       "bbox": [
+        17.29,
+        49.04,
+        22.58,
+        55.03
+       ],
+       "bbox_full": [
+        15.49,
+        47.11,
+        24.51,
+        56.89
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Spotted Fever",
+       "bbox": [
+        11.11,
+        8.34,
+        32.89,
+        13.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:151dbc7818} X",
+       "bbox": [
+        15.53,
+        18.08,
+        29.76,
+        30.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 {icon:90558ded71} 2t",
+       "bbox": [
+        15.05,
+        47.94,
+        29.49,
+        56.9
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+     "page": 11,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9cc6731934666d39",
+     "spans": [
+      {
+       "t": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#c6d07d"
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Disease",
+       "bbox": [
+        15.15,
+        53.32,
+        28.85,
+        59.49
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

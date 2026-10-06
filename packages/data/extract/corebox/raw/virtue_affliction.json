@@ -1,0 +1,2572 @@
+{
+ "schema": "ddbg-raw-v1",
+ "extractor_version": "1.0.4",
+ "category": "virtue_affliction",
+ "kind": "card",
+ "units": {
+  "length": "mm",
+  "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+  "y_axis": "down",
+  "font_size": "pt"
+ },
+ "sources": [
+  {
+   "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
+   "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
+   "source_set": "base",
+   "kind": "card",
+   "front_pages": 10,
+   "back_pages": 10
+  }
+ ],
+ "n_pages": 10,
+ "n_unique": 10,
+ "n_copies_total": 10,
+ "cards": [
+  {
+   "id": "virtue_affliction:p001",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    1
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
+     "page": 1,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cdcd38cc64663972",
+     "spans": [
+      {
+       "t": "Stalwart",
+       "bbox": [
+        15.35,
+        12.41,
+        28.05,
+        17.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "1-3",
+       "bbox": [
+        24.05,
+        30.61,
+        29.21,
+        36.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.42,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "Self",
+       "bbox": [
+        13.28,
+        53.51,
+        18.86,
+        57.19
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 8.75,
+       "color": "#231f20"
+      },
+      {
+       "t": "-2",
+       "bbox": [
+        27.44,
+        51.53,
+        32.81,
+        59.63
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "72b557b63b",
+       "bbox": [
+        14.56,
+        12.59,
+        28.91,
+        17.42
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "376806cc5a",
+       "bbox": [
+        11.26,
+        27.98,
+        22.85,
+        38.95
+       ]
+      },
+      {
+       "iconId": "7e404a95c6",
+       "bbox": [
+        15.18,
+        30.18,
+        30.89,
+        36.28
+       ]
+      },
+      {
+       "iconId": "6a2fd9f572",
+       "bbox": [
+        16.04,
+        40.01,
+        27.96,
+        50.46
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        21.87,
+        52.92,
+        27.52,
+        58.56
+       ],
+       "bbox_full": [
+        20.66,
+        51.97,
+        28.66,
+        59.59
+       ]
+      },
+      {
+       "iconId": "3fa8d73b7b",
+       "bbox": [
+        11.89,
+        53.62,
+        20.24,
+        57.58
+       ],
+       "decor": true
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Stalwart",
+       "bbox": [
+        15.35,
+        12.41,
+        28.05,
+        17.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:376806cc5a} {icon:7e404a95c6} 1-3",
+       "bbox": [
+        11.26,
+        27.98,
+        30.89,
+        38.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:6a2fd9f572}",
+       "bbox": [
+        16.04,
+        40.01,
+        27.96,
+        50.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Self {icon:33b2d5bc22} -2",
+       "bbox": [
+        13.28,
+        51.53,
+        32.81,
+        59.63
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
+     "page": 1,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "95977369249592da",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "virtue_affliction:p002",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    2
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
+     "page": 2,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cdcf38dc646c3838",
+     "spans": [
+      {
+       "t": "Courageous",
+       "bbox": [
+        12.98,
+        12.41,
+        30.42,
+        17.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "1-3",
+       "bbox": [
+        24.05,
+        29.76,
+        29.21,
+        35.32
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.42,
+       "color": "#fffbc8"
+      },
+      {
+       "t": ":",
+       "bbox": [
+        28.86,
+        48.49,
+        29.78,
+        53.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        22.7,
+        52.63,
+        27.28,
+        60.72
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "d4f7809e42",
+       "bbox": [
+        12.28,
+        12.59,
+        31.2,
+        18.31
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "376806cc5a",
+       "bbox": [
+        11.26,
+        27.13,
+        22.85,
+        38.1
+       ]
+      },
+      {
+       "iconId": "7e404a95c6",
+       "bbox": [
+        15.18,
+        29.33,
+        30.89,
+        35.43
+       ]
+      },
+      {
+       "iconId": "6a2fd9f572",
+       "bbox": [
+        16.04,
+        38.55,
+        27.96,
+        48.99
+       ]
+      },
+      {
+       "iconId": "5d95c49a05",
+       "bbox": [
+        15.08,
+        49.62,
+        18.16,
+        52.62
+       ]
+      },
+      {
+       "iconId": "5d95c49a05",
+       "bbox": [
+        18.49,
+        49.62,
+        21.57,
+        52.62
+       ]
+      },
+      {
+       "iconId": "5d95c49a05",
+       "bbox": [
+        21.94,
+        49.62,
+        25.02,
+        52.62
+       ]
+      },
+      {
+       "iconId": "5d95c49a05",
+       "bbox": [
+        25.39,
+        49.62,
+        28.47,
+        52.62
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        17.29,
+        53.97,
+        22.58,
+        59.62
+       ],
+       "bbox_full": [
+        15.92,
+        53.06,
+        23.92,
+        60.68
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Courageous",
+       "bbox": [
+        12.98,
+        12.41,
+        30.42,
+        17.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:376806cc5a} {icon:7e404a95c6} 1-3",
+       "bbox": [
+        11.26,
+        27.13,
+        30.89,
+        38.1
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:6a2fd9f572}",
+       "bbox": [
+        16.04,
+        38.55,
+        27.96,
+        48.99
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:5d95c49a05} {icon:5d95c49a05} {icon:5d95c49a05} {icon:5d95c49a05} :",
+       "bbox": [
+        15.08,
+        48.49,
+        29.78,
+        53.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:33b2d5bc22} -1",
+       "bbox": [
+        17.29,
+        52.63,
+        27.28,
+        60.72
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
+     "page": 2,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "95977369249592da",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "virtue_affliction:p003",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    3
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
+     "page": 3,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccd38cc65663972",
+     "spans": [
+      {
+       "t": "Focused",
+       "bbox": [
+        15.83,
+        12.41,
+        27.57,
+        17.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "1-5",
+       "bbox": [
+        24.01,
+        30.61,
+        29.25,
+        36.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.42,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "Self",
+       "bbox": [
+        13.99,
+        53.38,
+        19.57,
+        57.06
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 8.75,
+       "color": "#231f20"
+      },
+      {
+       "t": "2t",
+       "bbox": [
+        27.68,
+        51.69,
+        32.09,
+        59.4
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 20.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "98fd938897",
+       "bbox": [
+        14.94,
+        12.47,
+        28.41,
+        17.29
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "376806cc5a",
+       "bbox": [
+        11.26,
+        27.98,
+        22.85,
+        38.95
+       ]
+      },
+      {
+       "iconId": "7e404a95c6",
+       "bbox": [
+        15.18,
+        30.18,
+        30.89,
+        36.28
+       ]
+      },
+      {
+       "iconId": "6a2fd9f572",
+       "bbox": [
+        16.04,
+        40.01,
+        27.96,
+        50.46
+       ]
+      },
+      {
+       "iconId": "0d5461924f",
+       "bbox": [
+        22.93,
+        52.92,
+        27.52,
+        57.86
+       ],
+       "bbox_full": [
+        21.51,
+        51.45,
+        29.0,
+        59.19
+       ]
+      },
+      {
+       "iconId": "af30608b19",
+       "bbox": [
+        12.61,
+        53.48,
+        20.95,
+        57.45
+       ],
+       "decor": true
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Focused",
+       "bbox": [
+        15.83,
+        12.41,
+        27.57,
+        17.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:376806cc5a} {icon:7e404a95c6} 1-5",
+       "bbox": [
+        11.26,
+        27.98,
+        30.89,
+        38.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:6a2fd9f572}",
+       "bbox": [
+        16.04,
+        40.01,
+        27.96,
+        50.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Self {icon:0d5461924f} 2t",
+       "bbox": [
+        13.99,
+        51.69,
+        32.09,
+        59.4
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
+     "page": 3,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "95977369249592da",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "virtue_affliction:p004",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    4
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
+     "page": 4,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cdcf39d866643838",
+     "spans": [
+      {
+       "t": "Powerful",
+       "bbox": [
+        15.2,
+        12.41,
+        28.2,
+        17.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "1-3",
+       "bbox": [
+        24.05,
+        29.76,
+        29.21,
+        35.32
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.42,
+       "color": "#fffbc8"
+      },
+      {
+       "t": ":",
+       "bbox": [
+        28.86,
+        48.07,
+        29.78,
+        52.7
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "2t",
+       "bbox": [
+        22.45,
+        52.34,
+        26.87,
+        60.05
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 20.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "ed4e7b55da",
+       "bbox": [
+        14.31,
+        12.47,
+        29.04,
+        17.42
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "376806cc5a",
+       "bbox": [
+        11.26,
+        27.13,
+        22.85,
+        38.1
+       ]
+      },
+      {
+       "iconId": "7e404a95c6",
+       "bbox": [
+        15.18,
+        29.33,
+        30.89,
+        35.43
+       ]
+      },
+      {
+       "iconId": "6a2fd9f572",
+       "bbox": [
+        16.04,
+        37.75,
+        27.96,
+        48.19
+       ]
+      },
+      {
+       "iconId": "5d95c49a05",
+       "bbox": [
+        15.08,
+        49.2,
+        18.16,
+        52.2
+       ]
+      },
+      {
+       "iconId": "5d95c49a05",
+       "bbox": [
+        18.49,
+        49.2,
+        21.57,
+        52.2
+       ]
+      },
+      {
+       "iconId": "5d95c49a05",
+       "bbox": [
+        21.94,
+        49.2,
+        25.02,
+        52.2
+       ]
+      },
+      {
+       "iconId": "5d95c49a05",
+       "bbox": [
+        25.39,
+        49.2,
+        28.47,
+        52.2
+       ]
+      },
+      {
+       "iconId": "39f19572d5",
+       "bbox": [
+        17.64,
+        53.62,
+        22.58,
+        58.56
+       ],
+       "bbox_full": [
+        16.28,
+        52.09,
+        23.77,
+        59.84
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Powerful",
+       "bbox": [
+        15.2,
+        12.41,
+        28.2,
+        17.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:376806cc5a} {icon:7e404a95c6} 1-3",
+       "bbox": [
+        11.26,
+        27.13,
+        30.89,
+        38.1
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:6a2fd9f572}",
+       "bbox": [
+        16.04,
+        37.75,
+        27.96,
+        48.19
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:5d95c49a05} {icon:5d95c49a05} {icon:5d95c49a05} {icon:5d95c49a05} :",
+       "bbox": [
+        15.08,
+        48.07,
+        29.78,
+        52.7
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:39f19572d5} 2t",
+       "bbox": [
+        17.64,
+        52.34,
+        26.87,
+        60.05
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
+     "page": 4,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "95977369249592da",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "virtue_affliction:p005",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    5
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
+     "page": 5,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cdcd38d865663d30",
+     "spans": [
+      {
+       "t": "Vigorous",
+       "bbox": [
+        15.02,
+        12.41,
+        28.38,
+        17.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "1-3",
+       "bbox": [
+        24.05,
+        29.86,
+        29.21,
+        35.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.42,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "Self",
+       "bbox": [
+        15.96,
+        50.77,
+        21.54,
+        54.45
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 8.75,
+       "color": "#231f20"
+      },
+      {
+       "t": "3",
+       "bbox": [
+        25.5,
+        50.09,
+        27.66,
+        56.06
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.48,
+       "color": "#40ad49"
+      },
+      {
+       "t": "/Hero Level",
+       "bbox": [
+        13.17,
+        55.38,
+        31.33,
+        60.38
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#fffbc8"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "68b7f95aee",
+       "bbox": [
+        13.98,
+        12.59,
+        29.1,
+        18.31
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "376806cc5a",
+       "bbox": [
+        11.26,
+        27.23,
+        22.85,
+        38.2
+       ]
+      },
+      {
+       "iconId": "7e404a95c6",
+       "bbox": [
+        15.18,
+        29.43,
+        30.89,
+        35.53
+       ]
+      },
+      {
+       "iconId": "6a2fd9f572",
+       "bbox": [
+        16.04,
+        38.78,
+        27.96,
+        49.23
+       ]
+      },
+      {
+       "iconId": "7f0a59a7a0",
+       "bbox": [
+        23.46,
+        50.1,
+        26.02,
+        52.57
+       ]
+      },
+      {
+       "iconId": "3fa8d73b7b",
+       "bbox": [
+        14.58,
+        50.87,
+        22.92,
+        54.85
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "910a0c12fe",
+       "bbox": [
+        25.29,
+        51.26,
+        29.86,
+        55.66
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Vigorous",
+       "bbox": [
+        15.02,
+        12.41,
+        28.38,
+        17.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:376806cc5a} {icon:7e404a95c6} 1-3",
+       "bbox": [
+        11.26,
+        27.23,
+        30.89,
+        38.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:6a2fd9f572}",
+       "bbox": [
+        16.04,
+        38.78,
+        27.96,
+        49.23
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Self {icon:7f0a59a7a0} {icon:910a0c12fe} 3",
+       "bbox": [
+        15.96,
+        50.09,
+        29.86,
+        56.06
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "/Hero Level",
+       "bbox": [
+        13.17,
+        55.38,
+        31.33,
+        60.38
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
+     "page": 5,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "95977369249592da",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "virtue_affliction:p006",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    6
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
+     "page": 6,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c4c5316c67c639da",
+     "spans": [
+      {
+       "t": "Fearful",
+       "bbox": [
+        16.4,
+        12.41,
+        27.01,
+        17.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#f7997a"
+      },
+      {
+       "t": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#f7997a"
+      },
+      {
+       "t": "1-2",
+       "bbox": [
+        24.09,
+        30.61,
+        29.17,
+        36.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.42,
+       "color": "#f58b6a"
+      },
+      {
+       "t": "Self",
+       "bbox": [
+        13.27,
+        53.01,
+        18.85,
+        56.69
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 8.75,
+       "color": "#231f20"
+      },
+      {
+       "t": "+2",
+       "bbox": [
+        27.43,
+        51.03,
+        32.82,
+        59.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "f9da072c3e",
+       "bbox": [
+        15.45,
+        12.47,
+        27.9,
+        17.42
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "376806cc5a",
+       "bbox": [
+        11.26,
+        27.98,
+        22.85,
+        38.95
+       ]
+      },
+      {
+       "iconId": "7e404a95c6",
+       "bbox": [
+        15.18,
+        30.18,
+        30.89,
+        36.28
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        16.04,
+        40.01,
+        27.96,
+        50.46
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        21.87,
+        52.56,
+        27.52,
+        57.86
+       ],
+       "bbox_full": [
+        20.65,
+        51.47,
+        28.65,
+        59.09
+       ]
+      },
+      {
+       "iconId": "af30608b19",
+       "bbox": [
+        11.89,
+        53.11,
+        20.23,
+        57.08
+       ],
+       "decor": true
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Fearful",
+       "bbox": [
+        16.4,
+        12.41,
+        27.01,
+        17.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:376806cc5a} {icon:7e404a95c6} 1-2",
+       "bbox": [
+        11.26,
+        27.98,
+        30.89,
+        38.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        16.04,
+        40.01,
+        27.96,
+        50.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Self {icon:33b2d5bc22} +2",
+       "bbox": [
+        13.27,
+        51.03,
+        32.82,
+        59.13
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
+     "page": 6,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "d3952c8d3363cccc",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "virtue_affliction:p007",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    7
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
+     "page": 7,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cdc7317867663918",
+     "spans": [
+      {
+       "t": "Selfish",
+       "bbox": [
+        16.78,
+        12.41,
+        26.62,
+        17.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#f7997a"
+      },
+      {
+       "t": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#f7997a"
+      },
+      {
+       "t": "1-4",
+       "bbox": [
+        24.01,
+        29.94,
+        29.25,
+        35.5
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.42,
+       "color": "#f58b6a"
+      },
+      {
+       "t": "Consume one",
+       "bbox": [
+        12.47,
+        50.47,
+        32.03,
+        54.12
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#f58b6a"
+      },
+      {
+       "t": "Provision.",
+       "bbox": [
+        15.21,
+        54.14,
+        29.29,
+        57.79
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#f58b6a"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "17ac3c6a54",
+       "bbox": [
+        16.02,
+        12.47,
+        27.45,
+        17.42
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "376806cc5a",
+       "bbox": [
+        11.26,
+        27.31,
+        22.85,
+        38.28
+       ]
+      },
+      {
+       "iconId": "7e404a95c6",
+       "bbox": [
+        15.18,
+        29.51,
+        30.89,
+        35.61
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        16.04,
+        38.87,
+        27.96,
+        49.31
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Selfish",
+       "bbox": [
+        16.78,
+        12.41,
+        26.62,
+        17.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:376806cc5a} {icon:7e404a95c6} 1-4",
+       "bbox": [
+        11.26,
+        27.31,
+        30.89,
+        38.28
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        16.04,
+        38.87,
+        27.96,
+        49.31
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Consume one",
+       "bbox": [
+        12.47,
+        50.47,
+        32.03,
+        54.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Provision.",
+       "bbox": [
+        15.21,
+        54.14,
+        29.29,
+        57.79
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
+     "page": 7,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "d3952c8d3363cccc",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "virtue_affliction:p008",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    8
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
+     "page": 8,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c493336c65ce3999",
+     "spans": [
+      {
+       "t": "Masochistic",
+       "bbox": [
+        12.79,
+        12.41,
+        30.61,
+        17.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#f7997a"
+      },
+      {
+       "t": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#f7997a"
+      },
+      {
+       "t": "1-3",
+       "bbox": [
+        24.05,
+        29.44,
+        29.21,
+        35.0
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.42,
+       "color": "#f58b6a"
+      },
+      {
+       "t": "Self",
+       "bbox": [
+        14.39,
+        50.32,
+        19.97,
+        54.01
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 8.75,
+       "color": "#231f20"
+      },
+      {
+       "t": "/Hero Level",
+       "bbox": [
+        13.17,
+        55.28,
+        31.33,
+        60.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#fffbc8"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "c059400591",
+       "bbox": [
+        11.9,
+        12.59,
+        31.45,
+        17.29
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "376806cc5a",
+       "bbox": [
+        11.26,
+        26.81,
+        22.85,
+        37.78
+       ]
+      },
+      {
+       "iconId": "7e404a95c6",
+       "bbox": [
+        15.18,
+        29.01,
+        30.89,
+        35.11
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        16.04,
+        38.37,
+        27.96,
+        48.81
+       ]
+      },
+      {
+       "iconId": "d42d7955d3",
+       "bbox": [
+        23.08,
+        49.1,
+        28.68,
+        54.71
+       ],
+       "bbox_full": [
+        21.47,
+        47.49,
+        30.23,
+        56.25
+       ]
+      },
+      {
+       "iconId": "2c1824ea21",
+       "bbox": [
+        26.09,
+        50.15,
+        31.7,
+        55.76
+       ],
+       "bbox_full": [
+        24.48,
+        48.54,
+        33.24,
+        57.3
+       ]
+      },
+      {
+       "iconId": "3fa8d73b7b",
+       "bbox": [
+        13.01,
+        50.43,
+        21.35,
+        54.4
+       ],
+       "decor": true
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Masochistic",
+       "bbox": [
+        12.79,
+        12.41,
+        30.61,
+        17.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:376806cc5a} {icon:7e404a95c6} 1-3",
+       "bbox": [
+        11.26,
+        26.81,
+        30.89,
+        37.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        16.04,
+        38.37,
+        27.96,
+        48.81
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Self {icon:d42d7955d3} {icon:2c1824ea21}",
+       "bbox": [
+        14.39,
+        49.1,
+        31.7,
+        55.76
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "/Hero Level",
+       "bbox": [
+        13.17,
+        55.28,
+        31.33,
+        60.29
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
+     "page": 8,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "d3952c8d3363cccc",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "virtue_affliction:p009",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    9
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
+     "page": 9,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "ccc7397867cc3918",
+     "spans": [
+      {
+       "t": "Hopeless",
+       "bbox": [
+        15.32,
+        12.41,
+        28.08,
+        17.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#f7997a"
+      },
+      {
+       "t": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#f7997a"
+      },
+      {
+       "t": "1-3",
+       "bbox": [
+        24.05,
+        29.94,
+        29.21,
+        35.5
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.42,
+       "color": "#f58b6a"
+      },
+      {
+       "t": ":",
+       "bbox": [
+        28.86,
+        48.49,
+        29.78,
+        53.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#fffbc8"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        22.69,
+        52.63,
+        27.29,
+        60.72
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "c7136a0c0f",
+       "bbox": [
+        14.31,
+        12.59,
+        28.79,
+        18.06
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "376806cc5a",
+       "bbox": [
+        11.26,
+        27.31,
+        22.85,
+        38.28
+       ]
+      },
+      {
+       "iconId": "7e404a95c6",
+       "bbox": [
+        15.18,
+        29.51,
+        30.89,
+        35.61
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        16.04,
+        38.87,
+        27.96,
+        49.31
+       ]
+      },
+      {
+       "iconId": "5d95c49a05",
+       "bbox": [
+        15.08,
+        49.62,
+        18.16,
+        52.62
+       ]
+      },
+      {
+       "iconId": "5d95c49a05",
+       "bbox": [
+        18.49,
+        49.62,
+        21.57,
+        52.62
+       ]
+      },
+      {
+       "iconId": "5d95c49a05",
+       "bbox": [
+        21.94,
+        49.62,
+        25.02,
+        52.62
+       ]
+      },
+      {
+       "iconId": "5d95c49a05",
+       "bbox": [
+        25.39,
+        49.62,
+        28.47,
+        52.62
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        17.29,
+        53.97,
+        22.58,
+        59.62
+       ],
+       "bbox_full": [
+        15.91,
+        53.06,
+        23.91,
+        60.68
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Hopeless",
+       "bbox": [
+        15.32,
+        12.41,
+        28.08,
+        17.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "At the start of",
+       "bbox": [
+        12.71,
+        19.07,
+        31.28,
+        22.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "your turn:",
+       "bbox": [
+        15.56,
+        22.67,
+        28.44,
+        26.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:376806cc5a} {icon:7e404a95c6} 1-3",
+       "bbox": [
+        11.26,
+        27.31,
+        30.89,
+        38.28
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        16.04,
+        38.87,
+        27.96,
+        49.31
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:5d95c49a05} {icon:5d95c49a05} {icon:5d95c49a05} {icon:5d95c49a05} :",
+       "bbox": [
+        15.08,
+        48.49,
+        29.78,
+        53.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:33b2d5bc22} +1",
+       "bbox": [
+        17.29,
+        52.63,
+        27.29,
+        60.72
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
+     "page": 9,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "d3952c8d3363cccc",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "virtue_affliction:p010",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    10
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
+     "page": 10,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c08f2fe0396c0f1f",
+     "spans": [
+      {
+       "t": "Irrational",
+       "bbox": [
+        14.38,
+        12.41,
+        29.02,
+        17.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "At the start of",
+       "bbox": [
+        12.71,
+        19.32,
+        31.28,
+        22.77
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#f7997a"
+      },
+      {
+       "t": "your turn:",
+       "bbox": [
+        15.56,
+        22.92,
+        28.44,
+        26.37
+       ],
+       "font": "Ubuntu-Italic",
+       "size": 8.5,
+       "color": "#f7997a"
+      },
+      {
+       "t": "1-5",
+       "bbox": [
+        13.0,
+        33.66,
+        16.9,
+        37.8
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 10.74,
+       "color": "#f58b6a"
+      },
+      {
+       "t": "6-10",
+       "bbox": [
+        12.17,
+        48.0,
+        17.73,
+        52.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 10.74,
+       "color": "#f58b6a"
+      },
+      {
+       "t": "Move 1",
+       "bbox": [
+        24.33,
+        29.46,
+        34.77,
+        33.11
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#f58b6a"
+      },
+      {
+       "t": "Stance",
+       "bbox": [
+        24.71,
+        33.55,
+        34.4,
+        37.2
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#f58b6a"
+      },
+      {
+       "t": "forward.",
+       "bbox": [
+        23.36,
+        37.64,
+        35.75,
+        41.3
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#f58b6a"
+      },
+      {
+       "t": "Move 1",
+       "bbox": [
+        25.03,
+        43.92,
+        35.47,
+        47.57
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#f58b6a"
+      },
+      {
+       "t": "Stance",
+       "bbox": [
+        25.4,
+        48.01,
+        35.1,
+        51.66
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#f58b6a"
+      },
+      {
+       "t": "backward.",
+       "bbox": [
+        22.92,
+        52.1,
+        37.58,
+        55.76
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#f58b6a"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "315b7a2986",
+       "bbox": [
+        13.55,
+        12.59,
+        29.93,
+        17.29
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "376806cc5a",
+       "bbox": [
+        3.5,
+        31.69,
+        12.14,
+        39.87
+       ]
+      },
+      {
+       "iconId": "5a4fbf9781",
+       "bbox": [
+        18.6,
+        32.65,
+        23.64,
+        38.41
+       ]
+      },
+      {
+       "iconId": "7e404a95c6",
+       "bbox": [
+        6.42,
+        33.34,
+        18.12,
+        37.88
+       ]
+      },
+      {
+       "iconId": "376806cc5a",
+       "bbox": [
+        3.5,
+        46.04,
+        12.14,
+        54.21
+       ]
+      },
+      {
+       "iconId": "5a4fbf9781",
+       "bbox": [
+        18.9,
+        46.97,
+        23.94,
+        52.72
+       ]
+      },
+      {
+       "iconId": "7e404a95c6",
+       "bbox": [
+        6.42,
+        47.68,
+        18.12,
+        52.23
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Irrational",
+       "bbox": [
+        14.38,
+        12.41,
+        29.02,
+        17.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "At the start of",
+       "bbox": [
+        12.71,
+        19.32,
+        31.28,
+        22.77
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "your turn:",
+       "bbox": [
+        15.56,
+        22.92,
+        28.44,
+        26.37
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Move 1",
+       "bbox": [
+        24.33,
+        29.46,
+        34.77,
+        33.11
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:376806cc5a} {icon:7e404a95c6} 1-5 {icon:5a4fbf9781} Stance",
+       "bbox": [
+        3.5,
+        31.69,
+        34.4,
+        39.87
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "forward.",
+       "bbox": [
+        23.36,
+        37.64,
+        35.75,
+        41.3
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Move 1",
+       "bbox": [
+        25.03,
+        43.92,
+        35.47,
+        47.57
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:376806cc5a} {icon:7e404a95c6} 6-10 {icon:5a4fbf9781} Stance",
+       "bbox": [
+        3.5,
+        46.04,
+        35.1,
+        54.21
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "backward.",
+       "bbox": [
+        22.92,
+        52.1,
+        37.58,
+        55.76
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
+     "page": 10,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "d3952c8d3363cccc",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  }
+ ]
+}

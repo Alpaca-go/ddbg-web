@@ -1,0 +1,6479 @@
+{
+ "schema": "ddbg-parsed-v0",
+ "extractor_version": "1.0.4",
+ "category": "monster_medium",
+ "source": "raw/corebox/monster_medium.json",
+ "field_notes": "name/type_position/level/skills as printed. hp = number inside the heart icon at the right edge; the rulebook (Core rules p.24 'Anatomy of a Monster Card') labels that element 'Life'. Other header numbers are kept unlabeled. resistances_icons/immunities_icons = icon ids under the printed labels (icon meaning not named). copy_variants = per-copy differing marker icon (Core rules p.17: 'note the color of the Monster Token displayed on each Monster Card').",
+ "icon_token": "{icon:<iconId>} = unannotated icon cluster, see icons/catalog.json",
+ "stats": {
+  "cards": 54,
+  "ok": 54,
+  "failed": 0,
+  "success_rate": 1.0
+ },
+ "failures": [],
+ "cards": [
+  {
+   "id": "monster_medium:p001",
+   "copies": 3,
+   "pages": [
+    1,
+    2,
+    3
+   ],
+   "copy_variants": [
+    {
+     "page": 1,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 2,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 3,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Bone Soldier",
+   "type_position_raw": "Unholy - Front",
+   "type_position_tags": [
+    "Unholy",
+    "Front"
+   ],
+   "level": 1,
+   "hp": 7,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "784ec4fe7a"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Graveyard Slash",
+     "block_bbox": [
+      4.86,
+      52.08,
+      70.0,
+      74.89
+     ],
+     "target": "Most Wounded",
+     "crit": 1,
+     "crit_value": 9,
+     "acc": 9,
+     "acc_value": 5,
+     "effect_lines_raw": [],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Graveyard Slash {icon:c16e73c099} Most Wounded {icon:3ab7e7544c} 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 9 Acc 9 {icon:8d4bbe5e11} 5"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        58.85,
+        57.17,
+        59.89,
+        61.28
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Graveyard Stumble",
+     "block_bbox": [
+      4.53,
+      74.89,
+      70.0,
+      103.2
+     ],
+     "target": "Furthest",
+     "crit": 0,
+     "crit_value": 6,
+     "acc": 5,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:f18923574c} Pull 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Graveyard Stumble {icon:3ab7e7544c} {icon:e8447889a0} Furthest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 6 Acc 5 {icon:8d4bbe5e11} 3",
+      "{icon:8c17caf335} Self {icon:f18923574c} Pull 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.1,
+        79.96,
+        60.14,
+        84.08
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "0",
+     "bbox": [
+      21.25,
+      12.09,
+      23.4,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:d85db127a6} {icon:8bd94417b0} {icon:7d361d5859} {icon:0ba73142d3} {icon:6cee7f5b3b} 1 {icon:802ad6ada3} {icon:81250916ec} 2"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p004",
+   "copies": 3,
+   "pages": [
+    4,
+    5,
+    6
+   ],
+   "copy_variants": [
+    {
+     "page": 4,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 5,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 6,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Bone Courtier",
+   "type_position_raw": "Unholy - Back",
+   "type_position_tags": [
+    "Unholy",
+    "Back"
+   ],
+   "level": 1,
+   "hp": 7,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "784ec4fe7a"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Tempting Goblet",
+     "block_bbox": [
+      5.11,
+      51.91,
+      70.0,
+      74.17
+     ],
+     "target": "Most Stressed",
+     "crit": 0,
+     "crit_value": 5,
+     "acc": 10,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:5729151bda} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Tempting Goblet Most Stressed {icon:3ab7e7544c} 2 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 5 Acc 10 {icon:8d4bbe5e11} 3",
+      "{icon:a38154c523} {icon:5729151bda} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        58.85,
+        57.17,
+        60.29,
+        61.28
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Knife in the Dark",
+     "block_bbox": [
+      4.78,
+      74.17,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 5,
+     "acc": 7,
+     "acc_value": 3,
+     "effect_lines_raw": [],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Knife in the Dark {icon:3ab7e7544c} Closest 0 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 5 Acc 7 {icon:8d4bbe5e11} 3"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        58.85,
+        79.27,
+        60.44,
+        83.38
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      21.67,
+      12.09,
+      23.08,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:995efc58a1} 2 {icon:b5d7889153} {icon:7eeaf1ad74} {icon:9446490c37} {icon:be11b8ced8} 2 {icon:986406076a} {icon:986406076a} 1 6-10 1-5 {icon:0ba73142d3} {icon:39b6880840} {icon:802ad6ada3} {icon:1348d729eb} 1"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p007",
+   "copies": 3,
+   "pages": [
+    7,
+    8,
+    9
+   ],
+   "copy_variants": [
+    {
+     "page": 7,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 8,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 9,
+     "face": "front",
+     "iconId": "4b08ecf53b"
+    }
+   ],
+   "name": "Bone Arbalist",
+   "type_position_raw": "Unholy - Back",
+   "type_position_tags": [
+    "Unholy",
+    "Back"
+   ],
+   "level": 1,
+   "hp": 11,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "784ec4fe7a"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Quarrel",
+     "block_bbox": [
+      5.11,
+      51.44,
+      70.0,
+      75.6
+     ],
+     "target": "Marked -> Furthest",
+     "crit": 1,
+     "crit_value": 8,
+     "acc": 9,
+     "acc_value": 5,
+     "effect_lines_raw": [
+      "{icon:b6afaa4d7b} {icon:18ee6577d6} +1 vs {icon:d41f8f865f}"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Quarrel Marked -> Furthest {icon:3ab7e7544c} 2 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 8 Acc 9 {icon:8d4bbe5e11} 5",
+      "{icon:b6afaa4d7b} {icon:18ee6577d6} +1 vs {icon:d41f8f865f}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.1,
+        56.44,
+        60.54,
+        60.55
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Bayonet Jab",
+     "block_bbox": [
+      4.78,
+      75.6,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 0,
+     "crit_value": 5,
+     "acc": 8,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:ac56561b87} Push 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Bayonet Jab {icon:3ab7e7544c} Closest 0 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 5 Acc 8 {icon:8d4bbe5e11} 3",
+      "{icon:8c17caf335} Self {icon:ac56561b87} Push 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        59.1,
+        80.86,
+        60.69,
+        84.97
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      21.62,
+      12.09,
+      23.03,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:538ebeb34d} {icon:81250916ec} 2 {icon:0ba73142d3} {icon:39b6880840} {icon:802ad6ada3} {icon:81250916ec} 1"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p010",
+   "copies": 2,
+   "pages": [
+    10,
+    11
+   ],
+   "copy_variants": [
+    {
+     "page": 10,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 11,
+     "face": "front",
+     "iconId": "8a36350c76"
+    }
+   ],
+   "name": "Bone Defender",
+   "type_position_raw": "Unholy - Front",
+   "type_position_tags": [
+    "Unholy",
+    "Front"
+   ],
+   "level": 1,
+   "hp": 10,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [
+    "784ec4fe7a"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Axeblade",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 6,
+     "acc": 8,
+     "acc_value": 4,
+     "effect_lines_raw": [],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Axeblade {icon:3ab7e7544c} Closest 0 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 6 Acc 8 {icon:8d4bbe5e11} 4"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        58.85,
+        43.02,
+        60.44,
+        47.13
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Dead Weight",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 5,
+     "acc": 9,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 2t , {icon:b034e44cb1} Push 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Dead Weight {icon:3ab7e7544c} Closest 0 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 5 Acc 9 {icon:8d4bbe5e11} 3",
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 2t , {icon:b034e44cb1} Push 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        58.85,
+        64.02,
+        60.44,
+        68.13
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Clumsy Axeblade",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Furthest",
+     "crit": 0,
+     "crit_value": 5,
+     "acc": 5,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:33466be235} Self {icon:b034e44cb1} Pull 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Clumsy Axeblade {icon:3ab7e7544c} {icon:e8447889a0} Furthest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 5 Acc 5 {icon:8d4bbe5e11} 3",
+      "{icon:33466be235} Self {icon:b034e44cb1} Pull 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        58.85,
+        84.84,
+        59.89,
+        88.96
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "0",
+     "bbox": [
+      21.39,
+      12.09,
+      23.54,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:a11d67845d} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:9446490c37} {icon:6a08bec9e4} 2 {icon:986406076a} 1 {icon:986406076a} 6-10 1-5 {icon:0ba73142d3} {icon:39b6880840} {icon:802ad6ada3} {icon:01d6f8c930} 3"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p012",
+   "copies": 1,
+   "pages": [
+    12
+   ],
+   "name": "Bone Captain",
+   "type_position_raw": "Unholy - Front - Large",
+   "type_position_tags": [
+    "Unholy",
+    "Front",
+    "Large"
+   ],
+   "level": 2,
+   "card_kind": "large_monster_reference",
+   "lines_raw": [
+    "Bone Captain",
+    "{icon:2e22db7a98}",
+    "Unholy - Front - Large",
+    "{icon:96c024d2c6} II",
+    "Unholy - Front - LargeBone Captain",
+    "{icon:2562804ceb} II {icon:43e02a8a9d} 1",
+    "{icon:deb273fcea} Resistances    Immunities {icon:93c6ba300b} {icon:1804a97769}",
+    "{icon:64b67a91e3}",
+    "{icon:26f23ab2ef} 1Crushing Blow",
+    "{icon:fa06b39c42} {icon:48d137844b} {icon:f1b57be7c8} {icon:5c221a93db} 217-10Crit 2 1-6 {icon:220f091707} {icon:0cac901379} 17 {icon:95441c8f27} Acc 9 11Push 1 {icon:d2e5898367} 1Closest {icon:26f23ab2ef} 2Crit 1 Ground Pound {icon:0cac901379} 7 Acc 9 5 {icon:5f52ba5cee} 0 Crowded {icon:aa2a4c2b8a} 33 {icon:aef3871c4f}",
+    "{icon:69d11758ad} 2 {icon:58d98cda2c} {icon:4688e456ab}",
+    "2t",
+    "{icon:b9fa0f2b8a}",
+    "{icon:08c8371fda} {icon:708ff41893}",
+    "{icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:0a289df640}"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p013",
+   "copies": 3,
+   "pages": [
+    13,
+    14,
+    15
+   ],
+   "copy_variants": [
+    {
+     "page": 13,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 14,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 15,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Bone Spearman",
+   "type_position_raw": "Unholy - Front",
+   "type_position_tags": [
+    "Unholy",
+    "Front"
+   ],
+   "level": 2,
+   "hp": 15,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "784ec4fe7a"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Spear Thrust",
+     "block_bbox": [
+      5.11,
+      51.44,
+      70.0,
+      75.6
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 12,
+     "acc": 8,
+     "acc_value": 8,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:92104a3c6b} Push 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Spear Thrust {icon:3ab7e7544c} {icon:e8447889a0} Closest 0 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 12 Acc 8 {icon:8d4bbe5e11} 8",
+      "{icon:a38154c523} {icon:92104a3c6b} Push 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        59.1,
+        56.44,
+        60.69,
+        60.55
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Impale",
+     "block_bbox": [
+      4.78,
+      75.6,
+      70.0,
+      103.2
+     ],
+     "target": "Crowded",
+     "crit": 2,
+     "crit_value": 7,
+     "acc": 9,
+     "acc_value": 5,
+     "effect_lines_raw": [],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Impale {icon:3ab7e7544c} 1 {icon:7616568d52} {icon:7616568d52} Crowded {icon:7616568d52} {icon:7616568d52}",
+      "Crit 2 {icon:8d4bbe5e11} 7 Acc 9 {icon:8d4bbe5e11} 5"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        50.52,
+        80.86,
+        51.55,
+        84.97
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      21.4,
+      12.09,
+      22.8,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:c959195d7a} {icon:d85db127a6} {icon:0e607c548a} {icon:bade862391} {icon:7c7de22bc1} {icon:11e491c203} 2 {icon:986406076a} 1 {icon:986406076a} 6-10 1-5 {icon:0ba73142d3} {icon:39b6880840} {icon:802ad6ada3} {icon:81250916ec} 1"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p016",
+   "copies": 2,
+   "pages": [
+    16,
+    17
+   ],
+   "copy_variants": [
+    {
+     "page": 16,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 17,
+     "face": "front",
+     "iconId": "8a36350c76"
+    }
+   ],
+   "name": "Bone Bearer",
+   "type_position_raw": "Unholy - Back",
+   "type_position_tags": [
+    "Unholy",
+    "Back"
+   ],
+   "level": 3,
+   "hp": 30,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "1fd9f6ec6d"
+   ],
+   "immunities_icons": [
+    "784ec4fe7a"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Wicked Surge",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Crowded",
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t , {icon:9d58d3d431} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Wicked Surge {icon:3ab7e7544c} 2 {icon:7616568d52} Crowded {icon:7616568d52} {icon:7616568d52}",
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t , {icon:9d58d3d431} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        53.44,
+        43.27,
+        54.87,
+        47.38
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Defend the Icon",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 14,
+     "acc": 10,
+     "acc_value": 9,
+     "effect_lines_raw": [
+      "{icon:33466be235} Self {icon:f18923574c} Push 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Defend the Icon {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 14 Acc 10 {icon:8d4bbe5e11} 9",
+      "{icon:33466be235} Self {icon:f18923574c} Push 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        58.85,
+        64.02,
+        59.89,
+        68.13
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Unholy Rally",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Most Wounded",
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:e1682d1d42} 2t , {icon:4f849b8ded} All {icon:20ffe98e2d}"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Unholy Rally {icon:c16e73c099} Most Wounded {icon:3ab7e7544c} 2 {icon:2a76f0dc4d}",
+      "{icon:a38154c523} {icon:e1682d1d42} 2t , {icon:4f849b8ded} All {icon:20ffe98e2d}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        58.85,
+        84.84,
+        60.29,
+        88.96
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "3",
+     "bbox": [
+      21.31,
+      12.09,
+      23.33,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:995efc58a1} 2 {icon:7e526edbfb} {icon:1560457709} {icon:9446490c37} {icon:ef63419250} {icon:8f5b9368a9} 3 2 {icon:986406076a} {icon:986406076a} {icon:986406076a} 1 8-10 5-7 1-4 {icon:5824725929} {icon:010cc97a8a} {icon:ff1b2876c1} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:7c7de22bc1} 3 1 {icon:986406076a} {icon:986406076a} 7-10 1-6"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p018",
+   "copies": 3,
+   "pages": [
+    18,
+    19,
+    20
+   ],
+   "copy_variants": [
+    {
+     "page": 18,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 19,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 20,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Cultist Brawler",
+   "type_position_raw": "Human - Front",
+   "type_position_tags": [
+    "Human",
+    "Front"
+   ],
+   "level": 1,
+   "hp": 11,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "1fd9f6ec6d"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Rend for the Old Gods",
+     "block_bbox": [
+      5.11,
+      48.67,
+      70.0,
+      74.67
+     ],
+     "target": "Closest",
+     "crit": 0,
+     "crit_value": 5,
+     "acc": 8,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:33466be235} Self {icon:f18923574c} Pull 1 {icon:a38154c523} 1 {icon:450f0fcc1d} 3t , {icon:91ca3fa960} 2t , {icon:9d58d3d431} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Rend for the Old Gods {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 5 Acc 8 {icon:8d4bbe5e11} 3",
+      "{icon:33466be235} Self {icon:f18923574c} Pull 1 {icon:a38154c523} 1 {icon:450f0fcc1d} 3t , {icon:91ca3fa960} 2t , {icon:9d58d3d431} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.16,
+        54.34,
+        60.19,
+        58.45
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Stumbling Scratch",
+     "block_bbox": [
+      4.78,
+      74.67,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 5,
+     "acc": 5,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Pull 1 {icon:a38154c523} {icon:8d4bbe5e11} +1 vs {icon:d41f8f865f}"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Stumbling Scratch {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 5 Acc 5 {icon:8d4bbe5e11} 3",
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Pull 1 {icon:a38154c523} {icon:8d4bbe5e11} +1 vs {icon:d41f8f865f}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.16,
+        80.24,
+        60.19,
+        84.35
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "0",
+     "bbox": [
+      21.3,
+      12.09,
+      23.45,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:54fc4ade4e} {icon:8bd94417b0} {icon:81250916ec} 1 {icon:0ba73142d3} {icon:39b6880840} {icon:802ad6ada3} {icon:01d6f8c930} 2"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p021",
+   "copies": 3,
+   "pages": [
+    21,
+    22,
+    23
+   ],
+   "copy_variants": [
+    {
+     "page": 21,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 22,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 23,
+     "face": "front",
+     "iconId": "4b08ecf53b"
+    }
+   ],
+   "name": "Cultist Acolyte",
+   "type_position_raw": "Human - Back",
+   "type_position_tags": [
+    "Human",
+    "Back"
+   ],
+   "level": 1,
+   "hp": 9,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "91ca3fa960"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Stressful Incantation",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Most Stressed",
+     "crit": 0,
+     "crit_value": 2,
+     "acc": 9,
+     "acc_value": 1,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:5729151bda} +1 , {icon:9ffbd6087a} -1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Stressful Incantation Most Stressed {icon:3ab7e7544c} 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 2 Acc 9 {icon:8d4bbe5e11} 1",
+      "{icon:a38154c523} {icon:5729151bda} +1 , {icon:9ffbd6087a} -1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.66,
+        43.4,
+        60.69,
+        47.51
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Eldritch Pull",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Furthest",
+     "crit": 1,
+     "crit_value": 2,
+     "acc": 9,
+     "acc_value": 1,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:b034e44cb1} Pull 2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Eldritch Pull {icon:3ab7e7544c} {icon:e8447889a0} Furthest 2 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 2 Acc 9 {icon:8d4bbe5e11} 1",
+      "{icon:a38154c523} {icon:b034e44cb1} Pull 2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.98,
+        64.27,
+        61.41,
+        68.38
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Eldritch Push",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 2,
+     "acc": 9,
+     "acc_value": 1,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:f18923574c} Push 2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Eldritch Push {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 2 Acc 9 {icon:8d4bbe5e11} 1",
+      "{icon:a38154c523} {icon:f18923574c} Push 2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.66,
+        84.59,
+        60.69,
+        88.71
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      21.39,
+      12.09,
+      22.8,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:903a585468} {icon:9446490c37} 3 1 {icon:986406076a} {icon:986406076a} 6-10 1-5 {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:ff1b2876c1} {icon:5824725929} {icon:dd27139285} {icon:ef63419250} {icon:7c7de22bc1} {icon:be11b8ced8} 3 2 1 {icon:986406076a} {icon:986406076a} {icon:986406076a} 8-10 5-7 1-4"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p024",
+   "copies": 3,
+   "pages": [
+    24,
+    25,
+    26
+   ],
+   "copy_variants": [
+    {
+     "page": 24,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 25,
+     "face": "front",
+     "iconId": "0997fde3ed"
+    },
+    {
+     "page": 26,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Brigand Cutthroat",
+   "type_position_raw": "Human - Front",
+   "type_position_tags": [
+    "Human",
+    "Front"
+   ],
+   "level": 1,
+   "hp": 8,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "f73032e12e"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Slice and Dice",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 6,
+     "acc": 8,
+     "acc_value": 4,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Slice and Dice {icon:3ab7e7544c} Crowded 1 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 6 Acc 8 {icon:8d4bbe5e11} 4",
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        56.92,
+        43.4,
+        57.95,
+        47.51
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Uppercut Slice",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 9,
+     "acc": 8,
+     "acc_value": 5,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:b034e44cb1} Push 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Uppercut Slice {icon:3ab7e7544c} Closest 0 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 9 Acc 8 {icon:8d4bbe5e11} 5",
+      "{icon:a38154c523} {icon:b034e44cb1} Push 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        59.98,
+        64.27,
+        61.57,
+        68.38
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Harmless Poke",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Furthest",
+     "crit": 0,
+     "crit_value": 5,
+     "acc": 5,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:33466be235} Self {icon:e1682d1d42} 2t , {icon:f18923574c} Pull 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Harmless Poke {icon:3ab7e7544c} Furthest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 5 Acc 5 {icon:8d4bbe5e11} 3",
+      "{icon:33466be235} Self {icon:e1682d1d42} 2t , {icon:f18923574c} Pull 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.66,
+        84.59,
+        60.69,
+        88.71
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "2",
+     "bbox": [
+      21.4,
+      12.09,
+      23.35,
+      17.66
+     ],
+     "inside_icon": "b2ea38715d"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:cc8a86d28d} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:8de7d6d4d7} {icon:ad876fdcc1} 2 {icon:986406076a} 1 {icon:986406076a} 5-10 1-4 {icon:0ba73142d3} {icon:81250916ec} 1 {icon:802ad6ada3} {icon:7c7de22bc1} 3"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p027",
+   "copies": 3,
+   "pages": [
+    27,
+    28,
+    29
+   ],
+   "copy_variants": [
+    {
+     "page": 27,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 28,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 29,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Brigand Fusilier",
+   "type_position_raw": "Human - Back",
+   "type_position_tags": [
+    "Human",
+    "Back"
+   ],
+   "level": 1,
+   "hp": 8,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "784ec4fe7a"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Blanket Fire",
+     "block_bbox": [
+      5.11,
+      48.67,
+      70.0,
+      74.67
+     ],
+     "target": "Crowded",
+     "crit": 0,
+     "crit_value": 4,
+     "acc": 7,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Blanket Fire {icon:3ab7e7544c} 2 {icon:7616568d52} Crowded {icon:7616568d52} {icon:7616568d52} {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 4 Acc 7 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        50.22,
+        54.34,
+        51.65,
+        58.45
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Rushed Shot",
+     "block_bbox": [
+      4.78,
+      74.67,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 5,
+     "acc": 6,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Push 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Rushed Shot {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 5 Acc 6 {icon:8d4bbe5e11} 3",
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Push 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.16,
+        80.24,
+        60.19,
+        84.35
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      21.67,
+      12.09,
+      23.08,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:995efc58a1} 2 {icon:8bd94417b0} {icon:a2e3d7235f} {icon:0ba73142d3} {icon:39b6880840} {icon:802ad6ada3} {icon:1348d729eb} 1"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p030",
+   "copies": 1,
+   "pages": [
+    30
+   ],
+   "name": "Brigand Bloodletter",
+   "type_position_raw": "Human - Front - Large",
+   "type_position_tags": [
+    "Human",
+    "Front",
+    "Large"
+   ],
+   "level": 1,
+   "card_kind": "large_monster_reference",
+   "lines_raw": [
+    "Brigand Bloodletter",
+    "{icon:4843c9b620}",
+    "Human - Front - Large",
+    "{icon:96c024d2c6} I",
+    "Human - Front - LargeBrigand Bloodletter",
+    "{icon:2562804ceb} I {icon:43e02a8a9d} 0",
+    "{icon:deb273fcea} Resistances    Immunities {icon:883e50be3d} {icon:45374c6b75}",
+    "{icon:0d36fb2a61}",
+    "{icon:64b67a91e3}",
+    "{icon:26f23ab2ef} 1Rain of Whips",
+    "Crit 0 {icon:0cac901379} 2 {icon:83a0911f5f} 1 Crowded",
+    "Acc 9 1",
+    "{icon:aef3871c4f}",
+    "{icon:26f23ab2ef} 2Punishment",
+    "13t, +1",
+    "{icon:aa2a4c2b8a} 24",
+    "Crit 1 {icon:0cac901379} 5 Acc 9 3 {icon:5f52ba5cee} 1Closest {icon:26f23ab2ef} 3",
+    "{icon:f36a00623a} {icon:7a4d052687} 329-1015-81-4 {icon:5c221a93db} 216-101-5 {icon:220f091707} {icon:93a5ef3193} 2 {icon:f1d1c251e0} 2t, +1 SelfCrit 2 Point Blank Shot2t {icon:0cac901379} 12 Acc 9 6 {icon:d2e5898367} 1Closest",
+    "{icon:95441c8f27} {icon:69d11758ad} 2 {icon:00cc5778d7} {icon:4688e456ab}",
+    "{icon:98734e646a} Push 1",
+    "{icon:b9fa0f2b8a} {icon:08c8371fda}",
+    "{icon:708ff41893}",
+    "{icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:0a289df640}"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p031",
+   "copies": 3,
+   "pages": [
+    31,
+    32,
+    33
+   ],
+   "copy_variants": [
+    {
+     "page": 31,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 32,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 33,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Maggot",
+   "type_position_raw": "Beast - Front - Small",
+   "type_position_tags": [
+    "Beast",
+    "Front",
+    "Small"
+   ],
+   "level": 1,
+   "hp": 1,
+   "hp_icon": "01d6f8c930",
+   "resistances_icons": [
+    "6cfc2f3a0b"
+   ],
+   "immunities_icons": [
+    "1fd9f6ec6d"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Grave Nibble",
+     "block_bbox": [
+      5.11,
+      61.67,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 2,
+     "crit_value": 5,
+     "acc": 7,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:9d58d3d431} +1 , {icon:1fd9f6ec6d} 1t , {icon:d745b188ce}"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Grave Nibble {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 2 {icon:8d4bbe5e11} 5 Acc 7 {icon:8d4bbe5e11} 3",
+      "{icon:a38154c523} {icon:9d58d3d431} +1 , {icon:1fd9f6ec6d} 1t , {icon:d745b188ce}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.55,
+        67.34,
+        60.58,
+        71.45
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "6",
+     "bbox": [
+      60.74,
+      32.37,
+      63.11,
+      38.0
+     ],
+     "inside_icon": "6c0295c4e8"
+    },
+    {
+     "text": "0",
+     "bbox": [
+      21.3,
+      12.09,
+      23.45,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:a2e3d7235f} {icon:0ba73142d3} {icon:39b6880840} {icon:802ad6ada3} {icon:01d6f8c930} 1"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p034",
+   "copies": 3,
+   "pages": [
+    34,
+    35,
+    36
+   ],
+   "copy_variants": [
+    {
+     "page": 34,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 35,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 36,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Webber",
+   "type_position_raw": "Beast - Back - Small",
+   "type_position_tags": [
+    "Beast",
+    "Back",
+    "Small"
+   ],
+   "level": 1,
+   "hp": 5,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "f73032e12e"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Web",
+     "block_bbox": [
+      5.11,
+      48.67,
+      70.0,
+      74.67
+     ],
+     "target": "Furthest",
+     "crit": 1,
+     "crit_value": 2,
+     "acc": 9,
+     "acc_value": 1,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:f70a42e51f} 2t , {icon:1fd9f6ec6d} 2t , {icon:9be6383955} 3t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Web {icon:3ab7e7544c} Furthest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 2 Acc 9 {icon:8d4bbe5e11} 1",
+      "{icon:a38154c523} {icon:f70a42e51f} 2t , {icon:1fd9f6ec6d} 2t , {icon:9be6383955} 3t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.17,
+        54.34,
+        60.21,
+        58.45
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Bite",
+     "block_bbox": [
+      4.78,
+      74.67,
+      70.0,
+      103.2
+     ],
+     "target": "Marked -> Closest",
+     "crit": 0,
+     "crit_value": 4,
+     "acc": 8,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} 1 {icon:d9a647ec08} 3t , {icon:8d4bbe5e11} +2 vs {icon:d41f8f865f}"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Bite Marked -> Closest {icon:3ab7e7544c} 0 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 4 Acc 8 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} 1 {icon:d9a647ec08} 3t , {icon:8d4bbe5e11} +2 vs {icon:d41f8f865f}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        59.16,
+        80.24,
+        60.74,
+        84.35
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      21.15,
+      12.09,
+      22.55,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:a2e3d7235f} {icon:5824725929} {icon:010cc97a8a} {icon:3a1b11097c} {icon:5824725929} {icon:bac4b293b0} {icon:ef63419250} {icon:7c7de22bc1} 2 {icon:986406076a} {icon:986406076a} 1 6-10 1-5"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p037",
+   "copies": 3,
+   "pages": [
+    37,
+    38,
+    39
+   ],
+   "copy_variants": [
+    {
+     "page": 37,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 38,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 39,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Spitter",
+   "type_position_raw": "Beast - Back - Small",
+   "type_position_tags": [
+    "Beast",
+    "Back",
+    "Small"
+   ],
+   "level": 1,
+   "hp": 5,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "f73032e12e"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Spit",
+     "block_bbox": [
+      5.11,
+      48.67,
+      70.0,
+      74.67
+     ],
+     "target": "Marked -> Furthest",
+     "crit": 1,
+     "crit_value": 6,
+     "acc": 9,
+     "acc_value": 4,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t , 1 {icon:f73032e12e} 3t , {icon:8d4bbe5e11} +2 vs {icon:d41f8f865f}"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Spit Marked -> Furthest {icon:3ab7e7544c} 2 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 6 Acc 9 {icon:8d4bbe5e11} 4",
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t , 1 {icon:f73032e12e} 3t , {icon:8d4bbe5e11} +2 vs {icon:d41f8f865f}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.17,
+        54.34,
+        60.6,
+        58.45
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Bite",
+     "block_bbox": [
+      4.78,
+      74.67,
+      70.0,
+      103.2
+     ],
+     "target": "Marked -> Closest",
+     "crit": 0,
+     "crit_value": 4,
+     "acc": 8,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} 1 {icon:f73032e12e} 3t , {icon:8d4bbe5e11} +2 vs {icon:d41f8f865f}"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Bite Marked -> Closest {icon:3ab7e7544c} 0 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 4 Acc 8 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} 1 {icon:f73032e12e} 3t , {icon:8d4bbe5e11} +2 vs {icon:d41f8f865f}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        59.16,
+        80.24,
+        60.74,
+        84.35
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      21.67,
+      12.09,
+      23.08,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:81250916ec} 2 {icon:0ba73142d3} {icon:39b6880840} {icon:802ad6ada3} {icon:01d6f8c930} 1"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p040",
+   "copies": 3,
+   "pages": [
+    40,
+    41,
+    42
+   ],
+   "copy_variants": [
+    {
+     "page": 40,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 41,
+     "face": "front",
+     "iconId": "8a36350c76"
+    },
+    {
+     "page": 42,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Bone Rabble",
+   "type_position_raw": "Unholy - Front",
+   "type_position_tags": [
+    "Unholy",
+    "Front"
+   ],
+   "level": 1,
+   "hp": 6,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "784ec4fe7a"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Bump in the Night",
+     "block_bbox": [
+      5.11,
+      48.67,
+      70.0,
+      74.67
+     ],
+     "target": "Closest",
+     "crit": 0,
+     "crit_value": 6,
+     "acc": 7,
+     "acc_value": 4,
+     "effect_lines_raw": [],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Bump in the Night {icon:3ab7e7544c} Closest 0 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 6 Acc 7 {icon:8d4bbe5e11} 4"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        59.17,
+        54.34,
+        60.76,
+        58.45
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Tic-Toc",
+     "block_bbox": [
+      4.78,
+      74.67,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 0,
+     "crit_value": 6,
+     "acc": 5,
+     "acc_value": 4,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Pull 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Tic-Toc {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 6 Acc 5 {icon:8d4bbe5e11} 4",
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Pull 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.16,
+        80.24,
+        60.19,
+        84.35
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "0",
+     "bbox": [
+      20.77,
+      12.09,
+      22.92,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:d311f5fad9} {icon:0ba73142d3} {icon:9614979938} 1 {icon:802ad6ada3} {icon:01d6f8c930} 2"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p043",
+   "copies": 3,
+   "pages": [
+    43,
+    44,
+    45
+   ],
+   "copy_variants": [
+    {
+     "page": 43,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 44,
+     "face": "front",
+     "iconId": "8a36350c76"
+    },
+    {
+     "page": 45,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Madman",
+   "type_position_raw": "Human - Back",
+   "type_position_tags": [
+    "Human",
+    "Back"
+   ],
+   "level": 1,
+   "hp": 10,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "6cfc2f3a0b"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Doomsay",
+     "block_bbox": [
+      5.11,
+      48.67,
+      70.0,
+      103.2
+     ],
+     "target": "Crowded",
+     "crit": 0,
+     "crit_value": 1,
+     "acc": 10,
+     "acc_value": 0,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:58cd5040a4} 2t , {icon:9d58d3d431} +2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Doomsay {icon:3ab7e7544c} 1 {icon:7616568d52} Crowded {icon:7616568d52} {icon:7616568d52} {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 1 Acc 10 {icon:8d4bbe5e11} 0",
+      "{icon:a38154c523} {icon:9d58d3d431} +1",
+      "{icon:6eb2ab6c16} 2 Accusation {icon:12114c0ffd} Most Stressed {icon:3ab7e7544c} 2 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 2 Acc 10 {icon:8d4bbe5e11} 1",
+      "{icon:a38154c523} {icon:58cd5040a4} 2t , {icon:9d58d3d431} +2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        6.78,
+        78.17,
+        9.13,
+        84.9
+       ],
+       "inside_icon": "6eb2ab6c16"
+      },
+      {
+       "text": "1",
+       "bbox": [
+        50.22,
+        54.34,
+        51.26,
+        58.45
+       ],
+       "left_icon": "3ab7e7544c"
+      },
+      {
+       "text": "2",
+       "bbox": [
+        59.16,
+        80.24,
+        60.59,
+        84.35
+       ],
+       "left_icon": "3ab7e7544c"
+      },
+      {
+       "text": "2",
+       "bbox": [
+        29.51,
+        85.83,
+        31.12,
+        90.46
+       ],
+       "inside_icon": "8d4bbe5e11"
+      },
+      {
+       "text": "1",
+       "bbox": [
+        51.69,
+        85.74,
+        52.85,
+        90.36
+       ],
+       "inside_icon": "8d4bbe5e11"
+      },
+      {
+       "text": "+1",
+       "bbox": [
+        62.68,
+        65.96,
+        65.09,
+        70.2
+       ]
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "2",
+     "bbox": [
+      21.4,
+      12.09,
+      23.35,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:a2e3d7235f} {icon:5824725929} {icon:010cc97a8a} {icon:3a1b11097c} {icon:5824725929} {icon:bac4b293b0} {icon:ef63419250} {icon:7c7de22bc1} 2 {icon:986406076a} {icon:986406076a} 1 6-10 1-5"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p046",
+   "copies": 3,
+   "pages": [
+    46,
+    47,
+    48
+   ],
+   "copy_variants": [
+    {
+     "page": 46,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 47,
+     "face": "front",
+     "iconId": "8a36350c76"
+    },
+    {
+     "page": 48,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Pliskin",
+   "type_position_raw": "Beast - Front",
+   "type_position_tags": [
+    "Beast",
+    "Front"
+   ],
+   "level": 1,
+   "hp": 9,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "f73032e12e"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Venomous Gleek",
+     "block_bbox": [
+      5.11,
+      48.67,
+      70.0,
+      74.67
+     ],
+     "target": "Furthest",
+     "crit": 1,
+     "crit_value": 2,
+     "acc": 10,
+     "acc_value": 1,
+     "effect_lines_raw": [
+      "{icon:a38154c523} 2 {icon:d9a647ec08} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Venomous Gleek {icon:3ab7e7544c} Furthest 2 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 2 Acc 10 {icon:8d4bbe5e11} 1",
+      "{icon:a38154c523} 2 {icon:d9a647ec08} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.17,
+        54.34,
+        60.6,
+        58.45
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Infuse",
+     "block_bbox": [
+      4.78,
+      74.67,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 7,
+     "acc": 10,
+     "acc_value": 4,
+     "effect_lines_raw": [
+      "{icon:a38154c523} 2 {icon:f73032e12e} 3t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Infuse {icon:3ab7e7544c} Closest 0 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 7 Acc 10 {icon:8d4bbe5e11} 4",
+      "{icon:a38154c523} 2 {icon:f73032e12e} 3t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        59.16,
+        80.24,
+        60.74,
+        84.35
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      21.67,
+      12.09,
+      23.08,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:81250916ec} 2 {icon:0ba73142d3} {icon:39b6880840} {icon:802ad6ada3} {icon:01d6f8c930} 1"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p049",
+   "copies": 1,
+   "pages": [
+    49
+   ],
+   "name": "Ghoul",
+   "type_position_raw": "Unholy - Front - Large",
+   "type_position_tags": [
+    "Unholy",
+    "Front",
+    "Large"
+   ],
+   "level": 2,
+   "card_kind": "large_monster_reference",
+   "lines_raw": [
+    "Ghoul",
+    "{icon:4843c9b620}",
+    "Unholy - Front - Large",
+    "{icon:96c024d2c6} II",
+    "Ghoul",
+    "Unholy - Front - Large",
+    "{icon:2562804ceb} II {icon:43e02a8a9d} 1",
+    "{icon:deb273fcea} Resistances    Immunities {icon:883e50be3d} {icon:45374c6b75}",
+    "{icon:0d36fb2a61}",
+    "{icon:64b67a91e3}",
+    "{icon:26f23ab2ef} 1Rend",
+    "Crit 2 {icon:0cac901379} 12 {icon:640fbb40d9} Acc 9 7 {icon:83a0911f5f} {icon:700b4f59f9} 0Closest",
+    "{icon:aef3871c4f}",
+    "{icon:aef3871c4f}",
+    "{icon:26f23ab2ef} 2Skull Toss",
+    "32t, 2t, +1",
+    "{icon:9b5a930869} 26",
+    "Crit 1 {icon:0cac901379} 12 Acc 9 7 {icon:83a0911f5f} {icon:e3ed26efd8} Furthest1 {icon:1374424034} {icon:26f23ab2ef} 3Howl",
+    "{icon:f36a00623a} {icon:e06aa231cb} {icon:6d72c109ca} 215-71-4",
+    "2t, {icon:5151e45bfe} +1 Crit 0 {icon:0cac901379} 1 {icon:762a776546} 1 Crowded",
+    "Acc 10 0",
+    "38-10 {icon:2811033676} {icon:b703e833bd} 21-5 {icon:58d98cda2c}",
+    "36-10 {icon:4688e456ab} {icon:b9fa0f2b8a} -1, +2, {icon:9914155306}",
+    "{icon:08c8371fda} {icon:708ff41893}",
+    "{icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:0a289df640}"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p050",
+   "copies": 3,
+   "pages": [
+    50,
+    51,
+    52
+   ],
+   "copy_variants": [
+    {
+     "page": 50,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 51,
+     "face": "front",
+     "iconId": "0997fde3ed"
+    },
+    {
+     "page": 52,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Gargoyle",
+   "type_position_raw": "Unholy - Front",
+   "type_position_tags": [
+    "Unholy",
+    "Front"
+   ],
+   "level": 2,
+   "hp": 7,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "784ec4fe7a"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Flurry of Claws",
+     "block_bbox": [
+      5.11,
+      48.67,
+      70.0,
+      74.67
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 6,
+     "acc": 9,
+     "acc_value": 4,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Flurry of Claws {icon:3ab7e7544c} Crowded 0 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 6 Acc 9 {icon:8d4bbe5e11} 4",
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        56.17,
+        54.34,
+        57.76,
+        58.45
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Lash of the Tail",
+     "block_bbox": [
+      4.78,
+      74.67,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 4,
+     "acc": 9,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 2t , {icon:f18923574c} Push 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Lash of the Tail {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 4 Acc 9 {icon:8d4bbe5e11} 3",
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 2t , {icon:f18923574c} Push 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.16,
+        80.24,
+        60.19,
+        84.35
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "2",
+     "bbox": [
+      21.52,
+      12.09,
+      23.47,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:8a5fcb1405} {icon:edb10691e1} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:436f0d4254} {icon:f588f5fe21} {icon:7c7de22bc1} {icon:ddaf80f706} 2 1 {icon:986406076a} {icon:986406076a} 7-10 1-6 {icon:802ad6ada3} {icon:01d6f8c930} 2"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p053",
+   "copies": 3,
+   "pages": [
+    53,
+    54,
+    55
+   ],
+   "copy_variants": [
+    {
+     "page": 53,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 54,
+     "face": "front",
+     "iconId": "8a36350c76"
+    },
+    {
+     "page": 55,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Rattler",
+   "type_position_raw": "Beast - Front",
+   "type_position_tags": [
+    "Beast",
+    "Front"
+   ],
+   "level": 2,
+   "hp": 22,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "303efb0a59",
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Warning Rattle",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Self",
+     "effect_lines_raw": [
+      "{icon:33466be235} Self {icon:2af41c1ca4} 2t , {icon:6bc7093e01} 1t , {icon:a0290ad4ce} 1t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Warning Rattle Self",
+      "{icon:33466be235} Self {icon:2af41c1ca4} 2t , {icon:6bc7093e01} 1t , {icon:a0290ad4ce} 1t"
+     ],
+     "unlabeled_numbers": []
+    },
+    {
+     "slot": 2,
+     "name": "Snakebite",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Furthest",
+     "crit": 1,
+     "crit_value": 8,
+     "acc": 10,
+     "acc_value": 5,
+     "effect_lines_raw": [
+      "{icon:a38154c523} 2 {icon:450f0fcc1d} 3t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Snakebite {icon:3ab7e7544c} Furthest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 8 Acc 10 {icon:ad20127dd4} 5",
+      "{icon:a38154c523} 2 {icon:450f0fcc1d} 3t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.98,
+        64.27,
+        61.01,
+        68.38
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Slither Forward",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 0,
+     "crit_value": 4,
+     "acc": 8,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Pull 2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Slither Forward {icon:3ab7e7544c} Closest 2 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 4 Acc 8 {icon:8d4bbe5e11} 2",
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Pull 2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.66,
+        84.59,
+        61.09,
+        88.71
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "2",
+     "bbox": [
+      21.4,
+      12.09,
+      23.35,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:cc8a86d28d} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:a2e3d7235f} {icon:436f0d4254} {icon:f588f5fe21} {icon:7c7de22bc1} {icon:ddaf80f706} 2 {icon:986406076a} 1 {icon:986406076a} 6-10 1-5 {icon:492b592535} {icon:9156a1fd04} {icon:ef63419250} {icon:87c1cfdf96} 3 1 {icon:986406076a} {icon:986406076a} 6-10 1-5"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p056",
+   "copies": 3,
+   "pages": [
+    56,
+    57,
+    58
+   ],
+   "copy_variants": [
+    {
+     "page": 56,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 57,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 58,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Brigand Raider",
+   "type_position_raw": "Human - Front",
+   "type_position_tags": [
+    "Human",
+    "Front"
+   ],
+   "level": 3,
+   "hp": 17,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "f73032e12e"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Slice and Dice",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Crowded",
+     "crit": 2,
+     "crit_value": 11,
+     "acc": 10,
+     "acc_value": 7,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Slice and Dice {icon:3ab7e7544c} Crowded 0 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 2 {icon:8d4bbe5e11} 11 Acc 10 {icon:8d4bbe5e11} 7",
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        56.92,
+        43.4,
+        58.51,
+        47.51
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Shank",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 16,
+     "acc": 10,
+     "acc_value": 10,
+     "effect_lines_raw": [
+      "{icon:a38154c523} 3 {icon:450f0fcc1d} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Shank {icon:3ab7e7544c} Closest 0 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 16 Acc 10 {icon:8d4bbe5e11} 10",
+      "{icon:a38154c523} 3 {icon:450f0fcc1d} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        59.98,
+        64.27,
+        61.57,
+        68.38
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Harmless Poke",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Furthest",
+     "crit": 0,
+     "crit_value": 12,
+     "acc": 7,
+     "acc_value": 8,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} {icon:c386328053} Self {icon:ef29ccfbe0} 2t , {icon:f18923574c} Pull 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Harmless Poke {icon:3ab7e7544c} Furthest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 12 Acc 7 {icon:8d4bbe5e11} 8",
+      "{icon:8c17caf335} {icon:c386328053} Self {icon:ef29ccfbe0} 2t , {icon:f18923574c} Pull 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.66,
+        84.59,
+        60.69,
+        88.71
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "3",
+     "bbox": [
+      21.23,
+      12.09,
+      23.25,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:cc8a86d28d} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:8de7d6d4d7} {icon:ad876fdcc1} 2 {icon:986406076a} 1 {icon:986406076a} 8-10 1-7 {icon:436f0d4254} {icon:f588f5fe21} {icon:7c7de22bc1} {icon:ddaf80f706} 2 {icon:986406076a} 1 {icon:986406076a} 6-10 1-5 {icon:802ad6ada3} {icon:7c7de22bc1} 3"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p059",
+   "copies": 3,
+   "pages": [
+    59,
+    60,
+    61
+   ],
+   "copy_variants": [
+    {
+     "page": 59,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 60,
+     "face": "front",
+     "iconId": "8a36350c76"
+    },
+    {
+     "page": 61,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Brigand Hunter",
+   "type_position_raw": "Human - Back",
+   "type_position_tags": [
+    "Human",
+    "Back"
+   ],
+   "level": 3,
+   "hp": 17,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "784ec4fe7a"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Blanket Fire",
+     "block_bbox": [
+      5.11,
+      48.67,
+      70.0,
+      74.67
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 8,
+     "acc": 10,
+     "acc_value": 5,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t , {icon:9d58d3d431} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Blanket Fire {icon:3ab7e7544c} 2 {icon:7616568d52} Crowded {icon:7616568d52} {icon:7616568d52} {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 8 Acc 10 {icon:8d4bbe5e11} 5",
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t , {icon:9d58d3d431} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        50.22,
+        54.34,
+        51.65,
+        58.45
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Rushed Shot",
+     "block_bbox": [
+      4.78,
+      74.67,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 11,
+     "acc": 9,
+     "acc_value": 7,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Push 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Rushed Shot {icon:3ab7e7544c} Closest 0 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 11 Acc 9 {icon:8d4bbe5e11} 7",
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Push 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        59.16,
+        80.24,
+        60.74,
+        84.35
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "3",
+     "bbox": [
+      21.34,
+      12.09,
+      23.35,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:995efc58a1} 2 {icon:8bd94417b0} {icon:a2e3d7235f} {icon:0ba73142d3} {icon:39b6880840} {icon:802ad6ada3} {icon:1348d729eb} 1"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p062",
+   "copies": 1,
+   "pages": [
+    62
+   ],
+   "name": "Adder",
+   "type_position_raw": "Beast - Front - Large",
+   "type_position_tags": [
+    "Beast",
+    "Front",
+    "Large"
+   ],
+   "level": 3,
+   "card_kind": "large_monster_reference",
+   "lines_raw": [
+    "Adder",
+    "{icon:4843c9b620}",
+    "Beast - Front - Large",
+    "{icon:96c024d2c6} III",
+    "Adder",
+    "Beast - Front - Large",
+    "III {icon:43e02a8a9d} 2",
+    "{icon:deb273fcea} Resistances    Immunities {icon:f699a41b7f} {icon:3eb29fc6cb}",
+    "{icon:64b67a91e3}",
+    "{icon:26f23ab2ef} 1Adder’s Fang",
+    "Crit 1 {icon:0cac901379} 5 Acc 10 3 {icon:d2e5898367} {icon:e3ed26efd8} 2Furthest {icon:de2969d295}",
+    "{icon:26f23ab2ef} 2Paralyzing Quills",
+    "3 {icon:287ce8c585} 4t",
+    "{icon:aa2a4c2b8a} {icon:aef3871c4f}",
+    "55",
+    "Crit 1 {icon:0cac901379} 10 Acc 10 {icon:6c7f5657a7} 7 {icon:83a0911f5f} {icon:700b4f59f9} 1Closest {icon:26f23ab2ef} 3Molt",
+    "{icon:f36a00623a} {icon:2c964b8efd} 216-101-5 {icon:13e9063c75} {icon:eba92424bf} 328-1014-71-3 {icon:357e296021} 1 {icon:bdf677806a} 1t Self 2t, 9 {icon:2ba68f06e2} , Remove: {icon:d162a68594} Self",
+    "{icon:4688e456ab} {icon:b9fa0f2b8a}",
+    "{icon:08c8371fda} {icon:708ff41893}",
+    "{icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:0a289df640}"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p063",
+   "copies": 3,
+   "pages": [
+    63,
+    64,
+    65
+   ],
+   "copy_variants": [
+    {
+     "page": 63,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 64,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 65,
+     "face": "front",
+     "iconId": "4b08ecf53b"
+    }
+   ],
+   "name": "Ascended Brawler",
+   "type_position_raw": "Human - Front",
+   "type_position_tags": [
+    "Human",
+    "Front"
+   ],
+   "level": 3,
+   "hp": 22,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Rend for the New God",
+     "block_bbox": [
+      5.11,
+      48.67,
+      70.0,
+      74.67
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 10,
+     "acc": 10,
+     "acc_value": 6,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Pull 1 {icon:a38154c523} 2 {icon:cdfeec62c5} 3t , {icon:75f7f3eb72} 1t ,",
+      "{icon:8d4bbe5e11} +3 vs {icon:d3d16004a0}"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Rend for the New God {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 10 Acc 10 {icon:8d4bbe5e11} 6",
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Pull 1 {icon:a38154c523} 2 {icon:cdfeec62c5} 3t , {icon:75f7f3eb72} 1t ,",
+      "{icon:8d4bbe5e11} +3 vs {icon:d3d16004a0}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.17,
+        54.34,
+        60.21,
+        58.45
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Stumbling Scratch",
+     "block_bbox": [
+      4.78,
+      74.67,
+      70.0,
+      103.2
+     ],
+     "target": "Furthest",
+     "crit": 0,
+     "crit_value": 10,
+     "acc": 7,
+     "acc_value": 6,
+     "effect_lines_raw": [
+      "{icon:33466be235} Self {icon:b034e44cb1} Pull 1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Stumbling Scratch {icon:3ab7e7544c} Furthest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 10 Acc 7 {icon:8d4bbe5e11} 6",
+      "{icon:33466be235} Self {icon:b034e44cb1} Pull 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.16,
+        80.24,
+        60.19,
+        84.35
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "3",
+     "bbox": [
+      21.36,
+      12.09,
+      23.39,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:81250916ec} 1 {icon:0ba73142d3} {icon:39b6880840} {icon:802ad6ada3} {icon:01d6f8c930} 2"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p066",
+   "copies": 3,
+   "pages": [
+    66,
+    67,
+    68
+   ],
+   "copy_variants": [
+    {
+     "page": 66,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 67,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 68,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Ascended Witch",
+   "type_position_raw": "Human - Back",
+   "type_position_tags": [
+    "Human",
+    "Back"
+   ],
+   "level": 3,
+   "hp": 18,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "91ca3fa960"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Fate’s Reveal",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Furthest",
+     "crit": 0,
+     "crit_value": 3,
+     "acc": 10,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:5729151bda} +2 , {icon:9ffbd6087a} -1 , {icon:66b4ce40ed} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Fate’s Reveal {icon:3ab7e7544c} Furthest 2 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 3 Acc 10 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:5729151bda} +2 , {icon:9ffbd6087a} -1 , {icon:66b4ce40ed} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.66,
+        43.4,
+        61.09,
+        47.51
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Fate’s Push",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 3,
+     "acc": 10,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:f18923574c} Push 2, {icon:9d58d3d431} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Fate’s Push {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 3 Acc 10 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:f18923574c} Push 2, {icon:9d58d3d431} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.98,
+        64.27,
+        61.01,
+        68.38
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Fate’s Pull",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Furthest",
+     "crit": 1,
+     "crit_value": 3,
+     "acc": 10,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:ed2299539e} Pull 2, {icon:9d58d3d431} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Fate’s Pull {icon:3ab7e7544c} Furthest 2 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 3 Acc 10 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:ed2299539e} Pull 2, {icon:9d58d3d431} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.66,
+        84.59,
+        61.09,
+        88.71
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "4",
+     "bbox": [
+      21.33,
+      12.09,
+      23.42,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:7f4ed77130} {icon:d311f5fad9} {icon:ff1b2876c1} {icon:7c7de22bc1} 2 4-7",
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:5824725929} {icon:010cc97a8a} {icon:5824725929} {icon:dd27139285} {icon:ef63419250} {icon:be11b8ced8} 3 1 {icon:986406076a} {icon:986406076a} {icon:986406076a} 8-10 1-3"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p069",
+   "copies": 3,
+   "pages": [
+    69,
+    70,
+    71
+   ],
+   "copy_variants": [
+    {
+     "page": 69,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 70,
+     "face": "front",
+     "iconId": "8a36350c76"
+    },
+    {
+     "page": 71,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Rapturous Cultist",
+   "type_position_raw": "Human - Unholy - Front",
+   "type_position_tags": [
+    "Human",
+    "Unholy",
+    "Front"
+   ],
+   "level": 3,
+   "hp": 14,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Flesh Wall",
+     "block_bbox": [
+      5.11,
+      48.67,
+      70.0,
+      74.67
+     ],
+     "target": "Self",
+     "effect_lines_raw": [
+      "{icon:33466be235} Self {icon:6bc7093e01} 1t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Flesh Wall Self {icon:3ab7e7544c}",
+      "{icon:33466be235} Self {icon:6bc7093e01} 1t"
+     ],
+     "unlabeled_numbers": []
+    },
+    {
+     "slot": 2,
+     "name": "Flesh to Flesh",
+     "block_bbox": [
+      4.78,
+      74.67,
+      70.0,
+      103.2
+     ],
+     "target": "Most Wounded",
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:e8a4b7eebf} {icon:20ffe98e2d} 9"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Flesh to Flesh {icon:12114c0ffd} Most Wounded {icon:3ab7e7544c} 0 {icon:a396e95c00}",
+      "{icon:a38154c523} {icon:e8a4b7eebf} {icon:20ffe98e2d} 9"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        59.16,
+        80.24,
+        60.74,
+        84.35
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "0",
+     "bbox": [
+      20.77,
+      12.09,
+      22.92,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:ff1b2876c1} {icon:5824725929} {icon:6023d48212} {icon:7c7de22bc1} {icon:ad876fdcc1} 2 1 {icon:986406076a} {icon:986406076a} 7-10 1-6"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p072",
+   "copies": 3,
+   "pages": [
+    72,
+    73,
+    74
+   ],
+   "copy_variants": [
+    {
+     "page": 72,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 73,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 74,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Cultist Priest",
+   "type_position_raw": "Eldritch - Beast - Back",
+   "type_position_tags": [
+    "Eldritch",
+    "Beast",
+    "Back"
+   ],
+   "level": 3,
+   "hp": 26,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "784ec4fe7a"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Death Lash",
+     "block_bbox": [
+      5.11,
+      48.67,
+      70.0,
+      74.67
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 8,
+     "acc": 11,
+     "acc_value": 6,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:6cfc2f3a0b} 1t , {icon:9d58d3d431} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Death Lash {icon:3ab7e7544c} Crowded 1 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 8 Acc 11 {icon:8d4bbe5e11} 6",
+      "{icon:a38154c523} {icon:6cfc2f3a0b} 1t , {icon:9d58d3d431} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        57.17,
+        54.23,
+        58.2,
+        58.34
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "The Finger",
+     "block_bbox": [
+      4.78,
+      74.67,
+      70.0,
+      103.2
+     ],
+     "target": "Furthest",
+     "crit": 2,
+     "crit_value": 15,
+     "acc": 11,
+     "acc_value": 11,
+     "effect_lines_raw": [
+      "{icon:a38154c523} 3 {icon:c4fb0a1961} 3t , {icon:5729151bda} +2 ,",
+      "{icon:8d4bbe5e11} +5 vs {icon:d3d16004a0}"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 The Finger {icon:3ab7e7544c} Furthest 2 {icon:7616568d52}",
+      "Crit 2 {icon:8d4bbe5e11} 15 Acc 11 {icon:8d4bbe5e11} 11",
+      "{icon:a38154c523} 3 {icon:c4fb0a1961} 3t , {icon:5729151bda} +2 ,",
+      "{icon:8d4bbe5e11} +5 vs {icon:d3d16004a0}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.98,
+        80.3,
+        61.41,
+        84.41
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "3",
+     "bbox": [
+      21.31,
+      12.09,
+      23.33,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:ff1b2876c1} {icon:5824725929} {icon:6023d48212} {icon:7c7de22bc1} {icon:ad876fdcc1} 2 1 {icon:986406076a} {icon:986406076a} 7-10 1-6"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p075",
+   "copies": 3,
+   "pages": [
+    75,
+    76,
+    77
+   ],
+   "copy_variants": [
+    {
+     "page": 75,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 76,
+     "face": "front",
+     "iconId": "0997fde3ed"
+    },
+    {
+     "page": 77,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Malignant Growth",
+   "type_position_raw": "Eldritch  - Front",
+   "type_position_tags": [
+    "Eldritch",
+    "Front"
+   ],
+   "level": 3,
+   "hp": 28,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "784ec4fe7a"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Maul the Flesh",
+     "block_bbox": [
+      5.11,
+      48.67,
+      70.0,
+      74.67
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 16,
+     "acc": 10,
+     "acc_value": 11,
+     "effect_lines_raw": [
+      "{icon:a38154c523} 2 {icon:450f0fcc1d} 3t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Maul the Flesh {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 16 Acc 10 {icon:8d4bbe5e11} 11",
+      "{icon:a38154c523} 2 {icon:450f0fcc1d} 3t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.87,
+        54.23,
+        60.91,
+        58.34
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Daze the Mind",
+     "block_bbox": [
+      4.78,
+      74.67,
+      70.0,
+      103.2
+     ],
+     "target": "Furthest",
+     "crit": 1,
+     "crit_value": 10,
+     "acc": 11,
+     "acc_value": 6,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Daze the Mind {icon:3ab7e7544c} Furthest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 10 Acc 11 {icon:8d4bbe5e11} 6",
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.98,
+        80.3,
+        61.01,
+        84.41
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "2",
+     "bbox": [
+      21.35,
+      12.09,
+      23.29,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:ff1b2876c1} {icon:5824725929} {icon:6023d48212} {icon:7c7de22bc1} {icon:ad876fdcc1} 2 1 {icon:986406076a} {icon:986406076a} 6-10 1-5"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p078",
+   "copies": 2,
+   "pages": [
+    78,
+    79
+   ],
+   "copy_variants": [
+    {
+     "page": 78,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 79,
+     "face": "front",
+     "iconId": "0328c674d1"
+    }
+   ],
+   "name": "Flesh Hound",
+   "type_position_raw": "Eldritch - Beast - Front",
+   "type_position_tags": [
+    "Eldritch",
+    "Beast",
+    "Front"
+   ],
+   "level": 3,
+   "hp": 23,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Gnash",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 14,
+     "acc": 10,
+     "acc_value": 9,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:a84ac4c016} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Gnash {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 14 Acc 10 {icon:8d4bbe5e11} 9",
+      "{icon:a38154c523} {icon:a84ac4c016} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.66,
+        43.4,
+        60.69,
+        47.51
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Nibble",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Closest",
+     "crit": 0,
+     "crit_value": 4,
+     "acc": 9,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Pull 2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Nibble {icon:3ab7e7544c} Closest 2 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 4 Acc 9 {icon:8d4bbe5e11} 2",
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Pull 2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.98,
+        64.27,
+        61.41,
+        68.38
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Fetch",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Furthest",
+     "crit": 1,
+     "crit_value": 10,
+     "acc": 11,
+     "acc_value": 7,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 1t , {icon:b034e44cb1} Pull 2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Fetch {icon:3ab7e7544c} Furthest 2 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 10 Acc 11 {icon:8d4bbe5e11} 7",
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 1t , {icon:b034e44cb1} Pull 2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.66,
+        84.59,
+        61.09,
+        88.71
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "3",
+     "bbox": [
+      21.49,
+      12.09,
+      23.51,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:8f5b9368a9} {icon:ddaf80f706} 3 1 {icon:986406076a} {icon:986406076a} 6-10 1-5 {icon:802ad6ada3} {icon:3563dddbbc} 2"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p080",
+   "copies": 3,
+   "pages": [
+    80,
+    81,
+    82
+   ],
+   "copy_variants": [
+    {
+     "page": 80,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 81,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 82,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Polyp",
+   "type_position_raw": "Eldritch - Beast - Back",
+   "type_position_tags": [
+    "Eldritch",
+    "Beast",
+    "Back"
+   ],
+   "level": 3,
+   "hp": 17,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "98edfaca0a"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Venomous Phlegm",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Furthest",
+     "crit": 1,
+     "crit_value": 10,
+     "acc": 10,
+     "acc_value": 6,
+     "effect_lines_raw": [
+      "{icon:a38154c523} 3 {icon:98edfaca0a} 3t , {icon:66b4ce40ed} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Venomous Phlegm {icon:3ab7e7544c} Furthest 2 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 10 Acc 10 {icon:8d4bbe5e11} 6",
+      "{icon:a38154c523} 3 {icon:98edfaca0a} 3t , {icon:66b4ce40ed} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.66,
+        43.4,
+        61.09,
+        47.51
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Violent Hack",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Closest",
+     "crit": 0,
+     "crit_value": 4,
+     "acc": 8,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Push 2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Violent Hack {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 4 Acc 8 {icon:8d4bbe5e11} 2",
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Push 2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.98,
+        64.27,
+        61.01,
+        68.38
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Unholy Rally",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 10,
+     "acc": 11,
+     "acc_value": 6,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:b034e44cb1} Push 2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Unholy Rally {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 10 Acc 11 {icon:8d4bbe5e11} 6",
+      "{icon:a38154c523} {icon:b034e44cb1} Push 2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.66,
+        84.59,
+        60.69,
+        88.71
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "3",
+     "bbox": [
+      21.39,
+      12.09,
+      23.4,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:9e4bb98b5c} 2 {icon:7e526edbfb} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:8cfc34be27} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:be11b8ced8} 3 1 {icon:986406076a} {icon:986406076a} 6-10 1-5"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p083",
+   "copies": 3,
+   "pages": [
+    83,
+    84,
+    85
+   ],
+   "copy_variants": [
+    {
+     "page": 83,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 84,
+     "face": "front",
+     "iconId": "0328c674d1"
+    },
+    {
+     "page": 85,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Antibody",
+   "type_position_raw": "Eldritch - Beast - Front",
+   "type_position_tags": [
+    "Eldritch",
+    "Beast",
+    "Front"
+   ],
+   "level": 3,
+   "hp": 28,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "e05f59c39a",
+    "e154e5cdbb"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Stunning Secretion",
+     "block_bbox": [
+      5.11,
+      55.76,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 0,
+     "crit_value": 18,
+     "acc": 11,
+     "acc_value": 12,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 1t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Stunning Secretion {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 18 Acc 11 {icon:8d4bbe5e11} 12",
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 1t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.87,
+        61.32,
+        60.91,
+        65.43
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "3",
+     "bbox": [
+      21.31,
+      12.09,
+      23.33,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:d311f5fad9} {icon:0ba73142d3} {icon:39b6880840} {icon:802ad6ada3} {icon:3563dddbbc} 1"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p086",
+   "copies": 3,
+   "pages": [
+    86,
+    87,
+    88
+   ],
+   "copy_variants": [
+    {
+     "page": 86,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 87,
+     "face": "front",
+     "iconId": "0997fde3ed"
+    },
+    {
+     "page": 88,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Defensive Growth",
+   "type_position_raw": "Eldritch - Back",
+   "type_position_tags": [
+    "Eldritch",
+    "Back"
+   ],
+   "level": 3,
+   "hp": 17,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "784ec4fe7a",
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Bolster",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Closest",
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:e1682d1d42} 3t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Bolster {icon:3ab7e7544c} Closest 1 {icon:a396e95c00}",
+      "{icon:a38154c523} {icon:e1682d1d42} 3t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.66,
+        43.4,
+        60.69,
+        47.51
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Ritualic Restoration",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Closest",
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:f18923574c} Push 2 {icon:a38154c523} {icon:4f849b8ded} 17 {icon:20ffe98e2d}"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Ritualic Restoration {icon:3ab7e7544c} Closest 1 {icon:a396e95c00}",
+      "{icon:8c17caf335} Self {icon:f18923574c} Push 2 {icon:a38154c523} {icon:4f849b8ded} 17 {icon:20ffe98e2d}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.98,
+        64.27,
+        61.01,
+        68.38
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Unbearable Tremors",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Crowded",
+     "acc": 12,
+     "acc_value": null,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:9d58d3d431} +2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Unbearable Tremors {icon:3ab7e7544c} 2 {icon:7616568d52} Crowded {icon:7616568d52} {icon:7616568d52} {icon:7616568d52}",
+      "Acc 12",
+      "{icon:a38154c523} {icon:9d58d3d431} +2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        50.64,
+        84.59,
+        52.08,
+        88.71
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "2",
+     "bbox": [
+      21.4,
+      12.09,
+      23.35,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:7f4ed77130} {icon:d311f5fad9} {icon:ff1b2876c1}",
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:5824725929} {icon:010cc97a8a} {icon:5824725929} {icon:6023d48212} {icon:9446490c37} {icon:7c7de22bc1} {icon:be11b8ced8} 3 2 1 {icon:986406076a} {icon:986406076a} {icon:986406076a} 7-10 4-6 1-3"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p089",
+   "copies": 1,
+   "pages": [
+    89
+   ],
+   "name": "Necromancer",
+   "type_position_raw": "Eldritch - Unholy - Front",
+   "type_position_tags": [
+    "Eldritch",
+    "Unholy",
+    "Front"
+   ],
+   "level": 1,
+   "hp": 77,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "91ca3fa960",
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [
+    "1fd9f6ec6d"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "The Flesh is Willing",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 9,
+     "acc": 10,
+     "acc_value": 6,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Rabble"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 The Flesh is Willing {icon:3ab7e7544c} Crowded 1 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 9 Acc 10 {icon:8d4bbe5e11} 6",
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Rabble"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        56.47,
+        43.4,
+        57.5,
+        47.51
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "The Crawling Dead",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 7,
+     "acc": 10,
+     "acc_value": 5,
+     "effect_lines_raw": [
+      "{icon:33466be235} Self {icon:f18923574c} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Rabble"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 The Crawling Dead {icon:3ab7e7544c} Crowded 2 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 7 Acc 10 {icon:8d4bbe5e11} 5",
+      "{icon:33466be235} Self {icon:f18923574c} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Rabble"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        56.47,
+        64.17,
+        57.9,
+        68.28
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Six Feet Under",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Crowded",
+     "acc": 10,
+     "acc_value": null,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Rabble",
+      "{icon:9b00e692ba} +2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Six Feet Under {icon:3ab7e7544c} 2 {icon:7616568d52} Crowded {icon:7616568d52} {icon:7616568d52} {icon:7616568d52}",
+      "Acc 10",
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Rabble",
+      "{icon:9b00e692ba} +2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        50.37,
+        84.67,
+        51.8,
+        88.78
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "0",
+     "bbox": [
+      21.3,
+      12.09,
+      23.45,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:5824725929} {icon:010cc97a8a} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:7c7de22bc1} {icon:be11b8ced8} 3 2 1 {icon:986406076a} {icon:986406076a} {icon:986406076a} 7-10 4-6 1-3",
+    "{icon:7f4ed77130} {icon:d311f5fad9} {icon:ff1b2876c1}"
+   ],
+   "back_texts": [
+    "I"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p090",
+   "copies": 1,
+   "pages": [
+    90
+   ],
+   "name": "Necromancer",
+   "type_position_raw": "Eldritch - Unholy - Front",
+   "type_position_tags": [
+    "Eldritch",
+    "Unholy",
+    "Front"
+   ],
+   "level": 2,
+   "hp": 103,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "91ca3fa960",
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [
+    "1fd9f6ec6d"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "The Flesh is Willing",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 12,
+     "acc": 11,
+     "acc_value": 8,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:f18923574c} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Soldier"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 The Flesh is Willing {icon:3ab7e7544c} Crowded 1 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 12 Acc 11 {icon:8d4bbe5e11} 8",
+      "{icon:8c17caf335} Self {icon:f18923574c} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Soldier"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        56.47,
+        43.4,
+        57.5,
+        47.51
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "The Crawling Dead",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 9,
+     "acc": 11,
+     "acc_value": 6,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} {icon:c386328053} Self {icon:f18923574c} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Soldier"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 The Crawling Dead {icon:3ab7e7544c} Crowded 2 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 9 Acc 11 {icon:8d4bbe5e11} 6",
+      "{icon:8c17caf335} {icon:c386328053} Self {icon:f18923574c} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Soldier"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        56.47,
+        64.17,
+        57.9,
+        68.28
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Six Feet Under",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Crowded",
+     "acc": 11,
+     "acc_value": null,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:f18923574c} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Soldier",
+      "{icon:9b00e692ba} +2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Six Feet Under {icon:3ab7e7544c} 2 {icon:7616568d52} Crowded {icon:7616568d52} {icon:7616568d52} {icon:7616568d52}",
+      "Acc 11",
+      "{icon:8c17caf335} Self {icon:f18923574c} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Soldier",
+      "{icon:9b00e692ba} +2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        50.37,
+        84.67,
+        51.8,
+        88.78
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      21.49,
+      12.09,
+      22.9,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:5824725929} {icon:010cc97a8a} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:7c7de22bc1} {icon:be11b8ced8} 3 2 1 {icon:986406076a} {icon:986406076a} {icon:986406076a} 7-10 4-6 1-3",
+    "{icon:7f4ed77130} {icon:d311f5fad9} {icon:ff1b2876c1}"
+   ],
+   "back_texts": [
+    "II"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p091",
+   "copies": 1,
+   "pages": [
+    91
+   ],
+   "name": "Necromancer",
+   "type_position_raw": "Eldritch - Unholy - Front",
+   "type_position_tags": [
+    "Eldritch",
+    "Unholy",
+    "Front"
+   ],
+   "level": 3,
+   "hp": 144,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "91ca3fa960",
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [
+    "1fd9f6ec6d"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "The Flesh is Willing",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 16,
+     "acc": 12,
+     "acc_value": 10,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:f18923574c} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Spearman"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 The Flesh is Willing {icon:3ab7e7544c} Crowded 1 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 16 Acc 12 {icon:8d4bbe5e11} 10",
+      "{icon:8c17caf335} Self {icon:f18923574c} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Spearman"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        56.47,
+        43.4,
+        57.5,
+        47.51
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "The Crawling Dead",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 11,
+     "acc": 12,
+     "acc_value": 8,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} {icon:c386328053} Self {icon:f18923574c} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Spearman"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 The Crawling Dead {icon:3ab7e7544c} Crowded 2 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 11 Acc 12 {icon:8d4bbe5e11} 8",
+      "{icon:8c17caf335} {icon:c386328053} Self {icon:f18923574c} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Spearman"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        56.47,
+        64.17,
+        57.9,
+        68.28
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Six Feet Under",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Crowded",
+     "acc": 12,
+     "acc_value": null,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Spearman",
+      "{icon:9b00e692ba} +2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Six Feet Under {icon:3ab7e7544c} 2 {icon:7616568d52} Crowded {icon:7616568d52} {icon:7616568d52} {icon:7616568d52}",
+      "Acc 12",
+      "{icon:8c17caf335} Self {icon:b034e44cb1} Push 1 {icon:a38154c523} {icon:e98de99670} Bone Spearman",
+      "{icon:9b00e692ba} +2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        50.37,
+        84.67,
+        51.8,
+        88.78
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "3",
+     "bbox": [
+      21.36,
+      12.09,
+      23.39,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:5824725929} {icon:010cc97a8a} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:7c7de22bc1} {icon:be11b8ced8} 3 2 1 {icon:986406076a} {icon:986406076a} {icon:986406076a} 7-10 4-6 1-3",
+    "{icon:7f4ed77130} {icon:d311f5fad9} {icon:ff1b2876c1}"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p092",
+   "copies": 1,
+   "pages": [
+    92
+   ],
+   "name": "The Collector",
+   "type_position_raw": "Eldritch - Human - Front",
+   "type_position_tags": [
+    "Eldritch",
+    "Human",
+    "Front"
+   ],
+   "level": 1,
+   "hp": 66,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [
+    "1fd9f6ec6d"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Show Collection",
+     "block_bbox": [
+      5.11,
+      47.58,
+      70.0,
+      72.29
+     ],
+     "target": "Crowded",
+     "crit": 0,
+     "crit_value": 2,
+     "acc": 9,
+     "acc_value": 1,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:9b00e692ba} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Show Collection {icon:3ab7e7544c} Crowded 1 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 2 Acc 9 {icon:8d4bbe5e11} 1",
+      "{icon:a38154c523} {icon:9b00e692ba} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        56.47,
+        52.95,
+        57.5,
+        57.07
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Life Steal",
+     "block_bbox": [
+      4.78,
+      72.29,
+      70.0,
+      103.2
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 9,
+     "acc": 8,
+     "acc_value": 5,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:3ee34939e2} {icon:20ffe98e2d} 9 {icon:a38154c523} 2 {icon:784ec4fe7a} 2t , {icon:66b4ce40ed} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Life Steal {icon:3ab7e7544c} Crowded 2 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 9 Acc 8 {icon:8d4bbe5e11} 5",
+      "{icon:8c17caf335} Self {icon:3ee34939e2} {icon:20ffe98e2d} 9 {icon:a38154c523} 2 {icon:784ec4fe7a} 2t , {icon:66b4ce40ed} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        56.47,
+        77.75,
+        57.9,
+        81.86
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "0",
+     "bbox": [
+      21.3,
+      12.09,
+      23.45,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:ff1b2876c1} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:9614979938} 2 1 {icon:986406076a} {icon:986406076a} 6-10 1-5"
+   ],
+   "back_texts": [
+    "I"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p093",
+   "copies": 1,
+   "pages": [
+    93
+   ],
+   "name": "The Collector",
+   "type_position_raw": "Eldritch - Human - Front",
+   "type_position_tags": [
+    "Eldritch",
+    "Human",
+    "Front"
+   ],
+   "level": 2,
+   "hp": 88,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [
+    "1fd9f6ec6d"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Show Collection",
+     "block_bbox": [
+      5.11,
+      47.85,
+      70.0,
+      72.29
+     ],
+     "target": "Crowded",
+     "crit": 0,
+     "crit_value": 3,
+     "acc": 10,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:a84ac4c016} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Show Collection {icon:3ab7e7544c} Crowded 1 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 3 Acc 10 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:a84ac4c016} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        56.47,
+        53.22,
+        57.5,
+        57.34
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Life Steal",
+     "block_bbox": [
+      4.78,
+      72.29,
+      70.0,
+      103.2
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 12,
+     "acc": 9,
+     "acc_value": 7,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:4f849b8ded} 14 {icon:20ffe98e2d} {icon:a38154c523} 2 {icon:3bd2c65366} 2t , {icon:66b4ce40ed} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Life Steal {icon:3ab7e7544c} Crowded 2 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 12 Acc 9 {icon:8d4bbe5e11} 7",
+      "{icon:8c17caf335} Self {icon:4f849b8ded} 14 {icon:20ffe98e2d} {icon:a38154c523} 2 {icon:3bd2c65366} 2t , {icon:66b4ce40ed} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        56.47,
+        77.75,
+        57.9,
+        81.86
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      21.85,
+      12.09,
+      23.25,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:ff1b2876c1} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:9614979938} 2 1 {icon:986406076a} {icon:986406076a} 6-10 1-5"
+   ],
+   "back_texts": [
+    "II"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p094",
+   "copies": 1,
+   "pages": [
+    94
+   ],
+   "name": "The Collector",
+   "type_position_raw": "Eldritch - Human - Front",
+   "type_position_tags": [
+    "Eldritch",
+    "Human",
+    "Front"
+   ],
+   "level": 3,
+   "hp": 111,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [
+    "1fd9f6ec6d"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Show Collection",
+     "block_bbox": [
+      5.11,
+      46.34,
+      70.0,
+      72.29
+     ],
+     "target": "Crowded",
+     "crit": 0,
+     "crit_value": 5,
+     "acc": 11,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:9b00e692ba} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Show Collection {icon:3ab7e7544c} Crowded 1 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 5 Acc 11 {icon:8d4bbe5e11} 3",
+      "{icon:a38154c523} {icon:9b00e692ba} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        56.47,
+        51.72,
+        57.5,
+        55.83
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Life Steal",
+     "block_bbox": [
+      4.78,
+      72.29,
+      70.0,
+      103.2
+     ],
+     "target": "Crowded",
+     "crit": 2,
+     "crit_value": 16,
+     "acc": 10,
+     "acc_value": 9,
+     "effect_lines_raw": [
+      "{icon:8c17caf335} Self {icon:4f849b8ded} 18 {icon:20ffe98e2d} {icon:a38154c523} 3 {icon:3bd2c65366} 2t , {icon:66b4ce40ed} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Life Steal {icon:3ab7e7544c} Crowded 2 {icon:7616568d52} {icon:7616568d52}",
+      "Crit 2 {icon:8d4bbe5e11} 16 Acc 10 {icon:8d4bbe5e11} 9",
+      "{icon:8c17caf335} Self {icon:4f849b8ded} 18 {icon:20ffe98e2d} {icon:a38154c523} 3 {icon:3bd2c65366} 2t , {icon:66b4ce40ed} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        56.47,
+        77.75,
+        57.9,
+        81.86
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "2",
+     "bbox": [
+      21.4,
+      12.09,
+      23.35,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:ff1b2876c1} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:9614979938} 2 1 {icon:986406076a} {icon:986406076a} 6-10 1-5"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p095",
+   "copies": 1,
+   "pages": [
+    95
+   ],
+   "name": "Collected Highwayman",
+   "type_position_raw": "Eldritch",
+   "type_position_tags": [
+    "Eldritch"
+   ],
+   "level": 1,
+   "hp": 1,
+   "hp_icon": "6cee7f5b3b",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "1fd9f6ec6d"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Headhunt",
+     "block_bbox": [
+      5.11,
+      62.42,
+      70.0,
+      103.2
+     ],
+     "target": "Furthest",
+     "crit": 1,
+     "crit_value": 11,
+     "acc": 9,
+     "acc_value": 7,
+     "effect_lines_raw": [
+      "{icon:a38154c523} 1 {icon:450f0fcc1d} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Headhunt {icon:3ab7e7544c} Furthest 2 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 11 Acc 9 {icon:8d4bbe5e11} 7",
+      "{icon:a38154c523} 1 {icon:450f0fcc1d} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.42,
+        68.05,
+        60.85,
+        72.16
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "11",
+     "bbox": [
+      60.4,
+      32.37,
+      63.46,
+      38.0
+     ],
+     "inside_icon": "6c0295c4e8"
+    },
+    {
+     "text": "1",
+     "bbox": [
+      21.85,
+      12.09,
+      23.25,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:a2e3d7235f} {icon:0ba73142d3} {icon:39b6880840} {icon:293f170eab} {icon:6cee7f5b3b} 1"
+   ],
+   "back_texts": [
+    "I"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p096",
+   "copies": 1,
+   "pages": [
+    96
+   ],
+   "name": "Collected Highwayman",
+   "type_position_raw": "Eldritch",
+   "type_position_tags": [
+    "Eldritch"
+   ],
+   "level": 2,
+   "hp": 1,
+   "hp_icon": "6cee7f5b3b",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "1fd9f6ec6d"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Headhunt",
+     "block_bbox": [
+      5.11,
+      62.42,
+      70.0,
+      103.2
+     ],
+     "target": "Furthest",
+     "crit": 1,
+     "crit_value": 16,
+     "acc": 10,
+     "acc_value": 11,
+     "effect_lines_raw": [
+      "{icon:a38154c523} 2 {icon:450f0fcc1d} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Headhunt {icon:3ab7e7544c} Furthest 2 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 16 Acc 10 {icon:8d4bbe5e11} 11",
+      "{icon:a38154c523} 2 {icon:450f0fcc1d} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.42,
+        68.05,
+        60.85,
+        72.16
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "15",
+     "bbox": [
+      60.02,
+      32.37,
+      63.84,
+      38.0
+     ],
+     "inside_icon": "6c0295c4e8"
+    },
+    {
+     "text": "2",
+     "bbox": [
+      21.4,
+      12.09,
+      23.35,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:a2e3d7235f} {icon:0ba73142d3} {icon:39b6880840} {icon:293f170eab} {icon:6cee7f5b3b} 1"
+   ],
+   "back_texts": [
+    "II"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p097",
+   "copies": 1,
+   "pages": [
+    97
+   ],
+   "name": "Collected Highwayman",
+   "type_position_raw": "Eldritch",
+   "type_position_tags": [
+    "Eldritch"
+   ],
+   "level": 3,
+   "hp": 1,
+   "hp_icon": "6cee7f5b3b",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "1fd9f6ec6d"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Headhunt",
+     "block_bbox": [
+      5.11,
+      62.42,
+      70.0,
+      103.2
+     ],
+     "target": "Furthest",
+     "crit": 2,
+     "crit_value": 21,
+     "acc": 11,
+     "acc_value": 15,
+     "effect_lines_raw": [
+      "{icon:a38154c523} 3 {icon:450f0fcc1d} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Headhunt {icon:3ab7e7544c} Furthest 2 {icon:7616568d52}",
+      "Crit 2 {icon:8d4bbe5e11} 21 Acc 11 {icon:8d4bbe5e11} 15",
+      "{icon:a38154c523} 3 {icon:450f0fcc1d} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.42,
+        68.05,
+        60.85,
+        72.16
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "21",
+     "bbox": [
+      60.1,
+      32.37,
+      63.76,
+      38.0
+     ],
+     "inside_icon": "6c0295c4e8"
+    },
+    {
+     "text": "3",
+     "bbox": [
+      21.36,
+      12.09,
+      23.39,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:a2e3d7235f} {icon:0ba73142d3} {icon:39b6880840} {icon:293f170eab} {icon:6cee7f5b3b} 1"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p098",
+   "copies": 1,
+   "pages": [
+    98
+   ],
+   "name": "Collected Man-at-Arms",
+   "type_position_raw": "Eldritch",
+   "type_position_tags": [
+    "Eldritch"
+   ],
+   "level": 1,
+   "hp": 1,
+   "hp_icon": "6cee7f5b3b",
+   "resistances_icons": [
+    "784ec4fe7a",
+    "f73032e12e"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Head Knocker",
+     "block_bbox": [
+      5.11,
+      62.42,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 0,
+     "crit_value": 8,
+     "acc": 9,
+     "acc_value": 5,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 1t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Head Knocker {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 8 Acc 9 {icon:8d4bbe5e11} 5",
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 1t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.42,
+        68.05,
+        60.46,
+        72.16
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "12",
+     "bbox": [
+      60.1,
+      32.37,
+      63.76,
+      38.0
+     ],
+     "inside_icon": "6c0295c4e8"
+    },
+    {
+     "text": "1",
+     "bbox": [
+      21.76,
+      12.09,
+      23.16,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:a2e3d7235f} {icon:0ba73142d3} {icon:39b6880840} {icon:293f170eab} {icon:6cee7f5b3b} 1"
+   ],
+   "back_texts": [
+    "I"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p099",
+   "copies": 1,
+   "pages": [
+    99
+   ],
+   "name": "Collected Man-at-Arms",
+   "type_position_raw": "Eldritch",
+   "type_position_tags": [
+    "Eldritch"
+   ],
+   "level": 2,
+   "hp": 1,
+   "hp_icon": "6cee7f5b3b",
+   "resistances_icons": [
+    "784ec4fe7a",
+    "f73032e12e"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Head Knocker",
+     "block_bbox": [
+      5.11,
+      62.42,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 0,
+     "crit_value": 11,
+     "acc": 10,
+     "acc_value": 7,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 1t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Head Knocker {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 11 Acc 10 {icon:8d4bbe5e11} 7",
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 1t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.42,
+        68.05,
+        60.46,
+        72.16
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "16",
+     "bbox": [
+      59.98,
+      32.37,
+      63.88,
+      38.0
+     ],
+     "inside_icon": "6c0295c4e8"
+    },
+    {
+     "text": "2",
+     "bbox": [
+      21.58,
+      12.09,
+      23.52,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:a2e3d7235f} {icon:0ba73142d3} {icon:39b6880840} {icon:293f170eab} {icon:6cee7f5b3b} 1"
+   ],
+   "back_texts": [
+    "II"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p100",
+   "copies": 1,
+   "pages": [
+    100
+   ],
+   "name": "Collected Man-at-Arms",
+   "type_position_raw": "Eldritch",
+   "type_position_tags": [
+    "Eldritch"
+   ],
+   "level": 3,
+   "hp": 1,
+   "hp_icon": "6cee7f5b3b",
+   "resistances_icons": [
+    "784ec4fe7a",
+    "f73032e12e"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Head Knocker",
+     "block_bbox": [
+      5.11,
+      62.42,
+      70.0,
+      103.2
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 14,
+     "acc": 11,
+     "acc_value": 9,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 1t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Head Knocker {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 14 Acc 11 {icon:8d4bbe5e11} 9",
+      "{icon:a38154c523} {icon:1fd9f6ec6d} 1t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.42,
+        68.05,
+        60.46,
+        72.16
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "22",
+     "bbox": [
+      59.8,
+      32.37,
+      64.05,
+      38.0
+     ],
+     "inside_icon": "6c0295c4e8"
+    },
+    {
+     "text": "3",
+     "bbox": [
+      21.36,
+      12.09,
+      23.39,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:a2e3d7235f} {icon:0ba73142d3} {icon:39b6880840} {icon:293f170eab} {icon:6cee7f5b3b} 1"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p101",
+   "copies": 1,
+   "pages": [
+    101
+   ],
+   "name": "Collected Vestal",
+   "type_position_raw": "Eldritch",
+   "type_position_tags": [
+    "Eldritch"
+   ],
+   "level": 1,
+   "hp": 1,
+   "hp_icon": "6cee7f5b3b",
+   "resistances_icons": [
+    "784ec4fe7a",
+    "f73032e12e"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Headache",
+     "block_bbox": [
+      5.11,
+      62.42,
+      70.0,
+      103.2
+     ],
+     "target": "Most Wounded",
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:b415f8c175} 2t , {icon:4f849b8ded} {icon:20ffe98e2d} 7"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Headache {icon:c16e73c099} Most Wounded {icon:3ab7e7544c} 2 {icon:a396e95c00}",
+      "{icon:a38154c523} {icon:b415f8c175} 2t , {icon:4f849b8ded} {icon:20ffe98e2d} 7"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.42,
+        68.05,
+        60.85,
+        72.16
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "10",
+     "bbox": [
+      59.99,
+      32.37,
+      63.87,
+      38.0
+     ],
+     "inside_icon": "6c0295c4e8"
+    },
+    {
+     "text": "1",
+     "bbox": [
+      21.67,
+      12.09,
+      23.08,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:a2e3d7235f} {icon:0ba73142d3} {icon:39b6880840} {icon:293f170eab} {icon:6cee7f5b3b} 1"
+   ],
+   "back_texts": [
+    "I"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p102",
+   "copies": 1,
+   "pages": [
+    102
+   ],
+   "name": "Collected Vestal",
+   "type_position_raw": "Eldritch",
+   "type_position_tags": [
+    "Eldritch"
+   ],
+   "level": 2,
+   "hp": 1,
+   "hp_icon": "6cee7f5b3b",
+   "resistances_icons": [
+    "784ec4fe7a",
+    "f73032e12e"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Headache",
+     "block_bbox": [
+      5.11,
+      62.42,
+      70.0,
+      103.2
+     ],
+     "target": "Most Wounded",
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:b415f8c175} 2t , {icon:4f849b8ded} {icon:20ffe98e2d} 9"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Headache {icon:c16e73c099} Most Wounded {icon:3ab7e7544c} 2 {icon:a396e95c00}",
+      "{icon:a38154c523} {icon:b415f8c175} 2t , {icon:4f849b8ded} {icon:20ffe98e2d} 9"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.42,
+        68.05,
+        60.85,
+        72.16
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "14",
+     "bbox": [
+      60.01,
+      32.37,
+      63.84,
+      38.0
+     ],
+     "inside_icon": "6c0295c4e8"
+    },
+    {
+     "text": "2",
+     "bbox": [
+      21.4,
+      12.09,
+      23.35,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:a2e3d7235f} {icon:0ba73142d3} {icon:39b6880840} {icon:293f170eab} {icon:6cee7f5b3b} 1"
+   ],
+   "back_texts": [
+    "II"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p103",
+   "copies": 1,
+   "pages": [
+    103
+   ],
+   "name": "Collected Vestal",
+   "type_position_raw": "Eldritch",
+   "type_position_tags": [
+    "Eldritch"
+   ],
+   "level": 3,
+   "hp": 1,
+   "hp_icon": "6cee7f5b3b",
+   "resistances_icons": [
+    "784ec4fe7a",
+    "f73032e12e"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Headache",
+     "block_bbox": [
+      5.11,
+      62.42,
+      70.0,
+      103.2
+     ],
+     "target": "Most Wounded",
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:b415f8c175} 2t , {icon:4f849b8ded} 11 {icon:20ffe98e2d}"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Headache {icon:c16e73c099} Most Wounded {icon:3ab7e7544c} 2 {icon:a396e95c00}",
+      "{icon:a38154c523} {icon:b415f8c175} 2t , {icon:4f849b8ded} 11 {icon:20ffe98e2d}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.42,
+        68.05,
+        60.85,
+        72.16
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "20",
+     "bbox": [
+      59.69,
+      32.37,
+      64.17,
+      38.0
+     ],
+     "inside_icon": "6c0295c4e8"
+    },
+    {
+     "text": "3",
+     "bbox": [
+      21.45,
+      12.09,
+      23.47,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:9e89b8399f} {icon:f7400b538c} {icon:8bd94417b0} {icon:a2e3d7235f} {icon:0ba73142d3} {icon:39b6880840} {icon:293f170eab} {icon:6cee7f5b3b} 1"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p104",
+   "copies": 1,
+   "pages": [
+    104
+   ],
+   "name": "White Cell Stalk",
+   "type_position_raw": "Eldritch - Beast - Small - Front",
+   "type_position_tags": [
+    "Eldritch",
+    "Beast",
+    "Small",
+    "Front"
+   ],
+   "level": 3,
+   "hp": 16,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "9d0ef9dd87"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Reconstitute",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      58.71
+     ],
+     "target": "Mammoth Cyst",
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:4f849b8ded} 14 {icon:20ffe98e2d} , {icon:b415f8c175} 2t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Reconstitute Mammoth Cyst {icon:3ab7e7544c} 2 {icon:a396e95c00}",
+      "{icon:a38154c523} {icon:4f849b8ded} 14 {icon:20ffe98e2d} , {icon:b415f8c175} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.66,
+        43.4,
+        61.09,
+        47.51
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Displace",
+     "block_bbox": [
+      4.78,
+      58.71,
+      70.0,
+      79.41
+     ],
+     "target": "Closest",
+     "crit": 0,
+     "crit_value": 4,
+     "acc": 12,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t , {icon:f18923574c} Push 2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Displace {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 4 Acc 12 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:c3fb3612ce} 2t , {icon:f18923574c} Push 2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.98,
+        64.27,
+        61.01,
+        68.38
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Teleport",
+     "block_bbox": [
+      4.74,
+      79.41,
+      70.0,
+      103.2
+     ],
+     "target": "Furthest",
+     "acc": 12,
+     "acc_value": null,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:9b00e692ba} +2 , Teleport"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Teleport {icon:3ab7e7544c} Furthest 2 {icon:7616568d52}",
+      "Acc 12",
+      "{icon:a38154c523} {icon:9b00e692ba} +2 , Teleport"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.66,
+        84.59,
+        61.09,
+        88.71
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "4",
+     "bbox": [
+      21.33,
+      12.09,
+      23.42,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:5824725929} {icon:010cc97a8a} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:7c7de22bc1} {icon:be11b8ced8} 3 2 1 {icon:986406076a} {icon:986406076a} {icon:986406076a} 8-10 4-7 1-3",
+    "{icon:7f4ed77130} {icon:d311f5fad9} {icon:ff1b2876c1}"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p105",
+   "copies": 1,
+   "pages": [
+    105
+   ],
+   "name": "Ancestor 1",
+   "type_position_raw": "Eldritch - Human - Front",
+   "type_position_tags": [
+    "Eldritch",
+    "Human",
+    "Front"
+   ],
+   "level": 3,
+   "hp": 50,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "e05f59c39a",
+    "6b42b1059d",
+    "0fa12b226d",
+    "9051eb737b"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Perfect Replication",
+     "block_bbox": [
+      5.11,
+      38.01,
+      70.0,
+      59.71
+     ],
+     "target": "Closest",
+     "crit": 2,
+     "crit_value": 4,
+     "acc": 12,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:9ffbd6087a} -1 , {icon:bbbe3513eb} Perfect Reflection"
+     ],
+     "lines_raw": [
+      "{icon:6b42b1059d} {icon:0fa12b226d}",
+      "{icon:6eb2ab6c16} 1 Perfect Replication {icon:3ab7e7544c} Closest 0 {icon:7616568d52}",
+      "Crit 2 {icon:8d4bbe5e11} 4 Acc 12 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:9ffbd6087a} -1 , {icon:bbbe3513eb} Perfect Reflection"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "0",
+       "bbox": [
+        59.98,
+        43.4,
+        61.57,
+        47.51
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Imperfect Reproduction",
+     "block_bbox": [
+      4.78,
+      59.71,
+      70.0,
+      81.79
+     ],
+     "target": "Most Stressed",
+     "crit": 1,
+     "crit_value": 4,
+     "acc": 12,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:5729151bda} +2 , {icon:bbbe3513eb} Imperfect Reflection"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Imperfect Reproduction {icon:12114c0ffd} Most Stressed {icon:3ab7e7544c} 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 4 Acc 12 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:5729151bda} +2 , {icon:bbbe3513eb} Imperfect Reflection"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.98,
+        65.27,
+        61.01,
+        69.38
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Time Heals All",
+     "block_bbox": [
+      4.74,
+      81.79,
+      70.0,
+      103.2
+     ],
+     "target": "Most Wounded",
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:4f849b8ded} 10 {icon:20ffe98e2d}"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 3 Time Heals All {icon:12114c0ffd} Most Wounded {icon:3ab7e7544c} 1 {icon:2a76f0dc4d}",
+      "{icon:a38154c523} {icon:4f849b8ded} 10 {icon:20ffe98e2d}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.66,
+        86.98,
+        60.69,
+        91.09
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "3",
+     "bbox": [
+      20.84,
+      12.09,
+      22.86,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:ff1b2876c1} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:ae6fa33200} 2 {icon:986406076a} {icon:986406076a} 1 4-10 1-3"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p106",
+   "copies": 3,
+   "pages": [
+    106,
+    107,
+    108
+   ],
+   "copy_variants": [
+    {
+     "page": 106,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 107,
+     "face": "front",
+     "iconId": "8a36350c76"
+    },
+    {
+     "page": 108,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Perfect Reflection",
+   "type_position_raw": "Eldritch - Human",
+   "type_position_tags": [
+    "Eldritch",
+    "Human"
+   ],
+   "level": 3,
+   "hp": 24,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "1fd9f6ec6d",
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Reunion",
+     "block_bbox": [
+      5.11,
+      47.85,
+      70.0,
+      72.29
+     ],
+     "target": "Marked -> Closest",
+     "crit": 1,
+     "crit_value": 8,
+     "acc": 11,
+     "acc_value": 5,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:8d4bbe5e11} +3 vs {icon:79d7aeb08b} , 2 {icon:256b350543} 3t ,",
+      "{icon:5729151bda} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Reunion Marked -> Closest {icon:3ab7e7544c} 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 8 Acc 11 {icon:8d4bbe5e11} 5",
+      "{icon:a38154c523} {icon:8d4bbe5e11} +3 vs {icon:79d7aeb08b} , 2 {icon:256b350543} 3t ,",
+      "{icon:5729151bda} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.29,
+        53.22,
+        60.33,
+        57.34
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "We Are the Same",
+     "block_bbox": [
+      4.78,
+      72.29,
+      70.0,
+      103.2
+     ],
+     "target": "Most Stressed",
+     "crit": 1,
+     "crit_value": 3,
+     "acc": 12,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:9d58d3d431} +2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 We Are the Same {icon:12114c0ffd} Most Stressed {icon:3ab7e7544c} 2 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 3 Acc 12 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:9d58d3d431} +2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.29,
+        77.75,
+        60.73,
+        81.86
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "2",
+     "bbox": [
+      20.87,
+      12.09,
+      22.82,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:ff1b2876c1} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:9614979938} 2 1 {icon:986406076a} {icon:986406076a} 6-10 1-5"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:p109",
+   "copies": 3,
+   "pages": [
+    109,
+    110,
+    111
+   ],
+   "copy_variants": [
+    {
+     "page": 109,
+     "face": "front",
+     "iconId": "664fc83b90"
+    },
+    {
+     "page": 110,
+     "face": "front",
+     "iconId": "0997fde3ed"
+    },
+    {
+     "page": 111,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Imperfect Reflection",
+   "type_position_raw": "Eldritch - Human",
+   "type_position_tags": [
+    "Eldritch",
+    "Human"
+   ],
+   "level": 3,
+   "hp": 19,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "1fd9f6ec6d",
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "It Chooses",
+     "block_bbox": [
+      5.11,
+      47.85,
+      70.0,
+      72.29
+     ],
+     "target": "Closest",
+     "crit": 0,
+     "crit_value": 4,
+     "acc": 11,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:79d7aeb08b} 2t , {icon:1fd9f6ec6d} 1t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 It Chooses {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 4 Acc 11 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:79d7aeb08b} 2t , {icon:1fd9f6ec6d} 1t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.29,
+        53.22,
+        60.33,
+        57.34
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "We Are the Same",
+     "block_bbox": [
+      4.78,
+      72.29,
+      70.0,
+      103.2
+     ],
+     "target": "Most Stressed",
+     "crit": 0,
+     "crit_value": 3,
+     "acc": 12,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:9d58d3d431} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 We Are the Same {icon:12114c0ffd} Most Stressed {icon:3ab7e7544c} 2 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 3 Acc 12 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:9d58d3d431} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.29,
+        77.75,
+        60.73,
+        81.86
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "2",
+     "bbox": [
+      21.4,
+      12.09,
+      23.35,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:ff1b2876c1} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:9614979938} 2 1 {icon:986406076a} {icon:986406076a} 6-10 1-5"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:ADD_014:p001",
+   "copies": 2,
+   "pages": [
+    1,
+    2
+   ],
+   "copy_variants": [
+    {
+     "page": 1,
+     "face": "front",
+     "iconId": "8a36350c76"
+    },
+    {
+     "page": 2,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Perfect Reflection",
+   "type_position_raw": "Eldritch - Human",
+   "type_position_tags": [
+    "Eldritch",
+    "Human"
+   ],
+   "level": 3,
+   "hp": 24,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "1fd9f6ec6d",
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Reunion",
+     "block_bbox": [
+      5.11,
+      47.85,
+      70.0,
+      72.29
+     ],
+     "target": "Marked -> Closest",
+     "crit": 1,
+     "crit_value": 8,
+     "acc": 11,
+     "acc_value": 5,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:8d4bbe5e11} +3 vs {icon:79d7aeb08b} , 2 {icon:256b350543} 3t ,",
+      "{icon:5729151bda} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 Reunion Marked -> Closest {icon:3ab7e7544c} 1 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 8 Acc 11 {icon:8d4bbe5e11} 5",
+      "{icon:a38154c523} {icon:8d4bbe5e11} +3 vs {icon:79d7aeb08b} , 2 {icon:256b350543} 3t ,",
+      "{icon:5729151bda} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.29,
+        53.22,
+        60.33,
+        57.34
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "We Are the Same",
+     "block_bbox": [
+      4.78,
+      72.29,
+      70.0,
+      103.2
+     ],
+     "target": "Most Stressed",
+     "crit": 1,
+     "crit_value": 3,
+     "acc": 12,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:9d58d3d431} +2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 We Are the Same {icon:12114c0ffd} Most Stressed {icon:3ab7e7544c} 2 {icon:7616568d52}",
+      "Crit 1 {icon:8d4bbe5e11} 3 Acc 12 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:9d58d3d431} +2"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.29,
+        77.75,
+        60.73,
+        81.86
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "2",
+     "bbox": [
+      20.87,
+      12.09,
+      22.82,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:ff1b2876c1} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:9614979938} 2 1 {icon:986406076a} {icon:986406076a} 6-10 1-5"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_medium:ADD_014:p003",
+   "copies": 2,
+   "pages": [
+    3,
+    4
+   ],
+   "copy_variants": [
+    {
+     "page": 3,
+     "face": "front",
+     "iconId": "0997fde3ed"
+    },
+    {
+     "page": 4,
+     "face": "front",
+     "iconId": "bb8a050552"
+    }
+   ],
+   "name": "Imperfect Reflection",
+   "type_position_raw": "Eldritch - Human",
+   "type_position_tags": [
+    "Eldritch",
+    "Human"
+   ],
+   "level": 3,
+   "hp": 19,
+   "hp_icon": "6c0295c4e8",
+   "resistances_icons": [
+    "1fd9f6ec6d",
+    "1202a8c5f4"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "It Chooses",
+     "block_bbox": [
+      5.11,
+      47.85,
+      70.0,
+      72.29
+     ],
+     "target": "Closest",
+     "crit": 0,
+     "crit_value": 4,
+     "acc": 11,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:79d7aeb08b} 2t , {icon:1fd9f6ec6d} 1t"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 1 It Chooses {icon:3ab7e7544c} Closest 1 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 4 Acc 11 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:79d7aeb08b} 2t , {icon:1fd9f6ec6d} 1t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.29,
+        53.22,
+        60.33,
+        57.34
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "We Are the Same",
+     "block_bbox": [
+      4.78,
+      72.29,
+      70.0,
+      103.2
+     ],
+     "target": "Most Stressed",
+     "crit": 0,
+     "crit_value": 3,
+     "acc": 12,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:9d58d3d431} +1"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 We Are the Same {icon:12114c0ffd} Most Stressed {icon:3ab7e7544c} 2 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 3 Acc 12 {icon:8d4bbe5e11} 2",
+      "{icon:a38154c523} {icon:9d58d3d431} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        59.29,
+        77.75,
+        60.73,
+        81.86
+       ],
+       "left_icon": "3ab7e7544c"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "2",
+     "bbox": [
+      21.4,
+      12.09,
+      23.35,
+      17.66
+     ],
+     "inside_icon": "c13f61abd5"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:b5d7889153} {icon:2ce1cd4d1b} {icon:7f4ed77130} {icon:f7e08a02e7} {icon:7eeaf1ad74} {icon:d311f5fad9} {icon:5824725929} {icon:010cc97a8a} {icon:ff1b2876c1} {icon:5824725929} {icon:6023d48212} {icon:ef63419250} {icon:9614979938} 2 1 {icon:986406076a} {icon:986406076a} 6-10 1-5"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": []
+  }
+ ]
+}

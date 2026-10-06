@@ -1,0 +1,574 @@
+{
+ "extractor_version": "1.0.4",
+ "print_root": "/workspace/ddbg-print/DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_01_EN_COREBOX_Print",
+ "sources": [
+  {
+   "file": "00_ADD_014_CORE/DD_EN_COREBOX_CARDS_100_180_Hero_PVP_BACK_ADD.pdf",
+   "bytes": 3733315
+  },
+  {
+   "file": "00_ADD_014_CORE/DD_EN_COREBOX_CARDS_100_180_Hero_PVP_FRONT_ADD.pdf",
+   "bytes": 3501276
+  },
+  {
+   "file": "00_ADD_014_CORE/DD_EN_COREBOX_CARDS_70_120_monsters_medium_BACK_ADD.pdf",
+   "bytes": 2145201
+  },
+  {
+   "file": "00_ADD_014_CORE/DD_EN_COREBOX_CARDS_70_120_monsters_medium_FRONT_ADD.pdf",
+   "bytes": 2502508
+  },
+  {
+   "file": "00_ADD_014_CORE/DD_EN_COREBOX_PUNCHBOARD_130x106_BACK.pdf",
+   "bytes": 1502591
+  },
+  {
+   "file": "00_ADD_014_CORE/DD_EN_COREBOX_PUNCHBOARD_130x106_FRONT.pdf",
+   "bytes": 1502669
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100_180_Hero_PVP_BACK.pdf",
+   "bytes": 15169597
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100_180_Hero_PVP_FRONT.pdf",
+   "bytes": 15318342
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
+   "bytes": 11271271
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
+   "bytes": 6891221
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_140x140_monster_large_BACK.pdf",
+   "bytes": 3089902
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_140x140_monster_large_FRONT.pdf",
+   "bytes": 12682282
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+   "bytes": 1722633
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+   "bytes": 1850765
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "bytes": 1790071
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "bytes": 2307625
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_BACK.pdf",
+   "bytes": 16709810
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+   "bytes": 16214397
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_TRINKETS_BACK.pdf",
+   "bytes": 1801539
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+   "bytes": 3411771
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
+   "bytes": 1797108
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
+   "bytes": 1864990
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+   "bytes": 1791678
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+   "bytes": 4874709
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_BACK.pdf",
+   "bytes": 2010088
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+   "bytes": 11077354
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
+   "bytes": 1702763
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
+   "bytes": 7294822
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_BACK.pdf",
+   "bytes": 7647419
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+   "bytes": 8568530
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_PLAYER_AIDS_BACK.pdf",
+   "bytes": 2221295
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_PLAYER_AIDS_FRONT.pdf",
+   "bytes": 2696562
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_monsters_medium_BACK.pdf",
+   "bytes": 2524448
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_monsters_medium_FRONT.pdf",
+   "bytes": 13619128
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+   "bytes": 2064107
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+   "bytes": 3613896
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+   "bytes": 1937281
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+   "bytes": 5167113
+  },
+  {
+   "file": "DD_COREBOX_TILES_BACK.pdf",
+   "bytes": 44222833
+  },
+  {
+   "file": "DD_COREBOX_TILES_FRONT.pdf",
+   "bytes": 46863244
+  },
+  {
+   "file": "DD_EN_COREBOX_BOARD_Hamlet_BACK.pdf",
+   "bytes": 1810313
+  },
+  {
+   "file": "DD_EN_COREBOX_BOARD_Hamlet_FRONT.pdf",
+   "bytes": 3156820
+  },
+  {
+   "file": "DD_EN_COREBOX_LETTER.pdf",
+   "bytes": 3934923
+  },
+  {
+   "file": "DD_EN_COREBOX_PUNCHBOARD_200x300_BACK_V2.pdf",
+   "bytes": 2732997
+  },
+  {
+   "file": "DD_EN_COREBOX_PUNCHBOARD_200x300_FRONT_V2.pdf",
+   "bytes": 2211843
+  },
+  {
+   "file": "DD_EN_COREBOX_PUNCHBOARD_300x300_BACK.pdf",
+   "bytes": 6133298
+  },
+  {
+   "file": "DD_EN_COREBOX_PUNCHBOARD_300x300_FRONT.pdf",
+   "bytes": 9558281
+  },
+  {
+   "file": "DD_EN_COREBOX_SAVE_SHEET.pdf",
+   "bytes": 1766866
+  }
+ ],
+ "text_free": [
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Initiative_FRONT.pdf",
+   "label": "initiative",
+   "note": "8 initiative cards; no text (bitmap/outlines)",
+   "pages": 8
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Initiative_BACK.pdf",
+   "label": "initiative",
+   "note": "backs",
+   "pages": 8
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+   "label": "quest_map",
+   "note": "14 quest map cards; no text",
+   "pages": 14
+  },
+  {
+   "file": "02_DD_CARDS_COREBOX/DD_COREBOX_CARDS_193x203_QuestMap_BACK.pdf",
+   "label": "quest_map",
+   "note": "backs",
+   "pages": 14
+  },
+  {
+   "file": "01_DD_DICE_COREBOX/DD_COREBOX_DICE_D10_Death_Door.pdf",
+   "label": "dice_net",
+   "note": "D10 death's door die net; vector only",
+   "pages": 2
+  },
+  {
+   "file": "01_DD_DICE_COREBOX/DD_COREBOX_DICE_D10_Number.pdf",
+   "label": "dice_net",
+   "note": "D10 number die net; vector only",
+   "pages": 2
+  },
+  {
+   "file": "01_DD_DICE_COREBOX/DD_COREBOX_DICE_D6_Exploration.pdf",
+   "label": "dice_net",
+   "note": "D6 exploration die net; vector only",
+   "pages": 2
+  },
+  {
+   "file": "01_DD_DICE_COREBOX/DD_COREBOX_DICE_D6_Provision.pdf",
+   "label": "dice_net",
+   "note": "D6 provision die net; vector only",
+   "pages": 2
+  },
+  {
+   "file": "DD_COREBOX_BOARD_Monster_Stance_FRONT.pdf",
+   "label": "stance_board",
+   "note": "monster stance tracker; single bitmap",
+   "pages": 1
+  },
+  {
+   "file": "DD_COREBOX_BOARD_Monster_Stance_BACK.pdf",
+   "label": "stance_board",
+   "note": "back",
+   "pages": 1
+  },
+  {
+   "file": "DD_COREBOX_DASHBOARD_Hero_FRONT_V2.pdf",
+   "label": "hero_dashboard",
+   "note": "4 hero dashboards; single bitmap each",
+   "pages": 4
+  },
+  {
+   "file": "DD_COREBOX_DASHBOARD_Hero_BACK.pdf",
+   "label": "hero_dashboard",
+   "note": "backs",
+   "pages": 4
+  },
+  {
+   "file": "DD_COREBOX_PUNCHBOARD_130x60_FRONT.pdf",
+   "label": "punchboard_130x60",
+   "note": "token sheet; no text",
+   "pages": 1
+  },
+  {
+   "file": "DD_COREBOX_PUNCHBOARD_130x60_BACK.pdf",
+   "label": "punchboard_130x60",
+   "note": "back",
+   "pages": 1
+  },
+  {
+   "file": "DD_COREBOX_Paper_Insert_01.pdf",
+   "label": "paper_insert",
+   "note": "box insert artwork; not game data",
+   "pages": 1
+  },
+  {
+   "file": "DD_COREBOX_Paper_Insert_02.pdf",
+   "label": "paper_insert",
+   "note": "box insert artwork; not game data",
+   "pages": 1
+  }
+ ],
+ "outputs": {
+  "raw/corebox/boss_ability.json": {
+   "bytes": 279055,
+   "sha1": "6e5d108d6a00d824488afd15d16fec35bd5f5ce1"
+  },
+  "raw/corebox/curio.json": {
+   "bytes": 137668,
+   "sha1": "310967faeb7fe95ffde1560a8137dd1afa9cf935"
+  },
+  "raw/corebox/disease.json": {
+   "bytes": 34730,
+   "sha1": "1e4fe69220c46f4bf8b40bef2dbe3a623670303e"
+  },
+  "raw/corebox/dungeon_tile.json": {
+   "bytes": 346189,
+   "sha1": "d775383e9cfbc46d17ed53893208e42bb95cfbb4"
+  },
+  "raw/corebox/hamlet_board.json": {
+   "bytes": 33412,
+   "sha1": "4aaf61b7628b3e784c5afcb7e32b357a6302e739"
+  },
+  "raw/corebox/hamlet_event.json": {
+   "bytes": 65624,
+   "sha1": "bc714bb7f733b3550428cf12f13c18c65aaf180b"
+  },
+  "raw/corebox/hero_pvp.json": {
+   "bytes": 857679,
+   "sha1": "5d015cb2a6bdfcf993fdbbb10a395c84be02fdbf"
+  },
+  "raw/corebox/hero_skill.json": {
+   "bytes": 1949846,
+   "sha1": "7e7f74a39c7c05ae27ccb14b37a7b060ebe07a78"
+  },
+  "raw/corebox/hero_stat.json": {
+   "bytes": 281041,
+   "sha1": "6c037ecb9252f6385861425396da3845dc9f3198"
+  },
+  "raw/corebox/letter.json": {
+   "bytes": 23231,
+   "sha1": "29e02f1a7b732d47beab9668cd36d2e4332035ff"
+  },
+  "raw/corebox/monster_large.json": {
+   "bytes": 455948,
+   "sha1": "7db5d574ad2772c60adfa8613b9b70e21643be27"
+  },
+  "raw/corebox/monster_medium.json": {
+   "bytes": 1021006,
+   "sha1": "1e4a0a58cc879986fb79c7a1519e55b7c673d9f5"
+  },
+  "raw/corebox/player_aid.json": {
+   "bytes": 54586,
+   "sha1": "2efa5a8ebcdc568b96b91bf28cc9661768f09c00"
+  },
+  "raw/corebox/punchboard_130x106.json": {
+   "bytes": 11634,
+   "sha1": "ac54c2748df676684705ec6c5ad9b654b3dfac8e"
+  },
+  "raw/corebox/punchboard_200x300.json": {
+   "bytes": 88333,
+   "sha1": "5e290dd2449a7d683dcab9645cc74b9e9719d198"
+  },
+  "raw/corebox/punchboard_300x300.json": {
+   "bytes": 246620,
+   "sha1": "1def9fad4884838e1cd8142627f08f62a86ac667"
+  },
+  "raw/corebox/quest.json": {
+   "bytes": 198804,
+   "sha1": "0dd70288d4ad067b9d804c9e2885399be2a92115"
+  },
+  "raw/corebox/quirk.json": {
+   "bytes": 112013,
+   "sha1": "60461cbd64cbe0a169fba55197beace51e0650a5"
+  },
+  "raw/corebox/room.json": {
+   "bytes": 291599,
+   "sha1": "d874e7aa0a851d4121e7edf31a2b2696d38e814f"
+  },
+  "raw/corebox/save_sheet.json": {
+   "bytes": 40251,
+   "sha1": "fd201fd2c8070b17ea0d0bcee7f17dce0bb5eadc"
+  },
+  "raw/corebox/stygian_room.json": {
+   "bytes": 250425,
+   "sha1": "968a988a32128fc22ce2fa089e2c2b826c90afcf"
+  },
+  "raw/corebox/trinket.json": {
+   "bytes": 210771,
+   "sha1": "a4da4dd21e888e62bfedf4b8e5e3b5973b6d4480"
+  },
+  "raw/corebox/virtue_affliction.json": {
+   "bytes": 42260,
+   "sha1": "6c93d3e6246cd3193391fb667bbae4e4fbac21b9"
+  },
+  "parsed/corebox/hero_skill.json": {
+   "bytes": 337284,
+   "sha1": "3ff5504131e7e4ffff0fe6326bb6a5168a8963e1"
+  },
+  "parsed/corebox/monster_large.json": {
+   "bytes": 59970,
+   "sha1": "0aa9f5f09601b6112712857b503523ea66c01849"
+  },
+  "parsed/corebox/monster_medium.json": {
+   "bytes": 140973,
+   "sha1": "57ad9f2f13d949e9931524da1f496a8593d30ba2"
+  },
+  "parsed/corebox/trinket.json": {
+   "bytes": 20495,
+   "sha1": "1db2a7407a49a1c443fcf8fca71c16f92bde4590"
+  }
+ },
+ "total_json_bytes": {
+  "raw": 7032725,
+  "parsed": 558722
+ },
+ "categories": {
+  "hero_skill": {
+   "pages": 231,
+   "unique": 231,
+   "copies": 231
+  },
+  "hero_stat": {
+   "pages": 23,
+   "unique": 23,
+   "copies": 23
+  },
+  "hero_pvp": {
+   "pages": 24,
+   "unique": 24,
+   "copies": 24
+  },
+  "monster_medium": {
+   "pages": 115,
+   "unique": 54,
+   "copies": 115
+  },
+  "monster_large": {
+   "pages": 20,
+   "unique": 20,
+   "copies": 20
+  },
+  "boss_ability": {
+   "pages": 37,
+   "unique": 37,
+   "copies": 37
+  },
+  "trinket": {
+   "pages": 38,
+   "unique": 38,
+   "copies": 38
+  },
+  "curio": {
+   "pages": 24,
+   "unique": 24,
+   "copies": 24
+  },
+  "room": {
+   "pages": 25,
+   "unique": 25,
+   "copies": 25
+  },
+  "stygian_room": {
+   "pages": 17,
+   "unique": 17,
+   "copies": 17
+  },
+  "quest": {
+   "pages": 19,
+   "unique": 19,
+   "copies": 19
+  },
+  "hamlet_event": {
+   "pages": 16,
+   "unique": 16,
+   "copies": 16
+  },
+  "quirk": {
+   "pages": 35,
+   "unique": 35,
+   "copies": 35
+  },
+  "disease": {
+   "pages": 11,
+   "unique": 11,
+   "copies": 11
+  },
+  "virtue_affliction": {
+   "pages": 10,
+   "unique": 10,
+   "copies": 10
+  },
+  "player_aid": {
+   "pages": 8,
+   "unique": 2,
+   "copies": 8
+  },
+  "save_sheet": {
+   "pages": 1,
+   "unique": 1,
+   "copies": 1
+  },
+  "letter": {
+   "pages": 2,
+   "unique": 2,
+   "copies": 2
+  },
+  "hamlet_board": {
+   "pages": 1,
+   "unique": 1,
+   "copies": 1
+  },
+  "punchboard_300x300": {
+   "pages": 3,
+   "unique": 3,
+   "copies": 3
+  },
+  "punchboard_200x300": {
+   "pages": 3,
+   "unique": 3,
+   "copies": 3
+  },
+  "punchboard_130x106": {
+   "pages": 1,
+   "unique": 1,
+   "copies": 1
+  },
+  "dungeon_tile": {
+   "pages": 14,
+   "unique": 14,
+   "copies": 14
+  }
+ },
+ "parse": {
+  "hero_skill": {
+   "cards": 231,
+   "ok": 230,
+   "failed": 1,
+   "success_rate": 0.9957
+  },
+  "monster_medium": {
+   "cards": 54,
+   "ok": 54,
+   "failed": 0,
+   "success_rate": 1.0
+  },
+  "monster_large": {
+   "cards": 20,
+   "ok": 20,
+   "failed": 0,
+   "success_rate": 1.0
+  },
+  "trinket": {
+   "cards": 38,
+   "ok": 38,
+   "failed": 0,
+   "success_rate": 1.0
+  }
+ },
+ "icons": {
+  "total_clusters": 1713,
+  "total_occurrences": 19477,
+  "decor": 449,
+  "component_only": 280,
+  "likely_art": 78,
+  "clusters_for_80pct": 156,
+  "clusters_for_90pct": 325,
+  "to_annotate": 906,
+  "to_annotate_occurrences": 14517,
+  "clusters_for_95pct": 525,
+  "to_annotate_ge3": 639,
+  "to_annotate_singletons": 152,
+  "decor_reasons": {
+   "blank after removing art/text (text plate or art fragment)": 25,
+   "thin rule/bar (aspect ratio > 6)": 152,
+   "text plate": 65,
+   "panel/container (holds other elements)": 203,
+   "fixed template element on >=90% of faces, no adjacent text": 4
+  }
+ }
+}

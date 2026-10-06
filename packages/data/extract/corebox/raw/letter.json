@@ -1,0 +1,1131 @@
+{
+ "schema": "ddbg-raw-v1",
+ "extractor_version": "1.0.4",
+ "category": "letter",
+ "kind": "sheet",
+ "units": {
+  "length": "mm",
+  "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+  "y_axis": "down",
+  "font_size": "pt"
+ },
+ "sources": [
+  {
+   "front": "DD_EN_COREBOX_LETTER.pdf",
+   "back": null,
+   "source_set": "base",
+   "kind": "sheet",
+   "front_pages": 2,
+   "back_pages": null
+  }
+ ],
+ "n_pages": 2,
+ "n_unique": 2,
+ "n_copies_total": 2,
+ "cards": [
+  {
+   "id": "letter:p001",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    1
+   ],
+   "faces": {
+    "front": {
+     "file": "DD_EN_COREBOX_LETTER.pdf",
+     "page": 1,
+     "trim_mm": [
+      210.0,
+      297.0
+     ],
+     "face_phash": "c1263f5a1e507cad",
+     "spans": [
+      {
+       "t": "Dear backer,",
+       "bbox": [
+        87.09,
+        95.8,
+        122.91,
+        105.06
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 24.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "The entire Mythic Games team would like to thank you from the bottom of our",
+       "bbox": [
+        27.5,
+        107.77,
+        171.75,
+        112.36
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "hearts for supporting this project. Darkest Dungeon: The Board Game is certainly",
+       "bbox": [
+        27.5,
+        112.43,
+        176.89,
+        117.02
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "our biggest project to date and without you it wouldn’t have been possible. The",
+       "bbox": [
+        27.5,
+        117.09,
+        173.75,
+        121.68
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "game designers, Nick Niotis and Argyris Poungouras, being die-hard fans of the",
+       "bbox": [
+        27.5,
+        121.74,
+        173.14,
+        126.33
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "video game franchise, sought to sink every drop of their love for the digital version",
+       "bbox": [
+        27.5,
+        126.4,
+        180.76,
+        130.99
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "into this analog version and we think it truly shows.",
+       "bbox": [
+        27.5,
+        131.06,
+        122.24,
+        135.65
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "While being considered a dungeon crawler, we think the purposeful design choices",
+       "bbox": [
+        27.5,
+        137.71,
+        172.19,
+        142.18
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "made to stay as true to the source material as possible puts it into a category all its own.",
+       "bbox": [
+        27.5,
+        142.37,
+        181.81,
+        146.83
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "The entire graphic design team, from Chris Bourassa of Red Hook to Stéphane Gantiez",
+       "bbox": [
+        27.5,
+        147.02,
+        178.42,
+        151.49
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "and Christophe Madura of Mythic Games and all the sculptors in between, also worked",
+       "bbox": [
+        27.5,
+        151.68,
+        178.72,
+        156.15
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "very hard to breathe 3D life into the 2D realm of the cursed hamlet. But all that work",
+       "bbox": [
+        27.5,
+        156.34,
+        176.1,
+        160.8
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "would’ve been for naught without your support, and for that we are eternally grateful!",
+       "bbox": [
+        27.5,
+        160.99,
+        179.3,
+        165.46
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "We are so proud and ecstatic to be able to deliver the results of all our efforts – your",
+       "bbox": [
+        27.5,
+        167.65,
+        175.43,
+        172.12
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "own copy of Darkest Dungeon: The Board Game.",
+       "bbox": [
+        27.5,
+        172.31,
+        112.24,
+        176.77
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "We know that it will stand on its own in every right, and truly hope that it will bring you",
+       "bbox": [
+        27.5,
+        178.96,
+        179.76,
+        183.43
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "hours upon hours of enjoyment. Mythic Games seeks to create games that not only",
+       "bbox": [
+        27.5,
+        183.62,
+        172.74,
+        188.08
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "engage your mind but also your imagination. We believe that theme matters and is",
+       "bbox": [
+        27.5,
+        188.27,
+        172.3,
+        192.74
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "only able to truly shine when it is joined to mechanisms that are not only fun, but also",
+       "bbox": [
+        27.5,
+        192.93,
+        177.08,
+        197.4
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "thought-provoking.",
+       "bbox": [
+        27.5,
+        197.59,
+        61.45,
+        202.05
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "With Darkest Dungeon: The Board Game, we sincerely believe that we have accomplished",
+       "bbox": [
+        27.5,
+        204.24,
+        182.22,
+        208.71
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "just that, an unforgettably immersive experience that engages both the mind and the",
+       "bbox": [
+        27.5,
+        208.9,
+        175.7,
+        213.37
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "imagination.",
+       "bbox": [
+        27.5,
+        213.56,
+        49.13,
+        218.02
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "We also want to express our deepest thanks to Tyler Sigman, Chris Bourassa, and the",
+       "bbox": [
+        27.5,
+        220.21,
+        175.89,
+        224.68
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "entire Red Hook team for making such an unbelievably iconic video game and entrusting",
+       "bbox": [
+        27.5,
+        224.87,
+        182.24,
+        229.33
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "us as a collaborative partner with their intellectual property. Their excitement and",
+       "bbox": [
+        27.5,
+        229.52,
+        171.23,
+        233.99
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "support during the board game’s development was both integral and influential to the",
+       "bbox": [
+        27.5,
+        234.18,
+        178.96,
+        238.65
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "success of the final product.",
+       "bbox": [
+        27.5,
+        238.84,
+        76.77,
+        243.3
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "As a final “thank You” we’ve included this exclusive Chris Bourassa sketch as a limited",
+       "bbox": [
+        27.5,
+        245.49,
+        176.13,
+        249.96
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "edition print in your core box.  Torchbearers we salute you.",
+       "bbox": [
+        27.5,
+        250.15,
+        130.3,
+        254.62
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "Best Regards,",
+       "bbox": [
+        133.3,
+        259.81,
+        157.5,
+        264.27
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "Mythic Games Team",
+       "bbox": [
+        122.45,
+        264.46,
+        157.5,
+        268.93
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Dear backer,",
+       "bbox": [
+        87.09,
+        95.8,
+        122.91,
+        105.06
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "The entire Mythic Games team would like to thank you from the bottom of our",
+       "bbox": [
+        27.5,
+        107.77,
+        171.75,
+        112.36
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "hearts for supporting this project. Darkest Dungeon: The Board Game is certainly",
+       "bbox": [
+        27.5,
+        112.43,
+        176.89,
+        117.02
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "our biggest project to date and without you it wouldn’t have been possible. The",
+       "bbox": [
+        27.5,
+        117.09,
+        173.75,
+        121.68
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "game designers, Nick Niotis and Argyris Poungouras, being die-hard fans of the",
+       "bbox": [
+        27.5,
+        121.74,
+        173.14,
+        126.33
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "video game franchise, sought to sink every drop of their love for the digital version",
+       "bbox": [
+        27.5,
+        126.4,
+        180.76,
+        130.99
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "into this analog version and we think it truly shows.",
+       "bbox": [
+        27.5,
+        131.06,
+        122.24,
+        135.65
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "While being considered a dungeon crawler, we think the purposeful design choices",
+       "bbox": [
+        27.5,
+        137.71,
+        172.19,
+        142.18
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "made to stay as true to the source material as possible puts it into a category all its own.",
+       "bbox": [
+        27.5,
+        142.37,
+        181.81,
+        146.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "The entire graphic design team, from Chris Bourassa of Red Hook to Stéphane Gantiez",
+       "bbox": [
+        27.5,
+        147.02,
+        178.42,
+        151.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and Christophe Madura of Mythic Games and all the sculptors in between, also worked",
+       "bbox": [
+        27.5,
+        151.68,
+        178.72,
+        156.15
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "very hard to breathe 3D life into the 2D realm of the cursed hamlet. But all that work",
+       "bbox": [
+        27.5,
+        156.34,
+        176.1,
+        160.8
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "would’ve been for naught without your support, and for that we are eternally grateful!",
+       "bbox": [
+        27.5,
+        160.99,
+        179.3,
+        165.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "We are so proud and ecstatic to be able to deliver the results of all our efforts – your",
+       "bbox": [
+        27.5,
+        167.65,
+        175.43,
+        172.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "own copy of Darkest Dungeon: The Board Game.",
+       "bbox": [
+        27.5,
+        172.31,
+        112.24,
+        176.77
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "We know that it will stand on its own in every right, and truly hope that it will bring you",
+       "bbox": [
+        27.5,
+        178.96,
+        179.76,
+        183.43
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "hours upon hours of enjoyment. Mythic Games seeks to create games that not only",
+       "bbox": [
+        27.5,
+        183.62,
+        172.74,
+        188.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "engage your mind but also your imagination. We believe that theme matters and is",
+       "bbox": [
+        27.5,
+        188.27,
+        172.3,
+        192.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "only able to truly shine when it is joined to mechanisms that are not only fun, but also",
+       "bbox": [
+        27.5,
+        192.93,
+        177.08,
+        197.4
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "thought-provoking.",
+       "bbox": [
+        27.5,
+        197.59,
+        61.45,
+        202.05
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "With Darkest Dungeon: The Board Game, we sincerely believe that we have accomplished",
+       "bbox": [
+        27.5,
+        204.24,
+        182.22,
+        208.71
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "just that, an unforgettably immersive experience that engages both the mind and the",
+       "bbox": [
+        27.5,
+        208.9,
+        175.7,
+        213.37
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "imagination.",
+       "bbox": [
+        27.5,
+        213.56,
+        49.13,
+        218.02
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "We also want to express our deepest thanks to Tyler Sigman, Chris Bourassa, and the",
+       "bbox": [
+        27.5,
+        220.21,
+        175.89,
+        224.68
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "entire Red Hook team for making such an unbelievably iconic video game and entrusting",
+       "bbox": [
+        27.5,
+        224.87,
+        182.24,
+        229.33
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "us as a collaborative partner with their intellectual property. Their excitement and",
+       "bbox": [
+        27.5,
+        229.52,
+        171.23,
+        233.99
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "support during the board game’s development was both integral and influential to the",
+       "bbox": [
+        27.5,
+        234.18,
+        178.96,
+        238.65
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "success of the final product.",
+       "bbox": [
+        27.5,
+        238.84,
+        76.77,
+        243.3
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "As a final “thank You” we’ve included this exclusive Chris Bourassa sketch as a limited",
+       "bbox": [
+        27.5,
+        245.49,
+        176.13,
+        249.96
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "edition print in your core box.  Torchbearers we salute you.",
+       "bbox": [
+        27.5,
+        250.15,
+        130.3,
+        254.62
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Best Regards,",
+       "bbox": [
+        133.3,
+        259.81,
+        157.5,
+        264.27
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Mythic Games Team",
+       "bbox": [
+        122.45,
+        264.46,
+        157.5,
+        268.93
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "letter:p002",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    2
+   ],
+   "faces": {
+    "front": {
+     "file": "DD_EN_COREBOX_LETTER.pdf",
+     "page": 2,
+     "trim_mm": [
+      210.0,
+      297.0
+     ],
+     "face_phash": "fa1d2570702f9761",
+     "spans": [
+      {
+       "t": "IMPORTANT NOTE",
+       "bbox": [
+        82.67,
+        42.31,
+        127.33,
+        51.56
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 24.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "Sometimes, your pledge isn’t perfect!",
+       "bbox": [
+        70.44,
+        54.27,
+        139.57,
+        58.86
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "While we have prepared your pledge to the highest standards,",
+       "bbox": [
+        50.46,
+        62.93,
+        159.54,
+        67.4
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "we realize that as with every process, errors can be made,",
+       "bbox": [
+        54.57,
+        67.59,
+        155.44,
+        72.05
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "items can be left out, and damages can occur in transit.",
+       "bbox": [
+        56.8,
+        72.25,
+        153.21,
+        76.71
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "If your pledge contains bent or broken miniatures,",
+       "bbox": [
+        61.06,
+        80.9,
+        148.95,
+        85.37
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "damaged boxes or after double checking, you are sure",
+       "bbox": [
+        57.57,
+        85.56,
+        152.44,
+        90.03
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "that you are missing items or components then please reach out",
+       "bbox": [
+        48.75,
+        90.22,
+        161.26,
+        94.68
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "to our support team.",
+       "bbox": [
+        86.82,
+        94.87,
+        123.2,
+        99.34
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "If your shipping address was within Europe,",
+       "bbox": [
+        67.08,
+        103.53,
+        142.94,
+        108.0
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "then please reach out to our European distribution hub",
+       "bbox": [
+        56.72,
+        108.19,
+        153.3,
+        112.65
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "at the following web address.",
+       "bbox": [
+        79.07,
+        112.84,
+        130.95,
+        117.31
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "https://sav.meeple-logistics.com/mythic-games/",
+       "bbox": [
+        62.95,
+        119.5,
+        147.07,
+        123.97
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "FOR ALL OTHER GLOBAL CUSTOMERS",
+       "bbox": [
+        71.47,
+        128.16,
+        138.55,
+        132.62
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "you can reach out at any time to us at",
+       "bbox": [
+        72.28,
+        132.81,
+        137.74,
+        137.28
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      },
+      {
+       "t": "support@mythicgames.net",
+       "bbox": [
+        81.17,
+        139.47,
+        128.85,
+        143.93
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 11.0,
+       "color": "#f2f2f3"
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "IMPORTANT NOTE",
+       "bbox": [
+        82.67,
+        42.31,
+        127.33,
+        51.56
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Sometimes, your pledge isn’t perfect!",
+       "bbox": [
+        70.44,
+        54.27,
+        139.57,
+        58.86
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "While we have prepared your pledge to the highest standards,",
+       "bbox": [
+        50.46,
+        62.93,
+        159.54,
+        67.4
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "we realize that as with every process, errors can be made,",
+       "bbox": [
+        54.57,
+        67.59,
+        155.44,
+        72.05
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "items can be left out, and damages can occur in transit.",
+       "bbox": [
+        56.8,
+        72.25,
+        153.21,
+        76.71
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "If your pledge contains bent or broken miniatures,",
+       "bbox": [
+        61.06,
+        80.9,
+        148.95,
+        85.37
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "damaged boxes or after double checking, you are sure",
+       "bbox": [
+        57.57,
+        85.56,
+        152.44,
+        90.03
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "that you are missing items or components then please reach out",
+       "bbox": [
+        48.75,
+        90.22,
+        161.26,
+        94.68
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "to our support team.",
+       "bbox": [
+        86.82,
+        94.87,
+        123.2,
+        99.34
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "If your shipping address was within Europe,",
+       "bbox": [
+        67.08,
+        103.53,
+        142.94,
+        108.0
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "then please reach out to our European distribution hub",
+       "bbox": [
+        56.72,
+        108.19,
+        153.3,
+        112.65
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "at the following web address.",
+       "bbox": [
+        79.07,
+        112.84,
+        130.95,
+        117.31
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "https://sav.meeple-logistics.com/mythic-games/",
+       "bbox": [
+        62.95,
+        119.5,
+        147.07,
+        123.97
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "FOR ALL OTHER GLOBAL CUSTOMERS",
+       "bbox": [
+        71.47,
+        128.16,
+        138.55,
+        132.62
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "you can reach out at any time to us at",
+       "bbox": [
+        72.28,
+        132.81,
+        137.74,
+        137.28
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "support@mythicgames.net",
+       "bbox": [
+        81.17,
+        139.47,
+        128.85,
+        143.93
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

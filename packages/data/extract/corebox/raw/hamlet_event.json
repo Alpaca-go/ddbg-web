@@ -1,0 +1,3758 @@
+{
+ "schema": "ddbg-raw-v1",
+ "extractor_version": "1.0.4",
+ "category": "hamlet_event",
+ "kind": "card",
+ "units": {
+  "length": "mm",
+  "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+  "y_axis": "down",
+  "font_size": "pt"
+ },
+ "sources": [
+  {
+   "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+   "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+   "source_set": "base",
+   "kind": "card",
+   "front_pages": 16,
+   "back_pages": 16
+  }
+ ],
+ "n_pages": 16,
+ "n_unique": 16,
+ "n_copies_total": 16,
+ "cards": [
+  {
+   "id": "hamlet_event:p001",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    1
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 1,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "847a78f162662f95",
+     "spans": [
+      {
+       "t": "Supply Run",
+       "bbox": [
+        24.42,
+        12.85,
+        46.58,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      },
+      {
+       "t": "2",
+       "bbox": [
+        7.83,
+        13.98,
+        10.92,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "‘Tis not only the Heroes but",
+       "bbox": [
+        14.08,
+        66.32,
+        55.93,
+        72.08
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "the common folk too, that",
+       "bbox": [
+        15.71,
+        71.25,
+        54.29,
+        77.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "offer up anything they can for",
+       "bbox": [
+        12.09,
+        76.19,
+        57.9,
+        81.95
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "the Hamlet’s common good.",
+       "bbox": [
+        14.48,
+        81.12,
+        55.51,
+        86.89
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "Party gains",
+       "bbox": [
+        19.21,
+        96.56,
+        39.2,
+        101.19
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "+2",
+       "bbox": [
+        40.1,
+        96.14,
+        43.83,
+        101.73
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "before the next Quest.",
+       "bbox": [
+        14.46,
+        101.5,
+        55.54,
+        106.13
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "ef839b6878",
+       "bbox": [
+        5.63,
+        13.58,
+        12.99,
+        22.98
+       ]
+      },
+      {
+       "iconId": "d712688f15",
+       "bbox": [
+        44.73,
+        95.82,
+        50.79,
+        101.72
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:ef839b6878} 2 Supply Run",
+       "bbox": [
+        5.63,
+        12.85,
+        46.58,
+        22.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "‘Tis not only the Heroes but",
+       "bbox": [
+        14.08,
+        66.32,
+        55.93,
+        72.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the common folk too, that",
+       "bbox": [
+        15.71,
+        71.25,
+        54.29,
+        77.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "offer up anything they can for",
+       "bbox": [
+        12.09,
+        76.19,
+        57.9,
+        81.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the Hamlet’s common good.",
+       "bbox": [
+        14.48,
+        81.12,
+        55.51,
+        86.89
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Party gains +2 {icon:d712688f15}",
+       "bbox": [
+        19.21,
+        95.82,
+        50.79,
+        101.73
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "before the next Quest.",
+       "bbox": [
+        14.46,
+        101.5,
+        55.54,
+        106.13
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 1,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p002",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    2
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 2,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "917b66c472983dc5",
+     "spans": [
+      {
+       "t": "2",
+       "bbox": [
+        7.83,
+        13.98,
+        10.92,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "He was nowhere to be seen. Yet",
+       "bbox": [
+        10.97,
+        68.78,
+        59.03,
+        74.55
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "one could feel his uneasy presence",
+       "bbox": [
+        8.76,
+        73.72,
+        61.24,
+        79.48
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "and hear his irritating laughter.",
+       "bbox": [
+        10.61,
+        78.66,
+        59.39,
+        84.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "Do not place the Caretaker",
+       "bbox": [
+        10.75,
+        94.09,
+        59.25,
+        98.72
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "anywhere this week.",
+       "bbox": [
+        16.63,
+        99.04,
+        53.37,
+        103.66
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Busy Week",
+       "bbox": [
+        24.5,
+        12.85,
+        46.5,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "ef839b6878",
+       "bbox": [
+        5.63,
+        13.58,
+        12.99,
+        22.98
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:ef839b6878} 2 Busy Week",
+       "bbox": [
+        5.63,
+        12.85,
+        46.5,
+        22.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "He was nowhere to be seen. Yet",
+       "bbox": [
+        10.97,
+        68.78,
+        59.03,
+        74.55
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "one could feel his uneasy presence",
+       "bbox": [
+        8.76,
+        73.72,
+        61.24,
+        79.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and hear his irritating laughter.",
+       "bbox": [
+        10.61,
+        78.66,
+        59.39,
+        84.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Do not place the Caretaker",
+       "bbox": [
+        10.75,
+        94.09,
+        59.25,
+        98.72
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "anywhere this week.",
+       "bbox": [
+        16.63,
+        99.04,
+        53.37,
+        103.66
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 2,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p003",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    3
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 3,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "d07a76c548913ee5",
+     "spans": [
+      {
+       "t": "4",
+       "bbox": [
+        7.7,
+        13.98,
+        11.04,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Everyone was expecting the",
+       "bbox": [
+        14.08,
+        66.32,
+        55.92,
+        72.08
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "goods to arrive intact. But",
+       "bbox": [
+        14.85,
+        71.25,
+        55.15,
+        77.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "all they got was news of",
+       "bbox": [
+        16.36,
+        76.19,
+        53.64,
+        81.95
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "misfortune and loss...",
+       "bbox": [
+        18.41,
+        81.12,
+        51.58,
+        86.89
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "Party rolls",
+       "bbox": [
+        19.97,
+        96.56,
+        38.46,
+        101.19
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "-2",
+       "bbox": [
+        39.36,
+        96.14,
+        43.07,
+        101.73
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "before the next Quest.",
+       "bbox": [
+        14.46,
+        101.5,
+        55.54,
+        106.13
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Lost Shipment",
+       "bbox": [
+        21.22,
+        12.85,
+        49.78,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "61587999f3",
+       "bbox": [
+        5.25,
+        13.71,
+        13.12,
+        22.98
+       ]
+      },
+      {
+       "iconId": "d712688f15",
+       "bbox": [
+        43.97,
+        95.82,
+        50.03,
+        101.72
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:61587999f3} 4 Lost Shipment",
+       "bbox": [
+        5.25,
+        12.85,
+        49.78,
+        22.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Everyone was expecting the",
+       "bbox": [
+        14.08,
+        66.32,
+        55.92,
+        72.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "goods to arrive intact. But",
+       "bbox": [
+        14.85,
+        71.25,
+        55.15,
+        77.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "all they got was news of",
+       "bbox": [
+        16.36,
+        76.19,
+        53.64,
+        81.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "misfortune and loss...",
+       "bbox": [
+        18.41,
+        81.12,
+        51.58,
+        86.89
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Party rolls -2 {icon:d712688f15}",
+       "bbox": [
+        19.97,
+        95.82,
+        50.03,
+        101.73
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "before the next Quest.",
+       "bbox": [
+        14.46,
+        101.5,
+        55.54,
+        106.13
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 3,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p004",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    4
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 4,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "907a44c56e373bd1",
+     "spans": [
+      {
+       "t": "3",
+       "bbox": [
+        7.76,
+        13.98,
+        10.98,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "When darkness forms shapes",
+       "bbox": [
+        12.92,
+        66.32,
+        57.08,
+        72.08
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "in the horizon making all",
+       "bbox": [
+        15.93,
+        71.25,
+        54.06,
+        77.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "candle lights dim. This",
+       "bbox": [
+        18.06,
+        76.19,
+        51.95,
+        81.95
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "was one such week, one of",
+       "bbox": [
+        14.57,
+        81.12,
+        55.43,
+        86.89
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "unsettling darkness...",
+       "bbox": [
+        18.67,
+        86.06,
+        51.34,
+        91.82
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "Start at",
+       "bbox": [
+        16.31,
+        101.5,
+        29.88,
+        106.13
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "4",
+       "bbox": [
+        34.49,
+        101.08,
+        36.59,
+        106.67
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "next run.",
+       "bbox": [
+        37.5,
+        101.5,
+        53.69,
+        106.13
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Unsettling Darkness",
+       "bbox": [
+        16.81,
+        12.85,
+        57.69,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "1cdbcf4cc7",
+       "bbox": [
+        5.75,
+        13.58,
+        13.12,
+        22.98
+       ]
+      },
+      {
+       "iconId": "d13c8b76af",
+       "bbox": [
+        30.69,
+        101.6,
+        33.87,
+        105.83
+       ],
+       "bbox_full": [
+        30.02,
+        100.67,
+        34.59,
+        106.51
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:1cdbcf4cc7} 3 Unsettling Darkness",
+       "bbox": [
+        5.75,
+        12.85,
+        57.69,
+        22.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "When darkness forms shapes",
+       "bbox": [
+        12.92,
+        66.32,
+        57.08,
+        72.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "in the horizon making all",
+       "bbox": [
+        15.93,
+        71.25,
+        54.06,
+        77.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "candle lights dim. This",
+       "bbox": [
+        18.06,
+        76.19,
+        51.95,
+        81.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "was one such week, one of",
+       "bbox": [
+        14.57,
+        81.12,
+        55.43,
+        86.89
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "unsettling darkness...",
+       "bbox": [
+        18.67,
+        86.06,
+        51.34,
+        91.82
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Start at {icon:d13c8b76af} 4 next run.",
+       "bbox": [
+        16.31,
+        101.08,
+        53.69,
+        106.67
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 4,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p005",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    5
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 5,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "907a74c4633b3ed4",
+     "spans": [
+      {
+       "t": "3",
+       "bbox": [
+        7.76,
+        13.98,
+        10.98,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "The most exquisite news, to",
+       "bbox": [
+        13.92,
+        76.44,
+        56.08,
+        82.21
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "have a week without any...",
+       "bbox": [
+        14.63,
+        81.38,
+        55.38,
+        87.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "Uneventful Week",
+       "bbox": [
+        18.75,
+        12.85,
+        52.25,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "1cdbcf4cc7",
+       "bbox": [
+        5.75,
+        13.58,
+        13.12,
+        22.98
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:1cdbcf4cc7} 3 Uneventful Week",
+       "bbox": [
+        5.75,
+        12.85,
+        52.25,
+        22.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "The most exquisite news, to",
+       "bbox": [
+        13.92,
+        76.44,
+        56.08,
+        82.21
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "have a week without any...",
+       "bbox": [
+        14.63,
+        81.38,
+        55.38,
+        87.14
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 5,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p006",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    6
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 6,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "907a71e56c6e3691",
+     "spans": [
+      {
+       "t": "3",
+       "bbox": [
+        7.76,
+        13.98,
+        10.98,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Families banded together, seeking",
+       "bbox": [
+        9.75,
+        61.38,
+        60.25,
+        67.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "to renovate one of the Hamlet’s",
+       "bbox": [
+        11.41,
+        66.31,
+        58.59,
+        72.08
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "buildings. Their altruism a",
+       "bbox": [
+        14.82,
+        71.25,
+        55.18,
+        77.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "welcome but mixed blessing.",
+       "bbox": [
+        13.37,
+        76.19,
+        56.62,
+        81.95
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "You may upgrade a building for",
+       "bbox": [
+        8.16,
+        91.62,
+        61.84,
+        96.26
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "free. If you do, you cannot visit",
+       "bbox": [
+        8.48,
+        96.57,
+        61.52,
+        101.19
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "it this week. Discard this event",
+       "bbox": [
+        8.67,
+        101.5,
+        61.32,
+        106.13
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "from the deck permanently.",
+       "bbox": [
+        10.87,
+        106.44,
+        59.13,
+        111.08
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Labor Force",
+       "bbox": [
+        22.9,
+        12.85,
+        48.1,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "1cdbcf4cc7",
+       "bbox": [
+        5.75,
+        13.58,
+        13.12,
+        22.98
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:1cdbcf4cc7} 3 Labor Force",
+       "bbox": [
+        5.75,
+        12.85,
+        48.1,
+        22.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Families banded together, seeking",
+       "bbox": [
+        9.75,
+        61.38,
+        60.25,
+        67.14
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "to renovate one of the Hamlet’s",
+       "bbox": [
+        11.41,
+        66.31,
+        58.59,
+        72.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "buildings. Their altruism a",
+       "bbox": [
+        14.82,
+        71.25,
+        55.18,
+        77.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "welcome but mixed blessing.",
+       "bbox": [
+        13.37,
+        76.19,
+        56.62,
+        81.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "You may upgrade a building for",
+       "bbox": [
+        8.16,
+        91.62,
+        61.84,
+        96.26
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "free. If you do, you cannot visit",
+       "bbox": [
+        8.48,
+        96.57,
+        61.52,
+        101.19
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "it this week. Discard this event",
+       "bbox": [
+        8.67,
+        101.5,
+        61.32,
+        106.13
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "from the deck permanently.",
+       "bbox": [
+        10.87,
+        106.44,
+        59.13,
+        111.08
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 6,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p007",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    7
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 7,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c06b769472313dd5",
+     "spans": [
+      {
+       "t": "1",
+       "bbox": [
+        8.25,
+        13.98,
+        10.49,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Happiness and revelry drive",
+       "bbox": [
+        13.77,
+        68.29,
+        56.23,
+        74.06
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "the demons away, albeit",
+       "bbox": [
+        16.84,
+        73.23,
+        53.16,
+        78.99
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "only for a short while...",
+       "bbox": [
+        16.64,
+        78.16,
+        53.35,
+        83.93
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": ":",
+       "bbox": [
+        39.79,
+        93.6,
+        40.82,
+        98.23
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "-3",
+       "bbox": [
+        45.49,
+        93.18,
+        49.28,
+        98.77
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "and",
+       "bbox": [
+        18.31,
+        99.53,
+        24.96,
+        104.15
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "2",
+       "bbox": [
+        27.81,
+        99.63,
+        29.42,
+        104.26
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#40ad49"
+      },
+      {
+       "t": "/Hero Level",
+       "bbox": [
+        31.36,
+        99.25,
+        50.67,
+        104.65
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#ffffff",
+       "dup": 2
+      },
+      {
+       "t": ".",
+       "bbox": [
+        50.66,
+        99.53,
+        51.7,
+        104.16
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Town Fair",
+       "bbox": [
+        25.31,
+        12.85,
+        45.69,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "43aaf29bbb",
+       "bbox": [
+        6.27,
+        13.71,
+        12.87,
+        22.85
+       ]
+      },
+      {
+       "iconId": "c3daa80da5",
+       "bbox": [
+        41.63,
+        94.19,
+        45.51,
+        98.07
+       ],
+       "bbox_full": [
+        40.77,
+        93.54,
+        46.36,
+        98.75
+       ]
+      },
+      {
+       "iconId": "7616568d52",
+       "bbox": [
+        21.14,
+        94.21,
+        24.72,
+        97.69
+       ]
+      },
+      {
+       "iconId": "7616568d52",
+       "bbox": [
+        25.71,
+        94.21,
+        29.29,
+        97.69
+       ]
+      },
+      {
+       "iconId": "7616568d52",
+       "bbox": [
+        30.28,
+        94.21,
+        33.86,
+        97.69
+       ]
+      },
+      {
+       "iconId": "7616568d52",
+       "bbox": [
+        34.85,
+        94.21,
+        38.43,
+        97.69
+       ]
+      },
+      {
+       "iconId": "3ee34939e2",
+       "bbox": [
+        25.95,
+        99.64,
+        27.93,
+        101.55
+       ]
+      },
+      {
+       "iconId": "20ffe98e2d",
+       "bbox": [
+        27.36,
+        100.53,
+        30.91,
+        103.95
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:43aaf29bbb} 1 Town Fair",
+       "bbox": [
+        6.27,
+        12.85,
+        45.69,
+        22.85
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Happiness and revelry drive",
+       "bbox": [
+        13.77,
+        68.29,
+        56.23,
+        74.06
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the demons away, albeit",
+       "bbox": [
+        16.84,
+        73.23,
+        53.16,
+        78.99
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "only for a short while...",
+       "bbox": [
+        16.64,
+        78.16,
+        53.35,
+        83.93
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:7616568d52} {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} : {icon:c3daa80da5} -3",
+       "bbox": [
+        21.14,
+        93.18,
+        49.28,
+        98.77
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and {icon:3ee34939e2} {icon:20ffe98e2d} 2 /Hero Level.",
+       "bbox": [
+        18.31,
+        99.25,
+        51.7,
+        104.65
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 7,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p008",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    8
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 8,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "d07a7ec0606d3f94",
+     "spans": [
+      {
+       "t": "2",
+       "bbox": [
+        7.83,
+        13.98,
+        10.92,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Distrust and hope embodied",
+       "bbox": [
+        14.11,
+        61.38,
+        55.89,
+        67.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "on these men’s faces. Their",
+       "bbox": [
+        14.3,
+        66.31,
+        55.7,
+        72.08
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "gain, our survival.",
+       "bbox": [
+        20.85,
+        71.25,
+        49.14,
+        77.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "After rolling for Provisions,",
+       "bbox": [
+        10.45,
+        86.68,
+        59.55,
+        91.32
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "each Hero can choose one",
+       "bbox": [
+        11.71,
+        91.63,
+        58.3,
+        96.26
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "of their Provisions dice to",
+       "bbox": [
+        11.94,
+        96.57,
+        58.07,
+        101.19
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "be whichever side they want",
+       "bbox": [
+        9.48,
+        101.5,
+        60.53,
+        106.14
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "before the next Quest.",
+       "bbox": [
+        14.46,
+        106.45,
+        55.54,
+        111.08
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Traveling Merchants",
+       "bbox": [
+        16.39,
+        12.85,
+        58.31,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "ef839b6878",
+       "bbox": [
+        5.63,
+        13.58,
+        12.99,
+        22.98
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:ef839b6878} 2 Traveling Merchants",
+       "bbox": [
+        5.63,
+        12.85,
+        58.31,
+        22.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Distrust and hope embodied",
+       "bbox": [
+        14.11,
+        61.38,
+        55.89,
+        67.14
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "on these men’s faces. Their",
+       "bbox": [
+        14.3,
+        66.31,
+        55.7,
+        72.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "gain, our survival.",
+       "bbox": [
+        20.85,
+        71.25,
+        49.14,
+        77.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "After rolling for Provisions,",
+       "bbox": [
+        10.45,
+        86.68,
+        59.55,
+        91.32
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "each Hero can choose one",
+       "bbox": [
+        11.71,
+        91.63,
+        58.3,
+        96.26
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "of their Provisions dice to",
+       "bbox": [
+        11.94,
+        96.57,
+        58.07,
+        101.19
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "be whichever side they want",
+       "bbox": [
+        9.48,
+        101.5,
+        60.53,
+        106.14
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "before the next Quest.",
+       "bbox": [
+        14.46,
+        106.45,
+        55.54,
+        111.08
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 8,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p009",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    9
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 9,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "847a78f162662f95",
+     "spans": [
+      {
+       "t": "2",
+       "bbox": [
+        7.83,
+        13.98,
+        10.92,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Back then, the villagers sought",
+       "bbox": [
+        11.73,
+        66.32,
+        58.27,
+        72.08
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "to drive the gypsies away from",
+       "bbox": [
+        11.19,
+        71.25,
+        58.82,
+        77.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "their lands. Now they only pray",
+       "bbox": [
+        11.09,
+        76.19,
+        58.92,
+        81.95
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "that they stay some more...",
+       "bbox": [
+        14.16,
+        81.12,
+        55.84,
+        86.89
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "Heroes gain",
+       "bbox": [
+        14.11,
+        96.56,
+        35.58,
+        101.19
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "+5",
+       "bbox": [
+        36.49,
+        96.14,
+        40.36,
+        101.73
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "when",
+       "bbox": [
+        46.12,
+        96.56,
+        55.89,
+        101.19
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "selling Trinkets.",
+       "bbox": [
+        20.74,
+        101.5,
+        49.26,
+        106.13
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Gypsy Trail",
+       "bbox": [
+        23.83,
+        12.85,
+        47.17,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "ef839b6878",
+       "bbox": [
+        5.63,
+        13.58,
+        12.99,
+        22.98
+       ]
+      },
+      {
+       "iconId": "08a25c05cf",
+       "bbox": [
+        40.57,
+        96.31,
+        45.16,
+        101.6
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:ef839b6878} 2 Gypsy Trail",
+       "bbox": [
+        5.63,
+        12.85,
+        47.17,
+        22.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Back then, the villagers sought",
+       "bbox": [
+        11.73,
+        66.32,
+        58.27,
+        72.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "to drive the gypsies away from",
+       "bbox": [
+        11.19,
+        71.25,
+        58.82,
+        77.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "their lands. Now they only pray",
+       "bbox": [
+        11.09,
+        76.19,
+        58.92,
+        81.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "that they stay some more...",
+       "bbox": [
+        14.16,
+        81.12,
+        55.84,
+        86.89
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Heroes gain +5 {icon:08a25c05cf} when",
+       "bbox": [
+        14.11,
+        96.14,
+        55.89,
+        101.73
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "selling Trinkets.",
+       "bbox": [
+        20.74,
+        101.5,
+        49.26,
+        106.13
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 9,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p010",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    10
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 10,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c07a78f1688f17d4",
+     "spans": [
+      {
+       "t": "1",
+       "bbox": [
+        8.25,
+        13.98,
+        10.49,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "A feast in commemoration of",
+       "bbox": [
+        13.26,
+        68.78,
+        56.74,
+        74.55
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "the family estate’s honor and",
+       "bbox": [
+        12.99,
+        73.72,
+        57.01,
+        79.48
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "our willingness to survive...",
+       "bbox": [
+        13.44,
+        78.66,
+        56.56,
+        84.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "Each Hero can choose to",
+       "bbox": [
+        13.13,
+        94.09,
+        56.87,
+        98.72
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "fully restore either",
+       "bbox": [
+        10.34,
+        99.04,
+        44.46,
+        103.66
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "or",
+       "bbox": [
+        50.03,
+        99.03,
+        53.92,
+        103.66
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        58.62,
+        99.03,
+        59.66,
+        103.66
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "The Feast",
+       "bbox": [
+        25.77,
+        12.85,
+        45.23,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "43aaf29bbb",
+       "bbox": [
+        6.27,
+        13.71,
+        12.87,
+        22.85
+       ]
+      },
+      {
+       "iconId": "9d58d3d431",
+       "bbox": [
+        45.51,
+        99.48,
+        49.04,
+        103.36
+       ],
+       "bbox_full": [
+        44.41,
+        98.98,
+        50.0,
+        104.18
+       ]
+      },
+      {
+       "iconId": "d9009c6f91",
+       "bbox": [
+        54.82,
+        99.68,
+        58.62,
+        103.49
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:43aaf29bbb} 1 The Feast",
+       "bbox": [
+        6.27,
+        12.85,
+        45.23,
+        22.85
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A feast in commemoration of",
+       "bbox": [
+        13.26,
+        68.78,
+        56.74,
+        74.55
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the family estate’s honor and",
+       "bbox": [
+        12.99,
+        73.72,
+        57.01,
+        79.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "our willingness to survive...",
+       "bbox": [
+        13.44,
+        78.66,
+        56.56,
+        84.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Each Hero can choose to",
+       "bbox": [
+        13.13,
+        94.09,
+        56.87,
+        98.72
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "fully restore either {icon:9d58d3d431} or {icon:d9009c6f91} .",
+       "bbox": [
+        10.34,
+        99.03,
+        59.66,
+        103.66
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 10,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p011",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    11
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 11,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c17b7cd068603f95",
+     "spans": [
+      {
+       "t": "3",
+       "bbox": [
+        7.76,
+        13.98,
+        10.98,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Even maladies can be defeated",
+       "bbox": [
+        12.21,
+        68.78,
+        57.79,
+        74.55
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "by the power of the human mind.",
+       "bbox": [
+        9.9,
+        73.72,
+        60.11,
+        79.48
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "What about darkness though?",
+       "bbox": [
+        12.56,
+        78.66,
+        57.45,
+        84.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "Party removes a disease",
+       "bbox": [
+        13.38,
+        94.09,
+        56.62,
+        98.72
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "from a Hero.",
+       "bbox": [
+        23.7,
+        99.04,
+        46.3,
+        103.66
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Medical Breakthrough",
+       "bbox": [
+        16.07,
+        12.85,
+        59.77,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "1cdbcf4cc7",
+       "bbox": [
+        5.75,
+        13.58,
+        13.12,
+        22.98
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:1cdbcf4cc7} 3 Medical Breakthrough",
+       "bbox": [
+        5.75,
+        12.85,
+        59.77,
+        22.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Even maladies can be defeated",
+       "bbox": [
+        12.21,
+        68.78,
+        57.79,
+        74.55
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "by the power of the human mind.",
+       "bbox": [
+        9.9,
+        73.72,
+        60.11,
+        79.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "What about darkness though?",
+       "bbox": [
+        12.56,
+        78.66,
+        57.45,
+        84.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Party removes a disease",
+       "bbox": [
+        13.38,
+        94.09,
+        56.62,
+        98.72
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "from a Hero.",
+       "bbox": [
+        23.7,
+        99.04,
+        46.3,
+        103.66
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 11,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p012",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    12
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 12,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "947e71f168641e95",
+     "spans": [
+      {
+       "t": "2",
+       "bbox": [
+        7.83,
+        13.98,
+        10.92,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Open your heart to another,",
+       "bbox": [
+        13.88,
+        68.78,
+        56.12,
+        74.55
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "united under a common cause.",
+       "bbox": [
+        12.01,
+        73.72,
+        57.99,
+        79.48
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "Let your heart not falter.",
+       "bbox": [
+        15.91,
+        78.66,
+        54.09,
+        84.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "Each Hero can remove",
+       "bbox": [
+        15.08,
+        94.09,
+        54.92,
+        98.72
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "a Quirk for free.",
+       "bbox": [
+        20.58,
+        99.04,
+        49.41,
+        103.66
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Caregivers Convention",
+       "bbox": [
+        15.54,
+        12.85,
+        59.46,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "ef839b6878",
+       "bbox": [
+        5.63,
+        13.58,
+        12.99,
+        22.98
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:ef839b6878} 2 Caregivers Convention",
+       "bbox": [
+        5.63,
+        12.85,
+        59.46,
+        22.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Open your heart to another,",
+       "bbox": [
+        13.88,
+        68.78,
+        56.12,
+        74.55
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "united under a common cause.",
+       "bbox": [
+        12.01,
+        73.72,
+        57.99,
+        79.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Let your heart not falter.",
+       "bbox": [
+        15.91,
+        78.66,
+        54.09,
+        84.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Each Hero can remove",
+       "bbox": [
+        15.08,
+        94.09,
+        54.92,
+        98.72
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "a Quirk for free.",
+       "bbox": [
+        20.58,
+        99.04,
+        49.41,
+        103.66
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 12,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p013",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    13
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 13,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "d07a76c46c9c39c5",
+     "spans": [
+      {
+       "t": "4",
+       "bbox": [
+        7.7,
+        13.98,
+        11.04,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "His role is quite demanding,",
+       "bbox": [
+        14.04,
+        66.32,
+        55.96,
+        72.08
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "to keep an abandoned hamlet",
+       "bbox": [
+        13.26,
+        71.25,
+        56.74,
+        77.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "from falling apart...",
+       "bbox": [
+        19.95,
+        76.19,
+        50.05,
+        81.95
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "In addition to the Caretaker,",
+       "bbox": [
+        9.62,
+        91.62,
+        60.38,
+        96.26
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "roll for another location",
+       "bbox": [
+        13.36,
+        96.57,
+        56.64,
+        101.19
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "to be blocked each day.",
+       "bbox": [
+        14.0,
+        101.5,
+        56.0,
+        106.13
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "General Repairs",
+       "bbox": [
+        19.26,
+        12.85,
+        51.74,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "61587999f3",
+       "bbox": [
+        5.25,
+        13.71,
+        13.12,
+        22.98
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:61587999f3} 4 General Repairs",
+       "bbox": [
+        5.25,
+        12.85,
+        51.74,
+        22.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "His role is quite demanding,",
+       "bbox": [
+        14.04,
+        66.32,
+        55.96,
+        72.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "to keep an abandoned hamlet",
+       "bbox": [
+        13.26,
+        71.25,
+        56.74,
+        77.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "from falling apart...",
+       "bbox": [
+        19.95,
+        76.19,
+        50.05,
+        81.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "In addition to the Caretaker,",
+       "bbox": [
+        9.62,
+        91.62,
+        60.38,
+        96.26
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "roll for another location",
+       "bbox": [
+        13.36,
+        96.57,
+        56.64,
+        101.19
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "to be blocked each day.",
+       "bbox": [
+        14.0,
+        101.5,
+        56.0,
+        106.13
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 13,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p014",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    14
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 14,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "d07a72d46c9c1dc5",
+     "spans": [
+      {
+       "t": "3",
+       "bbox": [
+        7.76,
+        13.98,
+        10.98,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "With spirits lifted and head held",
+       "bbox": [
+        10.92,
+        62.13,
+        59.08,
+        67.89
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "high, eager and resolute, the",
+       "bbox": [
+        13.27,
+        67.06,
+        56.73,
+        72.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "Heroes marched to their doom...",
+       "bbox": [
+        10.38,
+        72.0,
+        59.62,
+        77.76
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "Each Hero rolls a",
+       "bbox": [
+        12.28,
+        87.44,
+        42.36,
+        92.06
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ", the",
+       "bbox": [
+        49.68,
+        87.44,
+        57.72,
+        92.06
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Hero or Heroes that roll the",
+       "bbox": [
+        9.98,
+        92.37,
+        60.02,
+        97.01
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "highest gain a Virtue and",
+       "bbox": [
+        12.56,
+        97.32,
+        57.45,
+        101.95
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "place(s) their (or their) stress",
+       "bbox": [
+        8.85,
+        102.26,
+        61.16,
+        106.88
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "marker on the red side.",
+       "bbox": [
+        14.19,
+        107.2,
+        55.81,
+        111.82
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "In Good Spirits",
+       "bbox": [
+        20.15,
+        12.85,
+        50.85,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "1cdbcf4cc7",
+       "bbox": [
+        5.75,
+        13.58,
+        13.12,
+        22.98
+       ]
+      },
+      {
+       "iconId": "94bfa4dde4",
+       "bbox": [
+        43.26,
+        86.5,
+        49.68,
+        92.58
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:1cdbcf4cc7} 3 In Good Spirits",
+       "bbox": [
+        5.75,
+        12.85,
+        50.85,
+        22.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "With spirits lifted and head held",
+       "bbox": [
+        10.92,
+        62.13,
+        59.08,
+        67.89
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "high, eager and resolute, the",
+       "bbox": [
+        13.27,
+        67.06,
+        56.73,
+        72.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Heroes marched to their doom...",
+       "bbox": [
+        10.38,
+        72.0,
+        59.62,
+        77.76
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Each Hero rolls a {icon:94bfa4dde4} , the",
+       "bbox": [
+        12.28,
+        86.5,
+        57.72,
+        92.58
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hero or Heroes that roll the",
+       "bbox": [
+        9.98,
+        92.37,
+        60.02,
+        97.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "highest gain a Virtue and",
+       "bbox": [
+        12.56,
+        97.32,
+        57.45,
+        101.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "place(s) their (or their) stress",
+       "bbox": [
+        8.85,
+        102.26,
+        61.16,
+        106.88
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "marker on the red side.",
+       "bbox": [
+        14.19,
+        107.2,
+        55.81,
+        111.82
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 14,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p015",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    15
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 15,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "d07a76c46c2d3e91",
+     "spans": [
+      {
+       "t": "2",
+       "bbox": [
+        7.83,
+        13.98,
+        10.92,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "The guildmaster was once a",
+       "bbox": [
+        13.86,
+        60.16,
+        56.14,
+        65.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "benevolent adventurer who has",
+       "bbox": [
+        11.19,
+        65.09,
+        58.81,
+        70.86
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "witnessed the death of all his",
+       "bbox": [
+        12.82,
+        70.03,
+        57.18,
+        75.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "prodigies. His tutelage a honorary",
+       "bbox": [
+        9.1,
+        74.97,
+        60.91,
+        80.73
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "tribute to them and to himself.",
+       "bbox": [
+        11.97,
+        79.9,
+        58.03,
+        85.67
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "Each Hero can immediately",
+       "bbox": [
+        12.08,
+        92.84,
+        57.92,
+        97.47
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "upgrade a Skill for free.",
+       "bbox": [
+        15.25,
+        97.78,
+        54.75,
+        102.41
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Discard this event from",
+       "bbox": [
+        14.86,
+        102.73,
+        55.14,
+        107.35
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "the deck permanently.",
+       "bbox": [
+        15.53,
+        107.66,
+        54.48,
+        112.29
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Guild Training",
+       "bbox": [
+        21.06,
+        12.85,
+        49.94,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "ef839b6878",
+       "bbox": [
+        5.63,
+        13.58,
+        12.99,
+        22.98
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:ef839b6878} 2 Guild Training",
+       "bbox": [
+        5.63,
+        12.85,
+        49.94,
+        22.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "The guildmaster was once a",
+       "bbox": [
+        13.86,
+        60.16,
+        56.14,
+        65.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "benevolent adventurer who has",
+       "bbox": [
+        11.19,
+        65.09,
+        58.81,
+        70.86
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "witnessed the death of all his",
+       "bbox": [
+        12.82,
+        70.03,
+        57.18,
+        75.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "prodigies. His tutelage a honorary",
+       "bbox": [
+        9.1,
+        74.97,
+        60.91,
+        80.73
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "tribute to them and to himself.",
+       "bbox": [
+        11.97,
+        79.9,
+        58.03,
+        85.67
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Each Hero can immediately",
+       "bbox": [
+        12.08,
+        92.84,
+        57.92,
+        97.47
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "upgrade a Skill for free.",
+       "bbox": [
+        15.25,
+        97.78,
+        54.75,
+        102.41
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Discard this event from",
+       "bbox": [
+        14.86,
+        102.73,
+        55.14,
+        107.35
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the deck permanently.",
+       "bbox": [
+        15.53,
+        107.66,
+        54.48,
+        112.29
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 15,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "hamlet_event:p016",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    16
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+     "page": 16,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "917a6ee46b713894",
+     "spans": [
+      {
+       "t": "?",
+       "bbox": [
+        7.68,
+        13.98,
+        11.06,
+        22.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "The Hamlet’s guards train",
+       "bbox": [
+        15.52,
+        63.85,
+        54.48,
+        69.61
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "intensely. If only the Heroes could",
+       "bbox": [
+        9.27,
+        68.78,
+        60.73,
+        74.55
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "benefit from that. Alas, they’d lose",
+       "bbox": [
+        8.8,
+        73.72,
+        61.2,
+        79.48
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "all of their precious time though...",
+       "bbox": [
+        8.87,
+        78.66,
+        61.13,
+        84.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.94,
+       "color": "#231f20"
+      },
+      {
+       "t": "All Heroes can Level Up",
+       "bbox": [
+        13.86,
+        94.09,
+        56.14,
+        98.72
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "one Lvl 1 Skill. If they",
+       "bbox": [
+        15.97,
+        99.04,
+        54.03,
+        103.66
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "do, 0 days. Else 3 days.",
+       "bbox": [
+        14.84,
+        103.97,
+        55.16,
+        108.6
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Militia Training",
+       "bbox": [
+        19.48,
+        12.85,
+        51.52,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "9d38361e87",
+       "bbox": [
+        5.75,
+        13.58,
+        12.99,
+        22.85
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:9d38361e87} ? Militia Training",
+       "bbox": [
+        5.75,
+        12.85,
+        51.52,
+        22.85
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "The Hamlet’s guards train",
+       "bbox": [
+        15.52,
+        63.85,
+        54.48,
+        69.61
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "intensely. If only the Heroes could",
+       "bbox": [
+        9.27,
+        68.78,
+        60.73,
+        74.55
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "benefit from that. Alas, they’d lose",
+       "bbox": [
+        8.8,
+        73.72,
+        61.2,
+        79.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "all of their precious time though...",
+       "bbox": [
+        8.87,
+        78.66,
+        61.13,
+        84.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "All Heroes can Level Up",
+       "bbox": [
+        13.86,
+        94.09,
+        56.14,
+        98.72
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "one Lvl 1 Skill. If they",
+       "bbox": [
+        15.97,
+        99.04,
+        54.03,
+        103.66
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "do, 0 days. Else 3 days.",
+       "bbox": [
+        14.84,
+        103.97,
+        55.16,
+        108.6
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_BACK.pdf",
+     "page": 16,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c48c6af23b3fc069",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  }
+ ]
+}

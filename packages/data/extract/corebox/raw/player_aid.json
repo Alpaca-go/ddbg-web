@@ -1,0 +1,3243 @@
+{
+ "schema": "ddbg-raw-v1",
+ "extractor_version": "1.0.4",
+ "category": "player_aid",
+ "kind": "card",
+ "units": {
+  "length": "mm",
+  "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+  "y_axis": "down",
+  "font_size": "pt"
+ },
+ "sources": [
+  {
+   "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_PLAYER_AIDS_FRONT.pdf",
+   "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_PLAYER_AIDS_BACK.pdf",
+   "source_set": "base",
+   "kind": "card",
+   "front_pages": 8,
+   "back_pages": 8
+  }
+ ],
+ "n_pages": 8,
+ "n_unique": 2,
+ "n_copies_total": 8,
+ "cards": [
+  {
+   "id": "player_aid:p001",
+   "source_set": "base",
+   "copies": 4,
+   "pages": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_PLAYER_AIDS_FRONT.pdf",
+     "page": 1,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c0e16ad02f4b7f0e",
+     "spans": [
+      {
+       "t": "Provisions",
+       "bbox": [
+        25.91,
+        4.72,
+        45.09,
+        10.89
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Torch:",
+       "bbox": [
+        20.01,
+        17.05,
+        29.04,
+        20.81
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        33.47,
+        16.29,
+        36.27,
+        21.3
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "/ Ignore",
+       "bbox": [
+        36.93,
+        17.05,
+        48.04,
+        20.71
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "negative effects of Curios.",
+       "bbox": [
+        20.01,
+        20.86,
+        57.02,
+        24.52
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Food:",
+       "bbox": [
+        20.01,
+        30.42,
+        28.36,
+        34.17
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        31.26,
+        29.57,
+        32.42,
+        34.2
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#40ad49"
+      },
+      {
+       "t": "/ Counter",
+       "bbox": [
+        35.32,
+        30.42,
+        48.96,
+        34.07
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Hunger",
+       "bbox": [
+        20.02,
+        34.23,
+        30.73,
+        37.88
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        35.74,
+        34.23,
+        36.52,
+        37.88
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Tool:",
+       "bbox": [
+        20.01,
+        44.27,
+        27.43,
+        48.03
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Ignore a Trap",
+       "bbox": [
+        28.16,
+        44.27,
+        47.09,
+        47.93
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "or a",
+       "bbox": [
+        52.83,
+        44.27,
+        58.32,
+        47.93
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Rubble",
+       "bbox": [
+        20.02,
+        48.12,
+        30.22,
+        51.78
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        35.22,
+        48.12,
+        36.0,
+        51.78
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Bandages:",
+       "bbox": [
+        20.01,
+        60.78,
+        34.75,
+        64.53
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        37.46,
+        60.43,
+        38.62,
+        65.06
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#40ad49"
+      },
+      {
+       "t": "/ Remove .",
+       "bbox": [
+        41.35,
+        60.78,
+        58.02,
+        64.43
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Potion:",
+       "bbox": [
+        20.01,
+        74.67,
+        30.84,
+        78.42
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        35.62,
+        73.9,
+        38.46,
+        78.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "/ Remove",
+       "bbox": [
+        39.19,
+        74.67,
+        52.8,
+        78.32
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        55.99,
+        74.67,
+        56.77,
+        78.32
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Wild:",
+       "bbox": [
+        20.01,
+        86.27,
+        27.64,
+        90.03
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Turn to any side you",
+       "bbox": [
+        28.38,
+        86.27,
+        57.11,
+        89.93
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "want.",
+       "bbox": [
+        20.01,
+        90.08,
+        28.05,
+        93.74
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "686ca3dd0a",
+       "bbox": [
+        9.24,
+        3.6,
+        18.27,
+        12.4
+       ]
+      },
+      {
+       "iconId": "6b53e3e6fc",
+       "bbox": [
+        9.24,
+        15.97,
+        17.97,
+        24.67
+       ],
+       "bbox_full": [
+        8.26,
+        15.36,
+        19.06,
+        26.16
+       ]
+      },
+      {
+       "iconId": "0c6d7ed396",
+       "bbox": [
+        29.63,
+        16.23,
+        32.81,
+        20.46
+       ],
+       "bbox_full": [
+        28.94,
+        15.44,
+        33.51,
+        21.28
+       ]
+      },
+      {
+       "iconId": "030d73b0ba",
+       "bbox": [
+        9.24,
+        29.65,
+        17.97,
+        38.35
+       ],
+       "bbox_full": [
+        8.26,
+        29.04,
+        19.06,
+        39.84
+       ]
+      },
+      {
+       "iconId": "7f0a59a7a0",
+       "bbox": [
+        29.43,
+        29.58,
+        31.41,
+        31.49
+       ]
+      },
+      {
+       "iconId": "910a0c12fe",
+       "bbox": [
+        30.84,
+        30.48,
+        34.39,
+        33.89
+       ]
+      },
+      {
+       "iconId": "0269e8e744",
+       "bbox": [
+        31.47,
+        34.33,
+        35.74,
+        38.59
+       ]
+      },
+      {
+       "iconId": "e08aace22b",
+       "bbox": [
+        9.24,
+        43.65,
+        17.97,
+        52.35
+       ],
+       "bbox_full": [
+        8.26,
+        43.04,
+        19.06,
+        53.84
+       ]
+      },
+      {
+       "iconId": "097c181e73",
+       "bbox": [
+        47.82,
+        44.12,
+        52.1,
+        48.38
+       ]
+      },
+      {
+       "iconId": "b90f83490a",
+       "bbox": [
+        30.95,
+        47.96,
+        35.22,
+        52.23
+       ]
+      },
+      {
+       "iconId": "f537bc17c3",
+       "bbox": [
+        9.24,
+        57.65,
+        17.97,
+        66.35
+       ],
+       "bbox_full": [
+        8.26,
+        57.04,
+        19.06,
+        67.84
+       ]
+      },
+      {
+       "iconId": "d07276858c",
+       "bbox": [
+        54.68,
+        60.68,
+        57.5,
+        64.56
+       ],
+       "bbox_full": [
+        54.07,
+        60.0,
+        58.13,
+        65.33
+       ]
+      },
+      {
+       "iconId": "7f0a59a7a0",
+       "bbox": [
+        35.62,
+        60.44,
+        37.61,
+        62.35
+       ]
+      },
+      {
+       "iconId": "910a0c12fe",
+       "bbox": [
+        37.04,
+        61.34,
+        40.58,
+        64.75
+       ]
+      },
+      {
+       "iconId": "7c568783f1",
+       "bbox": [
+        9.24,
+        71.65,
+        17.97,
+        80.35
+       ],
+       "bbox_full": [
+        8.26,
+        71.04,
+        19.06,
+        81.84
+       ]
+      },
+      {
+       "iconId": "b75805594c",
+       "bbox": [
+        53.27,
+        75.14,
+        56.09,
+        77.96
+       ],
+       "bbox_full": [
+        52.65,
+        74.35,
+        56.71,
+        78.79
+       ]
+      },
+      {
+       "iconId": "ea267d2d04",
+       "bbox": [
+        31.4,
+        75.14,
+        34.92,
+        78.67
+       ],
+       "bbox_full": [
+        30.9,
+        74.47,
+        35.73,
+        79.04
+       ]
+      },
+      {
+       "iconId": "c7b2d1f3d3",
+       "bbox": [
+        9.24,
+        85.65,
+        17.97,
+        94.35
+       ],
+       "bbox_full": [
+        8.26,
+        85.04,
+        19.06,
+        95.84
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:686ca3dd0a} Provisions",
+       "bbox": [
+        9.24,
+        3.6,
+        45.09,
+        12.4
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:6b53e3e6fc} Torch: {icon:0c6d7ed396} +1 / Ignore",
+       "bbox": [
+        9.24,
+        15.97,
+        48.04,
+        24.67
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "negative effects of Curios.",
+       "bbox": [
+        20.01,
+        20.86,
+        57.02,
+        24.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:030d73b0ba} Food: {icon:7f0a59a7a0} {icon:910a0c12fe} 1 / Counter",
+       "bbox": [
+        9.24,
+        29.57,
+        48.96,
+        38.35
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hunger {icon:0269e8e744} .",
+       "bbox": [
+        20.02,
+        34.23,
+        36.52,
+        38.59
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e08aace22b} Tool: Ignore a Trap {icon:097c181e73} or a",
+       "bbox": [
+        9.24,
+        43.65,
+        58.32,
+        52.35
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Rubble {icon:b90f83490a} .",
+       "bbox": [
+        20.02,
+        47.96,
+        36.0,
+        52.23
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:f537bc17c3} Bandages: {icon:7f0a59a7a0} {icon:910a0c12fe} 1 / Remove . {icon:d07276858c}",
+       "bbox": [
+        9.24,
+        57.65,
+        58.02,
+        66.35
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:7c568783f1} Potion: {icon:ea267d2d04} -1 / Remove {icon:b75805594c} .",
+       "bbox": [
+        9.24,
+        71.65,
+        56.77,
+        80.35
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:c7b2d1f3d3} Wild: Turn to any side you",
+       "bbox": [
+        9.24,
+        85.65,
+        57.11,
+        94.35
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "want.",
+       "bbox": [
+        20.01,
+        90.08,
+        28.05,
+        93.74
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_PLAYER_AIDS_BACK.pdf",
+     "page": 1,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "95916a8f7a607f48",
+     "spans": [
+      {
+       "t": "Exploration",
+       "bbox": [
+        24.47,
+        4.72,
+        45.53,
+        10.89
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Curio:",
+       "bbox": [
+        18.81,
+        15.51,
+        27.51,
+        19.27
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Draw a Curio card.",
+       "bbox": [
+        28.18,
+        15.51,
+        53.71,
+        19.16
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "You can consume a Torch",
+       "bbox": [
+        18.81,
+        19.22,
+        53.99,
+        22.87
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "before doing so to ignore all",
+       "bbox": [
+        18.81,
+        22.92,
+        58.66,
+        26.57
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "negative effects.",
+       "bbox": [
+        18.81,
+        26.62,
+        42.53,
+        30.28
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Trap:",
+       "bbox": [
+        18.81,
+        34.88,
+        26.56,
+        38.64
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Consume a Tool",
+       "bbox": [
+        27.42,
+        34.88,
+        50.97,
+        38.53
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "to ignore it or roll",
+       "bbox": [
+        18.81,
+        38.58,
+        45.4,
+        42.24
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "an attack against you ->",
+       "bbox": [
+        18.81,
+        42.29,
+        54.17,
+        45.94
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Acc 8",
+       "bbox": [
+        18.81,
+        45.52,
+        26.64,
+        50.15
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#b6b8ba",
+       "dup": 2
+      },
+      {
+       "t": "(",
+       "bbox": [
+        27.88,
+        45.99,
+        28.9,
+        49.65
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "2",
+       "bbox": [
+        30.78,
+        46.35,
+        32.09,
+        50.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.69,
+       "color": "#840b01"
+      },
+      {
+       "t": "/Dungeon Level),",
+       "bbox": [
+        34.45,
+        45.99,
+        59.95,
+        49.65
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Crit 2",
+       "bbox": [
+        18.81,
+        49.76,
+        26.99,
+        54.38
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#f26522",
+       "dup": 2
+      },
+      {
+       "t": "(",
+       "bbox": [
+        27.94,
+        50.22,
+        28.97,
+        53.88
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "4",
+       "bbox": [
+        30.8,
+        50.58,
+        32.2,
+        54.32
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.69,
+       "color": "#840b01"
+      },
+      {
+       "t": "/Dungeon Level).",
+       "bbox": [
+        34.51,
+        50.22,
+        60.01,
+        53.88
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Stressful Darkness:",
+       "bbox": [
+        18.81,
+        59.39,
+        48.15,
+        63.15
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Consume a Torch",
+       "bbox": [
+        18.81,
+        63.1,
+        43.31,
+        66.75
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "or gain",
+       "bbox": [
+        49.05,
+        63.1,
+        59.0,
+        66.75
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "+2",
+       "bbox": [
+        22.97,
+        66.04,
+        26.3,
+        71.05
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "or",
+       "bbox": [
+        27.04,
+        66.8,
+        30.14,
+        70.46
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        34.63,
+        66.04,
+        37.42,
+        71.05
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        37.37,
+        66.8,
+        38.15,
+        70.46
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Hunger:",
+       "bbox": [
+        18.81,
+        76.02,
+        30.23,
+        79.77
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Consume 1 Food",
+       "bbox": [
+        30.77,
+        76.02,
+        53.43,
+        79.67
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "or suffer 2",
+       "bbox": [
+        18.81,
+        79.72,
+        33.02,
+        83.38
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "/Hero Level.",
+       "bbox": [
+        37.83,
+        79.72,
+        54.2,
+        83.37
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Rubble:",
+       "bbox": [
+        18.81,
+        87.48,
+        30.24,
+        91.23
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Consume a Tool",
+       "bbox": [
+        30.98,
+        87.48,
+        53.7,
+        91.13
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "or suffer 1",
+       "bbox": [
+        23.82,
+        91.18,
+        38.88,
+        94.84
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "/Dungeon",
+       "bbox": [
+        43.79,
+        91.18,
+        58.23,
+        94.84
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Level and",
+       "bbox": [
+        18.81,
+        94.89,
+        32.47,
+        98.54
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        37.36,
+        94.12,
+        40.21,
+        99.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        40.21,
+        94.89,
+        40.99,
+        98.54
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "7f3f641dd0",
+       "bbox": [
+        8.65,
+        4.0,
+        16.86,
+        11.91
+       ]
+      },
+      {
+       "iconId": "6112b7010c",
+       "bbox": [
+        8.45,
+        18.53,
+        17.18,
+        27.24
+       ],
+       "bbox_full": [
+        7.47,
+        17.93,
+        18.27,
+        28.73
+       ]
+      },
+      {
+       "iconId": "edd5bed33f",
+       "bbox": [
+        55.39,
+        18.95,
+        59.66,
+        23.22
+       ]
+      },
+      {
+       "iconId": "58a22b11c6",
+       "bbox": [
+        51.83,
+        34.97,
+        56.1,
+        39.24
+       ]
+      },
+      {
+       "iconId": "101bcf4948",
+       "bbox": [
+        8.45,
+        40.48,
+        17.18,
+        49.18
+       ],
+       "bbox_full": [
+        7.47,
+        39.87,
+        18.27,
+        50.67
+       ]
+      },
+      {
+       "iconId": "a0ff30c692",
+       "bbox": [
+        29.11,
+        45.96,
+        34.23,
+        50.25
+       ]
+      },
+      {
+       "iconId": "a0ff30c692",
+       "bbox": [
+        29.18,
+        50.2,
+        34.3,
+        54.48
+       ]
+      },
+      {
+       "iconId": "9bc725d484",
+       "bbox": [
+        8.45,
+        60.57,
+        17.18,
+        69.27
+       ],
+       "bbox_full": [
+        7.47,
+        59.97,
+        18.27,
+        70.76
+       ]
+      },
+      {
+       "iconId": "edd5bed33f",
+       "bbox": [
+        44.04,
+        62.94,
+        48.32,
+        67.2
+       ]
+      },
+      {
+       "iconId": "0c6d7ed396",
+       "bbox": [
+        30.69,
+        66.32,
+        33.87,
+        70.91
+       ],
+       "bbox_full": [
+        30.1,
+        65.69,
+        34.67,
+        71.53
+       ]
+      },
+      {
+       "iconId": "ea267d2d04",
+       "bbox": [
+        18.7,
+        67.03,
+        22.22,
+        70.56
+       ],
+       "bbox_full": [
+        18.14,
+        66.61,
+        22.96,
+        71.18
+       ]
+      },
+      {
+       "iconId": "9bc725d484",
+       "bbox": [
+        8.45,
+        74.96,
+        17.18,
+        83.67
+       ],
+       "bbox_full": [
+        7.47,
+        74.36,
+        18.27,
+        85.15
+       ]
+      },
+      {
+       "iconId": "6e68b2add8",
+       "bbox": [
+        53.97,
+        75.86,
+        58.25,
+        80.12
+       ]
+      },
+      {
+       "iconId": "ccade5e7ad",
+       "bbox": [
+        33.56,
+        79.56,
+        37.83,
+        83.83
+       ]
+      },
+      {
+       "iconId": "bd191b4b19",
+       "bbox": [
+        8.45,
+        89.36,
+        17.18,
+        98.06
+       ],
+       "bbox_full": [
+        7.47,
+        88.75,
+        18.27,
+        99.55
+       ]
+      },
+      {
+       "iconId": "58a22b11c6",
+       "bbox": [
+        18.81,
+        91.02,
+        23.09,
+        95.29
+       ]
+      },
+      {
+       "iconId": "163b31751a",
+       "bbox": [
+        39.52,
+        91.02,
+        43.79,
+        95.3
+       ]
+      },
+      {
+       "iconId": "ea267d2d04",
+       "bbox": [
+        33.16,
+        95.25,
+        36.69,
+        98.78
+       ],
+       "bbox_full": [
+        32.53,
+        94.69,
+        37.36,
+        99.26
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:7f3f641dd0} Exploration",
+       "bbox": [
+        8.65,
+        4.0,
+        45.53,
+        11.91
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Curio: Draw a Curio card.",
+       "bbox": [
+        18.81,
+        15.51,
+        53.71,
+        19.27
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:6112b7010c} You can consume a Torch {icon:edd5bed33f}",
+       "bbox": [
+        8.45,
+        18.53,
+        59.66,
+        27.24
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "before doing so to ignore all",
+       "bbox": [
+        18.81,
+        22.92,
+        58.66,
+        26.57
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "negative effects.",
+       "bbox": [
+        18.81,
+        26.62,
+        42.53,
+        30.28
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Trap: Consume a Tool {icon:58a22b11c6}",
+       "bbox": [
+        18.81,
+        34.88,
+        56.1,
+        39.24
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "to ignore it or roll",
+       "bbox": [
+        18.81,
+        38.58,
+        45.4,
+        42.24
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:101bcf4948} an attack against you ->",
+       "bbox": [
+        8.45,
+        40.48,
+        54.17,
+        49.18
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Acc 8 ( {icon:a0ff30c692} 2 /Dungeon Level),",
+       "bbox": [
+        18.81,
+        45.52,
+        59.95,
+        50.25
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Crit 2 ( {icon:a0ff30c692} 4 /Dungeon Level).",
+       "bbox": [
+        18.81,
+        49.76,
+        60.01,
+        54.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:9bc725d484} Stressful Darkness:",
+       "bbox": [
+        8.45,
+        59.39,
+        48.15,
+        69.27
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Consume a Torch {icon:edd5bed33f} or gain",
+       "bbox": [
+        18.81,
+        62.94,
+        59.0,
+        67.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:ea267d2d04} +2 or {icon:0c6d7ed396} -1.",
+       "bbox": [
+        18.7,
+        66.04,
+        38.15,
+        71.05
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:9bc725d484} Hunger: Consume 1 Food {icon:6e68b2add8}",
+       "bbox": [
+        8.45,
+        74.96,
+        58.25,
+        83.67
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "or suffer 2 {icon:ccade5e7ad} /Hero Level.",
+       "bbox": [
+        18.81,
+        79.56,
+        54.2,
+        83.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Rubble: Consume a Tool",
+       "bbox": [
+        18.81,
+        87.48,
+        53.7,
+        91.23
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:bd191b4b19} {icon:58a22b11c6} or suffer 1 {icon:163b31751a} /Dungeon",
+       "bbox": [
+        8.45,
+        89.36,
+        58.23,
+        98.06
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Level and {icon:ea267d2d04} +1.",
+       "bbox": [
+        18.81,
+        94.12,
+        40.99,
+        99.14
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "player_aid:p005",
+   "source_set": "base",
+   "copies": 4,
+   "pages": [
+    5,
+    6,
+    7,
+    8
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_PLAYER_AIDS_FRONT.pdf",
+     "page": 5,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "959d6ad56868690f",
+     "spans": [
+      {
+       "t": "Rooms",
+       "bbox": [
+        29.06,
+        4.82,
+        40.94,
+        10.99
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Empty Room:",
+       "bbox": [
+        19.07,
+        14.83,
+        38.69,
+        18.58
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Nothing special.",
+       "bbox": [
+        39.36,
+        14.83,
+        61.99,
+        18.48
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "It is automatically cleared.",
+       "bbox": [
+        19.07,
+        18.53,
+        55.7,
+        22.19
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Dark Room:",
+       "bbox": [
+        19.07,
+        25.61,
+        36.24,
+        29.36
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        40.66,
+        24.85,
+        43.45,
+        29.86
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ". This room",
+       "bbox": [
+        43.41,
+        25.61,
+        58.87,
+        29.26
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "can’t be cleared.",
+       "bbox": [
+        19.07,
+        29.31,
+        42.0,
+        32.97
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Trap Room:",
+       "bbox": [
+        19.07,
+        35.47,
+        35.95,
+        39.23
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Each Hero suffers",
+       "bbox": [
+        36.68,
+        35.47,
+        62.12,
+        39.12
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "a combination of",
+       "bbox": [
+        19.07,
+        39.17,
+        43.27,
+        42.83
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and/",
+       "bbox": [
+        50.12,
+        39.17,
+        56.68,
+        42.83
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "or",
+       "bbox": [
+        19.07,
+        42.88,
+        22.17,
+        46.53
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "equal to the Dungeon",
+       "bbox": [
+        27.07,
+        42.88,
+        58.44,
+        46.53
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Level. This Room can’t be",
+       "bbox": [
+        19.08,
+        46.58,
+        55.21,
+        50.24
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "cleared.",
+       "bbox": [
+        19.08,
+        50.29,
+        30.5,
+        53.94
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Curio Room:",
+       "bbox": [
+        19.07,
+        55.93,
+        36.68,
+        59.68
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Roll",
+       "bbox": [
+        37.29,
+        55.93,
+        42.7,
+        59.58
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ". (1-5) the",
+       "bbox": [
+        47.51,
+        55.93,
+        60.58,
+        59.58
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Room is guarded; commence",
+       "bbox": [
+        19.07,
+        59.63,
+        58.91,
+        63.29
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Battle! (6-10) the Room is",
+       "bbox": [
+        19.07,
+        63.34,
+        54.13,
+        66.99
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "unguarded. After resolving the",
+       "bbox": [
+        19.07,
+        67.05,
+        61.57,
+        70.7
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "die, draw a Curio and choose",
+       "bbox": [
+        19.07,
+        70.75,
+        58.3,
+        74.4
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "which Hero will interact with it.",
+       "bbox": [
+        19.07,
+        74.45,
+        61.73,
+        78.11
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "The Room is then cleared.",
+       "bbox": [
+        19.07,
+        78.16,
+        54.68,
+        81.81
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Treasure Room:",
+       "bbox": [
+        19.07,
+        83.02,
+        42.47,
+        86.77
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Commence",
+       "bbox": [
+        43.2,
+        83.02,
+        59.31,
+        86.67
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Battle! When the Room is",
+       "bbox": [
+        19.07,
+        86.72,
+        55.7,
+        90.38
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "cleared, gain 20",
+       "bbox": [
+        19.07,
+        90.43,
+        41.67,
+        94.08
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        46.38,
+        90.42,
+        47.16,
+        94.08
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Objective Room:",
+       "bbox": [
+        19.07,
+        96.36,
+        43.42,
+        100.11
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "The location",
+       "bbox": [
+        44.09,
+        96.36,
+        61.51,
+        100.01
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "of your Quest.",
+       "bbox": [
+        19.07,
+        100.06,
+        39.3,
+        103.72
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "c68132c82e",
+       "bbox": [
+        8.89,
+        3.75,
+        17.11,
+        11.96
+       ]
+      },
+      {
+       "iconId": "857e522591",
+       "bbox": [
+        26.7,
+        3.95,
+        43.21,
+        12.08
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "d85cb831e4",
+       "bbox": [
+        8.71,
+        14.15,
+        17.44,
+        22.88
+       ],
+       "bbox_full": [
+        7.61,
+        13.55,
+        18.53,
+        24.47
+       ]
+      },
+      {
+       "iconId": "0c6d7ed396",
+       "bbox": [
+        36.69,
+        24.69,
+        40.22,
+        28.93
+       ],
+       "bbox_full": [
+        36.14,
+        24.0,
+        40.71,
+        29.84
+       ]
+      },
+      {
+       "iconId": "9664a6209e",
+       "bbox": [
+        8.71,
+        24.85,
+        17.44,
+        33.58
+       ],
+       "bbox_full": [
+        7.61,
+        24.25,
+        18.53,
+        35.17
+       ]
+      },
+      {
+       "iconId": "ade0d9ecad",
+       "bbox": [
+        43.55,
+        38.64,
+        50.41,
+        44.61
+       ]
+      },
+      {
+       "iconId": "973c3b8f2f",
+       "bbox": [
+        8.71,
+        40.35,
+        17.44,
+        49.07
+       ],
+       "bbox_full": [
+        7.61,
+        39.74,
+        18.53,
+        50.66
+       ]
+      },
+      {
+       "iconId": "ea267d2d04",
+       "bbox": [
+        22.93,
+        43.39,
+        26.46,
+        46.57
+       ],
+       "bbox_full": [
+        22.23,
+        42.68,
+        27.06,
+        47.25
+       ]
+      },
+      {
+       "iconId": "d91e56a591",
+       "bbox": [
+        43.31,
+        56.04,
+        47.58,
+        60.08
+       ]
+      },
+      {
+       "iconId": "e6bfc7f0e2",
+       "bbox": [
+        8.71,
+        64.27,
+        17.44,
+        73.0
+       ],
+       "bbox_full": [
+        7.61,
+        63.67,
+        18.53,
+        74.59
+       ]
+      },
+      {
+       "iconId": "6373c1a98f",
+       "bbox": [
+        8.71,
+        84.19,
+        17.44,
+        92.92
+       ],
+       "bbox_full": [
+        7.73,
+        83.71,
+        18.53,
+        94.51
+       ]
+      },
+      {
+       "iconId": "989d655ff2",
+       "bbox": [
+        41.98,
+        89.96,
+        46.57,
+        95.25
+       ]
+      },
+      {
+       "iconId": "b5e946ca1e",
+       "bbox": [
+        8.71,
+        95.68,
+        17.44,
+        104.41
+       ],
+       "bbox_full": [
+        7.61,
+        95.08,
+        18.53,
+        106.0
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:c68132c82e} Rooms",
+       "bbox": [
+        8.89,
+        3.75,
+        40.94,
+        11.96
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:d85cb831e4} Empty Room: Nothing special.",
+       "bbox": [
+        8.71,
+        14.15,
+        61.99,
+        22.88
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "It is automatically cleared.",
+       "bbox": [
+        19.07,
+        18.53,
+        55.7,
+        22.19
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:9664a6209e} Dark Room: {icon:0c6d7ed396} -1. This room",
+       "bbox": [
+        8.71,
+        24.69,
+        58.87,
+        33.58
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "can’t be cleared.",
+       "bbox": [
+        19.07,
+        29.31,
+        42.0,
+        32.97
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Trap Room: Each Hero suffers",
+       "bbox": [
+        19.07,
+        35.47,
+        62.12,
+        39.23
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:973c3b8f2f} a combination of {icon:ade0d9ecad} and/",
+       "bbox": [
+        8.71,
+        38.64,
+        56.68,
+        49.07
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "or {icon:ea267d2d04} equal to the Dungeon",
+       "bbox": [
+        19.07,
+        42.88,
+        58.44,
+        46.57
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Level. This Room can’t be",
+       "bbox": [
+        19.08,
+        46.58,
+        55.21,
+        50.24
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "cleared.",
+       "bbox": [
+        19.08,
+        50.29,
+        30.5,
+        53.94
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Curio Room: Roll {icon:d91e56a591} . (1-5) the",
+       "bbox": [
+        19.07,
+        55.93,
+        60.58,
+        60.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Room is guarded; commence",
+       "bbox": [
+        19.07,
+        59.63,
+        58.91,
+        63.29
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e6bfc7f0e2} Battle! (6-10) the Room is",
+       "bbox": [
+        8.71,
+        63.34,
+        54.13,
+        73.0
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "unguarded. After resolving the",
+       "bbox": [
+        19.07,
+        67.05,
+        61.57,
+        70.7
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "die, draw a Curio and choose",
+       "bbox": [
+        19.07,
+        70.75,
+        58.3,
+        74.4
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "which Hero will interact with it.",
+       "bbox": [
+        19.07,
+        74.45,
+        61.73,
+        78.11
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "The Room is then cleared.",
+       "bbox": [
+        19.07,
+        78.16,
+        54.68,
+        81.81
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:6373c1a98f} Treasure Room: Commence",
+       "bbox": [
+        8.71,
+        83.02,
+        59.31,
+        92.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Battle! When the Room is",
+       "bbox": [
+        19.07,
+        86.72,
+        55.7,
+        90.38
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "cleared, gain 20 {icon:989d655ff2} .",
+       "bbox": [
+        19.07,
+        89.96,
+        47.16,
+        95.25
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b5e946ca1e} Objective Room: The location",
+       "bbox": [
+        8.71,
+        95.68,
+        61.51,
+        104.41
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "of your Quest.",
+       "bbox": [
+        19.07,
+        100.06,
+        39.3,
+        103.72
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_PLAYER_AIDS_BACK.pdf",
+     "page": 5,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "d0942e912b6b6b6b",
+     "spans": [
+      {
+       "t": "Conditions",
+       "bbox": [
+        25.54,
+        4.82,
+        44.46,
+        10.99
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Bleed X:",
+       "bbox": [
+        14.83,
+        12.64,
+        26.43,
+        16.19
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "When removed, suffer x",
+       "bbox": [
+        27.06,
+        12.64,
+        58.97,
+        16.09
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        19.1,
+        16.35,
+        19.84,
+        19.8
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Blight X:",
+       "bbox": [
+        14.83,
+        21.07,
+        27.07,
+        24.62
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "When removed, suffer x",
+       "bbox": [
+        27.76,
+        21.07,
+        60.27,
+        24.53
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        19.1,
+        24.78,
+        19.84,
+        28.23
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Stun:",
+       "bbox": [
+        14.83,
+        29.5,
+        22.18,
+        33.05
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "When removed, skip your",
+       "bbox": [
+        22.87,
+        29.5,
+        57.19,
+        32.96
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "first action if it is a Hero; skip the",
+       "bbox": [
+        14.83,
+        33.21,
+        59.43,
+        36.66
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "whole turn if it is a Monster.",
+       "bbox": [
+        14.83,
+        36.91,
+        52.66,
+        40.36
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Buff:",
+       "bbox": [
+        14.83,
+        41.64,
+        21.93,
+        45.19
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "As long as the character is",
+       "bbox": [
+        22.62,
+        41.64,
+        57.88,
+        45.09
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Buffed, their Skills gain +1",
+       "bbox": [
+        14.83,
+        45.34,
+        50.32,
+        48.79
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Crit",
+       "bbox": [
+        51.01,
+        44.71,
+        56.07,
+        49.33
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#f26522",
+       "dup": 2
+      },
+      {
+       "t": "per",
+       "bbox": [
+        56.77,
+        45.34,
+        61.37,
+        48.8
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "stack.",
+       "bbox": [
+        14.83,
+        49.05,
+        22.63,
+        52.5
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Debuff:",
+       "bbox": [
+        14.83,
+        53.77,
+        25.46,
+        57.32
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "As long as the debuff",
+       "bbox": [
+        26.06,
+        53.77,
+        54.08,
+        57.23
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "applies to the character, the others",
+       "bbox": [
+        14.83,
+        57.48,
+        60.76,
+        60.93
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "win +1",
+       "bbox": [
+        14.83,
+        61.18,
+        23.49,
+        64.63
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Crit",
+       "bbox": [
+        24.09,
+        60.54,
+        28.96,
+        65.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#f26522",
+       "dup": 2
+      },
+      {
+       "t": "per stack when targeted.",
+       "bbox": [
+        29.55,
+        61.18,
+        62.39,
+        64.64
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Guard:",
+       "bbox": [
+        14.83,
+        65.91,
+        24.14,
+        69.46
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Enemies must always",
+       "bbox": [
+        24.84,
+        65.91,
+        53.59,
+        69.36
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "target a character with Guard with",
+       "bbox": [
+        14.83,
+        69.61,
+        61.44,
+        73.06
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "their Skills.",
+       "bbox": [
+        14.83,
+        73.32,
+        29.66,
+        76.77
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Riposte:",
+       "bbox": [
+        14.83,
+        78.05,
+        26.54,
+        81.59
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "When attacked, the",
+       "bbox": [
+        27.23,
+        78.05,
+        53.71,
+        81.5
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "character deals half (round up)",
+       "bbox": [
+        14.83,
+        81.75,
+        56.29,
+        85.2
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "back to the attacker.",
+       "bbox": [
+        14.83,
+        85.45,
+        42.55,
+        88.9
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Marked:",
+       "bbox": [
+        14.83,
+        90.34,
+        26.37,
+        93.89
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Characters targeting a",
+       "bbox": [
+        27.06,
+        90.34,
+        57.37,
+        93.79
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "marked character gain +1",
+       "bbox": [
+        14.83,
+        94.05,
+        49.1,
+        97.5
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Acc",
+       "bbox": [
+        49.79,
+        93.41,
+        54.13,
+        98.04
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#b6b8ba",
+       "dup": 2
+      },
+      {
+       "t": ".",
+       "bbox": [
+        54.01,
+        94.05,
+        54.74,
+        97.5
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Protection:",
+       "bbox": [
+        14.83,
+        98.98,
+        30.86,
+        102.53
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "A protected character",
+       "bbox": [
+        31.55,
+        98.98,
+        61.28,
+        102.43
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "takes only half (round up)",
+       "bbox": [
+        14.83,
+        102.68,
+        49.41,
+        106.14
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        55.48,
+        102.69,
+        56.22,
+        106.14
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "d07276858c",
+       "bbox": [
+        8.11,
+        13.41,
+        12.35,
+        19.05
+       ],
+       "bbox_full": [
+        6.92,
+        11.91,
+        13.53,
+        20.55
+       ]
+      },
+      {
+       "iconId": "163b31751a",
+       "bbox": [
+        14.83,
+        16.07,
+        19.1,
+        20.34
+       ]
+      },
+      {
+       "iconId": "1e762e1c58",
+       "bbox": [
+        8.11,
+        22.22,
+        12.35,
+        26.81
+       ],
+       "bbox_full": [
+        6.85,
+        21.01,
+        13.59,
+        28.37
+       ]
+      },
+      {
+       "iconId": "163b31751a",
+       "bbox": [
+        14.83,
+        24.5,
+        19.1,
+        28.78
+       ]
+      },
+      {
+       "iconId": "8db71542d2",
+       "bbox": [
+        5.88,
+        30.3,
+        14.64,
+        39.57
+       ]
+      },
+      {
+       "iconId": "0d5461924f",
+       "bbox": [
+        7.76,
+        44.45,
+        12.7,
+        49.39
+       ],
+       "bbox_full": [
+        6.5,
+        43.25,
+        13.87,
+        50.87
+       ]
+      },
+      {
+       "iconId": "3daf86fcef",
+       "bbox": [
+        7.76,
+        56.8,
+        12.7,
+        61.74
+       ],
+       "bbox_full": [
+        6.57,
+        55.4,
+        13.94,
+        63.02
+       ]
+      },
+      {
+       "iconId": "1d1884bc2a",
+       "bbox": [
+        7.68,
+        68.5,
+        12.75,
+        74.18
+       ]
+      },
+      {
+       "iconId": "f9991d2b32",
+       "bbox": [
+        7.88,
+        80.63,
+        12.56,
+        86.31
+       ],
+       "bbox_full": [
+        6.98,
+        79.72,
+        13.46,
+        87.22
+       ]
+      },
+      {
+       "iconId": "a0ff30c692",
+       "bbox": [
+        57.12,
+        81.55,
+        62.24,
+        85.83
+       ]
+      },
+      {
+       "iconId": "17423f15a8",
+       "bbox": [
+        5.56,
+        89.08,
+        14.96,
+        98.73
+       ]
+      },
+      {
+       "iconId": "ab3a17c832",
+       "bbox": [
+        6.28,
+        98.93,
+        14.16,
+        106.05
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "d018286d13",
+       "bbox": [
+        6.1,
+        99.16,
+        13.58,
+        106.18
+       ]
+      },
+      {
+       "iconId": "c26950df31",
+       "bbox": [
+        6.86,
+        99.19,
+        13.58,
+        105.47
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a0ff30c692",
+       "bbox": [
+        50.24,
+        102.49,
+        55.36,
+        106.77
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Conditions",
+       "bbox": [
+        25.54,
+        4.82,
+        44.46,
+        10.99
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:d07276858c} Bleed X: When removed, suffer x",
+       "bbox": [
+        8.11,
+        12.64,
+        58.97,
+        19.05
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:163b31751a} .",
+       "bbox": [
+        14.83,
+        16.07,
+        19.84,
+        20.34
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:1e762e1c58} Blight X: When removed, suffer x",
+       "bbox": [
+        8.11,
+        21.07,
+        60.27,
+        26.81
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:163b31751a} .",
+       "bbox": [
+        14.83,
+        24.5,
+        19.84,
+        28.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:8db71542d2} Stun: When removed, skip your",
+       "bbox": [
+        5.88,
+        29.5,
+        57.19,
+        39.57
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "first action if it is a Hero; skip the",
+       "bbox": [
+        14.83,
+        33.21,
+        59.43,
+        36.66
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "whole turn if it is a Monster.",
+       "bbox": [
+        14.83,
+        36.91,
+        52.66,
+        40.36
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Buff: As long as the character is",
+       "bbox": [
+        14.83,
+        41.64,
+        57.88,
+        45.19
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:0d5461924f} Buffed, their Skills gain +1 Crit per",
+       "bbox": [
+        7.76,
+        44.45,
+        61.37,
+        49.39
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "stack.",
+       "bbox": [
+        14.83,
+        49.05,
+        22.63,
+        52.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Debuff: As long as the debuff",
+       "bbox": [
+        14.83,
+        53.77,
+        54.08,
+        57.32
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3daf86fcef} applies to the character, the others",
+       "bbox": [
+        7.76,
+        56.8,
+        60.76,
+        61.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "win +1 Crit per stack when targeted.",
+       "bbox": [
+        14.83,
+        60.54,
+        62.39,
+        65.17
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Guard: Enemies must always",
+       "bbox": [
+        14.83,
+        65.91,
+        53.59,
+        69.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:1d1884bc2a} target a character with Guard with",
+       "bbox": [
+        7.68,
+        68.5,
+        61.44,
+        74.18
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "their Skills.",
+       "bbox": [
+        14.83,
+        73.32,
+        29.66,
+        76.77
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Riposte: When attacked, the",
+       "bbox": [
+        14.83,
+        78.05,
+        53.71,
+        81.59
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:f9991d2b32} character deals half (round up) {icon:a0ff30c692}",
+       "bbox": [
+        7.88,
+        80.63,
+        62.24,
+        86.31
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "back to the attacker.",
+       "bbox": [
+        14.83,
+        85.45,
+        42.55,
+        88.9
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:17423f15a8} Marked: Characters targeting a",
+       "bbox": [
+        5.56,
+        89.08,
+        57.37,
+        98.73
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "marked character gain +1 Acc.",
+       "bbox": [
+        14.83,
+        93.41,
+        54.74,
+        98.04
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:d018286d13} Protection: A protected character",
+       "bbox": [
+        6.1,
+        98.98,
+        61.28,
+        106.18
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "takes only half (round up) {icon:a0ff30c692} .",
+       "bbox": [
+        14.83,
+        102.49,
+        56.22,
+        106.77
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

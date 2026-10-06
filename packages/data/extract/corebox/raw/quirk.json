@@ -1,0 +1,6939 @@
+{
+ "schema": "ddbg-raw-v1",
+ "extractor_version": "1.0.4",
+ "category": "quirk",
+ "kind": "card",
+ "units": {
+  "length": "mm",
+  "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+  "y_axis": "down",
+  "font_size": "pt"
+ },
+ "sources": [
+  {
+   "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "source_set": "base",
+   "kind": "card",
+   "front_pages": 35,
+   "back_pages": 35
+  }
+ ],
+ "n_pages": 35,
+ "n_unique": 35,
+ "n_copies_total": 35,
+ "cards": [
+  {
+   "id": "quirk:p001",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    1
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 1,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "996626d94c6367cc",
+     "spans": [
+      {
+       "t": "Clotter",
+       "bbox": [
+        16.7,
+        11.2,
+        26.71,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "-1t",
+       "bbox": [
+        21.41,
+        48.22,
+        28.96,
+        57.35
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "b78e7b8c8a",
+       "bbox": [
+        14.55,
+        9.97,
+        28.9,
+        17.34
+       ]
+      },
+      {
+       "iconId": "c43c46e6de",
+       "bbox": [
+        16.17,
+        18.0,
+        27.73,
+        32.86
+       ],
+       "container": true
+      },
+      {
+       "iconId": "816fdf045e",
+       "bbox": [
+        18.7,
+        20.46,
+        25.05,
+        30.34
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "67cdb3ec52",
+       "bbox": [
+        18.96,
+        20.66,
+        24.96,
+        30.03
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "63506ccc70",
+       "bbox": [
+        19.04,
+        24.89,
+        20.77,
+        25.92
+       ]
+      },
+      {
+       "iconId": "dbe7e40350",
+       "bbox": [
+        23.04,
+        27.43,
+        24.14,
+        28.52
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "c43c46e6de",
+       "bbox": [
+        15.17,
+        49.39,
+        20.11,
+        57.15
+       ],
+       "bbox_full": [
+        13.3,
+        47.75,
+        21.93,
+        58.92
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:b78e7b8c8a} Clotter",
+       "bbox": [
+        14.55,
+        9.97,
+        28.9,
+        17.34
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:63506ccc70}",
+       "bbox": [
+        19.04,
+        24.89,
+        20.77,
+        25.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:dbe7e40350}",
+       "bbox": [
+        23.04,
+        27.43,
+        24.14,
+        28.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:c43c46e6de} -1t",
+       "bbox": [
+        15.17,
+        48.22,
+        28.96,
+        57.35
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 1,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p002",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    2
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 2,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "996666cc4c3373cc",
+     "spans": [
+      {
+       "t": "Early Riser",
+       "bbox": [
+        13.35,
+        11.2,
+        30.05,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "2t",
+       "bbox": [
+        22.94,
+        48.63,
+        28.5,
+        57.75
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      },
+      {
+       "t": "+",
+       "bbox": [
+        21.73,
+        20.54,
+        24.79,
+        30.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 25.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        25.4,
+        20.95,
+        29.22,
+        30.98
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 26.0,
+       "color": "#ffd374"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0d6b3e8222",
+       "bbox": [
+        11.12,
+        9.97,
+        32.2,
+        18.48
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "78d1cc55d3",
+       "bbox": [
+        15.17,
+        20.11,
+        21.52,
+        28.57
+       ],
+       "bbox_full": [
+        13.49,
+        18.06,
+        23.52,
+        30.63
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "b145dba436",
+       "bbox": [
+        15.17,
+        49.74,
+        21.52,
+        56.44
+       ],
+       "bbox_full": [
+        13.32,
+        47.86,
+        23.48,
+        58.4
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Early Riser",
+       "bbox": [
+        13.35,
+        11.2,
+        30.05,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:78d1cc55d3} +X",
+       "bbox": [
+        15.17,
+        20.11,
+        29.22,
+        30.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b145dba436} 2t",
+       "bbox": [
+        15.17,
+        48.63,
+        28.5,
+        57.75
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 2,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p003",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    3
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 3,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "8d7a26c479856b1d",
+     "spans": [
+      {
+       "t": "Fast Healer",
+       "bbox": [
+        13.5,
+        11.2,
+        29.9,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        20.7,
+        20.38,
+        23.83,
+        28.63
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.39,
+       "color": "#40ad49"
+      },
+      {
+       "t": "+1 /",
+       "bbox": [
+        8.82,
+        49.1,
+        17.7,
+        56.28
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.6,
+       "color": "#ffffff",
+       "dup": 2
+      },
+      {
+       "t": "Hero Level",
+       "bbox": [
+        17.7,
+        49.57,
+        37.19,
+        56.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 17.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "d6e5267089",
+       "bbox": [
+        11.24,
+        9.97,
+        32.07,
+        17.47
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "8404726857",
+       "bbox": [
+        17.96,
+        20.4,
+        21.49,
+        23.81
+       ]
+      },
+      {
+       "iconId": "910a0c12fe",
+       "bbox": [
+        20.49,
+        22.0,
+        26.8,
+        28.08
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "8404726857",
+       "bbox": [
+        6.5,
+        49.12,
+        9.57,
+        52.08
+       ]
+      },
+      {
+       "iconId": "910a0c12fe",
+       "bbox": [
+        8.7,
+        50.51,
+        14.19,
+        55.8
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Fast Healer",
+       "bbox": [
+        13.5,
+        11.2,
+        29.9,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:8404726857} {icon:910a0c12fe} X",
+       "bbox": [
+        17.96,
+        20.38,
+        26.8,
+        28.63
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:8404726857} {icon:910a0c12fe} +1 /Hero Level",
+       "bbox": [
+        6.5,
+        49.1,
+        37.19,
+        56.28
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 3,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p004",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    4
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 4,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9c7466cc4c66678d",
+     "spans": [
+      {
+       "t": "Hard Noggin",
+       "bbox": [
+        12.69,
+        11.2,
+        30.71,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "-1t",
+       "bbox": [
+        22.25,
+        48.32,
+        29.8,
+        57.44
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "f122d682f4",
+       "bbox": [
+        16.09,
+        18.5,
+        28.79,
+        31.96
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "f122d682f4",
+       "bbox": [
+        12.73,
+        47.92,
+        22.51,
+        58.47
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Hard Noggin",
+       "bbox": [
+        12.69,
+        11.2,
+        30.71,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:f122d682f4}",
+       "bbox": [
+        16.09,
+        18.5,
+        28.79,
+        31.96
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:f122d682f4} -1t",
+       "bbox": [
+        12.73,
+        47.92,
+        29.8,
+        58.47
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 4,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p005",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    5
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 5,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "997666cc4c33738c",
+     "spans": [
+      {
+       "t": "Night Owl",
+       "bbox": [
+        14.67,
+        11.2,
+        28.73,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "-",
+       "bbox": [
+        21.79,
+        20.54,
+        24.83,
+        30.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 25.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        25.44,
+        20.95,
+        29.26,
+        30.98
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 26.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        23.01,
+        48.58,
+        28.17,
+        57.7
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "8e79bef7e9",
+       "bbox": [
+        12.39,
+        9.97,
+        30.93,
+        18.48
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "78d1cc55d3",
+       "bbox": [
+        15.17,
+        20.11,
+        21.87,
+        28.57
+       ],
+       "bbox_full": [
+        13.55,
+        18.06,
+        23.58,
+        30.63
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.51,
+        48.9,
+        23.78,
+        57.92
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        15.12,
+        49.89,
+        23.25,
+        56.62
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        20.39,
+        50.42,
+        20.93,
+        51.4
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.87,
+        50.45,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.22,
+        50.47,
+        22.15,
+        56.41
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        16.0,
+        51.04,
+        17.24,
+        52.03
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.69,
+        51.58,
+        21.69,
+        55.1
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.55,
+        55.15,
+        19.47,
+        56.51
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Night Owl",
+       "bbox": [
+        14.67,
+        11.2,
+        28.73,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:78d1cc55d3} -X",
+       "bbox": [
+        15.17,
+        20.11,
+        29.26,
+        30.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        16.0,
+        51.04,
+        17.24,
+        52.03
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:a36e3446f7} -1",
+       "bbox": [
+        16.69,
+        48.58,
+        28.17,
+        57.7
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 5,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p006",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    6
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 6,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cc6633d94c666699",
+     "spans": [
+      {
+       "t": "Evasive",
+       "bbox": [
+        16.16,
+        11.2,
+        27.24,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        23.01,
+        48.58,
+        28.17,
+        57.7
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "48b482ee0b",
+       "bbox": [
+        13.91,
+        9.97,
+        29.4,
+        17.59
+       ]
+      },
+      {
+       "iconId": "c3727c7056",
+       "bbox": [
+        16.09,
+        19.1,
+        28.31,
+        31.33
+       ],
+       "bbox_full": [
+        14.74,
+        17.76,
+        29.6,
+        32.61
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.51,
+        48.9,
+        23.78,
+        57.92
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        15.12,
+        49.89,
+        23.25,
+        56.62
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        20.39,
+        50.42,
+        20.93,
+        51.4
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.87,
+        50.45,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.22,
+        50.47,
+        22.15,
+        56.41
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        16.0,
+        51.04,
+        17.24,
+        52.03
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.69,
+        51.58,
+        21.69,
+        55.1
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.55,
+        55.15,
+        19.47,
+        56.51
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:48b482ee0b} Evasive",
+       "bbox": [
+        13.91,
+        9.97,
+        29.4,
+        17.59
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:c3727c7056}",
+       "bbox": [
+        16.09,
+        19.1,
+        28.31,
+        31.33
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        16.0,
+        51.04,
+        17.24,
+        52.03
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:a36e3446f7} -1",
+       "bbox": [
+        16.69,
+        48.58,
+        28.17,
+        57.7
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 6,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p007",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    7
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 7,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "997666cc4c33738c",
+     "spans": [
+      {
+       "t": "Photo Mania",
+       "bbox": [
+        12.44,
+        11.2,
+        30.96,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "+",
+       "bbox": [
+        21.78,
+        20.54,
+        24.84,
+        30.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 25.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        25.45,
+        20.95,
+        29.27,
+        30.98
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 26.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        23.01,
+        48.58,
+        28.17,
+        57.7
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "78d1cc55d3",
+       "bbox": [
+        15.17,
+        20.11,
+        21.87,
+        28.57
+       ],
+       "bbox_full": [
+        13.54,
+        18.06,
+        23.57,
+        30.63
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.51,
+        48.9,
+        23.78,
+        57.92
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        15.12,
+        49.89,
+        23.25,
+        56.62
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        20.39,
+        50.42,
+        20.93,
+        51.4
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.87,
+        50.45,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.22,
+        50.47,
+        22.15,
+        56.41
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        16.0,
+        51.04,
+        17.24,
+        52.03
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.69,
+        51.58,
+        21.69,
+        55.1
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.55,
+        55.15,
+        19.47,
+        56.51
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Photo Mania",
+       "bbox": [
+        12.44,
+        11.2,
+        30.96,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:78d1cc55d3} +X",
+       "bbox": [
+        15.17,
+        20.11,
+        29.27,
+        30.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        16.0,
+        51.04,
+        17.24,
+        52.03
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:a36e3446f7} -1",
+       "bbox": [
+        16.69,
+        48.58,
+        28.17,
+        57.7
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 7,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p008",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    8
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 8,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cc3366cc19666799",
+     "spans": [
+      {
+       "t": "Quick Reflexes",
+       "bbox": [
+        10.95,
+        11.2,
+        32.46,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "+2",
+       "bbox": [
+        14.29,
+        45.82,
+        18.27,
+        51.8
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.52,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "3ad2f03a28",
+       "bbox": [
+        16.21,
+        19.03,
+        27.8,
+        30.59
+       ],
+       "bbox_full": [
+        14.86,
+        17.68,
+        29.08,
+        31.91
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "9ce4169551",
+       "bbox": [
+        13.39,
+        45.87,
+        19.17,
+        51.45
+       ]
+      },
+      {
+       "iconId": "7a472f5d6f",
+       "bbox": [
+        15.05,
+        46.78,
+        28.37,
+        60.11
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Quick Reflexes",
+       "bbox": [
+        10.95,
+        11.2,
+        32.46,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3ad2f03a28}",
+       "bbox": [
+        16.21,
+        19.03,
+        27.8,
+        30.59
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:9ce4169551} +2 {icon:7a472f5d6f}",
+       "bbox": [
+        13.39,
+        45.82,
+        28.37,
+        60.11
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 8,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p009",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    9
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 9,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "997666cc4c33738c",
+     "spans": [
+      {
+       "t": "Resilient",
+       "bbox": [
+        15.52,
+        11.2,
+        27.88,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "- 1",
+       "bbox": [
+        22.53,
+        48.58,
+        28.65,
+        57.7
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      },
+      {
+       "t": "-",
+       "bbox": [
+        22.48,
+        21.96,
+        24.99,
+        29.93
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 20.68,
+       "color": "#ffffff"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        25.67,
+        21.96,
+        28.71,
+        29.93
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 20.68,
+       "color": "#ffd374"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "48b482ee0b",
+       "bbox": [
+        13.28,
+        9.97,
+        30.17,
+        17.59
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        13.98,
+        21.4,
+        23.25,
+        30.42
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        14.59,
+        22.4,
+        22.72,
+        29.13
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "6a66001b1d",
+       "bbox": [
+        15.52,
+        22.93,
+        21.87,
+        28.93
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        19.86,
+        22.93,
+        20.4,
+        23.9
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.69,
+        22.98,
+        21.62,
+        28.91
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        15.47,
+        23.55,
+        16.71,
+        24.54
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.16,
+        24.09,
+        21.16,
+        27.6
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.01,
+        27.66,
+        18.94,
+        29.02
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.04,
+        48.9,
+        23.31,
+        57.92
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        14.65,
+        49.89,
+        22.78,
+        56.62
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "d3854361b8",
+       "bbox": [
+        19.91,
+        50.42,
+        20.46,
+        51.4
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.52,
+        50.45,
+        21.87,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.75,
+        50.47,
+        21.68,
+        56.41
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        15.52,
+        51.04,
+        16.77,
+        52.03
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.21,
+        51.58,
+        21.21,
+        55.1
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.07,
+        55.15,
+        19.0,
+        56.51
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:48b482ee0b} Resilient",
+       "bbox": [
+        13.28,
+        9.97,
+        30.17,
+        17.59
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        15.47,
+        23.55,
+        16.71,
+        24.54
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34}",
+       "bbox": [
+        16.16,
+        24.09,
+        21.16,
+        27.6
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:c71ddd3685} {icon:a36e3446f7} - X",
+       "bbox": [
+        18.01,
+        21.96,
+        28.71,
+        29.93
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        15.52,
+        51.04,
+        16.77,
+        52.03
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:d3854361b8} - 1",
+       "bbox": [
+        16.21,
+        48.58,
+        28.65,
+        57.7
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 9,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p010",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    10
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 10,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "99ce26e46c935b89",
+     "spans": [
+      {
+       "t": "Stress Faster",
+       "bbox": [
+        11.81,
+        11.2,
+        31.59,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        23.01,
+        48.58,
+        28.17,
+        57.7
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "6e68b2add8",
+       "bbox": [
+        16.21,
+        19.65,
+        27.8,
+        31.2
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        46.65
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.51,
+        48.9,
+        23.78,
+        57.92
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        15.12,
+        49.89,
+        23.25,
+        56.62
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        20.39,
+        50.42,
+        20.93,
+        51.4
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.87,
+        50.45,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.22,
+        50.47,
+        22.15,
+        56.41
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        16.0,
+        51.04,
+        17.24,
+        52.03
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.69,
+        51.58,
+        21.69,
+        55.1
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.55,
+        55.15,
+        19.47,
+        56.51
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Stress Faster",
+       "bbox": [
+        11.81,
+        11.2,
+        31.59,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:6e68b2add8}",
+       "bbox": [
+        16.21,
+        19.65,
+        27.8,
+        31.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        46.65
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        16.0,
+        51.04,
+        17.24,
+        52.03
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:a36e3446f7} -1",
+       "bbox": [
+        16.69,
+        48.58,
+        28.17,
+        57.7
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 10,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p011",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    11
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 11,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9c7426cc4d66678d",
+     "spans": [
+      {
+       "t": "Thick Blooded",
+       "bbox": [
+        11.29,
+        11.2,
+        32.11,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "-1t",
+       "bbox": [
+        22.43,
+        48.42,
+        29.64,
+        57.53
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "90558ded71",
+       "bbox": [
+        18.34,
+        20.11,
+        26.11,
+        28.93
+       ],
+       "bbox_full": [
+        15.21,
+        17.08,
+        29.18,
+        32.06
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "1e762e1c58",
+       "bbox": [
+        14.46,
+        49.74,
+        20.81,
+        56.8
+       ],
+       "bbox_full": [
+        12.12,
+        47.18,
+        23.42,
+        59.38
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Thick Blooded",
+       "bbox": [
+        11.29,
+        11.2,
+        32.11,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:90558ded71}",
+       "bbox": [
+        18.34,
+        20.11,
+        26.11,
+        28.93
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:1e762e1c58} -1t",
+       "bbox": [
+        14.46,
+        48.42,
+        29.64,
+        57.53
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 11,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p012",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    12
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 12,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9c6666c84d3666cd",
+     "spans": [
+      {
+       "t": "Hard Skinned",
+       "bbox": [
+        11.97,
+        11.2,
+        31.43,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "/2",
+       "bbox": [
+        23.46,
+        49.26,
+        30.85,
+        58.38
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff",
+       "dup": 2
+      },
+      {
+       "t": "Crit!",
+       "bbox": [
+        23.19,
+        21.29,
+        32.12,
+        28.11
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 17.7,
+       "color": "#f26522",
+       "dup": 2
+      },
+      {
+       "t": "X",
+       "bbox": [
+        16.36,
+        20.87,
+        19.28,
+        28.56
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 19.92,
+       "color": "#840b01"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        17.54,
+        49.79,
+        20.47,
+        57.47
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 19.92,
+       "color": "#840b01"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "19034463df",
+       "bbox": [
+        9.66,
+        17.24,
+        25.91,
+        31.84
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "19034463df",
+       "bbox": [
+        10.84,
+        46.15,
+        27.1,
+        60.75
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Hard Skinned",
+       "bbox": [
+        11.97,
+        11.2,
+        31.43,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:19034463df} X Crit!",
+       "bbox": [
+        9.66,
+        17.24,
+        32.12,
+        31.84
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:19034463df} X /2",
+       "bbox": [
+        10.84,
+        46.15,
+        30.85,
+        60.75
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 12,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p013",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    13
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 13,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "997a66cc18b3738c",
+     "spans": [
+      {
+       "t": "Warrior of Light",
+       "bbox": [
+        9.15,
+        11.2,
+        34.25,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "+",
+       "bbox": [
+        21.78,
+        20.54,
+        24.84,
+        30.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 25.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        25.45,
+        20.95,
+        29.27,
+        30.98
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 26.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "2 /",
+       "bbox": [
+        10.2,
+        49.8,
+        17.51,
+        56.97
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.6,
+       "color": "#ffffff",
+       "dup": 2
+      },
+      {
+       "t": "Hero Level",
+       "bbox": [
+        17.51,
+        50.27,
+        37.0,
+        56.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 17.0,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "78d1cc55d3",
+       "bbox": [
+        15.17,
+        20.11,
+        21.87,
+        28.57
+       ],
+       "bbox_full": [
+        13.54,
+        18.06,
+        23.57,
+        30.63
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "7f0a59a7a0",
+       "bbox": [
+        6.55,
+        49.65,
+        9.62,
+        52.61
+       ]
+      },
+      {
+       "iconId": "9824e0b432",
+       "bbox": [
+        8.75,
+        51.04,
+        14.23,
+        56.33
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Warrior of Light",
+       "bbox": [
+        9.15,
+        11.2,
+        34.25,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:78d1cc55d3} +X",
+       "bbox": [
+        15.17,
+        20.11,
+        29.27,
+        30.98
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:7f0a59a7a0} {icon:9824e0b432} 2 /Hero Level",
+       "bbox": [
+        6.55,
+        49.65,
+        37.0,
+        56.97
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 13,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p014",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    14
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 14,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cc7436d949666699",
+     "spans": [
+      {
+       "t": "Balanced",
+       "bbox": [
+        15.16,
+        11.2,
+        28.24,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        23.79,
+        48.22,
+        28.95,
+        57.35
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "7ba2da2a89",
+       "bbox": [
+        12.89,
+        9.97,
+        30.55,
+        17.47
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "b2ac0f25e8",
+       "bbox": [
+        17.29,
+        20.81,
+        26.46,
+        29.28
+       ],
+       "bbox_full": [
+        14.28,
+        17.88,
+        29.39,
+        32.36
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "b2ac0f25e8",
+       "bbox": [
+        15.17,
+        49.74,
+        22.22,
+        56.44
+       ],
+       "bbox_full": [
+        12.95,
+        47.59,
+        24.51,
+        58.51
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Balanced",
+       "bbox": [
+        15.16,
+        11.2,
+        28.24,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b2ac0f25e8}",
+       "bbox": [
+        17.29,
+        20.81,
+        26.46,
+        29.28
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b2ac0f25e8} -1",
+       "bbox": [
+        15.17,
+        48.22,
+        28.95,
+        57.35
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 14,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p015",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    15
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 15,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "986626cd6c63678d",
+     "spans": [
+      {
+       "t": "Hoarder",
+       "bbox": [
+        15.63,
+        11.2,
+        27.77,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        23.01,
+        48.58,
+        28.17,
+        57.7
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "17e22aa213",
+       "bbox": [
+        13.4,
+        9.97,
+        29.91,
+        17.34
+       ]
+      },
+      {
+       "iconId": "269d523c85",
+       "bbox": [
+        16.21,
+        19.65,
+        27.8,
+        31.2
+       ],
+       "bbox_full": [
+        14.86,
+        18.3,
+        29.08,
+        32.52
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        46.65
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.51,
+        48.9,
+        23.78,
+        57.92
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        15.12,
+        49.89,
+        23.25,
+        56.62
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        20.39,
+        50.42,
+        20.93,
+        51.4
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.87,
+        50.45,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.22,
+        50.47,
+        22.15,
+        56.41
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        16.0,
+        51.04,
+        17.24,
+        52.03
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.69,
+        51.58,
+        21.69,
+        55.1
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.55,
+        55.15,
+        19.47,
+        56.51
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:17e22aa213} Hoarder",
+       "bbox": [
+        13.4,
+        9.97,
+        29.91,
+        17.34
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:269d523c85}",
+       "bbox": [
+        16.21,
+        19.65,
+        27.8,
+        31.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        46.65
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        16.0,
+        51.04,
+        17.24,
+        52.03
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:a36e3446f7} -1",
+       "bbox": [
+        16.69,
+        48.58,
+        28.17,
+        57.7
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 15,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p016",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    16
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 16,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9c7626cc4d66638d",
+     "spans": [
+      {
+       "t": "On Guard",
+       "bbox": [
+        14.93,
+        11.2,
+        28.47,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        20.11,
+        21.19,
+        23.03,
+        28.87
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 19.92,
+       "color": "#840b01"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        17.89,
+        49.51,
+        20.81,
+        57.19
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 19.92,
+       "color": "#ffffff",
+       "dup": 2
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        24.38,
+        48.41,
+        29.55,
+        57.53
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "b61db2146c",
+       "bbox": [
+        12.77,
+        9.97,
+        30.8,
+        17.47
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "19034463df",
+       "bbox": [
+        13.41,
+        17.55,
+        29.66,
+        32.15
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "d60e426011",
+       "bbox": [
+        13.73,
+        48.39,
+        24.25,
+        57.19
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "On Guard",
+       "bbox": [
+        14.93,
+        11.2,
+        28.47,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:19034463df} X",
+       "bbox": [
+        13.41,
+        17.55,
+        29.66,
+        32.15
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:d60e426011} X -1",
+       "bbox": [
+        13.73,
+        48.39,
+        29.55,
+        57.53
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 16,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p017",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    17
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 17,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cc6633991c6666cd",
+     "spans": [
+      {
+       "t": "Skilled Gambler",
+       "bbox": [
+        10.18,
+        11.2,
+        33.22,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        23.01,
+        48.58,
+        28.17,
+        57.7
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "376806cc5a",
+       "bbox": [
+        12.5,
+        19.53,
+        24.09,
+        30.5
+       ]
+      },
+      {
+       "iconId": "72efe52ca5",
+       "bbox": [
+        16.42,
+        21.73,
+        28.8,
+        27.83
+       ]
+      },
+      {
+       "iconId": "e847e28998",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.51,
+        48.9,
+        23.78,
+        57.92
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        15.12,
+        49.89,
+        23.25,
+        56.62
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        20.39,
+        50.42,
+        20.93,
+        51.4
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.87,
+        50.45,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.22,
+        50.47,
+        22.15,
+        56.41
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        16.0,
+        51.04,
+        17.24,
+        52.03
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.69,
+        51.58,
+        21.69,
+        55.1
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.55,
+        55.15,
+        19.47,
+        56.51
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Skilled Gambler",
+       "bbox": [
+        10.18,
+        11.2,
+        33.22,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:376806cc5a} {icon:72efe52ca5}",
+       "bbox": [
+        12.5,
+        19.53,
+        28.8,
+        30.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e847e28998}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        16.0,
+        51.04,
+        17.24,
+        52.03
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:a36e3446f7} -1",
+       "bbox": [
+        16.69,
+        48.58,
+        28.17,
+        57.7
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 17,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "c45939e665999a93",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p018",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    18
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 18,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "986c269a6d9a636d",
+     "spans": [
+      {
+       "t": "Anemic",
+       "bbox": [
+        16.53,
+        11.2,
+        26.87,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        15.0,
+        47.53,
+        17.29,
+        56.65
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#d2232a"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        25.71,
+        47.53,
+        31.06,
+        56.65
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "17e22aa213",
+       "bbox": [
+        14.29,
+        9.97,
+        29.02,
+        17.59
+       ]
+      },
+      {
+       "iconId": "c43c46e6de",
+       "bbox": [
+        16.22,
+        16.9,
+        27.77,
+        31.76
+       ],
+       "container": true
+      },
+      {
+       "iconId": "816fdf045e",
+       "bbox": [
+        18.7,
+        19.4,
+        25.05,
+        29.28
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "d37db751b5",
+       "bbox": [
+        19.0,
+        19.56,
+        25.0,
+        28.93
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "999538a901",
+       "bbox": [
+        19.09,
+        23.79,
+        20.82,
+        24.82
+       ]
+      },
+      {
+       "iconId": "dbe7e40350",
+       "bbox": [
+        23.08,
+        26.33,
+        24.19,
+        27.42
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "d9c36480ed",
+       "bbox": [
+        18.7,
+        47.98,
+        23.99,
+        56.09
+       ],
+       "bbox_full": [
+        13.18,
+        46.07,
+        33.12,
+        58.39
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:17e22aa213} Anemic",
+       "bbox": [
+        14.29,
+        9.97,
+        29.02,
+        17.59
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:999538a901}",
+       "bbox": [
+        19.09,
+        23.79,
+        20.82,
+        24.82
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:dbe7e40350}",
+       "bbox": [
+        23.08,
+        26.33,
+        24.19,
+        27.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 {icon:d9c36480ed} 3t",
+       "bbox": [
+        15.0,
+        47.53,
+        31.06,
+        56.65
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 18,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p019",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    19
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 19,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "98d466cc6d9b3364",
+     "spans": [
+      {
+       "t": "Nocturnal",
+       "bbox": [
+        14.52,
+        11.2,
+        28.88,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "+",
+       "bbox": [
+        21.73,
+        20.04,
+        24.79,
+        29.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 25.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        25.4,
+        20.45,
+        29.22,
+        30.48
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 26.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        23.0,
+        48.28,
+        28.18,
+        57.4
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "de228a8cf6",
+       "bbox": [
+        12.26,
+        9.97,
+        31.18,
+        17.47
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "78d1cc55d3",
+       "bbox": [
+        15.17,
+        19.4,
+        21.52,
+        28.22
+       ],
+       "bbox_full": [
+        13.49,
+        17.56,
+        23.52,
+        30.13
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.5,
+        48.6,
+        23.77,
+        57.62
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        15.12,
+        49.59,
+        23.24,
+        56.32
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.87,
+        50.09,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        20.38,
+        50.12,
+        20.92,
+        51.1
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.21,
+        50.17,
+        22.15,
+        56.11
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.68,
+        51.28,
+        21.68,
+        54.8
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.54,
+        54.85,
+        19.47,
+        56.21
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Nocturnal",
+       "bbox": [
+        14.52,
+        11.2,
+        28.88,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:78d1cc55d3} +X",
+       "bbox": [
+        15.17,
+        19.4,
+        29.22,
+        30.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:a36e3446f7} +1",
+       "bbox": [
+        16.68,
+        48.28,
+        28.18,
+        57.4
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 19,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p020",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    20
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 20,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cc7036ce71cc6d31",
+     "spans": [
+      {
+       "t": "Clumsy",
+       "bbox": [
+        16.49,
+        11.2,
+        26.91,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        20.11,
+        21.19,
+        23.03,
+        28.87
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 19.92,
+       "color": "#840b01"
+      },
+      {
+       "t": "1t",
+       "bbox": [
+        24.19,
+        48.43,
+        28.94,
+        57.55
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "9d2dc73f90",
+       "bbox": [
+        14.29,
+        9.97,
+        29.28,
+        18.48
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "19034463df",
+       "bbox": [
+        13.41,
+        17.55,
+        29.66,
+        32.15
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        46.19
+       ]
+      },
+      {
+       "iconId": "2bc58148bf",
+       "bbox": [
+        15.17,
+        48.68,
+        22.58,
+        56.44
+       ],
+       "bbox_full": [
+        12.94,
+        46.39,
+        24.88,
+        58.97
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Clumsy",
+       "bbox": [
+        16.49,
+        11.2,
+        26.91,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:19034463df} X",
+       "bbox": [
+        13.41,
+        17.55,
+        29.66,
+        32.15
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        46.19
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:2bc58148bf} 1t",
+       "bbox": [
+        15.17,
+        48.43,
+        28.94,
+        57.55
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 20,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p021",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    21
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 21,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "8ccc66ce6ccc6c35",
+     "spans": [
+      {
+       "t": "Off Guard",
+       "bbox": [
+        14.57,
+        11.2,
+        28.83,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        23.0,
+        48.28,
+        28.18,
+        57.4
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        20.11,
+        21.19,
+        23.03,
+        28.87
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 19.92,
+       "color": "#840b01"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "df0d63bd1c",
+       "bbox": [
+        12.39,
+        9.84,
+        31.06,
+        17.59
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "19034463df",
+       "bbox": [
+        13.41,
+        17.55,
+        29.66,
+        32.15
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.5,
+        48.6,
+        23.77,
+        57.62
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        15.12,
+        49.59,
+        23.24,
+        56.32
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.87,
+        50.09,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        20.38,
+        50.12,
+        20.92,
+        51.1
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.21,
+        50.17,
+        22.15,
+        56.11
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.68,
+        51.28,
+        21.68,
+        54.8
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.54,
+        54.85,
+        19.47,
+        56.21
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Off Guard",
+       "bbox": [
+        14.57,
+        11.2,
+        28.83,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:19034463df} X",
+       "bbox": [
+        13.41,
+        17.55,
+        29.66,
+        32.15
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:a36e3446f7} +1",
+       "bbox": [
+        16.68,
+        48.28,
+        28.18,
+        57.4
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 21,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p022",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    22
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 22,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "8c6633d966c94e27",
+     "spans": [
+      {
+       "t": "Infirm",
+       "bbox": [
+        16.99,
+        11.2,
+        26.41,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        20.01,
+        49.23,
+        24.91,
+        57.88
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 22.43,
+       "color": "#ffffff",
+       "dup": 2
+      },
+      {
+       "t": "X",
+       "bbox": [
+        19.54,
+        21.27,
+        23.08,
+        30.55
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 24.09,
+       "color": "#ffffff",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "739ec72d42",
+       "bbox": [
+        14.73,
+        9.84,
+        28.7,
+        17.59
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "8404726857",
+       "bbox": [
+        16.34,
+        21.29,
+        20.32,
+        25.12
+       ]
+      },
+      {
+       "iconId": "9824e0b432",
+       "bbox": [
+        19.19,
+        23.09,
+        26.3,
+        29.93
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        46.9
+       ]
+      },
+      {
+       "iconId": "8404726857",
+       "bbox": [
+        17.08,
+        49.24,
+        20.79,
+        52.81
+       ]
+      },
+      {
+       "iconId": "910a0c12fe",
+       "bbox": [
+        19.73,
+        50.92,
+        26.35,
+        57.29
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Infirm",
+       "bbox": [
+        16.99,
+        11.2,
+        26.41,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:8404726857} {icon:9824e0b432} X",
+       "bbox": [
+        16.34,
+        21.27,
+        26.3,
+        30.55
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        46.9
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:8404726857} {icon:910a0c12fe} -1",
+       "bbox": [
+        17.08,
+        49.23,
+        26.35,
+        57.88
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 22,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p023",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    23
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 23,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "8cc6635965ce666c",
+     "spans": [
+      {
+       "t": "Shocker",
+       "bbox": [
+        15.7,
+        11.2,
+        27.7,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "1t",
+       "bbox": [
+        23.76,
+        49.24,
+        28.1,
+        58.36
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Crit!",
+       "bbox": [
+        23.19,
+        21.29,
+        32.12,
+        28.11
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 17.7,
+       "color": "#f26522",
+       "dup": 2
+      },
+      {
+       "t": "X",
+       "bbox": [
+        16.36,
+        20.87,
+        19.28,
+        28.56
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 19.92,
+       "color": "#840b01"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "48b482ee0b",
+       "bbox": [
+        13.53,
+        9.97,
+        29.91,
+        17.59
+       ]
+      },
+      {
+       "iconId": "19034463df",
+       "bbox": [
+        9.66,
+        17.24,
+        25.91,
+        31.84
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "f122d682f4",
+       "bbox": [
+        14.62,
+        49.17,
+        23.51,
+        58.57
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:48b482ee0b} Shocker",
+       "bbox": [
+        13.53,
+        9.97,
+        29.91,
+        17.59
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:19034463df} X Crit!",
+       "bbox": [
+        9.66,
+        17.24,
+        32.12,
+        31.84
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:f122d682f4} 1t",
+       "bbox": [
+        14.62,
+        49.17,
+        28.1,
+        58.57
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 23,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p024",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    24
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 24,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cd4e26cc3cc36639",
+     "spans": [
+      {
+       "t": "Mercurial",
+       "bbox": [
+        14.18,
+        11.2,
+        29.22,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "Resolve Tested",
+       "bbox": [
+        10.63,
+        21.89,
+        33.37,
+        27.16
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.65,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Virtue Chance",
+       "bbox": [
+        8.83,
+        50.85,
+        30.2,
+        56.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.65,
+       "color": "#ffffff"
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        31.23,
+        49.58,
+        35.16,
+        56.52
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffd374"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "d11408583b",
+       "bbox": [
+        11.88,
+        9.97,
+        31.44,
+        17.47
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Mercurial",
+       "bbox": [
+        14.18,
+        11.2,
+        29.22,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Resolve Tested",
+       "bbox": [
+        10.63,
+        21.89,
+        33.37,
+        27.16
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Virtue Chance -1",
+       "bbox": [
+        8.83,
+        49.58,
+        35.16,
+        56.52
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 24,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p025",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    25
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 25,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "98d666cc6c9b326c",
+     "spans": [
+      {
+       "t": "Night Blindness",
+       "bbox": [
+        10.36,
+        11.2,
+        33.04,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "-",
+       "bbox": [
+        21.75,
+        20.04,
+        24.78,
+        29.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 25.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        25.39,
+        20.45,
+        29.21,
+        30.48
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 26.0,
+       "color": "#ffd374"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        23.0,
+        48.28,
+        28.18,
+        57.4
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "78d1cc55d3",
+       "bbox": [
+        15.17,
+        19.4,
+        21.52,
+        28.22
+       ],
+       "bbox_full": [
+        13.5,
+        17.56,
+        23.53,
+        30.13
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.5,
+        48.6,
+        23.77,
+        57.62
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        15.12,
+        49.59,
+        23.24,
+        56.32
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.87,
+        50.09,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        20.38,
+        50.12,
+        20.92,
+        51.1
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.21,
+        50.17,
+        22.15,
+        56.11
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.68,
+        51.28,
+        21.68,
+        54.8
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.54,
+        54.85,
+        19.47,
+        56.21
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Night Blindness",
+       "bbox": [
+        10.36,
+        11.2,
+        33.04,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:78d1cc55d3} -X",
+       "bbox": [
+        15.17,
+        19.4,
+        29.21,
+        30.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:a36e3446f7} +1",
+       "bbox": [
+        16.68,
+        48.28,
+        28.18,
+        57.4
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 25,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p026",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    26
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 26,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "8cc663596dce466c",
+     "spans": [
+      {
+       "t": "Weak Grip",
+       "bbox": [
+        14.18,
+        11.2,
+        29.22,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        23.0,
+        48.28,
+        28.18,
+        57.4
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Crit!",
+       "bbox": [
+        23.19,
+        21.29,
+        32.12,
+        28.11
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 17.7,
+       "color": "#f26522",
+       "dup": 2
+      },
+      {
+       "t": "X",
+       "bbox": [
+        16.36,
+        20.87,
+        19.28,
+        28.56
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 19.92,
+       "color": "#840b01"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "3d0e596ab4",
+       "bbox": [
+        11.93,
+        9.97,
+        31.37,
+        18.22
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "19034463df",
+       "bbox": [
+        9.66,
+        17.24,
+        25.91,
+        31.84
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.5,
+        48.6,
+        23.77,
+        57.62
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        15.12,
+        49.59,
+        23.24,
+        56.32
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.87,
+        50.09,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        20.38,
+        50.12,
+        20.92,
+        51.1
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.21,
+        50.17,
+        22.15,
+        56.11
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.68,
+        51.28,
+        21.68,
+        54.8
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.54,
+        54.85,
+        19.47,
+        56.21
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Weak Grip",
+       "bbox": [
+        14.18,
+        11.2,
+        29.22,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:19034463df} X Crit!",
+       "bbox": [
+        9.66,
+        17.24,
+        32.12,
+        31.84
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:a36e3446f7} +1",
+       "bbox": [
+        16.68,
+        48.28,
+        28.18,
+        57.4
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 26,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p027",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    27
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 27,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cc3166cc396c6739",
+     "spans": [
+      {
+       "t": "Slow Reflexes",
+       "bbox": [
+        11.46,
+        11.2,
+        31.94,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "-2",
+       "bbox": [
+        14.55,
+        46.01,
+        18.51,
+        52.0
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.52,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "3ad2f03a28",
+       "bbox": [
+        16.21,
+        19.03,
+        27.8,
+        30.59
+       ],
+       "bbox_full": [
+        14.86,
+        17.68,
+        29.08,
+        31.91
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "52e99dee17",
+       "bbox": [
+        13.64,
+        46.07,
+        19.42,
+        51.64
+       ]
+      },
+      {
+       "iconId": "7a472f5d6f",
+       "bbox": [
+        15.3,
+        46.98,
+        28.62,
+        60.31
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Slow Reflexes",
+       "bbox": [
+        11.46,
+        11.2,
+        31.94,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3ad2f03a28}",
+       "bbox": [
+        16.21,
+        19.03,
+        27.8,
+        30.59
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:52e99dee17} -2 {icon:7a472f5d6f}",
+       "bbox": [
+        13.64,
+        46.01,
+        28.62,
+        60.31
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 27,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p028",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    28
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 28,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9cc466cc6ccb6365",
+     "spans": [
+      {
+       "t": "Nervous",
+       "bbox": [
+        15.58,
+        11.2,
+        27.82,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "+",
+       "bbox": [
+        22.81,
+        21.06,
+        25.34,
+        29.03
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 20.68,
+       "color": "#ffffff"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        25.34,
+        21.06,
+        28.37,
+        29.03
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 20.68,
+       "color": "#ffd374"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        23.0,
+        48.28,
+        28.18,
+        57.4
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "b78e7b8c8a",
+       "bbox": [
+        13.28,
+        10.1,
+        29.91,
+        17.59
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.32,
+        20.5,
+        23.59,
+        29.52
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        14.93,
+        21.49,
+        23.05,
+        28.23
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "6a66001b1d",
+       "bbox": [
+        15.87,
+        21.87,
+        22.22,
+        28.22
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "d3854361b8",
+       "bbox": [
+        20.19,
+        22.03,
+        20.74,
+        23.0
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.03,
+        22.08,
+        21.96,
+        28.01
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        15.8,
+        22.65,
+        17.05,
+        23.64
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.49,
+        23.19,
+        21.49,
+        26.7
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.35,
+        26.76,
+        19.28,
+        28.12
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.5,
+        48.6,
+        23.77,
+        57.62
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        15.12,
+        49.59,
+        23.24,
+        56.32
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.87,
+        50.09,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        20.38,
+        50.12,
+        20.92,
+        51.1
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.21,
+        50.17,
+        22.15,
+        56.11
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.68,
+        51.28,
+        21.68,
+        54.8
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.54,
+        54.85,
+        19.47,
+        56.21
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:b78e7b8c8a} Nervous",
+       "bbox": [
+        13.28,
+        10.1,
+        29.91,
+        17.59
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        15.8,
+        22.65,
+        17.05,
+        23.64
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34}",
+       "bbox": [
+        16.49,
+        23.19,
+        21.49,
+        26.7
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:c71ddd3685} {icon:d3854361b8} +X",
+       "bbox": [
+        18.35,
+        21.06,
+        28.37,
+        29.03
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:a36e3446f7} +1",
+       "bbox": [
+        16.68,
+        48.28,
+        28.18,
+        57.4
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 28,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p029",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    29
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 29,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "99cc666664c9d939",
+     "spans": [
+      {
+       "t": "Stress Eater",
+       "bbox": [
+        12.47,
+        11.2,
+        30.93,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        23.0,
+        48.28,
+        28.18,
+        57.4
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "030d73b0ba",
+       "bbox": [
+        16.21,
+        19.2,
+        27.8,
+        30.76
+       ],
+       "bbox_full": [
+        14.86,
+        17.85,
+        29.08,
+        32.08
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        33.6,
+        29.37,
+        46.5
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.5,
+        48.6,
+        23.77,
+        57.62
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        15.12,
+        49.59,
+        23.24,
+        56.32
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.87,
+        50.09,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        20.38,
+        50.12,
+        20.92,
+        51.1
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.21,
+        50.17,
+        22.15,
+        56.11
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.68,
+        51.28,
+        21.68,
+        54.8
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.54,
+        54.85,
+        19.47,
+        56.21
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Stress Eater",
+       "bbox": [
+        12.47,
+        11.2,
+        30.93,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:030d73b0ba}",
+       "bbox": [
+        16.21,
+        19.2,
+        27.8,
+        30.76
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        33.6,
+        29.37,
+        46.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:a36e3446f7} +1",
+       "bbox": [
+        16.68,
+        48.28,
+        28.18,
+        57.4
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 29,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p030",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    30
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 30,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9c6c669e659c4965",
+     "spans": [
+      {
+       "t": "Thin Blooded",
+       "bbox": [
+        12.09,
+        11.2,
+        31.31,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.18,
+        47.53,
+        16.47,
+        56.65
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#a7c538"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        24.9,
+        47.53,
+        30.24,
+        56.65
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "90558ded71",
+       "bbox": [
+        18.34,
+        20.11,
+        26.11,
+        28.93
+       ],
+       "bbox_full": [
+        15.21,
+        17.08,
+        29.18,
+        32.06
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "90558ded71",
+       "bbox": [
+        17.99,
+        48.68,
+        23.99,
+        55.39
+       ],
+       "bbox_full": [
+        15.6,
+        46.3,
+        26.26,
+        57.98
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Thin Blooded",
+       "bbox": [
+        12.09,
+        11.2,
+        31.31,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:90558ded71}",
+       "bbox": [
+        18.34,
+        20.11,
+        26.11,
+        28.93
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 {icon:90558ded71} 3t",
+       "bbox": [
+        14.18,
+        47.53,
+        30.24,
+        56.65
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 30,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p031",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    31
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 31,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "8c7866ce69cc6971",
+     "spans": [
+      {
+       "t": "Fragile",
+       "bbox": [
+        16.56,
+        11.2,
+        26.84,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        17.63,
+        49.51,
+        20.56,
+        57.19
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 19.92,
+       "color": "#ffffff",
+       "dup": 2
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        24.13,
+        48.41,
+        29.31,
+        57.53
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff",
+       "dup": 2
+      },
+      {
+       "t": "X",
+       "bbox": [
+        20.11,
+        21.19,
+        23.03,
+        28.87
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 19.92,
+       "color": "#840b01"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "df53ac1990",
+       "bbox": [
+        14.29,
+        9.97,
+        29.02,
+        18.48
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "19034463df",
+       "bbox": [
+        13.41,
+        17.55,
+        29.66,
+        32.15
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "d60e426011",
+       "bbox": [
+        13.73,
+        48.39,
+        24.25,
+        57.19
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Fragile",
+       "bbox": [
+        16.56,
+        11.2,
+        26.84,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:19034463df} X",
+       "bbox": [
+        13.41,
+        17.55,
+        29.66,
+        32.15
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:d60e426011} X +1",
+       "bbox": [
+        13.73,
+        48.39,
+        29.31,
+        57.53
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 31,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p032",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    32
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 32,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "99ce66cc6c996a2c",
+     "spans": [
+      {
+       "t": "Light Sensitive",
+       "bbox": [
+        10.9,
+        11.2,
+        32.5,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "/Hero Level",
+       "bbox": [
+        19.2,
+        51.6,
+        37.12,
+        56.62
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "+",
+       "bbox": [
+        21.73,
+        20.04,
+        24.79,
+        29.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 25.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        25.4,
+        20.45,
+        29.22,
+        30.48
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 26.0,
+       "color": "#ffd374"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "78d1cc55d3",
+       "bbox": [
+        15.17,
+        19.4,
+        21.52,
+        28.22
+       ],
+       "bbox_full": [
+        13.49,
+        17.56,
+        23.52,
+        30.13
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "d42d7955d3",
+       "bbox": [
+        6.79,
+        49.1,
+        13.81,
+        56.11
+       ],
+       "bbox_full": [
+        4.87,
+        47.18,
+        15.67,
+        57.97
+       ]
+      },
+      {
+       "iconId": "2c1824ea21",
+       "bbox": [
+        11.49,
+        50.4,
+        18.51,
+        57.41
+       ],
+       "bbox_full": [
+        9.57,
+        48.48,
+        20.37,
+        59.27
+       ]
+      },
+      {
+       "iconId": "4c8fb8658e",
+       "bbox": [
+        18.18,
+        51.59,
+        39.26,
+        57.94
+       ],
+       "decor": true
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Light Sensitive",
+       "bbox": [
+        10.9,
+        11.2,
+        32.5,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:78d1cc55d3} +X",
+       "bbox": [
+        15.17,
+        19.4,
+        29.22,
+        30.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:d42d7955d3} {icon:2c1824ea21} /Hero Level",
+       "bbox": [
+        6.79,
+        49.1,
+        37.12,
+        57.41
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 32,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p033",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    33
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 33,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9c6466cc6c6f660d",
+     "spans": [
+      {
+       "t": "Fear of the Unknown",
+       "bbox": [
+        6.16,
+        11.2,
+        37.24,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        23.0,
+        48.28,
+        28.18,
+        57.4
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 23.65,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "269d523c85",
+       "bbox": [
+        16.21,
+        19.3,
+        27.8,
+        30.86
+       ],
+       "bbox_full": [
+        14.86,
+        17.96,
+        29.08,
+        32.18
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        33.6,
+        29.37,
+        46.5
+       ]
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.5,
+        48.6,
+        23.77,
+        57.62
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        15.12,
+        49.59,
+        23.24,
+        56.32
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        15.87,
+        50.09,
+        22.22,
+        56.44
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "a36e3446f7",
+       "bbox": [
+        20.38,
+        50.12,
+        20.92,
+        51.1
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.21,
+        50.17,
+        22.15,
+        56.11
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.68,
+        51.28,
+        21.68,
+        54.8
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.54,
+        54.85,
+        19.47,
+        56.21
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Fear of the Unknown",
+       "bbox": [
+        6.16,
+        11.2,
+        37.24,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:269d523c85}",
+       "bbox": [
+        16.21,
+        19.3,
+        27.8,
+        30.86
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        33.6,
+        29.37,
+        46.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        15.99,
+        50.74,
+        17.24,
+        51.73
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34} {icon:c71ddd3685} {icon:a36e3446f7} +1",
+       "bbox": [
+        16.68,
+        48.28,
+        28.18,
+        57.4
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 33,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p034",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    34
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 34,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "ccce303968c6ce6d",
+     "spans": [
+      {
+       "t": "Bad Gambler",
+       "bbox": [
+        12.29,
+        11.2,
+        31.11,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "/Hero Level",
+       "bbox": [
+        18.0,
+        50.77,
+        35.92,
+        55.78
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "adcab0541a",
+       "bbox": [
+        12.5,
+        19.53,
+        24.09,
+        30.5
+       ],
+       "bbox_full": [
+        12.5,
+        19.42,
+        33.15,
+        30.5
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "6888d0cf12",
+       "bbox": [
+        8.56,
+        48.73,
+        16.84,
+        57.0
+       ],
+       "bbox_full": [
+        6.37,
+        46.53,
+        19.07,
+        59.23
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Bad Gambler",
+       "bbox": [
+        12.29,
+        11.2,
+        31.11,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:adcab0541a}",
+       "bbox": [
+        12.5,
+        19.53,
+        24.09,
+        30.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:6888d0cf12} /Hero Level",
+       "bbox": [
+        8.56,
+        48.73,
+        35.92,
+        57.0
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 34,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "quirk:p035",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    35
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+     "page": 35,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "9cce268c6d986b2d",
+     "spans": [
+      {
+       "t": "Soft",
+       "bbox": [
+        18.78,
+        11.2,
+        24.62,
+        16.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ee2824"
+      },
+      {
+       "t": "+",
+       "bbox": [
+        22.81,
+        21.06,
+        25.34,
+        29.03
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 20.68,
+       "color": "#ffffff"
+      },
+      {
+       "t": "X",
+       "bbox": [
+        25.34,
+        21.06,
+        28.37,
+        29.03
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 20.68,
+       "color": "#ffd374"
+      },
+      {
+       "t": "/Hero Level",
+       "bbox": [
+        18.0,
+        50.77,
+        35.92,
+        55.78
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "50e61e5060",
+       "bbox": [
+        16.58,
+        9.84,
+        26.86,
+        17.47
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "33b2d5bc22",
+       "bbox": [
+        14.32,
+        20.5,
+        23.59,
+        29.52
+       ],
+       "container": true
+      },
+      {
+       "iconId": "a41e143407",
+       "bbox": [
+        14.93,
+        21.49,
+        23.05,
+        28.23
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "6a66001b1d",
+       "bbox": [
+        15.87,
+        21.87,
+        22.22,
+        28.22
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "d3854361b8",
+       "bbox": [
+        20.19,
+        22.03,
+        20.74,
+        23.0
+       ]
+      },
+      {
+       "iconId": "09772f7834",
+       "bbox": [
+        16.03,
+        22.08,
+        21.96,
+        28.01
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "813eadf38f",
+       "bbox": [
+        15.8,
+        22.65,
+        17.05,
+        23.64
+       ]
+      },
+      {
+       "iconId": "02fb736f34",
+       "bbox": [
+        16.49,
+        23.19,
+        21.49,
+        26.7
+       ]
+      },
+      {
+       "iconId": "c71ddd3685",
+       "bbox": [
+        18.35,
+        26.76,
+        19.28,
+        28.12
+       ]
+      },
+      {
+       "iconId": "09f92af544",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "iconId": "6888d0cf12",
+       "bbox": [
+        8.56,
+        48.73,
+        16.84,
+        57.0
+       ],
+       "bbox_full": [
+        6.37,
+        46.53,
+        19.07,
+        59.23
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Soft",
+       "bbox": [
+        18.78,
+        11.2,
+        24.62,
+        16.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:813eadf38f}",
+       "bbox": [
+        15.8,
+        22.65,
+        17.05,
+        23.64
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:02fb736f34}",
+       "bbox": [
+        16.49,
+        23.19,
+        21.49,
+        26.7
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:c71ddd3685} {icon:d3854361b8} +X",
+       "bbox": [
+        18.35,
+        21.06,
+        28.37,
+        29.03
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:09f92af544}",
+       "bbox": [
+        14.63,
+        32.6,
+        29.37,
+        45.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:6888d0cf12} /Hero Level",
+       "bbox": [
+        8.56,
+        48.73,
+        35.92,
+        57.0
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+     "page": 35,
+     "trim_mm": [
+      44.0,
+      68.0
+     ],
+     "face_phash": "cccc33336ccc9b31",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  }
+ ]
+}
