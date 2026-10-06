@@ -5,7 +5,7 @@
 ## 项目目标与范围
 
 - 从零做《暗黑地牢桌游》网页客户端。先做核心盒（遗迹 Ruins + 最暗地牢 Darkest Dungeon），走通完整战役，再按地点扩展。
-- 默认顺序：Weald → Warrens → Cove → Crimson Court → The Color of Madness → Master Webber → Butcher's Circus（PvP）。Musketeer 是否纳入见 [docs/rulings.md](docs/rulings.md) 的 Q-07，未裁定前不要做。
+- 默认顺序：Weald → Warrens → Cove → Crimson Court → The Color of Madness → Master Webber → Butcher's Circus（PvP）。Musketeer 首版不纳入（[docs/rulings.md](docs/rulings.md) 的 R-008）。
 - 首版只做单设备、1–4 人轮流操作（hot-seat）、英文卡面 + 中文 UI。
 - 不在首版范围：联机多人、手机端深度适配、完整中文化卡面、动画与音效、AI 托管英雄、成就与统计。
 
@@ -30,7 +30,7 @@ docs/rulings.md      # 本项目裁定
 docs/data-legend.md  # 卡面图标图例
 ```
 
-核心规则说明书 v0.1 尚未写入，预留在 [docs/spec/](docs/spec/README.md)。大纲 §3.2 中的 `docs/rules-spec/` 指的是同一份规格书；正式稿放在 `docs/spec/`。
+核心规则说明书 v0.2 在 [docs/spec/core-rules-spec-v0.2.md](docs/spec/core-rules-spec-v0.2.md)，状态是初稿，待 Kyries 逐条确认（检查点 ①）。大纲 §3.2 中的 `docs/rules-spec/` 指的是同一份规格书；正式稿放在 `docs/spec/`。
 
 ## 规则引擎
 
@@ -43,11 +43,12 @@ docs/data-legend.md  # 卡面图标图例
 
 ## 规则来源
 
-按大纲 §2.3、§7，优先级为：
+按大纲 §2.3、§7，并经 [docs/rulings.md](docs/rulings.md) 的 R-001 修订，优先级为：
 
 1. 官方规则书（核心盒与各扩展 PDF）。规格书写条目时标页码，并对照页面图像；文字提取会丢掉图标。
-2. 模组 FAQ 与设计师 FAQ，排在规则书之后。大纲建议允许引用。
-3. [docs/rulings.md](docs/rulings.md) 里 Kyries 拍板的本项目裁定。
+2. [docs/rulings.md](docs/rulings.md) 里 Kyries 拍板的本项目裁定。
+
+不使用模组 FAQ 或设计师 FAQ（R-001）。
 
 规则有歧义时不要自己发明规则或数值。先查 `docs/rulings.md`。没有裁定，就在 PR 里提出待确认项（沿用 `Q-xx`），不要按猜测实现。印刷 PDF 只提供卡牌文字和数字，不能用来补规则。卡面上没有标签的数字和图标，等图标图例确认后再命名。
 
@@ -59,7 +60,7 @@ docs/data-legend.md  # 卡面图标图例
 
 ## 旧仓库
 
-`Alpaca-go/darkest-dungeon-boardgame` 只作参考，不复制代码，也不在它上面重构。大纲 §1.6 点名的定义，以及种子化先攻、`PendingChoice`、存档回放，可以交叉核对。不要搬它的 evidence / proof 证据链，也不要规定「只认规则书、不准用 FAQ」。
+`Alpaca-go/darkest-dungeon-boardgame` 只作参考，不复制代码，也不在它上面重构。大纲 §1.6 点名的定义，以及种子化先攻、`PendingChoice`、存档回放，可以交叉核对。不要搬它的 evidence / proof 证据链。规则来源以 [docs/rulings.md](docs/rulings.md) 的 R-001 为准：只认官方规则书，不使用 FAQ。
 
 ## 质量闸门
 
