@@ -41,3 +41,11 @@ export type {
 } from "./extract/parsed";
 export { extractSummarySchema, reconciliationReportSchema } from "./extract/reports";
 export type { ExtractSummary, ReconciliationReport } from "./extract/reports";
+export {
+  ICON_STATUSES,
+  iconDictionarySchema,
+  iconEntrySchema,
+  iconKeyConventionIssues,
+  iconStatusSchema,
+} from "./dictionary/schema";
+export type { IconDictionary, IconEntry, IconStatus } from "./dictionary/schema";
