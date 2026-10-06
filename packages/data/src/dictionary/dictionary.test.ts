@@ -35,10 +35,38 @@ const INCONSISTENCY_IDS = [
   "start_box_ids_with_art_matches",
   "room_items_left_decor",
   "unexplained_chevron_family",
+  "followup31_kept",
+  "rotated_glyph_merge",
 ] as const;
 
-/** 同一 iconId 里站位或阵营不一致，词典 key 用 any。 */
-const MIXED_START_RANKS = [127, 132, 258, 259, 379] as const;
+/** 同一 iconId 里站位或阵营不一致，词典 key 仍用 any。rank 379 在 v1.2 改为 pending_。 */
+const MIXED_START_RANKS = [127, 132, 258, 259] as const;
+
+/** v1.2 批准的 31 条。合并行应与目标的含义、status、key、kind、value 相同。 */
+const V12_MERGES = [
+  [182, 3],
+  [241, 105],
+  [283, 364],
+  [320, 5],
+  [350, 124],
+  [359, 142],
+  [376, 105],
+  [391, 340],
+  [394, 152],
+  [397, 4],
+  [398, 22],
+  [423, 306],
+  [424, 65],
+  [453, 215],
+  [466, 401],
+  [474, 221],
+  [477, 340],
+  [504, 364],
+] as const;
+
+const V12_DECOR = [239, 338, 351] as const;
+
+const V12_KEPT = [195, 216, 232, 296, 307, 315, 323, 335, 379, 478] as const;
 
 const START_KEY = /^start_(hero|monster|any)_(support|ranged|defensive|aggressive|any)$/;
 const PLACEMENT_CLASS = /^(hero|monster)_(support|ranged|defensive|aggressive)$/;
@@ -149,13 +177,13 @@ function rawIconIds(): Set<string> {
 
 const dictionary = parseSchema(
   iconDictionarySchema,
-  readJson("icon-dictionary-v1.1.json"),
-  "icon-dictionary-v1.1",
+  readJson("icon-dictionary-v1.2.json"),
+  "icon-dictionary-v1.2",
 );
 
-describe("图标词典 v1.1", () => {
+describe("图标词典 v1.2", () => {
   it("通过 schema，共 906 条", () => {
-    expect(dictionary.meta.version).toBe("1.1");
+    expect(dictionary.meta.version).toBe("1.2");
     expect(dictionary.icons).toHaveLength(906);
     expect(dictionary.inconsistencies.map((item) => item.id)).toEqual([...INCONSISTENCY_IDS]);
     const ranks = new Set(dictionary.icons.map((icon) => icon.rank));
@@ -229,7 +257,7 @@ describe("图标词典 v1.1", () => {
   });
 
   it("CSV 与 JSON 是同一份表", () => {
-    const rows = parseCsv(readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.1.csv"), "utf8"));
+    const rows = parseCsv(readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.2.csv"), "utf8"));
     const header = rows[0];
     expect(header).toBeDefined();
     if (!header) return;
@@ -267,6 +295,54 @@ describe("图标词典 v1.1", () => {
       const text = readFileSync(path.join(DICT_ROOT, name), "utf8");
       expect(text.toLowerCase()).not.toContain("musketeer");
     }
+  });
+
+  it("v1.2 的 31 条：合并行沿用目标含义，留下的行用 pending_ key", () => {
+    const byRank = new Map(dictionary.icons.map((icon) => [icon.rank, icon]));
+    const touched = new Set<number>([
+      ...V12_MERGES.map(([rank]) => rank),
+      ...V12_DECOR,
+      ...V12_KEPT,
+    ]);
+    expect(touched.size).toBe(31);
+
+    for (const [rank, targetRank] of V12_MERGES) {
+      const icon = byRank.get(rank);
+      const target = byRank.get(targetRank);
+      expect(icon, `rank ${rank}`).toBeDefined();
+      expect(target, `rank ${targetRank}`).toBeDefined();
+      if (!icon || !target) continue;
+      expect(icon.status).toBe(target.status);
+      expect(icon.meaning_en).toBe(target.meaning_en);
+      expect(icon.meaning_zh).toBe(target.meaning_zh);
+      expect(icon.kind).toBe(target.kind);
+      expect(icon.key).toBe(target.key);
+      expect(icon.value).toBe(target.value);
+      expect(icon.rulebook_refs).toEqual(target.rulebook_refs);
+      expect(icon.source).toBe("kyries_approved_proposal_2026-10-07");
+      expect(icon.notes).toContain(`merged_into=${target.iconId}`);
+    }
+
+    for (const rank of V12_DECOR) {
+      const icon = byRank.get(rank);
+      expect(icon?.status).toBe("decor");
+      expect(icon?.key).toBe("decor");
+      expect(icon?.source).toBe("kyries_approved_proposal_2026-10-07");
+    }
+
+    for (const rank of V12_KEPT) {
+      const icon = byRank.get(rank);
+      expect(icon?.status).toBe("needs_review");
+      expect(icon?.key).toBe(`pending_${icon?.iconId}`);
+      expect(icon?.kind).toBe("");
+      expect(icon?.proposal).not.toBeNull();
+      expect(icon?.source).toBe("followup_proposal_2026-10-07");
+    }
+
+    const text = readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.2.json"), "utf8");
+    expect(text).not.toContain("DRAFT");
+    expect(text).not.toContain("pending Kyries");
+    expect(text).not.toContain("do not commit");
   });
 });
 
@@ -341,19 +417,28 @@ describe("起始位置逐处归类", () => {
       expect(byRank.has(rank), `词典 start_* rank ${rank} 不在 CSV 中`).toBe(true);
     }
 
-    const notStart = [...byRank.keys()].filter((rank) => {
-      const icon = iconsByRank.get(rank);
-      return icon?.key.startsWith("start_") !== true;
-    });
-    // rank 216 在逐处表里，词典 key 是 stance_support（needs_review），不是 start_*。
-    expect(notStart).toEqual([216]);
+    const notStart = [...byRank.keys()]
+      .filter((rank) => {
+        const icon = iconsByRank.get(rank);
+        return icon?.key.startsWith("start_") !== true;
+      })
+      .sort((a, b) => a - b);
+    // rank 216、379 在逐处表里。v1.2 把它们留成 pending_，不是 start_*。
+    expect(notStart).toEqual([216, 379]);
     const stanceSupport = iconsByRank.get(216);
-    expect(stanceSupport?.key).toBe("stance_support");
+    expect(stanceSupport?.key).toBe("pending_293f170eab");
     expect(stanceSupport?.status).toBe("needs_review");
     expect([...(byRank.get(216) ?? [])]).toEqual(["monster_support"]);
+    const mixedKept = iconsByRank.get(379);
+    expect(mixedKept?.key).toBe("pending_73a29c830c");
+    expect(mixedKept?.status).toBe("needs_review");
+    const mixedPlacements = [...(byRank.get(379) ?? [])].filter(
+      (placement) => placement !== "other",
+    );
+    expect(new Set(mixedPlacements).size).toBeGreaterThan(1);
 
     for (const [rank, classes] of byRank) {
-      if (rank === 216) continue;
+      if (rank === 216 || rank === 379) continue;
       const icon = iconsByRank.get(rank);
       expect(icon, `rank ${rank}`).toBeDefined();
       if (!icon) continue;

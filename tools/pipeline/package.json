@@ -5,5 +5,14 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@ddbg/data": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.1"
+  },
+  "scripts": {
+    "normalize": "WRITE_NORMALIZED=1 pnpm -w exec vitest run packages/data/src/normalize/normalize.test.ts"
   }
 }

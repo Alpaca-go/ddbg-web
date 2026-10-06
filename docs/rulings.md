@@ -518,8 +518,9 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：不命名、不猜测。
 - **依据 / 出处**：占位：转录时把未确认的图标保留为原始图标 ID，不赋语义；含未确认图标的卡在 Phase 2 MVP 中标为「未验证」，不进入可用卡池
 - **进展**（2026-10-07）：图标词典 v1.1 已入库（`packages/data/dictionary/`）。`confirmed` 与 `confirmed_rulebook` 可用于命名；`needs_review`、`unsure`、`unreviewed` 仍按本裁定保持占位。
+- **进展**（2026-10-07，v1.2）：Kyries 批准 31 条后续图标：18 条并入已确认图标，3 条改为 decor，10 条仍是 `needs_review`（key 为 `pending_<iconId>`，kind 为空）。规范化层（`packages/data/normalized/`）把这些图标，以及词典未收的 iconId，标成未验证。
 - **关联待确认**：Q-47
-- **状态**：延后（词典 v1.1 已入库；`needs_review` / `unsure` / `unreviewed` 仍不命名。说明书 §21.2 P-01~P-10，以及抗性 / 免疫栏里尚未 `confirmed` 的图标）
+- **状态**：延后（词典 v1.2 已入库；`needs_review` / `unsure` / `unreviewed` 仍不命名。说明书 §21.2 P-01~P-10，以及抗性 / 免疫栏里尚未 `confirmed` 的图标）
 
 ### R-049
 
@@ -640,5 +641,5 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **问题**：卡面上没有文字标注的图标怎么命名、归进哪一类？
 - **阻塞 Phase 1/2**：是（P1 schema）
 - **暂定处理**（见 R-048）：不命名、不猜测。占位：未确认图标保留原始图标 ID；含未确认图标的卡在 Phase 2 标为「未验证」，不进入可用卡池。抗性 / 免疫图标映射一并在此处理。
-- **进展**（2026-10-07）：图标词典 v1.1 已入库。`confirmed` 与 `confirmed_rulebook` 可用于命名；`needs_review`、`unsure`、`unreviewed` 仍按 R-048 保持占位。
-- **状态**：延后（词典 v1.1 已入库；`needs_review` / `unsure` / `unreviewed` 仍按 R-048 占位）
+- **进展**（2026-10-07）：图标词典 v1.2 已入库。`confirmed` 与 `confirmed_rulebook` 可用于命名；`needs_review`（`pending_<iconId>`）、`unsure`、`unreviewed` 仍按 R-048 保持占位，并在规范化层标成未验证。
+- **状态**：延后（词典 v1.2 已入库；`needs_review` / `unsure` / `unreviewed` 仍按 R-048 占位）

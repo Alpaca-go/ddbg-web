@@ -1,0 +1,6145 @@
+{
+ "schema": "ddbg-normalized-v0",
+ "dictionary_version": "1.2",
+ "category": "quirk",
+ "sources": {
+  "parsed": null,
+  "raw": "extract/corebox/raw/quirk.json",
+  "dictionary": "dictionary/icon-dictionary-v1.2.json"
+ },
+ "stats": {
+  "cards": 35,
+  "verified": 20,
+  "unverified": 15
+ },
+ "cards": [
+  {
+   "id": "quirk:p001",
+   "pages": [
+    1
+   ],
+   "copies": 1,
+   "name": "Clotter",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b78e7b8c8a",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_b78e7b8c8a",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Clotter"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "63506ccc70",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_63506ccc70",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "dbe7e40350",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_dbe7e40350",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c43c46e6de",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "bleed",
+       "kind": "status",
+       "meaning_en": "Bleed",
+       "meaning_zh": "流血",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -1t"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "b78e7b8c8a",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_b78e7b8c8a",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c43c46e6de",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed",
+     "meaning_zh": "流血",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "63506ccc70",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_63506ccc70",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "dbe7e40350",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_dbe7e40350",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c43c46e6de",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed",
+     "meaning_zh": "流血",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:63506ccc70",
+     "icon:b78e7b8c8a",
+     "icon:dbe7e40350"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p002",
+   "pages": [
+    2
+   ],
+   "copies": 1,
+   "name": "Early Riser",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Early Riser"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "78d1cc55d3",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "light",
+       "kind": "other",
+       "meaning_en": "Light (torch)",
+       "meaning_zh": "光照（火把）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b145dba436",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_b145dba436",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 2t"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "78d1cc55d3",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Light (torch)",
+     "meaning_zh": "光照（火把）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "b145dba436",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_b145dba436",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:b145dba436"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p003",
+   "pages": [
+    3
+   ],
+   "copies": 1,
+   "name": "Fast Healer",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Fast Healer"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "8404726857",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "heal",
+       "kind": "other",
+       "meaning_en": "Heal",
+       "meaning_zh": "治疗",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "910a0c12fe",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "heal",
+       "kind": "other",
+       "meaning_en": "Heal",
+       "meaning_zh": "治疗",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "8404726857",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "heal",
+       "kind": "other",
+       "meaning_en": "Heal",
+       "meaning_zh": "治疗",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "910a0c12fe",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "heal",
+       "kind": "other",
+       "meaning_en": "Heal",
+       "meaning_zh": "治疗",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +1 /Hero Level"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "8404726857",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "910a0c12fe",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8404726857",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "910a0c12fe",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p004",
+   "pages": [
+    4
+   ],
+   "copies": 1,
+   "name": "Hard Noggin",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Hard Noggin"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "f122d682f4",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "stun",
+       "kind": "status",
+       "meaning_en": "Stun (large, quirk)",
+       "meaning_zh": "眩晕（大，怪癖卡）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "f122d682f4",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "stun",
+       "kind": "status",
+       "meaning_en": "Stun (large, quirk)",
+       "meaning_zh": "眩晕（大，怪癖卡）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -1t"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "f122d682f4",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stun",
+     "kind": "status",
+     "meaning_en": "Stun (large, quirk)",
+     "meaning_zh": "眩晕（大，怪癖卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "f122d682f4",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stun",
+     "kind": "status",
+     "meaning_en": "Stun (large, quirk)",
+     "meaning_zh": "眩晕（大，怪癖卡）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p005",
+   "pages": [
+    5
+   ],
+   "copies": 1,
+   "name": "Night Owl",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Night Owl"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "78d1cc55d3",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "light",
+       "kind": "other",
+       "meaning_en": "Light (torch)",
+       "meaning_zh": "光照（火把）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "78d1cc55d3",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Light (torch)",
+     "meaning_zh": "光照（火把）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p006",
+   "pages": [
+    6
+   ],
+   "copies": 1,
+   "name": "Evasive",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "48b482ee0b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "text_plate",
+       "kind": "other",
+       "meaning_en": "Quirk name plate (text background)",
+       "meaning_zh": "怪癖名称底板（文字背景）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Evasive"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c3727c7056",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "48b482ee0b",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "text_plate",
+     "kind": "other",
+     "meaning_en": "Quirk name plate (text background)",
+     "meaning_zh": "怪癖名称底板（文字背景）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c3727c7056",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:c3727c7056"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p007",
+   "pages": [
+    7
+   ],
+   "copies": 1,
+   "name": "Photo Mania",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Photo Mania"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "78d1cc55d3",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "light",
+       "kind": "other",
+       "meaning_en": "Light (torch)",
+       "meaning_zh": "光照（火把）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "78d1cc55d3",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Light (torch)",
+     "meaning_zh": "光照（火把）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p008",
+   "pages": [
+    8
+   ],
+   "copies": 1,
+   "name": "Quick Reflexes",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Quick Reflexes"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "3ad2f03a28",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_3ad2f03a28",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "9ce4169551",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_9ce4169551",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +2 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "7a472f5d6f",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "dodge",
+       "kind": "other",
+       "meaning_en": "Dodge (value printed next)",
+       "meaning_zh": "闪避（后接数值）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "3ad2f03a28",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_3ad2f03a28",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9ce4169551",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_9ce4169551",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:3ad2f03a28",
+     "icon:9ce4169551"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p009",
+   "pages": [
+    9
+   ],
+   "copies": 1,
+   "name": "Resilient",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "48b482ee0b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "text_plate",
+       "kind": "other",
+       "meaning_en": "Quirk name plate (text background)",
+       "meaning_zh": "怪癖名称底板（文字背景）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Resilient"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " - X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "d3854361b8",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " - 1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "48b482ee0b",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "text_plate",
+     "kind": "other",
+     "meaning_en": "Quirk name plate (text background)",
+     "meaning_zh": "怪癖名称底板（文字背景）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "d3854361b8",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p010",
+   "pages": [
+    10
+   ],
+   "copies": 1,
+   "name": "Stress Faster",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Stress Faster"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6e68b2add8",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "food",
+       "kind": "other",
+       "meaning_en": "Food (provision)",
+       "meaning_zh": "食物（补给）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "6e68b2add8",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "food",
+     "kind": "other",
+     "meaning_en": "Food (provision)",
+     "meaning_zh": "食物（补给）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p011",
+   "pages": [
+    11
+   ],
+   "copies": 1,
+   "name": "Thick Blooded",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Thick Blooded"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "90558ded71",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "blight",
+       "kind": "status",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "1e762e1c58",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "blight",
+       "kind": "status",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -1t"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "90558ded71",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "blight",
+     "kind": "status",
+     "meaning_en": "Blight",
+     "meaning_zh": "枯萎",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "1e762e1c58",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "blight",
+     "kind": "status",
+     "meaning_en": "Blight",
+     "meaning_zh": "枯萎",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p012",
+   "pages": [
+    12
+   ],
+   "copies": 1,
+   "name": "Hard Skinned",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Hard Skinned"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "19034463df",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "crit",
+       "kind": "other",
+       "meaning_en": "Critical hit marker ('X Crit!')",
+       "meaning_zh": "暴击标记（“X Crit!”）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X Crit!"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "19034463df",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "crit",
+       "kind": "other",
+       "meaning_en": "Critical hit marker ('X Crit!')",
+       "meaning_zh": "暴击标记（“X Crit!”）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X /2"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "19034463df",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "crit",
+     "kind": "other",
+     "meaning_en": "Critical hit marker ('X Crit!')",
+     "meaning_zh": "暴击标记（“X Crit!”）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "19034463df",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "crit",
+     "kind": "other",
+     "meaning_en": "Critical hit marker ('X Crit!')",
+     "meaning_zh": "暴击标记（“X Crit!”）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p013",
+   "pages": [
+    13
+   ],
+   "copies": 1,
+   "name": "Warrior of Light",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Warrior of Light"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "78d1cc55d3",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "light",
+       "kind": "other",
+       "meaning_en": "Light (torch)",
+       "meaning_zh": "光照（火把）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "7f0a59a7a0",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "heal",
+       "kind": "other",
+       "meaning_en": "Heal",
+       "meaning_zh": "治疗",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "9824e0b432",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "heal",
+       "kind": "other",
+       "meaning_en": "Heal",
+       "meaning_zh": "治疗",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 2 /Hero Level"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "78d1cc55d3",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Light (torch)",
+     "meaning_zh": "光照（火把）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7f0a59a7a0",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9824e0b432",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p014",
+   "pages": [
+    14
+   ],
+   "copies": 1,
+   "name": "Balanced",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Balanced"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b2ac0f25e8",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b2ac0f25e8",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "b2ac0f25e8",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "b2ac0f25e8",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:b2ac0f25e8"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p015",
+   "pages": [
+    15
+   ],
+   "copies": 1,
+   "name": "Hoarder",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "17e22aa213",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_17e22aa213",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Hoarder"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "269d523c85",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_269d523c85",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "17e22aa213",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_17e22aa213",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "269d523c85",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_269d523c85",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:17e22aa213",
+     "icon:269d523c85"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p016",
+   "pages": [
+    16
+   ],
+   "copies": 1,
+   "name": "On Guard",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "On Guard"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "19034463df",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "crit",
+       "kind": "other",
+       "meaning_en": "Critical hit marker ('X Crit!')",
+       "meaning_zh": "暴击标记（“X Crit!”）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "d60e426011",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "crit_damage",
+       "kind": "damage_type",
+       "meaning_en": "Critical Damage",
+       "meaning_zh": "暴击伤害",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X -1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "19034463df",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "crit",
+     "kind": "other",
+     "meaning_en": "Critical hit marker ('X Crit!')",
+     "meaning_zh": "暴击标记（“X Crit!”）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "d60e426011",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "crit_damage",
+     "kind": "damage_type",
+     "meaning_en": "Critical Damage",
+     "meaning_zh": "暴击伤害",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p017",
+   "pages": [
+    17
+   ],
+   "copies": 1,
+   "name": "Skilled Gambler",
+   "polarity": "positive",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Skilled Gambler"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "376806cc5a",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "d10",
+       "kind": "dice_face",
+       "meaning_en": "Ten-sided die roll (range follows)",
+       "meaning_zh": "十面骰判定（后接范围）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "72efe52ca5",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e847e28998",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_yellow_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+       "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "376806cc5a",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "d10",
+     "kind": "dice_face",
+     "meaning_en": "Ten-sided die roll (range follows)",
+     "meaning_zh": "十面骰判定（后接范围）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "72efe52ca5",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e847e28998",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_yellow_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: yellow down-arrow (quirk backs)",
+     "meaning_zh": "卡背标记：黄色下箭头（怪癖卡背）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:72efe52ca5"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p018",
+   "pages": [
+    18
+   ],
+   "copies": 1,
+   "name": "Anemic",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "17e22aa213",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_17e22aa213",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Anemic"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "999538a901",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_999538a901",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "dbe7e40350",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_dbe7e40350",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "1 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "d9c36480ed",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 3t"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "17e22aa213",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_17e22aa213",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c43c46e6de",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed",
+     "meaning_zh": "流血",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "999538a901",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_999538a901",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "dbe7e40350",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_dbe7e40350",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "d9c36480ed",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:17e22aa213",
+     "icon:999538a901",
+     "icon:d9c36480ed",
+     "icon:dbe7e40350"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p019",
+   "pages": [
+    19
+   ],
+   "copies": 1,
+   "name": "Nocturnal",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Nocturnal"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "78d1cc55d3",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "light",
+       "kind": "other",
+       "meaning_en": "Light (torch)",
+       "meaning_zh": "光照（火把）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "78d1cc55d3",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Light (torch)",
+     "meaning_zh": "光照（火把）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p020",
+   "pages": [
+    20
+   ],
+   "copies": 1,
+   "name": "Clumsy",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Clumsy"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "19034463df",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "crit",
+       "kind": "other",
+       "meaning_en": "Critical hit marker ('X Crit!')",
+       "meaning_zh": "暴击标记（“X Crit!”）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "2bc58148bf",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_2bc58148bf",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 1t"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "19034463df",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "crit",
+     "kind": "other",
+     "meaning_en": "Critical hit marker ('X Crit!')",
+     "meaning_zh": "暴击标记（“X Crit!”）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "2bc58148bf",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_2bc58148bf",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:2bc58148bf"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p021",
+   "pages": [
+    21
+   ],
+   "copies": 1,
+   "name": "Off Guard",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Off Guard"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "19034463df",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "crit",
+       "kind": "other",
+       "meaning_en": "Critical hit marker ('X Crit!')",
+       "meaning_zh": "暴击标记（“X Crit!”）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "19034463df",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "crit",
+     "kind": "other",
+     "meaning_en": "Critical hit marker ('X Crit!')",
+     "meaning_zh": "暴击标记（“X Crit!”）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p022",
+   "pages": [
+    22
+   ],
+   "copies": 1,
+   "name": "Infirm",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Infirm"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "8404726857",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "heal",
+       "kind": "other",
+       "meaning_en": "Heal",
+       "meaning_zh": "治疗",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "9824e0b432",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "heal",
+       "kind": "other",
+       "meaning_en": "Heal",
+       "meaning_zh": "治疗",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "8404726857",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "heal",
+       "kind": "other",
+       "meaning_en": "Heal",
+       "meaning_zh": "治疗",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "910a0c12fe",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "heal",
+       "kind": "other",
+       "meaning_en": "Heal",
+       "meaning_zh": "治疗",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "8404726857",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9824e0b432",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8404726857",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "910a0c12fe",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p023",
+   "pages": [
+    23
+   ],
+   "copies": 1,
+   "name": "Shocker",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "48b482ee0b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "text_plate",
+       "kind": "other",
+       "meaning_en": "Quirk name plate (text background)",
+       "meaning_zh": "怪癖名称底板（文字背景）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Shocker"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "19034463df",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "crit",
+       "kind": "other",
+       "meaning_en": "Critical hit marker ('X Crit!')",
+       "meaning_zh": "暴击标记（“X Crit!”）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X Crit!"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "f122d682f4",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "stun",
+       "kind": "status",
+       "meaning_en": "Stun (large, quirk)",
+       "meaning_zh": "眩晕（大，怪癖卡）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 1t"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "48b482ee0b",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "text_plate",
+     "kind": "other",
+     "meaning_en": "Quirk name plate (text background)",
+     "meaning_zh": "怪癖名称底板（文字背景）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "19034463df",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "crit",
+     "kind": "other",
+     "meaning_en": "Critical hit marker ('X Crit!')",
+     "meaning_zh": "暴击标记（“X Crit!”）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "f122d682f4",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stun",
+     "kind": "status",
+     "meaning_en": "Stun (large, quirk)",
+     "meaning_zh": "眩晕（大，怪癖卡）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p024",
+   "pages": [
+    24
+   ],
+   "copies": 1,
+   "name": "Mercurial",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Mercurial"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Resolve Tested"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Virtue Chance -1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p025",
+   "pages": [
+    25
+   ],
+   "copies": 1,
+   "name": "Night Blindness",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Night Blindness"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "78d1cc55d3",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "light",
+       "kind": "other",
+       "meaning_en": "Light (torch)",
+       "meaning_zh": "光照（火把）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "78d1cc55d3",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Light (torch)",
+     "meaning_zh": "光照（火把）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p026",
+   "pages": [
+    26
+   ],
+   "copies": 1,
+   "name": "Weak Grip",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Weak Grip"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "19034463df",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "crit",
+       "kind": "other",
+       "meaning_en": "Critical hit marker ('X Crit!')",
+       "meaning_zh": "暴击标记（“X Crit!”）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X Crit!"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "19034463df",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "crit",
+     "kind": "other",
+     "meaning_en": "Critical hit marker ('X Crit!')",
+     "meaning_zh": "暴击标记（“X Crit!”）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p027",
+   "pages": [
+    27
+   ],
+   "copies": 1,
+   "name": "Slow Reflexes",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Slow Reflexes"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "3ad2f03a28",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_3ad2f03a28",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "52e99dee17",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_52e99dee17",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " -2 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "7a472f5d6f",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "dodge",
+       "kind": "other",
+       "meaning_en": "Dodge (value printed next)",
+       "meaning_zh": "闪避（后接数值）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "3ad2f03a28",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_3ad2f03a28",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "52e99dee17",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_52e99dee17",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:3ad2f03a28",
+     "icon:52e99dee17"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p028",
+   "pages": [
+    28
+   ],
+   "copies": 1,
+   "name": "Nervous",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b78e7b8c8a",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_b78e7b8c8a",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Nervous"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "d3854361b8",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "b78e7b8c8a",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_b78e7b8c8a",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "d3854361b8",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:b78e7b8c8a"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p029",
+   "pages": [
+    29
+   ],
+   "copies": 1,
+   "name": "Stress Eater",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Stress Eater"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "030d73b0ba",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "food",
+       "kind": "other",
+       "meaning_en": "Food (player aid heading picture)",
+       "meaning_zh": "食物（玩家辅助卡标题图）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "030d73b0ba",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "food",
+     "kind": "other",
+     "meaning_en": "Food (player aid heading picture)",
+     "meaning_zh": "食物（玩家辅助卡标题图）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p030",
+   "pages": [
+    30
+   ],
+   "copies": 1,
+   "name": "Thin Blooded",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Thin Blooded"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "90558ded71",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "blight",
+       "kind": "status",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "1 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "90558ded71",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "blight",
+       "kind": "status",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 3t"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "90558ded71",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "blight",
+     "kind": "status",
+     "meaning_en": "Blight",
+     "meaning_zh": "枯萎",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "90558ded71",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "blight",
+     "kind": "status",
+     "meaning_en": "Blight",
+     "meaning_zh": "枯萎",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p031",
+   "pages": [
+    31
+   ],
+   "copies": 1,
+   "name": "Fragile",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Fragile"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "19034463df",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "crit",
+       "kind": "other",
+       "meaning_en": "Critical hit marker ('X Crit!')",
+       "meaning_zh": "暴击标记（“X Crit!”）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "d60e426011",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "crit_damage",
+       "kind": "damage_type",
+       "meaning_en": "Critical Damage",
+       "meaning_zh": "暴击伤害",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X +1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "19034463df",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "crit",
+     "kind": "other",
+     "meaning_en": "Critical hit marker ('X Crit!')",
+     "meaning_zh": "暴击标记（“X Crit!”）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "d60e426011",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "crit_damage",
+     "kind": "damage_type",
+     "meaning_en": "Critical Damage",
+     "meaning_zh": "暴击伤害",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "id": "quirk:p032",
+   "pages": [
+    32
+   ],
+   "copies": 1,
+   "name": "Light Sensitive",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Light Sensitive"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "78d1cc55d3",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "light",
+       "kind": "other",
+       "meaning_en": "Light (torch)",
+       "meaning_zh": "光照（火把）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "d42d7955d3",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_d42d7955d3",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "2c1824ea21",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_2c1824ea21",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " /Hero Level"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "78d1cc55d3",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Light (torch)",
+     "meaning_zh": "光照（火把）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "d42d7955d3",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_d42d7955d3",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "2c1824ea21",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_2c1824ea21",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:2c1824ea21",
+     "icon:d42d7955d3"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p033",
+   "pages": [
+    33
+   ],
+   "copies": 1,
+   "name": "Fear of the Unknown",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Fear of the Unknown"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "269d523c85",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_269d523c85",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "269d523c85",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_269d523c85",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:269d523c85"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p034",
+   "pages": [
+    34
+   ],
+   "copies": 1,
+   "name": "Bad Gambler",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Bad Gambler"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "adcab0541a",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6888d0cf12",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_6888d0cf12",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " /Hero Level"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "adcab0541a",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "6888d0cf12",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_6888d0cf12",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:6888d0cf12",
+     "icon:adcab0541a"
+    ]
+   }
+  },
+  {
+   "id": "quirk:p035",
+   "pages": [
+    35
+   ],
+   "copies": 1,
+   "name": "Soft",
+   "polarity": "negative",
+   "polarity_source": "rulebook_r26_r27",
+   "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf",
+   "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_BACK.pdf",
+   "back_has_data": false,
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Soft"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "d3854361b8",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "09f92af544",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "card_back_marker_red_down_arrow",
+       "kind": "other",
+       "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+       "meaning_zh": "卡背标记：红色下箭头",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6888d0cf12",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_6888d0cf12",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " /Hero Level"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "d3854361b8",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "09f92af544",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "card_back_marker_red_down_arrow",
+     "kind": "other",
+     "meaning_en": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+     "meaning_zh": "卡背标记：红色下箭头",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "6888d0cf12",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_6888d0cf12",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:6888d0cf12"
+    ]
+   }
+  }
+ ]
+}

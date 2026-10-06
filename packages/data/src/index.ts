@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-/** 占位。规范化后的英雄、技能、怪物 schema 仍待后续步骤。 */
+/** 早期占位。卡牌数据用 normalize 里的 schema。 */
 export const placeholderRecordSchema = z.object({
   id: z.string().min(1),
 });
@@ -49,3 +49,41 @@ export {
   iconStatusSchema,
 } from "./dictionary/schema";
 export type { IconDictionary, IconEntry, IconStatus } from "./dictionary/schema";
+export { buildNormalizedCorebox } from "./normalize/build";
+export type { NormalizedCorebox, NormalizedCoreboxInput } from "./normalize/build";
+export { loadNormalizedCorebox, writeNormalizedCorebox } from "./normalize/write";
+export {
+  NAMINGS,
+  namingSchema,
+  normalizedHeroSkillCardSchema,
+  normalizedHeroSkillFileSchema,
+  normalizedIconSchema,
+  normalizedMonsterLargeCardSchema,
+  normalizedMonsterLargeFileSchema,
+  normalizedMonsterMediumCardSchema,
+  normalizedMonsterMediumFileSchema,
+  normalizedQuirkCardSchema,
+  normalizedQuirkFileSchema,
+  normalizedTrinketCardSchema,
+  normalizedTrinketFileSchema,
+  normalizedUnlabeledNumberSchema,
+  normalizedVirtueAfflictionCardSchema,
+  normalizedVirtueAfflictionFileSchema,
+  verificationSchema,
+} from "./normalize/schema";
+export type {
+  NormalizedHeroSkillCard,
+  NormalizedHeroSkillFile,
+  NormalizedIcon,
+  NormalizedMonsterLargeCard,
+  NormalizedMonsterLargeFile,
+  NormalizedMonsterMediumCard,
+  NormalizedMonsterMediumFile,
+  NormalizedQuirkCard,
+  NormalizedQuirkFile,
+  NormalizedTrinketCard,
+  NormalizedTrinketFile,
+  NormalizedVirtueAfflictionCard,
+  NormalizedVirtueAfflictionFile,
+  Segment,
+} from "./normalize/schema";
