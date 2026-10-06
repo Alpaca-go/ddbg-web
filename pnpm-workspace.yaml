@@ -3,5 +3,6 @@ packages:
   - apps/*
   - tools/*
 
-# 当前稳定版里有刚发布的包，不等 pnpm 默认的发布等待期。
-minimumReleaseAge: 0
+# 1 天。显式写出时 pnpm 12 默认 strict：未满等待期的版本直接失败，不写入排除名单。
+minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
