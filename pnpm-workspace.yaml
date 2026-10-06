@@ -1,0 +1,7 @@
+packages:
+  - packages/*
+  - apps/*
+  - tools/*
+
+# 当前稳定版里有刚发布的包，不等 pnpm 默认的发布等待期。
+minimumReleaseAge: 0
