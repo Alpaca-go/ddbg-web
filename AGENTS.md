@@ -5,7 +5,7 @@
 ## 项目目标与范围
 
 - 从零做《暗黑地牢桌游》网页客户端。先做核心盒（遗迹 Ruins + 最暗地牢 Darkest Dungeon），走通完整战役，再按地点扩展。
-- 默认顺序：Weald → Warrens → Cove → Crimson Court → The Color of Madness → Master Webber → Butcher's Circus（PvP）。Musketeer 是否纳入见 [docs/rulings.md](docs/rulings.md) 的 Q-07，未裁定前不要做。
+- 默认顺序：Weald → Warrens → Cove → Crimson Court → The Color of Madness → Master Webber → Butcher's Circus（PvP）。Musketeer 首版不纳入（[docs/rulings.md](docs/rulings.md) 的 R-008）。
 - 首版只做单设备、1–4 人轮流操作（hot-seat）、英文卡面 + 中文 UI。
 - 不在首版范围：联机多人、手机端深度适配、完整中文化卡面、动画与音效、AI 托管英雄、成就与统计。
 
