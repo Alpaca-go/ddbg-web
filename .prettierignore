@@ -1,0 +1,10 @@
+pnpm-lock.yaml
+dist
+node_modules
+playwright-report
+test-results
+coverage
+docs/plan.md
+docs/rulings.md
+docs/rulings-notes.md
+docs/spec

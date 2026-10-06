@@ -11,7 +11,7 @@
 
 ## 技术栈与计划中的仓库结构
 
-沿用大纲 §3.1、§3.2。这些目录尚未建立。
+沿用大纲 §3.1、§3.2。Phase 0 已建立下面的代码目录。
 
 - Vite + React + TypeScript + Tailwind CSS。
 - 引擎状态是不可变数据。UI 用 Zustand，只订阅状态、派发命令。
@@ -61,6 +61,21 @@ docs/data-legend.md  # 卡面图标图例
 ## 旧仓库
 
 `Alpaca-go/darkest-dungeon-boardgame` 只作参考，不复制代码，也不在它上面重构。大纲 §1.6 点名的定义，以及种子化先攻、`PendingChoice`、存档回放，可以交叉核对。不要搬它的 evidence / proof 证据链。规则来源以 [docs/rulings.md](docs/rulings.md) 的 R-001 为准：只认官方规则书，不使用 FAQ。
+
+## 开发命令
+
+Node.js `24.21.0`（`.nvmrc`）和 pnpm `12.9.1`（根目录 `packageManager`）。
+
+```bash
+pnpm install
+pnpm dev        # 启动 apps/web
+pnpm typecheck
+pnpm lint       # ESLint 与 Prettier
+pnpm format
+pnpm test       # 引擎单元测试
+pnpm test:e2e   # Playwright 冒烟
+pnpm build
+```
 
 ## 质量闸门
 
