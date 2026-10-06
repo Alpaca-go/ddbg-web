@@ -30,7 +30,7 @@ docs/rulings.md      # 本项目裁定
 docs/data-legend.md  # 卡面图标图例
 ```
 
-核心规则说明书 v0.1 在 [docs/spec/core-rules-spec-v0.1.md](docs/spec/core-rules-spec-v0.1.md)，状态是初稿，待 Kyries 逐条确认（检查点 ①）。大纲 §3.2 中的 `docs/rules-spec/` 指的是同一份规格书；正式稿放在 `docs/spec/`。
+核心规则说明书 v0.2 在 [docs/spec/core-rules-spec-v0.2.md](docs/spec/core-rules-spec-v0.2.md)，状态是初稿，待 Kyries 逐条确认（检查点 ①）。大纲 §3.2 中的 `docs/rules-spec/` 指的是同一份规格书；正式稿放在 `docs/spec/`。
 
 ## 规则引擎
 
