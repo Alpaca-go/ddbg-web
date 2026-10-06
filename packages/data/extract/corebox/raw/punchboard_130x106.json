@@ -1,0 +1,727 @@
+{
+ "schema": "ddbg-raw-v1",
+ "extractor_version": "1.0.4",
+ "category": "punchboard_130x106",
+ "kind": "sheet",
+ "units": {
+  "length": "mm",
+  "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+  "y_axis": "down",
+  "font_size": "pt"
+ },
+ "sources": [
+  {
+   "front": "00_ADD_014_CORE/DD_EN_COREBOX_PUNCHBOARD_130x106_FRONT.pdf",
+   "back": "00_ADD_014_CORE/DD_EN_COREBOX_PUNCHBOARD_130x106_BACK.pdf",
+   "source_set": "ADD_014",
+   "kind": "sheet",
+   "front_pages": 1,
+   "back_pages": 1
+  }
+ ],
+ "n_pages": 1,
+ "n_unique": 1,
+ "n_copies_total": 1,
+ "cards": [
+  {
+   "id": "punchboard_130x106:ADD_014:p001",
+   "source_set": "ADD_014",
+   "copies": 1,
+   "pages": [
+    1
+   ],
+   "faces": {
+    "front": {
+     "file": "00_ADD_014_CORE/DD_EN_COREBOX_PUNCHBOARD_130x106_FRONT.pdf",
+     "page": 1,
+     "trim_mm": [
+      130.0,
+      106.0
+     ],
+     "face_phash": "fe2f8152846e9572",
+     "spans": [
+      {
+       "t": "Xp",
+       "bbox": [
+        12.28,
+        10.03,
+        21.66,
+        23.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        36.27,
+        10.03,
+        45.65,
+        23.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        60.27,
+        10.03,
+        69.65,
+        23.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        84.25,
+        10.03,
+        93.63,
+        23.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        108.24,
+        10.03,
+        117.62,
+        23.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        12.28,
+        34.02,
+        21.66,
+        47.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        36.27,
+        34.02,
+        45.65,
+        47.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        60.27,
+        34.02,
+        69.65,
+        47.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        84.25,
+        34.02,
+        93.63,
+        47.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        108.24,
+        34.02,
+        117.62,
+        47.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "b2f349ead1",
+       "bbox": [
+        10.74,
+        58.76,
+        23.26,
+        71.49
+       ]
+      },
+      {
+       "iconId": "b2f349ead1",
+       "bbox": [
+        34.72,
+        58.76,
+        47.24,
+        71.49
+       ]
+      },
+      {
+       "iconId": "b2f349ead1",
+       "bbox": [
+        58.7,
+        58.76,
+        71.22,
+        71.49
+       ]
+      },
+      {
+       "iconId": "b2f349ead1",
+       "bbox": [
+        82.68,
+        58.76,
+        95.2,
+        71.49
+       ]
+      },
+      {
+       "iconId": "b2f349ead1",
+       "bbox": [
+        106.77,
+        58.76,
+        119.29,
+        71.49
+       ]
+      },
+      {
+       "iconId": "b2f349ead1",
+       "bbox": [
+        10.74,
+        82.73,
+        23.26,
+        95.46
+       ]
+      },
+      {
+       "iconId": "b2f349ead1",
+       "bbox": [
+        34.72,
+        82.73,
+        47.24,
+        95.46
+       ]
+      },
+      {
+       "iconId": "b2f349ead1",
+       "bbox": [
+        106.77,
+        82.73,
+        119.29,
+        95.46
+       ]
+      },
+      {
+       "iconId": "b2f349ead1",
+       "bbox": [
+        58.7,
+        82.75,
+        71.22,
+        95.48
+       ]
+      },
+      {
+       "iconId": "b2f349ead1",
+       "bbox": [
+        82.68,
+        82.75,
+        95.2,
+        95.48
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Xp Xp Xp Xp Xp",
+       "bbox": [
+        12.28,
+        10.03,
+        117.62,
+        23.14
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Xp Xp Xp Xp Xp",
+       "bbox": [
+        12.28,
+        34.02,
+        117.62,
+        47.13
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b2f349ead1}",
+       "bbox": [
+        10.74,
+        58.76,
+        23.26,
+        71.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b2f349ead1}",
+       "bbox": [
+        34.72,
+        58.76,
+        47.24,
+        71.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b2f349ead1}",
+       "bbox": [
+        58.7,
+        58.76,
+        71.22,
+        71.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b2f349ead1}",
+       "bbox": [
+        82.68,
+        58.76,
+        95.2,
+        71.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b2f349ead1}",
+       "bbox": [
+        106.77,
+        58.76,
+        119.29,
+        71.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b2f349ead1}",
+       "bbox": [
+        10.74,
+        82.73,
+        23.26,
+        95.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b2f349ead1}",
+       "bbox": [
+        34.72,
+        82.73,
+        47.24,
+        95.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b2f349ead1}",
+       "bbox": [
+        58.7,
+        82.75,
+        71.22,
+        95.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b2f349ead1}",
+       "bbox": [
+        82.68,
+        82.75,
+        95.2,
+        95.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b2f349ead1}",
+       "bbox": [
+        106.77,
+        82.73,
+        119.29,
+        95.46
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "00_ADD_014_CORE/DD_EN_COREBOX_PUNCHBOARD_130x106_BACK.pdf",
+     "page": 1,
+     "trim_mm": [
+      130.0,
+      106.0
+     ],
+     "face_phash": "ff3f85c0803fc162",
+     "spans": [
+      {
+       "t": "Xp",
+       "bbox": [
+        108.34,
+        10.03,
+        117.72,
+        23.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        84.35,
+        10.03,
+        93.73,
+        23.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        60.35,
+        10.03,
+        69.73,
+        23.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        36.37,
+        10.03,
+        45.75,
+        23.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        12.38,
+        10.03,
+        21.76,
+        23.14
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        108.34,
+        34.02,
+        117.72,
+        47.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        84.35,
+        34.02,
+        93.73,
+        47.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        60.35,
+        34.02,
+        69.73,
+        47.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        36.37,
+        34.02,
+        45.75,
+        47.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        12.38,
+        34.02,
+        21.76,
+        47.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 34.0,
+       "color": "#ffdaa7"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "44630b9de7",
+       "bbox": [
+        10.71,
+        58.76,
+        23.23,
+        71.49
+       ]
+      },
+      {
+       "iconId": "44630b9de7",
+       "bbox": [
+        34.8,
+        58.76,
+        47.32,
+        71.49
+       ]
+      },
+      {
+       "iconId": "44630b9de7",
+       "bbox": [
+        58.78,
+        58.76,
+        71.3,
+        71.49
+       ]
+      },
+      {
+       "iconId": "44630b9de7",
+       "bbox": [
+        82.76,
+        58.76,
+        95.28,
+        71.49
+       ]
+      },
+      {
+       "iconId": "44630b9de7",
+       "bbox": [
+        106.74,
+        58.76,
+        119.26,
+        71.49
+       ]
+      },
+      {
+       "iconId": "44630b9de7",
+       "bbox": [
+        10.71,
+        82.73,
+        23.23,
+        95.46
+       ]
+      },
+      {
+       "iconId": "44630b9de7",
+       "bbox": [
+        82.76,
+        82.73,
+        95.28,
+        95.46
+       ]
+      },
+      {
+       "iconId": "44630b9de7",
+       "bbox": [
+        106.74,
+        82.73,
+        119.26,
+        95.46
+       ]
+      },
+      {
+       "iconId": "44630b9de7",
+       "bbox": [
+        34.8,
+        82.75,
+        47.32,
+        95.48
+       ]
+      },
+      {
+       "iconId": "44630b9de7",
+       "bbox": [
+        58.78,
+        82.75,
+        71.3,
+        95.48
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Xp Xp Xp Xp Xp",
+       "bbox": [
+        12.38,
+        10.03,
+        117.72,
+        23.14
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Xp Xp Xp Xp Xp",
+       "bbox": [
+        12.38,
+        34.02,
+        117.72,
+        47.13
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:44630b9de7}",
+       "bbox": [
+        10.71,
+        58.76,
+        23.23,
+        71.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:44630b9de7}",
+       "bbox": [
+        34.8,
+        58.76,
+        47.32,
+        71.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:44630b9de7}",
+       "bbox": [
+        58.78,
+        58.76,
+        71.3,
+        71.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:44630b9de7}",
+       "bbox": [
+        82.76,
+        58.76,
+        95.28,
+        71.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:44630b9de7}",
+       "bbox": [
+        106.74,
+        58.76,
+        119.26,
+        71.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:44630b9de7}",
+       "bbox": [
+        10.71,
+        82.73,
+        23.23,
+        95.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:44630b9de7}",
+       "bbox": [
+        34.8,
+        82.75,
+        47.32,
+        95.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:44630b9de7}",
+       "bbox": [
+        58.78,
+        82.75,
+        71.3,
+        95.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:44630b9de7}",
+       "bbox": [
+        82.76,
+        82.73,
+        95.28,
+        95.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:44630b9de7}",
+       "bbox": [
+        106.74,
+        82.73,
+        119.26,
+        95.46
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

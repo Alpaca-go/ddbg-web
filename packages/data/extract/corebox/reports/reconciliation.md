@@ -1,0 +1,17 @@
+| 规则书部件 | 规则书数量 | 提取来源 | 页数 | 不重复 | 副本合计 | 一致 | 说明 |
+|---|---|---|---|---|---|---|---|
+| Hero Skill Cards | 231 | hero_skill | 231 | 231 | 231 | ✅ | all pages unique; per-hero counts from card backs: {'CRUSADER': 21, 'HELLION': 21, 'BOUNTY HUNTER': 21, 'HIGHWAYMAN': 21, 'VESTAL': 21, 'JESTER': 21, 'PLAGUE DOCTOR': 21, 'ARBALEST': 21, 'GRAVE ROBBER': 21, 'OCCULTIST': 21, 'ABOMINATION': 18, None: 3} (None = Abomination double-faced transform cards, hero not printed) |
+| Hero Cards | 23 | hero_stat | 23 | 23 | 23 | ✅ | 10 heroes x 2 double-sided cards (front I / back II, front III / blank back) + Abomination 3 cards (I, II, III) = 23 |
+| Hero PvP Cards | 22 | hero_pvp (base) | 22 | 22 | 22 | ✅ | 11 heroes x 2 cards (Abomination included); the ADD_014 folder holds 2 extra pages: hero_pvp:ADD_014:p001 has the same front text as hero_pvp:p001 (0 icon placements differ); hero_pvp:ADD_014:p002 has the same front text as hero_pvp:p002 (2 icon placements differ) |
+| Monster & Boss Cards | 168 | monster_medium (base) + monster_large + boss_ability | 168 | 109 | 168 | ✅ | medium 111 pages = 52 unique cards (deck copies differ only by the monster-token colour marker; 4 are medium-size reference cards for large monsters; 19 pages carry a level numeral on the back, the rest do not) + large 20 + boss_ability 37 ({'boss_description': 16, 'boss_abilities': 21}). ADD_014 adds 4 medium pages = 2 unique x copies [2, 2] (['Imperfect Reflection', 'Perfect Reflection']; same names already in base file: ['Imperfect Reflection', 'Perfect Reflection']; front text identical to the base cards, only the small token-colour marker icon differs) – not counted in the 168. |
+| Trinkets | 38 | trinket | 38 | 38 | 38 | ✅ | back level numerals: {"I": 14, "II": 12, "III": 12} |
+| Curio Cards | 24 | curio | 24 | 24 | 24 | ✅ | back designs: [{"back_text": "", "n": 24, "pages": "1-24"}] |
+| Hamlet Events | 16 | hamlet_event | 16 | 16 | 16 | ✅ | all pages unique |
+| Quest Cards | 19 | quest | 19 | 19 | 19 | ✅ | back labels: {"Quest I": 5, "Quest II": 5, "Quest III": 5, "Quest Darkest Dungeon": 3, "Boss Quest": 1} |
+| Diseases | 11 | disease | 11 | 11 | 11 | ✅ | all pages unique |
+| Stygian Room Cards | 17 | stygian_room | 17 | 17 | 17 | ✅ | all pages unique |
+| Positive + Negative Quirks | 35 | quirk | 35 | 35 | 35 | ✅ | 17 + 18 = 35 matches the page count. 'Positive/Negative' is not printed as text on the cards; back designs: [{"back_text": "", "n": 17, "pages": "1-17"}, {"back_text": "", "n": 18, "pages": "18-35"}] |
+| Virtues + Afflictions | 10 | virtue_affliction | 10 | 10 | 10 | ✅ | 5 + 5 = 10. The words 'Virtue'/'Affliction' are only in the back artwork (not text); back designs: [{"back_text": "", "n": 5, "pages": "1-5"}, {"back_text": "", "n": 5, "pages": "6-10"}] |
+| Room Cards + Boss Room Cards | 25 | room | 25 | 25 | 25 | ✅ | RESOLVED from text: 17 cards without the printed word 'BOSS' (pages 1-9,14-21) + 8 cards with 'BOSS' (pages 10-13,22-25). Two numbering sequences: ['1—', '2—', '3—', '4—', '5—', '6—', '7—', '8—', '9—', '10—', '11—', '12—', '13—'] and ['1—', '2—', '3—', '4—', '5—', '6—', '7—', '8—', '9—', '10—', '11—', '12—'] |
+| Player Aid Cards | 8 | player_aid | 8 | 2 | 8 | ✅ | 8 pages = 2 distinct designs x 4 copies: player_aid:p001 x4, player_aid:p005 x4 |
+| Initiative Cards | 8 | initiative (text-free, manual entry) | 8 | – | 8 | ✅ | no text in PDF; page count only |

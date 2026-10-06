@@ -1,0 +1,1064 @@
+{
+ "schema": "ddbg-parsed-v0",
+ "extractor_version": "1.0.4",
+ "category": "trinket",
+ "source": "raw/corebox/trinket.json",
+ "field_notes": "Two-headed card: upright_half (upper half) and inverted_half (lower half, printed upside down). The rulebook says every trinket has a positive and a negative side; which half is which is NOT asserted here.",
+ "icon_token": "{icon:<iconId>} = unannotated icon cluster, see icons/catalog.json",
+ "stats": {
+  "cards": 38,
+  "ok": 38,
+  "failed": 0,
+  "success_rate": 1.0
+ },
+ "failures": [],
+ "cards": [
+  {
+   "id": "trinket:p001",
+   "copies": 1,
+   "pages": [
+    1
+   ],
+   "upright_half": {
+    "name": "Accuracy Stone",
+    "level": 1,
+    "effect_lines_raw": [
+     "Acc+1"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Accuracy Stone",
+    "level": 1,
+    "effect_lines_raw": [
+     "Acc-1"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Accuracy Stone",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p002",
+   "copies": 1,
+   "pages": [
+    2
+   ],
+   "upright_half": {
+    "name": "Archer’s Ring",
+    "level": 1,
+    "effect_lines_raw": [
+     "Acc+2 when in {icon:d8557730a4}"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Archer’s Ring",
+    "level": 1,
+    "effect_lines_raw": [
+     "Acc-1"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Archer’s Ring",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p003",
+   "copies": 1,
+   "pages": [
+    3
+   ],
+   "upright_half": {
+    "name": "Bleed Charm",
+    "level": 1,
+    "effect_lines_raw": [
+     "When you hit with a Skill",
+     "inflict an additional 2 {icon:d07276858c} 2t"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Bleed Charm",
+    "level": 1,
+    "effect_lines_raw": [
+     "-1t to a Condition you are causing"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Bleed Charm",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p004",
+   "copies": 1,
+   "pages": [
+    4
+   ],
+   "upright_half": {
+    "name": "Blight Charm",
+    "level": 1,
+    "effect_lines_raw": [
+     "When you hit with a Skill",
+     "inflict an additional 2 {icon:b75805594c} 2t"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Blight Charm",
+    "level": 1,
+    "effect_lines_raw": [
+     "-1t to a Condition you are causing"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Blight Charm",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p005",
+   "copies": 1,
+   "pages": [
+    5
+   ],
+   "upright_half": {
+    "name": "Caution Cloak",
+    "level": 1,
+    "effect_lines_raw": [
+     "Scout without suffering any"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Caution Cloak",
+    "level": 1,
+    "effect_lines_raw": [
+     "{icon:edc2ad45fb} -1"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Caution Cloak",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p006",
+   "copies": 1,
+   "pages": [
+    6
+   ],
+   "upright_half": {
+    "name": "Critical Stone",
+    "level": 1,
+    "effect_lines_raw": [
+     "Crit+2"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Critical Stone",
+    "level": 1,
+    "effect_lines_raw": [
+     "Acc-2"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Critical Stone",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p007",
+   "copies": 1,
+   "pages": [
+    7
+   ],
+   "upright_half": {
+    "name": "Damage Stone",
+    "level": 1,
+    "effect_lines_raw": [
+     "{icon:c09318dfea} +3"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Damage Stone",
+    "level": 1,
+    "effect_lines_raw": [
+     "When you take Damage:",
+     "suffer 2 {icon:48ca9f366e}"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Damage Stone",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p008",
+   "copies": 1,
+   "pages": [
+    8
+   ],
+   "upright_half": {
+    "name": "Debuff Charm",
+    "level": 1,
+    "effect_lines_raw": [
+     "When you hit with a Skill",
+     "inflict an additional {icon:aa731a7f72} 2t"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Debuff Charm",
+    "level": 1,
+    "effect_lines_raw": [
+     "-1t to a Condition you are causing"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Debuff Charm",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p009",
+   "copies": 1,
+   "pages": [
+    9
+   ],
+   "upright_half": {
+    "name": "Sage’s Book",
+    "level": 1,
+    "effect_lines_raw": [
+     "Acc+2 when in {icon:f4539842c2}"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Sage’s Book",
+    "level": 1,
+    "effect_lines_raw": [
+     "Acc-1"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Sage’s Book",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p010",
+   "copies": 1,
+   "pages": [
+    10
+   ],
+   "upright_half": {
+    "name": "Speed Stone",
+    "level": 1,
+    "effect_lines_raw": [
+     "+ {icon:4648c9e5ec} or {icon:22c0a26f50} +1"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Speed Stone",
+    "level": 1,
+    "effect_lines_raw": [
+     "- {icon:b0f4ca8612} or {icon:003b470410} -1"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Speed Stone",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p011",
+   "copies": 1,
+   "pages": [
+    11
+   ],
+   "upright_half": {
+    "name": "Stun Charm",
+    "level": 1,
+    "effect_lines_raw": [
+     "When you hit with a skill",
+     "inflict an additional {icon:f122d682f4} 1t"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Stun Charm",
+    "level": 1,
+    "effect_lines_raw": [
+     "-1t to a Condition you are causing"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Stun Charm",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p012",
+   "copies": 1,
+   "pages": [
+    12
+   ],
+   "upright_half": {
+    "name": "Survival Guide",
+    "level": 1,
+    "effect_lines_raw": [
+     "When exploring:",
+     "ignore a {icon:07a4208ff9} or {icon:66254314c8}"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Survival Guide",
+    "level": 1,
+    "effect_lines_raw": [
+     "When exploring, turn",
+     "an Exploration Die that",
+     "is not a {icon:1edc13cad2} , to {icon:1edc13cad2}"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Survival Guide",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p013",
+   "copies": 1,
+   "pages": [
+    13
+   ],
+   "upright_half": {
+    "name": "Warrior’s Bracer",
+    "level": 1,
+    "effect_lines_raw": [
+     "Acc+2 Acc when in"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Warrior’s Bracer",
+    "level": 1,
+    "effect_lines_raw": [
+     "Acc-1"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Warrior’s Bracer",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p014",
+   "copies": 1,
+   "pages": [
+    14
+   ],
+   "upright_half": {
+    "name": "Warrior’s Cap",
+    "level": 1,
+    "effect_lines_raw": [
+     "Acc+2 when in {icon:f7bd151d17}"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Warrior’s Cap",
+    "level": 1,
+    "effect_lines_raw": [
+     "Acc-1"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Warrior’s Cap",
+   "level": 1,
+   "back_level": 1,
+   "issues": []
+  },
+  {
+   "id": "trinket:p015",
+   "copies": 1,
+   "pages": [
+    15
+   ],
+   "upright_half": {
+    "name": "Bloodthirst Ring",
+    "level": 2,
+    "effect_lines_raw": [
+     "Consume one {icon:6e68b2add8} and {icon:7f0a59a7a0} 10 {icon:910a0c12fe}"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Bloodthirst Ring",
+    "level": 2,
+    "effect_lines_raw": [
+     "When hit: Suffer 3 {icon:a64616e9c5} 2t"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Bloodthirst Ring",
+   "level": 2,
+   "back_level": 2,
+   "issues": []
+  },
+  {
+   "id": "trinket:p016",
+   "copies": 1,
+   "pages": [
+    16
+   ],
+   "upright_half": {
+    "name": "Book of Constitution",
+    "level": 2,
+    "effect_lines_raw": [
+     "When you suffer a",
+     "discard it immediately"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Book of Constitution",
+    "level": 2,
+    "effect_lines_raw": [
+     "- {icon:b0f4ca8612} {icon:b0f4ca8612}"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Book of Constitution",
+   "level": 2,
+   "back_level": 2,
+   "issues": []
+  },
+  {
+   "id": "trinket:p017",
+   "copies": 1,
+   "pages": [
+    17
+   ],
+   "upright_half": {
+    "name": "Book of Holiness",
+    "level": 2,
+    "effect_lines_raw": [
+     "{icon:33b2d5bc22} -3"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Book of Holiness",
+    "level": 2,
+    "effect_lines_raw": [
+     "Turn a hit against you into a Crit."
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Book of Holiness",
+   "level": 2,
+   "back_level": 2,
+   "issues": []
+  },
+  {
+   "id": "trinket:p018",
+   "copies": 1,
+   "pages": [
+    18
+   ],
+   "upright_half": {
+    "name": "Book of Relaxation",
+    "level": 2,
+    "effect_lines_raw": [
+     "{icon:33b2d5bc22} -2"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Book of Relaxation",
+    "level": 2,
+    "effect_lines_raw": [
+     "{icon:003b470410} -2"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Book of Relaxation",
+   "level": 2,
+   "back_level": 2,
+   "issues": []
+  },
+  {
+   "id": "trinket:p019",
+   "copies": 1,
+   "pages": [
+    19
+   ],
+   "upright_half": {
+    "name": "Camouflage Cloak",
+    "level": 2,
+    "effect_lines_raw": [
+     "{icon:22c0a26f50} +2 if {icon:78d1cc55d3} is 3",
+     "{icon:206c655597} <"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Camouflage Cloak",
+    "level": 2,
+    "effect_lines_raw": [
+     "When hit: Suffer {icon:ccca0ec836} 1t"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Camouflage Cloak",
+   "level": 2,
+   "back_level": 2,
+   "issues": []
+  },
+  {
+   "id": "trinket:p020",
+   "copies": 1,
+   "pages": [
+    20
+   ],
+   "upright_half": {
+    "name": "Chirurgeon’s Charm",
+    "level": 2,
+    "effect_lines_raw": [
+     "When healing: heal {icon:8404726857} +2 {icon:910a0c12fe}"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Chirurgeon’s Charm",
+    "level": 2,
+    "effect_lines_raw": [
+     "When healed: recieve {icon:9939df0801} -4 {icon:c890c74db0}"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Chirurgeon’s Charm",
+   "level": 2,
+   "back_level": 2,
+   "issues": []
+  },
+  {
+   "id": "trinket:p021",
+   "copies": 1,
+   "pages": [
+    21
+   ],
+   "upright_half": {
+    "name": "Dark Bracer",
+    "level": 2,
+    "effect_lines_raw": [
+     "Crit+2 if {icon:78d1cc55d3} {icon:c1d74de856} < 3"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Dark Bracer",
+    "level": 2,
+    "effect_lines_raw": [
+     "{icon:b3f370e3ec} <",
+     "When a Skill Hits the Target:",
+     "if {icon:c4fa19b296} 3 Deal no {icon:c09318dfea} ."
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Dark Bracer",
+   "level": 2,
+   "back_level": 2,
+   "issues": []
+  },
+  {
+   "id": "trinket:p022",
+   "copies": 1,
+   "pages": [
+    22
+   ],
+   "upright_half": {
+    "name": "Protective Padlock",
+    "level": 2,
+    "effect_lines_raw": [
+     "When hit: Suffer half the",
+     "{icon:c09318dfea} X rounded up"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Protective Padlock",
+    "level": 2,
+    "effect_lines_raw": [
+     "- {icon:b0f4ca8612}"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Protective Padlock",
+   "level": 2,
+   "back_level": 2,
+   "issues": []
+  },
+  {
+   "id": "trinket:p023",
+   "copies": 1,
+   "pages": [
+    23
+   ],
+   "upright_half": {
+    "name": "Bloodcourse Medallion",
+    "level": 2,
+    "effect_lines_raw": [
+     "When healed, receive {icon:7f0a59a7a0} {icon:910a0c12fe} 4"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Bloodcourse Medallion",
+    "level": 2,
+    "effect_lines_raw": [
+     "When hit: Suffer 1 {icon:a64616e9c5} 3t"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Bloodcourse Medallion",
+   "level": 2,
+   "back_level": 2,
+   "issues": []
+  },
+  {
+   "id": "trinket:p024",
+   "copies": 1,
+   "pages": [
+    24
+   ],
+   "upright_half": {
+    "name": "Camper’s Helmet",
+    "level": 2,
+    "effect_lines_raw": [
+     "When Camping, roll 2 {icon:686ca3dd0a}"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Camper’s Helmet",
+    "level": 2,
+    "effect_lines_raw": [
+     "{icon:dd86508746} +1 when Scouting"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Camper’s Helmet",
+   "level": 2,
+   "back_level": 2,
+   "issues": []
+  },
+  {
+   "id": "trinket:p025",
+   "copies": 1,
+   "pages": [
+    25
+   ],
+   "upright_half": {
+    "name": "Fortunate Armlet",
+    "level": 2,
+    "effect_lines_raw": [
+     "Acc+1 and Crit+1"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Fortunate Armlet",
+    "level": 2,
+    "effect_lines_raw": [
+     "{icon:dd86508746} +1"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Fortunate Armlet",
+   "level": 2,
+   "back_level": 2,
+   "issues": []
+  },
+  {
+   "id": "trinket:p026",
+   "copies": 1,
+   "pages": [
+    26
+   ],
+   "upright_half": {
+    "name": "Solar Bracer",
+    "level": 2,
+    "effect_lines_raw": [
+     "Crit+2 if {icon:9f080685f9} 3",
+     "{icon:ed3b7ac902} <"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Solar Bracer",
+    "level": 2,
+    "effect_lines_raw": [
+     "When a Skill Hits the Target:",
+     "if {icon:edc2ad45fb} {icon:8c829e3754} < 3 Deal no {icon:c09318dfea} ."
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Solar Bracer",
+   "level": 2,
+   "back_level": 2,
+   "issues": []
+  },
+  {
+   "id": "trinket:p027",
+   "copies": 1,
+   "pages": [
+    27
+   ],
+   "upright_half": {
+    "name": "Berserk Charm",
+    "level": 3,
+    "effect_lines_raw": [
+     "Gain +1 Action"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Berserk Charm",
+    "level": 3,
+    "effect_lines_raw": [
+     "{icon:dd86508746} +1"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Berserk Charm",
+   "level": 3,
+   "back_level": 3,
+   "issues": []
+  },
+  {
+   "id": "trinket:p028",
+   "copies": 1,
+   "pages": [
+    28
+   ],
+   "upright_half": {
+    "name": "Dark Crown",
+    "level": 3,
+    "effect_lines_raw": [
+     "{icon:33b2d5bc22} -9 if {icon:9f080685f9} {icon:c1d74de856} < 3"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Dark Crown",
+    "level": 3,
+    "effect_lines_raw": [
+     "When the result is determined,",
+     "-2 Virtue Chance if {icon:edc2ad45fb} {icon:599b5b0881} < 3"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Dark Crown",
+   "level": 3,
+   "back_level": 3,
+   "issues": []
+  },
+  {
+   "id": "trinket:p029",
+   "copies": 1,
+   "pages": [
+    29
+   ],
+   "upright_half": {
+    "name": "Fasting Seal",
+    "level": 3,
+    "effect_lines_raw": [
+     "{icon:22c0a26f50} +5"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Fasting Seal",
+    "level": 3,
+    "effect_lines_raw": [
+     "Consume a {icon:8fc1e0c2e9} gaining no effect"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Fasting Seal",
+   "level": 3,
+   "back_level": 3,
+   "issues": []
+  },
+  {
+   "id": "trinket:p030",
+   "copies": 1,
+   "pages": [
+    30
+   ],
+   "upright_half": {
+    "name": "Recovery Charm",
+    "level": 3,
+    "effect_lines_raw": [
+     "{icon:7f0a59a7a0} {icon:c80e839741} 9"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Recovery Charm",
+    "level": 3,
+    "effect_lines_raw": [
+     "{icon:dd86508746} +2"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Recovery Charm",
+   "level": 3,
+   "back_level": 3,
+   "issues": []
+  },
+  {
+   "id": "trinket:p031",
+   "copies": 1,
+   "pages": [
+    31
+   ],
+   "upright_half": {
+    "name": "Sniper’s Ring",
+    "level": 3,
+    "effect_lines_raw": [
+     "Crit+4 if in {icon:d8557730a4}"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Sniper’s Ring",
+    "level": 3,
+    "effect_lines_raw": [
+     "Acc-2 if not in {icon:3e15d1efba}"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Sniper’s Ring",
+   "level": 3,
+   "back_level": 3,
+   "issues": []
+  },
+  {
+   "id": "trinket:p032",
+   "copies": 1,
+   "pages": [
+    32
+   ],
+   "upright_half": {
+    "name": "Warrior’s Ring",
+    "level": 3,
+    "effect_lines_raw": [
+     "Crit+4 if in {icon:fe18ec5b80}"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Warrior’s Ring",
+    "level": 3,
+    "effect_lines_raw": [
+     "Acc-2 if not in {icon:bb21fa4f0f}"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Warrior’s Ring",
+   "level": 3,
+   "back_level": 3,
+   "issues": []
+  },
+  {
+   "id": "trinket:p033",
+   "copies": 1,
+   "pages": [
+    33
+   ],
+   "upright_half": {
+    "name": "Defender’s Ring",
+    "level": 3,
+    "effect_lines_raw": [
+     "Crit+4 if in {icon:f7bd151d17}"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Defender’s Ring",
+    "level": 3,
+    "effect_lines_raw": [
+     "Acc-2 if not in {icon:8b801d29d7}"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Defender’s Ring",
+   "level": 3,
+   "back_level": 3,
+   "issues": []
+  },
+  {
+   "id": "trinket:p034",
+   "copies": 1,
+   "pages": [
+    34
+   ],
+   "upright_half": {
+    "name": "Scholar’s Ring",
+    "level": 3,
+    "effect_lines_raw": [
+     "Crit+4 if in {icon:f4539842c2}"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Scholar’s Ring",
+    "level": 3,
+    "effect_lines_raw": [
+     "Acc-2 if not in {icon:7faa97dbde}"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Scholar’s Ring",
+   "level": 3,
+   "back_level": 3,
+   "issues": []
+  },
+  {
+   "id": "trinket:p035",
+   "copies": 1,
+   "pages": [
+    35
+   ],
+   "upright_half": {
+    "name": "Solar Crown",
+    "level": 3,
+    "effect_lines_raw": [
+     "{icon:33b2d5bc22} -3 if 3",
+     "{icon:ed3b7ac902} < {icon:49cd46c0d4}"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Solar Crown",
+    "level": 3,
+    "effect_lines_raw": [
+     "{icon:be2e32545a} < {icon:edc2ad45fb}",
+     "When the result is determined,",
+     "-2 Virtue Chance if 3"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Solar Crown",
+   "level": 3,
+   "back_level": 3,
+   "issues": []
+  },
+  {
+   "id": "trinket:p036",
+   "copies": 1,
+   "pages": [
+    36
+   ],
+   "upright_half": {
+    "name": "Book of Sanity",
+    "level": 3,
+    "effect_lines_raw": [
+     "{icon:33b2d5bc22} -4"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Book of Sanity",
+    "level": 3,
+    "effect_lines_raw": [
+     "Suffer {icon:c09318dfea} 6"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Book of Sanity",
+   "level": 3,
+   "back_level": 3,
+   "issues": []
+  },
+  {
+   "id": "trinket:p037",
+   "copies": 1,
+   "pages": [
+    37
+   ],
+   "upright_half": {
+    "name": "Candle of Life",
+    "level": 3,
+    "effect_lines_raw": [
+     "You and every Hero in",
+     "the same Area {icon:8404726857} {icon:9824e0b432} 6"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Candle of Life",
+    "level": 3,
+    "effect_lines_raw": [
+     "{icon:edc2ad45fb} -2"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Candle of Life",
+   "level": 3,
+   "back_level": 3,
+   "issues": []
+  },
+  {
+   "id": "trinket:p038",
+   "copies": 1,
+   "pages": [
+    38
+   ],
+   "upright_half": {
+    "name": "Cleansing Crystal",
+    "level": 3,
+    "effect_lines_raw": [
+     "Remove all {icon:d07276858c} , {icon:90558ded71} , {icon:aa731a7f72} , {icon:f122d682f4} , {icon:192ea1fea9}",
+     "from all Heroes"
+    ],
+    "printed_rotation": 0
+   },
+   "inverted_half": {
+    "name": "Cleansing Crystal",
+    "level": 3,
+    "effect_lines_raw": [
+     "Gain a {icon:b7d0cfd524}"
+    ],
+    "printed_rotation": 180
+   },
+   "name": "Cleansing Crystal",
+   "level": 3,
+   "back_level": 3,
+   "issues": []
+  }
+ ]
+}

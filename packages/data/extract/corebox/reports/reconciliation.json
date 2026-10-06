@@ -1,0 +1,152 @@
+[
+ {
+  "rulebook_item": "Hero Skill Cards",
+  "rulebook_count": 231,
+  "extracted_from": "hero_skill",
+  "pages": 231,
+  "unique": 231,
+  "copies_total": 231,
+  "match": true,
+  "explanation": "all pages unique; per-hero counts from card backs: {'CRUSADER': 21, 'HELLION': 21, 'BOUNTY HUNTER': 21, 'HIGHWAYMAN': 21, 'VESTAL': 21, 'JESTER': 21, 'PLAGUE DOCTOR': 21, 'ARBALEST': 21, 'GRAVE ROBBER': 21, 'OCCULTIST': 21, 'ABOMINATION': 18, None: 3} (None = Abomination double-faced transform cards, hero not printed)"
+ },
+ {
+  "rulebook_item": "Hero Cards",
+  "rulebook_count": 23,
+  "extracted_from": "hero_stat",
+  "pages": 23,
+  "unique": 23,
+  "copies_total": 23,
+  "match": true,
+  "explanation": "10 heroes x 2 double-sided cards (front I / back II, front III / blank back) + Abomination 3 cards (I, II, III) = 23"
+ },
+ {
+  "rulebook_item": "Hero PvP Cards",
+  "rulebook_count": 22,
+  "extracted_from": "hero_pvp (base)",
+  "pages": 22,
+  "unique": 22,
+  "copies_total": 22,
+  "match": true,
+  "explanation": "11 heroes x 2 cards (Abomination included); the ADD_014 folder holds 2 extra pages: hero_pvp:ADD_014:p001 has the same front text as hero_pvp:p001 (0 icon placements differ); hero_pvp:ADD_014:p002 has the same front text as hero_pvp:p002 (2 icon placements differ)"
+ },
+ {
+  "rulebook_item": "Monster & Boss Cards",
+  "rulebook_count": 168,
+  "extracted_from": "monster_medium (base) + monster_large + boss_ability",
+  "pages": 168,
+  "unique": 109,
+  "copies_total": 168,
+  "match": true,
+  "explanation": "medium 111 pages = 52 unique cards (deck copies differ only by the monster-token colour marker; 4 are medium-size reference cards for large monsters; 19 pages carry a level numeral on the back, the rest do not) + large 20 + boss_ability 37 ({'boss_description': 16, 'boss_abilities': 21}). ADD_014 adds 4 medium pages = 2 unique x copies [2, 2] (['Imperfect Reflection', 'Perfect Reflection']; same names already in base file: ['Imperfect Reflection', 'Perfect Reflection']; front text identical to the base cards, only the small token-colour marker icon differs) – not counted in the 168."
+ },
+ {
+  "rulebook_item": "Trinkets",
+  "rulebook_count": 38,
+  "extracted_from": "trinket",
+  "pages": 38,
+  "unique": 38,
+  "copies_total": 38,
+  "match": true,
+  "explanation": "back level numerals: {\"I\": 14, \"II\": 12, \"III\": 12}"
+ },
+ {
+  "rulebook_item": "Curio Cards",
+  "rulebook_count": 24,
+  "extracted_from": "curio",
+  "pages": 24,
+  "unique": 24,
+  "copies_total": 24,
+  "match": true,
+  "explanation": "back designs: [{\"back_text\": \"\", \"n\": 24, \"pages\": \"1-24\"}]"
+ },
+ {
+  "rulebook_item": "Hamlet Events",
+  "rulebook_count": 16,
+  "extracted_from": "hamlet_event",
+  "pages": 16,
+  "unique": 16,
+  "copies_total": 16,
+  "match": true,
+  "explanation": "all pages unique"
+ },
+ {
+  "rulebook_item": "Quest Cards",
+  "rulebook_count": 19,
+  "extracted_from": "quest",
+  "pages": 19,
+  "unique": 19,
+  "copies_total": 19,
+  "match": true,
+  "explanation": "back labels: {\"Quest I\": 5, \"Quest II\": 5, \"Quest III\": 5, \"Quest Darkest Dungeon\": 3, \"Boss Quest\": 1}"
+ },
+ {
+  "rulebook_item": "Diseases",
+  "rulebook_count": 11,
+  "extracted_from": "disease",
+  "pages": 11,
+  "unique": 11,
+  "copies_total": 11,
+  "match": true,
+  "explanation": "all pages unique"
+ },
+ {
+  "rulebook_item": "Stygian Room Cards",
+  "rulebook_count": 17,
+  "extracted_from": "stygian_room",
+  "pages": 17,
+  "unique": 17,
+  "copies_total": 17,
+  "match": true,
+  "explanation": "all pages unique"
+ },
+ {
+  "rulebook_item": "Positive + Negative Quirks",
+  "rulebook_count": 35,
+  "extracted_from": "quirk",
+  "pages": 35,
+  "unique": 35,
+  "copies_total": 35,
+  "match": true,
+  "explanation": "17 + 18 = 35 matches the page count. 'Positive/Negative' is not printed as text on the cards; back designs: [{\"back_text\": \"\", \"n\": 17, \"pages\": \"1-17\"}, {\"back_text\": \"\", \"n\": 18, \"pages\": \"18-35\"}]"
+ },
+ {
+  "rulebook_item": "Virtues + Afflictions",
+  "rulebook_count": 10,
+  "extracted_from": "virtue_affliction",
+  "pages": 10,
+  "unique": 10,
+  "copies_total": 10,
+  "match": true,
+  "explanation": "5 + 5 = 10. The words 'Virtue'/'Affliction' are only in the back artwork (not text); back designs: [{\"back_text\": \"\", \"n\": 5, \"pages\": \"1-5\"}, {\"back_text\": \"\", \"n\": 5, \"pages\": \"6-10\"}]"
+ },
+ {
+  "rulebook_item": "Room Cards + Boss Room Cards",
+  "rulebook_count": 25,
+  "extracted_from": "room",
+  "pages": 25,
+  "unique": 25,
+  "copies_total": 25,
+  "match": true,
+  "explanation": "RESOLVED from text: 17 cards without the printed word 'BOSS' (pages 1-9,14-21) + 8 cards with 'BOSS' (pages 10-13,22-25). Two numbering sequences: ['1—', '2—', '3—', '4—', '5—', '6—', '7—', '8—', '9—', '10—', '11—', '12—', '13—'] and ['1—', '2—', '3—', '4—', '5—', '6—', '7—', '8—', '9—', '10—', '11—', '12—']"
+ },
+ {
+  "rulebook_item": "Player Aid Cards",
+  "rulebook_count": 8,
+  "extracted_from": "player_aid",
+  "pages": 8,
+  "unique": 2,
+  "copies_total": 8,
+  "match": true,
+  "explanation": "8 pages = 2 distinct designs x 4 copies: player_aid:p001 x4, player_aid:p005 x4"
+ },
+ {
+  "rulebook_item": "Initiative Cards",
+  "rulebook_count": 8,
+  "extracted_from": "initiative (text-free, manual entry)",
+  "pages": 8,
+  "unique": null,
+  "copies_total": 8,
+  "match": true,
+  "explanation": "no text in PDF; page count only"
+ }
+]

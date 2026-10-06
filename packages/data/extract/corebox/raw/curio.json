@@ -1,0 +1,8084 @@
+{
+ "schema": "ddbg-raw-v1",
+ "extractor_version": "1.0.4",
+ "category": "curio",
+ "kind": "card",
+ "units": {
+  "length": "mm",
+  "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+  "y_axis": "down",
+  "font_size": "pt"
+ },
+ "sources": [
+  {
+   "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+   "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+   "source_set": "base",
+   "kind": "card",
+   "front_pages": 24,
+   "back_pages": 24
+  }
+ ],
+ "n_pages": 24,
+ "n_unique": 24,
+ "n_copies_total": 24,
+ "cards": [
+  {
+   "id": "curio:p001",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    1
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 1,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "95946e3f2bc53984",
+     "spans": [
+      {
+       "t": "You feel a shiver down your spine as",
+       "bbox": [
+        11.74,
+        18.78,
+        50.67,
+        22.78
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "you behold this eldritch altar. It has",
+       "bbox": [
+        12.16,
+        22.59,
+        50.25,
+        26.58
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "a small coin pouch on its base, but as",
+       "bbox": [
+        11.43,
+        26.4,
+        50.98,
+        30.39
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "you touch its stony facade, a nauseating",
+       "bbox": [
+        10.23,
+        30.21,
+        52.18,
+        34.2
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "feeling overcomes you.",
+       "bbox": [
+        14.33,
+        34.01,
+        38.54,
+        38.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.82,
+        44.48,
+        25.76,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "10",
+       "bbox": [
+        16.13,
+        71.81,
+        20.55,
+        78.75
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "2t",
+       "bbox": [
+        21.25,
+        62.52,
+        25.23,
+        69.46
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffe6ad"
+      },
+      {
+       "t": "Eldritch Altar",
+       "bbox": [
+        19.37,
+        6.92,
+        44.08,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "3825ad46df",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        15.17,
+        45.16,
+        20.81,
+        50.45
+       ],
+       "bbox_full": [
+        13.89,
+        43.81,
+        26.85,
+        51.94
+       ]
+      },
+      {
+       "iconId": "449d2d43ed",
+       "bbox": [
+        14.56,
+        51.66,
+        27.09,
+        66.27
+       ]
+      },
+      {
+       "iconId": "40c4cc438c",
+       "bbox": [
+        15.87,
+        63.5,
+        20.81,
+        68.44
+       ],
+       "bbox_full": [
+        14.2,
+        61.87,
+        26.27,
+        70.13
+       ]
+      },
+      {
+       "iconId": "5e10ef1791",
+       "bbox": [
+        14.59,
+        71.04,
+        27.04,
+        79.55
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "4bcefdb4d9",
+       "bbox": [
+        20.81,
+        72.67,
+        25.4,
+        77.96
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Eldritch Altar {icon:3825ad46df}",
+       "bbox": [
+        19.37,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "You feel a shiver down your spine as",
+       "bbox": [
+        11.74,
+        18.78,
+        50.67,
+        22.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "you behold this eldritch altar. It has",
+       "bbox": [
+        12.16,
+        22.59,
+        50.25,
+        26.58
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "a small coin pouch on its base, but as",
+       "bbox": [
+        11.43,
+        26.4,
+        50.98,
+        30.39
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "you touch its stony facade, a nauseating",
+       "bbox": [
+        10.23,
+        30.21,
+        52.18,
+        34.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "feeling overcomes you.",
+       "bbox": [
+        14.33,
+        34.01,
+        38.54,
+        38.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        15.17,
+        44.48,
+        25.76,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:449d2d43ed} {icon:40c4cc438c} 2t",
+       "bbox": [
+        14.56,
+        51.66,
+        27.09,
+        69.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "10 {icon:4bcefdb4d9}",
+       "bbox": [
+        16.13,
+        71.81,
+        25.4,
+        78.75
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 1,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p002",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    2
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 2,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "95906e3f3bc53984",
+     "spans": [
+      {
+       "t": "An altar dedicated to unholy abominations.",
+       "bbox": [
+        8.9,
+        16.88,
+        53.51,
+        20.87
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Just by staring at it, you feel your worst",
+       "bbox": [
+        9.68,
+        20.69,
+        52.73,
+        24.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "self resurfacing, albeit with a new purpose.",
+       "bbox": [
+        8.28,
+        24.49,
+        54.13,
+        28.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "You see a small bundle on its base, and as",
+       "bbox": [
+        9.18,
+        28.3,
+        53.23,
+        32.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "you touch its stony facade you realize it",
+       "bbox": [
+        10.0,
+        32.11,
+        52.41,
+        36.1
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "has been coated with a toxin.",
+       "bbox": [
+        10.0,
+        35.92,
+        40.77,
+        39.91
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.82,
+        44.48,
+        25.76,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.89,
+        62.92,
+        16.64,
+        69.86
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        22.28,
+        62.92,
+        26.36,
+        69.86
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "2t",
+       "bbox": [
+        21.29,
+        71.43,
+        25.26,
+        78.38
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffe6ad"
+      },
+      {
+       "t": "Eldritch Altar",
+       "bbox": [
+        19.37,
+        6.92,
+        44.08,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "3825ad46df",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        15.17,
+        45.16,
+        20.81,
+        50.45
+       ],
+       "bbox_full": [
+        13.89,
+        43.81,
+        26.85,
+        51.94
+       ]
+      },
+      {
+       "iconId": "382acc9dc4",
+       "bbox": [
+        14.56,
+        51.72,
+        27.09,
+        66.32
+       ]
+      },
+      {
+       "iconId": "a637867634",
+       "bbox": [
+        17.64,
+        63.85,
+        21.87,
+        68.44
+       ],
+       "bbox_full": [
+        14.13,
+        62.39,
+        27.34,
+        70.14
+       ]
+      },
+      {
+       "iconId": "73ea0990dd",
+       "bbox": [
+        15.87,
+        71.97,
+        20.81,
+        76.91
+       ],
+       "bbox_full": [
+        13.93,
+        69.87,
+        27.14,
+        79.01
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Eldritch Altar {icon:3825ad46df}",
+       "bbox": [
+        19.37,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "An altar dedicated to unholy abominations.",
+       "bbox": [
+        8.9,
+        16.88,
+        53.51,
+        20.87
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Just by staring at it, you feel your worst",
+       "bbox": [
+        9.68,
+        20.69,
+        52.73,
+        24.68
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "self resurfacing, albeit with a new purpose.",
+       "bbox": [
+        8.28,
+        24.49,
+        54.13,
+        28.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "You see a small bundle on its base, and as",
+       "bbox": [
+        9.18,
+        28.3,
+        53.23,
+        32.29
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "you touch its stony facade you realize it",
+       "bbox": [
+        10.0,
+        32.11,
+        52.41,
+        36.1
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "has been coated with a toxin.",
+       "bbox": [
+        10.0,
+        35.92,
+        40.77,
+        39.91
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        15.17,
+        44.48,
+        25.76,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:382acc9dc4} {icon:a637867634}",
+       "bbox": [
+        14.56,
+        51.72,
+        27.09,
+        68.44
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 3t",
+       "bbox": [
+        14.89,
+        62.92,
+        26.36,
+        69.86
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:73ea0990dd} 2t",
+       "bbox": [
+        15.87,
+        71.43,
+        25.26,
+        78.38
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 2,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p003",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    3
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 3,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85946f2f3ec13cc1",
+     "spans": [
+      {
+       "t": "A chest with the family’s sigil. You feel",
+       "bbox": [
+        11.17,
+        20.69,
+        51.53,
+        24.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "your heart pounding in your chest, and as",
+       "bbox": [
+        9.18,
+        24.5,
+        53.52,
+        28.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "you open it a poisonous mist is sprayed",
+       "bbox": [
+        10.48,
+        28.3,
+        52.21,
+        32.3
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "on you. In it there are some Provisions...",
+       "bbox": [
+        9.68,
+        32.11,
+        53.02,
+        36.1
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.82,
+        44.48,
+        25.76,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "Heirloom Chest",
+       "bbox": [
+        18.0,
+        6.92,
+        45.45,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "3825ad46df",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        15.17,
+        45.16,
+        20.81,
+        50.45
+       ],
+       "bbox_full": [
+        13.89,
+        43.81,
+        26.85,
+        51.94
+       ]
+      },
+      {
+       "iconId": "3fe634e723",
+       "bbox": [
+        14.35,
+        51.72,
+        26.88,
+        66.32
+       ]
+      },
+      {
+       "iconId": "b4627031be",
+       "bbox": [
+        17.73,
+        63.0,
+        23.24,
+        69.43
+       ],
+       "bbox_full": [
+        16.96,
+        62.23,
+        24.07,
+        70.23
+       ]
+      },
+      {
+       "iconId": "ae45f5bcb3",
+       "bbox": [
+        13.62,
+        70.43,
+        26.77,
+        83.58
+       ],
+       "bbox_full": [
+        12.63,
+        70.43,
+        27.62,
+        85.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Heirloom Chest {icon:3825ad46df}",
+       "bbox": [
+        18.0,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A chest with the family’s sigil. You feel",
+       "bbox": [
+        11.17,
+        20.69,
+        51.53,
+        24.68
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "your heart pounding in your chest, and as",
+       "bbox": [
+        9.18,
+        24.5,
+        53.52,
+        28.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "you open it a poisonous mist is sprayed",
+       "bbox": [
+        10.48,
+        28.3,
+        52.21,
+        32.3
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "on you. In it there are some Provisions...",
+       "bbox": [
+        9.68,
+        32.11,
+        53.02,
+        36.1
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        15.17,
+        44.48,
+        25.76,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3fe634e723} {icon:b4627031be}",
+       "bbox": [
+        14.35,
+        51.72,
+        26.88,
+        69.43
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:ae45f5bcb3}",
+       "bbox": [
+        13.62,
+        70.43,
+        26.77,
+        83.58
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 3,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p004",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    4
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 4,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "c5946a2f3fc135c1",
+     "spans": [
+      {
+       "t": "5",
+       "bbox": [
+        17.04,
+        71.81,
+        19.64,
+        78.75
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "2t",
+       "bbox": [
+        21.19,
+        62.62,
+        25.16,
+        69.56
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffe6ad"
+      },
+      {
+       "t": "A chest with the family’s sigil. As you",
+       "bbox": [
+        11.74,
+        20.75,
+        50.97,
+        24.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "open the lock, you hear a click followed",
+       "bbox": [
+        10.5,
+        24.56,
+        52.21,
+        28.55
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "by the prick of a poisonous dart. In the",
+       "bbox": [
+        10.62,
+        28.36,
+        52.08,
+        32.36
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "chest you find a small pouch of coins.",
+       "bbox": [
+        11.47,
+        32.17,
+        51.23,
+        36.16
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Heirloom Chest",
+       "bbox": [
+        18.0,
+        6.92,
+        45.45,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.82,
+        44.48,
+        25.76,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.89,
+        53.53,
+        16.64,
+        60.47
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        22.28,
+        53.53,
+        26.36,
+        60.47
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "3825ad46df",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        15.17,
+        45.16,
+        20.81,
+        50.45
+       ],
+       "bbox_full": [
+        13.89,
+        43.81,
+        26.85,
+        51.94
+       ]
+      },
+      {
+       "iconId": "a637867634",
+       "bbox": [
+        17.64,
+        54.33,
+        21.87,
+        58.91
+       ],
+       "bbox_full": [
+        14.13,
+        53.0,
+        27.34,
+        60.75
+       ]
+      },
+      {
+       "iconId": "40c4cc438c",
+       "bbox": [
+        16.23,
+        63.5,
+        21.17,
+        68.79
+       ],
+       "bbox_full": [
+        14.52,
+        61.97,
+        26.2,
+        70.23
+       ]
+      },
+      {
+       "iconId": "7e80ba9459",
+       "bbox": [
+        15.36,
+        71.04,
+        26.15,
+        79.55
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "aa81338d06",
+       "bbox": [
+        20.11,
+        72.67,
+        24.69,
+        77.96
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Heirloom Chest {icon:3825ad46df}",
+       "bbox": [
+        18.0,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A chest with the family’s sigil. As you",
+       "bbox": [
+        11.74,
+        20.75,
+        50.97,
+        24.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "open the lock, you hear a click followed",
+       "bbox": [
+        10.5,
+        24.56,
+        52.21,
+        28.55
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "by the prick of a poisonous dart. In the",
+       "bbox": [
+        10.62,
+        28.36,
+        52.08,
+        32.36
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "chest you find a small pouch of coins.",
+       "bbox": [
+        11.47,
+        32.17,
+        51.23,
+        36.16
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        15.17,
+        44.48,
+        25.76,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 {icon:a637867634} 3t",
+       "bbox": [
+        14.89,
+        53.53,
+        26.36,
+        60.47
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:40c4cc438c} 2t",
+       "bbox": [
+        16.23,
+        62.62,
+        25.16,
+        69.56
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "5 {icon:aa81338d06}",
+       "bbox": [
+        17.04,
+        71.81,
+        24.69,
+        78.75
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 4,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p005",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    5
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 5,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "95956b3f3bc13430",
+     "spans": [
+      {
+       "t": "2t",
+       "bbox": [
+        21.26,
+        62.83,
+        25.23,
+        69.78
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffe6ad"
+      },
+      {
+       "t": "A stack of literary treasures in an unlikely",
+       "bbox": [
+        8.84,
+        18.84,
+        53.86,
+        22.84
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "location. Filled with worry and some",
+       "bbox": [
+        12.05,
+        22.65,
+        50.66,
+        26.64
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "selfish thoughts, you are relieved to find",
+       "bbox": [
+        9.9,
+        26.46,
+        52.8,
+        30.45
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "a Trinket. You rise to your feet with your",
+       "bbox": [
+        9.46,
+        30.27,
+        53.24,
+        34.26
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "confidence boosted and your morale lifted.",
+       "bbox": [
+        8.85,
+        34.07,
+        53.84,
+        38.07
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Stack of Books",
+       "bbox": [
+        18.04,
+        6.92,
+        45.41,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.82,
+        44.48,
+        25.76,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "3825ad46df",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        15.17,
+        45.16,
+        20.81,
+        50.45
+       ],
+       "bbox_full": [
+        13.89,
+        43.81,
+        26.85,
+        51.94
+       ]
+      },
+      {
+       "iconId": "7b1a554877",
+       "bbox": [
+        14.56,
+        51.72,
+        27.09,
+        66.32
+       ]
+      },
+      {
+       "iconId": "3cd8b97ff0",
+       "bbox": [
+        15.87,
+        63.5,
+        20.81,
+        68.44
+       ],
+       "bbox_full": [
+        13.96,
+        61.27,
+        27.17,
+        70.41
+       ]
+      },
+      {
+       "iconId": "85e094f269",
+       "bbox": [
+        14.29,
+        71.49,
+        26.56,
+        79.73
+       ],
+       "bbox_full": [
+        13.87,
+        71.08,
+        27.08,
+        80.23
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Stack of Books {icon:3825ad46df}",
+       "bbox": [
+        18.04,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A stack of literary treasures in an unlikely",
+       "bbox": [
+        8.84,
+        18.84,
+        53.86,
+        22.84
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "location. Filled with worry and some",
+       "bbox": [
+        12.05,
+        22.65,
+        50.66,
+        26.64
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "selfish thoughts, you are relieved to find",
+       "bbox": [
+        9.9,
+        26.46,
+        52.8,
+        30.45
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "a Trinket. You rise to your feet with your",
+       "bbox": [
+        9.46,
+        30.27,
+        53.24,
+        34.26
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "confidence boosted and your morale lifted.",
+       "bbox": [
+        8.85,
+        34.07,
+        53.84,
+        38.07
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        15.17,
+        44.48,
+        25.76,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:7b1a554877} {icon:3cd8b97ff0} 2t",
+       "bbox": [
+        14.56,
+        51.72,
+        27.09,
+        69.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:85e094f269}",
+       "bbox": [
+        14.29,
+        71.49,
+        26.56,
+        79.73
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 5,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p006",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    6
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 6,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "95946f3f3ac53680",
+     "spans": [
+      {
+       "t": "A stack of literary treasures in an",
+       "bbox": [
+        13.25,
+        16.94,
+        49.45,
+        20.93
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "unlikely location. In your hasty search",
+       "bbox": [
+        11.12,
+        20.75,
+        51.59,
+        24.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "of valuables, you find only a sharpened",
+       "bbox": [
+        10.73,
+        24.55,
+        51.97,
+        28.55
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "rusty pin that slices through your",
+       "bbox": [
+        13.49,
+        28.36,
+        49.21,
+        32.35
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "finger as if it were paper. Cursing your",
+       "bbox": [
+        10.36,
+        32.17,
+        52.34,
+        36.16
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "luck, you decide to push on ahead.",
+       "bbox": [
+        13.33,
+        35.98,
+        49.37,
+        39.97
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Stack of Books",
+       "bbox": [
+        18.04,
+        6.92,
+        45.41,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        15.57,
+        63.08,
+        17.33,
+        70.08
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ee2824"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        22.7,
+        63.08,
+        26.81,
+        70.08
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "3825ad46df",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "3fe634e723",
+       "bbox": [
+        14.56,
+        51.72,
+        27.09,
+        66.32
+       ]
+      },
+      {
+       "iconId": "12b6af97f2",
+       "bbox": [
+        17.64,
+        62.79,
+        21.52,
+        69.14
+       ],
+       "bbox_full": [
+        14.87,
+        61.52,
+        27.82,
+        70.67
+       ]
+      },
+      {
+       "iconId": "3a7dfcb577",
+       "bbox": [
+        14.44,
+        69.62,
+        26.97,
+        84.22
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Stack of Books {icon:3825ad46df}",
+       "bbox": [
+        18.04,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A stack of literary treasures in an",
+       "bbox": [
+        13.25,
+        16.94,
+        49.45,
+        20.93
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "unlikely location. In your hasty search",
+       "bbox": [
+        11.12,
+        20.75,
+        51.59,
+        24.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "of valuables, you find only a sharpened",
+       "bbox": [
+        10.73,
+        24.55,
+        51.97,
+        28.55
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "rusty pin that slices through your",
+       "bbox": [
+        13.49,
+        28.36,
+        49.21,
+        32.35
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "finger as if it were paper. Cursing your",
+       "bbox": [
+        10.36,
+        32.17,
+        52.34,
+        36.16
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "luck, you decide to push on ahead.",
+       "bbox": [
+        13.33,
+        35.98,
+        49.37,
+        39.97
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3fe634e723} {icon:12b6af97f2}",
+       "bbox": [
+        14.56,
+        51.72,
+        27.09,
+        69.14
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 3t",
+       "bbox": [
+        15.57,
+        63.08,
+        26.81,
+        70.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3a7dfcb577}",
+       "bbox": [
+        14.44,
+        69.62,
+        26.97,
+        84.22
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 6,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p007",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    7
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 7,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "c5953b2f3fc12486",
+     "spans": [
+      {
+       "t": "A long-forgotten strongbox sits on the",
+       "bbox": [
+        11.19,
+        17.19,
+        51.52,
+        21.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "cold stone floor. You praise your luck",
+       "bbox": [
+        11.43,
+        21.0,
+        51.27,
+        24.99
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "and greedily open it, when a serrated",
+       "bbox": [
+        11.62,
+        24.8,
+        51.08,
+        28.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "scalpel slashes your hand. From blood",
+       "bbox": [
+        11.18,
+        28.61,
+        51.52,
+        32.6
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "at least comes bounty, as you discover",
+       "bbox": [
+        10.9,
+        32.42,
+        51.8,
+        36.41
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "some coins and a valuable Trinket.",
+       "bbox": [
+        13.2,
+        36.23,
+        49.49,
+        40.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Strongbox",
+       "bbox": [
+        22.96,
+        6.92,
+        41.93,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "5",
+       "bbox": [
+        17.04,
+        71.81,
+        19.64,
+        78.75
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        15.51,
+        44.57,
+        17.27,
+        51.57
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ee2824"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        22.77,
+        44.57,
+        26.87,
+        51.57
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "3825ad46df",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "be17b4ee09",
+       "bbox": [
+        17.64,
+        44.45,
+        21.87,
+        50.45
+       ],
+       "bbox_full": [
+        14.74,
+        43.01,
+        27.82,
+        52.16
+       ]
+      },
+      {
+       "iconId": "1d9ad90d4a",
+       "bbox": [
+        14.08,
+        52.65,
+        26.36,
+        60.88
+       ],
+       "bbox_full": [
+        13.67,
+        52.23,
+        26.87,
+        61.38
+       ]
+      },
+      {
+       "iconId": "3ae4312868",
+       "bbox": [
+        14.44,
+        60.77,
+        26.97,
+        75.37
+       ]
+      },
+      {
+       "iconId": "7e80ba9459",
+       "bbox": [
+        15.36,
+        71.04,
+        26.15,
+        79.55
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "aa81338d06",
+       "bbox": [
+        20.11,
+        72.67,
+        24.69,
+        77.96
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Strongbox {icon:3825ad46df}",
+       "bbox": [
+        22.96,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A long-forgotten strongbox sits on the",
+       "bbox": [
+        11.19,
+        17.19,
+        51.52,
+        21.18
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "cold stone floor. You praise your luck",
+       "bbox": [
+        11.43,
+        21.0,
+        51.27,
+        24.99
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and greedily open it, when a serrated",
+       "bbox": [
+        11.62,
+        24.8,
+        51.08,
+        28.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "scalpel slashes your hand. From blood",
+       "bbox": [
+        11.18,
+        28.61,
+        51.52,
+        32.6
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "at least comes bounty, as you discover",
+       "bbox": [
+        10.9,
+        32.42,
+        51.8,
+        36.41
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "some coins and a valuable Trinket.",
+       "bbox": [
+        13.2,
+        36.23,
+        49.49,
+        40.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 {icon:be17b4ee09} 3t",
+       "bbox": [
+        15.51,
+        44.45,
+        26.87,
+        51.57
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:1d9ad90d4a}",
+       "bbox": [
+        14.08,
+        52.65,
+        26.36,
+        60.88
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3ae4312868} 5 {icon:aa81338d06}",
+       "bbox": [
+        14.44,
+        60.77,
+        26.97,
+        78.75
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 7,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p008",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    8
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 8,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85946b2f3fc12d83",
+     "spans": [
+      {
+       "t": "A long-forgotten strongbox sits on the",
+       "bbox": [
+        11.19,
+        17.19,
+        51.52,
+        21.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "cold stone floor. Brimming with coins and",
+       "bbox": [
+        9.25,
+        21.0,
+        53.45,
+        24.99
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Provisions, you place them in your bags,",
+       "bbox": [
+        10.09,
+        24.8,
+        52.61,
+        28.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "only to discover that they are coated",
+       "bbox": [
+        11.94,
+        28.61,
+        50.76,
+        32.6
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "with poison. Cursing this devilry, you",
+       "bbox": [
+        11.61,
+        32.42,
+        51.1,
+        36.41
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "resolve to continue your adventure.",
+       "bbox": [
+        12.49,
+        36.23,
+        50.22,
+        40.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Strongbox",
+       "bbox": [
+        22.96,
+        6.92,
+        41.93,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "10",
+       "bbox": [
+        16.13,
+        62.54,
+        20.55,
+        69.48
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "3825ad46df",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "3fe634e723",
+       "bbox": [
+        14.56,
+        42.27,
+        27.09,
+        56.87
+       ]
+      },
+      {
+       "iconId": "b4627031be",
+       "bbox": [
+        17.94,
+        53.9,
+        23.45,
+        60.33
+       ],
+       "bbox_full": [
+        17.17,
+        53.13,
+        24.29,
+        61.13
+       ]
+      },
+      {
+       "iconId": "5e10ef1791",
+       "bbox": [
+        14.59,
+        61.76,
+        27.04,
+        70.27
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "4bcefdb4d9",
+       "bbox": [
+        20.81,
+        63.5,
+        25.4,
+        68.44
+       ]
+      },
+      {
+       "iconId": "ae45f5bcb3",
+       "bbox": [
+        13.37,
+        70.43,
+        26.52,
+        83.58
+       ],
+       "bbox_full": [
+        12.38,
+        70.43,
+        27.36,
+        85.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Strongbox {icon:3825ad46df}",
+       "bbox": [
+        22.96,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A long-forgotten strongbox sits on the",
+       "bbox": [
+        11.19,
+        17.19,
+        51.52,
+        21.18
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "cold stone floor. Brimming with coins and",
+       "bbox": [
+        9.25,
+        21.0,
+        53.45,
+        24.99
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Provisions, you place them in your bags,",
+       "bbox": [
+        10.09,
+        24.8,
+        52.61,
+        28.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "only to discover that they are coated",
+       "bbox": [
+        11.94,
+        28.61,
+        50.76,
+        32.6
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "with poison. Cursing this devilry, you",
+       "bbox": [
+        11.61,
+        32.42,
+        51.1,
+        36.41
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "resolve to continue your adventure.",
+       "bbox": [
+        12.49,
+        36.23,
+        50.22,
+        40.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3fe634e723}",
+       "bbox": [
+        14.56,
+        42.27,
+        27.09,
+        56.87
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b4627031be}",
+       "bbox": [
+        17.94,
+        53.9,
+        23.45,
+        60.33
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "10 {icon:4bcefdb4d9}",
+       "bbox": [
+        16.13,
+        62.54,
+        25.4,
+        69.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:ae45f5bcb3}",
+       "bbox": [
+        13.37,
+        70.43,
+        26.52,
+        83.58
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 8,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p009",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    9
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 9,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "95d52e3f2b843d81",
+     "spans": [
+      {
+       "t": "A table filled with experimental equipment.",
+       "bbox": [
+        9.14,
+        16.94,
+        53.57,
+        20.93
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "You pick up a handful of coins thrown",
+       "bbox": [
+        11.47,
+        20.75,
+        51.23,
+        24.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "onto its surface, but you don’t notice",
+       "bbox": [
+        11.94,
+        24.55,
+        50.76,
+        28.55
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "the sharp needle protruding from one",
+       "bbox": [
+        11.55,
+        28.36,
+        51.15,
+        32.35
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "of the alembics. As it pierces your",
+       "bbox": [
+        13.3,
+        32.17,
+        49.4,
+        36.16
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "skin, you let out a panicked cry...",
+       "bbox": [
+        13.73,
+        35.98,
+        48.97,
+        39.97
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Alchemy Table",
+       "bbox": [
+        18.87,
+        6.92,
+        44.58,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "5",
+       "bbox": [
+        15.58,
+        71.19,
+        18.19,
+        78.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        20.58,
+        44.48,
+        24.52,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        13.69,
+        62.83,
+        15.45,
+        69.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ee2824"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        20.68,
+        62.83,
+        24.79,
+        69.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        14.11,
+        45.16,
+        19.4,
+        50.45
+       ],
+       "bbox_full": [
+        12.65,
+        43.81,
+        25.6,
+        51.94
+       ]
+      },
+      {
+       "iconId": "3fe634e723",
+       "bbox": [
+        13.11,
+        51.72,
+        25.64,
+        66.32
+       ]
+      },
+      {
+       "iconId": "be17b4ee09",
+       "bbox": [
+        16.23,
+        62.79,
+        20.11,
+        68.79
+       ],
+       "bbox_full": [
+        12.92,
+        61.27,
+        25.74,
+        70.42
+       ]
+      },
+      {
+       "iconId": "7e80ba9459",
+       "bbox": [
+        13.91,
+        70.41,
+        24.7,
+        78.92
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "4bcefdb4d9",
+       "bbox": [
+        18.34,
+        71.97,
+        22.93,
+        77.26
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Alchemy Table {icon:27fe03d7a2}",
+       "bbox": [
+        18.87,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A table filled with experimental equipment.",
+       "bbox": [
+        9.14,
+        16.94,
+        53.57,
+        20.93
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "You pick up a handful of coins thrown",
+       "bbox": [
+        11.47,
+        20.75,
+        51.23,
+        24.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "onto its surface, but you don’t notice",
+       "bbox": [
+        11.94,
+        24.55,
+        50.76,
+        28.55
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the sharp needle protruding from one",
+       "bbox": [
+        11.55,
+        28.36,
+        51.15,
+        32.35
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "of the alembics. As it pierces your",
+       "bbox": [
+        13.3,
+        32.17,
+        49.4,
+        36.16
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "skin, you let out a panicked cry...",
+       "bbox": [
+        13.73,
+        35.98,
+        48.97,
+        39.97
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        14.11,
+        44.48,
+        24.52,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3fe634e723} {icon:be17b4ee09}",
+       "bbox": [
+        13.11,
+        51.72,
+        25.64,
+        68.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 3t",
+       "bbox": [
+        13.69,
+        62.83,
+        24.79,
+        69.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "5 {icon:4bcefdb4d9}",
+       "bbox": [
+        15.58,
+        71.19,
+        22.93,
+        78.13
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 9,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p010",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    10
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 10,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "c5b53f2f2f803087",
+     "spans": [
+      {
+       "t": "A small holy altar seems out of place against",
+       "bbox": [
+        7.86,
+        16.94,
+        54.8,
+        20.93
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "the backdrop of corruption. You open the",
+       "bbox": [
+        9.77,
+        20.75,
+        52.89,
+        24.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "small sack resting on the altar’s feet and",
+       "bbox": [
+        9.73,
+        24.55,
+        52.93,
+        28.55
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "feel your fingers twitch as you realize",
+       "bbox": [
+        10.9,
+        28.36,
+        51.76,
+        32.35
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "that the sack has been drenched",
+       "bbox": [
+        9.19,
+        32.17,
+        42.89,
+        36.16
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "in some sort of toxin.",
+       "bbox": [
+        11.39,
+        35.98,
+        34.34,
+        39.97
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Altar of Light",
+       "bbox": [
+        19.41,
+        6.92,
+        44.04,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "5",
+       "bbox": [
+        17.04,
+        53.69,
+        19.64,
+        60.63
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.89,
+        44.98,
+        16.64,
+        51.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        22.28,
+        44.98,
+        26.36,
+        51.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "a637867634",
+       "bbox": [
+        17.64,
+        45.86,
+        21.87,
+        50.45
+       ],
+       "bbox_full": [
+        14.13,
+        44.45,
+        27.34,
+        52.2
+       ]
+      },
+      {
+       "iconId": "7e80ba9459",
+       "bbox": [
+        15.36,
+        52.91,
+        26.15,
+        61.42
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "aa81338d06",
+       "bbox": [
+        20.11,
+        54.68,
+        24.69,
+        59.62
+       ]
+      },
+      {
+       "iconId": "3e2792bc5b",
+       "bbox": [
+        14.44,
+        60.77,
+        26.97,
+        75.37
+       ]
+      },
+      {
+       "iconId": "ae45f5bcb3",
+       "bbox": [
+        13.37,
+        70.43,
+        26.52,
+        83.58
+       ],
+       "bbox_full": [
+        12.38,
+        70.43,
+        27.36,
+        85.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Altar of Light {icon:27fe03d7a2}",
+       "bbox": [
+        19.41,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A small holy altar seems out of place against",
+       "bbox": [
+        7.86,
+        16.94,
+        54.8,
+        20.93
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the backdrop of corruption. You open the",
+       "bbox": [
+        9.77,
+        20.75,
+        52.89,
+        24.74
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "small sack resting on the altar’s feet and",
+       "bbox": [
+        9.73,
+        24.55,
+        52.93,
+        28.55
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "feel your fingers twitch as you realize",
+       "bbox": [
+        10.9,
+        28.36,
+        51.76,
+        32.35
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "that the sack has been drenched",
+       "bbox": [
+        9.19,
+        32.17,
+        42.89,
+        36.16
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "in some sort of toxin.",
+       "bbox": [
+        11.39,
+        35.98,
+        34.34,
+        39.97
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 {icon:a637867634} 3t",
+       "bbox": [
+        14.89,
+        44.98,
+        26.36,
+        51.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "5 {icon:aa81338d06}",
+       "bbox": [
+        17.04,
+        53.69,
+        24.69,
+        60.63
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3e2792bc5b}",
+       "bbox": [
+        14.44,
+        60.77,
+        26.97,
+        75.37
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:ae45f5bcb3}",
+       "bbox": [
+        13.37,
+        70.43,
+        26.52,
+        83.58
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 10,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p011",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    11
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 11,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85953f2f2f853581",
+     "spans": [
+      {
+       "t": "A bookshelf full of old, leather-bound books.",
+       "bbox": [
+        7.84,
+        18.78,
+        54.86,
+        22.78
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "As you reach out for a big tome, a sharp",
+       "bbox": [
+        9.88,
+        22.59,
+        52.81,
+        26.58
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "ornament falls and slashes your hand. An",
+       "bbox": [
+        9.64,
+        26.4,
+        53.06,
+        30.39
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "intense pain rushes through you, only to",
+       "bbox": [
+        10.09,
+        30.21,
+        52.62,
+        34.2
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "be washed away by your renewed vigor.",
+       "bbox": [
+        9.78,
+        34.01,
+        52.93,
+        38.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.82,
+        44.48,
+        25.76,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "Bookshelf",
+       "bbox": [
+        22.77,
+        6.92,
+        40.68,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.19,
+        62.83,
+        15.95,
+        69.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ee2824"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        21.18,
+        62.83,
+        25.29,
+        69.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        15.17,
+        45.16,
+        20.81,
+        50.45
+       ],
+       "bbox_full": [
+        13.89,
+        43.81,
+        26.85,
+        51.94
+       ]
+      },
+      {
+       "iconId": "3fe634e723",
+       "bbox": [
+        14.56,
+        51.66,
+        27.09,
+        66.27
+       ]
+      },
+      {
+       "iconId": "be17b4ee09",
+       "bbox": [
+        16.58,
+        62.79,
+        20.81,
+        68.79
+       ],
+       "bbox_full": [
+        13.42,
+        61.27,
+        26.24,
+        70.42
+       ]
+      },
+      {
+       "iconId": "3a7dfcb577",
+       "bbox": [
+        13.24,
+        70.22,
+        25.77,
+        84.83
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Bookshelf {icon:27fe03d7a2}",
+       "bbox": [
+        22.77,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A bookshelf full of old, leather-bound books.",
+       "bbox": [
+        7.84,
+        18.78,
+        54.86,
+        22.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "As you reach out for a big tome, a sharp",
+       "bbox": [
+        9.88,
+        22.59,
+        52.81,
+        26.58
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ornament falls and slashes your hand. An",
+       "bbox": [
+        9.64,
+        26.4,
+        53.06,
+        30.39
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "intense pain rushes through you, only to",
+       "bbox": [
+        10.09,
+        30.21,
+        52.62,
+        34.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "be washed away by your renewed vigor.",
+       "bbox": [
+        9.78,
+        34.01,
+        52.93,
+        38.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        15.17,
+        44.48,
+        25.76,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3fe634e723} {icon:be17b4ee09}",
+       "bbox": [
+        14.56,
+        51.66,
+        27.09,
+        68.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 3t",
+       "bbox": [
+        14.19,
+        62.83,
+        25.29,
+        69.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3a7dfcb577}",
+       "bbox": [
+        13.24,
+        70.22,
+        25.77,
+        84.83
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 11,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p012",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    12
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 12,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85953f2f2f853581",
+     "spans": [
+      {
+       "t": "A big bookshelf looms in front of you. As",
+       "bbox": [
+        9.73,
+        16.88,
+        52.97,
+        20.87
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "you reach out for a book, a spiky ornament",
+       "bbox": [
+        8.37,
+        20.69,
+        54.33,
+        24.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "falls onto your head and your cheek gets",
+       "bbox": [
+        9.86,
+        24.49,
+        52.84,
+        28.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "slashed from the impact. You look around",
+       "bbox": [
+        9.53,
+        28.3,
+        53.17,
+        32.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "and find a Trinket on the bookshelf’s side.",
+       "bbox": [
+        9.17,
+        32.11,
+        53.53,
+        36.1
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Now you just need to stop the bleeding...",
+       "bbox": [
+        10.08,
+        35.92,
+        52.61,
+        39.91
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.82,
+        44.48,
+        25.76,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "Bookshelf",
+       "bbox": [
+        22.77,
+        6.92,
+        40.68,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.19,
+        62.83,
+        15.95,
+        69.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ee2824"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        21.18,
+        62.83,
+        25.29,
+        69.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        15.17,
+        45.16,
+        20.81,
+        50.45
+       ],
+       "bbox_full": [
+        13.89,
+        43.81,
+        26.85,
+        51.94
+       ]
+      },
+      {
+       "iconId": "3fe634e723",
+       "bbox": [
+        14.56,
+        51.66,
+        27.09,
+        66.27
+       ]
+      },
+      {
+       "iconId": "be17b4ee09",
+       "bbox": [
+        16.58,
+        62.79,
+        20.81,
+        68.79
+       ],
+       "bbox_full": [
+        13.42,
+        61.27,
+        26.24,
+        70.42
+       ]
+      },
+      {
+       "iconId": "85e094f269",
+       "bbox": [
+        14.08,
+        71.99,
+        26.36,
+        80.23
+       ],
+       "bbox_full": [
+        13.67,
+        71.58,
+        26.87,
+        80.73
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Bookshelf {icon:27fe03d7a2}",
+       "bbox": [
+        22.77,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A big bookshelf looms in front of you. As",
+       "bbox": [
+        9.73,
+        16.88,
+        52.97,
+        20.87
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "you reach out for a book, a spiky ornament",
+       "bbox": [
+        8.37,
+        20.69,
+        54.33,
+        24.68
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "falls onto your head and your cheek gets",
+       "bbox": [
+        9.86,
+        24.49,
+        52.84,
+        28.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "slashed from the impact. You look around",
+       "bbox": [
+        9.53,
+        28.3,
+        53.17,
+        32.29
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and find a Trinket on the bookshelf’s side.",
+       "bbox": [
+        9.17,
+        32.11,
+        53.53,
+        36.1
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Now you just need to stop the bleeding...",
+       "bbox": [
+        10.08,
+        35.92,
+        52.61,
+        39.91
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        15.17,
+        44.48,
+        25.76,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3fe634e723} {icon:be17b4ee09}",
+       "bbox": [
+        14.56,
+        51.66,
+        27.09,
+        68.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 3t",
+       "bbox": [
+        14.19,
+        62.83,
+        25.29,
+        69.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:85e094f269}",
+       "bbox": [
+        14.08,
+        71.99,
+        26.36,
+        80.23
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 12,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p013",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    13
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 13,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85953f2f3f813581",
+     "spans": [
+      {
+       "t": "A forsaken confession booth. It hasn’t been",
+       "bbox": [
+        8.6,
+        18.78,
+        53.99,
+        22.78
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "used in years. As you step inside, you feel a",
+       "bbox": [
+        8.17,
+        22.59,
+        54.42,
+        26.58
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "faint chill followed by a painful sting. As you",
+       "bbox": [
+        7.91,
+        26.4,
+        54.68,
+        30.39
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "shake the poisonous spider off your garment,",
+       "bbox": [
+        7.29,
+        30.21,
+        55.3,
+        34.2
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "you notice some coins on the booth’s floor.",
+       "bbox": [
+        8.49,
+        34.01,
+        54.1,
+        38.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.82,
+        44.48,
+        25.76,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "Confession Booth",
+       "bbox": [
+        15.96,
+        6.92,
+        47.49,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.89,
+        62.98,
+        16.64,
+        69.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        22.28,
+        62.98,
+        26.36,
+        69.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff"
+      },
+      {
+       "t": "5",
+       "bbox": [
+        17.04,
+        71.49,
+        19.64,
+        78.43
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        15.17,
+        45.16,
+        20.81,
+        50.45
+       ],
+       "bbox_full": [
+        13.89,
+        43.81,
+        26.85,
+        51.94
+       ]
+      },
+      {
+       "iconId": "382acc9dc4",
+       "bbox": [
+        14.56,
+        51.66,
+        27.09,
+        66.27
+       ]
+      },
+      {
+       "iconId": "a637867634",
+       "bbox": [
+        17.64,
+        63.85,
+        21.87,
+        68.44
+       ],
+       "bbox_full": [
+        14.13,
+        62.45,
+        27.34,
+        70.2
+       ]
+      },
+      {
+       "iconId": "7e80ba9459",
+       "bbox": [
+        15.36,
+        70.71,
+        26.15,
+        79.22
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "aa81338d06",
+       "bbox": [
+        20.11,
+        72.32,
+        24.69,
+        77.61
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Confession Booth {icon:27fe03d7a2}",
+       "bbox": [
+        15.96,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A forsaken confession booth. It hasn’t been",
+       "bbox": [
+        8.6,
+        18.78,
+        53.99,
+        22.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "used in years. As you step inside, you feel a",
+       "bbox": [
+        8.17,
+        22.59,
+        54.42,
+        26.58
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "faint chill followed by a painful sting. As you",
+       "bbox": [
+        7.91,
+        26.4,
+        54.68,
+        30.39
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "shake the poisonous spider off your garment,",
+       "bbox": [
+        7.29,
+        30.21,
+        55.3,
+        34.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "you notice some coins on the booth’s floor.",
+       "bbox": [
+        8.49,
+        34.01,
+        54.1,
+        38.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        15.17,
+        44.48,
+        25.76,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:382acc9dc4} {icon:a637867634}",
+       "bbox": [
+        14.56,
+        51.66,
+        27.09,
+        68.44
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 3t",
+       "bbox": [
+        14.89,
+        62.98,
+        26.36,
+        69.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "5 {icon:aa81338d06}",
+       "bbox": [
+        17.04,
+        71.49,
+        24.69,
+        78.43
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 13,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p014",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    14
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 14,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85953f2f3d853581",
+     "spans": [
+      {
+       "t": "A forsaken confession booth. It hasn’t been",
+       "bbox": [
+        8.6,
+        18.78,
+        53.99,
+        22.78
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "used in years. As you step inside, you feel a",
+       "bbox": [
+        8.17,
+        22.59,
+        54.42,
+        26.58
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "faint chill followed by a painful sting. As you",
+       "bbox": [
+        7.91,
+        26.4,
+        54.68,
+        30.39
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "shake the poisonous spider off your garment,",
+       "bbox": [
+        7.29,
+        30.21,
+        55.3,
+        34.2
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "your vision is blurred and you feel weak...",
+       "bbox": [
+        8.63,
+        34.01,
+        53.96,
+        38.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.82,
+        44.48,
+        25.76,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "Confession Booth",
+       "bbox": [
+        15.96,
+        6.92,
+        47.49,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.89,
+        62.98,
+        16.64,
+        69.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        22.28,
+        62.98,
+        26.36,
+        69.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        15.17,
+        45.16,
+        20.81,
+        50.45
+       ],
+       "bbox_full": [
+        13.89,
+        43.81,
+        26.85,
+        51.94
+       ]
+      },
+      {
+       "iconId": "382acc9dc4",
+       "bbox": [
+        14.56,
+        51.66,
+        27.09,
+        66.27
+       ]
+      },
+      {
+       "iconId": "a637867634",
+       "bbox": [
+        17.64,
+        63.85,
+        21.87,
+        68.44
+       ],
+       "bbox_full": [
+        14.13,
+        62.45,
+        27.34,
+        70.2
+       ]
+      },
+      {
+       "iconId": "b4627031be",
+       "bbox": [
+        18.0,
+        71.7,
+        23.51,
+        78.13
+       ],
+       "bbox_full": [
+        17.23,
+        70.93,
+        24.35,
+        78.93
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Confession Booth {icon:27fe03d7a2}",
+       "bbox": [
+        15.96,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A forsaken confession booth. It hasn’t been",
+       "bbox": [
+        8.6,
+        18.78,
+        53.99,
+        22.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "used in years. As you step inside, you feel a",
+       "bbox": [
+        8.17,
+        22.59,
+        54.42,
+        26.58
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "faint chill followed by a painful sting. As you",
+       "bbox": [
+        7.91,
+        26.4,
+        54.68,
+        30.39
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "shake the poisonous spider off your garment,",
+       "bbox": [
+        7.29,
+        30.21,
+        55.3,
+        34.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "your vision is blurred and you feel weak...",
+       "bbox": [
+        8.63,
+        34.01,
+        53.96,
+        38.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        15.17,
+        44.48,
+        25.76,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:382acc9dc4} {icon:a637867634}",
+       "bbox": [
+        14.56,
+        51.66,
+        27.09,
+        68.44
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 3t",
+       "bbox": [
+        14.89,
+        62.98,
+        26.36,
+        69.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b4627031be}",
+       "bbox": [
+        18.0,
+        71.7,
+        23.51,
+        78.13
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 14,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p015",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    15
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 15,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85946f2f3fc53441",
+     "spans": [
+      {
+       "t": "An urn holds ashes of the departed. As you grab",
+       "bbox": [
+        7.37,
+        16.88,
+        55.34,
+        20.87
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "the offering, a feeling of guilt washes over you.",
+       "bbox": [
+        7.67,
+        20.69,
+        55.04,
+        24.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Your remorse is only interrupted by an abrupt",
+       "bbox": [
+        8.25,
+        24.49,
+        54.45,
+        28.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "pain, as you notice a tiny springblade slashing",
+       "bbox": [
+        8.54,
+        28.3,
+        54.16,
+        32.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "at your hand when a hidden compartment",
+       "bbox": [
+        10.76,
+        32.11,
+        51.95,
+        36.1
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "with some Provisions is revealed.",
+       "bbox": [
+        14.71,
+        35.92,
+        47.98,
+        39.91
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Decorative Urn",
+       "bbox": [
+        17.96,
+        6.92,
+        45.49,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "10",
+       "bbox": [
+        16.13,
+        63.01,
+        20.55,
+        69.95
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.44,
+        53.62,
+        16.2,
+        60.62
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ee2824"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        21.43,
+        53.62,
+        25.54,
+        60.62
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "3fe634e723",
+       "bbox": [
+        13.56,
+        42.32,
+        26.09,
+        56.92
+       ]
+      },
+      {
+       "iconId": "be17b4ee09",
+       "bbox": [
+        16.93,
+        53.62,
+        20.81,
+        59.62
+       ],
+       "bbox_full": [
+        13.67,
+        52.06,
+        26.49,
+        61.21
+       ]
+      },
+      {
+       "iconId": "dc16f402d4",
+       "bbox": [
+        14.59,
+        62.23,
+        27.04,
+        70.74
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "4bcefdb4d9",
+       "bbox": [
+        20.81,
+        63.85,
+        25.4,
+        69.14
+       ]
+      },
+      {
+       "iconId": "ae45f5bcb3",
+       "bbox": [
+        13.37,
+        70.43,
+        26.52,
+        83.58
+       ],
+       "bbox_full": [
+        12.38,
+        70.43,
+        27.36,
+        85.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Decorative Urn {icon:27fe03d7a2}",
+       "bbox": [
+        17.96,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "An urn holds ashes of the departed. As you grab",
+       "bbox": [
+        7.37,
+        16.88,
+        55.34,
+        20.87
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the offering, a feeling of guilt washes over you.",
+       "bbox": [
+        7.67,
+        20.69,
+        55.04,
+        24.68
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Your remorse is only interrupted by an abrupt",
+       "bbox": [
+        8.25,
+        24.49,
+        54.45,
+        28.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "pain, as you notice a tiny springblade slashing",
+       "bbox": [
+        8.54,
+        28.3,
+        54.16,
+        32.29
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "at your hand when a hidden compartment",
+       "bbox": [
+        10.76,
+        32.11,
+        51.95,
+        36.1
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "with some Provisions is revealed.",
+       "bbox": [
+        14.71,
+        35.92,
+        47.98,
+        39.91
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3fe634e723} {icon:be17b4ee09}",
+       "bbox": [
+        13.56,
+        42.32,
+        26.09,
+        59.62
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 3t",
+       "bbox": [
+        14.44,
+        53.62,
+        25.54,
+        60.62
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "10 {icon:4bcefdb4d9}",
+       "bbox": [
+        16.13,
+        63.01,
+        25.4,
+        69.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:ae45f5bcb3}",
+       "bbox": [
+        13.37,
+        70.43,
+        26.52,
+        83.58
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 15,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p016",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    16
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 16,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85952f2f3f813887",
+     "spans": [
+      {
+       "t": "An ornate fountain of holy purport. You step",
+       "bbox": [
+        8.18,
+        16.88,
+        54.48,
+        20.87
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "into the fountain grabbing the coin offerings",
+       "bbox": [
+        8.01,
+        20.69,
+        54.65,
+        24.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "through the cold murky waters. You find",
+       "bbox": [
+        9.96,
+        24.49,
+        52.7,
+        28.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "some Provisions but you feel sick to your",
+       "bbox": [
+        9.48,
+        28.3,
+        53.18,
+        32.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "stomach, praying that you haven’t contacted",
+       "bbox": [
+        8.22,
+        32.11,
+        54.44,
+        36.1
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "something serious or terminal...",
+       "bbox": [
+        7.96,
+        35.92,
+        42.0,
+        39.91
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Holy Fountain",
+       "bbox": [
+        19.46,
+        6.92,
+        43.99,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "5",
+       "bbox": [
+        17.04,
+        63.01,
+        19.64,
+        69.95
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.89,
+        45.18,
+        16.64,
+        52.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        22.28,
+        45.18,
+        26.36,
+        52.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "a637867634",
+       "bbox": [
+        17.64,
+        46.21,
+        21.87,
+        50.8
+       ],
+       "bbox_full": [
+        14.13,
+        44.65,
+        27.34,
+        52.4
+       ]
+      },
+      {
+       "iconId": "3ae4312868",
+       "bbox": [
+        13.74,
+        51.66,
+        26.27,
+        66.27
+       ]
+      },
+      {
+       "iconId": "7e80ba9459",
+       "bbox": [
+        15.36,
+        62.23,
+        26.15,
+        70.74
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "aa81338d06",
+       "bbox": [
+        20.11,
+        63.85,
+        24.69,
+        69.14
+       ]
+      },
+      {
+       "iconId": "ae45f5bcb3",
+       "bbox": [
+        13.37,
+        70.43,
+        26.52,
+        83.58
+       ],
+       "bbox_full": [
+        12.38,
+        70.43,
+        27.36,
+        85.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Holy Fountain {icon:27fe03d7a2}",
+       "bbox": [
+        19.46,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "An ornate fountain of holy purport. You step",
+       "bbox": [
+        8.18,
+        16.88,
+        54.48,
+        20.87
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "into the fountain grabbing the coin offerings",
+       "bbox": [
+        8.01,
+        20.69,
+        54.65,
+        24.68
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "through the cold murky waters. You find",
+       "bbox": [
+        9.96,
+        24.49,
+        52.7,
+        28.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "some Provisions but you feel sick to your",
+       "bbox": [
+        9.48,
+        28.3,
+        53.18,
+        32.29
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "stomach, praying that you haven’t contacted",
+       "bbox": [
+        8.22,
+        32.11,
+        54.44,
+        36.1
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "something serious or terminal...",
+       "bbox": [
+        7.96,
+        35.92,
+        42.0,
+        39.91
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 {icon:a637867634} 3t",
+       "bbox": [
+        14.89,
+        45.18,
+        26.36,
+        52.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3ae4312868}",
+       "bbox": [
+        13.74,
+        51.66,
+        26.27,
+        66.27
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "5 {icon:aa81338d06}",
+       "bbox": [
+        17.04,
+        63.01,
+        24.69,
+        69.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:ae45f5bcb3}",
+       "bbox": [
+        13.37,
+        70.43,
+        26.52,
+        83.58
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 16,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p017",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    17
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 17,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85952f2f3d853887",
+     "spans": [
+      {
+       "t": "A rusty iron maiden stands against the wall,",
+       "bbox": [
+        8.11,
+        16.88,
+        54.55,
+        20.87
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "clasped shut. You feel tense as you try to",
+       "bbox": [
+        9.73,
+        20.69,
+        52.93,
+        24.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "open the devilish contraption. Alas, you pin",
+       "bbox": [
+        8.82,
+        24.49,
+        53.83,
+        28.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "yourself onto one of the spikes by accident.",
+       "bbox": [
+        8.36,
+        28.3,
+        54.3,
+        32.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "You curse your luck as you break free,",
+       "bbox": [
+        10.7,
+        32.11,
+        51.95,
+        36.1
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "feeling nauseous and sick.",
+       "bbox": [
+        10.36,
+        35.92,
+        37.83,
+        39.91
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "Iron Maiden",
+       "bbox": [
+        20.44,
+        6.92,
+        43.01,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.44,
+        63.12,
+        16.2,
+        70.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ee2824"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        21.43,
+        63.12,
+        25.54,
+        70.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ffffff"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.33,
+        44.48,
+        25.27,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        14.82,
+        45.16,
+        20.11,
+        50.45
+       ],
+       "bbox_full": [
+        13.4,
+        43.81,
+        26.35,
+        51.94
+       ]
+      },
+      {
+       "iconId": "3fe634e723",
+       "bbox": [
+        13.86,
+        51.82,
+        26.39,
+        66.42
+       ]
+      },
+      {
+       "iconId": "be17b4ee09",
+       "bbox": [
+        16.93,
+        63.15,
+        20.81,
+        69.14
+       ],
+       "bbox_full": [
+        13.67,
+        61.56,
+        26.49,
+        70.71
+       ]
+      },
+      {
+       "iconId": "e546d025cd",
+       "bbox": [
+        17.24,
+        71.7,
+        22.74,
+        78.13
+       ],
+       "bbox_full": [
+        16.47,
+        70.93,
+        23.58,
+        78.93
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Iron Maiden {icon:27fe03d7a2}",
+       "bbox": [
+        20.44,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A rusty iron maiden stands against the wall,",
+       "bbox": [
+        8.11,
+        16.88,
+        54.55,
+        20.87
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "clasped shut. You feel tense as you try to",
+       "bbox": [
+        9.73,
+        20.69,
+        52.93,
+        24.68
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "open the devilish contraption. Alas, you pin",
+       "bbox": [
+        8.82,
+        24.49,
+        53.83,
+        28.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "yourself onto one of the spikes by accident.",
+       "bbox": [
+        8.36,
+        28.3,
+        54.3,
+        32.29
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "You curse your luck as you break free,",
+       "bbox": [
+        10.7,
+        32.11,
+        51.95,
+        36.1
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "feeling nauseous and sick.",
+       "bbox": [
+        10.36,
+        35.92,
+        37.83,
+        39.91
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        14.82,
+        44.48,
+        25.27,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3fe634e723} {icon:be17b4ee09}",
+       "bbox": [
+        13.86,
+        51.82,
+        26.39,
+        69.14
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 3t",
+       "bbox": [
+        14.44,
+        63.12,
+        25.54,
+        70.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e546d025cd}",
+       "bbox": [
+        17.24,
+        71.7,
+        22.74,
+        78.13
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 17,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p018",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    18
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 18,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85952d2f3dc53685",
+     "spans": [
+      {
+       "t": "A rusty iron maiden stands against the wall,",
+       "bbox": [
+        9.48,
+        17.08,
+        53.18,
+        21.07
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "clasped shut. You feel tense as you try to open the",
+       "bbox": [
+        6.56,
+        20.88,
+        56.11,
+        24.88
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "devilish contraption. Alas, you pin yourself onto",
+       "bbox": [
+        7.67,
+        24.69,
+        54.99,
+        28.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "one of the spikes by accident. You curse your luck",
+       "bbox": [
+        6.47,
+        28.5,
+        56.19,
+        32.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "as you break free but luckily you notice a Trinket",
+       "bbox": [
+        6.76,
+        32.31,
+        55.9,
+        36.3
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "stashed in the empty iron coffin.",
+       "bbox": [
+        7.87,
+        36.12,
+        39.98,
+        40.11
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.44,
+        63.12,
+        16.2,
+        70.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ee2824"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        21.43,
+        63.12,
+        25.54,
+        70.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ffffff"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.33,
+        44.48,
+        25.27,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "Iron Maiden",
+       "bbox": [
+        20.44,
+        6.92,
+        43.01,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        14.82,
+        45.16,
+        20.11,
+        50.45
+       ],
+       "bbox_full": [
+        13.4,
+        43.81,
+        26.35,
+        51.94
+       ]
+      },
+      {
+       "iconId": "3fe634e723",
+       "bbox": [
+        13.86,
+        51.82,
+        26.39,
+        66.42
+       ]
+      },
+      {
+       "iconId": "9b6a2b779d",
+       "bbox": [
+        16.93,
+        63.15,
+        20.81,
+        69.14
+       ],
+       "bbox_full": [
+        13.67,
+        61.56,
+        26.49,
+        70.71
+       ]
+      },
+      {
+       "iconId": "85e094f269",
+       "bbox": [
+        13.85,
+        71.99,
+        26.13,
+        80.23
+       ],
+       "bbox_full": [
+        13.44,
+        71.58,
+        26.65,
+        80.73
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Iron Maiden {icon:27fe03d7a2}",
+       "bbox": [
+        20.44,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A rusty iron maiden stands against the wall,",
+       "bbox": [
+        9.48,
+        17.08,
+        53.18,
+        21.07
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "clasped shut. You feel tense as you try to open the",
+       "bbox": [
+        6.56,
+        20.88,
+        56.11,
+        24.88
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "devilish contraption. Alas, you pin yourself onto",
+       "bbox": [
+        7.67,
+        24.69,
+        54.99,
+        28.68
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "one of the spikes by accident. You curse your luck",
+       "bbox": [
+        6.47,
+        28.5,
+        56.19,
+        32.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "as you break free but luckily you notice a Trinket",
+       "bbox": [
+        6.76,
+        32.31,
+        55.9,
+        36.3
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "stashed in the empty iron coffin.",
+       "bbox": [
+        7.87,
+        36.12,
+        39.98,
+        40.11
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        14.82,
+        44.48,
+        25.27,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3fe634e723} {icon:9b6a2b779d}",
+       "bbox": [
+        13.86,
+        51.82,
+        26.39,
+        69.14
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 3t",
+       "bbox": [
+        14.44,
+        63.12,
+        25.54,
+        70.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:85e094f269}",
+       "bbox": [
+        13.85,
+        71.99,
+        26.13,
+        80.23
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 18,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p019",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    19
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 19,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85952f2f2f853d81",
+     "spans": [
+      {
+       "t": "Excited by the prospect of abandoned",
+       "bbox": [
+        11.81,
+        16.88,
+        50.89,
+        20.87
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "treasures, you yank the case open. A spring-",
+       "bbox": [
+        7.72,
+        20.69,
+        54.98,
+        24.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "loaded blade sails towards your head but",
+       "bbox": [
+        9.6,
+        24.49,
+        53.1,
+        28.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "well-honed reflex save you all but a shallow",
+       "bbox": [
+        7.98,
+        28.3,
+        54.72,
+        32.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "cut on your cheek. Shaken, you collect some",
+       "bbox": [
+        8.19,
+        32.11,
+        54.51,
+        36.1
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "dusty coins and carry on with the journey.",
+       "bbox": [
+        8.75,
+        35.92,
+        53.96,
+        39.91
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.43,
+        63.12,
+        16.19,
+        70.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ee2824"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        21.42,
+        63.12,
+        25.52,
+        70.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ffffff"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.81,
+        44.48,
+        25.75,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "Display Cabinet",
+       "bbox": [
+        17.88,
+        6.92,
+        45.57,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "10",
+       "bbox": [
+        15.86,
+        71.64,
+        20.28,
+        78.58
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        15.17,
+        45.16,
+        20.46,
+        50.45
+       ],
+       "bbox_full": [
+        13.88,
+        43.81,
+        26.83,
+        51.94
+       ]
+      },
+      {
+       "iconId": "3fe634e723",
+       "bbox": [
+        13.55,
+        51.82,
+        26.07,
+        66.42
+       ]
+      },
+      {
+       "iconId": "9b6a2b779d",
+       "bbox": [
+        16.93,
+        63.15,
+        20.81,
+        69.14
+       ],
+       "bbox_full": [
+        13.65,
+        61.56,
+        26.48,
+        70.71
+       ]
+      },
+      {
+       "iconId": "5e10ef1791",
+       "bbox": [
+        14.33,
+        70.86,
+        26.78,
+        79.37
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "4bcefdb4d9",
+       "bbox": [
+        20.46,
+        72.67,
+        25.05,
+        77.61
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Display Cabinet {icon:27fe03d7a2}",
+       "bbox": [
+        17.88,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Excited by the prospect of abandoned",
+       "bbox": [
+        11.81,
+        16.88,
+        50.89,
+        20.87
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "treasures, you yank the case open. A spring-",
+       "bbox": [
+        7.72,
+        20.69,
+        54.98,
+        24.68
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "loaded blade sails towards your head but",
+       "bbox": [
+        9.6,
+        24.49,
+        53.1,
+        28.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "well-honed reflex save you all but a shallow",
+       "bbox": [
+        7.98,
+        28.3,
+        54.72,
+        32.29
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "cut on your cheek. Shaken, you collect some",
+       "bbox": [
+        8.19,
+        32.11,
+        54.51,
+        36.1
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "dusty coins and carry on with the journey.",
+       "bbox": [
+        8.75,
+        35.92,
+        53.96,
+        39.91
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        15.17,
+        44.48,
+        25.75,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3fe634e723} {icon:9b6a2b779d}",
+       "bbox": [
+        13.55,
+        51.82,
+        26.07,
+        69.14
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 3t",
+       "bbox": [
+        14.43,
+        63.12,
+        25.52,
+        70.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "10 {icon:4bcefdb4d9}",
+       "bbox": [
+        15.86,
+        71.64,
+        25.05,
+        78.58
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 19,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p020",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    20
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 20,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85942f2f3fc13c83",
+     "spans": [
+      {
+       "t": "There could be valuables left inside. You",
+       "bbox": [
+        10.31,
+        16.02,
+        52.39,
+        20.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "open it but you trigger a bladetrap. As it",
+       "bbox": [
+        10.09,
+        19.55,
+        52.61,
+        23.54
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "swooshes by your shoulder, you duck but",
+       "bbox": [
+        9.28,
+        23.08,
+        53.42,
+        27.07
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "manage to get slashed on the side of your",
+       "bbox": [
+        9.35,
+        26.6,
+        53.35,
+        30.59
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "chin. Agitated and clearly shaken, you collect",
+       "bbox": [
+        7.8,
+        30.13,
+        54.9,
+        34.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "the coins and the provisions found in the",
+       "bbox": [
+        9.93,
+        33.66,
+        52.77,
+        37.64
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "cabinet and carry on with your journey.",
+       "bbox": [
+        10.09,
+        37.18,
+        52.61,
+        41.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.56,
+        44.48,
+        25.5,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "Display Cabinet",
+       "bbox": [
+        17.88,
+        6.92,
+        45.57,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "10",
+       "bbox": [
+        15.66,
+        63.09,
+        20.08,
+        70.03
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        14.82,
+        45.16,
+        20.46,
+        50.45
+       ],
+       "bbox_full": [
+        13.63,
+        43.81,
+        26.59,
+        51.94
+       ]
+      },
+      {
+       "iconId": "7b1a554877",
+       "bbox": [
+        14.09,
+        51.82,
+        26.62,
+        66.42
+       ]
+      },
+      {
+       "iconId": "dc16f402d4",
+       "bbox": [
+        14.13,
+        62.31,
+        26.57,
+        70.82
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "aa81338d06",
+       "bbox": [
+        20.46,
+        63.85,
+        25.05,
+        69.14
+       ]
+      },
+      {
+       "iconId": "ae45f5bcb3",
+       "bbox": [
+        13.37,
+        70.43,
+        26.52,
+        83.58
+       ],
+       "bbox_full": [
+        12.38,
+        70.43,
+        27.36,
+        85.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Display Cabinet {icon:27fe03d7a2}",
+       "bbox": [
+        17.88,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "There could be valuables left inside. You",
+       "bbox": [
+        10.31,
+        16.02,
+        52.39,
+        20.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "open it but you trigger a bladetrap. As it",
+       "bbox": [
+        10.09,
+        19.55,
+        52.61,
+        23.54
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "swooshes by your shoulder, you duck but",
+       "bbox": [
+        9.28,
+        23.08,
+        53.42,
+        27.07
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "manage to get slashed on the side of your",
+       "bbox": [
+        9.35,
+        26.6,
+        53.35,
+        30.59
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "chin. Agitated and clearly shaken, you collect",
+       "bbox": [
+        7.8,
+        30.13,
+        54.9,
+        34.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the coins and the provisions found in the",
+       "bbox": [
+        9.93,
+        33.66,
+        52.77,
+        37.64
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "cabinet and carry on with your journey.",
+       "bbox": [
+        10.09,
+        37.18,
+        52.61,
+        41.17
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        14.82,
+        44.48,
+        25.5,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:7b1a554877}",
+       "bbox": [
+        14.09,
+        51.82,
+        26.62,
+        66.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "10 {icon:aa81338d06}",
+       "bbox": [
+        15.66,
+        63.09,
+        25.05,
+        70.03
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:ae45f5bcb3}",
+       "bbox": [
+        13.37,
+        70.43,
+        26.52,
+        83.58
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 20,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p021",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    21
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 21,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85d52d2f3d852d85",
+     "spans": [
+      {
+       "t": "An ornate monument, left slightly ajar.",
+       "bbox": [
+        11.16,
+        18.98,
+        51.54,
+        22.97
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "A pouch of gold is stashed inside.",
+       "bbox": [
+        13.8,
+        22.79,
+        48.9,
+        26.78
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "As you eagerly remove it, you sting",
+       "bbox": [
+        12.7,
+        26.6,
+        49.99,
+        30.59
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "yourself on some concealed needles.",
+       "bbox": [
+        12.27,
+        30.41,
+        50.43,
+        34.4
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "The wound itches, and fever sets in.",
+       "bbox": [
+        12.32,
+        34.22,
+        50.38,
+        38.21
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.33,
+        44.48,
+        25.27,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "Sarcophagus",
+       "bbox": [
+        20.03,
+        6.92,
+        43.42,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "10",
+       "bbox": [
+        15.32,
+        71.51,
+        19.75,
+        78.45
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.2,
+        53.83,
+        15.96,
+        60.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ee2824"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        21.19,
+        53.83,
+        25.29,
+        60.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        14.82,
+        45.16,
+        20.11,
+        50.45
+       ],
+       "bbox_full": [
+        13.4,
+        43.81,
+        26.35,
+        51.94
+       ]
+      },
+      {
+       "iconId": "be17b4ee09",
+       "bbox": [
+        16.58,
+        53.62,
+        20.81,
+        59.62
+       ],
+       "bbox_full": [
+        13.41,
+        52.27,
+        26.24,
+        61.42
+       ]
+      },
+      {
+       "iconId": "b4627031be",
+       "bbox": [
+        17.24,
+        62.8,
+        22.74,
+        69.23
+       ],
+       "bbox_full": [
+        16.47,
+        62.03,
+        23.58,
+        70.03
+       ]
+      },
+      {
+       "iconId": "5e10ef1791",
+       "bbox": [
+        13.77,
+        70.73,
+        26.21,
+        79.24
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "aa81338d06",
+       "bbox": [
+        20.11,
+        72.32,
+        24.69,
+        77.61
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Sarcophagus {icon:27fe03d7a2}",
+       "bbox": [
+        20.03,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "An ornate monument, left slightly ajar.",
+       "bbox": [
+        11.16,
+        18.98,
+        51.54,
+        22.97
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "A pouch of gold is stashed inside.",
+       "bbox": [
+        13.8,
+        22.79,
+        48.9,
+        26.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "As you eagerly remove it, you sting",
+       "bbox": [
+        12.7,
+        26.6,
+        49.99,
+        30.59
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "yourself on some concealed needles.",
+       "bbox": [
+        12.27,
+        30.41,
+        50.43,
+        34.4
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "The wound itches, and fever sets in.",
+       "bbox": [
+        12.32,
+        34.22,
+        50.38,
+        38.21
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        14.82,
+        44.48,
+        25.27,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 {icon:be17b4ee09} 3t",
+       "bbox": [
+        14.2,
+        53.62,
+        25.29,
+        60.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b4627031be}",
+       "bbox": [
+        17.24,
+        62.8,
+        22.74,
+        69.23
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "10 {icon:aa81338d06}",
+       "bbox": [
+        15.32,
+        71.51,
+        24.69,
+        78.45
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 21,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p022",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    22
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 22,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85d56d2f3f853580",
+     "spans": [
+      {
+       "t": "An ornate monument, left slightly",
+       "bbox": [
+        14.06,
+        20.89,
+        48.64,
+        24.88
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "ajar. A glimmering trinket is tucked",
+       "bbox": [
+        12.65,
+        24.69,
+        50.05,
+        28.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "away. As you remove it, you wound",
+       "bbox": [
+        12.56,
+        28.5,
+        50.13,
+        32.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "yourself on a rusty, jagged latch.",
+       "bbox": [
+        13.81,
+        32.31,
+        48.88,
+        36.3
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.56,
+        44.48,
+        25.5,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "Sarcophagus",
+       "bbox": [
+        20.03,
+        6.92,
+        43.42,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.61,
+        63.17,
+        16.37,
+        70.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ee2824"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        21.6,
+        63.17,
+        25.7,
+        70.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        14.82,
+        45.16,
+        20.46,
+        50.45
+       ],
+       "bbox_full": [
+        13.63,
+        43.81,
+        26.59,
+        51.94
+       ]
+      },
+      {
+       "iconId": "3fe634e723",
+       "bbox": [
+        14.09,
+        51.82,
+        26.62,
+        66.42
+       ]
+      },
+      {
+       "iconId": "be17b4ee09",
+       "bbox": [
+        16.93,
+        63.15,
+        21.17,
+        69.14
+       ],
+       "bbox_full": [
+        13.9,
+        61.61,
+        26.73,
+        70.76
+       ]
+      },
+      {
+       "iconId": "85e094f269",
+       "bbox": [
+        14.09,
+        71.99,
+        26.36,
+        80.23
+       ],
+       "bbox_full": [
+        13.67,
+        71.58,
+        26.88,
+        80.73
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Sarcophagus {icon:27fe03d7a2}",
+       "bbox": [
+        20.03,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "An ornate monument, left slightly",
+       "bbox": [
+        14.06,
+        20.89,
+        48.64,
+        24.88
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ajar. A glimmering trinket is tucked",
+       "bbox": [
+        12.65,
+        24.69,
+        50.05,
+        28.69
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "away. As you remove it, you wound",
+       "bbox": [
+        12.56,
+        28.5,
+        50.13,
+        32.49
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "yourself on a rusty, jagged latch.",
+       "bbox": [
+        13.81,
+        32.31,
+        48.88,
+        36.3
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        14.82,
+        44.48,
+        25.5,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3fe634e723} {icon:be17b4ee09}",
+       "bbox": [
+        14.09,
+        51.82,
+        26.62,
+        69.14
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 3t",
+       "bbox": [
+        14.61,
+        63.17,
+        25.7,
+        70.17
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:85e094f269}",
+       "bbox": [
+        14.09,
+        71.99,
+        26.36,
+        80.23
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 22,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p023",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    23
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 23,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85942f2f3bc53c85",
+     "spans": [
+      {
+       "t": "An antique suit of armor stands",
+       "bbox": [
+        14.64,
+        17.78,
+        48.06,
+        21.77
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "amidst the ruins. As you examine",
+       "bbox": [
+        13.96,
+        21.31,
+        48.74,
+        25.3
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "the helmet, it clams shut trapping",
+       "bbox": [
+        13.89,
+        24.84,
+        48.81,
+        28.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "your fingers inside. You manage to",
+       "bbox": [
+        13.06,
+        28.36,
+        49.64,
+        32.36
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "break free but your carelessness has",
+       "bbox": [
+        11.58,
+        31.89,
+        51.12,
+        35.88
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "resulted in an oncoming fever.",
+       "bbox": [
+        15.28,
+        35.42,
+        47.42,
+        39.41
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.33,
+        44.48,
+        25.27,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "Suit of Armor",
+       "bbox": [
+        19.02,
+        6.92,
+        44.43,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.44,
+        63.17,
+        16.2,
+        70.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ee2824"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        21.43,
+        63.17,
+        25.54,
+        70.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        14.82,
+        45.16,
+        20.11,
+        50.45
+       ],
+       "bbox_full": [
+        13.4,
+        43.81,
+        26.35,
+        51.94
+       ]
+      },
+      {
+       "iconId": "3fe634e723",
+       "bbox": [
+        13.86,
+        51.82,
+        26.39,
+        66.42
+       ]
+      },
+      {
+       "iconId": "be17b4ee09",
+       "bbox": [
+        16.93,
+        63.15,
+        20.81,
+        69.14
+       ],
+       "bbox_full": [
+        13.67,
+        61.61,
+        26.49,
+        70.76
+       ]
+      },
+      {
+       "iconId": "e546d025cd",
+       "bbox": [
+        17.24,
+        72.0,
+        22.74,
+        78.43
+       ],
+       "bbox_full": [
+        16.47,
+        71.23,
+        23.58,
+        79.23
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Suit of Armor {icon:27fe03d7a2}",
+       "bbox": [
+        19.02,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "An antique suit of armor stands",
+       "bbox": [
+        14.64,
+        17.78,
+        48.06,
+        21.77
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "amidst the ruins. As you examine",
+       "bbox": [
+        13.96,
+        21.31,
+        48.74,
+        25.3
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the helmet, it clams shut trapping",
+       "bbox": [
+        13.89,
+        24.84,
+        48.81,
+        28.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "your fingers inside. You manage to",
+       "bbox": [
+        13.06,
+        28.36,
+        49.64,
+        32.36
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "break free but your carelessness has",
+       "bbox": [
+        11.58,
+        31.89,
+        51.12,
+        35.88
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "resulted in an oncoming fever.",
+       "bbox": [
+        15.28,
+        35.42,
+        47.42,
+        39.41
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        14.82,
+        44.48,
+        25.27,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:3fe634e723} {icon:be17b4ee09}",
+       "bbox": [
+        13.86,
+        51.82,
+        26.39,
+        69.14
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 3t",
+       "bbox": [
+        14.44,
+        63.17,
+        25.54,
+        70.17
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:e546d025cd}",
+       "bbox": [
+        17.24,
+        72.0,
+        22.74,
+        78.43
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 23,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  },
+  {
+   "id": "curio:p024",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    24
+   ],
+   "faces": {
+    "front": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+     "page": 24,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "85952d2f3fc42d85",
+     "spans": [
+      {
+       "t": "An antique suit of armor stands amidst the",
+       "bbox": [
+        8.76,
+        17.78,
+        53.77,
+        21.77
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "ruins. You see something shining from the",
+       "bbox": [
+        9.19,
+        21.31,
+        53.35,
+        25.3
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "gap in its helmet. As you reach for it, the",
+       "bbox": [
+        9.65,
+        24.84,
+        52.88,
+        28.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "headguard clams shut, drawing blood. You",
+       "bbox": [
+        9.05,
+        28.36,
+        53.48,
+        32.36
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "break free with the Trinket in hand, but",
+       "bbox": [
+        8.07,
+        31.89,
+        49.88,
+        35.88
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "now you need to stop the bleeding.",
+       "bbox": [
+        8.48,
+        35.42,
+        44.89,
+        39.41
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.65,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        21.82,
+        44.48,
+        25.76,
+        51.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#ffde8e"
+      },
+      {
+       "t": "Suit of Armor",
+       "bbox": [
+        19.02,
+        6.92,
+        44.43,
+        13.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 16.0,
+       "color": "#a7a9ac"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        14.44,
+        53.83,
+        16.2,
+        60.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ee2824"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        21.43,
+        53.83,
+        25.54,
+        60.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.15,
+       "color": "#ffffff"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "27fe03d7a2",
+       "bbox": [
+        49.3,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "iconId": "df696c2f2e",
+       "bbox": [
+        2.02,
+        10.0,
+        9.75,
+        17.57
+       ],
+       "bbox_full": [
+        1.19,
+        9.22,
+        11.73,
+        19.63
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "12438e9a49",
+       "bbox": [
+        15.17,
+        45.16,
+        20.81,
+        50.45
+       ],
+       "bbox_full": [
+        13.89,
+        43.81,
+        26.85,
+        51.94
+       ]
+      },
+      {
+       "iconId": "be17b4ee09",
+       "bbox": [
+        16.93,
+        53.62,
+        20.81,
+        59.62
+       ],
+       "bbox_full": [
+        13.67,
+        52.27,
+        26.49,
+        61.42
+       ]
+      },
+      {
+       "iconId": "8b7f872f77",
+       "bbox": [
+        13.74,
+        60.92,
+        26.27,
+        75.52
+       ]
+      },
+      {
+       "iconId": "85e094f269",
+       "bbox": [
+        14.08,
+        71.99,
+        26.36,
+        80.23
+       ],
+       "bbox_full": [
+        13.67,
+        71.58,
+        26.87,
+        80.73
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "Suit of Armor {icon:27fe03d7a2}",
+       "bbox": [
+        19.02,
+        0.0,
+        57.27,
+        13.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "An antique suit of armor stands amidst the",
+       "bbox": [
+        8.76,
+        17.78,
+        53.77,
+        21.77
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ruins. You see something shining from the",
+       "bbox": [
+        9.19,
+        21.31,
+        53.35,
+        25.3
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "gap in its helmet. As you reach for it, the",
+       "bbox": [
+        9.65,
+        24.84,
+        52.88,
+        28.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "headguard clams shut, drawing blood. You",
+       "bbox": [
+        9.05,
+        28.36,
+        53.48,
+        32.36
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "break free with the Trinket in hand, but",
+       "bbox": [
+        8.07,
+        31.89,
+        49.88,
+        35.88
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "now you need to stop the bleeding.",
+       "bbox": [
+        8.48,
+        35.42,
+        44.89,
+        39.41
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:12438e9a49} +1",
+       "bbox": [
+        15.17,
+        44.48,
+        25.76,
+        51.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1 {icon:be17b4ee09} 3t",
+       "bbox": [
+        14.44,
+        53.62,
+        25.54,
+        60.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:8b7f872f77}",
+       "bbox": [
+        13.74,
+        60.92,
+        26.27,
+        75.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:85e094f269}",
+       "bbox": [
+        14.08,
+        71.99,
+        26.36,
+        80.23
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+     "page": 24,
+     "trim_mm": [
+      63.0,
+      88.0
+     ],
+     "face_phash": "906b6f101bce26e7",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  }
+ ]
+}

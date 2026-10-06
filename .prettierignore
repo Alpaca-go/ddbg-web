@@ -8,3 +8,7 @@ docs/plan.md
 docs/rulings.md
 docs/rulings-notes.md
 docs/spec
+packages/data/extract/corebox
+tools/pipeline/extract-print/UPSTREAM.md
+tools/pipeline/extract-print/REPORT.md
+tools/pipeline/extract-print/scripts

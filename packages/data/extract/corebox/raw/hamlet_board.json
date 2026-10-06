@@ -1,0 +1,2017 @@
+{
+ "schema": "ddbg-raw-v1",
+ "extractor_version": "1.0.4",
+ "category": "hamlet_board",
+ "kind": "sheet",
+ "units": {
+  "length": "mm",
+  "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+  "y_axis": "down",
+  "font_size": "pt"
+ },
+ "sources": [
+  {
+   "front": "DD_EN_COREBOX_BOARD_Hamlet_FRONT.pdf",
+   "back": "DD_EN_COREBOX_BOARD_Hamlet_BACK.pdf",
+   "source_set": "base",
+   "kind": "sheet",
+   "front_pages": 1,
+   "back_pages": 1
+  }
+ ],
+ "n_pages": 1,
+ "n_unique": 1,
+ "n_copies_total": 1,
+ "cards": [
+  {
+   "id": "hamlet_board:p001",
+   "source_set": "base",
+   "copies": 1,
+   "pages": [
+    1
+   ],
+   "faces": {
+    "front": {
+     "file": "DD_EN_COREBOX_BOARD_Hamlet_FRONT.pdf",
+     "page": 1,
+     "trim_mm": [
+      297.0,
+      168.0
+     ],
+     "face_phash": "9491894b6b667676",
+     "spans": [
+      {
+       "t": "Survivalist",
+       "bbox": [
+        19.55,
+        64.29,
+        38.44,
+        70.19
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#a08859",
+       "dup": 2
+      },
+      {
+       "t": "I",
+       "bbox": [
+        39.81,
+        64.29,
+        41.05,
+        70.19
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#231f20"
+      },
+      {
+       "t": "Gain 1",
+       "bbox": [
+        14.1,
+        74.01,
+        23.57,
+        77.88
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.53,
+       "color": "#a19781"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        34.03,
+        73.63,
+        35.3,
+        78.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#a19781"
+      },
+      {
+       "t": "Stagecoach",
+       "bbox": [
+        80.87,
+        148.32,
+        100.21,
+        154.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#a08859",
+       "dup": 2
+      },
+      {
+       "t": "I",
+       "bbox": [
+        101.58,
+        148.32,
+        102.82,
+        154.22
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#231f20"
+      },
+      {
+       "t": "Place two Waiting",
+       "bbox": [
+        76.84,
+        153.96,
+        101.44,
+        157.44
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "Hero tokens",
+       "bbox": [
+        80.78,
+        157.59,
+        97.5,
+        161.07
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "Tavern",
+       "bbox": [
+        69.09,
+        44.95,
+        81.08,
+        50.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#a08859",
+       "dup": 2
+      },
+      {
+       "t": "I",
+       "bbox": [
+        82.45,
+        44.95,
+        83.69,
+        50.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#231f20"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        78.06,
+        51.59,
+        79.34,
+        56.64
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#a19781"
+      },
+      {
+       "t": "3",
+       "bbox": [
+        77.89,
+        58.34,
+        79.72,
+        63.39
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#a19781"
+      },
+      {
+       "t": "-3",
+       "bbox": [
+        72.82,
+        52.61,
+        75.43,
+        56.1
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "-6",
+       "bbox": [
+        72.82,
+        59.61,
+        75.43,
+        63.09
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "Nomad Wagon",
+       "bbox": [
+        149.5,
+        147.31,
+        173.77,
+        153.21
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#a08859",
+       "dup": 2
+      },
+      {
+       "t": "I",
+       "bbox": [
+        175.15,
+        147.31,
+        176.39,
+        153.21
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#231f20"
+      },
+      {
+       "t": "Reveal three Level I Trinkets",
+       "bbox": [
+        141.15,
+        154.27,
+        179.67,
+        157.75
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "1-2",
+       "bbox": [
+        27.27,
+        82.47,
+        30.74,
+        86.26
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.84,
+       "color": "#ffffff"
+      },
+      {
+       "t": "3",
+       "bbox": [
+        75.46,
+        64.66,
+        76.84,
+        68.45
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.84,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Sanitarium",
+       "bbox": [
+        111.07,
+        32.09,
+        130.02,
+        37.98
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#a08859",
+       "dup": 2
+      },
+      {
+       "t": "I",
+       "bbox": [
+        131.39,
+        32.09,
+        132.63,
+        37.98
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#231f20"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        124.08,
+        38.72,
+        125.35,
+        43.78
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#a19781"
+      },
+      {
+       "t": "3",
+       "bbox": [
+        123.9,
+        45.47,
+        125.73,
+        50.52
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#a19781"
+      },
+      {
+       "t": "Heal",
+       "bbox": [
+        110.13,
+        39.25,
+        116.85,
+        43.0
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.25,
+       "color": "#867b61"
+      },
+      {
+       "t": "5",
+       "bbox": [
+        117.61,
+        39.47,
+        119.31,
+        42.96
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#867b61"
+      },
+      {
+       "t": "Heal 10",
+       "bbox": [
+        109.15,
+        44.84,
+        120.3,
+        48.6
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.25,
+       "color": "#867b61"
+      },
+      {
+       "t": "Remove",
+       "bbox": [
+        108.73,
+        50.43,
+        120.71,
+        54.18
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.25,
+       "color": "#867b61"
+      },
+      {
+       "t": "Disease",
+       "bbox": [
+        109.02,
+        53.5,
+        120.43,
+        57.25
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.25,
+       "color": "#867b61"
+      },
+      {
+       "t": "2",
+       "bbox": [
+        123.94,
+        52.36,
+        125.7,
+        57.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#a19781"
+      },
+      {
+       "t": "4",
+       "bbox": [
+        121.28,
+        58.7,
+        122.71,
+        62.5
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.84,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Abbey",
+       "bbox": [
+        198.25,
+        11.78,
+        208.62,
+        17.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#a08859",
+       "dup": 2
+      },
+      {
+       "t": "I",
+       "bbox": [
+        209.99,
+        11.78,
+        211.23,
+        17.68
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#231f20"
+      },
+      {
+       "t": "2",
+       "bbox": [
+        211.7,
+        19.28,
+        213.46,
+        24.33
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#a19781"
+      },
+      {
+       "t": "5",
+       "bbox": [
+        211.63,
+        26.03,
+        213.53,
+        31.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#a19781"
+      },
+      {
+       "t": "Remove 1 Quirk",
+       "bbox": [
+        187.16,
+        20.04,
+        208.98,
+        23.52
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "Remove 2 Quirks",
+       "bbox": [
+        186.49,
+        27.03,
+        209.66,
+        30.52
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "5",
+       "bbox": [
+        203.28,
+        32.31,
+        204.7,
+        36.1
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.84,
+       "color": "#ffffff"
+      },
+      {
+       "t": "9-10",
+       "bbox": [
+        159.65,
+        159.14,
+        164.74,
+        162.94
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.84,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Graveyard",
+       "bbox": [
+        257.63,
+        14.03,
+        275.93,
+        19.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#a08859",
+       "dup": 2
+      },
+      {
+       "t": "Gain a Virtue for Next Quest",
+       "bbox": [
+        245.82,
+        21.28,
+        284.7,
+        24.76
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "6",
+       "bbox": [
+        266.65,
+        25.83,
+        268.12,
+        29.63
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.84,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Guild",
+       "bbox": [
+        257.5,
+        33.1,
+        266.06,
+        39.0
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#a08859",
+       "dup": 2
+      },
+      {
+       "t": "(",
+       "bbox": [
+        267.44,
+        33.74,
+        268.88,
+        38.8
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#231f20"
+      },
+      {
+       "t": "2",
+       "bbox": [
+        268.93,
+        33.74,
+        270.69,
+        38.8
+       ],
+       "font": "DwarvenAxeBB-SC700",
+       "size": 13.11,
+       "color": "#231f20"
+      },
+      {
+       "t": "MAX",
+       "bbox": [
+        271.95,
+        34.9,
+        276.67,
+        38.44
+       ],
+       "font": "DwarvenAxeBB-SC700",
+       "size": 9.17,
+       "color": "#a08859",
+       "dup": 2
+      },
+      {
+       "t": ")",
+       "bbox": [
+        276.72,
+        33.74,
+        278.15,
+        38.8
+       ],
+       "font": "DwarvenAxeBB-SC700",
+       "size": 13.11,
+       "color": "#a08859",
+       "dup": 2
+      },
+      {
+       "t": "2",
+       "bbox": [
+        269.92,
+        40.69,
+        271.68,
+        45.74
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#a19781"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        270.16,
+        49.44,
+        271.43,
+        54.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#a19781"
+      },
+      {
+       "t": "Upgrade the",
+       "bbox": [
+        248.23,
+        39.75,
+        264.79,
+        43.23
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "Level 1 Hero Card",
+       "bbox": [
+        244.89,
+        43.38,
+        268.13,
+        46.86
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "Upgrade the",
+       "bbox": [
+        248.23,
+        48.29,
+        264.79,
+        51.77
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "Level 1 Skill Card",
+       "bbox": [
+        245.51,
+        51.92,
+        267.51,
+        55.4
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "4",
+       "bbox": [
+        278.14,
+        40.58,
+        280.04,
+        45.64
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#a19781"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        280.56,
+        40.58,
+        284.18,
+        45.64
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#e0d7a3"
+      },
+      {
+       "t": "2",
+       "bbox": [
+        278.21,
+        49.44,
+        279.97,
+        54.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#a19781"
+      },
+      {
+       "t": "Xp",
+       "bbox": [
+        280.5,
+        49.44,
+        284.11,
+        54.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#e0d7a3"
+      },
+      {
+       "t": "7",
+       "bbox": [
+        266.78,
+        56.42,
+        267.99,
+        60.21
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.84,
+       "color": "#ffffff"
+      },
+      {
+       "t": "Blacksmith",
+       "bbox": [
+        261.02,
+        126.15,
+        279.94,
+        132.04
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#a08859",
+       "dup": 2
+      },
+      {
+       "t": "I",
+       "bbox": [
+        281.31,
+        126.15,
+        282.55,
+        132.04
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.29,
+       "color": "#231f20"
+      },
+      {
+       "t": "Use One of the Hero’s",
+       "bbox": [
+        249.36,
+        132.32,
+        278.81,
+        135.8
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "Skills as Its Level 2 Form",
+       "bbox": [
+        248.05,
+        135.95,
+        280.12,
+        139.43
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "for the Next Quest Only",
+       "bbox": [
+        247.93,
+        139.58,
+        280.24,
+        143.07
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.58,
+       "color": "#a19781"
+      },
+      {
+       "t": "8",
+       "bbox": [
+        269.44,
+        144.1,
+        270.93,
+        147.89
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.84,
+       "color": "#ffffff"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        282.99,
+        135.23,
+        284.26,
+        140.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 13.11,
+       "color": "#a19781"
+      },
+      {
+       "t": "1",
+       "bbox": [
+        83.92,
+        11.48,
+        85.89,
+        19.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 20.26,
+       "color": "#231f20"
+      },
+      {
+       "t": "2",
+       "bbox": [
+        104.04,
+        11.48,
+        106.76,
+        19.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 20.26,
+       "color": "#231f20"
+      },
+      {
+       "t": "3",
+       "bbox": [
+        124.45,
+        11.48,
+        127.28,
+        19.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 20.26,
+       "color": "#231f20"
+      },
+      {
+       "t": "4",
+       "bbox": [
+        143.97,
+        11.48,
+        146.91,
+        19.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 20.26,
+       "color": "#231f20"
+      },
+      {
+       "t": "The Hamlet",
+       "bbox": [
+        31.44,
+        11.64,
+        54.55,
+        18.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.54,
+       "color": "#625738",
+       "dup": 2
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "bcf0f07ba0",
+       "bbox": [
+        177.97,
+        8.49,
+        187.74,
+        18.26
+       ]
+      },
+      {
+       "iconId": "22e1f9eb56",
+       "bbox": [
+        241.02,
+        10.74,
+        250.79,
+        20.51
+       ]
+      },
+      {
+       "iconId": "8c6293b9c7",
+       "bbox": [
+        242.85,
+        12.94,
+        244.22,
+        27.54
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "319e1bf832",
+       "bbox": [
+        285.81,
+        12.96,
+        287.18,
+        27.36
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "03c9876cb0",
+       "bbox": [
+        210.6,
+        18.86,
+        218.4,
+        24.76
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "03c9876cb0",
+       "bbox": [
+        210.6,
+        18.86,
+        218.4,
+        24.76
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "fb419f48c4",
+       "bbox": [
+        213.89,
+        19.86,
+        217.42,
+        24.1
+       ]
+      },
+      {
+       "iconId": "03c9876cb0",
+       "bbox": [
+        210.6,
+        25.62,
+        218.4,
+        31.52
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "03c9876cb0",
+       "bbox": [
+        210.6,
+        25.62,
+        218.4,
+        31.52
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "b00b04b2ec",
+       "bbox": [
+        261.57,
+        25.69,
+        265.5,
+        29.61
+       ]
+      },
+      {
+       "iconId": "55673a1de0",
+       "bbox": [
+        265.66,
+        25.89,
+        269.11,
+        29.53
+       ]
+      },
+      {
+       "iconId": "fb419f48c4",
+       "bbox": [
+        213.89,
+        26.57,
+        217.42,
+        30.8
+       ]
+      },
+      {
+       "iconId": "544dabd838",
+       "bbox": [
+        99.89,
+        28.48,
+        109.66,
+        38.25
+       ]
+      },
+      {
+       "iconId": "945de74810",
+       "bbox": [
+        240.42,
+        29.32,
+        250.19,
+        39.09
+       ]
+      },
+      {
+       "iconId": "b00b04b2ec",
+       "bbox": [
+        198.18,
+        32.17,
+        202.11,
+        36.09
+       ]
+      },
+      {
+       "iconId": "e069406365",
+       "bbox": [
+        202.27,
+        32.37,
+        205.72,
+        36.01
+       ]
+      },
+      {
+       "iconId": "dd72148a41",
+       "bbox": [
+        122.73,
+        38.3,
+        130.53,
+        44.21
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "dd72148a41",
+       "bbox": [
+        122.73,
+        38.3,
+        130.53,
+        44.21
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "fb419f48c4",
+       "bbox": [
+        125.7,
+        39.27,
+        129.23,
+        43.5
+       ]
+      },
+      {
+       "iconId": "1d5cd67b66",
+       "bbox": [
+        277.26,
+        40.16,
+        285.06,
+        46.07
+       ]
+      },
+      {
+       "iconId": "03c9876cb0",
+       "bbox": [
+        268.81,
+        40.27,
+        276.62,
+        46.18
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "03c9876cb0",
+       "bbox": [
+        268.81,
+        40.27,
+        276.62,
+        46.18
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "da7a2598a3",
+       "bbox": [
+        56.28,
+        41.35,
+        66.05,
+        51.11
+       ]
+      },
+      {
+       "iconId": "fb419f48c4",
+       "bbox": [
+        272.1,
+        41.38,
+        275.63,
+        45.26
+       ]
+      },
+      {
+       "iconId": "03c9876cb0",
+       "bbox": [
+        122.83,
+        45.05,
+        130.64,
+        50.96
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "03c9876cb0",
+       "bbox": [
+        122.83,
+        45.05,
+        130.64,
+        50.96
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "fb419f48c4",
+       "bbox": [
+        126.05,
+        45.97,
+        129.58,
+        50.2
+       ]
+      },
+      {
+       "iconId": "dd72148a41",
+       "bbox": [
+        268.81,
+        49.02,
+        276.62,
+        54.93
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "dd72148a41",
+       "bbox": [
+        268.81,
+        49.02,
+        276.62,
+        54.93
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "ce7e39c4a9",
+       "bbox": [
+        277.26,
+        49.02,
+        285.06,
+        54.93
+       ]
+      },
+      {
+       "iconId": "fb419f48c4",
+       "bbox": [
+        271.75,
+        50.2,
+        275.28,
+        54.08
+       ]
+      },
+      {
+       "iconId": "b80946d81f",
+       "bbox": [
+        67.2,
+        51.69,
+        72.11,
+        56.28
+       ],
+       "bbox_full": [
+        66.19,
+        50.55,
+        73.18,
+        57.41
+       ]
+      },
+      {
+       "iconId": "dd72148a41",
+       "bbox": [
+        76.72,
+        51.17,
+        84.52,
+        57.08
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "dd72148a41",
+       "bbox": [
+        76.72,
+        51.17,
+        84.52,
+        57.08
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "03c9876cb0",
+       "bbox": [
+        122.83,
+        51.94,
+        130.64,
+        57.85
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "03c9876cb0",
+       "bbox": [
+        122.83,
+        51.94,
+        130.64,
+        57.85
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "22b4ca60cc",
+       "bbox": [
+        79.84,
+        52.32,
+        83.36,
+        56.2
+       ]
+      },
+      {
+       "iconId": "fb419f48c4",
+       "bbox": [
+        126.05,
+        53.03,
+        129.58,
+        57.26
+       ]
+      },
+      {
+       "iconId": "b00b04b2ec",
+       "bbox": [
+        261.57,
+        56.28,
+        265.5,
+        60.19
+       ]
+      },
+      {
+       "iconId": "55673a1de0",
+       "bbox": [
+        265.66,
+        56.47,
+        269.11,
+        60.12
+       ]
+      },
+      {
+       "iconId": "b80946d81f",
+       "bbox": [
+        67.2,
+        58.68,
+        72.11,
+        63.27
+       ],
+       "bbox_full": [
+        66.19,
+        57.54,
+        73.18,
+        64.41
+       ]
+      },
+      {
+       "iconId": "03c9876cb0",
+       "bbox": [
+        76.82,
+        57.92,
+        84.62,
+        63.82
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "03c9876cb0",
+       "bbox": [
+        76.82,
+        57.92,
+        84.62,
+        63.82
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "b00b04b2ec",
+       "bbox": [
+        116.18,
+        58.56,
+        120.11,
+        62.48
+       ]
+      },
+      {
+       "iconId": "55673a1de0",
+       "bbox": [
+        120.27,
+        58.76,
+        123.72,
+        62.41
+       ]
+      },
+      {
+       "iconId": "22b4ca60cc",
+       "bbox": [
+        80.19,
+        59.02,
+        83.72,
+        62.9
+       ]
+      },
+      {
+       "iconId": "5a87c5e9eb",
+       "bbox": [
+        5.22,
+        60.71,
+        14.99,
+        70.48
+       ]
+      },
+      {
+       "iconId": "b00b04b2ec",
+       "bbox": [
+        70.34,
+        64.52,
+        74.27,
+        68.44
+       ]
+      },
+      {
+       "iconId": "e069406365",
+       "bbox": [
+        74.43,
+        64.71,
+        77.88,
+        68.36
+       ]
+      },
+      {
+       "iconId": "dd72148a41",
+       "bbox": [
+        32.68,
+        73.2,
+        40.48,
+        79.11
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "dd72148a41",
+       "bbox": [
+        32.68,
+        73.2,
+        40.48,
+        79.11
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "d712688f15",
+       "bbox": [
+        24.35,
+        73.99,
+        29.43,
+        78.94
+       ]
+      },
+      {
+       "iconId": "fb419f48c4",
+       "bbox": [
+        35.74,
+        74.19,
+        39.27,
+        78.43
+       ]
+      },
+      {
+       "iconId": "b00b04b2ec",
+       "bbox": [
+        21.77,
+        82.33,
+        25.7,
+        86.25
+       ]
+      },
+      {
+       "iconId": "c3e1a13612",
+       "bbox": [
+        25.85,
+        82.53,
+        32.16,
+        86.17
+       ]
+      },
+      {
+       "iconId": "91be874765",
+       "bbox": [
+        243.76,
+        122.55,
+        253.53,
+        132.33
+       ]
+      },
+      {
+       "iconId": "51b547b6a1",
+       "bbox": [
+        289.9,
+        125.07,
+        291.26,
+        145.93
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "8aae50d1f7",
+       "bbox": [
+        245.61,
+        125.12,
+        246.98,
+        145.93
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "dd72148a41",
+       "bbox": [
+        281.64,
+        134.81,
+        289.45,
+        140.72
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "dd72148a41",
+       "bbox": [
+        281.64,
+        134.81,
+        289.45,
+        140.72
+       ],
+       "decor": true,
+       "container": true
+      },
+      {
+       "iconId": "22b4ca60cc",
+       "bbox": [
+        284.8,
+        135.93,
+        288.33,
+        139.81
+       ]
+      },
+      {
+       "iconId": "b00b04b2ec",
+       "bbox": [
+        264.37,
+        143.96,
+        268.3,
+        147.87
+       ]
+      },
+      {
+       "iconId": "22e1f9eb56",
+       "bbox": [
+        136.17,
+        144.02,
+        145.94,
+        153.79
+       ]
+      },
+      {
+       "iconId": "9213a8f872",
+       "bbox": [
+        268.46,
+        144.16,
+        271.91,
+        147.8
+       ]
+      },
+      {
+       "iconId": "c121cf3ac3",
+       "bbox": [
+        65.37,
+        144.73,
+        75.14,
+        154.5
+       ]
+      },
+      {
+       "iconId": "8c6293b9c7",
+       "bbox": [
+        138.02,
+        146.22,
+        139.39,
+        160.83
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "319e1bf832",
+       "bbox": [
+        180.99,
+        146.24,
+        182.35,
+        160.64
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "0af9d52562",
+       "bbox": [
+        66.93,
+        147.25,
+        68.29,
+        162.26
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "319e1bf832",
+       "bbox": [
+        109.89,
+        147.27,
+        111.25,
+        162.25
+       ],
+       "decor": true
+      },
+      {
+       "iconId": "b00b04b2ec",
+       "bbox": [
+        154.91,
+        158.95,
+        158.84,
+        162.87
+       ]
+      },
+      {
+       "iconId": "fe2eb4a390",
+       "bbox": [
+        159.0,
+        159.15,
+        165.4,
+        162.9
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:bcf0f07ba0} Abbey I",
+       "bbox": [
+        177.97,
+        8.49,
+        211.23,
+        18.26
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "The Hamlet",
+       "bbox": [
+        31.44,
+        11.64,
+        54.55,
+        18.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "1",
+       "bbox": [
+        83.92,
+        11.48,
+        85.89,
+        19.29
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "2",
+       "bbox": [
+        104.04,
+        11.48,
+        106.76,
+        19.29
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "3",
+       "bbox": [
+        124.45,
+        11.48,
+        127.28,
+        19.29
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "4",
+       "bbox": [
+        143.97,
+        11.48,
+        146.91,
+        19.29
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:22e1f9eb56} Graveyard",
+       "bbox": [
+        241.02,
+        10.74,
+        275.93,
+        20.51
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Remove 1 Quirk 2 {icon:fb419f48c4}",
+       "bbox": [
+        187.16,
+        19.28,
+        217.42,
+        24.33
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Gain a Virtue for Next Quest",
+       "bbox": [
+        245.82,
+        21.28,
+        284.7,
+        24.76
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b00b04b2ec} {icon:55673a1de0} 6",
+       "bbox": [
+        261.57,
+        25.69,
+        269.11,
+        29.63
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Remove 2 Quirks 5 {icon:fb419f48c4}",
+       "bbox": [
+        186.49,
+        26.03,
+        217.42,
+        31.09
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:544dabd838} Sanitarium I",
+       "bbox": [
+        99.89,
+        28.48,
+        132.63,
+        38.25
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b00b04b2ec} {icon:e069406365} 5",
+       "bbox": [
+        198.18,
+        32.17,
+        205.72,
+        36.1
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:945de74810} Guild (2 MAX)",
+       "bbox": [
+        240.42,
+        29.32,
+        278.15,
+        39.09
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Heal 10Heal 5 31 {icon:fb419f48c4} {icon:fb419f48c4}",
+       "bbox": [
+        109.15,
+        38.72,
+        129.58,
+        50.52
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Level 1 Hero CardUpgrade theUpgrade the 2 {icon:fb419f48c4} {icon:1d5cd67b66} 4 Xp",
+       "bbox": [
+        244.89,
+        39.75,
+        285.06,
+        51.77
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:da7a2598a3} Tavern I",
+       "bbox": [
+        56.28,
+        41.35,
+        83.69,
+        51.11
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Level 1 Skill Card 1 {icon:fb419f48c4} {icon:ce7e39c4a9} 2 Xp",
+       "bbox": [
+        245.51,
+        49.02,
+        285.06,
+        55.4
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b80946d81f} -3 1 {icon:22b4ca60cc}",
+       "bbox": [
+        67.2,
+        51.59,
+        83.36,
+        56.64
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Remove Disease 2 {icon:fb419f48c4}",
+       "bbox": [
+        108.73,
+        50.43,
+        129.58,
+        57.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b00b04b2ec} {icon:55673a1de0} 7",
+       "bbox": [
+        261.57,
+        56.28,
+        269.11,
+        60.21
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b00b04b2ec} {icon:55673a1de0} 4",
+       "bbox": [
+        116.18,
+        58.56,
+        123.72,
+        62.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b80946d81f} -6 3 {icon:22b4ca60cc}",
+       "bbox": [
+        67.2,
+        58.34,
+        83.72,
+        63.39
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:5a87c5e9eb}",
+       "bbox": [
+        5.22,
+        60.71,
+        14.99,
+        70.48
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b00b04b2ec} {icon:e069406365} 3",
+       "bbox": [
+        70.34,
+        64.52,
+        77.88,
+        68.45
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Survivalist I",
+       "bbox": [
+        19.55,
+        64.29,
+        41.05,
+        70.19
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Gain 1 {icon:d712688f15} 1 {icon:fb419f48c4}",
+       "bbox": [
+        14.1,
+        73.63,
+        39.27,
+        78.94
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b00b04b2ec} {icon:c3e1a13612} 1-2",
+       "bbox": [
+        21.77,
+        82.33,
+        32.16,
+        86.26
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:91be874765} Blacksmith I",
+       "bbox": [
+        243.76,
+        122.55,
+        282.55,
+        132.33
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Use One of the Hero’s",
+       "bbox": [
+        249.36,
+        132.32,
+        278.81,
+        135.8
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Skills as Its Level 2 Form 1 {icon:22b4ca60cc}",
+       "bbox": [
+        248.05,
+        135.23,
+        288.33,
+        140.29
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "for the Next Quest Only",
+       "bbox": [
+        247.93,
+        139.58,
+        280.24,
+        143.07
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b00b04b2ec} {icon:9213a8f872} 8",
+       "bbox": [
+        264.37,
+        143.96,
+        271.91,
+        147.89
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:22e1f9eb56}",
+       "bbox": [
+        136.17,
+        144.02,
+        145.94,
+        153.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:c121cf3ac3}",
+       "bbox": [
+        65.37,
+        144.73,
+        75.14,
+        154.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Nomad Wagon I",
+       "bbox": [
+        149.5,
+        147.31,
+        176.39,
+        153.21
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Stagecoach I",
+       "bbox": [
+        80.87,
+        148.32,
+        102.82,
+        154.22
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Place two Waiting",
+       "bbox": [
+        76.84,
+        153.96,
+        101.44,
+        157.44
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Reveal three Level I Trinkets",
+       "bbox": [
+        141.15,
+        154.27,
+        179.67,
+        157.75
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hero tokens",
+       "bbox": [
+        80.78,
+        157.59,
+        97.5,
+        161.07
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:b00b04b2ec} {icon:fe2eb4a390} 9-10",
+       "bbox": [
+        154.91,
+        158.95,
+        165.4,
+        162.94
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DD_EN_COREBOX_BOARD_Hamlet_BACK.pdf",
+     "page": 1,
+     "trim_mm": [
+      297.0,
+      168.0
+     ],
+     "face_phash": "94956b6b69a59496",
+     "spans": [],
+     "icons": [],
+     "lines": []
+    }
+   }
+  }
+ ]
+}
