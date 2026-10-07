@@ -1,16 +1,16 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.2",
+ "dictionary_version": "1.3",
  "category": "hero_skill",
  "sources": {
   "parsed": "extract/corebox/parsed/hero_skill.json",
   "raw": "extract/corebox/raw/hero_skill.json",
-  "dictionary": "dictionary/icon-dictionary-v1.2.json"
+  "dictionary": "dictionary/icon-dictionary-v1.3.json"
  },
  "stats": {
   "cards": 231,
-  "verified": 51,
-  "unverified": 180
+  "verified": 54,
+  "unverified": 177
  },
  "cards": [
   {
@@ -4442,13 +4442,13 @@
       "icon": {
        "iconId": "d6b68d575f",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_d6b68d575f",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "light",
+       "kind": "other",
+       "meaning_en": "Light (torch)",
+       "meaning_zh": "光照（火把）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -4609,13 +4609,13 @@
     {
      "iconId": "d6b68d575f",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d6b68d575f",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Light (torch)",
+     "meaning_zh": "光照（火把）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "1ce58a493c",
@@ -4680,8 +4680,7 @@
     "unverified": true,
     "reasons": [
      "icon:8b40c92658",
-     "icon:be09b9a6ff",
-     "icon:d6b68d575f"
+     "icon:be09b9a6ff"
     ]
    },
    "hero": "CRUSADER",
@@ -5086,11 +5085,11 @@
     {
      "iconId": "96a38b3137",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_96a38b3137",
+     "status": "needs_review",
+     "key": "pending_96a38b3137",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Battle Heal, CRUSADER)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Battle Heal，CRUSADER）",
      "value": null,
      "naming": "unverified"
     }
@@ -5504,11 +5503,11 @@
     {
      "iconId": "96a38b3137",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_96a38b3137",
+     "status": "needs_review",
+     "key": "pending_96a38b3137",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Battle Heal, CRUSADER)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Battle Heal，CRUSADER）",
      "value": null,
      "naming": "unverified"
     }
@@ -6020,11 +6019,11 @@
     {
      "iconId": "96a38b3137",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_96a38b3137",
+     "status": "needs_review",
+     "key": "pending_96a38b3137",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Battle Heal, CRUSADER)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Battle Heal，CRUSADER）",
      "value": null,
      "naming": "unverified"
     }
@@ -14253,11 +14252,11 @@
     {
      "iconId": "bd09734d1a",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_bd09734d1a",
+     "status": "needs_review",
+     "key": "pending_bd09734d1a",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Breakthrough, HELLION)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Breakthrough，HELLION）",
      "value": null,
      "naming": "unverified"
     }
@@ -14732,11 +14731,11 @@
     {
      "iconId": "bd09734d1a",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_bd09734d1a",
+     "status": "needs_review",
+     "key": "pending_bd09734d1a",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Breakthrough, HELLION)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Breakthrough，HELLION）",
      "value": null,
      "naming": "unverified"
     }
@@ -15200,11 +15199,11 @@
     {
      "iconId": "bd09734d1a",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_bd09734d1a",
+     "status": "needs_review",
+     "key": "pending_bd09734d1a",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Breakthrough, HELLION)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Breakthrough，HELLION）",
      "value": null,
      "naming": "unverified"
     }
@@ -15604,13 +15603,13 @@
       "left_icon": {
        "iconId": "69ab8837e5",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_69ab8837e5",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "buff",
+       "kind": "status",
+       "meaning_en": "Buff",
+       "meaning_zh": "增益",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       },
       "inside_icon": null
      }
@@ -15823,13 +15822,13 @@
       "icon": {
        "iconId": "69ab8837e5",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_69ab8837e5",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "buff",
+       "kind": "status",
+       "meaning_en": "Buff",
+       "meaning_zh": "增益",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -16078,13 +16077,13 @@
     {
      "iconId": "69ab8837e5",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_69ab8837e5",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "buff",
+     "kind": "status",
+     "meaning_en": "Buff",
+     "meaning_zh": "增益",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "back_icons": [
@@ -16126,7 +16125,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:69ab8837e5",
      "icon:97b397b628"
     ]
    },
@@ -16152,13 +16150,13 @@
       "left_icon": {
        "iconId": "1ff34c908b",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_1ff34c908b",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "buff",
+       "kind": "status",
+       "meaning_en": "Buff",
+       "meaning_zh": "增益",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       },
       "inside_icon": null
      }
@@ -16387,13 +16385,13 @@
       "icon": {
        "iconId": "1ff34c908b",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_1ff34c908b",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "buff",
+       "kind": "status",
+       "meaning_en": "Buff",
+       "meaning_zh": "增益",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -16642,13 +16640,13 @@
     {
      "iconId": "1ff34c908b",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_1ff34c908b",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "buff",
+     "kind": "status",
+     "meaning_en": "Buff",
+     "meaning_zh": "增益",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "98edfaca0a",
@@ -16690,7 +16688,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:1ff34c908b",
      "icon:97b397b628"
     ]
    },
@@ -16926,11 +16923,11 @@
     {
      "iconId": "d5088e0579",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d5088e0579",
+     "status": "needs_review",
+     "key": "pending_d5088e0579",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Bleed Out, HELLION)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Bleed Out，HELLION）",
      "value": null,
      "naming": "unverified"
     }
@@ -17057,11 +17054,11 @@
     {
      "iconId": "d5088e0579",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d5088e0579",
+     "status": "needs_review",
+     "key": "pending_d5088e0579",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Bleed Out, HELLION)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Bleed Out，HELLION）",
      "value": null,
      "naming": "unverified"
     },
@@ -17451,11 +17448,11 @@
     {
      "iconId": "d5088e0579",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d5088e0579",
+     "status": "needs_review",
+     "key": "pending_d5088e0579",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Bleed Out, HELLION)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Bleed Out，HELLION）",
      "value": null,
      "naming": "unverified"
     }
@@ -17582,11 +17579,11 @@
     {
      "iconId": "d5088e0579",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d5088e0579",
+     "status": "needs_review",
+     "key": "pending_d5088e0579",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Bleed Out, HELLION)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Bleed Out，HELLION）",
      "value": null,
      "naming": "unverified"
     },
@@ -17976,11 +17973,11 @@
     {
      "iconId": "d5088e0579",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d5088e0579",
+     "status": "needs_review",
+     "key": "pending_d5088e0579",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Bleed Out, HELLION)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Bleed Out，HELLION）",
      "value": null,
      "naming": "unverified"
     }
@@ -18107,11 +18104,11 @@
     {
      "iconId": "d5088e0579",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d5088e0579",
+     "status": "needs_review",
+     "key": "pending_d5088e0579",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Bleed Out, HELLION)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Bleed Out，HELLION）",
      "value": null,
      "naming": "unverified"
     },
@@ -28312,11 +28309,11 @@
     {
      "iconId": "7e323fd8ca",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7e323fd8ca",
+     "status": "needs_review",
+     "key": "pending_7e323fd8ca",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: illustration after the hero name on a skill-card back",
+     "meaning_zh": "待确认图形：技能卡背面英雄名后插画",
      "value": null,
      "naming": "unverified"
     }
@@ -28672,11 +28669,11 @@
     {
      "iconId": "7e323fd8ca",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7e323fd8ca",
+     "status": "needs_review",
+     "key": "pending_7e323fd8ca",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: illustration after the hero name on a skill-card back",
+     "meaning_zh": "待确认图形：技能卡背面英雄名后插画",
      "value": null,
      "naming": "unverified"
     }
@@ -29021,11 +29018,11 @@
     {
      "iconId": "7e323fd8ca",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7e323fd8ca",
+     "status": "needs_review",
+     "key": "pending_7e323fd8ca",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: illustration after the hero name on a skill-card back",
+     "meaning_zh": "待确认图形：技能卡背面英雄名后插画",
      "value": null,
      "naming": "unverified"
     }
@@ -32368,11 +32365,11 @@
     {
      "iconId": "7fe24f8773",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7fe24f8773",
+     "status": "needs_review",
+     "key": "pending_7fe24f8773",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Grapeshot Blast, HIGHWAYMAN)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Grapeshot Blast，HIGHWAYMAN）",
      "value": null,
      "naming": "unverified"
     }
@@ -32866,11 +32863,11 @@
     {
      "iconId": "7fe24f8773",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7fe24f8773",
+     "status": "needs_review",
+     "key": "pending_7fe24f8773",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Grapeshot Blast, HIGHWAYMAN)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Grapeshot Blast，HIGHWAYMAN）",
      "value": null,
      "naming": "unverified"
     }
@@ -33353,11 +33350,11 @@
     {
      "iconId": "7fe24f8773",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7fe24f8773",
+     "status": "needs_review",
+     "key": "pending_7fe24f8773",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Grapeshot Blast, HIGHWAYMAN)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Grapeshot Blast，HIGHWAYMAN）",
      "value": null,
      "naming": "unverified"
     }
@@ -36269,11 +36266,11 @@
     {
      "iconId": "a3de2bb204",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a3de2bb204",
+     "status": "needs_review",
+     "key": "pending_a3de2bb204",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Open Vein, HIGHWAYMAN)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Open Vein，HIGHWAYMAN）",
      "value": null,
      "naming": "unverified"
     }
@@ -36400,11 +36397,11 @@
     {
      "iconId": "a3de2bb204",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a3de2bb204",
+     "status": "needs_review",
+     "key": "pending_a3de2bb204",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Open Vein, HIGHWAYMAN)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Open Vein，HIGHWAYMAN）",
      "value": null,
      "naming": "unverified"
     },
@@ -36728,11 +36725,11 @@
     {
      "iconId": "a3de2bb204",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a3de2bb204",
+     "status": "needs_review",
+     "key": "pending_a3de2bb204",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Open Vein, HIGHWAYMAN)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Open Vein，HIGHWAYMAN）",
      "value": null,
      "naming": "unverified"
     }
@@ -36859,11 +36856,11 @@
     {
      "iconId": "a3de2bb204",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a3de2bb204",
+     "status": "needs_review",
+     "key": "pending_a3de2bb204",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Open Vein, HIGHWAYMAN)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Open Vein，HIGHWAYMAN）",
      "value": null,
      "naming": "unverified"
     },
@@ -37187,11 +37184,11 @@
     {
      "iconId": "a3de2bb204",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a3de2bb204",
+     "status": "needs_review",
+     "key": "pending_a3de2bb204",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Open Vein, HIGHWAYMAN)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Open Vein，HIGHWAYMAN）",
      "value": null,
      "naming": "unverified"
     }
@@ -37318,11 +37315,11 @@
     {
      "iconId": "a3de2bb204",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a3de2bb204",
+     "status": "needs_review",
+     "key": "pending_a3de2bb204",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Open Vein, HIGHWAYMAN)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Open Vein，HIGHWAYMAN）",
      "value": null,
      "naming": "unverified"
     },
@@ -37880,11 +37877,11 @@
     {
      "iconId": "e943608c3b",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e943608c3b",
+     "status": "needs_review",
+     "key": "pending_e943608c3b",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Mace Bash, VESTAL)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Mace Bash，VESTAL）",
      "value": null,
      "naming": "unverified"
     }
@@ -38330,11 +38327,11 @@
     {
      "iconId": "e943608c3b",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e943608c3b",
+     "status": "needs_review",
+     "key": "pending_e943608c3b",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Mace Bash, VESTAL)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Mace Bash，VESTAL）",
      "value": null,
      "naming": "unverified"
     }
@@ -38769,11 +38766,11 @@
     {
      "iconId": "e943608c3b",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e943608c3b",
+     "status": "needs_review",
+     "key": "pending_e943608c3b",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Mace Bash, VESTAL)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Mace Bash，VESTAL）",
      "value": null,
      "naming": "unverified"
     }
@@ -47628,13 +47625,13 @@
       "icon": {
        "iconId": "e3c4380264",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_e3c4380264",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "shuffle",
+       "kind": "status",
+       "meaning_en": "Shuffle (pull)",
+       "meaning_zh": "位移（拉）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -47921,13 +47918,13 @@
     {
      "iconId": "e3c4380264",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e3c4380264",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "shuffle",
+     "kind": "status",
+     "meaning_en": "Shuffle (pull)",
+     "meaning_zh": "位移（拉）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "8fc8635162",
@@ -47991,8 +47988,7 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:a2e7252e06",
-     "icon:e3c4380264"
+     "icon:a2e7252e06"
     ]
    },
    "hero": "JESTER",
@@ -48081,13 +48077,13 @@
       "icon": {
        "iconId": "e3c4380264",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_e3c4380264",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "shuffle",
+       "kind": "status",
+       "meaning_en": "Shuffle (pull)",
+       "meaning_zh": "位移（拉）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -48374,13 +48370,13 @@
     {
      "iconId": "e3c4380264",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e3c4380264",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "shuffle",
+     "kind": "status",
+     "meaning_en": "Shuffle (pull)",
+     "meaning_zh": "位移（拉）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "8fc8635162",
@@ -48444,8 +48440,7 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:a2e7252e06",
-     "icon:e3c4380264"
+     "icon:a2e7252e06"
     ]
    },
    "hero": "JESTER",
@@ -48534,13 +48529,13 @@
       "icon": {
        "iconId": "e3c4380264",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_e3c4380264",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "shuffle",
+       "kind": "status",
+       "meaning_en": "Shuffle (pull)",
+       "meaning_zh": "位移（拉）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -48827,13 +48822,13 @@
     {
      "iconId": "e3c4380264",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e3c4380264",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "shuffle",
+     "kind": "status",
+     "meaning_en": "Shuffle (pull)",
+     "meaning_zh": "位移（拉）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "8fc8635162",
@@ -48886,8 +48881,7 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:a2e7252e06",
-     "icon:e3c4380264"
+     "icon:a2e7252e06"
     ]
    },
    "hero": "JESTER",
@@ -53099,11 +53093,11 @@
     {
      "iconId": "7cc589b82e",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7cc589b82e",
+     "status": "needs_review",
+     "key": "pending_7cc589b82e",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Battle Ballad, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Battle Ballad，JESTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -53157,11 +53151,11 @@
     {
      "iconId": "7cc589b82e",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7cc589b82e",
+     "status": "needs_review",
+     "key": "pending_7cc589b82e",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Battle Ballad, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Battle Ballad，JESTER）",
      "value": null,
      "naming": "unverified"
     },
@@ -53577,11 +53571,11 @@
     {
      "iconId": "7cc589b82e",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7cc589b82e",
+     "status": "needs_review",
+     "key": "pending_7cc589b82e",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Battle Ballad, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Battle Ballad，JESTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -53635,11 +53629,11 @@
     {
      "iconId": "7cc589b82e",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7cc589b82e",
+     "status": "needs_review",
+     "key": "pending_7cc589b82e",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Battle Ballad, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Battle Ballad，JESTER）",
      "value": null,
      "naming": "unverified"
     },
@@ -54066,11 +54060,11 @@
     {
      "iconId": "7cc589b82e",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7cc589b82e",
+     "status": "needs_review",
+     "key": "pending_7cc589b82e",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Battle Ballad, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Battle Ballad，JESTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -54124,11 +54118,11 @@
     {
      "iconId": "7cc589b82e",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7cc589b82e",
+     "status": "needs_review",
+     "key": "pending_7cc589b82e",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Battle Ballad, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Battle Ballad，JESTER）",
      "value": null,
      "naming": "unverified"
     },
@@ -54682,11 +54676,11 @@
     {
      "iconId": "be739c4cd2",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_be739c4cd2",
+     "status": "needs_review",
+     "key": "pending_be739c4cd2",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Inspiring Tune, JESTER)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Inspiring Tune，JESTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -55185,11 +55179,11 @@
     {
      "iconId": "be739c4cd2",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_be739c4cd2",
+     "status": "needs_review",
+     "key": "pending_be739c4cd2",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Inspiring Tune, JESTER)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Inspiring Tune，JESTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -55677,11 +55671,11 @@
     {
      "iconId": "be739c4cd2",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_be739c4cd2",
+     "status": "needs_review",
+     "key": "pending_be739c4cd2",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Inspiring Tune, JESTER)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Inspiring Tune，JESTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -55882,11 +55876,11 @@
     {
      "iconId": "9988a4e1de",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9988a4e1de",
+     "status": "needs_review",
+     "key": "pending_9988a4e1de",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Slice Off, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Slice Off，JESTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -56013,11 +56007,11 @@
     {
      "iconId": "9988a4e1de",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9988a4e1de",
+     "status": "needs_review",
+     "key": "pending_9988a4e1de",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Slice Off, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Slice Off，JESTER）",
      "value": null,
      "naming": "unverified"
     },
@@ -56341,11 +56335,11 @@
     {
      "iconId": "9988a4e1de",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9988a4e1de",
+     "status": "needs_review",
+     "key": "pending_9988a4e1de",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Slice Off, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Slice Off，JESTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -56472,11 +56466,11 @@
     {
      "iconId": "9988a4e1de",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9988a4e1de",
+     "status": "needs_review",
+     "key": "pending_9988a4e1de",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Slice Off, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Slice Off，JESTER）",
      "value": null,
      "naming": "unverified"
     },
@@ -56800,11 +56794,11 @@
     {
      "iconId": "9988a4e1de",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9988a4e1de",
+     "status": "needs_review",
+     "key": "pending_9988a4e1de",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Slice Off, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Slice Off，JESTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -56931,11 +56925,11 @@
     {
      "iconId": "9988a4e1de",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9988a4e1de",
+     "status": "needs_review",
+     "key": "pending_9988a4e1de",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Slice Off, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Slice Off，JESTER）",
      "value": null,
      "naming": "unverified"
     },
@@ -66907,11 +66901,11 @@
     {
      "iconId": "91c3480071",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_91c3480071",
+     "status": "needs_review",
+     "key": "pending_91c3480071",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Sniper Shot, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Sniper Shot，ARBALEST）",
      "value": null,
      "naming": "unverified"
     }
@@ -67382,11 +67376,11 @@
     {
      "iconId": "91c3480071",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_91c3480071",
+     "status": "needs_review",
+     "key": "pending_91c3480071",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Sniper Shot, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Sniper Shot，ARBALEST）",
      "value": null,
      "naming": "unverified"
     }
@@ -67846,11 +67840,11 @@
     {
      "iconId": "91c3480071",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_91c3480071",
+     "status": "needs_review",
+     "key": "pending_91c3480071",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Sniper Shot, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Sniper Shot，ARBALEST）",
      "value": null,
      "naming": "unverified"
     }
@@ -73139,11 +73133,11 @@
     {
      "iconId": "e1209d59d0",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e1209d59d0",
+     "status": "needs_review",
+     "key": "pending_e1209d59d0",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Battlefield Bandage, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Battlefield Bandage，ARBALEST）",
      "value": null,
      "naming": "unverified"
     }
@@ -73306,11 +73300,11 @@
     {
      "iconId": "e1209d59d0",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e1209d59d0",
+     "status": "needs_review",
+     "key": "pending_e1209d59d0",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Battlefield Bandage, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Battlefield Bandage，ARBALEST）",
      "value": null,
      "naming": "unverified"
     },
@@ -73637,11 +73631,11 @@
     {
      "iconId": "e1209d59d0",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e1209d59d0",
+     "status": "needs_review",
+     "key": "pending_e1209d59d0",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Battlefield Bandage, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Battlefield Bandage，ARBALEST）",
      "value": null,
      "naming": "unverified"
     }
@@ -73804,11 +73798,11 @@
     {
      "iconId": "e1209d59d0",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e1209d59d0",
+     "status": "needs_review",
+     "key": "pending_e1209d59d0",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Battlefield Bandage, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Battlefield Bandage，ARBALEST）",
      "value": null,
      "naming": "unverified"
     },
@@ -74135,11 +74129,11 @@
     {
      "iconId": "e1209d59d0",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e1209d59d0",
+     "status": "needs_review",
+     "key": "pending_e1209d59d0",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Battlefield Bandage, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Battlefield Bandage，ARBALEST）",
      "value": null,
      "naming": "unverified"
     }
@@ -74302,11 +74296,11 @@
     {
      "iconId": "e1209d59d0",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e1209d59d0",
+     "status": "needs_review",
+     "key": "pending_e1209d59d0",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Battlefield Bandage, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Battlefield Bandage，ARBALEST）",
      "value": null,
      "naming": "unverified"
     },
@@ -87277,11 +87271,11 @@
     {
      "iconId": "e8b528e387",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e8b528e387",
+     "status": "needs_review",
+     "key": "pending_e8b528e387",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Abyssal Artillery, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Abyssal Artillery，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     }
@@ -87426,11 +87420,11 @@
     {
      "iconId": "e8b528e387",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e8b528e387",
+     "status": "needs_review",
+     "key": "pending_e8b528e387",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Abyssal Artillery, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Abyssal Artillery，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     },
@@ -87756,11 +87750,11 @@
     {
      "iconId": "e8b528e387",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e8b528e387",
+     "status": "needs_review",
+     "key": "pending_e8b528e387",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Abyssal Artillery, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Abyssal Artillery，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     }
@@ -87905,11 +87899,11 @@
     {
      "iconId": "e8b528e387",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e8b528e387",
+     "status": "needs_review",
+     "key": "pending_e8b528e387",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Abyssal Artillery, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Abyssal Artillery，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     },
@@ -88235,11 +88229,11 @@
     {
      "iconId": "e8b528e387",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e8b528e387",
+     "status": "needs_review",
+     "key": "pending_e8b528e387",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Abyssal Artillery, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Abyssal Artillery，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     }
@@ -88384,11 +88378,11 @@
     {
      "iconId": "e8b528e387",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e8b528e387",
+     "status": "needs_review",
+     "key": "pending_e8b528e387",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Abyssal Artillery, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Abyssal Artillery，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     },
@@ -88947,11 +88941,11 @@
     {
      "iconId": "dcdd14dc84",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_dcdd14dc84",
+     "status": "needs_review",
+     "key": "pending_dcdd14dc84",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Weakening Curse, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Weakening Curse，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     }
@@ -89387,11 +89381,11 @@
     {
      "iconId": "dcdd14dc84",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_dcdd14dc84",
+     "status": "needs_review",
+     "key": "pending_dcdd14dc84",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Weakening Curse, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Weakening Curse，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     }
@@ -89816,11 +89810,11 @@
     {
      "iconId": "dcdd14dc84",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_dcdd14dc84",
+     "status": "needs_review",
+     "key": "pending_dcdd14dc84",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Weakening Curse, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Weakening Curse，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     }
@@ -94250,11 +94244,11 @@
     {
      "iconId": "a374015f67",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a374015f67",
+     "status": "needs_review",
+     "key": "pending_a374015f67",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Daemon’s Pull, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Daemon’s Pull，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     }
@@ -94381,11 +94375,11 @@
     {
      "iconId": "a374015f67",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a374015f67",
+     "status": "needs_review",
+     "key": "pending_a374015f67",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Daemon’s Pull, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Daemon’s Pull，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     },
@@ -94671,11 +94665,11 @@
     {
      "iconId": "a374015f67",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a374015f67",
+     "status": "needs_review",
+     "key": "pending_a374015f67",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Daemon’s Pull, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Daemon’s Pull，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     }
@@ -94802,11 +94796,11 @@
     {
      "iconId": "a374015f67",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a374015f67",
+     "status": "needs_review",
+     "key": "pending_a374015f67",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Daemon’s Pull, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Daemon’s Pull，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     },
@@ -95092,11 +95086,11 @@
     {
      "iconId": "a374015f67",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a374015f67",
+     "status": "needs_review",
+     "key": "pending_a374015f67",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Daemon’s Pull, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Daemon’s Pull，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     }
@@ -95223,11 +95217,11 @@
     {
      "iconId": "a374015f67",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a374015f67",
+     "status": "needs_review",
+     "key": "pending_a374015f67",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front illustration (Daemon’s Pull, OCCULTIST)",
+     "meaning_zh": "待确认图形：技能卡正面插画（Daemon’s Pull，OCCULTIST）",
      "value": null,
      "naming": "unverified"
     },
@@ -100085,13 +100079,13 @@
     {
      "iconId": "f184b9a6fb",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f184b9a6fb",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_support_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Support (pillars) – active/eligible",
+     "meaning_zh": "站位：支援（点亮=可用）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "208e98c5d6",
@@ -100239,10 +100233,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:f184b9a6fb"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "hero": null,
    "card_kind": "double_faced_skill",
@@ -100256,13 +100248,13 @@
        "icon": {
         "iconId": "f184b9a6fb",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_f184b9a6fb",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_support_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Support (pillars) – active/eligible",
+        "meaning_zh": "站位：支援（点亮=可用）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -100930,13 +100922,13 @@
     {
      "iconId": "f184b9a6fb",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f184b9a6fb",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_support_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Support (pillars) – active/eligible",
+     "meaning_zh": "站位：支援（点亮=可用）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "208e98c5d6",
@@ -101084,10 +101076,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:f184b9a6fb"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "hero": null,
    "card_kind": "double_faced_skill",
@@ -101101,13 +101091,13 @@
        "icon": {
         "iconId": "f184b9a6fb",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_f184b9a6fb",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_support_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Support (pillars) – active/eligible",
+        "meaning_zh": "站位：支援（点亮=可用）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -101775,13 +101765,13 @@
     {
      "iconId": "f184b9a6fb",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f184b9a6fb",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_support_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Support (pillars) – active/eligible",
+     "meaning_zh": "站位：支援（点亮=可用）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "208e98c5d6",
@@ -101929,10 +101919,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:f184b9a6fb"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "hero": null,
    "card_kind": "double_faced_skill",
@@ -101946,13 +101934,13 @@
        "icon": {
         "iconId": "f184b9a6fb",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_f184b9a6fb",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_support_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Support (pillars) – active/eligible",
+        "meaning_zh": "站位：支援（点亮=可用）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -105753,11 +105741,11 @@
     {
      "iconId": "76f31cae82",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_76f31cae82",
+     "status": "needs_review",
+     "key": "pending_76f31cae82",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Slam, ABOMINATION)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Slam，ABOMINATION）",
      "value": null,
      "naming": "unverified"
     }
@@ -106340,11 +106328,11 @@
     {
      "iconId": "76f31cae82",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_76f31cae82",
+     "status": "needs_review",
+     "key": "pending_76f31cae82",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Slam, ABOMINATION)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Slam，ABOMINATION）",
      "value": null,
      "naming": "unverified"
     }
@@ -106916,11 +106904,11 @@
     {
      "iconId": "76f31cae82",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_76f31cae82",
+     "status": "needs_review",
+     "key": "pending_76f31cae82",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back illustration (Slam, ABOMINATION)",
+     "meaning_zh": "待确认图形：技能卡背面插画（Slam，ABOMINATION）",
      "value": null,
      "naming": "unverified"
     }

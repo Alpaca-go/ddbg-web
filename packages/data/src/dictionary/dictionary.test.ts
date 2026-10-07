@@ -37,6 +37,8 @@ const INCONSISTENCY_IDS = [
   "unexplained_chevron_family",
   "followup31_kept",
   "rotated_glyph_merge",
+  "batch01_kept",
+  "batch02_kept",
 ] as const;
 
 /** 同一 iconId 里站位或阵营不一致，词典 key 仍用 any。rank 379 在 v1.2 改为 pending_。 */
@@ -67,6 +69,66 @@ const V12_MERGES = [
 const V12_DECOR = [239, 338, 351] as const;
 
 const V12_KEPT = [195, 216, 232, 296, 307, 315, 323, 335, 379, 478] as const;
+
+/** v1.3 batch-01：31 条并入已确认图标，6 条装饰，3 条留下。 */
+const V13_MERGES = [
+  [586, 412],
+  [621, 229],
+  [625, 73],
+  [634, 17],
+  [665, 334],
+  [684, 255],
+  [698, 385],
+  [713, 226],
+  [751, 255],
+  [563, 275],
+  [606, 318],
+  [618, 360],
+  [632, 257],
+  [695, 444],
+  [723, 231],
+  [773, 173],
+  [786, 311],
+  [790, 334],
+  [796, 226],
+  [811, 173],
+  [826, 56],
+  [832, 493],
+  [835, 333],
+  [844, 148],
+  [851, 197],
+  [859, 234],
+  [860, 75],
+  [879, 169],
+  [883, 260],
+  [884, 333],
+  [897, 250],
+] as const;
+
+const V13_DECOR = [608, 690, 709, 546, 821, 852] as const;
+
+const V13_KEPT = [195, 216, 539] as const;
+
+/** v1.3 batch-02：9 条并入已确认图标，3 条装饰，17 条留下。技能正背面插画不跨面合并。 */
+const V13_BATCH02_MERGES = [
+  [551, 250],
+  [658, 487],
+  [718, 344],
+  [526, 89],
+  [588, 38],
+  [600, 106],
+  [605, 57],
+  [808, 44],
+  [834, 254],
+] as const;
+
+const V13_BATCH02_DECOR = [566, 807, 889] as const;
+
+const V13_BATCH02_SKILL_KEEPS = [
+  528, 533, 540, 550, 555, 559, 570, 571, 591, 594, 609, 614, 617, 626, 628,
+] as const;
+
+const V13_BATCH02_OTHER_KEEPS = [714, 836] as const;
 
 const START_KEY = /^start_(hero|monster|any)_(support|ranged|defensive|aggressive|any)$/;
 const PLACEMENT_CLASS = /^(hero|monster)_(support|ranged|defensive|aggressive)$/;
@@ -177,13 +239,13 @@ function rawIconIds(): Set<string> {
 
 const dictionary = parseSchema(
   iconDictionarySchema,
-  readJson("icon-dictionary-v1.2.json"),
-  "icon-dictionary-v1.2",
+  readJson("icon-dictionary-v1.3.json"),
+  "icon-dictionary-v1.3",
 );
 
-describe("图标词典 v1.2", () => {
+describe("图标词典 v1.3", () => {
   it("通过 schema，共 906 条", () => {
-    expect(dictionary.meta.version).toBe("1.2");
+    expect(dictionary.meta.version).toBe("1.3");
     expect(dictionary.icons).toHaveLength(906);
     expect(dictionary.inconsistencies.map((item) => item.id)).toEqual([...INCONSISTENCY_IDS]);
     const ranks = new Set(dictionary.icons.map((icon) => icon.rank));
@@ -257,7 +319,7 @@ describe("图标词典 v1.2", () => {
   });
 
   it("CSV 与 JSON 是同一份表", () => {
-    const rows = parseCsv(readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.2.csv"), "utf8"));
+    const rows = parseCsv(readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.3.csv"), "utf8"));
     const header = rows[0];
     expect(header).toBeDefined();
     if (!header) return;
@@ -339,10 +401,139 @@ describe("图标词典 v1.2", () => {
       expect(icon?.source).toBe("followup_proposal_2026-10-07");
     }
 
-    const text = readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.2.json"), "utf8");
+    const text = readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.3.json"), "utf8");
     expect(text).not.toContain("DRAFT");
     expect(text).not.toContain("pending Kyries");
     expect(text).not.toContain("do not commit");
+  });
+
+  it("v1.3 batch-01 的 40 条：合并沿用目标，装饰为 decor，留下的仍是 pending_", () => {
+    const byRank = new Map(dictionary.icons.map((icon) => [icon.rank, icon]));
+    const touched = new Set<number>([
+      ...V13_MERGES.map(([rank]) => rank),
+      ...V13_DECOR,
+      ...V13_KEPT,
+    ]);
+    expect(touched.size).toBe(40);
+    expect(dictionary.meta.resolved_in_v1_3.length).toBeGreaterThan(0);
+
+    for (const [rank, targetRank] of V13_MERGES) {
+      const icon = byRank.get(rank);
+      const target = byRank.get(targetRank);
+      expect(icon, `rank ${rank}`).toBeDefined();
+      expect(target, `rank ${targetRank}`).toBeDefined();
+      if (!icon || !target) continue;
+      expect(icon.status).toBe(target.status);
+      expect(icon.status).toBe("confirmed");
+      expect(icon.meaning_en).toBe(target.meaning_en);
+      expect(icon.meaning_zh).toBe(target.meaning_zh);
+      expect(icon.kind).toBe(target.kind);
+      expect(icon.key).toBe(target.key);
+      expect(icon.value).toBe(target.value);
+      expect(icon.value_in_glyph).toBe(target.value_in_glyph);
+      expect(icon.rulebook_refs).toEqual(target.rulebook_refs);
+      expect(icon.source).toBe("kyries_approved_proposal_2026-10-07");
+      expect(icon.notes).toContain(`merged_into=${target.iconId}`);
+      expect(icon.previous_status).toBe("unreviewed");
+      expect(icon.proposal).toBeNull();
+    }
+
+    for (const rank of V13_DECOR) {
+      const icon = byRank.get(rank);
+      expect(icon?.status).toBe("decor");
+      expect(icon?.key).toBe("decor");
+      expect(icon?.kind).toBe("decor");
+      expect(icon?.meaning_en).toBe("Decor / not an icon");
+      expect(icon?.source).toBe("kyries_approved_proposal_2026-10-07");
+      expect(icon?.previous_status).toBe("unreviewed");
+    }
+
+    for (const rank of [195, 216] as const) {
+      const icon = byRank.get(rank);
+      expect(icon?.status).toBe("needs_review");
+      expect(icon?.key).toBe(`pending_${icon?.iconId}`);
+      expect(icon?.kind).toBe("");
+      expect(icon?.source).toBe("followup_proposal_2026-10-07");
+      expect(icon?.notes).toContain(
+        "v1.3 (Kyries approved batch-01 2026-10-07): kept as needs_review",
+      );
+    }
+
+    const keptArt = byRank.get(539);
+    expect(keptArt?.status).toBe("needs_review");
+    expect(keptArt?.key).toBe("pending_7e323fd8ca");
+    expect(keptArt?.kind).toBe("");
+    expect(keptArt?.source).toBe("kyries_approved_proposal_2026-10-07");
+    expect(keptArt?.proposal).toBeNull();
+    expect(keptArt?.previous_status).toBe("unreviewed");
+    expect(keptArt?.meaning_en).toBe(
+      "Unconfirmed glyph: illustration after the hero name on a skill-card back",
+    );
+    expect(keptArt?.meaning_zh).toBe("待确认图形：技能卡背面英雄名后插画");
+  });
+
+  it("v1.3 batch-02：合并沿用目标，技能正背面插画各自留下", () => {
+    const byRank = new Map(dictionary.icons.map((icon) => [icon.rank, icon]));
+    const touched = new Set<number>([
+      ...V13_BATCH02_MERGES.map(([rank]) => rank),
+      ...V13_BATCH02_DECOR,
+      ...V13_BATCH02_SKILL_KEEPS,
+      ...V13_BATCH02_OTHER_KEEPS,
+    ]);
+    expect(touched.size).toBe(29);
+
+    for (const [rank, targetRank] of V13_BATCH02_MERGES) {
+      const icon = byRank.get(rank);
+      const target = byRank.get(targetRank);
+      expect(icon, `rank ${rank}`).toBeDefined();
+      expect(target, `rank ${targetRank}`).toBeDefined();
+      if (!icon || !target) continue;
+      expect(icon.status).toBe("confirmed");
+      expect(icon.status).toBe(target.status);
+      expect(icon.meaning_en).toBe(target.meaning_en);
+      expect(icon.meaning_zh).toBe(target.meaning_zh);
+      expect(icon.kind).toBe(target.kind);
+      expect(icon.key).toBe(target.key);
+      expect(icon.value).toBe(target.value);
+      expect(icon.rulebook_refs).toEqual(target.rulebook_refs);
+      expect(icon.source).toBe("kyries_approved_proposal_2026-10-07");
+      expect(icon.notes).toContain(`merged_into=${target.iconId}`);
+      expect(icon.notes).toContain("batch-02");
+    }
+
+    for (const rank of V13_BATCH02_DECOR) {
+      const icon = byRank.get(rank);
+      expect(icon?.status).toBe("decor");
+      expect(icon?.key).toBe("decor");
+      expect(icon?.kind).toBe("decor");
+      expect(icon?.source).toBe("kyries_approved_proposal_2026-10-07");
+    }
+
+    const skillMeanings = new Set<string>();
+    for (const rank of V13_BATCH02_SKILL_KEEPS) {
+      const icon = byRank.get(rank);
+      expect(icon?.status).toBe("needs_review");
+      expect(icon?.key).toBe(`pending_${icon?.iconId}`);
+      expect(icon?.key).not.toBe("skill_art");
+      expect(icon?.kind).toBe("");
+      expect(icon?.proposal).toBeNull();
+      expect(icon?.source).toBe("kyries_approved_proposal_2026-10-07");
+      expect(icon?.meaning_en.startsWith("Unconfirmed glyph: skill-card ")).toBe(true);
+      expect(
+        icon?.meaning_en.includes("front illustration") ||
+          icon?.meaning_en.includes("back illustration"),
+      ).toBe(true);
+      skillMeanings.add(icon?.meaning_en ?? "");
+    }
+    expect(skillMeanings.size).toBe(V13_BATCH02_SKILL_KEEPS.length);
+
+    for (const rank of V13_BATCH02_OTHER_KEEPS) {
+      const icon = byRank.get(rank);
+      expect(icon?.status).toBe("needs_review");
+      expect(icon?.key).toBe(`pending_${icon?.iconId}`);
+      expect(icon?.kind).toBe("");
+      expect(icon?.proposal).toBeNull();
+    }
   });
 });
 

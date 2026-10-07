@@ -1,11 +1,11 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.2",
+ "dictionary_version": "1.3",
  "category": "quirk",
  "sources": {
   "parsed": null,
   "raw": "extract/corebox/raw/quirk.json",
-  "dictionary": "dictionary/icon-dictionary-v1.2.json"
+  "dictionary": "dictionary/icon-dictionary-v1.3.json"
  },
  "stats": {
   "cards": 35,
@@ -2440,13 +2440,13 @@
       "icon": {
        "iconId": "17e22aa213",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_17e22aa213",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "text_plate",
+       "kind": "other",
+       "meaning_en": "Quirk name plate (text background)",
+       "meaning_zh": "怪癖名称底板（文字背景）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -2563,13 +2563,13 @@
     {
      "iconId": "17e22aa213",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_17e22aa213",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "text_plate",
+     "kind": "other",
+     "meaning_en": "Quirk name plate (text background)",
+     "meaning_zh": "怪癖名称底板（文字背景）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "269d523c85",
@@ -2652,7 +2652,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:17e22aa213",
      "icon:269d523c85"
     ]
    }
@@ -3031,13 +3030,13 @@
       "icon": {
        "iconId": "17e22aa213",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_17e22aa213",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "text_plate",
+       "kind": "other",
+       "meaning_en": "Quirk name plate (text background)",
+       "meaning_zh": "怪癖名称底板（文字背景）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -3122,13 +3121,13 @@
     {
      "iconId": "17e22aa213",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_17e22aa213",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "text_plate",
+     "kind": "other",
+     "meaning_en": "Quirk name plate (text background)",
+     "meaning_zh": "怪癖名称底板（文字背景）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "c43c46e6de",
@@ -3189,7 +3188,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:17e22aa213",
      "icon:999538a901",
      "icon:d9c36480ed",
      "icon:dbe7e40350"
