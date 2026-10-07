@@ -1,16 +1,16 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.4",
+ "dictionary_version": "1.5",
  "category": "monster_large",
  "sources": {
   "parsed": "extract/corebox/parsed/monster_large.json",
   "raw": "extract/corebox/raw/monster_large.json",
-  "dictionary": "dictionary/icon-dictionary-v1.4.json"
+  "dictionary": "dictionary/icon-dictionary-v1.5.json"
  },
  "stats": {
   "cards": 20,
-  "verified": 16,
-  "unverified": 4
+  "verified": 17,
+  "unverified": 3
  },
  "cards": [
   {
@@ -505,33 +505,31 @@
     {
      "iconId": "f143a824e2",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f143a824e2",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "d10",
+     "kind": "dice_face",
+     "meaning_en": "Ten-sided die roll (range follows)",
+     "meaning_zh": "十面骰判定（后接范围）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "f143a824e2",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f143a824e2",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "d10",
+     "kind": "dice_face",
+     "meaning_en": "Ten-sided die roll (range follows)",
+     "meaning_zh": "十面骰判定（后接范围）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "back_icons": [],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:f143a824e2"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "life": 33,
    "life_icon": {
@@ -1140,13 +1138,13 @@
       "icon": {
        "iconId": "f143a824e2",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_f143a824e2",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "d10",
+       "kind": "dice_face",
+       "meaning_en": "Ten-sided die roll (range follows)",
+       "meaning_zh": "十面骰判定（后接范围）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -1194,13 +1192,13 @@
       "icon": {
        "iconId": "f143a824e2",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_f143a824e2",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "d10",
+       "kind": "dice_face",
+       "meaning_en": "Ten-sided die roll (range follows)",
+       "meaning_zh": "十面骰判定（后接范围）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {

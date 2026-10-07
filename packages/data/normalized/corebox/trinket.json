@@ -1,16 +1,16 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.4",
+ "dictionary_version": "1.5",
  "category": "trinket",
  "sources": {
   "parsed": "extract/corebox/parsed/trinket.json",
   "raw": "extract/corebox/raw/trinket.json",
-  "dictionary": "dictionary/icon-dictionary-v1.4.json"
+  "dictionary": "dictionary/icon-dictionary-v1.5.json"
  },
  "stats": {
   "cards": 38,
-  "verified": 1,
-  "unverified": 37
+  "verified": 2,
+  "unverified": 36
  },
  "cards": [
   {
@@ -1504,13 +1504,13 @@
     {
      "iconId": "7d4f72667e",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7d4f72667e",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "3dd52e05c6",
@@ -1586,7 +1586,6 @@
     "unverified": true,
     "reasons": [
      "icon:3dd52e05c6",
-     "icon:7d4f72667e",
      "icon:7e05c9a61f"
     ]
    }
@@ -1620,13 +1619,13 @@
        "icon": {
         "iconId": "07a4208ff9",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_07a4208ff9",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "trap",
+        "kind": "other",
+        "meaning_en": "Trap",
+        "meaning_zh": "陷阱",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -1677,13 +1676,13 @@
        "icon": {
         "iconId": "1edc13cad2",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_1edc13cad2",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "trap",
+        "kind": "other",
+        "meaning_en": "Trap",
+        "meaning_zh": "陷阱",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -1695,13 +1694,13 @@
        "icon": {
         "iconId": "1edc13cad2",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_1edc13cad2",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "trap",
+        "kind": "other",
+        "meaning_en": "Trap",
+        "meaning_zh": "陷阱",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -1734,13 +1733,13 @@
     {
      "iconId": "07a4208ff9",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_07a4208ff9",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "trap",
+     "kind": "other",
+     "meaning_en": "Trap",
+     "meaning_zh": "陷阱",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -1767,24 +1766,24 @@
     {
      "iconId": "1edc13cad2",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_1edc13cad2",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "trap",
+     "kind": "other",
+     "meaning_en": "Trap",
+     "meaning_zh": "陷阱",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "1edc13cad2",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_1edc13cad2",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "trap",
+     "kind": "other",
+     "meaning_en": "Trap",
+     "meaning_zh": "陷阱",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "4225deba9e",
@@ -1815,8 +1814,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:07a4208ff9",
-     "icon:1edc13cad2",
      "icon:4225deba9e",
      "icon:66254314c8",
      "icon:a08da49488"
@@ -2821,13 +2818,13 @@
        "icon": {
         "iconId": "ccca0ec836",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_ccca0ec836",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stun",
+        "kind": "status",
+        "meaning_en": "Stun",
+        "meaning_zh": "眩晕",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -2919,13 +2916,13 @@
     {
      "iconId": "ccca0ec836",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_ccca0ec836",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stun",
+     "kind": "status",
+     "meaning_en": "Stun",
+     "meaning_zh": "眩晕",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "back_icons": [
@@ -2947,7 +2944,6 @@
     "reasons": [
      "icon:206c655597",
      "icon:857f920639",
-     "icon:ccca0ec836",
      "icon:f93cec8923"
     ]
    }
@@ -3020,13 +3016,13 @@
        "icon": {
         "iconId": "9939df0801",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_9939df0801",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "heal",
+        "kind": "other",
+        "meaning_en": "Heal",
+        "meaning_zh": "治疗",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -3038,13 +3034,13 @@
        "icon": {
         "iconId": "c890c74db0",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_c890c74db0",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "heal",
+        "kind": "other",
+        "meaning_en": "Heal (amount printed inside)",
+        "meaning_zh": "治疗（图标内数字）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -3121,24 +3117,24 @@
     {
      "iconId": "c890c74db0",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c890c74db0",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal (amount printed inside)",
+     "meaning_zh": "治疗（图标内数字）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "9939df0801",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9939df0801",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal",
+     "meaning_zh": "治疗",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "back_icons": [
@@ -3159,8 +3155,6 @@
     "unverified": true,
     "reasons": [
      "icon:837c317b01",
-     "icon:9939df0801",
-     "icon:c890c74db0",
      "icon:e479e31fcd"
     ]
    }
@@ -3263,13 +3257,13 @@
        "icon": {
         "iconId": "c4fa19b296",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_c4fa19b296",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "light",
+        "kind": "other",
+        "meaning_en": "Flame with down-arrow (trinket) – possibly Light decrease",
+        "meaning_zh": "火焰+下箭头（饰品）– 可能为光照降低",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -3302,13 +3296,13 @@
     {
      "iconId": "7d4f72667e",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7d4f72667e",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "7f666ef205",
@@ -3390,13 +3384,13 @@
     {
      "iconId": "c4fa19b296",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c4fa19b296",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Flame with down-arrow (trinket) – possibly Light decrease",
+     "meaning_zh": "火焰+下箭头（饰品）– 可能为光照降低",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "b3f370e3ec",
@@ -3439,11 +3433,9 @@
     "unverified": true,
     "reasons": [
      "icon:73f552cf40",
-     "icon:7d4f72667e",
      "icon:7f666ef205",
      "icon:b3f370e3ec",
-     "icon:c1d74de856",
-     "icon:c4fa19b296"
+     "icon:c1d74de856"
     ]
    }
   },
@@ -4215,13 +4207,13 @@
     {
      "iconId": "7d4f72667e",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7d4f72667e",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "fc00a39cf5",
@@ -4340,7 +4332,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:7d4f72667e",
      "icon:8c829e3754",
      "icon:cb0bebf0b6",
      "icon:ed3b7ac902",
@@ -4934,13 +4925,13 @@
        "icon": {
         "iconId": "c80e839741",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_c80e839741",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "heal",
+        "kind": "other",
+        "meaning_en": "Heal (amount printed inside)",
+        "meaning_zh": "治疗（图标内数字）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -5004,13 +4995,13 @@
     {
      "iconId": "c80e839741",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c80e839741",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal (amount printed inside)",
+     "meaning_zh": "治疗（图标内数字）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -5075,7 +5066,6 @@
     "unverified": true,
     "reasons": [
      "icon:52779b6cc8",
-     "icon:c80e839741",
      "icon:e528def849"
     ]
    }
@@ -5130,13 +5120,13 @@
        "icon": {
         "iconId": "3e15d1efba",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_3e15d1efba",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_ranged_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Ranged (arrows) – lit (PvP card top row)",
+        "meaning_zh": "站位：远程（点亮，PvP卡顶行）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -5191,13 +5181,13 @@
     {
      "iconId": "3e15d1efba",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_3e15d1efba",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_ranged_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Ranged (arrows) – lit (PvP card top row)",
+     "meaning_zh": "站位：远程（点亮，PvP卡顶行）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "624a476888",
@@ -5229,7 +5219,6 @@
     "unverified": true,
     "reasons": [
      "icon:28f0232002",
-     "icon:3e15d1efba",
      "icon:624a476888"
     ]
    }
@@ -5284,13 +5273,13 @@
        "icon": {
         "iconId": "bb21fa4f0f",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_bb21fa4f0f",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_aggressive_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Aggressive (sword) – lit (PvP card top row)",
+        "meaning_zh": "站位：进攻（点亮，PvP卡顶行）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -5345,13 +5334,13 @@
     {
      "iconId": "bb21fa4f0f",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_bb21fa4f0f",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_aggressive_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Aggressive (sword) – lit (PvP card top row)",
+     "meaning_zh": "站位：进攻（点亮，PvP卡顶行）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "6549384f13",
@@ -5380,10 +5369,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:bb21fa4f0f"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -5436,13 +5423,13 @@
        "icon": {
         "iconId": "8b801d29d7",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_8b801d29d7",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_defensive_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Defensive (shield) – lit (PvP card top row)",
+        "meaning_zh": "站位：防御（点亮，PvP卡顶行）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -5497,13 +5484,13 @@
     {
      "iconId": "8b801d29d7",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_8b801d29d7",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_defensive_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Defensive (shield) – lit (PvP card top row)",
+     "meaning_zh": "站位：防御（点亮，PvP卡顶行）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "d876d6e8c3",
@@ -5534,7 +5521,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:8b801d29d7",
      "icon:d876d6e8c3",
      "icon:ecfbc6800c"
     ]
@@ -5590,13 +5576,13 @@
        "icon": {
         "iconId": "7faa97dbde",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_7faa97dbde",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_support_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Support (pillars) – lit (PvP card top row)",
+        "meaning_zh": "站位：支援（点亮，PvP卡顶行）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -5651,13 +5637,13 @@
     {
      "iconId": "7faa97dbde",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7faa97dbde",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_support_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Support (pillars) – lit (PvP card top row)",
+     "meaning_zh": "站位：支援（点亮，PvP卡顶行）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "bf43d23b79",
@@ -5689,7 +5675,6 @@
     "unverified": true,
     "reasons": [
      "icon:2c64de3af7",
-     "icon:7faa97dbde",
      "icon:bf43d23b79"
     ]
    }

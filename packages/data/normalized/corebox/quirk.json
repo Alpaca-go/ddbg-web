@@ -1,16 +1,16 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.4",
+ "dictionary_version": "1.5",
  "category": "quirk",
  "sources": {
   "parsed": null,
   "raw": "extract/corebox/raw/quirk.json",
-  "dictionary": "dictionary/icon-dictionary-v1.4.json"
+  "dictionary": "dictionary/icon-dictionary-v1.5.json"
  },
  "stats": {
   "cards": 35,
-  "verified": 21,
-  "unverified": 14
+  "verified": 24,
+  "unverified": 11
  },
  "cards": [
   {
@@ -52,13 +52,13 @@
       "icon": {
        "iconId": "63506ccc70",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_63506ccc70",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      }
     ],
@@ -141,13 +141,13 @@
     {
      "iconId": "63506ccc70",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_63506ccc70",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "dbe7e40350",
@@ -184,10 +184,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:63506ccc70"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -251,13 +249,13 @@
       "icon": {
        "iconId": "b145dba436",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_b145dba436",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "buff",
+       "kind": "status",
+       "meaning_en": "Buff",
+       "meaning_zh": "增益",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -292,20 +290,18 @@
     {
      "iconId": "b145dba436",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_b145dba436",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "buff",
+     "kind": "status",
+     "meaning_en": "Buff",
+     "meaning_zh": "增益",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:b145dba436"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -3047,13 +3043,13 @@
       "icon": {
        "iconId": "999538a901",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_999538a901",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      }
     ],
@@ -3140,13 +3136,13 @@
     {
      "iconId": "999538a901",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_999538a901",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "dbe7e40350",
@@ -3185,7 +3181,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:999538a901",
      "icon:d9c36480ed"
     ]
    }
@@ -3463,13 +3458,13 @@
       "icon": {
        "iconId": "2bc58148bf",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_2bc58148bf",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "debuff",
+       "kind": "status",
+       "meaning_en": "Debuff",
+       "meaning_zh": "减益",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -3504,20 +3499,18 @@
     {
      "iconId": "2bc58148bf",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_2bc58148bf",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "debuff",
+     "kind": "status",
+     "meaning_en": "Debuff",
+     "meaning_zh": "减益",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:2bc58148bf"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {

@@ -521,8 +521,9 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **进展**（2026-10-07，v1.2）：Kyries 批准 31 条后续图标：18 条并入已确认图标，3 条改为 decor，10 条仍是 `needs_review`（key 为 `pending_<iconId>`，kind 为空）。规范化层（`packages/data/normalized/`）把这些图标，以及词典未收的 iconId，标成未验证。
 - **进展**（2026-10-07，v1.3）：Kyries 批准 batch-01（40 条：合并 31、装饰 6、留下 3）和 batch-02（29 条：合并 9、装饰 3、留下 17）。留下的条目是 `needs_review`（`pending_<iconId>`，kind 为空）。技能卡正背面插画不跨面合并，也没有写成 `skill_art`。没有新造含义。
 - **进展**（2026-10-07，v1.4）：Kyries 批准 batch-04（40 条：合并 8、装饰 7、留下 25）。留下的条目是 `needs_review`（`pending_<iconId>`，kind 为空）。技能卡杂项切图没有写成 `skill_art`。没有新造含义。
+- **进展**（2026-10-07，v1.5）：Kyries 批准 batch-05（39 条：合并 17、装饰 22，没有留下）。免疫栏 r761、r812 沿用目标的 resist key。r871 原样继承 r346 的暂定含义。没有新造含义，也没有给 r873 补治疗数值。
 - **关联待确认**：Q-47
-- **状态**：延后（词典 v1.4 已入库；`needs_review` / `unsure` / `unreviewed` 仍不命名。说明书 §21.2 P-01~P-10，以及抗性 / 免疫栏里尚未 `confirmed` 的图标。70 个词典未收的 iconId 仍待印刷 PDF 重切）
+- **状态**：延后（词典 v1.5 已入库；`needs_review` / `unsure` / `unreviewed` 仍不命名。说明书 §21.2 P-01~P-10，以及抗性 / 免疫栏里尚未 `confirmed` 的图标。70 个词典未收的 iconId 仍待印刷 PDF 重切）
 
 ### R-049
 
@@ -646,4 +647,5 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **进展**（2026-10-07）：图标词典 v1.2 已入库。`confirmed` 与 `confirmed_rulebook` 可用于命名；`needs_review`（`pending_<iconId>`）、`unsure`、`unreviewed` 仍按 R-048 保持占位，并在规范化层标成未验证。
 - **进展**（2026-10-07，v1.3）：Kyries 批准 batch-01（合并 31、装饰 6、留下 3）和 batch-02（合并 9、装饰 3、留下 17）。留下的条目仍不命名。后续未审批次，以及约 70 个词典未收的 iconId，仍按 R-048 占位。
 - **进展**（2026-10-07，v1.4）：Kyries 批准 batch-04（合并 8、装饰 7、留下 25）。留下的条目仍不命名。尚未审阅的 267 条，以及 70 个词典未收的 iconId，仍按 R-048 占位。
-- **状态**：延后（词典 v1.4 已入库；`needs_review` / `unsure` / `unreviewed` 仍按 R-048 占位）
+- **进展**（2026-10-07，v1.5）：Kyries 批准 batch-05（合并 17、装饰 22）。没有留下的条目。尚未审阅的 228 条，以及 70 个词典未收的 iconId，仍按 R-048 占位。
+- **状态**：延后（词典 v1.5 已入库；`needs_review` / `unsure` / `unreviewed` 仍按 R-048 占位）
