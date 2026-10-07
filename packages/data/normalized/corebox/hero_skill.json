@@ -1,11 +1,11 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.5",
+ "dictionary_version": "1.6",
  "category": "hero_skill",
  "sources": {
   "parsed": "extract/corebox/parsed/hero_skill.json",
   "raw": "extract/corebox/raw/hero_skill.json",
-  "dictionary": "dictionary/icon-dictionary-v1.5.json"
+  "dictionary": "dictionary/icon-dictionary-v1.6.json"
  },
  "stats": {
   "cards": 231,

@@ -16,7 +16,7 @@
 
 ## 还不命名的东西
 
-图标只保留 `iconId`，正文里仍是 `{icon:<id>}`。含义词典在 `packages/data/dictionary/`（v1.5）。本目录不回填含义；回填在 `packages/data/normalized/`。卡面上没有标签的数字在 `unlabeled_numbers` 或 `header_unlabeled_numbers`。`crit_value` / `acc_value` 只是印在 Crit / Acc 标签右侧的数字，不表示伤害或其他规则含义（R-048，说明书 §21.2）。规范化层改用中性字段，不再使用这两个名字。
+图标只保留 `iconId`，正文里仍是 `{icon:<id>}`。含义词典在 `packages/data/dictionary/`（v1.6）。本目录不回填含义；回填在 `packages/data/normalized/`。卡面上没有标签的数字在 `unlabeled_numbers` 或 `header_unlabeled_numbers`。`crit_value` / `acc_value` 只是印在 Crit / Acc 标签右侧的数字，不表示伤害或其他规则含义（R-048，说明书 §21.2）。规范化层改用中性字段，不再使用这两个名字。
 
 `hero_skill:p044`（Collect Bounty II）的命中标签原文是 `Acc 1O`（字母 O），按原样保留。
 

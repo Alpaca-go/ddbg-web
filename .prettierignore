@@ -13,9 +13,10 @@ packages/data/dictionary/icon-dictionary-v1.1-CHANGELOG.md
 packages/data/dictionary/icon-dictionary-v1.2-CHANGELOG.md
 packages/data/dictionary/icon-dictionary-v1.3-CHANGELOG.md
 packages/data/dictionary/icon-dictionary-v1.4-CHANGELOG.md
-packages/data/dictionary/icon-dictionary-v1.5.json
-packages/data/dictionary/icon-dictionary-v1.5.csv
 packages/data/dictionary/icon-dictionary-v1.5-CHANGELOG.md
+packages/data/dictionary/icon-dictionary-v1.6.json
+packages/data/dictionary/icon-dictionary-v1.6.csv
+packages/data/dictionary/icon-dictionary-v1.6-CHANGELOG.md
 packages/data/dictionary/start_locations_by_placement.csv
 packages/data/normalized/corebox
 tools/pipeline/extract-print/UPSTREAM.md
