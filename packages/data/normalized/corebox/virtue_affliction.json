@@ -1,11 +1,11 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.2",
+ "dictionary_version": "1.3",
  "category": "virtue_affliction",
  "sources": {
   "parsed": null,
   "raw": "extract/corebox/raw/virtue_affliction.json",
-  "dictionary": "dictionary/icon-dictionary-v1.2.json"
+  "dictionary": "dictionary/icon-dictionary-v1.3.json"
  },
  "stats": {
   "cards": 10,
@@ -781,13 +781,13 @@
       "icon": {
        "iconId": "39f19572d5",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_39f19572d5",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "buff",
+       "kind": "status",
+       "meaning_en": "Buff",
+       "meaning_zh": "增益",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -877,19 +877,18 @@
     {
      "iconId": "39f19572d5",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_39f19572d5",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "buff",
+     "kind": "status",
+     "meaning_en": "Buff",
+     "meaning_zh": "增益",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:39f19572d5",
      "role_not_printed"
     ]
    }

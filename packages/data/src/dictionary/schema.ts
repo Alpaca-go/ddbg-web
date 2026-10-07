@@ -233,7 +233,7 @@ const iconEntryDocSchema = z.strictObject({
   notes: iconFieldDocSchema,
 });
 
-/** `icon-dictionary-v1.2.json`。含字段说明、元数据、已知不一致和 906 条图标。 */
+/** `icon-dictionary-v1.3.json`。含字段说明、元数据、已知不一致和 906 条图标。 */
 export const iconDictionarySchema = z
   .strictObject({
     schema: z.strictObject({
@@ -257,7 +257,7 @@ export const iconDictionarySchema = z
     }),
     meta: z.strictObject({
       name: z.string().min(1),
-      version: z.literal("1.2"),
+      version: z.literal("1.3"),
       generated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
       based_on: z.string().min(1),
       input: z.string().min(1),
@@ -286,6 +286,7 @@ export const iconDictionarySchema = z
       }),
       resolved_in_v1_1: z.array(z.string().min(1)),
       resolved_in_v1_2: z.array(z.string().min(1)).min(1),
+      resolved_in_v1_3: z.array(z.string().min(1)).min(1),
     }),
     inconsistencies: z.array(
       z.strictObject({

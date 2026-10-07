@@ -1,16 +1,16 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.2",
+ "dictionary_version": "1.3",
  "category": "monster_medium",
  "sources": {
   "parsed": "extract/corebox/parsed/monster_medium.json",
   "raw": "extract/corebox/raw/monster_medium.json",
-  "dictionary": "dictionary/icon-dictionary-v1.2.json"
+  "dictionary": "dictionary/icon-dictionary-v1.3.json"
  },
  "stats": {
   "cards": 54,
-  "verified": 31,
-  "unverified": 23
+  "verified": 34,
+  "unverified": 20
  },
  "cards": [
   {
@@ -3806,13 +3806,13 @@
     {
      "iconId": "6a08bec9e4",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_6a08bec9e4",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "skill_number",
+     "kind": "other",
+     "meaning_en": "Skill ID",
+     "meaning_zh": "技能编号",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "b5d7889153",
@@ -3853,7 +3853,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:6a08bec9e4",
      "icon:a11d67845d"
     ]
    },
@@ -4694,13 +4693,13 @@
       "icon": {
        "iconId": "6a08bec9e4",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_6a08bec9e4",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "skill_number",
+       "kind": "other",
+       "meaning_en": "Skill ID",
+       "meaning_zh": "技能编号",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -4970,13 +4969,13 @@
     {
      "iconId": "d2e5898367",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d2e5898367",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "26f23ab2ef",
@@ -5047,13 +5046,13 @@
     {
      "iconId": "5f52ba5cee",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_5f52ba5cee",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "357e296021",
@@ -5080,13 +5079,13 @@
     {
      "iconId": "95441c8f27",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_95441c8f27",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "58d98cda2c",
@@ -5209,12 +5208,9 @@
      "icon:48d137844b",
      "icon:58d98cda2c",
      "icon:5c221a93db",
-     "icon:5f52ba5cee",
      "icon:69d11758ad",
      "icon:93c6ba300b",
-     "icon:95441c8f27",
      "icon:aa2a4c2b8a",
-     "icon:d2e5898367",
      "icon:f1b57be7c8",
      "icon:fa06b39c42"
     ]
@@ -5515,13 +5511,13 @@
       "icon": {
        "iconId": "95441c8f27",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_95441c8f27",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -5533,13 +5529,13 @@
       "icon": {
        "iconId": "d2e5898367",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_d2e5898367",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -5587,13 +5583,13 @@
       "icon": {
        "iconId": "5f52ba5cee",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_5f52ba5cee",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -14967,13 +14963,13 @@
     {
      "iconId": "5f52ba5cee",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_5f52ba5cee",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "26f23ab2ef",
@@ -15066,13 +15062,13 @@
     {
      "iconId": "d2e5898367",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d2e5898367",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "357e296021",
@@ -15099,13 +15095,13 @@
     {
      "iconId": "95441c8f27",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_95441c8f27",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "00cc5778d7",
@@ -15228,15 +15224,12 @@
      "icon:220f091707",
      "icon:45374c6b75",
      "icon:5c221a93db",
-     "icon:5f52ba5cee",
      "icon:69d11758ad",
      "icon:7a4d052687",
      "icon:883e50be3d",
      "icon:93a5ef3193",
-     "icon:95441c8f27",
      "icon:98734e646a",
      "icon:aa2a4c2b8a",
-     "icon:d2e5898367",
      "icon:f1d1c251e0",
      "icon:f36a00623a"
     ]
@@ -15577,13 +15570,13 @@
       "icon": {
        "iconId": "5f52ba5cee",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_5f52ba5cee",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -15741,13 +15734,13 @@
       "icon": {
        "iconId": "d2e5898367",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_d2e5898367",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -15761,13 +15754,13 @@
       "icon": {
        "iconId": "95441c8f27",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_95441c8f27",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -23418,13 +23411,13 @@
     {
      "iconId": "762a776546",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_762a776546",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "2811033676",
@@ -23573,7 +23566,6 @@
      "icon:640fbb40d9",
      "icon:6d72c109ca",
      "icon:700b4f59f9",
-     "icon:762a776546",
      "icon:883e50be3d",
      "icon:9914155306",
      "icon:9b5a930869",
@@ -24141,13 +24133,13 @@
       "icon": {
        "iconId": "762a776546",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_762a776546",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -24852,13 +24844,13 @@
     {
      "iconId": "8a5fcb1405",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_8a5fcb1405",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "d311f5fad9",
@@ -24918,13 +24910,13 @@
     {
      "iconId": "edb10691e1",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_edb10691e1",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "d10",
+     "kind": "dice_face",
+     "meaning_en": "Ten-sided die (monster card)",
+     "meaning_zh": "十面骰（怪物卡）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "436f0d4254",
@@ -24952,11 +24944,8 @@
    "back_icons": [],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:8a5fcb1405",
-     "icon:edb10691e1"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "life": 7,
    "life_icon": {
@@ -25560,13 +25549,13 @@
       "icon": {
        "iconId": "8a5fcb1405",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_8a5fcb1405",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -25578,13 +25567,13 @@
       "icon": {
        "iconId": "edb10691e1",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_edb10691e1",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "d10",
+       "kind": "dice_face",
+       "meaning_en": "Ten-sided die (monster card)",
+       "meaning_zh": "十面骰（怪物卡）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -30528,13 +30517,13 @@
     {
      "iconId": "d2e5898367",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d2e5898367",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "de2969d295",
@@ -30838,7 +30827,6 @@
      "icon:aa2a4c2b8a",
      "icon:bdf677806a",
      "icon:d162a68594",
-     "icon:d2e5898367",
      "icon:de2969d295",
      "icon:e3ed26efd8",
      "icon:eba92424bf",
@@ -31048,13 +31036,13 @@
       "icon": {
        "iconId": "d2e5898367",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_d2e5898367",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -31791,13 +31779,13 @@
     {
      "iconId": "cdfeec62c5",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_cdfeec62c5",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed",
+     "meaning_zh": "流血",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "b034e44cb1",
@@ -32036,8 +32024,7 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:75f7f3eb72",
-     "icon:cdfeec62c5"
+     "icon:75f7f3eb72"
     ]
    },
    "life": 22,
@@ -32202,13 +32189,13 @@
         "icon": {
          "iconId": "cdfeec62c5",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_cdfeec62c5",
-         "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "status": "confirmed",
+         "key": "bleed",
+         "kind": "status",
+         "meaning_en": "Bleed",
+         "meaning_zh": "流血",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        },
        {
@@ -32424,13 +32411,13 @@
         "icon": {
          "iconId": "cdfeec62c5",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_cdfeec62c5",
-         "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "status": "confirmed",
+         "key": "bleed",
+         "kind": "status",
+         "meaning_en": "Bleed",
+         "meaning_zh": "流血",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        },
        {
@@ -40700,13 +40687,13 @@
     {
      "iconId": "9e4bb98b5c",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9e4bb98b5c",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "skill_number",
+     "kind": "other",
+     "meaning_en": "Skill ID",
+     "meaning_zh": "技能编号",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "be11b8ced8",
@@ -40767,10 +40754,8 @@
    "back_icons": [],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:9e4bb98b5c"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "life": 17,
    "life_icon": {
@@ -41566,13 +41551,13 @@
       "icon": {
        "iconId": "9e4bb98b5c",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_9e4bb98b5c",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "skill_number",
+       "kind": "other",
+       "meaning_en": "Skill ID",
+       "meaning_zh": "技能编号",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -41965,13 +41950,13 @@
     {
      "iconId": "e154e5cdbb",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e154e5cdbb",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "bleed_resist",
+     "kind": "resist",
+     "meaning_en": "Bleed (PvP resistances)",
+     "meaning_zh": "流血（PvP抗性）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "e05f59c39a",
@@ -42153,10 +42138,8 @@
    "back_icons": [],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:e154e5cdbb"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "life": 28,
    "life_icon": {
@@ -42185,13 +42168,13 @@
     {
      "iconId": "e154e5cdbb",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e154e5cdbb",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "bleed_resist",
+     "kind": "resist",
+     "meaning_en": "Bleed (PvP resistances)",
+     "meaning_zh": "流血（PvP抗性）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "immunities": [],
@@ -63748,13 +63731,13 @@
     {
      "iconId": "bbbe3513eb",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_bbbe3513eb",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "summon",
+     "kind": "other",
+     "meaning_en": "Summon",
+     "meaning_zh": "召唤",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "a38154c523",
@@ -63836,13 +63819,13 @@
     {
      "iconId": "bbbe3513eb",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_bbbe3513eb",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "summon",
+     "kind": "other",
+     "meaning_en": "Summon",
+     "meaning_zh": "召唤",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "5729151bda",
@@ -64045,13 +64028,13 @@
     {
      "iconId": "ae6fa33200",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_ae6fa33200",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "skill_number",
+     "kind": "other",
+     "meaning_en": "Skill ID",
+     "meaning_zh": "技能编号",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "5824725929",
@@ -64128,9 +64111,7 @@
     "reasons": [
      "icon:0fa12b226d",
      "icon:6b42b1059d",
-     "icon:9051eb737b",
-     "icon:ae6fa33200",
-     "icon:bbbe3513eb"
+     "icon:9051eb737b"
     ]
    },
    "life": 50,
@@ -64310,13 +64291,13 @@
         "icon": {
          "iconId": "bbbe3513eb",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_bbbe3513eb",
-         "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "status": "confirmed",
+         "key": "summon",
+         "kind": "other",
+         "meaning_en": "Summon",
+         "meaning_zh": "召唤",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        },
        {
@@ -64496,13 +64477,13 @@
         "icon": {
          "iconId": "bbbe3513eb",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_bbbe3513eb",
-         "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "status": "confirmed",
+         "key": "summon",
+         "kind": "other",
+         "meaning_en": "Summon",
+         "meaning_zh": "召唤",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        },
        {
@@ -64608,13 +64589,13 @@
         "icon": {
          "iconId": "bbbe3513eb",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_bbbe3513eb",
-         "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "status": "confirmed",
+         "key": "summon",
+         "kind": "other",
+         "meaning_en": "Summon",
+         "meaning_zh": "召唤",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        },
        {
@@ -64778,13 +64759,13 @@
         "icon": {
          "iconId": "bbbe3513eb",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_bbbe3513eb",
-         "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "status": "confirmed",
+         "key": "summon",
+         "kind": "other",
+         "meaning_en": "Summon",
+         "meaning_zh": "召唤",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        },
        {
@@ -65223,13 +65204,13 @@
       "icon": {
        "iconId": "ae6fa33200",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_ae6fa33200",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "skill_number",
+       "kind": "other",
+       "meaning_en": "Skill ID",
+       "meaning_zh": "技能编号",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {

@@ -298,7 +298,7 @@ export const normalizedVirtueAfflictionCardSchema = z.strictObject({
 const sourcePairSchema = z.strictObject({
   parsed: z.string().min(1).nullable(),
   raw: z.string().min(1),
-  dictionary: z.literal("dictionary/icon-dictionary-v1.2.json"),
+  dictionary: z.literal("dictionary/icon-dictionary-v1.3.json"),
 });
 
 const statsSchema = z.strictObject({
@@ -311,7 +311,7 @@ function normalizedFileSchema<T extends z.ZodType>(category: string, cardSchema:
   return z
     .strictObject({
       schema: z.literal("ddbg-normalized-v0"),
-      dictionary_version: z.literal("1.2"),
+      dictionary_version: z.literal("1.3"),
       category: z.literal(category),
       sources: sourcePairSchema,
       stats: statsSchema,

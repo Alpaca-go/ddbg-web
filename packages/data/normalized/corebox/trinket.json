@@ -1,11 +1,11 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.2",
+ "dictionary_version": "1.3",
  "category": "trinket",
  "sources": {
   "parsed": "extract/corebox/parsed/trinket.json",
   "raw": "extract/corebox/raw/trinket.json",
-  "dictionary": "dictionary/icon-dictionary-v1.2.json"
+  "dictionary": "dictionary/icon-dictionary-v1.3.json"
  },
  "stats": {
   "cards": 38,
@@ -619,24 +619,24 @@
     {
      "iconId": "da7dc436c3",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_da7dc436c3",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "b5ab209baa",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_b5ab209baa",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "level_badge",
+     "kind": "other",
+     "meaning_en": "Trinket level badge",
+     "meaning_zh": "饰品等级徽章",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "c72009d6f9",
@@ -679,9 +679,7 @@
     "unverified": true,
     "reasons": [
      "icon:595a8ad50f",
-     "icon:b5ab209baa",
-     "icon:c72009d6f9",
-     "icon:da7dc436c3"
+     "icon:c72009d6f9"
     ]
    }
   },
@@ -4111,13 +4109,13 @@
        "icon": {
         "iconId": "9f080685f9",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_9f080685f9",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "light",
+        "kind": "other",
+        "meaning_en": "Light (torch)",
+        "meaning_zh": "光照（火把）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -4247,13 +4245,13 @@
     {
      "iconId": "9f080685f9",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9f080685f9",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Light (torch)",
+     "meaning_zh": "光照（火把）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "ed3b7ac902",
@@ -4352,7 +4350,6 @@
     "reasons": [
      "icon:7d4f72667e",
      "icon:8c829e3754",
-     "icon:9f080685f9",
      "icon:cb0bebf0b6",
      "icon:ed3b7ac902",
      "icon:fc00a39cf5"
@@ -4524,13 +4521,13 @@
        "icon": {
         "iconId": "9f080685f9",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_9f080685f9",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "light",
+        "kind": "other",
+        "meaning_en": "Light (torch)",
+        "meaning_zh": "光照（火把）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -4629,13 +4626,13 @@
     {
      "iconId": "9f080685f9",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9f080685f9",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Light (torch)",
+     "meaning_zh": "光照（火把）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "33b2d5bc22",
@@ -4745,7 +4742,6 @@
     "reasons": [
      "icon:599b5b0881",
      "icon:92ee4154b9",
-     "icon:9f080685f9",
      "icon:c1d74de856",
      "icon:ee6aa010a5"
     ]
@@ -5767,13 +5763,13 @@
        "icon": {
         "iconId": "49cd46c0d4",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_49cd46c0d4",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "light",
+        "kind": "other",
+        "meaning_en": "Light (torch)",
+        "meaning_zh": "光照（火把）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -5848,13 +5844,13 @@
     {
      "iconId": "49cd46c0d4",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_49cd46c0d4",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "light",
+     "kind": "other",
+     "meaning_en": "Light (torch)",
+     "meaning_zh": "光照（火把）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "33b2d5bc22",
@@ -5962,7 +5958,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:49cd46c0d4",
      "icon:bc084f9ee3",
      "icon:be2e32545a",
      "icon:ed3b7ac902"
