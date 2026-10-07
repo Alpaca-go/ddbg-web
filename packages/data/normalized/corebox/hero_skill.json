@@ -1,11 +1,11 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.3",
+ "dictionary_version": "1.4",
  "category": "hero_skill",
  "sources": {
   "parsed": "extract/corebox/parsed/hero_skill.json",
   "raw": "extract/corebox/raw/hero_skill.json",
-  "dictionary": "dictionary/icon-dictionary-v1.3.json"
+  "dictionary": "dictionary/icon-dictionary-v1.4.json"
  },
  "stats": {
   "cards": 231,
@@ -12866,11 +12866,11 @@
     {
      "iconId": "c2cd1b99ba",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c2cd1b99ba",
+     "status": "needs_review",
+     "key": "pending_c2cd1b99ba",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (If It Bleeds, HELLION)",
+     "meaning_zh": "待确认图形：技能卡背面切图（If It Bleeds，HELLION）",
      "value": null,
      "naming": "unverified"
     }
@@ -13325,11 +13325,11 @@
     {
      "iconId": "c2cd1b99ba",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c2cd1b99ba",
+     "status": "needs_review",
+     "key": "pending_c2cd1b99ba",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (If It Bleeds, HELLION)",
+     "meaning_zh": "待确认图形：技能卡背面切图（If It Bleeds，HELLION）",
      "value": null,
      "naming": "unverified"
     }
@@ -13773,11 +13773,11 @@
     {
      "iconId": "c2cd1b99ba",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c2cd1b99ba",
+     "status": "needs_review",
+     "key": "pending_c2cd1b99ba",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (If It Bleeds, HELLION)",
+     "meaning_zh": "待确认图形：技能卡背面切图（If It Bleeds，HELLION）",
      "value": null,
      "naming": "unverified"
     }
@@ -16824,11 +16824,11 @@
       "icon": {
        "iconId": "8466c441ea",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_8466c441ea",
+       "status": "needs_review",
+       "key": "pending_8466c441ea",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: skill-card front crop (Bleed Out, HELLION)",
+       "meaning_zh": "待确认图形：技能卡正面切图（Bleed Out，HELLION）",
        "value": null,
        "naming": "unverified"
       }
@@ -17131,11 +17131,11 @@
     {
      "iconId": "8466c441ea",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_8466c441ea",
+     "status": "needs_review",
+     "key": "pending_8466c441ea",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Bleed Out, HELLION)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Bleed Out，HELLION）",
      "value": null,
      "naming": "unverified"
     },
@@ -17349,11 +17349,11 @@
       "icon": {
        "iconId": "8466c441ea",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_8466c441ea",
+       "status": "needs_review",
+       "key": "pending_8466c441ea",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: skill-card front crop (Bleed Out, HELLION)",
+       "meaning_zh": "待确认图形：技能卡正面切图（Bleed Out，HELLION）",
        "value": null,
        "naming": "unverified"
       }
@@ -17656,11 +17656,11 @@
     {
      "iconId": "8466c441ea",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_8466c441ea",
+     "status": "needs_review",
+     "key": "pending_8466c441ea",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Bleed Out, HELLION)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Bleed Out，HELLION）",
      "value": null,
      "naming": "unverified"
     },
@@ -17874,11 +17874,11 @@
       "icon": {
        "iconId": "8466c441ea",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_8466c441ea",
+       "status": "needs_review",
+       "key": "pending_8466c441ea",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: skill-card front crop (Bleed Out, HELLION)",
+       "meaning_zh": "待确认图形：技能卡正面切图（Bleed Out，HELLION）",
        "value": null,
        "naming": "unverified"
       }
@@ -18181,11 +18181,11 @@
     {
      "iconId": "8466c441ea",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_8466c441ea",
+     "status": "needs_review",
+     "key": "pending_8466c441ea",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Bleed Out, HELLION)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Bleed Out，HELLION）",
      "value": null,
      "naming": "unverified"
     },
@@ -18498,11 +18498,11 @@
     {
      "iconId": "c4c35d755b",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c4c35d755b",
+     "status": "needs_review",
+     "key": "pending_c4c35d755b",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Collect Bounty, BOUNTY HUNTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Collect Bounty，BOUNTY HUNTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -18629,11 +18629,11 @@
     {
      "iconId": "c4c35d755b",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c4c35d755b",
+     "status": "needs_review",
+     "key": "pending_c4c35d755b",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Collect Bounty, BOUNTY HUNTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Collect Bounty，BOUNTY HUNTER）",
      "value": null,
      "naming": "unverified"
     },
@@ -19045,11 +19045,11 @@
     {
      "iconId": "c4c35d755b",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c4c35d755b",
+     "status": "needs_review",
+     "key": "pending_c4c35d755b",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Collect Bounty, BOUNTY HUNTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Collect Bounty，BOUNTY HUNTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -19176,11 +19176,11 @@
     {
      "iconId": "c4c35d755b",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c4c35d755b",
+     "status": "needs_review",
+     "key": "pending_c4c35d755b",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Collect Bounty, BOUNTY HUNTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Collect Bounty，BOUNTY HUNTER）",
      "value": null,
      "naming": "unverified"
     },
@@ -19583,11 +19583,11 @@
     {
      "iconId": "c4c35d755b",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c4c35d755b",
+     "status": "needs_review",
+     "key": "pending_c4c35d755b",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Collect Bounty, BOUNTY HUNTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Collect Bounty，BOUNTY HUNTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -19714,11 +19714,11 @@
     {
      "iconId": "c4c35d755b",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c4c35d755b",
+     "status": "needs_review",
+     "key": "pending_c4c35d755b",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Collect Bounty, BOUNTY HUNTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Collect Bounty，BOUNTY HUNTER）",
      "value": null,
      "naming": "unverified"
     },
@@ -25232,11 +25232,11 @@
     {
      "iconId": "e2e32e952c",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e2e32e952c",
+     "status": "needs_review",
+     "key": "pending_e2e32e952c",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Finish Him, BOUNTY HUNTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Finish Him，BOUNTY HUNTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -25363,11 +25363,11 @@
     {
      "iconId": "e2e32e952c",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e2e32e952c",
+     "status": "needs_review",
+     "key": "pending_e2e32e952c",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Finish Him, BOUNTY HUNTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Finish Him，BOUNTY HUNTER）",
      "value": null,
      "naming": "unverified"
     },
@@ -25708,11 +25708,11 @@
     {
      "iconId": "e2e32e952c",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e2e32e952c",
+     "status": "needs_review",
+     "key": "pending_e2e32e952c",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Finish Him, BOUNTY HUNTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Finish Him，BOUNTY HUNTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -25839,11 +25839,11 @@
     {
      "iconId": "e2e32e952c",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e2e32e952c",
+     "status": "needs_review",
+     "key": "pending_e2e32e952c",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Finish Him, BOUNTY HUNTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Finish Him，BOUNTY HUNTER）",
      "value": null,
      "naming": "unverified"
     },
@@ -26184,11 +26184,11 @@
     {
      "iconId": "e2e32e952c",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e2e32e952c",
+     "status": "needs_review",
+     "key": "pending_e2e32e952c",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Finish Him, BOUNTY HUNTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Finish Him，BOUNTY HUNTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -26315,11 +26315,11 @@
     {
      "iconId": "e2e32e952c",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e2e32e952c",
+     "status": "needs_review",
+     "key": "pending_e2e32e952c",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Finish Him, BOUNTY HUNTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Finish Him，BOUNTY HUNTER）",
      "value": null,
      "naming": "unverified"
     },
@@ -30916,11 +30916,11 @@
     {
      "iconId": "9b1c9ceceb",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9b1c9ceceb",
+     "status": "needs_review",
+     "key": "pending_9b1c9ceceb",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Point Blank Shot, HIGHWAYMAN)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Point Blank Shot，HIGHWAYMAN）",
      "value": null,
      "naming": "unverified"
     }
@@ -31397,11 +31397,11 @@
     {
      "iconId": "9b1c9ceceb",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9b1c9ceceb",
+     "status": "needs_review",
+     "key": "pending_9b1c9ceceb",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Point Blank Shot, HIGHWAYMAN)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Point Blank Shot，HIGHWAYMAN）",
      "value": null,
      "naming": "unverified"
     }
@@ -31867,11 +31867,11 @@
     {
      "iconId": "9b1c9ceceb",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9b1c9ceceb",
+     "status": "needs_review",
+     "key": "pending_9b1c9ceceb",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Point Blank Shot, HIGHWAYMAN)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Point Blank Shot，HIGHWAYMAN）",
      "value": null,
      "naming": "unverified"
     }
@@ -40630,11 +40630,11 @@
     {
      "iconId": "c2a7b05acc",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c2a7b05acc",
+     "status": "needs_review",
+     "key": "pending_c2a7b05acc",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Dazzling Light, VESTAL)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Dazzling Light，VESTAL）",
      "value": null,
      "naming": "unverified"
     }
@@ -41098,11 +41098,11 @@
     {
      "iconId": "c2a7b05acc",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c2a7b05acc",
+     "status": "needs_review",
+     "key": "pending_c2a7b05acc",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Dazzling Light, VESTAL)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Dazzling Light，VESTAL）",
      "value": null,
      "naming": "unverified"
     }
@@ -41555,11 +41555,11 @@
     {
      "iconId": "c2a7b05acc",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c2a7b05acc",
+     "status": "needs_review",
+     "key": "pending_c2a7b05acc",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Dazzling Light, VESTAL)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Dazzling Light，VESTAL）",
      "value": null,
      "naming": "unverified"
     }
@@ -44743,11 +44743,11 @@
     {
      "iconId": "9e94361eed",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9e94361eed",
+     "status": "needs_review",
+     "key": "pending_9e94361eed",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Illumination, VESTAL)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Illumination，VESTAL）",
      "value": null,
      "naming": "unverified"
     }
@@ -44874,11 +44874,11 @@
     {
      "iconId": "9e94361eed",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9e94361eed",
+     "status": "needs_review",
+     "key": "pending_9e94361eed",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Illumination, VESTAL)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Illumination，VESTAL）",
      "value": null,
      "naming": "unverified"
     },
@@ -45221,11 +45221,11 @@
     {
      "iconId": "9e94361eed",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9e94361eed",
+     "status": "needs_review",
+     "key": "pending_9e94361eed",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Illumination, VESTAL)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Illumination，VESTAL）",
      "value": null,
      "naming": "unverified"
     }
@@ -45352,11 +45352,11 @@
     {
      "iconId": "9e94361eed",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9e94361eed",
+     "status": "needs_review",
+     "key": "pending_9e94361eed",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Illumination, VESTAL)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Illumination，VESTAL）",
      "value": null,
      "naming": "unverified"
     },
@@ -45699,11 +45699,11 @@
     {
      "iconId": "9e94361eed",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9e94361eed",
+     "status": "needs_review",
+     "key": "pending_9e94361eed",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Illumination, VESTAL)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Illumination，VESTAL）",
      "value": null,
      "naming": "unverified"
     }
@@ -45830,11 +45830,11 @@
     {
      "iconId": "9e94361eed",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9e94361eed",
+     "status": "needs_review",
+     "key": "pending_9e94361eed",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Illumination, VESTAL)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Illumination，VESTAL）",
      "value": null,
      "naming": "unverified"
     },
@@ -47649,11 +47649,11 @@
       "icon": {
        "iconId": "a2e7252e06",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_a2e7252e06",
+       "status": "needs_review",
+       "key": "pending_a2e7252e06",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
+       "meaning_zh": "待确认图形：技能卡正面切图（Dirk Stab，JESTER）",
        "value": null,
        "naming": "unverified"
       }
@@ -47940,11 +47940,11 @@
     {
      "iconId": "a2e7252e06",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a2e7252e06",
+     "status": "needs_review",
+     "key": "pending_a2e7252e06",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Dirk Stab，JESTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -48101,11 +48101,11 @@
       "icon": {
        "iconId": "a2e7252e06",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_a2e7252e06",
+       "status": "needs_review",
+       "key": "pending_a2e7252e06",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
+       "meaning_zh": "待确认图形：技能卡正面切图（Dirk Stab，JESTER）",
        "value": null,
        "naming": "unverified"
       }
@@ -48392,11 +48392,11 @@
     {
      "iconId": "a2e7252e06",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a2e7252e06",
+     "status": "needs_review",
+     "key": "pending_a2e7252e06",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Dirk Stab，JESTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -48553,11 +48553,11 @@
       "icon": {
        "iconId": "a2e7252e06",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_a2e7252e06",
+       "status": "needs_review",
+       "key": "pending_a2e7252e06",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
+       "meaning_zh": "待确认图形：技能卡正面切图（Dirk Stab，JESTER）",
        "value": null,
        "naming": "unverified"
       }
@@ -48844,11 +48844,11 @@
     {
      "iconId": "a2e7252e06",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a2e7252e06",
+     "status": "needs_review",
+     "key": "pending_a2e7252e06",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Dirk Stab，JESTER）",
      "value": null,
      "naming": "unverified"
     }
@@ -59029,11 +59029,11 @@
     {
      "iconId": "76d6c779d0",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_76d6c779d0",
+     "status": "needs_review",
+     "key": "pending_76d6c779d0",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Plague Grenade, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Plague Grenade，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -59518,11 +59518,11 @@
     {
      "iconId": "76d6c779d0",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_76d6c779d0",
+     "status": "needs_review",
+     "key": "pending_76d6c779d0",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Plague Grenade, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Plague Grenade，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -59996,11 +59996,11 @@
     {
      "iconId": "76d6c779d0",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_76d6c779d0",
+     "status": "needs_review",
+     "key": "pending_76d6c779d0",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Plague Grenade, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Plague Grenade，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -61175,11 +61175,11 @@
     {
      "iconId": "d7181ca8ff",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d7181ca8ff",
+     "status": "needs_review",
+     "key": "pending_d7181ca8ff",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Incision, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Incision，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -61306,11 +61306,11 @@
     {
      "iconId": "d7181ca8ff",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d7181ca8ff",
+     "status": "needs_review",
+     "key": "pending_d7181ca8ff",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Incision, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Incision，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     },
@@ -61635,11 +61635,11 @@
     {
      "iconId": "d7181ca8ff",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d7181ca8ff",
+     "status": "needs_review",
+     "key": "pending_d7181ca8ff",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Incision, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Incision，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -61766,11 +61766,11 @@
     {
      "iconId": "d7181ca8ff",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d7181ca8ff",
+     "status": "needs_review",
+     "key": "pending_d7181ca8ff",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Incision, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Incision，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     },
@@ -62095,11 +62095,11 @@
     {
      "iconId": "d7181ca8ff",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d7181ca8ff",
+     "status": "needs_review",
+     "key": "pending_d7181ca8ff",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Incision, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Incision，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -62226,11 +62226,11 @@
     {
      "iconId": "d7181ca8ff",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d7181ca8ff",
+     "status": "needs_review",
+     "key": "pending_d7181ca8ff",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Incision, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Incision，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     },
@@ -62520,11 +62520,11 @@
     {
      "iconId": "f90d1acdf5",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f90d1acdf5",
+     "status": "needs_review",
+     "key": "pending_f90d1acdf5",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Battlefield Medicine, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Battlefield Medicine，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -62687,11 +62687,11 @@
     {
      "iconId": "f90d1acdf5",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f90d1acdf5",
+     "status": "needs_review",
+     "key": "pending_f90d1acdf5",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Battlefield Medicine, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Battlefield Medicine，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     },
@@ -63059,13 +63059,13 @@
       "icon": {
        "iconId": "6d7ce0f38a",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_6d7ce0f38a",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "bleed",
+       "kind": "status",
+       "meaning_en": "Bleed (amount, duration follows)",
+       "meaning_zh": "流血（后接数值/回合）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -63138,11 +63138,11 @@
     {
      "iconId": "f90d1acdf5",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f90d1acdf5",
+     "status": "needs_review",
+     "key": "pending_f90d1acdf5",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Battlefield Medicine, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Battlefield Medicine，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -63305,11 +63305,11 @@
     {
      "iconId": "f90d1acdf5",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f90d1acdf5",
+     "status": "needs_review",
+     "key": "pending_f90d1acdf5",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Battlefield Medicine, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Battlefield Medicine，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     },
@@ -63470,13 +63470,13 @@
     {
      "iconId": "6d7ce0f38a",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_6d7ce0f38a",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (amount, duration follows)",
+     "meaning_zh": "流血（后接数值/回合）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "c7faf2bc86",
@@ -63529,7 +63529,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:6d7ce0f38a",
      "icon:e6ed21fb6b",
      "icon:f90d1acdf5"
     ]
@@ -63733,13 +63732,13 @@
       "icon": {
        "iconId": "6d7ce0f38a",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_6d7ce0f38a",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "bleed",
+       "kind": "status",
+       "meaning_en": "Bleed (amount, duration follows)",
+       "meaning_zh": "流血（后接数值/回合）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -63812,11 +63811,11 @@
     {
      "iconId": "f90d1acdf5",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f90d1acdf5",
+     "status": "needs_review",
+     "key": "pending_f90d1acdf5",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Battlefield Medicine, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Battlefield Medicine，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -63979,11 +63978,11 @@
     {
      "iconId": "f90d1acdf5",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f90d1acdf5",
+     "status": "needs_review",
+     "key": "pending_f90d1acdf5",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Battlefield Medicine, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Battlefield Medicine，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     },
@@ -64144,13 +64143,13 @@
     {
      "iconId": "6d7ce0f38a",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_6d7ce0f38a",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (amount, duration follows)",
+     "meaning_zh": "流血（后接数值/回合）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "c7faf2bc86",
@@ -64192,7 +64191,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:6d7ce0f38a",
      "icon:e6ed21fb6b",
      "icon:f90d1acdf5"
     ]
@@ -64374,11 +64372,11 @@
     {
      "iconId": "9549079d98",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9549079d98",
+     "status": "needs_review",
+     "key": "pending_9549079d98",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Emboldening Vapours, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Emboldening Vapours，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -64432,11 +64430,11 @@
     {
      "iconId": "9549079d98",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9549079d98",
+     "status": "needs_review",
+     "key": "pending_9549079d98",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Emboldening Vapours, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Emboldening Vapours，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     },
@@ -64783,11 +64781,11 @@
     {
      "iconId": "9549079d98",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9549079d98",
+     "status": "needs_review",
+     "key": "pending_9549079d98",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Emboldening Vapours, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Emboldening Vapours，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -64841,11 +64839,11 @@
     {
      "iconId": "9549079d98",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9549079d98",
+     "status": "needs_review",
+     "key": "pending_9549079d98",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Emboldening Vapours, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Emboldening Vapours，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     },
@@ -65214,11 +65212,11 @@
     {
      "iconId": "9549079d98",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9549079d98",
+     "status": "needs_review",
+     "key": "pending_9549079d98",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Emboldening Vapours, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Emboldening Vapours，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -65272,11 +65270,11 @@
     {
      "iconId": "9549079d98",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9549079d98",
+     "status": "needs_review",
+     "key": "pending_9549079d98",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Emboldening Vapours, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Emboldening Vapours，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     },
@@ -65559,11 +65557,11 @@
     {
      "iconId": "9ccc5f38ce",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9ccc5f38ce",
+     "status": "needs_review",
+     "key": "pending_9ccc5f38ce",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Disorienting Blast, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Disorienting Blast，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -65622,11 +65620,11 @@
     {
      "iconId": "9ccc5f38ce",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9ccc5f38ce",
+     "status": "needs_review",
+     "key": "pending_9ccc5f38ce",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Disorienting Blast, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Disorienting Blast，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     },
@@ -65910,11 +65908,11 @@
     {
      "iconId": "9ccc5f38ce",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9ccc5f38ce",
+     "status": "needs_review",
+     "key": "pending_9ccc5f38ce",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Disorienting Blast, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Disorienting Blast，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -65973,11 +65971,11 @@
     {
      "iconId": "9ccc5f38ce",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9ccc5f38ce",
+     "status": "needs_review",
+     "key": "pending_9ccc5f38ce",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Disorienting Blast, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Disorienting Blast，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     },
@@ -66261,11 +66259,11 @@
     {
      "iconId": "9ccc5f38ce",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9ccc5f38ce",
+     "status": "needs_review",
+     "key": "pending_9ccc5f38ce",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Disorienting Blast, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Disorienting Blast，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     }
@@ -66324,11 +66322,11 @@
     {
      "iconId": "9ccc5f38ce",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9ccc5f38ce",
+     "status": "needs_review",
+     "key": "pending_9ccc5f38ce",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Disorienting Blast, PLAGUE DOCTOR)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Disorienting Blast，PLAGUE DOCTOR）",
      "value": null,
      "naming": "unverified"
     },
@@ -70680,11 +70678,11 @@
     {
      "iconId": "7a3d67e92f",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7a3d67e92f",
+     "status": "needs_review",
+     "key": "pending_7a3d67e92f",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Bola, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Bola，ARBALEST）",
      "value": null,
      "naming": "unverified"
     }
@@ -71191,11 +71189,11 @@
     {
      "iconId": "7a3d67e92f",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7a3d67e92f",
+     "status": "needs_review",
+     "key": "pending_7a3d67e92f",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Bola, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Bola，ARBALEST）",
      "value": null,
      "naming": "unverified"
     }
@@ -71691,11 +71689,11 @@
     {
      "iconId": "7a3d67e92f",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7a3d67e92f",
+     "status": "needs_review",
+     "key": "pending_7a3d67e92f",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Bola, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Bola，ARBALEST）",
      "value": null,
      "naming": "unverified"
     }
@@ -74971,11 +74969,11 @@
     {
      "iconId": "e1c93c4fb4",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e1c93c4fb4",
+     "status": "needs_review",
+     "key": "pending_e1c93c4fb4",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Rallying Flare, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Rallying Flare，ARBALEST）",
      "value": null,
      "naming": "unverified"
     }
@@ -75525,11 +75523,11 @@
     {
      "iconId": "e1c93c4fb4",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e1c93c4fb4",
+     "status": "needs_review",
+     "key": "pending_e1c93c4fb4",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Rallying Flare, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Rallying Flare，ARBALEST）",
      "value": null,
      "naming": "unverified"
     }
@@ -76079,11 +76077,11 @@
     {
      "iconId": "e1c93c4fb4",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_e1c93c4fb4",
+     "status": "needs_review",
+     "key": "pending_e1c93c4fb4",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Rallying Flare, ARBALEST)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Rallying Flare，ARBALEST）",
      "value": null,
      "naming": "unverified"
     }
@@ -84613,11 +84611,11 @@
     {
      "iconId": "a4e2c0e58e",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a4e2c0e58e",
+     "status": "needs_review",
+     "key": "pending_a4e2c0e58e",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Toxin Trickery, GRAVE ROBBER)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Toxin Trickery，GRAVE ROBBER）",
      "value": null,
      "naming": "unverified"
     }
@@ -85165,11 +85163,11 @@
     {
      "iconId": "a4e2c0e58e",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a4e2c0e58e",
+     "status": "needs_review",
+     "key": "pending_a4e2c0e58e",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Toxin Trickery, GRAVE ROBBER)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Toxin Trickery，GRAVE ROBBER）",
      "value": null,
      "naming": "unverified"
     }
@@ -85735,11 +85733,11 @@
     {
      "iconId": "a4e2c0e58e",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a4e2c0e58e",
+     "status": "needs_review",
+     "key": "pending_a4e2c0e58e",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card back crop (Toxin Trickery, GRAVE ROBBER)",
+     "meaning_zh": "待确认图形：技能卡背面切图（Toxin Trickery，GRAVE ROBBER）",
      "value": null,
      "naming": "unverified"
     }
@@ -96884,11 +96882,11 @@
     {
      "iconId": "91b6ebfa9d",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_91b6ebfa9d",
+     "status": "needs_review",
+     "key": "pending_91b6ebfa9d",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Beast’s Bile, ABOMINATION)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Beast’s Bile，ABOMINATION）",
      "value": null,
      "naming": "unverified"
     }
@@ -97044,11 +97042,11 @@
     {
      "iconId": "91b6ebfa9d",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_91b6ebfa9d",
+     "status": "needs_review",
+     "key": "pending_91b6ebfa9d",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Beast’s Bile, ABOMINATION)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Beast’s Bile，ABOMINATION）",
      "value": null,
      "naming": "unverified"
     },
@@ -97394,11 +97392,11 @@
     {
      "iconId": "91b6ebfa9d",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_91b6ebfa9d",
+     "status": "needs_review",
+     "key": "pending_91b6ebfa9d",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Beast’s Bile, ABOMINATION)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Beast’s Bile，ABOMINATION）",
      "value": null,
      "naming": "unverified"
     }
@@ -97554,11 +97552,11 @@
     {
      "iconId": "91b6ebfa9d",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_91b6ebfa9d",
+     "status": "needs_review",
+     "key": "pending_91b6ebfa9d",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Beast’s Bile, ABOMINATION)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Beast’s Bile，ABOMINATION）",
      "value": null,
      "naming": "unverified"
     },
@@ -97904,11 +97902,11 @@
     {
      "iconId": "91b6ebfa9d",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_91b6ebfa9d",
+     "status": "needs_review",
+     "key": "pending_91b6ebfa9d",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Beast’s Bile, ABOMINATION)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Beast’s Bile，ABOMINATION）",
      "value": null,
      "naming": "unverified"
     }
@@ -98064,11 +98062,11 @@
     {
      "iconId": "91b6ebfa9d",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_91b6ebfa9d",
+     "status": "needs_review",
+     "key": "pending_91b6ebfa9d",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skill-card front crop (Beast’s Bile, ABOMINATION)",
+     "meaning_zh": "待确认图形：技能卡正面切图（Beast’s Bile，ABOMINATION）",
      "value": null,
      "naming": "unverified"
     },
