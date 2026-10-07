@@ -9,8 +9,8 @@
  },
  "stats": {
   "cards": 54,
-  "verified": 34,
-  "unverified": 20
+  "verified": 38,
+  "unverified": 16
  },
  "cards": [
   {
@@ -3762,13 +3762,13 @@
     {
      "iconId": "a11d67845d",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a11d67845d",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "39b6880840",
@@ -3851,10 +3851,8 @@
    "back_icons": [],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:a11d67845d"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "life": 10,
    "life_icon": {
@@ -4621,13 +4619,13 @@
       "icon": {
        "iconId": "a11d67845d",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_a11d67845d",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -6161,13 +6159,13 @@
     {
      "iconId": "c959195d7a",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c959195d7a",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_aggressive_monster_slot",
+     "kind": "position",
+     "meaning_en": "Monster stance slot: Aggressive (sword, variant)",
+     "meaning_zh": "怪物站位栏：进攻（变体）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0ba73142d3",
@@ -6194,13 +6192,13 @@
     {
      "iconId": "bade862391",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_bade862391",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_defensive_monster_slot",
+     "kind": "position",
+     "meaning_en": "Monster stance slot: Defensive (shield) with skill numbers",
+     "meaning_zh": "怪物站位栏：防御（盾）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "7c7de22bc1",
@@ -6305,11 +6303,8 @@
    "back_icons": [],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:bade862391",
-     "icon:c959195d7a"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "life": 15,
    "life_icon": {
@@ -6836,13 +6831,13 @@
       "icon": {
        "iconId": "c959195d7a",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_c959195d7a",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "stance_aggressive_monster_slot",
+       "kind": "position",
+       "meaning_en": "Monster stance slot: Aggressive (sword, variant)",
+       "meaning_zh": "怪物站位栏：进攻（变体）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -6890,13 +6885,13 @@
       "icon": {
        "iconId": "bade862391",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_bade862391",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "confirmed",
+       "key": "stance_defensive_monster_slot",
+       "kind": "position",
+       "meaning_en": "Monster stance slot: Defensive (shield) with skill numbers",
+       "meaning_zh": "怪物站位栏：防御（盾）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -15007,11 +15002,11 @@
     {
      "iconId": "93a5ef3193",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_93a5ef3193",
+     "status": "needs_review",
+     "key": "pending_93a5ef3193",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: grey irregular fragment",
+     "meaning_zh": "待确认图形：灰色不规则碎块",
      "value": null,
      "naming": "unverified"
     },
@@ -15680,11 +15675,11 @@
       "icon": {
        "iconId": "93a5ef3193",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_93a5ef3193",
+       "status": "needs_review",
+       "key": "pending_93a5ef3193",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: grey irregular fragment",
+       "meaning_zh": "待确认图形：灰色不规则碎块",
        "value": null,
        "naming": "unverified"
       }
@@ -23279,13 +23274,13 @@
     {
      "iconId": "640fbb40d9",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_640fbb40d9",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "9b5a930869",
@@ -23563,7 +23558,6 @@
      "icon:45374c6b75",
      "icon:5151e45bfe",
      "icon:58d98cda2c",
-     "icon:640fbb40d9",
      "icon:6d72c109ca",
      "icon:700b4f59f9",
      "icon:883e50be3d",
@@ -23807,13 +23801,13 @@
       "icon": {
        "iconId": "640fbb40d9",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_640fbb40d9",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -31801,13 +31795,13 @@
     {
      "iconId": "75f7f3eb72",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_75f7f3eb72",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "debuff",
+     "kind": "status",
+     "meaning_en": "Debuff",
+     "meaning_zh": "减益",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "8c17caf335",
@@ -32022,10 +32016,8 @@
    "back_icons": [],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:75f7f3eb72"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "life": 22,
    "life_icon": {
@@ -32207,13 +32199,13 @@
         "icon": {
          "iconId": "75f7f3eb72",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_75f7f3eb72",
-         "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "status": "confirmed",
+         "key": "debuff",
+         "kind": "status",
+         "meaning_en": "Debuff",
+         "meaning_zh": "减益",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        },
        {
@@ -32429,13 +32421,13 @@
         "icon": {
          "iconId": "75f7f3eb72",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_75f7f3eb72",
-         "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "status": "confirmed",
+         "key": "debuff",
+         "kind": "status",
+         "meaning_en": "Debuff",
+         "meaning_zh": "减益",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        },
        {
@@ -36136,13 +36128,13 @@
     {
      "iconId": "c4fb0a1961",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c4fb0a1961",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (amount, duration follows)",
+     "meaning_zh": "流血（后接数值/回合）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "5729151bda",
@@ -36357,10 +36349,8 @@
    "back_icons": [],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:c4fb0a1961"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "life": 26,
    "life_icon": {
@@ -36770,13 +36760,13 @@
         "icon": {
          "iconId": "c4fb0a1961",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_c4fb0a1961",
-         "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "status": "confirmed",
+         "key": "bleed",
+         "kind": "status",
+         "meaning_en": "Bleed (amount, duration follows)",
+         "meaning_zh": "流血（后接数值/回合）",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        },
        {
@@ -36956,13 +36946,13 @@
         "icon": {
          "iconId": "c4fb0a1961",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_c4fb0a1961",
-         "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "status": "confirmed",
+         "key": "bleed",
+         "kind": "status",
+         "meaning_en": "Bleed (amount, duration follows)",
+         "meaning_zh": "流血（后接数值/回合）",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        },
        {
@@ -63632,13 +63622,13 @@
     {
      "iconId": "9051eb737b",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9051eb737b",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "blight_resist",
+     "kind": "resist",
+     "meaning_en": "Blight (resistances/immunities)",
+     "meaning_zh": "枯萎（抗性/免疫）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "6b42b1059d",
@@ -64110,8 +64100,7 @@
     "unverified": true,
     "reasons": [
      "icon:0fa12b226d",
-     "icon:6b42b1059d",
-     "icon:9051eb737b"
+     "icon:6b42b1059d"
     ]
    },
    "life": 50,
@@ -64164,13 +64153,13 @@
     {
      "iconId": "9051eb737b",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9051eb737b",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "blight_resist",
+     "kind": "resist",
+     "meaning_en": "Blight (resistances/immunities)",
+     "meaning_zh": "枯萎（抗性/免疫）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "header_unlabeled_numbers": [

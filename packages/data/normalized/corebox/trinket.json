@@ -1717,11 +1717,11 @@
     {
      "iconId": "a08da49488",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a08da49488",
+     "status": "needs_review",
+     "key": "pending_a08da49488",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: trinket illustration",
+     "meaning_zh": "待确认图形：饰品插图",
      "value": null,
      "naming": "unverified"
     },
@@ -1994,11 +1994,11 @@
     {
      "iconId": "a08da49488",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a08da49488",
+     "status": "needs_review",
+     "key": "pending_a08da49488",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: trinket illustration",
+     "meaning_zh": "待确认图形：饰品插图",
      "value": null,
      "naming": "unverified"
     },

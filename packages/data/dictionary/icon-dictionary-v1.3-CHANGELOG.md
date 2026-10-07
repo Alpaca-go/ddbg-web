@@ -1,8 +1,8 @@
 # 图标词典 v1.3 更新记录（2026-10-07）
 
-Kyries 于 2026-10-07 批准 batch-01 的 40 条决定。只改这 40 条，其余与 v1.2 相同。只含含义，不含图片。
+Kyries 于 2026-10-07 批准 batch-01（40 条）和 batch-02（29 条），同一版 v1.3。只改这 69 条，其余与 v1.2 相同。只含含义，不含图片。
 
-合并与标成装饰的行，以及 r539 的留下，`source` 为 `kyries_approved_proposal_2026-10-07`。r195、r216 的 `source` 仍是 `followup_proposal_2026-10-07`：留下这个决定已批准，v1.2 里未批准的提议含义仍在 `proposal`，没有当成正式命名（R-048）。
+合并与标成装饰的行，以及本版新留下的行，`source` 为 `kyries_approved_proposal_2026-10-07`。r195、r216 的 `source` 仍是 `followup_proposal_2026-10-07`：留下这个决定已批准，v1.2 里未批准的提议含义仍在 `proposal`，没有当成正式命名（R-048）。
 
 ## 31 条并入已确认图标
 
@@ -55,13 +55,43 @@ key 为 `pending_<iconId>`，kind 为空，含义只描述外观。
 - rank 195、216：维持 v1.2 的占位，不并入含义本身仍待确认的条目。
 - rank 539：从 `unreviewed` 改为 `needs_review`。技能卡背面英雄名后的插画，不并入 r490。没有新的正式 key。
 
+## batch-02：9 条并入已确认图标
+
+合并行同样复制目标的 status、含义、kind、key、value、`rulebook_refs`。备注写 `merged_into=<iconId>`。
+
+| rank | 并入 | key |
+| --- | --- | --- |
+| 526 | r89 | debuff |
+| 551 | r250 | bleed_resist |
+| 588 | r38 | stance_defensive_monster_slot |
+| 600 | r106 | bleed |
+| 605 | r57 | stance_aggressive_monster_slot |
+| 658 | r487 | text_plate |
+| 718 | r344 | debuff |
+| 808 | r44 | stance_ranged_monster_slot |
+| 834 | r254 | blight_resist |
+
+## batch-02：3 条标成装饰
+
+rank 566、807、889。key 为 `decor`。
+
+## batch-02：17 条留下，仍是 needs_review
+
+key 为 `pending_<iconId>`，kind 为空，含义只描述外观。没有写成 `skill_art`。
+
+技能卡正背面插画不跨面合并。每条都是单独的 `pending_`，不并入对面那张插画：
+
+rank 528、533、540、550、555、559、570、571、591、594、609、614、617、626、628。
+
+另外留下：rank 714（饰品插图，不并入 r468）、rank 836（灰色碎块，不并入枯萎）。
+
 ## 计数
 
 | 范围 | confirmed | confirmed_rulebook | needs_review | decor | unsure | unreviewed |
 | --- | --- | --- | --- | --- | --- | --- |
 | 前 525 | 417 | 44 | 10 | 54 | 0 | 0 |
-| 全部 906 | 455 | 44 | 11 | 60 | 0 | 336 |
+| 全部 906 | 464 | 44 | 28 | 63 | 0 | 307 |
 
-confirmed + confirmed_rulebook + decor 的卡面出现次数：13,813 / 14,517（95.15%）。
+confirmed + confirmed_rulebook + decor 的卡面出现次数：13,839 / 14,517（95.33%）。
 
 v1.2 的变更说明仍在 `icon-dictionary-v1.2-CHANGELOG.md`。v1.1 的说明仍在 `icon-dictionary-v1.1-CHANGELOG.md`。

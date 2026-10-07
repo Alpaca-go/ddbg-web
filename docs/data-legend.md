@@ -18,19 +18,19 @@
 
 | status               | 条数（共 906） | 意思                                                                                         |
 | -------------------- | -------------: | -------------------------------------------------------------------------------------------- |
-| `confirmed`          |            455 | Kyries 已确认。可以用来命名。                                                                |
+| `confirmed`          |            464 | Kyries 已确认。可以用来命名。                                                                |
 | `confirmed_rulebook` |             44 | 官方规则书页码给出的含义，Kyries 已批准。可以用来命名。                                      |
-| `needs_review`       |             11 | Kyries 批准先留下。key 为 `pending_<iconId>`，kind 为空，含义只描述外观。按 R-048 保持占位。 |
-| `decor`              |             60 | 不是游戏图标（装饰、边框、画面碎片）。                                                       |
+| `needs_review`       |             28 | Kyries 批准先留下。key 为 `pending_<iconId>`，kind 为空，含义只描述外观。按 R-048 保持占位。 |
+| `decor`              |             63 | 不是游戏图标（装饰、边框、画面碎片）。                                                       |
 | `unsure`             |              0 | 审阅者不能确定。没有含义，key 为 `unknown_<iconId>`。                                        |
-| `unreviewed`         |            336 | 尚未审阅。没有含义，key 为 `unknown_<iconId>`。                                              |
+| `unreviewed`         |            307 | 尚未审阅。没有含义，key 为 `unknown_<iconId>`。                                              |
 
 `needs_review`、`unsure`、`unreviewed`，以及词典未收的 iconId，在规范化层标成未验证。含这些图标的卡在进入可用卡池之前保持未验证。
 
 ## 仍未确认的类别
 
-- 未审的 336 条没有含义。出现较多的印刷类别是 hero_skill、monster_medium、room、stygian_room、trinket，此外还有 hero_stat、monster_large、hero_pvp、disease、quirk、boss_ability、quest 等。地牢板块、村庄版图和打孔板上也有少量。
-- `needs_review` 的 11 条不能当作最终命名。rank：195、216、232、296、307、315、323、335、379、478、539。key 都是 `pending_<iconId>`。v1.2 留下的 10 条，提议仍在 `proposal` 里。r539 是 batch-01 留下的，只有外观描述，没有提议 key。
+- 未审的 307 条没有含义。出现较多的印刷类别是 hero_skill、monster_medium、room、stygian_room、trinket，此外还有 hero_stat、monster_large、hero_pvp、disease、quirk、boss_ability、quest 等。地牢板块、村庄版图和打孔板上也有少量。
+- `needs_review` 的 28 条不能当作最终命名。key 都是 `pending_<iconId>`。v1.2 留下的 10 条，提议仍在 `proposal` 里。batch-01 留下 r539。batch-02 留下 17 条：15 条技能卡正背面插画各自保留，不并入对面插画，也没有写成 `skill_art`；另有 r714（饰品插图）和 r836（灰色碎块）。
 - 规范化层里还有约 70 个词典未收的 iconId（多为饰品，没有切图）。v1.3 没有为它们命名。对照印刷 PDF 重切之后再审。
 - 继续算作装饰、规则书没有解释的图形：rank 121（火焰加数字）、rank 420（容纳点加灰色双箭头）。rank 239 在 v1.2 也标成装饰，和 125、420 同属双箭头。
 - `kind` 是自由词，用词尚未统一（词典 `inconsistencies` 的 `kind_vocabulary`）。
