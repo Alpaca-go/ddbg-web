@@ -1,16 +1,16 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.3",
+ "dictionary_version": "1.4",
  "category": "trinket",
  "sources": {
   "parsed": "extract/corebox/parsed/trinket.json",
   "raw": "extract/corebox/raw/trinket.json",
-  "dictionary": "dictionary/icon-dictionary-v1.3.json"
+  "dictionary": "dictionary/icon-dictionary-v1.4.json"
  },
  "stats": {
   "cards": 38,
-  "verified": 0,
-  "unverified": 38
+  "verified": 1,
+  "unverified": 37
  },
  "cards": [
   {
@@ -139,13 +139,13 @@
        "icon": {
         "iconId": "d8557730a4",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_d8557730a4",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_ranged_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Ranged (arrows) – lit (PvP card top row)",
+        "meaning_zh": "站位：远程（点亮，PvP卡顶行）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -180,13 +180,13 @@
     {
      "iconId": "d8557730a4",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d8557730a4",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_ranged_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Ranged (arrows) – lit (PvP card top row)",
+     "meaning_zh": "站位：远程（点亮，PvP卡顶行）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -240,8 +240,7 @@
     "unverified": true,
     "reasons": [
      "icon:3273bc5781",
-     "icon:7c928f9b47",
-     "icon:d8557730a4"
+     "icon:7c928f9b47"
     ]
    }
   },
@@ -512,13 +511,13 @@
     {
      "iconId": "fecb71daa7",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_fecb71daa7",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     }
    ],
    "back_icons": [
@@ -539,8 +538,7 @@
     "unverified": true,
     "reasons": [
      "icon:184487eb61",
-     "icon:c4673f6f5c",
-     "icon:fecb71daa7"
+     "icon:c4673f6f5c"
     ]
    }
   },
@@ -975,13 +973,13 @@
        "icon": {
         "iconId": "aa731a7f72",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_aa731a7f72",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "debuff",
+        "kind": "status",
+        "meaning_en": "Debuff",
+        "meaning_zh": "减益",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -1020,13 +1018,13 @@
     {
      "iconId": "aa731a7f72",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_aa731a7f72",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "debuff",
+     "kind": "status",
+     "meaning_en": "Debuff",
+     "meaning_zh": "减益",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "9ce5cbc01d",
@@ -1079,7 +1077,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:aa731a7f72",
      "icon:b93f44b5d8",
      "icon:e8277b12e9"
     ]
@@ -1108,13 +1105,13 @@
        "icon": {
         "iconId": "f4539842c2",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_f4539842c2",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_support_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Support (pillars) – lit (PvP card top row)",
+        "meaning_zh": "站位：支援（点亮，PvP卡顶行）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -1138,24 +1135,24 @@
     {
      "iconId": "c80192cfcc",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c80192cfcc",
+     "status": "needs_review",
+     "key": "pending_c80192cfcc",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: trinket illustration",
+     "meaning_zh": "待确认图形：饰品插图",
      "value": null,
      "naming": "unverified"
     },
     {
      "iconId": "f4539842c2",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f4539842c2",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_support_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Support (pillars) – lit (PvP card top row)",
+     "meaning_zh": "站位：支援（点亮，PvP卡顶行）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -1182,24 +1179,24 @@
     {
      "iconId": "032fd6cccd",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_032fd6cccd",
+     "status": "needs_review",
+     "key": "pending_032fd6cccd",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: closed wax-sealed book",
+     "meaning_zh": "待确认图形：合上的封蜡古书",
      "value": null,
      "naming": "unverified"
     },
     {
      "iconId": "fecb71daa7",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_fecb71daa7",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     }
    ],
    "back_icons": [
@@ -1220,9 +1217,7 @@
     "unverified": true,
     "reasons": [
      "icon:032fd6cccd",
-     "icon:c80192cfcc",
-     "icon:f4539842c2",
-     "icon:fecb71daa7"
+     "icon:c80192cfcc"
     ]
    }
   },
@@ -1316,11 +1311,11 @@
        "icon": {
         "iconId": "003b470410",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_003b470410",
+        "status": "needs_review",
+        "key": "pending_003b470410",
         "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "meaning_en": "Unconfirmed glyph: gold jagged silhouette",
+        "meaning_zh": "待确认图形：金黄锯齿剪影",
         "value": null,
         "naming": "unverified"
        }
@@ -1403,11 +1398,11 @@
     {
      "iconId": "003b470410",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_003b470410",
+     "status": "needs_review",
+     "key": "pending_003b470410",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: gold jagged silhouette",
+     "meaning_zh": "待确认图形：金黄锯齿剪影",
      "value": null,
      "naming": "unverified"
     },
@@ -1878,13 +1873,13 @@
     {
      "iconId": "fe18ec5b80",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_fe18ec5b80",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_aggressive_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Aggressive (sword) – lit (PvP card top row)",
+     "meaning_zh": "站位：进攻（点亮，PvP卡顶行）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -1935,10 +1930,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:fe18ec5b80"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -1964,13 +1957,13 @@
        "icon": {
         "iconId": "f7bd151d17",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_f7bd151d17",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_defensive_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Defensive (shield) – lit (PvP card top row)",
+        "meaning_zh": "站位：防御（点亮，PvP卡顶行）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -2005,13 +1998,13 @@
     {
      "iconId": "f7bd151d17",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f7bd151d17",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_defensive_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Defensive (shield) – lit (PvP card top row)",
+     "meaning_zh": "站位：防御（点亮，PvP卡顶行）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -2064,8 +2057,7 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:a08da49488",
-     "icon:f7bd151d17"
+     "icon:a08da49488"
     ]
    }
   },
@@ -2155,11 +2147,11 @@
        "icon": {
         "iconId": "a64616e9c5",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_a64616e9c5",
+        "status": "needs_review",
+        "key": "pending_a64616e9c5",
         "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "meaning_en": "Unconfirmed glyph: red heart or shield fragment",
+        "meaning_zh": "待确认图形：红色心形或盾形碎块",
         "value": null,
         "naming": "unverified"
        }
@@ -2253,11 +2245,11 @@
     {
      "iconId": "a64616e9c5",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a64616e9c5",
+     "status": "needs_review",
+     "key": "pending_a64616e9c5",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: red heart or shield fragment",
+     "meaning_zh": "待确认图形：红色心形或盾形碎块",
      "value": null,
      "naming": "unverified"
     }
@@ -2362,11 +2354,11 @@
     {
      "iconId": "c80192cfcc",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c80192cfcc",
+     "status": "needs_review",
+     "key": "pending_c80192cfcc",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: trinket illustration",
+     "meaning_zh": "待确认图形：饰品插图",
      "value": null,
      "naming": "unverified"
     },
@@ -2633,11 +2625,11 @@
        "icon": {
         "iconId": "003b470410",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_003b470410",
+        "status": "needs_review",
+        "key": "pending_003b470410",
         "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "meaning_en": "Unconfirmed glyph: gold jagged silhouette",
+        "meaning_zh": "待确认图形：金黄锯齿剪影",
         "value": null,
         "naming": "unverified"
        }
@@ -2654,11 +2646,11 @@
     {
      "iconId": "c80192cfcc",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_c80192cfcc",
+     "status": "needs_review",
+     "key": "pending_c80192cfcc",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: trinket illustration",
+     "meaning_zh": "待确认图形：饰品插图",
      "value": null,
      "naming": "unverified"
     },
@@ -2698,22 +2690,22 @@
     {
      "iconId": "032fd6cccd",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_032fd6cccd",
+     "status": "needs_review",
+     "key": "pending_032fd6cccd",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: closed wax-sealed book",
+     "meaning_zh": "待确认图形：合上的封蜡古书",
      "value": null,
      "naming": "unverified"
     },
     {
      "iconId": "003b470410",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_003b470410",
+     "status": "needs_review",
+     "key": "pending_003b470410",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: gold jagged silhouette",
+     "meaning_zh": "待确认图形：金黄锯齿剪影",
      "value": null,
      "naming": "unverified"
     }
@@ -3686,11 +3678,11 @@
        "icon": {
         "iconId": "a64616e9c5",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_a64616e9c5",
+        "status": "needs_review",
+        "key": "pending_a64616e9c5",
         "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "meaning_en": "Unconfirmed glyph: red heart or shield fragment",
+        "meaning_zh": "待确认图形：红色心形或盾形碎块",
         "value": null,
         "naming": "unverified"
        }
@@ -3773,11 +3765,11 @@
     {
      "iconId": "a64616e9c5",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_a64616e9c5",
+     "status": "needs_review",
+     "key": "pending_a64616e9c5",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: red heart or shield fragment",
+     "meaning_zh": "待确认图形：红色心形或盾形碎块",
      "value": null,
      "naming": "unverified"
     }
@@ -5111,13 +5103,13 @@
        "icon": {
         "iconId": "d8557730a4",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_d8557730a4",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_ranged_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Ranged (arrows) – lit (PvP card top row)",
+        "meaning_zh": "站位：远程（点亮，PvP卡顶行）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -5166,13 +5158,13 @@
     {
      "iconId": "d8557730a4",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d8557730a4",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_ranged_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Ranged (arrows) – lit (PvP card top row)",
+     "meaning_zh": "站位：远程（点亮，PvP卡顶行）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -5238,8 +5230,7 @@
     "reasons": [
      "icon:28f0232002",
      "icon:3e15d1efba",
-     "icon:624a476888",
-     "icon:d8557730a4"
+     "icon:624a476888"
     ]
    }
   },
@@ -5266,13 +5257,13 @@
        "icon": {
         "iconId": "fe18ec5b80",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_fe18ec5b80",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_aggressive_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Aggressive (sword) – lit (PvP card top row)",
+        "meaning_zh": "站位：进攻（点亮，PvP卡顶行）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -5321,13 +5312,13 @@
     {
      "iconId": "fe18ec5b80",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_fe18ec5b80",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_aggressive_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Aggressive (sword) – lit (PvP card top row)",
+     "meaning_zh": "站位：进攻（点亮，PvP卡顶行）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -5391,8 +5382,7 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:bb21fa4f0f",
-     "icon:fe18ec5b80"
+     "icon:bb21fa4f0f"
     ]
    }
   },
@@ -5419,13 +5409,13 @@
        "icon": {
         "iconId": "f7bd151d17",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_f7bd151d17",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_defensive_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Defensive (shield) – lit (PvP card top row)",
+        "meaning_zh": "站位：防御（点亮，PvP卡顶行）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -5474,13 +5464,13 @@
     {
      "iconId": "f7bd151d17",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f7bd151d17",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_defensive_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Defensive (shield) – lit (PvP card top row)",
+     "meaning_zh": "站位：防御（点亮，PvP卡顶行）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -5546,8 +5536,7 @@
     "reasons": [
      "icon:8b801d29d7",
      "icon:d876d6e8c3",
-     "icon:ecfbc6800c",
-     "icon:f7bd151d17"
+     "icon:ecfbc6800c"
     ]
    }
   },
@@ -5574,13 +5563,13 @@
        "icon": {
         "iconId": "f4539842c2",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_f4539842c2",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "stance_support_lit",
+        "kind": "position",
+        "meaning_en": "Stance: Support (pillars) – lit (PvP card top row)",
+        "meaning_zh": "站位：支援（点亮，PvP卡顶行）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -5629,13 +5618,13 @@
     {
      "iconId": "f4539842c2",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f4539842c2",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "stance_support_lit",
+     "kind": "position",
+     "meaning_en": "Stance: Support (pillars) – lit (PvP card top row)",
+     "meaning_zh": "站位：支援（点亮，PvP卡顶行）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -5701,8 +5690,7 @@
     "reasons": [
      "icon:2c64de3af7",
      "icon:7faa97dbde",
-     "icon:bf43d23b79",
-     "icon:f4539842c2"
+     "icon:bf43d23b79"
     ]
    }
   },
@@ -6372,13 +6360,13 @@
        "icon": {
         "iconId": "aa731a7f72",
         "in_dictionary": true,
-        "status": "unreviewed",
-        "key": "unknown_aa731a7f72",
-        "kind": "",
-        "meaning_en": "",
-        "meaning_zh": "",
+        "status": "confirmed",
+        "key": "debuff",
+        "kind": "status",
+        "meaning_en": "Debuff",
+        "meaning_zh": "减益",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -6502,13 +6490,13 @@
     {
      "iconId": "aa731a7f72",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_aa731a7f72",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "confirmed",
+     "key": "debuff",
+     "kind": "status",
+     "meaning_en": "Debuff",
+     "meaning_zh": "减益",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "90558ded71",
@@ -6584,7 +6572,6 @@
     "unverified": true,
     "reasons": [
      "icon:10061b9d0d",
-     "icon:aa731a7f72",
      "icon:afb3fe2d69",
      "icon:b7d0cfd524"
     ]

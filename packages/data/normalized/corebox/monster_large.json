@@ -1,11 +1,11 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.3",
+ "dictionary_version": "1.4",
  "category": "monster_large",
  "sources": {
   "parsed": "extract/corebox/parsed/monster_large.json",
   "raw": "extract/corebox/raw/monster_large.json",
-  "dictionary": "dictionary/icon-dictionary-v1.3.json"
+  "dictionary": "dictionary/icon-dictionary-v1.4.json"
  },
  "stats": {
   "cards": 20,
@@ -27174,11 +27174,11 @@
     {
      "iconId": "8707d5d8cf",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_8707d5d8cf",
+     "status": "needs_review",
+     "key": "pending_8707d5d8cf",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skull with a red down arrow",
+     "meaning_zh": "待确认图形：颅骨加红色下箭头",
      "value": null,
      "naming": "unverified"
     },
@@ -28104,11 +28104,11 @@
         "icon": {
          "iconId": "8707d5d8cf",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_8707d5d8cf",
+         "status": "needs_review",
+         "key": "pending_8707d5d8cf",
          "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "meaning_en": "Unconfirmed glyph: skull with a red down arrow",
+         "meaning_zh": "待确认图形：颅骨加红色下箭头",
          "value": null,
          "naming": "unverified"
         }
@@ -28324,11 +28324,11 @@
         "icon": {
          "iconId": "8707d5d8cf",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_8707d5d8cf",
+         "status": "needs_review",
+         "key": "pending_8707d5d8cf",
          "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "meaning_en": "Unconfirmed glyph: skull with a red down arrow",
+         "meaning_zh": "待确认图形：颅骨加红色下箭头",
          "value": null,
          "naming": "unverified"
         }
@@ -30811,11 +30811,11 @@
     {
      "iconId": "8707d5d8cf",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_8707d5d8cf",
+     "status": "needs_review",
+     "key": "pending_8707d5d8cf",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: skull with a red down arrow",
+     "meaning_zh": "待确认图形：颅骨加红色下箭头",
      "value": null,
      "naming": "unverified"
     },
@@ -31085,11 +31085,11 @@
         "icon": {
          "iconId": "8707d5d8cf",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_8707d5d8cf",
+         "status": "needs_review",
+         "key": "pending_8707d5d8cf",
          "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "meaning_en": "Unconfirmed glyph: skull with a red down arrow",
+         "meaning_zh": "待确认图形：颅骨加红色下箭头",
          "value": null,
          "naming": "unverified"
         }
@@ -31141,11 +31141,11 @@
         "icon": {
          "iconId": "8707d5d8cf",
          "in_dictionary": true,
-         "status": "unreviewed",
-         "key": "unknown_8707d5d8cf",
+         "status": "needs_review",
+         "key": "pending_8707d5d8cf",
          "kind": "",
-         "meaning_en": "",
-         "meaning_zh": "",
+         "meaning_en": "Unconfirmed glyph: skull with a red down arrow",
+         "meaning_zh": "待确认图形：颅骨加红色下箭头",
          "value": null,
          "naming": "unverified"
         }

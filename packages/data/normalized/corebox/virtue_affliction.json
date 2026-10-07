@@ -1,11 +1,11 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.3",
+ "dictionary_version": "1.4",
  "category": "virtue_affliction",
  "sources": {
   "parsed": null,
   "raw": "extract/corebox/raw/virtue_affliction.json",
-  "dictionary": "dictionary/icon-dictionary-v1.3.json"
+  "dictionary": "dictionary/icon-dictionary-v1.4.json"
  },
  "stats": {
   "cards": 10,
@@ -1507,11 +1507,11 @@
       "icon": {
        "iconId": "2c1824ea21",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_2c1824ea21",
+       "status": "needs_review",
+       "key": "pending_2c1824ea21",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: unclear crop",
+       "meaning_zh": "待确认图形：不够清楚的切图",
        "value": null,
        "naming": "unverified"
       }
@@ -1572,11 +1572,11 @@
     {
      "iconId": "2c1824ea21",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_2c1824ea21",
+     "status": "needs_review",
+     "key": "pending_2c1824ea21",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: unclear crop",
+     "meaning_zh": "待确认图形：不够清楚的切图",
      "value": null,
      "naming": "unverified"
     }

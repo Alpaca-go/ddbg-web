@@ -32,7 +32,7 @@ import {
   normalizedVirtueAfflictionFileSchema,
 } from "./schema";
 
-const DICTIONARY_SOURCE = "dictionary/icon-dictionary-v1.3.json" as const;
+const DICTIONARY_SOURCE = "dictionary/icon-dictionary-v1.4.json" as const;
 
 const QUIRK_FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf";
 const VIRTUE_FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf";
@@ -244,7 +244,7 @@ function buildHeroSkills(
   });
   return normalizedHeroSkillFileSchema.parse({
     schema: "ddbg-normalized-v0",
-    dictionary_version: "1.3",
+    dictionary_version: "1.4",
     category: "hero_skill",
     sources: {
       parsed: "extract/corebox/parsed/hero_skill.json",
@@ -357,7 +357,7 @@ function buildMonsterMedium(
   });
   return normalizedMonsterMediumFileSchema.parse({
     schema: "ddbg-normalized-v0",
-    dictionary_version: "1.3",
+    dictionary_version: "1.4",
     category: "monster_medium",
     sources: {
       parsed: "extract/corebox/parsed/monster_medium.json",
@@ -380,7 +380,7 @@ function buildMonsterLarge(
   );
   return normalizedMonsterLargeFileSchema.parse({
     schema: "ddbg-normalized-v0",
-    dictionary_version: "1.3",
+    dictionary_version: "1.4",
     category: "monster_large",
     sources: {
       parsed: "extract/corebox/parsed/monster_large.json",
@@ -426,7 +426,7 @@ function buildTrinkets(
   });
   return normalizedTrinketFileSchema.parse({
     schema: "ddbg-normalized-v0",
-    dictionary_version: "1.3",
+    dictionary_version: "1.4",
     category: "trinket",
     sources: {
       parsed: "extract/corebox/parsed/trinket.json",
@@ -489,7 +489,7 @@ function buildQuirks(raw: RawFile, lookup: IconLookup): NormalizedQuirkFile {
   });
   return normalizedQuirkFileSchema.parse({
     schema: "ddbg-normalized-v0",
-    dictionary_version: "1.3",
+    dictionary_version: "1.4",
     category: "quirk",
     sources: { parsed: null, raw: "extract/corebox/raw/quirk.json", dictionary: DICTIONARY_SOURCE },
     stats: cardStats(cards),
@@ -525,7 +525,7 @@ function buildVirtues(raw: RawFile, lookup: IconLookup): NormalizedVirtueAfflict
   });
   return normalizedVirtueAfflictionFileSchema.parse({
     schema: "ddbg-normalized-v0",
-    dictionary_version: "1.3",
+    dictionary_version: "1.4",
     category: "virtue_affliction",
     sources: {
       parsed: null,
@@ -537,7 +537,7 @@ function buildVirtues(raw: RawFile, lookup: IconLookup): NormalizedVirtueAfflict
   });
 }
 
-/** 用词典 v1.3 把 parsed / raw 收成规范化卡。纯函数，不读盘。 */
+/** 用词典 v1.4 把 parsed / raw 收成规范化卡。纯函数，不读盘。 */
 export function buildNormalizedCorebox(input: NormalizedCoreboxInput): NormalizedCorebox {
   const lookup = createIconLookup(input.dictionary);
   return {
