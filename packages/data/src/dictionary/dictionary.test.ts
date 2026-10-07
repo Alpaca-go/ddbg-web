@@ -151,6 +151,32 @@ const V14_SKILL_KEEPS = [
 
 const V14_OTHER_KEEPS = [603, 640, 642, 666, 668, 693, 702, 715] as const;
 
+/** v1.5 batch-05：17 条并入已确认图标，22 条装饰。免疫栏沿用目标的 resist key。 */
+const V15_MERGES = [
+  [580, 1],
+  [667, 368],
+  [747, 179],
+  [761, 412],
+  [812, 250],
+  [853, 415],
+  [872, 25],
+  [875, 15],
+  [661, 352],
+  [760, 352],
+  [787, 27],
+  [825, 36],
+  [830, 26],
+  [842, 288],
+  [863, 35],
+  [871, 346],
+  [873, 25],
+] as const;
+
+const V15_DECOR = [
+  535, 664, 688, 694, 697, 703, 710, 740, 763, 766, 777, 794, 797, 806, 816, 837, 841, 843, 862,
+  891, 899, 905,
+] as const;
+
 const START_KEY = /^start_(hero|monster|any)_(support|ranged|defensive|aggressive|any)$/;
 const PLACEMENT_CLASS = /^(hero|monster)_(support|ranged|defensive|aggressive)$/;
 
@@ -260,13 +286,13 @@ function rawIconIds(): Set<string> {
 
 const dictionary = parseSchema(
   iconDictionarySchema,
-  readJson("icon-dictionary-v1.4.json"),
-  "icon-dictionary-v1.4",
+  readJson("icon-dictionary-v1.5.json"),
+  "icon-dictionary-v1.5",
 );
 
-describe("图标词典 v1.4", () => {
+describe("图标词典 v1.5", () => {
   it("通过 schema，共 906 条", () => {
-    expect(dictionary.meta.version).toBe("1.4");
+    expect(dictionary.meta.version).toBe("1.5");
     expect(dictionary.icons).toHaveLength(906);
     expect(dictionary.inconsistencies.map((item) => item.id)).toEqual([...INCONSISTENCY_IDS]);
     const ranks = new Set(dictionary.icons.map((icon) => icon.rank));
@@ -340,7 +366,7 @@ describe("图标词典 v1.4", () => {
   });
 
   it("CSV 与 JSON 是同一份表", () => {
-    const rows = parseCsv(readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.4.csv"), "utf8"));
+    const rows = parseCsv(readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.5.csv"), "utf8"));
     const header = rows[0];
     expect(header).toBeDefined();
     if (!header) return;
@@ -422,7 +448,7 @@ describe("图标词典 v1.4", () => {
       expect(icon?.source).toBe("followup_proposal_2026-10-07");
     }
 
-    const text = readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.4.json"), "utf8");
+    const text = readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.5.json"), "utf8");
     expect(text).not.toContain("DRAFT");
     expect(text).not.toContain("pending Kyries");
     expect(text).not.toContain("do not commit");
@@ -631,6 +657,80 @@ describe("图标词典 v1.4", () => {
       expect(icon?.proposal).toBeNull();
       expect(icon?.source).toBe("kyries_approved_proposal_2026-10-07");
       expect(icon?.meaning_en.startsWith("Unconfirmed glyph:")).toBe(true);
+    }
+  });
+
+  it("v1.5 batch-05：合并沿用目标（含 resist key），装饰为 decor", () => {
+    const byRank = new Map(dictionary.icons.map((icon) => [icon.rank, icon]));
+    const touched = new Set<number>([...V15_MERGES.map(([rank]) => rank), ...V15_DECOR]);
+    expect(touched.size).toBe(39);
+    expect(dictionary.meta.resolved_in_v1_5.length).toBeGreaterThan(0);
+    expect(dictionary.meta.stats.status_all906).toEqual({
+      confirmed: 489,
+      confirmed_rulebook: 44,
+      needs_review: 53,
+      decor: 92,
+      unsure: 0,
+      unreviewed: 228,
+    });
+
+    for (const [rank, targetRank] of V15_MERGES) {
+      const icon = byRank.get(rank);
+      const target = byRank.get(targetRank);
+      expect(icon, `rank ${rank}`).toBeDefined();
+      expect(target, `rank ${targetRank}`).toBeDefined();
+      if (!icon || !target) continue;
+      expect(icon.status).toBe("confirmed");
+      expect(icon.status).toBe(target.status);
+      expect(icon.meaning_en).toBe(target.meaning_en);
+      expect(icon.meaning_zh).toBe(target.meaning_zh);
+      expect(icon.kind).toBe(target.kind);
+      expect(icon.key).toBe(target.key);
+      expect(icon.value).toBe(target.value);
+      expect(icon.value_in_glyph).toBe(target.value_in_glyph);
+      expect(icon.rulebook_refs).toEqual(target.rulebook_refs);
+      expect(icon.source).toBe("kyries_approved_proposal_2026-10-07");
+      expect(icon.notes).toContain(`merged_into=${target.iconId}`);
+      expect(icon.notes).toContain("batch-05");
+      expect(icon.previous_status).toBe("unreviewed");
+      expect(icon.previous_meaning_en).toBeNull();
+      expect(icon.proposal).toBeNull();
+    }
+
+    const debuffResist = byRank.get(761);
+    expect(debuffResist?.key).toBe("debuff_resist");
+    expect(debuffResist?.kind).toBe("resist");
+    expect(debuffResist?.group).toBe("debuff");
+
+    const bleedResist = byRank.get(812);
+    expect(bleedResist?.key).toBe("bleed_resist");
+    expect(bleedResist?.kind).toBe("resist");
+    expect(bleedResist?.group).toBe("bleed");
+
+    const light = byRank.get(871);
+    const lightTarget = byRank.get(346);
+    expect(light?.meaning_en).toBe(lightTarget?.meaning_en);
+    expect(light?.meaning_en).toContain("possibly");
+    expect(light?.group).toBe("g_c4fa19b2");
+
+    const stackedHeal = byRank.get(873);
+    expect(stackedHeal?.key).toBe("heal");
+    expect(stackedHeal?.value).toBeNull();
+    expect(stackedHeal?.value_in_glyph).toBe(false);
+
+    const ranged = byRank.get(787);
+    expect(ranged?.key).toBe("stance_ranged_lit");
+    expect(ranged?.group).toBe("g_3e15d1ef");
+
+    for (const rank of V15_DECOR) {
+      const icon = byRank.get(rank);
+      expect(icon?.status).toBe("decor");
+      expect(icon?.key).toBe("decor");
+      expect(icon?.kind).toBe("decor");
+      expect(icon?.meaning_en).toBe("Decor / not an icon");
+      expect(icon?.source).toBe("kyries_approved_proposal_2026-10-07");
+      expect(icon?.previous_status).toBe("unreviewed");
+      expect(icon?.notes).toContain("batch-05");
     }
   });
 });

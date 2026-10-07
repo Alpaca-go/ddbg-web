@@ -14,7 +14,7 @@ function namingOf(status: IconStatus): NormalizedIcon["naming"] {
   return "unverified";
 }
 
-/** 按词典 v1.4 解析 iconId。未收录、needs_review、unsure、unreviewed 的 naming 都是 unverified。 */
+/** 按词典 v1.5 解析 iconId。未收录、needs_review、unsure、unreviewed 的 naming 都是 unverified。 */
 export function createIconLookup(dictionary: IconDictionary): IconLookup {
   const byId = new Map(dictionary.icons.map((icon) => [icon.iconId, icon]));
   return {
