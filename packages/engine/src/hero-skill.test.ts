@@ -2002,11 +2002,13 @@ describe("resolveHeroSkill", () => {
         ?.filter((segment) => segment.type === "icon")
         .map((segment) => segment.icon.key),
     ).toEqual(["target_effects", "stun", "shuffle"]);
-    expect(
-      uppercut.unlabeled_numbers
-        .filter((item) => item.anchor.type === "beside_icon" && item.text === "1t")
-        .map((item) => item.numeric),
-    ).toEqual([null]);
+    expect(uppercut.unlabeled_numbers.filter((item) => item.numeric === null)).toEqual([
+      {
+        text: "1t",
+        numeric: null,
+        anchor: { type: "beside_icon", left_icon: null, inside_icon: null },
+      },
+    ]);
     expect(
       use(
         "hero_skill:p052",
