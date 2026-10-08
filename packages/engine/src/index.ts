@@ -9,6 +9,7 @@ export type {
   SkillCombatState,
   SkillIconRef,
   SkillSegment,
+  SkillShuffle,
   SkillTargetSide,
   SkillTargetState,
   SkippedSkillEffect,

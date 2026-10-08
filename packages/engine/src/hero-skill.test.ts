@@ -164,6 +164,8 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      actorShuffle: null,
+      targetShuffle: null,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -245,6 +247,8 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      actorShuffle: null,
+      targetShuffle: null,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -295,6 +299,8 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      actorShuffle: null,
+      targetShuffle: null,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -325,6 +331,8 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      actorShuffle: null,
+      targetShuffle: null,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -801,6 +809,8 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      actorShuffle: null,
+      targetShuffle: null,
       actorStress: 3,
       targetStress: 6,
       besideActorStress: [{ id: "crusader", stress: 2 }],
@@ -1071,6 +1081,8 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      actorShuffle: null,
+      targetShuffle: null,
       actorStress: 3,
       targetStress: 5,
       besideActorStress: [{ id: "crusader", stress: 1 }],
@@ -1420,6 +1432,8 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: true,
       targetBlightCleared: true,
+      actorShuffle: null,
+      targetShuffle: null,
       actorStress: 3,
       targetStress: 6,
       besideActorStress: [{ id: "crusader", stress: 1 }],
@@ -1657,6 +1671,419 @@ describe("resolveHeroSkill", () => {
       actorStress: 2,
       targetBleedCleared: false,
       targetBlightCleared: false,
+    });
+  });
+
+  it("hero_skill:p034 Breakthrough I 落空也把使用者拉近 1，没有使用者则拒绝", () => {
+    const skill = card("hero_skill:p034");
+    expect(skill.name).toBe("Breakthrough");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("HELLION");
+    expect(skill.verification.unverified).toBe(false);
+    expect(skill.effect_lines).toHaveLength(1);
+    expect(
+      skill.effect_lines[0]
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text.trim())
+        .filter((text) => text !== ""),
+    ).toEqual(["Self", "Pull 1"]);
+
+    const combat: SkillCombatState = {
+      actor: { id: "hellion", wounds: 2, stress: 3 },
+      target: { id: "soldier", side: "monster", wounds: 1, dodge: 0 },
+    };
+    const frozen = structuredClone(combat);
+
+    expect(use("hero_skill:p034", combat, 8)).toEqual({
+      skillId: "hero_skill:p034",
+      targetId: "soldier",
+      status: "resolved",
+      reason: null,
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 4,
+      damageDealt: 4,
+      riposteDamage: null,
+      wounds: 5,
+      actorWounds: 2,
+      targetDead: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+      actorShuffle: { direction: "pull", distance: 1 },
+      targetShuffle: null,
+      actorStress: 3,
+      targetStress: null,
+      besideActorStress: null,
+      untargetedBesideTargetStress: null,
+      skipped: [],
+    });
+    expect(combat).toEqual(frozen);
+
+    expect(use("hero_skill:p034", combat, 9)).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 1,
+      actorWounds: 2,
+      actorStress: 3,
+      actorShuffle: { direction: "pull", distance: 1 },
+      targetShuffle: null,
+    });
+    expect(use("hero_skill:p034", combat, 1)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 4,
+      damageDealt: 4,
+      actorShuffle: { direction: "pull", distance: 1 },
+    });
+    expect(use("hero_skill:p034", target("monster", 1, 0), 8)).toMatchObject({
+      status: "refused",
+      reason: "自身效果要位移，但没有使用者（规则书第 21 页）",
+      wounds: 1,
+      actorWounds: null,
+      actorShuffle: null,
+      targetShuffle: null,
+    });
+
+    const finale = card("hero_skill:p112");
+    expect(finale.name).toBe("Finale");
+    expect(finale.level).toBe(1);
+    expect(finale.hero).toBe("JESTER");
+    expect(finale.verification.unverified).toBe(false);
+    const finaleCombat: SkillCombatState = {
+      actor: { id: "jester", wounds: 0, stress: 5 },
+      target: { id: "soldier", side: "monster", wounds: 2, dodge: 10 },
+    };
+    expect(use("hero_skill:p112", finaleCombat, 10)).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 2,
+      actorStress: 5,
+      actorShuffle: { direction: "push", distance: 3 },
+      targetShuffle: null,
+    });
+    expect(use("hero_skill:p112", finaleCombat, 4)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 9,
+      actorShuffle: { direction: "push", distance: 3 },
+      targetShuffle: null,
+    });
+    expect(use("hero_skill:p112", finaleCombat, 1)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 10,
+      damageDealt: 10,
+      wounds: 12,
+      actorStress: 4,
+      actorShuffle: { direction: "push", distance: 3 },
+      targetShuffle: null,
+    });
+  });
+
+  it("hero_skill:p070 Point Blank Shot I 自身和目标都推 1，落空只推自身", () => {
+    const skill = card("hero_skill:p070");
+    expect(skill.name).toBe("Point Blank Shot");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("HIGHWAYMAN");
+    expect(skill.verification.unverified).toBe(false);
+    expect(skill.effect_lines).toHaveLength(2);
+
+    const combat: SkillCombatState = {
+      actor: { id: "highwayman", wounds: 0, stress: 4 },
+      target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
+    };
+    expect(use("hero_skill:p070", combat, 1)).toMatchObject({
+      outcome: "crit",
+      effect: "damage",
+      printedAmount: 15,
+      damageDealt: 15,
+      wounds: 15,
+      actorWounds: 0,
+      actorStress: 3,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 1 },
+      skipped: [],
+    });
+    expect(use("hero_skill:p070", combat, 10)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 9,
+      damageDealt: 9,
+      wounds: 9,
+      actorStress: 4,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 1 },
+    });
+    expect(
+      use("hero_skill:p070", { ...combat, target: { ...combat.target, dodge: 5 } }, 10),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorStress: 4,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: null,
+    });
+    expect(
+      use("hero_skill:p070", { ...combat, target: { ...combat.target, protection: true } }, 10),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 9,
+      damageDealt: 5,
+      wounds: 5,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 1 },
+    });
+    expect(
+      use(
+        "hero_skill:p070",
+        {
+          actor: { id: "highwayman", wounds: 1, stress: 4 },
+          target: { id: "soldier", side: "monster", wounds: 0, dodge: 0, riposte: true },
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      damageDealt: 9,
+      riposteDamage: 5,
+      wounds: 9,
+      actorWounds: 6,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 1 },
+    });
+  });
+
+  it("hero_skill:p157 Bola I 自身推 1、目标推 2，暴击不改距离", () => {
+    const skill = card("hero_skill:p157");
+    expect(skill.name).toBe("Bola");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("ARBALEST");
+    expect(skill.verification.unverified).toBe(false);
+
+    const combat: SkillCombatState = {
+      actor: { id: "arbalist", wounds: 0, stress: 2 },
+      target: { id: "soldier", side: "monster", wounds: 4, dodge: 0 },
+    };
+    expect(use("hero_skill:p157", combat, 5)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 3,
+      damageDealt: 3,
+      wounds: 7,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 2 },
+      skipped: [],
+    });
+    expect(use("hero_skill:p157", combat, 1)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 6,
+      damageDealt: 6,
+      wounds: 10,
+      actorStress: 1,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 2 },
+    });
+  });
+
+  it("hero_skill:p208 Daemon’s Pull I 只在命中或暴击时把目标拉近 2", () => {
+    const skill = card("hero_skill:p208");
+    expect(skill.name).toBe("Daemon’s Pull");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("OCCULTIST");
+    expect(skill.verification.unverified).toBe(false);
+    expect(skill.effect_lines).toHaveLength(1);
+
+    expect(use("hero_skill:p208", target("monster", 2, 0), 5)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 3,
+      damageDealt: 3,
+      wounds: 5,
+      actorWounds: null,
+      actorShuffle: null,
+      targetShuffle: { direction: "pull", distance: 2 },
+      skipped: [],
+    });
+    expect(use("hero_skill:p208", target("monster", 2, 0), 1)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 4,
+      damageDealt: 4,
+      wounds: 6,
+      targetShuffle: { direction: "pull", distance: 2 },
+    });
+    expect(use("hero_skill:p208", target("monster", 2, 0), 10)).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 2,
+      actorShuffle: null,
+      targetShuffle: null,
+    });
+  });
+
+  it("hero_skill:p016 Holy Lance I 拉近自身 1，不把 numeric 为 null 的 +1 vs Unholy 算进伤害", () => {
+    const skill = card("hero_skill:p016");
+    expect(skill.name).toBe("Holy Lance");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("CRUSADER");
+    expect(skill.verification.unverified).toBe(false);
+    expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) =>
+            item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "target_effects",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([null]);
+
+    const combat: SkillCombatState = {
+      actor: { id: "crusader", wounds: 1, stress: 2 },
+      target: { id: "unholy", side: "monster", wounds: 3, dodge: 0 },
+    };
+    expect(use("hero_skill:p016", combat, 2)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 10,
+      actorShuffle: { direction: "pull", distance: 1 },
+      targetShuffle: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(use("hero_skill:p016", combat, 10)).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 3,
+      actorShuffle: { direction: "pull", distance: 1 },
+      targetShuffle: null,
+    });
+
+    const lunge = card("hero_skill:p172");
+    expect(lunge.name).toBe("Lunge");
+    expect(lunge.level).toBe(1);
+    expect(lunge.hero).toBe("GRAVE ROBBER");
+    expect(lunge.verification.unverified).toBe(false);
+    expect(
+      lunge.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.inside_icon?.key === "damage",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(
+      use(
+        "hero_skill:p172",
+        {
+          actor: { id: "robber", wounds: 0, stress: 1 },
+          target: { id: "blighted", side: "monster", wounds: 2, dodge: 0 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 9,
+      actorShuffle: { direction: "pull", distance: 2 },
+      targetShuffle: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+  });
+
+  it("回合数 numeric 为 null，或印成 Push 或 Pull 时，不从同一行抽出位移", () => {
+    const uppercut = card("hero_skill:p052");
+    expect(uppercut.name).toBe("Uppercut");
+    expect(uppercut.level).toBe(1);
+    expect(uppercut.hero).toBe("BOUNTY HUNTER");
+    expect(uppercut.verification.unverified).toBe(false);
+    expect(
+      uppercut.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "stun", "shuffle"]);
+    expect(
+      uppercut.unlabeled_numbers
+        .filter((item) => item.anchor.type === "beside_icon" && item.text === "1t")
+        .map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(
+      use(
+        "hero_skill:p052",
+        {
+          actor: { id: "hunter", wounds: 0, stress: 2 },
+          target: { id: "soldier", side: "monster", wounds: 1, dodge: 0 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 3,
+      damageDealt: 3,
+      wounds: 4,
+      actorShuffle: null,
+      targetShuffle: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+
+    const advance = card("hero_skill:p079");
+    expect(advance.name).toBe("Duelist’s Advance");
+    expect(advance.level).toBe(1);
+    expect(advance.hero).toBe("HIGHWAYMAN");
+    expect(advance.verification.unverified).toBe(false);
+    expect(
+      advance.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "riposte",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(
+      use(
+        "hero_skill:p079",
+        {
+          actor: { id: "highwayman", wounds: 1, stress: 2 },
+          target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 4,
+      damageDealt: 4,
+      wounds: 4,
+      actorShuffle: null,
+      targetShuffle: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+
+    const blast = card("hero_skill:p145");
+    expect(blast.name).toBe("Disorienting Blast");
+    expect(blast.level).toBe(1);
+    expect(blast.hero).toBe("PLAGUE DOCTOR");
+    expect(blast.verification.unverified).toBe(false);
+    expect(
+      blast.effect_lines[0]
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text.trim())
+        .filter((text) => text !== ""),
+    ).toEqual(["Push 2 or Pull 2"]);
+    expect(
+      use(
+        "hero_skill:p145",
+        {
+          actor: { id: "doctor", wounds: 0, stress: 1 },
+          target: { id: "soldier", side: "monster", wounds: 2, dodge: 0 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      wounds: 2,
+      actorShuffle: null,
+      targetShuffle: null,
     });
   });
 });

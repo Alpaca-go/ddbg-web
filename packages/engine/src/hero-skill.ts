@@ -35,6 +35,15 @@
  * 全部堆叠，落空不清。不读回合数，也不使用 `numeric` 为 null 的数字。没有目标
  * 效果标记的「Remove」行，以及和增益、眩晕混在同一行的「Remove」，仍整行跳过。
  *
+ * 位移（规则书第 21 页 Shuffle，说明书 §6.5 第 5、7 步，§6.7）：一条效果行只有
+ * 已命名的自身效果或目标效果、已命名的 `shuffle`，文字只有空白、自身行上的
+ * 「Self」，以及恰好「Push N」或「Pull N」。N 是这段文字里的正整数。印刷把
+ * 「Push 1」印成一整段，所以它不在 `unlabeled_numbers` 里；不从别的数字，也不从
+ * `numeric` 为 null 的回合数里读距离。自身位移在掷骰之后、无论命中与否都记上。
+ * 目标位移只在命中或暴击时记上。暴击、Protection、Riposte 都不改这个距离。
+ * 这一层不挪区域、不挪姿态轨，也不处理「Push 或 Pull」让玩家选方向。和眩晕、
+ * 增益、标记或反击写在同一行的位移仍整行跳过。
+ *
  * 不解释 `damage_or_heal_combined_marker`。姿态、射程、英雄 Life、死门骰都不在这里。
  */
 
@@ -135,6 +144,12 @@ export type SkippedSkillEffect = {
   readonly code: "effect_lines" | "damage_or_heal_combined_marker";
 };
 
+/** 规则书第 21 页的 Push / Pull。距离是卡面印的正整数，还没落到区域或姿态轨上。 */
+export type SkillShuffle = {
+  readonly direction: "push" | "pull";
+  readonly distance: number;
+};
+
 export type HeroSkillResolution = {
   readonly skillId: string;
   readonly targetId: string;
@@ -160,6 +175,13 @@ export type HeroSkillResolution = {
   readonly targetBleedCleared: boolean;
   /** 与 Bleed 同一条目标效果，清掉全部 Blight 堆叠。 */
   readonly targetBlightCleared: boolean;
+  /**
+   * 自身效果上印的 Push / Pull。落空也有。没有这条效果时为 null。
+   * 调用方对一次技能使用只采用一次。区域和姿态轨不在这一层。
+   */
+  readonly actorShuffle: SkillShuffle | null;
+  /** 目标效果上印的 Push / Pull。只在命中或暴击时有。落空为 null。 */
+  readonly targetShuffle: SkillShuffle | null;
   readonly actorStress: number | null;
   readonly targetStress: number | null;
   readonly besideActorStress: readonly SkillAreaHero[] | null;
@@ -233,6 +255,8 @@ function refuse(
     targetDead: false,
     targetBleedCleared: false,
     targetBlightCleared: false,
+    actorShuffle: null,
+    targetShuffle: null,
     actorStress,
     targetStress,
     besideActorStress: snapshotHeroes(combat.heroesBesideActor),
@@ -481,6 +505,78 @@ function targetRemoveBleedBlightLine(line: readonly SkillSegment[]): boolean {
   return target === 1 && bleed === 1 && blight === 1 && sawRemove;
 }
 
+type ReadShuffles = {
+  readonly self: SkillShuffle | null;
+  readonly target: SkillShuffle | null;
+  readonly lineCount: number;
+};
+
+const SHUFFLE_TEXT = /^(Push|Pull) (\d+)$/;
+
+/**
+ * 只接受「标记 + shuffle + Push N / Pull N」这一整行。
+ * 距离只来自这段印刷文字。同一侧有两条时都不采用，留给 effect_lines 跳过。
+ */
+function readShuffles(skill: HeroSkillCardView): ReadShuffles {
+  const selves: SkillShuffle[] = [];
+  const targets: SkillShuffle[] = [];
+  for (const line of skill.effect_lines) {
+    const parsed = shuffleFromLine(line);
+    if (parsed === null) continue;
+    if (parsed.audience === "self") selves.push(parsed.move);
+    else targets.push(parsed.move);
+  }
+  const self = selves.length === 1 && selves[0] !== undefined ? selves[0] : null;
+  const target = targets.length === 1 && targets[0] !== undefined ? targets[0] : null;
+  return {
+    self,
+    target,
+    lineCount: (self === null ? 0 : 1) + (target === null ? 0 : 1),
+  };
+}
+
+function shuffleFromLine(
+  line: readonly SkillSegment[],
+): { readonly audience: "self" | "target"; readonly move: SkillShuffle } | null {
+  let audience: "self" | "target" | null = null;
+  let shuffles = 0;
+  let sawSelfWord = false;
+  let move: SkillShuffle | null = null;
+  for (const segment of line) {
+    if (segment.type === "text") {
+      const text = segment.text.trim();
+      if (text === "") continue;
+      if (text === "Self") {
+        sawSelfWord = true;
+        continue;
+      }
+      const matched = SHUFFLE_TEXT.exec(text);
+      if (matched === null || move !== null) return null;
+      const distance = Number(matched[2]);
+      if (!positiveInteger(distance)) return null;
+      move = {
+        direction: matched[1] === "Push" ? "push" : "pull",
+        distance,
+      };
+      continue;
+    }
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) return null;
+    if (segment.icon.key === "self_effects" || segment.icon.key === "target_effects") {
+      if (audience !== null) return null;
+      audience = segment.icon.key === "self_effects" ? "self" : "target";
+      continue;
+    }
+    if (segment.icon.key === "shuffle") {
+      shuffles += 1;
+      continue;
+    }
+    return null;
+  }
+  if (audience === null || shuffles !== 1 || move === null) return null;
+  if (sawSelfWord !== (audience === "self")) return null;
+  return { audience, move };
+}
+
 function hasCombinedMarker(skill: HeroSkillCardView, keys: readonly string[]): boolean {
   if (keys.includes("damage_or_heal_combined_marker")) return true;
   for (const line of skill.effect_lines) {
@@ -645,6 +741,7 @@ export function resolveHeroSkill(
   const stress = readImmediateStress(skill);
   const selfHeal = readSelfHeal(skill);
   const removal = readConditionRemoval(skill);
+  const shuffles = readShuffles(skill);
   const keys = namedKeys(skill.stats_line);
   const kinds = new Set(keys.filter((key) => key === "damage" || key === "heal"));
   if (kinds.size > 1) {
@@ -695,6 +792,9 @@ export function resolveHeroSkill(
   }
   if (selfHeal.amount > 0 && combat.actor === undefined) {
     return refuse(skill, combat, "自身效果要治疗，但没有使用者的伤口（规则书第 20 页）");
+  }
+  if (shuffles.self !== null && combat.actor === undefined) {
+    return refuse(skill, combat, "自身效果要位移，但没有使用者（规则书第 21 页）");
   }
 
   // 规则书第 19 页：先看暴击（不减 Dodge），再看命中阈值 Acc − Dodge。
@@ -802,6 +902,8 @@ export function resolveHeroSkill(
     targetDead,
     targetBleedCleared: conditionsCleared,
     targetBlightCleared: conditionsCleared,
+    actorShuffle: shuffles.self,
+    targetShuffle: outcome === "miss" ? null : shuffles.target,
     actorStress,
     targetStress,
     besideActorStress,
@@ -809,7 +911,7 @@ export function resolveHeroSkill(
     skipped: skippedEffects(
       skill,
       keys,
-      stress.lineCount + selfHeal.lineCount + removal.targetLines,
+      stress.lineCount + selfHeal.lineCount + removal.targetLines + shuffles.lineCount,
     ),
   };
 }
