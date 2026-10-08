@@ -15,8 +15,14 @@
  * 其他英雄的压力各 −1，一次技能只减一次。压力停在 0–10。到 10 以后的意志检定
  * 和心脏病不在这一层。
  *
- * 不读 effect_lines，不解释 `damage_or_heal_combined_marker`。姿态、射程、
- * 英雄 Life、死门骰都不在这里。
+ * 卡面印的立即压力（规则书第 20–21 页，说明书 §6.5 第 5、7 步，§7.2，§8.1）：
+ * 一条效果行只有已命名的自身效果或目标效果标记，加上已命名的 stress，行内文字
+ * 只有空白、「Self」和与数值相同的整数，并且所有这类压力数字的 `numeric` 都是
+ * 同一个整数、条数对得上时，按那个整数增减压力。自身效果在掷骰之后、无论命中
+ * 与否都生效。目标效果只对命中或暴击的目标生效。然后才结算暴击压力。
+ * `numeric` 为 null 的数字（例如带「+」的 `+1`）不加。对不上的效果行仍整行跳过。
+ *
+ * 不解释 `damage_or_heal_combined_marker`。姿态、射程、英雄 Life、死门骰都不在这里。
  */
 
 export type SkillIconRef = {
@@ -122,7 +128,7 @@ export type HeroSkillResolution = {
   readonly status: "resolved" | "refused";
   readonly reason: string | null;
   readonly outcome: "crit" | "hit" | "miss" | null;
-  readonly effect: "damage" | "heal" | null;
+  readonly effect: "damage" | "heal" | "stress" | null;
   /** 卡面上 Crit / Acc 旁边的整数。还没做 Protection。 */
   readonly printedAmount: number | null;
   /** Protection 之后的伤害。只有伤害类命中或暴击才有数字；落空和治疗为 null。 */
@@ -245,12 +251,104 @@ function amountBesideLabel(skill: HeroSkillCardView, label: "Crit" | "Acc"): num
   return found[0] ?? null;
 }
 
-function skippedEffects(skill: HeroSkillCardView, keys: readonly string[]): SkippedSkillEffect[] {
+type ImmediateStress = {
+  readonly self: number;
+  readonly target: number;
+  /** 每条效果行都是上面这种立即压力。没有效果行时为 false。 */
+  readonly resolvedAllLines: boolean;
+};
+
+/**
+ * 只接受「标记 + stress」这一条效果，并且卡上每个非空的 stress `numeric` 都是同一个整数。
+ * 条数对不上，或行里还有别的已命名图标，就不结算这条，留给 effect_lines 跳过。
+ */
+function readImmediateStress(skill: HeroSkillCardView): ImmediateStress {
+  const none: ImmediateStress = { self: 0, target: 0, resolvedAllLines: false };
+  const numerics: number[] = [];
+  for (const item of skill.unlabeled_numbers) {
+    if (item.anchor.type !== "beside_icon") continue;
+    const left = item.anchor.left_icon;
+    if (left === null || left.key !== "stress" || !NAMED.has(left.naming)) continue;
+    if (item.anchor.inside_icon !== null) continue;
+    if (item.numeric === null || !Number.isInteger(item.numeric)) continue;
+    numerics.push(item.numeric);
+  }
+  const shared = numerics[0];
+  if (shared === undefined || numerics.some((value) => value !== shared)) return none;
+
+  const matched: ("self" | "target")[] = [];
+  for (const line of skill.effect_lines) {
+    const audience = stressLineAudience(line, shared);
+    if (audience === null) continue;
+    matched.push(audience);
+  }
+  if (matched.length === 0 || matched.length !== numerics.length) return none;
+
+  let self = 0;
+  let target = 0;
+  for (const audience of matched) {
+    if (audience === "self") self += shared;
+    else target += shared;
+  }
+  return {
+    self,
+    target,
+    resolvedAllLines: matched.length === skill.effect_lines.length,
+  };
+}
+
+/** 规则书第 19 页把自身效果印成「Self」。只认这个词，不从其它文字里读规则。 */
+function stressLineAudience(
+  line: readonly SkillSegment[],
+  amount: number,
+): "self" | "target" | null {
+  let audience: "self" | "target" | null = null;
+  let stress = 0;
+  let sawAmount = false;
+  let sawSelfWord = false;
+  for (const segment of line) {
+    if (segment.type === "text") {
+      const text = segment.text.trim();
+      if (text === "") continue;
+      if (text === "Self") {
+        sawSelfWord = true;
+        continue;
+      }
+      if (/^-?\d+$/.test(text) && Number(text) === amount) {
+        sawAmount = true;
+        continue;
+      }
+      return null;
+    }
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) return null;
+    if (segment.icon.key === "self_effects" || segment.icon.key === "target_effects") {
+      if (audience !== null) return null;
+      audience = segment.icon.key === "self_effects" ? "self" : "target";
+      continue;
+    }
+    if (segment.icon.key === "stress") {
+      stress += 1;
+      continue;
+    }
+    return null;
+  }
+  if (audience === null || stress !== 1 || !sawAmount) return null;
+  if (sawSelfWord && audience !== "self") return null;
+  return audience;
+}
+
+function skippedEffects(
+  skill: HeroSkillCardView,
+  keys: readonly string[],
+  stress: ImmediateStress,
+): SkippedSkillEffect[] {
   const skipped: SkippedSkillEffect[] = [];
   if (keys.includes("damage_or_heal_combined_marker")) {
     skipped.push({ code: "damage_or_heal_combined_marker" });
   }
-  if (skill.effect_lines.length > 0) skipped.push({ code: "effect_lines" });
+  if (skill.effect_lines.length > 0 && !stress.resolvedAllLines) {
+    skipped.push({ code: "effect_lines" });
+  }
   return skipped;
 }
 
@@ -387,18 +485,21 @@ export function resolveHeroSkill(
   if (problem !== null) return refuse(skill, combat, problem);
 
   const target = combat.target;
+  const stress = readImmediateStress(skill);
   const keys = namedKeys(skill.stats_line);
   const kinds = new Set(keys.filter((key) => key === "damage" || key === "heal"));
-  if (kinds.size !== 1) {
-    return refuse(
-      skill,
-      combat,
-      kinds.size > 1
-        ? "stats_line 同时有已命名的 damage 和 heal"
-        : "stats_line 没有已命名的 damage 或 heal",
-    );
+  if (kinds.size > 1) {
+    return refuse(skill, combat, "stats_line 同时有已命名的 damage 和 heal");
   }
-  const effect = kinds.has("damage") ? "damage" : "heal";
+  let effect: "damage" | "heal" | "stress";
+  if (kinds.size === 0) {
+    if (stress.self === 0 && stress.target === 0) {
+      return refuse(skill, combat, "stats_line 没有已命名的 damage 或 heal");
+    }
+    effect = "stress";
+  } else {
+    effect = kinds.has("damage") ? "damage" : "heal";
+  }
 
   const targets = new Set(keys.filter((key) => key === "target_hero" || key === "target_monster"));
   if (targets.size !== 1) {
@@ -419,10 +520,20 @@ export function resolveHeroSkill(
   if (critThreshold === null) return refuse(skill, combat, "Crit 标签没有非负整数阈值");
   const accThreshold = threshold(skill, "Acc");
   if (accThreshold === null) return refuse(skill, combat, "Acc 标签没有非负整数阈值");
-  const critAmount = amountBesideLabel(skill, "Crit");
-  if (critAmount === null) return refuse(skill, combat, "Crit 旁边没有恰好一个非负整数");
-  const hitAmount = amountBesideLabel(skill, "Acc");
-  if (hitAmount === null) return refuse(skill, combat, "Acc 旁边没有恰好一个非负整数");
+  const critAmount = effect === "stress" ? null : amountBesideLabel(skill, "Crit");
+  const hitAmount = effect === "stress" ? null : amountBesideLabel(skill, "Acc");
+  if (effect !== "stress" && critAmount === null) {
+    return refuse(skill, combat, "Crit 旁边没有恰好一个非负整数");
+  }
+  if (effect !== "stress" && hitAmount === null) {
+    return refuse(skill, combat, "Acc 旁边没有恰好一个非负整数");
+  }
+  if (stress.self !== 0 && combat.actor?.stress === undefined) {
+    return refuse(skill, combat, "自身效果要改压力，但没有使用者的压力（规则书第 20 页）");
+  }
+  if (stress.target !== 0 && target.stress === undefined) {
+    return refuse(skill, combat, "目标效果要改压力，但目标没有压力（规则书第 20 页）");
+  }
 
   // 规则书第 19 页：先看暴击（不减 Dodge），再看命中阈值 Acc − Dodge。
   let outcome: "crit" | "hit" | "miss";
@@ -436,29 +547,6 @@ export function resolveHeroSkill(
   let riposteDamage: number | null = null;
   let actorWounds = combat.actor === undefined ? null : combat.actor.wounds;
 
-  if (outcome !== "miss") {
-    printedAmount = outcome === "crit" ? critAmount : hitAmount;
-    if (effect === "heal") {
-      wounds = Math.max(0, wounds - printedAmount);
-    } else {
-      // +X vs 类型、攻击方修正、防御方加减、Hard Skinned 都不加：
-      // 那些数字要么 numeric 为 null，要么不在这次调用里。
-      const beforeProtection = printedAmount;
-      damageDealt = target.protection === true ? halfUp(beforeProtection) : beforeProtection;
-      if (damageDealt >= 1) {
-        wounds += damageDealt;
-        if (target.riposte === true && actorWounds !== null) {
-          // 反弹量用 Protection 之前的伤害。攻击者的 Protection / Riposte 不用。
-          riposteDamage = halfUp(beforeProtection);
-          actorWounds += riposteDamage;
-        }
-      }
-    }
-  }
-
-  const targetDead =
-    target.side === "monster" && target.life !== undefined && wounds >= target.life;
-
   const dealtCrit = outcome === "crit";
   const receivedCrit = dealtCrit && effect === "damage" && target.side === "hero";
   let actorStress = combat.actor?.stress === undefined ? null : combat.actor.stress;
@@ -471,6 +559,47 @@ export function resolveHeroSkill(
       ? null
       : [...combat.untargetedHeroesBesideTarget],
   );
+
+  // 规则书第 20 页：自身效果在伤害、治疗和目标效果之前，落空也生效。
+  if (stress.self !== 0 && actorStress !== null) {
+    actorStress = clampStress(actorStress + stress.self);
+  }
+
+  if (effect !== "stress" && outcome !== "miss") {
+    const amount = outcome === "crit" ? critAmount : hitAmount;
+    if (amount === null) {
+      return refuse(
+        skill,
+        combat,
+        outcome === "crit" ? "Crit 旁边没有恰好一个非负整数" : "Acc 旁边没有恰好一个非负整数",
+      );
+    }
+    printedAmount = amount;
+    if (effect === "heal") {
+      wounds = Math.max(0, wounds - amount);
+    } else {
+      // +X vs 类型、攻击方修正、防御方加减、Hard Skinned 都不加：
+      // 那些数字要么 numeric 为 null，要么不在这次调用里。
+      const beforeProtection = amount;
+      damageDealt = target.protection === true ? halfUp(beforeProtection) : beforeProtection;
+      if (damageDealt >= 1) {
+        wounds += damageDealt;
+        if (target.riposte === true && actorWounds !== null) {
+          // 反弹量用 Protection 之前的伤害。攻击者的 Protection / Riposte 不用。
+          riposteDamage = halfUp(beforeProtection);
+          actorWounds += riposteDamage;
+        }
+      }
+    }
+  }
+
+  // 目标效果只对命中或暴击的目标生效。落空不改目标压力。
+  if (outcome !== "miss" && stress.target !== 0 && targetStress !== null) {
+    targetStress = clampStress(targetStress + stress.target);
+  }
+
+  const targetDead =
+    target.side === "monster" && target.life !== undefined && wounds >= target.life;
 
   if (dealtCrit && actorStress !== null) actorStress = clampStress(actorStress - 1);
   if (dealtCrit && besideActorStress !== null) {
@@ -509,6 +638,6 @@ export function resolveHeroSkill(
     targetStress,
     besideActorStress,
     untargetedBesideTargetStress,
-    skipped: skippedEffects(skill, keys),
+    skipped: skippedEffects(skill, keys, stress),
   };
 }
