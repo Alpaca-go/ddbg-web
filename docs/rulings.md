@@ -16,7 +16,7 @@
 - **关联待确认**：`Q-xx`（如有）
 - **状态**：已裁定 / 已取代；R-002 起还使用「依据规则书」「依据印刷件」「暂定（规则书未写明）」「延后」「需 Kyries 决定（非规则问题）」「Kyries 已确认（2026-10-06）」
 
-R-002~R-052 是 2026-10-06 授权下的暂定结论，Kyries 推翻前按这些结论写说明书。理由、被否决的备选，以及和说明书 v0.1 原推荐不同的地方，见 [docs/rulings-notes.md](rulings-notes.md)。
+R-002~R-052 是 2026-10-06 授权下的暂定结论，Kyries 推翻前按这些结论写说明书。理由、被否决的备选，以及和说明书 v0.1 原推荐不同的地方，见 [docs/rulings-notes.md](rulings-notes.md)。R-053 是 2026-10-08 Kyries 在聊天中的裁定，不属于那批暂定结论。
 
 ## 流程
 
@@ -568,6 +568,16 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **关联待确认**：Q-51
 - **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
 - **状态**：暂定（规则书未写明）
+
+### R-053
+
+- **编号**：R-053
+- **日期**：2026-10-08
+- **问题**：核心盒 10 张美德 / 折磨卡，正面没有印 Virtue 或 Affliction，各属于哪一边？
+- **裁定**（本项目裁定）：美德（Virtue）为 Stalwart、Courageous、Focused、Powerful、Vigorous。折磨（Affliction）为 Fearful、Selfish、Masochistic、Hopeless、Irrational。Kyries 称这一边为折磨；规范化字段仍是 `affliction`，不改成中文。只按这份名单填写 `role`（`virtue` 或 `affliction`）。对不上名字的卡 `role` 留空，未验证原因保留 `role_not_printed`。不因此给卡上其余未确认图标起名。
+- **依据 / 出处**：Kyries 于 2026-10-08 在聊天中拍板。规则书第 28 页把 Focused 标为 Virtue，把 Selfish 标为 Affliction。
+- **关联待确认**：无
+- **状态**：Kyries 已确认（2026-10-08）
 
 ## 待确认（未裁定）
 

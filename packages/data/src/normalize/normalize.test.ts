@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 import { describe, expect, it } from "vitest";
 
+import { virtueRole } from "./virtue-role";
 import { loadNormalizedCorebox, writeNormalizedCorebox } from "./write";
 
 if (process.env.WRITE_NORMALIZED === "1") {
@@ -172,7 +173,7 @@ describe("规范化核心盒", () => {
     }
   });
 
-  it("怪癖正负都来自 FRONT，美德和苦难不猜测分组", () => {
+  it("怪癖正负来自规则书，美德和折磨按 R-053", () => {
     expect(built.quirk.cards).toHaveLength(35);
     expect(built.quirk.cards.filter((card) => card.polarity === "positive")).toHaveLength(17);
     expect(built.quirk.cards.filter((card) => card.polarity === "negative")).toHaveLength(18);
@@ -188,17 +189,50 @@ describe("规范化核心盒", () => {
       "positive",
     );
 
+    const virtues = ["Stalwart", "Courageous", "Focused", "Powerful", "Vigorous"];
+    const afflictions = ["Fearful", "Selfish", "Masochistic", "Hopeless", "Irrational"];
     expect(built.virtue_affliction.cards).toHaveLength(10);
+    expect(virtueRole("Not A Card")).toBeNull();
     for (const card of built.virtue_affliction.cards) {
-      expect(card.role).toBeNull();
-      expect(card.role_source).toBe("unverified");
+      const expected = virtues.includes(card.name)
+        ? "virtue"
+        : afflictions.includes(card.name)
+          ? "affliction"
+          : null;
+      expect(expected).not.toBeNull();
+      expect(card.role).toBe(expected);
+      expect(card.role_source).toBe("ruling_r053");
       expect(card.source_front).toBe(
         "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
       );
       expect(card.source_back.endsWith("virtue_afflictions_BACK.pdf")).toBe(true);
       expect(card.back_has_data).toBe(false);
-      expect(card.verification.unverified).toBe(true);
-      expect(card.verification.reasons).toContain("role_not_printed");
+      expect(card.verification.reasons).not.toContain("role_not_printed");
+      expect(card.verification.unverified).toBe(card.verification.reasons.length > 0);
+    }
+
+    const masochistic = built.virtue_affliction.cards.find((card) => card.name === "Masochistic");
+    expect(masochistic?.verification).toEqual({
+      unverified: true,
+      reasons: ["icon:2c1824ea21", "icon:d42d7955d3"],
+    });
+    const irrational = built.virtue_affliction.cards.find((card) => card.name === "Irrational");
+    expect(irrational?.verification).toEqual({
+      unverified: true,
+      reasons: ["icon:5a4fbf9781"],
+    });
+    for (const name of [
+      "Stalwart",
+      "Courageous",
+      "Focused",
+      "Powerful",
+      "Vigorous",
+      "Fearful",
+      "Selfish",
+      "Hopeless",
+    ]) {
+      const card = built.virtue_affliction.cards.find((item) => item.name === name);
+      expect(card?.verification).toEqual({ unverified: false, reasons: [] });
     }
   });
 });

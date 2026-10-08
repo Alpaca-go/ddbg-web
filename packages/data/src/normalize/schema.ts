@@ -276,24 +276,53 @@ export const normalizedQuirkCardSchema = z.strictObject({
   verification: verificationSchema,
 });
 
-export const normalizedVirtueAfflictionCardSchema = z.strictObject({
-  id: z.string().min(1),
-  pages: pageListSchema,
-  copies: z.int().positive(),
-  name: z.string().min(1),
-  /**
-   * 正面 PDF 同时有美德和苦难，卡面没有印是哪一种。
-   * 不按卡背箭头或卡名猜测（卡背箭头仍是未决问题，rank 108 / 327）。
-   */
-  role: z.null(),
-  role_source: z.literal("unverified"),
-  source_front: z.literal(VIRTUE_FRONT),
-  source_back: z.string().min(1),
-  back_has_data: z.literal(false),
-  lines: lineListSchema,
-  icons: z.array(normalizedIconSchema),
-  verification: verificationSchema,
-});
+export const normalizedVirtueAfflictionCardSchema = z
+  .strictObject({
+    id: z.string().min(1),
+    pages: pageListSchema,
+    copies: z.int().positive(),
+    name: z.string().min(1),
+    /**
+     * R-053 的美德 / 折磨名单。卡面没有印 Virtue / Affliction。
+     * 对不上名单就留空，原因是 role_not_printed。
+     * 不按卡背箭头分组（rank 108、138、327 仍未决），也不因此给其余图标起名。
+     */
+    role: z.enum(["virtue", "affliction"]).nullable(),
+    role_source: z.enum(["ruling_r053", "unverified"]),
+    source_front: z.literal(VIRTUE_FRONT),
+    source_back: z.string().min(1),
+    back_has_data: z.literal(false),
+    lines: lineListSchema,
+    icons: z.array(normalizedIconSchema),
+    verification: verificationSchema,
+  })
+  .superRefine((card, ctx) => {
+    const listed = card.role !== null;
+    if (listed !== (card.role_source === "ruling_r053")) {
+      ctx.addIssue({
+        code: "custom",
+        message: "role 与 role_source 不一致",
+        path: ["role_source"],
+      });
+    }
+    const emptyRole = card.verification.reasons.includes("role_not_printed");
+    if (listed === emptyRole) {
+      ctx.addIssue({
+        code: "custom",
+        message: listed
+          ? "已有 role 时不再保留 role_not_printed"
+          : "role 为空时必须保留 role_not_printed",
+        path: ["verification", "reasons"],
+      });
+    }
+    if (card.verification.unverified !== card.verification.reasons.length > 0) {
+      ctx.addIssue({
+        code: "custom",
+        message: "unverified 由 reasons 决定，不能单独改",
+        path: ["verification", "unverified"],
+      });
+    }
+  });
 
 const sourcePairSchema = z.strictObject({
   parsed: z.string().min(1).nullable(),

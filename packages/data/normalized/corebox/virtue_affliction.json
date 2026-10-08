@@ -9,8 +9,8 @@
  },
  "stats": {
   "cards": 10,
-  "verified": 0,
-  "unverified": 10
+  "verified": 8,
+  "unverified": 2
  },
  "cards": [
   {
@@ -20,8 +20,8 @@
    ],
    "copies": 1,
    "name": "Stalwart",
-   "role": null,
-   "role_source": "unverified",
+   "role": "virtue",
+   "role_source": "ruling_r053",
    "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
    "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
    "back_has_data": false,
@@ -170,10 +170,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "role_not_printed"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -183,8 +181,8 @@
    ],
    "copies": 1,
    "name": "Courageous",
-   "role": null,
-   "role_source": "unverified",
+   "role": "virtue",
+   "role_source": "ruling_r053",
    "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
    "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
    "back_has_data": false,
@@ -447,10 +445,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "role_not_printed"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -460,8 +456,8 @@
    ],
    "copies": 1,
    "name": "Focused",
-   "role": null,
-   "role_source": "unverified",
+   "role": "virtue",
+   "role_source": "ruling_r053",
    "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
    "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
    "back_has_data": false,
@@ -610,10 +606,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "role_not_printed"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -623,8 +617,8 @@
    ],
    "copies": 1,
    "name": "Powerful",
-   "role": null,
-   "role_source": "unverified",
+   "role": "virtue",
+   "role_source": "ruling_r053",
    "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
    "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
    "back_has_data": false,
@@ -887,10 +881,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "role_not_printed"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -900,8 +892,8 @@
    ],
    "copies": 1,
    "name": "Vigorous",
-   "role": null,
-   "role_source": "unverified",
+   "role": "virtue",
+   "role_source": "ruling_r053",
    "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
    "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
    "back_has_data": false,
@@ -1085,10 +1077,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "role_not_printed"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -1098,8 +1088,8 @@
    ],
    "copies": 1,
    "name": "Fearful",
-   "role": null,
-   "role_source": "unverified",
+   "role": "affliction",
+   "role_source": "ruling_r053",
    "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
    "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
    "back_has_data": false,
@@ -1248,10 +1238,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "role_not_printed"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -1261,8 +1249,8 @@
    ],
    "copies": 1,
    "name": "Selfish",
-   "role": null,
-   "role_source": "unverified",
+   "role": "affliction",
+   "role_source": "ruling_r053",
    "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
    "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
    "back_has_data": false,
@@ -1388,10 +1376,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "role_not_printed"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -1401,8 +1387,8 @@
    ],
    "copies": 1,
    "name": "Masochistic",
-   "role": null,
-   "role_source": "unverified",
+   "role": "affliction",
+   "role_source": "ruling_r053",
    "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
    "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
    "back_has_data": false,
@@ -1585,8 +1571,7 @@
     "unverified": true,
     "reasons": [
      "icon:2c1824ea21",
-     "icon:d42d7955d3",
-     "role_not_printed"
+     "icon:d42d7955d3"
     ]
    }
   },
@@ -1597,8 +1582,8 @@
    ],
    "copies": 1,
    "name": "Hopeless",
-   "role": null,
-   "role_source": "unverified",
+   "role": "affliction",
+   "role_source": "ruling_r053",
    "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
    "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
    "back_has_data": false,
@@ -1861,10 +1846,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "role_not_printed"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -1874,8 +1857,8 @@
    ],
    "copies": 1,
    "name": "Irrational",
-   "role": null,
-   "role_source": "unverified",
+   "role": "affliction",
+   "role_source": "ruling_r053",
    "source_front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf",
    "source_back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_BACK.pdf",
    "back_has_data": false,
@@ -2106,8 +2089,7 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:5a4fbf9781",
-     "role_not_printed"
+     "icon:5a4fbf9781"
     ]
    }
   }

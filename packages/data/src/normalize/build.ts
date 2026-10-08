@@ -13,6 +13,7 @@ import type { RawFile } from "../extract/raw";
 import { createIconLookup, finishVerification, noteIcon, resolveLines, resolveText } from "./icons";
 import type { IconLookup } from "./icons";
 import { quirkPolarity } from "./quirk-polarity";
+import { virtueRole } from "./virtue-role";
 import type {
   NormalizedHeroSkillFile,
   NormalizedIcon,
@@ -502,15 +503,18 @@ function buildVirtues(raw: RawFile, lookup: IconLookup): NormalizedVirtueAfflict
   const sourceBack = raw.sources[0]?.back;
   if (!sourceBack) throw new Error("virtue_affliction 缺少 BACK 来源");
   const cards = raw.cards.map((card) => {
-    const reasons = new Set<string>(["role_not_printed"]);
+    const reasons = new Set<string>();
     const backFile = assertCardBackOnly(card, VIRTUE_FRONT);
+    const name = titleOf(card);
+    const role = virtueRole(name);
+    if (!role) reasons.add("role_not_printed");
     return {
       id: card.id,
       pages: card.pages,
       copies: card.copies,
-      name: titleOf(card),
-      role: null,
-      role_source: "unverified" as const,
+      name,
+      role,
+      role_source: role ? ("ruling_r053" as const) : ("unverified" as const),
       source_front: VIRTUE_FRONT,
       source_back: backFile,
       back_has_data: false as const,
