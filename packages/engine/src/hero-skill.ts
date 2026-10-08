@@ -22,6 +22,13 @@
  * 与否都生效。目标效果只对命中或暴击的目标生效。然后才结算暴击压力。
  * `numeric` 为 null 的数字（例如带「+」的 `+1`）不加。对不上的效果行仍整行跳过。
  *
+ * 自身治疗（规则书第 20 页，说明书 §6.5 第 5 步，G-02）：一条效果行只有已命名的
+ * `self_effects` 和已命名的 `heal`，文字只有空白、Self，以及与数值相同的非负整数。
+ * 这个整数是治疗图标里面、`numeric` 已经是整数的那个数，不从别的文字里补。
+ * 行内可以带着 `damage_or_heal_combined_marker`，仍不解释这个标记。条数和这类
+ * 治疗数字对得上才扣使用者的伤口，落空也扣，最低到 0。暴击不改这个固定治疗量。
+ * 它在伤害、目标治疗和反弹之前。对不上的行仍整行跳过。
+ *
  * 不解释 `damage_or_heal_combined_marker`。姿态、射程、英雄 Life、死门骰都不在这里。
  */
 
@@ -254,8 +261,14 @@ function amountBesideLabel(skill: HeroSkillCardView, label: "Crit" | "Acc"): num
 type ImmediateStress = {
   readonly self: number;
   readonly target: number;
-  /** 每条效果行都是上面这种立即压力。没有效果行时为 false。 */
-  readonly resolvedAllLines: boolean;
+  /** 对得上的立即压力行。没有时为 0。 */
+  readonly lineCount: number;
+};
+
+type SelfHeal = {
+  /** 从使用者伤口扣除的总量。没有时为 0。 */
+  readonly amount: number;
+  readonly lineCount: number;
 };
 
 /**
@@ -263,7 +276,7 @@ type ImmediateStress = {
  * 条数对不上，或行里还有别的已命名图标，就不结算这条，留给 effect_lines 跳过。
  */
 function readImmediateStress(skill: HeroSkillCardView): ImmediateStress {
-  const none: ImmediateStress = { self: 0, target: 0, resolvedAllLines: false };
+  const none: ImmediateStress = { self: 0, target: 0, lineCount: 0 };
   const numerics: number[] = [];
   for (const item of skill.unlabeled_numbers) {
     if (item.anchor.type !== "beside_icon") continue;
@@ -293,8 +306,72 @@ function readImmediateStress(skill: HeroSkillCardView): ImmediateStress {
   return {
     self,
     target,
-    resolvedAllLines: matched.length === skill.effect_lines.length,
+    lineCount: matched.length,
   };
+}
+
+/**
+ * 只接受「Self + heal」这一条自身效果。治疗量必须是治疗图标内的非负整数，
+ * 并且每条这种行和每一个这种数字对得上。组合标记可以待在行里，不拿它当治疗量。
+ */
+function readSelfHeal(skill: HeroSkillCardView): SelfHeal {
+  const none: SelfHeal = { amount: 0, lineCount: 0 };
+  const numerics: number[] = [];
+  for (const item of skill.unlabeled_numbers) {
+    if (item.anchor.type !== "beside_icon") continue;
+    if (item.anchor.left_icon !== null) continue;
+    const inside = item.anchor.inside_icon;
+    if (inside === null || inside.key !== "heal" || !NAMED.has(inside.naming)) continue;
+    if (item.numeric === null || !nonNegativeInteger(item.numeric)) continue;
+    numerics.push(item.numeric);
+  }
+  const shared = numerics[0];
+  if (shared === undefined || numerics.some((value) => value !== shared)) return none;
+
+  let lineCount = 0;
+  for (const line of skill.effect_lines) {
+    if (selfHealLine(line, shared)) lineCount += 1;
+  }
+  if (lineCount === 0 || lineCount !== numerics.length) return none;
+  return { amount: shared * lineCount, lineCount };
+}
+
+function selfHealLine(line: readonly SkillSegment[], amount: number): boolean {
+  let self = 0;
+  let heal = 0;
+  let marker = 0;
+  let sawAmount = false;
+  let sawSelfWord = false;
+  for (const segment of line) {
+    if (segment.type === "text") {
+      const text = segment.text.trim();
+      if (text === "") continue;
+      if (text === "Self") {
+        sawSelfWord = true;
+        continue;
+      }
+      if (/^\d+$/.test(text) && Number(text) === amount) {
+        sawAmount = true;
+        continue;
+      }
+      return false;
+    }
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) return false;
+    if (segment.icon.key === "self_effects") {
+      self += 1;
+      continue;
+    }
+    if (segment.icon.key === "heal") {
+      heal += 1;
+      continue;
+    }
+    if (segment.icon.key === "damage_or_heal_combined_marker") {
+      marker += 1;
+      continue;
+    }
+    return false;
+  }
+  return self === 1 && heal === 1 && marker <= 1 && sawAmount && sawSelfWord;
 }
 
 /** 规则书第 19 页把自身效果印成「Self」。只认这个词，不从其它文字里读规则。 */
@@ -337,16 +414,29 @@ function stressLineAudience(
   return audience;
 }
 
+function hasCombinedMarker(skill: HeroSkillCardView, keys: readonly string[]): boolean {
+  if (keys.includes("damage_or_heal_combined_marker")) return true;
+  for (const line of skill.effect_lines) {
+    for (const segment of line) {
+      if (segment.type !== "icon") continue;
+      if (segment.icon.key !== "damage_or_heal_combined_marker") continue;
+      if (!NAMED.has(segment.icon.naming)) continue;
+      return true;
+    }
+  }
+  return false;
+}
+
 function skippedEffects(
   skill: HeroSkillCardView,
   keys: readonly string[],
-  stress: ImmediateStress,
+  resolvedEffectLines: number,
 ): SkippedSkillEffect[] {
   const skipped: SkippedSkillEffect[] = [];
-  if (keys.includes("damage_or_heal_combined_marker")) {
+  if (hasCombinedMarker(skill, keys)) {
     skipped.push({ code: "damage_or_heal_combined_marker" });
   }
-  if (skill.effect_lines.length > 0 && !stress.resolvedAllLines) {
+  if (skill.effect_lines.length > 0 && resolvedEffectLines !== skill.effect_lines.length) {
     skipped.push({ code: "effect_lines" });
   }
   return skipped;
@@ -486,6 +576,7 @@ export function resolveHeroSkill(
 
   const target = combat.target;
   const stress = readImmediateStress(skill);
+  const selfHeal = readSelfHeal(skill);
   const keys = namedKeys(skill.stats_line);
   const kinds = new Set(keys.filter((key) => key === "damage" || key === "heal"));
   if (kinds.size > 1) {
@@ -534,6 +625,9 @@ export function resolveHeroSkill(
   if (stress.target !== 0 && target.stress === undefined) {
     return refuse(skill, combat, "目标效果要改压力，但目标没有压力（规则书第 20 页）");
   }
+  if (selfHeal.amount > 0 && combat.actor === undefined) {
+    return refuse(skill, combat, "自身效果要治疗，但没有使用者的伤口（规则书第 20 页）");
+  }
 
   // 规则书第 19 页：先看暴击（不减 Dodge），再看命中阈值 Acc − Dodge。
   let outcome: "crit" | "hit" | "miss";
@@ -563,6 +657,9 @@ export function resolveHeroSkill(
   // 规则书第 20 页：自身效果在伤害、治疗和目标效果之前，落空也生效。
   if (stress.self !== 0 && actorStress !== null) {
     actorStress = clampStress(actorStress + stress.self);
+  }
+  if (selfHeal.amount > 0 && actorWounds !== null) {
+    actorWounds = Math.max(0, actorWounds - selfHeal.amount);
   }
 
   if (effect !== "stress" && outcome !== "miss") {
@@ -638,6 +735,6 @@ export function resolveHeroSkill(
     targetStress,
     besideActorStress,
     untargetedBesideTargetStress,
-    skipped: skippedEffects(skill, keys, stress),
+    skipped: skippedEffects(skill, keys, stress.lineCount + selfHeal.lineCount),
   };
 }
