@@ -999,7 +999,7 @@ describe("resolveHeroSkill", () => {
       use(
         "hero_skill:p019",
         {
-          actor: { id: "crusader", wounds: 0, stress: 4 },
+          actor: { id: "crusader", wounds: 4, stress: 4 },
           target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 4 },
         },
         5,
@@ -1008,8 +1008,350 @@ describe("resolveHeroSkill", () => {
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
       wounds: 2,
+      actorWounds: 4,
       actorStress: 4,
       targetStress: 4,
+    });
+  });
+
+  it("hero_skill:p098 Divine Comfort II 暴击时自身治疗 3，目标治疗 4", () => {
+    const skill = card("hero_skill:p098");
+    expect(skill.name).toBe("Divine Comfort");
+    expect(skill.level).toBe(2);
+    expect(skill.hero).toBe("VESTAL");
+    expect(skill.verification.unverified).toBe(false);
+    const healNumerics = skill.unlabeled_numbers
+      .filter(
+        (item) =>
+          item.anchor.type === "beside_icon" &&
+          item.anchor.left_icon === null &&
+          item.anchor.inside_icon?.key === "heal",
+      )
+      .map((item) => item.numeric);
+    expect(healNumerics).toEqual([3]);
+
+    const combat: SkillCombatState = {
+      actor: { id: "vestal", wounds: 6, stress: 4, protection: true, riposte: true },
+      heroesBesideActor: [{ id: "crusader", stress: 2 }],
+      untargetedHeroesBesideTarget: [{ id: "highwayman", stress: 6 }],
+      target: {
+        id: "patient",
+        side: "hero",
+        wounds: 6,
+        dodge: 0,
+        stress: 5,
+        protection: true,
+        riposte: true,
+      },
+    };
+    const frozen = structuredClone(combat);
+
+    expect(use("hero_skill:p098", combat, 2)).toEqual({
+      skillId: "hero_skill:p098",
+      targetId: "patient",
+      status: "resolved",
+      reason: null,
+      outcome: "crit",
+      effect: "heal",
+      printedAmount: 4,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 2,
+      actorWounds: 3,
+      targetDead: false,
+      actorStress: 3,
+      targetStress: 5,
+      besideActorStress: [{ id: "crusader", stress: 1 }],
+      untargetedBesideTargetStress: [{ id: "highwayman", stress: 6 }],
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
+    });
+    expect(combat).toEqual(frozen);
+
+    expect(use("hero_skill:p098", combat, 4)).toMatchObject({
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 3,
+      wounds: 3,
+      actorWounds: 3,
+      actorStress: 4,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+      riposteDamage: null,
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
+    });
+
+    const missed = use(
+      "hero_skill:p098",
+      { ...combat, target: { ...combat.target, dodge: 5 } },
+      10,
+    );
+    expect(missed).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      wounds: 6,
+      actorWounds: 3,
+      actorStress: 4,
+      targetStress: 5,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+    });
+
+    expect(
+      use("hero_skill:p098", { ...combat, actor: { id: "vestal", wounds: 1, stress: 4 } }, 2),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 4,
+      wounds: 2,
+      actorWounds: 0,
+      actorStress: 3,
+    });
+
+    expect(
+      use("hero_skill:p098", { target: { ...combat.target, riposte: false } }, 2),
+    ).toMatchObject({
+      status: "refused",
+      reason: "自身效果要治疗，但没有使用者的伤口（规则书第 20 页）",
+      wounds: 6,
+      actorWounds: null,
+    });
+  });
+
+  it("hero_skill:p015 Battle Heal III 的自身治疗是 5，不是 Acc 旁边的 4", () => {
+    const skill = card("hero_skill:p015");
+    expect(skill.name).toBe("Battle Heal");
+    expect(skill.level).toBe(3);
+    expect(skill.hero).toBe("CRUSADER");
+    expect(skill.verification.unverified).toBe(false);
+
+    expect(
+      use(
+        "hero_skill:p015",
+        {
+          actor: { id: "crusader", wounds: 9, stress: 1 },
+          target: { id: "patient", side: "hero", wounds: 8, dodge: 0, stress: 2 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 4,
+      wounds: 4,
+      actorWounds: 4,
+      actorStress: 1,
+      targetStress: 2,
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
+    });
+    expect(
+      use(
+        "hero_skill:p015",
+        {
+          actor: { id: "crusader", wounds: 9, stress: 4 },
+          target: { id: "patient", side: "hero", wounds: 8, dodge: 8, stress: 2 },
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      wounds: 8,
+      actorWounds: 4,
+      actorStress: 4,
+    });
+  });
+
+  it("hero_skill:p088 Judgement I 先治疗自身，再结算伤害和反弹", () => {
+    const skill = card("hero_skill:p088");
+    expect(skill.name).toBe("Judgement");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("VESTAL");
+    expect(skill.verification.unverified).toBe(false);
+    expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([null]);
+
+    expect(
+      use(
+        "hero_skill:p088",
+        {
+          actor: { id: "vestal", wounds: 5, stress: 4 },
+          target: target("monster", 0, 0).target,
+        },
+        2,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 4,
+      damageDealt: 4,
+      riposteDamage: null,
+      wounds: 4,
+      actorWounds: 3,
+      actorStress: 4,
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
+    });
+    expect(
+      use(
+        "hero_skill:p088",
+        {
+          actor: { id: "vestal", wounds: 4, stress: 4 },
+          target: target("monster", 3, 0).target,
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 3,
+      actorWounds: 2,
+      actorStress: 4,
+    });
+    expect(
+      use(
+        "hero_skill:p088",
+        {
+          actor: { id: "vestal", wounds: 4, stress: 4 },
+          target: target("monster", 0, 0).target,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 8,
+      damageDealt: 8,
+      wounds: 8,
+      actorWounds: 2,
+      actorStress: 3,
+    });
+    expect(
+      use(
+        "hero_skill:p088",
+        {
+          actor: { id: "vestal", wounds: 1, stress: 0, protection: true, riposte: true },
+          target: { ...target("monster", 0, 0).target, riposte: true, protection: true },
+        },
+        2,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 4,
+      damageDealt: 2,
+      riposteDamage: 2,
+      wounds: 2,
+      actorWounds: 2,
+    });
+  });
+
+  it("hero_skill:p140 Battlefield Medicine II 治疗自身，移除流血和腐蚀仍跳过", () => {
+    const skill = card("hero_skill:p140");
+    expect(skill.name).toBe("Battlefield Medicine");
+    expect(skill.level).toBe(2);
+    expect(skill.hero).toBe("PLAGUE DOCTOR");
+    expect(skill.verification.unverified).toBe(false);
+
+    expect(
+      use(
+        "hero_skill:p140",
+        {
+          actor: { id: "doctor", wounds: 6, stress: 2 },
+          target: { id: "patient", side: "hero", wounds: 5, dodge: 0, stress: 1 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 2,
+      wounds: 3,
+      actorWounds: 3,
+      actorStress: 2,
+      skipped: [{ code: "damage_or_heal_combined_marker" }, { code: "effect_lines" }],
+    });
+    expect(
+      use(
+        "hero_skill:p140",
+        {
+          actor: { id: "doctor", wounds: 6, stress: 2 },
+          target: { id: "patient", side: "hero", wounds: 5, dodge: 11, stress: 1 },
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      wounds: 5,
+      actorWounds: 3,
+      skipped: [{ code: "damage_or_heal_combined_marker" }, { code: "effect_lines" }],
+    });
+  });
+
+  it("混在同一行里的治疗，或整张技能对不上，仍不扣伤口", () => {
+    const cry = card("hero_skill:p020");
+    expect(cry.name).toBe("Inspiring Cry");
+    expect(cry.level).toBe(2);
+    expect(cry.verification.unverified).toBe(false);
+    expect(
+      cry.unlabeled_numbers
+        .filter(
+          (item) =>
+            item.anchor.type === "beside_icon" &&
+            item.anchor.left_icon === null &&
+            item.anchor.inside_icon?.key === "heal",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([1]);
+    expect(
+      use(
+        "hero_skill:p020",
+        {
+          actor: { id: "crusader", wounds: 5, stress: 4 },
+          target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 4 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      wounds: 2,
+      actorWounds: 5,
+      actorStress: 4,
+      outcome: null,
+    });
+
+    const beast = card("hero_skill:p220");
+    expect(beast.name).toBe("Transform to Beast");
+    expect(beast.level).toBe(1);
+    expect(beast.verification.unverified).toBe(false);
+    expect(
+      beast.unlabeled_numbers
+        .filter(
+          (item) =>
+            item.anchor.type === "beside_icon" &&
+            item.anchor.left_icon === null &&
+            item.anchor.inside_icon?.key === "heal",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([4]);
+    expect(
+      use(
+        "hero_skill:p220",
+        {
+          actor: { id: "abomination", wounds: 5, stress: 4 },
+          target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 4 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      wounds: 2,
+      actorWounds: 5,
+      actorStress: 4,
+      outcome: null,
     });
   });
 });
