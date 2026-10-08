@@ -29,6 +29,12 @@
  * 治疗数字对得上才扣使用者的伤口，落空也扣，最低到 0。暴击不改这个固定治疗量。
  * 它在伤害、目标治疗和反弹之前。对不上的行仍整行跳过。
  *
+ * 移除流血和腐蚀（规则书第 20 页目标效果、第 21 页移除全部堆叠，第 12 页
+ * 「Remove all Bleed」）：一条效果行只有已命名的目标效果、已命名的 bleed、
+ * 已命名的 blight，文字只有空白和「Remove」。命中或暴击时清掉目标这两种状态的
+ * 全部堆叠，落空不清。不读回合数，也不使用 `numeric` 为 null 的数字。没有目标
+ * 效果标记的「Remove」行，以及和增益、眩晕混在同一行的「Remove」，仍整行跳过。
+ *
  * 不解释 `damage_or_heal_combined_marker`。姿态、射程、英雄 Life、死门骰都不在这里。
  */
 
@@ -147,6 +153,13 @@ export type HeroSkillResolution = {
   readonly actorWounds: number | null;
   /** 怪物伤口 ≥ Life。没传入 Life，或目标不是怪物时为 false。 */
   readonly targetDead: boolean;
+  /**
+   * 命中或暴击时，目标效果清掉全部 Bleed 堆叠。
+   * 没有这条效果，或落空，为 false。不改堆上的面值：规则书是整堆移除。
+   */
+  readonly targetBleedCleared: boolean;
+  /** 与 Bleed 同一条目标效果，清掉全部 Blight 堆叠。 */
+  readonly targetBlightCleared: boolean;
   readonly actorStress: number | null;
   readonly targetStress: number | null;
   readonly besideActorStress: readonly SkillAreaHero[] | null;
@@ -218,6 +231,8 @@ function refuse(
     wounds: combat.target.wounds,
     actorWounds,
     targetDead: false,
+    targetBleedCleared: false,
+    targetBlightCleared: false,
     actorStress,
     targetStress,
     besideActorStress: snapshotHeroes(combat.heroesBesideActor),
@@ -269,6 +284,11 @@ type SelfHeal = {
   /** 从使用者伤口扣除的总量。没有时为 0。 */
   readonly amount: number;
   readonly lineCount: number;
+};
+
+type ConditionRemoval = {
+  /** 对得上的「Remove Bleed、Blight」目标效果行。没有时为 0。 */
+  readonly targetLines: number;
 };
 
 /**
@@ -412,6 +432,53 @@ function stressLineAudience(
   if (audience === null || stress !== 1 || !sawAmount) return null;
   if (sawSelfWord && audience !== "self") return null;
   return audience;
+}
+
+/**
+ * 只接受「目标效果 + Remove + bleed + blight」这一整行。
+ * 没有目标效果标记、文字不是「Remove」、或还有别的已命名图标，就不算这条。
+ * 「1t」这类 `numeric` 为 null 的回合数不在这里读。
+ */
+function readConditionRemoval(skill: HeroSkillCardView): ConditionRemoval {
+  let targetLines = 0;
+  for (const line of skill.effect_lines) {
+    if (targetRemoveBleedBlightLine(line)) targetLines += 1;
+  }
+  return { targetLines };
+}
+
+function targetRemoveBleedBlightLine(line: readonly SkillSegment[]): boolean {
+  let target = 0;
+  let bleed = 0;
+  let blight = 0;
+  let sawRemove = false;
+  for (const segment of line) {
+    if (segment.type === "text") {
+      const text = segment.text.trim();
+      if (text === "") continue;
+      if (text === "Remove") {
+        if (sawRemove) return false;
+        sawRemove = true;
+        continue;
+      }
+      return false;
+    }
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) return false;
+    if (segment.icon.key === "target_effects") {
+      target += 1;
+      continue;
+    }
+    if (segment.icon.key === "bleed") {
+      bleed += 1;
+      continue;
+    }
+    if (segment.icon.key === "blight") {
+      blight += 1;
+      continue;
+    }
+    return false;
+  }
+  return target === 1 && bleed === 1 && blight === 1 && sawRemove;
 }
 
 function hasCombinedMarker(skill: HeroSkillCardView, keys: readonly string[]): boolean {
@@ -577,6 +644,7 @@ export function resolveHeroSkill(
   const target = combat.target;
   const stress = readImmediateStress(skill);
   const selfHeal = readSelfHeal(skill);
+  const removal = readConditionRemoval(skill);
   const keys = namedKeys(skill.stats_line);
   const kinds = new Set(keys.filter((key) => key === "damage" || key === "heal"));
   if (kinds.size > 1) {
@@ -690,10 +758,11 @@ export function resolveHeroSkill(
     }
   }
 
-  // 目标效果只对命中或暴击的目标生效。落空不改目标压力。
+  // 目标效果只对命中或暴击的目标生效。落空不改目标压力，也不移除状态。
   if (outcome !== "miss" && stress.target !== 0 && targetStress !== null) {
     targetStress = clampStress(targetStress + stress.target);
   }
+  const conditionsCleared = outcome !== "miss" && removal.targetLines > 0;
 
   const targetDead =
     target.side === "monster" && target.life !== undefined && wounds >= target.life;
@@ -731,10 +800,16 @@ export function resolveHeroSkill(
     wounds,
     actorWounds,
     targetDead,
+    targetBleedCleared: conditionsCleared,
+    targetBlightCleared: conditionsCleared,
     actorStress,
     targetStress,
     besideActorStress,
     untargetedBesideTargetStress,
-    skipped: skippedEffects(skill, keys, stress.lineCount + selfHeal.lineCount),
+    skipped: skippedEffects(
+      skill,
+      keys,
+      stress.lineCount + selfHeal.lineCount + removal.targetLines,
+    ),
   };
 }
