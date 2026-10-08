@@ -7,10 +7,12 @@ import { describe, expect, it } from "vitest";
 import { createRng, resolveHeroSkill, rollD10 } from "./index";
 import type { HeroSkillCardView, HeroSkillResolution, SkillCombatState } from "./index";
 
-const SKILL_FILE = path.resolve(
+const DATA_DIR = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
-  "../../data/normalized/corebox/hero_skill.json",
+  "../../data/normalized/corebox",
 );
+const SKILL_FILE = path.join(DATA_DIR, "hero_skill.json");
+const MONSTER_FILE = path.join(DATA_DIR, "monster_medium.json");
 
 type FixtureCard = HeroSkillCardView & {
   readonly name: string;
@@ -62,6 +64,69 @@ function card(id: string): FixtureCard {
   return found;
 }
 
+type MonsterCard = {
+  readonly id: string;
+  readonly name: string;
+  readonly level: number;
+  readonly life: number;
+  readonly unverified: boolean;
+};
+
+function isMonsterCard(value: unknown): value is {
+  id: string;
+  name: string;
+  level: number;
+  life: number;
+  verification: { unverified: boolean };
+} {
+  if (typeof value !== "object" || value === null) return false;
+  if (!("id" in value) || typeof value.id !== "string") return false;
+  if (!("name" in value) || typeof value.name !== "string") return false;
+  if (!("level" in value) || typeof value.level !== "number") return false;
+  if (!("life" in value) || typeof value.life !== "number") return false;
+  if (
+    !("verification" in value) ||
+    typeof value.verification !== "object" ||
+    value.verification === null ||
+    !("unverified" in value.verification) ||
+    typeof value.verification.unverified !== "boolean"
+  ) {
+    return false;
+  }
+  return true;
+}
+
+const monsterFile: unknown = JSON.parse(readFileSync(MONSTER_FILE, "utf8"));
+if (
+  typeof monsterFile !== "object" ||
+  monsterFile === null ||
+  !("cards" in monsterFile) ||
+  !Array.isArray(monsterFile.cards)
+) {
+  throw new Error("monster_medium.json 缺少 cards");
+}
+if (!("dictionary_version" in monsterFile) || monsterFile.dictionary_version !== "1.8") {
+  throw new Error("测试要用词典 v1.8 的规范化怪物卡");
+}
+
+const monsters = new Map<string, MonsterCard>();
+for (const entry of monsterFile.cards) {
+  if (!isMonsterCard(entry)) continue;
+  monsters.set(entry.id, {
+    id: entry.id,
+    name: entry.name,
+    level: entry.level,
+    life: entry.life,
+    unverified: entry.verification.unverified,
+  });
+}
+
+function monster(id: string): MonsterCard {
+  const found = monsters.get(id);
+  if (!found) throw new Error(`缺少 ${id}`);
+  return found;
+}
+
 function target(
   side: "hero" | "monster",
   wounds: number,
@@ -92,7 +157,15 @@ describe("resolveHeroSkill", () => {
       outcome: "crit",
       effect: "damage",
       printedAmount: 12,
+      damageDealt: 12,
+      riposteDamage: null,
       wounds: 12,
+      actorWounds: null,
+      targetDead: false,
+      actorStress: null,
+      targetStress: null,
+      besideActorStress: null,
+      untargetedBesideTargetStress: null,
       skipped: [],
     });
 
@@ -163,7 +236,15 @@ describe("resolveHeroSkill", () => {
       outcome: "crit",
       effect: "heal",
       printedAmount: 5,
+      damageDealt: null,
+      riposteDamage: null,
       wounds: 1,
+      actorWounds: null,
+      targetDead: false,
+      actorStress: null,
+      targetStress: null,
+      besideActorStress: null,
+      untargetedBesideTargetStress: null,
       skipped: [],
     });
     expect(use("hero_skill:p014", target("hero", 6, 0), 10)).toMatchObject({
@@ -203,7 +284,15 @@ describe("resolveHeroSkill", () => {
       outcome: "hit",
       effect: "heal",
       printedAmount: 2,
+      damageDealt: null,
+      riposteDamage: null,
       wounds: 3,
+      actorWounds: null,
+      targetDead: false,
+      actorStress: null,
+      targetStress: null,
+      besideActorStress: null,
+      untargetedBesideTargetStress: null,
       skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
   });
@@ -223,7 +312,15 @@ describe("resolveHeroSkill", () => {
       outcome: "hit",
       effect: "damage",
       printedAmount: 7,
+      damageDealt: 7,
+      riposteDamage: null,
       wounds: 7,
+      actorWounds: null,
+      targetDead: false,
+      actorStress: null,
+      targetStress: null,
+      besideActorStress: null,
+      untargetedBesideTargetStress: null,
       skipped: [{ code: "effect_lines" }],
     });
     expect(use("hero_skill:p001", target("monster", 4, 0), 10)).toMatchObject({
@@ -308,5 +405,346 @@ describe("resolveHeroSkill", () => {
     expect(use("hero_skill:p022", target("monster", 1, 1.5), 5).reason).toBe(
       "Dodge 必须是非负整数",
     );
+  });
+
+  it("Protection 把攻击伤害减半并向上取整，治疗不减半", () => {
+    const soldier = monster("monster_medium:p001");
+    expect(soldier).toEqual({
+      id: "monster_medium:p001",
+      name: "Bone Soldier",
+      level: 1,
+      life: 7,
+      unverified: false,
+    });
+    const arbalist = monster("monster_medium:p007");
+    expect(arbalist).toEqual({
+      id: "monster_medium:p007",
+      name: "Bone Arbalist",
+      level: 1,
+      life: 11,
+      unverified: false,
+    });
+
+    expect(use("hero_skill:p022", target("monster", 0, 0), 2)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+    });
+    expect(
+      use(
+        "hero_skill:p022",
+        { target: { ...target("monster", 0, 0).target, protection: true } },
+        2,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 4,
+      wounds: 4,
+      targetDead: false,
+    });
+    expect(
+      use(
+        "hero_skill:p022",
+        { target: { ...target("monster", 1, 0).target, protection: true } },
+        1,
+      ),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 12,
+      damageDealt: 6,
+      wounds: 7,
+    });
+    expect(
+      use("hero_skill:p014", { target: { ...target("hero", 6, 0).target, protection: true } }, 10),
+    ).toMatchObject({
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 3,
+      damageDealt: null,
+      wounds: 3,
+    });
+  });
+
+  it("怪物伤口达到规范化 Life 时死亡，没传入 Life 就不判断", () => {
+    const life = monster("monster_medium:p001").life;
+    expect(life).toBe(7);
+    expect(
+      use("hero_skill:p022", { target: { ...target("monster", 0, 0).target, life } }, 2),
+    ).toMatchObject({
+      outcome: "hit",
+      damageDealt: 7,
+      wounds: 7,
+      targetDead: true,
+    });
+    expect(
+      use(
+        "hero_skill:p022",
+        { target: { ...target("monster", 0, 0).target, life, protection: true } },
+        2,
+      ),
+    ).toMatchObject({
+      damageDealt: 4,
+      wounds: 4,
+      targetDead: false,
+    });
+
+    const arbalistLife = monster("monster_medium:p007").life;
+    expect(arbalistLife).toBe(11);
+    expect(
+      use(
+        "hero_skill:p022",
+        { target: { ...target("monster", 0, 0).target, life: arbalistLife } },
+        2,
+      ),
+    ).toMatchObject({ damageDealt: 7, wounds: 7, targetDead: false });
+    expect(
+      use(
+        "hero_skill:p022",
+        { target: { ...target("monster", 0, 0).target, life: arbalistLife } },
+        1,
+      ),
+    ).toMatchObject({
+      outcome: "crit",
+      damageDealt: 12,
+      wounds: 12,
+      targetDead: true,
+    });
+    expect(
+      use("hero_skill:p022", { target: { ...target("monster", 7, 0).target, life } }, 10),
+    ).toMatchObject({
+      outcome: "miss",
+      damageDealt: null,
+      wounds: 7,
+      targetDead: true,
+    });
+    expect(use("hero_skill:p022", target("monster", 0, 0), 2)).toMatchObject({
+      wounds: 7,
+      targetDead: false,
+    });
+  });
+
+  it("Riposte 按 Protection 之前的伤害反弹，落空和治疗不反弹", () => {
+    const actor = {
+      id: "hellion",
+      wounds: 2,
+      stress: 4,
+      protection: true,
+      riposte: true,
+    };
+    const hit = use(
+      "hero_skill:p022",
+      {
+        actor,
+        target: { ...target("monster", 0, 0).target, riposte: true, protection: true },
+      },
+      2,
+    );
+    expect(hit).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 4,
+      riposteDamage: 4,
+      wounds: 4,
+      actorWounds: 6,
+      actorStress: 4,
+    });
+
+    const crit = use(
+      "hero_skill:p022",
+      {
+        actor: { id: "hellion", wounds: 0, protection: true, riposte: true },
+        target: { ...target("monster", 0, 0).target, riposte: true },
+      },
+      1,
+    );
+    expect(crit).toMatchObject({
+      outcome: "crit",
+      printedAmount: 12,
+      damageDealt: 12,
+      riposteDamage: 6,
+      wounds: 12,
+      actorWounds: 6,
+    });
+
+    const missed = use(
+      "hero_skill:p022",
+      {
+        actor,
+        target: { ...target("monster", 3, 0).target, riposte: true },
+      },
+      10,
+    );
+    expect(missed).toMatchObject({
+      outcome: "miss",
+      riposteDamage: null,
+      wounds: 3,
+      actorWounds: 2,
+    });
+
+    const healed = use(
+      "hero_skill:p014",
+      {
+        actor,
+        target: { ...target("hero", 6, 0).target, riposte: true },
+      },
+      10,
+    );
+    expect(healed).toMatchObject({
+      outcome: "hit",
+      effect: "heal",
+      riposteDamage: null,
+      wounds: 3,
+      actorWounds: 2,
+    });
+
+    expect(
+      use("hero_skill:p022", { target: { ...target("monster", 1, 0).target, riposte: true } }, 2),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标有 Riposte，但没有攻击者可以承受反弹（R-017）",
+      wounds: 1,
+      actorWounds: null,
+    });
+  });
+
+  it("打出暴击时使用者和同区域英雄压力各减 1，治疗暴击也算", () => {
+    const dealt = use(
+      "hero_skill:p022",
+      {
+        actor: { id: "hellion", wounds: 0, stress: 4 },
+        heroesBesideActor: [
+          { id: "crusader", stress: 2 },
+          { id: "vestal", stress: 0 },
+        ],
+        untargetedHeroesBesideTarget: [{ id: "highwayman", stress: 6 }],
+        target: { ...target("monster", 0, 0).target },
+      },
+      1,
+    );
+    expect(dealt).toMatchObject({
+      outcome: "crit",
+      actorStress: 3,
+      besideActorStress: [
+        { id: "crusader", stress: 1 },
+        { id: "vestal", stress: 0 },
+      ],
+      untargetedBesideTargetStress: [{ id: "highwayman", stress: 6 }],
+      targetStress: null,
+    });
+
+    const atCap = use(
+      "hero_skill:p022",
+      {
+        actor: { id: "hellion", wounds: 0, stress: 10 },
+        target: target("monster", 0, 0).target,
+      },
+      1,
+    );
+    expect(atCap).toMatchObject({ actorStress: 9, targetDead: false });
+
+    const hit = use(
+      "hero_skill:p022",
+      {
+        actor: { id: "hellion", wounds: 0, stress: 4 },
+        heroesBesideActor: [{ id: "crusader", stress: 2 }],
+        target: target("monster", 0, 0).target,
+      },
+      9,
+    );
+    expect(hit).toMatchObject({
+      outcome: "hit",
+      actorStress: 4,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+    });
+
+    const healCrit = use(
+      "hero_skill:p014",
+      {
+        actor: { id: "crusader", wounds: 0, stress: 1 },
+        heroesBesideActor: [{ id: "vestal", stress: 3 }],
+        untargetedHeroesBesideTarget: [{ id: "highwayman", stress: 6 }],
+        targetInActorArea: true,
+        target: { ...target("hero", 6, 0, "patient").target, stress: 4 },
+      },
+      2,
+    );
+    expect(healCrit).toMatchObject({
+      outcome: "crit",
+      effect: "heal",
+      wounds: 1,
+      actorStress: 0,
+      targetStress: 3,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+      untargetedBesideTargetStress: [{ id: "highwayman", stress: 6 }],
+    });
+
+    const healApart = use(
+      "hero_skill:p014",
+      {
+        actor: { id: "crusader", wounds: 0, stress: 0 },
+        target: { ...target("hero", 6, 0).target, stress: 4 },
+      },
+      2,
+    );
+    expect(healApart).toMatchObject({
+      outcome: "crit",
+      actorStress: 0,
+      targetStress: 4,
+    });
+
+    expect(
+      use(
+        "hero_skill:p022",
+        {
+          heroesBesideActor: [{ id: "crusader", stress: 2 }],
+          target: target("monster", 0, 0).target,
+        },
+        1,
+      ).reason,
+    ).toBe("同区域英雄的暴击压力要和使用者的压力一起结算（R-031）");
+  });
+
+  it("英雄 Life、死门和非法的压力或 Life 不结算", () => {
+    expect(
+      use("hero_skill:p014", { target: { ...target("hero", 4, 0).target, life: 33 } }, 10),
+    ).toMatchObject({
+      status: "refused",
+      reason:
+        "英雄 Life 不在这一层结算：规范化数据没有英雄 Life，死门骰哪几面是骷髅也没有命名（R-005）",
+      wounds: 4,
+    });
+    expect(
+      use("hero_skill:p022", { target: { ...target("monster", 1, 0).target, life: 0 } }, 2).reason,
+    ).toBe("Life 必须是正整数");
+    expect(
+      use("hero_skill:p022", { target: { ...target("monster", 1, 0).target, stress: 3 } }, 2)
+        .reason,
+    ).toBe("怪物没有压力轨");
+    expect(
+      use(
+        "hero_skill:p014",
+        {
+          actor: { id: "crusader", wounds: 0, stress: 11 },
+          target: target("hero", 4, 0).target,
+        },
+        10,
+      ).reason,
+    ).toBe("攻击者的压力必须是 0 到 10 的整数");
+    expect(
+      use(
+        "hero_skill:p022",
+        {
+          actor: { id: "hellion", wounds: 0, stress: 1 },
+          heroesBesideActor: [
+            { id: "crusader", stress: 1 },
+            { id: "crusader", stress: 2 },
+          ],
+          target: target("monster", 0, 0).target,
+        },
+        1,
+      ).reason,
+    ).toBe("使用者身边的英雄里有重复的英雄");
   });
 });

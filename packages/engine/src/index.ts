@@ -4,10 +4,13 @@ export { resolveHeroSkill } from "./hero-skill";
 export type {
   HeroSkillCardView,
   HeroSkillResolution,
+  SkillActorState,
+  SkillAreaHero,
   SkillCombatState,
   SkillIconRef,
   SkillSegment,
   SkillTargetSide,
+  SkillTargetState,
   SkippedSkillEffect,
 } from "./hero-skill";
 export { createRng, rollD10 } from "./rng";
