@@ -1,11 +1,11 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.7",
+ "dictionary_version": "1.8",
  "category": "trinket",
  "sources": {
   "parsed": "extract/corebox/parsed/trinket.json",
   "raw": "extract/corebox/raw/trinket.json",
-  "dictionary": "dictionary/icon-dictionary-v1.7.json"
+  "dictionary": "dictionary/icon-dictionary-v1.8.json"
  },
  "stats": {
   "cards": 38,

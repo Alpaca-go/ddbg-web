@@ -1,11 +1,11 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.7",
+ "dictionary_version": "1.8",
  "category": "virtue_affliction",
  "sources": {
   "parsed": null,
   "raw": "extract/corebox/raw/virtue_affliction.json",
-  "dictionary": "dictionary/icon-dictionary-v1.7.json"
+  "dictionary": "dictionary/icon-dictionary-v1.8.json"
  },
  "stats": {
   "cards": 10,
