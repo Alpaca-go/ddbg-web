@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyCommand, createInitialState, createRng } from "./index";
+import { applyCommand, createInitialState, createRng, rollD10 } from "./index";
 
 function uints(seed: number, count: number): number[] {
   const rng = createRng(seed);
@@ -18,6 +18,25 @@ describe("createRng", () => {
 
   it("序列与固定样本一致", () => {
     expect(uints(1, 4)).toEqual([2693262067, 11749833, 2265367787, 4213581821]);
+  });
+});
+
+describe("rollD10", () => {
+  function faces(seed: number, count: number): number[] {
+    const rng = createRng(seed);
+    return Array.from({ length: count }, () => rollD10(rng));
+  }
+
+  it("面值是 1 到 10，同一种子得到同一序列", () => {
+    expect(faces(1, 4)).toEqual([7, 1, 6, 10]);
+    expect(faces(1, 4)).toEqual(faces(1, 4));
+    for (let seed = 0; seed < 20; seed += 1) {
+      for (const face of faces(seed, 8)) {
+        expect(face).toBeGreaterThanOrEqual(1);
+        expect(face).toBeLessThanOrEqual(10);
+        expect(Number.isInteger(face)).toBe(true);
+      }
+    }
   });
 });
 

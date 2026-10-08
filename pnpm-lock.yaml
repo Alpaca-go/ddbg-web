@@ -235,7 +235,11 @@ importers:
         specifier: 24.19.1
         version: 24.19.1
 
-  packages/engine: {}
+  packages/engine:
+    devDependencies:
+      '@types/node':
+        specifier: 24.19.1
+        version: 24.19.1
 
   tools/pipeline:
     dependencies:
