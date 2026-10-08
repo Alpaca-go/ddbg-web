@@ -215,6 +215,8 @@ const V18_CATEGORIZE = [
 
 const V18_KEEPS = [195, 544, 569] as const;
 
+const V18_CATEGORIZE_SET = new Set<number>(V18_CATEGORIZE);
+
 const V16_KEEP_MEANING: Record<number, string> = {
   687: "Unconfirmed glyph: red right arrow (d10 result table)",
   726: "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
@@ -565,7 +567,7 @@ describe("图标词典 v1.8", () => {
     expect(keptArt?.status).toBe("confirmed");
     expect(keptArt?.key).toBe("skill_art");
     expect(keptArt?.meaning_en).toBe("Skill picture");
-    expect(keptArt?.notes).toContain("not merge_into r490");
+    expect(keptArt?.notes).toContain("Not merge_into r490");
     expect(keptArt?.notes).not.toContain("merged_into");
     expect(keptArt?.previous_meaning_en).toBe(
       "Unconfirmed glyph: illustration after the hero name on a skill-card back",
@@ -688,7 +690,7 @@ describe("图标词典 v1.8", () => {
     const stillKept: number[] = [];
     for (const rank of V14_SKILL_KEEPS) {
       const icon = byRank.get(rank);
-      if (V18_CATEGORIZE.includes(rank)) {
+      if (V18_CATEGORIZE_SET.has(rank)) {
         // v1.8 batch-08 归入 skill_art。r544、r569 不在这批里。
         expect(icon?.status).toBe("confirmed");
         expect(icon?.key).toBe("skill_art");
@@ -1004,7 +1006,7 @@ describe("图标词典 v1.8", () => {
     expect(highwayman?.iconId).toBe("7e323fd8ca");
     expect(highwayman?.iconId).not.toBe(jesterBack?.iconId);
     expect(highwayman?.meaning_en).not.toBe(jesterBack?.meaning_en);
-    expect(highwayman?.notes).toContain("not merge_into r490");
+    expect(highwayman?.notes).toContain("Not merge_into r490");
 
     for (const rank of V18_KEEPS) {
       const icon = byRank.get(rank);
