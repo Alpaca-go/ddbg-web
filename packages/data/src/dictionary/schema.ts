@@ -131,7 +131,7 @@ export function iconKeyConventionIssues(icon: {
 export const iconEntrySchema = z
   .strictObject({
     iconId: iconIdSchema,
-    rank: z.int().min(1).max(906),
+    rank: z.int().min(1).max(976),
     card_occurrences: z.int().nonnegative(),
     occurrences: z.int().nonnegative(),
     status: iconStatusSchema,
@@ -233,7 +233,7 @@ const iconEntryDocSchema = z.strictObject({
   notes: iconFieldDocSchema,
 });
 
-/** `icon-dictionary-v1.6.json`。含字段说明、元数据、已知不一致和 906 条图标。 */
+/** `icon-dictionary-v1.7.json`。含字段说明、元数据、已知不一致和 976 条图标。 */
 export const iconDictionarySchema = z
   .strictObject({
     schema: z.strictObject({
@@ -257,7 +257,7 @@ export const iconDictionarySchema = z
     }),
     meta: z.strictObject({
       name: z.string().min(1),
-      version: z.literal("1.6"),
+      version: z.literal("1.7"),
       generated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
       based_on: z.string().min(1),
       input: z.string().min(1),
@@ -268,14 +268,14 @@ export const iconDictionarySchema = z
         total_occurrences: z.int().nonnegative(),
         top525_card_occurrences: z.int().nonnegative(),
         status_top525: statusCountSchema,
-        status_all906: statusCountSchema,
-        coverage_all906_confirmed_rulebook_decor: coverageSchema,
+        status_all976: statusCountSchema,
+        coverage_all976_confirmed_rulebook_decor: coverageSchema,
         coverage_top525_confirmed_rulebook_decor: z.strictObject({
           card_occurrences: z.int().nonnegative(),
           card_pct: z.number().nonnegative(),
         }),
-        coverage_all906_plus_needs_review: coverageSchema,
-        coverage_all906_by_status: z.strictObject({
+        coverage_all976_plus_needs_review: coverageSchema,
+        coverage_all976_by_status: z.strictObject({
           confirmed: coverageSchema,
           confirmed_rulebook: coverageSchema,
           needs_review: coverageSchema,
@@ -290,15 +290,16 @@ export const iconDictionarySchema = z
       resolved_in_v1_4: z.array(z.string().min(1)).min(1),
       resolved_in_v1_5: z.array(z.string().min(1)).min(1),
       resolved_in_v1_6: z.array(z.string().min(1)).min(1),
+      resolved_in_v1_7: z.array(z.string().min(1)).min(1),
     }),
     inconsistencies: z.array(
       z.strictObject({
         id: z.string().min(1),
-        ranks: z.array(z.int().min(1).max(906)).min(1),
+        ranks: z.array(z.int().min(1).max(976)).min(1),
         issue: z.string().min(1),
       }),
     ),
-    icons: z.array(iconEntrySchema).length(906),
+    icons: z.array(iconEntrySchema).length(976),
   })
   .superRefine((file, ctx) => {
     const ids = new Set<string>();

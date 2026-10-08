@@ -1,16 +1,16 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.6",
+ "dictionary_version": "1.7",
  "category": "monster_large",
  "sources": {
   "parsed": "extract/corebox/parsed/monster_large.json",
   "raw": "extract/corebox/raw/monster_large.json",
-  "dictionary": "dictionary/icon-dictionary-v1.6.json"
+  "dictionary": "dictionary/icon-dictionary-v1.7.json"
  },
  "stats": {
   "cards": 20,
-  "verified": 17,
-  "unverified": 3
+  "verified": 18,
+  "unverified": 2
  },
  "cards": [
   {
@@ -3609,14 +3609,14 @@
     },
     {
      "iconId": "799fbb848f",
-     "in_dictionary": false,
-     "status": null,
-     "key": null,
-     "kind": null,
-     "meaning_en": null,
-     "meaning_zh": null,
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Life (HP) – number inside",
+     "meaning_zh": "生命值（图标内数字）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "6eb2ab6c16",
@@ -4293,22 +4293,20 @@
    "back_icons": [],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:799fbb848f"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "life": 26,
    "life_icon": {
     "iconId": "799fbb848f",
-    "in_dictionary": false,
-    "status": null,
-    "key": null,
-    "kind": null,
-    "meaning_en": null,
-    "meaning_zh": null,
+    "in_dictionary": true,
+    "status": "confirmed",
+    "key": "life",
+    "kind": "other",
+    "meaning_en": "Life (HP) – number inside",
+    "meaning_zh": "生命值（图标内数字）",
     "value": null,
-    "naming": "unverified"
+    "naming": "confirmed"
    },
    "resistances": [
     {

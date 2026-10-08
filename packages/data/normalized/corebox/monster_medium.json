@@ -1,11 +1,11 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.6",
+ "dictionary_version": "1.7",
  "category": "monster_medium",
  "sources": {
   "parsed": "extract/corebox/parsed/monster_medium.json",
   "raw": "extract/corebox/raw/monster_medium.json",
-  "dictionary": "dictionary/icon-dictionary-v1.6.json"
+  "dictionary": "dictionary/icon-dictionary-v1.7.json"
  },
  "stats": {
   "cards": 54,

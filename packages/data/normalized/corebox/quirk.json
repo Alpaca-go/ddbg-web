@@ -1,16 +1,16 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.6",
+ "dictionary_version": "1.7",
  "category": "quirk",
  "sources": {
   "parsed": null,
   "raw": "extract/corebox/raw/quirk.json",
-  "dictionary": "dictionary/icon-dictionary-v1.6.json"
+  "dictionary": "dictionary/icon-dictionary-v1.7.json"
  },
  "stats": {
   "cards": 35,
-  "verified": 24,
-  "unverified": 11
+  "verified": 26,
+  "unverified": 9
  },
  "cards": [
   {
@@ -840,12 +840,12 @@
       "type": "icon",
       "icon": {
        "iconId": "c3727c7056",
-       "in_dictionary": false,
-       "status": null,
-       "key": null,
-       "kind": null,
-       "meaning_en": null,
-       "meaning_zh": null,
+       "in_dictionary": true,
+       "status": "needs_review",
+       "key": "pending_c3727c7056",
+       "kind": "",
+       "meaning_en": "Unconfirmed glyph: yellow cracked human figure",
+       "meaning_zh": "待确认图形：黄色裂缝人形",
        "value": null,
        "naming": "unverified"
       }
@@ -954,12 +954,12 @@
     },
     {
      "iconId": "c3727c7056",
-     "in_dictionary": false,
-     "status": null,
-     "key": null,
-     "kind": null,
-     "meaning_en": null,
-     "meaning_zh": null,
+     "in_dictionary": true,
+     "status": "needs_review",
+     "key": "pending_c3727c7056",
+     "kind": "",
+     "meaning_en": "Unconfirmed glyph: yellow cracked human figure",
+     "meaning_zh": "待确认图形：黄色裂缝人形",
      "value": null,
      "naming": "unverified"
     },
@@ -2324,14 +2324,14 @@
       "type": "icon",
       "icon": {
        "iconId": "b2ac0f25e8",
-       "in_dictionary": false,
-       "status": null,
-       "key": null,
-       "kind": null,
-       "meaning_en": null,
-       "meaning_zh": null,
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "shuffle_resist",
+       "kind": "resist",
+       "meaning_en": "Shuffle (large monster resistances)",
+       "meaning_zh": "位移（大型怪抗性）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      }
     ],
@@ -2356,14 +2356,14 @@
       "type": "icon",
       "icon": {
        "iconId": "b2ac0f25e8",
-       "in_dictionary": false,
-       "status": null,
-       "key": null,
-       "kind": null,
-       "meaning_en": null,
-       "meaning_zh": null,
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "shuffle_resist",
+       "kind": "resist",
+       "meaning_en": "Shuffle (large monster resistances)",
+       "meaning_zh": "位移（大型怪抗性）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -2375,14 +2375,14 @@
    "icons": [
     {
      "iconId": "b2ac0f25e8",
-     "in_dictionary": false,
-     "status": null,
-     "key": null,
-     "kind": null,
-     "meaning_en": null,
-     "meaning_zh": null,
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "shuffle_resist",
+     "kind": "resist",
+     "meaning_en": "Shuffle (large monster resistances)",
+     "meaning_zh": "位移（大型怪抗性）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "e847e28998",
@@ -2397,21 +2397,19 @@
     },
     {
      "iconId": "b2ac0f25e8",
-     "in_dictionary": false,
-     "status": null,
-     "key": null,
-     "kind": null,
-     "meaning_en": null,
-     "meaning_zh": null,
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "shuffle_resist",
+     "kind": "resist",
+     "meaning_en": "Shuffle (large monster resistances)",
+     "meaning_zh": "位移（大型怪抗性）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:b2ac0f25e8"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -2807,12 +2805,12 @@
       "type": "icon",
       "icon": {
        "iconId": "72efe52ca5",
-       "in_dictionary": false,
-       "status": null,
-       "key": null,
-       "kind": null,
-       "meaning_en": null,
-       "meaning_zh": null,
+       "in_dictionary": true,
+       "status": "needs_review",
+       "key": "pending_72efe52ca5",
+       "kind": "",
+       "meaning_en": "Unconfirmed glyph: ten-sided die showing 10, with a large \"1\" beside it",
+       "meaning_zh": "待确认图形：十面骰显示 10，旁边大号「1」",
        "value": null,
        "naming": "unverified"
       }
@@ -2921,12 +2919,12 @@
     },
     {
      "iconId": "72efe52ca5",
-     "in_dictionary": false,
-     "status": null,
-     "key": null,
-     "kind": null,
-     "meaning_en": null,
-     "meaning_zh": null,
+     "in_dictionary": true,
+     "status": "needs_review",
+     "key": "pending_72efe52ca5",
+     "kind": "",
+     "meaning_en": "Unconfirmed glyph: ten-sided die showing 10, with a large \"1\" beside it",
+     "meaning_zh": "待确认图形：十面骰显示 10，旁边大号「1」",
      "value": null,
      "naming": "unverified"
     },
@@ -3094,14 +3092,14 @@
       "type": "icon",
       "icon": {
        "iconId": "d9c36480ed",
-       "in_dictionary": false,
-       "status": null,
-       "key": null,
-       "kind": null,
-       "meaning_en": null,
-       "meaning_zh": null,
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "bleed",
+       "kind": "status",
+       "meaning_en": "Bleed (curio)",
+       "meaning_zh": "流血（奇物）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -3168,21 +3166,19 @@
     },
     {
      "iconId": "d9c36480ed",
-     "in_dictionary": false,
-     "status": null,
-     "key": null,
-     "kind": null,
-     "meaning_en": null,
-     "meaning_zh": null,
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (curio)",
+     "meaning_zh": "流血（奇物）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:d9c36480ed"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -5822,12 +5818,12 @@
       "type": "icon",
       "icon": {
        "iconId": "adcab0541a",
-       "in_dictionary": false,
-       "status": null,
-       "key": null,
-       "kind": null,
-       "meaning_en": null,
-       "meaning_zh": null,
+       "in_dictionary": true,
+       "status": "needs_review",
+       "key": "pending_adcab0541a",
+       "kind": "",
+       "meaning_en": "Unconfirmed glyph: ten-sided die showing 10, with a large \"10\" beside it",
+       "meaning_zh": "待确认图形：十面骰显示 10，旁边大号「10」",
        "value": null,
        "naming": "unverified"
       }
@@ -5873,12 +5869,12 @@
    "icons": [
     {
      "iconId": "adcab0541a",
-     "in_dictionary": false,
-     "status": null,
-     "key": null,
-     "kind": null,
-     "meaning_en": null,
-     "meaning_zh": null,
+     "in_dictionary": true,
+     "status": "needs_review",
+     "key": "pending_adcab0541a",
+     "kind": "",
+     "meaning_en": "Unconfirmed glyph: ten-sided die showing 10, with a large \"10\" beside it",
+     "meaning_zh": "待确认图形：十面骰显示 10，旁边大号「10」",
      "value": null,
      "naming": "unverified"
     },

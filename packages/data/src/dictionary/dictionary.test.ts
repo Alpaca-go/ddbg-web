@@ -18,8 +18,8 @@ const DATA_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..
 const DICT_ROOT = path.join(DATA_ROOT, "dictionary");
 const RAW_ROOT = path.join(DATA_ROOT, "extract/corebox/raw");
 
-/** `summary.json` 的 total_clusters（1713）减去词典 906 条。 */
-const RAW_ICON_IDS_NOT_IN_DICTIONARY = 807;
+/** `summary.json` 的 total_clusters（1713）减去词典 976 条。v1.7 另收 70 个误放进装饰切图的 id。 */
+const RAW_ICON_IDS_NOT_IN_DICTIONARY = 737;
 
 const INCONSISTENCY_IDS = [
   "hedged_confirmed_meanings",
@@ -187,6 +187,23 @@ const V16_DECOR = [
 
 const V16_KEEPS = [687, 726, 731, 746, 775, 793, 799, 800, 809, 831, 845, 855, 868] as const;
 
+/** v1.7 batch-07：70 个原先不在词典里的 id。合并 3、归类 64、留下 3。 */
+const V17_MERGES = [
+  [907, 21],
+  [908, 255],
+  [909, 211],
+] as const;
+
+const V17_KEEPS = [910, 911, 912] as const;
+
+const V17_KEEP_MEANING: Record<number, string> = {
+  910: 'Unconfirmed glyph: ten-sided die showing 10, with a large "1" beside it',
+  911: 'Unconfirmed glyph: ten-sided die showing 10, with a large "10" beside it',
+  912: "Unconfirmed glyph: yellow cracked human figure",
+};
+
+const V17_CATEGORIZE = Array.from({ length: 64 }, (_, index) => 913 + index);
+
 const V16_KEEP_MEANING: Record<number, string> = {
   687: "Unconfirmed glyph: red right arrow (d10 result table)",
   726: "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
@@ -312,14 +329,14 @@ function rawIconIds(): Set<string> {
 
 const dictionary = parseSchema(
   iconDictionarySchema,
-  readJson("icon-dictionary-v1.6.json"),
-  "icon-dictionary-v1.6",
+  readJson("icon-dictionary-v1.7.json"),
+  "icon-dictionary-v1.7",
 );
 
-describe("图标词典 v1.6", () => {
-  it("通过 schema，共 906 条", () => {
-    expect(dictionary.meta.version).toBe("1.6");
-    expect(dictionary.icons).toHaveLength(906);
+describe("图标词典 v1.7", () => {
+  it("通过 schema，共 976 条", () => {
+    expect(dictionary.meta.version).toBe("1.7");
+    expect(dictionary.icons).toHaveLength(976);
     expect(dictionary.inconsistencies.map((item) => item.id)).toEqual([...INCONSISTENCY_IDS]);
     const ranks = new Set(dictionary.icons.map((icon) => icon.rank));
     for (const item of dictionary.inconsistencies) {
@@ -329,7 +346,7 @@ describe("图标词典 v1.6", () => {
 
   it("status 计数与文件内 stats 一致", () => {
     const stats = dictionary.meta.stats;
-    expect(statusCounts(dictionary.icons)).toEqual(stats.status_all906);
+    expect(statusCounts(dictionary.icons)).toEqual(stats.status_all976);
     expect(statusCounts(dictionary.icons.filter((icon) => icon.rank <= 525))).toEqual(
       stats.status_top525,
     );
@@ -350,13 +367,13 @@ describe("图标词典 v1.6", () => {
         dictionary.icons.filter((icon) => settled.has(icon.status)),
         (icon) => icon.card_occurrences,
       ),
-    ).toBe(stats.coverage_all906_confirmed_rulebook_decor.card_occurrences);
+    ).toBe(stats.coverage_all976_confirmed_rulebook_decor.card_occurrences);
     expect(
       sum(
         dictionary.icons.filter((icon) => settled.has(icon.status)),
         (icon) => icon.occurrences,
       ),
-    ).toBe(stats.coverage_all906_confirmed_rulebook_decor.occurrences);
+    ).toBe(stats.coverage_all976_confirmed_rulebook_decor.occurrences);
   });
 
   it("unreviewed 与 unsure 没有含义", () => {
@@ -392,7 +409,7 @@ describe("图标词典 v1.6", () => {
   });
 
   it("CSV 与 JSON 是同一份表", () => {
-    const rows = parseCsv(readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.6.csv"), "utf8"));
+    const rows = parseCsv(readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.7.csv"), "utf8"));
     const header = rows[0];
     expect(header).toBeDefined();
     if (!header) return;
@@ -474,7 +491,7 @@ describe("图标词典 v1.6", () => {
       expect(icon?.source).toBe("followup_proposal_2026-10-07");
     }
 
-    const text = readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.6.json"), "utf8");
+    const text = readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.7.json"), "utf8");
     expect(text).not.toContain("DRAFT");
     expect(text).not.toContain("pending Kyries");
     expect(text).not.toContain("do not commit");
@@ -759,14 +776,6 @@ describe("图标词典 v1.6", () => {
     const touched = new Set<number>([V16_MERGE[0], ...V16_DECOR, ...V16_KEEPS]);
     expect(touched.size).toBe(34);
     expect(dictionary.meta.resolved_in_v1_6.length).toBeGreaterThan(0);
-    expect(dictionary.meta.stats.status_all906).toEqual({
-      confirmed: 490,
-      confirmed_rulebook: 44,
-      needs_review: 65,
-      decor: 112,
-      unsure: 0,
-      unreviewed: 195,
-    });
 
     const icon = byRank.get(V16_MERGE[0]);
     const target = byRank.get(V16_MERGE[1]);
@@ -825,6 +834,96 @@ describe("图标词典 v1.6", () => {
     expect(pot?.key).toBe("pending_66254314c8");
     expect(pot?.group).toBe("stress");
   });
+
+  it("v1.7 batch-07：新 rank 907-976，合并沿用目标，饰品插图不并入 r468，留下的仍是 pending_", () => {
+    const byRank = new Map(dictionary.icons.map((icon) => [icon.rank, icon]));
+    const touched = new Set<number>([
+      ...V17_MERGES.map(([rank]) => rank),
+      ...V17_KEEPS,
+      ...V17_CATEGORIZE,
+    ]);
+    expect(touched.size).toBe(70);
+    expect(Math.min(...touched)).toBe(907);
+    expect(Math.max(...touched)).toBe(976);
+    expect(dictionary.meta.resolved_in_v1_7.length).toBeGreaterThan(0);
+    expect(dictionary.meta.stats.status_all976).toEqual({
+      confirmed: 557,
+      confirmed_rulebook: 44,
+      needs_review: 68,
+      decor: 112,
+      unsure: 0,
+      unreviewed: 195,
+    });
+
+    const picture = byRank.get(468);
+    expect(picture?.key).toBe("trinket_picture");
+
+    for (const [rank, targetRank] of V17_MERGES) {
+      const icon = byRank.get(rank);
+      const target = byRank.get(targetRank);
+      expect(icon, `rank ${rank}`).toBeDefined();
+      expect(target, `rank ${targetRank}`).toBeDefined();
+      if (!icon || !target) continue;
+      expect(icon.status).toBe(target.status);
+      expect(icon.status).toBe("confirmed");
+      expect(icon.meaning_en).toBe(target.meaning_en);
+      expect(icon.meaning_zh).toBe(target.meaning_zh);
+      expect(icon.kind).toBe(target.kind);
+      expect(icon.key).toBe(target.key);
+      expect(icon.value).toBe(target.value);
+      expect(icon.value_in_glyph).toBe(target.value_in_glyph);
+      expect(icon.rulebook_refs).toEqual(target.rulebook_refs);
+      expect(icon.group.startsWith("g_")).toBe(true);
+      expect(icon.group).not.toBe(target.group);
+      expect(icon.source).toBe("kyries_approved_proposal_2026-10-07");
+      expect(icon.notes).toContain(`merged_into=${target.iconId}`);
+      expect(icon.notes).toContain("batch-07");
+      expect(icon.previous_status).toBeNull();
+      expect(icon.previous_meaning_en).toBeNull();
+      expect(icon.proposal).toBeNull();
+    }
+
+    const life = byRank.get(907);
+    const lifeTarget = byRank.get(21);
+    expect(life?.key).toBe("life");
+    expect(life?.value).toBeNull();
+    expect(life?.value).toBe(lifeTarget?.value);
+    expect(life?.value_in_glyph).toBe(false);
+    expect(life?.evidence).toContain("26");
+
+    for (const rank of V17_KEEPS) {
+      const kept = byRank.get(rank);
+      expect(kept?.status).toBe("needs_review");
+      expect(kept?.key).toBe(`pending_${kept?.iconId}`);
+      expect(kept?.kind).toBe("");
+      expect(kept?.proposal).toBeNull();
+      expect(kept?.value).toBeNull();
+      expect(kept?.source).toBe("kyries_approved_proposal_2026-10-07");
+      expect(kept?.previous_status).toBeNull();
+      expect(kept?.meaning_en).toBe(V17_KEEP_MEANING[rank]);
+      expect(kept?.meaning_zh.startsWith("待确认图形：")).toBe(true);
+      expect(kept?.meaning_en.toLowerCase()).not.toContain("dodge");
+      expect(kept?.meaning_en.toLowerCase()).not.toContain("gambler");
+      expect(kept?.meaning_zh).not.toContain("闪避");
+    }
+
+    for (const rank of V17_CATEGORIZE) {
+      const icon = byRank.get(rank);
+      expect(icon?.status).toBe("confirmed");
+      expect(icon?.key).toBe("trinket_picture");
+      expect(icon?.kind).toBe("other");
+      expect(icon?.meaning_en).toBe(picture?.meaning_en);
+      expect(icon?.meaning_zh).toBe(picture?.meaning_zh);
+      expect(icon?.value).toBeNull();
+      expect(icon?.value_in_glyph).toBe(false);
+      expect(icon?.source).toBe("kyries_approved_proposal_2026-10-07");
+      expect(icon?.group.startsWith("g_")).toBe(true);
+      expect(icon?.group).not.toBe(picture?.group);
+      expect(icon?.notes).toContain("2026-10-08");
+      expect(icon?.notes).not.toContain("merged_into");
+      expect(icon?.notes).toContain("not merge_into");
+    }
+  });
 });
 
 describe("词典与 raw 提取结果", () => {
@@ -837,7 +936,9 @@ describe("词典与 raw 提取结果", () => {
 
   it("词典里的每个 iconId 都在 raw 里出现过", () => {
     expect(rawIds.size).toBe(summary.icons.total_clusters);
-    expect(dictionary.icons).toHaveLength(summary.icons.to_annotate);
+    expect(summary.icons.to_annotate).toBe(906);
+    // v1.7 把 70 个误放进装饰切图、不在 to_annotate 里的 iconId 收进词典。
+    expect(dictionary.icons).toHaveLength(summary.icons.to_annotate + 70);
     const missing = dictionary.icons
       .filter((icon) => !rawIds.has(icon.iconId))
       .map((icon) => icon.iconId);
