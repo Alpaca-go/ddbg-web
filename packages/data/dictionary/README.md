@@ -1,10 +1,10 @@
-# 核心盒图标词典 v1.7
+# 核心盒图标词典 v1.8
 
 本目录是含义词典，没有图片。`iconId` 与 `packages/data/extract/corebox/raw/` 里的图标聚类 id 相同。
 
-- `icon-dictionary-v1.7.json`：976 条。文件开头的 `schema` 写了字段、6 种 status 和 key 命名约定；`inconsistencies` 是已知不一致清单。
-- `icon-dictionary-v1.7.csv`：同一份表。
-- `icon-dictionary-v1.7-CHANGELOG.md`：v1.7 的 70 条决定（batch-07）。v1.6 的说明在 `icon-dictionary-v1.6-CHANGELOG.md`，v1.5 的说明在 `icon-dictionary-v1.5-CHANGELOG.md`，v1.4 的说明在 `icon-dictionary-v1.4-CHANGELOG.md`，v1.3 的说明在 `icon-dictionary-v1.3-CHANGELOG.md`，v1.2 的说明在 `icon-dictionary-v1.2-CHANGELOG.md`，v1.1 的说明在 `icon-dictionary-v1.1-CHANGELOG.md`。
+- `icon-dictionary-v1.8.json`：976 条。文件开头的 `schema` 写了字段、6 种 status 和 key 命名约定；`inconsistencies` 是已知不一致清单。
+- `icon-dictionary-v1.8.csv`：同一份表。
+- `icon-dictionary-v1.8-CHANGELOG.md`：v1.8 的 79 条归类（batch-08）。v1.7 的说明在 `icon-dictionary-v1.7-CHANGELOG.md`，v1.6 的说明在 `icon-dictionary-v1.6-CHANGELOG.md`，v1.5 的说明在 `icon-dictionary-v1.5-CHANGELOG.md`，v1.4 的说明在 `icon-dictionary-v1.4-CHANGELOG.md`，v1.3 的说明在 `icon-dictionary-v1.3-CHANGELOG.md`，v1.2 的说明在 `icon-dictionary-v1.2-CHANGELOG.md`，v1.1 的说明在 `icon-dictionary-v1.1-CHANGELOG.md`。
 - `start_locations_by_placement.csv`：房间卡起始位置的逐处归类。rank 127、132、258、259 在词典里是 `start_*_any`，具体站位以这个文件为准。rank 379 在 v1.2 留下，key 为 `pending_<iconId>`。
 
 这些文件不参与 Prettier。Zod schema 在 `packages/data/src/dictionary/`。
