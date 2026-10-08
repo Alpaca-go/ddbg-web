@@ -747,4 +747,269 @@ describe("resolveHeroSkill", () => {
       ).reason,
     ).toBe("使用者身边的英雄里有重复的英雄");
   });
+
+  it("hero_skill:p122 Inspiring Tune II 结算自身和目标的压力，落空只改自身", () => {
+    const skill = card("hero_skill:p122");
+    expect(skill.name).toBe("Inspiring Tune");
+    expect(skill.level).toBe(2);
+    expect(skill.hero).toBe("JESTER");
+    expect(skill.verification.unverified).toBe(false);
+    const stressNumerics = skill.unlabeled_numbers
+      .filter(
+        (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "stress",
+      )
+      .map((item) => item.numeric);
+    expect(stressNumerics).toEqual([-1, -1]);
+
+    const combat: SkillCombatState = {
+      actor: { id: "jester", wounds: 1, stress: 4, protection: true, riposte: true },
+      heroesBesideActor: [{ id: "crusader", stress: 2 }],
+      untargetedHeroesBesideTarget: [{ id: "highwayman", stress: 6 }],
+      target: {
+        id: "vestal",
+        side: "hero",
+        wounds: 3,
+        dodge: 15,
+        stress: 6,
+        protection: true,
+        riposte: true,
+      },
+    };
+    const frozen = structuredClone(combat);
+
+    const missed = use("hero_skill:p122", combat, 6);
+    expect(missed).toEqual({
+      skillId: "hero_skill:p122",
+      targetId: "vestal",
+      status: "resolved",
+      reason: null,
+      outcome: "miss",
+      effect: "stress",
+      printedAmount: null,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 3,
+      actorWounds: 1,
+      targetDead: false,
+      actorStress: 3,
+      targetStress: 6,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+      untargetedBesideTargetStress: [{ id: "highwayman", stress: 6 }],
+      skipped: [],
+    });
+    expect(combat).toEqual(frozen);
+
+    expect(use("hero_skill:p122", combat, 5)).toMatchObject({
+      outcome: "hit",
+      effect: "stress",
+      printedAmount: null,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 3,
+      actorWounds: 1,
+      actorStress: 3,
+      targetStress: 5,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+      untargetedBesideTargetStress: [{ id: "highwayman", stress: 6 }],
+      skipped: [],
+    });
+
+    expect(use("hero_skill:p122", { ...combat, targetInActorArea: true }, 2)).toMatchObject({
+      outcome: "crit",
+      effect: "stress",
+      wounds: 3,
+      actorStress: 2,
+      targetStress: 4,
+      besideActorStress: [{ id: "crusader", stress: 1 }],
+      untargetedBesideTargetStress: [{ id: "highwayman", stress: 6 }],
+    });
+
+    expect(
+      use("hero_skill:p122", { ...combat, target: { ...combat.target, dodge: 20 } }, 2),
+    ).toMatchObject({
+      outcome: "crit",
+      actorStress: 2,
+      targetStress: 5,
+      besideActorStress: [{ id: "crusader", stress: 1 }],
+    });
+
+    const clamped = use(
+      "hero_skill:p122",
+      {
+        actor: { id: "jester", wounds: 0, stress: 0 },
+        target: { ...combat.target, stress: 0, dodge: 0 },
+      },
+      10,
+    );
+    expect(clamped).toMatchObject({
+      outcome: "hit",
+      actorStress: 0,
+      targetStress: 0,
+      wounds: 3,
+    });
+
+    const plainTarget = {
+      id: "vestal",
+      side: "hero" as const,
+      wounds: 3,
+      dodge: 0,
+      stress: 6,
+    };
+    expect(use("hero_skill:p122", { target: plainTarget }, 5).reason).toBe(
+      "自身效果要改压力，但没有使用者的压力（规则书第 20 页）",
+    );
+    expect(
+      use(
+        "hero_skill:p122",
+        {
+          actor: { id: "jester", wounds: 0, stress: 4 },
+          target: { id: "vestal", side: "hero", wounds: 3, dodge: 0 },
+        },
+        5,
+      ).reason,
+    ).toBe("目标效果要改压力，但目标没有压力（规则书第 20 页）");
+    expect(use("hero_skill:p122", target("monster", 1, 0), 5)).toMatchObject({
+      status: "refused",
+      reason: "目标阵营与技能的目标图标不一致",
+      wounds: 1,
+    });
+  });
+
+  it("hero_skill:p123 Inspiring Tune III 的暴击阈值是 3，压力仍是各 −1", () => {
+    const skill = card("hero_skill:p123");
+    expect(skill.name).toBe("Inspiring Tune");
+    expect(skill.level).toBe(3);
+    expect(skill.verification.unverified).toBe(false);
+    const combat: SkillCombatState = {
+      actor: { id: "jester", wounds: 0, stress: 5 },
+      target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 5 },
+    };
+    expect(use("hero_skill:p123", combat, 3)).toMatchObject({
+      outcome: "crit",
+      effect: "stress",
+      printedAmount: null,
+      wounds: 2,
+      actorStress: 3,
+      targetStress: 4,
+      skipped: [],
+    });
+    expect(use("hero_skill:p123", combat, 4)).toMatchObject({
+      outcome: "hit",
+      actorStress: 4,
+      targetStress: 4,
+    });
+  });
+
+  it("压力数字对不上已命名目标，或 numeric 为 null，或治疗没有目标图标时不改压力", () => {
+    const tune = card("hero_skill:p121");
+    expect(tune.name).toBe("Inspiring Tune");
+    expect(tune.level).toBe(1);
+    expect(tune.verification.unverified).toBe(false);
+    expect(
+      tune.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "stress",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([-1, -1]);
+    expect(
+      use(
+        "hero_skill:p121",
+        {
+          actor: { id: "jester", wounds: 0, stress: 4 },
+          target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 4 },
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 target_hero 或 target_monster",
+      wounds: 2,
+      actorStress: 4,
+      targetStress: 4,
+      outcome: null,
+    });
+
+    const rage = card("hero_skill:p226");
+    expect(rage.name).toBe("Rage");
+    expect(rage.level).toBe(1);
+    expect(rage.hero).toBe("ABOMINATION");
+    expect(rage.verification.unverified).toBe(false);
+    expect(
+      rage.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "stress",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([null]);
+    const raging = {
+      actor: { id: "abomination", wounds: 0, stress: 4 },
+      target: target("monster", 1, 0).target,
+    };
+    expect(use("hero_skill:p226", raging, 1)).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      effect: "damage",
+      printedAmount: 12,
+      damageDealt: 12,
+      wounds: 13,
+      actorStress: 3,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(use("hero_skill:p226", raging, 9)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 9,
+      damageDealt: 9,
+      wounds: 10,
+      actorStress: 4,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(use("hero_skill:p226", raging, 10)).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      wounds: 1,
+      actorStress: 4,
+    });
+
+    const absolution = card("hero_skill:p217");
+    expect(absolution.name).toBe("Absolution");
+    expect(absolution.verification.unverified).toBe(false);
+    expect(
+      use(
+        "hero_skill:p217",
+        {
+          actor: { id: "abomination", wounds: 0, stress: 4 },
+          target: { id: "vestal", side: "hero", wounds: 3, dodge: 0, stress: 4 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 target_hero 或 target_monster",
+      wounds: 3,
+      actorStress: 4,
+      targetStress: 4,
+    });
+
+    const cry = card("hero_skill:p019");
+    expect(cry.name).toBe("Inspiring Cry");
+    expect(cry.level).toBe(1);
+    expect(cry.verification.unverified).toBe(false);
+    expect(
+      use(
+        "hero_skill:p019",
+        {
+          actor: { id: "crusader", wounds: 0, stress: 4 },
+          target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 4 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      wounds: 2,
+      actorStress: 4,
+      targetStress: 4,
+    });
+  });
 });
