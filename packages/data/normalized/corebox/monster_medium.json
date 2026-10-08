@@ -1,16 +1,16 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.5",
+ "dictionary_version": "1.6",
  "category": "monster_medium",
  "sources": {
   "parsed": "extract/corebox/parsed/monster_medium.json",
   "raw": "extract/corebox/raw/monster_medium.json",
-  "dictionary": "dictionary/icon-dictionary-v1.5.json"
+  "dictionary": "dictionary/icon-dictionary-v1.6.json"
  },
  "stats": {
   "cards": 54,
-  "verified": 42,
-  "unverified": 12
+  "verified": 45,
+  "unverified": 9
  },
  "cards": [
   {
@@ -387,13 +387,13 @@
     {
      "iconId": "7d361d5859",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7d361d5859",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "6cee7f5b3b",
@@ -421,10 +421,8 @@
    "back_icons": [],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:7d361d5859"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "life": 7,
    "life_icon": {
@@ -951,13 +949,13 @@
       "icon": {
        "iconId": "7d361d5859",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_7d361d5859",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -14969,35 +14967,35 @@
     {
      "iconId": "f1d1c251e0",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f1d1c251e0",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "7a4d052687",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_7a4d052687",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "93a5ef3193",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_93a5ef3193",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: grey irregular fragment",
-     "meaning_zh": "待确认图形：灰色不规则碎块",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "f36a00623a",
@@ -15068,13 +15066,13 @@
     {
      "iconId": "98734e646a",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_98734e646a",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "95441c8f27",
@@ -15090,13 +15088,13 @@
     {
      "iconId": "00cc5778d7",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_00cc5778d7",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "69d11758ad",
@@ -15201,14 +15199,8 @@
    "back_icons": [],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:00cc5778d7",
-     "icon:7a4d052687",
-     "icon:93a5ef3193",
-     "icon:98734e646a",
-     "icon:f1d1c251e0"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "card_kind": "large_monster_reference",
    "lines": [
@@ -15602,13 +15594,13 @@
       "icon": {
        "iconId": "7a4d052687",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_7a4d052687",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -15656,13 +15648,13 @@
       "icon": {
        "iconId": "93a5ef3193",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_93a5ef3193",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: grey irregular fragment",
-       "meaning_zh": "待确认图形：灰色不规则碎块",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -15674,13 +15666,13 @@
       "icon": {
        "iconId": "f1d1c251e0",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_f1d1c251e0",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -15766,13 +15758,13 @@
       "icon": {
        "iconId": "00cc5778d7",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_00cc5778d7",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -15800,13 +15792,13 @@
       "icon": {
        "iconId": "98734e646a",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_98734e646a",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -30419,24 +30411,24 @@
     {
      "iconId": "3eb29fc6cb",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_3eb29fc6cb",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "f699a41b7f",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_f699a41b7f",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "26f23ab2ef",
@@ -30485,24 +30477,24 @@
     {
      "iconId": "de2969d295",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_de2969d295",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "287ce8c585",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_287ce8c585",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "26f23ab2ef",
@@ -30584,24 +30576,24 @@
     {
      "iconId": "6c7f5657a7",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_6c7f5657a7",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "2c964b8efd",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_2c964b8efd",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "f36a00623a",
@@ -30617,24 +30609,24 @@
     {
      "iconId": "13e9063c75",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_13e9063c75",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "eba92424bf",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_eba92424bf",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "357e296021",
@@ -30650,35 +30642,35 @@
     {
      "iconId": "2ba68f06e2",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_2ba68f06e2",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "bdf677806a",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_bdf677806a",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "d162a68594",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d162a68594",
-     "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
      "value": null,
-     "naming": "unverified"
+     "naming": "decor"
     },
     {
      "iconId": "4688e456ab",
@@ -30772,20 +30764,8 @@
    "back_icons": [],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:13e9063c75",
-     "icon:287ce8c585",
-     "icon:2ba68f06e2",
-     "icon:2c964b8efd",
-     "icon:3eb29fc6cb",
-     "icon:6c7f5657a7",
-     "icon:bdf677806a",
-     "icon:d162a68594",
-     "icon:de2969d295",
-     "icon:eba92424bf",
-     "icon:f699a41b7f"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "card_kind": "large_monster_reference",
    "lines": [
@@ -30897,13 +30877,13 @@
       "icon": {
        "iconId": "f699a41b7f",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_f699a41b7f",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -30915,13 +30895,13 @@
       "icon": {
        "iconId": "3eb29fc6cb",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_3eb29fc6cb",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      }
     ],
@@ -31025,13 +31005,13 @@
       "icon": {
        "iconId": "de2969d295",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_de2969d295",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      }
     ],
@@ -31065,13 +31045,13 @@
       "icon": {
        "iconId": "287ce8c585",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_287ce8c585",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -31147,13 +31127,13 @@
       "icon": {
        "iconId": "6c7f5657a7",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_6c7f5657a7",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -31239,13 +31219,13 @@
       "icon": {
        "iconId": "2c964b8efd",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_2c964b8efd",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -31257,13 +31237,13 @@
       "icon": {
        "iconId": "13e9063c75",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_13e9063c75",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -31275,13 +31255,13 @@
       "icon": {
        "iconId": "eba92424bf",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_eba92424bf",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -31311,13 +31291,13 @@
       "icon": {
        "iconId": "bdf677806a",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_bdf677806a",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -31329,13 +31309,13 @@
       "icon": {
        "iconId": "2ba68f06e2",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_2ba68f06e2",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {
@@ -31347,13 +31327,13 @@
       "icon": {
        "iconId": "d162a68594",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_d162a68594",
-       "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
        "value": null,
-       "naming": "unverified"
+       "naming": "decor"
       }
      },
      {

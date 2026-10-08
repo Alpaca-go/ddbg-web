@@ -1,11 +1,11 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.5",
+ "dictionary_version": "1.6",
  "category": "virtue_affliction",
  "sources": {
   "parsed": null,
   "raw": "extract/corebox/raw/virtue_affliction.json",
-  "dictionary": "dictionary/icon-dictionary-v1.5.json"
+  "dictionary": "dictionary/icon-dictionary-v1.6.json"
  },
  "stats": {
   "cards": 10,
@@ -1489,11 +1489,11 @@
       "icon": {
        "iconId": "d42d7955d3",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_d42d7955d3",
+       "status": "needs_review",
+       "key": "pending_d42d7955d3",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: two black-heart red-glow squares",
+       "meaning_zh": "待确认图形：两枚黑心红光方块",
        "value": null,
        "naming": "unverified"
       }
@@ -1561,11 +1561,11 @@
     {
      "iconId": "d42d7955d3",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d42d7955d3",
+     "status": "needs_review",
+     "key": "pending_d42d7955d3",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: two black-heart red-glow squares",
+     "meaning_zh": "待确认图形：两枚黑心红光方块",
      "value": null,
      "naming": "unverified"
     },
@@ -1946,11 +1946,11 @@
       "icon": {
        "iconId": "5a4fbf9781",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_5a4fbf9781",
+       "status": "needs_review",
+       "key": "pending_5a4fbf9781",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: red right arrow (d10 result table)",
+       "meaning_zh": "待确认图形：红色右箭头（d10 结果表）",
        "value": null,
        "naming": "unverified"
       }
@@ -2014,11 +2014,11 @@
       "icon": {
        "iconId": "5a4fbf9781",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_5a4fbf9781",
+       "status": "needs_review",
+       "key": "pending_5a4fbf9781",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: red right arrow (d10 result table)",
+       "meaning_zh": "待确认图形：红色右箭头（d10 结果表）",
        "value": null,
        "naming": "unverified"
       }
@@ -2050,11 +2050,11 @@
     {
      "iconId": "5a4fbf9781",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_5a4fbf9781",
+     "status": "needs_review",
+     "key": "pending_5a4fbf9781",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: red right arrow (d10 result table)",
+     "meaning_zh": "待确认图形：红色右箭头（d10 结果表）",
      "value": null,
      "naming": "unverified"
     },
@@ -2083,11 +2083,11 @@
     {
      "iconId": "5a4fbf9781",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_5a4fbf9781",
+     "status": "needs_review",
+     "key": "pending_5a4fbf9781",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: red right arrow (d10 result table)",
+     "meaning_zh": "待确认图形：红色右箭头（d10 结果表）",
      "value": null,
      "naming": "unverified"
     },

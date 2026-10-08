@@ -177,6 +177,32 @@ const V15_DECOR = [
   891, 899, 905,
 ] as const;
 
+/** v1.6 batch-06：1 条旋转 180° 并入食物，20 条装饰，13 条外观占位。 */
+const V16_MERGE = [833, 240] as const;
+
+const V16_DECOR = [
+  534, 755, 764, 765, 778, 779, 780, 788, 815, 822, 823, 836, 840, 866, 867, 877, 888, 898, 900,
+  903,
+] as const;
+
+const V16_KEEPS = [687, 726, 731, 746, 775, 793, 799, 800, 809, 831, 845, 855, 868] as const;
+
+const V16_KEEP_MEANING: Record<number, string> = {
+  687: "Unconfirmed glyph: red right arrow (d10 result table)",
+  726: "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
+  731: "Unconfirmed glyph: two black-heart red-glow squares",
+  746: "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
+  775: "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
+  793: "Unconfirmed glyph: heart with a black fill and a red border",
+  799: 'Unconfirmed glyph: grey "-2" value badge',
+  800: "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
+  809: "Unconfirmed glyph: red pot or puddle glyph",
+  831: "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
+  845: 'Unconfirmed glyph: grey "+2" value badge',
+  855: "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
+  868: "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
+};
+
 const START_KEY = /^start_(hero|monster|any)_(support|ranged|defensive|aggressive|any)$/;
 const PLACEMENT_CLASS = /^(hero|monster)_(support|ranged|defensive|aggressive)$/;
 
@@ -286,13 +312,13 @@ function rawIconIds(): Set<string> {
 
 const dictionary = parseSchema(
   iconDictionarySchema,
-  readJson("icon-dictionary-v1.5.json"),
-  "icon-dictionary-v1.5",
+  readJson("icon-dictionary-v1.6.json"),
+  "icon-dictionary-v1.6",
 );
 
-describe("图标词典 v1.5", () => {
+describe("图标词典 v1.6", () => {
   it("通过 schema，共 906 条", () => {
-    expect(dictionary.meta.version).toBe("1.5");
+    expect(dictionary.meta.version).toBe("1.6");
     expect(dictionary.icons).toHaveLength(906);
     expect(dictionary.inconsistencies.map((item) => item.id)).toEqual([...INCONSISTENCY_IDS]);
     const ranks = new Set(dictionary.icons.map((icon) => icon.rank));
@@ -366,7 +392,7 @@ describe("图标词典 v1.5", () => {
   });
 
   it("CSV 与 JSON 是同一份表", () => {
-    const rows = parseCsv(readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.5.csv"), "utf8"));
+    const rows = parseCsv(readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.6.csv"), "utf8"));
     const header = rows[0];
     expect(header).toBeDefined();
     if (!header) return;
@@ -448,7 +474,7 @@ describe("图标词典 v1.5", () => {
       expect(icon?.source).toBe("followup_proposal_2026-10-07");
     }
 
-    const text = readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.5.json"), "utf8");
+    const text = readFileSync(path.join(DICT_ROOT, "icon-dictionary-v1.6.json"), "utf8");
     expect(text).not.toContain("DRAFT");
     expect(text).not.toContain("pending Kyries");
     expect(text).not.toContain("do not commit");
@@ -576,6 +602,8 @@ describe("图标词典 v1.5", () => {
 
     for (const rank of V13_BATCH02_OTHER_KEEPS) {
       const icon = byRank.get(rank);
+      // r836 在 v1.6 batch-06 改成装饰。batch-02 当时留下的另外一条仍是 pending_。
+      if (rank === 836) continue;
       expect(icon?.status).toBe("needs_review");
       expect(icon?.key).toBe(`pending_${icon?.iconId}`);
       expect(icon?.kind).toBe("");
@@ -665,14 +693,6 @@ describe("图标词典 v1.5", () => {
     const touched = new Set<number>([...V15_MERGES.map(([rank]) => rank), ...V15_DECOR]);
     expect(touched.size).toBe(39);
     expect(dictionary.meta.resolved_in_v1_5.length).toBeGreaterThan(0);
-    expect(dictionary.meta.stats.status_all906).toEqual({
-      confirmed: 489,
-      confirmed_rulebook: 44,
-      needs_review: 53,
-      decor: 92,
-      unsure: 0,
-      unreviewed: 228,
-    });
 
     for (const [rank, targetRank] of V15_MERGES) {
       const icon = byRank.get(rank);
@@ -732,6 +752,78 @@ describe("图标词典 v1.5", () => {
       expect(icon?.previous_status).toBe("unreviewed");
       expect(icon?.notes).toContain("batch-05");
     }
+  });
+
+  it("v1.6 batch-06：旋转食物并入 r240，装饰为 decor，留下的仍是 pending_", () => {
+    const byRank = new Map(dictionary.icons.map((icon) => [icon.rank, icon]));
+    const touched = new Set<number>([V16_MERGE[0], ...V16_DECOR, ...V16_KEEPS]);
+    expect(touched.size).toBe(34);
+    expect(dictionary.meta.resolved_in_v1_6.length).toBeGreaterThan(0);
+    expect(dictionary.meta.stats.status_all906).toEqual({
+      confirmed: 490,
+      confirmed_rulebook: 44,
+      needs_review: 65,
+      decor: 112,
+      unsure: 0,
+      unreviewed: 195,
+    });
+
+    const icon = byRank.get(V16_MERGE[0]);
+    const target = byRank.get(V16_MERGE[1]);
+    expect(icon).toBeDefined();
+    expect(target).toBeDefined();
+    if (!icon || !target) return;
+    expect(icon.status).toBe("confirmed");
+    expect(icon.status).toBe(target.status);
+    expect(icon.meaning_en).toBe(target.meaning_en);
+    expect(icon.meaning_zh).toBe(target.meaning_zh);
+    expect(icon.kind).toBe(target.kind);
+    expect(icon.key).toBe("food");
+    expect(icon.key).toBe(target.key);
+    expect(icon.value).toBe(target.value);
+    expect(icon.value_in_glyph).toBe(target.value_in_glyph);
+    expect(icon.rulebook_refs).toEqual(target.rulebook_refs);
+    expect(icon.group).toBe("food");
+    expect(icon.source).toBe("kyries_approved_proposal_2026-10-07");
+    expect(icon.notes).toContain(`merged_into=${target.iconId}`);
+    expect(icon.notes).toContain("batch-06");
+    expect(icon.evidence).toContain("旋转 180°");
+    expect(icon.previous_status).toBe("unreviewed");
+    expect(icon.previous_meaning_en).toBeNull();
+    expect(icon.proposal).toBeNull();
+
+    for (const rank of V16_DECOR) {
+      const decor = byRank.get(rank);
+      expect(decor?.status).toBe("decor");
+      expect(decor?.key).toBe("decor");
+      expect(decor?.kind).toBe("decor");
+      expect(decor?.meaning_en).toBe("Decor / not an icon");
+      expect(decor?.source).toBe("kyries_approved_proposal_2026-10-07");
+      expect(decor?.notes).toContain("batch-06");
+      if (rank === 836) {
+        expect(decor?.previous_status).toBe("needs_review");
+        expect(decor?.previous_meaning_en).toBe("Unconfirmed glyph: grey irregular fragment");
+      } else {
+        expect(decor?.previous_status).toBe("unreviewed");
+        expect(decor?.previous_meaning_en).toBeNull();
+      }
+    }
+
+    for (const rank of V16_KEEPS) {
+      const kept = byRank.get(rank);
+      expect(kept?.status).toBe("needs_review");
+      expect(kept?.key).toBe(`pending_${kept?.iconId}`);
+      expect(kept?.kind).toBe("");
+      expect(kept?.proposal).toBeNull();
+      expect(kept?.source).toBe("kyries_approved_proposal_2026-10-07");
+      expect(kept?.previous_status).toBe("unreviewed");
+      expect(kept?.meaning_en).toBe(V16_KEEP_MEANING[rank]);
+      expect(kept?.meaning_zh.startsWith("待确认图形：")).toBe(true);
+    }
+
+    const pot = byRank.get(809);
+    expect(pot?.key).toBe("pending_66254314c8");
+    expect(pot?.group).toBe("stress");
   });
 });
 

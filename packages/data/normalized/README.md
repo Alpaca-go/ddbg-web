@@ -1,6 +1,6 @@
 # 核心盒规范化数据
 
-`ddbg-normalized-v0`。由 `packages/data/src/normalize/` 从 parsed（英雄技能、怪物、饰品）和 raw（怪癖、美德 / 苦难）生成，图标含义来自词典 v1.5。
+`ddbg-normalized-v0`。由 `packages/data/src/normalize/` 从 parsed（英雄技能、怪物、饰品）和 raw（怪癖、美德 / 苦难）生成，图标含义来自词典 v1.6。
 
 重新生成：
 

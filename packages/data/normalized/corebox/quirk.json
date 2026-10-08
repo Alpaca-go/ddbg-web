@@ -1,11 +1,11 @@
 {
  "schema": "ddbg-normalized-v0",
- "dictionary_version": "1.5",
+ "dictionary_version": "1.6",
  "category": "quirk",
  "sources": {
   "parsed": null,
   "raw": "extract/corebox/raw/quirk.json",
-  "dictionary": "dictionary/icon-dictionary-v1.5.json"
+  "dictionary": "dictionary/icon-dictionary-v1.6.json"
  },
  "stats": {
   "cards": 35,
@@ -1306,11 +1306,11 @@
       "icon": {
        "iconId": "9ce4169551",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_9ce4169551",
+       "status": "needs_review",
+       "key": "pending_9ce4169551",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: grey \"+2\" value badge",
+       "meaning_zh": "待确认图形：灰底「+2」数值徽章",
        "value": null,
        "naming": "unverified"
       }
@@ -1361,11 +1361,11 @@
     {
      "iconId": "9ce4169551",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_9ce4169551",
+     "status": "needs_review",
+     "key": "pending_9ce4169551",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: grey \"+2\" value badge",
+     "meaning_zh": "待确认图形：灰底「+2」数值徽章",
      "value": null,
      "naming": "unverified"
     },
@@ -4587,11 +4587,11 @@
       "icon": {
        "iconId": "52e99dee17",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_52e99dee17",
+       "status": "needs_review",
+       "key": "pending_52e99dee17",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: grey \"-2\" value badge",
+       "meaning_zh": "待确认图形：灰底「-2」数值徽章",
        "value": null,
        "naming": "unverified"
       }
@@ -4642,11 +4642,11 @@
     {
      "iconId": "52e99dee17",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_52e99dee17",
+     "status": "needs_review",
+     "key": "pending_52e99dee17",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: grey \"-2\" value badge",
+     "meaning_zh": "待确认图形：灰底「-2」数值徽章",
      "value": null,
      "naming": "unverified"
     },
@@ -5501,11 +5501,11 @@
       "icon": {
        "iconId": "d42d7955d3",
        "in_dictionary": true,
-       "status": "unreviewed",
-       "key": "unknown_d42d7955d3",
+       "status": "needs_review",
+       "key": "pending_d42d7955d3",
        "kind": "",
-       "meaning_en": "",
-       "meaning_zh": "",
+       "meaning_en": "Unconfirmed glyph: two black-heart red-glow squares",
+       "meaning_zh": "待确认图形：两枚黑心红光方块",
        "value": null,
        "naming": "unverified"
       }
@@ -5560,11 +5560,11 @@
     {
      "iconId": "d42d7955d3",
      "in_dictionary": true,
-     "status": "unreviewed",
-     "key": "unknown_d42d7955d3",
+     "status": "needs_review",
+     "key": "pending_d42d7955d3",
      "kind": "",
-     "meaning_en": "",
-     "meaning_zh": "",
+     "meaning_en": "Unconfirmed glyph: two black-heart red-glow squares",
+     "meaning_zh": "待确认图形：两枚黑心红光方块",
      "value": null,
      "naming": "unverified"
     },

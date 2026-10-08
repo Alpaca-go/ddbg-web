@@ -6,7 +6,7 @@
 
 ## 来源
 
-词典版本 v1.5（2026-10-07）。同一份表有 JSON 和 CSV，中文变更说明在 `icon-dictionary-v1.5-CHANGELOG.md`。v1.4、v1.3、v1.2 与 v1.1 的说明仍留在目录里。
+词典版本 v1.6（2026-10-07）。同一份表有 JSON 和 CSV，中文变更说明在 `icon-dictionary-v1.6-CHANGELOG.md`。v1.5、v1.4、v1.3、v1.2 与 v1.1 的说明仍留在目录里。
 
 - Kyries 2026-10-06 人工审阅。审阅里接受或修改过的条目记为 `confirmed`。2026-10-07 批准的 PvP 站位同样是 `confirmed`。
 - 规则书页码在每条的 `rulebook_refs`。`confirmed_rulebook` 是 Kyries 原先标成装饰、2026-10-07 改成规则书含义并批准的条目。页码主要来自核心规则书第 16 页（房间起始位置、战利品）和第 18 页（容纳标记）。
@@ -18,20 +18,20 @@
 
 | status               | 条数（共 906） | 意思                                                                                         |
 | -------------------- | -------------: | -------------------------------------------------------------------------------------------- |
-| `confirmed`          |            489 | Kyries 已确认。可以用来命名。                                                                |
+| `confirmed`          |            490 | Kyries 已确认。可以用来命名。                                                                |
 | `confirmed_rulebook` |             44 | 官方规则书页码给出的含义，Kyries 已批准。可以用来命名。                                      |
-| `needs_review`       |             53 | Kyries 批准先留下。key 为 `pending_<iconId>`，kind 为空，含义只描述外观。按 R-048 保持占位。 |
-| `decor`              |             92 | 不是游戏图标（装饰、边框、画面碎片）。                                                       |
+| `needs_review`       |             65 | Kyries 批准先留下。key 为 `pending_<iconId>`，kind 为空，含义只描述外观。按 R-048 保持占位。 |
+| `decor`              |            112 | 不是游戏图标（装饰、边框、画面碎片）。                                                       |
 | `unsure`             |              0 | 审阅者不能确定。没有含义，key 为 `unknown_<iconId>`。                                        |
-| `unreviewed`         |            228 | 尚未审阅。没有含义，key 为 `unknown_<iconId>`。                                              |
+| `unreviewed`         |            195 | 尚未审阅。没有含义，key 为 `unknown_<iconId>`。                                              |
 
 `needs_review`、`unsure`、`unreviewed`，以及词典未收的 iconId，在规范化层标成未验证。含这些图标的卡在进入可用卡池之前保持未验证。
 
 ## 仍未确认的类别
 
-- 未审的 228 条没有含义。出现较多的印刷类别是 hero_skill、room、stygian_room、dungeon_tile、hero_stat、hero_pvp，此外还有 monster_medium、disease、trinket、curio、quest 等。村庄版图和打孔板上也有少量。
-- `needs_review` 的 53 条不能当作最终命名。key 都是 `pending_<iconId>`。v1.2 留下的 10 条，提议仍在 `proposal` 里。batch-01 留下 r539。batch-02 留下 17 条：15 条技能卡正背面插画各自保留，不并入对面插画，也没有写成 `skill_art`；另有 r714（饰品插图）和 r836（灰色碎块）。batch-04 留下 25 条：17 条技能卡杂项切图各自保留；另外 8 条是饰品插图或没有并入的图形。都没有写成 `skill_art`。batch-05 没有留下条目。
-- 规范化层里还有 70 个词典未收的 iconId（多为饰品，没有切图）。v1.5 没有为它们命名。对照印刷 PDF 重切之后再审。
+- 未审的 195 条没有含义。出现较多的印刷类别是 hero_skill、room、stygian_room、dungeon_tile、hero_stat、hero_pvp，此外还有 disease、curio、quest 等。村庄版图和打孔板上也有少量。
+- `needs_review` 的 65 条不能当作最终命名。key 都是 `pending_<iconId>`。v1.2 留下的 10 条，提议仍在 `proposal` 里。batch-01 留下 r539。batch-02 留下 17 条：15 条技能卡正背面插画各自保留，不并入对面插画，也没有写成 `skill_art`；另有 r714（饰品插图）和 r836（灰色碎块）。r836 在 batch-06 改成装饰。batch-04 留下 25 条：17 条技能卡杂项切图各自保留；另外 8 条是饰品插图或没有并入的图形。都没有写成 `skill_art`。batch-05 没有留下条目。batch-06 留下 13 条，含义只写外观：红色右箭头、橙色斜笔画、黑心红光方块、黑底红边心形、灰底数值徽章、红色锅或水洼。没有写成比较符或其他机制名。
+- 规范化层里还有 70 个词典未收的 iconId（多为饰品，没有切图）。v1.6 没有为它们命名。对照印刷 PDF 重切之后再审。
 - 继续算作装饰、规则书没有解释的图形：rank 121（火焰加数字）、rank 420（容纳点加灰色双箭头）。rank 239 在 v1.2 也标成装饰，和 125、420 同属双箭头。
 - `kind` 是自由词，用词尚未统一（词典 `inconsistencies` 的 `kind_vocabulary`）。
 - 混合起始位置：rank 127、132、258、259 的 key 是 `start_*_any`（同一个 iconId 里站位或阵营不一致）。哪一张卡、哪一页、哪一个坐标是哪种站位，以 `start_locations_by_placement.csv` 为准。rank 379 在 v1.2 留下为 `pending_`，没有写成 `start_*_any`。
