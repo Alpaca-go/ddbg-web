@@ -22,7 +22,7 @@ function readJson(relativePath: string): unknown {
 /** 读入库的词典、parsed 和 raw，生成六类规范化数据。 */
 export function loadNormalizedCorebox(): NormalizedCorebox {
   return buildNormalizedCorebox({
-    dictionary: iconDictionarySchema.parse(readJson("dictionary/icon-dictionary-v1.6.json")),
+    dictionary: iconDictionarySchema.parse(readJson("dictionary/icon-dictionary-v1.7.json")),
     heroSkills: heroSkillFileSchema.parse(readJson("extract/corebox/parsed/hero_skill.json")),
     heroSkillRaw: rawFileSchema.parse(readJson("extract/corebox/raw/hero_skill.json")),
     monsterMedium: monsterMediumFileSchema.parse(
