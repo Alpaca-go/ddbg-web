@@ -239,6 +239,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -325,6 +326,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -380,6 +382,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -415,6 +418,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -900,6 +904,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: 3,
       targetStress: 6,
       besideActorStress: [{ id: "crusader", stress: 2 }],
@@ -1084,6 +1089,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: 3,
       targetStress: 6,
       besideActorStress: [{ id: "crusader", stress: 2 }],
@@ -1296,6 +1302,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: 3,
       targetStress: 5,
       besideActorStress: [{ id: "crusader", stress: 1 }],
@@ -1483,7 +1490,7 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p140 Battlefield Medicine II 治疗自身，并在命中时清掉目标的流血和腐蚀", () => {
+  it("hero_skill:p140 Battlefield Medicine II 治疗自身并清掉自己的两种状态，命中再清目标", () => {
     const skill = card("hero_skill:p140");
     expect(skill.name).toBe("Battlefield Medicine");
     expect(skill.level).toBe(2);
@@ -1517,8 +1524,10 @@ describe("resolveHeroSkill", () => {
       targetStress: 1,
       targetBleedCleared: true,
       targetBlightCleared: true,
+      actorBleedCleared: true,
+      actorBlightCleared: true,
       targetProtectionIgnored: false,
-      skipped: [{ code: "damage_or_heal_combined_marker" }, { code: "effect_lines" }],
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
     expect(
       use(
@@ -1537,8 +1546,10 @@ describe("resolveHeroSkill", () => {
       targetStress: 1,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      actorBleedCleared: true,
+      actorBlightCleared: true,
       targetProtectionIgnored: false,
-      skipped: [{ code: "damage_or_heal_combined_marker" }, { code: "effect_lines" }],
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
   });
 
@@ -1613,6 +1624,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 4,
       actorForm: "beast",
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
   });
 
@@ -1660,6 +1672,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: 3,
       targetStress: 6,
       besideActorStress: [{ id: "crusader", stress: 1 }],
@@ -1721,7 +1734,7 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p141 Battlefield Medicine III 先治疗自身 4，命中再治疗目标 3 并清掉两种状态", () => {
+  it("hero_skill:p141 Battlefield Medicine III 先治疗自身 4 并清掉自己的两种状态，命中再治疗目标", () => {
     const skill = card("hero_skill:p141");
     expect(skill.name).toBe("Battlefield Medicine");
     expect(skill.level).toBe(3);
@@ -1747,8 +1760,10 @@ describe("resolveHeroSkill", () => {
       riposteDamage: null,
       targetBleedCleared: true,
       targetBlightCleared: true,
+      actorBleedCleared: true,
+      actorBlightCleared: true,
       targetProtectionIgnored: false,
-      skipped: [{ code: "damage_or_heal_combined_marker" }, { code: "effect_lines" }],
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
     expect(
       use(
@@ -1767,6 +1782,8 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      actorBleedCleared: true,
+      actorBlightCleared: true,
       targetProtectionIgnored: false,
     });
     expect(
@@ -1786,11 +1803,13 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
       targetBleedCleared: true,
       targetBlightCleared: true,
+      actorBleedCleared: true,
+      actorBlightCleared: true,
       targetProtectionIgnored: false,
     });
   });
 
-  it("回合数 numeric 为 null，或 Remove 行没有目标标记、或和增益混在一行时，不移除状态", () => {
+  it("回合数 numeric 为 null，或 Remove 和增益写在同一行时，不移除状态", () => {
     const stun = card("hero_skill:p007");
     expect(stun.name).toBe("Stunning Blow");
     expect(stun.level).toBe(1);
@@ -1830,45 +1849,6 @@ describe("resolveHeroSkill", () => {
       targetBlightCleared: false,
       targetProtectionIgnored: false,
       skipped: [{ code: "effect_lines" }],
-    });
-
-    const trickery = card("hero_skill:p187");
-    expect(trickery.name).toBe("Toxin Trickery");
-    expect(trickery.level).toBe(1);
-    expect(trickery.hero).toBe("GRAVE ROBBER");
-    expect(trickery.verification.unverified).toBe(false);
-    expect(trickery.stats_line).toBeNull();
-    const removeLine = trickery.effect_lines[2];
-    expect(
-      removeLine?.filter((segment) => segment.type === "icon").map((segment) => segment.icon.key),
-    ).toEqual(["bleed", "blight"]);
-    expect(
-      trickery.unlabeled_numbers
-        .filter(
-          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "buff",
-        )
-        .map((item) => item.numeric),
-    ).toEqual([null]);
-    expect(
-      use(
-        "hero_skill:p187",
-        {
-          actor: { id: "robber", wounds: 2, stress: 3 },
-          target: { id: "patient", side: "hero", wounds: 4, dodge: 0, stress: 1 },
-        },
-        1,
-      ),
-    ).toMatchObject({
-      status: "refused",
-      reason: "stats_line 没有已命名的 damage 或 heal",
-      outcome: null,
-      wounds: 4,
-      actorWounds: 2,
-      actorStress: 3,
-      targetStress: 1,
-      targetBleedCleared: false,
-      targetBlightCleared: false,
-      targetProtectionIgnored: false,
     });
 
     const rush = card("hero_skill:p037");
@@ -1951,6 +1931,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: 3,
       targetStress: null,
       besideActorStress: null,
@@ -2564,6 +2545,7 @@ describe("resolveHeroSkill", () => {
       targetProtectionIgnored: false,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
   });
 
@@ -2633,6 +2615,7 @@ describe("resolveHeroSkill", () => {
       targetProtectionIgnored: false,
       actorForm: "beast",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: 3,
       targetStress: 4,
       besideActorStress: [{ id: "crusader", stress: 2 }],
@@ -2648,6 +2631,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: null,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: null,
     });
   });
@@ -2691,6 +2675,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 8,
       actorForm: "beast",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
 
@@ -2724,6 +2709,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 0,
       actorForm: "beast",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
   });
@@ -2820,6 +2806,7 @@ describe("resolveHeroSkill", () => {
       targetProtectionIgnored: false,
       actorForm: "human",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: 3,
       targetStress: 4,
       besideActorStress: [{ id: "crusader", stress: 2 }],
@@ -2869,6 +2856,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 8,
       actorForm: "human",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
 
@@ -2901,6 +2889,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 0,
       actorForm: "human",
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
 
     expect(
@@ -2918,6 +2907,7 @@ describe("resolveHeroSkill", () => {
       status: "resolved",
       actorForm: "beast",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorWounds: 5,
       actorStress: 3,
       wounds: 4,
@@ -2937,6 +2927,7 @@ describe("resolveHeroSkill", () => {
       reason: "这张技能的该姿态没有标明点亮或未点亮，不能当作可用（R-048）",
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorWounds: 5,
       wounds: 4,
     });
@@ -2958,6 +2949,7 @@ describe("resolveHeroSkill", () => {
       reason: "这张技能印着 Beast Form Only，当前形态不是兽形（规则书第 38 页）",
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorWounds: 5,
       actorStress: 3,
       wounds: 4,
@@ -2982,6 +2974,7 @@ describe("resolveHeroSkill", () => {
         "卡面没有恰好一个射程整数，不能把 Self 或 All Allies 当成距离 0（规则书第 19 页，R-048）",
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorWounds: 5,
       wounds: 4,
     });
@@ -3002,6 +2995,7 @@ describe("resolveHeroSkill", () => {
         "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）",
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       wounds: 4,
     });
     expect(
@@ -3015,6 +3009,7 @@ describe("resolveHeroSkill", () => {
       reason: "自身效果要切换形态，但没有使用者（规则书第 38 页）",
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       wounds: 4,
     });
     expect(
@@ -3034,6 +3029,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 0,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
     expect(
       use(
@@ -3052,6 +3048,7 @@ describe("resolveHeroSkill", () => {
       wounds: 4,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
 
     // 文字底板的词典说明同时写了两种形态。卡面没有「Human Form Only」这句时，
@@ -3086,6 +3083,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 2,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
 
     const manacles = card("hero_skill:p211");
@@ -3113,6 +3111,7 @@ describe("resolveHeroSkill", () => {
       wounds: 4,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
   });
 
@@ -3163,6 +3162,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       targetBleedCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
@@ -3179,6 +3179,7 @@ describe("resolveHeroSkill", () => {
       wounds: 0,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
   });
@@ -3259,6 +3260,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: 3,
       targetStress: 3,
       besideActorStress: [{ id: "vestal", stress: 2 }],
@@ -3524,6 +3526,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 2,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
   });
 
@@ -3813,6 +3816,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
     expect(
@@ -3832,6 +3836,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
     expect(
       use(
@@ -3900,6 +3905,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
     expect(
@@ -3916,6 +3922,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
   });
 
@@ -4187,6 +4194,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 4,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
 
     const transform = card("hero_skill:p220");
@@ -4217,6 +4225,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
 
     const mark = card("hero_skill:p154");
@@ -4576,6 +4585,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 1,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
 
     const ballad = card("hero_skill:p118");
@@ -4817,6 +4827,7 @@ describe("resolveHeroSkill", () => {
       effect: null,
       actorForm: "beast",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       wounds: 4,
       actorWounds: 5,
       actorStress: 3,
@@ -5352,6 +5363,7 @@ describe("resolveHeroSkill", () => {
       effect: null,
       actorForm: "beast",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       wounds: 4,
       actorWounds: 5,
       actorStress: 3,
@@ -6007,6 +6019,7 @@ describe("resolveHeroSkill", () => {
       effect: null,
       actorForm: "beast",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       wounds: 4,
       actorWounds: 5,
       actorStress: 3,
@@ -6187,6 +6200,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 2,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
   });
 
@@ -6670,6 +6684,7 @@ describe("resolveHeroSkill", () => {
       effect: null,
       actorForm: "beast",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       wounds: 4,
       actorWounds: 5,
       actorStress: 3,
@@ -8367,6 +8382,7 @@ describe("resolveHeroSkill", () => {
         actorStress: 4,
         actorForm: null,
         actorBleedCleared: false,
+        actorBlightCleared: false,
       },
     );
 
@@ -8387,6 +8403,7 @@ describe("resolveHeroSkill", () => {
       effect: null,
       actorForm: "beast",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       wounds: 2,
       actorWounds: 5,
       actorStress: 3,
@@ -8407,6 +8424,7 @@ describe("resolveHeroSkill", () => {
       outcome: null,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       wounds: 2,
       actorWounds: 5,
       actorStress: 3,
@@ -9414,6 +9432,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
     expect(use("hero_skill:p223", raking, 2)).toMatchObject({
@@ -9499,6 +9518,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
       actorForm: "beast",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
 
@@ -9653,6 +9673,7 @@ describe("resolveHeroSkill", () => {
       targetProtectionIgnored: false,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: 3,
       targetStress: 6,
       besideActorStress: [{ id: "highwayman", stress: 2 }],
@@ -9916,6 +9937,7 @@ describe("resolveHeroSkill", () => {
       targetProtectionIgnored: false,
       actorForm: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       actorStress: 4,
       targetStress: 5,
       besideActorStress: [{ id: "vestal", stress: 2 }],
@@ -10475,6 +10497,7 @@ describe("resolveHeroSkill", () => {
         targetProtectionIgnored: false,
         actorForm: null,
         actorBleedCleared: false,
+        actorBlightCleared: false,
         skipped: [],
       });
     }
@@ -10721,6 +10744,7 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       actorBleedCleared: true,
+      actorBlightCleared: false,
       actorShuffle: null,
       targetShuffle: null,
       targetProtectionIgnored: false,
@@ -10741,6 +10765,7 @@ describe("resolveHeroSkill", () => {
       wounds: 5,
       actorWounds: null,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
     });
@@ -10750,6 +10775,7 @@ describe("resolveHeroSkill", () => {
       wounds: 5,
       actorWounds: 3,
       actorBleedCleared: false,
+      actorBlightCleared: false,
     });
     // 区间射程 numeric 为 null。对不上时整次拒绝，自身的移除也不发生。
     expect(use("hero_skill:p039", { ...combat, areaDistance: 1 }, 3)).toMatchObject({
@@ -10759,6 +10785,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 3,
       actorStress: 4,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       targetBleedCleared: false,
     });
     // 两枚英雄头盔在效果行上，不能当成一个区域内能选几个。
@@ -10767,6 +10794,7 @@ describe("resolveHeroSkill", () => {
       reason:
         "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       targetBleedCleared: false,
       wounds: 5,
     });
@@ -10788,6 +10816,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 3,
       actorStress: 4,
       actorBleedCleared: false,
+      actorBlightCleared: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
     });
@@ -10805,10 +10834,182 @@ describe("resolveHeroSkill", () => {
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
       actorBleedCleared: false,
+      actorBlightCleared: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
       wounds: 5,
       actorWounds: 3,
+    });
+  });
+
+  it("换行后的 Remove Bleed、Blight 配给效果框：Toxin Trickery 不掷骰，两种都清", () => {
+    const first = card("hero_skill:p187");
+    expect(first.name).toBe("Toxin Trickery");
+    expect(first.level).toBe(1);
+    expect(first.hero).toBe("GRAVE ROBBER");
+    expect(first.verification.unverified).toBe(false);
+    expect(first.stats_line).toBeNull();
+    expect(first.printed_labels).toEqual([]);
+    expect(first.effect_lines).toHaveLength(3);
+    expect(
+      first.effect_lines[1]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["self_effects", "buff"]);
+    expect(
+      first.effect_lines[2]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["bleed", "blight"]);
+    expect(
+      first.effect_lines[2]
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text.trim())
+        .filter((text) => text !== ""),
+    ).toEqual(["Remove"]);
+    expect(
+      first.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["2t"]);
+
+    const self: SkillCombatState = {
+      actor: { id: "robber", wounds: 2, stress: 3, stance: "aggressive" },
+      target: { id: "robber", side: "hero", wounds: 2, dodge: 20, stress: 3 },
+    };
+    const frozen = structuredClone(self);
+    const cleared = use("hero_skill:p187", self, 1);
+    expect(cleared).toEqual({
+      skillId: "hero_skill:p187",
+      targetId: "robber",
+      status: "resolved",
+      reason: null,
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 2,
+      actorWounds: 2,
+      targetDead: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+      actorBleedCleared: true,
+      actorBlightCleared: true,
+      actorShuffle: null,
+      targetShuffle: null,
+      targetProtectionIgnored: false,
+      actorForm: null,
+      actorStress: 3,
+      targetStress: 3,
+      besideActorStress: null,
+      untargetedBesideTargetStress: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(self).toEqual(frozen);
+    // 没有 Acc。骰面 10、目标 Dodge 很高，仍然清使用者，不清目标，不放增益。
+    expect(use("hero_skill:p187", self, 10)).toEqual(cleared);
+    expect(use("hero_skill:p187", { target: self.target }, 4)).toMatchObject({
+      status: "refused",
+      reason: "自身效果要移除流血和腐蚀，但没有使用者（规则书第 20 页）",
+      wounds: 2,
+      actorWounds: null,
+      actorBleedCleared: false,
+      actorBlightCleared: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+    });
+    // 射程旁边是 Self，不是整数 0。传入距离就整次拒绝，移除也不发生。
+    expect(use("hero_skill:p187", { ...self, areaDistance: 0 }, 3)).toMatchObject({
+      status: "refused",
+      reason:
+        "卡面没有恰好一个射程整数，不能把 Self 或 All Allies 当成距离 0（规则书第 19 页，R-048）",
+      actorBleedCleared: false,
+      actorBlightCleared: false,
+      wounds: 2,
+      actorWounds: 2,
+    });
+
+    const second = card("hero_skill:p188");
+    expect(second.name).toBe("Toxin Trickery");
+    expect(second.level).toBe(2);
+    expect(second.verification.unverified).toBe(false);
+    expect(
+      second.effect_lines[2]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "buff"]);
+    expect(
+      second.effect_lines.filter(
+        (line) =>
+          line
+            .filter((segment) => segment.type === "icon")
+            .map((segment) => segment.icon.key)
+            .join(",") === "bleed,blight",
+      ),
+    ).toHaveLength(2);
+    expect(
+      second.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "buff",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([null, null]);
+
+    const ally: SkillCombatState = {
+      actor: { id: "robber", wounds: 4, stress: 2, stance: "support" },
+      target: { id: "vestal", side: "hero", wounds: 6, dodge: 30, stress: 8 },
+      areaDistance: 1,
+    };
+    const allyFrozen = structuredClone(ally);
+    const both = use("hero_skill:p188", ally, 10);
+    expect(both).toMatchObject({
+      status: "resolved",
+      outcome: null,
+      effect: null,
+      wounds: 6,
+      actorWounds: 4,
+      actorStress: 2,
+      targetStress: 8,
+      actorBleedCleared: true,
+      actorBlightCleared: true,
+      targetBleedCleared: true,
+      targetBlightCleared: true,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(ally).toEqual(allyFrozen);
+    expect(use("hero_skill:p188", { ...ally, areaDistance: 2 }, 1)).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      wounds: 6,
+      actorWounds: 4,
+      actorBleedCleared: false,
+      actorBlightCleared: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+    });
+    // 英雄头盔在效果行上，不能当成一个区域内能选几个。
+    expect(use("hero_skill:p188", { ...ally, targetsInArea: 1 }, 1)).toMatchObject({
+      status: "refused",
+      reason:
+        "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）",
+      actorBleedCleared: false,
+      actorBlightCleared: false,
+      targetBleedCleared: false,
+      wounds: 6,
+    });
+
+    const third = card("hero_skill:p189");
+    expect(third.name).toBe("Toxin Trickery");
+    expect(third.level).toBe(3);
+    expect(third.verification.unverified).toBe(false);
+    expect(use("hero_skill:p189", { ...ally, areaDistance: 1 }, 2)).toMatchObject({
+      status: "resolved",
+      outcome: null,
+      wounds: 6,
+      actorWounds: 4,
+      actorBleedCleared: true,
+      actorBlightCleared: true,
+      targetBleedCleared: true,
+      targetBlightCleared: true,
     });
   });
 });
