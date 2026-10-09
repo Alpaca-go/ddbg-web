@@ -65,7 +65,15 @@
  * 「Self」当成目标，也不把只有「Self」、没有已命名治疗或伤害的卡当成这次能结算
  * 的自身目标。不按射程挪区域。
  *
- * 不解释 `damage_or_heal_combined_marker`。姿态、射程距离、英雄 Life、死门骰都不在这里。
+ * 可用姿态（规则书第 19 页技能解剖，说明书 §6.5 第 1 步）：顶行四个已命名的
+ * 姿态图标，点亮的才能用这张技能。从左到右是 Support、Ranged、Defensive、
+ * Aggressive；这里按图标 key 认，不靠格子顺序猜。调用方传入使用者的当前姿态时，
+ * 未点亮就整次拒绝，伤口和压力都不改。不传就不检查，也不替英雄猜现在站在哪一格。
+ * 「Human/Beast Form Only」文字底板不读成人形或兽形。憎恶顶行那个没有写成点亮或
+ * 未点亮的远程图标，不当成可用，也不当成禁用。不移动姿态代币，也不查本回合是否
+ * 已经成功用过这张技能。
+ *
+ * 不解释 `damage_or_heal_combined_marker`。射程距离、英雄 Life、死门骰都不在这里。
  */
 
 export type SkillIconRef = {
@@ -95,9 +103,20 @@ export type HeroSkillCardView = {
   }[];
   readonly stats_line: readonly SkillSegment[] | null;
   readonly effect_lines: readonly (readonly SkillSegment[])[];
+  /**
+   * 技能卡顶行。点亮的姿态图标表示能从那个姿态使用（规则书第 19 页）。
+   * 不传就无法在调用方给出当前姿态时核对。
+   */
+  readonly top_row_icons?: readonly SkillIconRef[];
 };
 
 export type SkillTargetSide = "hero" | "monster";
+
+/**
+ * 英雄技能顶行的四种姿态。规则书第 19 页从左到右是
+ * Support → Ranged → Defensive → Aggressive。
+ */
+export type SkillStance = "support" | "ranged" | "defensive" | "aggressive";
 
 /** 同区域里的另一名英雄，只带这一层要改的压力。 */
 export type SkillAreaHero = {
@@ -116,6 +135,11 @@ export type SkillActorState = {
   readonly protection?: boolean;
   /** 攻击者自己的 Riposte。反弹不会再触发 Riposte（R-017）。 */
   readonly riposte?: boolean;
+  /**
+   * 使用者现在的姿态。传入时，技能顶行该格必须是已命名的点亮图标。
+   * 不传就不做这一步可用性检查。
+   */
+  readonly stance?: SkillStance;
 };
 
 /** 目标已经选好。姿态、射程、区域几何都不在这里。 */
@@ -790,6 +814,103 @@ function readAreaHeroes(
   return { ok: true, heroes };
 }
 
+const STANCE_LIT = new Map<string, SkillStance>([
+  ["stance_support_lit", "support"],
+  ["stance_ranged_lit", "ranged"],
+  ["stance_defensive_lit", "defensive"],
+  ["stance_aggressive_lit", "aggressive"],
+]);
+
+const STANCE_UNLIT = new Map<string, SkillStance>([
+  ["stance_support_unlit", "support"],
+  ["stance_ranged_unlit", "ranged"],
+  ["stance_defensive_unlit", "defensive"],
+  ["stance_aggressive_unlit", "aggressive"],
+]);
+
+/**
+ * 词典把这枚图标写成「confirm lit/unlit」。key 本身不是点亮，也不是未点亮。
+ * 不从英文说明里补。
+ */
+const STANCE_UNMARKED = new Map<string, SkillStance>([["stance_ranged_abomination_row", "ranged"]]);
+
+type StanceMark = "lit" | "unlit" | "unknown";
+
+function isSkillStance(value: unknown): value is SkillStance {
+  return (
+    value === "support" || value === "ranged" || value === "defensive" || value === "aggressive"
+  );
+}
+
+/**
+ * 顶行里已命名的点亮 / 未点亮姿态。文字底板跳过，不读成形态。
+ * 同一姿态出现两次，或有认不出的图标，整行都不采用。
+ */
+function readStanceMarks(
+  skill: HeroSkillCardView,
+): { ok: true; marks: Record<SkillStance, StanceMark> } | { ok: false } {
+  const icons = skill.top_row_icons;
+  if (!Array.isArray(icons)) return { ok: false };
+  const marks: Record<SkillStance, StanceMark | "absent"> = {
+    support: "absent",
+    ranged: "absent",
+    defensive: "absent",
+    aggressive: "absent",
+  };
+  for (const icon of icons) {
+    if (typeof icon !== "object" || icon === null) return { ok: false };
+    if (typeof icon.naming !== "string" || !NAMED.has(icon.naming)) return { ok: false };
+    if (icon.key === "text_plate") continue;
+    if (typeof icon.key !== "string") return { ok: false };
+    const lit = STANCE_LIT.get(icon.key);
+    const unlit = STANCE_UNLIT.get(icon.key);
+    const unmarked = STANCE_UNMARKED.get(icon.key);
+    let stance: SkillStance | undefined;
+    let mark: StanceMark | undefined;
+    if (lit !== undefined) {
+      stance = lit;
+      mark = "lit";
+    } else if (unlit !== undefined) {
+      stance = unlit;
+      mark = "unlit";
+    } else if (unmarked !== undefined) {
+      stance = unmarked;
+      mark = "unknown";
+    }
+    if (stance === undefined || mark === undefined) return { ok: false };
+    if (marks[stance] !== "absent") return { ok: false };
+    marks[stance] = mark;
+  }
+  return {
+    ok: true,
+    marks: {
+      support: marks.support === "absent" ? "unknown" : marks.support,
+      ranged: marks.ranged === "absent" ? "unknown" : marks.ranged,
+      defensive: marks.defensive === "absent" ? "unknown" : marks.defensive,
+      aggressive: marks.aggressive === "absent" ? "unknown" : marks.aggressive,
+    },
+  };
+}
+
+/**
+ * 规则书第 19 页：只有点亮的姿态能使用这张技能。
+ * 没传入当前姿态时不检查。读不清，或该格没有点亮标记时，整次不结算。
+ */
+function stanceProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
+  const stance = combat.actor?.stance;
+  if (stance === undefined) return null;
+  const read = readStanceMarks(skill);
+  if (!read.ok) {
+    return "技能顶行的姿态图标读不清，不能核对能否使用（规则书第 19 页）";
+  }
+  const mark = read.marks[stance];
+  if (mark === "lit") return null;
+  if (mark === "unlit") {
+    return "当前姿态没有点亮，不能使用这张技能（规则书第 19 页）";
+  }
+  return "这张技能的该姿态没有标明点亮或未点亮，不能当作可用（R-048）";
+}
+
 function combatProblem(combat: SkillCombatState): string | null {
   const target = combat.target;
   if (target.side !== "hero" && target.side !== "monster") {
@@ -837,6 +958,9 @@ function combatProblem(combat: SkillCombatState): string | null {
     if (actor.riposte !== undefined && typeof actor.riposte !== "boolean") {
       return "攻击者的 Riposte 必须是布尔值";
     }
+    if (actor.stance !== undefined && !isSkillStance(actor.stance)) {
+      return "使用者的姿态必须是 support、ranged、defensive 或 aggressive";
+    }
   }
 
   const beside = readAreaHeroes(combat.heroesBesideActor, "使用者身边的英雄");
@@ -878,7 +1002,7 @@ function combatProblem(combat: SkillCombatState): string | null {
 
 /**
  * 结算一张英雄技能。`roll` 是 d10 面值（1–10），由调用方用 `rollD10` 取得。
- * 未验证的卡、对不上的目标、读不出整数的 Crit / Acc，都原样留下伤口。
+ * 未验证的卡、对不上的目标、当前姿态没有点亮、读不出整数的 Crit / Acc，都原样留下伤口。
  */
 export function resolveHeroSkill(
   skill: HeroSkillCardView,
@@ -896,6 +1020,8 @@ export function resolveHeroSkill(
   }
   const problem = combatProblem(combat);
   if (problem !== null) return refuse(skill, combat, problem);
+  const stance = stanceProblem(skill, combat);
+  if (stance !== null) return refuse(skill, combat, stance);
 
   const target = combat.target;
   const stress = readImmediateStress(skill);
