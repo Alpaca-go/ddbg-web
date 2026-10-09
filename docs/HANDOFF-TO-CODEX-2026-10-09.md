@@ -10,11 +10,11 @@
 
 ## 0. 开场必读（按这个顺序，不要跳）
 
-1. 本文件全文。  
-2. 仓库根目录 [`AGENTS.md`](../AGENTS.md)（编码代理硬性约定；与本文冲突时以 **AGENTS.md + docs/rulings.md** 为准）。  
-3. [`docs/plan.md`](../docs/plan.md)（开发大纲 v0.2，Kyries 已确认；阶段定义以此为准）。  
-4. [`docs/rulings.md`](../docs/rulings.md)（本项目裁定；**R-001、R-048 尤其重要**）。  
-5. [`docs/spec/`](../docs/spec/) 下核心规则说明书（初稿，检查点 ① 尚未逐条签完）。  
+1. 本文件全文。
+2. 仓库根目录 [`AGENTS.md`](../AGENTS.md)（编码代理硬性约定；与本文冲突时以 **AGENTS.md + docs/rulings.md** 为准）。
+3. [`docs/plan.md`](../docs/plan.md)（开发大纲 v0.2，Kyries 已确认；阶段定义以此为准）。
+4. [`docs/rulings.md`](../docs/rulings.md)（本项目裁定；**R-001、R-048 尤其重要**）。
+5. [`docs/spec/`](../docs/spec/) 下核心规则说明书（初稿，检查点 ① 尚未逐条签完）。
 6. 当前代码入口：`packages/engine/src/hero-skill.ts`、`packages/engine/src/command.ts`、`packages/engine/src/rng.ts`。
 
 读完再改代码。不要凭「别的桌游 / 电子游戏 Darkest Dungeon / 旧仓库」猜规则。
@@ -26,9 +26,9 @@
 从零重做《暗黑地牢桌游》（Darkest Dungeon: The Board Game）**网页客户端**。  
 旧仓库 `Alpaca-go/darkest-dungeon-boardgame` **只作交叉核对**，**禁止复制代码**，禁止搬它的 evidence/proof 证据链。
 
-- **首版范围**：核心盒（遗迹 Ruins + 最暗地牢）→ 完整战役；单设备 hot-seat；英文卡面 + 中文 UI。  
-- **首版不做**：联机、手机深度适配、完整中文化卡面、动画音效、AI 托管、成就统计。  
-- **Musketeer**：不在第一版（R-008）。  
+- **首版范围**：核心盒（遗迹 Ruins + 最暗地牢）→ 完整战役；单设备 hot-seat；英文卡面 + 中文 UI。
+- **首版不做**：联机、手机深度适配、完整中文化卡面、动画音效、AI 托管、成就统计。
+- **Musketeer**：不在第一版（R-008）。
 - **扩展顺序**（核心盒之后）：Weald → Warrens → Cove → Crimson Court → Color of Madness → Master Webber → Butcher's Circus。
 
 仓库私有。美术版权属于原厂；**卡图 / TTS 资产 / 图标切图不入库**。印刷 PDF 只抽取文字与数字。
@@ -37,15 +37,15 @@
 
 ## 2. 仓库与环境
 
-| 项 | 值 |
-|---|---|
-| GitHub | https://github.com/Alpaca-go/ddbg-web （private） |
-| 当前 main | `74bc5f7` |
-| 本地路径 | `D:\ddbg-web`（不要同步到 `C:\Users\kyrie`） |
-| 合并后同步 | `git -C 'D:\ddbg-web' pull --ff-only` |
-| Node | `24.21.0`（`.nvmrc`） |
-| 包管理 | pnpm `12.9.1` |
-| 结构 | pnpm monorepo：`packages/engine`、`packages/data`、`apps/web`、`tools/pipeline` |
+| 项         | 值                                                                              |
+| ---------- | ------------------------------------------------------------------------------- |
+| GitHub     | https://github.com/Alpaca-go/ddbg-web （private）                               |
+| 当前 main  | `74bc5f7`                                                                       |
+| 本地路径   | `D:\ddbg-web`（不要同步到 `C:\Users\kyrie`）                                    |
+| 合并后同步 | `git -C 'D:\ddbg-web' pull --ff-only`                                           |
+| Node       | `24.21.0`（`.nvmrc`）                                                           |
+| 包管理     | pnpm `12.9.1`                                                                   |
+| 结构       | pnpm monorepo：`packages/engine`、`packages/data`、`apps/web`、`tools/pipeline` |
 
 ```bash
 pnpm install
@@ -63,14 +63,14 @@ CI：两个 job（`typecheck / lint / test / build` + Playwright smoke）。**�
 
 这些路径在共享工作机 / Kyries 本机，**只读**，不要改 Kyries 电脑上的原始资料。
 
-| 内容 | 路径 |
-|---|---|
-| 开发大纲源稿 | `/workspace/ddbg-plan/`（仓库内副本为 `docs/plan.md`） |
-| 规则书 PDF | `/workspace/ddbg-src/` 或本机 `C:\Users\kyrie\Desktop\DDBG` |
-| 印刷 PDF | `/workspace/ddbg-print/`；本机另有 `C:\Users\kyrie\Desktop\新建文件夹\DARKEST DUNGEON EN_FILES` |
-| 图标工作区 / 切图 | `/workspace/ddbg-extract/icons/`（切图**只留共享机**） |
-| 规格草稿 | `/workspace/ddbg-spec/` |
-| 历次交接 | `/workspace/ddbg-handoff/`（含本文件与 `HANDOFF-2026-10-07.md`） |
+| 内容              | 路径                                                                                            |
+| ----------------- | ----------------------------------------------------------------------------------------------- |
+| 开发大纲源稿      | `/workspace/ddbg-plan/`（仓库内副本为 `docs/plan.md`）                                          |
+| 规则书 PDF        | `/workspace/ddbg-src/` 或本机 `C:\Users\kyrie\Desktop\DDBG`                                     |
+| 印刷 PDF          | `/workspace/ddbg-print/`；本机另有 `C:\Users\kyrie\Desktop\新建文件夹\DARKEST DUNGEON EN_FILES` |
+| 图标工作区 / 切图 | `/workspace/ddbg-extract/icons/`（切图**只留共享机**）                                          |
+| 规格草稿          | `/workspace/ddbg-spec/`                                                                         |
+| 历次交接          | `/workspace/ddbg-handoff/`（含本文件与 `HANDOFF-2026-10-07.md`）                                |
 
 ---
 
@@ -78,16 +78,16 @@ CI：两个 job（`typecheck / lint / test / build` + Playwright smoke）。**�
 
 完整正文在 `docs/plan.md`。摘要：
 
-| 阶段 | 目标 | 工期（大纲估） | 当前状态 |
-|---|---|---|---|
-| **Phase 0** | 基建 + 规则规格书 v1 | 1.5–2 周 | **基本完成**（monorepo、CI、文档、说明书初稿） |
-| **Phase 1** | 数据管线 + 核心盒数据 | 1.5–2.5 周 | **主体完成**：印刷提取、parsed schema、图标词典 **v1.8**、规范化卡牌；约 45/388 张卡仍待日后人工复核；板块几何标注仍未做 |
-| **Phase 2** | 战斗引擎 MVP + 最简战斗 UI | 2.5–4 周 | **进行中**：英雄技能纯函数结算已大量落地；**尚未**接到 `applyCommand`；先攻/AI/死门/状态代币/战斗 UI 未做 |
-| Phase 3 | 地牢探索 | 1.5–2.5 周 | 未开始 |
-| Phase 4 | 村庄、战役、存档 | 1.5–2.5 周 | 未开始 |
-| Phase 5 | Boss 与第 4 幕 | 2.5–4 周 | 未开始 |
-| Phase 6 | 核心盒打磨 v1.0 | 1.5–2.5 周 | 未开始 |
-| Phase 7–8 | 地点扩展与独立模式 | 见大纲 | 未开始 |
+| 阶段        | 目标                       | 工期（大纲估） | 当前状态                                                                                                                 |
+| ----------- | -------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| **Phase 0** | 基建 + 规则规格书 v1       | 1.5–2 周       | **基本完成**（monorepo、CI、文档、说明书初稿）                                                                           |
+| **Phase 1** | 数据管线 + 核心盒数据      | 1.5–2.5 周     | **主体完成**：印刷提取、parsed schema、图标词典 **v1.8**、规范化卡牌；约 45/388 张卡仍待日后人工复核；板块几何标注仍未做 |
+| **Phase 2** | 战斗引擎 MVP + 最简战斗 UI | 2.5–4 周       | **进行中**：英雄技能纯函数结算已大量落地；**尚未**接到 `applyCommand`；先攻/AI/死门/状态代币/战斗 UI 未做                |
+| Phase 3     | 地牢探索                   | 1.5–2.5 周     | 未开始                                                                                                                   |
+| Phase 4     | 村庄、战役、存档           | 1.5–2.5 周     | 未开始                                                                                                                   |
+| Phase 5     | Boss 与第 4 幕             | 2.5–4 周       | 未开始                                                                                                                   |
+| Phase 6     | 核心盒打磨 v1.0            | 1.5–2.5 周     | 未开始                                                                                                                   |
+| Phase 7–8   | 地点扩展与独立模式         | 见大纲         | 未开始                                                                                                                   |
 
 里程碑（大纲）：可玩单场战斗约 2026-11-13～11-27；核心盒 v1.0 约 2027-01～02。
 
@@ -103,52 +103,52 @@ CI：两个 job（`typecheck / lint / test / build` + Playwright smoke）。**�
 数据与词典：#5–#14（词典至 **v1.8**），#15（R-053 美德/折磨名单写入 role）。  
 **英雄技能结算引擎**（`resolveHeroSkill`，纯函数，**未接线**）：#16–#46。
 
-| PR | 要点 |
-|---|---|
-| #16 | 命中伤害 / 治疗 |
-| #17 | 防护、反弹、怪物死亡、暴击压力 |
-| #18 | 卡面数值齐全的立即压力 |
-| #19 | 自身治疗（从使用者伤口扣） |
-| #20 | 命中/暴击清除目标 Bleed、Blight |
-| #21 | 印明的 Push / Pull |
-| #22 | 无视防护 |
-| #23 | 形态切换（记下） |
-| #24 | 自身目标 |
-| #25 | 顶行姿态门控 |
-| #26 | 射程核对 |
-| #27 | 同区域目标个数上限 |
-| #28–#29 | Buff / Debuff 堆 → Crit +1 |
-| #30 | Mark 堆 → Acc +1 |
-| #31 | 高地 → Acc +1 |
-| #32 | 光照 ≤4 → Crit +1 |
-| #33 | 光照 =5 → 英雄目标 Dodge +1 |
-| #34 | 光照 =0 → 怪物目标 Dodge +1 |
-| #35 | Shuffle 抗性：Push/Pull 少移 1 |
-| #36 | **拒绝测试**：光照 2–1 额外压力（numeric null） |
-| #37 | 无 Acc 时自身行治疗 + 压力直接生效 |
-| #38 | front_icons 英雄头盔补目标数（Inspiring Tune I） |
-| #39 | **拒绝测试**：Bleed/Blight 面值但 duration null 不放堆 |
-| #40 | Transform 背面 → Human |
-| #41 | 高地：单个整数射程上限 +1 |
-| #42 | 打怪漏选 Guarded → `guardedEnemyOmitted` 整次拒绝 |
-| #43 | **拒绝测试**：仅 Acc + stun 1t（null）不放堆、不把 Acc 当伤害 |
-| #44 | Self Remove Bleed → 清使用者全部流血 |
-| #45 | 跨行配对 Remove Bleed+Blight（Battlefield Medicine / Toxin Trickery） |
-| #46 | `Push N or Pull N` + 调用方 `shuffleChoice` |
+| PR      | 要点                                                                  |
+| ------- | --------------------------------------------------------------------- |
+| #16     | 命中伤害 / 治疗                                                       |
+| #17     | 防护、反弹、怪物死亡、暴击压力                                        |
+| #18     | 卡面数值齐全的立即压力                                                |
+| #19     | 自身治疗（从使用者伤口扣）                                            |
+| #20     | 命中/暴击清除目标 Bleed、Blight                                       |
+| #21     | 印明的 Push / Pull                                                    |
+| #22     | 无视防护                                                              |
+| #23     | 形态切换（记下）                                                      |
+| #24     | 自身目标                                                              |
+| #25     | 顶行姿态门控                                                          |
+| #26     | 射程核对                                                              |
+| #27     | 同区域目标个数上限                                                    |
+| #28–#29 | Buff / Debuff 堆 → Crit +1                                            |
+| #30     | Mark 堆 → Acc +1                                                      |
+| #31     | 高地 → Acc +1                                                         |
+| #32     | 光照 ≤4 → Crit +1                                                     |
+| #33     | 光照 =5 → 英雄目标 Dodge +1                                           |
+| #34     | 光照 =0 → 怪物目标 Dodge +1                                           |
+| #35     | Shuffle 抗性：Push/Pull 少移 1                                        |
+| #36     | **拒绝测试**：光照 2–1 额外压力（numeric null）                       |
+| #37     | 无 Acc 时自身行治疗 + 压力直接生效                                    |
+| #38     | front_icons 英雄头盔补目标数（Inspiring Tune I）                      |
+| #39     | **拒绝测试**：Bleed/Blight 面值但 duration null 不放堆                |
+| #40     | Transform 背面 → Human                                                |
+| #41     | 高地：单个整数射程上限 +1                                             |
+| #42     | 打怪漏选 Guarded → `guardedEnemyOmitted` 整次拒绝                     |
+| #43     | **拒绝测试**：仅 Acc + stun 1t（null）不放堆、不把 Acc 当伤害         |
+| #44     | Self Remove Bleed → 清使用者全部流血                                  |
+| #45     | 跨行配对 Remove Bleed+Blight（Battlefield Medicine / Toxin Trickery） |
+| #46     | `Push N or Pull N` + 调用方 `shuffleChoice`                           |
 
 ### 4.2 引擎现状（代码事实）
 
-- **`resolveHeroSkill`**（`packages/engine/src/hero-skill.ts`）：纯函数。输入卡牌视图 + 战斗上下文 + 可选骰面 / 距离 / `shuffleChoice` 等，输出结算结果与跳过原因。**不修改**游戏状态，**不移动**区域/姿态轨实体（只「记下」位移意图等）。测试在 `hero-skill.test.ts`（体量大，改时务必跑全量）。  
-- **`applyCommand`**（`packages/engine/src/command.ts`）：**仅骨架**。`GameState` 只有 `seed` + `notes`；唯一命令是 `ping` → `pong`。**这是 Phase 2 下一步的中心。**  
-- **`createRng` / `rollD10`**：已有可种子 RNG。  
+- **`resolveHeroSkill`**（`packages/engine/src/hero-skill.ts`）：纯函数。输入卡牌视图 + 战斗上下文 + 可选骰面 / 距离 / `shuffleChoice` 等，输出结算结果与跳过原因。**不修改**游戏状态，**不移动**区域/姿态轨实体（只「记下」位移意图等）。测试在 `hero-skill.test.ts`（体量大，改时务必跑全量）。
+- **`applyCommand`**（`packages/engine/src/command.ts`）：**仅骨架**。`GameState` 只有 `seed` + `notes`；唯一命令是 `ping` → `pong`。**这是 Phase 2 下一步的中心。**
+- **`createRng` / `rollD10`**：已有可种子 RNG。
 - **UI**：`apps/web` 仍是壳 + 从 engine 导入的演示值，**没有**战斗板。
 
 ### 4.3 Phase 2 待办拆解（按推荐顺序）
 
-1. **把 `resolveHeroSkill` 接到 `applyCommand`（强烈推荐下一步）**  
-   - 设计真正的 `GameState`（至少战斗子集：英雄/怪物、姿态、区域、伤口、压力、光照、种子、RNG 游标、状态堆意图等）。  
-   - 定义命令（如 `playHeroSkill`）与 `PendingChoice`（选目标、选 Push/Pull 方向等）。  
-   - 调用已有纯函数，再把结果**写回**状态；保持确定性：同样种子 + 同样命令序列 → 同样结果。  
+1. **把 `resolveHeroSkill` 接到 `applyCommand`（强烈推荐下一步）**
+   - 设计真正的 `GameState`（至少战斗子集：英雄/怪物、姿态、区域、伤口、压力、光照、种子、RNG 游标、状态堆意图等）。
+   - 定义命令（如 `playHeroSkill`）与 `PendingChoice`（选目标、选 Push/Pull 方向等）。
+   - 调用已有纯函数，再把结果**写回**状态；保持确定性：同样种子 + 同样命令序列 → 同样结果。
    - **不缺命名数据也能开工**；这是当前最大「可推进、不靠猜数字」的块。
 
 2. **先攻与轮次**：先攻牌堆；第 4 轮未清场被迫撤退；Boss 战另议。
@@ -165,14 +165,14 @@ CI：两个 job（`typecheck / lint / test / build` + Playwright smoke）。**�
 
 ### 4.4 明确被 R-048 / 数据挡住的点（不要「先实现占位数值」）
 
-- 光照 2–1 档额外压力（压力增益 numeric null）— #36 已锁。  
-- 卡面 `1t` / `2t` 等 duration null → 不能放 Stun/Bleed/Blight/Buff 等堆。  
-- `+N vs`、带 `+` 导致 numeric null 的压力/光照修正。  
-- 卡面光照 ±1/±2、怪物 Acc +1 等未命名齐全者。  
-- Zealous Accusation 类：无命名伤害/治疗。  
-- Flashbang：Push/Pull 拆行且与 stun 同行。  
-- Collect Bounty II：Acc 印成 `1O` 等脏数据。  
-- 射程区间如 `1-2` 的 numeric null（#46：II/III 传距离会拒绝）。  
+- 光照 2–1 档额外压力（压力增益 numeric null）— #36 已锁。
+- 卡面 `1t` / `2t` 等 duration null → 不能放 Stun/Bleed/Blight/Buff 等堆。
+- `+N vs`、带 `+` 导致 numeric null 的压力/光照修正。
+- 卡面光照 ±1/±2、怪物 Acc +1 等未命名齐全者。
+- Zealous Accusation 类：无命名伤害/治疗。
+- Flashbang：Push/Pull 拆行且与 stun 同行。
+- Collect Bounty II：Acc 印成 `1O` 等脏数据。
+- 射程区间如 `1-2` 的 numeric null（#46：II/III 传距离会拒绝）。
 - 效果行头盔是否计入目标数：说明书/裁定未允许的不要擅自计入（见既有测试）。
 
 ---
@@ -181,17 +181,17 @@ CI：两个 job（`typecheck / lint / test / build` + Playwright smoke）。**�
 
 违反任一条都算「做歪」，转回 Cursor 时要先回滚或重开 PR。
 
-1. **禁止编造规则、数值、图标含义**（R-048）。卡面/词典没有命名的字段 → 拒绝或标 `Q-xx` 等 Kyries，不要默默实现。  
-2. **规则来源只有**：官方规则书 + `docs/rulings.md`。**禁止**使用 mod FAQ、设计师 FAQ（R-001）。旧仓库 FAQ 目录也不要当权威。  
-3. **禁止**把印刷 PDF / TTS 卡图 / 图标切图 **提交进仓库**。  
-4. **禁止**修改 Kyries 电脑上 `C:\Users\kyrie\Desktop\DDBG` 等原始资料；本地仓库只动 `D:\ddbg-web`。  
-5. **禁止**从旧仓库复制引擎代码或 evidence 流程。  
-6. **禁止**在未获 Kyries 确认时合并「规则判定 / 存档格式 / 核心交互」类大改（见 §6）。普通小修可自审，但有疑虑就问。  
-7. **禁止**一次 PR 塞多个主题或超大无关重构；建议有效改动 ≤ ~600 行（AGENTS.md）。  
-8. **禁止**跳阶段（例如未完成战斗 MVP 就做完整村庄 UI）。  
-9. **禁止**为了「能跑」而给 null duration / null numeric 填默认 `1` 或 `2`。  
-10. **禁止**在对话外替 Kyries 对外发消息。  
-11. **禁止**把仓库改成公开或把美术资产推进 git。  
+1. **禁止编造规则、数值、图标含义**（R-048）。卡面/词典没有命名的字段 → 拒绝或标 `Q-xx` 等 Kyries，不要默默实现。
+2. **规则来源只有**：官方规则书 + `docs/rulings.md`。**禁止**使用 mod FAQ、设计师 FAQ（R-001）。旧仓库 FAQ 目录也不要当权威。
+3. **禁止**把印刷 PDF / TTS 卡图 / 图标切图 **提交进仓库**。
+4. **禁止**修改 Kyries 电脑上 `C:\Users\kyrie\Desktop\DDBG` 等原始资料；本地仓库只动 `D:\ddbg-web`。
+5. **禁止**从旧仓库复制引擎代码或 evidence 流程。
+6. **禁止**在未获 Kyries 确认时合并「规则判定 / 存档格式 / 核心交互」类大改（见 §6）。普通小修可自审，但有疑虑就问。
+7. **禁止**一次 PR 塞多个主题或超大无关重构；建议有效改动 ≤ ~600 行（AGENTS.md）。
+8. **禁止**跳阶段（例如未完成战斗 MVP 就做完整村庄 UI）。
+9. **禁止**为了「能跑」而给 null duration / null numeric 填默认 `1` 或 `2`。
+10. **禁止**在对话外替 Kyries 对外发消息。
+11. **禁止**把仓库改成公开或把美术资产推进 git。
 12. **不要**把 `resolveHeroSkill` 改成有副作用的函数；副作用只应出现在 `applyCommand`（或明确的状态应用层）。
 
 ---
@@ -200,10 +200,10 @@ CI：两个 job（`typecheck / lint / test / build` + Playwright smoke）。**�
 
 ### 6.1 总原则
 
-- **数据驱动 + 确定性**：RNG 可种子；存档将来 = 种子 + 命令日志。  
-- **先纯函数、再接线**：结算逻辑保持可单测；`applyCommand` 负责校验命令、调纯函数、写状态、发 events / pendingChoice。  
-- **小步 PR**：一个主题；中文 PR 描述写清改动、测试、已知限制；引用规则书页码或 `R-xxx` / `Q-xx`。  
-- **拿不准就停**：写成待确认，不要猜。  
+- **数据驱动 + 确定性**：RNG 可种子；存档将来 = 种子 + 命令日志。
+- **先纯函数、再接线**：结算逻辑保持可单测；`applyCommand` 负责校验命令、调纯函数、写状态、发 events / pendingChoice。
+- **小步 PR**：一个主题；中文 PR 描述写清改动、测试、已知限制；引用规则书页码或 `R-xxx` / `Q-xx`。
+- **拿不准就停**：写成待确认，不要猜。
 - **测试先行或同步**：改 `hero-skill` 必须跑现有大测；新行为补正反例；拒绝路径也要有锁测试。
 
 ### 6.2 建议的近期执行顺序（给 Codex 的默认 backlog）
@@ -212,9 +212,9 @@ CI：两个 job（`typecheck / lint / test / build` + Playwright smoke）。**�
 
 验收建议：
 
-- 扩展 `GameState` / `Command` / `GameEvent`（可仍只覆盖单场战斗沙盒）。  
-- 至少能：创建战斗沙盒 → 下发「打出某英雄技能」→ 若需方向则 `pendingChoice` → 应用 `resolveHeroSkill` 结果到伤口/压力/记下的 shuffle 等。  
-- Vitest：同一 seed 回放一致；非法目标/姿态/Guard 与纯函数拒绝一致。  
+- 扩展 `GameState` / `Command` / `GameEvent`（可仍只覆盖单场战斗沙盒）。
+- 至少能：创建战斗沙盒 → 下发「打出某英雄技能」→ 若需方向则 `pendingChoice` → 应用 `resolveHeroSkill` 结果到伤口/压力/记下的 shuffle 等。
+- Vitest：同一 seed 回放一致；非法目标/姿态/Guard 与纯函数拒绝一致。
 - **不要**在本块实现完整怪物 AI 或地牢。
 
 **块 B — 先攻牌堆与回合结构**（依赖 A 的状态形状）
@@ -227,17 +227,17 @@ CI：两个 job（`typecheck / lint / test / build` + Playwright smoke）。**�
 
 ### 6.3 PR / 分支习惯（方便转回 Cursor）
 
-- 分支名可读：`codex/phase2-apply-command-battle-sandbox` 这类。  
-- 每个 PR 描述末尾加一节 **「交接笔记」**：改了什么、刻意没做什么、下一个建议块、是否需要 Kyries 裁定。  
-- 合并方式：GitHub **merge**（与现历史一致）；合并后本地 `pull --ff-only`。  
+- 分支名可读：`codex/phase2-apply-command-battle-sandbox` 这类。
+- 每个 PR 描述末尾加一节 **「交接笔记」**：改了什么、刻意没做什么、下一个建议块、是否需要 Kyries 裁定。
+- 合并方式：GitHub **merge**（与现历史一致）；合并后本地 `pull --ff-only`。
 - 若使用 Codex 本地直接 commit：仍应尽量走 PR + CI，避免 main 上无审查推送。
 
 ### 6.4 与 Cursor 的分工约定（额度恢复后）
 
-| 侧 | 适合做的 |
-|---|---|
-| **Codex（本地）** | 中大型引擎接线、状态模型、本地快速迭代、修测 |
-| **Cursor 云端代理** | 小切片 PR、按任务开草稿 PR、CI 友好的细粒度改动 |
+| 侧                            | 适合做的                                             |
+| ----------------------------- | ---------------------------------------------------- |
+| **Codex（本地）**             | 中大型引擎接线、状态模型、本地快速迭代、修测         |
+| **Cursor 云端代理**           | 小切片 PR、按任务开草稿 PR、CI 友好的细粒度改动      |
 | **协调机器人（DDBG·开发 2）** | 拆任务、审规则向 PR、维护交接与 `rulings`、问 Kyries |
 
 转回 Cursor 时：更新本文件「当前 tip / 进行中 PR / 下一块」，并在 `docs/plan.md` 顶部或单独进度段写一句现状（若 plan 不便大改，至少更新本交接文件）。
@@ -246,10 +246,10 @@ CI：两个 job（`typecheck / lint / test / build` + Playwright smoke）。**�
 
 ## 7. 关键裁定速查（不完全；细节以 rulings.md 为准）
 
-- **R-001**：只用官方规则书 + 本项目裁定；不用 FAQ。  
-- **R-008**：Musketeer 首版不做。  
-- **R-020 / R-022 / R-024 / R-033**：位移、高地、Guard 等（已有实现对照测试）。  
-- **R-048**：未标注数字/图标不得命名使用；null numeric 不发明。  
+- **R-001**：只用官方规则书 + 本项目裁定；不用 FAQ。
+- **R-008**：Musketeer 首版不做。
+- **R-020 / R-022 / R-024 / R-033**：位移、高地、Guard 等（已有实现对照测试）。
+- **R-048**：未标注数字/图标不得命名使用；null numeric 不发明。
 - **R-053**：美德 Stalwart / Courageous / Powerful / Vigorous；折磨 Fearful / Masochistic / Hopeless / Irrational；另有规则书面 Focused / Selfish。
 
 美德/折磨角色已写入规范化卡；图标与部分卡复核仍可能遗留。
@@ -258,32 +258,32 @@ CI：两个 job（`typecheck / lint / test / build` + Playwright smoke）。**�
 
 ## 8. 已知数据债（不要假装已完成）
 
-- 规范化层约 **45/388** 张卡仍待人工复核（确切数以数据报告为准；勿在文档里写死后不再核对）。  
-- 词典 v1.8 已入库；部分书上无字图标、卡背箭头、格点数等曾 defer。  
-- **房间/地牢板块几何标注未做**（Phase 1 尾 / Phase 3 前置）。  
-- 英雄 **Life** 等战斗必需字段若缺失，死门相关必须等数据或裁定。  
+- 规范化层约 **45/388** 张卡仍待人工复核（确切数以数据报告为准；勿在文档里写死后不再核对）。
+- 词典 v1.8 已入库；部分书上无字图标、卡背箭头、格点数等曾 defer。
+- **房间/地牢板块几何标注未做**（Phase 1 尾 / Phase 3 前置）。
+- 英雄 **Life** 等战斗必需字段若缺失，死门相关必须等数据或裁定。
 - 说明书检查点 ①：Kyries 尚未逐条签完；实现以规则书 + 已写入的 R/Q 为准，冲突时停。
 
 ---
 
 ## 9. 给 Codex 的「防跑偏」检查清单（每个 PR 合并前自问）
 
-- [ ] 是否只动了本主题相关文件？  
-- [ ] 是否引用了规则书页码或 R/Q，而不是「我觉得该这样」？  
-- [ ] 是否对 null / 未核实字段写了拒绝或跳过，而不是默认值？  
-- [ ] `pnpm typecheck && pnpm lint && pnpm test && pnpm build`（及必要的 e2e）是否通过？  
-- [ ] 是否保持 `resolveHeroSkill` 无副作用？  
-- [ ] PR 描述是否列出**已知限制**与**下一步**？  
+- [ ] 是否只动了本主题相关文件？
+- [ ] 是否引用了规则书页码或 R/Q，而不是「我觉得该这样」？
+- [ ] 是否对 null / 未核实字段写了拒绝或跳过，而不是默认值？
+- [ ] `pnpm typecheck && pnpm lint && pnpm test && pnpm build`（及必要的 e2e）是否通过？
+- [ ] 是否保持 `resolveHeroSkill` 无副作用？
+- [ ] PR 描述是否列出**已知限制**与**下一步**？
 - [ ] 若改了存档形状或命令协议：是否标明「需 Kyries 确认」且尚未擅自当最终格式？
 
 ---
 
 ## 10. 交接回 Cursor 时要交的东西
 
-1. 更新后的本文件（或新文件 `HANDOFF-FROM-CODEX-YYYY-MM-DD.md`）。  
-2. `main` 的 tip SHA + 未合并 PR 链接。  
-3. 「进行中」块的验收标准达到了哪几条。  
-4. 新增的 `Q-xx` / 待 Kyries 拍板列表。  
+1. 更新后的本文件（或新文件 `HANDOFF-FROM-CODEX-YYYY-MM-DD.md`）。
+2. `main` 的 tip SHA + 未合并 PR 链接。
+3. 「进行中」块的验收标准达到了哪几条。
+4. 新增的 `Q-xx` / 待 Kyries 拍板列表。
 5. 本地 `D:\ddbg-web` 已 `ff-only` 到 tip 的确认。
 
 Cursor 侧会从「下一块」继续开云端代理或审 PR，而不是重做已合并逻辑。
@@ -292,22 +292,22 @@ Cursor 侧会从「下一块」继续开云端代理或审 PR，而不是重做�
 
 ## 11. 给 Kyries 的操作提示
 
-- 把本文件交给 Codex 时，附一句：**「严格按 HANDOFF 与 AGENTS.md；下一步优先 applyCommand 战斗接线；不要猜 R-048 卡住的数字。」**  
-- 额度恢复后把 Codex 写下的交接笔记发回「DDBG·开发 2」即可续上。  
+- 把本文件交给 Codex 时，附一句：**「严格按 HANDOFF 与 AGENTS.md；下一步优先 applyCommand 战斗接线；不要猜 R-048 卡住的数字。」**
+- 额度恢复后把 Codex 写下的交接笔记发回「DDBG·开发 2」即可续上。
 - 涉及规则/存档/核心交互的 PR，仍由你确认后再合并。
 
 ---
 
 ## 12. 文档自身位置
 
-| 副本 | 路径 |
-|---|---|
-| 共享工作机 | `/workspace/ddbg-handoff/HANDOFF-TO-CODEX-2026-10-09.md` |
-| 仓库（建议提交） | `docs/HANDOFF-TO-CODEX-2026-10-09.md` |
-| 本地 | `D:\ddbg-web\docs\HANDOFF-TO-CODEX-2026-10-09.md` |
+| 副本             | 路径                                                     |
+| ---------------- | -------------------------------------------------------- |
+| 共享工作机       | `/workspace/ddbg-handoff/HANDOFF-TO-CODEX-2026-10-09.md` |
+| 仓库（建议提交） | `docs/HANDOFF-TO-CODEX-2026-10-09.md`                    |
+| 本地             | `D:\ddbg-web\docs\HANDOFF-TO-CODEX-2026-10-09.md`        |
 
 提交本文件到 `main` 是可选但推荐的（便于任何代理只 clone 仓库就能读到）。若 Codex 先本地开干，至少保证本地 `docs/` 下有这份文件。
 
 ---
 
-*完。若本文与仓库内 AGENTS.md / rulings.md 冲突，以仓库文件与 Kyries 最新书面裁定为准，并请回写修正本交接。*
+_完。若本文与仓库内 AGENTS.md / rulings.md 冲突，以仓库文件与 Kyries 最新书面裁定为准，并请回写修正本交接。_
