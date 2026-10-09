@@ -58,7 +58,14 @@
  * 邻行的压力 `+2` 和增益回合 `numeric` 为 null，不加。和它们写在同一行的治疗
  * 整数也不是「Self + heal」那一种自身治疗，不扣伤口。
  *
- * 不解释 `damage_or_heal_combined_marker`。姿态、射程、英雄 Life、死门骰都不在这里。
+ * 自身目标（规则书第 19 页技能解剖：写「Self」= 自身；说明书 §6.5）：stats 行有
+ * 恰好一个已命名的射程图标、没有英雄或怪物目标图标，并且有恰好一个独立的词
+ * 「Self」。目标必须是使用者自己，阵营是英雄。仍按 Crit / Acc 掷骰，命中阈值
+ * 照常减 Dodge。治疗和自身压力用这一层已经有的规则。不把效果行里自身效果框上的
+ * 「Self」当成目标，也不把只有「Self」、没有已命名治疗或伤害的卡当成这次能结算
+ * 的自身目标。不按射程挪区域。
+ *
+ * 不解释 `damage_or_heal_combined_marker`。姿态、射程距离、英雄 Life、死门骰都不在这里。
  */
 
 export type SkillIconRef = {
@@ -702,6 +709,34 @@ function formFromLine(line: readonly SkillSegment[]): SkillForm | null {
   return null;
 }
 
+/**
+ * 规则书第 19 页把目标印成「Self」：射程图标后面这个词，不是英雄或怪物图标。
+ * 只看 stats 行。效果行里自身效果框上的「Self」不算。
+ */
+function readsAsSelfTarget(skill: HeroSkillCardView): boolean {
+  const line = skill.stats_line;
+  if (line === null) return false;
+  let range = 0;
+  let targetIcon = 0;
+  let selfWords = 0;
+  for (const segment of line) {
+    if (segment.type === "text") {
+      const trimmed = segment.text.trim();
+      if (trimmed === "") continue;
+      for (const token of trimmed.split(/\s+/)) {
+        if (token === "Self") selfWords += 1;
+      }
+      continue;
+    }
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) continue;
+    if (segment.icon.key === "range") range += 1;
+    if (segment.icon.key === "target_hero" || segment.icon.key === "target_monster") {
+      targetIcon += 1;
+    }
+  }
+  return range === 1 && targetIcon === 0 && selfWords === 1;
+}
+
 function hasCombinedMarker(skill: HeroSkillCardView, keys: readonly string[]): boolean {
   if (keys.includes("damage_or_heal_combined_marker")) return true;
   for (const line of skill.effect_lines) {
@@ -889,8 +924,9 @@ export function resolveHeroSkill(
   }
 
   const formOnly = effect === null;
+  const selfTarget = !formOnly && readsAsSelfTarget(skill);
   const targets = new Set(keys.filter((key) => key === "target_hero" || key === "target_monster"));
-  if (!formOnly && targets.size !== 1) {
+  if (!formOnly && !selfTarget && targets.size !== 1) {
     return refuse(
       skill,
       combat,
@@ -899,10 +935,29 @@ export function resolveHeroSkill(
         : "stats_line 同时有 target_hero 和 target_monster",
     );
   }
-  if (!formOnly) {
+  if (!formOnly && !selfTarget) {
     const expectedSide = targets.has("target_hero") ? "hero" : "monster";
     if (target.side !== expectedSide) {
       return refuse(skill, combat, "目标阵营与技能的目标图标不一致");
+    }
+  }
+  if (selfTarget) {
+    const actor = combat.actor;
+    if (actor === undefined) {
+      return refuse(skill, combat, "技能目标写的是 Self，但没有使用者（规则书第 19 页）");
+    }
+    if (target.side !== "hero" || target.id !== actor.id) {
+      return refuse(skill, combat, "技能目标写的是 Self，只能结算使用者自己（规则书第 19 页）");
+    }
+    if (target.wounds !== actor.wounds) {
+      return refuse(skill, combat, "自身目标的伤口要和使用者是同一份（规则书第 19 页）");
+    }
+    if (
+      target.stress !== undefined &&
+      actor.stress !== undefined &&
+      target.stress !== actor.stress
+    ) {
+      return refuse(skill, combat, "自身目标的压力要和使用者是同一份（规则书第 19 页）");
     }
   }
 
@@ -986,6 +1041,8 @@ export function resolveHeroSkill(
     printedAmount = amount;
     if (effect === "heal") {
       wounds = Math.max(0, wounds - amount);
+      // Self 的治疗落在使用者身上。上面已经要求两份伤口一开始相同。
+      if (selfTarget && actorWounds !== null) actorWounds = wounds;
     } else {
       // +X vs 类型、攻击方修正、防御方加减、Hard Skinned 都不加：
       // 那些数字要么 numeric 为 null，要么不在这次调用里。
@@ -1031,6 +1088,10 @@ export function resolveHeroSkill(
       id: hero.id,
       stress: clampStress(hero.stress + 1),
     }));
+  }
+  // 使用者就是目标。打出暴击的 −1 已经在 actor 上，不再给「同区域其他英雄」加一次。
+  if (selfTarget && actorStress !== null && combat.target.stress !== undefined) {
+    targetStress = actorStress;
   }
 
   return {

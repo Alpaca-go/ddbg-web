@@ -355,7 +355,7 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("未验证、读不出 Acc、没有目标图标、阵营不符、Musketeer 都不改伤口", () => {
+  it("未验证、读不出 Acc、Self 没有使用者、阵营不符、Musketeer 都不改伤口", () => {
     const bleed = card("hero_skill:p040");
     expect(bleed.name).toBe("Bleed Out");
     expect(bleed.verification.unverified).toBe(true);
@@ -386,7 +386,7 @@ describe("resolveHeroSkill", () => {
     expect(absolution.verification.unverified).toBe(false);
     expect(use("hero_skill:p217", target("hero", 3, 0), 5)).toMatchObject({
       status: "refused",
-      reason: "stats_line 没有已命名的 target_hero 或 target_monster",
+      reason: "技能目标写的是 Self，但没有使用者（规则书第 19 页）",
       wounds: 3,
     });
 
@@ -930,7 +930,7 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("压力数字对不上已命名目标，或 numeric 为 null，或治疗没有目标图标时不改压力", () => {
+  it("压力数字对不上已命名目标，或 numeric 为 null，或 Self 打到别人身上时不改压力", () => {
     const tune = card("hero_skill:p121");
     expect(tune.name).toBe("Inspiring Tune");
     expect(tune.level).toBe(1);
@@ -1015,8 +1015,9 @@ describe("resolveHeroSkill", () => {
       ),
     ).toMatchObject({
       status: "refused",
-      reason: "stats_line 没有已命名的 target_hero 或 target_monster",
+      reason: "技能目标写的是 Self，只能结算使用者自己（规则书第 19 页）",
       wounds: 3,
+      actorWounds: 0,
       actorStress: 4,
       targetStress: 4,
     });
@@ -2577,6 +2578,348 @@ describe("resolveHeroSkill", () => {
       wounds: 0,
       actorForm: null,
       skipped: [{ code: "effect_lines" }],
+    });
+  });
+
+  it("hero_skill:p217 Absolution I 的目标是 Self：治疗自己，并先减 1 点压力", () => {
+    const skill = card("hero_skill:p217");
+    expect(skill.name).toBe("Absolution");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("ABOMINATION");
+    expect(skill.verification.unverified).toBe(false);
+    expect(skill.printed_labels).toEqual([
+      { label: "Crit", raw: "Crit 1", value: 1 },
+      { label: "Acc", raw: "Acc 12", value: 12 },
+    ]);
+    expect(
+      skill.stats_line
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["range", "heal", "heal", "heal", "heal"]);
+    expect(
+      skill.stats_line
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text.trim())
+        .filter((text) => text !== ""),
+    ).toEqual(["Self Crit 1", "4 Acc 12", "2"]);
+    expect(
+      skill.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => [
+          item.anchor.type === "printed_label" ? item.anchor.label : "",
+          item.numeric,
+        ]),
+    ).toEqual([
+      ["Crit", 4],
+      ["Acc", 2],
+    ]);
+    expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "stress",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([-1]);
+
+    const self = {
+      actor: { id: "abomination", wounds: 5, stress: 4 },
+      target: {
+        id: "abomination",
+        side: "hero" as const,
+        wounds: 5,
+        dodge: 0,
+        stress: 4,
+        protection: true,
+        riposte: true,
+      },
+      heroesBesideActor: [{ id: "vestal", stress: 2 }],
+      targetInActorArea: true,
+    };
+    const frozen = structuredClone(self);
+
+    expect(use("hero_skill:p217", self, 5)).toEqual({
+      skillId: "hero_skill:p217",
+      targetId: "abomination",
+      status: "resolved",
+      reason: null,
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 2,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 3,
+      actorWounds: 3,
+      targetDead: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+      targetProtectionIgnored: false,
+      actorShuffle: null,
+      targetShuffle: null,
+      actorForm: null,
+      actorStress: 3,
+      targetStress: 3,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+      untargetedBesideTargetStress: null,
+      skipped: [],
+    });
+    expect(self).toEqual(frozen);
+
+    expect(use("hero_skill:p217", self, 1)).toMatchObject({
+      outcome: "crit",
+      effect: "heal",
+      printedAmount: 4,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 1,
+      actorWounds: 1,
+      actorStress: 2,
+      targetStress: 2,
+      besideActorStress: [{ id: "vestal", stress: 1 }],
+      skipped: [],
+    });
+    expect(
+      use(
+        "hero_skill:p217",
+        {
+          actor: { id: "abomination", wounds: 1, stress: 0 },
+          target: { id: "abomination", side: "hero", wounds: 1, dodge: 20, stress: 0 },
+        },
+        1,
+      ),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 4,
+      wounds: 0,
+      actorWounds: 0,
+      actorStress: 0,
+      targetStress: 0,
+    });
+    expect(
+      use(
+        "hero_skill:p217",
+        {
+          actor: { id: "abomination", wounds: 5, stress: 4 },
+          target: { id: "abomination", side: "hero", wounds: 5, dodge: 20, stress: 4 },
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 5,
+      actorWounds: 5,
+      actorStress: 3,
+      targetStress: 3,
+      riposteDamage: null,
+    });
+    expect(
+      use(
+        "hero_skill:p217",
+        {
+          actor: { id: "abomination", wounds: 5, stress: 4 },
+          target: { id: "abomination", side: "monster", wounds: 5, dodge: 0 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "技能目标写的是 Self，只能结算使用者自己（规则书第 19 页）",
+      wounds: 5,
+      actorWounds: 5,
+      actorStress: 4,
+    });
+    expect(
+      use(
+        "hero_skill:p217",
+        {
+          actor: { id: "abomination", wounds: 5, stress: 4 },
+          target: { id: "abomination", side: "hero", wounds: 2, dodge: 0, stress: 4 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "自身目标的伤口要和使用者是同一份（规则书第 19 页）",
+      wounds: 2,
+      actorWounds: 5,
+      actorStress: 4,
+      targetStress: 4,
+    });
+  });
+
+  it("hero_skill:p218 与 p219 的自身治疗按 Crit / Acc 旁边的整数，不解释组合标记", () => {
+    const second = card("hero_skill:p218");
+    expect(second.name).toBe("Absolution");
+    expect(second.level).toBe(2);
+    expect(second.hero).toBe("ABOMINATION");
+    expect(second.verification.unverified).toBe(false);
+    expect(second.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 1],
+      ["Acc", 14],
+    ]);
+    expect(
+      second.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => item.numeric),
+    ).toEqual([6, 3]);
+    expect(
+      use(
+        "hero_skill:p218",
+        {
+          actor: { id: "abomination", wounds: 7, stress: 6 },
+          target: { id: "abomination", side: "hero", wounds: 7, dodge: 0, stress: 6 },
+        },
+        10,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 3,
+      wounds: 4,
+      actorWounds: 4,
+      actorStress: 5,
+      targetStress: 5,
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
+    });
+    expect(
+      use(
+        "hero_skill:p218",
+        {
+          actor: { id: "abomination", wounds: 7, stress: 6 },
+          target: { id: "abomination", side: "hero", wounds: 7, dodge: 20, stress: 6 },
+        },
+        1,
+      ),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 6,
+      wounds: 1,
+      actorWounds: 1,
+      actorStress: 4,
+      targetStress: 4,
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
+    });
+
+    const third = card("hero_skill:p219");
+    expect(third.name).toBe("Absolution");
+    expect(third.level).toBe(3);
+    expect(third.verification.unverified).toBe(false);
+    expect(third.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 1],
+      ["Acc", 16],
+    ]);
+    expect(
+      third.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => item.numeric),
+    ).toEqual([8, 4]);
+    expect(
+      use(
+        "hero_skill:p219",
+        {
+          actor: { id: "abomination", wounds: 9, stress: 1 },
+          target: { id: "abomination", side: "hero", wounds: 9, dodge: 0, stress: 1 },
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 4,
+      wounds: 5,
+      actorWounds: 5,
+      actorStress: 0,
+      targetStress: 0,
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
+    });
+    expect(
+      use(
+        "hero_skill:p219",
+        {
+          actor: { id: "abomination", wounds: 3, stress: 10 },
+          target: { id: "abomination", side: "hero", wounds: 3, dodge: 20, stress: 10 },
+        },
+        1,
+      ),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 8,
+      wounds: 0,
+      actorWounds: 0,
+      actorStress: 8,
+      targetStress: 8,
+    });
+    expect(
+      use(
+        "hero_skill:p219",
+        {
+          actor: { id: "abomination", wounds: 3, stress: 10 },
+          target: { id: "abomination", side: "hero", wounds: 3, dodge: 20, stress: 10 },
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      wounds: 3,
+      actorWounds: 3,
+      actorStress: 9,
+      targetStress: 9,
+    });
+  });
+
+  it("hero_skill:p154 Sniper’s Mark I 的标记回合 2t 为 null，不放标记", () => {
+    const skill = card("hero_skill:p154");
+    expect(skill.name).toBe("Sniper’s Mark");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("ARBALEST");
+    expect(skill.verification.unverified).toBe(false);
+    expect(skill.effect_lines).toHaveLength(1);
+    expect(
+      skill.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "mark"]);
+    expect(
+      skill.effect_lines[0]
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text.trim())
+        .filter((text) => text !== ""),
+    ).toEqual(["2t"]);
+    expect(
+      skill.unlabeled_numbers.filter(
+        (item) =>
+          item.numeric === null &&
+          item.anchor.type === "beside_icon" &&
+          item.anchor.left_icon === null,
+      ),
+    ).toEqual([
+      {
+        text: "2t",
+        numeric: null,
+        anchor: { type: "beside_icon", left_icon: null, inside_icon: null },
+      },
+    ]);
+    expect(
+      use(
+        "hero_skill:p154",
+        {
+          actor: { id: "arbalest", wounds: 0, stress: 2 },
+          target: { id: "soldier", side: "monster", wounds: 4, dodge: 0 },
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      wounds: 4,
+      actorWounds: 0,
+      actorStress: 2,
+      actorForm: null,
     });
   });
 });
