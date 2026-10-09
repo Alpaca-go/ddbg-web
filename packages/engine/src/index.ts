@@ -1,6 +1,7 @@
 export { applyCommand, createInitialState } from "./command";
 export { createBattleState } from "./battle";
 export type { EncounterCommand, EncounterEvent, EncounterState } from "./encounter";
+export type { PlayMonsterSkillCommand } from "./battle-monster";
 export type {
   BattleArea,
   BattleEntity,
@@ -11,6 +12,14 @@ export type {
 export type { ApplyResult, Command, GameEvent, GameState, PendingChoice } from "./command";
 export { resolveHeroSkill } from "./hero-skill";
 export { resolveMonsterSkill } from "./monster-skill";
+export { selectMonsterTarget } from "./monster-target";
+export type {
+  MonsterTargetCardView,
+  MonsterTargetHero,
+  MonsterTargetSelection,
+} from "./monster-target";
+export { resolveShuffle } from "./shuffle";
+export type { ShuffleIntent, ShuffleResolution } from "./shuffle";
 export type {
   MonsterCardView,
   MonsterCombatState,
