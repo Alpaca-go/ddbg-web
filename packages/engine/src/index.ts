@@ -11,6 +11,7 @@ export type {
   SkillIconRef,
   SkillSegment,
   SkillShuffle,
+  SkillStance,
   SkillTargetSide,
   SkillTargetState,
   SkippedSkillEffect,

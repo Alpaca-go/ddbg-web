@@ -2922,4 +2922,392 @@ describe("resolveHeroSkill", () => {
       actorForm: null,
     });
   });
+
+  it("hero_skill:p103 Hand of Light I 只在点亮的防御或进攻姿态下造成伤害", () => {
+    const skill = card("hero_skill:p103");
+    expect(skill.name).toBe("Hand of Light");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("VESTAL");
+    expect(skill.verification.unverified).toBe(false);
+    expect(skill.top_row_icons?.map((icon) => icon.key)).toEqual([
+      "stance_support_unlit",
+      "stance_ranged_unlit",
+      "stance_defensive_lit",
+      "stance_aggressive_lit",
+    ]);
+    expect(
+      skill.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => item.numeric),
+    ).toEqual([6, 3]);
+
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
+    expect(
+      use(
+        "hero_skill:p103",
+        { actor: { id: "vestal", wounds: 2, stance: "aggressive" }, target: soldier },
+        1,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      effect: "damage",
+      printedAmount: 6,
+      damageDealt: 6,
+      wounds: 6,
+      actorWounds: 2,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(
+      use(
+        "hero_skill:p103",
+        {
+          actor: { id: "vestal", wounds: 2, stance: "defensive" },
+          target: { ...soldier, dodge: 20 },
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      printedAmount: 6,
+      damageDealt: 6,
+      wounds: 6,
+      actorWounds: 2,
+    });
+    expect(
+      use(
+        "hero_skill:p103",
+        { actor: { id: "vestal", wounds: 2, stance: "aggressive" }, target: soldier },
+        9,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 3,
+      damageDealt: 3,
+      wounds: 3,
+      actorWounds: 2,
+    });
+    expect(use("hero_skill:p103", { target: soldier }, 9)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 3,
+      damageDealt: 3,
+      wounds: 3,
+      actorWounds: null,
+    });
+
+    expect(
+      use(
+        "hero_skill:p103",
+        { actor: { id: "vestal", wounds: 2, stance: "support" }, target: soldier },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "当前姿态没有点亮，不能使用这张技能（规则书第 19 页）",
+      outcome: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorWounds: 2,
+    });
+    expect(
+      use(
+        "hero_skill:p103",
+        { actor: { id: "vestal", wounds: 2, stance: "ranged" }, target: { ...soldier, wounds: 4 } },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "当前姿态没有点亮，不能使用这张技能（规则书第 19 页）",
+      wounds: 4,
+      actorWounds: 2,
+    });
+    expect(
+      use(
+        "hero_skill:p103",
+        {
+          actor: {
+            id: "vestal",
+            wounds: 2,
+            stance: "front",
+          } as unknown as NonNullable<SkillCombatState["actor"]>,
+          target: soldier,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "使用者的姿态必须是 support、ranged、defensive 或 aggressive",
+      wounds: 0,
+      actorWounds: 2,
+    });
+  });
+
+  it("hero_skill:p025 只有进攻可用，p013 四格都点亮，p122 未点亮时不改压力", () => {
+    const swan = card("hero_skill:p025");
+    expect(swan.name).toBe("Iron Swan");
+    expect(swan.level).toBe(1);
+    expect(swan.hero).toBe("HELLION");
+    expect(swan.verification.unverified).toBe(false);
+    expect(swan.effect_lines).toHaveLength(0);
+    expect(swan.top_row_icons?.map((icon) => icon.key)).toEqual([
+      "stance_support_unlit",
+      "stance_ranged_unlit",
+      "stance_defensive_unlit",
+      "stance_aggressive_lit",
+    ]);
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
+    expect(
+      use(
+        "hero_skill:p025",
+        {
+          actor: { id: "hellion", wounds: 1, stance: "aggressive" },
+          target: { ...soldier, dodge: 20 },
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      effect: "damage",
+      printedAmount: 12,
+      damageDealt: 12,
+      wounds: 12,
+      actorWounds: 1,
+      skipped: [],
+    });
+    expect(
+      use(
+        "hero_skill:p025",
+        { actor: { id: "hellion", wounds: 1, stance: "aggressive" }, target: soldier },
+        9,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+    });
+    expect(
+      use(
+        "hero_skill:p025",
+        { actor: { id: "hellion", wounds: 1, stance: "defensive" }, target: soldier },
+        9,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "当前姿态没有点亮，不能使用这张技能（规则书第 19 页）",
+      wounds: 0,
+      actorWounds: 1,
+      damageDealt: null,
+    });
+
+    const heal = card("hero_skill:p013");
+    expect(heal.name).toBe("Battle Heal");
+    expect(heal.top_row_icons?.map((icon) => icon.key)).toEqual([
+      "stance_support_lit",
+      "stance_ranged_lit",
+      "stance_defensive_lit",
+      "stance_aggressive_lit",
+    ]);
+    expect(
+      use(
+        "hero_skill:p013",
+        {
+          actor: { id: "crusader", wounds: 1, stance: "support" },
+          target: { id: "vestal", side: "hero", wounds: 5, dodge: 0 },
+        },
+        10,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 2,
+      wounds: 3,
+      actorWounds: 1,
+    });
+
+    const tune = card("hero_skill:p122");
+    expect(tune.name).toBe("Inspiring Tune");
+    expect(tune.level).toBe(2);
+    expect(tune.top_row_icons?.map((icon) => icon.key)).toEqual([
+      "stance_support_lit",
+      "stance_ranged_lit",
+      "stance_defensive_unlit",
+      "stance_aggressive_unlit",
+    ]);
+    const beside = {
+      actor: { id: "jester", wounds: 0, stress: 4, stance: "aggressive" as const },
+      target: { id: "vestal", side: "hero" as const, wounds: 2, dodge: 0, stress: 4 },
+    };
+    expect(use("hero_skill:p122", beside, 1)).toMatchObject({
+      status: "refused",
+      reason: "当前姿态没有点亮，不能使用这张技能（规则书第 19 页）",
+      wounds: 2,
+      actorWounds: 0,
+      actorStress: 4,
+      targetStress: 4,
+    });
+    expect(
+      use("hero_skill:p122", { ...beside, actor: { ...beside.actor, stance: "support" } }, 10),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "stress",
+      actorStress: 3,
+      targetStress: 3,
+      wounds: 2,
+    });
+  });
+
+  it("hero_skill:p211 的远程格没有点亮标记，p223 的文字底板不改伤害", () => {
+    const manacles = card("hero_skill:p211");
+    expect(manacles.name).toBe("Manacles");
+    expect(manacles.level).toBe(1);
+    expect(manacles.hero).toBe("ABOMINATION");
+    expect(manacles.verification.unverified).toBe(false);
+    expect(manacles.top_row_icons?.map((icon) => icon.key)).toEqual([
+      "text_plate",
+      "stance_support_unlit",
+      "stance_ranged_abomination_row",
+      "stance_defensive_lit",
+      "stance_aggressive_unlit",
+    ]);
+    expect(
+      manacles.top_row_icons?.find((icon) => icon.key === "stance_ranged_abomination_row")?.naming,
+    ).toBe("confirmed");
+    expect(manacles.unlabeled_numbers.filter((item) => item.numeric === null)).toEqual([
+      {
+        text: "1t",
+        numeric: null,
+        anchor: { type: "beside_icon", left_icon: null, inside_icon: null },
+      },
+    ]);
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
+    expect(
+      use(
+        "hero_skill:p211",
+        {
+          actor: { id: "abomination", wounds: 1, stress: 3, stance: "defensive" },
+          target: soldier,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 4,
+      damageDealt: 4,
+      wounds: 4,
+      actorWounds: 1,
+      actorStress: 3,
+      actorForm: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(
+      use(
+        "hero_skill:p211",
+        { actor: { id: "abomination", wounds: 1, stress: 3, stance: "ranged" }, target: soldier },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "这张技能的该姿态没有标明点亮或未点亮，不能当作可用（R-048）",
+      outcome: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorWounds: 1,
+      actorStress: 3,
+      actorForm: null,
+    });
+    expect(
+      use(
+        "hero_skill:p211",
+        { actor: { id: "abomination", wounds: 1, stress: 3, stance: "support" }, target: soldier },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "当前姿态没有点亮，不能使用这张技能（规则书第 19 页）",
+      wounds: 0,
+      actorStress: 3,
+    });
+    expect(
+      use(
+        "hero_skill:p211",
+        {
+          actor: { id: "abomination", wounds: 1, stress: 3, stance: "aggressive" },
+          target: soldier,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "当前姿态没有点亮，不能使用这张技能（规则书第 19 页）",
+      wounds: 0,
+      actorStress: 3,
+    });
+
+    const rake = card("hero_skill:p223");
+    expect(rake.name).toBe("Rake");
+    expect(rake.level).toBe(1);
+    expect(rake.hero).toBe("ABOMINATION");
+    expect(rake.verification.unverified).toBe(false);
+    expect(rake.top_row_icons?.map((icon) => icon.key)).toEqual([
+      "text_plate",
+      "stance_support_unlit",
+      "stance_ranged_unlit",
+      "stance_defensive_lit",
+      "stance_aggressive_lit",
+    ]);
+    expect(
+      rake.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "stress",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(
+      use(
+        "hero_skill:p223",
+        {
+          actor: { id: "abomination", wounds: 2, stress: 4, stance: "aggressive" },
+          target: soldier,
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 5,
+      damageDealt: 5,
+      wounds: 5,
+      actorWounds: 2,
+      actorStress: 4,
+      actorForm: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(
+      use(
+        "hero_skill:p223",
+        { actor: { id: "abomination", wounds: 2, stress: 4, stance: "support" }, target: soldier },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "当前姿态没有点亮，不能使用这张技能（规则书第 19 页）",
+      wounds: 0,
+      actorWounds: 2,
+      actorStress: 4,
+      actorForm: null,
+    });
+  });
 });
