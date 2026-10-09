@@ -106,7 +106,8 @@
  * 调用方传入已经算好的区域距离时才核对；对不上就整次拒绝，自身效果、伤害、治疗
  * 和位移都不发生。不传就不检查，也不在这里算板块上的步数。区间「0-1」「1-2」
  * 「0-2」的 numeric 为 null，不拆成两个距离。射程图标后面只有 Self 或 All Allies、
- * 没有这个整数时，也不把它们当成 0。高地让射程上限可选 +1（R-022）不加。
+ * 没有这个整数时，也不把它们当成 0。目标区域更低时，这个单个整数的上限可以再加 1，
+ * 原来的距离仍然可以（规则书第 25 页，R-022）。区间的 numeric 仍是 null，不加这一档。
  *
  * 一个区域内能选几个（规则书第 19 页技能解剖，说明书 §6.5 第 3 步，图例 I-08、
  * I-09）：stats 行上已命名的怪物头或英雄头盔有几个，就最多选几个。调用方传入这次
@@ -148,8 +149,9 @@
  * 比使用者低时，命中阈值 +1，也就是 Acc + 标记堆数 + 1 − Dodge。暴击仍先看、仍不减
  * Dodge，印刷伤害和印刷治疗也不加。从低处打向高处或同一高度都不减 Acc。不传就当作
  * 没有。友方治疗同样加：规则书写的是任意 creature，R-022 据此包含友方。目标写的是
- * Self，或卡面射程恰好是 0，或传入的距离是 0，都是使用者自己的区域，不能再低，整次
- * 拒绝。不把射程上限再加 1：区间的 numeric 仍是 null，单个整数对不上仍拒绝。
+ * Self，或卡面射程恰好是 0 且没有传入更远的距离，或传入的距离是 0，都是使用者自己的
+ * 区域，不能再低，整次拒绝。单个整数射程的上限可以再加 1，原来的距离仍然可以。
+ * 区间的 numeric 仍是 null，不拆开，也不因此多出一档。
  * 光照 ≤4 的 Crit +1、光照恰好 5 的英雄 Dodge +1，以及光照恰好 0 的怪物 Dodge +1，
  * 写在后面。卡面光照 +1、`+N vs` 和饰品仍不加。
  *
@@ -330,8 +332,9 @@ export type SkillCombatState = {
    */
   readonly targetInActorArea?: boolean;
   /**
-   * 目标区域与使用者的距离（规则书 spaces away）。传入时必须恰好等于卡面射程。
-   * 不传就不做这一步。不在这里算最短步数，也不加高地的可选 +1（R-022）。
+   * 目标区域与使用者的距离（规则书 spaces away）。传入时必须等于卡面那个射程整数。
+   * 目标区域更低时，也可以是这个整数再加 1（R-022）。不传就不做这一步。不在这里
+   * 算最短步数。区间的 numeric 为 null，传入距离仍整次拒绝。
    */
   readonly areaDistance?: number;
   /**
@@ -342,8 +345,8 @@ export type SkillCombatState = {
   readonly targetsInArea?: number;
   /**
    * 目标所在区域是否比使用者低（规则书第 25 页：高地 > 普通 > 低地）。
-   * 为真时命中阈值 +1。不传或为假都不加，从低打高也没有惩罚。
-   * 不把射程上限再加 1（R-022 的可选射程仍不在这里）。
+   * 为真时命中阈值 +1，并把单个整数射程的上限再加 1，原距离仍可选（R-022）。
+   * 不传或为假都不加，从低打高也没有惩罚。区间射程不加。
    */
   readonly targetAreaLower?: boolean;
   /**
@@ -1367,8 +1370,9 @@ function readPrintedRange(skill: HeroSkillCardView): PrintedRange {
 }
 
 /**
- * 规则书第 19 页：选中的区域与使用者的距离必须恰好等于印出来的射程。
- * 没传入距离时不检查。读不出单个整数时，整次不结算。
+ * 规则书第 19 页：选中的区域与使用者的距离必须等于印出来的射程。
+ * 第 25 页、R-022：目标区域更低时，单个整数的上限可以再加 1，原距离仍可选。
+ * 没传入距离时不检查。读不出单个整数时，整次不结算。区间不加这一档。
  */
 function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.areaDistance === undefined) return null;
@@ -1379,7 +1383,8 @@ function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): strin
   if (printed.kind !== "exact") {
     return "卡面没有恰好一个射程整数，不能把 Self 或 All Allies 当成距离 0（规则书第 19 页，R-048）";
   }
-  if (combat.areaDistance !== printed.distance) {
+  const reach = combat.targetAreaLower === true ? printed.distance + 1 : printed.distance;
+  if (combat.areaDistance < printed.distance || combat.areaDistance > reach) {
     return "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）";
   }
   return null;
@@ -1387,8 +1392,9 @@ function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): strin
 
 /**
  * 规则书第 25 页：只有目标区域比使用者低，命中阈值才 +1。
- * 同一区域不能再低。Self 和射程 0 都是使用者自己的区域。
- * 没传入这个标志时不检查，也不把射程上限加 1。
+ * 同一区域不能再低。Self 是使用者自己的区域。射程 0 且没有传入距离时也是。
+ * 传入距离 1 时，射程 0 可以走到高地可选的那一档，不在这里拒绝。
+ * 没传入这个标志时不检查。射程上限的 +1 在射程核对里。
  */
 function elevationProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.targetAreaLower !== true) return null;
@@ -1399,7 +1405,7 @@ function elevationProblem(skill: HeroSkillCardView, combat: SkillCombatState): s
     return "目标与使用者在同一区域，高地不能让命中阈值 +1（规则书第 25 页）";
   }
   const printed = readPrintedRange(skill);
-  if (printed.kind === "exact" && printed.distance === 0) {
+  if (printed.kind === "exact" && printed.distance === 0 && combat.areaDistance === undefined) {
     return "卡面射程是 0，目标在使用者自己的区域，高地不能让命中阈值 +1（规则书第 19、25 页）";
   }
   return null;

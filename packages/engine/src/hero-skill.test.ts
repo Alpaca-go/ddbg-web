@@ -6632,7 +6632,7 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("自身区域不能当成更低；高地不加射程，也不把光照 +1 或区间读成距离", () => {
+  it("自身区域不能当成更低；高地只把单个射程上限加 1，区间仍不拆", () => {
     const soldier = { id: "soldier", side: "monster" as const, wounds: 2, dodge: 0 };
     // Smite I 射程是 0，目标就在使用者的区域里。
     const smite = card("hero_skill:p001");
@@ -6737,14 +6737,14 @@ describe("resolveHeroSkill", () => {
       besideActorStress: [{ id: "vestal", stress: 2 }],
     });
 
-    // 射程 2 对上距离 3 仍拒绝。高地不把射程上限再加 1。
+    // 射程 2 对上距离 4 仍拒绝。高地只把上限再加 1，距离 3 在后面的测试里通过。
     expect(
       use(
         "hero_skill:p148",
         {
           actor: { id: "arbalest", wounds: 0, stress: 4 },
           target: soldier,
-          areaDistance: 3,
+          areaDistance: 4,
           targetAreaLower: true,
         },
         9,
@@ -6757,14 +6757,14 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       damageDealt: null,
     });
-    // Holy Lance 射程是 1。距离 2 同样对不上，即使目标区域更低。
+    // Holy Lance 射程是 1。距离 3 超出可选的 +1，自身 Pull 也不发生。
     expect(
       use(
         "hero_skill:p016",
         {
           actor: { id: "crusader", wounds: 1, stress: 4 },
           target: soldier,
-          areaDistance: 2,
+          areaDistance: 3,
           targetAreaLower: true,
         },
         9,
@@ -6817,6 +6817,432 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       damageDealt: null,
     });
+  });
+
+  it("目标区域更低时，单个整数射程的上限可以再加 1，原距离仍然可以", () => {
+    const lance = card("hero_skill:p016");
+    expect(lance.name).toBe("Holy Lance");
+    expect(lance.level).toBe(1);
+    expect(lance.hero).toBe("CRUSADER");
+    expect(lance.verification.unverified).toBe(false);
+    expect(lance.printed_labels).toEqual([
+      { label: "Crit", raw: "Crit 1", value: 1 },
+      { label: "Acc", raw: "Acc 9", value: 9 },
+    ]);
+    expect(
+      lance.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([1]);
+    expect(
+      lance.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["+1"]);
+
+    const crusader = { id: "crusader", wounds: 1, stress: 4 };
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 2, dodge: 0 };
+    // 射程 1，距离 2，目标更低。Acc 9 + 1 = 10。掷 10 命中、伤害 7。+1 vs Unholy 不加。
+    const extended = {
+      actor: crusader,
+      heroesBesideActor: [{ id: "vestal", stress: 2 }],
+      target: soldier,
+      areaDistance: 2,
+      targetAreaLower: true,
+    };
+    const frozen = structuredClone(extended);
+    expect(use("hero_skill:p016", extended, 10)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 9,
+      actorWounds: 1,
+      actorStress: 4,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+      actorShuffle: { direction: "pull", distance: 1 },
+      targetShuffle: null,
+      riposteDamage: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(extended).toEqual(frozen);
+    // 同一距离，区域没有更低：整次拒绝，自身 Pull 也不发生。
+    expect(use("hero_skill:p016", { ...extended, targetAreaLower: false }, 10)).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      outcome: null,
+      wounds: 2,
+      actorWounds: 1,
+      actorStress: 4,
+      actorShuffle: null,
+      damageDealt: null,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+    });
+    expect(
+      use(
+        "hero_skill:p016",
+        {
+          actor: extended.actor,
+          heroesBesideActor: extended.heroesBesideActor,
+          target: extended.target,
+          areaDistance: 2,
+        },
+        9,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      actorShuffle: null,
+      wounds: 2,
+      actorWounds: 1,
+      damageDealt: null,
+    });
+    // 原距离 1 仍然可以。Dodge 1 时命中阈值是 9。掷 10 落空，Pull 1 仍记上。
+    expect(
+      use(
+        "hero_skill:p016",
+        {
+          actor: crusader,
+          target: { ...soldier, dodge: 1 },
+          areaDistance: 1,
+          targetAreaLower: true,
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 2,
+      actorShuffle: { direction: "pull", distance: 1 },
+      actorStress: 4,
+    });
+    // 距离 2、Dodge 1：命中阈值仍是 9。掷 10 落空，伤害不加，Pull 仍发生。
+    expect(
+      use(
+        "hero_skill:p016",
+        {
+          ...extended,
+          target: { ...soldier, dodge: 1 },
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 2,
+      actorWounds: 1,
+      actorShuffle: { direction: "pull", distance: 1 },
+      actorStress: 4,
+    });
+    // 高地不加暴击。Crit 仍是 1。距离 2、掷 1 暴击、伤害 13，压力各 −1。
+    expect(use("hero_skill:p016", extended, 1)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 13,
+      damageDealt: 13,
+      wounds: 15,
+      actorStress: 3,
+      besideActorStress: [{ id: "vestal", stress: 1 }],
+      actorShuffle: { direction: "pull", distance: 1 },
+    });
+    expect(use("hero_skill:p016", extended, 2)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 9,
+      actorStress: 4,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+    });
+    // 距离 3 超出 +1。自身效果不发生。
+    expect(use("hero_skill:p016", { ...extended, areaDistance: 3 }, 1)).toMatchObject({
+      status: "refused",
+      wounds: 2,
+      actorWounds: 1,
+      actorStress: 4,
+      actorShuffle: null,
+      damageDealt: null,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+    });
+
+    // Smite I 射程 0。距离 1 且更低：Acc 10，掷 10 命中、伤害 7。掷 1 仍是命中，不是暴击 13。
+    const smite = card("hero_skill:p001");
+    expect(smite.name).toBe("Smite");
+    expect(smite.level).toBe(1);
+    expect(
+      smite.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([0]);
+    const melee = {
+      actor: { id: "crusader", wounds: 0, stress: 5 },
+      target: { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 },
+      areaDistance: 1,
+      targetAreaLower: true,
+    };
+    expect(use("hero_skill:p001", melee, 10)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 5,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(use("hero_skill:p001", melee, 1)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 5,
+    });
+    expect(use("hero_skill:p001", { ...melee, targetAreaLower: false }, 9)).toMatchObject({
+      status: "refused",
+      wounds: 0,
+      actorWounds: 0,
+      actorStress: 5,
+      damageDealt: null,
+    });
+    expect(use("hero_skill:p001", { ...melee, areaDistance: 2 }, 1)).toMatchObject({
+      status: "refused",
+      wounds: 0,
+      damageDealt: null,
+      actorStress: 5,
+    });
+
+    // Sniper Shot I 射程 2。距离 3、更低：掷 10 命中、伤害 6。+3 vs 标记不加。
+    const shot = card("hero_skill:p148");
+    expect(shot.name).toBe("Sniper Shot");
+    expect(shot.level).toBe(1);
+    expect(shot.hero).toBe("ARBALEST");
+    expect(shot.verification.unverified).toBe(false);
+    expect(
+      shot.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([2]);
+    expect(
+      shot.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["+3"]);
+    const sniper = {
+      actor: { id: "arbalest", wounds: 0, stress: 4 },
+      target: { id: "soldier", side: "monster" as const, wounds: 1, dodge: 0, markStacks: 2 },
+      areaDistance: 3,
+      targetAreaLower: true,
+    };
+    expect(use("hero_skill:p148", sniper, 10)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 6,
+      damageDealt: 6,
+      wounds: 7,
+      actorStress: 4,
+      skipped: [{ code: "effect_lines" }],
+    });
+    // 2 堆标记已经把命中阈值抬到 11。没有高地时距离 3 根本进不了结算。
+    expect(use("hero_skill:p148", { ...sniper, targetAreaLower: false }, 10)).toMatchObject({
+      status: "refused",
+      wounds: 1,
+      damageDealt: null,
+      actorStress: 4,
+    });
+    // 原距离 2、没有标记：Acc 9 + 高地 1，掷 10 命中、伤害仍是 6。标记不加进伤害。
+    expect(
+      use(
+        "hero_skill:p148",
+        {
+          actor: sniper.actor,
+          target: { id: "soldier", side: "monster" as const, wounds: 1, dodge: 0 },
+          areaDistance: 2,
+          targetAreaLower: true,
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 6,
+      damageDealt: 6,
+      wounds: 7,
+    });
+
+    // Divine Comfort I 射程 1，治疗友方。距离 2 且更低才结算。自身治疗 2 在落空时也扣。
+    const comfort = card("hero_skill:p097");
+    expect(comfort.name).toBe("Divine Comfort");
+    expect(comfort.level).toBe(1);
+    expect(comfort.hero).toBe("VESTAL");
+    expect(comfort.verification.unverified).toBe(false);
+    expect(comfort.printed_labels).toEqual([
+      { label: "Crit", raw: "Crit 3", value: 3 },
+      { label: "Acc", raw: "Acc 12", value: 12 },
+    ]);
+    expect(
+      comfort.unlabeled_numbers
+        .filter(
+          (item) =>
+            item.anchor.type === "beside_icon" &&
+            item.anchor.left_icon === null &&
+            item.anchor.inside_icon?.key === "heal",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([2]);
+    const vestal = { id: "vestal", wounds: 6, stress: 4 };
+    const patient = {
+      id: "patient",
+      side: "hero" as const,
+      wounds: 6,
+      dodge: 4,
+      stress: 5,
+      protection: true,
+    };
+    const healFar = {
+      actor: vestal,
+      heroesBesideActor: [{ id: "crusader", stress: 2 }],
+      target: patient,
+      areaDistance: 2,
+      targetAreaLower: true,
+    };
+    // Dodge 4。没有高地时命中阈值是 8，有高地是 9。掷 9 命中、治疗 2，不是暴击的 3。
+    expect(use("hero_skill:p097", healFar, 9)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 2,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 4,
+      actorWounds: 4,
+      actorStress: 4,
+      targetStress: 5,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
+    });
+    expect(use("hero_skill:p097", healFar, 4)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 2,
+      wounds: 4,
+      actorWounds: 4,
+      actorStress: 4,
+    });
+    expect(use("hero_skill:p097", healFar, 3)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 3,
+      wounds: 3,
+      actorWounds: 4,
+      actorStress: 3,
+      besideActorStress: [{ id: "crusader", stress: 1 }],
+      targetStress: 5,
+    });
+    expect(use("hero_skill:p097", healFar, 10)).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      wounds: 6,
+      actorWounds: 4,
+      actorStress: 4,
+      targetStress: 5,
+    });
+    expect(use("hero_skill:p097", { ...healFar, targetAreaLower: false }, 9)).toMatchObject({
+      status: "refused",
+      wounds: 6,
+      actorWounds: 6,
+      actorStress: 4,
+      targetStress: 5,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+      damageDealt: null,
+    });
+    expect(
+      use(
+        "hero_skill:p097",
+        {
+          actor: vestal,
+          target: patient,
+          areaDistance: 1,
+        },
+        9,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      wounds: 6,
+      actorWounds: 4,
+      actorStress: 4,
+      printedAmount: null,
+    });
+    expect(use("hero_skill:p097", { ...healFar, areaDistance: 3 }, 3)).toMatchObject({
+      status: "refused",
+      wounds: 6,
+      actorWounds: 6,
+      actorStress: 4,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+    });
+
+    // If It Bleeds I 射程 1。距离 2 可以打到，流血 2t 仍是 null，不放堆，也不加进伤害。
+    const bleeds = card("hero_skill:p031");
+    expect(bleeds.name).toBe("If It Bleeds");
+    expect(bleeds.level).toBe(1);
+    expect(
+      bleeds.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "bleed",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(
+      use(
+        "hero_skill:p031",
+        {
+          actor: { id: "hellion", wounds: 1, stress: 4 },
+          target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
+          areaDistance: 2,
+          targetAreaLower: true,
+        },
+        9,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 5,
+      damageDealt: 5,
+      wounds: 5,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+      actorStress: 4,
+      skipped: [{ code: "effect_lines" }],
+    });
+
+    // Pistol Shot I 的射程是 1-2，numeric 为 null。高地不把它拆成 1、2 或 3。
+    const pistol = card("hero_skill:p067");
+    expect(pistol.name).toBe("Pistol Shot");
+    expect(pistol.level).toBe(1);
+    expect(
+      pistol.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => item.text),
+    ).toEqual(["1-2"]);
+    for (const areaDistance of [1, 2, 3]) {
+      expect(
+        use(
+          "hero_skill:p067",
+          {
+            actor: { id: "highwayman", wounds: 0, stress: 3 },
+            target: soldier,
+            areaDistance,
+            targetAreaLower: true,
+          },
+          9,
+        ),
+      ).toMatchObject({
+        status: "refused",
+        reason:
+          "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
+        wounds: 2,
+        actorWounds: 0,
+        actorStress: 3,
+        damageDealt: null,
+      });
+    }
   });
 
   it("光照 0 到 4 让暴击阈值 +1，光照 5 不加，印刷数字不变", () => {
