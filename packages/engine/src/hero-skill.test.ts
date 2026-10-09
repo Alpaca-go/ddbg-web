@@ -238,6 +238,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
+      actorBleedCleared: false,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -323,6 +324,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
+      actorBleedCleared: false,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -377,6 +379,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
+      actorBleedCleared: false,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -411,6 +414,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
+      actorBleedCleared: false,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -895,6 +899,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
+      actorBleedCleared: false,
       actorStress: 3,
       targetStress: 6,
       besideActorStress: [{ id: "crusader", stress: 2 }],
@@ -1078,6 +1083,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
+      actorBleedCleared: false,
       actorStress: 3,
       targetStress: 6,
       besideActorStress: [{ id: "crusader", stress: 2 }],
@@ -1289,6 +1295,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
+      actorBleedCleared: false,
       actorStress: 3,
       targetStress: 5,
       besideActorStress: [{ id: "crusader", stress: 1 }],
@@ -1605,6 +1612,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       targetStress: 4,
       actorForm: "beast",
+      actorBleedCleared: false,
     });
   });
 
@@ -1651,6 +1659,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
+      actorBleedCleared: false,
       actorStress: 3,
       targetStress: 6,
       besideActorStress: [{ id: "crusader", stress: 1 }],
@@ -1941,6 +1950,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: { direction: "pull", distance: 1 },
       targetShuffle: null,
       actorForm: null,
+      actorBleedCleared: false,
       actorStress: 3,
       targetStress: null,
       besideActorStress: null,
@@ -2553,6 +2563,7 @@ describe("resolveHeroSkill", () => {
       wounds: 4,
       targetProtectionIgnored: false,
       actorForm: null,
+      actorBleedCleared: false,
     });
   });
 
@@ -2621,6 +2632,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       targetProtectionIgnored: false,
       actorForm: "beast",
+      actorBleedCleared: false,
       actorStress: 3,
       targetStress: 4,
       besideActorStress: [{ id: "crusader", stress: 2 }],
@@ -2635,6 +2647,7 @@ describe("resolveHeroSkill", () => {
       wounds: 4,
       actorWounds: null,
       actorForm: null,
+      actorBleedCleared: false,
       actorStress: null,
     });
   });
@@ -2677,6 +2690,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 1,
       targetStress: 8,
       actorForm: "beast",
+      actorBleedCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
 
@@ -2709,6 +2723,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 7,
       targetStress: 0,
       actorForm: "beast",
+      actorBleedCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
   });
@@ -2804,6 +2819,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       targetProtectionIgnored: false,
       actorForm: "human",
+      actorBleedCleared: false,
       actorStress: 3,
       targetStress: 4,
       besideActorStress: [{ id: "crusader", stress: 2 }],
@@ -2852,6 +2868,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 1,
       targetStress: 8,
       actorForm: "human",
+      actorBleedCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
 
@@ -2883,6 +2900,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 7,
       targetStress: 0,
       actorForm: "human",
+      actorBleedCleared: false,
     });
 
     expect(
@@ -2899,6 +2917,7 @@ describe("resolveHeroSkill", () => {
     ).toMatchObject({
       status: "resolved",
       actorForm: "beast",
+      actorBleedCleared: false,
       actorWounds: 5,
       actorStress: 3,
       wounds: 4,
@@ -2917,6 +2936,7 @@ describe("resolveHeroSkill", () => {
       status: "refused",
       reason: "这张技能的该姿态没有标明点亮或未点亮，不能当作可用（R-048）",
       actorForm: null,
+      actorBleedCleared: false,
       actorWounds: 5,
       wounds: 4,
     });
@@ -2937,6 +2957,7 @@ describe("resolveHeroSkill", () => {
       status: "refused",
       reason: "这张技能印着 Beast Form Only，当前形态不是兽形（规则书第 38 页）",
       actorForm: null,
+      actorBleedCleared: false,
       actorWounds: 5,
       actorStress: 3,
       wounds: 4,
@@ -2960,6 +2981,7 @@ describe("resolveHeroSkill", () => {
       reason:
         "卡面没有恰好一个射程整数，不能把 Self 或 All Allies 当成距离 0（规则书第 19 页，R-048）",
       actorForm: null,
+      actorBleedCleared: false,
       actorWounds: 5,
       wounds: 4,
     });
@@ -2979,6 +3001,7 @@ describe("resolveHeroSkill", () => {
       reason:
         "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）",
       actorForm: null,
+      actorBleedCleared: false,
       wounds: 4,
     });
     expect(
@@ -2991,6 +3014,7 @@ describe("resolveHeroSkill", () => {
       status: "refused",
       reason: "自身效果要切换形态，但没有使用者（规则书第 38 页）",
       actorForm: null,
+      actorBleedCleared: false,
       wounds: 4,
     });
     expect(
@@ -3009,6 +3033,7 @@ describe("resolveHeroSkill", () => {
       wounds: 1,
       actorWounds: 0,
       actorForm: null,
+      actorBleedCleared: false,
     });
     expect(
       use(
@@ -3026,6 +3051,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 5,
       wounds: 4,
       actorForm: null,
+      actorBleedCleared: false,
     });
 
     // 文字底板的词典说明同时写了两种形态。卡面没有「Human Form Only」这句时，
@@ -3059,6 +3085,7 @@ describe("resolveHeroSkill", () => {
       wounds: 2,
       actorWounds: 2,
       actorForm: null,
+      actorBleedCleared: false,
     });
 
     const manacles = card("hero_skill:p211");
@@ -3085,6 +3112,7 @@ describe("resolveHeroSkill", () => {
       damageDealt: 4,
       wounds: 4,
       actorForm: null,
+      actorBleedCleared: false,
     });
   });
 
@@ -3134,6 +3162,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 1,
       actorStress: 4,
       actorForm: null,
+      actorBleedCleared: false,
       targetBleedCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
@@ -3149,6 +3178,7 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
       wounds: 0,
       actorForm: null,
+      actorBleedCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
   });
@@ -3228,6 +3258,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
+      actorBleedCleared: false,
       actorStress: 3,
       targetStress: 3,
       besideActorStress: [{ id: "vestal", stress: 2 }],
@@ -3492,6 +3523,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 0,
       actorStress: 2,
       actorForm: null,
+      actorBleedCleared: false,
     });
   });
 
@@ -3780,6 +3812,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 1,
       actorStress: 3,
       actorForm: null,
+      actorBleedCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
     expect(
@@ -3798,6 +3831,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 1,
       actorStress: 3,
       actorForm: null,
+      actorBleedCleared: false,
     });
     expect(
       use(
@@ -3865,6 +3899,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 2,
       actorStress: 4,
       actorForm: null,
+      actorBleedCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
     expect(
@@ -3880,6 +3915,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 2,
       actorStress: 4,
       actorForm: null,
+      actorBleedCleared: false,
     });
   });
 
@@ -4150,6 +4186,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       targetStress: 4,
       actorForm: null,
+      actorBleedCleared: false,
     });
 
     const transform = card("hero_skill:p220");
@@ -4179,6 +4216,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 2,
       actorStress: 3,
       actorForm: null,
+      actorBleedCleared: false,
     });
 
     const mark = card("hero_skill:p154");
@@ -4537,6 +4575,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
       targetStress: 1,
       actorForm: null,
+      actorBleedCleared: false,
     });
 
     const ballad = card("hero_skill:p118");
@@ -4777,6 +4816,7 @@ describe("resolveHeroSkill", () => {
       outcome: null,
       effect: null,
       actorForm: "beast",
+      actorBleedCleared: false,
       wounds: 4,
       actorWounds: 5,
       actorStress: 3,
@@ -5311,6 +5351,7 @@ describe("resolveHeroSkill", () => {
       outcome: null,
       effect: null,
       actorForm: "beast",
+      actorBleedCleared: false,
       wounds: 4,
       actorWounds: 5,
       actorStress: 3,
@@ -5965,6 +6006,7 @@ describe("resolveHeroSkill", () => {
       outcome: null,
       effect: null,
       actorForm: "beast",
+      actorBleedCleared: false,
       wounds: 4,
       actorWounds: 5,
       actorStress: 3,
@@ -6144,6 +6186,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 0,
       actorStress: 2,
       actorForm: null,
+      actorBleedCleared: false,
     });
   });
 
@@ -6626,6 +6669,7 @@ describe("resolveHeroSkill", () => {
       outcome: null,
       effect: null,
       actorForm: "beast",
+      actorBleedCleared: false,
       wounds: 4,
       actorWounds: 5,
       actorStress: 3,
@@ -8322,6 +8366,7 @@ describe("resolveHeroSkill", () => {
         actorWounds: 1,
         actorStress: 4,
         actorForm: null,
+        actorBleedCleared: false,
       },
     );
 
@@ -8341,6 +8386,7 @@ describe("resolveHeroSkill", () => {
       outcome: null,
       effect: null,
       actorForm: "beast",
+      actorBleedCleared: false,
       wounds: 2,
       actorWounds: 5,
       actorStress: 3,
@@ -8360,6 +8406,7 @@ describe("resolveHeroSkill", () => {
       reason: "光照必须是 0 到 5 的整数",
       outcome: null,
       actorForm: null,
+      actorBleedCleared: false,
       wounds: 2,
       actorWounds: 5,
       actorStress: 3,
@@ -9366,6 +9413,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 2,
       actorStress: 3,
       actorForm: null,
+      actorBleedCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
     expect(use("hero_skill:p223", raking, 2)).toMatchObject({
@@ -9450,6 +9498,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 5,
       actorStress: 3,
       actorForm: "beast",
+      actorBleedCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
 
@@ -9603,6 +9652,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       targetProtectionIgnored: false,
       actorForm: null,
+      actorBleedCleared: false,
       actorStress: 3,
       targetStress: 6,
       besideActorStress: [{ id: "highwayman", stress: 2 }],
@@ -9865,6 +9915,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       targetProtectionIgnored: false,
       actorForm: null,
+      actorBleedCleared: false,
       actorStress: 4,
       targetStress: 5,
       besideActorStress: [{ id: "vestal", stress: 2 }],
@@ -10423,6 +10474,7 @@ describe("resolveHeroSkill", () => {
         targetShuffle: null,
         targetProtectionIgnored: false,
         actorForm: null,
+        actorBleedCleared: false,
         skipped: [],
       });
     }
@@ -10609,6 +10661,154 @@ describe("resolveHeroSkill", () => {
       wounds: 6,
       actorWounds: 2,
       actorStress: 3,
+    });
+  });
+
+  it("hero_skill:p039 Adrenaline Rush III 不掷骰，清掉使用者的全部流血", () => {
+    const skill = card("hero_skill:p039");
+    expect(skill.name).toBe("Adrenaline Rush");
+    expect(skill.level).toBe(3);
+    expect(skill.hero).toBe("HELLION");
+    expect(skill.verification.unverified).toBe(false);
+    expect(skill.stats_line).toBeNull();
+    expect(skill.printed_labels).toEqual([]);
+    expect(skill.effect_lines).toHaveLength(4);
+    expect(
+      skill.effect_lines[1]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["self_effects", "bleed"]);
+    expect(
+      skill.effect_lines[1]
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text),
+    ).toEqual([" \u0007 Self Remove "]);
+    expect(
+      skill.effect_lines[2]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "bleed", "blight", "buff"]);
+    expect(
+      skill.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["2t", "2t", "0-1"]);
+    expect(
+      skill.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["range", "target_hero", "target_hero"]);
+
+    const combat: SkillCombatState = {
+      actor: { id: "hellion", wounds: 3, stress: 4, stance: "defensive" },
+      heroesBesideActor: [{ id: "highwayman", stress: 2 }],
+      target: { id: "vestal", side: "hero", wounds: 5, dodge: 0, stress: 6 },
+      light: 2,
+    };
+    const frozen = structuredClone(combat);
+    const rushed = use("hero_skill:p039", combat, 1);
+    expect(rushed).toEqual({
+      skillId: "hero_skill:p039",
+      targetId: "vestal",
+      status: "resolved",
+      reason: null,
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 5,
+      actorWounds: 3,
+      targetDead: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+      actorBleedCleared: true,
+      actorShuffle: null,
+      targetShuffle: null,
+      targetProtectionIgnored: false,
+      actorForm: null,
+      actorStress: 4,
+      targetStress: 6,
+      besideActorStress: [{ id: "highwayman", stress: 2 }],
+      untargetedBesideTargetStress: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(combat).toEqual(frozen);
+    // 没有 Acc，骰面不改结果。光照 2 的额外压力不加：这次没有承受压力。
+    expect(use("hero_skill:p039", combat, 10)).toEqual(rushed);
+
+    expect(use("hero_skill:p039", { target: combat.target }, 4)).toMatchObject({
+      status: "refused",
+      reason: "自身效果要移除流血，但没有使用者（规则书第 20 页）",
+      wounds: 5,
+      actorWounds: null,
+      actorBleedCleared: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+    });
+    expect(use("hero_skill:p039", combat, 0)).toMatchObject({
+      status: "refused",
+      reason: "d10 必须是 1 到 10 的整数",
+      wounds: 5,
+      actorWounds: 3,
+      actorBleedCleared: false,
+    });
+    // 区间射程 numeric 为 null。对不上时整次拒绝，自身的移除也不发生。
+    expect(use("hero_skill:p039", { ...combat, areaDistance: 1 }, 3)).toMatchObject({
+      status: "refused",
+      reason: "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
+      wounds: 5,
+      actorWounds: 3,
+      actorStress: 4,
+      actorBleedCleared: false,
+      targetBleedCleared: false,
+    });
+    // 两枚英雄头盔在效果行上，不能当成一个区域内能选几个。
+    expect(use("hero_skill:p039", { ...combat, targetsInArea: 2 }, 3)).toMatchObject({
+      status: "refused",
+      reason:
+        "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）",
+      actorBleedCleared: false,
+      targetBleedCleared: false,
+      wounds: 5,
+    });
+
+    const mixed = card("hero_skill:p037");
+    expect(mixed.name).toBe("Adrenaline Rush");
+    expect(mixed.level).toBe(1);
+    expect(mixed.hero).toBe("HELLION");
+    expect(mixed.verification.unverified).toBe(false);
+    expect(
+      mixed.effect_lines[1]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["self_effects", "bleed", "blight", "buff"]);
+    expect(use("hero_skill:p037", combat, 1)).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      wounds: 5,
+      actorWounds: 3,
+      actorStress: 4,
+      actorBleedCleared: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+    });
+
+    const shared = card("hero_skill:p038");
+    expect(shared.name).toBe("Adrenaline Rush");
+    expect(shared.level).toBe(2);
+    expect(shared.verification.unverified).toBe(false);
+    expect(
+      shared.effect_lines[1]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["self_effects", "bleed", "blight", "target_effects", "bleed", "blight", "buff"]);
+    expect(use("hero_skill:p038", combat, 5)).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      actorBleedCleared: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+      wounds: 5,
+      actorWounds: 3,
     });
   });
 });
