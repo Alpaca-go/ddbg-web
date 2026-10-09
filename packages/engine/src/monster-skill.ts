@@ -1,4 +1,5 @@
 import { needsHeroSkillShuffleChoice, resolveMonsterAttackView } from "./hero-skill";
+import type { MonsterStanceGroup } from "./monster-stance";
 import type {
   HeroSkillCardView,
   HeroSkillResolution,
@@ -14,6 +15,8 @@ export type MonsterSkillView = Pick<
   "printed_labels" | "unlabeled_numbers" | "effect_lines"
 > & {
   readonly slot: number;
+  /** 规范化目标优先级文字；缺失时自动目标选择拒绝。 */
+  readonly target?: string | null;
   readonly lines: readonly (readonly SkillSegment[])[];
 };
 
@@ -22,6 +25,8 @@ export type MonsterCardView = {
   readonly life: number;
   readonly verification: { readonly unverified: boolean };
   readonly skills: readonly MonsterSkillView[];
+  /** 只接收已核实分组；旧卡缺失时选招函数拒绝，不解析 footer_lines。 */
+  readonly stanceGroups?: readonly MonsterStanceGroup[];
 };
 
 /** 调用方已选定一个英雄目标；英雄 Life / 死门尚未接入。 */
