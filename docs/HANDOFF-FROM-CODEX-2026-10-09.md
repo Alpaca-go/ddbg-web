@@ -193,3 +193,23 @@ Kyries 已明确要求提交 Git。本次将位移纯函数、位移命令接线
 下一块建议：建立人工核实姿态分组的管线入口并核对卡面，保持与原始 `footer_lines` 分离；再接普通怪物按 Speed 移动到射程内的流程。移动待选必须保留本块的技能 / 目标 / 选招骰，不能重新选招。未命名 Speed 与卡面数值继续按 R-048 拒绝，不能从未标注数字补值。
 
 验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、224 项 Vitest、build 均通过；忽略目录临时 Chrome 配置运行原有首页冒烟，1 项通过。没有新增战斗 UI，首页冒烟不代表战斗可玩验收。每次推进继续追加本笔记。
+
+## 姿态数据核对准备块：首批 6 条（待 Kyries 确认）
+
+本块以本地 `git log -1` 的 `e0933a9` 为 tip，保留开始时已有的姿态结构 / 选招接线未提交改动。没有提交、推送、创建 PR 或合并；本块仅新增下面的核对文档与真实卡拒绝测试，并追加此笔记。
+
+- 新增 `docs/monster-stance-review-2026-10-09.md`：清单、卡 id / 技能号、卡面 footer、原始 footer token、拟议 `stanceGroups` JSON、逐卡页码、不确定项及确认后的最小入库路径。
+- 首批六条均为核心盒 I 级：Bone Soldier、Bone Courtier、Bone Arbalist、Bone Defender、Bone Rabble、Cultist Acolyte。逐张查看当前版印刷 FRONT 的完整卡面，另核 17 个颜色副本页面的底栏，分组一致；对照官方规则书 R17、R21–24 的页面图像。没有用 Old_Version、FAQ、TTS 或旧仓库当来源。
+- 图示可读，Defender / Acolyte 与规则书示例一致；**六条全部仍标「待 Kyries 确认后才算核实」**。`verification.unverified: false` 不代表分组核实；拟议 JSON 只在 Markdown，不加载到卡池或运行时。没有新增规则裁定、图标命名或填补 null。
+- 新增 `packages/engine/src/monster-stance-data.test.ts`：直接读取本批六条真实规范化卡，锁住有 footer 且 `unverified=false`、但没有分组时，在全部姿态及未给骰 / 1 / 5 / 10 下仍返回缺分组拒绝、没有请求掷骰且输入不变。不把拟议分组当已核实夹具。
+- 最小入库路径只作说明：获批 id 人工映射 → `buildMonsterMedium` 附加 → 现有 schema 验证 → 现有生成入口输出；未知 / 重复 id、技能引用、姿态覆盖与骰表区间必须校验。不直接手改输出 JSON，不从 footer 自动推断，不靠整体验证标志越过审批。
+
+依据：R-001、R-015、R-024、R-048；官方规则书 R17、R21–24（说明书 §6.2、§6.10、G-04）。印刷 PDF 仅核卡面文字、数字与布局，不补规则。原始本机资料只读，渲染图均在忽略的 `node_modules/.cache/stance-review/`，未提交图像或 PDF。
+
+刻意没做：真实 `stanceGroups` 入库、生成管线实现、自动移动、寻路、多目标、死门、Boss、扩展、战斗 UI；没有改先前未提交引擎实现。下一块建议：Kyries 按核对表逐 id 确认后，只接获批映射、重新生成与正反例校验。未确认项继续缺省并拒绝，不在同块增加其他怪物行为。
+
+验证：Node 24.21.0 / pnpm 12.9.1。清单 / 来源与核图阶段各运行 typecheck、lint、test（224 项）通过；新增测试后 typecheck、lint、test（16 文件、225 项）通过。初次测试引用数据包触发 typecheck 依赖错误，已改为与现有引擎真实卡测试一致的只读卡牌视图，没有新增引擎对数据包的依赖。文档拟议 JSON 的四姿态覆盖、相邻分组、完整无重叠骰面及唯一技能引用另作本地校验通过。最终 typecheck、lint、test、build 与 `git diff --check` 均通过；本块没有阶段完成或 UI 变更，不新增 Playwright 冒烟。
+
+### 本次本地 Git 提交
+
+Kyries 随后要求“提交git”。前置姿态选招结构、纯函数及准备命令已单独提交为 `4d34a45`；本块核对文档、真实卡拒绝测试与本交接段另作一个提交，避免测试依赖未提交实现。两者均在 `codex/phase2-shuffle-resolution`，未推送或合并；本条更新上文未提交的历史状态。六条拟议分组仍待 Kyries 确认，Git 提交不代表数据批准，真实规范化卡保持缺分组拒绝。沿用刚通过的 typecheck、lint、225 项测试与 build，提交前检查暂存 diff。
