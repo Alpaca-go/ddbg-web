@@ -7,6 +7,7 @@ export type {
   SkillActorState,
   SkillAreaHero,
   SkillCombatState,
+  SkillForm,
   SkillIconRef,
   SkillSegment,
   SkillShuffle,
