@@ -64,7 +64,9 @@ describe("姿态选招数据 schema（R-015）", () => {
       ),
     ) as { cards: Record<string, unknown>[] };
     const card = file.cards.find((entry) => entry.name === "Bone Defender")!;
-    expect(normalizedMonsterMediumCardSchema.safeParse(card).success).toBe(true);
+    const legacy = { ...card };
+    delete legacy.stanceGroups;
+    expect(normalizedMonsterMediumCardSchema.safeParse(legacy).success).toBe(true);
     expect(
       normalizedMonsterMediumCardSchema.safeParse({ ...card, stanceGroups: groups }).success,
     ).toBe(true);

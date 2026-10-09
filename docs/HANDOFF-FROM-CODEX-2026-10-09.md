@@ -193,3 +193,57 @@ Kyries 已明确要求提交 Git。本次将位移纯函数、位移命令接线
 下一块建议：建立人工核实姿态分组的管线入口并核对卡面，保持与原始 `footer_lines` 分离；再接普通怪物按 Speed 移动到射程内的流程。移动待选必须保留本块的技能 / 目标 / 选招骰，不能重新选招。未命名 Speed 与卡面数值继续按 R-048 拒绝，不能从未标注数字补值。
 
 验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、224 项 Vitest、build 均通过；忽略目录临时 Chrome 配置运行原有首页冒烟，1 项通过。没有新增战斗 UI，首页冒烟不代表战斗可玩验收。每次推进继续追加本笔记。
+
+## 姿态数据核对准备块：首批 6 条（待 Kyries 确认）
+
+本块以本地 `git log -1` 的 `e0933a9` 为 tip，保留开始时已有的姿态结构 / 选招接线未提交改动。没有提交、推送、创建 PR 或合并；本块仅新增下面的核对文档与真实卡拒绝测试，并追加此笔记。
+
+- 新增 `docs/monster-stance-review-2026-10-09.md`：清单、卡 id / 技能号、卡面 footer、原始 footer token、拟议 `stanceGroups` JSON、逐卡页码、不确定项及确认后的最小入库路径。
+- 首批六条均为核心盒 I 级：Bone Soldier、Bone Courtier、Bone Arbalist、Bone Defender、Bone Rabble、Cultist Acolyte。逐张查看当前版印刷 FRONT 的完整卡面，另核 17 个颜色副本页面的底栏，分组一致；对照官方规则书 R17、R21–24 的页面图像。没有用 Old_Version、FAQ、TTS 或旧仓库当来源。
+- 图示可读，Defender / Acolyte 与规则书示例一致；**六条全部仍标「待 Kyries 确认后才算核实」**。`verification.unverified: false` 不代表分组核实；拟议 JSON 只在 Markdown，不加载到卡池或运行时。没有新增规则裁定、图标命名或填补 null。
+- 新增 `packages/engine/src/monster-stance-data.test.ts`：直接读取本批六条真实规范化卡，锁住有 footer 且 `unverified=false`、但没有分组时，在全部姿态及未给骰 / 1 / 5 / 10 下仍返回缺分组拒绝、没有请求掷骰且输入不变。不把拟议分组当已核实夹具。
+- 最小入库路径只作说明：获批 id 人工映射 → `buildMonsterMedium` 附加 → 现有 schema 验证 → 现有生成入口输出；未知 / 重复 id、技能引用、姿态覆盖与骰表区间必须校验。不直接手改输出 JSON，不从 footer 自动推断，不靠整体验证标志越过审批。
+
+依据：R-001、R-015、R-024、R-048；官方规则书 R17、R21–24（说明书 §6.2、§6.10、G-04）。印刷 PDF 仅核卡面文字、数字与布局，不补规则。原始本机资料只读，渲染图均在忽略的 `node_modules/.cache/stance-review/`，未提交图像或 PDF。
+
+刻意没做：真实 `stanceGroups` 入库、生成管线实现、自动移动、寻路、多目标、死门、Boss、扩展、战斗 UI；没有改先前未提交引擎实现。下一块建议：Kyries 按核对表逐 id 确认后，只接获批映射、重新生成与正反例校验。未确认项继续缺省并拒绝，不在同块增加其他怪物行为。
+
+验证：Node 24.21.0 / pnpm 12.9.1。清单 / 来源与核图阶段各运行 typecheck、lint、test（224 项）通过；新增测试后 typecheck、lint、test（16 文件、225 项）通过。初次测试引用数据包触发 typecheck 依赖错误，已改为与现有引擎真实卡测试一致的只读卡牌视图，没有新增引擎对数据包的依赖。文档拟议 JSON 的四姿态覆盖、相邻分组、完整无重叠骰面及唯一技能引用另作本地校验通过。最终 typecheck、lint、test、build 与 `git diff --check` 均通过；本块没有阶段完成或 UI 变更，不新增 Playwright 冒烟。
+
+### 本次本地 Git 提交
+
+Kyries 随后要求“提交git”。前置姿态选招结构、纯函数及准备命令已单独提交为 `4d34a45`；本块核对文档、真实卡拒绝测试与本交接段另作一个提交，避免测试依赖未提交实现。两者均在 `codex/phase2-shuffle-resolution`，未推送或合并；本条更新上文未提交的历史状态。六条拟议分组仍待 Kyries 确认，Git 提交不代表数据批准，真实规范化卡保持缺分组拒绝。沿用刚通过的 typecheck、lint、225 项测试与 build，提交前检查暂存 diff。
+
+## 首批获批姿态分组入库块（2026-10-09）
+
+本块从本地 tip `9c00d78` 继续，开始时工作区干净。Kyries 已审核对照表并回复“我看过了，建议六条都可以确认”；据此批准该表六个 id 的姿态分组。对照表已更新批准日期及实施记录，批准不扩散到其他怪物或卡面字段。Kyries 随后要求“提交git”，本块代码、生成数据、测试和交接更新纳入本次本地提交，未推送或合并。
+
+- 新增 `packages/data/src/normalize/verified-monster-stances.ts`：只含 Bone Soldier、Bone Courtier、Bone Arbalist、Bone Defender、Bone Rabble、Cultist Acolyte 的获批 id / 卡名 / I 级 / 印刷页码与分组。`buildMonsterMedium` 在现有生成路径按 id 附加，经过已有规范化 schema；不从 footer 自动解析，不手改输出 JSON。
+- 映射入口拒绝未知 / 重复 id、卡池重复 id、大型参考卡、卡名 / 等级 / 页码漂移；既有 schema 继续校验四姿态完整覆盖、相邻分组、骰表 1–10 完整无重叠 / 倒置，以及技能编号唯一存在。保留原来的整体验证标记，不把分组批准当作其他字段批准。
+- 沿 `writeNormalizedCorebox` 重生成规范化层。只在 `monster_medium.json` 六条记录增加分组；与 `9c00d78` 比较，删去这六个新增字段后完全相等，其他五类生成文件无差异。原 footer、null 数字、duration、词典、验证原因、统计与 raw / parsed 均不变。
+- 更新真实卡测试：六条获批卡逐一验证四姿态和全部 1–10 骰面，固定组选招不需骰；所有仍无分组且 `unverified=false` 的真实技能卡继续拒绝。既有命令缺分组拒绝夹具显式移除 Soldier 的分组，保留不消费 RNG 的安全门。新增四项入库测试，覆盖生成一致、重复生成、输入与其他字段不变、未知 / 重复 / 错卡 / 错技能等拒绝。
+
+依据：R-001、R-015、R-048；官方规则书 R17、R21–24 与 `docs/monster-stance-review-2026-10-09.md` §3–4、§7 的卡面核对和 Kyries 批准记录。本块没有另行补规则、图标语义或 null 默认值，没有读取或修改原始资料，没有提交资产。
+
+刻意没做：更多怪物核实、Speed 补值、自动移动 / 寻路、多目标、死门、Boss、扩展、战役或战斗 UI。下一块建议先明确普通怪物单目标移动流程所需的已核实 Speed / 区域资料；缺数据继续拒绝，不因为本批分组获批就补默认数字。分组本身现在可供已有选招函数和准备命令读取，仍不代表完整怪物 AI 可玩。
+
+验证：Node 24.21.0 / pnpm 12.9.1。开始时 typecheck、lint、225 项测试通过；接入 / 重生成后 typecheck、lint、235 项测试（17 文件）通过。最终 typecheck、lint、test、build 与 `git diff --check` 均通过；本块不是阶段结束且没有 UI 变更，不新增 Playwright 冒烟。
+
+## 七个本地提交分拆为四个有序 PR（2026-10-10）
+
+Kyries 指定以 `efbc59d` 为起点，按 A → B → C → D 开草稿、CI 全绿后依次采用 GitHub merge 合并，每次合并后本地 `main` 执行 `pull --ff-only`，下一分支从同步后的 `main` 建立。上文的“本地未推送 / 未合并”为各块当时的历史记录，当前状态以本节和 GitHub PR 为准。
+
+| 块  | PR / 分支                                                                           | 原始提交             | 内容与验收                                                                        |
+| --- | ----------------------------------------------------------------------------------- | -------------------- | --------------------------------------------------------------------------------- |
+| A   | [#48](https://github.com/Alpaca-go/ddbg-web/pull/48)，`codex/phase2-battle-sandbox` | `f619b70`、`eb9079f` | 单目标沙盒、方向选择、先攻与英雄回合；种子回放与非法命令拒绝                      |
+| B   | [#49](https://github.com/Alpaca-go/ddbg-web/pull/49)，`codex/phase2-monster-attack` | `eb99c7c`、`e0933a9` | 已选怪物攻击、位移写回、怪物行动与目标优先级；Guard / 优先级 / Push·Pull 场景测试 |
+| C   | [#50](https://github.com/Alpaca-go/ddbg-web/pull/50)，`codex/phase2-stance-select`  | `4d34a45`            | 姿态选招与准备命令；有合法分组才可选择，无分组拒绝                                |
+| D   | `codex/phase2-stance-data-six`（本节随该 PR 提交）                                  | `9c00d78`、`0d18f2c` | 对照文档与六条获批分组；其余 id 仍无分组、自动选招拒绝                            |
+
+A、B、C 已在两项 CI（质量检查和 Playwright smoke）均成功后合并，本地每次同步；C 合并后的 `main` 为 `c0cded4`。分拆后 A / B / C 的文件树分别与 `eb9079f` / `e0933a9` / `4d34a45` 相同，D 的两个原始提交也保持文件树不变，仅另附本交接记录。原始提交与分支保留，未重写既有历史。
+
+质量检查：每个分拆块执行 `pnpm typecheck`、`pnpm lint`、`pnpm test`、`pnpm build`；A / B / C 的测试分别为 150 / 205 / 224 项。D 沿用六条数据块的 235 项测试，并在本 PR 重新执行同一质量闸门，全部成功且 CI 全绿后才合并。Windows 检出时曾因 CRLF 触发 Prettier 警告，已恢复 LF 并将本地 Git 的 `core.autocrlf` 设为 `false`；没有提交换行重写。
+
+依据继续为 R-001、R-048 及各块列明的规则书页码 / 裁定。没有新增规则或数据批准。六条姿态组的批准范围仍以对照文档 §7 为准，`verification.unverified=false` 仍不替代分组核实。
+
+刻意没做：自动移动 / 寻路、多目标、死门、Boss、扩展和战斗 UI。分拆开始前已有的 Speed 核对文档、可选 schema 与拒绝测试单独保留，不进入 A–D，不给真实卡写 Speed，也不补 null 默认值。D 合并同步后建议另开普通怪物自动移动的新块，先确认 Speed 与区域资料；多目标继续拆为后续独立主题。
