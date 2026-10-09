@@ -1416,7 +1416,7 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("混在同一行里的治疗不扣伤口，变身卡上的治疗整数也不扣", () => {
+  it("和 null 光照写在同一行的治疗不扣目标伤口，变身卡上的治疗整数也不扣", () => {
     const cry = card("hero_skill:p020");
     expect(cry.name).toBe("Inspiring Cry");
     expect(cry.level).toBe(2);
@@ -1431,6 +1431,8 @@ describe("resolveHeroSkill", () => {
         )
         .map((item) => item.numeric),
     ).toEqual([1]);
+    // 自身那一行的治疗 1 和压力 −1 都是整数，会扣使用者。目标那一行还有光照 +1，
+    // numeric 为 null，不把治疗拆出来扣目标的伤口。
     expect(
       use(
         "hero_skill:p020",
@@ -1441,12 +1443,14 @@ describe("resolveHeroSkill", () => {
         5,
       ),
     ).toMatchObject({
-      status: "refused",
-      reason: "stats_line 没有已命名的 damage 或 heal",
-      wounds: 2,
-      actorWounds: 5,
-      actorStress: 4,
+      status: "resolved",
+      reason: null,
       outcome: null,
+      effect: null,
+      wounds: 2,
+      actorWounds: 4,
+      actorStress: 3,
+      targetStress: 4,
     });
 
     const beast = card("hero_skill:p220");
@@ -8603,6 +8607,248 @@ describe("resolveHeroSkill", () => {
       wounds: 1,
       actorWounds: 0,
       actorStress: 4,
+    });
+  });
+
+  it("hero_skill:p020 Inspiring Cry II 不掷骰，自身治疗 1 并减 1 点压力", () => {
+    const skill = card("hero_skill:p020");
+    expect(skill.name).toBe("Inspiring Cry");
+    expect(skill.level).toBe(2);
+    expect(skill.hero).toBe("CRUSADER");
+    expect(skill.verification.unverified).toBe(false);
+    expect(skill.stats_line).toBeNull();
+    expect(skill.printed_labels).toEqual([]);
+    expect(skill.effect_lines).toHaveLength(3);
+    expect(
+      skill.effect_lines[1]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["self_effects", "damage_or_heal_combined_marker", "heal", "stress"]);
+    expect(
+      skill.effect_lines[1]
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text),
+    ).toEqual([" Self ", " ", " 1 , ", " -1"]);
+    expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.inside_icon?.key === "heal",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([1, 1]);
+    expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "stress",
+        )
+        .map((item) => [item.text, item.numeric]),
+    ).toEqual([
+      ["-1", -1],
+      ["-1", -1],
+    ]);
+    expect(
+      skill.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["+1"]);
+    expect(
+      skill.effect_lines[2]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "damage_or_heal_combined_marker", "heal", "stress", "light"]);
+
+    const combat: SkillCombatState = {
+      actor: { id: "crusader", wounds: 5, stress: 4, stance: "support" },
+      heroesBesideActor: [{ id: "highwayman", stress: 2 }],
+      target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 6 },
+      areaDistance: 1,
+      light: 1,
+    };
+    const frozen = structuredClone(combat);
+    const cried = use("hero_skill:p020", combat, 1);
+    expect(cried).toEqual({
+      skillId: "hero_skill:p020",
+      targetId: "vestal",
+      status: "resolved",
+      reason: null,
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 2,
+      actorWounds: 4,
+      targetDead: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+      actorShuffle: null,
+      targetShuffle: null,
+      targetProtectionIgnored: false,
+      actorForm: null,
+      actorStress: 3,
+      targetStress: 6,
+      besideActorStress: [{ id: "highwayman", stress: 2 }],
+      untargetedBesideTargetStress: null,
+      skipped: [{ code: "damage_or_heal_combined_marker" }, { code: "effect_lines" }],
+    });
+    expect(combat).toEqual(frozen);
+    // 没有 Acc，骰面不改结果。光照 1 的「承受压力 +1」不加在这次减压上。
+    expect(use("hero_skill:p020", combat, 10)).toEqual(cried);
+    // 伤口到底，压力到 0，都停住。
+    expect(
+      use(
+        "hero_skill:p020",
+        {
+          actor: { id: "crusader", wounds: 0, stress: 0, stance: "aggressive" },
+          target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 6 },
+          areaDistance: 1,
+        },
+        4,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: null,
+      wounds: 2,
+      actorWounds: 0,
+      actorStress: 0,
+      targetStress: 6,
+    });
+
+    // 等级 III 的自身一行仍是治疗 1、压力 −1。效果行里的两枚头盔不当成区域内个数。
+    const third = card("hero_skill:p021");
+    expect(third.name).toBe("Inspiring Cry");
+    expect(third.level).toBe(3);
+    expect(third.hero).toBe("CRUSADER");
+    expect(third.verification.unverified).toBe(false);
+    expect(
+      third.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["range", "target_hero", "target_hero"]);
+    expect(
+      use(
+        "hero_skill:p021",
+        {
+          actor: { id: "crusader", wounds: 3, stress: 8 },
+          target: { id: "vestal", side: "hero", wounds: 4, dodge: 9, stress: 1 },
+          areaDistance: 1,
+          light: 5,
+        },
+        10,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: null,
+      effect: null,
+      wounds: 4,
+      actorWounds: 2,
+      actorStress: 7,
+      targetStress: 1,
+      skipped: [{ code: "damage_or_heal_combined_marker" }, { code: "effect_lines" }],
+    });
+    expect(
+      use(
+        "hero_skill:p021",
+        {
+          actor: { id: "crusader", wounds: 3, stress: 8 },
+          target: { id: "vestal", side: "hero", wounds: 4, dodge: 0, stress: 1 },
+          targetsInArea: 2,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason:
+        "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）",
+      wounds: 4,
+      actorWounds: 3,
+      actorStress: 8,
+      targetStress: 1,
+    });
+
+    // 等级 I 没有这条自身效果。目标行的治疗 1、压力 −1 和光照 +1 仍整行不拆。
+    expect(
+      use(
+        "hero_skill:p019",
+        {
+          actor: { id: "crusader", wounds: 5, stress: 4 },
+          target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 6 },
+          areaDistance: 0,
+          light: 1,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      wounds: 2,
+      actorWounds: 5,
+      actorStress: 4,
+      targetStress: 6,
+    });
+
+    // 射程是 1。距离不对时自身治疗和减压都不发生。
+    expect(
+      use(
+        "hero_skill:p020",
+        {
+          actor: { id: "crusader", wounds: 5, stress: 4 },
+          target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 6 },
+          areaDistance: 0,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      wounds: 2,
+      actorWounds: 5,
+      actorStress: 4,
+      targetStress: 6,
+    });
+
+    // 效果行里的头盔不核对阵营。怪物目标不吃治疗，使用者仍治疗并减压。
+    expect(
+      use(
+        "hero_skill:p020",
+        {
+          actor: { id: "crusader", wounds: 5, stress: 4 },
+          target: { id: "soldier", side: "monster", wounds: 3, dodge: 0 },
+          areaDistance: 1,
+        },
+        6,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: null,
+      wounds: 3,
+      actorWounds: 4,
+      actorStress: 3,
+      targetStress: null,
+      targetDead: false,
+    });
+
+    expect(use("hero_skill:p020", target("hero", 2, 0), 5)).toMatchObject({
+      status: "refused",
+      reason: "自身效果要改压力，但没有使用者的压力（规则书第 20 页）",
+      wounds: 2,
+      actorWounds: null,
+      actorStress: null,
+    });
+    expect(
+      use(
+        "hero_skill:p020",
+        {
+          actor: { id: "crusader", wounds: 5 },
+          target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 6 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "自身效果要改压力，但没有使用者的压力（规则书第 20 页）",
+      wounds: 2,
+      actorWounds: 5,
+      actorStress: null,
+      targetStress: 6,
     });
   });
 });
