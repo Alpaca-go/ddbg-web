@@ -42,8 +42,18 @@
  * 移除流血和腐蚀（规则书第 20 页目标效果、第 21 页移除全部堆叠，第 12 页
  * 「Remove all Bleed」）：一条效果行只有已命名的目标效果、已命名的 bleed、
  * 已命名的 blight，文字只有空白和「Remove」。命中或暴击时清掉目标这两种状态的
- * 全部堆叠，落空不清。不读回合数，也不使用 `numeric` 为 null 的数字。没有目标
- * 效果标记的「Remove」行，以及和增益、眩晕混在同一行的「Remove」，仍整行跳过。
+ * 全部堆叠，落空不清。不读回合数，也不使用 `numeric` 为 null 的数字。和增益、眩晕
+ * 混在同一行的「Remove」仍整行跳过。
+ *
+ * 换行后的「Remove」加流血和腐蚀（规则书第 20 页：自身效果标记管这一框里的效果；
+ * 第 21 页移除全部堆叠）：一条效果行只有文字「Remove」、已命名的 bleed 和已命名的
+ * blight，行内没有自身或目标标记。标记印在同一效果框的另一行，提取时被拆开。
+ * 这种行按顺序配给还没有自己的「Remove」行的自身效果或目标效果标记。两边条数
+ * 必须一样；多了或少了就不配，这两行都不清。配给自身的，没有 Acc 也清，落空也清。
+ * 配给目标的，和带标记的那条一样，只在命中、暴击，或这张技能没有 Acc 时清。
+ * 不从词典里「被移除」和「后接数值」这两句说明挑图标：两枚流血的 key 都是 bleed，
+ * 认的是印刷文字「Remove」。效果行里的英雄头盔仍不当成目标个数，也不用来核对阵营。
+ * 增益「2t」仍不放堆。
  *
  * 自身移除流血（规则书第 19 页 Note、第 20 页自身效果、第 21 页移除全部堆叠，
  * 说明书 §6.5 第 5 步、§7.1）：一条效果行只有已命名的自身效果和已命名的 bleed，
@@ -437,6 +447,12 @@ export type HeroSkillResolution = {
    */
   readonly actorBleedCleared: boolean;
   /**
+   * 自身效果清掉使用者的全部 Blight 堆叠。
+   * 和流血写在同一条「Remove」上时，与 `actorBleedCleared` 一起为 true。
+   * 只有流血、没有腐蚀的那条（Adrenaline Rush III）不把腐蚀清掉。
+   */
+  readonly actorBlightCleared: boolean;
+  /**
    * 自身效果上印的 Push / Pull。落空也有。没有这条效果时为 null。
    * 调用方对一次技能使用只采用一次。区域和姿态轨不在这一层。
    */
@@ -531,6 +547,7 @@ function refuse(
     targetBleedCleared: false,
     targetBlightCleared: false,
     actorBleedCleared: false,
+    actorBlightCleared: false,
     actorShuffle: null,
     targetShuffle: null,
     targetProtectionIgnored: false,
@@ -598,8 +615,23 @@ type SelfHealStress = {
 };
 
 type ConditionRemoval = {
-  /** 对得上的「Remove Bleed、Blight」目标效果行。没有时为 0。 */
+  /**
+   * 要清掉目标全部流血和腐蚀的行。带目标标记的，以及换行后配给目标标记的。
+   * 没有时为 0。只在命中、暴击，或没有 Acc 时用。
+   */
   readonly targetLines: number;
+  /**
+   * 要清掉使用者全部流血和腐蚀的行。带自身标记的，以及换行后配给自身标记的。
+   * 没有时为 0。落空也清。只有流血、没有腐蚀的那条不在这里。
+   */
+  readonly actorLines: number;
+  /**
+   * 换行后配给目标的行。没有 Acc、也没有别的可结算效果时，靠它让技能仍然生效。
+   * 已经算进 `targetLines`。
+   */
+  readonly pairedTargetLines: number;
+  /** 认出来的「Remove + bleed + blight」行，含换行后配上的。用来算跳过的效果行。 */
+  readonly lineCount: number;
 };
 
 /**
@@ -862,35 +894,84 @@ function stressLineAudience(
 }
 
 /**
- * 只接受「目标效果 + Remove + bleed + blight」这一整行。
- * 没有目标效果标记、文字不是「Remove」、或还有别的已命名图标，就不算这条。
- * 「1t」这类 `numeric` 为 null 的回合数不在这里读。
+ * 版面提取夹在 Self 前面的窄字形（U+0007）。不是图标，也不是数字。
+ * 不写进正则，避免把控制字符放进字符类。
+ */
+const EXTRACTED_SELF_MARK = String.fromCharCode(7);
+
+/**
+ * 「Remove + bleed + blight」。标记可以在同一行，也可以在同一效果框的另一行。
+ * 和增益、回合数写在同一行的不算。文字必须是「Remove」这一个词。
  */
 function readConditionRemoval(skill: HeroSkillCardView): ConditionRemoval {
-  let targetLines = 0;
+  const none: ConditionRemoval = {
+    targetLines: 0,
+    actorLines: 0,
+    pairedTargetLines: 0,
+    lineCount: 0,
+  };
+  let markedTarget = 0;
+  let markedSelf = 0;
+  let unmarked = 0;
+  const openBoxes: ("self" | "target")[] = [];
   for (const line of skill.effect_lines) {
-    if (targetRemoveBleedBlightLine(line)) targetLines += 1;
+    const kind = removeBleedBlightKind(line);
+    if (kind === "target") {
+      markedTarget += 1;
+      continue;
+    }
+    if (kind === "self") {
+      markedSelf += 1;
+      continue;
+    }
+    if (kind === "unmarked") {
+      unmarked += 1;
+      continue;
+    }
+    const audience = effectBoxAudience(line);
+    if (audience !== null) openBoxes.push(audience);
   }
-  return { targetLines };
+  let pairedSelf = 0;
+  let pairedTarget = 0;
+  if (unmarked > 0 && unmarked === openBoxes.length) {
+    for (const audience of openBoxes) {
+      if (audience === "self") pairedSelf += 1;
+      else pairedTarget += 1;
+    }
+  }
+  if (markedTarget === 0 && markedSelf === 0 && pairedSelf === 0 && pairedTarget === 0) {
+    return none;
+  }
+  return {
+    targetLines: markedTarget + pairedTarget,
+    actorLines: markedSelf + pairedSelf,
+    pairedTargetLines: pairedTarget,
+    lineCount: markedTarget + markedSelf + pairedSelf + pairedTarget,
+  };
 }
 
-function targetRemoveBleedBlightLine(line: readonly SkillSegment[]): boolean {
+/** 这一行是不是刚好「Remove」加一枚流血、一枚腐蚀。多出来的图标让整行都不算。 */
+function removeBleedBlightKind(
+  line: readonly SkillSegment[],
+): "self" | "target" | "unmarked" | null {
+  let self = 0;
   let target = 0;
   let bleed = 0;
   let blight = 0;
-  let sawRemove = false;
+  const words: string[] = [];
   for (const segment of line) {
     if (segment.type === "text") {
-      const text = segment.text.trim();
-      if (text === "") continue;
-      if (text === "Remove") {
-        if (sawRemove) return false;
-        sawRemove = true;
-        continue;
+      for (const raw of segment.text.split(/\s+/)) {
+        const word = raw.split(EXTRACTED_SELF_MARK).join("");
+        if (word !== "") words.push(word);
       }
-      return false;
+      continue;
     }
-    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) return false;
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) return null;
+    if (segment.icon.key === "self_effects") {
+      self += 1;
+      continue;
+    }
     if (segment.icon.key === "target_effects") {
       target += 1;
       continue;
@@ -903,21 +984,37 @@ function targetRemoveBleedBlightLine(line: readonly SkillSegment[]): boolean {
       blight += 1;
       continue;
     }
-    return false;
+    return null;
   }
-  return target === 1 && bleed === 1 && blight === 1 && sawRemove;
+  if (bleed !== 1 || blight !== 1 || words.length !== 1 || words[0] !== "Remove") return null;
+  if (self === 1 && target === 0) return "self";
+  if (target === 1 && self === 0) return "target";
+  if (self === 0 && target === 0) return "unmarked";
+  return null;
+}
+
+/**
+ * 自身效果或目标效果标记所在的那一行。这一行自己已经是「Remove」时，不再接收换行。
+ * 同一行有两种标记，或同一种有两枚，就不把换行配过来。
+ */
+function effectBoxAudience(line: readonly SkillSegment[]): "self" | "target" | null {
+  let self = 0;
+  let target = 0;
+  for (const segment of line) {
+    if (segment.type !== "icon") continue;
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) continue;
+    if (segment.icon.key === "self_effects") self += 1;
+    if (segment.icon.key === "target_effects") target += 1;
+  }
+  if (self === 1 && target === 0) return "self";
+  if (target === 1 && self === 0) return "target";
+  return null;
 }
 
 type SelfBleedRemoval = {
   /** 对得上的「Self Remove」加流血。没有，或不止一条时为 0。 */
   readonly lineCount: number;
 };
-
-/**
- * 版面提取夹在 Self 前面的窄字形（U+0007）。不是图标，也不是数字。
- * 不写进正则，避免把控制字符放进字符类。
- */
-const EXTRACTED_SELF_MARK = String.fromCharCode(7);
 
 /**
  * 只接受「自身效果 + Self Remove + bleed」这一整行。
@@ -1759,7 +1856,13 @@ export function resolveHeroSkill(
   let effect: "damage" | "heal" | "stress" | null;
   if (kinds.size === 0) {
     if (stress.self === 0 && stress.target === 0) {
-      if (formChange.form === null && paired.lineCount === 0 && selfBleed.lineCount === 0) {
+      if (
+        formChange.form === null &&
+        paired.lineCount === 0 &&
+        selfBleed.lineCount === 0 &&
+        removal.actorLines === 0 &&
+        removal.pairedTargetLines === 0
+      ) {
         return refuse(skill, combat, "stats_line 没有已命名的 damage 或 heal");
       }
       effect = null;
@@ -1848,6 +1951,9 @@ export function resolveHeroSkill(
   if (selfBleed.lineCount > 0 && combat.actor === undefined) {
     return refuse(skill, combat, "自身效果要移除流血，但没有使用者（规则书第 20 页）");
   }
+  if (removal.actorLines > 0 && combat.actor === undefined) {
+    return refuse(skill, combat, "自身效果要移除流血和腐蚀，但没有使用者（规则书第 20 页）");
+  }
   if (shuffles.self !== null && combat.actor === undefined) {
     return refuse(skill, combat, "自身效果要位移，但没有使用者（规则书第 21 页）");
   }
@@ -1865,8 +1971,9 @@ export function resolveHeroSkill(
   // 怪物 Acc +1 只在怪物攻击时有。
   // 光照 2–1 和光照 0 的「承受压力额外 +1」不加。减压力不是承受压力。
   // 印刷的加压力 numeric 为 null，不先当成一次压力事件。
-  // 没有 Acc 的技能不掷骰。变身，自身一行里已经对上的治疗和压力，以及自身一行
-  // 「Self Remove」加已命名的流血，outcome 留空。
+  // 没有 Acc 的技能不掷骰。变身，自身一行里已经对上的治疗和压力，自身一行
+  // 「Self Remove」加已命名的流血，以及配给效果框的「Remove」加流血和腐蚀，
+  // outcome 留空。
   // 不读这张卡印的增益、减益、标记回合数，也不读卡面光照 +1 / -1 / +2。
   const buffStacks = combat.actor?.buffStacks ?? 0;
   const enemyDebuffStacks = target.side === "monster" ? (target.debuffStacks ?? 0) : 0;
@@ -1919,7 +2026,9 @@ export function resolveHeroSkill(
     actorWounds = Math.max(0, actorWounds - selfHeal.amount - paired.heal);
   }
   // 自身「Remove Bleed」不看命中。没有 Acc 时也清。和增益写在同一行的不算。
-  const actorBleedCleared = selfBleed.lineCount === 1;
+  // 换行后配给自身标记的「Remove Bleed、Blight」同样不看命中，两种都清。
+  const actorBleedCleared = selfBleed.lineCount === 1 || removal.actorLines > 0;
+  const actorBlightCleared = removal.actorLines > 0;
 
   if ((effect === "damage" || effect === "heal") && outcome !== null && outcome !== "miss") {
     const amount = outcome === "crit" ? critAmount : hitAmount;
@@ -2002,6 +2111,7 @@ export function resolveHeroSkill(
     targetBleedCleared: conditionsCleared,
     targetBlightCleared: conditionsCleared,
     actorBleedCleared,
+    actorBlightCleared,
     actorShuffle: shuffles.self,
     targetShuffle: outcome === "miss" ? null : resistedTargetShuffle(shuffles.target, combat),
     targetProtectionIgnored:
@@ -2017,7 +2127,7 @@ export function resolveHeroSkill(
       stress.lineCount +
         selfHeal.lineCount +
         paired.lineCount +
-        removal.targetLines +
+        removal.lineCount +
         selfBleed.lineCount +
         shuffles.lineCount +
         ignoresProtection.targetLines +
