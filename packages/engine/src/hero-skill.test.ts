@@ -2605,7 +2605,10 @@ describe("resolveHeroSkill", () => {
     expect(
       skill.unlabeled_numbers
         .filter((item) => item.anchor.type === "printed_label")
-        .map((item) => [item.anchor.type === "printed_label" ? item.anchor.label : "", item.numeric]),
+        .map((item) => [
+          item.anchor.type === "printed_label" ? item.anchor.label : "",
+          item.numeric,
+        ]),
     ).toEqual([
       ["Crit", 4],
       ["Acc", 2],
@@ -2885,8 +2888,19 @@ describe("resolveHeroSkill", () => {
         .filter((text) => text !== ""),
     ).toEqual(["2t"]);
     expect(
-      skill.unlabeled_numbers.filter((item) => item.text === "2t").map((item) => item.numeric),
-    ).toEqual([null]);
+      skill.unlabeled_numbers.filter(
+        (item) =>
+          item.numeric === null &&
+          item.anchor.type === "beside_icon" &&
+          item.anchor.left_icon === null,
+      ),
+    ).toEqual([
+      {
+        text: "2t",
+        numeric: null,
+        anchor: { type: "beside_icon", left_icon: null, inside_icon: null },
+      },
+    ]);
     expect(
       use(
         "hero_skill:p154",
