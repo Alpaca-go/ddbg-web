@@ -2783,8 +2783,6 @@ describe("resolveHeroSkill", () => {
       heroesBesideActor: [{ id: "crusader", stress: 2 }],
       target: { id: "vestal", side: "hero", wounds: 4, dodge: 0, stress: 4 },
     };
-    const actor = combat.actor;
-    if (actor === undefined) throw new Error("p220 背面测试要有使用者");
     const frozen = structuredClone(combat);
     const changed = use("hero_skill:p220", combat, 1);
     expect(changed).toEqual({
@@ -2814,9 +2812,16 @@ describe("resolveHeroSkill", () => {
     });
     expect(combat).toEqual(frozen);
     expect(use("hero_skill:p220", combat, 10)).toEqual(changed);
-    expect(use("hero_skill:p220", { ...combat, actor: { ...actor, form: undefined } }, 6)).toEqual(
-      changed,
-    );
+    expect(
+      use(
+        "hero_skill:p220",
+        {
+          ...combat,
+          actor: { id: "abomination", wounds: 5, stress: 3, stance: "ranged" },
+        },
+        6,
+      ),
+    ).toEqual(changed);
 
     const second = card("hero_skill:p221");
     expect(second.back_face_skill?.name).toBe("Transform to Human");
