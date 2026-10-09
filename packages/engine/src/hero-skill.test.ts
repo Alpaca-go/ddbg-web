@@ -6679,16 +6679,17 @@ describe("resolveHeroSkill", () => {
       wounds: 6,
       actorStress: 5,
     });
-    // 光照 5 不加暴击，也不给英雄 Dodge +1。Dodge 9 时命中阈值是 3，掷 3 命中治疗 2。
+    // 光照 5 不加暴击。Dodge 9 再 +1，命中阈值是 2。5 堆标记对英雄不加。掷 3 落空，治疗不发生。
     const bright = { ...patient, dodge: 9 };
     expect(use("hero_skill:p013", { actor: vestal, target: bright, light: 5 }, 3)).toMatchObject({
-      outcome: "hit",
-      printedAmount: 2,
+      outcome: "miss",
+      printedAmount: null,
       damageDealt: null,
-      wounds: 4,
+      wounds: 6,
       actorStress: 5,
       riposteDamage: null,
     });
+    // 暴击仍不减这 1 点 Dodge。掷 2 暴击治疗 4。
     expect(use("hero_skill:p013", { actor: vestal, target: bright, light: 5 }, 2)).toMatchObject({
       outcome: "crit",
       printedAmount: 4,
@@ -6747,6 +6748,412 @@ describe("resolveHeroSkill", () => {
       targetStress: 5,
       besideActorStress: [{ id: "crusader", stress: 2 }],
       wounds: 3,
+    });
+  });
+
+  it("光照恰好为 5 时，英雄目标的 Dodge +1，怪物目标不加", () => {
+    // Battlefield Bandage I：Crit 0、Acc 8、暴击治疗 6、命中治疗 4。Crit 0 不会先抢走命中。
+    const bandage = card("hero_skill:p163");
+    expect(bandage.name).toBe("Battlefield Bandage");
+    expect(bandage.level).toBe(1);
+    expect(bandage.hero).toBe("ARBALEST");
+    expect(bandage.verification.unverified).toBe(false);
+    expect(bandage.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 0],
+      ["Acc", 8],
+    ]);
+    expect(
+      bandage.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => item.numeric),
+    ).toEqual([6, 4]);
+    expect(
+      bandage.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["2t", "0-1"]);
+
+    const arbalest = { id: "arbalest", wounds: 1, stress: 4, stance: "support" as const };
+    const ally = { id: "crusader", side: "hero" as const, wounds: 6, dodge: 0, stress: 2 };
+    const bright = { actor: arbalest, target: ally, light: 5 };
+    const frozen = structuredClone(bright);
+    // Dodge 0 再 +1，命中阈值是 7。掷 8 落空。不传光照时掷 8 命中、治疗 4。
+    expect(use("hero_skill:p163", bright, 8)).toMatchObject({
+      status: "resolved",
+      outcome: "miss",
+      effect: "heal",
+      printedAmount: null,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 6,
+      actorWounds: 1,
+      actorStress: 4,
+      targetStress: 2,
+      skipped: [{ code: "damage_or_heal_combined_marker" }, { code: "effect_lines" }],
+    });
+    expect(bright).toEqual(frozen);
+    expect(use("hero_skill:p163", { actor: arbalest, target: ally }, 8)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 4,
+      wounds: 2,
+      actorWounds: 1,
+      actorStress: 4,
+    });
+    expect(use("hero_skill:p163", bright, 7)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 4,
+      wounds: 2,
+      actorStress: 4,
+    });
+    // 光照 4 只有暴击 +1，没有英雄 Dodge +1。掷 8 仍命中、治疗 4；掷 1 暴击、治疗 6。
+    expect(use("hero_skill:p163", { actor: arbalest, target: ally, light: 4 }, 8)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 4,
+      wounds: 2,
+      actorStress: 4,
+    });
+    expect(use("hero_skill:p163", { actor: arbalest, target: ally, light: 4 }, 1)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 6,
+      wounds: 0,
+      actorStress: 3,
+    });
+    // 光照 0 也不给英雄 Dodge +1。掷 8 命中。2t 增益的 numeric 为 null，不另放堆。
+    expect(use("hero_skill:p163", { actor: arbalest, target: ally, light: 0 }, 8)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 4,
+      wounds: 2,
+      actorStress: 4,
+      skipped: [{ code: "damage_or_heal_combined_marker" }, { code: "effect_lines" }],
+    });
+    // Dodge 7 再 +1，命中阈值是 0。Crit 0，掷 1 也落空。
+    expect(
+      use("hero_skill:p163", { actor: arbalest, target: { ...ally, dodge: 7 }, light: 5 }, 1),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      wounds: 6,
+      actorStress: 4,
+    });
+
+    // Smite I 打的是怪物。光照 5 不加英雄 Dodge，掷 9 仍命中、伤害 7。+1 vs Unholy 不加。
+    const smite = card("hero_skill:p001");
+    expect(smite.name).toBe("Smite");
+    expect(smite.verification.unverified).toBe(false);
+    const crusader = { id: "crusader", wounds: 0, stress: 5 };
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
+    expect(use("hero_skill:p001", { actor: crusader, target: soldier, light: 5 }, 9)).toMatchObject(
+      {
+        status: "resolved",
+        outcome: "hit",
+        effect: "damage",
+        printedAmount: 7,
+        damageDealt: 7,
+        wounds: 7,
+        actorStress: 5,
+        skipped: [{ code: "effect_lines" }],
+      },
+    );
+    // 光照 0 的怪物 Dodge +1、怪物 Acc +1 仍不加。掷 9 命中、伤害 7；掷 10 落空。
+    expect(use("hero_skill:p001", { actor: crusader, target: soldier, light: 0 }, 9)).toMatchObject(
+      {
+        outcome: "hit",
+        printedAmount: 7,
+        damageDealt: 7,
+        wounds: 7,
+        actorStress: 5,
+      },
+    );
+    expect(
+      use("hero_skill:p001", { actor: crusader, target: soldier, light: 0 }, 10),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorStress: 5,
+    });
+
+    // Divine Comfort I：Crit 3、Acc 12、暴击治疗 3、命中治疗 2。自身治疗 2 落空也扣。
+    const comfort = card("hero_skill:p097");
+    expect(comfort.name).toBe("Divine Comfort");
+    expect(comfort.level).toBe(1);
+    expect(comfort.hero).toBe("VESTAL");
+    expect(comfort.verification.unverified).toBe(false);
+    expect(comfort.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 3],
+      ["Acc", 12],
+    ]);
+    expect(
+      comfort.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => item.numeric),
+    ).toEqual([3, 2]);
+    expect(
+      comfort.unlabeled_numbers.filter(
+        (item) =>
+          item.anchor.type === "beside_icon" &&
+          item.anchor.left_icon === null &&
+          item.anchor.inside_icon?.key === "heal",
+      ),
+    ).toEqual([
+      expect.objectContaining({
+        text: "2",
+        numeric: 2,
+      }),
+    ]);
+    expect(namedTargetIconCount(comfort)).toBe(3);
+    const vestal = { id: "vestal", wounds: 4, stress: 5, stance: "support" as const };
+    const patient = {
+      id: "patient",
+      side: "hero" as const,
+      wounds: 5,
+      dodge: 8,
+      stress: 3,
+      markStacks: 2,
+      protection: true,
+      riposte: true,
+    };
+    const comfortBright = {
+      actor: vestal,
+      target: patient,
+      areaDistance: 1,
+      targetsInArea: 1,
+      light: 5,
+    };
+    // Dodge 8 再 +1，命中阈值是 3。暴击阈值也是 3，所以掷 4 落空。自身治疗 2 仍扣。
+    // 标记、防护、反击对友方治疗都不改这个结果。
+    expect(use("hero_skill:p097", comfortBright, 4)).toMatchObject({
+      status: "resolved",
+      outcome: "miss",
+      effect: "heal",
+      printedAmount: null,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 5,
+      actorWounds: 2,
+      actorStress: 5,
+      targetStress: 3,
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
+    });
+    expect(use("hero_skill:p097", { ...comfortBright, light: undefined }, 4)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 2,
+      wounds: 3,
+      actorWounds: 2,
+      actorStress: 5,
+      riposteDamage: null,
+    });
+    // 暴击不减 Dodge +1。掷 3 暴击治疗 3，同区暴击压力 −1。不是命中治疗 2。
+    expect(use("hero_skill:p097", comfortBright, 3)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 3,
+      wounds: 2,
+      actorWounds: 2,
+      actorStress: 4,
+    });
+    // 1 堆增益把暴击阈值抬到 4。光照 5 不再另加暴击。掷 4 变成暴击治疗 3。
+    expect(
+      use("hero_skill:p097", { ...comfortBright, actor: { ...vestal, buffStacks: 1 } }, 4),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 3,
+      wounds: 2,
+      actorWounds: 2,
+      actorStress: 4,
+    });
+    // 高地 +1 与 Dodge +1 叠在一起。Dodge 4：命中阈值是 8。掷 8 命中、治疗 2。没有高地则是 7，掷 8 落空。
+    const lower = {
+      actor: vestal,
+      target: { ...patient, dodge: 4 },
+      areaDistance: 1,
+      targetsInArea: 2,
+      targetAreaLower: true,
+      light: 5,
+    };
+    expect(use("hero_skill:p097", lower, 8)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 2,
+      wounds: 3,
+      actorWounds: 2,
+      actorStress: 5,
+    });
+    expect(use("hero_skill:p097", { ...lower, targetAreaLower: false }, 8)).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      wounds: 5,
+      actorWounds: 2,
+      actorStress: 5,
+    });
+
+    // Absolution I 的目标是 Self，使用者自己也是英雄。Crit 1、Acc 12、命中治疗 2。
+    const absolution = card("hero_skill:p217");
+    expect(absolution.name).toBe("Absolution");
+    expect(absolution.level).toBe(1);
+    expect(absolution.hero).toBe("ABOMINATION");
+    expect(absolution.verification.unverified).toBe(false);
+    expect(absolution.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 1],
+      ["Acc", 12],
+    ]);
+    const abomination = { id: "abomination", wounds: 5, stress: 4 };
+    const self = {
+      id: "abomination",
+      side: "hero" as const,
+      wounds: 5,
+      dodge: 9,
+      stress: 4,
+    };
+    // 光照 4 不加 Dodge。命中阈值是 3，暴击阈值是 2。掷 3 命中、治疗 2，自身压力 −1。
+    expect(use("hero_skill:p217", { actor: abomination, target: self, light: 4 }, 3)).toMatchObject(
+      {
+        status: "resolved",
+        outcome: "hit",
+        effect: "heal",
+        printedAmount: 2,
+        wounds: 3,
+        actorWounds: 3,
+        actorStress: 3,
+        targetStress: 3,
+        skipped: [],
+      },
+    );
+    // 光照 5：Dodge 9 再 +1，命中阈值是 2。掷 3 落空。自身压力 −1 仍在，治疗没有。
+    expect(use("hero_skill:p217", { actor: abomination, target: self, light: 5 }, 3)).toMatchObject(
+      {
+        outcome: "miss",
+        printedAmount: null,
+        wounds: 5,
+        actorWounds: 5,
+        actorStress: 3,
+        targetStress: 3,
+      },
+    );
+    // 掷 1 仍是暴击治疗 4。暴击压力再 −1，停在 2。不减 Dodge。
+    expect(use("hero_skill:p217", { actor: abomination, target: self, light: 5 }, 1)).toMatchObject(
+      {
+        outcome: "crit",
+        printedAmount: 4,
+        wounds: 1,
+        actorWounds: 1,
+        actorStress: 2,
+        targetStress: 2,
+      },
+    );
+
+    // Inspiring Tune II：Acc 20。Dodge 17 再 +1 后，掷 3 落空。自身压力 −1，目标压力不动。
+    // 没有「承受压力额外 +1」。不传光照时掷 3 命中，双方各 −1。
+    const tune = card("hero_skill:p122");
+    expect(tune.name).toBe("Inspiring Tune");
+    expect(tune.level).toBe(2);
+    expect(tune.verification.unverified).toBe(false);
+    const jester = { id: "jester", wounds: 0, stress: 6 };
+    const stressed = { id: "vestal", side: "hero" as const, wounds: 1, dodge: 17, stress: 6 };
+    expect(
+      use("hero_skill:p122", { actor: jester, target: stressed, areaDistance: 0, light: 5 }, 3),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "miss",
+      effect: "stress",
+      actorStress: 5,
+      targetStress: 6,
+      wounds: 1,
+      skipped: [],
+    });
+    expect(
+      use("hero_skill:p122", { actor: jester, target: stressed, areaDistance: 0 }, 3),
+    ).toMatchObject({
+      outcome: "hit",
+      actorStress: 5,
+      targetStress: 5,
+      wounds: 1,
+    });
+  });
+
+  it("光照 5 不解开缺 stats 行的技能，距离不对也不因为 Dodge 放行", () => {
+    const vestal = { id: "vestal", wounds: 4, stress: 5 };
+    const patient = { id: "patient", side: "hero" as const, wounds: 5, dodge: 0, stress: 3 };
+    // Divine Comfort I 射程是 1。距离 2 整次拒绝，自身治疗 2 也不发生。
+    expect(
+      use("hero_skill:p097", { actor: vestal, target: patient, areaDistance: 2, light: 5 }, 1),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 5,
+      actorWounds: 4,
+      actorStress: 5,
+      targetStress: 3,
+    });
+
+    // Inspiring Cry I 的 stats 行是空的。效果行上的光照「+1」numeric 为 null，不能当成 Dodge 或光照 5。
+    const cry = card("hero_skill:p019");
+    expect(cry.name).toBe("Inspiring Cry");
+    expect(cry.level).toBe(1);
+    expect(cry.hero).toBe("CRUSADER");
+    expect(cry.verification.unverified).toBe(false);
+    expect(cry.stats_line).toBeNull();
+    expect(cry.printed_labels).toEqual([]);
+    expect(
+      cry.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["+1"]);
+    expect(
+      cry.effect_lines[1]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "damage_or_heal_combined_marker", "heal", "stress", "light"]);
+    expect(
+      use(
+        "hero_skill:p019",
+        {
+          actor: { id: "crusader", wounds: 4, stress: 4 },
+          target: patient,
+          light: 5,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      wounds: 5,
+      actorWounds: 4,
+      actorStress: 4,
+      targetStress: 3,
+    });
+
+    // 说明书 G-07 的 Zealous Accusation I 仍不能结算。光照 5 不从技能名猜伤害。
+    const zealous = card("hero_skill:p004");
+    expect(zealous.name).toBe("Zealous Accusation");
+    expect(zealous.level).toBe(1);
+    expect(zealous.verification.unverified).toBe(false);
+    expect(
+      zealous.stats_line
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text.trim()),
+    ).toEqual(["Zealous Accusation I"]);
+    expect(
+      use(
+        "hero_skill:p004",
+        {
+          actor: { id: "crusader", wounds: 1, stress: 4 },
+          target: { id: "soldier", side: "monster", wounds: 2, dodge: 0 },
+          light: 5,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      outcome: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 2,
+      actorWounds: 1,
+      actorStress: 4,
     });
   });
 
