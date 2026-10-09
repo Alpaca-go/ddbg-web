@@ -1004,36 +1004,155 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("压力数字对不上已命名目标，或 numeric 为 null，或 Self 打到别人身上时不改压力", () => {
-    const tune = card("hero_skill:p121");
-    expect(tune.name).toBe("Inspiring Tune");
-    expect(tune.level).toBe(1);
-    expect(tune.verification.unverified).toBe(false);
+  it("hero_skill:p121 Inspiring Tune I 用正面的两枚英雄头盔结算压力", () => {
+    const skill = card("hero_skill:p121");
+    expect(skill.name).toBe("Inspiring Tune");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("JESTER");
+    expect(skill.verification.unverified).toBe(false);
+    expect(skill.stats_line?.filter((segment) => segment.type === "icon")).toEqual([]);
     expect(
-      tune.unlabeled_numbers
+      skill.effect_lines.some((line) =>
+        line.some(
+          (segment) =>
+            segment.type === "icon" &&
+            (segment.icon.key === "target_hero" || segment.icon.key === "target_monster"),
+        ),
+      ),
+    ).toBe(false);
+    expect(
+      skill.front_icons
+        ?.filter(
+          (icon) =>
+            icon.key === "target_hero" &&
+            (icon.naming === "confirmed" || icon.naming === "confirmed_rulebook"),
+        )
+        .map((icon) => icon.key),
+    ).toEqual(["target_hero", "target_hero"]);
+    expect(
+      skill.unlabeled_numbers
         .filter(
           (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "stress",
         )
         .map((item) => item.numeric),
     ).toEqual([-1, -1]);
     expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([0]);
+
+    const combat: SkillCombatState = {
+      actor: { id: "jester", wounds: 1, stress: 4 },
+      heroesBesideActor: [{ id: "crusader", stress: 2 }],
+      target: {
+        id: "vestal",
+        side: "hero",
+        wounds: 3,
+        dodge: 15,
+        stress: 6,
+      },
+      areaDistance: 0,
+      targetsInArea: 2,
+    };
+    const frozen = structuredClone(combat);
+
+    expect(use("hero_skill:p121", combat, 6)).toEqual({
+      skillId: "hero_skill:p121",
+      targetId: "vestal",
+      status: "resolved",
+      reason: null,
+      outcome: "miss",
+      effect: "stress",
+      printedAmount: null,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 3,
+      actorWounds: 1,
+      targetDead: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+      targetProtectionIgnored: false,
+      actorShuffle: null,
+      targetShuffle: null,
+      actorForm: null,
+      actorStress: 3,
+      targetStress: 6,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+      untargetedBesideTargetStress: null,
+      skipped: [],
+    });
+    expect(combat).toEqual(frozen);
+
+    expect(use("hero_skill:p121", { ...combat, targetsInArea: 1 }, 5)).toMatchObject({
+      outcome: "hit",
+      effect: "stress",
+      actorStress: 3,
+      targetStress: 5,
+      wounds: 3,
+      skipped: [],
+    });
+    expect(use("hero_skill:p121", { ...combat, targetInActorArea: true }, 2)).toMatchObject({
+      outcome: "crit",
+      actorStress: 2,
+      targetStress: 4,
+      besideActorStress: [{ id: "crusader", stress: 1 }],
+    });
+    expect(use("hero_skill:p121", { ...combat, targetsInArea: 3 }, 5)).toMatchObject({
+      status: "refused",
+      reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
+      wounds: 3,
+      actorStress: 4,
+      targetStress: 6,
+      outcome: null,
+    });
+    expect(use("hero_skill:p121", { ...combat, areaDistance: 1 }, 5)).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      wounds: 3,
+      actorStress: 4,
+      targetStress: 6,
+    });
+    expect(
       use(
         "hero_skill:p121",
         {
-          actor: { id: "jester", wounds: 0, stress: 4 },
-          target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 4 },
+          ...combat,
+          target: { id: "soldier", side: "monster", wounds: 3, dodge: 15 },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标阵营与技能的目标图标不一致",
+      wounds: 3,
+      actorStress: 4,
+    });
+
+    const { front_icons, ...withoutFront } = skill;
+    expect(front_icons?.some((icon) => icon.key === "target_hero")).toBe(true);
+    expect(
+      resolveHeroSkill(
+        withoutFront,
+        {
+          actor: { id: "jester", wounds: 1, stress: 4 },
+          target: { id: "vestal", side: "hero", wounds: 3, dodge: 0, stress: 6 },
         },
         1,
       ),
     ).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 target_hero 或 target_monster",
-      wounds: 2,
+      wounds: 3,
       actorStress: 4,
-      targetStress: 4,
+      targetStress: 6,
       outcome: null,
     });
+  });
 
+  it("压力 numeric 为 null，或 Self 打到别人身上时不改压力", () => {
     const rage = card("hero_skill:p226");
     expect(rage.name).toBe("Rage");
     expect(rage.level).toBe(1);
