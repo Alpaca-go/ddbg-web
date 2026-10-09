@@ -44,6 +44,12 @@
  * 这一层不挪区域、不挪姿态轨，也不处理「Push 或 Pull」让玩家选方向。和眩晕、
  * 增益、标记或反击写在同一行的位移仍整行跳过。
  *
+ * 无视防护（规则书第 20 页目标效果可以改这次攻击的伤害，第 21 页 Protection
+ * 把攻击伤害减半）：一条效果行只有已命名的目标效果、文字「Ignores」、已命名的
+ * `protection`。命中或暴击的攻击伤害不减半；落空没有伤害。不移除防护代币，
+ * 也不改 Riposte：反弹仍按减半之前的伤害。治疗本来就不减半。自身效果上的
+ * Protection、带回合数的防护，以及「Ignores」旁边没命名的图标，都不算这条。
+ *
  * 不解释 `damage_or_heal_combined_marker`。姿态、射程、英雄 Life、死门骰都不在这里。
  */
 
@@ -182,6 +188,12 @@ export type HeroSkillResolution = {
   readonly actorShuffle: SkillShuffle | null;
   /** 目标效果上印的 Push / Pull。只在命中或暴击时有。落空为 null。 */
   readonly targetShuffle: SkillShuffle | null;
+  /**
+   * 命中或暴击的攻击伤害没有被 Protection 减半。
+   * 卡面目标效果是「Ignores」加已命名的防护，并且这次不是落空。否则为 false。
+   * 不表示防护代币被移除。
+   */
+  readonly targetProtectionIgnored: boolean;
   readonly actorStress: number | null;
   readonly targetStress: number | null;
   readonly besideActorStress: readonly SkillAreaHero[] | null;
@@ -257,6 +269,7 @@ function refuse(
     targetBlightCleared: false,
     actorShuffle: null,
     targetShuffle: null,
+    targetProtectionIgnored: false,
     actorStress,
     targetStress,
     besideActorStress: snapshotHeroes(combat.heroesBesideActor),
@@ -577,6 +590,53 @@ function shuffleFromLine(
   return { audience, move };
 }
 
+type IgnoresProtection = {
+  /** 对得上的「Ignores Protection」目标效果行。没有时为 0。 */
+  readonly targetLines: number;
+};
+
+/**
+ * 只接受「目标效果 + Ignores + protection」这一整行。
+ * 没有目标效果标记、文字不是「Ignores」、或防护图标没命名，就不算这条。
+ * 不读回合数，也不把这行理解成移除防护。
+ */
+function readIgnoresProtection(skill: HeroSkillCardView): IgnoresProtection {
+  let targetLines = 0;
+  for (const line of skill.effect_lines) {
+    if (ignoresProtectionLine(line)) targetLines += 1;
+  }
+  return { targetLines };
+}
+
+function ignoresProtectionLine(line: readonly SkillSegment[]): boolean {
+  let target = 0;
+  let protection = 0;
+  let sawIgnores = false;
+  for (const segment of line) {
+    if (segment.type === "text") {
+      const text = segment.text.trim();
+      if (text === "") continue;
+      if (text === "Ignores") {
+        if (sawIgnores) return false;
+        sawIgnores = true;
+        continue;
+      }
+      return false;
+    }
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) return false;
+    if (segment.icon.key === "target_effects") {
+      target += 1;
+      continue;
+    }
+    if (segment.icon.key === "protection") {
+      protection += 1;
+      continue;
+    }
+    return false;
+  }
+  return target === 1 && protection === 1 && sawIgnores;
+}
+
 function hasCombinedMarker(skill: HeroSkillCardView, keys: readonly string[]): boolean {
   if (keys.includes("damage_or_heal_combined_marker")) return true;
   for (const line of skill.effect_lines) {
@@ -742,6 +802,7 @@ export function resolveHeroSkill(
   const selfHeal = readSelfHeal(skill);
   const removal = readConditionRemoval(skill);
   const shuffles = readShuffles(skill);
+  const ignoresProtection = readIgnoresProtection(skill);
   const keys = namedKeys(skill.stats_line);
   const kinds = new Set(keys.filter((key) => key === "damage" || key === "heal"));
   if (kinds.size > 1) {
@@ -846,7 +907,9 @@ export function resolveHeroSkill(
       // +X vs 类型、攻击方修正、防御方加减、Hard Skinned 都不加：
       // 那些数字要么 numeric 为 null，要么不在这次调用里。
       const beforeProtection = amount;
-      damageDealt = target.protection === true ? halfUp(beforeProtection) : beforeProtection;
+      const skipProtection = ignoresProtection.targetLines > 0;
+      damageDealt =
+        target.protection === true && !skipProtection ? halfUp(beforeProtection) : beforeProtection;
       if (damageDealt >= 1) {
         wounds += damageDealt;
         if (target.riposte === true && actorWounds !== null) {
@@ -904,6 +967,8 @@ export function resolveHeroSkill(
     targetBlightCleared: conditionsCleared,
     actorShuffle: shuffles.self,
     targetShuffle: outcome === "miss" ? null : shuffles.target,
+    targetProtectionIgnored:
+      outcome !== "miss" && effect === "damage" && ignoresProtection.targetLines > 0,
     actorStress,
     targetStress,
     besideActorStress,
@@ -911,7 +976,11 @@ export function resolveHeroSkill(
     skipped: skippedEffects(
       skill,
       keys,
-      stress.lineCount + selfHeal.lineCount + removal.targetLines + shuffles.lineCount,
+      stress.lineCount +
+        selfHeal.lineCount +
+        removal.targetLines +
+        shuffles.lineCount +
+        ignoresProtection.targetLines,
     ),
   };
 }

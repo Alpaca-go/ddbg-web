@@ -164,6 +164,7 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
       actorStress: null,
@@ -247,6 +248,7 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
       actorStress: null,
@@ -299,6 +301,7 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
       actorStress: null,
@@ -331,6 +334,7 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
       actorStress: null,
@@ -809,6 +813,7 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
       actorStress: 3,
@@ -1081,6 +1086,7 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
       actorStress: 3,
@@ -1304,6 +1310,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 1,
       targetBleedCleared: true,
       targetBlightCleared: true,
+      targetProtectionIgnored: false,
       skipped: [{ code: "damage_or_heal_combined_marker" }, { code: "effect_lines" }],
     });
     expect(
@@ -1323,6 +1330,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 1,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
       skipped: [{ code: "damage_or_heal_combined_marker" }, { code: "effect_lines" }],
     });
   });
@@ -1432,6 +1440,7 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: true,
       targetBlightCleared: true,
+      targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
       actorStress: 3,
@@ -1453,6 +1462,7 @@ describe("resolveHeroSkill", () => {
       riposteDamage: null,
       targetBleedCleared: true,
       targetBlightCleared: true,
+      targetProtectionIgnored: false,
       besideActorStress: [{ id: "crusader", stress: 2 }],
       skipped: [],
     });
@@ -1468,6 +1478,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 6,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
       skipped: [],
     });
 
@@ -1479,6 +1490,7 @@ describe("resolveHeroSkill", () => {
       wounds: 0,
       targetBleedCleared: true,
       targetBlightCleared: true,
+      targetProtectionIgnored: false,
       actorStress: 3,
     });
 
@@ -1488,6 +1500,7 @@ describe("resolveHeroSkill", () => {
       wounds: 5,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
     });
   });
 
@@ -1517,6 +1530,7 @@ describe("resolveHeroSkill", () => {
       riposteDamage: null,
       targetBleedCleared: true,
       targetBlightCleared: true,
+      targetProtectionIgnored: false,
       skipped: [{ code: "damage_or_heal_combined_marker" }, { code: "effect_lines" }],
     });
     expect(
@@ -1536,6 +1550,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
     });
     expect(
       use(
@@ -1554,6 +1569,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
       targetBleedCleared: true,
       targetBlightCleared: true,
+      targetProtectionIgnored: false,
     });
   });
 
@@ -1585,6 +1601,7 @@ describe("resolveHeroSkill", () => {
       wounds: 4,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
       skipped: [{ code: "effect_lines" }],
     });
     expect(use("hero_skill:p007", target("monster", 1, 0), 10)).toMatchObject({
@@ -1594,6 +1611,7 @@ describe("resolveHeroSkill", () => {
       wounds: 1,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
       skipped: [{ code: "effect_lines" }],
     });
 
@@ -1633,6 +1651,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 1,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
     });
 
     const rush = card("hero_skill:p037");
@@ -1671,6 +1690,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 2,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
     });
   });
 
@@ -1709,6 +1729,7 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
       targetBleedCleared: false,
       targetBlightCleared: false,
+      targetProtectionIgnored: false,
       actorShuffle: { direction: "pull", distance: 1 },
       targetShuffle: null,
       actorStress: 3,
@@ -2086,6 +2107,242 @@ describe("resolveHeroSkill", () => {
       wounds: 2,
       actorShuffle: null,
       targetShuffle: null,
+      targetProtectionIgnored: false,
+    });
+  });
+
+  it("hero_skill:p169 Pick to the Face I 命中和暴击都不被 Protection 减半", () => {
+    const skill = card("hero_skill:p169");
+    expect(skill.name).toBe("Pick to the Face");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("GRAVE ROBBER");
+    expect(skill.verification.unverified).toBe(false);
+    expect(skill.effect_lines).toHaveLength(1);
+
+    const protectedTarget = {
+      id: "soldier",
+      side: "monster" as const,
+      wounds: 0,
+      dodge: 0,
+      protection: true,
+    };
+    const hit = use("hero_skill:p169", { target: protectedTarget }, 9);
+    expect(hit).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 4,
+      damageDealt: 4,
+      riposteDamage: null,
+      wounds: 4,
+      targetDead: false,
+      targetProtectionIgnored: true,
+      skipped: [],
+    });
+
+    const crit = use(
+      "hero_skill:p169",
+      {
+        actor: { id: "robber", wounds: 1, stress: 3 },
+        target: { ...protectedTarget, dodge: 20 },
+      },
+      1,
+    );
+    expect(crit).toMatchObject({
+      outcome: "crit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 2,
+      actorWounds: 1,
+      targetProtectionIgnored: true,
+      skipped: [],
+    });
+
+    const missed = use("hero_skill:p169", { target: protectedTarget }, 10);
+    expect(missed).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      targetProtectionIgnored: false,
+      skipped: [],
+    });
+
+    const life = monster("monster_medium:p001").life;
+    expect(life).toBe(7);
+    expect(
+      use("hero_skill:p169", { target: { ...protectedTarget, wounds: 0, life } }, 1),
+    ).toMatchObject({
+      outcome: "crit",
+      damageDealt: 7,
+      wounds: 7,
+      targetDead: true,
+      targetProtectionIgnored: true,
+    });
+    expect(
+      use("hero_skill:p169", { target: { ...protectedTarget, wounds: 0, life } }, 9),
+    ).toMatchObject({
+      outcome: "hit",
+      damageDealt: 4,
+      wounds: 4,
+      targetDead: false,
+      targetProtectionIgnored: true,
+    });
+
+    expect(
+      use(
+        "hero_skill:p169",
+        {
+          actor: { id: "robber", wounds: 2, stress: 1 },
+          target: { ...protectedTarget, wounds: 1, riposte: true },
+        },
+        9,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 4,
+      damageDealt: 4,
+      riposteDamage: 2,
+      wounds: 5,
+      actorWounds: 4,
+      targetProtectionIgnored: true,
+    });
+  });
+
+  it("hero_skill:p170 与 p171 的无视防护在暴击时仍是印刷伤害", () => {
+    const second = card("hero_skill:p170");
+    expect(second.name).toBe("Pick to the Face");
+    expect(second.level).toBe(2);
+    expect(second.verification.unverified).toBe(false);
+    const shielded = {
+      target: {
+        id: "soldier",
+        side: "monster" as const,
+        wounds: 1,
+        dodge: 0,
+        protection: true,
+      },
+    };
+    expect(use("hero_skill:p170", shielded, 10)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 6,
+      damageDealt: 6,
+      wounds: 7,
+      targetProtectionIgnored: true,
+      skipped: [],
+    });
+    expect(
+      use(
+        "hero_skill:p170",
+        {
+          actor: { id: "robber", wounds: 0, stress: 4 },
+          target: { ...shielded.target, dodge: 8 },
+        },
+        1,
+      ),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 10,
+      damageDealt: 10,
+      wounds: 11,
+      actorStress: 3,
+      targetProtectionIgnored: true,
+    });
+    expect(use("hero_skill:p170", { target: { ...shielded.target, dodge: 1 } }, 10)).toMatchObject({
+      outcome: "miss",
+      damageDealt: null,
+      wounds: 1,
+      targetProtectionIgnored: false,
+    });
+
+    const third = card("hero_skill:p171");
+    expect(third.name).toBe("Pick to the Face");
+    expect(third.level).toBe(3);
+    expect(third.hero).toBe("GRAVE ROBBER");
+    expect(third.verification.unverified).toBe(false);
+    expect(use("hero_skill:p171", shielded, 10)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 8,
+      targetProtectionIgnored: true,
+      skipped: [],
+    });
+    expect(use("hero_skill:p171", shielded, 1)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 12,
+      damageDealt: 12,
+      wounds: 13,
+      targetProtectionIgnored: true,
+    });
+    expect(use("hero_skill:p171", { target: { ...shielded.target, dodge: 2 } }, 10)).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      wounds: 1,
+      targetProtectionIgnored: false,
+    });
+  });
+
+  it("防护回合数是 null，或 Ignores 旁边的图标没命名时，不把这次攻击当成无视防护", () => {
+    const bulwark = card("hero_skill:p010");
+    expect(bulwark.name).toBe("Bulwark of Faith");
+    expect(bulwark.level).toBe(1);
+    expect(bulwark.hero).toBe("CRUSADER");
+    expect(bulwark.verification.unverified).toBe(false);
+    expect(bulwark.stats_line).toBeNull();
+    expect(
+      bulwark.unlabeled_numbers
+        .filter(
+          (item) =>
+            item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "protection",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(
+      use(
+        "hero_skill:p010",
+        { target: { id: "soldier", side: "monster", wounds: 3, dodge: 0, protection: true } },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      outcome: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 3,
+      targetProtectionIgnored: false,
+    });
+
+    const dirk = card("hero_skill:p106");
+    expect(dirk.name).toBe("Dirk Stab");
+    expect(dirk.level).toBe(1);
+    expect(dirk.hero).toBe("JESTER");
+    expect(dirk.verification.unverified).toBe(true);
+    expect(
+      dirk.effect_lines[1]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["pending_a2e7252e06"]);
+    expect(
+      use(
+        "hero_skill:p106",
+        {
+          actor: { id: "jester", wounds: 0, stress: 2 },
+          target: { id: "soldier", side: "monster", wounds: 4, dodge: 0, protection: true },
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "未验证的技能不结算（R-048）",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 4,
+      targetProtectionIgnored: false,
     });
   });
 });
