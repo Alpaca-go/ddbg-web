@@ -98,9 +98,13 @@
  * 在该区域选中的个数时，必须是 1 到这个个数。少选可以；多选就整次拒绝，自身效果、
  * 伤害、治疗和位移都不发生。不传就不检查，也不替调用方挑人。一次调用仍只结算传入
  * 的那一个目标。效果行里的头盔不计数：Inspiring Cry、Battle Ballad 的 stats 行是空的，
- * 不从效果行凑个数。Self 和 All Allies 没有这种图标，不当成 1 个，也不当成全体。
- * 选空区域算成功使用（R-025），但这一层始终带着一个已选目标，传入 0 不在这里结算。
- * 有 Guard 的敌人必须被选中（R-024）不查。
+ * 不从效果行凑个数。stats 行和效果行都没有这些图标时，用卡面正面 `front_icons` 里
+ * 已命名的头盔或怪物头，个数和阵营都用它们。Inspiring Tune I 的 stats 行只排进了
+ * 「Crit 2 Acc 20」，两枚英雄头盔在正面图标里。效果行里已经有头盔时仍不用正面图标，
+ * 避免和效果行重复计数。正面也没有时，不把 Self 或 All Allies 当成个数。
+ * 不因此把技能名旁边的 Crit / Acc 整数当成伤害：Zealous Accusation 的 stats 行仍没有
+ * 已命名的 damage。选空区域算成功使用（R-025），但这一层始终带着一个已选目标，传入 0
+ * 不在这里结算。有 Guard 的敌人必须被选中（R-024）不查。
  *
  * 已有的增益（规则书第 21 页，说明书 §6.5 第 4 步、§7.2）：使用者身上每一堆 Buff
  * 让这次掷骰的暴击阈值 +1。暴击仍先于命中、仍不减 Dodge。不传堆数就当作没有。
@@ -193,6 +197,11 @@ export type HeroSkillCardView = {
    * 不传就无法在调用方给出当前姿态时核对。
    */
   readonly top_row_icons?: readonly SkillIconRef[];
+  /**
+   * 卡面正面上的图标。stats 行和效果行都没有已命名目标图标时，用这里已命名的
+   * 英雄头盔或怪物头补阵营和个数（规则书第 19 页）。不传就只看 stats 行。
+   */
+  readonly front_icons?: readonly SkillIconRef[];
 };
 
 export type SkillTargetSide = "hero" | "monster";
@@ -1249,24 +1258,49 @@ type PrintedTargets =
   | { readonly kind: "absent" }
   | { readonly kind: "mixed" };
 
+function countNamedTargets(icons: readonly SkillIconRef[]): { hero: number; monster: number } {
+  let hero = 0;
+  let monster = 0;
+  for (const icon of icons) {
+    if (!NAMED.has(icon.naming) || icon.key === null) continue;
+    if (icon.key === "target_hero") hero += 1;
+    if (icon.key === "target_monster") monster += 1;
+  }
+  return { hero, monster };
+}
+
+function lineTargetIcons(line: readonly SkillSegment[]): SkillIconRef[] {
+  const icons: SkillIconRef[] = [];
+  for (const segment of line) {
+    if (segment.type === "icon") icons.push(segment.icon);
+  }
+  return icons;
+}
+
 /**
- * 只数 stats 行上已命名的 target_monster / target_hero。
- * 效果行、Self、All Allies 都不算。两种目标图标同时在场时不定个数。
+ * stats 行优先。效果行里已经有已命名的头盔或怪物头时，不改用正面图标，
+ * 那些仍不计数。两边都没有时，才用 `front_icons`。
+ */
+function readTargetIconCounts(skill: HeroSkillCardView): { hero: number; monster: number } {
+  const stats = countNamedTargets(lineTargetIcons(skill.stats_line ?? []));
+  if (stats.hero > 0 || stats.monster > 0) return stats;
+  for (const line of skill.effect_lines) {
+    const onLine = countNamedTargets(lineTargetIcons(line));
+    if (onLine.hero > 0 || onLine.monster > 0) return { hero: 0, monster: 0 };
+  }
+  return countNamedTargets(skill.front_icons ?? []);
+}
+
+/**
+ * 只数已命名的 target_monster / target_hero。
+ * 效果行、Self、All Allies 都不算。stats 行和效果行都没有时，用卡面正面的。
+ * 两种目标图标同时在场时不定个数。
  */
 function readPrintedTargets(skill: HeroSkillCardView): PrintedTargets {
-  const line = skill.stats_line;
-  if (line === null) return { kind: "absent" };
-  let heroes = 0;
-  let monsters = 0;
-  for (const segment of line) {
-    if (segment.type !== "icon") continue;
-    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) continue;
-    if (segment.icon.key === "target_hero") heroes += 1;
-    if (segment.icon.key === "target_monster") monsters += 1;
-  }
-  if (heroes > 0 && monsters > 0) return { kind: "mixed" };
-  if (heroes > 0) return { kind: "exact", max: heroes };
-  if (monsters > 0) return { kind: "exact", max: monsters };
+  const counts = readTargetIconCounts(skill);
+  if (counts.hero > 0 && counts.monster > 0) return { kind: "mixed" };
+  if (counts.hero > 0) return { kind: "exact", max: counts.hero };
+  if (counts.monster > 0) return { kind: "exact", max: counts.monster };
   return { kind: "absent" };
 }
 
@@ -1479,7 +1513,10 @@ export function resolveHeroSkill(
 
   const formOnly = effect === null;
   const selfTarget = !formOnly && readsAsSelfTarget(skill);
-  const targets = new Set(keys.filter((key) => key === "target_hero" || key === "target_monster"));
+  const targetCounts = readTargetIconCounts(skill);
+  const targets = new Set<"target_hero" | "target_monster">();
+  if (targetCounts.hero > 0) targets.add("target_hero");
+  if (targetCounts.monster > 0) targets.add("target_monster");
   if (!formOnly && !selfTarget && targets.size !== 1) {
     return refuse(
       skill,
