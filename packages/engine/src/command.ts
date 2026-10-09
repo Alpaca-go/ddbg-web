@@ -6,6 +6,11 @@ import type { EncounterCommand, EncounterEvent } from "./encounter";
 import { applyBattleShuffles } from "./battle-shuffle";
 import { playMonsterSkill } from "./battle-monster";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
+import { prepareMonsterAction } from "./battle-monster-action";
+import type {
+  MonsterActionPreparedEvent,
+  PrepareMonsterActionCommand,
+} from "./battle-monster-action";
 
 export type GameState = {
   readonly seed: number;
@@ -44,6 +49,7 @@ export type Command =
   | EncounterCommand
   | PlayHeroSkillCommand
   | PlayMonsterSkillCommand
+  | PrepareMonsterActionCommand
   | { readonly type: "resolveShuffles" }
   | {
       readonly type: "resolveChoice";
@@ -59,6 +65,7 @@ export type GameEvent =
   | EncounterEvent
   | HeroSkillResolvedEvent
   | MonsterSkillResolvedEvent
+  | MonsterActionPreparedEvent
   | {
       readonly type: "heroCritAreaResolved" | "monsterCritAreaResolved";
       readonly message: string;
@@ -115,6 +122,7 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
   if (state.battle?.pending) return rejectBattleCommand(state, "请先完成待选位移");
   if (command.type === "resolveShuffles") return applyBattleShuffles(state);
   if (state.battle?.shuffleIntents.length) return rejectBattleCommand(state, "请先结算位移意图");
+  if (command.type === "prepareMonsterAction") return prepareMonsterAction(state, command);
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);
   if (command.type === "playMonsterSkill") return playMonsterSkill(state, command);
   if (command.type !== "ping") return applyEncounterCommand(state, command);

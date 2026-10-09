@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { iconStatusSchema } from "../dictionary/schema";
 import { iconIdSchema, levelSchema, pageListSchema } from "../extract/common";
+import { monsterStanceGroupsSchema } from "./monster-stance";
 
 /** 可以拿来命名的只有 confirmed / confirmed_rulebook。decor 不是游戏图标。其余按 R-048 标未验证。 */
 export const NAMINGS = ["confirmed", "confirmed_rulebook", "decor", "unverified"] as const;
@@ -216,17 +217,31 @@ const largeMonsterReferenceSchema = z.strictObject({
 });
 
 /** `life` 是规则书 p.24 心形里的数字。parsed 层的字段名是 hp。 */
-const monsterCardSchema = z.strictObject({
-  ...monsterShared,
-  life: z.int().positive(),
-  life_icon: normalizedIconSchema,
-  resistances: z.array(normalizedIconSchema),
-  immunities: z.array(normalizedIconSchema),
-  header_unlabeled_numbers: z.array(normalizedUnlabeledNumberSchema),
-  skills: z.array(normalizedMonsterSkillSchema).min(1),
-  footer_lines: lineListSchema,
-  back_texts: lineListSchema,
-});
+const monsterCardSchema = z
+  .strictObject({
+    ...monsterShared,
+    life: z.int().positive(),
+    life_icon: normalizedIconSchema,
+    resistances: z.array(normalizedIconSchema),
+    immunities: z.array(normalizedIconSchema),
+    header_unlabeled_numbers: z.array(normalizedUnlabeledNumberSchema),
+    skills: z.array(normalizedMonsterSkillSchema).min(1),
+    footer_lines: lineListSchema,
+    /** 缺失表示尚未核实；没有默认分组，不由原始行自动生成。 */
+    stanceGroups: monsterStanceGroupsSchema.optional(),
+    back_texts: lineListSchema,
+  })
+  .superRefine((card, ctx) => {
+    for (const group of card.stanceGroups ?? []) {
+      const slots = "skill" in group ? [group.skill] : group.rollTable.map((row) => row.skill);
+      if (slots.some((slot) => card.skills.filter((skill) => skill.slot === slot).length !== 1))
+        ctx.addIssue({
+          code: "custom",
+          message: "姿态选招必须引用卡上唯一存在的技能编号",
+          path: ["stanceGroups"],
+        });
+    }
+  });
 
 export const normalizedMonsterMediumCardSchema = z.union([
   largeMonsterReferenceSchema,
