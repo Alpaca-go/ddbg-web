@@ -4971,4 +4971,621 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
   });
+
+  it("目标是怪物时，每一堆已有的 Mark 让命中阈值 +1，英雄目标不加", () => {
+    const shot = card("hero_skill:p148");
+    expect(shot.name).toBe("Sniper Shot");
+    expect(shot.level).toBe(1);
+    expect(shot.hero).toBe("ARBALEST");
+    expect(shot.verification.unverified).toBe(false);
+    expect(shot.printed_labels).toEqual([
+      { label: "Crit", raw: "Crit 1", value: 1 },
+      { label: "Acc", raw: "Acc 9", value: 9 },
+    ]);
+    expect(
+      shot.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => [
+          item.anchor.type === "printed_label" ? item.anchor.label : "",
+          item.numeric,
+        ]),
+    ).toEqual([
+      ["Crit", 9],
+      ["Acc", 6],
+    ]);
+    expect(
+      shot.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["+3"]);
+    expect(
+      shot.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "damage", "mark"]);
+
+    const arbalest = { id: "arbalest", wounds: 0, stress: 4 };
+    const soldier = {
+      id: "soldier",
+      side: "monster" as const,
+      wounds: 0,
+      dodge: 0,
+      markStacks: 1,
+    };
+    const beside = [{ id: "vestal", stress: 2 }];
+    // 射程印的是 2。Acc 9 + 1 堆 = 10。掷 10 从落空变成命中，伤害仍是 6，不是 6 + 1，也不是 +3。
+    const oneStack = {
+      actor: arbalest,
+      heroesBesideActor: beside,
+      target: soldier,
+      areaDistance: 2,
+    };
+    const frozen = structuredClone(oneStack);
+    expect(use("hero_skill:p148", oneStack, 10)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 6,
+      damageDealt: 6,
+      wounds: 6,
+      actorWounds: 0,
+      actorStress: 4,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+      riposteDamage: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(oneStack).toEqual(frozen);
+    expect(
+      use("hero_skill:p148", { ...oneStack, target: { ...soldier, markStacks: 0 } }, 10),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorStress: 4,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+    });
+    expect(
+      use(
+        "hero_skill:p148",
+        {
+          actor: arbalest,
+          heroesBesideActor: beside,
+          target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
+          areaDistance: 2,
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+    });
+    // 标记不加暴击阈值。Crit 仍是 1：掷 1 暴击、伤害 9；掷 2 是命中、伤害 6。
+    expect(use("hero_skill:p148", oneStack, 1)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 9,
+      damageDealt: 9,
+      wounds: 9,
+      actorStress: 3,
+      besideActorStress: [{ id: "vestal", stress: 1 }],
+    });
+    expect(use("hero_skill:p148", oneStack, 2)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 6,
+      damageDealt: 6,
+      wounds: 6,
+      actorStress: 4,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+    });
+    // Dodge 8。两堆把命中阈值抬到 3。掷 3 命中、伤害 6；掷 4 仍落空。暴击阈值仍是 1。
+    const dodging = { ...soldier, dodge: 8, wounds: 1, markStacks: 2 };
+    expect(
+      use("hero_skill:p148", { actor: arbalest, target: dodging, areaDistance: 2 }, 3),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 6,
+      damageDealt: 6,
+      wounds: 7,
+      actorStress: 4,
+    });
+    expect(
+      use("hero_skill:p148", { actor: arbalest, target: dodging, areaDistance: 2 }, 4),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 1,
+      riposteDamage: null,
+      actorStress: 4,
+    });
+    // 一堆、Dodge 8：命中阈值是 2。掷 2 命中。防护减半后是 3，反弹按减半前的 6 取一半。
+    expect(
+      use(
+        "hero_skill:p148",
+        {
+          actor: arbalest,
+          target: { ...dodging, markStacks: 1, protection: true, riposte: true },
+          areaDistance: 2,
+        },
+        2,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 6,
+      damageDealt: 3,
+      riposteDamage: 3,
+      wounds: 4,
+      actorWounds: 3,
+      actorStress: 4,
+    });
+    expect(
+      use(
+        "hero_skill:p148",
+        {
+          actor: arbalest,
+          target: { ...dodging, markStacks: 0 },
+          areaDistance: 2,
+        },
+        2,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 1,
+      actorWounds: 0,
+    });
+
+    // 增益和减益只抬暴击，标记只抬命中。Crit 0 + 1 + 1 = 2，Acc 9 + 1 = 10。
+    const smite = card("hero_skill:p001");
+    expect(smite.name).toBe("Smite");
+    expect(smite.level).toBe(1);
+    expect(smite.verification.unverified).toBe(false);
+    const marked = { ...soldier, markStacks: 1, debuffStacks: 1 };
+    expect(
+      use(
+        "hero_skill:p001",
+        {
+          actor: { id: "crusader", wounds: 0, stress: 4, buffStacks: 1 },
+          target: marked,
+          areaDistance: 0,
+        },
+        2,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      printedAmount: 13,
+      damageDealt: 13,
+      wounds: 13,
+      actorStress: 3,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(
+      use(
+        "hero_skill:p001",
+        {
+          actor: { id: "crusader", wounds: 0, stress: 4, buffStacks: 1 },
+          target: marked,
+          areaDistance: 0,
+        },
+        3,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 4,
+    });
+    expect(
+      use(
+        "hero_skill:p001",
+        {
+          actor: { id: "crusader", wounds: 0, stress: 4, buffStacks: 1 },
+          target: marked,
+          areaDistance: 0,
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 4,
+    });
+    expect(
+      use(
+        "hero_skill:p001",
+        {
+          actor: { id: "crusader", wounds: 0, stress: 4, buffStacks: 1 },
+          target: { ...marked, markStacks: 0 },
+          areaDistance: 0,
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorStress: 4,
+    });
+
+    const pistol = card("hero_skill:p067");
+    expect(pistol.name).toBe("Pistol Shot");
+    expect(pistol.level).toBe(1);
+    expect(pistol.verification.unverified).toBe(false);
+    expect(
+      pistol.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["+2", "1-2"]);
+    // 射程是区间，不传距离。+2 vs 已命名标记的 numeric 为 null，命中伤害仍是 5。
+    expect(use("hero_skill:p067", { actor: arbalest, target: soldier }, 10)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 5,
+      damageDealt: 5,
+      wounds: 5,
+      actorStress: 4,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(
+      use("hero_skill:p067", { actor: arbalest, target: { ...soldier, markStacks: 0 } }, 10),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+    });
+    // 五堆只抬命中。Crit 仍是 1，掷 2 是命中、伤害 5，不是暴击 9，也不是 7。
+    expect(
+      use("hero_skill:p067", { actor: arbalest, target: { ...soldier, markStacks: 5 } }, 2),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 5,
+      damageDealt: 5,
+      wounds: 5,
+      actorStress: 4,
+    });
+
+    const hither = card("hero_skill:p049");
+    expect(hither.name).toBe("Come Hither");
+    expect(hither.level).toBe(1);
+    expect(hither.hero).toBe("BOUNTY HUNTER");
+    expect(hither.verification.unverified).toBe(false);
+    expect(hither.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 0],
+      ["Acc", 9],
+    ]);
+    expect(
+      hither.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => item.numeric),
+    ).toEqual([4, 2]);
+    expect(
+      hither.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "mark", "shuffle"]);
+    // Crit 0。标记堆不把掷 1 变成暴击，伤害仍是 2。同一行的 2t 和 Pull 2 不抽出位移。
+    expect(
+      use(
+        "hero_skill:p049",
+        { actor: { id: "bounty-hunter", wounds: 0, stress: 3 }, target: soldier, areaDistance: 2 },
+        1,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 2,
+      damageDealt: 2,
+      wounds: 2,
+      actorStress: 3,
+      actorShuffle: null,
+      targetShuffle: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(
+      use(
+        "hero_skill:p049",
+        {
+          actor: { id: "bounty-hunter", wounds: 0, stress: 3 },
+          target: { ...soldier, markStacks: 0 },
+          areaDistance: 2,
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      targetShuffle: null,
+      actorStress: 3,
+    });
+    expect(
+      use(
+        "hero_skill:p049",
+        { actor: { id: "bounty-hunter", wounds: 0, stress: 3 }, target: soldier, areaDistance: 2 },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 2,
+      damageDealt: 2,
+      wounds: 2,
+      targetShuffle: null,
+    });
+
+    // Battle Heal I：Acc 12、Crit 2。友方 3 堆标记不加。Dodge 12 时掷 3 仍落空，不治疗。
+    const heal = card("hero_skill:p013");
+    expect(heal.name).toBe("Battle Heal");
+    expect(heal.level).toBe(1);
+    expect(heal.verification.unverified).toBe(false);
+    const vestal = { id: "vestal", wounds: 1, stress: 5 };
+    const patient = {
+      id: "patient",
+      side: "hero" as const,
+      wounds: 5,
+      dodge: 12,
+      stress: 3,
+      markStacks: 3,
+      protection: true,
+      riposte: true,
+    };
+    expect(use("hero_skill:p013", { actor: vestal, target: patient }, 3)).toMatchObject({
+      status: "resolved",
+      outcome: "miss",
+      effect: "heal",
+      printedAmount: null,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 5,
+      actorWounds: 1,
+      actorStress: 5,
+      targetStress: 3,
+    });
+    expect(
+      use("hero_skill:p013", { actor: vestal, target: { ...patient, markStacks: 0 } }, 3),
+    ).toMatchObject({
+      outcome: "miss",
+      wounds: 5,
+      actorStress: 5,
+    });
+
+    // Absolution I：目标是自己。Crit 1、Acc 12。自己的标记不加，掷 2 落空，自身压力仍 −1。
+    expect(
+      use(
+        "hero_skill:p217",
+        {
+          actor: { id: "abomination", wounds: 5, stress: 4 },
+          heroesBesideActor: [{ id: "vestal", stress: 2 }],
+          target: {
+            id: "abomination",
+            side: "hero",
+            wounds: 5,
+            dodge: 12,
+            stress: 4,
+            markStacks: 5,
+          },
+        },
+        2,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "miss",
+      effect: "heal",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 5,
+      actorWounds: 5,
+      actorStress: 3,
+      targetStress: 3,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+    });
+
+    // 没有 Acc 的变身不掷骰。目标身上的标记不造出一次命中或暴击。
+    expect(
+      use(
+        "hero_skill:p220",
+        {
+          actor: { id: "abomination", wounds: 5, stress: 3 },
+          target: {
+            id: "cultist",
+            side: "monster",
+            wounds: 4,
+            dodge: 0,
+            markStacks: 4,
+          },
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: null,
+      effect: null,
+      actorForm: "beast",
+      wounds: 4,
+      actorWounds: 5,
+      actorStress: 3,
+    });
+  });
+
+  it("标记堆数不是非负整数时整次拒绝；卡面 2t 和 +N vs 标记不读成堆数或伤害", () => {
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 2, dodge: 0 };
+    expect(
+      use(
+        "hero_skill:p148",
+        {
+          actor: { id: "arbalest", wounds: 1, stress: 4 },
+          target: { ...soldier, markStacks: -1 },
+          areaDistance: 2,
+        },
+        10,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标的标记堆数必须是非负整数",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 2,
+      actorWounds: 1,
+      actorStress: 4,
+    });
+    expect(
+      use(
+        "hero_skill:p001",
+        {
+          actor: { id: "crusader", wounds: 0, stress: 4 },
+          target: { ...soldier, wounds: 3, markStacks: 1.5 },
+          areaDistance: 0,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标的标记堆数必须是非负整数",
+      wounds: 3,
+      actorWounds: 0,
+      actorStress: 4,
+      damageDealt: null,
+    });
+    expect(
+      use(
+        "hero_skill:p013",
+        {
+          actor: { id: "vestal", wounds: 1, stress: 5 },
+          target: {
+            id: "patient",
+            side: "hero",
+            wounds: 5,
+            dodge: 0,
+            stress: 3,
+            markStacks: -1,
+          },
+        },
+        3,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标的标记堆数必须是非负整数",
+      wounds: 5,
+      actorWounds: 1,
+      actorStress: 5,
+      targetStress: 3,
+      damageDealt: null,
+    });
+
+    const hex = card("hero_skill:p202");
+    expect(hex.name).toBe("Vulnerability Hex");
+    expect(hex.level).toBe(1);
+    expect(hex.hero).toBe("OCCULTIST");
+    expect(hex.verification.unverified).toBe(false);
+    expect(hex.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 1],
+      ["Acc", 10],
+    ]);
+    expect(
+      hex.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => item.numeric),
+    ).toEqual([2, 1]);
+    expect(hex.effect_lines).toHaveLength(1);
+    expect(
+      hex.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "mark"]);
+    expect(
+      hex.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["2t", "1-2"]);
+    // Dodge 10，没有已有的标记时命中阈值是 0。若把 2t 读成 2 堆，掷 2 会命中、伤害 1。回合数是 null，所以落空。
+    expect(
+      use(
+        "hero_skill:p202",
+        {
+          actor: { id: "occultist", wounds: 0, stress: 2 },
+          target: { ...soldier, wounds: 0, dodge: 10, markStacks: 0 },
+        },
+        2,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "miss",
+      effect: "damage",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorStress: 2,
+      skipped: [{ code: "effect_lines" }],
+    });
+    // 调用方的 1 堆把命中阈值抬到 1，卡上的 2t 不再加一堆，掷 2 仍落空。两堆才命中，伤害仍是 1。
+    expect(
+      use(
+        "hero_skill:p202",
+        {
+          actor: { id: "occultist", wounds: 0, stress: 2 },
+          target: { ...soldier, wounds: 0, dodge: 10, markStacks: 1 },
+        },
+        2,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorStress: 2,
+    });
+    expect(
+      use(
+        "hero_skill:p202",
+        {
+          actor: { id: "occultist", wounds: 0, stress: 2 },
+          target: { ...soldier, wounds: 0, dodge: 10, markStacks: 2 },
+        },
+        2,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 1,
+      damageDealt: 1,
+      wounds: 1,
+      actorStress: 2,
+      skipped: [{ code: "effect_lines" }],
+    });
+
+    const mark = card("hero_skill:p154");
+    expect(mark.name).toBe("Sniper’s Mark");
+    expect(mark.level).toBe(1);
+    expect(mark.verification.unverified).toBe(false);
+    expect(
+      mark.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["2t", "1-2"]);
+    // 目标已经有 1 堆。这张卡没有伤害或治疗，2t 仍不放新标记，整次拒绝，伤口不动。
+    expect(
+      use(
+        "hero_skill:p154",
+        {
+          actor: { id: "arbalest", wounds: 0, stress: 2 },
+          target: { id: "soldier", side: "monster", wounds: 4, dodge: 0, markStacks: 1 },
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      wounds: 4,
+      actorWounds: 0,
+      actorStress: 2,
+      actorForm: null,
+    });
+  });
 });
