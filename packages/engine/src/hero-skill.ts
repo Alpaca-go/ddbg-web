@@ -50,6 +50,14 @@
  * 也不改 Riposte：反弹仍按减半之前的伤害。治疗本来就不减半。自身效果上的
  * Protection、带回合数的防护，以及「Ignores」旁边没命名的图标，都不算这条。
  *
+ * 切换形态（规则书第 38 页，说明书 §16.3；自身效果见第 20 页，说明书 §6.5
+ * 第 5 步）：一条效果行只有已命名的自身效果，文字恰好是「Self Change: Beast」
+ * 或「Self Change: Human」。没有 Acc 的技能不掷骰，直接生效（规则书第 19 页
+ * Note）。结果写在 `actorForm` 上，只记下要换成的形态。不翻转技能卡、英雄卡、
+ * 姿态代币或棋子。同一张卡背面的另一形态不在 `effect_lines` 里，不在这里读。
+ * 邻行的压力 `+2` 和增益回合 `numeric` 为 null，不加。和它们写在同一行的治疗
+ * 整数也不是「Self + heal」那一种自身治疗，不扣伤口。
+ *
  * 不解释 `damage_or_heal_combined_marker`。姿态、射程、英雄 Life、死门骰都不在这里。
  */
 
@@ -156,6 +164,9 @@ export type SkillShuffle = {
   readonly distance: number;
 };
 
+/** 规则书第 38 页憎恶的两种形态。卡面印的是 Beast / Human。 */
+export type SkillForm = "beast" | "human";
+
 export type HeroSkillResolution = {
   readonly skillId: string;
   readonly targetId: string;
@@ -194,6 +205,11 @@ export type HeroSkillResolution = {
    * 不表示防护代币被移除。
    */
   readonly targetProtectionIgnored: boolean;
+  /**
+   * 自身效果印的「Self Change: Beast / Human」。没有 Acc 时不掷骰也记上。
+   * 没有这条效果时为 null。不表示卡和棋子已经翻面。
+   */
+  readonly actorForm: SkillForm | null;
   readonly actorStress: number | null;
   readonly targetStress: number | null;
   readonly besideActorStress: readonly SkillAreaHero[] | null;
@@ -270,6 +286,7 @@ function refuse(
     actorShuffle: null,
     targetShuffle: null,
     targetProtectionIgnored: false,
+    actorForm: null,
     actorStress,
     targetStress,
     besideActorStress: snapshotHeroes(combat.heroesBesideActor),
@@ -637,6 +654,54 @@ function ignoresProtectionLine(line: readonly SkillSegment[]): boolean {
   return target === 1 && protection === 1 && sawIgnores;
 }
 
+type FormChange = {
+  readonly form: SkillForm | null;
+  /** 对得上的变身行。没有，或不止一条时为 0。 */
+  readonly lineCount: number;
+};
+
+const FORM_TEXT = /^Self Change: (Beast|Human)$/;
+
+/**
+ * 只接受「自身效果 + Self Change: Beast / Human」这一整行。
+ * 文字必须是这一整句。不从卡背、技能名或别的文字里读形态。
+ */
+function readFormChange(skill: HeroSkillCardView): FormChange {
+  const forms: SkillForm[] = [];
+  for (const line of skill.effect_lines) {
+    const form = formFromLine(line);
+    if (form !== null) forms.push(form);
+  }
+  const form = forms.length === 1 ? forms[0] : undefined;
+  if (form === undefined) return { form: null, lineCount: 0 };
+  return { form, lineCount: 1 };
+}
+
+function formFromLine(line: readonly SkillSegment[]): SkillForm | null {
+  let self = 0;
+  let phrase: string | null = null;
+  for (const segment of line) {
+    if (segment.type === "text") {
+      const text = segment.text.trim();
+      if (text === "") continue;
+      if (phrase !== null) return null;
+      phrase = text;
+      continue;
+    }
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) return null;
+    if (segment.icon.key === "self_effects") {
+      self += 1;
+      continue;
+    }
+    return null;
+  }
+  if (self !== 1 || phrase === null) return null;
+  const matched = FORM_TEXT.exec(phrase);
+  if (matched?.[1] === "Beast") return "beast";
+  if (matched?.[1] === "Human") return "human";
+  return null;
+}
+
 function hasCombinedMarker(skill: HeroSkillCardView, keys: readonly string[]): boolean {
   if (keys.includes("damage_or_heal_combined_marker")) return true;
   for (const line of skill.effect_lines) {
@@ -803,23 +868,29 @@ export function resolveHeroSkill(
   const removal = readConditionRemoval(skill);
   const shuffles = readShuffles(skill);
   const ignoresProtection = readIgnoresProtection(skill);
+  const formChange = readFormChange(skill);
   const keys = namedKeys(skill.stats_line);
   const kinds = new Set(keys.filter((key) => key === "damage" || key === "heal"));
   if (kinds.size > 1) {
     return refuse(skill, combat, "stats_line 同时有已命名的 damage 和 heal");
   }
-  let effect: "damage" | "heal" | "stress";
+  let effect: "damage" | "heal" | "stress" | null;
   if (kinds.size === 0) {
     if (stress.self === 0 && stress.target === 0) {
-      return refuse(skill, combat, "stats_line 没有已命名的 damage 或 heal");
+      if (formChange.form === null) {
+        return refuse(skill, combat, "stats_line 没有已命名的 damage 或 heal");
+      }
+      effect = null;
+    } else {
+      effect = "stress";
     }
-    effect = "stress";
   } else {
     effect = kinds.has("damage") ? "damage" : "heal";
   }
 
+  const formOnly = effect === null;
   const targets = new Set(keys.filter((key) => key === "target_hero" || key === "target_monster"));
-  if (targets.size !== 1) {
+  if (!formOnly && targets.size !== 1) {
     return refuse(
       skill,
       combat,
@@ -828,21 +899,27 @@ export function resolveHeroSkill(
         : "stats_line 同时有 target_hero 和 target_monster",
     );
   }
-  const expectedSide = targets.has("target_hero") ? "hero" : "monster";
-  if (target.side !== expectedSide) {
-    return refuse(skill, combat, "目标阵营与技能的目标图标不一致");
+  if (!formOnly) {
+    const expectedSide = targets.has("target_hero") ? "hero" : "monster";
+    if (target.side !== expectedSide) {
+      return refuse(skill, combat, "目标阵营与技能的目标图标不一致");
+    }
   }
 
-  const critThreshold = threshold(skill, "Crit");
-  if (critThreshold === null) return refuse(skill, combat, "Crit 标签没有非负整数阈值");
-  const accThreshold = threshold(skill, "Acc");
-  if (accThreshold === null) return refuse(skill, combat, "Acc 标签没有非负整数阈值");
-  const critAmount = effect === "stress" ? null : amountBesideLabel(skill, "Crit");
-  const hitAmount = effect === "stress" ? null : amountBesideLabel(skill, "Acc");
-  if (effect !== "stress" && critAmount === null) {
+  const critThreshold = formOnly ? null : threshold(skill, "Crit");
+  const accThreshold = formOnly ? null : threshold(skill, "Acc");
+  if (!formOnly && critThreshold === null) {
+    return refuse(skill, combat, "Crit 标签没有非负整数阈值");
+  }
+  if (!formOnly && accThreshold === null) {
+    return refuse(skill, combat, "Acc 标签没有非负整数阈值");
+  }
+  const critAmount = effect === "stress" || formOnly ? null : amountBesideLabel(skill, "Crit");
+  const hitAmount = effect === "stress" || formOnly ? null : amountBesideLabel(skill, "Acc");
+  if (effect !== "stress" && !formOnly && critAmount === null) {
     return refuse(skill, combat, "Crit 旁边没有恰好一个非负整数");
   }
-  if (effect !== "stress" && hitAmount === null) {
+  if (effect !== "stress" && !formOnly && hitAmount === null) {
     return refuse(skill, combat, "Acc 旁边没有恰好一个非负整数");
   }
   if (stress.self !== 0 && combat.actor?.stress === undefined) {
@@ -857,12 +934,18 @@ export function resolveHeroSkill(
   if (shuffles.self !== null && combat.actor === undefined) {
     return refuse(skill, combat, "自身效果要位移，但没有使用者（规则书第 21 页）");
   }
+  if (formChange.form !== null && combat.actor === undefined) {
+    return refuse(skill, combat, "自身效果要切换形态，但没有使用者（规则书第 38 页）");
+  }
 
-  // 规则书第 19 页：先看暴击（不减 Dodge），再看命中阈值 Acc − Dodge。
-  let outcome: "crit" | "hit" | "miss";
-  if (roll <= critThreshold) outcome = "crit";
-  else if (roll <= accThreshold - target.dodge) outcome = "hit";
-  else outcome = "miss";
+  // 规则书第 19 页：有 Acc 时先看暴击（不减 Dodge），再看命中阈值 Acc − Dodge。
+  // 没有 Acc 的技能不掷骰。变身卡没有 Crit / Acc，outcome 留空。
+  let outcome: "crit" | "hit" | "miss" | null = null;
+  if (!formOnly && critThreshold !== null && accThreshold !== null) {
+    if (roll <= critThreshold) outcome = "crit";
+    else if (roll <= accThreshold - target.dodge) outcome = "hit";
+    else outcome = "miss";
+  }
 
   let wounds = target.wounds;
   let printedAmount: number | null = null;
@@ -891,7 +974,7 @@ export function resolveHeroSkill(
     actorWounds = Math.max(0, actorWounds - selfHeal.amount);
   }
 
-  if (effect !== "stress" && outcome !== "miss") {
+  if ((effect === "damage" || effect === "heal") && outcome !== null && outcome !== "miss") {
     const amount = outcome === "crit" ? critAmount : hitAmount;
     if (amount === null) {
       return refuse(
@@ -969,6 +1052,7 @@ export function resolveHeroSkill(
     targetShuffle: outcome === "miss" ? null : shuffles.target,
     targetProtectionIgnored:
       outcome !== "miss" && effect === "damage" && ignoresProtection.targetLines > 0,
+    actorForm: formChange.form,
     actorStress,
     targetStress,
     besideActorStress,
@@ -980,7 +1064,8 @@ export function resolveHeroSkill(
         selfHeal.lineCount +
         removal.targetLines +
         shuffles.lineCount +
-        ignoresProtection.targetLines,
+        ignoresProtection.targetLines +
+        formChange.lineCount,
     ),
   };
 }

@@ -167,6 +167,7 @@ describe("resolveHeroSkill", () => {
       targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
+      actorForm: null,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -251,6 +252,7 @@ describe("resolveHeroSkill", () => {
       targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
+      actorForm: null,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -304,6 +306,7 @@ describe("resolveHeroSkill", () => {
       targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
+      actorForm: null,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -337,6 +340,7 @@ describe("resolveHeroSkill", () => {
       targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
+      actorForm: null,
       actorStress: null,
       targetStress: null,
       besideActorStress: null,
@@ -816,6 +820,7 @@ describe("resolveHeroSkill", () => {
       targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
+      actorForm: null,
       actorStress: 3,
       targetStress: 6,
       besideActorStress: [{ id: "crusader", stress: 2 }],
@@ -1089,6 +1094,7 @@ describe("resolveHeroSkill", () => {
       targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
+      actorForm: null,
       actorStress: 3,
       targetStress: 5,
       besideActorStress: [{ id: "crusader", stress: 1 }],
@@ -1335,7 +1341,7 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("混在同一行里的治疗，或整张技能对不上，仍不扣伤口", () => {
+  it("混在同一行里的治疗不扣伤口，变身卡上的治疗整数也不扣", () => {
     const cry = card("hero_skill:p020");
     expect(cry.name).toBe("Inspiring Cry");
     expect(cry.level).toBe(2);
@@ -1392,12 +1398,15 @@ describe("resolveHeroSkill", () => {
         5,
       ),
     ).toMatchObject({
-      status: "refused",
-      reason: "stats_line 没有已命名的 damage 或 heal",
+      status: "resolved",
+      reason: null,
+      outcome: null,
+      effect: null,
       wounds: 2,
       actorWounds: 5,
       actorStress: 4,
-      outcome: null,
+      targetStress: 4,
+      actorForm: "beast",
     });
   });
 
@@ -1443,6 +1452,7 @@ describe("resolveHeroSkill", () => {
       targetProtectionIgnored: false,
       actorShuffle: null,
       targetShuffle: null,
+      actorForm: null,
       actorStress: 3,
       targetStress: 6,
       besideActorStress: [{ id: "crusader", stress: 1 }],
@@ -1732,6 +1742,7 @@ describe("resolveHeroSkill", () => {
       targetProtectionIgnored: false,
       actorShuffle: { direction: "pull", distance: 1 },
       targetShuffle: null,
+      actorForm: null,
       actorStress: 3,
       targetStress: null,
       besideActorStress: null,
@@ -2343,6 +2354,229 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
       wounds: 4,
       targetProtectionIgnored: false,
+      actorForm: null,
+    });
+  });
+
+  it("hero_skill:p220 Transform to Beast I 不掷骰，只记下换成兽形", () => {
+    const skill = card("hero_skill:p220");
+    expect(skill.name).toBe("Transform to Beast");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBeNull();
+    expect(skill.verification.unverified).toBe(false);
+    expect(skill.printed_labels).toEqual([]);
+    expect(skill.stats_line).toBeNull();
+    expect(
+      skill.effect_lines
+        .map((line) =>
+          line
+            .map((segment) => (segment.type === "text" ? segment.text.trim() : segment.icon.key))
+            .filter((part) => part !== ""),
+        )
+        .find((line) => line.includes("self_effects")),
+    ).toEqual(["self_effects", "Self Change: Beast"]);
+    expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "stress",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([null, null]);
+    expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.inside_icon?.key === "heal",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([4]);
+    if (!("back_face_skill" in skill) || typeof skill.back_face_skill !== "object") {
+      throw new Error("p220 应带着背面 Transform to Human");
+    }
+    const back = skill.back_face_skill;
+    if (back === null || !("name" in back) || back.name !== "Transform to Human") {
+      throw new Error("p220 背面不是 Transform to Human");
+    }
+
+    const combat: SkillCombatState = {
+      actor: { id: "abomination", wounds: 5, stress: 3 },
+      heroesBesideActor: [{ id: "crusader", stress: 2 }],
+      target: { id: "vestal", side: "hero", wounds: 4, dodge: 0, stress: 4 },
+    };
+    const frozen = structuredClone(combat);
+    const changed = use("hero_skill:p220", combat, 1);
+    expect(changed).toEqual({
+      skillId: "hero_skill:p220",
+      targetId: "vestal",
+      status: "resolved",
+      reason: null,
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 4,
+      actorWounds: 5,
+      targetDead: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+      actorShuffle: null,
+      targetShuffle: null,
+      targetProtectionIgnored: false,
+      actorForm: "beast",
+      actorStress: 3,
+      targetStress: 4,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+      untargetedBesideTargetStress: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(combat).toEqual(frozen);
+    expect(use("hero_skill:p220", combat, 10)).toEqual(changed);
+    expect(use("hero_skill:p220", target("hero", 4, 0), 1)).toMatchObject({
+      status: "refused",
+      reason: "自身效果要切换形态，但没有使用者（规则书第 38 页）",
+      wounds: 4,
+      actorWounds: null,
+      actorForm: null,
+      actorStress: null,
+    });
+  });
+
+  it("hero_skill:p221 与 p222 也只换成兽形，不把治疗整数扣掉", () => {
+    const second = card("hero_skill:p221");
+    expect(second.name).toBe("Transform to Beast");
+    expect(second.level).toBe(2);
+    expect(second.verification.unverified).toBe(false);
+    expect(
+      second.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.inside_icon?.key === "heal",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([6]);
+    expect(
+      second.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "buff",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(
+      use(
+        "hero_skill:p221",
+        {
+          actor: { id: "abomination", wounds: 6, stress: 1 },
+          target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 8 },
+        },
+        10,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      wounds: 2,
+      actorWounds: 6,
+      actorStress: 1,
+      targetStress: 8,
+      actorForm: "beast",
+      skipped: [{ code: "effect_lines" }],
+    });
+
+    const third = card("hero_skill:p222");
+    expect(third.name).toBe("Transform to Beast");
+    expect(third.level).toBe(3);
+    expect(third.verification.unverified).toBe(false);
+    expect(
+      third.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.inside_icon?.key === "heal",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([8]);
+    expect(
+      use(
+        "hero_skill:p222",
+        {
+          actor: { id: "abomination", wounds: 3, stress: 7 },
+          target: { id: "vestal", side: "hero", wounds: 1, dodge: 9, stress: 0 },
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: null,
+      effect: null,
+      wounds: 1,
+      actorWounds: 3,
+      actorStress: 7,
+      targetStress: 0,
+      actorForm: "beast",
+      skipped: [{ code: "effect_lines" }],
+    });
+  });
+
+  it("hero_skill:p031 If It Bleeds I 的流血面值是整数，但 2t 为 null，不放流血堆", () => {
+    const skill = card("hero_skill:p031");
+    expect(skill.name).toBe("If It Bleeds");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("HELLION");
+    expect(skill.verification.unverified).toBe(false);
+    expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) =>
+            item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "target_effects",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([2]);
+    expect(
+      skill.effect_lines[0]
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text.trim())
+        .filter((text) => text !== ""),
+    ).toEqual(["2", "2t"]);
+    expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "bleed",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(
+      use(
+        "hero_skill:p031",
+        {
+          actor: { id: "hellion", wounds: 1, stress: 4 },
+          target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 5,
+      damageDealt: 5,
+      wounds: 5,
+      actorWounds: 1,
+      actorStress: 4,
+      actorForm: null,
+      targetBleedCleared: false,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(
+      use(
+        "hero_skill:p031",
+        { target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 } },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorForm: null,
+      skipped: [{ code: "effect_lines" }],
     });
   });
 });
