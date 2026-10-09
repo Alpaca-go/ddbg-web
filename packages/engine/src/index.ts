@@ -10,6 +10,13 @@ export type {
 } from "./battle";
 export type { ApplyResult, Command, GameEvent, GameState, PendingChoice } from "./command";
 export { resolveHeroSkill } from "./hero-skill";
+export { resolveMonsterSkill } from "./monster-skill";
+export type {
+  MonsterCardView,
+  MonsterCombatState,
+  MonsterSkillResolution,
+  MonsterSkillView,
+} from "./monster-skill";
 export type {
   HeroSkillCardView,
   HeroSkillResolution,
