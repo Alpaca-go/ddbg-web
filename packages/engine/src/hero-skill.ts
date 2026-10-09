@@ -914,8 +914,14 @@ type SelfBleedRemoval = {
 };
 
 /**
+ * 版面提取夹在 Self 前面的窄字形（U+0007）。不是图标，也不是数字。
+ * 不写进正则，避免把控制字符放进字符类。
+ */
+const EXTRACTED_SELF_MARK = String.fromCharCode(7);
+
+/**
  * 只接受「自身效果 + Self Remove + bleed」这一整行。
- * 文字必须是这两个词。U+0007 是提取进来的窄字形，不当成第三个词。
+ * 文字必须是这两个词。提取进来的窄字形不当成第三个词。
  * 还有别的已命名图标，或混着回合数，就不算这条。
  */
 function readSelfBleedRemoval(skill: HeroSkillCardView): SelfBleedRemoval {
@@ -933,7 +939,8 @@ function selfRemoveBleedLine(line: readonly SkillSegment[]): boolean {
   const words: string[] = [];
   for (const segment of line) {
     if (segment.type === "text") {
-      for (const word of segment.text.split(/[\s\u0007]+/)) {
+      for (const raw of segment.text.split(/\s+/)) {
+        const word = raw.split(EXTRACTED_SELF_MARK).join("");
         if (word !== "") words.push(word);
       }
       continue;
