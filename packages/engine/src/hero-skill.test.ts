@@ -3310,4 +3310,383 @@ describe("resolveHeroSkill", () => {
       actorForm: null,
     });
   });
+
+  it("射程 0、1、2 必须恰好等于卡面那个整数，对不上就不结算", () => {
+    const smite = card("hero_skill:p001");
+    expect(smite.name).toBe("Smite");
+    expect(smite.level).toBe(1);
+    expect(
+      smite.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([0]);
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
+    expect(use("hero_skill:p001", { target: soldier, areaDistance: 0 }, 1)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(use("hero_skill:p001", { target: soldier }, 1)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+    });
+    expect(use("hero_skill:p001", { target: soldier, areaDistance: 1 }, 1)).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorWounds: null,
+    });
+
+    const bleeds = card("hero_skill:p031");
+    expect(bleeds.name).toBe("If It Bleeds");
+    expect(
+      bleeds.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([1]);
+    expect(
+      bleeds.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "bleed",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(
+      use(
+        "hero_skill:p031",
+        {
+          actor: { id: "hellion", wounds: 1, stress: 4 },
+          target: soldier,
+          areaDistance: 1,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 5,
+      damageDealt: 5,
+      wounds: 5,
+      actorWounds: 1,
+      actorStress: 4,
+      targetBleedCleared: false,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(
+      use(
+        "hero_skill:p031",
+        {
+          actor: { id: "hellion", wounds: 1, stress: 4 },
+          target: { ...soldier, wounds: 2 },
+          areaDistance: 0,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      wounds: 2,
+      actorWounds: 1,
+      actorStress: 4,
+      damageDealt: null,
+      targetBleedCleared: false,
+    });
+
+    const swan = card("hero_skill:p025");
+    expect(swan.name).toBe("Iron Swan");
+    expect(swan.level).toBe(1);
+    expect(
+      swan.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([2]);
+    expect(
+      use(
+        "hero_skill:p025",
+        {
+          actor: { id: "hellion", wounds: 1, stance: "aggressive" },
+          target: soldier,
+          areaDistance: 2,
+        },
+        9,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorWounds: 1,
+    });
+    expect(
+      use(
+        "hero_skill:p025",
+        {
+          actor: { id: "hellion", wounds: 1, stance: "aggressive" },
+          target: soldier,
+          areaDistance: 3,
+        },
+        9,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      wounds: 0,
+      actorWounds: 1,
+      damageDealt: null,
+    });
+    expect(
+      use(
+        "hero_skill:p025",
+        {
+          actor: { id: "hellion", wounds: 1, stance: "defensive" },
+          target: soldier,
+          areaDistance: 2,
+        },
+        9,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "当前姿态没有点亮，不能使用这张技能（规则书第 19 页）",
+      wounds: 0,
+      actorWounds: 1,
+    });
+    expect(use("hero_skill:p001", { target: soldier, areaDistance: -1 }, 1)).toMatchObject({
+      status: "refused",
+      reason: "区域距离必须是非负整数",
+      wounds: 0,
+      damageDealt: null,
+    });
+  });
+
+  it("hero_skill:p070 Point Blank Shot I 距离不是 0 时，自身和目标的 Push 1 都不发生", () => {
+    const skill = card("hero_skill:p070");
+    expect(skill.name).toBe("Point Blank Shot");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("HIGHWAYMAN");
+    expect(skill.verification.unverified).toBe(false);
+    expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([0]);
+    const combat: SkillCombatState = {
+      actor: { id: "highwayman", wounds: 0, stress: 4 },
+      target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
+      areaDistance: 0,
+    };
+    expect(use("hero_skill:p070", combat, 10)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 9,
+      damageDealt: 9,
+      wounds: 9,
+      actorWounds: 0,
+      actorStress: 4,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 1 },
+    });
+    expect(use("hero_skill:p070", { ...combat, areaDistance: 1 }, 10)).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      outcome: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorWounds: 0,
+      actorStress: 4,
+      actorShuffle: null,
+      targetShuffle: null,
+    });
+  });
+
+  it("区间、Self 和 All Allies 没有单个射程整数，传入距离就整次拒绝", () => {
+    const heal = card("hero_skill:p013");
+    expect(heal.name).toBe("Battle Heal");
+    expect(heal.level).toBe(1);
+    expect(heal.verification.unverified).toBe(false);
+    expect(
+      heal.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => [item.text, item.numeric]),
+    ).toEqual([["0-1", null]]);
+    const ally = { id: "vestal", side: "hero" as const, wounds: 5, dodge: 0 };
+    for (const areaDistance of [0, 1]) {
+      expect(use("hero_skill:p013", { target: ally, areaDistance }, 10)).toMatchObject({
+        status: "refused",
+        reason:
+          "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
+        outcome: null,
+        effect: null,
+        printedAmount: null,
+        wounds: 5,
+        actorWounds: null,
+      });
+    }
+
+    const absolution = card("hero_skill:p217");
+    expect(absolution.name).toBe("Absolution");
+    expect(
+      absolution.unlabeled_numbers.filter(
+        (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+      ),
+    ).toEqual([]);
+    const self = {
+      actor: { id: "abomination", wounds: 5, stress: 4 },
+      target: {
+        id: "abomination",
+        side: "hero" as const,
+        wounds: 5,
+        dodge: 0,
+        stress: 4,
+      },
+      areaDistance: 0,
+    };
+    expect(use("hero_skill:p217", self, 5)).toMatchObject({
+      status: "refused",
+      reason:
+        "卡面没有恰好一个射程整数，不能把 Self 或 All Allies 当成距离 0（规则书第 19 页，R-048）",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      wounds: 5,
+      actorWounds: 5,
+      actorStress: 4,
+      targetStress: 4,
+      actorForm: null,
+    });
+
+    const transform = card("hero_skill:p220");
+    expect(transform.name).toBe("Transform to Beast");
+    expect(transform.level).toBe(1);
+    expect(transform.verification.unverified).toBe(false);
+    expect(
+      transform.effect_lines[0]
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text.trim()),
+    ).toEqual(["All Allies"]);
+    expect(
+      use(
+        "hero_skill:p220",
+        {
+          actor: { id: "abomination", wounds: 2, stress: 3 },
+          target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 1 },
+          areaDistance: 0,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason:
+        "卡面没有恰好一个射程整数，不能把 Self 或 All Allies 当成距离 0（规则书第 19 页，R-048）",
+      wounds: 2,
+      actorWounds: 2,
+      actorStress: 3,
+      actorForm: null,
+    });
+
+    const mark = card("hero_skill:p154");
+    expect(mark.name).toBe("Sniper’s Mark");
+    expect(mark.level).toBe(1);
+    expect(mark.verification.unverified).toBe(false);
+    expect(
+      mark.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => [item.text, item.numeric]),
+    ).toEqual([["1-2", null]]);
+    expect(
+      use(
+        "hero_skill:p154",
+        {
+          actor: { id: "arbalest", wounds: 0, stress: 2 },
+          target: { id: "soldier", side: "monster", wounds: 3, dodge: 0 },
+          areaDistance: 1,
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
+      outcome: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 3,
+      actorWounds: 0,
+      actorStress: 2,
+    });
+
+    const light = card("hero_skill:p103");
+    expect(light.name).toBe("Hand of Light");
+    expect(
+      light.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([1]);
+    expect(
+      use(
+        "hero_skill:p103",
+        {
+          actor: { id: "vestal", wounds: 2, stance: "aggressive" },
+          target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
+          areaDistance: 1,
+        },
+        9,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 3,
+      damageDealt: 3,
+      wounds: 3,
+      actorWounds: 2,
+    });
+    // 高地可选射程 +1（规则书第 25 页，R-022）不加：印的是 1，距离 2 仍整次拒绝。
+    expect(
+      use(
+        "hero_skill:p103",
+        {
+          actor: { id: "vestal", wounds: 2, stance: "aggressive" },
+          target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
+          areaDistance: 2,
+        },
+        9,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      wounds: 0,
+      actorWounds: 2,
+      damageDealt: null,
+      printedAmount: null,
+    });
+  });
 });
