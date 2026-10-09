@@ -222,6 +222,8 @@ const monsterCardSchema = z
     ...monsterShared,
     life: z.int().positive(),
     life_icon: normalizedIconSchema,
+    /** R24：仅接受另行核实的移动区域数；缺失不代表 0，不从图标自动补值。 */
+    speed: z.int().nonnegative().optional(),
     resistances: z.array(normalizedIconSchema),
     immunities: z.array(normalizedIconSchema),
     header_unlabeled_numbers: z.array(normalizedUnlabeledNumberSchema),

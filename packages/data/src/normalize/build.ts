@@ -15,6 +15,7 @@ import type { IconLookup } from "./icons";
 import { quirkPolarity } from "./quirk-polarity";
 import { virtueRole } from "./virtue-role";
 import { attachVerifiedMonsterStances } from "./verified-monster-stances";
+import { attachVerifiedMonsterSpeeds } from "./verified-monster-speeds";
 import type {
   NormalizedHeroSkillFile,
   NormalizedIcon,
@@ -367,7 +368,7 @@ function buildMonsterMedium(
       dictionary: DICTIONARY_SOURCE,
     },
     stats: cardStats(cards),
-    cards: attachVerifiedMonsterStances(cards),
+    cards: attachVerifiedMonsterSpeeds(attachVerifiedMonsterStances(cards)),
   });
 }
 
