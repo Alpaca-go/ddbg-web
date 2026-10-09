@@ -93,15 +93,24 @@
  * 让这次掷骰的暴击阈值 +1。暴击仍先于命中、仍不减 Dodge。不传堆数就当作没有。
  * 这里数的是堆，不是一堆里还剩几枚代币（R-018）。不从卡面的「2t」「3t」「4t」读堆数，
  * 那些回合数的 numeric 为 null，这一张技能也不因此放上新的增益。光照 ≤4 的 Crit +1、
- * 标记对 Acc 的 +1、高地 Acc +1、饰品，都不在这一层加。
+ * 高地 Acc +1、饰品，都不在这一层加。标记对命中阈值的 +1 写在后面。
  *
  * 已有的减益（规则书第 21 页，R-016，说明书 §6.5 第 4 步、§7.2）：目标是怪物时，
  * 目标身上每一堆 Debuff 再让暴击阈值 +1，和使用者自己的增益堆加在一起。暴击仍不减
  * Dodge。命中阈值、印刷伤害和印刷治疗都不加。目标是英雄时不加，友方治疗和给自己
  * 的技能都不会因为对方身上的减益更容易暴击。不传堆数就当作没有。数的是堆，不是
  * 一堆里还剩几枚代币（R-018）。不从卡面的「1t」「2t」「3t」「4t」读堆数，那些
- * 回合数的 numeric 为 null，这一张技能也不因此放上新的减益。光照、标记、高地和
- * 饰品仍不加。
+ * 回合数的 numeric 为 null，这一张技能也不因此放上新的减益。光照、高地和
+ * 饰品仍不加。标记对命中阈值的 +1 写在后面。
+ *
+ * 已有的标记（规则书第 21 页，R-019，说明书 §6.5 第 4 步、§7.2）：目标是怪物时，
+ * 目标身上每一堆 Mark 让命中阈值 +1，也就是 Acc + 堆数 − Dodge。暴击仍先看、仍不减
+ * Dodge，印刷伤害和印刷治疗也不加。说明书 §7.2 写的是攻击被标记角色的敌人；目标是
+ * 英雄时不加，友方治疗和给自己的技能都不会因为对方身上的标记更容易命中。不传堆数就
+ * 当作没有。数的是堆，不是一堆里还剩几枚代币（R-018）。不从卡面的「2t」「3t」「4t」
+ * 读堆数，那些回合数的 numeric 为 null，这一张技能也不因此放上新的标记。效果行里
+ * 「+N vs」再加已命名标记的伤害，numeric 为 null，不加进伤害。和标记写在同一行的
+ * Pull 仍整行跳过。光照、高地和饰品仍不加。
  *
  * 不解释 `damage_or_heal_combined_marker`。英雄 Life、死门骰都不在这里。
  */
@@ -205,6 +214,12 @@ export type SkillTargetState = {
    * 不传当作 0。不从卡面回合数读堆数，也不在这里放新的减益或移除代币。
    */
   readonly debuffStacks?: number;
+  /**
+   * 目标身上已经有的 Mark 堆数。目标是怪物时，每一堆让命中阈值 +1
+   * （规则书第 21 页，R-019）。目标是英雄时不加：友方和自己都不是敌人。
+   * 不传当作 0。不从卡面回合数读堆数，也不在这里放新的标记或移除代币。
+   */
+  readonly markStacks?: number;
 };
 
 export type SkillCombatState = {
@@ -1083,6 +1098,9 @@ function combatProblem(combat: SkillCombatState): string | null {
   if (target.debuffStacks !== undefined && !nonNegativeInteger(target.debuffStacks)) {
     return "目标的减益堆数必须是非负整数";
   }
+  if (target.markStacks !== undefined && !nonNegativeInteger(target.markStacks)) {
+    return "目标的标记堆数必须是非负整数";
+  }
   if (combat.targetInActorArea !== undefined && typeof combat.targetInActorArea !== "boolean") {
     return "targetInActorArea 必须是布尔值";
   }
@@ -1287,14 +1305,16 @@ export function resolveHeroSkill(
 
   // 规则书第 19 页：有 Acc 时先看暴击（不减 Dodge），再看命中阈值 Acc − Dodge。
   // 第 21 页：每一堆已有的 Buff 只把暴击阈值 +1。目标是怪物时，每一堆 Debuff 再 +1
-  // （R-016）。目标是英雄时不加。命中阈值不加。没有 Acc 的技能不掷骰。
-  // 变身卡没有 Crit / Acc，outcome 留空。不读这张卡印的增益或减益回合数。
+  // （R-016），每一堆 Mark 把命中阈值 +1（R-019）。目标是英雄时这两种都不加。
+  // 没有 Acc 的技能不掷骰。变身卡没有 Crit / Acc，outcome 留空。
+  // 不读这张卡印的增益、减益或标记回合数。
   const buffStacks = combat.actor?.buffStacks ?? 0;
   const enemyDebuffStacks = target.side === "monster" ? (target.debuffStacks ?? 0) : 0;
+  const enemyMarkStacks = target.side === "monster" ? (target.markStacks ?? 0) : 0;
   let outcome: "crit" | "hit" | "miss" | null = null;
   if (!formOnly && critThreshold !== null && accThreshold !== null) {
     if (roll <= critThreshold + buffStacks + enemyDebuffStacks) outcome = "crit";
-    else if (roll <= accThreshold - target.dodge) outcome = "hit";
+    else if (roll <= accThreshold + enemyMarkStacks - target.dodge) outcome = "hit";
     else outcome = "miss";
   }
 
