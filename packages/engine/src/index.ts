@@ -1,4 +1,13 @@
 export { applyCommand, createInitialState } from "./command";
+export { createBattleState } from "./battle";
+export type { EncounterCommand, EncounterEvent, EncounterState } from "./encounter";
+export type {
+  BattleArea,
+  BattleEntity,
+  BattleSetup,
+  BattleState,
+  PlayHeroSkillCommand,
+} from "./battle";
 export type { ApplyResult, Command, GameEvent, GameState, PendingChoice } from "./command";
 export { resolveHeroSkill } from "./hero-skill";
 export type {

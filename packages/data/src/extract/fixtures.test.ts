@@ -100,7 +100,7 @@ function outputFixturePath(outputKey: string): string {
   if (!match?.[1] || !match[2]) {
     throw new Error(`无法对应 summary 输出路径 ${outputKey}`);
   }
-  return path.join(match[1], match[2]);
+  return path.posix.join(match[1], match[2]);
 }
 
 describe("核心盒提取 fixture", () => {

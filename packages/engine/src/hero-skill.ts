@@ -1117,6 +1117,27 @@ function readShuffles(skill: HeroSkillCardView, choice: "push" | "pull" | undefi
   };
 }
 
+/** 接线层沿用同一解析器开方向选择，不解析未命名数字（R-048）。 */
+export function needsHeroSkillShuffleChoice(
+  skill: HeroSkillCardView,
+  face: "front" | "back" = "front",
+): boolean {
+  const selected = selectFace(skill, face);
+  if (!selected.ok) return false;
+  const push = readShuffles(selected.skill, "push").target;
+  const pull = readShuffles(selected.skill, "pull").target;
+  return push?.direction === "push" && pull?.direction === "pull";
+}
+
+/** 合并使用者与自身目标的快照时，沿用纯函数的 Self 判定（R19）。 */
+export function heroSkillUsesSelfTarget(
+  skill: HeroSkillCardView,
+  face: "front" | "back" = "front",
+): boolean {
+  const selected = selectFace(skill, face);
+  return selected.ok && readsAsSelfTarget(selected.skill);
+}
+
 /**
  * 目标效果上单独一行「Push N or Pull N」。N 两边相同才是一个距离。
  * 多出来的图标、自身标记，或拆成两段的「Push N or」，都不算。
