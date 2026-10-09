@@ -1,6 +1,12 @@
 import { rejectBattleCommand } from "./battle";
 import type { BattleEntity, BattleState } from "./battle";
-import type { ApplyResult, GameEvent, GameState } from "./command";
+import type {
+  ApplyResult,
+  GameEvent,
+  GameState,
+  HeroSkillResolvedEvent,
+  MonsterSkillResolvedEvent,
+} from "./command";
 import type { SkillStance, SkillTargetSide } from "./hero-skill";
 import { createRng, rollD10 } from "./rng";
 
@@ -168,10 +174,14 @@ export function encounterSkillProblem(
 }
 
 /** 技能成功才锁定重用；落空仍消耗一个行动（R18–19、R-025）。 */
-export function recordEncounterSkill(result: ApplyResult): ApplyResult {
+export function recordEncounterSkill(
+  result: ApplyResult,
+  resolved: HeroSkillResolvedEvent | undefined = result.events.find(
+    (entry) => entry.type === "heroSkillResolved",
+  ),
+): ApplyResult {
   const battle = result.state.battle;
   if (!battle?.encounter) return result;
-  const resolved = result.events.find((entry) => entry.type === "heroSkillResolved");
   if (resolved?.type !== "heroSkillResolved" || battle.encounter.turn.type !== "hero")
     return result;
   let next = battle;
@@ -208,6 +218,34 @@ export function recordEncounterSkill(result: ApplyResult): ApplyResult {
       },
     },
   };
+}
+
+/** 已选怪物技能结算完毕才结束回合；反弹死亡按 R24–25 补姿态空位。 */
+export function recordMonsterSkill(
+  result: ApplyResult,
+  resolved: MonsterSkillResolvedEvent,
+): ApplyResult {
+  const battle = result.state.battle;
+  if (!battle?.encounter || battle.encounter.turn.type !== "monster") return result;
+  let state = result.state;
+  if (resolved.actorDead) {
+    const dead = battle.entities.find((entity) => entity.id === resolved.actorId)!;
+    const position = STANCES.indexOf(dead.stance!);
+    state = {
+      ...state,
+      battle: {
+        ...battle,
+        entities: battle.entities.map((entity) =>
+          entity.side === "monster" && !entity.dead && STANCES.indexOf(entity.stance!) > position
+            ? { ...entity, stance: STANCES[STANCES.indexOf(entity.stance!) - dead.stanceSlots!]! }
+            : entity,
+        ),
+      },
+    };
+    if (state.battle!.entities.every((entity) => entity.side !== "monster" || entity.dead))
+      return finishBattle(state, "victory", result.events);
+  }
+  return finishTurn(state, resolved.actorId, result.events);
 }
 
 export function applyEncounterCommand(state: GameState, command: EncounterCommand): ApplyResult {

@@ -1,10 +1,11 @@
-import { resolveMonsterAttackView } from "./hero-skill";
+import { needsHeroSkillShuffleChoice, resolveMonsterAttackView } from "./hero-skill";
 import type {
   HeroSkillCardView,
   HeroSkillResolution,
   SkillActorState,
   SkillCombatState,
   SkillSegment,
+  SkillTargetState,
 } from "./hero-skill";
 
 /** 只读规范化怪物技能；不从 footer_lines 推断可用姿态、选招骰表或 AI。 */
@@ -28,7 +29,8 @@ export type MonsterCombatState = Pick<
   SkillCombatState,
   "target" | "untargetedHeroesBesideTarget" | "shuffleChoice" | "targetAreaLower" | "light"
 > & {
-  readonly actor: Omit<SkillActorState, "stress" | "form" | "stance">;
+  readonly actor: Omit<SkillActorState, "stress" | "form" | "stance"> &
+    Pick<SkillTargetState, "shuffleResist">;
   readonly areaDistance: number;
   readonly guardedHeroOmitted?: boolean;
 };
@@ -44,6 +46,21 @@ export type MonsterSkillResolution = {
       readonly resolution: HeroSkillResolution;
     }
 );
+
+/** 与技能结算共享已命名的位移行解析器，不从 null 数字创建选择。 */
+export function needsMonsterSkillShuffleChoice(monster: MonsterCardView, slot: number): boolean {
+  const skill = monster.skills.find((entry) => entry.slot === slot);
+  return (
+    skill !== undefined &&
+    needsHeroSkillShuffleChoice({
+      ...skill,
+      id: `${monster.id}:skill${slot}`,
+      hero: null,
+      verification: monster.verification,
+      stats_line: [],
+    })
+  );
+}
 
 function lineKey(line: readonly SkillSegment[]): string {
   return JSON.stringify(
@@ -87,6 +104,8 @@ export function resolveMonsterSkill(
     return refused("必须提供怪物使用者，怪物没有压力轨");
   }
   if (combat.actor.wounds >= monster.life) return refused("死亡的怪物不能使用技能");
+  if (combat.actor.shuffleResist !== undefined && typeof combat.actor.shuffleResist !== "boolean")
+    return refused("怪物 Shuffle 抗性必须是已核实的布尔值");
   if (combat.target.side !== "hero" || combat.target.id === combat.actor.id) {
     return refused("当前怪物攻击只结算另一名英雄目标");
   }
@@ -146,6 +165,16 @@ export function resolveMonsterSkill(
     skillSlot,
     status: "resolved",
     actorDead: resolution.actorWounds !== null && resolution.actorWounds >= monster.life,
-    resolution,
+    // R-020：只有英雄能忽略自身抗性；怪物自身位移仍少移 1。
+    resolution:
+      combat.actor.shuffleResist && resolution.actorShuffle
+        ? {
+            ...resolution,
+            actorShuffle: {
+              ...resolution.actorShuffle,
+              distance: Math.max(0, resolution.actorShuffle.distance - 1),
+            },
+          }
+        : resolution,
   };
 }

@@ -310,7 +310,7 @@ describe("普通遭遇战先攻与回合（R17–19、R25、R-025、R-030、R-03
     });
   });
 
-  it("方向待选不扣行动；选择完成才扣一次；位移尚未应用时阻止后续回合操作", () => {
+  it("方向和区域位移完成后扣一次行动；位移尚未应用时阻止后续回合操作", () => {
     const blast = cards.find((card) => card.id === "hero_skill:p145")!;
     const initial = setup();
     const changed: GameState = {
@@ -319,8 +319,8 @@ describe("普通遭遇战先攻与回合（R17–19、R25、R-025、R-030、R-03
         ...initial.battle!,
         skills: [blast],
         areas: [
-          { id: "a", elevation: "normal", adjacent: ["b"] },
-          { id: "b", elevation: "normal", adjacent: ["a"] },
+          { id: "a", elevation: "normal", adjacent: ["b"], capacity: 8 },
+          { id: "b", elevation: "normal", adjacent: ["a"], capacity: 8 },
         ],
         entities: initial.battle!.entities.map((entity) =>
           entity.id === "h0"
@@ -352,8 +352,13 @@ describe("普通遭遇战先攻与回合（R17–19、R25、R-025、R-030、R-03
       choiceId: waiting.pendingChoice!.id,
       optionId: "pull",
     });
-    expect(done.state.battle!.encounter!.turn).toMatchObject({ actions: 1 });
+    expect(done.state.battle!.encounter!.turn).toMatchObject({ actions: 2 });
     expect(done.state.battle!.shuffleIntents).toHaveLength(1);
     expect(applyCommand(done.state, swap(done.state)).state).toBe(done.state);
+    const moved = applyCommand(done.state, { type: "resolveShuffles" });
+    expect(moved.state.battle!.encounter!.turn).toMatchObject({ actions: 1 });
+    expect(moved.state.battle!.shuffleIntents).toEqual([]);
+    expect(moved.state.battle!.entities.find((entity) => entity.id === "m0")!.areaId).toBe("a");
+    expect(applyCommand(moved.state, { type: "resolveShuffles" }).state).toBe(moved.state);
   });
 });

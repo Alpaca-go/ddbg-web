@@ -8,12 +8,20 @@ import type {
   HeroSkillResolution,
   SkillActorState,
   SkillCombatState,
-  SkillShuffle,
   SkillTargetState,
 } from "./hero-skill";
 import { encounterSkillProblem, nextBattleRoll, recordEncounterSkill } from "./encounter";
 import type { EncounterState } from "./encounter";
-import type { ApplyResult, GameState, PendingChoice } from "./command";
+import type {
+  ApplyResult,
+  GameState,
+  HeroSkillResolvedEvent,
+  MonsterSkillResolvedEvent,
+  PendingChoice,
+} from "./command";
+import type { ShuffleIntent } from "./shuffle";
+import type { MonsterCardView, MonsterCombatState } from "./monster-skill";
+import type { PlayMonsterSkillCommand } from "./battle-monster";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
 export type BattleEntity = SkillTargetState &
@@ -25,6 +33,7 @@ export type BattleEntity = SkillTargetState &
     readonly dead: boolean;
     /** 怪物占姿态格数，必须由已核实数据提供；先攻接入时不猜大型与否。 */
     readonly stanceSlots?: 1 | 2;
+    readonly monsterCardId?: string;
     /** 仅保存已有堆的标识，清除时整堆移除；不猜 duration / 面值。 */
     readonly bleed: readonly string[];
     readonly blight: readonly string[];
@@ -32,6 +41,8 @@ export type BattleEntity = SkillTargetState &
 
 export type BattleArea = {
   readonly id: string;
+  /** 板块已核实的容量；未提供时位移解析器拒绝，不补默认值。 */
+  readonly capacity?: number;
   readonly elevation: "low" | "normal" | "high";
   readonly adjacent: readonly string[];
 };
@@ -49,22 +60,44 @@ export type BattleSetup = {
   readonly entities: readonly BattleEntity[];
   readonly areas: readonly BattleArea[];
   readonly skills: readonly HeroSkillCardView[];
+  readonly monsters?: readonly MonsterCardView[];
   readonly light: number;
 };
 
 export type BattleState = BattleSetup & {
   readonly encounter?: EncounterState;
   readonly rngCursor: number;
-  readonly pending: {
-    readonly choice: PendingChoice;
-    readonly command: PlayHeroSkillCommand;
-  } | null;
-  /** 保存位移意图；尚不改变棋子区域或姿态（R-020，板块标注未完成）。 */
-  readonly shuffleIntents: readonly {
-    readonly entityId: string;
-    readonly relativeToId: string;
-    readonly move: SkillShuffle;
-  }[];
+  readonly choiceCursor: number;
+  readonly pending:
+    | {
+        readonly type: "shuffleDirection";
+        readonly choice: PendingChoice;
+        readonly command: PlayHeroSkillCommand | PlayMonsterSkillCommand;
+      }
+    | {
+        readonly type: "shuffleArea";
+        readonly choice: PendingChoice;
+        readonly path: readonly string[];
+      }
+    | null;
+  /** 自身意图先于目标意图；显式 resolveShuffles 命令完成位置应用。 */
+  readonly shuffleIntents: readonly ShuffleIntent[];
+  /** 位移完成后再记录行动 / 死亡补位，不能重复执行技能或重复扣行动。 */
+  readonly shuffleContinuation:
+    | (HeroSkillResolvedEvent & {
+        /** 位移后的暴击同区名单，沿用原骰面与原攻击数值重算。 */
+        readonly criticalContext?: {
+          readonly combat: SkillCombatState;
+          readonly entities: readonly BattleEntity[];
+        };
+      })
+    | (MonsterSkillResolvedEvent & {
+        readonly criticalContext?: {
+          readonly combat: MonsterCombatState;
+          readonly entities: readonly BattleEntity[];
+        };
+      })
+    | null;
 };
 
 export function createBattleState(seed: number, setup: BattleSetup): GameState {
@@ -73,7 +106,8 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
   if (
     !unique(setup.entities.map((entity) => entity.id)) ||
     !unique(setup.areas.map((area) => area.id)) ||
-    !unique(setup.skills.map((skill) => skill.id))
+    !unique(setup.skills.map((skill) => skill.id)) ||
+    !unique((setup.monsters ?? []).map((monster) => monster.id))
   ) {
     throw new Error("沙盒实体、区域与技能 id 必须非空且各自唯一");
   }
@@ -88,6 +122,8 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
   for (const area of setup.areas) {
     if (
       !["low", "normal", "high"].includes(area.elevation) ||
+      (area.capacity !== undefined &&
+        (!Number.isSafeInteger(area.capacity) || area.capacity < 0)) ||
       area.adjacent.some(
         (id) =>
           id === area.id ||
@@ -98,6 +134,11 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
     }
   }
   for (const entity of setup.entities) {
+    if (entity.monsterCardId !== undefined) {
+      const card = setup.monsters?.find((entry) => entry.id === entity.monsterCardId);
+      if (entity.side !== "monster" || !card || card.life !== entity.life)
+        throw new Error("怪物实体必须关联已知卡牌，Life 与规范化卡一致（R-048）");
+    }
     const integer = (value: number) => Number.isInteger(value) && value >= 0;
     if (
       !integer(entity.wounds) ||
@@ -128,7 +169,14 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
   return {
     seed,
     notes: [],
-    battle: { ...structuredClone(setup), rngCursor: 0, pending: null, shuffleIntents: [] },
+    battle: {
+      ...structuredClone(setup),
+      rngCursor: 0,
+      choiceCursor: 0,
+      pending: null,
+      shuffleIntents: [],
+      shuffleContinuation: null,
+    },
   };
 }
 
@@ -141,7 +189,7 @@ export function rejectBattleCommand(state: GameState, message: string): ApplyRes
 }
 
 /** 区域邻接图最短距离（R-021）；不把未知板块补成直线。 */
-function distance(areas: readonly BattleArea[], from: string, to: string): number | null {
+export function distance(areas: readonly BattleArea[], from: string, to: string): number | null {
   const queue = [{ id: from, steps: 0 }];
   const seen = new Set([from]);
   for (const current of queue) {
@@ -218,15 +266,23 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
   if (probe.status === "refused") return rejectBattleCommand(state, probe.reason ?? "技能拒绝结算");
   if (needsChoice) {
     const choice: PendingChoice = {
-      id: `shuffle:${battle.rngCursor}:${actor.id}:${skill.id}:${target.id}`,
+      id: `shuffle:${battle.choiceCursor}:${actor.id}:${skill.id}:${target.id}`,
       prompt: "选择技能的位移方向",
+      actorId: actor.id,
       options: [
         { id: "push", label: "推离 Push" },
         { id: "pull", label: "拉近 Pull" },
       ],
     };
     return {
-      state: { ...state, battle: { ...battle, pending: { choice, command: { ...command } } } },
+      state: {
+        ...state,
+        battle: {
+          ...battle,
+          choiceCursor: battle.choiceCursor + 1,
+          pending: { type: "shuffleDirection", choice, command: { ...command } },
+        },
+      },
       events: [],
       pendingChoice: choice,
     };
@@ -261,7 +317,14 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
       relativeToId: actor.id,
       move: resolution.targetShuffle,
     });
-  return recordEncounterSkill({
+  const skillEvent: HeroSkillResolvedEvent = {
+    type: "heroSkillResolved",
+    message: "英雄技能已结算",
+    actorId: actor.id,
+    roll,
+    resolution,
+  };
+  const result: ApplyResult = {
     state: {
       ...state,
       battle: {
@@ -270,15 +333,22 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
         shuffleIntents,
         pending: null,
         rngCursor: battle.rngCursor + (roll === null ? 0 : 1),
+        shuffleContinuation: shuffleIntents.length
+          ? {
+              ...skillEvent,
+              ...(resolution.outcome === "crit"
+                ? { criticalContext: { combat, entities: battle.entities } }
+                : {}),
+            }
+          : null,
       },
     },
-    events: [
-      { type: "heroSkillResolved", message: "英雄技能已结算", actorId: actor.id, roll, resolution },
-    ],
-  });
+    events: [skillEvent],
+  };
+  return shuffleIntents.length ? result : recordEncounterSkill(result);
 }
 
-function writeResolution(
+export function writeResolution(
   entity: BattleEntity,
   actorId: string,
   targetId: string,
