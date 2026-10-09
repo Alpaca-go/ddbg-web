@@ -120,7 +120,9 @@
  * 避免和效果行重复计数。正面也没有时，不把 Self 或 All Allies 当成个数。
  * 不因此把技能名旁边的 Crit / Acc 整数当成伤害：Zealous Accusation 的 stats 行仍没有
  * 已命名的 damage。选空区域算成功使用（R-025），但这一层始终带着一个已选目标，传入 0
- * 不在这里结算。有 Guard 的敌人必须被选中（R-024）不查。
+ * 不在这里结算。不以友方为目标时，调用方标明这次没有选中有 Guard 的敌人，整次拒绝
+ * （规则书第 21 页，R-024）。目标是英雄或 Self 时不拒绝。不从「1t」读出谁现在有 Guard，
+ * 也不改选谁。
  *
  * 已有的增益（规则书第 21 页，说明书 §6.5 第 4 步、§7.2）：使用者身上每一堆 Buff
  * 让这次掷骰的暴击阈值 +1。暴击仍先于命中、仍不减 Dodge。不传堆数就当作没有。
@@ -343,6 +345,12 @@ export type SkillCombatState = {
    * 同一次使用套到其余目标上。
    */
   readonly targetsInArea?: number;
+  /**
+   * 场上有 Guard 的敌人，而这次选中的目标里没有他（规则书第 21 页，R-024）。
+   * 技能目标是怪物时整次拒绝，自身效果也不发生。目标是英雄或 Self 时这条不适用。
+   * 不传或为假就不查。不从卡面上的「1t」判断谁有 Guard，也不替调用方改选目标。
+   */
+  readonly guardedEnemyOmitted?: boolean;
   /**
    * 目标所在区域是否比使用者低（规则书第 25 页：高地 > 普通 > 低地）。
    * 为真时命中阈值 +1，并把单个整数射程的上限再加 1，原距离仍可选（R-022）。
@@ -1565,6 +1573,9 @@ function combatProblem(combat: SkillCombatState): string | null {
   if (combat.targetsInArea !== undefined && !nonNegativeInteger(combat.targetsInArea)) {
     return "区域内选中的目标个数必须是非负整数";
   }
+  if (combat.guardedEnemyOmitted !== undefined && typeof combat.guardedEnemyOmitted !== "boolean") {
+    return "有没有漏选 Guard 敌人必须是布尔值";
+  }
 
   const beside = readAreaHeroes(combat.heroesBesideActor, "使用者身边的英雄");
   if (!beside.ok) return beside.reason;
@@ -1619,9 +1630,10 @@ function resistedTargetShuffle(
 /**
  * 结算一张英雄技能。`roll` 是 d10 面值（1–10），由调用方用 `rollD10` 取得。
  * 未验证的卡、对不上的目标、当前姿态没有点亮、印了形态限定但对不上、区域距离
- * 不是印出来的射程、选中的个数超过卡面目标图标、增益、减益或标记堆数不是非负整数、
- * 把使用者自己的区域当成更低、光照不是 0 到 5 的整数、Shuffle 抗性不是布尔值、
- * 读不出整数的 Crit / Acc、要结算背面但没有背面，都原样留下伤口。
+ * 不是印出来的射程、选中的个数超过卡面目标图标、打怪物却没选中有 Guard 的敌人、
+ * 增益、减益或标记堆数不是非负整数、把使用者自己的区域当成更低、光照不是 0 到 5
+ * 的整数、Shuffle 抗性或 Guard 标志不是布尔值、读不出整数的 Crit / Acc、要结算背面
+ * 但没有背面，都原样留下伤口。
  */
 export function resolveHeroSkill(
   skill: HeroSkillCardView,
@@ -1699,6 +1711,15 @@ export function resolveHeroSkill(
     const expectedSide = targets.has("target_hero") ? "hero" : "monster";
     if (target.side !== expectedSide) {
       return refuse(skill, combat, "目标阵营与技能的目标图标不一致");
+    }
+    // 规则书第 21 页、R-024：不以友方为目标的技能，必须把有 Guard 的敌人选为目标之一。
+    // 做不到就不能使用，所以自身效果也不发生。英雄目标和 Self 已经在上面分开。
+    if (expectedSide === "monster" && combat.guardedEnemyOmitted === true) {
+      return refuse(
+        skill,
+        combat,
+        "不以友方为目标的技能必须把有 Guard 的敌人选为目标之一，这次没有选中（规则书第 21 页，R-024）",
+      );
     }
   }
   if (selfTarget) {

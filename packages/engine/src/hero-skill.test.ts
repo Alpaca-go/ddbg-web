@@ -10026,4 +10026,321 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
     });
   });
+
+  it("打怪物时如果没选中有 Guard 的敌人，整次拒绝；友方和自身技能不受这条限制", () => {
+    const lance = card("hero_skill:p016");
+    expect(lance.name).toBe("Holy Lance");
+    expect(lance.level).toBe(1);
+    expect(lance.hero).toBe("CRUSADER");
+    expect(lance.verification.unverified).toBe(false);
+    expect(lance.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 1],
+      ["Acc", 9],
+    ]);
+    expect(
+      lance.stats_line
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["range", "target_monster", "damage", "damage"]);
+    expect(
+      lance.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([1]);
+    expect(
+      lance.effect_lines[0]
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text.trim())
+        .filter((text) => text !== ""),
+    ).toEqual(["Self", "Pull 1"]);
+
+    const crusader = { id: "crusader", wounds: 1, stress: 2 };
+    const enemy = { id: "unholy", side: "monster" as const, wounds: 3, dodge: 0 };
+    const omitted: SkillCombatState = {
+      actor: crusader,
+      target: enemy,
+      areaDistance: 1,
+      guardedEnemyOmitted: true,
+    };
+    const frozen = structuredClone(omitted);
+    // 掷 1 本来会暴击并给自己减压力，掷 2 本来会命中 7。漏选 Guard 时两者都不发生，自身 Pull 1 也不记。
+    expect(use("hero_skill:p016", omitted, 1)).toMatchObject({
+      status: "refused",
+      reason:
+        "不以友方为目标的技能必须把有 Guard 的敌人选为目标之一，这次没有选中（规则书第 21 页，R-024）",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 3,
+      actorWounds: 1,
+      actorStress: 2,
+      actorShuffle: null,
+      targetShuffle: null,
+    });
+    expect(use("hero_skill:p016", omitted, 2)).toMatchObject({
+      status: "refused",
+      reason:
+        "不以友方为目标的技能必须把有 Guard 的敌人选为目标之一，这次没有选中（规则书第 21 页，R-024）",
+      wounds: 3,
+      actorWounds: 1,
+      actorStress: 2,
+      actorShuffle: null,
+    });
+    expect(omitted).toEqual(frozen);
+
+    // 标明没有漏选时，距离 1、掷 2 仍是命中 7，自身 Pull 1。
+    expect(use("hero_skill:p016", { ...omitted, guardedEnemyOmitted: false }, 2)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 10,
+      actorWounds: 1,
+      actorStress: 2,
+      actorShuffle: { direction: "pull", distance: 1 },
+    });
+    expect(
+      use("hero_skill:p016", { actor: crusader, target: enemy, areaDistance: 1 }, 2),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 10,
+      actorShuffle: { direction: "pull", distance: 1 },
+    });
+
+    // 距离先核对。射程 1 对上距离 2，还没轮到 Guard，自身 Pull 同样不发生。
+    expect(use("hero_skill:p016", { ...omitted, areaDistance: 2 }, 2)).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      wounds: 3,
+      actorWounds: 1,
+      actorStress: 2,
+      actorShuffle: null,
+    });
+    // 打到英雄身上，先按目标图标拒绝，不把原因说成漏选 Guard。
+    expect(
+      use(
+        "hero_skill:p016",
+        {
+          actor: crusader,
+          target: { id: "vestal", side: "hero", wounds: 3, dodge: 0 },
+          areaDistance: 1,
+          guardedEnemyOmitted: true,
+        },
+        2,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标阵营与技能的目标图标不一致",
+      wounds: 3,
+      actorWounds: 1,
+      actorShuffle: null,
+    });
+    expect(
+      use("hero_skill:p016", { ...omitted, guardedEnemyOmitted: 1 as unknown as boolean }, 2),
+    ).toMatchObject({
+      status: "refused",
+      reason: "有没有漏选 Guard 敌人必须是布尔值",
+      wounds: 3,
+      actorWounds: 1,
+      actorStress: 2,
+      actorShuffle: null,
+    });
+
+    const rush = card("hero_skill:p034");
+    expect(rush.name).toBe("Breakthrough");
+    expect(rush.level).toBe(1);
+    expect(rush.hero).toBe("HELLION");
+    expect(rush.verification.unverified).toBe(false);
+    expect(namedTargetIconCount(rush)).toBe(3);
+    const hellion = { id: "hellion", wounds: 2, stress: 3 };
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 1, dodge: 0 };
+    // 个数 3 合法，但没包含 Guard，整次拒绝，自身 Pull 1 不记。
+    expect(
+      use(
+        "hero_skill:p034",
+        {
+          actor: hellion,
+          target: soldier,
+          areaDistance: 1,
+          targetsInArea: 3,
+          guardedEnemyOmitted: true,
+        },
+        8,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason:
+        "不以友方为目标的技能必须把有 Guard 的敌人选为目标之一，这次没有选中（规则书第 21 页，R-024）",
+      wounds: 1,
+      actorWounds: 2,
+      actorStress: 3,
+      actorShuffle: null,
+      damageDealt: null,
+    });
+    // 个数先核对。选 4 个时还没轮到 Guard。
+    expect(
+      use(
+        "hero_skill:p034",
+        {
+          actor: hellion,
+          target: soldier,
+          areaDistance: 1,
+          targetsInArea: 4,
+          guardedEnemyOmitted: true,
+        },
+        8,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
+      wounds: 1,
+      actorWounds: 2,
+      actorShuffle: null,
+    });
+    expect(
+      use(
+        "hero_skill:p034",
+        {
+          actor: hellion,
+          target: soldier,
+          areaDistance: 1,
+          targetsInArea: 3,
+          guardedEnemyOmitted: false,
+        },
+        8,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 4,
+      damageDealt: 4,
+      wounds: 5,
+      actorShuffle: { direction: "pull", distance: 1 },
+    });
+
+    // 治疗友方：Battle Heal I 的目标是英雄，漏选标志不挡这次治疗。
+    const heal = card("hero_skill:p013");
+    expect(heal.name).toBe("Battle Heal");
+    expect(heal.level).toBe(1);
+    expect(heal.hero).toBe("CRUSADER");
+    expect(heal.verification.unverified).toBe(false);
+    expect(
+      heal.stats_line
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key)
+        .filter((key) => key === "target_hero" || key === "target_monster"),
+    ).toEqual(["target_hero"]);
+    expect(
+      use(
+        "hero_skill:p013",
+        {
+          target: { id: "patient", side: "hero", wounds: 5, dodge: 0 },
+          guardedEnemyOmitted: true,
+        },
+        10,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 2,
+      wounds: 3,
+      damageDealt: null,
+    });
+
+    // 自身目标：Absolution I 写的是 Self。漏选标志不挡治疗和减压。
+    const absolution = card("hero_skill:p217");
+    expect(absolution.name).toBe("Absolution");
+    expect(absolution.level).toBe(1);
+    expect(absolution.verification.unverified).toBe(false);
+    expect(
+      use(
+        "hero_skill:p217",
+        {
+          actor: { id: "abomination", wounds: 5, stress: 4 },
+          target: { id: "abomination", side: "hero", wounds: 5, dodge: 0, stress: 4 },
+          guardedEnemyOmitted: true,
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 2,
+      wounds: 3,
+      actorWounds: 3,
+      actorStress: 3,
+      targetStress: 3,
+    });
+
+    // 正面头盔标的是英雄。Inspiring Tune I 在漏选标志下仍给自己减压。
+    const tune = card("hero_skill:p121");
+    expect(tune.name).toBe("Inspiring Tune");
+    expect(tune.level).toBe(1);
+    expect(tune.verification.unverified).toBe(false);
+    expect(
+      use(
+        "hero_skill:p121",
+        {
+          actor: { id: "jester", wounds: 1, stress: 4 },
+          target: { id: "vestal", side: "hero", wounds: 3, dodge: 15, stress: 6 },
+          areaDistance: 0,
+          targetsInArea: 2,
+          guardedEnemyOmitted: true,
+        },
+        6,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "miss",
+      effect: "stress",
+      wounds: 3,
+      actorWounds: 1,
+      actorStress: 3,
+      targetStress: 6,
+    });
+
+    // 只有眩晕、没有已命名伤害的技能仍不结算。漏选标志不替它补出 Crit，也不放 1t。
+    const yawp = card("hero_skill:p028");
+    expect(yawp.name).toBe("Barbaric YAWP!");
+    expect(yawp.level).toBe(1);
+    expect(yawp.hero).toBe("HELLION");
+    expect(yawp.verification.unverified).toBe(false);
+    expect(yawp.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 10]]);
+    expect(
+      yawp.unlabeled_numbers.filter((item) => item.text === "1t").map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(
+      use(
+        "hero_skill:p028",
+        {
+          actor: { id: "hellion", wounds: 0, stress: 1 },
+          target: { id: "soldier", side: "monster", wounds: 4, dodge: 0 },
+          areaDistance: 0,
+          targetsInArea: 2,
+          guardedEnemyOmitted: true,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      wounds: 4,
+      actorWounds: 0,
+      actorStress: 1,
+      actorShuffle: null,
+      targetShuffle: null,
+    });
+  });
 });
