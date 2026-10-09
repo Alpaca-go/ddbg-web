@@ -118,19 +118,22 @@
  * 没有。友方治疗同样加：规则书写的是任意 creature，R-022 据此包含友方。目标写的是
  * Self，或卡面射程恰好是 0，或传入的距离是 0，都是使用者自己的区域，不能再低，整次
  * 拒绝。不把射程上限再加 1：区间的 numeric 仍是 null，单个整数对不上仍拒绝。
- * 光照 ≤4 的 Crit +1，以及光照恰好 5 的英雄 Dodge +1，写在后面。卡面光照 +1、
- * `+N vs` 和饰品仍不加。
+ * 光照 ≤4 的 Crit +1、光照恰好 5 的英雄 Dodge +1，以及光照恰好 0 的怪物 Dodge +1，
+ * 写在后面。卡面光照 +1、`+N vs` 和饰品仍不加。
  *
  * 光照（规则书第 29 页，说明书 §5.10、§6.5 第 4 步，R-002）：调用方传入当前光照
  * 0–4 时，暴击阈值 +1。4→0 逐级累加，所以 4、3、2、1、0 都有这一项。暴击仍先于
  * 命中、仍不减 Dodge。友方治疗同样加：规则书写的是英雄和怪物的 Crit +1。恰好为 5
  * 时没有这项暴击。不传就不加暴击。和已有的增益、减益堆加在一起。
  * 光照恰好为 5、并且目标是英雄时，命中阈值再减 1：英雄 Dodge +1，只在恰好为 5
- * 时有。命中阈值是 Acc + 标记堆数 + 高地 −（Dodge + 1）。暴击仍不减这 1 点。
- * 友方治疗和写着 Self 的技能同样减：Dodge 加在英雄身上，治疗也要减目标 Dodge。
- * 目标是怪物时不加。不改印刷伤害或治疗。光照 0 的怪物 Dodge +1、怪物 Acc +1，
- * 以及光照 2–1「每次承受压力额外 +1」，都不在这里加。卡面上的光照
- * 「+1」「-1」「+2」numeric 为 null，不改传入的光照，也不加进伤害或 Dodge。
+ * 时有。友方治疗和写着 Self 的技能同样减：Dodge 加在英雄身上，治疗也要减目标 Dodge。
+ * 目标是怪物时不加。
+ * 光照恰好为 0、并且目标是怪物时，命中阈值再减 1：怪物 Dodge +1，只在恰好为 0
+ * 时有。命中阈值是 Acc + 标记堆数 + 高地 −（Dodge + 这一档的 1）。暴击仍不减这
+ * 1 点。和光照 5 的英雄 Dodge 不会叠在同一次上。目标是英雄时不加，友方治疗和
+ * Self 都不减。怪物 Acc +1 不加在英雄的命中上：这一层结算的是英雄技能，攻击方
+ * 不是怪物。不改印刷伤害或治疗。光照 2–1「每次承受压力额外 +1」仍不加。卡面上的
+ * 光照「+1」「-1」「+2」numeric 为 null，不改传入的光照，也不加进伤害或 Dodge。
  * 饰品和 Stygian 的 Boss Crit +1 不加。
  *
  * 不解释 `damage_or_heal_combined_marker`。英雄 Life、死门骰都不在这里。
@@ -281,9 +284,9 @@ export type SkillCombatState = {
   readonly targetAreaLower?: boolean;
   /**
    * 当前光照 0–5（规则书第 29 页，R-002）。0–4 让暴击阈值 +1。恰好 5 不加暴击，
-   * 但目标是英雄时命中阈值再减 1（英雄 Dodge +1）。不传就两项都不加。
-   * 光照 0 的怪物 Dodge +1、怪物 Acc +1，以及光照 2–1 承受压力时额外 +1，都不加。
-   * 不从卡面「+1」读。
+   * 但目标是英雄时命中阈值再减 1（英雄 Dodge +1）。恰好 0 且目标是怪物时，命中
+   * 阈值再减 1（怪物 Dodge +1）。不传就这些都不加。英雄技能不加怪物 Acc +1。
+   * 光照 2–1 承受压力时额外 +1 不加。不从卡面「+1」读。
    */
   readonly light?: number;
 };
@@ -1372,9 +1375,10 @@ export function resolveHeroSkill(
   // 第 21 页：每一堆已有的 Buff 只把暴击阈值 +1。目标是怪物时，每一堆 Debuff 再 +1
   // （R-016），每一堆 Mark 把命中阈值 +1（R-019）。目标是英雄时这两种都不加。
   // 第 25 页：目标区域更低时，命中阈值再 +1（R-022，友方也加）。不改暴击，不加伤害。
-  // 第 29 页、R-002：光照 0–4 只把暴击阈值再 +1。光照恰好 5 不加暴击。
-  // 光照恰好 5 且目标是英雄时，命中阈值再减 1（英雄 Dodge +1）。怪物不加。
-  // 光照 0 的怪物 Dodge / Acc，以及光照 2–1 的额外压力，都不加。
+  // 第 29 页、R-002：光照 0–4 把暴击阈值再 +1。光照恰好 5 不加暴击。
+  // 光照恰好 5 且目标是英雄时，命中阈值再减 1（英雄 Dodge +1）。
+  // 光照恰好 0 且目标是怪物时，命中阈值再减 1（怪物 Dodge +1）。英雄 Acc 不加：
+  // 怪物 Acc +1 只在怪物攻击时有。光照 2–1 的额外压力不加。
   // 没有 Acc 的技能不掷骰。变身卡没有 Crit / Acc，outcome 留空。
   // 不读这张卡印的增益、减益、标记回合数，也不读卡面光照 +1。
   const buffStacks = combat.actor?.buffStacks ?? 0;
@@ -1383,12 +1387,18 @@ export function resolveHeroSkill(
   const lowerAreaAcc = combat.targetAreaLower === true ? 1 : 0;
   const lightCrit = combat.light !== undefined && combat.light <= 4 ? 1 : 0;
   const lightHeroDodge = combat.light === 5 && target.side === "hero" ? 1 : 0;
+  const lightMonsterDodge = combat.light === 0 && target.side === "monster" ? 1 : 0;
   let outcome: "crit" | "hit" | "miss" | null = null;
   if (!formOnly && critThreshold !== null && accThreshold !== null) {
     if (roll <= critThreshold + buffStacks + enemyDebuffStacks + lightCrit) outcome = "crit";
     else if (
       roll <=
-      accThreshold + enemyMarkStacks + lowerAreaAcc - target.dodge - lightHeroDodge
+      accThreshold +
+        enemyMarkStacks +
+        lowerAreaAcc -
+        target.dodge -
+        lightHeroDodge -
+        lightMonsterDodge
     ) {
       outcome = "hit";
     } else outcome = "miss";
