@@ -73,7 +73,14 @@
  * 未点亮的远程图标，不当成可用，也不当成禁用。不移动姿态代币，也不查本回合是否
  * 已经成功用过这张技能。
  *
- * 不解释 `damage_or_heal_combined_marker`。射程距离、英雄 Life、死门骰都不在这里。
+ * 射程（规则书第 19 页技能解剖，说明书 §6.5 第 2 步，图例 I-07）：目标区域与
+ * 使用者的距离必须恰好等于弯箭头旁边的那个非负整数。射程 0 是使用者自己的区域。
+ * 调用方传入已经算好的区域距离时才核对；对不上就整次拒绝，自身效果、伤害、治疗
+ * 和位移都不发生。不传就不检查，也不在这里算板块上的步数。区间「0-1」「1-2」
+ * 「0-2」的 numeric 为 null，不拆成两个距离。射程图标后面只有 Self 或 All Allies、
+ * 没有这个整数时，也不把它们当成 0。高地让射程上限可选 +1（R-022）不加。
+ *
+ * 不解释 `damage_or_heal_combined_marker`。英雄 Life、死门骰都不在这里。
  */
 
 export type SkillIconRef = {
@@ -92,6 +99,8 @@ export type HeroSkillCardView = {
   readonly verification: { readonly unverified: boolean };
   readonly printed_labels: readonly { readonly label: string; readonly value: number | null }[];
   readonly unlabeled_numbers: readonly {
+    /** 印刷出来的那段数字。区间如「0-1」整段在这里，`numeric` 为 null。 */
+    readonly text?: string;
     readonly numeric: number | null;
     readonly anchor:
       | { readonly type: "printed_label"; readonly label: string }
@@ -142,7 +151,7 @@ export type SkillActorState = {
   readonly stance?: SkillStance;
 };
 
-/** 目标已经选好。姿态、射程、区域几何都不在这里。 */
+/** 目标已经选好。区域怎么相邻不在这里。 */
 export type SkillTargetState = {
   readonly id: string;
   readonly side: SkillTargetSide;
@@ -183,6 +192,11 @@ export type SkillCombatState = {
    * 为真时，打出暴击也给目标压力 −1（R-031 的「同区域其他英雄」）。
    */
   readonly targetInActorArea?: boolean;
+  /**
+   * 目标区域与使用者的距离（规则书 spaces away）。传入时必须恰好等于卡面射程。
+   * 不传就不做这一步。不在这里算最短步数，也不加高地的可选 +1（R-022）。
+   */
+  readonly areaDistance?: number;
 };
 
 export type SkippedSkillEffect = {
@@ -911,6 +925,55 @@ function stanceProblem(skill: HeroSkillCardView, combat: SkillCombatState): stri
   return "这张技能的该姿态没有标明点亮或未点亮，不能当作可用（R-048）";
 }
 
+type PrintedRange =
+  | { readonly kind: "exact"; readonly distance: number }
+  | { readonly kind: "null_numeric" }
+  | { readonly kind: "absent" };
+
+/**
+ * 只接受恰好一个已命名射程图标旁边的非负整数。
+ * 区间的 numeric 为 null。图标里面的数字、以及没有这个整数的 Self / All Allies，都不算。
+ */
+function readPrintedRange(skill: HeroSkillCardView): PrintedRange {
+  let exact: number | null = null;
+  let count = 0;
+  let sawNull = false;
+  for (const item of skill.unlabeled_numbers) {
+    if (item.anchor.type !== "beside_icon") continue;
+    const left = item.anchor.left_icon;
+    if (left === null || left.key !== "range" || !NAMED.has(left.naming)) continue;
+    if (item.anchor.inside_icon !== null) continue;
+    if (item.numeric === null || !nonNegativeInteger(item.numeric)) {
+      sawNull = true;
+      continue;
+    }
+    count += 1;
+    exact = item.numeric;
+  }
+  if (sawNull) return { kind: "null_numeric" };
+  if (count !== 1 || exact === null) return { kind: "absent" };
+  return { kind: "exact", distance: exact };
+}
+
+/**
+ * 规则书第 19 页：选中的区域与使用者的距离必须恰好等于印出来的射程。
+ * 没传入距离时不检查。读不出单个整数时，整次不结算。
+ */
+function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
+  if (combat.areaDistance === undefined) return null;
+  const printed = readPrintedRange(skill);
+  if (printed.kind === "null_numeric") {
+    return "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）";
+  }
+  if (printed.kind !== "exact") {
+    return "卡面没有恰好一个射程整数，不能把 Self 或 All Allies 当成距离 0（规则书第 19 页，R-048）";
+  }
+  if (combat.areaDistance !== printed.distance) {
+    return "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）";
+  }
+  return null;
+}
+
 function combatProblem(combat: SkillCombatState): string | null {
   const target = combat.target;
   if (target.side !== "hero" && target.side !== "monster") {
@@ -962,6 +1025,9 @@ function combatProblem(combat: SkillCombatState): string | null {
       return "使用者的姿态必须是 support、ranged、defensive 或 aggressive";
     }
   }
+  if (combat.areaDistance !== undefined && !nonNegativeInteger(combat.areaDistance)) {
+    return "区域距离必须是非负整数";
+  }
 
   const beside = readAreaHeroes(combat.heroesBesideActor, "使用者身边的英雄");
   if (!beside.ok) return beside.reason;
@@ -1002,7 +1068,8 @@ function combatProblem(combat: SkillCombatState): string | null {
 
 /**
  * 结算一张英雄技能。`roll` 是 d10 面值（1–10），由调用方用 `rollD10` 取得。
- * 未验证的卡、对不上的目标、当前姿态没有点亮、读不出整数的 Crit / Acc，都原样留下伤口。
+ * 未验证的卡、对不上的目标、当前姿态没有点亮、区域距离不是印出来的射程、
+ * 读不出整数的 Crit / Acc，都原样留下伤口。
  */
 export function resolveHeroSkill(
   skill: HeroSkillCardView,
@@ -1022,6 +1089,8 @@ export function resolveHeroSkill(
   if (problem !== null) return refuse(skill, combat, problem);
   const stance = stanceProblem(skill, combat);
   if (stance !== null) return refuse(skill, combat, stance);
+  const range = rangeProblem(skill, combat);
+  if (range !== null) return refuse(skill, combat, range);
 
   const target = combat.target;
   const stress = readImmediateStress(skill);
