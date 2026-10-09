@@ -1,5 +1,6 @@
 export { applyCommand, createInitialState } from "./command";
 export { createBattleState } from "./battle";
+export type { EncounterCommand, EncounterEvent, EncounterState } from "./encounter";
 export type {
   BattleArea,
   BattleEntity,

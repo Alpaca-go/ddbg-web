@@ -1,0 +1,338 @@
+import { rejectBattleCommand } from "./battle";
+import type { BattleEntity, BattleState } from "./battle";
+import type { ApplyResult, GameEvent, GameState } from "./command";
+import type { SkillStance, SkillTargetSide } from "./hero-skill";
+import { createRng, rollD10 } from "./rng";
+
+const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
+
+/** 普通遭遇战；不包含 Boss / 多行动怪物与战役结束规则。 */
+export type EncounterState = {
+  readonly round: number;
+  readonly deck: readonly SkillTargetSide[];
+  readonly actedIds: readonly string[];
+  readonly turn:
+    | { readonly type: "awaitingInitiative" }
+    | {
+        readonly type: "hero";
+        readonly actorId: string;
+        readonly actions: number;
+        readonly usedSkillIds: readonly string[];
+      }
+    | { readonly type: "monster"; readonly actorId: string }
+    | { readonly type: "finished"; readonly outcome: "victory" | "retreat" };
+};
+
+export type EncounterCommand =
+  | { readonly type: "startBattle" }
+  | { readonly type: "drawInitiative" }
+  | {
+      readonly type: "changeStance";
+      readonly actorId: string;
+      readonly direction: "forward" | "backward";
+    }
+  /** 沙盒手动确认回合边界，不代替尚未接入的怪物 AI。 */
+  | { readonly type: "finishMonsterTurn"; readonly actorId: string };
+
+export type EncounterEvent = {
+  readonly type:
+    | "roundStarted"
+    | "turnStarted"
+    | "turnEnded"
+    | "initiativeDiscarded"
+    | "stanceChanged"
+    | "battleFinished";
+  readonly message: string;
+  readonly round: number;
+  readonly actorId?: string;
+  readonly side?: SkillTargetSide;
+  readonly outcome?: "victory" | "retreat";
+};
+
+/** 共享 RNG 游标；技能骰与先攻洗牌消费同一个可回放序列。 */
+export function nextBattleRoll(seed: number, cursor: number): number {
+  const rng = createRng(seed);
+  for (let index = 0; index < cursor; index += 1) rng.next();
+  return rollD10(rng);
+}
+
+function startRound(seed: number, battle: BattleState, round: number): BattleState {
+  const deck = battle.entities.filter((entity) => !entity.dead).map((entity) => entity.side);
+  const rng = createRng(seed);
+  for (let index = 0; index < battle.rngCursor; index += 1) rng.next();
+  let cursor = battle.rngCursor;
+  for (let index = deck.length - 1; index > 0; index -= 1) {
+    const other = Math.floor(rng.next() * (index + 1));
+    [deck[index], deck[other]] = [deck[other]!, deck[index]!];
+    cursor += 1;
+  }
+  return {
+    ...battle,
+    rngCursor: cursor,
+    encounter: { round, deck, actedIds: [], turn: { type: "awaitingInitiative" } },
+  };
+}
+
+function event(battle: BattleState, type: EncounterEvent["type"], message: string): EncounterEvent {
+  return { type, message, round: battle.encounter!.round };
+}
+
+function finishBattle(
+  state: GameState,
+  outcome: "victory" | "retreat",
+  events: readonly GameEvent[],
+): ApplyResult {
+  const battle = state.battle!;
+  return {
+    state: {
+      ...state,
+      battle: {
+        ...battle,
+        encounter: { ...battle.encounter!, deck: [], turn: { type: "finished", outcome } },
+      },
+    },
+    events: [
+      ...events,
+      {
+        ...event(
+          battle,
+          "battleFinished",
+          outcome === "victory" ? "怪物全灭，战斗胜利" : "第 4 轮结束，被迫撤退",
+        ),
+        outcome,
+      },
+    ],
+  };
+}
+
+function finishTurn(state: GameState, actorId: string, events: readonly GameEvent[]): ApplyResult {
+  const battle = state.battle!;
+  const encounter = battle.encounter!;
+  const actedIds = [...encounter.actedIds, actorId];
+  const ended = [...events, { ...event(battle, "turnEnded", "回合结束"), actorId }];
+  if (
+    encounter.deck.length === 0 ||
+    battle.entities.every((entity) => entity.dead || actedIds.includes(entity.id))
+  ) {
+    if (encounter.round === 4)
+      return finishBattle(
+        { ...state, battle: { ...battle, encounter: { ...encounter, actedIds } } },
+        "retreat",
+        ended,
+      );
+    const next = startRound(state.seed, battle, encounter.round + 1);
+    return {
+      state: { ...state, battle: next },
+      events: [...ended, event(next, "roundStarted", "开始下一轮")],
+    };
+  }
+  return {
+    state: {
+      ...state,
+      battle: {
+        ...battle,
+        encounter: { ...encounter, actedIds, turn: { type: "awaitingInitiative" } },
+      },
+    },
+    events: ended,
+  };
+}
+
+/** 状态代币缺 duration 时，不跳过回合开始结算继续运行（R-048）。 */
+function unsupportedTurnStart(entity: BattleEntity): boolean {
+  return (
+    entity.bleed.length > 0 ||
+    entity.blight.length > 0 ||
+    (entity.buffStacks ?? 0) > 0 ||
+    (entity.debuffStacks ?? 0) > 0 ||
+    (entity.markStacks ?? 0) > 0 ||
+    entity.guard ||
+    entity.protection === true ||
+    entity.riposte === true ||
+    entity.stress === 10
+  );
+}
+
+export function encounterSkillProblem(
+  battle: BattleState,
+  actorId: string,
+  skillId: string,
+): string | null {
+  if (!battle.encounter) return null;
+  if (battle.shuffleIntents.length > 0) return "位移意图尚未应用，不能继续遭遇战";
+  const turn = battle.encounter.turn;
+  if (turn.type !== "hero" || turn.actorId !== actorId || turn.actions <= 0)
+    return "当前不是这名英雄的行动回合";
+  if (turn.usedSkillIds.includes(skillId)) return "本回合已成功使用该技能（R-025）";
+  return null;
+}
+
+/** 技能成功才锁定重用；落空仍消耗一个行动（R18–19、R-025）。 */
+export function recordEncounterSkill(result: ApplyResult): ApplyResult {
+  const battle = result.state.battle;
+  if (!battle?.encounter) return result;
+  const resolved = result.events.find((entry) => entry.type === "heroSkillResolved");
+  if (resolved?.type !== "heroSkillResolved" || battle.encounter.turn.type !== "hero")
+    return result;
+  let next = battle;
+  if (resolved.resolution.targetDead) {
+    const dead = battle.entities.find((entity) => entity.id === resolved.resolution.targetId)!;
+    const position = STANCES.indexOf(dead.stance!);
+    next = {
+      ...next,
+      entities: next.entities.map((entity) =>
+        entity.side === "monster" && !entity.dead && STANCES.indexOf(entity.stance!) > position
+          ? { ...entity, stance: STANCES[STANCES.indexOf(entity.stance!) - dead.stanceSlots!]! }
+          : entity,
+      ),
+    };
+  }
+  const state = { ...result.state, battle: next };
+  if (next.entities.every((entity) => entity.side !== "monster" || entity.dead)) {
+    return finishBattle(state, "victory", result.events);
+  }
+  const turn = battle.encounter.turn;
+  const usedSkillIds =
+    resolved.resolution.outcome === "miss"
+      ? turn.usedSkillIds
+      : [...turn.usedSkillIds, resolved.resolution.skillId];
+  const actions = turn.actions - 1;
+  if (actions === 0) return finishTurn(state, turn.actorId, result.events);
+  return {
+    ...result,
+    state: {
+      ...state,
+      battle: {
+        ...next,
+        encounter: { ...next.encounter!, turn: { ...turn, actions, usedSkillIds } },
+      },
+    },
+  };
+}
+
+export function applyEncounterCommand(state: GameState, command: EncounterCommand): ApplyResult {
+  const battle = state.battle;
+  if (!battle) return rejectBattleCommand(state, "尚未创建战斗沙盒");
+  if (battle.shuffleIntents.length > 0)
+    return rejectBattleCommand(state, "位移意图尚未应用，不能继续遭遇战");
+  if (command.type === "startBattle") {
+    if (battle.encounter) return rejectBattleCommand(state, "遭遇战已经开始");
+    const living = battle.entities.filter((entity) => !entity.dead);
+    if (living.filter((entity) => entity.side === "hero").length !== 4)
+      return rejectBattleCommand(state, "普通遭遇战需要 4 名存活英雄（R16）");
+    for (const side of ["hero", "monster"] as const) {
+      const occupied = new Set<number>();
+      for (const entity of living.filter((entry) => entry.side === side)) {
+        const width = side === "hero" ? 1 : entity.stanceSlots;
+        const position = STANCES.indexOf(entity.stance!);
+        if (position < 0 || (width !== 1 && width !== 2) || position + width > 4)
+          return rejectBattleCommand(state, "姿态或怪物占格数尚未核实 / 超出轨道");
+        for (let slot = position; slot < position + width; slot += 1) {
+          if (occupied.has(slot)) return rejectBattleCommand(state, "同阵营姿态位重叠");
+          occupied.add(slot);
+        }
+      }
+    }
+    if (!living.some((entity) => entity.side === "monster")) {
+      return finishBattle(
+        {
+          ...state,
+          battle: {
+            ...battle,
+            encounter: { round: 1, deck: [], actedIds: [], turn: { type: "awaitingInitiative" } },
+          },
+        },
+        "victory",
+        [],
+      );
+    }
+    if (living.some(unsupportedTurnStart))
+      return rejectBattleCommand(state, "回合开始状态 / 压力检定尚未接入（R-048）");
+    const next = startRound(state.seed, battle, 1);
+    return {
+      state: { ...state, battle: next },
+      events: [event(next, "roundStarted", "开始第 1 轮")],
+    };
+  }
+  const encounter = battle.encounter;
+  if (!encounter || encounter.turn.type === "finished")
+    return rejectBattleCommand(state, "遭遇战尚未开始或已经结束");
+  if (command.type === "drawInitiative") {
+    if (encounter.turn.type !== "awaitingInitiative")
+      return rejectBattleCommand(state, "当前回合尚未结束");
+    const events: GameEvent[] = [];
+    const deck = [...encounter.deck];
+    while (deck.length > 0) {
+      const side = deck.shift()!;
+      const actor = battle.entities
+        .filter(
+          (entity) =>
+            !entity.dead && entity.side === side && !encounter.actedIds.includes(entity.id),
+        )
+        .sort((left, right) => STANCES.indexOf(left.stance!) - STANCES.indexOf(right.stance!))[0];
+      if (!actor) {
+        events.push({
+          ...event(battle, "initiativeDiscarded", "对应阵营没有可行动角色，弃掉先攻卡"),
+          side,
+        });
+        continue;
+      }
+      if (unsupportedTurnStart(actor))
+        return rejectBattleCommand(state, "回合开始状态 / 压力检定尚未接入（R-048）");
+      const turn: EncounterState["turn"] =
+        side === "hero"
+          ? { type: "hero", actorId: actor.id, actions: 2, usedSkillIds: [] }
+          : { type: "monster", actorId: actor.id };
+      return {
+        state: { ...state, battle: { ...battle, encounter: { ...encounter, deck, turn } } },
+        events: [
+          ...events,
+          { ...event(battle, "turnStarted", "按当前姿态开始回合"), actorId: actor.id, side },
+        ],
+      };
+    }
+    if (encounter.round === 4) return finishBattle(state, "retreat", events);
+    const next = startRound(state.seed, battle, encounter.round + 1);
+    return {
+      state: { ...state, battle: next },
+      events: [...events, event(next, "roundStarted", "开始下一轮")],
+    };
+  }
+  if (command.type === "finishMonsterTurn") {
+    if (encounter.turn.type !== "monster" || encounter.turn.actorId !== command.actorId)
+      return rejectBattleCommand(state, "当前不是这只怪物的回合");
+    return finishTurn(state, command.actorId, []);
+  }
+  const turn = encounter.turn;
+  if (command.direction !== "forward" && command.direction !== "backward") {
+    return rejectBattleCommand(state, "换姿态方向必须是 forward 或 backward");
+  }
+  if (turn.type !== "hero" || turn.actorId !== command.actorId)
+    return rejectBattleCommand(state, "当前不是这名英雄的行动回合");
+  const actor = battle.entities.find((entity) => entity.id === command.actorId)!;
+  const position = STANCES.indexOf(actor.stance!);
+  const nextPosition = position + (command.direction === "forward" ? -1 : 1);
+  const stance = STANCES[nextPosition];
+  const other = battle.entities.find(
+    (entity) => entity.side === "hero" && !entity.dead && entity.stance === stance,
+  );
+  if (!stance || !other) return rejectBattleCommand(state, "换姿态必须和相邻英雄交换（R19）");
+  const next: GameState = {
+    ...state,
+    battle: {
+      ...battle,
+      entities: battle.entities.map((entity) =>
+        entity.id === actor.id
+          ? { ...entity, stance }
+          : entity.id === other.id
+            ? { ...entity, stance: actor.stance! }
+            : entity,
+      ),
+      encounter: { ...encounter, turn: { ...turn, actions: turn.actions - 1 } },
+    },
+  };
+  const events = [
+    { ...event(battle, "stanceChanged", "与相邻英雄交换姿态，棋子区域不变"), actorId: actor.id },
+  ];
+  return turn.actions === 1 ? finishTurn(next, actor.id, events) : { state: next, events };
+}

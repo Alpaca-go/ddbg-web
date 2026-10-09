@@ -11,7 +11,8 @@ import type {
   SkillShuffle,
   SkillTargetState,
 } from "./hero-skill";
-import { createRng, rollD10 } from "./rng";
+import { encounterSkillProblem, nextBattleRoll, recordEncounterSkill } from "./encounter";
+import type { EncounterState } from "./encounter";
 import type { ApplyResult, GameState, PendingChoice } from "./command";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
@@ -22,6 +23,8 @@ export type BattleEntity = SkillTargetState &
     readonly skillIds: readonly string[];
     readonly guard: boolean;
     readonly dead: boolean;
+    /** 怪物占姿态格数，必须由已核实数据提供；先攻接入时不猜大型与否。 */
+    readonly stanceSlots?: 1 | 2;
     /** 仅保存已有堆的标识，清除时整堆移除；不猜 duration / 面值。 */
     readonly bleed: readonly string[];
     readonly blight: readonly string[];
@@ -50,6 +53,7 @@ export type BattleSetup = {
 };
 
 export type BattleState = BattleSetup & {
+  readonly encounter?: EncounterState;
   readonly rngCursor: number;
   readonly pending: {
     readonly choice: PendingChoice;
@@ -155,6 +159,8 @@ function distance(areas: readonly BattleArea[], from: string, to: string): numbe
 export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): ApplyResult {
   const battle = state.battle;
   if (!battle) return rejectBattleCommand(state, "尚未创建战斗沙盒");
+  const turnProblem = encounterSkillProblem(battle, command.actorId, command.skillId);
+  if (turnProblem) return rejectBattleCommand(state, turnProblem);
   const actor = battle.entities.find((entity) => entity.id === command.actorId);
   const target = battle.entities.find((entity) => entity.id === command.targetId);
   const skill = battle.skills.find((card) => card.id === command.skillId);
@@ -228,9 +234,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
   let roll: number | null = null;
   let resolution = probe;
   if (probe.outcome !== null) {
-    const rng = createRng(state.seed);
-    for (let index = 0; index < battle.rngCursor; index += 1) rng.next();
-    roll = rollD10(rng);
+    roll = nextBattleRoll(state.seed, battle.rngCursor);
     resolution = resolveHeroSkill(skill, combat, roll);
   }
   if (resolution.status === "refused")
@@ -257,7 +261,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
       relativeToId: actor.id,
       move: resolution.targetShuffle,
     });
-  return {
+  return recordEncounterSkill({
     state: {
       ...state,
       battle: {
@@ -271,7 +275,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
     events: [
       { type: "heroSkillResolved", message: "英雄技能已结算", actorId: actor.id, roll, resolution },
     ],
-  };
+  });
 }
 
 function writeResolution(

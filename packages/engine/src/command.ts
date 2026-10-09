@@ -1,6 +1,8 @@
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import type { BattleState, PlayHeroSkillCommand } from "./battle";
 import type { HeroSkillResolution } from "./hero-skill";
+import { applyEncounterCommand } from "./encounter";
+import type { EncounterCommand, EncounterEvent } from "./encounter";
 
 export type GameState = {
   readonly seed: number;
@@ -16,6 +18,7 @@ export type PendingChoice = {
 };
 
 export type Command =
+  | EncounterCommand
   | PlayHeroSkillCommand
   | {
       readonly type: "resolveChoice";
@@ -28,6 +31,7 @@ export type Command =
     };
 
 export type GameEvent =
+  | EncounterEvent
   | {
       readonly type: "heroSkillResolved";
       readonly message: string;
@@ -72,6 +76,7 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
   }
   if (state.battle?.pending) return rejectBattleCommand(state, "请先完成待选方向");
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);
+  if (command.type !== "ping") return applyEncounterCommand(state, command);
   return {
     state: { ...state, notes: [...state.notes, command.message] },
     events: [{ type: "pong", message: command.message }],
