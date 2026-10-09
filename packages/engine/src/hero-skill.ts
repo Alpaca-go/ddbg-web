@@ -92,16 +92,16 @@
  * 已有的增益（规则书第 21 页，说明书 §6.5 第 4 步、§7.2）：使用者身上每一堆 Buff
  * 让这次掷骰的暴击阈值 +1。暴击仍先于命中、仍不减 Dodge。不传堆数就当作没有。
  * 这里数的是堆，不是一堆里还剩几枚代币（R-018）。不从卡面的「2t」「3t」「4t」读堆数，
- * 那些回合数的 numeric 为 null，这一张技能也不因此放上新的增益。光照 ≤4 的 Crit +1
- * 和饰品都不在这一层加。标记和高地对命中阈值的加值写在后面。
+ * 那些回合数的 numeric 为 null，这一张技能也不因此放上新的增益。饰品不加。
+ * 光照 ≤4 的 Crit +1 写在后面。标记和高地对命中阈值的加值也写在后面。
  *
  * 已有的减益（规则书第 21 页，R-016，说明书 §6.5 第 4 步、§7.2）：目标是怪物时，
  * 目标身上每一堆 Debuff 再让暴击阈值 +1，和使用者自己的增益堆加在一起。暴击仍不减
  * Dodge。命中阈值、印刷伤害和印刷治疗都不加。目标是英雄时不加，友方治疗和给自己
  * 的技能都不会因为对方身上的减益更容易暴击。不传堆数就当作没有。数的是堆，不是
  * 一堆里还剩几枚代币（R-018）。不从卡面的「1t」「2t」「3t」「4t」读堆数，那些
- * 回合数的 numeric 为 null，这一张技能也不因此放上新的减益。光照和饰品仍不加。
- * 标记和高地对命中阈值的加值写在后面。
+ * 回合数的 numeric 为 null，这一张技能也不因此放上新的减益。饰品仍不加。
+ * 光照 ≤4 的 Crit +1 写在后面。标记和高地对命中阈值的加值也写在后面。
  *
  * 已有的标记（规则书第 21 页，R-019，说明书 §6.5 第 4 步、§7.2）：目标是怪物时，
  * 目标身上每一堆 Mark 让命中阈值 +1，也就是 Acc + 堆数 − Dodge。暴击仍先看、仍不减
@@ -110,15 +110,24 @@
  * 当作没有。数的是堆，不是一堆里还剩几枚代币（R-018）。不从卡面的「2t」「3t」「4t」
  * 读堆数，那些回合数的 numeric 为 null，这一张技能也不因此放上新的标记。效果行里
  * 「+N vs」再加已命名标记的伤害，numeric 为 null，不加进伤害。和标记写在同一行的
- * Pull 仍整行跳过。光照和饰品仍不加。高地对命中阈值的 +1 写在后面。
+ * Pull 仍整行跳过。饰品仍不加。高地和光照写在后面。
  *
  * 高地（规则书第 25 页，说明书 §6.5 第 4 步、§6.9，R-022）：调用方标明目标所在区域
  * 比使用者低时，命中阈值 +1，也就是 Acc + 标记堆数 + 1 − Dodge。暴击仍先看、仍不减
  * Dodge，印刷伤害和印刷治疗也不加。从低处打向高处或同一高度都不减 Acc。不传就当作
  * 没有。友方治疗同样加：规则书写的是任意 creature，R-022 据此包含友方。目标写的是
  * Self，或卡面射程恰好是 0，或传入的距离是 0，都是使用者自己的区域，不能再低，整次
- * 拒绝。不把射程上限再加 1：区间的 numeric 仍是 null，单个整数对不上仍拒绝。光照
- * Crit +1、卡面光照 +1、`+N vs` 和饰品仍不加。
+ * 拒绝。不把射程上限再加 1：区间的 numeric 仍是 null，单个整数对不上仍拒绝。
+ * 光照 ≤4 的 Crit +1 写在后面。卡面光照 +1、`+N vs` 和饰品仍不加。
+ *
+ * 光照（规则书第 29 页，说明书 §5.10、§6.5 第 4 步，R-002）：调用方传入当前光照
+ * 0–4 时，暴击阈值 +1。4→0 逐级累加，所以 4、3、2、1、0 都有这一项。暴击仍先于
+ * 命中、仍不减 Dodge。友方治疗同样加：规则书写的是英雄和怪物的 Crit +1。恰好为 5
+ * 时没有这项，也不把英雄 Dodge +1 算进命中阈值。不传就不加。和已有的增益、减益
+ * 堆加在一起。不改命中阈值，不加印刷伤害或治疗。光照 0 的怪物 Dodge +1、怪物
+ * Acc +1，以及光照 2–1「每次承受压力额外 +1」，都不在这里加。卡面上的光照
+ * 「+1」「-1」「+2」numeric 为 null，不改传入的光照，也不加进伤害。饰品和
+ * Stygian 的 Boss Crit +1 不加。
  *
  * 不解释 `damage_or_heal_combined_marker`。英雄 Life、死门骰都不在这里。
  */
@@ -266,6 +275,12 @@ export type SkillCombatState = {
    * 不把射程上限再加 1（R-022 的可选射程仍不在这里）。
    */
   readonly targetAreaLower?: boolean;
+  /**
+   * 当前光照 0–5（规则书第 29 页，R-002）。0–4 让暴击阈值 +1；恰好 5 不加。
+   * 不传就不加。不改命中阈值：光照 5 的英雄 Dodge +1、光照 0 的怪物 Dodge +1
+   * 和怪物 Acc +1 都不加。光照 2–1 承受压力时额外 +1 也不加。不从卡面「+1」读。
+   */
+  readonly light?: number;
 };
 
 export type SkippedSkillEffect = {
@@ -1174,6 +1189,12 @@ function combatProblem(combat: SkillCombatState): string | null {
   if (combat.targetAreaLower !== undefined && typeof combat.targetAreaLower !== "boolean") {
     return "目标区域是否比使用者低必须是布尔值";
   }
+  if (
+    combat.light !== undefined &&
+    (!Number.isInteger(combat.light) || combat.light < 0 || combat.light > 5)
+  ) {
+    return "光照必须是 0 到 5 的整数";
+  }
   if (combat.targetsInArea !== undefined && !nonNegativeInteger(combat.targetsInArea)) {
     return "区域内选中的目标个数必须是非负整数";
   }
@@ -1219,7 +1240,7 @@ function combatProblem(combat: SkillCombatState): string | null {
  * 结算一张英雄技能。`roll` 是 d10 面值（1–10），由调用方用 `rollD10` 取得。
  * 未验证的卡、对不上的目标、当前姿态没有点亮、区域距离不是印出来的射程、
  * 选中的个数超过卡面目标图标、增益、减益或标记堆数不是非负整数、把使用者自己的
- * 区域当成更低、读不出整数的 Crit / Acc，都原样留下伤口。
+ * 区域当成更低、光照不是 0 到 5 的整数、读不出整数的 Crit / Acc，都原样留下伤口。
  */
 export function resolveHeroSkill(
   skill: HeroSkillCardView,
@@ -1346,15 +1367,17 @@ export function resolveHeroSkill(
   // 第 21 页：每一堆已有的 Buff 只把暴击阈值 +1。目标是怪物时，每一堆 Debuff 再 +1
   // （R-016），每一堆 Mark 把命中阈值 +1（R-019）。目标是英雄时这两种都不加。
   // 第 25 页：目标区域更低时，命中阈值再 +1（R-022，友方也加）。不改暴击，不加伤害。
+  // 第 29 页、R-002：光照 0–4 只把暴击阈值再 +1。光照恰好 5 不加。不改命中阈值。
   // 没有 Acc 的技能不掷骰。变身卡没有 Crit / Acc，outcome 留空。
   // 不读这张卡印的增益、减益、标记回合数，也不读卡面光照 +1。
   const buffStacks = combat.actor?.buffStacks ?? 0;
   const enemyDebuffStacks = target.side === "monster" ? (target.debuffStacks ?? 0) : 0;
   const enemyMarkStacks = target.side === "monster" ? (target.markStacks ?? 0) : 0;
   const lowerAreaAcc = combat.targetAreaLower === true ? 1 : 0;
+  const lightCrit = combat.light !== undefined && combat.light <= 4 ? 1 : 0;
   let outcome: "crit" | "hit" | "miss" | null = null;
   if (!formOnly && critThreshold !== null && accThreshold !== null) {
-    if (roll <= critThreshold + buffStacks + enemyDebuffStacks) outcome = "crit";
+    if (roll <= critThreshold + buffStacks + enemyDebuffStacks + lightCrit) outcome = "crit";
     else if (roll <= accThreshold + enemyMarkStacks + lowerAreaAcc - target.dodge) outcome = "hit";
     else outcome = "miss";
   }

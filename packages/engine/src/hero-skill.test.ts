@@ -6260,4 +6260,707 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
     });
   });
+
+  it("光照 0 到 4 让暴击阈值 +1，光照 5 不加，命中阈值和印刷数字不变", () => {
+    const smite = card("hero_skill:p001");
+    expect(smite.name).toBe("Smite");
+    expect(smite.level).toBe(1);
+    expect(smite.hero).toBe("CRUSADER");
+    expect(smite.verification.unverified).toBe(false);
+    expect(smite.printed_labels).toEqual([
+      { label: "Crit", raw: "Crit 0", value: 0 },
+      { label: "Acc", raw: "Acc 9", value: 9 },
+    ]);
+    expect(
+      smite.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => item.numeric),
+    ).toEqual([13, 7]);
+    expect(
+      smite.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["+1"]);
+
+    const crusader = { id: "crusader", wounds: 0, stress: 5 };
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
+    // Crit 0。不传光照时掷 1 是命中、伤害 7。光照 4 把暴击阈值抬到 1，掷 1 暴击、伤害 13。
+    // +1 vs Unholy 的 numeric 为 null，不是 14，也不是 8。
+    const lit = { actor: crusader, target: soldier, areaDistance: 0, light: 4 };
+    const frozen = structuredClone(lit);
+    expect(use("hero_skill:p001", lit, 1)).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      effect: "damage",
+      printedAmount: 13,
+      damageDealt: 13,
+      wounds: 13,
+      actorWounds: 0,
+      actorStress: 4,
+      riposteDamage: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(lit).toEqual(frozen);
+    expect(
+      use("hero_skill:p001", { actor: crusader, target: soldier, areaDistance: 0 }, 1),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 5,
+    });
+    // 4、3、1、0 都有这一项。恰好 5 没有。掷 2 仍是命中：暴击阈值只到 1。
+    for (const light of [4, 3, 1, 0]) {
+      expect(use("hero_skill:p001", { actor: crusader, target: soldier, light }, 1)).toMatchObject({
+        outcome: "crit",
+        printedAmount: 13,
+        damageDealt: 13,
+        wounds: 13,
+        actorStress: 4,
+      });
+    }
+    expect(use("hero_skill:p001", { actor: crusader, target: soldier, light: 5 }, 1)).toMatchObject(
+      {
+        outcome: "hit",
+        printedAmount: 7,
+        damageDealt: 7,
+        wounds: 7,
+        actorStress: 5,
+      },
+    );
+    expect(use("hero_skill:p001", { actor: crusader, target: soldier, light: 4 }, 2)).toMatchObject(
+      {
+        outcome: "hit",
+        printedAmount: 7,
+        damageDealt: 7,
+        wounds: 7,
+        actorStress: 5,
+      },
+    );
+    // 命中阈值仍是 Acc 9。掷 9 命中、伤害 7；掷 10 落空。光照 0 不加怪物 Dodge，也不加英雄 Acc。
+    expect(use("hero_skill:p001", { actor: crusader, target: soldier, light: 0 }, 9)).toMatchObject(
+      {
+        outcome: "hit",
+        printedAmount: 7,
+        damageDealt: 7,
+        wounds: 7,
+        actorStress: 5,
+      },
+    );
+    expect(
+      use("hero_skill:p001", { actor: crusader, target: soldier, light: 0 }, 10),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorStress: 5,
+    });
+    // Dodge 20。暴击仍不减 Dodge。光照没有把这次落空的命中阈值抬上去。
+    expect(
+      use("hero_skill:p001", { actor: crusader, target: { ...soldier, dodge: 20 }, light: 4 }, 1),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 13,
+      damageDealt: 13,
+      wounds: 13,
+      actorStress: 4,
+    });
+    expect(
+      use("hero_skill:p001", { actor: crusader, target: { ...soldier, dodge: 8 }, light: 4 }, 2),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorStress: 5,
+    });
+    // 标记抬的是命中，不是暴击。Dodge 8、1 堆标记：掷 2 命中、伤害 7。没有标记则上面已经落空。
+    expect(
+      use(
+        "hero_skill:p001",
+        { actor: crusader, target: { ...soldier, dodge: 8, markStacks: 1 }, light: 4 },
+        2,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 5,
+    });
+    // 1 堆减益再 +1 暴击。掷 2 变成暴击、伤害 13。防护减半后是 7，反弹按减半前的 13 取一半。
+    expect(
+      use(
+        "hero_skill:p001",
+        {
+          actor: crusader,
+          target: { ...soldier, debuffStacks: 1, protection: true, riposte: true },
+          light: 4,
+        },
+        2,
+      ),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 13,
+      damageDealt: 7,
+      riposteDamage: 7,
+      wounds: 7,
+      actorWounds: 7,
+      actorStress: 4,
+    });
+    expect(
+      use(
+        "hero_skill:p001",
+        { actor: { ...crusader, buffStacks: 1 }, target: soldier, light: 4 },
+        2,
+      ),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 13,
+      damageDealt: 13,
+      wounds: 13,
+      actorStress: 4,
+    });
+    expect(
+      use(
+        "hero_skill:p001",
+        { actor: { ...crusader, buffStacks: 1 }, target: soldier, light: 4 },
+        3,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 5,
+    });
+
+    // 说明书 G-08（OR24-p7）：Pistol Shot Crit 1，自身已有 1 堆增益，光照 4。
+    // 暴击阈值 3。掷 1–3 暴击、伤害 9；4–9 命中、伤害 5；10 落空。+2 vs 标记不加。
+    const pistol = card("hero_skill:p067");
+    expect(pistol.name).toBe("Pistol Shot");
+    expect(pistol.level).toBe(1);
+    expect(pistol.hero).toBe("HIGHWAYMAN");
+    expect(pistol.verification.unverified).toBe(false);
+    expect(pistol.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 1],
+      ["Acc", 9],
+    ]);
+    expect(
+      pistol.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => item.numeric),
+    ).toEqual([9, 5]);
+    expect(
+      pistol.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["+2", "1-2"]);
+    const highwayman = { id: "highwayman", wounds: 1, stress: 5, buffStacks: 1 };
+    const beside = [{ id: "vestal", stress: 2 }];
+    const shot = {
+      actor: highwayman,
+      heroesBesideActor: beside,
+      target: soldier,
+      light: 4,
+    };
+    for (const roll of [1, 2, 3]) {
+      expect(use("hero_skill:p067", shot, roll)).toMatchObject({
+        status: "resolved",
+        outcome: "crit",
+        printedAmount: 9,
+        damageDealt: 9,
+        wounds: 9,
+        actorStress: 4,
+        besideActorStress: [{ id: "vestal", stress: 1 }],
+        skipped: [{ code: "effect_lines" }],
+      });
+    }
+    for (const roll of [4, 9]) {
+      expect(use("hero_skill:p067", shot, roll)).toMatchObject({
+        outcome: "hit",
+        printedAmount: 5,
+        damageDealt: 5,
+        wounds: 5,
+        actorStress: 5,
+        besideActorStress: [{ id: "vestal", stress: 2 }],
+      });
+    }
+    expect(use("hero_skill:p067", shot, 10)).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorStress: 5,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+    });
+    // 只有增益、没有光照：阈值是 2。掷 3 是命中、伤害 5。
+    expect(
+      use("hero_skill:p067", { actor: highwayman, heroesBesideActor: beside, target: soldier }, 3),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 5,
+      damageDealt: 5,
+      wounds: 5,
+      actorStress: 5,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+    });
+    // 只有光照、没有增益：阈值是 2。掷 2 暴击、伤害 9；掷 3 命中、伤害 5。
+    expect(
+      use(
+        "hero_skill:p067",
+        { actor: { ...highwayman, buffStacks: 0 }, target: soldier, light: 4 },
+        2,
+      ),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 9,
+      damageDealt: 9,
+      wounds: 9,
+      actorStress: 4,
+    });
+    expect(
+      use(
+        "hero_skill:p067",
+        { actor: { ...highwayman, buffStacks: 0 }, target: soldier, light: 4 },
+        3,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 5,
+      damageDealt: 5,
+      wounds: 5,
+      actorStress: 5,
+    });
+    // 增益、减益、光照叠在一起。阈值 4。掷 4 暴击、伤害 9；掷 5 命中、伤害 5。
+    expect(
+      use(
+        "hero_skill:p067",
+        {
+          actor: highwayman,
+          target: { ...soldier, debuffStacks: 1 },
+          light: 4,
+        },
+        4,
+      ),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 9,
+      damageDealt: 9,
+      wounds: 9,
+      actorStress: 4,
+    });
+    expect(
+      use(
+        "hero_skill:p067",
+        { actor: highwayman, target: { ...soldier, debuffStacks: 1 }, light: 4 },
+        5,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 5,
+      damageDealt: 5,
+      wounds: 5,
+      actorStress: 5,
+    });
+    // 2 堆标记不加进暴击伤害。掷 2 仍是 9，不是 13。掷 3 的命中伤害仍是 5，不是 7。
+    expect(
+      use(
+        "hero_skill:p067",
+        {
+          actor: { ...highwayman, buffStacks: 0 },
+          target: { ...soldier, markStacks: 2 },
+          light: 4,
+        },
+        2,
+      ),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 9,
+      damageDealt: 9,
+      wounds: 9,
+    });
+    expect(
+      use(
+        "hero_skill:p067",
+        {
+          actor: { ...highwayman, buffStacks: 0 },
+          target: { ...soldier, markStacks: 2 },
+          light: 4,
+        },
+        3,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 5,
+      damageDealt: 5,
+      wounds: 5,
+    });
+    // 光照 5 不再给暴击。1 堆增益时阈值回到 2，掷 3 是命中。
+    expect(
+      use("hero_skill:p067", { actor: highwayman, target: soldier, light: 5 }, 3),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 5,
+      damageDealt: 5,
+      wounds: 5,
+      actorStress: 5,
+    });
+    // 光照不加命中。掷 10 仍落空。高地才把这一掷变成命中，伤害仍是 5。
+    expect(
+      use("hero_skill:p067", { actor: highwayman, target: soldier, light: 4 }, 10),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorStress: 5,
+    });
+    expect(
+      use(
+        "hero_skill:p067",
+        { actor: highwayman, target: soldier, light: 4, targetAreaLower: true },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 5,
+      damageDealt: 5,
+      wounds: 5,
+      actorStress: 5,
+    });
+
+    // Battle Heal I：暴击治疗 4、命中治疗 2。友方也吃光照的暴击 +1。英雄身上的减益不加。
+    const heal = card("hero_skill:p013");
+    expect(heal.name).toBe("Battle Heal");
+    expect(heal.level).toBe(1);
+    expect(heal.verification.unverified).toBe(false);
+    expect(heal.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 2],
+      ["Acc", 12],
+    ]);
+    const vestal = { id: "vestal", wounds: 1, stress: 5 };
+    const patient = {
+      id: "patient",
+      side: "hero" as const,
+      wounds: 6,
+      dodge: 11,
+      stress: 3,
+      debuffStacks: 4,
+      markStacks: 5,
+      protection: true,
+      riposte: true,
+    };
+    // Dodge 11。没有光照时暴击阈值 2、命中阈值 1，掷 3 落空。
+    expect(use("hero_skill:p013", { actor: vestal, target: patient }, 3)).toMatchObject({
+      outcome: "miss",
+      effect: "heal",
+      printedAmount: null,
+      wounds: 6,
+      actorStress: 5,
+      riposteDamage: null,
+    });
+    // 光照 4 把暴击阈值抬到 3，不看 Dodge。掷 3 暴击治疗 4，不减半，不反弹。
+    expect(use("hero_skill:p013", { actor: vestal, target: patient, light: 4 }, 3)).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      effect: "heal",
+      printedAmount: 4,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 2,
+      actorWounds: 1,
+      actorStress: 4,
+      targetStress: 3,
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
+    });
+    // 减益没有把暴击阈值再抬到 4。掷 4 仍落空。
+    expect(use("hero_skill:p013", { actor: vestal, target: patient, light: 4 }, 4)).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      wounds: 6,
+      actorStress: 5,
+    });
+    // 光照 5 不加暴击，也不给英雄 Dodge +1。Dodge 9 时命中阈值是 3，掷 3 命中治疗 2。
+    const bright = { ...patient, dodge: 9 };
+    expect(use("hero_skill:p013", { actor: vestal, target: bright, light: 5 }, 3)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 2,
+      damageDealt: null,
+      wounds: 4,
+      actorStress: 5,
+      riposteDamage: null,
+    });
+    expect(use("hero_skill:p013", { actor: vestal, target: bright, light: 5 }, 2)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 4,
+      wounds: 2,
+      actorStress: 4,
+    });
+
+    // 光照 2 只抬暴击。压力仍按原来的 −1，不因为「承受压力 +1」再加。
+    const tune = card("hero_skill:p122");
+    expect(tune.name).toBe("Inspiring Tune");
+    expect(tune.level).toBe(2);
+    expect(tune.verification.unverified).toBe(false);
+    expect(tune.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 2],
+      ["Acc", 20],
+    ]);
+    const jester = { id: "jester", wounds: 1, stress: 4 };
+    const ally = { id: "vestal", side: "hero" as const, wounds: 3, dodge: 0, stress: 6 };
+    const company = [{ id: "crusader", stress: 2 }];
+    expect(
+      use(
+        "hero_skill:p122",
+        {
+          actor: jester,
+          heroesBesideActor: company,
+          target: ally,
+          targetInActorArea: true,
+          light: 2,
+        },
+        3,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      effect: "stress",
+      actorStress: 2,
+      targetStress: 4,
+      besideActorStress: [{ id: "crusader", stress: 1 }],
+      wounds: 3,
+      skipped: [],
+    });
+    expect(
+      use(
+        "hero_skill:p122",
+        {
+          actor: jester,
+          heroesBesideActor: company,
+          target: ally,
+          targetInActorArea: true,
+        },
+        3,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      actorStress: 3,
+      targetStress: 5,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+      wounds: 3,
+    });
+  });
+
+  it("非法光照整次拒绝；卡面光照 +1、增益回合和缺 stats 行的技能仍不结算", () => {
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 2, dodge: 0 };
+    const crusader = { id: "crusader", wounds: 1, stress: 4 };
+    for (const light of [6, -1, 1.5]) {
+      expect(use("hero_skill:p001", { actor: crusader, target: soldier, light }, 1)).toMatchObject({
+        status: "refused",
+        reason: "光照必须是 0 到 5 的整数",
+        outcome: null,
+        effect: null,
+        printedAmount: null,
+        damageDealt: null,
+        wounds: 2,
+        actorWounds: 1,
+        actorStress: 4,
+      });
+    }
+    expect(
+      use(
+        "hero_skill:p001",
+        { actor: crusader, target: soldier, light: null as unknown as number },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "光照必须是 0 到 5 的整数",
+      wounds: 2,
+      actorWounds: 1,
+      actorStress: 4,
+      damageDealt: null,
+    });
+
+    // Illumination I 的效果行有已命名光照和「+1」，numeric 为 null。不传入光照时，
+    // Crit 0 的掷 1 仍是命中、伤害 2，不是暴击 4，也不是 3。
+    const illumination = card("hero_skill:p100");
+    expect(illumination.name).toBe("Illumination");
+    expect(illumination.level).toBe(1);
+    expect(illumination.hero).toBe("VESTAL");
+    expect(illumination.verification.unverified).toBe(false);
+    expect(illumination.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 0],
+      ["Acc", 9],
+    ]);
+    expect(
+      illumination.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => item.numeric),
+    ).toEqual([4, 2]);
+    expect(
+      illumination.unlabeled_numbers
+        .filter((item) => item.numeric === null)
+        .map((item) => item.text),
+    ).toEqual(["1t", "+1", "1-2"]);
+    expect(
+      illumination.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "debuff", "light"]);
+    const vestal = { id: "vestal", wounds: 0, stress: 2 };
+    expect(use("hero_skill:p100", { actor: vestal, target: soldier }, 1)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 2,
+      damageDealt: 2,
+      wounds: 4,
+      actorStress: 2,
+      skipped: [{ code: "effect_lines" }],
+    });
+    // 传入光照 4 才暴击，伤害是印刷的 4。卡面 +1 不加进伤害，1t 也不放减益。
+    expect(use("hero_skill:p100", { actor: vestal, target: soldier, light: 4 }, 1)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 4,
+      damageDealt: 4,
+      wounds: 6,
+      actorStress: 1,
+      skipped: [{ code: "effect_lines" }],
+    });
+    // 光照 5 不暴击。卡面 +1 不能代替光照 4。
+    expect(use("hero_skill:p100", { actor: vestal, target: soldier, light: 5 }, 1)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 2,
+      damageDealt: 2,
+      wounds: 4,
+      actorStress: 2,
+    });
+    // Dodge 9。暴击阈值是 1，命中阈值是 0。掷 2 落空。卡面 +1 不加 Acc。
+    expect(
+      use("hero_skill:p100", { actor: vestal, target: { ...soldier, dodge: 9 }, light: 4 }, 2),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 2,
+      actorStress: 2,
+    });
+
+    // Tracking Shot 的自身增益是 3t，numeric 为 null，不放新堆。光照仍只改这一次的暴击。
+    const tracking = card("hero_skill:p076");
+    expect(tracking.name).toBe("Tracking Shot");
+    expect(tracking.level).toBe(1);
+    expect(tracking.hero).toBe("HIGHWAYMAN");
+    expect(tracking.verification.unverified).toBe(false);
+    expect(tracking.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 0],
+      ["Acc", 10],
+    ]);
+    expect(
+      tracking.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => item.numeric),
+    ).toEqual([3, 2]);
+    expect(
+      tracking.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["3t", "1-2"]);
+    expect(use("hero_skill:p076", { actor: vestal, target: soldier, light: 4 }, 1)).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      printedAmount: 3,
+      damageDealt: 3,
+      wounds: 5,
+      actorStress: 1,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(use("hero_skill:p076", { actor: vestal, target: soldier, light: 4 }, 2)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 2,
+      damageDealt: 2,
+      wounds: 4,
+      actorStress: 2,
+    });
+    expect(use("hero_skill:p076", { actor: vestal, target: soldier }, 1)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 2,
+      damageDealt: 2,
+      wounds: 4,
+      actorStress: 2,
+    });
+
+    // 说明书 G-07 的 Zealous Accusation I：Crit 0、Acc 9、暴击 9、命中 5。
+    // stats 行只有技能名，没有已命名的伤害或目标图标，不能靠 front_icons 猜，整次拒绝。
+    const zealous = card("hero_skill:p004");
+    expect(zealous.name).toBe("Zealous Accusation");
+    expect(zealous.level).toBe(1);
+    expect(zealous.hero).toBe("CRUSADER");
+    expect(zealous.verification.unverified).toBe(false);
+    expect(zealous.printed_labels).toEqual([
+      { label: "Crit", raw: "Crit 0", value: 0 },
+      { label: "Acc", raw: "Acc 9", value: 9 },
+    ]);
+    expect(
+      zealous.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => item.numeric),
+    ).toEqual([9, 5]);
+    expect(
+      zealous.stats_line
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual([]);
+    expect(use("hero_skill:p004", { actor: crusader, target: soldier, light: 4 }, 1)).toMatchObject(
+      {
+        status: "refused",
+        reason: "stats_line 没有已命名的 damage 或 heal",
+        outcome: null,
+        effect: null,
+        printedAmount: null,
+        damageDealt: null,
+        wounds: 2,
+        actorWounds: 1,
+        actorStress: 4,
+        actorForm: null,
+      },
+    );
+
+    // 没有 Acc 的变身不掷骰。光照 4 不造出暴击。非法光照则形态也不记。
+    expect(
+      use(
+        "hero_skill:p220",
+        {
+          actor: { id: "abomination", wounds: 5, stress: 3 },
+          target: soldier,
+          light: 4,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: null,
+      effect: null,
+      actorForm: "beast",
+      wounds: 2,
+      actorWounds: 5,
+      actorStress: 3,
+    });
+    expect(
+      use(
+        "hero_skill:p220",
+        {
+          actor: { id: "abomination", wounds: 5, stress: 3 },
+          target: soldier,
+          light: 6,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "光照必须是 0 到 5 的整数",
+      outcome: null,
+      actorForm: null,
+      wounds: 2,
+      actorWounds: 5,
+      actorStress: 3,
+    });
+  });
 });
