@@ -29,6 +29,16 @@
  * 治疗数字对得上才扣使用者的伤口，落空也扣，最低到 0。暴击不改这个固定治疗量。
  * 它在伤害、目标治疗和反弹之前。对不上的行仍整行跳过。
  *
+ * 同一条自身效果里的治疗和压力（规则书第 19 页 Note、第 20–21 页，说明书 §6.5
+ * 第 5 步、§8.1）：没有 Crit / Acc 的技能不掷骰，直接生效。一条效果行只有已命名的
+ * 自身效果、已命名的 `heal`、已命名的 `stress`，文字只有空白、Self、治疗图标里的
+ * 非负整数、压力图标后面的整数，以及这两个整数之间的逗号。两个整数的 `numeric`
+ * 都已经是整数时，扣使用者的伤口，并按那个整数改压力。不看骰面，暴击也不改这两个
+ * 固定数字。行内可以带着 `damage_or_heal_combined_marker`，仍不解释这个标记。
+ * 目标那一行如果还写着 `numeric` 为 null 的光照「+1」，整行仍跳过，不把治疗和
+ * 压力拆出来给目标。效果行里的英雄头盔仍不当成 stats 行上的目标个数。和增益、
+ * 回合数写在同一行的治疗整数仍不扣。
+ *
  * 移除流血和腐蚀（规则书第 20 页目标效果、第 21 页移除全部堆叠，第 12 页
  * 「Remove all Bleed」）：一条效果行只有已命名的目标效果、已命名的 bleed、
  * 已命名的 blight，文字只有空白和「Remove」。命中或暴击时清掉目标这两种状态的
@@ -500,6 +510,15 @@ type SelfHeal = {
   readonly lineCount: number;
 };
 
+type SelfHealStress = {
+  /** 从使用者伤口扣除的总量。没有时为 0。 */
+  readonly heal: number;
+  /** 加到使用者压力上的总量。减压是负数。没有时为 0。 */
+  readonly stress: number;
+  /** 对得上的「Self + heal + stress」行。没有，或各行数字不一致时为 0。 */
+  readonly lineCount: number;
+};
+
 type ConditionRemoval = {
   /** 对得上的「Remove Bleed、Blight」目标效果行。没有时为 0。 */
   readonly targetLines: number;
@@ -606,6 +625,122 @@ function selfHealLine(line: readonly SkillSegment[], amount: number): boolean {
     return false;
   }
   return self === 1 && heal === 1 && marker <= 1 && sawAmount && sawSelfWord;
+}
+
+/** 「1」「1,」「-1」。逗号只是两个效果之间的分隔，不是另一个数字。 */
+const PAIRED_AMOUNT = /^(-?\d+)\s*,?$/;
+
+function pairedAmount(text: string): number | null {
+  const matched = PAIRED_AMOUNT.exec(text);
+  const raw = matched?.[1];
+  if (raw === undefined) return null;
+  const value = Number(raw);
+  if (!Number.isInteger(value)) return null;
+  return value;
+}
+
+function confirmedHealAmount(skill: HeroSkillCardView, amount: number): boolean {
+  if (!nonNegativeInteger(amount)) return false;
+  return skill.unlabeled_numbers.some((item) => {
+    if (item.numeric !== amount || item.anchor.type !== "beside_icon") return false;
+    const inside = item.anchor.inside_icon;
+    return inside !== null && inside.key === "heal" && NAMED.has(inside.naming);
+  });
+}
+
+function confirmedStressAmount(skill: HeroSkillCardView, amount: number): boolean {
+  if (!Number.isInteger(amount)) return false;
+  return skill.unlabeled_numbers.some((item) => {
+    if (item.numeric !== amount || item.anchor.type !== "beside_icon") return false;
+    if (item.anchor.inside_icon !== null) return false;
+    const left = item.anchor.left_icon;
+    return left !== null && left.key === "stress" && NAMED.has(left.naming);
+  });
+}
+
+/**
+ * 只接受「Self + heal + stress」这一条自身效果。治疗量在治疗图标后面，压力量在
+ * 压力图标后面。两个数都必须在 `unlabeled_numbers` 里有相同的非 null `numeric`。
+ * 各行的治疗量或压力量不一致时，一条都不采用。
+ */
+function readSelfHealStress(skill: HeroSkillCardView): SelfHealStress {
+  const none: SelfHealStress = { heal: 0, stress: 0, lineCount: 0 };
+  const heals: number[] = [];
+  const stresses: number[] = [];
+  for (const line of skill.effect_lines) {
+    const parsed = selfHealStressLine(line);
+    if (parsed === null) continue;
+    if (!confirmedHealAmount(skill, parsed.heal) || !confirmedStressAmount(skill, parsed.stress)) {
+      return none;
+    }
+    heals.push(parsed.heal);
+    stresses.push(parsed.stress);
+  }
+  const heal = heals[0];
+  const stress = stresses[0];
+  if (heal === undefined || stress === undefined) return none;
+  if (heals.some((value) => value !== heal) || stresses.some((value) => value !== stress)) {
+    return none;
+  }
+  return { heal: heal * heals.length, stress: stress * stresses.length, lineCount: heals.length };
+}
+
+function selfHealStressLine(
+  line: readonly SkillSegment[],
+): { heal: number; stress: number } | null {
+  let self = 0;
+  let heal = 0;
+  let stress = 0;
+  let marker = 0;
+  let sawSelfWord = false;
+  let healAmount: number | null = null;
+  let stressAmount: number | null = null;
+  let pending: "heal" | "stress" | null = null;
+  for (const segment of line) {
+    if (segment.type === "text") {
+      const text = segment.text.trim();
+      if (text === "") continue;
+      if (text === "Self") {
+        sawSelfWord = true;
+        continue;
+      }
+      const amount = pairedAmount(text);
+      if (amount === null || pending === null) return null;
+      if (pending === "heal") {
+        if (healAmount !== null) return null;
+        if (!nonNegativeInteger(amount)) return null;
+        healAmount = amount;
+      } else {
+        if (stressAmount !== null) return null;
+        stressAmount = amount;
+      }
+      pending = null;
+      continue;
+    }
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) return null;
+    if (segment.icon.key === "self_effects") {
+      self += 1;
+      continue;
+    }
+    if (segment.icon.key === "heal") {
+      heal += 1;
+      pending = "heal";
+      continue;
+    }
+    if (segment.icon.key === "stress") {
+      stress += 1;
+      pending = "stress";
+      continue;
+    }
+    if (segment.icon.key === "damage_or_heal_combined_marker") {
+      marker += 1;
+      continue;
+    }
+    return null;
+  }
+  if (self !== 1 || heal !== 1 || stress !== 1 || marker > 1 || !sawSelfWord) return null;
+  if (healAmount === null || stressAmount === null || pending !== null) return null;
+  return { heal: healAmount, stress: stressAmount };
 }
 
 /** 规则书第 19 页把自身效果印成「Self」。只认这个词，不从其它文字里读规则。 */
@@ -1318,6 +1453,7 @@ export function resolveHeroSkill(
   const target = combat.target;
   const stress = readImmediateStress(skill);
   const selfHeal = readSelfHeal(skill);
+  const paired = readSelfHealStress(skill);
   const removal = readConditionRemoval(skill);
   const shuffles = readShuffles(skill);
   const ignoresProtection = readIgnoresProtection(skill);
@@ -1330,7 +1466,7 @@ export function resolveHeroSkill(
   let effect: "damage" | "heal" | "stress" | null;
   if (kinds.size === 0) {
     if (stress.self === 0 && stress.target === 0) {
-      if (formChange.form === null) {
+      if (formChange.form === null && paired.lineCount === 0) {
         return refuse(skill, combat, "stats_line 没有已命名的 damage 或 heal");
       }
       effect = null;
@@ -1395,13 +1531,13 @@ export function resolveHeroSkill(
   if (effect !== "stress" && !formOnly && hitAmount === null) {
     return refuse(skill, combat, "Acc 旁边没有恰好一个非负整数");
   }
-  if (stress.self !== 0 && combat.actor?.stress === undefined) {
+  if ((stress.self !== 0 || paired.stress !== 0) && combat.actor?.stress === undefined) {
     return refuse(skill, combat, "自身效果要改压力，但没有使用者的压力（规则书第 20 页）");
   }
   if (stress.target !== 0 && target.stress === undefined) {
     return refuse(skill, combat, "目标效果要改压力，但目标没有压力（规则书第 20 页）");
   }
-  if (selfHeal.amount > 0 && combat.actor === undefined) {
+  if ((selfHeal.amount > 0 || paired.heal > 0) && combat.actor === undefined) {
     return refuse(skill, combat, "自身效果要治疗，但没有使用者的伤口（规则书第 20 页）");
   }
   if (shuffles.self !== null && combat.actor === undefined) {
@@ -1421,7 +1557,7 @@ export function resolveHeroSkill(
   // 怪物 Acc +1 只在怪物攻击时有。
   // 光照 2–1 和光照 0 的「承受压力额外 +1」不加。减压力不是承受压力。
   // 印刷的加压力 numeric 为 null，不先当成一次压力事件。
-  // 没有 Acc 的技能不掷骰。变身卡没有 Crit / Acc，outcome 留空。
+  // 没有 Acc 的技能不掷骰。变身，以及自身一行里已经对上的治疗和压力，outcome 留空。
   // 不读这张卡印的增益、减益、标记回合数，也不读卡面光照 +1 / -1 / +2。
   const buffStacks = combat.actor?.buffStacks ?? 0;
   const enemyDebuffStacks = target.side === "monster" ? (target.debuffStacks ?? 0) : 0;
@@ -1466,11 +1602,12 @@ export function resolveHeroSkill(
   );
 
   // 规则书第 20 页：自身效果在伤害、治疗和目标效果之前，落空也生效。
-  if (stress.self !== 0 && actorStress !== null) {
-    actorStress = clampStress(actorStress + stress.self);
+  // 没有 Acc 时不掷骰，这一行的治疗和压力仍然生效。
+  if ((stress.self !== 0 || paired.stress !== 0) && actorStress !== null) {
+    actorStress = clampStress(actorStress + stress.self + paired.stress);
   }
-  if (selfHeal.amount > 0 && actorWounds !== null) {
-    actorWounds = Math.max(0, actorWounds - selfHeal.amount);
+  if ((selfHeal.amount > 0 || paired.heal > 0) && actorWounds !== null) {
+    actorWounds = Math.max(0, actorWounds - selfHeal.amount - paired.heal);
   }
 
   if ((effect === "damage" || effect === "heal") && outcome !== null && outcome !== "miss") {
@@ -1567,6 +1704,7 @@ export function resolveHeroSkill(
       keys,
       stress.lineCount +
         selfHeal.lineCount +
+        paired.lineCount +
         removal.targetLines +
         shuffles.lineCount +
         ignoresProtection.targetLines +
