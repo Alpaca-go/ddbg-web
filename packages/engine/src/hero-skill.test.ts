@@ -64,12 +64,20 @@ function card(id: string): FixtureCard {
   return found;
 }
 
+type MonsterResist = {
+  readonly key: string | null;
+  readonly naming: string;
+};
+
 type MonsterCard = {
   readonly id: string;
   readonly name: string;
   readonly level: number;
   readonly life: number;
+  /** 心形旁已命名 Dodge 图标里面的整数。读不到恰好一个时为 null。 */
+  readonly dodge: number | null;
   readonly unverified: boolean;
+  readonly resistances: readonly MonsterResist[];
 };
 
 function isMonsterCard(value: unknown): value is {
@@ -109,15 +117,63 @@ if (!("dictionary_version" in monsterFile) || monsterFile.dictionary_version !==
   throw new Error("测试要用词典 v1.8 的规范化怪物卡");
 }
 
+function monsterResistances(value: unknown): MonsterResist[] {
+  if (!Array.isArray(value)) return [];
+  const found: MonsterResist[] = [];
+  for (const icon of value) {
+    if (typeof icon !== "object" || icon === null) continue;
+    const key =
+      "key" in icon && (icon.key === null || typeof icon.key === "string") ? icon.key : null;
+    const naming = "naming" in icon && typeof icon.naming === "string" ? icon.naming : "";
+    found.push({ key, naming });
+  }
+  return found;
+}
+
+function monsterDodge(value: unknown): number | null {
+  if (!Array.isArray(value)) return null;
+  const found: number[] = [];
+  for (const item of value) {
+    if (typeof item !== "object" || item === null) continue;
+    if (
+      !("numeric" in item) ||
+      typeof item.numeric !== "number" ||
+      !Number.isInteger(item.numeric)
+    ) {
+      continue;
+    }
+    if (item.numeric < 0) continue;
+    if (!("anchor" in item) || typeof item.anchor !== "object" || item.anchor === null) continue;
+    if (!("inside_icon" in item.anchor)) continue;
+    const icon = item.anchor.inside_icon;
+    if (typeof icon !== "object" || icon === null) continue;
+    if (!("key" in icon) || icon.key !== "dodge") continue;
+    if (
+      !("naming" in icon) ||
+      (icon.naming !== "confirmed" && icon.naming !== "confirmed_rulebook")
+    ) {
+      continue;
+    }
+    found.push(item.numeric);
+  }
+  if (found.length !== 1) return null;
+  return found[0] ?? null;
+}
+
 const monsters = new Map<string, MonsterCard>();
 for (const entry of monsterFile.cards) {
   if (!isMonsterCard(entry)) continue;
+  const resistances = "resistances" in entry ? monsterResistances(entry.resistances) : [];
+  const dodge =
+    "header_unlabeled_numbers" in entry ? monsterDodge(entry.header_unlabeled_numbers) : null;
   monsters.set(entry.id, {
     id: entry.id,
     name: entry.name,
     level: entry.level,
     life: entry.life,
+    dodge,
     unverified: entry.verification.unverified,
+    resistances,
   });
 }
 
@@ -452,7 +508,9 @@ describe("resolveHeroSkill", () => {
       name: "Bone Soldier",
       level: 1,
       life: 7,
+      dodge: 0,
       unverified: false,
+      resistances: [],
     });
     const arbalist = monster("monster_medium:p007");
     expect(arbalist).toEqual({
@@ -460,7 +518,9 @@ describe("resolveHeroSkill", () => {
       name: "Bone Arbalist",
       level: 1,
       life: 11,
+      dodge: 1,
       unverified: false,
+      resistances: [],
     });
 
     expect(use("hero_skill:p022", target("monster", 0, 0), 2)).toMatchObject({
@@ -7408,7 +7468,9 @@ describe("resolveHeroSkill", () => {
       name: "Bone Soldier",
       level: 1,
       life: 7,
+      dodge: 0,
       unverified: false,
+      resistances: [],
     });
     const crusader = { id: "crusader", wounds: 0, stress: 5 };
     const soldier = {
@@ -7887,6 +7949,317 @@ describe("resolveHeroSkill", () => {
       damageDealt: 2,
       wounds: 4,
       actorStress: 2,
+    });
+  });
+
+  it("目标有 Shuffle 抗性时，印出的 Push 和 Pull 少移 1", () => {
+    const defender = monster("monster_medium:p010");
+    expect(defender.name).toBe("Bone Defender");
+    expect(defender.level).toBe(1);
+    expect(defender.unverified).toBe(false);
+    expect(defender.life).toBe(10);
+    expect(defender.dodge).toBe(0);
+    expect(defender.resistances).toEqual([{ key: "shuffle_resist", naming: "confirmed" }]);
+
+    const shot = card("hero_skill:p070");
+    expect(shot.name).toBe("Point Blank Shot");
+    expect(shot.level).toBe(1);
+    expect(shot.hero).toBe("HIGHWAYMAN");
+    expect(shot.verification.unverified).toBe(false);
+    expect(shot.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 1],
+      ["Acc", 10],
+    ]);
+    const highwayman = { id: "highwayman", wounds: 0, stress: 4 };
+    const bone = {
+      id: defender.id,
+      side: "monster" as const,
+      wounds: 0,
+      dodge: 0,
+      life: defender.life,
+      shuffleResist: true,
+    };
+    const pushed = { actor: highwayman, target: bone, areaDistance: 0 };
+    const frozen = structuredClone(pushed);
+    // 自身 Push 1 不减。目标 Push 1 少 1，记成 0。掷 10 命中、伤害 9，伤口 9，还没到 Life 10。
+    expect(use("hero_skill:p070", pushed, 10)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 9,
+      damageDealt: 9,
+      wounds: 9,
+      actorWounds: 0,
+      actorStress: 4,
+      targetDead: false,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 0 },
+      skipped: [],
+    });
+    expect(pushed).toEqual(frozen);
+    // 不传抗性时目标仍是印刷的 Push 1。
+    expect(
+      use(
+        "hero_skill:p070",
+        {
+          actor: highwayman,
+          target: { id: defender.id, side: "monster", wounds: 0, dodge: 0, life: defender.life },
+          areaDistance: 0,
+        },
+        10,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 9,
+      damageDealt: 9,
+      wounds: 9,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 1 },
+    });
+    // 暴击不把被抗性减掉的 1 加回来。伤害 15，伤口达到 Life，死亡。自身仍是 Push 1。
+    expect(use("hero_skill:p070", pushed, 1)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 15,
+      damageDealt: 15,
+      wounds: 15,
+      actorStress: 3,
+      targetDead: true,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 0 },
+    });
+    // 落空没有目标位移。抗性不造出一个距离 0 的 Push。自身 Push 1 仍在。
+    expect(use("hero_skill:p070", { ...pushed, target: { ...bone, dodge: 5 } }, 10)).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      targetDead: false,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: null,
+    });
+    // 防护把伤害 9 减半成 5。抗性仍只改距离，不改伤害。
+    expect(
+      use("hero_skill:p070", { ...pushed, target: { ...bone, protection: true } }, 10),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 9,
+      damageDealt: 5,
+      wounds: 5,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 0 },
+    });
+    // 光照 0 另给怪物 Dodge +1。掷 9 仍命中、伤害 9，目标距离仍是 0。掷 10 落空，目标位移是 null。
+    expect(use("hero_skill:p070", { ...pushed, light: 0 }, 9)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 9,
+      damageDealt: 9,
+      wounds: 9,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 0 },
+    });
+    expect(use("hero_skill:p070", { ...pushed, light: 0 }, 10)).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: null,
+    });
+
+    // Point Blank Shot II 的目标仍是 Push 1，少移后是 0。命中伤害是 12，不是 I 级的 9。
+    const shotTwo = card("hero_skill:p071");
+    expect(shotTwo.name).toBe("Point Blank Shot");
+    expect(shotTwo.level).toBe(2);
+    expect(shotTwo.verification.unverified).toBe(false);
+    expect(shotTwo.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 1],
+      ["Acc", 11],
+    ]);
+    expect(
+      use("hero_skill:p071", { actor: highwayman, target: bone, areaDistance: 0 }, 10),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 12,
+      damageDealt: 12,
+      wounds: 12,
+      targetDead: true,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 0 },
+    });
+
+    // Bola I：自身 Push 1，目标 Push 2。抗性只把目标减成 1。暴击不改距离。
+    const bola = card("hero_skill:p157");
+    expect(bola.name).toBe("Bola");
+    expect(bola.level).toBe(1);
+    expect(bola.hero).toBe("ARBALEST");
+    expect(bola.verification.unverified).toBe(false);
+    const arbalest = { id: "arbalest", wounds: 0, stress: 2 };
+    expect(use("hero_skill:p157", { actor: arbalest, target: bone }, 5)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 3,
+      damageDealt: 3,
+      wounds: 3,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 1 },
+      skipped: [],
+    });
+    expect(use("hero_skill:p157", { actor: arbalest, target: bone }, 1)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 6,
+      damageDealt: 6,
+      wounds: 6,
+      actorStress: 1,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 1 },
+    });
+
+    // Daemon’s Pull I：只有目标 Pull 2。抗性后是 1，不是 0：抗性少移 1，不是免疫。
+    const pull = card("hero_skill:p208");
+    expect(pull.name).toBe("Daemon’s Pull");
+    expect(pull.level).toBe(1);
+    expect(pull.hero).toBe("OCCULTIST");
+    expect(pull.verification.unverified).toBe(false);
+    expect(use("hero_skill:p208", { target: bone }, 5)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 3,
+      damageDealt: 3,
+      wounds: 3,
+      actorWounds: null,
+      actorShuffle: null,
+      targetShuffle: { direction: "pull", distance: 1 },
+      skipped: [],
+    });
+    expect(use("hero_skill:p208", { target: bone }, 1)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 4,
+      damageDealt: 4,
+      wounds: 4,
+      targetShuffle: { direction: "pull", distance: 1 },
+    });
+    expect(use("hero_skill:p208", { target: bone }, 10)).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      targetShuffle: null,
+    });
+    expect(use("hero_skill:p208", { target: { ...bone, shuffleResist: false } }, 5)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 3,
+      damageDealt: 3,
+      targetShuffle: { direction: "pull", distance: 2 },
+    });
+
+    // Daemon’s Pull II 的目标仍是 Pull 2，少移后是 1。命中伤害是 4。
+    const pullTwo = card("hero_skill:p209");
+    expect(pullTwo.name).toBe("Daemon’s Pull");
+    expect(pullTwo.level).toBe(2);
+    expect(pullTwo.verification.unverified).toBe(false);
+    expect(pullTwo.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 1],
+      ["Acc", 10],
+    ]);
+    expect(use("hero_skill:p209", { target: bone }, 5)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 4,
+      damageDealt: 4,
+      wounds: 4,
+      actorShuffle: null,
+      targetShuffle: { direction: "pull", distance: 1 },
+    });
+  });
+
+  it("自身位移不吃目标的抗性；和眩晕写在一行的 Push 仍不抽出", () => {
+    const defender = monster("monster_medium:p010");
+    const bone = {
+      id: defender.id,
+      side: "monster" as const,
+      wounds: 3,
+      dodge: 0,
+      shuffleResist: true,
+    };
+    // Holy Lance I 只有自身 Pull 1。目标有抗性也不减这 1，也不造出目标位移。
+    // +1 vs Unholy 的 numeric 为 null，伤害仍是 7。
+    const lance = card("hero_skill:p016");
+    expect(lance.name).toBe("Holy Lance");
+    expect(lance.level).toBe(1);
+    expect(lance.hero).toBe("CRUSADER");
+    expect(lance.verification.unverified).toBe(false);
+    expect(
+      use(
+        "hero_skill:p016",
+        { actor: { id: "crusader", wounds: 1, stress: 2 }, target: bone, areaDistance: 1 },
+        2,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 10,
+      actorWounds: 1,
+      actorShuffle: { direction: "pull", distance: 1 },
+      targetShuffle: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+
+    // Uppercut I 的 Push 2 和眩晕 1t 在同一行。1t 的 numeric 为 null，抗性不能把这行拆开。
+    const uppercut = card("hero_skill:p052");
+    expect(uppercut.name).toBe("Uppercut");
+    expect(uppercut.level).toBe(1);
+    expect(uppercut.hero).toBe("BOUNTY HUNTER");
+    expect(uppercut.verification.unverified).toBe(false);
+    expect(uppercut.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 0],
+      ["Acc", 9],
+    ]);
+    expect(
+      uppercut.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "stun", "shuffle"]);
+    expect(
+      uppercut.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["1t"]);
+    expect(use("hero_skill:p052", { target: bone, areaDistance: 0 }, 5)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 3,
+      damageDealt: 3,
+      wounds: 6,
+      actorShuffle: null,
+      targetShuffle: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+
+    // 抗性不是布尔值时整次拒绝，伤口和位移都不改。
+    expect(
+      use(
+        "hero_skill:p070",
+        {
+          actor: { id: "highwayman", wounds: 0, stress: 4 },
+          target: { ...bone, shuffleResist: 1 as unknown as boolean },
+          areaDistance: 0,
+        },
+        10,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "Shuffle 抗性必须是布尔值",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 3,
+      actorWounds: 0,
+      actorStress: 4,
+      actorShuffle: null,
+      targetShuffle: null,
     });
   });
 });

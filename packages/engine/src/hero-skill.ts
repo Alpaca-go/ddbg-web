@@ -41,6 +41,9 @@
  * 「Push 1」印成一整段，所以它不在 `unlabeled_numbers` 里；不从别的数字，也不从
  * `numeric` 为 null 的回合数里读距离。自身位移在掷骰之后、无论命中与否都记上。
  * 目标位移只在命中或暴击时记上。暴击、Protection、Riposte 都不改这个距离。
+ * 目标有 Shuffle 抗性时，目标位移再少 1，最低到 0（规则书第 21 页，R-020、R-033）。
+ * 只减一次。自身位移不减：英雄位移自己时可以选择无视自己的抗性，这里不替玩家选。
+ * 不把免疫当成距离直接归零。确认过的图标 key 仍是 `shuffle_resist`，含义没有另分成免疫。
  * 这一层不挪区域、不挪姿态轨，也不处理「Push 或 Pull」让玩家选方向。和眩晕、
  * 增益、标记或反击写在同一行的位移仍整行跳过。
  *
@@ -244,6 +247,12 @@ export type SkillTargetState = {
    * 不传当作 0。不从卡面回合数读堆数，也不在这里放新的标记或移除代币。
    */
   readonly markStacks?: number;
+  /**
+   * 目标对 Shuffle 有抗性（规则书第 21 页，R-020、R-033）。
+   * 为真时，目标效果上的 Push / Pull 距离少 1，最低 0。不传表示没有。
+   * 不作用在自身位移上。不从卡面回合数读，也不把免疫和抗性合成一次归零。
+   */
+  readonly shuffleResist?: boolean;
 };
 
 export type SkillCombatState = {
@@ -295,7 +304,10 @@ export type SkippedSkillEffect = {
   readonly code: "effect_lines" | "damage_or_heal_combined_marker";
 };
 
-/** 规则书第 21 页的 Push / Pull。距离是卡面印的正整数，还没落到区域或姿态轨上。 */
+/**
+ * 规则书第 21 页的 Push / Pull。距离从卡面印的正整数来；目标有 Shuffle 抗性时
+ * 再少 1，最低 0。还没落到区域或姿态轨上。
+ */
 export type SkillShuffle = {
   readonly direction: "push" | "pull";
   readonly distance: number;
@@ -334,7 +346,10 @@ export type HeroSkillResolution = {
    * 调用方对一次技能使用只采用一次。区域和姿态轨不在这一层。
    */
   readonly actorShuffle: SkillShuffle | null;
-  /** 目标效果上印的 Push / Pull。只在命中或暴击时有。落空为 null。 */
+  /**
+   * 目标效果上印的 Push / Pull。只在命中或暴击时有。落空为 null。
+   * 目标有 Shuffle 抗性时，距离是印刷值再少 1，最低 0。0 表示减完了，不是落空。
+   */
   readonly targetShuffle: SkillShuffle | null;
   /**
    * 命中或暴击的攻击伤害没有被 Protection 减半。
@@ -1144,6 +1159,9 @@ function combatProblem(combat: SkillCombatState): string | null {
   if (target.riposte !== undefined && typeof target.riposte !== "boolean") {
     return "Riposte 必须是布尔值";
   }
+  if (target.shuffleResist !== undefined && typeof target.shuffleResist !== "boolean") {
+    return "Shuffle 抗性必须是布尔值";
+  }
   if (target.life !== undefined && !positiveInteger(target.life)) return "Life 必须是正整数";
   if (target.side === "hero" && target.life !== undefined) {
     return "英雄 Life 不在这一层结算：规范化数据没有英雄 Life，死门骰哪几面是骷髅也没有命名（R-005）";
@@ -1245,10 +1263,24 @@ function combatProblem(combat: SkillCombatState): string | null {
 }
 
 /**
+ * 规则书第 21 页：Shuffle 抗性让区域和姿态各少移 1。这里只记一个距离，两边都用它，
+ * 所以只减 1，最低 0。目标就是使用者时不减（R-020：英雄位移自己可以选择无视抗性）。
+ */
+function resistedTargetShuffle(
+  move: SkillShuffle | null,
+  combat: SkillCombatState,
+): SkillShuffle | null {
+  if (move === null || combat.target.shuffleResist !== true) return move;
+  if (combat.actor !== undefined && combat.target.id === combat.actor.id) return move;
+  return { direction: move.direction, distance: Math.max(0, move.distance - 1) };
+}
+
+/**
  * 结算一张英雄技能。`roll` 是 d10 面值（1–10），由调用方用 `rollD10` 取得。
  * 未验证的卡、对不上的目标、当前姿态没有点亮、区域距离不是印出来的射程、
  * 选中的个数超过卡面目标图标、增益、减益或标记堆数不是非负整数、把使用者自己的
- * 区域当成更低、光照不是 0 到 5 的整数、读不出整数的 Crit / Acc，都原样留下伤口。
+ * 区域当成更低、光照不是 0 到 5 的整数、Shuffle 抗性不是布尔值、读不出整数的
+ * Crit / Acc，都原样留下伤口。
  */
 export function resolveHeroSkill(
   skill: HeroSkillCardView,
@@ -1512,7 +1544,7 @@ export function resolveHeroSkill(
     targetBleedCleared: conditionsCleared,
     targetBlightCleared: conditionsCleared,
     actorShuffle: shuffles.self,
-    targetShuffle: outcome === "miss" ? null : shuffles.target,
+    targetShuffle: outcome === "miss" ? null : resistedTargetShuffle(shuffles.target, combat),
     targetProtectionIgnored:
       outcome !== "miss" && effect === "damage" && ignoresProtection.targetLines > 0,
     actorForm: formChange.form,
