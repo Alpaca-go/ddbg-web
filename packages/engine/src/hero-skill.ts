@@ -135,8 +135,15 @@
  * 时有。命中阈值是 Acc + 标记堆数 + 高地 −（Dodge + 这一档的 1）。暴击仍不减这
  * 1 点。和光照 5 的英雄 Dodge 不会叠在同一次上。目标是英雄时不加，友方治疗和
  * Self 都不减。怪物 Acc +1 不加在英雄的命中上：这一层结算的是英雄技能，攻击方
- * 不是怪物。不改印刷伤害或治疗。光照 2–1「每次承受压力额外 +1」仍不加。卡面上的
- * 光照「+1」「-1」「+2」numeric 为 null，不改传入的光照，也不加进伤害或 Dodge。
+ * 不是怪物。不改印刷伤害或治疗。
+ * 光照 2–1，以及累加到光照 0 的「每次承受压力额外 +1」（R-002），仍不加。
+ * 这一层已经结算的压力都是减压力：Inspiring Tune、Absolution 的 −1，以及打出暴击
+ * 的 −1。减压力不是承受压力。会让英雄加压力的印刷数字，Rage / Rake / Slam 的
+ * 「+1」、Transform 的「+2」，numeric 都是 null，不加，也不能拿它们当成一次已经
+ * 发生的压力事件再额外 +1。没有已验证的英雄技能对英雄造成伤害，承受暴击的 +1
+ * 压力也不会在这里发生。卡面光照「+1」「+2」的 numeric 为 null。Hands from the
+ * Abyss 的「-1」虽然 numeric 是 −1，但没有挂在已命名的光照图标上，并且和眩晕
+ * 「2t」（numeric 为 null）写在同一行，不改传入的光照，也不加进伤害或 Dodge。
  * 饰品和 Stygian 的 Boss Crit +1 不加。
  *
  * 不解释 `damage_or_heal_combined_marker`。英雄 Life、死门骰都不在这里。
@@ -295,7 +302,8 @@ export type SkillCombatState = {
    * 当前光照 0–5（规则书第 29 页，R-002）。0–4 让暴击阈值 +1。恰好 5 不加暴击，
    * 但目标是英雄时命中阈值再减 1（英雄 Dodge +1）。恰好 0 且目标是怪物时，命中
    * 阈值再减 1（怪物 Dodge +1）。不传就这些都不加。英雄技能不加怪物 Acc +1。
-   * 光照 2–1 承受压力时额外 +1 不加。不从卡面「+1」读。
+   * 光照 2–1 以及光照 0 的「承受压力额外 +1」不加：这里结算到的压力都是减少，
+   * 卡面上的加压力 numeric 为 null。不从卡面「+1」读。
    */
   readonly light?: number;
 };
@@ -1410,9 +1418,11 @@ export function resolveHeroSkill(
   // 第 29 页、R-002：光照 0–4 把暴击阈值再 +1。光照恰好 5 不加暴击。
   // 光照恰好 5 且目标是英雄时，命中阈值再减 1（英雄 Dodge +1）。
   // 光照恰好 0 且目标是怪物时，命中阈值再减 1（怪物 Dodge +1）。英雄 Acc 不加：
-  // 怪物 Acc +1 只在怪物攻击时有。光照 2–1 的额外压力不加。
+  // 怪物 Acc +1 只在怪物攻击时有。
+  // 光照 2–1 和光照 0 的「承受压力额外 +1」不加。减压力不是承受压力。
+  // 印刷的加压力 numeric 为 null，不先当成一次压力事件。
   // 没有 Acc 的技能不掷骰。变身卡没有 Crit / Acc，outcome 留空。
-  // 不读这张卡印的增益、减益、标记回合数，也不读卡面光照 +1。
+  // 不读这张卡印的增益、减益、标记回合数，也不读卡面光照 +1 / -1 / +2。
   const buffStacks = combat.actor?.buffStacks ?? 0;
   const enemyDebuffStacks = target.side === "monster" ? (target.debuffStacks ?? 0) : 0;
   const enemyMarkStacks = target.side === "monster" ? (target.markStacks ?? 0) : 0;

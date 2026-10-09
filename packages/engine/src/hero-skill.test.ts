@@ -8262,4 +8262,347 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
     });
   });
+
+  it("光照 2–1 的额外压力还不加：减压力不是承受压力，加压力的数字是 null", () => {
+    // R-002：光照 1 = Crit +1，并且英雄每次承受压力额外 +1。光照 0 把这项累加上去。
+    // 减压力不是承受压力。Inspiring Tune II 的自身和目标都是已命名的 −1。
+    const tune = card("hero_skill:p122");
+    expect(tune.name).toBe("Inspiring Tune");
+    expect(tune.level).toBe(2);
+    expect(tune.hero).toBe("JESTER");
+    expect(tune.verification.unverified).toBe(false);
+    expect(tune.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 2],
+      ["Acc", 20],
+    ]);
+    expect(
+      tune.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "stress",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([-1, -1]);
+    const jester = { id: "jester", wounds: 1, stress: 4 };
+    const ally = { id: "vestal", side: "hero" as const, wounds: 3, dodge: 0, stress: 6 };
+    const company = [{ id: "crusader", stress: 2 }];
+    const tuned = {
+      actor: jester,
+      heroesBesideActor: company,
+      target: ally,
+      targetInActorArea: true,
+      areaDistance: 0,
+      targetsInArea: 1,
+    };
+    // 光照 1 把暴击阈值抬到 3。掷 3 暴击：自身 −1 再因打出暴击 −1，变成 2。
+    // 目标 −1，又在同一区域再 −1，变成 4。身边英雄 2 变成 1。不是再额外 +1。
+    expect(use("hero_skill:p122", { ...tuned, light: 1 }, 3)).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      effect: "stress",
+      printedAmount: null,
+      wounds: 3,
+      actorWounds: 1,
+      actorStress: 2,
+      targetStress: 4,
+      besideActorStress: [{ id: "crusader", stress: 1 }],
+      skipped: [],
+    });
+    // 掷 4 是命中，不是暴击。只有印刷的 −1：自身 3，目标 5，身边仍是 2。
+    // 若把这次减压力当成承受压力再 +1，双方会停在 4 和 6。
+    expect(use("hero_skill:p122", { ...tuned, light: 1 }, 4)).toMatchObject({
+      outcome: "hit",
+      actorStress: 3,
+      targetStress: 5,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+      wounds: 3,
+    });
+    // 光照 3 只有 Crit +1，没有「承受压力 +1」。命中时的压力和光照 1 相同。
+    expect(use("hero_skill:p122", { ...tuned, light: 3 }, 4)).toMatchObject({
+      outcome: "hit",
+      actorStress: 3,
+      targetStress: 5,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+    });
+    // 光照 0 仍累加 Crit +1。目标是英雄，怪物 Dodge 不加。掷 4 仍是命中，压力仍只 −1。
+    expect(use("hero_skill:p122", { ...tuned, light: 0 }, 4)).toMatchObject({
+      outcome: "hit",
+      actorStress: 3,
+      targetStress: 5,
+      besideActorStress: [{ id: "crusader", stress: 2 }],
+      wounds: 3,
+    });
+
+    // Rage I：自身「+1」压力的 numeric 是 null。不能先加成 5，再在光照 1 加成 6。
+    const rage = card("hero_skill:p226");
+    expect(rage.name).toBe("Rage");
+    expect(rage.level).toBe(1);
+    expect(rage.hero).toBe("ABOMINATION");
+    expect(rage.verification.unverified).toBe(false);
+    expect(rage.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 1],
+      ["Acc", 9],
+    ]);
+    expect(
+      rage.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "stress",
+        )
+        .map((item) => [item.text, item.numeric]),
+    ).toEqual([["+1", null]]);
+    const abomination = { id: "abomination", wounds: 0, stress: 4 };
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 1, dodge: 0 };
+    // 光照 1 把暴击阈值抬到 2。掷 2 暴击、伤害 12。压力只因打出暴击变成 3，不是 5。
+    expect(
+      use("hero_skill:p226", { actor: abomination, target: soldier, light: 1 }, 2),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      effect: "damage",
+      printedAmount: 12,
+      damageDealt: 12,
+      wounds: 13,
+      actorWounds: 0,
+      actorStress: 3,
+      targetStress: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    // 掷 3 命中、伤害 9。没有承受压力，压力停在 4，不是 5，也不是 6。
+    expect(
+      use("hero_skill:p226", { actor: abomination, target: soldier, light: 1 }, 3),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 9,
+      damageDealt: 9,
+      wounds: 10,
+      actorStress: 4,
+      skipped: [{ code: "effect_lines" }],
+    });
+    // 光照 0 同样只给暴击和怪物 Dodge。Dodge 0 再 +1，命中阈值是 8。掷 9 落空。
+    // 英雄 Acc 不加，所以不是命中。压力仍是 4。怪物没有压力轨。
+    expect(
+      use("hero_skill:p226", { actor: abomination, target: soldier, light: 0 }, 9),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 1,
+      actorStress: 4,
+      targetStress: null,
+    });
+
+    // Rage II 的加压力仍是 null。光照 1、掷 2 暴击、伤害 16，压力只减到 3。
+    const rageTwo = card("hero_skill:p227");
+    expect(rageTwo.name).toBe("Rage");
+    expect(rageTwo.level).toBe(2);
+    expect(rageTwo.verification.unverified).toBe(false);
+    expect(rageTwo.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 1],
+      ["Acc", 10],
+    ]);
+    expect(
+      rageTwo.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["+1"]);
+    expect(
+      use("hero_skill:p227", { actor: abomination, target: soldier, light: 1 }, 2),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      printedAmount: 16,
+      damageDealt: 16,
+      wounds: 17,
+      actorStress: 3,
+      skipped: [{ code: "effect_lines" }],
+    });
+
+    // Rake I：自身增益 2t 和压力 +1 写在一行，两个 numeric 都是 null。
+    // 光照 2 只抬暴击。掷 1 暴击、伤害 9，压力变成 3。掷 2 命中、伤害 5，压力仍是 4。
+    const rake = card("hero_skill:p223");
+    expect(rake.name).toBe("Rake");
+    expect(rake.level).toBe(1);
+    expect(rake.verification.unverified).toBe(false);
+    expect(
+      rake.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["2t", "+1"]);
+    expect(
+      rake.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["self_effects", "buff", "stress"]);
+    const raking = {
+      actor: { id: "abomination", wounds: 2, stress: 4, stance: "aggressive" as const },
+      target: soldier,
+      light: 2,
+    };
+    expect(use("hero_skill:p223", raking, 1)).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      printedAmount: 9,
+      damageDealt: 9,
+      wounds: 10,
+      actorWounds: 2,
+      actorStress: 3,
+      actorForm: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(use("hero_skill:p223", raking, 2)).toMatchObject({
+      outcome: "hit",
+      printedAmount: 5,
+      damageDealt: 5,
+      wounds: 6,
+      actorStress: 4,
+    });
+
+    // Slam I：自身 Pull 1 和压力 +1 在一行，目标 Push 2 和减益 1t 在一行。
+    // 光照 1 不把 null 的 +1 收成压力，也不把混在一行里的位移抽出来。
+    const slam = card("hero_skill:p229");
+    expect(slam.name).toBe("Slam");
+    expect(slam.level).toBe(1);
+    expect(slam.hero).toBe("ABOMINATION");
+    expect(slam.verification.unverified).toBe(false);
+    expect(slam.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 0],
+      ["Acc", 8],
+    ]);
+    expect(
+      slam.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["1t", "+1"]);
+    expect(
+      use("hero_skill:p229", { actor: abomination, target: soldier, areaDistance: 1, light: 1 }, 1),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      printedAmount: 10,
+      damageDealt: 10,
+      wounds: 11,
+      actorStress: 3,
+      actorShuffle: null,
+      targetShuffle: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(
+      use("hero_skill:p229", { actor: abomination, target: soldier, areaDistance: 1, light: 1 }, 2),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 8,
+      actorStress: 4,
+      actorShuffle: null,
+      targetShuffle: null,
+    });
+
+    // Transform to Beast I：目标「+2」压力的 numeric 是 null。光照 1 不加成 5 或 6。
+    // 治疗图标里的 4 也不扣伤口。没有 Acc，不掷骰，只记下兽形。
+    const beast = card("hero_skill:p220");
+    expect(beast.name).toBe("Transform to Beast");
+    expect(beast.level).toBe(1);
+    expect(beast.verification.unverified).toBe(false);
+    expect(
+      beast.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "stress",
+        )
+        .map((item) => [item.text, item.numeric]),
+    ).toEqual([
+      ["+2", null],
+      ["+2", null],
+    ]);
+    expect(
+      use(
+        "hero_skill:p220",
+        {
+          actor: { id: "abomination", wounds: 5, stress: 3 },
+          target: soldier,
+          light: 1,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      wounds: 1,
+      actorWounds: 5,
+      actorStress: 3,
+      actorForm: "beast",
+      skipped: [{ code: "effect_lines" }],
+    });
+
+    // Hands from the Abyss I：光照「-1」的 numeric 是 −1，但没有挂在光照图标上，
+    // 并且和眩晕 2t 写在同一行。不改伤害，命中也不改压力，不把传入的光照改成 4。
+    const abyss = card("hero_skill:p205");
+    expect(abyss.name).toBe("Hands from the Abyss");
+    expect(abyss.level).toBe(1);
+    expect(abyss.hero).toBe("OCCULTIST");
+    expect(abyss.verification.unverified).toBe(false);
+    expect(abyss.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 1],
+      ["Acc", 9],
+    ]);
+    const lightDrop = abyss.unlabeled_numbers.find((item) => item.text === "-1");
+    expect(lightDrop?.numeric).toBe(-1);
+    expect(lightDrop?.anchor.type).toBe("beside_icon");
+    if (lightDrop?.anchor.type === "beside_icon") {
+      expect(lightDrop.anchor.left_icon).toBeNull();
+      expect(lightDrop.anchor.inside_icon).toBeNull();
+    }
+    expect(
+      abyss.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "stun", "light"]);
+    const occultist = { id: "occultist", wounds: 0, stress: 4 };
+    const dim = {
+      actor: occultist,
+      target: soldier,
+      areaDistance: 1,
+      light: 5,
+    };
+    const frozen = structuredClone(dim);
+    expect(use("hero_skill:p205", dim, 2)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 3,
+      damageDealt: 3,
+      wounds: 4,
+      actorWounds: 0,
+      actorStress: 4,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(dim).toEqual(frozen);
+    // 光照 2 另给暴击。掷 2 暴击、伤害 4。压力只因打出暴击变成 3。卡面 −1 不把光照改掉。
+    expect(use("hero_skill:p205", { ...dim, light: 2 }, 2)).toMatchObject({
+      outcome: "crit",
+      printedAmount: 4,
+      damageDealt: 4,
+      wounds: 5,
+      actorStress: 3,
+      skipped: [{ code: "effect_lines" }],
+    });
+
+    // 说明书 G-07 的 Zealous Accusation I 在光照 1 仍不能结算。stats 行只有技能名。
+    const zealous = card("hero_skill:p004");
+    expect(zealous.name).toBe("Zealous Accusation");
+    expect(zealous.level).toBe(1);
+    expect(zealous.verification.unverified).toBe(false);
+    expect(zealous.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 0],
+      ["Acc", 9],
+    ]);
+    expect(
+      use("hero_skill:p004", { actor: abomination, target: soldier, light: 1 }, 1),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 1,
+      actorWounds: 0,
+      actorStress: 4,
+    });
+  });
 });
