@@ -458,7 +458,9 @@ describe("怪物选招与目标命令接线（R-015、R-024）", () => {
   });
 
   it("未开始 / 非当前回合、缺少分组、未核实目标或断开区域均拒绝且不消耗 RNG", () => {
-    const noGroups = monsterTurn(setup());
+    const missingGroups = { ...soldier };
+    delete missingGroups.stanceGroups;
+    const noGroups = monsterTurn(setup(missingGroups));
     const card = eligible(soldier, true);
     const unsupported = {
       ...card,
