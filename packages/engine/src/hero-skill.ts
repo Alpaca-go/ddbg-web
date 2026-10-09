@@ -80,6 +80,15 @@
  * 「0-2」的 numeric 为 null，不拆成两个距离。射程图标后面只有 Self 或 All Allies、
  * 没有这个整数时，也不把它们当成 0。高地让射程上限可选 +1（R-022）不加。
  *
+ * 一个区域内能选几个（规则书第 19 页技能解剖，说明书 §6.5 第 3 步，图例 I-08、
+ * I-09）：stats 行上已命名的怪物头或英雄头盔有几个，就最多选几个。调用方传入这次
+ * 在该区域选中的个数时，必须是 1 到这个个数。少选可以；多选就整次拒绝，自身效果、
+ * 伤害、治疗和位移都不发生。不传就不检查，也不替调用方挑人。一次调用仍只结算传入
+ * 的那一个目标。效果行里的头盔不计数：Inspiring Cry、Battle Ballad 的 stats 行是空的，
+ * 不从效果行凑个数。Self 和 All Allies 没有这种图标，不当成 1 个，也不当成全体。
+ * 选空区域算成功使用（R-025），但这一层始终带着一个已选目标，传入 0 不在这里结算。
+ * 有 Guard 的敌人必须被选中（R-024）不查。
+ *
  * 不解释 `damage_or_heal_combined_marker`。英雄 Life、死门骰都不在这里。
  */
 
@@ -197,6 +206,12 @@ export type SkillCombatState = {
    * 不传就不做这一步。不在这里算最短步数，也不加高地的可选 +1（R-022）。
    */
   readonly areaDistance?: number;
+  /**
+   * 这次在目标区域里选中的、符合技能目标类型的角色个数。传入时必须是 1 到
+   * stats 行已命名目标图标的个数。不传就不做这一步。不在这里挑人，也不把
+   * 同一次使用套到其余目标上。
+   */
+  readonly targetsInArea?: number;
 };
 
 export type SkippedSkillEffect = {
@@ -974,6 +989,51 @@ function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): strin
   return null;
 }
 
+type PrintedTargets =
+  | { readonly kind: "exact"; readonly max: number }
+  | { readonly kind: "absent" }
+  | { readonly kind: "mixed" };
+
+/**
+ * 只数 stats 行上已命名的 target_monster / target_hero。
+ * 效果行、Self、All Allies 都不算。两种目标图标同时在场时不定个数。
+ */
+function readPrintedTargets(skill: HeroSkillCardView): PrintedTargets {
+  const line = skill.stats_line;
+  if (line === null) return { kind: "absent" };
+  let heroes = 0;
+  let monsters = 0;
+  for (const segment of line) {
+    if (segment.type !== "icon") continue;
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) continue;
+    if (segment.icon.key === "target_hero") heroes += 1;
+    if (segment.icon.key === "target_monster") monsters += 1;
+  }
+  if (heroes > 0 && monsters > 0) return { kind: "mixed" };
+  if (heroes > 0) return { kind: "exact", max: heroes };
+  if (monsters > 0) return { kind: "exact", max: monsters };
+  return { kind: "absent" };
+}
+
+/**
+ * 规则书第 19 页：一个区域内最多选 N 个目标，N 是目标图标的个数。
+ * 没传入个数时不检查。读不出 N，或个数不在 1 到 N 之间时，整次不结算。
+ */
+function targetCountProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
+  if (combat.targetsInArea === undefined) return null;
+  const printed = readPrintedTargets(skill);
+  if (printed.kind === "mixed") {
+    return "stats 行同时有英雄和怪物目标图标，不能确定一个区域内能选几个（规则书第 19 页）";
+  }
+  if (printed.kind !== "exact") {
+    return "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）";
+  }
+  if (combat.targetsInArea < 1 || combat.targetsInArea > printed.max) {
+    return "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）";
+  }
+  return null;
+}
+
 function combatProblem(combat: SkillCombatState): string | null {
   const target = combat.target;
   if (target.side !== "hero" && target.side !== "monster") {
@@ -1028,6 +1088,9 @@ function combatProblem(combat: SkillCombatState): string | null {
   if (combat.areaDistance !== undefined && !nonNegativeInteger(combat.areaDistance)) {
     return "区域距离必须是非负整数";
   }
+  if (combat.targetsInArea !== undefined && !nonNegativeInteger(combat.targetsInArea)) {
+    return "区域内选中的目标个数必须是非负整数";
+  }
 
   const beside = readAreaHeroes(combat.heroesBesideActor, "使用者身边的英雄");
   if (!beside.ok) return beside.reason;
@@ -1069,7 +1132,7 @@ function combatProblem(combat: SkillCombatState): string | null {
 /**
  * 结算一张英雄技能。`roll` 是 d10 面值（1–10），由调用方用 `rollD10` 取得。
  * 未验证的卡、对不上的目标、当前姿态没有点亮、区域距离不是印出来的射程、
- * 读不出整数的 Crit / Acc，都原样留下伤口。
+ * 选中的个数超过卡面目标图标、读不出整数的 Crit / Acc，都原样留下伤口。
  */
 export function resolveHeroSkill(
   skill: HeroSkillCardView,
@@ -1091,6 +1154,8 @@ export function resolveHeroSkill(
   if (stance !== null) return refuse(skill, combat, stance);
   const range = rangeProblem(skill, combat);
   if (range !== null) return refuse(skill, combat, range);
+  const targetCount = targetCountProblem(skill, combat);
+  if (targetCount !== null) return refuse(skill, combat, targetCount);
 
   const target = combat.target;
   const stress = readImmediateStress(skill);
