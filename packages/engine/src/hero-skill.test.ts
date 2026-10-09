@@ -140,6 +140,20 @@ function use(id: string, combat: SkillCombatState, roll: number): HeroSkillResol
   return resolveHeroSkill(card(id), combat, roll);
 }
 
+function namedTargetIconCount(skill: FixtureCard): number {
+  const line = skill.stats_line;
+  if (line === null) return 0;
+  let count = 0;
+  for (const segment of line) {
+    if (segment.type !== "icon") continue;
+    if (segment.icon.naming !== "confirmed" && segment.icon.naming !== "confirmed_rulebook") {
+      continue;
+    }
+    if (segment.icon.key === "target_hero" || segment.icon.key === "target_monster") count += 1;
+  }
+  return count;
+}
+
 describe("resolveHeroSkill", () => {
   it("hero_skill:p022 Wicked Hack I 用已命名的 damage 结算暴击和命中", () => {
     const skill = card("hero_skill:p022");
@@ -3687,6 +3701,323 @@ describe("resolveHeroSkill", () => {
       actorWounds: 2,
       damageDealt: null,
       printedAmount: null,
+    });
+  });
+
+  it("一个区域内最多选 stats 行上那么多个已命名目标，少选可以，多选整次拒绝", () => {
+    const smite = card("hero_skill:p001");
+    expect(smite.name).toBe("Smite");
+    expect(smite.level).toBe(1);
+    expect(smite.verification.unverified).toBe(false);
+    expect(namedTargetIconCount(smite)).toBe(1);
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
+    expect(
+      use("hero_skill:p001", { target: soldier, areaDistance: 0, targetsInArea: 1 }, 1),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(
+      use("hero_skill:p001", { target: soldier, areaDistance: 0, targetsInArea: 2 }, 1),
+    ).toMatchObject({
+      status: "refused",
+      reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+    });
+    expect(use("hero_skill:p001", { target: soldier, targetsInArea: 1.5 }, 1)).toMatchObject({
+      status: "refused",
+      reason: "区域内选中的目标个数必须是非负整数",
+      wounds: 0,
+      damageDealt: null,
+    });
+    expect(use("hero_skill:p001", { target: soldier, targetsInArea: -1 }, 1)).toMatchObject({
+      status: "refused",
+      reason: "区域内选中的目标个数必须是非负整数",
+      wounds: 0,
+    });
+    // 距离先核对。个数在范围内，但距离不是印出来的 0，仍整次拒绝。
+    expect(
+      use("hero_skill:p001", { target: soldier, areaDistance: 1, targetsInArea: 1 }, 1),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      wounds: 0,
+      damageDealt: null,
+    });
+
+    const grenade = card("hero_skill:p130");
+    expect(grenade.name).toBe("Plague Grenade");
+    expect(grenade.level).toBe(1);
+    expect(grenade.verification.unverified).toBe(false);
+    expect(namedTargetIconCount(grenade)).toBe(2);
+    expect(
+      grenade.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "blight",
+        )
+        .map((item) => [item.text, item.numeric]),
+    ).toEqual([["2t", null]]);
+    const grenadeCombat = {
+      actor: { id: "doctor", wounds: 1, stress: 3 },
+      target: soldier,
+      areaDistance: 2,
+      targetsInArea: 2,
+    };
+    expect(use("hero_skill:p130", grenadeCombat, 9)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 1,
+      damageDealt: 1,
+      wounds: 1,
+      actorWounds: 1,
+      actorStress: 3,
+      targetBlightCleared: false,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(use("hero_skill:p130", { ...grenadeCombat, targetsInArea: 1 }, 9)).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 1,
+      damageDealt: 1,
+      wounds: 1,
+    });
+    expect(
+      use(
+        "hero_skill:p130",
+        { ...grenadeCombat, target: { ...soldier, wounds: 4 }, targetsInArea: 3 },
+        9,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
+      wounds: 4,
+      actorWounds: 1,
+      actorStress: 3,
+      damageDealt: null,
+      targetBlightCleared: false,
+    });
+
+    const breakthrough = card("hero_skill:p034");
+    expect(breakthrough.name).toBe("Breakthrough");
+    expect(breakthrough.level).toBe(1);
+    expect(breakthrough.verification.unverified).toBe(false);
+    expect(namedTargetIconCount(breakthrough)).toBe(3);
+    expect(
+      use(
+        "hero_skill:p034",
+        {
+          actor: { id: "hellion", wounds: 2, stress: 4 },
+          target: soldier,
+          areaDistance: 1,
+          targetsInArea: 3,
+        },
+        8,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 4,
+      damageDealt: 4,
+      wounds: 4,
+      actorWounds: 2,
+      actorStress: 4,
+      actorShuffle: { direction: "pull", distance: 1 },
+      targetShuffle: null,
+      skipped: [],
+    });
+    expect(
+      use(
+        "hero_skill:p034",
+        {
+          actor: { id: "hellion", wounds: 2, stress: 4 },
+          target: { ...soldier, wounds: 1 },
+          areaDistance: 1,
+          targetsInArea: 4,
+        },
+        8,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
+      outcome: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 1,
+      actorWounds: 2,
+      actorStress: 4,
+      actorShuffle: null,
+    });
+
+    const comfort = card("hero_skill:p098");
+    expect(comfort.name).toBe("Divine Comfort");
+    expect(comfort.level).toBe(2);
+    expect(comfort.verification.unverified).toBe(false);
+    expect(namedTargetIconCount(comfort)).toBe(3);
+    const comfortCombat: SkillCombatState = {
+      actor: { id: "vestal", wounds: 6, stress: 4 },
+      target: { id: "patient", side: "hero", wounds: 6, dodge: 0, stress: 5 },
+      areaDistance: 1,
+      targetsInArea: 3,
+    };
+    // 说明书 G-02：对 3 名友方。这一层只结算传入的那一个，不另造另外两名。
+    expect(use("hero_skill:p098", comfortCombat, 2)).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      effect: "heal",
+      printedAmount: 4,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 2,
+      actorWounds: 3,
+      actorStress: 3,
+      targetStress: 5,
+      skipped: [{ code: "damage_or_heal_combined_marker" }],
+    });
+    expect(use("hero_skill:p098", { ...comfortCombat, targetsInArea: 4 }, 2)).toMatchObject({
+      status: "refused",
+      reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      wounds: 6,
+      actorWounds: 6,
+      actorStress: 4,
+      targetStress: 5,
+      damageDealt: null,
+    });
+
+    const grapeshot = card("hero_skill:p073");
+    expect(grapeshot.name).toBe("Grapeshot Blast");
+    expect(grapeshot.verification.unverified).toBe(false);
+    expect(namedTargetIconCount(grapeshot)).toBe(3);
+    expect(
+      grapeshot.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => [item.text, item.numeric]),
+    ).toEqual([["0-1", null]]);
+    expect(
+      use(
+        "hero_skill:p073",
+        { actor: { id: "highwayman", wounds: 0 }, target: soldier, targetsInArea: 3 },
+        8,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 3,
+      damageDealt: 3,
+      wounds: 3,
+      actorWounds: 0,
+      skipped: [{ code: "effect_lines" }],
+    });
+  });
+
+  it("Self、All Allies 和效果行里的目标图标不能当成一个区域内的个数", () => {
+    const absolution = card("hero_skill:p217");
+    expect(absolution.name).toBe("Absolution");
+    expect(absolution.level).toBe(1);
+    expect(absolution.verification.unverified).toBe(false);
+    expect(namedTargetIconCount(absolution)).toBe(0);
+    expect(
+      use(
+        "hero_skill:p217",
+        {
+          actor: { id: "abomination", wounds: 5, stress: 4 },
+          target: { id: "abomination", side: "hero", wounds: 5, dodge: 0, stress: 4 },
+          targetsInArea: 1,
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason:
+        "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      wounds: 5,
+      actorWounds: 5,
+      actorStress: 4,
+      targetStress: 4,
+    });
+
+    const transform = card("hero_skill:p220");
+    expect(transform.name).toBe("Transform to Beast");
+    expect(transform.verification.unverified).toBe(false);
+    expect(transform.stats_line).toBeNull();
+    expect(namedTargetIconCount(transform)).toBe(0);
+    expect(
+      use(
+        "hero_skill:p220",
+        {
+          actor: { id: "abomination", wounds: 2, stress: 3 },
+          target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 1 },
+          targetsInArea: 1,
+        },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason:
+        "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）",
+      wounds: 2,
+      actorWounds: 2,
+      actorStress: 3,
+      targetStress: 1,
+      actorForm: null,
+    });
+
+    const ballad = card("hero_skill:p118");
+    expect(ballad.name).toBe("Battle Ballad");
+    expect(ballad.level).toBe(1);
+    expect(ballad.verification.unverified).toBe(false);
+    expect(ballad.stats_line).toBeNull();
+    expect(namedTargetIconCount(ballad)).toBe(0);
+    const helmets = ballad.effect_lines.reduce((count, line) => {
+      return (
+        count +
+        line.filter(
+          (segment) =>
+            segment.type === "icon" &&
+            segment.icon.key === "target_hero" &&
+            (segment.icon.naming === "confirmed" || segment.icon.naming === "confirmed_rulebook"),
+        ).length
+      );
+    }, 0);
+    expect(helmets).toBe(2);
+    expect(
+      use(
+        "hero_skill:p118",
+        {
+          actor: { id: "jester", wounds: 1, stress: 3 },
+          target: { id: "vestal", side: "hero", wounds: 1, dodge: 0, stress: 2 },
+          targetsInArea: 2,
+        },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason:
+        "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）",
+      outcome: null,
+      wounds: 1,
+      actorWounds: 1,
+      actorStress: 3,
+      targetStress: 2,
     });
   });
 });
