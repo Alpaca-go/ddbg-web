@@ -89,6 +89,12 @@
  * 选空区域算成功使用（R-025），但这一层始终带着一个已选目标，传入 0 不在这里结算。
  * 有 Guard 的敌人必须被选中（R-024）不查。
  *
+ * 已有的增益（规则书第 21 页，说明书 §6.5 第 4 步、§7.2）：使用者身上每一堆 Buff
+ * 让这次掷骰的暴击阈值 +1。暴击仍先于命中、仍不减 Dodge。不传堆数就当作没有。
+ * 这里数的是堆，不是一堆里还剩几枚代币（R-018）。不从卡面的「2t」「3t」「4t」读堆数，
+ * 那些回合数的 numeric 为 null，这一张技能也不因此放上新的增益。光照 ≤4 的 Crit +1、
+ * 目标身上的减益、标记对 Acc 的 +1、高地 Acc +1、饰品，都不在这一层加。
+ *
  * 不解释 `damage_or_heal_combined_marker`。英雄 Life、死门骰都不在这里。
  */
 
@@ -158,6 +164,11 @@ export type SkillActorState = {
    * 不传就不做这一步可用性检查。
    */
   readonly stance?: SkillStance;
+  /**
+   * 使用者身上已经有的 Buff 堆数。每一堆让暴击阈值 +1（规则书第 21 页）。
+   * 不传当作 0。不从卡面回合数读堆数，也不在这里放新的增益或移除代币。
+   */
+  readonly buffStacks?: number;
 };
 
 /** 目标已经选好。区域怎么相邻不在这里。 */
@@ -1084,6 +1095,9 @@ function combatProblem(combat: SkillCombatState): string | null {
     if (actor.stance !== undefined && !isSkillStance(actor.stance)) {
       return "使用者的姿态必须是 support、ranged、defensive 或 aggressive";
     }
+    if (actor.buffStacks !== undefined && !nonNegativeInteger(actor.buffStacks)) {
+      return "使用者的增益堆数必须是非负整数";
+    }
   }
   if (combat.areaDistance !== undefined && !nonNegativeInteger(combat.areaDistance)) {
     return "区域距离必须是非负整数";
@@ -1132,7 +1146,8 @@ function combatProblem(combat: SkillCombatState): string | null {
 /**
  * 结算一张英雄技能。`roll` 是 d10 面值（1–10），由调用方用 `rollD10` 取得。
  * 未验证的卡、对不上的目标、当前姿态没有点亮、区域距离不是印出来的射程、
- * 选中的个数超过卡面目标图标、读不出整数的 Crit / Acc，都原样留下伤口。
+ * 选中的个数超过卡面目标图标、增益堆数不是非负整数、读不出整数的 Crit / Acc，
+ * 都原样留下伤口。
  */
 export function resolveHeroSkill(
   skill: HeroSkillCardView,
@@ -1254,10 +1269,12 @@ export function resolveHeroSkill(
   }
 
   // 规则书第 19 页：有 Acc 时先看暴击（不减 Dodge），再看命中阈值 Acc − Dodge。
-  // 没有 Acc 的技能不掷骰。变身卡没有 Crit / Acc，outcome 留空。
+  // 第 21 页：每一堆已有的 Buff 只把暴击阈值 +1。命中阈值不加。没有 Acc 的技能不掷骰。
+  // 变身卡没有 Crit / Acc，outcome 留空。不读这张卡印的增益回合数。
+  const buffStacks = combat.actor?.buffStacks ?? 0;
   let outcome: "crit" | "hit" | "miss" | null = null;
   if (!formOnly && critThreshold !== null && accThreshold !== null) {
-    if (roll <= critThreshold) outcome = "crit";
+    if (roll <= critThreshold + buffStacks) outcome = "crit";
     else if (roll <= accThreshold - target.dodge) outcome = "hit";
     else outcome = "miss";
   }
