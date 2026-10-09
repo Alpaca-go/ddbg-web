@@ -11012,4 +11012,456 @@ describe("resolveHeroSkill", () => {
       targetBlightCleared: true,
     });
   });
+
+  it("hero_skill:p145 Disorienting Blast I 选定 Push 或 Pull 后才记距离 2，不把 Acc 当成伤害", () => {
+    const skill = card("hero_skill:p145");
+    expect(skill.name).toBe("Disorienting Blast");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("PLAGUE DOCTOR");
+    expect(skill.verification.unverified).toBe(false);
+    expect(skill.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 9]]);
+    expect(skill.stats_line).toEqual([{ type: "text", text: "Acc 9" }]);
+    expect(skill.effect_lines).toHaveLength(2);
+    expect(
+      skill.effect_lines[0]
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text.trim())
+        .filter((text) => text !== ""),
+    ).toEqual(["Push 2 or Pull 2"]);
+    expect(
+      skill.effect_lines[1]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["stun"]);
+    expect(skill.unlabeled_numbers.filter((item) => item.numeric === null)).toEqual([
+      {
+        text: "1t",
+        numeric: null,
+        anchor: { type: "beside_icon", left_icon: null, inside_icon: null },
+      },
+    ]);
+    expect(
+      skill.front_icons?.filter(
+        (icon) => icon.key === "target_monster" || icon.key === "target_hero",
+      ),
+    ).toEqual([expect.objectContaining({ key: "target_monster", naming: "confirmed" })]);
+
+    const doctor = { id: "doctor", wounds: 1, stress: 5, buffStacks: 6 };
+    const soldier = {
+      id: "soldier",
+      side: "monster" as const,
+      wounds: 4,
+      dodge: 0,
+      protection: true,
+    };
+    const pushed: SkillCombatState = {
+      actor: doctor,
+      target: soldier,
+      areaDistance: 1,
+      shuffleChoice: "push",
+    };
+    const frozen = structuredClone(pushed);
+    const hit = use("hero_skill:p145", pushed, 9);
+    expect(hit).toEqual({
+      skillId: "hero_skill:p145",
+      targetId: "soldier",
+      status: "resolved",
+      reason: null,
+      outcome: "hit",
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 4,
+      actorWounds: 1,
+      targetDead: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+      actorBleedCleared: false,
+      actorBlightCleared: false,
+      actorShuffle: null,
+      targetShuffle: { direction: "push", distance: 2 },
+      targetProtectionIgnored: false,
+      actorForm: null,
+      actorStress: 5,
+      targetStress: null,
+      besideActorStress: null,
+      untargetedBesideTargetStress: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(pushed).toEqual(frozen);
+    expect(use("hero_skill:p145", pushed, 9)).toEqual(hit);
+
+    // 骰面 1 也只是命中。增益和光照 ≤4 只加暴击，卡面没有 Crit，不因此暴击，压力不减。
+    expect(use("hero_skill:p145", { ...pushed, light: 0 }, 1)).toMatchObject({
+      outcome: "hit",
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 4,
+      actorWounds: 1,
+      actorStress: 5,
+      targetShuffle: { direction: "push", distance: 2 },
+    });
+    expect(use("hero_skill:p145", pushed, 10)).toMatchObject({
+      status: "resolved",
+      outcome: "miss",
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 4,
+      actorStress: 5,
+      targetShuffle: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+
+    expect(use("hero_skill:p145", { ...pushed, shuffleChoice: "pull" }, 9)).toMatchObject({
+      outcome: "hit",
+      wounds: 4,
+      targetShuffle: { direction: "pull", distance: 2 },
+    });
+
+    const defender = monster("monster_medium:p010");
+    expect(defender.name).toBe("Bone Defender");
+    expect(defender.resistances).toEqual([{ key: "shuffle_resist", naming: "confirmed" }]);
+    expect(
+      use(
+        "hero_skill:p145",
+        {
+          actor: doctor,
+          target: { ...soldier, id: defender.id, shuffleResist: true, life: defender.life },
+          areaDistance: 1,
+          shuffleChoice: "pull",
+        },
+        9,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      wounds: 4,
+      targetDead: false,
+      targetShuffle: { direction: "pull", distance: 1 },
+    });
+    expect(
+      use(
+        "hero_skill:p145",
+        {
+          actor: doctor,
+          target: { ...soldier, shuffleResist: true, dodge: 9 },
+          areaDistance: 1,
+          shuffleChoice: "push",
+        },
+        1,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      targetShuffle: null,
+      wounds: 4,
+    });
+
+    // 标记和高地加在命中上。增益堆不加，所以骰面 10 在没有这两项时落空。
+    expect(
+      use("hero_skill:p145", { ...pushed, actor: { ...doctor, buffStacks: 5 } }, 10),
+    ).toMatchObject({
+      outcome: "miss",
+      actorStress: 5,
+      targetShuffle: null,
+    });
+    expect(
+      use("hero_skill:p145", { ...pushed, target: { ...soldier, debuffStacks: 5 } }, 10),
+    ).toMatchObject({ outcome: "miss", targetShuffle: null, wounds: 4 });
+    expect(
+      use("hero_skill:p145", { ...pushed, target: { ...soldier, markStacks: 1 } }, 10),
+    ).toMatchObject({
+      outcome: "hit",
+      targetShuffle: { direction: "push", distance: 2 },
+      wounds: 4,
+    });
+    expect(
+      use("hero_skill:p145", { ...pushed, targetAreaLower: true, areaDistance: 2 }, 10),
+    ).toMatchObject({
+      outcome: "hit",
+      targetShuffle: { direction: "push", distance: 2 },
+    });
+    expect(
+      use("hero_skill:p145", { ...pushed, targetAreaLower: true, areaDistance: 1 }, 10),
+    ).toMatchObject({ outcome: "hit", wounds: 4 });
+    // 光照 0 的怪物 Dodge +1，命中阈值变成 8。不改印刷距离。
+    expect(
+      use(
+        "hero_skill:p145",
+        { target: soldier, areaDistance: 1, shuffleChoice: "push", light: 0 },
+        9,
+      ),
+    ).toMatchObject({
+      outcome: "miss",
+      actorWounds: null,
+      targetShuffle: null,
+      wounds: 4,
+    });
+    expect(
+      use(
+        "hero_skill:p145",
+        { target: soldier, areaDistance: 1, shuffleChoice: "push", light: 0 },
+        8,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      targetShuffle: { direction: "push", distance: 2 },
+    });
+
+    expect(
+      use(
+        "hero_skill:p145",
+        {
+          actor: { ...doctor, stance: "support" },
+          target: soldier,
+          areaDistance: 1,
+          shuffleChoice: "push",
+        },
+        9,
+      ),
+    ).toMatchObject({ status: "resolved", targetShuffle: { direction: "push", distance: 2 } });
+    expect(use("hero_skill:p145", { ...pushed, targetsInArea: 1 }, 9)).toMatchObject({
+      status: "resolved",
+      wounds: 4,
+    });
+
+    const second = card("hero_skill:p146");
+    expect(second.name).toBe("Disorienting Blast");
+    expect(second.level).toBe(2);
+    expect(second.verification.unverified).toBe(false);
+    expect(second.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 10]]);
+    expect(second.unlabeled_numbers.map((item) => [item.text, item.numeric])).toEqual([
+      ["1t", null],
+      ["1-2", null],
+    ]);
+    expect(
+      use("hero_skill:p146", { target: { ...soldier, dodge: 0 }, shuffleChoice: "pull" }, 10),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: null,
+      printedAmount: null,
+      wounds: 4,
+      targetShuffle: { direction: "pull", distance: 2 },
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(
+      use("hero_skill:p146", { target: { ...soldier, dodge: 1 }, shuffleChoice: "pull" }, 10),
+    ).toMatchObject({
+      outcome: "miss",
+      wounds: 4,
+      targetShuffle: null,
+    });
+
+    const third = card("hero_skill:p147");
+    expect(third.name).toBe("Disorienting Blast");
+    expect(third.level).toBe(3);
+    expect(third.verification.unverified).toBe(false);
+    expect(third.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 12]]);
+    expect(
+      use("hero_skill:p147", { target: { ...soldier, dodge: 2 }, shuffleChoice: "push" }, 10),
+    ).toMatchObject({
+      outcome: "hit",
+      wounds: 4,
+      targetShuffle: { direction: "push", distance: 2 },
+    });
+    expect(
+      use("hero_skill:p147", { target: { ...soldier, dodge: 3 }, shuffleChoice: "push" }, 10),
+    ).toMatchObject({
+      outcome: "miss",
+      wounds: 4,
+      targetShuffle: null,
+    });
+  });
+
+  it("没选定方向、混进行、或射程对不上时，不记 Push 或 Pull，也不把 Acc 当成伤害", () => {
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 4, dodge: 0 };
+    expect(use("hero_skill:p145", { target: soldier, areaDistance: 1 }, 9)).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      wounds: 4,
+      targetShuffle: null,
+      actorShuffle: null,
+    });
+    expect(
+      use("hero_skill:p145", { target: soldier, areaDistance: 2, shuffleChoice: "push" }, 9),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      wounds: 4,
+      targetShuffle: null,
+    });
+    expect(
+      use(
+        "hero_skill:p145",
+        { target: soldier, areaDistance: 3, targetAreaLower: true, shuffleChoice: "pull" },
+        9,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      targetShuffle: null,
+      wounds: 4,
+    });
+    expect(
+      use(
+        "hero_skill:p145",
+        { target: soldier, areaDistance: 1, shuffleChoice: "push", targetsInArea: 2 },
+        9,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
+      wounds: 4,
+      targetShuffle: null,
+    });
+    expect(
+      use(
+        "hero_skill:p145",
+        {
+          actor: { id: "doctor", wounds: 1, stress: 5, stance: "aggressive" },
+          target: soldier,
+          areaDistance: 1,
+          shuffleChoice: "push",
+        },
+        9,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "当前姿态没有点亮，不能使用这张技能（规则书第 19 页）",
+      wounds: 4,
+      actorWounds: 1,
+      actorStress: 5,
+      targetShuffle: null,
+    });
+    expect(
+      use(
+        "hero_skill:p145",
+        { target: soldier, areaDistance: 1, shuffleChoice: "push", guardedEnemyOmitted: true },
+        9,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason:
+        "不以友方为目标的技能必须把有 Guard 的敌人选为目标之一，这次没有选中（规则书第 21 页，R-024）",
+      wounds: 4,
+      targetShuffle: null,
+    });
+    expect(
+      use(
+        "hero_skill:p145",
+        {
+          target: { id: "vestal", side: "hero", wounds: 4, dodge: 0, stress: 2 },
+          areaDistance: 1,
+          shuffleChoice: "push",
+        },
+        9,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标阵营与技能的目标图标不一致",
+      wounds: 4,
+      targetStress: 2,
+      targetShuffle: null,
+    });
+    expect(
+      use(
+        "hero_skill:p145",
+        {
+          target: soldier,
+          areaDistance: 1,
+          shuffleChoice: "aside" as unknown as "push",
+        },
+        9,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "Push 或 Pull 的方向必须是 push 或 pull",
+      wounds: 4,
+      targetShuffle: null,
+    });
+
+    expect(
+      use("hero_skill:p146", { target: soldier, areaDistance: 1, shuffleChoice: "push" }, 5),
+    ).toMatchObject({
+      status: "refused",
+      reason: "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
+      wounds: 4,
+      targetShuffle: null,
+    });
+    expect(
+      use(
+        "hero_skill:p147",
+        { target: soldier, areaDistance: 2, targetAreaLower: true, shuffleChoice: "pull" },
+        5,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
+      wounds: 4,
+      targetShuffle: null,
+    });
+
+    const flash = card("hero_skill:p055");
+    expect(flash.name).toBe("Flashbang");
+    expect(flash.level).toBe(1);
+    expect(flash.hero).toBe("BOUNTY HUNTER");
+    expect(flash.verification.unverified).toBe(false);
+    expect(flash.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 10]]);
+    expect(
+      flash.effect_lines[0]
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text.trim())
+        .filter((text) => text !== ""),
+    ).toEqual(["1t,", "Push 1 or", "Pull 1"]);
+    expect(
+      flash.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
+    ).toEqual(["1t", "1-2"]);
+    expect(use("hero_skill:p055", { target: soldier, shuffleChoice: "push" }, 5)).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      wounds: 4,
+      targetShuffle: null,
+      printedAmount: null,
+    });
+    expect(use("hero_skill:p056", { target: soldier, shuffleChoice: "pull" }, 1)).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      targetShuffle: null,
+      wounds: 4,
+    });
+    expect(use("hero_skill:p057", { target: soldier, shuffleChoice: "push" }, 10)).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      targetShuffle: null,
+      wounds: 4,
+    });
+
+    // 已经印成单一 Push 的行不改用选定的 Pull。
+    expect(
+      use(
+        "hero_skill:p070",
+        {
+          actor: { id: "highwayman", wounds: 0, stress: 4 },
+          target: soldier,
+          areaDistance: 0,
+          shuffleChoice: "pull",
+        },
+        10,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 9,
+      damageDealt: 9,
+      wounds: 13,
+      actorShuffle: { direction: "push", distance: 1 },
+      targetShuffle: { direction: "push", distance: 1 },
+    });
+  });
 });

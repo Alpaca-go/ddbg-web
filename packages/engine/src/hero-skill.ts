@@ -87,8 +87,12 @@
  * 目标有 Shuffle 抗性时，目标位移再少 1，最低到 0（规则书第 21 页，R-020、R-033）。
  * 只减一次。自身位移不减：英雄位移自己时可以选择无视自己的抗性，这里不替玩家选。
  * 不把免疫当成距离直接归零。确认过的图标 key 仍是 `shuffle_resist`，含义没有另分成免疫。
- * 这一层不挪区域、不挪姿态轨，也不处理「Push 或 Pull」让玩家选方向。和眩晕、
- * 增益、标记或反击写在同一行的位移仍整行跳过。
+ * 印刷文字恰好是「Push N or Pull N」、两边是同一个正整数时，调用方传入选定的
+ * 方向才记上那个距离，不替玩家选其中一边。没传入方向时这行仍跳过，技能若没有
+ * 别的可结算效果就整次拒绝。和眩晕、增益、标记或反击写在同一行，或「Push N or」
+ * 被拆开的，仍整行跳过。没有 Crit 的这种技能不会暴击：不把缺的 Crit 当成 0，
+ * 也不把 Acc 当成伤害。眩晕「1t」的 numeric 为 null，不放堆。
+ * 这一层不挪区域、不挪姿态轨。
  *
  * 无视防护（规则书第 20 页目标效果可以改这次攻击的伤害，第 21 页 Protection
  * 把攻击伤害减半）：一条效果行只有已命名的目标效果、文字「Ignores」、已命名的
@@ -378,6 +382,12 @@ export type SkillCombatState = {
    * 不传或为假就不查。不从卡面上的「1t」判断谁有 Guard，也不替调用方改选目标。
    */
   readonly guardedEnemyOmitted?: boolean;
+  /**
+   * 卡面印「Push N or Pull N」时，使用者选定的方向（规则书第 21 页）。
+   * 不传就不替玩家选，这种行不算已经结算的位移。
+   * 印成单一 Push 或 Pull 的行不用这个字段，传入了也不改那一行的方向。
+   */
+  readonly shuffleChoice?: "push" | "pull";
   /**
    * 目标所在区域是否比使用者低（规则书第 25 页：高地 > 普通 > 低地）。
    * 为真时命中阈值 +1，并把单个整数射程的上限再加 1，原距离仍可选（R-022）。
@@ -1066,26 +1076,80 @@ type ReadShuffles = {
 
 const SHUFFLE_TEXT = /^(Push|Pull) (\d+)$/;
 
+/** 「Push 2 or Pull 2」。两边必须是同一个正整数，方向由调用方选定。 */
+const SHUFFLE_CHOICE_TEXT = /^Push (\d+) or Pull (\d+)$/;
+
 /**
  * 只接受「标记 + shuffle + Push N / Pull N」这一整行。
  * 距离只来自这段印刷文字。同一侧有两条时都不采用，留给 effect_lines 跳过。
+ * 「Push N or Pull N」只有在没有已经写明方向的目标位移、并且调用方选定了方向时，
+ * 才记成那一次目标位移。没选定、两边距离不同、或和别的图标写在同一行，都不算。
  */
-function readShuffles(skill: HeroSkillCardView): ReadShuffles {
+function readShuffles(skill: HeroSkillCardView, choice: "push" | "pull" | undefined): ReadShuffles {
   const selves: SkillShuffle[] = [];
   const targets: SkillShuffle[] = [];
+  const choices: number[] = [];
   for (const line of skill.effect_lines) {
     const parsed = shuffleFromLine(line);
-    if (parsed === null) continue;
-    if (parsed.audience === "self") selves.push(parsed.move);
-    else targets.push(parsed.move);
+    if (parsed !== null) {
+      if (parsed.audience === "self") selves.push(parsed.move);
+      else targets.push(parsed.move);
+      continue;
+    }
+    const distance = shuffleChoiceDistance(line);
+    if (distance !== null) choices.push(distance);
   }
   const self = selves.length === 1 && selves[0] !== undefined ? selves[0] : null;
-  const target = targets.length === 1 && targets[0] !== undefined ? targets[0] : null;
+  let target = targets.length === 1 && targets[0] !== undefined ? targets[0] : null;
+  const chosen = choices.length === 1 ? choices[0] : undefined;
+  if (
+    target === null &&
+    targets.length === 0 &&
+    chosen !== undefined &&
+    (choice === "push" || choice === "pull")
+  ) {
+    target = { direction: choice, distance: chosen };
+  }
   return {
     self,
     target,
     lineCount: (self === null ? 0 : 1) + (target === null ? 0 : 1),
   };
+}
+
+/**
+ * 目标效果上单独一行「Push N or Pull N」。N 两边相同才是一个距离。
+ * 多出来的图标、自身标记，或拆成两段的「Push N or」，都不算。
+ */
+function shuffleChoiceDistance(line: readonly SkillSegment[]): number | null {
+  let target = 0;
+  let shuffles = 0;
+  let distance: number | null = null;
+  for (const segment of line) {
+    if (segment.type === "text") {
+      const text = segment.text.trim();
+      if (text === "") continue;
+      const matched = SHUFFLE_CHOICE_TEXT.exec(text);
+      if (matched === null || distance !== null) return null;
+      const push = Number(matched[1]);
+      const pull = Number(matched[2]);
+      if (!positiveInteger(push) || push !== pull) return null;
+      distance = push;
+      continue;
+    }
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) return null;
+    if (segment.icon.key === "target_effects") {
+      target += 1;
+      continue;
+    }
+    if (segment.icon.key === "shuffle") {
+      shuffles += 1;
+      continue;
+    }
+    return null;
+  }
+  if (target !== 1 || shuffles !== 1 || distance === null) return null;
+  return distance;
 }
 
 function shuffleFromLine(
@@ -1750,6 +1814,13 @@ function combatProblem(combat: SkillCombatState): string | null {
   if (combat.guardedEnemyOmitted !== undefined && typeof combat.guardedEnemyOmitted !== "boolean") {
     return "有没有漏选 Guard 敌人必须是布尔值";
   }
+  if (
+    combat.shuffleChoice !== undefined &&
+    combat.shuffleChoice !== "push" &&
+    combat.shuffleChoice !== "pull"
+  ) {
+    return "Push 或 Pull 的方向必须是 push 或 pull";
+  }
 
   const beside = readAreaHeroes(combat.heroesBesideActor, "使用者身边的英雄");
   if (!beside.ok) return beside.reason;
@@ -1806,8 +1877,8 @@ function resistedTargetShuffle(
  * 未验证的卡、对不上的目标、当前姿态没有点亮、印了形态限定但对不上、区域距离
  * 不是印出来的射程、选中的个数超过卡面目标图标、打怪物却没选中有 Guard 的敌人、
  * 增益、减益或标记堆数不是非负整数、把使用者自己的区域当成更低、光照不是 0 到 5
- * 的整数、Shuffle 抗性或 Guard 标志不是布尔值、读不出整数的 Crit / Acc、要结算背面
- * 但没有背面，都原样留下伤口。
+ * 的整数、Shuffle 抗性或 Guard 标志不是布尔值、Push 或 Pull 的方向不是这两个词、
+ * 读不出整数的 Crit / Acc、要结算背面但没有背面，都原样留下伤口。
  */
 export function resolveHeroSkill(
   skill: HeroSkillCardView,
@@ -1845,7 +1916,7 @@ export function resolveHeroSkill(
   const paired = readSelfHealStress(active);
   const removal = readConditionRemoval(active);
   const selfBleed = readSelfBleedRemoval(active);
-  const shuffles = readShuffles(active);
+  const shuffles = readShuffles(active, combat.shuffleChoice);
   const ignoresProtection = readIgnoresProtection(active);
   const formChange = readFormChange(active);
   const keys = namedKeys(active.stats_line);
@@ -1861,7 +1932,9 @@ export function resolveHeroSkill(
         paired.lineCount === 0 &&
         selfBleed.lineCount === 0 &&
         removal.actorLines === 0 &&
-        removal.pairedTargetLines === 0
+        removal.pairedTargetLines === 0 &&
+        shuffles.self === null &&
+        shuffles.target === null
       ) {
         return refuse(skill, combat, "stats_line 没有已命名的 damage 或 heal");
       }
@@ -1873,7 +1946,8 @@ export function resolveHeroSkill(
     effect = kinds.has("damage") ? "damage" : "heal";
   }
 
-  const formOnly = effect === null;
+  // 没有伤害、治疗，但已经记上位移：仍要按 Acc 掷骰。变身和没有 Acc 的自身效果不掷。
+  const formOnly = effect === null && shuffles.self === null && shuffles.target === null;
   const selfTarget = !formOnly && readsAsSelfTarget(active);
   const targetCounts = readTargetIconCounts(active);
   const targets = new Set<"target_hero" | "target_monster">();
@@ -1925,18 +1999,21 @@ export function resolveHeroSkill(
 
   const critThreshold = formOnly ? null : threshold(active, "Crit");
   const accThreshold = formOnly ? null : threshold(active, "Acc");
-  if (!formOnly && critThreshold === null) {
+  // 只有位移、没有伤害数字的技能可以不印 Crit。不把缺的阈值当成 0。
+  // 有伤害、治疗或压力时，Crit 仍然必须是非负整数。
+  if (!formOnly && effect !== null && critThreshold === null) {
     return refuse(skill, combat, "Crit 标签没有非负整数阈值");
   }
   if (!formOnly && accThreshold === null) {
     return refuse(skill, combat, "Acc 标签没有非负整数阈值");
   }
-  const critAmount = effect === "stress" || formOnly ? null : amountBesideLabel(active, "Crit");
-  const hitAmount = effect === "stress" || formOnly ? null : amountBesideLabel(active, "Acc");
-  if (effect !== "stress" && !formOnly && critAmount === null) {
+  const needsAmount = effect === "damage" || effect === "heal";
+  const critAmount = needsAmount ? amountBesideLabel(active, "Crit") : null;
+  const hitAmount = needsAmount ? amountBesideLabel(active, "Acc") : null;
+  if (needsAmount && critAmount === null) {
     return refuse(skill, combat, "Crit 旁边没有恰好一个非负整数");
   }
-  if (effect !== "stress" && !formOnly && hitAmount === null) {
+  if (needsAmount && hitAmount === null) {
     return refuse(skill, combat, "Acc 旁边没有恰好一个非负整数");
   }
   if ((stress.self !== 0 || paired.stress !== 0) && combat.actor?.stress === undefined) {
@@ -1973,7 +2050,7 @@ export function resolveHeroSkill(
   // 印刷的加压力 numeric 为 null，不先当成一次压力事件。
   // 没有 Acc 的技能不掷骰。变身，自身一行里已经对上的治疗和压力，自身一行
   // 「Self Remove」加已命名的流血，以及配给效果框的「Remove」加流血和腐蚀，
-  // outcome 留空。
+  // outcome 留空。只有位移、卡面没有 Crit 时只分命中和落空，不暴击。
   // 不读这张卡印的增益、减益、标记回合数，也不读卡面光照 +1 / -1 / +2。
   const buffStacks = combat.actor?.buffStacks ?? 0;
   const enemyDebuffStacks = target.side === "monster" ? (target.debuffStacks ?? 0) : 0;
@@ -1983,19 +2060,21 @@ export function resolveHeroSkill(
   const lightHeroDodge = combat.light === 5 && target.side === "hero" ? 1 : 0;
   const lightMonsterDodge = combat.light === 0 && target.side === "monster" ? 1 : 0;
   let outcome: "crit" | "hit" | "miss" | null = null;
-  if (!formOnly && critThreshold !== null && accThreshold !== null) {
-    if (roll <= critThreshold + buffStacks + enemyDebuffStacks + lightCrit) outcome = "crit";
-    else if (
-      roll <=
-      accThreshold +
+  const hitThreshold =
+    accThreshold === null
+      ? null
+      : accThreshold +
         enemyMarkStacks +
         lowerAreaAcc -
         target.dodge -
         lightHeroDodge -
-        lightMonsterDodge
-    ) {
-      outcome = "hit";
-    } else outcome = "miss";
+        lightMonsterDodge;
+  if (!formOnly && critThreshold !== null && hitThreshold !== null) {
+    if (roll <= critThreshold + buffStacks + enemyDebuffStacks + lightCrit) outcome = "crit";
+    else if (roll <= hitThreshold) outcome = "hit";
+    else outcome = "miss";
+  } else if (!formOnly && hitThreshold !== null) {
+    outcome = roll <= hitThreshold ? "hit" : "miss";
   }
 
   let wounds = target.wounds;
