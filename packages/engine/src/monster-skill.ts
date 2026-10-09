@@ -1,0 +1,151 @@
+import { resolveMonsterAttackView } from "./hero-skill";
+import type {
+  HeroSkillCardView,
+  HeroSkillResolution,
+  SkillActorState,
+  SkillCombatState,
+  SkillSegment,
+} from "./hero-skill";
+
+/** 只读规范化怪物技能；不从 footer_lines 推断可用姿态、选招骰表或 AI。 */
+export type MonsterSkillView = Pick<
+  HeroSkillCardView,
+  "printed_labels" | "unlabeled_numbers" | "effect_lines"
+> & {
+  readonly slot: number;
+  readonly lines: readonly (readonly SkillSegment[])[];
+};
+
+export type MonsterCardView = {
+  readonly id: string;
+  readonly life: number;
+  readonly verification: { readonly unverified: boolean };
+  readonly skills: readonly MonsterSkillView[];
+};
+
+/** 调用方已选定一个英雄目标；英雄 Life / 死门尚未接入。 */
+export type MonsterCombatState = Pick<
+  SkillCombatState,
+  "target" | "untargetedHeroesBesideTarget" | "shuffleChoice" | "targetAreaLower" | "light"
+> & {
+  readonly actor: Omit<SkillActorState, "stress" | "form" | "stance">;
+  readonly areaDistance: number;
+  readonly guardedHeroOmitted?: boolean;
+};
+
+export type MonsterSkillResolution = {
+  readonly monsterId: string;
+  readonly skillSlot: number;
+} & (
+  | { readonly status: "refused"; readonly reason: string }
+  | {
+      readonly status: "resolved";
+      readonly actorDead: boolean;
+      readonly resolution: HeroSkillResolution;
+    }
+);
+
+function lineKey(line: readonly SkillSegment[]): string {
+  return JSON.stringify(
+    line.map((segment) =>
+      segment.type === "text"
+        ? ["text", segment.text]
+        : ["icon", segment.icon.key, segment.icon.naming],
+    ),
+  );
+}
+
+/**
+ * 规则书 R19–21、§6.5；R-002、R-016、R-017、R-019、R-022、R-024、R-031。
+ * 已选怪物技能对一个已选英雄的纯结算。roll 由调用方的种子 RNG 提供。
+ * 怪物 lines 包含效果框：逐行核对后移除 effect_lines，避免把效果里的目标图标
+ * 当成攻击目标。数字仍只读规范化 numeric；null / 未核实值不补（R-048）。
+ * 位移只返回意图。该结果不代表已执行 AI、完整多目标技能或英雄死亡检查。
+ */
+export function resolveMonsterSkill(
+  monster: MonsterCardView,
+  skillSlot: number,
+  combat: MonsterCombatState,
+  roll: number,
+): MonsterSkillResolution {
+  const refused = (reason: string): MonsterSkillResolution => ({
+    monsterId: monster.id,
+    skillSlot,
+    status: "refused",
+    reason,
+  });
+  if (monster.verification.unverified) return refused("未验证的怪物卡不结算（R-048）");
+  if (!Number.isInteger(monster.life) || monster.life < 1) {
+    return refused("怪物 Life 必须是规范化卡上的正整数（R-048）");
+  }
+  if (!Number.isInteger(skillSlot) || skillSlot < 1 || skillSlot > 3) {
+    return refused("怪物技能编号必须是 1 到 3 的整数");
+  }
+  const matches = monster.skills.filter((skill) => skill.slot === skillSlot);
+  if (matches.length !== 1) return refused("怪物卡没有唯一对应的技能编号");
+  if (combat.actor === undefined || "stress" in combat.actor) {
+    return refused("必须提供怪物使用者，怪物没有压力轨");
+  }
+  if (combat.actor.wounds >= monster.life) return refused("死亡的怪物不能使用技能");
+  if (combat.target.side !== "hero" || combat.target.id === combat.actor.id) {
+    return refused("当前怪物攻击只结算另一名英雄目标");
+  }
+  if (combat.areaDistance === undefined) return refused("必须提供已选目标区域的距离");
+  if (combat.target.stress === undefined) return refused("必须提供英雄目标的压力");
+
+  const skill = matches[0]!;
+  const excluded = new Set<number>();
+  for (const effectLine of skill.effect_lines) {
+    const key = lineKey(effectLine);
+    const indices = skill.lines.flatMap((line, index) => (lineKey(line) === key ? [index] : []));
+    if (indices.length !== 1 || excluded.has(indices[0]!)) {
+      return refused("怪物效果行不能唯一对应原始技能行，拒绝猜测版面（R-048）");
+    }
+    excluded.add(indices[0]!);
+  }
+  const stats = skill.lines.flatMap((line, index) => (excluded.has(index) ? [] : [...line]));
+  if (
+    !stats.some(
+      (segment) =>
+        segment.type === "icon" &&
+        segment.icon.key === "damage" &&
+        ["confirmed", "confirmed_rulebook"].includes(segment.icon.naming),
+    )
+  ) {
+    return refused("当前怪物攻击需要已命名的 damage，支援与纯状态技能尚未接入（R-048）");
+  }
+  const view: HeroSkillCardView = {
+    ...skill,
+    id: `${monster.id}:skill${skillSlot}`,
+    hero: null,
+    verification: monster.verification,
+    stats_line: stats,
+  };
+  const resolution = resolveMonsterAttackView(
+    view,
+    {
+      actor: combat.actor,
+      target: combat.target,
+      areaDistance: combat.areaDistance,
+      targetsInArea: 1,
+      ...(combat.light === undefined ? {} : { light: combat.light }),
+      ...(combat.targetAreaLower === undefined ? {} : { targetAreaLower: combat.targetAreaLower }),
+      ...(combat.guardedHeroOmitted === undefined
+        ? {}
+        : { guardedEnemyOmitted: combat.guardedHeroOmitted }),
+      ...(combat.shuffleChoice === undefined ? {} : { shuffleChoice: combat.shuffleChoice }),
+      ...(combat.untargetedHeroesBesideTarget === undefined
+        ? {}
+        : { untargetedHeroesBesideTarget: combat.untargetedHeroesBesideTarget }),
+    },
+    roll,
+  );
+  if (resolution.status === "refused") return refused(resolution.reason!);
+  return {
+    monsterId: monster.id,
+    skillSlot,
+    status: "resolved",
+    actorDead: resolution.actorWounds !== null && resolution.actorWounds >= monster.life,
+    resolution,
+  };
+}

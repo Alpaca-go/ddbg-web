@@ -56,3 +56,19 @@ Node 24.21.0 放在忽略的 `node_modules/.cache/node24/`，pnpm 12.9.1。Windo
 块 B 验证：typecheck、lint、150 项 Vitest、build 通过；使用相同本机 Chrome 临时配置运行原有首页冒烟，1 项通过。
 
 下一步建议：接怪物技能结算纯函数（块 C），以及位移实际应用；状态真代币仍等核实 duration。战斗 UI 等接口进一步稳定后接入。
+
+## 块 C：已选怪物攻击的纯结算
+
+块 B 已本地提交为 `eb9079f`。本块在 `codex/phase2-monster-skill-resolution` 上继承前两块提交，尚未推送或合并。
+
+- 新增 `resolveMonsterSkill(monster, skillSlot, combat, roll)`。调用方提供已选技能、单个英雄目标及区域距离，骰面由调用方的种子 RNG 提供。没有怪物选招、目标优先级或随机 AI。
+- 读取规范化怪物卡的 `skills`、`life` 与验证标记。逐行核对并排除 `effect_lines`，避免效果框图标被当作攻击目标。支援 / 纯状态技能、未核实卡、缺失 / 重复编号、null 数字、无法唯一对应的效果行均拒绝。
+- 与英雄技能复用显式区分攻击阵营的结算核心：敌方 Debuff / Mark、使用者 Buff、高低地、Guard、光照、Protection、Riposte 均按现有裁定计算。怪物在光照 0 时 Acc +1；怪物暴击不获得英雄减压奖励。
+- 英雄承受伤害暴击及同区未选英雄各加压一次（R-031）；光照 2–0 的该压力事件额外 +1（R-002），封顶 10，不递归触发。这一数值来自已确认裁定，不从卡面未核实的 `+1` 补值。
+- 返回目标伤口 / 压力、使用者伤口、反弹导致的怪物死亡、清状态结果、位移意图及跳过项。位移不移动棋子；R-048 阻塞的压力、伤害修正与状态持续时间继续跳过或拒绝。
+
+依据：说明书 §6.5–6.7（R19–21、R25），R-002、R-016、R-017、R-019、R-022、R-024、R-031、R-048。新增 14 项测试，包含 G-04 的已选技能结算部分（Bone Defender 技能 3，Acc 5 − Dodge 1，命中伤害 3，自身 Pull 1）；未将目标选择或实际位移算作已实现。另使用真实 Bone Soldier、Courtier、Arbalist、Cultist Brawler、Bone Captain 数据验证。
+
+边界：本块仍是纯函数，未接 `applyCommand` 的怪物行动，也未改 `finishMonsterTurn`。没有怪物姿态选招表、完整多目标一次掷骰、Boss 专属逻辑、英雄 Life / 死门、压力 10 检定、实际位移或状态计时。结果内暂复用 `HeroSkillResolution` 字段形状，不是正式存档协议。必须提供英雄压力；不提供或传入未核实英雄 Life 会拒绝。
+
+块 C 验证：typecheck、lint、164 项 Vitest、build 通过；相同本机 Chrome 临时配置运行原有首页冒烟，1 项通过。下一步建议先实现实际位移，再接怪物行动命令与多目标结算；卡面数据补洞继续等 Kyries 核实，不补默认值。
