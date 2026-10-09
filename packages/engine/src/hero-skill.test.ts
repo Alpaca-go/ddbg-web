@@ -6934,7 +6934,18 @@ describe("resolveHeroSkill", () => {
       targetStress: 3,
       skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
-    expect(use("hero_skill:p097", { ...comfortBright, light: undefined }, 4)).toMatchObject({
+    expect(
+      use(
+        "hero_skill:p097",
+        {
+          actor: vestal,
+          target: patient,
+          areaDistance: 1,
+          targetsInArea: 1,
+        },
+        4,
+      ),
+    ).toMatchObject({
       outcome: "hit",
       printedAmount: 2,
       wounds: 3,
