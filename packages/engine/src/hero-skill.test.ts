@@ -10309,6 +10309,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // 只有眩晕、没有已命名伤害的技能仍不结算。漏选标志不替它补出 Crit，也不放 1t。
+    // 正面怪物头和射程 0 对得上时也一样；专测见下面的 YAWP! / Blinding Gas。
     const yawp = card("hero_skill:p028");
     expect(yawp.name).toBe("Barbaric YAWP!");
     expect(yawp.level).toBe(1);
@@ -10341,6 +10342,273 @@ describe("resolveHeroSkill", () => {
       actorStress: 1,
       actorShuffle: null,
       targetShuffle: null,
+    });
+  });
+
+  it("Barbaric YAWP! 和 Blinding Gas 只有 Acc 和眩晕 1t，不放堆，也不把 Acc 当成伤害", () => {
+    const yawp = card("hero_skill:p028");
+    expect(yawp.name).toBe("Barbaric YAWP!");
+    expect(yawp.level).toBe(1);
+    expect(yawp.hero).toBe("HELLION");
+    expect(yawp.verification.unverified).toBe(false);
+    expect(yawp.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 10]]);
+    expect(yawp.stats_line?.filter((segment) => segment.type === "icon")).toEqual([]);
+    expect(
+      yawp.effect_lines.some((line) =>
+        line.some(
+          (segment) =>
+            segment.type === "icon" &&
+            (segment.icon.key === "damage" || segment.icon.key === "heal"),
+        ),
+      ),
+    ).toBe(false);
+    expect(
+      yawp.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "stun"]);
+    expect(
+      yawp.unlabeled_numbers.filter((item) => item.text === "1t").map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(
+      yawp.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => item.numeric),
+    ).toEqual([0]);
+    expect(
+      yawp.front_icons
+        ?.filter(
+          (icon) =>
+            icon.key === "target_monster" &&
+            (icon.naming === "confirmed" || icon.naming === "confirmed_rulebook"),
+        )
+        .map((icon) => icon.key),
+    ).toEqual(["target_monster", "target_monster"]);
+    expect(
+      yawp.front_icons?.some(
+        (icon) =>
+          (icon.key === "damage" || icon.key === "heal") &&
+          (icon.naming === "confirmed" || icon.naming === "confirmed_rulebook"),
+      ),
+    ).toBe(false);
+
+    const hellion = { id: "hellion", wounds: 0, stress: 1 };
+    const soldier = { id: "soldier", side: "monster" as const, wounds: 4, dodge: 0 };
+    const ready: SkillCombatState = {
+      actor: hellion,
+      target: soldier,
+      areaDistance: 0,
+      targetsInArea: 2,
+    };
+    const frozen = structuredClone(ready);
+    // 射程 0、选 2 个都合法。掷 1 本来会落在 Acc 10 以内，掷 10 也对得上 Acc。两者都不改伤口。
+    for (const roll of [1, 10]) {
+      expect(use("hero_skill:p028", ready, roll)).toMatchObject({
+        status: "refused",
+        reason: "stats_line 没有已命名的 damage 或 heal",
+        outcome: null,
+        effect: null,
+        printedAmount: null,
+        damageDealt: null,
+        riposteDamage: null,
+        wounds: 4,
+        actorWounds: 0,
+        actorStress: 1,
+        targetDead: false,
+        targetBleedCleared: false,
+        targetBlightCleared: false,
+        actorShuffle: null,
+        targetShuffle: null,
+        targetProtectionIgnored: false,
+        actorForm: null,
+        skipped: [],
+      });
+    }
+    expect(ready).toEqual(frozen);
+    // 少选 1 个仍然合法，还是不把 Acc 10 当成伤害。标明没有漏选 Guard 也不放行。
+    expect(
+      use("hero_skill:p028", { ...ready, targetsInArea: 1, guardedEnemyOmitted: false }, 10),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      printedAmount: null,
+      wounds: 4,
+      actorWounds: 0,
+      actorStress: 1,
+    });
+    // 距离先核对。射程 0 对不上 1，还没轮到「没有伤害」。
+    expect(use("hero_skill:p028", { ...ready, areaDistance: 1 }, 1)).toMatchObject({
+      status: "refused",
+      reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
+      wounds: 4,
+      actorWounds: 0,
+      actorStress: 1,
+      printedAmount: null,
+    });
+    // 正面两枚怪物头：选 3 个先按个数拒绝。
+    expect(use("hero_skill:p028", { ...ready, targetsInArea: 3 }, 1)).toMatchObject({
+      status: "refused",
+      reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
+      wounds: 4,
+      printedAmount: null,
+    });
+
+    const yawpTwo = card("hero_skill:p029");
+    expect(yawpTwo.name).toBe("Barbaric YAWP!");
+    expect(yawpTwo.level).toBe(2);
+    expect(yawpTwo.verification.unverified).toBe(false);
+    expect(yawpTwo.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 11]]);
+    expect(
+      yawpTwo.unlabeled_numbers.filter((item) => item.text === "1t").map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(use("hero_skill:p029", ready, 1)).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      printedAmount: null,
+      wounds: 4,
+      actorStress: 1,
+    });
+
+    const yawpThree = card("hero_skill:p030");
+    expect(yawpThree.name).toBe("Barbaric YAWP!");
+    expect(yawpThree.level).toBe(3);
+    expect(yawpThree.verification.unverified).toBe(false);
+    expect(yawpThree.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 12]]);
+    expect(use("hero_skill:p030", ready, 10)).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      printedAmount: null,
+      wounds: 4,
+      damageDealt: null,
+    });
+
+    const gas = card("hero_skill:p133");
+    expect(gas.name).toBe("Blinding Gas");
+    expect(gas.level).toBe(1);
+    expect(gas.hero).toBe("PLAGUE DOCTOR");
+    expect(gas.verification.unverified).toBe(false);
+    expect(gas.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 9]]);
+    expect(gas.stats_line?.filter((segment) => segment.type === "icon")).toEqual([]);
+    expect(
+      gas.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "stun"]);
+    expect(
+      gas.unlabeled_numbers.filter((item) => item.text === "1t").map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(
+      gas.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => [item.text, item.numeric]),
+    ).toEqual([["1-2", null]]);
+    expect(
+      gas.front_icons
+        ?.filter(
+          (icon) =>
+            icon.key === "target_monster" &&
+            (icon.naming === "confirmed" || icon.naming === "confirmed_rulebook"),
+        )
+        .map((icon) => icon.key),
+    ).toEqual(["target_monster", "target_monster"]);
+
+    const doctor = { id: "doctor", wounds: 2, stress: 3 };
+    const patient = { id: "soldier", side: "monster" as const, wounds: 6, dodge: 0 };
+    // 不传距离时不核射程。选 2 个合法。掷 1 和掷 9 都在 Acc 9 里，仍不造成 9 点伤害。
+    for (const roll of [1, 9]) {
+      expect(
+        use(
+          "hero_skill:p133",
+          { actor: doctor, target: patient, targetsInArea: 2, guardedEnemyOmitted: false },
+          roll,
+        ),
+      ).toMatchObject({
+        status: "refused",
+        reason: "stats_line 没有已命名的 damage 或 heal",
+        outcome: null,
+        effect: null,
+        printedAmount: null,
+        damageDealt: null,
+        wounds: 6,
+        actorWounds: 2,
+        actorStress: 3,
+        targetDead: false,
+        actorShuffle: null,
+        targetShuffle: null,
+        skipped: [],
+      });
+    }
+    // 掷 10 超过 Acc 9。没有已命名伤害，所以不是落空，整次拒绝，伤口仍是 6。
+    expect(
+      use("hero_skill:p133", { actor: doctor, target: patient, targetsInArea: 1 }, 10),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      outcome: null,
+      printedAmount: null,
+      wounds: 6,
+      actorWounds: 2,
+    });
+    // 区间「1-2」的 numeric 为 null。传入距离就按区间拒绝，不先当成命中再放眩晕。
+    expect(
+      use(
+        "hero_skill:p133",
+        { actor: doctor, target: patient, areaDistance: 1, targetsInArea: 2 },
+        1,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
+      wounds: 6,
+      actorWounds: 2,
+      actorStress: 3,
+      printedAmount: null,
+      damageDealt: null,
+    });
+    expect(
+      use("hero_skill:p133", { actor: doctor, target: patient, targetsInArea: 3 }, 1),
+    ).toMatchObject({
+      status: "refused",
+      reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
+      wounds: 6,
+      printedAmount: null,
+    });
+
+    const gasTwo = card("hero_skill:p134");
+    expect(gasTwo.name).toBe("Blinding Gas");
+    expect(gasTwo.level).toBe(2);
+    expect(gasTwo.verification.unverified).toBe(false);
+    expect(gasTwo.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 11]]);
+    expect(
+      gasTwo.unlabeled_numbers.filter((item) => item.text === "1t").map((item) => item.numeric),
+    ).toEqual([null]);
+    expect(
+      use("hero_skill:p134", { actor: doctor, target: patient, targetsInArea: 2 }, 1),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      printedAmount: null,
+      wounds: 6,
+      actorStress: 3,
+    });
+
+    const gasThree = card("hero_skill:p135");
+    expect(gasThree.name).toBe("Blinding Gas");
+    expect(gasThree.level).toBe(3);
+    expect(gasThree.verification.unverified).toBe(false);
+    expect(gasThree.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 14]]);
+    expect(use("hero_skill:p135", { actor: doctor, target: patient }, 10)).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 6,
+      actorWounds: 2,
+      actorStress: 3,
     });
   });
 });
