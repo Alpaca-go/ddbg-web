@@ -330,3 +330,159 @@ describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）
     ).toThrow();
   });
 });
+
+// 合成分组只测试接线路由；不是 Soldier / 方向夹具的实际卡面转录。
+function eligible(card = soldier, roll = false): MonsterCardView {
+  return {
+    ...card,
+    stanceGroups: [
+      {
+        stances: [...stances],
+        ...(roll ? { rollTable: [{ min: 1, max: 10, skill: 1 }] } : { skill: 1 }),
+      },
+    ],
+  };
+}
+const prepare = { type: "prepareMonsterAction", actorId: "monster" } as const;
+
+describe("怪物选招与目标命令接线（R-015、R-024）", () => {
+  it("固定技能不掷选招骰，按真实 Most Wounded 选目标，不消耗回合", () => {
+    const initial = patch(monsterTurn(setup(eligible())), "h1", { wounds: 4 });
+    const before = structuredClone(initial);
+    const result = applyCommand(initial, prepare);
+    expect(result.events).toEqual([
+      {
+        type: "monsterActionPrepared",
+        message: "已按姿态选招并确定英雄目标",
+        actorId: "monster",
+        skillSlot: 1,
+        targetId: "h1",
+        selectionRoll: null,
+      },
+    ]);
+    expect(result.state.battle!.rngCursor).toBe(initial.battle!.rngCursor);
+    expect(result.state.battle!.encounter).toEqual(initial.battle!.encounter);
+    expect(initial).toEqual(before);
+    expect(applyCommand(result.state, play()).state).toBe(result.state);
+    expect(applyCommand(result.state, { ...play(), targetId: "h1" }).events[0]?.type).toBe(
+      "monsterSkillResolved",
+    );
+  });
+
+  it("选招与攻击使用共享 RNG；重复选招拒绝，完整命令回放一致", () => {
+    const initial = monsterTurn(setup(eligible(soldier, true)));
+    const chosen = applyCommand(initial, prepare);
+    expect(chosen.events[0]).toMatchObject({
+      type: "monsterActionPrepared",
+      skillSlot: 1,
+      targetId: "h0",
+    });
+    expect(chosen.state.battle!.rngCursor).toBe(initial.battle!.rngCursor + 1);
+    expect(chosen.state.battle!.monsterAction!.selectionRoll).toBeGreaterThanOrEqual(1);
+    expect(applyCommand(chosen.state, prepare).state).toBe(chosen.state);
+    const fired = applyCommand(chosen.state, play());
+    expect(fired.events[0]?.type).toBe("monsterSkillResolved");
+    expect(fired.state.battle!.rngCursor).toBe(initial.battle!.rngCursor + 2);
+    expect(fired.state.battle!.monsterAction).toBeNull();
+    expect(fired.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+    expect(applyCommand(applyCommand(initial, prepare).state, play())).toEqual(fired);
+  });
+
+  it("R22 Defender 远程固定技能 3，Furthest 平手按姿态选 h2", () => {
+    const card: MonsterCardView = {
+      ...defender,
+      stanceGroups: [
+        {
+          stances: ["aggressive", "defensive"],
+          rollTable: [
+            { min: 1, max: 5, skill: 2 },
+            { min: 6, max: 10, skill: 1 },
+          ],
+        },
+        { stances: ["ranged", "support"], skill: 3 },
+      ],
+    };
+    const initial = monsterTurn(patch(setup(card), "monster", { stance: "ranged" }));
+    const result = applyCommand(initial, prepare);
+    expect(result.state.battle!.monsterAction).toEqual({
+      actorId: "monster",
+      skillSlot: 3,
+      targetId: "h2",
+      selectionRoll: null,
+    });
+    expect(result.state.battle!.rngCursor).toBe(initial.battle!.rngCursor);
+    expect(applyCommand(result.state, { ...play(1), targetId: "h2" }).state).toBe(result.state);
+  });
+
+  it("大型怪使用较高优先级姿态；Guard 覆盖技能目标优先级", () => {
+    const initial = patch(
+      patch(monsterTurn(setup(eligible())), "monster", { stanceSlots: 2 }),
+      "h3",
+      { guard: true },
+    );
+    const result = applyCommand(initial, prepare);
+    expect(result.state.battle!.monsterAction).toMatchObject({ skillSlot: 1, targetId: "h3" });
+  });
+
+  it("方向 / 区域选择保存选招结果，不重掷选招骰或绕过目标约束", () => {
+    const initial = monsterTurn(setup(eligible(directionCard(), true)));
+    const chosen = applyCommand(initial, prepare);
+    const waiting = applyCommand(chosen.state, play());
+    expect(waiting.pendingChoice?.actorId).toBe("h0");
+    expect(waiting.state.battle!.monsterAction).toEqual(chosen.state.battle!.monsterAction);
+    expect(waiting.state.battle!.rngCursor).toBe(chosen.state.battle!.rngCursor);
+    expect(applyCommand(waiting.state, prepare).state).toBe(waiting.state);
+    const rolled = applyCommand(waiting.state, {
+      type: "resolveChoice",
+      choiceId: waiting.pendingChoice!.id,
+      optionId: "push",
+    });
+    expect(rolled.state.battle!.rngCursor).toBe(chosen.state.battle!.rngCursor + 1);
+    expect(rolled.state.battle!.monsterAction).toBeNull();
+    expect(applyCommand(rolled.state, prepare).state).toBe(rolled.state);
+    const completed = applyCommand(rolled.state, { type: "resolveShuffles" });
+    expect(completed.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+    expect(completed.state.battle!.monsterAction).toBeNull();
+  });
+
+  it("选定 Guard 够不到时保存原选招；攻击拒绝不换人、不重掷", () => {
+    const initial = patch(monsterTurn(setup(eligible(soldier, true))), "h3", { guard: true });
+    const chosen = applyCommand(initial, prepare);
+    expect(chosen.state.battle!.monsterAction?.targetId).toBe("h3");
+    expect(applyCommand(chosen.state, { ...play(), targetId: "h3" }).state).toBe(chosen.state);
+    expect(applyCommand(chosen.state, play()).state).toBe(chosen.state);
+    expect(applyCommand(chosen.state, prepare).state).toBe(chosen.state);
+    const skipped = applyCommand(chosen.state, { type: "finishMonsterTurn", actorId: "monster" });
+    expect(skipped.state.battle!.monsterAction).toBeNull();
+    expect(skipped.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+  });
+
+  it("未开始 / 非当前回合、缺少分组、未核实目标或断开区域均拒绝且不消耗 RNG", () => {
+    const noGroups = monsterTurn(setup());
+    const card = eligible(soldier, true);
+    const unsupported = {
+      ...card,
+      skills: card.skills.map((skill) => ({ ...skill, target: "Crowded" })),
+    };
+    const disconnected = monsterTurn(setup(card));
+    const broken = {
+      ...disconnected,
+      battle: {
+        ...disconnected.battle!,
+        areas: disconnected.battle!.areas.map((area) => ({ ...area, adjacent: [] })),
+      },
+    };
+    for (const initial of [
+      setup(card),
+      applyCommand(setup(card), { type: "startBattle" }).state,
+      noGroups,
+      monsterTurn(setup(unsupported)),
+      broken,
+    ]) {
+      const result = applyCommand(initial, prepare);
+      expect(result.state).toBe(initial);
+      expect(result.events[0]?.type).toBe("commandRefused");
+    }
+    expect(applyCommand(noGroups, { ...prepare, actorId: "h0" }).state).toBe(noGroups);
+  });
+});

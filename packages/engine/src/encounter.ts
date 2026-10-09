@@ -95,6 +95,7 @@ function finishBattle(
       battle: {
         ...battle,
         encounter: { ...battle.encounter!, deck: [], turn: { type: "finished", outcome } },
+        monsterAction: null,
       },
     },
     events: [
@@ -339,7 +340,11 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
   if (command.type === "finishMonsterTurn") {
     if (encounter.turn.type !== "monster" || encounter.turn.actorId !== command.actorId)
       return rejectBattleCommand(state, "当前不是这只怪物的回合");
-    return finishTurn(state, command.actorId, []);
+    return finishTurn(
+      { ...state, battle: { ...battle, monsterAction: null } },
+      command.actorId,
+      [],
+    );
   }
   const turn = encounter.turn;
   if (command.direction !== "forward" && command.direction !== "backward") {

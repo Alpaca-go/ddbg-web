@@ -22,6 +22,7 @@ import type {
 import type { ShuffleIntent } from "./shuffle";
 import type { MonsterCardView, MonsterCombatState } from "./monster-skill";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
+import type { PreparedMonsterAction } from "./battle-monster-action";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
 export type BattleEntity = SkillTargetState &
@@ -68,6 +69,8 @@ export type BattleState = BattleSetup & {
   readonly encounter?: EncounterState;
   readonly rngCursor: number;
   readonly choiceCursor: number;
+  /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
+  readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
     | {
         readonly type: "shuffleDirection";
@@ -173,6 +176,7 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
       ...structuredClone(setup),
       rngCursor: 0,
       choiceCursor: 0,
+      monsterAction: null,
       pending: null,
       shuffleIntents: [],
       shuffleContinuation: null,

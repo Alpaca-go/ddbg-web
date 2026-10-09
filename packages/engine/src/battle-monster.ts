@@ -21,6 +21,14 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
   const turn = battle.encounter?.turn;
   if (turn && (turn.type !== "monster" || turn.actorId !== command.actorId))
     return rejectBattleCommand(state, "当前不是这只怪物的行动回合");
+  const prepared = battle.monsterAction;
+  if (
+    prepared &&
+    (prepared.actorId !== command.actorId ||
+      prepared.skillSlot !== command.skillSlot ||
+      prepared.targetId !== command.targetId)
+  )
+    return rejectBattleCommand(state, "必须使用本回合已保存的技能与英雄目标");
   const actor = battle.entities.find((entry) => entry.id === command.actorId);
   const target = battle.entities.find((entry) => entry.id === command.targetId);
   const card = battle.monsters?.find((entry) => entry.id === actor?.monsterCardId);
@@ -130,6 +138,7 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
       battle: {
         ...battle,
         pending: null,
+        monsterAction: null,
         rngCursor: battle.rngCursor + 1,
         entities: battle.entities.map((entry) => {
           const updated = writeResolution(entry, actor.id, target.id, result.resolution, false);

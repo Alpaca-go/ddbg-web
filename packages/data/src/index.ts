@@ -50,6 +50,8 @@ export {
 } from "./dictionary/schema";
 export type { IconDictionary, IconEntry, IconStatus } from "./dictionary/schema";
 export { buildNormalizedCorebox } from "./normalize/build";
+export { monsterStanceGroupsSchema } from "./normalize/monster-stance";
+export type { MonsterStanceGroups } from "./normalize/monster-stance";
 export type { NormalizedCorebox, NormalizedCoreboxInput } from "./normalize/build";
 export { loadNormalizedCorebox, writeNormalizedCorebox } from "./normalize/write";
 export {
