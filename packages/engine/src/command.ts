@@ -3,6 +3,9 @@ import type { BattleState, PlayHeroSkillCommand } from "./battle";
 import type { HeroSkillResolution } from "./hero-skill";
 import { applyEncounterCommand } from "./encounter";
 import type { EncounterCommand, EncounterEvent } from "./encounter";
+import { applyBattleShuffles } from "./battle-shuffle";
+import { playMonsterSkill } from "./battle-monster";
+import type { PlayMonsterSkillCommand } from "./battle-monster";
 
 export type GameState = {
   readonly seed: number;
@@ -15,11 +18,33 @@ export type PendingChoice = {
   readonly id: string;
   readonly prompt: string;
   readonly options: readonly { readonly id: string; readonly label: string }[];
+  /** hot-seat 中负责本次选择的英雄。 */
+  readonly actorId?: string;
+};
+
+export type HeroSkillResolvedEvent = {
+  readonly type: "heroSkillResolved";
+  readonly message: string;
+  readonly actorId: string;
+  readonly roll: number | null;
+  readonly resolution: HeroSkillResolution;
+};
+
+export type MonsterSkillResolvedEvent = {
+  readonly type: "monsterSkillResolved";
+  readonly message: string;
+  readonly actorId: string;
+  readonly skillSlot: number;
+  readonly roll: number;
+  readonly actorDead: boolean;
+  readonly resolution: HeroSkillResolution;
 };
 
 export type Command =
   | EncounterCommand
   | PlayHeroSkillCommand
+  | PlayMonsterSkillCommand
+  | { readonly type: "resolveShuffles" }
   | {
       readonly type: "resolveChoice";
       readonly choiceId: string;
@@ -32,12 +57,19 @@ export type Command =
 
 export type GameEvent =
   | EncounterEvent
+  | HeroSkillResolvedEvent
+  | MonsterSkillResolvedEvent
   | {
-      readonly type: "heroSkillResolved";
+      readonly type: "heroCritAreaResolved" | "monsterCritAreaResolved";
       readonly message: string;
       readonly actorId: string;
-      readonly roll: number | null;
-      readonly resolution: HeroSkillResolution;
+    }
+  | {
+      readonly type: "shuffleResolved";
+      readonly message: string;
+      readonly entityId: string;
+      readonly path: readonly string[];
+      readonly stanceSteps: number;
     }
   | {
       readonly type: "commandRefused";
@@ -60,7 +92,7 @@ export function createInitialState(seed: number): GameState {
 
 /**
  * Phase 2 单目标战斗沙盒；规则书第 19–21 页、R-024、R-031、R-048。
- * 等待方向选择时冻结其他命令，不消耗骰子。
+ * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 export function applyCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "resolveChoice") {
@@ -68,14 +100,23 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
     if (
       !pending ||
       pending.choice.id !== command.choiceId ||
-      (command.optionId !== "push" && command.optionId !== "pull")
+      !pending.choice.options.some((option) => option.id === command.optionId)
     ) {
       return rejectBattleCommand(state, "选择不存在、已过期或选项无效");
     }
-    return playHeroSkill(state, { ...pending.command, shuffleChoice: command.optionId });
+    if (pending.type === "shuffleArea")
+      return applyBattleShuffles(state, [...pending.path, command.optionId]);
+    if (command.optionId !== "push" && command.optionId !== "pull")
+      return rejectBattleCommand(state, "位移方向无效");
+    return pending.command.type === "playHeroSkill"
+      ? playHeroSkill(state, { ...pending.command, shuffleChoice: command.optionId })
+      : playMonsterSkill(state, { ...pending.command, shuffleChoice: command.optionId });
   }
-  if (state.battle?.pending) return rejectBattleCommand(state, "请先完成待选方向");
+  if (state.battle?.pending) return rejectBattleCommand(state, "请先完成待选位移");
+  if (command.type === "resolveShuffles") return applyBattleShuffles(state);
+  if (state.battle?.shuffleIntents.length) return rejectBattleCommand(state, "请先结算位移意图");
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);
+  if (command.type === "playMonsterSkill") return playMonsterSkill(state, command);
   if (command.type !== "ping") return applyEncounterCommand(state, command);
   return {
     state: { ...state, notes: [...state.notes, command.message] },

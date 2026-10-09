@@ -1906,6 +1906,24 @@ export function resolveHeroSkill(
   combat: SkillCombatState,
   roll: number,
 ): HeroSkillResolution {
+  return resolveSkill(skill, combat, roll, "hero");
+}
+
+/** 仅供怪物规范化适配层使用；不经包入口导出。 */
+export function resolveMonsterAttackView(
+  skill: HeroSkillCardView,
+  combat: SkillCombatState,
+  roll: number,
+): HeroSkillResolution {
+  return resolveSkill(skill, combat, roll, "monster");
+}
+
+function resolveSkill(
+  skill: HeroSkillCardView,
+  combat: SkillCombatState,
+  roll: number,
+  sourceSide: SkillTargetSide,
+): HeroSkillResolution {
   if (skill.hero !== null && skill.hero.trim().toLowerCase() === "musketeer") {
     return refuse(skill, combat, "Musketeer 不在首版（R-008）");
   }
@@ -1920,7 +1938,7 @@ export function resolveHeroSkill(
   const selected = selectFace(skill, combat.face ?? "front");
   if (!selected.ok) return refuse(skill, combat, selected.reason);
   const active = selected.skill;
-  const stance = stanceProblem(active, combat);
+  const stance = sourceSide === "hero" ? stanceProblem(active, combat) : null;
   if (stance !== null) return refuse(skill, combat, stance);
   const formLimit = formRequirementProblem(active, combat);
   if (formLimit !== null) return refuse(skill, combat, formLimit);
@@ -1990,7 +2008,7 @@ export function resolveHeroSkill(
     }
     // 规则书第 21 页、R-024：不以友方为目标的技能，必须把有 Guard 的敌人选为目标之一。
     // 做不到就不能使用，所以自身效果也不发生。英雄目标和 Self 已经在上面分开。
-    if (expectedSide === "monster" && combat.guardedEnemyOmitted === true) {
+    if (expectedSide !== sourceSide && combat.guardedEnemyOmitted === true) {
       return refuse(
         skill,
         combat,
@@ -2060,26 +2078,28 @@ export function resolveHeroSkill(
   }
 
   // 规则书第 19 页：有 Acc 时先看暴击（不减 Dodge），再看命中阈值 Acc − Dodge。
-  // 第 21 页：每一堆已有的 Buff 只把暴击阈值 +1。目标是怪物时，每一堆 Debuff 再 +1
-  // （R-016），每一堆 Mark 把命中阈值 +1（R-019）。目标是英雄时这两种都不加。
+  // 第 21 页：每一堆已有的 Buff 只把暴击阈值 +1。目标是敌人时，每一堆 Debuff 再 +1
+  // （R-016），每一堆 Mark 把命中阈值 +1（R-019）。友方目标这两种都不加。
   // 第 25 页：目标区域更低时，命中阈值再 +1（R-022，友方也加）。不改暴击，不加伤害。
   // 第 29 页、R-002：光照 0–4 把暴击阈值再 +1。光照恰好 5 不加暴击。
   // 光照恰好 5 且目标是英雄时，命中阈值再减 1（英雄 Dodge +1）。
   // 光照恰好 0 且目标是怪物时，命中阈值再减 1（怪物 Dodge +1）。英雄 Acc 不加：
   // 怪物 Acc +1 只在怪物攻击时有。
-  // 光照 2–1 和光照 0 的「承受压力额外 +1」不加。减压力不是承受压力。
-  // 印刷的加压力 numeric 为 null，不先当成一次压力事件。
+  // 光照 2–0 的承受压力事件额外 +1，不递归触发；减压力不触发。
+  // 印刷的加压力 numeric 为 null 时，不先当成一次压力事件。
   // 没有 Acc 的技能不掷骰。变身，自身一行里已经对上的治疗和压力，自身一行
   // 「Self Remove」加已命名的流血，以及配给效果框的「Remove」加流血和腐蚀，
   // outcome 留空。只有位移、卡面没有 Crit 时只分命中和落空，不暴击。
   // 不读这张卡印的增益、减益、标记回合数，也不读卡面光照 +1 / -1 / +2。
   const buffStacks = combat.actor?.buffStacks ?? 0;
-  const enemyDebuffStacks = target.side === "monster" ? (target.debuffStacks ?? 0) : 0;
-  const enemyMarkStacks = target.side === "monster" ? (target.markStacks ?? 0) : 0;
+  const enemyDebuffStacks = target.side !== sourceSide ? (target.debuffStacks ?? 0) : 0;
+  const enemyMarkStacks = target.side !== sourceSide ? (target.markStacks ?? 0) : 0;
   const lowerAreaAcc = combat.targetAreaLower === true ? 1 : 0;
   const lightCrit = combat.light !== undefined && combat.light <= 4 ? 1 : 0;
   const lightHeroDodge = combat.light === 5 && target.side === "hero" ? 1 : 0;
   const lightMonsterDodge = combat.light === 0 && target.side === "monster" ? 1 : 0;
+  // R-002：光照 0 的怪物 Acc +1，与双方 Crit +1 分开。
+  const lightMonsterAcc = combat.light === 0 && sourceSide === "monster" ? 1 : 0;
   let outcome: "crit" | "hit" | "miss" | null = null;
   const hitThreshold =
     accThreshold === null
@@ -2089,7 +2109,8 @@ export function resolveHeroSkill(
         lowerAreaAcc -
         target.dodge -
         lightHeroDodge -
-        lightMonsterDodge;
+        lightMonsterDodge +
+        lightMonsterAcc;
   if (!formOnly && critThreshold !== null && hitThreshold !== null) {
     if (roll <= critThreshold + buffStacks + enemyDebuffStacks + lightCrit) outcome = "crit";
     else if (roll <= hitThreshold) outcome = "hit";
@@ -2104,8 +2125,8 @@ export function resolveHeroSkill(
   let riposteDamage: number | null = null;
   let actorWounds = combat.actor === undefined ? null : combat.actor.wounds;
 
-  const dealtCrit = outcome === "crit";
-  const receivedCrit = dealtCrit && effect === "damage" && target.side === "hero";
+  const dealtCrit = sourceSide === "hero" && outcome === "crit";
+  const receivedCrit = outcome === "crit" && effect === "damage" && target.side === "hero";
   let actorStress = combat.actor?.stress === undefined ? null : combat.actor.stress;
   let targetStress = target.stress === undefined ? null : target.stress;
   let besideActorStress = copyHeroes(
@@ -2116,6 +2137,8 @@ export function resolveHeroSkill(
       ? null
       : [...combat.untargetedHeroesBesideTarget],
   );
+  const pressureDelta = (amount: number): number =>
+    amount + (amount > 0 && combat.light !== undefined && combat.light <= 2 ? 1 : 0);
 
   // 规则书第 20 页：自身效果在伤害、治疗和目标效果之前，落空也生效。
   // 没有 Acc 时不掷骰，这一行的治疗和压力仍然生效。
@@ -2181,13 +2204,14 @@ export function resolveHeroSkill(
   if (targetStress !== null) {
     let delta = 0;
     if (dealtCrit && combat.targetInActorArea === true) delta -= 1;
-    if (receivedCrit) delta += 1;
+    // R-002：承受暴击是已确认的压力事件，低光照额外 +1，不递归触发。
+    if (receivedCrit) delta += pressureDelta(1);
     targetStress = clampStress(targetStress + delta);
   }
   if (receivedCrit && untargetedBesideTargetStress !== null) {
     untargetedBesideTargetStress = untargetedBesideTargetStress.map((hero) => ({
       id: hero.id,
-      stress: clampStress(hero.stress + 1),
+      stress: clampStress(hero.stress + pressureDelta(1)),
     }));
   }
   // 使用者就是目标。打出暴击的 −1 已经在 actor 上，不再给「同区域其他英雄」加一次。

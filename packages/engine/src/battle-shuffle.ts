@@ -1,0 +1,172 @@
+import { rejectBattleCommand, writeResolution } from "./battle";
+import type { ApplyResult, GameEvent, GameState, PendingChoice } from "./command";
+import { recordEncounterSkill, recordMonsterSkill } from "./encounter";
+import { resolveShuffle } from "./shuffle";
+import { heroSkillUsesSelfTarget, resolveHeroSkill } from "./hero-skill";
+import type { HeroSkillResolution } from "./hero-skill";
+import { resolveMonsterSkill } from "./monster-skill";
+
+/** R20–21、R-020：逐条应用自身 / 目标位移；选择不重掷技能骰。 */
+export function applyBattleShuffles(state: GameState, path: readonly string[] = []): ApplyResult {
+  const battle = state.battle;
+  const continuation = battle?.shuffleContinuation;
+  if (!battle || !continuation || battle.shuffleIntents.length === 0)
+    return rejectBattleCommand(state, "没有待结算的技能位移");
+  let next = battle;
+  let choices = path;
+  const events: GameEvent[] = [];
+  while (next.shuffleIntents.length) {
+    const intent = next.shuffleIntents[0]!;
+    const entity = next.entities.find((entry) => entry.id === intent.entityId);
+    // 被技能伤害杀死的目标已移除棋子（R24–25），不再执行目标位移。
+    if (entity?.dead && intent.entityId !== continuation.actorId) {
+      next = { ...next, shuffleIntents: next.shuffleIntents.slice(1) };
+      choices = [];
+      continue;
+    }
+    // 自身效果先于伤害（R20），其落点容量仍计入随后死亡的目标。
+    const selfBeforeDeath = intent.entityId === continuation.actorId;
+    const result = resolveShuffle(
+      selfBeforeDeath
+        ? {
+            ...next,
+            entities: next.entities.map((entry) =>
+              entry.id === intent.relativeToId || entry.id === intent.entityId
+                ? { ...entry, dead: false }
+                : entry,
+            ),
+          }
+        : next,
+      intent,
+      choices,
+    );
+    if (result.status === "refused") return rejectBattleCommand(state, result.reason);
+    if (result.status === "needsChoice") {
+      const choice: PendingChoice = {
+        id: `shuffle-area:${next.choiceCursor}:${intent.entityId}`,
+        prompt: "选择位移的下一步区域",
+        actorId:
+          continuation.type === "heroSkillResolved"
+            ? continuation.actorId
+            : continuation.resolution.targetId,
+        options: result.options.map((id) => ({ id, label: `区域 ${id}` })),
+      };
+      return {
+        state: {
+          ...state,
+          battle: {
+            ...next,
+            choiceCursor: next.choiceCursor + 1,
+            pending: { type: "shuffleArea", choice, path: result.path },
+          },
+        },
+        events,
+        pendingChoice: choice,
+      };
+    }
+    next = {
+      ...next,
+      entities: selfBeforeDeath
+        ? result.entities.map((entry) =>
+            entry.id === intent.relativeToId || entry.id === intent.entityId
+              ? { ...entry, dead: next.entities.find((before) => before.id === entry.id)!.dead }
+              : entry,
+          )
+        : result.entities,
+      shuffleIntents: next.shuffleIntents.slice(1),
+      pending: null,
+    };
+    events.push({
+      type: "shuffleResolved",
+      message: "区域与姿态位移已结算",
+      entityId: intent.entityId,
+      path: result.path,
+      stanceSteps: result.stanceSteps,
+    });
+    choices = [];
+  }
+  if (continuation.criticalContext) {
+    const { entities: original } = continuation.criticalContext;
+    const actor = next.entities.find((entry) => entry.id === continuation.actorId)!;
+    const target = next.entities.find((entry) => entry.id === continuation.resolution.targetId)!;
+    const nearby = (areaId: string) =>
+      next.entities
+        .filter(
+          (entry) =>
+            entry.side === "hero" &&
+            !entry.dead &&
+            entry.areaId === areaId &&
+            entry.id !== actor.id &&
+            entry.id !== target.id,
+        )
+        .map((entry) => ({
+          id: entry.id,
+          stress: original.find((before) => before.id === entry.id)!.stress!,
+        }));
+    let corrected: HeroSkillResolution;
+    let selfTarget = false;
+    if (continuation.type === "heroSkillResolved") {
+      const combat = continuation.criticalContext!.combat;
+      const skill = next.skills.find((entry) => entry.id === continuation.resolution.skillId)!;
+      selfTarget = heroSkillUsesSelfTarget(skill, combat.face);
+      corrected = resolveHeroSkill(
+        skill,
+        {
+          ...combat,
+          heroesBesideActor: nearby(actor.areaId),
+          untargetedHeroesBesideTarget: actor.areaId === target.areaId ? [] : nearby(target.areaId),
+          targetInActorArea: target.side === "hero" && actor.areaId === target.areaId,
+        },
+        continuation.roll!,
+      );
+    } else {
+      const card = next.monsters!.find((entry) => entry.id === actor.monsterCardId)!;
+      const result = resolveMonsterSkill(
+        card,
+        continuation.skillSlot,
+        {
+          ...continuation.criticalContext!.combat,
+          untargetedHeroesBesideTarget: nearby(target.areaId),
+        },
+        continuation.roll,
+      );
+      if (result.status === "refused") return rejectBattleCommand(state, result.reason);
+      corrected = result.resolution;
+    }
+    if (corrected.status === "refused") return rejectBattleCommand(state, corrected.reason!);
+    next = {
+      ...next,
+      entities: original.map((entry) => {
+        const moved = next.entities.find((position) => position.id === entry.id)!;
+        return {
+          ...writeResolution(entry, actor.id, target.id, corrected, selfTarget),
+          areaId: moved.areaId,
+          ...(moved.stance === undefined ? {} : { stance: moved.stance }),
+          ...(continuation.type === "monsterSkillResolved" && entry.id === actor.id
+            ? { dead: continuation.actorDead }
+            : {}),
+        };
+      }),
+      shuffleContinuation: {
+        ...continuation,
+        resolution: corrected,
+      },
+    };
+    events.push({
+      type:
+        continuation.type === "heroSkillResolved"
+          ? "heroCritAreaResolved"
+          : "monsterCritAreaResolved",
+      message: "按位移后的区域结算暴击压力",
+      actorId: actor.id,
+    });
+  }
+  const final = {
+    state: { ...state, battle: { ...next, pending: null, shuffleContinuation: null } },
+    events,
+  };
+  const completed = next.shuffleContinuation ?? continuation;
+  return completed.type === "heroSkillResolved"
+    ? recordEncounterSkill(final, completed)
+    : recordMonsterSkill(final, completed);
+}
