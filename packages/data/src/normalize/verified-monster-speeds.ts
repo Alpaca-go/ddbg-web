@@ -1,0 +1,53 @@
+import { z } from "zod";
+import { normalizedMonsterMediumCardSchema } from "./schema";
+import type { NormalizedMonsterMediumCard } from "./schema";
+
+const entrySchema = z.strictObject({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  level: z.literal(1),
+  pages: z.array(z.int().positive()).min(1),
+  speed: z.int().nonnegative(),
+});
+
+// Kyries 于 2026-10-10 确认 Speed 核对表全部六条。
+// docs/monster-speed-review-2026-10-09.md §2–3、§6；R24、R-001、R-048。
+// 只按获批 id 附加，不统计图标、不填图标 null、不跨同名 / 等级推断。
+export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
+  { id: "monster_medium:p001", name: "Bone Soldier", level: 1, pages: [1, 2, 3], speed: 1 },
+  { id: "monster_medium:p004", name: "Bone Courtier", level: 1, pages: [4, 5, 6], speed: 3 },
+  { id: "monster_medium:p007", name: "Bone Arbalist", level: 1, pages: [7, 8, 9], speed: 2 },
+  { id: "monster_medium:p010", name: "Bone Defender", level: 1, pages: [10, 11], speed: 1 },
+  { id: "monster_medium:p040", name: "Bone Rabble", level: 1, pages: [40, 41, 42], speed: 1 },
+  { id: "monster_medium:p021", name: "Cultist Acolyte", level: 1, pages: [21, 22, 23], speed: 3 },
+]);
+
+/** 仅生成管线加载人工获批映射；schema 可表达的值不代表已获批准。 */
+export function attachVerifiedMonsterSpeeds(
+  cards: readonly NormalizedMonsterMediumCard[],
+  entries: unknown = verifiedMonsterSpeeds,
+): NormalizedMonsterMediumCard[] {
+  const approved = z.array(entrySchema).parse(entries);
+  const seen = new Set<string>();
+  for (const entry of approved) {
+    if (seen.has(entry.id)) throw new Error(`重复的 Speed 映射 id：${entry.id}`);
+    seen.add(entry.id);
+    const matches = cards.filter((card) => card.id === entry.id);
+    if (matches.length !== 1) throw new Error(`Speed 映射 id 必须唯一存在：${entry.id}`);
+    const card = matches[0]!;
+    if (!("skills" in card)) throw new Error(`Speed 映射不能用于大型参考卡：${entry.id}`);
+    if (
+      card.name !== entry.name ||
+      card.level !== entry.level ||
+      JSON.stringify(card.pages) !== JSON.stringify(entry.pages)
+    )
+      throw new Error(`Speed 映射的卡名 / 等级 / 页码不符：${entry.id}`);
+    if (card.speed !== undefined && card.speed !== entry.speed)
+      throw new Error(`Speed 映射与既有数值冲突：${entry.id}`);
+  }
+  const byId = new Map(approved.map((entry) => [entry.id, entry.speed]));
+  return cards.map((card) => {
+    const speed = byId.get(card.id);
+    return speed !== undefined ? normalizedMonsterMediumCardSchema.parse({ ...card, speed }) : card;
+  });
+}

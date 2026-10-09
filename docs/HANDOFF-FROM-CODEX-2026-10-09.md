@@ -247,3 +247,33 @@ A、B、C 已在两项 CI（质量检查和 Playwright smoke）均成功后合�
 依据继续为 R-001、R-048 及各块列明的规则书页码 / 裁定。没有新增规则或数据批准。六条姿态组的批准范围仍以对照文档 §7 为准，`verification.unverified=false` 仍不替代分组核实。
 
 刻意没做：自动移动 / 寻路、多目标、死门、Boss、扩展和战斗 UI。分拆开始前已有的 Speed 核对文档、可选 schema 与拒绝测试单独保留，不进入 A–D，不给真实卡写 Speed，也不补 null 默认值。D 合并同步后建议另开普通怪物自动移动的新块，先确认 Speed 与区域资料；多目标继续拆为后续独立主题。
+
+## 怪物 Speed 核对准备块（2026-10-09，待 Kyries 确认）
+
+从本地 tip `0d18f2c` 继续，开始时工作区干净。按“先核六条 Speed → Kyries 确认后入库”的下一块计划，完成核图与 schema 准备；尚未提交、推送或合并。
+
+- 新增 `docs/monster-speed-review-2026-10-09.md`：同批六个核心盒 I 级 id、卡面头部 Speed 图标数量、17 面颜色副本一致性、raw 代表页图标位置、规则页码、拟议数值及确认后的独立入库路径。拟议 Soldier 1、Courtier 3、Arbalist 2、Defender 1、Rabble 1、Acolyte 3，**全部待 Kyries 确认**。
+- 查看官方规则书 R10、R18、R23、R24 的完整页面图像；R24 解剖图明确标注 Speed 栏，R24 移动正文定义用途，R23 Defender 示例使用 1 Speed。图标 `4648c9e5ec` 在词典 v1.8 为已确认的 speed，单图标 value 仍为 null；本表按已标注头部栏的出现数量提出数值，不补图标 null，也不统计整张卡的效果图标。
+- 普通怪物规范化 schema 新增可选非负整数 `speed`，无 default / coercion；不存在的字段保持缺省，null、负数、小数、字符串等拒绝。允许结构表达 0 不代表任何卡已核实为 0。没有新增引擎 Speed 读取或自动移动逻辑。
+- 新增 `packages/data/src/normalize/monster-speed.test.ts` 四项测试：六条卡即使获批 stanceGroups、`unverified=false` 且有已命名 Speed 图标，生成后仍缺 Speed 数值；所有怪物 / 大型卡不推断默认值，旧卡解析不添加属性；显式整数的结构夹具不写入卡池，脏值拒绝。现有生成一致测试继续通过，规范化 JSON / raw / parsed / 词典均无差异。
+
+依据：R-001、R-048；核心规则书 R10、R18、R23、R24，说明书图例 I-18 仅作索引。沿用当前版印刷 FRONT，未用 Old_Version / FAQ / TTS / 旧仓库。原始资料只读，渲染和局部对照只留忽略目录，不入库。
+
+刻意没做：Speed 真值入库、对其他卡推断 Speed、补 null、移动命令、寻路、房间区域标注、多目标、死门、Boss、扩展或 UI。下一块先请 Kyries 审核本表，按获批 id 建独立 Speed 人工映射并接现有生成路径；之后再另核一张遗迹房间板块的邻接、容量、高低地。上一块姿态分组批准不自动覆盖本批 Speed 审批。
+
+验证：Node 24.21.0 / pnpm 12.9.1；基线 typecheck、lint、235 项测试通过；新增准备后 typecheck、lint、239 项测试（18 文件）通过。最终 typecheck、lint、test、build、`git diff --check` 均通过（完成于 2026-10-10 凌晨，UTC+8；核对文件保留开始日期 2026-10-09）；不是阶段结束且无 UI 改动，不新增 Playwright 冒烟。
+
+## 六条获批 Speed 入库块（2026-10-10）
+
+从 A–D 合并同步后的 `main`=`efb464f` 继续，独立分支 `codex/phase2-monster-speed-review`。Kyries 回复“speed核对表六条全部确认”，批准本表六个 I 级 id 的 Speed；此前准备段的“待确认”是历史状态，以本条与核对文档 §6 为准。本块单独提交草稿 PR，不混入已合并 A–D。
+
+- 新增 `verified-monster-speeds.ts` 人工映射：Soldier 1、Courtier 3、Arbalist 2、Defender 1、Rabble 1、Acolyte 3。核对文档记录 2026-10-10 批准原话，表中六行更新为已确认。批准不覆盖其他等级、卡牌、字段或图标。
+- `buildMonsterMedium` 在获批姿态映射之后附加 Speed，仍经过规范化 schema。入口拒绝未知 / 重复 id、参考卡、卡名 / 等级 / 页码漂移、脏值与既有数值冲突；输入不可变。无映射保持缺字段，不从图标、null 或同名卡推断速度。
+- 沿现有生成入口重生成，仅 `monster_medium.json` 六条新增 `speed`；去除六个字段后与基线完全相等，其他五类文件无 diff。footer、姿态组、null 数字、duration、verification、词典与 raw / parsed 均保持原状。
+- 更新七项 Speed 测试，独立预期锁住六个 id / 数值、其他卡 / 大型卡缺省、无映射不补默认值、旧卡兼容、生成一致、字段与输入保留、身份 / 冲突 / 脏值拒绝。现有缺姿态分组自动选招拒绝测试继续通过。
+
+依据：R-001、R-048；核心规则书 R10、R18、R23、R24，Speed 核对文档 §1–3、§6 与 Kyries 本次批准。不增加规则裁定，不读写本机原始资料，不提交 PDF、卡图、TTS 或切图。
+
+刻意没做：引擎消费 Speed、自动移动 / 寻路、房间区域标注、多目标、死门、Boss、扩展或战斗 UI。下一块先单独核一张遗迹房间板块的邻接、容量和高低地，完成确认后再接普通怪物单目标移动；选招 / 目标 / RNG 在移动待选期间必须保留。
+
+验证：Node 24.21.0 / pnpm 12.9.1；基线 typecheck、lint、239 项测试通过；重生成入口 6 项测试通过；入库后 typecheck、lint、242 项测试（18 文件）、build 均通过。生成差异另核为恰好六个 Speed 字段；提交前运行格式检查及 `git diff --check`。本块不是阶段结束、没有 UI 改动，不新增 Playwright 测试，草稿 PR 继续运行现有两项 CI。

@@ -436,6 +436,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [],
    "immunities": [
     {
@@ -1521,6 +1522,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 3,
    "resistances": [],
    "immunities": [
     {
@@ -2636,6 +2638,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [],
    "immunities": [
     {
@@ -3928,6 +3931,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [
     {
      "iconId": "1202a8c5f4",
@@ -10944,6 +10948,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 3,
    "resistances": [
     {
      "iconId": "91ca3fa960",
@@ -20100,6 +20105,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [],
    "immunities": [
     {
