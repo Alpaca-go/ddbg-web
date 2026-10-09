@@ -73,7 +73,16 @@
  * 第 5 步）：一条效果行只有已命名的自身效果，文字恰好是「Self Change: Beast」
  * 或「Self Change: Human」。没有 Acc 的技能不掷骰，直接生效（规则书第 19 页
  * Note）。结果写在 `actorForm` 上，只记下要换成的形态。不翻转技能卡、英雄卡、
- * 姿态代币或棋子。同一张卡背面的另一形态不在 `effect_lines` 里，不在这里读。
+ * 姿态代币或棋子。不传 `face` 时只读正面 `effect_lines`。传入 `face: "back"`
+ * 时改读 `back_face_skill.lines`：Transform to Human 印的「Self Change: Human」
+ * 换成人形。背面自己的姿态行代替正面顶行；正面那个没有点亮标记的远程图标
+ * 不拿来挡背面。正面 `front_icons` 也不拿来数背面的目标。
+ * 背面一行只有已命名的文字底板，文字恰好是「Beast Form Only」或
+ * 「Human Form Only」时，那是使用条件。调用方传入了当前形态才核对，对不上就
+ * 整次拒绝。不传就不猜现在是哪一种。底板图标的词典说明同时写了两种形态，
+ * 没有这句印刷文字时不从说明里挑一种（R-048）。正面顶行的底板没有这句文字。
+ * 背面压力「-1」不在 `unlabeled_numbers` 里，而且和「Allies:」写在同一行，不加。
+ * 减益「1t」「2t」「3t」不放堆。正面的治疗整数也不在背面这一次扣。
  * 邻行的压力 `+2` 和增益回合 `numeric` 为 null，不加。和它们写在同一行的治疗
  * 整数也不是「Self + heal」那一种自身治疗，不扣伤口。
  *
@@ -208,6 +217,15 @@ export type HeroSkillCardView = {
    * 英雄头盔或怪物头补阵营和个数（规则书第 19 页）。不传就只看 stats 行。
    */
   readonly front_icons?: readonly SkillIconRef[];
+  /**
+   * 双面技能的背面。只有 `face: "back"` 时读 `lines`。
+   * 不传表示这张卡没有另一面效果。
+   */
+  readonly back_face_skill?: {
+    readonly name: string;
+    readonly level: number;
+    readonly lines: readonly (readonly SkillSegment[])[];
+  } | null;
 };
 
 export type SkillTargetSide = "hero" | "monster";
@@ -245,6 +263,11 @@ export type SkillActorState = {
    * 不传当作 0。不从卡面回合数读堆数，也不在这里放新的增益或移除代币。
    */
   readonly buffStacks?: number;
+  /**
+   * 使用者现在的形态（规则书第 38 页）。背面印了「Beast Form Only」或
+   * 「Human Form Only」时才核对。不传就不检查，也不从文字底板的词典说明里猜。
+   */
+  readonly form?: SkillForm;
 };
 
 /** 目标已经选好。区域怎么相邻不在这里。 */
@@ -331,6 +354,11 @@ export type SkillCombatState = {
    * 卡面上的加压力 numeric 为 null。不从卡面「+1」读。
    */
   readonly light?: number;
+  /**
+   * 结算这张双面技能的哪一面。不传或 `front` 用正面效果行。
+   * `back` 用 `back_face_skill.lines`（规则书第 38 页 Transform to Human）。
+   */
+  readonly face?: "front" | "back";
 };
 
 export type SkippedSkillEffect = {
@@ -1012,6 +1040,124 @@ function formFromLine(line: readonly SkillSegment[]): SkillForm | null {
   return null;
 }
 
+const FORM_ONLY_TEXT = /^(Beast|Human) Form Only$/;
+
+/**
+ * 只接受「文字底板 + Beast Form Only / Human Form Only」这一整行。
+ * 底板的词典说明同时写了两种形态，没有这句印刷文字就不算限定（R-048）。
+ */
+function formRequirementFromLine(line: readonly SkillSegment[]): SkillForm | null {
+  let plates = 0;
+  let form: SkillForm | null = null;
+  for (const segment of line) {
+    if (segment.type === "text") {
+      const text = segment.text.trim();
+      if (text === "") continue;
+      if (form !== null) return null;
+      const matched = FORM_ONLY_TEXT.exec(text);
+      if (matched?.[1] === "Beast") form = "beast";
+      else if (matched?.[1] === "Human") form = "human";
+      else return null;
+      continue;
+    }
+    if (segment.type !== "icon") return null;
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key !== "text_plate") return null;
+    plates += 1;
+  }
+  if (plates !== 1 || form === null) return null;
+  return form;
+}
+
+/**
+ * 印出来的形态限定。没有这种行时不限制。不止一条，或两种都有，整次不结算。
+ * 没传入当前形态时不检查。
+ */
+function formRequirementProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
+  const required: SkillForm[] = [];
+  for (const line of skill.effect_lines) {
+    const form = formRequirementFromLine(line);
+    if (form !== null) required.push(form);
+  }
+  if (required.length === 0) return null;
+  const form = required[0];
+  if (form === undefined || required.length !== 1 || required.some((item) => item !== form)) {
+    return "这张技能的形态限定读不清，不能确定要人形还是兽形（规则书第 38 页，R-048）";
+  }
+  const current = combat.actor?.form;
+  if (current === undefined) return null;
+  if (current === form) return null;
+  const printed = form === "beast" ? "Beast Form Only" : "Human Form Only";
+  const expected = form === "beast" ? "兽形" : "人形";
+  return `这张技能印着 ${printed}，当前形态不是${expected}（规则书第 38 页）`;
+}
+
+function isStanceIcon(icon: SkillIconRef): boolean {
+  if (icon.key === null || !NAMED.has(icon.naming)) return false;
+  return STANCE_LIT.has(icon.key) || STANCE_UNLIT.has(icon.key) || STANCE_UNMARKED.has(icon.key);
+}
+
+/** 背面版式里单独的一行姿态图标。没有时为 null。两行都像姿态行时读不清。 */
+function stanceRowIcons(
+  lines: readonly (readonly SkillSegment[])[],
+): { ok: true; icons: readonly SkillIconRef[] | null } | { ok: false } {
+  let found: readonly SkillIconRef[] | null = null;
+  for (const line of lines) {
+    const icons: SkillIconRef[] = [];
+    let stanceLine = true;
+    for (const segment of line) {
+      if (segment.type === "text") {
+        if (segment.text.trim() !== "") {
+          stanceLine = false;
+          break;
+        }
+        continue;
+      }
+      if (segment.type !== "icon" || !isStanceIcon(segment.icon)) {
+        stanceLine = false;
+        break;
+      }
+      icons.push(segment.icon);
+    }
+    if (!stanceLine || icons.length === 0) continue;
+    if (found !== null) return { ok: false };
+    found = icons;
+  }
+  return { ok: true, icons: found };
+}
+
+/**
+ * `front` 原样返回。`back` 改用背面效果行和背面姿态行，并清掉正面图标，
+ * 避免正面的头盔或未点亮标记被当成背面的。
+ */
+function selectFace(
+  skill: HeroSkillCardView,
+  face: "front" | "back",
+): { ok: true; skill: HeroSkillCardView } | { ok: false; reason: string } {
+  if (face === "front") return { ok: true, skill };
+  const back = skill.back_face_skill;
+  if (back == null || !Array.isArray(back.lines)) {
+    return { ok: false, reason: "这张技能没有背面效果可以结算（规则书第 38 页）" };
+  }
+  for (const line of back.lines) {
+    if (!Array.isArray(line)) {
+      return { ok: false, reason: "背面效果行读不清（规则书第 38 页）" };
+    }
+  }
+  const stance = stanceRowIcons(back.lines);
+  if (!stance.ok) {
+    return { ok: false, reason: "背面的姿态行读不清，不能核对能否使用（规则书第 19、38 页）" };
+  }
+  return {
+    ok: true,
+    skill: {
+      ...skill,
+      effect_lines: back.lines,
+      front_icons: [],
+      top_row_icons: stance.icons ?? [],
+    },
+  };
+}
+
 /**
  * 规则书第 19 页把目标印成「Self」：射程图标后面这个词，不是英雄或怪物图标。
  * 只看 stats 行。效果行里自身效果框上的「Self」不算。
@@ -1391,6 +1537,12 @@ function combatProblem(combat: SkillCombatState): string | null {
     if (actor.buffStacks !== undefined && !nonNegativeInteger(actor.buffStacks)) {
       return "使用者的增益堆数必须是非负整数";
     }
+    if (actor.form !== undefined && actor.form !== "beast" && actor.form !== "human") {
+      return "使用者的形态必须是 beast 或 human";
+    }
+  }
+  if (combat.face !== undefined && combat.face !== "front" && combat.face !== "back") {
+    return "技能面必须是 front 或 back";
   }
   if (combat.areaDistance !== undefined && !nonNegativeInteger(combat.areaDistance)) {
     return "区域距离必须是非负整数";
@@ -1460,10 +1612,10 @@ function resistedTargetShuffle(
 
 /**
  * 结算一张英雄技能。`roll` 是 d10 面值（1–10），由调用方用 `rollD10` 取得。
- * 未验证的卡、对不上的目标、当前姿态没有点亮、区域距离不是印出来的射程、
- * 选中的个数超过卡面目标图标、增益、减益或标记堆数不是非负整数、把使用者自己的
- * 区域当成更低、光照不是 0 到 5 的整数、Shuffle 抗性不是布尔值、读不出整数的
- * Crit / Acc，都原样留下伤口。
+ * 未验证的卡、对不上的目标、当前姿态没有点亮、印了形态限定但对不上、区域距离
+ * 不是印出来的射程、选中的个数超过卡面目标图标、增益、减益或标记堆数不是非负整数、
+ * 把使用者自己的区域当成更低、光照不是 0 到 5 的整数、Shuffle 抗性不是布尔值、
+ * 读不出整数的 Crit / Acc、要结算背面但没有背面，都原样留下伤口。
  */
 export function resolveHeroSkill(
   skill: HeroSkillCardView,
@@ -1481,24 +1633,29 @@ export function resolveHeroSkill(
   }
   const problem = combatProblem(combat);
   if (problem !== null) return refuse(skill, combat, problem);
-  const stance = stanceProblem(skill, combat);
+  const selected = selectFace(skill, combat.face ?? "front");
+  if (!selected.ok) return refuse(skill, combat, selected.reason);
+  const active = selected.skill;
+  const stance = stanceProblem(active, combat);
   if (stance !== null) return refuse(skill, combat, stance);
-  const elevation = elevationProblem(skill, combat);
+  const formLimit = formRequirementProblem(active, combat);
+  if (formLimit !== null) return refuse(skill, combat, formLimit);
+  const elevation = elevationProblem(active, combat);
   if (elevation !== null) return refuse(skill, combat, elevation);
-  const range = rangeProblem(skill, combat);
+  const range = rangeProblem(active, combat);
   if (range !== null) return refuse(skill, combat, range);
-  const targetCount = targetCountProblem(skill, combat);
+  const targetCount = targetCountProblem(active, combat);
   if (targetCount !== null) return refuse(skill, combat, targetCount);
 
   const target = combat.target;
-  const stress = readImmediateStress(skill);
-  const selfHeal = readSelfHeal(skill);
-  const paired = readSelfHealStress(skill);
-  const removal = readConditionRemoval(skill);
-  const shuffles = readShuffles(skill);
-  const ignoresProtection = readIgnoresProtection(skill);
-  const formChange = readFormChange(skill);
-  const keys = namedKeys(skill.stats_line);
+  const stress = readImmediateStress(active);
+  const selfHeal = readSelfHeal(active);
+  const paired = readSelfHealStress(active);
+  const removal = readConditionRemoval(active);
+  const shuffles = readShuffles(active);
+  const ignoresProtection = readIgnoresProtection(active);
+  const formChange = readFormChange(active);
+  const keys = namedKeys(active.stats_line);
   const kinds = new Set(keys.filter((key) => key === "damage" || key === "heal"));
   if (kinds.size > 1) {
     return refuse(skill, combat, "stats_line 同时有已命名的 damage 和 heal");
@@ -1518,8 +1675,8 @@ export function resolveHeroSkill(
   }
 
   const formOnly = effect === null;
-  const selfTarget = !formOnly && readsAsSelfTarget(skill);
-  const targetCounts = readTargetIconCounts(skill);
+  const selfTarget = !formOnly && readsAsSelfTarget(active);
+  const targetCounts = readTargetIconCounts(active);
   const targets = new Set<"target_hero" | "target_monster">();
   if (targetCounts.hero > 0) targets.add("target_hero");
   if (targetCounts.monster > 0) targets.add("target_monster");
@@ -1558,16 +1715,16 @@ export function resolveHeroSkill(
     }
   }
 
-  const critThreshold = formOnly ? null : threshold(skill, "Crit");
-  const accThreshold = formOnly ? null : threshold(skill, "Acc");
+  const critThreshold = formOnly ? null : threshold(active, "Crit");
+  const accThreshold = formOnly ? null : threshold(active, "Acc");
   if (!formOnly && critThreshold === null) {
     return refuse(skill, combat, "Crit 标签没有非负整数阈值");
   }
   if (!formOnly && accThreshold === null) {
     return refuse(skill, combat, "Acc 标签没有非负整数阈值");
   }
-  const critAmount = effect === "stress" || formOnly ? null : amountBesideLabel(skill, "Crit");
-  const hitAmount = effect === "stress" || formOnly ? null : amountBesideLabel(skill, "Acc");
+  const critAmount = effect === "stress" || formOnly ? null : amountBesideLabel(active, "Crit");
+  const hitAmount = effect === "stress" || formOnly ? null : amountBesideLabel(active, "Acc");
   if (effect !== "stress" && !formOnly && critAmount === null) {
     return refuse(skill, combat, "Crit 旁边没有恰好一个非负整数");
   }
@@ -1743,7 +1900,7 @@ export function resolveHeroSkill(
     besideActorStress,
     untargetedBesideTargetStress,
     skipped: skippedEffects(
-      skill,
+      active,
       keys,
       stress.lineCount +
         selfHeal.lineCount +
