@@ -228,3 +228,22 @@ Kyries 随后要求“提交git”。前置姿态选招结构、纯函数及准�
 刻意没做：更多怪物核实、Speed 补值、自动移动 / 寻路、多目标、死门、Boss、扩展、战役或战斗 UI。下一块建议先明确普通怪物单目标移动流程所需的已核实 Speed / 区域资料；缺数据继续拒绝，不因为本批分组获批就补默认数字。分组本身现在可供已有选招函数和准备命令读取，仍不代表完整怪物 AI 可玩。
 
 验证：Node 24.21.0 / pnpm 12.9.1。开始时 typecheck、lint、225 项测试通过；接入 / 重生成后 typecheck、lint、235 项测试（17 文件）通过。最终 typecheck、lint、test、build 与 `git diff --check` 均通过；本块不是阶段结束且没有 UI 变更，不新增 Playwright 冒烟。
+
+## 七个本地提交分拆为四个有序 PR（2026-10-10）
+
+Kyries 指定以 `efbc59d` 为起点，按 A → B → C → D 开草稿、CI 全绿后依次采用 GitHub merge 合并，每次合并后本地 `main` 执行 `pull --ff-only`，下一分支从同步后的 `main` 建立。上文的“本地未推送 / 未合并”为各块当时的历史记录，当前状态以本节和 GitHub PR 为准。
+
+| 块  | PR / 分支                                                                           | 原始提交             | 内容与验收                                                                        |
+| --- | ----------------------------------------------------------------------------------- | -------------------- | --------------------------------------------------------------------------------- |
+| A   | [#48](https://github.com/Alpaca-go/ddbg-web/pull/48)，`codex/phase2-battle-sandbox` | `f619b70`、`eb9079f` | 单目标沙盒、方向选择、先攻与英雄回合；种子回放与非法命令拒绝                      |
+| B   | [#49](https://github.com/Alpaca-go/ddbg-web/pull/49)，`codex/phase2-monster-attack` | `eb99c7c`、`e0933a9` | 已选怪物攻击、位移写回、怪物行动与目标优先级；Guard / 优先级 / Push·Pull 场景测试 |
+| C   | [#50](https://github.com/Alpaca-go/ddbg-web/pull/50)，`codex/phase2-stance-select`  | `4d34a45`            | 姿态选招与准备命令；有合法分组才可选择，无分组拒绝                                |
+| D   | `codex/phase2-stance-data-six`（本节随该 PR 提交）                                  | `9c00d78`、`0d18f2c` | 对照文档与六条获批分组；其余 id 仍无分组、自动选招拒绝                            |
+
+A、B、C 已在两项 CI（质量检查和 Playwright smoke）均成功后合并，本地每次同步；C 合并后的 `main` 为 `c0cded4`。分拆后 A / B / C 的文件树分别与 `eb9079f` / `e0933a9` / `4d34a45` 相同，D 的两个原始提交也保持文件树不变，仅另附本交接记录。原始提交与分支保留，未重写既有历史。
+
+质量检查：每个分拆块执行 `pnpm typecheck`、`pnpm lint`、`pnpm test`、`pnpm build`；A / B / C 的测试分别为 150 / 205 / 224 项。D 沿用六条数据块的 235 项测试，并在本 PR 重新执行同一质量闸门，全部成功且 CI 全绿后才合并。Windows 检出时曾因 CRLF 触发 Prettier 警告，已恢复 LF 并将本地 Git 的 `core.autocrlf` 设为 `false`；没有提交换行重写。
+
+依据继续为 R-001、R-048 及各块列明的规则书页码 / 裁定。没有新增规则或数据批准。六条姿态组的批准范围仍以对照文档 §7 为准，`verification.unverified=false` 仍不替代分组核实。
+
+刻意没做：自动移动 / 寻路、多目标、死门、Boss、扩展和战斗 UI。分拆开始前已有的 Speed 核对文档、可选 schema 与拒绝测试单独保留，不进入 A–D，不给真实卡写 Speed，也不补 null 默认值。D 合并同步后建议另开普通怪物自动移动的新块，先确认 Speed 与区域资料；多目标继续拆为后续独立主题。
