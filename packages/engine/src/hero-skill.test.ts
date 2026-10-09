@@ -8970,4 +8970,259 @@ describe("resolveHeroSkill", () => {
       targetStress: 6,
     });
   });
+
+  it("hero_skill:p199 Wyrd Reconstruction I 只治疗，流血面值 1 不放堆也不改伤口", () => {
+    // 规则书第 21 页：Bleed 是面值 x、持续 Nt。面值是整数，回合数 numeric 为 null。
+    // 不放代币，也不把面值当成这次治疗多扣或少扣的伤口（R-026、R-048）。
+    const skill = card("hero_skill:p199");
+    expect(skill.name).toBe("Wyrd Reconstruction");
+    expect(skill.level).toBe(1);
+    expect(skill.hero).toBe("OCCULTIST");
+    expect(skill.verification.unverified).toBe(false);
+    expect(skill.printed_labels).toEqual([
+      { label: "Crit", raw: "Crit 3", value: 3 },
+      { label: "Acc", raw: "Acc 9", value: 9 },
+    ]);
+    expect(namedTargetIconCount(skill)).toBe(1);
+    expect(
+      skill.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => [
+          item.anchor.type === "printed_label" ? item.anchor.label : "",
+          item.numeric,
+        ]),
+    ).toEqual([
+      ["Crit", 8],
+      ["Acc", 4],
+    ]);
+    expect(
+      skill.effect_lines[0]
+        ?.filter((segment) => segment.type === "icon")
+        .map((segment) => segment.icon.key),
+    ).toEqual(["target_effects", "bleed"]);
+    expect(
+      skill.effect_lines[0]
+        ?.filter((segment) => segment.type === "text")
+        .map((segment) => segment.text.trim())
+        .filter((text) => text !== ""),
+    ).toEqual(["1", "2t"]);
+    expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) =>
+            item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "target_effects",
+        )
+        .map((item) => [item.text, item.numeric]),
+    ).toEqual([["1", 1]]);
+    expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "bleed",
+        )
+        .map((item) => [item.text, item.numeric]),
+    ).toEqual([["2t", null]]);
+    expect(
+      skill.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "range",
+        )
+        .map((item) => [item.text, item.numeric]),
+    ).toEqual([["0-1", null]]);
+
+    const combat: SkillCombatState = {
+      actor: { id: "occultist", wounds: 2, stress: 4, protection: true, riposte: true },
+      heroesBesideActor: [{ id: "vestal", stress: 2 }],
+      target: {
+        id: "patient",
+        side: "hero",
+        wounds: 6,
+        dodge: 0,
+        stress: 5,
+        protection: true,
+        riposte: true,
+      },
+      targetsInArea: 1,
+    };
+    const frozen = structuredClone(combat);
+    // 掷 4 命中，治疗 4。伤口变成 2。若把流血面值 1 加成伤口，会是 3；若从治疗里扣掉，会是 3。
+    expect(use("hero_skill:p199", combat, 4)).toEqual({
+      skillId: "hero_skill:p199",
+      targetId: "patient",
+      status: "resolved",
+      reason: null,
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 4,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 2,
+      actorWounds: 2,
+      targetDead: false,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+      actorShuffle: null,
+      targetShuffle: null,
+      targetProtectionIgnored: false,
+      actorForm: null,
+      actorStress: 4,
+      targetStress: 5,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+      untargetedBesideTargetStress: null,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(combat).toEqual(frozen);
+    // 掷 3 暴击，治疗 8，伤口到 0。打出暴击再减使用者压力。目标压力不动：治疗暴击不是承受伤害暴击。
+    expect(use("hero_skill:p199", combat, 3)).toMatchObject({
+      status: "resolved",
+      outcome: "crit",
+      effect: "heal",
+      printedAmount: 8,
+      damageDealt: null,
+      riposteDamage: null,
+      wounds: 0,
+      actorWounds: 2,
+      actorStress: 3,
+      targetStress: 5,
+      besideActorStress: [{ id: "vestal", stress: 1 }],
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+      skipped: [{ code: "effect_lines" }],
+    });
+    // 掷 10 落空。不治疗，也不放流血。
+    expect(use("hero_skill:p199", combat, 10)).toMatchObject({
+      status: "resolved",
+      outcome: "miss",
+      effect: "heal",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 6,
+      actorWounds: 2,
+      actorStress: 4,
+      targetStress: 5,
+      besideActorStress: [{ id: "vestal", stress: 2 }],
+      targetBleedCleared: false,
+      skipped: [{ code: "effect_lines" }],
+    });
+    // 伤口只有 1，命中治疗仍停在 0，不会因为流血面值变成 1。
+    expect(
+      use(
+        "hero_skill:p199",
+        {
+          ...combat,
+          target: { ...combat.target, wounds: 1 },
+        },
+        9,
+      ),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 4,
+      wounds: 0,
+      targetBleedCleared: false,
+    });
+
+    // 射程印成 0-1，numeric 为 null。传入距离就整次拒绝，治疗和流血都不发生。
+    expect(use("hero_skill:p199", { ...combat, areaDistance: 0 }, 4)).toMatchObject({
+      status: "refused",
+      reason: "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      wounds: 6,
+      actorWounds: 2,
+      actorStress: 4,
+      targetStress: 5,
+      targetBleedCleared: false,
+    });
+    expect(use("hero_skill:p199", { ...combat, areaDistance: 1 }, 4)).toMatchObject({
+      status: "refused",
+      reason: "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
+      wounds: 6,
+      actorWounds: 2,
+      actorStress: 4,
+    });
+    expect(
+      use(
+        "hero_skill:p199",
+        { ...combat, target: { id: "soldier", side: "monster", wounds: 6, dodge: 0 } },
+        4,
+      ),
+    ).toMatchObject({
+      status: "refused",
+      reason: "目标阵营与技能的目标图标不一致",
+      wounds: 6,
+      actorWounds: 2,
+      actorStress: 4,
+    });
+
+    // III：面值是 2，回合数仍是 null。命中治疗 6，伤口从 8 到 2，不是 4。
+    const third = card("hero_skill:p201");
+    expect(third.name).toBe("Wyrd Reconstruction");
+    expect(third.level).toBe(3);
+    expect(third.hero).toBe("OCCULTIST");
+    expect(third.verification.unverified).toBe(false);
+    expect(third.printed_labels.map((item) => [item.label, item.value])).toEqual([
+      ["Crit", 3],
+      ["Acc", 11],
+    ]);
+    expect(
+      third.unlabeled_numbers
+        .filter((item) => item.anchor.type === "printed_label")
+        .map((item) => item.numeric),
+    ).toEqual([12, 6]);
+    expect(
+      third.unlabeled_numbers
+        .filter(
+          (item) =>
+            item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "target_effects",
+        )
+        .map((item) => [item.text, item.numeric]),
+    ).toEqual([["2", 2]]);
+    expect(
+      third.unlabeled_numbers
+        .filter(
+          (item) => item.anchor.type === "beside_icon" && item.anchor.left_icon?.key === "bleed",
+        )
+        .map((item) => [item.text, item.numeric]),
+    ).toEqual([["2t", null]]);
+    expect(
+      use(
+        "hero_skill:p201",
+        {
+          actor: { id: "occultist", wounds: 1, stress: 3 },
+          target: { id: "patient", side: "hero", wounds: 8, dodge: 0, stress: 1 },
+        },
+        10,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 6,
+      damageDealt: null,
+      wounds: 2,
+      actorWounds: 1,
+      actorStress: 3,
+      targetStress: 1,
+      targetBleedCleared: false,
+      targetBlightCleared: false,
+      skipped: [{ code: "effect_lines" }],
+    });
+    expect(
+      use(
+        "hero_skill:p201",
+        {
+          actor: { id: "occultist", wounds: 1, stress: 3 },
+          target: { id: "patient", side: "hero", wounds: 8, dodge: 0, stress: 1 },
+        },
+        3,
+      ),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 12,
+      wounds: 0,
+      actorStress: 2,
+      targetStress: 1,
+      targetBleedCleared: false,
+    });
+  });
 });
