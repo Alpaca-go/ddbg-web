@@ -515,6 +515,33 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
         side === "hero"
           ? { type: "hero", actorId: actor.id, actions: 2, usedSkillIds: [] }
           : { type: "monster", actorId: actor.id };
+      if (battle.provisionWindows) {
+        const choice = {
+          id: `turn-start:${battle.choiceCursor}`,
+          prompt: "回合开始前：可免费使用补给，完成后结算触发与状态",
+          options: [{ id: "continue", label: "结算回合开始效果" }],
+        };
+        return {
+          state: {
+            ...state,
+            battle: {
+              ...battle,
+              choiceCursor: battle.choiceCursor + 1,
+              encounter: { ...encounter, deck, turn },
+              pending: { type: "turnStartProvision", actorId: actor.id, choice },
+            },
+          },
+          events: [
+            ...events,
+            {
+              ...event(battle, "turnStarted", "先攻确定，等待回合开始效果"),
+              actorId: actor.id,
+              side,
+            },
+          ],
+          pendingChoice: choice,
+        };
+      }
       return beginResolveTurn(
         {
           state: { ...state, battle: { ...battle, encounter: { ...encounter, deck, turn } } },
