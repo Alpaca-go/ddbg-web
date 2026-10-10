@@ -102,8 +102,13 @@ small {
 }
 .seed-form {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.7rem;
   align-items: center;
+}
+.choice-area {
+  outline: 2px solid #d4b879;
+  outline-offset: 2px;
 }
 .seed-form input {
   width: 8rem;

@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Command, SkillSegment, SkillStance } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
 import { useBattleStore } from "./battle-store";
+import type { SandboxLayout } from "./battle-store";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 const stanceLabels = { aggressive: "进攻", defensive: "防御", ranged: "远程", support: "支援" };
@@ -21,10 +22,12 @@ export function App() {
   const game = useBattleStore((s) => s.game);
   const dispatch = useBattleStore((s) => s.dispatch);
   const reset = useBattleStore((s) => s.reset);
+  const layout = useBattleStore((s) => s.layout);
   const events = useBattleStore((s) => s.events);
   const commands = useBattleStore((s) => s.commands);
   const notice = useBattleStore((s) => s.notice);
   const [seed, setSeed] = useState("1");
+  const [selectedLayout, setSelectedLayout] = useState<SandboxLayout>("basic");
   const [skillId, setSkillId] = useState("");
   const [targetId, setTargetId] = useState("soldier");
   const [path, setPath] = useState<string[]>([]);
@@ -33,6 +36,9 @@ export function App() {
   const actor =
     turn && "actorId" in turn ? battle.entities.find((e) => e.id === turn.actorId) : undefined;
   const pending = battle.pending?.choice;
+  const pendingArea =
+    battle.pending?.type === "shuffleArea" || battle.pending?.type === "monsterMove";
+  const shuffled = battle.shuffleIntents[0];
   const frozen = !!pending || battle.shuffleIntents.length > 0;
   const actorSkills = battleData.skills.filter((s) => actor?.skillIds.includes(s.id));
   const skill = actorSkills.find((s) => s.id === skillId) ?? actorSkills[0];
@@ -79,13 +85,24 @@ export function App() {
             e.preventDefault();
             const value = Number(seed);
             if (seed.trim() && Number.isSafeInteger(value)) {
-              reset(value);
+              reset(value, selectedLayout);
               setPath([]);
               setSkillId("");
               setTargetId("soldier");
             }
           }}
         >
+          <label>
+            测试布置
+            <select
+              aria-label="测试布置"
+              value={selectedLayout}
+              onChange={(e) => setSelectedLayout(e.target.value as SandboxLayout)}
+            >
+              <option value="basic">基础战斗</option>
+              <option value="shuffle">位移选择</option>
+            </select>
+          </label>
           <label>
             种子
             <input
@@ -101,13 +118,18 @@ export function App() {
         </form>
       </header>
       <p className="sandbox-note">
-        手动布置：四英雄在 A，Bone Soldier 在 B，光照
+        手动布置：
+        {layout === "shuffle"
+          ? "Highwayman 在进攻位 / A，与 Bone Soldier 同区；Crusader / Hellion / Vestal 分别在 B / C / D。种子 5 可直接试用 Point Blank Shot。"
+          : "四英雄在 A，Bone Soldier 在 B。"}
+        光照
         5。使用获批几何与卡牌；初始位置为测试布置，不代表正式房间部署。状态代币、压力检定、奖励与战役尚未接入。
       </p>
       <section className="statusbar" aria-label="战斗状态">
         <span>第 {battle.encounter?.round ?? "—"} 轮 / 4</span>
         <span>光照 {battle.light}</span>
         <strong data-testid="turn-status">{turnText}</strong>
+        {frozen && <span>等待位移结算 · 其他行动已冻结</span>}
       </section>
       <p className="notice" role="status">
         {notice}
@@ -127,7 +149,7 @@ export function App() {
               );
               return (
                 <article
-                  className={`area ${actor?.areaId === area.id ? "active-area" : ""}`}
+                  className={`area ${actor?.areaId === area.id ? "active-area" : ""} ${pendingArea && pending?.options.some((option) => option.id === area.id) ? "choice-area" : ""}`}
                   key={area.id}
                   data-testid={`area-${area.id}`}
                 >
@@ -195,11 +217,20 @@ export function App() {
             <button onClick={() => send({ type: "drawInitiative" })}>抽取先攻</button>
           )}
           {pending && (
-            <fieldset className="choice">
+            <fieldset className="choice" key={pending.id}>
               <legend>
                 待选决策 · {pending.actorId ? entityName(pending.actorId) : "当前玩家"}
               </legend>
               <p>{pending.prompt}</p>
+              {battle.pending?.type === "shuffleArea" && shuffled && (
+                <p>
+                  被位移：{entityName(shuffled.entityId)} · 当前区域{" "}
+                  {battle.entities.find((e) => e.id === shuffled.entityId)?.areaId}
+                  {battle.pending.path.length > 0 &&
+                    ` · 已选路径 ${battle.pending.path.join(" → ")}`}
+                </p>
+              )}
+              <p className="muted">只选择引擎返回的选项；完成后继续原结算，不重新掷骰。</p>
               {pending.options.map((option) => (
                 <button
                   key={option.id}
@@ -269,7 +300,11 @@ export function App() {
                 <legend>使用技能 · 单目标</legend>
                 <label>
                   技能
-                  <select value={skill?.id ?? ""} onChange={(e) => setSkillId(e.target.value)}>
+                  <select
+                    aria-label="技能"
+                    value={skill?.id ?? ""}
+                    onChange={(e) => setSkillId(e.target.value)}
+                  >
                     {actorSkills.map((s) => (
                       <option key={s.id} value={s.id}>
                         {s.name} I
@@ -279,7 +314,11 @@ export function App() {
                 </label>
                 <label>
                   目标
-                  <select value={targetId} onChange={(e) => setTargetId(e.target.value)}>
+                  <select
+                    aria-label="目标"
+                    value={targetId}
+                    onChange={(e) => setTargetId(e.target.value)}
+                  >
                     {battle.entities
                       .filter((e) => !e.dead)
                       .map((e) => (
@@ -352,8 +391,9 @@ export function App() {
           )}
           <details className="debug">
             <summary>种子与命令调试</summary>
-            <p>
-              seed {game.seed} · RNG 游标 {battle.rngCursor} · 命令 {commands.length}
+            <p data-testid="rng-status">
+              布置 {layout} · seed {game.seed} · RNG 游标 {battle.rngCursor} · 命令{" "}
+              {commands.length}
             </p>
             <pre>{JSON.stringify(commands, null, 2)}</pre>
           </details>
