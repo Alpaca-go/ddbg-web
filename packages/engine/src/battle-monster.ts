@@ -20,6 +20,7 @@ export type PlayMonsterSkillCommand = {
   readonly targetId: string;
   readonly skillSlot: number;
   readonly shuffleChoice?: "push" | "pull";
+  readonly shuffleChoices?: Readonly<Record<string, "push" | "pull">>;
 };
 
 /** 说明书 §6.5、§6.10（R19–24）；共享技能骰与先攻 RNG。 */

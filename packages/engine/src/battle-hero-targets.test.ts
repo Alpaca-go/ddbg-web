@@ -135,6 +135,68 @@ function refused(state: GameState, cmd = command()) {
 }
 
 describe("英雄多目标命令（R19–20、R-024、R-025、R-031、R-048）", () => {
+  it("真实 Breakthrough 自身 Pull 只一次，位移完成才扣一次行动", () => {
+    const skill = card("p034");
+    let state = change(setup(skill), "actor", { stance: "ranged" });
+    state = change(state, "h2", { stance: "defensive" });
+    const played = applyCommand(state, command(skill, ["m1", "m2", "m3"]));
+    expect(played.state.battle!.shuffleIntents).toHaveLength(1);
+    expect(played.state.battle!.encounter!.turn).toMatchObject({ actions: 2 });
+    expect(applyCommand(played.state, command(skill)).state).toBe(played.state);
+    const moved = applyCommand(played.state, { type: "resolveShuffles" });
+    expect(moved.events.filter((e) => e.type === "shuffleResolved")).toHaveLength(1);
+    expect(entity(moved.state, "actor")).toMatchObject({ areaId: "b", stance: "defensive" });
+    expect(moved.state.battle!.encounter!.turn).toMatchObject({
+      actions: 1,
+      usedSkillIds: [skill.id],
+    });
+    expect(moved.state.battle!.rngCursor).toBe(played.state.battle!.rngCursor);
+    expect(applyCommand(moved.state, { type: "resolveShuffles" }).state).toBe(moved.state);
+  });
+
+  it("多目标暴击按自身位移后区域减压一次，末批死亡先保留自身位移", () => {
+    const skill = card("p034");
+    let state = change(setup(skill), "actor", { stance: "ranged", buffStacks: 2 });
+    state = change(state, "h2", { stance: "defensive" });
+    for (const id of ["m1", "m2", "m3"]) state = change(state, id, { wounds: 3 });
+    state = { ...state, seed: 0 };
+    // 种子夹具寻找低于修正后 Crit 的同一颗骰；不改卡牌数值。
+    while (
+      !applyCommand(state, command(skill, ["m1", "m2", "m3"])).events.some(
+        (e) =>
+          e.type === "heroSkillTargetsResolved" && e.resolutions.some((r) => r.outcome === "crit"),
+      )
+    )
+      state = { ...state, seed: state.seed + 1 };
+    const played = applyCommand(state, command(skill, ["m1", "m2", "m3"]));
+    const moved = applyCommand(played.state, { type: "resolveShuffles" });
+    expect(moved.events.find((e) => e.type === "commandRefused")).toBeUndefined();
+    expect(entity(moved.state, "actor").areaId).toBe("b");
+    expect(entity(moved.state, "h1").stress).toBe(5);
+    expect(entity(moved.state, "h2").stress).toBe(4);
+    expect(entity(moved.state, "h3").stress).toBe(4);
+    expect(entity(moved.state, "actor").stress).toBe(4);
+    expect(moved.events.filter((e) => e.type === "battleFinished")).toHaveLength(1);
+    expect(moved.state.battle!.rngCursor).toBe(played.state.battle!.rngCursor);
+  });
+
+  it("自身位移先于整批目标死亡：当时已满的区域不能因先写死亡而腾出容量", () => {
+    const skill = card("p034");
+    let state = change(setup(skill), "actor", { stance: "ranged" });
+    state = change(state, "h2", { stance: "defensive" });
+    for (const id of ["m1", "m2", "m3"]) state = change(state, id, { wounds: 3 });
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        areas: state.battle!.areas.map((a) => (a.id === "b" ? { ...a, capacity: 5 } : a)),
+      },
+    };
+    const played = applyCommand(state, command(skill, ["m1", "m2", "m3"]));
+    const moved = applyCommand(played.state, { type: "resolveShuffles" });
+    expect(entity(moved.state, "actor")).toMatchObject({ areaId: "a", stance: "defensive" });
+    expect(moved.events.filter((e) => e.type === "battleFinished")).toHaveLength(1);
+  });
   it("同一颗 7 对不同 Dodge 分别命中 / 落空，只扣一行动且可确定性回放", () => {
     const state = change(setup(), "m2", { dodge: 7 });
     const original = structuredClone(state);
@@ -304,7 +366,7 @@ describe("英雄多目标命令（R19–20、R-024、R-025、R-031、R-048）", 
     },
   );
 
-  it("跨区、死者、错误阵营、未验证卡、位移和缺 duration 均不消费 RNG", () => {
+  it("跨区、死者、错误阵营、未验证卡和缺 duration 均不消费 RNG", () => {
     refused(change(setup(), "m2", { areaId: "a" }));
     refused(change(setup(), "m2", { dead: true }));
     refused(setup(), command(daggers, ["m1", "h2"]));
@@ -318,7 +380,7 @@ describe("英雄多目标命令（R19–20、R-024、R-025、R-031、R-048）", 
         line.filter((segment) => segment.type !== "text" || !segment.text.includes("1t")),
       ),
     };
-    for (const skill of [card("p034"), statusSkill, missingDuration]) {
+    for (const skill of [statusSkill, missingDuration]) {
       const state = change(setup(skill), "actor", { stance: "ranged" });
       expect(refused(state, command(skill)).events[0]?.message).toContain("多目标");
     }

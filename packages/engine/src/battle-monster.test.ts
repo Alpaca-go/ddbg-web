@@ -125,6 +125,104 @@ function directionCard(): MonsterCardView {
 
 describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）", () => {
   const spearman = cards.find((card) => card.id === "monster_medium:p013")!;
+  function multiShuffle(direction: string): MonsterCardView {
+    // 只测路由的派生位移行；不把合成效果或数值写入真实怪物卡。
+    const effect: readonly SkillSegment[] = [
+      { type: "icon", icon: { key: "target_effects", naming: "confirmed" } },
+      { type: "icon", icon: { key: "shuffle", naming: "confirmed" } },
+      { type: "text", text: direction },
+    ];
+    return {
+      ...spearman,
+      skills: spearman.skills.map((s) =>
+        s.slot !== 2 ? s : { ...s, lines: [...s.lines, effect], effect_lines: [effect] },
+      ),
+    };
+  }
+  it("怪物多目标位移后，被选与未选英雄暴击压力分别结算且同区只加一次", () => {
+    let state = setup(multiShuffle("Push 1"));
+    while (nextBattleRoll(state.seed, 0) !== 1) state = { ...state, seed: state.seed + 1 };
+    const played = applyCommand(state, play(2));
+    expect(played.state.battle!.shuffleIntents.map((i) => i.entityId)).toEqual(["h0", "h1"]);
+    const moved = applyCommand(played.state, { type: "resolveShuffles" });
+    for (const id of ["h0", "h1"]) expect(entity(moved.state, id).areaId).toBe("e");
+    expect(entity(moved.state, "h0").stress).toBe(6);
+    for (const id of ["h1", "h2", "h3"]) expect(entity(moved.state, id).stress).toBe(4);
+    expect(moved.state.battle!.rngCursor).toBe(1);
+    expect(moved.events.filter((e) => e.type === "monsterCritAreaResolved")).toHaveLength(1);
+    expect(moved.events.filter((e) => e.type === "shuffleResolved")).toHaveLength(2);
+  });
+
+  it("多目标方向由每个英雄分别选择，选择完成前不掷骰；续接不重复伤害", () => {
+    const initial = setup(multiShuffle("Push 1 or Pull 1"));
+    const first = applyCommand(initial, play(2));
+    expect(first.pendingChoice?.actorId).toBe("h0");
+    expect(first.state.battle!.rngCursor).toBe(0);
+    const second = applyCommand(first.state, {
+      type: "resolveChoice",
+      choiceId: first.pendingChoice!.id,
+      optionId: "push",
+    });
+    expect(second.pendingChoice?.actorId).toBe("h1");
+    expect(second.state.battle!.rngCursor).toBe(0);
+    expect(applyCommand(second.state, { type: "drawInitiative" }).state).toBe(second.state);
+    const played = applyCommand(second.state, {
+      type: "resolveChoice",
+      choiceId: second.pendingChoice!.id,
+      optionId: "pull",
+    });
+    expect(played.state.battle!.rngCursor).toBe(1);
+    const moved = applyCommand(played.state, { type: "resolveShuffles" });
+    expect(entity(moved.state, "h0").areaId).toBe("e");
+    expect(entity(moved.state, "h1").areaId).toBe("b");
+    expect(entity(moved.state, "h0").wounds).toBe(entity(played.state, "h0").wounds);
+    expect(moved.state.battle!.rngCursor).toBe(1);
+    expect(applyCommand(moved.state, { type: "resolveShuffles" }).state).toBe(moved.state);
+  });
+  it("怪物多目标落点分岔分别交给被位移英雄，选择后只结束一次回合", () => {
+    let state = monsterTurn(setup(multiShuffle("Push 1")));
+    while (nextBattleRoll(state.seed, state.battle!.rngCursor) !== 7)
+      state = { ...state, seed: state.seed + 1 };
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        areas: [
+          ...state.battle!.areas.map((a) =>
+            a.id === "a" ? { ...a, adjacent: [...a.adjacent, "f"] } : a,
+          ),
+          { id: "f", elevation: "normal", adjacent: ["a"], capacity: 8 },
+        ],
+      },
+    };
+    const played = applyCommand(state, play(2));
+    const first = applyCommand(played.state, { type: "resolveShuffles" });
+    expect(first.pendingChoice?.actorId).toBe("h0");
+    expect(first.pendingChoice?.options.map((o) => o.id)).toEqual(["e", "f"]);
+    const second = applyCommand(first.state, {
+      type: "resolveChoice",
+      choiceId: first.pendingChoice!.id,
+      optionId: "e",
+    });
+    expect(second.pendingChoice?.actorId).toBe("h1");
+    expect(second.state.battle!.rngCursor).toBe(played.state.battle!.rngCursor);
+    const completed = applyCommand(second.state, {
+      type: "resolveChoice",
+      choiceId: second.pendingChoice!.id,
+      optionId: "f",
+    });
+    expect(entity(completed.state, "h0").areaId).toBe("e");
+    expect(entity(completed.state, "h1").areaId).toBe("f");
+    expect(completed.events.filter((e) => e.type === "turnEnded")).toHaveLength(1);
+    expect(completed.state.battle!.rngCursor).toBe(played.state.battle!.rngCursor);
+    expect(
+      applyCommand(completed.state, {
+        type: "resolveChoice",
+        choiceId: first.pendingChoice!.id,
+        optionId: "f",
+      }).state,
+    ).toBe(completed.state);
+  });
   it("多目标暴击逐英雄进入死门，后续受伤各掷自己的死门骰", () => {
     const stats = (
       JSON.parse(

@@ -168,6 +168,16 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
       );
     if (command.optionId !== "push" && command.optionId !== "pull")
       return rejectBattleCommand(state, "位移方向无效");
+    if (pending.command.type === "playHeroSkillTargets")
+      return playHeroSkillTargets(state, { ...pending.command, shuffleChoice: command.optionId });
+    if (pending.command.type === "playMonsterSkill" && pending.shuffleTargetId)
+      return playMonsterSkill(state, {
+        ...pending.command,
+        shuffleChoices: {
+          ...pending.command.shuffleChoices,
+          [pending.shuffleTargetId]: command.optionId,
+        },
+      });
     return pending.command.type === "playHeroSkill"
       ? playHeroSkill(state, { ...pending.command, shuffleChoice: command.optionId })
       : playMonsterSkill(state, { ...pending.command, shuffleChoice: command.optionId });

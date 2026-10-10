@@ -5,6 +5,7 @@ import { resolveShuffle } from "./shuffle";
 import { heroSkillUsesSelfTarget, resolveHeroSkill } from "./hero-skill";
 import type { HeroSkillResolution } from "./hero-skill";
 import { resolveMonsterSkill } from "./monster-skill";
+import { correctMultiTargetStress } from "./battle-multi-crit";
 
 /** R20–21、R-020：逐条应用自身 / 目标位移；选择不重掷技能骰。 */
 export function applyBattleShuffles(state: GameState, path: readonly string[] = []): ApplyResult {
@@ -31,7 +32,9 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
         ? {
             ...next,
             entities: next.entities.map((entry) =>
-              entry.id === intent.relativeToId || entry.id === intent.entityId
+              entry.id === intent.relativeToId ||
+              entry.id === intent.entityId ||
+              continuation.targetIds?.includes(entry.id)
                 ? { ...entry, dead: false }
                 : entry,
             ),
@@ -48,7 +51,9 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
         actorId:
           continuation.type === "heroSkillResolved"
             ? continuation.actorId
-            : continuation.resolution.targetId,
+            : intent.entityId === continuation.actorId
+              ? (continuation.shuffleChooserId ?? continuation.resolution.targetId)
+              : intent.entityId,
         options: result.options.map((id) => ({ id, label: `区域 ${id}` })),
       };
       return {
@@ -68,7 +73,9 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
       ...next,
       entities: selfBeforeDeath
         ? result.entities.map((entry) =>
-            entry.id === intent.relativeToId || entry.id === intent.entityId
+            entry.id === intent.relativeToId ||
+            entry.id === intent.entityId ||
+            continuation.targetIds?.includes(entry.id)
               ? { ...entry, dead: next.entities.find((before) => before.id === entry.id)!.dead }
               : entry,
           )
@@ -85,7 +92,19 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
     });
     choices = [];
   }
-  if (continuation.criticalContext) {
+  if (continuation.criticalContext?.combats) {
+    const corrected = correctMultiTargetStress(next, continuation);
+    if (corrected.status === "refused") return rejectBattleCommand(state, corrected.reason);
+    next = { ...next, entities: corrected.entities };
+    events.push({
+      type:
+        continuation.type === "heroSkillResolved"
+          ? "heroCritAreaResolved"
+          : "monsterCritAreaResolved",
+      message: "按多目标位移后的区域去重结算暴击压力",
+      actorId: continuation.actorId,
+    });
+  } else if (continuation.criticalContext) {
     const { entities: original } = continuation.criticalContext;
     const actor = next.entities.find((entry) => entry.id === continuation.actorId)!;
     const target = next.entities.find((entry) => entry.id === continuation.resolution.targetId)!;

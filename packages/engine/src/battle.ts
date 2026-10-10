@@ -28,6 +28,7 @@ import type {
 import type { ShuffleIntent } from "./shuffle";
 import type { MonsterCardView, MonsterCombatState } from "./monster-skill";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
+import type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 import type { PreparedMonsterAction } from "./battle-monster-action";
 import { applySkillHealth } from "./battle-health";
 
@@ -91,7 +92,9 @@ export type BattleState = BattleSetup & {
     | {
         readonly type: "shuffleDirection";
         readonly choice: PendingChoice;
-        readonly command: PlayHeroSkillCommand | PlayMonsterSkillCommand;
+        readonly command:
+          PlayHeroSkillCommand | PlayHeroSkillTargetsCommand | PlayMonsterSkillCommand;
+        readonly shuffleTargetId?: string;
       }
     | {
         readonly type: "monsterMove";
@@ -108,17 +111,22 @@ export type BattleState = BattleSetup & {
   /** 位移完成后再记录行动 / 死亡补位，不能重复执行技能或重复扣行动。 */
   readonly shuffleContinuation:
     | (HeroSkillResolvedEvent & {
+        readonly targetIds?: readonly string[];
         readonly casualtyIds?: readonly string[];
         /** 位移后的暴击同区名单，沿用原骰面与原攻击数值重算。 */
         readonly criticalContext?: {
           readonly combat: SkillCombatState;
+          readonly combats?: readonly SkillCombatState[];
           readonly entities: readonly BattleEntity[];
         };
       })
     | (MonsterSkillResolvedEvent & {
+        readonly targetIds?: readonly string[];
+        readonly shuffleChooserId?: string;
         readonly casualtyIds?: readonly string[];
         readonly criticalContext?: {
           readonly combat: MonsterCombatState;
+          readonly combats?: readonly MonsterCombatState[];
           readonly entities: readonly BattleEntity[];
         };
       })
