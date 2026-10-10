@@ -7,6 +7,22 @@ export type ResolveCard = {
   readonly id: string;
   readonly role: "virtue" | "affliction";
   readonly verification: { readonly unverified: boolean };
+  readonly name?: string;
+  readonly verified_turn_start?: {
+    readonly rollMin: 1;
+    readonly rollMax: number;
+    readonly effect:
+      | { readonly type: "stress"; readonly scope: "self" | "heroes"; readonly amount: number }
+      | { readonly type: "buff"; readonly scope: "self" | "heroes"; readonly duration: number }
+      | {
+          readonly type: "heal" | "wounds";
+          readonly scope: "self";
+          readonly amount: number;
+          readonly perHeroLevel: true;
+        }
+      | { readonly type: "consumeProvision"; readonly amount: 1 }
+      | { readonly type: "stanceMove"; readonly forwardThrough: 5; readonly distance: 1 };
+  };
 };
 
 /** R28：首次检定与再次达到 10 压力不同；已有卡（含墓园美德）不再掷骰。 */

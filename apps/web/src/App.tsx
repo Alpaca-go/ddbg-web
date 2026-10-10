@@ -157,8 +157,7 @@ export function App() {
             : layout === "pair" || layout === "trio"
               ? `四英雄在 A，Hellion 在远程位可试用 Breakthrough；B 区怪物为 ${layout === "pair" ? "Soldier + Rabble" : "Courtier + Soldier + Rabble"}，按列表顺序站进攻至远程位。`
               : "四英雄在 A，Bone Soldier 在 B。"}
-        光照
-        5。使用获批几何与卡牌；初始位置为测试布置，不代表正式房间部署。压力检定、奖励与战役尚未接入。
+        光照 5。使用获批几何与卡牌；初始位置为测试布置，不代表正式房间部署。奖励与战役尚未接入。
       </p>
       <section className="statusbar" aria-label="战斗状态">
         <span>第 {battle.encounter?.round ?? "—"} 轮 / 4</span>
@@ -237,6 +236,14 @@ export function App() {
                                     `${statusLabels[stack.kind]}${stack.amount === undefined ? "" : ` ${stack.amount}`} / ${stack.remaining}t`,
                                 )
                                 .join("；")}
+                            </p>
+                          )}
+                          {e.resolveCardId && (
+                            <p className="muted">
+                              意志卡：
+                              {battleData.resolveCards.find((card) => card.id === e.resolveCardId)
+                                ?.name ?? e.resolveCardId}{" "}
+                              · 压力红面
                             </p>
                           )}
                         </div>

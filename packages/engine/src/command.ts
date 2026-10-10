@@ -13,6 +13,7 @@ import { prepareMonsterAction } from "./battle-monster-action";
 import { moveMonsterToRange } from "./battle-monster-movement";
 import type { MoveMonsterToRangeCommand, MonsterPositionedEvent } from "./battle-monster-movement";
 import { moveHero } from "./battle-hero-movement";
+import { consumeResolveProvision } from "./resolve-trigger";
 import type { MoveHeroCommand, HeroMovedEvent } from "./battle-hero-movement";
 import type {
   MonsterActionPreparedEvent,
@@ -88,6 +89,19 @@ export type Command =
     };
 
 export type GameEvent =
+  | {
+      readonly type: "resolveTriggered";
+      readonly entityId: string;
+      readonly roll: number;
+      readonly triggered: boolean;
+      readonly message: string;
+    }
+  | {
+      readonly type: "provisionConsumed";
+      readonly entityId: string;
+      readonly provisionId: string;
+      readonly message: string;
+    }
   | { readonly type: "heartAttack"; readonly entityId: string; readonly message: string }
   | {
       readonly type: "resolveTested";
@@ -172,6 +186,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     }
     if (pending.type === "shuffleArea")
       return applyBattleShuffles(state, [...pending.path, command.optionId]);
+    if (pending.type === "resolveProvision")
+      return consumeResolveProvision(state, command.optionId);
     if (pending.type === "monsterMove")
       return moveMonsterToRange(
         state,
@@ -197,7 +213,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       ? playHeroSkill(state, { ...pending.command, shuffleChoice: command.optionId })
       : playMonsterSkill(state, { ...pending.command, shuffleChoice: command.optionId });
   }
-  if (state.battle?.pending) return rejectBattleCommand(state, "请先完成待选位移");
+  if (state.battle?.pending) return rejectBattleCommand(state, "请先完成待选决定");
   if (command.type === "resolveShuffles") return applyBattleShuffles(state);
   if (state.battle?.shuffleIntents.length) return rejectBattleCommand(state, "请先结算位移意图");
   if (command.type === "prepareMonsterAction") return prepareMonsterAction(state, command);

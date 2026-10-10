@@ -12,6 +12,7 @@ import { createRng, rollD10 } from "./rng";
 import { statusStackProblem } from "./status";
 import { resolveTurnStartStatus } from "./battle-status";
 import { pressureCasualties, resolveBattlePressure } from "./pressure";
+import { beginResolveTurn } from "./resolve-trigger";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -165,8 +166,6 @@ export function finishTurn(
 
 /** 状态代币缺 duration 时，不跳过回合开始结算继续运行（R-048）。 */
 function unsupportedTurnStart(entity: BattleEntity): boolean {
-  // 压力基础层已接入；下一切片接卡牌回合开始效果，不能静默跳过。
-  if (entity.resolveCardId) return true;
   if (entity.statusStacks !== undefined)
     return (
       statusStackProblem(entity.statusStacks) !== null ||
@@ -338,6 +337,58 @@ export function recordMonsterSkill(
   return endAfterCasualties(removed) ?? finishTurn(removed.state, resolved.actorId, removed.events);
 }
 
+/** 意志触发（含待选补给）完成后，只执行一次压力、状态与死亡收尾。 */
+export function completeTurnStart(result: ApplyResult, actorId: string): ApplyResult {
+  const before = result.state.battle!;
+  const pressure = resolveBattlePressure(result);
+  if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
+  const battle = pressure.state.battle!;
+  const actor = battle.entities.find((entity) => entity.id === actorId)!;
+  const status = actor.dead
+    ? {
+        status: "resolved" as const,
+        entity: actor,
+        rngCursor: battle.rngCursor,
+        events: [],
+        stunned: false,
+      }
+    : resolveTurnStartStatus(actor, pressure.state.seed, battle.rngCursor);
+  if (status.status === "refused") return rejectBattleCommand(result.state, status.reason);
+  const turn = battle.encounter!.turn;
+  const started: ApplyResult = {
+    state: {
+      ...pressure.state,
+      battle: {
+        ...battle,
+        entities: battle.entities.map((entity) => (entity.id === actorId ? status.entity : entity)),
+        rngCursor: status.rngCursor,
+        encounter: {
+          ...battle.encounter!,
+          turn: turn.type === "hero" ? { ...turn, actions: status.stunned ? 1 : 2 } : turn,
+        },
+      },
+    },
+    events: [...pressure.events, ...status.events],
+  };
+  const triggerDeaths = pressure.events.flatMap((event) =>
+    event.type === "heroHealthResolved" && event.resolution.deathblow ? [event.entityId] : [],
+  );
+  const removed = removeCasualties(
+    started,
+    [
+      ...pressureCasualties(before, pressure),
+      ...triggerDeaths,
+      ...(status.entity.dead ? [actorId] : []),
+    ].filter((id, index, ids) => ids.indexOf(id) === index),
+  );
+  return (
+    endAfterCasualties(removed) ??
+    (status.entity.dead || (actor.side === "monster" && status.stunned)
+      ? finishTurn(removed.state, actorId, removed.events)
+      : removed)
+  );
+}
+
 export function applyEncounterCommand(state: GameState, command: EncounterCommand): ApplyResult {
   const battle = state.battle;
   if (!battle) return rejectBattleCommand(state, "尚未创建战斗沙盒");
@@ -345,6 +396,16 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     return rejectBattleCommand(state, "位移意图尚未应用，不能继续遭遇战");
   if (command.type === "startBattle") {
     if (battle.encounter) return rejectBattleCommand(state, "遭遇战已经开始");
+    if (
+      battle.entities.some(
+        (entity) => entity.side === "hero" && !entity.dead && entity.stress === 10,
+      )
+    ) {
+      const pressure = resolveBattlePressure({ state, events: [] });
+      if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
+      const started = applyEncounterCommand(pressure.state, command);
+      return { ...started, events: [...pressure.events, ...started.events] };
+    }
     const living = battle.entities.filter((entity) => !entity.dead);
     if (living.filter((entity) => entity.side === "hero").length !== 4)
       return rejectBattleCommand(state, "普通遭遇战需要 4 名存活英雄（R16）");
@@ -407,36 +468,19 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
       }
       if (unsupportedTurnStart(actor))
         return rejectBattleCommand(state, "回合开始状态 / 压力检定尚未接入（R-048）");
-      const status = resolveTurnStartStatus(actor, state.seed, battle.rngCursor);
-      if (status.status === "refused") return rejectBattleCommand(state, status.reason);
       const turn: EncounterState["turn"] =
         side === "hero"
-          ? { type: "hero", actorId: actor.id, actions: status.stunned ? 1 : 2, usedSkillIds: [] }
+          ? { type: "hero", actorId: actor.id, actions: 2, usedSkillIds: [] }
           : { type: "monster", actorId: actor.id };
-      const started: ApplyResult = {
-        state: {
-          ...state,
-          battle: {
-            ...battle,
-            entities: battle.entities.map((entity) =>
-              entity.id === actor.id ? status.entity : entity,
-            ),
-            rngCursor: status.rngCursor,
-            encounter: { ...encounter, deck, turn },
-          },
+      return beginResolveTurn(
+        {
+          state: { ...state, battle: { ...battle, encounter: { ...encounter, deck, turn } } },
+          events: [
+            ...events,
+            { ...event(battle, "turnStarted", "按当前姿态开始回合"), actorId: actor.id, side },
+          ],
         },
-        events: [
-          ...events,
-          { ...event(battle, "turnStarted", "按当前姿态开始回合"), actorId: actor.id, side },
-          ...status.events,
-        ],
-      };
-      const removed = removeCasualties(started, status.entity.dead ? [actor.id] : []);
-      return (
-        endAfterCasualties(removed) ??
-        (status.entity.dead || (side === "monster" && status.stunned)
-          ? finishTurn(removed.state, actor.id, removed.events)
-          : removed)
+        actor.id,
       );
     }
     if (encounter.round === 4) return finishBattle(state, "retreat", events);
