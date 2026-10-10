@@ -71,6 +71,7 @@ export type BattleSetup = {
     readonly id: string;
     readonly name: string;
     readonly life: number;
+    readonly speed?: number | null;
     readonly attributesVerified: boolean;
   }[];
   readonly entities: readonly BattleEntity[];

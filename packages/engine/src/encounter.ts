@@ -24,6 +24,8 @@ export type EncounterState = {
         readonly actorId: string;
         readonly actions: number;
         readonly usedSkillIds: readonly string[];
+        /** R18：第一行动停在无空间区域后，下一行动必须移动离开。 */
+        readonly mustMove?: boolean;
       }
     | { readonly type: "monster"; readonly actorId: string }
     /** 只记录单场全灭事实；驿站 / 任务类型尚未接入，不能判定战役结果。 */
@@ -121,7 +123,11 @@ function finishBattle(
   };
 }
 
-function finishTurn(state: GameState, actorId: string, events: readonly GameEvent[]): ApplyResult {
+export function finishTurn(
+  state: GameState,
+  actorId: string,
+  events: readonly GameEvent[],
+): ApplyResult {
   const battle = state.battle!;
   const encounter = battle.encounter!;
   const actedIds = [...encounter.actedIds, actorId];
@@ -180,6 +186,7 @@ export function encounterSkillProblem(
   if (turn.type !== "hero" || turn.actorId !== actorId || turn.actions <= 0)
     return "当前不是这名英雄的行动回合";
   if (turn.usedSkillIds.includes(skillId)) return "本回合已成功使用该技能（R-025）";
+  if (turn.mustMove) return "必须用下一行动离开无空间区域（R18）";
   return null;
 }
 
@@ -413,6 +420,7 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
   }
   if (turn.type !== "hero" || turn.actorId !== command.actorId)
     return rejectBattleCommand(state, "当前不是这名英雄的行动回合");
+  if (turn.mustMove) return rejectBattleCommand(state, "必须用下一行动离开无空间区域（R18）");
   const actor = battle.entities.find((entity) => entity.id === command.actorId)!;
   const position = STANCES.indexOf(actor.stance!);
   const nextPosition = position + (command.direction === "forward" ? -1 : 1);
