@@ -51,6 +51,12 @@ export function resolveSkillHeroHealth(
     if (effect.side !== "hero") return refuse("生命效果阵营无效");
     const hero = states.get(effect.entityId);
     if (!hero) return refuse("缺少生命效果接收者的已核实 Life（R-048）");
+    // 本次技能已令其死亡并移除；后续反弹不能再次伤害或复活该英雄（R9、R24–25）。
+    if (hero.dead) {
+      const validation = resolveHeroHealth({ ...hero, dead: false }, effect.effect);
+      if (validation.status === "refused") return refuse(validation.reason);
+      continue;
+    }
     const result = resolveSeededHeroHealth(hero, effect.effect, seed, cursor);
     if (result.status !== "resolved")
       return refuse(result.status === "refused" ? result.reason : "死门骰未完成");

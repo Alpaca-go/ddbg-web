@@ -37,6 +37,26 @@ const attack: SkillCombatState = {
 const door = { id: "crusader", life: 17, wounds: 17, dead: false };
 
 describe("技能的有序生命效果接纯死门结算（R20、R21、R29）", () => {
+  it("多次反击先入死门、再掷骰；死亡后不继续掷骰或复活", () => {
+    const resolved = resolveHeroSkillEffects(card("p001"), attack, 8);
+    const effect = resolved.healthEffects.find((e) => e.source === "riposte")!;
+    const batch = { ...resolved, healthEffects: [effect, effect, effect] };
+    const dying = { ...door, wounds: 16 };
+    let seed = 0;
+    while (Math.floor(createRng(seed).next() * 10) >= 3) seed += 1;
+    const result = resolveSkillHeroHealth(batch, [dying], seed, 0);
+    expect(result).toMatchObject({
+      status: "resolved",
+      rngCursor: 1,
+      heroes: [{ wounds: 17, dead: true }],
+      steps: [{ resolution: { enteredDeathDoor: true } }, { resolution: { deathblow: true } }],
+    });
+    if (result.status === "resolved") expect(result.steps).toHaveLength(2);
+    expect(resolveSkillHeroHealth(batch, [{ ...door, dead: true }], seed, 0)).toMatchObject({
+      status: "refused",
+      rngCursor: 0,
+    });
+  });
   it("真实 Smite 防护后伤害与反击分别输出；旧 API 结果不变", () => {
     const combat = { ...attack, target: { ...attack.target, protection: true } };
     const result = resolveHeroSkillEffects(card("p001"), combat, 8);
