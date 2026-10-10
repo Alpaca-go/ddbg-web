@@ -119,9 +119,13 @@ export function moveMonsterToRange(
     );
   };
   const origin = battle.areas.find((area) => area.id === actor.areaId)!;
+  const firing = battle.areas.filter(inRange);
+  // R-023 补充：与全部几何出手位断开时原地跳过，不造距离或要求无用的 Speed。
+  const unreachable =
+    !inRange(origin) && !firing.some((area) => distance(battle.areas, origin.id, area.id) !== null);
   let options = [origin.id];
-  let skipped = false;
-  if (!inRange(origin)) {
+  let skipped = unreachable;
+  if (!inRange(origin) && !unreachable) {
     if (!Number.isSafeInteger(card.speed) || card.speed! < 0)
       return rejectBattleCommand(state, "缺少已核实 Speed 非负整数（R-048）");
     const living = battle.entities.filter((entity) => !entity.dead && entity.id !== actor.id);
@@ -136,12 +140,7 @@ export function moveMonsterToRange(
       const steps = distance(battle.areas, origin.id, area.id);
       return steps !== null && steps <= card.speed!;
     });
-    const firing = battle.areas.filter(inRange);
-    if (
-      [...reachable, ...firing].some(
-        (area) => !Number.isSafeInteger(area.capacity) || area.capacity! < 0,
-      )
-    )
+    if (reachable.some((area) => !Number.isSafeInteger(area.capacity) || area.capacity! < 0))
       return rejectBattleCommand(state, "移动候选区域缺少已核实容量（R-048）");
     // 满员和敌方区域仍可穿过；仅限制最终落点，普通怪占 1 格（R18、R-021）。
     const canEnd = (area: BattleArea) =>
@@ -154,19 +153,16 @@ export function moveMonsterToRange(
     options = legal.filter(inRange).map((area) => area.id);
     if (options.length === 0) {
       skipped = true;
-      const legalFiring = firing.filter(canEnd);
+      // 满员的几何出手位仍参与靠近评分；容量只限制本次最终落点。
       const scored = legal.map((area) => ({
         id: area.id,
         steps: Math.min(
-          ...legalFiring.map((goal) => distance(battle.areas, area.id, goal.id) ?? Infinity),
+          ...firing.map((goal) => distance(battle.areas, area.id, goal.id) ?? Infinity),
         ),
       }));
       const best = Math.min(...scored.map((area) => area.steps));
       if (!Number.isFinite(best))
-        return rejectBattleCommand(
-          state,
-          "没有可达的出手位置，无法定义最近落点；不猜跨黑墙移动（R-021、R-048）",
-        );
+        return rejectBattleCommand(state, "没有容量允许的落点，需核对输入状态（R-048）");
       options = scored.filter((area) => area.steps === best).map((area) => area.id);
     }
   }
@@ -213,7 +209,11 @@ export function moveMonsterToRange(
     to,
     steps: distance(battle.areas, origin.id, to)!,
     skipped,
-    message: skipped ? "按 Speed 靠近出手位置并跳过剩余回合" : "已按射程完成 Speed 定位",
+    message: unreachable
+      ? "几何出手位置完全不可达，原地跳过剩余回合（R-023 补充）"
+      : skipped
+        ? "按 Speed 靠近出手位置并跳过剩余回合"
+        : "已按射程完成 Speed 定位",
   };
   if (!skipped) return { state: next, events: [event] };
   const finished = applyEncounterCommand(next, { type: "finishMonsterTurn", actorId: actor.id });

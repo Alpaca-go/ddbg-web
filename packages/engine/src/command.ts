@@ -71,6 +71,13 @@ export type GameEvent =
   | MonsterActionPreparedEvent
   | MonsterPositionedEvent
   | {
+      readonly type: "monsterActionSkipped";
+      readonly actorId: string;
+      readonly skillSlot: number;
+      readonly selectionRoll: number | null;
+      readonly message: string;
+    }
+  | {
       readonly type: "heroCritAreaResolved" | "monsterCritAreaResolved";
       readonly message: string;
       readonly actorId: string;

@@ -263,10 +263,28 @@ describe("普通怪单目标 Speed 定位（R18、R24–25；R-021/023/024/048/0
     }
   });
 
-  it("最近落点平手同样由目标玩家选择，然后跳过", () => {
-    const initial = ready(soldier, graph(["ab", "ac", "bd", "ce", "df", "ef"]), "a", "f");
+  it.each([false, true])("最近落点平手由目标玩家选择，然后跳过（出手位满员=%s）", (full) => {
+    const areas = graph(["ab", "ac", "bd", "ce", "df", "ef"]).map((area) =>
+      full && ["d", "e"].includes(area.id) ? { ...area, capacity: 1 } : area,
+    );
+    const initial = ready(
+      soldier,
+      areas,
+      "a",
+      "f",
+      full
+        ? {
+            h1: { areaId: "d" },
+            h2: { areaId: "e" },
+          }
+        : {},
+    );
     const waiting = applyCommand(initial, move);
     expect(waiting.pendingChoice!.options.map((option) => option.id)).toEqual(["b", "c"]);
+    expect(waiting.pendingChoice!.actorId).toBe("h0");
+    expect(waiting.state.battle!.rngCursor).toBe(initial.battle!.rngCursor);
+    expect(waiting.state.battle!.monsterAction).toEqual(initial.battle!.monsterAction);
+    expect(applyCommand(waiting.state, prepare).state).toBe(waiting.state);
     const result = applyCommand(waiting.state, {
       type: "resolveChoice",
       choiceId: waiting.pendingChoice!.id,
@@ -354,16 +372,6 @@ describe("普通怪单目标 Speed 定位（R18、R24–25；R-021/023/024/048/0
         ),
       ),
       ready(soldier, graph(), "a", "c", { m: { stanceSlots: 2 } }),
-      ready(
-        soldier,
-        graph().map((area) => (["b", "d"].includes(area.id) ? { ...area, capacity: 1 } : area)),
-        "a",
-        "c",
-        {
-          h1: { areaId: "b" },
-          h2: { areaId: "d" },
-        },
-      ),
       ...[-1, NaN, 1.5].map((speed) => ready({ ...soldier, speed })),
     ]) {
       const result = applyCommand(initial, move);
@@ -372,17 +380,117 @@ describe("普通怪单目标 Speed 定位（R18、R24–25；R-021/023/024/048/0
     }
   });
 
-  it("黑墙断图不补路径；既有准备命令对不可达英雄拒绝并保持 RNG", () => {
-    const initial = start(soldier, roomTileBattleAreas(tile), "E", "F", {
-      h1: { areaId: "D" },
-      h2: { areaId: "H" },
-      h3: { areaId: "I" },
+  it.each([false, true])(
+    "R-023 补充：E-F 黑墙隔开的目标原地跳过，不改图或 RNG（Guard=%s）",
+    (guard) => {
+      const initial = start(soldier, roomTileBattleAreas(tile), "E", "F", {
+        h0: { guard, wounds: guard ? 1 : 5 },
+        h1: { areaId: "D", wounds: guard ? 5 : 1 },
+        h2: { areaId: "H" },
+        h3: { areaId: "I" },
+      });
+      const before = structuredClone(initial);
+      const chosen = applyCommand(initial, prepare);
+      expect(chosen.state.battle!.monsterAction?.targetId).toBe("h0");
+      const result = applyCommand(chosen.state, move);
+      expect(result.events[0]).toMatchObject({
+        type: "monsterPositioned",
+        from: "E",
+        to: "E",
+        steps: 0,
+        skipped: true,
+      });
+      expect(result.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+      expect(
+        result.events.some(
+          (event) => event.type === "commandRefused" || event.type === "monsterSkillResolved",
+        ),
+      ).toBe(false);
+      expect(result.state.battle!.monsterAction).toBeNull();
+      expect(result.state.battle!.rngCursor).toBe(initial.battle!.rngCursor);
+      expect(result.state.battle!.areas).toEqual(initial.battle!.areas);
+      expect(applyCommand(result.state, move).state).toBe(result.state);
+      expect(result.state.battle!.encounter!.turn).toEqual({ type: "awaitingInitiative" });
+      expect(result.state.battle!.encounter!.actedIds).toContain("m");
+      expect(initial).toEqual(before);
+    },
+  );
+
+  it("R-023 补充：全部出手位满员仍靠近几何出手位，唯一落点或原地停留后跳过", () => {
+    const areas = graph().map((area) =>
+      ["c", "e"].includes(area.id) ? { ...area, capacity: 1 } : area,
+    );
+    const initial = ready(soldier, areas, "a", "d", {
+      h1: { areaId: "c" },
+      h2: { areaId: "e" },
+      h3: { areaId: "d" },
     });
-    const result = applyCommand(initial, prepare);
-    expect(result.state).toBe(initial);
-    expect(result.events[0]).toMatchObject({
-      type: "commandRefused",
-      message: "英雄区域距离不可达，拒绝猜测目标排序",
+    const moved = applyCommand(initial, move);
+    expect(moved.events[0]).toMatchObject({ from: "a", to: "b", steps: 1, skipped: true });
+    expect(moved.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+    const trapped = ready(
+      soldier,
+      graph().map((area) => (["b", "d"].includes(area.id) ? { ...area, capacity: 1 } : area)),
+      "a",
+      "c",
+      {
+        h1: { areaId: "b" },
+        h2: { areaId: "d" },
+      },
+    );
+    expect(applyCommand(trapped, move).events[0]).toMatchObject({
+      to: "a",
+      steps: 0,
+      skipped: true,
     });
   });
+
+  it.each(["Closest", "Furthest"])(
+    "R-023 补充：%s 忽略不连通英雄，有限距离同距按姿态",
+    (target) => {
+      const card = { ...soldier, skills: soldier.skills.map((skill) => ({ ...skill, target })) };
+      const initial = start(card, roomTileBattleAreas(tile), "E", "F", {
+        h0: { guard: false },
+        h1: { areaId: "A" },
+        h2: { areaId: "D" },
+        h3: { areaId: "C" },
+      });
+      const chosen = applyCommand(initial, prepare);
+      expect(chosen.state.battle!.monsterAction?.targetId).toBe("h1");
+      expect(applyCommand(chosen.state, move).events[0]).toMatchObject({
+        to: "E",
+        skipped: false,
+        steps: 0,
+      });
+    },
+  );
+
+  it.each(["Closest", "Furthest"])(
+    "R-023 补充：%s 无有限候选时原地结束回合，选招骰只消费一次且可回放",
+    (target) => {
+      const card = {
+        ...soldier,
+        stanceGroups: [{ stances, rollTable: [{ min: 1, max: 10, skill: 1 }] }],
+        skills: soldier.skills.map((skill) => ({ ...skill, target })),
+      };
+      const initial = start(card, roomTileBattleAreas(tile), "F", "A", {
+        h0: { guard: false },
+        h1: { areaId: "D" },
+        h2: { areaId: "H" },
+        h3: { areaId: "I" },
+      });
+      const result = applyCommand(initial, prepare);
+      expect(result.events[0]).toMatchObject({
+        type: "monsterActionSkipped",
+        actorId: "m",
+        skillSlot: 1,
+      });
+      expect(position(result.state)).toBe("F");
+      expect(result.state.battle!.rngCursor).toBe(initial.battle!.rngCursor + 1);
+      expect(result.state.battle!.monsterAction).toBeNull();
+      expect(result.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+      expect(applyCommand(result.state, prepare).state).toBe(result.state);
+      expect(applyCommand(initial, prepare)).toEqual(result);
+    },
+  );
 });
