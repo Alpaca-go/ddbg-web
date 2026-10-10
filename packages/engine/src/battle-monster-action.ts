@@ -65,6 +65,7 @@ export function prepareMonsterAction(
     const areaDistance = distance(battle.areas, actor.areaId, hero.areaId);
     heroes.push({
       id: hero.id,
+      areaId: hero.areaId,
       stance: hero.stance!,
       areaDistance,
       wounds: hero.wounds,
@@ -92,7 +93,6 @@ export function prepareMonsterAction(
     if (
       readPrintedRange(attack.view).kind !== "exact" ||
       targets.kind !== "exact" ||
-      targets.max !== 1 ||
       !attack.view.stats_line?.some(
         (segment) =>
           segment.type === "icon" &&
@@ -102,7 +102,7 @@ export function prepareMonsterAction(
     )
       return rejectBattleCommand(
         state,
-        "无有限距离目标的跳过只接已命名整数射程与单目标攻击（R-048）",
+        "无有限距离目标的跳过只接已命名整数射程与目标数量（R-048）",
       );
     const finished = applyEncounterCommand(
       {

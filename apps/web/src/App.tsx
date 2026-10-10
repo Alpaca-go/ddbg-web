@@ -489,7 +489,8 @@ export function App() {
             <li key={i}>
               <span>{i + 1}.</span> {event.message}
               {"roll" in event && event.roll !== null ? ` · d10=${event.roll}` : ""}
-              {event.type === "heroSkillTargetsResolved" && (
+              {(event.type === "heroSkillTargetsResolved" ||
+                event.type === "monsterSkillTargetsResolved") && (
                 <div className="target-results">
                   {event.resolutions.map((result) => (
                     <p key={result.targetId}>

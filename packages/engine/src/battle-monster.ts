@@ -1,11 +1,14 @@
 import { distance, rejectBattleCommand, writeResolution, skillTargetView } from "./battle";
 import { applySkillHealth } from "./battle-health";
+import { playMonsterSkillTargets } from "./battle-monster-targets";
+import { readPrintedTargets } from "./hero-skill";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent, PendingChoice } from "./command";
 import { nextBattleRoll, newlyDefeatedIds, recordMonsterSkill } from "./encounter";
 import {
   needsMonsterSkillShuffleChoice,
   resolveMonsterSkill,
   resolveMonsterSkillEffects,
+  readMonsterAttackView,
 } from "./monster-skill";
 import type { MonsterCombatState } from "./monster-skill";
 import type { ShuffleIntent } from "./shuffle";
@@ -49,6 +52,11 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
     return rejectBattleCommand(state, "怪物、英雄目标或已关联怪物卡不可用");
   if (actor.life !== card.life)
     return rejectBattleCommand(state, "怪物 Life 与规范化卡不一致（R-048）");
+  const attack = readMonsterAttackView(card, command.skillSlot);
+  if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
+  const count = readPrintedTargets(attack.view);
+  if (count.kind === "exact" && count.max > 1)
+    return playMonsterSkillTargets(state, command, actor, target, card, count.max);
   const areaDistance = distance(battle.areas, actor.areaId, target.areaId);
   if (areaDistance === null) return rejectBattleCommand(state, "英雄目标区域不可达");
   const heights = { low: 0, normal: 1, high: 2 };

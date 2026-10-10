@@ -60,6 +60,14 @@ export type MonsterSkillResolvedEvent = {
   readonly resolution: HeroSkillResolution;
 };
 
+export type MonsterSkillTargetsResolvedEvent = Omit<
+  MonsterSkillResolvedEvent,
+  "type" | "resolution"
+> & {
+  readonly type: "monsterSkillTargetsResolved";
+  readonly resolutions: readonly HeroSkillResolution[];
+};
+
 export type Command =
   | EncounterCommand
   | PlayHeroSkillCommand
@@ -91,6 +99,7 @@ export type GameEvent =
   | HeroSkillResolvedEvent
   | HeroSkillTargetsResolvedEvent
   | MonsterSkillResolvedEvent
+  | MonsterSkillTargetsResolvedEvent
   | MonsterActionPreparedEvent
   | MonsterPositionedEvent
   | HeroMovedEvent
