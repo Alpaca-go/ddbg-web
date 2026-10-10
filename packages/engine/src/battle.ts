@@ -98,6 +98,8 @@ export type BattleSetup = {
   /** 下一房间可显式传回同地牢的有限池；回村另行重建。 */
   readonly lootPool?: LootState;
   readonly startingProvisions?: true;
+  /** 显式保留先攻确定后、回合开始效果前的免费补给窗口。 */
+  readonly provisionWindows?: true;
   readonly provisions?: readonly {
     readonly id: string;
     readonly face: "food" | "bandage" | "potion" | "torch" | "tool";
@@ -114,6 +116,11 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | {
+        readonly type: "turnStartProvision";
+        readonly actorId: string;
+        readonly choice: PendingChoice;
+      }
     | {
         readonly type: "startingProvision";
         readonly choice: PendingChoice;

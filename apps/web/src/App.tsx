@@ -1,11 +1,25 @@
 import { useState } from "react";
-import { heroSkillUsesSelfTarget, readPrintedTargets } from "@ddbg/engine";
-import type { Command, SkillSegment, SkillStance } from "@ddbg/engine";
+import { heroSkillUsesSelfTarget, readPrintedTargets, PROVISION_EFFECTS } from "@ddbg/engine";
+import type { Command, SkillSegment, SkillStance, ProvisionEffect } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
 import { useBattleStore } from "./battle-store";
 import type { SandboxLayout } from "./battle-store";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
+const provisionLabels = {
+  food: "食物",
+  bandage: "绷带",
+  potion: "药水",
+  torch: "火把",
+  tool: "工具（仅探索）",
+};
+const provisionEffectLabels = {
+  heal: "治疗 1",
+  clearBleed: "移除所有流血",
+  clearBlight: "移除所有腐蚀",
+  reduceStress: "压力 −1",
+  raiseLight: "光照 +1",
+};
 const stanceLabels = { aggressive: "进攻", defensive: "防御", ranged: "远程", support: "支援" };
 const outcomeLabels = { crit: "暴击", hit: "命中", miss: "落空" };
 const statusLabels = {
@@ -46,6 +60,9 @@ export function App() {
   const [targetAreaId, setTargetAreaId] = useState("");
   const [selection, setSelection] = useState({ context: "", ids: [] as string[] });
   const [path, setPath] = useState<string[]>([]);
+  const [provisionId, setProvisionId] = useState("");
+  const [provisionTargetId, setProvisionTargetId] = useState("hero-0");
+  const [provisionEffect, setProvisionEffect] = useState<ProvisionEffect>("heal");
   const battle = game.battle!;
   const turn = battle.encounter?.turn;
   const actor =
@@ -104,6 +121,22 @@ export function App() {
   const endpoint = path.at(-1) ?? actor?.areaId;
   const adjacent = battle.areas.find((a) => a.id === endpoint)?.adjacent ?? [];
   const stat = battleData.heroStats.find((s) => s.id === actor?.heroStatId);
+  const provision =
+    battle.provisions?.find((item) => item.id === provisionId) ??
+    battle.provisions?.find((item) => item.face !== "tool") ??
+    battle.provisions?.[0];
+  const provisionEffects: readonly ProvisionEffect[] = provision
+    ? PROVISION_EFFECTS[provision.face]
+    : [];
+  const effect = provisionEffects.includes(provisionEffect) ? provisionEffect : provisionEffects[0];
+  const provisionWindow = battle.pending?.type === "turnStartProvision";
+  const canUseProvision =
+    !!turn &&
+    (provisionWindow ||
+      (!frozen &&
+        (turn.type === "awaitingInitiative" ||
+          turn.type === "hero" ||
+          (turn.type === "monster" && !!action?.positioned))));
 
   return (
     <main className="shell">
@@ -293,6 +326,68 @@ export function App() {
         </section>
         <aside className="panel actions" aria-label="行动面板">
           <h2>行动面板</h2>
+          <fieldset disabled={!canUseProvision}>
+            <legend>免费补给 · {battle.provisions?.length ?? 0}/16</legend>
+            <label>
+              补给
+              <select
+                aria-label="补给"
+                value={provision?.id ?? ""}
+                onChange={(event) => setProvisionId(event.target.value)}
+              >
+                {battle.provisions?.map((item, index) => (
+                  <option key={item.id} value={item.id}>
+                    {provisionLabels[item.face]} #{index + 1}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              接收英雄
+              <select
+                aria-label="补给接收英雄"
+                value={provisionTargetId}
+                onChange={(event) => setProvisionTargetId(event.target.value)}
+              >
+                {battle.entities
+                  .filter((entity) => entity.side === "hero" && !entity.dead)
+                  .map((entity) => (
+                    <option key={entity.id} value={entity.id}>
+                      {entityName(entity.id)}
+                    </option>
+                  ))}
+              </select>
+            </label>
+            <label>
+              效果
+              <select
+                aria-label="补给效果"
+                value={effect ?? ""}
+                onChange={(event) => setProvisionEffect(event.target.value as ProvisionEffect)}
+              >
+                {provisionEffects.map((effect) => (
+                  <option key={effect} value={effect}>
+                    {provisionEffectLabels[effect]}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button
+              disabled={!provision || !effect}
+              onClick={() =>
+                provision &&
+                effect &&
+                send({
+                  type: "useProvision",
+                  provisionId: provision.id,
+                  targetId: provisionTargetId,
+                  effect,
+                })
+              }
+            >
+              免费使用补给
+            </button>
+          </fieldset>
           {!turn && (
             <button disabled={frozen} onClick={() => send({ type: "startBattle" })}>
               开始战斗

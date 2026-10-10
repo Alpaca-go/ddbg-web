@@ -42,6 +42,19 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   }
   await expect(page.getByTestId("area-C")).toContainText("宝箱");
   await expect(page.getByTestId("area-H")).toContainText("宝箱");
+  const provisionOptions = page.getByLabel("补给", { exact: true }).getByRole("option");
+  const usableProvision = provisionOptions.filter({ hasText: /食物|绷带|药水|火把/ }).first();
+  await page
+    .getByLabel("补给", { exact: true })
+    .selectOption((await usableProvision.getAttribute("value"))!);
+  await page.getByRole("button", { name: "免费使用补给", exact: true }).click();
+  await expect(page.getByRole("group", { name: "免费补给 · 7/16", exact: true })).toBeVisible();
+  await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 24");
+  await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+  await expect(page.getByRole("group", { name: /待选决策/ })).toContainText("回合开始前");
+  await expect(page.getByRole("button", { name: "免费使用补给", exact: true })).toBeEnabled();
+  await page.getByRole("button", { name: "结算回合开始效果", exact: true }).click();
+  await expect(page.getByRole("group", { name: /待选决策/ })).toHaveCount(0);
   await page.getByLabel("测试布置", { exact: true }).selectOption("heal");
   await page.getByLabel("种子", { exact: true }).fill("5");
   async function heal() {
