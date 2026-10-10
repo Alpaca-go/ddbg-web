@@ -332,7 +332,7 @@ describe("普通怪单目标 Speed 定位（R18、R24–25；R-021/023/024/048/0
     ).toHaveLength(1);
   });
 
-  it("缺 Speed / 容量、区间射程、未核实卡、大型怪、多目标均原样拒绝，不消耗 RNG", () => {
+  it("缺 Speed / 容量、区间射程、未核实卡、大型怪均拒绝；多目标允许定位且不消耗 RNG", () => {
     const noSpeed = { ...soldier };
     delete noSpeed.speed;
     const multi: MonsterCardView = {
@@ -361,7 +361,6 @@ describe("普通怪单目标 Speed 定位（R18、R24–25；R-021/023/024/048/0
       start(),
       ready(noSpeed),
       ready(ranged(null)),
-      ready(multi),
       unverified,
       ready(
         soldier,
@@ -378,6 +377,10 @@ describe("普通怪单目标 Speed 定位（R18、R24–25；R-021/023/024/048/0
       expect(result.events[0]?.type).toBe("commandRefused");
       expect(result.state).toBe(initial);
     }
+    // 目标数量已核实的多目标攻击现在可复用同一套 Speed 定位，不掷攻击骰。
+    const multiPositioned = applyCommand(ready(multi), move);
+    expect(multiPositioned.events[0]?.type).toBe("monsterPositioned");
+    expect(multiPositioned.state.battle!.rngCursor).toBe(ready(multi).battle!.rngCursor);
   });
 
   it.each([false, true])(

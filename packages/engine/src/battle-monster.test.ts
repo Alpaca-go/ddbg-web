@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState } from "./index";
+import { nextBattleRoll } from "./encounter";
 import type {
   BattleEntity,
   GameState,
@@ -123,6 +124,123 @@ function directionCard(): MonsterCardView {
 }
 
 describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）", () => {
+  const spearman = cards.find((card) => card.id === "monster_medium:p013")!;
+  it("多目标暴击逐英雄进入死门，后续受伤各掷自己的死门骰", () => {
+    const stats = (
+      JSON.parse(
+        readFileSync(
+          new URL("../../data/normalized/corebox/hero_stat.json", import.meta.url),
+          "utf8",
+        ),
+      ) as {
+        cards: {
+          id: string;
+          name: string;
+          life: number;
+          attributesVerified: boolean;
+          level: number;
+        }[];
+      }
+    ).cards.filter((s) => s.attributesVerified && s.level === 1);
+    const initial = setup(spearman);
+    let seed = 0;
+    while (nextBattleRoll(seed, 0) !== 1 || nextBattleRoll(seed, 1) > 8) seed += 1;
+    const state = createBattleState(seed, {
+      ...initial.battle!,
+      heroStats: stats,
+      entities: initial.battle!.entities.map((e, index) =>
+        e.side === "monster"
+          ? e
+          : {
+              ...e,
+              hero: stats[index]!.name,
+              heroStatId: stats[index]!.id,
+              life: stats[index]!.life,
+              areaId: "a",
+              wounds: stats[index]!.life - 1,
+            },
+      ),
+    });
+    const hit = applyCommand(state, play(2));
+    expect(hit.state.battle!.rngCursor).toBe(1);
+    expect(hit.events.filter((e) => e.type === "heroHealthResolved")).toHaveLength(4);
+    for (const e of hit.state.battle!.entities.filter((e) => e.side === "hero")) {
+      expect(e.wounds).toBe(e.life);
+      expect(e.dead).toBe(false);
+      expect(e.stress).toBe(entity(state, e.id).stress! + 1);
+    }
+    const repeated = applyCommand(hit.state, play(2));
+    expect(repeated.state.battle!.rngCursor).toBe(6);
+    expect(repeated.events.filter((e) => e.type === "heroHealthResolved")).toHaveLength(4);
+    expect(applyCommand(hit.state, play(2))).toEqual(repeated);
+  });
+  it("Bone Spearman Impale：同区四英雄按姿态结算，共用一次技能骰并可确定性回放", () => {
+    let initial = setup(spearman);
+    for (const id of ["h2", "h3"]) initial = patch(initial, id, { areaId: "a" });
+    initial = patch(initial, "h1", { dodge: 10 });
+    const command = { ...play(2), targetId: "h3" };
+    const before = structuredClone(initial);
+    const result = applyCommand(initial, command);
+    const event = result.events.find((e) => e.type === "monsterSkillTargetsResolved")!;
+    expect(event.resolutions.map((r) => r.targetId)).toEqual(["h0", "h1", "h2", "h3"]);
+    expect(event.resolutions[1]!.outcome).toBe("miss");
+    expect(result.state.battle!.rngCursor).toBe(1);
+    expect(entity(result.state, "h1").wounds).toBe(1);
+    expect(initial).toEqual(before);
+    expect(applyCommand(before, command)).toEqual(result);
+  });
+
+  it("Crowded 按人数选区，人数平手按姿态；存活 Guard 优先选区", () => {
+    const initial = monsterTurn(setup(spearman));
+    // 夹具固定 Impale 选招，保留真实卡牌的攻击数值 / 目标图标。
+    const card = { ...spearman, stanceGroups: [{ stances, skill: 2 }] };
+    const state = { ...initial, battle: { ...initial.battle!, monsters: [card] } };
+    expect(
+      applyCommand(state, { type: "prepareMonsterAction", actorId: "monster" }).state.battle!
+        .monsterAction?.targetId,
+    ).toBe("h0");
+    const guarded = patch(state, "h3", { guard: true });
+    expect(
+      applyCommand(guarded, { type: "prepareMonsterAction", actorId: "monster" }).state.battle!
+        .monsterAction?.targetId,
+    ).toBe("h3");
+    const crowded = patch(state, "h1", { areaId: "e" });
+    expect(
+      applyCommand(crowded, { type: "prepareMonsterAction", actorId: "monster" }).state.battle!
+        .monsterAction?.targetId,
+    ).toBe("h1");
+  });
+
+  it("多目标先定位再攻击，整次只结束一次怪物回合", () => {
+    const card = { ...spearman, stanceGroups: [{ stances, skill: 2 }] };
+    const initial = monsterTurn(setup(card));
+    const chosen = applyCommand(initial, { type: "prepareMonsterAction", actorId: "monster" });
+    const positioned = applyCommand(chosen.state, {
+      type: "moveMonsterToRange",
+      actorId: "monster",
+    });
+    expect(positioned.events[0]?.type).toBe("monsterPositioned");
+    const result = applyCommand(positioned.state, play(2));
+    expect(result.events.filter((e) => e.type === "monsterSkillTargetsResolved")).toHaveLength(1);
+    expect(result.events.filter((e) => e.type === "turnEnded")).toHaveLength(1);
+    expect(result.state.battle!.rngCursor).toBe(positioned.state.battle!.rngCursor + 1);
+    expect(result.state.battle!.monsterAction).toBeNull();
+  });
+
+  it("多目标缺值 / 反击 / 未支持效果在掷骰前原子拒绝", () => {
+    for (const state of [
+      patch(setup(spearman), "h1", { riposte: true }),
+      setup({ ...spearman, verification: { unverified: true } }),
+      setup(cards.find((c) => c.id === "monster_medium:p027")!),
+    ]) {
+      const result = applyCommand(
+        state,
+        play(state.battle!.monsters![0]!.id === "monster_medium:p027" ? 1 : 2),
+      );
+      expect(result.state).toBe(state);
+      expect(result.events[0]?.type).toBe("commandRefused");
+    }
+  });
   it("真实 Bone Soldier 命中伤口写回，共享 RNG，回放一致且不改入参", () => {
     const initial = setup();
     const copy = structuredClone(initial);
@@ -496,7 +614,7 @@ describe("怪物选招与目标命令接线（R-015、R-024）", () => {
     const card = eligible(soldier, true);
     const unsupported = {
       ...card,
-      skills: card.skills.map((skill) => ({ ...skill, target: "Crowded" })),
+      skills: card.skills.map((skill) => ({ ...skill, target: "Unknown priority" })),
     };
     for (const initial of [
       setup(card),

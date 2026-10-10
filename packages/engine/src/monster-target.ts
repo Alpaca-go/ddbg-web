@@ -3,6 +3,7 @@ import type { SkillStance } from "./hero-skill";
 /** 距离由区域图计算；null 明确表示不连通，不是缺值或跨墙距离。 */
 export type MonsterTargetHero = {
   readonly id: string;
+  readonly areaId?: string;
   readonly stance: SkillStance;
   readonly areaDistance: number | null;
   readonly wounds: number;
@@ -26,12 +27,13 @@ export type MonsterTargetSelection =
   | { readonly status: "refused"; readonly reason: string };
 
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
-const priorities = ["Closest", "Furthest", "Most Wounded", "Most Stressed"];
+const priorities = ["Closest", "Furthest", "Most Wounded", "Most Stressed", "Crowded"];
 
 /**
  * 说明书 §6.10（R24）、R-024、R-048。读取规范化 target 文字，确定单目标
  * 攻击的首选英雄；平手按姿态顺序，Guard 优先，够不到也不改选其他英雄。
- * 不掷骰、不移动、不执行攻击；Crowded / 支援 / 专属优先级尚未接入。
+ * Crowded 按同区存活英雄数，平手按姿态；不掷骰、不移动、不执行攻击。
+ * 支援 / 专属优先级尚未接入。
  */
 export function selectMonsterTarget(
   monster: MonsterTargetCardView,
@@ -54,6 +56,8 @@ export function selectMonsterTarget(
     return refused("必须提供已核实的英雄死亡标记");
   const living = heroes.filter((hero) => !hero.dead);
   if (!living.length) return refused("没有存活英雄目标");
+  if (priority === "Crowded" && living.some((hero) => !hero.areaId))
+    return refused("Crowded 需要已核实的英雄区域（R-048）");
   if (
     new Set(living.map((hero) => hero.id)).size !== living.length ||
     new Set(living.map((hero) => hero.stance)).size !== living.length ||
@@ -97,6 +101,8 @@ export function selectMonsterTarget(
           return hero.areaDistance!;
         case "Most Wounded":
           return hero.wounds;
+        case "Crowded":
+          return living.filter((other) => other.areaId === hero.areaId).length;
         default:
           return hero.stress;
       }

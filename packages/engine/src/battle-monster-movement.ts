@@ -45,7 +45,7 @@ export function roomTileBattleAreas(tile: {
 }
 type BattleAreaWithoutEdges = Omit<BattleArea, "adjacent">;
 
-/** R18、R24–25；R-021/022/023/024。普通怪单目标：先定位，再攻击或跳过。 */
+/** R18、R24–25；R-021/022/023/024。普通怪按目标区域定位，再攻击或跳过。 */
 export function moveMonsterToRange(
   state: GameState,
   command: MoveMonsterToRangeCommand,
@@ -82,11 +82,8 @@ export function moveMonsterToRange(
   if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
   const range = readPrintedRange(attack.view);
   const targets = readPrintedTargets(attack.view);
-  if (range.kind !== "exact" || targets.kind !== "exact" || targets.max !== 1)
-    return rejectBattleCommand(
-      state,
-      "需要已命名整数射程与单目标技能；区间 / 多目标不接入（R-048）",
-    );
+  if (range.kind !== "exact" || targets.kind !== "exact")
+    return rejectBattleCommand(state, "需要已命名整数射程与目标数量；区间射程不接入（R-048）");
   // 复用纯技能校验，不掷骰或写伤害；预设印刷距离只用来排除未知数值 / 不支持效果。
   const probe = resolveMonsterSkill(
     card,

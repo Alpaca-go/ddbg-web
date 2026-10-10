@@ -35,7 +35,12 @@ export type MonsterCardView = {
 /** 调用方已选定一个英雄目标；英雄 Life / 死门尚未接入。 */
 export type MonsterCombatState = Pick<
   SkillCombatState,
-  "target" | "untargetedHeroesBesideTarget" | "shuffleChoice" | "targetAreaLower" | "light"
+  | "target"
+  | "untargetedHeroesBesideTarget"
+  | "shuffleChoice"
+  | "targetAreaLower"
+  | "light"
+  | "targetsInArea"
 > & {
   readonly actor: Omit<SkillActorState, "stress" | "form" | "stance"> &
     Pick<SkillTargetState, "shuffleResist">;
@@ -194,7 +199,7 @@ function resolveMonsterSkillInternal(
       actor: combat.actor,
       target: combat.target,
       areaDistance: combat.areaDistance,
-      targetsInArea: 1,
+      targetsInArea: combat.targetsInArea ?? 1,
       ...(combat.light === undefined ? {} : { light: combat.light }),
       ...(combat.targetAreaLower === undefined ? {} : { targetAreaLower: combat.targetAreaLower }),
       ...(combat.guardedHeroOmitted === undefined
