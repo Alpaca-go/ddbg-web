@@ -56,6 +56,8 @@ export type { NormalizedCorebox, NormalizedCoreboxInput } from "./normalize/buil
 export { loadNormalizedCorebox, writeNormalizedCorebox } from "./normalize/write";
 export { roomTileGeometrySchema, roomTileGeometryFileSchema } from "./normalize/room-tile";
 export type { RoomTileGeometryFile } from "./normalize/room-tile";
+export { normalizedHeroStatCardSchema, normalizedHeroStatFileSchema } from "./normalize/hero-stat";
+export type { NormalizedHeroStatCard, NormalizedHeroStatFile } from "./normalize/hero-stat";
 export {
   NAMINGS,
   namingSchema,
