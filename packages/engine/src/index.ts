@@ -67,6 +67,8 @@ export type {
 } from "./hero-skill";
 export { createRng, rollD10 } from "./rng";
 export type { Rng } from "./rng";
+export { resolvePressure } from "./pressure";
+export type { ResolveCard } from "./pressure";
 export { addStatusStack, tickStatusStacks, statusProjection } from "./status";
 export type { StatusKind, StatusStack, StatusEffect } from "./status";
 export { resolveHeroHealth, resolveSeededHeroHealth } from "./hero-health";

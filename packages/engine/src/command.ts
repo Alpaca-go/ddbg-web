@@ -88,6 +88,14 @@ export type Command =
     };
 
 export type GameEvent =
+  | { readonly type: "heartAttack"; readonly entityId: string; readonly message: string }
+  | {
+      readonly type: "resolveTested";
+      readonly entityId: string;
+      readonly roll: number;
+      readonly cardId: string;
+      readonly message: string;
+    }
   | {
       readonly type: "statusTurnStarted";
       readonly message: string;
@@ -152,7 +160,7 @@ export function createInitialState(seed: number): GameState {
  * Phase 2 单目标战斗沙盒；规则书第 19–21 页、R-024、R-031、R-048。
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
-export function applyCommand(state: GameState, command: Command): ApplyResult {
+function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "resolveChoice") {
     const pending = state.battle?.pending;
     if (
@@ -203,4 +211,11 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
     state: { ...state, notes: [...state.notes, command.message] },
     events: [{ type: "pong", message: command.message }],
   };
+}
+
+/** 任一后续规则拒绝时，整次命令回滚骰子、行动和事件。 */
+export function applyCommand(state: GameState, command: Command): ApplyResult {
+  const result = dispatchCommand(state, command);
+  const refused = result.events.find((event) => event.type === "commandRefused");
+  return refused ? rejectBattleCommand(state, refused.message) : result;
 }

@@ -34,6 +34,7 @@ import { applySkillHealth } from "./battle-health";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { statusProjection, statusStackProblem } from "./status";
 import type { StatusStack } from "./status";
+import type { ResolveCard } from "./pressure";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
 export type BattleEntity = SkillTargetState &
@@ -53,6 +54,8 @@ export type BattleEntity = SkillTargetState &
     /** 真正的状态堆，和无 duration 的旧沙盒标识区别；缺失不补持续时间。 */
     readonly statusStacks?: readonly StatusStack[];
     readonly innateProtection?: boolean;
+    readonly resolveTested?: boolean;
+    readonly resolveCardId?: string | null;
   };
 
 export type BattleArea = {
@@ -86,11 +89,13 @@ export type BattleSetup = {
   readonly skills: readonly HeroSkillCardView[];
   readonly monsters?: readonly MonsterCardView[];
   readonly light: number;
+  readonly resolveCards?: readonly ResolveCard[];
 };
 
 export type BattleState = BattleSetup & {
   readonly encounter?: EncounterState;
   readonly rngCursor: number;
+  readonly resolveDecks?: Readonly<Partial<Record<"virtue" | "affliction", readonly string[]>>>;
   readonly choiceCursor: number;
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
