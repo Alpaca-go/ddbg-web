@@ -141,6 +141,13 @@ const skillStatFields = {
   printed_labels: z.array(printedLabelSchema),
   unlabeled_numbers: z.array(normalizedUnlabeledNumberSchema),
   effect_lines: lineListSchema,
+  verified_target_stress: z
+    .strictObject({
+      lineIndex: z.int().nonnegative(),
+      amount: z.int().positive(),
+      source: z.literal("print_front"),
+    })
+    .optional(),
 };
 
 /** 逐卡对照完整页面后附加的 Nt；缺失不表示任何默认持续时间。 */

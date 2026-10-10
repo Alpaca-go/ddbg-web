@@ -251,6 +251,11 @@ export type HeroSkillCardView = {
     readonly source: "print_front";
   };
   readonly effect_lines: readonly (readonly SkillSegment[])[];
+  readonly verified_target_stress?: {
+    readonly lineIndex: number;
+    readonly amount: number;
+    readonly source: "print_front";
+  };
   readonly verified_damage_bonus?: {
     readonly lineIndex: number;
     readonly amount: number;
@@ -2061,6 +2066,27 @@ function resolveSkill(
 
   const target = combat.target;
   const stress = readImmediateStress(active);
+  const extraStress = active.verified_target_stress;
+  if (extraStress) {
+    const line = active.effect_lines[extraStress.lineIndex];
+    const text = line
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, "");
+    if (
+      !Number.isSafeInteger(extraStress.lineIndex) ||
+      extraStress.lineIndex < 0 ||
+      !Number.isSafeInteger(extraStress.amount) ||
+      extraStress.amount <= 0 ||
+      extraStress.source !== "print_front" ||
+      text !== `{target_effects}{stress}+${extraStress.amount}` ||
+      line?.some(
+        (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+      )
+    )
+      return refuse(skill, combat, "目标压力注解与已确认卡面不符（R-048）");
+    if (target.stress === undefined) return refuse(skill, combat, "目标压力效果缺少压力轨");
+  }
   const bonus = active.verified_damage_bonus;
   if (bonus) {
     const line = active.effect_lines[bonus.lineIndex];
@@ -2361,6 +2387,9 @@ function resolveSkill(
   if (outcome !== "miss" && stress.target !== 0 && targetStress !== null) {
     targetStress = clampStress(targetStress + stress.target);
   }
+  if (outcome !== "miss" && extraStress && targetStress !== null) {
+    targetStress = clampStress(targetStress + pressureDelta(extraStress.amount));
+  }
   const conditionsCleared = outcome !== "miss" && removal.targetLines > 0;
 
   const targetDead =
@@ -2429,7 +2458,8 @@ function resolveSkill(
         ignoresProtection.targetLines +
         formChange.lineCount +
         statuses.lineCount +
-        (bonus ? 1 : 0),
+        (bonus ? 1 : 0) +
+        (extraStress ? 1 : 0),
     ),
     ...(statuses.lineCount
       ? {

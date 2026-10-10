@@ -21,6 +21,7 @@ const cards = (
 ).cards;
 const soldier = cards.find((card) => card.id === "monster_medium:p001")!;
 const defender = cards.find((card) => card.id === "monster_medium:p010")!;
+const courtier = cards.find((card) => card.id === "monster_medium:p004")!;
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 function setup(card = soldier, extras: readonly BattleEntity[] = []): GameState {
   const heroes: BattleEntity[] = stances.map((stance, index) => ({
@@ -625,6 +626,52 @@ function eligible(card = soldier, roll = false): MonsterCardView {
 const prepare = { type: "prepareMonsterAction", actorId: "monster" } as const;
 
 describe("怪物选招与目标命令接线（R-015、R-024）", () => {
+  it("真实 Courtier 压力 +1 达到 10，公共命令只触发一次意志检定并结束回合", () => {
+    let seed = 0;
+    while (nextBattleRoll(seed, 0) !== 4) seed++;
+    const placed = patch(
+      patch(setup(courtier), "monster", { stance: "ranged", areaId: "c" }),
+      "h0",
+      { stress: 9 },
+    );
+    const initial: GameState = {
+      ...placed,
+      seed,
+      battle: {
+        ...placed.battle!,
+        resolveCards: JSON.parse(
+          readFileSync(
+            new URL("../../data/normalized/corebox/virtue_affliction.json", import.meta.url),
+            "utf8",
+          ),
+        ).cards,
+        encounter: {
+          round: 1,
+          deck: ["hero"],
+          actedIds: [],
+          turn: { type: "monster", actorId: "monster" },
+        },
+      },
+    };
+    const chosen = applyCommand(initial, prepare);
+    expect(chosen.state.battle!.monsterAction).toMatchObject({
+      skillSlot: 1,
+      targetId: "h0",
+      selectionRoll: null,
+    });
+    const positioned = applyCommand(chosen.state, {
+      type: "moveMonsterToRange",
+      actorId: "monster",
+    });
+    const done = applyCommand(positioned.state, play());
+    expect(done).toEqual(applyCommand(positioned.state, play()));
+    expect(entity(done.state, "h0")).toMatchObject({ wounds: 4, stress: 0, resolveTested: true });
+    expect(entity(done.state, "h0").resolveCardId).toBeTruthy();
+    expect(done.state.battle!.rngCursor).toBe(6);
+    expect(done.events.filter((event) => event.type === "resolveTested")).toHaveLength(1);
+    expect(done.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+    expect(done.state.battle!.encounter!.actedIds).toEqual(["monster"]);
+  });
   it("固定技能不掷选招骰，按真实 Most Wounded 选目标，不消耗回合", () => {
     const initial = patch(monsterTurn(setup(eligible())), "h1", { wounds: 4 });
     const before = structuredClone(initial);
