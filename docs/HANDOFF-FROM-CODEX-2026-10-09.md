@@ -341,7 +341,7 @@ Kyries 已合并 #54，并明确批准 Q-22 三条边角裁定，要求只做这
 
 ## 英雄生命 / 死门纯结算块（2026-10-10）
 
-Kyries 要求继续下一步。开工时工作区干净，GitHub 核对 [PR #56](https://github.com/Alpaca-go/ddbg-web/pull/56) 仍开放、非草稿、未合并；没有将“继续”解释为代替 Kyries 合并数据。main 已 `pull --ff-only` 对齐 `93368a3`（已合并 #55），从该 main 新建独立分支 `codex/phase2-hero-health`，不继承 #56 的数据 / schema 改动。
+Kyries 要求继续下一步。开工时工作区干净，GitHub 核对 [PR #56](https://github.com/Alpaca-go/ddbg-web/pull/56) 仍开放、非草稿、未合并；没有将“继续”解释为代替 Kyries 合并数据。main 已 `pull --ff-only` 对齐 `93368a3`（已合并 #55），从该 main 新建独立分支 `codex/phase2-hero-health`，不继承 #56 的数据 / schema 改动。规则提交 `df073de`，独立 [PR #57](https://github.com/Alpaca-go/ddbg-web/pull/57) 已创建，尚未合并。
 
 新增 `resolveHeroHealth` 纯函数，只接收调用方提供的已核实 Life、伤口、死亡标记与一批已命名伤口或治疗。伤口永不超过 Life；首次达到 Life 进入死门，这一击不掷骰。已经在死门时再受到正数伤口返回 `needsRoll`，空白存活、骷髅致命；多个同一时刻的伤口用同一个数组一起判定一次（G-11）。至少移除一个伤口才脱离死门，零治疗不离开，超额治疗只移到零；亡者不能通过治疗复活。
 
