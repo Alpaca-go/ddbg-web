@@ -16,6 +16,7 @@ import { quirkPolarity } from "./quirk-polarity";
 import { virtueRole } from "./virtue-role";
 import { attachVerifiedMonsterStances } from "./verified-monster-stances";
 import { attachVerifiedMonsterSpeeds } from "./verified-monster-speeds";
+import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 import { buildRoomTileGeometry } from "./room-tile";
 import type { RoomTileGeometryFile } from "./room-tile";
 import { buildHeroStats } from "./hero-stat";
@@ -556,7 +557,13 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
   const lookup = createIconLookup(input.dictionary);
   return {
     hero_stat: buildHeroStats(input.heroStats, input.dictionary),
-    hero_skill: buildHeroSkills(input.heroSkills, input.heroSkillRaw, lookup),
+    hero_skill: (() => {
+      const file = buildHeroSkills(input.heroSkills, input.heroSkillRaw, lookup);
+      return normalizedHeroSkillFileSchema.parse({
+        ...file,
+        cards: attachVerifiedHeroStatuses(file.cards),
+      });
+    })(),
     room_tile_geometry: buildRoomTileGeometry(input.roomTiles),
     monster_medium: buildMonsterMedium(input.monsterMedium, input.monsterMediumRaw, lookup),
     monster_large: buildMonsterLarge(input.monsterLarge, input.monsterLargeRaw, lookup),

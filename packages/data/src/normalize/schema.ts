@@ -141,6 +141,26 @@ const skillStatFields = {
   effect_lines: lineListSchema,
 };
 
+/** 逐卡对照完整页面后附加的 Nt；缺失不表示任何默认持续时间。 */
+export const verifiedStatusEffectSchema = z.strictObject({
+  lineIndex: z.int().nonnegative(),
+  segmentIndex: z.int().nonnegative(),
+  scope: z.enum(["self", "target"]),
+  kind: z.enum([
+    "bleed",
+    "blight",
+    "stun",
+    "buff",
+    "debuff",
+    "mark",
+    "guard",
+    "riposte",
+    "protection",
+  ]),
+  duration: z.int().positive(),
+  amount: z.int().positive().optional(),
+});
+
 const heroSkillShared = {
   id: z.string().min(1),
   pages: pageListSchema,
@@ -148,6 +168,7 @@ const heroSkillShared = {
   name: z.string().min(1),
   level: levelSchema,
   ...skillStatFields,
+  verified_status_effects: z.array(verifiedStatusEffectSchema).min(1).optional(),
   top_row_icons: z.array(normalizedIconSchema),
   name_row_icons: z.array(normalizedIconSchema),
   stats_line: z.array(segmentSchema).nullable(),
