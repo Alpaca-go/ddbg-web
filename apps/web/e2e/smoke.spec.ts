@@ -181,6 +181,8 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
     await page.getByRole("button", { name: "开始战斗", exact: true }).click();
     let breakthroughUsed = false;
     let lootUsed = false;
+    const heroSkillsUsed = new Set<string>();
+    let vestalMoved = false;
     for (let step = 0; step < 240; step += 1) {
       const turn = await page.getByTestId("turn-status").innerText();
       if (turn.includes("撤退")) break;
@@ -210,6 +212,52 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
           .filter({ hasText: "← 当前" })
           .locator(":scope > span")
           .innerText();
+        if (formal) {
+          const hero = turn.split(" · ")[0]!;
+          if (!heroSkillsUsed.has(hero)) {
+            if (hero === "CRUSADER" && ["进攻", "防御"].includes(stance)) {
+              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p010");
+            } else if (hero === "HELLION") {
+              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p037");
+            } else if (hero === "HIGHWAYMAN") {
+              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p076");
+              // 首次仍在正式出生 H；J / I / D / E 都在已核实的 1–2 射程内，F 断开。
+              const target = page
+                .getByLabel("目标", { exact: true })
+                .getByRole("option")
+                .filter({ hasText: /Bone .* · (J|I|D|E)$/ })
+                .first();
+              if (!(await target.count())) throw new Error(`${layout} 缺 Highwayman 可达目标`);
+              await page
+                .getByLabel("目标", { exact: true })
+                .selectOption((await target.getAttribute("value"))!);
+            } else if (hero === "VESTAL" && ["支援", "远程", "防御"].includes(stance)) {
+              if (!vestalMoved) {
+                // C→E 一步；随后 Divine Comfort 射程 1 治疗留在 C 的 Hellion。
+                await page.getByRole("button", { name: "前往 E", exact: true }).click();
+                await page.getByRole("button", { name: "确认移动", exact: true }).click();
+                vestalMoved = true;
+                continue;
+              }
+              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p097");
+              await page.getByLabel("目标区域", { exact: true }).selectOption("C");
+              await page.getByRole("checkbox", { name: "选择 HELLION", exact: true }).check();
+            } else throw new Error(`${layout} ${hero} 首次技能姿态异常`);
+            await page.getByRole("button", { name: "使用技能", exact: true }).click();
+            await expect(page.getByRole("region", { name: "战斗日志" })).not.toContainText("拒绝");
+            if (turn.includes("剩余 2 行动"))
+              await expect(page.getByTestId("turn-status")).toContainText("剩余 1 行动");
+            else await expect(page.getByTestId("turn-status")).toHaveText("等待抽取先攻");
+            if (hero === "CRUSADER")
+              await expect(page.getByTestId("entity-hero-0")).toContainText("防护 / 2t；标记 / 3t");
+            if (hero === "HELLION")
+              await expect(page.getByTestId("entity-hero-1")).toContainText("增益 / 3t");
+            if (hero === "HIGHWAYMAN")
+              await expect(page.getByTestId("entity-hero-2")).toContainText("增益 / 3t");
+            heroSkillsUsed.add(hero);
+            continue;
+          }
+        }
         if (
           !formal &&
           !breakthroughUsed &&
@@ -237,6 +285,8 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
     await expect(page.getByTestId("turn-status")).toHaveText("第 4 轮结束：撤退");
     if (formal) {
       expect(lootUsed).toBe(true);
+      expect([...heroSkillsUsed].sort()).toEqual(["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"]);
+      expect(vestalMoved).toBe(true);
       await expect(page.getByTestId("area-C")).not.toContainText("宝箱");
       await expect(page.getByTestId("area-H")).not.toContainText("宝箱");
       await page.screenshot({
