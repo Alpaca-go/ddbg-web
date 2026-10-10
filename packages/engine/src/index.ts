@@ -17,8 +17,11 @@ export type {
   PlayHeroSkillCommand,
 } from "./battle";
 export type { ApplyResult, Command, GameEvent, GameState, PendingChoice } from "./command";
-export { resolveHeroSkill } from "./hero-skill";
-export { resolveMonsterSkill } from "./monster-skill";
+export { resolveHeroSkill, resolveHeroSkillEffects } from "./hero-skill";
+export { resolveSkillHeroHealth } from "./skill-hero-health";
+export type { SkillHeroHealth, SkillHeroHealthResult } from "./skill-hero-health";
+export type { SkillHealthEffect, SkillEffectsResolution } from "./hero-skill";
+export { resolveMonsterSkill, resolveMonsterSkillEffects } from "./monster-skill";
 export { selectMonsterTarget } from "./monster-target";
 export { selectMonsterSkill } from "./monster-stance";
 export type {

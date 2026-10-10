@@ -1,3 +1,5 @@
+import type { HeroHealthEffect } from "./hero-health";
+
 /**
  * 已验证英雄技能对一个已选目标的命中伤害或治疗，以及规则书已经写明的后续步骤。
  *
@@ -424,6 +426,19 @@ export type SkillShuffle = {
 
 /** 规则书第 38 页憎恶的两种形态。卡面印的是 Beast / Human。 */
 export type SkillForm = "beast" | "human";
+
+/** 已命名生命效果的发生顺序；不能从最终伤口差值逆推（R20、R29）。 */
+export type SkillHealthEffect = {
+  readonly entityId: string;
+  readonly side: SkillTargetSide;
+  readonly source: "selfHeal" | "targetHeal" | "attack" | "riposte";
+  readonly effect: HeroHealthEffect;
+};
+
+export type SkillEffectsResolution = {
+  readonly resolution: HeroSkillResolution;
+  readonly healthEffects: readonly SkillHealthEffect[];
+};
 
 export type HeroSkillResolution = {
   readonly skillId: string;
@@ -1911,6 +1926,16 @@ export function resolveHeroSkill(
   return resolveSkill(skill, combat, roll, "hero");
 }
 
+/** 生命接线使用的纯视图；原技能 API / 命令形状保持不变。 */
+export function resolveHeroSkillEffects(
+  skill: HeroSkillCardView,
+  combat: SkillCombatState,
+  roll: number,
+): SkillEffectsResolution {
+  const { healthEffects = [], ...resolution } = resolveSkill(skill, combat, roll, "hero", true);
+  return { resolution, healthEffects };
+}
+
 /** 仅供怪物规范化适配层使用；不经包入口导出。 */
 export function resolveMonsterAttackView(
   skill: HeroSkillCardView,
@@ -1920,12 +1945,23 @@ export function resolveMonsterAttackView(
   return resolveSkill(skill, combat, roll, "monster");
 }
 
+/** 怪物适配层的同一效果视图；不另解析卡面。 */
+export function resolveMonsterAttackEffects(
+  skill: HeroSkillCardView,
+  combat: SkillCombatState,
+  roll: number,
+): SkillEffectsResolution {
+  const { healthEffects = [], ...resolution } = resolveSkill(skill, combat, roll, "monster", true);
+  return { resolution, healthEffects };
+}
+
 function resolveSkill(
   skill: HeroSkillCardView,
   combat: SkillCombatState,
   roll: number,
   sourceSide: SkillTargetSide,
-): HeroSkillResolution {
+  includeHealthEffects = false,
+): HeroSkillResolution & { readonly healthEffects?: readonly SkillHealthEffect[] } {
   if (skill.hero !== null && skill.hero.trim().toLowerCase() === "musketeer") {
     return refuse(skill, combat, "Musketeer 不在首版（R-008）");
   }
@@ -2126,6 +2162,7 @@ function resolveSkill(
   let damageDealt: number | null = null;
   let riposteDamage: number | null = null;
   let actorWounds = combat.actor === undefined ? null : combat.actor.wounds;
+  const healthEffects: SkillHealthEffect[] = [];
 
   const dealtCrit = sourceSide === "hero" && outcome === "crit";
   const receivedCrit = outcome === "crit" && effect === "damage" && target.side === "hero";
@@ -2149,6 +2186,12 @@ function resolveSkill(
   }
   if ((selfHeal.amount > 0 || paired.heal > 0) && actorWounds !== null) {
     actorWounds = Math.max(0, actorWounds - selfHeal.amount - paired.heal);
+    healthEffects.push({
+      entityId: combat.actor!.id,
+      side: sourceSide,
+      source: "selfHeal",
+      effect: { type: "heal", amount: selfHeal.amount + paired.heal },
+    });
   }
   // 自身「Remove Bleed」不看命中。没有 Acc 时也清。和增益写在同一行的不算。
   // 换行后配给自身标记的「Remove Bleed、Blight」同样不看命中，两种都清。
@@ -2167,6 +2210,12 @@ function resolveSkill(
     printedAmount = amount;
     if (effect === "heal") {
       wounds = Math.max(0, wounds - amount);
+      healthEffects.push({
+        entityId: target.id,
+        side: target.side,
+        source: "targetHeal",
+        effect: { type: "heal", amount },
+      });
       // Self 的治疗落在使用者身上。上面已经要求两份伤口一开始相同。
       if (selfTarget && actorWounds !== null) actorWounds = wounds;
     } else {
@@ -2178,10 +2227,22 @@ function resolveSkill(
         target.protection === true && !skipProtection ? halfUp(beforeProtection) : beforeProtection;
       if (damageDealt >= 1) {
         wounds += damageDealt;
+        healthEffects.push({
+          entityId: target.id,
+          side: target.side,
+          source: "attack",
+          effect: { type: "wounds", amounts: [damageDealt] },
+        });
         if (target.riposte === true && actorWounds !== null) {
           // 反弹量用 Protection 之前的伤害。攻击者的 Protection / Riposte 不用。
           riposteDamage = halfUp(beforeProtection);
           actorWounds += riposteDamage;
+          healthEffects.push({
+            entityId: combat.actor!.id,
+            side: sourceSide,
+            source: "riposte",
+            effect: { type: "wounds", amounts: [riposteDamage] },
+          });
         }
       }
     }
@@ -2259,5 +2320,6 @@ function resolveSkill(
         ignoresProtection.targetLines +
         formChange.lineCount,
     ),
+    ...(includeHealthEffects ? { healthEffects } : {}),
   };
 }

@@ -1,4 +1,4 @@
-import { needsHeroSkillShuffleChoice, resolveMonsterAttackView } from "./hero-skill";
+import { needsHeroSkillShuffleChoice, resolveMonsterAttackEffects } from "./hero-skill";
 import type { MonsterStanceGroup } from "./monster-stance";
 import type {
   HeroSkillCardView,
@@ -7,6 +7,7 @@ import type {
   SkillCombatState,
   SkillSegment,
   SkillTargetState,
+  SkillHealthEffect,
 } from "./hero-skill";
 
 /** 只读规范化怪物技能；不从 footer_lines 推断可用姿态、选招骰表或 AI。 */
@@ -125,6 +126,27 @@ export function resolveMonsterSkill(
   combat: MonsterCombatState,
   roll: number,
 ): MonsterSkillResolution {
+  return resolveMonsterSkillInternal(monster, skillSlot, combat, roll);
+}
+
+/** 怪物技能与英雄技能输出同一种有序生命效果；仍保留全部已有拒绝门。 */
+export function resolveMonsterSkillEffects(
+  monster: MonsterCardView,
+  skillSlot: number,
+  combat: MonsterCombatState,
+  roll: number,
+): MonsterSkillResolution & { readonly healthEffects: readonly SkillHealthEffect[] } {
+  const result = resolveMonsterSkillInternal(monster, skillSlot, combat, roll, true);
+  return { ...result, healthEffects: result.healthEffects ?? [] };
+}
+
+function resolveMonsterSkillInternal(
+  monster: MonsterCardView,
+  skillSlot: number,
+  combat: MonsterCombatState,
+  roll: number,
+  includeHealthEffects = false,
+): MonsterSkillResolution & { readonly healthEffects?: readonly SkillHealthEffect[] } {
   const refused = (reason: string): MonsterSkillResolution => ({
     monsterId: monster.id,
     skillSlot,
@@ -166,7 +188,7 @@ export function resolveMonsterSkill(
   ) {
     return refused("当前怪物攻击需要已命名的 damage，支援与纯状态技能尚未接入（R-048）");
   }
-  const resolution = resolveMonsterAttackView(
+  const effects = resolveMonsterAttackEffects(
     view,
     {
       actor: combat.actor,
@@ -185,12 +207,14 @@ export function resolveMonsterSkill(
     },
     roll,
   );
+  const resolution = effects.resolution;
   if (resolution.status === "refused") return refused(resolution.reason!);
   return {
     monsterId: monster.id,
     skillSlot,
     status: "resolved",
     actorDead: resolution.actorWounds !== null && resolution.actorWounds >= monster.life,
+    ...(includeHealthEffects ? { healthEffects: effects.healthEffects } : {}),
     // R-020：只有英雄能忽略自身抗性；怪物自身位移仍少移 1。
     resolution:
       combat.actor.shuffleResist && resolution.actorShuffle
