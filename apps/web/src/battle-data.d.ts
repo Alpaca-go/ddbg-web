@@ -1,5 +1,11 @@
 declare module "virtual:battle-data" {
-  import type { BattleArea, HeroSkillCardView, MonsterCardView, ResolveCard } from "@ddbg/engine";
+  import type {
+    BattleArea,
+    HeroSkillCardView,
+    MonsterCardView,
+    MonsterSkillView,
+    ResolveCard,
+  } from "@ddbg/engine";
   export const battleData: {
     readonly tileName: string;
     readonly resolveCards: readonly ResolveCard[];
@@ -13,8 +19,10 @@ declare module "virtual:battle-data" {
       readonly name: string;
       readonly level: number;
     })[];
-    readonly monsters: readonly (MonsterCardView & {
+    readonly monsters: readonly (Omit<MonsterCardView, "skills"> & {
       readonly name: string;
+      readonly level: number;
+      readonly skills: readonly (MonsterSkillView & { readonly name: string })[];
       readonly dodge: number;
       readonly spawnEdge: "front" | "back";
       readonly stanceSlots: 1;

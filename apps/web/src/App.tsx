@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { heroSkillUsesSelfTarget, readPrintedTargets, PROVISION_EFFECTS } from "@ddbg/engine";
-import type { Command, SkillSegment, SkillStance, ProvisionEffect } from "@ddbg/engine";
+import type { Command, SkillStance, ProvisionEffect } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
 import { useBattleStore } from "./battle-store";
 import type { SandboxLayout } from "./battle-store";
 import { battleStep } from "./battle-step";
+import { SkillCardText } from "./skill-card-text";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 const provisionLabels = {
@@ -34,18 +35,6 @@ const statusLabels = {
   riposte: "反击",
   protection: "防护",
 };
-function lineText(line: readonly SkillSegment[]) {
-  return line
-    .map((segment) =>
-      segment.type === "text"
-        ? segment.text
-        : ["confirmed", "confirmed_rulebook"].includes(segment.icon.naming)
-          ? `[${segment.icon.key}]`
-          : `[未核实:${"iconId" in segment.icon ? String(segment.icon.iconId) : "原始图标"}]`,
-    )
-    .join("");
-}
-
 export function App() {
   const game = useBattleStore((s) => s.game);
   const dispatch = useBattleStore((s) => s.dispatch);
@@ -89,6 +78,8 @@ export function App() {
       : [];
   const heroTurn = turn?.type === "hero" && !frozen;
   const action = battle.monsterAction;
+  const monsterCard = battleData.monsters.find((m) => m.id === actor?.monsterCardId);
+  const monsterSkill = monsterCard?.skills.find((s) => s.slot === action?.skillSlot);
   const entityName = (id: string) => {
     const entity = battle.entities.find((e) => e.id === id);
     const duplicates = battle.entities.filter(
@@ -604,13 +595,15 @@ export function App() {
                 </button>
               </fieldset>
               {skill && (
-                <details open className="card-text">
-                  <summary>{skill.name} I · 英文卡面文字</summary>
-                  <p>{lineText(skill.stats_line ?? [])}</p>
-                  {skill.effect_lines.map((line, i) => (
-                    <p key={i}>{lineText(line)}</p>
-                  ))}
-                </details>
+                <SkillCardText
+                  name={skill.name}
+                  level={skill.level}
+                  lines={
+                    skill.stats_line
+                      ? [skill.stats_line, ...skill.effect_lines]
+                      : skill.effect_lines
+                  }
+                />
               )}
             </>
           )}
@@ -649,6 +642,13 @@ export function App() {
                 </>
               )}
             </div>
+          )}
+          {turn?.type === "monster" && monsterCard && monsterSkill && (
+            <SkillCardText
+              name={monsterSkill.name}
+              level={monsterCard.level}
+              lines={monsterSkill.lines}
+            />
           )}
           <details className="debug">
             <summary>种子与命令调试</summary>

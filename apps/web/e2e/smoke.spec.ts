@@ -20,6 +20,10 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p010");
   await expect(page.getByText("目标：自身 · CRUSADER", { exact: true })).toBeVisible();
   await expect(page.getByLabel("目标", { exact: true })).toHaveCount(0);
+  const selfCard = page.getByTestId("skill-card-text");
+  await expect(selfCard).toContainText("Bulwark of Faith · 等级 1");
+  await expect(selfCard).toContainText("[防护] 2t, [标记] 3t, [光照（火把）] +2");
+  await expect(selfCard).not.toContainText("self_effects");
   await page.getByRole("button", { name: "使用技能", exact: true }).click();
   await expect(page.getByTestId("entity-hero-0")).toContainText("防护 / 2t；标记 / 3t");
   await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 4");
@@ -145,6 +149,12 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
     await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
     // 种子 1 的首张为怪物，完成它的回合再抽到 Crusader。
     await page.getByRole("button", { name: "怪物选招与选目标", exact: true }).click();
+    const monsterCard = page.getByTestId("skill-card-text");
+    await expect(monsterCard).toBeVisible();
+    await expect(monsterCard).toContainText("Crit");
+    await expect(monsterCard).toContainText("Acc");
+    await expect(monsterCard).toContainText("[伤害（图标内数字为伤害值）]");
+    await page.screenshot({ path: testInfo.outputPath("monster-skill-card.png"), fullPage: true });
     await page.getByRole("button", { name: "怪物移动到射程", exact: true }).click();
     await page.getByRole("button", { name: "结算怪物技能", exact: true }).click();
     await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
