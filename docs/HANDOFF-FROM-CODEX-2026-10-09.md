@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：美德 / 苦难完整页数据核实（2026-10-10）
+
+#74 最新 head `88d8b22` 四项 CI 成功，已合并为 `e328713` 并同步 main。本块分支 `codex/phase2-resolve-data-review`，第 3 项意志数据切片。
+
+- 对照官方 R28 与当前版十张美德 / 苦难完整页，给五美德与三张已验证苦难附加 `verified_turn_start`：明确 d10 触发区间、Stress 数值、Buff Nt、Vigorous 的 3 × Hero Level 治疗、Selfish 消耗一补给。生成匹配完整文本 / 已确认图标、id / 名称 / 页码 / R-053 role，漂移拒绝；不根据箭头判角色，不改 raw / 词典。
+- Masochistic、Irrational 仍未验证，无触发注解，不从完整五张苦难牌堆删掉后再抽三张。`docs/phase2-resolve-review-2026-10-10.md` 与 Q-54 给出完整页面上的具体候选含义；r668 / r731 / r687 在此前审批中明确保留，已向 Kyries 请求确认。缺 Hero Level 不能补为 1，缺 Nt 不补默认。
+- 八张的数据测试覆盖名称 / 页码 / 角色 / 文本 / 未确认图标 / 缺卡与重复 / schema 缺 duration 或倍率拒绝。意志与心脏病规则可独立开发，完整苦难抽牌 / 触发仍依 Q-54；正式部署依 Q-53，Q-52 保留。
+
+依据官方 R18 / R28 / R29、规格书 §8 / §9.3、R-001 / R-048 / R-053。typecheck、lint、377 项 Vitest（31 文件）、build 与 diff 检查通过，准确 head CI 成功后合并；本块不接 UI 苦难卡池、不实现触发选择，四步与人工检查点③仍未完成。
+
 ## 最新进度：混合状态行与状态 UI（2026-10-10）
 
 #73 head `f8b00ef` 四项 CI 成功，已合并为 `5e336b5` 并同步 main。本块分支 `codex/phase2-mixed-status-effects`，第 3 项完整混合行与 UI 切片。
