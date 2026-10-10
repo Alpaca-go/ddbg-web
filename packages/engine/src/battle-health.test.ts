@@ -235,7 +235,7 @@ describe("战斗技能生命命令沙盒（R20、R29、R-005、R-048）", () => 
     ).toThrow();
   });
 
-  it("生命层拒绝原子保留技能前的 RNG / 状态；正式遭遇战保持死亡收尾安全门", () => {
+  it("生命层拒绝原子保留技能前的 RNG / 状态；单英雄不能启动普通遭遇战", () => {
     const initial = setup();
     const invalid = patch(initial, "hero", { wounds: crusader.life + 1 });
     const refused = applyCommand(invalid, attack);

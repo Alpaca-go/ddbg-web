@@ -11,7 +11,12 @@ import type {
   SkillCombatState,
   SkillTargetState,
 } from "./hero-skill";
-import { encounterSkillProblem, nextBattleRoll, recordEncounterSkill } from "./encounter";
+import {
+  encounterSkillProblem,
+  nextBattleRoll,
+  newlyDefeatedIds,
+  recordEncounterSkill,
+} from "./encounter";
 import type { EncounterState } from "./encounter";
 import type {
   ApplyResult,
@@ -102,6 +107,7 @@ export type BattleState = BattleSetup & {
   /** 位移完成后再记录行动 / 死亡补位，不能重复执行技能或重复扣行动。 */
   readonly shuffleContinuation:
     | (HeroSkillResolvedEvent & {
+        readonly casualtyIds?: readonly string[];
         /** 位移后的暴击同区名单，沿用原骰面与原攻击数值重算。 */
         readonly criticalContext?: {
           readonly combat: SkillCombatState;
@@ -109,6 +115,7 @@ export type BattleState = BattleSetup & {
         };
       })
     | (MonsterSkillResolvedEvent & {
+        readonly casualtyIds?: readonly string[];
         readonly criticalContext?: {
           readonly combat: MonsterCombatState;
           readonly entities: readonly BattleEntity[];
@@ -347,6 +354,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
     battle.rngCursor + (roll === null ? 0 : 1),
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
+  const casualtyIds = newlyDefeatedIds(battle, health.entities);
   const shuffleIntents = [...battle.shuffleIntents];
   if (resolution.actorShuffle)
     shuffleIntents.push({
@@ -379,6 +387,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
         shuffleContinuation: shuffleIntents.length
           ? {
               ...skillEvent,
+              casualtyIds,
               ...(resolution.outcome === "crit"
                 ? { criticalContext: { combat, entities: battle.entities } }
                 : {}),
@@ -388,7 +397,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
     },
     events: [skillEvent, ...health.events],
   };
-  return shuffleIntents.length ? result : recordEncounterSkill(result);
+  return shuffleIntents.length ? result : recordEncounterSkill(result, skillEvent, casualtyIds);
 }
 
 /** 旧技能视图只计算原始伤口；Life 由有序生命层处理，不能误判英雄为怪物死亡。 */

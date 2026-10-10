@@ -167,6 +167,6 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
   };
   const completed = next.shuffleContinuation ?? continuation;
   return completed.type === "heroSkillResolved"
-    ? recordEncounterSkill(final, completed)
-    : recordMonsterSkill(final, completed);
+    ? recordEncounterSkill(final, completed, completed.casualtyIds)
+    : recordMonsterSkill(final, completed, completed.casualtyIds);
 }

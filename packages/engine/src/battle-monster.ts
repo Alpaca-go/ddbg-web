@@ -1,7 +1,7 @@
 import { distance, rejectBattleCommand, writeResolution, skillTargetView } from "./battle";
 import { applySkillHealth } from "./battle-health";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent, PendingChoice } from "./command";
-import { nextBattleRoll, recordMonsterSkill } from "./encounter";
+import { nextBattleRoll, newlyDefeatedIds, recordMonsterSkill } from "./encounter";
 import {
   needsMonsterSkillShuffleChoice,
   resolveMonsterSkill,
@@ -123,6 +123,7 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
   });
   const health = applySkillHealth(battle, entities, effects, state.seed, battle.rngCursor + 1);
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
+  const casualtyIds = newlyDefeatedIds(battle, health.entities);
   const event: MonsterSkillResolvedEvent = {
     type: "monsterSkillResolved",
     message: "已选怪物攻击已结算",
@@ -158,6 +159,7 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
         shuffleContinuation: intents.length
           ? {
               ...event,
+              casualtyIds,
               ...(result.resolution.outcome === "crit"
                 ? { criticalContext: { combat, entities: battle.entities } }
                 : {}),
@@ -167,5 +169,5 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
     },
     events: [event, ...health.events],
   };
-  return intents.length ? applied : recordMonsterSkill(applied, event);
+  return intents.length ? applied : recordMonsterSkill(applied, event, casualtyIds);
 }
