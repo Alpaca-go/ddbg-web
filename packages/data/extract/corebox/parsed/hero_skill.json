@@ -366,7 +366,7 @@
      ]
     }
    ],
-   "stats_line_raw": "Zealous Accusation I",
+   "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 9 Acc 9 {icon:8d4bbe5e11} 5",
    "effect_lines_raw": [],
    "unlabeled_numbers": [
     {
@@ -446,7 +446,7 @@
      ]
     }
    ],
-   "stats_line_raw": "Zealous Accusation II",
+   "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 11 Acc 10 {icon:8d4bbe5e11} 6",
    "effect_lines_raw": [],
    "unlabeled_numbers": [
     {
@@ -526,7 +526,7 @@
      ]
     }
    ],
-   "stats_line_raw": "Zealous Accusation III",
+   "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 12 Acc 11 {icon:8d4bbe5e11} 7",
    "effect_lines_raw": [],
    "unlabeled_numbers": [
     {

@@ -1465,8 +1465,94 @@
    ],
    "stats_line": [
     {
+     "type": "icon",
+     "icon": {
+      "iconId": "3ab7e7544c",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "range",
+      "kind": "other",
+      "meaning_en": "Range",
+      "meaning_zh": "射程",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
      "type": "text",
-     "text": "Zealous Accusation I"
+     "text": " 1 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " Crit 0 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "8d4bbe5e11",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "damage",
+      "kind": "damage_type",
+      "meaning_en": "Damage (value printed inside)",
+      "meaning_zh": "伤害（图标内数字为伤害值）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " 9 Acc 9 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "8d4bbe5e11",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "damage",
+      "kind": "damage_type",
+      "meaning_en": "Damage (value printed inside)",
+      "meaning_zh": "伤害（图标内数字为伤害值）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " 5"
     }
    ],
    "front_icons": [
@@ -1766,8 +1852,94 @@
    ],
    "stats_line": [
     {
+     "type": "icon",
+     "icon": {
+      "iconId": "3ab7e7544c",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "range",
+      "kind": "other",
+      "meaning_en": "Range",
+      "meaning_zh": "射程",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
      "type": "text",
-     "text": "Zealous Accusation II"
+     "text": " 1 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " Crit 0 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "8d4bbe5e11",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "damage",
+      "kind": "damage_type",
+      "meaning_en": "Damage (value printed inside)",
+      "meaning_zh": "伤害（图标内数字为伤害值）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " 11 Acc 10 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "8d4bbe5e11",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "damage",
+      "kind": "damage_type",
+      "meaning_en": "Damage (value printed inside)",
+      "meaning_zh": "伤害（图标内数字为伤害值）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " 6"
     }
    ],
    "front_icons": [
@@ -2067,8 +2239,94 @@
    ],
    "stats_line": [
     {
+     "type": "icon",
+     "icon": {
+      "iconId": "3ab7e7544c",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "range",
+      "kind": "other",
+      "meaning_en": "Range",
+      "meaning_zh": "射程",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
      "type": "text",
-     "text": "Zealous Accusation III"
+     "text": " 1 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " Crit 1 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "8d4bbe5e11",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "damage",
+      "kind": "damage_type",
+      "meaning_en": "Damage (value printed inside)",
+      "meaning_zh": "伤害（图标内数字为伤害值）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " 12 Acc 11 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "8d4bbe5e11",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "damage",
+      "kind": "damage_type",
+      "meaning_en": "Damage (value printed inside)",
+      "meaning_zh": "伤害（图标内数字为伤害值）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " 7"
     }
    ],
    "front_icons": [

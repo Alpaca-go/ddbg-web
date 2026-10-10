@@ -200,6 +200,14 @@ function use(id: string, combat: SkillCombatState, roll: number): HeroSkillResol
   return resolveHeroSkill(card(id), combat, roll);
 }
 
+/** 明确破损的输入夹具；真实 Zealous 已修复，仍要保证不能从技能名猜伤害。 */
+function damagedZealous(): FixtureCard {
+  return {
+    ...card("hero_skill:p004"),
+    stats_line: [{ type: "text", text: "Zealous Accusation I" }],
+  };
+}
+
 function namedTargetIconCount(skill: FixtureCard): number {
   const line = skill.stats_line;
   if (line === null) return 0;
@@ -8183,8 +8191,8 @@ describe("resolveHeroSkill", () => {
       targetStress: 3,
     });
 
-    // 说明书 G-07 的 Zealous Accusation I 仍不能结算。光照 5 不从技能名猜伤害。
-    const zealous = card("hero_skill:p004");
+    // 明确破损 stats 的夹具仍不能结算；真实 p004 已修复，光照不替坏输入猜伤害。
+    const zealous = damagedZealous();
     expect(zealous.name).toBe("Zealous Accusation");
     expect(zealous.level).toBe(1);
     expect(zealous.verification.unverified).toBe(false);
@@ -8194,8 +8202,8 @@ describe("resolveHeroSkill", () => {
         .map((segment) => segment.text.trim()),
     ).toEqual(["Zealous Accusation I"]);
     expect(
-      use(
-        "hero_skill:p004",
+      resolveHeroSkill(
+        damagedZealous(),
         {
           actor: { id: "crusader", wounds: 1, stress: 4 },
           target: { id: "soldier", side: "monster", wounds: 2, dodge: 0 },
@@ -8352,9 +8360,9 @@ describe("resolveHeroSkill", () => {
       actorStress: 2,
     });
 
-    // 说明书 G-07 的 Zealous Accusation I：Crit 0、Acc 9、暴击 9、命中 5。
+    // 明确破损的 Zealous stats 夹具：保留打印标签，故意不给完整 stats 行。
     // stats 行只有技能名，没有已命名的伤害或目标图标，不能靠 front_icons 猜，整次拒绝。
-    const zealous = card("hero_skill:p004");
+    const zealous = damagedZealous();
     expect(zealous.name).toBe("Zealous Accusation");
     expect(zealous.level).toBe(1);
     expect(zealous.hero).toBe("CRUSADER");
@@ -8373,22 +8381,22 @@ describe("resolveHeroSkill", () => {
         ?.filter((segment) => segment.type === "icon")
         .map((segment) => segment.icon.key),
     ).toEqual([]);
-    expect(use("hero_skill:p004", { actor: crusader, target: soldier, light: 4 }, 1)).toMatchObject(
-      {
-        status: "refused",
-        reason: "stats_line 没有已命名的 damage 或 heal",
-        outcome: null,
-        effect: null,
-        printedAmount: null,
-        damageDealt: null,
-        wounds: 2,
-        actorWounds: 1,
-        actorStress: 4,
-        actorForm: null,
-        actorBleedCleared: false,
-        actorBlightCleared: false,
-      },
-    );
+    expect(
+      resolveHeroSkill(damagedZealous(), { actor: crusader, target: soldier, light: 4 }, 1),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 2,
+      actorWounds: 1,
+      actorStress: 4,
+      actorForm: null,
+      actorBleedCleared: false,
+      actorBlightCleared: false,
+    });
 
     // 没有 Acc 的变身不掷骰。光照 4 不造出暴击。非法光照则形态也不记。
     expect(
@@ -8791,8 +8799,8 @@ describe("resolveHeroSkill", () => {
   it("光照 0 不解开缺 stats 行、区间射程和卡面光照 +1", () => {
     const crusader = { id: "crusader", wounds: 1, stress: 4 };
     const soldier = { id: "soldier", side: "monster" as const, wounds: 2, dodge: 0 };
-    // 说明书 G-07 的 Zealous Accusation I。stats 行只有技能名。光照 0 不从技能名猜伤害。
-    const zealous = card("hero_skill:p004");
+    // 明确破损的 stats 夹具只给技能名；光照 0 不替坏输入猜伤害。
+    const zealous = damagedZealous();
     expect(zealous.name).toBe("Zealous Accusation");
     expect(zealous.level).toBe(1);
     expect(zealous.hero).toBe("CRUSADER");
@@ -8811,19 +8819,19 @@ describe("resolveHeroSkill", () => {
         ?.filter((segment) => segment.type === "text")
         .map((segment) => segment.text.trim()),
     ).toEqual(["Zealous Accusation I"]);
-    expect(use("hero_skill:p004", { actor: crusader, target: soldier, light: 0 }, 1)).toMatchObject(
-      {
-        status: "refused",
-        reason: "stats_line 没有已命名的 damage 或 heal",
-        outcome: null,
-        effect: null,
-        printedAmount: null,
-        damageDealt: null,
-        wounds: 2,
-        actorWounds: 1,
-        actorStress: 4,
-      },
-    );
+    expect(
+      resolveHeroSkill(damagedZealous(), { actor: crusader, target: soldier, light: 0 }, 1),
+    ).toMatchObject({
+      status: "refused",
+      reason: "stats_line 没有已命名的 damage 或 heal",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 2,
+      actorWounds: 1,
+      actorStress: 4,
+    });
 
     // Smite 射程是 0。同一区域不能再低，光照 0 的 Dodge 也不让这次高地放行。
     expect(
@@ -9580,7 +9588,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // 说明书 G-07 的 Zealous Accusation I 在光照 1 仍不能结算。stats 行只有技能名。
-    const zealous = card("hero_skill:p004");
+    const zealous = damagedZealous();
     expect(zealous.name).toBe("Zealous Accusation");
     expect(zealous.level).toBe(1);
     expect(zealous.verification.unverified).toBe(false);
@@ -9589,7 +9597,7 @@ describe("resolveHeroSkill", () => {
       ["Acc", 9],
     ]);
     expect(
-      use("hero_skill:p004", { actor: abomination, target: soldier, light: 1 }, 1),
+      resolveHeroSkill(damagedZealous(), { actor: abomination, target: soldier, light: 1 }, 1),
     ).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
