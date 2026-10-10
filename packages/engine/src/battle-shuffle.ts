@@ -1,4 +1,4 @@
-import { rejectBattleCommand, writeResolution } from "./battle";
+import { rejectBattleCommand, resolveSkillStress } from "./battle";
 import type { ApplyResult, GameEvent, GameState, PendingChoice } from "./command";
 import { recordEncounterSkill, recordMonsterSkill } from "./encounter";
 import { resolveShuffle } from "./shuffle";
@@ -136,20 +136,20 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
     if (corrected.status === "refused") return rejectBattleCommand(state, corrected.reason!);
     next = {
       ...next,
-      entities: original.map((entry) => {
-        const moved = next.entities.find((position) => position.id === entry.id)!;
-        return {
-          ...writeResolution(entry, actor.id, target.id, corrected, selfTarget),
-          areaId: moved.areaId,
-          ...(moved.stance === undefined ? {} : { stance: moved.stance }),
-          ...(continuation.type === "monsterSkillResolved" && entry.id === actor.id
-            ? { dead: continuation.actorDead }
-            : {}),
-        };
+      entities: next.entities.map((entry) => {
+        const baseline = original.find((before) => before.id === entry.id)!;
+        const stress = resolveSkillStress(baseline, actor.id, target.id, corrected, selfTarget);
+        return stress === undefined ? entry : { ...entry, stress };
       }),
       shuffleContinuation: {
         ...continuation,
-        resolution: corrected,
+        resolution: {
+          ...continuation.resolution,
+          actorStress: corrected.actorStress,
+          targetStress: corrected.targetStress,
+          besideActorStress: corrected.besideActorStress,
+          untargetedBesideTargetStress: corrected.untargetedBesideTargetStress,
+        },
       },
     };
     events.push({

@@ -368,7 +368,6 @@ export function writeResolution(
     updated = {
       ...updated,
       wounds: result.actorWounds ?? updated.wounds,
-      ...(result.actorStress === null ? {} : { stress: result.actorStress }),
       ...(result.actorForm === null ? {} : { form: result.actorForm }),
       bleed: result.actorBleedCleared ? [] : updated.bleed,
       blight: result.actorBlightCleared ? [] : updated.blight,
@@ -378,37 +377,45 @@ export function writeResolution(
       ...updated,
       wounds: entity.id === actorId ? (result.actorWounds ?? result.wounds) : result.wounds,
       dead: result.targetDead,
-      ...(result.targetStress === null || entity.id === actorId
-        ? {}
-        : { stress: result.targetStress }),
       bleed: result.targetBleedCleared ? [] : updated.bleed,
       blight: result.targetBlightCleared ? [] : updated.blight,
     };
+  // 非 Self 卡也能把自己选为友方目标；两份快照各自含自身 / 目标增量。
+  if (entity.id === actorId && entity.id === targetId && !selfTarget) {
+    updated = {
+      ...updated,
+      wounds: Math.max(0, (result.actorWounds ?? entity.wounds) + result.wounds - entity.wounds),
+    };
+  }
+  const stress = resolveSkillStress(entity, actorId, targetId, result, selfTarget);
+  return stress === undefined ? updated : { ...updated, stress };
+}
+
+/** R20、R-031：仅投影压力快照；位移续接不能重写生命、形态或状态。 */
+export function resolveSkillStress(
+  entity: BattleEntity,
+  actorId: string,
+  targetId: string,
+  result: HeroSkillResolution,
+  selfTarget: boolean,
+): number | undefined {
+  let stress = entity.stress;
+  if (entity.id === actorId) stress = result.actorStress ?? stress;
+  if (entity.id === targetId && entity.id !== actorId) stress = result.targetStress ?? stress;
+  if (entity.id === actorId && entity.id === targetId && !selfTarget && entity.stress !== undefined)
+    stress = Math.max(
+      0,
+      Math.min(
+        10,
+        (result.actorStress ?? entity.stress) +
+          (result.targetStress ?? entity.stress) -
+          entity.stress +
+          (result.outcome === "crit" ? 1 : 0),
+      ),
+    );
   const nearby = [
     ...(result.besideActorStress ?? []),
     ...(result.untargetedBesideTargetStress ?? []),
   ].find((hero) => hero.id === entity.id);
-  // 非 Self 卡也能把自己选为友方目标；两份快照各自含自身 / 目标增量。
-  if (entity.id === actorId && entity.id === targetId && !selfTarget) {
-    const stress = entity.stress;
-    updated = {
-      ...updated,
-      wounds: Math.max(0, (result.actorWounds ?? entity.wounds) + result.wounds - entity.wounds),
-      ...(stress === undefined
-        ? {}
-        : {
-            stress: Math.max(
-              0,
-              Math.min(
-                10,
-                (result.actorStress ?? stress) +
-                  (result.targetStress ?? stress) -
-                  stress +
-                  (result.outcome === "crit" ? 1 : 0),
-              ),
-            ),
-          }),
-    };
-  }
-  return nearby ? { ...updated, stress: nearby.stress } : updated;
+  return nearby?.stress ?? stress;
 }

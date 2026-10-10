@@ -176,6 +176,80 @@ describe("applyCommand 位移接线（R20–21、R-020、R-025、R-030）", () =
     expect(done.events[0]).toMatchObject({ path: [], stanceSteps: 2 });
   });
 
+  it("暴击分岔续接只改压力，保留已应用的生命、形态和状态，不回滚原快照", () => {
+    const initial = setup(pointBlank);
+    const prepared = { ...initial, battle: { ...initial.battle!, rngCursor: 1 } };
+    const rolled = applyCommand(prepared, play(pointBlank));
+    // 模拟后续生命应用层完成的结果；不开放沙盒 Life 入参或增加卡牌数值。
+    const applied: GameState = {
+      ...rolled.state,
+      battle: {
+        ...rolled.state.battle!,
+        entities: rolled.state.battle!.entities.map((entry) => ({
+          ...entry,
+          wounds: 2,
+          form: "beast",
+          bleed: ["preserved-bleed"],
+          blight: ["preserved-blight"],
+          buffStacks: 1,
+          guard: true,
+        })),
+      },
+    };
+    const snapshot = structuredClone(applied);
+    const waiting = applyCommand(applied, { type: "resolveShuffles" });
+    expect(waiting.pendingChoice).toBeDefined();
+    expect(waiting.state.battle!.entities).toEqual(applied.battle!.entities);
+    const done = applyCommand(waiting.state, choose(waiting.state, "e"));
+    for (const before of applied.battle!.entities) {
+      const after = done.state.battle!.entities.find((entry) => entry.id === before.id)!;
+      const {
+        stress: _beforeStress,
+        areaId: _beforeArea,
+        stance: _beforeStance,
+        ...healthBefore
+      } = before;
+      const {
+        stress: _afterStress,
+        areaId: _afterArea,
+        stance: _afterStance,
+        ...healthAfter
+      } = after;
+      void [_beforeStress, _beforeArea, _beforeStance, _afterStress, _afterArea, _afterStance];
+      expect(healthAfter).toEqual(healthBefore);
+    }
+    expect(done.state.battle!.entities[0]).toMatchObject({ areaId: "e", stress: 2 });
+    expect(done.state.battle!.rngCursor).toBe(applied.battle!.rngCursor);
+    expect(done.events.filter((event) => event.type === "heroSkillResolved")).toHaveLength(0);
+    expect(applyCommand(done.state, { type: "resolveShuffles" }).state).toBe(done.state);
+    expect(applied).toEqual(snapshot);
+    expect(applyCommand(waiting.state, choose(waiting.state, "e"))).toEqual(done);
+  });
+
+  it("位移修正的死亡字段不覆盖已结算的目标死亡，收尾仍胜利一次", () => {
+    const turn = heroTurn(setup(pointBlank, true, 1));
+    const rolled = applyCommand(
+      { ...turn, battle: { ...turn.battle!, rngCursor: 1 } },
+      play(pointBlank),
+    );
+    const applied: GameState = {
+      ...rolled.state,
+      battle: {
+        ...rolled.state.battle!,
+        entities: rolled.state.battle!.entities.map((entry) =>
+          entry.id === "target" ? { ...entry, wounds: 1 } : entry,
+        ),
+      },
+    };
+    // 此处锁定暴击路径，保留原事件伤口与状态中封顶后的伤口各自的含义。
+    expect(applied.battle!.shuffleContinuation!.resolution.outcome).toBe("crit");
+    const waiting = applyCommand(applied, { type: "resolveShuffles" });
+    const done = applyCommand(waiting.state, choose(waiting.state, "e"));
+    expect(target(done.state)).toMatchObject({ dead: true, wounds: 1 });
+    expect(done.state.battle!.encounter!.turn).toEqual({ type: "finished", outcome: "victory" });
+    expect(done.events.filter((event) => event.type === "battleFinished")).toHaveLength(1);
+  });
+
   it("方向选择后掷骰一次，区域选择不再消耗 RNG；等待期间所有其他命令冻结", () => {
     const initial = setup();
     const waiting = applyCommand(initial, {
