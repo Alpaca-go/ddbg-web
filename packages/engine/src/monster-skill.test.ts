@@ -145,11 +145,11 @@ describe("已选怪物攻击的纯结算（R19–21）", () => {
     expect(use({ guardedHeroOmitted: true }, 4, 2)).toMatchObject({ status: "refused" });
   });
 
-  it("Courtier +1 压力、Arbalist +1 vs Mark 没有确认 numeric，不补值（R-048）", () => {
+  it("Courtier 明确复核 +1 压力；Arbalist +1 vs Mark 缺注解仍不补值（R-048）", () => {
     expect(resolved(use({ areaDistance: 2 }, 4, 1, "p004"))).toMatchObject({
       damageDealt: 3,
-      targetStress: 5,
-      skipped: [{ code: "effect_lines" }],
+      targetStress: 6,
+      skipped: [],
     });
     expect(
       resolved(use({ areaDistance: 2, target: { ...combat.target, markStacks: 1 } }, 4, 1, "p007")),
@@ -157,6 +157,50 @@ describe("已选怪物攻击的纯结算（R19–21）", () => {
       damageDealt: 5,
       skipped: [{ code: "effect_lines" }],
     });
+  });
+
+  it("Courtier 只在命中加压；低光照技能和暴击各是一次压力事件（R-002）", () => {
+    expect(resolved(use({ areaDistance: 2, light: 4 }, 10, 1, "p004"))).toMatchObject({
+      outcome: "miss",
+      targetStress: 5,
+    });
+    expect(resolved(use({ areaDistance: 2, light: 4 }, 1, 1, "p004"))).toMatchObject({
+      targetStress: 7,
+      untargetedBesideTargetStress: [{ id: "other", stress: 4 }],
+    });
+    expect(resolved(use({ areaDistance: 2, light: 2 }, 1, 1, "p004"))).toMatchObject({
+      targetStress: 9,
+      untargetedBesideTargetStress: [{ id: "other", stress: 5 }],
+    });
+    expect(resolved(use({ areaDistance: 2, light: 2 }, 4, 1, "p004"))).toMatchObject({
+      targetStress: 7,
+    });
+  });
+
+  it("Courtier 无压力注解仍跳过；注解数值与卡面漂移时拒绝整次", () => {
+    const original = card("p004");
+    const legacy = {
+      ...original,
+      skills: original.skills.map((skill) => {
+        const { verified_target_stress, ...without } = skill;
+        if (skill.slot === 1) expect(verified_target_stress).toBeDefined();
+        return without;
+      }),
+    };
+    expect(
+      resolved(resolveMonsterSkill(legacy, 1, { ...combat, areaDistance: 2 }, 4)),
+    ).toMatchObject({ targetStress: 5, skipped: [{ code: "effect_lines" }] });
+    const changed = {
+      ...original,
+      skills: original.skills.map((skill) =>
+        skill.slot === 1
+          ? { ...skill, verified_target_stress: { ...skill.verified_target_stress!, amount: 2 } }
+          : skill,
+      ),
+    };
+    expect(resolveMonsterSkill(changed, 1, { ...combat, areaDistance: 2 }, 4).status).toBe(
+      "refused",
+    );
   });
 
   it("真实大型普通怪 Bone Captain 使用同一算法，不引入 Boss 逻辑", () => {

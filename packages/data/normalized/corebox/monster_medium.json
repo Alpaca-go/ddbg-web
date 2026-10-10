@@ -1652,6 +1652,11 @@
        }
       ]
      ],
+     "verified_target_stress": {
+      "lineIndex": 0,
+      "amount": 1,
+      "source": "print_front"
+     },
      "lines": [
       [
        {

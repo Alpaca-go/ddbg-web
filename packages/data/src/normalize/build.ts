@@ -16,6 +16,7 @@ import { quirkPolarity } from "./quirk-polarity";
 import { virtueRole } from "./virtue-role";
 import { attachVerifiedMonsterStances } from "./verified-monster-stances";
 import { attachVerifiedMonsterSpeeds } from "./verified-monster-speeds";
+import { attachVerifiedMonsterStress } from "./verified-monster-stress";
 import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 import { attachVerifiedHeroRanges } from "./verified-hero-ranges";
 import { attachVerifiedHeroDamage } from "./verified-hero-damage";
@@ -381,7 +382,9 @@ function buildMonsterMedium(
       dictionary: DICTIONARY_SOURCE,
     },
     stats: cardStats(cards),
-    cards: attachVerifiedMonsterSpeeds(attachVerifiedMonsterStances(cards)),
+    cards: attachVerifiedMonsterStress(
+      attachVerifiedMonsterSpeeds(attachVerifiedMonsterStances(cards)),
+    ),
   });
 }
 
