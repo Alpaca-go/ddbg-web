@@ -89,6 +89,13 @@ export type Command =
 
 export type GameEvent =
   | {
+      readonly type: "statusTurnStarted";
+      readonly message: string;
+      readonly entityId: string;
+      readonly woundAmounts: readonly number[];
+      readonly stunned: boolean;
+    }
+  | {
       readonly type: "heroHealthResolved";
       readonly message: string;
       readonly entityId: string;

@@ -9,6 +9,8 @@ import type {
 } from "./command";
 import type { SkillStance, SkillTargetSide } from "./hero-skill";
 import { createRng, rollD10 } from "./rng";
+import { statusStackProblem } from "./status";
+import { resolveTurnStartStatus } from "./battle-status";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -162,6 +164,16 @@ export function finishTurn(
 
 /** 状态代币缺 duration 时，不跳过回合开始结算继续运行（R-048）。 */
 function unsupportedTurnStart(entity: BattleEntity): boolean {
+  if (entity.statusStacks !== undefined)
+    return (
+      statusStackProblem(entity.statusStacks) !== null ||
+      entity.stress === 10 ||
+      (entity.side === "hero" &&
+        entity.life === undefined &&
+        entity.statusStacks.some(
+          (stack) => (stack.kind === "bleed" || stack.kind === "blight") && stack.amount! > 0,
+        ))
+    );
   return (
     entity.bleed.length > 0 ||
     entity.blight.length > 0 ||
@@ -169,7 +181,7 @@ function unsupportedTurnStart(entity: BattleEntity): boolean {
     (entity.debuffStacks ?? 0) > 0 ||
     (entity.markStacks ?? 0) > 0 ||
     entity.guard ||
-    entity.protection === true ||
+    (entity.protection === true && entity.innateProtection !== true) ||
     entity.riposte === true ||
     entity.stress === 10
   );
@@ -386,17 +398,37 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
       }
       if (unsupportedTurnStart(actor))
         return rejectBattleCommand(state, "回合开始状态 / 压力检定尚未接入（R-048）");
+      const status = resolveTurnStartStatus(actor, state.seed, battle.rngCursor);
+      if (status.status === "refused") return rejectBattleCommand(state, status.reason);
       const turn: EncounterState["turn"] =
         side === "hero"
-          ? { type: "hero", actorId: actor.id, actions: 2, usedSkillIds: [] }
+          ? { type: "hero", actorId: actor.id, actions: status.stunned ? 1 : 2, usedSkillIds: [] }
           : { type: "monster", actorId: actor.id };
-      return {
-        state: { ...state, battle: { ...battle, encounter: { ...encounter, deck, turn } } },
+      const started: ApplyResult = {
+        state: {
+          ...state,
+          battle: {
+            ...battle,
+            entities: battle.entities.map((entity) =>
+              entity.id === actor.id ? status.entity : entity,
+            ),
+            rngCursor: status.rngCursor,
+            encounter: { ...encounter, deck, turn },
+          },
+        },
         events: [
           ...events,
           { ...event(battle, "turnStarted", "按当前姿态开始回合"), actorId: actor.id, side },
+          ...status.events,
         ],
       };
+      const removed = removeCasualties(started, status.entity.dead ? [actor.id] : []);
+      return (
+        endAfterCasualties(removed) ??
+        (status.entity.dead || (side === "monster" && status.stunned)
+          ? finishTurn(removed.state, actor.id, removed.events)
+          : removed)
+      );
     }
     if (encounter.round === 4) return finishBattle(state, "retreat", events);
     const next = startRound(state.seed, battle, encounter.round + 1);
