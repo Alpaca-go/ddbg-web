@@ -332,7 +332,7 @@ describe("普通怪单目标 Speed 定位（R18、R24–25；R-021/023/024/048/0
     ).toHaveLength(1);
   });
 
-  it("缺 Speed / 容量、区间射程、未核实卡、大型怪均拒绝；多目标允许定位且不消耗 RNG", () => {
+  it("缺 Speed / 容量、区间射程、未核实卡拒绝；多目标允许定位且不消耗 RNG", () => {
     const noSpeed = { ...soldier };
     delete noSpeed.speed;
     const multi: MonsterCardView = {
@@ -370,7 +370,6 @@ describe("普通怪单目标 Speed 定位（R18、R24–25；R-021/023/024/048/0
             : area,
         ),
       ),
-      ready(soldier, graph(), "a", "c", { m: { stanceSlots: 2 } }),
       ...[-1, NaN, 1.5].map((speed) => ready({ ...soldier, speed })),
     ]) {
       const result = applyCommand(initial, move);
@@ -381,6 +380,39 @@ describe("普通怪单目标 Speed 定位（R18、R24–25；R-021/023/024/048/0
     const multiPositioned = applyCommand(ready(multi), move);
     expect(multiPositioned.events[0]?.type).toBe("monsterPositioned");
     expect(multiPositioned.state.battle!.rngCursor).toBe(ready(multi).battle!.rngCursor);
+  });
+
+  it("Large 明确占 2 格的空闲路径可定位和攻击，已经在射程内不要求 Speed", () => {
+    const initial = ready(soldier, graph(), "a", "c", { m: { stanceSlots: 2 } });
+    const moved = applyCommand(initial, move);
+    expect(moved.events[0]).toMatchObject({
+      type: "monsterPositioned",
+      from: "a",
+      to: "b",
+      steps: 1,
+      skipped: false,
+    });
+    expect(moved.state.battle!.rngCursor).toBe(initial.battle!.rngCursor);
+    expect(applyCommand(moved.state, play).events[0]?.type).toBe("monsterSkillResolved");
+    const noSpeed = { ...soldier };
+    delete noSpeed.speed;
+    const inRange = ready(noSpeed, graph(), "b", "c", { m: { stanceSlots: 2 } });
+    expect(applyCommand(inRange, move).events[0]).toMatchObject({
+      to: "b",
+      steps: 0,
+      skipped: false,
+    });
+  });
+
+  it("Large 需要挤占的候选不猜规则、不自动跳过，完整保留选招、RNG 与回合（Q-58）", () => {
+    const areas = graph().map((area) => (area.id === "b" ? { ...area, capacity: 2 } : area));
+    const initial = ready(soldier, areas, "a", "c", { m: { stanceSlots: 2 }, h1: { areaId: "b" } });
+    const result = applyCommand(initial, move);
+    expect(result.events[0]).toMatchObject({
+      type: "commandRefused",
+      message: expect.stringContaining("Q-58"),
+    });
+    expect(result.state).toBe(initial);
   });
 
   it.each([false, true])(
