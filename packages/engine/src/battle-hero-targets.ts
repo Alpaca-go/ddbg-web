@@ -1,5 +1,6 @@
 import { distance, rejectBattleCommand, skillTargetView, writeResolution } from "./battle";
 import { applySkillHealth } from "./battle-health";
+import { multiTargetHealthEffects, projectActorWounds } from "./skill-actor-health";
 import {
   encounterSkillProblem,
   newlyDefeatedIds,
@@ -17,7 +18,7 @@ export type PlayHeroSkillTargetsCommand = {
   readonly targetIds: readonly string[];
 };
 
-/** R19–20：一次技能、同区目标、一个骰面；多目标位移 / 反击尚未接入。 */
+/** R19–21：一次技能、同区目标、一个骰面；反击逐目标累计。 */
 export function playHeroSkillTargets(
   state: GameState,
   command: PlayHeroSkillTargetsCommand,
@@ -47,8 +48,6 @@ export function playHeroSkillTargets(
   const areaDistance = distance(battle.areas, actor.areaId, living[0]!.areaId);
   if (!targetArea || areaDistance === null || living.some((e) => e.areaId !== targetArea.id))
     return rejectBattleCommand(state, "目标须在同一个可达区域（R19）");
-  if (living.some((e) => e.riposte))
-    return rejectBattleCommand(state, "多目标反击尚未接入，整次拒绝");
   const heights = { low: 0, normal: 1, high: 2 };
   const guardedEnemyOmitted =
     !living.some((e) => e.side === "monster" && e.guard) &&
@@ -103,12 +102,15 @@ export function playHeroSkillTargets(
     );
   const resolutions = effects.map((e) => e.resolution);
   const actorResult = resolutions.find((r) => r.outcome === "crit") ?? resolutions[0]!;
+  const healthEffects = multiTargetHealthEffects(effects);
+  const actorWounds = projectActorWounds(actor.id, actor.wounds, healthEffects);
   const entities = battle.entities.map((entity) => {
     const targetResult = resolutions.find((r) => r.targetId === entity.id);
     const resolution = targetResult
       ? {
           ...targetResult,
           actorStress: actorResult.actorStress,
+          actorWounds,
           // 其他目标打出暴击，也为与使用者同区的已选友方减压一次。
           targetStress:
             actorResult.outcome === "crit" &&
@@ -119,7 +121,7 @@ export function playHeroSkillTargets(
               ? Math.max(0, targetResult.targetStress - 1)
               : targetResult.targetStress,
         }
-      : actorResult;
+      : { ...actorResult, actorWounds };
     return writeResolution(entity, actor.id, resolution.targetId, resolution, false);
   });
   const health = applySkillHealth(
@@ -127,9 +129,7 @@ export function playHeroSkillTargets(
     entities,
     {
       resolution: actorResult,
-      healthEffects: effects.flatMap((e, index) =>
-        e.healthEffects.filter((effect) => index === 0 || effect.source !== "selfHeal"),
-      ),
+      healthEffects,
     },
     state.seed,
     battle.rngCursor + (roll === null ? 0 : 1),

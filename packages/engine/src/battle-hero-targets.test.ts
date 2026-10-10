@@ -236,10 +236,28 @@ describe("英雄多目标命令（R19–20、R-024、R-025、R-031、R-048）", 
     expect(result.state.battle!.rngCursor).toBe(1);
   });
 
-  it("未轮到使用者、位移冻结与反击接收者均原子拒绝", () => {
+  it("多目标反击各自累计，Protection 按减半前伤害反弹；落空不反弹", () => {
+    let state = change(setup(), "m1", { riposte: true, protection: true });
+    state = change(state, "m2", { riposte: true });
+    const result = applyCommand(state, command());
+    const event = result.events.find((e) => e.type === "heroSkillTargetsResolved")!;
+    const reflected = event.resolutions.reduce((sum, r) => sum + (r.riposteDamage ?? 0), 0);
+    expect(reflected).toBeGreaterThan(0);
+    expect(entity(result.state, "actor").wounds).toBe(entity(state, "actor").wounds + reflected);
+    expect(event.resolutions[0]!.riposteDamage).toBe(event.resolutions[1]!.riposteDamage);
+    expect(event.resolutions[0]!.damageDealt).toBeLessThan(event.resolutions[1]!.damageDealt!);
+    expect(result.state.battle!.encounter!.turn).toMatchObject({ actions: 1 });
+    const miss = applyCommand(change(state, "m2", { dodge: 20 }), command());
+    expect(miss.events[0]).toMatchObject({
+      resolutions: [{ riposteDamage: reflected / 2 }, { outcome: "miss", riposteDamage: null }],
+    });
+    expect(entity(miss.state, "actor").wounds).toBe(entity(state, "actor").wounds + reflected / 2);
+    expect(applyCommand(state, command())).toEqual(result);
+  });
+
+  it("未轮到使用者与位移冻结均原子拒绝", () => {
     const state = setup();
     refused(state, { ...command(), actorId: "h1" });
-    refused(change(state, "m2", { riposte: true }));
     const pending = {
       type: "shuffleArea" as const,
       path: [],

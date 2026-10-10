@@ -227,9 +227,40 @@ describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）
     expect(result.state.battle!.monsterAction).toBeNull();
   });
 
-  it("多目标缺值 / 反击 / 未支持效果在掷骰前原子拒绝", () => {
+  it("多个英雄的反击累计杀死怪物，一次补位 / 胜利；落空不反弹", () => {
+    let state = patch(setup(spearman), "h0", { riposte: true, protection: true });
+    state = patch(state, "h1", { riposte: true });
+    state = patch(state, "monster", { wounds: spearman.life - 5 });
+    const started = monsterTurn(setup(spearman));
+    let seed = 0;
+    while (nextBattleRoll(seed, started.battle!.rngCursor) !== 7) seed += 1;
+    const encounter = {
+      ...state,
+      seed,
+      battle: {
+        ...state.battle!,
+        encounter: started.battle!.encounter!,
+        rngCursor: started.battle!.rngCursor,
+      },
+    };
+    const result = applyCommand(encounter, play(2));
+    const event = result.events.find((e) => e.type === "monsterSkillTargetsResolved")!;
+    const reflected = event.resolutions.reduce((sum, r) => sum + (r.riposteDamage ?? 0), 0);
+    expect(entity(result.state, "monster").wounds).toBe(
+      entity(encounter, "monster").wounds + reflected,
+    );
+    expect(event.actorDead).toBe(true);
+    expect(result.events.filter((e) => e.type === "battleFinished")).toHaveLength(1);
+    const miss = applyCommand(patch(state, "h1", { dodge: 20 }), play(2));
+    expect(miss.events[0]).toMatchObject({
+      resolutions: [{ riposteDamage: 3 }, { outcome: "miss", riposteDamage: null }],
+    });
+    expect(entity(miss.state, "monster").wounds).toBe(entity(state, "monster").wounds + 3);
+    expect(applyCommand(encounter, play(2))).toEqual(result);
+  });
+
+  it("多目标缺值 / 未支持效果在掷骰前原子拒绝", () => {
     for (const state of [
-      patch(setup(spearman), "h1", { riposte: true }),
       setup({ ...spearman, verification: { unverified: true } }),
       setup(cards.find((c) => c.id === "monster_medium:p027")!),
     ]) {

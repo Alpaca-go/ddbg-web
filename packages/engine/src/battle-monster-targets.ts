@@ -1,6 +1,7 @@
 import { distance, rejectBattleCommand, skillTargetView, writeResolution } from "./battle";
 import type { BattleEntity } from "./battle";
 import { applySkillHealth } from "./battle-health";
+import { multiTargetHealthEffects, projectActorWounds } from "./skill-actor-health";
 import type { ApplyResult, GameState, MonsterSkillTargetsResolvedEvent } from "./command";
 import { newlyDefeatedIds, nextBattleRoll, recordMonsterSkill } from "./encounter";
 import { resolveMonsterSkillEffects } from "./monster-skill";
@@ -31,8 +32,6 @@ export function playMonsterSkillTargets(
         stances.indexOf(a.stance!) - stances.indexOf(b.stance!),
     )
     .slice(0, max);
-  if (targets.some((e) => e.riposte))
-    return rejectBattleCommand(state, "怪物多目标反击尚未接入，整次拒绝");
   const steps = distance(battle.areas, actor.areaId, primary.areaId);
   if (steps === null) return rejectBattleCommand(state, "英雄目标区域不可达");
   const heights = { low: 0, normal: 1, high: 2 };
@@ -87,18 +86,26 @@ export function playMonsterSkillTargets(
   const results = effects.filter((e) => e.status === "resolved");
   const resolutions = results.map((e) => e.resolution);
   const representative = resolutions.find((r) => r.outcome === "crit") ?? resolutions[0]!;
+  const healthEffects = multiTargetHealthEffects(results);
+  const actorWounds = projectActorWounds(actor.id, actor.wounds, healthEffects);
+  const actorDead = actorWounds >= card.life;
   const entities = battle.entities.map((entity) => {
     const resolution = resolutions.find((r) => r.targetId === entity.id) ?? representative;
-    return writeResolution(entity, actor.id, resolution.targetId, resolution, false);
+    const updated = writeResolution(
+      entity,
+      actor.id,
+      resolution.targetId,
+      { ...resolution, actorWounds },
+      false,
+    );
+    return entity.id === actor.id ? { ...updated, dead: actorDead } : updated;
   });
   const health = applySkillHealth(
     battle,
     entities,
     {
       resolution: representative,
-      healthEffects: results.flatMap((e, index) =>
-        e.healthEffects.filter((effect) => index === 0 || effect.source !== "selfHeal"),
-      ),
+      healthEffects,
     },
     state.seed,
     battle.rngCursor + 1,
@@ -110,7 +117,7 @@ export function playMonsterSkillTargets(
     actorId: actor.id,
     skillSlot: command.skillSlot,
     roll,
-    actorDead: results.some((e) => e.actorDead),
+    actorDead,
     resolutions,
   };
   return recordMonsterSkill(
