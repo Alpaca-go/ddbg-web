@@ -326,7 +326,7 @@ Kyries 已合并 #53，并要求继续下一步。开工时工作区干净，本
 
 ## Q-22 边角补充实现块（2026-10-10）
 
-Kyries 已合并 #54，并明确批准 Q-22 三条边角裁定，要求只做这些边角 / 场景测试、单独小 PR、由 Kyries 合并。开工时工作区干净，本地 `main` 执行 `pull --ff-only` 同步至 `faabf55`，再建 `codex/phase2-monster-movement-edges`。上一节“待确认 / 断图拒绝”是 #54 当时的历史状态，本节替代该行为。
+Kyries 已合并 #54，并明确批准 Q-22 三条边角裁定，要求只做这些边角 / 场景测试、单独小 PR、由 Kyries 合并。开工时工作区干净，本地 `main` 执行 `pull --ff-only` 同步至 `faabf55`，再建 `codex/phase2-monster-movement-edges`，已提交 [PR #55](https://github.com/Alpaca-go/ddbg-web/pull/55)，待 Kyries 合并。上一节“待确认 / 断图拒绝”是 #54 当时的历史状态，本节替代该行为。
 
 - 在 `docs/rulings.md` 记为 R-023 的 2026-10-10 补充，并同步规格书 §6.10 与 Q-22 索引；不把原条其他暂定内容一并改成已批准。E-F 继续按 R-054 黑墙阻隔。
 - 区域图距离 `null` 明确表示不连通，不造数值。Closest / Furthest 仅排序有限距离英雄，同距按姿态；Guard 仍先按姿态选，不因不可达换人。既有 Mark / 伤口 / 压力优先级保持各自选择规则，选中的不可达目标交给定位步骤原地跳过。
