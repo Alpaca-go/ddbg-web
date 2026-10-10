@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：八张 I 级技能 duration 核实（2026-10-10）
+
+#70 head `415993d` 的四项 CI 全部成功，已合并为 `ae57d1e` 并同步 main。本块分支 `codex/phase2-status-data-review`，只做第 3 项的状态数据与部署核对表，不混入引擎状态机制。
+
+- 按当前版印刷 SKILLS FRONT 完整页 7 / 10 / 31 / 37 / 76 / 79 / 82 / 91，核实八张 I 级卡的 Stun、Protection、Mark、Bleed、Buff、Riposte 持续时间与流血面值。独立人工映射按卡 id / 名称 / 等级 / 页码 / 效果全文 / 已确认图标位置附加 `verified_status_effects`，原未命名数字的 null 不变；其他卡无注解，不补默认值。
+- 没有改变 raw / parsed / 词典，没有把这些卡直接纳入 UI，也没有拆开混合效果假称整行已支持。数据测试覆盖版本 / 文字 / 图标漂移、缺卡 / 重复卡、非法或缺 duration 拒绝。依据官方 R20–21、R-001 / R-018 / R-033 / R-048。
+- `docs/phase2-status-deployment-review-2026-10-10.md` 给出明确部署 / 宝箱 / Cornered 映射，Q-53 单独待 Kyries 确认；批准前继续保留空语义与 `usable=false`。已向 Kyries 请求精确确认，同时继续状态工作。Q-52 保留。
+
+验证与合并：完成 typecheck、lint、Vitest、build 和 diff 检查后提交，准确 head CI 成功后按持续授权合并。下一块接独立状态堆叠与回合开始效果，再接意志 / 心脏病 / 生成 / 战利品；四步尚未完成，第 4 项与人工检查点③尚未验收。
+
 ## 最新进度：三种怪物组合与可玩 Breakthrough（2026-10-10）
 
 #69 head `b90b6fd` 的四项 CI 全部成功，已合并为 `7541290` 并同步 main。本块分支 `codex/phase2-monster-combos`，收齐第 2 项原定可玩切片。

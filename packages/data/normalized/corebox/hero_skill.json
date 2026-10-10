@@ -2344,6 +2344,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -3664,6 +3673,22 @@
       "text": " +2"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "protection",
+     "duration": 2
+    },
+    {
+     "lineIndex": 1,
+     "segmentIndex": 4,
+     "scope": "self",
+     "kind": "mark",
+     "duration": 3
+    }
    ],
    "top_row_icons": [
     {
@@ -12514,6 +12539,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 2,
+     "amount": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -15284,6 +15319,15 @@
       "text": " 3t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 6,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 3
+    }
    ],
    "top_row_icons": [
     {
@@ -33348,6 +33392,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -34668,6 +34721,15 @@
       "text": " Pull 1"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "riposte",
+     "duration": 2
+    }
    ],
    "top_row_icons": [
     {
@@ -36059,6 +36121,16 @@
       "text": " 2t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 2,
+     "amount": 2
+    }
    ],
    "top_row_icons": [
     {
@@ -40140,6 +40212,15 @@
       "text": " +1"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
    ],
    "top_row_icons": [
     {
