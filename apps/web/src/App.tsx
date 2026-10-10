@@ -293,7 +293,11 @@ export function App() {
         </section>
         <aside className="panel actions" aria-label="行动面板">
           <h2>行动面板</h2>
-          {!turn && <button onClick={() => send({ type: "startBattle" })}>开始战斗</button>}
+          {!turn && (
+            <button disabled={frozen} onClick={() => send({ type: "startBattle" })}>
+              开始战斗
+            </button>
+          )}
           {turn?.type === "awaitingInitiative" && !frozen && (
             <button onClick={() => send({ type: "drawInitiative" })}>抽取先攻</button>
           )}

@@ -97,6 +97,7 @@ export type BattleSetup = {
   readonly lootAreas?: readonly string[];
   /** 下一房间可显式传回同地牢的有限池；回村另行重建。 */
   readonly lootPool?: LootState;
+  readonly startingProvisions?: true;
   readonly provisions?: readonly {
     readonly id: string;
     readonly face: "food" | "bandage" | "potion" | "torch" | "tool";
@@ -108,10 +109,16 @@ export type BattleState = BattleSetup & {
   readonly rngCursor: number;
   readonly resolveDecks?: Readonly<Partial<Record<"virtue" | "affliction", readonly string[]>>>;
   readonly choiceCursor: number;
+  readonly startingProvisionsReady?: true;
   readonly loot?: LootState | undefined;
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | {
+        readonly type: "startingProvision";
+        readonly choice: PendingChoice;
+        readonly wilds: readonly import("./starting-provisions").StartingWild[];
+      }
     | {
         readonly type: "lootReward";
         readonly choice: PendingChoice;
