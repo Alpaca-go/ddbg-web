@@ -15,6 +15,7 @@ import type { MoveMonsterToRangeCommand, MonsterPositionedEvent } from "./battle
 import { moveHero } from "./battle-hero-movement";
 import { consumeResolveProvision } from "./resolve-trigger";
 import { interactLoot, resolveLootChoice } from "./loot";
+import { chooseStartingProvision, startWithProvisions } from "./starting-provisions";
 import type { MoveHeroCommand, HeroMovedEvent } from "./battle-hero-movement";
 import type {
   MonsterActionPreparedEvent,
@@ -205,6 +206,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     if (pending.type === "resolveProvision")
       return consumeResolveProvision(state, command.optionId);
     if (pending.type === "lootReward") return resolveLootChoice(state, command.optionId);
+    if (pending.type === "startingProvision")
+      return chooseStartingProvision(state, command.optionId);
     if (pending.type === "monsterMove")
       return moveMonsterToRange(
         state,
@@ -231,6 +234,12 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       : playMonsterSkill(state, { ...pending.command, shuffleChoice: command.optionId });
   }
   if (state.battle?.pending) return rejectBattleCommand(state, "请先完成待选决定");
+  if (
+    command.type === "startBattle" &&
+    state.battle?.startingProvisions &&
+    !state.battle.startingProvisionsReady
+  )
+    return startWithProvisions(state);
   if (command.type === "resolveShuffles") return applyBattleShuffles(state);
   if (state.battle?.shuffleIntents.length) return rejectBattleCommand(state, "请先结算位移意图");
   if (command.type === "interactLoot") return interactLoot(state, command.actorId);

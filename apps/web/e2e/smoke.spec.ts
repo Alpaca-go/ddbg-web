@@ -34,6 +34,12 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await expect(page.getByTestId("area-C")).toContainText("Cornered");
   await page.screenshot({ path: testInfo.outputPath("formal-deployment.png"), fullPage: true });
   await page.getByRole("button", { name: "开始战斗", exact: true }).click();
+  while (await page.getByRole("group", { name: /待选决策/ }).count()) {
+    await page
+      .getByRole("group", { name: /待选决策/ })
+      .getByRole("button", { name: "火把", exact: true })
+      .click();
+  }
   await expect(page.getByTestId("area-C")).toContainText("宝箱");
   await expect(page.getByTestId("area-H")).toContainText("宝箱");
   await page.getByLabel("测试布置", { exact: true }).selectOption("heal");
