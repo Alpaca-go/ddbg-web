@@ -66,7 +66,7 @@ export function roomTileBattleAreas(tile: {
 }
 type BattleAreaWithoutEdges = Omit<BattleArea, "adjacent">;
 
-/** R18、R24–25；R-021/022/023/024。普通怪按目标区域定位，再攻击或跳过。 */
+/** R18、R24–25；R-021/022/023/024。普通怪按目标区域定位；Large 的挤占待 Q-58。 */
 export function moveMonsterToRange(
   state: GameState,
   command: MoveMonsterToRangeCommand,
@@ -91,14 +91,14 @@ export function moveMonsterToRange(
     !actor ||
     actor.side !== "monster" ||
     actor.dead ||
-    actor.stanceSlots !== 1 ||
+    (actor.stanceSlots !== 1 && actor.stanceSlots !== 2) ||
     !target ||
     target.side !== "hero" ||
     target.dead ||
     !card ||
     actor.life !== card.life
   )
-    return rejectBattleCommand(state, "只接已关联卡牌的普通怪与存活英雄目标；不实现大型怪移动");
+    return rejectBattleCommand(state, "需要已关联卡牌、明确占格数的普通怪与存活英雄目标（R-048）");
   const attack = readMonsterAttackView(card, action.skillSlot);
   if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
   const range = readPrintedRange(attack.view);
@@ -160,13 +160,19 @@ export function moveMonsterToRange(
     });
     if (reachable.some((area) => !Number.isSafeInteger(area.capacity) || area.capacity! < 0))
       return rejectBattleCommand(state, "移动候选区域缺少已核实容量（R-048）");
-    // 满员和敌方区域仍可穿过；仅限制最终落点，普通怪占 1 格（R18、R-021）。
+    // 满员和敌方区域仍可穿过；最终落点按明确的 1 / 2 格计算（R18、R24）。
     const canEnd = (area: BattleArea) =>
       living
         .filter((entity) => entity.areaId === area.id)
         .reduce((sum, entity) => sum + (entity.side === "hero" ? 1 : entity.stanceSlots!), 0) +
-        1 <=
+        actor.stanceSlots! <=
       area.capacity!;
+    // 不把尚未裁定的 Large 挤占落点默默排除，进而猜选其他区域或跳过回合。
+    if (actor.stanceSlots === 2 && reachable.some((area) => !canEnd(area)))
+      return rejectBattleCommand(
+        state,
+        "大型怪候选落点需要挤占，容量边界待 Q-58；不消耗移动或回合",
+      );
     const legal = reachable.filter(canEnd);
     options = legal.filter(inRange).map((area) => area.id);
     if (options.length === 0) {
