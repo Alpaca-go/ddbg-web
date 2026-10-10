@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：Arbalist I 对 Mark 条件伤害（2026-10-10）
+
+接手基线为 #93 合并后的 main `9b9c5a5`，工作区干净且与 origin/main 一致。Phase 2 四步及人工检查点③已完成。原交接仍限定 Phase 2；本轮已向 Kyries 请求扩大到 Phase 3，未收到授权前继续在 Phase 2 补一个真实数据缺口。
+
+- 分支 `codex/phase2-arbalist-mark-damage`：完整印刷 monsters_medium_FRONT p007–009 的 Quarrel 均明确对 Mark 伤害 +1，图标沿用已确认词典。仅为 p007 技能 1 附逐卡注解，管线核对身份、页码、技能、整行签名和命名状态；原始数字列表不补标签，不跨等级推断。详见 [复核记录](arbalist-damage-review-2026-10-10.md)。
+- 怪物技能接收已有 `verified_damage_bonus` 原语，复用命中、暴击、Protection / Riposte 结算；多堆 Mark 仍只加一次伤害。公共命令覆盖选目标、Speed 定位、一次攻击骰及回合结束，漂移拒绝且不消耗 RNG，回放结果一致。
+- UI 卡池保持原批准范围。本块不是 Phase 3 开始；缺 duration、未核实图标和 Q-52 不变。新规则实现 PR 按原交接 §5.6 / §11 待 Kyries 审阅确认后合并，上一轮四步的合并授权不扩展为无限自动合并。
+
+验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build、diff 检查通过；原三条 Chrome 冒烟通过（39.5 秒）。默认 `pnpm test:e2e` 因本机缺 Chromium 1243 无法启动，使用忽略目录中的本地 Chrome 配置成功运行同样三条测试；仓库与 CI 配置未修改。草稿 PR / 准确 head CI 状态在创建后补齐，不自动合并。
+
 ## 四步完成记录（2026-10-10）
 
 四步已在 Kyries 批准的 Phase 2 范围内完成。最后两个实现 / 验收小 PR 均独立提交并通过准确 head 的四项 CI 后合并：#91 head `a6c8081` → merge `8bb8e2f`（三组合四英雄技能试玩）；#92 head `e0bc694` → merge `6853d9b`（R-060 大型怪挤占）。本块仅同步最终交接，不修改引擎 / 数据 / UI。

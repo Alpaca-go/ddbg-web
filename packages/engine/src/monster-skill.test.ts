@@ -145,7 +145,7 @@ describe("已选怪物攻击的纯结算（R19–21）", () => {
     expect(use({ guardedHeroOmitted: true }, 4, 2)).toMatchObject({ status: "refused" });
   });
 
-  it("Courtier 明确复核 +1 压力；Arbalist +1 vs Mark 缺注解仍不补值（R-048）", () => {
+  it("Courtier 明确复核 +1 压力；Arbalist 明确复核 +1 vs Mark（R-048）", () => {
     expect(resolved(use({ areaDistance: 2 }, 4, 1, "p004"))).toMatchObject({
       damageDealt: 3,
       targetStress: 6,
@@ -154,8 +154,8 @@ describe("已选怪物攻击的纯结算（R19–21）", () => {
     expect(
       resolved(use({ areaDistance: 2, target: { ...combat.target, markStacks: 1 } }, 4, 1, "p007")),
     ).toMatchObject({
-      damageDealt: 5,
-      skipped: [{ code: "effect_lines" }],
+      damageDealt: 6,
+      skipped: [],
     });
   });
 

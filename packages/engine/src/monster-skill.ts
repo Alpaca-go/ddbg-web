@@ -13,7 +13,11 @@ import type {
 /** 只读规范化怪物技能；不从 footer_lines 推断可用姿态、选招骰表或 AI。 */
 export type MonsterSkillView = Pick<
   HeroSkillCardView,
-  "printed_labels" | "unlabeled_numbers" | "effect_lines" | "verified_target_stress"
+  | "printed_labels"
+  | "unlabeled_numbers"
+  | "effect_lines"
+  | "verified_target_stress"
+  | "verified_damage_bonus"
 > & {
   readonly slot: number;
   /** 规范化目标优先级文字；缺失时自动目标选择拒绝。 */

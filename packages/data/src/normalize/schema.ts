@@ -137,10 +137,18 @@ export const verificationSchema = z.strictObject({
 
 const lineListSchema = z.array(z.array(segmentSchema));
 
+const verifiedDamageBonusSchema = z.strictObject({
+  lineIndex: z.int().nonnegative(),
+  amount: z.int().positive(),
+  condition: z.literal("marked"),
+  source: z.literal("print_front"),
+});
+
 const skillStatFields = {
   printed_labels: z.array(printedLabelSchema),
   unlabeled_numbers: z.array(normalizedUnlabeledNumberSchema),
   effect_lines: lineListSchema,
+  verified_damage_bonus: verifiedDamageBonusSchema.optional(),
   verified_target_stress: z
     .strictObject({
       lineIndex: z.int().nonnegative(),
@@ -178,14 +186,6 @@ const heroSkillShared = {
   level: levelSchema,
   ...skillStatFields,
   verified_status_effects: z.array(verifiedStatusEffectSchema).min(1).optional(),
-  verified_damage_bonus: z
-    .strictObject({
-      lineIndex: z.int().nonnegative(),
-      amount: z.int().positive(),
-      condition: z.literal("marked"),
-      source: z.literal("print_front"),
-    })
-    .optional(),
   top_row_icons: z.array(normalizedIconSchema),
   name_row_icons: z.array(normalizedIconSchema),
   stats_line: z.array(segmentSchema).nullable(),

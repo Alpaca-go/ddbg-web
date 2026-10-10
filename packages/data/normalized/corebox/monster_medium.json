@@ -2787,6 +2787,12 @@
        }
       ]
      ],
+     "verified_damage_bonus": {
+      "lineIndex": 0,
+      "amount": 1,
+      "condition": "marked",
+      "source": "print_front"
+     },
      "lines": [
       [
        {
