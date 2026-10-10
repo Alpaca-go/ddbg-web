@@ -11,6 +11,7 @@ import type { SkillStance, SkillTargetSide } from "./hero-skill";
 import { createRng, rollD10 } from "./rng";
 import { statusStackProblem } from "./status";
 import { resolveTurnStartStatus } from "./battle-status";
+import { pressureCasualties, resolveBattlePressure } from "./pressure";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -164,6 +165,8 @@ export function finishTurn(
 
 /** 状态代币缺 duration 时，不跳过回合开始结算继续运行（R-048）。 */
 function unsupportedTurnStart(entity: BattleEntity): boolean {
+  // 压力基础层已接入；下一切片接卡牌回合开始效果，不能静默跳过。
+  if (entity.resolveCardId) return true;
   if (entity.statusStacks !== undefined)
     return (
       statusStackProblem(entity.statusStacks) !== null ||
@@ -286,8 +289,11 @@ export function recordEncounterSkill(
   if (!battle?.encounter) return result;
   if (resolved?.type !== "heroSkillResolved" || battle.encounter.turn.type !== "hero")
     return result;
-  const removed = removeCasualties(result, [
+  const pressure = resolveBattlePressure(result);
+  if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
+  const removed = removeCasualties(pressure, [
     ...casualtyIds,
+    ...pressureCasualties(battle, pressure),
     ...(resolved.resolution.targetDead ? [resolved.resolution.targetId] : []),
   ]);
   const ended = endAfterCasualties(removed);
@@ -322,8 +328,11 @@ export function recordMonsterSkill(
 ): ApplyResult {
   const battle = result.state.battle;
   if (!battle?.encounter || battle.encounter.turn.type !== "monster") return result;
-  const removed = removeCasualties(result, [
+  const pressure = resolveBattlePressure(result);
+  if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
+  const removed = removeCasualties(pressure, [
     ...casualtyIds,
+    ...pressureCasualties(battle, pressure),
     ...(resolved.actorDead ? [resolved.actorId] : []),
   ]);
   return endAfterCasualties(removed) ?? finishTurn(removed.state, resolved.actorId, removed.events);
