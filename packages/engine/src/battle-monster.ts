@@ -1,7 +1,12 @@
-import { distance, rejectBattleCommand, writeResolution } from "./battle";
+import { distance, rejectBattleCommand, writeResolution, skillTargetView } from "./battle";
+import { applySkillHealth } from "./battle-health";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent, PendingChoice } from "./command";
 import { nextBattleRoll, recordMonsterSkill } from "./encounter";
-import { needsMonsterSkillShuffleChoice, resolveMonsterSkill } from "./monster-skill";
+import {
+  needsMonsterSkillShuffleChoice,
+  resolveMonsterSkill,
+  resolveMonsterSkillEffects,
+} from "./monster-skill";
 import type { MonsterCombatState } from "./monster-skill";
 import type { ShuffleIntent } from "./shuffle";
 
@@ -57,7 +62,7 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
       ...(actor.buffStacks === undefined ? {} : { buffStacks: actor.buffStacks }),
       ...(actor.shuffleResist === undefined ? {} : { shuffleResist: actor.shuffleResist }),
     },
-    target,
+    target: skillTargetView(target),
     areaDistance,
     light: battle.light,
     targetAreaLower: heights[actorArea.elevation] > heights[targetArea.elevation],
@@ -110,6 +115,14 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
   const roll = nextBattleRoll(state.seed, battle.rngCursor);
   const result = resolveMonsterSkill(card, command.skillSlot, combat, roll);
   if (result.status === "refused") return rejectBattleCommand(state, result.reason);
+  const effects = resolveMonsterSkillEffects(card, command.skillSlot, combat, roll);
+  if (effects.status === "refused") return rejectBattleCommand(state, effects.reason);
+  const entities = battle.entities.map((entry) => {
+    const updated = writeResolution(entry, actor.id, target.id, result.resolution, false);
+    return entry.id === actor.id ? { ...updated, dead: result.actorDead } : updated;
+  });
+  const health = applySkillHealth(battle, entities, effects, state.seed, battle.rngCursor + 1);
+  if (health.status === "refused") return rejectBattleCommand(state, health.reason);
   const event: MonsterSkillResolvedEvent = {
     type: "monsterSkillResolved",
     message: "已选怪物攻击已结算",
@@ -139,11 +152,8 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
         ...battle,
         pending: null,
         monsterAction: null,
-        rngCursor: battle.rngCursor + 1,
-        entities: battle.entities.map((entry) => {
-          const updated = writeResolution(entry, actor.id, target.id, result.resolution, false);
-          return entry.id === actor.id ? { ...updated, dead: result.actorDead } : updated;
-        }),
+        rngCursor: health.rngCursor,
+        entities: health.entities,
         shuffleIntents: intents,
         shuffleContinuation: intents.length
           ? {
@@ -155,7 +165,7 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
           : null,
       },
     },
-    events: [event],
+    events: [event, ...health.events],
   };
   return intents.length ? applied : recordMonsterSkill(applied, event);
 }

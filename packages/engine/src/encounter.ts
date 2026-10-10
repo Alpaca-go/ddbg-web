@@ -256,6 +256,11 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     return rejectBattleCommand(state, "位移意图尚未应用，不能继续遭遇战");
   if (command.type === "startBattle") {
     if (battle.encounter) return rejectBattleCommand(state, "遭遇战已经开始");
+    if (battle.entities.some((entry) => entry.side === "hero" && entry.life !== undefined))
+      return rejectBattleCommand(
+        state,
+        "英雄死亡补位 / 全灭收尾尚未接入；带 Life 的状态仅用于技能沙盒",
+      );
     const living = battle.entities.filter((entity) => !entity.dead);
     if (living.filter((entity) => entity.side === "hero").length !== 4)
       return rejectBattleCommand(state, "普通遭遇战需要 4 名存活英雄（R16）");
