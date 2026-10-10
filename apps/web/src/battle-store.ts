@@ -136,6 +136,7 @@ function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
   });
   return createBattleState(seed, {
     ...battleData,
+    ...(formal ? { lootAreas: battleData.deployment.lootAreas } : {}),
     provisions: [],
     light: 5,
     entities: [...heroes, ...monsters],

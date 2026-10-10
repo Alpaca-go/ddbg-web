@@ -13,6 +13,7 @@ import { statusStackProblem } from "./status";
 import { resolveTurnStartStatus } from "./battle-status";
 import { pressureCasualties, resolveBattlePressure } from "./pressure";
 import { beginResolveTurn } from "./resolve-trigger";
+import { closeBattleLoot, placeBattleLoot } from "./loot";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -109,6 +110,7 @@ function finishBattle(
       ...state,
       battle: {
         ...battle,
+        loot: closeBattleLoot(battle.loot),
         encounter: { ...battle.encounter!, deck: [], turn: { type: "finished", outcome } },
         monsterAction: null,
       },
@@ -284,6 +286,7 @@ function endAfterCasualties(result: ApplyResult): ApplyResult | null {
         ...result.state,
         battle: {
           ...battle,
+          loot: closeBattleLoot(battle.loot),
           monsterAction: null,
           encounter: {
             ...battle.encounter!,
@@ -474,7 +477,10 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     }
     if (living.some(unsupportedTurnStart))
       return rejectBattleCommand(state, "回合开始状态 / 压力检定尚未接入（R-048）");
-    const next = startRound(state.seed, battle, 1);
+    const deployed = placeBattleLoot(battle, state.seed);
+    if (!deployed)
+      return rejectBattleCommand(state, "战利品池必须保留十枚真实实例的可用 / 已拾取分区");
+    const next = startRound(state.seed, deployed, 1);
     return {
       state: { ...state, battle: next },
       events: [event(next, "roundStarted", "开始第 1 轮")],

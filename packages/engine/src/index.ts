@@ -71,6 +71,8 @@ export { resolvePressure } from "./pressure";
 export type { ResolveCard } from "./pressure";
 export { spawnMonsters } from "./spawn";
 export type { SpawnCard, SpawnPlacement } from "./spawn";
+export { createLootState, nextProvisionFace } from "./loot";
+export type { LootState, LootKind, LootToken, ProvisionFace } from "./loot";
 export { addStatusStack, tickStatusStacks, statusProjection } from "./status";
 export type { StatusKind, StatusStack, StatusEffect } from "./status";
 export { resolveHeroHealth, resolveSeededHeroHealth } from "./hero-health";

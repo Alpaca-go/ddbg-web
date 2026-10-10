@@ -14,6 +14,7 @@ import { moveMonsterToRange } from "./battle-monster-movement";
 import type { MoveMonsterToRangeCommand, MonsterPositionedEvent } from "./battle-monster-movement";
 import { moveHero } from "./battle-hero-movement";
 import { consumeResolveProvision } from "./resolve-trigger";
+import { interactLoot, resolveLootChoice } from "./loot";
 import type { MoveHeroCommand, HeroMovedEvent } from "./battle-hero-movement";
 import type {
   MonsterActionPreparedEvent,
@@ -70,6 +71,7 @@ export type MonsterSkillTargetsResolvedEvent = Omit<
 };
 
 export type Command =
+  | { readonly type: "interactLoot"; readonly actorId: string }
   | EncounterCommand
   | PlayHeroSkillCommand
   | PlayHeroSkillTargetsCommand
@@ -89,6 +91,19 @@ export type Command =
     };
 
 export type GameEvent =
+  | {
+      readonly type: "lootRevealed" | "lootResolved";
+      readonly actorId: string;
+      readonly tokenId: string;
+      readonly kind: import("./loot").LootKind;
+      readonly message: string;
+    }
+  | {
+      readonly type: "provisionRolled";
+      readonly actorId: string;
+      readonly face: import("./loot").ProvisionFace | "wild";
+      readonly message: string;
+    }
   | { readonly type: "areaStressResolved"; readonly actorId: string; readonly message: string }
   | {
       readonly type: "resolveTriggered";
@@ -189,6 +204,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       return applyBattleShuffles(state, [...pending.path, command.optionId]);
     if (pending.type === "resolveProvision")
       return consumeResolveProvision(state, command.optionId);
+    if (pending.type === "lootReward") return resolveLootChoice(state, command.optionId);
     if (pending.type === "monsterMove")
       return moveMonsterToRange(
         state,
@@ -217,6 +233,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (state.battle?.pending) return rejectBattleCommand(state, "请先完成待选决定");
   if (command.type === "resolveShuffles") return applyBattleShuffles(state);
   if (state.battle?.shuffleIntents.length) return rejectBattleCommand(state, "请先结算位移意图");
+  if (command.type === "interactLoot") return interactLoot(state, command.actorId);
   if (command.type === "prepareMonsterAction") return prepareMonsterAction(state, command);
   if (command.type === "moveMonsterToRange") return moveMonsterToRange(state, command);
   if (command.type === "moveHero") return moveHero(state, command);
