@@ -17,6 +17,7 @@ import { virtueRole } from "./virtue-role";
 import { attachVerifiedMonsterStances } from "./verified-monster-stances";
 import { attachVerifiedMonsterSpeeds } from "./verified-monster-speeds";
 import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
+import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
 import { buildRoomTileGeometry } from "./room-tile";
 import type { RoomTileGeometryFile } from "./room-tile";
 import { buildHeroStats } from "./hero-stat";
@@ -569,6 +570,12 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
     monster_large: buildMonsterLarge(input.monsterLarge, input.monsterLargeRaw, lookup),
     trinket: buildTrinkets(input.trinkets, input.trinketRaw, lookup),
     quirk: buildQuirks(input.quirks, lookup),
-    virtue_affliction: buildVirtues(input.virtues, lookup),
+    virtue_affliction: (() => {
+      const file = buildVirtues(input.virtues, lookup);
+      return normalizedVirtueAfflictionFileSchema.parse({
+        ...file,
+        cards: attachVerifiedResolveTriggers(file.cards),
+      });
+    })(),
   };
 }

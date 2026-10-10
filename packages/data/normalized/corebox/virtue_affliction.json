@@ -169,6 +169,15 @@
      "naming": "confirmed"
     }
    ],
+   "verified_turn_start": {
+    "rollMin": 1,
+    "rollMax": 3,
+    "effect": {
+     "type": "stress",
+     "scope": "self",
+     "amount": -2
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []
@@ -444,6 +453,15 @@
      "naming": "confirmed"
     }
    ],
+   "verified_turn_start": {
+    "rollMin": 1,
+    "rollMax": 3,
+    "effect": {
+     "type": "stress",
+     "scope": "heroes",
+     "amount": -1
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []
@@ -605,6 +623,15 @@
      "naming": "confirmed"
     }
    ],
+   "verified_turn_start": {
+    "rollMin": 1,
+    "rollMax": 5,
+    "effect": {
+     "type": "buff",
+     "scope": "self",
+     "duration": 2
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []
@@ -880,6 +907,15 @@
      "naming": "confirmed"
     }
    ],
+   "verified_turn_start": {
+    "rollMin": 1,
+    "rollMax": 3,
+    "effect": {
+     "type": "buff",
+     "scope": "heroes",
+     "duration": 2
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []
@@ -1076,6 +1112,16 @@
      "naming": "confirmed"
     }
    ],
+   "verified_turn_start": {
+    "rollMin": 1,
+    "rollMax": 3,
+    "effect": {
+     "type": "heal",
+     "scope": "self",
+     "amount": 3,
+     "perHeroLevel": true
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []
@@ -1237,6 +1283,15 @@
      "naming": "confirmed"
     }
    ],
+   "verified_turn_start": {
+    "rollMin": 1,
+    "rollMax": 2,
+    "effect": {
+     "type": "stress",
+     "scope": "self",
+     "amount": 2
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []
@@ -1375,6 +1430,14 @@
      "naming": "confirmed"
     }
    ],
+   "verified_turn_start": {
+    "rollMin": 1,
+    "rollMax": 4,
+    "effect": {
+     "type": "consumeProvision",
+     "amount": 1
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []
@@ -1845,6 +1908,15 @@
      "naming": "confirmed"
     }
    ],
+   "verified_turn_start": {
+    "rollMin": 1,
+    "rollMax": 3,
+    "effect": {
+     "type": "stress",
+     "scope": "heroes",
+     "amount": 1
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []

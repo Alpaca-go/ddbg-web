@@ -298,6 +298,30 @@ export const normalizedTrinketCardSchema = z.strictObject({
 const QUIRK_FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Quirks_FRONT.pdf";
 const VIRTUE_FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_virtue_afflictions_FRONT.pdf";
 
+export const verifiedResolveTriggerSchema = z.strictObject({
+  rollMin: z.literal(1),
+  rollMax: z.int().min(1).max(10),
+  effect: z.discriminatedUnion("type", [
+    z.strictObject({
+      type: z.literal("stress"),
+      scope: z.enum(["self", "heroes"]),
+      amount: z.int(),
+    }),
+    z.strictObject({
+      type: z.literal("buff"),
+      scope: z.enum(["self", "heroes"]),
+      duration: z.int().positive(),
+    }),
+    z.strictObject({
+      type: z.literal("heal"),
+      scope: z.literal("self"),
+      amount: z.int().positive(),
+      perHeroLevel: z.literal(true),
+    }),
+    z.strictObject({ type: z.literal("consumeProvision"), amount: z.literal(1) }),
+  ]),
+});
+
 export const normalizedQuirkCardSchema = z.strictObject({
   id: z.string().min(1),
   pages: pageListSchema,
@@ -332,6 +356,7 @@ export const normalizedVirtueAfflictionCardSchema = z
     back_has_data: z.literal(false),
     lines: lineListSchema,
     icons: z.array(normalizedIconSchema),
+    verified_turn_start: verifiedResolveTriggerSchema.optional(),
     verification: verificationSchema,
   })
   .superRefine((card, ctx) => {
