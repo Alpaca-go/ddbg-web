@@ -122,6 +122,51 @@ describe("怪物单目标优先级（R24、R-024）", () => {
     ).toBe("refused");
   });
 
+  it("R-023 补充：Closest / Furthest 仅排有限距离，保留姿态平手，不把 null 变成距离", () => {
+    const disconnected = heroes
+      .map((hero) => ({ ...hero, areaDistance: hero.id === "hellion" ? null : 2 }))
+      .reverse();
+    const before = structuredClone(disconnected);
+    for (const slot of [1, 3]) {
+      expect(selectMonsterTarget(card("Bone Defender"), slot, disconnected)).toEqual(
+        selected("crusader"),
+      );
+      expect(
+        selectMonsterTarget(
+          card("Bone Defender"),
+          slot,
+          disconnected.map((hero) => ({ ...hero, areaDistance: null })),
+        ),
+      ).toEqual({ status: "noFiniteTarget" });
+    }
+    expect(disconnected).toEqual(before);
+  });
+
+  it("R-023 补充：断开的 Guard / Mark / 伤口目标仍按各自优先级选，不换可达人", () => {
+    const disconnected = heroes.map((hero) => ({
+      ...hero,
+      areaDistance: hero.id === "crusader" ? null : hero.areaDistance,
+    }));
+    const guarded = disconnected.map((hero) => ({ ...hero, guard: hero.id === "crusader" }));
+    for (const slot of [1, 3])
+      expect(selectMonsterTarget(card("Bone Defender"), slot, guarded)).toEqual(
+        selected("crusader"),
+      );
+    expect(selectMonsterTarget(card("Bone Soldier"), 1, disconnected)).toEqual(
+      selected("crusader"),
+    );
+    expect(selectMonsterTarget(card("Bone Courtier"), 1, disconnected)).toEqual(
+      selected("crusader"),
+    );
+    expect(
+      selectMonsterTarget(
+        card("Bone Arbalist"),
+        1,
+        disconnected.map((hero) => ({ ...hero, markStacks: hero.id === "crusader" ? 1 : 0 })),
+      ),
+    ).toEqual(selected("crusader"));
+  });
+
   it("未验证卡、缺失 / 重复技能与未支持目标保持拒绝，不补默认值", () => {
     const source = card("Bone Soldier");
     expect(
@@ -142,6 +187,8 @@ describe("怪物单目标优先级（R24、R-024）", () => {
   it("缺少或非法数值、重复 ID / 姿态拒绝，不随机打破平手", () => {
     for (const patch of [
       { areaDistance: NaN },
+      { areaDistance: Infinity },
+      { areaDistance: undefined },
       { areaDistance: -1 },
       { wounds: -1 },
       { stress: 11 },

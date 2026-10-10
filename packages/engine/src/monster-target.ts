@@ -1,10 +1,10 @@
 import type { SkillStance } from "./hero-skill";
 
-/** 距离由调用方按区域图计算；不按射程筛掉目标（R-024）。 */
+/** 距离由区域图计算；null 明确表示不连通，不是缺值或跨墙距离。 */
 export type MonsterTargetHero = {
   readonly id: string;
   readonly stance: SkillStance;
-  readonly areaDistance: number;
+  readonly areaDistance: number | null;
   readonly wounds: number;
   readonly stress: number;
   readonly markStacks: number;
@@ -22,6 +22,7 @@ export type MonsterTargetCardView = {
 
 export type MonsterTargetSelection =
   | { readonly status: "selected"; readonly targetId: string }
+  | { readonly status: "noFiniteTarget" }
   | { readonly status: "refused"; readonly reason: string };
 
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
@@ -60,8 +61,8 @@ export function selectMonsterTarget(
       (hero) =>
         !hero.id ||
         !stances.includes(hero.stance) ||
-        !Number.isInteger(hero.areaDistance) ||
-        hero.areaDistance < 0 ||
+        (hero.areaDistance !== null &&
+          (!Number.isInteger(hero.areaDistance) || hero.areaDistance < 0)) ||
         !Number.isInteger(hero.wounds) ||
         hero.wounds < 0 ||
         !Number.isInteger(hero.stress) ||
@@ -83,12 +84,17 @@ export function selectMonsterTarget(
     // A -> B：找到 A 就按姿态选；只有没有 A 时才使用 B。
     candidates = markedHeroes;
   } else {
+    // R-023 补充：仅 Closest / Furthest 排除不连通英雄，Guard / Mark 不换人。
+    if (priority === "Closest" || priority === "Furthest") {
+      candidates = candidates.filter((hero) => hero.areaDistance !== null);
+      if (!candidates.length) return { status: "noFiniteTarget" };
+    }
     const score = (hero: MonsterTargetHero): number => {
       switch (priority) {
         case "Closest":
-          return -hero.areaDistance;
+          return -hero.areaDistance!;
         case "Furthest":
-          return hero.areaDistance;
+          return hero.areaDistance!;
         case "Most Wounded":
           return hero.wounds;
         default:

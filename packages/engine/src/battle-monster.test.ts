@@ -457,7 +457,7 @@ describe("怪物选招与目标命令接线（R-015、R-024）", () => {
     expect(skipped.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
   });
 
-  it("未开始 / 非当前回合、缺少分组、未核实目标或断开区域均拒绝且不消耗 RNG", () => {
+  it("未开始 / 非当前回合、缺少分组或未核实目标均拒绝且不消耗 RNG", () => {
     const missingGroups = { ...soldier };
     delete missingGroups.stanceGroups;
     const noGroups = monsterTurn(setup(missingGroups));
@@ -466,20 +466,11 @@ describe("怪物选招与目标命令接线（R-015、R-024）", () => {
       ...card,
       skills: card.skills.map((skill) => ({ ...skill, target: "Crowded" })),
     };
-    const disconnected = monsterTurn(setup(card));
-    const broken = {
-      ...disconnected,
-      battle: {
-        ...disconnected.battle!,
-        areas: disconnected.battle!.areas.map((area) => ({ ...area, adjacent: [] })),
-      },
-    };
     for (const initial of [
       setup(card),
       applyCommand(setup(card), { type: "startBattle" }).state,
       noGroups,
       monsterTurn(setup(unsupported)),
-      broken,
     ]) {
       const result = applyCommand(initial, prepare);
       expect(result.state).toBe(initial);

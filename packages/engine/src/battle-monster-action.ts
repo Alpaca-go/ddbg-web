@@ -1,10 +1,12 @@
 import { distance, rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
-import { nextBattleRoll } from "./encounter";
+import { applyEncounterCommand, nextBattleRoll } from "./encounter";
 import type { SkillStance } from "./hero-skill";
 import { selectMonsterSkill } from "./monster-stance";
 import { selectMonsterTarget } from "./monster-target";
 import type { MonsterTargetHero } from "./monster-target";
+import { readPrintedRange, readPrintedTargets } from "./hero-skill";
+import { readMonsterAttackView } from "./monster-skill";
 
 export type PrepareMonsterActionCommand = {
   readonly type: "prepareMonsterAction";
@@ -61,8 +63,6 @@ export function prepareMonsterAction(
   const heroes: MonsterTargetHero[] = [];
   for (const hero of battle.entities.filter((entry) => entry.side === "hero" && !entry.dead)) {
     const areaDistance = distance(battle.areas, actor.areaId, hero.areaId);
-    if (areaDistance === null)
-      return rejectBattleCommand(state, "英雄区域距离不可达，拒绝猜测目标排序");
     heroes.push({
       id: hero.id,
       stance: hero.stance!,
@@ -83,6 +83,51 @@ export function prepareMonsterAction(
     heroes,
   );
   if (target.status === "refused") return rejectBattleCommand(state, target.reason);
+  if (target.status === "noFiniteTarget") {
+    if (actor.stanceSlots !== 1)
+      return rejectBattleCommand(state, "无有限距离目标的跳过只接普通怪，本切片不处理大型怪");
+    const attack = readMonsterAttackView(card, selected.skillSlot);
+    if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
+    const targets = readPrintedTargets(attack.view);
+    if (
+      readPrintedRange(attack.view).kind !== "exact" ||
+      targets.kind !== "exact" ||
+      targets.max !== 1 ||
+      !attack.view.stats_line?.some(
+        (segment) =>
+          segment.type === "icon" &&
+          segment.icon.key === "damage" &&
+          ["confirmed", "confirmed_rulebook"].includes(segment.icon.naming),
+      )
+    )
+      return rejectBattleCommand(
+        state,
+        "无有限距离目标的跳过只接已命名整数射程与单目标攻击（R-048）",
+      );
+    const finished = applyEncounterCommand(
+      {
+        ...state,
+        battle: {
+          ...battle,
+          rngCursor: battle.rngCursor + (needsRoll ? 1 : 0),
+        },
+      },
+      { type: "finishMonsterTurn", actorId: actor.id },
+    );
+    return {
+      ...finished,
+      events: [
+        {
+          type: "monsterActionSkipped",
+          actorId: actor.id,
+          skillSlot: selected.skillSlot,
+          selectionRoll: selected.roll,
+          message: "Closest / Furthest 没有有限距离英雄，原地跳过剩余回合（R-023 补充）",
+        },
+        ...finished.events,
+      ],
+    };
+  }
   const action: PreparedMonsterAction = {
     actorId: actor.id,
     skillSlot: selected.skillSlot,
