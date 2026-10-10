@@ -61,13 +61,15 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
         .sort(),
     ).toEqual(["D-I", "E-G", "G-I"]);
     expect(tile.geometryVerified).toBe(true);
-    expect(tile.usable).toBe(false);
-    expect(tile.unresolvedMarkers.map((marker) => marker.semantic)).toEqual([
-      null,
-      null,
-      null,
-      null,
-    ]);
+    expect(tile.usable).toBe(true);
+    expect(tile.unresolvedMarkers).toEqual([]);
+    expect(tile.deployment).toMatchObject({
+      printReview: "verified",
+      heroes: { aggressive: "H", ranged: "H", defensive: "C", support: "C" },
+      monsters: { aggressive: "J", defensive: "D", ranged: "F", support: "D" },
+      lootAreas: ["C", "H"],
+    });
+    expect(tile.deployment!.markers.every((marker) => marker.status === "confirmed")).toBe(true);
   });
 
   it("生成可重现，与入库文件一致，其他六类卡牌不变", () => {
@@ -126,7 +128,22 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
     expect(
       roomTileGeometrySchema.safeParse({ ...tile, areas: [...tile.areas, tile.areas[0]] }).success,
     ).toBe(false);
-    expect(roomTileGeometrySchema.safeParse({ ...tile, usable: true }).success).toBe(false);
+    expect(roomTileGeometrySchema.safeParse({ ...tile, usable: false }).success).toBe(false);
+    expect(
+      roomTileGeometrySchema.safeParse({
+        ...tile,
+        deployment: { ...tile.deployment, printReview: "pending" },
+      }).success,
+    ).toBe(false);
+    expect(
+      roomTileGeometrySchema.safeParse({
+        ...tile,
+        deployment: {
+          ...tile.deployment,
+          markers: tile.deployment!.markers.map((marker) => ({ ...marker, areaId: "A" })),
+        },
+      }).success,
+    ).toBe(false);
     expect(
       roomTileGeometrySchema.safeParse({
         ...tile,

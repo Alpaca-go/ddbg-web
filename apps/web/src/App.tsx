@@ -194,6 +194,9 @@ export function App() {
                     </span>
                   </div>
                   <p className="connections">连接：{area.adjacent.join(" · ") || "无"}</p>
+                  {area.endTurnStress === 1 && (
+                    <p className="muted">Cornered：英雄结束回合压力 +1</p>
+                  )}
                   <ul>
                     {occupants.map((e) => (
                       <li key={e.id} className={e.side}>

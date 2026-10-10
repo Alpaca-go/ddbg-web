@@ -23,6 +23,17 @@ export type MonsterPositionedEvent = {
 /** 只投影获批几何；不读取 usable=false 板块的出生 / 交互标记（R-048、R-054）。 */
 export function roomTileBattleAreas(tile: {
   readonly geometryVerified: boolean;
+  readonly usable?: boolean;
+  readonly deployment?:
+    | {
+        readonly printReview: string;
+        readonly markers: readonly {
+          readonly areaId: string;
+          readonly semantic: string;
+          readonly status: string;
+        }[];
+      }
+    | undefined;
   readonly areas: readonly BattleAreaWithoutEdges[];
   readonly edges: readonly {
     readonly from: string;
@@ -34,6 +45,16 @@ export function roomTileBattleAreas(tile: {
   if (tile.geometryVerified !== true) throw new Error("房间几何尚未核实（R-048）");
   return tile.areas.map((area) => ({
     ...area,
+    ...(tile.usable === true &&
+    tile.deployment?.printReview === "verified" &&
+    tile.deployment.markers.some(
+      (marker) =>
+        marker.areaId === area.id &&
+        marker.semantic === "cornered" &&
+        marker.status === "confirmed",
+    )
+      ? { endTurnStress: 1 as const }
+      : {}),
     adjacent: tile.edges
       .filter(
         (edge) =>

@@ -89,6 +89,7 @@ export type Command =
     };
 
 export type GameEvent =
+  | { readonly type: "areaStressResolved"; readonly actorId: string; readonly message: string }
   | {
       readonly type: "resolveTriggered";
       readonly entityId: string;

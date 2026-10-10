@@ -60,6 +60,8 @@ export type BattleEntity = SkillTargetState &
   };
 
 export type BattleArea = {
+  /** 已复核 Cornered；只接明确印刷值，不给未命名特殊标记补值。 */
+  readonly endTurnStress?: 1;
   readonly id: string;
   /** 板块已核实的容量；未提供时位移解析器拒绝，不补默认值。 */
   readonly capacity?: number;

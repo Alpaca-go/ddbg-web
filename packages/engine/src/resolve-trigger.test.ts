@@ -217,4 +217,40 @@ describe("十张真实意志卡回合开始触发（R18 / R28 / R-056 / R-057）
       expect(refused.state).toBe(invalid);
     }
   });
+  it("Cornered 在最后行动结束仅一次，低光加一次压力并心脏病；缺压力回滚行动", () => {
+    const initial = draw(ready("Stalwart")).state;
+    const corner = {
+      ...initial,
+      battle: {
+        ...initial.battle!,
+        light: 1,
+        areas: [{ id: "a", adjacent: [], elevation: "normal" as const, endTurnStress: 1 as const }],
+        entities: initial.battle!.entities.map((entity) =>
+          entity.id === "h0" ? { ...entity, stress: 8 } : entity,
+        ),
+      },
+    };
+    const command = {
+      type: "changeStance" as const,
+      actorId: "h0",
+      direction: "backward" as const,
+    };
+    const first = applyCommand(corner, command);
+    expect(first.events.some((event) => event.type === "areaStressResolved")).toBe(false);
+    const second = applyCommand(first.state, { ...command, direction: "forward" });
+    expect(second.events.filter((event) => event.type === "areaStressResolved")).toHaveLength(1);
+    expect(second.events.filter((event) => event.type === "heartAttack")).toHaveLength(1);
+    expect(second.state.battle!.rngCursor).toBe(first.state.battle!.rngCursor);
+    expect(second.state.battle!.entities[0]!.dead).toBe(true);
+    const bad = {
+      ...first.state,
+      battle: {
+        ...first.state.battle!,
+        entities: first.state.battle!.entities.map((entity) =>
+          entity.id === "h0" ? { ...entity, stress: NaN } : entity,
+        ),
+      },
+    };
+    expect(applyCommand(bad, { ...command, direction: "forward" }).state).toBe(bad);
+  });
 });

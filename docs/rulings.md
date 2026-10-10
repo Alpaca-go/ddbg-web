@@ -596,7 +596,8 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **日期**：2026-10-10
 - **裁定**：Q-53 区域表获批：英雄 Aggressive / Ranged→H、Defensive→C；怪物 Aggressive→J、Defensive→D、Ranged→F；C/H 宝箱各一。英雄 Support→C、怪物 Support→D 和红星 Cornered（英雄结束回合 Stress +1）先按拟议入库，三处图标保留 provisional，待代理对照完整印刷面后再最终确认；有出入回退 semantic=null。F 仍孤立，不补路。
 - **来源 / 范围**：Kyries 本对话批准并随后明确暂定状态；只限 Room Tile 1 / Ritual Chamber 与配套 room:p001，几何继续依 R-054，不全局升级同形图标。
-- **状态**：区域表已批准；三处图标暂定，待印刷面复核。
+- **状态**：区域表已批准；三处图标已于 2026-10-10 完整印刷面复核一致，依 Kyries 的条件授权最终确认。
+- **印刷复核**：代理重新查看完整 `DD_COREBOX_TILES_FRONT.pdf` 第 1 页与配套 Ritual Chamber `room:p001` 正面，并对照官方 R16 的英雄 / 怪物 Support 起点例图：C 左金框和 D 红竖条一致，C/H 红星与房间卡明文 Cornered 一致。只确认这些放置，不全局改同形词典，不补 F 路径。
 
 ### R-056
 
