@@ -31,6 +31,7 @@ import type { PlayMonsterSkillCommand } from "./battle-monster";
 import type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 import type { PreparedMonsterAction } from "./battle-monster-action";
 import { applySkillHealth } from "./battle-health";
+import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { statusProjection, statusStackProblem } from "./status";
 import type { StatusStack } from "./status";
 
@@ -332,6 +333,13 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
     1,
   );
   if (probe.status === "refused") return rejectBattleCommand(state, probe.reason ?? "技能拒绝结算");
+  if (
+    skill.verified_status_effects !== undefined &&
+    probe.skipped.some((skip) => skip.code === "effect_lines")
+  )
+    return rejectBattleCommand(state, "已核实状态与同行效果尚未完整支持，整次拒绝（R-048）");
+  const statusProbe = applyBattleSkillStatuses(battle, battle.entities, actor.id, [probe]);
+  if (statusProbe.status === "refused") return rejectBattleCommand(state, statusProbe.reason);
   if (needsChoice) {
     const choice: PendingChoice = {
       id: `shuffle:${battle.choiceCursor}:${actor.id}:${skill.id}:${target.id}`,
@@ -381,7 +389,9 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
     battle.rngCursor + (roll === null ? 0 : 1),
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
-  const casualtyIds = newlyDefeatedIds(battle, health.entities);
+  const statuses = applyBattleSkillStatuses(battle, health.entities, actor.id, [resolution]);
+  if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
+  const casualtyIds = newlyDefeatedIds(battle, statuses.entities);
   const shuffleIntents = [...battle.shuffleIntents];
   if (resolution.actorShuffle)
     shuffleIntents.push({
@@ -407,7 +417,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
       ...state,
       battle: {
         ...battle,
-        entities: health.entities,
+        entities: statuses.entities,
         shuffleIntents,
         pending: null,
         rngCursor: health.rngCursor,

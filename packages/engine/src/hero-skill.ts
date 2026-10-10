@@ -1,4 +1,6 @@
 import type { HeroHealthEffect } from "./hero-health";
+import type { StatusEffect } from "./status";
+import { readVerifiedStatusEffects } from "./skill-status";
 
 /**
  * 已验证英雄技能对一个已选目标的命中伤害或治疗，以及规则书已经写明的后续步骤。
@@ -244,6 +246,11 @@ export type HeroSkillCardView = {
   }[];
   readonly stats_line: readonly SkillSegment[] | null;
   readonly effect_lines: readonly (readonly SkillSegment[])[];
+  readonly verified_status_effects?: readonly (StatusEffect & {
+    readonly lineIndex: number;
+    readonly segmentIndex: number;
+    readonly scope: "self" | "target";
+  })[];
   /**
    * 技能卡顶行。点亮的姿态图标表示能从那个姿态使用（规则书第 19 页）。
    * 不传就无法在调用方给出当前姿态时核对。
@@ -503,6 +510,8 @@ export type HeroSkillResolution = {
   readonly besideActorStress: readonly SkillAreaHero[] | null;
   readonly untargetedBesideTargetStress: readonly SkillAreaHero[] | null;
   readonly skipped: readonly SkippedSkillEffect[];
+  readonly actorStatusEffects?: readonly StatusEffect[];
+  readonly targetStatusEffects?: readonly StatusEffect[];
 };
 
 const NAMED = new Set(["confirmed", "confirmed_rulebook"]);
@@ -1989,6 +1998,10 @@ function resolveSkill(
 
   const target = combat.target;
   const stress = readImmediateStress(active);
+  const statuses = readVerifiedStatusEffects(active);
+  if (statuses.status === "refused") return refuse(skill, combat, statuses.reason);
+  if (statuses.self.length && combat.actor === undefined)
+    return refuse(skill, combat, "自身状态效果缺少使用者");
   const selfHeal = readSelfHeal(active);
   const paired = readSelfHealStress(active);
   const removal = readConditionRemoval(active);
@@ -2011,7 +2024,8 @@ function resolveSkill(
         removal.actorLines === 0 &&
         removal.pairedTargetLines === 0 &&
         shuffles.self === null &&
-        shuffles.target === null
+        shuffles.target === null &&
+        statuses.lineCount === 0
       ) {
         return refuse(skill, combat, "stats_line 没有已命名的 damage 或 heal");
       }
@@ -2024,7 +2038,11 @@ function resolveSkill(
   }
 
   // 没有伤害、治疗，但已经记上位移：仍要按 Acc 掷骰。变身和没有 Acc 的自身效果不掷。
-  const formOnly = effect === null && shuffles.self === null && shuffles.target === null;
+  const formOnly =
+    effect === null &&
+    shuffles.self === null &&
+    shuffles.target === null &&
+    statuses.target.length === 0;
   const selfTarget = !formOnly && readsAsSelfTarget(active);
   const targetCounts = readTargetIconCounts(active);
   const targets = new Set<"target_hero" | "target_monster">();
@@ -2318,8 +2336,15 @@ function resolveSkill(
         selfBleed.lineCount +
         shuffles.lineCount +
         ignoresProtection.targetLines +
-        formChange.lineCount,
+        formChange.lineCount +
+        statuses.lineCount,
     ),
+    ...(statuses.lineCount
+      ? {
+          actorStatusEffects: statuses.self,
+          targetStatusEffects: outcome === "miss" ? [] : statuses.target,
+        }
+      : {}),
     ...(includeHealthEffects ? { healthEffects } : {}),
   };
 }

@@ -30,6 +30,8 @@ export type MonsterCardView = {
   readonly stanceGroups?: readonly MonsterStanceGroup[];
   /** 只读获批 Speed；缺失不补默认值（R-048）。 */
   readonly speed?: number;
+  readonly resistances?: readonly { readonly key: string | null; readonly naming: string }[];
+  readonly immunities?: readonly { readonly key: string | null; readonly naming: string }[];
 };
 
 /** 调用方已选定一个英雄目标；英雄 Life / 死门尚未接入。 */
