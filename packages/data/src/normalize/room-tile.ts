@@ -15,11 +15,11 @@ export const roomTileGeometrySchema = z
     }),
     ruling: z.literal("R-054"),
     geometryVerified: z.literal(true),
-    usable: z.literal(false),
+    usable: z.boolean(),
     deployment: z
       .strictObject({
         ruling: z.literal("R-055"),
-        printReview: z.literal("pending"),
+        printReview: z.enum(["pending", "verified"]),
         heroes: z.strictObject({
           aggressive: z.literal("H"),
           ranged: z.literal("H"),
@@ -33,13 +33,13 @@ export const roomTileGeometrySchema = z
           ranged: z.literal("F"),
         }),
         lootAreas: z.tuple([z.literal("C"), z.literal("H")]),
-        provisionalMarkers: z
+        markers: z
           .array(
             z.strictObject({
               areaId: z.string().min(1),
               iconId: iconIdSchema,
               semantic: z.enum(["hero_support_start", "monster_support_start", "cornered"]),
-              status: z.literal("provisional"),
+              status: z.enum(["provisional", "confirmed"]),
             }),
           )
           .length(4),
@@ -78,6 +78,33 @@ export const roomTileGeometrySchema = z
     }
     if (tile.unresolvedMarkers.some((marker) => !ids.has(marker.areaId)))
       ctx.addIssue({ code: "custom", message: "标记引用未知区域" });
+    const approved = Boolean(
+      tile.deployment?.printReview === "verified" &&
+      tile.deployment.markers.every((marker) => marker.status === "confirmed") &&
+      tile.unresolvedMarkers.length === 0,
+    );
+    if (tile.usable !== approved)
+      ctx.addIssue({ code: "custom", message: "usable 必须与完整印刷复核 / 标记确认一致" });
+    if (tile.deployment?.markers.some((marker) => !ids.has(marker.areaId)))
+      ctx.addIssue({ code: "custom", message: "部署标记引用未知区域" });
+    const placements = new Set([
+      "C:39d6ddf024:hero_support_start",
+      "D:293f170eab:monster_support_start",
+      "C:4591aebebd:cornered",
+      "H:4591aebebd:cornered",
+    ]);
+    if (
+      tile.deployment &&
+      (new Set(
+        tile.deployment.markers.map(
+          (marker) => `${marker.areaId}:${marker.iconId}:${marker.semantic}`,
+        ),
+      ).size !== 4 ||
+        tile.deployment.markers.some(
+          (marker) => !placements.has(`${marker.areaId}:${marker.iconId}:${marker.semantic}`),
+        ))
+    )
+      ctx.addIssue({ code: "custom", message: "R-055 标记限定放置漂移" });
   });
 
 export const roomTileGeometryFileSchema = z
@@ -104,23 +131,23 @@ export const approvedRoomTileGeometry = roomTileGeometrySchema.parse({
   source: { file: "DD_COREBOX_TILES_FRONT.pdf", page: 1, face: "front" },
   ruling: "R-054",
   geometryVerified: true,
-  usable: false,
+  usable: true,
   deployment: {
     ruling: "R-055",
-    printReview: "pending",
+    printReview: "verified",
     heroes: { aggressive: "H", ranged: "H", defensive: "C", support: "C" },
     monsters: { aggressive: "J", defensive: "D", support: "D", ranged: "F" },
     lootAreas: ["C", "H"],
-    provisionalMarkers: [
-      { areaId: "C", iconId: "39d6ddf024", semantic: "hero_support_start", status: "provisional" },
+    markers: [
+      { areaId: "C", iconId: "39d6ddf024", semantic: "hero_support_start", status: "confirmed" },
       {
         areaId: "D",
         iconId: "293f170eab",
         semantic: "monster_support_start",
-        status: "provisional",
+        status: "confirmed",
       },
-      { areaId: "C", iconId: "4591aebebd", semantic: "cornered", status: "provisional" },
-      { areaId: "H", iconId: "4591aebebd", semantic: "cornered", status: "provisional" },
+      { areaId: "C", iconId: "4591aebebd", semantic: "cornered", status: "confirmed" },
+      { areaId: "H", iconId: "4591aebebd", semantic: "cornered", status: "confirmed" },
     ],
   },
   areas: [
@@ -156,12 +183,7 @@ export const approvedRoomTileGeometry = roomTileGeometrySchema.parse({
       ["G", "I"],
     ].map(([from, to]) => ({ from, to, cornerOnly: true, blocked: false })),
   ],
-  unresolvedMarkers: [
-    { areaId: "C", iconId: "39d6ddf024", semantic: null },
-    { areaId: "D", iconId: "293f170eab", semantic: null },
-    { areaId: "C", iconId: "4591aebebd", semantic: null },
-    { areaId: "H", iconId: "4591aebebd", semantic: null },
-  ],
+  unresolvedMarkers: [],
 });
 
 /** 不解析颜色 / 图标计数 / footer；未获批 raw 页不输出几何。 */
@@ -182,7 +204,7 @@ export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
     !card.faces.front.spans.some((span) => span.t === "1")
   )
     throw new Error("获批 Room Tile 的 raw ID / 来源 / 页码 / 编号漂移，拒绝生成");
-  for (const marker of tile.unresolvedMarkers) {
+  for (const marker of [...tile.unresolvedMarkers, ...(tile.deployment?.markers ?? [])]) {
     if (!card.faces.front.icons.some((icon) => icon.iconId === marker.iconId))
       throw new Error("未确认标记在来源页缺失，拒绝生成");
   }

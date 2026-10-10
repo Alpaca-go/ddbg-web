@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：部署印刷复核与 Cornered（2026-10-10）
+
+#78 head `948aa95` 四项 CI 成功，已合并为 `0a57406`。本块分支 `codex/phase2-deployment-cornered`，第 3 项板块特殊效果切片。
+
+- 按用户条件授权重新对照完整 Tile 1、配套 room:p001 与官方 R16–17：C 英雄 Support、D 怪物 Support、C/H Cornered 一致，R-055 记录最终复核。只升级本页放置，基础词典和其他卡面不改。部署 markers / printReview=verified / usable=true；schema 锁住四处具体放置，未完成确认不能伪造 usable。F 仍孤立，E-F 仍黑墙。
+- C/H 区域投影明确 endTurnStress=1；英雄最后行动结束只一次 Cornered，R-002 低光修正一次，再意志 / 心脏病、死亡补位与收尾。怪物 / 已死英雄不受此压力。缺已知压力整次回滚行动。
+- 更新生成数据、核对表、裁定与交接。正式英雄 / 怪物的起点与生成、宝箱随机池尚未接 UI，旧布局仍明确手动布置，不把确认数据当作已实现完整部署。
+
+验证：typecheck、lint、387 项 Vitest、build、三条冒烟、diff 检查；准确 head CI 通过后合并。下一块正式生成（Front / Back / Large、R-029 / R-052），随后战利品、第 4 项；人工检查点③与 Q-52 仍保留。
+
 ## 最新进度：十张意志卡回合开始与 UI（2026-10-10）
 
 #77 head `6ba26b4` 四项 CI 成功，已合并为 `0d453fc`。本块分支 `codex/phase2-resolve-turn-start`，第 3 项意志触发切片。

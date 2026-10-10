@@ -13,10 +13,10 @@
    },
    "ruling": "R-054",
    "geometryVerified": true,
-   "usable": false,
+   "usable": true,
    "deployment": {
     "ruling": "R-055",
-    "printReview": "pending",
+    "printReview": "verified",
     "heroes": {
      "aggressive": "H",
      "ranged": "H",
@@ -33,30 +33,30 @@
      "C",
      "H"
     ],
-    "provisionalMarkers": [
+    "markers": [
      {
       "areaId": "C",
       "iconId": "39d6ddf024",
       "semantic": "hero_support_start",
-      "status": "provisional"
+      "status": "confirmed"
      },
      {
       "areaId": "D",
       "iconId": "293f170eab",
       "semantic": "monster_support_start",
-      "status": "provisional"
+      "status": "confirmed"
      },
      {
       "areaId": "C",
       "iconId": "4591aebebd",
       "semantic": "cornered",
-      "status": "provisional"
+      "status": "confirmed"
      },
      {
       "areaId": "H",
       "iconId": "4591aebebd",
       "semantic": "cornered",
-      "status": "provisional"
+      "status": "confirmed"
      }
     ]
    },
@@ -204,28 +204,7 @@
      "blocked": false
     }
    ],
-   "unresolvedMarkers": [
-    {
-     "areaId": "C",
-     "iconId": "39d6ddf024",
-     "semantic": null
-    },
-    {
-     "areaId": "D",
-     "iconId": "293f170eab",
-     "semantic": null
-    },
-    {
-     "areaId": "C",
-     "iconId": "4591aebebd",
-     "semantic": null
-    },
-    {
-     "areaId": "H",
-     "iconId": "4591aebebd",
-     "semantic": null
-    }
-   ]
+   "unresolvedMarkers": []
   }
  ]
 }

@@ -132,6 +132,43 @@ export function finishTurn(
   actorId: string,
   events: readonly GameEvent[],
 ): ApplyResult {
+  const original = state.battle!;
+  const actor = original.entities.find((entity) => entity.id === actorId)!;
+  const area = original.areas.find((area) => area.id === actor.areaId);
+  if (!actor.dead && actor.side === "hero" && area?.endTurnStress === 1) {
+    if (!Number.isSafeInteger(actor.stress) || actor.stress! < 0 || actor.stress! > 10)
+      return rejectBattleCommand(state, "Cornered 缺少已知压力（R-048）");
+    const pressure = resolveBattlePressure({
+      state: {
+        ...state,
+        battle: {
+          ...original,
+          entities: original.entities.map((entity) =>
+            entity.id === actorId
+              ? {
+                  ...entity,
+                  stress: Math.min(10, entity.stress! + 1 + Number(original.light <= 2)),
+                }
+              : entity,
+          ),
+        },
+      },
+      events: [
+        ...events,
+        {
+          type: "areaStressResolved",
+          actorId,
+          message: "Cornered：英雄结束回合压力 +1，低光修正按事件一次",
+        },
+      ],
+    });
+    if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
+    const removed = removeCasualties(pressure, pressureCasualties(original, pressure));
+    const ended = endAfterCasualties(removed);
+    if (ended) return ended;
+    state = removed.state;
+    events = removed.events;
+  }
   const battle = state.battle!;
   const encounter = battle.encounter!;
   const actedIds = [...encounter.actedIds, actorId];
