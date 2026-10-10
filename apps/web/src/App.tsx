@@ -4,6 +4,7 @@ import type { Command, SkillSegment, SkillStance, ProvisionEffect } from "@ddbg/
 import { battleData } from "virtual:battle-data";
 import { useBattleStore } from "./battle-store";
 import type { SandboxLayout } from "./battle-store";
+import { battleStep } from "./battle-step";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 const provisionLabels = {
@@ -64,6 +65,7 @@ export function App() {
   const [provisionTargetId, setProvisionTargetId] = useState("hero-0");
   const [provisionEffect, setProvisionEffect] = useState<ProvisionEffect>("heal");
   const battle = game.battle!;
+  const step = battleStep(battle);
   const turn = battle.encounter?.turn;
   const actor =
     turn && "actorId" in turn ? battle.entities.find((e) => e.id === turn.actorId) : undefined;
@@ -194,7 +196,7 @@ export function App() {
       </header>
       <p className="sandbox-note">
         {layout.startsWith("formal")
-          ? "已复核起点：英雄 H/C，怪物按 Front / Back 生成；C/H 为 Cornered。随机宝箱随后接入。测试技能选择沿用四英雄。"
+          ? "已复核起点：英雄 H/C，怪物按 Front / Back 生成；C/H 为 Cornered。测试技能选择沿用四英雄。"
           : "手动布置："}
         {layout.startsWith("formal")
           ? ""
@@ -216,12 +218,14 @@ export function App() {
         <span>光照 {battle.light}</span>
         <strong data-testid="turn-status">{turnText}</strong>
         {frozen && (
-          <span>
-            {battle.pending?.type === "resolveProvision" ? "等待补给选择" : "等待位移结算"} ·
-            其他行动已冻结
+          <span data-testid="pending-status">
+            {step.label} ·{provisionWindow ? "可免费使用补给；其他行动暂不可用" : "其他行动已冻结"}
           </span>
         )}
       </section>
+      <p className="step-hint" data-testid="step-hint">
+        <strong>{step.label}</strong> · {step.hint}
+      </p>
       <p className="notice" role="status">
         {notice}
       </p>
@@ -412,7 +416,7 @@ export function App() {
                     ` · 已选路径 ${battle.pending.path.join(" → ")}`}
                 </p>
               )}
-              <p className="muted">只选择引擎返回的选项；完成后继续原结算，不重新掷骰。</p>
+              <p className="muted">{step.hint}</p>
               {pending.options.map((option) => (
                 <button
                   key={option.id}

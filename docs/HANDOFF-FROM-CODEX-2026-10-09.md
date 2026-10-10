@@ -1,14 +1,24 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：Phase 2 战斗步骤与待选提示（2026-10-10）
+
+Kyries 本轮明确授权「合并 #94 并同步本地；不授权 Phase 3；下一刀继续 Phase 2 战斗补缺 / 可读 UI」。#94 head `d93460d` 两套 CI 共四项全部成功，按批准合并为 `b547ed2`，本地 main 已 `pull --ff-only` 同步。
+
+- 分支 `codex/phase2-battle-step-hints` 仅修改 UI 呈现。开局 Wild、回合开始窗口、宝箱奖励、意志卡补给、方向 / 区域位移、怪物移动、大型怪挤占分别显示具体待选名称；不再把所有待选误称「等待位移结算」。回合开始窗口明确保留免费补给权限。
+- 当前步骤提示覆盖准备、先攻、英雄行动 / 必须离开、怪物选招 / 定位 / 攻击、位移续接与单场结束。只读引擎状态，按钮、命令、冻结逻辑和规则数值不变。删去正式布局中「随机宝箱随后接入」的过时文字；八种待选共用现有面板，未开放新卡池或 Phase 3。
+- 原三条浏览器冒烟增加步骤转换断言，不新增冒烟条数。引擎 / 数据 / 原始资料不改，R-001 / R-048、Q-52 与 duration 边界不变。范围仍为 Phase 2，后续阶段无授权。
+
+验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build、diff 检查通过；原三条 Chrome 冒烟通过（49.6 秒），宝箱提示新增断言后单场流程再次通过（38.3 秒）。覆盖准备 / 开局补给 / 回合窗口 / 宝箱奖励 / 怪物三步 / 位移待选 / 单场结束的提示与实际按钮一致，截图无溢出。仅显示标签的未触发分支不宣称人工验收通过。[草稿 PR #95](https://github.com/Alpaca-go/ddbg-web/pull/95)，实现提交 `2c547e7`；分支包含本段交接更新，准确 head CI 以 PR 为准。未合并，合并授权仅包含 #94；main 仍为 `b547ed2`。下一候选为 Phase 2 已命名卡牌文字的可读呈现，未知图标和缺失数值不猜测。
+
 ## 最新进度：Arbalist I 对 Mark 条件伤害（2026-10-10）
 
-接手基线为 #93 合并后的 main `9b9c5a5`，工作区干净且与 origin/main 一致。Phase 2 四步及人工检查点③已完成。原交接仍限定 Phase 2；本轮已向 Kyries 请求扩大到 Phase 3，未收到授权前继续在 Phase 2 补一个真实数据缺口。
+接手基线为 #93 合并后的 main `9b9c5a5`，工作区干净且与 origin/main 一致。Phase 2 四步及人工检查点③已完成。本轮 Kyries 已明确不授权 Phase 3，继续在 Phase 2 补一个真实数据缺口。
 
 - 分支 `codex/phase2-arbalist-mark-damage`：完整印刷 monsters_medium_FRONT p007–009 的 Quarrel 均明确对 Mark 伤害 +1，图标沿用已确认词典。仅为 p007 技能 1 附逐卡注解，管线核对身份、页码、技能、整行签名和命名状态；原始数字列表不补标签，不跨等级推断。详见 [复核记录](arbalist-damage-review-2026-10-10.md)。
 - 怪物技能接收已有 `verified_damage_bonus` 原语，复用命中、暴击、Protection / Riposte 结算；多堆 Mark 仍只加一次伤害。公共命令覆盖选目标、Speed 定位、一次攻击骰及回合结束，漂移拒绝且不消耗 RNG，回放结果一致。
 - UI 卡池保持原批准范围。本块不是 Phase 3 开始；缺 duration、未核实图标和 Q-52 不变。新规则实现 PR 按原交接 §5.6 / §11 待 Kyries 审阅确认后合并，上一轮四步的合并授权不扩展为无限自动合并。
 
-验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build、diff 检查通过；原三条 Chrome 冒烟通过（39.5 秒）。默认 `pnpm test:e2e` 因本机缺 Chromium 1243 无法启动，使用忽略目录中的本地 Chrome 配置成功运行同样三条测试；仓库与 CI 配置未修改。[草稿 PR #94](https://github.com/Alpaca-go/ddbg-web/pull/94) 已建立，代码提交 `7b182c4`；PR 分支包含本段交接更新，准确 head CI 以 PR 页面为准。未合并，main 仍为 `9b9c5a5`。
+验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build、diff 检查通过；原三条 Chrome 冒烟通过（39.5 秒）。默认 `pnpm test:e2e` 因本机缺 Chromium 1243 无法启动，使用忽略目录中的本地 Chrome 配置成功运行同样三条测试；仓库与 CI 配置未修改。[PR #94](https://github.com/Alpaca-go/ddbg-web/pull/94) head `d93460d` 两套 CI 共四项成功，经 Kyries 批准合并为 `b547ed2`，本地 main 已同步。
 
 ## 四步完成记录（2026-10-10）
 

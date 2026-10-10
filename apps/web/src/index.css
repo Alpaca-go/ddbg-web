@@ -147,6 +147,15 @@ small {
   padding: 0.8rem 1rem;
   margin: 1rem 0;
 }
+.step-hint {
+  padding-top: 0.8rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #b8b1a1;
+}
+.step-hint strong {
+  color: #d4b879;
+}
 .workspace {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
