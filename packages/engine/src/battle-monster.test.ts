@@ -329,6 +329,38 @@ describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）
       }),
     ).toThrow();
   });
+
+  it.each([false, true])("怪物暴击续接保留英雄生命结果（dead=%s），压力仅修正一次", (dead) => {
+    const initial = patch(patch(setup(defender), "h0", { stress: 9 }), "h1", { stress: 9 });
+    const prepared = { ...initial, battle: { ...initial.battle!, light: 2, rngCursor: 1 } };
+    const rolled = applyCommand(prepared, play(3));
+    expect(rolled.events[0]).toMatchObject({ roll: 1, resolution: { outcome: "crit" } });
+    // 合成生命应用结果，隔离测试压力续接；不是新的卡牌 Life 数据。
+    const applied = patch(patch(rolled.state, "h0", { life: 2, wounds: 2, dead }), "monster", {
+      wounds: 1,
+      bleed: ["preserved-bleed"],
+      blight: ["preserved-blight"],
+    });
+    const before = structuredClone(applied);
+    const done = applyCommand(applied, { type: "resolveShuffles" });
+    expect(entity(done.state, "h0")).toMatchObject({ life: 2, wounds: 2, dead, stress: 10 });
+    expect(entity(done.state, "h1").stress).toBe(10);
+    expect(entity(done.state, "monster")).toMatchObject({
+      wounds: 1,
+      dead: false,
+      areaId: "a",
+      stance: "defensive",
+      bleed: ["preserved-bleed"],
+      blight: ["preserved-blight"],
+    });
+    expect(entity(done.state, "monster").stress).toBeUndefined();
+    expect(done.events.filter((event) => event.type === "monsterCritAreaResolved")).toHaveLength(1);
+    expect(done.events.filter((event) => event.type === "monsterSkillResolved")).toHaveLength(0);
+    expect(done.state.battle!.rngCursor).toBe(applied.battle!.rngCursor);
+    expect(applied).toEqual(before);
+    expect(applyCommand(applied, { type: "resolveShuffles" })).toEqual(done);
+    expect(applyCommand(done.state, { type: "resolveShuffles" }).state).toBe(done.state);
+  });
 });
 
 // 合成分组只测试接线路由；不是 Soldier / 方向夹具的实际卡面转录。
