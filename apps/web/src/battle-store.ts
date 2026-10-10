@@ -4,8 +4,14 @@ import type { BattleEntity, Command, GameEvent, GameState, SkillStance } from "@
 import { battleData } from "virtual:battle-data";
 
 /** 手动布置的单场沙盒；不使用未核实的部署标记，不生成房间 / 奖励。 */
-function sandbox(seed: number): GameState {
-  const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
+export type SandboxLayout = "basic" | "shuffle";
+
+function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
+  const stances: SkillStance[] =
+    layout === "shuffle"
+      ? ["ranged", "defensive", "aggressive", "support"]
+      : ["aggressive", "defensive", "ranged", "support"];
+  const areas = layout === "shuffle" ? ["B", "C", "A", "D"] : ["A", "A", "A", "A"];
   const heroes: BattleEntity[] = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].map(
     (name, index) => {
       const stat = battleData.heroStats.find((card) => card.name === name)!;
@@ -15,7 +21,7 @@ function sandbox(seed: number): GameState {
         hero: name,
         heroStatId: stat.id,
         life: stat.life,
-        areaId: "A",
+        areaId: areas[index]!,
         stance: stances[index]!,
         wounds: 0,
         stress: 0,
@@ -40,7 +46,7 @@ function sandbox(seed: number): GameState {
         hero: null,
         monsterCardId: monster.id,
         life: monster.life,
-        areaId: "B",
+        areaId: layout === "shuffle" ? "A" : "B",
         stance: "aggressive",
         stanceSlots: 1,
         wounds: 0,
@@ -57,14 +63,16 @@ function sandbox(seed: number): GameState {
 
 type BattleStore = {
   game: GameState;
+  layout: SandboxLayout;
   commands: readonly Command[];
   events: readonly GameEvent[];
   notice: string;
   dispatch(command: Command): void;
-  reset(seed: number): void;
+  reset(seed: number, layout: SandboxLayout): void;
 };
 export const useBattleStore = create<BattleStore>((set) => ({
   game: sandbox(1),
+  layout: "basic",
   commands: [],
   events: [],
   notice: "请开始战斗，再抽取先攻。",
@@ -78,6 +86,12 @@ export const useBattleStore = create<BattleStore>((set) => ({
         notice: result.pendingChoice?.prompt ?? result.events.at(-1)?.message ?? "命令已处理。",
       };
     }),
-  reset: (seed) =>
-    set({ game: sandbox(seed), commands: [], events: [], notice: "已按种子重新布置沙盒。" }),
+  reset: (seed, layout) =>
+    set({
+      game: sandbox(seed, layout),
+      layout,
+      commands: [],
+      events: [],
+      notice: "已按种子重新布置沙盒。",
+    }),
 }));
