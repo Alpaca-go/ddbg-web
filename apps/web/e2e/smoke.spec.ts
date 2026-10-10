@@ -84,6 +84,7 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
 });
 
 test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致", async ({ page }) => {
+  test.setTimeout(90000);
   await page.goto("/");
   async function win() {
     await page.getByRole("button", { name: "开始战斗", exact: true }).click();
@@ -124,6 +125,61 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
   await page.getByRole("button", { name: "结算怪物技能", exact: true }).click();
   await expect(page.getByTestId("turn-status")).toHaveText("等待抽取先攻");
   await expect(page.getByTestId("entity-hero-0")).toContainText("伤口 5/17");
+  // 同一条单场流程冒烟覆盖另外两种已核实怪物组合，真实按钮走完四轮撤退。
+  for (const layout of ["pair", "trio"]) {
+    await page.getByLabel("测试布置", { exact: true }).selectOption(layout);
+    await page.getByRole("button", { name: "重新布置", exact: true }).click();
+    await expect(page.getByTestId("area-B")).toContainText("Bone Rabble");
+    if (layout === "trio")
+      await expect(page.getByTestId("entity-courtier")).toContainText("Dodge 1");
+    await page.getByRole("button", { name: "开始战斗", exact: true }).click();
+    let breakthroughUsed = false;
+    for (let step = 0; step < 160; step += 1) {
+      const turn = await page.getByTestId("turn-status").innerText();
+      if (turn.includes("撤退")) break;
+      const choice = page.getByRole("group", { name: /待选决策/ });
+      if (await choice.count()) await choice.getByRole("button").first().click();
+      else if (await page.getByRole("button", { name: "结算位移", exact: true }).count())
+        await page.getByRole("button", { name: "结算位移", exact: true }).click();
+      else if (turn.includes("等待抽取先攻"))
+        await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+      else if (turn.includes("怪物回合")) {
+        for (const name of ["怪物选招与选目标", "怪物移动到射程", "结算怪物技能"]) {
+          const button = page.getByRole("button", { name, exact: true });
+          if (await button.count()) {
+            await button.click();
+            break;
+          }
+        }
+      } else {
+        const stance = await page
+          .locator(".stance-slot")
+          .filter({ hasText: "← 当前" })
+          .locator(":scope > span")
+          .innerText();
+        if (!breakthroughUsed && turn.startsWith("HELLION") && ["远程", "支援"].includes(stance)) {
+          await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p034");
+          await page.getByLabel("目标区域", { exact: true }).selectOption("B");
+          for (const checkbox of await page.getByRole("checkbox").all()) await checkbox.check();
+          await page.getByRole("button", { name: "使用技能", exact: true }).click();
+          await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
+            "英雄多目标技能已共用一次掷骰结算",
+          );
+          breakthroughUsed = true;
+          continue;
+        }
+        await page
+          .getByRole("button", {
+            name: stance === "进攻" ? "向后换姿态" : "向前换姿态",
+            exact: true,
+          })
+          .click();
+      }
+    }
+    await expect(page.getByTestId("turn-status")).toHaveText("第 4 轮结束：撤退");
+    expect(breakthroughUsed).toBe(true);
+    await expect(page.getByRole("region", { name: "战斗日志" })).not.toContainText("拒绝");
+  }
 });
 
 test("位移分岔冻结其他行动，选择后续接一次并可重放", async ({ page }, testInfo) => {

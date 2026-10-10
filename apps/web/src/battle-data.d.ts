@@ -7,7 +7,10 @@ declare module "virtual:battle-data" {
       readonly name: string;
       readonly level: number;
     })[];
-    readonly monsters: readonly (MonsterCardView & { readonly name: string })[];
+    readonly monsters: readonly (MonsterCardView & {
+      readonly name: string;
+      readonly dodge: number;
+    })[];
     readonly heroStats: readonly {
       readonly id: string;
       readonly name: string;

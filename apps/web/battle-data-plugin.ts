@@ -28,6 +28,7 @@ export function battleDataPlugin(): Plugin {
       const skillIds = new Set([
         "hero_skill:p001",
         "hero_skill:p022",
+        "hero_skill:p034",
         "hero_skill:p064",
         "hero_skill:p070",
         "hero_skill:p088",
@@ -36,9 +37,31 @@ export function battleDataPlugin(): Plugin {
       const skills = normalizedHeroSkillFileSchema
         .parse(read("hero_skill"))
         .cards.filter((card) => skillIds.has(card.id) && !card.verification.unverified);
+      const monsterIds = new Set([
+        "monster_medium:p001",
+        "monster_medium:p004",
+        "monster_medium:p040",
+      ]);
       const monsters = normalizedMonsterMediumFileSchema
         .parse(read("monster_medium"))
-        .cards.filter((card) => card.id === "monster_medium:p001" && !card.verification.unverified);
+        .cards.filter((card) => monsterIds.has(card.id) && !card.verification.unverified)
+        .map((card) => {
+          if (!("skills" in card) || card.speed === undefined || !card.stanceGroups)
+            throw new Error("怪物缺少已核实选招 / Speed（R-048）");
+          const dodge = card.header_unlabeled_numbers.filter(
+            (n) =>
+              n.anchor.type === "beside_icon" &&
+              n.anchor.inside_icon?.key === "dodge" &&
+              ["confirmed", "confirmed_rulebook"].includes(n.anchor.inside_icon.naming),
+          );
+          if (
+            dodge.length !== 1 ||
+            !Number.isSafeInteger(dodge[0]!.numeric) ||
+            dodge[0]!.numeric! < 0
+          )
+            throw new Error("怪物缺少唯一已命名 Dodge 整数，不补默认值（R-048）");
+          return { ...card, dodge: dodge[0]!.numeric };
+        });
       const tile = roomTileGeometryFileSchema
         .parse(read("room_tile_geometry"))
         .tiles.find(
@@ -48,7 +71,7 @@ export function battleDataPlugin(): Plugin {
         !tile ||
         heroStats.length !== 4 ||
         skills.length !== skillIds.size ||
-        monsters.length !== 1
+        monsters.length !== monsterIds.size
       )
         throw new Error("战斗沙盒缺少获批卡牌，拒绝替换或补值（R-048）");
       return `export const battleData = ${JSON.stringify({ heroStats, skills, monsters, areas: roomTileBattleAreas(tile), tileName: tile.name })};`;

@@ -1,5 +1,17 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：三种怪物组合与可玩 Breakthrough（2026-10-10）
+
+#69 head `b90b6fd` 的四项 CI 全部成功，已合并为 `7541290` 并同步 main。本块分支 `codex/phase2-monster-combos`，收齐第 2 项原定可玩切片。
+
+- UI 增加 Soldier + Rabble、Courtier + Soldier + Rabble，两种布置仍为手动沙盒，不冒充正式前后排生成。沿用四英雄获批 I 级属性、原几何与三种怪物获批 Speed / 姿态选招；Hellion 在远程位，新增已验证 Breakthrough I，实际 UI 选择同区怪物并续接一次自身 Pull。
+- 三种怪物的 Dodge 从既有规范化 `header_unlabeled_numbers` 的已确认 `dodge` 图标内唯一整数读取：Soldier 0、Courtier 1、Rabble 0。对照官方 R24 解剖图与当前版印刷 M1 / M4 / M40 完整页面图像；不改变词典、规范化数据或未命名数字。缺值 / 重复 / 缺 Speed 或分组拒绝构建，UI 显示实际 Dodge。
+- Playwright 保持三条：原 Soldier 胜利与回放，加上真实按钮驱动另两组合完整四轮撤退；期间使用 Breakthrough 多目标与自身位移，各怪物实际选招 / 定位 / 攻击，没有拒绝或卡死。不是用 `finishMonsterTurn` 跳过引擎流程，也不替代 Kyries 检查点③。
+
+依据：官方 R19–24，规格书 §6.5 / §6.10，R-001 / R-015 / R-020 / R-023 / R-024 / R-048；已有六条 Speed / 姿态核对表。354 项 Vitest、typecheck、lint、build、diff 检查与三条 Chrome 冒烟全部通过，准确 head CI 成功后合并。
+
+四步状态：第 1 项位移 UI 已合并；第 2 项英雄 / 怪物多目标、位移 / 反击续接和三种可玩组合已接齐。第 3 项现在开始单独核对 duration / 部署并补真实状态、意志、心脏病、生成与战利品；第 4 项黄金测试清单 / 试玩验收仍待完成。缺 duration 不补默认值，R-048 未确认图标继续保持空语义，Q-52 保留。
+
 ## 最新进度：多目标位移续接（2026-10-10）
 
 #68 head `34d63d5` 的四项 CI 全部成功，已合并为 `f5d0cf4` 并同步 main。本块分支 `codex/phase2-multi-target-shuffle`，继续第 2 项，不混入状态 / 部署数据核对。
