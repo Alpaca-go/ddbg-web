@@ -4,7 +4,7 @@ import type { BattleEntity, Command, GameEvent, GameState, SkillStance } from "@
 import { battleData } from "virtual:battle-data";
 
 /** 手动布置的单场沙盒；不使用未核实的部署标记，不生成房间 / 奖励。 */
-export type SandboxLayout = "basic" | "shuffle" | "heal";
+export type SandboxLayout = "basic" | "shuffle" | "heal" | "pair" | "trio";
 
 function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
   const layouts: Record<
@@ -25,6 +25,16 @@ function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
       stances: ["aggressive", "ranged", "support", "defensive"],
       areas: ["B", "B", "B", "A"],
       monsterArea: "C",
+    },
+    pair: {
+      stances: ["aggressive", "ranged", "defensive", "support"],
+      areas: ["A", "A", "A", "A"],
+      monsterArea: "B",
+    },
+    trio: {
+      stances: ["aggressive", "ranged", "defensive", "support"],
+      areas: ["A", "A", "A", "A"],
+      monsterArea: "B",
     },
   };
   const { stances, areas, monsterArea } = layouts[layout];
@@ -50,30 +60,41 @@ function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
       };
     },
   );
-  const monster = battleData.monsters[0]!;
+  const roster =
+    layout === "trio"
+      ? ["monster_medium:p004", "monster_medium:p001", "monster_medium:p040"]
+      : layout === "pair"
+        ? ["monster_medium:p001", "monster_medium:p040"]
+        : ["monster_medium:p001"];
+  const monsters: BattleEntity[] = roster.map((id, index) => {
+    const card = battleData.monsters.find((m) => m.id === id)!;
+    return {
+      id:
+        id === "monster_medium:p001"
+          ? "soldier"
+          : id === "monster_medium:p004"
+            ? "courtier"
+            : "rabble",
+      side: "monster",
+      hero: null,
+      monsterCardId: card.id,
+      life: card.life,
+      areaId: monsterArea,
+      stance: (["aggressive", "defensive", "ranged"] as const)[index]!,
+      stanceSlots: 1,
+      wounds: 0,
+      dodge: card.dodge,
+      skillIds: [],
+      guard: false,
+      dead: false,
+      bleed: [],
+      blight: [],
+    };
+  });
   return createBattleState(seed, {
     ...battleData,
     light: 5,
-    entities: [
-      ...heroes,
-      {
-        id: "soldier",
-        side: "monster",
-        hero: null,
-        monsterCardId: monster.id,
-        life: monster.life,
-        areaId: monsterArea,
-        stance: "aggressive",
-        stanceSlots: 1,
-        wounds: 0,
-        dodge: 0,
-        skillIds: [],
-        guard: false,
-        dead: false,
-        bleed: [],
-        blight: [],
-      },
-    ],
+    entities: [...heroes, ...monsters],
   });
 }
 

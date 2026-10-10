@@ -118,6 +118,8 @@ export function App() {
               <option value="basic">基础战斗</option>
               <option value="shuffle">位移选择</option>
               <option value="heal">多目标治疗</option>
+              <option value="pair">Soldier + Rabble</option>
+              <option value="trio">Courtier + Soldier + Rabble</option>
             </select>
           </label>
           <label>
@@ -140,7 +142,9 @@ export function App() {
           ? "Vestal 在防御位 / A，其余英雄在 B，Bone Soldier 在 C；四英雄初始伤口均为 5。种子 5 下，Crusader 移动到 A 再返回 B，抽取下一张先攻即可试用 Divine Comfort。"
           : layout === "shuffle"
             ? "Highwayman 在进攻位 / A，与 Bone Soldier 同区；Crusader / Hellion / Vestal 分别在 B / C / D。种子 5 可直接试用 Point Blank Shot。"
-            : "四英雄在 A，Bone Soldier 在 B。"}
+            : layout === "pair" || layout === "trio"
+              ? `四英雄在 A，Hellion 在远程位可试用 Breakthrough；B 区怪物为 ${layout === "pair" ? "Soldier + Rabble" : "Courtier + Soldier + Rabble"}，按列表顺序站进攻至远程位。`
+              : "四英雄在 A，Bone Soldier 在 B。"}
         光照
         5。使用获批几何与卡牌；初始位置为测试布置，不代表正式房间部署。状态代币、压力检定、奖励与战役尚未接入。
       </p>
@@ -207,7 +211,7 @@ export function App() {
                             {actor?.id === e.id ? " ← 当前" : ""}
                           </strong>
                           <p>
-                            区域 {e.areaId} · 伤口 {e.wounds}/{e.life}
+                            区域 {e.areaId} · 伤口 {e.wounds}/{e.life} · Dodge {e.dodge}
                             {e.side === "hero"
                               ? ` · 压力 ${e.stress}/10${e.wounds === e.life ? " · 死门" : ""}`
                               : ""}
