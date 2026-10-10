@@ -10,6 +10,8 @@ import type { PlayMonsterSkillCommand } from "./battle-monster";
 import { prepareMonsterAction } from "./battle-monster-action";
 import { moveMonsterToRange } from "./battle-monster-movement";
 import type { MoveMonsterToRangeCommand, MonsterPositionedEvent } from "./battle-monster-movement";
+import { moveHero } from "./battle-hero-movement";
+import type { MoveHeroCommand, HeroMovedEvent } from "./battle-hero-movement";
 import type {
   MonsterActionPreparedEvent,
   PrepareMonsterActionCommand,
@@ -54,6 +56,7 @@ export type Command =
   | PlayMonsterSkillCommand
   | PrepareMonsterActionCommand
   | MoveMonsterToRangeCommand
+  | MoveHeroCommand
   | { readonly type: "resolveShuffles" }
   | {
       readonly type: "resolveChoice";
@@ -78,6 +81,7 @@ export type GameEvent =
   | MonsterSkillResolvedEvent
   | MonsterActionPreparedEvent
   | MonsterPositionedEvent
+  | HeroMovedEvent
   | {
       readonly type: "monsterActionSkipped";
       readonly actorId: string;
@@ -152,6 +156,7 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
   if (state.battle?.shuffleIntents.length) return rejectBattleCommand(state, "请先结算位移意图");
   if (command.type === "prepareMonsterAction") return prepareMonsterAction(state, command);
   if (command.type === "moveMonsterToRange") return moveMonsterToRange(state, command);
+  if (command.type === "moveHero") return moveHero(state, command);
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);
   if (command.type === "playMonsterSkill") return playMonsterSkill(state, command);
   if (command.type !== "ping") return applyEncounterCommand(state, command);
