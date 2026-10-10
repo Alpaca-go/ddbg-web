@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("战斗沙盒加载获批数据与区域视图", async ({ page }, testInfo) => {
+test("加载获批数据，多目标治疗共用一骰且选择不会跨区域残留", async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 1440, height: 1050 });
   await page.goto("/");
   await expect(page).toHaveTitle("暗黑地牢桌游");
@@ -11,6 +11,76 @@ test("战斗沙盒加载获批数据与区域视图", async ({ page }, testInfo)
   await expect(page.getByTestId("entity-hero-0")).toContainText("伤口 0/17");
   await expect(page.getByTestId("area-F")).toContainText("连接：无");
   await page.screenshot({ path: testInfo.outputPath("battle-sandbox.png"), fullPage: true });
+  await page.getByLabel("测试布置", { exact: true }).selectOption("heal");
+  await page.getByLabel("种子", { exact: true }).fill("5");
+  async function heal() {
+    await page.getByRole("button", { name: "重新布置", exact: true }).click();
+    await page.getByRole("button", { name: "开始战斗", exact: true }).click();
+    await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+    // 由前排 Crusader 完成两次真实移动，再抽到防御位 Vestal，不绕过回合。
+    for (const area of ["A", "B"]) {
+      await page.getByRole("button", { name: `前往 ${area}`, exact: true }).click();
+      await page.getByRole("button", { name: "确认移动", exact: true }).click();
+    }
+    await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+    await expect(page.getByTestId("turn-status")).toContainText("VESTAL · 剩余 2 行动");
+    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p097");
+    await expect(page.getByRole("button", { name: "使用技能", exact: true })).toBeDisabled();
+    await page.getByLabel("目标区域", { exact: true }).selectOption("F");
+    await expect(page.getByRole("group", { name: "同区目标", exact: true })).toContainText(
+      "此区域没有存活目标",
+    );
+    await page.getByLabel("目标区域", { exact: true }).selectOption("B");
+    await page.getByRole("checkbox", { name: "选择 HELLION", exact: true }).check();
+    await page.getByLabel("目标区域", { exact: true }).selectOption("C");
+    await expect(page.getByRole("button", { name: "使用技能", exact: true })).toBeDisabled();
+    await page.getByRole("checkbox", { name: "选择 Bone Soldier", exact: true }).check();
+    await page.getByRole("button", { name: "使用技能", exact: true }).click();
+    await expect(page.getByRole("status")).toContainText("目标");
+    await expect(page.getByTestId("turn-status")).toContainText("剩余 2 行动");
+    await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 4");
+    await page.getByLabel("目标区域", { exact: true }).selectOption("B");
+    await expect(
+      page.getByRole("checkbox", { name: "选择 HELLION", exact: true }),
+    ).not.toBeChecked();
+    await page.getByRole("checkbox", { name: "选择 HELLION", exact: true }).check();
+    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p088");
+    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p097");
+    await expect(
+      page.getByRole("checkbox", { name: "选择 HELLION", exact: true }),
+    ).not.toBeChecked();
+    for (const hero of ["CRUSADER", "HELLION", "HIGHWAYMAN"]) {
+      await page.getByRole("checkbox", { name: `选择 ${hero}`, exact: true }).check();
+    }
+    await page.screenshot({
+      path: testInfo.outputPath("multi-target-selection.png"),
+      fullPage: true,
+    });
+    await page.getByRole("button", { name: "使用技能", exact: true }).click();
+    await expect(page.getByTestId("entity-hero-3")).toContainText("伤口 3/12");
+    for (const [id, life] of [
+      [0, 17],
+      [1, 14],
+      [2, 12],
+    ]) {
+      await expect(page.getByTestId(`entity-hero-${id}`)).toContainText(`伤口 2/${life}`);
+    }
+    await expect(page.getByTestId("turn-status")).toContainText("剩余 1 行动");
+    await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5");
+    const log = page.getByRole("region", { name: "战斗日志" });
+    await expect(log).toContainText("CRUSADER：暴击");
+    await expect(log).toContainText("HELLION：暴击");
+    await expect(log).toContainText("HIGHWAYMAN：暴击");
+    await page.screenshot({ path: testInfo.outputPath("multi-target-result.png"), fullPage: true });
+    // 成功使用后再次尝试不会扣行动或多掷骰。
+    await page.getByRole("button", { name: "使用技能", exact: true }).click();
+    await expect(page.getByRole("status")).toContainText("本回合已成功使用");
+    await expect(page.getByTestId("turn-status")).toContainText("剩余 1 行动");
+    expect((await log.innerText()).match(/d10=/g)).toHaveLength(1);
+    return log.innerText();
+  }
+  const first = await heal();
+  expect(await heal()).toBe(first);
 });
 
 test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致", async ({ page }) => {

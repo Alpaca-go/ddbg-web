@@ -4,14 +4,30 @@ import type { BattleEntity, Command, GameEvent, GameState, SkillStance } from "@
 import { battleData } from "virtual:battle-data";
 
 /** 手动布置的单场沙盒；不使用未核实的部署标记，不生成房间 / 奖励。 */
-export type SandboxLayout = "basic" | "shuffle";
+export type SandboxLayout = "basic" | "shuffle" | "heal";
 
 function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
-  const stances: SkillStance[] =
-    layout === "shuffle"
-      ? ["ranged", "defensive", "aggressive", "support"]
-      : ["aggressive", "defensive", "ranged", "support"];
-  const areas = layout === "shuffle" ? ["B", "C", "A", "D"] : ["A", "A", "A", "A"];
+  const layouts: Record<
+    SandboxLayout,
+    { stances: SkillStance[]; areas: string[]; monsterArea: string }
+  > = {
+    basic: {
+      stances: ["aggressive", "defensive", "ranged", "support"],
+      areas: ["A", "A", "A", "A"],
+      monsterArea: "B",
+    },
+    shuffle: {
+      stances: ["ranged", "defensive", "aggressive", "support"],
+      areas: ["B", "C", "A", "D"],
+      monsterArea: "A",
+    },
+    heal: {
+      stances: ["aggressive", "ranged", "support", "defensive"],
+      areas: ["B", "B", "B", "A"],
+      monsterArea: "C",
+    },
+  };
+  const { stances, areas, monsterArea } = layouts[layout];
   const heroes: BattleEntity[] = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].map(
     (name, index) => {
       const stat = battleData.heroStats.find((card) => card.name === name)!;
@@ -23,7 +39,7 @@ function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
         life: stat.life,
         areaId: areas[index]!,
         stance: stances[index]!,
-        wounds: 0,
+        wounds: layout === "heal" ? 5 : 0,
         stress: 0,
         dodge: stat.dodge,
         skillIds: battleData.skills.filter((card) => card.hero === name).map((card) => card.id),
@@ -46,7 +62,7 @@ function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
         hero: null,
         monsterCardId: monster.id,
         life: monster.life,
-        areaId: layout === "shuffle" ? "A" : "B",
+        areaId: monsterArea,
         stance: "aggressive",
         stanceSlots: 1,
         wounds: 0,

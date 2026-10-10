@@ -110,6 +110,21 @@ small {
   outline: 2px solid #d4b879;
   outline-offset: 2px;
 }
+.target-options label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.target-options input {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  accent-color: #d4b879;
+}
+.target-results {
+  margin-left: 1.5rem;
+  font-size: 0.85rem;
+}
 .seed-form input {
   width: 8rem;
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { readPrintedTargets } from "@ddbg/engine";
 import type { Command, SkillSegment, SkillStance } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
 import { useBattleStore } from "./battle-store";
@@ -6,6 +7,7 @@ import type { SandboxLayout } from "./battle-store";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 const stanceLabels = { aggressive: "进攻", defensive: "防御", ranged: "远程", support: "支援" };
+const outcomeLabels = { crit: "暴击", hit: "命中", miss: "落空" };
 function lineText(line: readonly SkillSegment[]) {
   return line
     .map((segment) =>
@@ -30,6 +32,8 @@ export function App() {
   const [selectedLayout, setSelectedLayout] = useState<SandboxLayout>("basic");
   const [skillId, setSkillId] = useState("");
   const [targetId, setTargetId] = useState("soldier");
+  const [targetAreaId, setTargetAreaId] = useState("");
+  const [selection, setSelection] = useState({ context: "", ids: [] as string[] });
   const [path, setPath] = useState<string[]>([]);
   const battle = game.battle!;
   const turn = battle.encounter?.turn;
@@ -42,6 +46,16 @@ export function App() {
   const frozen = !!pending || battle.shuffleIntents.length > 0;
   const actorSkills = battleData.skills.filter((s) => actor?.skillIds.includes(s.id));
   const skill = actorSkills.find((s) => s.id === skillId) ?? actorSkills[0];
+  const printedTargets = skill ? readPrintedTargets(skill) : undefined;
+  const maxTargets = printedTargets?.kind === "exact" ? printedTargets.max : 1;
+  const multiTarget = maxTargets > 1;
+  const selectedArea = targetAreaId || actor?.areaId || battle.areas[0]!.id;
+  const selectionContext = `${battle.encounter?.round}:${actor?.id}:${skill?.id}:${selectedArea}`;
+  const areaTargets = battle.entities.filter((e) => !e.dead && e.areaId === selectedArea);
+  const selectedIds =
+    selection.context === selectionContext
+      ? selection.ids.filter((id) => areaTargets.some((e) => e.id === id))
+      : [];
   const heroTurn = turn?.type === "hero" && !frozen;
   const action = battle.monsterAction;
   const entityName = (id: string) => {
@@ -89,6 +103,8 @@ export function App() {
               setPath([]);
               setSkillId("");
               setTargetId("soldier");
+              setTargetAreaId("");
+              setSelection({ context: "", ids: [] });
             }
           }}
         >
@@ -101,6 +117,7 @@ export function App() {
             >
               <option value="basic">基础战斗</option>
               <option value="shuffle">位移选择</option>
+              <option value="heal">多目标治疗</option>
             </select>
           </label>
           <label>
@@ -119,9 +136,11 @@ export function App() {
       </header>
       <p className="sandbox-note">
         手动布置：
-        {layout === "shuffle"
-          ? "Highwayman 在进攻位 / A，与 Bone Soldier 同区；Crusader / Hellion / Vestal 分别在 B / C / D。种子 5 可直接试用 Point Blank Shot。"
-          : "四英雄在 A，Bone Soldier 在 B。"}
+        {layout === "heal"
+          ? "Vestal 在防御位 / A，其余英雄在 B，Bone Soldier 在 C；四英雄初始伤口均为 5。种子 5 下，Crusader 移动到 A 再返回 B，抽取下一张先攻即可试用 Divine Comfort。"
+          : layout === "shuffle"
+            ? "Highwayman 在进攻位 / A，与 Bone Soldier 同区；Crusader / Hellion / Vestal 分别在 B / C / D。种子 5 可直接试用 Point Blank Shot。"
+            : "四英雄在 A，Bone Soldier 在 B。"}
         光照
         5。使用获批几何与卡牌；初始位置为测试布置，不代表正式房间部署。状态代币、压力检定、奖励与战役尚未接入。
       </p>
@@ -297,13 +316,16 @@ export function App() {
                 </div>
               </fieldset>
               <fieldset disabled={!heroTurn || turn.mustMove}>
-                <legend>使用技能 · 单目标</legend>
+                <legend>使用技能 · {multiTarget ? `同区最多 ${maxTargets} 目标` : "单目标"}</legend>
                 <label>
                   技能
                   <select
                     aria-label="技能"
                     value={skill?.id ?? ""}
-                    onChange={(e) => setSkillId(e.target.value)}
+                    onChange={(e) => {
+                      setSkillId(e.target.value);
+                      setSelection({ context: "", ids: [] });
+                    }}
                   >
                     {actorSkills.map((s) => (
                       <option key={s.id} value={s.id}>
@@ -312,31 +334,90 @@ export function App() {
                     ))}
                   </select>
                 </label>
-                <label>
-                  目标
-                  <select
-                    aria-label="目标"
-                    value={targetId}
-                    onChange={(e) => setTargetId(e.target.value)}
-                  >
-                    {battle.entities
-                      .filter((e) => !e.dead)
-                      .map((e) => (
-                        <option key={e.id} value={e.id}>
-                          {entityName(e.id)} · {e.areaId}
-                        </option>
+                {multiTarget ? (
+                  <>
+                    <label>
+                      目标区域
+                      <select
+                        aria-label="目标区域"
+                        value={selectedArea}
+                        onChange={(e) => {
+                          setTargetAreaId(e.target.value);
+                          setSelection({ context: "", ids: [] });
+                        }}
+                      >
+                        {battle.areas.map((area) => (
+                          <option key={area.id} value={area.id}>
+                            {area.id}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <div className="target-options" role="group" aria-label="同区目标">
+                      {areaTargets.map((entity) => (
+                        <label key={entity.id}>
+                          <input
+                            type="checkbox"
+                            aria-label={`选择 ${entityName(entity.id)}`}
+                            checked={selectedIds.includes(entity.id)}
+                            disabled={
+                              !selectedIds.includes(entity.id) && selectedIds.length >= maxTargets
+                            }
+                            onChange={(e) =>
+                              setSelection({
+                                context: selectionContext,
+                                ids: e.target.checked
+                                  ? [...selectedIds, entity.id]
+                                  : selectedIds.filter((id) => id !== entity.id),
+                              })
+                            }
+                          />
+                          {entityName(entity.id)} · 伤口 {entity.wounds}/{entity.life}
+                        </label>
                       ))}
-                  </select>
-                </label>
+                      {!areaTargets.length && <p className="muted">此区域没有存活目标。</p>}
+                    </div>
+                    <p className="muted">
+                      已选 {selectedIds.length}/{maxTargets} ·
+                      共用一次掷骰，逐目标判定。目标类型与射程须符合卡面。
+                    </p>
+                  </>
+                ) : (
+                  <label>
+                    目标
+                    <select
+                      aria-label="目标"
+                      value={targetId}
+                      onChange={(e) => setTargetId(e.target.value)}
+                    >
+                      {battle.entities
+                        .filter((e) => !e.dead)
+                        .map((e) => (
+                          <option key={e.id} value={e.id}>
+                            {entityName(e.id)} · {e.areaId}
+                          </option>
+                        ))}
+                    </select>
+                  </label>
+                )}
                 <button
-                  disabled={!skill}
+                  disabled={!skill || (multiTarget && !selectedIds.length)}
                   onClick={() =>
-                    send({
-                      type: "playHeroSkill",
-                      actorId: actor!.id,
-                      targetId,
-                      skillId: skill!.id,
-                    })
+                    send(
+                      multiTarget
+                        ? {
+                            type: "playHeroSkillTargets",
+                            actorId: actor!.id,
+                            targetIds: selectedIds,
+                            skillId: skill!.id,
+                          }
+                        : {
+                            type: "playHeroSkill",
+                            actorId: actor!.id,
+                            targetId,
+                            skillId: skill!.id,
+                          },
+                    )
                   }
                 >
                   使用技能
@@ -408,6 +489,16 @@ export function App() {
             <li key={i}>
               <span>{i + 1}.</span> {event.message}
               {"roll" in event && event.roll !== null ? ` · d10=${event.roll}` : ""}
+              {event.type === "heroSkillTargetsResolved" && (
+                <div className="target-results">
+                  {event.resolutions.map((result) => (
+                    <p key={result.targetId}>
+                      {entityName(result.targetId)}：
+                      {result.outcome ? outcomeLabels[result.outcome] : "直接生效"}
+                    </p>
+                  ))}
+                </div>
+              )}
               {"resolution" in event &&
                 "skipped" in event.resolution &&
                 event.resolution.skipped.length > 0 && (
