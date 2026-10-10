@@ -3,6 +3,11 @@ declare module "virtual:battle-data" {
   export const battleData: {
     readonly tileName: string;
     readonly resolveCards: readonly ResolveCard[];
+    readonly deployment: {
+      readonly heroes: Readonly<Record<import("@ddbg/engine").SkillStance, string>>;
+      readonly monsters: Readonly<Record<import("@ddbg/engine").SkillStance, string>>;
+      readonly lootAreas: readonly string[];
+    };
     readonly areas: readonly BattleArea[];
     readonly skills: readonly (HeroSkillCardView & {
       readonly name: string;
@@ -11,6 +16,9 @@ declare module "virtual:battle-data" {
     readonly monsters: readonly (MonsterCardView & {
       readonly name: string;
       readonly dodge: number;
+      readonly spawnEdge: "front" | "back";
+      readonly stanceSlots: 1;
+      readonly copies: number;
     })[];
     readonly heroStats: readonly {
       readonly id: string;

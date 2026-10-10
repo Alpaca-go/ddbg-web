@@ -72,8 +72,16 @@ export function App() {
   const action = battle.monsterAction;
   const entityName = (id: string) => {
     const entity = battle.entities.find((e) => e.id === id);
+    const duplicates = battle.entities.filter(
+      (other) => other.monsterCardId && other.monsterCardId === entity?.monsterCardId,
+    );
+    const instance =
+      duplicates.length > 1 ? ` #${duplicates.findIndex((other) => other.id === id) + 1}` : "";
     return (
-      entity?.hero ?? battleData.monsters.find((m) => m.id === entity?.monsterCardId)?.name ?? id
+      entity?.hero ??
+      (battleData.monsters.find((m) => m.id === entity?.monsterCardId)?.name
+        ? `${battleData.monsters.find((m) => m.id === entity?.monsterCardId)!.name}${instance}`
+        : id)
     );
   };
   const send = (command: Command) => {
@@ -132,6 +140,9 @@ export function App() {
               <option value="heal">多目标治疗</option>
               <option value="pair">Soldier + Rabble</option>
               <option value="trio">Courtier + Soldier + Rabble</option>
+              <option value="formalSoldier">正式部署：3 Soldier + Rabble</option>
+              <option value="formalMixed">正式部署：2 Soldier + 2 Rabble</option>
+              <option value="formalBack">正式部署：2 Courtier + Soldier + Rabble</option>
             </select>
           </label>
           <label>
@@ -149,21 +160,32 @@ export function App() {
         </form>
       </header>
       <p className="sandbox-note">
-        手动布置：
-        {layout === "heal"
-          ? "Vestal 在防御位 / A，其余英雄在 B，Bone Soldier 在 C；四英雄初始伤口均为 5。种子 5 下，Crusader 移动到 A 再返回 B，抽取下一张先攻即可试用 Divine Comfort。"
-          : layout === "shuffle"
-            ? "Highwayman 在进攻位 / A，与 Bone Soldier 同区；Crusader / Hellion / Vestal 分别在 B / C / D。种子 5 可直接试用 Point Blank Shot。"
-            : layout === "pair" || layout === "trio"
-              ? `四英雄在 A，Hellion 在远程位可试用 Breakthrough；B 区怪物为 ${layout === "pair" ? "Soldier + Rabble" : "Courtier + Soldier + Rabble"}，按列表顺序站进攻至远程位。`
-              : "四英雄在 A，Bone Soldier 在 B。"}
-        光照 5。使用获批几何与卡牌；初始位置为测试布置，不代表正式房间部署。奖励与战役尚未接入。
+        {layout.startsWith("formal")
+          ? "已复核起点：英雄 H/C，怪物按 Front / Back 生成；C/H 为 Cornered。随机宝箱随后接入。测试技能选择沿用四英雄。"
+          : "手动布置："}
+        {layout.startsWith("formal")
+          ? ""
+          : layout === "heal"
+            ? "Vestal 在防御位 / A，其余英雄在 B，Bone Soldier 在 C；四英雄初始伤口均为 5。种子 5 下，Crusader 移动到 A 再返回 B，抽取下一张先攻即可试用 Divine Comfort。"
+            : layout === "shuffle"
+              ? "Highwayman 在进攻位 / A，与 Bone Soldier 同区；Crusader / Hellion / Vestal 分别在 B / C / D。种子 5 可直接试用 Point Blank Shot。"
+              : layout === "pair" || layout === "trio"
+                ? `四英雄在 A，Hellion 在远程位可试用 Breakthrough；B 区怪物为 ${layout === "pair" ? "Soldier + Rabble" : "Courtier + Soldier + Rabble"}，按列表顺序站进攻至远程位。`
+                : "四英雄在 A，Bone Soldier 在 B。"}
+        光照 5。使用获批几何与卡牌；
+        {!layout.startsWith("formal") && "初始位置为测试布置，不代表正式房间部署。"}
+        奖励与战役尚未接入。
       </p>
       <section className="statusbar" aria-label="战斗状态">
         <span>第 {battle.encounter?.round ?? "—"} 轮 / 4</span>
         <span>光照 {battle.light}</span>
         <strong data-testid="turn-status">{turnText}</strong>
-        {frozen && <span>等待位移结算 · 其他行动已冻结</span>}
+        {frozen && (
+          <span>
+            {battle.pending?.type === "resolveProvision" ? "等待补给选择" : "等待位移结算"} ·
+            其他行动已冻结
+          </span>
+        )}
       </section>
       <p className="notice" role="status">
         {notice}
