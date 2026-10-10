@@ -213,13 +213,13 @@ describe("规范化核心盒", () => {
 
     const masochistic = built.virtue_affliction.cards.find((card) => card.name === "Masochistic");
     expect(masochistic?.verification).toEqual({
-      unverified: true,
-      reasons: ["icon:2c1824ea21", "icon:d42d7955d3"],
+      unverified: false,
+      reasons: [],
     });
     const irrational = built.virtue_affliction.cards.find((card) => card.name === "Irrational");
     expect(irrational?.verification).toEqual({
-      unverified: true,
-      reasons: ["icon:5a4fbf9781"],
+      unverified: false,
+      reasons: [],
     });
     for (const name of [
       "Stalwart",

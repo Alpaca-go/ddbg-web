@@ -16,6 +16,35 @@ export const roomTileGeometrySchema = z
     ruling: z.literal("R-054"),
     geometryVerified: z.literal(true),
     usable: z.literal(false),
+    deployment: z
+      .strictObject({
+        ruling: z.literal("R-055"),
+        printReview: z.literal("pending"),
+        heroes: z.strictObject({
+          aggressive: z.literal("H"),
+          ranged: z.literal("H"),
+          defensive: z.literal("C"),
+          support: z.literal("C"),
+        }),
+        monsters: z.strictObject({
+          aggressive: z.literal("J"),
+          defensive: z.literal("D"),
+          support: z.literal("D"),
+          ranged: z.literal("F"),
+        }),
+        lootAreas: z.tuple([z.literal("C"), z.literal("H")]),
+        provisionalMarkers: z
+          .array(
+            z.strictObject({
+              areaId: z.string().min(1),
+              iconId: iconIdSchema,
+              semantic: z.enum(["hero_support_start", "monster_support_start", "cornered"]),
+              status: z.literal("provisional"),
+            }),
+          )
+          .length(4),
+      })
+      .optional(),
     areas: z
       .array(
         z.strictObject({
@@ -76,6 +105,24 @@ export const approvedRoomTileGeometry = roomTileGeometrySchema.parse({
   ruling: "R-054",
   geometryVerified: true,
   usable: false,
+  deployment: {
+    ruling: "R-055",
+    printReview: "pending",
+    heroes: { aggressive: "H", ranged: "H", defensive: "C", support: "C" },
+    monsters: { aggressive: "J", defensive: "D", support: "D", ranged: "F" },
+    lootAreas: ["C", "H"],
+    provisionalMarkers: [
+      { areaId: "C", iconId: "39d6ddf024", semantic: "hero_support_start", status: "provisional" },
+      {
+        areaId: "D",
+        iconId: "293f170eab",
+        semantic: "monster_support_start",
+        status: "provisional",
+      },
+      { areaId: "C", iconId: "4591aebebd", semantic: "cornered", status: "provisional" },
+      { areaId: "H", iconId: "4591aebebd", semantic: "cornered", status: "provisional" },
+    ],
+  },
   areas: [
     { id: "A", capacity: 4, elevation: "normal" },
     { id: "B", capacity: 3, elevation: "normal" },

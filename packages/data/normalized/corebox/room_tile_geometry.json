@@ -14,6 +14,52 @@
    "ruling": "R-054",
    "geometryVerified": true,
    "usable": false,
+   "deployment": {
+    "ruling": "R-055",
+    "printReview": "pending",
+    "heroes": {
+     "aggressive": "H",
+     "ranged": "H",
+     "defensive": "C",
+     "support": "C"
+    },
+    "monsters": {
+     "aggressive": "J",
+     "defensive": "D",
+     "support": "D",
+     "ranged": "F"
+    },
+    "lootAreas": [
+     "C",
+     "H"
+    ],
+    "provisionalMarkers": [
+     {
+      "areaId": "C",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "provisional"
+     },
+     {
+      "areaId": "D",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "provisional"
+     },
+     {
+      "areaId": "C",
+      "iconId": "4591aebebd",
+      "semantic": "cornered",
+      "status": "provisional"
+     },
+     {
+      "areaId": "H",
+      "iconId": "4591aebebd",
+      "semantic": "cornered",
+      "status": "provisional"
+     }
+    ]
+   },
    "areas": [
     {
      "id": "A",

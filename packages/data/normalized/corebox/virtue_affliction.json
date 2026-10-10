@@ -9,8 +9,8 @@
  },
  "stats": {
   "cards": 10,
-  "verified": 8,
-  "unverified": 2
+  "verified": 10,
+  "unverified": 0
  },
  "cards": [
   {
@@ -1538,13 +1538,14 @@
       "icon": {
        "iconId": "d42d7955d3",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_d42d7955d3",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: two black-heart red-glow squares",
-       "meaning_zh": "待确认图形：两枚黑心红光方块",
+       "status": "confirmed",
+       "key": "wound",
+       "kind": "damage_type",
+       "meaning_en": "Wound",
+       "meaning_zh": "伤口",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed",
+       "approval": "R-056"
       }
      },
      {
@@ -1556,13 +1557,14 @@
       "icon": {
        "iconId": "2c1824ea21",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_2c1824ea21",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: unclear crop",
-       "meaning_zh": "待确认图形：不够清楚的切图",
+       "status": "confirmed",
+       "key": "wound",
+       "kind": "damage_type",
+       "meaning_en": "Wound",
+       "meaning_zh": "伤口",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed",
+       "approval": "R-056"
       }
      }
     ],
@@ -1610,32 +1612,41 @@
     {
      "iconId": "d42d7955d3",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_d42d7955d3",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: two black-heart red-glow squares",
-     "meaning_zh": "待确认图形：两枚黑心红光方块",
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "伤口",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed",
+     "approval": "R-056"
     },
     {
      "iconId": "2c1824ea21",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_2c1824ea21",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: unclear crop",
-     "meaning_zh": "待确认图形：不够清楚的切图",
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "伤口",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed",
+     "approval": "R-056"
     }
    ],
+   "verified_turn_start": {
+    "rollMin": 1,
+    "rollMax": 3,
+    "effect": {
+     "type": "wounds",
+     "scope": "self",
+     "amount": 2,
+     "perHeroLevel": true
+    }
+   },
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:2c1824ea21",
-     "icon:d42d7955d3"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -2001,13 +2012,14 @@
       "icon": {
        "iconId": "5a4fbf9781",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_5a4fbf9781",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: red right arrow (d10 result table)",
-       "meaning_zh": "待确认图形：红色右箭头（d10 结果表）",
+       "status": "confirmed",
+       "key": "result_table_arrow",
+       "kind": "marker",
+       "meaning_en": "Result table pointer",
+       "meaning_zh": "结果表指向标记",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed",
+       "approval": "R-056"
       }
      },
      {
@@ -2069,13 +2081,14 @@
       "icon": {
        "iconId": "5a4fbf9781",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_5a4fbf9781",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: red right arrow (d10 result table)",
-       "meaning_zh": "待确认图形：红色右箭头（d10 结果表）",
+       "status": "confirmed",
+       "key": "result_table_arrow",
+       "kind": "marker",
+       "meaning_en": "Result table pointer",
+       "meaning_zh": "结果表指向标记",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed",
+       "approval": "R-056"
       }
      },
      {
@@ -2105,13 +2118,14 @@
     {
      "iconId": "5a4fbf9781",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_5a4fbf9781",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red right arrow (d10 result table)",
-     "meaning_zh": "待确认图形：红色右箭头（d10 结果表）",
+     "status": "confirmed",
+     "key": "result_table_arrow",
+     "kind": "marker",
+     "meaning_en": "Result table pointer",
+     "meaning_zh": "结果表指向标记",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed",
+     "approval": "R-056"
     },
     {
      "iconId": "7e404a95c6",
@@ -2138,13 +2152,14 @@
     {
      "iconId": "5a4fbf9781",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_5a4fbf9781",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red right arrow (d10 result table)",
-     "meaning_zh": "待确认图形：红色右箭头（d10 结果表）",
+     "status": "confirmed",
+     "key": "result_table_arrow",
+     "kind": "marker",
+     "meaning_en": "Result table pointer",
+     "meaning_zh": "结果表指向标记",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed",
+     "approval": "R-056"
     },
     {
      "iconId": "7e404a95c6",
@@ -2158,11 +2173,18 @@
      "naming": "confirmed"
     }
    ],
+   "verified_turn_start": {
+    "rollMin": 1,
+    "rollMax": 10,
+    "effect": {
+     "type": "stanceMove",
+     "forwardThrough": 5,
+     "distance": 1
+    }
+   },
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:5a4fbf9781"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   }
  ]
