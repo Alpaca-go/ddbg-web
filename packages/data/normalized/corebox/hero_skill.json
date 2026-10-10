@@ -29363,6 +29363,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 2,
+    "condition": "marked",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
