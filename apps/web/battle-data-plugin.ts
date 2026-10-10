@@ -62,6 +62,8 @@ export function battleDataPlugin(): Plugin {
         .parse(read("monster_medium"))
         .cards.filter((card) => monsterIds.has(card.id) && !card.verification.unverified)
         .map((card) => {
+          const edges = card.type_position_tags.filter((tag) => tag === "Front" || tag === "Back");
+          if (edges.length !== 1) throw new Error("怪物缺少唯一印刷 Front / Back（R-048）");
           if (!("skills" in card) || card.speed === undefined || !card.stanceGroups)
             throw new Error("怪物缺少已核实选招 / Speed（R-048）");
           const dodge = card.header_unlabeled_numbers.filter(
@@ -76,7 +78,12 @@ export function battleDataPlugin(): Plugin {
             dodge[0]!.numeric! < 0
           )
             throw new Error("怪物缺少唯一已命名 Dodge 整数，不补默认值（R-048）");
-          return { ...card, dodge: dodge[0]!.numeric };
+          return {
+            ...card,
+            dodge: dodge[0]!.numeric,
+            spawnEdge: edges[0] === "Front" ? "front" : "back",
+            stanceSlots: 1,
+          };
         });
       const tile = roomTileGeometryFileSchema
         .parse(read("room_tile_geometry"))
@@ -85,12 +92,14 @@ export function battleDataPlugin(): Plugin {
         );
       if (
         !tile ||
+        !tile.usable ||
+        tile.deployment?.printReview !== "verified" ||
         heroStats.length !== 4 ||
         skills.length !== skillIds.size ||
         monsters.length !== monsterIds.size
       )
         throw new Error("战斗沙盒缺少获批卡牌，拒绝替换或补值（R-048）");
-      return `export const battleData = ${JSON.stringify({ heroStats, skills, monsters, resolveCards, areas: roomTileBattleAreas(tile), tileName: tile.name })};`;
+      return `export const battleData = ${JSON.stringify({ heroStats, skills, monsters, resolveCards, deployment: tile.deployment, areas: roomTileBattleAreas(tile), tileName: tile.name })};`;
     },
   };
 }

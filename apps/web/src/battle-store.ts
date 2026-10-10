@@ -1,14 +1,15 @@
 import { create } from "zustand";
-import { applyCommand, createBattleState } from "@ddbg/engine";
+import { applyCommand, createBattleState, spawnMonsters } from "@ddbg/engine";
 import type { BattleEntity, Command, GameEvent, GameState, SkillStance } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
 
 /** 手动布置的单场沙盒；不使用未核实的部署标记，不生成房间 / 奖励。 */
-export type SandboxLayout = "basic" | "shuffle" | "heal" | "pair" | "trio";
+export type SandboxLayout =
+  "basic" | "shuffle" | "heal" | "pair" | "trio" | "formalSoldier" | "formalMixed" | "formalBack";
 
 function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
   const layouts: Record<
-    SandboxLayout,
+    Exclude<SandboxLayout, "formalSoldier" | "formalMixed" | "formalBack">,
     { stances: SkillStance[]; areas: string[]; monsterArea: string }
   > = {
     basic: {
@@ -37,7 +38,9 @@ function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
       monsterArea: "B",
     },
   };
-  const { stances, areas, monsterArea } = layouts[layout];
+  const formal = layout.startsWith("formal");
+  const { stances, areas, monsterArea } =
+    layouts[formal ? "basic" : (layout as keyof typeof layouts)];
   const heroes: BattleEntity[] = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].map(
     (name, index) => {
       const stat = battleData.heroStats.find((card) => card.name === name)!;
@@ -48,7 +51,7 @@ function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
         heroStatId: stat.id,
         heroLevel: stat.level,
         life: stat.life,
-        areaId: areas[index]!,
+        areaId: formal ? battleData.deployment.heroes[stances[index]!] : areas[index]!,
         stance: stances[index]!,
         wounds: layout === "heal" ? 5 : 0,
         stress: 0,
@@ -61,17 +64,54 @@ function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
       };
     },
   );
-  const roster =
-    layout === "trio"
+  const roster = formal
+    ? {
+        formalSoldier: [
+          "monster_medium:p001",
+          "monster_medium:p001",
+          "monster_medium:p001",
+          "monster_medium:p040",
+        ],
+        formalMixed: [
+          "monster_medium:p001",
+          "monster_medium:p040",
+          "monster_medium:p001",
+          "monster_medium:p040",
+        ],
+        formalBack: [
+          "monster_medium:p004",
+          "monster_medium:p001",
+          "monster_medium:p004",
+          "monster_medium:p040",
+        ],
+      }[layout as "formalSoldier" | "formalMixed" | "formalBack"]
+    : layout === "trio"
       ? ["monster_medium:p004", "monster_medium:p001", "monster_medium:p040"]
       : layout === "pair"
         ? ["monster_medium:p001", "monster_medium:p040"]
         : ["monster_medium:p001"];
+  const spawned = spawnMonsters(
+    roster.map((id, index) => {
+      const card = battleData.monsters.find((card) => card.id === id)!;
+      if (roster.filter((other) => other === id).length > card.copies)
+        throw new Error("固定牌堆超出印刷份数");
+      return {
+        instanceId: `monster-${index}`,
+        cardId: id,
+        edge: card.spawnEdge,
+        stanceSlots: card.stanceSlots,
+        verified: !card.verification.unverified,
+      };
+    }),
+    battleData.deployment.monsters,
+  );
+  if (spawned.type === "refused") throw new Error(spawned.reason);
   const monsters: BattleEntity[] = roster.map((id, index) => {
     const card = battleData.monsters.find((m) => m.id === id)!;
     return {
-      id:
-        id === "monster_medium:p001"
+      id: formal
+        ? spawned.monsters[index]!.instanceId
+        : id === "monster_medium:p001"
           ? "soldier"
           : id === "monster_medium:p004"
             ? "courtier"
@@ -80,8 +120,10 @@ function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
       hero: null,
       monsterCardId: card.id,
       life: card.life,
-      areaId: monsterArea,
-      stance: (["aggressive", "defensive", "ranged"] as const)[index]!,
+      areaId: formal ? spawned.monsters[index]!.areaId : monsterArea,
+      stance: formal
+        ? spawned.monsters[index]!.stance
+        : (["aggressive", "defensive", "ranged"] as const)[index]!,
       stanceSlots: 1,
       wounds: 0,
       dodge: card.dodge,

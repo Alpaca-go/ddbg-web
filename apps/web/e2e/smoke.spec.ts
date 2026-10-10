@@ -24,6 +24,15 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 4");
   await expect(page.getByTestId("turn-status")).toContainText("剩余 1 行动");
   await page.screenshot({ path: testInfo.outputPath("status-self-result.png"), fullPage: true });
+  await page.getByLabel("测试布置", { exact: true }).selectOption("formalBack");
+  await page.getByRole("button", { name: "重新布置", exact: true }).click();
+  await expect(page.getByTestId("area-C")).toContainText("2/3 格");
+  await expect(page.getByTestId("area-H")).toContainText("2/2 格");
+  await expect(page.getByTestId("entity-monster-0")).toContainText("区域 D");
+  await expect(page.getByTestId("entity-monster-2")).toContainText("区域 F");
+  await expect(page.getByTestId("area-F")).toContainText("连接：无");
+  await expect(page.getByTestId("area-C")).toContainText("Cornered");
+  await page.screenshot({ path: testInfo.outputPath("formal-deployment.png"), fullPage: true });
   await page.getByLabel("测试布置", { exact: true }).selectOption("heal");
   await page.getByLabel("种子", { exact: true }).fill("5");
   async function heal() {
