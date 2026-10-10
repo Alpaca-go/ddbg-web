@@ -1615,7 +1615,9 @@ type PrintedRange =
  * 只接受恰好一个已命名射程图标旁边的非负整数。
  * 区间的 numeric 为 null。图标里面的数字、以及没有这个整数的 Self / All Allies，都不算。
  */
-function readPrintedRange(skill: HeroSkillCardView): PrintedRange {
+export function readPrintedRange(
+  skill: Pick<HeroSkillCardView, "unlabeled_numbers">,
+): PrintedRange {
   let exact: number | null = null;
   let count = 0;
   let sawNull = false;
@@ -1721,7 +1723,7 @@ function readTargetIconCounts(skill: HeroSkillCardView): { hero: number; monster
  * 效果行、Self、All Allies 都不算。stats 行和效果行都没有时，用卡面正面的。
  * 两种目标图标同时在场时不定个数。
  */
-function readPrintedTargets(skill: HeroSkillCardView): PrintedTargets {
+export function readPrintedTargets(skill: HeroSkillCardView): PrintedTargets {
   const counts = readTargetIconCounts(skill);
   if (counts.hero > 0 && counts.monster > 0) return { kind: "mixed" };
   if (counts.hero > 0) return { kind: "exact", max: counts.hero };
