@@ -8,7 +8,7 @@
 - 怪物技能接收已有 `verified_damage_bonus` 原语，复用命中、暴击、Protection / Riposte 结算；多堆 Mark 仍只加一次伤害。公共命令覆盖选目标、Speed 定位、一次攻击骰及回合结束，漂移拒绝且不消耗 RNG，回放结果一致。
 - UI 卡池保持原批准范围。本块不是 Phase 3 开始；缺 duration、未核实图标和 Q-52 不变。新规则实现 PR 按原交接 §5.6 / §11 待 Kyries 审阅确认后合并，上一轮四步的合并授权不扩展为无限自动合并。
 
-验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build、diff 检查通过；原三条 Chrome 冒烟通过（39.5 秒）。默认 `pnpm test:e2e` 因本机缺 Chromium 1243 无法启动，使用忽略目录中的本地 Chrome 配置成功运行同样三条测试；仓库与 CI 配置未修改。草稿 PR / 准确 head CI 状态在创建后补齐，不自动合并。
+验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build、diff 检查通过；原三条 Chrome 冒烟通过（39.5 秒）。默认 `pnpm test:e2e` 因本机缺 Chromium 1243 无法启动，使用忽略目录中的本地 Chrome 配置成功运行同样三条测试；仓库与 CI 配置未修改。[草稿 PR #94](https://github.com/Alpaca-go/ddbg-web/pull/94) 已建立，代码提交 `7b182c4`；PR 分支包含本段交接更新，准确 head CI 以 PR 页面为准。未合并，main 仍为 `9b9c5a5`。
 
 ## 四步完成记录（2026-10-10）
 
