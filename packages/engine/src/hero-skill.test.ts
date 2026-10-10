@@ -59,6 +59,7 @@ for (const entry of file.cards) {
   // 当前已核实状态卡的完整输入另由 skill-status.test.ts 覆盖。
   const legacy = { ...entry };
   delete legacy.verified_status_effects;
+  delete legacy.verified_range;
   cards.set(entry.id, legacy);
 }
 

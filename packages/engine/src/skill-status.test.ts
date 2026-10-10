@@ -185,6 +185,7 @@ describe("完整 Nt 注解的技能状态接线（R19–21 / R-048）", () => {
       skipped: [],
     });
     expect(tracking.outcome).toBe("hit");
+    // 逐页复核的 1–2 区间现已接入；距离 1 可结算，Nt 不因此默认。
     expect(
       resolveHeroSkill(
         card("p076"),
@@ -195,7 +196,7 @@ describe("完整 Nt 注解的技能状态接线（R19–21 / R-048）", () => {
         },
         1,
       ).status,
-    ).toBe("refused");
+    ).toBe("resolved");
   });
 
   it("缺或漂移 Nt 注解不补默认值，混合同行未完整支持时整次拒绝", () => {

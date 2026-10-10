@@ -188,7 +188,7 @@ import { readVerifiedStatusEffects } from "./skill-status";
  * 没有。友方治疗同样加：规则书写的是任意 creature，R-022 据此包含友方。目标写的是
  * Self，或卡面射程恰好是 0 且没有传入更远的距离，或传入的距离是 0，都是使用者自己的
  * 区域，不能再低，整次拒绝。单个整数射程的上限可以再加 1，原来的距离仍然可以。
- * 区间的 numeric 仍是 null，不拆开，也不因此多出一档。
+ * 区间保留原 numeric=null；逐卡复核注解另给边界，按 R-022 对更低区域上限 +1。
  * 光照 ≤4 的 Crit +1、光照恰好 5 的英雄 Dodge +1，以及光照恰好 0 的怪物 Dodge +1，
  * 写在后面。卡面光照 +1、`+N vs` 和饰品仍不加。
  *
@@ -245,6 +245,11 @@ export type HeroSkillCardView = {
         };
   }[];
   readonly stats_line: readonly SkillSegment[] | null;
+  readonly verified_range?: {
+    readonly min: number;
+    readonly max: number;
+    readonly source: "print_front";
+  };
   readonly effect_lines: readonly (readonly SkillSegment[])[];
   readonly verified_status_effects?: readonly (StatusEffect & {
     readonly lineIndex: number;
@@ -376,7 +381,7 @@ export type SkillCombatState = {
   /**
    * 目标区域与使用者的距离（规则书 spaces away）。传入时必须等于卡面那个射程整数。
    * 目标区域更低时，也可以是这个整数再加 1（R-022）。不传就不做这一步。不在这里
-   * 算最短步数。区间的 numeric 为 null，传入距离仍整次拒绝。
+   * 算最短步数。区间只有附逐卡复核注解才检查，原 numeric=null 不改。
    */
   readonly areaDistance?: number;
   /**
@@ -400,7 +405,7 @@ export type SkillCombatState = {
   /**
    * 目标所在区域是否比使用者低（规则书第 25 页：高地 > 普通 > 低地）。
    * 为真时命中阈值 +1，并把单个整数射程的上限再加 1，原距离仍可选（R-022）。
-   * 不传或为假都不加，从低打高也没有惩罚。区间射程不加。
+   * 不传或为假都不加，从低打高也没有惩罚。已复核区间按 R-022 上限 +1。
    */
   readonly targetAreaLower?: boolean;
   /**
@@ -1648,16 +1653,38 @@ function stanceProblem(skill: HeroSkillCardView, combat: SkillCombatState): stri
 
 type PrintedRange =
   | { readonly kind: "exact"; readonly distance: number }
+  | { readonly kind: "interval"; readonly min: number; readonly max: number }
   | { readonly kind: "null_numeric" }
   | { readonly kind: "absent" };
 
 /**
- * 只接受恰好一个已命名射程图标旁边的非负整数。
- * 区间的 numeric 为 null。图标里面的数字、以及没有这个整数的 Self / All Allies，都不算。
+ * 接受唯一已命名射程图标旁的整数，或文本匹配的逐卡复核区间。
+ * 原 numeric=null 不改；无注解区间、图标内数字、Self / All Allies 都不补距离。
  */
 export function readPrintedRange(
-  skill: Pick<HeroSkillCardView, "unlabeled_numbers">,
+  skill: Pick<HeroSkillCardView, "unlabeled_numbers" | "verified_range">,
 ): PrintedRange {
+  if (skill.verified_range) {
+    const range = skill.verified_range;
+    const numbers = skill.unlabeled_numbers.filter(
+      (item) =>
+        item.anchor.type === "beside_icon" &&
+        item.anchor.left_icon?.key === "range" &&
+        NAMED.has(item.anchor.left_icon.naming) &&
+        item.anchor.inside_icon === null,
+    );
+    if (
+      range.source !== "print_front" ||
+      !nonNegativeInteger(range.min) ||
+      !nonNegativeInteger(range.max) ||
+      range.min > range.max ||
+      numbers.length !== 1 ||
+      numbers[0]?.numeric !== null ||
+      numbers[0].text !== `${range.min}-${range.max}`
+    )
+      return { kind: "null_numeric" };
+    return { kind: "interval", min: range.min, max: range.max };
+  }
   let exact: number | null = null;
   let count = 0;
   let sawNull = false;
@@ -1681,7 +1708,7 @@ export function readPrintedRange(
 /**
  * 规则书第 19 页：选中的区域与使用者的距离必须等于印出来的射程。
  * 第 25 页、R-022：目标区域更低时，单个整数的上限可以再加 1，原距离仍可选。
- * 没传入距离时不检查。读不出单个整数时，整次不结算。区间不加这一档。
+ * 没传入距离时不检查。逐卡复核区间按 R-022 上限 +1；无注解区间仍拒绝。
  */
 function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.areaDistance === undefined) return null;
@@ -1690,6 +1717,12 @@ function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): strin
       ? null
       : "Self 技能只能作用于使用者自己";
   const printed = readPrintedRange(skill);
+  if (printed.kind === "interval") {
+    const reach = printed.max + Number(combat.targetAreaLower === true);
+    return combat.areaDistance >= printed.min && combat.areaDistance <= reach
+      ? null
+      : "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）";
+  }
   if (printed.kind === "null_numeric") {
     return "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）";
   }

@@ -174,6 +174,14 @@ const heroSkillShared = {
   top_row_icons: z.array(normalizedIconSchema),
   name_row_icons: z.array(normalizedIconSchema),
   stats_line: z.array(segmentSchema).nullable(),
+  verified_range: z
+    .strictObject({
+      min: z.int().nonnegative(),
+      max: z.int().nonnegative(),
+      source: z.literal("print_front"),
+    })
+    .refine((range) => range.min <= range.max)
+    .optional(),
   front_icons: z.array(normalizedIconSchema),
   back_icons: z.array(normalizedIconSchema),
   issues: z.array(z.string()),
