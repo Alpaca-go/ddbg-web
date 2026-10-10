@@ -20,7 +20,12 @@ export type {
   PlayHeroSkillCommand,
 } from "./battle";
 export type { ApplyResult, Command, GameEvent, GameState, PendingChoice } from "./command";
-export { resolveHeroSkill, resolveHeroSkillEffects, readPrintedTargets } from "./hero-skill";
+export {
+  resolveHeroSkill,
+  resolveHeroSkillEffects,
+  readPrintedTargets,
+  heroSkillUsesSelfTarget,
+} from "./hero-skill";
 export { resolveSkillHeroHealth } from "./skill-hero-health";
 export type { SkillHeroHealth, SkillHeroHealthResult } from "./skill-hero-health";
 export type { SkillHealthEffect, SkillEffectsResolution } from "./hero-skill";

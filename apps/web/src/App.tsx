@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { readPrintedTargets } from "@ddbg/engine";
+import { heroSkillUsesSelfTarget, readPrintedTargets } from "@ddbg/engine";
 import type { Command, SkillSegment, SkillStance } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
 import { useBattleStore } from "./battle-store";
@@ -8,6 +8,17 @@ import type { SandboxLayout } from "./battle-store";
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 const stanceLabels = { aggressive: "进攻", defensive: "防御", ranged: "远程", support: "支援" };
 const outcomeLabels = { crit: "暴击", hit: "命中", miss: "落空" };
+const statusLabels = {
+  bleed: "流血",
+  blight: "腐蚀",
+  stun: "眩晕",
+  buff: "增益",
+  debuff: "减益",
+  mark: "标记",
+  guard: "守护",
+  riposte: "反击",
+  protection: "防护",
+};
 function lineText(line: readonly SkillSegment[]) {
   return line
     .map((segment) =>
@@ -49,6 +60,7 @@ export function App() {
   const printedTargets = skill ? readPrintedTargets(skill) : undefined;
   const maxTargets = printedTargets?.kind === "exact" ? printedTargets.max : 1;
   const multiTarget = maxTargets > 1;
+  const selfTarget = skill ? heroSkillUsesSelfTarget(skill) : false;
   const selectedArea = targetAreaId || actor?.areaId || battle.areas[0]!.id;
   const selectionContext = `${battle.encounter?.round}:${actor?.id}:${skill?.id}:${selectedArea}`;
   const areaTargets = battle.entities.filter((e) => !e.dead && e.areaId === selectedArea);
@@ -216,6 +228,17 @@ export function App() {
                               ? ` · 压力 ${e.stress}/10${e.wounds === e.life ? " · 死门" : ""}`
                               : ""}
                           </p>
+                          {!!e.statusStacks?.length && (
+                            <p className="muted">
+                              状态：
+                              {e.statusStacks
+                                .map(
+                                  (stack) =>
+                                    `${statusLabels[stack.kind]}${stack.amount === undefined ? "" : ` ${stack.amount}`} / ${stack.remaining}t`,
+                                )
+                                .join("；")}
+                            </p>
+                          )}
                         </div>
                       ))}
                   </div>
@@ -386,6 +409,8 @@ export function App() {
                       共用一次掷骰，逐目标判定。目标类型与射程须符合卡面。
                     </p>
                   </>
+                ) : selfTarget ? (
+                  <p>目标：自身 · {actor ? entityName(actor.id) : ""}</p>
                 ) : (
                   <label>
                     目标
@@ -418,7 +443,7 @@ export function App() {
                         : {
                             type: "playHeroSkill",
                             actorId: actor!.id,
-                            targetId,
+                            targetId: selfTarget ? actor!.id : targetId,
                             skillId: skill!.id,
                           },
                     )
@@ -493,6 +518,8 @@ export function App() {
             <li key={i}>
               <span>{i + 1}.</span> {event.message}
               {"roll" in event && event.roll !== null ? ` · d10=${event.roll}` : ""}
+              {event.type === "statusTurnStarted" &&
+                ` · 同时伤口 ${event.woundAmounts.reduce((sum, amount) => sum + amount, 0)}${event.stunned ? " · 眩晕生效" : ""}`}
               {(event.type === "heroSkillTargetsResolved" ||
                 event.type === "monsterSkillTargetsResolved") && (
                 <div className="target-results">

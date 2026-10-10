@@ -418,6 +418,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
       battle: {
         ...battle,
         entities: statuses.entities,
+        light: statuses.light,
         shuffleIntents,
         pending: null,
         rngCursor: health.rngCursor,
