@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：G-04 / G-09 怪物黄金核对（2026-10-10）
+
+#86 head `4cc23be` 四项 CI 成功，已合并为 `f963b3a`。本块分支 `codex/phase2-monster-goldens`，只补第 4 项官方怪物黄金测试。
+
+- 对照完整官方 R22–23，Defender 在 Ranged 固定技能 3；Hellion / Highwayman 最远平局，Defensive 优先。公共命令从距离 2 经 Speed 1 到距离 1，再自身 Pull 到距离 0、姿态移至 Defensive、Arbalist 挤到 Ranged；全部骰面只有一次攻击 RNG 与一次回合结束，续接重复调用拒绝。原文未指定光照，纯结算核对 Acc 5 − Dodge 1 的 1–4 命中 3；命令场景显式光照 4，掷 1 按 R-002 暴击 5，不能为了迎合例子忽略环境修正。
+- 对照完整 140x140 monster_large_FRONT p002 与官方 Old Road V2 p7，Bloodletter 的完整姿态骰表作为只读黄金夹具：占 Aggressive / Defensive 使用 Aggressive，掷 9 选择技能 3；真实 Point Blank Shot 在光照 4 的 1–3 暴击 12、4–9 命中 6、10 落空。教程明确省略额外效果，本测试同样只验选招 / 攻击，不宣称 Large 移动、目标命令及全技能 UI 完成。
+- 不回填未知字段、不改词典或真实卡池；测试线性几何只表示官方距离关系，不冒充实际房间部署。Large UI、条件伤害、人工检查点③及跨阶段候选范围仍未完成。
+
+验证：两个完整黄金场景及完整质量闸门成功后提交，准确 head 四项 CI 成功后合并。下一块核对剩余真实技能附加数值，保持缺 duration 拒绝。
+
 ## 最新进度：两张英雄区间射程与 G-08（2026-10-10）
 
 #85 head `0a4f9a1` 四项 CI 成功，已合并为 `9db0195`。本块分支 `codex/phase2-hero-ranges`，第 4 项 Tracking / Pistol 黄金接线。
