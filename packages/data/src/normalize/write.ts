@@ -19,9 +19,10 @@ function readJson(relativePath: string): unknown {
   return JSON.parse(readFileSync(path.join(DATA_ROOT, relativePath), "utf8")) as unknown;
 }
 
-/** 读入库的词典、parsed 和 raw，生成六类规范化数据。 */
+/** 读词典、parsed 和 raw，生成卡牌与独立的获批板块几何。 */
 export function loadNormalizedCorebox(): NormalizedCorebox {
   return buildNormalizedCorebox({
+    roomTiles: rawFileSchema.parse(readJson("extract/corebox/raw/dungeon_tile.json")),
     dictionary: iconDictionarySchema.parse(readJson("dictionary/icon-dictionary-v1.8.json")),
     heroSkills: heroSkillFileSchema.parse(readJson("extract/corebox/parsed/hero_skill.json")),
     heroSkillRaw: rawFileSchema.parse(readJson("extract/corebox/raw/hero_skill.json")),
@@ -46,6 +47,7 @@ export function writeNormalizedCorebox(
   const built = loadNormalizedCorebox();
   mkdirSync(outputDir, { recursive: true });
   const files: [string, unknown][] = [
+    ["room_tile_geometry.json", built.room_tile_geometry],
     ["hero_skill.json", built.hero_skill],
     ["monster_medium.json", built.monster_medium],
     ["monster_large.json", built.monster_large],

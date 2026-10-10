@@ -54,6 +54,8 @@ export { monsterStanceGroupsSchema } from "./normalize/monster-stance";
 export type { MonsterStanceGroups } from "./normalize/monster-stance";
 export type { NormalizedCorebox, NormalizedCoreboxInput } from "./normalize/build";
 export { loadNormalizedCorebox, writeNormalizedCorebox } from "./normalize/write";
+export { roomTileGeometrySchema, roomTileGeometryFileSchema } from "./normalize/room-tile";
+export type { RoomTileGeometryFile } from "./normalize/room-tile";
 export {
   NAMINGS,
   namingSchema,

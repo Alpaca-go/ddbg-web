@@ -1,0 +1,185 @@
+{
+ "schema": "ddbg-room-tile-geometry-v0",
+ "category": "room_tile_geometry",
+ "tiles": [
+  {
+   "id": "room_tile:p001",
+   "rawId": "dungeon_tile:p001",
+   "name": "Ritual Chamber",
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 1,
+    "face": "front"
+   },
+   "ruling": "R-054",
+   "geometryVerified": true,
+   "usable": false,
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 2,
+     "elevation": "high"
+    },
+    {
+     "id": "G",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "I",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "J",
+     "capacity": 2,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": true
+    },
+    {
+     "from": "D",
+     "to": "I",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "I",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "unresolvedMarkers": [
+    {
+     "areaId": "C",
+     "iconId": "39d6ddf024",
+     "semantic": null
+    },
+    {
+     "areaId": "D",
+     "iconId": "293f170eab",
+     "semantic": null
+    },
+    {
+     "areaId": "C",
+     "iconId": "4591aebebd",
+     "semantic": null
+    },
+    {
+     "areaId": "H",
+     "iconId": "4591aebebd",
+     "semantic": null
+    }
+   ]
+  }
+ ]
+}
