@@ -308,7 +308,7 @@ Kyries 通过 Room Tile 1 核对表，要求容量 / 高台按表入库，并明
 
 ## 普通怪单目标 Speed 定位块（2026-10-10）
 
-Kyries 已合并 #53，并要求继续下一步。开工时工作区干净，本地 `main` 执行 `pull --ff-only`，基线为 `5c978f7`；六条姿态组、六条 Speed、获批 Ritual Chamber 几何均已在 main。独立分支 `codex/phase2-monster-movement`，本块提交 PR 后由 Kyries 审阅 / 合并，不自行合并。
+Kyries 已合并 #53，并要求继续下一步。开工时工作区干净，本地 `main` 执行 `pull --ff-only`，基线为 `5c978f7`；六条姿态组、六条 Speed、获批 Ritual Chamber 几何均已在 main。独立分支 `codex/phase2-monster-movement`，已提交 [PR #54](https://github.com/Alpaca-go/ddbg-web/pull/54)，由 Kyries 审阅 / 合并，不自行合并。
 
 - `roomTileBattleAreas` 只投影 `geometryVerified=true` 的几何，排除 blocked / cornerOnly 边，保留容量、高低地；不读取未确认的出生 / 交互标记，不把 `usable=false` 改成可用房间。真实 Room Tile 1 测试锁住 E-F 黑墙和角点边。
 - 引擎怪物卡视图新增可选 Speed，无默认值。复用技能结算的效果框排除、整数射程和目标图标读取，不另解析未命名值；移动前调用既有纯技能校验，未核实卡 / 不支持技能原样拒绝。
@@ -320,6 +320,6 @@ Kyries 已合并 #53，并要求继续下一步。开工时工作区干净，本
 
 **待确认（沿用 Q-22，不新增裁定）**：整图没有合法出手位置（例如全部出手区域满员），或出手位置与怪物完全不连通时，“最近能出手位置”没有有限距离，保持状态并拒绝，不猜落点或跨墙。既有 `prepareMonsterAction` 对任何不可达英雄仍保持拒绝，因为 Closest / Furthest 的断图排序未获批准；F 仍孤立，不默认为同区 / 相邻。此项在 PR 单列；明确可达的 Speed 不足场景已实现移动后跳过。
 
-验证：新增 12 项场景测试，覆盖真实板块 / Soldier Speed、Guard、已在射程内、后退、高地、满员穿越 / 落点排除、死者容量、0 Speed、靠近后跳过与平手、待选冻结 / 过期 / 种子回放、移动到攻击方向待选的衔接，以及缺值 / 未验证 / 大型 / 多目标拒绝。Node 24.21.0 / pnpm 12.9.1 下运行 typecheck、lint、258 项测试（20 文件）、build 与 `git diff --check`。本块不是阶段结束，无 UI 改动，不新增 Playwright；PR 运行现有质量与 smoke 两项 CI。
+验证：新增 12 项场景测试，覆盖真实板块 / Soldier Speed、Guard、已在射程内、后退、高地、满员穿越 / 落点排除、死者容量、0 Speed、靠近后跳过与平手、待选冻结 / 过期 / 种子回放、移动到攻击方向待选的命中 / 落空衔接，以及缺值 / 未验证 / 大型 / 多目标拒绝。Node 24.21.0 / pnpm 12.9.1 下 typecheck、lint、258 项测试（20 文件）、build 与 `git diff --check` 均通过。本块不是阶段结束，无 UI 改动，不新增 Playwright；PR 运行现有质量与 smoke 两项 CI。
 
 下一步先审阅 / 合并本块，并确认上述 Q-22 断图 / 无合法出手位置特例的处理，再决定下一主题。没有在本块推进多目标、Boss、扩展、英雄移动、战斗 UI 或更多板块。
