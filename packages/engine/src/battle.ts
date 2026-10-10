@@ -31,6 +31,8 @@ import type { PlayMonsterSkillCommand } from "./battle-monster";
 import type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 import type { PreparedMonsterAction } from "./battle-monster-action";
 import { applySkillHealth } from "./battle-health";
+import { statusProjection, statusStackProblem } from "./status";
+import type { StatusStack } from "./status";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
 export type BattleEntity = SkillTargetState &
@@ -47,6 +49,9 @@ export type BattleEntity = SkillTargetState &
     /** 仅保存已有堆的标识，清除时整堆移除；不猜 duration / 面值。 */
     readonly bleed: readonly string[];
     readonly blight: readonly string[];
+    /** 真正的状态堆，和无 duration 的旧沙盒标识区别；缺失不补持续时间。 */
+    readonly statusStacks?: readonly StatusStack[];
+    readonly innateProtection?: boolean;
   };
 
 export type BattleArea = {
@@ -168,6 +173,12 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
     }
   }
   for (const entity of setup.entities) {
+    if (entity.statusStacks !== undefined) {
+      const problem = statusStackProblem(entity.statusStacks);
+      if (problem) throw new Error(problem);
+    }
+    if (entity.innateProtection !== undefined && typeof entity.innateProtection !== "boolean")
+      throw new Error("内置防护必须明确为布尔值");
     if (entity.heroStatId !== undefined || (entity.side === "hero" && entity.life !== undefined)) {
       const card = setup.heroStats?.find((entry) => entry.id === entity.heroStatId);
       if (
@@ -220,6 +231,13 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
     notes: [],
     battle: {
       ...structuredClone(setup),
+      entities: structuredClone(
+        setup.entities.map((entity) =>
+          entity.statusStacks === undefined
+            ? entity
+            : { ...entity, ...statusProjection(entity.statusStacks, entity.innateProtection) },
+        ),
+      ),
       rngCursor: 0,
       choiceCursor: 0,
       monsterAction: null,
@@ -449,6 +467,23 @@ export function writeResolution(
     };
   }
   const stress = resolveSkillStress(entity, actorId, targetId, result, selfTarget);
+  if (updated.statusStacks !== undefined) {
+    const removeBleed =
+      (entity.id === actorId && result.actorBleedCleared) ||
+      (entity.id === targetId && result.targetBleedCleared);
+    const removeBlight =
+      (entity.id === actorId && result.actorBlightCleared) ||
+      (entity.id === targetId && result.targetBlightCleared);
+    const statusStacks = updated.statusStacks.filter(
+      (stack) =>
+        !(removeBleed && stack.kind === "bleed") && !(removeBlight && stack.kind === "blight"),
+    );
+    updated = {
+      ...updated,
+      statusStacks,
+      ...statusProjection(statusStacks, updated.innateProtection),
+    };
+  }
   return stress === undefined ? updated : { ...updated, stress };
 }
 
