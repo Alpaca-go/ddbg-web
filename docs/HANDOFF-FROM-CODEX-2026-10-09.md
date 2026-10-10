@@ -354,3 +354,30 @@ Kyries 要求继续下一步。开工时工作区干净，GitHub 核对 [PR #56]
 新增九项测试，涵盖封顶 / 首次进入不掷骰、死门骰面、治疗脱离 / 再进入、G-11 同时与分次受伤、零值 / 缺值 / null / 稀疏数组 / 脏值拒绝、亡者不复活、十个抽样桶的三骷髅七空白、共享游标 / 回放 / 输入不变、非法 seed / cursor 拒绝。下一块先审阅本纯函数及 #56 数据 PR，合并后同步 main，再单独设计伤口事件接入技能 / 命令与死亡续接，不能仅放开 Life 门后继续无限叠伤口。英雄移动仍另开。
 
 验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、276 项 Vitest（21 文件）、build、`git diff --check` 均通过。本块基于 main 的 267 项新增九项，不包含 #56 尚未合并的七项数据测试，未删除测试。本块不是阶段结束，无 UI 改动，不新增 Playwright，独立 PR 继续运行质量检查与原有首页 smoke 两项 CI，待 Kyries 审阅合并。
+## 当前进度复核与英雄属性核对准备（2026-10-10）
+
+本次先读交接、AGENTS、plan、rulings 与核心规格书，再检查本地状态与远端。开工时工作区干净，位于 `codex/phase2-monster-movement-edges`，tip 为 `10b65e7`；该分支 [PR #55](https://github.com/Alpaca-go/ddbg-web/pull/55) 已包含 Kyries 批准的 R-023 三条边角补充和测试，但 GitHub 状态仍为开放、非草稿、未合并。远端 `main` 仍为 `faabf55`（#54）；不把分支上的规则补充误报成已合并。
+
+PR #55 当前代码的 typecheck、lint、267 项 Vitest（20 文件）与 build 已重新通过，没有代为合并。原 PR 的提交与分支保留。本次不向其中混入后续主题，从 `origin/main` 单独建立 `codex/phase2-hero-stat-review`，仅做可独立推进的资料核对准备。
+
+新增 [四名英雄属性核对表](hero-stat-review-2026-10-10.md)：Crusader、Hellion、Highwayman、Vestal 三等级共 12 个属性面，候选 Life / Dodge / Speed、raw id + face / 页码、词典状态与毫米定位全部可复核。已对照当前版官方规则书 R10、R19、R29 完整页面图像及当前版印刷属性卡正背面，不用 FAQ、PvP、重印或旧版资料；本机原始资料只读，图像仅留忽略缓存。
+
+依据：R-001、R-006、R-007、R-048，说明书 §2.4、§6.5、§9.1–9.2。本表候选仍待 Kyries 确认；没有入库数值，没有改词典 / raw / parsed / normalized / schema / 引擎 / UI，也没有新增裁定。当前仍在 Phase 2：英雄 Life / 死门、状态代币计时、多目标、英雄移动与战斗 UI 均未完成，不能宣布战斗 MVP 已可玩。
+
+现有六类规范化卡共 388 张、45 张未验证；英雄属性只在 raw 层，未计入该 388 张。死门骰面构成已由 R-005 确定为 3 骷髅 + 7 空白，旧交接称“仍待确认”已过时；本次不把未实现的骰序列行为或生命状态写成已完成。
+
+下一块：Kyries 审阅 / 合并 #55 后同步 main；英雄属性候选经确认后，再单独做带来源身份校验的 schema / 人工映射 / 生成路径，之后另接 Life 与死门。三个字段获批不自动解除整卡的其他未验证图标，也不扩散到其他英雄、抗性或村庄技能。当前核对文档与此进度笔记仅为本地改动，尚未提交、推送或开 PR。
+
+本核对分支最终 typecheck、lint、258 项 Vitest（20 文件）、build 与 `git diff --check` 均通过。258 与 #55 的 267 差九项，是分支基线差异，未删测；本块非阶段结束、无 UI 改动，不新增 Playwright。
+
+## 四名英雄 12 面获批属性入库（2026-10-10）
+
+Kyries 已批准核对表 §3 全部 12 面 Life / Dodge / Speed，要求数据单独 PR，并授权 PR #55 单独审合并。已审查 #55 的裁定与九项新增场景，确认最新 head `10b65e7` 的质量检查和 Playwright smoke 均成功，采用 GitHub merge 单独合并为 `93368a3`。本地 `main` 已 `pull --ff-only` 对齐，再将数据分支快进到该基线；没有把 Q-22 引擎改动重复放进数据 PR diff。
+
+本数据块独立分支 `codex/phase2-hero-stat-review`，数据提交 `9976c13`，独立 [PR #56](https://github.com/Alpaca-go/ddbg-web/pull/56) 已创建，未合并。新增 12 面人工映射与 Zod schema，沿既有生成入口写出 `normalized/corebox/hero_stat.json`；身份为 raw id + face（规范化 id 为 `rawId:face`），保存等级 / 英雄名、来源文件 / 页码。数字和 Speed 数量另与获批面的 raw 定位核对，身份漂移、卡背、重复面、脏值、数值冲突与图标退回未确认均拒绝。没有审批映射的属性面不输出、不补默认值。
+
+仅三个属性标为 `attributesVerified=true`，整卡验证仍独立计算，12 面中 9 面保持未验证。未确认图标的 ID / 词典状态 / null 与原始文字保留，不解析其他效果；原有七份规范化文件、raw / parsed、词典、引擎和 UI 无差异。没有实现死门 / 英雄移动，也没有放开引擎当前的英雄 Life 拒绝。
+
+依据：官方规则书 R10 / R19 / R29、R-001 / R-006 / R-007 / R-048、本次批准的核对表 §3 / §5。验证：typecheck、lint、274 项 Vitest（21 文件）、build、`git diff --check` 均通过；新增七项数据测试。本块不是阶段结束，无 UI 改动，不新增 Playwright；独立 PR 跑现有质量与首页 smoke 两项 CI，数据 PR 由 Kyries 审阅合并。
+
+下一块：本数据 PR 经审阅合并、main 同步后，再独立设计 Life 上限 / 死门与种子骰序列；英雄移动另开主题。其他七名核心英雄及未确认图标继续按 R-048 等逐面核实，不因本批批准扩散数值或整卡可用性。旧段落的待确认 / 未入库 / #55 未合并均为历史状态，以本节为准。
