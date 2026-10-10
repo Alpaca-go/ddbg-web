@@ -25,7 +25,7 @@
 | 移动边界    | 已阅读 R-023 / R-024，R24、说明书 §6.10                     | 本块不计算路径、距离或落点，不消费 Speed；待选不得重掷选招骰的要求留给下一块               |
 | 未确认图标  | R-001、R-048                                                | 保留原始 ID 和外观；字典缺条目、`needs_review` / `unreviewed` 不因本表而获批               |
 
-所有数量和边均为**拟议人工标注**，清楚可见也仍需 Kyries 审阅；表中的“未见”是这一面上的观察，不代表运行时默认值。raw 坐标为 TrimBox 左上原点、毫米、y 向下（270 × 270 mm），下表 bbox 只定位已有图标，不是拟造的区域多边形。
+容量、高低地与邻接已按 Kyries 通过的核对表批准，E-F 以 R-054 为准；表中的“未见”是这一面上的观察，不代表运行时默认值。raw 坐标为 TrimBox 左上原点、毫米、y 向下（270 × 270 mm），下表 bbox 只定位已有图标，不是拟造的区域多边形。
 
 ## 3. 区域完整对照表
 
@@ -48,21 +48,21 @@
 
 ## 4. 邻接、墙与角点完整对照
 
-### 4.1 共享边界候选（11 对，均待审）
+### 4.1 定稿共享边界（11 对，已批准）
 
-| 区域对 | 可审的边界位置          | 拟议 adjacent / cornerOnly | 状态                     |
-| ------ | ----------------------- | -------------------------- | ------------------------ |
-| A-B    | A 右侧上段 / B 左侧     | true / false               | 分区线可见，待批准       |
-| A-D    | A 下沿右段 / D 上沿     | true / false               | 同上                     |
-| A-E    | A 右侧下段 / E 左侧上段 | true / false               | 同上；不是整条边重合     |
-| B-C    | B 右沿 / C 左侧上段     | true / false               | 同上                     |
-| C-E    | C 左侧下段 / E 右沿     | true / false               | 同上                     |
-| C-G    | C 下沿 / G 上沿         | true / false               | 同上                     |
-| D-E    | D 右侧上段 / E 左侧下段 | true / false               | 同上                     |
-| D-H    | D 下沿 / H 上沿右段     | true / false               | 同上                     |
-| G-J    | G 下沿 / J 上沿         | true / false               | 同上；两区各有独立圆点组 |
-| H-I    | H 右沿 / I 左沿         | true / false               | 同上                     |
-| I-J    | I 右沿 / J 左沿         | true / false               | 同上                     |
+| 区域对 | 可审的边界位置          | 拟议 adjacent / cornerOnly | 状态                       |
+| ------ | ----------------------- | -------------------------- | -------------------------- |
+| A-B    | A 右侧上段 / B 左侧     | true / false               | 分区线可见，已批准         |
+| A-D    | A 下沿右段 / D 上沿     | true / false               | 已批准                     |
+| A-E    | A 右侧下段 / E 左侧上段 | true / false               | 已批准；不是整条边重合     |
+| B-C    | B 右沿 / C 左侧上段     | true / false               | 已批准                     |
+| C-E    | C 左侧下段 / E 右沿     | true / false               | 已批准                     |
+| C-G    | C 下沿 / G 上沿         | true / false               | 已批准                     |
+| D-E    | D 右侧上段 / E 左侧下段 | true / false               | 已批准                     |
+| D-H    | D 下沿 / H 上沿右段     | true / false               | 已批准                     |
+| G-J    | G 下沿 / J 上沿         | true / false               | 已批准；两区各有独立圆点组 |
+| H-I    | H 右沿 / I 左沿         | true / false               | 已批准                     |
+| I-J    | I 右沿 / J 左沿         | true / false               | 已批准                     |
 
 **E-F 已由 Kyries 裁定不相邻（R-054）**：黑墙阻隔，不可直接移动；`adjacent: false, cornerOnly: false`。红色布条不构成通路。按本表其余边定稿后，F 没有邻接边；保留这个孤立高台，不补桥、不创建跳跃规则。
 
@@ -84,7 +84,7 @@
 | E-G    | E 右下 / G 左上，C 下沿横线与右侧竖线交点 | false / true               |
 | G-I    | G 左下 / I 右上，W2 右下拐角附近          | false / true               |
 
-角点均按 R-021 不生成通行边；上述角点归属仍待人工批准。
+角点按通过的核对表批准，按 R-021 不生成通行边。
 
 ### 4.4 全部 45 对区域的覆盖索引
 
@@ -127,134 +127,22 @@
 4. **几何已批准，图标不扩大批准范围**：10 个区域的容量 / 高低地、11 对共享边、3 对角点按通过的核对表准备入库。板块未知 ID 不因配套卡视觉相同自动升级为 confirmed；尤其 D 的 r216 保持 needs_review。运行时可用卡池不因几何获批而绕过未验证标记。
 5. **区域精确边界坐标尚未标注**：本文 bbox 是现有 raw 图标位置；没有伪造 polygon。若入库需精确轮廓，应在获批区域划分上人工标注同一页，而非拿图标 bbox 当区域范围。
 
-## 7. 拟议结构化草稿（只在本文，非 schema / 游戏数据）
+## 7. 定稿数据与人工映射
 
-`reviewStatus` 表示尚未批准；数字均对应 §3 的人工观察。`edgeCandidates` 不是运行时邻接表；未决 E-F 明列 null。未知起始和标记均保留空语义，不能导入可用卡池。
+原文档 JSON 是核对阶段草稿；获批容量、高低地和最终邻接改由 PR 中的 `packages/data/src/normalize/room-tile.ts` 人工映射与生成文件 `packages/data/normalized/corebox/room_tile_geometry.json` 表达，避免两份数值表漂移。仅本张 FRONT 页，规范化 id 为 `room_tile:p001`，仍保留来源 raw id。
 
-```json
-{
-  "reviewStatus": "awaiting_kyries",
-  "rawId": "dungeon_tile:p001",
-  "normalizedId": null,
-  "location": "ruins",
-  "printedNumber": 1,
-  "roomCardRawId": "room:p001",
-  "source": { "file": "DD_COREBOX_TILES_FRONT.pdf", "page": 1, "face": "front" },
-  "areas": [
-    {
-      "label": "A",
-      "position": "upper-left",
-      "capacityCandidate": 4,
-      "elevationCandidate": "normal"
-    },
-    {
-      "label": "B",
-      "position": "upper-middle",
-      "capacityCandidate": 3,
-      "elevationCandidate": "normal"
-    },
-    {
-      "label": "C",
-      "position": "upper-right",
-      "capacityCandidate": 3,
-      "elevationCandidate": "normal"
-    },
-    {
-      "label": "D",
-      "position": "middle-left",
-      "capacityCandidate": 3,
-      "elevationCandidate": "normal"
-    },
-    {
-      "label": "E",
-      "position": "middle-crossbar",
-      "capacityCandidate": 3,
-      "elevationCandidate": "normal"
-    },
-    {
-      "label": "F",
-      "position": "central-purple",
-      "capacityCandidate": 2,
-      "elevationCandidate": "high"
-    },
-    {
-      "label": "G",
-      "position": "middle-right",
-      "capacityCandidate": 3,
-      "elevationCandidate": "normal"
-    },
-    {
-      "label": "H",
-      "position": "lower-left",
-      "capacityCandidate": 2,
-      "elevationCandidate": "normal"
-    },
-    {
-      "label": "I",
-      "position": "lower-middle",
-      "capacityCandidate": 3,
-      "elevationCandidate": "normal"
-    },
-    {
-      "label": "J",
-      "position": "lower-right",
-      "capacityCandidate": 2,
-      "elevationCandidate": "normal"
-    }
-  ],
-  "edgeCandidates": [
-    { "areas": ["A", "B"], "adjacent": true, "cornerOnly": false },
-    { "areas": ["A", "D"], "adjacent": true, "cornerOnly": false },
-    { "areas": ["A", "E"], "adjacent": true, "cornerOnly": false },
-    { "areas": ["B", "C"], "adjacent": true, "cornerOnly": false },
-    { "areas": ["C", "E"], "adjacent": true, "cornerOnly": false },
-    { "areas": ["C", "G"], "adjacent": true, "cornerOnly": false },
-    { "areas": ["D", "E"], "adjacent": true, "cornerOnly": false },
-    { "areas": ["D", "H"], "adjacent": true, "cornerOnly": false },
-    { "areas": ["G", "J"], "adjacent": true, "cornerOnly": false },
-    { "areas": ["H", "I"], "adjacent": true, "cornerOnly": false },
-    { "areas": ["I", "J"], "adjacent": true, "cornerOnly": false },
-    { "areas": ["E", "F"], "adjacent": null, "cornerOnly": false },
-    { "areas": ["D", "I"], "adjacent": false, "cornerOnly": true },
-    { "areas": ["E", "G"], "adjacent": false, "cornerOnly": true },
-    { "areas": ["G", "I"], "adjacent": false, "cornerOnly": true }
-  ],
-  "wallCandidates": [
-    { "label": "W1", "position": "between-B-and-E", "polygon": null },
-    { "label": "W2", "position": "beside-and-below-F", "polygon": null },
-    { "label": "W3", "position": "left-of-D", "polygon": null }
-  ],
-  "startingCandidates": [
-    { "area": "C", "side": "hero", "stance": "defensive", "roomDictionaryRank": 132 },
-    { "area": "C", "side": "hero", "stance": null, "rawIconId": "39d6ddf024" },
-    { "area": "D", "side": "monster", "stance": "defensive", "roomDictionaryRank": 365 },
-    { "area": "D", "side": "monster", "stance": "support", "roomDictionaryRank": 340 },
-    { "area": "F", "side": "monster", "stance": "ranged", "roomDictionaryRank": 241 },
-    { "area": "H", "side": "hero", "stance": "ranged", "roomDictionaryRank": 328 },
-    { "area": "H", "side": "hero", "stance": "aggressive", "roomDictionaryRank": 184 },
-    { "area": "J", "side": "monster", "stance": "aggressive", "roomDictionaryRank": 107 }
-  ],
-  "lootPlacementCandidates": [
-    { "area": "C", "count": 1 },
-    { "area": "H", "count": 1 }
-  ],
-  "unresolvedMarkers": [
-    { "area": "C", "rawIconId": "4591aebebd", "semantic": null },
-    { "area": "H", "rawIconId": "4591aebebd", "semantic": null }
-  ],
-  "usable": false
-}
-```
+- 区域 A-J 的容量按 §3；F 为 high，其余为 normal。
+- 通行边为 §4.1 的 11 对；3 对角点显式 `cornerOnly=true`，不通行。
+- E-F 显式 `blocked=true, cornerOnly=false`（R-054）；F 没有任何通行邻接，不补通路。
+- 几何 `geometryVerified=true`，整张板块仍 `usable=false`。C 左金框、D 的 pending 图标、C/H 星形保留 raw ID 与 `semantic=null`；不改词典，不纳入完整可用卡池。本块不加载出生 / 宝箱 / 特殊效果，也不提交精确 polygon。
 
-## 8. 确认后最小入库路径
+## 8. 入库路径与合并边界
 
-1. Kyries 按区域、容量、边界、角点、墙、起始和交互逐项确认，明确 E-F 与未确认标记；只批准本板块 / 本面，不扩散到其他页或同形图标。
-2. 另开单主题数据块，在 `packages/data/src/normalize/` 增加**按已批原始 id / FRONT 页人工映射**的入口；先补 Room Tile 的 Zod schema，再在现有生成路径附加获批几何。未知 / 重复 id、页码 / 编号漂移、未知区域引用、重复边、容量脏值、未决连接必须拒绝。当前没有这套 schema，本块不创建。
-3. 邻接显式记录两端与 `cornerOnly`；墙不建成可通行区域。若 schema 支持未核实占位，则仍 `usable=false`，不能用 `null -> 0/1` 或“没有边就是不邻接”掩盖未决项。未确认图标保留原 ID；文档中的候选不等于字典批准。
-4. 由现有规范化生成入口输出，只允许新增 / 修改这一张板块记录；不手改生成 JSON，不从颜色、轮廓、裂纹或图标数量自动批量标图。其他卡牌和词典保持不变；验证生成一致与拒绝路径即可，不建立 evidence / proof 链。
-
-只有本表获确认并且移动所需几何已具备，才进入下一块：普通怪单目标按已批 Speed 移动（选技 → 目标 → 射程 → 移动 → 攻击 / 跳过）；沿用 R-023 / R-024，移动待选期间保存选招、目标和 RNG。本块没有实现这条流程。
+1. 已在生成数据前创建草稿 PR #53，所有改动仅在分支 `codex/phase2-ruins-room-tile-review`，由 Kyries 合并后才进入 main。
+2. `room-tile.ts` 的 Zod schema 校验容量、区域引用、重复 / 自环边和未命名空语义。生成入口按获批 raw id、FRONT 文件 / 页码、印刷编号匹配；缺失、重复、来源漂移或未确认标记缺失拒绝。不从图标计数、颜色或轮廓自动生成几何。
+3. `buildNormalizedCorebox` / `writeNormalizedCorebox` 接入独立 `room_tile_geometry` 文件；原六类数据保持不变，其他页不生成几何，不改 raw / parsed / 词典。边的通行条件是非 blocked 且非 cornerOnly，未列边不相邻；图已按批准表定稿，没有 null 连接。
+4. 下一块才考虑普通怪单目标按已批 Speed 移动（选技 → 目标 → 射程 → 移动 → 攻击 / 跳过），继续按 R-023 / R-024 保存选招 / 目标 / RNG。本 PR 不实现移动、寻路、多目标或 UI。
 
 ## 9. 验证
 
-本块仅新增核对 Markdown 并追加交接笔记；没有改代码、schema、游戏数据或原始资料。Node 24.21.0 / pnpm 12.9.1 下按顺序运行 `pnpm typecheck && pnpm lint && pnpm test && pnpm build`，全部通过，测试为 18 文件、242 项。文档 JSON 可解析、区域 / 候选引用无重复且未标为可用；`git diff --check` 通过，数据与代码无 diff。结果同步记入 `HANDOFF-FROM-CODEX-2026-10-09.md` 本次条目。不是 Phase 2 结束，没有 UI 变更，不新增 Playwright 测试。
+核对文档块的原验证为 242 项测试通过；本次数据 PR 新增 4 项获批图、容量、高台、孤立 F、未命名标记、生成一致与非法输入拒绝测试。typecheck、lint、246 项测试（19 文件）、build 均通过。原六类规范化 JSON、raw / parsed / 词典无差异。结果同步记录在交接笔记的 PR #53 条目。没有阶段结束或 UI 变更，不新增 Playwright 测试。

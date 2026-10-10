@@ -292,3 +292,16 @@ Kyries 已确认远端同步，不要求重复查 PR。开工时本地工作区�
 本块仅文档，未改引擎、schema、raw / parsed / normalized、词典或 UI。没有寻路、Speed 移动、多目标、Boss、扩展或其他板块。下一步先由 Kyries 审阅本表，明确未决项；确认与所需几何入库后，再开普通怪单目标 Speed 移动块，保存选招 / 目标 / RNG 的待选连续性。
 
 验证：使用忽略目录中的 Node 24.21.0 / pnpm 12.9.1，按顺序执行 typecheck、lint、test（18 文件、242 项）、build，全部通过。文档内 JSON 另核可解析、10 个区域标签、15 对候选无重复（11 对共享边、3 对角点、1 对未决），未标为可用；`git diff --check` 通过。最终差异仅本核对文档与本交接笔记，代码 / schema / raw / parsed / normalized / 词典均无 diff。本块不是阶段结束且无 UI 改动，不新增 Playwright 冒烟。
+
+## 获批 Ritual Chamber 几何数据 PR（2026-10-10）
+
+Kyries 通过 Room Tile 1 核对表，要求容量 / 高台按表入库，并明确裁定 E-F 黑墙阻隔、不相邻；已记录为 R-054，说明书追加该板块特例索引。按“入库前开 PR，等我合并”，先提交批准文档并创建草稿 [PR #53](https://github.com/Alpaca-go/ddbg-web/pull/53)，再在同分支 `codex/phase2-ruins-room-tile-review` 准备生成数据。main 仍为 `4d72d05`；本 PR 未合并，由 Kyries 合并。
+
+- `room-tile.ts` 仅映射 `dungeon_tile:p001` / FRONT 第 1 页，输出 `room_tile:p001` 的 10 区容量、高低地、11 对通行边、3 对角点及显式 E-F blocked 边。F 为容量 2 的 high，且没有通行邻接；没有为它补通路。
+- 独立 `ddbg-room-tile-geometry-v0` / `room_tile_geometry.json` 接现有生成入口；只批准几何 `geometryVerified=true`，整板块仍 `usable=false`。C 左金框、D pending 图标、C/H 星形保留 ID / 空语义，不修改词典，不补未命名数字。
+- Zod 校验容量和枚举、区域 / 边引用、重复边 / 自环、重复板块及空语义。来源匹配检查 raw ID / 页码 / FRONT 文件 / 印刷编号，未知或重复来源、身份漂移、标记缺失拒绝；不自动标图。
+- 原六类规范化 JSON 与 raw / parsed / 词典均无差异。不加载出生、交互效果或 polygon；不改引擎、不实现移动、寻路、多目标、Boss、扩展或 UI。
+
+验证：Node 24.21.0 / pnpm 12.9.1，typecheck、lint、246 项测试（19 文件）、build 通过。新增 4 项数据测试覆盖获批图与独立容量预期、F 不连通、E-F 显式阻隔、角点不通行、未命名语义、生成一致 / 重复生成 / 输入不变及非法来源 / 图结构拒绝。本块非阶段结束，无 UI 变更，不新增 Playwright；PR 继续运行现有两项 CI。
+
+下一步：等待 Kyries 合并本 PR，再同步 main。之后按 R-023 / R-024 单独推进普通怪单目标 Speed 移动，仍需保留选招 / 目标 / RNG 待选连续性。其他图标语义不在本次批准范围，继续 R-048 占位。
