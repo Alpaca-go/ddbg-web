@@ -18,6 +18,8 @@ import { attachVerifiedMonsterStances } from "./verified-monster-stances";
 import { attachVerifiedMonsterSpeeds } from "./verified-monster-speeds";
 import { buildRoomTileGeometry } from "./room-tile";
 import type { RoomTileGeometryFile } from "./room-tile";
+import { buildHeroStats } from "./hero-stat";
+import type { NormalizedHeroStatFile } from "./hero-stat";
 import type {
   NormalizedHeroSkillFile,
   NormalizedIcon,
@@ -59,6 +61,7 @@ type ParsedUnlabeled = {
 };
 
 export type NormalizedCorebox = {
+  hero_stat: NormalizedHeroStatFile;
   room_tile_geometry: RoomTileGeometryFile;
   hero_skill: NormalizedHeroSkillFile;
   monster_medium: NormalizedMonsterMediumFile;
@@ -69,6 +72,7 @@ export type NormalizedCorebox = {
 };
 
 export type NormalizedCoreboxInput = {
+  heroStats: RawFile;
   roomTiles: RawFile;
   dictionary: IconDictionary;
   heroSkills: HeroSkillFile;
@@ -551,6 +555,7 @@ function buildVirtues(raw: RawFile, lookup: IconLookup): NormalizedVirtueAfflict
 export function buildNormalizedCorebox(input: NormalizedCoreboxInput): NormalizedCorebox {
   const lookup = createIconLookup(input.dictionary);
   return {
+    hero_stat: buildHeroStats(input.heroStats, input.dictionary),
     hero_skill: buildHeroSkills(input.heroSkills, input.heroSkillRaw, lookup),
     room_tile_geometry: buildRoomTileGeometry(input.roomTiles),
     monster_medium: buildMonsterMedium(input.monsterMedium, input.monsterMediumRaw, lookup),
