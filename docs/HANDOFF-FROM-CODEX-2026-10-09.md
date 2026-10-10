@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：技能施加完整状态行（2026-10-10）
+
+#72 head `e80bec6` 四项 CI 成功，已合并为 `482db1d` 并同步 main。本块分支 `codex/phase2-skill-status-effects`，第 3 项技能状态切片。
+
+- 已核实单一状态整行进入技能结果：Stunning Blow Stun 1t、If It Bleeds / Open Vein 面值 2 Bleed 2t、Tracking Shot Self Buff 3t。逐行核对 Nt 与图标位置，目标仅命中施加，自身即使落空也施加；新 Buff 不改变本次已计算阈值。
+- 单 / 多目标命令在掷骰前校验状态与抗性栏，死亡目标不施加，Self 整次只施加一次。直接读取规范化怪物抗性 / 免疫栏里的已确认有限状态 key，缺栏 / 未确认拒绝；真实 Soldier / Courtier / Rabble 的 Bleed 免疫生效，测试用空免疫 / 抗性路由夹具不改实际卡牌。
+- 含已核实注解的混合行没有全行支持时，单目标也整次拒绝，不只伤害而漏掉状态。Tracking Shot 射程区间仍拒绝。历史技能测试明确使用无 Nt 注解视图，继续覆盖 null 不补默认值；真实当前数据的新行为由独立测试覆盖。
+
+依据官方 R19–21、规格书 §6.5 / §7、R-001 / R-018 / R-033 / R-048。typecheck、lint、370 项 Vitest（30 文件）、build 与 diff 检查通过，准确 head CI 成功后合并。下一块完整处理 Protection / Mark / Light、Remove / Buff、Riposte / Pull 混合行并接 UI；意志 / 心脏病 / 正式生成 / 战利品和第 4 项验收未完，Q-52 / Q-53 保留。
+
 ## 最新进度：状态堆与回合开始（2026-10-10）
 
 #71 head `01d31f7` 四项 CI 成功，已合并为 `5cfc301` 并同步 main。本块分支 `codex/phase2-status-turn-start`，第 3 项的状态引擎切片。

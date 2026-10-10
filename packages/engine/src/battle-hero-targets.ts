@@ -1,5 +1,6 @@
 import { distance, rejectBattleCommand, skillTargetView, writeResolution } from "./battle";
 import { applySkillHealth } from "./battle-health";
+import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { multiTargetHealthEffects, projectActorWounds } from "./skill-actor-health";
 import {
   encounterSkillProblem,
@@ -99,6 +100,13 @@ export function playHeroSkillTargets(
       state,
       invalid.resolution.reason ?? "多目标未完整支持的效果，整次拒绝（R-048）",
     );
+  const statusProbe = applyBattleSkillStatuses(
+    battle,
+    battle.entities,
+    actor.id,
+    probes.map((entry) => entry.resolution),
+  );
+  if (statusProbe.status === "refused") return rejectBattleCommand(state, statusProbe.reason);
   if (needsChoice) {
     const choice = {
       id: `hero-targets-shuffle:${battle.choiceCursor}`,
@@ -166,6 +174,8 @@ export function playHeroSkillTargets(
     battle.rngCursor + (roll === null ? 0 : 1),
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
+  const statuses = applyBattleSkillStatuses(battle, health.entities, actor.id, resolutions);
+  if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const event: HeroSkillTargetsResolvedEvent = {
     type: "heroSkillTargetsResolved",
     message: "英雄多目标技能已共用一次掷骰结算",
@@ -202,7 +212,7 @@ export function playHeroSkillTargets(
       battle: {
         ...battle,
         pending: null,
-        entities: health.entities,
+        entities: statuses.entities,
         rngCursor: health.rngCursor,
         shuffleIntents: intents,
         shuffleContinuation: intents.length ? continuation : null,

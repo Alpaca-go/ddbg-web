@@ -55,7 +55,11 @@ if (!("dictionary_version" in file) || file.dictionary_version !== "1.8") {
 const cards = new Map<string, FixtureCard>();
 for (const entry of file.cards) {
   if (!isFixtureCard(entry)) throw new Error("英雄技能卡形状对不上");
-  cards.set(entry.id, entry);
+  // 这组历史测试覆盖没有逐卡 Nt 注解的视图，确保 null 仍不会被默认填值。
+  // 当前已核实状态卡的完整输入另由 skill-status.test.ts 覆盖。
+  const legacy = { ...entry };
+  delete legacy.verified_status_effects;
+  cards.set(entry.id, legacy);
 }
 
 function card(id: string): FixtureCard {
