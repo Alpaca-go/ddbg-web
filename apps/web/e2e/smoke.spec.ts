@@ -11,6 +11,19 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await expect(page.getByTestId("entity-hero-0")).toContainText("伤口 0/17");
   await expect(page.getByTestId("area-F")).toContainText("连接：无");
   await page.screenshot({ path: testInfo.outputPath("battle-sandbox.png"), fullPage: true });
+  // 同一冒烟覆盖新增状态卡：Self 自动选自身，Nt 真正进入状态，无 Acc 不掷骰。
+  await page.getByLabel("种子", { exact: true }).fill("5");
+  await page.getByRole("button", { name: "重新布置", exact: true }).click();
+  await page.getByRole("button", { name: "开始战斗", exact: true }).click();
+  await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p010");
+  await expect(page.getByText("目标：自身 · CRUSADER", { exact: true })).toBeVisible();
+  await expect(page.getByLabel("目标", { exact: true })).toHaveCount(0);
+  await page.getByRole("button", { name: "使用技能", exact: true }).click();
+  await expect(page.getByTestId("entity-hero-0")).toContainText("防护 / 2t；标记 / 3t");
+  await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 4");
+  await expect(page.getByTestId("turn-status")).toContainText("剩余 1 行动");
+  await page.screenshot({ path: testInfo.outputPath("status-self-result.png"), fullPage: true });
   await page.getByLabel("测试布置", { exact: true }).selectOption("heal");
   await page.getByLabel("种子", { exact: true }).fill("5");
   async function heal() {

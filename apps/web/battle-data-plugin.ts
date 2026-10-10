@@ -27,11 +27,18 @@ export function battleDataPlugin(): Plugin {
         .cards.filter((card) => card.attributesVerified && card.level === 1);
       const skillIds = new Set([
         "hero_skill:p001",
+        "hero_skill:p007",
+        "hero_skill:p010",
         "hero_skill:p022",
+        "hero_skill:p031",
         "hero_skill:p034",
+        "hero_skill:p037",
         "hero_skill:p064",
         "hero_skill:p070",
+        "hero_skill:p079",
+        "hero_skill:p082",
         "hero_skill:p088",
+        "hero_skill:p091",
         "hero_skill:p097",
       ]);
       const skills = normalizedHeroSkillFileSchema

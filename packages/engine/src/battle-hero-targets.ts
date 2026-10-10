@@ -213,6 +213,7 @@ export function playHeroSkillTargets(
         ...battle,
         pending: null,
         entities: statuses.entities,
+        light: statuses.light,
         rngCursor: health.rngCursor,
         shuffleIntents: intents,
         shuffleContinuation: intents.length ? continuation : null,

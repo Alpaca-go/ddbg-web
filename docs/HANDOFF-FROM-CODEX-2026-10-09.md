@@ -1,5 +1,16 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：混合状态行与状态 UI（2026-10-10）
+
+#73 head `f8b00ef` 四项 CI 成功，已合并为 `5e336b5` 并同步 main。本块分支 `codex/phase2-mixed-status-effects`，第 3 项完整混合行与 UI 切片。
+
+- Bulwark I 的 Self Protection 2t / Mark 3t / Light +2；Adrenaline Rush I 的 Remove all Bleed / Blight / Buff 3t；Duelist’s Advance I 的 Self Riposte 2t / Pull 1；Dazzling Light I 的 Target Stun 1t / Light +1，均按已核实整行执行。未知残余、未确认图标、重复注解或错 Nt 整次拒绝，不拆开部分执行。
+- Self 头印在独立效果行的无 Acc 卡只作用于使用者，直接生效不掷骰；不把 Self 当作默认区域数或目标数量。阈值按掷骰时已有 Buff / Light 计算；自身效果随后执行，命中才执行目标 Light / 状态，暴击压力使用结算后的 Light。Light 封顶 0–5，Self 整次一次，目标逐个。
+- UI 增加上述七张已核实可结算技能（另含 Stun / 两张 Bleed）；Tracking Shot 射程区间尚未接入，不加入 UI。Self 自动呈现自身目标、派发引擎命令；姿态轨显示每堆面值 / 剩余 Nt，日志展示状态同时伤口 / Stun。不在 UI 重算规则。
+- 三条 Playwright 保持数量，第一条扩展真实 Self Bulwark 路径：自动选自身、无 Acc 不增 RNG、实际 Protection / Mark 与一次扣行动；原三组合四轮撤退 / 胜利 / 回放继续覆盖。单元测试覆盖三个混合 Self、Dazzling 命中 / 落空与光照阈值、Shuffle 不重复 Riposte、未知同行原子拒绝。
+
+依据官方 R19–21 / R29、规格书 §6.5 / §7 / §5.10，R-001 / R-002 / R-018 / R-019 / R-020 / R-033 / R-048。typecheck、lint、374 项 Vitest（30 文件）、build、diff 检查与三条 Chrome 冒烟通过，准确 head CI 成功后合并。下一块意志 / 心脏病数据与接线；正式部署 / 战利品依 Q-53 待确认。Q-52 保留，四步和人工检查点③未完成。
+
 ## 最新进度：技能施加完整状态行（2026-10-10）
 
 #72 head `e80bec6` 四项 CI 成功，已合并为 `482db1d` 并同步 main。本块分支 `codex/phase2-skill-status-effects`，第 3 项技能状态切片。

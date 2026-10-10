@@ -11,7 +11,11 @@ export function applyBattleSkillStatuses(
   resolutions: readonly HeroSkillResolution[],
 ):
   | { readonly status: "refused"; readonly reason: string }
-  | { readonly status: "resolved"; readonly entities: readonly BattleEntity[] } {
+  | {
+      readonly status: "resolved";
+      readonly entities: readonly BattleEntity[];
+      readonly light: number;
+    } {
   let next = [...entities];
   const apply = (
     id: string,
@@ -82,5 +86,8 @@ export function applyBattleSkillStatuses(
     const problem = apply(resolution.targetId, resolution.targetStatusEffects ?? [], "target");
     if (problem) return { status: "refused", reason: problem };
   }
-  return { status: "resolved", entities: next };
+  let light = Math.max(0, Math.min(5, battle.light + (resolutions[0]?.actorLightDelta ?? 0)));
+  for (const resolution of resolutions)
+    light = Math.max(0, Math.min(5, light + (resolution.targetLightDelta ?? 0)));
+  return { status: "resolved", entities: next, light };
 }

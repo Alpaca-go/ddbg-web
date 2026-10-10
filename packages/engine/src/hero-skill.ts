@@ -512,6 +512,8 @@ export type HeroSkillResolution = {
   readonly skipped: readonly SkippedSkillEffect[];
   readonly actorStatusEffects?: readonly StatusEffect[];
   readonly targetStatusEffects?: readonly StatusEffect[];
+  readonly actorLightDelta?: number;
+  readonly targetLightDelta?: number;
 };
 
 const NAMED = new Set(["confirmed", "confirmed_rulebook"]);
@@ -1458,7 +1460,21 @@ function selectFace(
  */
 function readsAsSelfTarget(skill: HeroSkillCardView): boolean {
   const line = skill.stats_line;
-  if (line === null) return false;
+  if (line === null) {
+    if (
+      !skill.verified_status_effects?.length ||
+      skill.verified_status_effects.some((entry) => entry.scope !== "self")
+    )
+      return false;
+    return skill.effect_lines.some(
+      (line) =>
+        line
+          .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+          .join("")
+          .replace(/\s+/g, "") === "{range}Self" &&
+        line.every((s) => s.type === "text" || NAMED.has(s.icon.naming)),
+    );
+  }
   let range = 0;
   let targetIcon = 0;
   let selfWords = 0;
@@ -1669,6 +1685,10 @@ export function readPrintedRange(
  */
 function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.areaDistance === undefined) return null;
+  if (skill.verified_status_effects?.length && readsAsSelfTarget(skill))
+    return combat.areaDistance === 0 && combat.actor?.id === combat.target.id
+      ? null
+      : "Self 技能只能作用于使用者自己";
   const printed = readPrintedRange(skill);
   if (printed.kind === "null_numeric") {
     return "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）";
@@ -1761,6 +1781,10 @@ export function readPrintedTargets(skill: HeroSkillCardView): PrintedTargets {
  */
 function targetCountProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.targetsInArea === undefined) return null;
+  if (skill.verified_status_effects?.length && readsAsSelfTarget(skill))
+    return combat.targetsInArea === 1 && combat.actor?.id === combat.target.id
+      ? null
+      : "Self 技能只能选择使用者自己";
   const printed = readPrintedTargets(skill);
   if (printed.kind === "mixed") {
     return "stats 行同时有英雄和怪物目标图标，不能确定一个区域内能选几个（规则书第 19 页）";
@@ -2006,7 +2030,8 @@ function resolveSkill(
   const paired = readSelfHealStress(active);
   const removal = readConditionRemoval(active);
   const selfBleed = readSelfBleedRemoval(active);
-  const shuffles = readShuffles(active, combat.shuffleChoice);
+  const originalShuffles = readShuffles(active, combat.shuffleChoice);
+  const shuffles = { ...originalShuffles, self: statuses.selfShuffle ?? originalShuffles.self };
   const ignoresProtection = readIgnoresProtection(active);
   const formChange = readFormChange(active);
   const keys = namedKeys(active.stats_line);
@@ -2043,7 +2068,7 @@ function resolveSkill(
     shuffles.self === null &&
     shuffles.target === null &&
     statuses.target.length === 0;
-  const selfTarget = !formOnly && readsAsSelfTarget(active);
+  const selfTarget = readsAsSelfTarget(active);
   const targetCounts = readTargetIconCounts(active);
   const targets = new Set<"target_hero" | "target_monster">();
   if (targetCounts.hero > 0) targets.add("target_hero");
@@ -2194,8 +2219,11 @@ function resolveSkill(
       ? null
       : [...combat.untargetedHeroesBesideTarget],
   );
+  const lightDelta = statuses.selfLight + (outcome === "miss" ? 0 : statuses.targetLight);
+  const pressureLight =
+    combat.light === undefined ? undefined : Math.max(0, Math.min(5, combat.light + lightDelta));
   const pressureDelta = (amount: number): number =>
-    amount + (amount > 0 && combat.light !== undefined && combat.light <= 2 ? 1 : 0);
+    amount + (amount > 0 && pressureLight !== undefined && pressureLight <= 2 ? 1 : 0);
 
   // 规则书第 20 页：自身效果在伤害、治疗和目标效果之前，落空也生效。
   // 没有 Acc 时不掷骰，这一行的治疗和压力仍然生效。
@@ -2213,8 +2241,9 @@ function resolveSkill(
   }
   // 自身「Remove Bleed」不看命中。没有 Acc 时也清。和增益写在同一行的不算。
   // 换行后配给自身标记的「Remove Bleed、Blight」同样不看命中，两种都清。
-  const actorBleedCleared = selfBleed.lineCount === 1 || removal.actorLines > 0;
-  const actorBlightCleared = removal.actorLines > 0;
+  const actorBleedCleared =
+    selfBleed.lineCount === 1 || removal.actorLines > 0 || statuses.selfRemove;
+  const actorBlightCleared = removal.actorLines > 0 || statuses.selfRemove;
 
   if ((effect === "damage" || effect === "heal") && outcome !== null && outcome !== "miss") {
     const amount = outcome === "crit" ? critAmount : hitAmount;
@@ -2343,6 +2372,8 @@ function resolveSkill(
       ? {
           actorStatusEffects: statuses.self,
           targetStatusEffects: outcome === "miss" ? [] : statuses.target,
+          actorLightDelta: statuses.selfLight,
+          targetLightDelta: outcome === "miss" ? 0 : statuses.targetLight,
         }
       : {}),
     ...(includeHealthEffects ? { healthEffects } : {}),

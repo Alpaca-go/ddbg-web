@@ -214,9 +214,127 @@ describe("完整 Nt 注解的技能状态接线（R19–21 / R-048）", () => {
         1,
       ).status,
     ).toBe("refused");
-    const mixed = setup(card("p079"));
-    const refusal = applyCommand(mixed, command(card("p079")));
+    const unknown = {
+      ...stun,
+      effect_lines: stun.effect_lines.map((line) => [
+        ...line,
+        { type: "text" as const, text: " unsupported" },
+      ]),
+    };
+    const mixed = setup(unknown);
+    const refusal = applyCommand(mixed, command(unknown));
     expect(refusal.state).toBe(mixed);
     expect(refusal.events[0]?.type).toBe("commandRefused");
+  });
+
+  it("Bulwark 自身 Protection / Mark / Light 全行生效，不掷骰也不能作用于别人", () => {
+    const skill = card("p010");
+    const original = setup(skill);
+    const state = { ...original, battle: { ...original.battle!, light: 2 } };
+    const cast = { ...command(skill), targetId: "h0" };
+    const result = applyCommand(state, cast);
+    expect(result.events[0]?.type).toBe("heroSkillResolved");
+    expect(result.state.battle!.light).toBe(4);
+    expect(result.state.battle!.entities[0]).toMatchObject({
+      statusStacks: [
+        { kind: "protection", remaining: 2 },
+        { kind: "mark", remaining: 3 },
+      ],
+      protection: true,
+      markStacks: 1,
+    });
+    expect(result.state.battle!.rngCursor).toBe(0);
+    const refusal = applyCommand(state, { ...cast, targetId: "h1" });
+    expect(refusal.state).toBe(state);
+    const capped = applyCommand(original, cast);
+    expect(capped.state.battle!.light).toBe(5);
+  });
+
+  it("Adrenaline Rush 一次清掉所有 Bleed / Blight 并施加 Buff，未知同行原子拒绝", () => {
+    const skill = card("p037");
+    const initial = setup(skill);
+    const state = {
+      ...initial,
+      battle: {
+        ...initial.battle!,
+        entities: initial.battle!.entities.map((entity) =>
+          entity.id === "h0"
+            ? {
+                ...entity,
+                bleed: ["a", "b"],
+                blight: ["c"],
+                statusStacks: [
+                  { kind: "bleed" as const, remaining: 1, amount: 1 },
+                  { kind: "bleed" as const, remaining: 2, amount: 2 },
+                  { kind: "blight" as const, remaining: 3, amount: 1 },
+                ],
+              }
+            : entity,
+        ),
+      },
+    };
+    const result = applyCommand(state, { ...command(skill), targetId: "h0" });
+    expect(result.events[0]?.type).toBe("heroSkillResolved");
+    expect(result.state.battle!.entities[0]).toMatchObject({
+      bleed: [],
+      blight: [],
+      buffStacks: 1,
+      statusStacks: [{ kind: "buff", remaining: 3 }],
+    });
+    expect(result.state.battle!.rngCursor).toBe(0);
+    expect(state.battle.entities[0]!.statusStacks).toHaveLength(3);
+  });
+
+  it("Duelist’s Advance 的 Riposte / Pull 同次生效，Shuffle 续接不重复放堆", () => {
+    const skill = card("p079");
+    const initial = setup(skill);
+    const state = {
+      ...initial,
+      battle: {
+        ...initial.battle!,
+        areas: [
+          { id: "a", capacity: 4, elevation: "normal" as const, adjacent: ["b"] },
+          { id: "b", capacity: 4, elevation: "normal" as const, adjacent: ["a"] },
+        ],
+        entities: initial.battle!.entities.map((entity) =>
+          entity.id === "m0"
+            ? { ...entity, areaId: "b" }
+            : entity.id === "h0"
+              ? { ...entity, stance: "defensive" as const }
+              : entity.id === "h1"
+                ? { ...entity, stance: "aggressive" as const }
+                : entity,
+        ),
+      },
+    };
+    const result = applyCommand(state, command(skill));
+    expect(result.events[0]?.type).toBe("heroSkillResolved");
+    expect(result.state.battle!.entities[0]).toMatchObject({
+      riposte: true,
+      statusStacks: [{ kind: "riposte", remaining: 2 }],
+    });
+    expect(result.state.battle!.shuffleIntents).toHaveLength(1);
+    const moved = applyCommand(result.state, { type: "resolveShuffles" });
+    expect(moved.state.battle!.entities[0]).toMatchObject({
+      areaId: "b",
+      stance: "aggressive",
+      statusStacks: [{ kind: "riposte", remaining: 2 }],
+    });
+    expect(moved.state.battle!.rngCursor).toBe(1);
+  });
+
+  it("Dazzling Light 的 Stun / Light 只在命中生效，本次阈值使用掷骰时的光照", () => {
+    const skill = card("p091");
+    const actor = { id: "h0", wounds: 0, stance: "defensive" as const };
+    const target = { id: "m0", side: "monster" as const, wounds: 0, dodge: 0 };
+    expect(resolveHeroSkill(skill, { actor, target, areaDistance: 1, light: 4 }, 2)).toMatchObject({
+      outcome: "crit",
+      targetLightDelta: 1,
+      targetStatusEffects: [{ kind: "stun", duration: 1 }],
+      skipped: [],
+    });
+    expect(resolveHeroSkill(skill, { actor, target, areaDistance: 1, light: 4 }, 10)).toMatchObject(
+      { outcome: "miss", targetLightDelta: 0, targetStatusEffects: [] },
+    );
   });
 });
