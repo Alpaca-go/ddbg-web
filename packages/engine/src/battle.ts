@@ -35,6 +35,7 @@ import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { statusProjection, statusStackProblem } from "./status";
 import type { StatusStack } from "./status";
 import type { ResolveCard } from "./pressure";
+import type { LootState, LootToken } from "./loot";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
 export type BattleEntity = SkillTargetState &
@@ -93,6 +94,9 @@ export type BattleSetup = {
   readonly monsters?: readonly MonsterCardView[];
   readonly light: number;
   readonly resolveCards?: readonly ResolveCard[];
+  readonly lootAreas?: readonly string[];
+  /** 下一房间可显式传回同地牢的有限池；回村另行重建。 */
+  readonly lootPool?: LootState;
   readonly provisions?: readonly {
     readonly id: string;
     readonly face: "food" | "bandage" | "potion" | "torch" | "tool";
@@ -104,9 +108,17 @@ export type BattleState = BattleSetup & {
   readonly rngCursor: number;
   readonly resolveDecks?: Readonly<Partial<Record<"virtue" | "affliction", readonly string[]>>>;
   readonly choiceCursor: number;
+  readonly loot?: LootState | undefined;
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | {
+        readonly type: "lootReward";
+        readonly choice: PendingChoice;
+        readonly actorId: string;
+        readonly token: LootToken;
+        readonly phase: "reward" | "face";
+      }
     | {
         readonly type: "resolveProvision";
         readonly choice: PendingChoice;
@@ -167,6 +179,13 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
     !unique((setup.heroStats ?? []).map((card) => card.id))
   ) {
     throw new Error("沙盒实体、区域与技能 id 必须非空且各自唯一");
+  }
+  if (
+    setup.lootAreas &&
+    (!unique(setup.lootAreas) ||
+      setup.lootAreas.some((id) => !setup.areas.some((area) => area.id === id)))
+  ) {
+    throw new Error("宝箱标记必须是唯一的已知区域");
   }
   if (
     !Number.isInteger(seed) ||

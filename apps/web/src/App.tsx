@@ -219,6 +219,9 @@ export function App() {
                   {area.endTurnStress === 1 && (
                     <p className="muted">Cornered：英雄结束回合压力 +1</p>
                   )}
+                  {battle.loot?.placed.some((token) => token.areaId === area.id) && (
+                    <p>宝箱：可在同区花一个行动拾取</p>
+                  )}
                   <ul>
                     {occupants.map((e) => (
                       <li key={e.id} className={e.side}>
@@ -354,6 +357,17 @@ export function App() {
                     清空路径
                   </button>
                 </div>
+              </fieldset>
+              <fieldset disabled={!heroTurn || turn.mustMove}>
+                <legend>
+                  战利品 · 金币 {battle.loot?.gold ?? 0} · 补给 {battle.provisions?.length ?? 0}/16
+                </legend>
+                <button
+                  disabled={!battle.loot?.placed.some((token) => token.areaId === actor?.areaId)}
+                  onClick={() => send({ type: "interactLoot", actorId: actor!.id })}
+                >
+                  拾取同区宝箱
+                </button>
               </fieldset>
               <fieldset disabled={!heroTurn || turn.mustMove}>
                 <legend>换姿态</legend>
