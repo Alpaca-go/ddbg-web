@@ -2,6 +2,7 @@ import {
   heroSkillUsesSelfTarget,
   needsHeroSkillShuffleChoice,
   resolveHeroSkill,
+  resolveHeroSkillEffects,
 } from "./hero-skill";
 import type {
   HeroSkillCardView,
@@ -23,6 +24,7 @@ import type { ShuffleIntent } from "./shuffle";
 import type { MonsterCardView, MonsterCombatState } from "./monster-skill";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
 import type { PreparedMonsterAction } from "./battle-monster-action";
+import { applySkillHealth } from "./battle-health";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
 export type BattleEntity = SkillTargetState &
@@ -35,6 +37,7 @@ export type BattleEntity = SkillTargetState &
     /** 怪物占姿态格数，必须由已核实数据提供；先攻接入时不猜大型与否。 */
     readonly stanceSlots?: 1 | 2;
     readonly monsterCardId?: string;
+    readonly heroStatId?: string;
     /** 仅保存已有堆的标识，清除时整堆移除；不猜 duration / 面值。 */
     readonly bleed: readonly string[];
     readonly blight: readonly string[];
@@ -58,6 +61,13 @@ export type PlayHeroSkillCommand = {
 };
 
 export type BattleSetup = {
+  /** 只使用逐面获批属性；整卡其他图标的验证状态不因此改变。 */
+  readonly heroStats?: readonly {
+    readonly id: string;
+    readonly name: string;
+    readonly life: number;
+    readonly attributesVerified: boolean;
+  }[];
   readonly entities: readonly BattleEntity[];
   readonly areas: readonly BattleArea[];
   readonly skills: readonly HeroSkillCardView[];
@@ -114,7 +124,8 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
     !unique(setup.entities.map((entity) => entity.id)) ||
     !unique(setup.areas.map((area) => area.id)) ||
     !unique(setup.skills.map((skill) => skill.id)) ||
-    !unique((setup.monsters ?? []).map((monster) => monster.id))
+    !unique((setup.monsters ?? []).map((monster) => monster.id)) ||
+    !unique((setup.heroStats ?? []).map((card) => card.id))
   ) {
     throw new Error("沙盒实体、区域与技能 id 必须非空且各自唯一");
   }
@@ -141,6 +152,19 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
     }
   }
   for (const entity of setup.entities) {
+    if (entity.heroStatId !== undefined || (entity.side === "hero" && entity.life !== undefined)) {
+      const card = setup.heroStats?.find((entry) => entry.id === entity.heroStatId);
+      if (
+        entity.side !== "hero" ||
+        card?.attributesVerified !== true ||
+        card.name !== entity.hero ||
+        !Number.isSafeInteger(card.life) ||
+        card.life <= 0 ||
+        card.life !== entity.life ||
+        entity.wounds > card.life
+      )
+        throw new Error("英雄 Life 必须关联匹配的已核实属性面，伤口不得超过 Life（R-048、R29）");
+    }
     if (entity.monsterCardId !== undefined) {
       const card = setup.monsters?.find((entry) => entry.id === entity.monsterCardId);
       if (entity.side !== "monster" || !card || card.life !== entity.life)
@@ -157,12 +181,9 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
           entity.life === 0 ||
           entity.stress !== undefined)) ||
       (entity.side === "hero" &&
-        (entity.life !== undefined ||
-          entity.stress === undefined ||
-          !integer(entity.stress) ||
-          entity.stress > 10))
+        (entity.stress === undefined || !integer(entity.stress) || entity.stress > 10))
     ) {
-      throw new Error("沙盒伤口 / Dodge / 压力无效，或怪物缺少已核实 Life；英雄 Life 暂不接入");
+      throw new Error("沙盒伤口 / Dodge / 压力无效，或怪物缺少已核实 Life");
     }
     if (
       !setup.areas.some((area) => area.id === entity.areaId) ||
@@ -173,6 +194,11 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
       throw new Error("实体必须有已知区域 / 技能；英雄必须提供姿态、压力与英雄名");
     }
   }
+  if (
+    setup.entities.some((entry) => entry.side === "hero" && entry.life !== undefined) &&
+    setup.entities.some((entry) => entry.side === "hero" && !entry.dead && entry.life === undefined)
+  )
+    throw new Error("生命沙盒中的存活英雄都须关联已核实 Life，不能混用无 Life 的旧沙盒");
   return {
     seed,
     notes: [],
@@ -247,7 +273,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
   const sameArea = actor.areaId === target.areaId;
   const context: SkillCombatState = {
     actor,
-    target,
+    target: skillTargetView(target),
     light: battle.light,
     targetAreaLower: elevations[actorArea.elevation] > elevations[targetArea.elevation],
     targetInActorArea: target.side === "hero" && sameArea,
@@ -303,6 +329,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
   }
   if (resolution.status === "refused")
     return rejectBattleCommand(state, resolution.reason ?? "技能拒绝结算");
+  const effects = resolveHeroSkillEffects(skill, combat, roll ?? 1);
   const entities = battle.entities.map((entity) =>
     writeResolution(
       entity,
@@ -312,6 +339,14 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
       heroSkillUsesSelfTarget(skill, command.face),
     ),
   );
+  const health = applySkillHealth(
+    battle,
+    entities,
+    effects,
+    state.seed,
+    battle.rngCursor + (roll === null ? 0 : 1),
+  );
+  if (health.status === "refused") return rejectBattleCommand(state, health.reason);
   const shuffleIntents = [...battle.shuffleIntents];
   if (resolution.actorShuffle)
     shuffleIntents.push({
@@ -337,10 +372,10 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
       ...state,
       battle: {
         ...battle,
-        entities,
+        entities: health.entities,
         shuffleIntents,
         pending: null,
-        rngCursor: battle.rngCursor + (roll === null ? 0 : 1),
+        rngCursor: health.rngCursor,
         shuffleContinuation: shuffleIntents.length
           ? {
               ...skillEvent,
@@ -351,9 +386,17 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
           : null,
       },
     },
-    events: [skillEvent],
+    events: [skillEvent, ...health.events],
   };
   return shuffleIntents.length ? result : recordEncounterSkill(result);
+}
+
+/** 旧技能视图只计算原始伤口；Life 由有序生命层处理，不能误判英雄为怪物死亡。 */
+export function skillTargetView(entity: BattleEntity): SkillTargetState {
+  if (entity.side !== "hero") return entity;
+  const { life: _life, ...target } = entity;
+  void _life;
+  return target;
 }
 
 export function writeResolution(

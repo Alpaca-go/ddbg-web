@@ -1,6 +1,7 @@
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import type { BattleState, PlayHeroSkillCommand } from "./battle";
 import type { HeroSkillResolution } from "./hero-skill";
+import type { HeroHealthEffect, HeroHealthResolution } from "./hero-health";
 import { applyEncounterCommand } from "./encounter";
 import type { EncounterCommand, EncounterEvent } from "./encounter";
 import { applyBattleShuffles } from "./battle-shuffle";
@@ -65,6 +66,13 @@ export type Command =
     };
 
 export type GameEvent =
+  | {
+      readonly type: "heroHealthResolved";
+      readonly message: string;
+      readonly entityId: string;
+      readonly effect: HeroHealthEffect;
+      readonly resolution: Extract<HeroHealthResolution, { status: "resolved" }>;
+    }
   | EncounterEvent
   | HeroSkillResolvedEvent
   | MonsterSkillResolvedEvent
