@@ -354,6 +354,7 @@ Kyries 要求继续下一步。开工时工作区干净，GitHub 核对 [PR #56]
 新增九项测试，涵盖封顶 / 首次进入不掷骰、死门骰面、治疗脱离 / 再进入、G-11 同时与分次受伤、零值 / 缺值 / null / 稀疏数组 / 脏值拒绝、亡者不复活、十个抽样桶的三骷髅七空白、共享游标 / 回放 / 输入不变、非法 seed / cursor 拒绝。下一块先审阅本纯函数及 #56 数据 PR，合并后同步 main，再单独设计伤口事件接入技能 / 命令与死亡续接，不能仅放开 Life 门后继续无限叠伤口。英雄移动仍另开。
 
 验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、276 项 Vitest（21 文件）、build、`git diff --check` 均通过。本块基于 main 的 267 项新增九项，不包含 #56 尚未合并的七项数据测试，未删除测试。本块不是阶段结束，无 UI 改动，不新增 Playwright，独立 PR 继续运行质量检查与原有首页 smoke 两项 CI，待 Kyries 审阅合并。
+
 ## 当前进度复核与英雄属性核对准备（2026-10-10）
 
 本次先读交接、AGENTS、plan、rulings 与核心规格书，再检查本地状态与远端。开工时工作区干净，位于 `codex/phase2-monster-movement-edges`，tip 为 `10b65e7`；该分支 [PR #55](https://github.com/Alpaca-go/ddbg-web/pull/55) 已包含 Kyries 批准的 R-023 三条边角补充和测试，但 GitHub 状态仍为开放、非草稿、未合并。远端 `main` 仍为 `faabf55`（#54）；不把分支上的规则补充误报成已合并。
