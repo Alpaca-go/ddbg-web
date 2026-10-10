@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：Pistol I 对 Mark 条件伤害（2026-10-10）
+
+#87 head `6b5a253` 四项 CI 成功，已合并为 `eb50032`。本块分支 `codex/phase2-pistol-mark`，一个真实技能附加效果主题。
+
+- 完整 44x68 SKILLS_FRONT p067 已对照，target_effects / damage / mark 都已命名，明确 +2 vs Mark；新增逐卡 verified_damage_bonus，保留原 numeric=null，不推断 II / III 等级。管线严格检查卡名、等级、唯一页码、整行签名和验证状态；引擎检查注解金额、来源及整行已命名图标 / 文字匹配，漂移拒绝整次。
+- 命中 / 暴击对有 ≥1 Mark 堆的敌方目标加 2 一次；Mark 多堆仍只改变 Acc，不倍增额外伤害。printedAmount 继续表示基础印刷值，damageDealt 先含 +2 再 Protection 减半；Riposte 按减半前伤害取半，落空不加也不反击。
+- 公共技能命令验证确定性、一次 RNG、造成 7 并杀死阈值 7 的测试目标，战斗结束事件一次。原低层无注解视图显式剥离新元数据，仍证明 null 不自动执行；实际规范化卡另测所有 Mark / Protection / 命中分支。G-08 未标记目标数值不变。
+
+验证：完整质量闸门与三条冒烟成功后提交，准确 head 四项 CI 成功后合并。后续核对真实怪物附加压力；Large UI、人工③和后续阶段黄金候选仍显式未完成。
+
 ## 最新进度：G-04 / G-09 怪物黄金核对（2026-10-10）
 
 #86 head `4cc23be` 四项 CI 成功，已合并为 `f963b3a`。本块分支 `codex/phase2-monster-goldens`，只补第 4 项官方怪物黄金测试。

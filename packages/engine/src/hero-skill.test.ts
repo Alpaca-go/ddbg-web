@@ -60,6 +60,7 @@ for (const entry of file.cards) {
   const legacy = { ...entry };
   delete legacy.verified_status_effects;
   delete legacy.verified_range;
+  delete legacy.verified_damage_bonus;
   cards.set(entry.id, legacy);
 }
 

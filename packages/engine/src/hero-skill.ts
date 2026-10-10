@@ -179,7 +179,7 @@ import { readVerifiedStatusEffects } from "./skill-status";
  * 英雄时不加，友方治疗和给自己的技能都不会因为对方身上的标记更容易命中。不传堆数就
  * 当作没有。数的是堆，不是一堆里还剩几枚代币（R-018）。不从卡面的「2t」「3t」「4t」
  * 读堆数，那些回合数的 numeric 为 null，这一张技能也不因此放上新的标记。效果行里
- * 「+N vs」再加已命名标记的伤害，numeric 为 null，不加进伤害。和标记写在同一行的
+ * 「+N vs」伤害只有逐卡复核 verified_damage_bonus 才读取；缺注解 numeric=null 仍跳过。和标记写在同一行的
  * Pull 仍整行跳过。饰品仍不加。高地和光照写在后面。
  *
  * 高地（规则书第 25 页，说明书 §6.5 第 4 步、§6.9，R-022）：调用方标明目标所在区域
@@ -251,6 +251,12 @@ export type HeroSkillCardView = {
     readonly source: "print_front";
   };
   readonly effect_lines: readonly (readonly SkillSegment[])[];
+  readonly verified_damage_bonus?: {
+    readonly lineIndex: number;
+    readonly amount: number;
+    readonly condition: "marked";
+    readonly source: "print_front";
+  };
   readonly verified_status_effects?: readonly (StatusEffect & {
     readonly lineIndex: number;
     readonly segmentIndex: number;
@@ -2055,6 +2061,27 @@ function resolveSkill(
 
   const target = combat.target;
   const stress = readImmediateStress(active);
+  const bonus = active.verified_damage_bonus;
+  if (bonus) {
+    const line = active.effect_lines[bonus.lineIndex];
+    const text = line
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, "");
+    if (
+      !Number.isSafeInteger(bonus.lineIndex) ||
+      bonus.lineIndex < 0 ||
+      !Number.isSafeInteger(bonus.amount) ||
+      bonus.amount <= 0 ||
+      bonus.condition !== "marked" ||
+      bonus.source !== "print_front" ||
+      text !== `{target_effects}{damage}+${bonus.amount}vs{mark}` ||
+      line?.some(
+        (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+      )
+    )
+      return refuse(skill, combat, "条件伤害注解与已确认卡面不符（R-048）");
+  }
   const statuses = readVerifiedStatusEffects(active);
   if (statuses.status === "refused") return refuse(skill, combat, statuses.reason);
   if (statuses.self.length && combat.actor === undefined)
@@ -2299,9 +2326,11 @@ function resolveSkill(
       // Self 的治疗落在使用者身上。上面已经要求两份伤口一开始相同。
       if (selfTarget && actorWounds !== null) actorWounds = wounds;
     } else {
-      // +X vs 类型、攻击方修正、防御方加减、Hard Skinned 都不加：
-      // 那些数字要么 numeric 为 null，要么不在这次调用里。
-      const beforeProtection = amount;
+      // 明确复核的条件伤害先加一次，再减半；Mark 堆数影响 Acc，不倍增 +2。
+      // 其他类型修正 / Hard Skinned 缺值仍不加。
+      const beforeProtection =
+        amount +
+        (bonus && target.side !== sourceSide && (target.markStacks ?? 0) > 0 ? bonus.amount : 0);
       const skipProtection = ignoresProtection.targetLines > 0;
       damageDealt =
         target.protection === true && !skipProtection ? halfUp(beforeProtection) : beforeProtection;
@@ -2399,7 +2428,8 @@ function resolveSkill(
         shuffles.lineCount +
         ignoresProtection.targetLines +
         formChange.lineCount +
-        statuses.lineCount,
+        statuses.lineCount +
+        (bonus ? 1 : 0),
     ),
     ...(statuses.lineCount
       ? {

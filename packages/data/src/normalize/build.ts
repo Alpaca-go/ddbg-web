@@ -18,6 +18,7 @@ import { attachVerifiedMonsterStances } from "./verified-monster-stances";
 import { attachVerifiedMonsterSpeeds } from "./verified-monster-speeds";
 import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 import { attachVerifiedHeroRanges } from "./verified-hero-ranges";
+import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
 import { approvedResolveLookup } from "./approved-resolve-icons";
 import { buildRoomTileGeometry } from "./room-tile";
@@ -565,7 +566,9 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       const file = buildHeroSkills(input.heroSkills, input.heroSkillRaw, lookup);
       return normalizedHeroSkillFileSchema.parse({
         ...file,
-        cards: attachVerifiedHeroRanges(attachVerifiedHeroStatuses(file.cards)),
+        cards: attachVerifiedHeroDamage(
+          attachVerifiedHeroRanges(attachVerifiedHeroStatuses(file.cards)),
+        ),
       });
     })(),
     room_tile_geometry: buildRoomTileGeometry(input.roomTiles),
