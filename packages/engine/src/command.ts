@@ -1,6 +1,8 @@
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import type { BattleState, PlayHeroSkillCommand } from "./battle";
 import type { HeroSkillResolution } from "./hero-skill";
+import { playHeroSkillTargets } from "./battle-hero-targets";
+import type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 import type { HeroHealthEffect, HeroHealthResolution } from "./hero-health";
 import { applyEncounterCommand } from "./encounter";
 import type { EncounterCommand, EncounterEvent } from "./encounter";
@@ -40,6 +42,14 @@ export type HeroSkillResolvedEvent = {
   readonly resolution: HeroSkillResolution;
 };
 
+export type HeroSkillTargetsResolvedEvent = {
+  readonly type: "heroSkillTargetsResolved";
+  readonly message: string;
+  readonly actorId: string;
+  readonly roll: number | null;
+  readonly resolutions: readonly HeroSkillResolution[];
+};
+
 export type MonsterSkillResolvedEvent = {
   readonly type: "monsterSkillResolved";
   readonly message: string;
@@ -53,6 +63,7 @@ export type MonsterSkillResolvedEvent = {
 export type Command =
   | EncounterCommand
   | PlayHeroSkillCommand
+  | PlayHeroSkillTargetsCommand
   | PlayMonsterSkillCommand
   | PrepareMonsterActionCommand
   | MoveMonsterToRangeCommand
@@ -78,6 +89,7 @@ export type GameEvent =
     }
   | EncounterEvent
   | HeroSkillResolvedEvent
+  | HeroSkillTargetsResolvedEvent
   | MonsterSkillResolvedEvent
   | MonsterActionPreparedEvent
   | MonsterPositionedEvent
@@ -158,6 +170,7 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "moveMonsterToRange") return moveMonsterToRange(state, command);
   if (command.type === "moveHero") return moveHero(state, command);
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);
+  if (command.type === "playHeroSkillTargets") return playHeroSkillTargets(state, command);
   if (command.type === "playMonsterSkill") return playMonsterSkill(state, command);
   if (command.type !== "ping") return applyEncounterCommand(state, command);
   return {

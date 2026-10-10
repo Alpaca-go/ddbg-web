@@ -1,5 +1,7 @@
 export { applyCommand, createInitialState } from "./command";
 export { createBattleState } from "./battle";
+export type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
+export type { HeroSkillTargetsResolvedEvent } from "./command";
 export type { MoveHeroCommand, HeroMovedEvent } from "./battle-hero-movement";
 export { roomTileBattleAreas } from "./battle-monster-movement";
 export type { MoveMonsterToRangeCommand, MonsterPositionedEvent } from "./battle-monster-movement";
