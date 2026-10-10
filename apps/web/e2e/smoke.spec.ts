@@ -6,6 +6,7 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await expect(page).toHaveTitle("暗黑地牢桌游");
   await expect(page.getByRole("heading", { name: "暗黑地牢桌游" })).toBeVisible();
   await expect(page.getByTestId("turn-status")).toHaveText("尚未开始");
+  await expect(page.getByTestId("step-hint")).toContainText("准备战斗");
   await expect(page.getByTestId("area-A")).toContainText("4/4 格");
   await expect(page.getByTestId("area-B")).toContainText("Bone Soldier");
   await expect(page.getByTestId("entity-hero-0")).toContainText("伤口 0/17");
@@ -35,6 +36,9 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await page.screenshot({ path: testInfo.outputPath("formal-deployment.png"), fullPage: true });
   await page.getByRole("button", { name: "开始战斗", exact: true }).click();
   while (await page.getByRole("group", { name: /待选决策/ }).count()) {
+    await expect(page.getByTestId("pending-status")).toContainText("等待开局补给选择");
+    await expect(page.getByTestId("pending-status")).not.toContainText("位移");
+    await expect(page.getByTestId("step-hint")).toContainText("Wild 补给");
     await page
       .getByRole("group", { name: /待选决策/ })
       .getByRole("button", { name: "火把", exact: true })
@@ -42,6 +46,8 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   }
   await expect(page.getByTestId("area-C")).toContainText("宝箱");
   await expect(page.getByTestId("area-H")).toContainText("宝箱");
+  await expect(page.getByTestId("step-hint")).toContainText("等待先攻");
+  await expect(page.getByTestId("pending-status")).toHaveCount(0);
   const provisionOptions = page.getByLabel("补给", { exact: true }).getByRole("option");
   const usableProvision = provisionOptions.filter({ hasText: /食物|绷带|药水|火把/ }).first();
   await page
@@ -52,6 +58,9 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 24");
   await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
   await expect(page.getByRole("group", { name: /待选决策/ })).toContainText("回合开始前");
+  await expect(page.getByTestId("pending-status")).toContainText("回合开始前补给窗口");
+  await expect(page.getByTestId("pending-status")).toContainText("可免费使用补给");
+  await expect(page.getByTestId("step-hint")).toContainText("结算回合开始效果");
   await expect(page.getByRole("button", { name: "免费使用补给", exact: true })).toBeEnabled();
   await page.getByRole("button", { name: "结算回合开始效果", exact: true }).click();
   await expect(page.getByRole("group", { name: /待选决策/ })).toHaveCount(0);
@@ -187,8 +196,14 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
       const turn = await page.getByTestId("turn-status").innerText();
       if (turn.includes("撤退")) break;
       const choice = page.getByRole("group", { name: /待选决策/ });
-      if (await choice.count()) await choice.getByRole("button").first().click();
-      else if (await page.getByRole("button", { name: "结算位移", exact: true }).count())
+      if (await choice.count()) {
+        if (/选择战利品奖励|选择补给骰面/.test(await choice.innerText())) {
+          await expect(page.getByTestId("pending-status")).toContainText("等待宝箱奖励选择");
+          await expect(page.getByTestId("pending-status")).not.toContainText("位移");
+          await expect(page.getByTestId("step-hint")).toContainText("宝箱奖励");
+        }
+        await choice.getByRole("button").first().click();
+      } else if (await page.getByRole("button", { name: "结算位移", exact: true }).count())
         await page.getByRole("button", { name: "结算位移", exact: true }).click();
       else if (turn.includes("等待抽取先攻"))
         await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
@@ -196,6 +211,7 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
         for (const name of ["怪物选招与选目标", "怪物移动到射程", "结算怪物技能"]) {
           const button = page.getByRole("button", { name, exact: true });
           if (await button.count()) {
+            await expect(page.getByTestId("step-hint")).toContainText(name);
             await button.click();
             break;
           }
@@ -283,6 +299,7 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
       }
     }
     await expect(page.getByTestId("turn-status")).toHaveText("第 4 轮结束：撤退");
+    await expect(page.getByTestId("step-hint")).toContainText("单场结束");
     if (formal) {
       expect(lootUsed).toBe(true);
       expect([...heroSkillsUsed].sort()).toEqual(["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"]);
@@ -312,6 +329,8 @@ test("位移分岔冻结其他行动，选择后续接一次并可重放", async
     await expect(page.getByTestId("turn-status")).toContainText("剩余 2 行动");
     await expect(page.getByRole("button", { name: "使用技能", exact: true })).toBeDisabled();
     await page.getByRole("button", { name: "结算位移", exact: true }).click();
+    await expect(page.getByTestId("pending-status")).toContainText("等待位移区域选择");
+    await expect(page.getByTestId("step-hint")).toContainText("不重新掷骰");
     const choice = page.getByRole("group", { name: "待选决策 · HIGHWAYMAN" });
     await expect(choice).toContainText("被位移：HIGHWAYMAN · 当前区域 A");
     await expect(choice.getByRole("button")).toHaveText(["区域 B", "区域 D", "区域 E"]);
@@ -330,6 +349,8 @@ test("位移分岔冻结其他行动，选择后续接一次并可重放", async
     await expect(choice).toHaveCount(0);
     await expect(page.getByTestId("entity-hero-2")).toContainText(`区域 ${area}`);
     await expect(page.getByTestId("turn-status")).toHaveText("胜利");
+    await expect(page.getByTestId("pending-status")).toHaveCount(0);
+    await expect(page.getByTestId("step-hint")).toContainText("单场结束");
     await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5 · 命令 5");
     const log = await page.getByRole("region", { name: "战斗日志" }).innerText();
     expect(log.match(/d10=/g)).toHaveLength(1);
