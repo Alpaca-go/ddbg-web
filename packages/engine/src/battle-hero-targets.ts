@@ -7,7 +7,8 @@ import {
   nextBattleRoll,
   recordEncounterSkill,
 } from "./encounter";
-import { resolveHeroSkillEffects } from "./hero-skill";
+import { needsHeroSkillShuffleChoice, resolveHeroSkillEffects } from "./hero-skill";
+import type { ShuffleIntent } from "./shuffle";
 import type { SkillCombatState } from "./hero-skill";
 import type { ApplyResult, GameState, HeroSkillTargetsResolvedEvent } from "./command";
 
@@ -16,6 +17,7 @@ export type PlayHeroSkillTargetsCommand = {
   readonly actorId: string;
   readonly skillId: string;
   readonly targetIds: readonly string[];
+  readonly shuffleChoice?: "push" | "pull";
 };
 
 /** R19–21：一次技能、同区目标、一个骰面；反击逐目标累计。 */
@@ -61,6 +63,7 @@ export function playHeroSkillTargets(
     targetAreaLower: heights[actorArea.elevation] > heights[targetArea.elevation],
     targetInActorArea: target.side === "hero" && target.areaId === actor.areaId,
     guardedEnemyOmitted,
+    ...(command.shuffleChoice === undefined ? {} : { shuffleChoice: command.shuffleChoice }),
     heroesBesideActor: battle.entities
       .filter(
         (e) =>
@@ -72,25 +75,53 @@ export function playHeroSkillTargets(
       )
       .map((e) => ({ id: e.id, stress: e.stress! })),
   }));
-  const resolve = (roll: number) =>
-    contexts.map((context) => resolveHeroSkillEffects(skill, context, roll));
+  const needsChoice = command.shuffleChoice === undefined && needsHeroSkillShuffleChoice(skill);
+  const resolve = (roll: number, probe = false) =>
+    contexts.map((context) =>
+      resolveHeroSkillEffects(
+        skill,
+        { ...context, ...(probe && needsChoice ? { shuffleChoice: "push" as const } : {}) },
+        roll,
+      ),
+    );
   const unsupported = (effects: ReturnType<typeof resolve>) =>
     effects.find(
       ({ resolution: r }) =>
         r.status === "refused" ||
-        r.actorShuffle ||
-        r.targetShuffle ||
         r.skipped.some((s) => s.code === "effect_lines") ||
         (r.effect === "damage" && living.find((e) => e.id === r.targetId)!.side === "hero"),
     );
   // 在消费 RNG 前预校验；未知效果或 duration 不能变成一次部分成功的攻击。
-  const probes = resolve(1);
+  const probes = resolve(1, true);
   const invalid = unsupported(probes);
   if (invalid)
     return rejectBattleCommand(
       state,
-      invalid.resolution.reason ?? "多目标位移或未完整支持的效果，整次拒绝（R-048）",
+      invalid.resolution.reason ?? "多目标未完整支持的效果，整次拒绝（R-048）",
     );
+  if (needsChoice) {
+    const choice = {
+      id: `hero-targets-shuffle:${battle.choiceCursor}`,
+      actorId: actor.id,
+      prompt: "选择多目标技能的位移方向",
+      options: [
+        { id: "push", label: "推离 Push" },
+        { id: "pull", label: "拉近 Pull" },
+      ],
+    };
+    return {
+      state: {
+        ...state,
+        battle: {
+          ...battle,
+          choiceCursor: battle.choiceCursor + 1,
+          pending: { type: "shuffleDirection", choice, command },
+        },
+      },
+      events: [],
+      pendingChoice: choice,
+    };
+  }
   const roll =
     probes[0]!.resolution.outcome === null ? null : nextBattleRoll(state.seed, battle.rngCursor);
   const effects = roll === null ? probes : resolve(roll);
@@ -142,24 +173,55 @@ export function playHeroSkillTargets(
     roll,
     resolutions,
   };
+  const success = resolutions.find((r) => r.outcome !== "miss") ?? resolutions[0]!;
+  const continuation = {
+    type: "heroSkillResolved" as const,
+    message: event.message,
+    actorId: actor.id,
+    roll,
+    resolution: success,
+    targetIds: living.map((e) => e.id),
+    casualtyIds: newlyDefeatedIds(battle, health.entities),
+    ...(resolutions.some((r) => r.outcome === "crit")
+      ? { criticalContext: { combat: contexts[0]!, combats: contexts, entities: battle.entities } }
+      : {}),
+  };
+  const intents: ShuffleIntent[] = [];
+  if (actorResult.actorShuffle)
+    intents.push({
+      entityId: actor.id,
+      relativeToId: living[0]!.id,
+      move: actorResult.actorShuffle,
+    });
+  for (const r of resolutions)
+    if (r.targetShuffle)
+      intents.push({ entityId: r.targetId, relativeToId: actor.id, move: r.targetShuffle });
   const result: ApplyResult = {
     state: {
       ...state,
-      battle: { ...battle, entities: health.entities, rngCursor: health.rngCursor },
+      battle: {
+        ...battle,
+        pending: null,
+        entities: health.entities,
+        rngCursor: health.rngCursor,
+        shuffleIntents: intents,
+        shuffleContinuation: intents.length ? continuation : null,
+      },
     },
     events: [event, ...health.events],
   };
   // 复用一次技能的回合收尾；任一目标成功就锁定重用，全部落空才允许再用。
-  const success = resolutions.find((r) => r.outcome !== "miss") ?? resolutions[0]!;
-  return recordEncounterSkill(
-    result,
-    {
-      type: "heroSkillResolved",
-      message: event.message,
-      actorId: actor.id,
-      roll,
-      resolution: success,
-    },
-    newlyDefeatedIds(battle, health.entities),
-  );
+  return intents.length
+    ? result
+    : recordEncounterSkill(
+        result,
+        {
+          type: "heroSkillResolved",
+          message: event.message,
+          actorId: actor.id,
+          roll,
+          resolution: success,
+        },
+        newlyDefeatedIds(battle, health.entities),
+      );
 }

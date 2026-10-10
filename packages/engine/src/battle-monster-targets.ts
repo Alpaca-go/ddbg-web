@@ -4,7 +4,8 @@ import { applySkillHealth } from "./battle-health";
 import { multiTargetHealthEffects, projectActorWounds } from "./skill-actor-health";
 import type { ApplyResult, GameState, MonsterSkillTargetsResolvedEvent } from "./command";
 import { newlyDefeatedIds, nextBattleRoll, recordMonsterSkill } from "./encounter";
-import { resolveMonsterSkillEffects } from "./monster-skill";
+import { needsMonsterSkillShuffleChoice, resolveMonsterSkillEffects } from "./monster-skill";
+import type { ShuffleIntent } from "./shuffle";
 import type { MonsterCardView, MonsterCombatState } from "./monster-skill";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
 
@@ -57,24 +58,63 @@ export function playMonsterSkillTargets(
       !targets.some((e) => e.guard) &&
       battle.entities.some((e) => e.side === "hero" && !e.dead && e.guard),
     untargetedHeroesBesideTarget: neighbors,
+    ...((command.shuffleChoices?.[target.id] ?? command.shuffleChoice) === undefined
+      ? {}
+      : { shuffleChoice: command.shuffleChoices?.[target.id] ?? command.shuffleChoice }),
   }));
-  const resolve = (roll: number) =>
-    contexts.map((c) => resolveMonsterSkillEffects(card, command.skillSlot, c, roll));
+  const missingChoice = needsMonsterSkillShuffleChoice(card, command.skillSlot)
+    ? contexts.find((c) => c.shuffleChoice === undefined)
+    : undefined;
+  const resolve = (roll: number, probe = false) =>
+    contexts.map((c) =>
+      resolveMonsterSkillEffects(
+        card,
+        command.skillSlot,
+        {
+          ...c,
+          ...(probe && c.shuffleChoice === undefined ? { shuffleChoice: "push" as const } : {}),
+        },
+        roll,
+      ),
+    );
   const invalid = (effects: ReturnType<typeof resolve>) =>
     effects.find(
-      (e) =>
-        e.status === "refused" ||
-        (e.status === "resolved" &&
-          (e.resolution.actorShuffle ||
-            e.resolution.targetShuffle ||
-            e.resolution.skipped.length > 0)),
+      (e) => e.status === "refused" || (e.status === "resolved" && e.resolution.skipped.length > 0),
     );
-  const probe = invalid(resolve(1));
+  const probe = invalid(resolve(1, true));
   if (probe)
     return rejectBattleCommand(
       state,
-      probe.status === "refused" ? probe.reason : "多目标位移或未知效果尚未接入，整次拒绝（R-048）",
+      probe.status === "refused" ? probe.reason : "多目标未知效果尚未接入，整次拒绝（R-048）",
     );
+  if (missingChoice) {
+    const choice = {
+      id: `monster-targets-shuffle:${battle.choiceCursor}:${missingChoice.target.id}`,
+      actorId: missingChoice.target.id,
+      prompt: "为这名英雄选择怪物技能的位移方向",
+      options: [
+        { id: "push", label: "推离 Push" },
+        { id: "pull", label: "拉近 Pull" },
+      ],
+    };
+    return {
+      state: {
+        ...state,
+        battle: {
+          ...battle,
+          choiceCursor: battle.choiceCursor + 1,
+          pending: {
+            type: "shuffleDirection",
+            choice,
+            command,
+            shuffleTargetId: missingChoice.target.id,
+          },
+        },
+      },
+      events: [],
+      pendingChoice: choice,
+    };
+  }
   const roll = nextBattleRoll(state.seed, battle.rngCursor);
   const effects = resolve(roll);
   const failure = invalid(effects);
@@ -120,20 +160,42 @@ export function playMonsterSkillTargets(
     actorDead,
     resolutions,
   };
-  return recordMonsterSkill(
-    {
-      state: {
-        ...state,
-        battle: {
-          ...battle,
-          monsterAction: null,
-          entities: health.entities,
-          rngCursor: health.rngCursor,
-        },
+  const intents: ShuffleIntent[] = [];
+  if (representative.actorShuffle)
+    intents.push({
+      entityId: actor.id,
+      relativeToId: primary.id,
+      move: representative.actorShuffle,
+    });
+  for (const r of resolutions)
+    if (r.targetShuffle)
+      intents.push({ entityId: r.targetId, relativeToId: actor.id, move: r.targetShuffle });
+  const casualtyIds = newlyDefeatedIds(battle, health.entities);
+  const continuation = {
+    ...event,
+    type: "monsterSkillResolved" as const,
+    resolution: representative,
+    casualtyIds,
+    targetIds: targets.map((e) => e.id),
+    shuffleChooserId: primary.id,
+    ...(resolutions.some((r) => r.outcome === "crit")
+      ? { criticalContext: { combat: contexts[0]!, combats: contexts, entities: battle.entities } }
+      : {}),
+  };
+  const applied = {
+    state: {
+      ...state,
+      battle: {
+        ...battle,
+        monsterAction: null,
+        pending: null,
+        entities: health.entities,
+        rngCursor: health.rngCursor,
+        shuffleIntents: intents,
+        shuffleContinuation: intents.length ? continuation : null,
       },
-      events: [event, ...health.events],
     },
-    { ...event, type: "monsterSkillResolved", resolution: representative },
-    newlyDefeatedIds(battle, health.entities),
-  );
+    events: [event, ...health.events],
+  };
+  return intents.length ? applied : recordMonsterSkill(applied, continuation, casualtyIds);
 }
