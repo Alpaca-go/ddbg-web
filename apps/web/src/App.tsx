@@ -207,7 +207,9 @@ export function App() {
                 : "四英雄在 A，Bone Soldier 在 B。"}
         光照 5。使用获批几何与卡牌；
         {!layout.startsWith("formal") && "初始位置为测试布置，不代表正式房间部署。"}
-        奖励与战役尚未接入。
+        {layout.startsWith("formal")
+          ? "宝箱奖励与补给已接入；战役结算待后续阶段。"
+          : "此测试布局不生成宝箱；战役结算待后续阶段。"}
       </p>
       <section className="statusbar" aria-label="战斗状态">
         <span>第 {battle.encounter?.round ?? "—"} 轮 / 4</span>
