@@ -387,8 +387,8 @@
    "sha1": "6c93d3e6246cd3193391fb667bbae4e4fbac21b9"
   },
   "parsed/corebox/hero_skill.json": {
-   "bytes": 337284,
-   "sha1": "3ff5504131e7e4ffff0fe6326bb6a5168a8963e1"
+   "bytes": 337549,
+   "sha1": "590236ced1791f5f183630ab70afcde76e6e4636"
   },
   "parsed/corebox/monster_large.json": {
    "bytes": 59970,
@@ -535,19 +535,19 @@
    "cards": 54,
    "ok": 54,
    "failed": 0,
-   "success_rate": 1.0
+   "success_rate": 1
   },
   "monster_large": {
    "cards": 20,
    "ok": 20,
    "failed": 0,
-   "success_rate": 1.0
+   "success_rate": 1
   },
   "trinket": {
    "cards": 38,
    "ok": 38,
    "failed": 0,
-   "success_rate": 1.0
+   "success_rate": 1
   }
  },
  "icons": {

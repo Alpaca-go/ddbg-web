@@ -36,6 +36,7 @@ export function battleDataPlugin(): Plugin {
         throw new Error("意志牌堆必须完整且效果已核实（R-048）");
       const skillIds = new Set([
         "hero_skill:p001",
+        "hero_skill:p004",
         "hero_skill:p007",
         "hero_skill:p010",
         "hero_skill:p022",

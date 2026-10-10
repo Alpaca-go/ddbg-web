@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：Zealous 抽取修复与 G-01 / G-07（2026-10-10）
+
+#84 head `76868a3` 四项 CI 成功，已合并为 `30289c5`。本块分支 `codex/phase2-zealous-golden`，第 4 项黄金数据修复切片。
+
+- 根因是 Python 解析器用 Acc 子串搜索，误命中技能名 Accusation；改成数字标签正则。从既有 raw 重解析，只改变 parsed p004 / p005 / p006 的 stats_line_raw，再正常生成 normalized，基础词典不改。完整印刷 p004–006 已逐页复核：I Crit 0 / 9、Acc 9 / 5；II Crit 0 / 11、Acc 10 / 6；III Crit 1 / 12、Acc 11 / 7。射程 1、两个怪物目标和 damage 都是已命名图标，不猜未标注图标。
+- G-07 用真实 I 卡、教程 Dodge 0 / 1、已命名印刷 Life，公共多目标命令对全部 1–10 骰面验证共享一骰、结果和一次行动；不开放两只未核实的完整怪物卡。UI 增加已验证 Zealous I。G-01 用真实 Iron Swan I（p025）核对 Arbalist Dodge 1 / 掷 2 / 伤害 7。
+- 原四个缺 stats 拒绝测试明确改为破损输入夹具，继续证明光照 / 技能名不补伤害；真实卡另用黄金测试，不冻结错误数据。新增离线 Python 解析回归，三个级别的 Crit / Acc 数字标签按印刷值验证；缓存不入库。
+
+验证：Python 回归、Vitest 相关用例与完整质量闸门、三条冒烟成功后提交，准确 head 四项 CI 成功后合并。下一块 G-04 / G-08 / G-09；人工检查点③及候选范围提问仍待回复，四步未最终完成。
+
 ## 最新进度：三个正式组合自动试玩（2026-10-10）
 
 #83 head `8afc7fd` 四项 CI 成功，已合并为 `85acc9b`。本块分支 `codex/phase2-formal-scenarios`，第 4 项自动验收切片。

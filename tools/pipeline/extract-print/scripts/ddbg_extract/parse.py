@@ -164,7 +164,7 @@ def parse_hero_skill(card):
     if stat:
         y1 = max(s["bbox"][3] for s in stat)
         y0 = min(s["bbox"][1] for s in stat)
-        r["stats_line_raw"] = next((l["text"] for l in lines if "Crit" in l["text"] or "Acc" in l["text"]), None)
+        r["stats_line_raw"] = next((l["text"] for l in lines if re.search(r"\b(?:Crit|Acc)\s+\d+\b", l["text"])), None)
         r["effect_lines_raw"] = [l["text"] for l in lines if l["bbox"][1] >= y1 - 1 and not l.get("rot")]
     else:
         # no Crit/Acc printed: effect lines are everything below the name banner row

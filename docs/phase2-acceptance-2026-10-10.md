@@ -25,20 +25,20 @@
 
 ## 黄金候选的阶段与覆盖
 
-| 候选                    | 目前状态                                                                | 范围                          |
-| ----------------------- | ----------------------------------------------------------------------- | ----------------------------- |
-| G-01 Iron Swan          | 有真实技能测试，精确官方场景待命名核对                                  | Phase 2                       |
-| G-02 Divine Comfort II  | 官方 R20 三友方 / 自疗 / 同区压力场景已通过                             | Phase 2                       |
-| G-03 Buff / Bleed       | 命名 G-03 两回合场景已通过                                              | Phase 2                       |
-| G-04 Defender           | 目标平局、命中阈值、Pull 有独立测试，整场例子待核对                     | Phase 2                       |
-| G-05 Shuffling Horror   | 普通先攻只有怪物一行动；Boss 多行动例子未实现                           | 大纲 Phase 5 Boss             |
-| G-06 Trap               | 探索陷阱未实现                                                          | 大纲 Phase 3 探索             |
-| G-07 Zealous Accusation | 发现解析器把技能名的 Accusation 当 Acc 行；印刷 p004 已复核，修复下一块 | Phase 2                       |
-| G-08 Tracking / Pistol  | Buff 与暴击有测试；真实 Tracking 的 Nt 和区间射程整场待核对             | Phase 2                       |
-| G-09 Bloodletter        | Large 双格选招测试存在；需核对官方掷 9 精确场景                         | Phase 2 选招；Large UI 待数据 |
-| G-10 Critical Stone     | 掷骰后饰品窗口未实现                                                    | 大纲 Phase 4 饰品             |
-| G-11 同时 DOT / 死门    | 状态与生命场景只掷一次已通过                                            | Phase 2                       |
-| G-12 第四怪癖           | 怪癖判定未实现                                                          | 大纲 Phase 3 怪癖             |
+| 候选                    | 目前状态                                                                                            | 范围                          |
+| ----------------------- | --------------------------------------------------------------------------------------------------- | ----------------------------- |
+| G-01 Iron Swan          | 命名 G-01：真实 Iron Swan I，Arbalist Dodge 1、掷 2、命中 7 已通过                                  | Phase 2                       |
+| G-02 Divine Comfort II  | 官方 R20 三友方 / 自疗 / 同区压力场景已通过                                                         | Phase 2                       |
+| G-03 Buff / Bleed       | 命名 G-03 两回合场景已通过                                                                          | Phase 2                       |
+| G-04 Defender           | 目标平局、命中阈值、Pull 有独立测试，整场例子待核对                                                 | Phase 2                       |
+| G-05 Shuffling Horror   | 普通先攻只有怪物一行动；Boss 多行动例子未实现                                                       | 大纲 Phase 5 Boss             |
+| G-06 Trap               | 探索陷阱未实现                                                                                      | 大纲 Phase 3 探索             |
+| G-07 Zealous Accusation | 已修复误把 Accusation 当 Acc；印刷 p004–006 复核，真实 I 卡双目标共用一骰，教程全部 1–10 骰面已通过 | Phase 2                       |
+| G-08 Tracking / Pistol  | Buff 与暴击有测试；真实 Tracking 的 Nt 和区间射程整场待核对                                         | Phase 2                       |
+| G-09 Bloodletter        | Large 双格选招测试存在；需核对官方掷 9 精确场景                                                     | Phase 2 选招；Large UI 待数据 |
+| G-10 Critical Stone     | 掷骰后饰品窗口未实现                                                                                | 大纲 Phase 4 饰品             |
+| G-11 同时 DOT / 死门    | 状态与生命场景只掷一次已通过                                                                        | Phase 2                       |
+| G-12 第四怪癖           | 怪癖判定未实现                                                                                      | 大纲 Phase 3 怪癖             |
 
 原四步的“全部黄金测试”与 §23 含后续阶段候选存在范围差异。当前不改大纲阶段，也不把未实现例子标成通过；先完成 Phase 2 直接相关项，后续阶段候选保持显式未完成。
 
