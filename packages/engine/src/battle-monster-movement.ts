@@ -1,4 +1,4 @@
-import { distance, rejectBattleCommand } from "./battle";
+import { distance, rejectBattleCommand, skillTargetView } from "./battle";
 import type { BattleArea } from "./battle";
 import type { ApplyResult, GameState } from "./command";
 import { applyEncounterCommand } from "./encounter";
@@ -98,7 +98,7 @@ export function moveMonsterToRange(
         ...(actor.buffStacks === undefined ? {} : { buffStacks: actor.buffStacks }),
         ...(actor.shuffleResist === undefined ? {} : { shuffleResist: actor.shuffleResist }),
       },
-      target,
+      target: skillTargetView(target),
       areaDistance: range.distance,
       light: battle.light,
       shuffleChoice: "push",

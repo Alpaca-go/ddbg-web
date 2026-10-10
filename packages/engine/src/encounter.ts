@@ -26,6 +26,12 @@ export type EncounterState = {
         readonly usedSkillIds: readonly string[];
       }
     | { readonly type: "monster"; readonly actorId: string }
+    /** 只记录单场全灭事实；驿站 / 任务类型尚未接入，不能判定战役结果。 */
+    | {
+        readonly type: "halted";
+        readonly reason: "heroesDefeated";
+        readonly monstersDefeated: boolean;
+      }
     | { readonly type: "finished"; readonly outcome: "victory" | "retreat" };
 };
 
@@ -47,12 +53,15 @@ export type EncounterEvent = {
     | "turnEnded"
     | "initiativeDiscarded"
     | "stanceChanged"
+    | "casualtyRemoved"
+    | "battleHalted"
     | "battleFinished";
   readonly message: string;
   readonly round: number;
   readonly actorId?: string;
   readonly side?: SkillTargetSide;
   readonly outcome?: "victory" | "retreat";
+  readonly monstersDefeated?: boolean;
 };
 
 /** 共享 RNG 游标；技能骰与先攻洗牌消费同一个可回放序列。 */
@@ -174,43 +183,108 @@ export function encounterSkillProblem(
   return null;
 }
 
+/** R24–25、R-030：只补本次死亡空位；旧尸体保留日志身份，不再占位。 */
+function removeCasualties(result: ApplyResult, ids: readonly string[]): ApplyResult {
+  const battle = result.state.battle!;
+  const casualties = battle.entities.filter((entity) => entity.dead && ids.includes(entity.id));
+  if (!casualties.length) return result;
+  return {
+    ...result,
+    state: {
+      ...result.state,
+      battle: {
+        ...battle,
+        entities: battle.entities.map((entity) => {
+          if (entity.dead) return entity;
+          const position = STANCES.indexOf(entity.stance!);
+          const steps = casualties
+            .filter((dead) => dead.side === entity.side && STANCES.indexOf(dead.stance!) < position)
+            .reduce((sum, dead) => sum + (dead.side === "hero" ? 1 : dead.stanceSlots!), 0);
+          return steps ? { ...entity, stance: STANCES[position - steps]! } : entity;
+        }),
+      },
+    },
+    events: [
+      ...result.events,
+      ...casualties.map((entity) => ({
+        ...event(battle, "casualtyRemoved", "阵亡角色退出战场，后方角色只在姿态轨补位"),
+        actorId: entity.id,
+        side: entity.side,
+      })),
+    ],
+  };
+}
+
+function endAfterCasualties(result: ApplyResult): ApplyResult | null {
+  const battle = result.state.battle!;
+  const monstersDefeated = battle.entities.every(
+    (entity) => entity.side !== "monster" || entity.dead,
+  );
+  if (battle.entities.every((entity) => entity.side !== "hero" || entity.dead)) {
+    return {
+      state: {
+        ...result.state,
+        battle: {
+          ...battle,
+          monsterAction: null,
+          encounter: {
+            ...battle.encounter!,
+            deck: [],
+            turn: { type: "halted", reason: "heroesDefeated", monstersDefeated },
+          },
+        },
+      },
+      events: [
+        ...result.events,
+        {
+          ...event(battle, "battleHalted", "英雄全灭，停止单场战斗，等待战役层处理（R25、R-044）"),
+          monstersDefeated,
+        },
+      ],
+    };
+  }
+  return monstersDefeated ? finishBattle(result.state, "victory", result.events) : null;
+}
+
+/** 技能前后死亡差集；位移待选时保存，续接只应用一次。 */
+export function newlyDefeatedIds(battle: BattleState, entities: readonly BattleEntity[]): string[] {
+  return entities
+    .filter(
+      (entity) => entity.dead && !battle.entities.find((before) => before.id === entity.id)!.dead,
+    )
+    .map((entity) => entity.id);
+}
+
 /** 技能成功才锁定重用；落空仍消耗一个行动（R18–19、R-025）。 */
 export function recordEncounterSkill(
   result: ApplyResult,
   resolved: HeroSkillResolvedEvent | undefined = result.events.find(
     (entry) => entry.type === "heroSkillResolved",
   ),
+  casualtyIds: readonly string[] = [],
 ): ApplyResult {
   const battle = result.state.battle;
   if (!battle?.encounter) return result;
   if (resolved?.type !== "heroSkillResolved" || battle.encounter.turn.type !== "hero")
     return result;
-  let next = battle;
-  if (resolved.resolution.targetDead) {
-    const dead = battle.entities.find((entity) => entity.id === resolved.resolution.targetId)!;
-    const position = STANCES.indexOf(dead.stance!);
-    next = {
-      ...next,
-      entities: next.entities.map((entity) =>
-        entity.side === "monster" && !entity.dead && STANCES.indexOf(entity.stance!) > position
-          ? { ...entity, stance: STANCES[STANCES.indexOf(entity.stance!) - dead.stanceSlots!]! }
-          : entity,
-      ),
-    };
-  }
-  const state = { ...result.state, battle: next };
-  if (next.entities.every((entity) => entity.side !== "monster" || entity.dead)) {
-    return finishBattle(state, "victory", result.events);
-  }
+  const removed = removeCasualties(result, [
+    ...casualtyIds,
+    ...(resolved.resolution.targetDead ? [resolved.resolution.targetId] : []),
+  ]);
+  const ended = endAfterCasualties(removed);
+  if (ended) return ended;
+  const state = removed.state;
+  const next = state.battle!;
   const turn = battle.encounter.turn;
   const usedSkillIds =
     resolved.resolution.outcome === "miss"
       ? turn.usedSkillIds
       : [...turn.usedSkillIds, resolved.resolution.skillId];
   const actions = turn.actions - 1;
-  if (actions === 0) return finishTurn(state, turn.actorId, result.events);
+  if (actions === 0 || next.entities.find((entity) => entity.id === turn.actorId)!.dead)
+    return finishTurn(state, turn.actorId, removed.events);
   return {
-    ...result,
+    ...removed,
     state: {
       ...state,
       battle: {
@@ -225,28 +299,15 @@ export function recordEncounterSkill(
 export function recordMonsterSkill(
   result: ApplyResult,
   resolved: MonsterSkillResolvedEvent,
+  casualtyIds: readonly string[] = [],
 ): ApplyResult {
   const battle = result.state.battle;
   if (!battle?.encounter || battle.encounter.turn.type !== "monster") return result;
-  let state = result.state;
-  if (resolved.actorDead) {
-    const dead = battle.entities.find((entity) => entity.id === resolved.actorId)!;
-    const position = STANCES.indexOf(dead.stance!);
-    state = {
-      ...state,
-      battle: {
-        ...battle,
-        entities: battle.entities.map((entity) =>
-          entity.side === "monster" && !entity.dead && STANCES.indexOf(entity.stance!) > position
-            ? { ...entity, stance: STANCES[STANCES.indexOf(entity.stance!) - dead.stanceSlots!]! }
-            : entity,
-        ),
-      },
-    };
-    if (state.battle!.entities.every((entity) => entity.side !== "monster" || entity.dead))
-      return finishBattle(state, "victory", result.events);
-  }
-  return finishTurn(state, resolved.actorId, result.events);
+  const removed = removeCasualties(result, [
+    ...casualtyIds,
+    ...(resolved.actorDead ? [resolved.actorId] : []),
+  ]);
+  return endAfterCasualties(removed) ?? finishTurn(removed.state, resolved.actorId, removed.events);
 }
 
 export function applyEncounterCommand(state: GameState, command: EncounterCommand): ApplyResult {
@@ -256,11 +317,6 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     return rejectBattleCommand(state, "位移意图尚未应用，不能继续遭遇战");
   if (command.type === "startBattle") {
     if (battle.encounter) return rejectBattleCommand(state, "遭遇战已经开始");
-    if (battle.entities.some((entry) => entry.side === "hero" && entry.life !== undefined))
-      return rejectBattleCommand(
-        state,
-        "英雄死亡补位 / 全灭收尾尚未接入；带 Life 的状态仅用于技能沙盒",
-      );
     const living = battle.entities.filter((entity) => !entity.dead);
     if (living.filter((entity) => entity.side === "hero").length !== 4)
       return rejectBattleCommand(state, "普通遭遇战需要 4 名存活英雄（R16）");
@@ -299,7 +355,7 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     };
   }
   const encounter = battle.encounter;
-  if (!encounter || encounter.turn.type === "finished")
+  if (!encounter || encounter.turn.type === "finished" || encounter.turn.type === "halted")
     return rejectBattleCommand(state, "遭遇战尚未开始或已经结束");
   if (command.type === "drawInitiative") {
     if (encounter.turn.type !== "awaitingInitiative")
