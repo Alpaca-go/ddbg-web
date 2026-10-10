@@ -17,6 +17,7 @@ export type MonsterPositionedEvent = {
   readonly to: string;
   readonly steps: number;
   readonly skipped: boolean;
+  readonly displaced?: { readonly entityId: string; readonly from: string; readonly to: string };
   readonly message: string;
 };
 
@@ -66,11 +67,12 @@ export function roomTileBattleAreas(tile: {
 }
 type BattleAreaWithoutEdges = Omit<BattleArea, "adjacent">;
 
-/** R18、R24–25；R-021/022/023/024。普通怪按目标区域定位；Large 的挤占待 Q-58。 */
+/** R18、R24–25；R-021/022/023/024/060。Large 只挤出一名非目标角色。 */
 export function moveMonsterToRange(
   state: GameState,
   command: MoveMonsterToRangeCommand,
   chosenArea?: string,
+  chosenDisplacement?: string,
 ): ApplyResult {
   const battle = state.battle;
   const action = battle?.monsterAction;
@@ -161,18 +163,14 @@ export function moveMonsterToRange(
     if (reachable.some((area) => !Number.isSafeInteger(area.capacity) || area.capacity! < 0))
       return rejectBattleCommand(state, "移动候选区域缺少已核实容量（R-048）");
     // 满员和敌方区域仍可穿过；最终落点按明确的 1 / 2 格计算（R18、R24）。
-    const canEnd = (area: BattleArea) =>
+    const occupied = (area: BattleArea) =>
       living
         .filter((entity) => entity.areaId === area.id)
-        .reduce((sum, entity) => sum + (entity.side === "hero" ? 1 : entity.stanceSlots!), 0) +
-        actor.stanceSlots! <=
-      area.capacity!;
-    // 不把尚未裁定的 Large 挤占落点默默排除，进而猜选其他区域或跳过回合。
-    if (actor.stanceSlots === 2 && reachable.some((area) => !canEnd(area)))
-      return rejectBattleCommand(
-        state,
-        "大型怪候选落点需要挤占，容量边界待 Q-58；不消耗移动或回合",
-      );
+        .reduce((sum, entity) => sum + (entity.side === "hero" ? 1 : entity.stanceSlots!), 0);
+    // 先选择落点，再核对相邻去处；不能因去处满员而偷偷改选或跳过。
+    const canEnd = (area: BattleArea) =>
+      occupied(area) + actor.stanceSlots! <= area.capacity! ||
+      (actor.stanceSlots === 2 && occupied(area) > 0);
     const legal = reachable.filter(canEnd);
     options = legal.filter(inRange).map((area) => area.id);
     if (options.length === 0) {
@@ -214,6 +212,67 @@ export function moveMonsterToRange(
     };
   }
   const to = chosenArea ?? options[0]!;
+  const destination = battle.areas.find((area) => area.id === to)!;
+  const living = battle.entities.filter((entity) => !entity.dead && entity.id !== actor.id);
+  const slots = (entity: typeof actor) => (entity.side === "hero" ? 1 : entity.stanceSlots!);
+  const occupancy = (areaId: string) =>
+    living
+      .filter((entity) => entity.areaId === areaId)
+      .reduce((sum, entity) => sum + slots(entity), 0);
+  let displaced: MonsterPositionedEvent["displaced"];
+  if (to !== origin.id && actor.stanceSlots === 2 && occupancy(to) + 2 > destination.capacity!) {
+    const adjacent = destination.adjacent.map((id) => battle.areas.find((area) => area.id === id));
+    if (
+      adjacent.some((area) => !area || !Number.isSafeInteger(area.capacity) || area.capacity! < 0)
+    )
+      return rejectBattleCommand(state, "挤出相邻区域缺少已核实容量（R-048）");
+    const candidates = living
+      .filter(
+        (entity) =>
+          entity.areaId === to &&
+          entity.id !== target.id &&
+          occupancy(to) + 2 - slots(entity) <= destination.capacity! + 1,
+      )
+      .flatMap((entity) =>
+        adjacent
+          .filter((area) => occupancy(area!.id) + slots(entity) <= area!.capacity!)
+          .map((area) => ({ id: `${entity.id}->${area!.id}`, entityId: entity.id, to: area!.id })),
+      )
+      .sort((a, b) => a.id.localeCompare(b.id));
+    if (!candidates.length)
+      return rejectBattleCommand(state, "挤出角色没有合法相邻去处；保留移动、RNG 与回合（R-060）");
+    if (
+      chosenDisplacement !== undefined &&
+      !candidates.some((candidate) => candidate.id === chosenDisplacement)
+    )
+      return rejectBattleCommand(state, "选择的挤出角色或区域无效");
+    if (chosenDisplacement === undefined && candidates.length > 1) {
+      const choice = {
+        id: `monster-displace:${battle.choiceCursor}`,
+        actorId: target.id,
+        prompt: "选择一名非攻击目标角色及其有空间的相邻区域（R-060）",
+        options: candidates.map((candidate) => ({
+          id: candidate.id,
+          label: `挤出 ${candidate.entityId} → 区域 ${candidate.to}`,
+        })),
+      };
+      return {
+        state: {
+          ...state,
+          battle: {
+            ...battle,
+            choiceCursor: battle.choiceCursor + 1,
+            pending: { type: "monsterDisplace", choice, to },
+          },
+        },
+        events: [],
+        pendingChoice: choice,
+      };
+    }
+    const selected =
+      candidates.find((candidate) => candidate.id === chosenDisplacement) ?? candidates[0]!;
+    displaced = { entityId: selected.entityId, from: to, to: selected.to };
+  }
   const next: GameState = {
     ...state,
     battle: {
@@ -221,7 +280,11 @@ export function moveMonsterToRange(
       pending: null,
       monsterAction: { ...action, positioned: true },
       entities: battle.entities.map((entity) =>
-        entity.id === actor.id ? { ...entity, areaId: to } : entity,
+        entity.id === actor.id
+          ? { ...entity, areaId: to }
+          : entity.id === displaced?.entityId
+            ? { ...entity, areaId: displaced.to }
+            : entity,
       ),
     },
   };
@@ -233,6 +296,7 @@ export function moveMonsterToRange(
     to,
     steps: distance(battle.areas, origin.id, to)!,
     skipped,
+    ...(displaced ? { displaced } : {}),
     message: unreachable
       ? "几何出手位置完全不可达，原地跳过剩余回合（R-023 补充）"
       : skipped
