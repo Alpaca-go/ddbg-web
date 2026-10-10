@@ -94,6 +94,8 @@ Kyries 在本对话明确批准：“四名英雄 12 面 Life / Dodge / Speed �
 
 PR #55 已单独审查，确认两项 CI 全绿后采用 GitHub merge 合并，main 同步至 `93368a3`。本数据分支基于该 main，PR diff 不包含 Q-22 引擎改动。上文 §1 和 §6 的未合并 / 待入库描述保留为核对准备时的历史状态，以本节为准。
 
+数据块已提交为 `9976c13`，单独 [PR #56](https://github.com/Alpaca-go/ddbg-web/pull/56) 已创建，待 Kyries 审阅合并；不与死门 / 英雄移动混合。
+
 新增独立 `hero-stat.ts`：12 行人工映射、Zod schema 和纯构建函数，接现有规范化生成入口，输出 `hero_stat.json`。每面 id 为 `rawId:face`，同时保存 rawId、face、英雄 / 等级及文件 / 页码。源身份、卡背、重复面、数字或 Speed 数量冲突、脏值、属性图标退回未确认均拒绝；没有映射的其他面不输出，不补默认值。
 
 三个字段用 `attributesVerified=true` 标明本次审批，整卡 verification 仍按其他图标 / 原始行里的未确认 ID 计算。12 面中 9 面保持未验证，未确认图标及 null 保留；decor 继续沿用提取器 / 词典的既有装饰标记。其他文字只保留原始行，没有把村庄效果、抗性、免疫或 duration 转成规则。原七份规范化文件、raw / parsed、词典、引擎和 UI 均不变。

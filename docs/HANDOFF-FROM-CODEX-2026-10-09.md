@@ -359,7 +359,7 @@ PR #55 当前代码的 typecheck、lint、267 项 Vitest（20 文件）与 build
 
 Kyries 已批准核对表 §3 全部 12 面 Life / Dodge / Speed，要求数据单独 PR，并授权 PR #55 单独审合并。已审查 #55 的裁定与九项新增场景，确认最新 head `10b65e7` 的质量检查和 Playwright smoke 均成功，采用 GitHub merge 单独合并为 `93368a3`。本地 `main` 已 `pull --ff-only` 对齐，再将数据分支快进到该基线；没有把 Q-22 引擎改动重复放进数据 PR diff。
 
-本数据块独立分支 `codex/phase2-hero-stat-review`。新增 12 面人工映射与 Zod schema，沿既有生成入口写出 `normalized/corebox/hero_stat.json`；身份为 raw id + face（规范化 id 为 `rawId:face`），保存等级 / 英雄名、来源文件 / 页码。数字和 Speed 数量另与获批面的 raw 定位核对，身份漂移、卡背、重复面、脏值、数值冲突与图标退回未确认均拒绝。没有审批映射的属性面不输出、不补默认值。
+本数据块独立分支 `codex/phase2-hero-stat-review`，数据提交 `9976c13`，独立 [PR #56](https://github.com/Alpaca-go/ddbg-web/pull/56) 已创建，未合并。新增 12 面人工映射与 Zod schema，沿既有生成入口写出 `normalized/corebox/hero_stat.json`；身份为 raw id + face（规范化 id 为 `rawId:face`），保存等级 / 英雄名、来源文件 / 页码。数字和 Speed 数量另与获批面的 raw 定位核对，身份漂移、卡背、重复面、脏值、数值冲突与图标退回未确认均拒绝。没有审批映射的属性面不输出、不补默认值。
 
 仅三个属性标为 `attributesVerified=true`，整卡验证仍独立计算，12 面中 9 面保持未验证。未确认图标的 ID / 词典状态 / null 与原始文字保留，不解析其他效果；原有七份规范化文件、raw / parsed、词典、引擎和 UI 无差异。没有实现死门 / 英雄移动，也没有放开引擎当前的英雄 Life 拒绝。
 
