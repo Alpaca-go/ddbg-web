@@ -6,6 +6,7 @@ import { roomTileGeometryFileSchema } from "../../packages/data/src/normalize/ro
 import {
   normalizedHeroSkillFileSchema,
   normalizedMonsterMediumFileSchema,
+  normalizedVirtueAfflictionFileSchema,
 } from "../../packages/data/src/normalize/schema";
 
 /** 构建时校验并只打包沙盒所需卡牌；不复制数据、不打包整盒或美术。 */
@@ -25,6 +26,14 @@ export function battleDataPlugin(): Plugin {
       const heroStats = normalizedHeroStatFileSchema
         .parse(read("hero_stat"))
         .cards.filter((card) => card.attributesVerified && card.level === 1);
+      const resolveCards = normalizedVirtueAfflictionFileSchema.parse(
+        read("virtue_affliction"),
+      ).cards;
+      if (
+        resolveCards.length !== 10 ||
+        resolveCards.some((card) => card.verification.unverified || !card.verified_turn_start)
+      )
+        throw new Error("意志牌堆必须完整且效果已核实（R-048）");
       const skillIds = new Set([
         "hero_skill:p001",
         "hero_skill:p007",
@@ -81,7 +90,7 @@ export function battleDataPlugin(): Plugin {
         monsters.length !== monsterIds.size
       )
         throw new Error("战斗沙盒缺少获批卡牌，拒绝替换或补值（R-048）");
-      return `export const battleData = ${JSON.stringify({ heroStats, skills, monsters, areas: roomTileBattleAreas(tile), tileName: tile.name })};`;
+      return `export const battleData = ${JSON.stringify({ heroStats, skills, monsters, resolveCards, areas: roomTileBattleAreas(tile), tileName: tile.name })};`;
     },
   };
 }

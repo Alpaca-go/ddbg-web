@@ -46,6 +46,7 @@ function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
         side: "hero",
         hero: name,
         heroStatId: stat.id,
+        heroLevel: stat.level,
         life: stat.life,
         areaId: areas[index]!,
         stance: stances[index]!,
@@ -93,6 +94,7 @@ function sandbox(seed: number, layout: SandboxLayout = "basic"): GameState {
   });
   return createBattleState(seed, {
     ...battleData,
+    provisions: [],
     light: 5,
     entities: [...heroes, ...monsters],
   });

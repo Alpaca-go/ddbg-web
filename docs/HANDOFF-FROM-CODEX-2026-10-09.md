@@ -1,5 +1,16 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：十张意志卡回合开始与 UI（2026-10-10）
+
+#77 head `6ba26b4` 四项 CI 成功，已合并为 `0d453fc`。本块分支 `codex/phase2-resolve-turn-start`，第 3 项意志触发切片。
+
+- 官方 R18 / R28：十张真实卡先掷触发骰，再弹状态堆。Self / 四英雄 Stress、Buff 明确 Nt、Vigorous 3 × Hero Level、Masochistic 2 × Hero Level 伤口、Irrational 结果表方向逐项接入；姿态交换不移动棋子、不扣行动。缺等级 / Life / Nt / 卡片 / 补给池整次拒绝。
+- Selfish 用 PendingChoice 让玩家选一颗现有补给，冻结其他命令；保留已掷骰，选择后只消耗所选补给，再续接压力 / 状态，不执行补给普通效果，不重掷、不重复弹状态。初始手动沙盒补给池明确为空；正式开局补给尚未接。
+- Q-55 两个边界获批为 R-057：Selfish 无补给、Irrational 对应尽头无额外效果，保留触发骰、正常回合。Masochistic 与后续 Bleed 独立生命效果；触发压力心脏病先于状态，死亡跳过 DOT；死亡补位只一次。
+- UI 构建校验完整十张牌与触发注解，英雄等级取已核实属性，不补 1；加载完整牌堆并显示持有卡 / 压力红面。初始压力 10 的正常完整四人队先结算意志再开战。特殊疾病 / 怪癖修正不在当前无疾病沙盒范围。
+
+验证：typecheck、lint、386 项 Vitest（34 文件）、build、三条 Playwright 与 diff 检查；准确 head CI 通过后合并。下一块正式部署 / Cornered：已重新对照完整 Room Tile 1 / room:p001，拟议三图标一致，需把复核记录落库。生成 / 战利品、第 4 项和 Kyries 检查点③仍未完成，Q-52 保留。
+
 ## 最新进度：意志 / 心脏病基础结算（2026-10-10）
 
 #76 head `b3352cb` 四项 CI 成功，已合并为 `d9cd58e`。本块分支 `codex/phase2-pressure`，第 3 项压力基础切片。

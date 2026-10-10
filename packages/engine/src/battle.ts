@@ -56,6 +56,7 @@ export type BattleEntity = SkillTargetState &
     readonly innateProtection?: boolean;
     readonly resolveTested?: boolean;
     readonly resolveCardId?: string | null;
+    readonly heroLevel?: number;
   };
 
 export type BattleArea = {
@@ -90,6 +91,10 @@ export type BattleSetup = {
   readonly monsters?: readonly MonsterCardView[];
   readonly light: number;
   readonly resolveCards?: readonly ResolveCard[];
+  readonly provisions?: readonly {
+    readonly id: string;
+    readonly face: "food" | "bandage" | "potion" | "torch" | "tool";
+  }[];
 };
 
 export type BattleState = BattleSetup & {
@@ -100,6 +105,11 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | {
+        readonly type: "resolveProvision";
+        readonly choice: PendingChoice;
+        readonly actorId: string;
+      }
     | {
         readonly type: "shuffleDirection";
         readonly choice: PendingChoice;
