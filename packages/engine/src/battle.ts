@@ -150,6 +150,11 @@ export type BattleState = BattleSetup & {
         readonly choice: PendingChoice;
       }
     | {
+        readonly type: "monsterDisplace";
+        readonly choice: PendingChoice;
+        readonly to: string;
+      }
+    | {
         readonly type: "shuffleArea";
         readonly choice: PendingChoice;
         readonly path: readonly string[];

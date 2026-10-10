@@ -404,15 +404,119 @@ describe("普通怪单目标 Speed 定位（R18、R24–25；R-021/023/024/048/0
     });
   });
 
-  it("Large 需要挤占的候选不猜规则、不自动跳过，完整保留选招、RNG 与回合（Q-58）", () => {
+  it("Large 只挤出一人，允许落点超容量一格；待选冻结且回放一致（R-060）", () => {
     const areas = graph().map((area) => (area.id === "b" ? { ...area, capacity: 2 } : area));
-    const initial = ready(soldier, areas, "a", "c", { m: { stanceSlots: 2 }, h1: { areaId: "b" } });
+    const initial = ready(soldier, areas, "a", "c", {
+      m: { stanceSlots: 2 },
+      h1: { areaId: "b" },
+      h2: { areaId: "b" },
+    });
+    const run = () => {
+      const waiting = applyCommand(initial, move);
+      expect(waiting.pendingChoice!.options.map((option) => option.id)).toEqual([
+        "h1->a",
+        "h1->c",
+        "h2->a",
+        "h2->c",
+      ]);
+      expect(waiting.state.battle!.entities).toEqual(initial.battle!.entities);
+      expect(waiting.state.battle!.monsterAction).toEqual(initial.battle!.monsterAction);
+      expect(waiting.state.battle!.rngCursor).toBe(initial.battle!.rngCursor);
+      for (const command of [
+        move,
+        play,
+        { type: "finishMonsterTurn", actorId: "m" } as const,
+        { type: "resolveChoice", choiceId: "stale", optionId: "h1->a" } as const,
+        { type: "resolveChoice", choiceId: waiting.pendingChoice!.id, optionId: "h0->a" } as const,
+      ])
+        expect(applyCommand(waiting.state, command).state).toBe(waiting.state);
+      const moved = applyCommand(waiting.state, {
+        type: "resolveChoice",
+        choiceId: waiting.pendingChoice!.id,
+        optionId: "h1->a",
+      });
+      expect(moved.events[0]).toMatchObject({
+        to: "b",
+        displaced: { entityId: "h1", from: "b", to: "a" },
+      });
+      expect(moved.state.battle!.entities.find((entity) => entity.id === "h2")!.areaId).toBe("b");
+      expect(moved.state.battle!.entities.find((entity) => entity.id === "h0")!.areaId).toBe("c");
+      expect(moved.state.battle!.rngCursor).toBe(initial.battle!.rngCursor);
+      expect(
+        applyCommand(moved.state, {
+          type: "resolveChoice",
+          choiceId: waiting.pendingChoice!.id,
+          optionId: "h2->a",
+        }).state,
+      ).toBe(moved.state);
+      const attacked = applyCommand(moved.state, play);
+      expect(attacked.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+      expect(attacked.state.battle!.rngCursor).toBe(initial.battle!.rngCursor + 1);
+      return attacked;
+    };
+    expect(run()).toEqual(run());
+  });
+
+  it("Large 挤出不能选择攻击目标；唯一合法去处自动完成（R-060）", () => {
+    const areas = graph().map((area) => ({
+      ...area,
+      capacity: area.id === "b" ? 2 : area.id === "c" ? 0 : 8,
+    }));
+    const initial = ready(ranged(0), areas, "a", "b", {
+      m: { stanceSlots: 2 },
+      h1: { areaId: "b" },
+    });
+    const moved = applyCommand(initial, move);
+    expect(moved.pendingChoice).toBeUndefined();
+    expect(moved.events[0]).toMatchObject({ to: "b", displaced: { entityId: "h1", to: "a" } });
+    expect(moved.state.battle!.entities.find((entity) => entity.id === "h0")!.areaId).toBe("b");
+    const targetOnly = ready(
+      ranged(0),
+      areas.map((area) => (area.id === "b" ? { ...area, capacity: 1 } : area)),
+      "a",
+      "b",
+      { m: { stanceSlots: 2 } },
+    );
+    expect(applyCommand(targetOnly, move).events[0]).toMatchObject({
+      type: "commandRefused",
+      message: expect.stringContaining("R-060"),
+    });
+    expect(applyCommand(targetOnly, move).state).toBe(targetOnly);
+  });
+
+  it("Large 挤出无去处拒绝、不自动跳过；未知相邻容量仍拒绝（R-060/048）", () => {
+    const areas = graph().map((area) => ({
+      ...area,
+      capacity: area.id === "c" ? 2 : ["b", "d"].includes(area.id) ? 1 : 8,
+    }));
+    const initial = ready({ ...soldier, speed: 2 }, areas, "a", "d", {
+      m: { stanceSlots: 2 },
+      h1: { areaId: "b" },
+      h2: { areaId: "c" },
+      h3: { areaId: "c" },
+    });
     const result = applyCommand(initial, move);
     expect(result.events[0]).toMatchObject({
       type: "commandRefused",
-      message: expect.stringContaining("Q-58"),
+      message: expect.stringContaining("R-060"),
     });
     expect(result.state).toBe(initial);
+    const unknown = {
+      ...initial,
+      battle: {
+        ...initial.battle!,
+        areas: areas.map((area) =>
+          area.id === "d"
+            ? { id: area.id, adjacent: area.adjacent, elevation: area.elevation }
+            : area,
+        ),
+      },
+    };
+    expect(applyCommand(unknown, move).events[0]).toMatchObject({
+      type: "commandRefused",
+      message: expect.stringContaining("R-048"),
+    });
+    expect(applyCommand(unknown, move).state).toBe(unknown);
   });
 
   it.each([false, true])(

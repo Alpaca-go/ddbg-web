@@ -217,14 +217,15 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
         { state: { ...state, battle: { ...state.battle!, pending: null } }, events: [] },
         pending.actorId,
       );
-    if (pending.type === "monsterMove")
+    if (pending.type === "monsterMove" || pending.type === "monsterDisplace")
       return moveMonsterToRange(
         state,
         {
           type: "moveMonsterToRange",
           actorId: state.battle!.monsterAction!.actorId,
         },
-        command.optionId,
+        pending.type === "monsterMove" ? command.optionId : pending.to,
+        pending.type === "monsterDisplace" ? command.optionId : undefined,
       );
     if (command.optionId !== "push" && command.optionId !== "pull")
       return rejectBattleCommand(state, "位移方向无效");
