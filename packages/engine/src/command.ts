@@ -7,6 +7,8 @@ import { applyBattleShuffles } from "./battle-shuffle";
 import { playMonsterSkill } from "./battle-monster";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
 import { prepareMonsterAction } from "./battle-monster-action";
+import { moveMonsterToRange } from "./battle-monster-movement";
+import type { MoveMonsterToRangeCommand, MonsterPositionedEvent } from "./battle-monster-movement";
 import type {
   MonsterActionPreparedEvent,
   PrepareMonsterActionCommand,
@@ -50,6 +52,7 @@ export type Command =
   | PlayHeroSkillCommand
   | PlayMonsterSkillCommand
   | PrepareMonsterActionCommand
+  | MoveMonsterToRangeCommand
   | { readonly type: "resolveShuffles" }
   | {
       readonly type: "resolveChoice";
@@ -66,6 +69,7 @@ export type GameEvent =
   | HeroSkillResolvedEvent
   | MonsterSkillResolvedEvent
   | MonsterActionPreparedEvent
+  | MonsterPositionedEvent
   | {
       readonly type: "heroCritAreaResolved" | "monsterCritAreaResolved";
       readonly message: string;
@@ -113,6 +117,15 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
     }
     if (pending.type === "shuffleArea")
       return applyBattleShuffles(state, [...pending.path, command.optionId]);
+    if (pending.type === "monsterMove")
+      return moveMonsterToRange(
+        state,
+        {
+          type: "moveMonsterToRange",
+          actorId: state.battle!.monsterAction!.actorId,
+        },
+        command.optionId,
+      );
     if (command.optionId !== "push" && command.optionId !== "pull")
       return rejectBattleCommand(state, "位移方向无效");
     return pending.command.type === "playHeroSkill"
@@ -123,6 +136,7 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "resolveShuffles") return applyBattleShuffles(state);
   if (state.battle?.shuffleIntents.length) return rejectBattleCommand(state, "请先结算位移意图");
   if (command.type === "prepareMonsterAction") return prepareMonsterAction(state, command);
+  if (command.type === "moveMonsterToRange") return moveMonsterToRange(state, command);
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);
   if (command.type === "playMonsterSkill") return playMonsterSkill(state, command);
   if (command.type !== "ping") return applyEncounterCommand(state, command);

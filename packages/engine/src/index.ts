@@ -1,5 +1,7 @@
 export { applyCommand, createInitialState } from "./command";
 export { createBattleState } from "./battle";
+export { roomTileBattleAreas } from "./battle-monster-movement";
+export type { MoveMonsterToRangeCommand, MonsterPositionedEvent } from "./battle-monster-movement";
 export type { EncounterCommand, EncounterEvent, EncounterState } from "./encounter";
 export type { PlayMonsterSkillCommand } from "./battle-monster";
 export type {

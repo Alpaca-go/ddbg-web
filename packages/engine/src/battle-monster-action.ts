@@ -16,6 +16,8 @@ export type PreparedMonsterAction = {
   readonly skillSlot: number;
   readonly targetId: string;
   readonly selectionRoll: number | null;
+  /** Speed 定位最多执行一次；攻击仍走既有技能命令与 RNG。 */
+  readonly positioned?: true;
 };
 
 export type MonsterActionPreparedEvent = PreparedMonsterAction & {

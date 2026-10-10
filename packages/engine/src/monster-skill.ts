@@ -27,6 +27,8 @@ export type MonsterCardView = {
   readonly skills: readonly MonsterSkillView[];
   /** 只接收已核实分组；旧卡缺失时选招函数拒绝，不解析 footer_lines。 */
   readonly stanceGroups?: readonly MonsterStanceGroup[];
+  /** 只读获批 Speed；缺失不补默认值（R-048）。 */
+  readonly speed?: number;
 };
 
 /** 调用方已选定一个英雄目标；英雄 Life / 死门尚未接入。 */
@@ -77,6 +79,39 @@ function lineKey(line: readonly SkillSegment[]): string {
   );
 }
 
+/** 排除效果框后复用同一份攻击 / 目标图标视图，移动不另猜版面。 */
+export function readMonsterAttackView(
+  monster: MonsterCardView,
+  skillSlot: number,
+):
+  | { readonly status: "ready"; readonly view: HeroSkillCardView }
+  | { readonly status: "refused"; readonly reason: string } {
+  const matches = monster.skills.filter((skill) => skill.slot === skillSlot);
+  if (matches.length !== 1) return { status: "refused", reason: "怪物卡没有唯一对应的技能编号" };
+  const skill = matches[0]!;
+  const excluded = new Set<number>();
+  for (const effectLine of skill.effect_lines) {
+    const key = lineKey(effectLine);
+    const indices = skill.lines.flatMap((line, index) => (lineKey(line) === key ? [index] : []));
+    if (indices.length !== 1 || excluded.has(indices[0]!))
+      return {
+        status: "refused",
+        reason: "怪物效果行不能唯一对应原始技能行，拒绝猜测版面（R-048）",
+      };
+    excluded.add(indices[0]!);
+  }
+  return {
+    status: "ready",
+    view: {
+      ...skill,
+      id: `${monster.id}:skill${skillSlot}`,
+      hero: null,
+      verification: monster.verification,
+      stats_line: skill.lines.flatMap((line, index) => (excluded.has(index) ? [] : [...line])),
+    },
+  };
+}
+
 /**
  * 规则书 R19–21、§6.5；R-002、R-016、R-017、R-019、R-022、R-024、R-031。
  * 已选怪物技能对一个已选英雄的纯结算。roll 由调用方的种子 RNG 提供。
@@ -117,17 +152,10 @@ export function resolveMonsterSkill(
   if (combat.areaDistance === undefined) return refused("必须提供已选目标区域的距离");
   if (combat.target.stress === undefined) return refused("必须提供英雄目标的压力");
 
-  const skill = matches[0]!;
-  const excluded = new Set<number>();
-  for (const effectLine of skill.effect_lines) {
-    const key = lineKey(effectLine);
-    const indices = skill.lines.flatMap((line, index) => (lineKey(line) === key ? [index] : []));
-    if (indices.length !== 1 || excluded.has(indices[0]!)) {
-      return refused("怪物效果行不能唯一对应原始技能行，拒绝猜测版面（R-048）");
-    }
-    excluded.add(indices[0]!);
-  }
-  const stats = skill.lines.flatMap((line, index) => (excluded.has(index) ? [] : [...line]));
+  const attack = readMonsterAttackView(monster, skillSlot);
+  if (attack.status === "refused") return refused(attack.reason);
+  const view = attack.view;
+  const stats = view.stats_line!;
   if (
     !stats.some(
       (segment) =>
@@ -138,13 +166,6 @@ export function resolveMonsterSkill(
   ) {
     return refused("当前怪物攻击需要已命名的 damage，支援与纯状态技能尚未接入（R-048）");
   }
-  const view: HeroSkillCardView = {
-    ...skill,
-    id: `${monster.id}:skill${skillSlot}`,
-    hero: null,
-    verification: monster.verification,
-    stats_line: stats,
-  };
   const resolution = resolveMonsterAttackView(
     view,
     {

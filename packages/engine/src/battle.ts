@@ -78,6 +78,10 @@ export type BattleState = BattleSetup & {
         readonly command: PlayHeroSkillCommand | PlayMonsterSkillCommand;
       }
     | {
+        readonly type: "monsterMove";
+        readonly choice: PendingChoice;
+      }
+    | {
         readonly type: "shuffleArea";
         readonly choice: PendingChoice;
         readonly path: readonly string[];
