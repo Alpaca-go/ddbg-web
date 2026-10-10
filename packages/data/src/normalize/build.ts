@@ -18,6 +18,7 @@ import { attachVerifiedMonsterStances } from "./verified-monster-stances";
 import { attachVerifiedMonsterSpeeds } from "./verified-monster-speeds";
 import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
+import { approvedResolveLookup } from "./approved-resolve-icons";
 import { buildRoomTileGeometry } from "./room-tile";
 import type { RoomTileGeometryFile } from "./room-tile";
 import { buildHeroStats } from "./hero-stat";
@@ -517,6 +518,7 @@ function buildVirtues(raw: RawFile, lookup: IconLookup): NormalizedVirtueAfflict
   const cards = raw.cards.map((card) => {
     const reasons = new Set<string>();
     const backFile = assertCardBackOnly(card, VIRTUE_FRONT);
+    const cardLookup = approvedResolveLookup(card.id, lookup);
     const name = titleOf(card);
     const role = virtueRole(name);
     if (!role) reasons.add("role_not_printed");
@@ -532,10 +534,10 @@ function buildVirtues(raw: RawFile, lookup: IconLookup): NormalizedVirtueAfflict
       back_has_data: false as const,
       lines: resolveLines(
         card.faces.front.lines.map((line) => line.text),
-        lookup,
+        cardLookup,
         reasons,
       ),
-      icons: faceIcons(card.faces.front.icons, lookup, reasons),
+      icons: faceIcons(card.faces.front.icons, cardLookup, reasons),
       verification: finishVerification(reasons),
     };
   });

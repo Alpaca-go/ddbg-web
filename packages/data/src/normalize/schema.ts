@@ -23,6 +23,8 @@ export const normalizedIconSchema = z
     meaning_zh: z.string().nullable(),
     value: z.int().nullable(),
     naming: namingSchema,
+    /** 卡面限定的后续批准；不修改基础词典或其他卡的同形图标。 */
+    approval: z.literal("R-056").optional(),
   })
   .superRefine((icon, ctx) => {
     if (!icon.in_dictionary) {
@@ -319,6 +321,17 @@ export const verifiedResolveTriggerSchema = z.strictObject({
       perHeroLevel: z.literal(true),
     }),
     z.strictObject({ type: z.literal("consumeProvision"), amount: z.literal(1) }),
+    z.strictObject({
+      type: z.literal("wounds"),
+      scope: z.literal("self"),
+      amount: z.literal(2),
+      perHeroLevel: z.literal(true),
+    }),
+    z.strictObject({
+      type: z.literal("stanceMove"),
+      forwardThrough: z.literal(5),
+      distance: z.literal(1),
+    }),
   ]),
 });
 
