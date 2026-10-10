@@ -8,7 +8,7 @@ Kyries 本轮授权合并并继续 Phase 2。#95 head `d0cafa1` 两套 CI 共四
 - 所需资料已查规范化核心盒 hero_skill / monster_medium 与其已批准词典字段；confirmed / confirmed_rulebook 直接显示 meaning_zh，英文说明可悬停查看。英文原文、数字、符号、Nt 保持原样，不解析或补值；decor 不冒充未知图标，其余状态只保留原始 ID 占位。遵守 R-001 / R-048，无新增规则、数据注解或卡池开放，无原始资料 / 图片入库。
 - 原三条冒烟保持数量不变，补英雄状态卡原文 / 中文图标与怪物已选技能显示断言；原有行动、冻结、RNG、回放与正式三组合路径继续验证。仅 UI 展示，不改变结算或命令。
 
-验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build 通过；本地以 Chrome 跑同样三条冒烟成功（54.7 秒；默认 Chromium 1243 本机未安装），截图检查卡面无溢出。提交后以 PR 的准确 head CI 为准。下一候选为 Phase 2 战斗日志中实际结算结果的可读呈现；Q-52、未知图标、缺 duration 与后续阶段边界继续保留。
+验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build 通过；本地以 Chrome 跑同样三条冒烟成功（54.7 秒；默认 Chromium 1243 本机未安装），截图检查卡面无溢出。[草稿 PR #96](https://github.com/Alpaca-go/ddbg-web/pull/96)，实现提交 `7153c2a`，分支包含本段交接更新，准确 head CI 以 PR 为准；本次合并授权覆盖 #95，新 PR 留待审阅。下一候选为 Phase 2 战斗日志中实际结算结果的可读呈现；Q-52、未知图标、缺 duration 与后续阶段边界继续保留。
 
 ## 最新进度：Phase 2 战斗步骤与待选提示（2026-10-10）
 
