@@ -5,6 +5,7 @@ import type { DungeonCommand, DungeonState } from "./dungeon";
 import { createRng } from "./rng";
 import { resolveSeededHeroHealth } from "./hero-health";
 import { resolveDungeonPressure } from "./dungeon-pressure";
+import { drawDungeonCurio } from "./dungeon-curio";
 
 const faces = explorationDieSchema.parse(die).faces;
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
@@ -182,8 +183,7 @@ export function applyDungeonExploration(
       );
     if (roll.face === "trap")
       options.push({ id: "attack", label: "陷阱攻击（缩放 / 光照待 Kyries 确认）" });
-    if (roll.face === "curio")
-      options.push({ id: "draw", label: "抽 Curio（完整牌堆效果尚未接线）" });
+    if (roll.face === "curio") options.push({ id: "draw", label: "不用 Torch，抽 Curio" });
     return finish(
       state,
       {
@@ -200,11 +200,7 @@ export function applyDungeonExploration(
   }
   const roll = rolls.find((r) => d.pending!.id.endsWith(`:${r.id}`) && !r.resolved);
   if (!roll) return refuse(state, "危险结算状态无效");
-  if (roll.face === "curio")
-    return refuse(
-      state,
-      "Curio 完整牌堆及效果未接线（R-048）；尚未抽卡、未消费 Torch，禁止跳过或抽取缩减牌堆",
-    );
+  if (roll.face === "curio") return drawDungeonCurio(state, roll.id, command.optionId);
   if (command.optionId === "attack" || command.optionId === "light")
     return refuse(state, "陷阱缩放 / 光照表仍待 Kyries 确认（R-003、R-002），保持停点");
   if (command.optionId.startsWith("use:")) {

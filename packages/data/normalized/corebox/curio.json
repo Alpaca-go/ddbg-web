@@ -1,0 +1,1070 @@
+{
+ "schema": "ddbg-curio-v1",
+ "dictionaryVersion": "1.8",
+ "cards": [
+  {
+   "id": "curio:p001",
+   "name": "Eldritch Altar",
+   "text": "You feel a shiver down your spine as you behold this eldritch altar. It has a small coin pouch on its base, but as you touch its stony facade, a nauseating feeling overcomes you.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 1
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:449d2d43ed}",
+     "iconId": "449d2d43ed",
+     "effect": null,
+     "reason": "Q-60 · 词典未收录 · unverified"
+    },
+    {
+     "printed": "{icon:40c4cc438c} 2t",
+     "iconId": "40c4cc438c",
+     "effect": null,
+     "reason": "Q-60 · unknown_40c4cc438c · unreviewed"
+    },
+    {
+     "printed": "10 {icon:4bcefdb4d9}",
+     "iconId": "4bcefdb4d9",
+     "effect": {
+      "type": "gold",
+      "amount": 10
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:p002",
+   "name": "Eldritch Altar",
+   "text": "An altar dedicated to unholy abominations. Just by staring at it, you feel your worst self resurfacing, albeit with a new purpose. You see a small bundle on its base, and as you touch its stony facade you realize it has been coated with a toxin.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 2
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:382acc9dc4}",
+     "iconId": "382acc9dc4",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:73ea0990dd} 2t",
+     "iconId": "73ea0990dd",
+     "effect": null,
+     "reason": "Q-60 · 词典未收录 · unverified"
+    }
+   ]
+  },
+  {
+   "id": "curio:p003",
+   "name": "Heirloom Chest",
+   "text": "A chest with the family’s sigil. You feel your heart pounding in your chest, and as you open it a poisonous mist is sprayed on you. In it there are some Provisions...",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 3
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:3fe634e723}",
+     "iconId": "3fe634e723",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "{icon:b4627031be}",
+     "iconId": "b4627031be",
+     "effect": {
+      "type": "drawDisease",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:ae45f5bcb3}",
+     "iconId": "ae45f5bcb3",
+     "effect": null,
+     "reason": "Q-60 · pending_ae45f5bcb3 · needs_review"
+    }
+   ]
+  },
+  {
+   "id": "curio:p004",
+   "name": "Heirloom Chest",
+   "text": "A chest with the family’s sigil. As you open the lock, you hear a click followed by the prick of a poisonous dart. In the chest you find a small pouch of coins.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 4
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:40c4cc438c} 2t",
+     "iconId": "40c4cc438c",
+     "effect": null,
+     "reason": "Q-60 · unknown_40c4cc438c · unreviewed"
+    },
+    {
+     "printed": "5 {icon:aa81338d06}",
+     "iconId": "aa81338d06",
+     "effect": {
+      "type": "gold",
+      "amount": 5
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:p005",
+   "name": "Stack of Books",
+   "text": "A stack of literary treasures in an unlikely location. Filled with worry and some selfish thoughts, you are relieved to find a Trinket. You rise to your feet with your confidence boosted and your morale lifted.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 5
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:7b1a554877}",
+     "iconId": "7b1a554877",
+     "effect": null,
+     "reason": "Q-60 · unknown_7b1a554877 · unreviewed"
+    },
+    {
+     "printed": "{icon:3cd8b97ff0} 2t",
+     "iconId": "3cd8b97ff0",
+     "effect": null,
+     "reason": "Q-60 · 词典未收录 · unverified"
+    },
+    {
+     "printed": "{icon:85e094f269}",
+     "iconId": "85e094f269",
+     "effect": null,
+     "reason": "Q-60 · curio_picture · confirmed"
+    }
+   ]
+  },
+  {
+   "id": "curio:p006",
+   "name": "Stack of Books",
+   "text": "A stack of literary treasures in an unlikely location. In your hasty search of valuables, you find only a sharpened rusty pin that slices through your finger as if it were paper. Cursing your luck, you decide to push on ahead.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 6
+   },
+   "rows": [
+    {
+     "printed": "{icon:3fe634e723}",
+     "iconId": "3fe634e723",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "1 {icon:12b6af97f2} 3t",
+     "iconId": "12b6af97f2",
+     "effect": null,
+     "reason": "Q-60 · 词典未收录 · unverified"
+    },
+    {
+     "printed": "{icon:3a7dfcb577}",
+     "iconId": "3a7dfcb577",
+     "effect": null,
+     "reason": "Q-60 · unknown_3a7dfcb577 · unreviewed"
+    }
+   ]
+  },
+  {
+   "id": "curio:p007",
+   "name": "Strongbox",
+   "text": "A long-forgotten strongbox sits on the cold stone floor. You praise your luck and greedily open it, when a serrated scalpel slashes your hand. From blood at least comes bounty, as you discover some coins and a valuable Trinket.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 7
+   },
+   "rows": [
+    {
+     "printed": "1 {icon:be17b4ee09} 3t",
+     "iconId": "be17b4ee09",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:1d9ad90d4a}",
+     "iconId": "1d9ad90d4a",
+     "effect": null,
+     "reason": "Q-60 · 词典未收录 · unverified"
+    },
+    {
+     "printed": "{icon:3ae4312868}",
+     "iconId": "3ae4312868",
+     "effect": null,
+     "reason": "Q-60 · unknown_3ae4312868 · unreviewed"
+    },
+    {
+     "printed": "5 {icon:aa81338d06}",
+     "iconId": "aa81338d06",
+     "effect": {
+      "type": "gold",
+      "amount": 5
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:p008",
+   "name": "Strongbox",
+   "text": "A long-forgotten strongbox sits on the cold stone floor. Brimming with coins and Provisions, you place them in your bags, only to discover that they are coated with poison. Cursing this devilry, you resolve to continue your adventure.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 8
+   },
+   "rows": [
+    {
+     "printed": "{icon:3fe634e723}",
+     "iconId": "3fe634e723",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "{icon:b4627031be}",
+     "iconId": "b4627031be",
+     "effect": {
+      "type": "drawDisease",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "10 {icon:4bcefdb4d9}",
+     "iconId": "4bcefdb4d9",
+     "effect": {
+      "type": "gold",
+      "amount": 10
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:ae45f5bcb3}",
+     "iconId": "ae45f5bcb3",
+     "effect": null,
+     "reason": "Q-60 · pending_ae45f5bcb3 · needs_review"
+    }
+   ]
+  },
+  {
+   "id": "curio:p009",
+   "name": "Alchemy Table",
+   "text": "A table filled with experimental equipment. You pick up a handful of coins thrown onto its surface, but you don’t notice the sharp needle protruding from one of the alembics. As it pierces your skin, you let out a panicked cry...",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 9
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:3fe634e723}",
+     "iconId": "3fe634e723",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "1 {icon:be17b4ee09} 3t",
+     "iconId": "be17b4ee09",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "5 {icon:4bcefdb4d9}",
+     "iconId": "4bcefdb4d9",
+     "effect": {
+      "type": "gold",
+      "amount": 5
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:p010",
+   "name": "Altar of Light",
+   "text": "A small holy altar seems out of place against the backdrop of corruption. You open the small sack resting on the altar’s feet and feel your fingers twitch as you realize that the sack has been drenched in some sort of toxin.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 10
+   },
+   "rows": [
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "5 {icon:aa81338d06}",
+     "iconId": "aa81338d06",
+     "effect": {
+      "type": "gold",
+      "amount": 5
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:3e2792bc5b}",
+     "iconId": "3e2792bc5b",
+     "effect": null,
+     "reason": "Q-60 · 词典未收录 · unverified"
+    },
+    {
+     "printed": "{icon:ae45f5bcb3}",
+     "iconId": "ae45f5bcb3",
+     "effect": null,
+     "reason": "Q-60 · pending_ae45f5bcb3 · needs_review"
+    }
+   ]
+  },
+  {
+   "id": "curio:p011",
+   "name": "Bookshelf",
+   "text": "A bookshelf full of old, leather-bound books. As you reach out for a big tome, a sharp ornament falls and slashes your hand. An intense pain rushes through you, only to be washed away by your renewed vigor.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 11
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:3fe634e723}",
+     "iconId": "3fe634e723",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "1 {icon:be17b4ee09} 3t",
+     "iconId": "be17b4ee09",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:3a7dfcb577}",
+     "iconId": "3a7dfcb577",
+     "effect": null,
+     "reason": "Q-60 · unknown_3a7dfcb577 · unreviewed"
+    }
+   ]
+  },
+  {
+   "id": "curio:p012",
+   "name": "Bookshelf",
+   "text": "A big bookshelf looms in front of you. As you reach out for a book, a spiky ornament falls onto your head and your cheek gets slashed from the impact. You look around and find a Trinket on the bookshelf’s side. Now you just need to stop the bleeding...",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 12
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:3fe634e723}",
+     "iconId": "3fe634e723",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "1 {icon:be17b4ee09} 3t",
+     "iconId": "be17b4ee09",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:85e094f269}",
+     "iconId": "85e094f269",
+     "effect": null,
+     "reason": "Q-60 · curio_picture · confirmed"
+    }
+   ]
+  },
+  {
+   "id": "curio:p013",
+   "name": "Confession Booth",
+   "text": "A forsaken confession booth. It hasn’t been used in years. As you step inside, you feel a faint chill followed by a painful sting. As you shake the poisonous spider off your garment, you notice some coins on the booth’s floor.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 13
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:382acc9dc4}",
+     "iconId": "382acc9dc4",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "5 {icon:aa81338d06}",
+     "iconId": "aa81338d06",
+     "effect": {
+      "type": "gold",
+      "amount": 5
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:p014",
+   "name": "Confession Booth",
+   "text": "A forsaken confession booth. It hasn’t been used in years. As you step inside, you feel a faint chill followed by a painful sting. As you shake the poisonous spider off your garment, your vision is blurred and you feel weak...",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 14
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:382acc9dc4}",
+     "iconId": "382acc9dc4",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:b4627031be}",
+     "iconId": "b4627031be",
+     "effect": {
+      "type": "drawDisease",
+      "count": 1
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:p015",
+   "name": "Decorative Urn",
+   "text": "An urn holds ashes of the departed. As you grab the offering, a feeling of guilt washes over you. Your remorse is only interrupted by an abrupt pain, as you notice a tiny springblade slashing at your hand when a hidden compartment with some Provisions is revealed.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 15
+   },
+   "rows": [
+    {
+     "printed": "{icon:3fe634e723}",
+     "iconId": "3fe634e723",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "1 {icon:be17b4ee09} 3t",
+     "iconId": "be17b4ee09",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "10 {icon:4bcefdb4d9}",
+     "iconId": "4bcefdb4d9",
+     "effect": {
+      "type": "gold",
+      "amount": 10
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:ae45f5bcb3}",
+     "iconId": "ae45f5bcb3",
+     "effect": null,
+     "reason": "Q-60 · pending_ae45f5bcb3 · needs_review"
+    }
+   ]
+  },
+  {
+   "id": "curio:p016",
+   "name": "Holy Fountain",
+   "text": "An ornate fountain of holy purport. You step into the fountain grabbing the coin offerings through the cold murky waters. You find some Provisions but you feel sick to your stomach, praying that you haven’t contacted something serious or terminal...",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 16
+   },
+   "rows": [
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:3ae4312868}",
+     "iconId": "3ae4312868",
+     "effect": null,
+     "reason": "Q-60 · unknown_3ae4312868 · unreviewed"
+    },
+    {
+     "printed": "5 {icon:aa81338d06}",
+     "iconId": "aa81338d06",
+     "effect": {
+      "type": "gold",
+      "amount": 5
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:ae45f5bcb3}",
+     "iconId": "ae45f5bcb3",
+     "effect": null,
+     "reason": "Q-60 · pending_ae45f5bcb3 · needs_review"
+    }
+   ]
+  },
+  {
+   "id": "curio:p017",
+   "name": "Iron Maiden",
+   "text": "A rusty iron maiden stands against the wall, clasped shut. You feel tense as you try to open the devilish contraption. Alas, you pin yourself onto one of the spikes by accident. You curse your luck as you break free, feeling nauseous and sick.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 17
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:3fe634e723}",
+     "iconId": "3fe634e723",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "1 {icon:be17b4ee09} 3t",
+     "iconId": "be17b4ee09",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:e546d025cd}",
+     "iconId": "e546d025cd",
+     "effect": null,
+     "reason": "Q-60 · unknown_e546d025cd · unreviewed"
+    }
+   ]
+  },
+  {
+   "id": "curio:p018",
+   "name": "Iron Maiden",
+   "text": "A rusty iron maiden stands against the wall, clasped shut. You feel tense as you try to open the devilish contraption. Alas, you pin yourself onto one of the spikes by accident. You curse your luck as you break free but luckily you notice a Trinket stashed in the empty iron coffin.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 18
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:3fe634e723}",
+     "iconId": "3fe634e723",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "1 {icon:9b6a2b779d} 3t",
+     "iconId": "9b6a2b779d",
+     "effect": null,
+     "reason": "Q-60 · unknown_9b6a2b779d · unreviewed"
+    },
+    {
+     "printed": "{icon:85e094f269}",
+     "iconId": "85e094f269",
+     "effect": null,
+     "reason": "Q-60 · curio_picture · confirmed"
+    }
+   ]
+  },
+  {
+   "id": "curio:p019",
+   "name": "Display Cabinet",
+   "text": "Excited by the prospect of abandoned treasures, you yank the case open. A spring- loaded blade sails towards your head but well-honed reflex save you all but a shallow cut on your cheek. Shaken, you collect some dusty coins and carry on with the journey.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 19
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:3fe634e723}",
+     "iconId": "3fe634e723",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "1 {icon:9b6a2b779d} 3t",
+     "iconId": "9b6a2b779d",
+     "effect": null,
+     "reason": "Q-60 · unknown_9b6a2b779d · unreviewed"
+    },
+    {
+     "printed": "10 {icon:4bcefdb4d9}",
+     "iconId": "4bcefdb4d9",
+     "effect": {
+      "type": "gold",
+      "amount": 10
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:p020",
+   "name": "Display Cabinet",
+   "text": "There could be valuables left inside. You open it but you trigger a bladetrap. As it swooshes by your shoulder, you duck but manage to get slashed on the side of your chin. Agitated and clearly shaken, you collect the coins and the provisions found in the cabinet and carry on with your journey.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 20
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:7b1a554877}",
+     "iconId": "7b1a554877",
+     "effect": null,
+     "reason": "Q-60 · unknown_7b1a554877 · unreviewed"
+    },
+    {
+     "printed": "10 {icon:aa81338d06}",
+     "iconId": "aa81338d06",
+     "effect": {
+      "type": "gold",
+      "amount": 10
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:ae45f5bcb3}",
+     "iconId": "ae45f5bcb3",
+     "effect": null,
+     "reason": "Q-60 · pending_ae45f5bcb3 · needs_review"
+    }
+   ]
+  },
+  {
+   "id": "curio:p021",
+   "name": "Sarcophagus",
+   "text": "An ornate monument, left slightly ajar. A pouch of gold is stashed inside. As you eagerly remove it, you sting yourself on some concealed needles. The wound itches, and fever sets in.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 21
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:be17b4ee09} 3t",
+     "iconId": "be17b4ee09",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:b4627031be}",
+     "iconId": "b4627031be",
+     "effect": {
+      "type": "drawDisease",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "10 {icon:aa81338d06}",
+     "iconId": "aa81338d06",
+     "effect": {
+      "type": "gold",
+      "amount": 10
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:p022",
+   "name": "Sarcophagus",
+   "text": "An ornate monument, left slightly ajar. A glimmering trinket is tucked away. As you remove it, you wound yourself on a rusty, jagged latch.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 22
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:3fe634e723}",
+     "iconId": "3fe634e723",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "1 {icon:be17b4ee09} 3t",
+     "iconId": "be17b4ee09",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:85e094f269}",
+     "iconId": "85e094f269",
+     "effect": null,
+     "reason": "Q-60 · curio_picture · confirmed"
+    }
+   ]
+  },
+  {
+   "id": "curio:p023",
+   "name": "Suit of Armor",
+   "text": "An antique suit of armor stands amidst the ruins. As you examine the helmet, it clams shut trapping your fingers inside. You manage to break free but your carelessness has resulted in an oncoming fever.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 23
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:3fe634e723}",
+     "iconId": "3fe634e723",
+     "effect": null,
+     "reason": "Q-60 · decor · decor"
+    },
+    {
+     "printed": "1 {icon:be17b4ee09} 3t",
+     "iconId": "be17b4ee09",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:e546d025cd}",
+     "iconId": "e546d025cd",
+     "effect": null,
+     "reason": "Q-60 · unknown_e546d025cd · unreviewed"
+    }
+   ]
+  },
+  {
+   "id": "curio:p024",
+   "name": "Suit of Armor",
+   "text": "An antique suit of armor stands amidst the ruins. You see something shining from the gap in its helmet. As you reach for it, the headguard clams shut, drawing blood. You break free with the Trinket in hand, but now you need to stop the bleeding.",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 24
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:be17b4ee09} 3t",
+     "iconId": "be17b4ee09",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:8b7f872f77}",
+     "iconId": "8b7f872f77",
+     "effect": null,
+     "reason": "Q-60 · 词典未收录 · unverified"
+    },
+    {
+     "printed": "{icon:85e094f269}",
+     "iconId": "85e094f269",
+     "effect": null,
+     "reason": "Q-60 · curio_picture · confirmed"
+    }
+   ]
+  }
+ ]
+}

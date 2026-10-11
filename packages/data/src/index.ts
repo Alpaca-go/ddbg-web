@@ -1,4 +1,6 @@
 import { z } from "zod";
+export { curioCardSchema, curioCatalogSchema, curioFileSchema } from "./curio";
+export type { CurioCard, CurioEffect } from "./curio";
 export { explorationFaceSchema, explorationDieSchema } from "./exploration";
 export type { ExplorationFace } from "./exploration";
 export {

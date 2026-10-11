@@ -7,6 +7,24 @@ import { resolveDungeonPressure } from "./dungeon-pressure";
 import { applyDungeonExploration, continueDungeonExploration } from "./dungeon-exploration";
 import type { ExplorationFace } from "../../data/src/exploration";
 import type { SkillStance } from "./hero-skill";
+import { curioCatalogSchema } from "../../data/src/curio";
+import type { CurioCard } from "../../data/src/curio";
+import { resolveDungeonCurio } from "./dungeon-curio";
+
+export type DungeonCurioDraw = {
+  readonly cardId: string;
+  readonly heroId: string;
+  readonly rollId: string;
+  readonly protected: boolean;
+  readonly blockedReason?: string;
+};
+export type DungeonCurioState = {
+  readonly cards: readonly CurioCard[];
+  readonly deck: readonly string[] | null;
+  readonly discard: readonly string[];
+  readonly active: DungeonCurioDraw | null;
+  readonly last?: DungeonCurioDraw;
+};
 
 export type DungeonExplorationSetup = {
   readonly dungeonLevel: number;
@@ -33,6 +51,8 @@ export type DungeonState = {
   }[];
   readonly resolveCards: readonly ResolveCard[];
   readonly resolveDecks: Partial<Readonly<Record<ResolveCard["role"], readonly string[]>>>;
+  readonly gold: number;
+  readonly curio?: DungeonCurioState;
   readonly rooms: readonly {
     readonly id: string;
     readonly kind: RoomDistribution["counts"][number]["kind"];
@@ -41,7 +61,12 @@ export type DungeonState = {
   }[];
   readonly scoutBonus: boolean;
   readonly phase:
-    "ready" | "awaitingHazards" | "blockedPressure" | "awaitingReplacement" | "awaitingRoom";
+    | "ready"
+    | "awaitingHazards"
+    | "blockedPressure"
+    | "awaitingReplacement"
+    | "awaitingRoom"
+    | "awaitingCurio";
   readonly pressureSource?: "scout" | "exploration";
   readonly explorationSetup?: DungeonExplorationSetup;
   readonly visited?: readonly string[];
@@ -63,6 +88,7 @@ export type DungeonCommand =
   | { readonly type: "scoutDungeon" }
   | { readonly type: "beginDungeonExploration" }
   | { readonly type: "rollDungeonExploration" }
+  | { readonly type: "resolveDungeonCurio" }
   | { readonly type: "resolveDungeonPressure" };
 
 /** 固定地图/任务首切片沙盒。当前位置可注入，以测试房间结算后的侦察接口；不是战役布置。 */
@@ -80,6 +106,7 @@ export function createDungeonSandbox(
   ],
   resolveCards: readonly ResolveCard[] = [],
   explorationSetup?: DungeonExplorationSetup,
+  curioCards?: readonly CurioCard[],
 ): GameState {
   const layout = dungeonLayoutSchema.parse(layoutInput);
   const distribution = roomDistributionSchema.parse(distributionInput);
@@ -115,6 +142,17 @@ export function createDungeonSandbox(
       heroes: heroes.map((h) => ({ ...h })),
       resolveCards: resolveCards.map((c) => ({ ...c, verification: { ...c.verification } })),
       resolveDecks: {},
+      gold: 0,
+      ...(curioCards
+        ? {
+            curio: {
+              cards: curioCatalogSchema.parse(curioCards),
+              deck: null,
+              discard: [],
+              active: null,
+            },
+          }
+        : {}),
       // 非起点位置是导航就绪的测试注入；当前房间已知，但不假定代币已清理。
       rooms: slots.map((n, i) => ({ id: n.id, kind: tokens[i]!, revealed: n.id === position })),
       scoutBonus: false,
@@ -156,6 +194,7 @@ export function applyDungeonCommand(
     ...(dungeon.pending ? { pendingChoice: dungeon.pending } : {}),
   });
   if (!d || state.battle) return refuse("需要独立地牢沙盒");
+  if (command.type === "resolveDungeonCurio") return resolveDungeonCurio(state);
   if (command.type === "resolveDungeonPressure") {
     if (d.phase !== "blockedPressure") return refuse("当前没有待恢复的压力");
     return continueDungeonExploration(resolveDungeonPressure(state));

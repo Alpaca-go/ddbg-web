@@ -6,9 +6,21 @@ import { dungeonLayoutFileSchema } from "../../../packages/data/src/dungeon-layo
 import type { DungeonLayout } from "../../../packages/data/src/dungeon-layout";
 import { battleData } from "virtual:battle-data";
 import distribution from "../../../packages/data/normalized/corebox/scout_ahead_distribution.json";
+import rawCurios from "../../../packages/data/normalized/corebox/curio.json";
+import { curioFileSchema } from "../../../packages/data/src/curio";
+import type { CurioEffect } from "../../../packages/data/src/curio";
+
+function curioEffectLabel(effect: CurioEffect) {
+  if (effect.type === "gold") return `金币 +${effect.amount}`;
+  if (effect.type === "stress") return `压力 +${effect.amount}`;
+  if (effect.type === "status")
+    return `${effect.kind === "bleed" ? "流血" : "中毒"} ${effect.amount}，${effect.duration} 回合`;
+  return "获得一张疾病（完整牌堆待接线）";
+}
 
 const layouts = dungeonLayoutFileSchema.parse(rawLayouts).layouts;
-type Fixture = "neutral" | "pressure" | "heartAttack" | "corridor";
+const curios = curioFileSchema.parse(rawCurios).cards;
+type Fixture = "neutral" | "pressure" | "heartAttack" | "corridor" | "curio";
 function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral") {
   const selected = layouts.find((l) => l.source.page === page)!;
   const preview = selected.unresolvedMarkers?.length ? selected : null;
@@ -47,7 +59,7 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
   }));
   return {
     game: createDungeonSandbox(
-      fixture === "corridor" ? 31 : 1,
+      fixture === "curio" ? 1237 : fixture === "corridor" ? 31 : 1,
       layout,
       distribution,
       mode,
@@ -66,6 +78,7 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
           { id: "food-1", face: "food" },
         ],
       },
+      curios,
     ),
     page,
     fixture,
@@ -111,6 +124,8 @@ export function DungeonSandbox() {
     useDungeonStore();
   const d = game.dungeon!;
   const map = preview ?? d.layout;
+  const shownCurio = d.curio?.active ?? d.curio?.last;
+  const card = d.curio?.cards.find((c) => c.id === shownCurio?.cardId);
   return (
     <main className="shell">
       <header className="topbar">
@@ -148,6 +163,7 @@ export function DungeonSandbox() {
             <option value="pressure">首次检定（hero-0 压力 9）</option>
             <option value="heartAttack">已有意志卡（hero-0 压力 9）</option>
             <option value="corridor">单走廊 → Empty（标准 p1、种子 31、无需侦察）</option>
+            <option value="curio">Curio → Empty（标准 p1、种子 1237、先用 Torch）</option>
           </select>
         </label>
         <svg
@@ -258,6 +274,37 @@ export function DungeonSandbox() {
             剩余补给：
             {d.explorationSetup!.provisions.map((p) => `${p.id} ${p.face}`).join(" · ") || "无"}
           </p>
+          <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
+          {card && shownCurio && (
+            <div className="panel" data-testid="dungeon-curio">
+              <h3>
+                Curio · {card.name} · p{card.source.page}
+              </h3>
+              <p>{card.text}</p>
+              <p>
+                {shownCurio.heroId} · 抽卡前{" "}
+                {shownCurio.protected ? "已使用 Torch" : "未使用 Torch"} · 牌池剩余{" "}
+                {d.curio!.deck?.length ?? 24} · 弃牌 {d.curio!.discard.length}
+              </p>
+              <ul>
+                {card.rows.map((r, i) => (
+                  <li key={i}>
+                    {r.effect
+                      ? `${curioEffectLabel(r.effect)}${shownCurio.protected && r.effect.type !== "gold" ? " · Torch 保护" : ""}`
+                      : `${r.printed} · 待确认（${r.reason}）`}
+                  </li>
+                ))}
+              </ul>
+              {d.phase === "awaitingCurio" && (
+                <button onClick={() => dispatch({ type: "resolveDungeonCurio" })}>
+                  结算当前 Curio
+                </button>
+              )}
+              {d.curio!.active?.blockedReason && (
+                <p role="status">{d.curio!.active.blockedReason}</p>
+              )}
+            </div>
+          )}
           {d.exploration?.rolls && (
             <p data-testid="dungeon-rolls">
               {d.exploration.rolls
@@ -281,17 +328,19 @@ export function DungeonSandbox() {
             </div>
           )}
           <p data-testid="dungeon-checkpoint">
-            {d.phase === "awaitingReplacement"
-              ? "英雄死亡：等待驿站替换接口，队伍尚未移动"
-              : d.phase === "blockedPressure"
-                ? "压力已支付：意志卡数据待核实，队伍尚未移动"
-                : d.phase === "awaitingRoom"
-                  ? `进入 ${d.position}：等待非 Empty 房间效果`
-                  : d.phase === "ready" && d.exploration
-                    ? `已到达 ${d.position}；${d.rooms.find((r) => r.id === d.position)?.cleared ? "Empty 已清理，移除房间代币" : "灰点必须停留"}`
-                    : d.exploration
-                      ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
-                      : "等待侦察 / 路线选择"}
+            {d.phase === "awaitingCurio"
+              ? "Curio 待结算；队伍尚未移动，不能补用 Torch 或重抽"
+              : d.phase === "awaitingReplacement"
+                ? "英雄死亡：等待驿站替换接口，队伍尚未移动"
+                : d.phase === "blockedPressure"
+                  ? "压力已支付：意志卡数据待核实，队伍尚未移动"
+                  : d.phase === "awaitingRoom"
+                    ? `进入 ${d.position}：等待非 Empty 房间效果`
+                    : d.phase === "ready" && d.exploration
+                      ? `已到达 ${d.position}；${d.rooms.find((r) => r.id === d.position)?.cleared ? "Empty 已清理，移除房间代币" : "灰点必须停留"}`
+                      : d.exploration
+                        ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
+                        : "等待侦察 / 路线选择"}
           </p>
           <p data-testid="dungeon-events">
             {events

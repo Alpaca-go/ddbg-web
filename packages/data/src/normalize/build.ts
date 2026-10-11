@@ -28,6 +28,7 @@ import { approvedResolveLookup } from "./approved-resolve-icons";
 import { buildRoomTileGeometry } from "./room-tile";
 import type { RoomTileGeometryFile } from "./room-tile";
 import { buildHeroStats } from "./hero-stat";
+import { buildCurios } from "./curio";
 import type { NormalizedHeroStatFile } from "./hero-stat";
 import type {
   NormalizedHeroSkillFile,
@@ -70,6 +71,7 @@ type ParsedUnlabeled = {
 };
 
 export type NormalizedCorebox = {
+  curio: ReturnType<typeof buildCurios>;
   hero_stat: NormalizedHeroStatFile;
   room_tile_geometry: RoomTileGeometryFile;
   hero_skill: NormalizedHeroSkillFile;
@@ -81,6 +83,7 @@ export type NormalizedCorebox = {
 };
 
 export type NormalizedCoreboxInput = {
+  curios: RawFile;
   heroStats: RawFile;
   roomTiles: RawFile;
   dictionary: IconDictionary;
@@ -567,6 +570,7 @@ function buildVirtues(raw: RawFile, lookup: IconLookup): NormalizedVirtueAfflict
 export function buildNormalizedCorebox(input: NormalizedCoreboxInput): NormalizedCorebox {
   const lookup = createIconLookup(input.dictionary);
   return {
+    curio: buildCurios(input.curios, input.dictionary),
     hero_stat: buildHeroStats(input.heroStats, input.dictionary),
     hero_skill: (() => {
       const file = buildHeroSkills(input.heroSkills, input.heroSkillRaw, lookup);
