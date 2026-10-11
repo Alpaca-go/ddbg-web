@@ -1,6 +1,6 @@
 # Phase 3：守卫房间战斗与地图回传
 
-本轮按 Kyries 要求作为一个重型开发主题推进，先合并 #114，再在 `codex/phase3-guarded-battle-loop` 接入战斗与回传，不拆成三个任务。#114 已合并到 main `202a14e`。以下功能属于该后续分支，尚不能当作 main 已交付。
+本轮按 Kyries 要求作为一个重型开发主题推进，先合并 #114，再在 `codex/phase3-guarded-battle-loop` 接入战斗与回传，不拆成三个任务。#114 已合并到 main `202a14e`。以下功能属于该后续分支的[草稿 PR #115](https://github.com/Alpaca-go/ddbg-web/pull/115)，实现提交 `77983d1`，尚不能当作 main 已交付。
 
 ## 已接入
 
