@@ -113,6 +113,7 @@ export type GameEvent =
   | {
       readonly type: "resolveTriggered";
       readonly entityId: string;
+      readonly cardId: string;
       readonly roll: number;
       readonly triggered: boolean;
       readonly message: string;

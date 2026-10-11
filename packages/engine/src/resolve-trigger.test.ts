@@ -84,6 +84,12 @@ describe("十张真实意志卡回合开始触发（R18 / R28 / R-056 / R-057）
         card.name,
       ).toBe(false);
       expect(result.state.battle!.rngCursor).toBe(5);
+      expect(result.events.find((event) => event.type === "resolveTriggered")).toMatchObject({
+        entityId: "h0",
+        cardId: card.id,
+        roll: 1,
+        triggered: true,
+      });
       expect(result).toEqual(draw(state));
       const hero = result.state.battle!.entities[0]!;
       const other = result.state.battle!.entities[1]!;
@@ -127,6 +133,7 @@ describe("十张真实意志卡回合开始触发（R18 / R28 / R-056 / R-057）
     const miss = draw(ready("Focused", 6));
     expect(miss.state.battle!.entities[0]!.statusStacks).toEqual([]);
     expect(miss.events.find((event) => event.type === "resolveTriggered")).toMatchObject({
+      cardId: cards.find((card) => card.name === "Focused")!.id,
       triggered: false,
       roll: 6,
     });
@@ -156,6 +163,10 @@ describe("十张真实意志卡回合开始触发（R18 / R28 / R-056 / R-057）
     expect(waiting.pendingChoice?.options).toHaveLength(2);
     expect(waiting.state.battle!.entities[0]!.wounds).toBe(5);
     expect(waiting.state.battle!.rngCursor).toBe(5);
+    expect(waiting.events.find((event) => event.type === "resolveTriggered")).toMatchObject({
+      cardId: cards.find((card) => card.name === "Selfish")!.id,
+      triggered: true,
+    });
     expect(draw(waiting.state).state).toBe(waiting.state);
     const choice = {
       type: "resolveChoice" as const,
