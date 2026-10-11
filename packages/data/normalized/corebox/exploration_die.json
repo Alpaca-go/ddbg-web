@@ -1,0 +1,8 @@
+{
+  "source": {
+    "file": "01_DD_DICE_COREBOX/DD_COREBOX_DICE_D6_Exploration.pdf",
+    "page": 1
+  },
+  "rulesPages": [14, 15],
+  "faces": ["curio", "rubble", "hunger", "blank", "trap", "darkness"]
+}

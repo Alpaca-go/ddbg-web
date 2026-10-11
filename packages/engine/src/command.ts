@@ -238,6 +238,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     command.type === "scoutDungeon" ||
     command.type === "resolveDungeonPressure" ||
     command.type === "beginDungeonExploration" ||
+    command.type === "rollDungeonExploration" ||
     (command.type === "resolveChoice" && state.dungeon)
   )
     return applyDungeonCommand(state, command);

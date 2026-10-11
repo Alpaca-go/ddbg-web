@@ -23,6 +23,40 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   );
   await expect(page.getByRole("button", { name: "侦察", exact: true })).toBeDisabled();
   await page.screenshot({ path: testInfo.outputPath("dungeon-checkpoint.png"), fullPage: true });
+  await page.getByLabel("侦察测试布置").selectOption("corridor");
+  await page.getByRole("button", { name: "重置标准模式" }).click();
+  await page.getByRole("button", { name: "选择下一段探索" }).click();
+  await page.getByRole("button", { name: "D", exact: true }).click();
+  await page.getByRole("button", { name: "掷探索骰并开始结算" }).click();
+  // 真实种子 31 的八骰；同一英雄可先结算第二颗。
+  await page.getByRole("button", { name: "hero-0:2 · Trap", exact: true }).click();
+  await page
+    .getByRole("button", { name: "陷阱攻击（缩放 / 光照待 Kyries 确认）", exact: true })
+    .click();
+  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("队伍尚未移动");
+  await expect(page.getByTestId("dungeon-provisions")).toContainText("tool-1");
+  await page.getByRole("button", { name: "使用 tool（tool-1）抵消", exact: true }).click();
+  const sequence = [
+    "hero-0:1 · Stressful Darkness",
+    "使用 torch（torch-1）抵消",
+    "hero-1:1 · 空白",
+    "hero-1:2 · Rubble",
+    "使用 tool（tool-2）抵消",
+    "hero-2:1 · Trap",
+    "使用 tool（tool-3）抵消",
+    "hero-2:2 · 空白",
+    "hero-3:1 · Hunger",
+    "使用 food（food-1）抵消",
+    "hero-3:2 · Trap",
+    "使用 tool（tool-4）抵消",
+  ];
+  for (const name of sequence) await page.getByRole("button", { name, exact: true }).click();
+  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已到达 D；Empty 已清理");
+  await expect(page.getByTestId("dungeon-node-D")).toContainText("已清理 · 无代币");
+  await expect(page.getByTestId("dungeon-rolls")).not.toContainText("待结算");
+  await expect(page.getByTestId("dungeon-provisions")).toHaveText("剩余补给：无");
+  await expect(page.getByRole("button", { name: "侦察", exact: true })).toBeEnabled();
+  await page.screenshot({ path: testInfo.outputPath("dungeon-empty.png"), fullPage: true });
 });
 
 test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场", async ({ page }) => {

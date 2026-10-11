@@ -8,7 +8,7 @@ import { battleData } from "virtual:battle-data";
 import distribution from "../../../packages/data/normalized/corebox/scout_ahead_distribution.json";
 
 const layouts = dungeonLayoutFileSchema.parse(rawLayouts).layouts;
-type Fixture = "neutral" | "pressure" | "heartAttack";
+type Fixture = "neutral" | "pressure" | "heartAttack" | "corridor";
 function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral") {
   const selected = layouts.find((l) => l.source.page === page)!;
   const preview = selected.unresolvedMarkers?.length ? selected : null;
@@ -28,20 +28,44 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       .find((id) => id !== "S" && layout.edges.some((e) => e.includes("S") && e.includes(id)))!;
   const heroes = Array.from({ length: 4 }, (_, i) => ({
     id: `hero-${i}`,
-    stress: i === 0 && fixture !== "neutral" ? 9 : 0,
+    stress: i === 0 && (fixture === "pressure" || fixture === "heartAttack") ? 9 : 0,
+    stance: (["aggressive", "defensive", "ranged", "support"] as const)[i]!,
+    ...(() => {
+      const stat = battleData.heroStats.find(
+        (s) => s.level === 1 && s.name === ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"][i],
+      )!;
+      return {
+        level: stat.level,
+        life: stat.life,
+        attributesVerified: stat.attributesVerified,
+        wounds: 0,
+      };
+    })(),
     ...(i === 0 && fixture === "heartAttack"
       ? { resolveTested: true, resolveCardId: battleData.resolveCards[0]!.id }
       : {}),
   }));
   return {
     game: createDungeonSandbox(
-      1,
+      fixture === "corridor" ? 31 : 1,
       layout,
       distribution,
       mode,
       position,
       heroes,
       battleData.resolveCards,
+      {
+        dungeonLevel: 1,
+        light: 5,
+        provisions: [
+          { id: "tool-1", face: "tool" },
+          { id: "tool-2", face: "tool" },
+          { id: "tool-3", face: "tool" },
+          { id: "tool-4", face: "tool" },
+          { id: "torch-1", face: "torch" },
+          { id: "food-1", face: "food" },
+        ],
+      },
     ),
     page,
     fixture,
@@ -94,12 +118,12 @@ export function DungeonSandbox() {
           <p className="eyebrow">DDBG · PHASE 3</p>
           <h1>地牢布局与侦察</h1>
           <p className="muted">
-            QuestMap p{page} 标注待批准 · Scout Ahead · 固定种子 1 · 中立英雄、光照 5
+            QuestMap p{page} 标注待批准 · Scout Ahead · 固定种子 {game.seed} · 光照 5、DL 1
           </p>
           <p>
             {preview
               ? "16 槽地图仅预览，未解释标记保留，未开启 Boss 规则。"
-              : `测试注入：房间 ${d.position} 导航就绪。未模拟进入房间的探索、效果或清理。`}
+              : "测试注入：导航就绪英雄与六个补给；从选路开始，逐骰结算后进入目标节点。"}
           </p>
           <a href="/">返回战斗沙盒</a>
         </div>
@@ -123,6 +147,7 @@ export function DungeonSandbox() {
             <option value="neutral">中立英雄</option>
             <option value="pressure">首次检定（hero-0 压力 9）</option>
             <option value="heartAttack">已有意志卡（hero-0 压力 9）</option>
+            <option value="corridor">单走廊 → Empty（标准 p1、种子 31、无需侦察）</option>
           </select>
         </label>
         <svg
@@ -164,11 +189,19 @@ export function DungeonSandbox() {
                   {n.id}
                   {!preview && d.position === n.id ? " · 队伍" : ""}
                 </text>
-                <text x={n.x} y={n.y + 3.5} textAnchor="middle" fill="#f5e7ce" fontSize="3">
+                <text
+                  x={n.x}
+                  y={n.y + 3.5}
+                  textAnchor="middle"
+                  fill="#f5e7ce"
+                  fontSize={room?.cleared ? 1.7 : 3}
+                >
                   {room
-                    ? room.revealed
-                      ? labels[room.kind]
-                      : "未揭示"
+                    ? room.cleared
+                      ? "已清理 · 无代币"
+                      : room.revealed
+                        ? labels[room.kind]
+                        : "未揭示"
                     : n.kind === "dot"
                       ? "灰点"
                       : n.kind === "unresolved" ||
@@ -190,7 +223,7 @@ export function DungeonSandbox() {
             {d.heroes
               .map(
                 (h) =>
-                  `${h.id} 压力 ${h.stress}${h.dead ? "（心脏病死亡）" : h.resolveCardId ? ` · 意志卡 ${d.resolveCards.find((c) => c.id === h.resolveCardId)?.name}` : ""}`,
+                  `${h.id} 压力 ${h.stress}${h.dead ? (h.wounds === h.life ? "（死门死亡）" : "（心脏病死亡）") : h.resolveCardId ? ` · 意志卡 ${d.resolveCards.find((c) => c.id === h.resolveCardId)?.name}` : ""} · 伤口 ${h.wounds}/${h.life}`,
               )
               .join(" · ")}
           </p>
@@ -216,6 +249,22 @@ export function DungeonSandbox() {
           >
             选择下一段探索
           </button>
+          {d.phase === "awaitingHazards" && !d.exploration?.rolls && (
+            <button onClick={() => dispatch({ type: "rollDungeonExploration" })}>
+              掷探索骰并开始结算
+            </button>
+          )}
+          <p data-testid="dungeon-provisions">
+            剩余补给：
+            {d.explorationSetup!.provisions.map((p) => `${p.id} ${p.face}`).join(" · ") || "无"}
+          </p>
+          {d.exploration?.rolls && (
+            <p data-testid="dungeon-rolls">
+              {d.exploration.rolls
+                .map((r) => `${r.id} ${r.face}${r.resolved ? "（已结算）" : "（待结算）"}`)
+                .join(" · ")}
+            </p>
+          )}
           {d.pending && (
             <div>
               <p>{d.pending.prompt}</p>
@@ -232,13 +281,17 @@ export function DungeonSandbox() {
             </div>
           )}
           <p data-testid="dungeon-checkpoint">
-            {d.exploration
-              ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
+            {d.phase === "awaitingReplacement"
+              ? "英雄死亡：等待驿站替换接口，队伍尚未移动"
               : d.phase === "blockedPressure"
-                ? "压力已支付：意志卡数据待核实"
-                : d.phase === "awaitingReplacement"
-                  ? "心脏病已记录：等待驿站替换接口"
-                  : "等待侦察 / 路线选择"}
+                ? "压力已支付：意志卡数据待核实，队伍尚未移动"
+                : d.phase === "awaitingRoom"
+                  ? `进入 ${d.position}：等待非 Empty 房间效果`
+                  : d.phase === "ready" && d.exploration
+                    ? `已到达 ${d.position}；${d.rooms.find((r) => r.id === d.position)?.cleared ? "Empty 已清理，移除房间代币" : "灰点必须停留"}`
+                    : d.exploration
+                      ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
+                      : "等待侦察 / 路线选择"}
           </p>
           <p data-testid="dungeon-events">
             {events

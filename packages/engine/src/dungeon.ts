@@ -4,6 +4,15 @@ import type { ApplyResult, GameState, PendingChoice } from "./command";
 import { createRng } from "./rng";
 import type { ResolveCard } from "./pressure";
 import { resolveDungeonPressure } from "./dungeon-pressure";
+import { applyDungeonExploration, continueDungeonExploration } from "./dungeon-exploration";
+import type { ExplorationFace } from "../../data/src/exploration";
+import type { SkillStance } from "./hero-skill";
+
+export type DungeonExplorationSetup = {
+  readonly dungeonLevel: number;
+  readonly light: 5;
+  readonly provisions: readonly { readonly id: string; readonly face: "food" | "torch" | "tool" }[];
+};
 
 export type DungeonState = {
   readonly layout: DungeonLayout;
@@ -16,6 +25,11 @@ export type DungeonState = {
     readonly resolveTested?: boolean;
     readonly resolveCardId?: string;
     readonly dead?: boolean;
+    readonly stance?: SkillStance;
+    readonly level?: number;
+    readonly life?: number;
+    readonly wounds?: number;
+    readonly attributesVerified?: boolean;
   }[];
   readonly resolveCards: readonly ResolveCard[];
   readonly resolveDecks: Partial<Readonly<Record<ResolveCard["role"], readonly string[]>>>;
@@ -23,20 +37,32 @@ export type DungeonState = {
     readonly id: string;
     readonly kind: RoomDistribution["counts"][number]["kind"];
     readonly revealed: boolean;
+    readonly cleared?: boolean;
   }[];
   readonly scoutBonus: boolean;
-  readonly phase: "ready" | "awaitingHazards" | "blockedPressure" | "awaitingReplacement";
+  readonly phase:
+    "ready" | "awaitingHazards" | "blockedPressure" | "awaitingReplacement" | "awaitingRoom";
+  readonly pressureSource?: "scout" | "exploration";
+  readonly explorationSetup?: DungeonExplorationSetup;
+  readonly visited?: readonly string[];
   readonly pending: PendingChoice | null;
   readonly decision: number;
   readonly exploration: {
     readonly from: string;
     readonly to: string;
     readonly dicePerHero: number;
+    readonly rolls?: readonly {
+      readonly id: string;
+      readonly heroId: string;
+      readonly face: ExplorationFace;
+      readonly resolved: boolean;
+    }[];
   } | null;
 };
 export type DungeonCommand =
   | { readonly type: "scoutDungeon" }
   | { readonly type: "beginDungeonExploration" }
+  | { readonly type: "rollDungeonExploration" }
   | { readonly type: "resolveDungeonPressure" };
 
 /** 固定地图/任务首切片沙盒。当前位置可注入，以测试房间结算后的侦察接口；不是战役布置。 */
@@ -53,6 +79,7 @@ export function createDungeonSandbox(
     { id: "hero-3", stress: 0 },
   ],
   resolveCards: readonly ResolveCard[] = [],
+  explorationSetup?: DungeonExplorationSetup,
 ): GameState {
   const layout = dungeonLayoutSchema.parse(layoutInput);
   const distribution = roomDistributionSchema.parse(distributionInput);
@@ -95,6 +122,15 @@ export function createDungeonSandbox(
       pending: null,
       decision: 0,
       exploration: null,
+      visited: [position],
+      ...(explorationSetup
+        ? {
+            explorationSetup: {
+              ...explorationSetup,
+              provisions: explorationSetup.provisions.map((p) => ({ ...p })),
+            },
+          }
+        : {}),
     },
   };
 }
@@ -102,7 +138,7 @@ export function createDungeonSandbox(
 function adjacent(d: DungeonState): string[] {
   return d.layout.edges.flatMap(([a, b]) => (a === d.position ? [b] : b === d.position ? [a] : []));
 }
-/** R14 / R-013：仅计算下一次探索的输入，不掷骰、不移动、不结算房间。 */
+/** R14 / R-013：侦察和选路；危险结算委托纯探索模块，完成后才移动。 */
 export function applyDungeonCommand(
   state: GameState,
   command:
@@ -120,10 +156,15 @@ export function applyDungeonCommand(
     ...(dungeon.pending ? { pendingChoice: dungeon.pending } : {}),
   });
   if (!d || state.battle) return refuse("需要独立地牢沙盒");
-  if (command.type === "resolveDungeonPressure")
-    return d.phase === "blockedPressure"
-      ? resolveDungeonPressure(state)
-      : refuse("当前没有待恢复的侦察压力");
+  if (command.type === "resolveDungeonPressure") {
+    if (d.phase !== "blockedPressure") return refuse("当前没有待恢复的压力");
+    return continueDungeonExploration(resolveDungeonPressure(state));
+  }
+  if (
+    command.type === "rollDungeonExploration" ||
+    (command.type === "resolveChoice" && d.phase === "awaitingHazards")
+  )
+    return applyDungeonExploration(state, command);
   if (d.phase !== "ready") return refuse("已停在未接线的压力 / 危险结算接口");
   if (command.type === "resolveChoice") {
     if (
@@ -139,7 +180,14 @@ export function applyDungeonCommand(
       if (heroes.some((h) => h.stress === 10))
         return resolveDungeonPressure({
           ...state,
-          dungeon: { ...d, heroes, pending: null, phase: "blockedPressure", scoutBonus: false },
+          dungeon: {
+            ...d,
+            heroes,
+            pending: null,
+            phase: "blockedPressure",
+            scoutBonus: false,
+            pressureSource: "scout",
+          },
         });
       const nearby = adjacent(d);
       return finish(
@@ -189,7 +237,8 @@ export function applyDungeonCommand(
     );
   }
   const routes = adjacent(d).filter(
-    (id) => d.layout.nodes.find((n) => n.id === id)?.kind !== "start",
+    (id) =>
+      d.layout.nodes.find((n) => n.id === id)?.kind !== "start" && !(d.visited ?? []).includes(id),
   );
   if (!routes.length) return refuse("没有可探索的相邻房间 / 灰点；本切片未接原路返回");
   return finish(
@@ -198,7 +247,7 @@ export function applyDungeonCommand(
       decision: d.decision + 1,
       pending: {
         id: `dungeon-route:${d.decision}`,
-        prompt: "选择下一段探索（随后停在危险结算接口）",
+        prompt: "选择下一段探索（选定后掷骰，逐英雄结算）",
         options: routes.map((id) => ({ id, label: id })),
       },
     },

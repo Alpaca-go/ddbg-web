@@ -98,6 +98,9 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
       type: "dungeonUpdated",
       message: "已记录心脏病；等待驿站替换接口（R9），未揭示房间，不推定战役失败",
     });
+  } else if (d.pressureSource === "exploration") {
+    d = { ...d, phase: "awaitingHazards", pending: null };
+    events.push({ type: "dungeonUpdated", message: "意志检定完成，续接剩余探索骰；不触发侦察" });
   } else {
     const nearby = d.layout.edges.flatMap(([a, b]) =>
       a === d.position ? [b] : b === d.position ? [a] : [],

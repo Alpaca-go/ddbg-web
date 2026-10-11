@@ -1,4 +1,6 @@
 import { z } from "zod";
+export { explorationFaceSchema, explorationDieSchema } from "./exploration";
+export type { ExplorationFace } from "./exploration";
 export {
   dungeonLayoutSchema,
   dungeonLayoutFileSchema,
