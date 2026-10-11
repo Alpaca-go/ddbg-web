@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：Phase 2 空区域自身位移（2026-10-11）
+
+Kyries 本轮授权合并并继续。#104 准确 head `fd055ce` 的 PR / push CI 四项成功，按 merge 合并为 `d5e771e`；本地 main 已 `pull --ff-only` 同步，再建独立分支 `codex/phase2-empty-area-shuffle`。[草稿 PR #105](https://github.com/Alpaca-go/ddbg-web/pull/105)，实现提交 `097d1dc`，准确 head CI 以 PR 为准。#99 / #103 未合并。本节替代下节的自身位移拒绝边界。
+
+- 自行查本机只读官方规则书第 21 页完整页面图像及既有规范化卡，依据规格书 §6.7（R21）、R-020 / R-021，遵守 R-001 / R-048。自身 Push / Pull 以目标区域为参照，显式区域意图不创建或借用角色，继续按邻接、容量、姿态与分岔规则结算。
+- 空区域技能保留一次自身效果 / 一次真实攻击骰；接入既有位移待选，直到位移完成才扣行动、锁定成功使用及收尾。空区域续接不带目标或暴击上下文；选择不重复掷骰、治疗或施加状态。
+- 六项新增引擎场景覆盖真实 Breakthrough / Duelist’s Advance / Point Blank Shot、区域参照等价与无效参照、容量截断、缺容量原子拒绝、待选冻结 / 无效选项与确定性回放。原三条浏览器冒烟扩展 Duelist’s Advance 空区反击 / Pull / 第二行动收尾。
+
+验证：Node 24.21.0 / pnpm 12.9.1；48 文件 440 项测试，typecheck、lint、build、diff 检查及原三条 Chrome 冒烟。沿用忽略目录 Chrome 配置，不改 CI 或规范化数据，不提交原始资产。`ShuffleIntent` / 沙盒续接形状有扩展，仍不是正式存档格式，需 Kyries 审阅后合并（交接 §5.6 / §11）。无新 Q；Q-52、缺 duration、未确认图标及后续阶段边界保留。下一候选是获批技能未完整支持效果的盘点和一个有官方依据的小切片。
+
 ## 最新进度：Phase 2 空区域英雄技能（2026-10-11）
 
 本轮 Kyries 要求检查进度并继续下一步，未授权合并或 Phase 3。已合并基线 main `85f6373`；远端核实 #99 与 #103 仍为开放草稿。本块从 origin/main 独立分支 `codex/phase2-empty-area-skill` 开发，不混入两个待审阅主题。完整盘点见 [Phase 2 缺口记录](phase2-gaps-2026-10-11.md)。

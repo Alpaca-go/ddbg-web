@@ -5,10 +5,12 @@ const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "s
 
 export type ShuffleIntent = {
   readonly entityId: string;
-  readonly relativeToId: string;
   /** 已由技能层处理抗性的距离；此层不再次减距。 */
   readonly move: SkillShuffle;
-};
+} & (
+  | { readonly relativeToId: string; readonly relativeToAreaId?: never }
+  | { readonly relativeToAreaId: string; readonly relativeToId?: never }
+);
 
 export type ShuffleResolution =
   | { readonly status: "refused"; readonly reason: string }
@@ -65,8 +67,15 @@ export function resolveShuffle(
     return refuse("实体 / 区域 ID 重复");
   const actor = entities.find((entity) => entity.id === intent.entityId);
   const relative = entities.find((entity) => entity.id === intent.relativeToId);
+  const relativeAreaId = intent.relativeToAreaId ?? relative?.areaId;
+  if (
+    (intent.relativeToId !== undefined) === (intent.relativeToAreaId !== undefined) ||
+    !relativeAreaId ||
+    !areas.some((area) => area.id === relativeAreaId)
+  )
+    return refuse("须提供唯一且有效的参照角色或区域（R21）");
   // 自身效果先于伤害（R20）；参照目标随后死亡仍有本次技能的区域坐标。
-  if (!actor || !relative || actor.dead) return refuse("被位移者不存在 / 已死亡，或缺少参照角色");
+  if (!actor || actor.dead) return refuse("被位移者不存在 / 已死亡");
   const amount = intent.move.distance;
   if (
     !Number.isSafeInteger(amount) ||
@@ -128,7 +137,7 @@ export function resolveShuffle(
   )
     return refuse("位移终点切入另一大型怪的两格之间，需 Q-19 补充裁定");
 
-  const graph = distances(areas, relative.areaId);
+  const graph = distances(areas, relativeAreaId);
   if (!graph.has(actor.areaId)) return refuse("被位移者与参照区域不连通");
   let current = actor.areaId;
   const path: string[] = [];

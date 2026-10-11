@@ -49,7 +49,8 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
         id: `shuffle-area:${next.choiceCursor}:${intent.entityId}`,
         prompt: "选择位移的下一步区域",
         actorId:
-          continuation.type === "heroSkillResolved"
+          continuation.type === "heroSkillResolved" ||
+          continuation.type === "heroSkillEmptyAreaResolved"
             ? continuation.actorId
             : intent.entityId === continuation.actorId
               ? (continuation.shuffleChooserId ?? continuation.resolution.targetId)
@@ -91,6 +92,16 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
       stanceSteps: result.stanceSteps,
     });
     choices = [];
+  }
+  if (continuation.type === "heroSkillEmptyAreaResolved") {
+    return recordEncounterSkill(
+      {
+        state: { ...state, battle: { ...next, pending: null, shuffleContinuation: null } },
+        events,
+      },
+      continuation,
+      continuation.casualtyIds,
+    );
   }
   if (continuation.criticalContext?.combats) {
     const corrected = correctMultiTargetStress(next, continuation);
@@ -185,7 +196,7 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
     events,
   };
   const completed = next.shuffleContinuation ?? continuation;
-  return completed.type === "heroSkillResolved"
+  return completed.type === "heroSkillResolved" || completed.type === "heroSkillEmptyAreaResolved"
     ? recordEncounterSkill(final, completed, completed.casualtyIds)
     : recordMonsterSkill(final, completed, completed.casualtyIds);
 }

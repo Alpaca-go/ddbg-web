@@ -39,11 +39,12 @@ function area(id: string, adjacent: string[], capacity = 4): BattleArea {
   return { id, adjacent, capacity, elevation: "normal" };
 }
 const line = [area("a", ["b"]), area("b", ["a", "c"]), area("c", ["b", "d"]), area("d", ["c"])];
-const intent = (distance = 1, direction: "push" | "pull" = "push"): ShuffleIntent => ({
-  entityId: "target",
-  relativeToId: "hero",
-  move: { direction, distance },
-});
+const intent = (distance = 1, direction: "push" | "pull" = "push") =>
+  ({
+    entityId: "target",
+    relativeToId: "hero",
+    move: { direction, distance },
+  }) satisfies ShuffleIntent;
 function resolved(result: ShuffleResolution) {
   expect(result.status).toBe("resolved");
   if (result.status !== "resolved") throw new Error("位移未结算");
@@ -51,6 +52,30 @@ function resolved(result: ShuffleResolution) {
 }
 
 describe("Push / Pull 位置纯结算（R21/R24、R-020、R-021、Q-19）", () => {
+  it("区域参照与角色所在区域等价，不需要给空区域创建实体", () => {
+    const setup = { areas: line, entities: [hero(), entity("target")] };
+    const byArea: ShuffleIntent = {
+      entityId: "target",
+      relativeToAreaId: "a",
+      move: { direction: "push", distance: 1 },
+    };
+    expect(resolveShuffle(setup, byArea)).toEqual(resolveShuffle(setup, intent()));
+    const empty = { areas: line, entities: [entity("target")] };
+    expect(resolved(resolveShuffle(empty, byArea)).entities).toHaveLength(1);
+    expect(empty.entities[0]!.areaId).toBe("b");
+  });
+  it("参照必须是唯一已知角色或区域，双方同时提供和缺少参照都拒绝", () => {
+    const setup = { areas: line, entities: [hero(), entity("target")] };
+    for (const reference of [
+      { relativeToAreaId: "missing" },
+      { relativeToAreaId: "" },
+      { relativeToId: "hero", relativeToAreaId: "a" },
+      {},
+    ]) {
+      const dirty = { entityId: "target", move: intent().move, ...reference } as ShuffleIntent;
+      expect(resolveShuffle(setup, dirty).status).toBe("refused");
+    }
+  });
   it("Push 改棋子区域和姿态，同阵营顺移；保持确定性与入参不变", () => {
     const setup = {
       areas: line,

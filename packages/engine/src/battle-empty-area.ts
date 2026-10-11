@@ -8,6 +8,8 @@ import {
   recordEncounterSkill,
 } from "./encounter";
 import { resolveHeroSkillEmptyAreaEffects } from "./hero-skill";
+import { resolveShuffle } from "./shuffle";
+import type { ShuffleIntent } from "./shuffle";
 import type { ApplyResult, GameState, HeroSkillEmptyAreaResolvedEvent } from "./command";
 
 export type PlayHeroSkillEmptyAreaCommand = {
@@ -65,6 +67,14 @@ export function playHeroSkillEmptyArea(
     probe.resolution,
   ]);
   if (statusProbe.status === "refused") return rejectBattleCommand(state, statusProbe.reason);
+  // R21：自身位移以技能目标区域为参照，不创建虚构目标角色。
+  const intent: ShuffleIntent | null = probe.resolution.actorShuffle
+    ? { entityId: actor.id, relativeToAreaId: area.id, move: probe.resolution.actorShuffle }
+    : null;
+  if (intent) {
+    const shuffle = resolveShuffle(battle, intent);
+    if (shuffle.status === "refused") return rejectBattleCommand(state, shuffle.reason);
+  }
   // R19：卡面有 Acc 才掷骰；没有目标时不把骰面判成命中 / 暴击。
   const roll = skill.printed_labels.some((label) => label.label === "Acc")
     ? nextBattleRoll(state.seed, battle.rngCursor)
@@ -93,20 +103,20 @@ export function playHeroSkillEmptyArea(
     areaId: area.id,
     roll,
   };
-  return recordEncounterSkill(
-    {
-      state: {
-        ...state,
-        battle: {
-          ...battle,
-          entities: statuses.entities,
-          light: statuses.light,
-          rngCursor: health.rngCursor,
-        },
+  const casualtyIds = newlyDefeatedIds(battle, health.entities);
+  const result: ApplyResult = {
+    state: {
+      ...state,
+      battle: {
+        ...battle,
+        entities: statuses.entities,
+        light: statuses.light,
+        rngCursor: health.rngCursor,
+        shuffleIntents: intent ? [intent] : [],
+        shuffleContinuation: intent ? { ...event, casualtyIds } : null,
       },
-      events: [event, ...health.events],
     },
-    event,
-    newlyDefeatedIds(battle, health.entities),
-  );
+    events: [event, ...health.events],
+  };
+  return intent ? result : recordEncounterSkill(result, event, casualtyIds);
 }

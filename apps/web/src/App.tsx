@@ -552,8 +552,8 @@ export function App() {
                       </select>
                     </label>
                     <p className="muted">
-                      须符合卡面姿态与射程；没有目标命中、暴击或目标效果，自身效果照常结算。含自身
-                      Push / Pull 的技能暂不能用于空区域。
+                      须符合卡面姿态与射程；没有目标命中、暴击或目标效果。自身 Push / Pull
+                      以所选区域为参照，完成位移选择后扣行动。
                     </p>
                     {!emptyAreas.length && <p className="muted">当前没有空区域。</p>}
                   </>
