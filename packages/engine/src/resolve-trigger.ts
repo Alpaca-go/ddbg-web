@@ -28,6 +28,7 @@ export function beginResolveTurn(result: ApplyResult, actorId: string): ApplyRes
     {
       type: "resolveTriggered" as const,
       entityId: actorId,
+      cardId: card.id,
       roll,
       triggered: roll <= trigger.rollMax,
       message: `${card.name ?? card.id} 回合开始骰 ${roll}`,
