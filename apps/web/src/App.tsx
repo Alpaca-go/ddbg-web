@@ -7,6 +7,7 @@ import type { SandboxLayout } from "./battle-store";
 import { battleStep } from "./battle-step";
 import { SkillCardText } from "./skill-card-text";
 import { SkillResults } from "./skill-results";
+import { StateEventDetails } from "./state-event-details";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 const provisionLabels = {
@@ -675,8 +676,7 @@ export function App() {
             <li key={i}>
               <span>{i + 1}.</span> {event.message}
               {"roll" in event && event.roll !== null ? ` · d10=${event.roll}` : ""}
-              {event.type === "statusTurnStarted" &&
-                ` · 同时伤口 ${event.woundAmounts.reduce((sum, amount) => sum + amount, 0)}${event.stunned ? " · 眩晕生效" : ""}`}
+              <StateEventDetails event={event} entityName={entityName} />
               {(event.type === "heroSkillResolved" ||
                 event.type === "monsterSkillResolved" ||
                 event.type === "heroSkillTargetsResolved" ||
