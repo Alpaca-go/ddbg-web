@@ -128,6 +128,11 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
     await expect(log).toContainText("CRUSADER：暴击");
     await expect(log).toContainText("HELLION：暴击");
     await expect(log).toContainText("HIGHWAYMAN：暴击");
+    await expect(log).toContainText("使用者：VESTAL");
+    await expect(log).toContainText("技能：Divine Comfort · CRUSADER：暴击 · 印刷治疗值 3");
+    await expect(log.getByText(/· 未结算效果$/, { exact: false })).toHaveCount(3);
+    await log.getByText("CRUSADER · 未结算效果", { exact: true }).click();
+    await expect(log.getByText("组合标记没有额外结算。", { exact: true }).first()).toBeVisible();
     await page.screenshot({ path: testInfo.outputPath("multi-target-result.png"), fullPage: true });
     // 成功使用后再次尝试不会扣行动或多掷骰。
     await page.getByRole("button", { name: "使用技能", exact: true }).click();
@@ -189,6 +194,9 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
   await page.getByRole("button", { name: "结算怪物技能", exact: true }).click();
   await expect(page.getByTestId("turn-status")).toHaveText("等待抽取先攻");
   await expect(page.getByTestId("entity-hero-0")).toContainText("伤口 5/17");
+  await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
+    "技能：Graveyard Slash · CRUSADER：命中 · 伤害 5",
+  );
   // 同一条单场流程冒烟覆盖另外两种已核实怪物组合，真实按钮走完四轮撤退。
   for (const layout of ["pair", "trio", "formalSoldier", "formalMixed", "formalBack"]) {
     const formal = layout.startsWith("formal");

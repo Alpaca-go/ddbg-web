@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：Phase 2 技能结算日志（2026-10-11）
+
+Kyries 本轮授权合并并继续。#96 head `7c52fb9` 两套 CI 共四项成功，已合并为 `730558d`，本地 main 已 `pull --ff-only` 同步。继续 Phase 2，未授权 Phase 3。
+
+- 分支 `codex/phase2-readable-combat-log`：英雄 / 怪物、单目标 / 多目标四类技能事件共用只读结果组件，显示使用者、真实技能名、逐目标命中结果、已有 damageDealt / riposteDamage 以及明确的无视防护标记。技能名查现有已批准核心盒数据，找不到保留 ID；不从当前棋子状态逆推历史结果。
+- 治疗只显示事件的 printedAmount，并标为「印刷治疗值」，不宣称这是实际减少的伤口，避免忽略 Life 上限和生命钩子。null 不补 0，落空不伪造伤害。多目标也逐目标显示 skipped，补齐原先只处理单目标的未结算提示；组合标记仍不赋额外语义（R-048）。
+- 资料查现有规范化 hero_skill / monster_medium 及引擎事件字段定义。沿用 R-001 / R-048 和已有结算，无新增规则、数据、卡池或 RNG / 命令变化；原始资料与图片不入库。原三条冒烟保持数量，补治疗印刷值、三目标 skipped 与真实怪物伤害断言。
+
+验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build、diff 检查通过；原三条 Chrome 冒烟成功（58.4 秒），多目标日志截图无溢出。默认 Chromium 1243 本机缺失，使用忽略目录 Chrome 配置，CI 配置不改。提交后核对准确 head CI。下一候选为 Phase 2 位移 / 状态事件日志的可读呈现；未知图标、缺 duration、Q-52 和后续阶段边界继续保留。
+
 ## 最新进度：Phase 2 英雄 / 怪物卡面信息（2026-10-11）
 
 Kyries 本轮授权合并并继续 Phase 2。#95 head `d0cafa1` 两套 CI 共四项成功，已合并为 `11b7e44`，本地 main 已 `pull --ff-only` 同步；未授权 Phase 3。
@@ -8,7 +18,7 @@ Kyries 本轮授权合并并继续 Phase 2。#95 head `d0cafa1` 两套 CI 共四
 - 所需资料已查规范化核心盒 hero_skill / monster_medium 与其已批准词典字段；confirmed / confirmed_rulebook 直接显示 meaning_zh，英文说明可悬停查看。英文原文、数字、符号、Nt 保持原样，不解析或补值；decor 不冒充未知图标，其余状态只保留原始 ID 占位。遵守 R-001 / R-048，无新增规则、数据注解或卡池开放，无原始资料 / 图片入库。
 - 原三条冒烟保持数量不变，补英雄状态卡原文 / 中文图标与怪物已选技能显示断言；原有行动、冻结、RNG、回放与正式三组合路径继续验证。仅 UI 展示，不改变结算或命令。
 
-验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build 通过；本地以 Chrome 跑同样三条冒烟成功（54.7 秒；默认 Chromium 1243 本机未安装），截图检查卡面无溢出。[草稿 PR #96](https://github.com/Alpaca-go/ddbg-web/pull/96)，实现提交 `7153c2a`，分支包含本段交接更新，准确 head CI 以 PR 为准；本次合并授权覆盖 #95，新 PR 留待审阅。下一候选为 Phase 2 战斗日志中实际结算结果的可读呈现；Q-52、未知图标、缺 duration 与后续阶段边界继续保留。
+验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build 通过；本地以 Chrome 跑同样三条冒烟成功（54.7 秒；默认 Chromium 1243 本机未安装），截图检查卡面无溢出。[PR #96](https://github.com/Alpaca-go/ddbg-web/pull/96) head `7c52fb9` 两套 CI 共四项成功，经 Kyries 批准合并为 `730558d`，本地 main 已同步。下一候选为 Phase 2 战斗日志中实际结算结果的可读呈现；Q-52、未知图标、缺 duration 与后续阶段边界继续保留。
 
 ## 最新进度：Phase 2 战斗步骤与待选提示（2026-10-10）
 
