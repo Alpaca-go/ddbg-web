@@ -255,6 +255,9 @@ small {
   color: #aaa599;
   margin-top: 0.5rem;
 }
+.card-icon-label {
+  color: #e0cf9f;
+}
 .log {
   margin-top: 1rem;
 }
