@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：Phase 2 怪物选招历史日志（2026-10-11）
+
+本轮按交接检查进度并继续 Phase 2。已合并基线为 main `b87e3e8`（#98）；[补给 / 宝箱历史日志 #99](https://github.com/Alpaca-go/ddbg-web/pull/99) 仍是开放草稿，head `097d384`，留待审阅。本块从 origin/main 独立开分支，不依赖 #99 的实现。下文 #98 的待审阅描述是当时记录，最新状态以本段为准；不扩展为 Phase 3 或无限自动合并授权。
+
+- 分支 `codex/phase2-readable-monster-selection`：monsterActionPrepared / monsterActionSkipped 保存选招时的 skillId 与卡面 targetPriority，仅补事件观察信息，不改变 PreparedMonsterAction、选目标、行动或 RNG。日志显示怪物、真实技能名、固定技能不掷骰 / 已记录的选招 d10，以及最终英雄目标或无有限距离目标的跳过事实；选招骰与原攻击骰分开标注。
+- 卡面优先级与最终目标分别呈现，Guard 覆盖时仍保留卡面文字；不从当前伤口、压力、Guard、Mark 或棋子位置推断历史选人原因。技能名查既有已批准数据，查不到保留 ID。资料核对规范化 monster_medium 的 Bone Soldier / Bone Courtier / Bone Rabble、既有选招 / 选目标实现、说明书 §6.10（官方 R17、R21–24）与 R-015、R-023、R-024、R-048，遵守 R-001，不新增规则或图标命名。
+- 扩展既有场景测试：固定选招不消耗 RNG、选招与攻击共用 RNG 且回放一致、Guard 覆盖仍记录印刷优先级、Closest / Furthest 断图跳过仍保存原选招骰。原三条冒烟数量不变，核对固定选招 / 历史目标与正式布置的断图跳过日志。浏览器未触发选招骰显示分支，不宣称该分支已完成浏览器验收。
+
+验证：使用忽略目录中的 Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build、diff 检查通过。原三条 Chrome 冒烟全部成功：两条首次通过，单场流程新增断言按真实姿态表修正后重跑成功（40.6 秒）；固定选招截图无溢出。沿用忽略目录的 Chrome 配置，仓库 / CI 配置不改。[草稿 PR #100](https://github.com/Alpaca-go/ddbg-web/pull/100)，实现提交 `7378876`；分支包含本段交接更新，准确 head CI 以 PR 为准，合并留待 Kyries 审阅。下一候选为 Phase 2 意志检定 / 美德折磨触发事件的角色与卡名日志；未知图标、缺 duration、Q-52 和后续阶段边界继续保留。
+
 ## 最新进度：Phase 2 位移 / 状态 / 生命日志（2026-10-11）
 
 Kyries 本轮授权合并并继续。#97 head `ad98fcf` 两套 CI 共四项成功，已合并为 `e7d8df6`，本地 main 已 `pull --ff-only` 同步。范围仍为 Phase 2，未授权 Phase 3。

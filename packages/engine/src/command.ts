@@ -158,6 +158,8 @@ export type GameEvent =
       readonly actorId: string;
       readonly skillSlot: number;
       readonly selectionRoll: number | null;
+      readonly skillId: string;
+      readonly targetPriority: string;
       readonly message: string;
     }
   | {

@@ -684,6 +684,8 @@ describe("怪物选招与目标命令接线（R-015、R-024）", () => {
         skillSlot: 1,
         targetId: "h1",
         selectionRoll: null,
+        skillId: `${soldier.id}:skill1`,
+        targetPriority: "Most Wounded",
       },
     ]);
     expect(result.state.battle!.rngCursor).toBe(initial.battle!.rngCursor);
@@ -705,6 +707,11 @@ describe("怪物选招与目标命令接线（R-015、R-024）", () => {
     });
     expect(chosen.state.battle!.rngCursor).toBe(initial.battle!.rngCursor + 1);
     expect(chosen.state.battle!.monsterAction!.selectionRoll).toBeGreaterThanOrEqual(1);
+    expect(chosen.events[0]).toMatchObject({
+      skillId: `${soldier.id}:skill1`,
+      targetPriority: "Most Wounded",
+      selectionRoll: nextBattleRoll(initial.seed, initial.battle!.rngCursor),
+    });
     expect(applyCommand(chosen.state, prepare).state).toBe(chosen.state);
     const fired = applyCommand(chosen.state, play());
     expect(fired.events[0]?.type).toBe("monsterSkillResolved");
@@ -748,6 +755,10 @@ describe("怪物选招与目标命令接线（R-015、R-024）", () => {
     );
     const result = applyCommand(initial, prepare);
     expect(result.state.battle!.monsterAction).toMatchObject({ skillSlot: 1, targetId: "h3" });
+    expect(result.events[0]).toMatchObject({
+      targetPriority: "Most Wounded",
+      targetId: "h3",
+    });
   });
 
   it("方向 / 区域选择保存选招结果，不重掷选招骰或绕过目标约束", () => {

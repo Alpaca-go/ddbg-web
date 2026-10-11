@@ -25,6 +25,9 @@ export type PreparedMonsterAction = {
 export type MonsterActionPreparedEvent = PreparedMonsterAction & {
   readonly type: "monsterActionPrepared";
   readonly message: string;
+  /** 选招时的卡面信息，仅供历史日志；不参与后续行动状态。 */
+  readonly skillId: string;
+  readonly targetPriority: string;
 };
 
 /** R-015、R-024，说明书 §6.10（R17、R22、R24）：先选招，再选目标，不移动。 */
@@ -84,6 +87,10 @@ export function prepareMonsterAction(
     heroes,
   );
   if (target.status === "refused") return rejectBattleCommand(state, target.reason);
+  const selectionDetails = {
+    skillId: `${card.id}:skill${selected.skillSlot}`,
+    targetPriority: card.skills.find((skill) => skill.slot === selected.skillSlot)!.target!,
+  };
   if (target.status === "noFiniteTarget") {
     if (actor.stanceSlots !== 1)
       return rejectBattleCommand(state, "无有限距离目标的跳过只接普通怪，本切片不处理大型怪");
@@ -122,6 +129,7 @@ export function prepareMonsterAction(
           actorId: actor.id,
           skillSlot: selected.skillSlot,
           selectionRoll: selected.roll,
+          ...selectionDetails,
           message: "Closest / Furthest 没有有限距离英雄，原地跳过剩余回合（R-023 补充）",
         },
         ...finished.events,
@@ -143,6 +151,13 @@ export function prepareMonsterAction(
         rngCursor: battle.rngCursor + (needsRoll ? 1 : 0),
       },
     },
-    events: [{ ...action, type: "monsterActionPrepared", message: "已按姿态选招并确定英雄目标" }],
+    events: [
+      {
+        ...action,
+        ...selectionDetails,
+        type: "monsterActionPrepared",
+        message: "已按姿态选招并确定英雄目标",
+      },
+    ],
   };
 }

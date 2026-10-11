@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState, roomTileBattleAreas } from "./index";
+import { nextBattleRoll } from "./encounter";
 import type { BattleArea, BattleEntity, GameState, MonsterCardView, SkillStance } from "./index";
 
 const read = (file: string) =>
@@ -623,6 +624,9 @@ describe("普通怪单目标 Speed 定位（R18、R24–25；R-021/023/024/048/0
         type: "monsterActionSkipped",
         actorId: "m",
         skillSlot: 1,
+        skillId: `${soldier.id}:skill1`,
+        targetPriority: target,
+        selectionRoll: nextBattleRoll(initial.seed, initial.battle!.rngCursor),
       });
       expect(position(result.state)).toBe("F");
       expect(result.state.battle!.rngCursor).toBe(initial.battle!.rngCursor + 1);

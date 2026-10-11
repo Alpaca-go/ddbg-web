@@ -162,6 +162,11 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
     await expect(monsterCard).toContainText("Crit");
     await expect(monsterCard).toContainText("Acc");
     await expect(monsterCard).toContainText("[伤害（图标内数字为伤害值）]");
+    const selectionLog = page.getByRole("region", { name: "战斗日志" });
+    await expect(selectionLog).toContainText(
+      "Bone Soldier · 技能 1：Graveyard Slash · 固定技能（不掷选招骰）",
+    );
+    await expect(selectionLog).toContainText(/卡面目标优先级：.+ · 最终目标：CRUSADER/);
     await page.screenshot({ path: testInfo.outputPath("monster-skill-card.png"), fullPage: true });
     await page.getByRole("button", { name: "怪物移动到射程", exact: true }).click();
     await page.getByRole("button", { name: "结算怪物技能", exact: true }).click();
@@ -191,6 +196,12 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
   await page.getByRole("button", { name: "怪物选招与选目标", exact: true }).click();
   await expect(page.getByRole("complementary", { name: "行动面板" })).toContainText(
     "技能 1 → CRUSADER",
+  );
+  await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
+    "Bone Soldier · 技能 1：Graveyard Slash · 固定技能（不掷选招骰）",
+  );
+  await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
+    "卡面目标优先级：Most Wounded · 最终目标：CRUSADER",
   );
   await page.getByRole("button", { name: "怪物移动到射程", exact: true }).click();
   await expect(page.getByTestId("area-B")).toContainText("Bone Soldier");
@@ -325,6 +336,13 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
     await expect(page.getByTestId("turn-status")).toHaveText("第 4 轮结束：撤退");
     await expect(page.getByTestId("step-hint")).toContainText("单场结束");
     if (formal) {
+      const log = page.getByRole("region", { name: "战斗日志" });
+      await expect(log).toContainText("固定技能（不掷选招骰）");
+      if (layout === "formalSoldier") {
+        await expect(log).toContainText(
+          "卡面目标优先级：Furthest · 没有有限距离目标，本回合跳过攻击",
+        );
+      }
       expect(lootUsed).toBe(true);
       await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
         "CRUSADER · 同时伤口 0",
