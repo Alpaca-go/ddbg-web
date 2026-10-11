@@ -5176,6 +5176,11 @@
      "text": " 2"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -38966,11 +38971,6 @@
   },
   {
    "id": "hero_skill:p088",
-   "verified_range": {
-    "min": 1,
-    "max": 2,
-    "source": "print_front"
-   },
    "pages": [
     88
    ],
@@ -39236,6 +39236,11 @@
      "text": " 4"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
