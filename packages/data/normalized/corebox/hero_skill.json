@@ -8034,6 +8034,13 @@
      }
     ]
    ],
+   "verified_target_support": {
+    "lineIndex": 1,
+    "heal": 1,
+    "stress": -1,
+    "light": 1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",

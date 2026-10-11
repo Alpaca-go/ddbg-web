@@ -41,6 +41,7 @@ export function battleDataPlugin(): Plugin {
         "hero_skill:p010",
         "hero_skill:p013",
         "hero_skill:p016",
+        "hero_skill:p019",
         "hero_skill:p022",
         "hero_skill:p031",
         "hero_skill:p034",

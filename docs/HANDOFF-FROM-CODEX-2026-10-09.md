@@ -1,5 +1,16 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：Phase 2 Inspiring Cry I 复合支持效果（2026-10-11）
+
+Kyries 本轮授权合并并继续。#109 准确 head `e8429ca` 的 PR / push CI 成功，按 merge 合并为 `d3687b6`；本地 main 已 ff-only 同步，从 main 独立建立 `codex/phase2-inspiring-cry`。#99 / #103 / #107 保持待审；本块另开草稿 PR，准确 head CI 以 PR 为准。
+
+- 只读查看完整印刷 `DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf` 第 19 页：四姿态、射程 0、单英雄目标，目标治疗 1 / 压力 −1 / 光照 +1，无 Acc。规则依据官方核心 R19–21、规格书 §6.5 / §6.9、R-022 / R-025；遵守 R-001 / R-048，印刷件只提供文字数字，不补规则。
+- 独立 `verified_target_support` 注解严格匹配 I 级、卡名、页码、验证状态、目标行、完整效果行和已命名图标；原 +1 的 numeric=null 保留。只有注解存在才读取提取在效果列表中的射程 / 目标行；无注解或漂移仍拒绝。引擎纯函数结算治疗、减压与光照，生命层写回，不消耗 RNG、无暴击；目标集合选择使用者时避免重复治疗。
+- 只将 p019 加入沙盒白名单，技能池 19 → 20；II / III、p025 与未知字段仍不开放。组合标记保留原展示 / 跳过记录，不从该标记发明新效果。`verified_target_support` 属 Phase 2 沙盒数据形状，正式存档格式仍未定案。
+- 六项真实卡测试覆盖生成漂移、四姿态 / 十骰面、缺注解与缺轨 / 敌方 / 射程拒绝、单目标 / 集合 / 自身、光照封顶 / 治疗减压封零、空区、成功重用锁与回放；真实 Life 测试验证治疗离开死门且不掷骰。原三条 Chrome 冒烟扩展真实卡面、友方治疗、使用者不变、行动扣减和 RNG 不变；截图无溢出。
+
+验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、51 文件 461 项测试、build；原三条 Chrome 冒烟通过（1.3 分钟）。无新 Q，PDF / 图片缓存不入库，未确认图标 / 缺 duration / Q-52 / Phase 3 边界保留。本块待 Kyries 审阅合并；下一块继续审核 Hellion 尚未接入的 I 级卡，先核完整卡面与现有支持范围。
+
 ## 最新进度：Phase 2 Holy Lance I 完整效果与沙盒接入（2026-10-11）
 
 Kyries 本轮授权合并并继续。#108 最新 head `4a4177a` 的 PR / push 四项 CI 均成功，按 merge 合并为 `29027fa`；本地 main 已 `pull --ff-only` 同步，从 main 独立建立 `codex/phase2-holy-lance`。[草稿 PR #109](https://github.com/Alpaca-go/ddbg-web/pull/109)，实现提交 `bcaf270`；准确 head CI 以 PR 为准。#99 / #103 / #107 仍为开放草稿，本轮合并授权对应 #108，不扩展到其他草稿。

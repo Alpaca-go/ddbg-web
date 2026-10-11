@@ -142,7 +142,14 @@ export function playHeroSkillTargets(
   const resolutions = effects.map((e) => e.resolution);
   const actorResult = resolutions.find((r) => r.outcome === "crit") ?? resolutions[0]!;
   const healthEffects = multiTargetHealthEffects(effects);
-  const actorWounds = projectActorWounds(actor.id, actor.wounds, healthEffects);
+  // 支持卡可选择使用者自己；writeResolution 会合并目标治疗，不能先计入自身投影再减一次。
+  const actorWounds = projectActorWounds(
+    actor.id,
+    actor.wounds,
+    skill.verified_target_support
+      ? healthEffects.filter((e) => e.source !== "targetHeal")
+      : healthEffects,
+  );
   const entities = battle.entities.map((entity) => {
     const targetResult = resolutions.find((r) => r.targetId === entity.id);
     const resolution = targetResult

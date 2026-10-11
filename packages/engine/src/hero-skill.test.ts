@@ -61,6 +61,7 @@ for (const entry of file.cards) {
   delete legacy.verified_status_effects;
   delete legacy.verified_range;
   delete legacy.verified_damage_bonus;
+  delete legacy.verified_target_support;
   cards.set(entry.id, legacy);
 }
 
