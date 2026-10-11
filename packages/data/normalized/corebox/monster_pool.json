@@ -1,0 +1,413 @@
+{
+ "schema": "ddbg-monster-pool-v1",
+ "source": {
+  "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_monsters_medium_FRONT.pdf",
+  "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_monsters_medium_BACK.pdf"
+ },
+ "cards": [
+  {
+   "id": "monster_medium:p001",
+   "combatCardId": "monster_medium:p001",
+   "name": "Bone Soldier",
+   "location": "ruins",
+   "level": 1,
+   "pages": [
+    1,
+    2,
+    3
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": []
+  },
+  {
+   "id": "monster_medium:p004",
+   "combatCardId": "monster_medium:p004",
+   "name": "Bone Courtier",
+   "location": "ruins",
+   "level": 1,
+   "pages": [
+    4,
+    5,
+    6
+   ],
+   "edge": "back",
+   "stanceSlots": 1,
+   "missingBattleFields": []
+  },
+  {
+   "id": "monster_medium:p007",
+   "combatCardId": "monster_medium:p007",
+   "name": "Bone Arbalist",
+   "location": "ruins",
+   "level": 1,
+   "pages": [
+    7,
+    8,
+    9
+   ],
+   "edge": "back",
+   "stanceSlots": 1,
+   "missingBattleFields": []
+  },
+  {
+   "id": "monster_medium:p010",
+   "combatCardId": "monster_medium:p010",
+   "name": "Bone Defender",
+   "location": "ruins",
+   "level": 1,
+   "pages": [
+    10,
+    11
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": []
+  },
+  {
+   "id": "monster_medium:p012",
+   "combatCardId": "monster_large:p001",
+   "name": "Bone Captain",
+   "location": "ruins",
+   "level": 2,
+   "pages": [
+    12
+   ],
+   "edge": "front",
+   "stanceSlots": 2,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p013",
+   "combatCardId": "monster_medium:p013",
+   "name": "Bone Spearman",
+   "location": "ruins",
+   "level": 2,
+   "pages": [
+    13,
+    14,
+    15
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p016",
+   "combatCardId": "monster_medium:p016",
+   "name": "Bone Bearer",
+   "location": "ruins",
+   "level": 3,
+   "pages": [
+    16,
+    17
+   ],
+   "edge": "back",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p018",
+   "combatCardId": "monster_medium:p018",
+   "name": "Cultist Brawler",
+   "location": "common",
+   "level": 1,
+   "pages": [
+    18,
+    19,
+    20
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p021",
+   "combatCardId": "monster_medium:p021",
+   "name": "Cultist Acolyte",
+   "location": "common",
+   "level": 1,
+   "pages": [
+    21,
+    22,
+    23
+   ],
+   "edge": "back",
+   "stanceSlots": 1,
+   "missingBattleFields": []
+  },
+  {
+   "id": "monster_medium:p024",
+   "combatCardId": "monster_medium:p024",
+   "name": "Brigand Cutthroat",
+   "location": "common",
+   "level": 1,
+   "pages": [
+    24,
+    25,
+    26
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p027",
+   "combatCardId": "monster_medium:p027",
+   "name": "Brigand Fusilier",
+   "location": "common",
+   "level": 1,
+   "pages": [
+    27,
+    28,
+    29
+   ],
+   "edge": "back",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p030",
+   "combatCardId": "monster_large:p002",
+   "name": "Brigand Bloodletter",
+   "location": "common",
+   "level": 1,
+   "pages": [
+    30
+   ],
+   "edge": "front",
+   "stanceSlots": 2,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p031",
+   "combatCardId": "monster_medium:p031",
+   "name": "Maggot",
+   "location": "common",
+   "level": 1,
+   "pages": [
+    31,
+    32,
+    33
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p034",
+   "combatCardId": "monster_medium:p034",
+   "name": "Webber",
+   "location": "common",
+   "level": 1,
+   "pages": [
+    34,
+    35,
+    36
+   ],
+   "edge": "back",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p037",
+   "combatCardId": "monster_medium:p037",
+   "name": "Spitter",
+   "location": "common",
+   "level": 1,
+   "pages": [
+    37,
+    38,
+    39
+   ],
+   "edge": "back",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p040",
+   "combatCardId": "monster_medium:p040",
+   "name": "Bone Rabble",
+   "location": "common",
+   "level": 1,
+   "pages": [
+    40,
+    41,
+    42
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": []
+  },
+  {
+   "id": "monster_medium:p043",
+   "combatCardId": "monster_medium:p043",
+   "name": "Madman",
+   "location": "common",
+   "level": 1,
+   "pages": [
+    43,
+    44,
+    45
+   ],
+   "edge": "back",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p046",
+   "combatCardId": "monster_medium:p046",
+   "name": "Pliskin",
+   "location": "common",
+   "level": 1,
+   "pages": [
+    46,
+    47,
+    48
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p049",
+   "combatCardId": "monster_large:p003",
+   "name": "Ghoul",
+   "location": "common",
+   "level": 2,
+   "pages": [
+    49
+   ],
+   "edge": "front",
+   "stanceSlots": 2,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p050",
+   "combatCardId": "monster_medium:p050",
+   "name": "Gargoyle",
+   "location": "common",
+   "level": 2,
+   "pages": [
+    50,
+    51,
+    52
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p053",
+   "combatCardId": "monster_medium:p053",
+   "name": "Rattler",
+   "location": "common",
+   "level": 2,
+   "pages": [
+    53,
+    54,
+    55
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p056",
+   "combatCardId": "monster_medium:p056",
+   "name": "Brigand Raider",
+   "location": "common",
+   "level": 3,
+   "pages": [
+    56,
+    57,
+    58
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p059",
+   "combatCardId": "monster_medium:p059",
+   "name": "Brigand Hunter",
+   "location": "common",
+   "level": 3,
+   "pages": [
+    59,
+    60,
+    61
+   ],
+   "edge": "back",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  },
+  {
+   "id": "monster_medium:p062",
+   "combatCardId": "monster_large:p004",
+   "name": "Adder",
+   "location": "common",
+   "level": 3,
+   "pages": [
+    62
+   ],
+   "edge": "front",
+   "stanceSlots": 2,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ]
+  }
+ ]
+}

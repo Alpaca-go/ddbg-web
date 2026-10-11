@@ -8,6 +8,8 @@ import { battleData } from "virtual:battle-data";
 import distribution from "../../../packages/data/normalized/corebox/scout_ahead_distribution.json";
 import rawRooms from "../../../packages/data/normalized/corebox/room.json";
 import { roomFileSchema } from "../../../packages/data/src/room";
+import rawMonsterPool from "../../../packages/data/normalized/corebox/monster_pool.json";
+import { monsterPoolFileSchema } from "../../../packages/data/src/monster-pool";
 import { approvedRoomTileGeometry } from "../../../packages/data/src/normalize/room-tile";
 import rawCurios from "../../../packages/data/normalized/corebox/curio.json";
 import { curioFileSchema } from "../../../packages/data/src/curio";
@@ -105,6 +107,7 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
     },
     curios,
     roomFileSchema.parse(rawRooms).cards,
+    monsterPoolFileSchema.parse(rawMonsterPool).cards,
   );
   // 此布置以已清理的起始房间演示真实走廊往返，不模拟该房间的战斗或奖励。
   const game =
@@ -339,6 +342,36 @@ export function DungeonSandbox() {
                     </p>
                   )}
                   <p role="status">{active.blockedReason}</p>
+                  {active.tileId && !d.monsterPool?.active && (
+                    <button onClick={() => dispatch({ type: "prepareDungeonMonsters" })}>
+                      从完整 42 张怪物池抽牌并记录部署
+                    </button>
+                  )}
+                  {d.monsterPool?.active && (
+                    <div data-testid="dungeon-monsters">
+                      <p>
+                        Common + Ruins I · 完整牌池 42 张 · 余牌 {d.monsterPool.remaining!.length} ·
+                        部署 {d.monsterPool.active.monsters.length} · 弃牌{" "}
+                        {d.monsterPool.discarded.length}
+                      </p>
+                      {d.monsterPool.active.monsters.map((m) => (
+                        <p key={m.instanceId}>
+                          {d.monsterPool!.cards.find((c) => c.combatCardId === m.cardId)!.name} ·{" "}
+                          {m.instanceId} ·{" "}
+                          {
+                            {
+                              aggressive: "进攻",
+                              defensive: "防御",
+                              ranged: "远程",
+                              support: "支援",
+                            }[m.stance]
+                          }{" "}
+                          → {m.areaId} · 占 {m.stanceSlots} 格
+                        </p>
+                      ))}
+                      <p>原牌与余牌已保留，等待正式战斗接线。</p>
+                    </div>
+                  )}
                 </div>
               );
             })()}

@@ -1,5 +1,16 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：完整怪物牌池与守卫部署记录（2026-10-12，UTC+8）
+
+#113 已按 Kyries 指示合并为 main `258459e`，本地 main 已同步。后续主题在 `codex/phase3-monster-pool`，实现提交 `ba8a854`，[PR #114](https://github.com/Alpaca-go/ddbg-web/pull/114) 为待合并草稿；下文 #113 待合并与三种沙盒怪物的描述属于历史状态。
+
+- 从本地官方 R10 / R16–17 与印刷件核对并生成完整 Common + Ruins 普通池：三等级共 62 张，I 级 42 张 / 15 种。按实际页创建唯一实例，大型引用映射战斗卡、不重复计份数，未过滤缺战斗数据的卡。
+- `packages/data/src/monster-pool.ts` / `normalize/monster-pool.ts` / `normalized/corebox/monster_pool.json` 提供校验与可再生目录；`packages/engine/src/dungeon-monsters.ts` 的 `prepareDungeonMonsters` 接获批 Ritual Chamber 抽怪和部署记录。共享 RNG 游标 +41，记录余牌 / 弃牌 / 活动怪物；重复操作及非法入口原子拒绝。
+- `/?phase=3` 的种子 11 布置可进入真实 42 张池，抽到 Rabble / Pliskin / Rabble / Spitter；保存原牌与缺字段停点。九种 I 级怪物仍缺获批 Speed / 姿态选招，六种已有基础字段也不等于本轮完成正式战斗。
+- 验证：typecheck、lint、Vitest 65 文件 / 636 项、build、Playwright 6 条通过，截图已检查。本轮没有提交资料库图像 / PDF，没有改变规则裁定或未确认数值；原有 `docs/_q52-search.txt` 保留。
+
+Phase 2 按批准范围完成；Phase 3 仍未形成完整任务，Phase 4–6 未完成。下一块优先复核缺失 I 级怪物字段，然后接地牢英雄状态、房间效果、先攻、正式战斗与胜利 / 四轮退场回传。其余房间、休息、撤离、任务奖励 / XP 及现有 Q 停点不变。完整资料分堆、复现与限制见 [本轮交付](phase3-monster-pool-2026-10-12.md)。
+
 ## 最新交接：Phase 3 地牢探索（2026-10-12，UTC+8）
 
 本节补齐 Phase 3 开始以来遗漏的主交接记录。此前各刀已写独立交付文档，但本文件没有同步更新。**接手以本节为准；下文 Phase 2 的“待合并 / 下一块”均为历史记录。** 阶段目标仍按 [开发大纲 §5](plan.md)：Phase 3 要交付完整单任务流程，并跑通至少三张不同核心任务卡；当前尚未达到验收。

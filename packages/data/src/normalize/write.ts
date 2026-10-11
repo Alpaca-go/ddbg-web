@@ -50,6 +50,7 @@ export function writeNormalizedCorebox(
   const built = loadNormalizedCorebox();
   mkdirSync(outputDir, { recursive: true });
   const files: [string, unknown][] = [
+    ["monster_pool.json", built.monster_pool],
     ["room.json", built.room],
     ["curio.json", built.curio],
     ["hero_stat.json", built.hero_stat],
