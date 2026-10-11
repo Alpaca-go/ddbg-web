@@ -11,6 +11,7 @@ import type { SkillStance } from "./hero-skill";
 import { curioCatalogSchema } from "../../data/src/curio";
 import type { CurioCard } from "../../data/src/curio";
 import { resolveDungeonCurio } from "./dungeon-curio";
+import { beginDungeonRoom, chooseDungeonTrap } from "./dungeon-room";
 
 export type DungeonCurioDraw = {
   readonly cardId: string;
@@ -68,7 +69,13 @@ export type DungeonState = {
     | "awaitingReplacement"
     | "awaitingRoom"
     | "awaitingCurio";
-  readonly pressureSource?: "scout" | "exploration" | "backtracking";
+  readonly pressureSource?: "scout" | "exploration" | "backtracking" | "room";
+  readonly roomResolution?: {
+    readonly roomId: string;
+    readonly dungeonLevel: number;
+    readonly resolvedHeroIds: readonly string[];
+    readonly completed: boolean;
+  };
   readonly traversedCorridors?: readonly (readonly [string, string])[];
   readonly backtracking?: { readonly from: string; readonly to: string } | null;
   readonly explorationSetup?: DungeonExplorationSetup;
@@ -93,6 +100,7 @@ export type DungeonCommand =
   | { readonly type: "beginDungeonBacktrack" }
   | { readonly type: "rollDungeonExploration" }
   | { readonly type: "resolveDungeonCurio" }
+  | { readonly type: "resolveDungeonRoom" }
   | { readonly type: "resolveDungeonPressure" };
 
 /** 固定地图/任务首切片沙盒。当前位置可注入，以测试房间结算后的侦察接口；不是战役布置。 */
@@ -198,6 +206,9 @@ export function applyDungeonCommand(
     ...(dungeon.pending ? { pendingChoice: dungeon.pending } : {}),
   });
   if (!d || state.battle) return refuse("需要独立地牢沙盒");
+  if (command.type === "resolveDungeonRoom") return beginDungeonRoom(state);
+  if (command.type === "resolveChoice" && d.pending?.id.startsWith("dungeon-trap-"))
+    return chooseDungeonTrap(state, command);
   if (
     command.type === "beginDungeonBacktrack" ||
     (command.type === "resolveChoice" && d.pending?.id.startsWith("dungeon-backtrack:"))
@@ -254,6 +265,7 @@ export function applyDungeonCommand(
         ...d,
         pending: null,
         backtracking: null,
+        pressureSource: "exploration",
         scoutBonus: false,
         phase: "awaitingHazards",
         exploration: {
