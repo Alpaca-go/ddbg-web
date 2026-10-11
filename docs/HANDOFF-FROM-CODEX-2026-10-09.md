@@ -2,7 +2,7 @@
 
 ## 最新进度：Phase 2 Judgement I 射程补洞（2026-10-11）
 
-Kyries 本轮授权合并并继续。#105 准确 head `4b49b41` 的 PR / push 四项 CI 成功，按 merge 合并为 `3cd9d40`；本地 main 已 `pull --ff-only` 同步，从 main 独立开发 `codex/phase2-judgement-range`。#99 / #103 仍为开放草稿。
+Kyries 本轮授权合并并继续。#105 准确 head `4b49b41` 的 PR / push 四项 CI 成功，按 merge 合并为 `3cd9d40`；本地 main 已 `pull --ff-only` 同步，从 main 独立开发 `codex/phase2-judgement-range`。[草稿 PR #106](https://github.com/Alpaca-go/ddbg-web/pull/106)，实现提交 `c977fe8`，准确 head CI 以 PR 为准。#99 / #103 仍为开放草稿。
 
 - 盘点沙盒现有 17 张 I 级英雄技能：Judgement I 的自身治疗 / 攻击已有纯函数，但公共命令仍因区间射程未复核拒绝。只读查看完整 `DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf` 第 88 / 91 页：Judgement I 印为 1–2，Dazzling Light I 为整数 1（已有解析可用）。官方 R19 完整页面图像明确区间内可选区域；规格书 §6.5 / §6.9、R-022 / R-025、R-001 / R-048。
 - 只给 `hero_skill:p088` 附 `verified_range`，严格匹配 I 级 / 卡名 / 已验证状态 / 已命名射程图标及原 1-2 文本。保留原 numeric=null，不修改词典或推断 II / III 级。规范化生成一致性测试通过；引擎规则、UI 卡池和命令格式无改动。
