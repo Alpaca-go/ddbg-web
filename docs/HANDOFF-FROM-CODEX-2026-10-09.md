@@ -8,7 +8,7 @@ Kyries 本轮授权合并并继续。#96 head `7c52fb9` 两套 CI 共四项成�
 - 治疗只显示事件的 printedAmount，并标为「印刷治疗值」，不宣称这是实际减少的伤口，避免忽略 Life 上限和生命钩子。null 不补 0，落空不伪造伤害。多目标也逐目标显示 skipped，补齐原先只处理单目标的未结算提示；组合标记仍不赋额外语义（R-048）。
 - 资料查现有规范化 hero_skill / monster_medium 及引擎事件字段定义。沿用 R-001 / R-048 和已有结算，无新增规则、数据、卡池或 RNG / 命令变化；原始资料与图片不入库。原三条冒烟保持数量，补治疗印刷值、三目标 skipped 与真实怪物伤害断言。
 
-验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build、diff 检查通过；原三条 Chrome 冒烟成功（58.4 秒），多目标日志截图无溢出。默认 Chromium 1243 本机缺失，使用忽略目录 Chrome 配置，CI 配置不改。提交后核对准确 head CI。下一候选为 Phase 2 位移 / 状态事件日志的可读呈现；未知图标、缺 duration、Q-52 和后续阶段边界继续保留。
+验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、47 文件 429 测试、build、diff 检查通过；原三条 Chrome 冒烟成功（58.4 秒），多目标日志截图无溢出。默认 Chromium 1243 本机缺失，使用忽略目录 Chrome 配置，CI 配置不改。[草稿 PR #97](https://github.com/Alpaca-go/ddbg-web/pull/97)，实现提交 `860db22`；分支包含本段交接更新，准确 head CI 以 PR 为准。本轮合并授权覆盖 #96，#97 留待审阅。下一候选为 Phase 2 位移 / 状态事件日志的可读呈现；未知图标、缺 duration、Q-52 和后续阶段边界继续保留。
 
 ## 最新进度：Phase 2 英雄 / 怪物卡面信息（2026-10-11）
 
