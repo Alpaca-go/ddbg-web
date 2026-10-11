@@ -2,7 +2,7 @@
 
 ## 最新进度：Phase 2 Holy Lance I 完整效果与沙盒接入（2026-10-11）
 
-Kyries 本轮授权合并并继续。#108 最新 head `4a4177a` 的 PR / push 四项 CI 均成功，按 merge 合并为 `29027fa`；本地 main 已 `pull --ff-only` 同步，从 main 独立建立 `codex/phase2-holy-lance`。#99 / #103 / #107 仍为开放草稿，本轮合并授权对应 #108，不扩展到其他草稿。
+Kyries 本轮授权合并并继续。#108 最新 head `4a4177a` 的 PR / push 四项 CI 均成功，按 merge 合并为 `29027fa`；本地 main 已 `pull --ff-only` 同步，从 main 独立建立 `codex/phase2-holy-lance`。[草稿 PR #109](https://github.com/Alpaca-go/ddbg-web/pull/109)，实现提交 `bcaf270`；准确 head CI 以 PR 为准。#99 / #103 / #107 仍为开放草稿，本轮合并授权对应 #108，不扩展到其他草稿。
 
 - 自行只读核对完整印刷 SKILLS_FRONT 第 16 页、官方核心规则书 R20 / R21 完整页面图像及现有 R19 依据：Holy Lance I 远程 / 支援可用，射程 1、单怪物、Crit 1 / 13、Acc 9 / 7，自身 Pull 1，对 Unholy 伤害 +1。沿用规格书 §6.5–6.7（R19–21）、R-017 / R-020 / R-026；遵守 R-001 / R-048，印刷件只作卡面数值来源。
 - 逐卡附加器仅给 p016 的目标效果行附已复核 `unholy` 条件 +1，校验卡名 / I 级 / 页码 / 验证状态 / 效果行原文与命名图标，保留原 +1 的 numeric=null；管线重新生成。条件伤害 schema / 纯函数扩展此条件，命中和暴击只加一次，再算 Riposte / Protection；落空不加，不推断同名 II / III。
