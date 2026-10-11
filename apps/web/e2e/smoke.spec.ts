@@ -146,6 +146,32 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   }
   const first = await heal();
   expect(await heal()).toBe(first);
+  // 逐卡复核的 Battle Heal I：Crusader 在 B，治疗 A 的 Vestal（距离 1）。
+  async function battleHeal() {
+    await page.getByRole("button", { name: "重新布置", exact: true }).click();
+    await page.getByRole("button", { name: "开始战斗", exact: true }).click();
+    await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p013");
+    await page.getByLabel("目标", { exact: true }).selectOption("hero-3");
+    await expect(page.getByTestId("skill-card-text")).toContainText("Battle Heal · 等级 1");
+    await expect(page.getByTestId("skill-card-text")).toContainText("[射程] 0-1");
+    await page.screenshot({ path: testInfo.outputPath("battle-heal-card.png"), fullPage: true });
+    await page.getByRole("button", { name: "使用技能", exact: true }).click();
+    await expect(page.getByTestId("entity-hero-3")).toContainText("伤口 1/12");
+    await expect(page.getByTestId("entity-hero-0")).toContainText("伤口 5/17");
+    await expect(page.getByTestId("turn-status")).toContainText("CRUSADER · 剩余 1 行动");
+    await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5");
+    const log = page.getByRole("region", { name: "战斗日志" });
+    await expect(log).toContainText("Battle Heal · VESTAL：暴击 · 印刷治疗值 4");
+    await page.screenshot({ path: testInfo.outputPath("battle-heal-result.png"), fullPage: true });
+    await page.getByRole("button", { name: "使用技能", exact: true }).click();
+    await expect(page.getByRole("status")).toContainText("本回合已成功使用");
+    await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5");
+    await expect(page.getByTestId("turn-status")).toContainText("剩余 1 行动");
+    expect((await log.innerText()).match(/d10=/g)).toHaveLength(1);
+    return log.innerText();
+  }
+  expect(await battleHeal()).toBe(await battleHeal());
   async function emptyArea() {
     await page.getByRole("button", { name: "重新布置", exact: true }).click();
     await page.getByRole("button", { name: "开始战斗", exact: true }).click();

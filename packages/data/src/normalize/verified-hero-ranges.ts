@@ -1,16 +1,17 @@
 import type { NormalizedHeroSkillCard } from "./schema";
-/** 已逐页对照印刷 44x68 SKILLS_FRONT p067 / p076 / p088；只附加已命名图标的区间。 */
+/** 已逐页对照印刷 44x68 SKILLS_FRONT p013 / p067 / p076 / p088；只附加已命名图标的区间。 */
 export function attachVerifiedHeroRanges(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return cards.map((card) => {
-    const names: Record<string, string> = {
-      "hero_skill:p067": "Pistol Shot",
-      "hero_skill:p076": "Tracking Shot",
-      "hero_skill:p088": "Judgement",
+    const reviewed: Record<string, { name: string; min: number; max: number }> = {
+      "hero_skill:p013": { name: "Battle Heal", min: 0, max: 1 },
+      "hero_skill:p067": { name: "Pistol Shot", min: 1, max: 2 },
+      "hero_skill:p076": { name: "Tracking Shot", min: 1, max: 2 },
+      "hero_skill:p088": { name: "Judgement", min: 1, max: 2 },
     };
-    const name = names[card.id];
-    if (!name) return card;
+    const range = reviewed[card.id];
+    if (!range) return card;
     const ranges = card.unlabeled_numbers.filter(
       (item) =>
         item.anchor.type === "beside_icon" &&
@@ -19,14 +20,14 @@ export function attachVerifiedHeroRanges(
         item.anchor.inside_icon === null,
     );
     if (
-      card.name !== name ||
+      card.name !== range.name ||
       card.level !== 1 ||
       card.verification.unverified ||
       ranges.length !== 1 ||
-      ranges[0]?.text !== "1-2" ||
+      ranges[0]?.text !== `${range.min}-${range.max}` ||
       ranges[0].numeric !== null
     )
       throw new Error(`${card.id} 已复核区间与印刷数据不匹配`);
-    return { ...card, verified_range: { min: 1, max: 2, source: "print_front" } };
+    return { ...card, verified_range: { min: range.min, max: range.max, source: "print_front" } };
   });
 }
