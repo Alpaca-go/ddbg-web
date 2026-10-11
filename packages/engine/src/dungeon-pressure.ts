@@ -98,7 +98,7 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
     d = { ...d, phase: "awaitingReplacement", scoutBonus: false };
     events.push({
       type: "dungeonUpdated",
-      message: "已记录心脏病；等待驿站替换接口（R9），未揭示房间，不推定战役失败",
+      message: "已记录心脏病；等待驿站替换接口（R9），不追加侦察揭示，不推定战役失败",
     });
   } else if (d.pressureSource === "room") {
     const continued = continueDungeonTrap({ ...state, dungeon: { ...d, phase: "awaitingRoom" } });
