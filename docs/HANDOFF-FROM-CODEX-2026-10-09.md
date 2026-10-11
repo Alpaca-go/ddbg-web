@@ -2,7 +2,7 @@
 
 ## 最新进度：Phase 2 Iron Swan I 沙盒接入（2026-10-11）
 
-Kyries 本轮授权合并并继续。#106 准确 head `8ecf337` 的 PR / push 四项 CI 成功，按 merge 合并为 `3f4e450`；本地 main 已 `pull --ff-only` 同步，再建独立分支 `codex/phase2-iron-swan-sandbox`。#99 / #103 仍为开放草稿。
+Kyries 本轮授权合并并继续。#106 准确 head `8ecf337` 的 PR / push 四项 CI 成功，按 merge 合并为 `3f4e450`；本地 main 已 `pull --ff-only` 同步，再建独立分支 `codex/phase2-iron-swan-sandbox`。[草稿 PR #107](https://github.com/Alpaca-go/ddbg-web/pull/107)，实现提交 `1ae797c`，准确 head CI 以 PR 为准。#99 / #103 仍为开放草稿。
 
 - 自行查完整印刷 `DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf` 第 25 页和官方核心规则书第 20 页完整页面图像：Iron Swan I 只有进攻姿态点亮，射程 2、单怪物目标、Crit 1 / 12、Acc 9 / 7，没有附加效果。按规格书 §6.5 / G-01（R19–20）、R-025，遵守 R-001 / R-048。印刷件只作卡面文字 / 数值来源。
 - 逐卡审核后只把 `hero_skill:p025` 加入 UI 构建白名单，沙盒技能由 17 张变为 18 张；继续用既有规范化数据及引擎校验，未改数据、词典、命令协议或规则函数，不开放 Iron Swan II / III、未验证卡或更多怪物。
