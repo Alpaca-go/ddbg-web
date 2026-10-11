@@ -5,6 +5,7 @@ import type {
   GameEvent,
   GameState,
   HeroSkillResolvedEvent,
+  HeroSkillEmptyAreaResolvedEvent,
   MonsterSkillResolvedEvent,
 } from "./command";
 import type { SkillStance, SkillTargetSide } from "./hero-skill";
@@ -319,21 +320,23 @@ export function newlyDefeatedIds(battle: BattleState, entities: readonly BattleE
 /** 技能成功才锁定重用；落空仍消耗一个行动（R18–19、R-025）。 */
 export function recordEncounterSkill(
   result: ApplyResult,
-  resolved: HeroSkillResolvedEvent | undefined = result.events.find(
+  resolved:
+    HeroSkillResolvedEvent | HeroSkillEmptyAreaResolvedEvent | undefined = result.events.find(
     (entry) => entry.type === "heroSkillResolved",
   ),
   casualtyIds: readonly string[] = [],
 ): ApplyResult {
   const battle = result.state.battle;
   if (!battle?.encounter) return result;
-  if (resolved?.type !== "heroSkillResolved" || battle.encounter.turn.type !== "hero")
-    return result;
+  if (!resolved || battle.encounter.turn.type !== "hero") return result;
   const pressure = resolveBattlePressure(result);
   if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
   const removed = removeCasualties(pressure, [
     ...casualtyIds,
     ...pressureCasualties(battle, pressure),
-    ...(resolved.resolution.targetDead ? [resolved.resolution.targetId] : []),
+    ...(resolved.type === "heroSkillResolved" && resolved.resolution.targetDead
+      ? [resolved.resolution.targetId]
+      : []),
   ]);
   const ended = endAfterCasualties(removed);
   if (ended) return ended;
@@ -341,9 +344,12 @@ export function recordEncounterSkill(
   const next = state.battle!;
   const turn = battle.encounter.turn;
   const usedSkillIds =
-    resolved.resolution.outcome === "miss"
+    resolved.type === "heroSkillResolved" && resolved.resolution.outcome === "miss"
       ? turn.usedSkillIds
-      : [...turn.usedSkillIds, resolved.resolution.skillId];
+      : [
+          ...turn.usedSkillIds,
+          resolved.type === "heroSkillResolved" ? resolved.resolution.skillId : resolved.skillId,
+        ];
   const actions = turn.actions - 1;
   if (actions === 0 || next.entities.find((entity) => entity.id === turn.actorId)!.dead)
     return finishTurn(state, turn.actorId, removed.events);

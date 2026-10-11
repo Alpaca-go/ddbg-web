@@ -2013,6 +2013,47 @@ export function resolveHeroSkillEffects(
   return { resolution, healthEffects };
 }
 
+/** R19–20：空区域没有命中对象；只执行自身效果，不制造命中或暴击。 */
+export function resolveHeroSkillEmptyAreaEffects(
+  skill: HeroSkillCardView,
+  combat: Pick<
+    SkillCombatState,
+    "actor" | "light" | "areaDistance" | "targetAreaLower" | "guardedEnemyOmitted"
+  >,
+  roll: number,
+): SkillEffectsResolution {
+  const counts = readTargetIconCounts(skill);
+  // 仅供共用卡面校验的空目标投影，不是战斗实体；其数值不参与命中、生命或压力结算。
+  const context: SkillCombatState = {
+    ...combat,
+    target: { id: "", side: counts.hero > 0 ? "hero" : "monster", wounds: 0, dodge: 0 },
+  };
+  if (readsAsSelfTarget(skill))
+    return {
+      resolution: refuse(skill, context, "Self 技能不能选择空区域（R19）"),
+      healthEffects: [],
+    };
+  if (readPrintedTargets(skill).kind !== "exact")
+    return {
+      resolution: refuse(skill, context, "空区域技能缺少已核实目标图标（R-048）"),
+      healthEffects: [],
+    };
+  if (counts.monster > 0 && combat.guardedEnemyOmitted)
+    return {
+      resolution: refuse(skill, context, "空区域没有选中必须优先攻击的 Guard 敌人（R-024）"),
+      healthEffects: [],
+    };
+  const { healthEffects = [], ...resolution } = resolveSkill(
+    skill,
+    context,
+    roll,
+    "hero",
+    true,
+    true,
+  );
+  return { resolution, healthEffects };
+}
+
 /** 仅供怪物规范化适配层使用；不经包入口导出。 */
 export function resolveMonsterAttackView(
   skill: HeroSkillCardView,
@@ -2038,6 +2079,7 @@ function resolveSkill(
   roll: number,
   sourceSide: SkillTargetSide,
   includeHealthEffects = false,
+  emptyArea = false,
 ): HeroSkillResolution & { readonly healthEffects?: readonly SkillHealthEffect[] } {
   if (skill.hero !== null && skill.hero.trim().toLowerCase() === "musketeer") {
     return refuse(skill, combat, "Musketeer 不在首版（R-008）");
@@ -2085,7 +2127,8 @@ function resolveSkill(
       )
     )
       return refuse(skill, combat, "目标压力注解与已确认卡面不符（R-048）");
-    if (target.stress === undefined) return refuse(skill, combat, "目标压力效果缺少压力轨");
+    if (!emptyArea && target.stress === undefined)
+      return refuse(skill, combat, "目标压力效果缺少压力轨");
   }
   const bonus = active.verified_damage_bonus;
   if (bonus) {
@@ -2118,6 +2161,8 @@ function resolveSkill(
   const selfBleed = readSelfBleedRemoval(active);
   const originalShuffles = readShuffles(active, combat.shuffleChoice);
   const shuffles = { ...originalShuffles, self: statuses.selfShuffle ?? originalShuffles.self };
+  if (emptyArea && shuffles.self !== null)
+    return refuse(skill, combat, "空区域自身位移尚未接入区域参照，整次拒绝（R21）");
   const ignoresProtection = readIgnoresProtection(active);
   const formChange = readFormChange(active);
   const keys = namedKeys(active.stats_line);
@@ -2225,7 +2270,7 @@ function resolveSkill(
   if ((stress.self !== 0 || paired.stress !== 0) && combat.actor?.stress === undefined) {
     return refuse(skill, combat, "自身效果要改压力，但没有使用者的压力（规则书第 20 页）");
   }
-  if (stress.target !== 0 && target.stress === undefined) {
+  if (!emptyArea && stress.target !== 0 && target.stress === undefined) {
     return refuse(skill, combat, "目标效果要改压力，但目标没有压力（规则书第 20 页）");
   }
   if ((selfHeal.amount > 0 || paired.heal > 0) && combat.actor === undefined) {
@@ -2278,11 +2323,11 @@ function resolveSkill(
         lightHeroDodge -
         lightMonsterDodge +
         lightMonsterAcc;
-  if (!formOnly && critThreshold !== null && hitThreshold !== null) {
+  if (!emptyArea && !formOnly && critThreshold !== null && hitThreshold !== null) {
     if (roll <= critThreshold + buffStacks + enemyDebuffStacks + lightCrit) outcome = "crit";
     else if (roll <= hitThreshold) outcome = "hit";
     else outcome = "miss";
-  } else if (!formOnly && hitThreshold !== null) {
+  } else if (!emptyArea && !formOnly && hitThreshold !== null) {
     outcome = roll <= hitThreshold ? "hit" : "miss";
   }
 
@@ -2305,7 +2350,8 @@ function resolveSkill(
       ? null
       : [...combat.untargetedHeroesBesideTarget],
   );
-  const lightDelta = statuses.selfLight + (outcome === "miss" ? 0 : statuses.targetLight);
+  const lightDelta =
+    statuses.selfLight + (emptyArea || outcome === "miss" ? 0 : statuses.targetLight);
   const pressureLight =
     combat.light === undefined ? undefined : Math.max(0, Math.min(5, combat.light + lightDelta));
   const pressureDelta = (amount: number): number =>
@@ -2390,7 +2436,7 @@ function resolveSkill(
   if (outcome !== "miss" && extraStress && targetStress !== null) {
     targetStress = clampStress(targetStress + pressureDelta(extraStress.amount));
   }
-  const conditionsCleared = outcome !== "miss" && removal.targetLines > 0;
+  const conditionsCleared = !emptyArea && outcome !== "miss" && removal.targetLines > 0;
 
   const targetDead =
     target.side === "monster" && target.life !== undefined && wounds >= target.life;
@@ -2438,9 +2484,10 @@ function resolveSkill(
     actorBleedCleared,
     actorBlightCleared,
     actorShuffle: shuffles.self,
-    targetShuffle: outcome === "miss" ? null : resistedTargetShuffle(shuffles.target, combat),
+    targetShuffle:
+      emptyArea || outcome === "miss" ? null : resistedTargetShuffle(shuffles.target, combat),
     targetProtectionIgnored:
-      outcome !== "miss" && effect === "damage" && ignoresProtection.targetLines > 0,
+      !emptyArea && outcome !== "miss" && effect === "damage" && ignoresProtection.targetLines > 0,
     actorForm: formChange.form,
     actorStress,
     targetStress,
@@ -2464,9 +2511,9 @@ function resolveSkill(
     ...(statuses.lineCount
       ? {
           actorStatusEffects: statuses.self,
-          targetStatusEffects: outcome === "miss" ? [] : statuses.target,
+          targetStatusEffects: emptyArea || outcome === "miss" ? [] : statuses.target,
           actorLightDelta: statuses.selfLight,
-          targetLightDelta: outcome === "miss" ? 0 : statuses.targetLight,
+          targetLightDelta: emptyArea || outcome === "miss" ? 0 : statuses.targetLight,
         }
       : {}),
     ...(includeHealthEffects ? { healthEffects } : {}),

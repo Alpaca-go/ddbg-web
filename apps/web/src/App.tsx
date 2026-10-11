@@ -52,6 +52,8 @@ export function App() {
   const [skillId, setSkillId] = useState("");
   const [targetId, setTargetId] = useState("soldier");
   const [targetAreaId, setTargetAreaId] = useState("");
+  const [emptyAreaMode, setEmptyAreaMode] = useState(false);
+  const [emptyAreaId, setEmptyAreaId] = useState("");
   const [selection, setSelection] = useState({ context: "", ids: [] as string[] });
   const [path, setPath] = useState<string[]>([]);
   const [provisionId, setProvisionId] = useState("");
@@ -73,6 +75,11 @@ export function App() {
   const maxTargets = printedTargets?.kind === "exact" ? printedTargets.max : 1;
   const multiTarget = maxTargets > 1;
   const selfTarget = skill ? heroSkillUsesSelfTarget(skill) : false;
+  const emptyAreaSelection = emptyAreaMode && !selfTarget;
+  const emptyAreas = battle.areas.filter(
+    (a) => !battle.entities.some((e) => !e.dead && e.areaId === a.id),
+  );
+  const selectedEmptyArea = emptyAreas.find((a) => a.id === emptyAreaId) ?? emptyAreas[0];
   const selectedArea = targetAreaId || actor?.areaId || battle.areas[0]!.id;
   const selectionContext = `${battle.encounter?.round}:${actor?.id}:${skill?.id}:${selectedArea}`;
   const areaTargets = battle.entities.filter((e) => !e.dead && e.areaId === selectedArea);
@@ -160,6 +167,8 @@ export function App() {
               setSkillId("");
               setTargetId("soldier");
               setTargetAreaId("");
+              setEmptyAreaMode(false);
+              setEmptyAreaId("");
               setSelection({ context: "", ids: [] });
             }
           }}
@@ -513,7 +522,42 @@ export function App() {
                     ))}
                   </select>
                 </label>
-                {multiTarget ? (
+                {!selfTarget && (
+                  <div className="target-options">
+                    <label>
+                      <input
+                        type="checkbox"
+                        aria-label="选择空区域"
+                        checked={emptyAreaMode}
+                        onChange={(e) => setEmptyAreaMode(e.target.checked)}
+                      />
+                      选择空区域（仍消耗行动，成功使用后本回合不能重用）
+                    </label>
+                  </div>
+                )}
+                {emptyAreaSelection ? (
+                  <>
+                    <label>
+                      空区域
+                      <select
+                        aria-label="空区域"
+                        value={selectedEmptyArea?.id ?? ""}
+                        onChange={(e) => setEmptyAreaId(e.target.value)}
+                      >
+                        {emptyAreas.map((area) => (
+                          <option key={area.id} value={area.id}>
+                            {area.id}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <p className="muted">
+                      须符合卡面姿态与射程；没有目标命中、暴击或目标效果，自身效果照常结算。含自身
+                      Push / Pull 的技能暂不能用于空区域。
+                    </p>
+                    {!emptyAreas.length && <p className="muted">当前没有空区域。</p>}
+                  </>
+                ) : multiTarget ? (
                   <>
                     <label>
                       目标区域
@@ -582,22 +626,32 @@ export function App() {
                   </label>
                 )}
                 <button
-                  disabled={!skill || (multiTarget && !selectedIds.length)}
+                  disabled={
+                    !skill ||
+                    (emptyAreaSelection ? !selectedEmptyArea : multiTarget && !selectedIds.length)
+                  }
                   onClick={() =>
                     send(
-                      multiTarget
+                      emptyAreaSelection
                         ? {
-                            type: "playHeroSkillTargets",
+                            type: "playHeroSkillEmptyArea",
                             actorId: actor!.id,
-                            targetIds: selectedIds,
                             skillId: skill!.id,
+                            areaId: selectedEmptyArea!.id,
                           }
-                        : {
-                            type: "playHeroSkill",
-                            actorId: actor!.id,
-                            targetId: selfTarget ? actor!.id : targetId,
-                            skillId: skill!.id,
-                          },
+                        : multiTarget
+                          ? {
+                              type: "playHeroSkillTargets",
+                              actorId: actor!.id,
+                              targetIds: selectedIds,
+                              skillId: skill!.id,
+                            }
+                          : {
+                              type: "playHeroSkill",
+                              actorId: actor!.id,
+                              targetId: selfTarget ? actor!.id : targetId,
+                              skillId: skill!.id,
+                            },
                     )
                   }
                 >
@@ -679,6 +733,12 @@ export function App() {
             <li key={i}>
               <span>{i + 1}.</span> {event.message}
               {"roll" in event && event.roll !== null ? ` · d10=${event.roll}` : ""}
+              {event.type === "heroSkillEmptyAreaResolved" && (
+                <p>
+                  {entityName(event.actorId)} · {skillName(event.skillId)} → 空区域 {event.areaId} ·
+                  无目标命中 / 暴击判定
+                </p>
+              )}
               <StateEventDetails event={event} entityName={entityName} />
               <EncounterEventDetails event={event} entityName={entityName} />
               <MonsterActionDetails event={event} entityName={entityName} skillName={skillName} />

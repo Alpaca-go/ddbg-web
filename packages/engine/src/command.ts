@@ -2,6 +2,8 @@ import { playHeroSkill, rejectBattleCommand } from "./battle";
 import type { BattleState, PlayHeroSkillCommand } from "./battle";
 import type { HeroSkillResolution } from "./hero-skill";
 import { playHeroSkillTargets } from "./battle-hero-targets";
+import { playHeroSkillEmptyArea } from "./battle-empty-area";
+import type { PlayHeroSkillEmptyAreaCommand } from "./battle-empty-area";
 import type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 import type { HeroHealthEffect, HeroHealthResolution } from "./hero-health";
 import { applyEncounterCommand } from "./encounter";
@@ -74,7 +76,17 @@ export type MonsterSkillTargetsResolvedEvent = Omit<
   readonly resolutions: readonly HeroSkillResolution[];
 };
 
+export type HeroSkillEmptyAreaResolvedEvent = {
+  readonly type: "heroSkillEmptyAreaResolved";
+  readonly message: string;
+  readonly actorId: string;
+  readonly skillId: string;
+  readonly areaId: string;
+  readonly roll: number | null;
+};
+
 export type Command =
+  | PlayHeroSkillEmptyAreaCommand
   | UseProvisionCommand
   | { readonly type: "interactLoot"; readonly actorId: string }
   | EncounterCommand
@@ -96,6 +108,7 @@ export type Command =
     };
 
 export type GameEvent =
+  | HeroSkillEmptyAreaResolvedEvent
   | {
       readonly type: "lootRevealed" | "lootResolved";
       readonly actorId: string;
@@ -262,6 +275,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "moveHero") return moveHero(state, command);
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);
   if (command.type === "playHeroSkillTargets") return playHeroSkillTargets(state, command);
+  if (command.type === "playHeroSkillEmptyArea") return playHeroSkillEmptyArea(state, command);
   if (command.type === "playMonsterSkill") return playMonsterSkill(state, command);
   if (command.type !== "ping") return applyEncounterCommand(state, command);
   return {
