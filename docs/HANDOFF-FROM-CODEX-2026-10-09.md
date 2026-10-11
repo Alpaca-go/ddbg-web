@@ -1,5 +1,17 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：Phase 2 Holy Lance I 完整效果与沙盒接入（2026-10-11）
+
+Kyries 本轮授权合并并继续。#108 最新 head `4a4177a` 的 PR / push 四项 CI 均成功，按 merge 合并为 `29027fa`；本地 main 已 `pull --ff-only` 同步，从 main 独立建立 `codex/phase2-holy-lance`。[草稿 PR #109](https://github.com/Alpaca-go/ddbg-web/pull/109)，实现提交 `bcaf270`；准确 head CI 以 PR 为准。#99 / #103 / #107 仍为开放草稿，本轮合并授权对应 #108，不扩展到其他草稿。
+
+- 自行只读核对完整印刷 SKILLS_FRONT 第 16 页、官方核心规则书 R20 / R21 完整页面图像及现有 R19 依据：Holy Lance I 远程 / 支援可用，射程 1、单怪物、Crit 1 / 13、Acc 9 / 7，自身 Pull 1，对 Unholy 伤害 +1。沿用规格书 §6.5–6.7（R19–21）、R-017 / R-020 / R-026；遵守 R-001 / R-048，印刷件只作卡面数值来源。
+- 逐卡附加器仅给 p016 的目标效果行附已复核 `unholy` 条件 +1，校验卡名 / I 级 / 页码 / 验证状态 / 效果行原文与命名图标，保留原 +1 的 numeric=null；管线重新生成。条件伤害 schema / 纯函数扩展此条件，命中和暴击只加一次，再算 Riposte / Protection；落空不加，不推断同名 II / III。
+- 单目标与同区多选命令从实体关联的已验证怪物卡读取 `type_position_tags`，去掉 Front / Back，不按怪物名字或实体自报标签推断 Unholy。缺已验证卡、缺类型、只有 Front / Back 时在消费 RNG 前拒绝；纯函数显式类型上下文为 Phase 2 临时接口，不作为正式存档字段。
+- 自身 Pull 复用既有容量 / 姿态交换 / 位移续接，落空仍执行；完成自身位移后才扣行动、锁成功使用及收尾。空区不虚构目标类型或伤害，只执行自身 Pull。仅把 p016 加入 UI 白名单，技能池由 18 张变 19 张，不放开 #107 的 p025 或更多怪物。
+- 五项新增引擎场景覆盖 Unholy / 非 Unholy 全骰面、重复标签不叠加、Riposte / Protection 顺序、一次 RNG 与行动续接、死亡前位移 / 胜利、落空、公共单目标 / 多选 / 空区、回放与缺类型 / 未验证 / 伪造实体标签 / 非法姿态 / 注解漂移拒绝。原三条冒烟增加真实回合取得远程 Crusader、Holy Lance 卡面、Unholy 暴击伤害 14、自身 Pull / 姿态位移、胜利与单骰回放。
+
+验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、50 文件 455 项测试、build 与 diff 检查通过。原三条 Chrome 冒烟通过（整组 1.1 分钟），截图已检查，无溢出。无新 Q，原资料 / 图片缓存不入库；Q-52、缺 duration、未确认图标与后续阶段边界保留。此规则 / 接线切片待 Kyries 审阅合并。下一候选为 Inspiring Cry I 逐卡审核，先确认完整效果与现有支持范围。
+
 ## 最新进度：Phase 2 Battle Heal I 逐卡射程与沙盒接入（2026-10-11）
 
 本轮 Kyries 要求检查进度并继续，没有新增合并授权。远端核实 #99、#103、#107 仍为开放草稿；已合并基线为 main `3f4e450`。从 origin/main 独立建立 `codex/phase2-battle-heal-range`，不混入 #107 的 Iron Swan 白名单和测试。[草稿 PR #108](https://github.com/Alpaca-go/ddbg-web/pull/108)，实现提交 `bb98c49`；准确 head CI 以 PR 为准。以下历史记录继续保留，最新状态以本段为准。

@@ -259,7 +259,7 @@ export type HeroSkillCardView = {
   readonly verified_damage_bonus?: {
     readonly lineIndex: number;
     readonly amount: number;
-    readonly condition: "marked";
+    readonly condition: "marked" | "unholy";
     readonly source: "print_front";
   };
   readonly verified_status_effects?: readonly (StatusEffect & {
@@ -332,6 +332,8 @@ export type SkillActorState = {
 
 /** 目标已经选好。区域怎么相邻不在这里。 */
 export type SkillTargetState = {
+  /** 已验证怪物卡的印刷类型标签；缺失时不能判定 vs Unholy，不按名字推断。 */
+  readonly monsterTypeTags?: readonly string[];
   readonly id: string;
   readonly side: SkillTargetSide;
   readonly wounds: number;
@@ -2142,14 +2144,23 @@ function resolveSkill(
       bonus.lineIndex < 0 ||
       !Number.isSafeInteger(bonus.amount) ||
       bonus.amount <= 0 ||
-      bonus.condition !== "marked" ||
+      !["marked", "unholy"].includes(bonus.condition) ||
       bonus.source !== "print_front" ||
-      text !== `{target_effects}{damage}+${bonus.amount}vs{mark}` ||
+      text !==
+        `{target_effects}{damage}+${bonus.amount}vs${bonus.condition === "marked" ? "{mark}" : "Unholy"}` ||
       line?.some(
         (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
       )
     )
       return refuse(skill, combat, "条件伤害注解与已确认卡面不符（R-048）");
+    if (
+      !emptyArea &&
+      bonus.condition === "unholy" &&
+      target.side === "monster" &&
+      (!target.monsterTypeTags?.length ||
+        target.monsterTypeTags.some((tag) => typeof tag !== "string" || !tag.trim()))
+    )
+      return refuse(skill, combat, "条件伤害缺少已验证怪物类型（R-048）");
   }
   const statuses = readVerifiedStatusEffects(active);
   if (statuses.status === "refused") return refuse(skill, combat, statuses.reason);
@@ -2400,7 +2411,13 @@ function resolveSkill(
       // 其他类型修正 / Hard Skinned 缺值仍不加。
       const beforeProtection =
         amount +
-        (bonus && target.side !== sourceSide && (target.markStacks ?? 0) > 0 ? bonus.amount : 0);
+        (bonus &&
+        target.side !== sourceSide &&
+        (bonus.condition === "marked"
+          ? (target.markStacks ?? 0) > 0
+          : target.side === "monster" && target.monsterTypeTags?.includes("Unholy"))
+          ? bonus.amount
+          : 0);
       const skipProtection = ignoresProtection.targetLines > 0;
       damageDealt =
         target.protection === true && !skipProtection ? halfUp(beforeProtection) : beforeProtection;

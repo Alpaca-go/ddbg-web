@@ -369,7 +369,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
   const sameArea = actor.areaId === target.areaId;
   const context: SkillCombatState = {
     actor,
-    target: skillTargetView(target),
+    target: skillTargetView(target, battle),
     light: battle.light,
     targetAreaLower: elevations[actorArea.elevation] > elevations[targetArea.elevation],
     targetInActorArea: target.side === "hero" && sameArea,
@@ -500,8 +500,21 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
 }
 
 /** 旧技能视图只计算原始伤口；Life 由有序生命层处理，不能误判英雄为怪物死亡。 */
-export function skillTargetView(entity: BattleEntity): SkillTargetState {
-  if (entity.side !== "hero") return entity;
+export function skillTargetView(entity: BattleEntity, battle?: BattleSetup): SkillTargetState {
+  if (entity.side !== "hero") {
+    if (!battle) return entity;
+    const { monsterTypeTags: _tags, ...target } = entity;
+    void _tags;
+    const card = battle.monsters?.find((card) => card.id === entity.monsterCardId);
+    return card && card.verification.unverified === false && card.type_position_tags
+      ? {
+          ...target,
+          monsterTypeTags: card.type_position_tags.filter(
+            (tag) => tag !== "Front" && tag !== "Back",
+          ),
+        }
+      : target;
+  }
   const { life: _life, ...target } = entity;
   void _life;
   return target;
