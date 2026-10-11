@@ -129,6 +129,9 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
     await expect(log).toContainText("HELLION：暴击");
     await expect(log).toContainText("HIGHWAYMAN：暴击");
     await expect(log).toContainText("使用者：VESTAL");
+    await expect(log).toContainText("CRUSADER · 区域路径：B → A");
+    await expect(log).toContainText("CRUSADER · 结算后伤口 2/17");
+    await expect(log).toContainText("VESTAL · 结算后伤口 3/12");
     await expect(log).toContainText("技能：Divine Comfort · CRUSADER：暴击 · 印刷治疗值 3");
     await expect(log.getByText(/· 未结算效果$/, { exact: false })).toHaveCount(3);
     await log.getByText("CRUSADER · 未结算效果", { exact: true }).click();
@@ -194,6 +197,9 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
   await page.getByRole("button", { name: "结算怪物技能", exact: true }).click();
   await expect(page.getByTestId("turn-status")).toHaveText("等待抽取先攻");
   await expect(page.getByTestId("entity-hero-0")).toContainText("伤口 5/17");
+  await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
+    "Bone Soldier · 定位：B → B · 移动 0 步",
+  );
   await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
     "技能：Graveyard Slash · CRUSADER：命中 · 伤害 5",
   );
@@ -320,6 +326,9 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
     await expect(page.getByTestId("step-hint")).toContainText("单场结束");
     if (formal) {
       expect(lootUsed).toBe(true);
+      await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
+        "CRUSADER · 同时伤口 0",
+      );
       expect([...heroSkillsUsed].sort()).toEqual(["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"]);
       expect(vestalMoved).toBe(true);
       await expect(page.getByTestId("area-C")).not.toContainText("宝箱");
@@ -371,6 +380,7 @@ test("位移分岔冻结其他行动，选择后续接一次并可重放", async
     await expect(page.getByTestId("step-hint")).toContainText("单场结束");
     await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5 · 命令 5");
     const log = await page.getByRole("region", { name: "战斗日志" }).innerText();
+    expect(log).toContain(`HIGHWAYMAN · 区域落点：${area} · 姿态位移 1 格`);
     expect(log.match(/d10=/g)).toHaveLength(1);
     expect(log.match(/怪物全灭，战斗胜利/g)).toHaveLength(1);
     return log;

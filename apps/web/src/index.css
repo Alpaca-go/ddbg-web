@@ -278,6 +278,11 @@ small {
 .target-results details {
   color: #aaa599;
 }
+.state-event-details {
+  padding-left: 0.75rem;
+  color: #cec4aa;
+  overflow-wrap: anywhere;
+}
 @media (max-width: 1000px) {
   .workspace {
     grid-template-columns: 1fr;
