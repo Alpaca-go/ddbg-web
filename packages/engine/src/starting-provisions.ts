@@ -102,6 +102,13 @@ export function chooseStartingProvision(state: GameState, face: string): ApplyRe
       },
     },
     pending.wilds.slice(1),
-    [],
+    [
+      {
+        type: "provisionSelected",
+        actorId: wild.actorId,
+        face: face as ProvisionFace,
+        message: "开局 Wild 已选择补给骰面",
+      },
+    ],
   );
 }

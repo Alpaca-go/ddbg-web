@@ -8,22 +8,9 @@ import { battleStep } from "./battle-step";
 import { SkillCardText } from "./skill-card-text";
 import { SkillResults } from "./skill-results";
 import { StateEventDetails } from "./state-event-details";
+import { provisionLabels, provisionEffectLabels } from "./provision-labels";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
-const provisionLabels = {
-  food: "食物",
-  bandage: "绷带",
-  potion: "药水",
-  torch: "火把",
-  tool: "工具（仅探索）",
-};
-const provisionEffectLabels = {
-  heal: "治疗 1",
-  clearBleed: "移除所有流血",
-  clearBlight: "移除所有腐蚀",
-  reduceStress: "压力 −1",
-  raiseLight: "光照 +1",
-};
 const stanceLabels = { aggressive: "进攻", defensive: "防御", ranged: "远程", support: "支援" };
 const statusLabels = {
   bleed: "流血",

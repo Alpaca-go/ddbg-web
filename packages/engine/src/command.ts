@@ -97,10 +97,25 @@ export type Command =
 
 export type GameEvent =
   | {
-      readonly type: "lootRevealed" | "lootResolved";
+      readonly type: "lootRevealed";
       readonly actorId: string;
       readonly tokenId: string;
       readonly kind: import("./loot").LootKind;
+      readonly message: string;
+    }
+  | {
+      readonly type: "lootResolved";
+      readonly actorId: string;
+      readonly tokenId: string;
+      readonly kind: import("./loot").LootKind;
+      readonly reward:
+        { readonly gold: number } | { readonly face: import("./loot").ProvisionFace };
+      readonly message: string;
+    }
+  | {
+      readonly type: "provisionSelected";
+      readonly actorId: string;
+      readonly face: import("./loot").ProvisionFace;
       readonly message: string;
     }
   | {
@@ -121,6 +136,8 @@ export type GameEvent =
       readonly type: "provisionConsumed";
       readonly entityId: string;
       readonly provisionId: string;
+      readonly face: import("./loot").ProvisionFace;
+      readonly effect: import("./provision-use").ProvisionEffect | "discard";
       readonly message: string;
     }
   | { readonly type: "heartAttack"; readonly entityId: string; readonly message: string }

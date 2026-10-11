@@ -78,6 +78,13 @@ describe("R12 八颗开局补给", () => {
         optionId: "torch",
       };
       result = applyCommand(prior.state, command);
+      expect(result.events).toContainEqual(
+        expect.objectContaining({
+          type: "provisionSelected",
+          actorId,
+          face: "torch",
+        }),
+      );
       expect(result).toEqual(applyCommand(prior.state, command));
       expect(applyCommand(result.state, command).state).toEqual(result.state);
     }

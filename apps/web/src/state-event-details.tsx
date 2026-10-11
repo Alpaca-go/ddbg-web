@@ -1,4 +1,5 @@
 import type { GameEvent } from "@ddbg/engine";
+import { provisionLabels, provisionEffectLabels } from "./provision-labels";
 
 /** 只显示事件记录的历史事实；不从当前棋子位置 / 伤口补字段。 */
 export function StateEventDetails({
@@ -9,6 +10,35 @@ export function StateEventDetails({
   readonly entityName: (id: string) => string;
 }) {
   switch (event.type) {
+    case "provisionRolled":
+    case "provisionSelected":
+      return (
+        <p className="state-event-details">
+          {entityName(event.actorId)} ·{" "}
+          {event.type === "provisionSelected" ? "选择骰面" : "补给骰面"}：
+          {event.face === "wild" ? "Wild（待选）" : provisionLabels[event.face]}
+        </p>
+      );
+    case "provisionConsumed":
+      return (
+        <p className="state-event-details">
+          {entityName(event.entityId)} · 消耗：{provisionLabels[event.face]}
+          {event.effect === "discard"
+            ? " · 弃掉补给，不执行通常效果"
+            : ` · 所选效果：${provisionEffectLabels[event.effect]}`}
+        </p>
+      );
+    case "lootRevealed":
+    case "lootResolved":
+      return (
+        <p className="state-event-details">
+          {entityName(event.actorId)} · {event.type === "lootRevealed" ? "翻开宝箱" : "宝箱奖励"}
+          {event.type === "lootResolved" &&
+            ("gold" in event.reward
+              ? ` · 获得金币 ${event.reward.gold}`
+              : ` · 获得补给：${provisionLabels[event.reward.face]}`)}
+        </p>
+      );
     case "heroMoved":
       return (
         <p className="state-event-details">

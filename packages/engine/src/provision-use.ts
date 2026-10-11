@@ -98,6 +98,8 @@ export function useProvision(state: GameState, command: UseProvisionCommand): Ap
         type: "provisionConsumed",
         entityId: target.id,
         provisionId: provision.id,
+        face: provision.face,
+        effect: command.effect,
         message: "免费使用补给，效果已结算，移除一颗骰子",
       },
     ],

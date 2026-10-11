@@ -59,6 +59,12 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
     .selectOption((await usableProvision.getAttribute("value"))!);
   await page.getByRole("button", { name: "免费使用补给", exact: true }).click();
   await expect(page.getByRole("group", { name: "免费补给 · 7/16", exact: true })).toBeVisible();
+  await expect(page.getByRole("region", { name: "战斗日志" })).toContainText("CRUSADER · 消耗：");
+  await expect(page.getByRole("region", { name: "战斗日志" })).toContainText("所选效果：");
+  await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
+    "HELLION · 补给骰面：火把",
+  );
+  await page.screenshot({ path: testInfo.outputPath("supply-history.png"), fullPage: true });
   await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 24");
   await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
   await expect(page.getByRole("group", { name: /待选决策/ })).toContainText("回合开始前");
@@ -326,6 +332,9 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
     await expect(page.getByTestId("step-hint")).toContainText("单场结束");
     if (formal) {
       expect(lootUsed).toBe(true);
+      await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
+        /获得金币 \d+|获得补给：/,
+      );
       await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
         "CRUSADER · 同时伤口 0",
       );
