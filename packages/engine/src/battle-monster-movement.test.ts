@@ -16,6 +16,51 @@ const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "s
 const move = { type: "moveMonsterToRange", actorId: "m" } as const;
 const prepare = { type: "prepareMonsterAction", actorId: "m" } as const;
 const play = { type: "playMonsterSkill", actorId: "m", targetId: "h0", skillSlot: 1 } as const;
+
+it("R24：普通怪可挤出Small，Small自身不能占满员落点；不改变大型一名挤出规则", () => {
+  const areas = graph().map((a) => (a.id === "b" ? { ...a, capacity: 1 } : a));
+  const base = start(soldier, areas);
+  const small: BattleEntity = {
+    ...base.battle!.entities.find((e) => e.id === "m")!,
+    id: "small",
+    areaId: "b",
+    stance: "defensive",
+    monsterCardId: "small-card",
+  };
+  const s: GameState = {
+    ...base,
+    battle: {
+      ...base.battle!,
+      entities: [...base.battle!.entities, small],
+      monsters: [
+        ...base.battle!.monsters!,
+        { ...soldier, id: "small-card", type_position_tags: ["Small"] },
+      ],
+    },
+  };
+  const selected = applyCommand(applyCommand(s, prepare).state, move);
+  expect(selected.state.battle!.pending?.type).toBe("monsterDisplace");
+  const choice = selected.state.battle!.pending!.choice;
+  const result = applyCommand(selected.state, {
+    type: "resolveChoice",
+    choiceId: choice.id,
+    optionId: "small->a",
+  });
+  expect(result.events[0]).toMatchObject({
+    type: "monsterPositioned",
+    to: "b",
+    displaced: { entityId: "small", from: "b", to: "a" },
+  });
+  const tiny = {
+    ...s,
+    battle: {
+      ...s.battle!,
+      monsters: s.battle!.monsters!.map((m) => ({ ...m, type_position_tags: ["Small"] })),
+    },
+  };
+  const skipped = applyCommand(applyCommand(tiny, prepare).state, move);
+  expect(skipped.events[0]).toMatchObject({ type: "monsterPositioned", to: "a", skipped: true });
+});
 function graph(pairs = ["ab", "bc", "cd", "de"]): BattleArea[] {
   return [...new Set(pairs.join(""))].sort().map((id) => ({
     id,

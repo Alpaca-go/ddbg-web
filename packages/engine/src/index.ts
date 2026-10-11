@@ -5,6 +5,7 @@ export type {
   DungeonCommand,
   DungeonExplorationSetup,
   DungeonCurioState,
+  DungeonBattleCatalog,
 } from "./dungeon";
 export { createBattleState } from "./battle";
 export type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";

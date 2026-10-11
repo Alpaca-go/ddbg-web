@@ -19,6 +19,9 @@ import { curioCatalogSchema } from "../../data/src/curio";
 import type { CurioCard } from "../../data/src/curio";
 import { resolveDungeonCurio } from "./dungeon-curio";
 import { beginDungeonRoom, chooseDungeonTrap } from "./dungeon-room";
+import type { BattleEntity, BattleSetup } from "./battle";
+import type { MonsterCardView } from "./monster-skill";
+import type { LootState, ProvisionFace } from "./loot";
 
 export type DungeonCurioDraw = {
   readonly cardId: string;
@@ -37,8 +40,22 @@ export type DungeonCurioState = {
 
 export type DungeonExplorationSetup = {
   readonly dungeonLevel: number;
-  readonly light: 5;
-  readonly provisions: readonly { readonly id: string; readonly face: "food" | "torch" | "tool" }[];
+  readonly light: number;
+  readonly provisions: readonly { readonly id: string; readonly face: ProvisionFace }[];
+};
+
+/** 与 BattleSetup 一样，由调用方的已校验规范化数据提供，不从 UI 推导规则。 */
+export type DungeonBattleCatalog = {
+  readonly heroStats: readonly (NonNullable<BattleSetup["heroStats"]>[number] & {
+    readonly level: number;
+    readonly dodge: number;
+  })[];
+  readonly skills: readonly (BattleSetup["skills"][number] & { readonly level: number })[];
+  readonly monsters: readonly (MonsterCardView & {
+    readonly name: string;
+    readonly level: number;
+    readonly dodge: number;
+  })[];
 };
 
 export type DungeonState = {
@@ -49,18 +66,25 @@ export type DungeonState = {
   readonly heroes: readonly {
     readonly id: string;
     readonly stress: number;
-    readonly resolveTested?: boolean;
-    readonly resolveCardId?: string;
+    readonly resolveTested?: boolean | undefined;
+    readonly resolveCardId?: string | undefined;
     readonly dead?: boolean;
     readonly stance?: SkillStance;
     readonly level?: number;
     readonly life?: number;
     readonly wounds?: number;
     readonly attributesVerified?: boolean;
+    readonly heroStatId?: string;
+    readonly skillIds?: readonly string[];
+    /** 跨房间保留的战斗状态；部署只改变区域，不重置英雄。 */
+    readonly combat?: BattleEntity;
   }[];
   readonly resolveCards: readonly ResolveCard[];
   readonly resolveDecks: Partial<Readonly<Record<ResolveCard["role"], readonly string[]>>>;
   readonly gold: number;
+  readonly lootPool?: LootState;
+  readonly battleCatalog?: DungeonBattleCatalog;
+  readonly mustLeaveRoomId?: string | undefined;
   readonly monsterPool?: {
     readonly cards: readonly MonsterPoolCard[];
     readonly remaining: readonly string[] | null;
@@ -75,6 +99,7 @@ export type DungeonState = {
   readonly roomCards?: {
     readonly cards: readonly RoomCard[];
     readonly deck: readonly string[] | null;
+    readonly discard?: readonly string[];
     readonly active: {
       readonly roomId: string;
       readonly cardId: string;
@@ -95,6 +120,7 @@ export type DungeonState = {
     | "blockedPressure"
     | "awaitingReplacement"
     | "awaitingRoom"
+    | "inBattle"
     | "awaitingCurio";
   readonly pressureSource?: "scout" | "exploration" | "backtracking" | "room";
   readonly roomResolution?: {
@@ -150,6 +176,7 @@ export function createDungeonSandbox(
   curioCards?: readonly CurioCard[],
   roomCards?: readonly RoomCard[],
   monsterCards?: readonly MonsterPoolCard[],
+  battleCatalog?: DungeonBattleCatalog,
 ): GameState {
   const layout = dungeonLayoutSchema.parse(layoutInput);
   const distribution = roomDistributionSchema.parse(distributionInput);
@@ -186,6 +213,7 @@ export function createDungeonSandbox(
       resolveCards: resolveCards.map((c) => ({ ...c, verification: { ...c.verification } })),
       resolveDecks: {},
       gold: 0,
+      ...(battleCatalog ? { battleCatalog } : {}),
       ...(monsterCards
         ? {
             monsterPool: {
@@ -325,6 +353,7 @@ export function applyDungeonCommand(
   }
   if (d.pending) return refuse("请先完成待选决定");
   if (command.type === "scoutDungeon") {
+    if (d.mustLeaveRoomId === d.position) return refuse("第四轮撤退后须先离开房间（R25）");
     if (d.layout.nodes.find((n) => n.id === d.position)?.kind !== "room")
       return refuse("灰点不能侦察；起点侦察待 Q-59 确认");
     return finish(

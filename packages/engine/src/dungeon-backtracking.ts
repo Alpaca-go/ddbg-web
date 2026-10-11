@@ -98,6 +98,7 @@ export function completeDungeonBacktrack(state: GameState): ApplyResult {
       dungeon: {
         ...d,
         position: to,
+        mustLeaveRoomId: undefined,
         phase: cleared ? "ready" : "awaitingRoom",
         pending: null,
         backtracking: null,

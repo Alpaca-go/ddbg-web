@@ -1,6 +1,7 @@
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
 import { finishTurn } from "./encounter";
+import { isSmallMonster } from "./battle-small";
 
 export type MoveHeroCommand = {
   readonly type: "moveHero";
@@ -73,7 +74,7 @@ export function moveHero(state: GameState, command: MoveHeroCommand): ApplyResul
     (sum, entity) => sum + (entity.side === "hero" ? 1 : entity.stanceSlots!),
     0,
   );
-  const mustMove = occupied + 1 > area.capacity!;
+  const mustMove = occupied + 1 > area.capacity! && !others.some((e) => isSmallMonster(battle, e));
   if (mustMove && turn.actions === 1)
     return rejectBattleCommand(state, "最后行动不能停在无空间区域；小型怪挤占尚未接入（R18、R24）");
   const next: GameState = {

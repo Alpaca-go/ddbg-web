@@ -29,7 +29,7 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
     !roomCatalogSchema.safeParse(d.roomCards?.cards).success
   )
     return refuse("需要已抽 Ritual Chamber 与获批部署；不能替换房间或提前抽怪物（R-048）");
-  const roomIds = [...(d.roomCards!.deck ?? []), active.cardId];
+  const roomIds = [...(d.roomCards!.deck ?? []), ...(d.roomCards!.discard ?? []), active.cardId];
   if (
     roomIds.length !== 9 ||
     new Set(roomIds).size !== 9 ||
@@ -44,13 +44,21 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
     !monsterPoolCatalogSchema.safeParse(pool.cards).success
   )
     return refuse("本入口需要完整 Common + Ruins 目录与 I 级地牢，不能使用三种沙盒怪物");
-  if (pool.active || pool.remaining !== null || pool.discarded.length)
+  if (pool.active || pool.discarded.length)
     return refuse("本场怪物已记录或牌堆状态不一致；不能重抽 / 重洗 / 发奖励");
   if (!Number.isSafeInteger(d.cursor) || d.cursor < 0) return refuse("RNG 游标无效");
-  const deck = ruinsMonsterPool(pool.cards, 1);
+  const catalog = ruinsMonsterPool(pool.cards, 1);
+  const ids = pool.remaining ?? catalog.map((card) => card.instanceId);
+  if (
+    ids.length !== 42 ||
+    new Set(ids).size !== 42 ||
+    ids.some((id) => !catalog.some((c) => c.instanceId === id))
+  )
+    return refuse("怪物牌堆不守恒，不能重新抽牌");
+  const deck = ids.map((id) => catalog.find((card) => card.instanceId === id)!);
   const rng = createRng(state.seed);
   for (let i = 0; i < d.cursor; i++) rng.next();
-  for (let i = deck.length - 1; i > 0; i--) {
+  for (let i = pool.remaining === null ? deck.length - 1 : 0; i > 0; i--) {
     const j = Math.floor(rng.next() * (i + 1));
     [deck[i], deck[j]] = [deck[j]!, deck[i]!];
   }
@@ -65,13 +73,13 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
       ? [`${card.name}：${card.missingBattleFields.map((field) => labels[field]).join(" / ")}`]
       : [];
   });
-  const blockedReason = `${missing.length ? `待核实战斗字段：${missing.join("；")}。` : "本场怪物基础字段齐全。"}部署顺序已记录；英雄状态交接、房间效果与正式战斗 / 胜利回传尚未接线，房间未清理，未发奖励。`;
+  const blockedReason = `${missing.length ? `待核实战斗字段：${missing.join("；")}。` : "本场怪物基础字段齐全；入场还需校验完整技能效果。"}部署顺序已记录；进入前校验英雄装备与全部参战卡，不重抽，房间未清理，未发奖励。`;
   return {
     state: {
       ...state,
       dungeon: {
         ...d,
-        cursor: d.cursor + deck.length - 1,
+        cursor: d.cursor + (pool.remaining === null ? deck.length - 1 : 0),
         monsterPool: {
           ...pool,
           remaining: spawned.remaining.map((m) => m.instanceId),

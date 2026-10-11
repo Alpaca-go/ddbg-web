@@ -5,6 +5,7 @@ import rawLayouts from "../../../packages/data/normalized/corebox/dungeon_layout
 import { dungeonLayoutFileSchema } from "../../../packages/data/src/dungeon-layout";
 import type { DungeonLayout } from "../../../packages/data/src/dungeon-layout";
 import { battleData } from "virtual:battle-data";
+import { BattleView } from "./battle-view";
 import distribution from "../../../packages/data/normalized/corebox/scout_ahead_distribution.json";
 import rawRooms from "../../../packages/data/normalized/corebox/room.json";
 import { roomFileSchema } from "../../../packages/data/src/room";
@@ -33,6 +34,7 @@ type Fixture =
   | "curio"
   | "trap"
   | "roomApproved"
+  | "roomBattle"
   | "roomBlocked";
 function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral") {
   const selected = layouts.find((l) => l.source.page === page)!;
@@ -71,6 +73,11 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
         life: stat.life,
         attributesVerified: stat.attributesVerified,
         wounds: 0,
+        heroStatId: stat.id,
+        skillIds: battleData.skills
+          .filter((s) => s.hero === stat.name && s.level === 1)
+          .slice(0, 3)
+          .map((s) => s.id),
       };
     })(),
     ...(i === 0 && fixture === "heartAttack"
@@ -78,15 +85,17 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       : {}),
   }));
   const initial = createDungeonSandbox(
-    fixture === "roomApproved"
-      ? 11
-      : fixture === "roomBlocked"
-        ? 12
-        : fixture === "curio"
-          ? 1237
-          : fixture === "corridor"
-            ? 31
-            : 1,
+    fixture === "roomBattle"
+      ? 1885
+      : fixture === "roomApproved"
+        ? 11
+        : fixture === "roomBlocked"
+          ? 12
+          : fixture === "curio"
+            ? 1237
+            : fixture === "corridor"
+              ? 31
+              : 1,
     layout,
     distribution,
     mode,
@@ -108,6 +117,7 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
     curios,
     roomFileSchema.parse(rawRooms).cards,
     monsterPoolFileSchema.parse(rawMonsterPool).cards,
+    battleData,
   );
   // 此布置以已清理的起始房间演示真实走廊往返，不模拟该房间的战斗或奖励。
   const game =
@@ -167,6 +177,17 @@ export function DungeonSandbox() {
   const { game, events, commands, dispatch, reset, select, page, fixture, preview } =
     useDungeonStore();
   const d = game.dungeon!;
+  if (game.battle)
+    return (
+      <BattleView
+        game={game}
+        dispatch={dispatch}
+        events={events}
+        commands={commands}
+        layout="dungeon"
+        notice={events.map((e) => e.message).join("；")}
+      />
+    );
   const currentRoom = d.rooms.find((r) => r.id === d.position);
   const map = preview ?? d.layout;
   const shownCurio = d.curio?.active ?? d.curio?.last;
@@ -178,8 +199,8 @@ export function DungeonSandbox() {
           <p className="eyebrow">DDBG · PHASE 3</p>
           <h1>地牢布局与侦察</h1>
           <p className="muted">
-            QuestMap p{page} 标注待批准 · Scout Ahead · 固定种子 {game.seed} · 光照 5、DL{" "}
-            {d.explorationSetup!.dungeonLevel}
+            QuestMap p{page} 标注待批准 · Scout Ahead · 固定种子 {game.seed} · 光照{" "}
+            {d.explorationSetup?.light ?? "待配置"}、DL {d.explorationSetup!.dungeonLevel}
           </p>
           <p>
             {preview
@@ -213,6 +234,9 @@ export function DungeonSandbox() {
             <option value="trap">Trap 房间（p1、种子 1、DL 3、hero-0 压力 8）</option>
             <option value="roomApproved">
               Lair → Ritual Chamber（p1、种子 11、先侦察 Radiant）
+            </option>
+            <option value="roomBattle">
+              Lair → Ritual Chamber 可战斗（p1、种子 1885、先侦察 Radiant）
             </option>
             <option value="roomBlocked">
               Lair → Tomb of Ancestor（p1、种子 12、先侦察 Radiant）
@@ -288,6 +312,9 @@ export function DungeonSandbox() {
       {!preview && (
         <section className="panel">
           <h2>侦察流程</h2>
+          {d.mustLeaveRoomId === d.position && (
+            <p>第四轮撤退：本房间未清理，须先离开才能再次进入（R25）。</p>
+          )}
           <p data-testid="dungeon-pressure">
             {d.heroes
               .map(
@@ -349,6 +376,9 @@ export function DungeonSandbox() {
                   )}
                   {d.monsterPool?.active && (
                     <div data-testid="dungeon-monsters">
+                      <button onClick={() => dispatch({ type: "startDungeonBattle" })}>
+                        进入房间战斗
+                      </button>
                       <p>
                         Common + Ruins I · 完整牌池 42 张 · 余牌 {d.monsterPool.remaining!.length} ·
                         部署 {d.monsterPool.active.monsters.length} · 弃牌{" "}
@@ -385,7 +415,7 @@ export function DungeonSandbox() {
             </p>
           )}
           <button
-            disabled={!!d.pending || d.phase !== "ready"}
+            disabled={!!d.pending || d.phase !== "ready" || d.mustLeaveRoomId === d.position}
             onClick={() => dispatch({ type: "scoutDungeon" })}
           >
             侦察
@@ -466,19 +496,21 @@ export function DungeonSandbox() {
             </div>
           )}
           <p data-testid="dungeon-checkpoint">
-            {d.phase === "awaitingCurio"
-              ? "Curio 待结算；队伍尚未移动，不能补用 Torch 或重抽"
-              : d.phase === "awaitingReplacement"
-                ? `英雄死亡：等待驿站替换接口，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
-                : d.phase === "blockedPressure"
-                  ? `压力已支付：意志卡数据待核实，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
-                  : d.phase === "awaitingRoom"
-                    ? `进入 ${d.position}：等待${d.roomCards?.active ? "守卫战斗准备完成；原牌已记录，房间未清理" : currentRoom?.kind === "trap" ? " Trap 分配，保留代币" : "非 Empty 房间效果"}`
-                    : d.phase === "ready" && (d.exploration || (d.visited?.length ?? 0) > 1)
-                      ? `已到达 ${d.position}；${currentRoom?.cleared ? (currentRoom.kind === "empty" ? "Empty 已清理，移除房间代币" : "已清理，移除房间代币") : currentRoom?.kind === "trap" ? "Trap 已结算，保留代币" : "灰点必须停留"}`
-                      : d.exploration
-                        ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
-                        : "等待侦察 / 路线选择"}
+            {d.phase === "ready" && d.mustLeaveRoomId === d.position
+              ? `已撤退到 ${d.position} 地图节点；房间未清理，必须离开`
+              : d.phase === "awaitingCurio"
+                ? "Curio 待结算；队伍尚未移动，不能补用 Torch 或重抽"
+                : d.phase === "awaitingReplacement"
+                  ? `英雄死亡：等待驿站替换接口，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
+                  : d.phase === "blockedPressure"
+                    ? `压力已支付：意志卡数据待核实，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
+                    : d.phase === "awaitingRoom"
+                      ? `进入 ${d.position}：等待${d.roomCards?.active ? "守卫战斗准备完成；原牌已记录，房间未清理" : currentRoom?.kind === "trap" ? " Trap 分配，保留代币" : "非 Empty 房间效果"}`
+                      : d.phase === "ready" && (d.exploration || (d.visited?.length ?? 0) > 1)
+                        ? `已到达 ${d.position}；${currentRoom?.cleared ? (currentRoom.kind === "empty" ? "Empty 已清理，移除房间代币" : "已清理，移除房间代币") : currentRoom?.kind === "trap" ? "Trap 已结算，保留代币" : "灰点必须停留"}`
+                        : d.exploration
+                          ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
+                          : "等待侦察 / 路线选择"}
           </p>
           <p data-testid="dungeon-events">
             {events

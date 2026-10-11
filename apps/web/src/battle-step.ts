@@ -5,6 +5,10 @@ const pendingSteps: Record<
   NonNullable<BattleState["pending"]>["type"],
   { readonly label: string; readonly hint: string }
 > = {
+  smallDisplace: {
+    label: "等待 Small 挤占选择",
+    hint: "选择一只 Small 及其有空间的相邻区域，完成当前英雄回合。",
+  },
   startingProvision: {
     label: "等待开局补给选择",
     hint: "为 Wild 补给选择一面；全部选择完成后开始战斗。",
@@ -34,7 +38,7 @@ const pendingSteps: Record<
     hint: "选择怪物要前往的区域，再继续当前怪物回合。",
   },
   monsterDisplace: {
-    label: "等待大型怪挤占选择",
+    label: "等待怪物挤占选择",
     hint: "选择被挤出的角色及其去处，再继续当前怪物回合。",
   },
 };

@@ -20,6 +20,7 @@ import {
 import type { EncounterState } from "./encounter";
 import type {
   ApplyResult,
+  GameEvent,
   GameState,
   HeroSkillEmptyAreaResolvedEvent,
   HeroSkillResolvedEvent,
@@ -122,6 +123,12 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | {
+        readonly type: "smallDisplace";
+        readonly actorId: string;
+        readonly events: readonly GameEvent[];
+        readonly choice: PendingChoice;
+      }
     | {
         readonly type: "turnStartProvision";
         readonly actorId: string;

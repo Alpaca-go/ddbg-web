@@ -15,6 +15,7 @@ import { resolveTurnStartStatus } from "./battle-status";
 import { pressureCasualties, resolveBattlePressure } from "./pressure";
 import { beginResolveTurn } from "./resolve-trigger";
 import { closeBattleLoot, placeBattleLoot } from "./loot";
+import { displaceSmallForHero } from "./battle-small";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -135,6 +136,12 @@ export function finishTurn(
   actorId: string,
   events: readonly GameEvent[],
 ): ApplyResult {
+  const small = displaceSmallForHero(state, actorId, events);
+  if (small) {
+    if (small.pendingChoice || small.events.some((e) => e.type === "commandRefused")) return small;
+    state = small.state;
+    events = small.events;
+  }
   const original = state.battle!;
   const actor = original.entities.find((entity) => entity.id === actorId)!;
   const area = original.areas.find((area) => area.id === actor.areaId);

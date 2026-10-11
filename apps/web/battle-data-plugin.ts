@@ -47,6 +47,9 @@ export function battleDataPlugin(): Plugin {
         "monster_medium:p001",
         "monster_medium:p004",
         "monster_medium:p040",
+        "monster_medium:p007",
+        "monster_medium:p010",
+        "monster_medium:p021",
       ]);
       const monsters = normalizedMonsterMediumFileSchema
         .parse(read("monster_medium"))
