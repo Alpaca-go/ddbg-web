@@ -20,7 +20,7 @@ function curioEffectLabel(effect: CurioEffect) {
 
 const layouts = dungeonLayoutFileSchema.parse(rawLayouts).layouts;
 const curios = curioFileSchema.parse(rawCurios).cards;
-type Fixture = "neutral" | "pressure" | "heartAttack" | "corridor" | "curio";
+type Fixture = "neutral" | "pressure" | "heartAttack" | "corridor" | "curio" | "trap";
 function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral") {
   const selected = layouts.find((l) => l.source.page === page)!;
   const preview = selected.unresolvedMarkers?.length ? selected : null;
@@ -40,7 +40,14 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       .find((id) => id !== "S" && layout.edges.some((e) => e.includes("S") && e.includes(id)))!;
   const heroes = Array.from({ length: 4 }, (_, i) => ({
     id: `hero-${i}`,
-    stress: i === 0 && (fixture === "pressure" || fixture === "heartAttack") ? 9 : 0,
+    stress:
+      i === 0
+        ? fixture === "trap"
+          ? 8
+          : fixture === "pressure" || fixture === "heartAttack"
+            ? 9
+            : 0
+        : 0,
     stance: (["aggressive", "defensive", "ranged", "support"] as const)[i]!,
     ...(() => {
       const stat = battleData.heroStats.find(
@@ -66,7 +73,7 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
     heroes,
     battleData.resolveCards,
     {
-      dungeonLevel: 1,
+      dungeonLevel: fixture === "trap" ? 3 : 1,
       light: 5,
       provisions: [
         { id: "tool-1", face: "tool" },
@@ -137,6 +144,7 @@ export function DungeonSandbox() {
   const { game, events, commands, dispatch, reset, select, page, fixture, preview } =
     useDungeonStore();
   const d = game.dungeon!;
+  const currentRoom = d.rooms.find((r) => r.id === d.position);
   const map = preview ?? d.layout;
   const shownCurio = d.curio?.active ?? d.curio?.last;
   const card = d.curio?.cards.find((c) => c.id === shownCurio?.cardId);
@@ -147,7 +155,8 @@ export function DungeonSandbox() {
           <p className="eyebrow">DDBG · PHASE 3</p>
           <h1>地牢布局与侦察</h1>
           <p className="muted">
-            QuestMap p{page} 标注待批准 · Scout Ahead · 固定种子 {game.seed} · 光照 5、DL 1
+            QuestMap p{page} 标注待批准 · Scout Ahead · 固定种子 {game.seed} · 光照 5、DL{" "}
+            {d.explorationSetup!.dungeonLevel}
           </p>
           <p>
             {preview
@@ -178,6 +187,7 @@ export function DungeonSandbox() {
             <option value="heartAttack">已有意志卡（hero-0 压力 9）</option>
             <option value="corridor">单走廊 → Empty（标准 p1、种子 31、无需侦察）</option>
             <option value="curio">Curio → Empty（标准 p1、种子 1237、先用 Torch）</option>
+            <option value="trap">Trap 房间（p1、种子 1、DL 3、hero-0 压力 8）</option>
           </select>
         </label>
         <svg
@@ -267,6 +277,15 @@ export function DungeonSandbox() {
               恢复意志检定
             </button>
           )}
+          {d.phase === "awaitingRoom" && !d.pending && currentRoom?.kind === "trap" && (
+            <button onClick={() => dispatch({ type: "resolveDungeonRoom" })}>结算 Trap 房间</button>
+          )}
+          {d.roomResolution?.roomId === d.position && (
+            <p data-testid="dungeon-room-resolution">
+              Trap 已分配：{d.roomResolution.resolvedHeroIds.join("、") || "无"}
+              {d.roomResolution.completed ? "；全员完成，保留代币" : "；仍需完成房间结算"}
+            </p>
+          )}
           <button
             disabled={!!d.pending || d.phase !== "ready"}
             onClick={() => dispatch({ type: "scoutDungeon" })}
@@ -352,13 +371,13 @@ export function DungeonSandbox() {
             {d.phase === "awaitingCurio"
               ? "Curio 待结算；队伍尚未移动，不能补用 Torch 或重抽"
               : d.phase === "awaitingReplacement"
-                ? "英雄死亡：等待驿站替换接口，队伍尚未移动"
+                ? `英雄死亡：等待驿站替换接口，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
                 : d.phase === "blockedPressure"
-                  ? "压力已支付：意志卡数据待核实，队伍尚未移动"
+                  ? `压力已支付：意志卡数据待核实，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
                   : d.phase === "awaitingRoom"
-                    ? `进入 ${d.position}：等待非 Empty 房间效果`
+                    ? `进入 ${d.position}：等待${currentRoom?.kind === "trap" ? " Trap 分配，保留代币" : "非 Empty 房间效果"}`
                     : d.phase === "ready" && (d.exploration || (d.visited?.length ?? 0) > 1)
-                      ? `已到达 ${d.position}；${d.rooms.find((r) => r.id === d.position)?.cleared ? (d.rooms.find((r) => r.id === d.position)?.kind === "empty" ? "Empty 已清理，移除房间代币" : "已清理，移除房间代币") : "灰点必须停留"}`
+                      ? `已到达 ${d.position}；${currentRoom?.cleared ? (currentRoom.kind === "empty" ? "Empty 已清理，移除房间代币" : "已清理，移除房间代币") : currentRoom?.kind === "trap" ? "Trap 已结算，保留代币" : "灰点必须停留"}`
                       : d.exploration
                         ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
                         : "等待侦察 / 路线选择"}

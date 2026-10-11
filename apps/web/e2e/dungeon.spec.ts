@@ -114,7 +114,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await page.screenshot({ path: testInfo.outputPath("curio-empty.png"), fullPage: true });
 });
 
-test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场", async ({ page }) => {
+test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场", async ({ page }, testInfo) => {
   await page.goto("/?phase=3");
   await page.getByLabel("侦察测试布置").selectOption("pressure");
   await page.getByRole("button", { name: "侦察", exact: true }).click();
@@ -141,6 +141,48 @@ test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场"
   await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：0");
   await expect(page.getByTestId("dungeon-provisions")).toContainText("torch-1");
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("不能补用 Torch 或重抽");
+  await page.getByLabel("侦察测试布置").selectOption("trap");
+  await page.getByRole("button", { name: "重置 Radiant" }).click();
+  await page.getByRole("button", { name: "侦察", exact: true }).click();
+  await page.getByRole("button", { name: "全员同意", exact: true }).click();
+  await page.getByRole("button", { name: "选择下一段探索" }).click();
+  await page.getByRole("button", { name: "D", exact: true }).click();
+  await page.getByRole("button", { name: "掷探索骰并开始结算" }).click();
+  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("Trap 分配，保留代币");
+  await page.getByRole("button", { name: "结算 Trap 房间", exact: true }).click();
+  await page.getByRole("button", { name: "hero-0：分配陷阱房 3 点", exact: true }).click();
+  await page.getByRole("button", { name: "1 伤口 + 2 压力", exact: true }).click();
+  await expect(page.getByTestId("dungeon-events")).toContainText("Q-64");
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 9 · 伤口 0/17");
+  await page.getByRole("button", { name: "0 伤口 + 3 压力", exact: true }).click();
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 0 · 意志卡");
+  await expect(page.getByRole("button", { name: "原路返回", exact: true })).toBeDisabled();
+  for (const [hero, allocation] of [
+    [1, "1 伤口 + 2 压力"],
+    [2, "3 伤口 + 0 压力"],
+    [3, "0 伤口 + 3 压力"],
+  ] as const) {
+    await page.getByRole("button", { name: `hero-${hero}：分配陷阱房 3 点`, exact: true }).click();
+    await page.getByRole("button", { name: allocation, exact: true }).click();
+  }
+  await expect(page.getByTestId("dungeon-room-resolution")).toContainText("全员完成，保留代币");
+  await expect(page.getByTestId("dungeon-node-D")).toContainText("陷阱");
+  await expect(page.getByTestId("dungeon-node-D")).not.toContainText("已清理");
+  for (const target of ["G", "D"]) {
+    await page.getByRole("button", { name: "原路返回", exact: true }).click();
+    await page.getByRole("button", { name: `返回 ${target}（全员压力 +1）`, exact: true }).click();
+  }
+  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("Trap 分配，保留代币");
+  await page.getByRole("button", { name: "结算 Trap 房间", exact: true }).click();
+  for (let hero = 0; hero < 4; hero++) {
+    await page.getByRole("button", { name: `hero-${hero}：分配陷阱房 3 点`, exact: true }).click();
+    await page.getByRole("button", { name: "3 伤口 + 0 压力", exact: true }).click();
+  }
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-1 压力 5 · 伤口 4/14");
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-2 压力 3 · 伤口 6/12");
+  await expect(page.getByTestId("dungeon-room-resolution")).toContainText("全员完成，保留代币");
+  await expect(page.getByTestId("dungeon-provisions")).toContainText("tool-1");
+  await page.screenshot({ path: testInfo.outputPath("dungeon-trap-room.png"), fullPage: true });
 });
 
 test("实际地图灰点遮挡，红边地图保留未解释标记且仅预览", async ({ page }, testInfo) => {
