@@ -2,7 +2,7 @@
 
 ## 最新进度：Phase 2 Battle Heal I 逐卡射程与沙盒接入（2026-10-11）
 
-本轮 Kyries 要求检查进度并继续，没有新增合并授权。远端核实 #99、#103、#107 仍为开放草稿；已合并基线为 main `3f4e450`。从 origin/main 独立建立 `codex/phase2-battle-heal-range`，不混入 #107 的 Iron Swan 白名单和测试。以下历史记录继续保留，最新状态以本段为准。
+本轮 Kyries 要求检查进度并继续，没有新增合并授权。远端核实 #99、#103、#107 仍为开放草稿；已合并基线为 main `3f4e450`。从 origin/main 独立建立 `codex/phase2-battle-heal-range`，不混入 #107 的 Iron Swan 白名单和测试。[草稿 PR #108](https://github.com/Alpaca-go/ddbg-web/pull/108)，实现提交 `bb98c49`；准确 head CI 以 PR 为准。以下历史记录继续保留，最新状态以本段为准。
 
 - 自行只读核对完整印刷 `DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf` 第 13 页与官方核心规则书 R19 完整页面图像：Battle Heal I 四姿态可用、射程 0–1、单英雄目标、Crit 2 / 治疗 4、Acc 12 / 治疗 2，无附加效果。沿用规格书 §6.5 / §6.9、R-022 / R-025，遵守 R-001 / R-048；印刷件只提供卡面文字与数值，不补规则。
 - 既有逐卡射程附加器支持每张已复核卡各自的上下限，新增 p013 的 0–1 注解。匹配卡名、I 级、整卡验证状态、唯一已命名射程图标、原区间文本与 numeric=null；保留原始 null，通过现有管线重新生成规范化 JSON。只将 p013 加入 UI 白名单，本分支技能池由 17 张变为 18 张；不开放 II / III 或 #107 中待审的 p025。
