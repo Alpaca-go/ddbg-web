@@ -19,4 +19,4 @@ pnpm test:e2e   # Playwright 冒烟
 pnpm build
 ```
 
-`pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒。已支持四核心英雄 84 张技能，以及侦察、探索骰、Empty、Curio 牌池、普通走廊返回与 Trap 房间分配。当前尚不是完整战役，阶段进度见 [Phase 3 进度盘点](docs/phase3-backtracking-2026-10-11.md)，最新边界见 [Trap 交付](docs/phase3-trap-room-2026-10-11.md)。
+`pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒。已支持四核心英雄 84 张技能，以及侦察、探索骰、Empty、Curio 牌池、普通走廊返回与 Trap 房间分配。守卫房间抽牌 / 板块匹配位于待合并 [PR #113](https://github.com/Alpaca-go/ddbg-web/pull/113)，正式守卫战斗尚未接通。当前尚不是完整任务或战役，阶段历史、main / 待合并分支与下一步见 [最新交接](docs/HANDOFF-FROM-CODEX-2026-10-09.md)，房间抽牌边界见 [房间牌堆交付](docs/phase3-room-deck-2026-10-11.md)。
