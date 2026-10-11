@@ -2,7 +2,7 @@
 
 ## 最新交接：完整怪物牌池与守卫部署记录（2026-10-12，UTC+8）
 
-#113 已按 Kyries 指示合并为 main `258459e`，本地 main 已同步。后续主题在 `codex/phase3-monster-pool`，尚未合并；下文 #113 待合并与三种沙盒怪物的描述属于历史状态。
+#113 已按 Kyries 指示合并为 main `258459e`，本地 main 已同步。后续主题在 `codex/phase3-monster-pool`，实现提交 `ba8a854`，[PR #114](https://github.com/Alpaca-go/ddbg-web/pull/114) 为待合并草稿；下文 #113 待合并与三种沙盒怪物的描述属于历史状态。
 
 - 从本地官方 R10 / R16–17 与印刷件核对并生成完整 Common + Ruins 普通池：三等级共 62 张，I 级 42 张 / 15 种。按实际页创建唯一实例，大型引用映射战斗卡、不重复计份数，未过滤缺战斗数据的卡。
 - `packages/data/src/monster-pool.ts` / `normalize/monster-pool.ts` / `normalized/corebox/monster_pool.json` 提供校验与可再生目录；`packages/engine/src/dungeon-monsters.ts` 的 `prepareDungeonMonsters` 接获批 Ritual Chamber 抽怪和部署记录。共享 RNG 游标 +41，记录余牌 / 弃牌 / 活动怪物；重复操作及非法入口原子拒绝。

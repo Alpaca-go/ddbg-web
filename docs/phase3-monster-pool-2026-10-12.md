@@ -1,6 +1,6 @@
 # Phase 3：完整怪物牌池与守卫部署记录
 
-#113 已合并为 main `258459e`。本主题分支 `codex/phase3-monster-pool` 接完整 Common + Ruins 牌池和获批房间的抽怪部署记录，尚未创建正式战斗。Phase 2 按批准范围完成；Phase 3 仍未达到三张任务卡完整流程的验收目标。
+#113 已合并为 main `258459e`。本主题 [PR #114](https://github.com/Alpaca-go/ddbg-web/pull/114)（分支 `codex/phase3-monster-pool`，实现 `ba8a854`）接完整 Common + Ruins 牌池和获批房间的抽怪部署记录，尚未合并或创建正式战斗。Phase 2 按批准范围完成；Phase 3 仍未达到三张任务卡完整流程的验收目标。
 
 ## 资料、分堆与可用性
 
