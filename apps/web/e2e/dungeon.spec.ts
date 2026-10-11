@@ -112,6 +112,29 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已到达 D；Empty 已清理");
   await expect(page.getByTestId("dungeon-curio")).toContainText("弃牌 1");
   await page.screenshot({ path: testInfo.outputPath("curio-empty.png"), fullPage: true });
+  for (const fixture of ["roomApproved", "roomBlocked"]) {
+    await page.getByLabel("侦察测试布置").selectOption(fixture);
+    await page.getByRole("button", { name: "重置 Radiant" }).click();
+    await page.getByRole("button", { name: "侦察", exact: true }).click();
+    await page.getByRole("button", { name: "全员同意", exact: true }).click();
+    await page.getByRole("button", { name: "选择下一段探索" }).click();
+    await page.getByRole("button", { name: "D", exact: true }).click();
+    await page.getByRole("button", { name: "掷探索骰并开始结算" }).click();
+    await expect(page.getByTestId("dungeon-node-D")).toContainText("巢穴");
+    await page.getByRole("button", { name: "抽房间牌并匹配战斗板块" }).click();
+    const card = page.getByTestId("dungeon-room-card");
+    await expect(card).toContainText("完整遗迹房间牌池 9 张 · 余牌 8 · 已抽 1 张");
+    await expect(card).toContainText(
+      fixture === "roomApproved"
+        ? "已匹配 Ritual Chamber"
+        : "Tomb of Ancestor 对应板块几何 / 部署尚未获批",
+    );
+    await expect(page.getByRole("button", { name: "抽房间牌并匹配战斗板块" })).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "原路返回", exact: true })).toBeDisabled();
+    await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：0");
+    await page.screenshot({ path: testInfo.outputPath(`${fixture}.png`), fullPage: true });
+  }
 });
 
 test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场", async ({ page }, testInfo) => {
