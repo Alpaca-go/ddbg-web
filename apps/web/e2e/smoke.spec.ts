@@ -146,6 +146,37 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   }
   const first = await heal();
   expect(await heal()).toBe(first);
+  async function emptyArea() {
+    await page.getByRole("button", { name: "重新布置", exact: true }).click();
+    await page.getByRole("button", { name: "开始战斗", exact: true }).click();
+    await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+    for (const area of ["A", "B"]) {
+      await page.getByRole("button", { name: `前往 ${area}`, exact: true }).click();
+      await page.getByRole("button", { name: "确认移动", exact: true }).click();
+    }
+    await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p097");
+    await page.getByRole("checkbox", { name: "选择空区域", exact: true }).check();
+    await page.getByLabel("空区域", { exact: true }).selectOption("F");
+    await page.getByRole("button", { name: "使用技能", exact: true }).click();
+    await expect(page.getByRole("status")).toContainText("连通");
+    await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 4");
+    await page.getByLabel("空区域", { exact: true }).selectOption("E");
+    await page.getByRole("button", { name: "使用技能", exact: true }).click();
+    await expect(page.getByTestId("entity-hero-3")).toContainText("伤口 3/12");
+    await expect(page.getByTestId("entity-hero-1")).toContainText("伤口 5/14");
+    await expect(page.getByTestId("turn-status")).toContainText("剩余 1 行动");
+    await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5");
+    const log = page.getByRole("region", { name: "战斗日志" });
+    await expect(log).toContainText("VESTAL · Divine Comfort → 空区域 E · 无目标命中 / 暴击判定");
+    await page.getByRole("button", { name: "使用技能", exact: true }).click();
+    await expect(page.getByRole("status")).toContainText("成功使用");
+    await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5");
+    return log.innerText();
+  }
+  const emptyFirst = await emptyArea();
+  await page.screenshot({ path: testInfo.outputPath("empty-area-result.png"), fullPage: true });
+  expect(await emptyArea()).toBe(emptyFirst);
 });
 
 test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致", async ({ page }, testInfo) => {
@@ -323,7 +354,11 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
         ) {
           await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p034");
           await page.getByLabel("目标区域", { exact: true }).selectOption("B");
-          for (const checkbox of await page.getByRole("checkbox").all()) await checkbox.check();
+          for (const checkbox of await page
+            .getByRole("group", { name: "同区目标", exact: true })
+            .getByRole("checkbox")
+            .all())
+            await checkbox.check();
           await page.getByRole("button", { name: "使用技能", exact: true }).click();
           await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
             "英雄多目标技能已共用一次掷骰结算",
