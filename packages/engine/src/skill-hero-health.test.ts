@@ -32,7 +32,15 @@ function card(id: string) {
 }
 const attack: SkillCombatState = {
   actor: { id: "crusader", wounds: 17, stress: 3 },
-  target: { id: "soldier", side: "monster", wounds: 0, dodge: 0, life: 7, riposte: true },
+  target: {
+    id: "soldier",
+    side: "monster",
+    monsterTypeTags: ["Beast"],
+    wounds: 0,
+    dodge: 0,
+    life: 7,
+    riposte: true,
+  },
 };
 const door = { id: "crusader", life: 17, wounds: 17, dead: false };
 

@@ -219,6 +219,8 @@ export function consumeResolveProvision(state: GameState, provisionId: string): 
           type: "provisionConsumed",
           entityId: pending.actorId,
           provisionId,
+          face: battle.provisions!.find((provision) => provision.id === provisionId)!.face,
+          effect: "discard",
           message: "Selfish 已消耗补给，不执行该补给通常效果",
         },
       ],

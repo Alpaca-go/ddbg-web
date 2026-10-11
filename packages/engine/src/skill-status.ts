@@ -13,6 +13,7 @@ export function readVerifiedStatusEffects(skill: HeroSkillCardView):
       readonly selfLight: number;
       readonly targetLight: number;
       readonly selfRemove: boolean;
+      readonly targetRemove: boolean;
       readonly selfShuffle: SkillShuffle | null;
     } {
   const self: StatusEffect[] = [];
@@ -24,6 +25,7 @@ export function readVerifiedStatusEffects(skill: HeroSkillCardView):
   let selfLight = 0;
   let targetLight = 0;
   let selfRemove = false;
+  let targetRemove = false;
   let selfShuffle: SkillShuffle | null = null;
   for (const annotation of skill.verified_status_effects ?? []) {
     const line = skill.effect_lines[annotation.lineIndex];
@@ -98,8 +100,10 @@ export function readVerifiedStatusEffects(skill: HeroSkillCardView):
     if (!token.startsWith(prefix))
       return { status: "refused", reason: "状态同行缺少正确的自身 / 目标效果标记" };
     const rest = token.slice(prefix.length);
-    if (rest === "Remove{bleed}{blight}" && scope === "self") selfRemove = true;
-    else if (/^\{light\}[+-]\d+$/.test(rest)) {
+    if (rest === "Remove{bleed}{blight}") {
+      if (scope === "self") selfRemove = true;
+      else targetRemove = true;
+    } else if (/^\{light\}[+-]\d+$/.test(rest)) {
       const amount = Number(rest.slice("{light}".length));
       if (!Number.isSafeInteger(amount)) return { status: "refused", reason: "光照数值溢出" };
       if (scope === "self") selfLight += amount;
@@ -145,6 +149,7 @@ export function readVerifiedStatusEffects(skill: HeroSkillCardView):
     selfLight,
     targetLight,
     selfRemove,
+    targetRemove,
     selfShuffle,
   };
 }

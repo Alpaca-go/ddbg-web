@@ -36,6 +36,7 @@ function setup(seed = 0): GameState {
       ...heroes,
       {
         id: "m",
+        monsterCardId: "neutral",
         side: "monster",
         stance: "aggressive",
         stanceSlots: 1,
@@ -53,6 +54,15 @@ function setup(seed = 0): GameState {
     ],
     areas: [{ id: "a", adjacent: [], elevation: "normal" }],
     skills: [skill],
+    monsters: [
+      {
+        id: "neutral",
+        life: 100,
+        verification: { unverified: false },
+        type_position_tags: ["Beast"],
+        skills: [],
+      },
+    ],
     light: 5,
     resolveCards: cards,
   });

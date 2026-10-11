@@ -34,27 +34,12 @@ export function battleDataPlugin(): Plugin {
         resolveCards.some((card) => card.verification.unverified || !card.verified_turn_start)
       )
         throw new Error("意志牌堆必须完整且效果已核实（R-048）");
-      const skillIds = new Set([
-        "hero_skill:p001",
-        "hero_skill:p004",
-        "hero_skill:p007",
-        "hero_skill:p010",
-        "hero_skill:p013",
-        "hero_skill:p016",
-        "hero_skill:p022",
-        "hero_skill:p031",
-        "hero_skill:p034",
-        "hero_skill:p037",
-        "hero_skill:p064",
-        "hero_skill:p067",
-        "hero_skill:p070",
-        "hero_skill:p076",
-        "hero_skill:p079",
-        "hero_skill:p082",
-        "hero_skill:p088",
-        "hero_skill:p091",
-        "hero_skill:p097",
-      ]);
+      // 已逐页核实的四核心 I/II/III：印刷 p001–042、p064–105，共 84 张。
+      const skillIds = new Set(
+        [1, 64].flatMap((start) =>
+          Array.from({ length: 42 }, (_, i) => `hero_skill:p${String(start + i).padStart(3, "0")}`),
+        ),
+      );
       const skills = normalizedHeroSkillFileSchema
         .parse(read("hero_skill"))
         .cards.filter((card) => skillIds.has(card.id) && !card.verification.unverified);

@@ -5,6 +5,8 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 import { createRng, resolveHeroSkill, rollD10 } from "./index";
+import { createIconLookup, resolveLines } from "../../data/src/normalize/icons";
+import { iconDictionarySchema } from "../../data/src/dictionary/schema";
 import type { HeroSkillCardView, HeroSkillResolution, SkillCombatState } from "./index";
 
 const DATA_DIR = path.resolve(
@@ -52,6 +54,16 @@ if (!("dictionary_version" in file) || file.dictionary_version !== "1.8") {
   throw new Error("测试要用词典 v1.8 的规范化英雄技能");
 }
 
+const rawSkills = JSON.parse(
+  readFileSync(path.join(DATA_DIR, "../../extract/corebox/parsed/hero_skill.json"), "utf8"),
+) as { cards: { id: string; effect_lines_raw: string[] }[] };
+const legacyIcons = createIconLookup(
+  iconDictionarySchema.parse(
+    JSON.parse(
+      readFileSync(path.join(DATA_DIR, "../../dictionary/icon-dictionary-v1.8.json"), "utf8"),
+    ),
+  ),
+);
 const cards = new Map<string, FixtureCard>();
 for (const entry of file.cards) {
   if (!isFixtureCard(entry)) throw new Error("英雄技能卡形状对不上");
@@ -61,6 +73,15 @@ for (const entry of file.cards) {
   delete legacy.verified_status_effects;
   delete legacy.verified_range;
   delete legacy.verified_damage_bonus;
+  delete legacy.verified_target_support;
+  if (["hero_skill:p038", "hero_skill:p039"].includes(entry.id)) {
+    legacy.stats_line = null;
+    legacy.effect_lines = resolveLines(
+      rawSkills.cards.find((c) => c.id === entry.id)!.effect_lines_raw,
+      legacyIcons,
+      new Set(),
+    );
+  }
   cards.set(entry.id, legacy);
 }
 
@@ -450,8 +471,14 @@ describe("resolveHeroSkill", () => {
   it("未验证、读不出 Acc、Self 没有使用者、阵营不符、Musketeer 都不改伤口", () => {
     const bleed = card("hero_skill:p040");
     expect(bleed.name).toBe("Bleed Out");
-    expect(bleed.verification.unverified).toBe(true);
-    expect(use("hero_skill:p040", target("monster", 4, 0), 5)).toMatchObject({
+    expect(bleed.verification.unverified).toBe(false);
+    expect(
+      resolveHeroSkill(
+        { ...bleed, verification: { unverified: true } },
+        target("monster", 4, 0),
+        5,
+      ),
+    ).toMatchObject({
       status: "refused",
       reason: "未验证的技能不结算（R-048）",
       outcome: null,

@@ -9,8 +9,8 @@
  },
  "stats": {
   "cards": 35,
-  "verified": 26,
-  "unverified": 9
+  "verified": 28,
+  "unverified": 7
  },
  "cards": [
   {
@@ -5497,13 +5497,13 @@
       "icon": {
        "iconId": "d42d7955d3",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_d42d7955d3",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: two black-heart red-glow squares",
-       "meaning_zh": "待确认图形：两枚黑心红光方块",
+       "status": "confirmed",
+       "key": "wound",
+       "kind": "damage_type",
+       "meaning_en": "Wound",
+       "meaning_zh": "创伤",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -5515,13 +5515,13 @@
       "icon": {
        "iconId": "2c1824ea21",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_2c1824ea21",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: unclear crop",
-       "meaning_zh": "待确认图形：不够清楚的切图",
+       "status": "confirmed",
+       "key": "wound",
+       "kind": "damage_type",
+       "meaning_en": "Wound",
+       "meaning_zh": "创伤",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -5556,32 +5556,29 @@
     {
      "iconId": "d42d7955d3",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_d42d7955d3",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: two black-heart red-glow squares",
-     "meaning_zh": "待确认图形：两枚黑心红光方块",
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "2c1824ea21",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_2c1824ea21",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: unclear crop",
-     "meaning_zh": "待确认图形：不够清楚的切图",
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:2c1824ea21",
-     "icon:d42d7955d3"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -5851,13 +5848,13 @@
       "icon": {
        "iconId": "6888d0cf12",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_6888d0cf12",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: black heart with a red jagged edge",
-       "meaning_zh": "待确认图形：黑心加红光锯齿边",
+       "status": "confirmed",
+       "key": "wound",
+       "kind": "damage_type",
+       "meaning_en": "Wound",
+       "meaning_zh": "创伤",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -5892,19 +5889,18 @@
     {
      "iconId": "6888d0cf12",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_6888d0cf12",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: black heart with a red jagged edge",
-     "meaning_zh": "待确认图形：黑心加红光锯齿边",
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:6888d0cf12",
      "icon:adcab0541a"
     ]
    }
@@ -6020,13 +6016,13 @@
       "icon": {
        "iconId": "6888d0cf12",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_6888d0cf12",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: black heart with a red jagged edge",
-       "meaning_zh": "待确认图形：黑心加红光锯齿边",
+       "status": "confirmed",
+       "key": "wound",
+       "kind": "damage_type",
+       "meaning_en": "Wound",
+       "meaning_zh": "创伤",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -6105,20 +6101,18 @@
     {
      "iconId": "6888d0cf12",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_6888d0cf12",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: black heart with a red jagged edge",
-     "meaning_zh": "待确认图形：黑心加红光锯齿边",
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:6888d0cf12"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   }
  ]

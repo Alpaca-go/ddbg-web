@@ -20,7 +20,11 @@ describe("R-056 卡面限定批准", () => {
         value: null,
       });
       expect(approvedResolveLookup("quirk:p032", base).resolve(id)).toEqual(base.resolve(id));
-      expect(base.resolve(id).naming).toBe("unverified");
+      expect(base.resolve(id)).toMatchObject({
+        naming: "confirmed",
+        key: "wound",
+        meaning_zh: "创伤",
+      });
     }
     expect(
       approvedResolveLookup("virtue_affliction:p010", base).resolve("5a4fbf9781"),

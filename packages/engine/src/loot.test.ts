@@ -119,6 +119,13 @@ describe("R17–18 / R25 / R-047 / R-059 有限宝箱", () => {
     expect(result.state.battle!.encounter!.turn).toMatchObject({ actions: 1 });
     expect(result.state.battle!.loot!.claimedIds).toHaveLength(1);
     expect(result.state.battle!.loot!.placed).toEqual([]);
+    expect(result.events).toContainEqual(
+      expect.objectContaining({
+        type: "lootResolved",
+        actorId: "h0",
+        reward: { face: "bandage" },
+      }),
+    );
     expect(choose(pending.state, "bandage")).toEqual(result);
     const stale = applyCommand(result.state, {
       type: "resolveChoice",
@@ -144,8 +151,21 @@ describe("R17–18 / R25 / R-047 / R-059 有限宝箱", () => {
       expect(result.state.battle!.loot!.gold).toBeGreaterThan(0);
       expect(result.state.battle!.provisions).toHaveLength(16);
     }
-    const gold = pick(ready("doubleGold"));
-    expect(gold.state.battle!.loot!.gold % 2).toBe(0);
+    const goldInitial = ready("doubleGold");
+    const gold = pick({
+      ...goldInitial,
+      battle: {
+        ...goldInitial.battle!,
+        loot: { ...goldInitial.battle!.loot!, gold: 7 },
+      },
+    });
+    expect((gold.state.battle!.loot!.gold - 7) % 2).toBe(0);
+    expect(gold.events).toContainEqual(
+      expect.objectContaining({
+        type: "lootResolved",
+        reward: { gold: gold.state.battle!.loot!.gold - 7 },
+      }),
+    );
     for (const kind of ["rollProvision", "chooseProvision"] as const) {
       const initial = ready(kind, 16);
       expect(pick(initial).state).toEqual(initial);

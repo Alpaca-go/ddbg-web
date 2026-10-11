@@ -8,13 +8,12 @@ const cards = normalizedHeroSkillFileSchema.parse(
   ),
 ).cards;
 describe("逐卡复核的区间来源", () => {
-  it("只注解已复核 I 级四张，保留原 null，不给 II / III 级扩大池", () => {
+  it("注解逐页复核的 22 张区间卡，保留原 null", () => {
     const attached = attachVerifiedHeroRanges(cards);
-    expect(attached.filter((card) => card.verified_range).map((card) => card.id)).toEqual([
-      "hero_skill:p013",
-      "hero_skill:p067",
-      "hero_skill:p076",
-      "hero_skill:p088",
+    expect(
+      attached.filter((card) => card.verified_range).map((card) => Number(card.id.slice(-3))),
+    ).toEqual([
+      13, 14, 38, 39, 67, 68, 69, 73, 74, 75, 76, 77, 78, 88, 89, 90, 94, 95, 96, 100, 101, 102,
     ]);
     const heal = attached.find((card) => card.id === "hero_skill:p013")!;
     expect(heal.verified_range).toEqual({ min: 0, max: 1, source: "print_front" });

@@ -1,26 +1,145 @@
 import type { NormalizedHeroSkillCard } from "./schema";
 
-/** 完整 SKILLS_FRONT p016 / p067；只录已命名伤害图标和明文条件。 */
+/** 四核心完整印刷逐页核对：只录已命名伤害图标和明文条件。 */
 export function attachVerifiedHeroDamage(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return cards.map((card) => {
     const reviewed = {
+      "hero_skill:p001": {
+        name: "Smite",
+        level: 1,
+        page: 1,
+        lineIndex: 0,
+        amount: 1,
+        condition: "unholy",
+        suffix: "Unholy",
+      },
+      "hero_skill:p002": {
+        name: "Smite",
+        level: 2,
+        page: 2,
+        lineIndex: 0,
+        amount: 2,
+        condition: "unholy",
+        suffix: "Unholy",
+      },
+      "hero_skill:p003": {
+        name: "Smite",
+        level: 3,
+        page: 3,
+        lineIndex: 0,
+        amount: 3,
+        condition: "unholy",
+        suffix: "Unholy",
+      },
       "hero_skill:p016": {
         name: "Holy Lance",
+        level: 1,
         page: 16,
         lineIndex: 1,
         amount: 1,
         condition: "unholy",
         suffix: "Unholy",
       },
+      "hero_skill:p017": {
+        name: "Holy Lance",
+        level: 2,
+        page: 17,
+        lineIndex: 1,
+        amount: 2,
+        condition: "unholy",
+        suffix: "Unholy",
+      },
+      "hero_skill:p018": {
+        name: "Holy Lance",
+        level: 3,
+        page: 18,
+        lineIndex: 1,
+        amount: 3,
+        condition: "unholy",
+        suffix: "Unholy",
+      },
       "hero_skill:p067": {
         name: "Pistol Shot",
+        level: 1,
         page: 67,
         lineIndex: 0,
         amount: 2,
         condition: "marked",
         suffix: "{mark}",
+      },
+      "hero_skill:p068": {
+        name: "Pistol Shot",
+        level: 2,
+        page: 68,
+        lineIndex: 0,
+        amount: 3,
+        condition: "marked",
+        suffix: "{mark}",
+      },
+      "hero_skill:p069": {
+        name: "Pistol Shot",
+        level: 3,
+        page: 69,
+        lineIndex: 0,
+        amount: 4,
+        condition: "marked",
+        suffix: "{mark}",
+      },
+      "hero_skill:p085": {
+        name: "Mace Bash",
+        level: 1,
+        page: 85,
+        lineIndex: 0,
+        amount: 1,
+        condition: "unholy",
+        suffix: "Unholy",
+      },
+      "hero_skill:p086": {
+        name: "Mace Bash",
+        level: 2,
+        page: 86,
+        lineIndex: 0,
+        amount: 2,
+        condition: "unholy",
+        suffix: "Unholy",
+      },
+      "hero_skill:p087": {
+        name: "Mace Bash",
+        level: 3,
+        page: 87,
+        lineIndex: 0,
+        amount: 3,
+        condition: "unholy",
+        suffix: "Unholy",
+      },
+      "hero_skill:p103": {
+        name: "Hand of Light",
+        level: 1,
+        page: 103,
+        lineIndex: 1,
+        amount: 1,
+        condition: "unholy",
+        suffix: "Unholy",
+      },
+      "hero_skill:p104": {
+        name: "Hand of Light",
+        level: 2,
+        page: 104,
+        lineIndex: 1,
+        amount: 2,
+        condition: "unholy",
+        suffix: "Unholy",
+      },
+      "hero_skill:p105": {
+        name: "Hand of Light",
+        level: 3,
+        page: 105,
+        lineIndex: 1,
+        amount: 3,
+        condition: "unholy",
+        suffix: "Unholy",
       },
     } as const;
     const entry = reviewed[card.id as keyof typeof reviewed];
@@ -32,7 +151,7 @@ export function attachVerifiedHeroDamage(
       .replace(/\s+/g, "");
     if (
       card.name !== entry.name ||
-      card.level !== 1 ||
+      card.level !== entry.level ||
       card.verification.unverified ||
       card.pages.length !== 1 ||
       card.pages[0] !== entry.page ||

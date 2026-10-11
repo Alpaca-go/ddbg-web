@@ -9,8 +9,8 @@
  },
  "stats": {
   "cards": 38,
-  "verified": 24,
-  "unverified": 14
+  "verified": 25,
+  "unverified": 13
  },
  "cards": [
   {
@@ -822,13 +822,13 @@
        "icon": {
         "iconId": "48ca9f366e",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_48ca9f366e",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: heart with a black fill and a red border",
-        "meaning_zh": "待确认图形：黑底红边心形",
+        "status": "confirmed",
+        "key": "wound",
+        "kind": "damage_type",
+        "meaning_en": "Wound",
+        "meaning_zh": "创伤",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -894,13 +894,13 @@
     {
      "iconId": "48ca9f366e",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_48ca9f366e",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: heart with a black fill and a red border",
-     "meaning_zh": "待确认图形：黑底红边心形",
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "back_icons": [
@@ -918,10 +918,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:48ca9f366e"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {

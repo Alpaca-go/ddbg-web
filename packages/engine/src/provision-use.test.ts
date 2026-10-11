@@ -75,6 +75,15 @@ describe("R12 / R-027 免费补给窗口", () => {
       const result = use(state, effect);
       expect(result.state.battle!.rngCursor).toBe(state.battle!.rngCursor);
       expect(result.state.battle!.provisions).toEqual([]);
+      expect(result.events).toContainEqual(
+        expect.objectContaining({
+          type: "provisionConsumed",
+          entityId: "h0",
+          provisionId: "p",
+          face,
+          effect,
+        }),
+      );
       expect(result.state.battle!.encounter).toEqual(state.battle!.encounter);
       expect(result).toEqual(use(state, effect));
       if (effect === "heal") expect(result.state.battle!.entities[0]!.wounds).toBe(9);

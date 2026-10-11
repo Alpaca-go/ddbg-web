@@ -9,8 +9,8 @@
  },
  "stats": {
   "cards": 231,
-  "verified": 222,
-  "unverified": 9
+  "verified": 225,
+  "unverified": 6
  },
  "cards": [
   {
@@ -139,6 +139,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 1,
+    "condition": "unholy",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -587,6 +593,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 2,
+    "condition": "unholy",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -1035,6 +1047,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 3,
+    "condition": "unholy",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -3039,6 +3057,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -3466,6 +3493,15 @@
       "text": " 1t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
    ],
    "top_row_icons": [
     {
@@ -4340,6 +4376,22 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "protection",
+     "duration": 3
+    },
+    {
+     "lineIndex": 1,
+     "segmentIndex": 4,
+     "scope": "self",
+     "kind": "mark",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -4721,6 +4773,22 @@
       "text": " +2"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "protection",
+     "duration": 3
+    },
+    {
+     "lineIndex": 1,
+     "segmentIndex": 4,
+     "scope": "self",
+     "kind": "mark",
+     "duration": 2
+    }
    ],
    "top_row_icons": [
     {
@@ -5597,6 +5665,11 @@
      "text": " 3"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -6978,6 +7051,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 1,
+    "amount": 2,
+    "condition": "unholy",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -7486,6 +7565,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 1,
+    "amount": 3,
+    "condition": "unholy",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -8034,6 +8119,13 @@
      }
     ]
    ],
+   "verified_target_support": {
+    "lineIndex": 1,
+    "heal": 1,
+    "stress": -1,
+    "light": 1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -8621,6 +8713,13 @@
      }
     ]
    ],
+   "verified_target_support": {
+    "lineIndex": 2,
+    "heal": 1,
+    "stress": -1,
+    "light": 1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -9270,6 +9369,13 @@
      }
     ]
    ],
+   "verified_target_support": {
+    "lineIndex": 2,
+    "heal": 1,
+    "stress": -1,
+    "light": 1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -11785,6 +11891,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -12113,6 +12228,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -12440,6 +12564,15 @@
       "text": " 1t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
    ],
    "top_row_icons": [
     {
@@ -13275,6 +13408,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 3,
+     "amount": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -13731,6 +13874,16 @@
       "text": " 3t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 3,
+     "amount": 4
+    }
    ],
    "top_row_icons": [
     {
@@ -15909,40 +16062,6 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "3ab7e7544c",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "range",
-       "kind": "other",
-       "meaning_en": "Range",
-       "meaning_zh": "射程",
-       "value": null,
-       "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " 0-1 "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "7616568d52",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "target_hero",
-       "kind": "target",
-       "meaning_en": "Target: Hero(es) (one icon per target)",
-       "meaning_zh": "目标：英雄（图标数=目标数）",
-       "value": null,
-       "naming": "confirmed"
-      }
-     }
-    ],
-    [
-     {
-      "type": "icon",
-      "icon": {
        "iconId": "8fc8635162",
        "in_dictionary": true,
        "status": "confirmed",
@@ -15956,7 +16075,7 @@
      },
      {
       "type": "text",
-      "text": " \u0007 Self Remove "
+      "text": " Self Remove "
      },
      {
       "type": "icon",
@@ -15992,8 +16111,28 @@
      },
      {
       "type": "text",
-      "text": " , "
+      "text": ", "
      },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a364cbc7f3",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "buff",
+       "kind": "status",
+       "meaning_en": "Buff",
+       "meaning_zh": "增益",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 2t"
+     }
+    ],
+    [
      {
       "type": "icon",
       "icon": {
@@ -16046,7 +16185,7 @@
      },
      {
       "type": "text",
-      "text": " , "
+      "text": ", "
      },
      {
       "type": "icon",
@@ -16066,27 +16205,23 @@
       "type": "text",
       "text": " 2t"
      }
-    ],
-    [
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "69ab8837e5",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "buff",
-       "kind": "status",
-       "meaning_en": "Buff",
-       "meaning_zh": "增益",
-       "value": null,
-       "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " 2t"
-     }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 6,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 2
+    },
+    {
+     "lineIndex": 1,
+     "segmentIndex": 6,
+     "scope": "target",
+     "kind": "buff",
+     "duration": 2
+    }
    ],
    "top_row_icons": [
     {
@@ -16147,7 +16282,45 @@
      "naming": "confirmed"
     }
    ],
-   "stats_line": null,
+   "stats_line": [
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "3ab7e7544c",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "range",
+      "kind": "other",
+      "meaning_en": "Range",
+      "meaning_zh": "射程",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " 0-1 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "7616568d52",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_hero",
+      "kind": "target",
+      "meaning_en": "Target: Hero(es) (one icon per target)",
+      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    }
+   ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -16454,58 +16627,6 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "3ab7e7544c",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "range",
-       "kind": "other",
-       "meaning_en": "Range",
-       "meaning_zh": "射程",
-       "value": null,
-       "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " 0-1 "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "7616568d52",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "target_hero",
-       "kind": "target",
-       "meaning_en": "Target: Hero(es) (one icon per target)",
-       "meaning_zh": "目标：英雄（图标数=目标数）",
-       "value": null,
-       "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "7616568d52",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "target_hero",
-       "kind": "target",
-       "meaning_en": "Target: Hero(es) (one icon per target)",
-       "meaning_zh": "目标：英雄（图标数=目标数）",
-       "value": null,
-       "naming": "confirmed"
-      }
-     }
-    ],
-    [
-     {
-      "type": "icon",
-      "icon": {
        "iconId": "8fc8635162",
        "in_dictionary": true,
        "status": "confirmed",
@@ -16519,46 +16640,12 @@
      },
      {
       "type": "text",
-      "text": " \u0007 Self Remove "
+      "text": " Self Remove "
      },
      {
       "type": "icon",
       "icon": {
        "iconId": "9d0ef9dd87",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "bleed",
-       "kind": "status",
-       "meaning_en": "Bleed (as removed condition)",
-       "meaning_zh": "流血（被移除）",
-       "value": null,
-       "naming": "confirmed"
-      }
-     }
-    ],
-    [
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "b6afaa4d7b",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "target_effects",
-       "kind": "other",
-       "meaning_en": "Target Effects marker",
-       "meaning_zh": "目标效果标记",
-       "value": null,
-       "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " Remove "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "ab1a04a131",
        "in_dictionary": true,
        "status": "confirmed",
        "key": "bleed",
@@ -16589,7 +16676,7 @@
      },
      {
       "type": "text",
-      "text": " , "
+      "text": ", "
      },
      {
       "type": "icon",
@@ -16614,25 +16701,61 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "98edfaca0a",
+       "iconId": "b6afaa4d7b",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "blight",
-       "kind": "status",
-       "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
        "value": null,
        "naming": "confirmed"
       }
      },
      {
       "type": "text",
-      "text": " , "
+      "text": " Remove "
      },
      {
       "type": "icon",
       "icon": {
-       "iconId": "1ff34c908b",
+       "iconId": "9d0ef9dd87",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "bleed",
+       "kind": "status",
+       "meaning_en": "Bleed (as removed condition)",
+       "meaning_zh": "流血（被移除）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c7faf2bc86",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "blight",
+       "kind": "status",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": ", "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a364cbc7f3",
        "in_dictionary": true,
        "status": "confirmed",
        "key": "buff",
@@ -16648,6 +16771,22 @@
       "text": " 2t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 6,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 2
+    },
+    {
+     "lineIndex": 1,
+     "segmentIndex": 6,
+     "scope": "target",
+     "kind": "buff",
+     "duration": 2
+    }
    ],
    "top_row_icons": [
     {
@@ -16708,7 +16847,63 @@
      "naming": "confirmed"
     }
    ],
-   "stats_line": null,
+   "stats_line": [
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "3ab7e7544c",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "range",
+      "kind": "other",
+      "meaning_en": "Range",
+      "meaning_zh": "射程",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " 0-1 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "7616568d52",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_hero",
+      "kind": "target",
+      "meaning_en": "Target: Hero(es) (one icon per target)",
+      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "7616568d52",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_hero",
+      "kind": "target",
+      "meaning_en": "Target: Hero(es) (one icon per target)",
+      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    }
+   ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -17071,13 +17266,13 @@
       "icon": {
        "iconId": "8466c441ea",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_8466c441ea",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: skill-card front crop (Bleed Out, HELLION)",
-       "meaning_zh": "待确认图形：技能卡正面切图（Bleed Out，HELLION）",
+       "status": "confirmed",
+       "key": "wound",
+       "kind": "damage_type",
+       "meaning_en": "Wound",
+       "meaning_zh": "创伤",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      }
     ],
@@ -17119,6 +17314,16 @@
       "text": " 2t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 2,
+     "amount": 3
+    }
    ],
    "top_row_icons": [
     {
@@ -17378,13 +17583,13 @@
     {
      "iconId": "8466c441ea",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_8466c441ea",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: skill-card front crop (Bleed Out, HELLION)",
-     "meaning_zh": "待确认图形：技能卡正面切图（Bleed Out，HELLION）",
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "9d0ef9dd87",
@@ -17457,10 +17662,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:8466c441ea"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "hero": "HELLION",
    "back_name": "Bleed Out",
@@ -17595,13 +17798,13 @@
       "icon": {
        "iconId": "8466c441ea",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_8466c441ea",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: skill-card front crop (Bleed Out, HELLION)",
-       "meaning_zh": "待确认图形：技能卡正面切图（Bleed Out，HELLION）",
+       "status": "confirmed",
+       "key": "wound",
+       "kind": "damage_type",
+       "meaning_en": "Wound",
+       "meaning_zh": "创伤",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      }
     ],
@@ -17643,6 +17846,16 @@
       "text": " 3t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 3,
+     "amount": 3
+    }
    ],
    "top_row_icons": [
     {
@@ -17902,13 +18115,13 @@
     {
      "iconId": "8466c441ea",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_8466c441ea",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: skill-card front crop (Bleed Out, HELLION)",
-     "meaning_zh": "待确认图形：技能卡正面切图（Bleed Out，HELLION）",
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "c22f085b95",
@@ -17981,10 +18194,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:8466c441ea"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "hero": "HELLION",
    "back_name": "Bleed Out",
@@ -18119,13 +18330,13 @@
       "icon": {
        "iconId": "8466c441ea",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_8466c441ea",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: skill-card front crop (Bleed Out, HELLION)",
-       "meaning_zh": "待确认图形：技能卡正面切图（Bleed Out，HELLION）",
+       "status": "confirmed",
+       "key": "wound",
+       "kind": "damage_type",
+       "meaning_en": "Wound",
+       "meaning_zh": "创伤",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      }
     ],
@@ -18167,6 +18378,16 @@
       "text": " 3t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 3,
+     "amount": 4
+    }
    ],
    "top_row_icons": [
     {
@@ -18426,13 +18647,13 @@
     {
      "iconId": "8466c441ea",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_8466c441ea",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: skill-card front crop (Bleed Out, HELLION)",
-     "meaning_zh": "待确认图形：技能卡正面切图（Bleed Out，HELLION）",
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "c22f085b95",
@@ -18494,10 +18715,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:8466c441ea"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "hero": "HELLION",
    "back_name": "Bleed Out",
@@ -29858,6 +30077,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 3,
+    "condition": "marked",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -29991,6 +30216,11 @@
      "text": " 7"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -30331,6 +30561,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 4,
+    "condition": "marked",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -30464,6 +30700,11 @@
      "text": " 9"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -32195,6 +32436,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -32364,6 +32614,11 @@
      "text": " 3"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "d9551e4669",
@@ -32691,6 +32946,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -32860,6 +33124,11 @@
      "text": " 4"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "d9551e4669",
@@ -33187,6 +33456,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -33356,6 +33634,11 @@
      "text": " 5"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "d9551e4669",
@@ -34124,6 +34407,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 4
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -34257,6 +34549,11 @@
      "text": " 3"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -34562,6 +34859,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 4
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -34695,6 +35001,11 @@
      "text": " 4"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -35483,6 +35794,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "riposte",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -35949,6 +36269,15 @@
       "text": " Pull 1"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "riposte",
+     "duration": 3
+    }
    ],
    "top_row_icons": [
     {
@@ -36874,6 +37203,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 3,
+     "amount": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -37331,6 +37670,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 3,
+     "amount": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -37768,6 +38117,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 1,
+    "condition": "unholy",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -38216,6 +38571,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 2,
+    "condition": "unholy",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -38664,6 +39025,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 3,
+    "condition": "unholy",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -39714,6 +40081,11 @@
      "text": " 5"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -40181,6 +40553,11 @@
      "text": " 6"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -40978,6 +41355,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -41443,6 +41829,15 @@
       "text": " +1"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
    ],
    "top_row_icons": [
     {
@@ -41993,6 +42388,11 @@
      "text": " 3"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -42409,6 +42809,11 @@
      "text": " 5"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -42825,6 +43230,11 @@
      "text": " 7"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -44884,6 +45294,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -45017,6 +45436,11 @@
      "text": " 2"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -45360,6 +45784,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -45493,6 +45926,11 @@
      "text": " 3"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -45836,6 +46274,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -45969,6 +46416,11 @@
      "text": " 4"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -46340,6 +46792,21 @@
       "text": " +1 vs Unholy"
      }
     ]
+   ],
+   "verified_damage_bonus": {
+    "lineIndex": 1,
+    "amount": 1,
+    "condition": "unholy",
+    "source": "print_front"
+   },
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 3
+    }
    ],
    "top_row_icons": [
     {
@@ -46868,6 +47335,21 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 1,
+    "amount": 2,
+    "condition": "unholy",
+    "source": "print_front"
+   },
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -47394,6 +47876,21 @@
       "text": " +3 vs Unholy"
      }
     ]
+   ],
+   "verified_damage_bonus": {
+    "lineIndex": 1,
+    "amount": 3,
+    "condition": "unholy",
+    "source": "print_front"
+   },
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 3
+    }
    ],
    "top_row_icons": [
     {

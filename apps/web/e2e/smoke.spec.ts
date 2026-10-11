@@ -17,18 +17,39 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await page.getByRole("button", { name: "重新布置", exact: true }).click();
   await page.getByRole("button", { name: "开始战斗", exact: true }).click();
   await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
-  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p010");
+  await expect(page.getByLabel("技能", { exact: true }).getByRole("option")).toHaveCount(21);
+  await expect(
+    page
+      .getByLabel("技能", { exact: true })
+      .getByRole("option", { name: "Bulwark of Faith III", exact: true }),
+  ).toHaveCount(1);
+  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p012");
+  await expect(page.getByTestId("skill-requirements")).toContainText("卡面目标：自身");
+  await expect(page.getByTestId("skill-requirements")).not.toContainText("卡面射程");
   await expect(page.getByText("目标：自身 · CRUSADER", { exact: true })).toBeVisible();
   await expect(page.getByLabel("目标", { exact: true })).toHaveCount(0);
   const selfCard = page.getByTestId("skill-card-text");
-  await expect(selfCard).toContainText("Bulwark of Faith · 等级 1");
-  await expect(selfCard).toContainText("[防护] 2t, [标记] 3t, [光照（火把）] +2");
+  await expect(selfCard).toContainText("Bulwark of Faith · 等级 3");
+  await expect(selfCard).toContainText("[防护] 3t, [标记] 2t, [光照（火把）] +2");
   await expect(selfCard).not.toContainText("self_effects");
   await page.getByRole("button", { name: "使用技能", exact: true }).click();
-  await expect(page.getByTestId("entity-hero-0")).toContainText("防护 / 2t；标记 / 3t");
+  await expect(page.getByTestId("entity-hero-0")).toContainText("防护 / 3t；标记 / 2t");
   await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 4");
   await expect(page.getByTestId("turn-status")).toContainText("剩余 1 行动");
   await page.screenshot({ path: testInfo.outputPath("status-self-result.png"), fullPage: true });
+  await page.getByLabel("测试布置", { exact: true }).selectOption("heal");
+  await page.getByRole("button", { name: "重新布置", exact: true }).click();
+  await page.getByRole("button", { name: "开始战斗", exact: true }).click();
+  await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p019");
+  await expect(page.getByTestId("skill-card-text")).toContainText("Inspiring Cry · 等级 1");
+  await page.getByLabel("目标", { exact: true }).selectOption("hero-1");
+  await page.getByRole("button", { name: "使用技能", exact: true }).click();
+  await expect(page.getByTestId("entity-hero-1")).toContainText("伤口 4/");
+  await expect(page.getByTestId("entity-hero-0")).toContainText("伤口 5/");
+  await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 4");
+  await expect(page.getByTestId("turn-status")).toContainText("剩余 1 行动");
+  await page.screenshot({ path: testInfo.outputPath("inspiring-cry-result.png"), fullPage: true });
   await page.getByLabel("测试布置", { exact: true }).selectOption("formalBack");
   await page.getByRole("button", { name: "重新布置", exact: true }).click();
   await expect(page.getByTestId("area-C")).toContainText("2/3 格");
@@ -59,6 +80,12 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
     .selectOption((await usableProvision.getAttribute("value"))!);
   await page.getByRole("button", { name: "免费使用补给", exact: true }).click();
   await expect(page.getByRole("group", { name: "免费补给 · 7/16", exact: true })).toBeVisible();
+  await expect(page.getByRole("region", { name: "战斗日志" })).toContainText("CRUSADER · 消耗：");
+  await expect(page.getByRole("region", { name: "战斗日志" })).toContainText("所选效果：");
+  await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
+    "HELLION · 补给骰面：火把",
+  );
+  await page.screenshot({ path: testInfo.outputPath("supply-history.png"), fullPage: true });
   await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 24");
   await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
   await expect(page.getByRole("group", { name: /待选决策/ })).toContainText("回合开始前");
@@ -82,6 +109,10 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
     await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
     await expect(page.getByTestId("turn-status")).toContainText("VESTAL · 剩余 2 行动");
     await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p097");
+    await expect(page.getByTestId("skill-requirements")).toContainText("卡面射程：区域距离 1");
+    await expect(page.getByTestId("skill-requirements")).toContainText(
+      "卡面目标：同一区域内最多 3 个目标",
+    );
     await expect(page.getByRole("button", { name: "使用技能", exact: true })).toBeDisabled();
     await page.getByLabel("目标区域", { exact: true }).selectOption("F");
     await expect(page.getByRole("group", { name: "同区目标", exact: true })).toContainText(
@@ -392,6 +423,9 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
               await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p037");
             } else if (hero === "HIGHWAYMAN") {
               await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p076");
+              await expect(page.getByTestId("skill-requirements")).toContainText(
+                "卡面射程：区域距离 1–2",
+              );
               // 首次仍在正式出生 H；J / I / D / E 都在已核实的 1–2 射程内，F 断开。
               const target = page
                 .getByLabel("目标", { exact: true })
@@ -474,6 +508,9 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
         );
       }
       expect(lootUsed).toBe(true);
+      await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
+        /获得金币 \d+|获得补给：/,
+      );
       await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
         "CRUSADER · 同时伤口 0",
       );

@@ -153,8 +153,9 @@ import { readVerifiedStatusEffects } from "./skill-status";
  * 已命名的头盔或怪物头，个数和阵营都用它们。Inspiring Tune I 的 stats 行只排进了
  * 「Crit 2 Acc 20」，两枚英雄头盔在正面图标里。效果行里已经有头盔时仍不用正面图标，
  * 避免和效果行重复计数。正面也没有时，不把 Self 或 All Allies 当成个数。
- * 不因此把技能名旁边的 Crit / Acc 整数当成伤害：Zealous Accusation 的 stats 行仍没有
- * 已命名的 damage。选空区域算成功使用（R-025），但这一层始终带着一个已选目标，传入 0
+ * 不把 Crit / Acc 阈值当成伤害；伤害必须由已命名 damage 图标及旁边数字支持。
+ * Zealous Accusation I/II/III 已按完整印刷和 R-062 核实。选空区域算成功使用（R-025），
+ * 但这一层始终带着一个已选目标，传入 0
  * 不在这里结算。不以友方为目标时，调用方标明这次没有选中有 Guard 的敌人，整次拒绝
  * （规则书第 21 页，R-024）。目标是英雄或 Self 时不拒绝。不从「1t」读出谁现在有 Guard，
  * 也不改选谁。
@@ -254,6 +255,13 @@ export type HeroSkillCardView = {
   readonly verified_target_stress?: {
     readonly lineIndex: number;
     readonly amount: number;
+    readonly source: "print_front";
+  };
+  readonly verified_target_support?: {
+    readonly lineIndex: number;
+    readonly heal: number;
+    readonly stress: number;
+    readonly light: number;
     readonly source: "print_front";
   };
   readonly verified_damage_bonus?: {
@@ -456,7 +464,7 @@ export type SkillForm = "beast" | "human";
 export type SkillHealthEffect = {
   readonly entityId: string;
   readonly side: SkillTargetSide;
-  readonly source: "selfHeal" | "targetHeal" | "attack" | "riposte";
+  readonly source: "selfHeal" | "selfWound" | "targetHeal" | "attack" | "riposte";
   readonly effect: HeroHealthEffect;
 };
 
@@ -751,6 +759,40 @@ function readSelfHeal(skill: HeroSkillCardView): SelfHeal {
   }
   if (lineCount === 0 || lineCount !== numerics.length) return none;
   return { amount: shared * lineCount, lineCount };
+}
+
+/** R20：已命名 Wound 与旁边整数对上整行才结算；自身创伤无视命中和防护。 */
+function readSelfWound(skill: HeroSkillCardView): SelfHeal {
+  const lines = skill.effect_lines.filter(
+    (line) =>
+      line.every((s) => s.type === "text" || NAMED.has(s.icon.naming)) &&
+      /^\{self_effects\}Self\d+\{wound\}$/.test(
+        line
+          .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+          .join("")
+          .split(String.fromCharCode(7))
+          .join("")
+          .replace(/\s/g, ""),
+      ),
+  );
+  const amounts = skill.unlabeled_numbers.filter(
+    (n) =>
+      n.anchor.type === "beside_icon" &&
+      n.anchor.left_icon === null &&
+      n.anchor.inside_icon === null &&
+      n.numeric !== null &&
+      nonNegativeInteger(n.numeric),
+  );
+  if (lines.length !== 1 || amounts.length !== 1) return { amount: 0, lineCount: 0 };
+  const amount = amounts[0]!.numeric!;
+  const text = lines[0]!
+    .filter((s) => s.type === "text")
+    .map((s) => s.text)
+    .join("")
+    .split(String.fromCharCode(7))
+    .join("")
+    .replace(/\s/g, "");
+  return text === `Self${amount}` ? { amount, lineCount: 1 } : { amount: 0, lineCount: 0 };
 }
 
 function selfHealLine(line: readonly SkillSegment[], amount: number): boolean {
@@ -1799,6 +1841,20 @@ function lineTargetIcons(line: readonly SkillSegment[]): SkillIconRef[] {
  * 那些仍不计数。两边都没有时，才用 `front_icons`。
  */
 function readTargetIconCounts(skill: HeroSkillCardView): { hero: number; monster: number } {
+  // p019 的射程 / 目标行被提取到 effect_lines；只读逐卡复核注解对应的已确认行。
+  if (skill.verified_target_support) {
+    const line = skill.effect_lines[0];
+    const text = line
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, "");
+    if (
+      /^\{range\}\d+(?:\{target_hero\}){1,2}$/.test(text ?? "") &&
+      !line?.some((s) => s.type === "icon" && !NAMED.has(s.icon.naming))
+    )
+      return countNamedTargets(lineTargetIcons(line!));
+    return { hero: 0, monster: 0 };
+  }
   const stats = countNamedTargets(lineTargetIcons(skill.stats_line ?? []));
   if (stats.hero > 0 || stats.monster > 0) return stats;
   for (const line of skill.effect_lines) {
@@ -2109,7 +2165,38 @@ function resolveSkill(
   if (targetCount !== null) return refuse(skill, combat, targetCount);
 
   const target = combat.target;
-  const stress = readImmediateStress(active);
+  const support = active.verified_target_support;
+  if (support) {
+    const line = active.effect_lines[support.lineIndex];
+    const text = line
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, "");
+    if (
+      !Number.isSafeInteger(support.lineIndex) ||
+      support.lineIndex < 0 ||
+      ![1, 2].includes(support.lineIndex) ||
+      active.effect_lines.length !== support.lineIndex + 1 ||
+      !Number.isSafeInteger(support.heal) ||
+      support.heal <= 0 ||
+      !Number.isSafeInteger(support.stress) ||
+      support.stress >= 0 ||
+      !Number.isSafeInteger(support.light) ||
+      support.light <= 0 ||
+      support.source !== "print_front" ||
+      active.printed_labels.length ||
+      active.stats_line !== null ||
+      text !==
+        `{target_effects}{damage_or_heal_combined_marker}{heal}${support.heal},{stress}${support.stress},{light}+${support.light}` ||
+      line?.some(
+        (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+      )
+    )
+      return refuse(skill, combat, "目标支持注解与已确认卡面不符（R-048）");
+    if (combat.light === undefined || (!emptyArea && target.stress === undefined))
+      return refuse(skill, combat, "目标支持效果缺少光照或压力轨");
+  }
+  const stress = support ? { self: 0, target: 0, lineCount: 0 } : readImmediateStress(active);
   const extraStress = active.verified_target_stress;
   if (extraStress) {
     const line = active.effect_lines[extraStress.lineIndex];
@@ -2167,6 +2254,7 @@ function resolveSkill(
   if (statuses.self.length && combat.actor === undefined)
     return refuse(skill, combat, "自身状态效果缺少使用者");
   const selfHeal = readSelfHeal(active);
+  const selfWound = readSelfWound(active);
   const paired = readSelfHealStress(active);
   const removal = readConditionRemoval(active);
   const selfBleed = readSelfBleedRemoval(active);
@@ -2190,7 +2278,8 @@ function resolveSkill(
         removal.pairedTargetLines === 0 &&
         shuffles.self === null &&
         shuffles.target === null &&
-        statuses.lineCount === 0
+        statuses.lineCount === 0 &&
+        !support
       ) {
         return refuse(skill, combat, "stats_line 没有已命名的 damage 或 heal");
       }
@@ -2207,7 +2296,8 @@ function resolveSkill(
     effect === null &&
     shuffles.self === null &&
     shuffles.target === null &&
-    statuses.target.length === 0;
+    statuses.target.length === 0 &&
+    !support;
   const selfTarget = readsAsSelfTarget(active);
   const targetCounts = readTargetIconCounts(active);
   const targets = new Set<"target_hero" | "target_monster">();
@@ -2264,7 +2354,12 @@ function resolveSkill(
   if (!formOnly && effect !== null && critThreshold === null) {
     return refuse(skill, combat, "Crit 标签没有非负整数阈值");
   }
-  if (!formOnly && accThreshold === null) {
+  if (
+    !formOnly &&
+    !support &&
+    accThreshold === null &&
+    !(statuses.target.length && active.printed_labels.length === 0)
+  ) {
     return refuse(skill, combat, "Acc 标签没有非负整数阈值");
   }
   const needsAmount = effect === "damage" || effect === "heal";
@@ -2285,6 +2380,8 @@ function resolveSkill(
   if ((selfHeal.amount > 0 || paired.heal > 0) && combat.actor === undefined) {
     return refuse(skill, combat, "自身效果要治疗，但没有使用者的伤口（规则书第 20 页）");
   }
+  if (selfWound.lineCount && combat.actor === undefined)
+    return refuse(skill, combat, "自身创伤缺少使用者");
   if (selfBleed.lineCount > 0 && combat.actor === undefined) {
     return refuse(skill, combat, "自身效果要移除流血，但没有使用者（规则书第 20 页）");
   }
@@ -2360,7 +2457,8 @@ function resolveSkill(
       : [...combat.untargetedHeroesBesideTarget],
   );
   const lightDelta =
-    statuses.selfLight + (emptyArea || outcome === "miss" ? 0 : statuses.targetLight);
+    statuses.selfLight +
+    (emptyArea || outcome === "miss" ? 0 : statuses.targetLight + (support?.light ?? 0));
   const pressureLight =
     combat.light === undefined ? undefined : Math.max(0, Math.min(5, combat.light + lightDelta));
   const pressureDelta = (amount: number): number =>
@@ -2378,6 +2476,15 @@ function resolveSkill(
       side: sourceSide,
       source: "selfHeal",
       effect: { type: "heal", amount: selfHeal.amount + paired.heal },
+    });
+  }
+  if (selfWound.lineCount && actorWounds !== null) {
+    actorWounds += selfWound.amount;
+    healthEffects.push({
+      entityId: combat.actor!.id,
+      side: sourceSide,
+      source: "selfWound",
+      effect: { type: "wounds", amounts: [selfWound.amount] },
     });
   }
   // 自身「Remove Bleed」不看命中。没有 Acc 时也清。和增益写在同一行的不算。
@@ -2445,13 +2552,24 @@ function resolveSkill(
   }
 
   // 目标效果只对命中或暴击的目标生效。落空不改目标压力，也不移除状态。
+  if (support && !emptyArea) {
+    wounds = Math.max(0, wounds - support.heal);
+    targetStress = clampStress(targetStress! + support.stress);
+    healthEffects.push({
+      entityId: target.id,
+      side: target.side,
+      source: "targetHeal",
+      effect: { type: "heal", amount: support.heal },
+    });
+  }
   if (outcome !== "miss" && stress.target !== 0 && targetStress !== null) {
     targetStress = clampStress(targetStress + stress.target);
   }
   if (outcome !== "miss" && extraStress && targetStress !== null) {
     targetStress = clampStress(targetStress + pressureDelta(extraStress.amount));
   }
-  const conditionsCleared = !emptyArea && outcome !== "miss" && removal.targetLines > 0;
+  const conditionsCleared =
+    !emptyArea && outcome !== "miss" && (removal.targetLines > 0 || statuses.targetRemove);
 
   const targetDead =
     target.side === "monster" && target.life !== undefined && wounds >= target.life;
@@ -2513,6 +2631,7 @@ function resolveSkill(
       keys,
       stress.lineCount +
         selfHeal.lineCount +
+        selfWound.lineCount +
         paired.lineCount +
         removal.lineCount +
         selfBleed.lineCount +
@@ -2521,14 +2640,16 @@ function resolveSkill(
         formChange.lineCount +
         statuses.lineCount +
         (bonus ? 1 : 0) +
-        (extraStress ? 1 : 0),
+        (extraStress ? 1 : 0) +
+        (support ? 2 : 0),
     ),
-    ...(statuses.lineCount
+    ...(statuses.lineCount || support
       ? {
           actorStatusEffects: statuses.self,
           targetStatusEffects: emptyArea || outcome === "miss" ? [] : statuses.target,
           actorLightDelta: statuses.selfLight,
-          targetLightDelta: emptyArea || outcome === "miss" ? 0 : statuses.targetLight,
+          targetLightDelta:
+            emptyArea || outcome === "miss" ? 0 : statuses.targetLight + (support?.light ?? 0),
         }
       : {}),
     ...(includeHealthEffects ? { healthEffects } : {}),
