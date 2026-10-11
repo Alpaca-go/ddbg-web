@@ -2,7 +2,7 @@
 
 ## 最新进度：Phase 2 空区域自身位移（2026-10-11）
 
-Kyries 本轮授权合并并继续。#104 准确 head `fd055ce` 的 PR / push CI 四项成功，按 merge 合并为 `d5e771e`；本地 main 已 `pull --ff-only` 同步，再建独立分支 `codex/phase2-empty-area-shuffle`。#99 / #103 未合并。本节替代下节的自身位移拒绝边界。
+Kyries 本轮授权合并并继续。#104 准确 head `fd055ce` 的 PR / push CI 四项成功，按 merge 合并为 `d5e771e`；本地 main 已 `pull --ff-only` 同步，再建独立分支 `codex/phase2-empty-area-shuffle`。[草稿 PR #105](https://github.com/Alpaca-go/ddbg-web/pull/105)，实现提交 `097d1dc`，准确 head CI 以 PR 为准。#99 / #103 未合并。本节替代下节的自身位移拒绝边界。
 
 - 自行查本机只读官方规则书第 21 页完整页面图像及既有规范化卡，依据规格书 §6.7（R21）、R-020 / R-021，遵守 R-001 / R-048。自身 Push / Pull 以目标区域为参照，显式区域意图不创建或借用角色，继续按邻接、容量、姿态与分岔规则结算。
 - 空区域技能保留一次自身效果 / 一次真实攻击骰；接入既有位移待选，直到位移完成才扣行动、锁定成功使用及收尾。空区域续接不带目标或暴击上下文；选择不重复掷骰、治疗或施加状态。
