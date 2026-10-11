@@ -21,6 +21,7 @@ import type { EncounterState } from "./encounter";
 import type {
   ApplyResult,
   GameState,
+  HeroSkillEmptyAreaResolvedEvent,
   HeroSkillResolvedEvent,
   MonsterSkillResolvedEvent,
   PendingChoice,
@@ -164,6 +165,11 @@ export type BattleState = BattleSetup & {
   readonly shuffleIntents: readonly ShuffleIntent[];
   /** 位移完成后再记录行动 / 死亡补位，不能重复执行技能或重复扣行动。 */
   readonly shuffleContinuation:
+    | (HeroSkillEmptyAreaResolvedEvent & {
+        readonly targetIds?: never;
+        readonly criticalContext?: never;
+        readonly casualtyIds?: readonly string[];
+      })
     | (HeroSkillResolvedEvent & {
         readonly targetIds?: readonly string[];
         readonly casualtyIds?: readonly string[];

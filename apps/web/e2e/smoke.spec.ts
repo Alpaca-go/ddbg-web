@@ -454,4 +454,29 @@ test("位移分岔冻结其他行动，选择后续接一次并可重放", async
   const first = await choose("5", "E");
   expect(await choose("5", "E")).toBe(first);
   await choose("4", "B");
+  // R21：真实 Duelist's Advance 以空区域 E 为参照，只执行自身效果。
+  await page.getByLabel("种子", { exact: true }).fill("5");
+  await page.getByRole("button", { name: "重新布置", exact: true }).click();
+  await page.getByRole("button", { name: "开始战斗", exact: true }).click();
+  await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+  await page.getByRole("button", { name: "向后换姿态", exact: true }).click();
+  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p079");
+  await page.getByRole("checkbox", { name: "选择空区域", exact: true }).check();
+  await page.getByLabel("空区域", { exact: true }).selectOption("E");
+  await page.getByRole("button", { name: "使用技能", exact: true }).click();
+  await expect(page.getByTestId("turn-status")).toContainText("剩余 1 行动");
+  await expect(page.getByTestId("entity-hero-2")).toContainText("反击 / 2t");
+  await expect(page.getByRole("button", { name: "使用技能", exact: true })).toBeDisabled();
+  await page.getByRole("button", { name: "结算位移", exact: true }).click();
+  await expect(page.getByTestId("entity-hero-2")).toContainText("区域 E");
+  await expect(
+    page
+      .locator(".stance-slot")
+      .filter({ has: page.getByTestId("entity-hero-2") })
+      .locator("span"),
+  ).toHaveText("进攻");
+  await expect(page.getByTestId("turn-status")).toHaveText("等待抽取先攻");
+  await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5");
+  await expect(page.getByRole("region", { name: "战斗日志" })).not.toContainText("拒绝");
+  await page.screenshot({ path: testInfo.outputPath("empty-area-self-pull.png"), fullPage: true });
 });

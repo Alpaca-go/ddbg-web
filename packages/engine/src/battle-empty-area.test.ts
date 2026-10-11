@@ -86,6 +86,141 @@ function refused(state: GameState, cmd = command(state)) {
 }
 
 describe("空区域英雄技能（R19–20、R-025、R-048）", () => {
+  it("真实 Breakthrough 自身 Pull 参照空区，位移完成才扣行动，目标效果不施加", () => {
+    const initial = setup(card("p034"));
+    const state = {
+      ...initial,
+      battle: {
+        ...initial.battle!,
+        areas: initial.battle!.areas.map((a) =>
+          a.id === "a" ? { ...a, elevation: "high" as const } : a,
+        ),
+      },
+    };
+    const used = applyCommand(state, command(state));
+    expect(used.state.battle!.shuffleIntents).toEqual([
+      { entityId: "vestal", relativeToAreaId: "b", move: { direction: "pull", distance: 1 } },
+    ]);
+    expect(used.state.battle!.entities).toEqual(state.battle!.entities);
+    expect(used.state.battle!.encounter!.turn).toMatchObject({ actions: 2, usedSkillIds: [] });
+    refused(used.state);
+    const done = applyCommand(used.state, { type: "resolveShuffles" });
+    expect(done.state.battle!.entities[0]).toMatchObject({ areaId: "b", stance: "ranged" });
+    expect(done.state.battle!.entities[1]).toMatchObject({ areaId: "a", stance: "support" });
+    expect(done.state.battle!.entities[2]).toEqual(state.battle!.entities[2]);
+    expect(done.state.battle!.encounter!.turn).toMatchObject({
+      actions: 1,
+      usedSkillIds: [card("p034").id],
+    });
+    expect(done.state.battle!.rngCursor).toBe(1);
+    expect(done.state.battle!.shuffleContinuation).toBeNull();
+    refused(done.state);
+  });
+  it("真实 Duelist’s Advance 空区 Pull 分岔只应用一次自身状态和骰面，等待冻结并可回放", () => {
+    const initial = setup(card("p079"));
+    const state = {
+      ...initial,
+      battle: {
+        ...initial.battle!,
+        areas: [
+          { id: "a", adjacent: ["b", "c"], capacity: 4, elevation: "high" as const },
+          { id: "b", adjacent: ["a", "d"], capacity: 4, elevation: "normal" as const },
+          { id: "c", adjacent: ["a", "d"], capacity: 4, elevation: "normal" as const },
+          { id: "d", adjacent: ["b", "c"], capacity: 4, elevation: "normal" as const },
+        ],
+      },
+    };
+    const used = applyCommand(state, command(state, "d"));
+    const stacks = used.state.battle!.entities[0]!.statusStacks;
+    expect(stacks).toHaveLength(1);
+    expect(stacks![0]).toMatchObject({ kind: "riposte", remaining: 2 });
+    const waiting = applyCommand(used.state, { type: "resolveShuffles" });
+    expect(waiting.pendingChoice).toMatchObject({
+      actorId: "vestal",
+      options: [{ id: "b" }, { id: "c" }],
+    });
+    expect(waiting.state.battle!.entities[0]!.areaId).toBe("a");
+    refused(waiting.state);
+    refused(waiting.state, { ...command(state), areaId: "a" });
+    for (const cmd of [
+      { type: "changeStance" as const, actorId: "vestal", direction: "forward" as const },
+      { type: "moveHero" as const, actorId: "vestal", path: ["b"] },
+      { type: "resolveShuffles" as const },
+      { type: "resolveChoice" as const, choiceId: waiting.pendingChoice!.id, optionId: "d" },
+    ]) {
+      expect(applyCommand(waiting.state, cmd).state).toBe(waiting.state);
+    }
+    const choose = {
+      type: "resolveChoice" as const,
+      choiceId: waiting.pendingChoice!.id,
+      optionId: "b",
+    };
+    const done = applyCommand(waiting.state, choose);
+    expect(done.state.battle!.entities[0]).toMatchObject({
+      areaId: "b",
+      stance: "ranged",
+      statusStacks: stacks,
+    });
+    expect(done.state.battle!.rngCursor).toBe(1);
+    expect(done.state.battle!.encounter!.turn).toMatchObject({ actions: 1 });
+    expect(done.events.some((e) => e.type === "heroCritAreaResolved")).toBe(false);
+    const replay = [
+      command(state, "d"),
+      { type: "resolveShuffles" as const },
+      choose,
+    ].reduce<GameState>((s, cmd) => applyCommand(s, cmd).state, state);
+    expect(replay).toEqual(done.state);
+    expect(applyCommand(done.state, choose).state).toBe(done.state);
+  });
+  it("真实 Point Blank Shot 只记自身 Push，空区目标 Push 不创建角色", () => {
+    const initial = setup(card("p070"));
+    const state = {
+      ...initial,
+      battle: {
+        ...initial.battle!,
+        entities: initial.battle!.entities.map((e) =>
+          e.id === "vestal"
+            ? { ...e, stance: "aggressive" as const, areaId: "b" }
+            : e.id === "ally"
+              ? { ...e, areaId: "b" }
+              : e,
+        ),
+        areas: initial.battle!.areas.map((a) =>
+          a.id === "b" ? { ...a, elevation: "high" as const } : a,
+        ),
+      },
+    };
+    const used = applyCommand(state, command(state, "a"));
+    expect(used.state.battle!.shuffleIntents).toEqual([
+      { entityId: "vestal", relativeToAreaId: "a", move: { direction: "push", distance: 1 } },
+    ]);
+    const done = applyCommand(used.state, { type: "resolveShuffles" });
+    expect(done.state.battle!.entities[0]).toMatchObject({ areaId: "c", stance: "defensive" });
+    expect(done.state.battle!.entities).toHaveLength(3);
+    expect(done.state.battle!.entities[2]).toEqual(state.battle!.entities[2]);
+  });
+  it("空目标区容量为零仍截断区域位移并结算姿态；未知容量在掷骰前原子拒绝", () => {
+    const initial = setup(card("p079"));
+    const limited = (capacity: number | undefined): GameState => ({
+      ...initial,
+      battle: {
+        ...initial.battle!,
+        areas: initial.battle!.areas.map((a) => {
+          if (a.id !== "b") return a;
+          const { capacity: _capacity, ...rest } = a;
+          void _capacity;
+          return capacity === undefined ? rest : { ...rest, capacity };
+        }),
+      },
+    });
+    const full = limited(0);
+    const used = applyCommand(full, command(full));
+    const done = applyCommand(used.state, { type: "resolveShuffles" });
+    expect(done.state.battle!.entities[0]).toMatchObject({ areaId: "a", stance: "ranged" });
+    expect(done.state.battle!.encounter!.turn).toMatchObject({ actions: 1 });
+    expect(done.events[0]).toMatchObject({ type: "shuffleResolved", path: [], stanceSteps: 1 });
+    expect(refused(limited(undefined)).events[0]?.message).toContain("容量未核实");
+  });
   it("真实 Divine Comfort 自身治疗照常；空区域不产生目标命中、暴击、压力或伤口", () => {
     const state = setup();
     const result = applyCommand(state, command(state));
@@ -141,7 +276,7 @@ describe("空区域英雄技能（R19–20、R-025、R-048）", () => {
     };
     refused(far, command(far, "c"));
   });
-  it("未验证、缺 numeric / duration、错误姿态、Self 和自身位移整次拒绝", () => {
+  it("未验证、缺 numeric / duration、错误姿态和 Self 整次拒绝", () => {
     const original = card("p097");
     refused(setup({ ...original, verification: { unverified: true } }));
     refused(
@@ -151,17 +286,6 @@ describe("空区域英雄技能（R19–20、R-025、R-048）", () => {
       }),
     );
     refused(setup(card("p010")));
-    const breakthrough = setup(card("p034"));
-    const high = {
-      ...breakthrough,
-      battle: {
-        ...breakthrough.battle!,
-        areas: breakthrough.battle!.areas.map((a) =>
-          a.id === "a" ? { ...a, elevation: "high" as const } : a,
-        ),
-      },
-    };
-    expect(refused(high).events[0]?.message).toContain("自身位移");
     expect(refused(setup(card("p088"))).events[0]?.message).toContain("numeric 为 null");
     const stun = card("p007");
     const stunState = setup(stun);

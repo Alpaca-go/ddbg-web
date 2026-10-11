@@ -2161,8 +2161,6 @@ function resolveSkill(
   const selfBleed = readSelfBleedRemoval(active);
   const originalShuffles = readShuffles(active, combat.shuffleChoice);
   const shuffles = { ...originalShuffles, self: statuses.selfShuffle ?? originalShuffles.self };
-  if (emptyArea && shuffles.self !== null)
-    return refuse(skill, combat, "空区域自身位移尚未接入区域参照，整次拒绝（R21）");
   const ignoresProtection = readIgnoresProtection(active);
   const formChange = readFormChange(active);
   const keys = namedKeys(active.stats_line);

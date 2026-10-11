@@ -242,7 +242,10 @@ describe("applyCommand 位移接线（R20–21、R-020、R-025、R-030）", () =
       },
     };
     // 此处锁定暴击路径，保留原事件伤口与状态中封顶后的伤口各自的含义。
-    expect(applied.battle!.shuffleContinuation!.resolution.outcome).toBe("crit");
+    const continuation = applied.battle!.shuffleContinuation!;
+    expect(continuation.type).toBe("heroSkillResolved");
+    if (continuation.type !== "heroSkillResolved") throw new Error("应为有目标技能");
+    expect(continuation.resolution.outcome).toBe("crit");
     const waiting = applyCommand(applied, { type: "resolveShuffles" });
     const done = applyCommand(waiting.state, choose(waiting.state, "e"));
     expect(target(done.state)).toMatchObject({ dead: true, wounds: 1 });

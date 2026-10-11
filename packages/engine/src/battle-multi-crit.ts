@@ -6,7 +6,10 @@ import { resolveMonsterSkill } from "./monster-skill";
 /** R20、R-031：每个目标保留原骰面 / 数值，按最终区域重建并去重暴击压力。 */
 export function correctMultiTargetStress(
   battle: BattleState,
-  continuation: NonNullable<BattleState["shuffleContinuation"]>,
+  continuation: Exclude<
+    NonNullable<BattleState["shuffleContinuation"]>,
+    { type: "heroSkillEmptyAreaResolved" }
+  >,
 ) {
   const critical = continuation.criticalContext!;
   const original = critical.entities;
