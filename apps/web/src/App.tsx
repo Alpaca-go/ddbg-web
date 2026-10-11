@@ -6,6 +6,7 @@ import { useBattleStore } from "./battle-store";
 import type { SandboxLayout } from "./battle-store";
 import { battleStep } from "./battle-step";
 import { SkillCardText } from "./skill-card-text";
+import { SkillResults } from "./skill-results";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 const provisionLabels = {
@@ -23,7 +24,6 @@ const provisionEffectLabels = {
   raiseLight: "光照 +1",
 };
 const stanceLabels = { aggressive: "进攻", defensive: "防御", ranged: "远程", support: "支援" };
-const outcomeLabels = { crit: "暴击", hit: "命中", miss: "落空" };
 const statusLabels = {
   bleed: "流血",
   blight: "腐蚀",
@@ -98,6 +98,12 @@ export function App() {
     dispatch(command);
     setPath([]);
   };
+  const skillName = (id: string) =>
+    battleData.skills.find((s) => s.id === id)?.name ??
+    battleData.monsters
+      .flatMap((m) => m.skills.map((s) => ({ id: `${m.id}:skill${s.slot}`, name: s.name })))
+      .find((s) => s.id === id)?.name ??
+    id;
   const turnText = !turn
     ? "尚未开始"
     : turn.type === "hero"
@@ -671,33 +677,17 @@ export function App() {
               {"roll" in event && event.roll !== null ? ` · d10=${event.roll}` : ""}
               {event.type === "statusTurnStarted" &&
                 ` · 同时伤口 ${event.woundAmounts.reduce((sum, amount) => sum + amount, 0)}${event.stunned ? " · 眩晕生效" : ""}`}
-              {(event.type === "heroSkillTargetsResolved" ||
+              {(event.type === "heroSkillResolved" ||
+                event.type === "monsterSkillResolved" ||
+                event.type === "heroSkillTargetsResolved" ||
                 event.type === "monsterSkillTargetsResolved") && (
-                <div className="target-results">
-                  {event.resolutions.map((result) => (
-                    <p key={result.targetId}>
-                      {entityName(result.targetId)}：
-                      {result.outcome ? outcomeLabels[result.outcome] : "直接生效"}
-                    </p>
-                  ))}
-                </div>
+                <SkillResults
+                  actorName={entityName(event.actorId)}
+                  entityName={entityName}
+                  skillName={skillName}
+                  resolutions={"resolutions" in event ? event.resolutions : [event.resolution]}
+                />
               )}
-              {"resolution" in event &&
-                "skipped" in event.resolution &&
-                event.resolution.skipped.length > 0 && (
-                  <details>
-                    <summary>未结算效果</summary>
-                    <p>
-                      {event.resolution.skipped
-                        .map((item) =>
-                          item.code === "effect_lines"
-                            ? "卡面效果行未完整支持，本次未结算。"
-                            : "组合标记没有额外结算。",
-                        )
-                        .join(" ")}
-                    </p>
-                  </details>
-                )}
             </li>
           ))}
         </ol>

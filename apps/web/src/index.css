@@ -269,6 +269,15 @@ small {
 .log li > span {
   color: #aaa599;
 }
+.target-results {
+  margin-top: 0.4rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid #75633c;
+  overflow-wrap: anywhere;
+}
+.target-results details {
+  color: #aaa599;
+}
 @media (max-width: 1000px) {
   .workspace {
     grid-template-columns: 1fr;
