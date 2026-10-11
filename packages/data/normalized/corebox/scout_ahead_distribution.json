@@ -1,0 +1,11 @@
+{
+  "questId": "quest:p001",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p1; R-038 (Scout Ahead); print reviewed 2026-10-11",
+  "counts": [
+    { "kind": "empty", "count": 2 },
+    { "kind": "dark", "count": 1 },
+    { "kind": "curio", "count": 2 },
+    { "kind": "lair", "count": 2 },
+    { "kind": "trap", "count": 1 }
+  ]
+}

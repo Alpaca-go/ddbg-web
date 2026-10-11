@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { DungeonSandbox } from "./dungeon-sandbox";
 import { heroSkillUsesSelfTarget, readPrintedTargets, PROVISION_EFFECTS } from "@ddbg/engine";
 import type { Command, SkillStance, ProvisionEffect } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
@@ -28,6 +29,14 @@ const statusLabels = {
   protection: "防护",
 };
 export function App() {
+  return new URLSearchParams(window.location.search).get("phase") === "3" ? (
+    <DungeonSandbox />
+  ) : (
+    <BattleSandbox />
+  );
+}
+
+function BattleSandbox() {
   const game = useBattleStore((s) => s.game);
   const dispatch = useBattleStore((s) => s.dispatch);
   const reset = useBattleStore((s) => s.reset);
@@ -143,6 +152,7 @@ export function App() {
           <p className="eyebrow">DDBG · PHASE 2</p>
           <h1>暗黑地牢桌游</h1>
           <p className="muted">单场战斗沙盒 · 1–4 人轮流操作</p>
+          <a href="/?phase=3">打开 Phase 3 布局与侦察沙盒</a>
         </div>
         <form
           className="seed-form"

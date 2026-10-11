@@ -1,4 +1,6 @@
 import { z } from "zod";
+export { dungeonLayoutSchema, roomDistributionSchema } from "./dungeon-layout";
+export type { DungeonLayout, RoomDistribution } from "./dungeon-layout";
 
 /** 早期占位。卡牌数据用 normalize 里的 schema。 */
 export const placeholderRecordSchema = z.object({

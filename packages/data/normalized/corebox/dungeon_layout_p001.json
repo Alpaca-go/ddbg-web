@@ -1,0 +1,17 @@
+{
+  "id": "quest_map:p001",
+  "source": { "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf", "page": 1, "face": "front" },
+  "review": "pending",
+  "nodes": [
+    { "id": "S", "kind": "start", "x": 50, "y": 77 },
+    { "id": "A", "kind": "room", "x": 50, "y": 18 },
+    { "id": "B", "kind": "room", "x": 73, "y": 18 },
+    { "id": "C", "kind": "room", "x": 27, "y": 37 },
+    { "id": "D", "kind": "room", "x": 50, "y": 37 },
+    { "id": "E", "kind": "room", "x": 73, "y": 37 },
+    { "id": "F", "kind": "room", "x": 27, "y": 56 },
+    { "id": "G", "kind": "room", "x": 50, "y": 56 },
+    { "id": "H", "kind": "room", "x": 73, "y": 56 }
+  ],
+  "edges": [["S", "G"], ["G", "F"], ["F", "C"], ["G", "H"], ["G", "D"], ["D", "E"], ["D", "A"], ["A", "B"]]
+}

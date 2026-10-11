@@ -1,4 +1,6 @@
 export { applyCommand, createInitialState } from "./command";
+export { createDungeonSandbox } from "./dungeon";
+export type { DungeonState, DungeonCommand } from "./dungeon";
 export { createBattleState } from "./battle";
 export type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 export type { PlayHeroSkillEmptyAreaCommand } from "./battle-empty-area";

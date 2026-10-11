@@ -1,4 +1,6 @@
 import { playHeroSkill, rejectBattleCommand } from "./battle";
+import { applyDungeonCommand } from "./dungeon";
+import type { DungeonCommand, DungeonState } from "./dungeon";
 import type { BattleState, PlayHeroSkillCommand } from "./battle";
 import type { HeroSkillResolution } from "./hero-skill";
 import { playHeroSkillTargets } from "./battle-hero-targets";
@@ -31,6 +33,7 @@ export type GameState = {
   readonly seed: number;
   readonly notes: readonly string[];
   readonly battle?: BattleState;
+  readonly dungeon?: DungeonState;
 };
 
 /** 玩家决策未完成时，UI 只呈现这些选项。 */
@@ -86,6 +89,7 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 };
 
 export type Command =
+  | DungeonCommand
   | PlayHeroSkillEmptyAreaCommand
   | UseProvisionCommand
   | { readonly type: "interactLoot"; readonly actorId: string }
@@ -108,6 +112,7 @@ export type Command =
     };
 
 export type GameEvent =
+  | { readonly type: "dungeonUpdated"; readonly message: string }
   | HeroSkillEmptyAreaResolvedEvent
   | {
       readonly type: "lootRevealed";
@@ -229,6 +234,14 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (
+    command.type === "scoutDungeon" ||
+    command.type === "beginDungeonExploration" ||
+    (command.type === "resolveChoice" && state.dungeon)
+  )
+    return applyDungeonCommand(state, command);
+  if (state.dungeon && command.type !== "ping")
+    return rejectBattleCommand(state, "请先完成地牢沙盒流程");
   if (command.type === "resolveChoice") {
     const pending = state.battle?.pending;
     if (
