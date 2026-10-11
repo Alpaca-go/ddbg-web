@@ -163,6 +163,8 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
     await expect(monsterCard).toContainText("Acc");
     await expect(monsterCard).toContainText("[伤害（图标内数字为伤害值）]");
     const selectionLog = page.getByRole("region", { name: "战斗日志" });
+    await expect(selectionLog).toContainText("第 1 轮开始");
+    await expect(selectionLog).toContainText("第 1 轮 · 先攻：怪物 · 回合：Bone Soldier");
     await expect(selectionLog).toContainText(
       "Bone Soldier · 技能 1：Graveyard Slash · 固定技能（不掷选招骰）",
     );
@@ -172,6 +174,8 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
     await page.getByRole("button", { name: "结算怪物技能", exact: true }).click();
     await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
     await expect(page.getByTestId("turn-status")).toContainText("CRUSADER · 剩余 2 行动");
+    await expect(selectionLog).toContainText("第 1 轮 · 回合结束：Bone Soldier");
+    await expect(selectionLog).toContainText("第 1 轮 · 先攻：英雄 · 回合：CRUSADER");
     await page.getByRole("button", { name: "使用技能", exact: true }).click();
     await expect(page.getByRole("status")).toContainText("射程");
     await expect(page.getByTestId("turn-status")).toContainText("剩余 2 行动");
@@ -181,6 +185,8 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
     await expect(page.getByTestId("turn-status")).toContainText("剩余 1 行动");
     await page.getByRole("button", { name: "使用技能", exact: true }).click();
     await expect(page.getByTestId("turn-status")).toHaveText("胜利");
+    await expect(selectionLog).toContainText("第 1 轮 · 退出战场：Bone Soldier");
+    await expect(selectionLog).toContainText("第 1 轮 · 单场结束：胜利");
     await expect(page.getByRole("button", { name: "抽取先攻", exact: true })).toHaveCount(0);
     return page.getByRole("region", { name: "战斗日志" }).innerText();
   }
@@ -337,6 +343,12 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
     await expect(page.getByTestId("step-hint")).toContainText("单场结束");
     if (formal) {
       const log = page.getByRole("region", { name: "战斗日志" });
+      // 后来的轮次不能覆盖第一轮历史；正式补给窗口也不冒充已完成回合开始效果。
+      await expect(log).toContainText("第 1 轮开始");
+      await expect(log).toContainText("第 4 轮开始");
+      await expect(log).toContainText("第 4 轮 · 单场结束：撤退");
+      await expect(log).toContainText("第 1 轮 · 换姿态：");
+      await expect(log).toContainText(/第 1 轮 · 先攻：怪物 · 回合：Bone /);
       await expect(log).toContainText("固定技能（不掷选招骰）");
       if (layout === "formalSoldier") {
         await expect(log).toContainText(
