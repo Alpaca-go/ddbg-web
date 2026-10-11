@@ -57,29 +57,43 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       ? { resolveTested: true, resolveCardId: battleData.resolveCards[0]!.id }
       : {}),
   }));
+  const initial = createDungeonSandbox(
+    fixture === "curio" ? 1237 : fixture === "corridor" ? 31 : 1,
+    layout,
+    distribution,
+    mode,
+    position,
+    heroes,
+    battleData.resolveCards,
+    {
+      dungeonLevel: 1,
+      light: 5,
+      provisions: [
+        { id: "tool-1", face: "tool" },
+        { id: "tool-2", face: "tool" },
+        { id: "tool-3", face: "tool" },
+        { id: "tool-4", face: "tool" },
+        { id: "torch-1", face: "torch" },
+        { id: "food-1", face: "food" },
+      ],
+    },
+    curios,
+  );
+  // 此布置以已清理的起始房间演示真实走廊往返，不模拟该房间的战斗或奖励。
+  const game =
+    fixture === "corridor" || fixture === "curio"
+      ? {
+          ...initial,
+          dungeon: {
+            ...initial.dungeon!,
+            rooms: initial.dungeon!.rooms.map((r) =>
+              r.id === position ? { ...r, cleared: true } : r,
+            ),
+          },
+        }
+      : initial;
   return {
-    game: createDungeonSandbox(
-      fixture === "curio" ? 1237 : fixture === "corridor" ? 31 : 1,
-      layout,
-      distribution,
-      mode,
-      position,
-      heroes,
-      battleData.resolveCards,
-      {
-        dungeonLevel: 1,
-        light: 5,
-        provisions: [
-          { id: "tool-1", face: "tool" },
-          { id: "tool-2", face: "tool" },
-          { id: "tool-3", face: "tool" },
-          { id: "tool-4", face: "tool" },
-          { id: "torch-1", face: "torch" },
-          { id: "food-1", face: "food" },
-        ],
-      },
-      curios,
-    ),
+    game,
     page,
     fixture,
     preview,
@@ -264,7 +278,14 @@ export function DungeonSandbox() {
             onClick={() => dispatch({ type: "beginDungeonExploration" })}
           >
             选择下一段探索
+          </button>{" "}
+          <button
+            disabled={!!d.pending || d.phase !== "ready"}
+            onClick={() => dispatch({ type: "beginDungeonBacktrack" })}
+          >
+            原路返回
           </button>
+          <p className="muted">普通走廊返回不掷骰，全员压力 +1；灰点与起点返回尚未接线。</p>
           {d.phase === "awaitingHazards" && !d.exploration?.rolls && (
             <button onClick={() => dispatch({ type: "rollDungeonExploration" })}>
               掷探索骰并开始结算
@@ -336,8 +357,8 @@ export function DungeonSandbox() {
                   ? "压力已支付：意志卡数据待核实，队伍尚未移动"
                   : d.phase === "awaitingRoom"
                     ? `进入 ${d.position}：等待非 Empty 房间效果`
-                    : d.phase === "ready" && d.exploration
-                      ? `已到达 ${d.position}；${d.rooms.find((r) => r.id === d.position)?.cleared ? "Empty 已清理，移除房间代币" : "灰点必须停留"}`
+                    : d.phase === "ready" && (d.exploration || (d.visited?.length ?? 0) > 1)
+                      ? `已到达 ${d.position}；${d.rooms.find((r) => r.id === d.position)?.cleared ? (d.rooms.find((r) => r.id === d.position)?.kind === "empty" ? "Empty 已清理，移除房间代币" : "已清理，移除房间代币") : "灰点必须停留"}`
                       : d.exploration
                         ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
                         : "等待侦察 / 路线选择"}

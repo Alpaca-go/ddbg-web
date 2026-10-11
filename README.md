@@ -19,4 +19,4 @@ pnpm test:e2e   # Playwright 冒烟
 pnpm build
 ```
 
-`pnpm dev` 打开网页壳。标题是项目名，页面上有一行从 `@ddbg/engine` 导入的值。
+`pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒。已支持四核心英雄 84 张技能，以及侦察、探索骰、Empty、Curio 牌池和普通走廊返回。当前尚不是完整战役，阶段进度与边界见 [Phase 3 进度盘点](docs/phase3-backtracking-2026-10-11.md)。

@@ -1,0 +1,119 @@
+import type { ApplyResult, GameState } from "./command";
+import type { DungeonCommand } from "./dungeon";
+import { resolveDungeonPressure } from "./dungeon-pressure";
+
+const refuse = (state: GameState, message: string): ApplyResult => ({
+  state,
+  events: [{ type: "commandRefused", message }],
+});
+
+/** R14：只开放确实走过的普通房间间走廊；灰点计数边界留待确认。 */
+export function applyDungeonBacktracking(
+  state: GameState,
+  command:
+    | DungeonCommand
+    | { readonly type: "resolveChoice"; readonly choiceId: string; readonly optionId: string },
+): ApplyResult {
+  const d = state.dungeon!;
+  if (d.phase !== "ready" || d.heroes.some((h) => h.dead))
+    return refuse(state, "先完成当前结算 / 英雄替换，才能原路返回");
+  const routes = d.layout.edges
+    .flatMap(([a, b]) => (a === d.position ? [b] : b === d.position ? [a] : []))
+    .filter(
+      (id) =>
+        d.layout.nodes.find((n) => n.id === d.position)?.kind === "room" &&
+        d.layout.nodes.find((n) => n.id === id)?.kind === "room" &&
+        (d.visited ?? []).includes(id) &&
+        d.traversedCorridors?.some(
+          ([a, b]) => (a === d.position && b === id) || (b === d.position && a === id),
+        ),
+    );
+  if (command.type === "beginDungeonBacktrack") {
+    if (d.pending) return refuse(state, "请先完成待选决定");
+    if (!routes.length) return refuse(state, "没有已走过的普通房间间走廊；灰点 / 起点返回尚未接线");
+    const pending = {
+      id: `dungeon-backtrack:${d.decision}`,
+      prompt: "原路返回：不掷探索骰，每名英雄压力 +1（R14）",
+      options: [
+        ...routes.map((id) => ({ id, label: `返回 ${id}（全员压力 +1）` })),
+        { id: "cancel", label: "取消返回" },
+      ],
+    };
+    return {
+      state: { ...state, dungeon: { ...d, decision: d.decision + 1, pending } },
+      events: [{ type: "dungeonUpdated", message: "等待选择原路返回，尚未支付压力" }],
+      pendingChoice: pending,
+    };
+  }
+  if (
+    command.type !== "resolveChoice" ||
+    !d.pending?.id.startsWith("dungeon-backtrack:") ||
+    command.choiceId !== d.pending.id ||
+    !d.pending.options.some((o) => o.id === command.optionId) ||
+    (command.optionId !== "cancel" && !routes.includes(command.optionId))
+  )
+    return refuse(state, "返回选择不存在、已过期或路线无效");
+  if (command.optionId === "cancel")
+    return {
+      state: { ...state, dungeon: { ...d, pending: null } },
+      events: [{ type: "dungeonUpdated", message: "取消返回，未支付压力" }],
+    };
+  if (d.heroes.some((h) => !Number.isInteger(h.stress) || h.stress < 0 || h.stress > 9))
+    return refuse(state, "英雄压力无效，保持返回选择");
+  const paid: GameState = {
+    ...state,
+    dungeon: {
+      ...d,
+      pending: null,
+      exploration: null,
+      backtracking: { from: d.position, to: command.optionId },
+      pressureSource: "backtracking",
+      heroes: d.heroes.map((h) => ({ ...h, stress: h.stress + 1 })),
+      phase: "blockedPressure",
+    },
+  };
+  const next = paid.dungeon!.heroes.some((h) => h.stress === 10)
+    ? resolveDungeonPressure(paid)
+    : completeDungeonBacktrack(paid);
+  return {
+    ...next,
+    events: [
+      { type: "dungeonUpdated", message: "沿一条普通走廊返回，全员压力 +1；没有掷探索骰（R14）" },
+      ...next.events,
+    ],
+  };
+}
+
+/** 压力恢复只完成已支付的返回，不重扣、不送侦察揭示或减骰。 */
+export function completeDungeonBacktrack(state: GameState): ApplyResult {
+  const d = state.dungeon!;
+  if (!d.backtracking || d.position !== d.backtracking.from)
+    return refuse(state, "缺失返回续接位置，保持停点");
+  const to = d.backtracking.to;
+  const room = d.rooms.find((r) => r.id === to)!;
+  const cleared = room.cleared || room.kind === "empty";
+  return {
+    state: {
+      ...state,
+      dungeon: {
+        ...d,
+        position: to,
+        phase: cleared ? "ready" : "awaitingRoom",
+        pending: null,
+        backtracking: null,
+        visited: [...(d.visited ?? []), to],
+        rooms: d.rooms.map((r) =>
+          r.id === to ? { ...r, revealed: true, ...(cleared ? { cleared: true } : {}) } : r,
+        ),
+      },
+    },
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: cleared
+          ? `已返回 ${to}：无房间代币，不重复发奖励；侦察减骰仍留给下一次探索（R14–15）`
+          : `已返回 ${to}：等待 ${room.kind} 房间效果，未清理代币（R15）`,
+      },
+    ],
+  };
+}

@@ -4,6 +4,7 @@ import type { ApplyResult, GameState, PendingChoice } from "./command";
 import { createRng } from "./rng";
 import type { ResolveCard } from "./pressure";
 import { resolveDungeonPressure } from "./dungeon-pressure";
+import { applyDungeonBacktracking } from "./dungeon-backtracking";
 import { applyDungeonExploration, continueDungeonExploration } from "./dungeon-exploration";
 import type { ExplorationFace } from "../../data/src/exploration";
 import type { SkillStance } from "./hero-skill";
@@ -67,7 +68,9 @@ export type DungeonState = {
     | "awaitingReplacement"
     | "awaitingRoom"
     | "awaitingCurio";
-  readonly pressureSource?: "scout" | "exploration";
+  readonly pressureSource?: "scout" | "exploration" | "backtracking";
+  readonly traversedCorridors?: readonly (readonly [string, string])[];
+  readonly backtracking?: { readonly from: string; readonly to: string } | null;
   readonly explorationSetup?: DungeonExplorationSetup;
   readonly visited?: readonly string[];
   readonly pending: PendingChoice | null;
@@ -87,6 +90,7 @@ export type DungeonState = {
 export type DungeonCommand =
   | { readonly type: "scoutDungeon" }
   | { readonly type: "beginDungeonExploration" }
+  | { readonly type: "beginDungeonBacktrack" }
   | { readonly type: "rollDungeonExploration" }
   | { readonly type: "resolveDungeonCurio" }
   | { readonly type: "resolveDungeonPressure" };
@@ -194,6 +198,11 @@ export function applyDungeonCommand(
     ...(dungeon.pending ? { pendingChoice: dungeon.pending } : {}),
   });
   if (!d || state.battle) return refuse("需要独立地牢沙盒");
+  if (
+    command.type === "beginDungeonBacktrack" ||
+    (command.type === "resolveChoice" && d.pending?.id.startsWith("dungeon-backtrack:"))
+  )
+    return applyDungeonBacktracking(state, command);
   if (command.type === "resolveDungeonCurio") return resolveDungeonCurio(state);
   if (command.type === "resolveDungeonPressure") {
     if (d.phase !== "blockedPressure") return refuse("当前没有待恢复的压力");
@@ -244,6 +253,7 @@ export function applyDungeonCommand(
       {
         ...d,
         pending: null,
+        backtracking: null,
         scoutBonus: false,
         phase: "awaitingHazards",
         exploration: {
