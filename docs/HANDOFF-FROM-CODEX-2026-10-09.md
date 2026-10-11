@@ -2,7 +2,7 @@
 
 ## 最新进度：Phase 2 Inspiring Cry I 复合支持效果（2026-10-11）
 
-Kyries 本轮授权合并并继续。#109 准确 head `e8429ca` 的 PR / push CI 成功，按 merge 合并为 `d3687b6`；本地 main 已 ff-only 同步，从 main 独立建立 `codex/phase2-inspiring-cry`。#99 / #103 / #107 保持待审；本块另开草稿 PR，准确 head CI 以 PR 为准。
+Kyries 本轮授权合并并继续。#109 准确 head `e8429ca` 的 PR / push CI 成功，按 merge 合并为 `d3687b6`；本地 main 已 ff-only 同步，从 main 独立建立 `codex/phase2-inspiring-cry`。#99 / #103 / #107 保持待审；[草稿 PR #110](https://github.com/Alpaca-go/ddbg-web/pull/110)，实现提交 `6a35dfa`，准确 head CI 以 PR 为准。
 
 - 只读查看完整印刷 `DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf` 第 19 页：四姿态、射程 0、单英雄目标，目标治疗 1 / 压力 −1 / 光照 +1，无 Acc。规则依据官方核心 R19–21、规格书 §6.5 / §6.9、R-022 / R-025；遵守 R-001 / R-048，印刷件只提供文字数字，不补规则。
 - 独立 `verified_target_support` 注解严格匹配 I 级、卡名、页码、验证状态、目标行、完整效果行和已命名图标；原 +1 的 numeric=null 保留。只有注解存在才读取提取在效果列表中的射程 / 目标行；无注解或漂移仍拒绝。引擎纯函数结算治疗、减压与光照，生命层写回，不消耗 RNG、无暴击；目标集合选择使用者时避免重复治疗。
