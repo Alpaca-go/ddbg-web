@@ -2,20 +2,30 @@ import { dungeonLayoutSchema, roomDistributionSchema } from "../../data/src/dung
 import type { DungeonLayout, RoomDistribution } from "../../data/src/dungeon-layout";
 import type { ApplyResult, GameState, PendingChoice } from "./command";
 import { createRng } from "./rng";
+import type { ResolveCard } from "./pressure";
+import { resolveDungeonPressure } from "./dungeon-pressure";
 
 export type DungeonState = {
   readonly layout: DungeonLayout;
   readonly mode: "standard" | "radiant";
   readonly cursor: number;
   readonly position: string;
-  readonly heroes: readonly { readonly id: string; readonly stress: number }[];
+  readonly heroes: readonly {
+    readonly id: string;
+    readonly stress: number;
+    readonly resolveTested?: boolean;
+    readonly resolveCardId?: string;
+    readonly dead?: boolean;
+  }[];
+  readonly resolveCards: readonly ResolveCard[];
+  readonly resolveDecks: Partial<Readonly<Record<ResolveCard["role"], readonly string[]>>>;
   readonly rooms: readonly {
     readonly id: string;
     readonly kind: RoomDistribution["counts"][number]["kind"];
     readonly revealed: boolean;
   }[];
   readonly scoutBonus: boolean;
-  readonly phase: "ready" | "awaitingHazards" | "blockedPressure";
+  readonly phase: "ready" | "awaitingHazards" | "blockedPressure" | "awaitingReplacement";
   readonly pending: PendingChoice | null;
   readonly decision: number;
   readonly exploration: {
@@ -25,7 +35,9 @@ export type DungeonState = {
   } | null;
 };
 export type DungeonCommand =
-  { readonly type: "scoutDungeon" } | { readonly type: "beginDungeonExploration" };
+  | { readonly type: "scoutDungeon" }
+  | { readonly type: "beginDungeonExploration" }
+  | { readonly type: "resolveDungeonPressure" };
 
 /** 固定地图/任务首切片沙盒。当前位置可注入，以测试房间结算后的侦察接口；不是战役布置。 */
 export function createDungeonSandbox(
@@ -40,10 +52,13 @@ export function createDungeonSandbox(
     { id: "hero-2", stress: 0 },
     { id: "hero-3", stress: 0 },
   ],
+  resolveCards: readonly ResolveCard[] = [],
 ): GameState {
   const layout = dungeonLayoutSchema.parse(layoutInput);
   const distribution = roomDistributionSchema.parse(distributionInput);
   const slots = layout.nodes.filter((n) => n.kind === "room");
+  if (layout.unresolvedMarkers?.length || layout.nodes.some((n) => n.kind === "unresolved"))
+    throw new Error("地图含未解释标记，只能预览（R-048）");
   const tokens = distribution.counts.flatMap((c) => Array.from({ length: c.count }, () => c.kind));
   if (tokens.length !== slots.length) throw new Error("房间槽与任务代币总数不一致（R-046）");
   if (mode !== "standard" && mode !== "radiant") throw new Error("本切片不开放 Stygian");
@@ -71,6 +86,8 @@ export function createDungeonSandbox(
       cursor,
       position,
       heroes: heroes.map((h) => ({ ...h })),
+      resolveCards: resolveCards.map((c) => ({ ...c, verification: { ...c.verification } })),
+      resolveDecks: {},
       // 非起点位置是导航就绪的测试注入；当前房间已知，但不假定代币已清理。
       rooms: slots.map((n, i) => ({ id: n.id, kind: tokens[i]!, revealed: n.id === position })),
       scoutBonus: false,
@@ -103,6 +120,10 @@ export function applyDungeonCommand(
     ...(dungeon.pending ? { pendingChoice: dungeon.pending } : {}),
   });
   if (!d || state.battle) return refuse("需要独立地牢沙盒");
+  if (command.type === "resolveDungeonPressure")
+    return d.phase === "blockedPressure"
+      ? resolveDungeonPressure(state)
+      : refuse("当前没有待恢复的侦察压力");
   if (d.phase !== "ready") return refuse("已停在未接线的压力 / 危险结算接口");
   if (command.type === "resolveChoice") {
     if (
@@ -116,10 +137,10 @@ export function applyDungeonCommand(
         return finish({ ...d, pending: null }, "取消侦察，未支付压力");
       const heroes = d.heroes.map((h) => ({ ...h, stress: h.stress + 1 }));
       if (heroes.some((h) => h.stress === 10))
-        return finish(
-          { ...d, heroes, pending: null, phase: "blockedPressure" },
-          "侦察压力已支付；压力 10，等待探索意志 / 心脏病接线，未揭示房间",
-        );
+        return resolveDungeonPressure({
+          ...state,
+          dungeon: { ...d, heroes, pending: null, phase: "blockedPressure", scoutBonus: false },
+        });
       const nearby = adjacent(d);
       return finish(
         {

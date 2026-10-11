@@ -1,0 +1,1720 @@
+{
+ "schema": "ddbg-dungeon-layouts-v1",
+ "layouts": [
+  {
+   "id": "quest_map:p001",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 1,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 50,
+     "y": 77
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 50,
+     "y": 18
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 73,
+     "y": 18
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 27,
+     "y": 37
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 50,
+     "y": 37
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 73,
+     "y": 37
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 27,
+     "y": 56
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 50,
+     "y": 56
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 73,
+     "y": 56
+    }
+   ],
+   "edges": [
+    [
+     "S",
+     "G"
+    ],
+    [
+     "G",
+     "F"
+    ],
+    [
+     "F",
+     "C"
+    ],
+    [
+     "G",
+     "H"
+    ],
+    [
+     "G",
+     "D"
+    ],
+    [
+     "D",
+     "E"
+    ],
+    [
+     "D",
+     "A"
+    ],
+    [
+     "A",
+     "B"
+    ]
+   ]
+  },
+  {
+   "id": "quest_map:p002",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 2,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 50,
+     "y": 78
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 50,
+     "y": 18
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 73,
+     "y": 18
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 27,
+     "y": 38
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 50,
+     "y": 38
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 73,
+     "y": 38
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 27,
+     "y": 58
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 50,
+     "y": 58
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 27,
+     "y": 78
+    }
+   ],
+   "edges": [
+    [
+     "A",
+     "B"
+    ],
+    [
+     "A",
+     "D"
+    ],
+    [
+     "B",
+     "E"
+    ],
+    [
+     "C",
+     "D"
+    ],
+    [
+     "C",
+     "F"
+    ],
+    [
+     "F",
+     "H"
+    ],
+    [
+     "D",
+     "G"
+    ],
+    [
+     "G",
+     "S"
+    ]
+   ]
+  },
+  {
+   "id": "quest_map:p003",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 3,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 50,
+     "y": 74
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 27,
+     "y": 20
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 50,
+     "y": 20
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 73,
+     "y": 20
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 50,
+     "y": 38
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 27,
+     "y": 56
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 50,
+     "y": 56
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 73,
+     "y": 56
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 27,
+     "y": 74
+    },
+    {
+     "id": "X",
+     "kind": "dot",
+     "x": 27,
+     "y": 38
+    },
+    {
+     "id": "Y",
+     "kind": "dot",
+     "x": 73,
+     "y": 38
+    }
+   ],
+   "edges": [
+    [
+     "A",
+     "X"
+    ],
+    [
+     "X",
+     "D"
+    ],
+    [
+     "X",
+     "E"
+    ],
+    [
+     "B",
+     "D"
+    ],
+    [
+     "D",
+     "Y"
+    ],
+    [
+     "Y",
+     "C"
+    ],
+    [
+     "Y",
+     "G"
+    ],
+    [
+     "D",
+     "F"
+    ],
+    [
+     "F",
+     "S"
+    ],
+    [
+     "E",
+     "H"
+    ]
+   ]
+  },
+  {
+   "id": "quest_map:p004",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 4,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 40,
+     "y": 74
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 40,
+     "y": 20
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 80,
+     "y": 20
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 40,
+     "y": 38
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 20,
+     "y": 56
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 40,
+     "y": 56
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 60,
+     "y": 56
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 80,
+     "y": 56
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 20,
+     "y": 74
+    },
+    {
+     "id": "X",
+     "kind": "dot",
+     "x": 80,
+     "y": 38
+    }
+   ],
+   "edges": [
+    [
+     "A",
+     "C"
+    ],
+    [
+     "C",
+     "X"
+    ],
+    [
+     "X",
+     "B"
+    ],
+    [
+     "X",
+     "G"
+    ],
+    [
+     "C",
+     "E"
+    ],
+    [
+     "E",
+     "D"
+    ],
+    [
+     "E",
+     "F"
+    ],
+    [
+     "F",
+     "G"
+    ],
+    [
+     "D",
+     "H"
+    ],
+    [
+     "E",
+     "S"
+    ]
+   ]
+  },
+  {
+   "id": "quest_map:p005",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 5,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 40,
+     "y": 74
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 22,
+     "y": 20
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 22,
+     "y": 37
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 58,
+     "y": 37
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 76,
+     "y": 37
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 22,
+     "y": 55
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 40,
+     "y": 55
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 58,
+     "y": 55
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 76,
+     "y": 55
+    },
+    {
+     "id": "X",
+     "kind": "dot",
+     "x": 40,
+     "y": 37
+    }
+   ],
+   "edges": [
+    [
+     "A",
+     "B"
+    ],
+    [
+     "B",
+     "X"
+    ],
+    [
+     "X",
+     "C"
+    ],
+    [
+     "X",
+     "F"
+    ],
+    [
+     "C",
+     "D"
+    ],
+    [
+     "B",
+     "E"
+    ],
+    [
+     "F",
+     "G"
+    ],
+    [
+     "G",
+     "H"
+    ],
+    [
+     "D",
+     "H"
+    ],
+    [
+     "F",
+     "S"
+    ]
+   ]
+  },
+  {
+   "id": "quest_map:p006",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 6,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 22,
+     "y": 74
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 62,
+     "y": 20
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 44,
+     "y": 38
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 62,
+     "y": 38
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 62,
+     "y": 56
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 80,
+     "y": 56
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 44,
+     "y": 74
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 62,
+     "y": 74
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 80,
+     "y": 74
+    },
+    {
+     "id": "X",
+     "kind": "dot",
+     "x": 80,
+     "y": 38
+    }
+   ],
+   "edges": [
+    [
+     "A",
+     "C"
+    ],
+    [
+     "B",
+     "C"
+    ],
+    [
+     "C",
+     "X"
+    ],
+    [
+     "X",
+     "E"
+    ],
+    [
+     "C",
+     "D"
+    ],
+    [
+     "D",
+     "G"
+    ],
+    [
+     "B",
+     "F"
+    ],
+    [
+     "S",
+     "F"
+    ],
+    [
+     "F",
+     "G"
+    ],
+    [
+     "G",
+     "H"
+    ],
+    [
+     "H",
+     "E"
+    ]
+   ]
+  },
+  {
+   "id": "quest_map:p007",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 7,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 50,
+     "y": 50
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 27,
+     "y": 28
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 50,
+     "y": 28
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 73,
+     "y": 28
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 27,
+     "y": 50
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 73,
+     "y": 50
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 27,
+     "y": 70
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 50,
+     "y": 70
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 73,
+     "y": 70
+    }
+   ],
+   "edges": [
+    [
+     "A",
+     "D"
+    ],
+    [
+     "D",
+     "F"
+    ],
+    [
+     "F",
+     "G"
+    ],
+    [
+     "G",
+     "S"
+    ],
+    [
+     "S",
+     "B"
+    ],
+    [
+     "B",
+     "C"
+    ],
+    [
+     "C",
+     "E"
+    ],
+    [
+     "E",
+     "H"
+    ],
+    [
+     "E",
+     "S"
+    ],
+    [
+     "S",
+     "D"
+    ]
+   ]
+  },
+  {
+   "id": "quest_map:p008",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 8,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 50,
+     "y": 74
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 27,
+     "y": 20
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 73,
+     "y": 20
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 27,
+     "y": 38
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 50,
+     "y": 38
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 73,
+     "y": 38
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 27,
+     "y": 56
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 50,
+     "y": 56
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 73,
+     "y": 56
+    }
+   ],
+   "edges": [
+    [
+     "S",
+     "G"
+    ],
+    [
+     "G",
+     "D"
+    ],
+    [
+     "G",
+     "F"
+    ],
+    [
+     "G",
+     "H"
+    ],
+    [
+     "F",
+     "C"
+    ],
+    [
+     "C",
+     "A"
+    ],
+    [
+     "H",
+     "E"
+    ],
+    [
+     "E",
+     "B"
+    ]
+   ]
+  },
+  {
+   "id": "quest_map:p009",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 9,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 42,
+     "y": 74
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 60,
+     "y": 20
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 42,
+     "y": 38
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 78,
+     "y": 38
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 24,
+     "y": 56
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 42,
+     "y": 56
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 60,
+     "y": 56
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 24,
+     "y": 74
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 60,
+     "y": 74
+    },
+    {
+     "id": "X",
+     "kind": "dot",
+     "x": 60,
+     "y": 38
+    }
+   ],
+   "edges": [
+    [
+     "A",
+     "X"
+    ],
+    [
+     "X",
+     "B"
+    ],
+    [
+     "X",
+     "C"
+    ],
+    [
+     "X",
+     "F"
+    ],
+    [
+     "F",
+     "H"
+    ],
+    [
+     "B",
+     "E"
+    ],
+    [
+     "E",
+     "D"
+    ],
+    [
+     "D",
+     "G"
+    ],
+    [
+     "E",
+     "S"
+    ]
+   ]
+  },
+  {
+   "id": "quest_map:p010",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 10,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 49,
+     "y": 74
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 35,
+     "y": 20
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 63,
+     "y": 20
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 22,
+     "y": 38
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 49,
+     "y": 38
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 76,
+     "y": 38
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 35,
+     "y": 56
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 49,
+     "y": 56
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 63,
+     "y": 56
+    },
+    {
+     "id": "X",
+     "kind": "dot",
+     "x": 35,
+     "y": 38
+    },
+    {
+     "id": "Y",
+     "kind": "dot",
+     "x": 63,
+     "y": 38
+    }
+   ],
+   "edges": [
+    [
+     "A",
+     "B"
+    ],
+    [
+     "A",
+     "X"
+    ],
+    [
+     "B",
+     "Y"
+    ],
+    [
+     "C",
+     "X"
+    ],
+    [
+     "X",
+     "D"
+    ],
+    [
+     "X",
+     "F"
+    ],
+    [
+     "D",
+     "Y"
+    ],
+    [
+     "Y",
+     "E"
+    ],
+    [
+     "Y",
+     "H"
+    ],
+    [
+     "D",
+     "G"
+    ],
+    [
+     "G",
+     "S"
+    ]
+   ]
+  },
+  {
+   "id": "quest_map:p011",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 11,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 50,
+     "y": 80
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 65,
+     "y": 15
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 20,
+     "y": 28
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 35,
+     "y": 28
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 65,
+     "y": 28
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 50,
+     "y": 41
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 65,
+     "y": 41
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 80,
+     "y": 41
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 35,
+     "y": 54
+    },
+    {
+     "id": "I",
+     "kind": "room",
+     "x": 50,
+     "y": 54
+    },
+    {
+     "id": "J",
+     "kind": "room",
+     "x": 20,
+     "y": 67
+    },
+    {
+     "id": "K",
+     "kind": "room",
+     "x": 35,
+     "y": 67
+    },
+    {
+     "id": "L",
+     "kind": "room",
+     "x": 50,
+     "y": 67
+    },
+    {
+     "id": "M",
+     "kind": "room",
+     "x": 65,
+     "y": 67
+    },
+    {
+     "id": "N",
+     "kind": "room",
+     "x": 80,
+     "y": 67
+    },
+    {
+     "id": "O",
+     "kind": "room",
+     "x": 35,
+     "y": 80
+    },
+    {
+     "id": "P",
+     "kind": "room",
+     "x": 65,
+     "y": 80
+    },
+    {
+     "id": "X",
+     "kind": "unresolved",
+     "x": 50,
+     "y": 28
+    }
+   ],
+   "edges": [
+    [
+     "A",
+     "D"
+    ],
+    [
+     "B",
+     "C"
+    ],
+    [
+     "C",
+     "X"
+    ],
+    [
+     "X",
+     "D"
+    ],
+    [
+     "X",
+     "E"
+    ],
+    [
+     "D",
+     "F"
+    ],
+    [
+     "E",
+     "F"
+    ],
+    [
+     "F",
+     "G"
+    ],
+    [
+     "E",
+     "I"
+    ],
+    [
+     "I",
+     "L"
+    ],
+    [
+     "H",
+     "K"
+    ],
+    [
+     "J",
+     "K"
+    ],
+    [
+     "K",
+     "L"
+    ],
+    [
+     "L",
+     "M"
+    ],
+    [
+     "M",
+     "N"
+    ],
+    [
+     "K",
+     "O"
+    ],
+    [
+     "O",
+     "S"
+    ],
+    [
+     "S",
+     "P"
+    ],
+    [
+     "P",
+     "M"
+    ]
+   ],
+   "unresolvedMarkers": [
+    {
+     "nodeId": "X",
+     "observation": "red circular corridor marker",
+     "semantic": null
+    },
+    {
+     "nodeId": "A",
+     "observation": "distinct illustrated slot",
+     "semantic": null
+    },
+    {
+     "nodeId": "B",
+     "observation": "distinct illustrated slot",
+     "semantic": null
+    },
+    {
+     "nodeId": "G",
+     "observation": "distinct illustrated slot",
+     "semantic": null
+    }
+   ]
+  },
+  {
+   "id": "quest_map:p012",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 12,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 50,
+     "y": 80
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 35,
+     "y": 15
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 50,
+     "y": 15
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 65,
+     "y": 15
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 35,
+     "y": 28
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 50,
+     "y": 28
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 35,
+     "y": 41
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 50,
+     "y": 41
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 65,
+     "y": 41
+    },
+    {
+     "id": "I",
+     "kind": "room",
+     "x": 20,
+     "y": 54
+    },
+    {
+     "id": "J",
+     "kind": "room",
+     "x": 35,
+     "y": 54
+    },
+    {
+     "id": "K",
+     "kind": "room",
+     "x": 50,
+     "y": 54
+    },
+    {
+     "id": "L",
+     "kind": "room",
+     "x": 65,
+     "y": 54
+    },
+    {
+     "id": "M",
+     "kind": "room",
+     "x": 80,
+     "y": 54
+    },
+    {
+     "id": "N",
+     "kind": "room",
+     "x": 20,
+     "y": 67
+    },
+    {
+     "id": "O",
+     "kind": "room",
+     "x": 50,
+     "y": 67
+    },
+    {
+     "id": "P",
+     "kind": "room",
+     "x": 80,
+     "y": 67
+    }
+   ],
+   "edges": [
+    [
+     "A",
+     "B"
+    ],
+    [
+     "B",
+     "C"
+    ],
+    [
+     "B",
+     "E"
+    ],
+    [
+     "D",
+     "E"
+    ],
+    [
+     "E",
+     "G"
+    ],
+    [
+     "F",
+     "G"
+    ],
+    [
+     "G",
+     "H"
+    ],
+    [
+     "F",
+     "J"
+    ],
+    [
+     "H",
+     "L"
+    ],
+    [
+     "I",
+     "J"
+    ],
+    [
+     "J",
+     "K"
+    ],
+    [
+     "K",
+     "L"
+    ],
+    [
+     "L",
+     "M"
+    ],
+    [
+     "I",
+     "N"
+    ],
+    [
+     "K",
+     "O"
+    ],
+    [
+     "M",
+     "P"
+    ],
+    [
+     "O",
+     "S"
+    ]
+   ],
+   "unresolvedMarkers": [
+    {
+     "nodeId": "A",
+     "observation": "distinct illustrated slot",
+     "semantic": null
+    },
+    {
+     "nodeId": "C",
+     "observation": "distinct illustrated slot",
+     "semantic": null
+    },
+    {
+     "nodeId": "D",
+     "observation": "distinct illustrated slot",
+     "semantic": null
+    }
+   ]
+  },
+  {
+   "id": "quest_map:p013",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 13,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 50,
+     "y": 38
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 50,
+     "y": 20
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 73,
+     "y": 20
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 73,
+     "y": 38
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 50,
+     "y": 59
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 73,
+     "y": 59
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 27,
+     "y": 78
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 50,
+     "y": 78
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 73,
+     "y": 78
+    }
+   ],
+   "edges": [
+    [
+     "S",
+     "A"
+    ],
+    [
+     "A",
+     "B"
+    ],
+    [
+     "B",
+     "C"
+    ],
+    [
+     "S",
+     "D"
+    ],
+    [
+     "D",
+     "E"
+    ],
+    [
+     "E",
+     "H"
+    ],
+    [
+     "D",
+     "G"
+    ],
+    [
+     "G",
+     "F"
+    ]
+   ]
+  },
+  {
+   "id": "quest_map:p014",
+   "source": {
+    "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+    "page": 14,
+    "face": "front"
+   },
+   "review": "pending",
+   "nodes": [
+    {
+     "id": "S",
+     "kind": "start",
+     "x": 50,
+     "y": 78
+    },
+    {
+     "id": "A",
+     "kind": "room",
+     "x": 27,
+     "y": 18
+    },
+    {
+     "id": "B",
+     "kind": "room",
+     "x": 27,
+     "y": 38
+    },
+    {
+     "id": "C",
+     "kind": "room",
+     "x": 50,
+     "y": 38
+    },
+    {
+     "id": "D",
+     "kind": "room",
+     "x": 27,
+     "y": 58
+    },
+    {
+     "id": "E",
+     "kind": "room",
+     "x": 50,
+     "y": 58
+    },
+    {
+     "id": "F",
+     "kind": "room",
+     "x": 73,
+     "y": 58
+    },
+    {
+     "id": "G",
+     "kind": "room",
+     "x": 27,
+     "y": 78
+    },
+    {
+     "id": "H",
+     "kind": "room",
+     "x": 73,
+     "y": 78
+    }
+   ],
+   "edges": [
+    [
+     "A",
+     "B"
+    ],
+    [
+     "B",
+     "C"
+    ],
+    [
+     "C",
+     "E"
+    ],
+    [
+     "E",
+     "S"
+    ],
+    [
+     "D",
+     "G"
+    ],
+    [
+     "G",
+     "S"
+    ],
+    [
+     "H",
+     "S"
+    ],
+    [
+     "H",
+     "F"
+    ]
+   ]
+  }
+ ]
+}

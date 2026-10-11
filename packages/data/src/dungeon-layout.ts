@@ -14,13 +14,16 @@ export const dungeonLayoutSchema = z
       .array(
         z.strictObject({
           id: z.string().min(1),
-          kind: z.enum(["start", "room", "dot"]),
+          kind: z.enum(["start", "room", "dot", "unresolved"]),
           x: z.number().min(0).max(100),
           y: z.number().min(0).max(100),
         }),
       )
       .min(2),
     edges: z.array(z.tuple([z.string(), z.string()])),
+    unresolvedMarkers: z
+      .array(z.strictObject({ nodeId: z.string(), observation: z.string(), semantic: z.null() }))
+      .optional(),
   })
   .superRefine((layout, ctx) => {
     const ids = new Set(layout.nodes.map((n) => n.id));
@@ -42,10 +45,23 @@ export const dungeonLayoutSchema = z
       }
     if (reached.size !== ids.size) fail("地图不连通");
     for (const n of layout.nodes.filter((n) => n.kind === "dot")) {
-      if (layout.edges.filter((e) => e.includes(n.id)).length !== 2) fail("灰点必须连接两段走廊");
+      if (layout.edges.filter((e) => e.includes(n.id)).length < 2) fail("灰点必须连接至少两段走廊");
     }
+    if (layout.unresolvedMarkers?.some((m) => !ids.has(m.nodeId))) fail("未解释标记引用未知节点");
   });
 export type DungeonLayout = z.infer<typeof dungeonLayoutSchema>;
+export const dungeonLayoutFileSchema = z
+  .strictObject({
+    schema: z.literal("ddbg-dungeon-layouts-v1"),
+    layouts: z.array(dungeonLayoutSchema).min(1),
+  })
+  .superRefine((file, ctx) => {
+    if (
+      new Set(file.layouts.map((l) => l.id)).size !== file.layouts.length ||
+      new Set(file.layouts.map((l) => l.source.page)).size !== file.layouts.length
+    )
+      ctx.addIssue({ code: "custom", message: "地图 ID / 来源页重复" });
+  });
 
 /** R12：每一枚代币独立参与洗混；不靠未命名图标推断种类。 */
 export const roomDistributionSchema = z

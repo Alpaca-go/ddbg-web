@@ -236,6 +236,7 @@ export function createInitialState(seed: number): GameState {
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (
     command.type === "scoutDungeon" ||
+    command.type === "resolveDungeonPressure" ||
     command.type === "beginDungeonExploration" ||
     (command.type === "resolveChoice" && state.dungeon)
   )

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../data/normalized/corebox/scout_ahead_distribution.json";
+import layouts from "../../data/normalized/corebox/dungeon_layouts.json";
 import { dungeonLayoutSchema, roomDistributionSchema } from "../../data/src/dungeon-layout";
 import { applyCommand } from "./command";
 import type { GameState } from "./command";
@@ -140,5 +141,27 @@ describe("Phase 3 首切片（R12、R14、R-013、R-046、R-048）", () => {
     expect(result.dungeon!.heroes[0]!.stress).toBe(10);
     expect(result.dungeon!.rooms.filter((r) => r.revealed).map((r) => r.id)).toEqual(["G"]);
     expect(applyCommand(result, { type: "beginDungeonExploration" }).state).toBe(result);
+  });
+  it("实际 p3 分岔灰点挡住远端房间；p11 / p12 未解释标记不能开局", () => {
+    const initial = createDungeonSandbox(1, layouts.layouts[2], distribution, "standard", "D");
+    const after = scout(initial).state;
+    expect(after.dungeon!.rooms.filter((r) => r.revealed).map((r) => r.id)).toEqual([
+      "B",
+      "D",
+      "F",
+    ]);
+    const routed = choose(
+      applyCommand(after, { type: "beginDungeonExploration" }).state,
+      "X",
+    ).state;
+    expect(routed.dungeon!.exploration).toEqual({ from: "D", to: "X", dicePerHero: 1 });
+    expect(routed.dungeon!.position).toBe("D");
+    for (const page of [10, 11])
+      expect(() =>
+        createDungeonSandbox(1, layouts.layouts[page], {
+          ...distribution,
+          counts: [{ kind: "empty", count: 16 }],
+        }),
+      ).toThrow("未解释标记");
   });
 });
