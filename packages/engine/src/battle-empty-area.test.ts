@@ -86,6 +86,20 @@ function refused(state: GameState, cmd = command(state)) {
 }
 
 describe("空区域英雄技能（R19–20、R-025、R-048）", () => {
+  it("真实 Judgement 可对空区使用，自疗一次并锁重用，低骰不虚构伤害或暴击压力", () => {
+    const state = { ...setup(card("p088")), seed: 7 };
+    const used = applyCommand(state, command(state));
+    expect(used.events[0]).toMatchObject({ type: "heroSkillEmptyAreaResolved", roll: 1 });
+    expect(used.state.battle!.entities[0]).toMatchObject({ wounds: 3, stress: 5 });
+    expect(used.state.battle!.entities.slice(1)).toEqual(state.battle!.entities.slice(1));
+    expect(used.state.battle!.rngCursor).toBe(1);
+    expect(used.state.battle!.encounter!.turn).toMatchObject({
+      actions: 1,
+      usedSkillIds: [card("p088").id],
+    });
+    refused(used.state);
+    expect(applyCommand(state, command(state))).toEqual(used);
+  });
   it("真实 Breakthrough 自身 Pull 参照空区，位移完成才扣行动，目标效果不施加", () => {
     const initial = setup(card("p034"));
     const state = {
@@ -286,7 +300,9 @@ describe("空区域英雄技能（R19–20、R-025、R-048）", () => {
       }),
     );
     refused(setup(card("p010")));
-    expect(refused(setup(card("p088"))).events[0]?.message).toContain("numeric 为 null");
+    const { verified_range: range, ...unreviewed } = card("p088");
+    expect(range).toBeDefined();
+    expect(refused(setup(unreviewed)).events[0]?.message).toContain("numeric 为 null");
     const stun = card("p007");
     const stunState = setup(stun);
     const inRange = {

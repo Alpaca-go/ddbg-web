@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：Phase 2 Judgement I 射程补洞（2026-10-11）
+
+Kyries 本轮授权合并并继续。#105 准确 head `4b49b41` 的 PR / push 四项 CI 成功，按 merge 合并为 `3cd9d40`；本地 main 已 `pull --ff-only` 同步，从 main 独立开发 `codex/phase2-judgement-range`。[草稿 PR #106](https://github.com/Alpaca-go/ddbg-web/pull/106)，实现提交 `c977fe8`，准确 head CI 以 PR 为准。#99 / #103 仍为开放草稿。
+
+- 盘点沙盒现有 17 张 I 级英雄技能：Judgement I 的自身治疗 / 攻击已有纯函数，但公共命令仍因区间射程未复核拒绝。只读查看完整 `DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf` 第 88 / 91 页：Judgement I 印为 1–2，Dazzling Light I 为整数 1（已有解析可用）。官方 R19 完整页面图像明确区间内可选区域；规格书 §6.5 / §6.9、R-022 / R-025、R-001 / R-048。
+- 只给 `hero_skill:p088` 附 `verified_range`，严格匹配 I 级 / 卡名 / 已验证状态 / 已命名射程图标及原 1-2 文本。保留原 numeric=null，不修改词典或推断 II / III 级。规范化生成一致性测试通过；引擎规则、UI 卡池和命令格式无改动。
+- 四项新增场景覆盖数据漂移拒绝、1–2 / 高地上限 / 无注解门控、公共命令十个骰面自疗一次与命中锁定 / 落空重用 / 原骰回放、空区无虚构暴击 / 伤害。原三条浏览器冒烟扩展真实 Judgement 从 A 攻击 C（距离 2），自疗、一次攻击骰和胜利收尾，截图已检查。
+
+验证：Node 24.21.0 / pnpm 12.9.1；48 文件 444 项测试、typecheck、lint、build、diff 检查及原三条 Chrome 冒烟。原始印刷 PDF / 缓存未入库，无新 Q，不将印刷件当规则来源。缺 duration、未命名图标、Q-52 保留，Phase 3 未开放。此逐卡数据补洞仍留 Kyries 审阅合并。下一候选是四核心英雄尚未进入沙盒的 I 级技能逐卡审核，先核对 Iron Swan I，不能仅凭整卡 verification=false 放开完整效果。
+
 ## 最新进度：Phase 2 空区域自身位移（2026-10-11）
 
 Kyries 本轮授权合并并继续。#104 准确 head `fd055ce` 的 PR / push CI 四项成功，按 merge 合并为 `d5e771e`；本地 main 已 `pull --ff-only` 同步，再建独立分支 `codex/phase2-empty-area-shuffle`。[草稿 PR #105](https://github.com/Alpaca-go/ddbg-web/pull/105)，实现提交 `097d1dc`，准确 head CI 以 PR 为准。#99 / #103 未合并。本节替代下节的自身位移拒绝边界。

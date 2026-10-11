@@ -38966,6 +38966,11 @@
   },
   {
    "id": "hero_skill:p088",
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "pages": [
     88
    ],

@@ -9,6 +9,7 @@ const cards: HeroSkillCardView[] = JSON.parse(
 ).cards;
 const tracking = cards.find((card) => card.id === "hero_skill:p076")!;
 const pistol = cards.find((card) => card.id === "hero_skill:p067")!;
+const judgement = cards.find((card) => card.id === "hero_skill:p088")!;
 const life: number = JSON.parse(
   readFileSync(
     new URL("../../data/normalized/corebox/monster_large.json", import.meta.url),
@@ -71,7 +72,86 @@ function ready(seed: number): GameState {
     },
   };
 }
-describe("两张逐页复核的英雄区间射程 / G-08", () => {
+describe("逐页复核的英雄区间射程 / G-08", () => {
+  it("Judgement I 的已复核射程为 1–2，高地只扩展上限；无注解仍拒绝", () => {
+    expect(readPrintedRange(judgement)).toEqual({ kind: "interval", min: 1, max: 2 });
+    for (const lower of [false, true])
+      for (const distance of [0, 1, 2, 3, 4]) {
+        const result = resolveHeroSkill(
+          judgement,
+          {
+            actor: { id: "v", stance: "support", wounds: 5, stress: 3 },
+            target: { id: "m", side: "monster", wounds: 0, dodge: 0 },
+            light: 4,
+            areaDistance: distance,
+            targetAreaLower: lower,
+          },
+          7,
+        );
+        expect(result.status).toBe(
+          distance >= 1 && distance <= (lower ? 3 : 2) ? "resolved" : "refused",
+        );
+      }
+    const { verified_range, ...without } = judgement;
+    expect(verified_range).toBeDefined();
+    expect(readPrintedRange(without)).toEqual({ kind: "null_numeric" });
+  });
+  it("真实 Judgement 公共命令全骰面自疗一次，命中锁定、落空可再用；原骰回放一致", () => {
+    for (let roll = 1; roll <= 10; roll++) {
+      let seed = 0;
+      while (nextBattleRoll(seed, 0) !== roll) seed++;
+      const initial = ready(seed);
+      const state: GameState = {
+        ...initial,
+        battle: {
+          ...initial.battle!,
+          skills: [judgement],
+          entities: initial.battle!.entities.map((e) =>
+            e.id === "h0"
+              ? { ...e, hero: "VESTAL", stance: "support", wounds: 5, skillIds: [judgement.id] }
+              : e.id === "h3"
+                ? { ...e, stance: "ranged" }
+                : e,
+          ),
+        },
+      };
+      const command = {
+        type: "playHeroSkill" as const,
+        actorId: "h0",
+        targetId: "m",
+        skillId: judgement.id,
+      };
+      const used = applyCommand(state, command);
+      const outcome = roll <= 2 ? "crit" : roll <= 9 ? "hit" : "miss";
+      expect(used.events[0]).toMatchObject({
+        type: "heroSkillResolved",
+        roll,
+        resolution: { outcome, actorWounds: 3 },
+      });
+      expect(used.state.battle!.entities[0]!.wounds).toBe(3);
+      expect(used.state.battle!.entities.find((e) => e.id === "m")!.wounds).toBe(
+        outcome === "crit" ? 8 : outcome === "hit" ? 4 : 0,
+      );
+      expect(used.state.battle!.rngCursor).toBe(1);
+      expect(used.state.battle!.encounter!.turn).toMatchObject({
+        actions: 1,
+        usedSkillIds: outcome === "miss" ? [] : [judgement.id],
+      });
+      expect(applyCommand(state, command)).toEqual(used);
+      expect(state.battle!.entities[0]!.wounds).toBe(5);
+      if (outcome !== "miss") expect(applyCommand(used.state, command).state).toBe(used.state);
+      else {
+        const repeated = applyCommand(used.state, command);
+        expect(repeated.events[0]?.type).toBe("heroSkillResolved");
+        expect(repeated.state.battle!.rngCursor).toBe(2);
+        expect(repeated.state.battle!.entities[0]!.wounds).toBe(1);
+      }
+      const { verified_range: _range, ...unreviewed } = judgement;
+      void _range;
+      const blocked = { ...state, battle: { ...state.battle!, skills: [unreviewed] } };
+      expect(applyCommand(blocked, command).state).toBe(blocked);
+    }
+  });
   it("1–2 都可射击，0 / 3 拒绝；向更低区域的上限 +1（R-022）", () => {
     expect(readPrintedRange(pistol)).toEqual({ kind: "interval", min: 1, max: 2 });
     for (const lower of [false, true])

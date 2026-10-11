@@ -177,6 +177,28 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   const emptyFirst = await emptyArea();
   await page.screenshot({ path: testInfo.outputPath("empty-area-result.png"), fullPage: true });
   expect(await emptyArea()).toBe(emptyFirst);
+  // 完整印刷 p088：Judgement I 的射程 1–2；Vestal 从防御后移到远程后攻击 C。
+  await page.getByRole("button", { name: "重新布置", exact: true }).click();
+  await page.getByRole("button", { name: "开始战斗", exact: true }).click();
+  await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+  for (const area of ["A", "B"]) {
+    await page.getByRole("button", { name: `前往 ${area}`, exact: true }).click();
+    await page.getByRole("button", { name: "确认移动", exact: true }).click();
+  }
+  await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+  await page.getByRole("button", { name: "向后换姿态", exact: true }).click();
+  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p088");
+  await page.getByLabel("目标", { exact: true }).selectOption("soldier");
+  await page.getByRole("button", { name: "使用技能", exact: true }).click();
+  await expect(page.getByTestId("entity-hero-3")).toContainText("伤口 3/12");
+  await expect(page.getByTestId("turn-status")).toHaveText("胜利");
+  await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5");
+  await expect(page.getByRole("region", { name: "战斗日志" })).toContainText("Judgement");
+  await expect(page.getByRole("region", { name: "战斗日志" })).not.toContainText("拒绝");
+  await page.screenshot({
+    path: testInfo.outputPath("judgement-range-result.png"),
+    fullPage: true,
+  });
 });
 
 test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致", async ({ page }, testInfo) => {

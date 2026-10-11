@@ -1,5 +1,5 @@
 import type { NormalizedHeroSkillCard } from "./schema";
-/** 已逐页对照印刷 44x68 SKILLS_FRONT p067 / p076；只附加两张获批图标的区间。 */
+/** 已逐页对照印刷 44x68 SKILLS_FRONT p067 / p076 / p088；只附加已命名图标的区间。 */
 export function attachVerifiedHeroRanges(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
@@ -7,6 +7,7 @@ export function attachVerifiedHeroRanges(
     const names: Record<string, string> = {
       "hero_skill:p067": "Pistol Shot",
       "hero_skill:p076": "Tracking Shot",
+      "hero_skill:p088": "Judgement",
     };
     const name = names[card.id];
     if (!name) return card;
