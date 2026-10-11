@@ -517,7 +517,7 @@ export function App() {
                   >
                     {actorSkills.map((s) => (
                       <option key={s.id} value={s.id}>
-                        {s.name} I
+                        {s.name} {(["I", "II", "III"] as const)[s.level - 1]}
                       </option>
                     ))}
                   </select>

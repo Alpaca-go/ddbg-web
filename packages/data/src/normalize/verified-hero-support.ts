@@ -1,12 +1,15 @@
 import type { NormalizedHeroSkillCard } from "./schema";
 
-/** 完整 SKILLS_FRONT p019；只附已复核数字，不改原始 numeric=null。 */
+/** 完整 SKILLS_FRONT p019–021；只附已复核数字，不改原始 numeric=null。 */
 export function attachVerifiedHeroSupport(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return cards.map((card) => {
-    if (card.id !== "hero_skill:p019") return card;
-    const line = card.effect_lines[1];
+    const pages = { "hero_skill:p019": 19, "hero_skill:p020": 20, "hero_skill:p021": 21 };
+    const page = pages[card.id as keyof typeof pages];
+    if (!page) return card;
+    const lineIndex = page === 19 ? 1 : 2;
+    const line = card.effect_lines[lineIndex];
     const text = line
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
       .join("")
@@ -18,14 +21,19 @@ export function attachVerifiedHeroSupport(
       .replace(/\s+/g, "");
     if (
       card.name !== "Inspiring Cry" ||
-      card.level !== 1 ||
+      card.level !== page - 18 ||
       card.verification.unverified ||
       card.pages.length !== 1 ||
-      card.pages[0] !== 19 ||
+      card.pages[0] !== page ||
       card.printed_labels.length ||
       card.stats_line !== null ||
-      card.effect_lines.length !== 2 ||
-      target !== "{range}0{target_hero}" ||
+      card.effect_lines.length !== lineIndex + 1 ||
+      target !==
+        (page === 19
+          ? "{range}0{target_hero}"
+          : page === 20
+            ? "{range}1{target_hero}"
+            : "{range}1{target_hero}{target_hero}") ||
       targetLine?.some(
         (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
       ) ||
@@ -38,7 +46,7 @@ export function attachVerifiedHeroSupport(
     return {
       ...card,
       verified_target_support: {
-        lineIndex: 1,
+        lineIndex,
         heal: 1,
         stress: -1,
         light: 1,

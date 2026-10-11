@@ -690,6 +690,7 @@ describe("图标词典 v1.8", () => {
     const stillKept: number[] = [];
     for (const rank of V14_SKILL_KEEPS) {
       const icon = byRank.get(rank);
+      if (rank === 544) continue; // 2026-10-11 Wound 补充批准
       if (V18_CATEGORIZE_SET.has(rank)) {
         // v1.8 batch-08 归入 skill_art。r544、r569 不在这批里。
         expect(icon?.status).toBe("confirmed");
@@ -712,10 +713,10 @@ describe("图标词典 v1.8", () => {
       ).toBe(true);
       skillMeanings.add(icon?.meaning_en ?? "");
     }
-    expect(stillKept).toEqual([544, 569]);
-    expect(skillMeanings.size).toBe(2);
+    expect(stillKept).toEqual([569]);
+    expect(skillMeanings.size).toBe(1);
 
-    for (const rank of V14_OTHER_KEEPS) {
+    for (const rank of V14_OTHER_KEEPS.filter((rank) => ![668, 693].includes(rank))) {
       const icon = byRank.get(rank);
       expect(icon?.status).toBe("needs_review");
       expect(icon?.key).toBe(`pending_${icon?.iconId}`);
@@ -839,7 +840,7 @@ describe("图标词典 v1.8", () => {
       }
     }
 
-    for (const rank of V16_KEEPS) {
+    for (const rank of V16_KEEPS.filter((rank) => ![731, 793].includes(rank))) {
       const kept = byRank.get(rank);
       expect(kept?.status).toBe("needs_review");
       expect(kept?.key).toBe(`pending_${kept?.iconId}`);
@@ -943,9 +944,9 @@ describe("图标词典 v1.8", () => {
     expect(new Set(V18_CATEGORIZE).size).toBe(79);
     expect(dictionary.meta.resolved_in_v1_8.length).toBeGreaterThan(0);
     expect(dictionary.meta.stats.status_all976).toEqual({
-      confirmed: 636,
+      confirmed: 641,
       confirmed_rulebook: 44,
-      needs_review: 37,
+      needs_review: 32,
       decor: 112,
       unsure: 0,
       unreviewed: 147,
@@ -1008,7 +1009,7 @@ describe("图标词典 v1.8", () => {
     expect(highwayman?.meaning_en).not.toBe(jesterBack?.meaning_en);
     expect(highwayman?.notes).toContain("Not merge_into r490");
 
-    for (const rank of V18_KEEPS) {
+    for (const rank of V18_KEEPS.filter((rank) => rank !== 544)) {
       const icon = byRank.get(rank);
       expect(icon?.status).toBe("needs_review");
       expect(icon?.key).toBe(`pending_${icon?.iconId}`);

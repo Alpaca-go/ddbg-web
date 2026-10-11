@@ -41,31 +41,47 @@ export function applyBattleSkillStatuses(
     let resistances: StatusKind[] = [];
     let immunities: StatusKind[] = [];
     if (scope === "target") {
-      const card = battle.monsters?.find((entry) => entry.id === entity.monsterCardId);
-      if (
-        entity.side !== "monster" ||
-        card?.verification.unverified !== false ||
-        card.resistances === undefined ||
-        card.immunities === undefined
-      )
-        return "目标缺少已核实抗性 / 免疫栏（R-048）";
-      const read = (icons: NonNullable<typeof card.resistances>): StatusKind[] | null => {
-        const kinds: StatusKind[] = [];
-        for (const icon of icons) {
-          const kind = STATUS_KINDS.find(
-            (kind) => icon.key === kind || icon.key === `${kind}_resist`,
-          );
-          if (!kind || !["confirmed", "confirmed_rulebook"].includes(icon.naming)) return null;
-          kinds.push(kind);
-        }
-        return kinds;
-      };
-      const resistance = read(card.resistances);
-      const immunity = read(card.immunities);
-      if (resistance === null || immunity === null)
-        return "目标抗性 / 免疫图标未确认或未支持（R-048）";
-      resistances = resistance;
-      immunities = immunity;
+      const hero = battle.heroStats?.find((entry) => entry.id === entity.heroStatId);
+      const buff = hero?.verified_buff_defence;
+      if (entity.side === "hero") {
+        if (
+          !hero?.attributesVerified ||
+          !buff ||
+          buff.source !== "print_front" ||
+          typeof buff.resistant !== "boolean" ||
+          typeof buff.immune !== "boolean" ||
+          effects.some((effect) => effect.kind !== "buff")
+        )
+          return "英雄目标缺少已核实 Buff 抗性 / 免疫栏（R-048）";
+        resistances = buff.resistant ? ["buff"] : [];
+        immunities = buff.immune ? ["buff"] : [];
+      } else {
+        const card = battle.monsters?.find((entry) => entry.id === entity.monsterCardId);
+        if (
+          entity.side !== "monster" ||
+          card?.verification.unverified !== false ||
+          card.resistances === undefined ||
+          card.immunities === undefined
+        )
+          return "目标缺少已核实抗性 / 免疫栏（R-048）";
+        const read = (icons: NonNullable<typeof card.resistances>): StatusKind[] | null => {
+          const kinds: StatusKind[] = [];
+          for (const icon of icons) {
+            const kind = STATUS_KINDS.find(
+              (kind) => icon.key === kind || icon.key === `${kind}_resist`,
+            );
+            if (!kind || !["confirmed", "confirmed_rulebook"].includes(icon.naming)) return null;
+            kinds.push(kind);
+          }
+          return kinds;
+        };
+        const resistance = read(card.resistances);
+        const immunity = read(card.immunities);
+        if (resistance === null || immunity === null)
+          return "目标抗性 / 免疫图标未确认或未支持（R-048）";
+        resistances = resistance;
+        immunities = immunity;
+      }
     }
     let stacks = entity.statusStacks ?? [];
     for (const effect of effects) {

@@ -463,7 +463,7 @@ export type SkillForm = "beast" | "human";
 export type SkillHealthEffect = {
   readonly entityId: string;
   readonly side: SkillTargetSide;
-  readonly source: "selfHeal" | "targetHeal" | "attack" | "riposte";
+  readonly source: "selfHeal" | "selfWound" | "targetHeal" | "attack" | "riposte";
   readonly effect: HeroHealthEffect;
 };
 
@@ -758,6 +758,40 @@ function readSelfHeal(skill: HeroSkillCardView): SelfHeal {
   }
   if (lineCount === 0 || lineCount !== numerics.length) return none;
   return { amount: shared * lineCount, lineCount };
+}
+
+/** R20：已命名 Wound 与旁边整数对上整行才结算；自身创伤无视命中和防护。 */
+function readSelfWound(skill: HeroSkillCardView): SelfHeal {
+  const lines = skill.effect_lines.filter(
+    (line) =>
+      line.every((s) => s.type === "text" || NAMED.has(s.icon.naming)) &&
+      /^\{self_effects\}Self\d+\{wound\}$/.test(
+        line
+          .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+          .join("")
+          .split(String.fromCharCode(7))
+          .join("")
+          .replace(/\s/g, ""),
+      ),
+  );
+  const amounts = skill.unlabeled_numbers.filter(
+    (n) =>
+      n.anchor.type === "beside_icon" &&
+      n.anchor.left_icon === null &&
+      n.anchor.inside_icon === null &&
+      n.numeric !== null &&
+      nonNegativeInteger(n.numeric),
+  );
+  if (lines.length !== 1 || amounts.length !== 1) return { amount: 0, lineCount: 0 };
+  const amount = amounts[0]!.numeric!;
+  const text = lines[0]!
+    .filter((s) => s.type === "text")
+    .map((s) => s.text)
+    .join("")
+    .split(String.fromCharCode(7))
+    .join("")
+    .replace(/\s/g, "");
+  return text === `Self${amount}` ? { amount, lineCount: 1 } : { amount: 0, lineCount: 0 };
 }
 
 function selfHealLine(line: readonly SkillSegment[], amount: number): boolean {
@@ -1814,10 +1848,10 @@ function readTargetIconCounts(skill: HeroSkillCardView): { hero: number; monster
       .join("")
       .replace(/\s+/g, "");
     if (
-      text === "{range}0{target_hero}" &&
+      /^\{range\}\d+(?:\{target_hero\}){1,2}$/.test(text ?? "") &&
       !line?.some((s) => s.type === "icon" && !NAMED.has(s.icon.naming))
     )
-      return { hero: 1, monster: 0 };
+      return countNamedTargets(lineTargetIcons(line!));
     return { hero: 0, monster: 0 };
   }
   const stats = countNamedTargets(lineTargetIcons(skill.stats_line ?? []));
@@ -2140,8 +2174,8 @@ function resolveSkill(
     if (
       !Number.isSafeInteger(support.lineIndex) ||
       support.lineIndex < 0 ||
-      support.lineIndex !== 1 ||
-      active.effect_lines.length !== 2 ||
+      ![1, 2].includes(support.lineIndex) ||
+      active.effect_lines.length !== support.lineIndex + 1 ||
       !Number.isSafeInteger(support.heal) ||
       support.heal <= 0 ||
       !Number.isSafeInteger(support.stress) ||
@@ -2219,6 +2253,7 @@ function resolveSkill(
   if (statuses.self.length && combat.actor === undefined)
     return refuse(skill, combat, "自身状态效果缺少使用者");
   const selfHeal = readSelfHeal(active);
+  const selfWound = readSelfWound(active);
   const paired = readSelfHealStress(active);
   const removal = readConditionRemoval(active);
   const selfBleed = readSelfBleedRemoval(active);
@@ -2318,7 +2353,12 @@ function resolveSkill(
   if (!formOnly && effect !== null && critThreshold === null) {
     return refuse(skill, combat, "Crit 标签没有非负整数阈值");
   }
-  if (!formOnly && !support && accThreshold === null) {
+  if (
+    !formOnly &&
+    !support &&
+    accThreshold === null &&
+    !(statuses.target.length && active.printed_labels.length === 0)
+  ) {
     return refuse(skill, combat, "Acc 标签没有非负整数阈值");
   }
   const needsAmount = effect === "damage" || effect === "heal";
@@ -2339,6 +2379,8 @@ function resolveSkill(
   if ((selfHeal.amount > 0 || paired.heal > 0) && combat.actor === undefined) {
     return refuse(skill, combat, "自身效果要治疗，但没有使用者的伤口（规则书第 20 页）");
   }
+  if (selfWound.lineCount && combat.actor === undefined)
+    return refuse(skill, combat, "自身创伤缺少使用者");
   if (selfBleed.lineCount > 0 && combat.actor === undefined) {
     return refuse(skill, combat, "自身效果要移除流血，但没有使用者（规则书第 20 页）");
   }
@@ -2435,6 +2477,15 @@ function resolveSkill(
       effect: { type: "heal", amount: selfHeal.amount + paired.heal },
     });
   }
+  if (selfWound.lineCount && actorWounds !== null) {
+    actorWounds += selfWound.amount;
+    healthEffects.push({
+      entityId: combat.actor!.id,
+      side: sourceSide,
+      source: "selfWound",
+      effect: { type: "wounds", amounts: [selfWound.amount] },
+    });
+  }
   // 自身「Remove Bleed」不看命中。没有 Acc 时也清。和增益写在同一行的不算。
   // 换行后配给自身标记的「Remove Bleed、Blight」同样不看命中，两种都清。
   const actorBleedCleared =
@@ -2516,7 +2567,8 @@ function resolveSkill(
   if (outcome !== "miss" && extraStress && targetStress !== null) {
     targetStress = clampStress(targetStress + pressureDelta(extraStress.amount));
   }
-  const conditionsCleared = !emptyArea && outcome !== "miss" && removal.targetLines > 0;
+  const conditionsCleared =
+    !emptyArea && outcome !== "miss" && (removal.targetLines > 0 || statuses.targetRemove);
 
   const targetDead =
     target.side === "monster" && target.life !== undefined && wounds >= target.life;
@@ -2578,6 +2630,7 @@ function resolveSkill(
       keys,
       stress.lineCount +
         selfHeal.lineCount +
+        selfWound.lineCount +
         paired.lineCount +
         removal.lineCount +
         selfBleed.lineCount +

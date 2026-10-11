@@ -48,7 +48,16 @@ function monster(overrides: Partial<BattleEntity> = {}): BattleEntity {
 }
 function setup(skill: HeroSkillCardView, entities = [hero(skill), monster()]): BattleSetup {
   return {
-    entities,
+    entities: entities.map((e) => (e.side === "monster" ? { ...e, monsterCardId: e.id } : e)),
+    monsters: entities
+      .filter((e) => e.side === "monster")
+      .map((e) => ({
+        id: e.id,
+        life: e.life!,
+        verification: { unverified: false },
+        type_position_tags: ["Beast"],
+        skills: [],
+      })),
     skills: [skill],
     light: 5,
     areas: [
@@ -109,20 +118,31 @@ describe("applyCommand 战斗沙盒（R19–21、R-024、R-031、R-048）", () =
     expect(result.state.battle?.entities[0]).toMatchObject({ wounds: 3, bleed: [], blight: [] });
   });
 
-  it("无 Acc 的自身移除不消耗骰子、不把 null 的 Buff duration 放堆", () => {
-    const skill = card("p039");
-    const initial = createBattleState(1, setup(skill, [hero(skill)]));
+  it("无 Acc 自身移除与 Buff 一起生效，不消费 RNG", () => {
+    const skill = card("p037");
+    const initial = createBattleState(
+      1,
+      setup(skill, [
+        hero(skill, {
+          statusStacks: [
+            { kind: "bleed", remaining: 2, amount: 1 },
+            { kind: "blight", remaining: 2, amount: 1 },
+          ],
+        }),
+      ]),
+    );
     const result = applyCommand(initial, play(skill, "actor"));
     expect(result.events[0]).toMatchObject({
       type: "heroSkillResolved",
       roll: null,
-      resolution: { outcome: null, skipped: [{ code: "effect_lines" }] },
+      resolution: { outcome: null, skipped: [] },
     });
     expect(result.state.battle?.rngCursor).toBe(0);
     expect(result.state.battle?.entities[0]).toMatchObject({
       wounds: 4,
       bleed: [],
-      blight: ["blight-1"],
+      blight: [],
+      statusStacks: [{ kind: "buff", remaining: 3 }],
     });
   });
 
@@ -215,7 +235,7 @@ describe("applyCommand 战斗沙盒（R19–21、R-024、R-031、R-048）", () =
         skill,
         {
           actor,
-          target,
+          target: { ...target, monsterTypeTags: ["Beast"] },
           light: 5,
           areaDistance: problem === "range" ? 1 : 0,
           targetsInArea: 1,

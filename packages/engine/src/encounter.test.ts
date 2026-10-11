@@ -44,7 +44,14 @@ function setup(seed = 0, monsters: Partial<BattleEntity>[] = [{}]): GameState {
     ...overrides,
   }));
   return createBattleState(seed, {
-    entities: [...heroes, ...enemies],
+    entities: [...heroes, ...enemies.map((e) => ({ ...e, monsterCardId: e.id }))],
+    monsters: enemies.map((e) => ({
+      id: e.id,
+      life: e.life!,
+      verification: { unverified: false },
+      type_position_tags: ["Beast"],
+      skills: [],
+    })),
     areas: [{ id: "a", elevation: "normal", adjacent: [] }],
     light: 5,
     skills: [skill],

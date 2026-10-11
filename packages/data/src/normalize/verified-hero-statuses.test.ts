@@ -6,19 +6,19 @@ import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 const cards = loadNormalizedCorebox().hero_skill.cards;
 
 describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
-  it("只补八张 I 级卡，原未命名数字不变，Remove 的图标不误作施加", () => {
+  it("核实四核心 39 张状态卡，原未命名数字不变，Remove 的图标不误作施加", () => {
     const annotated = cards.filter((card) => card.verified_status_effects !== undefined);
-    expect(annotated).toHaveLength(8);
-    expect(annotated.every((card) => card.level === 1 && !card.verification.unverified)).toBe(true);
+    expect(annotated).toHaveLength(39);
+    expect(annotated.every((card) => !card.verification.unverified)).toBe(true);
     expect(cards.find((card) => card.id === "hero_skill:p037")!.verified_status_effects).toEqual([
       { lineIndex: 1, segmentIndex: 6, scope: "self", kind: "buff", duration: 3 },
     ]);
     expect(
       cards.find((card) => card.id === "hero_skill:p031")!.verified_status_effects![0],
     ).toMatchObject({ kind: "bleed", amount: 2, duration: 2 });
-    expect(
-      cards.find((card) => card.id === "hero_skill:p008")!.verified_status_effects,
-    ).toBeUndefined();
+    expect(cards.find((card) => card.id === "hero_skill:p008")!.verified_status_effects).toEqual([
+      { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "stun", duration: 1 },
+    ]);
     for (const card of annotated) {
       expect(
         card.unlabeled_numbers

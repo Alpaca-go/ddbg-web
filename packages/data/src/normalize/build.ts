@@ -22,6 +22,7 @@ import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 import { attachVerifiedHeroRanges } from "./verified-hero-ranges";
 import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 import { attachVerifiedHeroSupport } from "./verified-hero-support";
+import { attachVerifiedHeroLayout } from "./verified-hero-layout";
 import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
 import { approvedResolveLookup } from "./approved-resolve-icons";
 import { buildRoomTileGeometry } from "./room-tile";
@@ -573,7 +574,9 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
         ...file,
         cards: attachVerifiedHeroSupport(
           attachVerifiedHeroDamage(
-            attachVerifiedHeroRanges(attachVerifiedHeroStatuses(file.cards)),
+            attachVerifiedHeroRanges(
+              attachVerifiedHeroStatuses(attachVerifiedHeroLayout(file.cards)),
+            ),
           ),
         ),
       });

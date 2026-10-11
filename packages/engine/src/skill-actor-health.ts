@@ -5,7 +5,9 @@ export function multiTargetHealthEffects(
   effects: readonly { readonly healthEffects: readonly SkillHealthEffect[] }[],
 ): readonly SkillHealthEffect[] {
   return effects.flatMap((e, index) =>
-    e.healthEffects.filter((effect) => index === 0 || effect.source !== "selfHeal"),
+    e.healthEffects.filter(
+      (effect) => index === 0 || !["selfHeal", "selfWound"].includes(effect.source),
+    ),
   );
 }
 

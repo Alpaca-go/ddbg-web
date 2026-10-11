@@ -1,5 +1,16 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：Phase 2 四核心 I / II / III 整批接线（2026-10-11）
+
+按 Kyries 本轮批量交付要求，将现有[草稿 PR #110](https://github.com/Alpaca-go/ddbg-web/pull/110)扩展为四英雄全部 84 张技能的同一主题，分支仍为 `codex/phase2-inspiring-cry`，不继续单卡开 PR。完整可用卡表、印刷核对、Wound 合并、验证与独立待确认原因见[整批清单](phase2-four-core-skills-2026-10-11.md)。本批技能 blocked 清单为空；没有 Phase 3 或 UI 大改。
+
+- R-061 记录 Kyries 的黑心红光 = Wound 批准，五个待审 hash 并入已有词条；JSON / CSV 同步，规范化批量清理，仅保留与 Wound 无关的未确认原因。
+- 按效果族补齐射程、条件伤、39 张状态卡与 Inspiring Cry 三等级支持注解。修正 Adrenaline Rush II / III 左右效果框的提取混行，接自身 / 友方清状态与 Buff；Bleed Out 自身创伤接有序生命层及死门。
+- 沙盒白名单 20 → 84，每英雄 21 个选项；技能选项显示真实 I / II / III。所有技能真实命令结算均无未消费效果框，并验证最大目标集合、不可变输入及同种子回放。
+- typecheck、lint、52 文件 556 项测试、build 与 diff 检查通过。原三条浏览器冒烟通过（49.6 秒），包含 III 级技能实际结算；使用本机已有 Chromium v1234 的临时配置，配置已删除，默认 v1243 缺失 / 下载未完成情况已记录。
+
+本批没有新增技能待确认项；原 Q-47 的其他未知图标与 Q-52 双灭战役收尾分别保留，详情见整批清单。下文为此前单卡推进历史，后续以本节整批范围为准。草稿待 Kyries 审阅合并，未执行合并。
+
 ## 最新进度：Phase 2 Inspiring Cry I 复合支持效果（2026-10-11）
 
 Kyries 本轮授权合并并继续。#109 准确 head `e8429ca` 的 PR / push CI 成功，按 merge 合并为 `d3687b6`；本地 main 已 ff-only 同步，从 main 独立建立 `codex/phase2-inspiring-cry`。#99 / #103 / #107 保持待审；[草稿 PR #110](https://github.com/Alpaca-go/ddbg-web/pull/110)，实现提交 `6a35dfa`，准确 head CI 以 PR 为准。

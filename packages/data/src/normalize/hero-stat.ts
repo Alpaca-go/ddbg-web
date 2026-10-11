@@ -41,6 +41,14 @@ export const normalizedHeroStatCardSchema = attributesSchema
     source: z.strictObject({ file: z.enum([FRONT, BACK]), page: z.int().positive() }),
     attributesVerified: z.literal(true),
     approval: z.literal("kyries_review_2026-10-10"),
+    /** 四张 I 级完整抗性 / 免疫框已核；只确认 Buff，其他未命名图标仍保持待定。 */
+    verified_buff_defence: z
+      .strictObject({
+        resistant: z.boolean(),
+        immune: z.boolean(),
+        source: z.literal("print_front"),
+      })
+      .optional(),
     /** 其他卡面文字只保留，不解释村庄效果、抗性或免疫。 */
     lines: z.array(z.string()),
     icons: z.array(normalizedIconSchema),
@@ -159,12 +167,36 @@ export function buildHeroStats(
       if (!icon || icon.key !== key || !["confirmed", "confirmed_rulebook"].includes(icon.naming))
         throw new Error("获批属性缺少已确认图标（R-048）");
     }
+    const reviewedBuffDefence: Record<string, string> = {
+      "hero_stat:p001": "8db71542d2",
+      "hero_stat:p003": "d29a868ed8",
+      "hero_stat:p007": "8db71542d2",
+      "hero_stat:p009": "d29a868ed8",
+    };
+    const buffReviewed =
+      attributes.level === 1 &&
+      attributes.face === "front" &&
+      reviewedBuffDefence[attributes.rawId] !== undefined;
+    if (buffReviewed) {
+      const lines = face.lines.map((line) => line.text);
+      const start = lines.indexOf("Resistances        Immunities");
+      const end = lines.findIndex((line) => line.startsWith("Hamlet Skill:"));
+      if (
+        start < 0 ||
+        end !== start + 2 ||
+        lines[start + 1] !== `{icon:${reviewedBuffDefence[attributes.rawId]}}`
+      )
+        throw new Error("已复核 Buff 抗性 / 免疫框漂移（R-048）");
+    }
     return normalizedHeroStatCardSchema.parse({
       ...attributes,
       id: `${attributes.rawId}:${attributes.face}`,
       source: { file: face.file, page: face.page },
       attributesVerified: true,
       approval: "kyries_review_2026-10-10",
+      ...(buffReviewed
+        ? { verified_buff_defence: { resistant: false, immune: false, source: "print_front" } }
+        : {}),
       lines: face.lines.map((line) => line.text),
       icons,
       verification: finishVerification(reasons),

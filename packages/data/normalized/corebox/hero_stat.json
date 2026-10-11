@@ -23,6 +23,11 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
+   "verified_buff_defence": {
+    "resistant": false,
+    "immune": false,
+    "source": "print_front"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "I",
@@ -592,6 +597,11 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
+   "verified_buff_defence": {
+    "resistant": false,
+    "immune": false,
+    "source": "print_front"
+   },
    "lines": [
     "{icon:166eae2abd}",
     "I",
@@ -1066,6 +1076,11 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
+   "verified_buff_defence": {
+    "resistant": false,
+    "immune": false,
+    "source": "print_front"
+   },
    "lines": [
     "{icon:be780e3d42}",
     "I",
@@ -1545,6 +1560,11 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
+   "verified_buff_defence": {
+    "resistant": false,
+    "immune": false,
+    "source": "print_front"
+   },
    "lines": [
     "{icon:7144178576}",
     "I",

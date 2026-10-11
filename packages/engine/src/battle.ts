@@ -88,6 +88,11 @@ export type BattleSetup = {
     readonly life: number;
     readonly speed?: number | null;
     readonly attributesVerified: boolean;
+    readonly verified_buff_defence?: {
+      readonly resistant: boolean;
+      readonly immune: boolean;
+      readonly source: "print_front";
+    };
   }[];
   readonly entities: readonly BattleEntity[];
   readonly areas: readonly BattleArea[];

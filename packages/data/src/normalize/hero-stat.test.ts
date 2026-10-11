@@ -19,6 +19,22 @@ const built = buildHeroStats(raw, dictionary);
 const first = approvedHeroStats[0]!;
 
 describe("四名英雄 12 面获批属性（R10/19/29；R-006/007/048）", () => {
+  it("只核四张 I 级 Buff 抗性栏；栏位漂移拒绝，其他图标仍保留未验证", () => {
+    expect(built.cards.filter((c) => c.verified_buff_defence).map((c) => c.id)).toEqual([
+      "hero_stat:p001:front",
+      "hero_stat:p003:front",
+      "hero_stat:p007:front",
+      "hero_stat:p009:front",
+    ]);
+    expect(built.cards.find((c) => c.id === "hero_stat:p003:front")).toMatchObject({
+      verified_buff_defence: { resistant: false, immune: false, source: "print_front" },
+      verification: { unverified: true, reasons: expect.arrayContaining(["icon:d29a868ed8"]) },
+    });
+    const changed = structuredClone(raw);
+    const face = changed.cards.find((c) => c.id === "hero_stat:p001")!.faces.front!;
+    face.lines.find((l) => l.text === "{icon:8db71542d2}")!.text += " {icon:ef29ccfbe0}";
+    expect(() => buildHeroStats(changed, dictionary)).toThrow(/Buff.*漂移/);
+  });
   it("独立预期锁定 raw id + face、英雄、等级及 36 个获批值", () => {
     // 直接来自获批核对表 §3，不从实现映射反推；III 级不能继承 I/II Speed。
     expect(

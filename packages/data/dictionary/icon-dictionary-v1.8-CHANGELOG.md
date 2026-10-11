@@ -1,5 +1,13 @@
 # 图标词典 v1.8 更新记录（2026-10-08）
 
+## 2026-10-11 补充：Wound 同义图标合并（R-061）
+
+Kyries 明确确认黑心红光 = Wound / 创伤。本次对照完整印刷后，将 rank 544 / 668 / 693 / 731 / 793（`8466c441ea` / `2c1824ea21` / `6888d0cf12` / `d42d7955d3` / `48ca9f366e`）从 needs_review 并入已有 `wound`，kind 为 `damage_type`，value 为空。最后一个为旋转图标。保留原始 iconId 与旧状态说明，JSON / CSV 同步；source 为新增枚举 `kyries_review_2026-10-11`。
+
+基准为原有 `163b31751a`（player aid / Core p.27）与 `ccade5e7ad`。总条数 976 不变；confirmed 636 → 641、needs_review 37 → 32，其余计数不变。下文是 2026-10-08 的历史审批记录，其中 rank 544 已被本次批准解除。
+
+规范化层批量清理由这些 hash 单独造成的 unverified；Bad Gambler 另有 `adcab0541a`，仍单独保留该原因。详见 [四核心整批接线清单](../../../docs/phase2-four-core-skills-2026-10-11.md)。
+
 Kyries 批准 batch-08 里 `proposed_action` 为 categorize 的 79 条。这些 rank 本来就在词典里。本版只改这 79 条，总条数仍是 976。只含含义，不含图片。
 
 `source` 为 `kyries_approved_proposal_2026-10-07`。这是 schema 里已有的枚举，本版没有新增 source。

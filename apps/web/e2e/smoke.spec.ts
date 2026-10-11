@@ -17,15 +17,21 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await page.getByRole("button", { name: "重新布置", exact: true }).click();
   await page.getByRole("button", { name: "开始战斗", exact: true }).click();
   await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
-  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p010");
+  await expect(page.getByLabel("技能", { exact: true }).getByRole("option")).toHaveCount(21);
+  await expect(
+    page
+      .getByLabel("技能", { exact: true })
+      .getByRole("option", { name: "Bulwark of Faith III", exact: true }),
+  ).toHaveCount(1);
+  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p012");
   await expect(page.getByText("目标：自身 · CRUSADER", { exact: true })).toBeVisible();
   await expect(page.getByLabel("目标", { exact: true })).toHaveCount(0);
   const selfCard = page.getByTestId("skill-card-text");
-  await expect(selfCard).toContainText("Bulwark of Faith · 等级 1");
-  await expect(selfCard).toContainText("[防护] 2t, [标记] 3t, [光照（火把）] +2");
+  await expect(selfCard).toContainText("Bulwark of Faith · 等级 3");
+  await expect(selfCard).toContainText("[防护] 3t, [标记] 2t, [光照（火把）] +2");
   await expect(selfCard).not.toContainText("self_effects");
   await page.getByRole("button", { name: "使用技能", exact: true }).click();
-  await expect(page.getByTestId("entity-hero-0")).toContainText("防护 / 2t；标记 / 3t");
+  await expect(page.getByTestId("entity-hero-0")).toContainText("防护 / 3t；标记 / 2t");
   await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 4");
   await expect(page.getByTestId("turn-status")).toContainText("剩余 1 行动");
   await page.screenshot({ path: testInfo.outputPath("status-self-result.png"), fullPage: true });

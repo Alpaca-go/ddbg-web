@@ -107,7 +107,7 @@ const command = {
 } as const;
 
 describe("Battle Heal I 逐卡复核（SKILLS_FRONT p13、R19–20、R-022 / R-025 / R-048）", () => {
-  it("0–1 射程四种姿态可用，高地仅扩上限；无注解区间仍拒绝，不注解 II / III", () => {
+  it("0–1 射程四种姿态可用，高地仅扩上限；无注解区间仍拒绝，II 区间与 III 单值分别核实", () => {
     expect(readPrintedRange(heal)).toEqual({ kind: "interval", min: 0, max: 1 });
     expect(heal.effect_lines).toEqual([]);
     for (const stance of ["aggressive", "defensive", "ranged", "support"] as const)
@@ -131,8 +131,14 @@ describe("Battle Heal I 逐卡复核（SKILLS_FRONT p13、R19–20、R-022 / R-0
     const { verified_range, ...without } = heal;
     expect(verified_range).toEqual({ min: 0, max: 1, source: "print_front" });
     expect(readPrintedRange(without)).toEqual({ kind: "null_numeric" });
-    for (const card of cards.filter((c) => ["hero_skill:p014", "hero_skill:p015"].includes(c.id)))
-      expect(card.verified_range).toBeUndefined();
+    expect(cards.find((c) => c.id === "hero_skill:p014")!.verified_range).toMatchObject({
+      min: 0,
+      max: 1,
+    });
+    expect(readPrintedRange(cards.find((c) => c.id === "hero_skill:p015")!)).toEqual({
+      kind: "exact",
+      distance: 1,
+    });
   });
 
   it("公共命令十个骰面：治疗离开死门、友方 Dodge 落空、暴击压力和单骰回放", () => {

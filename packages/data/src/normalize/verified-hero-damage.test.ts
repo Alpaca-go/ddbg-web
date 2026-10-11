@@ -8,12 +8,12 @@ const cards = normalizedHeroSkillFileSchema.parse(
   ),
 ).cards;
 describe("逐卡复核条件伤害", () => {
-  it("只给 p016 / p067 附已复核条件，不改变原 null 或推断同名高等级", () => {
+  it("五族 I/II/III 条件伤逐页核实，原 null 不变", () => {
     expect(
       attachVerifiedHeroDamage(cards)
         .filter((card) => card.verified_damage_bonus)
-        .map((card) => card.id),
-    ).toEqual(["hero_skill:p016", "hero_skill:p067"]);
+        .map((card) => Number(card.id.slice(-3))),
+    ).toEqual([1, 2, 3, 16, 17, 18, 67, 68, 69, 85, 86, 87, 103, 104, 105]);
     const lance = cards.find((card) => card.id === "hero_skill:p016")!;
     expect(lance.verified_damage_bonus).toEqual({
       lineIndex: 1,
