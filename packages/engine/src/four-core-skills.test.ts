@@ -118,6 +118,61 @@ function setup(card = skill(1), seed = 1, maxTargets = readPrintedTargets(card))
 }
 
 describe("四核心技能整批沙盒接线（R19–21、R27、R29、R-048）", () => {
+  it.each([
+    [4, 0, 9, 9, 5],
+    [5, 0, 11, 10, 6],
+    [6, 1, 12, 11, 7],
+  ])(
+    "Zealous p%i：印刷 Crit %i / 伤害 %i、Acc %i / 伤害 %i，全部骰面（R-062）",
+    (page, crit, critDamage, acc, hitDamage) => {
+      const card = skill(page);
+      expect(card.printed_labels.map((label) => [label.label, label.value])).toEqual([
+        ["Crit", crit],
+        ["Acc", acc],
+      ]);
+      expect(readPrintedRange(card)).toEqual({ kind: "exact", distance: 1 });
+      expect(readPrintedTargets(card)).toEqual({ kind: "exact", max: 2 });
+      expect(
+        card
+          .stats_line!.filter((s) => s.type === "icon")
+          .map((s) => s.type === "icon" && s.icon.key),
+      ).toEqual(["range", "target_monster", "target_monster", "damage", "damage"]);
+      for (let roll = 1; roll <= 10; roll++) {
+        const result = resolveHeroSkillEffects(
+          card,
+          {
+            actor: { id: "h", wounds: 5, stress: 3, stance: "aggressive" },
+            target: { id: "m", side: "monster", wounds: 0, dodge: 2 },
+            light: 4,
+            areaDistance: 1,
+            targetsInArea: 2,
+          },
+          roll,
+        );
+        const outcome = roll <= crit + 1 ? "crit" : roll <= acc - 2 ? "hit" : "miss";
+        const amount = outcome === "crit" ? critDamage : outcome === "hit" ? hitDamage : null;
+        expect(result.resolution).toMatchObject({
+          status: "resolved",
+          reason: null,
+          effect: "damage",
+          outcome,
+          printedAmount: amount,
+          damageDealt: amount,
+          wounds: amount ?? 0,
+          actorWounds: 5,
+          actorShuffle: null,
+          targetShuffle: null,
+          skipped: [],
+        });
+      }
+      const { state, command } = setup(card);
+      const result = applyCommand(state, command);
+      expect(result.events[0]?.type).toBe("heroSkillTargetsResolved");
+      expect(result.state.battle!.rngCursor).toBe(1);
+      expect(applyCommand(state, command)).toEqual(result);
+    },
+  );
+
   it("28 种技能各 I/II/III，共 84 张；每英雄 21 张，均已验证", () => {
     expect(skills).toHaveLength(84);
     for (const h of heroes)

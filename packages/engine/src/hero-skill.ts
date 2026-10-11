@@ -153,8 +153,9 @@ import { readVerifiedStatusEffects } from "./skill-status";
  * 已命名的头盔或怪物头，个数和阵营都用它们。Inspiring Tune I 的 stats 行只排进了
  * 「Crit 2 Acc 20」，两枚英雄头盔在正面图标里。效果行里已经有头盔时仍不用正面图标，
  * 避免和效果行重复计数。正面也没有时，不把 Self 或 All Allies 当成个数。
- * 不因此把技能名旁边的 Crit / Acc 整数当成伤害：Zealous Accusation 的 stats 行仍没有
- * 已命名的 damage。选空区域算成功使用（R-025），但这一层始终带着一个已选目标，传入 0
+ * 不把 Crit / Acc 阈值当成伤害；伤害必须由已命名 damage 图标及旁边数字支持。
+ * Zealous Accusation I/II/III 已按完整印刷和 R-062 核实。选空区域算成功使用（R-025），
+ * 但这一层始终带着一个已选目标，传入 0
  * 不在这里结算。不以友方为目标时，调用方标明这次没有选中有 Guard 的敌人，整次拒绝
  * （规则书第 21 页，R-024）。目标是英雄或 Self 时不拒绝。不从「1t」读出谁现在有 Guard，
  * 也不改选谁。

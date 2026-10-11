@@ -59,6 +59,8 @@ Crusader、Hellion、Highwayman、Vestal 共 28 种技能，各 I / II / III，�
 
 ## 接线重点
 
+Zealous Accusation 经 Kyries 再次确认（R-062）：红裂口 `8d4bbe5e11` 为 damage；I 为 Crit 0 / 9、Acc 9 / 5，II 为 Crit 0 / 11、Acc 10 / 6，III 为 Crit 1 / 12、Acc 11 / 7。前段两枚 `a396e95c00` 保持怪物目标，1 保持射程，无 shuffle。现有三等级已可真实命令结算；补全十骰面数值回归，删除旧注释中「Zealous 没有已命名 damage」的历史描述。损坏夹具缺失伤害图标时仍拒绝，不放宽 R-048。
+
 - 条件伤害共五族 15 张：Smite、Holy Lance、Mace Bash、Hand of Light 对 Unholy +1 / +2 / +3；Pistol Shot 对 Marked +2 / +3 / +4。目标类别和标记继续通过既有条件伤原语读取。
 - 39 张卡的状态明确面值与持续时间逐卡注解；混合 Light、Remove、位移沿用既有 settle。Bleed 的 I / II / III：If It Bleeds 2×2t / 3×3t / 4×3t；Bleed Out 3×2t / 3×3t / 4×3t；Open Vein 2×2t / 2×3t / 3×3t。
 - Bleed Out 自身 Wound 为 3 / 4 / 5，接有序生命效果。落空仍承受自身创伤，防护不减自身创伤，多目标合并时自身效果只结算一次。
@@ -70,7 +72,7 @@ Crusader、Hellion、Highwayman、Vestal 共 28 种技能，各 I / II / III，�
 
 `four-core-skills.test.ts` 对全部 84 张使用真实 `applyCommand`、真实英雄属性和 Bone Soldier 卡：覆盖最大目标数、无未消费效果框、一次技能共用一次命中骰、无 Acc 不耗骰、不可变输入和同种子回放。另测 Bleed Out 三等级落空成本，以及 Adrenaline Rush II / III 的自身与多友方清状态和 Buff。
 
-typecheck、lint、52 文件 556 项单元 / 场景测试、build、`git diff --check` 均通过。Playwright 沿用 3 条关键路径，第一条加入 21 个技能选项及 Bulwark of Faith III 实际结算，3 条通过（49.6 秒）。当前默认 Chromium v1243 缺失且下载未完成，本机通过临时配置使用已有 headless Chromium v1234 验证；临时配置已删除，正式测试配置不变。
+typecheck、lint、52 文件 559 项单元 / 场景测试（含 R-062 三等级全部骰面回归）、build、`git diff --check` 均通过。Playwright 沿用 3 条关键路径，第一条加入 21 个技能选项及 Bulwark of Faith III 实际结算，3 条通过（49.6 秒）。当前默认 Chromium v1243 缺失且下载未完成，本机通过临时配置使用已有 headless Chromium v1234 验证；临时配置已删除，正式测试配置不变。此前整批提交的 PR / push CI 已用仓库指定 Node 24.21.0 与默认 Chromium 验证通过，最新提交结果以 #110 为准。
 
 ## 仍需 Kyries 确认
 
