@@ -18,6 +18,8 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await page.getByRole("button", { name: "开始战斗", exact: true }).click();
   await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
   await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p010");
+  await expect(page.getByTestId("skill-requirements")).toContainText("卡面目标：自身");
+  await expect(page.getByTestId("skill-requirements")).not.toContainText("卡面射程");
   await expect(page.getByText("目标：自身 · CRUSADER", { exact: true })).toBeVisible();
   await expect(page.getByLabel("目标", { exact: true })).toHaveCount(0);
   const selfCard = page.getByTestId("skill-card-text");
@@ -82,6 +84,10 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
     await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
     await expect(page.getByTestId("turn-status")).toContainText("VESTAL · 剩余 2 行动");
     await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p097");
+    await expect(page.getByTestId("skill-requirements")).toContainText("卡面射程：区域距离 1");
+    await expect(page.getByTestId("skill-requirements")).toContainText(
+      "卡面目标：同一区域内最多 3 个目标",
+    );
     await expect(page.getByRole("button", { name: "使用技能", exact: true })).toBeDisabled();
     await page.getByLabel("目标区域", { exact: true }).selectOption("F");
     await expect(page.getByRole("group", { name: "同区目标", exact: true })).toContainText(
@@ -278,6 +284,9 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
               await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p037");
             } else if (hero === "HIGHWAYMAN") {
               await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p076");
+              await expect(page.getByTestId("skill-requirements")).toContainText(
+                "卡面射程：区域距离 1–2",
+              );
               // 首次仍在正式出生 H；J / I / D / E 都在已核实的 1–2 射程内，F 断开。
               const target = page
                 .getByLabel("目标", { exact: true })

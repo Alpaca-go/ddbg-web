@@ -6,6 +6,7 @@ import { useBattleStore } from "./battle-store";
 import type { SandboxLayout } from "./battle-store";
 import { battleStep } from "./battle-step";
 import { SkillCardText } from "./skill-card-text";
+import { SkillRequirements } from "./skill-requirements";
 import { SkillResults } from "./skill-results";
 import { StateEventDetails } from "./state-event-details";
 import { MonsterActionDetails } from "./monster-action-details";
@@ -495,7 +496,7 @@ export function App() {
                 </div>
               </fieldset>
               <fieldset disabled={!heroTurn || turn.mustMove}>
-                <legend>使用技能 · {multiTarget ? `同区最多 ${maxTargets} 目标` : "单目标"}</legend>
+                <legend>使用技能</legend>
                 <label>
                   技能
                   <select
@@ -513,6 +514,7 @@ export function App() {
                     ))}
                   </select>
                 </label>
+                {skill && <SkillRequirements skill={skill} />}
                 {multiTarget ? (
                   <>
                     <label>
