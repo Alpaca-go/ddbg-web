@@ -1,5 +1,16 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新进度：Phase 2 Iron Swan I 沙盒接入（2026-10-11）
+
+Kyries 本轮授权合并并继续。#106 准确 head `8ecf337` 的 PR / push 四项 CI 成功，按 merge 合并为 `3f4e450`；本地 main 已 `pull --ff-only` 同步，再建独立分支 `codex/phase2-iron-swan-sandbox`。#99 / #103 仍为开放草稿。
+
+- 自行查完整印刷 `DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf` 第 25 页和官方核心规则书第 20 页完整页面图像：Iron Swan I 只有进攻姿态点亮，射程 2、单怪物目标、Crit 1 / 12、Acc 9 / 7，没有附加效果。按规格书 §6.5 / G-01（R19–20）、R-025，遵守 R-001 / R-048。印刷件只作卡面文字 / 数值来源。
+- 逐卡审核后只把 `hero_skill:p025` 加入 UI 构建白名单，沙盒技能由 17 张变为 18 张；继续用既有规范化数据及引擎校验，未改数据、词典、命令协议或规则函数，不开放 Iron Swan II / III、未验证卡或更多怪物。
+- G-01 补公共命令场景：实际区域距离 2、教程 Dodge 1、掷 2 造成 7 伤害，一次行动 / RNG、成功重用锁与确定性回放。另覆盖全部十个骰面的暴击 / 命中 / 落空、怪物死亡胜利及落空重用；非法姿态 / 射程 / 未验证 / 未装备整次拒绝。Arbalist 仅作官方教程夹具，Life 取既有已命名字段，不加入 UI 怪物池。
+- 原三条 Playwright 冒烟扩展真实 UI：Hellion 在 C、防御姿态先拒绝且不耗 RNG / 行动，换到进攻后对 A 使用 Iron Swan，伤害 12、一次攻击骰并胜利收尾。卡面与结算截图已检查。
+
+验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、48 文件 447 项测试、build、diff 检查与原三条 Chrome 冒烟全通过（整组 1.0 分钟）。原资料 / 图片缓存不入库；无新 Q，缺 duration、未命名图标及 Q-52 保留，Phase 3 未开放。本单卡池扩展待 Kyries 审阅合并。下一候选继续核对四核心英雄 I 级技能，优先 Battle Heal I 的已命名治疗、射程、目标和公共命令边界。
+
 ## 最新进度：Phase 2 Judgement I 射程补洞（2026-10-11）
 
 Kyries 本轮授权合并并继续。#105 准确 head `4b49b41` 的 PR / push 四项 CI 成功，按 merge 合并为 `3cd9d40`；本地 main 已 `pull --ff-only` 同步，从 main 独立开发 `codex/phase2-judgement-range`。[草稿 PR #106](https://github.com/Alpaca-go/ddbg-web/pull/106)，实现提交 `c977fe8`，准确 head CI 以 PR 为准。#99 / #103 仍为开放草稿。

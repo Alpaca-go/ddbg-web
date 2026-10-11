@@ -501,4 +501,32 @@ test("位移分岔冻结其他行动，选择后续接一次并可重放", async
   await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5");
   await expect(page.getByRole("region", { name: "战斗日志" })).not.toContainText("拒绝");
   await page.screenshot({ path: testInfo.outputPath("empty-area-self-pull.png"), fullPage: true });
+  // p025 只开放 I 级；Hellion 在 C 对 A 的目标距离为 2。
+  await page.getByRole("button", { name: "重新布置", exact: true }).click();
+  await page.getByRole("button", { name: "开始战斗", exact: true }).click();
+  await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+  for (const area of ["B", "A"]) {
+    await page.getByRole("button", { name: `前往 ${area}`, exact: true }).click();
+    await page.getByRole("button", { name: "确认移动", exact: true }).click();
+  }
+  await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+  await expect(page.getByTestId("turn-status")).toContainText("HELLION · 剩余 2 行动");
+  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p025");
+  const swan = page.getByTestId("skill-card-text");
+  await expect(swan).toContainText("Iron Swan · 等级 1");
+  await expect(swan).toContainText("[射程] 2");
+  await page.getByLabel("目标", { exact: true }).selectOption("soldier");
+  await page.getByRole("button", { name: "使用技能", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText("当前姿态没有点亮");
+  await expect(page.getByTestId("turn-status")).toContainText("剩余 2 行动");
+  await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 4");
+  await page.getByRole("button", { name: "向前换姿态", exact: true }).click();
+  await page.screenshot({ path: testInfo.outputPath("iron-swan-card.png"), fullPage: true });
+  await page.getByRole("button", { name: "使用技能", exact: true }).click();
+  await expect(page.getByTestId("turn-status")).toHaveText("胜利");
+  await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5");
+  await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
+    "Iron Swan · Bone Soldier：暴击 · 伤害 12",
+  );
+  await page.screenshot({ path: testInfo.outputPath("iron-swan-result.png"), fullPage: true });
 });
