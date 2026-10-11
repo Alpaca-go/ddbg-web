@@ -103,3 +103,6 @@ export type {
   NormalizedVirtueAfflictionFile,
   Segment,
 } from "./normalize/schema";
+
+export * from "./room";
+export { buildRooms } from "./normalize/room";

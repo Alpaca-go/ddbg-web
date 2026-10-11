@@ -6,6 +6,9 @@ import { dungeonLayoutFileSchema } from "../../../packages/data/src/dungeon-layo
 import type { DungeonLayout } from "../../../packages/data/src/dungeon-layout";
 import { battleData } from "virtual:battle-data";
 import distribution from "../../../packages/data/normalized/corebox/scout_ahead_distribution.json";
+import rawRooms from "../../../packages/data/normalized/corebox/room.json";
+import { roomFileSchema } from "../../../packages/data/src/room";
+import { approvedRoomTileGeometry } from "../../../packages/data/src/normalize/room-tile";
 import rawCurios from "../../../packages/data/normalized/corebox/curio.json";
 import { curioFileSchema } from "../../../packages/data/src/curio";
 import type { CurioEffect } from "../../../packages/data/src/curio";
@@ -20,7 +23,15 @@ function curioEffectLabel(effect: CurioEffect) {
 
 const layouts = dungeonLayoutFileSchema.parse(rawLayouts).layouts;
 const curios = curioFileSchema.parse(rawCurios).cards;
-type Fixture = "neutral" | "pressure" | "heartAttack" | "corridor" | "curio" | "trap";
+type Fixture =
+  | "neutral"
+  | "pressure"
+  | "heartAttack"
+  | "corridor"
+  | "curio"
+  | "trap"
+  | "roomApproved"
+  | "roomBlocked";
 function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral") {
   const selected = layouts.find((l) => l.source.page === page)!;
   const preview = selected.unresolvedMarkers?.length ? selected : null;
@@ -65,7 +76,15 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       : {}),
   }));
   const initial = createDungeonSandbox(
-    fixture === "curio" ? 1237 : fixture === "corridor" ? 31 : 1,
+    fixture === "roomApproved"
+      ? 11
+      : fixture === "roomBlocked"
+        ? 12
+        : fixture === "curio"
+          ? 1237
+          : fixture === "corridor"
+            ? 31
+            : 1,
     layout,
     distribution,
     mode,
@@ -85,6 +104,7 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       ],
     },
     curios,
+    roomFileSchema.parse(rawRooms).cards,
   );
   // 此布置以已清理的起始房间演示真实走廊往返，不模拟该房间的战斗或奖励。
   const game =
@@ -188,6 +208,12 @@ export function DungeonSandbox() {
             <option value="corridor">单走廊 → Empty（标准 p1、种子 31、无需侦察）</option>
             <option value="curio">Curio → Empty（标准 p1、种子 1237、先用 Torch）</option>
             <option value="trap">Trap 房间（p1、种子 1、DL 3、hero-0 压力 8）</option>
+            <option value="roomApproved">
+              Lair → Ritual Chamber（p1、种子 11、先侦察 Radiant）
+            </option>
+            <option value="roomBlocked">
+              Lair → Tomb of Ancestor（p1、种子 12、先侦察 Radiant）
+            </option>
           </select>
         </label>
         <svg
@@ -277,6 +303,45 @@ export function DungeonSandbox() {
               恢复意志检定
             </button>
           )}
+          {d.phase === "awaitingRoom" &&
+            !d.pending &&
+            (currentRoom?.kind === "lair" || currentRoom?.kind === "treasure") &&
+            !d.roomCards?.active && (
+              <button onClick={() => dispatch({ type: "prepareDungeonBattle" })}>
+                抽房间牌并匹配战斗板块
+              </button>
+            )}
+          {d.roomCards?.active &&
+            (() => {
+              const active = d.roomCards.active;
+              const roomCard = d.roomCards.cards.find((c) => c.id === active.cardId)!;
+              return (
+                <div className="panel" data-testid="dungeon-room-card">
+                  <h3>
+                    {roomCard.name} · 遗迹 {roomCard.number}
+                  </h3>
+                  <p>
+                    完整遗迹房间牌池 9 张 · 余牌 {d.roomCards.deck!.length} · 已抽 1 张 · 印刷页{" "}
+                    {roomCard.source.page}
+                  </p>
+                  <p>地点与 Boss 分堆；效果栏保留原文和图标 ID，尚未执行。</p>
+                  <details>
+                    <summary>查看卡面转录（含未解释图标）</summary>
+                    {roomCard.printedLines.map((line, i) => (
+                      <p key={i}>{line}</p>
+                    ))}
+                  </details>
+                  {active.tileId && (
+                    <p>
+                      已匹配 {approvedRoomTileGeometry.name}（R-054 / R-055），
+                      {approvedRoomTileGeometry.areas.length} 个区域，英雄部署 H / C，怪物部署 J / D
+                      / F。
+                    </p>
+                  )}
+                  <p role="status">{active.blockedReason}</p>
+                </div>
+              );
+            })()}
           {d.phase === "awaitingRoom" && !d.pending && currentRoom?.kind === "trap" && (
             <button onClick={() => dispatch({ type: "resolveDungeonRoom" })}>结算 Trap 房间</button>
           )}
@@ -375,7 +440,7 @@ export function DungeonSandbox() {
                 : d.phase === "blockedPressure"
                   ? `压力已支付：意志卡数据待核实，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
                   : d.phase === "awaitingRoom"
-                    ? `进入 ${d.position}：等待${currentRoom?.kind === "trap" ? " Trap 分配，保留代币" : "非 Empty 房间效果"}`
+                    ? `进入 ${d.position}：等待${d.roomCards?.active ? "守卫战斗准备完成；原牌已记录，房间未清理" : currentRoom?.kind === "trap" ? " Trap 分配，保留代币" : "非 Empty 房间效果"}`
                     : d.phase === "ready" && (d.exploration || (d.visited?.length ?? 0) > 1)
                       ? `已到达 ${d.position}；${currentRoom?.cleared ? (currentRoom.kind === "empty" ? "Empty 已清理，移除房间代币" : "已清理，移除房间代币") : currentRoom?.kind === "trap" ? "Trap 已结算，保留代币" : "灰点必须停留"}`
                       : d.exploration

@@ -8,6 +8,9 @@ import { applyDungeonBacktracking } from "./dungeon-backtracking";
 import { applyDungeonExploration, continueDungeonExploration } from "./dungeon-exploration";
 import type { ExplorationFace } from "../../data/src/exploration";
 import type { SkillStance } from "./hero-skill";
+import { roomCatalogSchema } from "../../data/src/room";
+import type { RoomCard } from "../../data/src/room";
+import { prepareDungeonBattle } from "./dungeon-battle-preparation";
 import { curioCatalogSchema } from "../../data/src/curio";
 import type { CurioCard } from "../../data/src/curio";
 import { resolveDungeonCurio } from "./dungeon-curio";
@@ -55,6 +58,16 @@ export type DungeonState = {
   readonly resolveDecks: Partial<Readonly<Record<ResolveCard["role"], readonly string[]>>>;
   readonly gold: number;
   readonly curio?: DungeonCurioState;
+  readonly roomCards?: {
+    readonly cards: readonly RoomCard[];
+    readonly deck: readonly string[] | null;
+    readonly active: {
+      readonly roomId: string;
+      readonly cardId: string;
+      readonly tileId?: string;
+      readonly blockedReason: string;
+    } | null;
+  };
   readonly rooms: readonly {
     readonly id: string;
     readonly kind: RoomDistribution["counts"][number]["kind"];
@@ -100,6 +113,7 @@ export type DungeonCommand =
   | { readonly type: "beginDungeonBacktrack" }
   | { readonly type: "rollDungeonExploration" }
   | { readonly type: "resolveDungeonCurio" }
+  | { readonly type: "prepareDungeonBattle" }
   | { readonly type: "resolveDungeonRoom" }
   | { readonly type: "resolveDungeonPressure" };
 
@@ -119,6 +133,7 @@ export function createDungeonSandbox(
   resolveCards: readonly ResolveCard[] = [],
   explorationSetup?: DungeonExplorationSetup,
   curioCards?: readonly CurioCard[],
+  roomCards?: readonly RoomCard[],
 ): GameState {
   const layout = dungeonLayoutSchema.parse(layoutInput);
   const distribution = roomDistributionSchema.parse(distributionInput);
@@ -155,6 +170,9 @@ export function createDungeonSandbox(
       resolveCards: resolveCards.map((c) => ({ ...c, verification: { ...c.verification } })),
       resolveDecks: {},
       gold: 0,
+      ...(roomCards
+        ? { roomCards: { cards: roomCatalogSchema.parse(roomCards), deck: null, active: null } }
+        : {}),
       ...(curioCards
         ? {
             curio: {
@@ -206,6 +224,7 @@ export function applyDungeonCommand(
     ...(dungeon.pending ? { pendingChoice: dungeon.pending } : {}),
   });
   if (!d || state.battle) return refuse("需要独立地牢沙盒");
+  if (command.type === "prepareDungeonBattle") return prepareDungeonBattle(state);
   if (command.type === "resolveDungeonRoom") return beginDungeonRoom(state);
   if (command.type === "resolveChoice" && d.pending?.id.startsWith("dungeon-trap-"))
     return chooseDungeonTrap(state, command);
