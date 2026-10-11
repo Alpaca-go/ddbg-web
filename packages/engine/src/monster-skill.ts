@@ -26,6 +26,7 @@ export type MonsterSkillView = Pick<
 };
 
 export type MonsterCardView = {
+  readonly type_position_tags?: readonly string[];
   readonly id: string;
   readonly life: number;
   readonly verification: { readonly unverified: boolean };

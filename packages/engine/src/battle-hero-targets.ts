@@ -57,7 +57,7 @@ export function playHeroSkillTargets(
     battle.entities.some((e) => e.side === "monster" && !e.dead && e.guard);
   const contexts: SkillCombatState[] = living.map((target) => ({
     actor,
-    target: skillTargetView(target),
+    target: skillTargetView(target, battle),
     light: battle.light,
     areaDistance,
     targetsInArea: living.length,

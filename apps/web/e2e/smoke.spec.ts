@@ -172,6 +172,41 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
     return log.innerText();
   }
   expect(await battleHeal()).toBe(await battleHeal());
+  // Holy Lance I：先走完两名英雄的真实回合，再由远程 Crusader 攻击 Unholy。
+  await page.getByLabel("测试布置", { exact: true }).selectOption("shuffle");
+  async function holyLance() {
+    await page.getByRole("button", { name: "重新布置", exact: true }).click();
+    await page.getByRole("button", { name: "开始战斗", exact: true }).click();
+    for (let turn = 0; turn < 2; turn++) {
+      await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+      for (const area of turn === 0 ? ["B", "A"] : ["B", "C"]) {
+        await page.getByRole("button", { name: `前往 ${area}`, exact: true }).click();
+        await page.getByRole("button", { name: "确认移动", exact: true }).click();
+      }
+    }
+    await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
+    await expect(page.getByTestId("turn-status")).toContainText("CRUSADER · 剩余 2 行动");
+    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p016");
+    await page.getByLabel("目标", { exact: true }).selectOption("soldier");
+    await expect(page.getByTestId("skill-card-text")).toContainText("Holy Lance · 等级 1");
+    await expect(page.getByTestId("skill-card-text")).toContainText("+1 vs Unholy");
+    await page.screenshot({ path: testInfo.outputPath("holy-lance-card.png"), fullPage: true });
+    await page.getByRole("button", { name: "使用技能", exact: true }).click();
+    await expect(page.getByTestId("turn-status")).toContainText("剩余 2 行动");
+    await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5");
+    await expect(page.getByRole("button", { name: "使用技能", exact: true })).toBeDisabled();
+    await page.getByRole("button", { name: "结算位移", exact: true }).click();
+    await expect(page.getByTestId("entity-hero-0")).toContainText("区域 A");
+    await expect(page.getByTestId("turn-status")).toHaveText("胜利");
+    const log = page.getByRole("region", { name: "战斗日志" });
+    await expect(log).toContainText("Holy Lance · Bone Soldier：暴击 · 伤害 14");
+    await expect(log).toContainText("CRUSADER · 区域落点：A · 姿态位移 1 格");
+    expect((await log.innerText()).match(/d10=/g)).toHaveLength(1);
+    await page.screenshot({ path: testInfo.outputPath("holy-lance-result.png"), fullPage: true });
+    return log.innerText();
+  }
+  expect(await holyLance()).toBe(await holyLance());
+  await page.getByLabel("测试布置", { exact: true }).selectOption("heal");
   async function emptyArea() {
     await page.getByRole("button", { name: "重新布置", exact: true }).click();
     await page.getByRole("button", { name: "开始战斗", exact: true }).click();
