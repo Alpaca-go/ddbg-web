@@ -144,6 +144,7 @@ function finishLoot(
       actorId,
       tokenId: token.id,
       kind: token.kind,
+      reward,
       message: "拾取战利品，奖励已结算，移除宝箱并消耗一个行动",
     },
   ];

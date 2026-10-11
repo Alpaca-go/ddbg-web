@@ -174,6 +174,15 @@ describe("十张真实意志卡回合开始触发（R18 / R28 / R-056 / R-057）
       optionId: "food1",
     };
     const done = applyCommand(waiting.state, choice);
+    expect(done.events).toContainEqual(
+      expect.objectContaining({
+        type: "provisionConsumed",
+        entityId: "h0",
+        provisionId: "food1",
+        face: "food",
+        effect: "discard",
+      }),
+    );
     expect(done.state.battle!.provisions).toEqual([{ id: "bandage1", face: "bandage" }]);
     expect(done.state.battle!.entities[0]!.wounds).toBe(7);
     expect(done.state.battle!.entities[0]!.statusStacks).toEqual([]);

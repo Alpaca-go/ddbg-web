@@ -24,6 +24,7 @@ export type { ApplyResult, Command, GameEvent, GameState, PendingChoice } from "
 export {
   resolveHeroSkill,
   resolveHeroSkillEffects,
+  readPrintedRange,
   readPrintedTargets,
   heroSkillUsesSelfTarget,
 } from "./hero-skill";
