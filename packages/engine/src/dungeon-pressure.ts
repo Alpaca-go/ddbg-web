@@ -1,6 +1,7 @@
 import type { ApplyResult, GameEvent, GameState } from "./command";
 import { resolvePressure } from "./pressure";
 import { createRng, rollD10 } from "./rng";
+import { completeDungeonBacktrack } from "./dungeon-backtracking";
 
 /** R28：侦察支付压力后恢复；沿英雄数组顺序，完整牌堆与 RNG 游标属于本次地牢。 */
 export function resolveDungeonPressure(state: GameState): ApplyResult {
@@ -98,6 +99,9 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
       type: "dungeonUpdated",
       message: "已记录心脏病；等待驿站替换接口（R9），未揭示房间，不推定战役失败",
     });
+  } else if (d.pressureSource === "backtracking") {
+    const completed = completeDungeonBacktrack({ ...state, dungeon: d });
+    return { ...completed, events: [...events, ...completed.events] };
   } else if (d.pressureSource === "exploration") {
     d = { ...d, phase: "awaitingHazards", pending: null };
     events.push({ type: "dungeonUpdated", message: "意志检定完成，续接剩余探索骰；不触发侦察" });

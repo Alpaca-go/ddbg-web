@@ -68,6 +68,7 @@ export function continueDungeonExploration(result: ApplyResult): ApplyResult {
           position: to,
           pending: null,
           visited: [...(d.visited ?? [d.exploration.from]), to],
+          traversedCorridors: [...(d.traversedCorridors ?? []), [d.exploration.from, to]],
           rooms: d.rooms.map((r) =>
             r.id === to ? { ...r, revealed: true, ...(cleared ? { cleared: true } : {}) } : r,
           ),

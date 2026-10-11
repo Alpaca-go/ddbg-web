@@ -57,6 +57,28 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("dungeon-provisions")).toHaveText("剩余补给：无");
   await expect(page.getByRole("button", { name: "侦察", exact: true })).toBeEnabled();
   await page.screenshot({ path: testInfo.outputPath("dungeon-empty.png"), fullPage: true });
+  await page.getByRole("button", { name: "原路返回", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: "返回 G（全员压力 +1）", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "取消返回", exact: true }).click();
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 0");
+  await page.getByRole("button", { name: "原路返回", exact: true }).click();
+  await page.getByRole("button", { name: "返回 G（全员压力 +1）", exact: true }).click();
+  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已到达 G");
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 1");
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-3 压力 1");
+  await expect(page.getByTestId("dungeon-rolls")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "掷探索骰并开始结算" })).toHaveCount(0);
+  await expect(page.getByText(/布置 RNG 游标 15/)).toBeVisible();
+  await page.getByRole("button", { name: "原路返回", exact: true }).click();
+  await page.getByRole("button", { name: "返回 D（全员压力 +1）", exact: true }).click();
+  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已到达 D");
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 2");
+  await expect(page.getByTestId("dungeon-node-D")).toContainText("已清理 · 无代币");
+  await expect(page.getByTestId("dungeon-provisions")).toHaveText("剩余补给：无");
+  await expect(page.getByText(/布置 RNG 游标 15/)).toBeVisible();
+  await page.screenshot({ path: testInfo.outputPath("dungeon-backtrack.png"), fullPage: true });
   await page.getByLabel("侦察测试布置").selectOption("curio");
   await page.getByRole("button", { name: "选择下一段探索" }).click();
   await page.getByRole("button", { name: "D", exact: true }).click();
