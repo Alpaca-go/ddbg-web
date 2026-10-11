@@ -8,6 +8,7 @@ import { battleStep } from "./battle-step";
 import { SkillCardText } from "./skill-card-text";
 import { SkillResults } from "./skill-results";
 import { StateEventDetails } from "./state-event-details";
+import { MonsterActionDetails } from "./monster-action-details";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 const provisionLabels = {
@@ -677,6 +678,7 @@ export function App() {
               <span>{i + 1}.</span> {event.message}
               {"roll" in event && event.roll !== null ? ` · d10=${event.roll}` : ""}
               <StateEventDetails event={event} entityName={entityName} />
+              <MonsterActionDetails event={event} entityName={entityName} skillName={skillName} />
               {(event.type === "heroSkillResolved" ||
                 event.type === "monsterSkillResolved" ||
                 event.type === "heroSkillTargetsResolved" ||
