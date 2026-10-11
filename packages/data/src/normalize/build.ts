@@ -29,6 +29,7 @@ import { buildRoomTileGeometry } from "./room-tile";
 import type { RoomTileGeometryFile } from "./room-tile";
 import { buildHeroStats } from "./hero-stat";
 import { buildRooms } from "./room";
+import { buildMonsterPool } from "./monster-pool";
 import { buildCurios } from "./curio";
 import type { NormalizedHeroStatFile } from "./hero-stat";
 import type {
@@ -72,6 +73,7 @@ type ParsedUnlabeled = {
 };
 
 export type NormalizedCorebox = {
+  monster_pool: ReturnType<typeof buildMonsterPool>;
   room: ReturnType<typeof buildRooms>;
   curio: ReturnType<typeof buildCurios>;
   hero_stat: NormalizedHeroStatFile;
@@ -572,7 +574,10 @@ function buildVirtues(raw: RawFile, lookup: IconLookup): NormalizedVirtueAfflict
 /** 用词典 v1.8 把 parsed / raw 收成规范化卡。纯函数，不读盘。 */
 export function buildNormalizedCorebox(input: NormalizedCoreboxInput): NormalizedCorebox {
   const lookup = createIconLookup(input.dictionary);
+  const medium = buildMonsterMedium(input.monsterMedium, input.monsterMediumRaw, lookup);
+  const large = buildMonsterLarge(input.monsterLarge, input.monsterLargeRaw, lookup);
   return {
+    monster_pool: buildMonsterPool(input.monsterMediumRaw, medium, large),
     room: buildRooms(input.rooms),
     curio: buildCurios(input.curios, input.dictionary),
     hero_stat: buildHeroStats(input.heroStats, input.dictionary),
@@ -590,8 +595,8 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       });
     })(),
     room_tile_geometry: buildRoomTileGeometry(input.roomTiles),
-    monster_medium: buildMonsterMedium(input.monsterMedium, input.monsterMediumRaw, lookup),
-    monster_large: buildMonsterLarge(input.monsterLarge, input.monsterLargeRaw, lookup),
+    monster_medium: medium,
+    monster_large: large,
     trinket: buildTrinkets(input.trinkets, input.trinketRaw, lookup),
     quirk: buildQuirks(input.quirks, lookup),
     virtue_affliction: (() => {

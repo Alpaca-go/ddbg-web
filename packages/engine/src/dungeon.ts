@@ -11,6 +11,10 @@ import type { SkillStance } from "./hero-skill";
 import { roomCatalogSchema } from "../../data/src/room";
 import type { RoomCard } from "../../data/src/room";
 import { prepareDungeonBattle } from "./dungeon-battle-preparation";
+import { prepareDungeonMonsters } from "./dungeon-monsters";
+import { monsterPoolCatalogSchema } from "../../data/src/monster-pool";
+import type { MonsterPoolCard } from "../../data/src/monster-pool";
+import type { SpawnPlacement } from "./spawn";
 import { curioCatalogSchema } from "../../data/src/curio";
 import type { CurioCard } from "../../data/src/curio";
 import { resolveDungeonCurio } from "./dungeon-curio";
@@ -57,6 +61,16 @@ export type DungeonState = {
   readonly resolveCards: readonly ResolveCard[];
   readonly resolveDecks: Partial<Readonly<Record<ResolveCard["role"], readonly string[]>>>;
   readonly gold: number;
+  readonly monsterPool?: {
+    readonly cards: readonly MonsterPoolCard[];
+    readonly remaining: readonly string[] | null;
+    readonly discarded: readonly string[];
+    readonly active: {
+      readonly roomId: string;
+      readonly monsters: readonly SpawnPlacement[];
+      readonly blockedReason: string;
+    } | null;
+  };
   readonly curio?: DungeonCurioState;
   readonly roomCards?: {
     readonly cards: readonly RoomCard[];
@@ -114,6 +128,7 @@ export type DungeonCommand =
   | { readonly type: "rollDungeonExploration" }
   | { readonly type: "resolveDungeonCurio" }
   | { readonly type: "prepareDungeonBattle" }
+  | { readonly type: "prepareDungeonMonsters" }
   | { readonly type: "resolveDungeonRoom" }
   | { readonly type: "resolveDungeonPressure" };
 
@@ -134,6 +149,7 @@ export function createDungeonSandbox(
   explorationSetup?: DungeonExplorationSetup,
   curioCards?: readonly CurioCard[],
   roomCards?: readonly RoomCard[],
+  monsterCards?: readonly MonsterPoolCard[],
 ): GameState {
   const layout = dungeonLayoutSchema.parse(layoutInput);
   const distribution = roomDistributionSchema.parse(distributionInput);
@@ -170,6 +186,16 @@ export function createDungeonSandbox(
       resolveCards: resolveCards.map((c) => ({ ...c, verification: { ...c.verification } })),
       resolveDecks: {},
       gold: 0,
+      ...(monsterCards
+        ? {
+            monsterPool: {
+              cards: monsterPoolCatalogSchema.parse(monsterCards),
+              remaining: null,
+              discarded: [],
+              active: null,
+            },
+          }
+        : {}),
       ...(roomCards
         ? { roomCards: { cards: roomCatalogSchema.parse(roomCards), deck: null, active: null } }
         : {}),
@@ -225,6 +251,7 @@ export function applyDungeonCommand(
   });
   if (!d || state.battle) return refuse("需要独立地牢沙盒");
   if (command.type === "prepareDungeonBattle") return prepareDungeonBattle(state);
+  if (command.type === "prepareDungeonMonsters") return prepareDungeonMonsters(state);
   if (command.type === "resolveDungeonRoom") return beginDungeonRoom(state);
   if (command.type === "resolveChoice" && d.pending?.id.startsWith("dungeon-trap-"))
     return chooseDungeonTrap(state, command);

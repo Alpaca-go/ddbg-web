@@ -130,6 +130,14 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
         : "Tomb of Ancestor 对应板块几何 / 部署尚未获批",
     );
     await expect(page.getByRole("button", { name: "抽房间牌并匹配战斗板块" })).toHaveCount(0);
+    const drawMonsters = page.getByRole("button", { name: "从完整 42 张怪物池抽牌并记录部署" });
+    if (fixture === "roomApproved") {
+      await drawMonsters.click();
+      await expect(page.getByTestId("dungeon-monsters")).toContainText("完整牌池 42 张");
+      await expect(page.getByTestId("dungeon-monsters")).toContainText("monster-deck:");
+      await expect(card).toContainText("正式战斗 / 胜利回传尚未接线");
+    }
+    await expect(drawMonsters).toHaveCount(0);
     await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeDisabled();
     await expect(page.getByRole("button", { name: "原路返回", exact: true })).toBeDisabled();
     await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：0");
