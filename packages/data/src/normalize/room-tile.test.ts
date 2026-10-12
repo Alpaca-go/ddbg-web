@@ -11,11 +11,11 @@ const raw = rawFileSchema.parse(
 );
 
 describe("获批 Ritual Chamber 几何（R-054）", () => {
-  it("只输出获批 FRONT 页，独立预期锁住容量、高台与最终邻接图", () => {
+  it("保留 Ritual FRONT 的获批容量、高台与最终邻接图", () => {
     const before = structuredClone(raw);
     const file = buildRoomTileGeometry(raw);
     expect(raw).toEqual(before);
-    expect(file.tiles).toHaveLength(1);
+    expect(file.tiles.filter((tile) => tile.usable)).toHaveLength(1);
     const tile = file.tiles[0]!;
     expect(tile.id).toBe("room_tile:p001");
     expect(tile.areas.map((area) => [area.id, area.capacity])).toEqual([
@@ -150,5 +150,108 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
         unresolvedMarkers: [{ areaId: "C", iconId: "4591aebebd", semantic: "guessed" }],
       }).success,
     ).toBe(false);
+  });
+
+  it("VQ-01–05：Torture 独立 BACK p2 / room:p002，保持获批容量、部署和非通行边", () => {
+    const before = structuredClone(raw);
+    const file = buildRoomTileGeometry(raw);
+    expect(raw).toEqual(before);
+    expect(file.tiles).toHaveLength(2);
+    const tile = file.tiles.find((t) => t.id === "room_tile:p002:back")!;
+    expect(tile).toMatchObject({
+      roomId: "room:p002",
+      location: "ruins",
+      number: 2,
+      source: { file: "DD_COREBOX_TILES_BACK.pdf", page: 2, face: "back" },
+      geometryVerified: true,
+      usable: false,
+      deployment: {
+        printReview: "verified",
+        heroes: { aggressive: "H", defensive: "H", ranged: "H", support: "H" },
+        monsters: { aggressive: "D", defensive: "D", ranged: "E", support: "C" },
+        lootAreas: ["A", "B", "E"],
+      },
+      specialRegions: [
+        {
+          areaId: "H",
+          iconId: "4591aebebd",
+          effect: "unholyAura",
+          status: "candidate",
+          runtimeReady: false,
+        },
+      ],
+    });
+    expect(tile.areas.map((a) => a.capacity)).toEqual([2, 2, 3, 4, 2, 3, 3, 4]);
+    expect(
+      tile.edges
+        .filter((e) => !e.blocked && !e.cornerOnly)
+        .map((e) => `${e.from}-${e.to}`)
+        .sort(),
+    ).toEqual(["A-C", "B-C", "B-F", "C-D", "C-F", "D-E", "D-G", "D-H", "E-G", "G-H"]);
+    expect(
+      tile.edges
+        .filter((e) => e.cornerOnly)
+        .map((e) => `${e.from}-${e.to}`)
+        .sort(),
+    ).toEqual(["A-B", "A-E", "F-H"]);
+    expect(
+      tile.edges
+        .filter((e) => e.blocked)
+        .map((e) => `${e.from}-${e.to}`)
+        .sort(),
+    ).toEqual(["C-H", "F-D", "F-H"]);
+    expect(tile.deployment!.markers.every((m) => m.status === "confirmed")).toBe(true);
+    // 同 hash 的 Ritual 星形继续是 Cornered；本面不使用这项运行时语义。
+    expect(
+      file.tiles[0]!.deployment!.markers.filter((m) => m.iconId === "4591aebebd").map(
+        (m) => m.semantic,
+      ),
+    ).toEqual(["cornered", "cornered"]);
+  });
+
+  it("VQ-05：未接治疗拒绝前不允许开放整面或套用 Cornered", () => {
+    const tile = buildRoomTileGeometry(raw).tiles[1]!;
+    expect(roomTileGeometrySchema.safeParse({ ...tile, usable: true }).success).toBe(false);
+    if (!("specialRegions" in tile)) throw new Error("缺少本面候选区域");
+    for (const changed of [
+      { effect: "cornered" },
+      { status: "confirmed" },
+      { runtimeReady: true },
+    ]) {
+      expect(
+        roomTileGeometrySchema.safeParse({
+          ...tile,
+          specialRegions: [{ ...tile.specialRegions[0], ...changed }],
+        }).success,
+      ).toBe(false);
+    }
+    expect(
+      roomTileGeometrySchema.safeParse({ ...tile, source: { ...tile.source, face: "front" } })
+        .success,
+    ).toBe(false);
+    expect(roomTileGeometrySchema.safeParse({ ...tile, roomId: "room:p003" }).success).toBe(false);
+  });
+
+  it("Torture 来源守卫只读 BACK；缺背面、错编号或缺本面标记拒绝，不拿 FRONT 补齐", () => {
+    for (const change of [
+      (copy: typeof raw) => {
+        delete copy.cards[1]!.faces.back;
+      },
+      (copy: typeof raw) => {
+        copy.cards[1]!.faces.back!.file = "DD_COREBOX_TILES_FRONT.pdf";
+      },
+      (copy: typeof raw) => {
+        copy.cards[1]!.faces.back!.spans = copy.cards[1]!.faces.front.spans;
+      },
+      (copy: typeof raw) => {
+        copy.cards[1]!.faces.back!.icons = copy.cards[1]!.faces.back!.icons.filter(
+          (i) => i.iconId !== "4591aebebd",
+        );
+      },
+    ]) {
+      const copy = structuredClone(raw);
+      change(copy);
+      expect(() => buildRoomTileGeometry(copy)).toThrow();
+    }
   });
 });

@@ -1,5 +1,13 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：Torture VQ-01～05 已批准并入库（2026-10-12，UTC+8）
+
+Kyries 已回传 Kyries/Grok 的 Torture Chamber BACK p2（遗迹 2）VQ-01、02、03、04、05 目视批准，**无修正**。本轮明确只入库；H 的 Unholy Aura 仅候选，不接运行时，不复用 Cornered，`usable` 待治疗拒绝路径就绪。批准记录与状态已更新至[verify-queue](kyries-verify-queue-2026-10-12.md)，用户本轮明确提供的批准是入库依据，不需要再询问 Torture / BACK p2；没有批准 Fountain FRONT p2。
+
+当前主题 `codex/phase3-torture-verified-data`，基于 #124 的 `1f1f7c6`。新增 `room_tile:p002:back` / `room:p002`，锁 BACK 来源，记录八区容量、十条通行边、三角点、黑墙、四英雄 / 四怪物和三宝箱的本面 confirmed 部署；H 候选独立保存，强制 `runtimeReady=false` / `usable=false`。规范化生成器现在输出两面，仅 Ritual Chamber 可用；引擎 / UI 不开放新板块。字段与限制见[本轮入库交付](phase3-torture-verified-data-2026-10-12.md)。
+
+本轮仅将用户提供的 verify-queue 按批准更新并纳入主题；两份 `_q52-search*.txt`、`.uploads/`、`tmp-verify/` 和美术缓存保留不提交。Q-52 / Q-59 / Q-61–68 全部继续由 rulings 管理；步骤 2 / Phase 3 未完成，不跳 Phase 4。下方“VQ-01～05 全部待确认”是批准前记录，不覆盖本段。
+
 ## 最新交接：verify-queue 优先与 Fountain VQ-06 草稿（2026-10-12，UTC+8）
 
 草稿提交 `41bbacf`，开放草稿 [PR #124](https://github.com/Alpaca-go/ddbg-web/pull/124)，以尚未合并的 #123 主题分支为 base；不是 main 已交付。仅文档，Prettier / diff 检查及 raw 页码、定位 hash、已印 Heal 3 引用核对通过；未重跑引擎 / 浏览器测试。创建 PR 后本入口补记随同主题提交。
