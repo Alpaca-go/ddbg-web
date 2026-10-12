@@ -1,5 +1,7 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-13 最新入口：#127 最新 head 两项 CI 成功后已按用户授权合并为 main `ff9c557`，本地已 ff-only 同步。当前 `codex/phase3-curio-trinket-acquisition` 新接单一饰品获得的 12 / 18 / 22：完整等级牌堆、携带容量、转交 / 弃牌待选；未知卡不装备，可明确弃新卡或保留复核停点。使用 / 翻面仍留 Phase 4，Torture / Fountain 和 Q 边界不改。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](phase3-curio-trinket-acquisition-2026-10-12.md)。
+
 > 2026-10-12 最新入口：#122～125 已依用户本次“合并”授权、最新 head 两项 CI 成功后顺序合并，main 为 `b7a4cbe`；本地已 ff-only 同步。当前 `codex/phase3-curio-positive-quirk` 新接单一正面怪癖奖励，Torch 后 06 / 11 新增可完成，合计 16 / 24 张；未合并。Torture 的 Unholy Aura 仍仅候选、不接运行时、usable=false；Fountain 待 VQ 批准，Q 裁定不改。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)和[本轮交付](phase3-curio-positive-quirk-2026-10-12.md)。下方旧未合并状态为历史记录。
 
 > 2026-10-12 步骤 2 续接：当前分支 `codex/phase3-curio-provisions` 基于 #122 的 `124bbb3`，新接 Curio 补给骰 / Wild；Torch 路径由十张增至十四张，仍有十张怪癖 / 饰品停点。已准备核心盒 28 面索引及 Torture Chamber BACK p2 的逐项审核草稿，未批准新几何。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)、[补给交付](phase3-curio-provisions-2026-10-12.md)与[逐面审核](phase3-tile-face-review-2026-10-12.md)。步骤 2 / Phase 3 未完成，#122 仍未合并。

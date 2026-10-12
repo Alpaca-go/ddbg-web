@@ -11,6 +11,12 @@ import { passiveStress } from "./passive";
 import { applyPassiveStatus } from "./passive-runtime";
 import { nextProvisionFace, PROVISION_FACES, PROVISION_LABELS } from "./loot";
 import type { ProvisionFace } from "./loot";
+import {
+  drawTrinket,
+  chooseTrinket,
+  trinketOptions,
+  trinketPoolProblem,
+} from "./trinket-acquisition";
 
 const refuse = (state: GameState, message: string): ApplyResult => ({
   state,
@@ -172,8 +178,11 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
     (!effects.some((e) => e.type === "rollProvision") ||
       effects.findIndex((e) => e.type === "drawQuirk") <
         effects.findIndex((e) => e.type === "rollProvision"));
+  const singleTrinket = effects.length === 1 && effects[0]?.type === "drawTrinket";
   const unsupportedReward = effects.find(
-    (e) => (e.type === "drawQuirk" && !eligiblePositiveQuirk) || e.type === "drawTrinket",
+    (e) =>
+      (e.type === "drawQuirk" && !eligiblePositiveQuirk) ||
+      (e.type === "drawTrinket" && !singleTrinket),
   );
   if (unsupportedReward)
     return block(
@@ -214,6 +223,24 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
     if (effect.type === "gold") gold += effect.amount;
   }
   if (!Number.isSafeInteger(gold)) return block("金币超出安全范围");
+  if (singleTrinket) {
+    if (!d.trinkets) return block("饰品奖励需要完整当前战役等级牌堆，整卡尚未提交（R35、R-048）");
+    if (d.explorationSetup?.dungeonLevel !== d.trinkets.level)
+      return block("普通地牢等级与饰品池战役等级不一致，未抽牌（R35）");
+    const problem = trinketPoolProblem(d.trinkets, d.heroes);
+    if (problem) return block(problem);
+    if (!active.trinketApplied) {
+      const drawn = drawTrinket(d.trinkets, d.heroes, hero.id, state.seed, d.cursor);
+      if (drawn.status === "refused") return block(drawn.reason);
+      d = {
+        ...d,
+        trinkets: drawn.pool,
+        cursor: drawn.cursor,
+        curio: { ...c, active: { ...active, trinketApplied: true } },
+      };
+    }
+    if (d.trinkets!.incoming) return awaitTrinket({ ...state, dungeon: d });
+  }
   const awardsProvision = effects.some((e) => e.type === "rollProvision");
   const provisions = d.explorationSetup?.provisions;
   const provisionId = `curio-provision:${active.cardId}:${active.rollId}`;
@@ -419,4 +446,40 @@ export function resolveDungeonConditionChoice(state: GameState, optionId: string
     ...state,
     dungeon: { ...d, conditions: applied.pool, heroes: applied.heroes, pending: null },
   });
+}
+
+function awaitTrinket(state: GameState): ApplyResult {
+  const d = state.dungeon!,
+    pool = d.trinkets!;
+  const options = trinketOptions(pool, d.heroes);
+  if (!pool.incoming || !options.length || pool.incoming.actorId !== d.curio?.active?.heroId)
+    return refuse(state, "饰品待选入牌与 Curio 英雄不一致");
+  const card = pool.cards.find((c) => c.id === pool.incoming!.cardId)!;
+  const choice = {
+    id: `dungeon-trinket:${d.decision}:${card.id}`,
+    actorId: pool.incoming.actorId,
+    prompt: card.verification.unverified
+      ? `${card.name} 卡面未核实（R-048）：可弃新卡或保留此停点等待复核`
+      : `${card.name}：选择装备者、转交旧饰品腾位或弃牌`,
+    options: options.map(({ id, label }) => ({ id, label })),
+  };
+  return {
+    state: { ...state, dungeon: { ...d, decision: d.decision + 1, pending: choice } },
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: `${pool.level} 级饰品 ${card.id} ${card.name}：等待获得选择，Curio 尚未弃牌`,
+      },
+    ],
+    pendingChoice: choice,
+  };
+}
+
+export function resolveDungeonTrinketChoice(state: GameState, optionId: string): ApplyResult {
+  const d = state.dungeon!;
+  if (!d.trinkets || d.phase !== "awaitingCurio" || !d.curio?.active?.trinketApplied)
+    return refuse(state, "当前没有 Curio 饰品待选");
+  const chosen = chooseTrinket(d.trinkets, d.heroes, optionId);
+  if (chosen.status === "refused") return refuse(state, chosen.reason);
+  return resolveDungeonCurio({ ...state, dungeon: { ...d, trinkets: chosen.pool, pending: null } });
 }

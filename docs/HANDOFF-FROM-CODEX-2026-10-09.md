@@ -1,5 +1,13 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：#127 合并与 Curio 单一饰品获得（2026-10-13，UTC+8）
+
+#127 最新 head `6eb4669` 两项 CI 成功后按用户本次授权合并为 main `ff9c557`，本地已 ff-only 同步。下方 #127 未合并状态是历史记录。当前主题 `codex/phase3-curio-trinket-acquisition` 从已合并 main 开始。
+
+新接完整等级饰品堆（14 / 12 / 12）、共享 RNG、获得 / 携带上限 / 转交 / 弃牌待选，只开放 Torch 后单一饰品的 12 / 18 / 22。未复核卡不删出概率池、不装备，玩家可明确弃新卡或保持待选等待复核。现 21 / 24 张 Torch 路径可完成获得选择，仍不保证可装备每一张；05 / 07 / 24 的复合停点保留。完整边界与种子 921 入口见[本轮交付](phase3-curio-trinket-acquisition-2026-10-12.md)。
+
+装备仅记录持有者与正反面，不执行主动能力；使用 / 翻面和跨等级战役携带留 Phase 4。普通地牢等级与饰品池等级不符时不抽牌。VQ / rulings 不变：Torture Unholy Aura 仅候选、不接运行时、usable=false；Fountain 待批准；Q-52 / Q-59 / Q-61–68 保持。步骤 2 / Phase 3 未完成。
+
 ## 最新交接：#126 合并与 Curio 正面怪癖 / 补给续接（2026-10-12，UTC+8）
 
 实现 `1221731`，开放草稿 [PR #127](https://github.com/Alpaca-go/ddbg-web/pull/127)，base 为 main，尚未合并。typecheck、lint、752 项测试、build、六条冒烟及 diff 检查通过，已看种子 317 完成截图。入口补记随主题提交；合并前另核最新 head 的质量与 Playwright 两项 CI。
