@@ -1,6 +1,6 @@
 # Phase 3：Darkness 降光与低光照探索
 
-本地分支 `codex/phase3-low-light-exploration` 从探索 Trap 分支 head `0d86402` 建立，包含 #120 的实现；没有合并 #120 或本主题到 main。远端 #120 的最新状态及 CI 本次未能独立读取，不能将本地验证写成 PR CI 通过。
+分支 `codex/phase3-low-light-exploration` 从探索 Trap head `0d86402` 建立，实现提交 `bacf3ac`，对应 [PR #121](https://github.com/Alpaca-go/ddbg-web/pull/121)。Kyries 随后授权“合并”；已通过本机 GitHub 凭据核对依赖 #120 的最新 head 两项 CI 成功，并合并为 main `d50a823`，本分支已同步该基线。#121 当前待最新 head CI 成功后按本次授权合并；本地验证不代替 PR CI。
 
 ## 范围与依据
 

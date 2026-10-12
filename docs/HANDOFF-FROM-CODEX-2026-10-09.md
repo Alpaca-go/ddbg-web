@@ -2,7 +2,7 @@
 
 ## 最新交接：Darkness 与低光照探索（2026-10-12，UTC+8）
 
-Kyries 授权开始第一步，本地分支 `codex/phase3-low-light-exploration` 从探索 Trap head `0d86402` 建立，包含 #120；未合并任一主题到 main，远端 #120 最新状态 / CI 本次未能独立读取。当前开发入口见[低光照探索交付](phase3-low-light-exploration-2026-10-12.md)，下方低光照未接线的叙述为历史状态。
+Kyries 授权开始第一步并随后要求“合并”。依赖 #120 最新 head `0d86402` 的质量与 Playwright 两项 CI 成功，已合并为 main `d50a823`。分支 `codex/phase3-low-light-exploration` 已同步该基线，实现 `bacf3ac`，对应 [PR #121](https://github.com/Alpaca-go/ddbg-web/pull/121)，等待最新 head CI 成功后按本次授权合并。当前开发入口见[低光照探索交付](phase3-low-light-exploration-2026-10-12.md)，下方 #120 未合并及低光照未接线的叙述为历史状态。
 
 - 按官方 R14 / R29、规格书 §5.5 / §5.7 / §5.10 与 R-002 / R-003 接 Darkness 降光、全队被动、意志恢复和光照 0–5 探索；复用现有危险 / 环境 Trap 结算，不重掷或提前移动。低光 Trap 房间同步开放，混合分配按实际压力预检 Q-64。
 - 新增 14 项场景；既有第一条 Phase 3 冒烟延伸至降光 4 后完成 Empty、再次选路并掷八骰。Q-64 / Q-66 / Q-67 / Q-68 保持停点，Phase 3 未验收。验证与本机限制见交付文档。

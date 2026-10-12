@@ -19,6 +19,6 @@ pnpm test:e2e   # Playwright 冒烟
 pnpm build
 ```
 
-`pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒。main 已合并 #115–#119：四核心英雄 84 张技能、侦察、探索骰、部分房间结算、完整 42 张 I 级怪物池、Ritual Chamber 战斗与胜利 / 四轮撤退回传，以及疾病 / 负面怪癖运行时、Balanced 可选减位移、空区域 Vertigo 压力收尾、Dark 房间与地图 Torch 均已接通。探索骰 Trap 攻击见[探索 Trap 交付](docs/phase3-exploration-trap-2026-10-12.md)。当前本地 `codex/phase3-low-light-exploration` 基于 Trap head `0d86402`，接通 Darkness 降光、光照 0–5 探索与低光 Trap 房间，范围见[低光照交付](docs/phase3-low-light-exploration-2026-10-12.md)；尚未合并到 main，远端 #120 最新状态本次未能独立确认。Q-64 / Q-66 / Q-67 / Q-68 的未决复合保持停点。当前尚不是完整任务或战役。
+`pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒。main 已合并 #115–#119：四核心英雄 84 张技能、侦察、探索骰、部分房间结算、完整 42 张 I 级怪物池、Ritual Chamber 战斗与胜利 / 四轮撤退回传，以及疾病 / 负面怪癖运行时、Balanced 可选减位移、空区域 Vertigo 压力收尾、Dark 房间与地图 Torch 均已接通。探索骰 Trap 攻击见[探索 Trap 交付](docs/phase3-exploration-trap-2026-10-12.md)。当前本地 `codex/phase3-low-light-exploration` 基于 Trap head `0d86402`，接通 Darkness 降光、光照 0–5 探索与低光 Trap 房间，范围见[低光照交付](docs/phase3-low-light-exploration-2026-10-12.md)；依赖 #120 已合并为 main `d50a823`，低光照主题见 [PR #121](https://github.com/Alpaca-go/ddbg-web/pull/121)，等待最新 head CI 后按授权合并。Q-64 / Q-66 / Q-67 / Q-68 的未决复合保持停点。当前尚不是完整任务或战役。
 
 接手开发先读 [Codex 总交接](docs/HANDOFF-FROM-CODEX-2026-10-09.md) 顶部的当前入口与最近提交补记；跨代理背景见 [交给 Codex 的说明](docs/HANDOFF-TO-CODEX-2026-10-09.md)。历史段落中的分支 / 合并状态不覆盖当前入口。
