@@ -263,6 +263,33 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     page.getByRole("button", { name: "hero-0:1 · Stressful Darkness", exact: true }),
   ).toBeVisible();
   await page.screenshot({ path: testInfo.outputPath("dungeon-trap-attack.png"), fullPage: true });
+  await page.getByRole("button", { name: "hero-0:1 · Stressful Darkness", exact: true }).click();
+  await page.getByRole("button", { name: "光照 −1", exact: true }).click();
+  await expect(page.getByText(/光照 4、DL 1/)).toBeVisible();
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 1 · 伤口 4/17");
+  await expect(page.getByText(/布置 RNG 游标 16/)).toBeVisible();
+  for (const name of [
+    "hero-1:1 · 空白",
+    "hero-1:2 · Rubble",
+    "使用 tool（tool-1）抵消",
+    "hero-2:1 · Trap",
+    "使用 tool（tool-2）抵消",
+    "hero-2:2 · 空白",
+    "hero-3:1 · Hunger",
+    "使用 food（food-1）抵消",
+    "hero-3:2 · Trap",
+    "使用 tool（tool-3）抵消",
+  ])
+    await page.getByRole("button", { name, exact: true }).click();
+  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已到达 D；Empty 已清理");
+  await expect(page.getByTestId("dungeon-provisions")).toContainText("torch-1");
+  await page.getByRole("button", { name: "选择下一段探索" }).click();
+  await page.getByRole("button", { name: "E", exact: true }).click();
+  await page.getByRole("button", { name: "掷探索骰并开始结算" }).click();
+  await expect(page.getByText(/光照 4、DL 1/)).toBeVisible();
+  await expect(page.getByText(/布置 RNG 游标 24/)).toBeVisible();
+  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("队伍尚未移动");
+  await page.screenshot({ path: testInfo.outputPath("dungeon-low-light.png"), fullPage: true });
 });
 
 test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场", async ({ page }, testInfo) => {

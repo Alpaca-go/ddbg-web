@@ -3,6 +3,7 @@ import type { DungeonState } from "./dungeon";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { changeDungeonLight, settleDungeonLight } from "./dungeon-light";
+import { passiveStress } from "./passive";
 
 const refuse = (state: GameState, message: string): ApplyResult => ({
   state,
@@ -48,7 +49,9 @@ export function beginDungeonRoom(state: GameState): ApplyResult {
     !Number.isInteger(level) ||
     level! < 1 ||
     level! > 3 ||
-    d.explorationSetup?.light !== 5 ||
+    !Number.isInteger(d.explorationSetup?.light) ||
+    d.explorationSetup!.light < 0 ||
+    d.explorationSetup!.light > 5 ||
     d.heroes.some(
       (h) =>
         h.dead ||
@@ -63,7 +66,7 @@ export function beginDungeonRoom(state: GameState): ApplyResult {
         h.stress > 9,
     )
   )
-    return refuse(state, "需要已核实 Life / 伤口 / 压力与 DL 1–3；本切片固定光照 5（R-048）");
+    return refuse(state, "需要已核实 Life / 伤口 / 压力、DL 1–3 与光照 0–5（R-048）");
   return continueDungeonTrap({
     ...state,
     dungeon: {
@@ -190,7 +193,12 @@ export function chooseDungeonTrap(
     hero.stress > 9
   )
     return refuse(state, "Trap 分配数值 / 英雄无效");
-  if (wounds > 0 && stress > 0 && (hero.wounds === hero.life || hero.stress + stress >= 10))
+  if (
+    wounds > 0 &&
+    stress > 0 &&
+    (hero.wounds === hero.life ||
+      hero.stress + passiveStress(hero, stress, d.explorationSetup!.light).amount >= 10)
+  )
     return refuse(state, "混合分配触及死门 / 压力10的结算顺序待 Q-64 确认；未扣任何数值、未掷骰");
   let changed = d;
   const message = `${hero.id}：Trap 承受 ${wounds} 伤口 + ${stress} 压力（R15、R-026）`;

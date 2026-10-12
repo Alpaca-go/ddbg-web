@@ -400,12 +400,6 @@ export function applyDungeonCommand(
       "等待全员同意",
     );
   }
-  if (
-    d.explorationSetup &&
-    d.explorationSetup.light !== 5 &&
-    (d.mode === "radiant" ? 1 : 2) - (d.scoutBonus ? 1 : 0) > 0
-  )
-    return refuse("有骰探索仍仅接光照 5；请先用 Torch 恢复光照，保留导航就绪状态");
   const routes = adjacent(d).filter(
     (id) =>
       d.layout.nodes.find((n) => n.id === id)?.kind !== "start" && !(d.visited ?? []).includes(id),

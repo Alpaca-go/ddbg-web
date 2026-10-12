@@ -1,5 +1,13 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：Darkness 与低光照探索（2026-10-12，UTC+8）
+
+Kyries 授权开始第一步并随后要求“合并”。依赖 #120 最新 head `0d86402` 的质量与 Playwright 两项 CI 成功，已合并为 main `d50a823`。分支 `codex/phase3-low-light-exploration` 已同步该基线，实现 `bacf3ac`，对应 [PR #121](https://github.com/Alpaca-go/ddbg-web/pull/121)，等待最新 head CI 成功后按本次授权合并。当前开发入口见[低光照探索交付](phase3-low-light-exploration-2026-10-12.md)，下方 #120 未合并及低光照未接线的叙述为历史状态。
+
+- 按官方 R14 / R29、规格书 §5.5 / §5.7 / §5.10 与 R-002 / R-003 接 Darkness 降光、全队被动、意志恢复和光照 0–5 探索；复用现有危险 / 环境 Trap 结算，不重掷或提前移动。低光 Trap 房间同步开放，混合分配按实际压力预检 Q-64。
+- 新增 14 项场景；既有第一条 Phase 3 冒烟延伸至降光 4 后完成 Empty、再次选路并掷八骰。Q-64 / Q-66 / Q-67 / Q-68 保持停点，Phase 3 未验收。验证与本机限制见交付文档。
+- 下一块按用户此前四步的第二步推进板块与 Curio 数据核对 / 接入，再做任务闭环；不跳 Phase 4。原有 `docs/_q52-search.txt`、`docs/ddbg-icon-review.md`、`docs/q60-icon-verification-2026-10-12.md` 保留且不提交。
+
 ## 最新交接：探索骰 Trap 攻击（2026-10-12，UTC+8）
 
 #119 最新 head `a9caf2b` 的质量与 Playwright 两项 CI 均成功，按 Kyries 本次“合并，然后继续推进下一步”授权转待审并合并为 main `5681196`；本地 main 已 ff-only 同步。当前分支 `codex/phase3-exploration-trap`，代码 `83c6533`、开放草稿 [PR #120](https://github.com/Alpaca-go/ddbg-web/pull/120)，新增探索骰 Trap 攻击，尚未合并。本次 PR 入口补记随同分支追加；后续合并前须核对最新 head 的质量与 Playwright 两项 CI。下方 #119 未合并的叙述为历史状态。
