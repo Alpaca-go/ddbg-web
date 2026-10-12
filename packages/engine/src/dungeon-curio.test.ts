@@ -10,6 +10,11 @@ import type { Command, GameState } from "./command";
 import type { DungeonBattleCatalog } from "./dungeon";
 import { normalizedHeroStatFileSchema } from "../../data/src/normalize/hero-stat";
 import { nextProvisionFace, PROVISION_FACES } from "./loot";
+import diseases from "../../data/normalized/corebox/disease.json";
+import quirks from "../../data/normalized/corebox/quirk.json";
+import { diseaseFileSchema } from "../../data/src/disease";
+import { normalizedQuirkFileSchema } from "../../data/src/normalize/schema";
+import { createConditionPool, conditionPoolProblem } from "./conditions";
 
 const cards = curioFileSchema.parse(rawCurios).cards;
 const approvedStats = normalizedHeroStatFileSchema
@@ -67,6 +72,10 @@ function protectedPage(page: number) {
         )!.id,
       })),
       battleCatalog: { heroStats: approvedStats, skills: [], monsters: [] },
+      conditions: createConditionPool(
+        diseaseFileSchema.parse(diseases).cards,
+        normalizedQuirkFileSchema.parse(quirks).cards,
+      ),
       curio: {
         ...d.curio!,
         deck: [id, ...cards.map((c) => c.id).filter((cardId) => cardId !== id)],
@@ -75,7 +84,7 @@ function protectedPage(page: number) {
   };
   return choose(ordered, "use:p4").state;
 }
-it("R-064 全池逐卡：抽前 Torch 后十四张可完成，其余明确接口停点且不漏发正面奖励", () => {
+it("R-064 全池逐卡：抽前 Torch 后十六张可完成，其余明确接口停点且不漏发正面奖励", () => {
   const completed: number[] = [];
   for (let page = 1; page <= 24; page++) {
     const drawn = protectedPage(page);
@@ -96,10 +105,88 @@ it("R-064 全池逐卡：抽前 Torch 后十四张可完成，其余明确接口
       expect(d.heroes).toEqual(drawn.dungeon!.heroes);
       expect(d.exploration!.rolls![0]!.resolved).toBe(false);
     }
-    expect(d.cursor).toBe(drawn.dungeon!.cursor + Number(awardsProvision));
+    expect(d.cursor).toBe(
+      drawn.dungeon!.cursor + Number(awardsProvision) + ([6, 11].includes(page) ? 16 : 0),
+    );
     expect(d.explorationSetup!.provisions).toHaveLength(5 + Number(awardsProvision));
   }
-  expect(completed).toEqual([1, 2, 3, 4, 8, 9, 13, 14, 15, 17, 19, 20, 21, 23]);
+  expect(completed).toEqual([1, 2, 3, 4, 6, 8, 9, 11, 13, 14, 15, 17, 19, 20, 21, 23]);
+});
+
+it("真实 p6 / p11 正面怪癖只洗一次；第四张选择冻结、弃新卡或替换正面均一次续接", () => {
+  for (const option of ["discard", "replace"] as const) {
+    const drawn = protectedPage(6),
+      d = drawn.dungeon!;
+    const initial = {
+      ...drawn,
+      dungeon: {
+        ...d,
+        heroes: d.heroes.map((h, i) =>
+          i ? h : { ...h, quirkIds: ["quirk:p001", "quirk:p018", "quirk:p019"] },
+        ),
+      },
+    };
+    const before = structuredClone(initial);
+    const result = applyCommand(initial, { type: "resolveDungeonCurio" });
+    const waiting = result.state;
+    const incoming = waiting.dungeon!.conditions!.incomingQuirk!.cardId;
+    expect(initial).toEqual(before);
+    expect(waiting.dungeon!.cursor).toBe(d.cursor + 15); // 17 正面中 1 已持有，洗 16 张。
+    expect(result.pendingChoice?.options.map((o) => o.id)).toEqual(["quirk:p001", incoming]);
+    expect(waiting.dungeon!.curio!.discard).toEqual([]);
+    expect(conditionPoolProblem(waiting.dungeon!.conditions!, waiting.dungeon!.heroes)).toBeNull();
+    expect(applyCommand(waiting, { type: "resolveDungeonCurio" }).state).toBe(waiting);
+    expect(choose(waiting, "quirk:p018").state).toBe(waiting);
+    const done = choose(waiting, option === "discard" ? incoming : "quirk:p001").state;
+    expect(done.dungeon!.cursor).toBe(waiting.dungeon!.cursor);
+    expect(done.dungeon!.heroes[0]!.quirkIds).toEqual(
+      option === "discard"
+        ? ["quirk:p001", "quirk:p018", "quirk:p019"]
+        : [incoming, "quirk:p018", "quirk:p019"],
+    );
+    expect(done.dungeon!.curio!.discard).toEqual(["curio:p006"]);
+    expect(conditionPoolProblem(done.dungeon!.conditions!, done.dungeon!.heroes)).toBeNull();
+    expect(applyCommand(done, { type: "resolveDungeonCurio" }).state).toBe(done);
+    expect(choose(waiting, option === "discard" ? incoming : "quirk:p001").state).toEqual(done);
+  }
+  const initial = protectedPage(11);
+  const first = applyCommand(initial, { type: "resolveDungeonCurio" }).state;
+  expect(first.dungeon!.heroes[0]!.quirkIds).toHaveLength(1);
+  expect(first.dungeon!.conditions!.positiveDeck).toHaveLength(16);
+  expect(first.dungeon!.cursor).toBe(initial.dungeon!.cursor + 16);
+});
+
+it("单一怪癖缺资料 / 堆耗尽不付奖励、不弃 Curio；补齐后原牌续接", () => {
+  const drawn = protectedPage(11),
+    d = drawn.dungeon!;
+  const { conditions: _conditions, ...withoutPool } = d;
+  void _conditions;
+  for (const initial of [
+    { ...drawn, dungeon: withoutPool },
+    {
+      ...drawn,
+      dungeon: {
+        ...d,
+        conditions: {
+          ...d.conditions!,
+          positiveDeck: [],
+          quirkDiscard: d
+            .conditions!.quirks.filter((q) => q.polarity === "positive")
+            .map((q) => q.id),
+        },
+      },
+    },
+  ]) {
+    const blocked = applyCommand(initial, { type: "resolveDungeonCurio" }).state;
+    expect(blocked.dungeon!.curio!.active).not.toBeNull();
+    expect(blocked.dungeon!.cursor).toBe(d.cursor);
+    expect(blocked.dungeon!.heroes).toEqual(d.heroes);
+    expect(blocked.dungeon!.curio!.discard).toEqual([]);
+    const repaired = { ...blocked, dungeon: { ...blocked.dungeon!, conditions: d.conditions! } };
+    expect(
+      applyCommand(repaired, { type: "resolveDungeonCurio" }).state.dungeon!.curio!.active,
+    ).toBeNull();
+  }
 });
 it("Torch 不抑制 p2 的 Buff 2t；持有真实英雄防御时施加一次，缺资料时整卡不支付", () => {
   const drawn = protectedPage(2);

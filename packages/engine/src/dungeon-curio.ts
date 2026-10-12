@@ -3,7 +3,7 @@ import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { createRng } from "./rng";
 import { continueDungeonExploration } from "./dungeon-exploration";
-import { gainDisease, replaceConditionQuirk } from "./conditions";
+import { gainDisease, gainPositiveQuirk, replaceConditionQuirk } from "./conditions";
 import { readHeroPassiveDefence } from "./battle-skill-status";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import { resolveDungeonPressure } from "./dungeon-pressure";
@@ -161,7 +161,11 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
   const effects = card.rows.flatMap((r) =>
     r.effect && (!active.protected || !isNegativeCurioEffect(r.effect)) ? [r.effect] : [],
   );
-  const unsupportedReward = effects.find((e) => e.type === "drawQuirk" || e.type === "drawTrinket");
+  const singlePositiveQuirk =
+    effects.length === 1 && effects[0]?.type === "drawQuirk" && effects[0].polarity === "positive";
+  const unsupportedReward = effects.find(
+    (e) => (e.type === "drawQuirk" && !singlePositiveQuirk) || e.type === "drawTrinket",
+  );
   if (unsupportedReward)
     return block(
       `图标已按 R-064 确认；Curio ${unsupportedReward.type} 奖惩接口尚未接线，整卡尚未提交`,
@@ -246,6 +250,39 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
     };
   }
   const passiveEvents: import("./command").GameEvent[] = [];
+  if (singlePositiveQuirk && !active.positiveQuirkApplied) {
+    if (!d.conditions)
+      return block("单一正面怪癖奖励需要完整 35 张怪癖 / 疾病资料，整卡尚未提交（R26、R-048）");
+    const acquired = gainPositiveQuirk(d.conditions, d.heroes, hero.id, state.seed, d.cursor);
+    if (acquired.status === "refused") return block(acquired.reason);
+    d = {
+      ...d,
+      heroes: acquired.heroes,
+      conditions: acquired.pool,
+      cursor: acquired.cursor,
+      curio: { ...c, active: { ...active, positiveQuirkApplied: true } },
+    };
+    passiveEvents.push({
+      type: "dungeonUpdated",
+      message: `${hero.id} Curio 抽到正面怪癖：${acquired.pool.quirks.find((q) => q.id === acquired.quirkId)!.name}（R26）`,
+    });
+    if (acquired.replaceOptions) {
+      const choice = {
+        id: `dungeon-condition:${d.decision}:${hero.id}`,
+        actorId: hero.id,
+        prompt: "第四个怪癖为正面：弃掉新卡，或替换一个已有正面怪癖",
+        options: acquired.replaceOptions.map((id) => ({
+          id,
+          label: `${id === acquired.quirkId ? "弃掉新卡" : "替换"}：${acquired.pool.quirks.find((q) => q.id === id)!.name}`,
+        })),
+      };
+      return {
+        state: { ...state, dungeon: { ...d, decision: d.decision + 1, pending: choice } },
+        events: passiveEvents,
+        pendingChoice: choice,
+      };
+    }
+  }
   const infectionCount = effects.filter((e) => e.type === "drawDisease").length;
   for (
     let appliedCount = active.diseasesApplied ?? 0;

@@ -1,5 +1,13 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：#122～125 合并与 Curio 单一正面怪癖（2026-10-12，UTC+8）
+
+Kyries 要求“合并，然后继续推进下一步”。已核四个 PR 的最新 head 两项 CI 均成功，依次将 #122 / #123 / #124 / #125 转待审并合并到 main，末次 main `b7a4cbe`；本地已 ff-only 同步。下方“尚未合并 / 以主题分支为 base”全部是当轮历史状态。当前新主题 `codex/phase3-curio-positive-quirk` 从已合并 main 开始。
+
+本轮接正面怪癖完整 17 张有限堆、共享 RNG、第四个为正面时的替换 / 弃新卡待选；Curio 仅开放 Torch 后只剩一项正面怪癖奖励的 06 / 11，现 16 / 24 张可完成。10 / 16 等多奖励组合仍整卡停点；不推定新被动参与同卡效果。范围与真实种子 85 入口见[单一正面怪癖交付](phase3-curio-positive-quirk-2026-10-12.md)。
+
+Torture 仍按用户明确限制：本面部署已批准 / 入库，Unholy Aura 仅候选，不接运行时，usable=false；Fountain VQ-06 尚未批准。Q-52 / Q-59 / Q-61–68 不改，不问已批准 Torture / BACK p2，不跳 Phase 4。步骤 2 / Phase 3 未完成。
+
 ## 最新交接：Torture VQ-01～05 已批准并入库（2026-10-12，UTC+8）
 
 实现 `90a2c93`，开放草稿 [PR #125](https://github.com/Alpaca-go/ddbg-web/pull/125)，以尚未合并的 #124 主题分支为 base；本地入库不等于 main 已交付。typecheck、lint、747 项测试、build、六条冒烟与 diff 检查通过；合并前另核最新 head 两项 CI。创建 PR 后本入口补记随主题提交。
