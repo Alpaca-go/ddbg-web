@@ -1,5 +1,7 @@
 # VQ-06：Healing Fountain 逐面核对草稿
 
+> 2026-10-13 当前状态：Torture 的 VQ-01–05 已批准入库，但 Unholy Aura 仍仅候选 / usable=false。Kyries 本轮明确 Fountain 尚未审核，先准备其他板块；本稿继续待审核，下方 Torture 尚待确认的文字是原始草稿历史状态。
+
 2026-10-12，UTC+8。依据 Kyries 最新 next-dev 指令与 `docs/kyries-verify-queue-2026-10-12.md` 的 VQ-06：先出独立核对草稿，经 Kyries / Grok 目视确认后再入库。本文件只记录印刷观察、拟议几何与已存在的词典状态，**不是批准记录**；不修改生产几何、词典、引擎或 `usable`。
 
 VQ-01～05 的 Torture Chamber 仍在队列中标为待确认。不能把“优先 VQ”理解为批准这些数据。Torture → Fountain → 其余面的入库顺序保留；本文件提前准备下一面的审核材料。
