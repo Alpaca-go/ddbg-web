@@ -12,6 +12,56 @@ import { hasQuirk } from "./passive";
 import type { SkillHealthEffect } from "./hero-skill";
 import { correctMultiTargetStress } from "./battle-multi-crit";
 
+/** R27：持有 Balanced 的英雄决定是否少移 1；不改变原技能骰或其他位移意图。 */
+export function chooseBalancedShuffle(state: GameState, optionId: string): ApplyResult {
+  const b = state.battle;
+  const intent = b?.shuffleIntents[0];
+  const hero = b?.entities.find((e) => e.id === intent?.entityId);
+  if (
+    !b ||
+    b.pending?.type !== "shuffleReduction" ||
+    !intent ||
+    !hero ||
+    hero.side !== "hero" ||
+    !hasQuirk(hero, "Balanced") ||
+    intent.balancedChosen ||
+    !Number.isSafeInteger(intent.move.distance) ||
+    intent.move.distance <= 0 ||
+    !["keep", "reduce"].includes(optionId)
+  )
+    return rejectBattleCommand(state, "Balanced 位移选择已过期或距离无效");
+  const result = applyBattleShuffles({
+    ...state,
+    battle: {
+      ...b,
+      pending: null,
+      shuffleIntents: [
+        {
+          ...intent,
+          balancedChosen: true,
+          move: {
+            ...intent.move,
+            distance: intent.move.distance - Number(optionId === "reduce"),
+          },
+        },
+        ...b.shuffleIntents.slice(1),
+      ],
+    },
+  });
+  return {
+    ...result,
+    events: [
+      {
+        type: "passiveTriggered",
+        entityId: hero.id,
+        trigger: "balancedChoice",
+        message: `Balanced：${optionId === "reduce" ? "位移少移 1" : "保持位移距离"}（R27）`,
+      },
+      ...result.events,
+    ],
+  };
+}
+
 /** R20–21、R-020：逐条应用自身 / 目标位移；选择不重掷技能骰。 */
 export function applyBattleShuffles(state: GameState, path: readonly string[] = []): ApplyResult {
   const battle = state.battle;
@@ -30,11 +80,35 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
       choices = [];
       continue;
     }
-    if (entity && hasQuirk(entity, "Balanced") && intent.move.distance > 0)
-      return rejectBattleCommand(
-        state,
-        "Balanced 的可选减位移待选流程尚未接入，不能忽略已有正面怪癖（R27）",
-      );
+    if (
+      entity?.side === "hero" &&
+      hasQuirk(entity, "Balanced") &&
+      !intent.balancedChosen &&
+      Number.isSafeInteger(intent.move.distance) &&
+      intent.move.distance > 0
+    ) {
+      const choice: PendingChoice = {
+        id: `shuffle-reduction:${next.choiceCursor}:${entity.id}`,
+        actorId: entity.id,
+        prompt: `${entity.id} · Balanced：是否将本次区域与姿态位移各减少 1？（R27）`,
+        options: [
+          { id: "keep", label: `保持位移 ${intent.move.distance}` },
+          { id: "reduce", label: `位移少移 1（${intent.move.distance - 1}）` },
+        ],
+      };
+      return {
+        state: {
+          ...state,
+          battle: {
+            ...next,
+            choiceCursor: next.choiceCursor + 1,
+            pending: { type: "shuffleReduction", choice },
+          },
+        },
+        events,
+        pendingChoice: choice,
+      };
+    }
     // 自身效果先于伤害（R20），其落点容量仍计入随后死亡的目标。
     const selfBeforeDeath = intent.entityId === continuation.actorId;
     const result = resolveShuffle(

@@ -183,6 +183,10 @@ export type BattleState = BattleSetup & {
         readonly to: string;
       }
     | {
+        readonly type: "shuffleReduction";
+        readonly choice: PendingChoice;
+      }
+    | {
         readonly type: "shuffleArea";
         readonly choice: PendingChoice;
         readonly path: readonly string[];
