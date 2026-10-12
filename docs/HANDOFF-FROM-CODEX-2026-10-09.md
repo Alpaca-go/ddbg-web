@@ -1,5 +1,17 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：#130 合并与遗迹6/7审核草稿（2026-10-13，UTC+8）
+
+草稿提交 `15a85a8`，开放草稿 [PR #131](https://github.com/Alpaca-go/ddbg-web/pull/131)，base 为main，尚未合并。本地文档验证与PR CI区分，合并前另核最新head两项CI；入口补记随主题提交。
+
+#130 最新 head `fb99a78` 的质量与Playwright两项CI均成功，已按用户“合并，继续推进”授权合并为main `675c389`，本地ff-only同步；下方#130未合并状态是历史记录。合并审核文档不等于批准其中数据。
+
+本轮从main建立 `codex/phase3-ruins6-7-verify-drafts`，继续用户此前“Fountain尚未审核，先准备其他板块”范围。已看BACK/FRONT p4完整板块及rooms FRONT p6/p7完整卡，分别准备[遗迹6 Treasure Chamber VQ-15](phase3-treasure-chamber-review-2026-10-13.md)与[遗迹7 Tomb of Ancestor VQ-16](phase3-tomb-of-ancestor-review-2026-10-13.md)。两面均九区，容量和部署各自数点核图，不共用几何；原图只在忽略缓存。
+
+Treasure区A动作交互与普通宝箱分列，B的“remove all”目标 `5c9604da90` 仍未知；Tomb六项免疫中 `ce2f57ed90` / `8c4c3c2ec2` 仍未知，不命名、不删去未知项后开放。standing here不替换成结束回合触发。生产几何 / 词典 / 引擎及usable均不改，实际可用仍1/28；VQ和全部未决Q、Torture候选排除项不变。
+
+文档已做格式 / diff、raw bbox、房间身份、卡文数字及词典状态核对；仅文档，不重跑引擎 / 浏览器测试。下一块继续遗迹8/9的独立草稿，或按后续收到的逐面明确批准入库接线；Phase3任务闭环与验收未完成，不跳Phase4。
+
 ## 最新交接：#129 合并与遗迹4/5审核草稿（2026-10-13，UTC+8）
 
 草稿提交 `d68cdf2`，开放草稿 [PR #130](https://github.com/Alpaca-go/ddbg-web/pull/130)，base 为 main，尚未合并。下方核对是本地文档验证，PR CI 另核最新 head；本入口补记随主题提交。

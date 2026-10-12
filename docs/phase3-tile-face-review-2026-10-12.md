@@ -1,5 +1,7 @@
 # 步骤 2：核心盒板块逐面覆盖与 Torture Chamber 核对草稿
 
+> 2026-10-13 续接：遗迹6 / BACK p4 的 [Treasure Chamber](phase3-treasure-chamber-review-2026-10-13.md) 和遗迹7 / FRONT p4 的 [Tomb of Ancestor](phase3-tomb-of-ancestor-review-2026-10-13.md) 独立审核草稿已准备，列入VQ-15/16。#130文档PR已合并，但没有把任何草稿当数据批准；实际可用仍1/28。
+
 > 2026-10-13：Kyries 明确 Fountain 尚未审核，先准备其他板块。遗迹4 / BACK p3 的 [Spiked Pit](phase3-spiked-pit-review-2026-10-13.md) 和遗迹5 / FRONT p3 的 [Beacon of Light](phase3-beacon-of-light-review-2026-10-13.md) 已完成独立目视草稿，分别列入 VQ-13 / VQ-14；未批准、未入库，实际可用仍1/28。
 
 > 2026-10-12 最新批准：Kyries/Grok 已目视确认 Torture BACK p2 / 遗迹 2 的 VQ-01～05，**无修正**。本面容量、邻接、部署、宝箱与 H 星形 / 卡文对应已获批，已按 BACK p2 + room:p002 独立入库；H 的 Unholy Aura 仅候选，不接运行时、不复用 Cornered，`usable=false` 待治疗拒绝路径就绪。F–H 同时记录角点与中下段黑墙标志，仍不是通行边。下方“待批 / 拟议”表格保留原审核稿，不覆盖本段批准状态；Fountain 及其余面未因此获批。记录见[verify-queue](kyries-verify-queue-2026-10-12.md)。
@@ -17,7 +19,7 @@
 | 1      | 遗迹 1                  | 0（地点 / 名称待逐面核） | FRONT 依 R-054 / R-055 已批准；BACK 未核       |
 | 2      | 遗迹 3                  | 遗迹 2                   | FRONT VQ-06待审核；BACK VQ-01–05已入库、不可用 |
 | 3      | 遗迹 5                  | 遗迹 4                   | 两面独立草稿已完成，VQ-13/14 待审核            |
-| 4      | 遗迹 7                  | 遗迹 6                   | 两面均未逐项核对                               |
+| 4      | 遗迹 7                  | 遗迹 6                   | 两面独立草稿已准备，VQ-15/16待审核             |
 | 5      | 遗迹 9                  | 遗迹 8                   | 两面均未逐项核对                               |
 | 6      | 遗迹 11                 | 遗迹 10                  | 两面均未逐项核对；Boss 留对应阶段              |
 | 7      | 遗迹 13                 | 遗迹 12                  | 两面均未逐项核对；Boss 留对应阶段              |
