@@ -4,7 +4,7 @@ import { useDungeonTorch } from "./dungeon-light";
 import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
 import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
 import { recordMonsterSkill } from "./encounter";
-import { resolveDungeonConditionChoice } from "./dungeon-curio";
+import { resolveDungeonConditionChoice, resolveDungeonCurioProvisionChoice } from "./dungeon-curio";
 import { displaceSmallForHero } from "./battle-small";
 import { finishTurn } from "./encounter";
 import type { DungeonCommand, DungeonState } from "./dungeon";
@@ -264,6 +264,17 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (state.dungeon?.pending?.id.startsWith("dungeon-curio-provision:")) {
+    const pending = state.dungeon.pending;
+    return command.type === "resolveChoice" &&
+      command.choiceId === pending.id &&
+      pending.options.some((o) => o.id === command.optionId)
+      ? resolveDungeonCurioProvisionChoice(
+          state,
+          command.optionId as import("./loot").ProvisionFace,
+        )
+      : rejectBattleCommand(state, "请先完成 Curio Wild 补给选择");
+  }
   if (state.dungeon?.pending?.id.startsWith("dungeon-condition:")) {
     const pending = state.dungeon.pending;
     return command.type === "resolveChoice" &&

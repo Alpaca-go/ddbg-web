@@ -37,6 +37,7 @@ type Fixture =
   | "corridor"
   | "curio"
   | "curioBuff"
+  | "curioProvision"
   | "trap"
   | "dark"
   | "roomApproved"
@@ -100,13 +101,15 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
           ? 11
           : fixture === "roomBlocked"
             ? 12
-            : fixture === "curioBuff"
-              ? 343
-              : fixture === "curio"
-                ? 1237
-                : fixture === "corridor"
-                  ? 31
-                  : 1,
+            : fixture === "curioProvision"
+              ? 370
+              : fixture === "curioBuff"
+                ? 343
+                : fixture === "curio"
+                  ? 1237
+                  : fixture === "corridor"
+                    ? 31
+                    : 1,
     layout,
     distribution,
     mode,
@@ -132,7 +135,10 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
   );
   // 此布置以已清理的起始房间演示真实走廊往返，不模拟该房间的战斗或奖励。
   const game =
-    fixture === "corridor" || fixture === "curio" || fixture === "curioBuff"
+    fixture === "corridor" ||
+    fixture === "curio" ||
+    fixture === "curioBuff" ||
+    fixture === "curioProvision"
       ? {
           ...initial,
           dungeon: {
@@ -273,6 +279,7 @@ export function DungeonSandbox() {
             <option value="corridor">单走廊 → Empty（标准 p1、种子 31、无需侦察）</option>
             <option value="curio">Curio → Empty（标准 p1、种子 1237、先用 Torch）</option>
             <option value="curioBuff">Curio Buff（标准 p1、种子 343、先用 Torch）</option>
+            <option value="curioProvision">Curio 补给 Wild（标准 p1、种子 370、先用 Torch）</option>
             <option value="trap">Trap 房间（p1、种子 1、DL 3、hero-0 压力 8）</option>
             <option value="dark">Dark 房间与 Torch（p1、种子 1，固定房间代币）</option>
             <option value="roomApproved">
@@ -542,7 +549,10 @@ export function DungeonSandbox() {
                 ))}
               </ul>
               {d.phase === "awaitingCurio" && (
-                <button onClick={() => dispatch({ type: "resolveDungeonCurio" })}>
+                <button
+                  disabled={!!d.pending}
+                  onClick={() => dispatch({ type: "resolveDungeonCurio" })}
+                >
                   结算当前 Curio
                 </button>
               )}
