@@ -233,6 +233,9 @@ function resolveMonsterSkillInternal(
       ? baseResolution
       : {
           ...baseResolution,
+          ...(view.verified_target_disease && baseResolution.outcome !== "miss"
+            ? { targetDisease: true as const }
+            : {}),
           actorLightDelta: (baseResolution.actorLightDelta ?? 0) + (attack.selfLight ?? 0),
           targetLightDelta:
             (baseResolution.targetLightDelta ?? 0) +

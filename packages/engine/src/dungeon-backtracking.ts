@@ -1,6 +1,7 @@
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonCommand } from "./dungeon";
 import { resolveDungeonPressure } from "./dungeon-pressure";
+import { triggerDungeonPassive } from "./dungeon-passive";
 
 const refuse = (state: GameState, message: string): ApplyResult => ({
   state,
@@ -60,24 +61,36 @@ export function applyDungeonBacktracking(
     };
   if (d.heroes.some((h) => !Number.isInteger(h.stress) || h.stress < 0 || h.stress > 9))
     return refuse(state, "英雄压力无效，保持返回选择");
+  const passive = triggerDungeonPassive(
+    d,
+    state.seed,
+    d.heroes.map((h) => h.id),
+    { type: "stress", amount: 1 },
+  );
+  if (passive.status === "refused") return refuse(state, passive.reason);
   const paid: GameState = {
     ...state,
     dungeon: {
-      ...d,
+      ...passive.dungeon,
       pending: null,
       exploration: null,
       backtracking: { from: d.position, to: command.optionId },
       pressureSource: "backtracking",
-      heroes: d.heroes.map((h) => ({ ...h, stress: h.stress + 1 })),
       phase: "blockedPressure",
     },
   };
-  const next = paid.dungeon!.heroes.some((h) => h.stress === 10)
-    ? resolveDungeonPressure(paid)
-    : completeDungeonBacktrack(paid);
+  const next = paid.dungeon!.heroes.some((h) => h.dead)
+    ? {
+        state: { ...paid, dungeon: { ...paid.dungeon!, phase: "awaitingReplacement" as const } },
+        events: [],
+      }
+    : paid.dungeon!.heroes.some((h) => h.stress === 10)
+      ? resolveDungeonPressure(paid)
+      : completeDungeonBacktrack(paid);
   return {
     ...next,
     events: [
+      ...passive.events,
       { type: "dungeonUpdated", message: "沿一条普通走廊返回，全员压力 +1；没有掷探索骰（R14）" },
       ...next.events,
     ],

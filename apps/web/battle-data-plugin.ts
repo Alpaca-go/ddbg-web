@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import type { Plugin } from "vite";
-import { roomTileBattleAreas } from "../../packages/engine/src/index";
+import { createConditionPool, roomTileBattleAreas } from "../../packages/engine/src/index";
+import { diseaseFileSchema } from "../../packages/data/src/disease";
 import { normalizedHeroStatFileSchema } from "../../packages/data/src/normalize/hero-stat";
 import { roomTileGeometryFileSchema } from "../../packages/data/src/normalize/room-tile";
 import {
@@ -8,6 +9,7 @@ import {
   normalizedMonsterMediumFileSchema,
   normalizedMonsterLargeFileSchema,
   normalizedVirtueAfflictionFileSchema,
+  normalizedQuirkFileSchema,
 } from "../../packages/data/src/normalize/schema";
 
 /** 构建时校验并只打包沙盒所需卡牌；不复制数据、不打包整盒或美术。 */
@@ -27,6 +29,10 @@ export function battleDataPlugin(): Plugin {
       const heroStats = normalizedHeroStatFileSchema
         .parse(read("hero_stat"))
         .cards.filter((card) => card.attributesVerified && card.level === 1);
+      const conditions = createConditionPool(
+        diseaseFileSchema.parse(read("disease")).cards,
+        normalizedQuirkFileSchema.parse(read("quirk")).cards,
+      );
       const resolveCards = normalizedVirtueAfflictionFileSchema.parse(
         read("virtue_affliction"),
       ).cards;
@@ -104,7 +110,7 @@ export function battleDataPlugin(): Plugin {
         monsters.length !== monsterIds.size
       )
         throw new Error("战斗沙盒缺少获批卡牌，拒绝替换或补值（R-048）");
-      return `export const battleData = ${JSON.stringify({ heroStats, skills, monsters, resolveCards, deployment: tile.deployment, areas: roomTileBattleAreas(tile), tileName: tile.name })};`;
+      return `export const battleData = ${JSON.stringify({ conditions, heroStats, skills, monsters, resolveCards, deployment: tile.deployment, areas: roomTileBattleAreas(tile), tileName: tile.name })};`;
     },
   };
 }

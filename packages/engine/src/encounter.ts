@@ -16,6 +16,9 @@ import { pressureCasualties, resolveBattlePressure } from "./pressure";
 import { beginResolveTurn } from "./resolve-trigger";
 import { closeBattleLoot, placeBattleLoot } from "./loot";
 import { displaceSmallForHero } from "./battle-small";
+import { triggerBattlePassive } from "./battle-passive";
+import { gainDisease } from "./conditions";
+import { readHeroPassiveDefence } from "./battle-skill-status";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -148,23 +151,16 @@ export function finishTurn(
   if (!actor.dead && actor.side === "hero" && area?.endTurnStress === 1) {
     if (!Number.isSafeInteger(actor.stress) || actor.stress! < 0 || actor.stress! > 10)
       return rejectBattleCommand(state, "Cornered 缺少已知压力（R-048）");
+    const passive = triggerBattlePassive(original, state.seed, [actorId], {
+      type: "stress",
+      amount: 1,
+    });
+    if (passive.status === "refused") return rejectBattleCommand(state, passive.reason);
     const pressure = resolveBattlePressure({
-      state: {
-        ...state,
-        battle: {
-          ...original,
-          entities: original.entities.map((entity) =>
-            entity.id === actorId
-              ? {
-                  ...entity,
-                  stress: Math.min(10, entity.stress! + 1 + Number(original.light <= 2)),
-                }
-              : entity,
-          ),
-        },
-      },
+      state: { ...state, battle: passive.battle },
       events: [
         ...events,
+        ...passive.events,
         {
           type: "areaStressResolved",
           actorId,
@@ -252,7 +248,7 @@ export function encounterSkillProblem(
 }
 
 /** R24–25、R-030：只补本次死亡空位；旧尸体保留日志身份，不再占位。 */
-function removeCasualties(result: ApplyResult, ids: readonly string[]): ApplyResult {
+export function removeCasualties(result: ApplyResult, ids: readonly string[]): ApplyResult {
   const battle = result.state.battle!;
   const casualties = battle.entities.filter((entity) => entity.dead && ids.includes(entity.id));
   if (!casualties.length) return result;
@@ -283,7 +279,7 @@ function removeCasualties(result: ApplyResult, ids: readonly string[]): ApplyRes
   };
 }
 
-function endAfterCasualties(result: ApplyResult): ApplyResult | null {
+export function endAfterCasualties(result: ApplyResult): ApplyResult | null {
   const battle = result.state.battle!;
   const monstersDefeated = battle.entities.every(
     (entity) => entity.side !== "monster" || entity.dead,
@@ -377,7 +373,93 @@ export function recordMonsterSkill(
   result: ApplyResult,
   resolved: MonsterSkillResolvedEvent,
   casualtyIds: readonly string[] = [],
+  conditionsDone = false,
+  remainingInfections?: readonly import("./hero-skill").HeroSkillResolution[],
 ): ApplyResult {
+  if (!conditionsDone) {
+    const initial = result.state.battle!;
+    const targets = result.events.flatMap((e) =>
+      e.type === "monsterSkillTargetsResolved"
+        ? e.resolutions
+        : e.type === "monsterSkillResolved"
+          ? [e.resolution]
+          : [],
+    );
+    // 位移续接只带代表事件，已选多目标数据由 targetIds 保留；疾病目前仅 Maggot 单目标。
+    const infections =
+      remainingInfections ??
+      (targets.length
+        ? targets.filter((r) => r.targetDisease)
+        : resolved.resolution.targetDisease
+          ? [resolved.resolution]
+          : []);
+    let next = initial;
+    const events: GameEvent[] = [...result.events];
+    for (const [infectionIndex, resolution] of infections.entries()) {
+      const hero = next.entities.find((e) => e.id === resolution.targetId)!;
+      if (hero.dead) continue;
+      if (!next.conditions || !readHeroPassiveDefence(next, hero))
+        return rejectBattleCommand(
+          result.state,
+          "疾病需要完整实体牌堆与已核实免疫栏（R27、R-048）",
+        );
+      const acquired = gainDisease(
+        next.conditions,
+        next.entities.filter((e) => e.side === "hero"),
+        hero.id,
+        result.state.seed,
+        next.rngCursor,
+      );
+      if (acquired.status === "refused") return rejectBattleCommand(result.state, acquired.reason);
+      next = {
+        ...next,
+        conditions: acquired.pool,
+        rngCursor: acquired.cursor,
+        entities: next.entities.map((e) => acquired.heroes.find((h) => h.id === e.id) ?? e),
+      };
+      events.push({
+        type: "diseaseAcquired",
+        entityId: hero.id,
+        diseaseId: acquired.diseaseId,
+        ...(acquired.quirkId ? { quirkId: acquired.quirkId } : {}),
+        message: "疾病已抽取；重复感染替换旧病并获得负面怪癖（R26–27）",
+      });
+      if (acquired.replaceOptions?.length) {
+        const choice = {
+          id: `condition-replace:${next.choiceCursor}:${hero.id}`,
+          actorId: hero.id,
+          prompt: "获得第四个怪癖：选择替换一张已有正面怪癖",
+          options: acquired.replaceOptions.map((id) => ({
+            id,
+            label: next.conditions!.quirks.find((c) => c.id === id)!.name,
+          })),
+        };
+        return {
+          state: {
+            ...result.state,
+            battle: {
+              ...next,
+              choiceCursor: next.choiceCursor + 1,
+              pending: {
+                type: "conditionReplace",
+                choice,
+                resolved,
+                events,
+                remainingInfections: infections.slice(infectionIndex + 1),
+                casualtyIds: [
+                  ...new Set([...casualtyIds, ...newlyDefeatedIds(initial, next.entities)]),
+                ],
+              },
+            },
+          },
+          events,
+          pendingChoice: choice,
+        };
+      }
+    }
+    casualtyIds = [...new Set([...casualtyIds, ...newlyDefeatedIds(initial, next.entities)])];
+    result = { ...result, state: { ...result.state, battle: next }, events };
+  }
   const battle = result.state.battle;
   if (!battle?.encounter || battle.encounter.turn.type !== "monster") return result;
   const pressure = resolveBattlePressure(result);

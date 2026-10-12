@@ -1,5 +1,6 @@
 import { distance, rejectBattleCommand, skillTargetView, writeResolution } from "./battle";
 import { applySkillHealth } from "./battle-health";
+import { cancelSkillAfterRoll } from "./battle-passive";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { multiTargetHealthEffects, projectActorWounds } from "./skill-actor-health";
 import {
@@ -74,7 +75,7 @@ export function playHeroSkillTargets(
           e.id !== actor.id &&
           !ids.has(e.id),
       )
-      .map((e) => ({ id: e.id, stress: e.stress! })),
+      .map((e) => ({ ...e, stress: e.stress! })),
   }));
   const needsChoice = command.shuffleChoice === undefined && needsHeroSkillShuffleChoice(skill);
   const resolve = (roll: number, probe = false) =>
@@ -179,9 +180,18 @@ export function playHeroSkillTargets(
     },
     state.seed,
     battle.rngCursor + (roll === null ? 0 : 1),
+    actor.id,
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
-  const statuses = applyBattleSkillStatuses(battle, health.entities, actor.id, resolutions);
+  if (health.cancelled) return cancelSkillAfterRoll(state, actor.id, health);
+  const statuses = applyBattleSkillStatuses(
+    battle,
+    health.entities,
+    actor.id,
+    resolutions,
+    state.seed,
+    health.rngCursor,
+  );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const event: HeroSkillTargetsResolvedEvent = {
     type: "heroSkillTargetsResolved",
@@ -198,7 +208,7 @@ export function playHeroSkillTargets(
     roll,
     resolution: success,
     targetIds: living.map((e) => e.id),
-    casualtyIds: newlyDefeatedIds(battle, health.entities),
+    casualtyIds: newlyDefeatedIds(battle, statuses.entities),
     ...(resolutions.some((r) => r.outcome === "crit")
       ? { criticalContext: { combat: contexts[0]!, combats: contexts, entities: battle.entities } }
       : {}),
@@ -221,12 +231,12 @@ export function playHeroSkillTargets(
         pending: null,
         entities: statuses.entities,
         light: statuses.light,
-        rngCursor: health.rngCursor,
+        rngCursor: statuses.rngCursor,
         shuffleIntents: intents,
         shuffleContinuation: intents.length ? continuation : null,
       },
     },
-    events: [event, ...health.events],
+    events: [event, ...health.events, ...statuses.events],
   };
   // 复用一次技能的回合收尾；任一目标成功就锁定重用，全部落空才允许再用。
   return intents.length

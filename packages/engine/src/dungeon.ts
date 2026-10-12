@@ -22,8 +22,12 @@ import { beginDungeonRoom, chooseDungeonTrap } from "./dungeon-room";
 import type { BattleEntity, BattleSetup } from "./battle";
 import type { MonsterCardView } from "./monster-skill";
 import type { LootState, ProvisionFace } from "./loot";
+import type { ConditionPool } from "./conditions";
+import type { PassiveHero } from "./passive-runtime";
+import { triggerDungeonPassive } from "./dungeon-passive";
 
 export type DungeonCurioDraw = {
+  readonly diseasesApplied?: number;
   readonly cardId: string;
   readonly heroId: string;
   readonly rollId: string;
@@ -46,6 +50,7 @@ export type DungeonExplorationSetup = {
 
 /** 与 BattleSetup 一样，由调用方的已校验规范化数据提供，不从 UI 推导规则。 */
 export type DungeonBattleCatalog = {
+  readonly conditions?: ConditionPool;
   readonly heroStats: readonly (NonNullable<BattleSetup["heroStats"]>[number] & {
     readonly level: number;
     readonly dodge: number;
@@ -59,11 +64,13 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  readonly pendingCurioDraw?: { readonly rollId: string; readonly optionId: string };
+  readonly conditions?: ConditionPool;
   readonly layout: DungeonLayout;
   readonly mode: "standard" | "radiant";
   readonly cursor: number;
   readonly position: string;
-  readonly heroes: readonly {
+  readonly heroes: readonly (PassiveHero & {
     readonly id: string;
     readonly stress: number;
     readonly resolveTested?: boolean | undefined;
@@ -78,7 +85,7 @@ export type DungeonState = {
     readonly skillIds?: readonly string[];
     /** 跨房间保留的战斗状态；部署只改变区域，不重置英雄。 */
     readonly combat?: BattleEntity;
-  }[];
+  })[];
   readonly resolveCards: readonly ResolveCard[];
   readonly resolveDecks: Partial<Readonly<Record<ResolveCard["role"], readonly string[]>>>;
   readonly gold: number;
@@ -214,6 +221,7 @@ export function createDungeonSandbox(
       resolveDecks: {},
       gold: 0,
       ...(battleCatalog ? { battleCatalog } : {}),
+      ...(battleCatalog?.conditions ? { conditions: battleCatalog.conditions } : {}),
       ...(monsterCards
         ? {
             monsterPool: {
@@ -267,7 +275,7 @@ export function applyDungeonCommand(
     | DungeonCommand
     | { readonly type: "resolveChoice"; readonly choiceId: string; readonly optionId: string },
 ): ApplyResult {
-  const d = state.dungeon;
+  let d = state.dungeon;
   const refuse = (message: string): ApplyResult => ({
     state,
     events: [{ type: "commandRefused", message }],
@@ -309,9 +317,24 @@ export function applyDungeonCommand(
     if (d.pending.id.startsWith("dungeon-scout:")) {
       if (command.optionId === "decline")
         return finish({ ...d, pending: null }, "取消侦察，未支付压力");
-      const heroes = d.heroes.map((h) => ({ ...h, stress: h.stress + 1 }));
-      if (heroes.some((h) => h.stress === 10))
-        return resolveDungeonPressure({
+      const passive = triggerDungeonPassive(
+        d,
+        state.seed,
+        d.heroes.map((h) => h.id),
+        { type: "stress", amount: 1 },
+      );
+      if (passive.status === "refused") return refuse(passive.reason);
+      const heroes = passive.dungeon.heroes;
+      d = passive.dungeon;
+      if (heroes.some((h) => h.dead)) {
+        const stopped = finish(
+          { ...passive.dungeon, phase: "awaitingReplacement", pending: null, scoutBonus: false },
+          "侦察压力被动导致死亡，等待英雄替换（R9）",
+        );
+        return { ...stopped, events: [...passive.events, ...stopped.events] };
+      }
+      if (heroes.some((h) => h.stress === 10)) {
+        const pressure = resolveDungeonPressure({
           ...state,
           dungeon: {
             ...d,
@@ -322,8 +345,10 @@ export function applyDungeonCommand(
             pressureSource: "scout",
           },
         });
+        return { ...pressure, events: [...passive.events, ...pressure.events] };
+      }
       const nearby = adjacent(d);
-      return finish(
+      const scouted = finish(
         {
           ...d,
           heroes,
@@ -333,6 +358,7 @@ export function applyDungeonCommand(
         },
         "全员同意：每名英雄压力 +1；揭示相邻房间，下一次探索减骰（R14、R-013）",
       );
+      return { ...scouted, events: [...passive.events, ...scouted.events] };
     }
     return finish(
       {

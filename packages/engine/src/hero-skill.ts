@@ -1,6 +1,8 @@
 import type { HeroHealthEffect } from "./hero-health";
 import type { StatusEffect } from "./status";
 import { readVerifiedStatusEffects } from "./skill-status";
+import { hasQuirk, passiveDamageWounds, passiveHeal, passiveLevel, passiveStress } from "./passive";
+import type { PassiveHolder } from "./passive";
 
 /**
  * 已验证英雄技能对一个已选目标的命中伤害或治疗，以及规则书已经写明的后续步骤。
@@ -229,6 +231,7 @@ export type SkillSegment =
 
 /** 规范化英雄技能里这一层会读的字段。多出来的字段可以留在对象上。 */
 export type HeroSkillCardView = {
+  readonly verified_target_disease?: true;
   readonly id: string;
   readonly hero: string | null;
   readonly verification: { readonly unverified: boolean };
@@ -305,12 +308,12 @@ export type SkillTargetSide = "hero" | "monster";
 export type SkillStance = "support" | "ranged" | "defensive" | "aggressive";
 
 /** 同区域里的另一名英雄，只带这一层要改的压力。 */
-export type SkillAreaHero = {
+export type SkillAreaHero = PassiveHolder & {
   readonly id: string;
   readonly stress: number;
 };
 
-export type SkillActorState = {
+export type SkillActorState = PassiveHolder & {
   readonly id: string;
   readonly wounds: number;
   /** 0–10。不传就不改这名英雄的压力。 */
@@ -339,7 +342,7 @@ export type SkillActorState = {
 };
 
 /** 目标已经选好。区域怎么相邻不在这里。 */
-export type SkillTargetState = {
+export type SkillTargetState = PassiveHolder & {
   /** 已验证怪物卡的印刷类型标签；缺失时不能判定 vs Unholy，不按名字推断。 */
   readonly monsterTypeTags?: readonly string[];
   readonly id: string;
@@ -464,7 +467,12 @@ export type SkillForm = "beast" | "human";
 export type SkillHealthEffect = {
   readonly entityId: string;
   readonly side: SkillTargetSide;
-  readonly source: "selfHeal" | "selfWound" | "targetHeal" | "attack" | "riposte";
+  readonly source: "selfHeal" | "selfWound" | "targetHeal" | "attack" | "riposte" | "passiveStress";
+  readonly passiveKey?: string;
+  readonly deferred?: boolean;
+  readonly rollPassive?: boolean;
+  readonly pressureBoundary?: true;
+  readonly critical?: boolean;
   readonly effect: HeroHealthEffect;
 };
 
@@ -474,6 +482,7 @@ export type SkillEffectsResolution = {
 };
 
 export type HeroSkillResolution = {
+  readonly targetDisease?: true;
   readonly skillId: string;
   readonly targetId: string;
   readonly status: "resolved" | "refused";
@@ -569,7 +578,7 @@ function clampStress(value: number): number {
 
 function copyHeroes(heroes: readonly SkillAreaHero[] | null): SkillAreaHero[] | null {
   if (heroes === null) return null;
-  return heroes.map((hero) => ({ id: hero.id, stress: hero.stress }));
+  return heroes.map((hero) => ({ ...hero }));
 }
 
 function snapshotHeroes(value: readonly SkillAreaHero[] | undefined): SkillAreaHero[] | null {
@@ -2443,10 +2452,57 @@ function resolveSkill(
   let riposteDamage: number | null = null;
   let actorWounds = combat.actor === undefined ? null : combat.actor.wounds;
   const healthEffects: SkillHealthEffect[] = [];
+  const changeStress = (
+    hero: PassiveHolder & { readonly id: string },
+    value: number,
+    delta: number,
+    light = combat.light ?? 5,
+    key = "self",
+  ): number => {
+    const changed = passiveStress(hero, delta, light);
+    if (changed.wounds.length) {
+      healthEffects.push({
+        entityId: hero.id,
+        side: "hero",
+        source: "passiveStress",
+        passiveKey: key,
+        ...(value + changed.amount >= 10 ? { pressureBoundary: true } : {}),
+        ...(key === "critNearby" && (shuffles.self || shuffles.target) ? { deferred: true } : {}),
+        effect: { type: "wounds", amounts: changed.wounds },
+      });
+    }
+    return clampStress(value + changed.amount);
+  };
+  if (
+    sourceSide === "hero" &&
+    combat.actor &&
+    (outcome !== null || (emptyArea && hitThreshold !== null))
+  ) {
+    if (roll === 10 && hasQuirk(combat.actor, "Bad Gambler")) {
+      const amount = passiveLevel(combat.actor);
+      if (actorWounds !== null) actorWounds += amount;
+      healthEffects.push({
+        entityId: combat.actor.id,
+        side: "hero",
+        source: "selfWound",
+        rollPassive: true,
+        effect: { type: "wounds", amounts: [amount] },
+      });
+    }
+  }
 
   const dealtCrit = sourceSide === "hero" && outcome === "crit";
   const receivedCrit = outcome === "crit" && effect === "damage" && target.side === "hero";
   let actorStress = combat.actor?.stress === undefined ? null : combat.actor.stress;
+  if (
+    sourceSide === "hero" &&
+    combat.actor &&
+    roll === 1 &&
+    outcome !== null &&
+    actorStress !== null &&
+    hasQuirk(combat.actor, "Skilled Gambler")
+  )
+    actorStress = changeStress(combat.actor, actorStress, -1);
   let targetStress = target.stress === undefined ? null : target.stress;
   let besideActorStress = copyHeroes(
     combat.heroesBesideActor === undefined ? null : [...combat.heroesBesideActor],
@@ -2461,21 +2517,20 @@ function resolveSkill(
     (emptyArea || outcome === "miss" ? 0 : statuses.targetLight + (support?.light ?? 0));
   const pressureLight =
     combat.light === undefined ? undefined : Math.max(0, Math.min(5, combat.light + lightDelta));
-  const pressureDelta = (amount: number): number =>
-    amount + (amount > 0 && pressureLight !== undefined && pressureLight <= 2 ? 1 : 0);
 
   // 规则书第 20 页：自身效果在伤害、治疗和目标效果之前，落空也生效。
   // 没有 Acc 时不掷骰，这一行的治疗和压力仍然生效。
   if ((stress.self !== 0 || paired.stress !== 0) && actorStress !== null) {
-    actorStress = clampStress(actorStress + stress.self + paired.stress);
+    actorStress = changeStress(combat.actor!, actorStress, stress.self + paired.stress);
   }
   if ((selfHeal.amount > 0 || paired.heal > 0) && actorWounds !== null) {
-    actorWounds = Math.max(0, actorWounds - selfHeal.amount - paired.heal);
+    const amount = passiveHeal(combat.actor!, selfHeal.amount + paired.heal);
+    actorWounds = Math.max(0, actorWounds - amount);
     healthEffects.push({
       entityId: combat.actor!.id,
       side: sourceSide,
       source: "selfHeal",
-      effect: { type: "heal", amount: selfHeal.amount + paired.heal },
+      effect: { type: "heal", amount },
     });
   }
   if (selfWound.lineCount && actorWounds !== null) {
@@ -2504,19 +2559,20 @@ function resolveSkill(
     }
     printedAmount = amount;
     if (effect === "heal") {
-      wounds = Math.max(0, wounds - amount);
+      const healed = passiveHeal(target, amount);
+      wounds = Math.max(0, wounds - healed);
       healthEffects.push({
         entityId: target.id,
         side: target.side,
         source: "targetHeal",
-        effect: { type: "heal", amount },
+        effect: { type: "heal", amount: healed },
       });
       // Self 的治疗落在使用者身上。上面已经要求两份伤口一开始相同。
       if (selfTarget && actorWounds !== null) actorWounds = wounds;
     } else {
       // 明确复核的条件伤害先加一次，再减半；Mark 堆数影响 Acc，不倍增 +2。
       // 其他类型修正 / Hard Skinned 缺值仍不加。
-      const beforeProtection =
+      const baseDamage =
         amount +
         (bonus &&
         target.side !== sourceSide &&
@@ -2525,26 +2581,34 @@ function resolveSkill(
           : target.side === "monster" && target.monsterTypeTags?.includes("Unholy"))
           ? bonus.amount
           : 0);
+      const modifiedDamage = Math.max(0, baseDamage - Number(hasQuirk(target, "On Guard")));
+      const beforeProtection =
+        outcome === "crit" && hasQuirk(target, "Hard Skinned")
+          ? halfUp(modifiedDamage)
+          : modifiedDamage;
       const skipProtection = ignoresProtection.targetLines > 0;
       damageDealt =
         target.protection === true && !skipProtection ? halfUp(beforeProtection) : beforeProtection;
       if (damageDealt >= 1) {
-        wounds += damageDealt;
+        const additional = target.side === "hero" ? passiveDamageWounds(target) : [];
+        wounds += damageDealt + additional.reduce((sum, n) => sum + n, 0);
         healthEffects.push({
           entityId: target.id,
           side: target.side,
           source: "attack",
-          effect: { type: "wounds", amounts: [damageDealt] },
+          ...(outcome === "crit" && target.side === "hero" ? { critical: true } : {}),
+          effect: { type: "wounds", amounts: [damageDealt, ...additional] },
         });
         if (target.riposte === true && actorWounds !== null) {
           // 反弹量用 Protection 之前的伤害。攻击者的 Protection / Riposte 不用。
           riposteDamage = halfUp(beforeProtection);
-          actorWounds += riposteDamage;
+          const additional = sourceSide === "hero" ? passiveDamageWounds(combat.actor!) : [];
+          actorWounds += riposteDamage + additional.reduce((sum, n) => sum + n, 0);
           healthEffects.push({
             entityId: combat.actor!.id,
             side: sourceSide,
             source: "riposte",
-            effect: { type: "wounds", amounts: [riposteDamage] },
+            effect: { type: "wounds", amounts: [riposteDamage, ...additional] },
           });
         }
       }
@@ -2553,20 +2617,33 @@ function resolveSkill(
 
   // 目标效果只对命中或暴击的目标生效。落空不改目标压力，也不移除状态。
   if (support && !emptyArea) {
-    wounds = Math.max(0, wounds - support.heal);
-    targetStress = clampStress(targetStress! + support.stress);
+    const healed = passiveHeal(target, support.heal);
+    wounds = Math.max(0, wounds - healed);
+    targetStress = changeStress(
+      target,
+      targetStress!,
+      support.stress,
+      pressureLight,
+      "targetSupport",
+    );
     healthEffects.push({
       entityId: target.id,
       side: target.side,
       source: "targetHeal",
-      effect: { type: "heal", amount: support.heal },
+      effect: { type: "heal", amount: healed },
     });
   }
   if (outcome !== "miss" && stress.target !== 0 && targetStress !== null) {
-    targetStress = clampStress(targetStress + stress.target);
+    targetStress = changeStress(target, targetStress, stress.target, pressureLight, "targetStress");
   }
   if (outcome !== "miss" && extraStress && targetStress !== null) {
-    targetStress = clampStress(targetStress + pressureDelta(extraStress.amount));
+    targetStress = changeStress(
+      target,
+      targetStress,
+      extraStress.amount,
+      pressureLight,
+      "targetExtraStress",
+    );
   }
   const conditionsCleared =
     !emptyArea && outcome !== "miss" && (removal.targetLines > 0 || statuses.targetRemove);
@@ -2574,24 +2651,25 @@ function resolveSkill(
   const targetDead =
     target.side === "monster" && target.life !== undefined && wounds >= target.life;
 
-  if (dealtCrit && actorStress !== null) actorStress = clampStress(actorStress - 1);
+  if (dealtCrit && actorStress !== null) actorStress = changeStress(combat.actor!, actorStress, -1);
   if (dealtCrit && besideActorStress !== null) {
     besideActorStress = besideActorStress.map((hero) => ({
-      id: hero.id,
-      stress: clampStress(hero.stress - 1),
+      ...hero,
+      stress: changeStress(hero, hero.stress, -1),
     }));
   }
   if (targetStress !== null) {
     let delta = 0;
     if (dealtCrit && combat.targetInActorArea === true) delta -= 1;
     // R-002：承受暴击是已确认的压力事件，低光照额外 +1，不递归触发。
-    if (receivedCrit) delta += pressureDelta(1);
-    targetStress = clampStress(targetStress + delta);
+    if (receivedCrit)
+      targetStress = changeStress(target, targetStress, 1, pressureLight, "critTaken");
+    targetStress = changeStress(target, targetStress, delta, pressureLight);
   }
   if (receivedCrit && untargetedBesideTargetStress !== null) {
     untargetedBesideTargetStress = untargetedBesideTargetStress.map((hero) => ({
-      id: hero.id,
-      stress: clampStress(hero.stress + pressureDelta(1)),
+      ...hero,
+      stress: changeStress(hero, hero.stress, 1, pressureLight, "critNearby"),
     }));
   }
   // 使用者就是目标。打出暴击的 −1 已经在 actor 上，不再给「同区域其他英雄」加一次。

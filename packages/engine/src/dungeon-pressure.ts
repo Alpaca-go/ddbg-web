@@ -3,6 +3,8 @@ import { resolvePressure } from "./pressure";
 import { createRng, rollD10 } from "./rng";
 import { completeDungeonBacktrack } from "./dungeon-backtracking";
 import { continueDungeonTrap } from "./dungeon-room";
+import { passiveVirtueThreshold } from "./passive";
+import { triggerDungeonPassive } from "./dungeon-passive";
 
 /** R28：侦察支付压力后恢复；沿英雄数组顺序，完整牌堆与 RNG 游标属于本次地牢。 */
 export function resolveDungeonPressure(state: GameState): ApplyResult {
@@ -60,8 +62,23 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
     }
     if (decision.type !== "needsRoll") return blocked("意志检定状态无效");
     const roll = rollD10(rng);
-    let cursor = d.cursor + 1;
-    decision = resolvePressure(10, false, null, roll);
+    const rollCursor = d.cursor + 1;
+    d = { ...d, cursor: rollCursor };
+    if (roll === 1 || roll === 10) {
+      const passive = triggerDungeonPassive(
+        d,
+        state.seed,
+        [hero.id],
+        roll === 10 ? "rolledTen" : "rolledOne",
+      );
+      if (passive.status === "refused") return blocked(passive.reason);
+      d = passive.dungeon;
+      events.push(...passive.events);
+      for (let i = rollCursor; i < d.cursor; i++) rng.next();
+      if (d.heroes.find((h) => h.id === hero.id)!.dead) continue;
+    }
+    let cursor = d.cursor;
+    decision = resolvePressure(10, false, null, roll, passiveVirtueThreshold(hero));
     if (decision.type !== "draw") return blocked("意志骰结果无效");
     const role = decision.role;
     const existing = d.resolveDecks[role];

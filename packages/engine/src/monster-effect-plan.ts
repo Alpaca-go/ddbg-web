@@ -61,14 +61,13 @@ export function compileMonsterEffectPlan(
       return refuse("怪物效果包含未确认图标（R-048）");
     icons.set(segment.icon.key, segment);
   }
-  if (plan.effects.some((e) => e.type === "disease"))
-    return refuse("疾病完整触发与重复感染怪癖尚未接入（R27–28）");
   const lines: SkillSegment[][] = [];
   const statuses: NonNullable<HeroSkillCardView["verified_status_effects"]>[number][] = [];
   let stress: HeroSkillCardView["verified_target_stress"];
   let bonus: HeroSkillCardView["verified_damage_bonus"];
   let selfLight = 0,
     targetLight = 0;
+  let disease = false;
   const icon = (key: string): SkillSegment => {
     const found = icons.get(key);
     if (!found) throw new Error(`怪物效果缺少原始已确认图标 ${key}`);
@@ -77,6 +76,11 @@ export function compileMonsterEffectPlan(
   const text = (text: string): SkillSegment => ({ type: "text", text });
   try {
     for (const effect of plan.effects) {
+      if (effect.type === "disease") {
+        icon("disease");
+        disease = true;
+        continue;
+      }
       if (effect.type === "light") {
         icon("light");
         if (effect.scope === "self") selfLight += effect.amount;
@@ -118,8 +122,6 @@ export function compileMonsterEffectPlan(
             text(`${effect.direction === "push" ? "Push" : "Pull"} ${effect.distance}`),
           );
           break;
-        case "disease":
-          return refuse("疾病尚未接入");
       }
       lines.push(line);
     }
@@ -143,6 +145,7 @@ export function compileMonsterEffectPlan(
       ...base,
       effect_lines: lines,
       verified_status_effects: statuses,
+      ...(disease ? { verified_target_disease: true as const } : {}),
       ...(stress ? { verified_target_stress: stress } : {}),
       ...(bonus ? { verified_damage_bonus: bonus } : {}),
     },

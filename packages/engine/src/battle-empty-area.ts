@@ -1,5 +1,6 @@
 import { distance, rejectBattleCommand, writeResolution } from "./battle";
 import { applySkillHealth } from "./battle-health";
+import { cancelSkillAfterRoll } from "./battle-passive";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import {
   encounterSkillProblem,
@@ -89,11 +90,18 @@ export function playHeroSkillEmptyArea(
     effects,
     state.seed,
     battle.rngCursor + Number(roll !== null),
+    actor.id,
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
-  const statuses = applyBattleSkillStatuses(battle, health.entities, actor.id, [
-    effects.resolution,
-  ]);
+  if (health.cancelled) return cancelSkillAfterRoll(state, actor.id, health);
+  const statuses = applyBattleSkillStatuses(
+    battle,
+    health.entities,
+    actor.id,
+    [effects.resolution],
+    state.seed,
+    health.rngCursor,
+  );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const event: HeroSkillEmptyAreaResolvedEvent = {
     type: "heroSkillEmptyAreaResolved",
@@ -103,7 +111,7 @@ export function playHeroSkillEmptyArea(
     areaId: area.id,
     roll,
   };
-  const casualtyIds = newlyDefeatedIds(battle, health.entities);
+  const casualtyIds = newlyDefeatedIds(battle, statuses.entities);
   const result: ApplyResult = {
     state: {
       ...state,
@@ -111,12 +119,12 @@ export function playHeroSkillEmptyArea(
         ...battle,
         entities: statuses.entities,
         light: statuses.light,
-        rngCursor: health.rngCursor,
+        rngCursor: statuses.rngCursor,
         shuffleIntents: intent ? [intent] : [],
         shuffleContinuation: intent ? { ...event, casualtyIds } : null,
       },
     },
-    events: [event, ...health.events],
+    events: [event, ...health.events, ...statuses.events],
   };
   return intent ? result : recordEncounterSkill(result, event, casualtyIds);
 }

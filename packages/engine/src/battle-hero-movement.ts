@@ -1,6 +1,8 @@
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
-import { finishTurn } from "./encounter";
+import { finishTurn, removeCasualties, endAfterCasualties, newlyDefeatedIds } from "./encounter";
+import { resolveBattlePressure } from "./pressure";
+import { triggerBattlePassive } from "./battle-passive";
 import { isSmallMonster } from "./battle-small";
 
 export type MoveHeroCommand = {
@@ -77,7 +79,7 @@ export function moveHero(state: GameState, command: MoveHeroCommand): ApplyResul
   const mustMove = occupied + 1 > area.capacity! && !others.some((e) => isSmallMonster(battle, e));
   if (mustMove && turn.actions === 1)
     return rejectBattleCommand(state, "最后行动不能停在无空间区域；小型怪挤占尚未接入（R18、R24）");
-  const next: GameState = {
+  let next: GameState = {
     ...state,
     battle: {
       ...battle,
@@ -87,6 +89,9 @@ export function moveHero(state: GameState, command: MoveHeroCommand): ApplyResul
       encounter: { ...battle.encounter!, turn: { ...turn, actions: turn.actions - 1, mustMove } },
     },
   };
+  const passive = triggerBattlePassive(next.battle!, state.seed, [actor.id], "moveAction");
+  if (passive.status === "refused") return rejectBattleCommand(state, passive.reason);
+  next = { ...next, battle: passive.battle };
   const events: HeroMovedEvent[] = [
     {
       type: "heroMoved",
@@ -98,5 +103,17 @@ export function moveHero(state: GameState, command: MoveHeroCommand): ApplyResul
       message: mustMove ? "消耗移动行动，下一行动必须离开无空间区域" : "消耗移动行动，只改变区域",
     },
   ];
-  return turn.actions === 1 ? finishTurn(next, actor.id, events) : { state: next, events };
+  const pressure = resolveBattlePressure({ state: next, events: [...events, ...passive.events] });
+  if (pressure.events.some((e) => e.type === "commandRefused")) return pressure;
+  const removed = removeCasualties(
+    pressure,
+    newlyDefeatedIds(battle, pressure.state.battle!.entities),
+  );
+  const ended = endAfterCasualties(removed);
+  return (
+    ended ??
+    (turn.actions === 1 || removed.state.battle!.entities.find((e) => e.id === actor.id)!.dead
+      ? finishTurn(removed.state, actor.id, removed.events)
+      : removed)
+  );
 }

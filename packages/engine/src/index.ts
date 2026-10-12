@@ -8,6 +8,8 @@ export type {
   DungeonBattleCatalog,
 } from "./dungeon";
 export { createBattleState } from "./battle";
+export { createConditionPool } from "./conditions";
+export type { ConditionPool } from "./conditions";
 export type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 export type { PlayHeroSkillEmptyAreaCommand } from "./battle-empty-area";
 export type { HeroSkillTargetsResolvedEvent } from "./command";

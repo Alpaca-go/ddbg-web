@@ -5,6 +5,10 @@ const pendingSteps: Record<
   NonNullable<BattleState["pending"]>["type"],
   { readonly label: string; readonly hint: string }
 > = {
+  conditionReplace: {
+    label: "等待怪癖替换选择",
+    hint: "选择一张已有正面怪癖，换上新抽到的负面怪癖。",
+  },
   smallDisplace: {
     label: "等待 Small 挤占选择",
     hint: "选择一只 Small 及其有空间的相邻区域，完成当前英雄回合。",
