@@ -592,7 +592,7 @@ export function DungeonSandbox() {
               .join("；")}
           </p>
           <p className="muted">
-            命令 {commands.length} · 布置 RNG 游标 {d.cursor} · 低光照探索 / 陷阱攻击仍未接线
+            命令 {commands.length} · 布置 RNG 游标 {d.cursor} · 低光照探索仍未接线
           </p>
         </section>
       )}

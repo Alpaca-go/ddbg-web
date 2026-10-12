@@ -3,6 +3,7 @@ import type { StatusEffect } from "./status";
 import { readVerifiedStatusEffects } from "./skill-status";
 import { hasQuirk, passiveDamageWounds, passiveHeal, passiveLevel, passiveStress } from "./passive";
 import type { PassiveHolder } from "./passive";
+import { resolveAttackDamage } from "./attack-damage";
 
 /**
  * 已验证英雄技能对一个已选目标的命中伤害或治疗，以及规则书已经写明的后续步骤。
@@ -2581,14 +2582,15 @@ function resolveSkill(
           : target.side === "monster" && target.monsterTypeTags?.includes("Unholy"))
           ? bonus.amount
           : 0);
-      const modifiedDamage = Math.max(0, baseDamage - Number(hasQuirk(target, "On Guard")));
-      const beforeProtection =
-        outcome === "crit" && hasQuirk(target, "Hard Skinned")
-          ? halfUp(modifiedDamage)
-          : modifiedDamage;
       const skipProtection = ignoresProtection.targetLines > 0;
-      damageDealt =
-        target.protection === true && !skipProtection ? halfUp(beforeProtection) : beforeProtection;
+      const damage = resolveAttackDamage(
+        target,
+        baseDamage,
+        outcome === "crit",
+        target.protection === true && !skipProtection,
+      );
+      const { beforeProtection } = damage;
+      damageDealt = damage.damageDealt;
       if (damageDealt >= 1) {
         const additional = target.side === "hero" ? passiveDamageWounds(target) : [];
         wounds += damageDealt + additional.reduce((sum, n) => sum + n, 0);

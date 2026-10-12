@@ -6,6 +6,7 @@ import { createRng } from "./rng";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { drawDungeonCurio } from "./dungeon-curio";
 import { triggerDungeonPassive } from "./dungeon-passive";
+import { resolveDungeonTrap } from "./dungeon-trap";
 
 const faces = explorationDieSchema.parse(die).faces;
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
@@ -94,7 +95,7 @@ export function continueDungeonExploration(result: ApplyResult): ApplyResult {
   return { ...next, events: [...result.events, ...next.events] };
 }
 
-/** 本切片固定光照 5；未获批准的光照变化、陷阱攻击、Curio 效果不以猜测跳过。 */
+/** 有骰探索目前只开放光照 5；未接线的危险保持停点。 */
 export function applyDungeonExploration(
   state: GameState,
   command:
@@ -204,8 +205,7 @@ export function applyDungeonExploration(
         { id: "suffer", label: "承受 2 压力" },
         { id: "light", label: "光照 −1（待 Kyries 确认）" },
       );
-    if (roll.face === "trap")
-      options.push({ id: "attack", label: "陷阱攻击（缩放 / 光照待 Kyries 确认）" });
+    if (roll.face === "trap") options.push({ id: "attack", label: "陷阱攻击" });
     if (roll.face === "curio") options.push({ id: "draw", label: "不用 Torch，抽 Curio" });
     return finish(
       state,
@@ -224,8 +224,9 @@ export function applyDungeonExploration(
   const roll = rolls.find((r) => d.pending!.id.endsWith(`:${r.id}`) && !r.resolved);
   if (!roll) return refuse(state, "危险结算状态无效");
   if (roll.face === "curio") return drawDungeonCurio(state, roll.id, command.optionId);
-  if (command.optionId === "attack" || command.optionId === "light")
-    return refuse(state, "陷阱缩放 / 光照表仍待 Kyries 确认（R-003、R-002），保持停点");
+  if (command.optionId === "attack") return resolveDungeonTrap(state, roll.id, roll.heroId);
+  if (command.optionId === "light")
+    return refuse(state, "探索骰 Darkness 降光尚未接线，保持停点（R14、R-002）");
   if (command.optionId.startsWith("use:")) {
     const id = command.optionId.slice(4);
     const consumed = d.explorationSetup!.provisions.find((p) => p.id === id)!;
@@ -295,7 +296,12 @@ export function applyDungeonExploration(
   return { ...completed, events: [...passiveEvents, ...completed.events] };
 }
 
-function complete(state: GameState, d: DungeonState, rollId: string, message: string): ApplyResult {
+export function completeDungeonHazard(
+  state: GameState,
+  d: DungeonState,
+  rollId: string,
+  message: string,
+): ApplyResult {
   const dungeon: DungeonState = {
     ...d,
     pending: null,
@@ -314,3 +320,5 @@ function complete(state: GameState, d: DungeonState, rollId: string, message: st
   }
   return continueDungeonExploration(result);
 }
+
+const complete = completeDungeonHazard;
