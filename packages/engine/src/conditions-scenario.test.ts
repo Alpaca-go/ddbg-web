@@ -695,6 +695,162 @@ it("自身 Vertigo 位移会触及意志收尾时保留明确代码停点，不�
     { type: "commandRefused", message: expect.stringContaining("自身位移") },
   ]);
 });
+function emptyVertigo(changes: Partial<BattleEntity> = {}, seed = hitSeed): GameState {
+  const initial = setup("monster_medium:p001", seed);
+  const stat = stats.find((s) => s.name === "HIGHWAYMAN")!;
+  const patched = patch(initial, {
+    hero: stat.name,
+    heroStatId: stat.id,
+    life: stat.life,
+    dodge: stat.dodge,
+    diseaseId: "disease:p007",
+    stress: 8,
+    stance: "support",
+    skillIds: ["hero_skill:p079"],
+    ...changes,
+  });
+  return turn({
+    ...patched,
+    battle: {
+      ...patched.battle!,
+      entities: patched.battle!.entities.map((e) =>
+        e.id === "m" ? { ...e, areaId: "a" } : e.id === "h3" ? { ...e, stance: "aggressive" } : e,
+      ),
+      areas: [
+        { id: "a", adjacent: ["b", "c"], capacity: 8, elevation: "high" },
+        { id: "b", adjacent: ["a", "d"], capacity: 8, elevation: "normal" },
+        { id: "c", adjacent: ["a", "d"], capacity: 8, elevation: "normal" },
+        { id: "d", adjacent: ["b", "c"], capacity: 8, elevation: "normal" },
+      ],
+    },
+  });
+}
+const emptyAdvance = {
+  type: "playHeroSkillEmptyArea",
+  actorId: "h0",
+  skillId: "hero_skill:p079",
+  areaId: "d",
+} as const;
+it("空区域 Vertigo：完成自身分岔后接首次意志检定，自身 Riposte / 技能骰 / 行动只结算一次", () => {
+  for (const [pressureRoll, role] of [
+    [2, "virtue"],
+    [5, "affliction"],
+  ] as const) {
+    const seed = Array.from({ length: 300 }, (_, i) => i).find(
+      (s) => nextBattleRoll(s, 0) === 3 && nextBattleRoll(s, 1) === pressureRoll,
+    )!;
+    const initial = emptyVertigo({}, seed);
+    const snapshot = structuredClone(initial);
+    const used = applyCommand(initial, emptyAdvance);
+    successful(used);
+    expect(used.events[0]).toMatchObject({ type: "heroSkillEmptyAreaResolved", roll: 3 });
+    expect(hero(used.state).statusStacks).toMatchObject([{ kind: "riposte", remaining: 2 }]);
+    const waiting = applyCommand(used.state, { type: "resolveShuffles" });
+    successful(waiting);
+    expect(waiting.pendingChoice!.options.map((o) => o.id)).toEqual(["b", "c"]);
+    expect(hero(waiting.state)).toMatchObject({ areaId: "a", stress: 8 });
+    expect(waiting.state.battle!.rngCursor).toBe(1);
+    expect(waiting.state.battle!.encounter!.turn).toMatchObject({ actions: 2 });
+    expect(applyCommand(waiting.state, { type: "drawInitiative" }).state).toBe(waiting.state);
+    const done = balancedChoice(waiting.state, "b");
+    successful(done);
+    expect(hero(done.state)).toMatchObject({ areaId: "b", stress: 0, resolveTested: true });
+    expect(
+      done.state.battle!.resolveCards!.find((c) => c.id === hero(done.state).resolveCardId)!.role,
+    ).toBe(role);
+    expect(done.events.filter((e) => e.type === "resolveTested")).toMatchObject([
+      { entityId: "h0", roll: pressureRoll },
+    ]);
+    expect(done.events.map((e) => e.type)).toEqual([
+      "shuffleResolved",
+      "passiveTriggered",
+      "resolveTested",
+    ]);
+    expect(done.state.battle!.rngCursor).toBe(6);
+    expect(hero(done.state).statusStacks).toEqual(hero(used.state).statusStacks);
+    expect(done.state.battle!.encounter!.turn).toMatchObject({
+      actions: 1,
+      usedSkillIds: ["hero_skill:p079"],
+    });
+    expect(done.state.battle!.entities.find((e) => e.id === "m")).toEqual(
+      initial.battle!.entities.find((e) => e.id === "m"),
+    );
+    expect(balancedChoice(waiting.state, "b")).toEqual(done);
+    expect(applyCommand(done.state, { type: "resolveShuffles" }).state).toBe(done.state);
+    expect(initial).toEqual(snapshot);
+  }
+});
+it("空区域 Vertigo：已有意志卡时心脏病只补位一次，不掷第二次意志骰或伤害目标", () => {
+  const initial = emptyVertigo({ resolveTested: true, resolveCardId: "virtue_affliction:p001" });
+  const used = applyCommand(initial, emptyAdvance);
+  successful(used);
+  const waiting = applyCommand(used.state, { type: "resolveShuffles" });
+  const done = balancedChoice(waiting.state, "c");
+  successful(done);
+  expect(hero(done.state)).toMatchObject({ areaId: "c", stress: 10, dead: true, wounds: 0 });
+  expect(done.state.battle!.rngCursor).toBe(used.state.battle!.rngCursor);
+  expect(done.events.filter((e) => e.type === "heartAttack")).toHaveLength(1);
+  expect(done.events.filter((e) => e.type === "resolveTested")).toHaveLength(0);
+  expect(done.events.filter((e) => e.type === "casualtyRemoved")).toHaveLength(1);
+  expect(done.events.filter((e) => e.type === "turnEnded")).toHaveLength(1);
+  expect(done.state.battle!.encounter!.turn.type).toBe("awaitingInitiative");
+  expect(
+    done.state.battle!.entities.filter((e) => e.side === "hero" && !e.dead).map((e) => e.stance),
+  ).toEqual(["defensive", "ranged", "aggressive"]);
+});
+it("空区域 Vertigo 与 Balanced：少移到零时不增加压力、不检定意志，仍完成一次技能使用", () => {
+  const initial = emptyVertigo({ quirkIds: ["quirk:p014"] });
+  const used = applyCommand(initial, emptyAdvance);
+  successful(used);
+  const waiting = applyCommand(used.state, { type: "resolveShuffles" });
+  expect(waiting.state.battle!.pending?.type).toBe("shuffleReduction");
+  const done = balancedChoice(waiting.state, "reduce");
+  successful(done);
+  expect(hero(done.state)).toMatchObject({ areaId: "a", stance: "support", stress: 8 });
+  expect(hero(done.state).resolveCardId).toBeUndefined();
+  expect(done.state.battle!.rngCursor).toBe(used.state.battle!.rngCursor);
+  expect(done.state.battle!.encounter!.turn).toMatchObject({
+    actions: 1,
+    usedSkillIds: ["hero_skill:p079"],
+  });
+  expect(
+    done.events.filter((e) => e.type === "resolveTested" || e.type === "heartAttack"),
+  ).toHaveLength(0);
+});
+it("空区域 Vertigo 意志资料不足时保留位移待选；补齐资料后续接不重掷技能骰", () => {
+  const used = applyCommand(emptyVertigo(), emptyAdvance);
+  successful(used);
+  const waiting = applyCommand(used.state, { type: "resolveShuffles" });
+  const missing: GameState = {
+    ...waiting.state,
+    battle: {
+      ...waiting.state.battle!,
+      resolveCards: waiting.state.battle!.resolveCards!.slice(1),
+    },
+  };
+  const refused = balancedChoice(missing, "b");
+  expect(refused.state).toBe(missing);
+  expect(refused.events).toMatchObject([
+    { type: "commandRefused", message: expect.stringContaining("意志检定") },
+  ]);
+  expect(hero(refused.state)).toMatchObject({ areaId: "a", stress: 8 });
+  expect(refused.state.battle!.rngCursor).toBe(1);
+  const restored: GameState = {
+    ...refused.state,
+    battle: { ...refused.state.battle!, resolveCards: waiting.state.battle!.resolveCards! },
+  };
+  expect(balancedChoice(restored, "b")).toEqual(balancedChoice(waiting.state, "b"));
+});
+it("空区域仍拒绝 Vertigo 同次追加伤口达到 10 的组合，不因没有目标绕过原停点", () => {
+  for (const quirkIds of [["quirk:p035"], ["quirk:p028", "quirk:p035"]]) {
+    const initial = emptyVertigo({ quirkIds });
+    const refused = applyCommand(initial, emptyAdvance);
+    expect(refused.state).toBe(initial);
+    expect(refused.events).toMatchObject([
+      { type: "commandRefused", message: expect.stringContaining("自身位移") },
+    ]);
+  }
+});
 it("Q-67：暴击叠加 Off Guard / Weak Grip / Nervous 停场；普通命中只触发一次 Off Guard 压力", () => {
   const criticalSeed = Array.from({ length: 200 }, (_, i) => i).find(
     (s) => nextBattleRoll(s, 0) === 1,

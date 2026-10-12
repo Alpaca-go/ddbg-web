@@ -1,8 +1,49 @@
 # Codex 接线交接（2026-10-09）
 
+## 当前接手入口与漏记补齐（2026-10-12，UTC+8）
+
+本节补齐 `da054da` / #117 与 `7f8323d` / #118 未同步到总交接的记录，并更新 #115 / #116 的合并状态。接手以本节为准，后文旧的“草稿 / 未合并 / 沿原分支继续”为当轮历史状态。
+
+| 主题                                           | 代码提交与 PR                                                                           | 当前状态                                                                          |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| 守卫房间战斗、获批怪物字段与英雄防御、疾病目录 | `77983d1`、`773875b`、`a9eeff6`；[#115](https://github.com/Alpaca-go/ddbg-web/pull/115) | 已合并到 main `c50226b`                                                           |
+| 疾病与负面怪癖运行时                           | [#116](https://github.com/Alpaca-go/ddbg-web/pull/116)                                  | 已合并到 main `4c891bf`；范围见[运行时交付](phase3-disease-runtime-2026-10-12.md) |
+| Balanced 可选减位移                            | `da054da`；[#117](https://github.com/Alpaca-go/ddbg-web/pull/117)                       | 用户授权、PR CI 通过后已合并到 main `3407f38`                                     |
+| 空区域 Vertigo 位移压力收尾                    | `7f8323d`；[#118](https://github.com/Alpaca-go/ddbg-web/pull/118)                       | 开放草稿、尚未合并；代码 head 的质量与 Playwright 两项 CI 均成功                  |
+
+已重新 fetch 核对：远端与本地 main 均为 `3407f38`；本地当前检出 `codex/phase3-empty-area-vertigo`，代码提交为 `7f8323d`，此次文档补记在同分支追加并随 #118 提交。原有未跟踪文件 `docs/_q52-search.txt` 保留且不提交。#118 是当前待审入口，不再从 #115 或 #116 的旧开发分支继续。
+
+### 补记一：Balanced 可选减位移（#117）
+
+- 来源：规格书 §6.7（官方 R21、R27）、R-020 / R-021；已查看 R27 完整页面。只读取完整怪癖目录的具名 `quirk:p014`，没有改词典或批准其他卡面图标。
+- `shuffle.ts` 的当前意图保存 `balancedChosen`；`battle-shuffle.ts` / `command.ts` 接入 `shuffleReduction` PendingChoice，由持有者选择保持距离或少移 1，区域与姿态共用减少后的距离。中文提示由 `apps/web/src/battle-step.ts` 呈现，通用待选界面复用已有选项。
+- 选择期间冻结其他操作；后续区域分岔不重复减距、不重掷技能骰，不重新施加伤口 / 状态或扣行动。减到零时不触发 Vertigo，技能中的其他位移意图仍须完成后再收尾。
+- 五项新增场景覆盖真实 Point Blank Shot 的零位移、保持距离后分岔、Vertigo 一次触发、行动 / RNG / 回放、满员截断、原子拒绝，以及派生怪物多目标位移的独立持有者选择和一次回合结束。多步距离与派生 Push 行是明确测试布置，没有写入真实卡牌。
+- 本地 Node 24.21.0 / pnpm 12.9.1：typecheck、lint、73 文件 / 700 项测试、build、`git diff --check` 与六条 Playwright 冒烟通过；#117 的 PR CI 两项成功后按用户“合并，然后继续推进下一步”指令合并，本地 main 已 ff-only 同步。
+
+完整范围和限制见 [Balanced 位移选择](phase3-balanced-shuffle-2026-10-12.md)。这次合并不代表 Phase 3 完成，也没有新增正面怪癖抽牌入口。
+
+### 补记二：空区域 Vertigo 位移压力收尾（#118）
+
+- 从 #117 合并后的 main `3407f38` 新建 `codex/phase3-empty-area-vertigo`。来源：官方 R19 的空区域目标规则、R21 的自身位移、R28 的 Vertigo / 意志 / 心脏病；规格书 §6.7、§8，R-020 / R-025 / R-031。已对照 R21 / R28 完整页面。
+- `battle-empty-area.ts` 向 `applySkillHealth` 显式传入空区域上下文；`battle-health.ts` 只在正式英雄回合、空目标投影、没有自身生命效果或压力追加伤口时开放原拒绝门。实际位移完成后复用 `applyBattleShuffles` → `recordEncounterSkill` → 既有压力 / 死亡 / 行动收尾，没有另建意志骰或死亡实现。
+- 分岔待选时压力与意志 RNG 保持不动；选择完成后首次达到 10 抽美德 / 苦难并压力归零，已有意志卡则心脏病死亡、一次补位和回合结束。Balanced 减到零时不付 Vertigo 压力。缺少完整意志资料时当前续接命令原子拒绝，补齐后沿原技能骰继续。
+- 五项新增场景用真实 Duelist’s Advance I、HIGHWAYMAN I 与完整疾病 / 怪癖 / 意志目录覆盖美德和苦难、心脏病、Balanced 零位移、缺资料修复续接及 Vertigo + Soft / Nervous 拒绝。四区域分岔是显式引擎测试布置；既有真实目标 Vertigo 停点回归保留。
+- 本地 Node 24.21.0 / pnpm 12.9.1：typecheck、lint、73 文件 / 705 项测试、build、`git diff --check` 和六条 Playwright 冒烟通过。首轮并行检查时原有 Room Tile 生成一致性测试超过默认 5 秒；单独重跑全套后 705 项通过，未修改测试超时。`7f8323d` 的 PR CI 质量与 Playwright 两项也均成功。
+
+完整范围见 [空区域 Vertigo 收尾](phase3-empty-area-vertigo-2026-10-12.md)。当前尚无专用网页测试布置入口；复现与回归入口为 `packages/engine/src/conditions-scenario.test.ts` 中“空区域 Vertigo”系列场景，网页沿用现有战斗界面。不能把测试布置写成完整任务默认开局。
+
+### 保留边界、环境与下一块
+
+- Phase 2 按批准范围验收通过；Phase 3 尚未完成，仍缺其余遗迹板块、全量可结算 Curio、长走廊 / 起点边界、Dark / Objective 房间、休息、自由撤离、任务目标 / 奖励 / XP，以及至少三张核心任务卡的完整验收。Phase 4–6 仍未完成。
+- #118 只开放空区域纯压力路径；真实目标攻击 / 反击、自身生命效果或追加伤口涉及压力 10 时仍保留停点。光照被动与暴击压力恢复的复合顺序也未开放。
+- Q-66 / Q-67 / Q-68 是 Kyries 明确保持待定的组合，继续停场；Q-52、Q-59–64 及其他未批准数据边界以 `rulings.md` 为准，不从这两个切片推定已裁定。
+- 默认 PATH 的 Node 是 24.20.0；本轮两切片用忽略缓存 `node_modules/.cache/node24/node.exe`（24.21.0）及 pnpm 12.9.1。六条本地冒烟使用 `node_modules/.cache/playwright/phase2-final.config.mjs` 指定已有 Chromium 1234；默认配置所需 Chromium 1243 本机尚未安装。正式配置不变，CI 使用仓库指定环境。构建保留约 1.71 MB 主包和 Vite 配置提示。
+- 下一块先审阅 #118，合并后再同步 main、从新基线继续；接续候选是已明确规则的复合事件小切片，或下一张遗迹 Room Tile 核对准备。未获批板块只准备核对表，不猜几何、出生或交互含义，不因这些局部闭环跳到 Phase 4。
+
 ## 最新交接：疾病与负面怪癖运行时（2026-10-12，UTC+8）
 
-#115 已合并为 main `c50226b`；下文“#115 草稿 / 未合并”为历史状态。本轮在 `codex/phase3-disease-runtime` 接线，尚未合并，范围见[疾病运行时接线](phase3-disease-runtime-2026-10-12.md)。
+#115 已合并为 main `c50226b`；本轮 `codex/phase3-disease-runtime` 也已通过 #116 合并为 main `4c891bf`。本节保留当轮实现与验证记录；后续 Balanced / 空区域 Vertigo 和当前分支状态以本文顶部补记为准。范围见[疾病运行时接线](phase3-disease-runtime-2026-10-12.md)。
 
 - 已接入完整 11 张疾病 / 35 张怪癖目录的有限实体池、真实 Maggot 感染、重复感染、负面抽牌、正面替换 PendingChoice 与第四张负面永久死亡；目录 / 持牌 / 余牌 / 弃牌保持守恒，不过滤未知卡面图标。
 - 实际命令触发伤害 / 反击、治疗、压力、状态施加、Food、移动、位移完成、意志骰、光照与探索；同次追加伤口按 R-026 合并死门，Bad Gambler 先于技能效果，状态与牌池随战斗回传。

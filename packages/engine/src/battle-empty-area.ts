@@ -91,6 +91,7 @@ export function playHeroSkillEmptyArea(
     state.seed,
     battle.rngCursor + Number(roll !== null),
     actor.id,
+    "emptyArea",
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
   if (health.cancelled) return cancelSkillAfterRoll(state, actor.id, health);
