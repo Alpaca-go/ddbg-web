@@ -34,6 +34,7 @@ const CONFIDENCE = /^(?:high|medium-high|medium|low-medium|low)(?: .+)?$/;
 const confidenceSchema = z.string().regex(CONFIDENCE).nullable();
 
 const iconSourceSchema = z.enum([
+  "kyries_review_2026-10-12",
   "kyries_review_2026-10-11",
   "kyries_review_2026-10-06",
   "kyries_approved_proposal_2026-10-07",
@@ -132,7 +133,7 @@ export function iconKeyConventionIssues(icon: {
 export const iconEntrySchema = z
   .strictObject({
     iconId: iconIdSchema,
-    rank: z.int().min(1).max(976),
+    rank: z.int().min(1).max(983),
     card_occurrences: z.int().nonnegative(),
     occurrences: z.int().nonnegative(),
     status: iconStatusSchema,
@@ -301,7 +302,7 @@ export const iconDictionarySchema = z
         issue: z.string().min(1),
       }),
     ),
-    icons: z.array(iconEntrySchema).length(976),
+    icons: z.array(iconEntrySchema).length(983),
   })
   .superRefine((file, ctx) => {
     const ids = new Set<string>();
