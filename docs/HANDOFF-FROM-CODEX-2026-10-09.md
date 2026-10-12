@@ -2,7 +2,7 @@
 
 ## 最新交接：Dark 房间与地图 Torch（2026-10-12，UTC+8）
 
-用户要求“合并，然后继续推进下一步”：#118 最新 head `a641f45` 的质量与 Playwright 两项 CI 均成功，草稿转为待审后按本次授权合并为 main `1e701a7`，本地 main 已 ff-only 同步。当前主题分支 `codex/phase3-dark-room`，本切片未合并；下方 #118 尚未合并的叙述为此前历史补记。
+用户要求“合并，然后继续推进下一步”：#118 最新 head `a641f45` 的质量与 Playwright 两项 CI 均成功，草稿转为待审后按本次授权合并为 main `1e701a7`，本地 main 已 ff-only 同步。当前主题分支 `codex/phase3-dark-room`，代码提交 `6a817ec`，对应开放草稿 [PR #119](https://github.com/Alpaca-go/ddbg-web/pull/119)，尚未合并；本次 PR 入口补记随同分支追加。下方 #118 尚未合并的叙述为此前历史补记。
 
 - 官方 R12 / R15 完整页面核对后，接通 Dark 每次进入光照 −1、保留代币，以及导航就绪时消费真实 Torch 提升光照 +1。`dungeon-light.ts` 复用全队光照被动、压力、生命与 RNG；无实际变化不触发被动。`roomResolution.kind=dark` 与 `pressureSource=provision` 分别续接房间和补给收尾，避免重扣或误走侦察 / Trap 分配。
 - 中文地牢沙盒增加 Dark 布置与操作；八项新增场景验证重复进房、Torch、边界、被动、意志、恢复及拒绝。typecheck、lint、74 文件 / 713 项测试、build、`git diff --check` 与六条本地冒烟通过，并检查 Dark 完整截图。第二条 Phase 3 冒烟扩展 Dark → Torch → 往返，仍维持三条 Phase 3 / 六条总冒烟。选路前保留 Torch 窗口的补充后，全量测试和其他质量检查、六条冒烟再次通过。范围见 [Dark 房间交付](phase3-dark-room-2026-10-12.md)。

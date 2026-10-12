@@ -1,6 +1,6 @@
 # Phase 3：Dark 房间与地图 Torch
 
-基于已合并 #118 的 main `1e701a7`，分支 `codex/phase3-dark-room`；本切片未合并，Phase 3 尚未完成。
+基于已合并 #118 的 main `1e701a7`，分支 `codex/phase3-dark-room`；代码 `6a817ec`、开放草稿 [PR #119](https://github.com/Alpaca-go/ddbg-web/pull/119)，本切片未合并，Phase 3 尚未完成。PR 创建后的接续入口已同步两份总交接。
 
 ## 范围与依据
 
