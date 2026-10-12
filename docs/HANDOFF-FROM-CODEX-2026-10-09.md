@@ -2,6 +2,8 @@
 
 ## 最新交接：verify-queue 优先与 Fountain VQ-06 草稿（2026-10-12，UTC+8）
 
+草稿提交 `41bbacf`，开放草稿 [PR #124](https://github.com/Alpaca-go/ddbg-web/pull/124)，以尚未合并的 #123 主题分支为 base；不是 main 已交付。仅文档，Prettier / diff 检查及 raw 页码、定位 hash、已印 Heal 3 引用核对通过；未重跑引擎 / 浏览器测试。创建 PR 后本入口补记随同主题提交。
+
 Kyries 本轮要求严格按 `AGENTS.md` / `rulings.md` 和本顶部，以 `docs/kyries-verify-queue-2026-10-12.md` 的 VQ 目视批准为后续入库 / 接线依据。读取时 VQ-01～05 仍全部为待确认，没有 Torture 的新批准；已通过异步问题请求现有审核结果，同时准备不依赖批准的 VQ-06。不得把本轮指令视为全队列批准。用户提供的队列文件与两份 `_q52-search*.txt` 保留在本地，不随本主题提交。
 
 当前分支 `codex/phase3-fountain-verify-draft`，基于 #123 分支 `5d92d24`；本轮只交付[Healing Fountain VQ-06 草稿](phase3-healing-fountain-review-2026-10-12.md)与索引 / 交接更新。已查看 FRONT p2 的完整页和配套 room:p003 完整卡，逐项记录十区容量、十条通行邻接、四个角点候选、黑墙、四英雄 / 四怪物部署、未见宝箱，以及绿色星形 / Heal 图标与明确印刷数字 3。已核相应词典状态，不命名未确认 hash、不补 duration、不写生产几何 / 部署，不增加 usable；完整图与缓存仍不提交。
