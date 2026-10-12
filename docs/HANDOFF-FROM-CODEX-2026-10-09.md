@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：步骤 2 补给奖励与板块逐面核对（2026-10-12，UTC+8）
+
+实现 `750b7f9`，开放草稿 [PR #123](https://github.com/Alpaca-go/ddbg-web/pull/123)，以 #122 主题分支为 base；尚未合并。创建 PR 后入口补记随同主题提交，后续核对最新 head 两项 CI，不把本地验证称为 PR CI 通过。
+
+当前分支 `codex/phase3-curio-provisions`，基于 `124bbb3`，包含尚未合并的 #122；未将本主题称为 main 已交付。用户本轮再次确认 Q-60 全部 17 个 hash，核对与 R-064 一致，未重复修改词典。用户明确步骤 2 同时包含板块容量 / 邻接 / 出生 / 交互逐面审核与 Curio 图标 / 效果接线，不以代码复用替代数据核实。
+
+- Curio `rollProvision` 新接共享种子骰、Wild PendingChoice 与一次奖励提交；抽前 Torch、完整资料及未满补给池时可完成 14 张，新增 03 / 08 / 15 / 20。其余十张仍被正面怪癖 / 饰品接口挡住；Q-62 / Q-68 等未裁定组合保留。具体列表与验证见[补给奖励交付](phase3-curio-provisions-2026-10-12.md)。
+- 已查看核心盒印刷两份 TILES 的 28 面联系表与第 2 页正反完整页；遗迹 2 / Torture Chamber 实际在 BACK p2，FRONT p2 是遗迹 3 / Healing Fountain。完成 Torture Chamber 八区容量、邻接、出生和交互的待批准表；没有把新板块设为 usable。完整索引与审核草稿见[板块逐面核对](phase3-tile-face-review-2026-10-12.md)。
+- typecheck、lint、744 项测试、build 与六条冒烟通过；已看补给完成截图。板块生产可用仍 1 / 28 面，步骤 2 及 Phase 3 未完成。下一块继续怪癖 / 饰品完整奖励接口，以及 Torture Chamber 表获批后的独立入库与 Unholy Aura 治疗边界，随后逐面推进其他遗迹板块。不跳 Phase 4；原 `docs/_q52-search.txt` 保留不提交。
+
 ## 最新交接：Q-60 全图标批准与 Curio 覆盖（2026-10-12，UTC+8）
 
 实现 `4788477`，对应开放草稿 [PR #122](https://github.com/Alpaca-go/ddbg-web/pull/122)，尚未合并。创建 PR 后入口补记与本主题一并提交；后续合并前须核对最新 head 的质量与 Playwright 两项 CI。

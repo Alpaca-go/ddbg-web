@@ -27,6 +27,7 @@ import type { PassiveHero } from "./passive-runtime";
 import { triggerDungeonPassive } from "./dungeon-passive";
 
 export type DungeonCurioDraw = {
+  readonly provisionFace?: ProvisionFace | "wild";
   readonly diseasesApplied?: number;
   readonly cardId: string;
   readonly heroId: string;

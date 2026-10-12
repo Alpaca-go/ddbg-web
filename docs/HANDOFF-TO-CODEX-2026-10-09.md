@@ -1,5 +1,7 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-12 步骤 2 续接：当前分支 `codex/phase3-curio-provisions` 基于 #122 的 `124bbb3`，新接 Curio 补给骰 / Wild；Torch 路径由十张增至十四张，仍有十张怪癖 / 饰品停点。已准备核心盒 28 面索引及 Torture Chamber BACK p2 的逐项审核草稿，未批准新几何。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)、[补给交付](phase3-curio-provisions-2026-10-12.md)与[逐面审核](phase3-tile-face-review-2026-10-12.md)。步骤 2 / Phase 3 未完成，#122 仍未合并。
+
 > 本轮 PR 入口：Q-60 实现 `4788477`，开放草稿 [PR #122](https://github.com/Alpaca-go/ddbg-web/pull/122)，尚未合并；后续核对最新 head 的两项 CI，不把本地验证写成 PR CI 通过。
 
 > 2026-10-12 最新入口：步骤 2 的 Q-60 批次在 `codex/phase3-q60-curio-icons`，基于 main `5714846`，尚未合并。Kyries 批准 17 个 hash / 01–24 效果行（R-064），词典 JSON / CSV 与全部 Curio 效果数据已同步；抽前 Torch 下十张可结算，其他十四张是奖励运行时代码依赖，已非 Q-60 图标停点。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[完整交付](phase3-q60-curio-icons-2026-10-12.md)。步骤 2 仍欠奖励接口和板块覆盖，Phase 3 未验收。

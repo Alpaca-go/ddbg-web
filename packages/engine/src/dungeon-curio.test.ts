@@ -9,6 +9,7 @@ import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import type { DungeonBattleCatalog } from "./dungeon";
 import { normalizedHeroStatFileSchema } from "../../data/src/normalize/hero-stat";
+import { nextProvisionFace, PROVISION_FACES } from "./loot";
 
 const cards = curioFileSchema.parse(rawCurios).cards;
 const approvedStats = normalizedHeroStatFileSchema
@@ -74,11 +75,13 @@ function protectedPage(page: number) {
   };
   return choose(ordered, "use:p4").state;
 }
-it("R-064 全池逐卡：抽前 Torch 后十张可完成，其余明确接口停点且不漏发正面奖励", () => {
+it("R-064 全池逐卡：抽前 Torch 后十四张可完成，其余明确接口停点且不漏发正面奖励", () => {
   const completed: number[] = [];
   for (let page = 1; page <= 24; page++) {
-    const drawn = protectedPage(page),
-      result = applyCommand(drawn, { type: "resolveDungeonCurio" });
+    const drawn = protectedPage(page);
+    let result = applyCommand(drawn, { type: "resolveDungeonCurio" });
+    const awardsProvision = [3, 8, 15, 20].includes(page);
+    if (result.pendingChoice) result = choose(result.state, "food");
     const d = result.state.dungeon!;
     if (!d.curio!.active) {
       completed.push(page);
@@ -93,10 +96,10 @@ it("R-064 全池逐卡：抽前 Torch 后十张可完成，其余明确接口停
       expect(d.heroes).toEqual(drawn.dungeon!.heroes);
       expect(d.exploration!.rolls![0]!.resolved).toBe(false);
     }
-    expect(d.cursor).toBe(drawn.dungeon!.cursor);
-    expect(d.explorationSetup!.provisions).toEqual(drawn.dungeon!.explorationSetup!.provisions);
+    expect(d.cursor).toBe(drawn.dungeon!.cursor + Number(awardsProvision));
+    expect(d.explorationSetup!.provisions).toHaveLength(5 + Number(awardsProvision));
   }
-  expect(completed).toEqual([1, 2, 4, 9, 13, 14, 17, 19, 21, 23]);
+  expect(completed).toEqual([1, 2, 3, 4, 8, 9, 13, 14, 15, 17, 19, 20, 21, 23]);
 });
 it("Torch 不抑制 p2 的 Buff 2t；持有真实英雄防御时施加一次，缺资料时整卡不支付", () => {
   const drawn = protectedPage(2);
@@ -111,6 +114,118 @@ it("Torch 不抑制 p2 的 Buff 2t；持有真实英雄防御时施加一次，�
   expect(blocked.dungeon!.curio!.active!.blockedReason).toContain("抗性 / 免疫");
   expect(blocked.dungeon!.heroes).toEqual(missing.dungeon!.heroes);
   expect(blocked.dungeon!.cursor).toBe(missing.dungeon!.cursor);
+});
+
+it("Curio 补给六面沿共享 RNG；Wild 待选冻结命令，不提前付金币，选择后只提交一次", () => {
+  for (const face of [...PROVISION_FACES, "wild" as const]) {
+    const original = protectedPage(8);
+    const seed = Array.from({ length: 100 }, (_, i) => i).find(
+      (seed) => nextProvisionFace(seed, original.dungeon!.cursor) === face,
+    )!;
+    const initial = { ...original, seed };
+    const before = structuredClone(initial);
+    let result = applyCommand(initial, { type: "resolveDungeonCurio" });
+    expect(result.events).toContainEqual(
+      expect.objectContaining({ type: "provisionRolled", face }),
+    );
+    expect(result.state.dungeon!.cursor).toBe(initial.dungeon!.cursor + 1);
+    if (face === "wild") {
+      const waiting = result.state;
+      const choiceId = waiting.dungeon!.pending!.id;
+      expect(result.pendingChoice?.actorId).toBe("h0");
+      expect(result.pendingChoice?.options.map((o) => o.id)).toEqual(PROVISION_FACES);
+      expect(waiting.dungeon!.gold).toBe(0);
+      expect(waiting.dungeon!.curio!.discard).toEqual([]);
+      expect(waiting.dungeon!.explorationSetup!.provisions).toHaveLength(5);
+      for (const command of [
+        { type: "resolveDungeonCurio" },
+        { type: "ping" },
+        { type: "useProvision", actorId: "h0", tokenId: "p5" },
+        { type: "resolveChoice", choiceId: "stale", optionId: "food" },
+        { type: "resolveChoice", choiceId, optionId: "wild" },
+      ] as Command[]) {
+        expect(applyCommand(waiting, command).state).toBe(waiting);
+      }
+      result = choose(waiting, "tool");
+      expect(result.events.some((e) => e.type === "provisionRolled")).toBe(false);
+      expect(applyCommand(waiting, { type: "resolveChoice", choiceId, optionId: "tool" })).toEqual(
+        result,
+      );
+      expect(
+        applyCommand(result.state, { type: "resolveChoice", choiceId, optionId: "tool" }).state,
+      ).toBe(result.state);
+    }
+    const d = result.state.dungeon!;
+    expect(initial).toEqual(before);
+    expect(d.cursor).toBe(initial.dungeon!.cursor + 1);
+    expect(d.gold).toBe(10);
+    expect(d.curio!.discard).toEqual(["curio:p008"]);
+    expect(d.exploration!.rolls![0]!.resolved).toBe(true);
+    expect(d.explorationSetup!.provisions.at(-1)).toEqual({
+      id: "curio-provision:curio:p008:h0:1",
+      face: face === "wild" ? "tool" : face,
+    });
+    expect(applyCommand(result.state, { type: "resolveDungeonCurio" }).state).toBe(result.state);
+  }
+});
+
+it("补给上限与损坏实例在掷骰前挡住整卡；修复后原牌续接，到 16 颗不溢出", () => {
+  const original = protectedPage(8);
+  const pool = (length: number) =>
+    Array.from({ length }, (_, i) => ({ id: `full:${i}`, face: "food" as const }));
+  for (const provisions of [pool(16), pool(17), [pool(1)[0]!, pool(1)[0]!]]) {
+    const initial = {
+      ...original,
+      dungeon: {
+        ...original.dungeon!,
+        explorationSetup: { ...original.dungeon!.explorationSetup!, provisions },
+      },
+    };
+    const result = applyCommand(initial, { type: "resolveDungeonCurio" });
+    expect(result.state.dungeon!.curio!.active!.blockedReason).toContain("补给池");
+    expect(result.state.dungeon!.cursor).toBe(initial.dungeon!.cursor);
+    expect(result.state.dungeon!.gold).toBe(0);
+    expect(result.state.dungeon!.curio!.discard).toEqual([]);
+    expect(result.events.some((e) => e.type === "provisionRolled")).toBe(false);
+    const repaired = {
+      ...result.state,
+      dungeon: {
+        ...result.state.dungeon!,
+        explorationSetup: { ...initial.dungeon.explorationSetup, provisions: pool(15) },
+      },
+    };
+    let done = applyCommand(repaired, { type: "resolveDungeonCurio" });
+    if (done.pendingChoice) done = choose(done.state, "food");
+    expect(done.state.dungeon!.explorationSetup!.provisions).toHaveLength(16);
+    expect(done.state.dungeon!.gold).toBe(10);
+    expect(done.state.dungeon!.cursor).toBe(original.dungeon!.cursor + 1);
+  }
+});
+
+it("新增补给接口不绕过正面怪癖或未用 Torch 的负面怪癖停点", () => {
+  for (const page of [10, 16, 20]) {
+    const drawn = protectedPage(page);
+    const initial =
+      page === 20
+        ? {
+            ...drawn,
+            dungeon: {
+              ...drawn.dungeon!,
+              curio: {
+                ...drawn.dungeon!.curio!,
+                active: { ...drawn.dungeon!.curio!.active!, protected: false },
+              },
+            },
+          }
+        : drawn;
+    const result = applyCommand(initial, { type: "resolveDungeonCurio" });
+    expect(result.state.dungeon!.curio!.active!.blockedReason).toContain("drawQuirk");
+    expect(result.state.dungeon!.gold).toBe(0);
+    expect(result.state.dungeon!.cursor).toBe(initial.dungeon!.cursor);
+    expect(result.state.dungeon!.explorationSetup!.provisions).toEqual(
+      initial.dungeon!.explorationSetup!.provisions,
+    );
+  }
 });
 
 it("真实种子 1237：全 24 张洗牌，Torch 在揭示前消费；Sarcophagus 只保留金币，随后八骰 → Empty；回放不变", () => {
