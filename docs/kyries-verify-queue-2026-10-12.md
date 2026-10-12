@@ -24,6 +24,8 @@ UTC+8。本文件供 Kyries 粘贴给 Codex 作为 **next-dev 接手入口**。
 - [Healing Fountain VQ-06 草稿](phase3-healing-fountain-review-2026-10-12.md) — FRONT p2 / room:p003，未批准
 - [Spiked Pit VQ-13 草稿](phase3-spiked-pit-review-2026-10-13.md) — BACK p3 / room:p004，未批准；触发图标仍未知
 - [Beacon of Light VQ-14 草稿](phase3-beacon-of-light-review-2026-10-13.md) — FRONT p3 / room:p005，未批准
+- [Treasure Chamber VQ-15 草稿](phase3-treasure-chamber-review-2026-10-13.md) — BACK p4 / room:p006，未批准
+- [Tomb of Ancestor VQ-16 草稿](phase3-tomb-of-ancestor-review-2026-10-13.md) — FRONT p4 / room:p007，未批准
 - [QuestMap 全套标注](phase3-scout-pressure-maps-2026-10-11.md) — p1–14 布局草稿
 - [Ritual Chamber 几何](ruins-room-tile-review-2026-10-10.md) / R-054、R-055（已批，仅作对照模板）
 - 总交接：`HANDOFF-FROM-CODEX-2026-10-09.md` 顶部；`AGENTS.md` + `rulings.md` 为准
@@ -54,13 +56,20 @@ Kyries 对 VQ-06 的回传为“尚未审核，先继续准备其他板块”。
 | VQ-07 | **QuestMap 八槽图布局读数**（FRONT p1–10、p13–14）：房间槽数、起点 S、连接段、灰点 X/Y 段数与边列表                                                                                                                    | `02_DD_CARDS_COREBOX/DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf`（及 BACK 概览）p1–10/13–14 | 表已录入 `dungeon_layouts.json`，标注仍 **pending**                       | Kyries 确认后把对应页从 pending 升为获批布局；引擎沙盒可改引用获批图；**不**借此裁定 Q-59 / Q-63                   |
 | VQ-08 | **QuestMap p11 十六槽 + 特殊槽外观**：槽 A–P、边清单、特殊图案槽 A/B/G、红点 X 的**外观与位置**（`semantic=null`）                                                                                                     | QuestMap FRONT **p11**（BACK 红边）                                                          | 已观察入库为 unresolved / null；仅预览                                    | 确认外观记录无误后仍可保持 null 直至另有裁定；若只批布局不含特殊语义，引擎继续拒绝含未解释标记的开局（R-048）      |
 | VQ-09 | **QuestMap p12 十六槽 + 特殊槽外观**：特殊图案槽 A/C/D 外观与边清单                                                                                                                                                    | QuestMap FRONT **p12**                                                                       | 同上                                                                      | 同 VQ-08：布局可批、特殊语义不猜                                                                                   |
-| VQ-10 | **TILES 28 面身份索引**：PDF 页 ≠ 印刷房间号；FRONT/BACK 非同一布局；遗迹与最暗地牢各 1–12；现可用几何仍 **1/28**（Ritual Chamber FRONT）                                                                              | `DD_COREBOX_TILES_FRONT.pdf` + `BACK.pdf` 各 14 页联系表                                     | 联系表已生成；Ritual 已可用，Torture 已入库；Fountain / 遗迹4/5草稿待审核 | 每面单独草稿→目视→入库；禁止邻页 / 空余编号猜身份；Boss 面留对应阶段                                               |
-| VQ-11 | **后续遗迹 / 最暗地牢 Room Tile 几何与部署**（FRONT/BACK 其余面）：容量圆点、邻接、高低地、金框/红框、宝箱、星形外观                                                                                                   | 各 TILES 页 + 配套 rooms 卡                                                                  | Fountain / 遗迹4/5草稿已准备，其余待逐面核对                              | 按 VQ-01–05 模板逐面推进；`geometryVerified` 与部署分列批准；整面 `usable` 须部署/特殊也齐                         |
+| VQ-10 | **TILES 28 面身份索引**：PDF 页 ≠ 印刷房间号；FRONT/BACK 非同一布局；遗迹与最暗地牢各 1–12；现可用几何仍 **1/28**（Ritual Chamber FRONT）                                                                              | `DD_COREBOX_TILES_FRONT.pdf` + `BACK.pdf` 各 14 页联系表                                     | 联系表已生成；Ritual 已可用，Torture 已入库；Fountain / 遗迹4–7草稿待审核 | 每面单独草稿→目视→入库；禁止邻页 / 空余编号猜身份；Boss 面留对应阶段                                               |
+| VQ-11 | **后续遗迹 / 最暗地牢 Room Tile 几何与部署**（FRONT/BACK 其余面）：容量圆点、邻接、高低地、金框/红框、宝箱、星形外观                                                                                                   | 各 TILES 页 + 配套 rooms 卡                                                                  | Fountain / 遗迹4–7草稿已准备，其余待逐面核对                              | 按 VQ-01–05 模板逐面推进；`geometryVerified` 与部署分列批准；整面 `usable` 须部署/特殊也齐                         |
 | VQ-12 | **图标 / 数字清点（印刷明示项）**：容纳圆点个数、卡面已印 Nt / 面值、部署框个数；仅核对印刷上**看得见**的数                                                                                                            | 当前核对面的 TILES / rooms / 相关卡 PDF                                                      | 随各 VQ 面进行                                                            | 写入获批表；**缺印或 null 不补默认**（R-048）；不把词典 `value=null` 填成猜测                                      |
 
 ---
 
 ## 状态约定
+
+2026-10-13 续接：#130 审核草稿PR按用户授权合并，不代表草稿数据已批准。继续新增两面材料，实际可用仍1/28；Fountain、VQ-13/14和Torture运行时排除项保持。
+
+| id    | item                                                                                                        | print source                                | status                                   | next Codex action after Kyries confirms                                                 |
+| ----- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ---------------------------------------- | --------------------------------------------------------------------------------------- |
+| VQ-15 | Treasure Chamber（遗迹6）：九区容量、九条通行候选、折形轮廓、四英雄 / 四怪物、一宝箱、A/B绿星及动作交互文字 | TILES BACK p4 + rooms FRONT p6 / room:p006  | 独立草稿已准备；移除全部的目标图标仍未知 | 按明确批准项独立入库；不按Hide and Heal名称补未知图标，特殊交互与复合规则未就绪仍不可用 |
+| VQ-16 | Tomb of Ancestor（遗迹7）：九区容量、九条通行 / 四个角点候选、部署、两宝箱、绿星与六项免疫 / 移除卡文       | TILES FRONT p4 + rooms FRONT p7 / room:p007 | 独立草稿已准备；六项免疫中两项图标仍未知 | 按明确批准项独立入库；不只执行已确认四项而开放整卡，不补standing here触发顺序           |
 
 新增两面审核项（与上表使用相同状态约定）：
 
