@@ -7,6 +7,7 @@ import {
   conditionPoolProblem,
   createConditionPool,
   gainDisease,
+  gainPositiveQuirk,
   replaceConditionQuirk,
 } from "./conditions";
 import type { ConditionHero, ConditionPool } from "./conditions";
@@ -27,6 +28,41 @@ const holder: PassiveHero = {
   stress: 0,
   dead: false,
 };
+
+it("R26 正面堆完整 17 张、有限抽取与同种子回放；三负面自动弃新卡", () => {
+  const p = conditionPool(),
+    heroes = [holder],
+    before = structuredClone(p);
+  const first = gainPositiveQuirk(p, heroes, holder.id, 11, 7);
+  if (first.status !== "resolved") throw new Error(first.reason);
+  expect(first.cursor).toBe(23);
+  expect(first.pool.positiveDeck).toHaveLength(16);
+  expect(first.heroes[0]!.quirkIds).toEqual([first.quirkId]);
+  expect(conditionPoolProblem(first.pool, first.heroes)).toBeNull();
+  expect(gainPositiveQuirk(p, heroes, holder.id, 11, 7)).toEqual(first);
+  expect(p).toEqual(before);
+  const second = gainPositiveQuirk(first.pool, first.heroes, holder.id, 11, first.cursor);
+  if (second.status !== "resolved") throw new Error(second.reason);
+  expect(second.cursor).toBe(first.cursor);
+  expect(second.quirkId).not.toBe(first.quirkId);
+  expect(conditionPoolProblem(second.pool, second.heroes)).toBeNull();
+  const full = gainPositiveQuirk(
+    p,
+    [{ ...holder, quirkIds: ["quirk:p018", "quirk:p019", "quirk:p020"] }],
+    holder.id,
+    11,
+    7,
+  );
+  if (full.status !== "resolved") throw new Error(full.reason);
+  expect(full.heroes[0]!.dead).toBe(false);
+  expect(full.heroes[0]!.quirkIds).toEqual(["quirk:p018", "quirk:p019", "quirk:p020"]);
+  expect(full.pool.quirkDiscard).toEqual([full.quirkId]);
+  expect(full.replaceOptions).toBeUndefined();
+  expect(conditionPoolProblem(full.pool, full.heroes)).toBeNull();
+  expect(
+    gainPositiveQuirk({ ...p, positiveDeck: ["quirk:p018"] }, heroes, holder.id, 11, 7).status,
+  ).toBe("refused");
+});
 function deckFor(
   heroes: readonly ConditionHero[],
   diseaseFirst = "disease:p002",
