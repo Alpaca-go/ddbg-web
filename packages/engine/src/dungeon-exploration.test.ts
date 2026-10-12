@@ -214,16 +214,16 @@ describe("单走廊 → Empty（R14–R15、R-012、R-013、R-026、R-048）", (
     expect(atDoor.dungeon!.heroes[0]!.dead).toBe(true);
     expect(atDoor.dungeon).toMatchObject({ position: "G", phase: "awaitingReplacement" });
   });
-  it.each(["trap", "darkness", "curio"] as const)(
+  it.each(["trap", "curio"] as const)(
     "%s 未接线选项不消费骰 / 补给、不移动、不能伪装完成",
     (face) => {
       const s = choose(scene(face), "hero-0:1").state;
-      const id = face === "trap" ? "attack" : face === "darkness" ? "light" : "draw";
+      const id = face === "trap" ? "attack" : "draw";
       expect(choose(s, id).state).toBe(s);
       if (face === "curio") expect(choose(s, "use:p4").state).toBe(s);
     },
   );
-  it("缺 Life、重复姿态、未知补给或非 5 光照在掷骰前拒绝，输入和游标不变", () => {
+  it("缺 Life、重复姿态、未知补给或非法光照在掷骰前拒绝，输入和游标不变", () => {
     const initial = route(setup());
     const d = initial.dungeon!;
     const bad = [
@@ -243,7 +243,10 @@ describe("单走廊 → Empty（R14–R15、R-012、R-013、R-026、R-048）", (
           provisions: [{ id: "p", face: "wild" as "tool" }],
         },
       },
-      { ...d, explorationSetup: { ...d.explorationSetup!, light: 4 as 5 } },
+      ...[-1, 6, 2.5, NaN].map((light) => ({
+        ...d,
+        explorationSetup: { ...d.explorationSetup!, light },
+      })),
     ];
     for (const dungeon of bad) {
       const s = { ...initial, dungeon };

@@ -7,6 +7,7 @@ import { resolveDungeonPressure } from "./dungeon-pressure";
 import { drawDungeonCurio } from "./dungeon-curio";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import { resolveDungeonTrap } from "./dungeon-trap";
+import { changeDungeonLight } from "./dungeon-light";
 
 const faces = explorationDieSchema.parse(die).faces;
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
@@ -95,7 +96,7 @@ export function continueDungeonExploration(result: ApplyResult): ApplyResult {
   return { ...next, events: [...result.events, ...next.events] };
 }
 
-/** 有骰探索目前只开放光照 5；未接线的危险保持停点。 */
+/** R14 / R-002：所有合法光照下按当前骰面结算，未裁定组合保持停点。 */
 export function applyDungeonExploration(
   state: GameState,
   command:
@@ -114,7 +115,9 @@ export function applyDungeonExploration(
         !Number.isInteger(config.dungeonLevel) ||
         config.dungeonLevel < 1 ||
         config.dungeonLevel > 3 ||
-        config.light !== 5 ||
+        !Number.isInteger(config.light) ||
+        config.light < 0 ||
+        config.light > 5 ||
         config.provisions.length > 16 ||
         new Set(config.provisions.map((p) => p.id)).size !== config.provisions.length ||
         config.provisions.some((p) => !p.id || !["food", "torch", "tool"].includes(p.face)) ||
@@ -134,10 +137,7 @@ export function applyDungeonExploration(
             h.wounds! > h.life!,
         ))
     )
-      return refuse(
-        state,
-        "需要已核实 HL / Life / 伤口、唯一姿态、DL 与补给；本切片仅开放光照 5（R-048）",
-      );
+      return refuse(state, "需要已核实 HL / Life / 伤口、唯一姿态、DL、光照 0–5 与补给（R-048）");
     const rng = createRng(state.seed);
     for (let i = 0; i < d.cursor; i++) rng.next();
     const heroes = [...d.heroes].sort(
@@ -201,10 +201,7 @@ export function applyDungeonExploration(
     if (roll.face === "hunger") options.push({ id: "suffer", label: "承受 2 × HL 伤口" });
     if (roll.face === "rubble") options.push({ id: "suffer", label: "承受 DL 伤口和 1 压力" });
     if (roll.face === "darkness")
-      options.push(
-        { id: "suffer", label: "承受 2 压力" },
-        { id: "light", label: "光照 −1（待 Kyries 确认）" },
-      );
+      options.push({ id: "suffer", label: "承受 2 压力" }, { id: "light", label: "光照 −1" });
     if (roll.face === "trap") options.push({ id: "attack", label: "陷阱攻击" });
     if (roll.face === "curio") options.push({ id: "draw", label: "不用 Torch，抽 Curio" });
     return finish(
@@ -225,8 +222,18 @@ export function applyDungeonExploration(
   if (!roll) return refuse(state, "危险结算状态无效");
   if (roll.face === "curio") return drawDungeonCurio(state, roll.id, command.optionId);
   if (command.optionId === "attack") return resolveDungeonTrap(state, roll.id, roll.heroId);
-  if (command.optionId === "light")
-    return refuse(state, "探索骰 Darkness 降光尚未接线，保持停点（R14、R-002）");
+  if (command.optionId === "light") {
+    const changed = changeDungeonLight(state, Math.max(0, d.explorationSetup!.light - 1));
+    const rejected = changed.events.find((event) => event.type === "commandRefused");
+    if (rejected) return refuse(state, rejected.message);
+    const completed = complete(
+      state,
+      changed.state.dungeon!,
+      roll.id,
+      `${roll.heroId} Stressful Darkness：选择光照 −1，不承受基础 2 压力（R14）`,
+    );
+    return { ...completed, events: [...changed.events, ...completed.events] };
+  }
   if (command.optionId.startsWith("use:")) {
     const id = command.optionId.slice(4);
     const consumed = d.explorationSetup!.provisions.find((p) => p.id === id)!;
@@ -279,7 +286,8 @@ export function applyDungeonExploration(
     if (passive.status === "refused") return refuse(state, passive.reason);
     changed = passive.dungeon;
     passiveEvents.push(...passive.events);
-    if (stress) message += `、${stress} 压力（固定光照 5）`;
+    if (stress)
+      message += `、基础 ${stress} 压力（光照 ${d.explorationSetup!.light}，按 R-002 修正）`;
   }
   if (roll.face === "rubble" || roll.face === "hunger") {
     const passive = triggerDungeonPassive(

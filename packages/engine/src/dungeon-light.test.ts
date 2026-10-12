@@ -117,7 +117,7 @@ it.each([1, 3])("Dark DL%d 每次进入只降光 1，保留代币、不掷骰；
   expect(first.dungeon!.rooms.find((r) => r.id === "D")!.cleared).toBeUndefined();
   expect(first.dungeon!.gold).toBe(0);
   expect(applyCommand(first, room).state).toBe(first);
-  expect(applyCommand(first, { type: "beginDungeonExploration" }).state).toBe(first);
+  expect(applyCommand(first, { type: "beginDungeonExploration" }).pendingChoice).toBeDefined();
   const outside = back(first, "G");
   const restored = ok(applyCommand(outside, torch));
   expect(restored.dungeon!.explorationSetup!.light).toBe(5);
