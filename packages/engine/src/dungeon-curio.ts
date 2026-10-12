@@ -137,7 +137,11 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
   if (d.phase !== "awaitingCurio" || !c || !active) return refuse(state, "当前没有待结算的 Curio");
   if (d.pending) return refuse(state, "请先完成 Curio 待选决定");
   const block = (reason: string) =>
-    finish(state, { ...d, curio: { ...c, active: { ...active, blockedReason: reason } } }, reason);
+    finish(
+      state,
+      { ...d, curio: { ...d.curio!, active: { ...d.curio!.active!, blockedReason: reason } } },
+      reason,
+    );
   if (!curioCatalogSchema.safeParse(c.cards).success)
     return block("Curio 完整资料无效（R-048），保持已抽卡");
   const held = [...(c.deck ?? []), ...c.discard, active.cardId];
@@ -179,10 +183,22 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
       effects.findIndex((e) => e.type === "drawQuirk") <
         effects.findIndex((e) => e.type === "rollProvision"));
   const singleTrinket = effects.length === 1 && effects[0]?.type === "drawTrinket";
+  // R-064 已核实的正面组合；按卡面行序续接，每个待选保存已完成行。
+  const compositeReward =
+    active.protected &&
+    effects.length > 1 &&
+    effects.filter((e) => e.type === "drawTrinket").length === 1 &&
+    effects.every(
+      (e) =>
+        e.type === "drawTrinket" ||
+        e.type === "gold" ||
+        (e.type === "status" && e.kind === "buff") ||
+        (e.type === "drawQuirk" && e.polarity === "positive"),
+    );
   const unsupportedReward = effects.find(
     (e) =>
-      (e.type === "drawQuirk" && !eligiblePositiveQuirk) ||
-      (e.type === "drawTrinket" && !singleTrinket),
+      (e.type === "drawQuirk" && !eligiblePositiveQuirk && !compositeReward) ||
+      (e.type === "drawTrinket" && !singleTrinket && !compositeReward),
   );
   if (unsupportedReward)
     return block(
@@ -223,6 +239,89 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
     if (effect.type === "gold") gold += effect.amount;
   }
   if (!Number.isSafeInteger(gold)) return block("金币超出安全范围");
+  const compositeEvents: import("./command").GameEvent[] = [];
+  if (compositeReward) {
+    // 在第一项奖励前预检全部依赖，缺池或耗尽时不先发半张卡。
+    if (!d.trinkets || d.explorationSetup?.dungeonLevel !== d.trinkets.level)
+      return block("复合奖励需要完整同等级饰品牌堆（R35、R-048），保持已完成行");
+    const problem = trinketPoolProblem(d.trinkets, d.heroes);
+    if (problem) return block(problem);
+    if (!active.trinketApplied) {
+      const preview = drawTrinket(d.trinkets, d.heroes, hero.id, state.seed, d.cursor);
+      if (preview.status === "refused") return block(preview.reason);
+    }
+    if (effects.some((e) => e.type === "drawQuirk") && !active.positiveQuirkApplied) {
+      if (!d.conditions) return block("复合奖励需要完整怪癖资料（R26、R-048），保持已完成行");
+      const preview = gainPositiveQuirk(d.conditions, d.heroes, hero.id, state.seed, d.cursor);
+      if (preview.status === "refused") return block(preview.reason);
+    }
+    if (d.trinkets.incoming) return awaitTrinket({ ...state, dungeon: d });
+    for (let index = active.positiveRewardCursor ?? 0; index < effects.length; index++) {
+      const effect = effects[index]!;
+      let replacement: { quirkId: string; options: readonly string[] } | undefined;
+      if (effect.type === "drawTrinket") {
+        const drawn = drawTrinket(d.trinkets!, d.heroes, hero.id, state.seed, d.cursor);
+        if (drawn.status === "refused") return block(drawn.reason);
+        d = { ...d, trinkets: drawn.pool, cursor: drawn.cursor };
+      } else if (effect.type === "drawQuirk") {
+        const acquired = gainPositiveQuirk(d.conditions!, d.heroes, hero.id, state.seed, d.cursor);
+        if (acquired.status === "refused") return block(acquired.reason);
+        d = { ...d, heroes: acquired.heroes, conditions: acquired.pool, cursor: acquired.cursor };
+        if (acquired.replaceOptions)
+          replacement = { quirkId: acquired.quirkId, options: acquired.replaceOptions };
+        compositeEvents.push({
+          type: "dungeonUpdated",
+          message: `${hero.id} Curio 抽到正面怪癖：${acquired.pool.quirks.find((q) => q.id === acquired.quirkId)!.name}（R26）`,
+        });
+      } else if (effect.type === "status") {
+        const holder = d.heroes.find((h) => h.id === hero.id)!;
+        const buff = applyPassiveStatus(
+          holder,
+          { kind: "buff", duration: effect.duration },
+          "target",
+          readHeroPassiveDefence(d.battleCatalog!, holder),
+        );
+        if (buff.status === "refused") return block(buff.reason);
+        d = { ...d, heroes: d.heroes.map((h) => (h.id === hero.id ? buff.hero : h)) };
+        compositeEvents.push({
+          type: "dungeonUpdated",
+          message: `${hero.id} Curio：Buff ${effect.duration}t（R21）`,
+        });
+      }
+      d = {
+        ...d,
+        curio: {
+          ...d.curio!,
+          active: {
+            ...d.curio!.active!,
+            positiveRewardCursor: index + 1,
+            ...(effect.type === "drawTrinket" ? { trinketApplied: true } : {}),
+            ...(effect.type === "drawQuirk" ? { positiveQuirkApplied: true } : {}),
+          },
+        },
+      };
+      if (effect.type === "drawTrinket") {
+        const waiting = awaitTrinket({ ...state, dungeon: d });
+        return { ...waiting, events: [...compositeEvents, ...waiting.events] };
+      }
+      if (replacement) {
+        const choice = {
+          id: `dungeon-condition:${d.decision}:${hero.id}`,
+          actorId: hero.id,
+          prompt: "第四个怪癖为正面：弃掉新卡，或替换一个已有正面怪癖",
+          options: replacement.options.map((id) => ({
+            id,
+            label: `${id === replacement.quirkId ? "弃掉新卡" : "替换"}：${d.conditions!.quirks.find((q) => q.id === id)!.name}`,
+          })),
+        };
+        return {
+          state: { ...state, dungeon: { ...d, decision: d.decision + 1, pending: choice } },
+          events: compositeEvents,
+          pendingChoice: choice,
+        };
+      }
+    }
+  }
   if (singleTrinket) {
     if (!d.trinkets) return block("饰品奖励需要完整当前战役等级牌堆，整卡尚未提交（R35、R-048）");
     if (d.explorationSetup?.dungeonLevel !== d.trinkets.level)
@@ -363,7 +462,7 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
   d = paid.dungeon;
   passiveEvents.push(...paid.events);
   for (const effect of effects) {
-    if (effect.type !== "status" || effect.kind !== "buff") continue;
+    if (compositeReward || effect.type !== "status" || effect.kind !== "buff") continue;
     const holder = d.heroes.find((h) => h.id === hero.id)!;
     const buff = applyPassiveStatus(
       holder,
@@ -416,7 +515,10 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
       `${card.name} 已结算：${active.protected ? "Torch 忽略负面；" : ""}金币 +${gold - d.gold}；弃牌并续接剩余探索骰`,
     ),
   );
-  return { ...continued, events: [...passiveEvents, ...provisionEvents, ...continued.events] };
+  return {
+    ...continued,
+    events: [...compositeEvents, ...passiveEvents, ...provisionEvents, ...continued.events],
+  };
 }
 
 /** R12 / R18：Wild 的决定沿用已掷骰，整卡奖励在选择完成后提交一次。 */

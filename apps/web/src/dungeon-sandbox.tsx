@@ -43,6 +43,7 @@ type Fixture =
   | "curioPositive"
   | "curioRewards"
   | "curioTrinket"
+  | "curioComposite"
   | "trap"
   | "dark"
   | "roomApproved"
@@ -106,21 +107,23 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
           ? 11
           : fixture === "roomBlocked"
             ? 12
-            : fixture === "curioTrinket"
-              ? 921
-              : fixture === "curioRewards"
-                ? 317
-                : fixture === "curioPositive"
-                  ? 85
-                  : fixture === "curioProvision"
-                    ? 370
-                    : fixture === "curioBuff"
-                      ? 343
-                      : fixture === "curio"
-                        ? 1237
-                        : fixture === "corridor"
-                          ? 31
-                          : 1,
+            : fixture === "curioComposite"
+              ? 230
+              : fixture === "curioTrinket"
+                ? 921
+                : fixture === "curioRewards"
+                  ? 317
+                  : fixture === "curioPositive"
+                    ? 85
+                    : fixture === "curioProvision"
+                      ? 370
+                      : fixture === "curioBuff"
+                        ? 343
+                        : fixture === "curio"
+                          ? 1237
+                          : fixture === "corridor"
+                            ? 31
+                            : 1,
     layout,
     distribution,
     mode,
@@ -158,7 +161,8 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
     fixture === "curioProvision" ||
     fixture === "curioPositive" ||
     fixture === "curioRewards" ||
-    fixture === "curioTrinket"
+    fixture === "curioTrinket" ||
+    fixture === "curioComposite"
       ? {
           ...initial,
           dungeon: {
@@ -303,6 +307,7 @@ export function DungeonSandbox() {
             <option value="curioPositive">Curio 正面怪癖（标准 p1、种子 85、先用 Torch）</option>
             <option value="curioRewards">Curio 怪癖与补给（标准 p1、种子 317、先用 Torch）</option>
             <option value="curioTrinket">Curio 饰品获得（标准 p1、种子 921、先用 Torch）</option>
+            <option value="curioComposite">Curio 复合奖励（标准 p1、种子 230、先用 Torch）</option>
             <option value="trap">Trap 房间（p1、种子 1、DL 3、hero-0 压力 8）</option>
             <option value="dark">Dark 房间与 Torch（p1、种子 1，固定房间代币）</option>
             <option value="roomApproved">

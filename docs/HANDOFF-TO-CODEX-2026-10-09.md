@@ -1,5 +1,7 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-13 最新入口：#128 最新 head 两项 CI 成功后已按用户授权合并为 main `d0bfadb`，本地 ff-only 同步。当前 `codex/phase3-curio-composite-rewards` 接通 Torch 后余下 05 / 07 / 24 的正面复合，获得选择覆盖 24 / 24；本主题尚未合并。未知饰品装备、Torture / Fountain、VQ 与未决 Q 边界不改，Phase 3 未完成。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](phase3-curio-composite-rewards-2026-10-13.md)。
+
 > 2026-10-13 最新入口：#127 最新 head 两项 CI 成功后已按用户授权合并为 main `ff9c557`，本地已 ff-only 同步。当前 `codex/phase3-curio-trinket-acquisition` 新接单一饰品获得的 12 / 18 / 22：完整等级牌堆、携带容量、转交 / 弃牌待选；未知卡不装备，可明确弃新卡或保留复核停点。使用 / 翻面仍留 Phase 4，Torture / Fountain 和 Q 边界不改。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](phase3-curio-trinket-acquisition-2026-10-12.md)。
 
 > 2026-10-12 最新入口：#122～125 已依用户本次“合并”授权、最新 head 两项 CI 成功后顺序合并，main 为 `b7a4cbe`；本地已 ff-only 同步。当前 `codex/phase3-curio-positive-quirk` 新接单一正面怪癖奖励，Torch 后 06 / 11 新增可完成，合计 16 / 24 张；未合并。Torture 的 Unholy Aura 仍仅候选、不接运行时、usable=false；Fountain 待 VQ 批准，Q 裁定不改。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)和[本轮交付](phase3-curio-positive-quirk-2026-10-12.md)。下方旧未合并状态为历史记录。
