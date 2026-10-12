@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { applyCommand, createDungeonSandbox } from "@ddbg/engine";
+import { applyCommand, createDungeonSandbox, createTrinketPool } from "@ddbg/engine";
 import type { Command, GameEvent, GameState, DungeonState } from "@ddbg/engine";
 import rawLayouts from "../../../packages/data/normalized/corebox/dungeon_layouts.json";
 import { dungeonLayoutFileSchema } from "../../../packages/data/src/dungeon-layout";
@@ -13,6 +13,8 @@ import rawMonsterPool from "../../../packages/data/normalized/corebox/monster_po
 import { monsterPoolFileSchema } from "../../../packages/data/src/monster-pool";
 import { approvedRoomTileGeometry } from "../../../packages/data/src/normalize/room-tile";
 import rawCurios from "../../../packages/data/normalized/corebox/curio.json";
+import rawTrinkets from "../../../packages/data/normalized/corebox/trinket.json";
+import { normalizedTrinketFileSchema } from "../../../packages/data/src/normalize/schema";
 import { curioFileSchema, isNegativeCurioEffect } from "../../../packages/data/src/curio";
 import type { CurioEffect } from "../../../packages/data/src/curio";
 
@@ -40,6 +42,7 @@ type Fixture =
   | "curioProvision"
   | "curioPositive"
   | "curioRewards"
+  | "curioTrinket"
   | "trap"
   | "dark"
   | "roomApproved"
@@ -103,19 +106,21 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
           ? 11
           : fixture === "roomBlocked"
             ? 12
-            : fixture === "curioRewards"
-              ? 317
-              : fixture === "curioPositive"
-                ? 85
-                : fixture === "curioProvision"
-                  ? 370
-                  : fixture === "curioBuff"
-                    ? 343
-                    : fixture === "curio"
-                      ? 1237
-                      : fixture === "corridor"
-                        ? 31
-                        : 1,
+            : fixture === "curioTrinket"
+              ? 921
+              : fixture === "curioRewards"
+                ? 317
+                : fixture === "curioPositive"
+                  ? 85
+                  : fixture === "curioProvision"
+                    ? 370
+                    : fixture === "curioBuff"
+                      ? 343
+                      : fixture === "curio"
+                        ? 1237
+                        : fixture === "corridor"
+                          ? 31
+                          : 1,
     layout,
     distribution,
     mode,
@@ -137,7 +142,13 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
     curios,
     roomFileSchema.parse(rawRooms).cards,
     monsterPoolFileSchema.parse(rawMonsterPool).cards,
-    battleData,
+    {
+      ...battleData,
+      trinkets: createTrinketPool(
+        normalizedTrinketFileSchema.parse(rawTrinkets).cards,
+        fixture === "trap" ? 3 : 1,
+      ),
+    },
   );
   // 此布置以已清理的起始房间演示真实走廊往返，不模拟该房间的战斗或奖励。
   const game =
@@ -146,7 +157,8 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
     fixture === "curioBuff" ||
     fixture === "curioProvision" ||
     fixture === "curioPositive" ||
-    fixture === "curioRewards"
+    fixture === "curioRewards" ||
+    fixture === "curioTrinket"
       ? {
           ...initial,
           dungeon: {
@@ -290,6 +302,7 @@ export function DungeonSandbox() {
             <option value="curioProvision">Curio 补给 Wild（标准 p1、种子 370、先用 Torch）</option>
             <option value="curioPositive">Curio 正面怪癖（标准 p1、种子 85、先用 Torch）</option>
             <option value="curioRewards">Curio 怪癖与补给（标准 p1、种子 317、先用 Torch）</option>
+            <option value="curioTrinket">Curio 饰品获得（标准 p1、种子 921、先用 Torch）</option>
             <option value="trap">Trap 房间（p1、种子 1、DL 3、hero-0 压力 8）</option>
             <option value="dark">Dark 房间与 Torch（p1、种子 1，固定房间代币）</option>
             <option value="roomApproved">
@@ -395,6 +408,15 @@ export function DungeonSandbox() {
                   `${h.id} · 疾病：${d.conditions?.diseases.find((c) => c.id === h.diseaseId)?.name ?? "无"} · 怪癖：${h.quirkIds?.map((id) => d.conditions?.quirks.find((q) => q.id === id)?.name ?? id).join("、") || "无"}`,
               )
               .join("；") || "疾病 / 怪癖：无"}
+          </p>
+          <p data-testid="dungeon-trinkets">
+            携带饰品：
+            {d.trinkets?.held
+              .map(
+                (h) =>
+                  `${h.heroId} · ${d.trinkets!.cards.find((c) => c.id === h.cardId)!.name}（${h.face === "upright" ? "正面" : "反面"}）`,
+              )
+              .join("；") || "无"}
           </p>
           <button onClick={() => reset("standard")}>重置标准模式</button>{" "}
           <button onClick={() => reset("radiant")}>重置 Radiant</button>{" "}

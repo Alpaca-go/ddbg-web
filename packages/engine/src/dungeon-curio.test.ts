@@ -15,6 +15,9 @@ import quirks from "../../data/normalized/corebox/quirk.json";
 import { diseaseFileSchema } from "../../data/src/disease";
 import { normalizedQuirkFileSchema } from "../../data/src/normalize/schema";
 import { createConditionPool, conditionPoolProblem } from "./conditions";
+import trinkets from "../../data/normalized/corebox/trinket.json";
+import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
+import { createTrinketPool, trinketPoolProblem } from "./trinket-acquisition";
 
 const cards = curioFileSchema.parse(rawCurios).cards;
 const approvedStats = normalizedHeroStatFileSchema
@@ -76,6 +79,7 @@ function protectedPage(page: number) {
         diseaseFileSchema.parse(diseases).cards,
         normalizedQuirkFileSchema.parse(quirks).cards,
       ),
+      trinkets: createTrinketPool(normalizedTrinketFileSchema.parse(trinkets).cards, 1),
       curio: {
         ...d.curio!,
         deck: [id, ...cards.map((c) => c.id).filter((cardId) => cardId !== id)],
@@ -84,13 +88,17 @@ function protectedPage(page: number) {
   };
   return choose(ordered, "use:p4").state;
 }
-it("R-064 全池逐卡：抽前 Torch 后十八张可完成，其余明确接口停点且不漏发正面奖励", () => {
+it("R-064 全池逐卡：Torch 后二十一张可完成，饰品明确选弃新卡；其余整卡停点", () => {
   const completed: number[] = [];
   for (let page = 1; page <= 24; page++) {
     const drawn = protectedPage(page);
     let result = applyCommand(drawn, { type: "resolveDungeonCurio" });
     const awardsProvision = [3, 8, 10, 15, 16, 20].includes(page);
-    if (result.pendingChoice) result = choose(result.state, "food");
+    if (result.pendingChoice)
+      result = choose(
+        result.state,
+        result.pendingChoice.id.startsWith("dungeon-trinket:") ? "discard-new" : "food",
+      );
     const d = result.state.dungeon!;
     if (!d.curio!.active) {
       completed.push(page);
@@ -106,11 +114,77 @@ it("R-064 全池逐卡：抽前 Torch 后十八张可完成，其余明确接口
       expect(d.exploration!.rolls![0]!.resolved).toBe(false);
     }
     expect(d.cursor).toBe(
-      drawn.dungeon!.cursor + Number(awardsProvision) + ([6, 10, 11, 16].includes(page) ? 16 : 0),
+      drawn.dungeon!.cursor +
+        Number(awardsProvision) +
+        ([6, 10, 11, 16].includes(page) ? 16 : 0) +
+        ([12, 18, 22].includes(page) ? 13 : 0),
     );
     expect(d.explorationSetup!.provisions).toHaveLength(5 + Number(awardsProvision));
   }
-  expect(completed).toEqual([1, 2, 3, 4, 6, 8, 9, 10, 11, 13, 14, 15, 16, 17, 19, 20, 21, 23]);
+  expect(completed).toEqual([
+    1, 2, 3, 4, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+  ]);
+});
+
+it("Curio 单一饰品：冻住其他命令，转交旧件后装备新卡，一次弃牌不重洗", () => {
+  const drawn = protectedPage(12),
+    d = drawn.dungeon!,
+    pool = d.trinkets!;
+  const initial = {
+    ...drawn,
+    dungeon: {
+      ...d,
+      trinkets: {
+        ...pool,
+        held: [{ cardId: "trinket:p001", heroId: "h0", face: "inverted" as const }],
+        deck: [
+          "trinket:p006",
+          ...pool.cards
+            .map((c) => c.id)
+            .filter((id) => !["trinket:p001", "trinket:p006"].includes(id)),
+        ],
+      },
+    },
+  };
+  const before = structuredClone(initial);
+  const first = applyCommand(initial, { type: "resolveDungeonCurio" });
+  expect(first.pendingChoice?.actorId).toBe("h0");
+  expect(first.state.dungeon!.cursor).toBe(d.cursor);
+  expect(first.state.dungeon!.curio!.discard).toEqual([]);
+  expect(applyCommand(first.state, { type: "resolveDungeonCurio" }).state).toBe(first.state);
+  expect(choose(first.state, "equip:h0").state).toBe(first.state);
+  const moved = choose(first.state, "transfer:trinket:p001:h1");
+  expect(moved.state.dungeon!.trinkets!.held[0]).toMatchObject({ heroId: "h1", face: "inverted" });
+  expect(moved.pendingChoice!.id).not.toBe(first.pendingChoice!.id);
+  const done = choose(moved.state, "equip:h0");
+  expect(done.state.dungeon!.trinkets!.held).toContainEqual({
+    cardId: "trinket:p006",
+    heroId: "h0",
+    face: "upright",
+  });
+  expect(done.state.dungeon!.curio!.discard).toEqual(["curio:p012"]);
+  expect(done.state.dungeon!.cursor).toBe(d.cursor);
+  expect(trinketPoolProblem(done.state.dungeon!.trinkets!, done.state.dungeon!.heroes)).toBeNull();
+  expect(applyCommand(done.state, { type: "resolveDungeonCurio" }).state).toBe(done.state);
+  expect(choose(moved.state, "equip:h0")).toEqual(done);
+  expect(initial).toEqual(before);
+});
+
+it("R35 饰品池等级与普通地牢不符时保持原 Curio / RNG，不误抽其他等级", () => {
+  const drawn = protectedPage(12),
+    d = drawn.dungeon!;
+  const initial = {
+    ...drawn,
+    dungeon: {
+      ...d,
+      trinkets: createTrinketPool(normalizedTrinketFileSchema.parse(trinkets).cards, 2),
+    },
+  };
+  const blocked = applyCommand(initial, { type: "resolveDungeonCurio" });
+  expect(blocked.state.dungeon!.curio!.active!.blockedReason).toContain("等级不一致");
+  expect(blocked.state.dungeon!.cursor).toBe(d.cursor);
+  expect(blocked.state.dungeon!.trinkets).toEqual(initial.dungeon.trinkets);
+  expect(blocked.state.dungeon!.curio!.discard).toEqual([]);
 });
 
 it("真实 p6 / p11 正面怪癖只洗一次；第四张选择冻结、弃新卡或替换正面均一次续接", () => {

@@ -25,8 +25,10 @@ import type { LootState, ProvisionFace } from "./loot";
 import type { ConditionPool } from "./conditions";
 import type { PassiveHero } from "./passive-runtime";
 import { triggerDungeonPassive } from "./dungeon-passive";
+import type { TrinketPool } from "./trinket-acquisition";
 
 export type DungeonCurioDraw = {
+  readonly trinketApplied?: boolean;
   readonly positiveQuirkApplied?: boolean;
   readonly provisionFace?: ProvisionFace | "wild";
   readonly diseasesApplied?: number;
@@ -52,6 +54,7 @@ export type DungeonExplorationSetup = {
 
 /** 与 BattleSetup 一样，由调用方的已校验规范化数据提供，不从 UI 推导规则。 */
 export type DungeonBattleCatalog = {
+  readonly trinkets?: TrinketPool;
   readonly conditions?: ConditionPool;
   readonly heroStats: readonly (NonNullable<BattleSetup["heroStats"]>[number] & {
     readonly level: number;
@@ -66,6 +69,7 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  readonly trinkets?: TrinketPool;
   readonly pendingCurioDraw?: { readonly rollId: string; readonly optionId: string };
   readonly conditions?: ConditionPool;
   readonly layout: DungeonLayout;
@@ -226,6 +230,7 @@ export function createDungeonSandbox(
       gold: 0,
       ...(battleCatalog ? { battleCatalog } : {}),
       ...(battleCatalog?.conditions ? { conditions: battleCatalog.conditions } : {}),
+      ...(battleCatalog?.trinkets ? { trinkets: battleCatalog.trinkets } : {}),
       ...(monsterCards
         ? {
             monsterPool: {

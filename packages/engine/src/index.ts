@@ -1,4 +1,6 @@
 export { applyCommand, createInitialState } from "./command";
+export { createTrinketPool } from "./trinket-acquisition";
+export type { TrinketPool } from "./trinket-acquisition";
 export { createDungeonSandbox } from "./dungeon";
 export type {
   DungeonState,
