@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：#126 合并与 Curio 正面怪癖 / 补给续接（2026-10-12，UTC+8）
+
+实现 `1221731`，开放草稿 [PR #127](https://github.com/Alpaca-go/ddbg-web/pull/127)，base 为 main，尚未合并。typecheck、lint、752 项测试、build、六条冒烟及 diff 检查通过，已看种子 317 完成截图。入口补记随主题提交；合并前另核最新 head 的质量与 Playwright 两项 CI。
+
+#126 最新 head `32748f1` 两项 CI 成功后，按用户本次“合并，然后继续推进下一步”授权合并为 main `722045d`；本地已 ff-only 同步。下方 #126 未合并状态属于历史记录。当前主题 `codex/phase3-curio-positive-provisions` 从已合并 main 开始。
+
+新增 p10 / p16 的 Torch 后正面怪癖 + 金币 + 补给路径：遵循本卡怪癖先于补给的印刷顺序，先解决怪癖满额选择，再掷补给 / Wild，保留已抽入牌与骰，全部待选完成后付金币并弃 Curio。仅这类不带压力 / 状态 / 疾病 / 饰品的奖励组合开放；18 / 24 张可完成，剩余 05 / 07 / 12 / 18 / 22 / 24 保留完整饰品接口停点。交付与真实种子 317 入口见[本轮续接](phase3-curio-positive-provisions-2026-10-12.md)。
+
+VQ / rulings 边界不变：Torture 的 Unholy Aura 仅候选、不接运行时、usable=false；Fountain 未批准；Q-52 / Q-59 / Q-61–68 不裁定、不跳 Phase 4。步骤 2 / Phase 3 未完成。
+
 ## 最新交接：#122～125 合并与 Curio 单一正面怪癖（2026-10-12，UTC+8）
 
 实现 `4002176`，开放草稿 [PR #126](https://github.com/Alpaca-go/ddbg-web/pull/126)，base 为 main；尚未合并。typecheck、lint、750 项测试、build、六条冒烟与 diff 检查通过，已看 Evasive 完成页；合并前另核最新 head 的质量 / Playwright 两项 CI。本入口补记随主题提交。

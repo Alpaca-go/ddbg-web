@@ -161,10 +161,19 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
   const effects = card.rows.flatMap((r) =>
     r.effect && (!active.protected || !isNegativeCurioEffect(r.effect)) ? [r.effect] : [],
   );
-  const singlePositiveQuirk =
-    effects.length === 1 && effects[0]?.type === "drawQuirk" && effects[0].polarity === "positive";
+  const eligiblePositiveQuirk =
+    effects.filter((e) => e.type === "drawQuirk" && e.polarity === "positive").length === 1 &&
+    effects.every(
+      (e) =>
+        e.type === "gold" ||
+        e.type === "rollProvision" ||
+        (e.type === "drawQuirk" && e.polarity === "positive"),
+    ) &&
+    (!effects.some((e) => e.type === "rollProvision") ||
+      effects.findIndex((e) => e.type === "drawQuirk") <
+        effects.findIndex((e) => e.type === "rollProvision"));
   const unsupportedReward = effects.find(
-    (e) => (e.type === "drawQuirk" && !singlePositiveQuirk) || e.type === "drawTrinket",
+    (e) => (e.type === "drawQuirk" && !eligiblePositiveQuirk) || e.type === "drawTrinket",
   );
   if (unsupportedReward)
     return block(
@@ -216,41 +225,8 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
       provisions.some((p) => !PROVISION_FACES.includes(p.face) || p.id === provisionId))
   )
     return block("Curio 补给池已满、缺失或实例无效（R12、R-048）；整卡尚未提交，未掷奖励骰");
-  const provisionEvents: import("./command").GameEvent[] = [];
-  let provisionFace = active.provisionFace;
-  if (awardsProvision && provisionFace === undefined) {
-    provisionFace = nextProvisionFace(state.seed, d.cursor);
-    d = { ...d, cursor: d.cursor + 1 };
-    provisionEvents.push({
-      type: "provisionRolled",
-      actorId: hero.id,
-      face: provisionFace,
-      message: `Curio 补给骰：${provisionFace === "wild" ? "Wild，选择一面" : PROVISION_LABELS[provisionFace]}`,
-    });
-  }
-  if (awardsProvision && provisionFace === "wild") {
-    const choice = {
-      id: `dungeon-curio-provision:${d.decision}:${active.rollId}`,
-      actorId: hero.id,
-      prompt: "Curio 掷出 Wild：选择补给骰面",
-      options: PROVISION_FACES.map((face) => ({ id: face, label: PROVISION_LABELS[face] })),
-    };
-    return {
-      state: {
-        ...state,
-        dungeon: {
-          ...d,
-          decision: d.decision + 1,
-          pending: choice,
-          curio: { ...c, active: { ...active, provisionFace } },
-        },
-      },
-      events: provisionEvents,
-      pendingChoice: choice,
-    };
-  }
   const passiveEvents: import("./command").GameEvent[] = [];
-  if (singlePositiveQuirk && !active.positiveQuirkApplied) {
+  if (eligiblePositiveQuirk && !active.positiveQuirkApplied) {
     if (!d.conditions)
       return block("单一正面怪癖奖励需要完整 35 张怪癖 / 疾病资料，整卡尚未提交（R26、R-048）");
     const acquired = gainPositiveQuirk(d.conditions, d.heroes, hero.id, state.seed, d.cursor);
@@ -282,6 +258,39 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
         pendingChoice: choice,
       };
     }
+  }
+  const provisionEvents: import("./command").GameEvent[] = [];
+  let provisionFace = active.provisionFace;
+  if (awardsProvision && provisionFace === undefined) {
+    provisionFace = nextProvisionFace(state.seed, d.cursor);
+    d = { ...d, cursor: d.cursor + 1 };
+    provisionEvents.push({
+      type: "provisionRolled",
+      actorId: hero.id,
+      face: provisionFace,
+      message: `Curio 补给骰：${provisionFace === "wild" ? "Wild，选择一面" : PROVISION_LABELS[provisionFace]}`,
+    });
+  }
+  if (awardsProvision && provisionFace === "wild") {
+    const choice = {
+      id: `dungeon-curio-provision:${d.decision}:${active.rollId}`,
+      actorId: hero.id,
+      prompt: "Curio 掷出 Wild：选择补给骰面",
+      options: PROVISION_FACES.map((face) => ({ id: face, label: PROVISION_LABELS[face] })),
+    };
+    return {
+      state: {
+        ...state,
+        dungeon: {
+          ...d,
+          decision: d.decision + 1,
+          pending: choice,
+          curio: { ...c, active: { ...d.curio!.active!, provisionFace } },
+        },
+      },
+      events: [...passiveEvents, ...provisionEvents],
+      pendingChoice: choice,
+    };
   }
   const infectionCount = effects.filter((e) => e.type === "drawDisease").length;
   for (
@@ -380,7 +389,7 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
       `${card.name} 已结算：${active.protected ? "Torch 忽略负面；" : ""}金币 +${gold - d.gold}；弃牌并续接剩余探索骰`,
     ),
   );
-  return { ...continued, events: [...provisionEvents, ...passiveEvents, ...continued.events] };
+  return { ...continued, events: [...passiveEvents, ...provisionEvents, ...continued.events] };
 }
 
 /** R12 / R18：Wild 的决定沿用已掷骰，整卡奖励在选择完成后提交一次。 */
