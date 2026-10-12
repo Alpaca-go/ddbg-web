@@ -2,6 +2,7 @@ import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import { resolveDungeonPressure } from "./dungeon-pressure";
+import { changeDungeonLight, settleDungeonLight } from "./dungeon-light";
 
 const refuse = (state: GameState, message: string): ApplyResult => ({
   state,
@@ -19,6 +20,27 @@ export function beginDungeonRoom(state: GameState): ApplyResult {
   const room = d.rooms.find((r) => r.id === d.position);
   if (d.phase !== "awaitingRoom" || d.pending || (d.roomResolution && !d.roomResolution.completed))
     return refuse(state, "当前房间没有可开始的结算；不能重启已有分配");
+  if (room?.kind === "dark" && !room.cleared) {
+    if (!d.explorationSetup) return refuse(state, "Dark 房间缺少光照配置（R-048）");
+    const changed = changeDungeonLight(
+      {
+        ...state,
+        dungeon: {
+          ...d,
+          pressureSource: "room",
+          roomResolution: {
+            kind: "dark",
+            roomId: room.id,
+            dungeonLevel: d.explorationSetup.dungeonLevel,
+            resolvedHeroIds: [],
+            completed: false,
+          },
+        },
+      },
+      Math.max(0, d.explorationSetup.light - 1),
+    );
+    return settleDungeonLight(changed);
+  }
   if (room?.kind !== "trap" || room.cleared)
     return refuse(state, "本切片仅接未清理的 Trap 房间（R15）");
   const level = d.explorationSetup?.dungeonLevel;
@@ -55,6 +77,31 @@ export function beginDungeonRoom(state: GameState): ApplyResult {
       pressureSource: "room",
     },
   });
+}
+
+/** R15：Dark 永不清理；光照已降低，意志恢复只完成这次房间入口。 */
+export function completeDungeonDarkRoom(state: GameState): ApplyResult {
+  const d = state.dungeon!;
+  const active = d.roomResolution;
+  if (
+    !active ||
+    active.kind !== "dark" ||
+    active.completed ||
+    active.roomId !== d.position ||
+    d.phase !== "awaitingRoom" ||
+    d.heroes.some((h) => h.stress === 10 && !h.dead)
+  )
+    return refuse(state, "Dark 房间续接状态无效，保持停点");
+  return finish(
+    state,
+    {
+      ...d,
+      pending: null,
+      phase: d.heroes.some((h) => h.dead) ? "awaitingReplacement" : "ready",
+      roomResolution: { ...active, completed: true },
+    },
+    `Dark ${d.position} 已结算，保留代币；下次进入仍降低光照（R15）`,
+  );
 }
 
 /** 各英雄各付自己的分配；恢复时已完成者不再进入选项。 */

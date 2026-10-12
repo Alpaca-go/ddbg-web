@@ -1,0 +1,125 @@
+import type { ApplyResult, GameState } from "./command";
+import { rejectBattleCommand } from "./battle";
+import { triggerDungeonPassive } from "./dungeon-passive";
+import { resolveDungeonPressure } from "./dungeon-pressure";
+import { completeDungeonDarkRoom } from "./dungeon-room";
+import type { UseProvisionCommand } from "./provision-use";
+
+/** R12、R15、R27：仅实际改变光照时触发全队被动，不以净压力差推断原因。 */
+export function changeDungeonLight(state: GameState, light: number): ApplyResult {
+  const d = state.dungeon!;
+  const setup = d.explorationSetup;
+  if (
+    !setup ||
+    !Number.isInteger(setup.light) ||
+    setup.light < 0 ||
+    setup.light > 5 ||
+    !Number.isInteger(light) ||
+    light < 0 ||
+    light > 5 ||
+    !d.heroes.length ||
+    new Set(d.heroes.map((h) => h.id)).size !== d.heroes.length ||
+    d.heroes.some((h) => h.dead || !Number.isInteger(h.stress) || h.stress < 0 || h.stress > 9)
+  )
+    return rejectBattleCommand(state, "光照 / 英雄压力无效，或仍需英雄替换（R-048）");
+  const changed = { ...d, explorationSetup: { ...setup, light } };
+  const applied =
+    light === setup.light
+      ? null
+      : triggerDungeonPassive(
+          changed,
+          state.seed,
+          d.heroes.map((h) => h.id),
+          light > setup.light ? "lightRaised" : "lightLowered",
+        );
+  if (applied?.status === "refused") return rejectBattleCommand(state, applied.reason);
+  return {
+    state: { ...state, dungeon: applied?.dungeon ?? changed },
+    events: [
+      { type: "dungeonUpdated", message: `光照 ${setup.light} → ${light}` },
+      ...(applied?.events ?? []),
+    ],
+  };
+}
+
+/** 光照已支付；压力恢复不重复改变光照或消耗补给。 */
+export function settleDungeonLight(result: ApplyResult): ApplyResult {
+  if (result.events.some((e) => e.type === "commandRefused")) return result;
+  const d = result.state.dungeon!;
+  let next: ApplyResult;
+  if (d.heroes.some((h) => h.dead)) {
+    next =
+      d.pressureSource === "room"
+        ? completeDungeonDarkRoom(result.state)
+        : {
+            state: {
+              ...result.state,
+              dungeon: { ...d, phase: "awaitingReplacement", pending: null },
+            },
+            events: [],
+          };
+  } else if (d.heroes.some((h) => h.stress === 10)) {
+    next = resolveDungeonPressure({ ...result.state, dungeon: { ...d, phase: "blockedPressure" } });
+  } else {
+    next =
+      d.pressureSource === "room"
+        ? completeDungeonDarkRoom(result.state)
+        : {
+            state: { ...result.state, dungeon: { ...d, phase: "ready", pending: null } },
+            events: [],
+          };
+  }
+  return { ...next, events: [...result.events, ...next.events] };
+}
+
+/** R12 / R-027：已完成效果间使用实际 Torch；本切片不允许插入待选或房间结算。 */
+export function useDungeonTorch(state: GameState, command: UseProvisionCommand): ApplyResult {
+  const d = state.dungeon;
+  const pool = d?.explorationSetup?.provisions;
+  const target = d?.heroes.find((h) => h.id === command.targetId && !h.dead);
+  if (
+    !d ||
+    state.battle ||
+    d.phase !== "ready" ||
+    d.pending ||
+    command.effect !== "raiseLight" ||
+    !target ||
+    !pool ||
+    pool.length > 16 ||
+    new Set(pool.map((p) => p.id)).size !== pool.length ||
+    !pool.some((p) => p.id === command.provisionId && p.face === "torch")
+  )
+    return rejectBattleCommand(
+      state,
+      "地牢补给本切片仅接导航就绪时使用 Torch 提升光照，不能插入未完成效果",
+    );
+  const changed = changeDungeonLight(
+    {
+      ...state,
+      dungeon: {
+        ...d,
+        pressureSource: "provision",
+        explorationSetup: {
+          ...d.explorationSetup!,
+          provisions: pool.filter((p) => p.id !== command.provisionId),
+        },
+      },
+    },
+    Math.min(5, d.explorationSetup!.light + 1),
+  );
+  if (changed.events.some((e) => e.type === "commandRefused")) return changed;
+  return settleDungeonLight({
+    ...changed,
+    events: [
+      {
+        type: "provisionConsumed",
+        entityId: target.id,
+        provisionId: command.provisionId,
+        face: "torch",
+        effect: "raiseLight",
+        message: "使用 Torch：光照 +1，移除一颗补给骰（R12）",
+      },
+      ...changed.events,
+    ],
+  });
+}

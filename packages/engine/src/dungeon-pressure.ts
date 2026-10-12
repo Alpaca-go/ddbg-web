@@ -2,7 +2,7 @@ import type { ApplyResult, GameEvent, GameState } from "./command";
 import { resolvePressure } from "./pressure";
 import { createRng, rollD10 } from "./rng";
 import { completeDungeonBacktrack } from "./dungeon-backtracking";
-import { continueDungeonTrap } from "./dungeon-room";
+import { continueDungeonTrap, completeDungeonDarkRoom } from "./dungeon-room";
 import { passiveVirtueThreshold } from "./passive";
 import { triggerDungeonPassive } from "./dungeon-passive";
 
@@ -118,8 +118,18 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
       message: "已记录心脏病；等待驿站替换接口（R9），不追加侦察揭示，不推定战役失败",
     });
   } else if (d.pressureSource === "room") {
-    const continued = continueDungeonTrap({ ...state, dungeon: { ...d, phase: "awaitingRoom" } });
+    const roomState: GameState = { ...state, dungeon: { ...d, phase: "awaitingRoom" } };
+    const continued =
+      d.roomResolution?.kind === "dark"
+        ? completeDungeonDarkRoom(roomState)
+        : continueDungeonTrap(roomState);
     return { ...continued, events: [...events, ...continued.events] };
+  } else if (d.pressureSource === "provision") {
+    d = { ...d, phase: "ready", pending: null };
+    events.push({
+      type: "dungeonUpdated",
+      message: "补给的意志检定完成；不重复消耗 Torch 或触发侦察",
+    });
   } else if (d.pressureSource === "backtracking") {
     const completed = completeDungeonBacktrack({ ...state, dungeon: d });
     return { ...completed, events: [...events, ...completed.events] };

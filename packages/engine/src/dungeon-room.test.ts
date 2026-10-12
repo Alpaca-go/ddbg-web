@@ -167,7 +167,7 @@ describe("Trap 房间（R15、R28–29、R-026、R-045）", () => {
       patch(s, { heroes: [{ id: "h", stress: 0 }] }),
       patch(s, { heroes: [{ ...heroes[0]!, attributesVerified: false }] }),
       patch(s, { explorationSetup: { ...s.dungeon!.explorationSetup!, dungeonLevel: 4 } }),
-      patch(s, { rooms: s.dungeon!.rooms.map((r) => ({ ...r, kind: "dark" as const })) }),
+      patch(s, { rooms: s.dungeon!.rooms.map((r) => ({ ...r, kind: "objective" as const })) }),
     ];
     for (const invalid of bad) expect(start(invalid)).toBe(invalid);
   });

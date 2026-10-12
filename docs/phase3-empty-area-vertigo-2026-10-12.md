@@ -1,6 +1,6 @@
 # Phase 3：空区域 Vertigo 位移压力收尾
 
-基于已合并 #117 的 main `3407f38`，分支 `codex/phase3-empty-area-vertigo`；本切片尚未合并，Phase 3 仍未完成。
+基于已合并 #117 的 main `3407f38`，分支 `codex/phase3-empty-area-vertigo`；代码 `7f8323d` 与总交接补记 `a641f45` 已经 #118 最新 head 的两项 CI 通过，按 Kyries 授权合并为 main `1e701a7`。Phase 3 仍未完成。
 
 ## 改动与依据
 
