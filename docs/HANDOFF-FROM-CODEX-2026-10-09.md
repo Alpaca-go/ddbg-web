@@ -2,6 +2,8 @@
 
 ## 最新交接：#122～125 合并与 Curio 单一正面怪癖（2026-10-12，UTC+8）
 
+实现 `4002176`，开放草稿 [PR #126](https://github.com/Alpaca-go/ddbg-web/pull/126)，base 为 main；尚未合并。typecheck、lint、750 项测试、build、六条冒烟与 diff 检查通过，已看 Evasive 完成页；合并前另核最新 head 的质量 / Playwright 两项 CI。本入口补记随主题提交。
+
 Kyries 要求“合并，然后继续推进下一步”。已核四个 PR 的最新 head 两项 CI 均成功，依次将 #122 / #123 / #124 / #125 转待审并合并到 main，末次 main `b7a4cbe`；本地已 ff-only 同步。下方“尚未合并 / 以主题分支为 base”全部是当轮历史状态。当前新主题 `codex/phase3-curio-positive-quirk` 从已合并 main 开始。
 
 本轮接正面怪癖完整 17 张有限堆、共享 RNG、第四个为正面时的替换 / 弃新卡待选；Curio 仅开放 Torch 后只剩一项正面怪癖奖励的 06 / 11，现 16 / 24 张可完成。10 / 16 等多奖励组合仍整卡停点；不推定新被动参与同卡效果。范围与真实种子 85 入口见[单一正面怪癖交付](phase3-curio-positive-quirk-2026-10-12.md)。

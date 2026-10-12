@@ -1,5 +1,7 @@
 # 步骤 2：Curio 单一正面怪癖奖励
 
+实现 `4002176`，开放草稿 [PR #126](https://github.com/Alpaca-go/ddbg-web/pull/126)，base 为 main，尚未合并。以下是本地验证结果，合并前另核最新 head 两项 CI。
+
 用户要求“合并，然后继续推进下一步”。#122、#123、#124、#125 最新 head 的质量与 Playwright 两项 CI 均成功，已按依赖顺序转待审、切 main 并合并：分别 `b3aee60` / `3cc3571` / `526a28b` / `b7a4cbe`。本地 main 已 ff-only 同步到 `b7a4cbe`，本轮从该基线建立 `codex/phase3-curio-positive-quirk`。
 
 Torture 保留用户明确边界：Unholy Aura 仅候选、不接运行时、usable=false；Fountain VQ-06 仍未批准。本轮推进已确认 Curio 效果的正面怪癖奖励，不再询问已批准 Torture，不以“继续下一步”撤销运行时排除项。
