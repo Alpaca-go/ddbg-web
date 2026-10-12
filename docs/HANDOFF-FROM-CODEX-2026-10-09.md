@@ -1,5 +1,13 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：verify-queue 优先与 Fountain VQ-06 草稿（2026-10-12，UTC+8）
+
+Kyries 本轮要求严格按 `AGENTS.md` / `rulings.md` 和本顶部，以 `docs/kyries-verify-queue-2026-10-12.md` 的 VQ 目视批准为后续入库 / 接线依据。读取时 VQ-01～05 仍全部为待确认，没有 Torture 的新批准；已通过异步问题请求现有审核结果，同时准备不依赖批准的 VQ-06。不得把本轮指令视为全队列批准。用户提供的队列文件与两份 `_q52-search*.txt` 保留在本地，不随本主题提交。
+
+当前分支 `codex/phase3-fountain-verify-draft`，基于 #123 分支 `5d92d24`；本轮只交付[Healing Fountain VQ-06 草稿](phase3-healing-fountain-review-2026-10-12.md)与索引 / 交接更新。已查看 FRONT p2 的完整页和配套 room:p003 完整卡，逐项记录十区容量、十条通行邻接、四个角点候选、黑墙、四英雄 / 四怪物部署、未见宝箱，以及绿色星形 / Heal 图标与明确印刷数字 3。已核相应词典状态，不命名未确认 hash、不补 duration、不写生产几何 / 部署，不增加 usable；完整图与缓存仍不提交。
+
+下一块优先接收 VQ-01～05 批准或修正，按 Torture → Fountain → 其余面入库及接线。Torture 与 Fountain 的草稿都不等于已批准；几何 / 部署 / 特殊效果齐全且运行时完成才考虑开放整面。Q-52 / Q-59 / Q-61–68 仍由 rulings 管理，不在 VQ，不自行裁定。步骤 2 / Phase 3 未完成，Curio 奖励接口沿 #123 的边界推进，不跳 Phase 4。
+
 ## 最新交接：步骤 2 补给奖励与板块逐面核对（2026-10-12，UTC+8）
 
 实现 `750b7f9`，开放草稿 [PR #123](https://github.com/Alpaca-go/ddbg-web/pull/123)，以 #122 主题分支为 base；尚未合并。创建 PR 后入口补记随同主题提交，后续核对最新 head 两项 CI，不把本地验证称为 PR CI 通过。
