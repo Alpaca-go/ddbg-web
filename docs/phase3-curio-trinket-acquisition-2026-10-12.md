@@ -2,6 +2,8 @@
 
 2026-10-12 启动，2026-10-13（UTC+8）收尾交付；文件名保留本主题开始日期。
 
+实现 `1edb18a`，开放草稿 [PR #128](https://github.com/Alpaca-go/ddbg-web/pull/128)，base 为 main，尚未合并。以下为本地验证，合并前另核最新 head 两项 CI。
+
 用户要求“合并，然后继续推进下一步”。#127 最新 head `6eb4669` 的质量与 Playwright 两项 CI 均成功，已合并为 main `ff9c557`；本地 ff-only 同步后建立 `codex/phase3-curio-trinket-acquisition`。
 
 ## 规则和边界
@@ -22,7 +24,7 @@
 
 ## 验证入口
 
-标准 p1、种子 **921**：自然探索 Curio、完整 24 张堆抽 p12 Display Cabinet；抽前 Torch 后，从完整 I 级 14 张饰品堆自然抽 Accuracy Stone。选择 `hero-0 装备 Accuracy Stone` 后，携带列表显示正面、Curio 弃牌 1、游标 51。未删卡或强制骰。
+标准 p1、种子 **921**：自然探索 Curio、完整 24 张堆抽 p12 Bookshelf；抽前 Torch 后，从完整 I 级 14 张饰品堆自然抽 Accuracy Stone。选择 `hero-0 装备 Accuracy Stone` 后，携带列表显示正面、Curio 弃牌 1、游标 51。未删卡或强制骰。
 
 回归覆盖完整等级堆 / 共享 RNG / 输入不变、携带上限、转交旧反面 / 新卡正面、死亡英雄拒绝、未知卡只允许明确弃牌、等级错配、真实 Curio 转交 → 装备续接及不重复弃牌。第一条既有 Phase 3 冒烟延伸至种子 921；阶段仍三条 / 总计六条。
 

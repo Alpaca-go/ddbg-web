@@ -2,6 +2,8 @@
 
 ## 最新交接：#127 合并与 Curio 单一饰品获得（2026-10-13，UTC+8）
 
+实现 `1edb18a`，开放草稿 [PR #128](https://github.com/Alpaca-go/ddbg-web/pull/128)，base 为 main；尚未合并。typecheck、lint、758 项测试、build、六条冒烟及 diff 检查通过，已看 Accuracy Stone 正面携带页；合并前核最新 head 两项 CI。本入口补记随主题提交。
+
 #127 最新 head `6eb4669` 两项 CI 成功后按用户本次授权合并为 main `ff9c557`，本地已 ff-only 同步。下方 #127 未合并状态是历史记录。当前主题 `codex/phase3-curio-trinket-acquisition` 从已合并 main 开始。
 
 新接完整等级饰品堆（14 / 12 / 12）、共享 RNG、获得 / 携带上限 / 转交 / 弃牌待选，只开放 Torch 后单一饰品的 12 / 18 / 22。未复核卡不删出概率池、不装备，玩家可明确弃新卡或保持待选等待复核。现 21 / 24 张 Torch 路径可完成获得选择，仍不保证可装备每一张；05 / 07 / 24 的复合停点保留。完整边界与种子 921 入口见[本轮交付](phase3-curio-trinket-acquisition-2026-10-12.md)。
