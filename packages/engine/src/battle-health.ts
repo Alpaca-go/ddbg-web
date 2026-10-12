@@ -13,6 +13,7 @@ export function applySkillHealth(
   seed: number,
   rngCursor: number,
   actorId?: string,
+  context: "target" | "emptyArea" = "target",
 ):
   | { readonly status: "refused"; readonly reason: string }
   | {
@@ -26,8 +27,16 @@ export function applySkillHealth(
   const actor = battle.entities.find((e) => e.id === actorId && e.side === "hero");
   if (actor && skill.resolution.actorShuffle && hasDisease(actor, "Vertigo")) {
     const shiftedStress = passiveStress(actor, 2, battle.light);
+    // R19、R28：空区无目标伤害 / 反击；仅压力可在实际位移后接既有意志收尾。
+    // 自身生命效果或追加伤口仍可能涉及先后顺序，不能借空区绕过原停点。
+    const pressureAfterEmptyShuffle =
+      context === "emptyArea" &&
+      skill.resolution.targetId === "" &&
+      battle.encounter?.turn.type === "hero" &&
+      skill.healthEffects.length === 0 &&
+      shiftedStress.wounds.length === 0;
     if (
-      (actor.stress ?? 0) + shiftedStress.amount >= 10 ||
+      ((actor.stress ?? 0) + shiftedStress.amount >= 10 && !pressureAfterEmptyShuffle) ||
       (shiftedStress.wounds.length > 0 &&
         (actor.wounds === actor.life ||
           skill.healthEffects.some((e) => e.source === "riposte" && e.entityId === actor.id)))
