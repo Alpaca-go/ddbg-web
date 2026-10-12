@@ -67,7 +67,7 @@ it("真实种子+命令可回放，完整42张只洗一次；部署+弃牌+余�
     expect(applyCommand(result.state, { type }).state).toBe(result.state);
 });
 
-it("不删除未核实卡：42实例均可抽到，包括Small和Large；保留缺字段的真实部署", () => {
+it("不筛牌：42实例均可抽到，包括Small和Large；基础字段全获批，部署保持守恒", () => {
   const seen = new Set<string>();
   let large = false,
     blocked = false,
@@ -87,7 +87,7 @@ it("不删除未核实卡：42实例均可抽到，包括Small和Large；保留�
     expect(new Set(ids).size).toBe(42);
   }
   expect(seen.size).toBe(42);
-  expect([large, blocked, displaced]).toEqual([true, true, true]);
+  expect([large, blocked, displaced]).toEqual([true, false, true]);
 });
 
 it("错误入口、未获批板块、缺目录/错等级/陈旧牌堆均原子拒绝，不消费RNG", () => {

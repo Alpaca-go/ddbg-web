@@ -9,6 +9,8 @@ import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { readMonsterAttackView, resolveMonsterSkillEffects } from "./monster-skill";
 import { readPrintedRange, readPrintedTargets } from "./hero-skill";
+import type { HeroSkillResolution } from "./hero-skill";
+import { applyBattleSkillStatuses } from "./battle-skill-status";
 
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
 export function startDungeonBattle(state: GameState): ApplyResult {
@@ -78,6 +80,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
     });
   }
   const entities: BattleEntity[] = [];
+  const statusProbes: { actorId: string; resolution: HeroSkillResolution }[] = [];
   for (const spawn of active.monsters) {
     const card = monsters.find((m) => m.id === spawn.cardId);
     if (
@@ -118,6 +121,16 @@ export function startDungeonBattle(state: GameState): ApplyResult {
         return refuse(
           `${card.name} 技能 ${skill.slot} 的完整效果尚未接入${probe.status === "refused" ? `：${probe.reason}` : ""}，保留部署，不进入半场战斗（R-048）`,
         );
+      statusProbes.push({
+        actorId: spawn.instanceId,
+        resolution: {
+          ...probe.resolution,
+          targetStatusEffects:
+            attack.view.verified_status_effects?.filter((e) => e.scope === "target") ??
+            probe.resolution.targetStatusEffects ??
+            [],
+        },
+      });
     }
     entities.push({
       id: spawn.instanceId,
@@ -151,6 +164,15 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       lootPool: { ...(d.lootPool ?? createLootState()), gold: d.gold },
       provisionWindows: true,
     }).battle!;
+    for (const probe of statusProbes) {
+      for (const hero of heroes) {
+        const statuses = applyBattleSkillStatuses(battle, battle.entities, probe.actorId, [
+          { ...probe.resolution, targetId: hero.id },
+        ]);
+        if (statuses.status === "refused")
+          return refuse(`怪物完整效果尚未接入：${statuses.reason}，保留真实部署（R-048）`);
+      }
+    }
     return {
       state: {
         ...state,

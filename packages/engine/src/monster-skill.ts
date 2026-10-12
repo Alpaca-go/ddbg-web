@@ -1,5 +1,7 @@
 import { needsHeroSkillShuffleChoice, resolveMonsterAttackEffects } from "./hero-skill";
 import type { MonsterStanceGroup } from "./monster-stance";
+import type { MonsterEffectPlan } from "../../data/src/monster-effects";
+import { compileMonsterEffectPlan } from "./monster-effect-plan";
 import type {
   HeroSkillCardView,
   HeroSkillResolution,
@@ -20,6 +22,7 @@ export type MonsterSkillView = Pick<
   | "verified_damage_bonus"
 > & {
   readonly slot: number;
+  readonly verified_monster_effects?: MonsterEffectPlan;
   /** 规范化目标优先级文字；缺失时自动目标选择拒绝。 */
   readonly target?: string | null;
   readonly lines: readonly (readonly SkillSegment[])[];
@@ -97,7 +100,12 @@ export function readMonsterAttackView(
   monster: MonsterCardView,
   skillSlot: number,
 ):
-  | { readonly status: "ready"; readonly view: HeroSkillCardView }
+  | {
+      readonly status: "ready";
+      readonly view: HeroSkillCardView;
+      readonly selfLight?: number;
+      readonly targetLight?: number;
+    }
   | { readonly status: "refused"; readonly reason: string } {
   const matches = monster.skills.filter((skill) => skill.slot === skillSlot);
   if (matches.length !== 1) return { status: "refused", reason: "怪物卡没有唯一对应的技能编号" };
@@ -113,16 +121,16 @@ export function readMonsterAttackView(
       };
     excluded.add(indices[0]!);
   }
-  return {
-    status: "ready",
-    view: {
-      ...skill,
-      id: `${monster.id}:skill${skillSlot}`,
-      hero: null,
-      verification: monster.verification,
-      stats_line: skill.lines.flatMap((line, index) => (excluded.has(index) ? [] : [...line])),
-    },
+  const view: HeroSkillCardView = {
+    ...skill,
+    id: `${monster.id}:skill${skillSlot}`,
+    hero: null,
+    verification: monster.verification,
+    stats_line: skill.lines.flatMap((line, index) => (excluded.has(index) ? [] : [...line])),
   };
+  return skill.verified_monster_effects
+    ? compileMonsterEffectPlan(view, skill.verified_monster_effects)
+    : { status: "ready", view };
 }
 
 /**
@@ -219,7 +227,17 @@ function resolveMonsterSkillInternal(
     },
     roll,
   );
-  const resolution = effects.resolution;
+  const baseResolution = effects.resolution;
+  const resolution =
+    baseResolution.status === "refused"
+      ? baseResolution
+      : {
+          ...baseResolution,
+          actorLightDelta: (baseResolution.actorLightDelta ?? 0) + (attack.selfLight ?? 0),
+          targetLightDelta:
+            (baseResolution.targetLightDelta ?? 0) +
+            (baseResolution.outcome === "miss" ? 0 : (attack.targetLight ?? 0)),
+        };
   if (resolution.status === "refused") return refused(resolution.reason!);
   return {
     monsterId: monster.id,

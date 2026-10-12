@@ -11,7 +11,7 @@ const entrySchema = z.strictObject({
   stanceGroups: monsterStanceGroupsSchema,
 });
 
-// Kyries 于 2026-10-09 审核并确认全部六条。
+// 首批六条：Kyries 2026-10-09；新增八张中型卡：2026-10-12 两批批准。
 // docs/monster-stance-review-2026-10-09.md §3–4、§7；R-015、R-048。
 // 页码均为当前版核心盒 monsters_medium_FRONT.pdf，不跨同名 / 等级推断。
 export const verifiedMonsterStances = z.array(entrySchema).parse([
@@ -99,6 +99,102 @@ export const verifiedMonsterStances = z.array(entrySchema).parse([
           { min: 8, max: 10, skill: 3 },
         ],
       },
+    ],
+  },
+  // Kyries 2026-10-12 部分批准，见 docs/monster-battle-review-2026-10-12.md。
+  {
+    id: "monster_medium:p027",
+    name: "Brigand Fusilier",
+    level: 1,
+    pages: [27, 28, 29],
+    stanceGroups: [
+      { stances: ["aggressive", "defensive"], skill: 2 },
+      { stances: ["ranged", "support"], skill: 1 },
+    ],
+  },
+  {
+    id: "monster_medium:p031",
+    name: "Maggot",
+    level: 1,
+    pages: [31, 32, 33],
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
+  },
+  {
+    id: "monster_medium:p043",
+    name: "Madman",
+    level: 1,
+    pages: [43, 44, 45],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_medium:p046",
+    name: "Pliskin",
+    level: 1,
+    pages: [46, 47, 48],
+    stanceGroups: [
+      { stances: ["aggressive", "defensive"], skill: 2 },
+      { stances: ["ranged", "support"], skill: 1 },
+    ],
+  },
+  // Kyries 2026-10-12 再审批准的四条修正版。
+  {
+    id: "monster_medium:p018",
+    name: "Cultist Brawler",
+    level: 1,
+    pages: [18, 19, 20],
+    stanceGroups: [
+      { stances: ["aggressive", "defensive"], skill: 1 },
+      { stances: ["ranged", "support"], skill: 2 },
+    ],
+  },
+  {
+    id: "monster_medium:p024",
+    name: "Brigand Cutthroat",
+    level: 1,
+    pages: [24, 25, 26],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive"],
+        rollTable: [
+          { min: 1, max: 4, skill: 2 },
+          { min: 5, max: 10, skill: 1 },
+        ],
+      },
+      { stances: ["ranged"], skill: 1 },
+      { stances: ["support"], skill: 3 },
+    ],
+  },
+  {
+    id: "monster_medium:p034",
+    name: "Webber",
+    level: 1,
+    pages: [34, 35, 36],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_medium:p037",
+    name: "Spitter",
+    level: 1,
+    pages: [37, 38, 39],
+    stanceGroups: [
+      { stances: ["aggressive", "defensive"], skill: 2 },
+      { stances: ["ranged", "support"], skill: 1 },
     ],
   },
 ]);

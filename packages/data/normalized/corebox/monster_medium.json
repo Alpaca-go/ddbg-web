@@ -4404,7 +4404,27 @@
         "text": " Push 1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}2t,{shuffle}Push1"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 2
+       },
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "push",
+        "distance": 1
+       }
+      ]
+     }
     },
     {
      "slot": 3,
@@ -9396,6 +9416,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [
     {
      "iconId": "1fd9f6ec6d",
@@ -9802,7 +9823,39 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{shuffle}Pull1{target_effects}1{bleed}3t,{debuff}2t,{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "pull",
+        "distance": 1
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "bleed",
+        "duration": 3,
+        "amount": 1
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "debuff",
+        "duration": 2
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -10130,7 +10183,26 @@
         }
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{shuffle}Pull1{target_effects}{damage}+1vs{mark}"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "pull",
+        "distance": 1
+       },
+       {
+        "type": "damageBonus",
+        "condition": "marked",
+        "amount": 1
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -10280,6 +10352,22 @@
       "text": " 2"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive"
+     ],
+     "skill": 1
+    },
+    {
+     "stances": [
+      "ranged",
+      "support"
+     ],
+     "skill": 2
+    }
    ],
    "back_texts": []
   },
@@ -11258,7 +11346,25 @@
         "text": " -1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+1,{light}-1"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       },
+       {
+        "type": "light",
+        "scope": "target",
+        "amount": -1
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -12721,6 +12827,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [
     {
      "iconId": "f73032e12e",
@@ -13001,7 +13108,21 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{debuff}2t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "debuff",
+        "duration": 2
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -13493,7 +13614,27 @@
         "text": " Pull 1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{buff}2t,{shuffle}Pull1"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "self",
+        "kind": "buff",
+        "duration": 2
+       },
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "pull",
+        "distance": 1
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -13733,6 +13874,38 @@
       "text": " 3"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 4,
+       "skill": 2
+      },
+      {
+       "min": 5,
+       "max": 10,
+       "skill": 1
+      }
+     ]
+    },
+    {
+     "stances": [
+      "ranged"
+     ],
+     "skill": 1
+    },
+    {
+     "stances": [
+      "support"
+     ],
+     "skill": 3
+    }
    ],
    "back_texts": []
   },
@@ -14203,6 +14376,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [
     {
      "iconId": "784ec4fe7a",
@@ -14519,7 +14693,21 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{debuff}2t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "debuff",
+        "duration": 2
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -14897,6 +15085,22 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive"
+     ],
+     "skill": 2
+    },
+    {
+     "stances": [
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": []
   },
@@ -16458,6 +16662,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [
     {
      "iconId": "6cfc2f3a0b",
@@ -16815,7 +17020,30 @@
         }
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+1,{stun}1t,{disease}"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 1
+       },
+       {
+        "type": "disease",
+        "scope": "target"
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -16965,6 +17193,17 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": []
   },
@@ -17524,6 +17763,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [
     {
      "iconId": "f73032e12e",
@@ -17858,7 +18098,33 @@
         "text": " 3t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{debuff}2t,{stun}2t,{mark}3t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "debuff",
+        "duration": 2
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 2
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "mark",
+        "duration": 3
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -18150,7 +18416,27 @@
         }
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}1{blight}3t,{damage}+2vs{mark}"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 3,
+        "amount": 1
+       },
+       {
+        "type": "damageBonus",
+        "condition": "marked",
+        "amount": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -18426,6 +18712,28 @@
       "text": " 1 6-10 1-5"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    }
    ],
    "back_texts": []
   },
@@ -18908,6 +19216,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [
     {
      "iconId": "f73032e12e",
@@ -19270,7 +19579,33 @@
         }
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{debuff}2t,1{blight}3t,{damage}+2vs{mark}"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "debuff",
+        "duration": 2
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 3,
+        "amount": 1
+       },
+       {
+        "type": "damageBonus",
+        "condition": "marked",
+        "amount": 2
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -19562,7 +19897,27 @@
         }
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}1{blight}3t,{damage}+2vs{mark}"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 3,
+        "amount": 1
+       },
+       {
+        "type": "damageBonus",
+        "condition": "marked",
+        "amount": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -19712,6 +20067,22 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive"
+     ],
+     "skill": 2
+    },
+    {
+     "stances": [
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": []
   },
@@ -21276,6 +21647,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 3,
    "resistances": [
     {
      "iconId": "6cfc2f3a0b",
@@ -21346,25 +21718,6 @@
        }
       },
       {
-       "text": "2",
-       "numeric": 2,
-       "anchor": {
-        "type": "beside_icon",
-        "left_icon": null,
-        "inside_icon": {
-         "iconId": "6eb2ab6c16",
-         "in_dictionary": true,
-         "status": "confirmed",
-         "key": "skill_number",
-         "kind": "other",
-         "meaning_en": "Monster skill number badge (1/2/3)",
-         "meaning_zh": "怪物技能编号牌（1/2/3）",
-         "value": null,
-         "naming": "confirmed"
-        }
-       }
-      },
-      {
        "text": "1",
        "numeric": 1,
        "anchor": {
@@ -21380,72 +21733,6 @@
          "value": null,
          "naming": "confirmed"
         },
-        "inside_icon": null
-       }
-      },
-      {
-       "text": "2",
-       "numeric": 2,
-       "anchor": {
-        "type": "beside_icon",
-        "left_icon": {
-         "iconId": "3ab7e7544c",
-         "in_dictionary": true,
-         "status": "confirmed",
-         "key": "range",
-         "kind": "other",
-         "meaning_en": "Range",
-         "meaning_zh": "射程",
-         "value": null,
-         "naming": "confirmed"
-        },
-        "inside_icon": null
-       }
-      },
-      {
-       "text": "2",
-       "numeric": 2,
-       "anchor": {
-        "type": "beside_icon",
-        "left_icon": null,
-        "inside_icon": {
-         "iconId": "8d4bbe5e11",
-         "in_dictionary": true,
-         "status": "confirmed",
-         "key": "damage",
-         "kind": "damage_type",
-         "meaning_en": "Damage (value printed inside)",
-         "meaning_zh": "伤害（图标内数字为伤害值）",
-         "value": null,
-         "naming": "confirmed"
-        }
-       }
-      },
-      {
-       "text": "1",
-       "numeric": 1,
-       "anchor": {
-        "type": "beside_icon",
-        "left_icon": null,
-        "inside_icon": {
-         "iconId": "8d4bbe5e11",
-         "in_dictionary": true,
-         "status": "confirmed",
-         "key": "damage",
-         "kind": "damage_type",
-         "meaning_en": "Damage (value printed inside)",
-         "meaning_zh": "伤害（图标内数字为伤害值）",
-         "value": null,
-         "naming": "confirmed"
-        }
-       }
-      },
-      {
-       "text": "+1",
-       "numeric": null,
-       "anchor": {
-        "type": "beside_icon",
-        "left_icon": null,
         "inside_icon": null
        }
       }
@@ -21473,24 +21760,6 @@
        {
         "type": "icon",
         "icon": {
-         "iconId": "58cd5040a4",
-         "in_dictionary": true,
-         "status": "confirmed",
-         "key": "debuff",
-         "kind": "status",
-         "meaning_en": "Debuff (large)",
-         "meaning_zh": "减益（大）",
-         "value": null,
-         "naming": "confirmed"
-        }
-       },
-       {
-        "type": "text",
-        "text": " 2t , "
-       },
-       {
-        "type": "icon",
-        "icon": {
          "iconId": "9d58d3d431",
          "in_dictionary": true,
          "status": "confirmed",
@@ -21504,7 +21773,7 @@
        },
        {
         "type": "text",
-        "text": " +2"
+        "text": " +1"
        }
       ]
      ],
@@ -21694,7 +21963,134 @@
         "type": "text",
         "text": " +1"
        }
+      ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+1"
       ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
+    },
+    {
+     "slot": 2,
+     "name": "Accusation",
+     "target": "Most Stressed",
+     "printed_labels": [
+      {
+       "label": "Crit",
+       "raw": "Crit 0",
+       "value": 0
+      },
+      {
+       "label": "Acc",
+       "raw": "Acc 10",
+       "value": 10
+      }
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "numeric": 2,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Crit"
+       }
+      },
+      {
+       "text": "1",
+       "numeric": 1,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Acc"
+       }
+      },
+      {
+       "text": "2",
+       "numeric": 2,
+       "anchor": {
+        "type": "beside_icon",
+        "left_icon": {
+         "iconId": "3ab7e7544c",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "range",
+         "kind": "other",
+         "meaning_en": "Range",
+         "meaning_zh": "射程",
+         "value": null,
+         "naming": "confirmed"
+        },
+        "inside_icon": null
+       }
+      }
+     ],
+     "effect_lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "a38154c523",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "target_effects",
+         "kind": "other",
+         "meaning_en": "Target Effects marker (monster cards)",
+         "meaning_zh": "目标效果标记（怪物卡）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "58cd5040a4",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "debuff",
+         "kind": "status",
+         "meaning_en": "Debuff (large)",
+         "meaning_zh": "减益（大）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2t , "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "9d58d3d431",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "stress",
+         "kind": "stress",
+         "meaning_en": "Stress (amount follows)",
+         "meaning_zh": "压力（后接数值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " +2"
+       }
+      ]
+     ],
+     "lines": [
       [
        {
         "type": "icon",
@@ -21863,7 +22259,26 @@
         "text": " +2"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{debuff}2t,{stress}+2"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "debuff",
+        "duration": 2
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -22139,6 +22554,28 @@
       "text": " 1 6-10 1-5"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    }
    ],
    "back_texts": []
   },
@@ -22576,6 +23013,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [
     {
      "iconId": "f73032e12e",
@@ -22838,7 +23276,22 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}2{blight}2t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 2,
+        "amount": 2
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -23066,7 +23519,22 @@
         "text": " 3t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}2{blight}3t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 3,
+        "amount": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -23216,6 +23684,22 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive"
+     ],
+     "skill": 2
+    },
+    {
+     "stances": [
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": []
   },

@@ -1,10 +1,15 @@
 import { distance, rejectBattleCommand, skillTargetView, writeResolution } from "./battle";
 import type { BattleEntity } from "./battle";
 import { applySkillHealth } from "./battle-health";
+import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { multiTargetHealthEffects, projectActorWounds } from "./skill-actor-health";
 import type { ApplyResult, GameState, MonsterSkillTargetsResolvedEvent } from "./command";
 import { newlyDefeatedIds, nextBattleRoll, recordMonsterSkill } from "./encounter";
-import { needsMonsterSkillShuffleChoice, resolveMonsterSkillEffects } from "./monster-skill";
+import {
+  needsMonsterSkillShuffleChoice,
+  resolveMonsterSkillEffects,
+  readMonsterAttackView,
+} from "./monster-skill";
 import type { ShuffleIntent } from "./shuffle";
 import type { MonsterCardView, MonsterCombatState } from "./monster-skill";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
@@ -21,6 +26,8 @@ export function playMonsterSkillTargets(
   max: number,
 ): ApplyResult {
   const battle = state.battle!;
+  const attack = readMonsterAttackView(card, command.skillSlot);
+  if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
   const candidates = battle.entities.filter(
     (e) => e.side === "hero" && !e.dead && e.areaId === primary.areaId,
   );
@@ -81,12 +88,32 @@ export function playMonsterSkillTargets(
     effects.find(
       (e) => e.status === "refused" || (e.status === "resolved" && e.resolution.skipped.length > 0),
     );
-  const probe = invalid(resolve(1, true));
+  const probes = resolve(1, true);
+  const probe = invalid(probes);
   if (probe)
     return rejectBattleCommand(
       state,
       probe.status === "refused" ? probe.reason : "多目标未知效果尚未接入，整次拒绝（R-048）",
     );
+  const statusProbe = applyBattleSkillStatuses(
+    battle,
+    battle.entities,
+    actor.id,
+    probes.flatMap((e) =>
+      e.status === "resolved"
+        ? [
+            {
+              ...e.resolution,
+              targetStatusEffects:
+                attack.view.verified_status_effects?.filter((s) => s.scope === "target") ??
+                e.resolution.targetStatusEffects ??
+                [],
+            },
+          ]
+        : [],
+    ),
+  );
+  if (statusProbe.status === "refused") return rejectBattleCommand(state, statusProbe.reason);
   if (missingChoice) {
     const choice = {
       id: `monster-targets-shuffle:${battle.choiceCursor}:${missingChoice.target.id}`,
@@ -151,6 +178,8 @@ export function playMonsterSkillTargets(
     battle.rngCursor + 1,
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
+  const statuses = applyBattleSkillStatuses(battle, health.entities, actor.id, resolutions);
+  if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const event: MonsterSkillTargetsResolvedEvent = {
     type: "monsterSkillTargetsResolved",
     message: "怪物多目标攻击已共用一次掷骰结算",
@@ -170,7 +199,7 @@ export function playMonsterSkillTargets(
   for (const r of resolutions)
     if (r.targetShuffle)
       intents.push({ entityId: r.targetId, relativeToId: actor.id, move: r.targetShuffle });
-  const casualtyIds = newlyDefeatedIds(battle, health.entities);
+  const casualtyIds = newlyDefeatedIds(battle, statuses.entities);
   const continuation = {
     ...event,
     type: "monsterSkillResolved" as const,
@@ -189,7 +218,8 @@ export function playMonsterSkillTargets(
         ...battle,
         monsterAction: null,
         pending: null,
-        entities: health.entities,
+        entities: statuses.entities,
+        light: statuses.light,
         rngCursor: health.rngCursor,
         shuffleIntents: intents,
         shuffleContinuation: intents.length ? continuation : null,

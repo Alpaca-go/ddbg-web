@@ -19,4 +19,4 @@ pnpm test:e2e   # Playwright 冒烟
 pnpm build
 ```
 
-`pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒。main 已支持四核心英雄 84 张技能，以及侦察、探索骰、Empty、Curio 牌池、普通走廊返回、Trap 房间、房间抽牌与完整 42 张 I 级 Common + Ruins 怪物池（#114 已合并）。当前 `codex/phase3-guarded-battle-loop` 分支接入真实 Ritual Chamber 战斗、胜利 / 四轮撤退回传与 Small 挤占，仍待合并；九种新增怪物字段仍待核图确认，完整效果继续推进。当前尚不是完整任务或战役，main / 分支状态与下一步见 [最新交接](docs/HANDOFF-FROM-CODEX-2026-10-09.md)，本轮范围见 [守卫战斗闭环](docs/phase3-guarded-battle-loop-2026-10-12.md)。
+`pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒。main 已支持四核心英雄 84 张技能，以及侦察、探索骰、Empty、Curio 牌池、普通走廊返回、Trap 房间、房间抽牌与完整 42 张 I 级 Common + Ruins 怪物池（#114 已合并）。当前 `codex/phase3-guarded-battle-loop` 分支接入真实 Ritual Chamber 战斗、胜利 / 四轮撤退回传与 Small 挤占，仍待合并；九种新增怪物 Speed / 选招已两批获批入库；复合效果已接线，英雄负面状态防御与疾病仍需继续。当前尚不是完整任务或战役，main / 分支状态与下一步见 [最新交接](docs/HANDOFF-FROM-CODEX-2026-10-09.md)，本轮范围见 [守卫战斗闭环](docs/phase3-guarded-battle-loop-2026-10-12.md)。

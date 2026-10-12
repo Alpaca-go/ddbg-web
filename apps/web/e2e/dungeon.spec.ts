@@ -136,9 +136,9 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
       await drawMonsters.click();
       await expect(page.getByTestId("dungeon-monsters")).toContainText("完整牌池 42 张");
       await expect(page.getByTestId("dungeon-monsters")).toContainText("monster-deck:");
-      await expect(card).toContainText("待核实战斗字段");
+      await expect(card).toContainText("基础字段齐全");
       await page.getByRole("button", { name: "进入房间战斗", exact: true }).click();
-      await expect(page.getByTestId("dungeon-events")).toContainText("保留真实部署，不重抽");
+      await expect(page.getByTestId("dungeon-events")).toContainText("完整效果尚未接入");
     }
     await expect(drawMonsters).toHaveCount(0);
     await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeDisabled();

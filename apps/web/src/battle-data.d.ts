@@ -25,7 +25,7 @@ declare module "virtual:battle-data" {
       readonly skills: readonly (MonsterSkillView & { readonly name: string })[];
       readonly dodge: number;
       readonly spawnEdge: "front" | "back";
-      readonly stanceSlots: 1;
+      readonly stanceSlots: 1 | 2;
       readonly copies: number;
     })[];
     readonly heroStats: readonly {

@@ -10,7 +10,7 @@ const entrySchema = z.strictObject({
   speed: z.int().nonnegative(),
 });
 
-// Kyries 于 2026-10-10 确认 Speed 核对表全部六条。
+// 首批六条：Kyries 2026-10-10；新增八张中型战斗卡：Kyries 2026-10-12 两批批准。
 // docs/monster-speed-review-2026-10-09.md §2–3、§6；R24、R-001、R-048。
 // 只按获批 id 附加，不统计图标、不填图标 null、不跨同名 / 等级推断。
 export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
@@ -20,6 +20,16 @@ export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
   { id: "monster_medium:p010", name: "Bone Defender", level: 1, pages: [10, 11], speed: 1 },
   { id: "monster_medium:p040", name: "Bone Rabble", level: 1, pages: [40, 41, 42], speed: 1 },
   { id: "monster_medium:p021", name: "Cultist Acolyte", level: 1, pages: [21, 22, 23], speed: 3 },
+  // docs/monster-battle-review-2026-10-12.md：第一批部分批准。
+  { id: "monster_medium:p027", name: "Brigand Fusilier", level: 1, pages: [27, 28, 29], speed: 2 },
+  { id: "monster_medium:p031", name: "Maggot", level: 1, pages: [31, 32, 33], speed: 1 },
+  { id: "monster_medium:p043", name: "Madman", level: 1, pages: [43, 44, 45], speed: 3 },
+  { id: "monster_medium:p046", name: "Pliskin", level: 1, pages: [46, 47, 48], speed: 2 },
+  // Kyries 2026-10-12 再审批准四条修正版；头部靴印数量，不是 Dodge 数字。
+  { id: "monster_medium:p018", name: "Cultist Brawler", level: 1, pages: [18, 19, 20], speed: 2 },
+  { id: "monster_medium:p024", name: "Brigand Cutthroat", level: 1, pages: [24, 25, 26], speed: 1 },
+  { id: "monster_medium:p034", name: "Webber", level: 1, pages: [34, 35, 36], speed: 2 },
+  { id: "monster_medium:p037", name: "Spitter", level: 1, pages: [37, 38, 39], speed: 1 },
 ]);
 
 /** 仅生成管线加载人工获批映射；schema 可表达的值不代表已获批准。 */

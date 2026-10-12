@@ -36,11 +36,9 @@ it("完整62张可再生，I/II/III=42/11/9；大型抽牌卡映射大型战斗�
     file.cards
       .filter((c) => c.level === 1 && !c.missingBattleFields.length)
       .flatMap((c) => c.pages),
-  ).toHaveLength(17);
-  expect(file.cards.find((c) => c.name === "Maggot")!.missingBattleFields).toEqual([
-    "speed",
-    "stanceGroups",
-  ]);
+  ).toHaveLength(42);
+  expect(file.cards.find((c) => c.name === "Maggot")!.missingBattleFields).toEqual([]);
+  expect(file.cards.find((c) => c.name === "Spitter")!.missingBattleFields).toEqual([]);
   expect(pool.filter((c) => c.cardId === "monster_medium:p031")).toHaveLength(3);
 });
 

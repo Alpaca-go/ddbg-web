@@ -6,6 +6,7 @@ import { roomTileGeometryFileSchema } from "../../packages/data/src/normalize/ro
 import {
   normalizedHeroSkillFileSchema,
   normalizedMonsterMediumFileSchema,
+  normalizedMonsterLargeFileSchema,
   normalizedVirtueAfflictionFileSchema,
 } from "../../packages/data/src/normalize/schema";
 
@@ -50,10 +51,21 @@ export function battleDataPlugin(): Plugin {
         "monster_medium:p007",
         "monster_medium:p010",
         "monster_medium:p021",
+        "monster_medium:p027",
+        "monster_medium:p031",
+        "monster_medium:p043",
+        "monster_medium:p046",
+        "monster_large:p002",
+        "monster_medium:p018",
+        "monster_medium:p024",
+        "monster_medium:p034",
+        "monster_medium:p037",
       ]);
-      const monsters = normalizedMonsterMediumFileSchema
-        .parse(read("monster_medium"))
-        .cards.filter((card) => monsterIds.has(card.id) && !card.verification.unverified)
+      const monsters = [
+        ...normalizedMonsterMediumFileSchema.parse(read("monster_medium")).cards,
+        ...normalizedMonsterLargeFileSchema.parse(read("monster_large")).cards,
+      ]
+        .filter((card) => monsterIds.has(card.id) && !card.verification.unverified)
         .map((card) => {
           const edges = card.type_position_tags.filter((tag) => tag === "Front" || tag === "Back");
           if (edges.length !== 1) throw new Error("怪物缺少唯一印刷 Front / Back（R-048）");
@@ -75,7 +87,7 @@ export function battleDataPlugin(): Plugin {
             ...card,
             dodge: dodge[0]!.numeric,
             spawnEdge: edges[0] === "Front" ? "front" : "back",
-            stanceSlots: 1,
+            stanceSlots: card.type_position_tags.includes("Large") ? 2 : 1,
           };
         });
       const tile = roomTileGeometryFileSchema

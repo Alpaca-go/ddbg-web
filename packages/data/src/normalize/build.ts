@@ -16,6 +16,8 @@ import { quirkPolarity } from "./quirk-polarity";
 import { virtueRole } from "./virtue-role";
 import { attachVerifiedMonsterStances } from "./verified-monster-stances";
 import { attachVerifiedMonsterSpeeds } from "./verified-monster-speeds";
+import { attachVerifiedLargeMonsterFields } from "./verified-large-monster-fields";
+import { attachVerifiedMonsterEffects } from "./verified-monster-effects";
 import { attachVerifiedMonsterStress } from "./verified-monster-stress";
 import { attachVerifiedMonsterDamage } from "./verified-monster-damage";
 import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
@@ -393,8 +395,12 @@ function buildMonsterMedium(
       dictionary: DICTIONARY_SOURCE,
     },
     stats: cardStats(cards),
-    cards: attachVerifiedMonsterDamage(
-      attachVerifiedMonsterStress(attachVerifiedMonsterSpeeds(attachVerifiedMonsterStances(cards))),
+    cards: attachVerifiedMonsterEffects(
+      attachVerifiedMonsterDamage(
+        attachVerifiedMonsterStress(
+          attachVerifiedMonsterSpeeds(attachVerifiedMonsterStances(cards)),
+        ),
+      ),
     ),
   });
 }
@@ -418,7 +424,7 @@ function buildMonsterLarge(
       dictionary: DICTIONARY_SOURCE,
     },
     stats: cardStats(cards),
-    cards,
+    cards: attachVerifiedMonsterEffects(attachVerifiedLargeMonsterFields(cards), true),
   });
 }
 

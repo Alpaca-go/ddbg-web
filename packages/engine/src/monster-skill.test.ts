@@ -218,8 +218,16 @@ describe("已选怪物攻击的纯结算（R19–21）", () => {
     });
   });
 
-  it("真实 Rend for the Old Gods 的 Bleed 回合数未核实，仍报告跳过，不放代币", () => {
-    expect(resolved(use({}, 4, 1, "p018")).skipped).toContainEqual({ code: "effect_lines" });
+  it("真实 Rend for the Old Gods 完整复合行返回 Bleed / Debuff / Stress 与自身 Pull", () => {
+    expect(resolved(use({}, 4, 1, "p018"))).toMatchObject({
+      skipped: [],
+      actorShuffle: { direction: "pull", distance: 1 },
+      targetStatusEffects: [
+        { kind: "bleed", amount: 1, duration: 3 },
+        { kind: "debuff", duration: 2 },
+      ],
+      targetStress: 6,
+    });
   });
 
   it("效果框中的目标图标不会混入攻击阵营与目标数", () => {

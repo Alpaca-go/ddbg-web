@@ -244,7 +244,7 @@ def parse_monster(card, large=False):
     for s in fs:
         if s["t"] in ("1", "2", "3") and is_dwarf(s) and s["size"] >= 10:
             nm = [o for o in fs if is_dwarf(o) and re.search(r"[A-Za-z]{3}", o["t"]) and vov(o["bbox"], s["bbox"]) >= 0.3
-                  and 0 < o["bbox"][0] - s["bbox"][2] < 8 and not o["t"].startswith(("Crit", "Acc"))]
+                  and 0 < o["bbox"][0] - s["bbox"][2] < 8 and not re.match(r"^(Crit|Acc)(?:\s+\d+)?$", o["t"])]
             if nm:
                 heads.append((s, min(nm, key=lambda o: o["bbox"][0])))
     footer_y = 0.86 * H if not large else 0.875 * H

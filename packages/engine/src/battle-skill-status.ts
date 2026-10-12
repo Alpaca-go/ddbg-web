@@ -52,7 +52,7 @@ export function applyBattleSkillStatuses(
           typeof buff.immune !== "boolean" ||
           effects.some((effect) => effect.kind !== "buff")
         )
-          return "英雄目标缺少已核实 Buff 抗性 / 免疫栏（R-048）";
+          return "英雄目标缺少该状态的已核实抗性 / 免疫栏（R-048）";
         resistances = buff.resistant ? ["buff"] : [];
         immunities = buff.immune ? ["buff"] : [];
       } else {
