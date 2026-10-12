@@ -1,5 +1,7 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-13 最新入口：#131准确head两项CI成功后按用户授权合并为main `323cec1`。当前 `codex/phase3-ruins8-9-verify-drafts` 新增Invocation Chamber / Old Abbey及VQ-17/18；普通遗迹1–9审核材料已齐，但实际可用仍1/28。没有批准新面或接运行时，Fountain、Torture候选排除项及全部未决Q保持。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)和[VQ队列](kyries-verify-queue-2026-10-12.md)。
+
 > 2026-10-13 最新入口：#130 最新head两项CI成功后按用户授权已合并为main `675c389`，本地ff-only同步。当前 `codex/phase3-ruins6-7-verify-drafts` 新增 Treasure Chamber / Tomb of Ancestor 独立审核稿及VQ-15/16，尚未批准数据或写生产几何。未知图标、Fountain待审核、Torture仅候选及全部未决Q保持。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[VQ队列](kyries-verify-queue-2026-10-12.md)。
 
 > 2026-10-13 最新入口：#129 最新head两项CI成功后按用户授权已合并为 main `64b6e94`。Kyries 明确“Fountain 尚未审核，先继续准备其他板块”；本轮新增遗迹4/5的 Spiked Pit / Beacon of Light 独立草稿与 VQ-13/14，未批准、未写生产几何或运行时。实际可用仍1/28，Torture 候选排除项、Fountain 与未决Q边界不改。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[VQ队列](kyries-verify-queue-2026-10-12.md)。

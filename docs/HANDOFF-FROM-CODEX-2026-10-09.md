@@ -1,5 +1,17 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：#131 合并与遗迹8/9审核草稿（2026-10-13，UTC+8）
+
+#131最新head `062d8a0` 的质量与Playwright两项CI均成功，按用户“合并，继续推进”授权合并为main `323cec1`，本地ff-only同步。下方#131未合并状态是历史记录；合并文档不等于批准草稿数据。
+
+本轮从main建立 `codex/phase3-ruins8-9-verify-drafts`，准备[Invocation Chamber VQ-17](phase3-invocation-chamber-review-2026-10-13.md)（BACK p5 / room:p008）与[Old Abbey VQ-18](phase3-old-abbey-review-2026-10-13.md)（FRONT p5 / room:p009）。完整板块和配套卡均已看，身份、容量、边界 / 角点、部署、宝箱、星形及卡文各自记录，图像仅在忽略缓存。
+
+Invocation十区，专属卡文是每轮最后怪物的step 2行动替换与轮末四英雄图标 / 压力+2；Old Abbey九区，两红星为结束回合按正负怪癖压力 / 治疗候选。不推定AI平手、死亡 / 压力与治疗复合顺序，不复用Cornered或省略卡面效果。VQ-17/18加入队列，生产几何、词典、引擎及usable不改。
+
+普通遗迹1–9的逐面材料已齐，但仅Ritual可用；Torture仍按既有要求只入库、Unholy Aura仅候选。Fountain与4–9未获目视批准，全部未决Q保持，实际可用仍1/28。下一块优先接收逐面审核修正 / 批准并依范围入库接线；不因为重复“继续推进”擅自批准，不越过Boss阶段。任务闭环、休息 / 撤离 / XP与Phase3验收仍未完成。
+
+本主题仅文档，格式 / diff、raw bbox、卡文数字与词典状态核对通过；不重跑引擎或浏览器测试，PR CI另核最新head。
+
 ## 最新交接：#130 合并与遗迹6/7审核草稿（2026-10-13，UTC+8）
 
 草稿提交 `15a85a8`，开放草稿 [PR #131](https://github.com/Alpaca-go/ddbg-web/pull/131)，base 为main，尚未合并。本地文档验证与PR CI区分，合并前另核最新head两项CI；入口补记随主题提交。
