@@ -2,6 +2,8 @@
 
 ## 最新交接：#130 合并与遗迹6/7审核草稿（2026-10-13，UTC+8）
 
+草稿提交 `15a85a8`，开放草稿 [PR #131](https://github.com/Alpaca-go/ddbg-web/pull/131)，base 为main，尚未合并。本地文档验证与PR CI区分，合并前另核最新head两项CI；入口补记随主题提交。
+
 #130 最新 head `fb99a78` 的质量与Playwright两项CI均成功，已按用户“合并，继续推进”授权合并为main `675c389`，本地ff-only同步；下方#130未合并状态是历史记录。合并审核文档不等于批准其中数据。
 
 本轮从main建立 `codex/phase3-ruins6-7-verify-drafts`，继续用户此前“Fountain尚未审核，先准备其他板块”范围。已看BACK/FRONT p4完整板块及rooms FRONT p6/p7完整卡，分别准备[遗迹6 Treasure Chamber VQ-15](phase3-treasure-chamber-review-2026-10-13.md)与[遗迹7 Tomb of Ancestor VQ-16](phase3-tomb-of-ancestor-review-2026-10-13.md)。两面均九区，容量和部署各自数点核图，不共用几何；原图只在忽略缓存。
