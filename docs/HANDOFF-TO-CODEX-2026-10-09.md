@@ -1,5 +1,7 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-13 最新入口：#129 最新head两项CI成功后按用户授权已合并为 main `64b6e94`。Kyries 明确“Fountain 尚未审核，先继续准备其他板块”；本轮新增遗迹4/5的 Spiked Pit / Beacon of Light 独立草稿与 VQ-13/14，未批准、未写生产几何或运行时。实际可用仍1/28，Torture 候选排除项、Fountain 与未决Q边界不改。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[VQ队列](kyries-verify-queue-2026-10-12.md)。
+
 > 2026-10-13 最新入口：#128 最新 head 两项 CI 成功后已按用户授权合并为 main `d0bfadb`，本地 ff-only 同步。当前 `codex/phase3-curio-composite-rewards` 接通 Torch 后余下 05 / 07 / 24 的正面复合，获得选择覆盖 24 / 24；本主题尚未合并。未知饰品装备、Torture / Fountain、VQ 与未决 Q 边界不改，Phase 3 未完成。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](phase3-curio-composite-rewards-2026-10-13.md)。
 
 > 2026-10-13 最新入口：#127 最新 head 两项 CI 成功后已按用户授权合并为 main `ff9c557`，本地已 ff-only 同步。当前 `codex/phase3-curio-trinket-acquisition` 新接单一饰品获得的 12 / 18 / 22：完整等级牌堆、携带容量、转交 / 弃牌待选；未知卡不装备，可明确弃新卡或保留复核停点。使用 / 翻面仍留 Phase 4，Torture / Fountain 和 Q 边界不改。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](phase3-curio-trinket-acquisition-2026-10-12.md)。
