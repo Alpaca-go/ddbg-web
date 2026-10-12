@@ -1,5 +1,7 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-12 合并完成：#120 已合并为 `d50a823`；#121 最新 head `44c190b` 的质量与 Playwright 两项 CI 成功，已按授权合并为 main `fe0de21`，本地 main 已同步。第一步完成，下一块为板块与 Curio 覆盖；下方等待 CI / 合并的描述为历史状态，Phase 3 仍未验收。
+
 > 2026-10-12 最新入口：Kyries 授权第一步并要求合并。依赖 #120 最新 head 两项 CI 成功，已合并为 main `d50a823`；`codex/phase3-low-light-exploration` 已同步该基线，实现 `bacf3ac`，对应 [PR #121](https://github.com/Alpaca-go/ddbg-web/pull/121)，等待最新 head CI 成功后合并。已接 Darkness 降光、光照 0–5 探索与低光 Trap 房间。接手先读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](phase3-low-light-exploration-2026-10-12.md)，下方旧合并状态及“低光照未接线”为历史记录。Q 停点保留，下一块为板块与 Curio 覆盖，Phase 3 未完成。
 
 > 2026-10-12 最新入口：#119 含交接入口的 `a9caf2b` 已通过两项 CI，并按本次授权合并为 main `5681196`，本地 main 已 ff-only 同步。当前主题分支 `codex/phase3-exploration-trap`，代码 `83c6533`、开放草稿 [PR #120](https://github.com/Alpaca-go/ddbg-web/pull/120)，接探索骰 Trap 攻击，尚未合并；本次 PR 入口补记随同分支提交。本地 typecheck、lint、75 文件 / 725 项测试、build 与六条冒烟通过，最后中文提示修正另复核类型、lint 与新增场景；合并前须核对最新 head 两项 CI。接手先读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[探索 Trap 交付](phase3-exploration-trap-2026-10-12.md)。下一块为 Darkness 降光与低光照探索接线；Q-66 / Q-67 / Q-68 不变，Phase 3 未完成。下方旧入口与未合并状态均为历史记录。

@@ -1,5 +1,7 @@
 # Phase 3：Darkness 降光与低光照探索
 
+已合并：#121 最新 head `44c190b` 的质量与 Playwright 两项 CI 成功，按 Kyries 授权合并为 main `fe0de21`，本地 main 已同步。依赖 #120 已先合并为 `d50a823`。下方等待 CI 的描述保留为合并前记录。
+
 分支 `codex/phase3-low-light-exploration` 从探索 Trap head `0d86402` 建立，实现提交 `bacf3ac`，对应 [PR #121](https://github.com/Alpaca-go/ddbg-web/pull/121)。Kyries 随后授权“合并”；已通过本机 GitHub 凭据核对依赖 #120 的最新 head 两项 CI 成功，并合并为 main `d50a823`，本分支已同步该基线。#121 当前待最新 head CI 成功后按本次授权合并；本地验证不代替 PR CI。
 
 ## 范围与依据

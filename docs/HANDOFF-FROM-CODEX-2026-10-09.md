@@ -2,6 +2,8 @@
 
 ## 最新交接：Darkness 与低光照探索（2026-10-12，UTC+8）
 
+合并完成：#121 最新 head `44c190b` 的质量与 Playwright 两项 CI 均成功，已按 Kyries 本次授权合并为 main `fe0de21`；本地 main 已 ff-only 同步。依赖 #120 已先合并为 `d50a823`。下方等待 CI 的描述是合并前记录，当前接手从 main 继续第二步的板块与 Curio 覆盖。
+
 Kyries 授权开始第一步并随后要求“合并”。依赖 #120 最新 head `0d86402` 的质量与 Playwright 两项 CI 成功，已合并为 main `d50a823`。分支 `codex/phase3-low-light-exploration` 已同步该基线，实现 `bacf3ac`，对应 [PR #121](https://github.com/Alpaca-go/ddbg-web/pull/121)，等待最新 head CI 成功后按本次授权合并。当前开发入口见[低光照探索交付](phase3-low-light-exploration-2026-10-12.md)，下方 #120 未合并及低光照未接线的叙述为历史状态。
 
 - 按官方 R14 / R29、规格书 §5.5 / §5.7 / §5.10 与 R-002 / R-003 接 Darkness 降光、全队被动、意志恢复和光照 0–5 探索；复用现有危险 / 环境 Trap 结算，不重掷或提前移动。低光 Trap 房间同步开放，混合分配按实际压力预检 Q-64。
