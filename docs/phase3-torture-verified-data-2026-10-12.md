@@ -1,5 +1,7 @@
 # 步骤 2：Torture Chamber VQ-01–05 获批入库
 
+实现 `90a2c93`，开放草稿 [PR #125](https://github.com/Alpaca-go/ddbg-web/pull/125)，以 #124 主题分支为 base；尚未合并。本地检查通过，合并前另核最新 head 的质量与 Playwright 两项 CI。
+
 Kyries 本轮回传 Kyries/Grok 目视确认：Torture Chamber BACK p2（遗迹 2）VQ-01、02、03、04、05 全部批准，无修正。明确只入库，H 的 Unholy Aura 为本面候选，不接运行时、不全局复用 Cornered；治疗拒绝路径就绪前 `usable=false`。批准与逐项队列状态见[verify-queue](kyries-verify-queue-2026-10-12.md)。
 
 ## 数据与边界

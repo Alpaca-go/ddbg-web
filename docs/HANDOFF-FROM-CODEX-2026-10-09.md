@@ -2,6 +2,8 @@
 
 ## 最新交接：Torture VQ-01～05 已批准并入库（2026-10-12，UTC+8）
 
+实现 `90a2c93`，开放草稿 [PR #125](https://github.com/Alpaca-go/ddbg-web/pull/125)，以尚未合并的 #124 主题分支为 base；本地入库不等于 main 已交付。typecheck、lint、747 项测试、build、六条冒烟与 diff 检查通过；合并前另核最新 head 两项 CI。创建 PR 后本入口补记随主题提交。
+
 Kyries 已回传 Kyries/Grok 的 Torture Chamber BACK p2（遗迹 2）VQ-01、02、03、04、05 目视批准，**无修正**。本轮明确只入库；H 的 Unholy Aura 仅候选，不接运行时，不复用 Cornered，`usable` 待治疗拒绝路径就绪。批准记录与状态已更新至[verify-queue](kyries-verify-queue-2026-10-12.md)，用户本轮明确提供的批准是入库依据，不需要再询问 Torture / BACK p2；没有批准 Fountain FRONT p2。
 
 当前主题 `codex/phase3-torture-verified-data`，基于 #124 的 `1f1f7c6`。新增 `room_tile:p002:back` / `room:p002`，锁 BACK 来源，记录八区容量、十条通行边、三角点、黑墙、四英雄 / 四怪物和三宝箱的本面 confirmed 部署；H 候选独立保存，强制 `runtimeReady=false` / `usable=false`。规范化生成器现在输出两面，仅 Ritual Chamber 可用；引擎 / UI 不开放新板块。字段与限制见[本轮入库交付](phase3-torture-verified-data-2026-10-12.md)。
