@@ -2,6 +2,8 @@
 
 ## 最新交接：#128 合并与 Curio 正面复合奖励（2026-10-13，UTC+8）
 
+实现 `339efc1`，开放草稿 [PR #129](https://github.com/Alpaca-go/ddbg-web/pull/129)，base 为 main，尚未合并。以下是本地验证，合并前另核最新 head 两项 CI；PR 入口补记随主题提交。
+
 #128 最新 head `8bab41d` 的质量与 Playwright 两项 CI 均成功，审阅后按用户本次授权合并为 main `d0bfadb`，本地 ff-only 同步。当前主题 `codex/phase3-curio-composite-rewards` 从该基线开始，下方 #128 未合并状态是历史记录。
 
 新增 Torch 后 05 / 07 / 24 的 Buff / 饰品 / 正面怪癖复合，按获批卡面行序逐项保存续接游标。整卡预检全部池，待选不重抽 / 重施加、腾位不提前抽下一奖励，最后只支付一次金币并弃一次 Curio。Torch 获得选择覆盖 24 / 24，仍不保证未知饰品可装备，不代表未用 Torch 的负面复合可完成。种子 230 的真实 Strongbox → Accuracy Stone → Clotter 与命令回放见[本轮交付](phase3-curio-composite-rewards-2026-10-13.md)。

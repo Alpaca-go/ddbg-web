@@ -1,5 +1,7 @@
 # 步骤 2：Curio 正面复合奖励续接
 
+实现 `339efc1`，开放草稿 [PR #129](https://github.com/Alpaca-go/ddbg-web/pull/129)，base 为 main，尚未合并。下方是本地验证；合并前另核最新 head 两项 CI。
+
 2026-10-13（UTC+8）。#128 最新 head `8bab41d` 的质量与 Playwright 两项 CI 均成功，审阅后按用户本次“检查当前开发进度，合并，然后推进下阶段开发任务”授权合并为 main `d0bfadb`。本地 ff-only 同步后建立 `codex/phase3-curio-composite-rewards`。
 
 ## 当前进度
