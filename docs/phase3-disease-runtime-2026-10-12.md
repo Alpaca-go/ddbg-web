@@ -1,6 +1,6 @@
 # Phase 3：疾病与负面怪癖运行时接线
 
-本轮基于已合并 #115 的 main `c50226b`，在 `codex/phase3-disease-runtime` 推进。本文描述本分支，尚未合并到 main；Phase 3 仍未完成。
+本轮基于已合并 #115 的 main `c50226b`，在 `codex/phase3-disease-runtime` 推进，现已通过 #116 合并到 main `4c891bf`；Phase 3 仍未完成。
 
 ## 可用范围
 
@@ -20,7 +20,7 @@
 - **Q-67**：Kyries 明确保持待定。暴击基础压力与 Off Guard / Weak Grip 的压力事件身份未裁定；涉及 Nervous / The Worries / Soft / 低光修正的组合停场，不重复修正后继续游戏。
 - **Q-68**：Kyries 明确保持待定。Curio 同卡疾病与压力 / 状态是否使用抽卡前被动尚未裁定；Sarcophagus 不用 Torch 的组合保留整卡，不先发金币或抽病。Torch 的已核实负面抑制路径仍可结算。Q-60 / Q-61 / Q-62 独立保留。
 - 现有自身位移在后续命令续接。Vertigo 自身位移触及意志收尾，或 Soft 的追加伤口与死门 / 反击组合，需要先于攻击处理的续接尚未实现，明确拒绝；安全的位移触发已接通。光照被动与英雄暴击压力恢复接近意志阈值的复合顺序也明确拒绝，不按后置压力恢复改变死亡结果。
-- 正面怪癖仅保存、替换及复用具名基础修正；没有本轮新建正面抽牌入口。Balanced 的可选减位移待选未接入，持有它的位移不静默忽略。探索陷阱攻击仍沿用原停点，Slow Reflexes / Quick Reflexes 不因此开放该攻击。
+- 正面怪癖仅保存、替换及复用具名基础修正；没有本轮新建正面抽牌入口。#116 时 Balanced 的可选减位移待选未接入，后续独立分支已接通，见 [Balanced 位移选择](phase3-balanced-shuffle-2026-10-12.md)。探索陷阱攻击仍沿用原停点，Slow Reflexes / Quick Reflexes 不因此开放该攻击。
 - 未完成全量 Curio、其他遗迹板块、Dark / Objective 房间、休息、自由撤离、任务目标 / XP、驿站替换或战役。不能保证任意种子可通行，也没有三任务验收。
 
 ## 复现

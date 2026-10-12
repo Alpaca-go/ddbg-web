@@ -394,6 +394,226 @@ it("Vertigo 在位移区域选择完成后触发一次，沿用原技能骰，�
   expect(hero(finished)).toMatchObject({ areaId: "b", stress: 3 });
   expect(finished.battle!.rngCursor).toBe(played.state.battle!.rngCursor);
 });
+function balancedShot(vertigo = false): GameState {
+  const initial = setup("monster_medium:p001");
+  const stat = stats.find((s) => s.name === "HIGHWAYMAN")!;
+  const skill = skills.find((s) => s.id === "hero_skill:p070")!;
+  const patched = patch(initial, {
+    hero: stat.name,
+    heroStatId: stat.id,
+    life: stat.life,
+    dodge: stat.dodge,
+    quirkIds: ["quirk:p014"],
+    ...(vertigo ? { diseaseId: "disease:p007" } : {}),
+    skillIds: [skill.id],
+  });
+  const state = turn({
+    ...patched,
+    battle: {
+      ...patched.battle!,
+      entities: patched.battle!.entities.map((e) =>
+        e.id === "m" ? { ...e, areaId: "a", life: 100 } : e,
+      ),
+    },
+  });
+  return successful(
+    applyCommand(state, {
+      type: "playHeroSkill",
+      actorId: "h0",
+      targetId: "m",
+      skillId: skill.id,
+    }),
+  );
+}
+function balancedChoice(state: GameState, optionId: string): ApplyResult {
+  return applyCommand(state, {
+    type: "resolveChoice",
+    choiceId: state.battle!.pending!.choice.id,
+    optionId,
+  });
+}
+it("Balanced 自身位移可减到零：冻结待选、一次扣行动、不触发 Vertigo 且可确定性回放", () => {
+  const played = balancedShot(true);
+  const snapshot = structuredClone(played);
+  const waiting = applyCommand(played, { type: "resolveShuffles" });
+  successful(waiting);
+  expect(waiting.pendingChoice).toMatchObject({ actorId: "h0" });
+  expect(waiting.pendingChoice!.options.map((o) => o.id)).toEqual(["keep", "reduce"]);
+  expect(waiting.state.battle!.entities).toEqual(played.battle!.entities);
+  expect(waiting.state.battle!.rngCursor).toBe(played.battle!.rngCursor);
+  expect(waiting.state.battle!.encounter!.turn).toMatchObject({ actions: 2, usedSkillIds: [] });
+  for (const command of [
+    { type: "resolveShuffles" },
+    { type: "drawInitiative" },
+    { type: "useProvision", actorId: "h0", targetId: "h0", provisionId: "food", effect: "heal" },
+    { type: "resolveChoice", choiceId: waiting.pendingChoice!.id, optionId: "bogus" },
+  ] as const)
+    expect(applyCommand(waiting.state, command).state).toBe(waiting.state);
+  const reduced = balancedChoice(waiting.state, "reduce");
+  successful(reduced);
+  // Point Blank Shot 还带目标位移；自身减到零后仍须完成该独立意图。
+  expect(reduced.state.battle!.pending?.type).toBe("shuffleArea");
+  expect(reduced.state.battle!.shuffleIntents[0]!.entityId).toBe("m");
+  expect(reduced.events.filter((e) => e.type === "shuffleResolved")).toMatchObject([
+    { path: [], stanceSteps: 0 },
+  ]);
+  expect(reduced.events.filter((e) => e.type === "passiveTriggered")).toHaveLength(1);
+  const done = balancedChoice(reduced.state, "b");
+  successful(done);
+  expect(hero(done.state)).toMatchObject({ areaId: "a", stance: "aggressive" });
+  expect(hero(done.state).stress).toBe(hero(played).stress);
+  expect(done.state.battle!.rngCursor).toBe(played.battle!.rngCursor);
+  expect(done.state.battle!.encounter!.turn).toMatchObject({
+    actions: 1,
+    usedSkillIds: ["hero_skill:p070"],
+  });
+  expect(done.state.battle!.shuffleIntents).toEqual([]);
+  expect(done.events.filter((e) => e.type === "passiveTriggered")).toHaveLength(0);
+  expect(balancedChoice(waiting.state, "reduce")).toEqual(reduced);
+  expect(
+    applyCommand(done.state, {
+      type: "resolveChoice",
+      choiceId: waiting.pendingChoice!.id,
+      optionId: "reduce",
+    }).state,
+  ).toBe(done.state);
+  expect(played).toEqual(snapshot);
+});
+it("Balanced 保持距离后进入区域分岔，选择不再询问减距或重复触发疾病", () => {
+  const played = balancedShot(true);
+  const waiting = applyCommand(played, { type: "resolveShuffles" });
+  const area = balancedChoice(waiting.state, "keep");
+  successful(area);
+  expect(area.state.battle!.pending?.type).toBe("shuffleArea");
+  expect(area.pendingChoice!.options.map((o) => o.id)).toEqual(["b", "c"]);
+  expect(area.pendingChoice!.id).not.toBe(waiting.pendingChoice!.id);
+  expect(hero(area.state).stress).toBe(hero(played).stress);
+  expect(
+    applyCommand(area.state, {
+      type: "resolveChoice",
+      choiceId: waiting.pendingChoice!.id,
+      optionId: "reduce",
+    }).state,
+  ).toBe(area.state);
+  const done = balancedChoice(area.state, "b");
+  successful(done);
+  expect(hero(done.state)).toMatchObject({ areaId: "b", stance: "defensive" });
+  expect(hero(done.state).stress).toBe(hero(played).stress! + 2);
+  expect(
+    done.events.filter((e) => e.type === "passiveTriggered" && e.trigger === "shuffled"),
+  ).toHaveLength(1);
+  expect(done.state.battle!.rngCursor).toBe(played.battle!.rngCursor);
+  expect(done.state.battle!.encounter!.turn).toMatchObject({ actions: 1 });
+});
+it("Balanced 多步意图只减一次，满员截断仍按减少后的距离移动姿态", () => {
+  // 意图层测试布置：不改变真实 Point Blank Shot 卡上的距离。
+  const played = balancedShot();
+  for (const blocked of [false, true]) {
+    const state: GameState = {
+      ...played,
+      battle: {
+        ...played.battle!,
+        areas: played.battle!.areas.map((a) =>
+          blocked && a.id !== "a" ? { ...a, capacity: 0 } : a,
+        ),
+        shuffleIntents: played.battle!.shuffleIntents.map((i) => ({
+          ...i,
+          move: { ...i.move, distance: 2 },
+        })),
+      },
+    };
+    const waiting = applyCommand(state, { type: "resolveShuffles" });
+    const reduced = balancedChoice(waiting.state, "reduce");
+    successful(reduced);
+    const done = blocked ? reduced : balancedChoice(reduced.state, "c");
+    successful(done);
+    expect(hero(done.state)).toMatchObject({
+      areaId: blocked ? "a" : "c",
+      stance: "defensive",
+    });
+    expect(done.state.battle!.rngCursor).toBe(played.battle!.rngCursor);
+  }
+});
+it("Balanced 选择后遇到未核实几何时原子拒绝，保留原选择和距离", () => {
+  const played = balancedShot();
+  const state: GameState = {
+    ...played,
+    battle: {
+      ...played.battle!,
+      areas: played.battle!.areas.map((a) => {
+        if (a.id !== "b") return a;
+        const { capacity: _capacity, ...unverified } = a;
+        void _capacity;
+        return unverified;
+      }),
+    },
+  };
+  const waiting = applyCommand(state, { type: "resolveShuffles" });
+  const snapshot = structuredClone(waiting.state);
+  const refused = balancedChoice(waiting.state, "keep");
+  expect(refused.state).toBe(waiting.state);
+  expect(refused.events).toMatchObject([{ type: "commandRefused" }]);
+  expect(waiting.state).toEqual(snapshot);
+});
+it("怪物多目标位移：Balanced 只属于持有者，续接另一目标后结束一次怪物回合", () => {
+  const initial = patch(setup("monster_medium:p013"), { quirkIds: ["quirk:p014"] });
+  const card = initial.battle!.monsters![0]!;
+  // 路由测试沿用真实 Impale 的目标 / 命中栏，仅派生 Push 行；不入库卡牌数值。
+  const effect = [
+    { type: "icon" as const, icon: { key: "target_effects", naming: "confirmed" as const } },
+    { type: "icon" as const, icon: { key: "shuffle", naming: "confirmed" as const } },
+    { type: "text" as const, text: "Push 1" },
+  ];
+  const state = turn(
+    {
+      ...initial,
+      battle: {
+        ...initial.battle!,
+        entities: initial.battle!.entities.map((e) => (e.id === "m" ? { ...e, areaId: "b" } : e)),
+        monsters: [
+          {
+            ...card,
+            skills: card.skills.map((s) =>
+              s.slot === 2 ? { ...s, lines: [...s.lines, effect], effect_lines: [effect] } : s,
+            ),
+          },
+        ],
+      },
+    },
+    "monster",
+  );
+  const played = applyCommand(state, {
+    type: "playMonsterSkill",
+    actorId: "m",
+    targetId: "h0",
+    skillSlot: 2,
+  });
+  successful(played);
+  const waiting = applyCommand(played.state, { type: "resolveShuffles" });
+  successful(waiting);
+  expect(waiting.pendingChoice?.actorId).toBe("h0");
+  expect(waiting.state.battle!.encounter!.turn.type).toBe("monster");
+  const completed = balancedChoice(waiting.state, "reduce");
+  successful(completed);
+  expect(completed.pendingChoice).toBeUndefined();
+  expect(hero(completed.state)).toMatchObject({ areaId: "a", stance: "aggressive" });
+  expect(completed.state.battle!.entities.find((e) => e.id === "h1")).toMatchObject({
+    areaId: "c",
+  });
+  expect(
+    completed.events.filter((e) => e.type === "shuffleResolved" && e.entityId === "h1"),
+  ).toMatchObject([{ path: ["c"], stanceSteps: 1 }]);
+  expect(completed.state.battle!.rngCursor).toBe(played.state.battle!.rngCursor);
+  expect(completed.events.filter((e) => e.type === "turnEnded")).toHaveLength(1);
+  expect(completed.state.battle!.encounter!.turn.type).toBe("awaitingInitiative");
+  expect(
+    applyCommand(completed.state, {
+      type: "resolveChoice",
+      choiceId: waiting.pendingChoice!.id,
+      optionId: "reduce",
+    }).state,
+  ).toBe(completed.state);
+});
 it("Ennui 的 -1 美德几率作用于公共命令的真实意志检定（同骰 2：普通为美德，疾病为苦难）", () => {
   const seed = Array.from({ length: 200 }, (_, i) => i).find((s) => nextBattleRoll(s, 0) === 2)!;
   const ready = (diseaseId?: string): GameState => {

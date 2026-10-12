@@ -7,6 +7,8 @@ export type ShuffleIntent = {
   readonly entityId: string;
   /** 已由技能层处理抗性的距离；此层不再次减距。 */
   readonly move: SkillShuffle;
+  /** R27：本条位移的 Balanced 选择已完成，区域分岔续接不再次减距。 */
+  readonly balancedChosen?: boolean;
 } & (
   | { readonly relativeToId: string; readonly relativeToAreaId?: never }
   | { readonly relativeToAreaId: string; readonly relativeToId?: never }

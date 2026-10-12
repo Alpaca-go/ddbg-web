@@ -33,6 +33,10 @@ const pendingSteps: Record<
     label: "等待推拉方向选择",
     hint: "选择推或拉，再继续位移结算。",
   },
+  shuffleReduction: {
+    label: "等待 Balanced 位移选择",
+    hint: "由持有 Balanced 的英雄选择保持距离或少移 1，再继续本次位移。",
+  },
   shuffleArea: {
     label: "等待位移区域选择",
     hint: "选择下方可用区域，继续本次位移；不重新掷骰。",

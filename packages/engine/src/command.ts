@@ -16,7 +16,7 @@ import type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 import type { HeroHealthEffect, HeroHealthResolution } from "./hero-health";
 import { applyEncounterCommand } from "./encounter";
 import type { EncounterCommand, EncounterEvent } from "./encounter";
-import { applyBattleShuffles } from "./battle-shuffle";
+import { applyBattleShuffles, chooseBalancedShuffle } from "./battle-shuffle";
 import { playMonsterSkill } from "./battle-monster";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
 import { prepareMonsterAction } from "./battle-monster-action";
@@ -303,6 +303,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     ) {
       return rejectBattleCommand(state, "选择不存在、已过期或选项无效");
     }
+    if (pending.type === "shuffleReduction") return chooseBalancedShuffle(state, command.optionId);
     if (pending.type === "shuffleArea")
       return applyBattleShuffles(state, [...pending.path, command.optionId]);
     if (pending.type === "smallDisplace") {
