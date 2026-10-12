@@ -2,6 +2,8 @@
 
 ## 最新交接：Q-60 全图标批准与 Curio 覆盖（2026-10-12，UTC+8）
 
+实现 `4788477`，对应开放草稿 [PR #122](https://github.com/Alpaca-go/ddbg-web/pull/122)，尚未合并。创建 PR 后入口补记与本主题一并提交；后续合并前须核对最新 head 的质量与 Playwright 两项 CI。
+
 Kyries 授权步骤 2 并明确批准 17 个 Q-60 hash / 01–24 手打效果行，记录为 R-064。当前 `codex/phase3-q60-curio-icons` 基于 main `5714846`；本主题尚未合并。范围、17 个 hash 与真实可结算表见[本轮交付](phase3-q60-curio-icons-2026-10-12.md)，批准来源见[手打对照](ddbg-icon-review.md)。下方 Q-60 未确认及只 p21 数据完整的叙述为历史状态。
 
 - 词典现有 10 条更新、7 条新增，JSON / CSV 同步；只改获批 hash，不推广同组。24 张 Curio 已无未知效果行，01 口头“美德 / 折磨”作废；Disease 不命名为 Blight。

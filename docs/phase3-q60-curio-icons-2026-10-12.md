@@ -1,6 +1,6 @@
 # Phase 3：Q-60 图标批准与 Curio 可结算范围
 
-本地分支 `codex/phase3-q60-curio-icons` 基于 main `5714846`。Kyries 2026-10-12 明确批准全部 17 个 Q-60 hash 与 CURIO_FRONT_V2 / 01–24 手打效果行，记录为 R-064。修改清单见[词典变更记录](../packages/data/dictionary/icon-dictionary-v1.8-CHANGELOG.md)。本主题尚未合并到 main，Phase 3 未验收。
+分支 `codex/phase3-q60-curio-icons` 基于 main `5714846`，实现提交 `4788477`，对应开放草稿 [PR #122](https://github.com/Alpaca-go/ddbg-web/pull/122)。Kyries 2026-10-12 明确批准全部 17 个 Q-60 hash 与 CURIO_FRONT_V2 / 01–24 手打效果行，记录为 R-064。修改清单见[词典变更记录](../packages/data/dictionary/icon-dictionary-v1.8-CHANGELOG.md)。本主题尚未合并到 main，Phase 3 未验收；合并前核对 PR 最新 head 的质量与 Playwright 两项 CI。
 
 ## 数据交付
 
