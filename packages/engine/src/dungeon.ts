@@ -28,6 +28,7 @@ import { triggerDungeonPassive } from "./dungeon-passive";
 import type { TrinketPool } from "./trinket-acquisition";
 
 export type DungeonCurioDraw = {
+  readonly positiveRewardCursor?: number;
   readonly trinketApplied?: boolean;
   readonly positiveQuirkApplied?: boolean;
   readonly provisionFace?: ProvisionFace | "wild";

@@ -398,6 +398,34 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     path: testInfo.outputPath("curio-trinket-acquisition.png"),
     fullPage: true,
   });
+  await page.getByLabel("侦察测试布置").selectOption("curioComposite");
+  for (const name of [
+    "重置标准模式",
+    "选择下一段探索",
+    "D",
+    "掷探索骰并开始结算",
+    "hero-0:1 · Curio",
+    "使用 torch（torch-1），抽卡前抑制负面效果",
+    "结算当前 Curio",
+  ])
+    await page.getByRole("button", { name, exact: true }).click();
+  await expect(page.getByTestId("dungeon-curio")).toContainText("Strongbox · p7");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：0");
+  await expect(page.getByTestId("dungeon-curio")).toContainText("弃牌 0");
+  await page.getByRole("button", { name: "hero-0 装备 Accuracy Stone", exact: true }).click();
+  await expect(page.getByTestId("dungeon-trinkets")).toContainText(
+    "hero-0 · Accuracy Stone（正面）",
+  );
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：5");
+  await expect(page.getByTestId("dungeon-curio")).toContainText("弃牌 1");
+  await expect(page.getByText(/布置 RNG 游标 67/)).toBeVisible();
+  await expect(page.getByTestId("dungeon-conditions")).not.toContainText(
+    "hero-0 · 疾病：无 · 怪癖：无",
+  );
+  await page.screenshot({
+    path: testInfo.outputPath("curio-composite-rewards.png"),
+    fullPage: true,
+  });
 });
 
 test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场", async ({ page }, testInfo) => {
