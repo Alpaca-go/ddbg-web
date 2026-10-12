@@ -2,6 +2,8 @@
 
 ## 最新交接：#131 合并与遗迹8/9审核草稿（2026-10-13，UTC+8）
 
+草稿提交 `4a82cd3`，开放草稿 [PR #132](https://github.com/Alpaca-go/ddbg-web/pull/132)，base为main，尚未合并。本地文档核对与PR CI区分，合并前另核最新head两项CI；入口补记随主题提交。
+
 #131最新head `062d8a0` 的质量与Playwright两项CI均成功，按用户“合并，继续推进”授权合并为main `323cec1`，本地ff-only同步。下方#131未合并状态是历史记录；合并文档不等于批准草稿数据。
 
 本轮从main建立 `codex/phase3-ruins8-9-verify-drafts`，准备[Invocation Chamber VQ-17](phase3-invocation-chamber-review-2026-10-13.md)（BACK p5 / room:p008）与[Old Abbey VQ-18](phase3-old-abbey-review-2026-10-13.md)（FRONT p5 / room:p009）。完整板块和配套卡均已看，身份、容量、边界 / 角点、部署、宝箱、星形及卡文各自记录，图像仅在忽略缓存。
