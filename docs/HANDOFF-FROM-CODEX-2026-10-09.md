@@ -1,5 +1,13 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：探索骰 Trap 攻击（2026-10-12，UTC+8）
+
+#119 最新 head `a9caf2b` 的质量与 Playwright 两项 CI 均成功，按 Kyries 本次“合并，然后继续推进下一步”授权转待审并合并为 main `5681196`；本地 main 已 ff-only 同步。当前分支 `codex/phase3-exploration-trap`，代码 `83c6533`、开放草稿 [PR #120](https://github.com/Alpaca-go/ddbg-web/pull/120)，新增探索骰 Trap 攻击，尚未合并。本次 PR 入口补记随同分支追加；后续合并前须核对最新 head 的质量与 Playwright 两项 CI。下方 #119 未合并的叙述为历史状态。
+
+- 按官方 R14 / R27、规格书 §5.5 / G-06 与 R-003 / R-026 / R-031，接固定 Acc 8 / Crit 2、DL 伤害、英雄 Dodge、Protection、具名被动、同批伤口与死门；技能和陷阱共享减伤函数。不制造怪物 / 反弹对象，不提前移动或重复掷骰。
+- 十二项新场景及既有第一条 Phase 3 冒烟扩展 Trap 暴击；typecheck、lint、75 文件 / 725 项测试、build、六条冒烟与 diff 检查通过，已检查 Trap 完整截图。最后中文伤害来源提示修正另复核类型、lint 与新增场景。压力缺资料时保存已付伤害，补齐后继续剩余骰；Q-66 / Q-67 原子拒绝，Q-68 不变。
+- 接手先读本节与[探索 Trap 交付](phase3-exploration-trap-2026-10-12.md)。下一块优先探索骰 Darkness 降光与低光照探索的已明确规则接线；完整任务 / XP、休息、撤离与其他房间仍未完成，Phase 3 未验收，不跳 Phase 4。原有 `docs/_q52-search.txt` 保留且不提交。
+
 ## 最新交接：Dark 房间与地图 Torch（2026-10-12，UTC+8）
 
 用户要求“合并，然后继续推进下一步”：#118 最新 head `a641f45` 的质量与 Playwright 两项 CI 均成功，草稿转为待审后按本次授权合并为 main `1e701a7`，本地 main 已 ff-only 同步。当前主题分支 `codex/phase3-dark-room`，代码提交 `6a817ec`，对应开放草稿 [PR #119](https://github.com/Alpaca-go/ddbg-web/pull/119)，尚未合并；本次 PR 入口补记随同分支追加。下方 #118 尚未合并的叙述为此前历史补记。

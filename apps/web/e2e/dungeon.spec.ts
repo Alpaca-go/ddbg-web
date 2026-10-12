@@ -31,9 +31,6 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await page.getByRole("button", { name: "掷探索骰并开始结算" }).click();
   // 真实种子 31 的八骰；同一英雄可先结算第二颗。
   await page.getByRole("button", { name: "hero-0:2 · Trap", exact: true }).click();
-  await page
-    .getByRole("button", { name: "陷阱攻击（缩放 / 光照待 Kyries 确认）", exact: true })
-    .click();
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("队伍尚未移动");
   await expect(page.getByTestId("dungeon-provisions")).toContainText("tool-1");
   await page.getByRole("button", { name: "使用 tool（tool-1）抵消", exact: true }).click();
@@ -250,6 +247,22 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(infected.first()).toContainText("疾病：");
   await expect(infected.first()).not.toContainText("疾病：无");
   await page.screenshot({ path: testInfo.outputPath("maggot-disease.png"), fullPage: true });
+  await page.goto("/?phase=3");
+  await page.getByLabel("侦察测试布置").selectOption("corridor");
+  await page.getByRole("button", { name: "重置标准模式" }).click();
+  await page.getByRole("button", { name: "选择下一段探索" }).click();
+  await page.getByRole("button", { name: "D", exact: true }).click();
+  await page.getByRole("button", { name: "掷探索骰并开始结算" }).click();
+  await page.getByRole("button", { name: "hero-0:2 · Trap", exact: true }).click();
+  await page.getByRole("button", { name: "陷阱攻击", exact: true }).click();
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 1 · 伤口 4/17");
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-1 压力 0 · 伤口 0/14");
+  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("队伍尚未移动");
+  await expect(page.getByText(/布置 RNG 游标 16/)).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "hero-0:1 · Stressful Darkness", exact: true }),
+  ).toBeVisible();
+  await page.screenshot({ path: testInfo.outputPath("dungeon-trap-attack.png"), fullPage: true });
 });
 
 test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场", async ({ page }, testInfo) => {
