@@ -1,5 +1,6 @@
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { applyDungeonCommand } from "./dungeon";
+import { useDungeonTorch } from "./dungeon-light";
 import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
 import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
 import { recordMonsterSkill } from "./encounter";
@@ -273,6 +274,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   }
   if (command.type === "startDungeonBattle") return startDungeonBattle(state);
   if (command.type === "finishDungeonBattle") return finishDungeonBattle(state);
+  if (command.type === "useProvision" && state.dungeon && !state.battle)
+    return useDungeonTorch(state, command);
   if (state.dungeon?.phase === "inBattle" && command.type === "finishMonsterTurn")
     return rejectBattleCommand(state, "真实地牢战斗须完成怪物选招 / 定位 / 结算，不能手动跳过回合");
   if (

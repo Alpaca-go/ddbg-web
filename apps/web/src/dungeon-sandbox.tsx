@@ -33,6 +33,7 @@ type Fixture =
   | "corridor"
   | "curio"
   | "trap"
+  | "dark"
   | "roomApproved"
   | "roomBattle"
   | "roomDisease"
@@ -134,21 +135,37 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
             ),
           },
         }
-      : fixture === "roomDisease"
+      : fixture === "dark"
         ? {
             ...initial,
             dungeon: {
               ...initial.dungeon!,
               rooms: initial.dungeon!.rooms.map((r) =>
                 r.id === "D"
-                  ? { ...r, kind: "lair" as const }
-                  : r.id === "A"
-                    ? { ...r, kind: "curio" as const }
-                    : r,
+                  ? { ...r, kind: "dark" as const }
+                  : r.kind === "dark"
+                    ? { ...r, kind: initial.dungeon!.rooms.find((room) => room.id === "D")!.kind }
+                    : r.id === position
+                      ? { ...r, cleared: true }
+                      : r,
               ),
             },
           }
-        : initial;
+        : fixture === "roomDisease"
+          ? {
+              ...initial,
+              dungeon: {
+                ...initial.dungeon!,
+                rooms: initial.dungeon!.rooms.map((r) =>
+                  r.id === "D"
+                    ? { ...r, kind: "lair" as const }
+                    : r.id === "A"
+                      ? { ...r, kind: "curio" as const }
+                      : r,
+                ),
+              },
+            }
+          : initial;
   return {
     game,
     page,
@@ -249,6 +266,7 @@ export function DungeonSandbox() {
             <option value="corridor">单走廊 → Empty（标准 p1、种子 31、无需侦察）</option>
             <option value="curio">Curio → Empty（标准 p1、种子 1237、先用 Torch）</option>
             <option value="trap">Trap 房间（p1、种子 1、DL 3、hero-0 压力 8）</option>
+            <option value="dark">Dark 房间与 Torch（p1、种子 1，固定房间代币）</option>
             <option value="roomApproved">
               Lair → Ritual Chamber（p1、种子 11、先侦察 Radiant）
             </option>
@@ -432,12 +450,18 @@ export function DungeonSandbox() {
                 </div>
               );
             })()}
-          {d.phase === "awaitingRoom" && !d.pending && currentRoom?.kind === "trap" && (
-            <button onClick={() => dispatch({ type: "resolveDungeonRoom" })}>结算 Trap 房间</button>
-          )}
+          {d.phase === "awaitingRoom" &&
+            !d.pending &&
+            ["trap", "dark"].includes(currentRoom?.kind ?? "") && (
+              <button onClick={() => dispatch({ type: "resolveDungeonRoom" })}>
+                结算 {currentRoom?.kind === "dark" ? "Dark" : "Trap"} 房间
+              </button>
+            )}
           {d.roomResolution?.roomId === d.position && (
             <p data-testid="dungeon-room-resolution">
-              Trap 已分配：{d.roomResolution.resolvedHeroIds.join("、") || "无"}
+              {d.roomResolution.kind === "dark"
+                ? "Dark 光照降低已支付"
+                : `Trap 已分配：${d.roomResolution.resolvedHeroIds.join("、") || "无"}`}
               {d.roomResolution.completed ? "；全员完成，保留代币" : "；仍需完成房间结算"}
             </p>
           )}
@@ -470,6 +494,25 @@ export function DungeonSandbox() {
             {d.explorationSetup!.provisions.map((p) => `${p.id} ${p.face}`).join(" · ") || "无"}
           </p>
           <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
+          {d.explorationSetup!.light < 5 &&
+            d
+              .explorationSetup!.provisions.filter((p) => p.face === "torch")
+              .map((p) => (
+                <button
+                  key={p.id}
+                  disabled={d.phase !== "ready" || !!d.pending}
+                  onClick={() =>
+                    dispatch({
+                      type: "useProvision",
+                      provisionId: p.id,
+                      targetId: d.heroes.find((h) => !h.dead)!.id,
+                      effect: "raiseLight",
+                    })
+                  }
+                >
+                  使用 Torch（{p.id}）：光照 +1
+                </button>
+              ))}
           {card && shownCurio && (
             <div className="panel" data-testid="dungeon-curio">
               <h3>
@@ -532,9 +575,9 @@ export function DungeonSandbox() {
                   : d.phase === "blockedPressure"
                     ? `压力已支付：意志卡数据待核实，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
                     : d.phase === "awaitingRoom"
-                      ? `进入 ${d.position}：等待${d.roomCards?.active ? "守卫战斗准备完成；原牌已记录，房间未清理" : currentRoom?.kind === "trap" ? " Trap 分配，保留代币" : "非 Empty 房间效果"}`
+                      ? `进入 ${d.position}：等待${d.roomCards?.active ? "守卫战斗准备完成；原牌已记录，房间未清理" : currentRoom?.kind === "trap" ? " Trap 分配，保留代币" : currentRoom?.kind === "dark" ? " Dark 降光，保留代币" : "非 Empty 房间效果"}`
                       : d.phase === "ready" && (d.exploration || (d.visited?.length ?? 0) > 1)
-                        ? `已到达 ${d.position}；${currentRoom?.cleared ? (currentRoom.kind === "empty" ? "Empty 已清理，移除房间代币" : "已清理，移除房间代币") : currentRoom?.kind === "trap" ? "Trap 已结算，保留代币" : "灰点必须停留"}`
+                        ? `已到达 ${d.position}；${currentRoom?.cleared ? (currentRoom.kind === "empty" ? "Empty 已清理，移除房间代币" : "已清理，移除房间代币") : currentRoom?.kind === "trap" ? "Trap 已结算，保留代币" : currentRoom?.kind === "dark" ? "Dark 已结算，保留代币" : "灰点必须停留"}`
                         : d.exploration
                           ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
                           : "等待侦察 / 路线选择"}
@@ -549,7 +592,7 @@ export function DungeonSandbox() {
               .join("；")}
           </p>
           <p className="muted">
-            命令 {commands.length} · 布置 RNG 游标 {d.cursor} · 光照表 / 陷阱缩放待 Kyries 确认
+            命令 {commands.length} · 布置 RNG 游标 {d.cursor} · 低光照探索 / 陷阱攻击仍未接线
           </p>
         </section>
       )}

@@ -1,5 +1,7 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-12 最新入口：#118 含总交接补记的 `a641f45` 已通过两项 CI，并按 Kyries 本次授权合并为 main `1e701a7`，本地 main 已 ff-only 同步。当前主题为 `codex/phase3-dark-room` 的 Dark 房间与地图 Torch，代码 `6a817ec`、开放草稿 [PR #119](https://github.com/Alpaca-go/ddbg-web/pull/119)，未合并；接手先读 [总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与 [Dark 交付](phase3-dark-room-2026-10-12.md)。低光照探索 / Trap 仍是实现边界，Q-66 / Q-67 / Q-68 继续保持待定，Phase 3 尚未完成。下方入口与 PR 状态均为历史记录。
+
 > 2026-10-12 当前接手入口（补齐最近提交）：#115 / #116 / #117 已合并，远端与本地 main 均为 `3407f38`。当前检出 `codex/phase3-empty-area-vertigo`，代码提交 `7f8323d`，对应开放草稿 [PR #118](https://github.com/Alpaca-go/ddbg-web/pull/118)，尚未合并；该代码 head 的质量与 Playwright 两项 CI 均通过。本次总交接补记在同分支追加并随 #118 提交。
 >
 > 已交付：真实房间战斗与地图回传、完整 42 张 I 级怪物池和获批参战字段、四核心 I 级英雄完整防御、疾病 / 负面怪癖运行时，以及 Balanced 可选减位移。#118 新增空区域技能的 Vertigo 位移压力到 10 收尾，尚不能视为 main 已交付。Phase 2 按批准范围验收通过，Phase 3 仍未形成完整任务，Phase 4–6 未完成。

@@ -321,6 +321,31 @@ test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场"
   await expect(page.getByTestId("dungeon-room-resolution")).toContainText("全员完成，保留代币");
   await expect(page.getByTestId("dungeon-provisions")).toContainText("tool-1");
   await page.screenshot({ path: testInfo.outputPath("dungeon-trap-room.png"), fullPage: true });
+  await page.getByLabel("侦察测试布置").selectOption("dark");
+  for (const name of [
+    "重置 Radiant",
+    "侦察",
+    "全员同意",
+    "选择下一段探索",
+    "D",
+    "掷探索骰并开始结算",
+    "结算 Dark 房间",
+  ])
+    await page.getByRole("button", { name, exact: true }).click();
+  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("Dark 已结算，保留代币");
+  await expect(page.getByTestId("dungeon-node-D")).not.toContainText("已清理");
+  await expect(page.getByText(/光照 4、DL 1/)).toBeVisible();
+  await page.getByRole("button", { name: "使用 Torch（torch-1）：光照 +1", exact: true }).click();
+  await expect(page.getByText(/光照 5、DL 1/)).toBeVisible();
+  await expect(page.getByTestId("dungeon-provisions")).not.toContainText("torch-1");
+  for (const to of ["G", "D"]) {
+    await page.getByRole("button", { name: "原路返回", exact: true }).click();
+    await page.getByRole("button", { name: `返回 ${to}（全员压力 +1）`, exact: true }).click();
+  }
+  await page.getByRole("button", { name: "结算 Dark 房间", exact: true }).click();
+  await expect(page.getByText(/光照 4、DL 1/)).toBeVisible();
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 3");
+  await page.screenshot({ path: testInfo.outputPath("dungeon-dark-room.png"), fullPage: true });
 });
 
 test("实际地图灰点遮挡，红边地图保留未解释标记且仅预览", async ({ page }, testInfo) => {

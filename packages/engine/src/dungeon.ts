@@ -129,8 +129,10 @@ export type DungeonState = {
     | "awaitingRoom"
     | "inBattle"
     | "awaitingCurio";
-  readonly pressureSource?: "scout" | "exploration" | "backtracking" | "room";
+  readonly pressureSource?: "scout" | "exploration" | "backtracking" | "room" | "provision";
   readonly roomResolution?: {
+    /** 旧 Trap 快照缺少 kind 时仍按 Trap 读取。 */
+    readonly kind?: "trap" | "dark";
     readonly roomId: string;
     readonly dungeonLevel: number;
     readonly resolvedHeroIds: readonly string[];
@@ -398,6 +400,12 @@ export function applyDungeonCommand(
       "等待全员同意",
     );
   }
+  if (
+    d.explorationSetup &&
+    d.explorationSetup.light !== 5 &&
+    (d.mode === "radiant" ? 1 : 2) - (d.scoutBonus ? 1 : 0) > 0
+  )
+    return refuse("有骰探索仍仅接光照 5；请先用 Torch 恢复光照，保留导航就绪状态");
   const routes = adjacent(d).filter(
     (id) =>
       d.layout.nodes.find((n) => n.id === id)?.kind !== "start" && !(d.visited ?? []).includes(id),
