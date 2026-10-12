@@ -1,5 +1,13 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-12 当前接手入口（补齐最近提交）：#115 / #116 / #117 已合并，远端与本地 main 均为 `3407f38`。当前检出 `codex/phase3-empty-area-vertigo`，代码提交 `7f8323d`，对应开放草稿 [PR #118](https://github.com/Alpaca-go/ddbg-web/pull/118)，尚未合并；该代码 head 的质量与 Playwright 两项 CI 均通过。本次总交接补记在同分支追加并随 #118 提交。
+>
+> 已交付：真实房间战斗与地图回传、完整 42 张 I 级怪物池和获批参战字段、四核心 I 级英雄完整防御、疾病 / 负面怪癖运行时，以及 Balanced 可选减位移。#118 新增空区域技能的 Vertigo 位移压力到 10 收尾，尚不能视为 main 已交付。Phase 2 按批准范围验收通过，Phase 3 仍未形成完整任务，Phase 4–6 未完成。
+>
+> 接手先读 [Codex 总交接顶部补记](HANDOFF-FROM-CODEX-2026-10-09.md)、[Balanced 交付](phase3-balanced-shuffle-2026-10-12.md)和[空区域 Vertigo 交付](phase3-empty-area-vertigo-2026-10-12.md)。下一块先审阅 #118；合并后同步 main，再继续已明确规则的复合事件或下一张遗迹 Room Tile 核对准备。Q-66 / Q-67 / Q-68 继续保持待定，涉及真实目标攻击 / 反击或追加伤口的压力复合仍保留停点。下文的旧 tip、待办、#114 / #115 未合并及数据未获批叙述均是历史基线，不覆盖本段。
+
+## 历史交接基线（以下保留各轮原记录，当前入口见上方）
+
 > 2026-10-12 当前进度：#114 已合并到 main `202a14e`。Kyries 要求后续作为一次重型任务推进；`codex/phase3-guarded-battle-loop` 已接真实房间战斗、胜利 / 四轮撤退回传与 Small 挤占，仍待审 / 未合并。九种新怪物核图确认请求尚未收到回复，疾病 / 新增完整效果仍待继续，整个重型任务与 Phase 3 尚未完成。接手先读 [Codex 最新交接](HANDOFF-FROM-CODEX-2026-10-09.md)、[本轮交付与限制](phase3-guarded-battle-loop-2026-10-12.md)和[待审表](monster-battle-review-2026-10-12.md)；下文“怪物池尚未合并”是历史状态。
 
 > 2026-10-12 最新交接：#113 已合并为 main `258459e`，Phase 3 守卫房间抽牌 / 板块匹配已交付；完整 42 张 I 级怪物池与真实部署记录在 `codex/phase3-monster-pool`，尚未合并。接手先读 [Codex 最新交接](HANDOFF-FROM-CODEX-2026-10-09.md) 与 [怪物牌池交付](phase3-monster-pool-2026-10-12.md)。Phase 3 未形成完整任务；下文阶段状态、tip 与合并准备属于历史记录。
