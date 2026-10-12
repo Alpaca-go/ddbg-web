@@ -1,6 +1,6 @@
 # Phase 3：探索骰 Trap 攻击
 
-基于已合并 #119 的 main `5681196`，分支 `codex/phase3-exploration-trap`；本切片尚未合并，Phase 3 尚未完成。代码提交与 PR 入口将在提交后补记，并同步两份总交接。
+基于已合并 #119 的 main `5681196`，分支 `codex/phase3-exploration-trap`；代码 `83c6533`、开放草稿 [PR #120](https://github.com/Alpaca-go/ddbg-web/pull/120)，本切片尚未合并，Phase 3 尚未完成。PR 创建后的本次入口补记与两份总交接一并提交；后续合并前须核对最新 head 的质量与 Playwright 两项 CI。
 
 ## 范围与依据
 

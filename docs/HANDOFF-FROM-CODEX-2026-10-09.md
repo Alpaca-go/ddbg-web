@@ -2,7 +2,7 @@
 
 ## 最新交接：探索骰 Trap 攻击（2026-10-12，UTC+8）
 
-#119 最新 head `a9caf2b` 的质量与 Playwright 两项 CI 均成功，按 Kyries 本次“合并，然后继续推进下一步”授权转待审并合并为 main `5681196`；本地 main 已 ff-only 同步。当前分支 `codex/phase3-exploration-trap`，新增探索骰 Trap 攻击，尚未合并。代码 SHA / PR 入口将在提交后补记；下方 #119 未合并的叙述为历史状态。
+#119 最新 head `a9caf2b` 的质量与 Playwright 两项 CI 均成功，按 Kyries 本次“合并，然后继续推进下一步”授权转待审并合并为 main `5681196`；本地 main 已 ff-only 同步。当前分支 `codex/phase3-exploration-trap`，代码 `83c6533`、开放草稿 [PR #120](https://github.com/Alpaca-go/ddbg-web/pull/120)，新增探索骰 Trap 攻击，尚未合并。本次 PR 入口补记随同分支追加；后续合并前须核对最新 head 的质量与 Playwright 两项 CI。下方 #119 未合并的叙述为历史状态。
 
 - 按官方 R14 / R27、规格书 §5.5 / G-06 与 R-003 / R-026 / R-031，接固定 Acc 8 / Crit 2、DL 伤害、英雄 Dodge、Protection、具名被动、同批伤口与死门；技能和陷阱共享减伤函数。不制造怪物 / 反弹对象，不提前移动或重复掷骰。
 - 十二项新场景及既有第一条 Phase 3 冒烟扩展 Trap 暴击；typecheck、lint、75 文件 / 725 项测试、build、六条冒烟与 diff 检查通过，已检查 Trap 完整截图。最后中文伤害来源提示修正另复核类型、lint 与新增场景。压力缺资料时保存已付伤害，补齐后继续剩余骰；Q-66 / Q-67 原子拒绝，Q-68 不变。
