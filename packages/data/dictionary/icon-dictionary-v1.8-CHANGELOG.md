@@ -1,5 +1,22 @@
 # 图标词典 v1.8 更新记录（2026-10-08）
 
+## 2026-10-12 补充：Curio 效果行 17 个 hash（R-064 / Q-60）
+
+Kyries 对照 CURIO_FRONT_V2 与手打 01–24 效果行批准全部 Q-60 hash。现有 10 条更新，新增 7 条作为 rank 977–983，旧 rank 不改。JSON / CSV 同步，status 为 `confirmed`、source 为 `kyries_review_2026-10-12`，保留旧状态与含义；数字仍来自效果行，不填图标 `value`。历史 `all976` stats 字段名保留，统计覆盖当前全部 983 条。
+
+| 含义 | hash |
+| --- | --- |
+| Roll for Provisions | `ae45f5bcb3` |
+| Bleed（并 `be17b4ee09`） | `9b6a2b779d`、`12b6af97f2`（新增） |
+| Disease（并 `b4627031be`，非 Blight） | `e546d025cd` |
+| 抽负面怪癖（不再为 decor） | `449d2d43ed`（新增）、`382acc9dc4`、`3fe634e723`、`7b1a554877` |
+| 抽正面怪癖 | `3a7dfcb577`、`3ae4312868`、`3e2792bc5b`（新增）、`8b7f872f77`（新增） |
+| 抽饰品卡（覆盖 curio_picture） | `85e094f269`、`1d9ad90d4a`（新增） |
+| Debuff（效果行 2t） | `40c4cc438c` |
+| Buff（效果行 2t） | `73ea0990dd`（新增）、`3cd8b97ff0`（新增，并 `73ea0990dd`） |
+
+01 的最早口头“美德 / 折磨”已作废，以“抽负面怪癖”为准。只更新这 17 个 hash，不扩大同组其他图标的批准范围。24 张 Curio 所有效果行已规范化；运行时可结算范围见 [Q-60 交付](../../../docs/phase3-q60-curio-icons-2026-10-12.md)。
+
 ## 2026-10-11 补充：Wound 同义图标合并（R-061）
 
 Kyries 明确确认黑心红光 = Wound / 创伤。本次对照完整印刷后，将 rank 544 / 668 / 693 / 731 / 793（`8466c441ea` / `2c1824ea21` / `6888d0cf12` / `d42d7955d3` / `48ca9f366e`）从 needs_review 并入已有 `wound`，kind 为 `damage_type`，value 为空。最后一个为旋转图标。保留原始 iconId 与旧状态说明，JSON / CSV 同步；source 为新增枚举 `kyries_review_2026-10-11`。

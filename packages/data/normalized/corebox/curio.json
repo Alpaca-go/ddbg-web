@@ -25,14 +25,22 @@
     {
      "printed": "{icon:449d2d43ed}",
      "iconId": "449d2d43ed",
-     "effect": null,
-     "reason": "Q-60 · 词典未收录 · unverified"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "{icon:40c4cc438c} 2t",
      "iconId": "40c4cc438c",
-     "effect": null,
-     "reason": "Q-60 · unknown_40c4cc438c · unreviewed"
+     "effect": {
+      "type": "status",
+      "kind": "debuff",
+      "duration": 2
+     },
+     "reason": null
     },
     {
      "printed": "10 {icon:4bcefdb4d9}",
@@ -68,8 +76,12 @@
     {
      "printed": "{icon:382acc9dc4}",
      "iconId": "382acc9dc4",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "1 {icon:a637867634} 3t",
@@ -85,8 +97,12 @@
     {
      "printed": "{icon:73ea0990dd} 2t",
      "iconId": "73ea0990dd",
-     "effect": null,
-     "reason": "Q-60 · 词典未收录 · unverified"
+     "effect": {
+      "type": "status",
+      "kind": "buff",
+      "duration": 2
+     },
+     "reason": null
     }
    ]
   },
@@ -113,8 +129,12 @@
     {
      "printed": "{icon:3fe634e723}",
      "iconId": "3fe634e723",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "{icon:b4627031be}",
@@ -128,8 +148,11 @@
     {
      "printed": "{icon:ae45f5bcb3}",
      "iconId": "ae45f5bcb3",
-     "effect": null,
-     "reason": "Q-60 · pending_ae45f5bcb3 · needs_review"
+     "effect": {
+      "type": "rollProvision",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -167,8 +190,12 @@
     {
      "printed": "{icon:40c4cc438c} 2t",
      "iconId": "40c4cc438c",
-     "effect": null,
-     "reason": "Q-60 · unknown_40c4cc438c · unreviewed"
+     "effect": {
+      "type": "status",
+      "kind": "debuff",
+      "duration": 2
+     },
+     "reason": null
     },
     {
      "printed": "5 {icon:aa81338d06}",
@@ -204,20 +231,31 @@
     {
      "printed": "{icon:7b1a554877}",
      "iconId": "7b1a554877",
-     "effect": null,
-     "reason": "Q-60 · unknown_7b1a554877 · unreviewed"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "{icon:3cd8b97ff0} 2t",
      "iconId": "3cd8b97ff0",
-     "effect": null,
-     "reason": "Q-60 · 词典未收录 · unverified"
+     "effect": {
+      "type": "status",
+      "kind": "buff",
+      "duration": 2
+     },
+     "reason": null
     },
     {
      "printed": "{icon:85e094f269}",
      "iconId": "85e094f269",
-     "effect": null,
-     "reason": "Q-60 · curio_picture · confirmed"
+     "effect": {
+      "type": "drawTrinket",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -235,20 +273,33 @@
     {
      "printed": "{icon:3fe634e723}",
      "iconId": "3fe634e723",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "1 {icon:12b6af97f2} 3t",
      "iconId": "12b6af97f2",
-     "effect": null,
-     "reason": "Q-60 · 词典未收录 · unverified"
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
     },
     {
      "printed": "{icon:3a7dfcb577}",
      "iconId": "3a7dfcb577",
-     "effect": null,
-     "reason": "Q-60 · unknown_3a7dfcb577 · unreviewed"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "positive",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -277,14 +328,21 @@
     {
      "printed": "{icon:1d9ad90d4a}",
      "iconId": "1d9ad90d4a",
-     "effect": null,
-     "reason": "Q-60 · 词典未收录 · unverified"
+     "effect": {
+      "type": "drawTrinket",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "{icon:3ae4312868}",
      "iconId": "3ae4312868",
-     "effect": null,
-     "reason": "Q-60 · unknown_3ae4312868 · unreviewed"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "positive",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "5 {icon:aa81338d06}",
@@ -311,8 +369,12 @@
     {
      "printed": "{icon:3fe634e723}",
      "iconId": "3fe634e723",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "{icon:b4627031be}",
@@ -335,8 +397,11 @@
     {
      "printed": "{icon:ae45f5bcb3}",
      "iconId": "ae45f5bcb3",
-     "effect": null,
-     "reason": "Q-60 · pending_ae45f5bcb3 · needs_review"
+     "effect": {
+      "type": "rollProvision",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -363,8 +428,12 @@
     {
      "printed": "{icon:3fe634e723}",
      "iconId": "3fe634e723",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "1 {icon:be17b4ee09} 3t",
@@ -422,14 +491,21 @@
     {
      "printed": "{icon:3e2792bc5b}",
      "iconId": "3e2792bc5b",
-     "effect": null,
-     "reason": "Q-60 · 词典未收录 · unverified"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "positive",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "{icon:ae45f5bcb3}",
      "iconId": "ae45f5bcb3",
-     "effect": null,
-     "reason": "Q-60 · pending_ae45f5bcb3 · needs_review"
+     "effect": {
+      "type": "rollProvision",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -456,8 +532,12 @@
     {
      "printed": "{icon:3fe634e723}",
      "iconId": "3fe634e723",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "1 {icon:be17b4ee09} 3t",
@@ -473,8 +553,12 @@
     {
      "printed": "{icon:3a7dfcb577}",
      "iconId": "3a7dfcb577",
-     "effect": null,
-     "reason": "Q-60 · unknown_3a7dfcb577 · unreviewed"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "positive",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -501,8 +585,12 @@
     {
      "printed": "{icon:3fe634e723}",
      "iconId": "3fe634e723",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "1 {icon:be17b4ee09} 3t",
@@ -518,8 +606,11 @@
     {
      "printed": "{icon:85e094f269}",
      "iconId": "85e094f269",
-     "effect": null,
-     "reason": "Q-60 · curio_picture · confirmed"
+     "effect": {
+      "type": "drawTrinket",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -546,8 +637,12 @@
     {
      "printed": "{icon:382acc9dc4}",
      "iconId": "382acc9dc4",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "1 {icon:a637867634} 3t",
@@ -594,8 +689,12 @@
     {
      "printed": "{icon:382acc9dc4}",
      "iconId": "382acc9dc4",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "1 {icon:a637867634} 3t",
@@ -633,8 +732,12 @@
     {
      "printed": "{icon:3fe634e723}",
      "iconId": "3fe634e723",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "1 {icon:be17b4ee09} 3t",
@@ -659,8 +762,11 @@
     {
      "printed": "{icon:ae45f5bcb3}",
      "iconId": "ae45f5bcb3",
-     "effect": null,
-     "reason": "Q-60 · pending_ae45f5bcb3 · needs_review"
+     "effect": {
+      "type": "rollProvision",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -689,8 +795,12 @@
     {
      "printed": "{icon:3ae4312868}",
      "iconId": "3ae4312868",
-     "effect": null,
-     "reason": "Q-60 · unknown_3ae4312868 · unreviewed"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "positive",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "5 {icon:aa81338d06}",
@@ -704,8 +814,11 @@
     {
      "printed": "{icon:ae45f5bcb3}",
      "iconId": "ae45f5bcb3",
-     "effect": null,
-     "reason": "Q-60 · pending_ae45f5bcb3 · needs_review"
+     "effect": {
+      "type": "rollProvision",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -732,8 +845,12 @@
     {
      "printed": "{icon:3fe634e723}",
      "iconId": "3fe634e723",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "1 {icon:be17b4ee09} 3t",
@@ -749,8 +866,11 @@
     {
      "printed": "{icon:e546d025cd}",
      "iconId": "e546d025cd",
-     "effect": null,
-     "reason": "Q-60 · unknown_e546d025cd · unreviewed"
+     "effect": {
+      "type": "drawDisease",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -777,20 +897,32 @@
     {
      "printed": "{icon:3fe634e723}",
      "iconId": "3fe634e723",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "1 {icon:9b6a2b779d} 3t",
      "iconId": "9b6a2b779d",
-     "effect": null,
-     "reason": "Q-60 · unknown_9b6a2b779d · unreviewed"
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
     },
     {
      "printed": "{icon:85e094f269}",
      "iconId": "85e094f269",
-     "effect": null,
-     "reason": "Q-60 · curio_picture · confirmed"
+     "effect": {
+      "type": "drawTrinket",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -817,14 +949,23 @@
     {
      "printed": "{icon:3fe634e723}",
      "iconId": "3fe634e723",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "1 {icon:9b6a2b779d} 3t",
      "iconId": "9b6a2b779d",
-     "effect": null,
-     "reason": "Q-60 · unknown_9b6a2b779d · unreviewed"
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
     },
     {
      "printed": "10 {icon:4bcefdb4d9}",
@@ -860,8 +1001,12 @@
     {
      "printed": "{icon:7b1a554877}",
      "iconId": "7b1a554877",
-     "effect": null,
-     "reason": "Q-60 · unknown_7b1a554877 · unreviewed"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "10 {icon:aa81338d06}",
@@ -875,8 +1020,11 @@
     {
      "printed": "{icon:ae45f5bcb3}",
      "iconId": "ae45f5bcb3",
-     "effect": null,
-     "reason": "Q-60 · pending_ae45f5bcb3 · needs_review"
+     "effect": {
+      "type": "rollProvision",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -954,8 +1102,12 @@
     {
      "printed": "{icon:3fe634e723}",
      "iconId": "3fe634e723",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "1 {icon:be17b4ee09} 3t",
@@ -971,8 +1123,11 @@
     {
      "printed": "{icon:85e094f269}",
      "iconId": "85e094f269",
-     "effect": null,
-     "reason": "Q-60 · curio_picture · confirmed"
+     "effect": {
+      "type": "drawTrinket",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -999,8 +1154,12 @@
     {
      "printed": "{icon:3fe634e723}",
      "iconId": "3fe634e723",
-     "effect": null,
-     "reason": "Q-60 · decor · decor"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "1 {icon:be17b4ee09} 3t",
@@ -1016,8 +1175,11 @@
     {
      "printed": "{icon:e546d025cd}",
      "iconId": "e546d025cd",
-     "effect": null,
-     "reason": "Q-60 · unknown_e546d025cd · unreviewed"
+     "effect": {
+      "type": "drawDisease",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   },
@@ -1055,14 +1217,21 @@
     {
      "printed": "{icon:8b7f872f77}",
      "iconId": "8b7f872f77",
-     "effect": null,
-     "reason": "Q-60 · 词典未收录 · unverified"
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "positive",
+      "count": 1
+     },
+     "reason": null
     },
     {
      "printed": "{icon:85e094f269}",
      "iconId": "85e094f269",
-     "effect": null,
-     "reason": "Q-60 · curio_picture · confirmed"
+     "effect": {
+      "type": "drawTrinket",
+      "count": 1
+     },
+     "reason": null
     }
    ]
   }

@@ -13,15 +13,19 @@ import rawMonsterPool from "../../../packages/data/normalized/corebox/monster_po
 import { monsterPoolFileSchema } from "../../../packages/data/src/monster-pool";
 import { approvedRoomTileGeometry } from "../../../packages/data/src/normalize/room-tile";
 import rawCurios from "../../../packages/data/normalized/corebox/curio.json";
-import { curioFileSchema } from "../../../packages/data/src/curio";
+import { curioFileSchema, isNegativeCurioEffect } from "../../../packages/data/src/curio";
 import type { CurioEffect } from "../../../packages/data/src/curio";
 
 function curioEffectLabel(effect: CurioEffect) {
   if (effect.type === "gold") return `金币 +${effect.amount}`;
   if (effect.type === "stress") return `压力 +${effect.amount}`;
   if (effect.type === "status")
-    return `${effect.kind === "bleed" ? "流血" : "中毒"} ${effect.amount}，${effect.duration} 回合`;
-  return "获得一张疾病";
+    return `${{ bleed: "流血", blight: "腐蚀", buff: "增益", debuff: "减益" }[effect.kind]}${effect.amount ? ` ${effect.amount}` : ""}，${effect.duration} 回合`;
+  if (effect.type === "drawDisease") return "获得一张疾病";
+  if (effect.type === "drawQuirk")
+    return `抽一张${effect.polarity === "positive" ? "正面" : "负面"}怪癖`;
+  if (effect.type === "drawTrinket") return "抽一张饰品卡";
+  return "掷一颗补给骰";
 }
 
 const layouts = dungeonLayoutFileSchema.parse(rawLayouts).layouts;
@@ -32,6 +36,7 @@ type Fixture =
   | "heartAttack"
   | "corridor"
   | "curio"
+  | "curioBuff"
   | "trap"
   | "dark"
   | "roomApproved"
@@ -95,11 +100,13 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
           ? 11
           : fixture === "roomBlocked"
             ? 12
-            : fixture === "curio"
-              ? 1237
-              : fixture === "corridor"
-                ? 31
-                : 1,
+            : fixture === "curioBuff"
+              ? 343
+              : fixture === "curio"
+                ? 1237
+                : fixture === "corridor"
+                  ? 31
+                  : 1,
     layout,
     distribution,
     mode,
@@ -125,7 +132,7 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
   );
   // 此布置以已清理的起始房间演示真实走廊往返，不模拟该房间的战斗或奖励。
   const game =
-    fixture === "corridor" || fixture === "curio"
+    fixture === "corridor" || fixture === "curio" || fixture === "curioBuff"
       ? {
           ...initial,
           dungeon: {
@@ -265,6 +272,7 @@ export function DungeonSandbox() {
             <option value="heartAttack">已有意志卡（hero-0 压力 9）</option>
             <option value="corridor">单走廊 → Empty（标准 p1、种子 31、无需侦察）</option>
             <option value="curio">Curio → Empty（标准 p1、种子 1237、先用 Torch）</option>
+            <option value="curioBuff">Curio Buff（标准 p1、种子 343、先用 Torch）</option>
             <option value="trap">Trap 房间（p1、种子 1、DL 3、hero-0 压力 8）</option>
             <option value="dark">Dark 房间与 Torch（p1、种子 1，固定房间代币）</option>
             <option value="roomApproved">
@@ -528,7 +536,7 @@ export function DungeonSandbox() {
                 {card.rows.map((r, i) => (
                   <li key={i}>
                     {r.effect
-                      ? `${curioEffectLabel(r.effect)}${shownCurio.protected && r.effect.type !== "gold" ? " · Torch 保护" : ""}`
+                      ? `${curioEffectLabel(r.effect)}${shownCurio.protected && isNegativeCurioEffect(r.effect) ? " · Torch 保护" : ""}`
                       : `${r.printed} · 待确认（${r.reason}）`}
                   </li>
                 ))}

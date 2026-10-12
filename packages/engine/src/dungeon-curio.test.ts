@@ -7,8 +7,13 @@ import { curioFileSchema } from "../../data/src/curio";
 import { createDungeonSandbox } from "./dungeon";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
+import type { DungeonBattleCatalog } from "./dungeon";
+import { normalizedHeroStatFileSchema } from "../../data/src/normalize/hero-stat";
 
 const cards = curioFileSchema.parse(rawCurios).cards;
+const approvedStats = normalizedHeroStatFileSchema
+  .parse(stats)
+  .cards.filter((c) => c.attributesVerified) as DungeonBattleCatalog["heroStats"];
 const heroes = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].map((name, i) => {
   const stat = stats.cards.find((s) => s.name === name && s.level === 1)!;
   return {
@@ -46,6 +51,67 @@ function pending(seed = 1237) {
   const s = choose(applyCommand(setup(seed), { type: "beginDungeonExploration" }).state, "D").state;
   return choose(applyCommand(s, { type: "rollDungeonExploration" }).state, "h0:1").state;
 }
+function protectedPage(page: number) {
+  const initial = pending(),
+    d = initial.dungeon!;
+  const id = `curio:p${String(page).padStart(3, "0")}`;
+  const ordered = {
+    ...initial,
+    dungeon: {
+      ...d,
+      heroes: d.heroes.map((h, i) => ({
+        ...h,
+        heroStatId: approvedStats.find(
+          (s) => s.level === 1 && s.name === ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"][i],
+        )!.id,
+      })),
+      battleCatalog: { heroStats: approvedStats, skills: [], monsters: [] },
+      curio: {
+        ...d.curio!,
+        deck: [id, ...cards.map((c) => c.id).filter((cardId) => cardId !== id)],
+      },
+    },
+  };
+  return choose(ordered, "use:p4").state;
+}
+it("R-064 全池逐卡：抽前 Torch 后十张可完成，其余明确接口停点且不漏发正面奖励", () => {
+  const completed: number[] = [];
+  for (let page = 1; page <= 24; page++) {
+    const drawn = protectedPage(page),
+      result = applyCommand(drawn, { type: "resolveDungeonCurio" });
+    const d = result.state.dungeon!;
+    if (!d.curio!.active) {
+      completed.push(page);
+      expect(d.curio!.discard).toEqual([`curio:p${String(page).padStart(3, "0")}`]);
+      expect(d.heroes.every((h) => h.stress === 0 && h.wounds === 0)).toBe(true);
+      expect(d.exploration!.rolls![0]!.resolved).toBe(true);
+      expect(applyCommand(result.state, { type: "resolveDungeonCurio" }).state).toBe(result.state);
+    } else {
+      expect(d.curio!.active!.blockedReason).toContain("接口尚未接线");
+      expect(d.curio!.active!.blockedReason).not.toContain("Q-60");
+      expect(d.gold).toBe(0);
+      expect(d.heroes).toEqual(drawn.dungeon!.heroes);
+      expect(d.exploration!.rolls![0]!.resolved).toBe(false);
+    }
+    expect(d.cursor).toBe(drawn.dungeon!.cursor);
+    expect(d.explorationSetup!.provisions).toEqual(drawn.dungeon!.explorationSetup!.provisions);
+  }
+  expect(completed).toEqual([1, 2, 4, 9, 13, 14, 17, 19, 21, 23]);
+});
+it("Torch 不抑制 p2 的 Buff 2t；持有真实英雄防御时施加一次，缺资料时整卡不支付", () => {
+  const drawn = protectedPage(2);
+  const done = applyCommand(drawn, { type: "resolveDungeonCurio" }).state;
+  expect(done.dungeon!.heroes[0]!.statusStacks).toEqual([{ kind: "buff", remaining: 2 }]);
+  expect(done.dungeon!.heroes[1]!.statusStacks).toBeUndefined();
+  const missing = {
+    ...drawn,
+    dungeon: { ...drawn.dungeon!, battleCatalog: { heroStats: [], skills: [], monsters: [] } },
+  };
+  const blocked = applyCommand(missing, { type: "resolveDungeonCurio" }).state;
+  expect(blocked.dungeon!.curio!.active!.blockedReason).toContain("抗性 / 免疫");
+  expect(blocked.dungeon!.heroes).toEqual(missing.dungeon!.heroes);
+  expect(blocked.dungeon!.cursor).toBe(missing.dungeon!.cursor);
+});
 
 it("真实种子 1237：全 24 张洗牌，Torch 在揭示前消费；Sarcophagus 只保留金币，随后八骰 → Empty；回放不变", () => {
   const initial = setup(),
@@ -118,7 +184,22 @@ it("完整牌池包含未核实卡：抽到实际 p1 后保留具体行，即使
   const p = pending();
   const d = p.dungeon!;
   // 已洗牌的合法全池，验证任意顶牌，不构造缩减牌堆。
-  const ordered = { ...p, dungeon: { ...d, curio: { ...d.curio!, deck: cards.map((c) => c.id) } } };
+  const unknownCards = cards.map((c) =>
+    c.id === "curio:p001"
+      ? {
+          ...c,
+          rows: c.rows.map((r) =>
+            ["449d2d43ed", "40c4cc438c"].includes(r.iconId)
+              ? { ...r, effect: null, reason: "测试：未获批" }
+              : r,
+          ),
+        }
+      : c,
+  );
+  const ordered = {
+    ...p,
+    dungeon: { ...d, curio: { ...d.curio!, cards: unknownCards, deck: cards.map((c) => c.id) } },
+  };
   const drawn = choose(ordered, "use:p4").state;
   const stopped = applyCommand(drawn, { type: "resolveDungeonCurio" }).state;
   expect(stopped.dungeon!.curio!.active!.blockedReason).toContain("449d2d43ed");

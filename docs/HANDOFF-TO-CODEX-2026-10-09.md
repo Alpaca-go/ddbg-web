@@ -1,5 +1,7 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-12 最新入口：步骤 2 的 Q-60 批次在 `codex/phase3-q60-curio-icons`，基于 main `5714846`，尚未合并。Kyries 批准 17 个 hash / 01–24 效果行（R-064），词典 JSON / CSV 与全部 Curio 效果数据已同步；抽前 Torch 下十张可结算，其他十四张是奖励运行时代码依赖，已非 Q-60 图标停点。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[完整交付](phase3-q60-curio-icons-2026-10-12.md)。步骤 2 仍欠奖励接口和板块覆盖，Phase 3 未验收。
+
 > 2026-10-12 合并完成：#120 已合并为 `d50a823`；#121 最新 head `44c190b` 的质量与 Playwright 两项 CI 成功，已按授权合并为 main `fe0de21`，本地 main 已同步。第一步完成，下一块为板块与 Curio 覆盖；下方等待 CI / 合并的描述为历史状态，Phase 3 仍未验收。
 
 > 2026-10-12 最新入口：Kyries 授权第一步并要求合并。依赖 #120 最新 head 两项 CI 成功，已合并为 main `d50a823`；`codex/phase3-low-light-exploration` 已同步该基线，实现 `bacf3ac`，对应 [PR #121](https://github.com/Alpaca-go/ddbg-web/pull/121)，等待最新 head CI 成功后合并。已接 Darkness 降光、光照 0–5 探索与低光 Trap 房间。接手先读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](phase3-low-light-exploration-2026-10-12.md)，下方旧合并状态及“低光照未接线”为历史记录。Q 停点保留，下一块为板块与 Curio 覆盖，Phase 3 未完成。

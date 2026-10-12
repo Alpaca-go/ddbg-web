@@ -5,13 +5,33 @@ export const CURIO_BACK = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_B
 export const curioEffectSchema = z.discriminatedUnion("type", [
   z.strictObject({ type: z.literal("stress"), amount: z.literal(1) }),
   z.strictObject({ type: z.literal("gold"), amount: z.union([z.literal(5), z.literal(10)]) }),
-  z.strictObject({
-    type: z.literal("status"),
-    kind: z.enum(["bleed", "blight"]),
-    amount: z.literal(1),
-    duration: z.literal(3),
-  }),
+  z
+    .strictObject({
+      type: z.literal("status"),
+      kind: z.enum(["bleed", "blight", "buff", "debuff"]),
+      amount: z.literal(1).optional(),
+      duration: z.union([z.literal(2), z.literal(3)]),
+    })
+    .superRefine((effect, ctx) => {
+      const damage = effect.kind === "bleed" || effect.kind === "blight";
+      if (
+        damage
+          ? effect.amount !== 1 || effect.duration !== 3
+          : effect.amount !== undefined || effect.duration !== 2
+      )
+        ctx.addIssue({
+          code: "custom",
+          message: "Curio 流血 / 腐蚀为 1 · 3t，Buff / Debuff 为 2t",
+        });
+    }),
   z.strictObject({ type: z.literal("drawDisease"), count: z.literal(1) }),
+  z.strictObject({
+    type: z.literal("drawQuirk"),
+    polarity: z.enum(["positive", "negative"]),
+    count: z.literal(1),
+  }),
+  z.strictObject({ type: z.literal("drawTrinket"), count: z.literal(1) }),
+  z.strictObject({ type: z.literal("rollProvision"), count: z.literal(1) }),
 ]);
 export const curioCardSchema = z
   .strictObject({
@@ -52,3 +72,13 @@ export const curioFileSchema = z.strictObject({
 });
 export type CurioCard = z.infer<typeof curioCardSchema>;
 export type CurioEffect = z.infer<typeof curioEffectSchema>;
+
+/** R14：Torch 只抑制负面效果，Buff、正面怪癖与奖励仍结算。 */
+export function isNegativeCurioEffect(effect: CurioEffect): boolean {
+  return (
+    effect.type === "stress" ||
+    effect.type === "drawDisease" ||
+    (effect.type === "drawQuirk" && effect.polarity === "negative") ||
+    (effect.type === "status" && effect.kind !== "buff")
+  );
+}

@@ -290,6 +290,26 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByText(/布置 RNG 游标 24/)).toBeVisible();
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("队伍尚未移动");
   await page.screenshot({ path: testInfo.outputPath("dungeon-low-light.png"), fullPage: true });
+  await page.getByLabel("侦察测试布置").selectOption("curioBuff");
+  for (const name of [
+    "重置标准模式",
+    "选择下一段探索",
+    "D",
+    "掷探索骰并开始结算",
+    "hero-0:1 · Curio",
+    "使用 torch（torch-1），抽卡前抑制负面效果",
+  ])
+    await page.getByRole("button", { name, exact: true }).click();
+  await expect(page.getByTestId("dungeon-curio")).toContainText("Eldritch Altar · p2");
+  await expect(page.getByTestId("dungeon-curio")).toContainText("抽一张负面怪癖 · Torch 保护");
+  await expect(page.getByTestId("dungeon-curio")).toContainText("增益，2 回合");
+  await expect(page.getByTestId("dungeon-curio")).not.toContainText("增益，2 回合 · Torch 保护");
+  await page.getByRole("button", { name: "结算当前 Curio" }).click();
+  await expect(page.getByTestId("dungeon-curio")).toContainText("弃牌 1");
+  await expect(page.getByTestId("dungeon-events")).toContainText("Buff 2t");
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 0 · 伤口 0/17");
+  await expect(page.getByText(/布置 RNG 游标 38/)).toBeVisible();
+  await page.screenshot({ path: testInfo.outputPath("curio-approved-buff.png"), fullPage: true });
 });
 
 test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场", async ({ page }, testInfo) => {

@@ -19,7 +19,7 @@ const DICT_ROOT = path.join(DATA_ROOT, "dictionary");
 const RAW_ROOT = path.join(DATA_ROOT, "extract/corebox/raw");
 
 /** `summary.json` 的 total_clusters（1713）减去词典 976 条。v1.7 另收 70 个误放进装饰切图的 id。 */
-const RAW_ICON_IDS_NOT_IN_DICTIONARY = 737;
+const RAW_ICON_IDS_NOT_IN_DICTIONARY = 730;
 
 const INCONSISTENCY_IDS = [
   "hedged_confirmed_meanings",
@@ -347,9 +347,9 @@ const dictionary = parseSchema(
 );
 
 describe("图标词典 v1.8", () => {
-  it("通过 schema，共 976 条", () => {
+  it("通过 schema，共 983 条（Q-60 新收 7 条，旧 rank 不变）", () => {
     expect(dictionary.meta.version).toBe("1.8");
-    expect(dictionary.icons).toHaveLength(976);
+    expect(dictionary.icons).toHaveLength(983);
     expect(dictionary.inconsistencies.map((item) => item.id)).toEqual([...INCONSISTENCY_IDS]);
     const ranks = new Set(dictionary.icons.map((icon) => icon.rank));
     for (const item of dictionary.inconsistencies) {
@@ -495,7 +495,7 @@ describe("图标词典 v1.8", () => {
       expect(icon?.source).toBe("kyries_approved_proposal_2026-10-07");
     }
 
-    for (const rank of V12_KEPT) {
+    for (const rank of V12_KEPT.filter((rank) => rank !== 296)) {
       const icon = byRank.get(rank);
       expect(icon?.status).toBe("needs_review");
       expect(icon?.key).toBe(`pending_${icon?.iconId}`);
@@ -944,18 +944,18 @@ describe("图标词典 v1.8", () => {
     expect(new Set(V18_CATEGORIZE).size).toBe(79);
     expect(dictionary.meta.resolved_in_v1_8.length).toBeGreaterThan(0);
     expect(dictionary.meta.stats.status_all976).toEqual({
-      confirmed: 641,
+      confirmed: 657,
       confirmed_rulebook: 44,
-      needs_review: 32,
-      decor: 112,
+      needs_review: 31,
+      decor: 110,
       unsure: 0,
-      unreviewed: 147,
+      unreviewed: 141,
     });
     expect(dictionary.meta.stats.status_top525).toEqual({
-      confirmed: 417,
+      confirmed: 420,
       confirmed_rulebook: 44,
-      needs_review: 10,
-      decor: 54,
+      needs_review: 9,
+      decor: 52,
       unsure: 0,
       unreviewed: 0,
     });
@@ -1031,7 +1031,7 @@ describe("词典与 raw 提取结果", () => {
     expect(rawIds.size).toBe(summary.icons.total_clusters);
     expect(summary.icons.to_annotate).toBe(906);
     // v1.7 把 70 个误放进装饰切图、不在 to_annotate 里的 iconId 收进词典。
-    expect(dictionary.icons).toHaveLength(summary.icons.to_annotate + 70);
+    expect(dictionary.icons).toHaveLength(summary.icons.to_annotate + 70 + 7);
     const missing = dictionary.icons
       .filter((icon) => !rawIds.has(icon.iconId))
       .map((icon) => icon.iconId);
