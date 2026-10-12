@@ -2,6 +2,10 @@ import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
 import { resolveHeroHealth } from "./hero-health";
 import { statusProjection, statusStackProblem } from "./status";
+import { passiveHeal, passiveStress } from "./passive";
+import { triggerBattlePassive } from "./battle-passive";
+import { resolveBattlePressure } from "./pressure";
+import { removeCasualties, endAfterCasualties, newlyDefeatedIds, finishTurn } from "./encounter";
 
 export type ProvisionEffect = "heal" | "clearBleed" | "clearBlight" | "reduceStress" | "raiseLight";
 export type UseProvisionCommand = {
@@ -53,7 +57,7 @@ export function useProvision(state: GameState, command: UseProvisionCommand): Ap
       return rejectBattleCommand(state, "补给治疗缺已核实 Life（R-048）");
     const health = resolveHeroHealth(
       { life: target.life, wounds: target.wounds, dead: target.dead },
-      { type: "heal", amount: 1 },
+      { type: "heal", amount: passiveHeal(target, 1) },
     );
     if (health.status !== "resolved")
       return rejectBattleCommand(
@@ -64,7 +68,10 @@ export function useProvision(state: GameState, command: UseProvisionCommand): Ap
   } else if (command.effect === "reduceStress") {
     if (!Number.isSafeInteger(target.stress) || target.stress! < 0 || target.stress! > 10)
       return rejectBattleCommand(state, "补给减压缺已知压力（R-048）");
-    updated = { ...target, stress: Math.max(0, target.stress! - 1) };
+    updated = {
+      ...target,
+      stress: Math.max(0, target.stress! + passiveStress(target, -1, battle.light).amount),
+    };
   } else if (command.effect === "raiseLight") {
     if (!Number.isSafeInteger(light) || light < 0 || light > 5)
       return rejectBattleCommand(state, "补给光照无效");
@@ -83,7 +90,7 @@ export function useProvision(state: GameState, command: UseProvisionCommand): Ap
     }
     updated = { ...updated, [kind]: [] };
   }
-  return {
+  let result: ApplyResult = {
     state: {
       ...state,
       battle: {
@@ -105,4 +112,39 @@ export function useProvision(state: GameState, command: UseProvisionCommand): Ap
     ],
     ...(window ? { pendingChoice: battle.pending!.choice } : {}),
   };
+  const triggers = [
+    ...(provision.face === "food" ? [{ ids: [target.id], trigger: "foodConsumed" as const }] : []),
+    ...(light > battle.light
+      ? [
+          {
+            ids: battle.entities.filter((e) => e.side === "hero" && !e.dead).map((e) => e.id),
+            trigger: "lightRaised" as const,
+          },
+        ]
+      : []),
+  ];
+  for (const { ids, trigger } of triggers) {
+    const applied = triggerBattlePassive(result.state.battle!, state.seed, ids, trigger);
+    if (applied.status === "refused") return rejectBattleCommand(state, applied.reason);
+    result = {
+      ...result,
+      state: { ...result.state, battle: applied.battle },
+      events: [...result.events, ...applied.events],
+    };
+  }
+  const pressure = resolveBattlePressure(result);
+  if (pressure.events.some((e) => e.type === "commandRefused")) return pressure;
+  const removed = removeCasualties(
+    pressure,
+    newlyDefeatedIds(battle, pressure.state.battle!.entities),
+  );
+  if (!battle.encounter) return removed;
+  const ended = endAfterCasualties(removed);
+  if (ended) return ended;
+  if (
+    turn.type === "hero" &&
+    removed.state.battle!.entities.find((e) => e.id === turn.actorId)!.dead
+  )
+    return finishTurn(removed.state, turn.actorId, removed.events);
+  return removed;
 }

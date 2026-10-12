@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", async ({ page }, testInfo) => {
-  test.setTimeout(60_000);
+  test.setTimeout(90_000);
   await page.setViewportSize({ width: 1440, height: 1050 });
   await page.goto("/");
   await page.getByRole("link", { name: "打开 Phase 3 布局与侦察沙盒" }).click();
@@ -203,6 +203,53 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("dungeon-node-D")).not.toContainText("已清理");
   await expect(page.getByRole("button", { name: "选择下一段探索", exact: true })).toBeEnabled();
   await page.screenshot({ path: testInfo.outputPath("dungeon-retreat.png"), fullPage: true });
+  // 同一条关键冒烟验证完整池自然抽到的 Maggot 感染；房间代币是显式测试布置。
+  await page.goto("/?phase=3");
+  await page.getByLabel("侦察测试布置").selectOption("roomDisease");
+  for (const name of [
+    "重置 Radiant",
+    "侦察",
+    "全员同意",
+    "选择下一段探索",
+    "D",
+    "掷探索骰并开始结算",
+    "抽房间牌并匹配战斗板块",
+    "从完整 42 张怪物池抽牌并记录部署",
+    "进入房间战斗",
+    "开始战斗",
+  ])
+    await page.getByRole("button", { name, exact: true }).click();
+  await expect(
+    page.locator('[data-testid^="entity-monster-deck"]').filter({ hasText: "Maggot" }).first(),
+  ).toBeVisible();
+  const infected = page.locator('[data-testid^="conditions-hero-"]');
+  for (let i = 0; i < 180 && !(await infected.count()); i++) {
+    const choice = page.locator("fieldset.choice button").first();
+    if (await choice.count()) {
+      await choice.click();
+      continue;
+    }
+    let clicked = false;
+    for (const name of [
+      "抽取先攻",
+      "向前换姿态",
+      "向后换姿态",
+      "怪物选招与选目标",
+      "怪物移动到射程",
+      "结算怪物技能",
+    ]) {
+      const button = page.getByRole("button", { name, exact: true });
+      if ((await button.count()) && (await button.isEnabled())) {
+        await button.click();
+        clicked = true;
+        break;
+      }
+    }
+    expect(clicked, "真实 Maggot 感染前遇到停点").toBe(true);
+  }
+  await expect(infected.first()).toContainText("疾病：");
+  await expect(infected.first()).not.toContainText("疾病：无");
+  await page.screenshot({ path: testInfo.outputPath("maggot-disease.png"), fullPage: true });
 });
 
 test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场", async ({ page }, testInfo) => {
@@ -228,7 +275,7 @@ test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场"
   await page.getByRole("button", { name: "hero-0:1 · Curio", exact: true }).click();
   await page.getByRole("button", { name: "不用 Torch，抽 Curio", exact: true }).click();
   await page.getByRole("button", { name: "结算当前 Curio" }).click();
-  await expect(page.getByTestId("dungeon-curio")).toContainText("疾病牌堆 / 施加接口尚未接线");
+  await expect(page.getByTestId("dungeon-curio")).toContainText("Q-68");
   await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：0");
   await expect(page.getByTestId("dungeon-provisions")).toContainText("torch-1");
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("不能补用 Torch 或重抽");

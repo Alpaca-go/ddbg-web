@@ -7,6 +7,7 @@ declare module "virtual:battle-data" {
     ResolveCard,
   } from "@ddbg/engine";
   export const battleData: {
+    readonly conditions: import("@ddbg/engine").ConditionPool;
     readonly tileName: string;
     readonly resolveCards: readonly ResolveCard[];
     readonly deployment: {

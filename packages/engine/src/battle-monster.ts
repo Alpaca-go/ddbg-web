@@ -87,7 +87,7 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
           entry.id !== target.id &&
           entry.areaId === target.areaId,
       )
-      .map((entry) => ({ id: entry.id, stress: entry.stress! })),
+      .map((entry) => ({ ...entry, stress: entry.stress! })),
     ...(command.shuffleChoice === undefined ? {} : { shuffleChoice: command.shuffleChoice }),
   };
   const needsChoice =
@@ -145,7 +145,14 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
   });
   const health = applySkillHealth(battle, entities, effects, state.seed, battle.rngCursor + 1);
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
-  const statuses = applyBattleSkillStatuses(battle, health.entities, actor.id, [result.resolution]);
+  const statuses = applyBattleSkillStatuses(
+    battle,
+    health.entities,
+    actor.id,
+    [result.resolution],
+    state.seed,
+    health.rngCursor,
+  );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const casualtyIds = newlyDefeatedIds(battle, statuses.entities);
   const event: MonsterSkillResolvedEvent = {
@@ -177,7 +184,7 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
         ...battle,
         pending: null,
         monsterAction: null,
-        rngCursor: health.rngCursor,
+        rngCursor: statuses.rngCursor,
         entities: statuses.entities,
         light: statuses.light,
         shuffleIntents: intents,
@@ -192,7 +199,7 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
           : null,
       },
     },
-    events: [event, ...health.events],
+    events: [event, ...health.events, ...statuses.events],
   };
   return intents.length ? applied : recordMonsterSkill(applied, event, casualtyIds);
 }

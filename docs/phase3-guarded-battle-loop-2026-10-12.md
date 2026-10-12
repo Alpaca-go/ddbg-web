@@ -1,5 +1,7 @@
 # Phase 3：守卫房间战斗与地图回传
 
+> 状态更新：#115 已合并为 main `c50226b`。疾病运行时后续在 `codex/phase3-disease-runtime`，见[本轮范围](phase3-disease-runtime-2026-10-12.md)。以下保留本主题交付时的草稿状态和边界，不覆盖最新交接。
+
 本轮按 Kyries 要求作为一个重型开发主题推进，先合并 #114，再在 `codex/phase3-guarded-battle-loop` 接入战斗与回传，不拆成三个任务。#114 已合并到 main `202a14e`。以下功能属于该后续分支的[草稿 PR #115](https://github.com/Alpaca-go/ddbg-web/pull/115)，初次实现提交 `77983d1`，尚不能当作 main 已交付。
 
 ## 已接入

@@ -38,9 +38,13 @@ import { statusProjection, statusStackProblem } from "./status";
 import type { StatusStack } from "./status";
 import type { ResolveCard } from "./pressure";
 import type { LootState, LootToken } from "./loot";
+import type { ConditionPool } from "./conditions";
+import type { PassiveHolder } from "./passive";
+import { cancelSkillAfterRoll } from "./battle-passive";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
-export type BattleEntity = SkillTargetState &
+export type BattleEntity = PassiveHolder &
+  SkillTargetState &
   SkillActorState & {
     readonly areaId: string;
     readonly hero: string | null;
@@ -82,6 +86,7 @@ export type PlayHeroSkillCommand = {
 };
 
 export type BattleSetup = {
+  readonly conditions?: ConditionPool;
   /** 只使用逐面获批属性；整卡其他图标的验证状态不因此改变。 */
   readonly heroStats?: readonly {
     readonly id: string;
@@ -125,6 +130,14 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | {
+        readonly type: "conditionReplace";
+        readonly choice: PendingChoice;
+        readonly resolved: MonsterSkillResolvedEvent;
+        readonly events: readonly GameEvent[];
+        readonly casualtyIds: readonly string[];
+        readonly remainingInfections: readonly HeroSkillResolution[];
+      }
     | {
         readonly type: "smallDisplace";
         readonly actorId: string;
@@ -177,6 +190,7 @@ export type BattleState = BattleSetup & {
     | null;
   /** 自身意图先于目标意图；显式 resolveShuffles 命令完成位置应用。 */
   readonly shuffleIntents: readonly ShuffleIntent[];
+  readonly shufflePassiveIds?: readonly string[];
   /** 位移完成后再记录行动 / 死亡补位，不能重复执行技能或重复扣行动。 */
   readonly shuffleContinuation:
     | (HeroSkillEmptyAreaResolvedEvent & {
@@ -379,7 +393,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
           entity.id !== actor.id &&
           entity.id !== target.id,
       )
-      .map((entity) => ({ id: entity.id, stress: entity.stress! }));
+      .map((entity) => ({ ...entity, stress: entity.stress! }));
   const sameArea = actor.areaId === target.areaId;
   const context: SkillCombatState = {
     actor,
@@ -462,9 +476,18 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
     effects,
     state.seed,
     battle.rngCursor + (roll === null ? 0 : 1),
+    actor.id,
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
-  const statuses = applyBattleSkillStatuses(battle, health.entities, actor.id, [resolution]);
+  if (health.cancelled) return cancelSkillAfterRoll(state, actor.id, health);
+  const statuses = applyBattleSkillStatuses(
+    battle,
+    health.entities,
+    actor.id,
+    [resolution],
+    state.seed,
+    health.rngCursor,
+  );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const casualtyIds = newlyDefeatedIds(battle, statuses.entities);
   const shuffleIntents = [...battle.shuffleIntents];
@@ -496,7 +519,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
         light: statuses.light,
         shuffleIntents,
         pending: null,
-        rngCursor: health.rngCursor,
+        rngCursor: statuses.rngCursor,
         shuffleContinuation: shuffleIntents.length
           ? {
               ...skillEvent,
@@ -508,7 +531,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
           : null,
       },
     },
-    events: [skillEvent, ...health.events],
+    events: [skillEvent, ...health.events, ...statuses.events],
   };
   return shuffleIntents.length ? result : recordEncounterSkill(result, skillEvent, casualtyIds);
 }

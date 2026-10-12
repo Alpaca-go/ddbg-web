@@ -2,9 +2,14 @@ import { rejectBattleCommand, resolveSkillStress } from "./battle";
 import type { ApplyResult, GameEvent, GameState, PendingChoice } from "./command";
 import { recordEncounterSkill, recordMonsterSkill } from "./encounter";
 import { resolveShuffle } from "./shuffle";
-import { heroSkillUsesSelfTarget, resolveHeroSkill } from "./hero-skill";
+import { heroSkillUsesSelfTarget, resolveHeroSkillEffects } from "./hero-skill";
 import type { HeroSkillResolution } from "./hero-skill";
-import { resolveMonsterSkill } from "./monster-skill";
+import { resolveMonsterSkillEffects } from "./monster-skill";
+import { triggerBattlePassive } from "./battle-passive";
+import { applySkillHealth } from "./battle-health";
+import { newlyDefeatedIds } from "./encounter";
+import { hasQuirk } from "./passive";
+import type { SkillHealthEffect } from "./hero-skill";
 import { correctMultiTargetStress } from "./battle-multi-crit";
 
 /** R20–21、R-020：逐条应用自身 / 目标位移；选择不重掷技能骰。 */
@@ -25,6 +30,11 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
       choices = [];
       continue;
     }
+    if (entity && hasQuirk(entity, "Balanced") && intent.move.distance > 0)
+      return rejectBattleCommand(
+        state,
+        "Balanced 的可选减位移待选流程尚未接入，不能忽略已有正面怪癖（R27）",
+      );
     // 自身效果先于伤害（R20），其落点容量仍计入随后死亡的目标。
     const selfBeforeDeath = intent.entityId === continuation.actorId;
     const result = resolveShuffle(
@@ -83,6 +93,12 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
         : result.entities,
       shuffleIntents: next.shuffleIntents.slice(1),
       pending: null,
+      shufflePassiveIds: [
+        ...(next.shufflePassiveIds ?? []),
+        ...(entity?.side === "hero" && (result.path.length > 0 || result.stanceSteps > 0)
+          ? [entity.id]
+          : []),
+      ],
     };
     events.push({
       type: "shuffleResolved",
@@ -94,19 +110,30 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
     choices = [];
   }
   if (continuation.type === "heroSkillEmptyAreaResolved") {
+    const passive = triggerBattlePassive(
+      next,
+      state.seed,
+      next.shufflePassiveIds ?? [],
+      "shuffled",
+    );
+    if (passive.status === "refused") return rejectBattleCommand(state, passive.reason);
+    next = { ...passive.battle, shufflePassiveIds: [] };
+    events.push(...passive.events);
     return recordEncounterSkill(
       {
         state: { ...state, battle: { ...next, pending: null, shuffleContinuation: null } },
         events,
       },
       continuation,
-      continuation.casualtyIds,
+      [...(continuation.casualtyIds ?? []), ...newlyDefeatedIds(battle, next.entities)],
     );
   }
+  let deferred: readonly SkillHealthEffect[] = [];
   if (continuation.criticalContext?.combats) {
     const corrected = correctMultiTargetStress(next, continuation);
     if (corrected.status === "refused") return rejectBattleCommand(state, corrected.reason);
     next = { ...next, entities: corrected.entities };
+    deferred = corrected.deferredHealthEffects;
     events.push({
       type:
         continuation.type === "heroSkillResolved"
@@ -139,7 +166,7 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
       const combat = continuation.criticalContext!.combat;
       const skill = next.skills.find((entry) => entry.id === continuation.resolution.skillId)!;
       selfTarget = heroSkillUsesSelfTarget(skill, combat.face);
-      corrected = resolveHeroSkill(
+      const effects = resolveHeroSkillEffects(
         skill,
         {
           ...combat,
@@ -149,9 +176,11 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
         },
         continuation.roll!,
       );
+      corrected = effects.resolution;
+      deferred = effects.healthEffects.filter((e) => e.deferred);
     } else {
       const card = next.monsters!.find((entry) => entry.id === actor.monsterCardId)!;
-      const result = resolveMonsterSkill(
+      const result = resolveMonsterSkillEffects(
         card,
         continuation.skillSlot,
         {
@@ -162,6 +191,7 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
       );
       if (result.status === "refused") return rejectBattleCommand(state, result.reason);
       corrected = result.resolution;
+      deferred = result.healthEffects.filter((e) => e.deferred);
     }
     if (corrected.status === "refused") return rejectBattleCommand(state, corrected.reason!);
     next = {
@@ -191,12 +221,37 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
       actorId: actor.id,
     });
   }
+  if (deferred.length) {
+    const health = applySkillHealth(
+      next,
+      next.entities,
+      {
+        resolution: continuation.resolution,
+        healthEffects: deferred.map((e) => ({ ...e, deferred: false })),
+      },
+      state.seed,
+      next.rngCursor,
+    );
+    if (health.status === "refused") return rejectBattleCommand(state, health.reason);
+    next = { ...next, entities: health.entities, rngCursor: health.rngCursor };
+    events.push(...health.events);
+  }
+  const passive = triggerBattlePassive(next, state.seed, next.shufflePassiveIds ?? [], "shuffled");
+  if (passive.status === "refused") return rejectBattleCommand(state, passive.reason);
+  next = { ...passive.battle, shufflePassiveIds: [] };
+  events.push(...passive.events);
   const final = {
     state: { ...state, battle: { ...next, pending: null, shuffleContinuation: null } },
     events,
   };
   const completed = next.shuffleContinuation ?? continuation;
   return completed.type === "heroSkillResolved" || completed.type === "heroSkillEmptyAreaResolved"
-    ? recordEncounterSkill(final, completed, completed.casualtyIds)
-    : recordMonsterSkill(final, completed, completed.casualtyIds);
+    ? recordEncounterSkill(final, completed, [
+        ...(completed.casualtyIds ?? []),
+        ...newlyDefeatedIds(battle, next.entities),
+      ])
+    : recordMonsterSkill(final, completed, [
+        ...(completed.casualtyIds ?? []),
+        ...newlyDefeatedIds(battle, next.entities),
+      ]);
 }

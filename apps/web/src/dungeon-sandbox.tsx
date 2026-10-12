@@ -21,7 +21,7 @@ function curioEffectLabel(effect: CurioEffect) {
   if (effect.type === "stress") return `压力 +${effect.amount}`;
   if (effect.type === "status")
     return `${effect.kind === "bleed" ? "流血" : "中毒"} ${effect.amount}，${effect.duration} 回合`;
-  return "获得一张疾病（完整牌堆待接线）";
+  return "获得一张疾病";
 }
 
 const layouts = dungeonLayoutFileSchema.parse(rawLayouts).layouts;
@@ -35,6 +35,7 @@ type Fixture =
   | "trap"
   | "roomApproved"
   | "roomBattle"
+  | "roomDisease"
   | "roomBlocked";
 function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral") {
   const selected = layouts.find((l) => l.source.page === page)!;
@@ -85,17 +86,19 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       : {}),
   }));
   const initial = createDungeonSandbox(
-    fixture === "roomBattle"
-      ? 1885
-      : fixture === "roomApproved"
-        ? 11
-        : fixture === "roomBlocked"
-          ? 12
-          : fixture === "curio"
-            ? 1237
-            : fixture === "corridor"
-              ? 31
-              : 1,
+    fixture === "roomDisease"
+      ? 4
+      : fixture === "roomBattle"
+        ? 1885
+        : fixture === "roomApproved"
+          ? 11
+          : fixture === "roomBlocked"
+            ? 12
+            : fixture === "curio"
+              ? 1237
+              : fixture === "corridor"
+                ? 31
+                : 1,
     layout,
     distribution,
     mode,
@@ -131,7 +134,21 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
             ),
           },
         }
-      : initial;
+      : fixture === "roomDisease"
+        ? {
+            ...initial,
+            dungeon: {
+              ...initial.dungeon!,
+              rooms: initial.dungeon!.rooms.map((r) =>
+                r.id === "D"
+                  ? { ...r, kind: "lair" as const }
+                  : r.id === "A"
+                    ? { ...r, kind: "curio" as const }
+                    : r,
+              ),
+            },
+          }
+        : initial;
   return {
     game,
     page,
@@ -238,6 +255,7 @@ export function DungeonSandbox() {
             <option value="roomBattle">
               Lair → Ritual Chamber 可战斗（p1、种子 1885、先侦察 Radiant）
             </option>
+            <option value="roomDisease">Maggot 守卫战斗（种子 4，固定房间代币）</option>
             <option value="roomBlocked">
               Lair → Tomb of Ancestor（p1、种子 12、先侦察 Radiant）
             </option>
@@ -325,6 +343,15 @@ export function DungeonSandbox() {
           </p>
           <p data-testid="dungeon-bonus">
             下一次探索：每人 {(d.mode === "radiant" ? 1 : 2) - (d.scoutBonus ? 1 : 0)} 骰 · {d.mode}
+          </p>
+          <p data-testid="dungeon-conditions">
+            {d.heroes
+              .filter((h) => h.diseaseId || h.quirkIds?.length)
+              .map(
+                (h) =>
+                  `${h.id} · 疾病：${d.conditions?.diseases.find((c) => c.id === h.diseaseId)?.name ?? "无"} · 怪癖：${h.quirkIds?.map((id) => d.conditions?.quirks.find((q) => q.id === id)?.name ?? id).join("、") || "无"}`,
+              )
+              .join("；") || "疾病 / 怪癖：无"}
           </p>
           <button onClick={() => reset("standard")}>重置标准模式</button>{" "}
           <button onClick={() => reset("radiant")}>重置 Radiant</button>{" "}

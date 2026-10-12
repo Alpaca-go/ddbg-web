@@ -46,7 +46,7 @@ export function playMonsterSkillTargets(
   const ids = new Set(targets.map((e) => e.id));
   const neighbors = candidates
     .filter((e) => !ids.has(e.id))
-    .map((e) => ({ id: e.id, stress: e.stress! }));
+    .map((e) => ({ ...e, stress: e.stress! }));
   const contexts: MonsterCombatState[] = targets.map((target) => ({
     actor: {
       id: actor.id,
@@ -178,7 +178,14 @@ export function playMonsterSkillTargets(
     battle.rngCursor + 1,
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
-  const statuses = applyBattleSkillStatuses(battle, health.entities, actor.id, resolutions);
+  const statuses = applyBattleSkillStatuses(
+    battle,
+    health.entities,
+    actor.id,
+    resolutions,
+    state.seed,
+    health.rngCursor,
+  );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const event: MonsterSkillTargetsResolvedEvent = {
     type: "monsterSkillTargetsResolved",
@@ -220,12 +227,12 @@ export function playMonsterSkillTargets(
         pending: null,
         entities: statuses.entities,
         light: statuses.light,
-        rngCursor: health.rngCursor,
+        rngCursor: statuses.rngCursor,
         shuffleIntents: intents,
         shuffleContinuation: intents.length ? continuation : null,
       },
     },
-    events: [event, ...health.events],
+    events: [event, ...health.events, ...statuses.events],
   };
   return intents.length ? applied : recordMonsterSkill(applied, continuation, casualtyIds);
 }

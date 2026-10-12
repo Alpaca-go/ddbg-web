@@ -1,6 +1,9 @@
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { applyDungeonCommand } from "./dungeon";
 import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
+import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
+import { recordMonsterSkill } from "./encounter";
+import { resolveDungeonConditionChoice } from "./dungeon-curio";
 import { displaceSmallForHero } from "./battle-small";
 import { finishTurn } from "./encounter";
 import type { DungeonCommand, DungeonState } from "./dungeon";
@@ -117,6 +120,19 @@ export type Command =
     };
 
 export type GameEvent =
+  | {
+      readonly type: "passiveTriggered";
+      readonly entityId: string;
+      readonly trigger: string;
+      readonly message: string;
+    }
+  | {
+      readonly type: "diseaseAcquired";
+      readonly entityId: string;
+      readonly diseaseId: string;
+      readonly quirkId?: string;
+      readonly message: string;
+    }
   | {
       readonly type: "smallMonsterDisplaced";
       readonly actorId: string;
@@ -247,6 +263,14 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (state.dungeon?.pending?.id.startsWith("dungeon-condition:")) {
+    const pending = state.dungeon.pending;
+    return command.type === "resolveChoice" &&
+      command.choiceId === pending.id &&
+      pending.options.some((o) => o.id === command.optionId)
+      ? resolveDungeonConditionChoice(state, command.optionId)
+      : rejectBattleCommand(state, "请先完成地牢疾病 / 怪癖替换选择");
+  }
   if (command.type === "startDungeonBattle") return startDungeonBattle(state);
   if (command.type === "finishDungeonBattle") return finishDungeonBattle(state);
   if (state.dungeon?.phase === "inBattle" && command.type === "finishMonsterTurn")
@@ -286,6 +310,34 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       return !result || result.events.some((e) => e.type === "commandRefused")
         ? (result ?? rejectBattleCommand(state, "Small 选择已过期"))
         : finishTurn(result.state, pending.actorId, result.events);
+    }
+    if (pending.type === "conditionReplace") {
+      const b = state.battle!;
+      if (!b.conditions) return rejectBattleCommand(state, "缺少疾病 / 怪癖池");
+      const applied = replaceConditionQuirk(
+        b.conditions,
+        b.entities.filter((e) => e.side === "hero"),
+        command.optionId,
+      );
+      if (applied.status === "refused") return rejectBattleCommand(state, applied.reason);
+      return recordMonsterSkill(
+        {
+          state: {
+            ...state,
+            battle: {
+              ...b,
+              pending: null,
+              conditions: applied.pool,
+              entities: b.entities.map((e) => applied.heroes.find((h) => h.id === e.id) ?? e),
+            },
+          },
+          events: [],
+        },
+        pending.resolved,
+        pending.casualtyIds,
+        false,
+        pending.remainingInfections,
+      );
     }
     if (pending.type === "resolveProvision")
       return consumeResolveProvision(state, command.optionId);
@@ -350,6 +402,25 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
 
 /** 任一后续规则拒绝时，整次命令回滚骰子、行动和事件。 */
 export function applyCommand(state: GameState, command: Command): ApplyResult {
+  const heroes = state.battle
+    ? state.battle.entities.filter((e) => e.side === "hero")
+    : (state.dungeon?.heroes ?? []);
+  const pool = state.battle?.conditions ?? state.dungeon?.conditions;
+  if (pool) {
+    const problem = conditionPoolProblem(pool, heroes);
+    if (problem) return rejectBattleCommand(state, problem);
+  } else if (heroes.some((h) => h.diseaseId || h.quirkIds?.length))
+    return rejectBattleCommand(state, "已持疾病 / 怪癖却缺少完整实体牌池（R-048）");
+  if (
+    heroes.some(
+      (h) =>
+        (h.diseaseId || h.quirkIds?.length) &&
+        (!Number.isInteger(h.heroLevel ?? h.level) ||
+          (h.heroLevel ?? h.level)! < 1 ||
+          (h.heroLevel ?? h.level)! > 3),
+    )
+  )
+    return rejectBattleCommand(state, "被动效果需要已核实英雄等级（R-048）");
   const result = dispatchCommand(state, command);
   const refused = result.events.find((event) => event.type === "commandRefused");
   return refused ? rejectBattleCommand(state, refused.message) : result;

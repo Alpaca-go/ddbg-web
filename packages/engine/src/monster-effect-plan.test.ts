@@ -78,11 +78,20 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
       ).status,
     ).toBe("refused");
   });
-  it("Maggot 疾病不默默丢弃；未接疾病目录时整个技能拒绝", () => {
-    expect(resolveMonsterSkill(byId("monster_medium:p031"), 1, combat, 1)).toMatchObject({
-      status: "refused",
-      reason: expect.stringContaining("疾病"),
+  it("Maggot 命中保存疾病原语，落空不感染；纯结算不抽牌", () => {
+    const card = byId("monster_medium:p031");
+    const attack = readMonsterAttackView(card, 1);
+    if (attack.status !== "ready") throw new Error(attack.reason);
+    const range = readPrintedRange(attack.view);
+    if (range.kind !== "exact") throw new Error("缺少射程");
+    const context = { ...combat, areaDistance: range.distance };
+    expect(resolveMonsterSkill(card, 1, context, 1)).toMatchObject({
+      status: "resolved",
+      resolution: { targetDisease: true, skipped: [] },
     });
+    const miss = resolveMonsterSkill(card, 1, context, 10);
+    expect(miss).toMatchObject({ status: "resolved", resolution: { outcome: "miss" } });
+    if (miss.status === "resolved") expect(miss.resolution.targetDisease).toBeUndefined();
   });
   it("Spitter 对 Mark 的加伤先参与 Protection；落空不施加状态", () => {
     const card = byId("monster_medium:p037");

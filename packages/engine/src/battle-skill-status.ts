@@ -2,10 +2,34 @@ import type { BattleEntity, BattleState } from "./battle";
 import type { HeroSkillResolution } from "./hero-skill";
 import { addStatusStack, STATUS_KINDS, statusProjection } from "./status";
 import type { StatusEffect, StatusKind } from "./status";
+import { applyPassiveHero, applyPassiveStatus } from "./passive-runtime";
+import { resolveSeededHeroHealth } from "./hero-health";
+import type { GameEvent } from "./command";
+import type { PassiveDefence } from "./passive-runtime";
+import { hasQuirk, passivePlan, passiveStress } from "./passive";
 import {
   approvedHeroConditionDefences,
   heroConditionDefenceSchema,
 } from "../../data/src/normalize/hero-stat";
+
+export function readHeroPassiveDefence(
+  battle: Pick<BattleState, "heroStats">,
+  entity: Pick<BattleEntity, "heroStatId">,
+): PassiveDefence | undefined {
+  const hero = battle.heroStats?.find((h) => h.id === entity.heroStatId);
+  const defence = hero?.verified_condition_defence;
+  const expected = hero && approvedHeroConditionDefences[hero.id];
+  if (
+    !hero?.attributesVerified ||
+    hero.level !== 1 ||
+    !expected ||
+    hero.name !== expected.name ||
+    !heroConditionDefenceSchema.safeParse(defence).success ||
+    defence?.resistances[0] !== expected.kind
+  )
+    return undefined;
+  return { resistances: defence.resistances, immunities: defence.immunities };
+}
 
 /** 自身只施加一次；目标逐个施加。调用方先以 probe 验证，再在生命结果上应用。 */
 export function applyBattleSkillStatuses(
@@ -13,14 +37,20 @@ export function applyBattleSkillStatuses(
   entities: readonly BattleEntity[],
   actorId: string,
   resolutions: readonly HeroSkillResolution[],
+  seed?: number,
+  initialCursor = battle.rngCursor,
 ):
   | { readonly status: "refused"; readonly reason: string }
   | {
       readonly status: "resolved";
       readonly entities: readonly BattleEntity[];
       readonly light: number;
+      readonly rngCursor: number;
+      readonly events: readonly GameEvent[];
     } {
   let next = [...entities];
+  let rngCursor = initialCursor;
+  const events: GameEvent[] = [];
   const apply = (
     id: string,
     effects: readonly StatusEffect[],
@@ -105,9 +135,46 @@ export function applyBattleSkillStatuses(
     }
     let stacks = entity.statusStacks ?? [];
     for (const effect of effects) {
-      const applied = addStatusStack(stacks, effect, scope, { resistances, immunities });
-      if (applied.status === "refused") return applied.reason;
-      stacks = applied.stacks;
+      if (entity.side === "hero") {
+        const applied = applyPassiveStatus(
+          { ...next.find((e) => e.id === id)!, statusStacks: stacks },
+          effect,
+          scope,
+          scope === "self" ? readHeroPassiveDefence(battle, entity) : { resistances, immunities },
+        );
+        if (applied.status === "refused") return applied.reason;
+        stacks = applied.hero.statusStacks ?? [];
+        let hero = applied.hero;
+        if (applied.wounds.length) {
+          if (hero.life === undefined) return "疾病追加伤口缺少已核实 Life（R-048）";
+          if (seed !== undefined) {
+            const woundEffect = { type: "wounds" as const, amounts: applied.wounds };
+            const health = resolveSeededHeroHealth(
+              { life: hero.life, wounds: hero.wounds, dead: hero.dead },
+              woundEffect,
+              seed,
+              rngCursor,
+            );
+            if (health.status !== "resolved")
+              return health.status === "refused" ? health.reason : "疾病死门未完成";
+            hero = { ...hero, ...health.state };
+            rngCursor = health.rngCursor;
+            events.push({
+              type: "heroHealthResolved",
+              entityId: id,
+              effect: woundEffect,
+              resolution: health,
+              message: "状态施加的疾病追加伤口已合并（R-063）",
+            });
+          }
+        }
+        next = next.map((e) => (e.id === id ? hero : e));
+        if (hero.dead) break;
+      } else {
+        const applied = addStatusStack(stacks, effect, scope, { resistances, immunities });
+        if (applied.status === "refused") return applied.reason;
+        stacks = applied.stacks;
+      }
     }
     next = next.map((entry) =>
       entry.id === id
@@ -123,7 +190,55 @@ export function applyBattleSkillStatuses(
     if (problem) return { status: "refused", reason: problem };
   }
   let light = Math.max(0, Math.min(5, battle.light + (resolutions[0]?.actorLightDelta ?? 0)));
-  for (const resolution of resolutions)
-    light = Math.max(0, Math.min(5, light + (resolution.targetLightDelta ?? 0)));
-  return { status: "resolved", entities: next, light };
+  const deltas = [
+    resolutions[0]?.actorLightDelta ?? 0,
+    ...resolutions.map((r) => r.targetLightDelta ?? 0),
+  ];
+  light = battle.light;
+  for (const delta of deltas) {
+    const before = light;
+    light = Math.max(0, Math.min(5, light + delta));
+    if (light === before) continue;
+    for (const entity of next.filter((e) => e.side === "hero" && !e.dead)) {
+      const actor = next.find((e) => e.id === actorId);
+      if (
+        seed !== undefined &&
+        actor?.side === "hero" &&
+        resolutions.some((r) => r.outcome === "crit") &&
+        entity.areaId === actor.areaId
+      ) {
+        const plan = passivePlan(entity, light > before ? "lightRaised" : "lightLowered");
+        const refund = 1 + Number(hasQuirk(entity, "Resilient"));
+        if (
+          plan.stress.some(
+            (amount) =>
+              amount > 0 &&
+              (entity.stress ?? 0) + refund + passiveStress(entity, amount, light).amount >= 10,
+          )
+        )
+          return {
+            status: "refused",
+            reason:
+              "光照被动与暴击压力恢复触及意志 / 死亡先后；该复合事件续接尚未实现（R20、R28），整次未提交",
+          };
+      }
+      const applied = applyPassiveHero(
+        entity,
+        light > before ? "lightRaised" : "lightLowered",
+        seed ?? 0,
+        rngCursor,
+        light,
+        battle.provisions,
+        readHeroPassiveDefence(battle, entity),
+        { probe: seed === undefined },
+      );
+      if (applied.status === "refused") return applied;
+      next = next.map((e) => (e.id === entity.id ? applied.hero : e));
+      if (seed !== undefined) {
+        rngCursor = applied.cursor;
+        events.push(...applied.events);
+      }
+    }
+  }
+  return { status: "resolved", entities: next, light, rngCursor, events };
 }

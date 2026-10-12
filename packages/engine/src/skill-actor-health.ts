@@ -4,10 +4,16 @@ import type { SkillHealthEffect } from "./hero-skill";
 export function multiTargetHealthEffects(
   effects: readonly { readonly healthEffects: readonly SkillHealthEffect[] }[],
 ): readonly SkillHealthEffect[] {
+  const seen = new Set<string>();
   return effects.flatMap((e, index) =>
-    e.healthEffects.filter(
-      (effect) => index === 0 || !["selfHeal", "selfWound"].includes(effect.source),
-    ),
+    e.healthEffects.filter((effect) => {
+      if (effect.source === "passiveStress") {
+        const key = `${effect.entityId}:${effect.passiveKey}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+      }
+      return index === 0 || !["selfHeal", "selfWound"].includes(effect.source);
+    }),
   );
 }
 

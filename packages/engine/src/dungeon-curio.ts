@@ -3,6 +3,11 @@ import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { createRng } from "./rng";
 import { continueDungeonExploration } from "./dungeon-exploration";
+import { gainDisease, replaceConditionQuirk } from "./conditions";
+import { readHeroPassiveDefence } from "./battle-skill-status";
+import { triggerDungeonPassive } from "./dungeon-passive";
+import { resolveDungeonPressure } from "./dungeon-pressure";
+import { passiveStress } from "./passive";
 
 const refuse = (state: GameState, message: string): ApplyResult => ({
   state,
@@ -15,7 +20,7 @@ const finish = (state: GameState, dungeon: DungeonState, message: string): Apply
 
 /** R10 / R12 / R14：完整牌池只洗一次；Torch 先弃，随后才揭示顶牌，抽空不擅自洗回。 */
 export function drawDungeonCurio(state: GameState, rollId: string, optionId: string): ApplyResult {
-  const d = state.dungeon!;
+  let d = state.dungeon!;
   const c = d.curio;
   const roll = d.exploration?.rolls?.find(
     (r) => r.id === rollId && !r.resolved && r.face === "curio",
@@ -45,6 +50,35 @@ export function drawDungeonCurio(state: GameState, rollId: string, optionId: str
       : optionId !== "draw"
   )
     return refuse(state, "必须在抽卡前选择使用 Torch 或直接抽牌");
+  const beforeEvents: import("./command").GameEvent[] = [];
+  if (!d.pendingCurioDraw) {
+    const passive = triggerDungeonPassive(d, state.seed, [roll.heroId], "beforeCurio");
+    if (passive.status === "refused") return refuse(state, passive.reason);
+    d = passive.dungeon;
+    beforeEvents.push(...passive.events);
+    if (d.heroes.some((h) => h.dead)) {
+      const stopped = finish(
+        state,
+        { ...d, phase: "awaitingReplacement", pending: null },
+        "Curio 交互前被动导致死亡，未抽卡、未扣 Torch",
+      );
+      return { ...stopped, events: [...beforeEvents, ...stopped.events] };
+    }
+    if (d.heroes.some((h) => h.stress === 10)) {
+      const pressure = resolveDungeonPressure({
+        ...state,
+        dungeon: {
+          ...d,
+          phase: "blockedPressure",
+          pressureSource: "exploration",
+          pending: null,
+          pendingCurioDraw: { rollId, optionId },
+        },
+      });
+      const continued = continueDungeonExploration(pressure);
+      return { ...continued, events: [...beforeEvents, ...continued.events] };
+    }
+  }
   const deck = [...(c.deck ?? c.cards.map((card) => card.id))];
   let cursor = d.cursor;
   if (c.deck === null) {
@@ -58,10 +92,12 @@ export function drawDungeonCurio(state: GameState, rollId: string, optionId: str
   }
   const cardId = deck.shift()!;
   const card = c.cards.find((card) => card.id === cardId)!;
-  return finish(
+  const { pendingCurioDraw: _pendingDraw, ...ready } = d;
+  void _pendingDraw;
+  const drawn = finish(
     state,
     {
-      ...d,
+      ...ready,
       cursor,
       phase: "awaitingCurio",
       pending: null,
@@ -81,14 +117,16 @@ export function drawDungeonCurio(state: GameState, rollId: string, optionId: str
     },
     `${roll.heroId} ${protectedCard ? `先弃 ${tokenId}，忽略已核实负面效果；` : "未用 Torch；"}抽到 ${cardId} ${card.name}（印刷 p${card.source.page}）`,
   );
+  return { ...drawn, events: [...beforeEvents, ...drawn.events] };
 }
 
 /** 未核实行不执行半张卡。整卡预检成功后一次提交，已抽顶牌及 Torch 决定不可撤销重抽。 */
 export function resolveDungeonCurio(state: GameState): ApplyResult {
-  const d = state.dungeon!;
+  let d = state.dungeon!;
   const c = d.curio;
   const active = c?.active;
   if (d.phase !== "awaitingCurio" || !c || !active) return refuse(state, "当前没有待结算的 Curio");
+  if (d.pending) return refuse(state, "请先完成疾病的怪癖替换选择");
   const block = (reason: string) =>
     finish(state, { ...d, curio: { ...c, active: { ...active, blockedReason: reason } } }, reason);
   if (!curioCatalogSchema.safeParse(c.cards).success)
@@ -120,14 +158,22 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
   const effects = card.rows.flatMap((r) =>
     r.effect && (!active.protected || r.effect.type === "gold") ? [r.effect] : [],
   );
-  if (effects.some((e) => e.type === "drawDisease"))
+  if (
+    effects.some((e) => e.type === "drawDisease") &&
+    (!d.conditions || !d.battleCatalog || !readHeroPassiveDefence(d.battleCatalog, hero))
+  )
     return block(
       "已核实获得疾病图标；完整疾病牌堆 / 施加接口尚未接线，未抽缩减牌堆，整卡效果尚未提交",
     );
+  if (
+    effects.some((e) => e.type === "drawDisease") &&
+    effects.some((e) => e.type === "status" || e.type === "stress")
+  )
+    return block("Curio 同卡疾病与压力 / 状态的触发先后待 Q-68 确认，整卡尚未提交");
   if (effects.some((e) => e.type === "status"))
-    return block("Curio 状态图标已核实；英雄抗性 / 免疫资料未核齐（R-033、R-048），整卡尚未提交");
+    return block("Curio 状态与同卡其他效果的事件续接尚未接线，整卡尚未提交");
   const stress = effects.reduce((sum, e) => sum + (e.type === "stress" ? e.amount : 0), 0);
-  if (hero.stress + stress >= 10)
+  if (hero.stress + passiveStress(hero, stress, d.explorationSetup?.light ?? 5).amount >= 10)
     return block("Curio 压力到 10 与同卡其他效果的收尾顺序待 Q-62 确认，整卡尚未提交");
   if (
     !Number.isSafeInteger(d.gold) ||
@@ -142,12 +188,55 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
     if (effect.type === "gold") gold += effect.amount;
   }
   if (!Number.isSafeInteger(gold)) return block("金币超出安全范围");
+  const passiveEvents: import("./command").GameEvent[] = [];
+  const infectionCount = effects.filter((e) => e.type === "drawDisease").length;
+  for (
+    let appliedCount = active.diseasesApplied ?? 0;
+    appliedCount < infectionCount;
+    appliedCount++
+  ) {
+    const acquired = gainDisease(d.conditions!, d.heroes, hero.id, state.seed, d.cursor);
+    if (acquired.status === "refused") return block(acquired.reason);
+    d = {
+      ...d,
+      heroes: acquired.heroes,
+      cursor: acquired.cursor,
+      conditions: acquired.pool,
+      curio: { ...d.curio!, active: { ...active, diseasesApplied: appliedCount + 1 } },
+    };
+    passiveEvents.push({
+      type: "diseaseAcquired",
+      entityId: hero.id,
+      diseaseId: acquired.diseaseId,
+      ...(acquired.quirkId ? { quirkId: acquired.quirkId } : {}),
+      message: "Curio 获得疾病；重复感染按 R26–27 抽负面怪癖",
+    });
+    if (acquired.replaceOptions?.length) {
+      const choice = {
+        id: `dungeon-condition:${d.decision}:${hero.id}`,
+        actorId: hero.id,
+        prompt: "选择被新负面怪癖替换的已有正面怪癖",
+        options: acquired.replaceOptions.map((id) => ({
+          id,
+          label: acquired.pool.quirks.find((q) => q.id === id)!.name,
+        })),
+      };
+      return {
+        state: { ...state, dungeon: { ...d, decision: d.decision + 1, pending: choice } },
+        events: passiveEvents,
+        pendingChoice: choice,
+      };
+    }
+  }
+  const paid = triggerDungeonPassive(d, state.seed, [hero.id], { type: "stress", amount: stress });
+  if (paid.status === "refused") return refuse(state, paid.reason);
+  d = paid.dungeon;
+  passiveEvents.push(...paid.events);
   const dungeon: DungeonState = {
     ...d,
     gold,
     phase: "awaitingHazards",
     pending: null,
-    heroes: d.heroes.map((h) => (h.id === hero.id ? { ...h, stress: h.stress + stress } : h)),
     exploration: {
       ...d.exploration!,
       rolls: d.exploration!.rolls!.map((r) =>
@@ -166,11 +255,23 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
       discard: [...c.discard, card.id],
     },
   };
-  return continueDungeonExploration(
+  const continued = continueDungeonExploration(
     finish(
       state,
       dungeon,
       `${card.name} 已结算：${active.protected ? "Torch 忽略负面；" : ""}金币 +${gold - d.gold}；弃牌并续接剩余探索骰`,
     ),
   );
+  return { ...continued, events: [...passiveEvents, ...continued.events] };
+}
+
+export function resolveDungeonConditionChoice(state: GameState, optionId: string): ApplyResult {
+  const d = state.dungeon!;
+  if (!d.conditions) return refuse(state, "缺少疾病 / 怪癖池");
+  const applied = replaceConditionQuirk(d.conditions, d.heroes, optionId);
+  if (applied.status === "refused") return refuse(state, applied.reason);
+  return resolveDungeonCurio({
+    ...state,
+    dungeon: { ...d, conditions: applied.pool, heroes: applied.heroes, pending: null },
+  });
 }

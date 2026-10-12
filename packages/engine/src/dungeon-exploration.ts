@@ -3,9 +3,9 @@ import { explorationDieSchema } from "../../data/src/exploration";
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonCommand, DungeonState } from "./dungeon";
 import { createRng } from "./rng";
-import { resolveSeededHeroHealth } from "./hero-health";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { drawDungeonCurio } from "./dungeon-curio";
+import { triggerDungeonPassive } from "./dungeon-passive";
 
 const faces = explorationDieSchema.parse(die).faces;
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
@@ -31,6 +31,14 @@ const refuse = (state: GameState, message: string): ApplyResult => ({
 export function continueDungeonExploration(result: ApplyResult): ApplyResult {
   const d = result.state.dungeon;
   if (!d || d.phase !== "awaitingHazards" || !d.exploration?.rolls || d.pending) return result;
+  if (d.pendingCurioDraw && !d.heroes.some((h) => h.dead)) {
+    const drawn = drawDungeonCurio(
+      result.state,
+      d.pendingCurioDraw.rollId,
+      d.pendingCurioDraw.optionId,
+    );
+    return { ...drawn, events: [...result.events, ...drawn.events] };
+  }
   let next: ApplyResult;
   if (d.heroes.some((h) => h.dead)) {
     next = finish(
@@ -142,15 +150,28 @@ export function applyDungeonExploration(
         resolved: false,
       })),
     );
-    return continueDungeonExploration(
+    let rolled: DungeonState = {
+      ...d,
+      cursor: d.cursor + rolls.length,
+      exploration: { ...e, rolls },
+    };
+    const passiveEvents: import("./command").GameEvent[] = [];
+    for (const roll of rolls.filter((r) => r.face === "curio")) {
+      const passive = triggerDungeonPassive(rolled, state.seed, [roll.heroId], "curioRolled");
+      if (passive.status === "refused") return refuse(state, passive.reason);
+      rolled = passive.dungeon;
+      passiveEvents.push(...passive.events);
+    }
+    const continued = continueDungeonExploration(
       finish(
         state,
-        { ...d, cursor: d.cursor + rolls.length, exploration: { ...e, rolls } },
+        rolled,
         rolls.length
           ? `探索骰：${rolls.map((r) => `${r.id} ${faceLabels[r.face]}`).join("；")}`
           : "侦察后的 Radiant：每人 0 骰，不消耗 RNG（R-013）",
       ),
     );
+    return { ...continued, events: [...passiveEvents, ...continued.events] };
   }
   if (
     command.type !== "resolveChoice" ||
@@ -207,18 +228,35 @@ export function applyDungeonExploration(
     return refuse(state, "陷阱缩放 / 光照表仍待 Kyries 确认（R-003、R-002），保持停点");
   if (command.optionId.startsWith("use:")) {
     const id = command.optionId.slice(4);
-    return complete(
-      state,
-      {
-        ...d,
-        explorationSetup: {
-          ...d.explorationSetup!,
-          provisions: d.explorationSetup!.provisions.filter((p) => p.id !== id),
-        },
+    const consumed = d.explorationSetup!.provisions.find((p) => p.id === id)!;
+    let paid: DungeonState = {
+      ...d,
+      explorationSetup: {
+        ...d.explorationSetup!,
+        provisions: d.explorationSetup!.provisions.filter((p) => p.id !== id),
       },
+    };
+    const events: import("./command").GameEvent[] = [];
+    for (const trigger of [
+      ...(consumed.face === "food" ? ["foodConsumed" as const] : []),
+      ...(roll.face === "hunger"
+        ? ["hungerResolved" as const]
+        : roll.face === "rubble"
+          ? ["rubbleResolved" as const]
+          : []),
+    ]) {
+      const passive = triggerDungeonPassive(paid, state.seed, [roll.heroId], trigger);
+      if (passive.status === "refused") return refuse(state, passive.reason);
+      paid = passive.dungeon;
+      events.push(...passive.events);
+    }
+    const completed = complete(
+      state,
+      paid,
       roll.id,
       `${roll.heroId} 使用补给抵消 ${faceLabels[roll.face]}；弃掉 ${id}（R12、R14）`,
     );
+    return { ...completed, events: [...events, ...completed.events] };
   }
   const hero = d.heroes.find((h) => h.id === roll.heroId)!;
   let changed = d;
@@ -229,34 +267,32 @@ export function applyDungeonExploration(
         ? d.explorationSetup!.dungeonLevel
         : 0;
   let message = `${hero.id} 承受 ${wounds} 伤口`;
-  if (wounds) {
-    const health = resolveSeededHeroHealth(
-      { life: hero.life!, wounds: hero.wounds!, dead: hero.dead ?? false },
-      { type: "wounds", amounts: [wounds] },
-      state.seed,
-      d.cursor,
-    );
-    if (health.status !== "resolved") return refuse(state, "英雄生命数据无效，未结算危险（R-048）");
-    changed = {
-      ...changed,
-      cursor: health.rngCursor,
-      heroes: changed.heroes.map((h) =>
-        h.id === hero.id ? { ...h, wounds: health.state.wounds, dead: health.state.dead } : h,
-      ),
-    };
-    if (health.face) message += ` · 死门 ${health.face}`;
-  }
   const stress = roll.face === "rubble" ? 1 : roll.face === "darkness" ? 2 : 0;
-  if (stress && !changed.heroes.find((h) => h.id === hero.id)!.dead) {
-    changed = {
-      ...changed,
-      heroes: changed.heroes.map((h) =>
-        h.id === hero.id ? { ...h, stress: Math.min(10, h.stress + stress) } : h,
-      ),
-    };
-    message += `、${stress} 压力（固定光照 5）`;
+  const passiveEvents: import("./command").GameEvent[] = [];
+  if ((stress || wounds) && !changed.heroes.find((h) => h.id === hero.id)!.dead) {
+    const passive = triggerDungeonPassive(changed, state.seed, [hero.id], {
+      type: "stress",
+      amount: stress,
+      ...(wounds ? { woundAmounts: [wounds] } : {}),
+    });
+    if (passive.status === "refused") return refuse(state, passive.reason);
+    changed = passive.dungeon;
+    passiveEvents.push(...passive.events);
+    if (stress) message += `、${stress} 压力（固定光照 5）`;
   }
-  return complete(state, changed, roll.id, message);
+  if (roll.face === "rubble" || roll.face === "hunger") {
+    const passive = triggerDungeonPassive(
+      changed,
+      state.seed,
+      [hero.id],
+      roll.face === "rubble" ? "rubbleResolved" : "hungerResolved",
+    );
+    if (passive.status === "refused") return refuse(state, passive.reason);
+    changed = passive.dungeon;
+    passiveEvents.push(...passive.events);
+  }
+  const completed = complete(state, changed, roll.id, message);
+  return { ...completed, events: [...passiveEvents, ...completed.events] };
 }
 
 function complete(state: GameState, d: DungeonState, rollId: string, message: string): ApplyResult {

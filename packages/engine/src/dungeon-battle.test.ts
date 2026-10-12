@@ -7,11 +7,18 @@ import statsFile from "../../data/normalized/corebox/hero_stat.json";
 import skillsFile from "../../data/normalized/corebox/hero_skill.json";
 import resolveFile from "../../data/normalized/corebox/virtue_affliction.json";
 import monsterFile from "../../data/normalized/corebox/monster_medium.json";
+import diseases from "../../data/normalized/corebox/disease.json";
+import quirks from "../../data/normalized/corebox/quirk.json";
+import largeMonsters from "../../data/normalized/corebox/monster_large.json";
+import { diseaseFileSchema } from "../../data/src/disease";
+import { createConditionPool, gainDisease, conditionPoolProblem } from "./conditions";
 import { normalizedHeroStatFileSchema } from "../../data/src/normalize/hero-stat";
 import {
   normalizedHeroSkillFileSchema,
   normalizedVirtueAfflictionFileSchema,
   normalizedMonsterMediumFileSchema,
+  normalizedQuirkFileSchema,
+  normalizedMonsterLargeFileSchema,
 } from "../../data/src/normalize/schema";
 import { roomFileSchema } from "../../data/src/room";
 import { monsterPoolFileSchema } from "../../data/src/monster-pool";
@@ -33,9 +40,15 @@ const catalog = JSON.parse(
   JSON.stringify({
     heroStats: stats,
     skills,
-    monsters: normalizedMonsterMediumFileSchema
-      .parse(monsterFile)
-      .cards.filter((c) => "skills" in c)
+    conditions: createConditionPool(
+      diseaseFileSchema.parse(diseases).cards,
+      normalizedQuirkFileSchema.parse(quirks).cards,
+    ),
+    monsters: [
+      ...normalizedMonsterMediumFileSchema.parse(monsterFile).cards,
+      ...normalizedMonsterLargeFileSchema.parse(largeMonsters).cards,
+    ]
+      .filter((c) => "skills" in c)
       .map((c) => ({
         ...c,
         dodge: c.header_unlabeled_numbers.find(
@@ -91,6 +104,65 @@ const goodSeed = 1885;
 function started() {
   return applyCommand(deploy(goodSeed), { type: "startDungeonBattle" }).state;
 }
+
+it("完整 42 张池自然抽到 Maggot 可正式入场；疾病实体与 RNG 一次回传地图", () => {
+  let entered: GameState | undefined;
+  for (let seed = 1; seed <= 400; seed++) {
+    const candidate = deploy(seed);
+    if (
+      !candidate.dungeon!.monsterPool?.active?.monsters.some(
+        (m) => m.cardId === "monster_medium:p031",
+      )
+    )
+      continue;
+    const result = applyCommand(candidate, { type: "startDungeonBattle" });
+    if (result.state.battle) {
+      entered = result.state;
+      break;
+    }
+  }
+  expect(entered, "完整牌池自然抽取，不过滤或替换 Maggot").toBeDefined();
+  const state = applyCommand(entered!, { type: "startBattle" }).state,
+    b = state.battle!;
+  expect(b.monsters!.some((m) => m.id === "monster_medium:p031")).toBe(true);
+  const acquired = gainDisease(
+    b.conditions!,
+    b.entities.filter((h) => h.side === "hero"),
+    "hero-0",
+    state.seed,
+    b.rngCursor,
+  );
+  if (acquired.status !== "resolved") throw new Error(acquired.reason);
+  // 战斗终局本身沿用既有四轮场景；这里单独验证感染状态的终局交接边界。
+  const terminal: GameState = {
+    ...state,
+    battle: {
+      ...b,
+      conditions: acquired.pool,
+      rngCursor: acquired.cursor,
+      entities: b.entities.map((h) => acquired.heroes.find((e) => e.id === h.id) ?? h),
+      loot: closeBattleLoot(b.loot),
+      encounter: {
+        round: 4,
+        deck: [],
+        actedIds: [],
+        turn: { type: "finished", outcome: "retreat" },
+      },
+    },
+  };
+  const result = applyCommand(terminal, { type: "finishDungeonBattle" });
+  expect(
+    result.events.some((e) => e.type === "commandRefused"),
+    JSON.stringify(result.events),
+  ).toBe(false);
+  expect(result.state.dungeon!.heroes[0]!.diseaseId).toBe(acquired.diseaseId);
+  expect(result.state.dungeon!.conditions).toEqual(acquired.pool);
+  expect(
+    conditionPoolProblem(result.state.dungeon!.conditions!, result.state.dungeon!.heroes),
+  ).toBeNull();
+  expect(result.state.dungeon!.cursor).toBe(acquired.cursor + 41);
+  expect(applyCommand(result.state, { type: "finishDungeonBattle" }).state).toBe(result.state);
+}, 15_000);
 function send(s: GameState, command: Command) {
   const result = applyCommand(s, command);
   expect(

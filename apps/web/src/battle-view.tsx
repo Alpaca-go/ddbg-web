@@ -334,6 +334,20 @@ export function BattleView({
                                 .join("；")}
                             </p>
                           )}
+                          {e.side === "hero" && !!(e.diseaseId || e.quirkIds?.length) && (
+                            <p className="muted" data-testid={`conditions-${e.id}`}>
+                              疾病：
+                              {battle.conditions?.diseases.find((c) => c.id === e.diseaseId)
+                                ?.name ?? "无"}{" "}
+                              · 怪癖：
+                              {e.quirkIds
+                                ?.map(
+                                  (id) =>
+                                    battle.conditions?.quirks.find((q) => q.id === id)?.name ?? id,
+                                )
+                                .join("、") || "无"}
+                            </p>
+                          )}
                           {e.resolveCardId && (
                             <p className="muted">
                               意志卡：

@@ -1,6 +1,6 @@
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
-import { resolveSeededHeroHealth } from "./hero-health";
+import { triggerDungeonPassive } from "./dungeon-passive";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 
 const refuse = (state: GameState, message: string): ApplyResult => ({
@@ -146,32 +146,19 @@ export function chooseDungeonTrap(
   if (wounds > 0 && stress > 0 && (hero.wounds === hero.life || hero.stress + stress >= 10))
     return refuse(state, "混合分配触及死门 / 压力10的结算顺序待 Q-64 确认；未扣任何数值、未掷骰");
   let changed = d;
-  let message = `${hero.id}：Trap 承受 ${wounds} 伤口 + ${stress} 压力（R15、R-026）`;
-  if (wounds > 0) {
-    if (hero.attributesVerified !== true) return refuse(state, "英雄生命尚未核实（R-048）");
-    const health = resolveSeededHeroHealth(
-      { life: hero.life!, wounds: hero.wounds!, dead: false },
-      { type: "wounds", amounts: [wounds] },
-      state.seed,
-      d.cursor,
-    );
-    if (health.status !== "resolved") return refuse(state, "英雄生命数据无效，未结算房间（R-048）");
-    changed = {
-      ...changed,
-      cursor: health.rngCursor,
-      heroes: changed.heroes.map((h) =>
-        h.id === hero.id ? { ...h, wounds: health.state.wounds, dead: health.state.dead } : h,
-      ),
-    };
-    if (health.face) message += ` · 死门 ${health.face}`;
-  }
+  const message = `${hero.id}：Trap 承受 ${wounds} 伤口 + ${stress} 压力（R15、R-026）`;
+  if (wounds > 0 && hero.attributesVerified !== true)
+    return refuse(state, "英雄生命尚未核实（R-048）");
+  const passive = triggerDungeonPassive(changed, state.seed, [hero.id], {
+    type: "stress",
+    amount: stress,
+    ...(wounds ? { woundAmounts: [wounds] } : {}),
+  });
+  if (passive.status === "refused") return refuse(state, passive.reason);
   changed = {
-    ...changed,
+    ...passive.dungeon,
     pending: null,
     roomResolution: { ...active, resolvedHeroIds: [...active.resolvedHeroIds, hero.id] },
-    heroes: changed.heroes.map((h) =>
-      h.id === hero.id ? { ...h, stress: Math.min(10, h.stress + stress) } : h,
-    ),
   };
   const next = changed.heroes.some((h) => !h.dead && h.stress === 10)
     ? resolveDungeonPressure({
@@ -179,5 +166,8 @@ export function chooseDungeonTrap(
         dungeon: { ...changed, phase: "blockedPressure", pressureSource: "room" },
       })
     : continueDungeonTrap({ ...state, dungeon: changed });
-  return { ...next, events: [{ type: "dungeonUpdated", message }, ...next.events] };
+  return {
+    ...next,
+    events: [{ type: "dungeonUpdated", message }, ...passive.events, ...next.events],
+  };
 }

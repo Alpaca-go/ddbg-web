@@ -11,6 +11,7 @@ import { readMonsterAttackView, resolveMonsterSkillEffects } from "./monster-ski
 import { readPrintedRange, readPrintedTargets } from "./hero-skill";
 import type { HeroSkillResolution } from "./hero-skill";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
+import { statusProjection } from "./status";
 
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
 export function startDungeonBattle(state: GameState): ApplyResult {
@@ -59,6 +60,9 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       return refuse(`${hero.id} 缺少获批属性或三个 I 级装备技能（R-048、R-051）`);
     heroes.push({
       ...hero.combat,
+      diseaseId: hero.diseaseId ?? null,
+      quirkIds: hero.quirkIds ?? [],
+      ...(hero.deathReason ? { deathReason: hero.deathReason } : {}),
       id: hero.id,
       side: "hero",
       hero: stat.name,
@@ -75,6 +79,12 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       guard: hero.combat?.guard ?? false,
       bleed: hero.combat?.bleed ?? [],
       blight: hero.combat?.blight ?? [],
+      ...(hero.statusStacks
+        ? {
+            statusStacks: hero.statusStacks,
+            ...statusProjection(hero.statusStacks, hero.combat?.innateProtection),
+          }
+        : {}),
       ...(hero.resolveTested === undefined ? {} : { resolveTested: hero.resolveTested }),
       ...(hero.resolveCardId === undefined ? {} : { resolveCardId: hero.resolveCardId }),
     });
@@ -131,6 +141,8 @@ export function startDungeonBattle(state: GameState): ApplyResult {
             [],
         },
       });
+      if (probe.resolution.targetDisease && !d.conditions)
+        return refuse("真实疾病技能需要完整疾病 / 怪癖目录，保留部署，不进入半场战斗（R27）");
     }
     entities.push({
       id: spawn.instanceId,
@@ -152,6 +164,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
   }
   try {
     const battle = createBattleState(state.seed, {
+      ...(d.conditions ? { conditions: d.conditions } : {}),
       heroStats: stats,
       entities: [...heroes, ...entities],
       skills,
@@ -261,6 +274,10 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
       dead: entity.dead,
       resolveTested: entity.resolveTested,
       resolveCardId: entity.resolveCardId ?? undefined,
+      diseaseId: entity.diseaseId ?? null,
+      quirkIds: entity.quirkIds ?? [],
+      ...(entity.deathReason ? { deathReason: entity.deathReason } : {}),
+      statusStacks: entity.statusStacks ?? [],
     };
   });
   const bonus = victory && d.rooms.find((r) => r.id === d.position)?.kind === "treasure" ? 20 : 0;
@@ -278,6 +295,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
         gold: b.loot.gold + bonus,
         lootPool: { ...b.loot, gold: b.loot.gold + bonus },
         resolveDecks: b.resolveDecks ?? d.resolveDecks,
+        ...(b.conditions ? { conditions: b.conditions } : {}),
         scoutBonus: false,
         mustLeaveRoomId: victory ? undefined : d.position,
         explorationSetup: {

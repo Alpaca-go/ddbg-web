@@ -4,6 +4,8 @@ import type { BattleState } from "./battle";
 import { completeTurnStart, nextBattleRoll } from "./encounter";
 import { resolveSeededHeroHealth } from "./hero-health";
 import { statusProjection, statusStackProblem } from "./status";
+import { triggerBattlePassive } from "./battle-passive";
+import { passiveHeal } from "./passive";
 
 /** R18 / R28：意志卡先触发，状态堆随后弹出；玩家选择只续接，不重掷触发骰。 */
 export function beginResolveTurn(result: ApplyResult, actorId: string): ApplyResult {
@@ -37,6 +39,18 @@ export function beginResolveTurn(result: ApplyResult, actorId: string): ApplyRes
   let next: BattleState = { ...battle, rngCursor: battle.rngCursor + 1 };
   const finish = (): ApplyResult =>
     completeTurnStart({ state: { ...result.state, battle: next }, events }, actorId);
+  if (roll === 1 || roll === 10) {
+    const passive = triggerBattlePassive(
+      next,
+      result.state.seed,
+      [actorId],
+      roll === 10 ? "rolledTen" : "rolledOne",
+    );
+    if (passive.status === "refused") return rejectBattleCommand(result.state, passive.reason);
+    next = passive.battle;
+    events.push(...passive.events);
+    if (next.entities.find((e) => e.id === actorId)!.dead) return finish();
+  }
   if (roll > trigger.rollMax) return finish();
   const effect = trigger.effect;
   if (effect.type === "stress" || effect.type === "buff") {
@@ -74,21 +88,22 @@ export function beginResolveTurn(result: ApplyResult, actorId: string): ApplyRes
         ))
     )
       return rejectBattleCommand(result.state, "意志 Buff 缺 duration 或已有状态缺完整堆（R-048）");
+    if (effect.type === "stress") {
+      const passive = triggerBattlePassive(
+        next,
+        result.state.seed,
+        recipients.map((e) => e.id),
+        { type: "stress", amount: effect.amount },
+      );
+      if (passive.status === "refused") return rejectBattleCommand(result.state, passive.reason);
+      next = passive.battle;
+      events.push(...passive.events);
+      return finish();
+    }
     next = {
       ...next,
       entities: next.entities.map((entity) => {
         if (!recipients.some((recipient) => recipient.id === entity.id)) return entity;
-        if (effect.type === "stress")
-          return {
-            ...entity,
-            stress: Math.max(
-              0,
-              Math.min(
-                10,
-                entity.stress! + effect.amount + Number(effect.amount > 0 && next.light <= 2),
-              ),
-            ),
-          };
         const stacks = [
           ...(entity.statusStacks ?? []),
           { kind: "buff" as const, remaining: effect.duration },
@@ -118,10 +133,14 @@ export function beginResolveTurn(result: ApplyResult, actorId: string): ApplyRes
       );
     const healthEffect =
       effect.type === "heal"
-        ? { type: "heal" as const, amount: effect.amount * actor.heroLevel! }
+        ? { type: "heal" as const, amount: passiveHeal(actor, effect.amount * actor.heroLevel!) }
         : { type: "wounds" as const, amounts: [effect.amount * actor.heroLevel!] };
     const health = resolveSeededHeroHealth(
-      { life: actor.life, wounds: actor.wounds, dead: actor.dead },
+      {
+        life: actor.life,
+        wounds: next.entities.find((e) => e.id === actorId)!.wounds,
+        dead: false,
+      },
       healthEffect,
       result.state.seed,
       next.rngCursor,
@@ -204,27 +223,39 @@ export function consumeResolveProvision(state: GameState, provisionId: string): 
     !battle.provisions?.some((provision) => provision.id === provisionId)
   )
     return rejectBattleCommand(state, "补给选择已失效");
-  return completeTurnStart(
-    {
-      state: {
-        ...state,
-        battle: {
-          ...battle,
-          pending: null,
-          provisions: battle.provisions.filter((provision) => provision.id !== provisionId),
-        },
+  let result: ApplyResult = {
+    state: {
+      ...state,
+      battle: {
+        ...battle,
+        pending: null,
+        provisions: battle.provisions.filter((provision) => provision.id !== provisionId),
       },
-      events: [
-        {
-          type: "provisionConsumed",
-          entityId: pending.actorId,
-          provisionId,
-          face: battle.provisions!.find((provision) => provision.id === provisionId)!.face,
-          effect: "discard",
-          message: "Selfish 已消耗补给，不执行该补给通常效果",
-        },
-      ],
     },
-    pending.actorId,
-  );
+    events: [
+      {
+        type: "provisionConsumed",
+        entityId: pending.actorId,
+        provisionId,
+        face: battle.provisions!.find((provision) => provision.id === provisionId)!.face,
+        effect: "discard",
+        message: "Selfish 已消耗补给，不执行该补给通常效果",
+      },
+    ],
+  };
+  if (battle.provisions!.find((p) => p.id === provisionId)!.face === "food") {
+    const passive = triggerBattlePassive(
+      result.state.battle!,
+      state.seed,
+      [pending.actorId],
+      "foodConsumed",
+    );
+    if (passive.status === "refused") return rejectBattleCommand(state, passive.reason);
+    result = {
+      ...result,
+      state: { ...result.state, battle: passive.battle },
+      events: [...result.events, ...passive.events],
+    };
+  }
+  return completeTurnStart(result, pending.actorId);
 }
