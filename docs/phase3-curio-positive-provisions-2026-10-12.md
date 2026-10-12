@@ -1,5 +1,7 @@
 # 步骤 2：Curio 正面怪癖与普通奖励续接
 
+实现 `1221731`，开放草稿 [PR #127](https://github.com/Alpaca-go/ddbg-web/pull/127)，base 为 main，尚未合并。下述为本地验证结果；合并前核对最新 head 两项 CI。
+
 用户再次要求“合并，然后继续推进下一步”。#126 最新 head `32748f1` 的质量与 Playwright 两项 CI 均成功，已转待审并合并为 main `722045d`；本地已 ff-only 同步。新主题 `codex/phase3-curio-positive-provisions` 从该基线开始，不叠加未合并代码。
 
 ## 范围与依据
