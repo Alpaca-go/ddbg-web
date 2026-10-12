@@ -1,5 +1,7 @@
 # 步骤 2：Curio 补给骰奖励接线
 
+实现 `750b7f9`，开放草稿 [PR #123](https://github.com/Alpaca-go/ddbg-web/pull/123)，以 #122 主题分支为 base，尚未合并。下述结果是本地验证；合并前核对最新 head 的质量与 Playwright 两项 CI。
+
 基线 `124bbb3`，含未合并的 Q-60 / R-064 图标批准（PR #122）。本轮分支 `codex/phase3-curio-provisions`；依赖关系保留，不把分支内容称为 main 已交付。用户再次确认全部 17 个 hash，核对与当前 R-064 / 词典 / 01–24 数据一致，无须重复修改词典。
 
 依据：规格书 §5.2、§5.5、§6.3（官方 R12 / R14 / R18），R-048、R-064。复用 `nextProvisionFace` 的六面采样，走地牢共享 RNG；补给最多 16 颗。Torch 只抑制负面效果。
