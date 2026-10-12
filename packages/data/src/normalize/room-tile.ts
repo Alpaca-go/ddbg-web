@@ -1,11 +1,12 @@
 import { z } from "zod";
 import type { RawFile } from "../extract/raw";
 import { iconIdSchema } from "../extract/common";
+import { approvedTortureChamber, tortureChamberSchema } from "./torture-chamber";
 
 /** 几何数据不是可用卡池；未命名图标只保留 ID，不补含义或数值（R-048）。 */
-export const roomTileGeometrySchema = z
+const ritualChamberSchema = z
   .strictObject({
-    id: z.string().min(1),
+    id: z.literal("room_tile:p001"),
     rawId: z.string().min(1),
     name: z.string().min(1),
     source: z.strictObject({
@@ -107,6 +108,8 @@ export const roomTileGeometrySchema = z
       ctx.addIssue({ code: "custom", message: "R-055 标记限定放置漂移" });
   });
 
+export const roomTileGeometrySchema = z.union([ritualChamberSchema, tortureChamberSchema]);
+
 export const roomTileGeometryFileSchema = z
   .strictObject({
     schema: z.literal("ddbg-room-tile-geometry-v0"),
@@ -116,15 +119,16 @@ export const roomTileGeometryFileSchema = z
   .superRefine((file, ctx) => {
     if (
       new Set(file.tiles.map((tile) => tile.id)).size !== file.tiles.length ||
-      new Set(file.tiles.map((tile) => tile.rawId)).size !== file.tiles.length
+      new Set(file.tiles.map((tile) => `${tile.rawId}:${tile.source.face}`)).size !==
+        file.tiles.length
     )
-      ctx.addIssue({ code: "custom", message: "板块 / raw ID 重复" });
+      ctx.addIssue({ code: "custom", message: "板块 ID / raw 同面重复" });
   });
 
 export type RoomTileGeometryFile = z.infer<typeof roomTileGeometryFileSchema>;
 
 /** Kyries 2026-10-10 批准核对表，E-F 黑墙不相邻（R-054）；只有这一面。 */
-export const approvedRoomTileGeometry = roomTileGeometrySchema.parse({
+export const approvedRoomTileGeometry = ritualChamberSchema.parse({
   id: "room_tile:p001",
   rawId: "dungeon_tile:p001",
   name: "Ritual Chamber",
@@ -188,29 +192,37 @@ export const approvedRoomTileGeometry = roomTileGeometrySchema.parse({
 
 /** 不解析颜色 / 图标计数 / footer；未获批 raw 页不输出几何。 */
 export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
-  const tile = roomTileGeometrySchema.parse(approvedRoomTileGeometry);
-  const matches = raw.cards.filter((card) => card.id === tile.rawId);
-  const card = matches[0];
-  if (
-    raw.category !== "dungeon_tile" ||
-    raw.kind !== "sheet" ||
-    matches.length !== 1 ||
-    !card ||
-    card.source_set !== "base" ||
-    card.pages.length !== 1 ||
-    card.pages[0] !== 1 ||
-    card.faces.front.file !== tile.source.file ||
-    card.faces.front.page !== tile.source.page ||
-    !card.faces.front.spans.some((span) => span.t === "1")
-  )
-    throw new Error("获批 Room Tile 的 raw ID / 来源 / 页码 / 编号漂移，拒绝生成");
-  for (const marker of [...tile.unresolvedMarkers, ...(tile.deployment?.markers ?? [])]) {
-    if (!card.faces.front.icons.some((icon) => icon.iconId === marker.iconId))
-      throw new Error("未确认标记在来源页缺失，拒绝生成");
+  const tiles = [approvedRoomTileGeometry, approvedTortureChamber];
+  for (const tile of tiles) {
+    const matches = raw.cards.filter((card) => card.id === tile.rawId);
+    const card = matches[0];
+    const face = card?.faces[tile.source.face];
+    if (
+      raw.category !== "dungeon_tile" ||
+      raw.kind !== "sheet" ||
+      matches.length !== 1 ||
+      !card ||
+      card.source_set !== "base" ||
+      card.pages.length !== 1 ||
+      card.pages[0] !== tile.source.page ||
+      !face ||
+      face.file !== tile.source.file ||
+      face.page !== tile.source.page ||
+      !face.spans.some((span) => span.t === ("number" in tile ? String(tile.number) : "1"))
+    )
+      throw new Error("获批 Room Tile 的 raw ID / 来源 / 页码 / 编号漂移，拒绝生成");
+    for (const marker of [
+      ...tile.unresolvedMarkers,
+      ...(tile.deployment?.markers ?? []),
+      ...("specialRegions" in tile ? tile.specialRegions : []),
+    ]) {
+      if (!face.icons.some((icon) => icon.iconId === marker.iconId))
+        throw new Error("未确认标记在来源页缺失，拒绝生成");
+    }
   }
   return roomTileGeometryFileSchema.parse({
     schema: "ddbg-room-tile-geometry-v0",
     category: "room_tile_geometry",
-    tiles: [tile],
+    tiles,
   });
 }

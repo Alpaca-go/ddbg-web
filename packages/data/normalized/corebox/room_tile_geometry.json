@@ -205,6 +205,256 @@
     }
    ],
    "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p002:back",
+   "rawId": "dungeon_tile:p002",
+   "roomId": "room:p002",
+   "location": "ruins",
+   "number": 2,
+   "name": "Torture Chamber",
+   "source": {
+    "file": "DD_COREBOX_TILES_BACK.pdf",
+    "page": 2,
+    "face": "back"
+   },
+   "ruling": "R-048",
+   "approval": "Kyries/Grok 2026-10-12 VQ-01–05",
+   "geometryVerified": true,
+   "usable": false,
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "H",
+     "defensive": "H",
+     "ranged": "H",
+     "support": "H"
+    },
+    "monsters": {
+     "aggressive": "D",
+     "defensive": "D",
+     "ranged": "E",
+     "support": "C"
+    },
+    "lootAreas": [
+     "A",
+     "B",
+     "E"
+    ],
+    "markers": [
+     {
+      "areaId": "H",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "specialRegions": [
+    {
+     "areaId": "H",
+     "iconId": "4591aebebd",
+     "effect": "unholyAura",
+     "status": "candidate",
+     "printedText": "Unholy Aura: Heroes in this Area can't heal or be healed.",
+     "runtimeReady": false
+    }
+   ],
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 4,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": true
+    },
+    {
+     "from": "C",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": true
+    },
+    {
+     "from": "F",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": true
+    }
+   ],
+   "unresolvedMarkers": []
   }
  ]
 }
