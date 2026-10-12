@@ -2,6 +2,8 @@
 
 ## 最新交接：#129 合并与遗迹4/5审核草稿（2026-10-13，UTC+8）
 
+草稿提交 `d68cdf2`，开放草稿 [PR #130](https://github.com/Alpaca-go/ddbg-web/pull/130)，base 为 main，尚未合并。下方核对是本地文档验证，PR CI 另核最新 head；本入口补记随主题提交。
+
 #129 最新 head `f1e6244` 的质量与 Playwright 两项 CI 均成功，已按用户“合并”授权合并为 main `64b6e94`；本地 ff-only 同步。下方 #129 尚未合并状态是历史记录。Torch 的24张奖励路径已接通，未用Torch的负面复合仍保留规则停点，不视为完整Phase3。
 
 用户随后要求继续推进，并明确回传“Fountain 尚未审核，先继续准备其他板块”。本轮仅准备遗迹4 / BACK p3 / room:p004 的 [Spiked Pit VQ-13](phase3-spiked-pit-review-2026-10-13.md) 与遗迹5 / FRONT p3 / room:p005 的 [Beacon of Light VQ-14](phase3-beacon-of-light-review-2026-10-13.md) 独立草稿；已看两张完整板块和配套卡、核raw位置及词典状态。图像仅在忽略缓存，不提交；没有生产几何 / 词典 / 引擎改动或新批准。
