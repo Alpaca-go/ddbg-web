@@ -2,6 +2,10 @@ import type { BattleEntity, BattleState } from "./battle";
 import type { HeroSkillResolution } from "./hero-skill";
 import { addStatusStack, STATUS_KINDS, statusProjection } from "./status";
 import type { StatusEffect, StatusKind } from "./status";
+import {
+  approvedHeroConditionDefences,
+  heroConditionDefenceSchema,
+} from "../../data/src/normalize/hero-stat";
 
 /** 自身只施加一次；目标逐个施加。调用方先以 probe 验证，再在生命结果上应用。 */
 export function applyBattleSkillStatuses(
@@ -44,17 +48,33 @@ export function applyBattleSkillStatuses(
       const hero = battle.heroStats?.find((entry) => entry.id === entity.heroStatId);
       const buff = hero?.verified_buff_defence;
       if (entity.side === "hero") {
-        if (
-          !hero?.attributesVerified ||
-          !buff ||
-          buff.source !== "print_front" ||
-          typeof buff.resistant !== "boolean" ||
-          typeof buff.immune !== "boolean" ||
-          effects.some((effect) => effect.kind !== "buff")
-        )
-          return "英雄目标缺少已核实 Buff 抗性 / 免疫栏（R-048）";
-        resistances = buff.resistant ? ["buff"] : [];
-        immunities = buff.immune ? ["buff"] : [];
+        const defence = hero?.verified_condition_defence;
+        if (defence) {
+          const expected = hero && approvedHeroConditionDefences[hero.id];
+          if (
+            !hero?.attributesVerified ||
+            hero.level !== 1 ||
+            !expected ||
+            hero.name !== expected.name ||
+            !heroConditionDefenceSchema.safeParse(defence).success ||
+            defence.resistances[0] !== expected.kind
+          )
+            return "英雄条件防御不符合限定审批（R-048）";
+          resistances = [...defence.resistances];
+          immunities = [];
+        } else {
+          if (
+            !hero?.attributesVerified ||
+            !buff ||
+            buff.source !== "print_front" ||
+            typeof buff.resistant !== "boolean" ||
+            typeof buff.immune !== "boolean" ||
+            effects.some((effect) => effect.kind !== "buff")
+          )
+            return "英雄目标缺少该状态的已核实抗性 / 免疫栏（R-048）";
+          resistances = buff.resistant ? ["buff"] : [];
+          immunities = buff.immune ? ["buff"] : [];
+        }
       } else {
         const card = battle.monsters?.find((entry) => entry.id === entity.monsterCardId);
         if (

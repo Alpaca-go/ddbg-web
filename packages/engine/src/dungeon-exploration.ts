@@ -60,12 +60,13 @@ export function continueDungeonExploration(result: ApplyResult): ApplyResult {
     } else {
       const to = d.exploration.to;
       const room = d.rooms.find((r) => r.id === to);
-      const cleared = room?.kind === "empty";
+      const cleared = room?.cleared || room?.kind === "empty";
       next = finish(
         result.state,
         {
           ...d,
           position: to,
+          mustLeaveRoomId: undefined,
           pending: null,
           visited: [...(d.visited ?? [d.exploration.from]), to],
           traversedCorridors: [...(d.traversedCorridors ?? []), [d.exploration.from, to]],

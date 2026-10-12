@@ -7,6 +7,22 @@ import type { IconDictionary } from "../dictionary/schema";
 
 const FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf";
 const BACK = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf";
+/** Kyries 2026-10-12 限定四个 front / I id；红滴只在这里读 Bleed，不改词典。 */
+export const approvedHeroConditionDefences: Readonly<
+  Record<string, { name: string; iconId: string; kind: "stun" | "bleed" }>
+> = {
+  "hero_stat:p001:front": { name: "CRUSADER", iconId: "8db71542d2", kind: "stun" },
+  "hero_stat:p003:front": { name: "HELLION", iconId: "d29a868ed8", kind: "bleed" },
+  "hero_stat:p007:front": { name: "HIGHWAYMAN", iconId: "8db71542d2", kind: "stun" },
+  "hero_stat:p009:front": { name: "VESTAL", iconId: "d29a868ed8", kind: "bleed" },
+};
+export const heroConditionDefenceSchema = z.strictObject({
+  resistances: z.array(z.enum(["stun", "bleed"])).length(1),
+  immunities: z.array(z.never()).length(0),
+  source: z.literal("print_front"),
+  approval: z.literal("kyries_review_2026-10-12"),
+});
+export type HeroConditionDefence = z.infer<typeof heroConditionDefenceSchema>;
 const attributesSchema = z.strictObject({
   rawId: z.string().regex(/^hero_stat:p\d{3}$/),
   face: z.enum(["front", "back"]),
@@ -41,7 +57,7 @@ export const normalizedHeroStatCardSchema = attributesSchema
     source: z.strictObject({ file: z.enum([FRONT, BACK]), page: z.int().positive() }),
     attributesVerified: z.literal(true),
     approval: z.literal("kyries_review_2026-10-10"),
-    /** 四张 I 级完整抗性 / 免疫框已核；只确认 Buff，其他未命名图标仍保持待定。 */
+    /** 原有 Buff 专项注解保留兼容；完整条件防御另有四个 id 的限定审批。 */
     verified_buff_defence: z
       .strictObject({
         resistant: z.boolean(),
@@ -49,12 +65,24 @@ export const normalizedHeroStatCardSchema = attributesSchema
         source: z.literal("print_front"),
       })
       .optional(),
+    verified_condition_defence: heroConditionDefenceSchema.optional(),
     /** 其他卡面文字只保留，不解释村庄效果、抗性或免疫。 */
     lines: z.array(z.string()),
     icons: z.array(normalizedIconSchema),
     verification: verificationSchema,
   })
   .superRefine((card, ctx) => {
+    if (card.verified_condition_defence) {
+      const expected = approvedHeroConditionDefences[card.id];
+      if (
+        !expected ||
+        card.face !== "front" ||
+        card.level !== 1 ||
+        card.name !== expected.name ||
+        card.verified_condition_defence.resistances[0] !== expected.kind
+      )
+        ctx.addIssue({ code: "custom", message: "英雄条件防御超出四张 I 级限定审批" });
+    }
     if (
       card.id !== `${card.rawId}:${card.face}` ||
       card.source.file !== (card.face === "front" ? FRONT : BACK) ||
@@ -187,7 +215,26 @@ export function buildHeroStats(
         lines[start + 1] !== `{icon:${reviewedBuffDefence[attributes.rawId]}}`
       )
         throw new Error("已复核 Buff 抗性 / 免疫框漂移（R-048）");
+      const label = face.spans.filter((s) => s.t === "Resistances        Immunities");
+      const hamlet = face.spans.filter((s) => s.t === "Hamlet Skill:");
+      if (label.length !== 1 || hamlet.length !== 1) throw new Error("条件防御完整框定位不唯一");
+      const [left, , right, bottom] = label[0]!.bbox;
+      const frameIcons = face.icons.filter(
+        (i) =>
+          !i.decor &&
+          (i.bbox[0] + i.bbox[2]) / 2 >= left &&
+          (i.bbox[0] + i.bbox[2]) / 2 <= right &&
+          (i.bbox[1] + i.bbox[3]) / 2 > bottom &&
+          (i.bbox[1] + i.bbox[3]) / 2 < hamlet[0]!.bbox[1],
+      );
+      if (
+        frameIcons.length !== 1 ||
+        frameIcons[0]!.iconId !== reviewedBuffDefence[attributes.rawId] ||
+        (frameIcons[0]!.bbox[0] + frameIcons[0]!.bbox[2]) / 2 >= (left + right) / 2
+      )
+        throw new Error("条件防御抗性 / 空免疫完整框漂移（R-048）");
     }
+    const defence = approvedHeroConditionDefences[`${attributes.rawId}:${attributes.face}`];
     return normalizedHeroStatCardSchema.parse({
       ...attributes,
       id: `${attributes.rawId}:${attributes.face}`,
@@ -196,6 +243,16 @@ export function buildHeroStats(
       approval: "kyries_review_2026-10-10",
       ...(buffReviewed
         ? { verified_buff_defence: { resistant: false, immune: false, source: "print_front" } }
+        : {}),
+      ...(defence && buffReviewed
+        ? {
+            verified_condition_defence: {
+              resistances: [defence.kind],
+              immunities: [],
+              source: "print_front",
+              approval: "kyries_review_2026-10-12",
+            },
+          }
         : {}),
       lines: face.lines.map((line) => line.text),
       icons,

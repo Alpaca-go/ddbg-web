@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", async ({ page }, testInfo) => {
+  test.setTimeout(60_000);
   await page.setViewportSize({ width: 1440, height: 1050 });
   await page.goto("/");
   await page.getByRole("link", { name: "打开 Phase 3 布局与侦察沙盒" }).click();
@@ -135,14 +136,73 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
       await drawMonsters.click();
       await expect(page.getByTestId("dungeon-monsters")).toContainText("完整牌池 42 张");
       await expect(page.getByTestId("dungeon-monsters")).toContainText("monster-deck:");
-      await expect(card).toContainText("正式战斗 / 胜利回传尚未接线");
+      await expect(card).toContainText("基础字段齐全");
     }
     await expect(drawMonsters).toHaveCount(0);
     await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeDisabled();
     await expect(page.getByRole("button", { name: "原路返回", exact: true })).toBeDisabled();
     await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：0");
     await page.screenshot({ path: testInfo.outputPath(`${fixture}.png`), fullPage: true });
+    if (fixture === "roomApproved") {
+      await page.getByRole("button", { name: "进入房间战斗", exact: true }).click();
+      await expect(page.getByTestId("turn-status")).toBeVisible();
+      await expect(page.getByTestId("entity-monster-deck:p047")).toContainText("Pliskin");
+      await expect(page.getByTestId("entity-monster-deck:p038")).toContainText("Spitter");
+      await page.screenshot({
+        path: testInfo.outputPath("roomApproved-battle.png"),
+        fullPage: true,
+      });
+      await page.goto("/?phase=3");
+    }
   }
+  await page.getByLabel("侦察测试布置").selectOption("roomBattle");
+  await page.getByRole("button", { name: "重置 Radiant" }).click();
+  for (const name of [
+    "侦察",
+    "全员同意",
+    "选择下一段探索",
+    "D",
+    "掷探索骰并开始结算",
+    "抽房间牌并匹配战斗板块",
+    "从完整 42 张怪物池抽牌并记录部署",
+    "进入房间战斗",
+    "开始战斗",
+  ])
+    await page.getByRole("button", { name, exact: true }).click();
+  await expect(page.getByTestId("rng-status")).toContainText("seed 1885");
+  await page.screenshot({ path: testInfo.outputPath("dungeon-battle.png"), fullPage: true });
+  for (let i = 0; i < 220; i++) {
+    if (await page.getByRole("button", { name: "返回地牢地图", exact: true }).count()) break;
+    const choice = page.locator("fieldset.choice button").first();
+    if (await choice.count()) {
+      await choice.click();
+      continue;
+    }
+    let clicked = false;
+    for (const name of [
+      "抽取先攻",
+      "向前换姿态",
+      "向后换姿态",
+      "怪物选招与选目标",
+      "怪物移动到射程",
+      "结算怪物技能",
+    ]) {
+      const button = page.getByRole("button", { name, exact: true });
+      if ((await button.count()) && (await button.isEnabled())) {
+        await button.click();
+        clicked = true;
+        break;
+      }
+    }
+    expect(clicked, (await page.getByRole("status").textContent()) ?? "没有可执行动作").toBe(true);
+  }
+  await expect(page.getByTestId("turn-status")).toContainText("第 4 轮结束：撤退");
+  await page.getByRole("button", { name: "返回地牢地图", exact: true }).click();
+  await expect(page.getByTestId("dungeon-events")).toContainText("第四轮撤退返回地图");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：0");
+  await expect(page.getByTestId("dungeon-node-D")).not.toContainText("已清理");
+  await expect(page.getByRole("button", { name: "选择下一段探索", exact: true })).toBeEnabled();
+  await page.screenshot({ path: testInfo.outputPath("dungeon-retreat.png"), fullPage: true });
 });
 
 test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场", async ({ page }, testInfo) => {

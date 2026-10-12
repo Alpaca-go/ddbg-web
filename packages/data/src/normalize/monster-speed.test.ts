@@ -4,7 +4,7 @@ import { attachVerifiedMonsterSpeeds, verifiedMonsterSpeeds } from "./verified-m
 import { loadNormalizedCorebox } from "./write";
 
 const built = loadNormalizedCorebox();
-// 独立预期：来自 Kyries 2026-10-10 批准的核对表，不从映射反推。
+// 独立预期：首批六条 2026-10-10，新四张普通卡 2026-10-12 部分批准，不从映射反推。
 const expected = [
   ["monster_medium:p001", 1],
   ["monster_medium:p004", 3],
@@ -12,6 +12,14 @@ const expected = [
   ["monster_medium:p010", 1],
   ["monster_medium:p040", 1],
   ["monster_medium:p021", 3],
+  ["monster_medium:p027", 2],
+  ["monster_medium:p031", 1],
+  ["monster_medium:p043", 3],
+  ["monster_medium:p046", 2],
+  ["monster_medium:p018", 2],
+  ["monster_medium:p024", 1],
+  ["monster_medium:p034", 2],
+  ["monster_medium:p037", 1],
 ] as const;
 const originals = built.monster_medium.cards.map((card) => {
   const copy = structuredClone(card);
@@ -20,8 +28,8 @@ const originals = built.monster_medium.cards.map((card) => {
 });
 const soldier = originals.find((card) => card.id === "monster_medium:p001")!;
 
-describe("六条获批怪物 Speed 入库（R24、R-001、R-048）", () => {
-  it("仅获批六个 id 带正确数值，其他怪物与大型卡缺省", () => {
+describe("获批中型怪物 Speed 入库（R24、R-001、R-048）", () => {
+  it("仅十四个获批普通卡 id 带正确数值，大型仅 L2 获批", () => {
     expect(verifiedMonsterSpeeds.map((entry) => [entry.id, entry.speed])).toEqual(expected);
     expect(
       built.monster_medium.cards
@@ -37,7 +45,8 @@ describe("六条获批怪物 Speed 入库（R24、R-001、R-048）", () => {
       expect(card.stanceGroups, id).toBeDefined();
       expect(card.verification.unverified, id).toBe(false);
     }
-    for (const card of built.monster_large.cards) expect("speed" in card, card.id).toBe(false);
+    for (const card of built.monster_large.cards)
+      expect(card.speed, card.id).toBe(card.id === "monster_large:p002" ? 1 : undefined);
     expect(loadNormalizedCorebox()).toEqual(built);
   });
 

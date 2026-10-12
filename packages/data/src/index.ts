@@ -3,6 +3,9 @@ export { monsterPoolCatalogSchema, monsterPoolFileSchema, ruinsMonsterPool } fro
 export type { MonsterPoolCard } from "./monster-pool";
 export { curioCardSchema, curioCatalogSchema, curioFileSchema } from "./curio";
 export type { CurioCard, CurioEffect } from "./curio";
+export { diseaseCardSchema, diseaseFileSchema, diseaseRuleSchema } from "./disease";
+export type { DiseaseCard, DiseaseFile, DiseaseRule } from "./disease";
+export { buildDiseases } from "./normalize/disease";
 export { explorationFaceSchema, explorationDieSchema } from "./exploration";
 export type { ExplorationFace } from "./exploration";
 export {

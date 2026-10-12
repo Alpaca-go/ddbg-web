@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { monsterEffectPlanSchema } from "../monster-effects";
 
 import { iconStatusSchema } from "../dictionary/schema";
 import { iconIdSchema, levelSchema, pageListSchema } from "../extract/common";
@@ -242,6 +243,7 @@ const normalizedMonsterSkillSchema = z.strictObject({
   target: z.string().min(1).nullable(),
   ...skillStatFields,
   lines: lineListSchema,
+  verified_monster_effects: monsterEffectPlanSchema.optional(),
 });
 
 const monsterShared = {

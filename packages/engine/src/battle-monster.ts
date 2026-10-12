@@ -1,5 +1,6 @@
 import { distance, rejectBattleCommand, writeResolution, skillTargetView } from "./battle";
 import { applySkillHealth } from "./battle-health";
+import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { playMonsterSkillTargets } from "./battle-monster-targets";
 import { readPrintedTargets } from "./hero-skill";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent, PendingChoice } from "./command";
@@ -98,6 +99,18 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
     1,
   );
   if (probe.status === "refused") return rejectBattleCommand(state, probe.reason);
+  if (probe.resolution.skipped.length)
+    return rejectBattleCommand(state, "怪物完整效果尚未接入，整次拒绝（R-048）");
+  const statusProbe = applyBattleSkillStatuses(battle, battle.entities, actor.id, [
+    {
+      ...probe.resolution,
+      targetStatusEffects:
+        attack.view.verified_status_effects?.filter((e) => e.scope === "target") ??
+        probe.resolution.targetStatusEffects ??
+        [],
+    },
+  ]);
+  if (statusProbe.status === "refused") return rejectBattleCommand(state, statusProbe.reason);
   if (needsChoice) {
     const choice: PendingChoice = {
       id: `monster-shuffle:${battle.choiceCursor}:${actor.id}:${command.skillSlot}:${target.id}`,
@@ -132,7 +145,9 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
   });
   const health = applySkillHealth(battle, entities, effects, state.seed, battle.rngCursor + 1);
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
-  const casualtyIds = newlyDefeatedIds(battle, health.entities);
+  const statuses = applyBattleSkillStatuses(battle, health.entities, actor.id, [result.resolution]);
+  if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
+  const casualtyIds = newlyDefeatedIds(battle, statuses.entities);
   const event: MonsterSkillResolvedEvent = {
     type: "monsterSkillResolved",
     message: "已选怪物攻击已结算",
@@ -163,7 +178,8 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
         pending: null,
         monsterAction: null,
         rngCursor: health.rngCursor,
-        entities: health.entities,
+        entities: statuses.entities,
+        light: statuses.light,
         shuffleIntents: intents,
         shuffleContinuation: intents.length
           ? {

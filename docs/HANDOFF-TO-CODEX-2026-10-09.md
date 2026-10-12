@@ -1,5 +1,7 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-12 当前进度：#114 已合并到 main `202a14e`。Kyries 要求后续作为一次重型任务推进；`codex/phase3-guarded-battle-loop` 已接真实房间战斗、胜利 / 四轮撤退回传与 Small 挤占，仍待审 / 未合并。九种新怪物核图确认请求尚未收到回复，疾病 / 新增完整效果仍待继续，整个重型任务与 Phase 3 尚未完成。接手先读 [Codex 最新交接](HANDOFF-FROM-CODEX-2026-10-09.md)、[本轮交付与限制](phase3-guarded-battle-loop-2026-10-12.md)和[待审表](monster-battle-review-2026-10-12.md)；下文“怪物池尚未合并”是历史状态。
+
 > 2026-10-12 最新交接：#113 已合并为 main `258459e`，Phase 3 守卫房间抽牌 / 板块匹配已交付；完整 42 张 I 级怪物池与真实部署记录在 `codex/phase3-monster-pool`，尚未合并。接手先读 [Codex 最新交接](HANDOFF-FROM-CODEX-2026-10-09.md) 与 [怪物牌池交付](phase3-monster-pool-2026-10-12.md)。Phase 3 未形成完整任务；下文阶段状态、tip 与合并准备属于历史记录。
 
 > 2026-10-10 持续开发授权：Kyries 要求按四步推进，每个独立主题提交、CI 通过后合并，并更新交接。#92 已合并（`6853d9b`）；人工检查点③已通过，四步按批准范围完成；最新批准及印刷复核见 R-055–R-060。最新状态与下一块见 [Codex 接线交接](HANDOFF-FROM-CODEX-2026-10-09.md)。下文 2026-10-09 的 tip / 完成情况是历史基线，不覆盖最新进度。缺 duration 仍不补默认值。

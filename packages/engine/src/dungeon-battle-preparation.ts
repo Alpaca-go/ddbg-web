@@ -15,6 +15,7 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
   if (
     d.phase !== "awaitingRoom" ||
     d.pending ||
+    d.mustLeaveRoomId === d.position ||
     room?.cleared ||
     (room?.kind !== "lair" && room?.kind !== "treasure")
   )
@@ -25,6 +26,7 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
   const available = [
     ...(c.deck ?? pool.map((card) => card.id)),
     ...(c.active ? [c.active.cardId] : []),
+    ...(c.discard ?? []),
   ];
   if (
     available.length !== 9 ||
@@ -36,6 +38,7 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
   // 同一战斗入口只抽一次；后续战斗完成接口尚未接入，不允许重抽。
   if (c.active) return refuse("该房间牌已记录；等待板块 / 正式遭遇战接线，不能重抽");
   const deck = [...(c.deck ?? pool.map((card) => card.id))];
+  if (!deck.length) return refuse("本地牢房间牌已用尽；不洗回弃牌（R25）");
   let cursor = d.cursor;
   if (c.deck === null) {
     const rng = createRng(state.seed);
@@ -53,7 +56,7 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
     card.name === approvedRoomTileGeometry.name &&
     approvedRoomTileGeometry.usable;
   const blockedReason = matched
-    ? "Ritual Chamber 板块已获批；完整 Common + Ruins 怪物牌堆与地牢战斗状态交接尚未接线（R10、R15–17）。房间未清理，未发奖励。"
+    ? "Ritual Chamber 板块已获批；下一步从完整 Common + Ruins 怪物牌堆抽牌，再校验并进入房间战斗（R10、R15–17）。房间未清理，未发奖励。"
     : `${card.name} 对应板块几何 / 部署尚未获批，保留此牌等待复核（R15、R-048）；不能换成 Ritual Chamber。`;
   return {
     state: {

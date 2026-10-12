@@ -1,5 +1,8 @@
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { applyDungeonCommand } from "./dungeon";
+import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
+import { displaceSmallForHero } from "./battle-small";
+import { finishTurn } from "./encounter";
 import type { DungeonCommand, DungeonState } from "./dungeon";
 import type { BattleState, PlayHeroSkillCommand } from "./battle";
 import type { HeroSkillResolution } from "./hero-skill";
@@ -89,6 +92,8 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 };
 
 export type Command =
+  | { readonly type: "startDungeonBattle" }
+  | { readonly type: "finishDungeonBattle" }
   | DungeonCommand
   | PlayHeroSkillEmptyAreaCommand
   | UseProvisionCommand
@@ -112,6 +117,14 @@ export type Command =
     };
 
 export type GameEvent =
+  | {
+      readonly type: "smallMonsterDisplaced";
+      readonly actorId: string;
+      readonly entityId: string;
+      readonly from: string;
+      readonly to: string;
+      readonly message: string;
+    }
   | { readonly type: "dungeonUpdated"; readonly message: string }
   | HeroSkillEmptyAreaResolvedEvent
   | {
@@ -234,6 +247,10 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (command.type === "startDungeonBattle") return startDungeonBattle(state);
+  if (command.type === "finishDungeonBattle") return finishDungeonBattle(state);
+  if (state.dungeon?.phase === "inBattle" && command.type === "finishMonsterTurn")
+    return rejectBattleCommand(state, "真实地牢战斗须完成怪物选招 / 定位 / 结算，不能手动跳过回合");
   if (
     command.type === "scoutDungeon" ||
     command.type === "resolveDungeonPressure" ||
@@ -244,10 +261,14 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     command.type === "prepareDungeonBattle" ||
     command.type === "prepareDungeonMonsters" ||
     command.type === "resolveDungeonRoom" ||
-    (command.type === "resolveChoice" && state.dungeon)
+    (command.type === "resolveChoice" && state.dungeon && !state.battle)
   )
     return applyDungeonCommand(state, command);
-  if (state.dungeon && command.type !== "ping")
+  if (
+    state.dungeon &&
+    command.type !== "ping" &&
+    (!state.battle || state.dungeon.phase !== "inBattle")
+  )
     return rejectBattleCommand(state, "请先完成地牢沙盒流程");
   if (command.type === "resolveChoice") {
     const pending = state.battle?.pending;
@@ -260,6 +281,12 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     }
     if (pending.type === "shuffleArea")
       return applyBattleShuffles(state, [...pending.path, command.optionId]);
+    if (pending.type === "smallDisplace") {
+      const result = displaceSmallForHero(state, pending.actorId, pending.events, command.optionId);
+      return !result || result.events.some((e) => e.type === "commandRefused")
+        ? (result ?? rejectBattleCommand(state, "Small 选择已过期"))
+        : finishTurn(result.state, pending.actorId, result.events);
+    }
     if (pending.type === "resolveProvision")
       return consumeResolveProvision(state, command.optionId);
     if (pending.type === "lootReward") return resolveLootChoice(state, command.optionId);

@@ -31,6 +31,17 @@ const approved = [
       [1, 1, 1, 1, 2, 2, 2, 3, 3, 3],
     ],
   },
+  { id: "monster_medium:p027", slots: [2, 2, 1, 1] },
+  { id: "monster_medium:p031", slots: [1, 1, 1, 1] },
+  { id: "monster_medium:p043", slots: Array(4).fill([1, 1, 1, 1, 1, 2, 2, 2, 2, 2]) },
+  { id: "monster_medium:p046", slots: [2, 2, 1, 1] },
+  { id: "monster_medium:p018", slots: [1, 1, 2, 2] },
+  {
+    id: "monster_medium:p024",
+    slots: [[2, 2, 2, 2, 1, 1, 1, 1, 1, 1], [2, 2, 2, 2, 1, 1, 1, 1, 1, 1], 1, 3],
+  },
+  { id: "monster_medium:p034", slots: Array(4).fill([1, 1, 1, 1, 1, 2, 2, 2, 2, 2]) },
+  { id: "monster_medium:p037", slots: [2, 2, 1, 1] },
 ];
 
 describe("真实卡获批姿态分组与未获批拒绝（R-015、R-048）", () => {

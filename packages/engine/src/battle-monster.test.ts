@@ -2,6 +2,8 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState } from "./index";
 import { nextBattleRoll } from "./encounter";
+import { readMonsterAttackView } from "./monster-skill";
+import { readPrintedRange } from "./hero-skill";
 import type {
   BattleEntity,
   GameState,
@@ -110,6 +112,68 @@ function monsterTurn(initial: GameState): GameState {
   }
   throw new Error("先攻没有抽到怪物");
 }
+
+describe("完整怪物效果的命令接线（R20–21）", () => {
+  const atRange = (card: MonsterCardView, slot: number) => {
+    const attack = readMonsterAttackView(card, slot);
+    if (attack.status !== "ready") throw new Error(attack.reason);
+    const range = readPrintedRange(attack.view);
+    if (range.kind !== "exact") throw new Error("缺少射程");
+    return patch(setup(card), "monster", { areaId: ["a", "b", "c"][range.distance]! });
+  };
+  it("单目标及多目标负面状态缺英雄防御栏时，攻击 / RNG / 位移都原子拒绝", () => {
+    for (const [id, slot] of [
+      ["monster_medium:p034", 1],
+      ["monster_medium:p027", 1],
+    ] as const) {
+      const card = cards.find((c) => c.id === id)!;
+      const initial = atRange(card, slot);
+      const state = {
+        ...initial,
+        battle: {
+          ...initial.battle!,
+          entities: initial.battle!.entities.map((e) =>
+            e.side === "hero" ? { ...e, dodge: 20 } : e,
+          ),
+        },
+      };
+      const result = applyCommand(state, play(slot));
+      expect(result.state).toBe(state);
+      expect(result.events[0]).toMatchObject({
+        type: "commandRefused",
+        message: expect.stringContaining("抗性 / 免疫"),
+      });
+    }
+  });
+  it("Cutthroat 自身 Buff 2t 与 Pull 同次保存，不需要英雄目标状态防御", () => {
+    const card = cards.find((c) => c.id === "monster_medium:p024")!;
+    const state = atRange(card, 3);
+    const result = applyCommand(state, play(3));
+    expect(result.events[0]?.type, JSON.stringify(result.events)).not.toBe("commandRefused");
+    expect(entity(result.state, "monster")).toMatchObject({
+      buffStacks: 1,
+      statusStacks: [{ kind: "buff", remaining: 2 }],
+    });
+  });
+  it("Acolyte 的压力与降光效果一起结算，共享光照沿命中目标更新", () => {
+    const card = cards.find((c) => c.id === "monster_medium:p021")!;
+    const result = applyCommand(setup(card), play(1));
+    const event = result.events.find(
+      (e) => e.type === "monsterSkillResolved" || e.type === "monsterSkillTargetsResolved",
+    );
+    expect(event).toBeDefined();
+    if (event?.type !== "monsterSkillResolved" && event?.type !== "monsterSkillTargetsResolved")
+      throw new Error("未结算");
+    const resolutions =
+      event.type === "monsterSkillResolved" ? [event.resolution] : event.resolutions;
+    const hits = resolutions.filter((r) => r.outcome !== "miss");
+    expect(result.state.battle!.light).toBe(Math.max(0, 5 - hits.length));
+    for (const resolution of hits)
+      expect(resolution.targetStress).toBeGreaterThan(
+        entity(setup(card), resolution.targetId).stress!,
+      );
+  });
+});
 function directionCard(): MonsterCardView {
   // 仅用于路由测试的合成效果，不写入游戏数据或宣称官方卡有此效果。
   const effect: readonly SkillSegment[] = [

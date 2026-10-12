@@ -2014,7 +2014,7 @@
       5.11,
       48.67,
       70.0,
-      103.2
+      74.67
      ],
      "target": "Crowded",
      "crit": 0,
@@ -2022,27 +2022,14 @@
      "acc": 10,
      "acc_value": 0,
      "effect_lines_raw": [
-      "{icon:a38154c523} {icon:58cd5040a4} 2t , {icon:9d58d3d431} +2"
+      "{icon:a38154c523} {icon:9d58d3d431} +1"
      ],
      "lines_raw": [
       "{icon:6eb2ab6c16} 1 Doomsay {icon:3ab7e7544c} 1 {icon:7616568d52} Crowded {icon:7616568d52} {icon:7616568d52} {icon:7616568d52}",
       "Crit 0 {icon:8d4bbe5e11} 1 Acc 10 {icon:8d4bbe5e11} 0",
-      "{icon:a38154c523} {icon:9d58d3d431} +1",
-      "{icon:6eb2ab6c16} 2 Accusation {icon:12114c0ffd} Most Stressed {icon:3ab7e7544c} 2 {icon:7616568d52}",
-      "Crit 0 {icon:8d4bbe5e11} 2 Acc 10 {icon:8d4bbe5e11} 1",
-      "{icon:a38154c523} {icon:58cd5040a4} 2t , {icon:9d58d3d431} +2"
+      "{icon:a38154c523} {icon:9d58d3d431} +1"
      ],
      "unlabeled_numbers": [
-      {
-       "text": "2",
-       "bbox": [
-        6.78,
-        78.17,
-        9.13,
-        84.9
-       ],
-       "inside_icon": "6eb2ab6c16"
-      },
       {
        "text": "1",
        "bbox": [
@@ -2052,7 +2039,32 @@
         58.45
        ],
        "left_icon": "3ab7e7544c"
-      },
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Accusation",
+     "block_bbox": [
+      4.78,
+      74.67,
+      70.0,
+      103.2
+     ],
+     "target": "Most Stressed",
+     "crit": 0,
+     "crit_value": 2,
+     "acc": 10,
+     "acc_value": 1,
+     "effect_lines_raw": [
+      "{icon:a38154c523} {icon:58cd5040a4} 2t , {icon:9d58d3d431} +2"
+     ],
+     "lines_raw": [
+      "{icon:6eb2ab6c16} 2 Accusation {icon:12114c0ffd} Most Stressed {icon:3ab7e7544c} 2 {icon:7616568d52}",
+      "Crit 0 {icon:8d4bbe5e11} 2 Acc 10 {icon:8d4bbe5e11} 1",
+      "{icon:a38154c523} {icon:58cd5040a4} 2t , {icon:9d58d3d431} +2"
+     ],
+     "unlabeled_numbers": [
       {
        "text": "2",
        "bbox": [
@@ -2062,35 +2074,6 @@
         84.35
        ],
        "left_icon": "3ab7e7544c"
-      },
-      {
-       "text": "2",
-       "bbox": [
-        29.51,
-        85.83,
-        31.12,
-        90.46
-       ],
-       "inside_icon": "8d4bbe5e11"
-      },
-      {
-       "text": "1",
-       "bbox": [
-        51.69,
-        85.74,
-        52.85,
-        90.36
-       ],
-       "inside_icon": "8d4bbe5e11"
-      },
-      {
-       "text": "+1",
-       "bbox": [
-        62.68,
-        65.96,
-        65.09,
-        70.2
-       ]
       }
      ]
     }

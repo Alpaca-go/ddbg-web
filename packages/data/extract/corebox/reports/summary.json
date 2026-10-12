@@ -395,8 +395,8 @@
    "sha1": "0aa9f5f09601b6112712857b503523ea66c01849"
   },
   "parsed/corebox/monster_medium.json": {
-   "bytes": 140973,
-   "sha1": "57ad9f2f13d949e9931524da1f496a8593d30ba2"
+   "bytes": 140764,
+   "sha1": "7af5e3097a2afc398cb1e87ad89710264589b333"
   },
   "parsed/corebox/trinket.json": {
    "bytes": 20495,

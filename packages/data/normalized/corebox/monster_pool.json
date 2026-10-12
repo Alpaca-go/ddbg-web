@@ -128,10 +128,7 @@
    ],
    "edge": "front",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p021",
@@ -161,10 +158,7 @@
    ],
    "edge": "front",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p027",
@@ -179,10 +173,7 @@
    ],
    "edge": "back",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p030",
@@ -195,10 +186,7 @@
    ],
    "edge": "front",
    "stanceSlots": 2,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p031",
@@ -213,10 +201,7 @@
    ],
    "edge": "front",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p034",
@@ -231,10 +216,7 @@
    ],
    "edge": "back",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p037",
@@ -249,10 +231,7 @@
    ],
    "edge": "back",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p040",
@@ -282,10 +261,7 @@
    ],
    "edge": "back",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p046",
@@ -300,10 +276,7 @@
    ],
    "edge": "front",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p049",

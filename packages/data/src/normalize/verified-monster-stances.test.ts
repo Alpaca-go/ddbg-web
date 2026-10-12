@@ -10,7 +10,7 @@ const originals = built.monster_medium.cards.map((card) => {
 });
 
 describe("获批怪物姿态映射入库（2026-10-09）", () => {
-  it("仅六个获批 id 接入生成层，其他卡和大型卡没有补默认分组", () => {
+  it("仅十四个获批普通卡 id 接入生成层，大型仅 L2 获批", () => {
     const approvedIds = [
       "monster_medium:p001",
       "monster_medium:p004",
@@ -18,6 +18,14 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
       "monster_medium:p010",
       "monster_medium:p021",
       "monster_medium:p040",
+      "monster_medium:p027",
+      "monster_medium:p031",
+      "monster_medium:p043",
+      "monster_medium:p046",
+      "monster_medium:p018",
+      "monster_medium:p024",
+      "monster_medium:p034",
+      "monster_medium:p037",
     ];
     expect(verifiedMonsterStances.map((entry) => entry.id).sort()).toEqual(approvedIds.sort());
     for (const card of built.monster_medium.cards) {
@@ -25,7 +33,8 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
       if ("skills" in card) expect(card.stanceGroups).toEqual(entry?.stanceGroups);
       else expect("stanceGroups" in card).toBe(false);
     }
-    for (const card of built.monster_large.cards) expect(card.stanceGroups).toBeUndefined();
+    for (const card of built.monster_large.cards)
+      expect(card.stanceGroups !== undefined, card.id).toBe(card.id === "monster_large:p002");
     expect(loadNormalizedCorebox()).toEqual(built);
   });
 

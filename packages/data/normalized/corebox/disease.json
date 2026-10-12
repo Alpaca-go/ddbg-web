@@ -1,0 +1,1587 @@
+{
+ "schema": "ddbg-disease-v0",
+ "category": "disease",
+ "sources": {
+  "raw": "extract/corebox/raw/disease.json",
+  "dictionary": "dictionary/icon-dictionary-v1.8.json",
+  "rules": "DD_EN_COREBOX_RULES.pdf"
+ },
+ "cards": [
+  {
+   "id": "disease:p001",
+   "name": "Black Plague",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+    "page": 1
+   },
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Black Plague"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "5f34280843",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_5f34280843",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "ddb1074c57",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_ddb1074c57",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "1 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "59cefe7f08",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_59cefe7f08",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 2t"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e5fd164ffd",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_e5fd164ffd",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b8913b788c",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_b8913b788c",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " /Hero Level"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "5f34280843",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_5f34280843",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "ddb1074c57",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_ddb1074c57",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "59cefe7f08",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_59cefe7f08",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e5fd164ffd",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_e5fd164ffd",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b8913b788c",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_b8913b788c",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:59cefe7f08",
+     "icon:5f34280843",
+     "icon:b8913b788c",
+     "icon:ddb1074c57",
+     "icon:e5fd164ffd"
+    ]
+   },
+   "rule": {
+    "trigger": "blightToApply",
+    "effects": [
+     {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 2
+     },
+     {
+      "type": "wounds",
+      "amount": 2,
+      "perHeroLevel": true
+     }
+    ],
+    "source": {
+     "file": "DD_EN_COREBOX_RULES.pdf",
+     "page": 27
+    }
+   }
+  },
+  {
+   "id": "disease:p002",
+   "name": "Bulimic",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+    "page": 2
+   },
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Bulimic"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6e68b2add8",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "food",
+       "kind": "other",
+       "meaning_en": "Food (provision)",
+       "meaning_zh": "食物（补给）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6e68b2add8",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "food",
+       "kind": "other",
+       "meaning_en": "Food (provision)",
+       "meaning_zh": "食物（补给）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "33b2d5bc22",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "stress",
+       "kind": "stress",
+       "meaning_en": "Stress (parchment cards)",
+       "meaning_zh": "压力（羊皮纸卡）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +1"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "6e68b2add8",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "food",
+     "kind": "other",
+     "meaning_en": "Food (provision)",
+     "meaning_zh": "食物（补给）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "6e68b2add8",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "food",
+     "kind": "other",
+     "meaning_en": "Food (provision)",
+     "meaning_zh": "食物（补给）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   },
+   "rule": {
+    "trigger": "foodConsumed",
+    "effects": [
+     {
+      "type": "discardFood",
+      "count": 1,
+      "ifAny": true
+     },
+     {
+      "type": "stress",
+      "amount": 1
+     }
+    ],
+    "source": {
+     "file": "DD_EN_COREBOX_RULES.pdf",
+     "page": 27
+    }
+   }
+  },
+  {
+   "id": "disease:p003",
+   "name": "Ennui",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+    "page": 3
+   },
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Ennui"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Resolve Tested"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "-1 Virtue Chance"
+     }
+    ]
+   ],
+   "icons": [],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   },
+   "rule": {
+    "trigger": "resolveTested",
+    "effects": [
+     {
+      "type": "virtueChance",
+      "amount": -1
+     }
+    ],
+    "source": {
+     "file": "DD_EN_COREBOX_RULES.pdf",
+     "page": 28
+    }
+   }
+  },
+  {
+   "id": "disease:p004",
+   "name": "Hemophilia",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+    "page": 4
+   },
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Hemophilia"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "999538a901",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "dbe7e40350",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "1 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b67c3cefe7",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_b67c3cefe7",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 2t"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e5fd164ffd",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_e5fd164ffd",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b8913b788c",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_b8913b788c",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " /Hero Level"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "c43c46e6de",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed",
+     "meaning_zh": "流血",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "999538a901",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "dbe7e40350",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "b67c3cefe7",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_b67c3cefe7",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e5fd164ffd",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_e5fd164ffd",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b8913b788c",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_b8913b788c",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:b67c3cefe7",
+     "icon:b8913b788c",
+     "icon:e5fd164ffd"
+    ]
+   },
+   "rule": {
+    "trigger": "bleedToApply",
+    "effects": [
+     {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 2
+     },
+     {
+      "type": "wounds",
+      "amount": 2,
+      "perHeroLevel": true
+     }
+    ],
+    "source": {
+     "file": "DD_EN_COREBOX_RULES.pdf",
+     "page": 28
+    }
+   }
+  },
+  {
+   "id": "disease:p005",
+   "name": "Lethargy",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+    "page": 5
+   },
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Lethargy"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "4648c9e5ec",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "speed",
+       "kind": "other",
+       "meaning_en": "Speed (movement)",
+       "meaning_zh": "速度（移动）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "202a92746e",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_202a92746e",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " /Hero Level"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "202a92746e",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_202a92746e",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:202a92746e"
+    ]
+   },
+   "rule": {
+    "trigger": "moveAction",
+    "effects": [
+     {
+      "type": "wounds",
+      "amount": 1,
+      "perHeroLevel": true
+     }
+    ],
+    "source": {
+     "file": "DD_EN_COREBOX_RULES.pdf",
+     "page": 28
+    }
+   }
+  },
+  {
+   "id": "disease:p006",
+   "name": "Syphilis",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+    "page": 6
+   },
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Syphilis"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "151dbc7818",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_151dbc7818",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "202a92746e",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_202a92746e",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " /Hero Level"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "151dbc7818",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_151dbc7818",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "202a92746e",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_202a92746e",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:151dbc7818",
+     "icon:202a92746e"
+    ]
+   },
+   "rule": {
+    "trigger": "damageTaken",
+    "effects": [
+     {
+      "type": "wounds",
+      "amount": 1,
+      "perHeroLevel": true
+     }
+    ],
+    "source": {
+     "file": "DD_EN_COREBOX_RULES.pdf",
+     "page": 28
+    }
+   }
+  },
+  {
+   "id": "disease:p007",
+   "name": "Vertigo",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+    "page": 7
+   },
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Vertigo"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "31f483557e",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "shuffle",
+       "kind": "status",
+       "meaning_en": "Shuffle",
+       "meaning_zh": "位移",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "cb7e51e2f5",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_cb7e51e2f5",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "d3854361b8",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "87e6f4c5a5",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_87e6f4c5a5",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +2"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "31f483557e",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "shuffle",
+     "kind": "status",
+     "meaning_en": "Shuffle",
+     "meaning_zh": "位移",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "d3854361b8",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "cb7e51e2f5",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_cb7e51e2f5",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "87e6f4c5a5",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_87e6f4c5a5",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:87e6f4c5a5",
+     "icon:cb7e51e2f5"
+    ]
+   },
+   "rule": {
+    "trigger": "shuffled",
+    "effects": [
+     {
+      "type": "stress",
+      "amount": 2
+     }
+    ],
+    "source": {
+     "file": "DD_EN_COREBOX_RULES.pdf",
+     "page": 28
+    }
+   }
+  },
+  {
+   "id": "disease:p008",
+   "name": "The Worries",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+    "page": 8
+   },
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "The Worries"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "813eadf38f",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "02fb736f34",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "quirk_disease_card_emblem",
+       "kind": "other",
+       "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+       "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+       "value": null,
+       "naming": "confirmed"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c71ddd3685",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a36e3446f7",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " + X"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "33b2d5bc22",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "stress",
+       "kind": "stress",
+       "meaning_en": "Stress (parchment cards)",
+       "meaning_zh": "压力（羊皮纸卡）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " +1"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e3ac175262",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_e3ac175262",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "34de89a6d3",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_34de89a6d3",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a36e3446f7",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "813eadf38f",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "02fb736f34",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "quirk_disease_card_emblem",
+     "kind": "other",
+     "meaning_en": "Quirk/disease card emblem (helmet silhouette) – confirm",
+     "meaning_zh": "怪癖/疾病卡徽记（头盔剪影）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c71ddd3685",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "33b2d5bc22",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (parchment cards)",
+     "meaning_zh": "压力（羊皮纸卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e3ac175262",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_e3ac175262",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "34de89a6d3",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_34de89a6d3",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:34de89a6d3",
+     "icon:e3ac175262"
+    ]
+   },
+   "rule": {
+    "trigger": "stressSuffered",
+    "effects": [
+     {
+      "type": "stress",
+      "amount": 1
+     },
+     {
+      "type": "wounds",
+      "amount": 2,
+      "perHeroLevel": false
+     }
+    ],
+    "source": {
+     "file": "DD_EN_COREBOX_RULES.pdf",
+     "page": 28
+    }
+   }
+  },
+  {
+   "id": "disease:p009",
+   "name": "Creeping Cough",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+    "page": 9
+   },
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Creeping Cough"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "1b35bda956",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_1b35bda956",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "1 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c43c46e6de",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "bleed",
+       "kind": "status",
+       "meaning_en": "Bleed",
+       "meaning_zh": "流血",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 4t"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "1b35bda956",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_1b35bda956",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c43c46e6de",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed",
+     "meaning_zh": "流血",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:1b35bda956"
+    ]
+   },
+   "rule": {
+    "trigger": "rubbleResolved",
+    "effects": [
+     {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 4
+     }
+    ],
+    "source": {
+     "file": "DD_EN_COREBOX_RULES.pdf",
+     "page": 28
+    }
+   }
+  },
+  {
+   "id": "disease:p010",
+   "name": "Tapeworm",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+    "page": 10
+   },
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Tapeworm"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "7fa9369a45",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_7fa9369a45",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "1 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c43c46e6de",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "bleed",
+       "kind": "status",
+       "meaning_en": "Bleed",
+       "meaning_zh": "流血",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 4t"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "7fa9369a45",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_7fa9369a45",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c43c46e6de",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed",
+     "meaning_zh": "流血",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:7fa9369a45"
+    ]
+   },
+   "rule": {
+    "trigger": "hungerResolved",
+    "effects": [
+     {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 4
+     }
+    ],
+    "source": {
+     "file": "DD_EN_COREBOX_RULES.pdf",
+     "page": 28
+    }
+   }
+  },
+  {
+   "id": "disease:p011",
+   "name": "Spotted Fever",
+   "copies": 1,
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_Disease_BACK.pdf",
+    "page": 11
+   },
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Spotted Fever"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "151dbc7818",
+       "in_dictionary": true,
+       "status": "unreviewed",
+       "key": "unknown_151dbc7818",
+       "kind": "",
+       "meaning_en": "",
+       "meaning_zh": "",
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " X"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "1 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "90558ded71",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "blight",
+       "kind": "status",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 2t"
+     }
+    ]
+   ],
+   "icons": [
+    {
+     "iconId": "151dbc7818",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_151dbc7818",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "90558ded71",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "blight",
+     "kind": "status",
+     "meaning_en": "Blight",
+     "meaning_zh": "枯萎",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:151dbc7818"
+    ]
+   },
+   "rule": {
+    "trigger": "damageTaken",
+    "effects": [
+     {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 2
+     }
+    ],
+    "source": {
+     "file": "DD_EN_COREBOX_RULES.pdf",
+     "page": 28
+    }
+   }
+  }
+ ]
+}

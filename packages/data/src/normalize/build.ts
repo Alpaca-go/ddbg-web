@@ -16,6 +16,8 @@ import { quirkPolarity } from "./quirk-polarity";
 import { virtueRole } from "./virtue-role";
 import { attachVerifiedMonsterStances } from "./verified-monster-stances";
 import { attachVerifiedMonsterSpeeds } from "./verified-monster-speeds";
+import { attachVerifiedLargeMonsterFields } from "./verified-large-monster-fields";
+import { attachVerifiedMonsterEffects } from "./verified-monster-effects";
 import { attachVerifiedMonsterStress } from "./verified-monster-stress";
 import { attachVerifiedMonsterDamage } from "./verified-monster-damage";
 import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
@@ -31,6 +33,7 @@ import { buildHeroStats } from "./hero-stat";
 import { buildRooms } from "./room";
 import { buildMonsterPool } from "./monster-pool";
 import { buildCurios } from "./curio";
+import { buildDiseases } from "./disease";
 import type { NormalizedHeroStatFile } from "./hero-stat";
 import type {
   NormalizedHeroSkillFile,
@@ -73,6 +76,7 @@ type ParsedUnlabeled = {
 };
 
 export type NormalizedCorebox = {
+  disease: ReturnType<typeof buildDiseases>;
   monster_pool: ReturnType<typeof buildMonsterPool>;
   room: ReturnType<typeof buildRooms>;
   curio: ReturnType<typeof buildCurios>;
@@ -87,6 +91,7 @@ export type NormalizedCorebox = {
 };
 
 export type NormalizedCoreboxInput = {
+  diseases: RawFile;
   rooms: RawFile;
   curios: RawFile;
   heroStats: RawFile;
@@ -393,8 +398,12 @@ function buildMonsterMedium(
       dictionary: DICTIONARY_SOURCE,
     },
     stats: cardStats(cards),
-    cards: attachVerifiedMonsterDamage(
-      attachVerifiedMonsterStress(attachVerifiedMonsterSpeeds(attachVerifiedMonsterStances(cards))),
+    cards: attachVerifiedMonsterEffects(
+      attachVerifiedMonsterDamage(
+        attachVerifiedMonsterStress(
+          attachVerifiedMonsterSpeeds(attachVerifiedMonsterStances(cards)),
+        ),
+      ),
     ),
   });
 }
@@ -418,7 +427,7 @@ function buildMonsterLarge(
       dictionary: DICTIONARY_SOURCE,
     },
     stats: cardStats(cards),
-    cards,
+    cards: attachVerifiedMonsterEffects(attachVerifiedLargeMonsterFields(cards), true),
   });
 }
 
@@ -577,6 +586,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
   const medium = buildMonsterMedium(input.monsterMedium, input.monsterMediumRaw, lookup);
   const large = buildMonsterLarge(input.monsterLarge, input.monsterLargeRaw, lookup);
   return {
+    disease: buildDiseases(input.diseases, input.dictionary),
     monster_pool: buildMonsterPool(input.monsterMediumRaw, medium, large),
     room: buildRooms(input.rooms),
     curio: buildCurios(input.curios, input.dictionary),

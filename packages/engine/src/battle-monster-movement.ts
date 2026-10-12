@@ -4,6 +4,7 @@ import type { ApplyResult, GameState } from "./command";
 import { applyEncounterCommand } from "./encounter";
 import { readPrintedRange, readPrintedTargets } from "./hero-skill";
 import { readMonsterAttackView, resolveMonsterSkill } from "./monster-skill";
+import { isSmallMonster } from "./battle-small";
 
 export type MoveMonsterToRangeCommand = {
   readonly type: "moveMonsterToRange";
@@ -170,7 +171,9 @@ export function moveMonsterToRange(
     // 先选择落点，再核对相邻去处；不能因去处满员而偷偷改选或跳过。
     const canEnd = (area: BattleArea) =>
       occupied(area) + actor.stanceSlots! <= area.capacity! ||
-      (actor.stanceSlots === 2 && occupied(area) > 0);
+      (actor.stanceSlots === 2 && occupied(area) > 0) ||
+      (!isSmallMonster(battle, actor) &&
+        living.some((e) => e.areaId === area.id && isSmallMonster(battle, e)));
     const legal = reachable.filter(canEnd);
     options = legal.filter(inRange).map((area) => area.id);
     if (options.length === 0) {
@@ -220,7 +223,7 @@ export function moveMonsterToRange(
       .filter((entity) => entity.areaId === areaId)
       .reduce((sum, entity) => sum + slots(entity), 0);
   let displaced: MonsterPositionedEvent["displaced"];
-  if (to !== origin.id && actor.stanceSlots === 2 && occupancy(to) + 2 > destination.capacity!) {
+  if (to !== origin.id && occupancy(to) + actor.stanceSlots! > destination.capacity!) {
     const adjacent = destination.adjacent.map((id) => battle.areas.find((area) => area.id === id));
     if (
       adjacent.some((area) => !area || !Number.isSafeInteger(area.capacity) || area.capacity! < 0)
@@ -231,7 +234,10 @@ export function moveMonsterToRange(
         (entity) =>
           entity.areaId === to &&
           entity.id !== target.id &&
-          occupancy(to) + 2 - slots(entity) <= destination.capacity! + 1,
+          (actor.stanceSlots === 2 ||
+            (!isSmallMonster(battle, actor) && isSmallMonster(battle, entity))) &&
+          occupancy(to) + actor.stanceSlots! - slots(entity) <=
+            destination.capacity! + (actor.stanceSlots === 2 ? 1 : 0),
       )
       .flatMap((entity) =>
         adjacent
@@ -250,7 +256,10 @@ export function moveMonsterToRange(
       const choice = {
         id: `monster-displace:${battle.choiceCursor}`,
         actorId: target.id,
-        prompt: "选择一名非攻击目标角色及其有空间的相邻区域（R-060）",
+        prompt:
+          actor.stanceSlots === 2
+            ? "选择一名非攻击目标角色及其有空间的相邻区域（R-060）"
+            : "选择一只 Small 及其有空间的相邻区域（R24）",
         options: candidates.map((candidate) => ({
           id: candidate.id,
           label: `挤出 ${candidate.entityId} → 区域 ${candidate.to}`,
