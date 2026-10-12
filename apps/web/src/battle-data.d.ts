@@ -35,6 +35,7 @@ declare module "virtual:battle-data" {
       readonly dodge: number;
       readonly speed: number;
       readonly attributesVerified: boolean;
+      readonly verified_condition_defence?: import("../../../packages/data/src/normalize/hero-stat").HeroConditionDefence;
       readonly level: number;
     }[];
   };

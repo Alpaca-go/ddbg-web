@@ -89,6 +89,8 @@ export type BattleSetup = {
     readonly life: number;
     readonly speed?: number | null;
     readonly attributesVerified: boolean;
+    readonly level?: number;
+    readonly verified_condition_defence?: import("../../data/src/normalize/hero-stat").HeroConditionDefence;
     readonly verified_buff_defence?: {
       readonly resistant: boolean;
       readonly immune: boolean;

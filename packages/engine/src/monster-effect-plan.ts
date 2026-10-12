@@ -62,7 +62,7 @@ export function compileMonsterEffectPlan(
     icons.set(segment.icon.key, segment);
   }
   if (plan.effects.some((e) => e.type === "disease"))
-    return refuse("疾病牌堆与完整疾病效果尚未接入（R27–28）");
+    return refuse("疾病完整触发与重复感染怪癖尚未接入（R27–28）");
   const lines: SkillSegment[][] = [];
   const statuses: NonNullable<HeroSkillCardView["verified_status_effects"]>[number][] = [];
   let stress: HeroSkillCardView["verified_target_stress"];

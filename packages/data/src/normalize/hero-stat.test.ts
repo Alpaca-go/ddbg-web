@@ -19,6 +19,74 @@ const built = buildHeroStats(raw, dictionary);
 const first = approvedHeroStats[0]!;
 
 describe("四名英雄 12 面获批属性（R10/19/29；R-006/007/048）", () => {
+  it("限定四个 I 级 id 的完整防御批准，红滴读 Bleed，不修改原图标或词典", () => {
+    expect(
+      built.cards
+        .filter((c) => c.verified_condition_defence)
+        .map((c) => [c.id, c.verified_condition_defence]),
+    ).toEqual([
+      [
+        "hero_stat:p001:front",
+        {
+          resistances: ["stun"],
+          immunities: [],
+          source: "print_front",
+          approval: "kyries_review_2026-10-12",
+        },
+      ],
+      [
+        "hero_stat:p003:front",
+        {
+          resistances: ["bleed"],
+          immunities: [],
+          source: "print_front",
+          approval: "kyries_review_2026-10-12",
+        },
+      ],
+      [
+        "hero_stat:p007:front",
+        {
+          resistances: ["stun"],
+          immunities: [],
+          source: "print_front",
+          approval: "kyries_review_2026-10-12",
+        },
+      ],
+      [
+        "hero_stat:p009:front",
+        {
+          resistances: ["bleed"],
+          immunities: [],
+          source: "print_front",
+          approval: "kyries_review_2026-10-12",
+        },
+      ],
+    ]);
+    const hellion = built.cards.find((c) => c.id === "hero_stat:p003:front")!;
+    const annotation = hellion.verified_condition_defence!;
+    for (const card of [
+      { ...hellion, verified_condition_defence: { ...annotation, resistances: ["stun"] } },
+      { ...hellion, verified_condition_defence: { ...annotation, immunities: ["bleed"] } },
+      { ...built.cards[1], verified_condition_defence: annotation },
+    ])
+      expect(normalizedHeroStatCardSchema.safeParse(card).success).toBe(false);
+    const originalIcon = createIconLookup(dictionary).resolve("d29a868ed8");
+    expect(hellion.icons.find((i) => i.iconId === "d29a868ed8")).toEqual(originalIcon);
+    expect(originalIcon.naming).toBe("unverified");
+  });
+  it("免疫栏增加图标或抗性图标移到右栏时拒绝，不能只靠文字行通过", () => {
+    for (const mutate of [
+      (face: (typeof raw.cards)[number]["faces"]["front"]) =>
+        face.icons.push({ iconId: "8db71542d2", bbox: [46, 135, 55, 145] }),
+      (face: (typeof raw.cards)[number]["faces"]["front"]) => {
+        face.icons.find((i) => i.iconId === "8db71542d2")!.bbox = [46, 135, 55, 145];
+      },
+    ]) {
+      const changed = structuredClone(raw);
+      mutate(changed.cards[0]!.faces.front);
+      expect(() => buildHeroStats(changed, dictionary)).toThrow("完整框漂移");
+    }
+  });
   it("只核四张 I 级 Buff 抗性栏；栏位漂移拒绝，其他图标仍保留未验证", () => {
     expect(built.cards.filter((c) => c.verified_buff_defence).map((c) => c.id)).toEqual([
       "hero_stat:p001:front",

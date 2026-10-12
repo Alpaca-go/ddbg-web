@@ -137,14 +137,23 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
       await expect(page.getByTestId("dungeon-monsters")).toContainText("完整牌池 42 张");
       await expect(page.getByTestId("dungeon-monsters")).toContainText("monster-deck:");
       await expect(card).toContainText("基础字段齐全");
-      await page.getByRole("button", { name: "进入房间战斗", exact: true }).click();
-      await expect(page.getByTestId("dungeon-events")).toContainText("完整效果尚未接入");
     }
     await expect(drawMonsters).toHaveCount(0);
     await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeDisabled();
     await expect(page.getByRole("button", { name: "原路返回", exact: true })).toBeDisabled();
     await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：0");
     await page.screenshot({ path: testInfo.outputPath(`${fixture}.png`), fullPage: true });
+    if (fixture === "roomApproved") {
+      await page.getByRole("button", { name: "进入房间战斗", exact: true }).click();
+      await expect(page.getByTestId("turn-status")).toBeVisible();
+      await expect(page.getByTestId("entity-monster-deck:p047")).toContainText("Pliskin");
+      await expect(page.getByTestId("entity-monster-deck:p038")).toContainText("Spitter");
+      await page.screenshot({
+        path: testInfo.outputPath("roomApproved-battle.png"),
+        fullPage: true,
+      });
+      await page.goto("/?phase=3");
+    }
   }
   await page.getByLabel("侦察测试布置").selectOption("roomBattle");
   await page.getByRole("button", { name: "重置 Radiant" }).click();

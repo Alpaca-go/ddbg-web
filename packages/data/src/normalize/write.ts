@@ -22,6 +22,7 @@ function readJson(relativePath: string): unknown {
 /** 读词典、parsed 和 raw，生成卡牌与独立的获批板块几何。 */
 export function loadNormalizedCorebox(): NormalizedCorebox {
   return buildNormalizedCorebox({
+    diseases: rawFileSchema.parse(readJson("extract/corebox/raw/disease.json")),
     rooms: rawFileSchema.parse(readJson("extract/corebox/raw/room.json")),
     curios: rawFileSchema.parse(readJson("extract/corebox/raw/curio.json")),
     heroStats: rawFileSchema.parse(readJson("extract/corebox/raw/hero_stat.json")),
@@ -50,6 +51,7 @@ export function writeNormalizedCorebox(
   const built = loadNormalizedCorebox();
   mkdirSync(outputDir, { recursive: true });
   const files: [string, unknown][] = [
+    ["disease.json", built.disease],
     ["monster_pool.json", built.monster_pool],
     ["room.json", built.room],
     ["curio.json", built.curio],

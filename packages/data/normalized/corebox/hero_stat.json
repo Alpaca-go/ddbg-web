@@ -28,6 +28,14 @@
     "immune": false,
     "source": "print_front"
    },
+   "verified_condition_defence": {
+    "resistances": [
+     "stun"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-12"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "I",
@@ -602,6 +610,14 @@
     "immune": false,
     "source": "print_front"
    },
+   "verified_condition_defence": {
+    "resistances": [
+     "bleed"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-12"
+   },
    "lines": [
     "{icon:166eae2abd}",
     "I",
@@ -1080,6 +1096,14 @@
     "resistant": false,
     "immune": false,
     "source": "print_front"
+   },
+   "verified_condition_defence": {
+    "resistances": [
+     "stun"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-12"
    },
    "lines": [
     "{icon:be780e3d42}",
@@ -1564,6 +1588,14 @@
     "resistant": false,
     "immune": false,
     "source": "print_front"
+   },
+   "verified_condition_defence": {
+    "resistances": [
+     "bleed"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-12"
    },
    "lines": [
     "{icon:7144178576}",

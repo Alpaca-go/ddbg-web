@@ -33,6 +33,7 @@ import { buildHeroStats } from "./hero-stat";
 import { buildRooms } from "./room";
 import { buildMonsterPool } from "./monster-pool";
 import { buildCurios } from "./curio";
+import { buildDiseases } from "./disease";
 import type { NormalizedHeroStatFile } from "./hero-stat";
 import type {
   NormalizedHeroSkillFile,
@@ -75,6 +76,7 @@ type ParsedUnlabeled = {
 };
 
 export type NormalizedCorebox = {
+  disease: ReturnType<typeof buildDiseases>;
   monster_pool: ReturnType<typeof buildMonsterPool>;
   room: ReturnType<typeof buildRooms>;
   curio: ReturnType<typeof buildCurios>;
@@ -89,6 +91,7 @@ export type NormalizedCorebox = {
 };
 
 export type NormalizedCoreboxInput = {
+  diseases: RawFile;
   rooms: RawFile;
   curios: RawFile;
   heroStats: RawFile;
@@ -583,6 +586,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
   const medium = buildMonsterMedium(input.monsterMedium, input.monsterMediumRaw, lookup);
   const large = buildMonsterLarge(input.monsterLarge, input.monsterLargeRaw, lookup);
   return {
+    disease: buildDiseases(input.diseases, input.dictionary),
     monster_pool: buildMonsterPool(input.monsterMediumRaw, medium, large),
     room: buildRooms(input.rooms),
     curio: buildCurios(input.curios, input.dictionary),

@@ -20,6 +20,12 @@ import type { DungeonBattleCatalog } from "./dungeon";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { closeBattleLoot } from "./loot";
+import { applyBattleSkillStatuses } from "./battle-skill-status";
+import { resolveMonsterSkill } from "./monster-skill";
+import { readMonsterAttackView } from "./monster-skill";
+import { readPrintedRange } from "./hero-skill";
+import { skillTargetView } from "./battle";
+import { tickStatusStacks } from "./status";
 
 const stats = normalizedHeroStatFileSchema.parse(statsFile).cards.filter((s) => s.level === 1);
 const skills = normalizedHeroSkillFileSchema.parse(skillsFile).cards;
@@ -93,7 +99,7 @@ function send(s: GameState, command: Command) {
   ).toBeUndefined();
   return result.state;
 }
-it("真实部署交接保留 RNG、伤口压力装备；地牢命令冻结，待审怪物不重抽", () => {
+it("真实部署交接保留 RNG、伤口压力装备；地牢命令冻结，获批负面状态怪物不重抽", () => {
   const before = deploy(goodSeed),
     copy = structuredClone(before),
     s = started();
@@ -115,8 +121,13 @@ it("真实部署交接保留 RNG、伤口压力装备；地牢命令冻结，待
     "finishDungeonBattle",
   ] as const)
     expect(applyCommand(s, { type }).state).toBe(s);
-  const blocked = deploy(11);
-  expect(applyCommand(blocked, { type: "startDungeonBattle" }).state).toBe(blocked);
+  const deployment = deploy(11);
+  const admitted = send(deployment, { type: "startDungeonBattle" });
+  expect(admitted.battle).toBeDefined();
+  expect(admitted.battle!.rngCursor).toBe(deployment.dungeon!.cursor);
+  expect(admitted.battle!.entities.filter((e) => e.side === "monster").map((e) => e.id)).toEqual(
+    deployment.dungeon!.monsterPool!.active!.monsters.map((m) => m.instanceId),
+  );
 });
 function terminal(outcome: "victory" | "retreat") {
   const s = send(started(), { type: "startBattle" });
@@ -134,6 +145,116 @@ function terminal(outcome: "victory" | "retreat") {
     },
   };
 }
+
+it("获批 Stun / Bleed 只减 Nt，不减面值；其余状态不阻挡，堆叠与回合消费正确", () => {
+  const s = send(deploy(11), { type: "startDungeonBattle" });
+  const b = s.battle!,
+    actor = b.entities.find((e) => e.side === "monster")!;
+  const before = structuredClone(b);
+  for (const [name, page, slot, expected] of [
+    [
+      "CRUSADER",
+      "monster_medium:p034",
+      1,
+      [
+        { kind: "debuff", remaining: 2 },
+        { kind: "stun", remaining: 1 },
+        { kind: "mark", remaining: 3 },
+      ],
+    ],
+    [
+      "HELLION",
+      "monster_medium:p034",
+      1,
+      [
+        { kind: "debuff", remaining: 2 },
+        { kind: "stun", remaining: 2 },
+        { kind: "mark", remaining: 3 },
+      ],
+    ],
+    [
+      "HELLION",
+      "monster_medium:p018",
+      1,
+      [
+        { kind: "bleed", remaining: 2, amount: 1 },
+        { kind: "debuff", remaining: 2 },
+      ],
+    ],
+    [
+      "CRUSADER",
+      "monster_medium:p018",
+      1,
+      [
+        { kind: "bleed", remaining: 3, amount: 1 },
+        { kind: "debuff", remaining: 2 },
+      ],
+    ],
+    ["VESTAL", "monster_medium:p037", 2, [{ kind: "blight", remaining: 3, amount: 1 }]],
+  ] as const) {
+    const target = b.entities.find((e) => e.hero === name)!;
+    const card = catalog.monsters.find((c) => c.id === page)!;
+    const attack = readMonsterAttackView(card, slot);
+    if (attack.status !== "ready") throw new Error(attack.reason);
+    const range = readPrintedRange(attack.view);
+    if (range.kind !== "exact") throw new Error("射程");
+    const resolved = resolveMonsterSkill(
+      card,
+      slot,
+      {
+        actor: { id: actor.id, wounds: 0 },
+        target: skillTargetView(target),
+        areaDistance: range.distance,
+        light: 5,
+      },
+      1,
+    );
+    if (resolved.status !== "resolved") throw new Error(resolved.reason);
+    const result = applyBattleSkillStatuses(b, b.entities, actor.id, [resolved.resolution]);
+    if (result.status !== "resolved") throw new Error(result.reason);
+    const stacks = result.entities.find((e) => e.id === target.id)!.statusStacks!;
+    expect(stacks).toEqual(expected);
+    const repeat = applyBattleSkillStatuses(b, result.entities, actor.id, [resolved.resolution]);
+    if (repeat.status !== "resolved") throw new Error(repeat.reason);
+    expect(repeat.entities.find((e) => e.id === target.id)!.statusStacks).toEqual([
+      ...expected,
+      ...expected,
+    ]);
+    if (name === "CRUSADER" && page === "monster_medium:p034") {
+      const tick = tickStatusStacks(stacks);
+      expect(tick.status).toBe("resolved");
+      if (tick.status === "resolved") {
+        expect(tick.stunned).toBe(true);
+        expect(tick.stacks.some((stack) => stack.kind === "stun")).toBe(false);
+      }
+    }
+  }
+  expect(b).toEqual(before);
+});
+it("缺失或伪造条件防御的任一英雄阻止实际负面状态房间入场，部署和 RNG 保持", () => {
+  const initial = deploy(11),
+    d = initial.dungeon!;
+  for (const override of [
+    undefined,
+    { resistances: ["stun"], immunities: [], source: "print_front", approval: "wrong" },
+  ]) {
+    const bad = {
+      ...initial,
+      dungeon: {
+        ...d,
+        battleCatalog: {
+          ...d.battleCatalog!,
+          heroStats: d.battleCatalog!.heroStats.map((h, i) =>
+            i !== 1 ? h : { ...h, verified_condition_defence: override },
+          ),
+        },
+      },
+    } as GameState;
+    const result = applyCommand(bad, { type: "startDungeonBattle" });
+    expect(result.state).toBe(bad);
+    expect(result.events[0]?.type).toBe("commandRefused");
+  }
+});
 it("胜利一次回传20金币与有限牌堆；同种子同命令回放，英雄状态不重置", () => {
   const s = terminal("victory"),
     before = structuredClone(s);
@@ -253,11 +374,15 @@ it("正式房间入场拒绝尚未解析的效果行，基础字段齐全也不�
   expect(result.events[0]!.message).toContain("完整效果尚未接入");
 });
 
-it("完整四轮命令序列走通真实怪物选招/定位/攻击，撤退后可继续探索", () => {
-  let s = send(started(), { type: "startBattle" });
+it.each([1885, 11])("种子 %i 完整四轮走通真实怪物选招 / 定位 / 攻击，战后回传", (seed) => {
+  let s = send(send(deploy(seed), { type: "startDungeonBattle" }), { type: "startBattle" });
+  let observedBlight = false;
   for (let i = 0; i < 300 && s.battle!.encounter!.turn.type !== "finished"; i++) {
     const b = s.battle!,
       turn = b.encounter!.turn;
+    observedBlight ||= b.entities.some(
+      (e) => e.side === "hero" && e.statusStacks?.some((stack) => stack.kind === "blight"),
+    );
     if (b.pending) {
       s = send(s, {
         type: "resolveChoice",
@@ -294,6 +419,12 @@ it("完整四轮命令序列走通真实怪物选招/定位/攻击，撤退后�
   expect(s.battle!.encounter!.round).toBe(4);
   expect(s.battle!.entities.filter((e) => e.side === "hero").some((e) => e.wounds > 1)).toBe(true);
   const result = send(s, { type: "finishDungeonBattle" });
+  if (seed === 11) expect(observedBlight).toBe(true);
+  expect(result.dungeon!.heroes.map((h) => h.combat?.statusStacks)).toEqual(
+    s.battle!.entities.filter((e) => e.side === "hero").map((e) => e.statusStacks),
+  );
   expect(result.dungeon!.gold).toBe(0);
-  expect(send(result, { type: "beginDungeonExploration" }).dungeon!.pending).toBeDefined();
+  if (result.dungeon!.phase === "ready")
+    expect(send(result, { type: "beginDungeonExploration" }).dungeon!.pending).toBeDefined();
+  else expect(result.dungeon!.phase).toBe("awaitingReplacement");
 });

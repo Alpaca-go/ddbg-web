@@ -321,6 +321,7 @@ describe("四核心技能整批沙盒接线（R19–21、R27、R29、R-048）", 
         heroStats: state.battle!.heroStats!.map((entry) => {
           const card = { ...entry };
           delete card.verified_buff_defence;
+          delete card.verified_condition_defence;
           return card;
         }),
       },
