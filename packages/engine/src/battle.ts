@@ -32,6 +32,7 @@ import type { MonsterCardView, MonsterCombatState } from "./monster-skill";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
 import type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 import type { PreparedMonsterAction } from "./battle-monster-action";
+import { healingForbidden } from "./battle-healing";
 import { applySkillHealth } from "./battle-health";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { statusProjection, statusStackProblem } from "./status";
@@ -67,6 +68,7 @@ export type BattleEntity = PassiveHolder &
   };
 
 export type BattleArea = {
+  readonly healingForbidden?: true;
   readonly endTurnHeal?: 3;
   /** 已复核 Cornered；只接明确印刷值，不给未命名特殊标记补值。 */
   readonly endTurnStress?: 1 | -1;
@@ -434,6 +436,11 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
     probe.skipped.some((skip) => skip.code === "effect_lines")
   )
     return rejectBattleCommand(state, "已核实状态与同行效果尚未完整支持，整次拒绝（R-048）");
+  if (
+    probe.effect === "heal" &&
+    (healingForbidden(battle, actor.id) || healingForbidden(battle, target.id))
+  )
+    return rejectBattleCommand(state, "Unholy Aura：此区域英雄不能治疗或被治疗（R-067）");
   const statusProbe = applyBattleSkillStatuses(battle, battle.entities, actor.id, [probe]);
   if (statusProbe.status === "refused") return rejectBattleCommand(state, statusProbe.reason);
   if (needsChoice) {

@@ -36,7 +36,7 @@ function setup(seed = 11): GameState {
 const room = (s: GameState) => applyCommand(s, { type: "prepareDungeonBattle" }).state;
 const draw = (s: GameState) => applyCommand(s, { type: "prepareDungeonMonsters" });
 
-it("错配板块与已入库不可用Torture都不能抽怪物，保留原房间牌和游标", () => {
+it("错配板块与不在真实房间抽牌记录的Torture都不能抽怪物，保留原房间牌和游标", () => {
   const original = room(setup()),
     d = original.dungeon!,
     pool = d.roomCards!;
@@ -104,6 +104,8 @@ it("不筛牌：42实例均可抽到，包括Small和Large；基础字段全获�
     const ids = [...p.remaining!, ...p.discarded, ...p.active!.monsters.map((m) => m.instanceId)];
     expect(ids).toHaveLength(42);
     expect(new Set(ids).size).toBe(42);
+    // 42 实例与大小怪物／挤出均已覆盖后停止，无需重复已覆盖种子。
+    if (seen.size === 42 && large && displaced) break;
   }
   expect(seen.size).toBe(42);
   expect([large, blocked, displaced]).toEqual([true, false, true]);

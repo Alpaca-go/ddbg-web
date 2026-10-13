@@ -89,7 +89,7 @@ export function applyPassiveHero<T extends PassiveHero>(
   light: number,
   provisions: readonly { readonly id: string; readonly face: ProvisionFace }[] = [],
   defence?: PassiveDefence,
-  options: { readonly probe?: boolean } = {},
+  options: { readonly probe?: boolean; readonly healingForbidden?: boolean } = {},
 ):
   | { status: "refused"; reason: string }
   | {
@@ -136,8 +136,16 @@ export function applyPassiveHero<T extends PassiveHero>(
       reason: "被动同时伤口 / 压力到 10 的复合收尾待 Q-66 确认，整次未提交",
     };
   if (stress !== undefined) hero = { ...hero, stress };
+  if (plan?.heal && options.healingForbidden)
+    events.push({
+      type: "healingPrevented",
+      entityId: hero.id,
+      message: "Unholy Aura：被动治疗已阻止（R-067）",
+    });
   const healthEffects = [
-    ...(plan?.heal ? [{ type: "heal" as const, amount: passiveHeal(original, plan.heal) }] : []),
+    ...(plan?.heal && !options.healingForbidden
+      ? [{ type: "heal" as const, amount: passiveHeal(original, plan.heal) }]
+      : []),
     ...(woundAmounts.length ? [{ type: "wounds" as const, amounts: woundAmounts }] : []),
   ];
   for (const effect of healthEffects) {

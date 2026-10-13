@@ -5,6 +5,7 @@ import { completeTurnStart, nextBattleRoll } from "./encounter";
 import { resolveSeededHeroHealth } from "./hero-health";
 import { statusProjection, statusStackProblem } from "./status";
 import { triggerBattlePassive } from "./battle-passive";
+import { healingForbidden } from "./battle-healing";
 import { passiveHeal } from "./passive";
 
 /** R18 / R28：意志卡先触发，状态堆随后弹出；玩家选择只续接，不重掷触发骰。 */
@@ -131,6 +132,14 @@ export function beginResolveTurn(result: ApplyResult, actorId: string): ApplyRes
         result.state,
         "意志生命效果缺已核实 Hero Level / Life / 数值（R-048）",
       );
+    if (effect.type === "heal" && healingForbidden(next, actorId)) {
+      events.push({
+        type: "healingPrevented",
+        entityId: actorId,
+        message: "Unholy Aura：意志治疗已阻止（R-067）",
+      });
+      return finish();
+    }
     const healthEffect =
       effect.type === "heal"
         ? { type: "heal" as const, amount: passiveHeal(actor, effect.amount * actor.heroLevel!) }

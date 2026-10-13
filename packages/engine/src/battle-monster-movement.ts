@@ -57,6 +57,16 @@ export function roomTileBattleAreas(tile: {
     tile.specialRegions?.some(
       (r) =>
         r.areaId === area.id &&
+        r.effect === "unholyAura" &&
+        r.status === "confirmed" &&
+        r.runtimeReady,
+    )
+      ? { healingForbidden: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (r) =>
+        r.areaId === area.id &&
         r.effect === "stressfulDarkness" &&
         r.status === "confirmed" &&
         r.runtimeReady,
