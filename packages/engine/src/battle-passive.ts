@@ -2,6 +2,7 @@ import type { BattleState } from "./battle";
 import type { GameEvent } from "./command";
 import { readHeroPassiveDefence } from "./battle-skill-status";
 import { healingForbidden } from "./battle-healing";
+import { clearAncestorConditions } from "./battle-ancestor";
 import { applyPassiveHero } from "./passive-runtime";
 import type { PassiveInput } from "./passive-runtime";
 import type { ApplyResult, GameState } from "./command";
@@ -55,7 +56,10 @@ export function triggerBattlePassive(
     if (applied.status === "refused") return applied;
     next = {
       ...next,
-      entities: next.entities.map((e) => (e.id === id ? applied.hero : e)),
+      entities: clearAncestorConditions(
+        next.areas,
+        next.entities.map((e) => (e.id === id ? applied.hero : e)),
+      ),
       rngCursor: applied.cursor,
       ...(next.provisions ? { provisions: applied.provisions } : {}),
     };

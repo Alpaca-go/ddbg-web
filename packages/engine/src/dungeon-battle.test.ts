@@ -107,6 +107,19 @@ function deploy(seed: number): GameState {
 // 不过滤生产牌池；寻找一条天然抽到获批六种的固定种子，仅作测试。
 const goodSeed = 1885;
 
+it("完整九房／42怪池seed12自然Tomb入场，只有A4投影Ancestor's Glory", () => {
+  const deployed = deploy(12),
+    entered = applyCommand(deployed, { type: "startDungeonBattle" });
+  expect(entered.state.battle, JSON.stringify(entered.events)).toBeDefined();
+  expect(entered.state.battle!.roomName).toBe("Tomb of Ancestor");
+  expect(entered.state.battle!.areas.filter((a) => a.ancestorGlory).map((a) => a.id)).toEqual([
+    "A4",
+  ]);
+  expect(
+    entered.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.areaId),
+  ).toEqual(["A7", "A3", "A3", "A3"]);
+});
+
 it("完整牌池seed1自然抽Beacon可正式入场，压力增减钩子与出生位置独立", () => {
   const deployed = deploy(1);
   const entered = applyCommand(deployed, { type: "startDungeonBattle" });

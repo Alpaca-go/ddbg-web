@@ -299,6 +299,12 @@ export function BattleView({
                   {area.healingForbidden && (
                     <p className="muted">Unholy Aura：英雄不能治疗或被治疗</p>
                   )}
+                  {area.ancestorGlory && (
+                    <p>
+                      Ancestor’s Glory：站立英雄免疫并移除
+                      Blight／Bleed／Debuff／Stun／Mark，免疫目标 Shuffle；自身效果遵循 R20。
+                    </p>
+                  )}
                   {area.endTurnHeal === 3 && (
                     <p className="muted">Healing Waters：英雄结束回合治疗 3</p>
                   )}

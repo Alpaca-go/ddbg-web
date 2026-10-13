@@ -33,6 +33,7 @@ import type { PlayMonsterSkillCommand } from "./battle-monster";
 import type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 import type { PreparedMonsterAction } from "./battle-monster-action";
 import { healingForbidden } from "./battle-healing";
+import { clearAncestorConditions } from "./battle-ancestor";
 import { applySkillHealth } from "./battle-health";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { statusProjection, statusStackProblem } from "./status";
@@ -68,6 +69,7 @@ export type BattleEntity = PassiveHolder &
   };
 
 export type BattleArea = {
+  readonly ancestorGlory?: true;
   readonly healingForbidden?: true;
   readonly endTurnHeal?: 3;
   /** 已复核 Cornered；只接明确印刷值，不给未命名特殊标记补值。 */
@@ -331,10 +333,13 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
     battle: {
       ...structuredClone(setup),
       entities: structuredClone(
-        setup.entities.map((entity) =>
-          entity.statusStacks === undefined
-            ? entity
-            : { ...entity, ...statusProjection(entity.statusStacks, entity.innateProtection) },
+        clearAncestorConditions(
+          setup.areas,
+          setup.entities.map((entity) =>
+            entity.statusStacks === undefined
+              ? entity
+              : { ...entity, ...statusProjection(entity.statusStacks, entity.innateProtection) },
+          ),
         ),
       ),
       rngCursor: 0,

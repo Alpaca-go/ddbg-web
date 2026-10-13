@@ -1467,7 +1467,7 @@
    "ruling": "R-065",
    "approval": "Kyries/Grok 2026-10-13",
    "geometryVerified": true,
-   "usable": false,
+   "usable": true,
    "deployment": {
     "printReview": "verified",
     "heroes": {
@@ -1556,7 +1556,7 @@
      "effect": "ancestorGlory",
      "status": "confirmed",
      "printedText": "Ancestor's Glory: Heroes standing here are immune to Blight, Bleed, Debuff, Stun, Mark and Shuffle. Remove any of these Conditions if already applied.",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "areas": [

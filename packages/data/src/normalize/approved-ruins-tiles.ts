@@ -149,6 +149,7 @@ function approvedTile(input: {
     "status" | "runtimeReady"
   >[];
   ruling?: "R-065" | "R-066";
+  runtimeReady?: true;
 }): ApprovedTile {
   const pageId = `p${String(input.page).padStart(3, "0")}`;
   return tileShape.parse({
@@ -166,7 +167,7 @@ function approvedTile(input: {
     ruling: input.ruling ?? "R-065",
     approval: "Kyries/Grok 2026-10-13",
     geometryVerified: true,
-    usable: false,
+    usable: input.runtimeReady === true,
     deployment: {
       printReview: "verified",
       heroes: input.heroes,
@@ -177,7 +178,7 @@ function approvedTile(input: {
     specialRegions: input.specialRegions.map((r) => ({
       ...r,
       status: "confirmed",
-      runtimeReady: false,
+      runtimeReady: input.runtimeReady === true,
     })),
     areas: input.areas,
     edges: input.edges,
@@ -356,6 +357,7 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
   approvedTile({
     number: 7,
     name: "Tomb of Ancestor",
+    runtimeReady: true,
     page: 4,
     face: "front",
     heroes: { aggressive: "A7", defensive: "A3", ranged: "A3", support: "A3" },
