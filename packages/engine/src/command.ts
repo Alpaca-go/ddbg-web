@@ -1,5 +1,6 @@
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { applyDungeonCommand } from "./dungeon";
+import { summarizeDungeonQuest } from "./dungeon-quest";
 import { useDungeonTorch } from "./dungeon-light";
 import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
 import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
@@ -100,6 +101,7 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 };
 
 export type Command =
+  | { readonly type: "summarizeDungeonQuest" }
   | { readonly type: "startDungeonBattle" }
   | { readonly type: "finishDungeonBattle" }
   | DungeonCommand
@@ -268,6 +270,7 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (command.type === "summarizeDungeonQuest") return summarizeDungeonQuest(state);
   if (state.dungeon?.phase === "exited")
     return rejectBattleCommand(state, "已离开地牢，等待任务结算 / 回村接口");
   if (state.dungeon?.pending?.id.startsWith("dungeon-exit:"))

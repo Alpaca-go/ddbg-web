@@ -27,6 +27,7 @@ import type { PassiveHero } from "./passive-runtime";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import type { TrinketPool } from "./trinket-acquisition";
 import { leaveDungeon } from "./dungeon-exit";
+import type { ScoutQuestSummary } from "../../data/src/quest-summary";
 
 export type DungeonCurioDraw = {
   readonly positiveRewardCursor?: number;
@@ -71,6 +72,8 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  readonly questDistribution?: RoomDistribution;
+  readonly questSummary?: ScoutQuestSummary;
   readonly trinkets?: TrinketPool;
   readonly pendingCurioDraw?: { readonly rollId: string; readonly optionId: string };
   readonly conditions?: ConditionPool;
@@ -224,6 +227,7 @@ export function createDungeonSandbox(
     seed,
     notes: [],
     dungeon: {
+      questDistribution: { ...distribution, counts: distribution.counts.map((c) => ({ ...c })) },
       layout,
       mode,
       cursor,

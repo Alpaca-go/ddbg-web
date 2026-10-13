@@ -159,6 +159,12 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
     },
   );
   // 此布置以已清理的起始房间演示真实走廊往返，不模拟该房间的战斗或奖励。
+  const startingKind = initial.dungeon!.rooms.find((r) => r.id === position)!.kind;
+  const corridorSwap =
+    fixture === "corridor" && startingKind !== "empty"
+      ? initial.dungeon!.rooms.find((r) => r.kind === "empty" && r.id !== "D" && r.id !== position)
+          ?.id
+      : undefined;
   const game =
     fixture === "corridor" ||
     fixture === "curio" ||
@@ -173,7 +179,11 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
           dungeon: {
             ...initial.dungeon!,
             rooms: initial.dungeon!.rooms.map((r) =>
-              r.id === position ? { ...r, cleared: true } : r,
+              r.id === position
+                ? { ...r, ...(corridorSwap ? { kind: "empty" as const } : {}), cleared: true }
+                : r.id === corridorSwap
+                  ? { ...r, kind: startingKind }
+                  : r,
             ),
           },
         }
@@ -563,6 +573,21 @@ export function DungeonSandbox() {
             {d.explorationSetup!.provisions.map((p) => `${p.id} ${p.face}`).join(" · ") || "无"}
           </p>
           <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
+          {d.phase === "exited" && (
+            <div data-testid="dungeon-quest-summary">
+              {d.questSummary ? (
+                <p>
+                  {d.questSummary.name} · 清理 {d.questSummary.clearedRoomIds.length} / 6 间 ·
+                  每名英雄待发 {d.questSummary.xpPerHero} XP · 驿站待发{" "}
+                  {d.questSummary.stagecoachXp} XP · 回村发放尚未接线
+                </p>
+              ) : (
+                <button onClick={() => dispatch({ type: "summarizeDungeonQuest" })}>
+                  生成任务结算摘要
+                </button>
+              )}
+            </div>
+          )}
           {d.explorationSetup!.light < 5 &&
             d
               .explorationSetup!.provisions.filter((p) => p.face === "torch")
