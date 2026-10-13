@@ -189,14 +189,12 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
       await page.goto("/?phase=3");
     }
   }
-  await page.getByLabel("侦察测试布置").selectOption("roomBattle");
+  await page.getByLabel("侦察测试布置").selectOption("wipeBattle");
   await page.getByRole("button", { name: "重置 Radiant" }).click();
+  await expect(page.getByTestId("dungeon-firewood")).toContainText(
+    "Wipe ‘Em Out I 柴火：可用（12点）",
+  );
   for (const name of [
-    "侦察",
-    "全员同意",
-    "选择下一段探索",
-    "D",
-    "掷探索骰并开始结算",
     "抽房间牌并匹配战斗板块",
     "从完整 42 张怪物池抽牌并记录部署",
     "进入房间战斗",
@@ -234,9 +232,17 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await page.getByRole("button", { name: "返回地牢地图", exact: true }).click();
   await expect(page.getByTestId("dungeon-events")).toContainText("第四轮撤退返回地图");
   await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：0");
-  await expect(page.getByTestId("dungeon-node-D")).not.toContainText("已清理");
+  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("房间未清理，必须离开");
   await expect(page.getByRole("button", { name: "选择下一段探索", exact: true })).toBeEnabled();
   await page.screenshot({ path: testInfo.outputPath("dungeon-retreat.png"), fullPage: true });
+  await page.getByRole("button", { name: "离开地牢", exact: true }).click();
+  await page.getByRole("button", { name: "全员同意离开", exact: true }).click();
+  await page.getByRole("button", { name: "生成任务结算摘要", exact: true }).click();
+  await expect(page.getByTestId("dungeon-quest-summary")).toContainText(
+    "Wipe ‘Em Out I · 巢穴清理 0 / 3 间",
+  );
+  await expect(page.getByTestId("dungeon-quest-summary")).toContainText("每名英雄待发 0 XP");
+  await page.screenshot({ path: testInfo.outputPath("wipe-retreat-summary.png"), fullPage: true });
   // 同一条关键冒烟验证完整池自然抽到的 Maggot 感染；房间代币是显式测试布置。
   await page.goto("/?phase=3");
   await page.getByLabel("侦察测试布置").selectOption("roomDisease");

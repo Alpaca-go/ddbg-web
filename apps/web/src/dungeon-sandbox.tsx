@@ -14,6 +14,9 @@ import type { DungeonLayout } from "../../../packages/data/src/dungeon-layout";
 import { battleData } from "virtual:battle-data";
 import { BattleView } from "./battle-view";
 import distribution from "../../../packages/data/normalized/corebox/scout_ahead_distribution.json";
+import wipeDistribution from "../../../packages/data/normalized/corebox/wipe_em_out_distribution.json";
+import { readBasicQuest } from "../../../packages/data/src/basic-quests";
+import { restPoints } from "../../../packages/data/src/scout-rest";
 import rawRooms from "../../../packages/data/normalized/corebox/room.json";
 import { roomFileSchema } from "../../../packages/data/src/room";
 import rawMonsterPool from "../../../packages/data/normalized/corebox/monster_pool.json";
@@ -39,6 +42,8 @@ function curioEffectLabel(effect: CurioEffect) {
 const layouts = dungeonLayoutFileSchema.parse(rawLayouts).layouts;
 const curios = curioFileSchema.parse(rawCurios).cards;
 type Fixture =
+  | "wipe"
+  | "wipeBattle"
   | "neutral"
   | "pressure"
   | "heartAttack"
@@ -105,33 +110,35 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       : {}),
   }));
   const initial = createDungeonSandbox(
-    fixture === "roomDisease"
-      ? 4
-      : fixture === "roomBattle"
-        ? 1885
-        : fixture === "roomApproved"
-          ? 11
-          : fixture === "roomBlocked"
-            ? 12
-            : fixture === "curioComposite"
-              ? 230
-              : fixture === "curioTrinket"
-                ? 921
-                : fixture === "curioRewards"
-                  ? 317
-                  : fixture === "curioPositive"
-                    ? 85
-                    : fixture === "curioProvision"
-                      ? 370
-                      : fixture === "curioBuff"
-                        ? 343
-                        : fixture === "curio"
-                          ? 1237
-                          : fixture === "corridor"
-                            ? 31
-                            : 1,
+    fixture === "wipeBattle"
+      ? 1885
+      : fixture === "roomDisease"
+        ? 4
+        : fixture === "roomBattle"
+          ? 1885
+          : fixture === "roomApproved"
+            ? 11
+            : fixture === "roomBlocked"
+              ? 12
+              : fixture === "curioComposite"
+                ? 230
+                : fixture === "curioTrinket"
+                  ? 921
+                  : fixture === "curioRewards"
+                    ? 317
+                    : fixture === "curioPositive"
+                      ? 85
+                      : fixture === "curioProvision"
+                        ? 370
+                        : fixture === "curioBuff"
+                          ? 343
+                          : fixture === "curio"
+                            ? 1237
+                            : fixture === "corridor"
+                              ? 31
+                              : 1,
     layout,
-    distribution,
+    fixture === "wipe" || fixture === "wipeBattle" ? wipeDistribution : distribution,
     mode,
     position,
     heroes,
@@ -166,59 +173,71 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       ? initial.dungeon!.rooms.find((r) => r.kind === "empty" && r.id !== "D" && r.id !== position)
           ?.id
       : undefined;
+  const wipeRoom = initial.dungeon!.rooms.find((r) => r.kind === "lair")!;
   const game =
-    fixture === "corridor" ||
-    fixture === "curio" ||
-    fixture === "curioBuff" ||
-    fixture === "curioProvision" ||
-    fixture === "curioPositive" ||
-    fixture === "curioRewards" ||
-    fixture === "curioTrinket" ||
-    fixture === "curioComposite"
+    fixture === "wipeBattle"
       ? {
           ...initial,
           dungeon: {
             ...initial.dungeon!,
-            rooms: initial.dungeon!.rooms.map((r) =>
-              r.id === position
-                ? { ...r, ...(corridorSwap ? { kind: "empty" as const } : {}), cleared: true }
-                : r.id === corridorSwap
-                  ? { ...r, kind: startingKind }
-                  : r,
-            ),
+            position: wipeRoom.id,
+            visited: [wipeRoom.id],
+            phase: "awaitingRoom" as const,
+            rooms: initial.dungeon!.rooms.map((r) => ({ ...r, revealed: r.id === wipeRoom.id })),
           },
         }
-      : fixture === "dark"
+      : fixture === "corridor" ||
+          fixture === "curio" ||
+          fixture === "curioBuff" ||
+          fixture === "curioProvision" ||
+          fixture === "curioPositive" ||
+          fixture === "curioRewards" ||
+          fixture === "curioTrinket" ||
+          fixture === "curioComposite"
         ? {
             ...initial,
             dungeon: {
               ...initial.dungeon!,
               rooms: initial.dungeon!.rooms.map((r) =>
-                r.id === "D"
-                  ? { ...r, kind: "dark" as const }
-                  : r.kind === "dark"
-                    ? { ...r, kind: initial.dungeon!.rooms.find((room) => room.id === "D")!.kind }
-                    : r.id === position
-                      ? { ...r, cleared: true }
-                      : r,
+                r.id === position
+                  ? { ...r, ...(corridorSwap ? { kind: "empty" as const } : {}), cleared: true }
+                  : r.id === corridorSwap
+                    ? { ...r, kind: startingKind }
+                    : r,
               ),
             },
           }
-        : fixture === "roomDisease"
+        : fixture === "dark"
           ? {
               ...initial,
               dungeon: {
                 ...initial.dungeon!,
                 rooms: initial.dungeon!.rooms.map((r) =>
                   r.id === "D"
-                    ? { ...r, kind: "lair" as const }
-                    : r.id === "A"
-                      ? { ...r, kind: "curio" as const }
-                      : r,
+                    ? { ...r, kind: "dark" as const }
+                    : r.kind === "dark"
+                      ? { ...r, kind: initial.dungeon!.rooms.find((room) => room.id === "D")!.kind }
+                      : r.id === position
+                        ? { ...r, cleared: true }
+                        : r,
                 ),
               },
             }
-          : initial;
+          : fixture === "roomDisease"
+            ? {
+                ...initial,
+                dungeon: {
+                  ...initial.dungeon!,
+                  rooms: initial.dungeon!.rooms.map((r) =>
+                    r.id === "D"
+                      ? { ...r, kind: "lair" as const }
+                      : r.id === "A"
+                        ? { ...r, kind: "curio" as const }
+                        : r,
+                  ),
+                },
+              }
+            : initial;
   return {
     game,
     page,
@@ -276,6 +295,7 @@ export function DungeonSandbox() {
       />
     );
   const currentRoom = d.rooms.find((r) => r.id === d.position);
+  const quest = readBasicQuest(d.questDistribution);
   const map = preview ?? d.layout;
   const shownCurio = d.curio?.active ?? d.curio?.last;
   const card = d.curio?.cards.find((c) => c.id === shownCurio?.cardId);
@@ -286,8 +306,8 @@ export function DungeonSandbox() {
           <p className="eyebrow">DDBG · PHASE 3</p>
           <h1>地牢布局与侦察</h1>
           <p className="muted">
-            QuestMap p{page} 标注待批准 · Scout Ahead · 固定种子 {game.seed} · 光照{" "}
-            {d.explorationSetup?.light ?? "待配置"}、DL {d.explorationSetup!.dungeonLevel}
+            QuestMap p{page} 标注待批准 · {quest?.name ?? "任务身份待核实"} · 固定种子 {game.seed} ·
+            光照 {d.explorationSetup?.light ?? "待配置"}、DL {d.explorationSetup!.dungeonLevel}
           </p>
           <p>
             {preview
@@ -314,6 +334,8 @@ export function DungeonSandbox() {
           侦察测试布置
           <select value={fixture} onChange={(e) => select(page, e.target.value as Fixture)}>
             <option value="neutral">中立英雄</option>
+            <option value="wipe">Wipe ‘Em Out I · 完整八枚代币（种子1）</option>
+            <option value="wipeBattle">Wipe ‘Em Out I · 巢穴战斗入口（种子1885）</option>
             <option value="pressure">首次检定（hero-0 压力 9）</option>
             <option value="heartAttack">已有意志卡（hero-0 压力 9）</option>
             <option value="corridor">单走廊 → Empty（标准 p1、种子 31、无需侦察）</option>
@@ -567,7 +589,12 @@ export function DungeonSandbox() {
             柴火休息
           </button>
           <p data-testid="dungeon-firewood">
-            Scout Ahead 柴火：{d.rest?.used ? "已弃置" : d.rest ? "可用（8点）" : "无已核实柴火"}
+            {quest?.name ?? "任务"} 柴火：
+            {d.rest?.used
+              ? "已弃置"
+              : d.rest
+                ? `可用（${restPoints(d.rest.questId)}点）`
+                : "无已核实柴火"}
           </p>
           <p className="muted">普通走廊返回不掷骰，全员压力 +1；灰点与起点返回尚未接线。</p>
           {d.phase === "awaitingHazards" && !d.exploration?.rolls && (
@@ -587,9 +614,11 @@ export function DungeonSandbox() {
             <div data-testid="dungeon-quest-summary">
               {d.questSummary ? (
                 <p>
-                  {d.questSummary.name} · 清理 {d.questSummary.clearedRoomIds.length} / 6 间 ·
-                  每名英雄待发 {d.questSummary.xpPerHero} XP · 驿站待发{" "}
-                  {d.questSummary.stagecoachXp} XP · 回村发放尚未接线
+                  {d.questSummary.name} ·{" "}
+                  {d.questSummary.questId === "quest:p002" ? "巢穴清理" : "清理"}{" "}
+                  {d.questSummary.clearedRoomIds.length} / {quest!.maxRooms} 间 · 每名英雄待发{" "}
+                  {d.questSummary.xpPerHero} XP · 驿站待发 {d.questSummary.stagecoachXp} XP ·
+                  回村发放尚未接线
                 </p>
               ) : (
                 <button onClick={() => dispatch({ type: "summarizeDungeonQuest" })}>

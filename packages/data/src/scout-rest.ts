@@ -1,10 +1,13 @@
 import { z } from "zod";
+import { basicQuests } from "./basic-quests";
+import type { BasicQuestId } from "./basic-quests";
 
-/** QUEST p1：Scout Ahead I提供8点；R15：休息后弃柴火。 */
+/** QUEST p1–2：Scout Ahead 8点 / Wipe ‘Em Out 12点；R15：休息后弃柴火。 */
 export const SCOUT_REST_POINTS = 8;
+export const restPoints = (id: BasicQuestId) => basicQuests.find((q) => q.id === id)!.restPoints;
 export const scoutRestSchema = z
   .strictObject({
-    questId: z.literal("quest:p001"),
+    questId: z.enum(["quest:p001", "quest:p002"]),
     used: z.boolean(),
     plan: z
       .strictObject({
@@ -13,8 +16,8 @@ export const scoutRestSchema = z
           .array(
             z.strictObject({
               heroId: z.string().min(1),
-              heal: z.int().min(0).max(8),
-              stress: z.int().min(0).max(8),
+              heal: z.int().min(0).max(12),
+              stress: z.int().min(0).max(12),
             }),
           )
           .length(4),
@@ -24,11 +27,12 @@ export const scoutRestSchema = z
   .superRefine((rest, ctx) => {
     const spend = rest.plan?.spend ?? [];
     const total = spend.reduce((n, s) => n + s.heal + s.stress, 0);
+    const budget = restPoints(rest.questId);
     if (
-      total > 8 ||
-      (rest.used ? total !== 8 : total === 8) ||
+      total > budget ||
+      (rest.used ? total !== budget : total === budget) ||
       new Set(spend.map((s) => s.heroId)).size !== spend.length ||
-      (rest.plan?.mode === "equal" && spend.some((s) => s.heal + s.stress > 2))
+      (rest.plan?.mode === "equal" && spend.some((s) => s.heal + s.stress > budget / 4))
     )
       ctx.addIssue({ code: "custom", message: "柴火 / 休息分配不守恒" });
   });
