@@ -76,6 +76,7 @@
    "source": {
     "type": "enum",
     "values": [
+     "kyries_review_2026-10-13",
      "kyries_review_2026-10-06",
      "kyries_approved_proposal_2026-10-07",
      "kyries_approved_rulebook_2026-10-07",
@@ -178,35 +179,35 @@
     "unreviewed": 0
    },
    "status_all976": {
-    "confirmed": 657,
+    "confirmed": 660,
     "confirmed_rulebook": 44,
     "needs_review": 31,
     "decor": 110,
     "unsure": 0,
-    "unreviewed": 141
+    "unreviewed": 138
    },
    "coverage_all976_confirmed_rulebook_decor": {
-    "card_occurrences": 14288,
-    "card_pct": 97.9,
-    "occurrences": 14474,
-    "occ_pct": 97.44
+    "card_occurrences": 14293,
+    "card_pct": 97.93,
+    "occurrences": 14479,
+    "occ_pct": 97.47
    },
    "coverage_top525_confirmed_rulebook_decor": {
     "card_occurrences": 13737,
     "card_pct": 99.59
    },
    "coverage_all976_plus_needs_review": {
-    "card_occurrences": 14379,
-    "card_pct": 98.52,
-    "occurrences": 14589,
-    "occ_pct": 98.21
+    "card_occurrences": 14384,
+    "card_pct": 98.55,
+    "occurrences": 14594,
+    "occ_pct": 98.24
    },
    "coverage_all976_by_status": {
     "confirmed": {
-     "card_occurrences": 13034,
-     "card_pct": 89.3,
-     "occurrences": 13140,
-     "occ_pct": 88.46
+     "card_occurrences": 13039,
+     "card_pct": 89.34,
+     "occurrences": 13145,
+     "occ_pct": 88.49
     },
     "confirmed_rulebook": {
      "card_occurrences": 482,
@@ -228,15 +229,15 @@
     },
     "unsure": {
      "card_occurrences": 0,
-     "card_pct": 0,
+     "card_pct": 0.0,
      "occurrences": 0,
-     "occ_pct": 0
+     "occ_pct": 0.0
     },
     "unreviewed": {
-     "card_occurrences": 216,
-     "card_pct": 1.48,
-     "occurrences": 266,
-     "occ_pct": 1.79
+     "card_occurrences": 211,
+     "card_pct": 1.45,
+     "occurrences": 261,
+     "occ_pct": 1.76
     }
    }
   },
@@ -270,7 +271,8 @@
   ],
   "resolved_in_v1_8": [
    "batch-08 (categorize 79 as skill_art / keep r195, r544, r569 as pending_<iconId>), approved by Kyries 2026-10-08. 31 rows were needs_review and 48 were unreviewed. Generic meaning \"Skill picture\"; not merge_into r274, r431, or r490. Front and back, and different heroes, stay distinct iconIds.",
-   "R-064 / Q-60 (2026-10-12): 17 Curio effect-row hashes confirmed; 7 new IDs appended as ranks 977–983. Legacy all976 stats keys now cover all entries; original ranks unchanged."
+   "R-064 / Q-60 (2026-10-12): 17 Curio effect-row hashes confirmed; 7 new IDs appended as ranks 977–983. Legacy all976 stats keys now cover all entries; original ranks unchanged.",
+   "R-067 Kyries 2026-10-13: 8c4c3c2ec2 shuffle, ce2f57ed90 blight, 5c9604da90 wound; no values or composite-order inference."
   ]
  },
  "inconsistencies": [
@@ -14076,23 +14078,23 @@
    "rank": 548,
    "card_occurrences": 3,
    "occurrences": 3,
-   "meaning_en": "",
-   "meaning_zh": "",
-   "kind": "",
-   "status": "unreviewed",
+   "meaning_en": "Shuffle",
+   "meaning_zh": "位移（Push/Pull）",
+   "kind": "status",
+   "status": "confirmed",
    "group": "shuffle",
-   "key": "unknown_8c4c3c2ec2",
+   "key": "shuffle",
    "value": null,
    "value_in_glyph": false,
    "placeholder": "{icon:8c4c3c2ec2}",
-   "source": "kyries_review_2026-10-06",
+   "source": "kyries_review_2026-10-13",
    "categories": "room:3",
    "notes": "",
    "rulebook_refs": [],
-   "confidence": null,
-   "evidence": null,
-   "previous_status": null,
-   "previous_meaning_en": null,
+   "confidence": "high",
+   "evidence": "Kyries本对话明确批准，R-067；不补图标内数值或复合规则。",
+   "previous_status": "unreviewed",
+   "previous_meaning_en": "",
    "proposal": null
   },
   {
@@ -20228,23 +20230,23 @@
    "rank": 804,
    "card_occurrences": 1,
    "occurrences": 1,
-   "meaning_en": "",
-   "meaning_zh": "",
-   "kind": "",
-   "status": "unreviewed",
+   "meaning_en": "Wound",
+   "meaning_zh": "创伤",
+   "kind": "damage_type",
+   "status": "confirmed",
    "group": "wound",
-   "key": "unknown_5c9604da90",
+   "key": "wound",
    "value": null,
    "value_in_glyph": false,
    "placeholder": "{icon:5c9604da90}",
-   "source": "kyries_review_2026-10-06",
+   "source": "kyries_review_2026-10-13",
    "categories": "room:1",
    "notes": "",
    "rulebook_refs": [],
-   "confidence": null,
-   "evidence": null,
-   "previous_status": null,
-   "previous_meaning_en": null,
+   "confidence": "high",
+   "evidence": "Kyries本对话明确批准，R-067；不补图标内数值或复合规则。",
+   "previous_status": "unreviewed",
+   "previous_meaning_en": "",
    "proposal": null
   },
   {
@@ -21956,23 +21958,23 @@
    "rank": 876,
    "card_occurrences": 1,
    "occurrences": 1,
-   "meaning_en": "",
-   "meaning_zh": "",
-   "kind": "",
-   "status": "unreviewed",
+   "meaning_en": "Blight",
+   "meaning_zh": "腐蚀",
+   "kind": "status",
+   "status": "confirmed",
    "group": "blight",
-   "key": "unknown_ce2f57ed90",
+   "key": "blight",
    "value": null,
    "value_in_glyph": false,
    "placeholder": "{icon:ce2f57ed90}",
-   "source": "kyries_review_2026-10-06",
+   "source": "kyries_review_2026-10-13",
    "categories": "room:1",
    "notes": "",
    "rulebook_refs": [],
-   "confidence": null,
-   "evidence": null,
-   "previous_status": null,
-   "previous_meaning_en": null,
+   "confidence": "high",
+   "evidence": "Kyries本对话明确批准，R-067；不补图标内数值或复合规则。",
+   "previous_status": "unreviewed",
+   "previous_meaning_en": "",
    "proposal": null
   },
   {

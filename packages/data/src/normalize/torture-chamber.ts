@@ -19,7 +19,7 @@ const placement = z.strictObject({
   status: z.literal("confirmed"),
 });
 
-/** 本面 VQ-01–05 获批；Unholy Aura 仅候选，治疗拒绝路径未就绪前不可参战。 */
+/** VQ-01–05及R-067本面Unholy Aura获批；禁疗运行时就绪前不可参战。 */
 export const tortureChamberSchema = z
   .strictObject({
     id: z.literal("room_tile:p002:back"),
@@ -59,7 +59,7 @@ export const tortureChamberSchema = z
         areaId: z.literal("H"),
         iconId: z.literal("4591aebebd"),
         effect: z.literal("unholyAura"),
-        status: z.literal("candidate"),
+        status: z.literal("confirmed"),
         printedText: z.literal("Unholy Aura: Heroes in this Area can't heal or be healed."),
         runtimeReady: z.literal(false),
       }),
@@ -133,7 +133,7 @@ export const approvedTortureChamber = tortureChamberSchema.parse({
       areaId: "H",
       iconId: "4591aebebd",
       effect: "unholyAura",
-      status: "candidate",
+      status: "confirmed",
       printedText: "Unholy Aura: Heroes in this Area can't heal or be healed.",
       runtimeReady: false,
     },
