@@ -758,6 +758,11 @@ export function DungeonSandbox() {
                 ? `可用（${restPoints(d.rest.questId)}点）`
                 : "无已核实柴火"}
           </p>
+          {d.rest && (
+            <p className="muted">
+              休息时，每名英雄的 Life 和压力按各自分配总量恢复，相关怪癖各触发一次。
+            </p>
+          )}
           <p className="muted">
             原路返回不掷骰，每条已走过的边全员压力 +1；包含灰点、岔路与起点出入。
           </p>

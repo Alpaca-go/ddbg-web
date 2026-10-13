@@ -1,3 +1,8 @@
+import diseases from "../../data/normalized/corebox/disease.json";
+import quirks from "../../data/normalized/corebox/quirk.json";
+import { diseaseFileSchema } from "../../data/src/disease";
+import { normalizedQuirkFileSchema } from "../../data/src/normalize/schema";
+import { createConditionPool } from "./conditions";
 import { describe, expect, it } from "vitest";
 import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../data/normalized/corebox/scout_ahead_distribution.json";
@@ -5,7 +10,7 @@ import stats from "../../data/normalized/corebox/hero_stat.json";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { createDungeonSandbox } from "./dungeon";
-import { canRestDungeon, restDungeon } from "./dungeon-rest";
+import { canRestDungeon } from "./dungeon-rest";
 import { scoutRestSchema } from "../../data/src/scout-rest";
 import { QUIRK_NAMES } from "./passive";
 
@@ -39,7 +44,7 @@ const choose = (s: GameState, optionId: string) =>
 const begin = (s: GameState, mode = "collective") =>
   choose(applyCommand(s, { type: "restDungeon" }).state, mode).state;
 
-describe("Scout Ahead柴火休息（R15、QUEST p1、Q-69）", () => {
+describe("Scout Ahead柴火休息（R15、QUEST p1、R-070）", () => {
   it("同意前取消不消耗；分配期间冻结导航、补给、退出和摘要，陈旧选择拒绝", () => {
     const s = setup(),
       pending = applyCommand(s, { type: "restDungeon" }).state;
@@ -136,27 +141,66 @@ describe("Scout Ahead柴火休息（R15、QUEST p1、Q-69）", () => {
     expect(next.dungeon!.heroes[1]!.stress).toBe(0);
     expect(next.dungeon!.cursor).toBe(door.dungeon!.cursor);
   });
+
   it.each([
-    ["Fast Healer", "heal:0"],
-    ["Infirm", "heal:0"],
-    ["Resilient", "stress:0"],
-  ])("%s的休息事件分组保留Q-69，不分配或消耗", (name, option) => {
-    const base = begin(setup());
+    ["Fast Healer", "heal:0", 1, 4],
+    ["Infirm", "heal:0", 3, 4],
+    ["Resilient", "stress:0", 4, 1],
+  ])("%s同次休息总量只触发一次（R-070）", (name, option, wounds, stress) => {
+    const original = setup();
     const id = `quirk:p${String(QUIRK_NAMES.indexOf(name as (typeof QUIRK_NAMES)[number]) + 1).padStart(3, "0")}`;
     const state = {
-      ...base,
+      ...original,
       dungeon: {
-        ...base.dungeon!,
-        heroes: base.dungeon!.heroes.map((h, i) => (i === 0 ? { ...h, quirkIds: [id] } : h)),
+        ...original.dungeon!,
+        conditions: createConditionPool(
+          diseaseFileSchema.parse(diseases).cards,
+          normalizedQuirkFileSchema.parse(quirks).cards,
+        ),
+        heroes: original.dungeon!.heroes.map((h, i) => (i === 0 ? { ...h, quirkIds: [id] } : h)),
       },
     };
-    const result = restDungeon(state, {
-      type: "resolveChoice",
-      choiceId: state.dungeon!.pending!.id,
-      optionId: option,
-    });
-    expect(result.state).toBe(state);
-    expect(result.events[0]!.message).toContain("Q-69");
+    const before = structuredClone(state);
+    let next = begin(state);
+    next = choose(next, option as string).state;
+    expect(next.dungeon!.heroes).toEqual(state.dungeon!.heroes);
+    next = choose(next, option as string).state;
+    for (let i = 0; i < 6; i++) next = choose(next, "stress:1").state;
+    expect(next.dungeon!.heroes[0]).toMatchObject({ wounds, stress });
+    expect(next.dungeon!.rest!.used).toBe(true);
+    expect(next.dungeon!.cursor).toBe(state.dungeon!.cursor);
+    expect(state).toEqual(before);
+  });
+  it("未分配治疗或减压时不触发 Fast Healer / Resilient，HL2治疗仍只加一次（R-070）", () => {
+    const original = setup();
+    const state = {
+      ...original,
+      dungeon: {
+        ...original.dungeon!,
+        conditions: createConditionPool(
+          diseaseFileSchema.parse(diseases).cards,
+          normalizedQuirkFileSchema.parse(quirks).cards,
+        ),
+        heroes: original.dungeon!.heroes.map((h, i) =>
+          i === 0
+            ? {
+                ...h,
+                level: 2,
+                life: stats.cards.find((s) => s.name === "CRUSADER" && s.level === 2)!.life,
+                quirkIds: ["quirk:p003", "quirk:p009", "quirk:p022"],
+              }
+            : h,
+        ),
+      },
+    };
+    let unallocated = begin(state);
+    for (let i = 0; i < 8; i++) unallocated = choose(unallocated, "stress:1").state;
+    expect(unallocated.dungeon!.heroes[0]).toEqual(state.dungeon!.heroes[0]);
+    let allocated = begin(state);
+    for (let i = 0; i < 2; i++) allocated = choose(allocated, "heal:0").state;
+    for (let i = 0; i < 2; i++) allocated = choose(allocated, "stress:0").state;
+    for (let i = 0; i < 4; i++) allocated = choose(allocated, "stress:1").state;
+    expect(allocated.dungeon!.heroes[0]).toMatchObject({ wounds: 1, stress: 1 });
   });
   it("同种子与命令日志可回放，均分总额与schema篡改拒绝", () => {
     const s = setup();
