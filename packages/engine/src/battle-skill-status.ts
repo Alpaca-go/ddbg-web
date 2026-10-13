@@ -6,6 +6,7 @@ import { applyPassiveHero, applyPassiveStatus } from "./passive-runtime";
 import { resolveSeededHeroHealth } from "./hero-health";
 import type { GameEvent } from "./command";
 import type { PassiveDefence } from "./passive-runtime";
+import { ancestorGlory, ANCESTOR_CONDITIONS, clearAncestorConditions } from "./battle-ancestor";
 import { hasQuirk, passivePlan, passiveStress } from "./passive";
 import {
   approvedHeroConditionDefences,
@@ -13,8 +14,8 @@ import {
 } from "../../data/src/normalize/hero-stat";
 
 export function readHeroPassiveDefence(
-  battle: Pick<BattleState, "heroStats">,
-  entity: Pick<BattleEntity, "heroStatId">,
+  battle: Pick<BattleState, "heroStats"> & Partial<Pick<BattleState, "areas">>,
+  entity: Pick<BattleEntity, "heroStatId"> & Partial<Pick<BattleEntity, "side" | "areaId">>,
 ): PassiveDefence | undefined {
   const hero = battle.heroStats?.find((h) => h.id === entity.heroStatId);
   const defence = hero?.verified_condition_defence;
@@ -28,7 +29,12 @@ export function readHeroPassiveDefence(
     defence?.resistances[0] !== expected.kind
   )
     return undefined;
-  return { resistances: defence.resistances, immunities: defence.immunities };
+  return {
+    resistances: defence.resistances,
+    immunities: ancestorGlory(battle.areas ?? [], entity)
+      ? [...new Set([...defence.immunities, ...ANCESTOR_CONDITIONS])]
+      : defence.immunities,
+  };
 }
 
 /** 自身只施加一次；目标逐个施加。调用方先以 probe 验证，再在生命结果上应用。 */
@@ -91,7 +97,7 @@ export function applyBattleSkillStatuses(
           )
             return "英雄条件防御不符合限定审批（R-048）";
           resistances = [...defence.resistances];
-          immunities = [];
+          immunities = [...(readHeroPassiveDefence(battle, entity)?.immunities ?? [])];
         } else {
           if (
             !hero?.attributesVerified ||
@@ -176,11 +182,20 @@ export function applyBattleSkillStatuses(
         stacks = applied.stacks;
       }
     }
-    next = next.map((entry) =>
-      entry.id === id
-        ? { ...entry, statusStacks: stacks, ...statusProjection(stacks, entry.innateProtection) }
-        : entry,
-    );
+    next = [
+      ...clearAncestorConditions(
+        battle.areas,
+        next.map((entry) =>
+          entry.id === id
+            ? {
+                ...entry,
+                statusStacks: stacks,
+                ...statusProjection(stacks, entry.innateProtection),
+              }
+            : entry,
+        ),
+      ),
+    ];
     return null;
   };
   const selfProblem = apply(actorId, resolutions[0]?.actorStatusEffects ?? [], "self");

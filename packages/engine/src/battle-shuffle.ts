@@ -11,6 +11,7 @@ import { newlyDefeatedIds } from "./encounter";
 import { hasQuirk } from "./passive";
 import type { SkillHealthEffect } from "./hero-skill";
 import { correctMultiTargetStress } from "./battle-multi-crit";
+import { ancestorGlory, clearAncestorConditions } from "./battle-ancestor";
 
 /** R27：持有 Balanced 的英雄决定是否少移 1；不改变原技能骰或其他位移意图。 */
 export function chooseBalancedShuffle(state: GameState, optionId: string): ApplyResult {
@@ -74,6 +75,18 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
   while (next.shuffleIntents.length) {
     const intent = next.shuffleIntents[0]!;
     const entity = next.entities.find((entry) => entry.id === intent.entityId);
+    // R20自身效果无视免疫；目标Shuffle在当前A4被免疫，不触发位移被动。
+    if (entity && intent.entityId !== continuation.actorId && ancestorGlory(next.areas, entity)) {
+      next = { ...next, shuffleIntents: next.shuffleIntents.slice(1) };
+      choices = [];
+      events.push({
+        type: "passiveTriggered",
+        entityId: entity.id,
+        trigger: "ancestorGlory",
+        message: `${entity.id} Ancestor's Glory：免疫目标Shuffle（R-065/067、R20）`,
+      });
+      continue;
+    }
     // 被技能伤害杀死的目标已移除棋子（R24–25），不再执行目标位移。
     if (entity?.dead && intent.entityId !== continuation.actorId) {
       next = { ...next, shuffleIntents: next.shuffleIntents.slice(1) };
@@ -181,6 +194,7 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
       path: result.path,
       stanceSteps: result.stanceSteps,
     });
+    next = { ...next, entities: clearAncestorConditions(next.areas, next.entities) };
     choices = [];
   }
   if (continuation.type === "heroSkillEmptyAreaResolved") {

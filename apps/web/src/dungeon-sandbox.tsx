@@ -103,6 +103,7 @@ type Fixture =
   | "roomApproved"
   | "roomFountain"
   | "roomBeacon"
+  | "roomAncestor"
   | "roomBattle"
   | "roomDisease"
   | "roomBlocked";
@@ -173,35 +174,37 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
           ? 1885
           : fixture === "roomBeacon"
             ? 1
-            : fixture === "roomFountain"
-              ? 10
-              : fixture === "roomDisease"
-                ? 4
-                : fixture === "roomBattle"
-                  ? 1885
-                  : fixture === "roomApproved"
-                    ? 11
-                    : fixture === "roomBlocked"
-                      ? 12
-                      : fixture === "curioComposite"
-                        ? 230
-                        : fixture === "curioTrinket"
-                          ? 921
-                          : fixture === "curioRewards"
-                            ? 317
-                            : fixture === "curioPositive"
-                              ? 85
-                              : fixture === "curioProvision"
-                                ? 370
-                                : fixture === "curioBuff"
-                                  ? 343
-                                  : fixture === "curio"
-                                    ? 1237
-                                    : fixture === "curioNegative"
-                                      ? 46
-                                      : fixture === "corridor"
-                                        ? 31
-                                        : 1,
+            : fixture === "roomAncestor"
+              ? 12
+              : fixture === "roomFountain"
+                ? 10
+                : fixture === "roomDisease"
+                  ? 4
+                  : fixture === "roomBattle"
+                    ? 1885
+                    : fixture === "roomApproved"
+                      ? 11
+                      : fixture === "roomBlocked"
+                        ? 2
+                        : fixture === "curioComposite"
+                          ? 230
+                          : fixture === "curioTrinket"
+                            ? 921
+                            : fixture === "curioRewards"
+                              ? 317
+                              : fixture === "curioPositive"
+                                ? 85
+                                : fixture === "curioProvision"
+                                  ? 370
+                                  : fixture === "curioBuff"
+                                    ? 343
+                                    : fixture === "curio"
+                                      ? 1237
+                                      : fixture === "curioNegative"
+                                        ? 46
+                                        : fixture === "corridor"
+                                          ? 31
+                                          : 1,
     layout,
     fixture.startsWith("fundraiser")
       ? fundraiserDistribution
@@ -343,7 +346,11 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
                   ),
                 },
               }
-            : fixture === "roomDisease" || fixture === "roomFountain" || fixture === "roomBeacon"
+            : fixture === "roomDisease" ||
+                fixture === "roomFountain" ||
+                fixture === "roomBeacon" ||
+                fixture === "roomAncestor" ||
+                fixture === "roomBlocked"
               ? {
                   ...initial,
                   dungeon: {
@@ -499,8 +506,11 @@ export function DungeonSandbox() {
             <option value="roomBeacon">
               Beacon of Light（种子1，固定房间代币，完整房间/怪物池）
             </option>
+            <option value="roomAncestor">
+              Tomb of Ancestor（种子12，固定房间代币，完整房间/怪物池）
+            </option>
             <option value="roomBlocked">
-              Lair → Tomb of Ancestor（p1、种子 12、先侦察 Radiant）
+              Lair → Invocation Chamber（p1、种子 2、固定房间代币、先侦察 Radiant）
             </option>
           </select>
         </label>

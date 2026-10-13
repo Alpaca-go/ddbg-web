@@ -5,6 +5,7 @@ import { applyEncounterCommand } from "./encounter";
 import { readPrintedRange, readPrintedTargets } from "./hero-skill";
 import { readMonsterAttackView, resolveMonsterSkill } from "./monster-skill";
 import { isSmallMonster } from "./battle-small";
+import { clearAncestorConditions } from "./battle-ancestor";
 
 export type MoveMonsterToRangeCommand = {
   readonly type: "moveMonsterToRange";
@@ -53,6 +54,16 @@ export function roomTileBattleAreas(tile: {
   if (tile.geometryVerified !== true) throw new Error("房间几何尚未核实（R-048）");
   return tile.areas.map((area) => ({
     ...area,
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (r) =>
+        r.areaId === area.id &&
+        r.effect === "ancestorGlory" &&
+        r.status === "confirmed" &&
+        r.runtimeReady,
+    )
+      ? { ancestorGlory: true as const }
+      : {}),
     ...(tile.usable === true &&
     tile.specialRegions?.some(
       (r) =>
@@ -334,12 +345,15 @@ export function moveMonsterToRange(
       ...battle,
       pending: null,
       monsterAction: { ...action, positioned: true },
-      entities: battle.entities.map((entity) =>
-        entity.id === actor.id
-          ? { ...entity, areaId: to }
-          : entity.id === displaced?.entityId
-            ? { ...entity, areaId: displaced.to }
-            : entity,
+      entities: clearAncestorConditions(
+        battle.areas,
+        battle.entities.map((entity) =>
+          entity.id === actor.id
+            ? { ...entity, areaId: to }
+            : entity.id === displaced?.entityId
+              ? { ...entity, areaId: displaced.to }
+              : entity,
+        ),
       ),
     },
   };

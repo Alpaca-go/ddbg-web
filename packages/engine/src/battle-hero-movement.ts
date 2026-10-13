@@ -4,6 +4,7 @@ import { finishTurn, removeCasualties, endAfterCasualties, newlyDefeatedIds } fr
 import { resolveBattlePressure } from "./pressure";
 import { triggerBattlePassive } from "./battle-passive";
 import { isSmallMonster } from "./battle-small";
+import { clearAncestorConditions } from "./battle-ancestor";
 
 export type MoveHeroCommand = {
   readonly type: "moveHero";
@@ -83,8 +84,11 @@ export function moveHero(state: GameState, command: MoveHeroCommand): ApplyResul
     ...state,
     battle: {
       ...battle,
-      entities: battle.entities.map((entity) =>
-        entity.id === actor.id ? { ...entity, areaId: from } : entity,
+      entities: clearAncestorConditions(
+        battle.areas,
+        battle.entities.map((entity) =>
+          entity.id === actor.id ? { ...entity, areaId: from } : entity,
+        ),
       ),
       encounter: { ...battle.encounter!, turn: { ...turn, actions: turn.actions - 1, mustMove } },
     },
