@@ -305,12 +305,12 @@ it("全队降光先完成各自被动伤口，再为存活压力10英雄意志�
   expect(scene).toEqual(snapshot);
 });
 
-it("低光 Q-67 陷阱暴击仍停在未接合并；Darkness按R-069先伤口再意志", () => {
+it("低光暴击压力合并后只加一次；Darkness按R-069先伤口再意志", () => {
   const s = roll(setup(2, { quirkIds: [quirk("Off Guard")] }));
   const attack = ok(pick(s, "hero-0:2")),
-    refused = pick(attack, "attack");
-  expect(refused.state).toBe(attack);
-  expect(refused.events[0]!.message).toContain("Q-67");
+    resolved = pick(attack, "attack");
+  expect(ok(resolved).dungeon!.heroes[0]).toMatchObject({ stress: 3, wounds: 4 });
+  expect(resolved.state.dungeon!.cursor).toBe(attack.dungeon!.cursor + 1);
   const darkness = hazard("darkness", 2, { stress: 7, quirkIds: [quirk("Soft")] });
   const suffered = ok(pick(darkness, "suffer"));
   expect(suffered.dungeon!.heroes[0]).toMatchObject({ wounds: 1, stress: 0, resolveTested: true });

@@ -219,12 +219,8 @@ it("伤害 / 暴击被动：Off Guard 与 Weak Grip 压力，Shocker 读取实�
   };
   expect(ok(attack(actual)).heroes[0]!.statusStacks).toEqual([{ kind: "stun", remaining: 1 }]);
 });
-it("Q-66 追加伤口后意志；Q-67 或缺属性 / 抗性仍原子拒绝，实际闪避不误拒绝", () => {
-  const scenes = [
-    scene(2, { quirkIds: [quirk("Nervous"), quirk("Off Guard")] }),
-    scene(3, { heroStatId: "missing" }),
-    scene(3, { life: 18 }),
-  ];
+it("R-069追加伤口后意志与暴击合并；缺属性 / 抗性仍原子拒绝，实际闪避不误拒绝", () => {
+  const scenes = [scene(3, { heroStatId: "missing" }), scene(3, { life: 18 })];
   const missing = scene(2, { quirkIds: [quirk("Shocker")] });
   scenes.push({
     ...missing,
@@ -244,6 +240,21 @@ it("Q-66 追加伤口后意志；Q-67 或缺属性 / 抗性仍原子拒绝，实
     expect(attack(s).state).toBe(s);
     expect(attack(s).events[0]!.type).toBe("commandRefused");
   }
+  expect(
+    ok(attack(scene(2, { quirkIds: [quirk("Nervous"), quirk("Off Guard")] }))).heroes[0],
+  ).toMatchObject({ stress: 3, wounds: 4 });
+  const combined = scene(
+    2,
+    {
+      diseaseId: "disease:p008",
+      quirkIds: [quirk("Off Guard"), quirk("Weak Grip"), quirk("Soft")],
+    },
+    1,
+    2,
+  );
+  const applied = attack(combined);
+  expect(ok(applied).heroes[0]).toMatchObject({ stress: 5, wounds: 7 });
+  expect(applied).toEqual(attack(combined));
   const soft = scene(2, { stress: 9, quirkIds: [quirk("Soft")] });
   const resolved = attack(soft);
   expect(ok(resolved).heroes[0]).toMatchObject({ wounds: 5, stress: 0, resolveTested: true });
