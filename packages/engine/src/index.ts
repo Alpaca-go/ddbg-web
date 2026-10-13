@@ -99,3 +99,4 @@ export type {
   HeroHealthResolution,
   DeathDoorFace,
 } from "./hero-health";
+export { canLeaveDungeon } from "./dungeon-exit";

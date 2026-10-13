@@ -268,6 +268,12 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (state.dungeon?.phase === "exited")
+    return rejectBattleCommand(state, "已离开地牢，等待任务结算 / 回村接口");
+  if (state.dungeon?.pending?.id.startsWith("dungeon-exit:"))
+    return command.type === "resolveChoice"
+      ? applyDungeonCommand(state, command)
+      : rejectBattleCommand(state, "请先完成全员离开决定");
   if (state.dungeon?.pending?.id.startsWith("dungeon-trinket:")) {
     const pending = state.dungeon.pending;
     return command.type === "resolveChoice" &&
@@ -303,6 +309,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return rejectBattleCommand(state, "真实地牢战斗须完成怪物选招 / 定位 / 结算，不能手动跳过回合");
   if (
     command.type === "scoutDungeon" ||
+    command.type === "leaveDungeon" ||
     command.type === "resolveDungeonPressure" ||
     command.type === "beginDungeonExploration" ||
     command.type === "beginDungeonBacktrack" ||

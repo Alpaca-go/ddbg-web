@@ -23,12 +23,17 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     "每人 0 骰 · 等待危险结算，队伍尚未移动",
   );
   await expect(page.getByRole("button", { name: "侦察", exact: true })).toBeDisabled();
+  await page.getByRole("button", { name: "离开地牢", exact: true }).click();
+  await expect(page.getByRole("button", { name: "掷探索骰并开始结算" })).toBeDisabled();
+  await page.getByRole("button", { name: "取消离开", exact: true }).click();
+  await expect(page.getByRole("button", { name: "掷探索骰并开始结算" })).toBeEnabled();
   await page.screenshot({ path: testInfo.outputPath("dungeon-checkpoint.png"), fullPage: true });
   await page.getByLabel("侦察测试布置").selectOption("corridor");
   await page.getByRole("button", { name: "重置标准模式" }).click();
   await page.getByRole("button", { name: "选择下一段探索" }).click();
   await page.getByRole("button", { name: "D", exact: true }).click();
   await page.getByRole("button", { name: "掷探索骰并开始结算" }).click();
+  await expect(page.getByRole("button", { name: "离开地牢", exact: true })).toBeDisabled();
   // 真实种子 31 的八骰；同一英雄可先结算第二颗。
   await page.getByRole("button", { name: "hero-0:2 · Trap", exact: true }).click();
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("队伍尚未移动");
@@ -77,6 +82,14 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("dungeon-provisions")).toHaveText("剩余补给：无");
   await expect(page.getByText(/布置 RNG 游标 15/)).toBeVisible();
   await page.screenshot({ path: testInfo.outputPath("dungeon-backtrack.png"), fullPage: true });
+  await page.getByRole("button", { name: "离开地牢", exact: true }).click();
+  await page.getByRole("button", { name: "全员同意离开", exact: true }).click();
+  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已从 D 离开地牢");
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 2");
+  await expect(page.getByTestId("dungeon-provisions")).toHaveText("剩余补给：无");
+  await expect(page.getByRole("button", { name: "离开地牢", exact: true })).toBeDisabled();
+  await expect(page.getByRole("button", { name: "选择下一段探索", exact: true })).toBeDisabled();
+  await page.screenshot({ path: testInfo.outputPath("dungeon-exited.png"), fullPage: true });
   await page.getByLabel("侦察测试布置").selectOption("curio");
   await page.getByRole("button", { name: "选择下一段探索" }).click();
   await page.getByRole("button", { name: "D", exact: true }).click();
