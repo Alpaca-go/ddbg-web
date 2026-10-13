@@ -1,5 +1,17 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：共用负面怪癖获得接口（2026-10-13，UTC+8）
+
+实现 `6df3e85`，对应 [PR #144](https://github.com/Alpaca-go/ddbg-web/pull/144)。本地验证已通过，合并前核最新head两项CI；下列main是开工基线。
+
+#143最新head `5a2ee26`两项CI均成功，已按授权合并为main `95c8644`，本地同步。下方#143合并前待核是历史状态。本轮从该基线建立 `codex/phase3-negative-quirk-acquisition`，详见[专题交付](phase3-negative-quirk-acquisition-2026-10-13.md)。
+
+依据官方R26/R27–28、规格书§10.1–10.2/10.4和R-048，重新看R26完整页。新增并导出纯 `gainNegativeQuirk`：完整18张负面堆、三卡上限、第四卡仅替换正面或三负面发疯、实体守恒、共享RNG与堆空拒绝；重复感染疾病复用同一入口，保持原有抽牌/选择/结果，不新增UI或命令。
+
+新增Q-71记录负面怪癖在同卡Curio压力/状态中的生效时点与发疯后奖励顺序，未裁定、不自动套Q-68。负面Curio复合仍保持原停点，本块仅交付共用接口，不宣称新增可玩的Curio卡或完成Phase3。新增七项场景及已有疾病回归；Node24.21.0/pnpm12.9.1下typecheck、lint、88文件/856项测试、build与diff通过，PR最新head另核。非阶段末尾且无UI改动，不新增/本地重跑浏览器冒烟，CI继续六条；既有Vite/bundle提示保留。
+
+五组剩余工作仍在，后续Q-71明确后接对应奖惩，或按逐面批准接房间。普通遗迹1/9、核心盒1/28、QuestMap pending、三任务未验收、Torture候选及其余Q/VQ不变；不跳Phase4/Boss。未跟踪文件保持。
+
 ## 最新交接：Heirloom Chest 无 Torch 负面状态（2026-10-13，UTC+8）
 
 实现提交 `47a55c6`，对应 [PR #143](https://github.com/Alpaca-go/ddbg-web/pull/143)。本地验证全部通过，合并前核PR最新head两项CI；下列main基线是开工位置，不是本主题合并提交。
