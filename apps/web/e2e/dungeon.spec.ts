@@ -679,9 +679,8 @@ test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场"
   await page.getByRole("button", { name: "结算 Trap 房间", exact: true }).click();
   await page.getByRole("button", { name: "hero-0：分配陷阱房 3 点", exact: true }).click();
   await page.getByRole("button", { name: "1 伤口 + 2 压力", exact: true }).click();
-  await expect(page.getByTestId("dungeon-events")).toContainText("Q-64");
-  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 9 · 伤口 0/17");
-  await page.getByRole("button", { name: "0 伤口 + 3 压力", exact: true }).click();
+  await expect(page.getByTestId("dungeon-events")).toContainText("Trap 压力后伤口已结算");
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("伤口 1/17");
   await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 0 · 意志卡");
   await expect(page.getByRole("button", { name: "原路返回", exact: true })).toBeDisabled();
   for (const [hero, allocation] of [

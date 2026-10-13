@@ -162,6 +162,8 @@ export type DungeonState = {
     readonly roomId: string;
     readonly dungeonLevel: number;
     readonly resolvedHeroIds: readonly string[];
+    /** R-069：压力已经支付；意志后只对存活者支付本次分配的伤口。 */
+    readonly pendingAllocation?: { readonly heroId: string; readonly wounds: number };
     readonly completed: boolean;
   };
   readonly traversedCorridors?: readonly (readonly [string, string])[];

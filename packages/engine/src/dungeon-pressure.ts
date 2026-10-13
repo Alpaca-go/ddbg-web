@@ -111,6 +111,14 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
       message: "探索首次意志检定：抽取意志卡，压力归零（R28）；不触发战斗回合效果",
     });
   }
+  if (d.pressureSource === "room") {
+    const roomState: GameState = { ...state, dungeon: { ...d, phase: "awaitingRoom" } };
+    const continued =
+      d.roomResolution?.kind === "dark"
+        ? completeDungeonDarkRoom(roomState)
+        : continueDungeonTrap(roomState);
+    return { ...continued, events: [...events, ...continued.events] };
+  }
   if (d.heroes.some((h) => h.dead)) {
     d = { ...d, phase: "awaitingReplacement", scoutBonus: false };
     events.push({
@@ -123,13 +131,6 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
       type: "dungeonUpdated",
       message: "房间Curio交互前意志检定完成；不重抽、不重复交互被动",
     });
-  } else if (d.pressureSource === "room") {
-    const roomState: GameState = { ...state, dungeon: { ...d, phase: "awaitingRoom" } };
-    const continued =
-      d.roomResolution?.kind === "dark"
-        ? completeDungeonDarkRoom(roomState)
-        : continueDungeonTrap(roomState);
-    return { ...continued, events: [...events, ...continued.events] };
   } else if (d.pressureSource === "provision") {
     d = {
       ...d,

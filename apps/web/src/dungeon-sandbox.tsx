@@ -710,6 +710,9 @@ export function DungeonSandbox() {
                 ? "Dark 光照降低已支付"
                 : `Trap 已分配：${d.roomResolution.resolvedHeroIds.join("、") || "无"}`}
               {d.roomResolution.completed ? "；全员完成，保留代币" : "；仍需完成房间结算"}
+              {d.roomResolution.kind !== "dark" && "；先压力，再对存活英雄结算分配伤口"}
+              {d.roomResolution.pendingAllocation &&
+                `；${d.roomResolution.pendingAllocation.heroId} 尚待 ${d.roomResolution.pendingAllocation.wounds} 伤口`}
             </p>
           )}
           {d.phase === "awaitingProvisions" && (

@@ -319,7 +319,7 @@ it("低光暴击压力合并后只加一次；Darkness按R-069先伤口再意志
   );
 });
 
-it("低光 Trap 房间分配用实际压力判断 Q-64；纯压力完成后可继续下一英雄", () => {
+it("低光Trap混合分配先压力修正与意志，再伤口；完成后继续下一英雄", () => {
   const initial = setup(2, { stress: 8 });
   const scene = {
     ...initial,
@@ -334,12 +334,13 @@ it("低光 Trap 房间分配用实际压力判断 Q-64；纯压力完成后可�
     },
   };
   const selected = ok(pick(ok(applyCommand(scene, { type: "resolveDungeonRoom" })), "hero-0"));
-  const refused = pick(selected, "1");
-  expect(refused.state).toBe(selected);
-  expect(refused.events[0]!.message).toContain("Q-64");
-  const pure = ok(pick(selected, "0"));
-  expect(pure.dungeon!.heroes[0]).toMatchObject({ wounds: 0, stress: 0, resolveTested: true });
-  expect(pure.dungeon!.roomResolution!.resolvedHeroIds).toEqual(["hero-0"]);
-  const next = ok(pick(ok(pick(pure, "hero-1")), "1"));
+  const result = pick(selected, "1");
+  const mixed = ok(result);
+  expect(mixed.dungeon!.heroes[0]).toMatchObject({ wounds: 1, stress: 0, resolveTested: true });
+  expect(mixed.dungeon!.roomResolution!.resolvedHeroIds).toEqual(["hero-0"]);
+  expect(result.events.findIndex((e) => e.type === "resolveTested")).toBeLessThan(
+    result.events.findIndex((e) => e.type === "heroHealthResolved"),
+  );
+  const next = ok(pick(ok(pick(mixed, "hero-1")), "1"));
   expect(next.dungeon!.heroes[1]).toMatchObject({ wounds: 1, stress: 2 });
 });

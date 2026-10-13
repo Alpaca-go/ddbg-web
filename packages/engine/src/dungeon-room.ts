@@ -1,9 +1,8 @@
-import type { ApplyResult, GameState } from "./command";
+import type { ApplyResult, GameEvent, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { changeDungeonLight, settleDungeonLight } from "./dungeon-light";
-import { passiveStress } from "./passive";
 import { beginDungeonCurioRoom } from "./dungeon-curio-room";
 
 const refuse = (state: GameState, message: string): ApplyResult => ({
@@ -111,20 +110,56 @@ export function completeDungeonDarkRoom(state: GameState): ApplyResult {
 
 /** 各英雄各付自己的分配；恢复时已完成者不再进入选项。 */
 export function continueDungeonTrap(state: GameState): ApplyResult {
-  const d = state.dungeon!;
-  const active = d.roomResolution;
+  let d = state.dungeon!;
+  let active = d.roomResolution;
   if (!active || active.completed || active.roomId !== d.position || d.phase !== "awaitingRoom")
     return refuse(state, "Trap 房间续接状态无效，保持停点");
+  const events: GameEvent[] = [];
+  const emit = (dungeon: DungeonState, message: string): ApplyResult => {
+    const result = finish(state, dungeon, message);
+    return { ...result, events: [...events, ...result.events] };
+  };
+  if (active.pendingAllocation) {
+    const allocation = active.pendingAllocation;
+    const hero = d.heroes.find((h) => h.id === allocation.heroId);
+    if (
+      !hero ||
+      active.resolvedHeroIds.includes(hero.id) ||
+      !Number.isInteger(allocation.wounds) ||
+      allocation.wounds < 0 ||
+      allocation.wounds > active.dungeonLevel ||
+      (!hero.dead && hero.stress === 10)
+    )
+      return refuse(state, "Trap 分配续接无效，伤口尚未支付");
+    if (!hero.dead && allocation.wounds > 0) {
+      const health = triggerDungeonPassive(d, state.seed, [hero.id], {
+        type: "stress",
+        amount: 0,
+        woundAmounts: [allocation.wounds],
+      });
+      if (health.status === "refused") return refuse(state, health.reason);
+      d = health.dungeon;
+      events.push(...health.events);
+    }
+    const { pendingAllocation: _settled, ...remainingResolution } = active;
+    void _settled;
+    active = { ...remainingResolution, resolvedHeroIds: [...active.resolvedHeroIds, hero.id] };
+    d = { ...d, pending: null, roomResolution: active };
+    events.push({
+      type: "dungeonUpdated",
+      message: hero.dead
+        ? `${hero.id} 已死亡，取消 Trap 剩余伤口（R-069）`
+        : `${hero.id} Trap 压力后伤口已结算（R-069）`,
+    });
+  }
   if (d.heroes.some((h) => h.dead))
-    return finish(
-      state,
+    return emit(
       { ...d, pending: null, phase: "awaitingReplacement" },
       `Trap 已记录死亡：队伍在 ${d.position}，等待替换接口；不推定任务 / 战役结果（R9）`,
     );
   const remaining = d.heroes.filter((h) => !active.resolvedHeroIds.includes(h.id));
   if (!remaining.length)
-    return finish(
-      state,
+    return emit(
       { ...d, pending: null, phase: "ready", roomResolution: { ...active, completed: true } },
       `Trap ${d.position} 全员结算完成，保留代币；下次进入仍需结算（R15）`,
     );
@@ -136,7 +171,7 @@ export function continueDungeonTrap(state: GameState): ApplyResult {
       label: `${h.id}：分配陷阱房 ${active.dungeonLevel} 点`,
     })),
   };
-  return finish(state, { ...d, decision: d.decision + 1, pending }, "等待英雄分配伤口 / 压力");
+  return emit({ ...d, decision: d.decision + 1, pending }, "等待英雄分配伤口 / 压力");
 }
 
 export function chooseDungeonTrap(
@@ -195,13 +230,6 @@ export function chooseDungeonTrap(
     hero.stress > 9
   )
     return refuse(state, "Trap 分配数值 / 英雄无效");
-  if (
-    wounds > 0 &&
-    stress > 0 &&
-    (hero.wounds === hero.life ||
-      hero.stress + passiveStress(hero, stress, d.explorationSetup!.light).amount >= 10)
-  )
-    return refuse(state, "混合分配触及死门 / 压力10的结算顺序待 Q-64 确认；未扣任何数值、未掷骰");
   let changed = d;
   const message = `${hero.id}：Trap 承受 ${wounds} 伤口 + ${stress} 压力（R15、R-026）`;
   if (wounds > 0 && hero.attributesVerified !== true)
@@ -209,13 +237,12 @@ export function chooseDungeonTrap(
   const passive = triggerDungeonPassive(changed, state.seed, [hero.id], {
     type: "stress",
     amount: stress,
-    ...(wounds ? { woundAmounts: [wounds] } : {}),
   });
   if (passive.status === "refused") return refuse(state, passive.reason);
   changed = {
     ...passive.dungeon,
     pending: null,
-    roomResolution: { ...active, resolvedHeroIds: [...active.resolvedHeroIds, hero.id] },
+    roomResolution: { ...active, pendingAllocation: { heroId: hero.id, wounds } },
   };
   const next = changed.heroes.some((h) => !h.dead && h.stress === 10)
     ? resolveDungeonPressure({
