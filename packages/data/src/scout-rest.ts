@@ -2,12 +2,12 @@ import { z } from "zod";
 import { basicQuests } from "./basic-quests";
 import type { BasicQuestId } from "./basic-quests";
 
-/** QUEST p1–2：Scout Ahead 8点 / Wipe ‘Em Out 12点；R15：休息后弃柴火。 */
+/** QUEST p1–3：Scout Ahead / Fundraiser 8点，Wipe ‘Em Out 12点；R15休息后弃柴火。 */
 export const SCOUT_REST_POINTS = 8;
 export const restPoints = (id: BasicQuestId) => basicQuests.find((q) => q.id === id)!.restPoints;
 export const scoutRestSchema = z
   .strictObject({
-    questId: z.enum(["quest:p001", "quest:p002"]),
+    questId: z.enum(["quest:p001", "quest:p002", "quest:p003"]),
     used: z.boolean(),
     plan: z
       .strictObject({

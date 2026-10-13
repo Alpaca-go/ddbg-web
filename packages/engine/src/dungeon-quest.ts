@@ -1,10 +1,14 @@
 import { dungeonLayoutSchema } from "../../data/src/dungeon-layout";
-import { questRoomsSchema, dungeonQuestSummarySchema } from "../../data/src/quest-summary";
+import {
+  questRoomsSchema,
+  dungeonQuestSummarySchema,
+  fundraiserQuestSummarySchema,
+} from "../../data/src/quest-summary";
 import { matchesQuestCounts, readBasicQuest } from "../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 
-/** QUEST p1–2：按初始任务身份核构成与目标，不从地图或房间名猜测。 */
+/** QUEST p1–3：按初始任务身份核构成与目标，不从地图或房间名猜测。 */
 export function readDungeonQuestProgress(d: DungeonState) {
   const refuse = (reason: string) => ({ status: "refused" as const, reason });
   const quest = readBasicQuest(d.questDistribution);
@@ -42,7 +46,11 @@ export function readDungeonQuestProgress(d: DungeonState) {
     .map((r) => r.id)
     .sort();
   const completedRoomIds = rooms.data
-    .filter((r) => r.cleared && (quest.xpKind === "all" || r.kind === quest.xpKind))
+    .filter(
+      (r) =>
+        r.cleared &&
+        (quest.xpKind === "all" || r.kind === (quest.xpKind === "gold" ? "lair" : quest.xpKind)),
+    )
     .map((r) => r.id)
     .sort();
   return { status: "matched" as const, clearedRoomIds, completedRoomIds, quest };
@@ -59,6 +67,33 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
   const progress = readDungeonQuestProgress(d);
   if (progress.status === "refused") return refuse(progress.reason);
   const { completedRoomIds: clearedRoomIds, quest } = progress;
+  if (quest.id === "quest:p003") {
+    if (!clearedRoomIds.length) return refuse("Fundraiser最低巢穴目标未完成的退出处理待Q-70确认");
+    if (!Number.isSafeInteger(d.gold) || d.gold < 0 || (d.lootPool && d.lootPool.gold !== d.gold))
+      return refuse("共享金币 / 战利品金币不一致，不能捐献");
+    const pending = {
+      id: `dungeon-fundraiser:${d.decision}`,
+      prompt:
+        "Fundraiser：选择给继承人的金币；每20金币1XP，最多捐60金币，超出不再加XP（R-038）。0金币表示不捐献。",
+      options: [
+        ...Array.from({ length: Math.min(60, d.gold) + 1 }, (_, gold) => ({
+          id: `give:${gold}`,
+          label: `捐献${gold}金币 · 待发${Math.floor(gold / 20)}XP`,
+        })),
+        { id: "cancel", label: "取消捐献" },
+      ],
+    };
+    return {
+      state: { ...state, dungeon: { ...d, pending, decision: d.decision + 1 } },
+      events: [
+        {
+          type: "dungeonUpdated",
+          message: "最低巢穴目标已完成；等待捐献选择，尚未扣金币或生成摘要",
+        },
+      ],
+      pendingChoice: pending,
+    };
+  }
   const xpPerHero = Math.min(3, Math.floor(clearedRoomIds.length / quest.roomsPerXp));
   const questSummary = dungeonQuestSummarySchema.parse({
     questId: quest.id,
@@ -74,6 +109,74 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
       {
         type: "dungeonUpdated",
         message: `${quest.name}：${quest.xpKind === "lair" ? "巢穴" : "房间"}清理 ${clearedRoomIds.length} 间，每名英雄与驿站待发 ${xpPerHero} XP；回村发放尚未接线（R29、R-038）`,
+      },
+    ],
+  };
+}
+
+export function resolveFundraiserGold(
+  state: GameState,
+  command: { readonly choiceId: string; readonly optionId: string },
+): ApplyResult {
+  const d = state.dungeon;
+  const refuse = (message: string): ApplyResult => ({
+    state,
+    events: [{ type: "commandRefused", message }],
+  });
+  if (
+    !d ||
+    state.battle ||
+    d.phase !== "exited" ||
+    d.questSummary ||
+    !d.pending?.id.startsWith("dungeon-fundraiser:") ||
+    command.choiceId !== d.pending.id ||
+    !d.pending.options.some((o) => o.id === command.optionId)
+  )
+    return refuse("捐献选择无效或已过期");
+  if (command.optionId === "cancel")
+    return {
+      state: { ...state, dungeon: { ...d, pending: null } },
+      events: [{ type: "dungeonUpdated", message: "取消捐献选择，未扣金币" }],
+    };
+  const progress = readDungeonQuestProgress(d);
+  const match = /^give:(0|[1-9]\d*)$/.exec(command.optionId);
+  const gold = match ? Number(match[1]) : NaN;
+  if (
+    progress.status !== "matched" ||
+    progress.quest.id !== "quest:p003" ||
+    !progress.completedRoomIds.length ||
+    !Number.isSafeInteger(d.gold) ||
+    d.gold < 0 ||
+    !Number.isSafeInteger(gold) ||
+    gold > Math.min(60, d.gold) ||
+    (d.lootPool && d.lootPool.gold !== d.gold)
+  )
+    return refuse("任务 / 最低目标 / 捐献金额 / 共享金币无效，未提交");
+  const xp = Math.floor(gold / 20);
+  const questSummary = fundraiserQuestSummarySchema.parse({
+    questId: "quest:p003",
+    name: "Fundraiser I",
+    clearedRoomIds: progress.completedRoomIds,
+    donatedGold: gold,
+    xpPerHero: xp,
+    stagecoachXp: xp,
+    awarded: false,
+  });
+  return {
+    state: {
+      ...state,
+      dungeon: {
+        ...d,
+        pending: null,
+        gold: d.gold - gold,
+        ...(d.lootPool ? { lootPool: { ...d.lootPool, gold: d.gold - gold } } : {}),
+        questSummary,
+      },
+    },
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: `Fundraiser捐献${gold}金币，每名英雄与驿站待发${xp}XP；回村发放尚未接线（R29、R-038）`,
       },
     ],
   };

@@ -2,6 +2,7 @@ import { expect, it } from "vitest";
 import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../data/normalized/corebox/scout_ahead_distribution.json";
 import wipeDistribution from "../../data/normalized/corebox/wipe_em_out_distribution.json";
+import fundraiserDistribution from "../../data/normalized/corebox/fundraiser_distribution.json";
 import rooms from "../../data/normalized/corebox/room.json";
 import pool from "../../data/normalized/corebox/monster_pool.json";
 import statsFile from "../../data/normalized/corebox/hero_stat.json";
@@ -438,6 +439,69 @@ it.each(["victory", "retreat"] as const)(
     expect(s.dungeon!.questSummary!.clearedRoomIds).toEqual(outcome === "victory" ? ["D"] : []);
   },
 );
+it.each([
+  ["victory", "lair", 10],
+  ["retreat", "lair", 0],
+  ["victory", "treasure", 20],
+] as const)("Fundraiser %s / %s 回传奖励%i金币，一次提交并同步战利品池", (outcome, kind, gold) => {
+  const t = terminal(outcome);
+  const generated = createDungeonSandbox(
+    goodSeed,
+    layout,
+    fundraiserDistribution,
+    "radiant",
+    "D",
+  ).dungeon!;
+  const originalKind = generated.rooms.find((r) => r.id === "D")!.kind;
+  const donor = generated.rooms.find((r) => r.kind === kind)!.id;
+  const s: GameState = {
+    ...t,
+    dungeon: {
+      ...t.dungeon!,
+      questDistribution: generated.questDistribution!,
+      rest: generated.rest!,
+      rooms: generated.rooms.map((r) =>
+        r.id === "D"
+          ? { ...r, kind, revealed: true }
+          : r.id === donor && originalKind !== kind
+            ? { ...r, kind: originalKind }
+            : r,
+      ),
+    },
+  };
+  const result = send(s, { type: "finishDungeonBattle" });
+  expect(result.dungeon!.gold).toBe(gold);
+  expect(result.dungeon!.lootPool!.gold).toBe(gold);
+  expect(applyCommand(result, { type: "finishDungeonBattle" }).state).toBe(result);
+  if (outcome === "victory" && kind === "lair") {
+    let next = send(result, { type: "leaveDungeon" });
+    next = send(next, {
+      type: "resolveChoice",
+      choiceId: next.dungeon!.pending!.id,
+      optionId: "agree",
+    });
+    next = send(next, { type: "summarizeDungeonQuest" });
+    next = send(next, {
+      type: "resolveChoice",
+      choiceId: next.dungeon!.pending!.id,
+      optionId: "give:10",
+    });
+    expect(next.dungeon!.gold).toBe(0);
+    expect(next.dungeon!.lootPool!.gold).toBe(0);
+    expect(next.dungeon!.questSummary).toMatchObject({ donatedGold: 10, xpPerHero: 0 });
+  }
+});
+it("Fundraiser终局任务构成错配原子拒绝，不先发10金币或回传RNG", () => {
+  const t = terminal("victory");
+  const bad = {
+    ...t,
+    dungeon: {
+      ...t.dungeon!,
+      questDistribution: { ...t.dungeon!.questDistribution!, questId: "quest:p003" },
+    },
+  };
+  expect(applyCommand(bad, { type: "finishDungeonBattle" }).state).toBe(bad);
+});
 it("撤退不清房不发奖，须离开；保留弃房牌和洗回怪物的下一战牌序", () => {
   const a = send(terminal("retreat"), { type: "finishDungeonBattle" });
   expect(a.dungeon!.gold).toBe(0);

@@ -1,0 +1,11 @@
+{
+  "questId": "quest:p003",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p3; R15 / R29 / R-038; print reviewed 2026-10-13",
+  "counts": [
+    { "kind": "empty", "count": 1 },
+    { "kind": "curio", "count": 2 },
+    { "kind": "treasure", "count": 1 },
+    { "kind": "lair", "count": 2 },
+    { "kind": "trap", "count": 2 }
+  ]
+}

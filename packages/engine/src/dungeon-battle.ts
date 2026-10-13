@@ -1,4 +1,5 @@
 import { readRoomTile } from "./room-tile-selection";
+import { readDungeonQuestProgress } from "./dungeon-quest";
 import { ruinsMonsterPool } from "../../data/src/monster-pool";
 import { createBattleState, rejectBattleCommand, skillTargetView } from "./battle";
 import type { BattleEntity } from "./battle";
@@ -283,7 +284,17 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
       statusStacks: entity.statusStacks ?? [],
     };
   });
-  const bonus = victory && d.rooms.find((r) => r.id === d.position)?.kind === "treasure" ? 20 : 0;
+  const fundraiser = d.questDistribution?.questId === "quest:p003";
+  if (fundraiser) {
+    const progress = readDungeonQuestProgress({
+      ...d,
+      roomCards: { ...d.roomCards!, active: null },
+      monsterPool: { ...pool, active: null },
+    });
+    if (progress.status !== "matched") return rejectBattleCommand(state, progress.reason);
+  }
+  const kind = d.rooms.find((r) => r.id === d.position)?.kind;
+  const bonus = victory ? (kind === "treasure" ? 20 : fundraiser && kind === "lair" ? 10 : 0) : 0;
   const { battle: _finished, ...outside } = state;
   void _finished;
   return {
@@ -319,7 +330,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
       {
         type: "dungeonUpdated",
         message: victory
-          ? `胜利返回地图：房间已清理${bonus ? "，宝藏奖励 +20 金币" : ""}；房间牌弃置、42 张怪物洗回（R15、R25）`
+          ? `胜利返回地图：房间已清理${bonus ? `，${kind === "treasure" ? "宝藏" : "Fundraiser巢穴"}奖励 +${bonus} 金币` : ""}；房间牌弃置、42 张怪物洗回（R15、R25）`
           : "第四轮撤退返回地图：房间未清理，必须先离开；房间牌弃置、42 张怪物洗回（R25）",
       },
     ],

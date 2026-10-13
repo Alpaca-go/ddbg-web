@@ -1,8 +1,9 @@
 import scout from "../normalized/corebox/scout_ahead_distribution.json";
 import wipe from "../normalized/corebox/wipe_em_out_distribution.json";
+import fundraiser from "../normalized/corebox/fundraiser_distribution.json";
 import { roomDistributionSchema } from "./dungeon-layout";
 
-/** 官方R15 / R29、QUEST p1–2：无专属房间规则的I级任务；不借此开放其他任务。 */
+/** 官方R15 / R29、QUEST p1–3：已核对I级任务的明确分支；未决规则仍保持停点。 */
 export const basicQuests = [
   {
     id: "quest:p001",
@@ -21,6 +22,15 @@ export const basicQuests = [
     roomsPerXp: 1,
     maxRooms: 3,
     distribution: roomDistributionSchema.parse(wipe),
+  },
+  {
+    id: "quest:p003",
+    name: "Fundraiser I",
+    restPoints: 8,
+    xpKind: "gold",
+    roomsPerXp: 20,
+    maxRooms: 2,
+    distribution: roomDistributionSchema.parse(fundraiser),
   },
 ] as const;
 export type BasicQuestId = (typeof basicQuests)[number]["id"];

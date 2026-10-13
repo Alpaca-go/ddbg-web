@@ -243,6 +243,23 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   );
   await expect(page.getByTestId("dungeon-quest-summary")).toContainText("每名英雄待发 0 XP");
   await page.screenshot({ path: testInfo.outputPath("wipe-retreat-summary.png"), fullPage: true });
+  await page.getByLabel("侦察测试布置").selectOption("fundraiser");
+  await expect(page.getByRole("button", { name: "离开地牢", exact: true })).toBeDisabled();
+  await expect(page.getByText(/未达目标的退出处理待Q-70确认/)).toBeVisible();
+  await page.getByLabel("侦察测试布置").selectOption("fundraiserRewards");
+  await expect(page.getByText(/60金币，仅检查退出捐献/)).toBeVisible();
+  await page.getByRole("button", { name: "离开地牢", exact: true }).click();
+  await page.getByRole("button", { name: "全员同意离开", exact: true }).click();
+  await page.getByRole("button", { name: "生成任务结算摘要", exact: true }).click();
+  await page.getByRole("button", { name: "取消捐献", exact: true }).click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：60");
+  await page.getByRole("button", { name: "生成任务结算摘要", exact: true }).click();
+  await page.getByLabel("捐献金币", { exact: true }).selectOption("give:40");
+  await page.getByRole("button", { name: "确认捐献", exact: true }).click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：20");
+  await expect(page.getByTestId("dungeon-quest-summary")).toContainText("每名英雄待发 2 XP");
+  await expect(page.getByTestId("dungeon-quest-summary")).toContainText("捐献40金币");
+  await page.screenshot({ path: testInfo.outputPath("fundraiser-summary.png"), fullPage: true });
   // 同一条关键冒烟验证完整池自然抽到的 Maggot 感染；房间代币是显式测试布置。
   await page.goto("/?phase=3");
   await page.getByLabel("侦察测试布置").selectOption("roomDisease");
