@@ -1952,7 +1952,7 @@
    "ruling": "R-065",
    "approval": "Kyries/Grok 2026-10-13",
    "geometryVerified": true,
-   "usable": false,
+   "usable": true,
    "deployment": {
     "printReview": "verified",
     "heroes": {
@@ -2041,7 +2041,7 @@
      "effect": "feelingThePresence",
      "status": "confirmed",
      "printedText": "Feeling the Presence: Heroes ending their turn here suffer Stress +1 per Negative Quirk and heal 1 / Hero Level per Positive Quirk.",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "O5",
@@ -2049,7 +2049,7 @@
      "effect": "feelingThePresence",
      "status": "confirmed",
      "printedText": "Feeling the Presence: Heroes ending their turn here suffer Stress +1 per Negative Quirk and heal 1 / Hero Level per Positive Quirk.",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "areas": [

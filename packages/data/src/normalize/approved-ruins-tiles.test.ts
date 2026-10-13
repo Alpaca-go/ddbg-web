@@ -8,7 +8,6 @@ it.each([
   [4, "back", 3, [2, 4, 3, 3, 3, 2, 2, 4, 2, 3, 3, 3], 15, 0, 2],
   [6, "back", 4, [2, 4, 3, 2, 4, 2, 2, 3, 3], 8, 0, 1],
   [8, "back", 5, [4, 2, 3, 4, 2, 3, 2, 3, 4, 3], 9, 4, 0],
-  [9, "front", 5, [4, 3, 2, 3, 4, 3, 2, 4, 2], 10, 4, 2],
 ] as const)(
   "遗迹%i独立获批几何与整面锁定，完整特殊运行时尚未开放（R-065–067）",
   (number, face, page, capacities, passages, corners, blocked) => {
@@ -39,7 +38,10 @@ it.each([
           heroes: { ...tile.deployment.heroes, aggressive: tile.areas[0]!.id },
         },
       },
-      { ...tile, source: { ...tile.source, face: face === "front" ? "back" : "front" } },
+      {
+        ...tile,
+        source: { ...tile.source, face: tile.source.face === "front" ? "back" : "front" },
+      },
     ])
       expect(roomTileGeometrySchema.safeParse(changed).success).toBe(false);
     const selected = selectRoomTile(
@@ -68,9 +70,9 @@ it("Spiked最终十五通路、两墙、无角点；Treasure T4-T5为墙，均�
   });
   expect(treasure.edges.some((e) => !e.blocked && (e.from === "T4" || e.to === "T4"))).toBe(false);
 });
-it("所有九面几何已入库，五面可战；其他核心盒面未被批准", () => {
+it("所有九面几何已入库，六面可战；其他核心盒面未被批准", () => {
   expect(file.tiles).toHaveLength(9);
-  expect(file.tiles.filter((t) => t.usable)).toHaveLength(5);
+  expect(file.tiles.filter((t) => t.usable)).toHaveLength(6);
   expect(file.tiles.map((t) => t.number).sort((a, b) => a - b)).toEqual([
     1, 2, 3, 4, 5, 6, 7, 8, 9,
   ]);

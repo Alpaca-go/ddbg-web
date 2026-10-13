@@ -69,6 +69,7 @@ export type BattleEntity = PassiveHolder &
   };
 
 export type BattleArea = {
+  readonly feelingThePresence?: true;
   readonly ancestorGlory?: true;
   readonly healingForbidden?: true;
   readonly endTurnHeal?: 3;
