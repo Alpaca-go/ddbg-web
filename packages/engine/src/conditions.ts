@@ -221,10 +221,60 @@ export function gainDisease<T extends ConditionHero>(
   };
   let quirkId: string | undefined;
   let replaceOptions: readonly string[] | undefined;
-  let updated: T = { ...hero, diseaseId };
+  let nextHeroes = heroes.map((h) => (h.id === heroId ? { ...h, diseaseId } : h));
   if (hero.diseaseId) {
-    const negativeDeck = draw(
-      pool.negativeDeck,
+    const acquired = gainNegativeQuirk(nextPool, nextHeroes, heroId, seed, nextCursor);
+    if (acquired.status === "refused") return acquired;
+    quirkId = acquired.quirkId;
+    replaceOptions = acquired.replaceOptions;
+    nextPool = acquired.pool;
+    nextHeroes = [...acquired.heroes];
+    nextCursor = acquired.cursor;
+  }
+  return {
+    status: "resolved",
+    pool: nextPool,
+    heroes: nextHeroes,
+    cursor: nextCursor,
+    diseaseId,
+    ...(quirkId ? { quirkId } : {}),
+    ...(replaceOptions ? { replaceOptions } : {}),
+  };
+}
+
+/** R26：负面堆完整抽取；第四张只替换正面，三负面时发疯永久死亡。 */
+export function gainNegativeQuirk<T extends ConditionHero>(
+  pool: ConditionPool,
+  heroes: readonly T[],
+  heroId: string,
+  seed: number,
+  cursor: number,
+):
+  | { status: "refused"; reason: string }
+  | {
+      status: "resolved";
+      pool: ConditionPool;
+      heroes: readonly T[];
+      cursor: number;
+      quirkId: string;
+      replaceOptions?: readonly string[];
+    } {
+  if (pool && pool.negativeDeck !== null && !Array.isArray(pool.negativeDeck))
+    return { status: "refused", reason: "负面牌堆必须明确未洗牌或完整牌列" };
+  const problem = conditionPoolProblem(pool, heroes);
+  const hero = heroes.find((h) => h.id === heroId);
+  if (
+    problem ||
+    !hero ||
+    hero.dead ||
+    pool.incomingQuirk ||
+    !Number.isSafeInteger(seed) ||
+    !Number.isSafeInteger(cursor) ||
+    cursor < 0
+  )
+    return { status: "refused", reason: problem ?? "负面怪癖需要存活英雄、有效RNG且没有待选怪癖" };
+  const deck = [
+    ...(pool.negativeDeck ??
       pool.quirks
         .filter(
           (c) =>
@@ -232,25 +282,38 @@ export function gainDisease<T extends ConditionHero>(
             !heroes.some((h) => h.quirkIds?.includes(c.id)) &&
             !pool.quirkDiscard.includes(c.id),
         )
-        .map((c) => c.id),
+        .map((c) => c.id)),
+  ];
+  if (!deck.length) return { status: "refused", reason: "负面怪癖堆耗尽，未洗回弃牌（R32）" };
+  const shuffleSteps = pool.negativeDeck === null ? deck.length - 1 : 0;
+  if (!Number.isSafeInteger(cursor + shuffleSteps))
+    return { status: "refused", reason: "负面怪癖洗牌游标超出安全范围" };
+  let nextCursor = cursor;
+  if (shuffleSteps > 0) {
+    const rng = createRng(seed);
+    for (let i = 0; i < cursor; i++) rng.next();
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(rng.next() * (i + 1));
+      [deck[i], deck[j]] = [deck[j]!, deck[i]!];
+      nextCursor++;
+    }
+  }
+  const quirkId = deck.shift()!;
+  let nextPool: ConditionPool = { ...pool, negativeDeck: deck };
+  const held = hero.quirkIds ?? [];
+  let updated = hero;
+  let replaceOptions: readonly string[] | undefined;
+  if (held.length < 3) updated = { ...hero, quirkIds: [...held, quirkId] };
+  else {
+    const positive = held.filter((id) =>
+      pool.quirks.some((c) => c.id === id && c.polarity === "positive"),
     );
-    quirkId = negativeDeck.shift();
-    if (!quirkId)
-      return { status: "refused", reason: "负面怪癖堆耗尽，未提交感染或洗回弃牌（R32）" };
-    nextPool = { ...nextPool, negativeDeck };
-    const held = hero.quirkIds ?? [];
-    if (held.length < 3) updated = { ...updated, quirkIds: [...held, quirkId] };
-    else {
-      replaceOptions = held.filter((id) =>
-        pool.quirks.some((c) => c.id === id && c.polarity === "positive"),
-      );
-      if (replaceOptions.length)
-        nextPool = { ...nextPool, incomingQuirk: { heroId, cardId: quirkId } };
-      else {
-        updated = { ...updated, dead: true, deathReason: "madness" };
-        nextPool = { ...nextPool, quirkDiscard: [...nextPool.quirkDiscard, quirkId] };
-        replaceOptions = undefined;
-      }
+    if (positive.length) {
+      nextPool = { ...nextPool, incomingQuirk: { heroId, cardId: quirkId } };
+      replaceOptions = positive;
+    } else {
+      updated = { ...hero, dead: true, deathReason: "madness" };
+      nextPool = { ...nextPool, quirkDiscard: [...pool.quirkDiscard, quirkId] };
     }
   }
   return {
@@ -258,8 +321,7 @@ export function gainDisease<T extends ConditionHero>(
     pool: nextPool,
     heroes: heroes.map((h) => (h.id === heroId ? updated : h)),
     cursor: nextCursor,
-    diseaseId,
-    ...(quirkId ? { quirkId } : {}),
+    quirkId,
     ...(replaceOptions ? { replaceOptions } : {}),
   };
 }
