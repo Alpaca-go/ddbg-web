@@ -8,6 +8,7 @@ import { drawDungeonCurio } from "./dungeon-curio";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import { resolveDungeonTrap } from "./dungeon-trap";
 import { changeDungeonLight } from "./dungeon-light";
+import { PROVISION_FACES } from "./loot";
 
 const faces = explorationDieSchema.parse(die).faces;
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
@@ -120,7 +121,7 @@ export function applyDungeonExploration(
         config.light > 5 ||
         config.provisions.length > 16 ||
         new Set(config.provisions.map((p) => p.id)).size !== config.provisions.length ||
-        config.provisions.some((p) => !p.id || !["food", "torch", "tool"].includes(p.face)) ||
+        config.provisions.some((p) => !p.id || !PROVISION_FACES.includes(p.face)) ||
         new Set(d.heroes.map((h) => h.stance)).size !== d.heroes.length ||
         d.heroes.some(
           (h) =>
