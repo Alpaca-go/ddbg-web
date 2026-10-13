@@ -1,8 +1,13 @@
 import type { ApplyResult, GameState } from "./command";
+import { readDungeonQuestProgress } from "./dungeon-quest";
 
 /** R14：探索阶段、掷骰前，全员同意离开；不能跳过已开始的结算。 */
 export function canLeaveDungeon(state: GameState): boolean {
   const d = state.dungeon;
+  if (d?.questDistribution?.questId === "quest:p003") {
+    const progress = readDungeonQuestProgress(d);
+    if (progress.status !== "matched" || !progress.completedRoomIds.length) return false;
+  }
   return !!(
     d &&
     !state.battle &&

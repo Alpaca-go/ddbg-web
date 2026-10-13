@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { useState } from "react";
 import {
   applyCommand,
   canLeaveDungeon,
@@ -7,7 +8,7 @@ import {
   createTrinketPool,
   readRoomTile,
 } from "@ddbg/engine";
-import type { Command, GameEvent, GameState, DungeonState } from "@ddbg/engine";
+import type { Command, GameEvent, GameState, DungeonState, PendingChoice } from "@ddbg/engine";
 import rawLayouts from "../../../packages/data/normalized/corebox/dungeon_layouts.json";
 import { dungeonLayoutFileSchema } from "../../../packages/data/src/dungeon-layout";
 import type { DungeonLayout } from "../../../packages/data/src/dungeon-layout";
@@ -15,6 +16,7 @@ import { battleData } from "virtual:battle-data";
 import { BattleView } from "./battle-view";
 import distribution from "../../../packages/data/normalized/corebox/scout_ahead_distribution.json";
 import wipeDistribution from "../../../packages/data/normalized/corebox/wipe_em_out_distribution.json";
+import fundraiserDistribution from "../../../packages/data/normalized/corebox/fundraiser_distribution.json";
 import { readBasicQuest } from "../../../packages/data/src/basic-quests";
 import { restPoints } from "../../../packages/data/src/scout-rest";
 import rawRooms from "../../../packages/data/normalized/corebox/room.json";
@@ -40,8 +42,42 @@ function curioEffectLabel(effect: CurioEffect) {
 }
 
 const layouts = dungeonLayoutFileSchema.parse(rawLayouts).layouts;
+function FundraiserChoice({
+  choice,
+  choose,
+}: {
+  choice: PendingChoice;
+  choose: (id: string) => void;
+}) {
+  const [selected, setSelected] = useState(choice.options[0]!.id);
+  return (
+    <div>
+      <label>
+        捐献金币
+        <select
+          aria-label="捐献金币"
+          value={selected}
+          onChange={(e) => setSelected(e.target.value)}
+        >
+          {choice.options
+            .filter((o) => o.id !== "cancel")
+            .map((o) => (
+              <option key={o.id} value={o.id}>
+                {o.label}
+              </option>
+            ))}
+        </select>
+      </label>
+      <button onClick={() => choose(selected)}>确认捐献</button>{" "}
+      <button onClick={() => choose("cancel")}>取消捐献</button>
+    </div>
+  );
+}
 const curios = curioFileSchema.parse(rawCurios).cards;
 type Fixture =
+  | "fundraiser"
+  | "fundraiserBattle"
+  | "fundraiserRewards"
   | "wipe"
   | "wipeBattle"
   | "neutral"
@@ -110,7 +146,7 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       : {}),
   }));
   const initial = createDungeonSandbox(
-    fixture === "wipeBattle"
+    fixture === "wipeBattle" || fixture === "fundraiserBattle"
       ? 1885
       : fixture === "roomDisease"
         ? 4
@@ -138,7 +174,11 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
                               ? 31
                               : 1,
     layout,
-    fixture === "wipe" || fixture === "wipeBattle" ? wipeDistribution : distribution,
+    fixture.startsWith("fundraiser")
+      ? fundraiserDistribution
+      : fixture === "wipe" || fixture === "wipeBattle"
+        ? wipeDistribution
+        : distribution,
     mode,
     position,
     heroes,
@@ -175,69 +215,87 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       : undefined;
   const wipeRoom = initial.dungeon!.rooms.find((r) => r.kind === "lair")!;
   const game =
-    fixture === "wipeBattle"
+    fixture === "fundraiserRewards"
       ? {
           ...initial,
           dungeon: {
             ...initial.dungeon!,
+            gold: 60,
             position: wipeRoom.id,
             visited: [wipeRoom.id],
-            phase: "awaitingRoom" as const,
-            rooms: initial.dungeon!.rooms.map((r) => ({ ...r, revealed: r.id === wipeRoom.id })),
+            rooms: initial.dungeon!.rooms.map((r) => ({
+              ...r,
+              revealed: r.id === wipeRoom.id,
+              ...(r.id === wipeRoom.id ? { cleared: true } : {}),
+            })),
           },
         }
-      : fixture === "corridor" ||
-          fixture === "curio" ||
-          fixture === "curioBuff" ||
-          fixture === "curioProvision" ||
-          fixture === "curioPositive" ||
-          fixture === "curioRewards" ||
-          fixture === "curioTrinket" ||
-          fixture === "curioComposite"
+      : fixture === "wipeBattle" || fixture === "fundraiserBattle"
         ? {
             ...initial,
             dungeon: {
               ...initial.dungeon!,
-              rooms: initial.dungeon!.rooms.map((r) =>
-                r.id === position
-                  ? { ...r, ...(corridorSwap ? { kind: "empty" as const } : {}), cleared: true }
-                  : r.id === corridorSwap
-                    ? { ...r, kind: startingKind }
-                    : r,
-              ),
+              position: wipeRoom.id,
+              visited: [wipeRoom.id],
+              phase: "awaitingRoom" as const,
+              rooms: initial.dungeon!.rooms.map((r) => ({ ...r, revealed: r.id === wipeRoom.id })),
             },
           }
-        : fixture === "dark"
+        : fixture === "corridor" ||
+            fixture === "curio" ||
+            fixture === "curioBuff" ||
+            fixture === "curioProvision" ||
+            fixture === "curioPositive" ||
+            fixture === "curioRewards" ||
+            fixture === "curioTrinket" ||
+            fixture === "curioComposite"
           ? {
               ...initial,
               dungeon: {
                 ...initial.dungeon!,
                 rooms: initial.dungeon!.rooms.map((r) =>
-                  r.id === "D"
-                    ? { ...r, kind: "dark" as const }
-                    : r.kind === "dark"
-                      ? { ...r, kind: initial.dungeon!.rooms.find((room) => room.id === "D")!.kind }
-                      : r.id === position
-                        ? { ...r, cleared: true }
-                        : r,
+                  r.id === position
+                    ? { ...r, ...(corridorSwap ? { kind: "empty" as const } : {}), cleared: true }
+                    : r.id === corridorSwap
+                      ? { ...r, kind: startingKind }
+                      : r,
                 ),
               },
             }
-          : fixture === "roomDisease"
+          : fixture === "dark"
             ? {
                 ...initial,
                 dungeon: {
                   ...initial.dungeon!,
                   rooms: initial.dungeon!.rooms.map((r) =>
                     r.id === "D"
-                      ? { ...r, kind: "lair" as const }
-                      : r.id === "A"
-                        ? { ...r, kind: "curio" as const }
-                        : r,
+                      ? { ...r, kind: "dark" as const }
+                      : r.kind === "dark"
+                        ? {
+                            ...r,
+                            kind: initial.dungeon!.rooms.find((room) => room.id === "D")!.kind,
+                          }
+                        : r.id === position
+                          ? { ...r, cleared: true }
+                          : r,
                   ),
                 },
               }
-            : initial;
+            : fixture === "roomDisease"
+              ? {
+                  ...initial,
+                  dungeon: {
+                    ...initial.dungeon!,
+                    rooms: initial.dungeon!.rooms.map((r) =>
+                      r.id === "D"
+                        ? { ...r, kind: "lair" as const }
+                        : r.id === "A"
+                          ? { ...r, kind: "curio" as const }
+                          : r,
+                    ),
+                  },
+                }
+              : initial;
   return {
     game,
     page,
@@ -310,9 +368,11 @@ export function DungeonSandbox() {
             光照 {d.explorationSetup?.light ?? "待配置"}、DL {d.explorationSetup!.dungeonLevel}
           </p>
           <p>
-            {preview
-              ? "16 槽地图仅预览，未解释标记保留，未开启 Boss 规则。"
-              : "测试注入：导航就绪英雄与六个补给；从选路开始，逐骰结算后进入目标节点。"}
+            {fixture === "fundraiserRewards"
+              ? "测试注入：已清理一间巢穴与60金币，仅检查退出捐献，不代表实战获得。"
+              : preview
+                ? "16 槽地图仅预览，未解释标记保留，未开启 Boss 规则。"
+                : "测试注入：导航就绪英雄与六个补给；从选路开始，逐骰结算后进入目标节点。"}
           </p>
           <a href="/">返回战斗沙盒</a>
         </div>
@@ -334,6 +394,9 @@ export function DungeonSandbox() {
           侦察测试布置
           <select value={fixture} onChange={(e) => select(page, e.target.value as Fixture)}>
             <option value="neutral">中立英雄</option>
+            <option value="fundraiser">Fundraiser I · 完整八枚代币</option>
+            <option value="fundraiserBattle">Fundraiser I · 巢穴战斗入口（种子1885）</option>
+            <option value="fundraiserRewards">Fundraiser I · 结算测试（1巢穴与60金币注入）</option>
             <option value="wipe">Wipe ‘Em Out I · 完整八枚代币（种子1）</option>
             <option value="wipeBattle">Wipe ‘Em Out I · 巢穴战斗入口（种子1885）</option>
             <option value="pressure">首次检定（hero-0 压力 9）</option>
@@ -610,18 +673,26 @@ export function DungeonSandbox() {
             {d.explorationSetup!.provisions.map((p) => `${p.id} ${p.face}`).join(" · ") || "无"}
           </p>
           <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
+          {quest?.id === "quest:p003" && (
+            <p>Fundraiser最低目标：清理一间巢穴；未达目标的退出处理待Q-70确认。</p>
+          )}
           {d.phase === "exited" && (
             <div data-testid="dungeon-quest-summary">
               {d.questSummary ? (
                 <p>
                   {d.questSummary.name} ·{" "}
-                  {d.questSummary.questId === "quest:p002" ? "巢穴清理" : "清理"}{" "}
+                  {d.questSummary.questId !== "quest:p001" ? "巢穴清理" : "清理"}{" "}
                   {d.questSummary.clearedRoomIds.length} / {quest!.maxRooms} 间 · 每名英雄待发{" "}
                   {d.questSummary.xpPerHero} XP · 驿站待发 {d.questSummary.stagecoachXp} XP ·
                   回村发放尚未接线
+                  {d.questSummary.questId === "quest:p003" &&
+                    ` · 捐献${d.questSummary.donatedGold}金币`}
                 </p>
               ) : (
-                <button onClick={() => dispatch({ type: "summarizeDungeonQuest" })}>
+                <button
+                  disabled={!!d.pending}
+                  onClick={() => dispatch({ type: "summarizeDungeonQuest" })}
+                >
                   生成任务结算摘要
                 </button>
               )}
@@ -689,16 +760,26 @@ export function DungeonSandbox() {
           {d.pending && (
             <div>
               <p>{d.pending.prompt}</p>
-              {d.pending.options.map((o) => (
-                <button
-                  key={o.id}
-                  onClick={() =>
-                    dispatch({ type: "resolveChoice", choiceId: d.pending!.id, optionId: o.id })
+              {d.pending.id.startsWith("dungeon-fundraiser:") ? (
+                <FundraiserChoice
+                  key={d.pending.id}
+                  choice={d.pending}
+                  choose={(optionId) =>
+                    dispatch({ type: "resolveChoice", choiceId: d.pending!.id, optionId })
                   }
-                >
-                  {o.label}
-                </button>
-              ))}
+                />
+              ) : (
+                d.pending.options.map((o) => (
+                  <button
+                    key={o.id}
+                    onClick={() =>
+                      dispatch({ type: "resolveChoice", choiceId: d.pending!.id, optionId: o.id })
+                    }
+                  >
+                    {o.label}
+                  </button>
+                ))
+              )}
             </div>
           )}
           <p data-testid="dungeon-checkpoint">

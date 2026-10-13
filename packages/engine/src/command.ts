@@ -1,6 +1,6 @@
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { applyDungeonCommand } from "./dungeon";
-import { summarizeDungeonQuest } from "./dungeon-quest";
+import { summarizeDungeonQuest, resolveFundraiserGold } from "./dungeon-quest";
 import { restDungeon } from "./dungeon-rest";
 import { useDungeonTorch } from "./dungeon-light";
 import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
@@ -272,6 +272,10 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (state.dungeon?.pending?.id.startsWith("dungeon-fundraiser:"))
+    return command.type === "resolveChoice"
+      ? resolveFundraiserGold(state, command)
+      : rejectBattleCommand(state, "请先完成捐献选择");
   if (command.type === "restDungeon") return restDungeon(state, command);
   if (state.dungeon?.pending?.id.startsWith("dungeon-rest:"))
     return command.type === "resolveChoice"

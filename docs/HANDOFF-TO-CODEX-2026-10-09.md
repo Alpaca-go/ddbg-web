@@ -1,5 +1,6 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-13 最新入口：#137准确head两项CI成功后已合并main `1036a3b`。本轮 `codex/phase3-fundraiser` 接第三张任务的明确分支：Lair胜利10金币 / 任务结束后明确捐献0–60金币 / 同额待发XP；Q-70未达最低目标退出保持停点。823项测试与六条冒烟通过，远端最新head CI另核。回村发放及Phase3验收未完成，新板块与全部Q / VQ保持。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[Fundraiser交付](phase3-fundraiser-2026-10-13.md)。
 > 2026-10-13 最新入口：#136准确head两项CI成功后已合并main `36bca29`。本轮 `codex/phase3-wipe-em-out` 接第二张基础任务Wipe ‘Em Out I，完整分布 / 巢穴计分 / 12点休息 / 真实守卫退场与0XP摘要；807项测试和六条冒烟通过。第三张任务、回村发放与Phase3验收未完成，新板块与Q / VQ（含Q-69）边界保持，不跳Phase4。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[任务交付](phase3-wipe-em-out-2026-10-13.md)。
 
 > 2026-10-13 最新入口：#135 准确head两项CI成功后已合并main `8694df5`。本轮 `codex/phase3-scout-rest` 接Scout Ahead 8点基础休息，全员同意 / 共同或均分 / 八点原子恢复 / 弃柴火；Q-69的三项恢复怪癖分组保持停点，不猜测。其他任务与Phase3验收仍未完成，不跳Phase4，新板块审批与既有排除项保持。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[休息交付](phase3-scout-rest-2026-10-13.md)。
