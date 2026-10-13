@@ -2,7 +2,7 @@
 
 ## 最新交接：其余五面批准几何（2026-10-13，UTC+8）
 
-#153最终head `2cc3ddc`两项CI成功，合并main `411ad72`。R-065/066/067其余五面几何、部署、特殊区域印刷绑定独立入库，普通遗迹9/9几何齐、仅4/9可战；五面usable/runtimeReady仍false。Spiked S1断图按批准保持，已提出数据复核；Shuffle位置触发Q-72已向Kyries提出具体选项，不能猜测开放。详见[几何交付](phase3-approved-ruins-geometry-2026-10-13.md)。随后继续公共压力顺序、各面完整运行时与真实三任务路径。
+#153最终head `2cc3ddc`两项CI成功，合并main `411ad72`。R-065/066/067其余五面几何、部署、特殊区域印刷绑定独立入库，普通遗迹9/9几何齐、仅4/9可战；五面usable/runtimeReady仍false。R-071再次确认Spiked S1断图保持、不可清场走第4轮撤退；Shuffle按实际S8/S9落点触发（含截断），经过／移出／起点不另触发，Q-72已confirmed。完整运行时未齐仍不开放。详见[几何交付](phase3-approved-ruins-geometry-2026-10-13.md)。随后继续公共压力顺序、各面完整运行时与真实三任务路径。
 
 ## 最新交接：mutualWipeout（2026-10-13，UTC+8）
 
