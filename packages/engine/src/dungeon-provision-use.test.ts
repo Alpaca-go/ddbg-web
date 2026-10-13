@@ -184,7 +184,7 @@ describe("探索间补给 R12", () => {
       expect(result).toEqual(use(initial, "food", "heal"));
     }
   });
-  it("缺意志牌时只支付一次Food，补齐后续接；Q-66复合原子拒绝", () => {
+  it("缺意志牌时Food与追加伤口只支付一次，补齐后意志续接（R-069）", () => {
     const initial = setup({ stress: 9, quirkIds: [quirk("Stress Eater")] });
     const missing = { ...initial, dungeon: { ...initial.dungeon!, resolveCards: [] } };
     const stopped = use(missing, "food", "heal").state;
@@ -200,7 +200,32 @@ describe("探索间补给 R12", () => {
     expect(done.dungeon!.heroes[0]!.combat!.stress).toBe(0);
     expect(done.dungeon!.explorationSetup!.provisions).toHaveLength(4);
     const mixed = setup({ stress: 9, quirkIds: [quirk("Stress Eater"), quirk("Soft")] });
-    expect(use(mixed, "food", "heal").state).toBe(mixed);
+    const resolved = use(mixed, "food", "heal");
+    expect(resolved.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(resolved.state.dungeon!.heroes[0]).toMatchObject({
+      wounds: 3,
+      stress: 0,
+      resolveTested: true,
+    });
+    expect(resolved.state.dungeon!.explorationSetup!.provisions).toHaveLength(4);
+    const withoutCards = { ...mixed, dungeon: { ...mixed.dungeon!, resolveCards: [] } };
+    const paid = use(withoutCards, "food", "heal");
+    expect(paid.state.dungeon).toMatchObject({ phase: "blockedPressure" });
+    expect(paid.state.dungeon!.heroes[0]).toMatchObject({ wounds: 3, stress: 10 });
+    expect(paid.events.filter((e) => e.type === "provisionConsumed")).toHaveLength(1);
+    // Food 的直接治疗在补给事件中完成；生命事件仅来自 Soft 的追加伤口。
+    expect(paid.events.filter((e) => e.type === "heroHealthResolved")).toHaveLength(1);
+    const repairedMixed = {
+      ...paid.state,
+      dungeon: { ...paid.state.dungeon!, resolveCards: mixed.dungeon!.resolveCards },
+    };
+    const continued = applyCommand(repairedMixed, { type: "resolveDungeonPressure" });
+    expect(continued.state).toEqual(resolved.state);
+    expect(
+      continued.events.filter(
+        (e) => e.type === "heroHealthResolved" || e.type === "provisionConsumed",
+      ),
+    ).toHaveLength(0);
   });
   it("非法补给 / 效果 / 目标、死亡、缺Life、未知状态与未完成窗口原子拒绝", () => {
     const initial = setup();

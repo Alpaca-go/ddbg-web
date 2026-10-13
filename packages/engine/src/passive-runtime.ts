@@ -109,8 +109,6 @@ export function applyPassiveHero<T extends PassiveHero>(
     ...(plan?.wounds ?? []),
     ...(typeof input === "string" ? [] : (input.woundAmounts ?? [])),
   ];
-  let passiveStressWounds = false;
-  let pressureBoundary = false;
   const stresses = plan?.stress ?? [typeof input === "string" ? 0 : input.amount];
   let stress = original.stress;
   for (const amount of stresses) {
@@ -126,15 +124,9 @@ export function applyPassiveHero<T extends PassiveHero>(
       return { status: "refused", reason: "被动压力缺少有效英雄压力 / 光照" };
     const modified = passiveStress(original, amount, light);
     woundAmounts.push(...modified.wounds);
-    passiveStressWounds ||= modified.wounds.length > 0;
     stress = Math.max(0, Math.min(10, stress! + modified.amount));
-    pressureBoundary ||= modified.wounds.length > 0 && stress === 10;
   }
-  if ((pressureBoundary || (stress === 10 && passiveStressWounds)) && !options.probe)
-    return {
-      status: "refused",
-      reason: "被动同时伤口 / 压力到 10 的复合收尾待 Q-66 确认，整次未提交",
-    };
+  // R-069：先压力与追加伤口／死门；调用方仅对存活压力10英雄续接意志。
   if (stress !== undefined) hero = { ...hero, stress };
   if (plan?.heal && options.healingForbidden)
     events.push({

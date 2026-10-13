@@ -210,15 +210,20 @@ it("Torch 引发意志检定或心脏病时不重扣补给，不改变房间揭�
     expect(applyCommand(done, torch).state).toBe(done);
   }
 });
-it("Q-66 / 缺防御 / 非法光照拒绝时不降光、不消费 Torch；房间或待选期间不能免费插入补给", () => {
+it("追加伤口先于意志；缺防御／非法光照仍拒绝且不能插入未完成窗口（R-069）", () => {
   const mixed = setup({ stress: 9, quirkIds: ["quirk:p025", "quirk:p035"] });
-  expect(applyCommand(mixed, room).state).toBe(mixed);
+  const changed = ok(applyCommand(mixed, room));
+  expect(changed.dungeon!.heroes[0]).toMatchObject({ wounds: 1, stress: 0, resolveTested: true });
+  expect(changed.dungeon!.explorationSetup!.light).toBe(4);
   const mixedTorch = setup({ stress: 9, quirkIds: ["quirk:p019", "quirk:p035"] }, 4);
   const mixedReady = {
     ...mixedTorch,
     dungeon: { ...mixedTorch.dungeon!, phase: "ready" as const },
   };
-  expect(applyCommand(mixedReady, torch).state).toBe(mixedReady);
+  const raised = ok(applyCommand(mixedReady, torch));
+  expect(raised.dungeon!.heroes[0]).toMatchObject({ wounds: 1, stress: 0, resolveTested: true });
+  expect(raised.dungeon!.explorationSetup!.light).toBe(5);
+  expect(raised.dungeon!.explorationSetup!.provisions.some((p) => p.id === "torch")).toBe(false);
   const unverified = setup({ quirkIds: ["quirk:p002"] }, 4);
   const missing = {
     ...unverified,

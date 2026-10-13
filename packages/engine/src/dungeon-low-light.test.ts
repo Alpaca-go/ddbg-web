@@ -284,7 +284,7 @@ it("降光触发同伴心脏病：骰已完成但不移动，不重掷、不把�
   expect(result.events.filter((e) => e.type === "heartAttack")).toHaveLength(1);
 });
 
-it("全队降光 Q-66 原子拒绝，即使前一英雄已有被动变化也不提交光照 / RNG / 骰面", () => {
+it("全队降光先完成各自被动伤口，再为存活压力10英雄意志检定（R-069）", () => {
   const initial = hazard("darkness", 3, { stress: 4, quirkIds: [quirk("Night Owl")] });
   const scene = {
     ...initial,
@@ -297,19 +297,26 @@ it("全队降光 Q-66 原子拒绝，即使前一英雄已有被动变化也不�
   };
   const snapshot = structuredClone(scene),
     result = pick(scene, "light");
-  expect(result.state).toBe(scene);
-  expect(result.events[0]!.message).toContain("Q-66");
+  const done = ok(result);
+  expect(done.dungeon!.heroes[0]!.stress).toBe(3);
+  expect(done.dungeon!.heroes[1]).toMatchObject({ wounds: 1, stress: 0, resolveTested: true });
+  expect(done.dungeon!.explorationSetup!.light).toBe(2);
+  expect(result).toEqual(pick(scene, "light"));
   expect(scene).toEqual(snapshot);
 });
 
-it("低光 Q-67 陷阱暴击仍原子拒绝；Darkness 承压 Q-66 不消费骰或补给", () => {
+it("低光 Q-67 陷阱暴击仍停在未接合并；Darkness按R-069先伤口再意志", () => {
   const s = roll(setup(2, { quirkIds: [quirk("Off Guard")] }));
   const attack = ok(pick(s, "hero-0:2")),
     refused = pick(attack, "attack");
   expect(refused.state).toBe(attack);
   expect(refused.events[0]!.message).toContain("Q-67");
   const darkness = hazard("darkness", 2, { stress: 7, quirkIds: [quirk("Soft")] });
-  expect(pick(darkness, "suffer").state).toBe(darkness);
+  const suffered = ok(pick(darkness, "suffer"));
+  expect(suffered.dungeon!.heroes[0]).toMatchObject({ wounds: 1, stress: 0, resolveTested: true });
+  expect(suffered.dungeon!.explorationSetup!.provisions).toEqual(
+    darkness.dungeon!.explorationSetup!.provisions,
+  );
 });
 
 it("低光 Trap 房间分配用实际压力判断 Q-64；纯压力完成后可继续下一英雄", () => {

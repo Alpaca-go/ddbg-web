@@ -198,12 +198,12 @@ it("R-063：Anemic + Hemophilia 每次施加各一次，追加状态逐堆受抗
     "refused",
   );
 });
-it("The Worries + Nervous + Soft 与低光按压力事件加总一次；Q-66 整次停场", () => {
+it("The Worries + Nervous + Soft 与低光按压力事件加总一次，伤口先于意志（R-069）", () => {
   const hero = { ...holder, diseaseId: "disease:p008", quirkIds: ["quirk:p028", "quirk:p035"] };
   const result = applyPassiveHero(hero, { type: "stress", amount: 2 }, 1, 0, 2);
   expect(result).toMatchObject({ status: "resolved", cursor: 0, hero: { stress: 5, wounds: 4 } });
   const blocked = applyPassiveHero({ ...hero, stress: 5 }, { type: "stress", amount: 2 }, 1, 0, 2);
-  expect(blocked).toMatchObject({ status: "refused", reason: expect.stringContaining("Q-66") });
+  expect(blocked).toMatchObject({ status: "resolved", cursor: 0, hero: { stress: 10, wounds: 4 } });
   expect(hero.wounds).toBe(0);
 });
 it("Bulimic 丢另一 Food 一次，Stress Eater 加压独立触发；弃 Food 不递归消耗", () => {

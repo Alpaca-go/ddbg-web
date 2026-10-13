@@ -219,10 +219,9 @@ it("伤害 / 暴击被动：Off Guard 与 Weak Grip 压力，Shocker 读取实�
   };
   expect(ok(attack(actual)).heroes[0]!.statusStacks).toEqual([{ kind: "stun", remaining: 1 }]);
 });
-it("Q-66 / Q-67 或缺属性 / 抗性原子拒绝，实际闪避不误拒绝暴击组合", () => {
+it("Q-66 追加伤口后意志；Q-67 或缺属性 / 抗性仍原子拒绝，实际闪避不误拒绝", () => {
   const scenes = [
     scene(2, { quirkIds: [quirk("Nervous"), quirk("Off Guard")] }),
-    scene(2, { stress: 9, quirkIds: [quirk("Soft")] }),
     scene(3, { heroStatId: "missing" }),
     scene(3, { life: 18 }),
   ];
@@ -245,6 +244,16 @@ it("Q-66 / Q-67 或缺属性 / 抗性原子拒绝，实际闪避不误拒绝暴�
     expect(attack(s).state).toBe(s);
     expect(attack(s).events[0]!.type).toBe("commandRefused");
   }
+  const soft = scene(2, { stress: 9, quirkIds: [quirk("Soft")] });
+  const resolved = attack(soft);
+  expect(ok(resolved).heroes[0]).toMatchObject({ wounds: 5, stress: 0, resolveTested: true });
+  expect(
+    applyCommand(soft, {
+      type: "resolveChoice",
+      choiceId: soft.dungeon!.pending!.id,
+      optionId: "attack",
+    }),
+  ).toEqual(resolved);
   expect(ok(attack(scene(8, { quirkIds: [quirk("Nervous"), quirk("Off Guard")] }))).cursor).toBe(8);
 });
 it("暴击压力到10缺意志目录时保存已付伤害；补齐后只恢复剩余骰，不重复陷阱", () => {

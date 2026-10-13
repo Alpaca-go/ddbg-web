@@ -268,7 +268,7 @@ it("Syphilis + Fragile 和攻击同刻合并一次死门；DoT / Food 治疗不�
   expect(hero(healed).wounds).toBe(hero(initial).life! - 1);
   expect(healed.battle!.rngCursor).toBe(0);
 });
-it("真实 Food 消耗触发 Bulimic 和 Stress Eater；Q-66 回滚治疗、补给、压力、伤口与 RNG", () => {
+it("真实 Food 先治疗、消耗后触发被动；追加伤口后才意志检定（R-069）", () => {
   const initial = turn(
     patch(setup(), { diseaseId: "disease:p002", quirkIds: ["quirk:p029"], wounds: 3 }),
   );
@@ -291,10 +291,20 @@ it("真实 Food 消耗触发 Bulimic 和 Stress Eater；Q-66 回滚治疗、补�
     targetId: "h0",
     effect: "heal",
   });
-  expect(refused.state).toBe(boundary);
-  expect(refused.events).toMatchObject([
-    { type: "commandRefused", message: expect.stringContaining("Q-66") },
-  ]);
+  const recovered = successful(refused);
+  expect(hero(recovered)).toMatchObject({ wounds: 4, stress: 0, resolveTested: true });
+  expect(recovered.battle!.provisions).toEqual([{ id: "spare", face: "food" }]);
+  expect(
+    refused.events.findIndex((e) => e.type === "heroHealthResolved" && e.effect.type === "wounds"),
+  ).toBeLessThan(refused.events.findIndex((e) => e.type === "resolveTested"));
+  expect(
+    applyCommand(boundary, {
+      type: "useProvision",
+      provisionId: "food",
+      targetId: "h0",
+      effect: "heal",
+    }),
+  ).toEqual(refused);
 });
 it("Lethargy 移动在死门死亡，消费移动后只补位 / 收尾一次，不攻击怪物", () => {
   const initial = setup();
@@ -645,17 +655,24 @@ it("Ennui 的 -1 美德几率作用于公共命令的真实意志检定（同骰
     ).toBe(role);
   }
 });
-it("Q-66 只拦截实际产生的复合压力事件，不因为 preflight 的骰面 1 拒绝落空", () => {
+it("暴击的压力追加伤口先于意志；实际落空不触发复合事件（R-069）", () => {
   const initial = patch(setup("monster_medium:p001"), { diseaseId: "disease:p008", stress: 8 });
   const critSeed = Array.from({ length: 200 }, (_, i) => i).find(
     (s) => nextBattleRoll(s, 0) === 1,
   )!;
-  const critical = { ...initial, seed: critSeed };
+  const critical = turn({ ...initial, seed: critSeed }, "monster");
   const refused = applyCommand(critical, attack);
-  expect(refused.state).toBe(critical);
-  expect(refused.events).toMatchObject([
-    { type: "commandRefused", message: expect.stringContaining("Q-66") },
-  ]);
+  const resolved = successful(refused);
+  expect(hero(resolved)).toMatchObject({ stress: 0, resolveTested: true });
+  expect(
+    refused.events.findIndex(
+      (e) =>
+        e.type === "heroHealthResolved" &&
+        e.effect.type === "wounds" &&
+        e.effect.amounts.length === 1 &&
+        e.effect.amounts[0] === 2,
+    ),
+  ).toBeLessThan(refused.events.findIndex((e) => e.type === "resolveTested"));
   const missSeed = Array.from({ length: 200 }, (_, i) => i).find(
     (s) => nextBattleRoll(s, 0) === 10,
   )!;
@@ -866,4 +883,47 @@ it("Q-67：暴击叠加 Off Guard / Weak Grip / Nervous 停场；普通命中只
   const hit = Array.from({ length: 200 }, (_, i) => i).find((s) => nextBattleRoll(s, 0) === 4)!;
   const normal = successful(applyCommand({ ...state, seed: hit }, attack));
   expect(hero(normal).stress).toBe(2);
+});
+
+it("压力追加伤口在死门死亡后取消意志；空白存活才掷意志，原骰可回放（R-069）", () => {
+  for (const dies of [true, false]) {
+    const seed = Array.from({ length: 100 }, (_, i) => i).find(
+      (s) => nextBattleRoll(s, 0) <= 3 === dies,
+    )!;
+    const base = setup("monster_medium:p001", seed);
+    const held = turn(
+      patch(base, {
+        diseaseId: "disease:p008",
+        quirkIds: ["quirk:p019", "quirk:p035"],
+        stress: 9,
+        wounds: hero(base).life!,
+      }),
+    );
+    const state = {
+      ...held,
+      battle: { ...held.battle!, light: 4, provisions: [{ id: "torch", face: "torch" as const }] },
+    };
+    const before = structuredClone(state);
+    const command = {
+      type: "useProvision",
+      provisionId: "torch",
+      targetId: "h0",
+      effect: "raiseLight",
+    } as const;
+    const result = applyCommand(state, command);
+    const done = successful(result);
+    expect(hero(done).dead).toBe(dies);
+    expect(done.battle!.provisions).toEqual([]);
+    expect(result.events.filter((e) => e.type === "resolveTested")).toHaveLength(dies ? 0 : 1);
+    expect(done.battle!.rngCursor).toBe(dies ? 1 : 6);
+    expect(hero(done).stress).toBe(dies ? 10 : 0);
+    expect(
+      result.events.find((e) => e.type === "heroHealthResolved" && e.effect.type === "wounds"),
+    ).toMatchObject({
+      effect: { type: "wounds", amounts: [1, 2] },
+      resolution: { deathblow: dies },
+    });
+    expect(result).toEqual(applyCommand(state, command));
+    expect(state).toEqual(before);
+  }
 });
