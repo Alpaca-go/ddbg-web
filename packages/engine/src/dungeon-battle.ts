@@ -1,4 +1,4 @@
-import { approvedRoomTileGeometry } from "../../data/src/normalize/room-tile";
+import { readRoomTile } from "./room-tile-selection";
 import { ruinsMonsterPool } from "../../data/src/monster-pool";
 import { createBattleState, rejectBattleCommand, skillTargetView } from "./battle";
 import type { BattleEntity } from "./battle";
@@ -16,7 +16,10 @@ import { statusProjection } from "./status";
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
 export function startDungeonBattle(state: GameState): ApplyResult {
   const d = state.dungeon;
-  const tile = approvedRoomTileGeometry;
+  const selected = readRoomTile(
+    d?.roomCards?.cards.find((c) => c.id === d.roomCards?.active?.cardId),
+    d?.roomCards?.active?.tileId,
+  );
   const active = d?.monsterPool?.active;
   const room = d?.rooms.find((r) => r.id === d.position);
   const refuse = (message: string) => rejectBattleCommand(state, message);
@@ -28,15 +31,16 @@ export function startDungeonBattle(state: GameState): ApplyResult {
     active?.roomId !== d.position ||
     room?.cleared ||
     (room?.kind !== "lair" && room?.kind !== "treasure") ||
-    d.roomCards?.active?.cardId !== "room:p001" ||
-    d.roomCards?.active?.tileId !== tile.id ||
-    !tile.deployment ||
+    !d.roomCards?.active?.tileId ||
+    d.roomCards.active.roomId !== d.position ||
+    selected.status !== "matched" ||
     d.mustLeaveRoomId === d.position ||
     !d.explorationSetup ||
     !d.battleCatalog ||
     d.heroes.length !== 4
   )
     return refuse("需要已核实房间与真实怪物部署，不能创建独立沙盒替代");
+  const { tile, deployment } = selected;
   const { heroStats: stats, skills, monsters } = d.battleCatalog;
   if (!partitionsValid(d)) return refuse("房间 / 怪物牌池不守恒，拒绝战斗交接");
   const heroes: BattleEntity[] = [];
@@ -71,7 +75,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       life: stat.life,
       skillIds: hero.skillIds!,
       stance: hero.stance,
-      areaId: tile.deployment.heroes[hero.stance],
+      areaId: deployment.heroes[hero.stance],
       wounds: hero.wounds,
       stress: hero.stress,
       dodge: stat.dodge,
@@ -173,7 +177,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       light: d.explorationSetup.light,
       provisions: d.explorationSetup.provisions,
       resolveCards: d.resolveCards,
-      lootAreas: tile.deployment.lootAreas,
+      lootAreas: deployment.lootAreas,
       lootPool: { ...(d.lootPool ?? createLootState()), gold: d.gold },
       provisionWindows: true,
     }).battle!;
@@ -200,8 +204,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       events: [
         {
           type: "dungeonUpdated",
-          message:
-            "进入 Ritual Chamber；保留英雄装备与状态，沿用地牢 RNG / 补给 / 有限宝箱池（R15–18）",
+          message: `进入 ${tile.name}；保留英雄装备与状态，沿用地牢 RNG / 补给 / 有限宝箱池（R15–18）`,
         },
       ],
     };

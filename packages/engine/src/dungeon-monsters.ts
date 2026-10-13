@@ -1,6 +1,6 @@
 import { monsterPoolCatalogSchema, ruinsMonsterPool } from "../../data/src/monster-pool";
 import { roomCatalogSchema } from "../../data/src/room";
-import { approvedRoomTileGeometry } from "../../data/src/normalize/room-tile";
+import { readRoomTile } from "./room-tile-selection";
 import type { ApplyResult, GameState } from "./command";
 import { createRng } from "./rng";
 import { spawnMonsters } from "./spawn";
@@ -10,7 +10,10 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
   const d = state.dungeon!;
   const pool = d.monsterPool;
   const active = d.roomCards?.active;
-  const tile = approvedRoomTileGeometry;
+  const selected = readRoomTile(
+    d.roomCards?.cards.find((c) => c.id === active?.cardId),
+    active?.tileId,
+  );
   const room = d.rooms.find((r) => r.id === d.position);
   const refuse = (message: string): ApplyResult => ({
     state,
@@ -22,13 +25,12 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
     room?.cleared ||
     (room?.kind !== "lair" && room?.kind !== "treasure") ||
     active?.roomId !== d.position ||
-    active?.cardId !== "room:p001" ||
-    active.tileId !== tile.id ||
-    !tile.usable ||
-    tile.deployment?.printReview !== "verified" ||
+    !active?.tileId ||
+    selected.status !== "matched" ||
     !roomCatalogSchema.safeParse(d.roomCards?.cards).success
   )
-    return refuse("需要已抽 Ritual Chamber 与获批部署；不能替换房间或提前抽怪物（R-048）");
+    return refuse("需要已抽房间与可用板块的获批部署；不能替换房间或提前抽怪物（R-048）");
+  const { deployment } = selected;
   const roomIds = [...(d.roomCards!.deck ?? []), ...(d.roomCards!.discard ?? []), active.cardId];
   if (
     roomIds.length !== 9 ||
@@ -62,7 +64,7 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
     const j = Math.floor(rng.next() * (i + 1));
     [deck[i], deck[j]] = [deck[j]!, deck[i]!];
   }
-  const spawned = spawnMonsters(deck, tile.deployment.monsters);
+  const spawned = spawnMonsters(deck, deployment.monsters);
   if (spawned.type === "refused") return refuse(spawned.reason);
   if (spawned.monsters.reduce((n, m) => n + m.stanceSlots, 0) !== 4)
     return refuse("牌堆未填满四姿态，不提交半场部署");

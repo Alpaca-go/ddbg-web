@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { applyCommand, createDungeonSandbox, createTrinketPool } from "@ddbg/engine";
+import { applyCommand, createDungeonSandbox, createTrinketPool, readRoomTile } from "@ddbg/engine";
 import type { Command, GameEvent, GameState, DungeonState } from "@ddbg/engine";
 import rawLayouts from "../../../packages/data/normalized/corebox/dungeon_layouts.json";
 import { dungeonLayoutFileSchema } from "../../../packages/data/src/dungeon-layout";
@@ -11,7 +11,6 @@ import rawRooms from "../../../packages/data/normalized/corebox/room.json";
 import { roomFileSchema } from "../../../packages/data/src/room";
 import rawMonsterPool from "../../../packages/data/normalized/corebox/monster_pool.json";
 import { monsterPoolFileSchema } from "../../../packages/data/src/monster-pool";
-import { approvedRoomTileGeometry } from "../../../packages/data/src/normalize/room-tile";
 import rawCurios from "../../../packages/data/normalized/corebox/curio.json";
 import rawTrinkets from "../../../packages/data/normalized/corebox/trinket.json";
 import { normalizedTrinketFileSchema } from "../../../packages/data/src/normalize/schema";
@@ -442,6 +441,7 @@ export function DungeonSandbox() {
             (() => {
               const active = d.roomCards.active;
               const roomCard = d.roomCards.cards.find((c) => c.id === active.cardId)!;
+              const selectedTile = readRoomTile(roomCard, active.tileId);
               return (
                 <div className="panel" data-testid="dungeon-room-card">
                   <h3>
@@ -458,11 +458,13 @@ export function DungeonSandbox() {
                       <p key={i}>{line}</p>
                     ))}
                   </details>
-                  {active.tileId && (
+                  {active.tileId && selectedTile.status === "matched" && (
                     <p>
-                      已匹配 {approvedRoomTileGeometry.name}（R-054 / R-055），
-                      {approvedRoomTileGeometry.areas.length} 个区域，英雄部署 H / C，怪物部署 J / D
-                      / F。
+                      已匹配 {selectedTile.tile.name}（部署已核实），
+                      {selectedTile.tile.areas.length} 个区域，英雄部署{" "}
+                      {[...new Set(Object.values(selectedTile.deployment.heroes))].join(" / ")}
+                      ，怪物部署{" "}
+                      {[...new Set(Object.values(selectedTile.deployment.monsters))].join(" / ")}。
                     </p>
                   )}
                   <p role="status">{active.blockedReason}</p>

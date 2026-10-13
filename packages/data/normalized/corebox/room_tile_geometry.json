@@ -4,6 +4,9 @@
  "tiles": [
   {
    "id": "room_tile:p001",
+   "roomId": "room:p001",
+   "location": "ruins",
+   "number": 1,
    "rawId": "dungeon_tile:p001",
    "name": "Ritual Chamber",
    "source": {

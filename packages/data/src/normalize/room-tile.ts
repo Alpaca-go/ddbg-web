@@ -7,6 +7,9 @@ import { approvedTortureChamber, tortureChamberSchema } from "./torture-chamber"
 const ritualChamberSchema = z
   .strictObject({
     id: z.literal("room_tile:p001"),
+    roomId: z.literal("room:p001"),
+    location: z.literal("ruins"),
+    number: z.literal(1),
     rawId: z.string().min(1),
     name: z.string().min(1),
     source: z.strictObject({
@@ -130,6 +133,9 @@ export type RoomTileGeometryFile = z.infer<typeof roomTileGeometryFileSchema>;
 /** Kyries 2026-10-10 批准核对表，E-F 黑墙不相邻（R-054）；只有这一面。 */
 export const approvedRoomTileGeometry = ritualChamberSchema.parse({
   id: "room_tile:p001",
+  roomId: "room:p001",
+  location: "ruins",
+  number: 1,
   rawId: "dungeon_tile:p001",
   name: "Ritual Chamber",
   source: { file: "DD_COREBOX_TILES_FRONT.pdf", page: 1, face: "front" },

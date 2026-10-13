@@ -66,7 +66,13 @@ describe("守卫房间准备（R10、R15–17、R-048）", () => {
       const active = d.roomCards!.active!;
       seen.add(active.cardId);
       expect(active.tileId).toBe(active.cardId === "room:p001" ? "room_tile:p001" : undefined);
-      expect(active.blockedReason).toContain(active.tileId ? "完整 Common + Ruins" : "尚未获批");
+      expect(active.blockedReason).toContain(
+        active.tileId
+          ? "完整 Common + Ruins"
+          : active.cardId === "room:p002"
+            ? "运行时尚未就绪"
+            : "尚未获批",
+      );
     }
     expect([...seen].sort()).toEqual(cards.slice(0, 9).map((c) => c.id));
   });
