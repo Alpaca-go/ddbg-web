@@ -74,6 +74,7 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  readonly startingProvisionChoices?: readonly { readonly id: string; readonly actorId: string }[];
   readonly rest?: ScoutRest;
   readonly questDistribution?: RoomDistribution;
   readonly questSummary?: DungeonQuestSummary;
@@ -136,6 +137,7 @@ export type DungeonState = {
   }[];
   readonly scoutBonus: boolean;
   readonly phase:
+    | "awaitingProvisions"
     | "ready"
     | "awaitingHazards"
     | "blockedPressure"
@@ -202,6 +204,7 @@ export function createDungeonSandbox(
   roomCards?: readonly RoomCard[],
   monsterCards?: readonly MonsterPoolCard[],
   battleCatalog?: DungeonBattleCatalog,
+  startingProvisions = false,
 ): GameState {
   const layout = dungeonLayoutSchema.parse(layoutInput);
   const distribution = roomDistributionSchema.parse(distributionInput);
@@ -212,6 +215,18 @@ export function createDungeonSandbox(
   if (tokens.length !== slots.length) throw new Error("房间槽与任务代币总数不一致（R-046）");
   if (mode !== "standard" && mode !== "radiant") throw new Error("本切片不开放 Stygian");
   if (!layout.nodes.some((n) => n.id === position)) throw new Error("当前位置不存在");
+  if (
+    startingProvisions &&
+    (layout.nodes.find((n) => n.id === position)?.kind !== "start" ||
+      explorationSetup?.light !== 5 ||
+      explorationSetup.provisions.length !== 0 ||
+      heroes.length !== 4 ||
+      heroes.some((h) => h.dead) ||
+      ["aggressive", "defensive", "ranged", "support"].some(
+        (stance) => heroes.filter((h) => h.stance === stance).length !== 1,
+      ))
+  )
+    throw new Error("开局补给需要起点、光照5、空池与四名已定位存活英雄（R12）");
   if (
     heroes.length < 1 ||
     heroes.length > 4 ||
@@ -271,7 +286,7 @@ export function createDungeonSandbox(
       // 非起点位置是导航就绪的测试注入；当前房间已知，但不假定代币已清理。
       rooms: slots.map((n, i) => ({ id: n.id, kind: tokens[i]!, revealed: n.id === position })),
       scoutBonus: false,
-      phase: "ready",
+      phase: startingProvisions ? "awaitingProvisions" : "ready",
       pending: null,
       decision: 0,
       exploration: null,
@@ -309,6 +324,7 @@ export function applyDungeonCommand(
     ...(dungeon.pending ? { pendingChoice: dungeon.pending } : {}),
   });
   if (!d || state.battle) return refuse("需要独立地牢沙盒");
+  if (d.phase === "awaitingProvisions") return refuse("请先完成地牢开局补给（R12）");
   if (d.phase === "exited") return refuse("已离开地牢，等待任务结算 / 回村接口");
   if (
     command.type === "leaveDungeon" ||

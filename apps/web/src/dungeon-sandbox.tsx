@@ -75,6 +75,7 @@ function FundraiserChoice({
 }
 const curios = curioFileSchema.parse(rawCurios).cards;
 type Fixture =
+  | "startingProvisions"
   | "fundraiser"
   | "fundraiserBattle"
   | "fundraiserRewards"
@@ -180,20 +181,23 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
         ? wipeDistribution
         : distribution,
     mode,
-    position,
+    fixture === "startingProvisions" ? "S" : position,
     heroes,
     battleData.resolveCards,
     {
       dungeonLevel: fixture === "trap" ? 3 : 1,
       light: 5,
-      provisions: [
-        { id: "tool-1", face: "tool" },
-        { id: "tool-2", face: "tool" },
-        { id: "tool-3", face: "tool" },
-        { id: "tool-4", face: "tool" },
-        { id: "torch-1", face: "torch" },
-        { id: "food-1", face: "food" },
-      ],
+      provisions:
+        fixture === "startingProvisions"
+          ? []
+          : [
+              { id: "tool-1", face: "tool" },
+              { id: "tool-2", face: "tool" },
+              { id: "tool-3", face: "tool" },
+              { id: "tool-4", face: "tool" },
+              { id: "torch-1", face: "torch" },
+              { id: "food-1", face: "food" },
+            ],
     },
     curios,
     roomFileSchema.parse(rawRooms).cards,
@@ -205,7 +209,10 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
         fixture === "trap" ? 3 : 1,
       ),
     },
+    fixture === "startingProvisions",
   );
+  if (fixture === "startingProvisions")
+    return { game: initial, page, fixture, preview, events: [], commands: [] };
   // 此布置以已清理的起始房间演示真实走廊往返，不模拟该房间的战斗或奖励。
   const startingKind = initial.dungeon!.rooms.find((r) => r.id === position)!.kind;
   const corridorSwap =
@@ -368,11 +375,13 @@ export function DungeonSandbox() {
             光照 {d.explorationSetup?.light ?? "待配置"}、DL {d.explorationSetup!.dungeonLevel}
           </p>
           <p>
-            {fixture === "fundraiserRewards"
-              ? "测试注入：已清理一间巢穴与60金币，仅检查退出捐献，不代表实战获得。"
-              : preview
-                ? "16 槽地图仅预览，未解释标记保留，未开启 Boss 规则。"
-                : "测试注入：导航就绪英雄与六个补给；从选路开始，逐骰结算后进入目标节点。"}
+            {fixture === "startingProvisions"
+              ? "入口演示：空补给池，按种子完成开局补给后探索；地图标注仍待批准。"
+              : fixture === "fundraiserRewards"
+                ? "测试注入：已清理一间巢穴与60金币，仅检查退出捐献，不代表实战获得。"
+                : preview
+                  ? "16 槽地图仅预览，未解释标记保留，未开启 Boss 规则。"
+                  : "测试注入：导航就绪英雄与六个补给；从选路开始，逐骰结算后进入目标节点。"}
           </p>
           <a href="/">返回战斗沙盒</a>
         </div>
@@ -394,6 +403,7 @@ export function DungeonSandbox() {
           侦察测试布置
           <select value={fixture} onChange={(e) => select(page, e.target.value as Fixture)}>
             <option value="neutral">中立英雄</option>
+            <option value="startingProvisions">入口开局补给（标准 / Radiant）</option>
             <option value="fundraiser">Fundraiser I · 完整八枚代币</option>
             <option value="fundraiserBattle">Fundraiser I · 巢穴战斗入口（种子1885）</option>
             <option value="fundraiserRewards">Fundraiser I · 结算测试（1巢穴与60金币注入）</option>
@@ -621,6 +631,14 @@ export function DungeonSandbox() {
               {d.roomResolution.completed ? "；全员完成，保留代币" : "；仍需完成房间结算"}
             </p>
           )}
+          {d.phase === "awaitingProvisions" && (
+            <button
+              disabled={!!d.pending}
+              onClick={() => dispatch({ type: "rollDungeonProvisions" })}
+            >
+              掷开局补给骰
+            </button>
+          )}
           <button
             disabled={!!d.pending || d.phase !== "ready" || d.mustLeaveRoomId === d.position}
             onClick={() => dispatch({ type: "scoutDungeon" })}
@@ -668,6 +686,9 @@ export function DungeonSandbox() {
               掷探索骰并开始结算
             </button>
           )}
+          <p data-testid="dungeon-provision-count">
+            公共补给（{d.explorationSetup!.provisions.length}/16）
+          </p>
           <p data-testid="dungeon-provisions">
             剩余补给：
             {d.explorationSetup!.provisions.map((p) => `${p.id} ${p.face}`).join(" · ") || "无"}

@@ -2,6 +2,7 @@ import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { applyDungeonCommand } from "./dungeon";
 import { summarizeDungeonQuest, resolveFundraiserGold } from "./dungeon-quest";
 import { restDungeon } from "./dungeon-rest";
+import { setupDungeonProvisions } from "./dungeon-starting-provisions";
 import { useDungeonTorch } from "./dungeon-light";
 import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
 import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
@@ -102,6 +103,7 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 };
 
 export type Command =
+  | { readonly type: "rollDungeonProvisions" }
   | { readonly type: "restDungeon" }
   | { readonly type: "summarizeDungeonQuest" }
   | { readonly type: "startDungeonBattle" }
@@ -272,6 +274,10 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (command.type === "rollDungeonProvisions" || state.dungeon?.phase === "awaitingProvisions")
+    return command.type === "rollDungeonProvisions" || command.type === "resolveChoice"
+      ? setupDungeonProvisions(state, command)
+      : rejectBattleCommand(state, "请先完成地牢开局补给（R12）");
   if (state.dungeon?.pending?.id.startsWith("dungeon-fundraiser:"))
     return command.type === "resolveChoice"
       ? resolveFundraiserGold(state, command)
