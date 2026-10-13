@@ -2,6 +2,7 @@ import { create } from "zustand";
 import {
   applyCommand,
   canLeaveDungeon,
+  canRestDungeon,
   createDungeonSandbox,
   createTrinketPool,
   readRoomTile,
@@ -558,7 +559,16 @@ export function DungeonSandbox() {
             onClick={() => dispatch({ type: "leaveDungeon" })}
           >
             离开地牢
+          </button>{" "}
+          <button
+            disabled={!canRestDungeon(game)}
+            onClick={() => dispatch({ type: "restDungeon" })}
+          >
+            柴火休息
           </button>
+          <p data-testid="dungeon-firewood">
+            Scout Ahead 柴火：{d.rest?.used ? "已弃置" : d.rest ? "可用（8点）" : "无已核实柴火"}
+          </p>
           <p className="muted">普通走廊返回不掷骰，全员压力 +1；灰点与起点返回尚未接线。</p>
           {d.phase === "awaitingHazards" && !d.exploration?.rolls && (
             <button

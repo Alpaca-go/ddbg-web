@@ -100,3 +100,4 @@ export type {
   DeathDoorFace,
 } from "./hero-health";
 export { canLeaveDungeon } from "./dungeon-exit";
+export { canRestDungeon } from "./dungeon-rest";

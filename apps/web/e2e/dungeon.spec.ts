@@ -82,10 +82,27 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("dungeon-provisions")).toHaveText("剩余补给：无");
   await expect(page.getByText(/布置 RNG 游标 15/)).toBeVisible();
   await page.screenshot({ path: testInfo.outputPath("dungeon-backtrack.png"), fullPage: true });
+  await page.getByRole("button", { name: "柴火休息", exact: true }).click();
+  await page.getByRole("button", { name: "取消休息", exact: true }).click();
+  await expect(page.getByTestId("dungeon-firewood")).toContainText("可用（8点）");
+  await page.getByRole("button", { name: "柴火休息", exact: true }).click();
+  await page
+    .getByRole("button", { name: "全员同意休息，分配意见不一：每人2点", exact: true })
+    .click();
+  await expect(page.getByRole("button", { name: "离开地牢", exact: true })).toBeDisabled();
+  for (let i = 0; i < 4; i++) {
+    await page.getByRole("button", { name: `hero-${i}：1点恢复压力`, exact: true }).click();
+    await page.getByRole("button", { name: `hero-${i}：1点恢复压力`, exact: true }).click();
+  }
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 0");
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-3 压力 0");
+  await expect(page.getByTestId("dungeon-firewood")).toContainText("已弃置");
+  await expect(page.getByRole("button", { name: "柴火休息", exact: true })).toBeDisabled();
+  await page.screenshot({ path: testInfo.outputPath("dungeon-rested.png"), fullPage: true });
   await page.getByRole("button", { name: "离开地牢", exact: true }).click();
   await page.getByRole("button", { name: "全员同意离开", exact: true }).click();
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已从 D 离开地牢");
-  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 2");
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 0");
   await expect(page.getByTestId("dungeon-provisions")).toHaveText("剩余补给：无");
   await expect(page.getByRole("button", { name: "离开地牢", exact: true })).toBeDisabled();
   await expect(page.getByRole("button", { name: "选择下一段探索", exact: true })).toBeDisabled();

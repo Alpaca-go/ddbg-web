@@ -2,16 +2,11 @@ import scout from "../../data/normalized/corebox/scout_ahead_distribution.json";
 import { dungeonLayoutSchema, roomDistributionSchema } from "../../data/src/dungeon-layout";
 import { questRoomsSchema, scoutQuestSummarySchema } from "../../data/src/quest-summary";
 import type { ApplyResult, GameState } from "./command";
+import type { DungeonState } from "./dungeon";
 
 /** Scout Ahead I：每清理两个房间得1 XP；身份来自初始任务，不从地图或房间名猜测。 */
-export function summarizeDungeonQuest(state: GameState): ApplyResult {
-  const d = state.dungeon;
-  const refuse = (message: string): ApplyResult => ({
-    state,
-    events: [{ type: "commandRefused", message }],
-  });
-  if (!d || state.battle || d.phase !== "exited" || d.pending || d.questSummary)
-    return refuse("须先全员离开地牢，任务摘要只能生成一次");
+export function readScoutClearedRooms(d: DungeonState) {
+  const refuse = (reason: string) => ({ status: "refused" as const, reason });
   const quest = roomDistributionSchema.safeParse(d.questDistribution);
   const layout = dungeonLayoutSchema.safeParse(d.layout);
   const rooms = questRoomsSchema.safeParse(d.rooms);
@@ -52,9 +47,23 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
     .filter((r) => r.cleared)
     .map((r) => r.id)
     .sort();
+  return { status: "matched" as const, clearedRoomIds };
+}
+
+export function summarizeDungeonQuest(state: GameState): ApplyResult {
+  const d = state.dungeon;
+  const refuse = (message: string): ApplyResult => ({
+    state,
+    events: [{ type: "commandRefused", message }],
+  });
+  if (!d || state.battle || d.phase !== "exited" || d.pending || d.questSummary)
+    return refuse("须先全员离开地牢，任务摘要只能生成一次");
+  const progress = readScoutClearedRooms(d);
+  if (progress.status === "refused") return refuse(progress.reason);
+  const { clearedRoomIds } = progress;
   const xpPerHero = Math.min(3, Math.floor(clearedRoomIds.length / 2));
   const questSummary = scoutQuestSummarySchema.parse({
-    questId: quest.data.questId,
+    questId: "quest:p001",
     name: "Scout Ahead I",
     clearedRoomIds,
     xpPerHero,
