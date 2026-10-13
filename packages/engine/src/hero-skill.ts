@@ -1,7 +1,14 @@
 import type { HeroHealthEffect } from "./hero-health";
 import type { StatusEffect } from "./status";
 import { readVerifiedStatusEffects } from "./skill-status";
-import { hasQuirk, passiveDamageWounds, passiveHeal, passiveLevel, passiveStress } from "./passive";
+import {
+  criticalStress,
+  hasQuirk,
+  passiveDamageWounds,
+  passiveHeal,
+  passiveLevel,
+  passiveStress,
+} from "./passive";
 import type { PassiveHolder } from "./passive";
 import { resolveAttackDamage } from "./attack-damage";
 
@@ -2665,7 +2672,13 @@ function resolveSkill(
     if (dealtCrit && combat.targetInActorArea === true) delta -= 1;
     // R-002：承受暴击是已确认的压力事件，低光照额外 +1，不递归触发。
     if (receivedCrit)
-      targetStress = changeStress(target, targetStress, 1, pressureLight, "critTaken");
+      targetStress = changeStress(
+        target,
+        targetStress,
+        criticalStress(target, (damageDealt ?? 0) > 0),
+        pressureLight,
+        "critTaken",
+      );
     targetStress = changeStress(target, targetStress, delta, pressureLight);
   }
   if (receivedCrit && untargetedBesideTargetStress !== null) {

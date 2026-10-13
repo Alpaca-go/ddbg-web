@@ -4,7 +4,7 @@ import type { SkillEffectsResolution } from "./hero-skill";
 import { healingForbidden } from "./battle-healing";
 import { resolveSkillHeroHealth } from "./skill-hero-health";
 import { triggerBattlePassive } from "./battle-passive";
-import { hasDisease, hasQuirk, passiveStress } from "./passive";
+import { hasDisease, passiveStress } from "./passive";
 
 /** R20、R29：生命以原实体和有序效果结算，不从净伤口差倒推。 */
 export function applySkillHealth(
@@ -83,20 +83,6 @@ export function applySkillHealth(
   let heroes = battle.entities.filter((entry) => ids.has(entry.id));
   if (heroes.some((entry) => entry.side !== "hero" || entry.life === undefined))
     return { status: "refused", reason: "生命效果接收者缺少已核实 Life（R-048）" };
-  for (const effect of skill.healthEffects) {
-    const hero = battle.entities.find((e) => e.id === effect.entityId);
-    if (
-      effect.source === "attack" &&
-      effect.critical &&
-      hero &&
-      (hasQuirk(hero, "Off Guard") || hasQuirk(hero, "Weak Grip")) &&
-      (battle.light <= 2 ||
-        hasQuirk(hero, "Nervous") ||
-        hasQuirk(hero, "Soft") ||
-        hasDisease(hero, "The Worries"))
-    )
-      return { status: "refused", reason: "同次暴击附加压力的事件合并待 Q-67 确认，整次未提交" };
-  }
   const rollEffects = skill.healthEffects.filter((e) => e.rollPassive);
   const rollEvents: GameEvent[] = [];
   if (rollEffects.length) {
@@ -161,7 +147,9 @@ export function applySkillHealth(
       "damageTaken" as const,
       ...(effect.critical ? ["criticalDamage" as const] : []),
     ]) {
-      const applied = triggerBattlePassive(next, seed, [effect.entityId], trigger);
+      const applied = triggerBattlePassive(next, seed, [effect.entityId], trigger, {
+        omitStress: effect.critical === true,
+      });
       if (applied.status === "refused") return applied;
       next = applied.battle;
       passiveEvents.push(...applied.events);

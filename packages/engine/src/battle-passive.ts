@@ -33,6 +33,7 @@ export function triggerBattlePassive(
   seed: number,
   entityIds: readonly string[],
   trigger: PassiveInput,
+  options: { readonly omitStress?: boolean } = {},
 ):
   | { status: "refused"; reason: string }
   | { status: "resolved"; battle: BattleState; events: readonly GameEvent[] } {
@@ -49,7 +50,7 @@ export function triggerBattlePassive(
       next.light,
       next.provisions,
       readHeroPassiveDefence(next, hero),
-      { healingForbidden: healingForbidden(next, id) },
+      { ...options, healingForbidden: healingForbidden(next, id) },
     );
     if (applied.status === "refused") return applied;
     next = {

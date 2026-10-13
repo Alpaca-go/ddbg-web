@@ -4,7 +4,7 @@ import { resolveAttackDamage } from "./attack-damage";
 import { completeDungeonHazard } from "./dungeon-exploration";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import type { PassiveInput } from "./passive-runtime";
-import { hasDisease, hasQuirk, passiveDamageWounds } from "./passive";
+import { criticalStress, hasQuirk, passiveDamageWounds } from "./passive";
 import { createRng, rollD10 } from "./rng";
 import { statusProjection, statusStackProblem } from "./status";
 
@@ -64,20 +64,12 @@ export function resolveDungeonTrap(state: GameState, rollId: string, heroId: str
     2 * Number(hasQuirk(hero, "Slow Reflexes"));
   const critical = roll <= 2;
   const hit = critical || roll <= 8 - dodge;
-  // Q-67：基础暴击压力与追加压力的事件分组尚未裁定，原子拒绝。
-  if (
-    critical &&
-    (hasQuirk(hero, "Off Guard") || hasQuirk(hero, "Weak Grip")) &&
-    (config.light <= 2 ||
-      hasQuirk(hero, "Nervous") ||
-      hasQuirk(hero, "Soft") ||
-      hasDisease(hero, "The Worries"))
-  )
-    return refuse("陷阱暴击与追加压力的复合事件待 Q-67 确认，整次未提交");
   let changed = { ...d, cursor: d.cursor + 1 };
   const events: GameEvent[] = [];
   const apply = (input: PassiveInput): string | null => {
-    const result = triggerDungeonPassive(changed, state.seed, [heroId], input);
+    const result = triggerDungeonPassive(changed, state.seed, [heroId], input, {
+      omitStress: critical && (input === "damageTaken" || input === "criticalDamage"),
+    });
     if (result.status === "refused") return result.reason;
     changed = result.dungeon;
     events.push(
@@ -116,7 +108,7 @@ export function resolveDungeonTrap(state: GameState, rollId: string, heroId: str
             ...(critical ? ["criticalDamage" as const] : []),
           ]
         : []),
-      ...(critical ? [{ type: "stress" as const, amount: 1 }] : []),
+      ...(critical ? [{ type: "stress" as const, amount: criticalStress(hero, damage > 0) }] : []),
     ];
     for (const trigger of triggers) {
       const problem = apply(trigger);
@@ -130,7 +122,7 @@ export function resolveDungeonTrap(state: GameState, rollId: string, heroId: str
     state,
     changed,
     rollId,
-    `${heroId} Trap：d10=${roll}，Acc 8 − Dodge ${dodge}，Crit 2；${cancelled ? "英雄死亡，攻击中止" : hit ? `${critical ? "暴击" : "命中"}，${damage} 伤害${critical ? "、自身 1 压力" : ""}` : "闪避"}（DL ${config.dungeonLevel}，R-003 / R-031）`,
+    `${heroId} Trap：d10=${roll}，Acc 8 − Dodge ${dodge}，Crit 2；${cancelled ? "英雄死亡，攻击中止" : hit ? `${critical ? "暴击" : "命中"}，${damage} 伤害${critical ? "、暴击基础压力1（追加压力按R-069合并）" : ""}` : "闪避"}（DL ${config.dungeonLevel}，R-003 / R-031）`,
   );
   return { ...result, events: [...events, ...result.events] };
 }

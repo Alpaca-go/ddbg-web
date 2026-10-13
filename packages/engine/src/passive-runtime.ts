@@ -89,7 +89,11 @@ export function applyPassiveHero<T extends PassiveHero>(
   light: number,
   provisions: readonly { readonly id: string; readonly face: ProvisionFace }[] = [],
   defence?: PassiveDefence,
-  options: { readonly probe?: boolean; readonly healingForbidden?: boolean } = {},
+  options: {
+    readonly probe?: boolean;
+    readonly healingForbidden?: boolean;
+    readonly omitStress?: boolean;
+  } = {},
 ):
   | { status: "refused"; reason: string }
   | {
@@ -109,7 +113,9 @@ export function applyPassiveHero<T extends PassiveHero>(
     ...(plan?.wounds ?? []),
     ...(typeof input === "string" ? [] : (input.woundAmounts ?? [])),
   ];
-  const stresses = plan?.stress ?? [typeof input === "string" ? 0 : input.amount];
+  const stresses = options.omitStress
+    ? []
+    : (plan?.stress ?? [typeof input === "string" ? 0 : input.amount]);
   let stress = original.stress;
   for (const amount of stresses) {
     if (!amount) continue;

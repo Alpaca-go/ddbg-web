@@ -116,6 +116,14 @@ export function passiveDamageWounds(holder: PassiveHolder): readonly number[] {
 export function passiveVirtueThreshold(holder: PassiveHolder): number {
   return 2 - Number(hasQuirk(holder, "Mercurial")) - Number(hasDisease(holder, "Ennui"));
 }
+/** R-069 / Q-67：同次暴击压力先合并，修正仅在调用方应用一次。 */
+export function criticalStress(holder: PassiveHolder, damaged: boolean): number {
+  return (
+    1 +
+    Number(damaged && hasQuirk(holder, "Off Guard")) +
+    Number(damaged && hasQuirk(holder, "Weak Grip"))
+  );
+}
 export function passivePlan(holder: PassiveHolder, trigger: PassiveTrigger): PassivePlan {
   const wounds: number[] = [],
     stress: number[] = [],

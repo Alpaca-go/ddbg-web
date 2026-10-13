@@ -868,18 +868,53 @@ it("空区域仍拒绝 Vertigo 同次追加伤口达到 10 的组合，不因没
     ]);
   }
 });
-it("Q-67：暴击叠加 Off Guard / Weak Grip / Nervous 停场；普通命中只触发一次 Off Guard 压力", () => {
+it("R-069/Q-67：同次暴击基础与怪癖压力合并；普通命中仍单独触发 Off Guard", () => {
   const criticalSeed = Array.from({ length: 200 }, (_, i) => i).find(
     (s) => nextBattleRoll(s, 0) === 1,
   )!;
   const state = patch(setup("monster_medium:p001", criticalSeed), {
     quirkIds: ["quirk:p021", "quirk:p026", "quirk:p028"],
   });
-  const refused = applyCommand(state, attack);
-  expect(refused.state).toBe(state);
-  expect(refused.events).toMatchObject([
-    { type: "commandRefused", message: expect.stringContaining("Q-67") },
-  ]);
+  const snapshot = structuredClone(state);
+  const critical = applyCommand(state, attack);
+  expect(hero(successful(critical))).toMatchObject({ stress: 4, wounds: 9 });
+  expect(applyCommand(state, attack)).toEqual(critical);
+  expect(state).toEqual(snapshot);
+  for (const light of [0, 2, 5]) {
+    const held = patch(state, {
+      diseaseId: "disease:p008",
+      quirkIds: ["quirk:p021", "quirk:p026", "quirk:p035"],
+    });
+    const modified = { ...held, battle: { ...held.battle!, light } };
+    // 基础1 + Off Guard1 + Weak Grip1；Worries及低光各加一次，Soft/Worries伤口各一次。
+    expect(hero(successful(applyCommand(modified, attack)))).toMatchObject({
+      stress: 4 + Number(light <= 2),
+      wounds: 12,
+    });
+  }
+  const pressured = turn(
+    patch(state, {
+      stress: 8,
+      diseaseId: "disease:p008",
+      quirkIds: ["quirk:p021", "quirk:p026", "quirk:p035"],
+    }),
+    "monster",
+  );
+  const completed = applyCommand(pressured, attack);
+  expect(hero(successful(completed))).toMatchObject({ wounds: 12, stress: 0, resolveTested: true });
+  expect(
+    completed.events.filter(
+      (e) =>
+        e.type === "heroHealthResolved" &&
+        e.effect.type === "wounds" &&
+        e.effect.amounts.join(",") === "1,2",
+    ),
+  ).toHaveLength(1);
+  expect(
+    completed.events.findIndex(
+      (e) => e.type === "heroHealthResolved" && e.effect.type === "wounds",
+    ),
+  ).toBeLessThan(completed.events.findIndex((e) => e.type === "resolveTested"));
   const hit = Array.from({ length: 200 }, (_, i) => i).find((s) => nextBattleRoll(s, 0) === 4)!;
   const normal = successful(applyCommand({ ...state, seed: hit }, attack));
   expect(hero(normal).stress).toBe(2);

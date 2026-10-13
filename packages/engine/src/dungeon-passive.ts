@@ -9,6 +9,7 @@ export function triggerDungeonPassive(
   seed: number,
   ids: readonly string[],
   trigger: PassiveInput,
+  options: { readonly omitStress?: boolean } = {},
 ):
   | { status: "refused"; reason: string }
   | { status: "resolved"; dungeon: DungeonState; events: readonly GameEvent[] } {
@@ -29,6 +30,7 @@ export function triggerDungeonPassive(
       next.explorationSetup?.light ?? 5,
       next.explorationSetup?.provisions,
       defence,
+      options,
     );
     if (applied.status === "refused") return applied;
     next = {
