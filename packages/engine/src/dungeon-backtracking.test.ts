@@ -169,7 +169,7 @@ describe("普通走廊原路返回（R14–15、R28）", () => {
       expect(applyCommand(result, { type: "beginDungeonBacktrack" }).state).toBe(result);
     },
   );
-  it("真实种子31 零骰 Radiant 探索完成后登记边，再返回；灰点不充当普通走廊", () => {
+  it("真实种子31 零骰 Radiant 探索登记边后返回；灰点同样按边收费（R-068）", () => {
     const initial = createDungeonSandbox(31, layout, distribution, "radiant", "G");
     const s = patch(initial, {
       scoutBonus: true,
@@ -187,6 +187,58 @@ describe("普通走廊原路返回（R14–15、R28）", () => {
         ),
       },
     });
-    expect(applyCommand(gray, { type: "beginDungeonBacktrack" }).state).toBe(gray);
+    expect(back(gray).state.dungeon).toMatchObject({ position: "G", phase: "ready" });
+    expect(back(gray).state.dungeon!.heroes[0]!.stress).toBe(1);
   });
+});
+
+it("灰点长走廊、起点出入与岔路换边每段压力+1，不掷骰、不重复奖励（R-068）", () => {
+  const base = setup();
+  const initial = patch(base, {
+    layout: {
+      ...base.dungeon!.layout,
+      nodes: [...base.dungeon!.layout.nodes, { id: "X", kind: "dot", x: 50, y: 50 }],
+      edges: [
+        ...base.dungeon!.layout.edges.filter(
+          ([a, b]) => !([a, b].includes("D") && [a, b].includes("G")),
+        ),
+        ["G", "X"],
+        ["X", "D"],
+      ],
+    },
+    visited: ["S", "G", "X", "D", "F"],
+    traversedCorridors: [
+      ["S", "G"],
+      ["G", "X"],
+      ["X", "D"],
+      ["G", "F"],
+    ],
+    scoutBonus: true,
+    gold: 10,
+    rooms: base.dungeon!.rooms.map((r) =>
+      ["D", "G", "F"].includes(r.id) ? { ...r, revealed: true, cleared: true } : r,
+    ),
+  });
+  const before = structuredClone(initial);
+  const route = ["X", "G", "S", "G", "F", "G", "X", "D"];
+  const replay = () =>
+    route.reduce((state, id, index) => {
+      const result = pick(begin(state), id);
+      expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+      expect(result.state.dungeon).toMatchObject({
+        position: id,
+        phase: "ready",
+        gold: 10,
+        cursor: 7,
+        scoutBonus: true,
+      });
+      expect(result.state.dungeon!.heroes[0]!.stress).toBe(index + 1);
+      return result.state;
+    }, initial);
+  expect(replay()).toEqual(replay());
+  expect(initial).toEqual(before);
+  expect(replay().dungeon!.rooms).toEqual(initial.dungeon!.rooms);
+  expect(
+    applyCommand(patch(initial, { position: "S" }), { type: "scoutDungeon" }).events[0]!.message,
+  ).toContain("R-068");
 });

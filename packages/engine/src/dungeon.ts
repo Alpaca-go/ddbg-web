@@ -437,7 +437,7 @@ export function applyDungeonCommand(
   if (command.type === "scoutDungeon") {
     if (d.mustLeaveRoomId === d.position) return refuse("第四轮撤退后须先离开房间（R25）");
     if (d.layout.nodes.find((n) => n.id === d.position)?.kind !== "room")
-      return refuse("灰点不能侦察；起点侦察待 Q-59 确认");
+      return refuse("仅房间节点允许侦察；灰点和起点不允许（R-068）");
     return finish(
       {
         ...d,

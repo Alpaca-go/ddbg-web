@@ -788,7 +788,7 @@ export function DungeonSandbox() {
           </p>
           <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
           {quest?.id === "quest:p003" && (
-            <p>Fundraiser最低目标：清理一间巢穴；未达目标的退出处理待Q-70确认。</p>
+            <p>Fundraiser最低目标：清理一间巢穴；未达目标可提前离开，保留金币并跳过捐献。</p>
           )}
           {d.phase === "exited" && (
             <div data-testid="dungeon-quest-summary">
@@ -800,7 +800,9 @@ export function DungeonSandbox() {
                   {d.questSummary.xpPerHero} XP · 驿站待发 {d.questSummary.stagecoachXp} XP ·
                   回村发放尚未接线
                   {d.questSummary.questId === "quest:p003" &&
-                    ` · 捐献${d.questSummary.donatedGold}金币`}
+                    (d.questSummary.objectiveMet
+                      ? ` · 捐献${d.questSummary.donatedGold}金币`
+                      : " · 提前离开，目标未达；跳过捐献")}
                 </p>
               ) : (
                 <button

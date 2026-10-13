@@ -49,7 +49,10 @@ export const fundraiserQuestSummarySchema = z
   .strictObject({
     questId: z.literal("quest:p003"),
     name: z.literal("Fundraiser I"),
-    clearedRoomIds: z.array(z.string().min(1)).min(1).max(2),
+    clearedRoomIds: z.array(z.string().min(1)).max(2),
+    earlyLeave: z.boolean(),
+    objectiveMet: z.boolean(),
+    lairClearedCount: z.int().min(0).max(2),
     donatedGold: z.int().min(0).max(60),
     xpPerHero: z.int().min(0).max(3),
     stagecoachXp: z.int().min(0).max(3),
@@ -58,6 +61,10 @@ export const fundraiserQuestSummarySchema = z
   .superRefine((s, ctx) => {
     if (
       new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.lairClearedCount !== s.clearedRoomIds.length ||
+      s.objectiveMet !== s.lairClearedCount >= 1 ||
+      s.earlyLeave === s.objectiveMet ||
+      (!s.objectiveMet && s.donatedGold !== 0) ||
       s.xpPerHero !== Math.floor(s.donatedGold / 20) ||
       s.stagecoachXp !== s.xpPerHero
     )

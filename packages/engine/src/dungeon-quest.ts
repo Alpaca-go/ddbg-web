@@ -68,9 +68,33 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
   if (progress.status === "refused") return refuse(progress.reason);
   const { completedRoomIds: clearedRoomIds, quest } = progress;
   if (quest.id === "quest:p003") {
-    if (!clearedRoomIds.length) return refuse("Fundraiser最低巢穴目标未完成的退出处理待Q-70确认");
     if (!Number.isSafeInteger(d.gold) || d.gold < 0 || (d.lootPool && d.lootPool.gold !== d.gold))
       return refuse("共享金币 / 战利品金币不一致，不能捐献");
+    if (!clearedRoomIds.length) {
+      const questSummary = fundraiserQuestSummarySchema.parse({
+        questId: quest.id,
+        name: quest.name,
+        clearedRoomIds,
+        earlyLeave: true,
+        objectiveMet: false,
+        lairClearedCount: 0,
+        donatedGold: 0,
+        xpPerHero: 0,
+        stagecoachXp: 0,
+        awarded: false,
+      });
+      return {
+        state: { ...state, dungeon: { ...d, questSummary } },
+        events: [
+          {
+            type: "dungeonUpdated",
+            message:
+              "Fundraiser提前离开：最低巢穴目标未完成，保留金币，跳过捐献；不判任务或战役失败（R-068）",
+          },
+        ],
+      };
+    }
+
     const pending = {
       id: `dungeon-fundraiser:${d.decision}`,
       prompt:
@@ -157,6 +181,9 @@ export function resolveFundraiserGold(
     questId: "quest:p003",
     name: "Fundraiser I",
     clearedRoomIds: progress.completedRoomIds,
+    earlyLeave: false,
+    objectiveMet: true,
+    lairClearedCount: progress.completedRoomIds.length,
     donatedGold: gold,
     xpPerHero: xp,
     stagecoachXp: xp,

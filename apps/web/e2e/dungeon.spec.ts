@@ -305,8 +305,20 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("dungeon-quest-summary")).toContainText("每名英雄待发 0 XP");
   await page.screenshot({ path: testInfo.outputPath("wipe-retreat-summary.png"), fullPage: true });
   await page.getByLabel("侦察测试布置").selectOption("fundraiser");
-  await expect(page.getByRole("button", { name: "离开地牢", exact: true })).toBeDisabled();
-  await expect(page.getByText(/未达目标的退出处理待Q-70确认/)).toBeVisible();
+  await expect(page.getByRole("button", { name: "离开地牢", exact: true })).toBeEnabled();
+  await expect(page.getByText(/未达目标可提前离开/)).toBeVisible();
+  await page.getByRole("button", { name: "离开地牢", exact: true }).click();
+  await page.getByRole("button", { name: "全员同意离开", exact: true }).click();
+  await page.getByRole("button", { name: "生成任务结算摘要", exact: true }).click();
+  await expect(page.getByTestId("dungeon-quest-summary")).toContainText(
+    "提前离开，目标未达；跳过捐献",
+  );
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：0");
+  await expect(page.getByRole("button", { name: "确认捐献", exact: true })).toHaveCount(0);
+  await page.screenshot({
+    path: testInfo.outputPath("fundraiser-early-leave.png"),
+    fullPage: true,
+  });
   await page.getByLabel("侦察测试布置").selectOption("fundraiserRewards");
   await expect(page.getByText(/60金币，仅检查退出捐献/)).toBeVisible();
   await page.getByRole("button", { name: "离开地牢", exact: true }).click();

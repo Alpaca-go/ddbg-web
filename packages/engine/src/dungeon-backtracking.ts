@@ -8,7 +8,7 @@ const refuse = (state: GameState, message: string): ApplyResult => ({
   events: [{ type: "commandRefused", message }],
 });
 
-/** R14：只开放确实走过的普通房间间走廊；灰点计数边界留待确认。 */
+/** R14：R-068：每条已走过的边独立收费，含起点、灰点与岔路换边。 */
 export function applyDungeonBacktracking(
   state: GameState,
   command:
@@ -22,8 +22,8 @@ export function applyDungeonBacktracking(
     .flatMap(([a, b]) => (a === d.position ? [b] : b === d.position ? [a] : []))
     .filter(
       (id) =>
-        d.layout.nodes.find((n) => n.id === d.position)?.kind === "room" &&
-        d.layout.nodes.find((n) => n.id === id)?.kind === "room" &&
+        d.layout.nodes.some((n) => n.id === d.position && n.kind !== "unresolved") &&
+        d.layout.nodes.some((n) => n.id === id && n.kind !== "unresolved") &&
         (d.visited ?? []).includes(id) &&
         d.traversedCorridors?.some(
           ([a, b]) => (a === d.position && b === id) || (b === d.position && a === id),
@@ -31,7 +31,7 @@ export function applyDungeonBacktracking(
     );
   if (command.type === "beginDungeonBacktrack") {
     if (d.pending) return refuse(state, "请先完成待选决定");
-    if (!routes.length) return refuse(state, "没有已走过的普通房间间走廊；灰点 / 起点返回尚未接线");
+    if (!routes.length) return refuse(state, "没有已走过的相邻边可原路返回（R-068）");
     const pending = {
       id: `dungeon-backtrack:${d.decision}`,
       prompt: "原路返回：不掷探索骰，每名英雄压力 +1（R14）",
@@ -91,7 +91,10 @@ export function applyDungeonBacktracking(
     ...next,
     events: [
       ...passive.events,
-      { type: "dungeonUpdated", message: "沿一条普通走廊返回，全员压力 +1；没有掷探索骰（R14）" },
+      {
+        type: "dungeonUpdated",
+        message: "沿一条图上边返回，全员压力 +1；没有掷探索骰（R14、R-068）",
+      },
       ...next.events,
     ],
   };
@@ -103,8 +106,11 @@ export function completeDungeonBacktrack(state: GameState): ApplyResult {
   if (!d.backtracking || d.position !== d.backtracking.from)
     return refuse(state, "缺失返回续接位置，保持停点");
   const to = d.backtracking.to;
-  const room = d.rooms.find((r) => r.id === to)!;
-  const cleared = room.cleared || room.kind === "empty";
+  const node = d.layout.nodes.find((n) => n.id === to);
+  if (!node || node.kind === "unresolved") return refuse(state, "返回节点缺失或未核实");
+  const room = node.kind === "room" ? d.rooms.find((r) => r.id === to) : undefined;
+  if (node.kind === "room" && !room) return refuse(state, "返回房间代币记录缺失");
+  const cleared = !!room && (room.cleared || room.kind === "empty");
   return {
     state: {
       ...state,
@@ -112,10 +118,10 @@ export function completeDungeonBacktrack(state: GameState): ApplyResult {
         ...d,
         position: to,
         mustLeaveRoomId: undefined,
-        phase: cleared ? "ready" : "awaitingRoom",
+        phase: !room || cleared ? "ready" : "awaitingRoom",
         pending: null,
         backtracking: null,
-        visited: [...(d.visited ?? []), to],
+        visited: [...new Set([...(d.visited ?? []), to])],
         rooms: d.rooms.map((r) =>
           r.id === to ? { ...r, revealed: true, ...(cleared ? { cleared: true } : {}) } : r,
         ),
@@ -124,9 +130,11 @@ export function completeDungeonBacktrack(state: GameState): ApplyResult {
     events: [
       {
         type: "dungeonUpdated",
-        message: cleared
-          ? `已返回 ${to}：无房间代币，不重复发奖励；侦察减骰仍留给下一次探索（R14–15）`
-          : `已返回 ${to}：等待 ${room.kind} 房间效果，未清理代币（R15）`,
+        message: !room
+          ? `已返回 ${to}：${node.kind === "start" ? "起点" : "灰点"}；本边压力已支付，无房间效果（R-068）`
+          : cleared
+            ? `已返回 ${to}：无房间代币，不重复发奖励；侦察减骰仍留给下一次探索（R14–15）`
+            : `已返回 ${to}：等待 ${room!.kind} 房间效果，未清理代币（R15）`,
       },
     ],
   };
