@@ -35,15 +35,34 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeDisabled();
     await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
     let choices = 0;
-    while (await page.getByRole("button", { name: "食物", exact: true }).count()) {
+    while (await page.getByRole("button", { name: "绷带", exact: true }).count()) {
       await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeDisabled();
-      await page.getByRole("button", { name: "食物", exact: true }).click();
+      await page.getByRole("button", { name: "绷带", exact: true }).click();
       choices++;
     }
     if (mode === "Radiant") expect(choices).toBeGreaterThanOrEqual(4);
     await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（8/16）");
     await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeEnabled();
     await expect(page.getByRole("button", { name: "掷开局补给骰", exact: true })).toHaveCount(0);
+    await expect(page.getByTestId("dungeon-provisions")).toContainText("bandage");
+    await expect(page.getByTestId("dungeon-provisions")).toContainText("potion");
+    await page.getByRole("button", { name: "选择下一段探索" }).click();
+    await page.getByRole("button", { name: "G", exact: true }).click();
+    await page.getByRole("button", { name: "掷探索骰并开始结算", exact: true }).click();
+    await expect(page.getByTestId("dungeon-rolls")).toContainText("待结算");
+    for (let i = 0; i < 24; i++) {
+      if ((await page.getByTestId("dungeon-checkpoint").textContent())?.includes("已到达 G")) break;
+      const die = page.getByRole("button", { name: /^hero-\d:[12] · / }).first();
+      if (await die.count()) await die.click();
+      else
+        await page
+          .getByRole("button", { name: /^(承受|陷阱攻击)/ })
+          .first()
+          .click();
+    }
+    await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已到达 G；Empty 已清理");
+    await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（8/16）");
+    await expect(page.getByTestId("dungeon-node-G")).toContainText("已清理");
     await page.screenshot({ path: testInfo.outputPath(`starting-${mode}.png`), fullPage: true });
   }
   await page.getByLabel("侦察测试布置").selectOption("neutral");

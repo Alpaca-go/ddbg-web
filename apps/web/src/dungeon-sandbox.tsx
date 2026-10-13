@@ -160,33 +160,35 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       : {}),
   }));
   const initial = createDungeonSandbox(
-    fixture === "wipeBattle" || fixture === "fundraiserBattle"
-      ? 1885
-      : fixture === "roomDisease"
-        ? 4
-        : fixture === "roomBattle"
-          ? 1885
-          : fixture === "roomApproved"
-            ? 11
-            : fixture === "roomBlocked"
-              ? 12
-              : fixture === "curioComposite"
-                ? 230
-                : fixture === "curioTrinket"
-                  ? 921
-                  : fixture === "curioRewards"
-                    ? 317
-                    : fixture === "curioPositive"
-                      ? 85
-                      : fixture === "curioProvision"
-                        ? 370
-                        : fixture === "curioBuff"
-                          ? 343
-                          : fixture === "curio"
-                            ? 1237
-                            : fixture === "corridor"
-                              ? 31
-                              : 1,
+    fixture === "startingProvisions"
+      ? 75
+      : fixture === "wipeBattle" || fixture === "fundraiserBattle"
+        ? 1885
+        : fixture === "roomDisease"
+          ? 4
+          : fixture === "roomBattle"
+            ? 1885
+            : fixture === "roomApproved"
+              ? 11
+              : fixture === "roomBlocked"
+                ? 12
+                : fixture === "curioComposite"
+                  ? 230
+                  : fixture === "curioTrinket"
+                    ? 921
+                    : fixture === "curioRewards"
+                      ? 317
+                      : fixture === "curioPositive"
+                        ? 85
+                        : fixture === "curioProvision"
+                          ? 370
+                          : fixture === "curioBuff"
+                            ? 343
+                            : fixture === "curio"
+                              ? 1237
+                              : fixture === "corridor"
+                                ? 31
+                                : 1,
     layout,
     fixture.startsWith("fundraiser")
       ? fundraiserDistribution
