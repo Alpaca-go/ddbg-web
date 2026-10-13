@@ -89,6 +89,13 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("dungeon-provisions")).toHaveText("剩余补给：无");
   await expect(page.getByRole("button", { name: "离开地牢", exact: true })).toBeDisabled();
   await expect(page.getByRole("button", { name: "选择下一段探索", exact: true })).toBeDisabled();
+  await page.getByRole("button", { name: "生成任务结算摘要", exact: true }).click();
+  await expect(page.getByTestId("dungeon-quest-summary")).toContainText(
+    "Scout Ahead I · 清理 2 / 6 间",
+  );
+  await expect(page.getByTestId("dungeon-quest-summary")).toContainText("每名英雄待发 1 XP");
+  await expect(page.getByTestId("dungeon-quest-summary")).toContainText("驿站待发 1 XP");
+  await expect(page.getByRole("button", { name: "生成任务结算摘要", exact: true })).toHaveCount(0);
   await page.screenshot({ path: testInfo.outputPath("dungeon-exited.png"), fullPage: true });
   await page.getByLabel("侦察测试布置").selectOption("curio");
   await page.getByRole("button", { name: "选择下一段探索" }).click();

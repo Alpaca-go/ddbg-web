@@ -1,5 +1,15 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：#134 已合并与 Scout Ahead 退出摘要（2026-10-13，UTC+8）
+
+#134 准确 head `b7af47a` 的质量与 Playwright 两项 CI 成功，已按授权合并为 main `0cef7ac`，本地同步。本轮从该基线建立 `codex/phase3-scout-quest-summary`，接退出后的清理记录 / 待发 XP 摘要。下方“合并前核 #134”属于历史记录。
+
+保存初始任务身份与代币构成，只接 Scout Ahead I，每两间清理房间计1 XP、最多3；每名英雄与驿站同额，awarded=false。完整校验清理记录，旧状态 / 未知任务 / 错构成不兜底；全员退出后只生成一次，英雄与驿站尚不发放 XP。已修正走廊 seed31 沙盒把Trap标清理的注入，G / E代币互换，构成与RNG守恒。见[本轮交付](phase3-scout-quest-summary-2026-10-13.md)。
+
+本地 Node24.21.0 / pnpm12.9.1：typecheck、lint、80文件 / 788项测试、build、六条冒烟与diff检查通过，已查看结算摘要截图。新增13项场景；第一条Phase3冒烟续接摘要，仍三条阶段 / 六条总冒烟，缓存Chromium1234配置不改正式配置。PR最新head两项CI另核。
+
+继续Phase3，任务回村发放、柴火休息、其他任务与阶段验收未完成。实际可参战板块仍1/28，没有批准任何新面，Fountain / 遗迹4–9、Torture运行时排除项及全部Q / VQ保持。
+
 ## 最新交接：#133 合并与掷骰前离开地牢（2026-10-13，UTC+8）
 
 实现 `a40c34f`，对应 [PR #134](https://github.com/Alpaca-go/ddbg-web/pull/134)。本地检查已通过，合并前核最新 head 两项 CI。
