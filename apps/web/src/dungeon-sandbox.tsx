@@ -7,6 +7,7 @@ import {
   createDungeonSandbox,
   createTrinketPool,
   readRoomTile,
+  PROVISION_EFFECTS,
 } from "@ddbg/engine";
 import type { Command, GameEvent, GameState, DungeonState, PendingChoice } from "@ddbg/engine";
 import rawLayouts from "../../../packages/data/normalized/corebox/dungeon_layouts.json";
@@ -14,6 +15,7 @@ import { dungeonLayoutFileSchema } from "../../../packages/data/src/dungeon-layo
 import type { DungeonLayout } from "../../../packages/data/src/dungeon-layout";
 import { battleData } from "virtual:battle-data";
 import { BattleView } from "./battle-view";
+import { provisionLabels, provisionEffectLabels } from "./provision-labels";
 import distribution from "../../../packages/data/normalized/corebox/scout_ahead_distribution.json";
 import wipeDistribution from "../../../packages/data/normalized/corebox/wipe_em_out_distribution.json";
 import fundraiserDistribution from "../../../packages/data/normalized/corebox/fundraiser_distribution.json";
@@ -75,6 +77,7 @@ function FundraiserChoice({
 }
 const curios = curioFileSchema.parse(rawCurios).cards;
 type Fixture =
+  | "navigationProvisions"
   | "startingProvisions"
   | "fundraiser"
   | "fundraiserBattle"
@@ -142,6 +145,16 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
           .map((s) => s.id),
       };
     })(),
+    ...(fixture === "navigationProvisions" && i === 0
+      ? {
+          wounds: 3,
+          stress: 3,
+          statusStacks: [
+            { kind: "bleed" as const, remaining: 2, amount: 1 },
+            { kind: "blight" as const, remaining: 3, amount: 1 },
+          ],
+        }
+      : {}),
     ...(i === 0 && fixture === "heartAttack"
       ? { resolveTested: true, resolveCardId: battleData.resolveCards[0]!.id }
       : {}),
@@ -188,16 +201,22 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       dungeonLevel: fixture === "trap" ? 3 : 1,
       light: 5,
       provisions:
-        fixture === "startingProvisions"
-          ? []
-          : [
-              { id: "tool-1", face: "tool" },
-              { id: "tool-2", face: "tool" },
-              { id: "tool-3", face: "tool" },
-              { id: "tool-4", face: "tool" },
-              { id: "torch-1", face: "torch" },
-              { id: "food-1", face: "food" },
-            ],
+        fixture === "navigationProvisions"
+          ? [
+              { id: "nav-food", face: "food" },
+              { id: "nav-bandage", face: "bandage" },
+              { id: "nav-potion", face: "potion" },
+            ]
+          : fixture === "startingProvisions"
+            ? []
+            : [
+                { id: "tool-1", face: "tool" },
+                { id: "tool-2", face: "tool" },
+                { id: "tool-3", face: "tool" },
+                { id: "tool-4", face: "tool" },
+                { id: "torch-1", face: "torch" },
+                { id: "food-1", face: "food" },
+              ],
     },
     curios,
     roomFileSchema.parse(rawRooms).cards,
@@ -347,6 +366,7 @@ const labels = {
 export function DungeonSandbox() {
   const { game, events, commands, dispatch, reset, select, page, fixture, preview } =
     useDungeonStore();
+  const [provisionTarget, setProvisionTarget] = useState("hero-0");
   const d = game.dungeon!;
   if (game.battle)
     return (
@@ -375,13 +395,15 @@ export function DungeonSandbox() {
             光照 {d.explorationSetup?.light ?? "待配置"}、DL {d.explorationSetup!.dungeonLevel}
           </p>
           <p>
-            {fixture === "startingProvisions"
-              ? "入口演示：空补给池，按种子完成开局补给后探索；地图标注仍待批准。"
-              : fixture === "fundraiserRewards"
-                ? "测试注入：已清理一间巢穴与60金币，仅检查退出捐献，不代表实战获得。"
-                : preview
-                  ? "16 槽地图仅预览，未解释标记保留，未开启 Boss 规则。"
-                  : "测试注入：导航就绪英雄与六个补给；从选路开始，逐骰结算后进入目标节点。"}
+            {fixture === "navigationProvisions"
+              ? "测试注入：hero-0有3伤口、3压力、流血与腐蚀，用于检查探索间补给。"
+              : fixture === "startingProvisions"
+                ? "入口演示：空补给池，按种子完成开局补给后探索；地图标注仍待批准。"
+                : fixture === "fundraiserRewards"
+                  ? "测试注入：已清理一间巢穴与60金币，仅检查退出捐献，不代表实战获得。"
+                  : preview
+                    ? "16 槽地图仅预览，未解释标记保留，未开启 Boss 规则。"
+                    : "测试注入：导航就绪英雄与六个补给；从选路开始，逐骰结算后进入目标节点。"}
           </p>
           <a href="/">返回战斗沙盒</a>
         </div>
@@ -403,6 +425,7 @@ export function DungeonSandbox() {
           侦察测试布置
           <select value={fixture} onChange={(e) => select(page, e.target.value as Fixture)}>
             <option value="neutral">中立英雄</option>
+            <option value="navigationProvisions">探索间补给（伤口 / 压力 / 状态注入）</option>
             <option value="startingProvisions">入口开局补给（标准 / Radiant）</option>
             <option value="fundraiser">Fundraiser I · 完整八枚代币</option>
             <option value="fundraiserBattle">Fundraiser I · 巢穴战斗入口（种子1885）</option>
@@ -689,6 +712,18 @@ export function DungeonSandbox() {
           <p data-testid="dungeon-provision-count">
             公共补给（{d.explorationSetup!.provisions.length}/16）
           </p>
+          <p data-testid="dungeon-status-stacks">
+            {d.heroes
+              .map(
+                (h) =>
+                  `${h.id}：${
+                    (h.statusStacks ?? h.combat?.statusStacks)
+                      ?.map((s) => `${s.kind} ${s.remaining}t`)
+                      .join("、") || "无状态"
+                  }`,
+              )
+              .join("；")}
+          </p>
           <p data-testid="dungeon-provisions">
             剩余补给：
             {d.explorationSetup!.provisions.map((p) => `${p.id} ${p.face}`).join(" · ") || "无"}
@@ -719,6 +754,45 @@ export function DungeonSandbox() {
               )}
             </div>
           )}
+          <fieldset>
+            <legend>探索间补给</legend>
+            <label>
+              补给接收英雄
+              <select
+                aria-label="探索补给接收英雄"
+                value={provisionTarget}
+                onChange={(e) => setProvisionTarget(e.target.value)}
+              >
+                {d.heroes
+                  .filter((h) => !h.dead)
+                  .map((h) => (
+                    <option key={h.id} value={h.id}>
+                      {h.id}
+                    </option>
+                  ))}
+              </select>
+            </label>
+            {d
+              .explorationSetup!.provisions.filter((p) => p.face !== "torch")
+              .flatMap((p) =>
+                PROVISION_EFFECTS[p.face].map((effect) => (
+                  <button
+                    key={`${p.id}:${effect}`}
+                    disabled={d.phase !== "ready" || !!d.pending}
+                    onClick={() =>
+                      dispatch({
+                        type: "useProvision",
+                        provisionId: p.id,
+                        targetId: provisionTarget,
+                        effect,
+                      })
+                    }
+                  >
+                    {provisionLabels[p.face]}（{p.id}）：{provisionEffectLabels[effect]}
+                  </button>
+                )),
+              )}
+          </fieldset>
           {d.explorationSetup!.light < 5 &&
             d
               .explorationSetup!.provisions.filter((p) => p.face === "torch")

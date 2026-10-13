@@ -125,10 +125,29 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
         : continueDungeonTrap(roomState);
     return { ...continued, events: [...events, ...continued.events] };
   } else if (d.pressureSource === "provision") {
-    d = { ...d, phase: "ready", pending: null };
+    d = {
+      ...d,
+      phase: "ready",
+      pending: null,
+      heroes: d.heroes.map((h) =>
+        h.combat
+          ? {
+              ...h,
+              combat: {
+                ...h.combat,
+                stress: h.stress,
+                wounds: h.wounds!,
+                dead: h.dead ?? false,
+                resolveTested: h.resolveTested ?? false,
+                resolveCardId: h.resolveCardId ?? null,
+              },
+            }
+          : h,
+      ),
+    };
     events.push({
       type: "dungeonUpdated",
-      message: "补给的意志检定完成；不重复消耗 Torch 或触发侦察",
+      message: "补给的意志检定完成；不重复消耗补给或触发侦察",
     });
   } else if (d.pressureSource === "backtracking") {
     const completed = completeDungeonBacktrack({ ...state, dungeon: d });
