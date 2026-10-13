@@ -2,6 +2,11 @@ import { describe, expect, it } from "vitest";
 import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../data/normalized/corebox/scout_ahead_distribution.json";
 import catalog from "../../data/normalized/corebox/virtue_affliction.json";
+import diseaseData from "../../data/normalized/corebox/disease.json";
+import quirkData from "../../data/normalized/corebox/quirk.json";
+import { diseaseFileSchema } from "../../data/src/disease";
+import { normalizedQuirkFileSchema } from "../../data/src/normalize/schema";
+import { createConditionPool } from "./conditions";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { createDungeonSandbox } from "./dungeon";
@@ -109,13 +114,19 @@ describe("Trap 房间（R15、R28–29、R-026、R-045）", () => {
   });
   it("缺意志资料保存已付分配；补齐后等于完整路径，不重复伤口 / RNG / 压力", () => {
     const initial = setup(3, [{ ...heroes[0]!, stress: 9 }, heroes[1]!]);
-    const blocked = allocate(start(patch(initial, { resolveCards: [] })), "h0", 0).state;
+    const blocked = allocate(start(patch(initial, { resolveCards: [] })), "h0", 1).state;
     expect(blocked.dungeon).toMatchObject({ phase: "blockedPressure", position: "D", cursor: 7 });
     expect(blocked.dungeon!.heroes[0]!.stress).toBe(10);
+    expect(blocked.dungeon!.heroes[0]!.wounds).toBe(0);
+    expect(blocked.dungeon!.roomResolution).toMatchObject({
+      resolvedHeroIds: [],
+      pendingAllocation: { heroId: "h0", wounds: 1 },
+    });
     expect(applyCommand(blocked, { type: "resolveDungeonPressure" }).state).toBe(blocked);
     const repaired = patch(blocked, { resolveCards: catalog.cards as ResolveCard[] });
     const recovered = applyCommand(repaired, { type: "resolveDungeonPressure" }).state;
-    expect(recovered).toEqual(allocate(start(initial), "h0", 0).state);
+    expect(recovered).toEqual(allocate(start(initial), "h0", 1).state);
+    expect(recovered.dungeon!.heroes[0]!.wounds).toBe(1);
     expect(recovered.dungeon!.pending!.options.map((o) => o.id)).toEqual(["h1"]);
     expect(applyCommand(recovered, { type: "resolveDungeonPressure" }).state).toBe(recovered);
   });
@@ -152,13 +163,71 @@ describe("Trap 房间（R15、R28–29、R-026、R-045）", () => {
     expect(result.state.dungeon!.heroes[1]).toEqual(heroes[1]);
     expect(result.events.some((e) => e.type === "heartAttack")).toBe(true);
   });
-  it("混合分配触及压力10或已有死门时按Q-64整次拒绝；可以另选纯分配", () => {
-    for (const override of [{ stress: 9 }, { wounds: 10 }]) {
-      const s = pick(start(setup(3, [{ ...heroes[0]!, ...override }])), "h0").state;
-      const result = pick(s, "1");
-      expect(result.state).toBe(s);
-      expect(result.events[0]!.message).toContain("Q-64");
-      expect(pick(s, "3").state).not.toBe(s);
+  it("R-069/Q-64混合分配先意志、后分配伤口；心脏病取消未付伤口", () => {
+    const initial = setup(3, [{ ...heroes[0]!, stress: 9, wounds: 9 }]);
+    const snapshot = structuredClone(initial);
+    const result = allocate(start(initial), "h0", 1);
+    expect(result.state.dungeon!.heroes[0]).toMatchObject({
+      stress: 0,
+      wounds: 10,
+      resolveTested: true,
+    });
+    expect(result.state.dungeon!.cursor).toBe(12);
+    expect(result.events.findIndex((e) => e.type === "resolveTested")).toBeLessThan(
+      result.events.findIndex((e) => e.type === "heroHealthResolved"),
+    );
+    expect(result).toEqual(allocate(start(initial), "h0", 1));
+    expect(initial).toEqual(snapshot);
+    const cardiac = setup(3, [
+      { ...heroes[0]!, stress: 9, resolveTested: true, resolveCardId: catalog.cards[0]!.id },
+      heroes[1]!,
+    ]);
+    const dead = allocate(start(cardiac), "h0", 1);
+    expect(dead.state.dungeon!.heroes[0]).toMatchObject({ stress: 10, wounds: 0, dead: true });
+    expect(dead.state.dungeon).toMatchObject({
+      phase: "awaitingReplacement",
+      cursor: 7,
+      roomResolution: { resolvedHeroIds: ["h0"] },
+    });
+    expect(dead.state.dungeon!.roomResolution!.pendingAllocation).toBeUndefined();
+    expect(dead.events.some((e) => e.type === "heroHealthResolved")).toBe(false);
+    expect(dead.state.dungeon!.heroes[1]).toEqual(heroes[1]);
+  });
+  it("Soft压力伤口与分配伤口是顺序两批：死门死亡取消第二批，存活才继续", () => {
+    for (const faces of [
+      [true, false],
+      [false, true],
+      [false, false],
+    ]) {
+      const seed = Array.from({ length: 500 }, (_, i) => i).find((value) => {
+        const rng = createRng(value);
+        for (let i = 0; i < 7; i++) rng.next();
+        return rng.next() < 0.3 === faces[0] && rng.next() < 0.3 === faces[1];
+      })!;
+      const initial = setup(
+        3,
+        [{ ...heroes[0]!, level: 1, wounds: 10, quirkIds: ["quirk:p035"] }],
+        seed,
+      );
+      const held = patch(initial, {
+        conditions: createConditionPool(
+          diseaseFileSchema.parse(diseaseData).cards,
+          normalizedQuirkFileSchema.parse(quirkData).cards,
+        ),
+      });
+      const result = allocate(start(held), "h0", 1);
+      expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+      expect(result.state.dungeon!.heroes[0]).toMatchObject({
+        stress: 2,
+        wounds: 10,
+        dead: faces[0] || faces[1],
+      });
+      expect(result.state.dungeon!.cursor).toBe(faces[0] ? 8 : 9);
+      expect(result.events.filter((e) => e.type === "heroHealthResolved")).toHaveLength(
+        faces[0] ? 1 : 2,
+      );
+      expect(result.state.dungeon!.roomResolution!.pendingAllocation).toBeUndefined();
+      expect(result).toEqual(allocate(start(held), "h0", 1));
     }
   });
   it("缺 Life / 未核实属性 / 非法 DL / 非Trap 房间开始时拒绝，数据修复后可继续", () => {
