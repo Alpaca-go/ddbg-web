@@ -6,6 +6,26 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await page.goto("/");
   await page.getByRole("link", { name: "打开 Phase 3 布局与侦察沙盒" }).click();
   await expect(page.getByRole("heading", { name: "地牢布局与侦察" })).toBeVisible();
+  await page.getByLabel("侦察测试布置").selectOption("navigationProvisions");
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 3 · 伤口 3/17");
+  await page.getByRole("button", { name: "食物（nav-food）：治疗 1", exact: true }).click();
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("伤口 2/17");
+  await page
+    .getByRole("button", { name: "绷带（nav-bandage）：移除所有流血", exact: true })
+    .click();
+  await expect(page.getByTestId("dungeon-status-stacks")).not.toContainText("bleed");
+  await expect(page.getByTestId("dungeon-status-stacks")).toContainText("blight 3t");
+  await page.getByRole("button", { name: "药水（nav-potion）：移除所有腐蚀", exact: true }).click();
+  await expect(page.getByTestId("dungeon-status-stacks")).not.toContainText("blight");
+  await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（0/16）");
+  await page.getByRole("button", { name: "重置标准模式" }).click();
+  await page.getByRole("button", { name: "药水（nav-potion）：压力 −1", exact: true }).click();
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 2");
+  await page.getByRole("button", { name: "选择下一段探索" }).click();
+  await expect(
+    page.getByRole("button", { name: "食物（nav-food）：治疗 1", exact: true }),
+  ).toBeDisabled();
+  await page.screenshot({ path: testInfo.outputPath("navigation-provisions.png"), fullPage: true });
   await page.getByLabel("侦察测试布置").selectOption("startingProvisions");
   for (const mode of ["标准模式", "Radiant"]) {
     await page
