@@ -21,6 +21,7 @@ import { resolveHeroHealth } from "./hero-health";
 import { passiveHeal } from "./passive";
 import { gainDisease } from "./conditions";
 import { readHeroPassiveDefence } from "./battle-skill-status";
+import { endTurnOldAbbey } from "./battle-old-abbey";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -213,6 +214,17 @@ export function finishTurn(
     if (ended) return ended;
     state = removed.state;
     events = removed.events;
+  }
+  const abbey = endTurnOldAbbey(state, actorId, events);
+  if (abbey) {
+    if (
+      abbey.events.some((e) => e.type === "commandRefused") ||
+      abbey.state.battle!.encounter?.turn.type === "halted" ||
+      abbey.state.battle!.encounter?.turn.type === "finished"
+    )
+      return abbey;
+    state = abbey.state;
+    events = abbey.events;
   }
   const battle = state.battle!;
   const encounter = battle.encounter!;

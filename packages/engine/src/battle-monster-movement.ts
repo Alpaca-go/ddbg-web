@@ -58,6 +58,16 @@ export function roomTileBattleAreas(tile: {
     tile.specialRegions?.some(
       (r) =>
         r.areaId === area.id &&
+        r.effect === "feelingThePresence" &&
+        r.status === "confirmed" &&
+        r.runtimeReady,
+    )
+      ? { feelingThePresence: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (r) =>
+        r.areaId === area.id &&
         r.effect === "ancestorGlory" &&
         r.status === "confirmed" &&
         r.runtimeReady,

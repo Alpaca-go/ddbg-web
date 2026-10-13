@@ -411,6 +411,7 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
   approvedTile({
     number: 9,
     name: "Old Abbey",
+    runtimeReady: true,
     page: 5,
     face: "front",
     heroes: { aggressive: "O8", defensive: "O8", ranged: "O8", support: "O8" },

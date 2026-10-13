@@ -107,6 +107,20 @@ function deploy(seed: number): GameState {
 // 不过滤生产牌池；寻找一条天然抽到获批六种的固定种子，仅作测试。
 const goodSeed = 1885;
 
+it("全九房／42怪池seed7自然Old Abbey入场，O1/O5星区及全部英雄O8独立", () => {
+  const deployed = deploy(7),
+    entered = applyCommand(deployed, { type: "startDungeonBattle" });
+  expect(entered.state.battle, JSON.stringify(entered.events)).toBeDefined();
+  expect(entered.state.battle!.roomName).toBe("Old Abbey");
+  expect(entered.state.battle!.areas.filter((a) => a.feelingThePresence).map((a) => a.id)).toEqual([
+    "O1",
+    "O5",
+  ]);
+  expect(
+    entered.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.areaId),
+  ).toEqual(["O8", "O8", "O8", "O8"]);
+});
+
 it("完整九房／42怪池seed12自然Tomb入场，只有A4投影Ancestor's Glory", () => {
   const deployed = deploy(12),
     entered = applyCommand(deployed, { type: "startDungeonBattle" });

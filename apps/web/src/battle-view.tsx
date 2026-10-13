@@ -305,6 +305,12 @@ export function BattleView({
                       Blight／Bleed／Debuff／Stun／Mark，免疫目标 Shuffle；自身效果遵循 R20。
                     </p>
                   )}
+                  {area.feelingThePresence && (
+                    <p>
+                      Feeling the Presence：英雄结束回合先压力 +1 × 负面怪癖数，存活再治疗 HL ×
+                      正面怪癖数。
+                    </p>
+                  )}
                   {area.endTurnHeal === 3 && (
                     <p className="muted">Healing Waters：英雄结束回合治疗 3</p>
                   )}

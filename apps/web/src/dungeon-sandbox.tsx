@@ -104,6 +104,7 @@ type Fixture =
   | "roomFountain"
   | "roomBeacon"
   | "roomAncestor"
+  | "roomAbbey"
   | "roomBattle"
   | "roomDisease"
   | "roomBlocked";
@@ -174,37 +175,39 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
           ? 1885
           : fixture === "roomBeacon"
             ? 1
-            : fixture === "roomAncestor"
-              ? 12
-              : fixture === "roomFountain"
-                ? 10
-                : fixture === "roomDisease"
-                  ? 4
-                  : fixture === "roomBattle"
-                    ? 1885
-                    : fixture === "roomApproved"
-                      ? 11
-                      : fixture === "roomBlocked"
-                        ? 2
-                        : fixture === "curioComposite"
-                          ? 230
-                          : fixture === "curioTrinket"
-                            ? 921
-                            : fixture === "curioRewards"
-                              ? 317
-                              : fixture === "curioPositive"
-                                ? 85
-                                : fixture === "curioProvision"
-                                  ? 370
-                                  : fixture === "curioBuff"
-                                    ? 343
-                                    : fixture === "curio"
-                                      ? 1237
-                                      : fixture === "curioNegative"
-                                        ? 46
-                                        : fixture === "corridor"
-                                          ? 31
-                                          : 1,
+            : fixture === "roomAbbey"
+              ? 7
+              : fixture === "roomAncestor"
+                ? 12
+                : fixture === "roomFountain"
+                  ? 10
+                  : fixture === "roomDisease"
+                    ? 4
+                    : fixture === "roomBattle"
+                      ? 1885
+                      : fixture === "roomApproved"
+                        ? 11
+                        : fixture === "roomBlocked"
+                          ? 2
+                          : fixture === "curioComposite"
+                            ? 230
+                            : fixture === "curioTrinket"
+                              ? 921
+                              : fixture === "curioRewards"
+                                ? 317
+                                : fixture === "curioPositive"
+                                  ? 85
+                                  : fixture === "curioProvision"
+                                    ? 370
+                                    : fixture === "curioBuff"
+                                      ? 343
+                                      : fixture === "curio"
+                                        ? 1237
+                                        : fixture === "curioNegative"
+                                          ? 46
+                                          : fixture === "corridor"
+                                            ? 31
+                                            : 1,
     layout,
     fixture.startsWith("fundraiser")
       ? fundraiserDistribution
@@ -350,6 +353,7 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
                 fixture === "roomFountain" ||
                 fixture === "roomBeacon" ||
                 fixture === "roomAncestor" ||
+                fixture === "roomAbbey" ||
                 fixture === "roomBlocked"
               ? {
                   ...initial,
@@ -509,6 +513,7 @@ export function DungeonSandbox() {
             <option value="roomAncestor">
               Tomb of Ancestor（种子12，固定房间代币，完整房间/怪物池）
             </option>
+            <option value="roomAbbey">Old Abbey（种子7，固定房间代币，完整房间/怪物池）</option>
             <option value="roomBlocked">
               Lair → Invocation Chamber（p1、种子 2、固定房间代币、先侦察 Radiant）
             </option>
