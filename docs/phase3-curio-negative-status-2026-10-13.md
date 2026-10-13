@@ -1,5 +1,7 @@
 # Phase 3：Heirloom Chest 无 Torch 负面状态
 
+实现提交 `47a55c6`，对应 [PR #143](https://github.com/Alpaca-go/ddbg-web/pull/143)。本地验证通过，合并前核最新head两项CI。
+
 2026-10-13（UTC+8）。从已合并 #142 的 main `722a222` 建立 `codex/phase3-curio-negative-status`，按用户“继续，然后合并”推进验收差距表的剩余 Curio 效果。
 
 ## 规则与实现

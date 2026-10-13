@@ -2,6 +2,8 @@
 
 ## 最新交接：Heirloom Chest 无 Torch 负面状态（2026-10-13，UTC+8）
 
+实现提交 `47a55c6`，对应 [PR #143](https://github.com/Alpaca-go/ddbg-web/pull/143)。本地验证全部通过，合并前核PR最新head两项CI；下列main基线是开工位置，不是本主题合并提交。
+
 #142文档补记已在两项CI成功后按授权合并为main `722a222`，本地同步。从该基线建立 `codex/phase3-curio-negative-status`，继续验收差距表的Curio奖惩缺口；本主题范围/测试/后续见[专题交付](phase3-curio-negative-status-2026-10-13.md)。
 
 依据官方R14/R21/R26–29、R-064/R-063/R-002/R-048及已看完整Curio FRONT p4。Heirloom Chest未用Torch时新增压力+1、Blight 1/3t、Debuff 2t与金币5的完整明确分支；实际seed46从完整24张池抽p4，压力/状态/金币/弃牌一次提交并续接剩余骰。Torch对照保留；金币同步地图和战利品池，旧池漂移停点不发半张奖励。状态追加伤口、压力到10、死亡后奖惩续接仍整卡停场，不推定顺序，不新增裁定。
