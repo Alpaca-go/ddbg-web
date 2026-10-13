@@ -37,7 +37,7 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
     (c.active && (c.active.roomId !== d.position || c.deck === null))
   )
     return refuse("遗迹房间牌池不守恒 / 活动房间不一致，保持原状态");
-  // 同一战斗入口只抽一次；后续战斗完成接口尚未接入，不允许重抽。
+  // 同一入口不重抽；本场完成交接后弃置已抽房间牌。
   if (c.active) return refuse("该房间牌已记录；等待板块 / 正式遭遇战接线，不能重抽");
   const deck = [...(c.deck ?? pool.map((card) => card.id))];
   if (!deck.length) return refuse("本地牢房间牌已用尽；不洗回弃牌（R25）");
@@ -57,7 +57,7 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
   const blockedReason =
     selected.status === "matched"
       ? `${selected.tile.name} 板块已获批；下一步从完整 Common + Ruins 怪物牌堆抽牌，再校验并进入房间战斗（R10、R15–17）。房间未清理，未发奖励。`
-      : `${card.name} ${selected.reason}；保留此牌等待复核，不能替换房间。`;
+      : `${selected.reason.startsWith(card.name) ? selected.reason : `${card.name} ${selected.reason}`}；保留此牌，不能替换房间。`;
   return {
     state: {
       ...state,

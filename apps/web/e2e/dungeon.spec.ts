@@ -223,7 +223,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     await expect(card).toContainText(
       fixture === "roomApproved"
         ? "已匹配 Ritual Chamber"
-        : "Tomb of Ancestor 对应板块几何 / 部署尚未获批",
+        : "Tomb of Ancestor 已入库，但完整特殊运行时尚未就绪",
     );
     await expect(page.getByRole("button", { name: "抽房间牌并匹配战斗板块" })).toHaveCount(0);
     const drawMonsters = page.getByRole("button", { name: "从完整 42 张怪物池抽牌并记录部署" });

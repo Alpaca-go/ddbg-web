@@ -76,7 +76,9 @@ describe("守卫房间准备（R10、R15–17、R-048）", () => {
                 ? "room_tile:p002:front"
                 : undefined,
       );
-      expect(active.blockedReason).toContain(active.tileId ? "完整 Common + Ruins" : "尚未获批");
+      expect(active.blockedReason).toContain(
+        active.tileId ? "完整 Common + Ruins" : "完整特殊运行时尚未就绪",
+      );
     }
     expect([...seen].sort()).toEqual(cards.slice(0, 9).map((c) => c.id));
   });

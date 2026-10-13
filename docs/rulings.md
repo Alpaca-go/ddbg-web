@@ -905,3 +905,12 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **进展**（2026-10-08，v1.8）：Kyries 批准 batch-08（归类 79、留下 3）。79 条归入已有 `skill_art`，通用含义，不是合并。r195、r544、r569 仍不命名。尚未审阅的 147 条仍按 R-048 占位。
 - **进展**（2026-10-11，R-061）：五个黑心红光 hash 并入已有 Wound，`confirmed` 641、`needs_review` 32；Bleed Out I/II/III 的唯一图标阻塞已解除。其他 hash 不随本次批准改名。
 - **状态**：延后（词典 v1.8 已入库；剩余 `needs_review` / `unsure` / `unreviewed` 仍按 R-048 占位）
+
+
+### Q-72
+
+- **问题**：Spiked Pit 的“Heroes and Monsters that are Shuffle or standing here at the end of their turn”中，Shuffle 触发按坑区实际落点，还是包括移出／经过，或只按起点在坑区？
+- **来源**：ROOMS FRONT p4 卡文与完整卡图；核心 R21 只定义推／拉的区域与姿态移动，没有补充本面触发范围。R-067确认图标语义，R-069确认有序效果／死亡取消，但没有裁定此位置范围。
+- **具体选项**：① 仅实际落点 S8/S9 触发（普通移动、移出、经过不触发）；② Shuffle 进入、经过或移出坑区均触发；③ 仅 Shuffle 开始时处于 S8/S9 触发。
+- **处理**：已向 Kyries 提出具体选项。印刷数字与几何按 R-065/066/067 入库，但在触发范围和完整特殊运行时就绪前 `usable=false`。不按猜测删掉 Shuffle 分支或先开放半张卡。
+- **状态**：pending（2026-10-13，本对话待答）。
