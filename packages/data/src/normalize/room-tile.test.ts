@@ -176,7 +176,7 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
           areaId: "H",
           iconId: "4591aebebd",
           effect: "unholyAura",
-          status: "candidate",
+          status: "confirmed",
           runtimeReady: false,
         },
       ],
@@ -215,7 +215,7 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
     if (!("specialRegions" in tile)) throw new Error("缺少本面候选区域");
     for (const changed of [
       { effect: "cornered" },
-      { status: "confirmed" },
+      { status: "candidate" },
       { runtimeReady: true },
     ]) {
       expect(

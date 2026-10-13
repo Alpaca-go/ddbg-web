@@ -34,6 +34,7 @@ const CONFIDENCE = /^(?:high|medium-high|medium|low-medium|low)(?: .+)?$/;
 const confidenceSchema = z.string().regex(CONFIDENCE).nullable();
 
 const iconSourceSchema = z.enum([
+  "kyries_review_2026-10-13",
   "kyries_review_2026-10-12",
   "kyries_review_2026-10-11",
   "kyries_review_2026-10-06",

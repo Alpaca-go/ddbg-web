@@ -318,7 +318,7 @@
      "areaId": "H",
      "iconId": "4591aebebd",
      "effect": "unholyAura",
-     "status": "candidate",
+     "status": "confirmed",
      "printedText": "Unholy Aura: Heroes in this Area can't heal or be healed.",
      "runtimeReady": false
     }

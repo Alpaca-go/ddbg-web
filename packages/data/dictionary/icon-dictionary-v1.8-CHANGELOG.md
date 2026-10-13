@@ -1,5 +1,9 @@
 # 图标词典 v1.8 更新记录（2026-10-08）
 
+## 2026-10-13 / R-067补充
+
+Kyries逐项批准`8c4c3c2ec2`=Shuffle、`ce2f57ed90`=Blight、`5c9604da90`=Wound。三条由unreviewed变confirmed，保留原ID、空value与出现次数；记录真实source日期`kyries_review_2026-10-13`及previous_status，不补图标内数字或复合顺序。JSON/CSV与覆盖率同步：全部983条中confirmed660、confirmed_rulebook44、needs_review31、decor110、unsure0、unreviewed138；前525计数不变。下文原版计数保留为历史记录。
+
 ## 2026-10-12 补充：Curio 效果行 17 个 hash（R-064 / Q-60）
 
 Kyries 对照 CURIO_FRONT_V2 与手打 01–24 效果行批准全部 Q-60 hash。现有 10 条更新，新增 7 条作为 rank 977–983，旧 rank 不改。JSON / CSV 同步，status 为 `confirmed`、source 为 `kyries_review_2026-10-12`，保留旧状态与含义；数字仍来自效果行，不填图标 `value`。历史 `all976` stats 字段名保留，统计覆盖当前全部 983 条。

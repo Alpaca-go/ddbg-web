@@ -347,6 +347,21 @@ const dictionary = parseSchema(
 );
 
 describe("图标词典 v1.8", () => {
+  it("R-067逐项批准Shuffle/Blight/Wound三个hash，不补value或推广其他图标", () => {
+    for (const [id, key] of [
+      ["8c4c3c2ec2", "shuffle"],
+      ["ce2f57ed90", "blight"],
+      ["5c9604da90", "wound"],
+    ]) {
+      expect(dictionary.icons.find((i) => i.iconId === id)).toMatchObject({
+        key,
+        status: "confirmed",
+        value: null,
+        source: "kyries_review_2026-10-13",
+        previous_status: "unreviewed",
+      });
+    }
+  });
   it("通过 schema，共 983 条（Q-60 新收 7 条，旧 rank 不变）", () => {
     expect(dictionary.meta.version).toBe("1.8");
     expect(dictionary.icons).toHaveLength(983);
@@ -944,12 +959,12 @@ describe("图标词典 v1.8", () => {
     expect(new Set(V18_CATEGORIZE).size).toBe(79);
     expect(dictionary.meta.resolved_in_v1_8.length).toBeGreaterThan(0);
     expect(dictionary.meta.stats.status_all976).toEqual({
-      confirmed: 657,
+      confirmed: 660,
       confirmed_rulebook: 44,
       needs_review: 31,
       decor: 110,
       unsure: 0,
-      unreviewed: 141,
+      unreviewed: 138,
     });
     expect(dictionary.meta.stats.status_top525).toEqual({
       confirmed: 420,
