@@ -1,3 +1,4 @@
+import { createLootState } from "./loot";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState } from "./index";
@@ -307,11 +308,26 @@ describe("英雄生命遭遇战收尾（R24–25、R29、R-030、R-044）", () =
     expect(done.state.battle!.rngCursor).toBe(rolled.state.battle!.rngCursor);
   });
 
-  it("双方最后角色同次技能死亡时只记录双方全灭事实，不裁定赢家", () => {
+  it("双方最后角色同次技能死亡为 mutualWipeout，保留既有金币但不发奖励（R-068）", () => {
     let state = setup();
     for (let index = 1; index < 4; index += 1)
       state = applyCommand(turn(state, "monster"), attack(`h${index}`)).state;
     state = patch(turn(state, "hero"), "m0", { riposte: true, areaId: "a" });
+    const loot = createLootState();
+    const [token, ...available] = loot.available;
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        loot: {
+          ...loot,
+          gold: 10,
+          available,
+          placed: [{ ...token!, areaId: "a", revealed: false }],
+        },
+      },
+    };
+    const before = structuredClone(state);
     const result = applyCommand(state, {
       type: "playHeroSkill",
       actorId: "h0",
@@ -320,10 +336,26 @@ describe("英雄生命遭遇战收尾（R24–25、R29、R-030、R-044）", () =
     });
     expect(result.state.battle!.encounter!.turn).toEqual({
       type: "halted",
-      reason: "heroesDefeated",
+      reason: "mutualWipeout",
       monstersDefeated: true,
     });
+    expect(result.events).toContainEqual(
+      expect.objectContaining({ type: "battleHalted", haltReason: "mutualWipeout" }),
+    );
+    expect(
+      applyCommand(state, {
+        type: "playHeroSkill",
+        actorId: "h0",
+        targetId: "m0",
+        skillId: smite.id,
+      }),
+    ).toEqual(result);
     expect(result.events.some((event) => event.type === "battleFinished")).toBe(false);
+    expect(result.state.battle!.loot).toMatchObject({ gold: 10, placed: [] });
+    expect(result.state.battle!.loot!.available).toHaveLength(10);
+    expect(result.state.battle!.entities.every((e) => e.dead)).toBe(true);
+    expect(applyCommand(result.state, { type: "drawInitiative" }).state).toBe(result.state);
+    expect(state).toEqual(before);
   });
 
   it("死亡记录跨自身位移分岔保存，待选不补位，续接只补一次且不重掷", () => {

@@ -53,7 +53,9 @@ export function EncounterEventDetails({
       return (
         <p className="state-event-details">
           第 {event.round} 轮 ·{" "}
-          {event.monstersDefeated === true ? "双方全灭，结果待确认" : "英雄全灭，单场停止"}
+          {event.haltReason === "mutualWipeout" || event.monstersDefeated === true
+            ? "双方同次全灭，单场停止，无胜利／撤退奖励"
+            : "英雄全灭，单场停止"}
         </p>
       );
     default:
