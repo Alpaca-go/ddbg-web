@@ -1,8 +1,8 @@
-import { SCOUT_REST_POINTS, scoutRestSchema } from "../../data/src/scout-rest";
+import { restPoints, scoutRestSchema } from "../../data/src/scout-rest";
 import type { ScoutRest } from "../../data/src/scout-rest";
 import type { ApplyResult, GameState, PendingChoice } from "./command";
 import type { DungeonState } from "./dungeon";
-import { readScoutClearedRooms } from "./dungeon-quest";
+import { readDungeonQuestProgress } from "./dungeon-quest";
 import { resolveHeroHealth } from "./hero-health";
 import { hasQuirk } from "./passive";
 
@@ -32,8 +32,13 @@ function restContext(state: GameState): DungeonState | null {
     )
   )
     return null;
-  const progress = readScoutClearedRooms(d);
-  if (progress.status !== "matched" || !progress.clearedRoomIds.includes(d.position)) return null;
+  const progress = readDungeonQuestProgress(d);
+  if (
+    progress.status !== "matched" ||
+    progress.quest.id !== d.rest!.questId ||
+    !progress.clearedRoomIds.includes(d.position)
+  )
+    return null;
   if (d.rest!.plan && d.rest!.plan.spend.some((s, i) => s.heroId !== d.heroes[i]!.id)) return null;
   return d;
 }
@@ -45,10 +50,12 @@ function allocate(d: DungeonState, rest: ScoutRest): PendingChoice {
   const plan = rest.plan!;
   const spent = plan.spend.reduce((n, s) => n + s.heal + s.stress, 0);
   const actor =
-    plan.mode === "equal" ? plan.spend.find((s) => s.heal + s.stress < 2)!.heroId : undefined;
+    plan.mode === "equal"
+      ? plan.spend.find((s) => s.heal + s.stress < restPoints(rest.questId) / 4)!.heroId
+      : undefined;
   return {
     id: `dungeon-rest:${d.decision}`,
-    prompt: `分配休息点：剩余 ${SCOUT_REST_POINTS - spent} / 8${actor ? `；${actor} 自选用途（每人2点）` : "；全队共同分配"}，分配完成后恢复并弃柴火（R15）`,
+    prompt: `分配休息点：剩余 ${restPoints(rest.questId) - spent} / ${restPoints(rest.questId)}${actor ? `；${actor} 自选用途（每人${restPoints(rest.questId) / 4}点）` : "；全队共同分配"}，分配完成后恢复并弃柴火（R15）`,
     ...(actor ? { actorId: actor } : {}),
     options: d.heroes.flatMap((h, i) =>
       actor && h.id !== actor
@@ -71,7 +78,8 @@ export function restDungeon(
     state,
     events: [{ type: "commandRefused", message }],
   });
-  if (!d) return refuse("休息须有Scout Ahead柴火、四名存活英雄与已清理房间；先完成当前结算（R15）");
+  if (!d)
+    return refuse("休息须有当前任务的已核实柴火、四名存活英雄与已清理房间；先完成当前结算（R15）");
   const finish = (
     rest: ScoutRest,
     pending: PendingChoice | null,
@@ -90,7 +98,10 @@ export function restDungeon(
         prompt: "全员是否同意休息（R15）？",
         options: [
           { id: "collective", label: "全员同意休息，共同分配" },
-          { id: "equal", label: "全员同意休息，分配意见不一：每人2点" },
+          {
+            id: "equal",
+            label: `全员同意休息，分配意见不一：每人${restPoints(d.rest!.questId) / 4}点`,
+          },
           { id: "decline", label: "取消休息" },
         ],
       },
@@ -114,7 +125,11 @@ export function restDungeon(
         spend: d.heroes.map((h) => ({ heroId: h.id, heal: 0, stress: 0 })),
       },
     };
-    return finish(rest, allocate(d, rest), "已同意休息；等待分配8点，尚未恢复或消耗柴火");
+    return finish(
+      rest,
+      allocate(d, rest),
+      `已同意休息；等待分配${restPoints(rest.questId)}点，尚未恢复或消耗柴火`,
+    );
   }
   if (!allocate(d, d.rest!).options.some((o) => o.id === command.optionId))
     return refuse("分配对象 / 均分额度无效");
@@ -141,8 +156,8 @@ export function restDungeon(
   )
     return refuse("已分配恢复涉及Q-69怪癖，整次保留原状态");
   const rest = { ...d.rest!, plan };
-  if (plan.spend.reduce((n, s) => n + s.heal + s.stress, 0) < SCOUT_REST_POINTS)
-    return finish(rest, allocate(d, rest), "已记录分配；全部8点分配完成前不恢复英雄");
+  if (plan.spend.reduce((n, s) => n + s.heal + s.stress, 0) < restPoints(rest.questId))
+    return finish(rest, allocate(d, rest), "已记录分配；全部休息点分配完成前不恢复英雄");
   const heroes: DungeonState["heroes"][number][] = [];
   for (const [i, h] of d.heroes.entries()) {
     const s = plan.spend[i]!;

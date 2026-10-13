@@ -1,5 +1,7 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-13 最新入口：#136准确head两项CI成功后已合并main `36bca29`。本轮 `codex/phase3-wipe-em-out` 接第二张基础任务Wipe ‘Em Out I，完整分布 / 巢穴计分 / 12点休息 / 真实守卫退场与0XP摘要；807项测试和六条冒烟通过。第三张任务、回村发放与Phase3验收未完成，新板块与Q / VQ（含Q-69）边界保持，不跳Phase4。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[任务交付](phase3-wipe-em-out-2026-10-13.md)。
+
 > 2026-10-13 最新入口：#135 准确head两项CI成功后已合并main `8694df5`。本轮 `codex/phase3-scout-rest` 接Scout Ahead 8点基础休息，全员同意 / 共同或均分 / 八点原子恢复 / 弃柴火；Q-69的三项恢复怪癖分组保持停点，不猜测。其他任务与Phase3验收仍未完成，不跳Phase4，新板块审批与既有排除项保持。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[休息交付](phase3-scout-rest-2026-10-13.md)。
 
 > 2026-10-13 最新入口：#134 准确head两项CI成功后已合并为main `0cef7ac`。本轮 `codex/phase3-scout-quest-summary` 接退出后 Scout Ahead 清理数与待发XP，不发放英雄 / 驿站XP；严格核任务身份 / 代币 / 清理记录，不兜底旧状态，修正走廊沙盒的Trap伪清理。Phase3未验收，新板块与Q / VQ边界保持。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[摘要交付](phase3-scout-quest-summary-2026-10-13.md)。

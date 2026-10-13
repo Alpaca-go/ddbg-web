@@ -27,7 +27,8 @@ import type { PassiveHero } from "./passive-runtime";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import type { TrinketPool } from "./trinket-acquisition";
 import { leaveDungeon } from "./dungeon-exit";
-import type { ScoutQuestSummary } from "../../data/src/quest-summary";
+import type { DungeonQuestSummary } from "../../data/src/quest-summary";
+import { readBasicQuest } from "../../data/src/basic-quests";
 import type { ScoutRest } from "../../data/src/scout-rest";
 
 export type DungeonCurioDraw = {
@@ -75,7 +76,7 @@ export type DungeonBattleCatalog = {
 export type DungeonState = {
   readonly rest?: ScoutRest;
   readonly questDistribution?: RoomDistribution;
-  readonly questSummary?: ScoutQuestSummary;
+  readonly questSummary?: DungeonQuestSummary;
   readonly trinkets?: TrinketPool;
   readonly pendingCurioDraw?: { readonly rollId: string; readonly optionId: string };
   readonly conditions?: ConditionPool;
@@ -229,8 +230,8 @@ export function createDungeonSandbox(
     seed,
     notes: [],
     dungeon: {
-      ...(distribution.questId === "quest:p001"
-        ? { rest: { questId: "quest:p001" as const, used: false } }
+      ...(readBasicQuest(distribution)
+        ? { rest: { questId: readBasicQuest(distribution)!.id, used: false } }
         : {}),
       questDistribution: { ...distribution, counts: distribution.counts.map((c) => ({ ...c })) },
       layout,

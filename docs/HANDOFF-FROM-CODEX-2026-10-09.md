@@ -1,5 +1,17 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：#136 已合并与 Wipe ‘Em Out I（2026-10-13，UTC+8）
+
+实现 `d8dbbab`，对应 [PR #137](https://github.com/Alpaca-go/ddbg-web/pull/137)。本地验证已通过；最新head两项CI与合并结果以PR状态为准。
+
+#136准确head `1c4f418`两项CI成功并按授权合并为main `36bca29`，本地同步。本轮 `codex/phase3-wipe-em-out` 新接第二张I级基础任务：完整八枚分布、仅巢穴清理计1XP、12点休息 / 每人3点，仍只记录待发英雄 / 驿站XP。已看QUEST FRONT p2完整卡面，依据官方R15 / R29、R-038 / R-048。
+
+任务ID与构成唯一匹配，不借Scout兜底；摘要schema、清理守恒、休息预算与柴火身份统一。中文沙盒新增完整分布与自然首个巢穴待入场入口，不删牌、不改代币、不清理房间或发奖；自然种子1885走生产抽牌 / 部署 / 真实四轮退场，离开后摘要0XP。见[本轮交付](phase3-wipe-em-out-2026-10-13.md)。
+
+本地Node24.21.0 / pnpm12.9.1：typecheck、lint、82文件 / 807项测试、build、六条冒烟与diff检查通过，已看退场摘要截图。新增9项场景，原Scout与Q-69回归保留；PR最新head CI另核，本地缓存Chromium1234配置不改正式配置。
+
+Phase3仍欠第三张任务、特殊目标、回村发放与完整验收；不跳Phase4 / Boss。Fountain / 遗迹4–9未获新目视批准，Torture Unholy Aura仅候选 / usable=false及全部Q / VQ保持，实际可参战仍1/28。
+
 ## 最新交接：#135 已合并与 Scout Ahead 柴火休息（2026-10-13，UTC+8）
 
 实现 `d4793d1`，对应 [PR #136](https://github.com/Alpaca-go/ddbg-web/pull/136)。本地验证已通过；最新head两项CI与合并结果以PR状态为准。

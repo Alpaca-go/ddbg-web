@@ -1,6 +1,7 @@
 import { expect, it } from "vitest";
 import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../data/normalized/corebox/scout_ahead_distribution.json";
+import wipeDistribution from "../../data/normalized/corebox/wipe_em_out_distribution.json";
 import rooms from "../../data/normalized/corebox/room.json";
 import pool from "../../data/normalized/corebox/monster_pool.json";
 import statsFile from "../../data/normalized/corebox/hero_stat.json";
@@ -397,6 +398,46 @@ it("战斗回传后休息同步地图英雄与战斗记录，不重置牌池或R
   expect(s.dungeon!.monsterPool).toEqual(won.dungeon!.monsterPool);
   expect(s.dungeon!.gold).toBe(20);
 });
+it.each(["victory", "retreat"] as const)(
+  "Wipe ‘Em Out真实部署的%s回传 → 离开 → 仅胜利巢穴计1XP",
+  (outcome) => {
+    const t = terminal(outcome);
+    const generated = createDungeonSandbox(
+      goodSeed,
+      layout,
+      wipeDistribution,
+      "radiant",
+      "D",
+    ).dungeon!;
+    const originalKind = generated.rooms.find((r) => r.id === "D")!.kind;
+    const donor = generated.rooms.find((r) => r.kind === "lair")!.id;
+    let s: GameState = {
+      ...t,
+      dungeon: {
+        ...t.dungeon!,
+        questDistribution: generated.questDistribution!,
+        rest: generated.rest!,
+        rooms: generated.rooms.map((r) =>
+          r.id === "D"
+            ? { ...r, kind: "lair", revealed: true }
+            : r.id === donor && originalKind !== "lair"
+              ? { ...r, kind: originalKind }
+              : r,
+        ),
+      },
+    };
+    s = send(s, { type: "finishDungeonBattle" });
+    expect(s.dungeon!.gold).toBe(0);
+    s = send(s, { type: "leaveDungeon" });
+    s = send(s, { type: "resolveChoice", choiceId: s.dungeon!.pending!.id, optionId: "agree" });
+    s = send(s, { type: "summarizeDungeonQuest" });
+    expect(s.dungeon!.questSummary).toMatchObject({
+      questId: "quest:p002",
+      xpPerHero: outcome === "victory" ? 1 : 0,
+    });
+    expect(s.dungeon!.questSummary!.clearedRoomIds).toEqual(outcome === "victory" ? ["D"] : []);
+  },
+);
 it("撤退不清房不发奖，须离开；保留弃房牌和洗回怪物的下一战牌序", () => {
   const a = send(terminal("retreat"), { type: "finishDungeonBattle" });
   expect(a.dungeon!.gold).toBe(0);

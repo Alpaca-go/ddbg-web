@@ -28,3 +28,22 @@ export const scoutQuestSummarySchema = z
       ctx.addIssue({ code: "custom", message: "Scout Ahead 清理记录 / 待发 XP 不一致" });
   });
 export type ScoutQuestSummary = z.infer<typeof scoutQuestSummarySchema>;
+export const wipeQuestSummarySchema = z
+  .strictObject({
+    questId: z.literal("quest:p002"),
+    name: z.literal("Wipe ‘Em Out I"),
+    clearedRoomIds: z.array(z.string().min(1)).max(3),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.literal(false),
+  })
+  .superRefine((s, ctx) => {
+    if (
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.xpPerHero !== s.clearedRoomIds.length ||
+      s.stagecoachXp !== s.xpPerHero
+    )
+      ctx.addIssue({ code: "custom", message: "Wipe ‘Em Out巢穴记录 / 待发XP不一致" });
+  });
+export const dungeonQuestSummarySchema = z.union([scoutQuestSummarySchema, wipeQuestSummarySchema]);
+export type DungeonQuestSummary = z.infer<typeof dungeonQuestSummarySchema>;
