@@ -15,7 +15,7 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
     const before = structuredClone(raw);
     const file = buildRoomTileGeometry(raw);
     expect(raw).toEqual(before);
-    expect(file.tiles.filter((tile) => tile.usable)).toHaveLength(3);
+    expect(file.tiles.filter((tile) => tile.usable)).toHaveLength(4);
     const tile = file.tiles[0]!;
     expect(tile.id).toBe("room_tile:p001");
     expect(tile.areas.map((area) => [area.id, area.capacity])).toEqual([
@@ -164,7 +164,7 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
       number: 2,
       source: { file: "DD_COREBOX_TILES_BACK.pdf", page: 2, face: "back" },
       geometryVerified: true,
-      usable: false,
+      usable: true,
       deployment: {
         printReview: "verified",
         heroes: { aggressive: "H", defensive: "H", ranged: "H", support: "H" },
@@ -177,7 +177,7 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
           iconId: "4591aebebd",
           effect: "unholyAura",
           status: "confirmed",
-          runtimeReady: false,
+          runtimeReady: true,
         },
       ],
     });
@@ -209,14 +209,14 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
     ).toEqual(["cornered", "cornered"]);
   });
 
-  it("VQ-05：未接治疗拒绝前不允许开放整面或套用 Cornered", () => {
+  it("VQ-05 / R-067：完整禁疗运行时开放后锁定本面，不套用 Cornered", () => {
     const tile = buildRoomTileGeometry(raw).tiles[1]!;
-    expect(roomTileGeometrySchema.safeParse({ ...tile, usable: true }).success).toBe(false);
+    expect(roomTileGeometrySchema.safeParse({ ...tile, usable: false }).success).toBe(false);
     if (!("specialRegions" in tile)) throw new Error("缺少本面候选区域");
     for (const changed of [
       { effect: "cornered" },
       { status: "candidate" },
-      { runtimeReady: true },
+      { runtimeReady: false },
     ]) {
       expect(
         roomTileGeometrySchema.safeParse({

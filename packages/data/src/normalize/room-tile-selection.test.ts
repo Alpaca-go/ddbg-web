@@ -5,7 +5,7 @@ import { selectRoomTile } from "./room-tile-selection";
 
 const card = (id: string) => rooms.cards.find((c) => c.id === id)!;
 
-it("Ritual已可参战；Torture虽已入库仍停在运行时排除项", () => {
+it("Ritual与完成禁疗运行时的Torture均可参战（R-067）", () => {
   const before = structuredClone(catalog);
   const result = selectRoomTile(card("room:p001"), catalog);
   expect(result.status).toBe("matched");
@@ -18,9 +18,9 @@ it("Ritual已可参战；Torture虽已入库仍停在运行时排除项", () => 
   });
   expect(result.deployment.heroes.support).toBe("C");
   const blocked = selectRoomTile(card("room:p002"), catalog);
-  expect(blocked.status).toBe("refused");
-  if (blocked.status !== "refused") throw new Error("Torture不能参战");
-  expect(blocked.reason).toContain("运行时尚未就绪");
+  expect(blocked.status).toBe("matched");
+  if (blocked.status !== "matched") throw new Error(blocked.reason);
+  expect(blocked.deployment.heroes.support).toBe("H");
   expect(catalog).toEqual(before);
 });
 
@@ -46,7 +46,7 @@ it("活动板块身份漂移原子拒绝；重复目录和篡改Torture可用标
     selectRoomTile(card("room:p002"), {
       ...catalog,
       tiles: catalog.tiles.map((t) =>
-        t.id === "room_tile:p002:back" ? { ...t, usable: true } : t,
+        t.id === "room_tile:p002:back" ? { ...t, usable: false } : t,
       ),
     }).status,
   ).toBe("refused");

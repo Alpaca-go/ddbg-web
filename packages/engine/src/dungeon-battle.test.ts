@@ -730,3 +730,24 @@ it.each([1885, 11])("种子 %i 完整四轮走通真实怪物选招 / 定位 / �
     expect(send(result, { type: "beginDungeonExploration" }).dungeon!.pending).toBeDefined();
   else expect(result.dungeon!.phase).toBe("awaitingReplacement");
 });
+
+it("完整九房牌池自然抽 Torture 时可入场，禁疗只落在 H（R-067）", () => {
+  let entered: ReturnType<typeof applyCommand> | undefined;
+  for (let seed = 1; seed <= 100; seed++) {
+    const s = deploy(seed);
+    if (s.dungeon!.roomCards!.active!.cardId !== "room:p002") continue;
+    const result = applyCommand(s, { type: "startDungeonBattle" });
+    if (result.state.battle) {
+      entered = result;
+      break;
+    }
+  }
+  expect(entered).toBeDefined();
+  expect(entered!.state.battle!.roomName).toBe("Torture Chamber");
+  expect(entered!.state.battle!.areas.filter((a) => a.healingForbidden).map((a) => a.id)).toEqual([
+    "H",
+  ]);
+  expect(
+    entered!.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.areaId),
+  ).toEqual(["H", "H", "H", "H"]);
+});

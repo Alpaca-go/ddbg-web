@@ -1,6 +1,7 @@
 import type { BattleState } from "./battle";
 import type { GameEvent } from "./command";
 import { readHeroPassiveDefence } from "./battle-skill-status";
+import { healingForbidden } from "./battle-healing";
 import { applyPassiveHero } from "./passive-runtime";
 import type { PassiveInput } from "./passive-runtime";
 import type { ApplyResult, GameState } from "./command";
@@ -48,6 +49,7 @@ export function triggerBattlePassive(
       next.light,
       next.provisions,
       readHeroPassiveDefence(next, hero),
+      { healingForbidden: healingForbidden(next, id) },
     );
     if (applied.status === "refused") return applied;
     next = {

@@ -19,7 +19,7 @@ const placement = z.strictObject({
   status: z.literal("confirmed"),
 });
 
-/** VQ-01–05及R-067本面Unholy Aura获批；禁疗运行时就绪前不可参战。 */
+/** VQ-01–05及R-067本面Unholy Aura获批；禁疗入口验证完成后可参战。 */
 export const tortureChamberSchema = z
   .strictObject({
     id: z.literal("room_tile:p002:back"),
@@ -36,7 +36,7 @@ export const tortureChamberSchema = z
     ruling: z.literal("R-048"),
     approval: z.literal("Kyries/Grok 2026-10-12 VQ-01–05"),
     geometryVerified: z.literal(true),
-    usable: z.literal(false),
+    usable: z.literal(true),
     deployment: z.strictObject({
       printReview: z.literal("verified"),
       heroes: z.strictObject({
@@ -61,7 +61,7 @@ export const tortureChamberSchema = z
         effect: z.literal("unholyAura"),
         status: z.literal("confirmed"),
         printedText: z.literal("Unholy Aura: Heroes in this Area can't heal or be healed."),
-        runtimeReady: z.literal(false),
+        runtimeReady: z.literal(true),
       }),
     ]),
     areas: z
@@ -120,7 +120,7 @@ export const approvedTortureChamber = tortureChamberSchema.parse({
   ruling: "R-048",
   approval: "Kyries/Grok 2026-10-12 VQ-01–05",
   geometryVerified: true,
-  usable: false,
+  usable: true,
   deployment: {
     printReview: "verified",
     heroes: { aggressive: "H", defensive: "H", ranged: "H", support: "H" },
@@ -135,7 +135,7 @@ export const approvedTortureChamber = tortureChamberSchema.parse({
       effect: "unholyAura",
       status: "confirmed",
       printedText: "Unholy Aura: Heroes in this Area can't heal or be healed.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
   ],
   areas: [2, 2, 3, 4, 2, 3, 3, 4].map((capacity, i) => ({

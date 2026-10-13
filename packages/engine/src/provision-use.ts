@@ -1,3 +1,4 @@
+import { healingForbidden } from "./battle-healing";
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
 import { resolveHeroHealth } from "./hero-health";
@@ -53,6 +54,8 @@ export function useProvision(state: GameState, command: UseProvisionCommand): Ap
   let updated = target;
   let light = battle.light;
   if (command.effect === "heal") {
+    if (healingForbidden(battle, target.id))
+      return rejectBattleCommand(state, "Unholy Aura：此区域英雄不能被治疗（R-067）");
     if (target.life === undefined)
       return rejectBattleCommand(state, "补给治疗缺已核实 Life（R-048）");
     const health = resolveHeroHealth(

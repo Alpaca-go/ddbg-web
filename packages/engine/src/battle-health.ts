@@ -1,6 +1,7 @@
 import type { BattleEntity, BattleState } from "./battle";
 import type { GameEvent } from "./command";
 import type { SkillEffectsResolution } from "./hero-skill";
+import { healingForbidden } from "./battle-healing";
 import { resolveSkillHeroHealth } from "./skill-hero-health";
 import { triggerBattlePassive } from "./battle-passive";
 import { hasDisease, hasQuirk, passiveStress } from "./passive";
@@ -24,6 +25,29 @@ export function applySkillHealth(
       readonly cancelled?: true;
     } {
   skill = { ...skill, healthEffects: skill.healthEffects.filter((e) => !e.deferred) };
+  const originalEffects = skill.healthEffects;
+  const prevented = new Set(
+    originalEffects
+      .filter(
+        (e) =>
+          e.side === "hero" &&
+          e.effect.type === "heal" &&
+          (healingForbidden(battle, e.entityId) ||
+            (e.source === "targetHeal" && healingForbidden(battle, actorId))),
+      )
+      .map((e) => e.entityId),
+  );
+  skill = {
+    ...skill,
+    healthEffects: originalEffects.filter(
+      (e) => !(e.side === "hero" && e.effect.type === "heal" && prevented.has(e.entityId)),
+    ),
+  };
+  const preventionEvents: GameEvent[] = [...prevented].map((entityId) => ({
+    type: "healingPrevented",
+    entityId,
+    message: "Unholy Aura：技能附带治疗已阻止（R-067）",
+  }));
   const actor = battle.entities.find((e) => e.id === actorId && e.side === "hero");
   if (actor && skill.resolution.actorShuffle && hasDisease(actor, "Vertigo")) {
     const shiftedStress = passiveStress(actor, 2, battle.light);
@@ -51,9 +75,11 @@ export function applySkillHealth(
     return { status: "refused", reason: "压力被动的伤口 / 压力10复合顺序待 Q-66 确认" };
   // 保留旧无 Life 测试沙盒；它不代表完整的英雄生命规则。
   if (!battle.entities.some((entry) => entry.side === "hero" && entry.life !== undefined))
-    return { status: "resolved", entities, rngCursor, events: [] };
+    return prevented.size
+      ? { status: "refused", reason: "禁疗接收者缺已核实 Life（R-048）" }
+      : { status: "resolved", entities, rngCursor, events: [] };
   const ids = new Set(
-    skill.healthEffects.filter((effect) => effect.side === "hero").map((effect) => effect.entityId),
+    originalEffects.filter((effect) => effect.side === "hero").map((effect) => effect.entityId),
   );
   let heroes = battle.entities.filter((entry) => ids.has(entry.id));
   if (heroes.some((entry) => entry.side !== "hero" || entry.life === undefined))
@@ -147,6 +173,7 @@ export function applySkillHealth(
     entities: next.entities,
     rngCursor: next.rngCursor,
     events: [
+      ...preventionEvents,
       ...rollEvents,
       ...result.steps.map((step): GameEvent => ({
         type: "heroHealthResolved",

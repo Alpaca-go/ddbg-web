@@ -213,3 +213,43 @@ describe("逐页复核的英雄区间射程 / G-08", () => {
     }
   });
 });
+
+it("Unholy Aura 仅阻止 Judgement 的自疗，伤害和耗骰仍正常结算（R-067）", () => {
+  const original = ready(7);
+  const state: GameState = {
+    ...original,
+    battle: {
+      ...original.battle!,
+      skills: [judgement],
+      areas: original.battle!.areas.map((a) =>
+        a.id === "a" ? { ...a, healingForbidden: true } : a,
+      ),
+      entities: original.battle!.entities.map((h) =>
+        h.id === "h0"
+          ? {
+              ...h,
+              hero: "VESTAL",
+              heroStatId: "vestal",
+              life: 10,
+              wounds: 5,
+              stance: "support",
+              skillIds: [judgement.id],
+            }
+          : h,
+      ),
+    },
+  };
+  const used = applyCommand(state, {
+    type: "playHeroSkill",
+    actorId: "h0",
+    targetId: "m",
+    skillId: judgement.id,
+  });
+  expect(used.events[0]?.type).toBe("heroSkillResolved");
+  expect(used.events).toContainEqual(
+    expect.objectContaining({ type: "healingPrevented", entityId: "h0" }),
+  );
+  expect(used.state.battle!.entities[0]!.wounds).toBe(5);
+  expect(used.state.battle!.entities.find((h) => h.id === "m")!.wounds).toBe(8);
+  expect(used.state.battle!.rngCursor).toBe(1);
+});

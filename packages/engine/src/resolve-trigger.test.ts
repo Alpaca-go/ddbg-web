@@ -274,3 +274,27 @@ describe("十张真实意志卡回合开始触发（R18 / R28 / R-056 / R-057）
     expect(applyCommand(bad, { ...command, direction: "forward" }).state).toBe(bad);
   });
 });
+
+it("Unholy Aura 阻止 Vigorous 自动治疗，仍掷一次触发骰并完成回合开始（R-067）", () => {
+  const initial = ready("Vigorous");
+  const state = {
+    ...initial,
+    battle: {
+      ...initial.battle!,
+      areas: initial.battle!.areas.map((a) => ({ ...a, healingForbidden: true as const })),
+    },
+  };
+  const result = draw(state);
+  expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+  expect(result.events).toContainEqual(
+    expect.objectContaining({ type: "healingPrevented", entityId: "h0" }),
+  );
+  expect(result.state.battle!.entities[0]!.wounds).toBe(5);
+  expect(result.state.battle!.rngCursor).toBe(5);
+  expect(result.state.battle!.encounter!.turn).toMatchObject({
+    type: "hero",
+    actorId: "h0",
+    actions: 2,
+  });
+  expect(draw(state)).toEqual(result);
+});

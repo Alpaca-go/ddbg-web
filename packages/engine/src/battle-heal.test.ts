@@ -1,3 +1,4 @@
+import { applyPassiveHero } from "./passive-runtime";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState, resolveHeroSkill } from "./index";
@@ -241,4 +242,101 @@ describe("Battle Heal I 逐卡复核（SKILLS_FRONT p13、R19–20、R-022 / R-0
     }
     expect(applyCommand(state, { ...command, targetId: "monster" }).state).toBe(state);
   });
+});
+
+describe("Unholy Aura 治疗窗口（R-067）", () => {
+  it("施术者或接收者在禁疗区时整次拒绝，未耗骰、行动或补给；离区可治疗", () => {
+    for (const areaId of ["a", "b"]) {
+      const original = ready();
+      const state = {
+        ...original,
+        battle: {
+          ...original.battle!,
+          provisions: [{ id: "food", face: "food" as const }],
+          areas: original.battle!.areas.map((a) =>
+            a.id === areaId ? { ...a, healingForbidden: true as const } : a,
+          ),
+        },
+      };
+      const rejected = applyCommand(state, command);
+      expect(rejected.events).toContainEqual(
+        expect.objectContaining({
+          type: "commandRefused",
+          message: expect.stringContaining("Unholy Aura"),
+        }),
+      );
+      expect(rejected.state).toEqual(state);
+      const targetId = areaId === "a" ? "crusader" : "vestal";
+      const provision = applyCommand(state, {
+        type: "useProvision",
+        provisionId: "food",
+        targetId,
+        effect: "heal",
+      });
+      expect(provision.state).toEqual(state);
+      expect(provision.events[0]?.type).toBe("commandRefused");
+      const outside = {
+        ...state,
+        battle: {
+          ...state.battle!,
+          areas: state.battle!.areas.map((a) => {
+            const updated = { ...a };
+            delete updated.healingForbidden;
+            return updated;
+          }),
+        },
+      };
+      expect(applyCommand(outside, command).events[0]?.type).toBe("heroSkillResolved");
+    }
+  });
+  it("多目标治疗含一个禁疗接收者时整次拒绝，不能只治疗其他人", () => {
+    const original = ready(3, 0);
+    const state = {
+      ...original,
+      battle: {
+        ...original.battle!,
+        areas: original.battle!.areas.map((a) =>
+          a.id === "a" ? { ...a, healingForbidden: true as const } : a,
+        ),
+      },
+    };
+    const result = applyCommand(state, {
+      type: "playHeroSkillTargets",
+      actorId: "crusader",
+      skillId: heal.id,
+      targetIds: ["vestal"],
+    });
+    expect(result.events[0]?.type).toBe("commandRefused");
+    expect(result.state).toEqual(state);
+  });
+});
+
+it("Unholy Aura 阻止 Warrior of Light 治疗，同行 Early Riser 的 Buff 继续生效（R-067）", () => {
+  const hero = {
+    id: "h",
+    life: 10,
+    wounds: 5,
+    stress: 3,
+    heroLevel: 1,
+    quirkIds: ["quirk:p002", "quirk:p013"],
+    statusStacks: [],
+  };
+  const result = applyPassiveHero(
+    hero,
+    "lightRaised",
+    1,
+    0,
+    4,
+    [],
+    { resistances: [], immunities: [] },
+    {
+      healingForbidden: true,
+    },
+  );
+  expect(result.status).toBe("resolved");
+  if (result.status !== "resolved") throw new Error(result.reason);
+  expect(result.hero.wounds).toBe(5);
+  expect(result.hero.statusStacks).toEqual([{ kind: "buff", remaining: 2 }]);
+  expect(result.cursor).toBe(0);
+  expect(result.events).toContainEqual(expect.objectContaining({ type: "healingPrevented" }));
 });

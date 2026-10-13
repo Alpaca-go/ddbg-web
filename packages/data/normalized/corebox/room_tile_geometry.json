@@ -224,7 +224,7 @@
    "ruling": "R-048",
    "approval": "Kyries/Grok 2026-10-12 VQ-01–05",
    "geometryVerified": true,
-   "usable": false,
+   "usable": true,
    "deployment": {
     "printReview": "verified",
     "heroes": {
@@ -320,7 +320,7 @@
      "effect": "unholyAura",
      "status": "confirmed",
      "printedText": "Unholy Aura: Heroes in this Area can't heal or be healed.",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "areas": [

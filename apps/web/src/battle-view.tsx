@@ -294,6 +294,9 @@ export function BattleView({
                   {area.endTurnStress === -1 && (
                     <p className="muted">Beacon of Light：英雄结束回合恢复 1 压力</p>
                   )}
+                  {area.healingForbidden && (
+                    <p className="muted">Unholy Aura：英雄不能治疗或被治疗</p>
+                  )}
                   {area.endTurnHeal === 3 && (
                     <p className="muted">Healing Waters：英雄结束回合治疗 3</p>
                   )}

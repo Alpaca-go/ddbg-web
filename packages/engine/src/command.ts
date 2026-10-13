@@ -131,6 +131,7 @@ export type Command =
     };
 
 export type GameEvent =
+  | { readonly type: "healingPrevented"; readonly entityId: string; readonly message: string }
   | {
       readonly type: "passiveTriggered";
       readonly entityId: string;
