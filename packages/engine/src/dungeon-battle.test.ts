@@ -201,6 +201,26 @@ it("真实部署交接保留 RNG、伤口压力装备；地牢命令冻结，获
     deployment.dungeon!.monsterPool!.active!.monsters.map((m) => m.instanceId),
   );
 });
+it("房间 / 板块身份漂移或活动地图房间过期时不进入战斗、不重抽或推进RNG", () => {
+  const original = deploy(11),
+    d = original.dungeon!,
+    pool = d.roomCards!;
+  for (const active of [
+    { ...pool.active!, cardId: "room:p002" },
+    { ...pool.active!, tileId: "room_tile:p002:back" },
+    { ...pool.active!, roomId: "G" },
+  ]) {
+    const state = { ...original, dungeon: { ...d, roomCards: { ...pool, active } } };
+    const before = structuredClone(state);
+    const result = applyCommand(state, { type: "startDungeonBattle" });
+    expect(result.state).toBe(state);
+    expect(result.events[0]!.type).toBe("commandRefused");
+    expect(state).toEqual(before);
+    expect(result.state.battle).toBeUndefined();
+    expect(result.state.dungeon!.cursor).toBe(d.cursor);
+  }
+});
+
 function terminal(outcome: "victory" | "retreat") {
   const s = send(started(), { type: "startBattle" });
   return {

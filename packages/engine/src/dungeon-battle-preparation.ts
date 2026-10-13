@@ -1,5 +1,5 @@
 import { roomCatalogSchema } from "../../data/src/room";
-import { approvedRoomTileGeometry } from "../../data/src/normalize/room-tile";
+import { readRoomTile } from "./room-tile-selection";
 import type { ApplyResult, GameState } from "./command";
 import { createRng } from "./rng";
 
@@ -51,13 +51,11 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
   }
   const cardId = deck.shift()!;
   const card = pool.find((card) => card.id === cardId)!;
-  const matched =
-    card.number === 1 &&
-    card.name === approvedRoomTileGeometry.name &&
-    approvedRoomTileGeometry.usable;
-  const blockedReason = matched
-    ? "Ritual Chamber 板块已获批；下一步从完整 Common + Ruins 怪物牌堆抽牌，再校验并进入房间战斗（R10、R15–17）。房间未清理，未发奖励。"
-    : `${card.name} 对应板块几何 / 部署尚未获批，保留此牌等待复核（R15、R-048）；不能换成 Ritual Chamber。`;
+  const selected = readRoomTile(card);
+  const blockedReason =
+    selected.status === "matched"
+      ? `${selected.tile.name} 板块已获批；下一步从完整 Common + Ruins 怪物牌堆抽牌，再校验并进入房间战斗（R10、R15–17）。房间未清理，未发奖励。`
+      : `${card.name} ${selected.reason}；保留此牌等待复核，不能替换房间。`;
   return {
     state: {
       ...state,
@@ -70,7 +68,7 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
           active: {
             roomId: room.id,
             cardId,
-            ...(matched ? { tileId: approvedRoomTileGeometry.id } : {}),
+            ...(selected.status === "matched" ? { tileId: selected.tile.id } : {}),
             blockedReason,
           },
         },

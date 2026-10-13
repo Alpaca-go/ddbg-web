@@ -1,5 +1,7 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-13 最新入口：#132准确head两项CI成功后已合并为main `cc0537d`。当前 `codex/phase3-room-tile-selection` 接公共板块选择入口，三条引擎路径及UI按生产目录身份 / usable守卫；Ritual新增显式roomId / location / number。未批准或开放新面，Torture排除项、Fountain及其他面待审核与未决Q保持，实际可用仍1/28。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](phase3-room-tile-selection-2026-10-13.md)。
+
 > 2026-10-13 最新入口：#131准确head两项CI成功后按用户授权合并为main `323cec1`。当前 `codex/phase3-ruins8-9-verify-drafts` 新增Invocation Chamber / Old Abbey及VQ-17/18；普通遗迹1–9审核材料已齐，但实际可用仍1/28。没有批准新面或接运行时，Fountain、Torture候选排除项及全部未决Q保持。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)和[VQ队列](kyries-verify-queue-2026-10-12.md)。
 
 > 2026-10-13 最新入口：#130 最新head两项CI成功后按用户授权已合并为main `675c389`，本地ff-only同步。当前 `codex/phase3-ruins6-7-verify-drafts` 新增 Treasure Chamber / Tomb of Ancestor 独立审核稿及VQ-15/16，尚未批准数据或写生产几何。未知图标、Fountain待审核、Torture仅候选及全部未决Q保持。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[VQ队列](kyries-verify-queue-2026-10-12.md)。

@@ -36,6 +36,25 @@ function setup(seed = 11): GameState {
 const room = (s: GameState) => applyCommand(s, { type: "prepareDungeonBattle" }).state;
 const draw = (s: GameState) => applyCommand(s, { type: "prepareDungeonMonsters" });
 
+it("错配板块与已入库不可用Torture都不能抽怪物，保留原房间牌和游标", () => {
+  const original = room(setup()),
+    d = original.dungeon!,
+    pool = d.roomCards!;
+  for (const active of [
+    { ...pool.active!, tileId: "room_tile:p002:back" },
+    { ...pool.active!, cardId: "room:p002", tileId: "room_tile:p002:back" },
+  ]) {
+    const state = { ...original, dungeon: { ...d, roomCards: { ...pool, active } } };
+    const before = structuredClone(state);
+    const result = draw(state);
+    expect(result.state).toBe(state);
+    expect(result.events[0]!.type).toBe("commandRefused");
+    expect(state).toEqual(before);
+    expect(result.state.dungeon!.monsterPool!.active).toBeNull();
+    expect(result.state.dungeon!.cursor).toBe(d.cursor);
+  }
+});
+
 it("真实种子+命令可回放，完整42张只洗一次；部署+弃牌+余牌守恒，未执行战斗/奖励", () => {
   const s = room(setup()),
     before = structuredClone(s);
