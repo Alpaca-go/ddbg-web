@@ -4,6 +4,7 @@ import { readRoomTile } from "./room-tile-selection";
 import type { ApplyResult, GameState } from "./command";
 import { createRng } from "./rng";
 import { spawnMonsters } from "./spawn";
+import { isGuardedDungeonRoom } from "./dungeon-curio-room";
 
 /** R10、R16–17：完整 I 级 Common + Ruins 一次洗牌，真实抽牌后记录部署，不筛掉缺战斗字段的卡。 */
 export function prepareDungeonMonsters(state: GameState): ApplyResult {
@@ -23,7 +24,7 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
     d.phase !== "awaitingRoom" ||
     d.pending ||
     room?.cleared ||
-    (room?.kind !== "lair" && room?.kind !== "treasure") ||
+    !isGuardedDungeonRoom(d) ||
     active?.roomId !== d.position ||
     !active?.tileId ||
     selected.status !== "matched" ||

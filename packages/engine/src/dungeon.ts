@@ -19,6 +19,7 @@ import { curioCatalogSchema } from "../../data/src/curio";
 import type { CurioCard } from "../../data/src/curio";
 import { resolveDungeonCurio } from "./dungeon-curio";
 import { beginDungeonRoom, chooseDungeonTrap } from "./dungeon-room";
+import { chooseDungeonRoomCurio } from "./dungeon-curio-room";
 import type { BattleEntity, BattleSetup } from "./battle";
 import type { MonsterCardView } from "./monster-skill";
 import type { LootState, ProvisionFace } from "./loot";
@@ -32,6 +33,7 @@ import { readBasicQuest } from "../../data/src/basic-quests";
 import type { ScoutRest } from "../../data/src/scout-rest";
 
 export type DungeonCurioDraw = {
+  readonly roomId?: string;
   readonly positiveRewardCursor?: number;
   readonly trinketApplied?: boolean;
   readonly positiveQuirkApplied?: boolean;
@@ -74,6 +76,12 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  readonly curioRoom?: {
+    readonly roomId: string;
+    readonly guardRoll: number;
+    readonly stage: "guarded" | "reward" | "drawing" | "completed";
+    readonly heroId?: string;
+  };
   readonly startingProvisionChoices?: readonly { readonly id: string; readonly actorId: string }[];
   readonly rest?: ScoutRest;
   readonly questDistribution?: RoomDistribution;
@@ -146,7 +154,8 @@ export type DungeonState = {
     | "inBattle"
     | "exited"
     | "awaitingCurio";
-  readonly pressureSource?: "scout" | "exploration" | "backtracking" | "room" | "provision";
+  readonly pressureSource?:
+    "scout" | "exploration" | "backtracking" | "room" | "provision" | "curioRoom";
   readonly roomResolution?: {
     /** 旧 Trap 快照缺少 kind 时仍按 Trap 读取。 */
     readonly kind?: "trap" | "dark";
@@ -334,6 +343,8 @@ export function applyDungeonCommand(
   if (command.type === "prepareDungeonBattle") return prepareDungeonBattle(state);
   if (command.type === "prepareDungeonMonsters") return prepareDungeonMonsters(state);
   if (command.type === "resolveDungeonRoom") return beginDungeonRoom(state);
+  if (command.type === "resolveChoice" && d.pending?.id.startsWith("dungeon-room-curio-"))
+    return chooseDungeonRoomCurio(state, command.choiceId, command.optionId);
   if (command.type === "resolveChoice" && d.pending?.id.startsWith("dungeon-trap-"))
     return chooseDungeonTrap(state, command);
   if (

@@ -2,6 +2,7 @@ import { roomCatalogSchema } from "../../data/src/room";
 import { readRoomTile } from "./room-tile-selection";
 import type { ApplyResult, GameState } from "./command";
 import { createRng } from "./rng";
+import { isGuardedDungeonRoom } from "./dungeon-curio-room";
 
 /** R10、R15：遗迹普通房间完整洗牌，取顶牌再匹配板块；不替换未获批房间。 */
 export function prepareDungeonBattle(state: GameState): ApplyResult {
@@ -16,10 +17,11 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
     d.phase !== "awaitingRoom" ||
     d.pending ||
     d.mustLeaveRoomId === d.position ||
+    !room ||
     room?.cleared ||
-    (room?.kind !== "lair" && room?.kind !== "treasure")
+    !isGuardedDungeonRoom(d)
   )
-    return refuse("需要未清理的 Lair / Treasure 战斗入口（R15）；Curio 与任务目标另行接线");
+    return refuse("需要未清理的 Lair / Treasure / 有守卫 Curio 战斗入口（R15）");
   if (!c || !roomCatalogSchema.safeParse(c.cards).success)
     return refuse("需要完整核心盒房间目录，不能只装入已获批板块对应的牌（R10）");
   const pool = c.cards.filter((card) => card.location === "ruins" && !card.boss);

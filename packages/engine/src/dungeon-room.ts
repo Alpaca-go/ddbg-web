@@ -4,6 +4,7 @@ import { triggerDungeonPassive } from "./dungeon-passive";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { changeDungeonLight, settleDungeonLight } from "./dungeon-light";
 import { passiveStress } from "./passive";
+import { beginDungeonCurioRoom } from "./dungeon-curio-room";
 
 const refuse = (state: GameState, message: string): ApplyResult => ({
   state,
@@ -19,6 +20,7 @@ const finish = (state: GameState, dungeon: DungeonState, message: string): Apply
 export function beginDungeonRoom(state: GameState): ApplyResult {
   const d = state.dungeon!;
   const room = d.rooms.find((r) => r.id === d.position);
+  if (room?.kind === "curio") return beginDungeonCurioRoom(state);
   if (d.phase !== "awaitingRoom" || d.pending || (d.roomResolution && !d.roomResolution.completed))
     return refuse(state, "当前房间没有可开始的结算；不能重启已有分配");
   if (room?.kind === "dark" && !room.cleared) {

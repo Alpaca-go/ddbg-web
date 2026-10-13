@@ -31,17 +31,25 @@ const finish = (state: GameState, dungeon: DungeonState, message: string): Apply
 export function drawDungeonCurio(state: GameState, rollId: string, optionId: string): ApplyResult {
   let d = state.dungeon!;
   const c = d.curio;
+  const roomSource = d.curioRoom;
+  const fromRoom =
+    d.phase === "awaitingRoom" &&
+    roomSource?.roomId === d.position &&
+    roomSource.stage === "reward" &&
+    rollId === `room-curio:${d.position}`;
   const roll = d.exploration?.rolls?.find(
     (r) => r.id === rollId && !r.resolved && r.face === "curio",
   );
   if (
-    !roll ||
-    d.phase !== "awaitingHazards" ||
+    (!fromRoom && (!roll || d.phase !== "awaitingHazards")) ||
     !c ||
     !curioCatalogSchema.safeParse(c.cards).success ||
     c.active
   )
     return refuse(state, "需要完整 24 张 Curio 与有效探索停点（R-048）；未抽牌、未消费 Torch");
+  const heroId = fromRoom ? "" : roll?.heroId;
+  if (!fromRoom && (!heroId || !d.heroes.some((h) => h.id === heroId && !h.dead)))
+    return refuse(state, "Curio 处理英雄无效；未抽牌或消耗 Torch");
   const available = [...(c.deck ?? c.cards.map((card) => card.id)), ...c.discard];
   if (
     available.length !== 24 ||
@@ -60,8 +68,8 @@ export function drawDungeonCurio(state: GameState, rollId: string, optionId: str
   )
     return refuse(state, "必须在抽卡前选择使用 Torch 或直接抽牌");
   const beforeEvents: import("./command").GameEvent[] = [];
-  if (!d.pendingCurioDraw) {
-    const passive = triggerDungeonPassive(d, state.seed, [roll.heroId], "beforeCurio");
+  if (!fromRoom && !d.pendingCurioDraw) {
+    const passive = triggerDungeonPassive(d, state.seed, [heroId!], "beforeCurio");
     if (passive.status === "refused") return refuse(state, passive.reason);
     d = passive.dungeon;
     beforeEvents.push(...passive.events);
@@ -79,7 +87,7 @@ export function drawDungeonCurio(state: GameState, rollId: string, optionId: str
         dungeon: {
           ...d,
           phase: "blockedPressure",
-          pressureSource: "exploration",
+          pressureSource: fromRoom ? "curioRoom" : "exploration",
           pending: null,
           pendingCurioDraw: { rollId, optionId },
         },
@@ -109,6 +117,7 @@ export function drawDungeonCurio(state: GameState, rollId: string, optionId: str
       ...ready,
       cursor,
       phase: "awaitingCurio",
+      ...(fromRoom ? { curioRoom: { ...roomSource!, stage: "drawing" } } : {}),
       pending: null,
       ...(protectedCard
         ? {
@@ -121,11 +130,33 @@ export function drawDungeonCurio(state: GameState, rollId: string, optionId: str
       curio: {
         ...c,
         deck,
-        active: { cardId, heroId: roll.heroId, rollId, protected: protectedCard },
+        active: {
+          cardId,
+          heroId: heroId!,
+          rollId,
+          protected: protectedCard,
+          ...(fromRoom ? { roomId: d.position } : {}),
+        },
       },
     },
-    `${roll.heroId} ${protectedCard ? `先弃 ${tokenId}，忽略已核实负面效果；` : "未用 Torch；"}抽到 ${cardId} ${card.name}（印刷 p${card.source.page}）`,
+    `${fromRoom ? "房间 Curio" : heroId} ${protectedCard ? `先弃 ${tokenId}，忽略已核实负面效果；` : "未用 Torch；"}抽到 ${cardId} ${card.name}（印刷 p${card.source.page}）`,
   );
+  if (fromRoom) {
+    const pending = {
+      id: `dungeon-room-curio-hero:${d.decision}`,
+      prompt: "选择处理已揭示房间 Curio 的英雄（R15）",
+      options: d.heroes.filter((h) => !h.dead).map((h) => ({ id: h.id, label: h.id })),
+    };
+    return {
+      ...drawn,
+      state: {
+        ...drawn.state,
+        dungeon: { ...drawn.state.dungeon!, pending, decision: d.decision + 1 },
+      },
+      events: [...beforeEvents, ...drawn.events],
+      pendingChoice: pending,
+    };
+  }
   return { ...drawn, events: [...beforeEvents, ...drawn.events] };
 }
 
@@ -153,14 +184,24 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
     return block("Curio 牌池不守恒，保持已抽卡");
   const card = c.cards.find((card) => card.id === active.cardId);
   const hero = d.heroes.find((h) => h.id === active.heroId);
+  const fromRoom = active.roomId !== undefined;
   if (
     !card ||
     !hero ||
     hero.dead ||
-    !d.exploration?.rolls?.some(
-      (r) =>
-        r.id === active.rollId && r.heroId === active.heroId && r.face === "curio" && !r.resolved,
-    )
+    (fromRoom
+      ? active.roomId !== d.position ||
+        d.curioRoom?.roomId !== active.roomId ||
+        d.curioRoom.stage !== "drawing" ||
+        d.curioRoom.heroId !== active.heroId ||
+        active.rollId !== `room-curio:${active.roomId}`
+      : !d.exploration?.rolls?.some(
+          (r) =>
+            r.id === active.rollId &&
+            r.heroId === active.heroId &&
+            r.face === "curio" &&
+            !r.resolved,
+        ))
   )
     return block("Curio 与英雄 / 未完成骰面不一致，保持停点");
   const unknown = card.rows.filter((r) => r.effect === null);
@@ -502,14 +543,26 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
       : {}),
     gold,
     ...(d.lootPool ? { lootPool: { ...d.lootPool, gold } } : {}),
-    phase: "awaitingHazards",
+    phase: fromRoom
+      ? d.heroes.some((h) => h.dead)
+        ? "awaitingReplacement"
+        : "ready"
+      : "awaitingHazards",
+    ...(fromRoom
+      ? {
+          curioRoom: { ...d.curioRoom!, stage: "completed" },
+          rooms: d.rooms.map((r) => (r.id === d.position ? { ...r, cleared: true } : r)),
+        }
+      : {}),
     pending: null,
-    exploration: {
-      ...d.exploration!,
-      rolls: d.exploration!.rolls!.map((r) =>
-        r.id === active.rollId ? { ...r, resolved: true } : r,
-      ),
-    },
+    exploration: fromRoom
+      ? d.exploration
+      : {
+          ...d.exploration!,
+          rolls: d.exploration!.rolls!.map((r) =>
+            r.id === active.rollId ? { ...r, resolved: true } : r,
+          ),
+        },
     curio: {
       ...c,
       active: null,
@@ -518,6 +571,7 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
         heroId: active.heroId,
         rollId: active.rollId,
         protected: active.protected,
+        ...(fromRoom ? { roomId: active.roomId } : {}),
       },
       discard: [...c.discard, card.id],
     },
@@ -526,7 +580,7 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
     finish(
       state,
       dungeon,
-      `${card.name} 已结算：${active.protected ? "Torch 忽略负面；" : ""}金币 +${gold - d.gold}；弃牌并续接剩余探索骰`,
+      `${card.name} 已结算：${active.protected ? "Torch 忽略负面；" : ""}金币 +${gold - d.gold}；${fromRoom ? "房间清理完成，弃牌返回地图" : "弃牌并续接剩余探索骰"}`,
     ),
   );
   return {

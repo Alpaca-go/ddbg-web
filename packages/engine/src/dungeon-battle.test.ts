@@ -240,6 +240,34 @@ function terminal(outcome: "victory" | "retreat") {
   };
 }
 
+it("Curio守卫战后只在胜利时等待英雄/Torch奖励；撤退无奖励、不清理，重复回传拒绝", () => {
+  for (const outcome of ["victory", "retreat"] as const) {
+    const finished = terminal(outcome);
+    const state: GameState = {
+      ...finished,
+      dungeon: {
+        ...finished.dungeon!,
+        rooms: finished.dungeon!.rooms.map((r) => (r.id === "D" ? { ...r, kind: "curio" } : r)),
+        curioRoom: { roomId: "D", guardRoll: 3, stage: "guarded" },
+      },
+    };
+    const before = structuredClone(state);
+    const result = applyCommand(state, { type: "finishDungeonBattle" }).state;
+    expect(result.battle).toBeUndefined();
+    expect(result.dungeon!.gold).toBe(state.battle!.loot!.gold);
+    expect(result.dungeon!.phase).toBe(outcome === "victory" ? "awaitingRoom" : "ready");
+    expect(result.dungeon!.curioRoom!.stage).toBe(outcome === "victory" ? "reward" : "guarded");
+    expect(result.dungeon!.pending?.id.startsWith("dungeon-room-curio-draw:") ?? false).toBe(
+      outcome === "victory",
+    );
+    expect(result.dungeon!.rooms.find((r) => r.id === "D")!.cleared ?? false).toBe(
+      outcome === "victory",
+    );
+    expect(applyCommand(result, { type: "finishDungeonBattle" }).state).toBe(result);
+    expect(state).toEqual(before);
+  }
+});
+
 it("获批 Stun / Bleed 只减 Nt，不减面值；其余状态不阻挡，堆叠与回合消费正确", () => {
   const s = send(deploy(11), { type: "startDungeonBattle" });
   const b = s.battle!,
