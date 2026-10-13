@@ -1,5 +1,7 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
+> 2026-10-13 最新入口：#135 准确head两项CI成功后已合并main `8694df5`。本轮 `codex/phase3-scout-rest` 接Scout Ahead 8点基础休息，全员同意 / 共同或均分 / 八点原子恢复 / 弃柴火；Q-69的三项恢复怪癖分组保持停点，不猜测。其他任务与Phase3验收仍未完成，不跳Phase4，新板块审批与既有排除项保持。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[休息交付](phase3-scout-rest-2026-10-13.md)。
+
 > 2026-10-13 最新入口：#134 准确head两项CI成功后已合并为main `0cef7ac`。本轮 `codex/phase3-scout-quest-summary` 接退出后 Scout Ahead 清理数与待发XP，不发放英雄 / 驿站XP；严格核任务身份 / 代币 / 清理记录，不兜底旧状态，修正走廊沙盒的Trap伪清理。Phase3未验收，新板块与Q / VQ边界保持。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[摘要交付](phase3-scout-quest-summary-2026-10-13.md)。
 
 > 2026-10-13 最新入口：#133 准确 head 两项 CI 成功后已按用户授权合并为 main `49a5a8b`。本轮 `codex/phase3-dungeon-exit` 接掷探索骰前全员离开、取消恢复与终止状态；保留资源，不越过已开始结算，不发任务 XP / 不接回村。775 项测试与六条冒烟通过，远端 CI 另核 head；Phase 3 / 新板块审批仍未完成。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[离开交付](phase3-dungeon-exit-2026-10-13.md)。

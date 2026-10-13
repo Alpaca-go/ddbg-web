@@ -1,5 +1,17 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：#135 已合并与 Scout Ahead 柴火休息（2026-10-13，UTC+8）
+
+实现 `d4793d1`，对应 [PR #136](https://github.com/Alpaca-go/ddbg-web/pull/136)。本地验证已通过；最新head两项CI与合并结果以PR状态为准。
+
+#135 准确 head `239b774` 两项CI成功，已按授权合并为main `8694df5`，本地同步。本轮 `codex/phase3-scout-rest` 接Scout Ahead的8点柴火休息，依据官方R15 / QUEST p1；已看完整规则页和卡面。退出摘要保留待发，不接村庄。
+
+休息须已清理房间与四名存活英雄、全员同意；取消保留柴火，共同分配或意见不一时每人2点。分配完成前冻结其他命令、不恢复；全8点完成后原子恢复、弃柴火，支持死门治疗且同步战斗回传记录。新增待裁定Q-69，Infirm / Fast Healer的Life分配和Resilient的压力分配保持停点，不猜测多点恢复事件分组。见[本轮交付](phase3-scout-rest-2026-10-13.md)。
+
+Node24.21.0 / pnpm12.9.1：typecheck、lint、81文件 / 798项测试、build、六条Playwright冒烟与diff检查通过，已查看休息完成截图。本地沿用缓存Chromium1234临时配置，正式配置不改；PR最新head两项CI另核，既有Vite配置 / bundle提示保留。
+
+Phase3其他任务与完整验收未完成；不跳Phase4。Fountain / 遗迹4–9目视批准、Torture Unholy Aura仅候选 / usable=false与其他Q / VQ保持，实际可参战板块仍1/28。
+
 ## 最新交接：#134 已合并与 Scout Ahead 退出摘要（2026-10-13，UTC+8）
 
 实现 `569a960`，对应 [PR #135](https://github.com/Alpaca-go/ddbg-web/pull/135)。本地验证已通过；最新 head 两项 CI 与合并结果以 PR 状态为准。

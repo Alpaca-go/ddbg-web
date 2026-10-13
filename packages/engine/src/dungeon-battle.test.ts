@@ -365,6 +365,38 @@ it("胜利一次回传20金币与有限牌堆；同种子同命令回放，英�
   expect(a.dungeon!.lootPool!.available).toHaveLength(10);
   expect(applyCommand(a, { type: "finishDungeonBattle" }).state).toBe(a);
 });
+it("战斗回传后休息同步地图英雄与战斗记录，不重置牌池或RNG", () => {
+  const won = send(terminal("victory"), { type: "finishDungeonBattle" });
+  // 原守卫夹具为测试20金币改了D代币；恢复Scout Ahead的真实种子构成。
+  const original = createDungeonSandbox(goodSeed, layout, distribution).dungeon!.rooms;
+  let s: GameState = {
+    ...won,
+    dungeon: {
+      ...won.dungeon!,
+      rooms: won.dungeon!.rooms.map((r) => ({
+        ...r,
+        kind: original.find((o) => o.id === r.id)!.kind,
+      })),
+    },
+  };
+  s = send(s, { type: "restDungeon" });
+  const pick = (optionId: string) => {
+    s = send(s, { type: "resolveChoice", choiceId: s.dungeon!.pending!.id, optionId });
+  };
+  pick("equal");
+  for (let i = 0; i < 4; i++) {
+    pick(`heal:${i}`);
+    pick(`stress:${i}`);
+  }
+  expect(
+    s.dungeon!.heroes.every(
+      (h) => h.wounds === 0 && h.stress === 0 && h.combat!.wounds === 0 && h.combat!.stress === 0,
+    ),
+  ).toBe(true);
+  expect(s.dungeon!.cursor).toBe(won.dungeon!.cursor);
+  expect(s.dungeon!.monsterPool).toEqual(won.dungeon!.monsterPool);
+  expect(s.dungeon!.gold).toBe(20);
+});
 it("撤退不清房不发奖，须离开；保留弃房牌和洗回怪物的下一战牌序", () => {
   const a = send(terminal("retreat"), { type: "finishDungeonBattle" });
   expect(a.dungeon!.gold).toBe(0);
