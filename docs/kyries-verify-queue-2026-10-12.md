@@ -1,5 +1,7 @@
 # Kyries → Codex：视觉核对队列（verify-queue）2026-10-12
 
+> 2026-10-13最新回传：Kyries/Grok已逐项批准VQ-06、VQ-13–18和QuestMap仅FRONT p1，见R-065及[本轮批准记录](phase3-approved-data-2026-10-13.md)。Treasure T4–T5必须blocked；Spiked接触候选分类正在明确。下表“草稿/待审核”为历史进度，不覆盖本段新批准。几何入库不等于usable，未知图标与所有Q项另行裁定。
+
 UTC+8。本文件供 Kyries 粘贴给 Codex 作为 **next-dev 接手入口**。
 
 ## 范围（只做印刷目视，不编裁定）
