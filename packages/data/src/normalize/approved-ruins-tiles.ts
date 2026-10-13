@@ -41,7 +41,7 @@ const tileShape = z.strictObject({
     z.strictObject({
       areaId: z.string(),
       iconId: iconIdSchema,
-      effect: z.enum(["healingWaters"]),
+      effect: z.enum(["healingWaters", "stressfulDarkness", "beaconOfLight"]),
       status: z.literal("confirmed"),
       printedText: z.string(),
       runtimeReady: z.boolean(),
@@ -153,20 +153,63 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
     ],
     unresolvedMarkers: [],
   }),
+  tileShape.parse({
+    id: "room_tile:p003:front",
+    rawId: "dungeon_tile:p003",
+    roomId: "room:p005",
+    location: "ruins",
+    number: 5,
+    name: "Beacon of Light",
+    source: { file: "DD_COREBOX_TILES_FRONT.pdf", page: 3, face: "front" },
+    ruling: "R-065",
+    approval: "Kyries/Grok 2026-10-13",
+    geometryVerified: true,
+    usable: true,
+    deployment: {
+      printReview: "verified",
+      heroes: { aggressive: "L6", defensive: "L7", ranged: "L6", support: "L7" },
+      monsters: { aggressive: "L1", defensive: "L5", ranged: "L1", support: "L2" },
+      lootAreas: ["L9"],
+      markers: placements(
+        { aggressive: "L6", defensive: "L7", ranged: "L6", support: "L7" },
+        { aggressive: "L1", defensive: "L5", ranged: "L1", support: "L2" },
+        ["L9"],
+      ),
+    },
+    specialRegions: [
+      ...["L1", "L3", "L6", "L7", "L9"].map((areaId) => ({
+        areaId,
+        iconId: "4591aebebd",
+        effect: "stressfulDarkness",
+        status: "confirmed",
+        printedText: "Stressful Darkness: Heroes ending their turn here suffer +1 Stress.",
+        runtimeReady: true,
+      })),
+      {
+        areaId: "L2",
+        iconId: "0d13b745be",
+        effect: "beaconOfLight",
+        status: "confirmed",
+        printedText: "Beacon of Light: Heroes ending their turn here recover 1 Stress.",
+        runtimeReady: true,
+      },
+    ],
+    areas: [4, 4, 3, 2, 3, 2, 2, 2, 2].map((capacity, i) => ({
+      id: `L${i + 1}`,
+      capacity,
+      elevation: "normal",
+    })),
+    edges: edges(["L1-L3", "L1-L4", "L2-L5", "L3-L6", "L4-L5", "L4-L7", "L5-L8", "L8-L9"]),
+    unresolvedMarkers: [],
+  }),
 ];
 
 /** 深度锁定获批整面；不能只改usable、出生、特殊区域或来源绕过审批。 */
-function canonical(value: unknown): string {
-  if (Array.isArray(value)) return `[${value.map(canonical).join(",")}]`;
-  if (value && typeof value === "object")
-    return `{${Object.entries(value)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([key, v]) => `${JSON.stringify(key)}:${canonical(v)}`)
-      .join(",")}}`;
-  return JSON.stringify(value);
-}
+// 两边均已过同一strictObject投影，字段顺序固定；只预计算获批常量，不缓存外部输入。
+const approvedFingerprints = new Map(
+  approvedExtraRuinsTiles.map((tile) => [tile.id, JSON.stringify(tile)]),
+);
 export const approvedExtraRuinsTileSchema = tileShape.superRefine((tile, ctx) => {
-  const approved = approvedExtraRuinsTiles.find((t) => t.id === tile.id);
-  if (!approved || canonical(tile) !== canonical(approved))
+  if (JSON.stringify(tile) !== approvedFingerprints.get(tile.id))
     ctx.addIssue({ code: "custom", message: "R-065获批面/完整运行时记录漂移，不批准改写" });
 });

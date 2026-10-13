@@ -57,6 +57,26 @@ export function roomTileBattleAreas(tile: {
     tile.specialRegions?.some(
       (r) =>
         r.areaId === area.id &&
+        r.effect === "stressfulDarkness" &&
+        r.status === "confirmed" &&
+        r.runtimeReady,
+    )
+      ? { endTurnStress: 1 as const, endTurnStressName: "Stressful Darkness" as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (r) =>
+        r.areaId === area.id &&
+        r.effect === "beaconOfLight" &&
+        r.status === "confirmed" &&
+        r.runtimeReady,
+    )
+      ? { endTurnStress: -1 as const, endTurnStressName: "Beacon of Light" as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (r) =>
+        r.areaId === area.id &&
         r.effect === "healingWaters" &&
         r.status === "confirmed" &&
         r.runtimeReady,
