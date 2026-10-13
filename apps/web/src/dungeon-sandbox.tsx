@@ -89,6 +89,7 @@ type Fixture =
   | "heartAttack"
   | "corridor"
   | "curio"
+  | "curioRoom"
   | "curioBuff"
   | "curioNegative"
   | "curioProvision"
@@ -161,37 +162,39 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
       : {}),
   }));
   const initial = createDungeonSandbox(
-    fixture === "startingProvisions"
-      ? 75
-      : fixture === "wipeBattle" || fixture === "fundraiserBattle"
-        ? 1885
-        : fixture === "roomDisease"
-          ? 4
-          : fixture === "roomBattle"
-            ? 1885
-            : fixture === "roomApproved"
-              ? 11
-              : fixture === "roomBlocked"
-                ? 12
-                : fixture === "curioComposite"
-                  ? 230
-                  : fixture === "curioTrinket"
-                    ? 921
-                    : fixture === "curioRewards"
-                      ? 317
-                      : fixture === "curioPositive"
-                        ? 85
-                        : fixture === "curioProvision"
-                          ? 370
-                          : fixture === "curioBuff"
-                            ? 343
-                            : fixture === "curio"
-                              ? 1237
-                              : fixture === "curioNegative"
-                                ? 46
-                                : fixture === "corridor"
-                                  ? 31
-                                  : 1,
+    fixture === "curioRoom"
+      ? 80
+      : fixture === "startingProvisions"
+        ? 75
+        : fixture === "wipeBattle" || fixture === "fundraiserBattle"
+          ? 1885
+          : fixture === "roomDisease"
+            ? 4
+            : fixture === "roomBattle"
+              ? 1885
+              : fixture === "roomApproved"
+                ? 11
+                : fixture === "roomBlocked"
+                  ? 12
+                  : fixture === "curioComposite"
+                    ? 230
+                    : fixture === "curioTrinket"
+                      ? 921
+                      : fixture === "curioRewards"
+                        ? 317
+                        : fixture === "curioPositive"
+                          ? 85
+                          : fixture === "curioProvision"
+                            ? 370
+                            : fixture === "curioBuff"
+                              ? 343
+                              : fixture === "curio"
+                                ? 1237
+                                : fixture === "curioNegative"
+                                  ? 46
+                                  : fixture === "corridor"
+                                    ? 31
+                                    : 1,
     layout,
     fixture.startsWith("fundraiser")
       ? fundraiserDistribution
@@ -237,6 +240,26 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
   );
   if (fixture === "startingProvisions")
     return { game: initial, page, fixture, preview, events: [], commands: [] };
+  if (fixture === "curioRoom")
+    return {
+      game: {
+        ...initial,
+        dungeon: {
+          ...initial.dungeon!,
+          position: "D",
+          visited: ["D"],
+          phase: "awaitingRoom" as const,
+          rooms: initial.dungeon!.rooms.map((r) =>
+            r.id === "D" ? { ...r, kind: "curio" as const, revealed: true } : r,
+          ),
+        },
+      },
+      page,
+      fixture,
+      preview,
+      events: [],
+      commands: [],
+    };
   // 此布置以已清理的起始房间演示真实走廊往返，不模拟该房间的战斗或奖励。
   const startingKind = initial.dungeon!.rooms.find((r) => r.id === position)!.kind;
   const corridorSwap =
@@ -442,6 +465,9 @@ export function DungeonSandbox() {
             <option value="heartAttack">已有意志卡（hero-0 压力 9）</option>
             <option value="corridor">单走廊 → Empty（标准 p1、种子 31、无需侦察）</option>
             <option value="curio">Curio → Empty（标准 p1、种子 1237、先用 Torch）</option>
+            <option value="curioRoom">
+              Curio 房间入口（种子80；注入D房间代币，完整Curio牌池）
+            </option>
             <option value="curioBuff">Curio Buff（标准 p1、种子 343、先用 Torch）</option>
             <option value="curioNegative">
               Heirloom Chest负面状态（标准 p1、种子46、不用Torch）
@@ -575,7 +601,11 @@ export function DungeonSandbox() {
           )}
           {d.phase === "awaitingRoom" &&
             !d.pending &&
-            (currentRoom?.kind === "lair" || currentRoom?.kind === "treasure") &&
+            (currentRoom?.kind === "lair" ||
+              currentRoom?.kind === "treasure" ||
+              (currentRoom?.kind === "curio" &&
+                d.curioRoom?.roomId === d.position &&
+                d.curioRoom.stage === "guarded")) &&
             !d.roomCards?.active && (
               <button onClick={() => dispatch({ type: "prepareDungeonBattle" })}>
                 抽房间牌并匹配战斗板块
@@ -650,9 +680,16 @@ export function DungeonSandbox() {
             })()}
           {d.phase === "awaitingRoom" &&
             !d.pending &&
-            ["trap", "dark"].includes(currentRoom?.kind ?? "") && (
+            (["trap", "dark"].includes(currentRoom?.kind ?? "") ||
+              (currentRoom?.kind === "curio" && d.curioRoom?.roomId !== d.position)) && (
               <button onClick={() => dispatch({ type: "resolveDungeonRoom" })}>
-                结算 {currentRoom?.kind === "dark" ? "Dark" : "Trap"} 房间
+                结算{" "}
+                {currentRoom?.kind === "dark"
+                  ? "Dark"
+                  : currentRoom?.kind === "curio"
+                    ? "Curio 守卫骰"
+                    : "Trap"}{" "}
+                房间
               </button>
             )}
           {d.roomResolution?.roomId === d.position && (
@@ -828,7 +865,7 @@ export function DungeonSandbox() {
               </h3>
               <p>{card.text}</p>
               <p>
-                {shownCurio.heroId} · 抽卡前{" "}
+                {shownCurio.heroId || "等待选择处理英雄"} · 抽卡前{" "}
                 {shownCurio.protected ? "已使用 Torch" : "未使用 Torch"} · 牌池剩余{" "}
                 {d.curio!.deck?.length ?? 24} · 弃牌 {d.curio!.discard.length}
               </p>
@@ -892,7 +929,7 @@ export function DungeonSandbox() {
               : d.phase === "ready" && d.mustLeaveRoomId === d.position
                 ? `已撤退到 ${d.position} 地图节点；房间未清理，必须离开`
                 : d.phase === "awaitingCurio"
-                  ? "Curio 待结算；队伍尚未移动，不能补用 Torch 或重抽"
+                  ? `Curio 待结算；${d.curio?.active?.roomId ? "队伍已在房间" : "队伍尚未移动"}，不能补用 Torch 或重抽`
                   : d.phase === "awaitingReplacement"
                     ? `英雄死亡：等待驿站替换接口，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
                     : d.phase === "blockedPressure"

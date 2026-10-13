@@ -13,6 +13,7 @@ import { readPrintedRange, readPrintedTargets } from "./hero-skill";
 import type { HeroSkillResolution } from "./hero-skill";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { statusProjection } from "./status";
+import { isGuardedDungeonRoom, awaitDungeonRoomCurio } from "./dungeon-curio-room";
 
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
 export function startDungeonBattle(state: GameState): ApplyResult {
@@ -31,7 +32,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
     d.pending ||
     active?.roomId !== d.position ||
     room?.cleared ||
-    (room?.kind !== "lair" && room?.kind !== "treasure") ||
+    !isGuardedDungeonRoom(d) ||
     !d.roomCards?.active?.tileId ||
     d.roomCards.active.roomId !== d.position ||
     selected.status !== "matched" ||
@@ -294,16 +295,22 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
     if (progress.status !== "matched") return rejectBattleCommand(state, progress.reason);
   }
   const kind = d.rooms.find((r) => r.id === d.position)?.kind;
+  const curioReward = victory && kind === "curio";
   const bonus = victory ? (kind === "treasure" ? 20 : fundraiser && kind === "lair" ? 10 : 0) : 0;
   const { battle: _finished, ...outside } = state;
   void _finished;
-  return {
+  const result: ApplyResult = {
     state: {
       ...outside,
       dungeon: {
         ...d,
         heroes,
-        phase: heroes.some((h) => h.dead) ? "awaitingReplacement" : "ready",
+        phase: heroes.some((h) => h.dead)
+          ? "awaitingReplacement"
+          : curioReward
+            ? "awaitingRoom"
+            : "ready",
+        ...(curioReward ? { curioRoom: { ...d.curioRoom!, stage: "reward" } } : {}),
         cursor: b.rngCursor + ids.length - 1,
         decision: b.choiceCursor,
         gold: b.loot.gold + bonus,
@@ -335,6 +342,9 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
       },
     ],
   };
+  if (!curioReward || heroes.some((h) => h.dead)) return result;
+  const reward = awaitDungeonRoomCurio(result.state);
+  return { ...reward, events: [...result.events, ...reward.events] };
 }
 
 function partitionsValid(d: DungeonState): boolean {

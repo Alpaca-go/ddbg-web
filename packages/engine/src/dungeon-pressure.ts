@@ -117,6 +117,12 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
       type: "dungeonUpdated",
       message: "已记录心脏病；等待驿站替换接口（R9），不追加侦察揭示，不推定战役失败",
     });
+  } else if (d.pressureSource === "curioRoom" && d.curio?.active?.roomId === d.position) {
+    d = { ...d, phase: "awaitingCurio", pending: null };
+    events.push({
+      type: "dungeonUpdated",
+      message: "房间Curio交互前意志检定完成；不重抽、不重复交互被动",
+    });
   } else if (d.pressureSource === "room") {
     const roomState: GameState = { ...state, dungeon: { ...d, phase: "awaitingRoom" } };
     const continued =
