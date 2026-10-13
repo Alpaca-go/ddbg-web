@@ -101,3 +101,4 @@ export type {
 } from "./hero-health";
 export { canLeaveDungeon } from "./dungeon-exit";
 export { canRestDungeon } from "./dungeon-rest";
+export { dungeonProvisionWindow } from "./dungeon-provision-window";

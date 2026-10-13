@@ -7,6 +7,7 @@ import type { UseProvisionCommand } from "./provision-use";
 import { statusProjection, statusStackProblem } from "./status";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import { settleDungeonLight, useDungeonTorch } from "./dungeon-light";
+import { dungeonProvisionWindow } from "./dungeon-provision-window";
 
 /** R12 / 规格书§5.2：完成效果之间使用补给；各颗是独立事件，不套Q-69休息分组。 */
 export function useDungeonProvision(state: GameState, command: UseProvisionCommand): ApplyResult {
@@ -18,7 +19,7 @@ export function useDungeonProvision(state: GameState, command: UseProvisionComma
   if (
     !d ||
     state.battle ||
-    d.phase !== "ready" ||
+    !dungeonProvisionWindow(d) ||
     d.pending ||
     !setup ||
     !target ||
@@ -42,7 +43,7 @@ export function useDungeonProvision(state: GameState, command: UseProvisionComma
     ) ||
     d.roomCards?.active ||
     d.monsterPool?.active ||
-    d.curio?.active ||
+    (d.curio?.active && d.phase !== "awaitingCurio") ||
     d.pendingCurioDraw ||
     (d.roomResolution && !d.roomResolution.completed)
   )
@@ -88,7 +89,7 @@ export function useDungeonProvision(state: GameState, command: UseProvisionComma
       ...state,
       dungeon: {
         ...d,
-        pressureSource: "provision",
+        pressureSource: d.phase === "awaitingCurio" ? "curioProvision" : "provision",
         explorationSetup: {
           ...setup,
           provisions: setup.provisions.filter((p) => p.id !== provision.id),

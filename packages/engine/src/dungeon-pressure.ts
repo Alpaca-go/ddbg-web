@@ -5,6 +5,7 @@ import { completeDungeonBacktrack } from "./dungeon-backtracking";
 import { continueDungeonTrap, completeDungeonDarkRoom } from "./dungeon-room";
 import { passiveVirtueThreshold } from "./passive";
 import { triggerDungeonPassive } from "./dungeon-passive";
+import { resolveCurioRows } from "./dungeon-curio-effects";
 
 /** R28：侦察支付压力后恢复；沿英雄数组顺序，完整牌堆与 RNG 游标属于本次地牢。 */
 export function resolveDungeonPressure(state: GameState): ApplyResult {
@@ -111,6 +112,19 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
       message: "探索首次意志检定：抽取意志卡，压力归零（R28）；不触发战斗回合效果",
     });
   }
+  if (
+    d.pressureSource === "curio" ||
+    (d.pressureSource === "curioProvision" &&
+      d.heroes.find((h) => h.id === d.curio?.active?.heroId)?.dead) ||
+    (d.pressureSource === "curioRoom" &&
+      d.heroes.find((h) => h.id === d.curio?.active?.heroId)?.dead)
+  ) {
+    const continued = resolveCurioRows({
+      ...state,
+      dungeon: { ...d, phase: "awaitingCurio", pending: null },
+    });
+    return { ...continued, events: [...events, ...continued.events] };
+  }
   if (d.pressureSource === "room") {
     const roomState: GameState = { ...state, dungeon: { ...d, phase: "awaitingRoom" } };
     const continued =
@@ -124,6 +138,12 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
     events.push({
       type: "dungeonUpdated",
       message: "已记录心脏病；等待驿站替换接口（R9），不追加侦察揭示，不推定战役失败",
+    });
+  } else if (d.pressureSource === "curioProvision") {
+    d = { ...d, phase: "awaitingCurio", pending: null };
+    events.push({
+      type: "dungeonUpdated",
+      message: "Curio行间补给意志检定完成；原牌保留，不重复补给或已完成行",
     });
   } else if (d.pressureSource === "curioRoom" && d.curio?.active?.roomId === d.position) {
     d = { ...d, phase: "awaitingCurio", pending: null };

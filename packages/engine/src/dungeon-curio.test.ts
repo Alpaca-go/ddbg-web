@@ -16,6 +16,8 @@ import { diseaseFileSchema } from "../../data/src/disease";
 import { normalizedQuirkFileSchema } from "../../data/src/normalize/schema";
 import { createConditionPool, conditionPoolProblem } from "./conditions";
 import trinkets from "../../data/normalized/corebox/trinket.json";
+import resolveData from "../../data/normalized/corebox/virtue_affliction.json";
+import type { ResolveCard } from "./pressure";
 import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
 import { createTrinketPool, trinketPoolProblem } from "./trinket-acquisition";
 
@@ -94,7 +96,7 @@ it("R-064 全池逐卡：Torch 后二十四张可完成，饰品明确选弃新�
     const drawn = protectedPage(page);
     let result = applyCommand(drawn, { type: "resolveDungeonCurio" });
     const awardsProvision = [3, 8, 10, 15, 16, 20].includes(page);
-    while (result.pendingChoice)
+    while (result.state.dungeon!.curio!.active && result.pendingChoice)
       result = choose(
         result.state,
         result.pendingChoice.id.startsWith("dungeon-trinket:") ? "discard-new" : "food",
@@ -305,7 +307,7 @@ it("种子 230：完整牌池自然抽 p7 与 Accuracy Stone，复合命令日�
   expect(initial).toEqual(before);
 });
 
-it("复合奖励预检全部池，缺失 / 耗尽时不先施加 Buff 或抽怪癖；修复后续接原卡", () => {
+it("复合奖励预检资料；有效饰品堆耗尽保留此前行，修复后续接原卡", () => {
   for (const page of [5, 7, 24]) {
     const drawn = protectedPage(page),
       d = drawn.dungeon!;
@@ -318,9 +320,11 @@ it("复合奖励预检全部池，缺失 / 耗尽时不先施加 Buff 或抽怪�
     };
     const stopped = applyCommand(exhausted, { type: "resolveDungeonCurio" }).state;
     expect(stopped.dungeon!.curio!.active!.blockedReason).toContain("耗尽");
-    expect(stopped.dungeon!.heroes).toEqual(d.heroes);
-    expect(stopped.dungeon!.conditions).toEqual(d.conditions);
-    expect(stopped.dungeon!.cursor).toBe(d.cursor);
+    if (page === 5)
+      expect(stopped.dungeon!.heroes[0]!.statusStacks).toEqual([{ kind: "buff", remaining: 2 }]);
+    else if (page === 24) expect(stopped.dungeon!.heroes[0]!.quirkIds).toHaveLength(1);
+    else expect(stopped.dungeon!.heroes).toEqual(d.heroes);
+    expect(stopped.dungeon!.cursor).toBe(d.cursor + (page === 24 ? 16 : 0));
     const repaired = { ...stopped, dungeon: { ...stopped.dungeon!, trinkets: d.trinkets! } };
     expect(applyCommand(repaired, { type: "resolveDungeonCurio" }).pendingChoice!.id).toContain(
       "dungeon-trinket:",
@@ -428,7 +432,7 @@ it("单一怪癖缺资料 / 堆耗尽不付奖励、不弃 Curio；补齐后原�
   }
 });
 
-it("p10：怪癖替换 → 补给 Wild 连续待选，保留已抽怪癖与骰；金币 / 弃牌最终提交一次", () => {
+it("p10：金币先发，再怪癖替换→补给Wild待选，已付行不重复", () => {
   for (const option of ["discard", "replace"] as const) {
     const drawn = protectedPage(10),
       d = drawn.dungeon!;
@@ -458,7 +462,7 @@ it("p10：怪癖替换 → 补给 Wild 连续待选，保留已抽怪癖与骰�
       provisionFace: "wild",
     });
     expect(picked.state.dungeon!.cursor).toBe(d.cursor + 16);
-    expect(picked.state.dungeon!.gold).toBe(0);
+    expect(picked.state.dungeon!.gold).toBe(5);
     expect(picked.state.dungeon!.curio!.discard).toEqual([]);
     expect(picked.state.dungeon!.explorationSetup!.provisions).toHaveLength(5);
     expect(
@@ -487,11 +491,11 @@ it("p10：怪癖替换 → 补给 Wild 连续待选，保留已抽怪癖与骰�
   }
 });
 
-it("p10 / p16：补给已满或正面堆耗尽在抽怪癖前挡整卡，不先付金币或消耗 RNG", () => {
+it("p10/p16补给已满或正面堆耗尽停在对应行，已付金币及怪癖保留", () => {
   for (const page of [10, 16]) {
     const drawn = protectedPage(page),
       d = drawn.dungeon!;
-    for (const initial of [
+    const scenes = [
       {
         ...drawn,
         dungeon: {
@@ -518,12 +522,16 @@ it("p10 / p16：补给已满或正面堆耗尽在抽怪癖前挡整卡，不先�
           },
         },
       },
-    ]) {
+    ];
+    for (const [position, initial] of scenes.entries()) {
       const blocked = applyCommand(initial, { type: "resolveDungeonCurio" });
-      expect(blocked.state.dungeon!.cursor).toBe(d.cursor);
-      expect(blocked.state.dungeon!.gold).toBe(0);
-      expect(blocked.state.dungeon!.heroes).toEqual(d.heroes);
-      expect(blocked.state.dungeon!.conditions).toEqual(initial.dungeon.conditions);
+      expect(blocked.state.dungeon!.cursor).toBe(d.cursor + (position === 0 ? 16 : 0));
+      expect(blocked.state.dungeon!.gold).toBe(position === 0 || page === 10 ? 5 : 0);
+      if (position === 0) expect(blocked.state.dungeon!.heroes[0]!.quirkIds).toHaveLength(1);
+      else expect(blocked.state.dungeon!.heroes).toEqual(d.heroes);
+      const repeated = applyCommand(blocked.state, { type: "resolveDungeonCurio" });
+      expect(repeated.state.dungeon!.cursor).toBe(blocked.state.dungeon!.cursor);
+      expect(repeated.state.dungeon!.gold).toBe(blocked.state.dungeon!.gold);
       expect(blocked.state.dungeon!.curio!.discard).toEqual([]);
       expect(blocked.events.some((e) => e.type === "provisionRolled")).toBe(false);
     }
@@ -544,7 +552,7 @@ it("Torch 不抑制 p2 的 Buff 2t；持有真实英雄防御时施加一次，�
   expect(blocked.dungeon!.cursor).toBe(missing.dungeon!.cursor);
 });
 
-it("Curio 补给六面沿共享 RNG；Wild 待选冻结命令，不提前付金币，选择后只提交一次", () => {
+it("Curio补给六面沿共享RNG；Wild冻结后续行，先前金币保留不重发", () => {
   for (const face of [...PROVISION_FACES, "wild" as const]) {
     const original = protectedPage(8);
     const seed = Array.from({ length: 100 }, (_, i) => i).find(
@@ -562,7 +570,7 @@ it("Curio 补给六面沿共享 RNG；Wild 待选冻结命令，不提前付金�
       const choiceId = waiting.dungeon!.pending!.id;
       expect(result.pendingChoice?.actorId).toBe("h0");
       expect(result.pendingChoice?.options.map((o) => o.id)).toEqual(PROVISION_FACES);
-      expect(waiting.dungeon!.gold).toBe(0);
+      expect(waiting.dungeon!.gold).toBe(10);
       expect(waiting.dungeon!.curio!.discard).toEqual([]);
       expect(waiting.dungeon!.explorationSetup!.provisions).toHaveLength(5);
       for (const command of [
@@ -597,7 +605,7 @@ it("Curio 补给六面沿共享 RNG；Wild 待选冻结命令，不提前付金�
   }
 });
 
-it("补给上限与损坏实例在掷骰前挡住整卡；修复后原牌续接，到 16 颗不溢出", () => {
+it("补给上限在本行掷骰前停点，损坏实例预检；修复后只续接，到16颗不溢出", () => {
   const original = protectedPage(8);
   const pool = (length: number) =>
     Array.from({ length }, (_, i) => ({ id: `full:${i}`, face: "food" as const }));
@@ -612,7 +620,7 @@ it("补给上限与损坏实例在掷骰前挡住整卡；修复后原牌续接�
     const result = applyCommand(initial, { type: "resolveDungeonCurio" });
     expect(result.state.dungeon!.curio!.active!.blockedReason).toContain("补给池");
     expect(result.state.dungeon!.cursor).toBe(initial.dungeon!.cursor);
-    expect(result.state.dungeon!.gold).toBe(0);
+    expect(result.state.dungeon!.gold).toBe(provisions.length === 16 ? 10 : 0);
     expect(result.state.dungeon!.curio!.discard).toEqual([]);
     expect(result.events.some((e) => e.type === "provisionRolled")).toBe(false);
     const repaired = {
@@ -630,8 +638,8 @@ it("补给上限与损坏实例在掷骰前挡住整卡；修复后原牌续接�
   }
 });
 
-it("正面复合奖励不绕过未用 Torch 的负面奖惩停点", () => {
-  for (const page of [7, 24, 20]) {
+it("R-069未用Torch的全24张按行序完成，负面状态／怪癖先于后续奖励", () => {
+  for (let page = 1; page <= 24; page++) {
     const drawn = protectedPage(page);
     const initial = {
       ...drawn,
@@ -643,14 +651,224 @@ it("正面复合奖励不绕过未用 Torch 的负面奖惩停点", () => {
         },
       },
     };
-    const result = applyCommand(initial, { type: "resolveDungeonCurio" });
-    expect(result.state.dungeon!.curio!.active!.blockedReason).toContain("接口尚未接线");
-    expect(result.state.dungeon!.gold).toBe(0);
-    expect(result.state.dungeon!.cursor).toBe(initial.dungeon!.cursor);
-    expect(result.state.dungeon!.explorationSetup!.provisions).toEqual(
-      initial.dungeon!.explorationSetup!.provisions,
+    let result = applyCommand(initial, { type: "resolveDungeonCurio" });
+    while (result.state.dungeon!.curio!.active && result.pendingChoice)
+      result = choose(
+        result.state,
+        result.pendingChoice.id.startsWith("dungeon-trinket:") ? "discard-new" : "food",
+      );
+    expect(
+      result.events.filter((e) => e.type === "commandRefused"),
+      `curio p${page}`,
+    ).toEqual([]);
+    const done = result.state.dungeon!;
+    expect(done.curio!.active).toBeNull();
+    expect(done.curio!.discard).toEqual([`curio:p${String(page).padStart(3, "0")}`]);
+    expect(done.exploration!.rolls![0]!.resolved).toBe(true);
+    expect(done.heroes[0]!.stress).toBe([6, 7, 8, 10, 15, 16].includes(page) ? 0 : 1);
+    expect(done.gold).toBe(
+      cards[page - 1]!.rows.reduce(
+        (sum, r) => sum + (r.effect?.type === "gold" ? r.effect.amount : 0),
+        0,
+      ),
     );
+    expect(conditionPoolProblem(done.conditions!, done.heroes)).toBeNull();
+    expect(trinketPoolProblem(done.trinkets!, done.heroes)).toBeNull();
+    expect(applyCommand(result.state, { type: "resolveDungeonCurio" }).state).toBe(result.state);
   }
+});
+
+it("新负面怪癖替换后才继续行序，Anemic立即影响随后Bleed，正面待选不重抽", () => {
+  const drawn = protectedPage(6),
+    d = drawn.dungeon!;
+  const anemic = d.conditions!.quirks.find((q) => q.name === "Anemic")!.id;
+  const initial = {
+    ...drawn,
+    dungeon: {
+      ...d,
+      heroes: d.heroes.map((h, i) =>
+        i ? h : { ...h, quirkIds: ["quirk:p001", "quirk:p002", "quirk:p003"] },
+      ),
+      conditions: {
+        ...d.conditions!,
+        negativeDeck: [
+          anemic,
+          ...d
+            .conditions!.quirks.filter((q) => q.polarity === "negative" && q.id !== anemic)
+            .map((q) => q.id),
+        ],
+      },
+      curio: { ...d.curio!, active: { ...d.curio!.active!, protected: false } },
+    },
+  };
+  const first = applyCommand(initial, { type: "resolveDungeonCurio" });
+  expect(first.pendingChoice?.id).toContain("dungeon-condition:");
+  expect(first.state.dungeon!.curio!.active!.effectIndex).toBe(1);
+  expect(first.state.dungeon!.heroes[0]!.statusStacks).toBeUndefined();
+  expect(first.state.dungeon!.cursor).toBe(d.cursor);
+  const replaced = choose(first.state, "quirk:p001");
+  expect(replaced.pendingChoice?.id).toContain("dungeon-condition:");
+  expect(replaced.state.dungeon!.heroes[0]!.statusStacks).toEqual([
+    { kind: "bleed", remaining: 3, amount: 1 },
+    { kind: "bleed", remaining: 3, amount: 1 },
+  ]);
+  const done = choose(replaced.state, replaced.state.dungeon!.conditions!.incomingQuirk!.cardId);
+  expect(done.state.dungeon!.curio!.active).toBeNull();
+  expect(done.state.dungeon!.conditions!.quirkDiscard).toHaveLength(2);
+  expect(
+    conditionPoolProblem(done.state.dungeon!.conditions!, done.state.dungeon!.heroes),
+  ).toBeNull();
+  expect(done.state.dungeon!.heroes[0]!.statusStacks).toEqual(
+    replaced.state.dungeon!.heroes[0]!.statusStacks,
+  );
+});
+
+it("第四负面立即发疯死亡，取消Debuff及未发金币；已有金币保留", () => {
+  const drawn = protectedPage(1),
+    d = drawn.dungeon!;
+  const initial = {
+    ...drawn,
+    dungeon: {
+      ...d,
+      gold: 5,
+      heroes: d.heroes.map((h, i) =>
+        i ? h : { ...h, quirkIds: ["quirk:p028", "quirk:p035", "quirk:p021"] },
+      ),
+      curio: { ...d.curio!, active: { ...d.curio!.active!, protected: false } },
+    },
+  };
+  const before = structuredClone(initial),
+    result = applyCommand(initial, { type: "resolveDungeonCurio" });
+  expect(result.state.dungeon).toMatchObject({ phase: "awaitingReplacement", gold: 5 });
+  expect(result.state.dungeon!.heroes[0]).toMatchObject({
+    dead: true,
+    deathReason: "madness",
+    stress: 2,
+    wounds: 1,
+  });
+  expect(result.state.dungeon!.heroes[0]!.statusStacks).toBeUndefined();
+  expect(result.state.dungeon!.curio!.last!.effectIndex).toBe(2);
+  expect(result.state.dungeon!.curio!.discard).toEqual(["curio:p001"]);
+  expect(result.state.dungeon!.conditions!.quirkDiscard).toHaveLength(1);
+  expect(
+    conditionPoolProblem(result.state.dungeon!.conditions!, result.state.dungeon!.heroes),
+  ).toBeNull();
+  expect(result).toEqual(applyCommand(initial, { type: "resolveDungeonCurio" }));
+  expect(initial).toEqual(before);
+});
+
+it("新Nervous／The Worries不回改本卡先前压力事件", () => {
+  const drawn = protectedPage(14),
+    d = drawn.dungeon!;
+  const nervous = d.conditions!.quirks.find((q) => q.name === "Nervous")!.id;
+  const worries = d.conditions!.diseases.find((q) => q.name === "The Worries")!.id;
+  const initial = {
+    ...drawn,
+    dungeon: {
+      ...d,
+      conditions: {
+        ...d.conditions!,
+        negativeDeck: [
+          nervous,
+          ...d
+            .conditions!.quirks.filter((q) => q.polarity === "negative" && q.id !== nervous)
+            .map((q) => q.id),
+        ],
+        diseaseDeck: [
+          worries,
+          ...d.conditions!.diseases.filter((q) => q.id !== worries).map((q) => q.id),
+        ],
+      },
+      curio: { ...d.curio!, active: { ...d.curio!.active!, protected: false } },
+    },
+  };
+  const result = applyCommand(initial, { type: "resolveDungeonCurio" });
+  expect(result.state.dungeon!.heroes[0]).toMatchObject({
+    stress: 1,
+    wounds: 0,
+    quirkIds: [nervous],
+    diseaseId: worries,
+  });
+  expect(result.state.dungeon!.curio!.active).toBeNull();
+  expect(result.state.dungeon!.cursor).toBe(d.cursor);
+});
+
+it("补给满16时先保留印刷金币，合法Food腾位后只续接奖励骰", () => {
+  const drawn = protectedPage(8),
+    d = drawn.dungeon!;
+  const initial = {
+    ...drawn,
+    dungeon: {
+      ...d,
+      explorationSetup: {
+        ...d.explorationSetup!,
+        provisions: Array.from({ length: 16 }, (_, i) => ({
+          id: `full:${i}`,
+          face: "food" as const,
+        })),
+      },
+    },
+  };
+  const blocked = applyCommand(initial, { type: "resolveDungeonCurio" });
+  expect(blocked.state.dungeon!.gold).toBe(10);
+  expect(blocked.state.dungeon!.curio!.active!.effectIndex).toBe(1);
+  const freed = applyCommand(blocked.state, {
+    type: "useProvision",
+    provisionId: "full:0",
+    targetId: "h0",
+    effect: "heal",
+  });
+  expect(freed.state.dungeon).toMatchObject({ phase: "awaitingCurio", gold: 10, cursor: d.cursor });
+  expect(freed.state.dungeon!.explorationSetup!.provisions).toHaveLength(15);
+  let completed = applyCommand(freed.state, { type: "resolveDungeonCurio" });
+  if (completed.state.dungeon!.curio!.active && completed.pendingChoice)
+    completed = choose(completed.state, "food");
+  expect(completed.state.dungeon!.curio!.active).toBeNull();
+  expect(completed.state.dungeon).toMatchObject({ gold: 10, cursor: d.cursor + 1 });
+  expect(completed.state.dungeon!.explorationSetup!.provisions).toHaveLength(16);
+  expect(completed.events.some((e) => e.message?.includes("金币 +"))).toBe(false);
+});
+
+it("Curio行间Torch提升光照并完成意志，不重抽或改保护决定，不提前执行卡面", () => {
+  const drawn = protectedPage(4),
+    d = drawn.dungeon!;
+  const initial = {
+    ...drawn,
+    dungeon: {
+      ...d,
+      resolveCards: resolveData.cards as ResolveCard[],
+      heroes: d.heroes.map((h, i) => (i ? h : { ...h, stress: 9, quirkIds: ["quirk:p019"] })),
+      explorationSetup: {
+        ...d.explorationSetup!,
+        light: 4,
+        provisions: [
+          ...d.explorationSetup!.provisions,
+          { id: "extra-torch", face: "torch" as const },
+        ],
+      },
+      curio: { ...d.curio!, active: { ...d.curio!.active!, protected: false } },
+    },
+  };
+  const result = applyCommand(initial, {
+    type: "useProvision",
+    provisionId: "extra-torch",
+    targetId: "h0",
+    effect: "raiseLight",
+  });
+  expect(result.state.dungeon).toMatchObject({ phase: "awaitingCurio", gold: 0 });
+  expect(result.state.dungeon!.heroes[0]).toMatchObject({ stress: 0, resolveTested: true });
+  expect(result.state.dungeon!.heroes[0]!.statusStacks).toBeUndefined();
+  expect(result.state.dungeon!.curio!.active).toMatchObject({
+    cardId: "curio:p004",
+    protected: false,
+  });
+  expect(result.state.dungeon!.curio!.deck).toEqual(d.curio!.deck);
+  expect(result.events.filter((e) => e.type === "provisionConsumed")).toHaveLength(1);
+  expect(result.events.filter((e) => e.type === "resolveTested")).toHaveLength(1);
+  const completed = applyCommand(result.state, { type: "resolveDungeonCurio" });
+  expect(completed.state.dungeon!.heroes[0]!.stress).toBe(1);
+  expect(completed.state.dungeon!.gold).toBe(5);
+  expect(completed.state.dungeon!.curio!.discard).toEqual(["curio:p004"]);
 });
 
 it("真实种子 1237：全 24 张洗牌，Torch 在揭示前消费；Sarcophagus 只保留金币，随后八骰 → Empty；回放不变", () => {

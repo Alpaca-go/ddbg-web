@@ -180,3 +180,42 @@ it("房间交互前Fear压力10：先选英雄再检定，资料补齐后只恢�
   expect(done.dungeon!.curio!.discard).toHaveLength(1);
   expect(done.dungeon!.explorationSetup!.provisions).toHaveLength(0);
 });
+
+it("已抽房间Curio处理前心脏病死亡，取消整张奖励并弃牌一次", () => {
+  const initial = setup(80),
+    fear = quirks.cards.find((q) => q.name === "Fear of the Unknown")!.id;
+  const prepared: GameState = {
+    ...initial,
+    dungeon: {
+      ...initial.dungeon!,
+      resolveCards: resolveCards.cards as ResolveCard[],
+      conditions: createConditionPool(
+        diseaseFileSchema.parse(diseases).cards,
+        normalizedQuirkFileSchema.parse(quirks).cards,
+      ),
+      heroes: initial.dungeon!.heroes.map((h) =>
+        h.id === "h0"
+          ? {
+              ...h,
+              stress: 9,
+              resolveTested: true,
+              resolveCardId: resolveCards.cards[0]!.id,
+              quirkIds: [fear],
+            }
+          : h,
+      ),
+    },
+  };
+  const drawn = pick(begin(prepared), "use:torch"),
+    stopped = pick(drawn, "h0");
+  expect(stopped.dungeon).toMatchObject({
+    phase: "awaitingReplacement",
+    gold: 0,
+    cursor: drawn.dungeon!.cursor,
+  });
+  expect(stopped.dungeon!.heroes[0]!.dead).toBe(true);
+  expect(stopped.dungeon!.curio!.active).toBeNull();
+  expect(stopped.dungeon!.curio!.discard).toEqual(["curio:p021"]);
+  expect(stopped.dungeon!.curioRoom!.stage).toBe("completed");
+  expect(stopped.dungeon!.exploration).toBeNull();
+});

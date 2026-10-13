@@ -33,6 +33,7 @@ import { readBasicQuest } from "../../data/src/basic-quests";
 import type { ScoutRest } from "../../data/src/scout-rest";
 
 export type DungeonCurioDraw = {
+  readonly effectIndex?: number;
   readonly roomId?: string;
   readonly positiveRewardCursor?: number;
   readonly trinketApplied?: boolean;
@@ -155,7 +156,14 @@ export type DungeonState = {
     | "exited"
     | "awaitingCurio";
   readonly pressureSource?:
-    "scout" | "exploration" | "backtracking" | "room" | "provision" | "curioRoom";
+    | "scout"
+    | "exploration"
+    | "backtracking"
+    | "room"
+    | "provision"
+    | "curioRoom"
+    | "curio"
+    | "curioProvision";
   readonly roomResolution?: {
     /** 旧 Trap 快照缺少 kind 时仍按 Trap 读取。 */
     readonly kind?: "trap" | "dark";
