@@ -43,7 +43,7 @@ export type EncounterState = {
     /** 只记录单场全灭事实；驿站 / 任务类型尚未接入，不能判定战役结果。 */
     | {
         readonly type: "halted";
-        readonly reason: "heroesDefeated";
+        readonly reason: "heroesDefeated" | "mutualWipeout";
         readonly monstersDefeated: boolean;
       }
     | { readonly type: "finished"; readonly outcome: "victory" | "retreat" };
@@ -76,6 +76,7 @@ export type EncounterEvent = {
   readonly side?: SkillTargetSide;
   readonly outcome?: "victory" | "retreat";
   readonly monstersDefeated?: boolean;
+  readonly haltReason?: "heroesDefeated" | "mutualWipeout";
 };
 
 /** 共享 RNG 游标；技能骰与先攻洗牌消费同一个可回放序列。 */
@@ -333,15 +334,26 @@ export function endAfterCasualties(result: ApplyResult): ApplyResult | null {
           encounter: {
             ...battle.encounter!,
             deck: [],
-            turn: { type: "halted", reason: "heroesDefeated", monstersDefeated },
+            turn: {
+              type: "halted",
+              reason: monstersDefeated ? "mutualWipeout" : "heroesDefeated",
+              monstersDefeated,
+            },
           },
         },
       },
       events: [
         ...result.events,
         {
-          ...event(battle, "battleHalted", "英雄全灭，停止单场战斗，等待战役层处理（R25、R-044）"),
+          ...event(
+            battle,
+            "battleHalted",
+            monstersDefeated
+              ? "双方同次全灭：停止单场，无胜利或撤退奖励，不自动判战役失败（R-068）"
+              : "英雄全灭，停止单场战斗，等待战役层处理（R25、R-044）",
+          ),
           monstersDefeated,
+          haltReason: monstersDefeated ? "mutualWipeout" : "heroesDefeated",
         },
       ],
     };

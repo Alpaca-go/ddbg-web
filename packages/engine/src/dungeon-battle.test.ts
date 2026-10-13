@@ -587,7 +587,7 @@ it("撤退不清房不发奖，须离开；保留弃房牌和洗回怪物的下�
   expect(applyCommand(a, { type: "prepareDungeonBattle" }).state).toBe(a);
   expect(send(a, { type: "beginDungeonExploration" }).dungeon!.pending).toBeDefined();
 });
-it("Q-52 / 全灭、待选择与损坏牌池回传原子拒绝", () => {
+it("R-068 mutualWipeout、待选择与损坏牌池不发战后奖励，回传原子拒绝", () => {
   const s = terminal("victory"),
     d = s.dungeon!,
     b = s.battle!;
@@ -598,7 +598,7 @@ it("Q-52 / 全灭、待选择与损坏牌池回传原子拒绝", () => {
         ...b,
         encounter: {
           ...b.encounter!,
-          turn: { type: "halted", reason: "heroesDefeated", monstersDefeated: true },
+          turn: { type: "halted", reason: "mutualWipeout", monstersDefeated: true },
         },
       },
     },

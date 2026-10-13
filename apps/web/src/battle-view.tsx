@@ -130,7 +130,9 @@ export function BattleView({
             ? "胜利"
             : "第 4 轮结束：撤退"
           : turn.type === "halted"
-            ? "英雄全灭：单场停止（战役结果待接入）"
+            ? turn.reason === "mutualWipeout"
+              ? "双方同次全灭：单场停止，无胜利／撤退奖励"
+              : "英雄全灭：单场停止（战役结果待接入）"
             : "等待抽取先攻";
   const endpoint = path.at(-1) ?? actor?.areaId;
   const adjacent = battle.areas.find((a) => a.id === endpoint)?.adjacent ?? [];

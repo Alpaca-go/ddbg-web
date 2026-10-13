@@ -216,7 +216,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
   }
 }
 
-/** R25、R-059：仅完成的战斗可回传一次；Q-52 / 全灭停点不推定胜负。 */
+/** R25、R-059：仅完成的战斗可回传一次；R-068 / mutualWipeout 不发胜利或撤退奖励。 */
 export function finishDungeonBattle(state: GameState): ApplyResult {
   const d = state.dungeon,
     b = state.battle,
