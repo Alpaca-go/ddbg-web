@@ -5,7 +5,7 @@ import { dungeonLayoutFileSchema, dungeonLayoutSchema } from "./dungeon-layout";
 
 describe("QuestMap 14 页印刷标注（Q-45、R-048）", () => {
   const parsed = dungeonLayoutFileSchema.parse(file);
-  it("全页 schema、连通性与来源唯一性；不升级为确认", () => {
+  it("全页 schema、连通性与来源唯一性；R-065仅批准p1", () => {
     expect(
       parsed.layouts.map((l) => [
         l.source.page,
@@ -28,8 +28,20 @@ describe("QuestMap 14 页印刷标注（Q-45、R-048）", () => {
       [13, 8, 8],
       [14, 8, 8],
     ]);
-    expect(parsed.layouts.every((l) => l.review === "pending")).toBe(true);
+    expect(parsed.layouts[0]!.review).toBe("confirmed");
+    expect(parsed.layouts.slice(1).every((l) => l.review === "pending")).toBe(true);
     expect(parsed.layouts[0]).toEqual(first);
+    expect(first.edges).toEqual([
+      ["S", "G"],
+      ["G", "F"],
+      ["F", "C"],
+      ["G", "H"],
+      ["G", "D"],
+      ["D", "E"],
+      ["D", "A"],
+      ["A", "B"],
+    ]);
+    expect(first.nodes.map((n) => n.id)).toEqual(["S", "A", "B", "C", "D", "E", "F", "G", "H"]);
     expect(
       dungeonLayoutFileSchema.safeParse({ ...file, layouts: [...file.layouts, file.layouts[0]] })
         .success,

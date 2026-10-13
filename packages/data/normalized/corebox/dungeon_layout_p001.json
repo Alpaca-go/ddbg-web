@@ -1,7 +1,7 @@
 {
   "id": "quest_map:p001",
   "source": { "file": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf", "page": 1, "face": "front" },
-  "review": "pending",
+  "review": "confirmed",
   "nodes": [
     { "id": "S", "kind": "start", "x": 50, "y": 77 },
     { "id": "A", "kind": "room", "x": 50, "y": 18 },
