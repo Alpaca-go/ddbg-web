@@ -4,7 +4,7 @@ import type { ApplyResult, GameState, PendingChoice } from "./command";
 import type { DungeonState } from "./dungeon";
 import { readDungeonQuestProgress } from "./dungeon-quest";
 import { resolveHeroHealth } from "./hero-health";
-import { hasQuirk } from "./passive";
+import { passiveHeal, passiveStress } from "./passive";
 
 function restContext(state: GameState): DungeonState | null {
   const d = state.dungeon;
@@ -134,27 +134,12 @@ export function restDungeon(
   if (!allocate(d, d.rest!).options.some((o) => o.id === command.optionId))
     return refuse("分配对象 / 均分额度无效");
   const [kind, index] = command.optionId.split(":") as ["heal" | "stress", string];
-  const hero = d.heroes[Number(index)]!;
-  if (
-    (kind === "heal" && (hasQuirk(hero, "Fast Healer") || hasQuirk(hero, "Infirm"))) ||
-    (kind === "stress" && hasQuirk(hero, "Resilient"))
-  )
-    return refuse("休息点触发治疗 / 压力恢复怪癖的事件分组待Q-69确认；未分配此点");
   const plan = {
     ...d.rest!.plan,
     spend: d.rest!.plan.spend.map((s, i) =>
       i === Number(index) ? { ...s, [kind]: s[kind] + 1 } : s,
     ),
   };
-  if (
-    plan.spend.some(
-      (s, i) =>
-        (s.heal > 0 &&
-          (hasQuirk(d.heroes[i]!, "Fast Healer") || hasQuirk(d.heroes[i]!, "Infirm"))) ||
-        (s.stress > 0 && hasQuirk(d.heroes[i]!, "Resilient")),
-    )
-  )
-    return refuse("已分配恢复涉及Q-69怪癖，整次保留原状态");
   const rest = { ...d.rest!, plan };
   if (plan.spend.reduce((n, s) => n + s.heal + s.stress, 0) < restPoints(rest.questId))
     return finish(rest, allocate(d, rest), "已记录分配；全部休息点分配完成前不恢复英雄");
@@ -163,10 +148,14 @@ export function restDungeon(
     const s = plan.spend[i]!;
     const health = resolveHeroHealth(
       { life: h.life!, wounds: h.wounds!, dead: false },
-      { type: "heal", amount: s.heal },
+      { type: "heal", amount: s.heal > 0 ? passiveHeal(h, s.heal) : 0 },
     );
     if (health.status !== "resolved") return refuse("英雄恢复校验失败，未消耗柴火");
-    const stress = Math.max(0, h.stress - s.stress);
+    const stress = Math.max(
+      0,
+      h.stress +
+        (s.stress > 0 ? passiveStress(h, -s.stress, d.explorationSetup?.light ?? 5).amount : 0),
+    );
     heroes.push({
       ...h,
       wounds: health.state.wounds,
