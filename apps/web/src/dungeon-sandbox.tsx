@@ -758,7 +758,9 @@ export function DungeonSandbox() {
                 ? `可用（${restPoints(d.rest.questId)}点）`
                 : "无已核实柴火"}
           </p>
-          <p className="muted">普通走廊返回不掷骰，全员压力 +1；灰点与起点返回尚未接线。</p>
+          <p className="muted">
+            原路返回不掷骰，每条已走过的边全员压力 +1；包含灰点、岔路与起点出入。
+          </p>
           {d.phase === "awaitingHazards" && !d.exploration?.rolls && (
             <button
               disabled={!!d.pending}
