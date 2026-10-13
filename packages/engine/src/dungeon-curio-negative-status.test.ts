@@ -5,6 +5,8 @@ import rawCurios from "../../data/normalized/corebox/curio.json";
 import rawStats from "../../data/normalized/corebox/hero_stat.json";
 import diseases from "../../data/normalized/corebox/disease.json";
 import quirks from "../../data/normalized/corebox/quirk.json";
+import resolveData from "../../data/normalized/corebox/virtue_affliction.json";
+import type { ResolveCard } from "./pressure";
 import { curioFileSchema } from "../../data/src/curio";
 import { normalizedHeroStatFileSchema } from "../../data/src/normalize/hero-stat";
 import { diseaseFileSchema } from "../../data/src/disease";
@@ -160,14 +162,32 @@ it("保留已有状态；Thick Blooded与Thin Blooded按已有被动原语处理
     expect(result.dungeon!.heroes[0]!.wounds).toBe(0);
   }
 });
-it("Q-62压力10与缺防御保持整卡停点；补齐防御后原牌续接", () => {
+it("R-069压力10保存已付行，补齐意志后续接；缺防御仍预检整卡", () => {
   const initial = drawn(),
     d = initial.dungeon!;
-  for (const changed of [
+  const stressed = {
+    ...initial,
+    dungeon: { ...d, heroes: d.heroes.map((h, i) => (i ? h : { ...h, stress: 9 })) },
+  };
+  const paid = resolve(stressed);
+  expect(paid.state.dungeon).toMatchObject({ phase: "blockedPressure", cursor: d.cursor, gold: 0 });
+  expect(paid.state.dungeon!.heroes[0]).toMatchObject({ stress: 10, wounds: 0 });
+  expect(paid.state.dungeon!.curio!.active).toMatchObject({ cardId: "curio:p004", effectIndex: 1 });
+  const continued = applyCommand(
     {
-      ...initial,
-      dungeon: { ...d, heroes: d.heroes.map((h, i) => (i ? h : { ...h, stress: 9 })) },
+      ...paid.state,
+      dungeon: { ...paid.state.dungeon!, resolveCards: resolveData.cards as ResolveCard[] },
     },
+    { type: "resolveDungeonPressure" },
+  );
+  const complete = resolve({
+    ...stressed,
+    dungeon: { ...stressed.dungeon, resolveCards: resolveData.cards as ResolveCard[] },
+  });
+  expect(continued.state).toEqual(complete.state);
+  expect(continued.state.dungeon!.gold).toBe(5);
+  expect(continued.state.dungeon!.heroes[0]).toMatchObject({ stress: 0, resolveTested: true });
+  for (const changed of [
     { ...initial, dungeon: { ...d, battleCatalog: { heroStats: [], skills: [], monsters: [] } } },
   ]) {
     const result = resolve(changed).state;
@@ -188,7 +208,7 @@ it("Q-62压力10与缺防御保持整卡停点；补齐防御后原牌续接", (
       .dungeon!.gold,
   ).toBe(5);
 });
-it("Black Plague追加伤口未接时整次拒绝，不先支付压力/状态/金币", () => {
+it("Black Plague追加伤口在状态行结算，存活继续Debuff与金币", () => {
   const initial = drawn(),
     d = initial.dungeon!;
   const changed = {
@@ -207,11 +227,51 @@ it("Black Plague追加伤口未接时整次拒绝，不先支付压力/状态/�
   };
   const before = structuredClone(changed);
   const result = resolve(changed);
-  expect(result.state).toBe(changed);
-  expect(result.events[0]!.type).toBe("commandRefused");
+  expect(result.state.dungeon!.heroes[0]).toMatchObject({
+    wounds: 2,
+    stress: 1,
+    statusStacks: [
+      { kind: "blight", remaining: 3, amount: 1 },
+      { kind: "blight", remaining: 2, amount: 1 },
+      { kind: "debuff", remaining: 2 },
+    ],
+  });
+  expect(result.state.dungeon!.gold).toBe(5);
+  expect(result.state.dungeon!.lootPool!.gold).toBe(5);
+  expect(result.state.dungeon!.curio!.active).toBeNull();
+  expect(result.events.filter((e) => e.type === "heroHealthResolved")).toHaveLength(1);
+  expect(result).toEqual(resolve(changed));
   expect(changed).toEqual(before);
 });
-it("压力被动导致死亡的后续奖惩仍原子拒绝，不提交死门骰或奖励", () => {
+
+it("状态追加生命资料缺失只停本行，补齐后不重复先前压力或叠状态", () => {
+  const initial = drawn(),
+    d = initial.dungeon!;
+  const diseaseId = diseaseCards.find((c) => c.name === "Black Plague")!.id;
+  const { life: _life, ...withoutLife } = { ...d.heroes[0]!, diseaseId };
+  void _life;
+  const broken = { ...initial, dungeon: { ...d, heroes: [withoutLife, ...d.heroes.slice(1)] } };
+  const stopped = resolve(broken);
+  expect(stopped.state.dungeon!.curio!.active!.effectIndex).toBe(1);
+  expect(stopped.state.dungeon!.heroes[0]!.stress).toBe(1);
+  expect(stopped.state.dungeon!.heroes[0]!.statusStacks).toBeUndefined();
+  expect(stopped.events.some((e) => e.message?.includes("blight 3t"))).toBe(false);
+  const repaired = {
+    ...stopped.state,
+    dungeon: {
+      ...stopped.state.dungeon!,
+      heroes: stopped.state.dungeon!.heroes.map((h, i) =>
+        i ? h : { ...h, life: d.heroes[0]!.life! },
+      ),
+    },
+  };
+  const completed = resolve(repaired);
+  expect(completed.state.dungeon!.heroes[0]).toMatchObject({ stress: 1, wounds: 2 });
+  expect(completed.state.dungeon!.heroes[0]!.statusStacks).toHaveLength(3);
+  expect(completed.state.dungeon!.gold).toBe(5);
+  expect(completed.state.dungeon!.curio!.discard).toEqual(["curio:p004"]);
+});
+it("压力被动导致死亡取消后续状态与金币，只支付一次死门并弃牌", () => {
   const initial = drawn(),
     d = initial.dungeon!,
     life = d.heroes[0]!.life!;
@@ -240,7 +300,18 @@ it("压力被动导致死亡的后续奖惩仍原子拒绝，不提交死门骰�
       ),
     },
   };
-  expect(resolve(changed).state).toBe(changed);
+  const result = resolve(changed);
+  expect(result.state.dungeon).toMatchObject({
+    phase: "awaitingReplacement",
+    cursor: d.cursor + 1,
+    gold: 0,
+  });
+  expect(result.state.dungeon!.heroes[0]).toMatchObject({ stress: 1, wounds: life, dead: true });
+  expect(result.state.dungeon!.heroes[0]!.statusStacks).toBeUndefined();
+  expect(result.state.dungeon!.curio!.discard).toEqual(["curio:p004"]);
+  expect(result.state.dungeon!.curio!.active).toBeNull();
+  expect(result.events.filter((e) => e.type === "heroHealthResolved")).toHaveLength(1);
+  expect(result).toEqual(resolve(changed));
 });
 it("共享金币与战利品金币漂移时不提交Curio奖励", () => {
   const initial = drawn(),

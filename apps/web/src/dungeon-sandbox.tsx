@@ -8,6 +8,7 @@ import {
   createTrinketPool,
   readRoomTile,
   PROVISION_EFFECTS,
+  dungeonProvisionWindow,
 } from "@ddbg/engine";
 import type { Command, GameEvent, GameState, DungeonState, PendingChoice } from "@ddbg/engine";
 import rawLayouts from "../../../packages/data/normalized/corebox/dungeon_layouts.json";
@@ -848,7 +849,7 @@ export function DungeonSandbox() {
                 PROVISION_EFFECTS[p.face].map((effect) => (
                   <button
                     key={`${p.id}:${effect}`}
-                    disabled={d.phase !== "ready" || !!d.pending}
+                    disabled={!dungeonProvisionWindow(d)}
                     onClick={() =>
                       dispatch({
                         type: "useProvision",
@@ -869,7 +870,7 @@ export function DungeonSandbox() {
               .map((p) => (
                 <button
                   key={p.id}
-                  disabled={d.phase !== "ready" || !!d.pending}
+                  disabled={!dungeonProvisionWindow(d)}
                   onClick={() =>
                     dispatch({
                       type: "useProvision",
@@ -888,6 +889,10 @@ export function DungeonSandbox() {
                 Curio · {card.name} · p{card.source.page}
               </h3>
               <p>{card.text}</p>
+              <p>
+                按卡面行序结算，新疾病／怪癖影响后续行；死亡取消剩余效果和未发奖励。行间使用 Torch
+                只改变光照。
+              </p>
               <p>
                 {shownCurio.heroId || "等待选择处理英雄"} · 抽卡前{" "}
                 {shownCurio.protected ? "已使用 Torch" : "未使用 Torch"} · 牌池剩余{" "}

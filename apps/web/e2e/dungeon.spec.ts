@@ -475,7 +475,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   ])
     await page.getByRole("button", { name, exact: true }).click();
   await expect(page.getByTestId("dungeon-events")).toContainText("Wild");
-  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：0");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：10");
   await expect(page.getByRole("button", { name: "结算当前 Curio" })).toBeDisabled();
   await page.getByRole("button", { name: "工具", exact: true }).click();
   await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：10");
@@ -517,7 +517,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   ])
     await page.getByRole("button", { name, exact: true }).click();
   await expect(page.getByTestId("dungeon-curio")).toContainText("Altar of Light · p10");
-  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：0");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：5");
   await expect(page.getByRole("button", { name: "结算当前 Curio" })).toBeDisabled();
   await page.getByRole("button", { name: "工具", exact: true }).click();
   await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：5");
@@ -664,10 +664,11 @@ test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场"
   await page.getByRole("button", { name: "hero-0:1 · Curio", exact: true }).click();
   await page.getByRole("button", { name: "不用 Torch，抽 Curio", exact: true }).click();
   await page.getByRole("button", { name: "结算当前 Curio" }).click();
-  await expect(page.getByTestId("dungeon-curio")).toContainText("Q-68");
-  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：0");
+  await expect(page.getByTestId("dungeon-curio")).toContainText("弃牌 1");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：10");
+  await expect(page.getByTestId("dungeon-events")).toContainText("Curio获得疾病");
   await expect(page.getByTestId("dungeon-provisions")).toContainText("torch-1");
-  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("不能补用 Torch 或重抽");
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 1");
   await page.getByLabel("侦察测试布置").selectOption("trap");
   await page.getByRole("button", { name: "重置 Radiant" }).click();
   await page.getByRole("button", { name: "侦察", exact: true }).click();

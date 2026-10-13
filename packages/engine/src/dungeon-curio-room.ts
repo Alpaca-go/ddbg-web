@@ -1,7 +1,7 @@
 import { curioCatalogSchema } from "../../data/src/curio";
 import type { ApplyResult, GameState } from "./command";
 import { createRng, rollD10 } from "./rng";
-import { drawDungeonCurio } from "./dungeon-curio";
+import { drawDungeonCurio, resolveDungeonCurio } from "./dungeon-curio";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 
@@ -120,11 +120,10 @@ export function chooseDungeonRoomCurio(
       curioRoom: { ...reward, heroId: hero.id },
       curio: { ...d.curio, active: { ...d.curio.active, heroId: hero.id } },
     };
-    if (selected.heroes.some((h) => h.dead))
-      return {
-        state: { ...state, dungeon: { ...selected, phase: "awaitingReplacement" } },
-        events: passive.events,
-      };
+    if (selected.heroes.some((h) => h.dead)) {
+      const cancelled = resolveDungeonCurio({ ...state, dungeon: selected });
+      return { ...cancelled, events: [...passive.events, ...cancelled.events] };
+    }
     if (selected.heroes.some((h) => h.stress === 10)) {
       const resumed = resolveDungeonPressure({
         ...state,

@@ -1,6 +1,8 @@
 import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import { triggerDungeonPassive } from "./dungeon-passive";
+import { dungeonProvisionWindow } from "./dungeon-provision-window";
+import { resolveCurioRows } from "./dungeon-curio-effects";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { completeDungeonDarkRoom } from "./dungeon-room";
 import type { UseProvisionCommand } from "./provision-use";
@@ -48,6 +50,13 @@ export function settleDungeonLight(result: ApplyResult): ApplyResult {
   const d = result.state.dungeon!;
   let next: ApplyResult;
   if (d.heroes.some((h) => h.dead)) {
+    if (
+      d.pressureSource === "curioProvision" &&
+      d.heroes.find((h) => h.id === d.curio?.active?.heroId)?.dead
+    ) {
+      const cancelled = resolveCurioRows(result.state);
+      return { ...cancelled, events: [...result.events, ...cancelled.events] };
+    }
     next =
       d.pressureSource === "room"
         ? completeDungeonDarkRoom(result.state)
@@ -65,7 +74,14 @@ export function settleDungeonLight(result: ApplyResult): ApplyResult {
       d.pressureSource === "room"
         ? completeDungeonDarkRoom(result.state)
         : {
-            state: { ...result.state, dungeon: { ...d, phase: "ready", pending: null } },
+            state: {
+              ...result.state,
+              dungeon: {
+                ...d,
+                phase: d.pressureSource === "curioProvision" ? "awaitingCurio" : "ready",
+                pending: null,
+              },
+            },
             events: [],
           };
   }
@@ -80,7 +96,7 @@ export function useDungeonTorch(state: GameState, command: UseProvisionCommand):
   if (
     !d ||
     state.battle ||
-    d.phase !== "ready" ||
+    !dungeonProvisionWindow(d) ||
     d.pending ||
     command.effect !== "raiseLight" ||
     !target ||
@@ -91,14 +107,14 @@ export function useDungeonTorch(state: GameState, command: UseProvisionCommand):
   )
     return rejectBattleCommand(
       state,
-      "地牢补给本切片仅接导航就绪时使用 Torch 提升光照，不能插入未完成效果",
+      "地牢补给须在完整效果之间使用 Torch 提升光照，不能插入待选或意志检定",
     );
   const changed = changeDungeonLight(
     {
       ...state,
       dungeon: {
         ...d,
-        pressureSource: "provision",
+        pressureSource: d.phase === "awaitingCurio" ? "curioProvision" : "provision",
         explorationSetup: {
           ...d.explorationSetup!,
           provisions: pool.filter((p) => p.id !== command.provisionId),
