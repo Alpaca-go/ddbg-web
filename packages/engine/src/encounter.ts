@@ -181,12 +181,17 @@ export function finishTurn(
       },
     ];
   }
-  if (!actor.dead && actor.side === "hero" && area?.endTurnStress === 1) {
+  if (
+    !actor.dead &&
+    actor.side === "hero" &&
+    (area?.endTurnStress === 1 || area?.endTurnStress === -1)
+  ) {
+    const name = area.endTurnStressName ?? "Cornered";
     if (!Number.isSafeInteger(actor.stress) || actor.stress! < 0 || actor.stress! > 10)
-      return rejectBattleCommand(state, "Cornered 缺少已知压力（R-048）");
-    const passive = triggerBattlePassive(original, state.seed, [actorId], {
+      return rejectBattleCommand(state, `${name} 缺少已知压力（R-048）`);
+    const passive = triggerBattlePassive(state.battle!, state.seed, [actorId], {
       type: "stress",
-      amount: 1,
+      amount: area.endTurnStress,
     });
     if (passive.status === "refused") return rejectBattleCommand(state, passive.reason);
     const pressure = resolveBattlePressure({
@@ -197,7 +202,7 @@ export function finishTurn(
         {
           type: "areaStressResolved",
           actorId,
-          message: "Cornered：英雄结束回合压力 +1，低光修正按事件一次",
+          message: `${name}：英雄结束回合压力 ${area.endTurnStress === 1 ? "+1，低光修正按事件一次" : "−1"}`,
         },
       ],
     });

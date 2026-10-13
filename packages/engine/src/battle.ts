@@ -69,7 +69,8 @@ export type BattleEntity = PassiveHolder &
 export type BattleArea = {
   readonly endTurnHeal?: 3;
   /** 已复核 Cornered；只接明确印刷值，不给未命名特殊标记补值。 */
-  readonly endTurnStress?: 1;
+  readonly endTurnStress?: 1 | -1;
+  readonly endTurnStressName?: "Cornered" | "Stressful Darkness" | "Beacon of Light";
   readonly id: string;
   /** 板块已核实的容量；未提供时位移解析器拒绝，不补默认值。 */
   readonly capacity?: number;

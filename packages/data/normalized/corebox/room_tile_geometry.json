@@ -708,6 +708,245 @@
     }
    ],
    "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p003:front",
+   "rawId": "dungeon_tile:p003",
+   "roomId": "room:p005",
+   "location": "ruins",
+   "number": 5,
+   "name": "Beacon of Light",
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 3,
+    "face": "front"
+   },
+   "ruling": "R-065",
+   "approval": "Kyries/Grok 2026-10-13",
+   "geometryVerified": true,
+   "usable": true,
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "L6",
+     "defensive": "L7",
+     "ranged": "L6",
+     "support": "L7"
+    },
+    "monsters": {
+     "aggressive": "L1",
+     "defensive": "L5",
+     "ranged": "L1",
+     "support": "L2"
+    },
+    "lootAreas": [
+     "L9"
+    ],
+    "markers": [
+     {
+      "areaId": "L6",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "L7",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "L6",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "L7",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "L1",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "L5",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "L1",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "L2",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "L9",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "specialRegions": [
+    {
+     "areaId": "L1",
+     "iconId": "4591aebebd",
+     "effect": "stressfulDarkness",
+     "status": "confirmed",
+     "printedText": "Stressful Darkness: Heroes ending their turn here suffer +1 Stress.",
+     "runtimeReady": true
+    },
+    {
+     "areaId": "L3",
+     "iconId": "4591aebebd",
+     "effect": "stressfulDarkness",
+     "status": "confirmed",
+     "printedText": "Stressful Darkness: Heroes ending their turn here suffer +1 Stress.",
+     "runtimeReady": true
+    },
+    {
+     "areaId": "L6",
+     "iconId": "4591aebebd",
+     "effect": "stressfulDarkness",
+     "status": "confirmed",
+     "printedText": "Stressful Darkness: Heroes ending their turn here suffer +1 Stress.",
+     "runtimeReady": true
+    },
+    {
+     "areaId": "L7",
+     "iconId": "4591aebebd",
+     "effect": "stressfulDarkness",
+     "status": "confirmed",
+     "printedText": "Stressful Darkness: Heroes ending their turn here suffer +1 Stress.",
+     "runtimeReady": true
+    },
+    {
+     "areaId": "L9",
+     "iconId": "4591aebebd",
+     "effect": "stressfulDarkness",
+     "status": "confirmed",
+     "printedText": "Stressful Darkness: Heroes ending their turn here suffer +1 Stress.",
+     "runtimeReady": true
+    },
+    {
+     "areaId": "L2",
+     "iconId": "0d13b745be",
+     "effect": "beaconOfLight",
+     "status": "confirmed",
+     "printedText": "Beacon of Light: Heroes ending their turn here recover 1 Stress.",
+     "runtimeReady": true
+    }
+   ],
+   "areas": [
+    {
+     "id": "L1",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "L2",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "L3",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "L4",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "L5",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "L6",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "L7",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "L8",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "L9",
+     "capacity": 2,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "L1",
+     "to": "L3",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "L1",
+     "to": "L4",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "L2",
+     "to": "L5",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "L3",
+     "to": "L6",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "L4",
+     "to": "L5",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "L4",
+     "to": "L7",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "L5",
+     "to": "L8",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "L8",
+     "to": "L9",
+     "cornerOnly": false,
+     "blocked": false
+    }
+   ],
+   "unresolvedMarkers": []
   }
  ]
 }

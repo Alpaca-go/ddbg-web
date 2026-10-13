@@ -287,7 +287,12 @@ export function BattleView({
                   </div>
                   <p className="connections">连接：{area.adjacent.join(" · ") || "无"}</p>
                   {area.endTurnStress === 1 && (
-                    <p className="muted">Cornered：英雄结束回合压力 +1</p>
+                    <p className="muted">
+                      {area.endTurnStressName ?? "Cornered"}：英雄结束回合压力 +1
+                    </p>
+                  )}
+                  {area.endTurnStress === -1 && (
+                    <p className="muted">Beacon of Light：英雄结束回合恢复 1 压力</p>
                   )}
                   {area.endTurnHeal === 3 && (
                     <p className="muted">Healing Waters：英雄结束回合治疗 3</p>

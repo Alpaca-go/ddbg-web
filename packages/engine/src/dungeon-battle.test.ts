@@ -104,6 +104,17 @@ function deploy(seed: number): GameState {
 // 不过滤生产牌池；寻找一条天然抽到获批六种的固定种子，仅作测试。
 const goodSeed = 1885;
 
+it("完整牌池seed1自然抽Beacon可正式入场，压力增减钩子与出生位置独立", () => {
+  const deployed = deploy(1);
+  const entered = applyCommand(deployed, { type: "startDungeonBattle" });
+  expect(entered.state.battle, JSON.stringify(entered.events)).toBeDefined();
+  expect(entered.state.battle!.roomName).toBe("Beacon of Light");
+  expect(entered.state.battle!.areas.find((a) => a.id === "L2")!.endTurnStress).toBe(-1);
+  expect(
+    entered.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.areaId),
+  ).toEqual(["L6", "L7", "L6", "L7"]);
+});
+
 it("完整九房间池自然抽到Fountain后可正式部署入场；独立高地/泉水/出生不借Ritual", () => {
   let entered: GameState | undefined;
   let seed = 1;
