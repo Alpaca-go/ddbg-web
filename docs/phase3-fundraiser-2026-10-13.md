@@ -1,5 +1,7 @@
 # Phase3：Fundraiser巢穴奖励与捐献
 
+实现 `330f94a`，对应 [PR #138](https://github.com/Alpaca-go/ddbg-web/pull/138)。本地验证已通过；最新head两项CI与合并结果以PR状态为准。
+
 2026-10-13（UTC+8）。#137准确head `80addfe`两项CI成功并合并为main `1036a3b`，本地同步。本主题 `codex/phase3-fundraiser` 接第三张I级任务的明确分支，不宣称Phase3验收完成。
 
 ## 规则与范围
