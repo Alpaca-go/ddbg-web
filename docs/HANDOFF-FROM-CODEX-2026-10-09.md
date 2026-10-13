@@ -2,6 +2,8 @@
 
 ## 最新交接：#133 合并与掷骰前离开地牢（2026-10-13，UTC+8）
 
+实现 `a40c34f`，对应 [PR #134](https://github.com/Alpaca-go/ddbg-web/pull/134)。本地检查已通过，合并前核最新 head 两项 CI。
+
 #133 准确 head `cb7adde` 的质量与 Playwright 两项 CI 成功，已按用户授权合并为 main `49a5a8b`，本地 ff-only 同步。本轮从该基线建立 `codex/phase3-dungeon-exit`，继续 Phase 3 的撤离入口；不跳 Phase 4。
 
 新增探索掷骰前的全员离开 PendingChoice、取消恢复与 `exited` 终止状态，保留金币 / 英雄 / 牌池 / RNG；起点、灰点、房间及选路后未掷骰窗口均可使用，危险、死亡、房间和战斗停点不跳过。任务 XP 与回村尚未接线，具体见[本轮交付](phase3-dungeon-exit-2026-10-13.md)。

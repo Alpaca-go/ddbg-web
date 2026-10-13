@@ -1,5 +1,7 @@
 # Phase 3：掷探索骰前离开地牢
 
+实现 `a40c34f`，对应 [PR #134](https://github.com/Alpaca-go/ddbg-web/pull/134)。本地检查已通过，合并前核最新 head 两项 CI。
+
 2026-10-13（UTC+8）。#133 最新 head `cb7adde` 的质量与 Playwright 两项 CI 成功，审阅公共板块入口及身份守卫后，按用户授权合并为 main `49a5a8b`。本主题从该基线建立 `codex/phase3-dungeon-exit`。
 
 ## 进度与范围
