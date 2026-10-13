@@ -17,6 +17,8 @@ import { beginResolveTurn } from "./resolve-trigger";
 import { closeBattleLoot, placeBattleLoot } from "./loot";
 import { displaceSmallForHero } from "./battle-small";
 import { triggerBattlePassive } from "./battle-passive";
+import { resolveHeroHealth } from "./hero-health";
+import { passiveHeal } from "./passive";
 import { gainDisease } from "./conditions";
 import { readHeroPassiveDefence } from "./battle-skill-status";
 
@@ -148,6 +150,37 @@ export function finishTurn(
   const original = state.battle!;
   const actor = original.entities.find((entity) => entity.id === actorId)!;
   const area = original.areas.find((area) => area.id === actor.areaId);
+  if (!actor.dead && actor.side === "hero" && area?.endTurnHeal === 3) {
+    const effect = { type: "heal" as const, amount: passiveHeal(actor, 3) };
+    const health = resolveHeroHealth(
+      { life: actor.life!, wounds: actor.wounds, dead: actor.dead },
+      effect,
+    );
+    if (health.status !== "resolved")
+      return rejectBattleCommand(
+        state,
+        health.status === "refused" ? health.reason : "Healing Waters治疗不应请求死门骰",
+      );
+    state = {
+      ...state,
+      battle: {
+        ...original,
+        entities: original.entities.map((e) =>
+          e.id === actorId ? { ...e, wounds: health.state.wounds } : e,
+        ),
+      },
+    };
+    events = [
+      ...events,
+      {
+        type: "heroHealthResolved",
+        entityId: actorId,
+        effect,
+        resolution: health,
+        message: "Healing Waters：英雄在本面获批泉水区结束回合治疗3（R-065）",
+      },
+    ];
+  }
   if (!actor.dead && actor.side === "hero" && area?.endTurnStress === 1) {
     if (!Number.isSafeInteger(actor.stress) || actor.stress! < 0 || actor.stress! > 10)
       return rejectBattleCommand(state, "Cornered 缺少已知压力（R-048）");

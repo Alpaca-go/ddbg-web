@@ -170,6 +170,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
   }
   try {
     const battle = createBattleState(state.seed, {
+      roomName: tile.name,
       ...(d.conditions ? { conditions: d.conditions } : {}),
       heroStats: stats,
       entities: [...heroes, ...entities],

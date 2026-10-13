@@ -67,6 +67,7 @@ export type BattleEntity = PassiveHolder &
   };
 
 export type BattleArea = {
+  readonly endTurnHeal?: 3;
   /** 已复核 Cornered；只接明确印刷值，不给未命名特殊标记补值。 */
   readonly endTurnStress?: 1;
   readonly id: string;
@@ -86,6 +87,7 @@ export type PlayHeroSkillCommand = {
 };
 
 export type BattleSetup = {
+  readonly roomName?: string;
   readonly conditions?: ConditionPool;
   /** 只使用逐面获批属性；整卡其他图标的验证状态不因此改变。 */
   readonly heroStats?: readonly {

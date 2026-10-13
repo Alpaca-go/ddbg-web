@@ -1,5 +1,9 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：Healing Fountain运行时（2026-10-13，UTC+8）
+
+#146最新head `40a9f99`两项CI成功，合并main `f47eae2`。按R-065/VQ-06入库Fountain FRONT p2/遗迹3并接G英雄结束回合治疗3，详见[Healing Waters交付](phase3-healing-waters-2026-10-13.md)。普通遗迹2/9可战、核心盒2/28；Torture候选与其他面运行时未齐保持，p1confirmed/其他13图pending，三任务未验收。完整九房间/42怪物池自然seed10入场有场景回放，UI标注注入代币；不冒充真实任务。
+
 ## 最新交接：R-065数据批准与p1（2026-10-13，UTC+8）
 
 #145最新head `7f9e15e`两项CI成功，已合并main `6da84fd`。Kyries/Grok逐项批准七面VQ与QuestMap仅FRONT p1，记录R-065及[批准入库顺序](phase3-approved-data-2026-10-13.md)；本块只升级p1，两份布局同步、其他13图pending。Treasure T4–T5须blocked；Spiked接触候选仍需明确。逐面几何与完整运行时各自推进，不擅自批未知图标/复合顺序，普通遗迹仍1/9可战，三任务未验收。
