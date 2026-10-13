@@ -411,6 +411,27 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByText(/布置 RNG 游标 24/)).toBeVisible();
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("队伍尚未移动");
   await page.screenshot({ path: testInfo.outputPath("dungeon-low-light.png"), fullPage: true });
+  await page.getByLabel("侦察测试布置").selectOption("curioNegative");
+  for (const name of [
+    "重置标准模式",
+    "选择下一段探索",
+    "D",
+    "掷探索骰并开始结算",
+    "hero-0:1 · Curio",
+    "不用 Torch，抽 Curio",
+    "结算当前 Curio",
+  ])
+    await page.getByRole("button", { name, exact: true }).click();
+  await expect(page.getByTestId("dungeon-curio")).toContainText("Heirloom Chest · p4");
+  await expect(page.getByTestId("dungeon-curio")).toContainText("弃牌 1");
+  await expect(page.getByTestId("dungeon-status-stacks")).toContainText(
+    "hero-0：blight 3t、debuff 2t",
+  );
+  await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 1 · 伤口 0/17");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：5");
+  await expect(page.getByRole("button", { name: "结算当前 Curio" })).toHaveCount(0);
+  await expect(page.getByTestId("dungeon-provisions")).toContainText("torch-1");
+  await page.screenshot({ path: testInfo.outputPath("curio-negative-status.png"), fullPage: true });
   await page.getByLabel("侦察测试布置").selectOption("curioBuff");
   for (const name of [
     "重置标准模式",

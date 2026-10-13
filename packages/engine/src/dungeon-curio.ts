@@ -216,19 +216,24 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
     effects.some((e) => e.type === "status" || e.type === "stress")
   )
     return block("Curio 同卡疾病与压力 / 状态的触发先后待 Q-68 确认，整卡尚未提交");
-  if (effects.some((e) => e.type === "status" && e.kind !== "buff"))
+  const negativeStatuses = effects.some((e) => e.type === "status" && e.kind !== "buff");
+  const simpleStatusCard = effects.every(
+    (e) => e.type === "stress" || e.type === "gold" || e.type === "status",
+  );
+  if (negativeStatuses && !simpleStatusCard)
     return block("Curio 状态与同卡其他效果的事件续接尚未接线，整卡尚未提交");
   if (
-    effects.some((e) => e.type === "status" && e.kind === "buff") &&
+    effects.some((e) => e.type === "status") &&
     (!d.battleCatalog || !readHeroPassiveDefence(d.battleCatalog, hero))
   )
-    return block("Curio Buff 需要获批完整英雄抗性 / 免疫（R21、R-048），整卡尚未提交");
+    return block("Curio 状态需要获批完整英雄抗性 / 免疫（R21、R-048），整卡尚未提交");
   const stress = effects.reduce((sum, e) => sum + (e.type === "stress" ? e.amount : 0), 0);
   if (hero.stress + passiveStress(hero, stress, d.explorationSetup?.light ?? 5).amount >= 10)
     return block("Curio 压力到 10 与同卡其他效果的收尾顺序待 Q-62 确认，整卡尚未提交");
   if (
     !Number.isSafeInteger(d.gold) ||
     d.gold < 0 ||
+    (d.lootPool && d.lootPool.gold !== d.gold) ||
     !Number.isInteger(hero.stress) ||
     hero.stress < 0 ||
     hero.stress > 9
@@ -461,20 +466,28 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
   if (paid.status === "refused") return refuse(state, paid.reason);
   d = paid.dungeon;
   passiveEvents.push(...paid.events);
+  if (negativeStatuses && d.heroes.find((h) => h.id === hero.id)!.dead)
+    return refuse(state, "Curio死亡后的状态 / 奖励续接未接线，整卡保留原状态");
   for (const effect of effects) {
-    if (compositeReward || effect.type !== "status" || effect.kind !== "buff") continue;
+    if (compositeReward || effect.type !== "status") continue;
     const holder = d.heroes.find((h) => h.id === hero.id)!;
     const buff = applyPassiveStatus(
       holder,
-      { kind: "buff", duration: effect.duration },
+      {
+        kind: effect.kind,
+        duration: effect.duration,
+        ...(effect.amount === undefined ? {} : { amount: effect.amount }),
+      },
       "target",
       readHeroPassiveDefence(d.battleCatalog!, holder),
     );
     if (buff.status === "refused") return refuse(state, buff.reason);
+    if (buff.wounds.length)
+      return refuse(state, "Curio状态追加伤口与其他奖惩的复合续接未接线，整卡保留原状态（R-063）");
     d = { ...d, heroes: d.heroes.map((h) => (h.id === hero.id ? buff.hero : h)) };
     passiveEvents.push({
       type: "dungeonUpdated",
-      message: `${hero.id} Curio：Buff ${effect.duration}t（R21）`,
+      message: `${hero.id} Curio：${effect.kind === "buff" ? "Buff" : effect.kind} ${effect.duration}t（R21）`,
     });
   }
   const dungeon: DungeonState = {
@@ -488,6 +501,7 @@ export function resolveDungeonCurio(state: GameState): ApplyResult {
         }
       : {}),
     gold,
+    ...(d.lootPool ? { lootPool: { ...d.lootPool, gold } } : {}),
     phase: "awaitingHazards",
     pending: null,
     exploration: {
