@@ -26,6 +26,7 @@ import type { ConditionPool } from "./conditions";
 import type { PassiveHero } from "./passive-runtime";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import type { TrinketPool } from "./trinket-acquisition";
+import { leaveDungeon } from "./dungeon-exit";
 
 export type DungeonCurioDraw = {
   readonly positiveRewardCursor?: number;
@@ -135,6 +136,7 @@ export type DungeonState = {
     | "awaitingReplacement"
     | "awaitingRoom"
     | "inBattle"
+    | "exited"
     | "awaitingCurio";
   readonly pressureSource?: "scout" | "exploration" | "backtracking" | "room" | "provision";
   readonly roomResolution?: {
@@ -164,6 +166,7 @@ export type DungeonState = {
   } | null;
 };
 export type DungeonCommand =
+  | { readonly type: "leaveDungeon" }
   | { readonly type: "scoutDungeon" }
   | { readonly type: "beginDungeonExploration" }
   | { readonly type: "beginDungeonBacktrack" }
@@ -296,6 +299,12 @@ export function applyDungeonCommand(
     ...(dungeon.pending ? { pendingChoice: dungeon.pending } : {}),
   });
   if (!d || state.battle) return refuse("需要独立地牢沙盒");
+  if (d.phase === "exited") return refuse("已离开地牢，等待任务结算 / 回村接口");
+  if (
+    command.type === "leaveDungeon" ||
+    (command.type === "resolveChoice" && d.pending?.id.startsWith("dungeon-exit:"))
+  )
+    return leaveDungeon(state, command);
   if (command.type === "prepareDungeonBattle") return prepareDungeonBattle(state);
   if (command.type === "prepareDungeonMonsters") return prepareDungeonMonsters(state);
   if (command.type === "resolveDungeonRoom") return beginDungeonRoom(state);

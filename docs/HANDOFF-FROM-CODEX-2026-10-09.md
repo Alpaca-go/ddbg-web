@@ -1,5 +1,17 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：#133 合并与掷骰前离开地牢（2026-10-13，UTC+8）
+
+实现 `a40c34f`，对应 [PR #134](https://github.com/Alpaca-go/ddbg-web/pull/134)。本地检查已通过，合并前核最新 head 两项 CI。
+
+#133 准确 head `cb7adde` 的质量与 Playwright 两项 CI 成功，已按用户授权合并为 main `49a5a8b`，本地 ff-only 同步。本轮从该基线建立 `codex/phase3-dungeon-exit`，继续 Phase 3 的撤离入口；不跳 Phase 4。
+
+新增探索掷骰前的全员离开 PendingChoice、取消恢复与 `exited` 终止状态，保留金币 / 英雄 / 牌池 / RNG；起点、灰点、房间及选路后未掷骰窗口均可使用，危险、死亡、房间和战斗停点不跳过。任务 XP 与回村尚未接线，具体见[本轮交付](phase3-dungeon-exit-2026-10-13.md)。
+
+Node 24.21.0 / pnpm 12.9.1 下 typecheck、lint、79 文件 / 775 项测试、build、六条冒烟及 diff 检查通过，已查看离开完成截图。冒烟使用本地缓存 Chromium 1234 配置，正式配置不改；远端 CI 另核准确 head。
+
+Phase 2 按批准范围完成，Phase 3 未验收，实际可参战板块仍 1/28。Fountain / 遗迹 4–9 未获新目视批准，Torture Unholy Aura 仅候选 / usable=false、全部 Q / VQ 不改。下一块接任务目标 / XP 或柴火休息，再按明确逐面批准接板块。
+
 ## 最新交接：#132 合并与板块公共选择接线（2026-10-13，UTC+8）
 
 实现 `e544bc6`，开放草稿 [PR #133](https://github.com/Alpaca-go/ddbg-web/pull/133)，base为main，尚未合并。以下为本地验证，合并前另核最新head两项CI；入口补记随主题提交。

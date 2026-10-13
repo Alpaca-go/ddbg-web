@@ -1,5 +1,11 @@
 import { create } from "zustand";
-import { applyCommand, createDungeonSandbox, createTrinketPool, readRoomTile } from "@ddbg/engine";
+import {
+  applyCommand,
+  canLeaveDungeon,
+  createDungeonSandbox,
+  createTrinketPool,
+  readRoomTile,
+} from "@ddbg/engine";
 import type { Command, GameEvent, GameState, DungeonState } from "@ddbg/engine";
 import rawLayouts from "../../../packages/data/normalized/corebox/dungeon_layouts.json";
 import { dungeonLayoutFileSchema } from "../../../packages/data/src/dungeon-layout";
@@ -536,10 +542,19 @@ export function DungeonSandbox() {
             onClick={() => dispatch({ type: "beginDungeonBacktrack" })}
           >
             原路返回
+          </button>{" "}
+          <button
+            disabled={!canLeaveDungeon(game)}
+            onClick={() => dispatch({ type: "leaveDungeon" })}
+          >
+            离开地牢
           </button>
           <p className="muted">普通走廊返回不掷骰，全员压力 +1；灰点与起点返回尚未接线。</p>
           {d.phase === "awaitingHazards" && !d.exploration?.rolls && (
-            <button onClick={() => dispatch({ type: "rollDungeonExploration" })}>
+            <button
+              disabled={!!d.pending}
+              onClick={() => dispatch({ type: "rollDungeonExploration" })}
+            >
               掷探索骰并开始结算
             </button>
           )}
@@ -623,21 +638,23 @@ export function DungeonSandbox() {
             </div>
           )}
           <p data-testid="dungeon-checkpoint">
-            {d.phase === "ready" && d.mustLeaveRoomId === d.position
-              ? `已撤退到 ${d.position} 地图节点；房间未清理，必须离开`
-              : d.phase === "awaitingCurio"
-                ? "Curio 待结算；队伍尚未移动，不能补用 Torch 或重抽"
-                : d.phase === "awaitingReplacement"
-                  ? `英雄死亡：等待驿站替换接口，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
-                  : d.phase === "blockedPressure"
-                    ? `压力已支付：意志卡数据待核实，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
-                    : d.phase === "awaitingRoom"
-                      ? `进入 ${d.position}：等待${d.roomCards?.active ? "守卫战斗准备完成；原牌已记录，房间未清理" : currentRoom?.kind === "trap" ? " Trap 分配，保留代币" : currentRoom?.kind === "dark" ? " Dark 降光，保留代币" : "非 Empty 房间效果"}`
-                      : d.phase === "ready" && (d.exploration || (d.visited?.length ?? 0) > 1)
-                        ? `已到达 ${d.position}；${currentRoom?.cleared ? (currentRoom.kind === "empty" ? "Empty 已清理，移除房间代币" : "已清理，移除房间代币") : currentRoom?.kind === "trap" ? "Trap 已结算，保留代币" : currentRoom?.kind === "dark" ? "Dark 已结算，保留代币" : "灰点必须停留"}`
-                        : d.exploration
-                          ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
-                          : "等待侦察 / 路线选择"}
+            {d.phase === "exited"
+              ? `已从 ${d.position} 离开地牢；金币与英雄状态已保留，等待任务 XP / 回村接口`
+              : d.phase === "ready" && d.mustLeaveRoomId === d.position
+                ? `已撤退到 ${d.position} 地图节点；房间未清理，必须离开`
+                : d.phase === "awaitingCurio"
+                  ? "Curio 待结算；队伍尚未移动，不能补用 Torch 或重抽"
+                  : d.phase === "awaitingReplacement"
+                    ? `英雄死亡：等待驿站替换接口，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
+                    : d.phase === "blockedPressure"
+                      ? `压力已支付：意志卡数据待核实，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
+                      : d.phase === "awaitingRoom"
+                        ? `进入 ${d.position}：等待${d.roomCards?.active ? "守卫战斗准备完成；原牌已记录，房间未清理" : currentRoom?.kind === "trap" ? " Trap 分配，保留代币" : currentRoom?.kind === "dark" ? " Dark 降光，保留代币" : "非 Empty 房间效果"}`
+                        : d.phase === "ready" && (d.exploration || (d.visited?.length ?? 0) > 1)
+                          ? `已到达 ${d.position}；${currentRoom?.cleared ? (currentRoom.kind === "empty" ? "Empty 已清理，移除房间代币" : "已清理，移除房间代币") : currentRoom?.kind === "trap" ? "Trap 已结算，保留代币" : currentRoom?.kind === "dark" ? "Dark 已结算，保留代币" : "灰点必须停留"}`
+                          : d.exploration
+                            ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
+                            : "等待侦察 / 路线选择"}
           </p>
           <p data-testid="dungeon-events">
             {events
