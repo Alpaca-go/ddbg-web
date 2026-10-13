@@ -1,5 +1,24 @@
 # Codex 接线交接（2026-10-09）
 
+## 最新交接：补记 #138–141 合并与 Phase 3 验收差距（2026-10-13，UTC+8）
+
+此前 #139–141 各有专题交付文档，但遗漏更新本统一入口；本段补齐，并覆盖下方“#138 合并结果以 PR 状态为准”的历史状态。当前功能基线 main 为 `30e16b1`，本地已 ff-only 同步；截至本次补记，#138–141 均已合并，没有遗留开放的功能 PR。
+
+| PR                                                     | 实现 / 最终 head      | 合并提交  | 交付与边界                                                                                                                                                                 |
+| ------------------------------------------------------ | --------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [#138](https://github.com/Alpaca-go/ddbg-web/pull/138) | `330f94a` / `5d8b19e` | `02b0892` | [Fundraiser](phase3-fundraiser-2026-10-13.md)：完整分布、8点休息、Lair胜利10金币、达标后捐献与待发XP；未达最低目标仍Q-70停点。                                             |
+| [#139](https://github.com/Alpaca-go/ddbg-web/pull/139) | `2f1eeaa`             | `c562a60` | [开局补给](phase3-starting-provisions-2026-10-13.md)：标准八骰、Radiant四骰加自选、Wild对应英雄PendingChoice；选面不重掷，完成才开放探索。                                 |
+| [#140](https://github.com/Alpaca-go/ddbg-web/pull/140) | `e6a8f16`             | `f87f71e` | [探索间补给](phase3-navigation-provisions-2026-10-13.md)：Food/Bandage治疗、Potion减压、移除全部Bleed/Blight、怪癖/疾病被动与压力续接、战斗快照同步；只接导航就绪窗口。    |
+| [#141](https://github.com/Alpaca-go/ddbg-web/pull/141) | `5ce1ac7`             | `30e16b1` | [补给接探索](phase3-provision-exploration-integration-2026-10-13.md)：修复Bandage/Potion导致探索拒绝；固定种子75跑标准/Radiant真实开局→首段危险→G Empty→恢复，锁完整回放。 |
+
+四个 PR 各自最新 head 的质量与 Playwright CI 均成功后按用户授权 GitHub merge。#139 本地830项/84文件，#140为839项/85文件，#141为842项/86文件；各次typecheck、lint、build、diff与六条冒烟通过。#140首次并行负载下既有牌池遍历测试超时，全量重跑通过且未修改时限；#141明确补了此前开局冒烟未实际掷探索骰的覆盖缺口。原三个阶段/六个总冒烟不增加条数，缓存Chromium临时配置未提交。现有Vite配置与bundle提示保留。
+
+当前仍是 Phase 3：三张基础任务已有明确身份/构成/目标与待发摘要，尚无三张完整从入口到战斗、退出、结算的检查点③验收记录。实际可战Room Tile为核心盒1/28；普通遗迹九面仅Ritual可用（1/9），Torture几何/部署已入库但Unholy Aura仅候选、usable=false，Fountain及遗迹4–9草稿待审核。14张QuestMap全部pending。完整卡池保留，不筛掉未可用牌改变概率。
+
+下一步及分类后的剩余项见[Phase 3验收差距](phase3-acceptance-gap-2026-10-13.md)。优先接明确逐面审批后的房间几何/部署/完整效果，再补Curio房间守卫、负面Curio与未决规则获裁定后的续接，最后安排三任务完整试玩验收。Q-52/59/61–64/66–70不自行裁定；不能以“继续”批准草稿，不跳Phase4/Boss。回村实发XP、英雄替换/驿站、村庄和正式存档仍是Phase4任务，不把整套村庄作为Phase3剩余工作。
+
+当前本次补记只改文档，不改规则/代码/数据批准，也不新建证据JSON。开工前`.uploads/`、`tmp-verify/`、`docs/_q52-search*.txt`保持不提交。旧段落按时间保留；接手时以本段和各编号裁定的最新状态为准。
+
 ## 最新交接：#137 已合并与 Fundraiser明确分支（2026-10-13，UTC+8）
 
 实现 `330f94a`，对应 [PR #138](https://github.com/Alpaca-go/ddbg-web/pull/138)。本地验证已通过；最新head两项CI与合并结果以PR状态为准。
