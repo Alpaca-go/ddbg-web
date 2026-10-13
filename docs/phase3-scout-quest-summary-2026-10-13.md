@@ -1,5 +1,7 @@
 # Phase 3：Scout Ahead 退出结算摘要
 
+实现 `569a960`，对应 [PR #135](https://github.com/Alpaca-go/ddbg-web/pull/135)。本地验证已通过；最新 head 两项 CI 与合并结果以 PR 状态为准。
+
 2026-10-13（UTC+8）。#134 最新 head `b7af47a` 的质量与 Playwright 两项 CI 已通过并合并为 main `0cef7ac`；本地已同步。本主题从该基线建立 `codex/phase3-scout-quest-summary`，继续 Phase 3。
 
 ## 规则与范围

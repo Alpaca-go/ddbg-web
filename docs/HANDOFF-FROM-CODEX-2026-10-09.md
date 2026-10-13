@@ -2,6 +2,8 @@
 
 ## 最新交接：#134 已合并与 Scout Ahead 退出摘要（2026-10-13，UTC+8）
 
+实现 `569a960`，对应 [PR #135](https://github.com/Alpaca-go/ddbg-web/pull/135)。本地验证已通过；最新 head 两项 CI 与合并结果以 PR 状态为准。
+
 #134 准确 head `b7af47a` 的质量与 Playwright 两项 CI 成功，已按授权合并为 main `0cef7ac`，本地同步。本轮从该基线建立 `codex/phase3-scout-quest-summary`，接退出后的清理记录 / 待发 XP 摘要。下方“合并前核 #134”属于历史记录。
 
 保存初始任务身份与代币构成，只接 Scout Ahead I，每两间清理房间计1 XP、最多3；每名英雄与驿站同额，awarded=false。完整校验清理记录，旧状态 / 未知任务 / 错构成不兜底；全员退出后只生成一次，英雄与驿站尚不发放 XP。已修正走廊 seed31 沙盒把Trap标清理的注入，G / E代币互换，构成与RNG守恒。见[本轮交付](phase3-scout-quest-summary-2026-10-13.md)。
