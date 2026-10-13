@@ -1,5 +1,7 @@
 # 步骤 2：核心盒板块逐面覆盖与 Torture Chamber 核对草稿
 
+> 2026-10-13 本批：遗迹8 / BACK p5 的 [Invocation Chamber](phase3-invocation-chamber-review-2026-10-13.md) 与遗迹9 / FRONT p5 的 [Old Abbey](phase3-old-abbey-review-2026-10-13.md) 独立草稿已准备，列入VQ-17/18。普通遗迹1–9均已有逐面材料：Ritual可用、Torture获批入库但运行时排除、3–9待审核。这不是九面可玩或Phase3完成；实际可用仍1/28。
+
 > 2026-10-13 续接：遗迹6 / BACK p4 的 [Treasure Chamber](phase3-treasure-chamber-review-2026-10-13.md) 和遗迹7 / FRONT p4 的 [Tomb of Ancestor](phase3-tomb-of-ancestor-review-2026-10-13.md) 独立审核草稿已准备，列入VQ-15/16。#130文档PR已合并，但没有把任何草稿当数据批准；实际可用仍1/28。
 
 > 2026-10-13：Kyries 明确 Fountain 尚未审核，先准备其他板块。遗迹4 / BACK p3 的 [Spiked Pit](phase3-spiked-pit-review-2026-10-13.md) 和遗迹5 / FRONT p3 的 [Beacon of Light](phase3-beacon-of-light-review-2026-10-13.md) 已完成独立目视草稿，分别列入 VQ-13 / VQ-14；未批准、未入库，实际可用仍1/28。
@@ -20,7 +22,7 @@
 | 2      | 遗迹 3                  | 遗迹 2                   | FRONT VQ-06待审核；BACK VQ-01–05已入库、不可用 |
 | 3      | 遗迹 5                  | 遗迹 4                   | 两面独立草稿已完成，VQ-13/14 待审核            |
 | 4      | 遗迹 7                  | 遗迹 6                   | 两面独立草稿已准备，VQ-15/16待审核             |
-| 5      | 遗迹 9                  | 遗迹 8                   | 两面均未逐项核对                               |
+| 5      | 遗迹 9                  | 遗迹 8                   | 两面独立草稿已准备，VQ-17/18待审核             |
 | 6      | 遗迹 11                 | 遗迹 10                  | 两面均未逐项核对；Boss 留对应阶段              |
 | 7      | 遗迹 13                 | 遗迹 12                  | 两面均未逐项核对；Boss 留对应阶段              |
 | 8      | 数字 1–9 布局，身份待核 | 数字 1–9 布局，身份待核  | 不按邻页或空余编号猜身份                       |
