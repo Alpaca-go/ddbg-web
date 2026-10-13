@@ -1,5 +1,7 @@
 # Phase 3：Scout Ahead 柴火休息
 
+实现 `d4793d1`，对应 [PR #136](https://github.com/Alpaca-go/ddbg-web/pull/136)。本地验证已通过；最新head两项CI与合并结果以PR状态为准。
+
 2026-10-13（UTC+8）。#135 最新 head `239b774` 两项 CI 成功并合并为 main `8694df5`，本地已同步。本主题在 `codex/phase3-scout-rest` 接基础休息，不进入 Phase 4。
 
 ## 规则与范围
