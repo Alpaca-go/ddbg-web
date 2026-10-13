@@ -6,7 +6,7 @@ export function canLeaveDungeon(state: GameState): boolean {
   const d = state.dungeon;
   if (d?.questDistribution?.questId === "quest:p003") {
     const progress = readDungeonQuestProgress(d);
-    if (progress.status !== "matched" || !progress.completedRoomIds.length) return false;
+    if (progress.status !== "matched") return false;
   }
   return !!(
     d &&

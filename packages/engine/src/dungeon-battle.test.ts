@@ -1,3 +1,6 @@
+import { nextBattleRoll } from "./encounter";
+import rawCurios from "../../data/normalized/corebox/curio.json";
+import { curioFileSchema } from "../../data/src/curio";
 import { expect, it } from "vitest";
 import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../data/normalized/corebox/scout_ahead_distribution.json";
@@ -301,7 +304,7 @@ it("Curio守卫战后只在胜利时等待英雄/Torch奖励；撤退无奖励�
     expect(result.battle).toBeUndefined();
     expect(result.dungeon!.gold).toBe(state.battle!.loot!.gold);
     expect(result.dungeon!.phase).toBe(outcome === "victory" ? "awaitingRoom" : "ready");
-    expect(result.dungeon!.curioRoom!.stage).toBe(outcome === "victory" ? "reward" : "guarded");
+    expect(result.dungeon!.curioRoom?.stage).toBe(outcome === "victory" ? "reward" : undefined);
     expect(result.dungeon!.pending?.id.startsWith("dungeon-room-curio-draw:") ?? false).toBe(
       outcome === "victory",
     );
@@ -750,4 +753,48 @@ it("完整九房牌池自然抽 Torture 时可入场，禁疗只落在 H（R-067
   expect(
     entered!.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.areaId),
   ).toEqual(["H", "H", "H", "H"]);
+});
+
+it("Curio 撤退必须先离房，返回重掷守卫，不复用旧结果（R15、R25）", () => {
+  const finished = terminal("retreat");
+  const state: GameState = {
+    ...finished,
+    dungeon: {
+      ...finished.dungeon!,
+      curio: {
+        cards: curioFileSchema.parse(rawCurios).cards,
+        deck: null,
+        discard: [],
+        active: null,
+      },
+      curioRoom: { roomId: "D", guardRoll: 3, stage: "guarded" },
+      visited: ["G", "D"],
+      traversedCorridors: [["G", "D"]],
+      rooms: finished.dungeon!.rooms.map((r) =>
+        r.id === "D"
+          ? { ...r, kind: "curio" }
+          : r.id === "G"
+            ? { ...r, cleared: true, revealed: true }
+            : r,
+      ),
+    },
+  };
+  let returned = send(state, { type: "finishDungeonBattle" });
+  expect(returned.dungeon!.curioRoom).toBeUndefined();
+  expect(applyCommand(returned, { type: "resolveDungeonRoom" }).state).toBe(returned);
+  for (const id of ["G", "D"]) {
+    returned = send(returned, { type: "beginDungeonBacktrack" });
+    returned = send(returned, {
+      type: "resolveChoice",
+      choiceId: returned.dungeon!.pending!.id,
+      optionId: id,
+    });
+  }
+  expect(returned.dungeon!.phase).toBe("awaitingRoom");
+  const cursor = returned.dungeon!.cursor;
+  const result = applyCommand(returned, { type: "resolveDungeonRoom" });
+  expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+  expect(result.state.dungeon!.cursor).toBe(cursor + 1);
+  expect(result.state.dungeon!.curioRoom!.guardRoll).toBe(nextBattleRoll(state.seed, cursor));
+  expect(applyCommand(result.state, { type: "resolveDungeonRoom" }).state).toBe(result.state);
 });

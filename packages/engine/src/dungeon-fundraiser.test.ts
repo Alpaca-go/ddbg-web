@@ -27,7 +27,7 @@ function pending(gold = 80) {
   s = pick(s, "agree").state;
   return applyCommand(s, { type: "summarizeDungeonQuest" }).state;
 }
-describe("Fundraiser捐献（QUEST p3、R29、R-038、Q-70）", () => {
+describe("Fundraiser捐献（QUEST p3、R29、R-038、R-068）", () => {
   it.each([0, 1, 19, 20, 39, 40, 59, 60])(
     "明确捐献%i金币才扣除，整20得XP，英雄 / 驿站同额待发",
     (gold) => {
@@ -39,6 +39,9 @@ describe("Fundraiser捐献（QUEST p3、R29、R-038、Q-70）", () => {
       expect(result.state.dungeon!.questSummary).toMatchObject({
         questId: "quest:p003",
         donatedGold: gold,
+        earlyLeave: false,
+        objectiveMet: true,
+        lairClearedCount: 1,
         xpPerHero: xp,
         stagecoachXp: xp,
         awarded: false,
@@ -99,14 +102,42 @@ describe("Fundraiser捐献（QUEST p3、R29、R-038、Q-70）", () => {
     expect(pick(forged, "give:61").state).toBe(forged);
     expect(pending().dungeon!.pending!.options.some((o) => o.id === "give:61")).toBe(false);
   });
-  it("最低巢穴目标未达保持Q-70，未清理不能退出或伪造exited捐献", () => {
-    const s = setup(80, false);
-    expect(canLeaveDungeon(s)).toBe(false);
-    expect(applyCommand(s, { type: "leaveDungeon" }).state).toBe(s);
-    const exited = { ...s, dungeon: { ...s.dungeon!, phase: "exited" as const } };
+
+  it("最低巢穴目标未达仍可全员提前退出，摘要跳过捐献、不扣金币（R-068）", () => {
+    const original = setup(80, false);
+    const state = { ...original, dungeon: { ...original.dungeon!, position: "S" } };
+    const before = structuredClone(state);
+    expect(canLeaveDungeon(state)).toBe(true);
+    const leave = applyCommand(state, { type: "leaveDungeon" }).state;
+    expect(pick(leave, "decline").state.dungeon!.phase).toBe("ready");
+    const exited = pick(leave, "agree").state;
     const result = applyCommand(exited, { type: "summarizeDungeonQuest" });
-    expect(result.state).toBe(exited);
-    expect(result.events[0]!.message).toContain("Q-70");
+    expect(result.state.dungeon!.questSummary).toMatchObject({
+      earlyLeave: true,
+      objectiveMet: false,
+      lairClearedCount: 0,
+      donatedGold: 0,
+      xpPerHero: 0,
+    });
+    expect(result.state.dungeon!.gold).toBe(80);
+    expect(result.state.dungeon!.pending).toBeNull();
+    expect(result.state.dungeon!.heroes).toEqual(state.dungeon!.heroes);
+    expect(result.state.dungeon!.cursor).toBe(state.dungeon!.cursor);
+    expect(dungeonQuestSummarySchema.safeParse(result.state.dungeon!.questSummary).success).toBe(
+      true,
+    );
+    expect(applyCommand(result.state, { type: "summarizeDungeonQuest" }).state).toBe(result.state);
+    const falseGoal = { ...result.state.dungeon!.questSummary!, objectiveMet: true };
+    expect(dungeonQuestSummarySchema.safeParse(falseGoal).success).toBe(false);
+    const falseDonation = {
+      ...result.state.dungeon!.questSummary!,
+      donatedGold: 20,
+      xpPerHero: 1,
+      stagecoachXp: 1,
+    };
+    expect(dungeonQuestSummarySchema.safeParse(falseDonation).success).toBe(false);
+    expect(state).toEqual(before);
+    expect(applyCommand(exited, { type: "summarizeDungeonQuest" })).toEqual(result);
   });
   it("选择后目标 / 金币漂移，schema坏摘要原子拒绝；同日志回放一致", () => {
     const s = pending();

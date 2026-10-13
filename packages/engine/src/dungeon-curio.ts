@@ -58,7 +58,7 @@ export function drawDungeonCurio(state: GameState, rollId: string, optionId: str
   )
     return refuse(state, "Curio 牌池不守恒，拒绝缩减牌堆（R-048）");
   if (c.deck?.length === 0)
-    return refuse(state, "Curio 已抽空；Q-61 待确认，未自动洗回弃牌，也未消费 Torch");
+    return refuse(state, "Curio 已抽空；本次地牢不洗回弃牌，未消费 Torch（R-068；回村洗回见 R32）");
   const protectedCard = optionId.startsWith("use:");
   const tokenId = optionId.slice(4);
   if (

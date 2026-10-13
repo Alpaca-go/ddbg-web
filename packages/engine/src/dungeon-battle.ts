@@ -298,20 +298,21 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
   const kind = d.rooms.find((r) => r.id === d.position)?.kind;
   const curioReward = victory && kind === "curio";
   const bonus = victory ? (kind === "treasure" ? 20 : fundraiser && kind === "lair" ? 10 : 0) : 0;
+  const { curioRoom: previousCurio, ...returnedDungeon } = d;
   const { battle: _finished, ...outside } = state;
   void _finished;
   const result: ApplyResult = {
     state: {
       ...outside,
       dungeon: {
-        ...d,
+        ...returnedDungeon,
         heroes,
         phase: heroes.some((h) => h.dead)
           ? "awaitingReplacement"
           : curioReward
             ? "awaitingRoom"
             : "ready",
-        ...(curioReward ? { curioRoom: { ...d.curioRoom!, stage: "reward" } } : {}),
+        ...(curioReward ? { curioRoom: { ...previousCurio!, stage: "reward" } } : {}),
         cursor: b.rngCursor + ids.length - 1,
         decision: b.choiceCursor,
         gold: b.loot.gold + bonus,
