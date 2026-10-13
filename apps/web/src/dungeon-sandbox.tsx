@@ -90,6 +90,7 @@ type Fixture =
   | "corridor"
   | "curio"
   | "curioBuff"
+  | "curioNegative"
   | "curioProvision"
   | "curioPositive"
   | "curioRewards"
@@ -186,9 +187,11 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
                             ? 343
                             : fixture === "curio"
                               ? 1237
-                              : fixture === "corridor"
-                                ? 31
-                                : 1,
+                              : fixture === "curioNegative"
+                                ? 46
+                                : fixture === "corridor"
+                                  ? 31
+                                  : 1,
     layout,
     fixture.startsWith("fundraiser")
       ? fundraiserDistribution
@@ -272,6 +275,7 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
         : fixture === "corridor" ||
             fixture === "curio" ||
             fixture === "curioBuff" ||
+            fixture === "curioNegative" ||
             fixture === "curioProvision" ||
             fixture === "curioPositive" ||
             fixture === "curioRewards" ||
@@ -439,6 +443,9 @@ export function DungeonSandbox() {
             <option value="corridor">单走廊 → Empty（标准 p1、种子 31、无需侦察）</option>
             <option value="curio">Curio → Empty（标准 p1、种子 1237、先用 Torch）</option>
             <option value="curioBuff">Curio Buff（标准 p1、种子 343、先用 Torch）</option>
+            <option value="curioNegative">
+              Heirloom Chest负面状态（标准 p1、种子46、不用Torch）
+            </option>
             <option value="curioProvision">Curio 补给 Wild（标准 p1、种子 370、先用 Torch）</option>
             <option value="curioPositive">Curio 正面怪癖（标准 p1、种子 85、先用 Torch）</option>
             <option value="curioRewards">Curio 怪癖与补给（标准 p1、种子 317、先用 Torch）</option>
