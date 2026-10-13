@@ -1,5 +1,7 @@
 # Phase 3：Wipe ‘Em Out I任务入口与结算
 
+实现 `d8dbbab`，对应 [PR #137](https://github.com/Alpaca-go/ddbg-web/pull/137)。本地验证已通过；最新head两项CI与合并结果以PR状态为准。
+
 2026-10-13（UTC+8）。#136准确head `1c4f418`两项CI成功，已合并为main `36bca29`，本地同步。本主题从该基线建立 `codex/phase3-wipe-em-out`。
 
 ## 规则与范围
