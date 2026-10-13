@@ -71,8 +71,7 @@ export function applySkillHealth(
           "自身位移的疾病被动必须先于攻击 / 反击完成生命或意志收尾；该复合续接尚未实现（R20），整次未提交",
       };
   }
-  if (skill.healthEffects.some((e) => e.pressureBoundary))
-    return { status: "refused", reason: "压力被动的伤口 / 压力10复合顺序待 Q-66 确认" };
+  // R-069：有序生命效果先结算，技能收尾再为存活英雄处理压力10。
   // 保留旧无 Life 测试沙盒；它不代表完整的英雄生命规则。
   if (!battle.entities.some((entry) => entry.side === "hero" && entry.life !== undefined))
     return prevented.size
