@@ -947,6 +947,1257 @@
     }
    ],
    "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p003:back",
+   "rawId": "dungeon_tile:p003",
+   "roomId": "room:p004",
+   "location": "ruins",
+   "number": 4,
+   "name": "Spiked Pit",
+   "source": {
+    "file": "DD_COREBOX_TILES_BACK.pdf",
+    "page": 3,
+    "face": "back"
+   },
+   "ruling": "R-066",
+   "approval": "Kyries/Grok 2026-10-13",
+   "geometryVerified": true,
+   "usable": false,
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "S11",
+     "defensive": "S11",
+     "ranged": "S12",
+     "support": "S10"
+    },
+    "monsters": {
+     "aggressive": "S5",
+     "defensive": "S3",
+     "ranged": "S1",
+     "support": "S5"
+    },
+    "lootAreas": [
+     "S1",
+     "S3"
+    ],
+    "markers": [
+     {
+      "areaId": "S11",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "S11",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "S12",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "S10",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "S5",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "S3",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "S1",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "S5",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "S1",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "S3",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "specialRegions": [
+    {
+     "areaId": "S5",
+     "iconId": "4591aebebd",
+     "effect": "circleOfPower",
+     "status": "confirmed",
+     "printedText": "Circle of Power: Monsters ending their turn here heal 4.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "S8",
+     "iconId": "4591aebebd",
+     "effect": "spikedPit",
+     "status": "confirmed",
+     "printedText": "Spiked Pit: Heroes and Monsters that are Shuffled or standing here at the end of their turn take Damage 3 and suffer Bleed 1 / 3t.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "S9",
+     "iconId": "4591aebebd",
+     "effect": "spikedPit",
+     "status": "confirmed",
+     "printedText": "Spiked Pit: Heroes and Monsters that are Shuffled or standing here at the end of their turn take Damage 3 and suffer Bleed 1 / 3t.",
+     "runtimeReady": false
+    }
+   ],
+   "areas": [
+    {
+     "id": "S1",
+     "capacity": 2,
+     "elevation": "high"
+    },
+    {
+     "id": "S2",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "S3",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "S4",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "S5",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "S6",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "S7",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "S8",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "S9",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "S10",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "S11",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "S12",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "S2",
+     "to": "S4",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S3",
+     "to": "S6",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S4",
+     "to": "S5",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S4",
+     "to": "S8",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S5",
+     "to": "S8",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S5",
+     "to": "S9",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S6",
+     "to": "S7",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S7",
+     "to": "S9",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S8",
+     "to": "S9",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S8",
+     "to": "S10",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S8",
+     "to": "S11",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S9",
+     "to": "S11",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S9",
+     "to": "S12",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S10",
+     "to": "S11",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S11",
+     "to": "S12",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "S1",
+     "to": "S2",
+     "cornerOnly": false,
+     "blocked": true
+    },
+    {
+     "from": "S5",
+     "to": "S7",
+     "cornerOnly": false,
+     "blocked": true
+    }
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p004:back",
+   "rawId": "dungeon_tile:p004",
+   "roomId": "room:p006",
+   "location": "ruins",
+   "number": 6,
+   "name": "Treasure Chamber",
+   "source": {
+    "file": "DD_COREBOX_TILES_BACK.pdf",
+    "page": 4,
+    "face": "back"
+   },
+   "ruling": "R-065",
+   "approval": "Kyries/Grok 2026-10-13",
+   "geometryVerified": true,
+   "usable": false,
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "T8",
+     "defensive": "T3",
+     "ranged": "T8",
+     "support": "T3"
+    },
+    "monsters": {
+     "aggressive": "T2",
+     "defensive": "T5",
+     "ranged": "T9",
+     "support": "T1"
+    },
+    "lootAreas": [
+     "T4"
+    ],
+    "markers": [
+     {
+      "areaId": "T8",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "T3",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "T8",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "T3",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "T2",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "T5",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "T9",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "T1",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "T4",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "specialRegions": [
+    {
+     "areaId": "T5",
+     "iconId": "e2fc407791",
+     "effect": "lootTheChest",
+     "status": "confirmed",
+     "printedText": "Loot the Chest: Spend 2 actions here to draw a Trinket. Once per battle.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "T6",
+     "iconId": "e2fc407791",
+     "effect": "hideAndHeal",
+     "status": "confirmed",
+     "printedText": "Hide and Heal: If there are no Monsters in this Area, spend 1 action here and suffer Stress +2 to remove all Wounds.",
+     "runtimeReady": false
+    }
+   ],
+   "areas": [
+    {
+     "id": "T1",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "T2",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "T3",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "T4",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "T5",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "T6",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "T7",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "T8",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "T9",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "T1",
+     "to": "T2",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "T1",
+     "to": "T5",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "T2",
+     "to": "T3",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "T2",
+     "to": "T5",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "T5",
+     "to": "T6",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "T5",
+     "to": "T7",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "T7",
+     "to": "T9",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "T8",
+     "to": "T9",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "T4",
+     "to": "T5",
+     "cornerOnly": false,
+     "blocked": true
+    }
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p004:front",
+   "rawId": "dungeon_tile:p004",
+   "roomId": "room:p007",
+   "location": "ruins",
+   "number": 7,
+   "name": "Tomb of Ancestor",
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 4,
+    "face": "front"
+   },
+   "ruling": "R-065",
+   "approval": "Kyries/Grok 2026-10-13",
+   "geometryVerified": true,
+   "usable": false,
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "A7",
+     "defensive": "A3",
+     "ranged": "A3",
+     "support": "A3"
+    },
+    "monsters": {
+     "aggressive": "A9",
+     "defensive": "A4",
+     "ranged": "A1",
+     "support": "A4"
+    },
+    "lootAreas": [
+     "A1",
+     "A9"
+    ],
+    "markers": [
+     {
+      "areaId": "A7",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A3",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A3",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A3",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A9",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A4",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A1",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A4",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A1",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A9",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "specialRegions": [
+    {
+     "areaId": "A4",
+     "iconId": "e2fc407791",
+     "effect": "ancestorGlory",
+     "status": "confirmed",
+     "printedText": "Ancestor's Glory: Heroes standing here are immune to Blight, Bleed, Debuff, Stun, Mark and Shuffle. Remove any of these Conditions if already applied.",
+     "runtimeReady": false
+    }
+   ],
+   "areas": [
+    {
+     "id": "A1",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "A2",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "A3",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "A4",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "A5",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "A6",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "A7",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "A8",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "A9",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A1",
+     "to": "A2",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A2",
+     "to": "A3",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A2",
+     "to": "A4",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A4",
+     "to": "A5",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A4",
+     "to": "A6",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A5",
+     "to": "A6",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A6",
+     "to": "A8",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A7",
+     "to": "A8",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A8",
+     "to": "A9",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A1",
+     "to": "A4",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "A3",
+     "to": "A4",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "A6",
+     "to": "A7",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "A6",
+     "to": "A9",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p005:back",
+   "rawId": "dungeon_tile:p005",
+   "roomId": "room:p008",
+   "location": "ruins",
+   "number": 8,
+   "name": "Invocation Chamber",
+   "source": {
+    "file": "DD_COREBOX_TILES_BACK.pdf",
+    "page": 5,
+    "face": "back"
+   },
+   "ruling": "R-065",
+   "approval": "Kyries/Grok 2026-10-13",
+   "geometryVerified": true,
+   "usable": false,
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "I9",
+     "defensive": "I9",
+     "ranged": "I10",
+     "support": "I10"
+    },
+    "monsters": {
+     "aggressive": "I5",
+     "defensive": "I3",
+     "ranged": "I1",
+     "support": "I2"
+    },
+    "lootAreas": [
+     "I2",
+     "I7"
+    ],
+    "markers": [
+     {
+      "areaId": "I9",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I9",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I10",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I10",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I5",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I3",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I1",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I2",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I2",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I7",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "specialRegions": [
+    {
+     "areaId": "I4",
+     "iconId": "4591aebebd",
+     "effect": "theInvokers",
+     "status": "confirmed",
+     "printedText": "The Invokers: The last Monster each round always moves towards this Area instead of step 2 of the Monster's turn.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "I4",
+     "iconId": "4591aebebd",
+     "effect": "invokingAbyss",
+     "status": "confirmed",
+     "printedText": "Invoking Abyss: At the end of a round, if there are Monsters in this Area, all four Heroes suffer Stress +2.",
+     "runtimeReady": false
+    }
+   ],
+   "areas": [
+    {
+     "id": "I1",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "I2",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "I3",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "I4",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "I5",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "I6",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "I7",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "I8",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "I9",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "I10",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "I1",
+     "to": "I3",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I2",
+     "to": "I5",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I3",
+     "to": "I4",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I4",
+     "to": "I5",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I3",
+     "to": "I6",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I4",
+     "to": "I7",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I5",
+     "to": "I8",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I6",
+     "to": "I9",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I8",
+     "to": "I10",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I1",
+     "to": "I4",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "I2",
+     "to": "I4",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "I3",
+     "to": "I7",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "I4",
+     "to": "I8",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p005:front",
+   "rawId": "dungeon_tile:p005",
+   "roomId": "room:p009",
+   "location": "ruins",
+   "number": 9,
+   "name": "Old Abbey",
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 5,
+    "face": "front"
+   },
+   "ruling": "R-065",
+   "approval": "Kyries/Grok 2026-10-13",
+   "geometryVerified": true,
+   "usable": false,
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "O8",
+     "defensive": "O8",
+     "ranged": "O8",
+     "support": "O8"
+    },
+    "monsters": {
+     "aggressive": "O5",
+     "defensive": "O5",
+     "ranged": "O2",
+     "support": "O3"
+    },
+    "lootAreas": [
+     "O2",
+     "O3"
+    ],
+    "markers": [
+     {
+      "areaId": "O8",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "O8",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "O8",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "O8",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "O5",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "O5",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "O2",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "O3",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "O2",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "O3",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "specialRegions": [
+    {
+     "areaId": "O1",
+     "iconId": "4591aebebd",
+     "effect": "feelingThePresence",
+     "status": "confirmed",
+     "printedText": "Feeling the Presence: Heroes ending their turn here suffer Stress +1 per Negative Quirk and heal 1 / Hero Level per Positive Quirk.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "O5",
+     "iconId": "4591aebebd",
+     "effect": "feelingThePresence",
+     "status": "confirmed",
+     "printedText": "Feeling the Presence: Heroes ending their turn here suffer Stress +1 per Negative Quirk and heal 1 / Hero Level per Positive Quirk.",
+     "runtimeReady": false
+    }
+   ],
+   "areas": [
+    {
+     "id": "O1",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "O2",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "O3",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "O4",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "O5",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "O6",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "O7",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "O8",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "O9",
+     "capacity": 2,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "O1",
+     "to": "O2",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "O1",
+     "to": "O3",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "O1",
+     "to": "O5",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "O2",
+     "to": "O4",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "O3",
+     "to": "O6",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "O4",
+     "to": "O7",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "O6",
+     "to": "O9",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "O5",
+     "to": "O8",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "O7",
+     "to": "O8",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "O8",
+     "to": "O9",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "O2",
+     "to": "O5",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "O3",
+     "to": "O5",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "O5",
+     "to": "O7",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "O5",
+     "to": "O9",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "O4",
+     "to": "O5",
+     "cornerOnly": false,
+     "blocked": true
+    },
+    {
+     "from": "O5",
+     "to": "O6",
+     "cornerOnly": false,
+     "blocked": true
+    }
+   ],
+   "unresolvedMarkers": []
   }
  ]
 }

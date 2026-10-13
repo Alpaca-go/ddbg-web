@@ -156,7 +156,7 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
     const before = structuredClone(raw);
     const file = buildRoomTileGeometry(raw);
     expect(raw).toEqual(before);
-    expect(file.tiles).toHaveLength(4);
+    expect(file.tiles).toHaveLength(9);
     const tile = file.tiles.find((t) => t.id === "room_tile:p002:back")!;
     expect(tile).toMatchObject({
       roomId: "room:p002",

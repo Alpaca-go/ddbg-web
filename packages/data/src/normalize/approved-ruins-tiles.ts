@@ -19,7 +19,7 @@ const tileShape = z.strictObject({
     page: z.int().positive(),
     face: z.enum(["front", "back"]),
   }),
-  ruling: z.literal("R-065"),
+  ruling: z.enum(["R-065", "R-066"]),
   approval: z.literal("Kyries/Grok 2026-10-13"),
   geometryVerified: z.literal(true),
   usable: z.boolean(),
@@ -41,7 +41,19 @@ const tileShape = z.strictObject({
     z.strictObject({
       areaId: z.string(),
       iconId: iconIdSchema,
-      effect: z.enum(["healingWaters", "stressfulDarkness", "beaconOfLight"]),
+      effect: z.enum([
+        "healingWaters",
+        "stressfulDarkness",
+        "beaconOfLight",
+        "circleOfPower",
+        "spikedPit",
+        "lootTheChest",
+        "hideAndHeal",
+        "ancestorGlory",
+        "theInvokers",
+        "invokingAbyss",
+        "feelingThePresence",
+      ]),
       status: z.literal("confirmed"),
       printedText: z.string(),
       runtimeReady: z.boolean(),
@@ -110,6 +122,69 @@ const edges = (pairs: readonly string[], cornerOnly = false, blocked = false) =>
     const [from, to] = pair.split("-");
     return { from: from!, to: to!, cornerOnly, blocked };
   });
+
+function numberedAreas(
+  prefix: string,
+  capacities: readonly number[],
+  high: readonly string[] = [],
+) {
+  return capacities.map((capacity, i) => ({
+    id: `${prefix}${i + 1}`,
+    capacity,
+    elevation: high.includes(`${prefix}${i + 1}`) ? ("high" as const) : ("normal" as const),
+  }));
+}
+function approvedTile(input: {
+  number: number;
+  name: string;
+  page: number;
+  face: "front" | "back";
+  heroes: ApprovedTile["deployment"]["heroes"];
+  monsters: ApprovedTile["deployment"]["monsters"];
+  lootAreas: readonly string[];
+  areas: ApprovedTile["areas"];
+  edges: ApprovedTile["edges"];
+  specialRegions: readonly Omit<
+    ApprovedTile["specialRegions"][number],
+    "status" | "runtimeReady"
+  >[];
+  ruling?: "R-065" | "R-066";
+}): ApprovedTile {
+  const pageId = `p${String(input.page).padStart(3, "0")}`;
+  return tileShape.parse({
+    id: `room_tile:${pageId}:${input.face}`,
+    rawId: `dungeon_tile:${pageId}`,
+    roomId: `room:p${String(input.number).padStart(3, "0")}`,
+    location: "ruins",
+    number: input.number,
+    name: input.name,
+    source: {
+      file: `DD_COREBOX_TILES_${input.face.toUpperCase()}.pdf`,
+      page: input.page,
+      face: input.face,
+    },
+    ruling: input.ruling ?? "R-065",
+    approval: "Kyries/Grok 2026-10-13",
+    geometryVerified: true,
+    usable: false,
+    deployment: {
+      printReview: "verified",
+      heroes: input.heroes,
+      monsters: input.monsters,
+      lootAreas: input.lootAreas,
+      markers: placements(input.heroes, input.monsters, input.lootAreas),
+    },
+    specialRegions: input.specialRegions.map((r) => ({
+      ...r,
+      status: "confirmed",
+      runtimeReady: false,
+    })),
+    areas: input.areas,
+    edges: input.edges,
+    unresolvedMarkers: [],
+  });
+}
+
 /** R-065/VQ-06：仅本面获批位置；不全局解释同形星号。 */
 export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
   tileShape.parse({
@@ -202,6 +277,168 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
     edges: edges(["L1-L3", "L1-L4", "L2-L5", "L3-L6", "L4-L5", "L4-L7", "L5-L8", "L8-L9"]),
     unresolvedMarkers: [],
   }),
+
+  approvedTile({
+    number: 4,
+    name: "Spiked Pit",
+    page: 3,
+    face: "back",
+    ruling: "R-066",
+    heroes: { aggressive: "S11", defensive: "S11", ranged: "S12", support: "S10" },
+    monsters: { aggressive: "S5", defensive: "S3", ranged: "S1", support: "S5" },
+    lootAreas: ["S1", "S3"],
+    areas: numberedAreas("S", [2, 4, 3, 3, 3, 2, 2, 4, 2, 3, 3, 3], ["S1"]),
+    edges: [
+      ...edges([
+        "S2-S4",
+        "S3-S6",
+        "S4-S5",
+        "S4-S8",
+        "S5-S8",
+        "S5-S9",
+        "S6-S7",
+        "S7-S9",
+        "S8-S9",
+        "S8-S10",
+        "S8-S11",
+        "S9-S11",
+        "S9-S12",
+        "S10-S11",
+        "S11-S12",
+      ]),
+      ...edges(["S1-S2", "S5-S7"], false, true),
+    ],
+    specialRegions: [
+      {
+        areaId: "S5",
+        iconId: "4591aebebd",
+        effect: "circleOfPower",
+        printedText: "Circle of Power: Monsters ending their turn here heal 4.",
+      },
+      ...["S8", "S9"].map((areaId) => ({
+        areaId,
+        iconId: "4591aebebd",
+        effect: "spikedPit" as const,
+        printedText:
+          "Spiked Pit: Heroes and Monsters that are Shuffled or standing here at the end of their turn take Damage 3 and suffer Bleed 1 / 3t.",
+      })),
+    ],
+  }),
+  approvedTile({
+    number: 6,
+    name: "Treasure Chamber",
+    page: 4,
+    face: "back",
+    heroes: { aggressive: "T8", defensive: "T3", ranged: "T8", support: "T3" },
+    monsters: { aggressive: "T2", defensive: "T5", ranged: "T9", support: "T1" },
+    lootAreas: ["T4"],
+    areas: numberedAreas("T", [2, 4, 3, 2, 4, 2, 2, 3, 3]),
+    edges: [
+      ...edges(["T1-T2", "T1-T5", "T2-T3", "T2-T5", "T5-T6", "T5-T7", "T7-T9", "T8-T9"]),
+      ...edges(["T4-T5"], false, true),
+    ],
+    specialRegions: [
+      {
+        areaId: "T5",
+        iconId: "e2fc407791",
+        effect: "lootTheChest",
+        printedText: "Loot the Chest: Spend 2 actions here to draw a Trinket. Once per battle.",
+      },
+      {
+        areaId: "T6",
+        iconId: "e2fc407791",
+        effect: "hideAndHeal",
+        printedText:
+          "Hide and Heal: If there are no Monsters in this Area, spend 1 action here and suffer Stress +2 to remove all Wounds.",
+      },
+    ],
+  }),
+  approvedTile({
+    number: 7,
+    name: "Tomb of Ancestor",
+    page: 4,
+    face: "front",
+    heroes: { aggressive: "A7", defensive: "A3", ranged: "A3", support: "A3" },
+    monsters: { aggressive: "A9", defensive: "A4", ranged: "A1", support: "A4" },
+    lootAreas: ["A1", "A9"],
+    areas: numberedAreas("A", [2, 2, 4, 3, 4, 2, 3, 2, 3]),
+    edges: [
+      ...edges(["A1-A2", "A2-A3", "A2-A4", "A4-A5", "A4-A6", "A5-A6", "A6-A8", "A7-A8", "A8-A9"]),
+      ...edges(["A1-A4", "A3-A4", "A6-A7", "A6-A9"], true),
+    ],
+    specialRegions: [
+      {
+        areaId: "A4",
+        iconId: "e2fc407791",
+        effect: "ancestorGlory",
+        printedText:
+          "Ancestor's Glory: Heroes standing here are immune to Blight, Bleed, Debuff, Stun, Mark and Shuffle. Remove any of these Conditions if already applied.",
+      },
+    ],
+  }),
+  approvedTile({
+    number: 8,
+    name: "Invocation Chamber",
+    page: 5,
+    face: "back",
+    heroes: { aggressive: "I9", defensive: "I9", ranged: "I10", support: "I10" },
+    monsters: { aggressive: "I5", defensive: "I3", ranged: "I1", support: "I2" },
+    lootAreas: ["I2", "I7"],
+    areas: numberedAreas("I", [4, 2, 3, 4, 2, 3, 2, 3, 4, 3]),
+    edges: [
+      ...edges(["I1-I3", "I2-I5", "I3-I4", "I4-I5", "I3-I6", "I4-I7", "I5-I8", "I6-I9", "I8-I10"]),
+      ...edges(["I1-I4", "I2-I4", "I3-I7", "I4-I8"], true),
+    ],
+    specialRegions: [
+      {
+        areaId: "I4",
+        iconId: "4591aebebd",
+        effect: "theInvokers",
+        printedText:
+          "The Invokers: The last Monster each round always moves towards this Area instead of step 2 of the Monster's turn.",
+      },
+      {
+        areaId: "I4",
+        iconId: "4591aebebd",
+        effect: "invokingAbyss",
+        printedText:
+          "Invoking Abyss: At the end of a round, if there are Monsters in this Area, all four Heroes suffer Stress +2.",
+      },
+    ],
+  }),
+  approvedTile({
+    number: 9,
+    name: "Old Abbey",
+    page: 5,
+    face: "front",
+    heroes: { aggressive: "O8", defensive: "O8", ranged: "O8", support: "O8" },
+    monsters: { aggressive: "O5", defensive: "O5", ranged: "O2", support: "O3" },
+    lootAreas: ["O2", "O3"],
+    areas: numberedAreas("O", [4, 3, 2, 3, 4, 3, 2, 4, 2]),
+    edges: [
+      ...edges([
+        "O1-O2",
+        "O1-O3",
+        "O1-O5",
+        "O2-O4",
+        "O3-O6",
+        "O4-O7",
+        "O6-O9",
+        "O5-O8",
+        "O7-O8",
+        "O8-O9",
+      ]),
+      ...edges(["O2-O5", "O3-O5", "O5-O7", "O5-O9"], true),
+      ...edges(["O4-O5", "O5-O6"], false, true),
+    ],
+    specialRegions: ["O1", "O5"].map((areaId) => ({
+      areaId,
+      iconId: "4591aebebd",
+      effect: "feelingThePresence" as const,
+      printedText:
+        "Feeling the Presence: Heroes ending their turn here suffer Stress +1 per Negative Quirk and heal 1 / Hero Level per Positive Quirk.",
+    })),
+  }),
 ];
 
 /** 深度锁定获批整面；不能只改usable、出生、特殊区域或来源绕过审批。 */
@@ -211,5 +448,5 @@ const approvedFingerprints = new Map(
 );
 export const approvedExtraRuinsTileSchema = tileShape.superRefine((tile, ctx) => {
   if (JSON.stringify(tile) !== approvedFingerprints.get(tile.id))
-    ctx.addIssue({ code: "custom", message: "R-065获批面/完整运行时记录漂移，不批准改写" });
+    ctx.addIssue({ code: "custom", message: "R-065/R-066获批面/完整运行时记录漂移，不批准改写" });
 });

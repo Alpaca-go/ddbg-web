@@ -19,11 +19,16 @@ export function selectRoomTile(cardInput: unknown, catalogInput: unknown, expect
   if (tile.name !== card.data.name || (expectedTileId !== undefined && tile.id !== expectedTileId))
     return refused("房间身份与已记录板块不一致，不替换已抽原牌（R-048）");
   if (
-    !tile.usable ||
     !tile.geometryVerified ||
     tile.deployment?.printReview !== "verified" ||
     tile.unresolvedMarkers.length
   )
     return refused(`${tile.name} 已入库，但完整运行时尚未就绪或部署尚未获批；不可参战（R-048）`);
+  if (
+    !tile.usable ||
+    ("specialRegions" in tile &&
+      tile.specialRegions.some((r) => !r.runtimeReady || r.status !== "confirmed"))
+  )
+    return refused(`${tile.name} 已入库，但完整特殊运行时尚未就绪；不可参战（R-048）`);
   return { status: "matched" as const, tile, deployment: tile.deployment };
 }
