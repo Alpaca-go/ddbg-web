@@ -1,5 +1,7 @@
 # Phase 3：共用负面怪癖获得接口
 
+实现 `6df3e85`，对应 [PR #144](https://github.com/Alpaca-go/ddbg-web/pull/144)。本地检查通过，合并前核最新head两项CI。
+
 2026-10-13（UTC+8）。从已合并 #143 的 main `95c8644` 建立 `codex/phase3-negative-quirk-acquisition`，按用户“继续，然后合并”推进剩余 Curio 奖惩的引擎基础。
 
 ## 规则与范围

@@ -2,6 +2,8 @@
 
 ## 最新交接：共用负面怪癖获得接口（2026-10-13，UTC+8）
 
+实现 `6df3e85`，对应 [PR #144](https://github.com/Alpaca-go/ddbg-web/pull/144)。本地验证已通过，合并前核最新head两项CI；下列main是开工基线。
+
 #143最新head `5a2ee26`两项CI均成功，已按授权合并为main `95c8644`，本地同步。下方#143合并前待核是历史状态。本轮从该基线建立 `codex/phase3-negative-quirk-acquisition`，详见[专题交付](phase3-negative-quirk-acquisition-2026-10-13.md)。
 
 依据官方R26/R27–28、规格书§10.1–10.2/10.4和R-048，重新看R26完整页。新增并导出纯 `gainNegativeQuirk`：完整18张负面堆、三卡上限、第四卡仅替换正面或三负面发疯、实体守恒、共享RNG与堆空拒绝；重复感染疾病复用同一入口，保持原有抽牌/选择/结果，不新增UI或命令。
