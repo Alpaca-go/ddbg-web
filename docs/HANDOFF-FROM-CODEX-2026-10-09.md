@@ -2,6 +2,8 @@
 
 ## 最新交接：#132 合并与板块公共选择接线（2026-10-13，UTC+8）
 
+实现 `e544bc6`，开放草稿 [PR #133](https://github.com/Alpaca-go/ddbg-web/pull/133)，base为main，尚未合并。以下为本地验证，合并前另核最新head两项CI；入口补记随主题提交。
+
 #132准确head `de7659d` 两项CI均成功，按用户授权合并为main `cc0537d`，本地ff-only同步。下方#132未合并状态为历史记录；未收到任何新增逐面目视批准，Fountain及遗迹4–9继续待审核，Torture运行时排除项不变。
 
 当前 `codex/phase3-room-tile-selection` 新接按roomId / location / number唯一匹配的公共入口，显式补Ritual既有身份字段，抽房间、部署怪物、正式入场和UI匹配提示使用同一生产目录。schema、usable和部署审核分别守卫，不按页码 / 名称兜底；错配或过期活动房间拒绝，不重抽 / 推进RNG。具体范围见[本轮交付](phase3-room-tile-selection-2026-10-13.md)。

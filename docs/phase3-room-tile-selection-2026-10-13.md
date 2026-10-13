@@ -1,5 +1,7 @@
 # 步骤2：房间板块公共选择入口
 
+实现 `e544bc6`，开放草稿 [PR #133](https://github.com/Alpaca-go/ddbg-web/pull/133)，base为main，尚未合并。下方是本地验证，PR CI另核最新head。
+
 2026-10-13（UTC+8）。#132准确head `de7659d` 两项CI均成功，按用户“合并，继续推进”授权合并为main `cc0537d`；本地ff-only同步后建立 `codex/phase3-room-tile-selection`。
 
 ## 当前批准范围
