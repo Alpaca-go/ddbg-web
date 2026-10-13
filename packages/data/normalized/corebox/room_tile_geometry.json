@@ -458,6 +458,256 @@
     }
    ],
    "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p002:front",
+   "rawId": "dungeon_tile:p002",
+   "roomId": "room:p003",
+   "location": "ruins",
+   "number": 3,
+   "name": "Healing Fountain",
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 2,
+    "face": "front"
+   },
+   "ruling": "R-065",
+   "approval": "Kyries/Grok 2026-10-13",
+   "geometryVerified": true,
+   "usable": true,
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "I",
+     "defensive": "J",
+     "ranged": "J",
+     "support": "I"
+    },
+    "monsters": {
+     "aggressive": "D",
+     "defensive": "E",
+     "ranged": "C",
+     "support": "A"
+    },
+    "lootAreas": [],
+    "markers": [
+     {
+      "areaId": "I",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "J",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "J",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "specialRegions": [
+    {
+     "areaId": "G",
+     "iconId": "0d13b745be",
+     "effect": "healingWaters",
+     "status": "confirmed",
+     "printedText": "Healing Waters: Heroes ending their turn here heal 3.",
+     "runtimeReady": true
+    }
+   ],
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 2,
+     "elevation": "high"
+    },
+    {
+     "id": "B",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 2,
+     "elevation": "high"
+    },
+    {
+     "id": "D",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "I",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "J",
+     "capacity": 2,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "I",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "J",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": true
+    },
+    {
+     "from": "C",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": true
+    },
+    {
+     "from": "I",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": true
+    }
+   ],
+   "unresolvedMarkers": []
   }
  ]
 }

@@ -26,6 +26,12 @@ export type MonsterPositionedEvent = {
 export function roomTileBattleAreas(tile: {
   readonly geometryVerified: boolean;
   readonly usable?: boolean;
+  readonly specialRegions?: readonly {
+    readonly areaId: string;
+    readonly effect: string;
+    readonly status: string;
+    readonly runtimeReady: boolean;
+  }[];
   readonly deployment?:
     | {
         readonly printReview: string;
@@ -47,6 +53,16 @@ export function roomTileBattleAreas(tile: {
   if (tile.geometryVerified !== true) throw new Error("房间几何尚未核实（R-048）");
   return tile.areas.map((area) => ({
     ...area,
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (r) =>
+        r.areaId === area.id &&
+        r.effect === "healingWaters" &&
+        r.status === "confirmed" &&
+        r.runtimeReady,
+    )
+      ? { endTurnHeal: 3 as const }
+      : {}),
     ...(tile.usable === true &&
     tile.deployment?.printReview === "verified" &&
     tile.deployment.markers.some(

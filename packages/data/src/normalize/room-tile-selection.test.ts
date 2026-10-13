@@ -5,7 +5,7 @@ import { selectRoomTile } from "./room-tile-selection";
 
 const card = (id: string) => rooms.cards.find((c) => c.id === id)!;
 
-it("完整生产目录仅Ritual可参战；Torture虽已入库仍停在运行时排除项", () => {
+it("Ritual已可参战；Torture虽已入库仍停在运行时排除项", () => {
   const before = structuredClone(catalog);
   const result = selectRoomTile(card("room:p001"), catalog);
   expect(result.status).toBe("matched");
@@ -24,8 +24,9 @@ it("完整生产目录仅Ritual可参战；Torture虽已入库仍停在运行时
   expect(catalog).toEqual(before);
 });
 
-it("同编号的最暗地牢、Boss、Fountain与其他待审核面不按页码或名称兜底", () => {
-  for (const id of ["room:p003", "room:p007", "room:p010", "room:p014"])
+it("同编号的最暗地牢、Boss与其他待审核面不按页码或名称兜底；Fountain独立获批", () => {
+  expect(selectRoomTile(card("room:p003"), catalog).status).toBe("matched");
+  for (const id of ["room:p007", "room:p010", "room:p014"])
     expect(selectRoomTile(card(id), catalog).status).toBe("refused");
   expect(selectRoomTile({ ...card("room:p014"), name: "Ritual Chamber" }, catalog).status).toBe(
     "refused",

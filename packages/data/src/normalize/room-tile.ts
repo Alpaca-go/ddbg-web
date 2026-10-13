@@ -2,6 +2,7 @@ import { z } from "zod";
 import type { RawFile } from "../extract/raw";
 import { iconIdSchema } from "../extract/common";
 import { approvedTortureChamber, tortureChamberSchema } from "./torture-chamber";
+import { approvedExtraRuinsTileSchema, approvedExtraRuinsTiles } from "./approved-ruins-tiles";
 
 /** 几何数据不是可用卡池；未命名图标只保留 ID，不补含义或数值（R-048）。 */
 const ritualChamberSchema = z
@@ -111,7 +112,11 @@ const ritualChamberSchema = z
       ctx.addIssue({ code: "custom", message: "R-055 标记限定放置漂移" });
   });
 
-export const roomTileGeometrySchema = z.union([ritualChamberSchema, tortureChamberSchema]);
+export const roomTileGeometrySchema = z.union([
+  ritualChamberSchema,
+  tortureChamberSchema,
+  approvedExtraRuinsTileSchema,
+]);
 
 export const roomTileGeometryFileSchema = z
   .strictObject({
@@ -198,7 +203,7 @@ export const approvedRoomTileGeometry = ritualChamberSchema.parse({
 
 /** 不解析颜色 / 图标计数 / footer；未获批 raw 页不输出几何。 */
 export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
-  const tiles = [approvedRoomTileGeometry, approvedTortureChamber];
+  const tiles = [approvedRoomTileGeometry, approvedTortureChamber, ...approvedExtraRuinsTiles];
   for (const tile of tiles) {
     const matches = raw.cards.filter((card) => card.id === tile.rawId);
     const card = matches[0];

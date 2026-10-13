@@ -261,9 +261,11 @@ export function BattleView({
       <div className="workspace">
         <section className="panel board" aria-label="区域板">
           <h2>
-            {battleData.tileName} <small>区域邻接视图</small>
+            {battle.roomName ?? battleData.tileName} <small>区域邻接视图</small>
           </h2>
-          <p className="muted">区域卡片顺序不表示空间相邻；移动使用下列连接。E-F 为黑墙阻隔。</p>
+          <p className="muted">
+            区域卡片顺序不表示空间相邻；移动使用本房间下列已核实连接，不能穿过黑墙或空隙。
+          </p>
           <div className="area-grid">
             {battle.areas.map((area) => {
               const occupants = battle.entities.filter((e) => !e.dead && e.areaId === area.id);
@@ -286,6 +288,9 @@ export function BattleView({
                   <p className="connections">连接：{area.adjacent.join(" · ") || "无"}</p>
                   {area.endTurnStress === 1 && (
                     <p className="muted">Cornered：英雄结束回合压力 +1</p>
+                  )}
+                  {area.endTurnHeal === 3 && (
+                    <p className="muted">Healing Waters：英雄结束回合治疗 3</p>
                   )}
                   {battle.loot?.placed.some((token) => token.areaId === area.id) && (
                     <p>宝箱：可在同区花一个行动拾取</p>

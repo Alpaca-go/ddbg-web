@@ -103,6 +103,40 @@ function deploy(seed: number): GameState {
 }
 // 不过滤生产牌池；寻找一条天然抽到获批六种的固定种子，仅作测试。
 const goodSeed = 1885;
+
+it("完整九房间池自然抽到Fountain后可正式部署入场；独立高地/泉水/出生不借Ritual", () => {
+  let entered: GameState | undefined;
+  let seed = 1;
+  for (; seed <= 400; seed++) {
+    const candidate = deploy(seed);
+    if (candidate.dungeon!.roomCards!.active?.cardId !== "room:p003") continue;
+    const result = applyCommand(candidate, { type: "startDungeonBattle" });
+    if (result.state.battle) {
+      entered = result.state;
+      break;
+    }
+  }
+  expect(entered).toBeDefined();
+  expect(seed).toBe(10);
+  expect(entered!.battle!.areas.filter((a) => a.elevation === "high").map((a) => a.id)).toEqual([
+    "A",
+    "C",
+  ]);
+  expect(entered!.battle!.areas.find((a) => a.id === "G")!.endTurnHeal).toBe(3);
+  expect(entered!.battle!.entities.filter((e) => e.side === "hero").map((e) => e.areaId)).toEqual([
+    "I",
+    "J",
+    "J",
+    "I",
+  ]);
+  expect(entered!.battle!.lootAreas).toEqual([]);
+  const commands = [
+    { type: "prepareDungeonBattle" },
+    { type: "prepareDungeonMonsters" },
+    { type: "startDungeonBattle" },
+  ] as const;
+  expect(commands.reduce((s, c) => applyCommand(s, c).state, setup(seed))).toEqual(entered);
+});
 function started() {
   return applyCommand(deploy(goodSeed), { type: "startDungeonBattle" }).state;
 }
