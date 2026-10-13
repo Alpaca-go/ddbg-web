@@ -6,6 +6,28 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await page.goto("/");
   await page.getByRole("link", { name: "打开 Phase 3 布局与侦察沙盒" }).click();
   await expect(page.getByRole("heading", { name: "地牢布局与侦察" })).toBeVisible();
+  await page.getByLabel("侦察测试布置").selectOption("startingProvisions");
+  for (const mode of ["标准模式", "Radiant"]) {
+    await page
+      .getByRole("button", { name: mode === "Radiant" ? "重置 Radiant" : "重置标准模式" })
+      .click();
+    await expect(page.getByTestId("dungeon-node-S")).toContainText("队伍");
+    await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeDisabled();
+    await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
+    let choices = 0;
+    while (await page.getByRole("button", { name: "食物", exact: true }).count()) {
+      await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeDisabled();
+      await page.getByRole("button", { name: "食物", exact: true }).click();
+      choices++;
+    }
+    if (mode === "Radiant") expect(choices).toBeGreaterThanOrEqual(4);
+    await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（8/16）");
+    await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeEnabled();
+    await expect(page.getByRole("button", { name: "掷开局补给骰", exact: true })).toHaveCount(0);
+    await page.screenshot({ path: testInfo.outputPath(`starting-${mode}.png`), fullPage: true });
+  }
+  await page.getByLabel("侦察测试布置").selectOption("neutral");
+  await page.getByRole("button", { name: "重置标准模式" }).click();
   await expect(page.getByTestId("dungeon-node-D")).toContainText("未揭示");
   await page.getByRole("button", { name: "侦察", exact: true }).click();
   await page.getByRole("button", { name: "取消", exact: true }).click();
