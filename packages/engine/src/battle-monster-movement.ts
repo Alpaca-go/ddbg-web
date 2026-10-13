@@ -173,8 +173,10 @@ export function moveMonsterToRange(
   if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
   const range = readPrintedRange(attack.view);
   const targets = readPrintedTargets(attack.view);
-  if (range.kind !== "exact" || targets.kind !== "exact")
-    return rejectBattleCommand(state, "需要已命名整数射程与目标数量；区间射程不接入（R-048）");
+  if ((range.kind !== "exact" && range.kind !== "interval") || targets.kind !== "exact")
+    return rejectBattleCommand(state, "需要已核实射程与目标数量（R-048）");
+  const minRange = range.kind === "exact" ? range.distance : range.min;
+  const maxRange = range.kind === "exact" ? range.distance : range.max;
   // 复用纯技能校验，不掷骰或写伤害；预设印刷距离只用来排除未知数值 / 不支持效果。
   const probe = resolveMonsterSkill(
     card,
@@ -187,7 +189,7 @@ export function moveMonsterToRange(
         ...(actor.shuffleResist === undefined ? {} : { shuffleResist: actor.shuffleResist }),
       },
       target: skillTargetView(target),
-      areaDistance: range.distance,
+      areaDistance: minRange,
       light: battle.light,
       shuffleChoice: "push",
       guardedHeroOmitted:
@@ -197,16 +199,18 @@ export function moveMonsterToRange(
   );
   if (probe.status === "refused") return rejectBattleCommand(state, probe.reason);
   const heights = { low: 0, normal: 1, high: 2 };
-  const targetArea = battle.areas.find((area) => area.id === target.areaId)!;
+  const targetArea = battle.areas.find((area) => area.id === target.areaId);
+  const origin = battle.areas.find((area) => area.id === actor.areaId);
+  if (!targetArea || !origin)
+    return rejectBattleCommand(state, "角色区域不在已核实几何内（R-048）");
   const inRange = (area: BattleArea) => {
     const steps = distance(battle.areas, area.id, target.areaId);
     return (
       steps !== null &&
-      steps >= range.distance &&
-      steps <= range.distance + (heights[area.elevation] > heights[targetArea.elevation] ? 1 : 0)
+      steps >= minRange &&
+      steps <= maxRange + (heights[area.elevation] > heights[targetArea.elevation] ? 1 : 0)
     );
   };
-  const origin = battle.areas.find((area) => area.id === actor.areaId)!;
   const firing = battle.areas.filter(inRange);
   // R-023 补充：与全部几何出手位断开时原地跳过，不造距离或要求无用的 Speed。
   const unreachable =

@@ -12,10 +12,94 @@ const soldier = (read("monster_medium").cards as MonsterCardView[]).find(
   (card) => card.id === "monster_medium:p001",
 )!;
 const tile = read("room_tile_geometry").tiles[0];
+const spiked = read("room_tile_geometry").tiles.find(
+  (entry: { id: string }) => entry.id === "room_tile:p003:back",
+);
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 const move = { type: "moveMonsterToRange", actorId: "m" } as const;
 const prepare = { type: "prepareMonsterAction", actorId: "m" } as const;
 const play = { type: "playMonsterSkill", actorId: "m", targetId: "h0", skillSlot: 1 } as const;
+
+it("R-071：真实遗迹怪物各姿态在S1断图均跳过，含Large与纯状态技能，第4轮撤退", () => {
+  const cards = [
+    ...read("monster_medium").cards,
+    ...read("monster_large").cards,
+  ] as MonsterCardView[];
+  const pool = read("monster_pool").cards.filter(
+    (entry: { level: number }) => entry.level === 1,
+  ) as { combatCardId: string; stanceSlots: 1 | 2 }[];
+  const areas = roomTileBattleAreas(spiked);
+  expect(areas.find((area) => area.id === "S1")!.adjacent).toEqual([]);
+  for (const entry of pool) {
+    const card = cards.find((card) => card.id === entry.combatCardId)!;
+    for (const stance of stances.slice(0, 5 - entry.stanceSlots)) {
+      const initial = start(card, areas, "S1", "S11", {
+        h0: { guard: false, areaId: "S11" },
+        h1: { areaId: "S11" },
+        h2: { areaId: "S12" },
+        h3: { areaId: "S10" },
+        m: { stance, stanceSlots: entry.stanceSlots },
+      });
+      const selected = applyCommand(initial, prepare);
+      const result = selected.state.battle!.monsterAction
+        ? applyCommand(selected.state, move)
+        : selected;
+      expect(
+        result.events.some((event) => event.type === "commandRefused"),
+        `${card.id}/${stance}: ${JSON.stringify(result.events)}`,
+      ).toBe(false);
+      expect(result.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+      expect(result.state.battle!.entities).toEqual(initial.battle!.entities);
+      expect(result.state.battle!.areas).toEqual(areas);
+      expect(result.state.battle!.monsterAction).toBeNull();
+      const last: GameState = {
+        ...initial,
+        battle: {
+          ...initial.battle!,
+          encounter: {
+            ...initial.battle!.encounter!,
+            round: 4,
+            deck: [],
+            actedIds: initial
+              .battle!.entities.filter((entity) => entity.side === "hero")
+              .map((entity) => entity.id),
+          },
+        },
+      };
+      const chosen = applyCommand(last, prepare);
+      const ended = chosen.state.battle!.monsterAction ? applyCommand(chosen.state, move) : chosen;
+      expect(
+        ended.events.some((event) => event.type === "commandRefused"),
+        `${card.id}/${stance}`,
+      ).toBe(false);
+      expect(ended.state.battle!.encounter!.turn).toMatchObject({
+        type: "finished",
+        outcome: "retreat",
+      });
+    }
+  }
+});
+
+it("不存在的角色区域不能伪装成断图跳过，输入与RNG保留", () => {
+  const unknownActor = start(soldier, graph(), "a", "c", { m: { areaId: "unknown" } });
+  const unknownHero = start(soldier, graph(), "a", "c", { h0: { areaId: "unknown" } });
+  for (const initial of [unknownActor, unknownHero]) {
+    expect(applyCommand(initial, prepare).events[0]).toMatchObject({ type: "commandRefused" });
+    expect(applyCommand(initial, prepare).state).toBe(initial);
+  }
+  const selected = ready();
+  const unknown: GameState = {
+    ...selected,
+    battle: {
+      ...selected.battle!,
+      entities: selected.battle!.entities.map((entity) =>
+        entity.id === "m" ? { ...entity, areaId: "unknown" } : entity,
+      ),
+    },
+  };
+  expect(applyCommand(unknown, move).events[0]).toMatchObject({ type: "commandRefused" });
+  expect(applyCommand(unknown, move).state).toBe(unknown);
+});
 
 it("R24：普通怪可挤出Small，Small自身不能占满员落点；不改变大型一名挤出规则", () => {
   const areas = graph().map((a) => (a.id === "b" ? { ...a, capacity: 1 } : a));

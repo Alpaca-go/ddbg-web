@@ -65,6 +65,11 @@ export function prepareMonsterAction(
 
   const heroes: MonsterTargetHero[] = [];
   for (const hero of battle.entities.filter((entry) => entry.side === "hero" && !entry.dead)) {
+    if (
+      !battle.areas.some((area) => area.id === actor.areaId) ||
+      !battle.areas.some((area) => area.id === hero.areaId)
+    )
+      return rejectBattleCommand(state, "角色区域不在已核实几何内（R-048）");
     const areaDistance = distance(battle.areas, actor.areaId, hero.areaId);
     heroes.push({
       id: hero.id,
@@ -92,25 +97,14 @@ export function prepareMonsterAction(
     targetPriority: card.skills.find((skill) => skill.slot === selected.skillSlot)!.target!,
   };
   if (target.status === "noFiniteTarget") {
-    if (actor.stanceSlots !== 1)
-      return rejectBattleCommand(state, "无有限距离目标的跳过只接普通怪，本切片不处理大型怪");
     const attack = readMonsterAttackView(card, selected.skillSlot);
     if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
     const targets = readPrintedTargets(attack.view);
     if (
-      readPrintedRange(attack.view).kind !== "exact" ||
-      targets.kind !== "exact" ||
-      !attack.view.stats_line?.some(
-        (segment) =>
-          segment.type === "icon" &&
-          segment.icon.key === "damage" &&
-          ["confirmed", "confirmed_rulebook"].includes(segment.icon.naming),
-      )
+      !["exact", "interval"].includes(readPrintedRange(attack.view).kind) ||
+      targets.kind !== "exact"
     )
-      return rejectBattleCommand(
-        state,
-        "无有限距离目标的跳过只接已命名整数射程与目标数量（R-048）",
-      );
+      return rejectBattleCommand(state, "无有限距离目标的跳过需要已核实射程与目标数量（R-048）");
     const finished = applyEncounterCommand(
       {
         ...state,
