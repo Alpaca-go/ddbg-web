@@ -10,6 +10,7 @@ import type {
   SkillSegment,
   SkillTargetState,
   SkillHealthEffect,
+  SkillEffectsResolution,
 } from "./hero-skill";
 
 /** 只读规范化怪物技能；不从 footer_lines 推断可用姿态、选招骰表或 AI。 */
@@ -51,6 +52,8 @@ export type MonsterCombatState = Pick<
   | "targetAreaLower"
   | "light"
   | "targetsInArea"
+  | "ownEffectsApplied"
+  | "effectLight"
 > & {
   readonly actor: Omit<SkillActorState, "stress" | "form" | "stance"> &
     Pick<SkillTargetState, "shuffleResist">;
@@ -155,7 +158,10 @@ export function resolveMonsterSkillEffects(
   skillSlot: number,
   combat: MonsterCombatState,
   roll: number,
-): MonsterSkillResolution & { readonly healthEffects: readonly SkillHealthEffect[] } {
+): MonsterSkillResolution & {
+  readonly healthEffects: readonly SkillHealthEffect[];
+  readonly own?: SkillEffectsResolution;
+} {
   const result = resolveMonsterSkillInternal(monster, skillSlot, combat, roll, true);
   return { ...result, healthEffects: result.healthEffects ?? [] };
 }
@@ -166,7 +172,10 @@ function resolveMonsterSkillInternal(
   combat: MonsterCombatState,
   roll: number,
   includeHealthEffects = false,
-): MonsterSkillResolution & { readonly healthEffects?: readonly SkillHealthEffect[] } {
+): MonsterSkillResolution & {
+  readonly healthEffects?: readonly SkillHealthEffect[];
+  readonly own?: SkillEffectsResolution;
+} {
   const refused = (reason: string): MonsterSkillResolution => ({
     monsterId: monster.id,
     skillSlot,
@@ -216,6 +225,8 @@ function resolveMonsterSkillInternal(
       areaDistance: combat.areaDistance,
       targetsInArea: combat.targetsInArea ?? 1,
       ...(combat.light === undefined ? {} : { light: combat.light }),
+      ...(combat.ownEffectsApplied ? { ownEffectsApplied: true as const } : {}),
+      ...(combat.effectLight === undefined ? {} : { effectLight: combat.effectLight }),
       ...(combat.targetAreaLower === undefined ? {} : { targetAreaLower: combat.targetAreaLower }),
       ...(combat.guardedHeroOmitted === undefined
         ? {}
@@ -236,7 +247,9 @@ function resolveMonsterSkillInternal(
           ...(view.verified_target_disease && baseResolution.outcome !== "miss"
             ? { targetDisease: true as const }
             : {}),
-          actorLightDelta: (baseResolution.actorLightDelta ?? 0) + (attack.selfLight ?? 0),
+          actorLightDelta:
+            (baseResolution.actorLightDelta ?? 0) +
+            (combat.ownEffectsApplied ? 0 : (attack.selfLight ?? 0)),
           targetLightDelta:
             (baseResolution.targetLightDelta ?? 0) +
             (baseResolution.outcome === "miss" ? 0 : (attack.targetLight ?? 0)),
@@ -247,7 +260,23 @@ function resolveMonsterSkillInternal(
     skillSlot,
     status: "resolved",
     actorDead: resolution.actorWounds !== null && resolution.actorWounds >= monster.life,
-    ...(includeHealthEffects ? { healthEffects: effects.healthEffects } : {}),
+    ...(includeHealthEffects
+      ? {
+          healthEffects: effects.healthEffects,
+          ...(effects.own
+            ? {
+                own: {
+                  ...effects.own,
+                  resolution: {
+                    ...effects.own.resolution,
+                    actorLightDelta:
+                      (effects.own.resolution.actorLightDelta ?? 0) + (attack.selfLight ?? 0),
+                  },
+                },
+              }
+            : {}),
+        }
+      : {}),
     // R-020：只有英雄能忽略自身抗性；怪物自身位移仍少移 1。
     resolution:
       combat.actor.shuffleResist && resolution.actorShuffle

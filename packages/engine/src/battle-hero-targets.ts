@@ -14,8 +14,8 @@ import { needsHeroSkillShuffleChoice, resolveHeroSkillEffects } from "./hero-ski
 import type { ShuffleIntent } from "./shuffle";
 import type { SkillCombatState } from "./hero-skill";
 import type { ApplyResult, GameState, HeroSkillTargetsResolvedEvent } from "./command";
-import { beginHeroOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
-import type { HeroSkillPrefix } from "./battle-own-effects";
+import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
+import type { SkillPrefix } from "./battle-own-effects";
 
 export type PlayHeroSkillTargetsCommand = {
   readonly type: "playHeroSkillTargets";
@@ -29,7 +29,7 @@ export type PlayHeroSkillTargetsCommand = {
 export function playHeroSkillTargets(
   state: GameState,
   command: PlayHeroSkillTargetsCommand,
-  resume?: HeroSkillPrefix,
+  resume?: SkillPrefix,
 ): ApplyResult {
   const battle = resume?.original ?? state.battle;
   if (!battle) return rejectBattleCommand(state, "尚未创建战斗沙盒");
@@ -146,7 +146,8 @@ export function playHeroSkillTargets(
       ? null
       : nextBattleRoll(state.seed, battle.rngCursor);
   const current = resume ? state.battle! : battle;
-  if (resume) contexts = contexts.map((context) => afterHeroOwnCombat(context, current));
+  if (resume)
+    contexts = contexts.map((context) => afterHeroOwnCombat(context, current, command.targetIds));
   const effects = resolve(roll ?? 1);
   const failed = unsupported(effects);
   if (failed)
@@ -155,7 +156,7 @@ export function playHeroSkillTargets(
       failed.resolution.reason ?? "多目标效果未完整支持，整次拒绝（R-048）",
     );
   if (!resume) {
-    const own = beginHeroOwnEffects(state, command, roll, effects[0]!, effects);
+    const own = beginSkillOwnEffects(state, command, roll, effects[0]!, effects);
     if (own) return own;
   }
   const resolutions = effects.map((e) => e.resolution);

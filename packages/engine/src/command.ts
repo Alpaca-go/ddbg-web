@@ -78,6 +78,7 @@ export type HeroSkillTargetsResolvedEvent = {
 };
 
 export type MonsterSkillResolvedEvent = {
+  readonly phase?: "ownPending" | "afterOwn";
   readonly type: "monsterSkillResolved";
   readonly message: string;
   readonly actorId: string;

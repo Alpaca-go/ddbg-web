@@ -13,6 +13,8 @@ import {
 import type { ShuffleIntent } from "./shuffle";
 import type { MonsterCardView, MonsterCombatState } from "./monster-skill";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
+import { beginSkillOwnEffects, afterMonsterOwnCombat } from "./battle-own-effects";
+import type { SkillPrefix } from "./battle-own-effects";
 
 const stances = ["aggressive", "defensive", "ranged", "support"];
 
@@ -24,8 +26,9 @@ export function playMonsterSkillTargets(
   primary: BattleEntity,
   card: MonsterCardView,
   max: number,
+  resume?: SkillPrefix,
 ): ApplyResult {
-  const battle = state.battle!;
+  const battle = resume?.original ?? state.battle!;
   const attack = readMonsterAttackView(card, command.skillSlot);
   if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
   const candidates = battle.entities.filter(
@@ -47,7 +50,7 @@ export function playMonsterSkillTargets(
   const neighbors = candidates
     .filter((e) => !ids.has(e.id))
     .map((e) => ({ ...e, stress: e.stress! }));
-  const contexts: MonsterCombatState[] = targets.map((target) => ({
+  let contexts: MonsterCombatState[] = targets.map((target) => ({
     actor: {
       id: actor.id,
       wounds: actor.wounds,
@@ -142,7 +145,16 @@ export function playMonsterSkillTargets(
       pendingChoice: choice,
     };
   }
-  const roll = nextBattleRoll(state.seed, battle.rngCursor);
+  const roll = resume ? resume.roll! : nextBattleRoll(state.seed, battle.rngCursor);
+  const current = resume ? state.battle! : battle;
+  if (resume)
+    contexts = contexts.map((context) =>
+      afterMonsterOwnCombat(
+        context,
+        current,
+        targets.map((target) => target.id),
+      ),
+    );
   const effects = resolve(roll);
   const failure = invalid(effects);
   if (failure)
@@ -151,12 +163,20 @@ export function playMonsterSkillTargets(
       failure.status === "refused" ? failure.reason : "多目标效果不完整，整次拒绝（R-048）",
     );
   const results = effects.filter((e) => e.status === "resolved");
+  if (!resume) {
+    const own = beginSkillOwnEffects(state, command, roll, results[0]!, results);
+    if (own) return own;
+  }
   const resolutions = results.map((e) => e.resolution);
   const representative = resolutions.find((r) => r.outcome === "crit") ?? resolutions[0]!;
   const healthEffects = multiTargetHealthEffects(results);
-  const actorWounds = projectActorWounds(actor.id, actor.wounds, healthEffects);
+  const actorWounds = projectActorWounds(
+    actor.id,
+    current.entities.find((entry) => entry.id === actor.id)!.wounds,
+    healthEffects,
+  );
   const actorDead = actorWounds >= card.life;
-  const entities = battle.entities.map((entity) => {
+  const entities = current.entities.map((entity) => {
     const resolution = resolutions.find((r) => r.targetId === entity.id) ?? representative;
     const updated = writeResolution(
       entity,
@@ -168,18 +188,18 @@ export function playMonsterSkillTargets(
     return entity.id === actor.id ? { ...updated, dead: actorDead } : updated;
   });
   const health = applySkillHealth(
-    battle,
+    current,
     entities,
     {
       resolution: representative,
       healthEffects,
     },
     state.seed,
-    battle.rngCursor + 1,
+    current.rngCursor + Number(!resume),
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
   const statuses = applyBattleSkillStatuses(
-    battle,
+    current,
     health.entities,
     actor.id,
     resolutions,
@@ -188,6 +208,7 @@ export function playMonsterSkillTargets(
   );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const event: MonsterSkillTargetsResolvedEvent = {
+    ...(resume?.announced ? { phase: "afterOwn" as const } : {}),
     type: "monsterSkillTargetsResolved",
     message: "怪物多目标攻击已共用一次掷骰结算",
     actorId: actor.id,
@@ -215,14 +236,14 @@ export function playMonsterSkillTargets(
     targetIds: targets.map((e) => e.id),
     shuffleChooserId: primary.id,
     ...(resolutions.some((r) => r.outcome === "crit")
-      ? { criticalContext: { combat: contexts[0]!, combats: contexts, entities: battle.entities } }
+      ? { criticalContext: { combat: contexts[0]!, combats: contexts, entities: current.entities } }
       : {}),
   };
   const applied = {
     state: {
       ...state,
       battle: {
-        ...battle,
+        ...current,
         monsterAction: null,
         pending: null,
         entities: statuses.entities,

@@ -544,7 +544,8 @@ describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）
     );
     const prepared = { ...turn, battle: { ...turn.battle!, rngCursor: 1 } };
     const rolled = applyCommand(prepared, play(3));
-    expect(entity(rolled.state, "monster").dead).toBe(true);
+    expect(entity(rolled.state, "monster").dead).toBe(false);
+    expect(entity(rolled.state, "h0").wounds).toBe(entity(prepared, "h0").wounds);
     const done = applyCommand(rolled.state, { type: "resolveShuffles" });
     expect(done.events[0]).toMatchObject({ type: "shuffleResolved", path: ["a"] });
     expect(entity(done.state, "monster")).toMatchObject({
@@ -643,9 +644,9 @@ describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）
   });
 
   it.each([false, true])("怪物暴击续接保留英雄生命结果（dead=%s），压力仅修正一次", (dead) => {
-    const initial = patch(patch(setup(defender), "h0", { stress: 9 }), "h1", { stress: 9 });
+    const initial = patch(patch(setup(directionCard()), "h0", { stress: 9 }), "h1", { stress: 9 });
     const prepared = { ...initial, battle: { ...initial.battle!, light: 2, rngCursor: 1 } };
-    const rolled = applyCommand(prepared, play(3));
+    const rolled = applyCommand(prepared, { ...play(), shuffleChoice: "push" });
     expect(rolled.events[0]).toMatchObject({ roll: 1, resolution: { outcome: "crit" } });
     // 合成生命应用结果，隔离测试压力续接；不是新的卡牌 Life 数据。
     const applied = patch(patch(rolled.state, "h0", { life: 2, wounds: 2, dead }), "monster", {
@@ -656,12 +657,12 @@ describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）
     const before = structuredClone(applied);
     const done = applyCommand(applied, { type: "resolveShuffles" });
     expect(entity(done.state, "h0")).toMatchObject({ life: 2, wounds: 2, dead, stress: 10 });
-    expect(entity(done.state, "h1").stress).toBe(10);
+    expect(entity(done.state, "h1").stress).toBe(dead ? 10 : 9);
     expect(entity(done.state, "monster")).toMatchObject({
       wounds: 1,
       dead: false,
-      areaId: "a",
-      stance: "defensive",
+      areaId: "b",
+      stance: "aggressive",
       bleed: ["preserved-bleed"],
       blight: ["preserved-blight"],
     });
