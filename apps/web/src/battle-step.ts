@@ -1,3 +1,4 @@
+import { isInvokingMonster } from "@ddbg/engine";
 import type { BattleState } from "@ddbg/engine";
 
 // 只呈现引擎的当前阶段，不推断合法目标、规则数值或额外行动。
@@ -5,6 +6,14 @@ const pendingSteps: Record<
   NonNullable<BattleState["pending"]>["type"],
   { readonly label: string; readonly hint: string }
 > = {
+  invokerMove: {
+    label: "等待召唤室移动选择",
+    hint: "选择最接近红星的合法落点，替代整个怪物第2步。",
+  },
+  invokerDisplace: {
+    label: "等待召唤室挤出选择",
+    hint: "选择一名角色及其相邻去处，完成向红星移动。",
+  },
   conditionReplace: {
     label: "等待怪癖替换选择",
     hint: "选择一张已有正面怪癖，换上新抽到的负面怪癖。",
@@ -64,6 +73,11 @@ export function battleStep(battle: BattleState): { readonly label: string; reado
       ? { label: "必须移动离开", hint: "当前区域没有足够空间；下一行动必须移动离开。" }
       : { label: "英雄行动", hint: "在行动面板选择移动、交互、换姿态或使用技能。" };
   if (turn.type === "monster") {
+    if (isInvokingMonster(battle, turn.actorId))
+      return {
+        label: "The Invokers移动",
+        hint: "点击「按 The Invokers 移动」，替代选招、目标与攻击。",
+      };
     if (!battle.monsterAction)
       return { label: "怪物选招", hint: "点击「怪物选招与选目标」，确定本回合的技能和目标。" };
     return battle.monsterAction.positioned

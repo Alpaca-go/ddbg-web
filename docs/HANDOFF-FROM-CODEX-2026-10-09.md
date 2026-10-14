@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> Invocation续块（2026-10-14）：The Invokers的最后怪物Step2替代移动和Invoking Abyss轮末单次压力已接，普通遗迹8/9可战。Treasure及Q-73、正式任务入口和真实三任务完整验收继续，检查点③仍需用户实际确认。详见[本面实现](phase3-invocation-runtime-2026-10-14.md)。
+
 > 2026-10-14 Spiked Pit续块：英雄／怪物自身前缀及R20目标Shuffle顺序已合并；本面落坑、Bleed、Circle of Power与回合结束完整接通，R-071断图／范围和R-072先坑后Vertigo保持批准。七面可战，Treasure与Invocation及真实三任务完整验收继续；Q-73仍待用户裁定，其他已确认数据不重复询问。
 
 > Old Abbey续块（2026-10-14）：R-069单次负面总压力、追加伤口／死门、意志／心脏病先行，存活者再按HL×正面总量治疗；六面普通遗迹可战。Actions账号付款／支出限制未启动，按授权执行本机同等全部闸门并记录后合并；其他实现继续。

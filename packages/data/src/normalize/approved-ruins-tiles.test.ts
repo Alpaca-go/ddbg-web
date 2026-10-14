@@ -4,10 +4,7 @@ import { roomTileGeometrySchema } from "./room-tile";
 import { selectRoomTile } from "./room-tile-selection";
 import rooms from "../../normalized/corebox/room.json";
 
-it.each([
-  [6, "back", 4, [2, 4, 3, 2, 4, 2, 2, 3, 3], 8, 0, 1],
-  [8, "back", 5, [4, 2, 3, 4, 2, 3, 2, 3, 4, 3], 9, 4, 0],
-] as const)(
+it.each([[6, "back", 4, [2, 4, 3, 2, 4, 2, 2, 3, 3], 8, 0, 1]] as const)(
   "遗迹%i独立获批几何与整面锁定，完整特殊运行时尚未开放（R-065–067）",
   (number, face, page, capacities, passages, corners, blocked) => {
     const tile = file.tiles.find((t) => t.number === number)!;
@@ -69,9 +66,9 @@ it("Spiked最终十五通路、两墙、无角点；Treasure T4-T5为墙，均�
   });
   expect(treasure.edges.some((e) => !e.blocked && (e.from === "T4" || e.to === "T4"))).toBe(false);
 });
-it("所有九面几何已入库，七面可战；其他核心盒面未被批准", () => {
+it("所有九面几何已入库，八面可战；其他核心盒面未被批准", () => {
   expect(file.tiles).toHaveLength(9);
-  expect(file.tiles.filter((t) => t.usable)).toHaveLength(7);
+  expect(file.tiles.filter((t) => t.usable)).toHaveLength(8);
   expect(file.tiles.map((t) => t.number).sort((a, b) => a - b)).toEqual([
     1, 2, 3, 4, 5, 6, 7, 8, 9,
   ]);

@@ -72,6 +72,8 @@ export type BattleEntity = PassiveHolder &
   };
 
 export type BattleArea = {
+  readonly invokerGoal?: true;
+  readonly invokingAbyss?: true;
   readonly spikedPit?: true;
   readonly circleOfPower?: true;
   readonly feelingThePresence?: true;
@@ -144,6 +146,13 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | { readonly type: "invokerMove"; readonly actorId: string; readonly choice: PendingChoice }
+    | {
+        readonly type: "invokerDisplace";
+        readonly actorId: string;
+        readonly choice: PendingChoice;
+        readonly to: string;
+      }
     | {
         readonly type: "conditionReplace";
         readonly choice: PendingChoice;

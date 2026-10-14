@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { heroSkillUsesSelfTarget, readPrintedTargets, PROVISION_EFFECTS } from "@ddbg/engine";
+import {
+  heroSkillUsesSelfTarget,
+  readPrintedTargets,
+  PROVISION_EFFECTS,
+  isInvokingMonster,
+} from "@ddbg/engine";
 import type { Command, SkillStance, ProvisionEffect, GameState, GameEvent } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
 import type { SandboxLayout } from "./battle-store";
@@ -316,6 +321,12 @@ export function BattleView({
                       Spiked Pit：Shuffle实际落点或结束回合站立时，伤害3 → Bleed
                       1·3t；先坑后Vertigo。
                     </p>
+                  )}
+                  {area.invokerGoal && (
+                    <p>The Invokers：本轮最后一只可行动怪物改为向本区移动，替代整个第2步。</p>
+                  )}
+                  {area.invokingAbyss && (
+                    <p>Invoking Abyss：轮末本区有存活怪物时，全体存活英雄各压力+2。</p>
                   )}
                   {area.circleOfPower && <p>Circle of Power：怪物在本区结束回合治疗4。</p>}
                   {area.endTurnHeal === 3 && (
@@ -745,7 +756,9 @@ export function BattleView({
             <div className="monster-controls">
               {!action && (
                 <button onClick={() => send({ type: "prepareMonsterAction", actorId: actor!.id })}>
-                  怪物选招与选目标
+                  {isInvokingMonster(battle, actor!.id)
+                    ? "按 The Invokers 移动"
+                    : "怪物选招与选目标"}
                 </button>
               )}
               {action && (

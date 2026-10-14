@@ -28,6 +28,7 @@ import { applyBattleShuffles, chooseBalancedShuffle } from "./battle-shuffle";
 import { playMonsterSkill } from "./battle-monster";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
 import { prepareMonsterAction } from "./battle-monster-action";
+import { moveInvokingMonster } from "./battle-invocation";
 import { moveMonsterToRange } from "./battle-monster-movement";
 import type { MoveMonsterToRangeCommand, MonsterPositionedEvent } from "./battle-monster-movement";
 import { moveHero } from "./battle-hero-movement";
@@ -406,6 +407,13 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       return beginResolveTurn(
         { state: { ...state, battle: { ...state.battle!, pending: null } }, events: [] },
         pending.actorId,
+      );
+    if (pending.type === "invokerMove" || pending.type === "invokerDisplace")
+      return moveInvokingMonster(
+        state,
+        pending.actorId,
+        pending.type === "invokerMove" ? command.optionId : pending.to,
+        pending.type === "invokerDisplace" ? command.optionId : undefined,
       );
     if (pending.type === "monsterMove" || pending.type === "monsterDisplace")
       return moveMonsterToRange(

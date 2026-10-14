@@ -22,6 +22,7 @@ import { passiveHeal } from "./passive";
 import { gainDisease } from "./conditions";
 import { readHeroPassiveDefence } from "./battle-skill-status";
 import { endTurnOldAbbey } from "./battle-old-abbey";
+import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
@@ -246,16 +247,20 @@ export function finishTurn(
     encounter.deck.length === 0 ||
     battle.entities.every((entity) => entity.dead || actedIds.includes(entity.id))
   ) {
-    if (encounter.round === 4)
-      return finishBattle(
-        { ...state, battle: { ...battle, encounter: { ...encounter, actedIds } } },
-        "retreat",
-        ended,
-      );
-    const next = startRound(state.seed, battle, encounter.round + 1);
+    const abyss = endRoundInvocation({
+      state: { ...state, battle: { ...battle, encounter: { ...encounter, actedIds } } },
+      events: ended,
+    });
+    if (
+      abyss.events.some((event) => event.type === "commandRefused") ||
+      ["halted", "finished"].includes(abyss.state.battle!.encounter!.turn.type)
+    )
+      return abyss;
+    if (encounter.round === 4) return finishBattle(abyss.state, "retreat", abyss.events);
+    const next = startRound(state.seed, abyss.state.battle!, encounter.round + 1);
     return {
-      state: { ...state, battle: next },
-      events: [...ended, event(next, "roundStarted", "开始下一轮")],
+      state: { ...abyss.state, battle: next },
+      events: [...abyss.events, event(next, "roundStarted", "开始下一轮")],
     };
   }
   return {
@@ -722,14 +727,22 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
         actor.id,
       );
     }
-    if (encounter.round === 4) return finishBattle(state, "retreat", events);
-    const next = startRound(state.seed, battle, encounter.round + 1);
+    const abyss = endRoundInvocation({ state, events });
+    if (
+      abyss.events.some((event) => event.type === "commandRefused") ||
+      ["halted", "finished"].includes(abyss.state.battle!.encounter!.turn.type)
+    )
+      return abyss;
+    if (encounter.round === 4) return finishBattle(abyss.state, "retreat", abyss.events);
+    const next = startRound(state.seed, abyss.state.battle!, encounter.round + 1);
     return {
       state: { ...state, battle: next },
-      events: [...events, event(next, "roundStarted", "开始下一轮")],
+      events: [...abyss.events, event(next, "roundStarted", "开始下一轮")],
     };
   }
   if (command.type === "finishMonsterTurn") {
+    if (isInvokingMonster(battle, command.actorId))
+      return rejectBattleCommand(state, "The Invokers 移动尚未完成，不能直接结束第2步");
     if (encounter.turn.type !== "monster" || encounter.turn.actorId !== command.actorId)
       return rejectBattleCommand(state, "当前不是这只怪物的回合");
     return finishTurn(
