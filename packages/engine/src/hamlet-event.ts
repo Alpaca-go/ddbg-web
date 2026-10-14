@@ -5,6 +5,7 @@ import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import { createRng } from "./rng";
 import { nextBattleRoll } from "./encounter";
+import { conditionPoolProblem } from "./conditions";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;
 export type HamletEventState = {
@@ -62,8 +63,27 @@ export function drawHamletEvent(state: GameState): ApplyResult {
     ),
     id = drawn.deck.shift()!;
   const card = catalog.find((c) => c.id === id)!;
-  const ready =
+  const implemented =
     card.runtime !== "unimplemented" && card.dayBadge.status === "confirmed" && card.days !== null;
+  if (card.runtime === "removeDisease") {
+    const problem = d.conditions ? conditionPoolProblem(d.conditions, d.heroes) : "缺疾病牌池";
+    if (problem || d.heroes.some((hero) => hero.dead))
+      return rejectBattleCommand(state, problem ?? "请先完成死亡英雄补位（R33）");
+  }
+  const candidates =
+    card.runtime === "removeDisease" ? d.heroes.filter((hero) => hero.diseaseId) : [];
+  const pending = candidates.length
+    ? {
+        id: `hamlet-medical:${d.decision}`,
+        actorId: "party",
+        prompt: "Medical Breakthrough：队伍选择一名英雄，移除其疾病（卡面 p11）",
+        options: candidates.map((hero) => ({
+          id: hero.id,
+          label: `${hero.id}：移除 ${d.conditions!.diseases.find((disease) => disease.id === hero.diseaseId)!.name}`,
+        })),
+      }
+    : null;
+  const ready = implemented && !pending;
   // R32明确结算后洗回；只有完成的事件才洗回，未完成不替换或重抽。
   const returned = ready ? shuffle([...drawn.deck, id], state.seed, drawn.cursor) : drawn;
   const hamlet: HamletEventState = {
@@ -81,13 +101,96 @@ export function drawHamletEvent(state: GameState): ApplyResult {
     heroOrder: [],
   };
   return {
-    state: { ...state, dungeon: { ...d, cursor: returned.cursor, hamlet } },
+    state: {
+      ...state,
+      dungeon: {
+        ...d,
+        cursor: returned.cursor,
+        hamlet,
+        ...(pending ? { pending, decision: d.decision + 1 } : {}),
+      },
+    },
     events: [
       {
         type: "dungeonUpdated",
         message: ready
           ? `${card.name}：准备${card.days}天，事件已结算并洗回；等待首日看守人（R32/33）`
-          : `${card.name}：事件效果尚未接通，保留原卡；准备天数和看守人尚未开始`,
+          : pending
+            ? `${card.name}：等待队伍选择移除疾病的英雄，尚未开始准备日`
+            : `${card.name}：事件效果尚未接通，保留原卡；准备天数和看守人尚未开始`,
+      },
+    ],
+    ...(pending ? { pendingChoice: pending } : {}),
+  };
+}
+/** 卡面p11、R32/33：仅移除一张疾病；结算完再洗回事件，开始三天准备。 */
+export function chooseMedicalBreakthrough(
+  state: GameState,
+  choiceId: string,
+  optionId: string,
+): ApplyResult {
+  const d = state.dungeon,
+    h = d?.hamlet,
+    pending = d?.pending;
+  const hero = d?.heroes.find((candidate) => candidate.id === optionId);
+  if (
+    !d ||
+    state.battle ||
+    d.phase !== "inHamlet" ||
+    d.hamletReturn?.phase !== "complete" ||
+    h?.phase !== "eventBlocked" ||
+    h.active !== "hamlet_event:p011" ||
+    !pending ||
+    pending.id !== choiceId ||
+    !pending.id.startsWith("hamlet-medical:") ||
+    !pending.options.some((option) => option.id === optionId) ||
+    !hero?.diseaseId ||
+    d.heroes.some((candidate) => candidate.dead) ||
+    !d.conditions ||
+    conditionPoolProblem(d.conditions, d.heroes) ||
+    !Number.isSafeInteger(d.cursor + 15) ||
+    h.deck.length !== 15 ||
+    new Set([...h.deck, h.active]).size !== 16 ||
+    [...h.deck, h.active].some((id) => !catalog.some((card) => card.id === id))
+  )
+    return rejectBattleCommand(
+      state,
+      "请完成当前Medical Breakthrough疾病选择，疾病与事件牌池须完整",
+    );
+  const returned = shuffle([...h.deck, h.active], state.seed, d.cursor);
+  return {
+    state: {
+      ...state,
+      dungeon: {
+        ...d,
+        cursor: returned.cursor,
+        pending: null,
+        conditions: {
+          ...d.conditions,
+          diseaseDiscard: [...d.conditions.diseaseDiscard, hero.diseaseId],
+        },
+        heroes: d.heroes.map((candidate) =>
+          candidate.id === hero.id
+            ? {
+                ...candidate,
+                diseaseId: null,
+                ...(candidate.combat ? { combat: { ...candidate.combat, diseaseId: null } } : {}),
+              }
+            : candidate,
+        ),
+        hamlet: {
+          ...h,
+          deck: returned.deck,
+          active: null,
+          phase: "awaitingCaretaker",
+          preparationDays: 3,
+        },
+      },
+    },
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: `Medical Breakthrough：${hero.id}移除疾病；事件已洗回，准备3天，等待首日看守人（卡面p11、R32/33）`,
       },
     ],
   };

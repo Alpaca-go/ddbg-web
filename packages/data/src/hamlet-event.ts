@@ -14,7 +14,7 @@ export const hamletEventCardSchema = z.strictObject({
   effectLines: z.array(z.string()),
   effectIconIds: z.array(z.string().regex(/^[a-f0-9]{10}$/)),
   permanentlyRemoved: z.boolean(),
-  runtime: z.enum(["none", "noCaretaker", "extraBlock", "unimplemented"]),
+  runtime: z.enum(["none", "noCaretaker", "extraBlock", "removeDisease", "unimplemented"]),
 });
 export const hamletEventCatalogSchema = z
   .array(hamletEventCardSchema)

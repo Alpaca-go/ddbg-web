@@ -3,6 +3,7 @@ import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
 import type { naturalAbbeyQuest } from "../../../packages/engine/src/test-helpers/abbey-quest";
 import type { ApplyResult } from "../../../packages/engine/src/command";
+import type { QuestSave } from "../../../packages/data/src/quest-save";
 
 test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存刷新", async ({
   page,
@@ -15,6 +16,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     server: { middlewareMode: true },
   });
   let journey: ReturnType<typeof naturalAbbeyQuest>, result: ApplyResult;
+  let medicalSave: QuestSave;
   try {
     const helpers = await server.ssrLoadModule(
       fileURLToPath(
@@ -39,6 +41,15 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
       ...battleData,
       trinkets: sourceHelpers.coreQuestSources.catalog.trinkets,
     });
+    const medical = await server.ssrLoadModule(
+      fileURLToPath(
+        new URL("../../../packages/engine/src/test-helpers/medical-quest.ts", import.meta.url),
+      ),
+    );
+    medicalSave = medical.medicalQuest({
+      ...sourceHelpers.coreQuestSources,
+      catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
+    }).save;
     result = engine.applyCommand(journey.game, {
       type: "visitHamletBuilding",
       actorId: "hero-0",
@@ -110,4 +121,23 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${gold - 6}`);
   await expect(page.getByTestId("next-quest-provisions")).toContainText("hero-2 +2");
   await page.screenshot({ path: testInfo.outputPath("vestal-chant-saved.png"), fullPage: true });
+  // 同一冒烟追加真实seed10事件路径，未注入疾病或状态。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(medicalSave),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "抽村庄事件", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText("Medical Breakthrough");
+  await expect(page.getByTestId("hamlet-event")).toContainText("村庄事件牌堆 16 张");
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "开始首日看守人", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText("准备 3 天");
+  await page.screenshot({
+    path: testInfo.outputPath("medical-breakthrough-saved.png"),
+    fullPage: true,
+  });
 });

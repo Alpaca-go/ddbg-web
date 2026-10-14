@@ -353,7 +353,7 @@
    ],
    "effectIconIds": [],
    "permanentlyRemoved": false,
-   "runtime": "unimplemented"
+   "runtime": "removeDisease"
   },
   {
    "id": "hamlet_event:p012",

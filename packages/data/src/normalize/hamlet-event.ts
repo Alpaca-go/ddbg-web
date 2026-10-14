@@ -38,7 +38,15 @@ export function buildHamletEvents(raw: RawFile) {
         ],
         permanentlyRemoved: effectLines.some((line) => line.includes("permanently")),
         runtime:
-          i === 1 ? "noCaretaker" : i === 4 ? "none" : i === 12 ? "extraBlock" : "unimplemented",
+          i === 1
+            ? "noCaretaker"
+            : i === 4
+              ? "none"
+              : i === 10
+                ? "removeDisease"
+                : i === 12
+                  ? "extraBlock"
+                  : "unimplemented",
       };
     }),
   });
