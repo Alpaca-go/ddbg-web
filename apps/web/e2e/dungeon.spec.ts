@@ -10,6 +10,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   ]) {
     await page.goto("/?phase=3&play=1");
     await page.getByLabel("任务卡", { exact: true }).selectOption(id!);
+    if (id === "quest:p003") await expect(page.getByText(/最多捐献60金币、获得3XP/)).toBeVisible();
     await page.getByLabel("任务模式").selectOption("radiant");
     await page.getByLabel("任务种子").fill("31");
     await page.getByRole("button", { name: "进入地牢", exact: true }).click();

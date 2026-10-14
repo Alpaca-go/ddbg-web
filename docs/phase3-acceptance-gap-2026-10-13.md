@@ -1,5 +1,7 @@
 # Phase 3 验收差距复核
 
+> 三任务自然路径续块（2026-10-14）：Scout I／Wipe I种子1、Fundraiser I种子3从真实起点完整命令走到摘要；Fundraiser包含Ritual四轮撤退、Torture巢穴胜利、真实25金捐20，不注入状态或缩减牌池。实际死亡与0巢穴提前离开也有回放。Kyries人工试玩仍待确认，Treasure／Q-73未完成。详见[自然路径](phase3-natural-quest-paths-2026-10-14.md)。
+
 > 真实任务入口续块（2026-10-14）：三张基础任务均可从任务卡、已批p1起点S和真实八颗开局补给开始，四英雄各三技能可选，完整牌池不缩减，正式页面隐藏调试布置。完整三任务自然流程验收仍继续；Treasure／Q-73未解锁。详见[任务入口](phase3-quest-entry-2026-10-14.md)。
 
 > Invocation续块（2026-10-14）：The Invokers的最后怪物Step2替代移动和Invoking Abyss轮末单次压力已接，普通遗迹8/9可战。Treasure及Q-73、正式任务入口和真实三任务完整验收继续，检查点③仍需用户实际确认。详见[本面实现](phase3-invocation-runtime-2026-10-14.md)。
