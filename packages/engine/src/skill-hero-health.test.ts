@@ -204,7 +204,8 @@ describe("技能的有序生命效果接纯死门结算（R20、R21、R29）", (
     const result = resolveMonsterSkillEffects(monster, 1, combat, 8);
     expect(result.status).toBe("resolved");
     if (result.status !== "resolved") throw new Error(result.reason);
-    const { healthEffects, ...legacy } = result;
+    const { healthEffects, own: _own, ...legacy } = result;
+    void _own;
     expect(legacy).toEqual(resolveMonsterSkill(monster, 1, combat, 8));
     const effects = { resolution: result.resolution, healthEffects };
     expect(resolveSkillHeroHealth(effects, [{ ...door, wounds: 14 }], 7, 1)).toMatchObject({

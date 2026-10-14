@@ -12,7 +12,7 @@ import { hasQuirk } from "./passive";
 import type { SkillHealthEffect } from "./hero-skill";
 import { correctMultiTargetStress } from "./battle-multi-crit";
 import { ancestorGlory, clearAncestorConditions } from "./battle-ancestor";
-import { resumeHeroOwnEffects } from "./battle-own-effects";
+import { resumeSkillOwnEffects } from "./battle-own-effects";
 
 /** R27：持有 Balanced 的英雄决定是否少移 1；不改变原技能骰或其他位移意图。 */
 export function chooseBalancedShuffle(state: GameState, optionId: string): ApplyResult {
@@ -206,7 +206,7 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
       "shuffled",
     );
     if (passive.status === "refused") return rejectBattleCommand(state, passive.reason);
-    return resumeHeroOwnEffects({
+    return resumeSkillOwnEffects({
       state: { ...state, battle: { ...passive.battle, shufflePassiveIds: [] } },
       events: [...events, ...passive.events],
     });

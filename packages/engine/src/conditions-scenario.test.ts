@@ -727,6 +727,82 @@ it("自身 Vertigo 位移先完成意志，再沿原骰攻击，不预付目标�
     applyCommand(state, { type: "playHeroSkill", actorId: "h0", targetId: "m", skillId: skill.id }),
   ).toEqual(declared);
 });
+it.each([
+  ["monster_medium:p001", 2],
+  ["monster_medium:p007", 2],
+  ["monster_medium:p010", 3],
+  ["monster_medium:p018", 1],
+  ["monster_medium:p018", 2],
+  ["monster_medium:p024", 3],
+  ["monster_medium:p027", 2],
+  ["monster_medium:p040", 2],
+] as const)("R20：真实怪物%s技能%s自身先行，目标生命／状态后付且只掷一次", (cardId, slot) => {
+  const seed = Array.from({ length: 200 }, (_, index) => index).find(
+    (seed) => nextBattleRoll(seed, 0) === 1,
+  )!;
+  const base = setup(cardId, seed),
+    card = base.battle!.monsters![0]!;
+  const attack = readMonsterAttackView(card, slot);
+  if (attack.status !== "ready") throw new Error(attack.reason);
+  const range = readPrintedRange(attack.view);
+  if (range.kind !== "exact") throw new Error("缺少已核实射程");
+  const areas = Array.from({ length: range.distance + 3 }, (_, index) => ({
+    id: `p${index}`,
+    elevation: "normal" as const,
+    capacity: 8,
+    adjacent: [index - 1, index + 1]
+      .filter((next) => next >= 0 && next < range.distance + 3)
+      .map((next) => `p${next}`),
+  }));
+  const state = turn(
+    {
+      ...base,
+      battle: {
+        ...base.battle!,
+        areas,
+        entities: base.battle!.entities.map((entry) =>
+          entry.id === "m"
+            ? { ...entry, areaId: `p${range.distance}`, stance: "ranged" as const }
+            : { ...entry, areaId: "p0" },
+        ),
+      },
+    },
+    "monster",
+  );
+  const snapshot = structuredClone(state);
+  const command = {
+    type: "playMonsterSkill" as const,
+    actorId: "m",
+    targetId: "h0",
+    skillSlot: slot,
+  };
+  const declared = applyCommand(state, command);
+  successful(declared);
+  expect(declared.events[0]).toMatchObject({
+    type: "monsterSkillResolved",
+    phase: "ownPending",
+    roll: 1,
+  });
+  expect(declared.state.battle!.entities.filter((entry) => entry.side === "hero")).toEqual(
+    state.battle!.entities.filter((entry) => entry.side === "hero"),
+  );
+  const ownStatuses = declared.state.battle!.entities.find(
+    (entry) => entry.id === "m",
+  )!.statusStacks;
+  const done = applyCommand(declared.state, { type: "resolveShuffles" });
+  successful(done);
+  expect(done.state.battle!.shuffleIntents).toEqual([]);
+  expect(done.state.battle!.skillPrefix).toBeNull();
+  expect(done.state.battle!.rngCursor).toBe(1);
+  expect(hero(done.state).wounds).toBeGreaterThan(0);
+  expect(done.state.battle!.entities.find((entry) => entry.id === "m")!.statusStacks).toEqual(
+    ownStatuses,
+  );
+  expect(done.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+  expect(applyCommand(declared.state, { type: "resolveShuffles" })).toEqual(done);
+  expect(state).toEqual(snapshot);
+});
+
 it.each([false, true])("R20：自身Bleed Out创伤致死取消目标伤害与Bleed（多选=%s）", (multiple) => {
   const stat = stats.find((stat) => stat.name === "HELLION")!;
   const skill = skills.find((skill) => skill.id === "hero_skill:p040")!;

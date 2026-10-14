@@ -43,8 +43,8 @@ import type { LootState, LootToken } from "./loot";
 import type { ConditionPool } from "./conditions";
 import type { PassiveHolder } from "./passive";
 import { cancelSkillAfterRoll } from "./battle-passive";
-import { beginHeroOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
-import type { HeroSkillPrefix } from "./battle-own-effects";
+import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
+import type { SkillPrefix } from "./battle-own-effects";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
 export type BattleEntity = PassiveHolder &
@@ -131,7 +131,7 @@ export type BattleSetup = {
 };
 
 export type BattleState = BattleSetup & {
-  readonly skillPrefix?: HeroSkillPrefix | null;
+  readonly skillPrefix?: SkillPrefix | null;
   readonly encounter?: EncounterState;
   readonly rngCursor: number;
   readonly resolveDecks?: Readonly<Partial<Record<"virtue" | "affliction", readonly string[]>>>;
@@ -383,7 +383,7 @@ export function distance(areas: readonly BattleArea[], from: string, to: string)
 export function playHeroSkill(
   state: GameState,
   command: PlayHeroSkillCommand,
-  resume?: HeroSkillPrefix,
+  resume?: SkillPrefix,
 ): ApplyResult {
   const battle = resume?.original ?? state.battle;
   if (!battle) return rejectBattleCommand(state, "尚未创建战斗沙盒");
@@ -493,7 +493,7 @@ export function playHeroSkill(
   const effects = resolveHeroSkillEffects(skill, effectCombat, roll ?? 1);
   resolution = effects.resolution;
   if (!resume) {
-    const own = beginHeroOwnEffects(state, command, roll, effects);
+    const own = beginSkillOwnEffects(state, command, roll, effects);
     if (own) return own;
   }
   const entities = current.entities.map((entity) =>

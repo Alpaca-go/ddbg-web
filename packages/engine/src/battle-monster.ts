@@ -13,6 +13,8 @@ import {
 } from "./monster-skill";
 import type { MonsterCombatState } from "./monster-skill";
 import type { ShuffleIntent } from "./shuffle";
+import { beginSkillOwnEffects, afterMonsterOwnCombat } from "./battle-own-effects";
+import type { SkillPrefix } from "./battle-own-effects";
 
 /** 调用方手动指定已选技能 / 单个目标；不执行姿态选招、目标 AI 或移动。 */
 export type PlayMonsterSkillCommand = {
@@ -25,8 +27,12 @@ export type PlayMonsterSkillCommand = {
 };
 
 /** 说明书 §6.5、§6.10（R19–24）；共享技能骰与先攻 RNG。 */
-export function playMonsterSkill(state: GameState, command: PlayMonsterSkillCommand): ApplyResult {
-  const battle = state.battle;
+export function playMonsterSkill(
+  state: GameState,
+  command: PlayMonsterSkillCommand,
+  resume?: SkillPrefix,
+): ApplyResult {
+  const battle = resume?.original ?? state.battle;
   if (!battle) return rejectBattleCommand(state, "尚未创建战斗沙盒");
   const turn = battle.encounter?.turn;
   if (turn && (turn.type !== "monster" || turn.actorId !== command.actorId))
@@ -58,7 +64,7 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
   if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
   const count = readPrintedTargets(attack.view);
   if (count.kind === "exact" && count.max > 1)
-    return playMonsterSkillTargets(state, command, actor, target, card, count.max);
+    return playMonsterSkillTargets(state, command, actor, target, card, count.max, resume);
   const areaDistance = distance(battle.areas, actor.areaId, target.areaId);
   if (areaDistance === null) return rejectBattleCommand(state, "英雄目标区域不可达");
   const heights = { low: 0, normal: 1, high: 2 };
@@ -134,19 +140,31 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
       pendingChoice: choice,
     };
   }
-  const roll = nextBattleRoll(state.seed, battle.rngCursor);
-  const result = resolveMonsterSkill(card, command.skillSlot, combat, roll);
+  const roll = resume ? resume.roll! : nextBattleRoll(state.seed, battle.rngCursor);
+  const current = resume ? state.battle! : battle;
+  const effectCombat = resume ? afterMonsterOwnCombat(combat, current) : combat;
+  const result = resolveMonsterSkill(card, command.skillSlot, effectCombat, roll);
   if (result.status === "refused") return rejectBattleCommand(state, result.reason);
-  const effects = resolveMonsterSkillEffects(card, command.skillSlot, combat, roll);
+  const effects = resolveMonsterSkillEffects(card, command.skillSlot, effectCombat, roll);
   if (effects.status === "refused") return rejectBattleCommand(state, effects.reason);
-  const entities = battle.entities.map((entry) => {
+  if (!resume) {
+    const own = beginSkillOwnEffects(state, command, roll, effects);
+    if (own) return own;
+  }
+  const entities = current.entities.map((entry) => {
     const updated = writeResolution(entry, actor.id, target.id, result.resolution, false);
     return entry.id === actor.id ? { ...updated, dead: result.actorDead } : updated;
   });
-  const health = applySkillHealth(battle, entities, effects, state.seed, battle.rngCursor + 1);
+  const health = applySkillHealth(
+    current,
+    entities,
+    effects,
+    state.seed,
+    current.rngCursor + Number(!resume),
+  );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
   const statuses = applyBattleSkillStatuses(
-    battle,
+    current,
     health.entities,
     actor.id,
     [result.resolution],
@@ -156,6 +174,7 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const casualtyIds = newlyDefeatedIds(battle, statuses.entities);
   const event: MonsterSkillResolvedEvent = {
+    ...(resume?.announced ? { phase: "afterOwn" as const } : {}),
     type: "monsterSkillResolved",
     message: "已选怪物攻击已结算",
     actorId: actor.id,
@@ -181,7 +200,7 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
     state: {
       ...state,
       battle: {
-        ...battle,
+        ...current,
         pending: null,
         monsterAction: null,
         rngCursor: statuses.rngCursor,
@@ -193,7 +212,7 @@ export function playMonsterSkill(state: GameState, command: PlayMonsterSkillComm
               ...event,
               casualtyIds,
               ...(result.resolution.outcome === "crit"
-                ? { criticalContext: { combat, entities: battle.entities } }
+                ? { criticalContext: { combat: effectCombat, entities: current.entities } }
                 : {}),
             }
           : null,

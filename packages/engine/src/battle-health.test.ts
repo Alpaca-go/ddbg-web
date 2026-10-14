@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import { nextBattleRoll } from "./encounter";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState, createRng, rollD10 } from "./index";
 import type {
@@ -253,10 +254,11 @@ describe("战斗技能生命命令沙盒（R20、R29、R-005、R-048）", () => 
     const done = applyCommand(rolled.state, { type: "resolveShuffles" });
     expect(hero(done.state)).toMatchObject({
       wounds: crusader.life,
-      dead: hero(rolled.state).dead,
+      dead: nextBattleRoll(prepared.seed, rolled.state.battle!.rngCursor) <= 3,
     });
-    expect(done.state.battle!.rngCursor).toBe(rolled.state.battle!.rngCursor);
-    expect(done.events.some((event) => event.type === "heroHealthResolved")).toBe(false);
+    expect(hero(rolled.state).dead).toBe(false);
+    expect(done.state.battle!.rngCursor).toBe(rolled.state.battle!.rngCursor + 1);
+    expect(done.events.filter((event) => event.type === "heroHealthResolved")).toHaveLength(1);
     expect(done.state.battle!.shuffleIntents).toEqual([]);
   });
 });

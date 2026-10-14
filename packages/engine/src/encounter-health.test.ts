@@ -358,7 +358,7 @@ describe("英雄生命遭遇战收尾（R24–25、R29、R-030、R-044）", () =
     expect(state).toEqual(before);
   });
 
-  it("死亡记录跨自身位移分岔保存，待选不补位，续接只补一次且不重掷", () => {
+  it("怪物自身分岔待选时英雄未受攻击，续接后伤害／死门和补位各一次", () => {
     const base = turn(setup(defender), "monster");
     let cursor = 0;
     while (nextBattleRoll(base.seed, cursor) !== 1 || nextBattleRoll(base.seed, cursor + 1) > 3)
@@ -383,7 +383,7 @@ describe("英雄生命遭遇战收尾（R24–25、R29、R-030、R-044）", () =
       targetId: "h1",
       skillSlot: 3,
     });
-    expect(entity(rolled.state, "h1").dead).toBe(true);
+    expect(entity(rolled.state, "h1").dead).toBe(false);
     expect(entity(rolled.state, "h2").stance).toBe("ranged");
     const waiting = applyCommand(rolled.state, { type: "resolveShuffles" });
     expect(waiting.pendingChoice!.options.map((option) => option.id)).toEqual(["c", "d"]);
@@ -399,8 +399,8 @@ describe("英雄生命遭遇战收尾（R24–25、R29、R-030、R-044）", () =
     expect(done.events.some((event) => event.type === "monsterCritAreaResolved")).toBe(true);
     expect(entity(done.state, "h1").dead).toBe(true);
     expect(entity(done.state, "h2").stance).toBe("defensive");
-    expect(done.state.battle!.rngCursor).toBe(rolled.state.battle!.rngCursor);
-    expect(done.events.some((event) => event.type === "heroHealthResolved")).toBe(false);
+    expect(done.state.battle!.rngCursor).toBe(rolled.state.battle!.rngCursor + 1);
+    expect(done.events.filter((event) => event.type === "heroHealthResolved")).toHaveLength(1);
     expect(applyCommand(done.state, choice).state).toBe(done.state);
     expect(applyCommand(done.state, { type: "resolveShuffles" }).state).toBe(done.state);
   });

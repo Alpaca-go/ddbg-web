@@ -2152,11 +2152,10 @@ export function resolveMonsterAttackEffects(
 ): SkillEffectsResolution {
   const {
     healthEffects = [],
-    own: _own,
+    own,
     ...resolution
   } = resolveSkill(skill, combat, roll, "monster", true);
-  void _own;
-  return { resolution, healthEffects };
+  return { resolution, healthEffects, ...(own ? { own } : {}) };
 }
 
 function resolveSkill(

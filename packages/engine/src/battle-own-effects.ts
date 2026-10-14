@@ -10,11 +10,14 @@ import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { cancelSkillAfterRoll } from "./battle-passive";
 import { resolveBattlePressure } from "./pressure";
 import { applyBattleShuffles } from "./battle-shuffle";
+import { playMonsterSkill } from "./battle-monster";
+import type { PlayMonsterSkillCommand } from "./battle-monster";
+import type { MonsterCombatState } from "./monster-skill";
 
 /** R20：声明快照只保留一次；后续命令沿用骰面，当前实体保留已支付效果。 */
-export type HeroSkillPrefix = {
+export type SkillPrefix = {
   readonly original: BattleState;
-  readonly command: PlayHeroSkillCommand | PlayHeroSkillTargetsCommand;
+  readonly command: PlayHeroSkillCommand | PlayHeroSkillTargetsCommand | PlayMonsterSkillCommand;
   readonly roll: number | null;
   readonly announced?: true;
 };
@@ -23,6 +26,7 @@ export type HeroSkillPrefix = {
 export function afterHeroOwnCombat(
   combat: SkillCombatState,
   current: BattleState,
+  selectedIds: readonly string[] = [combat.target.id],
 ): SkillCombatState {
   const actor = current.entities.find((entry) => entry.id === combat.actor?.id)!;
   const target = current.entities.find((entry) => entry.id === combat.target.id)!;
@@ -34,7 +38,7 @@ export function afterHeroOwnCombat(
           !entry.dead &&
           entry.areaId === areaId &&
           entry.id !== actor.id &&
-          entry.id !== target.id,
+          !selectedIds.includes(entry.id),
       )
       .map((entry) => ({ ...entry, stress: entry.stress! }));
   return {
@@ -57,21 +61,50 @@ export function afterHeroOwnCombat(
   };
 }
 
-export function beginHeroOwnEffects(
+export function afterMonsterOwnCombat(
+  combat: MonsterCombatState,
+  current: BattleState,
+  selectedIds: readonly string[] = [combat.target.id],
+): MonsterCombatState {
+  const actor = current.entities.find((entry) => entry.id === combat.actor.id)!;
+  const target = current.entities.find((entry) => entry.id === combat.target.id)!;
+  return {
+    ...combat,
+    ownEffectsApplied: true,
+    effectLight: current.light,
+    actor: { ...combat.actor, wounds: actor.wounds },
+    target: { ...combat.target, wounds: target.wounds, stress: target.stress! },
+    untargetedHeroesBesideTarget: current.entities
+      .filter(
+        (entry) =>
+          entry.side === "hero" &&
+          !entry.dead &&
+          !selectedIds.includes(entry.id) &&
+          entry.areaId === target.areaId,
+      )
+      .map((entry) => ({ ...entry, stress: entry.stress! })),
+  };
+}
+
+export function beginSkillOwnEffects(
   state: GameState,
-  command: HeroSkillPrefix["command"],
+  command: SkillPrefix["command"],
   roll: number | null,
   effects: SkillEffectsResolution,
   allEffects: readonly SkillEffectsResolution[] = [effects],
 ): ApplyResult | null {
   const battle = state.battle!;
   const actor = battle.entities.find((entry) => entry.id === command.actorId)!;
-  const skill = battle.skills.find((entry) => entry.id === command.skillId)!;
+  const skill =
+    command.type === "playMonsterSkill"
+      ? undefined
+      : battle.skills.find((entry) => entry.id === command.skillId)!;
   const own = effects.own;
   const resolution = effects.resolution;
   if (
     !own ||
-    heroSkillUsesSelfTarget(skill, command.type === "playHeroSkill" ? command.face : undefined)
+    (skill &&
+      heroSkillUsesSelfTarget(skill, command.type === "playHeroSkill" ? command.face : undefined))
   )
     return null;
   const r = own.resolution;
@@ -113,7 +146,7 @@ export function beginHeroOwnEffects(
       {
         ...r,
         actorWounds:
-          actor.life === undefined
+          actor.side === "monster" || actor.life === undefined
             ? r.actorWounds
             : health.entities.find((hero) => hero.id === actor.id)!.wounds,
       },
@@ -129,7 +162,20 @@ export function beginHeroOwnEffects(
     health.rngCursor,
   );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
-  const prefix: HeroSkillPrefix = {
+  const ownActor = statuses.entities.find((entry) => entry.id === actor.id)!;
+  if (ownActor.side === "monster" && ownActor.wounds >= ownActor.life!)
+    return cancelSkillAfterRoll(
+      { ...state, battle: { ...battle, monsterAction: null } },
+      actor.id,
+      {
+        entities: statuses.entities.map((entry) =>
+          entry.id === actor.id ? { ...entry, dead: true } : entry,
+        ),
+        rngCursor: statuses.rngCursor,
+        events: [...health.events, ...statuses.events],
+      },
+    );
+  const prefix: SkillPrefix = {
     original: battle,
     command,
     roll,
@@ -149,16 +195,24 @@ export function beginHeroOwnEffects(
               {
                 entityId: actor.id,
                 relativeToId:
-                  command.type === "playHeroSkill" ? command.targetId : command.targetIds[0]!,
+                  command.type === "playHeroSkillTargets"
+                    ? command.targetIds[0]!
+                    : command.targetId,
                 move: resolution.actorShuffle,
               },
             ]
           : [],
         shuffleContinuation: resolution.actorShuffle
           ? {
-              type: "heroSkillResolved",
+              ...(command.type === "playMonsterSkill"
+                ? {
+                    type: "monsterSkillResolved" as const,
+                    skillSlot: command.skillSlot,
+                    actorDead: false,
+                    roll: roll!,
+                  }
+                : { type: "heroSkillResolved" as const, roll }),
               actorId: actor.id,
-              roll,
               resolution,
               message: "技能骰已确定，先结算自身位移；目标效果尚未提交",
             }
@@ -168,33 +222,44 @@ export function beginHeroOwnEffects(
     events: [
       ...(resolution.actorShuffle
         ? [
-            command.type === "playHeroSkill"
+            command.type === "playMonsterSkill"
               ? {
-                  type: "heroSkillResolved" as const,
+                  type: "monsterSkillResolved" as const,
                   actorId: actor.id,
-                  roll,
+                  skillSlot: command.skillSlot,
+                  actorDead: false,
+                  roll: roll!,
                   resolution,
                   phase: "ownPending" as const,
-                  message: "技能骰已确定，先结算自身位移；目标效果尚未提交",
+                  message: "怪物技能骰已确定，先结算自身位移；英雄效果尚未提交",
                 }
-              : {
-                  type: "heroSkillTargetsResolved" as const,
-                  actorId: actor.id,
-                  roll,
-                  resolutions: allEffects.map((effect) => effect.resolution),
-                  phase: "ownPending" as const,
-                  message: "技能骰已确定，先结算自身位移；全部目标效果尚未提交",
-                },
+              : command.type === "playHeroSkill"
+                ? {
+                    type: "heroSkillResolved" as const,
+                    actorId: actor.id,
+                    roll,
+                    resolution,
+                    phase: "ownPending" as const,
+                    message: "技能骰已确定，先结算自身位移；目标效果尚未提交",
+                  }
+                : {
+                    type: "heroSkillTargetsResolved" as const,
+                    actorId: actor.id,
+                    roll,
+                    resolutions: allEffects.map((effect) => effect.resolution),
+                    phase: "ownPending" as const,
+                    message: "技能骰已确定，先结算自身位移；全部目标效果尚未提交",
+                  },
           ]
         : []),
       ...health.events,
       ...statuses.events,
     ],
   };
-  return resolution.actorShuffle ? result : resumeHeroOwnEffects(result);
+  return resolution.actorShuffle ? result : resumeSkillOwnEffects(result);
 }
 
-export function resumeHeroOwnEffects(input: ApplyResult): ApplyResult {
+export function resumeSkillOwnEffects(input: ApplyResult): ApplyResult {
   const prefix = input.state.battle?.skillPrefix;
   if (!prefix) return rejectBattleCommand(input.state, "缺少自身效果续接快照");
   const pressure = resolveBattlePressure(input);
@@ -206,7 +271,7 @@ export function resumeHeroOwnEffects(input: ApplyResult): ApplyResult {
   };
   if (current.entities.find((entry) => entry.id === prefix.command.actorId)!.dead)
     return cancelSkillAfterRoll(
-      state,
+      { ...state, battle: { ...state.battle, monsterAction: null } },
       prefix.command.actorId,
       {
         entities: current.entities,
@@ -216,9 +281,11 @@ export function resumeHeroOwnEffects(input: ApplyResult): ApplyResult {
       prefix.original,
     );
   let completed =
-    prefix.command.type === "playHeroSkill"
-      ? playHeroSkill(state, prefix.command, prefix)
-      : playHeroSkillTargets(state, prefix.command, prefix);
+    prefix.command.type === "playMonsterSkill"
+      ? playMonsterSkill(state, prefix.command, prefix)
+      : prefix.command.type === "playHeroSkill"
+        ? playHeroSkill(state, prefix.command, prefix)
+        : playHeroSkillTargets(state, prefix.command, prefix);
   if (
     completed.state.battle!.shuffleIntents.length &&
     !completed.pendingChoice &&
@@ -231,18 +298,29 @@ export function resumeHeroOwnEffects(input: ApplyResult): ApplyResult {
     input.state.battle!.shuffleContinuation &&
     completed.events.some(
       (event) =>
-        (event.type === "heroSkillResolved" && event.resolution.outcome === "crit") ||
-        (event.type === "heroSkillTargetsResolved" &&
+        ((event.type === "heroSkillResolved" || event.type === "monsterSkillResolved") &&
+          event.resolution.outcome === "crit") ||
+        ((event.type === "heroSkillTargetsResolved" ||
+          event.type === "monsterSkillTargetsResolved") &&
           event.resolutions.some((resolution) => resolution.outcome === "crit")),
     ) &&
-    !completed.events.some((event) => event.type === "heroCritAreaResolved")
+    !completed.events.some(
+      (event) =>
+        event.type ===
+        (prefix.command.type === "playMonsterSkill"
+          ? "monsterCritAreaResolved"
+          : "heroCritAreaResolved"),
+    )
   )
     completed = {
       ...completed,
       events: [
         ...completed.events,
         {
-          type: "heroCritAreaResolved",
+          type:
+            prefix.command.type === "playMonsterSkill"
+              ? "monsterCritAreaResolved"
+              : "heroCritAreaResolved",
           actorId: prefix.command.actorId,
           message: "按自身位移后的实际区域结算暴击压力",
         },
