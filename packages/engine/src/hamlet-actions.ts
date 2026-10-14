@@ -3,7 +3,7 @@ import type { DungeonState } from "./dungeon";
 import { rejectBattleCommand } from "./battle";
 import { conditionPoolProblem, gainPositiveQuirk, replaceConditionQuirk } from "./conditions";
 import { resolveHeroHealth } from "./hero-health";
-import { passiveHeal } from "./passive";
+import { passiveHeal, passiveStress } from "./passive";
 import { applyPassiveStatus } from "./passive-runtime";
 import { statusProjection } from "./status";
 import { buildingLevelsProblem, recoveryServices, survivalistServices } from "./hamlet-buildings";
@@ -22,6 +22,10 @@ export type HamletActionCommand =
       readonly skill: "intimidate" | "zealousSpeech" | "pray" | "chant";
     };
 type Hero = DungeonState["heroes"][number];
+/** R27 / §10.1：一次恢复压力事件触发一次Resilient；村庄不套低光照承压。 */
+function recoverStress(hero: Hero, amount: number) {
+  return Math.max(0, hero.stress + passiveStress(hero, -amount, 5).amount);
+}
 export function currentHamletHero(state: GameState) {
   const d = state.dungeon,
     h = d?.hamlet;
@@ -158,7 +162,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
         heroes.push(
           syncHero({
             ...applied.hero,
-            stress: Math.max(0, target.stress - (command.skill === "pray" ? 9 : 1)),
+            stress: recoverStress(target, command.skill === "pray" ? 9 : 1),
           }),
         );
       }
@@ -180,7 +184,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
     } else if (command.skill === "zealousSpeech" && !h.actedHeroes?.length) {
       next = {
         ...d,
-        heroes: d.heroes.map((a) => syncHero({ ...a, stress: Math.max(0, a.stress - 5) })),
+        heroes: d.heroes.map((a) => syncHero({ ...a, stress: recoverStress(a, 5) })),
       };
       endDay = true;
       message = "Zealous Speech：全体压力 −5，当天立即结束，只消耗当天（R-042）";
@@ -219,7 +223,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
         return rejectBattleCommand(state, "下次任务奖励补给骰数量无效，未付款或消耗行动（R-041）");
       updated = { ...hero, nextQuestProvisionDice: previous + service.amount };
     } else if (service.effect === "stress")
-      updated = { ...hero, stress: Math.max(0, hero.stress - service.amount) };
+      updated = { ...hero, stress: recoverStress(hero, service.amount) };
     else if (service.effect === "heal") {
       if (!hero.attributesVerified || hero.life === undefined || hero.wounds === undefined)
         return rejectBattleCommand(state, "治疗缺已核实Life / 伤口（R-048）");
