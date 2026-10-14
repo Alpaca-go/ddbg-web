@@ -4,7 +4,7 @@ import { rejectBattleCommand } from "./battle";
 
 export const recoveryBuildings = ["abbey", "tavern", "sanitarium"] as const;
 export type RecoveryBuilding = (typeof recoveryBuildings)[number];
-export const upgradableBuildings = [...recoveryBuildings, "survivalist"] as const;
+export const upgradableBuildings = [...recoveryBuildings, "survivalist", "stagecoach"] as const;
 export type UpgradableBuilding = (typeof upgradableBuildings)[number];
 export type BuildingLevels = Partial<Readonly<Record<UpgradableBuilding, 1 | 2 | 3>>>;
 export type UpgradeHamletBuildingCommand = {
@@ -26,6 +26,15 @@ export function buildingLevelsProblem(d: DungeonState) {
 export function recoveryBuildingLevel(d: DungeonState, building: UpgradableBuilding) {
   return d.buildingLevels?.[building] ?? 1;
 }
+/** R33：首次设置两枚；旧I级存档不补字段，升级/后续消费才记录余额。坏数据不当作初始值。 */
+export function stagecoachWaitingTokens(d: DungeonState): number | null {
+  if (buildingLevelsProblem(d)) return null;
+  const level = recoveryBuildingLevel(d, "stagecoach");
+  const count = d.waitingHeroTokens === undefined && level === 1 ? 2 : d.waitingHeroTokens;
+  return count !== undefined && Number.isSafeInteger(count) && count >= 0 && count <= level + 1
+    ? count
+    : null;
+}
 /** R33：团队共用20金升一级，不是英雄访问，不占建筑、不耗天数或RNG。 */
 export function upgradeHamletBuilding(
   state: GameState,
@@ -40,6 +49,7 @@ export function upgradeHamletBuilding(
     d.pending ||
     d.hamlet?.phase === "eventBlocked" ||
     buildingLevelsProblem(d) ||
+    (command.building === "stagecoach" && stagecoachWaitingTokens(d) === null) ||
     !upgradableBuildings.includes(command.building) ||
     !Number.isSafeInteger(d.gold) ||
     d.gold < 20 ||
@@ -47,7 +57,7 @@ export function upgradeHamletBuilding(
   )
     return rejectBattleCommand(
       state,
-      "升级须在已完成回村、没有待选或未结算事件时进行；限已开放建筑、每级20金、最高III级（R33）",
+      "升级须在已完成回村、没有待选或未结算事件时进行；建筑/代币数据有效、每级20金、最高III级（R33）",
     );
   const level = (recoveryBuildingLevel(d, command.building) + 1) as 2 | 3;
   return {
@@ -57,12 +67,15 @@ export function upgradeHamletBuilding(
         ...d,
         gold: d.gold - 20,
         buildingLevels: { ...d.buildingLevels, [command.building]: level },
+        ...(command.building === "stagecoach"
+          ? { waitingHeroTokens: stagecoachWaitingTokens(d)! + 1 }
+          : {}),
       },
     },
     events: [
       {
         type: "dungeonUpdated",
-        message: `团队支付20金，将${command.building}升至${level === 2 ? "II" : "III"}级；不消耗英雄行动（R33）`,
+        message: `团队支付20金，将${command.building}升至${level === 2 ? "II" : "III"}级${command.building === "stagecoach" ? "，增加1枚等待英雄代币" : ""}；不消耗英雄行动（R33）`,
       },
     ],
   };

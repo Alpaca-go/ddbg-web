@@ -115,5 +115,6 @@ export {
   recoveryBuildings,
   upgradableBuildings,
   recoveryBuildingLevel,
+  stagecoachWaitingTokens,
   upgradeHamletBuilding,
 } from "./hamlet-buildings";

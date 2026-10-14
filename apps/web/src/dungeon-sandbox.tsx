@@ -13,6 +13,7 @@ import {
   hamletActionOptions,
   upgradableBuildings,
   recoveryBuildingLevel,
+  stagecoachWaitingTokens,
   upgradeHamletBuilding,
   createTrinketPool,
   readRoomTile,
@@ -515,6 +516,7 @@ const buildingLabels: Record<string, string> = {
   guild: "公会",
   blacksmith: "铁匠",
   nomadWagon: "游商马车",
+  stagecoach: "驿站",
 };
 
 export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
@@ -1047,6 +1049,10 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                           );
                         })}
                       </section>
+                      <p data-testid="stagecoach-tokens">
+                        驿站等待英雄代币：{stagecoachWaitingTokens(d) ?? "数据无效"} 枚。 升至 II /
+                        III 级各增加 1 枚；驿站不可访问，死亡补人流程继续开发。
+                      </p>
                       <p data-testid="next-quest-provisions">
                         下次任务奖励补给骰：
                         {d.heroes

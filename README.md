@@ -21,7 +21,7 @@ pnpm build
 
 `pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒，`/?phase=3&play=1` 打开三张基础任务的正式入口。
 
-2026-10-14进度：Phase 3三张基础任务自然命令路径已贯通，普通遗迹9/9可战、核心盒9/28，仅QuestMap p1获批；人工试玩验收仍待Kyries确认。Phase 4存读档、回村结算、完整16张村庄事件池及首日看守人已合并（#170–#173）。三栋I级恢复建筑、Intimidate/Zealous Speech与逐日准备已合并；恢复建筑升级与II/III级服务已合并（#174）；修道院正面怪癖及第四怪癖存档续接已合并（#175）；Vestal I的Pray/Chant已合并（#176）；Survivalist服务/升级与下次任务奖励骰记录已合并（#177）；Medical Breakthrough疾病选择与三天准备已合并（#178）；Caregivers Convention逐英雄免费移除怪癖与两天准备已合并（#179）；Town Fair全体减压/治疗与一天准备已合并（#180）；当前修复村庄减压服务/技能的Resilient额外恢复，见[当前开发记录](docs/phase4-hamlet-resilient-2026-10-14.md)。事件已实现6/16，其他10张事件保留真实抽牌停点；其余建筑升级、剩余服务/技能、驿站补充及下一任务尚未接通，尚不是连续战役，未进入Phase 5。
+2026-10-14进度：Phase 3三张基础任务自然命令路径已贯通，普通遗迹9/9可战、核心盒9/28，仅QuestMap p1获批；人工试玩验收仍待Kyries确认。Phase 4存读档、回村结算、完整16张村庄事件池及首日看守人已合并（#170–#173）。三栋I级恢复建筑、Intimidate/Zealous Speech与逐日准备已合并；恢复建筑升级与II/III级服务已合并（#174）；修道院正面怪癖及第四怪癖存档续接已合并（#175）；Vestal I的Pray/Chant已合并（#176）；Survivalist服务/升级与下次任务奖励骰记录已合并（#177）；Medical Breakthrough疾病选择与三天准备已合并（#178）；Caregivers Convention逐英雄免费移除怪癖与两天准备已合并（#179）；Town Fair全体减压/治疗与一天准备已合并（#180）；村庄减压的Resilient修正已合并（#181）；当前接通驿站等待英雄代币与升级/保存刷新，见[当前开发记录](docs/phase4-stagecoach-tokens-2026-10-14.md)。事件已实现6/16，其他10张事件保留真实抽牌停点；其余建筑升级、剩余服务/技能、驿站补充及下一任务尚未接通，尚不是连续战役，未进入Phase 5。
 
 接手开发先读 [Codex 总交接](docs/HANDOFF-FROM-CODEX-2026-10-09.md) 顶部的当前入口与最近提交补记；跨代理背景见 [交给 Codex 的说明](docs/HANDOFF-TO-CODEX-2026-10-09.md)。历史段落中的分支 / 合并状态不覆盖当前入口。
 
