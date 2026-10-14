@@ -93,6 +93,10 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("hamlet-event")).toContainText("General Repairs");
   await expect(page.getByTestId("hamlet-event")).toContainText("当前第 1 天");
   await expect(page.getByTestId("hamlet-event")).toContainText("CRUSADER");
+  await expect(page.getByTestId("hamlet-buildings")).toContainText("疗养院 I");
+  await expect(
+    page.getByRole("button", { name: "升级疗养院（20 金）", exact: true }),
+  ).toBeDisabled();
   await expect(
     page.getByRole("button", { name: "酒馆 I：压力 −3（1 金）", exact: true }),
   ).toHaveCount(0);
@@ -497,6 +501,22 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("dungeon-quest-summary")).toContainText("每名英雄待发 2 XP");
   await expect(page.getByTestId("dungeon-quest-summary")).toContainText("捐献40金币");
   await page.screenshot({ path: testInfo.outputPath("fundraiser-summary.png"), fullPage: true });
+  // 已明确标注的60金捐献边界布置：检查升级UI，正式自然任务/存档回放另由引擎场景测试覆盖。
+  await page.getByRole("button", { name: "返回村庄", exact: true }).click();
+  await page.getByRole("button", { name: "兑换剩余补给并完成回村", exact: true }).click();
+  const buildingPanel = page.getByTestId("hamlet-buildings");
+  await expect(buildingPanel).toContainText("疗养院 I");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：26");
+  await page.getByRole("button", { name: "升级疗养院（20 金）", exact: true }).click();
+  await expect(buildingPanel).toContainText("疗养院 II");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：6");
+  await expect(
+    page.getByRole("button", { name: "升级疗养院（20 金）", exact: true }),
+  ).toBeDisabled();
+  await page.screenshot({
+    path: testInfo.outputPath("hamlet-building-upgraded.png"),
+    fullPage: true,
+  });
   // 同一条关键冒烟验证完整池自然抽到的 Maggot 感染；房间代币是显式测试布置。
   await page.goto("/?phase=3");
   await page.getByLabel("侦察测试布置").selectOption("roomDisease");

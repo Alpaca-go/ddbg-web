@@ -4,13 +4,14 @@ import { rejectBattleCommand } from "./battle";
 import { conditionPoolProblem } from "./conditions";
 import { resolveHeroHealth } from "./hero-health";
 import { passiveHeal } from "./passive";
+import { buildingLevelsProblem, recoveryServices } from "./hamlet-buildings";
+import type { RecoveryServiceId } from "./hamlet-buildings";
 
 export type HamletActionCommand =
   | {
       readonly type: "visitHamletBuilding";
       readonly actorId: string;
-      readonly serviceId:
-        "tavern3" | "tavern6" | "heal5" | "heal10" | "cureDisease" | "removeQuirks";
+      readonly serviceId: RecoveryServiceId;
       readonly quirkIds: readonly string[];
     }
   | {
@@ -19,14 +20,6 @@ export type HamletActionCommand =
       readonly skill: "intimidate" | "zealousSpeech";
     };
 type Hero = DungeonState["heroes"][number];
-const services = {
-  tavern3: { building: "tavern", cost: 1, amount: 3, label: "酒馆 I：压力 −3（1 金）" },
-  tavern6: { building: "tavern", cost: 3, amount: 6, label: "酒馆 I：压力 −6（3 金）" },
-  heal5: { building: "sanitarium", cost: 1, amount: 5, label: "疗养院 I：治疗 5（1 金）" },
-  heal10: { building: "sanitarium", cost: 3, amount: 10, label: "疗养院 I：治疗 10（3 金）" },
-  cureDisease: { building: "sanitarium", cost: 2, amount: 0, label: "疗养院 I：移除疾病（2 金）" },
-  removeQuirks: { building: "abbey", cost: 2, amount: 0, label: "修道院 I：移除怪癖" },
-} as const;
 export function currentHamletHero(state: GameState) {
   const d = state.dungeon,
     h = d?.hamlet;
@@ -92,6 +85,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
     !h.preparationDays ||
     (h.remainingDays ?? h.preparationDays) < 1 ||
     !Number.isSafeInteger(d.gold) ||
+    buildingLevelsProblem(d) ||
     d.gold < 0
   )
     return rejectBattleCommand(state, "请按当天姿态顺序完成当前英雄的村庄行动（R33）");
@@ -126,7 +120,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
       message = "Zealous Speech：全体压力 −5，当天立即结束，只消耗当天（R-042）";
     } else return rejectBattleCommand(state, "Zealous Speech只能是当天第一个行动（R-042）");
   } else {
-    const service = services[command.serviceId];
+    const service = recoveryServices(d).find((s) => s.id === command.serviceId);
     if (
       !service ||
       h.blockedBuildings.includes(service.building) ||
@@ -140,11 +134,16 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
       (command.serviceId !== "removeQuirks" && ids.length)
     )
       return rejectBattleCommand(state, "建筑选项或怪癖选择无效");
-    const cost = command.serviceId === "removeQuirks" && ids.length === 2 ? 5 : service.cost;
+    const cost =
+      service.effect === "quirks" && ids.length === 2
+        ? service.level === 3
+          ? 4
+          : 5
+        : service.cost;
     if (d.gold < cost) return rejectBattleCommand(state, "共享金币不足，未支付或消耗行动");
-    if (service.building === "tavern")
+    if (service.effect === "stress")
       updated = { ...hero, stress: Math.max(0, hero.stress - service.amount) };
-    else if (command.serviceId === "heal5" || command.serviceId === "heal10") {
+    else if (service.effect === "heal") {
       if (!hero.attributesVerified || hero.life === undefined || hero.wounds === undefined)
         return rejectBattleCommand(state, "治疗缺已核实Life / 伤口（R-048）");
       const health = resolveHeroHealth(
@@ -157,7 +156,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
       const pool = d.conditions,
         problem = pool ? conditionPoolProblem(pool, d.heroes) : "缺疾病 / 怪癖池";
       if (problem || !pool) return rejectBattleCommand(state, problem!);
-      if (command.serviceId === "cureDisease") {
+      if (service.effect === "disease") {
         if (!hero.diseaseId) return rejectBattleCommand(state, "当前英雄没有疾病可移除");
         next = {
           ...d,
@@ -187,7 +186,8 @@ export function hamletActionOptions(state: GameState) {
   const hero = currentHamletHero(state);
   if (!hero) return [];
   const options: { label: string; command: HamletActionCommand }[] = [];
-  for (const [serviceId, service] of Object.entries(services)) {
+  for (const service of recoveryServices(state.dungeon!)) {
+    const serviceId = service.id;
     const groups =
       serviceId === "removeQuirks"
         ? (hero.quirkIds ?? []).flatMap((id, i, all) => [
@@ -199,12 +199,12 @@ export function hamletActionOptions(state: GameState) {
       options.push({
         label:
           serviceId === "removeQuirks"
-            ? `修道院 I：移除${quirkIds.map((id) => state.dungeon!.conditions?.quirks.find((q) => q.id === id)?.name ?? id).join("、")}（${quirkIds.length === 2 ? 5 : 2} 金）`
+            ? `修道院 ${["I", "II", "III"][service.level - 1]}：移除${quirkIds.map((id) => state.dungeon!.conditions?.quirks.find((q) => q.id === id)?.name ?? id).join("、")}（${quirkIds.length === 2 ? (service.level === 3 ? 4 : 5) : service.cost} 金）`
             : service.label,
         command: {
           type: "visitHamletBuilding",
           actorId: hero.id,
-          serviceId: serviceId as keyof typeof services,
+          serviceId,
           quirkIds,
         },
       });
