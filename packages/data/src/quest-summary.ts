@@ -17,7 +17,7 @@ export const scoutQuestSummarySchema = z
     clearedRoomIds: z.array(z.string().min(1)).max(6),
     xpPerHero: z.int().min(0).max(3),
     stagecoachXp: z.int().min(0).max(3),
-    awarded: z.literal(false),
+    awarded: z.boolean(),
   })
   .superRefine((summary, ctx) => {
     if (
@@ -35,7 +35,7 @@ export const wipeQuestSummarySchema = z
     clearedRoomIds: z.array(z.string().min(1)).max(3),
     xpPerHero: z.int().min(0).max(3),
     stagecoachXp: z.int().min(0).max(3),
-    awarded: z.literal(false),
+    awarded: z.boolean(),
   })
   .superRefine((s, ctx) => {
     if (
@@ -56,7 +56,7 @@ export const fundraiserQuestSummarySchema = z
     donatedGold: z.int().min(0).max(60),
     xpPerHero: z.int().min(0).max(3),
     stagecoachXp: z.int().min(0).max(3),
-    awarded: z.literal(false),
+    awarded: z.boolean(),
   })
   .superRefine((s, ctx) => {
     if (

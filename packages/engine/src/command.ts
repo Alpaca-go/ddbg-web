@@ -4,6 +4,12 @@ import { summarizeDungeonQuest, resolveFundraiserGold } from "./dungeon-quest";
 import { restDungeon } from "./dungeon-rest";
 import { setupDungeonProvisions } from "./dungeon-starting-provisions";
 import { useDungeonProvision } from "./dungeon-provision-use";
+import {
+  beginReturnToHamlet,
+  chooseHamletQuirk,
+  finishReturnToHamlet,
+  useHamletProvision,
+} from "./hamlet-return";
 import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
 import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
 import { recordMonsterSkill } from "./encounter";
@@ -114,6 +120,8 @@ export type Command =
   | { readonly type: "summarizeDungeonQuest" }
   | { readonly type: "startDungeonBattle" }
   | { readonly type: "finishDungeonBattle" }
+  | { readonly type: "beginReturnToHamlet" }
+  | { readonly type: "finishReturnToHamlet" }
   | DungeonCommand
   | PlayHeroSkillEmptyAreaCommand
   | UseProvisionCommand
@@ -284,6 +292,15 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (command.type === "beginReturnToHamlet") return beginReturnToHamlet(state);
+  if (command.type === "finishReturnToHamlet") return finishReturnToHamlet(state);
+  if (state.dungeon?.hamletReturn) {
+    if (command.type === "resolveChoice")
+      return chooseHamletQuirk(state, command.choiceId, command.optionId);
+    if (command.type === "useProvision" && state.dungeon.hamletReturn.phase === "provisions")
+      return useHamletProvision(state, command);
+    return rejectBattleCommand(state, "正在回村或已进入村庄，请完成当前回村步骤");
+  }
   if (command.type === "rollDungeonProvisions" || state.dungeon?.phase === "awaitingProvisions")
     return command.type === "rollDungeonProvisions" || command.type === "resolveChoice"
       ? setupDungeonProvisions(state, command)

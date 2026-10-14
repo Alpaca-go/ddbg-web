@@ -154,16 +154,16 @@ describe("Scout Ahead I 退出摘要（R15、R29、R-038）", () => {
     }
   });
 
-  it("奖励schema拒绝伪发放、错误XP、重复记录、额外字段与驿站乘人数", () => {
+  it("摘要支持回村领取标记，仍拒绝错误XP、重复记录、额外字段与驿站乘人数", () => {
     const summary = summarize(exit(cleared(2))).state.dungeon!.questSummary!;
     for (const invalid of [
-      { ...summary, awarded: true },
       { ...summary, xpPerHero: 2 },
       { ...summary, stagecoachXp: 4 },
       { ...summary, clearedRoomIds: ["A", "A"] },
       { ...summary, gold: 20 },
     ])
       expect(scoutQuestSummarySchema.safeParse(invalid).success).toBe(false);
+    expect(scoutQuestSummarySchema.safeParse({ ...summary, awarded: true }).success).toBe(true);
   });
 
   it("遗留未结算骰面 / 房间 / Curio与错误DL不被exited标志绕过", () => {

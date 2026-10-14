@@ -6,6 +6,8 @@ export function dungeonProvisionWindow(d: DungeonState): boolean {
     !d.pending &&
     !d.conditions?.incomingQuirk &&
     !d.trinkets?.incoming &&
-    (d.phase === "ready" || (d.phase === "awaitingCurio" && !!d.curio?.active))
+    (d.phase === "ready" ||
+      (d.phase === "returningToHamlet" && d.hamletReturn?.phase === "provisions") ||
+      (d.phase === "awaitingCurio" && !!d.curio?.active))
   );
 }
