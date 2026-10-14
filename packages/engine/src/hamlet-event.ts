@@ -12,7 +12,7 @@ export type HamletEventState = {
   readonly permanentlyRemoved: readonly string[];
   readonly active: string | null;
   readonly last: string;
-  readonly phase: "eventBlocked" | "awaitingCaretaker" | "heroActions";
+  readonly phase: "eventBlocked" | "awaitingCaretaker" | "heroActions" | "preparationComplete";
   readonly preparationDays: number | null;
   readonly day: number;
   readonly noCaretaker: boolean;
@@ -20,6 +20,9 @@ export type HamletEventState = {
   readonly caretaker: string | null;
   readonly blockedBuildings: readonly string[];
   readonly heroOrder: readonly string[];
+  readonly actedHeroes?: readonly string[];
+  readonly visitedBuildings?: readonly string[];
+  readonly remainingDays?: number;
 };
 function shuffle(ids: readonly string[], seed: number, cursor: number) {
   const rng = createRng(seed),
