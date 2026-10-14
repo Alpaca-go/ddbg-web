@@ -117,6 +117,17 @@ const definitions = {
 } as const;
 export type RecoveryServiceId = keyof typeof definitions;
 export type SurvivalistServiceId = "survivalist1" | "survivalist2" | "survivalist3";
+export const graveyardServices = [
+  {
+    id: "graveyardVirtue",
+    building: "graveyard",
+    effect: "virtue",
+    amount: 1,
+    cost: 0,
+    level: 1,
+    label: "墓地：免费获得美德；下次压力到10直接死亡",
+  },
+] as const;
 /** 官方R34：III级一颗免费；奖励在下个任务掷出（R-041），村庄不掷骰。 */
 export function survivalistServices(d: DungeonState) {
   if (buildingLevelsProblem(d)) return [];

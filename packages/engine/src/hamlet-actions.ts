@@ -6,14 +6,20 @@ import { resolveHeroHealth } from "./hero-health";
 import { passiveHeal, passiveStress } from "./passive";
 import { applyPassiveStatus } from "./passive-runtime";
 import { statusProjection } from "./status";
-import { buildingLevelsProblem, recoveryServices, survivalistServices } from "./hamlet-buildings";
+import {
+  buildingLevelsProblem,
+  recoveryServices,
+  survivalistServices,
+  graveyardServices,
+} from "./hamlet-buildings";
+import { grantGraveyardVirtue } from "./hamlet-graveyard";
 import type { RecoveryServiceId, SurvivalistServiceId } from "./hamlet-buildings";
 
 export type HamletActionCommand =
   | {
       readonly type: "visitHamletBuilding";
       readonly actorId: string;
-      readonly serviceId: RecoveryServiceId | SurvivalistServiceId;
+      readonly serviceId: RecoveryServiceId | SurvivalistServiceId | "graveyardVirtue";
       readonly quirkIds: readonly string[];
     }
   | {
@@ -192,7 +198,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
       message = "Zealous Speech：全体压力 −5，当天立即结束，只消耗当天（R-042）";
     } else return rejectBattleCommand(state, "Zealous Speech只能是当天第一个行动（R-042）");
   } else {
-    const service = [...recoveryServices(d), ...survivalistServices(d)].find(
+    const service = [...recoveryServices(d), ...survivalistServices(d), ...graveyardServices].find(
       (s) => s.id === command.serviceId,
     );
     if (
@@ -215,7 +221,12 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
           : 5
         : service.cost;
     if (d.gold < cost) return rejectBattleCommand(state, "共享金币不足，未支付或消耗行动");
-    if (service.effect === "provisions") {
+    if (service.effect === "virtue") {
+      const gained = grantGraveyardVirtue(d, hero.id, state.seed);
+      if (gained.status === "refused") return rejectBattleCommand(state, gained.reason);
+      next = gained.dungeon;
+      updated = next.heroes.find((a) => a.id === hero.id)!;
+    } else if (service.effect === "provisions") {
       const previous = hero.nextQuestProvisionDice === undefined ? 0 : hero.nextQuestProvisionDice;
       if (
         !Number.isSafeInteger(previous) ||
@@ -344,6 +355,7 @@ export function hamletActionOptions(state: GameState) {
   for (const service of [
     ...recoveryServices(state.dungeon!),
     ...survivalistServices(state.dungeon!),
+    ...graveyardServices,
   ]) {
     const serviceId = service.id;
     const groups =
