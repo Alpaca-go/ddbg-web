@@ -168,7 +168,12 @@ export function BattleView({
           <p className="muted">
             {layout === "dungeon" ? "地牢房间战斗" : "单场战斗沙盒"} · 1–4 人轮流操作
           </p>
-          {layout !== "dungeon" && <a href="/?phase=3">打开 Phase 3 布局与侦察沙盒</a>}
+          {layout !== "dungeon" && (
+            <>
+              <a href="/?phase=3&play=1">开始地牢任务</a>{" "}
+              <a href="/?phase=3">打开 Phase 3 布局与侦察沙盒</a>
+            </>
+          )}
         </div>
         {layout !== "dungeon" && (
           <form

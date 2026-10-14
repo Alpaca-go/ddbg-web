@@ -3,6 +3,32 @@ import { expect, test } from "@playwright/test";
 test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", async ({ page }, testInfo) => {
   test.setTimeout(90_000);
   await page.setViewportSize({ width: 1440, height: 1050 });
+  for (const [id, name] of [
+    ["quest:p001", "Scout Ahead I"],
+    ["quest:p002", "Wipe ‘Em Out I"],
+    ["quest:p003", "Fundraiser I"],
+  ]) {
+    await page.goto("/?phase=3&play=1");
+    await page.getByLabel("任务卡", { exact: true }).selectOption(id!);
+    await page.getByLabel("任务模式").selectOption("radiant");
+    await page.getByLabel("任务种子").fill("31");
+    await page.getByRole("button", { name: "进入地牢", exact: true }).click();
+    await expect(page.getByRole("heading", { name: name!, exact: true })).toBeVisible();
+    await expect(page.getByLabel("侦察测试布置")).toHaveCount(0);
+    await expect(page.getByRole("button", { name: "重置标准模式" })).toHaveCount(0);
+    await expect(page.getByTestId("dungeon-node-S")).toContainText("队伍");
+    await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（0/16）");
+    await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
+    while (await page.getByRole("button", { name: "火把", exact: true }).count())
+      await page.getByRole("button", { name: "火把", exact: true }).click();
+    await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（8/16）");
+    await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeEnabled();
+    if (id === "quest:p003")
+      await page.screenshot({
+        path: testInfo.outputPath("formal-quest-entry.png"),
+        fullPage: true,
+      });
+  }
   await page.goto("/");
   await page.getByRole("link", { name: "打开 Phase 3 布局与侦察沙盒" }).click();
   await expect(page.getByRole("heading", { name: "地牢布局与侦察" })).toBeVisible();
