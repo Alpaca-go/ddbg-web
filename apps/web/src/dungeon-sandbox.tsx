@@ -1074,7 +1074,9 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                     <p>
                       {d.pending?.id.startsWith("hamlet-medical:")
                         ? "请在下方选择一名英雄移除疾病；结算后开始三天准备。"
-                        : "本事件效果尚未接通，保留原卡；准备天数与看守人尚未开始。"}
+                        : d.pending?.id.startsWith("hamlet-caregivers:")
+                          ? "请逐个英雄选择免费移除一张怪癖，或放弃；全部结算后开始两天准备。"
+                          : "本事件效果尚未接通，保留原卡；准备天数与看守人尚未开始。"}
                     </p>
                   )}
                   {d.hamlet.phase === "awaitingCaretaker" && (
