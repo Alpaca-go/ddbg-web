@@ -1159,7 +1159,7 @@ export function DungeonQuest() {
           <p>
             柴火休息 {selectedQuest.restPoints} 点。
             {selectedQuest.xpKind === "gold"
-              ? "清理至少一间巢穴后，可每捐献20金币获得1XP，最多2XP。"
+              ? "清理至少一间巢穴后，可每捐献20金币获得1XP，最多捐献60金币、获得3XP。"
               : `每清理${selectedQuest.roomsPerXp}${selectedQuest.xpKind === "lair" ? "间巢穴" : "个房间"}获得1XP，最多${selectedQuest.maxRooms / selectedQuest.roomsPerXp}XP。`}
             任务结算仅记待发XP，回村发放。
           </p>
