@@ -50,6 +50,16 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
       await page.getByRole("button", { name: "兑换剩余补给并完成回村", exact: true }).click();
       await expect(page.getByTestId("hamlet-return")).toContainText("回村完成");
       await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：8");
+      await page.getByRole("button", { name: "抽村庄事件", exact: true }).click();
+      await expect(page.getByTestId("hamlet-event")).toContainText("Militia Training");
+      await expect(page.getByTestId("hamlet-event")).toContainText("保留原卡");
+      await expect(page.getByRole("button", { name: "开始首日看守人", exact: true })).toHaveCount(
+        0,
+      );
+      await page.getByRole("button", { name: "保存进度", exact: true }).click();
+      await page.reload();
+      await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+      await expect(page.getByTestId("hamlet-event")).toContainText("Militia Training");
       await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（0/16）");
       await page.getByRole("button", { name: "保存进度", exact: true }).click();
       await page.reload();
@@ -63,6 +73,27 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
         fullPage: true,
       });
   }
+  await page.goto("/?phase=3&play=1");
+  await page.getByLabel("任务模式").selectOption("radiant");
+  await page.getByLabel("任务种子").fill("40");
+  await page.getByRole("button", { name: "进入地牢", exact: true }).click();
+  await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
+  while (await page.getByRole("button", { name: "火把", exact: true }).count())
+    await page.getByRole("button", { name: "火把", exact: true }).click();
+  for (const name of [
+    "离开地牢",
+    "全员同意离开",
+    "生成任务结算摘要",
+    "返回村庄",
+    "兑换剩余补给并完成回村",
+    "抽村庄事件",
+    "开始首日看守人",
+  ])
+    await page.getByRole("button", { name, exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText("General Repairs");
+  await expect(page.getByTestId("hamlet-event")).toContainText("当前第 1 天");
+  await expect(page.getByTestId("hamlet-event")).toContainText("CRUSADER");
+  await page.screenshot({ path: testInfo.outputPath("hamlet-caretaker.png"), fullPage: true });
   await page.goto("/");
   await page.getByRole("link", { name: "打开 Phase 3 布局与侦察沙盒" }).click();
   await expect(page.getByRole("heading", { name: "地牢布局与侦察" })).toBeVisible();

@@ -12,6 +12,8 @@ const noPayload = z.strictObject({
     "finishDungeonBattle",
     "beginReturnToHamlet",
     "finishReturnToHamlet",
+    "drawHamletEvent",
+    "rollHamletCaretaker",
     "leaveDungeon",
     "scoutDungeon",
     "beginDungeonExploration",

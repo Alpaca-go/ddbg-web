@@ -108,4 +108,5 @@ export { isInvokingMonster } from "./battle-invocation";
 export { createCoreDungeonQuest } from "./dungeon-quest-entry";
 export type { CoreQuestSources, QuestParty } from "./dungeon-quest-entry";
 export { createQuestSave, loadQuestSave } from "./quest-save";
+export { currentHamletEvent, caretakerBuilding } from "./hamlet-event";
 export type { QuestStart } from "../../data/src/quest-save";

@@ -77,6 +77,7 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  readonly hamlet?: import("./hamlet-event").HamletEventState;
   readonly hamletReturn?: {
     readonly phase: "converting" | "provisions" | "awaitingReplacement" | "complete";
     readonly order: readonly string[];

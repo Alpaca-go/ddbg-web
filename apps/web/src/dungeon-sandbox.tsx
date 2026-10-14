@@ -8,6 +8,7 @@ import {
   createCoreDungeonQuest,
   createQuestSave,
   loadQuestSave,
+  currentHamletEvent,
   createTrinketPool,
   readRoomTile,
   PROVISION_EFFECTS,
@@ -500,12 +501,23 @@ const labels = {
   treasure: "宝藏",
   objective: "目标",
 };
+const buildingLabels: Record<string, string> = {
+  survivalist: "生存专家",
+  tavern: "酒馆",
+  sanitarium: "疗养院",
+  abbey: "修道院",
+  graveyard: "墓地",
+  guild: "公会",
+  blacksmith: "铁匠",
+  nomadWagon: "游商马车",
+};
 
 export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
   const { game, events, commands, dispatch, reset, select, page, fixture, preview } =
     useDungeonStore();
   const [provisionTarget, setProvisionTarget] = useState("hero-0");
   const d = game.dungeon!;
+  const hamletCard = currentHamletEvent(game);
   if (game.battle)
     return (
       <>
@@ -1002,10 +1014,64 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                   )}
                   {d.hamletReturn.phase === "complete" && (
                     <>
-                      <p>回村完成，等待村庄事件。</p>
+                      <p>{d.hamlet ? "回村完成，进入村庄准备。" : "回村完成，等待村庄事件。"}</p>
+                      {!d.hamlet && (
+                        <button onClick={() => dispatch({ type: "drawHamletEvent" })}>
+                          抽村庄事件
+                        </button>
+                      )}
                       <p>
                         驿站累计XP {d.stagecoachXp}；
                         {d.heroes.map((h) => `${h.id} XP ${h.xp}`).join(" · ")}
+                      </p>
+                    </>
+                  )}
+                </section>
+              )}
+              {d.hamlet && (
+                <section aria-label="村庄事件" data-testid="hamlet-event">
+                  <h3>{hamletCard!.name}</h3>
+                  <p>
+                    卡面准备天数：{hamletCard!.days ?? "0或3，须先完成事件选择"} · 村庄事件牌堆{" "}
+                    {d.hamlet.deck.length} 张（完整16张）
+                  </p>
+                  <p>
+                    {hamletCard!.effectLines
+                      .map((line) => line.replace(/\{icon:[a-f0-9]+\}/g, "［待核对图标］"))
+                      .join(" ") || "本周没有额外事件效果。"}
+                  </p>
+                  {d.hamlet.phase === "eventBlocked" && (
+                    <p>本事件效果尚未接通，保留原卡；准备天数与看守人尚未开始。</p>
+                  )}
+                  {d.hamlet.phase === "awaitingCaretaker" && (
+                    <button onClick={() => dispatch({ type: "rollHamletCaretaker" })}>
+                      开始首日看守人
+                    </button>
+                  )}
+                  {d.hamlet.phase === "heroActions" && (
+                    <>
+                      <p>
+                        准备 {d.hamlet.preparationDays} 天 · 当前第 {d.hamlet.day} 天
+                      </p>
+                      <p>
+                        看守人：
+                        {d.hamlet.caretaker
+                          ? buildingLabels[d.hamlet.caretaker]
+                          : "Busy Week，本周不放置"}
+                        ；封锁建筑：
+                        {d.hamlet.blockedBuildings.map((id) => buildingLabels[id]).join("、") ||
+                          "无"}
+                      </p>
+                      <p>
+                        当前行动英雄：
+                        {
+                          d.battleCatalog?.heroStats.find(
+                            (stat) =>
+                              stat.id ===
+                              d.heroes.find((h) => h.id === d.hamlet!.heroOrder[0])?.heroStatId,
+                          )?.name
+                        }
+                        ；村庄行动待接通。
                       </p>
                     </>
                   )}
