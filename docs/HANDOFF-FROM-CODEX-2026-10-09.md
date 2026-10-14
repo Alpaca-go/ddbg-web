@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 真实任务入口续块（2026-10-14）：三张基础任务均可从任务卡、已批p1起点S和真实八颗开局补给开始，四英雄各三技能可选，完整牌池不缩减，正式页面隐藏调试布置。完整三任务自然流程验收仍继续；Treasure／Q-73未解锁。详见[任务入口](phase3-quest-entry-2026-10-14.md)。
+
 > Invocation续块（2026-10-14）：The Invokers的最后怪物Step2替代移动和Invoking Abyss轮末单次压力已接，普通遗迹8/9可战。Treasure及Q-73、正式任务入口和真实三任务完整验收继续，检查点③仍需用户实际确认。详见[本面实现](phase3-invocation-runtime-2026-10-14.md)。
 
 > 2026-10-14 Spiked Pit续块：英雄／怪物自身前缀及R20目标Shuffle顺序已合并；本面落坑、Bleed、Circle of Power与回合结束完整接通，R-071断图／范围和R-072先坑后Vertigo保持批准。七面可战，Treasure与Invocation及真实三任务完整验收继续；Q-73仍待用户裁定，其他已确认数据不重复询问。

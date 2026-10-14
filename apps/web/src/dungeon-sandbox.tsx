@@ -5,12 +5,21 @@ import {
   canLeaveDungeon,
   canRestDungeon,
   createDungeonSandbox,
+  createCoreDungeonQuest,
   createTrinketPool,
   readRoomTile,
   PROVISION_EFFECTS,
   dungeonProvisionWindow,
 } from "@ddbg/engine";
-import type { Command, GameEvent, GameState, DungeonState, PendingChoice } from "@ddbg/engine";
+import type {
+  QuestParty,
+  CoreQuestSources,
+  Command,
+  GameEvent,
+  GameState,
+  DungeonState,
+  PendingChoice,
+} from "@ddbg/engine";
 import rawLayouts from "../../../packages/data/normalized/corebox/dungeon_layouts.json";
 import { dungeonLayoutFileSchema } from "../../../packages/data/src/dungeon-layout";
 import type { DungeonLayout } from "../../../packages/data/src/dungeon-layout";
@@ -20,7 +29,8 @@ import { provisionLabels, provisionEffectLabels } from "./provision-labels";
 import distribution from "../../../packages/data/normalized/corebox/scout_ahead_distribution.json";
 import wipeDistribution from "../../../packages/data/normalized/corebox/wipe_em_out_distribution.json";
 import fundraiserDistribution from "../../../packages/data/normalized/corebox/fundraiser_distribution.json";
-import { readBasicQuest } from "../../../packages/data/src/basic-quests";
+import { basicQuests, readBasicQuest } from "../../../packages/data/src/basic-quests";
+import type { BasicQuestId } from "../../../packages/data/src/basic-quests";
 import { restPoints } from "../../../packages/data/src/scout-rest";
 import rawRooms from "../../../packages/data/normalized/corebox/room.json";
 import { roomFileSchema } from "../../../packages/data/src/room";
@@ -395,6 +405,7 @@ const useDungeonStore = create<{
   events: readonly GameEvent[];
   commands: readonly Command[];
   dispatch: (command: Command) => void;
+  beginTask: (game: GameState) => void;
   reset: (mode: DungeonState["mode"]) => void;
   select: (page: number, fixture: Fixture) => void;
 }>((set) => ({
@@ -405,6 +416,8 @@ const useDungeonStore = create<{
       const result = applyCommand(s.game, command);
       return { game: result.state, events: result.events, commands: [...s.commands, command] };
     }),
+  beginTask: (game) =>
+    set({ game, page: 1, fixture: "neutral", preview: null, events: [], commands: [] }),
   reset: (mode) => set((s) => setup(mode, s.page, s.fixture)),
   select: (page, fixture) => set((s) => setup(s.game.dungeon!.mode, page, fixture)),
 }));
@@ -418,7 +431,7 @@ const labels = {
   objective: "目标",
 };
 
-export function DungeonSandbox() {
+export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
   const { game, events, commands, dispatch, reset, select, page, fixture, preview } =
     useDungeonStore();
   const [provisionTarget, setProvisionTarget] = useState("hero-0");
@@ -444,97 +457,120 @@ export function DungeonSandbox() {
       <header className="topbar">
         <div>
           <p className="eyebrow">DDBG · PHASE 3</p>
-          <h1>地牢布局与侦察</h1>
+          <h1>{formal ? quest!.name : "地牢布局与侦察"}</h1>
           <p className="muted">
-            QuestMap p{page} 标注待批准 · {quest?.name ?? "任务身份待核实"} · 固定种子 {game.seed} ·
-            光照 {d.explorationSetup?.light ?? "待配置"}、DL {d.explorationSetup!.dungeonLevel}
+            QuestMap p{page} {d.layout.review === "confirmed" ? "已批准" : "标注待批准"} ·{" "}
+            {quest?.name ?? "任务身份待核实"} · 固定种子 {game.seed} · 光照{" "}
+            {d.explorationSetup?.light ?? "待配置"}、DL {d.explorationSetup!.dungeonLevel}
           </p>
-          <p>
-            {fixture === "navigationProvisions"
-              ? "测试注入：hero-0有3伤口、3压力、流血与腐蚀，用于检查探索间补给。"
-              : fixture === "startingProvisions"
-                ? "入口演示：空补给池，按种子完成开局补给后探索；地图标注仍待批准。"
-                : fixture === "fundraiserRewards"
-                  ? "测试注入：已清理一间巢穴与60金币，仅检查退出捐献，不代表实战获得。"
-                  : fixture === "roomInvocation"
-                    ? "房间测试：固定D为巢穴；种子2按完整九房／42怪池自然抽到Invocation Chamber，不代表完整任务验收。"
-                    : fixture === "roomSpiked"
-                      ? "房间测试：固定D为巢穴；种子9按完整九房／42怪池自然抽到Spiked Pit，不代表完整任务验收。"
-                      : preview
-                        ? "16 槽地图仅预览，未解释标记保留，未开启 Boss 规则。"
-                        : "测试注入：导航就绪英雄与六个补给；从选路开始，逐骰结算后进入目标节点。"}
-          </p>
+          {!formal && (
+            <>
+              <p>
+                {fixture === "navigationProvisions"
+                  ? "测试注入：hero-0有3伤口、3压力、流血与腐蚀，用于检查探索间补给。"
+                  : fixture === "startingProvisions"
+                    ? "入口演示：空补给池，按种子完成开局补给后探索；地图标注仍待批准。"
+                    : fixture === "fundraiserRewards"
+                      ? "测试注入：已清理一间巢穴与60金币，仅检查退出捐献，不代表实战获得。"
+                      : fixture === "roomInvocation"
+                        ? "房间测试：固定D为巢穴；种子2按完整九房／42怪池自然抽到Invocation Chamber，不代表完整任务验收。"
+                        : fixture === "roomSpiked"
+                          ? "房间测试：固定D为巢穴；种子9按完整九房／42怪池自然抽到Spiked Pit，不代表完整任务验收。"
+                          : preview
+                            ? "16 槽地图仅预览，未解释标记保留，未开启 Boss 规则。"
+                            : "测试注入：导航就绪英雄与六个补给；从选路开始，逐骰结算后进入目标节点。"}
+              </p>
+            </>
+          )}
           <a href="/">返回战斗沙盒</a>
         </div>
       </header>
       <section className="panel">
-        <h2>板块标注预览</h2>
-        <label>
-          地图页码
-          <select value={page} onChange={(e) => select(Number(e.target.value), fixture)}>
-            {layouts.map((l) => (
-              <option key={l.id} value={l.source.page}>
-                p{l.source.page}
-                {l.unresolvedMarkers?.length ? "（仅预览）" : ""}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          侦察测试布置
-          <select value={fixture} onChange={(e) => select(page, e.target.value as Fixture)}>
-            <option value="neutral">中立英雄</option>
-            <option value="navigationProvisions">探索间补给（伤口 / 压力 / 状态注入）</option>
-            <option value="startingProvisions">入口开局补给（标准 / Radiant）</option>
-            <option value="fundraiser">Fundraiser I · 完整八枚代币</option>
-            <option value="fundraiserBattle">Fundraiser I · 巢穴战斗入口（种子1885）</option>
-            <option value="fundraiserRewards">Fundraiser I · 结算测试（1巢穴与60金币注入）</option>
-            <option value="wipe">Wipe ‘Em Out I · 完整八枚代币（种子1）</option>
-            <option value="wipeBattle">Wipe ‘Em Out I · 巢穴战斗入口（种子1885）</option>
-            <option value="pressure">首次检定（hero-0 压力 9）</option>
-            <option value="heartAttack">已有意志卡（hero-0 压力 9）</option>
-            <option value="corridor">单走廊 → Empty（标准 p1、种子 31、无需侦察）</option>
-            <option value="curio">Curio → Empty（标准 p1、种子 1237、先用 Torch）</option>
-            <option value="curioRoom">
-              Curio 房间入口（种子80；注入D房间代币，完整Curio牌池）
-            </option>
-            <option value="curioBuff">Curio Buff（标准 p1、种子 343、先用 Torch）</option>
-            <option value="curioNegative">
-              Heirloom Chest负面状态（标准 p1、种子46、不用Torch）
-            </option>
-            <option value="curioProvision">Curio 补给 Wild（标准 p1、种子 370、先用 Torch）</option>
-            <option value="curioPositive">Curio 正面怪癖（标准 p1、种子 85、先用 Torch）</option>
-            <option value="curioRewards">Curio 怪癖与补给（标准 p1、种子 317、先用 Torch）</option>
-            <option value="curioTrinket">Curio 饰品获得（标准 p1、种子 921、先用 Torch）</option>
-            <option value="curioComposite">Curio 复合奖励（标准 p1、种子 230、先用 Torch）</option>
-            <option value="trap">Trap 房间（p1、种子 1、DL 3、hero-0 压力 8）</option>
-            <option value="dark">Dark 房间与 Torch（p1、种子 1，固定房间代币）</option>
-            <option value="roomApproved">
-              Lair → Ritual Chamber（p1、种子 11、先侦察 Radiant）
-            </option>
-            <option value="roomBattle">
-              Lair → Ritual Chamber 可战斗（p1、种子 1885、先侦察 Radiant）
-            </option>
-            <option value="roomDisease">Maggot 守卫战斗（种子 4，固定房间代币）</option>
-            <option value="roomFountain">
-              Healing Fountain（种子10，固定房间代币，完整房间/怪物池）
-            </option>
-            <option value="roomBeacon">
-              Beacon of Light（种子1，固定房间代币，完整房间/怪物池）
-            </option>
-            <option value="roomAncestor">
-              Tomb of Ancestor（种子12，固定房间代币，完整房间/怪物池）
-            </option>
-            <option value="roomAbbey">Old Abbey（种子7，固定房间代币，完整房间/怪物池）</option>
-            <option value="roomSpiked">Spiked Pit（种子9，固定房间代币，完整房间/怪物池）</option>
-            <option value="roomInvocation">
-              Invocation Chamber（种子2，固定房间代币，完整房间/怪物池）
-            </option>
-            <option value="roomBlocked">
-              Lair → Treasure Chamber（p1、种子35、固定房间代币、先侦察 Radiant）
-            </option>
-          </select>
-        </label>
+        <h2>{formal ? "地牢地图" : "板块标注预览"}</h2>
+        {!formal && (
+          <>
+            <label>
+              地图页码
+              <select value={page} onChange={(e) => select(Number(e.target.value), fixture)}>
+                {layouts.map((l) => (
+                  <option key={l.id} value={l.source.page}>
+                    p{l.source.page}
+                    {l.unresolvedMarkers?.length ? "（仅预览）" : ""}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              侦察测试布置
+              <select value={fixture} onChange={(e) => select(page, e.target.value as Fixture)}>
+                <option value="neutral">中立英雄</option>
+                <option value="navigationProvisions">探索间补给（伤口 / 压力 / 状态注入）</option>
+                <option value="startingProvisions">入口开局补给（标准 / Radiant）</option>
+                <option value="fundraiser">Fundraiser I · 完整八枚代币</option>
+                <option value="fundraiserBattle">Fundraiser I · 巢穴战斗入口（种子1885）</option>
+                <option value="fundraiserRewards">
+                  Fundraiser I · 结算测试（1巢穴与60金币注入）
+                </option>
+                <option value="wipe">Wipe ‘Em Out I · 完整八枚代币（种子1）</option>
+                <option value="wipeBattle">Wipe ‘Em Out I · 巢穴战斗入口（种子1885）</option>
+                <option value="pressure">首次检定（hero-0 压力 9）</option>
+                <option value="heartAttack">已有意志卡（hero-0 压力 9）</option>
+                <option value="corridor">单走廊 → Empty（标准 p1、种子 31、无需侦察）</option>
+                <option value="curio">Curio → Empty（标准 p1、种子 1237、先用 Torch）</option>
+                <option value="curioRoom">
+                  Curio 房间入口（种子80；注入D房间代币，完整Curio牌池）
+                </option>
+                <option value="curioBuff">Curio Buff（标准 p1、种子 343、先用 Torch）</option>
+                <option value="curioNegative">
+                  Heirloom Chest负面状态（标准 p1、种子46、不用Torch）
+                </option>
+                <option value="curioProvision">
+                  Curio 补给 Wild（标准 p1、种子 370、先用 Torch）
+                </option>
+                <option value="curioPositive">
+                  Curio 正面怪癖（标准 p1、种子 85、先用 Torch）
+                </option>
+                <option value="curioRewards">
+                  Curio 怪癖与补给（标准 p1、种子 317、先用 Torch）
+                </option>
+                <option value="curioTrinket">
+                  Curio 饰品获得（标准 p1、种子 921、先用 Torch）
+                </option>
+                <option value="curioComposite">
+                  Curio 复合奖励（标准 p1、种子 230、先用 Torch）
+                </option>
+                <option value="trap">Trap 房间（p1、种子 1、DL 3、hero-0 压力 8）</option>
+                <option value="dark">Dark 房间与 Torch（p1、种子 1，固定房间代币）</option>
+                <option value="roomApproved">
+                  Lair → Ritual Chamber（p1、种子 11、先侦察 Radiant）
+                </option>
+                <option value="roomBattle">
+                  Lair → Ritual Chamber 可战斗（p1、种子 1885、先侦察 Radiant）
+                </option>
+                <option value="roomDisease">Maggot 守卫战斗（种子 4，固定房间代币）</option>
+                <option value="roomFountain">
+                  Healing Fountain（种子10，固定房间代币，完整房间/怪物池）
+                </option>
+                <option value="roomBeacon">
+                  Beacon of Light（种子1，固定房间代币，完整房间/怪物池）
+                </option>
+                <option value="roomAncestor">
+                  Tomb of Ancestor（种子12，固定房间代币，完整房间/怪物池）
+                </option>
+                <option value="roomAbbey">Old Abbey（种子7，固定房间代币，完整房间/怪物池）</option>
+                <option value="roomSpiked">
+                  Spiked Pit（种子9，固定房间代币，完整房间/怪物池）
+                </option>
+                <option value="roomInvocation">
+                  Invocation Chamber（种子2，固定房间代币，完整房间/怪物池）
+                </option>
+                <option value="roomBlocked">
+                  Lair → Treasure Chamber（p1、种子35、固定房间代币、先侦察 Radiant）
+                </option>
+              </select>
+            </label>
+          </>
+        )}
         <svg
           viewBox="0 0 100 92"
           role="img"
@@ -636,8 +672,12 @@ export function DungeonSandbox() {
               )
               .join("；") || "无"}
           </p>
-          <button onClick={() => reset("standard")}>重置标准模式</button>{" "}
-          <button onClick={() => reset("radiant")}>重置 Radiant</button>{" "}
+          {!formal && (
+            <>
+              <button onClick={() => reset("standard")}>重置标准模式</button>{" "}
+              <button onClick={() => reset("radiant")}>重置 Radiant</button>
+            </>
+          )}
           {d.phase === "blockedPressure" && (
             <button onClick={() => dispatch({ type: "resolveDungeonPressure" })}>
               恢复意志检定
@@ -1016,6 +1056,160 @@ export function DungeonSandbox() {
           </p>
         </section>
       )}
+    </main>
+  );
+}
+
+const coreNames = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"];
+const taskSources: CoreQuestSources = {
+  catalog: {
+    ...battleData,
+    trinkets: createTrinketPool(normalizedTrinketFileSchema.parse(rawTrinkets).cards, 1),
+  },
+  resolveCards: battleData.resolveCards,
+  curios: curios,
+  rooms: roomFileSchema.parse(rawRooms).cards,
+  monsters: monsterPoolFileSchema.parse(rawMonsterPool).cards,
+};
+export function DungeonQuest() {
+  const beginTask = useDungeonStore((s) => s.beginTask);
+  const [started, setStarted] = useState(false),
+    [questId, setQuestId] = useState<BasicQuestId>("quest:p001"),
+    [mode, setMode] = useState<DungeonState["mode"]>("standard"),
+    [seed, setSeed] = useState("1"),
+    [error, setError] = useState("");
+  const [party, setParty] = useState<QuestParty>(() =>
+    coreNames.map((name, index) => ({
+      heroStatId: battleData.heroStats.find((s) => s.name === name && s.level === 1)!.id,
+      stance: (["aggressive", "defensive", "ranged", "support"] as const)[index]!,
+      skillIds: battleData.skills
+        .filter((s) => s.hero === name && s.level === 1)
+        .slice(0, 3)
+        .map((s) => s.id),
+    })),
+  );
+  if (started) return <DungeonSandbox formal />;
+  const selectedQuest = basicQuests.find((q) => q.id === questId)!;
+  return (
+    <main className="shell">
+      <header className="topbar">
+        <div>
+          <p className="eyebrow">DDBG · PHASE 3</p>
+          <h1>开始地牢任务</h1>
+          <p>四名核心英雄 · I级遗迹 · 单设备1–4人轮流操作</p>
+          <a href="/">返回战斗沙盒</a>
+        </div>
+      </header>
+      <section className="panel">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            try {
+              const game = createCoreDungeonQuest(Number(seed), questId, mode, party, taskSources);
+              beginTask(game);
+              setStarted(true);
+            } catch (error) {
+              setError(error instanceof Error ? error.message : String(error));
+            }
+          }}
+        >
+          <label>
+            任务卡
+            <select
+              aria-label="任务卡"
+              value={questId}
+              onChange={(e) => setQuestId(e.target.value as BasicQuestId)}
+            >
+              {basicQuests.map((q) => (
+                <option key={q.id} value={q.id}>
+                  {q.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            模式
+            <select
+              aria-label="任务模式"
+              value={mode}
+              onChange={(e) => setMode(e.target.value as DungeonState["mode"])}
+            >
+              <option value="standard">标准模式</option>
+              <option value="radiant">Radiant</option>
+            </select>
+          </label>
+          <label>
+            种子
+            <input
+              aria-label="任务种子"
+              type="number"
+              min="0"
+              max="4294967295"
+              step="1"
+              required
+              value={seed}
+              onChange={(e) => setSeed(e.target.value)}
+            />
+          </label>
+          <p>
+            QuestMap FRONT
+            p1（已批准）。从起点S开始，房间代币按任务随机分布，先领取八颗开局补给。普通遗迹牌池保留全部九面，抽到尚未就绪的Treasure
+            Chamber会保留原牌等待接通。
+          </p>
+          <p>
+            柴火休息 {selectedQuest.restPoints} 点。
+            {selectedQuest.xpKind === "gold"
+              ? "清理至少一间巢穴后，可每捐献20金币获得1XP，最多2XP。"
+              : `每清理${selectedQuest.roomsPerXp}${selectedQuest.xpKind === "lair" ? "间巢穴" : "个房间"}获得1XP，最多${selectedQuest.maxRooms / selectedQuest.roomsPerXp}XP。`}
+            任务结算仅记待发XP，回村发放。
+          </p>
+          {party.map((hero, index) => (
+            <fieldset key={hero.heroStatId}>
+              <legend>
+                {coreNames[index]} ·{" "}
+                {
+                  { aggressive: "进攻", defensive: "防御", ranged: "远程", support: "支援" }[
+                    hero.stance
+                  ]
+                }
+              </legend>
+              {hero.skillIds.map((id, slot) => (
+                <label key={slot}>
+                  起始技能 {slot + 1}
+                  <select
+                    aria-label={`${coreNames[index]} 技能 ${slot + 1}`}
+                    value={id}
+                    onChange={(e) =>
+                      setParty(
+                        party.map((h, i) =>
+                          i !== index
+                            ? h
+                            : {
+                                ...h,
+                                skillIds: h.skillIds.map((s, j) =>
+                                  j === slot ? e.target.value : s,
+                                ),
+                              },
+                        ),
+                      )
+                    }
+                  >
+                    {battleData.skills
+                      .filter((s) => s.hero === coreNames[index] && s.level === 1)
+                      .map((s) => (
+                        <option key={s.id} value={s.id}>
+                          {s.name}
+                        </option>
+                      ))}
+                  </select>
+                </label>
+              ))}
+            </fieldset>
+          ))}
+          {error && <p role="alert">{error}</p>}
+          <button type="submit">进入地牢</button>
+        </form>
+      </section>
     </main>
   );
 }

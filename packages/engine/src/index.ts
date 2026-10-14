@@ -104,3 +104,6 @@ export { canRestDungeon } from "./dungeon-rest";
 export { dungeonProvisionWindow } from "./dungeon-provision-window";
 
 export { isInvokingMonster } from "./battle-invocation";
+
+export { createCoreDungeonQuest } from "./dungeon-quest-entry";
+export type { CoreQuestSources, QuestParty } from "./dungeon-quest-entry";
