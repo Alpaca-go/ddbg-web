@@ -1,4 +1,5 @@
 import { playHeroSkill, rejectBattleCommand } from "./battle";
+import { drawHamletEvent, rollHamletCaretaker } from "./hamlet-event";
 import { applyDungeonCommand } from "./dungeon";
 import { summarizeDungeonQuest, resolveFundraiserGold } from "./dungeon-quest";
 import { restDungeon } from "./dungeon-rest";
@@ -122,6 +123,8 @@ export type Command =
   | { readonly type: "finishDungeonBattle" }
   | { readonly type: "beginReturnToHamlet" }
   | { readonly type: "finishReturnToHamlet" }
+  | { readonly type: "drawHamletEvent" }
+  | { readonly type: "rollHamletCaretaker" }
   | DungeonCommand
   | PlayHeroSkillEmptyAreaCommand
   | UseProvisionCommand
@@ -292,6 +295,8 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (command.type === "drawHamletEvent") return drawHamletEvent(state);
+  if (command.type === "rollHamletCaretaker") return rollHamletCaretaker(state);
   if (command.type === "beginReturnToHamlet") return beginReturnToHamlet(state);
   if (command.type === "finishReturnToHamlet") return finishReturnToHamlet(state);
   if (state.dungeon?.hamletReturn) {

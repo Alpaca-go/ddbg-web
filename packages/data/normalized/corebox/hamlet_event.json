@@ -1,0 +1,528 @@
+{
+ "schema": "ddbg-hamlet-event-v1",
+ "cards": [
+  {
+   "id": "hamlet_event:p001",
+   "name": "Supply Run",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 1
+   },
+   "dayBadge": {
+    "iconId": "ef839b6878",
+    "printed": "2",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 2,
+   "printedLines": [
+    "{icon:ef839b6878} 2 Supply Run",
+    "‘Tis not only the Heroes but",
+    "the common folk too, that",
+    "offer up anything they can for",
+    "the Hamlet’s common good.",
+    "Party gains +2 {icon:d712688f15}",
+    "before the next Quest."
+   ],
+   "effectLines": [
+    "Party gains +2 {icon:d712688f15}",
+    "before the next Quest."
+   ],
+   "effectIconIds": [
+    "d712688f15"
+   ],
+   "permanentlyRemoved": false,
+   "runtime": "unimplemented"
+  },
+  {
+   "id": "hamlet_event:p002",
+   "name": "Busy Week",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 2
+   },
+   "dayBadge": {
+    "iconId": "ef839b6878",
+    "printed": "2",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 2,
+   "printedLines": [
+    "{icon:ef839b6878} 2 Busy Week",
+    "He was nowhere to be seen. Yet",
+    "one could feel his uneasy presence",
+    "and hear his irritating laughter.",
+    "Do not place the Caretaker",
+    "anywhere this week."
+   ],
+   "effectLines": [
+    "Do not place the Caretaker",
+    "anywhere this week."
+   ],
+   "effectIconIds": [],
+   "permanentlyRemoved": false,
+   "runtime": "noCaretaker"
+  },
+  {
+   "id": "hamlet_event:p003",
+   "name": "Lost Shipment",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 3
+   },
+   "dayBadge": {
+    "iconId": "61587999f3",
+    "printed": "4",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 4,
+   "printedLines": [
+    "{icon:61587999f3} 4 Lost Shipment",
+    "Everyone was expecting the",
+    "goods to arrive intact. But",
+    "all they got was news of",
+    "misfortune and loss...",
+    "Party rolls -2 {icon:d712688f15}",
+    "before the next Quest."
+   ],
+   "effectLines": [
+    "Party rolls -2 {icon:d712688f15}",
+    "before the next Quest."
+   ],
+   "effectIconIds": [
+    "d712688f15"
+   ],
+   "permanentlyRemoved": false,
+   "runtime": "unimplemented"
+  },
+  {
+   "id": "hamlet_event:p004",
+   "name": "Unsettling Darkness",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 4
+   },
+   "dayBadge": {
+    "iconId": "1cdbcf4cc7",
+    "printed": "3",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 3,
+   "printedLines": [
+    "{icon:1cdbcf4cc7} 3 Unsettling Darkness",
+    "When darkness forms shapes",
+    "in the horizon making all",
+    "candle lights dim. This",
+    "was one such week, one of",
+    "unsettling darkness...",
+    "Start at {icon:d13c8b76af} 4 next run."
+   ],
+   "effectLines": [
+    "Start at {icon:d13c8b76af} 4 next run."
+   ],
+   "effectIconIds": [
+    "d13c8b76af"
+   ],
+   "permanentlyRemoved": false,
+   "runtime": "unimplemented"
+  },
+  {
+   "id": "hamlet_event:p005",
+   "name": "Uneventful Week",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 5
+   },
+   "dayBadge": {
+    "iconId": "1cdbcf4cc7",
+    "printed": "3",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 3,
+   "printedLines": [
+    "{icon:1cdbcf4cc7} 3 Uneventful Week",
+    "The most exquisite news, to",
+    "have a week without any..."
+   ],
+   "effectLines": [],
+   "effectIconIds": [],
+   "permanentlyRemoved": false,
+   "runtime": "none"
+  },
+  {
+   "id": "hamlet_event:p006",
+   "name": "Labor Force",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 6
+   },
+   "dayBadge": {
+    "iconId": "1cdbcf4cc7",
+    "printed": "3",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 3,
+   "printedLines": [
+    "{icon:1cdbcf4cc7} 3 Labor Force",
+    "Families banded together, seeking",
+    "to renovate one of the Hamlet’s",
+    "buildings. Their altruism a",
+    "welcome but mixed blessing.",
+    "You may upgrade a building for",
+    "free. If you do, you cannot visit",
+    "it this week. Discard this event",
+    "from the deck permanently."
+   ],
+   "effectLines": [
+    "You may upgrade a building for",
+    "free. If you do, you cannot visit",
+    "it this week. Discard this event",
+    "from the deck permanently."
+   ],
+   "effectIconIds": [],
+   "permanentlyRemoved": true,
+   "runtime": "unimplemented"
+  },
+  {
+   "id": "hamlet_event:p007",
+   "name": "Town Fair",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 7
+   },
+   "dayBadge": {
+    "iconId": "43aaf29bbb",
+    "printed": "1",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 1,
+   "printedLines": [
+    "{icon:43aaf29bbb} 1 Town Fair",
+    "Happiness and revelry drive",
+    "the demons away, albeit",
+    "only for a short while...",
+    "{icon:7616568d52} {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} : {icon:c3daa80da5} -3",
+    "and {icon:3ee34939e2} {icon:20ffe98e2d} 2 /Hero Level."
+   ],
+   "effectLines": [
+    "{icon:7616568d52} {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} : {icon:c3daa80da5} -3",
+    "and {icon:3ee34939e2} {icon:20ffe98e2d} 2 /Hero Level."
+   ],
+   "effectIconIds": [
+    "7616568d52",
+    "c3daa80da5",
+    "3ee34939e2",
+    "20ffe98e2d"
+   ],
+   "permanentlyRemoved": false,
+   "runtime": "unimplemented"
+  },
+  {
+   "id": "hamlet_event:p008",
+   "name": "Traveling Merchants",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 8
+   },
+   "dayBadge": {
+    "iconId": "ef839b6878",
+    "printed": "2",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 2,
+   "printedLines": [
+    "{icon:ef839b6878} 2 Traveling Merchants",
+    "Distrust and hope embodied",
+    "on these men’s faces. Their",
+    "gain, our survival.",
+    "After rolling for Provisions,",
+    "each Hero can choose one",
+    "of their Provisions dice to",
+    "be whichever side they want",
+    "before the next Quest."
+   ],
+   "effectLines": [
+    "After rolling for Provisions,",
+    "each Hero can choose one",
+    "of their Provisions dice to",
+    "be whichever side they want",
+    "before the next Quest."
+   ],
+   "effectIconIds": [],
+   "permanentlyRemoved": false,
+   "runtime": "unimplemented"
+  },
+  {
+   "id": "hamlet_event:p009",
+   "name": "Gypsy Trail",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 9
+   },
+   "dayBadge": {
+    "iconId": "ef839b6878",
+    "printed": "2",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 2,
+   "printedLines": [
+    "{icon:ef839b6878} 2 Gypsy Trail",
+    "Back then, the villagers sought",
+    "to drive the gypsies away from",
+    "their lands. Now they only pray",
+    "that they stay some more...",
+    "Heroes gain +5 {icon:08a25c05cf} when",
+    "selling Trinkets."
+   ],
+   "effectLines": [
+    "Heroes gain +5 {icon:08a25c05cf} when",
+    "selling Trinkets."
+   ],
+   "effectIconIds": [
+    "08a25c05cf"
+   ],
+   "permanentlyRemoved": false,
+   "runtime": "unimplemented"
+  },
+  {
+   "id": "hamlet_event:p010",
+   "name": "The Feast",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 10
+   },
+   "dayBadge": {
+    "iconId": "43aaf29bbb",
+    "printed": "1",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 1,
+   "printedLines": [
+    "{icon:43aaf29bbb} 1 The Feast",
+    "A feast in commemoration of",
+    "the family estate’s honor and",
+    "our willingness to survive...",
+    "Each Hero can choose to",
+    "fully restore either {icon:9d58d3d431} or {icon:d9009c6f91} ."
+   ],
+   "effectLines": [
+    "Each Hero can choose to",
+    "fully restore either {icon:9d58d3d431} or {icon:d9009c6f91} ."
+   ],
+   "effectIconIds": [
+    "9d58d3d431",
+    "d9009c6f91"
+   ],
+   "permanentlyRemoved": false,
+   "runtime": "unimplemented"
+  },
+  {
+   "id": "hamlet_event:p011",
+   "name": "Medical Breakthrough",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 11
+   },
+   "dayBadge": {
+    "iconId": "1cdbcf4cc7",
+    "printed": "3",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 3,
+   "printedLines": [
+    "{icon:1cdbcf4cc7} 3 Medical Breakthrough",
+    "Even maladies can be defeated",
+    "by the power of the human mind.",
+    "What about darkness though?",
+    "Party removes a disease",
+    "from a Hero."
+   ],
+   "effectLines": [
+    "Party removes a disease",
+    "from a Hero."
+   ],
+   "effectIconIds": [],
+   "permanentlyRemoved": false,
+   "runtime": "unimplemented"
+  },
+  {
+   "id": "hamlet_event:p012",
+   "name": "Caregivers Convention",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 12
+   },
+   "dayBadge": {
+    "iconId": "ef839b6878",
+    "printed": "2",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 2,
+   "printedLines": [
+    "{icon:ef839b6878} 2 Caregivers Convention",
+    "Open your heart to another,",
+    "united under a common cause.",
+    "Let your heart not falter.",
+    "Each Hero can remove",
+    "a Quirk for free."
+   ],
+   "effectLines": [
+    "Each Hero can remove",
+    "a Quirk for free."
+   ],
+   "effectIconIds": [],
+   "permanentlyRemoved": false,
+   "runtime": "unimplemented"
+  },
+  {
+   "id": "hamlet_event:p013",
+   "name": "General Repairs",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 13
+   },
+   "dayBadge": {
+    "iconId": "61587999f3",
+    "printed": "4",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 4,
+   "printedLines": [
+    "{icon:61587999f3} 4 General Repairs",
+    "His role is quite demanding,",
+    "to keep an abandoned hamlet",
+    "from falling apart...",
+    "In addition to the Caretaker,",
+    "roll for another location",
+    "to be blocked each day."
+   ],
+   "effectLines": [
+    "In addition to the Caretaker,",
+    "roll for another location",
+    "to be blocked each day."
+   ],
+   "effectIconIds": [],
+   "permanentlyRemoved": false,
+   "runtime": "extraBlock"
+  },
+  {
+   "id": "hamlet_event:p014",
+   "name": "In Good Spirits",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 14
+   },
+   "dayBadge": {
+    "iconId": "1cdbcf4cc7",
+    "printed": "3",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 3,
+   "printedLines": [
+    "{icon:1cdbcf4cc7} 3 In Good Spirits",
+    "With spirits lifted and head held",
+    "high, eager and resolute, the",
+    "Heroes marched to their doom...",
+    "Each Hero rolls a {icon:94bfa4dde4} , the",
+    "Hero or Heroes that roll the",
+    "highest gain a Virtue and",
+    "place(s) their (or their) stress",
+    "marker on the red side."
+   ],
+   "effectLines": [
+    "Each Hero rolls a {icon:94bfa4dde4} , the",
+    "Hero or Heroes that roll the",
+    "highest gain a Virtue and",
+    "place(s) their (or their) stress",
+    "marker on the red side."
+   ],
+   "effectIconIds": [
+    "94bfa4dde4"
+   ],
+   "permanentlyRemoved": false,
+   "runtime": "unimplemented"
+  },
+  {
+   "id": "hamlet_event:p015",
+   "name": "Guild Training",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 15
+   },
+   "dayBadge": {
+    "iconId": "ef839b6878",
+    "printed": "2",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": 2,
+   "printedLines": [
+    "{icon:ef839b6878} 2 Guild Training",
+    "The guildmaster was once a",
+    "benevolent adventurer who has",
+    "witnessed the death of all his",
+    "prodigies. His tutelage a honorary",
+    "tribute to them and to himself.",
+    "Each Hero can immediately",
+    "upgrade a Skill for free.",
+    "Discard this event from",
+    "the deck permanently."
+   ],
+   "effectLines": [
+    "Each Hero can immediately",
+    "upgrade a Skill for free.",
+    "Discard this event from",
+    "the deck permanently."
+   ],
+   "effectIconIds": [],
+   "permanentlyRemoved": true,
+   "runtime": "unimplemented"
+  },
+  {
+   "id": "hamlet_event:p016",
+   "name": "Militia Training",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70x120_Hamelt_Events_FRONT.pdf",
+    "page": 16
+   },
+   "dayBadge": {
+    "iconId": "9d38361e87",
+    "printed": "?",
+    "status": "confirmed",
+    "ruling": "R-077"
+   },
+   "days": null,
+   "printedLines": [
+    "{icon:9d38361e87} ? Militia Training",
+    "The Hamlet’s guards train",
+    "intensely. If only the Heroes could",
+    "benefit from that. Alas, they’d lose",
+    "all of their precious time though...",
+    "All Heroes can Level Up",
+    "one Lvl 1 Skill. If they",
+    "do, 0 days. Else 3 days."
+   ],
+   "effectLines": [
+    "All Heroes can Level Up",
+    "one Lvl 1 Skill. If they",
+    "do, 0 days. Else 3 days."
+   ],
+   "effectIconIds": [],
+   "permanentlyRemoved": false,
+   "runtime": "unimplemented"
+  }
+ ]
+}
