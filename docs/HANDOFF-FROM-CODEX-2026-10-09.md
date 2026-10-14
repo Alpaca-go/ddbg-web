@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-14）：#187已合并，main `3b0b825`。当前 `codex/phase4-blacksmith` 接铁匠I–III服务付款/当前行动、下次任务临时技能与III奖励骰记录、保存刷新；依据用户条件核对R29后接R-079重复付费覆盖，Q-82 confirmed，见[开发记录](phase4-blacksmith-2026-10-14.md)。实际出征应用和任务后还原仍等任务循环；事件7/16，Q-79/Q-80仍pending，下一主题Guild。只验证本机，人工试玩未代签，未进入Phase5。下段游商出售已交付。
+
 > 当前入口（2026-10-14）：#186已合并，main `4eb2ca4`。当前 `codex/phase4-nomad-sale` 按Kyries批准的R-078接游商I出售2金、立即种子洗回与同次继续购买，含真实跨日持牌日志、待选保存刷新及旧购买待选兼容，见[开发记录](phase4-nomad-sale-2026-10-14.md)。事件保持7/16；Q-79/Q-80仍pending，II/III游商、Guild/铁匠及连续任务继续后续。只验证本机，Phase3人工试玩未代签，未进入Phase5。下段陈列/购买已交付。
 
 > 当前入口（2026-10-14）：#185已合并，main `89d2c7a`。当前 `codex/phase4-nomad-wagon` 接游商I首次陈列/4金购买、R26获得饰品待选与存档，见[开发记录](phase4-nomad-wagon-2026-10-14.md)。牌堆不足三张保留Q-80待确认；II/III陈列和出售继续后续，事件保持7/16。沿用户指令只验证本机，不检查远端Actions。Q-79仍pending，连续任务未完成，Phase3人工试玩未代签，未进入Phase5。下段Sharpen Spear已交付。

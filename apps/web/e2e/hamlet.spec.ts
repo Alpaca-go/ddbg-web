@@ -500,4 +500,38 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   );
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
   await page.screenshot({ path: testInfo.outputPath("nomad-sale-purchase.png"), fullPage: true });
+  // 同一真实回村日志：购买铁匠I临时Smite II，刷新不重复付款，原I级技能保留。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(journey.save),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "铁匠 I：Smite → II（1金）", exact: true }).click();
+  await expect(page.getByTestId("blacksmith-plan")).toContainText("hero-0 Smite II");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${journey.game.dungeon!.gold - 1}`,
+  );
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  const smithHero = await page.evaluate(
+    () => JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon.heroes[0],
+  );
+  expect(smithHero.nextQuestSkillUpgrades).toEqual([
+    { originalSkillId: "hero_skill:p001", temporarySkillId: "hero_skill:p002" },
+  ]);
+  expect(smithHero.skillIds).toContain("hero_skill:p001");
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("blacksmith-plan")).toContainText("hero-0 Smite II");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${journey.game.dungeon!.gold - 1}`,
+  );
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  expect(
+    await page.evaluate(
+      () => JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon.heroes[0],
+    ),
+  ).toEqual(smithHero);
+  await page.screenshot({ path: testInfo.outputPath("blacksmith-plan-saved.png"), fullPage: true });
 });
