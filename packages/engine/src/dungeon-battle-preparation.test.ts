@@ -59,26 +59,28 @@ describe("守卫房间准备（R10、R15–17、R-048）", () => {
         expect(applyCommand(result.state, { type: command }).state).toBe(result.state);
     }
   });
-  it("所有九张可抽；六面完整运行时匹配，未就绪面保持原牌，Boss / 最暗地牢不混入", () => {
+  it("所有九张可抽；七面完整运行时匹配，未就绪面保持原牌，Boss / 最暗地牢不混入", () => {
     const seen = new Set<string>();
     for (let seed = 1; seed <= 100; seed++) {
       const d = draw(setup(seed)).state.dungeon!;
       const active = d.roomCards!.active!;
       seen.add(active.cardId);
       expect(active.tileId).toBe(
-        active.cardId === "room:p009"
-          ? "room_tile:p005:front"
-          : active.cardId === "room:p007"
-            ? "room_tile:p004:front"
-            : active.cardId === "room:p005"
-              ? "room_tile:p003:front"
-              : active.cardId === "room:p001"
-                ? "room_tile:p001"
-                : active.cardId === "room:p002"
-                  ? "room_tile:p002:back"
-                  : active.cardId === "room:p003"
-                    ? "room_tile:p002:front"
-                    : undefined,
+        active.cardId === "room:p004"
+          ? "room_tile:p003:back"
+          : active.cardId === "room:p009"
+            ? "room_tile:p005:front"
+            : active.cardId === "room:p007"
+              ? "room_tile:p004:front"
+              : active.cardId === "room:p005"
+                ? "room_tile:p003:front"
+                : active.cardId === "room:p001"
+                  ? "room_tile:p001"
+                  : active.cardId === "room:p002"
+                    ? "room_tile:p002:back"
+                    : active.cardId === "room:p003"
+                      ? "room_tile:p002:front"
+                      : undefined,
       );
       expect(active.blockedReason).toContain(
         active.tileId ? "完整 Common + Ruins" : "完整特殊运行时尚未就绪",

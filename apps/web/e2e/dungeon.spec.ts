@@ -676,6 +676,27 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("area-O5")).toContainText("先压力");
   await expect(page.getByTestId("area-O8")).not.toContainText("Feeling the Presence");
   await page.screenshot({ path: testInfo.outputPath("old-abbey-deployment.png"), fullPage: true });
+  await page.goto("/?phase=3");
+  await page.getByLabel("侦察测试布置").selectOption("roomSpiked");
+  for (const name of [
+    "重置 Radiant",
+    "侦察",
+    "全员同意",
+    "选择下一段探索",
+    "D",
+    "掷探索骰并开始结算",
+    "抽房间牌并匹配战斗板块",
+    "从完整 42 张怪物池抽牌并记录部署",
+    "进入房间战斗",
+  ])
+    await page.getByRole("button", { name, exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Spiked Pit 区域邻接视图" })).toBeVisible();
+  await expect(page.getByTestId("area-S1")).toContainText("连接：无");
+  await expect(page.getByTestId("area-S5")).toContainText("Circle of Power");
+  await expect(page.getByTestId("area-S8")).toContainText("先坑后Vertigo");
+  await expect(page.getByTestId("area-S9")).toContainText("Bleed 1·3t");
+  await expect(page.getByTestId("entity-hero-0")).toContainText("区域 S11");
+  await page.screenshot({ path: testInfo.outputPath("spiked-pit-deployment.png"), fullPage: true });
 });
 
 test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场", async ({ page }, testInfo) => {

@@ -109,6 +109,11 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       return refuse(`${spawn.cardId} 的完整战斗字段待核实；保留真实部署，不重抽（R-048）`);
     if (!Number.isSafeInteger(card.dodge) || card.dodge < 0 || card.level !== 1)
       return refuse(`${card.name} 缺少唯一已核实 Dodge`);
+    if (
+      !card.resistances ||
+      card.resistances.some((icon) => !["confirmed", "confirmed_rulebook"].includes(icon.naming))
+    )
+      return refuse(`${card.name} 缺少获批抗性栏，不能猜Shuffle防御（R-048）`);
     for (const skill of card.skills) {
       const attack = readMonsterAttackView(card, skill.slot);
       if (attack.status === "refused") return refuse(`${card.name}：${attack.reason}`);
@@ -160,6 +165,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       areaId: spawn.areaId,
       stance: spawn.stance,
       stanceSlots: spawn.stanceSlots,
+      shuffleResist: card.resistances.some((icon) => icon.key === "shuffle_resist"),
       wounds: 0,
       skillIds: [],
       guard: false,

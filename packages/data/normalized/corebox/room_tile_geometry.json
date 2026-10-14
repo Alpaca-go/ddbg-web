@@ -963,7 +963,7 @@
    "ruling": "R-066",
    "approval": "Kyries/Grok 2026-10-13",
    "geometryVerified": true,
-   "usable": false,
+   "usable": true,
    "deployment": {
     "printReview": "verified",
     "heroes": {
@@ -1052,7 +1052,7 @@
      "effect": "circleOfPower",
      "status": "confirmed",
      "printedText": "Circle of Power: Monsters ending their turn here heal 4.",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "S8",
@@ -1060,7 +1060,7 @@
      "effect": "spikedPit",
      "status": "confirmed",
      "printedText": "Spiked Pit: Heroes and Monsters that are Shuffled or standing here at the end of their turn take Damage 3 and suffer Bleed 1 / 3t.",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "S9",
@@ -1068,7 +1068,7 @@
      "effect": "spikedPit",
      "status": "confirmed",
      "printedText": "Spiked Pit: Heroes and Monsters that are Shuffled or standing here at the end of their turn take Damage 3 and suffer Bleed 1 / 3t.",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "areas": [

@@ -56,6 +56,26 @@ export function roomTileBattleAreas(tile: {
     ...area,
     ...(tile.usable === true &&
     tile.specialRegions?.some(
+      (region) =>
+        region.areaId === area.id &&
+        region.effect === "spikedPit" &&
+        region.status === "confirmed" &&
+        region.runtimeReady,
+    )
+      ? { spikedPit: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (region) =>
+        region.areaId === area.id &&
+        region.effect === "circleOfPower" &&
+        region.status === "confirmed" &&
+        region.runtimeReady,
+    )
+      ? { circleOfPower: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
       (r) =>
         r.areaId === area.id &&
         r.effect === "feelingThePresence" &&

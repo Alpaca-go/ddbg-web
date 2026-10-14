@@ -27,7 +27,7 @@ it("Ritual与完成禁疗运行时的Torture均可参战（R-067）", () => {
 it("同编号的最暗地牢、Boss与其他待审核面不按页码或名称兜底；Fountain独立获批", () => {
   expect(selectRoomTile(card("room:p003"), catalog).status).toBe("matched");
   expect(selectRoomTile(card("room:p007"), catalog).status).toBe("matched");
-  for (const id of ["room:p004", "room:p010", "room:p014"])
+  for (const id of ["room:p010", "room:p014"])
     expect(selectRoomTile(card(id), catalog).status).toBe("refused");
   expect(selectRoomTile({ ...card("room:p014"), name: "Ritual Chamber" }, catalog).status).toBe(
     "refused",

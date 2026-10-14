@@ -123,6 +123,12 @@ export function applyBattleSkillStatuses(
         const read = (icons: NonNullable<typeof card.resistances>): StatusKind[] | null => {
           const kinds: StatusKind[] = [];
           for (const icon of icons) {
+            // 已命名Shuffle抗性是即时位移防御，不是持久状态堆；不能因此拒绝Bleed。
+            if (
+              icon.key === "shuffle_resist" &&
+              ["confirmed", "confirmed_rulebook"].includes(icon.naming)
+            )
+              continue;
             const kind = STATUS_KINDS.find(
               (kind) => icon.key === kind || icon.key === `${kind}_resist`,
             );

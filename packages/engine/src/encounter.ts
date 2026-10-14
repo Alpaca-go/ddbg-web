@@ -22,6 +22,7 @@ import { passiveHeal } from "./passive";
 import { gainDisease } from "./conditions";
 import { readHeroPassiveDefence } from "./battle-skill-status";
 import { endTurnOldAbbey } from "./battle-old-abbey";
+import { endTurnSpikedPit } from "./battle-spiked-pit";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -225,6 +226,17 @@ export function finishTurn(
       return abbey;
     state = abbey.state;
     events = abbey.events;
+  }
+  const spiked = endTurnSpikedPit(state, actorId, events);
+  if (spiked) {
+    if (
+      spiked.events.some((event) => event.type === "commandRefused") ||
+      spiked.state.battle!.encounter?.turn.type === "halted" ||
+      spiked.state.battle!.encounter?.turn.type === "finished"
+    )
+      return spiked;
+    state = spiked.state;
+    events = spiked.events;
   }
   const battle = state.battle!;
   const encounter = battle.encounter!;
