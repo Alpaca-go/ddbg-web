@@ -11,6 +11,7 @@ import {
   currentHamletEvent,
   currentHamletHero,
   hamletActionOptions,
+  blacksmithOptions,
   visitNomadWagon,
   upgradableBuildings,
   recoveryBuildingLevel,
@@ -1054,7 +1055,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                           );
                         })}
                       </section>
-                      <p>铁匠临时技能及游商II/III陈列继续开发；游商I可出售一件后选购一件。</p>
+                      <p>铁匠已接下次任务临时技能记录；游商II/III陈列继续开发。</p>
                       {!!d.hamlet?.weekBlockedBuildings?.length && (
                         <p data-testid="hamlet-week-blocked">
                           Labor Force：本次村庄准备期间不可访问
@@ -1073,6 +1074,18 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                           .map((h) => `${h.id} +${h.nextQuestProvisionDice ?? 0}`)
                           .join(" · ")}
                         。 下一次出征尚未接通；届时实际掷出，含开局补给最多16颗（R-041）。
+                      </p>
+                      <p data-testid="blacksmith-plan">
+                        下次任务铁匠临时技能：
+                        {d.heroes
+                          .flatMap((hero) =>
+                            (hero.nextQuestSkillUpgrades ?? []).map(
+                              (u) =>
+                                `${hero.id} ${d.battleCatalog?.skills.find((c) => c.id === u.temporarySkillId)?.name ?? u.temporarySkillId} ${d.battleCatalog?.skills.find((c) => c.id === u.temporarySkillId)?.level === 2 ? "II" : "III"}`,
+                            ),
+                          )
+                          .join(" · ") || "无"}
+                        。原卡保留，出征使用/归还等待下一任务接入。
                       </p>
                       <p data-testid="hamlet-virtues">
                         当前美德：
@@ -1181,6 +1194,19 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                               访问游商马车I：陈列与购买饰品
                             </button>
                           )}
+                        {blacksmithOptions(game).map((option) => (
+                          <button
+                            key={option.command.skillId}
+                            disabled={
+                              d.gold < 1 ||
+                              d.hamlet?.blockedBuildings.includes("blacksmith") ||
+                              d.hamlet?.visitedBuildings?.includes("blacksmith")
+                            }
+                            onClick={() => dispatch(option.command)}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
                         {hamletActionOptions(game).map((option) => (
                           <button
                             key={JSON.stringify(option.command)}
@@ -1191,8 +1217,8 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                         ))}
                       </div>
                       <p>
-                        已开放修道院、酒馆、疗养院、生存专家和墓地服务及 Sharpen Spear / Intimidate
-                        / Zealous Speech / Pray / Chant。其他服务与村庄技能继续开发。
+                        已开放修道院、酒馆、疗养院、生存专家、墓地和铁匠服务及 Sharpen Spear /
+                        Intimidate / Zealous Speech / Pray / Chant。其他服务与村庄技能继续开发。
                       </p>
                     </>
                   )}

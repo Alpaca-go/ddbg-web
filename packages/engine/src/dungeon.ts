@@ -69,7 +69,10 @@ export type DungeonBattleCatalog = {
     readonly level: number;
     readonly dodge: number;
   })[];
-  readonly skills: readonly (BattleSetup["skills"][number] & { readonly level: number })[];
+  readonly skills: readonly (BattleSetup["skills"][number] & {
+    readonly level: number;
+    readonly name?: string;
+  })[];
   readonly monsters: readonly (MonsterCardView & {
     readonly name: string;
     readonly level: number;
@@ -112,6 +115,11 @@ export type DungeonState = {
     readonly xp?: number;
     /** 村庄购买的下次任务奖励骰；开局按R-041掷出，非当前补给池。 */
     readonly nextQuestProvisionDice?: number;
+    /** R34：下次任务临时使用的技能；原卡保留，任务结束恢复。 */
+    readonly nextQuestSkillUpgrades?: readonly {
+      readonly originalSkillId: string;
+      readonly temporarySkillId: string;
+    }[];
     readonly resolveTested?: boolean | undefined;
     readonly resolveCardId?: string | undefined;
     readonly dead?: boolean;

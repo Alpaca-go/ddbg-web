@@ -112,6 +112,7 @@ export { currentHamletEvent, caretakerBuilding } from "./hamlet-event";
 export type { QuestStart } from "../../data/src/quest-save";
 export { currentHamletHero, hamletActionOptions } from "./hamlet-actions";
 export { visitNomadWagon } from "./hamlet-nomad";
+export { blacksmithOptions } from "./hamlet-blacksmith";
 export {
   recoveryBuildings,
   upgradableBuildings,
