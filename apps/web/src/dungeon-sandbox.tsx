@@ -105,6 +105,7 @@ type Fixture =
   | "roomBeacon"
   | "roomAncestor"
   | "roomAbbey"
+  | "roomInvocation"
   | "roomSpiked"
   | "roomBattle"
   | "roomDisease"
@@ -176,41 +177,43 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
           ? 1885
           : fixture === "roomBeacon"
             ? 1
-            : fixture === "roomSpiked"
-              ? 9
-              : fixture === "roomAbbey"
-                ? 7
-                : fixture === "roomAncestor"
-                  ? 12
-                  : fixture === "roomFountain"
-                    ? 10
-                    : fixture === "roomDisease"
-                      ? 4
-                      : fixture === "roomBattle"
-                        ? 1885
-                        : fixture === "roomApproved"
-                          ? 11
-                          : fixture === "roomBlocked"
-                            ? 2
-                            : fixture === "curioComposite"
-                              ? 230
-                              : fixture === "curioTrinket"
-                                ? 921
-                                : fixture === "curioRewards"
-                                  ? 317
-                                  : fixture === "curioPositive"
-                                    ? 85
-                                    : fixture === "curioProvision"
-                                      ? 370
-                                      : fixture === "curioBuff"
-                                        ? 343
-                                        : fixture === "curio"
-                                          ? 1237
-                                          : fixture === "curioNegative"
-                                            ? 46
-                                            : fixture === "corridor"
-                                              ? 31
-                                              : 1,
+            : fixture === "roomInvocation"
+              ? 2
+              : fixture === "roomSpiked"
+                ? 9
+                : fixture === "roomAbbey"
+                  ? 7
+                  : fixture === "roomAncestor"
+                    ? 12
+                    : fixture === "roomFountain"
+                      ? 10
+                      : fixture === "roomDisease"
+                        ? 4
+                        : fixture === "roomBattle"
+                          ? 1885
+                          : fixture === "roomApproved"
+                            ? 11
+                            : fixture === "roomBlocked"
+                              ? 35
+                              : fixture === "curioComposite"
+                                ? 230
+                                : fixture === "curioTrinket"
+                                  ? 921
+                                  : fixture === "curioRewards"
+                                    ? 317
+                                    : fixture === "curioPositive"
+                                      ? 85
+                                      : fixture === "curioProvision"
+                                        ? 370
+                                        : fixture === "curioBuff"
+                                          ? 343
+                                          : fixture === "curio"
+                                            ? 1237
+                                            : fixture === "curioNegative"
+                                              ? 46
+                                              : fixture === "corridor"
+                                                ? 31
+                                                : 1,
     layout,
     fixture.startsWith("fundraiser")
       ? fundraiserDistribution
@@ -357,6 +360,7 @@ function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral
                 fixture === "roomBeacon" ||
                 fixture === "roomAncestor" ||
                 fixture === "roomAbbey" ||
+                fixture === "roomInvocation" ||
                 fixture === "roomSpiked" ||
                 fixture === "roomBlocked"
               ? {
@@ -452,11 +456,13 @@ export function DungeonSandbox() {
                 ? "入口演示：空补给池，按种子完成开局补给后探索；地图标注仍待批准。"
                 : fixture === "fundraiserRewards"
                   ? "测试注入：已清理一间巢穴与60金币，仅检查退出捐献，不代表实战获得。"
-                  : fixture === "roomSpiked"
-                    ? "房间测试：固定D为巢穴；种子9按完整九房／42怪池自然抽到Spiked Pit，不代表完整任务验收。"
-                    : preview
-                      ? "16 槽地图仅预览，未解释标记保留，未开启 Boss 规则。"
-                      : "测试注入：导航就绪英雄与六个补给；从选路开始，逐骰结算后进入目标节点。"}
+                  : fixture === "roomInvocation"
+                    ? "房间测试：固定D为巢穴；种子2按完整九房／42怪池自然抽到Invocation Chamber，不代表完整任务验收。"
+                    : fixture === "roomSpiked"
+                      ? "房间测试：固定D为巢穴；种子9按完整九房／42怪池自然抽到Spiked Pit，不代表完整任务验收。"
+                      : preview
+                        ? "16 槽地图仅预览，未解释标记保留，未开启 Boss 规则。"
+                        : "测试注入：导航就绪英雄与六个补给；从选路开始，逐骰结算后进入目标节点。"}
           </p>
           <a href="/">返回战斗沙盒</a>
         </div>
@@ -521,8 +527,11 @@ export function DungeonSandbox() {
             </option>
             <option value="roomAbbey">Old Abbey（种子7，固定房间代币，完整房间/怪物池）</option>
             <option value="roomSpiked">Spiked Pit（种子9，固定房间代币，完整房间/怪物池）</option>
+            <option value="roomInvocation">
+              Invocation Chamber（种子2，固定房间代币，完整房间/怪物池）
+            </option>
             <option value="roomBlocked">
-              Lair → Invocation Chamber（p1、种子 2、固定房间代币、先侦察 Radiant）
+              Lair → Treasure Chamber（p1、种子35、固定房间代币、先侦察 Radiant）
             </option>
           </select>
         </label>

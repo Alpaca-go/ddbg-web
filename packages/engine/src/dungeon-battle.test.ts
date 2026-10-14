@@ -858,3 +858,15 @@ it("Curio 撤退必须先离房，返回重掷守卫，不复用旧结果（R15�
   expect(result.state.dungeon!.curioRoom!.guardRoll).toBe(nextBattleRoll(state.seed, cursor));
   expect(applyCommand(result.state, { type: "resolveDungeonRoom" }).state).toBe(result.state);
 });
+
+it("完整九房/42怪池seed2自然Invocation部署，不过滤牌池；仅I4两种特殊效果", () => {
+  const entered = applyCommand(deploy(2), { type: "startDungeonBattle" });
+  expect(entered.state.battle, JSON.stringify(entered.events)).toBeDefined();
+  expect(entered.state.battle!.roomName).toBe("Invocation Chamber");
+  expect(
+    entered.state.battle!.areas.filter((a) => a.invokerGoal && a.invokingAbyss).map((a) => a.id),
+  ).toEqual(["I4"]);
+  expect(
+    entered.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.areaId),
+  ).toEqual(["I9", "I9", "I10", "I10"]);
+});

@@ -58,6 +58,26 @@ export function roomTileBattleAreas(tile: {
     tile.specialRegions?.some(
       (region) =>
         region.areaId === area.id &&
+        region.effect === "theInvokers" &&
+        region.status === "confirmed" &&
+        region.runtimeReady,
+    )
+      ? { invokerGoal: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (region) =>
+        region.areaId === area.id &&
+        region.effect === "invokingAbyss" &&
+        region.status === "confirmed" &&
+        region.runtimeReady,
+    )
+      ? { invokingAbyss: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (region) =>
+        region.areaId === area.id &&
         region.effect === "spikedPit" &&
         region.status === "confirmed" &&
         region.runtimeReady,

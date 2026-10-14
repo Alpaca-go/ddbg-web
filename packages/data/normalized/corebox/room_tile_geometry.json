@@ -1703,7 +1703,7 @@
    "ruling": "R-065",
    "approval": "Kyries/Grok 2026-10-13",
    "geometryVerified": true,
-   "usable": false,
+   "usable": true,
    "deployment": {
     "printReview": "verified",
     "heroes": {
@@ -1792,7 +1792,7 @@
      "effect": "theInvokers",
      "status": "confirmed",
      "printedText": "The Invokers: The last Monster each round always moves towards this Area instead of step 2 of the Monster's turn.",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "I4",
@@ -1800,7 +1800,7 @@
      "effect": "invokingAbyss",
      "status": "confirmed",
      "printedText": "Invoking Abyss: At the end of a round, if there are Monsters in this Area, all four Heroes suffer Stress +2.",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "areas": [

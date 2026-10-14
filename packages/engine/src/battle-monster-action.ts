@@ -1,3 +1,4 @@
+import { isInvokingMonster, moveInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
 import { applyEncounterCommand, nextBattleRoll } from "./encounter";
@@ -52,6 +53,7 @@ export function prepareMonsterAction(
   const occupied = stances.slice(position, position + actor.stanceSlots);
   if (occupied.length !== actor.stanceSlots)
     return rejectBattleCommand(state, "怪物姿态占格超出轨道（R17）");
+  if (isInvokingMonster(battle, actor.id)) return moveInvokingMonster(state, actor.id);
   let selected = selectMonsterSkill(card, occupied);
   if (selected.status === "refused") return rejectBattleCommand(state, selected.reason);
   const needsRoll = selected.status === "needsRoll";

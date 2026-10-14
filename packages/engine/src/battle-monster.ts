@@ -1,3 +1,4 @@
+import { isInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand, writeResolution, skillTargetView } from "./battle";
 import { applySkillHealth } from "./battle-health";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
@@ -38,6 +39,8 @@ export function playMonsterSkill(
   const turn = battle.encounter?.turn;
   if (turn && (turn.type !== "monster" || turn.actorId !== command.actorId))
     return rejectBattleCommand(state, "当前不是这只怪物的行动回合");
+  if (!resume && isInvokingMonster(battle, command.actorId))
+    return rejectBattleCommand(state, "The Invokers 必须以朝红星移动替代整个第2步");
   const prepared = battle.monsterAction;
   if (
     prepared &&

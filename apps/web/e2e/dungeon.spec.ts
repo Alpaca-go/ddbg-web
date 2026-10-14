@@ -208,6 +208,27 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已到达 D；Empty 已清理");
   await expect(page.getByTestId("dungeon-curio")).toContainText("弃牌 1");
   await page.screenshot({ path: testInfo.outputPath("curio-empty.png"), fullPage: true });
+  await page.goto("/?phase=3");
+  await page.getByLabel("侦察测试布置").selectOption("roomInvocation");
+  await page.getByRole("button", { name: "重置 Radiant" }).click();
+  await page.getByRole("button", { name: "侦察", exact: true }).click();
+  await page.getByRole("button", { name: "全员同意", exact: true }).click();
+  await page.getByRole("button", { name: "选择下一段探索" }).click();
+  await page.getByRole("button", { name: "D", exact: true }).click();
+  await page.getByRole("button", { name: "掷探索骰并开始结算" }).click();
+  await page.getByRole("button", { name: "抽房间牌并匹配战斗板块" }).click();
+  await page.getByRole("button", { name: "从完整 42 张怪物池抽牌并记录部署" }).click();
+  await page.getByRole("button", { name: "进入房间战斗", exact: true }).click();
+  await expect(
+    page.getByText("The Invokers：本轮最后一只可行动怪物改为向本区移动，替代整个第2步。", {
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("Invoking Abyss：轮末本区有存活怪物时，全体存活英雄各压力+2。", { exact: true }),
+  ).toBeVisible();
+  await page.screenshot({ path: testInfo.outputPath("invocation-deployment.png"), fullPage: true });
+  await page.goto("/?phase=3");
   for (const fixture of ["roomApproved", "roomBlocked"]) {
     await page.getByLabel("侦察测试布置").selectOption(fixture);
     await page.getByRole("button", { name: "重置 Radiant" }).click();
@@ -223,7 +244,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     await expect(card).toContainText(
       fixture === "roomApproved"
         ? "已匹配 Ritual Chamber"
-        : "Invocation Chamber 已入库，但完整特殊运行时尚未就绪",
+        : "Treasure Chamber 已入库，但完整特殊运行时尚未就绪",
     );
     await expect(page.getByRole("button", { name: "抽房间牌并匹配战斗板块" })).toHaveCount(0);
     const drawMonsters = page.getByRole("button", { name: "从完整 42 张怪物池抽牌并记录部署" });

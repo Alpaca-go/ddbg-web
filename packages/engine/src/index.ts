@@ -102,3 +102,5 @@ export type {
 export { canLeaveDungeon } from "./dungeon-exit";
 export { canRestDungeon } from "./dungeon-rest";
 export { dungeonProvisionWindow } from "./dungeon-provision-window";
+
+export { isInvokingMonster } from "./battle-invocation";
