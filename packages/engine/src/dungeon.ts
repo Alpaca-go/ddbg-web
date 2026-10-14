@@ -8,6 +8,7 @@ import { applyDungeonBacktracking } from "./dungeon-backtracking";
 import { applyDungeonExploration, continueDungeonExploration } from "./dungeon-exploration";
 import type { ExplorationFace } from "../../data/src/exploration";
 import type { SkillStance } from "./hero-skill";
+import type { BuildingLevels } from "./hamlet-buildings";
 import { roomCatalogSchema } from "../../data/src/room";
 import type { RoomCard } from "../../data/src/room";
 import { prepareDungeonBattle } from "./dungeon-battle-preparation";
@@ -77,6 +78,7 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  readonly buildingLevels?: BuildingLevels;
   readonly hamlet?: import("./hamlet-event").HamletEventState;
   readonly hamletReturn?: {
     readonly phase: "converting" | "provisions" | "awaitingReplacement" | "complete";

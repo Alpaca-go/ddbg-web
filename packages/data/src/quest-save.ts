@@ -32,9 +32,30 @@ const noPayload = z.strictObject({
 /** 存档仅允许公开命令的完整参数，不接受状态注入或额外字段。 */
 export const savedCommandSchema = z.union([
   z.strictObject({
+    type: z.literal("upgradeHamletBuilding"),
+    building: z.enum(["abbey", "tavern", "sanitarium"]),
+  }),
+  z.strictObject({
     type: z.literal("visitHamletBuilding"),
     ...actor,
-    serviceId: z.enum(["tavern3", "tavern6", "heal5", "heal10", "cureDisease", "removeQuirks"]),
+    serviceId: z.enum([
+      "tavern3",
+      "tavern6",
+      "tavern9",
+      "heal5",
+      "heal10",
+      "heal7",
+      "heal14",
+      "heal9",
+      "heal18",
+      "cureDisease",
+      "removeQuirks",
+      "tavernHeal5",
+      "tavernHeal10",
+      "tavernCureDisease",
+      "abbeyStress3",
+      "abbeyStress6",
+    ]),
     quirkIds: z.array(id).max(2),
   }),
   z.strictObject({

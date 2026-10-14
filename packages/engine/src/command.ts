@@ -2,6 +2,8 @@ import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { drawHamletEvent, rollHamletCaretaker } from "./hamlet-event";
 import { applyHamletAction } from "./hamlet-actions";
 import type { HamletActionCommand } from "./hamlet-actions";
+import { upgradeHamletBuilding } from "./hamlet-buildings";
+import type { UpgradeHamletBuildingCommand } from "./hamlet-buildings";
 import { applyDungeonCommand } from "./dungeon";
 import { summarizeDungeonQuest, resolveFundraiserGold } from "./dungeon-quest";
 import { restDungeon } from "./dungeon-rest";
@@ -118,6 +120,7 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 };
 
 export type Command =
+  | UpgradeHamletBuildingCommand
   | HamletActionCommand
   | { readonly type: "rollDungeonProvisions" }
   | { readonly type: "restDungeon" }
@@ -298,6 +301,7 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (command.type === "upgradeHamletBuilding") return upgradeHamletBuilding(state, command);
   if (command.type === "visitHamletBuilding" || command.type === "useHamletSkill")
     return applyHamletAction(state, command);
   if (command.type === "drawHamletEvent") return drawHamletEvent(state);
