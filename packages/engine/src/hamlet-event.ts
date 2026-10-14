@@ -6,6 +6,8 @@ import { rejectBattleCommand } from "./battle";
 import { createRng } from "./rng";
 import { nextBattleRoll } from "./encounter";
 import { conditionPoolProblem } from "./conditions";
+import { beginCaregiversConvention } from "./hamlet-caregivers";
+import type { DungeonState } from "./dungeon";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;
 export type HamletEventState = {
@@ -24,6 +26,8 @@ export type HamletEventState = {
   readonly actedHeroes?: readonly string[];
   readonly visitedBuildings?: readonly string[];
   readonly remainingDays?: number;
+  /** 当前事件尚未选择的英雄，与准备日行动分开；仅Caregivers使用。 */
+  readonly eventRemainingHeroes?: readonly string[];
 };
 function shuffle(ids: readonly string[], seed: number, cursor: number) {
   const rng = createRng(seed),
@@ -65,7 +69,7 @@ export function drawHamletEvent(state: GameState): ApplyResult {
   const card = catalog.find((c) => c.id === id)!;
   const implemented =
     card.runtime !== "unimplemented" && card.dayBadge.status === "confirmed" && card.days !== null;
-  if (card.runtime === "removeDisease") {
+  if (card.runtime === "removeDisease" || card.runtime === "removeQuirks") {
     const problem = d.conditions ? conditionPoolProblem(d.conditions, d.heroes) : "缺疾病牌池";
     if (problem || d.heroes.some((hero) => hero.dead))
       return rejectBattleCommand(state, problem ?? "请先完成死亡英雄补位（R33）");
@@ -83,7 +87,7 @@ export function drawHamletEvent(state: GameState): ApplyResult {
         })),
       }
     : null;
-  const ready = implemented && !pending;
+  const ready = implemented && !pending && card.runtime !== "removeQuirks";
   // R32明确结算后洗回；只有完成的事件才洗回，未完成不替换或重抽。
   const returned = ready ? shuffle([...drawn.deck, id], state.seed, drawn.cursor) : drawn;
   const hamlet: HamletEventState = {
@@ -100,6 +104,14 @@ export function drawHamletEvent(state: GameState): ApplyResult {
     blockedBuildings: [],
     heroOrder: [],
   };
+  if (card.runtime === "removeQuirks") {
+    const result = beginCaregiversConvention({
+      ...state,
+      dungeon: { ...d, cursor: drawn.cursor, hamlet },
+    });
+    const refused = result.events.find((event) => event.type === "commandRefused");
+    return refused ? rejectBattleCommand(state, refused.message) : result;
+  }
   return {
     state: {
       ...state,
@@ -121,6 +133,53 @@ export function drawHamletEvent(state: GameState): ApplyResult {
       },
     ],
     ...(pending ? { pendingChoice: pending } : {}),
+  };
+}
+/** R32：已抽出的事件与其他15张必须构成完整核心牌池。结算不得重抽或重复洗回。 */
+export function hamletEventCompletionProblem(d: DungeonState) {
+  const h = d.hamlet;
+  return !h ||
+    h.phase !== "eventBlocked" ||
+    !h.active ||
+    !Number.isSafeInteger(d.cursor + 15) ||
+    h.deck.length !== 15 ||
+    new Set([...h.deck, h.active]).size !== 16 ||
+    [...h.deck, h.active].some((id) => !catalog.some((card) => card.id === id))
+    ? "事件牌池不完整，不能洗回或开始准备"
+    : null;
+}
+/** R32/33：事件全部英雄选择完成后，才洗回并启用印刷准备天数。 */
+export function completeHamletEvent(state: GameState): ApplyResult {
+  const d = state.dungeon!,
+    h = d.hamlet!;
+  const card = catalog.find((candidate) => candidate.id === h.active)!;
+  if (hamletEventCompletionProblem(d) || !card?.days || card.permanentlyRemoved)
+    return rejectBattleCommand(state, "当前事件不能完成并洗回（R32）");
+  const returned = shuffle([...h.deck, h.active!], state.seed, d.cursor);
+  const { eventRemainingHeroes, ...completed } = h;
+  void eventRemainingHeroes;
+  return {
+    state: {
+      ...state,
+      dungeon: {
+        ...d,
+        cursor: returned.cursor,
+        pending: null,
+        hamlet: {
+          ...completed,
+          deck: returned.deck,
+          active: null,
+          phase: "awaitingCaretaker",
+          preparationDays: card.days,
+        },
+      },
+    },
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: `${card.name}：事件已结算并洗回；准备${card.days}天，等待首日看守人（R32/33）`,
+      },
+    ],
   };
 }
 /** 卡面p11、R32/33：仅移除一张疾病；结算完再洗回事件，开始三天准备。 */

@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import type { naturalAbbeyQuest } from "../../../packages/engine/src/test-helpers/abbey-quest";
 import type { ApplyResult } from "../../../packages/engine/src/command";
 import type { QuestSave } from "../../../packages/data/src/quest-save";
+import type { caregiversQuest } from "../../../packages/engine/src/test-helpers/caregivers-quest";
 
 test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存刷新", async ({
   page,
@@ -17,6 +18,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   });
   let journey: ReturnType<typeof naturalAbbeyQuest>, result: ApplyResult;
   let medicalSave: QuestSave;
+  let caregivers: ReturnType<typeof caregiversQuest>;
   try {
     const helpers = await server.ssrLoadModule(
       fileURLToPath(
@@ -50,6 +52,15 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
       ...sourceHelpers.coreQuestSources,
       catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
     }).save;
+    const caregiversHelper = await server.ssrLoadModule(
+      fileURLToPath(
+        new URL("../../../packages/engine/src/test-helpers/caregivers-quest.ts", import.meta.url),
+      ),
+    );
+    caregivers = caregiversHelper.caregiversQuest({
+      ...sourceHelpers.coreQuestSources,
+      catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
+    });
     result = engine.applyCommand(journey.game, {
       type: "visitHamletBuilding",
       actorId: "hero-0",
@@ -138,6 +149,60 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await expect(page.getByTestId("hamlet-event")).toContainText("准备 3 天");
   await page.screenshot({
     path: testInfo.outputPath("medical-breakthrough-saved.png"),
+    fullPage: true,
+  });
+  // 真实seed14任务和回村日志，保存于事件第一名英雄待选；不注入持牌或状态。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(caregivers.save),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText("Caregivers Convention");
+  await expect(page.getByTestId("hamlet-event")).toContainText("村庄事件牌堆 15 张");
+  await expect(page.getByRole("button", { name: "开始首日看守人", exact: true })).toHaveCount(0);
+  await page
+    .getByRole("button", { name: caregivers.game.dungeon!.pending!.options[0]!.label, exact: true })
+    .click();
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(
+    page.getByText("Caregivers Convention：hero-2可免费移除一张怪癖，或放弃（卡面p12）", {
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page.screenshot({
+    path: testInfo.outputPath("caregivers-pending-saved.png"),
+    fullPage: true,
+  });
+  await page.getByRole("button", { name: "放弃移除怪癖", exact: true }).click();
+  await expect(
+    page.getByText("Caregivers Convention：hero-3可免费移除一张怪癖，或放弃（卡面p12）", {
+      exact: true,
+    }),
+  ).toBeVisible();
+  const positive = caregivers.game.dungeon!.conditions!.quirks.find(
+    (quirk) => quirk.id === "quirk:p010",
+  )!.name;
+  await page.getByRole("button", { name: `移除 ${positive}`, exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText("村庄事件牌堆 16 张");
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  const storedQuirks = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon.heroes.map(
+      (hero: { quirkIds: string[] }) => hero.quirkIds,
+    ),
+  );
+  expect(storedQuirks).toEqual([[], [], ["quirk:p007"], ["quirk:p034"]]);
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${caregivers.game.dungeon!.gold}`,
+  );
+  await page.getByRole("button", { name: "开始首日看守人", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText("准备 2 天");
+  await page.screenshot({
+    path: testInfo.outputPath("caregivers-complete-saved.png"),
     fullPage: true,
   });
 });

@@ -383,7 +383,7 @@
    ],
    "effectIconIds": [],
    "permanentlyRemoved": false,
-   "runtime": "unimplemented"
+   "runtime": "removeQuirks"
   },
   {
    "id": "hamlet_event:p013",

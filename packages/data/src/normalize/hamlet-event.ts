@@ -44,9 +44,11 @@ export function buildHamletEvents(raw: RawFile) {
               ? "none"
               : i === 10
                 ? "removeDisease"
-                : i === 12
-                  ? "extraBlock"
-                  : "unimplemented",
+                : i === 11
+                  ? "removeQuirks"
+                  : i === 12
+                    ? "extraBlock"
+                    : "unimplemented",
       };
     }),
   });
