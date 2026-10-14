@@ -72,6 +72,8 @@ export type BattleEntity = PassiveHolder &
   };
 
 export type BattleArea = {
+  readonly hideAndHeal?: true;
+  readonly lootTheChest?: true;
   readonly invokerGoal?: true;
   readonly invokingAbyss?: true;
   readonly spikedPit?: true;
@@ -100,6 +102,7 @@ export type PlayHeroSkillCommand = {
 };
 
 export type BattleSetup = {
+  readonly trinkets?: import("./trinket-acquisition").TrinketPool;
   readonly roomName?: string;
   readonly conditions?: ConditionPool;
   /** 只使用逐面获批属性；整卡其他图标的验证状态不因此改变。 */
@@ -136,6 +139,7 @@ export type BattleSetup = {
 };
 
 export type BattleState = BattleSetup & {
+  readonly lootChestUsed?: true;
   readonly skillPrefix?: SkillPrefix | null;
   readonly encounter?: EncounterState;
   readonly rngCursor: number;
@@ -146,6 +150,7 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | { readonly type: "trinketReward"; readonly actorId: string; readonly choice: PendingChoice }
     | { readonly type: "invokerMove"; readonly actorId: string; readonly choice: PendingChoice }
     | {
         readonly type: "invokerDisplace";

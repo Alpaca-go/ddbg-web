@@ -1254,7 +1254,7 @@
    "ruling": "R-065",
    "approval": "Kyries/Grok 2026-10-13",
    "geometryVerified": true,
-   "usable": false,
+   "usable": true,
    "deployment": {
     "printReview": "verified",
     "heroes": {
@@ -1336,7 +1336,7 @@
      "effect": "lootTheChest",
      "status": "confirmed",
      "printedText": "Loot the Chest: Spend 2 actions here to draw a Trinket. Once per battle.",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "T6",
@@ -1344,7 +1344,7 @@
      "effect": "hideAndHeal",
      "status": "confirmed",
      "printedText": "Hide and Heal: If there are no Monsters in this Area, spend 1 action here and suffer Stress +2 to remove all Wounds.",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "areas": [

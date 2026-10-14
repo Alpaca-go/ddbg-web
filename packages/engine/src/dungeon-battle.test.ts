@@ -1,4 +1,6 @@
 import { nextBattleRoll } from "./encounter";
+import rawTrinkets from "../../data/normalized/corebox/trinket.json";
+import { createTrinketPool, drawTrinket, chooseTrinket } from "./trinket-acquisition";
 import rawCurios from "../../data/normalized/corebox/curio.json";
 import { curioFileSchema } from "../../data/src/curio";
 import { expect, it } from "vitest";
@@ -19,6 +21,7 @@ import { diseaseFileSchema } from "../../data/src/disease";
 import { createConditionPool, gainDisease, conditionPoolProblem } from "./conditions";
 import { normalizedHeroStatFileSchema } from "../../data/src/normalize/hero-stat";
 import {
+  normalizedTrinketFileSchema,
   normalizedHeroSkillFileSchema,
   normalizedVirtueAfflictionFileSchema,
   normalizedMonsterMediumFileSchema,
@@ -43,6 +46,7 @@ const stats = normalizedHeroStatFileSchema.parse(statsFile).cards.filter((s) => 
 const skills = normalizedHeroSkillFileSchema.parse(skillsFile).cards;
 const catalog = JSON.parse(
   JSON.stringify({
+    trinkets: createTrinketPool(normalizedTrinketFileSchema.parse(rawTrinkets).cards, 1),
     heroStats: stats,
     skills,
     conditions: createConditionPool(
@@ -106,6 +110,25 @@ function deploy(seed: number): GameState {
 }
 // 不过滤生产牌池；固定种子仅作单场测试。
 const goodSeed = 1885;
+
+it("全九房／42怪池seed35自然Treasure入场，T5/T6完整交互与T4断图保持获批数据", () => {
+  const prepared = deploy(35);
+  const entered = applyCommand(prepared, { type: "startDungeonBattle" });
+  expect(entered.state.battle, JSON.stringify(entered.events)).toBeDefined();
+  const b = entered.state.battle!;
+  expect(b.roomName).toBe("Treasure Chamber");
+  expect(b.areas.filter((a) => a.lootTheChest).map((a) => a.id)).toEqual(["T5"]);
+  expect(b.areas.filter((a) => a.hideAndHeal).map((a) => a.id)).toEqual(["T6"]);
+  expect(b.areas.find((a) => a.id === "T4")!.adjacent).toEqual([]);
+  expect(b.trinkets!.cards).toHaveLength(14);
+  expect(b.entities.filter((e) => e.side === "hero").map((e) => e.areaId)).toEqual([
+    "T8",
+    "T3",
+    "T8",
+    "T3",
+  ]);
+  expect(applyCommand(prepared, { type: "startDungeonBattle" })).toEqual(entered);
+});
 
 it("全九房／42怪池seed9自然Spiked Pit入场，三个特殊区域与S1断图独立", () => {
   const entered = applyCommand(deploy(9), { type: "startDungeonBattle" });
@@ -869,4 +892,24 @@ it("完整九房/42怪池seed2自然Invocation部署，不过滤牌池；仅I4�
   expect(
     entered.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.areaId),
   ).toEqual(["I9", "I9", "I10", "I10"]);
+});
+
+it("完整饰品池真实入场携带；获得后战斗回传同一池，下一房间不重建抽过的饰品", () => {
+  const s = terminal("victory"),
+    b = s.battle!;
+  expect(b.trinkets).toEqual(s.dungeon!.trinkets);
+  const heroes = b.entities
+    .filter((e) => e.side === "hero")
+    .map((e) => ({ id: e.id, level: e.heroLevel!, dead: e.dead }));
+  const draw = drawTrinket(b.trinkets!, heroes, "hero-0", s.seed, b.rngCursor);
+  if (draw.status !== "resolved") throw new Error(draw.reason);
+  const chosen = chooseTrinket(draw.pool, heroes, "discard-new");
+  if (chosen.status !== "resolved") throw new Error(chosen.reason);
+  // 交接边界夹具：使用公开获得原语产生的真实牌池，不冒充完整任务命令。
+  const boundary = { ...s, battle: { ...b, trinkets: chosen.pool, rngCursor: draw.cursor } };
+  const returned = applyCommand(boundary, { type: "finishDungeonBattle" });
+  expect(returned.state.dungeon!.trinkets).toEqual(chosen.pool);
+  expect(returned.state.dungeon!.trinkets!.deck).toHaveLength(13);
+  expect(returned.state.dungeon!.trinkets!.discard).toEqual([draw.pool.incoming!.cardId]);
+  expect(applyCommand(returned.state, { type: "finishDungeonBattle" }).state).toBe(returned.state);
 });

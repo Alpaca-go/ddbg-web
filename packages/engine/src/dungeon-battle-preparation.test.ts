@@ -59,7 +59,7 @@ describe("守卫房间准备（R10、R15–17、R-048）", () => {
         expect(applyCommand(result.state, { type: command }).state).toBe(result.state);
     }
   });
-  it("所有九张可抽；八面完整运行时匹配，未就绪面保持原牌，Boss / 最暗地牢不混入", () => {
+  it("所有九张可抽且完整运行时匹配，Boss / 最暗地牢不混入", () => {
     const seen = new Set<string>();
     for (let seed = 1; seed <= 100; seed++) {
       const d = draw(setup(seed)).state.dungeon!;
@@ -82,11 +82,9 @@ describe("守卫房间准备（R10、R15–17、R-048）", () => {
                       ? "room_tile:p002:back"
                       : active.cardId === "room:p003"
                         ? "room_tile:p002:front"
-                        : undefined,
+                        : "room_tile:p004:back",
       );
-      expect(active.blockedReason).toContain(
-        active.tileId ? "完整 Common + Ruins" : "完整特殊运行时尚未就绪",
-      );
+      expect(active.blockedReason).toContain("完整 Common + Ruins");
     }
     expect([...seen].sort()).toEqual(cards.slice(0, 9).map((c) => c.id));
   });

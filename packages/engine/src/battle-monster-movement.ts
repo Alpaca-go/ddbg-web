@@ -56,6 +56,26 @@ export function roomTileBattleAreas(tile: {
     ...area,
     ...(tile.usable === true &&
     tile.specialRegions?.some(
+      (r) =>
+        r.areaId === area.id &&
+        r.effect === "hideAndHeal" &&
+        r.status === "confirmed" &&
+        r.runtimeReady,
+    )
+      ? { hideAndHeal: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (region) =>
+        region.areaId === area.id &&
+        region.effect === "lootTheChest" &&
+        region.status === "confirmed" &&
+        region.runtimeReady,
+    )
+      ? { lootTheChest: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
       (region) =>
         region.areaId === area.id &&
         region.effect === "theInvokers" &&

@@ -329,6 +329,7 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
   approvedTile({
     number: 6,
     name: "Treasure Chamber",
+    runtimeReady: true,
     page: 4,
     face: "back",
     heroes: { aggressive: "T8", defensive: "T3", ranged: "T8", support: "T3" },

@@ -33,6 +33,8 @@ import { moveMonsterToRange } from "./battle-monster-movement";
 import type { MoveMonsterToRangeCommand, MonsterPositionedEvent } from "./battle-monster-movement";
 import { moveHero } from "./battle-hero-movement";
 import { consumeResolveProvision } from "./resolve-trigger";
+import { lootTreasureChest, resolveBattleTrinketChoice } from "./battle-trinket";
+import { hideAndHeal } from "./battle-hide-and-heal";
 import { interactLoot, resolveLootChoice } from "./loot";
 import { chooseStartingProvision, startWithProvisions } from "./starting-provisions";
 import { useProvision } from "./provision-use";
@@ -115,6 +117,8 @@ export type Command =
   | DungeonCommand
   | PlayHeroSkillEmptyAreaCommand
   | UseProvisionCommand
+  | { readonly type: "lootTreasureChest"; readonly actorId: string }
+  | { readonly type: "hideAndHeal"; readonly actorId: string }
   | { readonly type: "interactLoot"; readonly actorId: string }
   | EncounterCommand
   | PlayHeroSkillCommand
@@ -135,6 +139,7 @@ export type Command =
     };
 
 export type GameEvent =
+  | { readonly type: "roomInteractionResolved"; readonly actorId: string; readonly message: string }
   | { readonly type: "healingPrevented"; readonly entityId: string; readonly message: string }
   | {
       readonly type: "passiveTriggered";
@@ -400,6 +405,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     }
     if (pending.type === "resolveProvision")
       return consumeResolveProvision(state, command.optionId);
+    if (pending.type === "trinketReward")
+      return resolveBattleTrinketChoice(state, command.optionId);
     if (pending.type === "lootReward") return resolveLootChoice(state, command.optionId);
     if (pending.type === "startingProvision")
       return chooseStartingProvision(state, command.optionId);
@@ -451,6 +458,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return startWithProvisions(state);
   if (command.type === "resolveShuffles") return applyBattleShuffles(state);
   if (state.battle?.shuffleIntents.length) return rejectBattleCommand(state, "请先结算位移意图");
+  if (command.type === "lootTreasureChest") return lootTreasureChest(state, command.actorId);
+  if (command.type === "hideAndHeal") return hideAndHeal(state, command.actorId);
   if (command.type === "interactLoot") return interactLoot(state, command.actorId);
   if (command.type === "prepareMonsterAction") return prepareMonsterAction(state, command);
   if (command.type === "moveMonsterToRange") return moveMonsterToRange(state, command);
