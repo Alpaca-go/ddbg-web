@@ -9,6 +9,8 @@ import {
   createQuestSave,
   loadQuestSave,
   currentHamletEvent,
+  currentHamletHero,
+  hamletActionOptions,
   createTrinketPool,
   readRoomTile,
   PROVISION_EFFECTS,
@@ -1045,19 +1047,22 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                   )}
                   {d.hamlet.phase === "awaitingCaretaker" && (
                     <button onClick={() => dispatch({ type: "rollHamletCaretaker" })}>
-                      开始首日看守人
+                      {d.hamlet.day === 1 ? "开始首日看守人" : `开始第 ${d.hamlet.day} 天看守人`}
                     </button>
                   )}
                   {d.hamlet.phase === "heroActions" && (
                     <>
                       <p>
-                        准备 {d.hamlet.preparationDays} 天 · 当前第 {d.hamlet.day} 天
+                        准备 {d.hamlet.preparationDays} 天 · 当前第 {d.hamlet.day} 天 · 剩余{" "}
+                        {d.hamlet.remainingDays ?? d.hamlet.preparationDays} 天
                       </p>
                       <p>
                         看守人：
                         {d.hamlet.caretaker
                           ? buildingLabels[d.hamlet.caretaker]
-                          : "Busy Week，本周不放置"}
+                          : d.hamlet.noCaretaker
+                            ? "Busy Week，本周不放置"
+                            : "已被移出，当天不再占用"}
                         ；封锁建筑：
                         {d.hamlet.blockedBuildings.map((id) => buildingLabels[id]).join("、") ||
                           "无"}
@@ -1066,14 +1071,33 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                         当前行动英雄：
                         {
                           d.battleCatalog?.heroStats.find(
-                            (stat) =>
-                              stat.id ===
-                              d.heroes.find((h) => h.id === d.hamlet!.heroOrder[0])?.heroStatId,
+                            (stat) => stat.id === currentHamletHero(game)?.heroStatId,
                           )?.name
                         }
-                        ；村庄行动待接通。
+                      </p>
+                      <p>
+                        当天已访问：
+                        {d.hamlet.visitedBuildings?.map((id) => buildingLabels[id]).join("、") ||
+                          "无"}
+                      </p>
+                      <div aria-label="村庄行动">
+                        {hamletActionOptions(game).map((option) => (
+                          <button
+                            key={JSON.stringify(option.command)}
+                            onClick={() => dispatch(option.command)}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                      <p>
+                        已开放 I 级修道院、酒馆、疗养院及 Intimidate / Zealous
+                        Speech。其他服务与村庄技能继续开发。
                       </p>
                     </>
+                  )}
+                  {d.hamlet.phase === "preparationComplete" && (
+                    <p>准备天数已用完，等待下一任务接入。当前进度可以保存。</p>
                   )}
                 </section>
               )}
@@ -1209,7 +1233,11 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
           <p data-testid="dungeon-checkpoint">
             {d.hamletReturn
               ? d.hamletReturn.phase === "complete"
-                ? "回村完成；等待村庄事件"
+                ? d.hamlet?.phase === "preparationComplete"
+                  ? "村庄准备完成；等待下一任务"
+                  : d.hamlet
+                    ? "村庄准备进行中"
+                    : "回村完成；等待村庄事件"
                 : "回村步骤进行中；探索已经结束"
               : d.phase === "exited"
                 ? `已从 ${d.position} 离开地牢；金币与英雄状态已保留，等待任务 XP / 回村接口`

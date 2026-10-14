@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", async ({ page }, testInfo) => {
-  test.setTimeout(90_000);
+  test.setTimeout(120_000);
   await page.setViewportSize({ width: 1440, height: 1050 });
   for (const [id, name] of [
     ["quest:p001", "Scout Ahead I"],
@@ -93,7 +93,55 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("hamlet-event")).toContainText("General Repairs");
   await expect(page.getByTestId("hamlet-event")).toContainText("当前第 1 天");
   await expect(page.getByTestId("hamlet-event")).toContainText("CRUSADER");
+  await expect(
+    page.getByRole("button", { name: "酒馆 I：压力 −3（1 金）", exact: true }),
+  ).toHaveCount(0);
+  await page.getByRole("button", { name: "疗养院 I：治疗 5（1 金）", exact: true }).click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：7");
+  await expect(page.getByTestId("hamlet-event")).toContainText("HELLION");
+  await page.getByRole("button", { name: "Intimidate：移出当天看守人", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText("HIGHWAYMAN");
+  await expect(page.getByTestId("hamlet-event")).toContainText("当天已访问：疗养院");
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：7");
+  await expect(page.getByTestId("hamlet-event")).toContainText("HIGHWAYMAN");
   await page.screenshot({ path: testInfo.outputPath("hamlet-caretaker.png"), fullPage: true });
+  // 真实同种子新任务从首日开始，Crusader技能走完四天，不注入状态或补金币。
+  await page.goto("/?phase=3&play=1");
+  await page.getByLabel("任务模式").selectOption("radiant");
+  await page.getByLabel("任务种子").fill("40");
+  await page.getByRole("button", { name: "进入地牢", exact: true }).click();
+  await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
+  while (await page.getByRole("button", { name: "火把", exact: true }).count())
+    await page.getByRole("button", { name: "火把", exact: true }).click();
+  for (const name of [
+    "离开地牢",
+    "全员同意离开",
+    "生成任务结算摘要",
+    "返回村庄",
+    "兑换剩余补给并完成回村",
+    "抽村庄事件",
+    "开始首日看守人",
+  ])
+    await page.getByRole("button", { name, exact: true }).click();
+  for (let day = 1; day <= 4; day++) {
+    await page
+      .getByRole("button", { name: "Zealous Speech：全体压力 −5，结束当天", exact: true })
+      .click();
+    if (day < 4)
+      await page.getByRole("button", { name: `开始第 ${day + 1} 天看守人`, exact: true }).click();
+  }
+  await expect(page.getByTestId("hamlet-event")).toContainText("准备天数已用完");
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText("准备天数已用完");
+  await page.screenshot({
+    path: testInfo.outputPath("hamlet-preparation-complete.png"),
+    fullPage: true,
+  });
   await page.goto("/");
   await page.getByRole("link", { name: "打开 Phase 3 布局与侦察沙盒" }).click();
   await expect(page.getByRole("heading", { name: "地牢布局与侦察" })).toBeVisible();
