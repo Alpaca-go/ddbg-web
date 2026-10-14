@@ -14,6 +14,7 @@ function problem(state: GameState) {
     d.hamletReturn?.phase !== "complete" ||
     h?.phase !== "heroActions" ||
     h.active ||
+    (h.nomadSold !== undefined && h.nomadSold !== true) ||
     !currentHamletHero(state) ||
     d.heroes.length !== 4 ||
     d.heroes.some(
@@ -40,6 +41,14 @@ function shopping(state: GameState): ApplyResult {
   const options = pool.incoming
     ? trinketOptions(pool, d.heroes).map(({ id, label }) => ({ id, label }))
     : [
+        ...(!d.hamlet!.nomadSold && Number.isSafeInteger(d.gold + 2)
+          ? pool.held
+              .filter((held) => held.heroId === actor.id)
+              .map((held) => ({
+                id: `sell:${held.cardId}`,
+                label: `出售 ${pool.cards.find((c) => c.id === held.cardId)!.name}（获得2金，立即洗回牌堆）`,
+              }))
+          : []),
         ...(pool.display ?? [])
           .filter(
             (id) => d.gold >= 4 && !pool.cards.find((c) => c.id === id)!.verification.unverified,
@@ -55,7 +64,7 @@ function shopping(state: GameState): ApplyResult {
     actorId: actor.id,
     prompt: pool.incoming
       ? "游商购买已付款：选择装备、转交或弃置，不重复收费（R26）"
-      : "游商马车I：可购买一件陈列饰品；出售继续开发（R33）",
+      : "游商马车I：可先出售一件已装备饰品，再购买一件陈列品（R33、R-078）",
     options,
   };
   return {
@@ -75,6 +84,7 @@ export function visitNomadWagon(state: GameState, actorId: string): ApplyResult 
     !h ||
     d.pending ||
     d.trinkets!.incoming ||
+    h.nomadSold ||
     currentHamletHero(state)!.id !== actorId ||
     h.blockedBuildings.includes("nomadWagon") ||
     h.visitedBuildings?.includes("nomadWagon")
@@ -146,6 +156,58 @@ export function chooseNomadWagon(
   }
   if (!p.id.startsWith("hamlet-nomad:shop:")) return rejectBattleCommand(state, "游商购买阶段无效");
   if (optionId === "leave") return finish({ ...state, dungeon: { ...d, pending: null } }, actorId);
+  if (optionId.startsWith("sell:")) {
+    const cardId = optionId.slice(5);
+    if (
+      d.hamlet!.nomadSold ||
+      !Number.isSafeInteger(d.gold + 2) ||
+      !pool.held.some((held) => held.cardId === cardId && held.heroId === actorId)
+    )
+      return rejectBattleCommand(state, "一次游商访问至多出售自己的一件已装备饰品（R33）");
+    // R-078：只洗当前牌堆及售出卡；陈列、弃牌、其他持牌不参与。
+    const held = pool.held.filter((item) => item.cardId !== cardId);
+    const deck = [
+      ...(pool.deck ??
+        pool.cards
+          .map((c) => c.id)
+          .filter(
+            (id) =>
+              !pool.discard.includes(id) &&
+              !pool.held.some((h) => h.cardId === id) &&
+              !pool.display!.includes(id),
+          )),
+      cardId,
+    ];
+    const rng = createRng(state.seed);
+    let cursor = d.cursor;
+    for (let i = 0; i < cursor; i++) rng.next();
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(rng.next() * (i + 1));
+      [deck[i], deck[j]] = [deck[j]!, deck[i]!];
+      cursor++;
+    }
+    const next = shopping({
+      ...state,
+      dungeon: {
+        ...d,
+        gold: d.gold + 2,
+        cursor,
+        pending: null,
+        trinkets: { ...pool, deck, held },
+        hamlet: { ...d.hamlet!, nomadSold: true },
+      },
+    });
+    return {
+      ...next,
+      events: [
+        {
+          type: "dungeonUpdated",
+          message: `${actorId}出售${pool.cards.find((c) => c.id === cardId)!.name}获得2金，立即洗回I级牌堆；可继续购买，尚未结束行动（R33、R-078）`,
+        },
+        ...next.events,
+      ],
+    };
+  }
   const cardId = optionId.slice(4),
     card = pool.cards.find((c) => c.id === cardId);
   if (
@@ -171,8 +233,10 @@ export function chooseNomadWagon(
   });
 }
 function finish(state: GameState, actorId: string): ApplyResult {
+  const hamlet = { ...state.dungeon!.hamlet! };
+  delete hamlet.nomadSold;
   return {
-    state: { ...state, dungeon: finishHamletAction(state.dungeon!, actorId, false) },
+    state: { ...state, dungeon: finishHamletAction({ ...state.dungeon!, hamlet }, actorId, false) },
     events: [
       {
         type: "dungeonUpdated",

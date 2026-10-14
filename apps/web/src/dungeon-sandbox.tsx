@@ -1054,7 +1054,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                           );
                         })}
                       </section>
-                      <p>铁匠临时技能及游商II/III陈列、出售继续开发；游商I可陈列和购买。</p>
+                      <p>铁匠临时技能及游商II/III陈列继续开发；游商I可出售一件后选购一件。</p>
                       {!!d.hamlet?.weekBlockedBuildings?.length && (
                         <p data-testid="hamlet-week-blocked">
                           Labor Force：本次村庄准备期间不可访问

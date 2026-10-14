@@ -57,6 +57,34 @@ function replayCommands(commands: QuestSave["commands"]): Command[] {
     return command;
   });
 }
+/** #186的购买待选仅新增出售按钮/提示；旧快照其他字段仍须逐项匹配回放。 */
+function upgradeNomadPrompt(snapshot: unknown, restored: GameState): unknown {
+  const old = snapshot as GameState | null;
+  const pending = old?.dungeon?.pending,
+    current = restored.dungeon?.pending;
+  if (
+    !pending?.id.startsWith("hamlet-nomad:shop:") ||
+    pending.prompt !== "游商马车I：可购买一件陈列饰品；出售继续开发（R33）" ||
+    old!.dungeon!.hamlet?.nomadSold !== undefined ||
+    !current ||
+    current.id !== pending.id ||
+    current.actorId !== pending.actorId ||
+    canonical(pending.options) !==
+      canonical(current.options.filter((o) => !o.id.startsWith("sell:")))
+  )
+    return snapshot;
+  return {
+    ...old,
+    dungeon: {
+      ...old!.dungeon!,
+      pending: {
+        ...pending,
+        prompt: current.prompt,
+        options: current.options,
+      },
+    },
+  };
+}
 /** 大纲§3.3 / Phase4：种子+日志+版本快照；纯函数，不依赖浏览器存储。 */
 export function createQuestSave(
   start: QuestStart,
@@ -83,7 +111,7 @@ export function loadQuestSave(input: unknown, sources: CoreQuestSources) {
   const save = parsed.data;
   const commands = replayCommands(save.commands);
   const restored = replay(save.start, commands, sources);
-  if (canonical(restored.game) !== canonical(save.snapshot))
+  if (canonical(restored.game) !== canonical(upgradeNomadPrompt(save.snapshot, restored.game)))
     throw new Error("存档快照与回放不一致，或游戏数据版本已变化；未替换当前进度");
   return { ...restored, start: save.start, commands };
 }

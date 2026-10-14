@@ -8,6 +8,7 @@ import type { caregiversQuest } from "../../../packages/engine/src/test-helpers/
 import type { townFairQuest } from "../../../packages/engine/src/test-helpers/town-fair-quest";
 import type { laborQuest } from "../../../packages/engine/src/test-helpers/labor-quest";
 import type { nomadQuest } from "../../../packages/engine/src/test-helpers/nomad-quest";
+import type { nomadSaleQuest } from "../../../packages/engine/src/test-helpers/nomad-sale-quest";
 
 test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存刷新", async ({
   page,
@@ -25,6 +26,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   let townFair: ReturnType<typeof townFairQuest>, fairResult: ApplyResult;
   let labor: ReturnType<typeof laborQuest>;
   let nomad: ReturnType<typeof nomadQuest>;
+  let nomadSale: ReturnType<typeof nomadSaleQuest>;
   try {
     const helpers = await server.ssrLoadModule(
       fileURLToPath(
@@ -92,6 +94,15 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
       ),
     );
     nomad = nomadHelper.nomadQuest({
+      ...battleData,
+      trinkets: sourceHelpers.coreQuestSources.catalog.trinkets,
+    });
+    const saleHelper = await server.ssrLoadModule(
+      fileURLToPath(
+        new URL("../../../packages/engine/src/test-helpers/nomad-sale-quest.ts", import.meta.url),
+      ),
+    );
+    nomadSale = saleHelper.nomadSaleQuest({
       ...battleData,
       trinkets: sourceHelpers.coreQuestSources.catalog.trinkets,
     });
@@ -445,4 +456,48 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     `共享金币：${nomad.game.dungeon!.gold - 4}`,
   );
   await page.screenshot({ path: testInfo.outputPath("nomad-purchase-saved.png"), fullPage: true });
+  // 真实命令：Hellion移出游商看守人，Highwayman买给Crusader，次日Crusader出售。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(nomadSale.save),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "访问游商马车I：陈列与购买饰品", exact: true }).click();
+  const saleDisplay = await page.getByTestId("nomad-display").innerText();
+  await page.getByRole("button", { name: /^出售 / }).click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${nomadSale.game.dungeon!.gold + 2}`,
+  );
+  await expect(page.getByRole("button", { name: /^出售 / })).toHaveCount(0);
+  await expect(page.getByTestId("nomad-display")).toHaveText(saleDisplay);
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*CRUSADER/);
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  const saleSnapshot = await page.evaluate(
+    () => JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon,
+  );
+  expect(saleSnapshot.trinkets.held).toEqual([]);
+  expect(saleSnapshot.trinkets.deck).toContain(nomadSale.game.dungeon!.trinkets!.held[0]!.cardId);
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${nomadSale.game.dungeon!.gold + 2}`,
+  );
+  await expect(page.getByRole("button", { name: /^出售 / })).toHaveCount(0);
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  expect(
+    await page.evaluate(
+      () => JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon,
+    ),
+  ).toEqual(saleSnapshot);
+  await page
+    .getByRole("button", { name: /^购买 / })
+    .first()
+    .click();
+  await page.getByRole("button", { name: /^hero-0 装备 / }).click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${nomadSale.game.dungeon!.gold - 2}`,
+  );
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
+  await page.screenshot({ path: testInfo.outputPath("nomad-sale-purchase.png"), fullPage: true });
 });
