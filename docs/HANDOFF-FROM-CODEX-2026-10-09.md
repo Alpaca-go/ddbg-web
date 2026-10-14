@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-14）：#177已合并，main `143be42`。当前 `codex/phase4-medical-breakthrough` 接通 Medical Breakthrough 疾病选人/结算/洗回及三天准备，见[开发记录](phase4-medical-breakthrough-2026-10-14.md)。事件已实现4/16，其余12张保留真实停点。Phase4仍缺其余村庄服务、驿站和连续下一任务；Phase3人工试玩未代签，不提前进入Phase5。下段Survivalist主题已交付。
+
 > 当前入口（2026-10-14）：#176已合并，main `1c295db`。当前 `codex/phase4-survivalist` 接Survivalist I–III服务/升级及下次任务奖励骰记录，见[开发记录](phase4-survivalist-2026-10-14.md)。下段Vestal已交付；奖励实际掷出仍需下一次出征接口，Phase4未完成，不提前开放Boss。
 
 > 当前入口（2026-10-14）：#175已合并，main `8045dfd`。当前 `codex/phase4-vestal-hamlet-skills` 接 Vestal I 的 Pray / Chant、状态堆与保存回放，见[开发记录](phase4-vestal-hamlet-skills-2026-10-14.md)。下段修道院正面怪癖是已交付基线；Phase4仍未完成，下一任务/Boss不提前开放，未知图标不外推。

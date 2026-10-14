@@ -1071,7 +1071,11 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                       .join(" ") || "本周没有额外事件效果。"}
                   </p>
                   {d.hamlet.phase === "eventBlocked" && (
-                    <p>本事件效果尚未接通，保留原卡；准备天数与看守人尚未开始。</p>
+                    <p>
+                      {d.pending?.id.startsWith("hamlet-medical:")
+                        ? "请在下方选择一名英雄移除疾病；结算后开始三天准备。"
+                        : "本事件效果尚未接通，保留原卡；准备天数与看守人尚未开始。"}
+                    </p>
                   )}
                   {d.hamlet.phase === "awaitingCaretaker" && (
                     <button onClick={() => dispatch({ type: "rollHamletCaretaker" })}>

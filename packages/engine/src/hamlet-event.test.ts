@@ -57,7 +57,7 @@ it("完整16卡逐页原文保留；准备天数仅R-077卡面位置，occupancy
   expect(cards.map((c) => c.days)).toEqual([2, 2, 4, 3, 3, 3, 1, 2, 2, 1, 3, 2, 4, 3, 2, null]);
   expect(cards.filter((c) => c.permanentlyRemoved).map((c) => c.source.page)).toEqual([6, 15]);
   expect(cards.filter((c) => c.runtime !== "unimplemented").map((c) => c.source.page)).toEqual([
-    2, 5, 13,
+    2, 5, 11, 13,
   ]);
   expect(dictionary.icons.find((c) => c.iconId === "43aaf29bbb")!.key).toBe("occupancy_pips");
   expect(hamletEventFileSchema.safeParse({ ...events, cards: cards.slice(1) }).success).toBe(false);
@@ -137,4 +137,131 @@ it("R33建筑映射全部十面；General Repairs同建筑不同点数也重掷"
   expect(r.state.dungeon!.cursor).toBeGreaterThan(2);
   expect(new Set(r.state.dungeon!.hamlet!.blockedBuildings).size).toBe(2);
   expect(applyCommand(fixture, { type: "rollHamletCaretaker" })).toEqual(r);
+});
+it("Medical Breakthrough自然回村无疾病：无待选、不掷治疗骰、不付费，洗回后开始三天且存档回放一致", () => {
+  const seed = seedFor("hamlet_event:p011"),
+    s = returned(seed);
+  const before = structuredClone(s.game),
+    r = s.step({ type: "drawHamletEvent" });
+  expect(r.pendingChoice).toBeUndefined();
+  expect(r.state.dungeon!.hamlet).toMatchObject({
+    active: null,
+    phase: "awaitingCaretaker",
+    preparationDays: 3,
+  });
+  expect(r.state.dungeon!.hamlet!.deck).toHaveLength(16);
+  expect(r.state.dungeon!.cursor).toBe(before.dungeon!.cursor + 30);
+  expect(r.state.dungeon!.heroes).toEqual(before.dungeon!.heroes);
+  expect(r.state.dungeon!.gold).toBe(before.dungeon!.gold);
+  const start = {
+    seed,
+    questId: "quest:p001" as const,
+    mode: "radiant" as const,
+    party: coreParty.map((hero) => ({ ...hero, skillIds: [...hero.skillIds] })),
+  };
+  const save = createQuestSave(start, s.commands, r.state, coreQuestSources);
+  expect(loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game).toEqual(r.state);
+  expect(s.game).toEqual(before); // helper不更新game属性，原状态不变
+});
+it("Medical Breakthrough疾病边界夹具：团队选择一人，仅移除选中疾病并同步投影；不治疗/收费/消耗英雄行动", () => {
+  const s = returned(seedFor("hamlet_event:p011")),
+    d = s.game.dungeon!,
+    pool = d.conditions!;
+  // 明示疾病夹具；完整实体池，不将人工持牌冒充自然任务。
+  const game: GameState = {
+    ...s.game,
+    dungeon: {
+      ...d,
+      heroes: d.heroes.map((hero, i) =>
+        i < 2
+          ? {
+              ...hero,
+              diseaseId: pool.diseases[i]!.id,
+              combat: {
+                id: hero.id,
+                side: "hero",
+                areaId: "fixture",
+                hero: "fixture",
+                skillIds: [],
+                guard: false,
+                dead: false,
+                bleed: [],
+                blight: [],
+                wounds: hero.wounds!,
+                life: hero.life!,
+                dodge: 0,
+                diseaseId: pool.diseases[i]!.id,
+              },
+            }
+          : hero,
+      ),
+    },
+  };
+  const before = structuredClone(game),
+    r = applyCommand(game, { type: "drawHamletEvent" });
+  expect(r.pendingChoice!.options.map((option) => option.id)).toEqual(["hero-0", "hero-1"]);
+  expect(r.pendingChoice!.actorId).toBe("party");
+  expect(r.state.dungeon!.hamlet).toMatchObject({
+    active: "hamlet_event:p011",
+    preparationDays: null,
+    phase: "eventBlocked",
+  });
+  expect(r.state.dungeon!.hamlet!.deck).toHaveLength(15);
+  expect(r.state.dungeon!.cursor).toBe(d.cursor + 15);
+  for (const command of [
+    { type: "drawHamletEvent" },
+    { type: "rollHamletCaretaker" },
+    { type: "upgradeHamletBuilding", building: "abbey" },
+    { type: "useHamletSkill", actorId: "hero-0", skill: "zealousSpeech" },
+    { type: "resolveChoice", choiceId: "wrong", optionId: "hero-1" },
+    { type: "resolveChoice", choiceId: r.pendingChoice!.id, optionId: "hero-2" },
+  ] as Command[])
+    expect(applyCommand(r.state, command).state).toBe(r.state);
+  const choice: Command = {
+    type: "resolveChoice",
+    choiceId: r.pendingChoice!.id,
+    optionId: "hero-1",
+  };
+  const next = applyCommand(r.state, choice).state,
+    n = next.dungeon!;
+  expect(n.heroes[0]!.diseaseId).toBe(pool.diseases[0]!.id);
+  expect(n.heroes[1]!.diseaseId).toBeNull();
+  expect(n.heroes[1]!.combat?.diseaseId).toBeNull();
+  expect(n.conditions!.diseaseDiscard).toEqual([...pool.diseaseDiscard, pool.diseases[1]!.id]);
+  expect(n.heroes.map((hero) => [hero.wounds, hero.stress])).toEqual(
+    d.heroes.map((hero) => [hero.wounds, hero.stress]),
+  );
+  expect(n.gold).toBe(d.gold);
+  expect(n.hamlet).toMatchObject({
+    phase: "awaitingCaretaker",
+    preparationDays: 3,
+    day: 1,
+    heroOrder: [],
+  });
+  expect(n.hamlet!.deck).toHaveLength(16);
+  expect(n.pending).toBeNull();
+  expect(n.cursor).toBe(d.cursor + 30);
+  expect(applyCommand(next, choice).state).toBe(next);
+  expect(applyCommand(r.state, choice).state).toEqual(next);
+  expect(game).toEqual(before);
+  const corrupt: GameState = {
+    ...r.state,
+    dungeon: {
+      ...r.state.dungeon!,
+      conditions: { ...pool, diseaseDiscard: [pool.diseases[0]!.id] },
+    },
+  };
+  expect(applyCommand(corrupt, choice).state).toBe(corrupt);
+  const brokenDeck: GameState = {
+    ...r.state,
+    dungeon: { ...r.state.dungeon!, hamlet: { ...r.state.dungeon!.hamlet!, deck: [] } },
+  };
+  expect(applyCommand(brokenDeck, choice).state).toBe(brokenDeck);
+});
+it("Medical Breakthrough损坏疾病池在抽牌前原子拒绝，不消耗RNG或替换事件", () => {
+  const s = returned(seedFor("hamlet_event:p011"));
+  const { conditions, ...withoutPool } = s.game.dungeon!;
+  expect(conditions).toBeDefined();
+  const game = { ...s.game, dungeon: withoutPool };
+  expect(applyCommand(game, { type: "drawHamletEvent" }).state).toBe(game);
 });
