@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-14）：#179已合并，main `4b7f44a`。当前 `codex/phase4-town-fair` 接通Town Fair全体减压/按英雄等级治疗、怪癖修正和一天准备，见[开发记录](phase4-town-fair-2026-10-14.md)。事件已实现6/16；其他10张保留真实停点，未批准图标仍不命名。村庄服务、驿站和连续任务继续后续，Phase3人工试玩未代签，未进入Phase5。下段Caregivers已交付。
+
 > 当前入口（2026-10-14）：#178已合并，main `9b6b5e0`。当前 `codex/phase4-caregivers-convention` 接通逐英雄免费移除怪癖/放弃、待选存档和两天准备，见[开发记录](phase4-caregivers-convention-2026-10-14.md)。事件已实现5/16，其余11张保留真实停点；村庄服务、驿站和连续任务继续后续，Phase3人工试玩未代签，未进入Phase5。下段Medical Breakthrough已交付。
 
 > 当前入口（2026-10-14）：#177已合并，main `143be42`。当前 `codex/phase4-medical-breakthrough` 接通 Medical Breakthrough 疾病选人/结算/洗回及三天准备，见[开发记录](phase4-medical-breakthrough-2026-10-14.md)。事件已实现4/16，其余12张保留真实停点。Phase4仍缺其余村庄服务、驿站和连续下一任务；Phase3人工试玩未代签，不提前进入Phase5。下段Survivalist主题已交付。

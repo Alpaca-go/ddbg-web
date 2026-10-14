@@ -42,13 +42,15 @@ export function buildHamletEvents(raw: RawFile) {
             ? "noCaretaker"
             : i === 4
               ? "none"
-              : i === 10
-                ? "removeDisease"
-                : i === 11
-                  ? "removeQuirks"
-                  : i === 12
-                    ? "extraBlock"
-                    : "unimplemented",
+              : i === 6
+                ? "townFair"
+                : i === 10
+                  ? "removeDisease"
+                  : i === 11
+                    ? "removeQuirks"
+                    : i === 12
+                      ? "extraBlock"
+                      : "unimplemented",
       };
     }),
   });
