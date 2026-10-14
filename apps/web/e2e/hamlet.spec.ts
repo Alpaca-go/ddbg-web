@@ -7,6 +7,7 @@ import type { QuestSave } from "../../../packages/data/src/quest-save";
 import type { caregiversQuest } from "../../../packages/engine/src/test-helpers/caregivers-quest";
 import type { townFairQuest } from "../../../packages/engine/src/test-helpers/town-fair-quest";
 import type { laborQuest } from "../../../packages/engine/src/test-helpers/labor-quest";
+import type { nomadQuest } from "../../../packages/engine/src/test-helpers/nomad-quest";
 
 test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存刷新", async ({
   page,
@@ -23,6 +24,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   let caregivers: ReturnType<typeof caregiversQuest>;
   let townFair: ReturnType<typeof townFairQuest>, fairResult: ApplyResult;
   let labor: ReturnType<typeof laborQuest>;
+  let nomad: ReturnType<typeof nomadQuest>;
   try {
     const helpers = await server.ssrLoadModule(
       fileURLToPath(
@@ -83,6 +85,15 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     labor = laborHelper.laborQuest({
       ...sourceHelpers.coreQuestSources,
       catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
+    });
+    const nomadHelper = await server.ssrLoadModule(
+      fileURLToPath(
+        new URL("../../../packages/engine/src/test-helpers/nomad-quest.ts", import.meta.url),
+      ),
+    );
+    nomad = nomadHelper.nomadQuest({
+      ...battleData,
+      trinkets: sourceHelpers.coreQuestSources.catalog.trinkets,
     });
     expect(fairResult.events.some((event) => event.type === "commandRefused")).toBe(false);
     result = engine.applyCommand(journey.game, {
@@ -393,4 +404,45 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     ),
   ).toEqual(spearStacks);
   await page.screenshot({ path: testInfo.outputPath("sharpen-spear-saved.png"), fullPage: true });
+  // 真实第四天未封锁的游商；陈列待选/付款待选刷新，装备后仅扣一次4金。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(nomad.save),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "访问游商马车I：陈列与购买饰品", exact: true }).click();
+  const display = await page.getByTestId("nomad-display").innerText();
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("nomad-display")).toHaveText(display);
+  await page
+    .getByRole("button", { name: /^购买 / })
+    .first()
+    .click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${nomad.game.dungeon!.gold - 4}`,
+  );
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: /^hero-0 装备 / }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${nomad.game.dungeon!.gold - 4}`,
+  );
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  const held = await page.evaluate(
+    () => JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon.trinkets,
+  );
+  expect(held.display).toHaveLength(2);
+  expect(held.held).toHaveLength(1);
+  expect(held.held[0].heroId).toBe("hero-0");
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${nomad.game.dungeon!.gold - 4}`,
+  );
+  await page.screenshot({ path: testInfo.outputPath("nomad-purchase-saved.png"), fullPage: true });
 });

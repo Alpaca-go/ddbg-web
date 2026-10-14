@@ -3,6 +3,7 @@ import { drawHamletEvent, rollHamletCaretaker, chooseMedicalBreakthrough } from 
 import { chooseCaregiversConvention } from "./hamlet-caregivers";
 import { chooseLaborForce } from "./hamlet-labor-force";
 import { applyHamletAction, chooseAbbeyQuirk } from "./hamlet-actions";
+import { visitNomadWagon, chooseNomadWagon } from "./hamlet-nomad";
 import type { HamletActionCommand } from "./hamlet-actions";
 import { upgradeHamletBuilding } from "./hamlet-buildings";
 import type { UpgradeHamletBuildingCommand } from "./hamlet-buildings";
@@ -124,6 +125,7 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 export type Command =
   | UpgradeHamletBuildingCommand
   | HamletActionCommand
+  | { readonly type: "visitNomadWagon"; readonly actorId: string }
   | { readonly type: "rollDungeonProvisions" }
   | { readonly type: "restDungeon" }
   | { readonly type: "summarizeDungeonQuest" }
@@ -303,6 +305,11 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (state.dungeon?.pending?.id.startsWith("hamlet-nomad:"))
+    return command.type === "resolveChoice"
+      ? chooseNomadWagon(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先完成游商马车购买或装备选择");
+  if (command.type === "visitNomadWagon") return visitNomadWagon(state, command.actorId);
   if (state.dungeon?.pending?.id.startsWith("hamlet-labor-force:"))
     return command.type === "resolveChoice"
       ? chooseLaborForce(state, command.choiceId, command.optionId)

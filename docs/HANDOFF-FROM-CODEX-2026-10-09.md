@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-14）：#185已合并，main `89d2c7a`。当前 `codex/phase4-nomad-wagon` 接游商I首次陈列/4金购买、R26获得饰品待选与存档，见[开发记录](phase4-nomad-wagon-2026-10-14.md)。牌堆不足三张保留Q-80待确认；II/III陈列和出售继续后续，事件保持7/16。沿用户指令只验证本机，不检查远端Actions。Q-79仍pending，连续任务未完成，Phase3人工试玩未代签，未进入Phase5。下段Sharpen Spear已交付。
+
 > 当前入口（2026-10-14）：#184已合并，main `a7def6b`。当前 `codex/phase4-sharpen-spear` 补齐Hellion I的Self Buff5t、当天行动与存档回放，见[开发记录](phase4-sharpen-spear-2026-10-14.md)。按Kyries最新指令，后续只验证本机质量闸门，不再检查远端Actions。事件保持7/16，Clean Guns仍含未确认图标；Q-79仍pending，其余服务与连续任务继续后续。Phase3人工试玩未代签，未进入Phase5。下段墓地已交付。
 
 > 当前入口（2026-10-14）：#183已合并，main `1c5d68a`。当前 `codex/phase4-graveyard` 接墓地免费抽美德、当前行动/建筑占用、跨日保存回放与压力10死亡，见[开发记录](phase4-graveyard-2026-10-14.md)。已有意志卡重复来访保留Q-79待确认；事件保持7/16，其余村庄服务、死亡补人和连续任务继续后续。Phase3人工试玩未代签，未进入Phase5。下段Labor Force已交付。
