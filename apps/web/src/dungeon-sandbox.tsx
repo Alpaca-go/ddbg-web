@@ -11,6 +11,7 @@ import {
   currentHamletEvent,
   currentHamletHero,
   hamletActionOptions,
+  visitNomadWagon,
   upgradableBuildings,
   recoveryBuildingLevel,
   stagecoachWaitingTokens,
@@ -1053,7 +1054,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                           );
                         })}
                       </section>
-                      <p>铁匠、游商马车当前可升级；临时技能和饰品买卖服务继续开发。</p>
+                      <p>铁匠临时技能及游商II/III陈列、出售继续开发；游商I可陈列和购买。</p>
                       {!!d.hamlet?.weekBlockedBuildings?.length && (
                         <p data-testid="hamlet-week-blocked">
                           Labor Force：本次村庄准备期间不可访问
@@ -1094,6 +1095,17 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
               )}
               {d.hamlet && (
                 <section aria-label="村庄事件" data-testid="hamlet-event">
+                  {d.trinkets?.display !== undefined && (
+                    <p data-testid="nomad-display">
+                      游商I陈列：
+                      {d.trinkets.display
+                        .map((id) => {
+                          const card = d.trinkets!.cards.find((c) => c.id === id)!;
+                          return `${card.name}${card.verification.unverified ? "（待核实，暂不可购买）" : "（4 金）"}`;
+                        })
+                        .join(" · ") || "已售空，不补货"}
+                    </p>
+                  )}
                   <h3>{hamletCard!.name}</h3>
                   <p>
                     卡面准备天数：{hamletCard!.days ?? "0或3，须先完成事件选择"} · 村庄事件牌堆{" "}
@@ -1154,6 +1166,21 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                           "无"}
                       </p>
                       <div aria-label="村庄行动">
+                        {currentHamletHero(game) &&
+                          !visitNomadWagon(game, currentHamletHero(game)!.id).events.some(
+                            (e) => e.type === "commandRefused",
+                          ) && (
+                            <button
+                              onClick={() =>
+                                dispatch({
+                                  type: "visitNomadWagon",
+                                  actorId: currentHamletHero(game)!.id,
+                                })
+                              }
+                            >
+                              访问游商马车I：陈列与购买饰品
+                            </button>
+                          )}
                         {hamletActionOptions(game).map((option) => (
                           <button
                             key={JSON.stringify(option.command)}

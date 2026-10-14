@@ -63,7 +63,11 @@ function syncHero(hero: Hero): Hero {
     : hero;
 }
 /** R33：四英雄实际行动完成才减一天；R-042允许Zealous Speech立即结束当天。 */
-function finishAction(d: DungeonState, actorId: string, endDay: boolean): DungeonState {
+export function finishHamletAction(
+  d: DungeonState,
+  actorId: string,
+  endDay: boolean,
+): DungeonState {
   const h = d.hamlet!,
     actedHeroes = [...(h.actedHeroes ?? []), actorId];
   if (!endDay && actedHeroes.length < h.heroOrder.length)
@@ -305,7 +309,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
       events: [{ type: "dungeonUpdated", message }],
       pendingChoice: pending,
     };
-  next = finishAction(next, hero.id, endDay);
+  next = finishHamletAction(next, hero.id, endDay);
   return { state: { ...state, dungeon: next }, events: [{ type: "dungeonUpdated", message }] };
 }
 /** R26/R33：已付款并占用；选择仅收尾当前访问，不重抽、不重复收费。 */
@@ -334,7 +338,7 @@ export function chooseAbbeyQuirk(
     return rejectBattleCommand(state, "请完成当前修道院正面怪癖选择");
   const applied = replaceConditionQuirk(d.conditions, d.heroes, optionId);
   if (applied.status === "refused") return rejectBattleCommand(state, applied.reason);
-  const next = finishAction(
+  const next = finishHamletAction(
     {
       ...d,
       pending: null,

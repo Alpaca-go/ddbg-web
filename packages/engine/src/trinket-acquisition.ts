@@ -14,6 +14,8 @@ export type TrinketPool = {
     readonly face: "upright" | "inverted";
   }[];
   readonly incoming: { readonly cardId: string; readonly actorId: string } | null;
+  /** R33：村庄陈列品不属于牌堆/弃牌/持牌；首次来访后即使买空也不补货。 */
+  readonly display?: readonly string[];
 };
 type Action =
   | { type: "discardNew" }
@@ -57,7 +59,8 @@ export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): 
     !Array.isArray(pool.cards) ||
     !Array.isArray(pool.discard) ||
     !Array.isArray(pool.held) ||
-    (pool.deck !== null && !Array.isArray(pool.deck))
+    (pool.deck !== null && !Array.isArray(pool.deck)) ||
+    (pool.display !== undefined && (!Array.isArray(pool.display) || pool.display.length > 3))
   )
     return "饰品池结构无效";
   const canonical = idsFor(pool.level);
@@ -93,7 +96,11 @@ export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): 
     return "饰品持有者、英雄等级、装备复核或容量无效（R26、R-048）";
   const held = pool.held.map((h) => h.cardId);
   const parts = [
-    ...(pool.deck ?? canonical.filter((id) => !held.includes(id) && !pool.discard.includes(id))),
+    ...(pool.deck ??
+      canonical.filter(
+        (id) => !held.includes(id) && !pool.discard.includes(id) && !pool.display?.includes(id),
+      )),
+    ...(pool.display ?? []),
     ...pool.discard,
     ...held,
     ...(pool.incoming ? [pool.incoming.cardId] : []),
@@ -131,7 +138,12 @@ export function drawTrinket(
     ...(pool.deck ??
       pool.cards
         .map((c) => c.id)
-        .filter((id) => !pool.discard.includes(id) && !pool.held.some((h) => h.cardId === id))),
+        .filter(
+          (id) =>
+            !pool.discard.includes(id) &&
+            !pool.held.some((h) => h.cardId === id) &&
+            !pool.display?.includes(id),
+        )),
   ];
   const rng = createRng(seed);
   for (let i = 0; i < cursor; i++) rng.next();
