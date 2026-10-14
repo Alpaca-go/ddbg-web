@@ -177,6 +177,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
   try {
     const battle = createBattleState(state.seed, {
       roomName: tile.name,
+      ...(d.trinkets ? { trinkets: d.trinkets } : {}),
       ...(d.conditions ? { conditions: d.conditions } : {}),
       heroStats: stats,
       entities: [...heroes, ...entities],
@@ -325,6 +326,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
         lootPool: { ...b.loot, gold: b.loot.gold + bonus },
         resolveDecks: b.resolveDecks ?? d.resolveDecks,
         ...(b.conditions ? { conditions: b.conditions } : {}),
+        ...(b.trinkets ? { trinkets: b.trinkets } : {}),
         scoutBonus: false,
         mustLeaveRoomId: victory ? undefined : d.position,
         explorationSetup: {

@@ -117,7 +117,16 @@ it("错误入口、未获批板块、缺目录/错等级/陈旧牌堆均原子�
     p = d.monsterPool!;
   const badStates: GameState[] = [
     setup(),
-    room(setup(35)),
+    {
+      ...s,
+      dungeon: {
+        ...d,
+        roomCards: {
+          ...d.roomCards!,
+          active: { ...d.roomCards!.active!, tileId: "room_tile:unapproved" },
+        },
+      },
+    },
     { ...s, dungeon: { ...d, phase: "ready" } },
     { ...s, dungeon: { ...d, explorationSetup: { ...d.explorationSetup!, dungeonLevel: 2 } } },
     { ...s, dungeon: { ...d, monsterPool: { ...p, cards: cards.slice(1) } } },

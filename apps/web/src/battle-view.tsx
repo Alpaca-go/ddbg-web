@@ -333,6 +333,10 @@ export function BattleView({
                   {area.invokingAbyss && (
                     <p>Invoking Abyss：轮末本区有存活怪物时，全体存活英雄各压力+2。</p>
                   )}
+                  {area.lootTheChest && <p>Loot the Chest：花2行动抽1张饰品，每场一次。</p>}
+                  {area.hideAndHeal && (
+                    <p>Hide and Heal：本区无怪物时，花1行动、压力+2，存活后移除全部伤口。</p>
+                  )}
                   {area.circleOfPower && <p>Circle of Power：怪物在本区结束回合治疗4。</p>}
                   {area.endTurnHeal === 3 && (
                     <p className="muted">Healing Waters：英雄结束回合治疗 3</p>
@@ -567,6 +571,30 @@ export function BattleView({
                   拾取同区宝箱
                 </button>
               </fieldset>
+              {battle.areas.find((area) => area.id === actor!.areaId)?.lootTheChest && (
+                <button
+                  disabled={!heroTurn || turn.mustMove || turn.actions < 2 || battle.lootChestUsed}
+                  onClick={() => send({ type: "lootTreasureChest", actorId: actor!.id })}
+                >
+                  Loot the Chest（2行动，本场一次）
+                </button>
+              )}
+              {battle.areas.find((area) => area.id === actor!.areaId)?.hideAndHeal && (
+                <button
+                  disabled={
+                    !heroTurn ||
+                    turn.mustMove ||
+                    turn.actions < 1 ||
+                    battle.areas.find((a) => a.id === actor!.areaId)?.healingForbidden ||
+                    battle.entities.some(
+                      (e) => e.side === "monster" && !e.dead && e.areaId === actor!.areaId,
+                    )
+                  }
+                  onClick={() => send({ type: "hideAndHeal", actorId: actor!.id })}
+                >
+                  Hide and Heal（1行动，压力+2）
+                </button>
+              )}
               <fieldset disabled={!heroTurn || turn.mustMove}>
                 <legend>换姿态</legend>
                 <div className="button-row">
