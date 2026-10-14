@@ -108,6 +108,8 @@ export type DungeonState = {
     readonly id: string;
     readonly stress: number;
     readonly xp?: number;
+    /** 村庄购买的下次任务奖励骰；开局按R-041掷出，非当前补给池。 */
+    readonly nextQuestProvisionDice?: number;
     readonly resolveTested?: boolean | undefined;
     readonly resolveCardId?: string | undefined;
     readonly dead?: boolean;

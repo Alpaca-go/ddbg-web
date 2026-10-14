@@ -6,14 +6,14 @@ import { resolveHeroHealth } from "./hero-health";
 import { passiveHeal } from "./passive";
 import { applyPassiveStatus } from "./passive-runtime";
 import { statusProjection } from "./status";
-import { buildingLevelsProblem, recoveryServices } from "./hamlet-buildings";
-import type { RecoveryServiceId } from "./hamlet-buildings";
+import { buildingLevelsProblem, recoveryServices, survivalistServices } from "./hamlet-buildings";
+import type { RecoveryServiceId, SurvivalistServiceId } from "./hamlet-buildings";
 
 export type HamletActionCommand =
   | {
       readonly type: "visitHamletBuilding";
       readonly actorId: string;
-      readonly serviceId: RecoveryServiceId;
+      readonly serviceId: RecoveryServiceId | SurvivalistServiceId;
       readonly quirkIds: readonly string[];
     }
   | {
@@ -186,7 +186,9 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
       message = "Zealous Speech：全体压力 −5，当天立即结束，只消耗当天（R-042）";
     } else return rejectBattleCommand(state, "Zealous Speech只能是当天第一个行动（R-042）");
   } else {
-    const service = recoveryServices(d).find((s) => s.id === command.serviceId);
+    const service = [...recoveryServices(d), ...survivalistServices(d)].find(
+      (s) => s.id === command.serviceId,
+    );
     if (
       !service ||
       h.blockedBuildings.includes(service.building) ||
@@ -207,7 +209,16 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
           : 5
         : service.cost;
     if (d.gold < cost) return rejectBattleCommand(state, "共享金币不足，未支付或消耗行动");
-    if (service.effect === "stress")
+    if (service.effect === "provisions") {
+      const previous = hero.nextQuestProvisionDice === undefined ? 0 : hero.nextQuestProvisionDice;
+      if (
+        !Number.isSafeInteger(previous) ||
+        previous < 0 ||
+        !Number.isSafeInteger(previous + service.amount)
+      )
+        return rejectBattleCommand(state, "下次任务奖励补给骰数量无效，未付款或消耗行动（R-041）");
+      updated = { ...hero, nextQuestProvisionDice: previous + service.amount };
+    } else if (service.effect === "stress")
       updated = { ...hero, stress: Math.max(0, hero.stress - service.amount) };
     else if (service.effect === "heal") {
       if (!hero.attributesVerified || hero.life === undefined || hero.wounds === undefined)
@@ -324,7 +335,10 @@ export function hamletActionOptions(state: GameState) {
   const hero = currentHamletHero(state);
   if (!hero) return [];
   const options: { label: string; command: HamletActionCommand }[] = [];
-  for (const service of recoveryServices(state.dungeon!)) {
+  for (const service of [
+    ...recoveryServices(state.dungeon!),
+    ...survivalistServices(state.dungeon!),
+  ]) {
     const serviceId = service.id;
     const groups =
       serviceId === "removeQuirks"
