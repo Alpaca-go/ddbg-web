@@ -11,7 +11,7 @@ import {
   currentHamletEvent,
   currentHamletHero,
   hamletActionOptions,
-  recoveryBuildings,
+  upgradableBuildings,
   recoveryBuildingLevel,
   upgradeHamletBuilding,
   createTrinketPool,
@@ -1029,9 +1029,9 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                         驿站累计XP {d.stagecoachXp}；
                         {d.heroes.map((h) => `${h.id} XP ${h.xp}`).join(" · ")}
                       </p>
-                      <section aria-label="恢复建筑升级" data-testid="hamlet-buildings">
+                      <section aria-label="村庄建筑升级" data-testid="hamlet-buildings">
                         <p>团队共同决定升级，每次升一级支付 20 金，不消耗英雄行动。</p>
-                        {recoveryBuildings.map((building) => {
+                        {upgradableBuildings.map((building) => {
                           const level = recoveryBuildingLevel(d, building);
                           const command = { type: "upgradeHamletBuilding", building } as const;
                           const allowed = !upgradeHamletBuilding(game, command).events.some(
@@ -1047,6 +1047,13 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                           );
                         })}
                       </section>
+                      <p data-testid="next-quest-provisions">
+                        下次任务奖励补给骰：
+                        {d.heroes
+                          .map((h) => `${h.id} +${h.nextQuestProvisionDice ?? 0}`)
+                          .join(" · ")}
+                        。 下一次出征尚未接通；届时实际掷出，含开局补给最多16颗（R-041）。
+                      </p>
                     </>
                   )}
                 </section>
@@ -1112,8 +1119,8 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                         ))}
                       </div>
                       <p>
-                        已开放修道院、酒馆、疗养院的恢复服务及 Intimidate / Zealous Speech / Pray /
-                        Chant。其他服务与村庄技能继续开发。
+                        已开放修道院、酒馆、疗养院和生存专家服务及 Intimidate / Zealous Speech /
+                        Pray / Chant。其他服务与村庄技能继续开发。
                       </p>
                     </>
                   )}

@@ -33,7 +33,7 @@ const noPayload = z.strictObject({
 export const savedCommandSchema = z.union([
   z.strictObject({
     type: z.literal("upgradeHamletBuilding"),
-    building: z.enum(["abbey", "tavern", "sanitarium"]),
+    building: z.enum(["abbey", "tavern", "sanitarium", "survivalist"]),
   }),
   z.strictObject({
     type: z.literal("visitHamletBuilding"),
@@ -51,6 +51,9 @@ export const savedCommandSchema = z.union([
       "cureDisease",
       "removeQuirks",
       "abbeyPositiveQuirk",
+      "survivalist1",
+      "survivalist2",
+      "survivalist3",
       "tavernHeal5",
       "tavernHeal10",
       "tavernCureDisease",

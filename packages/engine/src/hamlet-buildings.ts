@@ -4,10 +4,12 @@ import { rejectBattleCommand } from "./battle";
 
 export const recoveryBuildings = ["abbey", "tavern", "sanitarium"] as const;
 export type RecoveryBuilding = (typeof recoveryBuildings)[number];
-export type BuildingLevels = Partial<Readonly<Record<RecoveryBuilding, 1 | 2 | 3>>>;
+export const upgradableBuildings = [...recoveryBuildings, "survivalist"] as const;
+export type UpgradableBuilding = (typeof upgradableBuildings)[number];
+export type BuildingLevels = Partial<Readonly<Record<UpgradableBuilding, 1 | 2 | 3>>>;
 export type UpgradeHamletBuildingCommand = {
   readonly type: "upgradeHamletBuilding";
-  readonly building: RecoveryBuilding;
+  readonly building: UpgradableBuilding;
 };
 export function buildingLevelsProblem(d: DungeonState) {
   if (d.buildingLevels === undefined) return null;
@@ -16,12 +18,12 @@ export function buildingLevelsProblem(d: DungeonState) {
   return d.buildingLevels &&
     Object.entries(d.buildingLevels).some(
       ([id, level]) =>
-        !recoveryBuildings.includes(id as RecoveryBuilding) || ![1, 2, 3].includes(level),
+        !upgradableBuildings.includes(id as UpgradableBuilding) || ![1, 2, 3].includes(level),
     )
     ? "建筑等级无效，不能补默认值"
     : null;
 }
-export function recoveryBuildingLevel(d: DungeonState, building: RecoveryBuilding) {
+export function recoveryBuildingLevel(d: DungeonState, building: UpgradableBuilding) {
   return d.buildingLevels?.[building] ?? 1;
 }
 /** R33：团队共用20金升一级，不是英雄访问，不占建筑、不耗天数或RNG。 */
@@ -38,14 +40,14 @@ export function upgradeHamletBuilding(
     d.pending ||
     d.hamlet?.phase === "eventBlocked" ||
     buildingLevelsProblem(d) ||
-    !recoveryBuildings.includes(command.building) ||
+    !upgradableBuildings.includes(command.building) ||
     !Number.isSafeInteger(d.gold) ||
     d.gold < 20 ||
     recoveryBuildingLevel(d, command.building) === 3
   )
     return rejectBattleCommand(
       state,
-      "升级须在已完成回村、没有待选或未结算事件时进行；限三栋恢复建筑、每级20金、最高III级（R33）",
+      "升级须在已完成回村、没有待选或未结算事件时进行；限已开放建筑、每级20金、最高III级（R33）",
     );
   const level = (recoveryBuildingLevel(d, command.building) + 1) as 2 | 3;
   return {
@@ -85,6 +87,22 @@ const definitions = {
   abbeyStress6: ["abbey", "stress", 6, 3, 3],
 } as const;
 export type RecoveryServiceId = keyof typeof definitions;
+export type SurvivalistServiceId = "survivalist1" | "survivalist2" | "survivalist3";
+/** 官方R34：III级一颗免费；奖励在下个任务掷出（R-041），村庄不掷骰。 */
+export function survivalistServices(d: DungeonState) {
+  if (buildingLevelsProblem(d)) return [];
+  const level = recoveryBuildingLevel(d, "survivalist");
+  const costs = { 1: [1], 2: [1, 3], 3: [0, 2, 4] } as const;
+  return costs[level].map((cost, i) => ({
+    id: `survivalist${i + 1}` as SurvivalistServiceId,
+    building: "survivalist" as const,
+    effect: "provisions" as const,
+    amount: i + 1,
+    cost,
+    level,
+    label: `生存专家 ${["I", "II", "III"][level - 1]}：下次任务 +${i + 1} 颗补给骰（${cost} 金）`,
+  }));
+}
 /** R34 / §4.5：原语、数值、价格和开放等级来自官方表。 */
 export function recoveryServices(d: DungeonState) {
   if (buildingLevelsProblem(d)) return [];

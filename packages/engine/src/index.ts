@@ -113,6 +113,7 @@ export type { QuestStart } from "../../data/src/quest-save";
 export { currentHamletHero, hamletActionOptions } from "./hamlet-actions";
 export {
   recoveryBuildings,
+  upgradableBuildings,
   recoveryBuildingLevel,
   upgradeHamletBuilding,
 } from "./hamlet-buildings";

@@ -4,7 +4,9 @@ import { fileURLToPath } from "node:url";
 import type { naturalAbbeyQuest } from "../../../packages/engine/src/test-helpers/abbey-quest";
 import type { ApplyResult } from "../../../packages/engine/src/command";
 
-test("Phase 4：真实任务村庄怪癖续接与Chant次日状态保存刷新", async ({ page }, testInfo) => {
+test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存刷新", async ({
+  page,
+}, testInfo) => {
   test.setTimeout(120_000);
   // Vite处理引擎的TS/JSON模块，与浏览器一致；不改引擎的纯TS依赖。
   const server = await createServer({
@@ -53,7 +55,9 @@ test("Phase 4：真实任务村庄怪癖续接与Chant次日状态保存刷新",
     JSON.stringify(journey.save),
   );
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
-  const gold = journey.game.dungeon!.gold;
+  await page.getByRole("button", { name: "升级生存专家（20 金）", exact: true }).click();
+  await expect(page.getByTestId("hamlet-buildings")).toContainText("生存专家 II");
+  const gold = journey.game.dungeon!.gold - 20;
   await expect(page.getByTestId("hamlet-buildings")).toContainText("修道院 II");
   await page
     .getByRole("button", { name: "修道院 II：获得 1 张正面怪癖（3 金）", exact: true })
@@ -82,7 +86,10 @@ test("Phase 4：真实任务村庄怪癖续接与Chant次日状态保存刷新",
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
   await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${gold - 3}`);
   await page.getByRole("button", { name: "Intimidate：移出当天看守人", exact: true }).click();
-  await page.getByRole("button", { name: "酒馆 I：压力 −3（1 金）", exact: true }).click();
+  await page
+    .getByRole("button", { name: "生存专家 II：下次任务 +2 颗补给骰（3 金）", exact: true })
+    .click();
+  await expect(page.getByTestId("next-quest-provisions")).toContainText("hero-2 +2");
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*VESTAL/);
   await expect(
     page.getByRole("button", { name: "Pray：自身压力 −9，Debuff 6t", exact: true }),
@@ -90,7 +97,7 @@ test("Phase 4：真实任务村庄怪癖续接与Chant次日状态保存刷新",
   await page.getByRole("button", { name: "Chant：全体压力 −1，Buff 3t", exact: true }).click();
   await page.getByRole("button", { name: "开始第 2 天看守人", exact: true }).click();
   await expect(page.getByTestId("hamlet-event")).toContainText("当前第 2 天");
-  await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${gold - 4}`);
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${gold - 6}`);
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
@@ -100,6 +107,7 @@ test("Phase 4：真实任务村庄怪癖续接与Chant次日状态保存刷新",
     ),
   );
   expect(storedStacks).toEqual(Array.from({ length: 4 }, () => [{ kind: "buff", remaining: 3 }]));
-  await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${gold - 4}`);
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${gold - 6}`);
+  await expect(page.getByTestId("next-quest-provisions")).toContainText("hero-2 +2");
   await page.screenshot({ path: testInfo.outputPath("vestal-chant-saved.png"), fullPage: true });
 });
