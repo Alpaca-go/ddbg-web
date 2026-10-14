@@ -1164,8 +1164,8 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                         ))}
                       </div>
                       <p>
-                        已开放修道院、酒馆、疗养院、生存专家和墓地服务及 Intimidate / Zealous Speech
-                        / Pray / Chant。其他服务与村庄技能继续开发。
+                        已开放修道院、酒馆、疗养院、生存专家和墓地服务及 Sharpen Spear / Intimidate
+                        / Zealous Speech / Pray / Chant。其他服务与村庄技能继续开发。
                       </p>
                     </>
                   )}
