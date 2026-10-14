@@ -25,7 +25,7 @@ export type HamletActionCommand =
   | {
       readonly type: "useHamletSkill";
       readonly actorId: string;
-      readonly skill: "intimidate" | "zealousSpeech" | "pray" | "chant";
+      readonly skill: "intimidate" | "sharpenSpear" | "zealousSpeech" | "pray" | "chant";
     };
 type Hero = DungeonState["heroes"][number];
 /** R27 / §10.1：一次恢复压力事件触发一次Resilient；村庄不套低光照承压。 */
@@ -124,6 +124,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
         (
           {
             intimidate: "HELLION",
+            sharpenSpear: "HELLION",
             zealousSpeech: "CRUSADER",
             pray: "VESTAL",
             chant: "VESTAL",
@@ -131,7 +132,13 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
         )[command.skill]
     )
       return rejectBattleCommand(state, "当前只接已核实I级英雄的这项村庄技能（R-048）");
-    if (command.skill === "pray" || command.skill === "chant") {
+    if (command.skill === "sharpenSpear") {
+      // Hero_STAT_FRONT p3、R33/R-033：Self Buff 5t，不套目标抗性/免疫。
+      const applied = applyPassiveStatus(hero, { kind: "buff", duration: 5 }, "self");
+      if (applied.status === "refused") return rejectBattleCommand(state, applied.reason);
+      next = { ...d, heroes: d.heroes.map((a) => (a.id === hero.id ? syncHero(applied.hero) : a)) };
+      message = "Sharpen Spear：自身Buff 5t，完成当天行动（Hellion I、R33）";
+    } else if (command.skill === "pray" || command.skill === "chant") {
       const heroes: Hero[] = [];
       for (const target of d.heroes) {
         if (command.skill === "pray" && target.id !== hero.id) {
@@ -380,6 +387,10 @@ export function hamletActionOptions(state: GameState) {
       });
   }
   options.push(
+    {
+      label: "Sharpen Spear：自身 Buff 5t",
+      command: { type: "useHamletSkill", actorId: hero.id, skill: "sharpenSpear" },
+    },
     {
       label: "Intimidate：移出当天看守人",
       command: { type: "useHamletSkill", actorId: hero.id, skill: "intimidate" },

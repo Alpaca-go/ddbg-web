@@ -362,4 +362,35 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     path: testInfo.outputPath("graveyard-virtue-saved.png"),
     fullPage: true,
   });
+  // 同一真实回村日志：Hellion二选一Sharpen Spear，只完成她当天的行动。
+  await expect(
+    page.getByRole("button", { name: "Intimidate：移出当天看守人", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Sharpen Spear：自身 Buff 5t", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HIGHWAYMAN/);
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${journey.game.dungeon!.gold}`,
+  );
+  await expect(
+    page.getByRole("button", { name: "Intimidate：移出当天看守人", exact: true }),
+  ).toHaveCount(0);
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  const spearStacks = await page.evaluate(
+    () =>
+      JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon.heroes[1]
+        .statusStacks,
+  );
+  expect(spearStacks).toEqual([{ kind: "buff", remaining: 5 }]);
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HIGHWAYMAN/);
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  expect(
+    await page.evaluate(
+      () =>
+        JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon.heroes[1]
+          .statusStacks,
+    ),
+  ).toEqual(spearStacks);
+  await page.screenshot({ path: testInfo.outputPath("sharpen-spear-saved.png"), fullPage: true });
 });
