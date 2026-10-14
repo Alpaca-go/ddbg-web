@@ -15,6 +15,7 @@ import type { MonsterCombatState } from "./monster-skill";
 import type { ShuffleIntent } from "./shuffle";
 import { beginSkillOwnEffects, afterMonsterOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
+import { beforeTargetShuffle } from "./battle-target-pressure";
 
 /** 调用方手动指定已选技能 / 单个目标；不执行姿态选招、目标 AI 或移动。 */
 export type PlayMonsterSkillCommand = {
@@ -163,13 +164,15 @@ export function playMonsterSkill(
     current.rngCursor + Number(!resume),
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
+  const pressure = beforeTargetShuffle(state, current, health, [result.resolution]);
+  if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
   const statuses = applyBattleSkillStatuses(
-    current,
-    health.entities,
+    pressure.state.battle!,
+    pressure.state.battle!.entities,
     actor.id,
     [result.resolution],
     state.seed,
-    health.rngCursor,
+    pressure.state.battle!.rngCursor,
   );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const casualtyIds = newlyDefeatedIds(battle, statuses.entities);
@@ -200,7 +203,7 @@ export function playMonsterSkill(
     state: {
       ...state,
       battle: {
-        ...current,
+        ...pressure.state.battle!,
         pending: null,
         monsterAction: null,
         rngCursor: statuses.rngCursor,
@@ -211,14 +214,11 @@ export function playMonsterSkill(
           ? {
               ...event,
               casualtyIds,
-              ...(result.resolution.outcome === "crit"
-                ? { criticalContext: { combat: effectCombat, entities: current.entities } }
-                : {}),
             }
           : null,
       },
     },
-    events: [event, ...health.events, ...statuses.events],
+    events: [event, ...pressure.events, ...statuses.events],
   };
   return intents.length ? applied : recordMonsterSkill(applied, event, casualtyIds);
 }

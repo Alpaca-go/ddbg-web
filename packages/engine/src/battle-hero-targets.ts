@@ -16,6 +16,7 @@ import type { SkillCombatState } from "./hero-skill";
 import type { ApplyResult, GameState, HeroSkillTargetsResolvedEvent } from "./command";
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
+import { beforeTargetShuffle } from "./battle-target-pressure";
 
 export type PlayHeroSkillTargetsCommand = {
   readonly type: "playHeroSkillTargets";
@@ -203,13 +204,15 @@ export function playHeroSkillTargets(
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
   if (health.cancelled) return cancelSkillAfterRoll(state, actor.id, health);
+  const pressure = beforeTargetShuffle(state, current, health, resolutions);
+  if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
   const statuses = applyBattleSkillStatuses(
-    current,
-    health.entities,
+    pressure.state.battle!,
+    pressure.state.battle!.entities,
     actor.id,
     resolutions,
     state.seed,
-    health.rngCursor,
+    pressure.state.battle!.rngCursor,
   );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const event: HeroSkillTargetsResolvedEvent = {
@@ -229,9 +232,6 @@ export function playHeroSkillTargets(
     resolution: success,
     targetIds: living.map((e) => e.id),
     casualtyIds: newlyDefeatedIds(battle, statuses.entities),
-    ...(resolutions.some((r) => r.outcome === "crit")
-      ? { criticalContext: { combat: contexts[0]!, combats: contexts, entities: current.entities } }
-      : {}),
   };
   const intents: ShuffleIntent[] = [];
   if (actorResult.actorShuffle)
@@ -247,7 +247,7 @@ export function playHeroSkillTargets(
     state: {
       ...state,
       battle: {
-        ...current,
+        ...pressure.state.battle!,
         pending: null,
         entities: statuses.entities,
         light: statuses.light,
@@ -256,7 +256,7 @@ export function playHeroSkillTargets(
         shuffleContinuation: intents.length ? continuation : null,
       },
     },
-    events: [event, ...health.events, ...statuses.events],
+    events: [event, ...pressure.events, ...statuses.events],
   };
   // 复用一次技能的回合收尾；任一目标成功就锁定重用，全部落空才允许再用。
   return intents.length

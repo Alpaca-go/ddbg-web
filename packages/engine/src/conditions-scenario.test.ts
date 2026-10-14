@@ -727,6 +727,71 @@ it("自身 Vertigo 位移先完成意志，再沿原骰攻击，不预付目标�
     applyCommand(state, { type: "playHeroSkill", actorId: "h0", targetId: "m", skillId: skill.id }),
   ).toEqual(declared);
 });
+it.each([false, true])(
+  "R20：暴击压力在目标Stun／Shuffle前收尾（已有意志=%s）",
+  (resolvedBefore) => {
+    const seed = Array.from({ length: 200 }, (_, index) => index).find(
+      (seed) => nextBattleRoll(seed, 0) === 1,
+    )!;
+    const base = setup("monster_medium:p010", seed),
+      card = base.battle!.monsters![0]!;
+    const attack = readMonsterAttackView(card, 2);
+    if (attack.status !== "ready") throw new Error(attack.reason);
+    const range = readPrintedRange(attack.view);
+    if (range.kind !== "exact") throw new Error("缺少射程");
+    const held = patch(base, {
+      stress: 9,
+      ...(resolvedBefore
+        ? { resolveTested: true, resolveCardId: base.battle!.resolveCards![0]!.id }
+        : {}),
+    });
+    const state = turn(
+      {
+        ...held,
+        battle: {
+          ...held.battle!,
+          entities: held.battle!.entities.map((entry) =>
+            entry.id === "m" ? { ...entry, areaId: range.distance === 0 ? "a" : "b" } : entry,
+          ),
+        },
+      },
+      "monster",
+    );
+    const command = {
+      type: "playMonsterSkill" as const,
+      actorId: "m",
+      targetId: "h0",
+      skillSlot: 2,
+    };
+    const snapshot = structuredClone(state);
+    const declared = applyCommand(state, command);
+    successful(declared);
+    expect(hero(declared.state).areaId).toBe("a");
+    expect(hero(declared.state).dead).toBe(resolvedBefore);
+    expect(declared.events.filter((event) => event.type === "resolveTested")).toHaveLength(
+      resolvedBefore ? 0 : 1,
+    );
+    expect(declared.events.filter((event) => event.type === "heartAttack")).toHaveLength(
+      resolvedBefore ? 1 : 0,
+    );
+    if (resolvedBefore)
+      expect(hero(declared.state).statusStacks?.some((stack) => stack.kind === "stun")).toBeFalsy();
+    let moved = applyCommand(declared.state, { type: "resolveShuffles" });
+    for (let step = 0; step < 4 && moved.pendingChoice; step++)
+      moved = balancedChoice(moved.state, moved.pendingChoice.options[0]!.id);
+    successful(moved);
+    expect(
+      moved.events.some((event) => event.type === "resolveTested" || event.type === "heartAttack"),
+    ).toBe(false);
+    expect(moved.events.filter((event) => event.type === "shuffleResolved")).toHaveLength(
+      resolvedBefore ? 0 : 1,
+    );
+    expect(moved.state.battle!.rngCursor).toBe(declared.state.battle!.rngCursor);
+    expect(applyCommand(state, command)).toEqual(declared);
+    expect(state).toEqual(snapshot);
+  },
+);
+
 it.each([
   ["monster_medium:p001", 2],
   ["monster_medium:p007", 2],

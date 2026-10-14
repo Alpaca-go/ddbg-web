@@ -22,7 +22,6 @@ export function applySkillHealth(
       readonly events: readonly GameEvent[];
       readonly cancelled?: true;
     } {
-  skill = { ...skill, healthEffects: skill.healthEffects.filter((e) => !e.deferred) };
   const originalEffects = skill.healthEffects;
   const prevented = new Set(
     originalEffects

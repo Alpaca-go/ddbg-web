@@ -480,7 +480,6 @@ export type SkillHealthEffect = {
   readonly side: SkillTargetSide;
   readonly source: "selfHeal" | "selfWound" | "targetHeal" | "attack" | "riposte" | "passiveStress";
   readonly passiveKey?: string;
-  readonly deferred?: boolean;
   readonly rollPassive?: boolean;
   readonly pressureBoundary?: true;
   readonly critical?: boolean;
@@ -2488,7 +2487,6 @@ function resolveSkill(
         source: "passiveStress",
         passiveKey: key,
         ...(value + changed.amount >= 10 ? { pressureBoundary: true } : {}),
-        ...(key === "critNearby" && (shuffles.self || shuffles.target) ? { deferred: true } : {}),
         effect: { type: "wounds", amounts: changed.wounds },
       });
     }
