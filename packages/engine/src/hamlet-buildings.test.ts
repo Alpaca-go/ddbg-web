@@ -115,6 +115,7 @@ it("R34三个等级恢复表：疗养院更换治疗档，酒馆II/III额外服�
   ]);
   expect(rows("abbey", 3)).toEqual([
     ["removeQuirks", 0, 1],
+    ["abbeyPositiveQuirk", 1, 3],
     ["abbeyStress3", 3, 1],
     ["abbeyStress6", 6, 3],
   ]);

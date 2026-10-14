@@ -1,7 +1,7 @@
-import type { ApplyResult, GameState } from "./command";
+import type { ApplyResult, GameState, PendingChoice } from "./command";
 import type { DungeonState } from "./dungeon";
 import { rejectBattleCommand } from "./battle";
-import { conditionPoolProblem } from "./conditions";
+import { conditionPoolProblem, gainPositiveQuirk, replaceConditionQuirk } from "./conditions";
 import { resolveHeroHealth } from "./hero-health";
 import { passiveHeal } from "./passive";
 import { buildingLevelsProblem, recoveryServices } from "./hamlet-buildings";
@@ -93,6 +93,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
     updated = hero,
     endDay = false,
     message: string;
+  let pending: PendingChoice | undefined;
   if (command.type === "useHamletSkill") {
     const stat = d.battleCatalog?.heroStats.find((s) => s.id === hero.heroStatId);
     if (
@@ -156,7 +157,27 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
       const pool = d.conditions,
         problem = pool ? conditionPoolProblem(pool, d.heroes) : "缺疾病 / 怪癖池";
       if (problem || !pool) return rejectBattleCommand(state, problem!);
-      if (service.effect === "disease") {
+      if (service.effect === "positiveQuirk") {
+        const gained = gainPositiveQuirk(pool, d.heroes, hero.id, state.seed, d.cursor);
+        if (gained.status === "refused") return rejectBattleCommand(state, gained.reason);
+        next = {
+          ...d,
+          conditions: gained.pool,
+          cursor: gained.cursor,
+        };
+        updated = gained.heroes.find((a) => a.id === hero.id)!;
+        if (gained.replaceOptions) {
+          pending = {
+            id: `hamlet-abbey-quirk:${d.decision}`,
+            actorId: hero.id,
+            prompt: "修道院获得第四怪癖：选择替换已有正面怪癖，或弃置新卡",
+            options: gained.replaceOptions.map((id) => ({
+              id,
+              label: `${pool.quirks.find((q) => q.id === id)!.name}${id === gained.quirkId ? "（弃置新卡）" : "（替换已有）"}`,
+            })),
+          };
+        }
+      } else if (service.effect === "disease") {
         if (!hero.diseaseId) return rejectBattleCommand(state, "当前英雄没有疾病可移除");
         next = {
           ...d,
@@ -178,8 +199,60 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
     };
     message = `${hero.id}访问${service.building}，支付${cost}金币并完成一个选项（R33/34）`;
   }
+  if (pending)
+    return {
+      state: { ...state, dungeon: { ...next, pending, decision: d.decision + 1 } },
+      events: [{ type: "dungeonUpdated", message }],
+      pendingChoice: pending,
+    };
   next = finishAction(next, hero.id, endDay);
   return { state: { ...state, dungeon: next }, events: [{ type: "dungeonUpdated", message }] };
+}
+/** R26/R33：已付款并占用；选择仅收尾当前访问，不重抽、不重复收费。 */
+export function chooseAbbeyQuirk(
+  state: GameState,
+  choiceId: string,
+  optionId: string,
+): ApplyResult {
+  const d = state.dungeon,
+    pending = d?.pending,
+    hero = currentHamletHero(state);
+  if (
+    !d ||
+    state.battle ||
+    d.phase !== "inHamlet" ||
+    d.hamletReturn?.phase !== "complete" ||
+    !pending ||
+    !pending.id.startsWith("hamlet-abbey-quirk:") ||
+    pending.id !== choiceId ||
+    !pending.options.some((o) => o.id === optionId) ||
+    !hero ||
+    hero.id !== pending.actorId ||
+    d.conditions?.incomingQuirk?.heroId !== hero.id ||
+    !d.hamlet?.visitedBuildings?.includes("abbey")
+  )
+    return rejectBattleCommand(state, "请完成当前修道院正面怪癖选择");
+  const applied = replaceConditionQuirk(d.conditions, d.heroes, optionId);
+  if (applied.status === "refused") return rejectBattleCommand(state, applied.reason);
+  const next = finishAction(
+    {
+      ...d,
+      pending: null,
+      conditions: applied.pool,
+      heroes: applied.heroes.map(syncHero),
+    },
+    hero.id,
+    false,
+  );
+  return {
+    state: { ...state, dungeon: next },
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: "修道院正面怪癖选择完成，当前英雄的村庄行动已结束（R26/R33）",
+      },
+    ],
+  };
 }
 /** UI只展示引擎接受的完整行动；修道院选择具体牌组合，包含正负怪癖。 */
 export function hamletActionOptions(state: GameState) {

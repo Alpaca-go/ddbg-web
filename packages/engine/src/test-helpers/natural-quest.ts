@@ -21,8 +21,13 @@ export const naturalParty = coreParty.map((hero, index) => ({
   skillIds: equipped[index]!,
 }));
 /** 测试用固定决策驱动，不进入产品；只执行公开命令，不修改任何游戏状态／牌序。 */
-export function naturalQuest(seed: number, questId: BasicQuestId, keepStop = false) {
-  const initial = createCoreDungeonQuest(seed, questId, "radiant", naturalParty, coreQuestSources);
+export function naturalQuest(
+  seed: number,
+  questId: BasicQuestId,
+  keepStop = false,
+  sources = coreQuestSources,
+) {
+  const initial = createCoreDungeonQuest(seed, questId, "radiant", naturalParty, sources);
   let state = initial;
   const commands: Command[] = [],
     events: GameEvent[] = [];
