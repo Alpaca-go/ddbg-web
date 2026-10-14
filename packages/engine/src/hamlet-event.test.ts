@@ -57,7 +57,7 @@ it("完整16卡逐页原文保留；准备天数仅R-077卡面位置，occupancy
   expect(cards.map((c) => c.days)).toEqual([2, 2, 4, 3, 3, 3, 1, 2, 2, 1, 3, 2, 4, 3, 2, null]);
   expect(cards.filter((c) => c.permanentlyRemoved).map((c) => c.source.page)).toEqual([6, 15]);
   expect(cards.filter((c) => c.runtime !== "unimplemented").map((c) => c.source.page)).toEqual([
-    2, 5, 7, 11, 12, 13,
+    2, 5, 6, 7, 11, 12, 13,
   ]);
   expect(dictionary.icons.find((c) => c.iconId === "43aaf29bbb")!.key).toBe("occupancy_pips");
   expect(hamletEventFileSchema.safeParse({ ...events, cards: cards.slice(1) }).success).toBe(false);

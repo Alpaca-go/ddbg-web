@@ -1032,7 +1032,9 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                         {d.heroes.map((h) => `${h.id} XP ${h.xp}`).join(" · ")}
                       </p>
                       <section aria-label="村庄建筑升级" data-testid="hamlet-buildings">
-                        <p>团队共同决定升级，每次升一级支付 20 金，不消耗英雄行动。</p>
+                        <p>
+                          团队共同决定升级，每级 20 金（铁匠、游商马车 10 金），不消耗英雄行动。
+                        </p>
                         {upgradableBuildings.map((building) => {
                           const level = recoveryBuildingLevel(d, building);
                           const command = { type: "upgradeHamletBuilding", building } as const;
@@ -1043,12 +1045,23 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                             <div key={building}>
                               {buildingLabels[building]} {["I", "II", "III"][level - 1]}
                               <button disabled={!allowed} onClick={() => dispatch(command)}>
-                                升级{buildingLabels[building]}（20 金）
+                                升级{buildingLabels[building]}（
+                                {building === "blacksmith" || building === "nomadWagon" ? 10 : 20}{" "}
+                                金）
                               </button>
                             </div>
                           );
                         })}
                       </section>
+                      <p>铁匠、游商马车当前可升级；临时技能和饰品买卖服务继续开发。</p>
+                      {!!d.hamlet?.weekBlockedBuildings?.length && (
+                        <p data-testid="hamlet-week-blocked">
+                          Labor Force：本次村庄准备期间不可访问
+                          {d.hamlet.weekBlockedBuildings
+                            .map((b) => buildingLabels[b] ?? b)
+                            .join("、")}
+                        </p>
+                      )}
                       <p data-testid="stagecoach-tokens">
                         驿站等待英雄代币：{stagecoachWaitingTokens(d) ?? "数据无效"} 枚。 升至 II /
                         III 级各增加 1 枚；驿站不可访问，死亡补人流程继续开发。
@@ -1069,7 +1082,8 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                   <h3>{hamletCard!.name}</h3>
                   <p>
                     卡面准备天数：{hamletCard!.days ?? "0或3，须先完成事件选择"} · 村庄事件牌堆{" "}
-                    {d.hamlet.deck.length} 张（完整16张）
+                    {d.hamlet.deck.length} 张（核心池16张，永久移出{" "}
+                    {d.hamlet.permanentlyRemoved.length} 张）
                   </p>
                   <p>
                     {hamletCard!.runtime === "townFair"
@@ -1084,7 +1098,9 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                         ? "请在下方选择一名英雄移除疾病；结算后开始三天准备。"
                         : d.pending?.id.startsWith("hamlet-caregivers:")
                           ? "请逐个英雄选择免费移除一张怪癖，或放弃；全部结算后开始两天准备。"
-                          : "本事件效果尚未接通，保留原卡；准备天数与看守人尚未开始。"}
+                          : d.pending?.id.startsWith("hamlet-labor-force:")
+                            ? "请选择免费升级一栋建筑，或放弃；事件永久移出后开始三天准备。"
+                            : "本事件效果尚未接通，保留原卡；准备天数与看守人尚未开始。"}
                     </p>
                   )}
                   {d.hamlet.phase === "awaitingCaretaker" && (

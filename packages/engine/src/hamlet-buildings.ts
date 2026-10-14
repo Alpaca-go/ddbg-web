@@ -4,7 +4,13 @@ import { rejectBattleCommand } from "./battle";
 
 export const recoveryBuildings = ["abbey", "tavern", "sanitarium"] as const;
 export type RecoveryBuilding = (typeof recoveryBuildings)[number];
-export const upgradableBuildings = [...recoveryBuildings, "survivalist", "stagecoach"] as const;
+export const upgradableBuildings = [
+  ...recoveryBuildings,
+  "survivalist",
+  "stagecoach",
+  "blacksmith",
+  "nomadWagon",
+] as const;
 export type UpgradableBuilding = (typeof upgradableBuildings)[number];
 export type BuildingLevels = Partial<Readonly<Record<UpgradableBuilding, 1 | 2 | 3>>>;
 export type UpgradeHamletBuildingCommand = {
@@ -35,7 +41,19 @@ export function stagecoachWaitingTokens(d: DungeonState): number | null {
     ? count
     : null;
 }
-/** R33：团队共用20金升一级，不是英雄访问，不占建筑、不耗天数或RNG。 */
+export function hamletUpgradeCost(building: UpgradableBuilding) {
+  return building === "blacksmith" || building === "nomadWagon" ? 10 : 20;
+}
+/** R33：付费升级与Labor Force共享一级升级/驿站发放，免费事件不走付款入口。 */
+export function raiseHamletBuilding(d: DungeonState, building: UpgradableBuilding): DungeonState {
+  const level = (recoveryBuildingLevel(d, building) + 1) as 2 | 3;
+  return {
+    ...d,
+    buildingLevels: { ...d.buildingLevels, [building]: level },
+    ...(building === "stagecoach" ? { waitingHeroTokens: stagecoachWaitingTokens(d)! + 1 } : {}),
+  };
+}
+/** R33：团队共同支付，不是英雄访问，不占建筑、不耗天数或RNG。 */
 export function upgradeHamletBuilding(
   state: GameState,
   command: UpgradeHamletBuildingCommand,
@@ -52,30 +70,28 @@ export function upgradeHamletBuilding(
     (command.building === "stagecoach" && stagecoachWaitingTokens(d) === null) ||
     !upgradableBuildings.includes(command.building) ||
     !Number.isSafeInteger(d.gold) ||
-    d.gold < 20 ||
+    d.gold < hamletUpgradeCost(command.building) ||
     recoveryBuildingLevel(d, command.building) === 3
   )
     return rejectBattleCommand(
       state,
-      "升级须在已完成回村、没有待选或未结算事件时进行；建筑/代币数据有效、每级20金、最高III级（R33）",
+      "升级须在已完成回村、没有待选或未结算事件时进行；建筑/代币数据有效、每级20金（铁匠/游商10金）、最高III级（R33）",
     );
-  const level = (recoveryBuildingLevel(d, command.building) + 1) as 2 | 3;
+  const next = raiseHamletBuilding(d, command.building),
+    level = recoveryBuildingLevel(next, command.building),
+    cost = hamletUpgradeCost(command.building);
   return {
     state: {
       ...state,
       dungeon: {
-        ...d,
-        gold: d.gold - 20,
-        buildingLevels: { ...d.buildingLevels, [command.building]: level },
-        ...(command.building === "stagecoach"
-          ? { waitingHeroTokens: stagecoachWaitingTokens(d)! + 1 }
-          : {}),
+        ...next,
+        gold: d.gold - cost,
       },
     },
     events: [
       {
         type: "dungeonUpdated",
-        message: `团队支付20金，将${command.building}升至${level === 2 ? "II" : "III"}级${command.building === "stagecoach" ? "，增加1枚等待英雄代币" : ""}；不消耗英雄行动（R33）`,
+        message: `团队支付${cost}金，将${command.building}升至${level === 2 ? "II" : "III"}级${command.building === "stagecoach" ? "，增加1枚等待英雄代币" : ""}；不消耗英雄行动（R33）`,
       },
     ],
   };

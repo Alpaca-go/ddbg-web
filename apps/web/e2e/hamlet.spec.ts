@@ -6,6 +6,7 @@ import type { ApplyResult } from "../../../packages/engine/src/command";
 import type { QuestSave } from "../../../packages/data/src/quest-save";
 import type { caregiversQuest } from "../../../packages/engine/src/test-helpers/caregivers-quest";
 import type { townFairQuest } from "../../../packages/engine/src/test-helpers/town-fair-quest";
+import type { laborQuest } from "../../../packages/engine/src/test-helpers/labor-quest";
 
 test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存刷新", async ({
   page,
@@ -21,6 +22,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   let medicalSave: QuestSave;
   let caregivers: ReturnType<typeof caregiversQuest>;
   let townFair: ReturnType<typeof townFairQuest>, fairResult: ApplyResult;
+  let labor: ReturnType<typeof laborQuest>;
   try {
     const helpers = await server.ssrLoadModule(
       fileURLToPath(
@@ -73,6 +75,15 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
       catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
     });
     fairResult = engine.applyCommand(townFair.game, { type: "drawHamletEvent" });
+    const laborHelper = await server.ssrLoadModule(
+      fileURLToPath(
+        new URL("../../../packages/engine/src/test-helpers/labor-quest.ts", import.meta.url),
+      ),
+    );
+    labor = laborHelper.laborQuest({
+      ...sourceHelpers.coreQuestSources,
+      catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
+    });
     expect(fairResult.events.some((event) => event.type === "commandRefused")).toBe(false);
     result = engine.applyCommand(journey.game, {
       type: "visitHamletBuilding",
@@ -284,6 +295,44 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await expect(actorLabel).toHaveText(currentActor);
   await page.screenshot({
     path: testInfo.outputPath("stagecoach-upgrade-saved.png"),
+    fullPage: true,
+  });
+  // 同一条村庄冒烟：真实seed11入口离开日志，未伪装成完成任务。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(labor.save),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "抽村庄事件", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText("Labor Force");
+  await expect(page.getByTestId("hamlet-event")).toContainText("请选择免费升级一栋建筑");
+  await expect(page.getByRole("button", { name: "升级酒馆（20 金）", exact: true })).toBeDisabled();
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page
+    .getByRole("button", { name: "免费升级酒馆至II级；本次村庄准备期间不可访问", exact: true })
+    .click();
+  await expect(page.getByTestId("hamlet-buildings")).toContainText("酒馆 II");
+  await expect(page.getByTestId("hamlet-event")).toContainText("永久移出 1 张");
+  await expect(page.getByTestId("hamlet-week-blocked")).toContainText("酒馆");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${labor.game.dungeon!.gold}`,
+  );
+  await page.getByRole("button", { name: "开始首日看守人", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Zealous Speech：全体压力 −5，结束当天", exact: true })
+    .click();
+  await page.getByRole("button", { name: "开始第 2 天看守人", exact: true }).click();
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("hamlet-week-blocked")).toContainText("酒馆");
+  await expect(page.getByTestId("hamlet-event")).toContainText("永久移出 1 张");
+  await expect(page.getByRole("button", { name: /酒馆 II：压力/ })).toHaveCount(0);
+  await page.screenshot({
+    path: testInfo.outputPath("labor-force-day2-saved.png"),
     fullPage: true,
   });
 });

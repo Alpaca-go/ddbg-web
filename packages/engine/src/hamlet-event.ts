@@ -8,6 +8,7 @@ import { nextBattleRoll } from "./encounter";
 import { conditionPoolProblem } from "./conditions";
 import { beginCaregiversConvention } from "./hamlet-caregivers";
 import { applyTownFair } from "./hamlet-town-fair";
+import { beginLaborForce } from "./hamlet-labor-force";
 import type { DungeonState } from "./dungeon";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;
@@ -27,6 +28,8 @@ export type HamletEventState = {
   readonly actedHeroes?: readonly string[];
   readonly visitedBuildings?: readonly string[];
   readonly remainingDays?: number;
+  /** Labor Force：整个本次村庄准备期间不能访问，独立于每日看守人。 */
+  readonly weekBlockedBuildings?: readonly string[];
   /** 当前事件尚未选择的英雄，与准备日行动分开；仅Caregivers使用。 */
   readonly eventRemainingHeroes?: readonly string[];
 };
@@ -89,7 +92,7 @@ export function drawHamletEvent(state: GameState): ApplyResult {
       }
     : null;
   const ready =
-    implemented && !pending && card.runtime !== "removeQuirks" && card.runtime !== "townFair";
+    implemented && !pending && !["removeQuirks", "townFair", "laborForce"].includes(card.runtime);
   // R32明确结算后洗回；只有完成的事件才洗回，未完成不替换或重抽。
   const returned = ready ? shuffle([...drawn.deck, id], state.seed, drawn.cursor) : drawn;
   const hamlet: HamletEventState = {
@@ -106,8 +109,13 @@ export function drawHamletEvent(state: GameState): ApplyResult {
     blockedBuildings: [],
     heroOrder: [],
   };
-  if (card.runtime === "removeQuirks" || card.runtime === "townFair") {
-    const apply = card.runtime === "removeQuirks" ? beginCaregiversConvention : applyTownFair;
+  if (["removeQuirks", "townFair", "laborForce"].includes(card.runtime)) {
+    const apply =
+      card.runtime === "removeQuirks"
+        ? beginCaregiversConvention
+        : card.runtime === "laborForce"
+          ? beginLaborForce
+          : applyTownFair;
     const result = apply({
       ...state,
       dungeon: { ...d, cursor: drawn.cursor, hamlet },
@@ -145,9 +153,12 @@ export function hamletEventCompletionProblem(d: DungeonState) {
     h.phase !== "eventBlocked" ||
     !h.active ||
     !Number.isSafeInteger(d.cursor + 15) ||
-    h.deck.length !== 15 ||
-    new Set([...h.deck, h.active]).size !== 16 ||
-    [...h.deck, h.active].some((id) => !catalog.some((card) => card.id === id))
+    h.deck.length + h.permanentlyRemoved.length !== 15 ||
+    new Set([...h.deck, h.active, ...h.permanentlyRemoved]).size !== 16 ||
+    [...h.deck, h.active, ...h.permanentlyRemoved].some(
+      (id) => !catalog.some((card) => card.id === id),
+    ) ||
+    h.permanentlyRemoved.some((id) => !catalog.find((c) => c.id === id)?.permanentlyRemoved)
     ? "事件牌池不完整，不能洗回或开始准备"
     : null;
 }
@@ -156,9 +167,11 @@ export function completeHamletEvent(state: GameState): ApplyResult {
   const d = state.dungeon!,
     h = d.hamlet!;
   const card = catalog.find((candidate) => candidate.id === h.active)!;
-  if (hamletEventCompletionProblem(d) || !card?.days || card.permanentlyRemoved)
+  if (hamletEventCompletionProblem(d) || !card?.days)
     return rejectBattleCommand(state, "当前事件不能完成并洗回（R32）");
-  const returned = shuffle([...h.deck, h.active!], state.seed, d.cursor);
+  const returned = card.permanentlyRemoved
+    ? { deck: h.deck, cursor: d.cursor }
+    : shuffle([...h.deck, h.active!], state.seed, d.cursor);
   const { eventRemainingHeroes, ...completed } = h;
   void eventRemainingHeroes;
   return {
@@ -171,6 +184,9 @@ export function completeHamletEvent(state: GameState): ApplyResult {
         hamlet: {
           ...completed,
           deck: returned.deck,
+          permanentlyRemoved: card.permanentlyRemoved
+            ? [...h.permanentlyRemoved, h.active!]
+            : h.permanentlyRemoved,
           active: null,
           phase: "awaitingCaretaker",
           preparationDays: card.days,
@@ -180,7 +196,7 @@ export function completeHamletEvent(state: GameState): ApplyResult {
     events: [
       {
         type: "dungeonUpdated",
-        message: `${card.name}：事件已结算并洗回；准备${card.days}天，等待首日看守人（R32/33）`,
+        message: `${card.name}：事件已结算并${card.permanentlyRemoved ? "永久移出牌堆" : "洗回"}；准备${card.days}天，等待首日看守人（R32/33）`,
       },
     ],
   };
@@ -316,7 +332,13 @@ export function rollHamletCaretaker(state: GameState): ApplyResult {
       dungeon: {
         ...d,
         cursor,
-        hamlet: { ...h, phase: "heroActions", caretaker, blockedBuildings: blocked, heroOrder },
+        hamlet: {
+          ...h,
+          phase: "heroActions",
+          caretaker,
+          blockedBuildings: [...new Set([...blocked, ...(h.weekBlockedBuildings ?? [])])],
+          heroOrder,
+        },
       },
     },
     events: [

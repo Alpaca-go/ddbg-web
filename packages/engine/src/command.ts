@@ -1,6 +1,7 @@
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { drawHamletEvent, rollHamletCaretaker, chooseMedicalBreakthrough } from "./hamlet-event";
 import { chooseCaregiversConvention } from "./hamlet-caregivers";
+import { chooseLaborForce } from "./hamlet-labor-force";
 import { applyHamletAction, chooseAbbeyQuirk } from "./hamlet-actions";
 import type { HamletActionCommand } from "./hamlet-actions";
 import { upgradeHamletBuilding } from "./hamlet-buildings";
@@ -302,6 +303,10 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (state.dungeon?.pending?.id.startsWith("hamlet-labor-force:"))
+    return command.type === "resolveChoice"
+      ? chooseLaborForce(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先完成Labor Force免费升级选择");
   if (state.dungeon?.pending?.id.startsWith("hamlet-caregivers:"))
     return command.type === "resolveChoice"
       ? chooseCaregiversConvention(state, command.choiceId, command.optionId)
