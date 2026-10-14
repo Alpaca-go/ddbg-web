@@ -4,6 +4,8 @@ import { rejectBattleCommand } from "./battle";
 import { conditionPoolProblem, gainPositiveQuirk, replaceConditionQuirk } from "./conditions";
 import { resolveHeroHealth } from "./hero-health";
 import { passiveHeal } from "./passive";
+import { applyPassiveStatus } from "./passive-runtime";
+import { statusProjection } from "./status";
 import { buildingLevelsProblem, recoveryServices } from "./hamlet-buildings";
 import type { RecoveryServiceId } from "./hamlet-buildings";
 
@@ -17,7 +19,7 @@ export type HamletActionCommand =
   | {
       readonly type: "useHamletSkill";
       readonly actorId: string;
-      readonly skill: "intimidate" | "zealousSpeech";
+      readonly skill: "intimidate" | "zealousSpeech" | "pray" | "chant";
     };
 type Hero = DungeonState["heroes"][number];
 export function currentHamletHero(state: GameState) {
@@ -37,6 +39,15 @@ function syncHero(hero: Hero): Hero {
           wounds: hero.wounds!,
           diseaseId: hero.diseaseId ?? null,
           quirkIds: hero.quirkIds ?? [],
+          ...(hero.statusStacks
+            ? {
+                statusStacks: hero.statusStacks,
+                ...statusProjection(
+                  hero.statusStacks,
+                  hero.innateProtection ?? hero.combat.innateProtection,
+                ),
+              }
+            : {}),
         },
       }
     : hero;
@@ -99,10 +110,64 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
     if (
       !stat?.attributesVerified ||
       stat.level !== 1 ||
-      (command.skill === "intimidate" ? stat.name !== "HELLION" : stat.name !== "CRUSADER")
+      stat.name !==
+        (
+          {
+            intimidate: "HELLION",
+            zealousSpeech: "CRUSADER",
+            pray: "VESTAL",
+            chant: "VESTAL",
+          } as const
+        )[command.skill]
     )
       return rejectBattleCommand(state, "当前只接已核实I级英雄的这项村庄技能（R-048）");
-    if (command.skill === "intimidate") {
+    if (command.skill === "pray" || command.skill === "chant") {
+      const heroes: Hero[] = [];
+      for (const target of d.heroes) {
+        if (command.skill === "pray" && target.id !== hero.id) {
+          heroes.push(target);
+          continue;
+        }
+        const targetStat = d.battleCatalog!.heroStats.find((s) => s.id === target.heroStatId);
+        const buff = targetStat?.verified_buff_defence;
+        if (
+          command.skill === "chant" &&
+          (!target.attributesVerified ||
+            !targetStat?.attributesVerified ||
+            targetStat.level !== 1 ||
+            !buff ||
+            buff.source !== "print_front" ||
+            typeof buff.resistant !== "boolean" ||
+            typeof buff.immune !== "boolean")
+        )
+          return rejectBattleCommand(state, "Chant目标缺少获批Buff防御（R-048）");
+        const applied = applyPassiveStatus(
+          target,
+          command.skill === "pray"
+            ? { kind: "debuff", duration: 6 }
+            : { kind: "buff", duration: 3 },
+          command.skill === "pray" ? "self" : "target",
+          command.skill === "chant"
+            ? {
+                resistances: buff!.resistant ? ["buff"] : [],
+                immunities: buff!.immune ? ["buff"] : [],
+              }
+            : undefined,
+        );
+        if (applied.status === "refused") return rejectBattleCommand(state, applied.reason);
+        heroes.push(
+          syncHero({
+            ...applied.hero,
+            stress: Math.max(0, target.stress - (command.skill === "pray" ? 9 : 1)),
+          }),
+        );
+      }
+      next = { ...d, heroes };
+      message =
+        command.skill === "pray"
+          ? "Pray：自身压力 −9，Debuff 6t；完成当天行动（Vestal I、R33）"
+          : "Chant：全体压力 −1、Buff 3t；完成当天行动（Vestal I、R33）";
+    } else if (command.skill === "intimidate") {
       next = {
         ...d,
         hamlet: {
@@ -290,6 +355,14 @@ export function hamletActionOptions(state: GameState) {
     {
       label: "Zealous Speech：全体压力 −5，结束当天",
       command: { type: "useHamletSkill", actorId: hero.id, skill: "zealousSpeech" },
+    },
+    {
+      label: "Pray：自身压力 −9，Debuff 6t",
+      command: { type: "useHamletSkill", actorId: hero.id, skill: "pray" },
+    },
+    {
+      label: "Chant：全体压力 −1，Buff 3t",
+      command: { type: "useHamletSkill", actorId: hero.id, skill: "chant" },
     },
   );
   return options.filter(
