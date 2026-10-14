@@ -104,8 +104,41 @@ function deploy(seed: number): GameState {
   const s = applyCommand(setup(seed), { type: "prepareDungeonBattle" }).state;
   return applyCommand(s, { type: "prepareDungeonMonsters" }).state;
 }
-// 不过滤生产牌池；寻找一条天然抽到获批六种的固定种子，仅作测试。
+// 不过滤生产牌池；固定种子仅作单场测试。
 const goodSeed = 1885;
+
+it("全九房／42怪池seed9自然Spiked Pit入场，三个特殊区域与S1断图独立", () => {
+  const entered = applyCommand(deploy(9), { type: "startDungeonBattle" });
+  expect(entered.state.battle, JSON.stringify(entered.events)).toBeDefined();
+  const battle = entered.state.battle!;
+  expect(battle.roomName).toBe("Spiked Pit");
+  expect(battle.areas.filter((area) => area.spikedPit).map((area) => area.id)).toEqual([
+    "S8",
+    "S9",
+  ]);
+  expect(battle.areas.filter((area) => area.circleOfPower).map((area) => area.id)).toEqual(["S5"]);
+  expect(battle.areas.find((area) => area.id === "S1")!.adjacent).toEqual([]);
+  expect(
+    battle.entities.filter((entity) => entity.side === "hero").map((entity) => entity.areaId),
+  ).toEqual(["S11", "S11", "S12", "S10"]);
+});
+
+it("真实部署读取获批Shuffle抗性；有无抗性都由原卡确定，不省略Bone Defender", () => {
+  const seen = new Set<string>();
+  for (let seed = 1; seed <= 40 && !seen.has("monster_medium:p010"); seed++) {
+    const entered = applyCommand(deploy(seed), { type: "startDungeonBattle" });
+    if (!entered.state.battle) continue;
+    const battle = entered.state.battle;
+    for (const entity of battle.entities.filter((entity) => entity.side === "monster")) {
+      const card = battle.monsters!.find((card) => card.id === entity.monsterCardId)!;
+      expect(entity.shuffleResist).toBe(
+        card.resistances!.some((icon) => icon.key === "shuffle_resist"),
+      );
+      seen.add(card.id);
+    }
+  }
+  expect(seen.has("monster_medium:p010")).toBe(true);
+});
 
 it("全九房／42怪池seed7自然Old Abbey入场，O1/O5星区及全部英雄O8独立", () => {
   const deployed = deploy(7),

@@ -72,6 +72,8 @@ export type BattleEntity = PassiveHolder &
   };
 
 export type BattleArea = {
+  readonly spikedPit?: true;
+  readonly circleOfPower?: true;
   readonly feelingThePresence?: true;
   readonly ancestorGlory?: true;
   readonly healingForbidden?: true;

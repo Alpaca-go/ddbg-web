@@ -7,6 +7,7 @@ import { newlyDefeatedIds } from "./encounter";
 import { hasQuirk } from "./passive";
 import { ancestorGlory, clearAncestorConditions } from "./battle-ancestor";
 import { resumeSkillOwnEffects } from "./battle-own-effects";
+import { applySpikedPit } from "./battle-spiked-pit";
 
 /** R27：持有 Balanced 的英雄决定是否少移 1；不改变原技能骰或其他位移意图。 */
 export function chooseBalancedShuffle(state: GameState, optionId: string): ApplyResult {
@@ -165,6 +166,12 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
       stanceSteps: result.stanceSteps,
     });
     next = { ...next, entities: clearAncestorConditions(next.areas, next.entities) };
+    const pit = applySpikedPit({ ...state, battle: next }, intent.entityId);
+    if (pit) {
+      if (pit.events.some((event) => event.type === "commandRefused")) return pit;
+      next = pit.state.battle!;
+      events.push(...pit.events);
+    }
     choices = [];
   }
   if (next.skillPrefix) {

@@ -311,6 +311,13 @@ export function BattleView({
                       正面怪癖数。
                     </p>
                   )}
+                  {area.spikedPit && (
+                    <p>
+                      Spiked Pit：Shuffle实际落点或结束回合站立时，伤害3 → Bleed
+                      1·3t；先坑后Vertigo。
+                    </p>
+                  )}
+                  {area.circleOfPower && <p>Circle of Power：怪物在本区结束回合治疗4。</p>}
                   {area.endTurnHeal === 3 && (
                     <p className="muted">Healing Waters：英雄结束回合治疗 3</p>
                   )}

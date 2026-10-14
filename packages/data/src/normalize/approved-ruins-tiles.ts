@@ -282,6 +282,7 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
   approvedTile({
     number: 4,
     name: "Spiked Pit",
+    runtimeReady: true,
     page: 3,
     face: "back",
     ruling: "R-066",
