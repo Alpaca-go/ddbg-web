@@ -14,6 +14,8 @@ import { needsHeroSkillShuffleChoice, resolveHeroSkillEffects } from "./hero-ski
 import type { ShuffleIntent } from "./shuffle";
 import type { SkillCombatState } from "./hero-skill";
 import type { ApplyResult, GameState, HeroSkillTargetsResolvedEvent } from "./command";
+import { beginHeroOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
+import type { HeroSkillPrefix } from "./battle-own-effects";
 
 export type PlayHeroSkillTargetsCommand = {
   readonly type: "playHeroSkillTargets";
@@ -27,8 +29,9 @@ export type PlayHeroSkillTargetsCommand = {
 export function playHeroSkillTargets(
   state: GameState,
   command: PlayHeroSkillTargetsCommand,
+  resume?: HeroSkillPrefix,
 ): ApplyResult {
-  const battle = state.battle;
+  const battle = resume?.original ?? state.battle;
   if (!battle) return rejectBattleCommand(state, "尚未创建战斗沙盒");
   const problem = encounterSkillProblem(battle, command.actorId, command.skillId);
   if (problem) return rejectBattleCommand(state, problem);
@@ -57,7 +60,7 @@ export function playHeroSkillTargets(
   const guardedEnemyOmitted =
     !living.some((e) => e.side === "monster" && e.guard) &&
     battle.entities.some((e) => e.side === "monster" && !e.dead && e.guard);
-  const contexts: SkillCombatState[] = living.map((target) => ({
+  let contexts: SkillCombatState[] = living.map((target) => ({
     actor,
     target: skillTargetView(target, battle),
     light: battle.light,
@@ -137,27 +140,36 @@ export function playHeroSkillTargets(
       pendingChoice: choice,
     };
   }
-  const roll =
-    probes[0]!.resolution.outcome === null ? null : nextBattleRoll(state.seed, battle.rngCursor);
-  const effects = roll === null ? probes : resolve(roll);
+  const roll = resume
+    ? resume.roll
+    : probes[0]!.resolution.outcome === null
+      ? null
+      : nextBattleRoll(state.seed, battle.rngCursor);
+  const current = resume ? state.battle! : battle;
+  if (resume) contexts = contexts.map((context) => afterHeroOwnCombat(context, current));
+  const effects = resolve(roll ?? 1);
   const failed = unsupported(effects);
   if (failed)
     return rejectBattleCommand(
       state,
       failed.resolution.reason ?? "多目标效果未完整支持，整次拒绝（R-048）",
     );
+  if (!resume) {
+    const own = beginHeroOwnEffects(state, command, roll, effects[0]!, effects);
+    if (own) return own;
+  }
   const resolutions = effects.map((e) => e.resolution);
   const actorResult = resolutions.find((r) => r.outcome === "crit") ?? resolutions[0]!;
   const healthEffects = multiTargetHealthEffects(effects);
   // 支持卡可选择使用者自己；writeResolution 会合并目标治疗，不能先计入自身投影再减一次。
   const actorWounds = projectActorWounds(
     actor.id,
-    actor.wounds,
+    current.entities.find((entry) => entry.id === actor.id)!.wounds,
     skill.verified_target_support
       ? healthEffects.filter((e) => e.source !== "targetHeal")
       : healthEffects,
   );
-  const entities = battle.entities.map((entity) => {
+  const entities = current.entities.map((entity) => {
     const targetResult = resolutions.find((r) => r.targetId === entity.id);
     const resolution = targetResult
       ? {
@@ -178,20 +190,20 @@ export function playHeroSkillTargets(
     return writeResolution(entity, actor.id, resolution.targetId, resolution, false);
   });
   const health = applySkillHealth(
-    battle,
+    current,
     entities,
     {
       resolution: actorResult,
       healthEffects,
     },
     state.seed,
-    battle.rngCursor + (roll === null ? 0 : 1),
+    current.rngCursor + (resume || roll === null ? 0 : 1),
     actor.id,
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
   if (health.cancelled) return cancelSkillAfterRoll(state, actor.id, health);
   const statuses = applyBattleSkillStatuses(
-    battle,
+    current,
     health.entities,
     actor.id,
     resolutions,
@@ -200,6 +212,7 @@ export function playHeroSkillTargets(
   );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const event: HeroSkillTargetsResolvedEvent = {
+    ...(resume?.announced ? { phase: "afterOwn" as const } : {}),
     type: "heroSkillTargetsResolved",
     message: "英雄多目标技能已共用一次掷骰结算",
     actorId: actor.id,
@@ -216,7 +229,7 @@ export function playHeroSkillTargets(
     targetIds: living.map((e) => e.id),
     casualtyIds: newlyDefeatedIds(battle, statuses.entities),
     ...(resolutions.some((r) => r.outcome === "crit")
-      ? { criticalContext: { combat: contexts[0]!, combats: contexts, entities: battle.entities } }
+      ? { criticalContext: { combat: contexts[0]!, combats: contexts, entities: current.entities } }
       : {}),
   };
   const intents: ShuffleIntent[] = [];
@@ -233,7 +246,7 @@ export function playHeroSkillTargets(
     state: {
       ...state,
       battle: {
-        ...battle,
+        ...current,
         pending: null,
         entities: statuses.entities,
         light: statuses.light,

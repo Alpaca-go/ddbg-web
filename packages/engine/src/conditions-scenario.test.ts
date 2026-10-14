@@ -508,7 +508,8 @@ it("Balanced 保持距离后进入区域分岔，选择不再询问减距或重�
   const done = balancedChoice(area.state, "b");
   successful(done);
   expect(hero(done.state)).toMatchObject({ areaId: "b", stance: "defensive" });
-  expect(hero(done.state).stress).toBe(hero(played).stress! + 2);
+  // Vertigo先结算；目标攻击暴击随后减压一次。
+  expect(hero(done.state).stress).toBe(hero(played).stress! + 1);
   expect(
     done.events.filter((e) => e.type === "passiveTriggered" && e.trigger === "shuffled"),
   ).toHaveLength(1);
@@ -679,7 +680,7 @@ it("暴击的压力追加伤口先于意志；实际落空不触发复合事件�
   const missed = successful(applyCommand({ ...initial, seed: missSeed }, attack));
   expect(hero(missed)).toMatchObject({ wounds: 0, stress: 8 });
 });
-it("自身 Vertigo 位移会触及意志收尾时保留明确代码停点，不先攻击或重掷", () => {
+it("自身 Vertigo 位移先完成意志，再沿原骰攻击，不预付目标伤害", () => {
   const initial = setup("monster_medium:p001");
   const stat = stats.find((s) => s.name === "HIGHWAYMAN")!;
   const skill = skills.find(
@@ -701,17 +702,162 @@ it("自身 Vertigo 位移会触及意志收尾时保留明确代码停点，不�
       entities: patched.battle!.entities.map((e) => (e.id === "m" ? { ...e, areaId: "a" } : e)),
     },
   };
-  const refused = applyCommand(state, {
+  const declared = applyCommand(state, {
     type: "playHeroSkill",
     actorId: "h0",
     targetId: "m",
     skillId: skill.id,
   });
-  expect(refused.state).toBe(state);
-  expect(refused.events).toMatchObject([
-    { type: "commandRefused", message: expect.stringContaining("自身位移") },
-  ]);
+  successful(declared);
+  expect(declared.state.battle!.entities.find((entry) => entry.id === "m")!.wounds).toBe(0);
+  let result = applyCommand(declared.state, { type: "resolveShuffles" });
+  for (let step = 0; step < 10 && result.pendingChoice; step++)
+    result = balancedChoice(result.state, result.pendingChoice.options[0]!.id);
+  successful(result);
+  expect(result.state.battle!.shuffleIntents).toEqual([]);
+  expect(hero(result.state).resolveTested).toBe(true);
+  expect(result.events.filter((event) => event.type === "resolveTested")).toHaveLength(1);
+  expect(result.events.findIndex((event) => event.type === "resolveTested")).toBeLessThan(
+    result.events.findIndex(
+      (event) => event.type === "heroSkillResolved" && event.phase !== "ownPending",
+    ),
+  );
+  expect(declared.state.battle!.rngCursor).toBe(state.battle!.rngCursor + 1);
+  expect(
+    applyCommand(state, { type: "playHeroSkill", actorId: "h0", targetId: "m", skillId: skill.id }),
+  ).toEqual(declared);
 });
+it.each([false, true])("R20：自身Bleed Out创伤致死取消目标伤害与Bleed（多选=%s）", (multiple) => {
+  const stat = stats.find((stat) => stat.name === "HELLION")!;
+  const skill = skills.find((skill) => skill.id === "hero_skill:p040")!;
+  const seed = Array.from({ length: 500 }, (_, index) => index).find(
+    (seed) => nextBattleRoll(seed, 0) === 4 && nextBattleRoll(seed, 1) <= 3,
+  )!;
+  const held = patch(setup("monster_medium:p001", seed), {
+    hero: stat.name,
+    heroStatId: stat.id,
+    life: stat.life,
+    wounds: stat.life,
+    skillIds: [skill.id],
+  });
+  const state = turn({
+    ...held,
+    battle: {
+      ...held.battle!,
+      entities: held.battle!.entities.map((entry) =>
+        entry.id === "m" ? { ...entry, areaId: "a" } : entry,
+      ),
+    },
+  });
+  const command = multiple
+    ? { type: "playHeroSkillTargets" as const, actorId: "h0", targetIds: ["m"], skillId: skill.id }
+    : { type: "playHeroSkill" as const, actorId: "h0", targetId: "m", skillId: skill.id };
+  const snapshot = structuredClone(state);
+  const result = applyCommand(state, command);
+  expect(
+    result.events.find((event) => event.type === "commandRefused"),
+    JSON.stringify(result.events),
+  ).toBeUndefined();
+  successful(result);
+  expect(hero(result.state).dead).toBe(true);
+  expect(result.state.battle!.entities.find((entry) => entry.id === "m")).toMatchObject({
+    wounds: 0,
+    dead: false,
+  });
+  expect(result.events.filter((event) => event.type === "heroHealthResolved")).toHaveLength(1);
+  expect(result.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+  expect(result.state.battle!.rngCursor).toBe(2);
+  expect(result.state.battle!.skillPrefix).toBeFalsy();
+  expect(applyCommand(state, command)).toEqual(result);
+  expect(state).toEqual(snapshot);
+});
+
+it.each([false, true])(
+  "R20：自身Vertigo心脏病死亡早于暴击恢复，取消伤害／反击（多选=%s）",
+  (multiple) => {
+    const original = balancedShot(true).battle!.skillPrefix!.original;
+    const held = patch(
+      { seed: hitSeed, notes: [], battle: original },
+      {
+        stress: 8,
+        resolveTested: true,
+        resolveCardId: original.resolveCards![0]!.id,
+      },
+    );
+    const state = {
+      ...held,
+      battle: {
+        ...held.battle!,
+        entities: held.battle!.entities.map((entry) =>
+          entry.id === "m" ? { ...entry, riposte: true } : entry,
+        ),
+      },
+    };
+    const command = multiple
+      ? {
+          type: "playHeroSkillTargets" as const,
+          actorId: "h0",
+          targetIds: ["m"],
+          skillId: "hero_skill:p070",
+        }
+      : {
+          type: "playHeroSkill" as const,
+          actorId: "h0",
+          targetId: "m",
+          skillId: "hero_skill:p070",
+        };
+    const declared = applyCommand(state, command);
+    const waiting = applyCommand(declared.state, { type: "resolveShuffles" });
+    const kept = balancedChoice(waiting.state, "keep");
+    const done = balancedChoice(kept.state, "b");
+    successful(done);
+    expect(hero(done.state)).toMatchObject({ dead: true, areaId: "b", stress: 10 });
+    expect(done.state.battle!.entities.find((entry) => entry.id === "m")).toMatchObject({
+      wounds: 0,
+      dead: false,
+      areaId: "a",
+    });
+    expect(done.events.filter((event) => event.type === "heartAttack")).toHaveLength(1);
+    expect(done.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+    expect(
+      done.events.some(
+        (event) => event.type === "heroSkillResolved" && event.phase !== "ownPending",
+      ),
+    ).toBe(false);
+    expect(done.state.battle!.rngCursor).toBe(declared.state.battle!.rngCursor);
+    expect(done.state.battle!.skillPrefix).toBeNull();
+  },
+);
+
+it("自身位移待选遇缺意志资料原子拒绝；补回后只续接一次，不重复原技能骰", () => {
+  const original = balancedShot(true).battle!.skillPrefix!.original;
+  const full = patch({ seed: hitSeed, notes: [], battle: original }, { stress: 8 });
+  const command = {
+    type: "playHeroSkill" as const,
+    actorId: "h0",
+    targetId: "m",
+    skillId: "hero_skill:p070",
+  };
+  const declared = applyCommand(full, command);
+  const reduction = applyCommand(declared.state, { type: "resolveShuffles" });
+  const area = balancedChoice(reduction.state, "keep");
+  const missing = { ...area.state, battle: { ...area.state.battle!, resolveCards: [] } };
+  const refused = balancedChoice(missing, "b");
+  expect(refused.events[0]).toMatchObject({ type: "commandRefused" });
+  expect(refused.state).toBe(missing);
+  expect(hero(refused.state)).toMatchObject({ areaId: "a", stress: 8 });
+  expect(refused.state.battle!.entities.find((entry) => entry.id === "m")!.wounds).toBe(0);
+  const restored = {
+    ...missing,
+    battle: { ...missing.battle, resolveCards: full.battle!.resolveCards! },
+  };
+  const done = balancedChoice(restored, "b");
+  expect(done).toEqual(balancedChoice(area.state, "b"));
+  successful(done);
+  expect(done.events.filter((event) => event.type === "resolveTested")).toHaveLength(1);
+  expect(done.state.battle!.entities.find((entry) => entry.id === "m")!.wounds).toBeGreaterThan(0);
+});
+
 function emptyVertigo(changes: Partial<BattleEntity> = {}, seed = hitSeed): GameState {
   const initial = setup("monster_medium:p001", seed);
   const stat = stats.find((s) => s.name === "HIGHWAYMAN")!;
@@ -858,14 +1004,20 @@ it("空区域 Vertigo 意志资料不足时保留位移待选；补齐资料后�
   };
   expect(balancedChoice(restored, "b")).toEqual(balancedChoice(waiting.state, "b"));
 });
-it("空区域仍拒绝 Vertigo 同次追加伤口达到 10 的组合，不因没有目标绕过原停点", () => {
+it("空区域的Vertigo同样先结算追加伤口，再为存活者处理压力10", () => {
   for (const quirkIds of [["quirk:p035"], ["quirk:p028", "quirk:p035"]]) {
     const initial = emptyVertigo({ quirkIds });
-    const refused = applyCommand(initial, emptyAdvance);
-    expect(refused.state).toBe(initial);
-    expect(refused.events).toMatchObject([
-      { type: "commandRefused", message: expect.stringContaining("自身位移") },
-    ]);
+    const declared = applyCommand(initial, emptyAdvance);
+    successful(declared);
+    const waiting = applyCommand(declared.state, { type: "resolveShuffles" });
+    const done = waiting.pendingChoice
+      ? balancedChoice(waiting.state, waiting.pendingChoice.options[0]!.id)
+      : waiting;
+    successful(done);
+    expect(hero(done.state)).toMatchObject({ wounds: 1, stress: 0, resolveTested: true });
+    expect(done.events.findIndex((event) => event.type === "heroHealthResolved")).toBeLessThan(
+      done.events.findIndex((event) => event.type === "resolveTested"),
+    );
   }
 });
 it("R-069/Q-67：同次暴击基础与怪癖压力合并；普通命中仍单独触发 Off Guard", () => {

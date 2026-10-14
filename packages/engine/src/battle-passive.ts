@@ -16,6 +16,7 @@ export function cancelSkillAfterRoll(
     readonly rngCursor: number;
     readonly events: readonly GameEvent[];
   },
+  before: BattleState = state.battle!,
 ): ApplyResult {
   const result: ApplyResult = {
     state: {
@@ -25,7 +26,7 @@ export function cancelSkillAfterRoll(
     events: health.events,
   };
   if (!state.battle?.encounter) return result;
-  const removed = removeCasualties(result, newlyDefeatedIds(state.battle, health.entities));
+  const removed = removeCasualties(result, newlyDefeatedIds(before, health.entities));
   return endAfterCasualties(removed) ?? finishTurn(removed.state, actorId, removed.events);
 }
 

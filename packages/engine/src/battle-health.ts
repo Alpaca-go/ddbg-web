@@ -4,7 +4,6 @@ import type { SkillEffectsResolution } from "./hero-skill";
 import { healingForbidden } from "./battle-healing";
 import { resolveSkillHeroHealth } from "./skill-hero-health";
 import { triggerBattlePassive } from "./battle-passive";
-import { hasDisease, passiveStress } from "./passive";
 
 /** R20、R29：生命以原实体和有序效果结算，不从净伤口差倒推。 */
 export function applySkillHealth(
@@ -14,7 +13,6 @@ export function applySkillHealth(
   seed: number,
   rngCursor: number,
   actorId?: string,
-  context: "target" | "emptyArea" = "target",
 ):
   | { readonly status: "refused"; readonly reason: string }
   | {
@@ -48,29 +46,6 @@ export function applySkillHealth(
     entityId,
     message: "Unholy Aura：技能附带治疗已阻止（R-067）",
   }));
-  const actor = battle.entities.find((e) => e.id === actorId && e.side === "hero");
-  if (actor && skill.resolution.actorShuffle && hasDisease(actor, "Vertigo")) {
-    const shiftedStress = passiveStress(actor, 2, battle.light);
-    // R19、R28：空区无目标伤害 / 反击；仅压力可在实际位移后接既有意志收尾。
-    // 自身生命效果或追加伤口仍可能涉及先后顺序，不能借空区绕过原停点。
-    const pressureAfterEmptyShuffle =
-      context === "emptyArea" &&
-      skill.resolution.targetId === "" &&
-      battle.encounter?.turn.type === "hero" &&
-      skill.healthEffects.length === 0 &&
-      shiftedStress.wounds.length === 0;
-    if (
-      ((actor.stress ?? 0) + shiftedStress.amount >= 10 && !pressureAfterEmptyShuffle) ||
-      (shiftedStress.wounds.length > 0 &&
-        (actor.wounds === actor.life ||
-          skill.healthEffects.some((e) => e.source === "riposte" && e.entityId === actor.id)))
-    )
-      return {
-        status: "refused",
-        reason:
-          "自身位移的疾病被动必须先于攻击 / 反击完成生命或意志收尾；该复合续接尚未实现（R20），整次未提交",
-      };
-  }
   // R-069：有序生命效果先结算，技能收尾再为存活英雄处理压力10。
   // 保留旧无 Life 测试沙盒；它不代表完整的英雄生命规则。
   if (!battle.entities.some((entry) => entry.side === "hero" && entry.life !== undefined))

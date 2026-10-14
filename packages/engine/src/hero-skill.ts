@@ -392,6 +392,9 @@ export type SkillTargetState = PassiveHolder & {
 };
 
 export type SkillCombatState = {
+  /** 引擎内部续接：骰面阈值仍用声明时光照，自身效果不重复。 */
+  readonly ownEffectsApplied?: true;
+  readonly effectLight?: number;
   readonly target: SkillTargetState;
   /** 使用这张技能的英雄。目标有 Riposte 时必须有。 */
   readonly actor?: SkillActorState;
@@ -487,6 +490,7 @@ export type SkillHealthEffect = {
 export type SkillEffectsResolution = {
   readonly resolution: HeroSkillResolution;
   readonly healthEffects: readonly SkillHealthEffect[];
+  readonly own?: SkillEffectsResolution;
 };
 
 export type HeroSkillResolution = {
@@ -2084,8 +2088,12 @@ export function resolveHeroSkillEffects(
   combat: SkillCombatState,
   roll: number,
 ): SkillEffectsResolution {
-  const { healthEffects = [], ...resolution } = resolveSkill(skill, combat, roll, "hero", true);
-  return { resolution, healthEffects };
+  const {
+    healthEffects = [],
+    own,
+    ...resolution
+  } = resolveSkill(skill, combat, roll, "hero", true);
+  return { resolution, healthEffects, ...(own ? { own } : {}) };
 }
 
 /** R19–20：空区域没有命中对象；只执行自身效果，不制造命中或暴击。 */
@@ -2118,14 +2126,12 @@ export function resolveHeroSkillEmptyAreaEffects(
       resolution: refuse(skill, context, "空区域没有选中必须优先攻击的 Guard 敌人（R-024）"),
       healthEffects: [],
     };
-  const { healthEffects = [], ...resolution } = resolveSkill(
-    skill,
-    context,
-    roll,
-    "hero",
-    true,
-    true,
-  );
+  const {
+    healthEffects = [],
+    own: _own,
+    ...resolution
+  } = resolveSkill(skill, context, roll, "hero", true, true);
+  void _own;
   return { resolution, healthEffects };
 }
 
@@ -2144,7 +2150,12 @@ export function resolveMonsterAttackEffects(
   combat: SkillCombatState,
   roll: number,
 ): SkillEffectsResolution {
-  const { healthEffects = [], ...resolution } = resolveSkill(skill, combat, roll, "monster", true);
+  const {
+    healthEffects = [],
+    own: _own,
+    ...resolution
+  } = resolveSkill(skill, combat, roll, "monster", true);
+  void _own;
   return { resolution, healthEffects };
 }
 
@@ -2155,7 +2166,10 @@ function resolveSkill(
   sourceSide: SkillTargetSide,
   includeHealthEffects = false,
   emptyArea = false,
-): HeroSkillResolution & { readonly healthEffects?: readonly SkillHealthEffect[] } {
+): HeroSkillResolution & {
+  readonly healthEffects?: readonly SkillHealthEffect[];
+  readonly own?: SkillEffectsResolution;
+} {
   if (skill.hero !== null && skill.hero.trim().toLowerCase() === "musketeer") {
     return refuse(skill, combat, "Musketeer 不在首版（R-008）");
   }
@@ -2464,7 +2478,7 @@ function resolveSkill(
     hero: PassiveHolder & { readonly id: string },
     value: number,
     delta: number,
-    light = combat.light ?? 5,
+    light = combat.effectLight ?? combat.light ?? 5,
     key = "self",
   ): number => {
     const changed = passiveStress(hero, delta, light);
@@ -2482,6 +2496,7 @@ function resolveSkill(
     return clampStress(value + changed.amount);
   };
   if (
+    !combat.ownEffectsApplied &&
     sourceSide === "hero" &&
     combat.actor &&
     (outcome !== null || (emptyArea && hitThreshold !== null))
@@ -2503,6 +2518,7 @@ function resolveSkill(
   const receivedCrit = outcome === "crit" && effect === "damage" && target.side === "hero";
   let actorStress = combat.actor?.stress === undefined ? null : combat.actor.stress;
   if (
+    !combat.ownEffectsApplied &&
     sourceSide === "hero" &&
     combat.actor &&
     roll === 1 &&
@@ -2521,17 +2537,27 @@ function resolveSkill(
       : [...combat.untargetedHeroesBesideTarget],
   );
   const lightDelta =
-    statuses.selfLight +
+    (combat.ownEffectsApplied ? 0 : statuses.selfLight) +
     (emptyArea || outcome === "miss" ? 0 : statuses.targetLight + (support?.light ?? 0));
   const pressureLight =
-    combat.light === undefined ? undefined : Math.max(0, Math.min(5, combat.light + lightDelta));
+    (combat.effectLight ?? combat.light) === undefined
+      ? undefined
+      : Math.max(0, Math.min(5, (combat.effectLight ?? combat.light)! + lightDelta));
 
   // 规则书第 20 页：自身效果在伤害、治疗和目标效果之前，落空也生效。
   // 没有 Acc 时不掷骰，这一行的治疗和压力仍然生效。
-  if ((stress.self !== 0 || paired.stress !== 0) && actorStress !== null) {
+  if (
+    !combat.ownEffectsApplied &&
+    (stress.self !== 0 || paired.stress !== 0) &&
+    actorStress !== null
+  ) {
     actorStress = changeStress(combat.actor!, actorStress, stress.self + paired.stress);
   }
-  if ((selfHeal.amount > 0 || paired.heal > 0) && actorWounds !== null) {
+  if (
+    !combat.ownEffectsApplied &&
+    (selfHeal.amount > 0 || paired.heal > 0) &&
+    actorWounds !== null
+  ) {
     const amount = passiveHeal(combat.actor!, selfHeal.amount + paired.heal);
     actorWounds = Math.max(0, actorWounds - amount);
     healthEffects.push({
@@ -2541,7 +2567,7 @@ function resolveSkill(
       effect: { type: "heal", amount },
     });
   }
-  if (selfWound.lineCount && actorWounds !== null) {
+  if (!combat.ownEffectsApplied && selfWound.lineCount && actorWounds !== null) {
     actorWounds += selfWound.amount;
     healthEffects.push({
       entityId: combat.actor!.id,
@@ -2553,8 +2579,25 @@ function resolveSkill(
   // 自身「Remove Bleed」不看命中。没有 Acc 时也清。和增益写在同一行的不算。
   // 换行后配给自身标记的「Remove Bleed、Blight」同样不看命中，两种都清。
   const actorBleedCleared =
-    selfBleed.lineCount === 1 || removal.actorLines > 0 || statuses.selfRemove;
-  const actorBlightCleared = removal.actorLines > 0 || statuses.selfRemove;
+    !combat.ownEffectsApplied &&
+    (selfBleed.lineCount === 1 || removal.actorLines > 0 || statuses.selfRemove);
+  const actorBlightCleared =
+    !combat.ownEffectsApplied && (removal.actorLines > 0 || statuses.selfRemove);
+  const own: SkillEffectsResolution = {
+    resolution: {
+      ...refuse(skill, combat, ""),
+      status: "resolved",
+      reason: null,
+      actorWounds,
+      actorStress,
+      actorBleedCleared,
+      actorBlightCleared,
+      actorForm: formChange.form,
+      actorStatusEffects: statuses.self,
+      actorLightDelta: statuses.selfLight,
+    },
+    healthEffects: [...healthEffects],
+  };
 
   if ((effect === "damage" || effect === "heal") && outcome !== null && outcome !== "miss") {
     const amount = outcome === "crit" ? critAmount : hitAmount;
@@ -2709,12 +2752,12 @@ function resolveSkill(
     targetBlightCleared: conditionsCleared,
     actorBleedCleared,
     actorBlightCleared,
-    actorShuffle: shuffles.self,
+    actorShuffle: combat.ownEffectsApplied ? null : shuffles.self,
     targetShuffle:
       emptyArea || outcome === "miss" ? null : resistedTargetShuffle(shuffles.target, combat),
     targetProtectionIgnored:
       !emptyArea && outcome !== "miss" && effect === "damage" && ignoresProtection.targetLines > 0,
-    actorForm: formChange.form,
+    actorForm: combat.ownEffectsApplied ? null : formChange.form,
     actorStress,
     targetStress,
     besideActorStress,
@@ -2738,13 +2781,13 @@ function resolveSkill(
     ),
     ...(statuses.lineCount || support
       ? {
-          actorStatusEffects: statuses.self,
+          actorStatusEffects: combat.ownEffectsApplied ? [] : statuses.self,
           targetStatusEffects: emptyArea || outcome === "miss" ? [] : statuses.target,
-          actorLightDelta: statuses.selfLight,
+          actorLightDelta: combat.ownEffectsApplied ? 0 : statuses.selfLight,
           targetLightDelta:
             emptyArea || outcome === "miss" ? 0 : statuses.targetLight + (support?.light ?? 0),
         }
       : {}),
-    ...(includeHealthEffects ? { healthEffects } : {}),
+    ...(includeHealthEffects ? { healthEffects, own } : {}),
   };
 }

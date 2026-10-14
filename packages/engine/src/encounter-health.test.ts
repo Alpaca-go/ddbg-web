@@ -261,7 +261,7 @@ describe("英雄生命遭遇战收尾（R24–25、R29、R-030、R-044）", () =
     },
   );
 
-  it("行动英雄阵亡后仍完成先于伤害的自身位移选择，再结束回合并补位", () => {
+  it("自身位移选择时英雄仍存活，随后攻击反击死亡，只结束一次回合并补位", () => {
     const pointBlank = skills.find((card) => card.id === "hero_skill:p070")!;
     let state = turn(setup(soldier, 2, pointBlank), "hero");
     state = patch(state, "m0", { areaId: "a", riposte: true });
@@ -288,7 +288,7 @@ describe("英雄生命遭遇战收尾（R24–25、R29、R-030、R-044）", () =
       targetId: "m0",
       skillId: pointBlank.id,
     });
-    expect(entity(rolled.state, "h0").dead).toBe(true);
+    expect(entity(rolled.state, "h0").dead).toBe(false);
     const waiting = applyCommand(rolled.state, { type: "resolveShuffles" });
     expect(waiting.pendingChoice!.actorId).toBe("h0");
     expect(waiting.state.battle!.encounter!.turn).toMatchObject({ type: "hero", actions: 2 });
@@ -305,7 +305,7 @@ describe("英雄生命遭遇战收尾（R24–25、R29、R-030、R-044）", () =
     ).toEqual(stances.slice(0, 3));
     expect(done.state.battle!.encounter!.turn.type).toBe("awaitingInitiative");
     expect(done.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
-    expect(done.state.battle!.rngCursor).toBe(rolled.state.battle!.rngCursor);
+    expect(done.state.battle!.rngCursor).toBe(rolled.state.battle!.rngCursor + 1);
   });
 
   it("双方最后角色同次技能死亡为 mutualWipeout，保留既有金币但不发奖励（R-068）", () => {
