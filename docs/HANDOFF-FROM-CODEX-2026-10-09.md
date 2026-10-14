@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-14）：#181已合并，main `04f9de9`。当前 `codex/phase4-stagecoach-tokens` 接通驿站I级默认2枚等待英雄代币、每级20金升级及+1枚余额、保存刷新，见[开发记录](phase4-stagecoach-tokens-2026-10-14.md)。死亡补人/消费/英雄池尚未接通，下一主题继续；事件保持6/16，连续任务未完成。Phase3人工试玩未代签，未进入Phase5。下段Resilient已交付。
+
 > 当前入口（2026-10-14）：#180已合并，main `99c7d0c`。当前 `codex/phase4-hamlet-resilient` 修复村庄减压服务、Chant/Pray/Zealous Speech漏掉Resilient额外恢复1，见[开发记录](phase4-hamlet-resilient-2026-10-14.md)。事件保持6/16；其余村庄服务、驿站和连续任务继续后续，未知图标不命名。Phase3人工试玩未代签，未进入Phase5。下段Town Fair已交付。
 
 > 当前入口（2026-10-14）：#179已合并，main `4b7f44a`。当前 `codex/phase4-town-fair` 接通Town Fair全体减压/按英雄等级治疗、怪癖修正和一天准备，见[开发记录](phase4-town-fair-2026-10-14.md)。事件已实现6/16；其他10张保留真实停点，未批准图标仍不命名。村庄服务、驿站和连续任务继续后续，Phase3人工试玩未代签，未进入Phase5。下段Caregivers已交付。

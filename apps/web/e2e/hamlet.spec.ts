@@ -258,4 +258,32 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await page.getByRole("button", { name: "开始首日看守人", exact: true }).click();
   await expect(page.getByTestId("hamlet-event")).toContainText("准备 1 天");
   await page.screenshot({ path: testInfo.outputPath("town-fair-saved.png"), fullPage: true });
+  // 同一真实seed64回村：用真实22金升级驿站，不消耗当前英雄行动；保存刷新不重复发放。
+  await expect(page.getByTestId("stagecoach-tokens")).toContainText("驿站等待英雄代币：2 枚");
+  const actorLabel = page
+    .getByTestId("hamlet-event")
+    .locator("p")
+    .filter({ hasText: "当前行动英雄：" });
+  const currentActor = await actorLabel.innerText();
+  await page.getByRole("button", { name: "升级驿站（20 金）", exact: true }).click();
+  await expect(page.getByTestId("hamlet-buildings")).toContainText("驿站 II");
+  await expect(page.getByTestId("stagecoach-tokens")).toContainText("驿站等待英雄代币：3 枚");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${townFair.game.dungeon!.gold - 20}`,
+  );
+  await expect(actorLabel).toHaveText(currentActor);
+  await expect(page.getByRole("button", { name: "升级驿站（20 金）", exact: true })).toBeDisabled();
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("stagecoach-tokens")).toContainText("驿站等待英雄代币：3 枚");
+  await expect(page.getByTestId("hamlet-buildings")).toContainText("驿站 II");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${townFair.game.dungeon!.gold - 20}`,
+  );
+  await expect(actorLabel).toHaveText(currentActor);
+  await page.screenshot({
+    path: testInfo.outputPath("stagecoach-upgrade-saved.png"),
+    fullPage: true,
+  });
 });

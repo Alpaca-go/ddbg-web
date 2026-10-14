@@ -87,6 +87,8 @@ export type DungeonState = {
     readonly convertedHeroIds: readonly string[];
   };
   readonly stagecoachXp?: number;
+  /** R33等待英雄余额；旧I级状态缺字段时由读取函数按首次设置2枚解释。 */
+  readonly waitingHeroTokens?: number;
   readonly curioRoom?: {
     readonly roomId: string;
     readonly guardRoll: number;
