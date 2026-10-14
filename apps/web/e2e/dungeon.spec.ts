@@ -19,7 +19,24 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     await expect(page.getByRole("button", { name: "重置标准模式" })).toHaveCount(0);
     await expect(page.getByTestId("dungeon-node-S")).toContainText("队伍");
     await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（0/16）");
+    if (id === "quest:p001") {
+      await page.getByRole("button", { name: "保存进度", exact: true }).click();
+      await expect(page.getByRole("status")).toContainText("已保存到本机");
+      await page.reload();
+      await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+      await expect(page.getByRole("heading", { name: name!, exact: true })).toBeVisible();
+      await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（0/16）");
+    }
     await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
+    if (id === "quest:p001") {
+      const choices = await page.getByRole("button", { name: "火把", exact: true }).count();
+      await page.getByRole("button", { name: "保存进度", exact: true }).click();
+      await expect(page.getByRole("status")).toContainText("已保存到本机");
+      await page.reload();
+      await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+      await expect(page.getByRole("button", { name: "火把", exact: true })).toHaveCount(choices);
+      await expect(page.getByRole("button", { name: "掷开局补给骰", exact: true })).toBeDisabled();
+    }
     while (await page.getByRole("button", { name: "火把", exact: true }).count())
       await page.getByRole("button", { name: "火把", exact: true }).click();
     await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（8/16）");

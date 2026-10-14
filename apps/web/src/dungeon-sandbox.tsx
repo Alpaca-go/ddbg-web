@@ -6,6 +6,8 @@ import {
   canRestDungeon,
   createDungeonSandbox,
   createCoreDungeonQuest,
+  createQuestSave,
+  loadQuestSave,
   createTrinketPool,
   readRoomTile,
   PROVISION_EFFECTS,
@@ -13,6 +15,7 @@ import {
 } from "@ddbg/engine";
 import type {
   QuestParty,
+  QuestStart,
   CoreQuestSources,
   Command,
   GameEvent,
@@ -404,23 +407,90 @@ const useDungeonStore = create<{
   preview: DungeonLayout | null;
   events: readonly GameEvent[];
   commands: readonly Command[];
+  questStart: QuestStart | null;
   dispatch: (command: Command) => void;
-  beginTask: (game: GameState) => void;
+  beginTask: (game: GameState, start: QuestStart) => void;
+  restoreTask: (loaded: ReturnType<typeof loadQuestSave>) => void;
   reset: (mode: DungeonState["mode"]) => void;
   select: (page: number, fixture: Fixture) => void;
 }>((set) => ({
   // 当前房间为导航就绪的测试注入点；没有通过走廊，也没有获得奖励。
   ...setup("standard"),
+  questStart: null,
   dispatch: (command) =>
     set((s) => {
       const result = applyCommand(s.game, command);
-      return { game: result.state, events: result.events, commands: [...s.commands, command] };
+      return {
+        game: result.state,
+        events: result.events,
+        commands: result.events.some((e) => e.type === "commandRefused")
+          ? s.commands
+          : [...s.commands, command],
+      };
     }),
-  beginTask: (game) =>
-    set({ game, page: 1, fixture: "neutral", preview: null, events: [], commands: [] }),
-  reset: (mode) => set((s) => setup(mode, s.page, s.fixture)),
-  select: (page, fixture) => set((s) => setup(s.game.dungeon!.mode, page, fixture)),
+  beginTask: (game, questStart) =>
+    set({ game, questStart, page: 1, fixture: "neutral", preview: null, events: [], commands: [] }),
+  restoreTask: (loaded) =>
+    set({
+      game: loaded.game,
+      questStart: loaded.start,
+      commands: loaded.commands,
+      events: loaded.events,
+      page: 1,
+      fixture: "neutral",
+      preview: null,
+    }),
+  reset: (mode) => set((s) => ({ ...setup(mode, s.page, s.fixture), questStart: null })),
+  select: (page, fixture) =>
+    set((s) => ({ ...setup(s.game.dungeon!.mode, page, fixture), questStart: null })),
 }));
+
+const questSaveKey = "ddbg.core-quest.save.v1";
+function QuestSaveControls({ onLoad }: { onLoad?: () => void }) {
+  const { game, commands, questStart, restoreTask } = useDungeonStore();
+  const [notice, setNotice] = useState("");
+  const run = (action: () => void) => {
+    try {
+      action();
+    } catch (error) {
+      setNotice(error instanceof Error ? error.message : "存档操作失败，原进度保持不变");
+    }
+  };
+  return (
+    <section className="panel" aria-label="任务存档">
+      <div className="button-row">
+        {questStart && (
+          <button
+            onClick={() =>
+              run(() => {
+                const save = createQuestSave(questStart, commands, game, taskSources);
+                localStorage.setItem(questSaveKey, JSON.stringify(save));
+                setNotice("已保存到本机，可刷新后读取继续。");
+              })
+            }
+          >
+            保存进度
+          </button>
+        )}
+        <button
+          onClick={() =>
+            run(() => {
+              const raw = localStorage.getItem(questSaveKey);
+              if (!raw) throw new Error("本机还没有任务存档");
+              const loaded = loadQuestSave(JSON.parse(raw), taskSources);
+              restoreTask(loaded);
+              setNotice("已读取进度，可继续当前行动或待选决定。");
+              onLoad?.();
+            })
+          }
+        >
+          读取本机存档
+        </button>
+      </div>
+      {notice && <p role="status">{notice}</p>}
+    </section>
+  );
+}
 const labels = {
   empty: "空房",
   dark: "黑暗",
@@ -438,14 +508,21 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
   const d = game.dungeon!;
   if (game.battle)
     return (
-      <BattleView
-        game={game}
-        dispatch={dispatch}
-        events={events}
-        commands={commands}
-        layout="dungeon"
-        notice={events.map((e) => e.message).join("；")}
-      />
+      <>
+        {formal && (
+          <div className="shell">
+            <QuestSaveControls />
+          </div>
+        )}
+        <BattleView
+          game={game}
+          dispatch={dispatch}
+          events={events}
+          commands={commands}
+          layout="dungeon"
+          notice={events.map((e) => e.message).join("；")}
+        />
+      </>
     );
   const currentRoom = d.rooms.find((r) => r.id === d.position);
   const quest = readBasicQuest(d.questDistribution);
@@ -454,6 +531,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
   const card = d.curio?.cards.find((c) => c.id === shownCurio?.cardId);
   return (
     <main className="shell">
+      {formal && <QuestSaveControls />}
       <header className="topbar">
         <div>
           <p className="eyebrow">DDBG · PHASE 3</p>
@@ -1106,7 +1184,12 @@ export function DungeonQuest() {
             e.preventDefault();
             try {
               const game = createCoreDungeonQuest(Number(seed), questId, mode, party, taskSources);
-              beginTask(game);
+              beginTask(game, {
+                seed: Number(seed),
+                questId,
+                mode,
+                party: party.map((hero) => ({ ...hero, skillIds: [...hero.skillIds] })),
+              });
               setStarted(true);
             } catch (error) {
               setError(error instanceof Error ? error.message : String(error));
@@ -1153,8 +1236,7 @@ export function DungeonQuest() {
           </label>
           <p>
             QuestMap FRONT
-            p1（已批准）。从起点S开始，房间代币按任务随机分布，先领取八颗开局补给。普通遗迹牌池保留全部九面，抽到尚未就绪的Treasure
-            Chamber会保留原牌等待接通。
+            p1（已批准）。从起点S开始，房间代币按任务随机分布，先领取八颗开局补给。普通遗迹全部九面已接通。
           </p>
           <p>
             柴火休息 {selectedQuest.restPoints} 点。
@@ -1210,6 +1292,7 @@ export function DungeonQuest() {
           <button type="submit">进入地牢</button>
         </form>
       </section>
+      <QuestSaveControls onLoad={() => setStarted(true)} />
     </main>
   );
 }
