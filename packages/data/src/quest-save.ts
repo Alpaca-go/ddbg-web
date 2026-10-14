@@ -10,6 +10,8 @@ const noPayload = z.strictObject({
     "summarizeDungeonQuest",
     "startDungeonBattle",
     "finishDungeonBattle",
+    "beginReturnToHamlet",
+    "finishReturnToHamlet",
     "leaveDungeon",
     "scoutDungeon",
     "beginDungeonExploration",

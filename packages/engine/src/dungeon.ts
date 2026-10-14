@@ -77,6 +77,13 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  readonly hamletReturn?: {
+    readonly phase: "converting" | "provisions" | "awaitingReplacement" | "complete";
+    readonly order: readonly string[];
+    readonly resolveRoles: Readonly<Record<string, "virtue" | "affliction">>;
+    readonly convertedHeroIds: readonly string[];
+  };
+  readonly stagecoachXp?: number;
   readonly curioRoom?: {
     readonly roomId: string;
     readonly guardRoll: number;
@@ -97,6 +104,7 @@ export type DungeonState = {
   readonly heroes: readonly (PassiveHero & {
     readonly id: string;
     readonly stress: number;
+    readonly xp?: number;
     readonly resolveTested?: boolean | undefined;
     readonly resolveCardId?: string | undefined;
     readonly dead?: boolean;
@@ -154,6 +162,8 @@ export type DungeonState = {
     | "awaitingRoom"
     | "inBattle"
     | "exited"
+    | "returningToHamlet"
+    | "inHamlet"
     | "awaitingCurio";
   readonly pressureSource?:
     | "scout"

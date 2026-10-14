@@ -41,6 +41,22 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
       await page.getByRole("button", { name: "火把", exact: true }).click();
     await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（8/16）");
     await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeEnabled();
+    if (id === "quest:p001") {
+      await page.getByRole("button", { name: "离开地牢", exact: true }).click();
+      await page.getByRole("button", { name: "全员同意离开", exact: true }).click();
+      await page.getByRole("button", { name: "生成任务结算摘要", exact: true }).click();
+      await page.getByRole("button", { name: "返回村庄", exact: true }).click();
+      await expect(page.getByTestId("hamlet-return")).toContainText("状态已移除");
+      await page.getByRole("button", { name: "兑换剩余补给并完成回村", exact: true }).click();
+      await expect(page.getByTestId("hamlet-return")).toContainText("回村完成");
+      await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：8");
+      await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（0/16）");
+      await page.getByRole("button", { name: "保存进度", exact: true }).click();
+      await page.reload();
+      await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+      await expect(page.getByTestId("hamlet-return")).toContainText("回村完成");
+      await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：8");
+    }
     if (id === "quest:p003")
       await page.screenshot({
         path: testInfo.outputPath("formal-quest-entry.png"),

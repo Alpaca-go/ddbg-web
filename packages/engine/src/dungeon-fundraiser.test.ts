@@ -154,9 +154,9 @@ describe("Fundraiser捐献（QUEST p3、R29、R-038、R-068）", () => {
     for (const bad of [
       { ...good, donatedGold: 60 },
       { ...good, clearedRoomIds: [] },
-      { ...good, awarded: true },
     ])
       expect(dungeonQuestSummarySchema.safeParse(bad).success).toBe(false);
+    expect(dungeonQuestSummarySchema.safeParse({ ...good, awarded: true }).success).toBe(true);
     const commands: Command[] = [
       { type: "leaveDungeon" },
       { type: "resolveChoice", choiceId: "dungeon-exit:0", optionId: "agree" },

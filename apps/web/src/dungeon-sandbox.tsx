@@ -950,15 +950,15 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
           {quest?.id === "quest:p003" && (
             <p>Fundraiser最低目标：清理一间巢穴；未达目标可提前离开，保留金币并跳过捐献。</p>
           )}
-          {d.phase === "exited" && (
+          {(d.phase === "exited" || d.hamletReturn) && (
             <div data-testid="dungeon-quest-summary">
               {d.questSummary ? (
                 <p>
                   {d.questSummary.name} ·{" "}
                   {d.questSummary.questId !== "quest:p001" ? "巢穴清理" : "清理"}{" "}
-                  {d.questSummary.clearedRoomIds.length} / {quest!.maxRooms} 间 · 每名英雄待发{" "}
-                  {d.questSummary.xpPerHero} XP · 驿站待发 {d.questSummary.stagecoachXp} XP ·
-                  回村发放尚未接线
+                  {d.questSummary.clearedRoomIds.length} / {quest!.maxRooms} 间 · 每名英雄
+                  {d.questSummary.awarded ? "已发" : "待发"} {d.questSummary.xpPerHero} XP · 驿站
+                  {d.questSummary.awarded ? "已发" : "待发"} {d.questSummary.stagecoachXp} XP
                   {d.questSummary.questId === "quest:p003" &&
                     (d.questSummary.objectiveMet
                       ? ` · 捐献${d.questSummary.donatedGold}金币`
@@ -971,6 +971,45 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                 >
                   生成任务结算摘要
                 </button>
+              )}
+              {d.questSummary && !d.hamletReturn && (
+                <button
+                  disabled={!!d.pending}
+                  onClick={() => dispatch({ type: "beginReturnToHamlet" })}
+                >
+                  返回村庄
+                </button>
+              )}
+              {d.hamletReturn && (
+                <section aria-label="回村步骤" data-testid="hamlet-return">
+                  <p>弃牌已洗回 · 状态已移除 · 光照5 · 饰品正置；伤口和压力保留。</p>
+                  {d.hamletReturn.phase === "converting" && (
+                    <p>按当前姿态顺序转换意志，请完成怪癖选择。</p>
+                  )}
+                  {d.hamletReturn.phase === "awaitingReplacement" && (
+                    <p>有英雄永久死亡，等待驿站替换；XP尚未发放。</p>
+                  )}
+                  {d.hamletReturn.phase === "provisions" && (
+                    <>
+                      <p>可在下方使用补给，剩余每颗兑换1金币；完成后发放XP。</p>
+                      <button
+                        disabled={!!d.pending}
+                        onClick={() => dispatch({ type: "finishReturnToHamlet" })}
+                      >
+                        兑换剩余补给并完成回村
+                      </button>
+                    </>
+                  )}
+                  {d.hamletReturn.phase === "complete" && (
+                    <>
+                      <p>回村完成，等待村庄事件。</p>
+                      <p>
+                        驿站累计XP {d.stagecoachXp}；
+                        {d.heroes.map((h) => `${h.id} XP ${h.xp}`).join(" · ")}
+                      </p>
+                    </>
+                  )}
+                </section>
               )}
             </div>
           )}
@@ -1102,23 +1141,27 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
             </div>
           )}
           <p data-testid="dungeon-checkpoint">
-            {d.phase === "exited"
-              ? `已从 ${d.position} 离开地牢；金币与英雄状态已保留，等待任务 XP / 回村接口`
-              : d.phase === "ready" && d.mustLeaveRoomId === d.position
-                ? `已撤退到 ${d.position} 地图节点；房间未清理，必须离开`
-                : d.phase === "awaitingCurio"
-                  ? `Curio 待结算；${d.curio?.active?.roomId ? "队伍已在房间" : "队伍尚未移动"}，不能补用 Torch 或重抽`
-                  : d.phase === "awaitingReplacement"
-                    ? `英雄死亡：等待驿站替换接口，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
-                    : d.phase === "blockedPressure"
-                      ? `压力已支付：意志卡数据待核实，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
-                      : d.phase === "awaitingRoom"
-                        ? `进入 ${d.position}：等待${d.roomCards?.active ? "守卫战斗准备完成；原牌已记录，房间未清理" : currentRoom?.kind === "trap" ? " Trap 分配，保留代币" : currentRoom?.kind === "dark" ? " Dark 降光，保留代币" : "非 Empty 房间效果"}`
-                        : d.phase === "ready" && (d.exploration || (d.visited?.length ?? 0) > 1)
-                          ? `已到达 ${d.position}；${currentRoom?.cleared ? (currentRoom.kind === "empty" ? "Empty 已清理，移除房间代币" : "已清理，移除房间代币") : currentRoom?.kind === "trap" ? "Trap 已结算，保留代币" : currentRoom?.kind === "dark" ? "Dark 已结算，保留代币" : "灰点必须停留"}`
-                          : d.exploration
-                            ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
-                            : "等待侦察 / 路线选择"}
+            {d.hamletReturn
+              ? d.hamletReturn.phase === "complete"
+                ? "回村完成；等待村庄事件"
+                : "回村步骤进行中；探索已经结束"
+              : d.phase === "exited"
+                ? `已从 ${d.position} 离开地牢；金币与英雄状态已保留，等待任务 XP / 回村接口`
+                : d.phase === "ready" && d.mustLeaveRoomId === d.position
+                  ? `已撤退到 ${d.position} 地图节点；房间未清理，必须离开`
+                  : d.phase === "awaitingCurio"
+                    ? `Curio 待结算；${d.curio?.active?.roomId ? "队伍已在房间" : "队伍尚未移动"}，不能补用 Torch 或重抽`
+                    : d.phase === "awaitingReplacement"
+                      ? `英雄死亡：等待驿站替换接口，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
+                      : d.phase === "blockedPressure"
+                        ? `压力已支付：意志卡数据待核实，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
+                        : d.phase === "awaitingRoom"
+                          ? `进入 ${d.position}：等待${d.roomCards?.active ? "守卫战斗准备完成；原牌已记录，房间未清理" : currentRoom?.kind === "trap" ? " Trap 分配，保留代币" : currentRoom?.kind === "dark" ? " Dark 降光，保留代币" : "非 Empty 房间效果"}`
+                          : d.phase === "ready" && (d.exploration || (d.visited?.length ?? 0) > 1)
+                            ? `已到达 ${d.position}；${currentRoom?.cleared ? (currentRoom.kind === "empty" ? "Empty 已清理，移除房间代币" : "已清理，移除房间代币") : currentRoom?.kind === "trap" ? "Trap 已结算，保留代币" : currentRoom?.kind === "dark" ? "Dark 已结算，保留代币" : "灰点必须停留"}`
+                            : d.exploration
+                              ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
+                              : "等待侦察 / 路线选择"}
           </p>
           <p data-testid="dungeon-events">
             {events
