@@ -1,16 +1,10 @@
-import { rejectBattleCommand, resolveSkillStress } from "./battle";
+import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameEvent, GameState, PendingChoice } from "./command";
 import { recordEncounterSkill, recordMonsterSkill } from "./encounter";
 import { resolveShuffle } from "./shuffle";
-import { heroSkillUsesSelfTarget, resolveHeroSkillEffects } from "./hero-skill";
-import type { HeroSkillResolution } from "./hero-skill";
-import { resolveMonsterSkillEffects } from "./monster-skill";
 import { triggerBattlePassive } from "./battle-passive";
-import { applySkillHealth } from "./battle-health";
 import { newlyDefeatedIds } from "./encounter";
 import { hasQuirk } from "./passive";
-import type { SkillHealthEffect } from "./hero-skill";
-import { correctMultiTargetStress } from "./battle-multi-crit";
 import { ancestorGlory, clearAncestorConditions } from "./battle-ancestor";
 import { resumeSkillOwnEffects } from "./battle-own-effects";
 
@@ -123,24 +117,7 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
         pendingChoice: choice,
       };
     }
-    // 自身效果先于伤害（R20），其落点容量仍计入随后死亡的目标。
-    const selfBeforeDeath = intent.entityId === continuation.actorId;
-    const result = resolveShuffle(
-      selfBeforeDeath
-        ? {
-            ...next,
-            entities: next.entities.map((entry) =>
-              entry.id === intent.relativeToId ||
-              entry.id === intent.entityId ||
-              continuation.targetIds?.includes(entry.id)
-                ? { ...entry, dead: false }
-                : entry,
-            ),
-          }
-        : next,
-      intent,
-      choices,
-    );
+    const result = resolveShuffle(next, intent, choices);
     if (result.status === "refused") return rejectBattleCommand(state, result.reason);
     if (result.status === "needsChoice") {
       const choice: PendingChoice = {
@@ -170,15 +147,7 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
     }
     next = {
       ...next,
-      entities: selfBeforeDeath
-        ? result.entities.map((entry) =>
-            entry.id === intent.relativeToId ||
-            entry.id === intent.entityId ||
-            continuation.targetIds?.includes(entry.id)
-              ? { ...entry, dead: next.entities.find((before) => before.id === entry.id)!.dead }
-              : entry,
-          )
-        : result.entities,
+      entities: result.entities,
       shuffleIntents: next.shuffleIntents.slice(1),
       pending: null,
       shufflePassiveIds: [
@@ -229,114 +198,6 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
       continuation,
       [...(continuation.casualtyIds ?? []), ...newlyDefeatedIds(battle, next.entities)],
     );
-  }
-  let deferred: readonly SkillHealthEffect[] = [];
-  if (continuation.criticalContext?.combats) {
-    const corrected = correctMultiTargetStress(next, continuation);
-    if (corrected.status === "refused") return rejectBattleCommand(state, corrected.reason);
-    next = { ...next, entities: corrected.entities };
-    deferred = corrected.deferredHealthEffects;
-    events.push({
-      type:
-        continuation.type === "heroSkillResolved"
-          ? "heroCritAreaResolved"
-          : "monsterCritAreaResolved",
-      message: "按多目标位移后的区域去重结算暴击压力",
-      actorId: continuation.actorId,
-    });
-  } else if (continuation.criticalContext) {
-    const { entities: original } = continuation.criticalContext;
-    const actor = next.entities.find((entry) => entry.id === continuation.actorId)!;
-    const target = next.entities.find((entry) => entry.id === continuation.resolution.targetId)!;
-    const nearby = (areaId: string) =>
-      next.entities
-        .filter(
-          (entry) =>
-            entry.side === "hero" &&
-            !entry.dead &&
-            entry.areaId === areaId &&
-            entry.id !== actor.id &&
-            entry.id !== target.id,
-        )
-        .map((entry) => ({
-          id: entry.id,
-          stress: original.find((before) => before.id === entry.id)!.stress!,
-        }));
-    let corrected: HeroSkillResolution;
-    let selfTarget = false;
-    if (continuation.type === "heroSkillResolved") {
-      const combat = continuation.criticalContext!.combat;
-      const skill = next.skills.find((entry) => entry.id === continuation.resolution.skillId)!;
-      selfTarget = heroSkillUsesSelfTarget(skill, combat.face);
-      const effects = resolveHeroSkillEffects(
-        skill,
-        {
-          ...combat,
-          heroesBesideActor: nearby(actor.areaId),
-          untargetedHeroesBesideTarget: actor.areaId === target.areaId ? [] : nearby(target.areaId),
-          targetInActorArea: target.side === "hero" && actor.areaId === target.areaId,
-        },
-        continuation.roll!,
-      );
-      corrected = effects.resolution;
-      deferred = effects.healthEffects.filter((e) => e.deferred);
-    } else {
-      const card = next.monsters!.find((entry) => entry.id === actor.monsterCardId)!;
-      const result = resolveMonsterSkillEffects(
-        card,
-        continuation.skillSlot,
-        {
-          ...continuation.criticalContext!.combat,
-          untargetedHeroesBesideTarget: nearby(target.areaId),
-        },
-        continuation.roll,
-      );
-      if (result.status === "refused") return rejectBattleCommand(state, result.reason);
-      corrected = result.resolution;
-      deferred = result.healthEffects.filter((e) => e.deferred);
-    }
-    if (corrected.status === "refused") return rejectBattleCommand(state, corrected.reason!);
-    next = {
-      ...next,
-      entities: next.entities.map((entry) => {
-        const baseline = original.find((before) => before.id === entry.id)!;
-        const stress = resolveSkillStress(baseline, actor.id, target.id, corrected, selfTarget);
-        return stress === undefined ? entry : { ...entry, stress };
-      }),
-      shuffleContinuation: {
-        ...continuation,
-        resolution: {
-          ...continuation.resolution,
-          actorStress: corrected.actorStress,
-          targetStress: corrected.targetStress,
-          besideActorStress: corrected.besideActorStress,
-          untargetedBesideTargetStress: corrected.untargetedBesideTargetStress,
-        },
-      },
-    };
-    events.push({
-      type:
-        continuation.type === "heroSkillResolved"
-          ? "heroCritAreaResolved"
-          : "monsterCritAreaResolved",
-      message: "按位移后的区域结算暴击压力",
-      actorId: actor.id,
-    });
-  }
-  if (deferred.length) {
-    const health = applySkillHealth(
-      next,
-      next.entities,
-      {
-        resolution: continuation.resolution,
-        healthEffects: deferred.map((e) => ({ ...e, deferred: false })),
-      },
-      state.seed,
-      next.rngCursor,
-    );
-    if (health.status === "refused") return rejectBattleCommand(state, health.reason);
-    next = { ...next, entities: health.entities, rngCursor: health.rngCursor };
-    events.push(...health.events);
   }
   const passive = triggerBattlePassive(next, state.seed, next.shufflePassiveIds ?? [], "shuffled");
   if (passive.status === "refused") return rejectBattleCommand(state, passive.reason);

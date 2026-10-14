@@ -204,7 +204,7 @@ describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）
       ),
     };
   }
-  it("怪物多目标位移后，被选与未选英雄暴击压力分别结算且同区只加一次", () => {
+  it("R20：多目标暴击压力先于目标Shuffle，新落点英雄不追加压力", () => {
     let state = setup(multiShuffle("Push 1"));
     while (nextBattleRoll(state.seed, 0) !== 1) state = { ...state, seed: state.seed + 1 };
     const played = applyCommand(state, play(2));
@@ -212,9 +212,10 @@ describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）
     const moved = applyCommand(played.state, { type: "resolveShuffles" });
     for (const id of ["h0", "h1"]) expect(entity(moved.state, id).areaId).toBe("e");
     expect(entity(moved.state, "h0").stress).toBe(6);
-    for (const id of ["h1", "h2", "h3"]) expect(entity(moved.state, id).stress).toBe(4);
+    expect(entity(moved.state, "h1").stress).toBe(4);
+    for (const id of ["h2", "h3"]) expect(entity(moved.state, id).stress).toBe(3);
     expect(moved.state.battle!.rngCursor).toBe(1);
-    expect(moved.events.filter((e) => e.type === "monsterCritAreaResolved")).toHaveLength(1);
+    expect(moved.events.filter((e) => e.type === "monsterCritAreaResolved")).toHaveLength(0);
     expect(moved.events.filter((e) => e.type === "shuffleResolved")).toHaveLength(2);
   });
 
@@ -597,17 +598,17 @@ describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）
     expect(done.state.battle!.rngCursor).toBe(1);
   });
 
-  it("怪物暴击位移后按受击者最终区域加压，旧同区名单不重复生效", () => {
+  it("R20：按暴击发生时区域加压，后续目标位移不改名单或重复压力", () => {
     const initial = setup(directionCard());
     const prepared = { ...initial, battle: { ...initial.battle!, rngCursor: 1 } };
     const rolled = applyCommand(prepared, { ...play(), shuffleChoice: "push" });
     expect(rolled.events[0]).toMatchObject({ resolution: { outcome: "crit" } });
     const done = applyCommand(rolled.state, { type: "resolveShuffles" });
     expect(entity(done.state, "h0")).toMatchObject({ areaId: "e", stress: 6 });
-    expect(entity(done.state, "h1").stress).toBe(3);
-    expect(entity(done.state, "h2").stress).toBe(4);
-    expect(entity(done.state, "h3").stress).toBe(4);
-    expect(done.events.filter((event) => event.type === "monsterCritAreaResolved")).toHaveLength(1);
+    expect(entity(done.state, "h1").stress).toBe(4);
+    expect(entity(done.state, "h2").stress).toBe(3);
+    expect(entity(done.state, "h3").stress).toBe(3);
+    expect(done.events.filter((event) => event.type === "monsterCritAreaResolved")).toHaveLength(0);
     expect(done.state.battle!.rngCursor).toBe(2);
   });
 
@@ -643,8 +644,8 @@ describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）
     ).toThrow();
   });
 
-  it.each([false, true])("怪物暴击续接保留英雄生命结果（dead=%s），压力仅修正一次", (dead) => {
-    const initial = patch(patch(setup(directionCard()), "h0", { stress: 9 }), "h1", { stress: 9 });
+  it.each([false, true])("目标位移保留英雄生命结果（dead=%s），不重算已支付压力", (dead) => {
+    const initial = patch(patch(setup(directionCard()), "h0", { stress: 6 }), "h1", { stress: 6 });
     const prepared = { ...initial, battle: { ...initial.battle!, light: 2, rngCursor: 1 } };
     const rolled = applyCommand(prepared, { ...play(), shuffleChoice: "push" });
     expect(rolled.events[0]).toMatchObject({ roll: 1, resolution: { outcome: "crit" } });
@@ -656,8 +657,8 @@ describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）
     });
     const before = structuredClone(applied);
     const done = applyCommand(applied, { type: "resolveShuffles" });
-    expect(entity(done.state, "h0")).toMatchObject({ life: 2, wounds: 2, dead, stress: 10 });
-    expect(entity(done.state, "h1").stress).toBe(dead ? 10 : 9);
+    expect(entity(done.state, "h0")).toMatchObject({ life: 2, wounds: 2, dead, stress: 8 });
+    expect(entity(done.state, "h1").stress).toBe(8);
     expect(entity(done.state, "monster")).toMatchObject({
       wounds: 1,
       dead: false,
@@ -667,7 +668,7 @@ describe("已选怪物行动命令（R19–24、R-017、R-020、R-030、R-031）
       blight: ["preserved-blight"],
     });
     expect(entity(done.state, "monster").stress).toBeUndefined();
-    expect(done.events.filter((event) => event.type === "monsterCritAreaResolved")).toHaveLength(1);
+    expect(done.events.filter((event) => event.type === "monsterCritAreaResolved")).toHaveLength(0);
     expect(done.events.filter((event) => event.type === "monsterSkillResolved")).toHaveLength(0);
     expect(done.state.battle!.rngCursor).toBe(applied.battle!.rngCursor);
     expect(applied).toEqual(before);

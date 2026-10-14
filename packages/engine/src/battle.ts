@@ -28,7 +28,7 @@ import type {
   PendingChoice,
 } from "./command";
 import type { ShuffleIntent } from "./shuffle";
-import type { MonsterCardView, MonsterCombatState } from "./monster-skill";
+import type { MonsterCardView } from "./monster-skill";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
 import type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 import type { PreparedMonsterAction } from "./battle-monster-action";
@@ -45,6 +45,7 @@ import type { PassiveHolder } from "./passive";
 import { cancelSkillAfterRoll } from "./battle-passive";
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
+import { beforeTargetShuffle } from "./battle-target-pressure";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
 export type BattleEntity = PassiveHolder &
@@ -210,28 +211,16 @@ export type BattleState = BattleSetup & {
   readonly shuffleContinuation:
     | (HeroSkillEmptyAreaResolvedEvent & {
         readonly targetIds?: never;
-        readonly criticalContext?: never;
         readonly casualtyIds?: readonly string[];
       })
     | (HeroSkillResolvedEvent & {
         readonly targetIds?: readonly string[];
         readonly casualtyIds?: readonly string[];
-        /** 位移后的暴击同区名单，沿用原骰面与原攻击数值重算。 */
-        readonly criticalContext?: {
-          readonly combat: SkillCombatState;
-          readonly combats?: readonly SkillCombatState[];
-          readonly entities: readonly BattleEntity[];
-        };
       })
     | (MonsterSkillResolvedEvent & {
         readonly targetIds?: readonly string[];
         readonly shuffleChooserId?: string;
         readonly casualtyIds?: readonly string[];
-        readonly criticalContext?: {
-          readonly combat: MonsterCombatState;
-          readonly combats?: readonly MonsterCombatState[];
-          readonly entities: readonly BattleEntity[];
-        };
       })
     | null;
 };
@@ -515,13 +504,15 @@ export function playHeroSkill(
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
   if (health.cancelled) return cancelSkillAfterRoll(state, actor.id, health);
+  const pressure = beforeTargetShuffle(state, current, health, [resolution]);
+  if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
   const statuses = applyBattleSkillStatuses(
-    current,
-    health.entities,
+    pressure.state.battle!,
+    pressure.state.battle!.entities,
     actor.id,
     [resolution],
     state.seed,
-    health.rngCursor,
+    pressure.state.battle!.rngCursor,
   );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const casualtyIds = newlyDefeatedIds(battle, statuses.entities);
@@ -550,7 +541,7 @@ export function playHeroSkill(
     state: {
       ...state,
       battle: {
-        ...current,
+        ...pressure.state.battle!,
         entities: statuses.entities,
         light: statuses.light,
         shuffleIntents,
@@ -560,14 +551,11 @@ export function playHeroSkill(
           ? {
               ...skillEvent,
               casualtyIds,
-              ...(resolution.outcome === "crit"
-                ? { criticalContext: { combat: effectCombat, entities: current.entities } }
-                : {}),
             }
           : null,
       },
     },
-    events: [skillEvent, ...health.events, ...statuses.events],
+    events: [skillEvent, ...pressure.events, ...statuses.events],
   };
   return shuffleIntents.length ? result : recordEncounterSkill(result, skillEvent, casualtyIds);
 }

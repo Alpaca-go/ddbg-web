@@ -15,6 +15,7 @@ import type { MonsterCardView, MonsterCombatState } from "./monster-skill";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
 import { beginSkillOwnEffects, afterMonsterOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
+import { beforeTargetShuffle } from "./battle-target-pressure";
 
 const stances = ["aggressive", "defensive", "ranged", "support"];
 
@@ -198,13 +199,15 @@ export function playMonsterSkillTargets(
     current.rngCursor + Number(!resume),
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
+  const pressure = beforeTargetShuffle(state, current, health, resolutions);
+  if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
   const statuses = applyBattleSkillStatuses(
-    current,
-    health.entities,
+    pressure.state.battle!,
+    pressure.state.battle!.entities,
     actor.id,
     resolutions,
     state.seed,
-    health.rngCursor,
+    pressure.state.battle!.rngCursor,
   );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const event: MonsterSkillTargetsResolvedEvent = {
@@ -235,15 +238,12 @@ export function playMonsterSkillTargets(
     casualtyIds,
     targetIds: targets.map((e) => e.id),
     shuffleChooserId: primary.id,
-    ...(resolutions.some((r) => r.outcome === "crit")
-      ? { criticalContext: { combat: contexts[0]!, combats: contexts, entities: current.entities } }
-      : {}),
   };
   const applied = {
     state: {
       ...state,
       battle: {
-        ...current,
+        ...pressure.state.battle!,
         monsterAction: null,
         pending: null,
         entities: statuses.entities,
@@ -253,7 +253,7 @@ export function playMonsterSkillTargets(
         shuffleContinuation: intents.length ? continuation : null,
       },
     },
-    events: [event, ...health.events, ...statuses.events],
+    events: [event, ...pressure.events, ...statuses.events],
   };
   return intents.length ? applied : recordMonsterSkill(applied, continuation, casualtyIds);
 }
