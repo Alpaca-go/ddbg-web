@@ -71,7 +71,7 @@ function finishAction(d: DungeonState, actorId: string, endDay: boolean): Dungeo
       phase: remainingDays ? "awaitingCaretaker" : "preparationComplete",
       day: remainingDays ? h.day + 1 : h.day,
       caretaker: null,
-      blockedBuildings: [],
+      blockedBuildings: h.weekBlockedBuildings ?? [],
       visitedBuildings: [],
       actedHeroes: [],
       heroOrder: [],
@@ -177,7 +177,9 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
         hamlet: {
           ...h,
           caretaker: null,
-          blockedBuildings: h.blockedBuildings.filter((b) => b !== h.caretaker),
+          blockedBuildings: h.blockedBuildings.filter(
+            (b) => b !== h.caretaker || h.weekBlockedBuildings?.includes(b),
+          ),
         },
       };
       message = "Intimidate：当天看守人移出，保留其他封锁和英雄占用（R-042）";

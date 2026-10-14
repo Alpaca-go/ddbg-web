@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-14）：#182已合并，main `6ebe581`。当前 `codex/phase4-labor-force` 接通 Labor Force 免费升级/放弃、整周禁访、永久弃牌与待选存档，并补铁匠/游商每级10金升级，见[开发记录](phase4-labor-force-2026-10-14.md)。事件7/16；临时技能/饰品交易、死亡补人及连续任务仍未完成，下一主题继续村庄服务。Phase3人工试玩未代签，未进入Phase5。下段驿站主题已交付。
+
 > 当前入口（2026-10-14）：#181已合并，main `04f9de9`。当前 `codex/phase4-stagecoach-tokens` 接通驿站I级默认2枚等待英雄代币、每级20金升级及+1枚余额、保存刷新，见[开发记录](phase4-stagecoach-tokens-2026-10-14.md)。死亡补人/消费/英雄池尚未接通，下一主题继续；事件保持6/16，连续任务未完成。Phase3人工试玩未代签，未进入Phase5。下段Resilient已交付。
 
 > 当前入口（2026-10-14）：#180已合并，main `99c7d0c`。当前 `codex/phase4-hamlet-resilient` 修复村庄减压服务、Chant/Pray/Zealous Speech漏掉Resilient额外恢复1，见[开发记录](phase4-hamlet-resilient-2026-10-14.md)。事件保持6/16；其余村庄服务、驿站和连续任务继续后续，未知图标不命名。Phase3人工试玩未代签，未进入Phase5。下段Town Fair已交付。
