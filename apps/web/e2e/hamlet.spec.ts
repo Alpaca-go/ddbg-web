@@ -335,4 +335,31 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     path: testInfo.outputPath("labor-force-day2-saved.png"),
     fullPage: true,
   });
+  // 真实seed2任务提前退出/零XP回村日志：首次墓地访问免费获得美德，刷新不重复抽卡。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(journey.save),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page
+    .getByRole("button", { name: "墓地：免费获得美德；下次压力到10直接死亡", exact: true })
+    .click();
+  await expect(page.getByTestId("hamlet-virtues")).toContainText("hero-0");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${journey.game.dungeon!.gold}`,
+  );
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  const virtueLabel = await page.getByTestId("hamlet-virtues").innerText();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("hamlet-virtues")).toHaveText(virtueLabel);
+  await expect(
+    page.getByRole("button", { name: "墓地：免费获得美德；下次压力到10直接死亡", exact: true }),
+  ).toHaveCount(0);
+  await page.screenshot({
+    path: testInfo.outputPath("graveyard-virtue-saved.png"),
+    fullPage: true,
+  });
 });

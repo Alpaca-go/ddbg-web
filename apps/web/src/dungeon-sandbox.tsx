@@ -1073,6 +1073,21 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                           .join(" · ")}
                         。 下一次出征尚未接通；届时实际掷出，含开局补给最多16颗（R-041）。
                       </p>
+                      <p data-testid="hamlet-virtues">
+                        当前美德：
+                        {d.heroes
+                          .filter(
+                            (h) =>
+                              d.resolveCards.find((c) => c.id === h.resolveCardId)?.role ===
+                              "virtue",
+                          )
+                          .map(
+                            (h) =>
+                              `${h.id} ${d.resolveCards.find((c) => c.id === h.resolveCardId)!.name}`,
+                          )
+                          .join(" · ") || "无"}
+                        。持有美德后，下次压力到10直接死亡（R28/R34）。
+                      </p>
                     </>
                   )}
                 </section>
@@ -1149,8 +1164,8 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                         ))}
                       </div>
                       <p>
-                        已开放修道院、酒馆、疗养院和生存专家服务及 Intimidate / Zealous Speech /
-                        Pray / Chant。其他服务与村庄技能继续开发。
+                        已开放修道院、酒馆、疗养院、生存专家和墓地服务及 Intimidate / Zealous Speech
+                        / Pray / Chant。其他服务与村庄技能继续开发。
                       </p>
                     </>
                   )}
