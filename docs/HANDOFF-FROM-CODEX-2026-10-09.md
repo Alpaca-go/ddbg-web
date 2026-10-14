@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-14）：#174已合并，main `198e13f`。当前 `codex/phase4-abbey-positive-quirk` 补齐修道院II/III的3金正面怪癖服务、第四怪癖待选与保存刷新，见[开发记录](phase4-abbey-positive-quirk-2026-10-14.md)。下段“当前恢复建筑升级”是已交付基线；Phase4仍未完成，下一任务/Boss不提前开放，Phase3人工试玩仍待确认。
+
 > 当前入口续块（2026-10-14）：#173已合并，main `6b216cc`。当前`codex/phase4-hamlet-building-upgrades`接三栋恢复建筑升级及II/III级恢复选项，见[开发记录](phase4-hamlet-building-upgrades-2026-10-14.md)。下段“当前主题hamlet-actions”已交付；Phase4未完成，未开放下一任务或Boss。账户Actions未启动限制保持。
 
 > 当前入口（2026-10-14）：#170单任务存档、#171回村结算和#172村庄事件/首日看守人均已合并，main为`5bb2d27`。当前主题`codex/phase4-hamlet-actions`接I级三栋恢复建筑、两项英雄村庄技能与逐日准备，详见[开发记录](phase4-hamlet-actions-2026-10-14.md)。Phase3三基础任务自然路径已通、普通遗迹9/9可战；人工试玩仍待Kyries确认，其他13图和Phase5不提前开放。下文“Treasure/Q-73未完成”等为历史基线，R-073已落地。远端Actions因账户付款/额度未启动，本机闸门通过不称CI全绿。

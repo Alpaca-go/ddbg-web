@@ -77,6 +77,7 @@ const definitions = {
   heal18: ["sanitarium", "heal", 18, 3, 3],
   cureDisease: ["sanitarium", "disease", 0, 2, 1],
   removeQuirks: ["abbey", "quirks", 0, 2, 1],
+  abbeyPositiveQuirk: ["abbey", "positiveQuirk", 1, 3, 2],
   tavernHeal5: ["tavern", "heal", 5, 1, 3],
   tavernHeal10: ["tavern", "heal", 10, 3, 3],
   tavernCureDisease: ["tavern", "disease", 0, 2, 3],
@@ -84,7 +85,7 @@ const definitions = {
   abbeyStress6: ["abbey", "stress", 6, 3, 3],
 } as const;
 export type RecoveryServiceId = keyof typeof definitions;
-/** R34 / §4.5：原语、数值、价格和开放等级来自官方表；不开放未接的正面怪癖选项。 */
+/** R34 / §4.5：原语、数值、价格和开放等级来自官方表。 */
 export function recoveryServices(d: DungeonState) {
   if (buildingLevelsProblem(d)) return [];
   const names = { abbey: "修道院", tavern: "酒馆", sanitarium: "疗养院" };
@@ -93,7 +94,7 @@ export function recoveryServices(d: DungeonState) {
     const level = recoveryBuildingLevel(d, building);
     if (level < min || level > max) return [];
     const cost = effect === "quirks" && level === 3 ? 1 : baseCost;
-    const label = `${names[building]} ${["I", "II", "III"][level - 1]}：${effect === "stress" ? `压力 −${amount}` : effect === "heal" ? `治疗 ${amount}` : effect === "disease" ? "移除疾病" : "移除怪癖"}（${cost} 金）`;
+    const label = `${names[building]} ${["I", "II", "III"][level - 1]}：${effect === "stress" ? `压力 −${amount}` : effect === "heal" ? `治疗 ${amount}` : effect === "disease" ? "移除疾病" : effect === "positiveQuirk" ? "获得 1 张正面怪癖" : "移除怪癖"}（${cost} 金）`;
     return [{ id, building, effect, amount, cost, label, level }];
   });
 }

@@ -1046,7 +1046,6 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                             </div>
                           );
                         })}
-                        <p>修道院 II/III 的抽取正面怪癖选项尚未接通。</p>
                       </section>
                     </>
                   )}

@@ -1,6 +1,6 @@
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { drawHamletEvent, rollHamletCaretaker } from "./hamlet-event";
-import { applyHamletAction } from "./hamlet-actions";
+import { applyHamletAction, chooseAbbeyQuirk } from "./hamlet-actions";
 import type { HamletActionCommand } from "./hamlet-actions";
 import { upgradeHamletBuilding } from "./hamlet-buildings";
 import type { UpgradeHamletBuildingCommand } from "./hamlet-buildings";
@@ -301,6 +301,10 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (state.dungeon?.pending?.id.startsWith("hamlet-abbey-quirk:"))
+    return command.type === "resolveChoice"
+      ? chooseAbbeyQuirk(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先完成修道院正面怪癖选择");
   if (command.type === "upgradeHamletBuilding") return upgradeHamletBuilding(state, command);
   if (command.type === "visitHamletBuilding" || command.type === "useHamletSkill")
     return applyHamletAction(state, command);

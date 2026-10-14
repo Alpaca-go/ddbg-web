@@ -50,6 +50,7 @@ export const savedCommandSchema = z.union([
       "heal18",
       "cureDisease",
       "removeQuirks",
+      "abbeyPositiveQuirk",
       "tavernHeal5",
       "tavernHeal10",
       "tavernCureDisease",
