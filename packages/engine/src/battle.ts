@@ -43,6 +43,8 @@ import type { LootState, LootToken } from "./loot";
 import type { ConditionPool } from "./conditions";
 import type { PassiveHolder } from "./passive";
 import { cancelSkillAfterRoll } from "./battle-passive";
+import { beginHeroOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
+import type { HeroSkillPrefix } from "./battle-own-effects";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
 export type BattleEntity = PassiveHolder &
@@ -129,6 +131,7 @@ export type BattleSetup = {
 };
 
 export type BattleState = BattleSetup & {
+  readonly skillPrefix?: HeroSkillPrefix | null;
   readonly encounter?: EncounterState;
   readonly rngCursor: number;
   readonly resolveDecks?: Readonly<Partial<Record<"virtue" | "affliction", readonly string[]>>>;
@@ -377,8 +380,12 @@ export function distance(areas: readonly BattleArea[], from: string, to: string)
   return null;
 }
 
-export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): ApplyResult {
-  const battle = state.battle;
+export function playHeroSkill(
+  state: GameState,
+  command: PlayHeroSkillCommand,
+  resume?: HeroSkillPrefix,
+): ApplyResult {
+  const battle = resume?.original ?? state.battle;
   if (!battle) return rejectBattleCommand(state, "尚未创建战斗沙盒");
   const turnProblem = encounterSkillProblem(battle, command.actorId, command.skillId);
   if (turnProblem) return rejectBattleCommand(state, turnProblem);
@@ -475,13 +482,21 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
   let roll: number | null = null;
   let resolution = probe;
   if (probe.outcome !== null) {
-    roll = nextBattleRoll(state.seed, battle.rngCursor);
+    roll = resume ? resume.roll : nextBattleRoll(state.seed, battle.rngCursor);
+    if (roll === null) return rejectBattleCommand(state, "技能续接缺少原骰面");
     resolution = resolveHeroSkill(skill, combat, roll);
   }
   if (resolution.status === "refused")
     return rejectBattleCommand(state, resolution.reason ?? "技能拒绝结算");
-  const effects = resolveHeroSkillEffects(skill, combat, roll ?? 1);
-  const entities = battle.entities.map((entity) =>
+  const current = resume ? state.battle! : battle;
+  const effectCombat = resume ? afterHeroOwnCombat(combat, current) : combat;
+  const effects = resolveHeroSkillEffects(skill, effectCombat, roll ?? 1);
+  resolution = effects.resolution;
+  if (!resume) {
+    const own = beginHeroOwnEffects(state, command, roll, effects);
+    if (own) return own;
+  }
+  const entities = current.entities.map((entity) =>
     writeResolution(
       entity,
       actor.id,
@@ -491,17 +506,17 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
     ),
   );
   const health = applySkillHealth(
-    battle,
+    current,
     entities,
     effects,
     state.seed,
-    battle.rngCursor + (roll === null ? 0 : 1),
+    current.rngCursor + (resume || roll === null ? 0 : 1),
     actor.id,
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
   if (health.cancelled) return cancelSkillAfterRoll(state, actor.id, health);
   const statuses = applyBattleSkillStatuses(
-    battle,
+    current,
     health.entities,
     actor.id,
     [resolution],
@@ -510,7 +525,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
   );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const casualtyIds = newlyDefeatedIds(battle, statuses.entities);
-  const shuffleIntents = [...battle.shuffleIntents];
+  const shuffleIntents = [...current.shuffleIntents];
   if (resolution.actorShuffle)
     shuffleIntents.push({
       entityId: actor.id,
@@ -524,6 +539,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
       move: resolution.targetShuffle,
     });
   const skillEvent: HeroSkillResolvedEvent = {
+    ...(resume?.announced ? { phase: "afterOwn" as const } : {}),
     type: "heroSkillResolved",
     message: "英雄技能已结算",
     actorId: actor.id,
@@ -534,7 +550,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
     state: {
       ...state,
       battle: {
-        ...battle,
+        ...current,
         entities: statuses.entities,
         light: statuses.light,
         shuffleIntents,
@@ -545,7 +561,7 @@ export function playHeroSkill(state: GameState, command: PlayHeroSkillCommand): 
               ...skillEvent,
               casualtyIds,
               ...(resolution.outcome === "crit"
-                ? { criticalContext: { combat, entities: battle.entities } }
+                ? { criticalContext: { combat: effectCombat, entities: current.entities } }
                 : {}),
             }
           : null,

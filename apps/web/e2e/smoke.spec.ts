@@ -478,7 +478,7 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
             await checkbox.check();
           await page.getByRole("button", { name: "使用技能", exact: true }).click();
           await expect(page.getByRole("region", { name: "战斗日志" })).toContainText(
-            "英雄多目标技能已共用一次掷骰结算",
+            "全部目标效果尚未提交",
           );
           breakthroughUsed = true;
           continue;

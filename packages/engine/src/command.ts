@@ -60,6 +60,7 @@ export type PendingChoice = {
 };
 
 export type HeroSkillResolvedEvent = {
+  readonly phase?: "ownPending" | "afterOwn";
   readonly type: "heroSkillResolved";
   readonly message: string;
   readonly actorId: string;
@@ -68,6 +69,7 @@ export type HeroSkillResolvedEvent = {
 };
 
 export type HeroSkillTargetsResolvedEvent = {
+  readonly phase?: "ownPending" | "afterOwn";
   readonly type: "heroSkillTargetsResolved";
   readonly message: string;
   readonly actorId: string;

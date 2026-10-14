@@ -176,7 +176,7 @@ describe("applyCommand 位移接线（R20–21、R-020、R-025、R-030）", () =
     expect(done.events[0]).toMatchObject({ path: [], stanceSteps: 2 });
   });
 
-  it("暴击分岔续接只改压力，保留已应用的生命、形态和状态，不回滚原快照", () => {
+  it("自身分岔续接保留当前形态与状态，随后只提交一次目标伤害", () => {
     const initial = setup(pointBlank);
     const prepared = { ...initial, battle: { ...initial.battle!, rngCursor: 1 } };
     const rolled = applyCommand(prepared, play(pointBlank));
@@ -216,17 +216,23 @@ describe("applyCommand 位移接线（R20–21、R-020、R-025、R-030）", () =
         ...healthAfter
       } = after;
       void [_beforeStress, _beforeArea, _beforeStance, _afterStress, _afterArea, _afterStance];
-      expect(healthAfter).toEqual(healthBefore);
+      expect(healthAfter).toEqual(
+        before.id === "target" ? { ...healthBefore, wounds: before.wounds + 15 } : healthBefore,
+      );
     }
     expect(done.state.battle!.entities[0]).toMatchObject({ areaId: "e", stress: 2 });
     expect(done.state.battle!.rngCursor).toBe(applied.battle!.rngCursor);
-    expect(done.events.filter((event) => event.type === "heroSkillResolved")).toHaveLength(0);
+    expect(
+      done.events.filter(
+        (event) => event.type === "heroSkillResolved" && event.phase !== "ownPending",
+      ),
+    ).toHaveLength(1);
     expect(applyCommand(done.state, { type: "resolveShuffles" }).state).toBe(done.state);
     expect(applied).toEqual(snapshot);
     expect(applyCommand(waiting.state, choose(waiting.state, "e"))).toEqual(done);
   });
 
-  it("位移修正的死亡字段不覆盖已结算的目标死亡，收尾仍胜利一次", () => {
+  it("自身位移前不提交目标死亡，位移后伤害与胜利各结算一次", () => {
     const turn = heroTurn(setup(pointBlank, true, 1));
     const rolled = applyCommand(
       { ...turn, battle: { ...turn.battle!, rngCursor: 1 } },
@@ -248,7 +254,8 @@ describe("applyCommand 位移接线（R20–21、R-020、R-025、R-030）", () =
     expect(continuation.resolution.outcome).toBe("crit");
     const waiting = applyCommand(applied, { type: "resolveShuffles" });
     const done = applyCommand(waiting.state, choose(waiting.state, "e"));
-    expect(target(done.state)).toMatchObject({ dead: true, wounds: 1 });
+    expect(target(rolled.state)).toMatchObject({ dead: false, wounds: 0 });
+    expect(target(done.state)).toMatchObject({ dead: true, wounds: 16 });
     expect(done.state.battle!.encounter!.turn).toEqual({ type: "finished", outcome: "victory" });
     expect(done.events.filter((event) => event.type === "battleFinished")).toHaveLength(1);
   });
@@ -312,10 +319,7 @@ describe("applyCommand 位移接线（R20–21、R-020、R-025、R-030）", () =
 
   it("自身位移先应用，目标位移参照更新后的自身位置，事件只发一次", () => {
     const rolled = applyCommand(setup(pointBlank), play(pointBlank));
-    expect(rolled.state.battle!.shuffleIntents.map((intent) => intent.entityId)).toEqual([
-      "hero",
-      "target",
-    ]);
+    expect(rolled.state.battle!.shuffleIntents.map((intent) => intent.entityId)).toEqual(["hero"]);
     const waiting = applyCommand(rolled.state, { type: "resolveShuffles" });
     expect(waiting.pendingChoice!.options.map((option) => option.id)).toEqual(["b", "e"]);
     const done = applyCommand(waiting.state, choose(waiting.state, "b"));
@@ -324,7 +328,12 @@ describe("applyCommand 位移接线（R20–21、R-020、R-025、R-030）", () =
       stance: "defensive",
     });
     expect(target(done.state)).toMatchObject({ areaId: "e", stance: "defensive" });
-    expect(done.events.map((event) => event.type)).toEqual(["shuffleResolved", "shuffleResolved"]);
+    expect(done.events.filter((event) => event.type === "shuffleResolved")).toHaveLength(2);
+    expect(
+      done.events.filter(
+        (event) => event.type === "heroSkillResolved" && event.phase !== "ownPending",
+      ),
+    ).toHaveLength(1);
   });
 
   it("最后一个行动遇到落点选择时，不提前结束回合；全部位移后只扣一次", () => {
@@ -358,7 +367,7 @@ describe("applyCommand 位移接线（R20–21、R-020、R-025、R-030）", () =
 
   it("目标死亡跳过目标位移，自身位移完成后才胜利；不复活参照目标", () => {
     const rolled = applyCommand(heroTurn(setup(pointBlank, true, 1)), play(pointBlank));
-    expect(target(rolled.state).dead).toBe(true);
+    expect(target(rolled.state).dead).toBe(false);
     expect(rolled.state.battle!.encounter!.turn.type).toBe("hero");
     const waiting = applyCommand(rolled.state, { type: "resolveShuffles" });
     const done = applyCommand(waiting.state, choose(waiting.state, "e"));

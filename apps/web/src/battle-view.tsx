@@ -795,7 +795,11 @@ export function BattleView({
           {events.map((event, i) => (
             <li key={i}>
               <span>{i + 1}.</span> {event.message}
-              {"roll" in event && event.roll !== null ? ` · d10=${event.roll}` : ""}
+              {"roll" in event &&
+              event.roll !== null &&
+              !("phase" in event && event.phase === "afterOwn")
+                ? ` · d10=${event.roll}`
+                : ""}
               {event.type === "heroSkillEmptyAreaResolved" && (
                 <p>
                   {entityName(event.actorId)} · {skillName(event.skillId)} → 空区域 {event.areaId} ·
@@ -813,14 +817,15 @@ export function BattleView({
               {(event.type === "heroSkillResolved" ||
                 event.type === "monsterSkillResolved" ||
                 event.type === "heroSkillTargetsResolved" ||
-                event.type === "monsterSkillTargetsResolved") && (
-                <SkillResults
-                  actorName={entityName(event.actorId)}
-                  entityName={entityName}
-                  skillName={skillName}
-                  resolutions={"resolutions" in event ? event.resolutions : [event.resolution]}
-                />
-              )}
+                event.type === "monsterSkillTargetsResolved") &&
+                !("phase" in event && event.phase === "ownPending") && (
+                  <SkillResults
+                    actorName={entityName(event.actorId)}
+                    entityName={entityName}
+                    skillName={skillName}
+                    resolutions={"resolutions" in event ? event.resolutions : [event.resolution]}
+                  />
+                )}
             </li>
           ))}
         </ol>
