@@ -1066,9 +1066,11 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                     {d.hamlet.deck.length} 张（完整16张）
                   </p>
                   <p>
-                    {hamletCard!.effectLines
-                      .map((line) => line.replace(/\{icon:[a-f0-9]+\}/g, "［待核对图标］"))
-                      .join(" ") || "本周没有额外事件效果。"}
+                    {hamletCard!.runtime === "townFair"
+                      ? "每名英雄：压力 −3，治疗 2 × 自身英雄等级；相关怪癖修正照常生效。"
+                      : hamletCard!.effectLines
+                          .map((line) => line.replace(/\{icon:[a-f0-9]+\}/g, "［待核对图标］"))
+                          .join(" ") || "本周没有额外事件效果。"}
                   </p>
                   {d.hamlet.phase === "eventBlocked" && (
                     <p>

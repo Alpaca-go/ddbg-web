@@ -7,6 +7,7 @@ import { createRng } from "./rng";
 import { nextBattleRoll } from "./encounter";
 import { conditionPoolProblem } from "./conditions";
 import { beginCaregiversConvention } from "./hamlet-caregivers";
+import { applyTownFair } from "./hamlet-town-fair";
 import type { DungeonState } from "./dungeon";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;
@@ -87,7 +88,8 @@ export function drawHamletEvent(state: GameState): ApplyResult {
         })),
       }
     : null;
-  const ready = implemented && !pending && card.runtime !== "removeQuirks";
+  const ready =
+    implemented && !pending && card.runtime !== "removeQuirks" && card.runtime !== "townFair";
   // R32明确结算后洗回；只有完成的事件才洗回，未完成不替换或重抽。
   const returned = ready ? shuffle([...drawn.deck, id], state.seed, drawn.cursor) : drawn;
   const hamlet: HamletEventState = {
@@ -104,8 +106,9 @@ export function drawHamletEvent(state: GameState): ApplyResult {
     blockedBuildings: [],
     heroOrder: [],
   };
-  if (card.runtime === "removeQuirks") {
-    const result = beginCaregiversConvention({
+  if (card.runtime === "removeQuirks" || card.runtime === "townFair") {
+    const apply = card.runtime === "removeQuirks" ? beginCaregiversConvention : applyTownFair;
+    const result = apply({
       ...state,
       dungeon: { ...d, cursor: drawn.cursor, hamlet },
     });

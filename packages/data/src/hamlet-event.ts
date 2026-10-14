@@ -20,6 +20,7 @@ export const hamletEventCardSchema = z.strictObject({
     "extraBlock",
     "removeDisease",
     "removeQuirks",
+    "townFair",
     "unimplemented",
   ]),
 });

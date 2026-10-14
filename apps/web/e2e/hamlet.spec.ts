@@ -5,6 +5,7 @@ import type { naturalAbbeyQuest } from "../../../packages/engine/src/test-helper
 import type { ApplyResult } from "../../../packages/engine/src/command";
 import type { QuestSave } from "../../../packages/data/src/quest-save";
 import type { caregiversQuest } from "../../../packages/engine/src/test-helpers/caregivers-quest";
+import type { townFairQuest } from "../../../packages/engine/src/test-helpers/town-fair-quest";
 
 test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存刷新", async ({
   page,
@@ -19,6 +20,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   let journey: ReturnType<typeof naturalAbbeyQuest>, result: ApplyResult;
   let medicalSave: QuestSave;
   let caregivers: ReturnType<typeof caregiversQuest>;
+  let townFair: ReturnType<typeof townFairQuest>, fairResult: ApplyResult;
   try {
     const helpers = await server.ssrLoadModule(
       fileURLToPath(
@@ -61,6 +63,17 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
       ...sourceHelpers.coreQuestSources,
       catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
     });
+    const fairHelper = await server.ssrLoadModule(
+      fileURLToPath(
+        new URL("../../../packages/engine/src/test-helpers/town-fair-quest.ts", import.meta.url),
+      ),
+    );
+    townFair = fairHelper.townFairQuest({
+      ...sourceHelpers.coreQuestSources,
+      catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
+    });
+    fairResult = engine.applyCommand(townFair.game, { type: "drawHamletEvent" });
+    expect(fairResult.events.some((event) => event.type === "commandRefused")).toBe(false);
     result = engine.applyCommand(journey.game, {
       type: "visitHamletBuilding",
       actorId: "hero-0",
@@ -205,4 +218,44 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     path: testInfo.outputPath("caregivers-complete-saved.png"),
     fullPage: true,
   });
+  // 真实seed64任务日志，页面实际抽出并结算Town Fair；保存刷新不重复治疗或减压。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(townFair.save),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "抽村庄事件", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText("Town Fair");
+  await expect(page.getByTestId("hamlet-event")).toContainText("治疗 2 × 自身英雄等级");
+  await expect(page.getByTestId("hamlet-event")).toContainText("村庄事件牌堆 16 张");
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  const fairHealth = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon.heroes.map(
+      (hero: { wounds: number; stress: number }) => [hero.wounds, hero.stress],
+    ),
+  );
+  const expectedHealth = townFair.game.dungeon!.heroes.map((hero) => [
+    Math.max(0, hero.wounds! - 2),
+    Math.max(0, hero.stress - 3),
+  ]);
+  expect(fairHealth).toEqual(expectedHealth);
+  expect(fairResult.state.dungeon!.heroes.map((hero) => [hero.wounds, hero.stress])).toEqual(
+    expectedHealth,
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  const restoredHealth = await page.evaluate(() =>
+    JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon.heroes.map(
+      (hero: { wounds: number; stress: number }) => [hero.wounds, hero.stress],
+    ),
+  );
+  expect(restoredHealth).toEqual(fairHealth);
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${townFair.game.dungeon!.gold}`,
+  );
+  await page.getByRole("button", { name: "开始首日看守人", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText("准备 1 天");
+  await page.screenshot({ path: testInfo.outputPath("town-fair-saved.png"), fullPage: true });
 });
