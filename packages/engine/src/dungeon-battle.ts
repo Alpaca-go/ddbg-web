@@ -1,6 +1,7 @@
 import { readRoomTile } from "./room-tile-selection";
 import { readDungeonQuestProgress } from "./dungeon-quest";
-import { ruinsMonsterPool } from "../../data/src/monster-pool";
+import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
+import { readCampaignLevel } from "./hamlet-campaign";
 import { createBattleState, rejectBattleCommand, skillTargetView } from "./battle";
 import type { BattleEntity } from "./battle";
 import { roomTileBattleAreas } from "./battle-monster-movement";
@@ -371,8 +372,8 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
       {
         type: "dungeonUpdated",
         message: victory
-          ? `胜利返回地图：房间已清理${bonus ? `，${kind === "treasure" ? "宝藏" : "Fundraiser巢穴"}奖励 +${bonus} 金币` : ""}；房间牌弃置、42 张怪物洗回（R15、R25）`
-          : "第四轮撤退返回地图：房间未清理，必须先离开；房间牌弃置、42 张怪物洗回（R25）",
+          ? `胜利返回地图：房间已清理${bonus ? `，${kind === "treasure" ? "宝藏" : "Fundraiser巢穴"}奖励 +${bonus} 金币` : ""}；房间牌弃置、怪物洗回（R15、R25）`
+          : "第四轮撤退返回地图：房间未清理，必须先离开；房间牌弃置、怪物洗回（R25）",
       },
     ],
   };
@@ -385,7 +386,9 @@ function partitionsValid(d: DungeonState): boolean {
   const pool = d.monsterPool,
     rooms = d.roomCards;
   if (!pool?.active || !rooms?.active) return false;
-  const catalog = ruinsMonsterPool(pool.cards, 1);
+  const level = d.explorationSetup?.dungeonLevel ?? readCampaignLevel(d);
+  if (![1, 2, 3].includes(level)) return false;
+  const catalog = ruinsMonsterPoolThrough(pool.cards, level);
   const ids = [
     ...(pool.remaining ?? []),
     ...pool.discarded,
@@ -393,8 +396,8 @@ function partitionsValid(d: DungeonState): boolean {
   ];
   const roomIds = [...(rooms.deck ?? []), ...(rooms.discard ?? []), rooms.active.cardId];
   return (
-    ids.length === 42 &&
-    new Set(ids).size === 42 &&
+    ids.length === catalog.length &&
+    new Set(ids).size === catalog.length &&
     ids.every((id) => catalog.some((c) => c.instanceId === id)) &&
     pool.active.monsters.every((m) =>
       catalog.some(

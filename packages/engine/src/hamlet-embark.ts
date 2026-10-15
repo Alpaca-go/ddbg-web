@@ -1,5 +1,5 @@
 import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
-import { basicQuests } from "../../data/src/basic-quests";
+import { basicQuests, questsForCampaignLevel } from "../../data/src/basic-quests";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import { dungeonLayoutSchema, roomDistributionSchema } from "../../data/src/dungeon-layout";
 import type { ApplyResult, GameState } from "./command";
@@ -11,6 +11,7 @@ import { buildingLevelsProblem } from "./hamlet-buildings";
 import { conditionPoolProblem } from "./conditions";
 import { trinketPoolProblem } from "./trinket-acquisition";
 import { heroSkillSlotCount } from "./hero-loadout";
+import { readCampaignLevel } from "./hamlet-campaign";
 
 type Hero = DungeonState["heroes"][number];
 
@@ -183,25 +184,32 @@ function embarkProblem(state: GameState, allowPending: boolean): string | null {
   );
 }
 
-/** R33 §4.1：准备天数用尽后抽至多两张剩余I级任务供选择；已进行/未选永久弃掉（R-037）。 */
+/** R33 §4.1：准备天数用尽后抽至多两张当前战役等级已接通任务；已进行/未选永久弃掉（R-037）。 */
 export function offerNextQuest(state: GameState): ApplyResult {
   const reason = embarkProblem(state, false);
   if (reason) return rejectBattleCommand(state, reason);
   const d = state.dungeon!;
+  const campaignLevel = readCampaignLevel(d);
   const current = d.questSummary!.questId;
   const discarded = d.discardedQuests ?? [];
+  const currentQuest = basicQuests.find((q) => q.id === current);
   if (
-    !basicQuests.some((q) => q.id === current) ||
+    !currentQuest ||
     !Array.isArray(discarded) ||
     discarded.some((id) => typeof id !== "string" || !id) ||
     new Set(discarded).size !== discarded.length ||
-    discarded.includes(current)
+    // 同级内上一任务必须已记入弃置才算非法重复；跨级推进后旧任务本就在弃置中（R-037）。
+    (discarded.includes(current) && currentQuest.level === campaignLevel)
   )
     return rejectBattleCommand(state, "上一任务弃置记录无效，未抽下一任务（R-037）");
-  const remaining = basicQuests
+  const remaining = questsForCampaignLevel(campaignLevel)
     .map((q) => q.id)
     .filter((id) => id !== current && !discarded.includes(id));
-  if (!remaining.length) return rejectBattleCommand(state, "已无剩余已接通I级任务可出征（R-037）");
+  if (!remaining.length)
+    return rejectBattleCommand(
+      state,
+      `已无剩余已接通${["", "I", "II", "III"][campaignLevel]}级任务可出征（R-037）`,
+    );
   const drawn = shuffleIds(remaining, state.seed, d.cursor);
   const offers = drawn.deck.slice(0, Math.min(2, remaining.length));
   const pending = {
@@ -209,7 +217,7 @@ export function offerNextQuest(state: GameState): ApplyResult {
     actorId: "party",
     prompt:
       offers.length === 1
-        ? "仅剩一张已接通I级任务：确认出征（R33、R-037）"
+        ? `仅剩一张已接通${["", "I", "II", "III"][campaignLevel]}级任务：确认出征（R33、R-037）`
         : "选择下一任务：抽到的两张中保留一张，另一张永久移出（R33、R-037）",
     options: offers.map((id) => {
       const quest = basicQuests.find((q) => q.id === id)!;
@@ -257,7 +265,12 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
   )
     return rejectBattleCommand(state, reason ?? "下一任务选择无效或已过期");
   const quest = basicQuests.find((q) => q.id === optionId);
+  const campaignLevel = readCampaignLevel(d);
   if (!quest) return rejectBattleCommand(state, "未知任务，未出征");
+  if (quest.level !== campaignLevel)
+    return rejectBattleCommand(state, "任务等级与战役等级不符，未出征（R35 / R-037）");
+  if (d.trinkets!.level !== campaignLevel)
+    return rejectBattleCommand(state, "地牢饰品等级须等于战役等级，未出征（R35）");
   const applied = applyTemporarySkillUpgrades(d.heroes, d.battleCatalog!);
   if ("reason" in applied) return rejectBattleCommand(state, applied.reason);
   const washed = washNomadDisplay(d.trinkets!, state.seed, d.cursor);
@@ -270,11 +283,12 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
   if (kinds.length !== slots.length || parsedLayout.unresolvedMarkers?.length)
     return rejectBattleCommand(state, "下一任务地图/代币不一致，未出征（R-046）");
   const shuffled = shuffleKinds(kinds, state.seed, washed.cursor);
-  const discardedQuests = [
-    ...(d.discardedQuests ?? []),
+  const priorDiscarded = d.discardedQuests ?? [];
+  const newlyDiscarded = [
     d.questSummary!.questId,
     ...d.nextQuestOffers.filter((id) => id !== optionId),
-  ];
+  ].filter((id) => !priorDiscarded.includes(id));
+  const discardedQuests = [...priorDiscarded, ...newlyDiscarded];
   if (new Set(discardedQuests).size !== discardedQuests.length)
     return rejectBattleCommand(state, "任务弃置列表冲突，未出征（R-037）");
   const { last: _last, ...curioBase } = d.curio!;
@@ -309,8 +323,9 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
     decision: d.decision + 1,
     exploration: null,
     visited: ["S"],
+    campaignLevel,
     explorationSetup: {
-      dungeonLevel: 1,
+      dungeonLevel: campaignLevel,
       light: d.nextQuestStartingLight === 4 ? 4 : 5,
       provisions: [],
     },

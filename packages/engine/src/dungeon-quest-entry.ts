@@ -35,6 +35,7 @@ export function createCoreDungeonQuest(
   const quest = basicQuests.find((quest) => quest.id === questId);
   if (
     !quest ||
+    quest.level !== 1 ||
     !Number.isInteger(seed) ||
     seed < 0 ||
     seed > 0xffffffff ||

@@ -103,3 +103,11 @@ export function ruinsMonsterPool(catalog: readonly MonsterPoolCard[], level: num
       })),
     );
 }
+
+/** R35 / R-037：地牢怪物牌堆 = 1..当前战役等级累加。 */
+export function ruinsMonsterPoolThrough(catalog: readonly MonsterPoolCard[], maxLevel: number) {
+  if (![1, 2, 3].includes(maxLevel)) throw new Error("怪物牌堆等级无效");
+  return [1, 2, 3]
+    .filter((level) => level <= maxLevel)
+    .flatMap((level) => ruinsMonsterPool(catalog, level));
+}

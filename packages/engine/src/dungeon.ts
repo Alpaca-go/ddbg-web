@@ -90,6 +90,8 @@ export type DungeonState = {
   };
   /** R-037：已进行或未选的任务卡永久移出。 */
   readonly discardedQuests?: readonly string[];
+  /** 战役等级 / 地牢等级（DL）；缺省按 I 级解释（§2.2 / R35）。 */
+  readonly campaignLevel?: 1 | 2 | 3;
   /** 准备结束后抽到的下一任务候选项，选定后清除。 */
   readonly nextQuestOffers?: readonly string[];
   /** Unsettling Darkness：下次出征起始光照（印刷 Light 4，图标 d13c8b76af 已确认）。 */

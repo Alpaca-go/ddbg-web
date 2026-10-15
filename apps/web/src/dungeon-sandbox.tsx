@@ -1312,8 +1312,18 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                   {d.hamlet.phase === "preparationComplete" && (
                     <>
                       <p>
-                        准备天数已用完。可抽取下一任务（至多两张选一，未选永久弃置）；出征时应用铁匠临时技能并在开局掷奖励补给骰。
+                        准备天数已用完。可抽取下一任务（至多两张选一，未选永久弃置）；出征时应用铁匠临时技能并在开局掷奖励补给骰。战役等级{" "}
+                        {d.campaignLevel ?? 1}
+                        ：击败 Boss 后可推进至 II（本切片无 Boss 战，用推进命令接 II 级任务堆）。
                       </p>
+                      {(d.campaignLevel ?? 1) === 1 && (
+                        <button
+                          data-testid="advance-campaign-level"
+                          onClick={() => dispatch({ type: "advanceCampaignLevel" })}
+                        >
+                          推进战役等级 I→II
+                        </button>
+                      )}
                       <button
                         data-testid="offer-next-quest"
                         onClick={() => dispatch({ type: "offerNextQuest" })}

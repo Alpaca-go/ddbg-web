@@ -1,12 +1,16 @@
-import { monsterPoolCatalogSchema, ruinsMonsterPool } from "../../data/src/monster-pool";
+import {
+  monsterPoolCatalogSchema,
+  ruinsMonsterPoolThrough,
+} from "../../data/src/monster-pool";
 import { roomCatalogSchema } from "../../data/src/room";
 import { readRoomTile } from "./room-tile-selection";
 import type { ApplyResult, GameState } from "./command";
 import { createRng } from "./rng";
 import { spawnMonsters } from "./spawn";
 import { isGuardedDungeonRoom } from "./dungeon-curio-room";
+import { readCampaignLevel } from "./hamlet-campaign";
 
-/** R10、R16–17：完整 I 级 Common + Ruins 一次洗牌，真实抽牌后记录部署，不筛掉缺战斗字段的卡。 */
+/** R10、R16–17：完整 Common + Ruins（1..DL 累加）一次洗牌，真实抽牌后记录部署，不筛掉缺战斗字段的卡。 */
 export function prepareDungeonMonsters(state: GameState): ApplyResult {
   const d = state.dungeon!;
   const pool = d.monsterPool;
@@ -41,20 +45,24 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
     )
   )
     return refuse("房间牌堆不守恒，不能推进怪物部署");
+  const dungeonLevel = d.explorationSetup?.dungeonLevel;
+  const campaignLevel = readCampaignLevel(d);
   if (
-    d.explorationSetup?.dungeonLevel !== 1 ||
+    !dungeonLevel ||
+    dungeonLevel !== campaignLevel ||
+    ![1, 2, 3].includes(dungeonLevel) ||
     !pool ||
     !monsterPoolCatalogSchema.safeParse(pool.cards).success
   )
-    return refuse("本入口需要完整 Common + Ruins 目录与 I 级地牢，不能使用三种沙盒怪物");
+    return refuse("本入口需要完整 Common + Ruins 目录，且地牢等级等于战役等级（R35）");
   if (pool.active || pool.discarded.length)
     return refuse("本场怪物已记录或牌堆状态不一致；不能重抽 / 重洗 / 发奖励");
   if (!Number.isSafeInteger(d.cursor) || d.cursor < 0) return refuse("RNG 游标无效");
-  const catalog = ruinsMonsterPool(pool.cards, 1);
+  const catalog = ruinsMonsterPoolThrough(pool.cards, dungeonLevel);
   const ids = pool.remaining ?? catalog.map((card) => card.instanceId);
   if (
-    ids.length !== 42 ||
-    new Set(ids).size !== 42 ||
+    ids.length !== catalog.length ||
+    new Set(ids).size !== catalog.length ||
     ids.some((id) => !catalog.some((c) => c.instanceId === id))
   )
     return refuse("怪物牌堆不守恒，不能重新抽牌");
@@ -95,7 +103,7 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
     events: [
       {
         type: "dungeonUpdated",
-        message: `完整 42 张怪物池已抽 ${spawned.drawn} 张：${blockedReason}`,
+        message: `完整 ${catalog.length} 张怪物池（DL${dungeonLevel}）已抽 ${spawned.drawn} 张：${blockedReason}`,
       },
     ],
   };
