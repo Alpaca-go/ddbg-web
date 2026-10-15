@@ -92,8 +92,22 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
   const trinketDeck = recycle(
     trinkets.deck,
     trinkets.discard,
-    trinkets.cards.filter((c) => !trinkets.held.some((h) => h.cardId === c.id)).map((c) => c.id),
+    trinkets.cards
+      .filter((c) => c.level === trinkets.level && !trinkets.held.some((h) => h.cardId === c.id))
+      .map((c) => c.id),
   );
+  const inactiveTrinkets = trinkets.inactive?.map((p) => ({
+    ...p,
+    deck:
+      recycle(
+        p.deck,
+        p.discard,
+        trinkets.cards
+          .filter((c) => c.level === p.level && !trinkets.held.some((h) => h.cardId === c.id))
+          .map((c) => c.id),
+      ) ?? null,
+    discard: [],
+  }));
   const curioDeck = recycle(
     curio.deck,
     curio.discard,
@@ -123,7 +137,12 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
     dungeon: {
       ...d,
       cursor,
-      trinkets: { ...trinkets, deck: trinketDeck ?? null, discard: [] },
+      trinkets: {
+        ...trinkets,
+        deck: trinketDeck ?? null,
+        discard: [],
+        ...(inactiveTrinkets ? { inactive: inactiveTrinkets } : {}),
+      },
       curio: { ...curio, deck: curioDeck ?? null, discard: [] },
       conditions: {
         ...conditions,

@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-15）：#200已审查合并，main `63b3a4e`。当前`codex/phase4-cross-level-trinket`补跨等级旧饰品弃装腾位、独立旧池守恒与回村洗回；完整开发进度及限制见[本轮记录](phase4-cross-level-trinket-2026-10-15.md)。II级仍仅两任务/一种获批怪物，事件11/16，Q-79/Q-80 pending，正式Boss升幕未接，人工试玩未代签，未进入Phase 5。下段为历史交付记录。
+
 > 当前入口（2026-10-15）：#199已合并，head `ca416e3`，main `4122971`。当前 `codex/phase4-ii-monster-entry` 接Kyries本轮仅批准的Bone Spearman II（M13–15）Speed2、A/D骰表2(1–5)/1(6–10)、R/S固定1，记R-082/Q-85；已复核三副本并接完整53张池混合入场，见[核对/开发记录](phase4-ii-monster-review-2026-10-15.md)。其余四种II级仍停点，未筛掉/重抽未批卡；II级任务p7/p8、事件11/16，Q-79/Q-80 pending，正式Boss升幕/新威胁未接，人工试玩未代签，未进入Phase5。下段#199为已交付基线。
 
 > 当前入口（2026-10-15）：#198已审查修正并合并，最终head `6f74c4c`，main `8f57bd7`。正式页面/存档不开放跳过Boss的升幕预览，跨级弃旧饰品仍停点。当前 `codex/phase4-clear-the-path-ii` 按完整QUEST p7及官方R15具名图例核对后接Clear the Path II（含Treasure2，非Empty2），并补两张II级任务退出摘要schema，见[开发记录](phase4-clear-the-path-ii-2026-10-15.md)。两张II级抽选只限沙盒预览，未接II级怪物完整入场、正式升幕/Boss/新威胁；事件11/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段#198是已交付基线。

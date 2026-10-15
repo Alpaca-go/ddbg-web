@@ -7,7 +7,9 @@ import { applyCommand } from "./command";
 import type { ApplyResult, Command, GameState } from "./command";
 import { approvedExtraRuinsTiles } from "../../data/src/normalize/approved-ruins-tiles";
 import { roomTileBattleAreas } from "./battle-monster-movement";
-import { drawTrinket } from "./trinket-acquisition";
+import { drawTrinket, switchTrinketDungeonLevel, trinketPoolProblem } from "./trinket-acquisition";
+import trinketFile from "../../data/normalized/corebox/trinket.json";
+import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
 import type { TrinketPool } from "./trinket-acquisition";
 const tile = approvedExtraRuinsTiles.find((t) => t.number === 6)!;
 const basePool = coreQuestSources.catalog.trinkets!;
@@ -103,6 +105,47 @@ const ordered = (first: string, held: TrinketPool["held"] = []): TrinketPool => 
       .map((c) => c.id)
       .filter((id) => id !== first && !held.some((h) => h.cardId === id)),
   ],
+});
+it("II级战斗宝箱弃旧级装备腾位后续接原卡，只扣一次行动且原命令可回放", () => {
+  const old = ordered("trinket:p006", [
+    { cardId: "trinket:p001", heroId: "hero-0", face: "inverted" },
+  ]);
+  const switched = switchTrinketDungeonLevel(
+    old,
+    normalizedTrinketFileSchema.parse(trinketFile).cards,
+    2,
+  );
+  if ("reason" in switched) throw new Error(switched.reason);
+  const pool = {
+    ...switched,
+    deck: [
+      "trinket:p017",
+      ...switched.cards.filter((c) => c.level === 2 && c.id !== "trinket:p017").map((c) => c.id),
+    ],
+  };
+  const initial = setup(22, pool),
+    before = structuredClone(initial);
+  const opened = success(open(initial));
+  const freed = success(choose(opened, "discard:trinket:p001"));
+  expect(freed.state.battle!.trinkets!.incoming).toEqual(opened.state.battle!.trinkets!.incoming);
+  expect(freed.state.battle!.trinkets!.inactive![0]!.discard).toEqual(["trinket:p001"]);
+  expect(freed.state.battle!.rngCursor).toBe(opened.state.battle!.rngCursor);
+  expect(freed.state.battle!.encounter!.turn).toMatchObject({ type: "hero", actions: 0 });
+  const done = success(choose(freed, "equip:hero-0"));
+  expect(done.events.filter((e) => e.type === "turnEnded")).toHaveLength(1);
+  expect(done.state.battle!.trinkets!.held).toEqual([
+    { cardId: "trinket:p017", heroId: "hero-0", face: "upright" },
+  ]);
+  expect(trinketPoolProblem(done.state.battle!.trinkets!, [{ id: "hero-0", level: 1 }])).toBeNull();
+  const commands: Command[] = [
+    { type: "lootTreasureChest", actorId: "hero-0" },
+    { type: "resolveChoice", choiceId: opened.pendingChoice!.id, optionId: "discard:trinket:p001" },
+    { type: "resolveChoice", choiceId: freed.pendingChoice!.id, optionId: "equip:hero-0" },
+  ];
+  expect(
+    commands.reduce((state, command) => success(applyCommand(state, command)).state, initial),
+  ).toEqual(done.state);
+  expect(initial).toEqual(before);
 });
 it("整面完整开放，T5/T6标记接通但不改T4黑墙", () => {
   expect(tile.usable).toBe(true);
