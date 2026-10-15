@@ -201,6 +201,15 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "shuffle"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-10-15"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "II",
@@ -393,6 +402,17 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "debuff"
+    ],
+    "immunities": [
+     "shuffle"
+    ],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-15"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "III",
@@ -753,6 +773,15 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "bleed",
+     "blight"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-10-15"
+   },
    "lines": [
     "{icon:166eae2abd}",
     "II",
@@ -912,6 +941,16 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "bleed",
+     "blight"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-15"
+   },
    "lines": [
     "{icon:166eae2abd}",
     "III",
@@ -1238,6 +1277,15 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "bleed"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-10-15"
+   },
    "lines": [
     "{icon:be780e3d42}",
     "II",
@@ -1395,6 +1443,16 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "bleed",
+     "blight"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-15"
+   },
    "lines": [
     "{icon:be780e3d42}",
     "III",
@@ -1798,6 +1856,15 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "bleed"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-10-15"
+   },
    "lines": [
     "{icon:7144178576}",
     "II",
@@ -2021,6 +2088,17 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "bleed"
+    ],
+    "immunities": [
+     "disease"
+    ],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-15"
+   },
    "lines": [
     "{icon:7144178576}",
     "III",
