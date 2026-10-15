@@ -31,3 +31,7 @@
 ## 下一主题
 
 下一任务出征循环、临时技能实际应用/归还、奖励补给骰，以及连续两任务后的自然4XP Guild英雄升级验收。
+
+## 最终验证
+
+本机 Node 24.21.0 / pnpm 12.9.1：`pnpm typecheck`、`pnpm lint`、121文件/1095项单元与场景测试（`pnpm test --maxWorkers=4`）、`pnpm build`、`git diff --check`全部通过。未检查远端 Actions。用户8080配置、临时资料/截图与美术不提交。
