@@ -4,6 +4,11 @@ import { levelSchema } from "../extract/common";
 import { normalizedIconSchema, verificationSchema } from "./schema";
 import { createIconLookup, finishVerification, noteIcon, resolveLines } from "./icons";
 import type { IconDictionary } from "../dictionary/schema";
+import {
+  higherHeroDefenceSchema,
+  buildHigherHeroDefence,
+  readHigherHeroDefence,
+} from "./hero-higher-defence";
 
 const FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf";
 const BACK = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf";
@@ -66,12 +71,15 @@ export const normalizedHeroStatCardSchema = attributesSchema
       })
       .optional(),
     verified_condition_defence: heroConditionDefenceSchema.optional(),
+    verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
     /** 其他卡面文字只保留，不解释村庄效果、抗性或免疫。 */
     lines: z.array(z.string()),
     icons: z.array(normalizedIconSchema),
     verification: verificationSchema,
   })
   .superRefine((card, ctx) => {
+    if (card.verified_higher_condition_defence && !readHigherHeroDefence(card))
+      ctx.addIssue({ code: "custom", message: "高等级英雄防御超出八张限定审批（R-081）" });
     if (card.verified_condition_defence) {
       const expected = approvedHeroConditionDefences[card.id];
       if (
@@ -235,12 +243,14 @@ export function buildHeroStats(
         throw new Error("条件防御抗性 / 空免疫完整框漂移（R-048）");
     }
     const defence = approvedHeroConditionDefences[`${attributes.rawId}:${attributes.face}`];
+    const higher = buildHigherHeroDefence(`${attributes.rawId}:${attributes.face}`, face);
     return normalizedHeroStatCardSchema.parse({
       ...attributes,
       id: `${attributes.rawId}:${attributes.face}`,
       source: { file: face.file, page: face.page },
       attributesVerified: true,
       approval: "kyries_review_2026-10-10",
+      ...(higher ? { verified_higher_condition_defence: higher } : {}),
       ...(buffReviewed
         ? { verified_buff_defence: { resistant: false, immune: false, source: "print_front" } }
         : {}),
