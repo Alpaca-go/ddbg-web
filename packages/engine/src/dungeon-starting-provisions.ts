@@ -2,6 +2,7 @@ import type { ApplyResult, Command, GameEvent, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { nextProvisionFace, PROVISION_FACES, PROVISION_LABELS } from "./loot";
 import type { ProvisionFace } from "./loot";
+import { beginTravelingMerchantsChoice } from "./hamlet-traveling-merchants";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 
@@ -30,7 +31,7 @@ export function setupDungeonProvisions(
     state.battle ||
     d.phase !== "awaitingProvisions" ||
     !d.explorationSetup ||
-    d.explorationSetup.light !== 5 ||
+    ![4, 5].includes(d.explorationSetup.light) ||
     !Number.isSafeInteger(d.cursor) ||
     d.cursor < 0 ||
     (d.mode !== "standard" && d.mode !== "radiant") ||
@@ -46,36 +47,54 @@ export function setupDungeonProvisions(
     return refuse();
   const finish = (next: DungeonState, events: readonly GameEvent[]): ApplyResult => {
     const first = next.startingProvisionChoices?.[0];
-    const pending = first
-      ? {
-          id: `dungeon-starting-provisions:${next.decision}`,
-          actorId: first.actorId,
-          prompt: `开局补给：${first.actorId}选择骰面（Wild / Radiant自选）`,
-          options: PROVISION_FACES.map((face) => ({ id: face, label: PROVISION_LABELS[face] })),
-        }
-      : null;
+    if (first) {
+      const pending = {
+        id: `dungeon-starting-provisions:${next.decision}`,
+        actorId: first.actorId,
+        prompt: `开局补给：${first.actorId}选择骰面（Wild / Radiant自选）`,
+        options: PROVISION_FACES.map((face) => ({ id: face, label: PROVISION_LABELS[face] })),
+      };
+      return {
+        state: {
+          ...state,
+          dungeon: {
+            ...next,
+            pending,
+            decision: next.decision + 1,
+            phase: "awaitingProvisions",
+          },
+        },
+        events,
+        pendingChoice: pending,
+      };
+    }
+    if (next.nextQuestProvisionFaceChoice) {
+      const merchant = beginTravelingMerchantsChoice({
+        ...state,
+        dungeon: { ...next, pending: null },
+      });
+      return {
+        ...merchant,
+        events: [...events, ...merchant.events],
+      };
+    }
     return {
       state: {
         ...state,
         dungeon: {
           ...next,
-          pending,
+          pending: null,
           decision: next.decision + 1,
-          phase: first ? "awaitingProvisions" : "ready",
+          phase: "ready",
         },
       },
       events: [
         ...events,
-        ...(first
-          ? []
-          : [
-              {
-                type: "dungeonUpdated" as const,
-                message: "开局补给已入公共池，可以开始探索（R12/R-041）",
-              },
-            ]),
+        {
+          type: "dungeonUpdated" as const,
+          message: "开局补给已入公共池，可以开始探索（R12/R-041）",
+        },
       ],
-      ...(pending ? { pendingChoice: pending } : {}),
     };
   };
   const provisions = d.explorationSetup.provisions;

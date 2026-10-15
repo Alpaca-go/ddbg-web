@@ -127,7 +127,7 @@
     "d13c8b76af"
    ],
    "permanentlyRemoved": false,
-   "runtime": "unimplemented"
+   "runtime": "unsettlingDarkness"
   },
   {
    "id": "hamlet_event:p005",
@@ -257,7 +257,7 @@
    ],
    "effectIconIds": [],
    "permanentlyRemoved": false,
-   "runtime": "unimplemented"
+   "runtime": "travelingMerchants"
   },
   {
    "id": "hamlet_event:p009",
@@ -489,7 +489,7 @@
    ],
    "effectIconIds": [],
    "permanentlyRemoved": true,
-   "runtime": "unimplemented"
+   "runtime": "guildTraining"
   },
   {
    "id": "hamlet_event:p016",

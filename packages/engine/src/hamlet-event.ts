@@ -9,6 +9,9 @@ import { conditionPoolProblem } from "./conditions";
 import { beginCaregiversConvention } from "./hamlet-caregivers";
 import { applyTownFair } from "./hamlet-town-fair";
 import { beginLaborForce } from "./hamlet-labor-force";
+import { applyUnsettlingDarkness } from "./hamlet-unsettling-darkness";
+import { applyTravelingMerchants } from "./hamlet-traveling-merchants";
+import { beginGuildTraining } from "./hamlet-guild-training";
 import type { DungeonState } from "./dungeon";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;
@@ -108,8 +111,15 @@ export function drawHamletEvent(state: GameState): ApplyResult {
         })),
       }
     : null;
-  const ready =
-    implemented && !pending && !["removeQuirks", "townFair", "laborForce"].includes(card.runtime);
+  const deferred = [
+    "removeQuirks",
+    "townFair",
+    "laborForce",
+    "unsettlingDarkness",
+    "travelingMerchants",
+    "guildTraining",
+  ];
+  const ready = implemented && !pending && !deferred.includes(card.runtime);
   // R32明确结算后洗回；只有完成的事件才洗回，未完成不替换或重抽。
   const returned = ready ? shuffle([...drawn.deck, id], state.seed, drawn.cursor) : drawn;
   const hamlet: HamletEventState = {
@@ -128,13 +138,19 @@ export function drawHamletEvent(state: GameState): ApplyResult {
   };
   const { hamletMemory: _memory, ...dungeonBase } = d;
   void _memory;
-  if (["removeQuirks", "townFair", "laborForce"].includes(card.runtime)) {
+  if (deferred.includes(card.runtime)) {
     const apply =
       card.runtime === "removeQuirks"
         ? beginCaregiversConvention
         : card.runtime === "laborForce"
           ? beginLaborForce
-          : applyTownFair;
+          : card.runtime === "unsettlingDarkness"
+            ? applyUnsettlingDarkness
+            : card.runtime === "travelingMerchants"
+              ? applyTravelingMerchants
+              : card.runtime === "guildTraining"
+                ? beginGuildTraining
+                : applyTownFair;
     const result = apply({
       ...state,
       dungeon: { ...dungeonBase, cursor: drawn.cursor, hamlet },

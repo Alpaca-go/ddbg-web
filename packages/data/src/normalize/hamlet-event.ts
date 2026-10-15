@@ -40,19 +40,25 @@ export function buildHamletEvents(raw: RawFile) {
         runtime:
           i === 1
             ? "noCaretaker"
-            : i === 4
-              ? "none"
-              : i === 5
-                ? "laborForce"
-                : i === 6
-                  ? "townFair"
-                  : i === 10
-                    ? "removeDisease"
-                    : i === 11
-                      ? "removeQuirks"
-                      : i === 12
-                        ? "extraBlock"
-                        : "unimplemented",
+            : i === 3
+              ? "unsettlingDarkness"
+              : i === 4
+                ? "none"
+                : i === 5
+                  ? "laborForce"
+                  : i === 6
+                    ? "townFair"
+                    : i === 7
+                      ? "travelingMerchants"
+                      : i === 10
+                        ? "removeDisease"
+                        : i === 11
+                          ? "removeQuirks"
+                          : i === 12
+                            ? "extraBlock"
+                            : i === 14
+                              ? "guildTraining"
+                              : "unimplemented",
       };
     }),
   });

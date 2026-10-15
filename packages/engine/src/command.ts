@@ -2,6 +2,8 @@ import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { drawHamletEvent, rollHamletCaretaker, chooseMedicalBreakthrough } from "./hamlet-event";
 import { chooseCaregiversConvention } from "./hamlet-caregivers";
 import { chooseLaborForce } from "./hamlet-labor-force";
+import { chooseGuildTraining } from "./hamlet-guild-training";
+import { chooseTravelingMerchants } from "./hamlet-traveling-merchants";
 import { applyHamletAction, chooseAbbeyQuirk } from "./hamlet-actions";
 import { visitNomadWagon, chooseNomadWagon } from "./hamlet-nomad";
 import { visitBlacksmith } from "./hamlet-blacksmith";
@@ -336,6 +338,10 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return command.type === "resolveChoice"
       ? chooseLaborForce(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先完成Labor Force免费升级选择");
+  if (state.dungeon?.pending?.id.startsWith("hamlet-guild-training:"))
+    return command.type === "resolveChoice"
+      ? chooseGuildTraining(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先完成Guild Training技能升级选择");
   if (state.dungeon?.pending?.id.startsWith("hamlet-caregivers:"))
     return command.type === "resolveChoice"
       ? chooseCaregiversConvention(state, command.choiceId, command.optionId)
@@ -362,6 +368,10 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       return useHamletProvision(state, command);
     return rejectBattleCommand(state, "正在回村或已进入村庄，请完成当前回村步骤");
   }
+  if (state.dungeon?.pending?.id.startsWith("dungeon-traveling-merchants:"))
+    return command.type === "resolveChoice"
+      ? chooseTravelingMerchants(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先完成Traveling Merchants改骰选择");
   if (command.type === "rollDungeonProvisions" || state.dungeon?.phase === "awaitingProvisions")
     return command.type === "rollDungeonProvisions" || command.type === "resolveChoice"
       ? setupDungeonProvisions(state, command)
