@@ -10,6 +10,7 @@ import { dungeonQuestSummarySchema } from "../../data/src/quest-summary";
 import { PROVISION_FACES } from "./loot";
 import { useDungeonProvision } from "./dungeon-provision-use";
 import type { UseProvisionCommand } from "./provision-use";
+import { restoreTemporarySkillUpgrades } from "./hamlet-embark";
 
 /** R32 a-c已完成后，R-074按当前姿态顺序逐英雄转换；待选只续接，不重抽。 */
 function convertResolve(result: ApplyResult): ApplyResult {
@@ -184,12 +185,14 @@ export function beginReturnToHamlet(state: GameState): ApplyResult {
   const recovered = recoverHamletPools(d, state.seed);
   if (recovered.status === "refused") return rejectBattleCommand(state, recovered.reason);
   let next: DungeonState = recovered.dungeon;
+  // R34：任务结束归还铁匠临时技能（R-080归还目标可能已是Guild永久卡）。
+  const restoredHeroes = restoreTemporarySkillUpgrades(next.heroes);
   // R32 b/c是回村重置；不作为治疗或探索升光事件，伤口和压力保持原值。
   next = {
     ...next,
     phase: "returningToHamlet",
     explorationSetup: { ...d.explorationSetup, light: 5 },
-    heroes: next.heroes.map((h) => ({
+    heroes: restoredHeroes.map((h) => ({
       ...h,
       resolveCardId: undefined,
       resolveTested: false,

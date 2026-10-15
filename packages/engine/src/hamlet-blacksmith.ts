@@ -141,7 +141,7 @@ export function visitBlacksmith(state: GameState, command: BlacksmithCommand): A
     events: [
       {
         type: "dungeonUpdated",
-        message: `${hero.id}支付1金：${selected.original.name}下次任务按${selected.upgraded.level}级使用${level === 3 ? "，奖励补给骰+1" : ""}；原卡保留，实际出征/任务结束还原等待任务循环接入（R34）`,
+        message: `${hero.id}支付1金：${selected.original.name}下次任务按${selected.upgraded.level}级使用${level === 3 ? "，奖励补给骰+1" : ""}；原卡保留，出征时装备、任务结束归还（R34）`,
       },
     ],
   };

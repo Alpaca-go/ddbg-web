@@ -113,6 +113,7 @@ export type { QuestStart } from "../../data/src/quest-save";
 export { currentHamletHero, hamletActionOptions } from "./hamlet-actions";
 export { visitNomadWagon } from "./hamlet-nomad";
 export { blacksmithOptions } from "./hamlet-blacksmith";
+export { offerNextQuest } from "./hamlet-embark";
 export { visitGuild } from "./hamlet-guild";
 export {
   setEquippedSkills,

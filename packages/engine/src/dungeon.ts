@@ -83,6 +83,15 @@ export type DungeonBattleCatalog = {
 export type DungeonState = {
   readonly buildingLevels?: BuildingLevels;
   readonly hamlet?: import("./hamlet-event").HamletEventState;
+  /** 出征后保留的村庄事件牌堆，供下一轮回村续抽（R32/33）。 */
+  readonly hamletMemory?: {
+    readonly deck: readonly string[];
+    readonly permanentlyRemoved: readonly string[];
+  };
+  /** R-037：已进行或未选的任务卡永久移出。 */
+  readonly discardedQuests?: readonly string[];
+  /** 准备结束后抽到的下一任务候选项，选定后清除。 */
+  readonly nextQuestOffers?: readonly string[];
   readonly hamletReturn?: {
     readonly phase: "converting" | "provisions" | "awaitingReplacement" | "complete";
     readonly order: readonly string[];
