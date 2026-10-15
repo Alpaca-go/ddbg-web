@@ -4,11 +4,11 @@
 
 ## 图标与数据核实
 
-| 卡 | 页 | 效果图标 | 词典状态 | 结论 |
-| --- | --- | --- | --- | --- |
-| Unsettling Darkness | p4 | `d13c8b76af` Light | confirmed（R-048） | 可接 |
-| Traveling Merchants | p8 | 无 | — | 可接 |
-| Guild Training | p15 | 无 | — | 可接 |
+| 卡                  | 页  | 效果图标           | 词典状态           | 结论 |
+| ------------------- | --- | ------------------ | ------------------ | ---- |
+| Unsettling Darkness | p4  | `d13c8b76af` Light | confirmed（R-048） | 可接 |
+| Traveling Merchants | p8  | 无                 | —                  | 可接 |
+| Guild Training      | p15 | 无                 | —                  | 可接 |
 
 仍跳过含未审图标的 Supply Run / Lost Shipment（`d712688f15`）、Gypsy Trail（`08a25c05cf`）、The Feast（`d9009c6f91`）等。Q-79 / Q-80 不裁定。
 
@@ -38,3 +38,7 @@
 ## 下一主题
 
 剩余 6 张事件（无未审图标者优先，如 In Good Spirits）、驿站死亡补人（需扩展英雄池），或 II 级任务/战役等级切换。
+
+## 最终验证
+
+本机 Node 24.21.0 / pnpm 12.9.1：`pnpm typecheck`、`pnpm lint`、125 文件 / 1107 项单元与场景测试（`pnpm test --maxWorkers=4`）、`pnpm build`、`git diff --check` 全部通过。未检查远端 Actions。用户 8080 配置、临时资料与美术不提交。

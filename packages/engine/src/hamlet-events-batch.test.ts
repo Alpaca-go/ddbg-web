@@ -105,14 +105,21 @@ it("真实seed12抽Unsettling Darkness：标记光照4、洗回3天，出征后�
     ...drawn,
     dungeon: {
       ...drawn.dungeon!,
-      hamlet: { ...drawn.dungeon!.hamlet!, phase: "preparationComplete" as const, remainingDays: 0 },
+      hamlet: {
+        ...drawn.dungeon!.hamlet!,
+        phase: "preparationComplete" as const,
+        remainingDays: 0,
+      },
       pending: null,
     },
   };
   let game = ok(ready, { type: "offerNextQuest" }).state;
   const offer = game.dungeon!.pending!;
-  game = ok(game, { type: "resolveChoice", choiceId: offer.id, optionId: offer.options[0]!.id })
-    .state;
+  game = ok(game, {
+    type: "resolveChoice",
+    choiceId: offer.id,
+    optionId: offer.options[0]!.id,
+  }).state;
   expect(game.dungeon!.explorationSetup!.light).toBe(4);
   expect(game.dungeon!.nextQuestStartingLight).toBeUndefined();
   expect(game.dungeon!.phase).toBe("awaitingProvisions");
@@ -138,14 +145,21 @@ it("真实seed17抽Traveling Merchants：标记改骰、出征后四英雄可改
     ...drawn,
     dungeon: {
       ...drawn.dungeon!,
-      hamlet: { ...drawn.dungeon!.hamlet!, phase: "preparationComplete" as const, remainingDays: 0 },
+      hamlet: {
+        ...drawn.dungeon!.hamlet!,
+        phase: "preparationComplete" as const,
+        remainingDays: 0,
+      },
       pending: null,
     },
   };
   let game = ok(ready, { type: "offerNextQuest" }).state;
   const offer = game.dungeon!.pending!;
-  game = ok(game, { type: "resolveChoice", choiceId: offer.id, optionId: offer.options[0]!.id })
-    .state;
+  game = ok(game, {
+    type: "resolveChoice",
+    choiceId: offer.id,
+    optionId: offer.options[0]!.id,
+  }).state;
   expect(game.dungeon!.nextQuestProvisionFaceChoice).toBe(true);
   game = ok(game, { type: "rollDungeonProvisions" }).state;
   while (game.dungeon!.pending?.id.startsWith("dungeon-starting-provisions:"))

@@ -69,7 +69,10 @@ export function setupDungeonProvisions(
       };
     }
     if (next.nextQuestProvisionFaceChoice) {
-      const merchant = beginTravelingMerchantsChoice({ ...state, dungeon: { ...next, pending: null } });
+      const merchant = beginTravelingMerchantsChoice({
+        ...state,
+        dungeon: { ...next, pending: null },
+      });
       return {
         ...merchant,
         events: [...events, ...merchant.events],

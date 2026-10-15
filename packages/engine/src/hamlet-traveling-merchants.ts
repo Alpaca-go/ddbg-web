@@ -91,11 +91,7 @@ function continueTravelingMerchants(state: GameState): ApplyResult {
   const d = state.dungeon!;
   const id = d.provisionFaceChoiceRemaining?.[0];
   if (!id) {
-    const {
-      nextQuestProvisionFaceChoice: _flag,
-      provisionFaceChoiceRemaining: _rem,
-      ...rest
-    } = d;
+    const { nextQuestProvisionFaceChoice: _flag, provisionFaceChoiceRemaining: _rem, ...rest } = d;
     void _flag;
     void _rem;
     return {
