@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-15）：#191–#195已合并，main `f75cac8`。当前 `cursor/phase4-hamlet-events-batch-f133` 接通无未审图标的 Guild Training / Unsettling Darkness / Traveling Merchants（事件10/16），见[开发记录](phase4-hamlet-events-batch-2026-10-15.md)。含未审图标的 Supply Run 等仍停点。下一主题剩余事件（如 In Good Spirits）或驿站死亡补人（需扩展英雄池）；Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段高等级出征已交付。
+
 > 当前入口（2026-10-15）：#191–#194已合并，main `6b99c11`。当前 `cursor/phase4-higher-embark-5b82` 接高等级英雄出征与地牢战斗交接（I–III、技能槽=2+HL），见[开发记录](phase4-higher-embark-2026-10-15.md)。优先调查驿站死亡补人：#182仅代币/升级，补人流程仍缺；但仅四名核实英雄且正式入口队满，无可用补员池，故改切本主题。下一主题剩余村庄事件或死亡补人（需扩展英雄池）；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段自然4XP Guild验收已交付。
 
 > 当前入口（2026-10-15）：#191/#192/#193已合并，main `c6a0567`。当前 `cursor/phase4-natural-4xp-guild-6df4` 接连续两任务自然命令路径攒满4XP→Guild英雄升II验收（seed14 Scout四房2XP→Wipe两巢穴2XP），见[开发记录](phase4-natural-4xp-guild-2026-10-15.md)。正式地牢仍仅I级。下一主题剩余村庄事件/驿站死亡补人或高等级出征；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段出征循环已交付。

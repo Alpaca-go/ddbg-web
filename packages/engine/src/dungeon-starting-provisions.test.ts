@@ -178,7 +178,7 @@ describe("地牢开局补给 R12 / R37", () => {
           actorId: "missing",
         })),
       },
-      { ...d, explorationSetup: { ...d.explorationSetup!, light: 4 } },
+      { ...d, explorationSetup: { ...d.explorationSetup!, light: 6 } },
       { ...d, explorationSetup: { ...d.explorationSetup!, provisions: [] } },
       { ...d, rooms: d.rooms.map((r, i) => ({ ...r, cleared: i === 0 })) },
     ];

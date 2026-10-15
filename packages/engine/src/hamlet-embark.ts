@@ -309,7 +309,11 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
     decision: d.decision + 1,
     exploration: null,
     visited: ["S"],
-    explorationSetup: { dungeonLevel: 1, light: 5, provisions: [] },
+    explorationSetup: {
+      dungeonLevel: 1,
+      light: d.nextQuestStartingLight === 4 ? 4 : 5,
+      provisions: [],
+    },
     rest: { questId: quest.id, used: false },
     questDistribution: {
       ...distribution,
@@ -318,18 +322,21 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
     ...(d.buildingLevels ? { buildingLevels: d.buildingLevels } : {}),
     ...(d.stagecoachXp !== undefined ? { stagecoachXp: d.stagecoachXp } : {}),
     ...(d.waitingHeroTokens !== undefined ? { waitingHeroTokens: d.waitingHeroTokens } : {}),
+    ...(d.nextQuestProvisionFaceChoice ? { nextQuestProvisionFaceChoice: true as const } : {}),
     discardedQuests,
     hamletMemory: {
       deck: [...d.hamlet!.deck],
       permanentlyRemoved: [...d.hamlet!.permanentlyRemoved],
     },
   } satisfies DungeonState;
+  const lightNote = d.nextQuestStartingLight === 4 ? "；Unsettling Darkness起始光照4" : "";
+  const merchantNote = d.nextQuestProvisionFaceChoice ? "；Traveling Merchants待改骰" : "";
   return {
     state: { ...state, dungeon: next },
     events: [
       {
         type: "dungeonUpdated",
-        message: `出征 ${quest.name}：临时技能已装备，游商陈列已洗回，等待开局补给（R12/R33/R34）；未选/已完成任务永久弃置`,
+        message: `出征 ${quest.name}：临时技能已装备，游商陈列已洗回，等待开局补给（R12/R33/R34）；未选/已完成任务永久弃置${lightNote}${merchantNote}`,
       },
     ],
   };
