@@ -12,6 +12,7 @@ import {
   currentHamletHero,
   hamletActionOptions,
   blacksmithOptions,
+  visitGuild,
   visitNomadWagon,
   upgradableBuildings,
   recoveryBuildingLevel,
@@ -1087,6 +1088,22 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                           .join(" · ") || "无"}
                         。原卡保留，出征使用/归还等待下一任务接入。
                       </p>
+                      <p data-testid="guild-skills">
+                        公会永久升级：
+                        {d.heroes
+                          .filter((hero) => hero.permanentlyRemovedSkillIds?.length)
+                          .map(
+                            (hero) =>
+                              `${hero.id} XP ${hero.xp ?? 0}，永久移除${hero.permanentlyRemovedSkillIds!.length}张；装备 ${hero.skillIds
+                                ?.map((id) => {
+                                  const c = d.battleCatalog?.skills.find((s) => s.id === id);
+                                  return `${c?.name ?? id} ${c?.level}`;
+                                })
+                                .join(" / ")}`,
+                          )
+                          .join(" · ") || "无"}
+                        。英雄等级升级继续开发。
+                      </p>
                       <p data-testid="hamlet-virtues">
                         当前美德：
                         {d.heroes
@@ -1180,6 +1197,21 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                       </p>
                       <div aria-label="村庄行动">
                         {currentHamletHero(game) &&
+                          !visitGuild(game, currentHamletHero(game)!.id).events.some(
+                            (e) => e.type === "commandRefused",
+                          ) && (
+                            <button
+                              onClick={() =>
+                                dispatch({
+                                  type: "visitGuild",
+                                  actorId: currentHamletHero(game)!.id,
+                                })
+                              }
+                            >
+                              访问公会：永久升级技能
+                            </button>
+                          )}
+                        {currentHamletHero(game) &&
                           !visitNomadWagon(game, currentHamletHero(game)!.id).events.some(
                             (e) => e.type === "commandRefused",
                           ) && (
@@ -1217,8 +1249,9 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                         ))}
                       </div>
                       <p>
-                        已开放修道院、酒馆、疗养院、生存专家、墓地和铁匠服务及 Sharpen Spear /
-                        Intimidate / Zealous Speech / Pray / Chant。其他服务与村庄技能继续开发。
+                        已开放修道院、酒馆、疗养院、生存专家、墓地、铁匠及公会技能升级服务及 Sharpen
+                        Spear / Intimidate / Zealous Speech / Pray /
+                        Chant。其他服务与村庄技能继续开发。
                       </p>
                     </>
                   )}

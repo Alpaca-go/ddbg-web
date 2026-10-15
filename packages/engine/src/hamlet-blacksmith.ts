@@ -37,7 +37,9 @@ function options(state: GameState) {
       !original ||
       !original.name ||
       original.hero !== stat.name ||
-      original.level !== 1 ||
+      ![1, 2, 3].includes(original.level) ||
+      original.level > level ||
+      hero.permanentlyRemovedSkillIds?.includes(original.id) ||
       original.verification.unverified ||
       upgraded.length !== 1
     )
@@ -45,7 +47,7 @@ function options(state: GameState) {
     return [{ original, upgraded: upgraded[0]! }];
   });
 }
-/** R34：仅提供已装备、已核实技能的临时升级；其余拥有技能待装备管理接入。 */
+/** R34：仅提供已装备、已核实技能；其余拥有技能待装备管理接入。 */
 export function blacksmithOptions(state: GameState) {
   const actor = currentHamletHero(state),
     d = state.dungeon;
@@ -96,7 +98,7 @@ export function visitBlacksmith(state: GameState, command: BlacksmithCommand): A
     prior.some(
       (u) =>
         !u ||
-        !options(state).some(({ original }) => original.id === u.originalSkillId) ||
+        !hero.skillIds?.includes(u.originalSkillId) ||
         !d.battleCatalog!.skills.some(
           (c) =>
             c.id === u.temporarySkillId &&
@@ -109,10 +111,7 @@ export function visitBlacksmith(state: GameState, command: BlacksmithCommand): A
     new Set(prior.map((u) => u.originalSkillId)).size !== prior.length ||
     !selected
   )
-    return rejectBattleCommand(
-      state,
-      "铁匠需要有效的已装备I级原卡与已核实高等级卡，未付款（R-048）",
-    );
+    return rejectBattleCommand(state, "铁匠需要有效的已装备原卡与已核实高等级卡，未付款（R-048）");
   const level = recoveryBuildingLevel(d, "blacksmith"),
     previousDice = hero.nextQuestProvisionDice === undefined ? 0 : hero.nextQuestProvisionDice;
   if (

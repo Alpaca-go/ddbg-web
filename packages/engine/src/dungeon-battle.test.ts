@@ -108,6 +108,43 @@ function deploy(seed: number): GameState {
   const s = applyCommand(setup(seed), { type: "prepareDungeonBattle" }).state;
   return applyCommand(s, { type: "prepareDungeonMonsters" }).state;
 }
+it("Guild后的II/III级装备技能可进入真实房间战斗，永久移除的旧卡不能重新装备", () => {
+  const prepared = deploy(35),
+    d = prepared.dungeon!;
+  for (const id of ["hero_skill:p002", "hero_skill:p003"]) {
+    // 明示永久装备夹具；使用真实房间/怪物部署，不声称已接通下一次出征。
+    const upgraded = {
+      ...prepared,
+      dungeon: {
+        ...d,
+        heroes: d.heroes.map((h, i) =>
+          i === 0
+            ? {
+                ...h,
+                skillIds: [id, ...h.skillIds!.slice(1)],
+                permanentlyRemovedSkillIds:
+                  id === "hero_skill:p002"
+                    ? ["hero_skill:p001"]
+                    : ["hero_skill:p001", "hero_skill:p002"],
+              }
+            : h,
+        ),
+      },
+    };
+    const entered = applyCommand(upgraded, { type: "startDungeonBattle" });
+    expect(entered.state.battle?.entities.find((e) => e.id === "hero-0")!.skillIds[0]).toBe(id);
+  }
+  const stale = {
+    ...prepared,
+    dungeon: {
+      ...d,
+      heroes: d.heroes.map((h, i) =>
+        i === 0 ? { ...h, permanentlyRemovedSkillIds: [h.skillIds![0]!] } : h,
+      ),
+    },
+  };
+  expect(applyCommand(stale, { type: "startDungeonBattle" }).state).toBe(stale);
+});
 // 不过滤生产牌池；固定种子仅作单场测试。
 const goodSeed = 1885;
 

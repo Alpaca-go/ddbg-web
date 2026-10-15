@@ -29,6 +29,7 @@ export type HamletEventState = {
   readonly visitedBuildings?: readonly string[];
   /** 当前游商访问已经出售一件；访问结束删除，后续访问重新计数。 */
   readonly nomadSold?: true;
+  readonly guildUpgrades?: number;
   readonly remainingDays?: number;
   /** Labor Force：整个本次村庄准备期间不能访问，独立于每日看守人。 */
   readonly weekBlockedBuildings?: readonly string[];

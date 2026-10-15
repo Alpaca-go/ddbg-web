@@ -26,6 +26,7 @@ export function naturalQuest(
   questId: BasicQuestId,
   keepStop = false,
   sources = coreQuestSources,
+  scoutRooms = 2,
 ) {
   const initial = createCoreDungeonQuest(seed, questId, "radiant", naturalParty, sources);
   let state = initial;
@@ -280,7 +281,7 @@ export function naturalQuest(
         lairs = cleared.filter((r) => r.kind === "lair");
       const done =
         questId === "quest:p001"
-          ? cleared.length >= 2 && won > 0
+          ? cleared.length >= scoutRooms && won > 0
           : questId === "quest:p002"
             ? lairs.length > 0
             : lairs.length > 0 && d.gold >= 20;

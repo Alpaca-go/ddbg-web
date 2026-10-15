@@ -5,6 +5,7 @@ import { chooseLaborForce } from "./hamlet-labor-force";
 import { applyHamletAction, chooseAbbeyQuirk } from "./hamlet-actions";
 import { visitNomadWagon, chooseNomadWagon } from "./hamlet-nomad";
 import { visitBlacksmith } from "./hamlet-blacksmith";
+import { visitGuild, chooseGuild } from "./hamlet-guild";
 import type { BlacksmithCommand } from "./hamlet-blacksmith";
 import type { HamletActionCommand } from "./hamlet-actions";
 import { upgradeHamletBuilding } from "./hamlet-buildings";
@@ -126,6 +127,7 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 
 export type Command =
   | BlacksmithCommand
+  | { readonly type: "visitGuild"; readonly actorId: string }
   | UpgradeHamletBuildingCommand
   | HamletActionCommand
   | { readonly type: "visitNomadWagon"; readonly actorId: string }
@@ -308,6 +310,11 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (state.dungeon?.pending?.id.startsWith("hamlet-guild:"))
+    return command.type === "resolveChoice"
+      ? chooseGuild(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先完成当前公会访问");
+  if (command.type === "visitGuild") return visitGuild(state, command.actorId);
   if (state.dungeon?.pending?.id.startsWith("hamlet-nomad:"))
     return command.type === "resolveChoice"
       ? chooseNomadWagon(state, command.choiceId, command.optionId)
