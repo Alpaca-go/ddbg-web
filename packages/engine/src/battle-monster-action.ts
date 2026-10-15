@@ -1,7 +1,9 @@
 import { isInvokingMonster, moveInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
-import { applyEncounterCommand, nextBattleRoll } from "./encounter";
+import { applyEncounterCommand, nextBattleRoll, finishTurn } from "./encounter";
+import { readMonsterSelfStatuses } from "./monster-self-status";
+import { applyBattleSkillStatuses } from "./battle-skill-status";
 import type { SkillStance } from "./hero-skill";
 import { selectMonsterSkill } from "./monster-stance";
 import { selectMonsterTarget } from "./monster-target";
@@ -65,6 +67,45 @@ export function prepareMonsterAction(
       selected.status === "refused" ? selected.reason : "选招骰表无效",
     );
 
+  const self = readMonsterSelfStatuses(card, selected.skillSlot);
+  if (self.status === "refused") return rejectBattleCommand(state, self.reason);
+  if (self.status === "ready") {
+    if (actor.wounds >= card.life) return rejectBattleCommand(state, "死亡的怪物不能使用自身技能");
+    const applied = applyBattleSkillStatuses(
+      battle,
+      battle.entities,
+      actor.id,
+      [],
+      undefined,
+      battle.rngCursor,
+      self.effects,
+    );
+    if (applied.status === "refused") return rejectBattleCommand(state, applied.reason);
+    return finishTurn(
+      {
+        ...state,
+        battle: {
+          ...battle,
+          entities: applied.entities,
+          monsterAction: null,
+          rngCursor: battle.rngCursor + Number(needsRoll),
+        },
+      },
+      actor.id,
+      [
+        {
+          type: "monsterSelfSkillResolved",
+          actorId: actor.id,
+          skillSlot: selected.skillSlot,
+          skillId: `${card.id}:skill${selected.skillSlot}`,
+          selectionRoll: selected.roll,
+          effects: self.effects,
+          message: "怪物纯自身状态技能已生效；不掷攻击骰（R19–20/R24）",
+        },
+        ...applied.events,
+      ],
+    );
+  }
   const heroes: MonsterTargetHero[] = [];
   for (const hero of battle.entities.filter((entry) => entry.side === "hero" && !entry.dead)) {
     if (

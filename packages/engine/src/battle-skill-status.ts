@@ -70,6 +70,7 @@ export function applyBattleSkillStatuses(
   resolutions: readonly HeroSkillResolution[],
   seed?: number,
   initialCursor = battle.rngCursor,
+  selfStatusEffects?: readonly StatusEffect[],
 ):
   | { readonly status: "refused"; readonly reason: string }
   | {
@@ -230,7 +231,11 @@ export function applyBattleSkillStatuses(
     ];
     return null;
   };
-  const selfProblem = apply(actorId, resolutions[0]?.actorStatusEffects ?? [], "self");
+  const selfProblem = apply(
+    actorId,
+    selfStatusEffects ?? resolutions[0]?.actorStatusEffects ?? [],
+    "self",
+  );
   if (selfProblem) return { status: "refused", reason: selfProblem };
   for (const resolution of resolutions) {
     const problem = apply(resolution.targetId, resolution.targetStatusEffects ?? [], "target");

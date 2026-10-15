@@ -27315,7 +27315,33 @@
         "text": " 1t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{buff}2t,{guard}1t,{riposte}1t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "self",
+        "kind": "buff",
+        "duration": 2
+       },
+       {
+        "type": "status",
+        "scope": "self",
+        "kind": "guard",
+        "duration": 1
+       },
+       {
+        "type": "status",
+        "scope": "self",
+        "kind": "riposte",
+        "duration": 1
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -27543,7 +27569,22 @@
         "text": " 3t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}2{bleed}3t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "bleed",
+        "duration": 3,
+        "amount": 2
+       }
+      ]
+     }
     },
     {
      "slot": 3,
@@ -27771,7 +27812,21 @@
         "text": " Pull 2"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{shuffle}Pull2"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "pull",
+        "distance": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [

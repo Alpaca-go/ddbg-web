@@ -17,6 +17,8 @@ import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { statusProjection } from "./status";
 import { isGuardedDungeonRoom, awaitDungeonRoomCurio } from "./dungeon-curio-room";
 import { heroSkillSlotCount } from "./hero-loadout";
+import { readMonsterSelfStatuses } from "./monster-self-status";
+import type { StatusEffect } from "./status";
 
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
 export function startDungeonBattle(state: GameState): ApplyResult {
@@ -123,6 +125,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
   }
   const entities: BattleEntity[] = [];
   const statusProbes: { actorId: string; resolution: HeroSkillResolution }[] = [];
+  const selfProbes: { actorId: string; effects: readonly StatusEffect[] }[] = [];
   for (const spawn of active.monsters) {
     const card = monsters.find((m) => m.id === spawn.cardId);
     if (
@@ -148,6 +151,12 @@ export function startDungeonBattle(state: GameState): ApplyResult {
     )
       return refuse(`${card.name} 缺少获批抗性栏，不能猜Shuffle防御（R-048）`);
     for (const skill of card.skills) {
+      const self = readMonsterSelfStatuses(card, skill.slot);
+      if (self.status === "refused") return refuse(`${card.name}：${self.reason}`);
+      if (self.status === "ready") {
+        selfProbes.push({ actorId: spawn.instanceId, effects: self.effects });
+        continue;
+      }
       const attack = readMonsterAttackView(card, skill.slot);
       if (attack.status === "refused") return refuse(`${card.name}：${attack.reason}`);
       const range = readPrintedRange(attack.view),
@@ -230,6 +239,18 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       lootPool: { ...(d.lootPool ?? createLootState()), gold: d.gold },
       provisionWindows: true,
     }).battle!;
+    for (const probe of selfProbes) {
+      const statuses = applyBattleSkillStatuses(
+        battle,
+        battle.entities,
+        probe.actorId,
+        [],
+        undefined,
+        battle.rngCursor,
+        probe.effects,
+      );
+      if (statuses.status === "refused") return refuse(`怪物自身效果尚未接入：${statuses.reason}`);
+    }
     for (const probe of statusProbes) {
       for (const hero of heroes) {
         const statuses = applyBattleSkillStatuses(battle, battle.entities, probe.actorId, [

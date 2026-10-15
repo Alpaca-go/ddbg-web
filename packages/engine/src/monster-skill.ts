@@ -23,6 +23,7 @@ export type MonsterSkillView = Pick<
   | "verified_damage_bonus"
 > & {
   readonly slot: number;
+  readonly name?: string;
   readonly verified_monster_effects?: MonsterEffectPlan;
   /** 规范化目标优先级文字；缺失时自动目标选择拒绝。 */
   readonly target?: string | null;
