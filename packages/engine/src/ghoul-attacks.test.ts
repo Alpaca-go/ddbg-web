@@ -296,12 +296,34 @@ it("规范化映射限定Ghoul II p3身份与完整原始行，不接受重命�
   ).toThrow("效果行未核实");
 });
 
-it("Howl仍无完整计划且含未消费效果，真实命令整次拒绝，不能开放半张Ghoul", () => {
-  expect(card.skills.find((s) => s.slot === 3)!.verified_monster_effects).toBeUndefined();
+it("Howl完整计划逐名续接，未知签名仍整次拒绝", () => {
+  expect(card.skills.find((s) => s.slot === 3)!.verified_monster_effects).toBeDefined();
   const attack = readMonsterAttackView(card, 3);
   expect(attack.status).toBe("ready");
-  const state = setup(3),
-    before = structuredClone(state);
+  const initial = setup(3);
+  const state = {
+    ...initial,
+    battle: {
+      ...initial.battle!,
+      monsters: [
+        {
+          ...card,
+          skills: card.skills.map((s) =>
+            s.slot === 3
+              ? {
+                  ...s,
+                  verified_monster_effects: {
+                    ...s.verified_monster_effects!,
+                    signatures: ["wrong"],
+                  },
+                }
+              : s,
+          ),
+        },
+      ],
+    },
+  };
+  const before = structuredClone(state);
   const result = applyCommand(state, command(state, 3));
   expect(result.state).toBe(state);
   expect(result.events).toEqual([expect.objectContaining({ type: "commandRefused" })]);

@@ -5600,7 +5600,29 @@
         }
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{light}-1,{stress}+2,{disease}"
+      ],
+      "effects": [
+       {
+        "type": "light",
+        "scope": "target",
+        "amount": -1
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 2
+       },
+       {
+        "type": "disease",
+        "scope": "target"
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [

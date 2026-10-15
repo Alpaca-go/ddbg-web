@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-15）：#204已合并，main `cafde91`。当前`codex/phase4-ghoul-howl`按本轮批准R-084接Howl逐名光照/压力/疾病与死亡取消、连续第四怪癖待选续接，并开放Ghoul完整入场，见[本轮记录](phase4-ghoul-howl-2026-10-15.md)。II级五种完整可战、事件11/16，Q-79/Q-80 pending；下一主题II级自然混合遭遇/退出回村/日志存档验收。正式Boss升幕/高等级正式存档验收未完成，未进入Phase5。下段为历史进度。
+
 > 当前入口（2026-10-15）：#203已审查合并，main `b2352a5`。当前`codex/phase4-ghoul-attacks`接Ghoul Rend/Skull Toss完整复合效果及死亡/压力回放测试，见[本轮记录](phase4-ghoul-attacks-2026-10-15.md)。Howl仍未接，整张Ghoul不开放入场；下一主题零伤害多目标、光照/压力/疾病与死亡取消。II级四种可战、事件11/16，Q-79/Q-80 pending，正式Boss升幕/高等级正式存档验收未完成，未进入Phase5。下段为历史进度。
 
 > 当前入口（2026-10-15）：#202已合并，main `e22d421`。当前`codex/phase4-rattler-self-status`完成Rattler纯自身Warning Rattle、另两招完整计划与真实53张池入场；只消费选招骰，无假英雄目标/射程/攻击骰，沿既有回合收尾。见[本轮记录](phase4-rattler-self-status-2026-10-15.md)。R-083不重开审批；下一主题Ghoul复合效果，现II级四种可入场/一种仍停点。事件11/16，Q-79/Q-80 pending，未进入Phase5。

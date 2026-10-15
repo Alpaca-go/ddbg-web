@@ -494,6 +494,8 @@ export type SkillEffectsResolution = {
 
 export type HeroSkillResolution = {
   readonly targetDisease?: true;
+  /** R-084：Howl的目标行在全部攻击后逐名执行；待选保留剩余目标。 */
+  readonly orderedMonsterTargetEffects?: { readonly light: -1; readonly stress: 2 };
   readonly skillId: string;
   readonly targetId: string;
   readonly status: "resolved" | "refused";

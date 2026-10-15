@@ -207,7 +207,18 @@ function resolveMonsterSkillInternal(
 
   const attack = readMonsterAttackView(monster, skillSlot);
   if (attack.status === "refused") return refused(attack.reason);
-  const view = attack.view;
+  const ordered =
+    monster.id === "monster_large:p003" &&
+    skillSlot === 3 &&
+    matches[0]!.verified_monster_effects?.signatures[0] ===
+      "{target_effects}{light}-1,{stress}+2,{disease}";
+  // 完整计划已由readMonsterAttackView校验；R-084先只结算攻击/暴击压力。
+  let view = attack.view;
+  if (ordered) {
+    const { verified_target_stress: _stress, ...base } = view;
+    void _stress;
+    view = { ...base, effect_lines: [], verified_status_effects: [] };
+  }
   const stats = view.stats_line!;
   if (
     !stats.some(
@@ -249,12 +260,15 @@ function resolveMonsterSkillInternal(
           ...(view.verified_target_disease && baseResolution.outcome !== "miss"
             ? { targetDisease: true as const }
             : {}),
+          ...(ordered && baseResolution.outcome !== "miss"
+            ? { orderedMonsterTargetEffects: { light: -1 as const, stress: 2 as const } }
+            : {}),
           actorLightDelta:
             (baseResolution.actorLightDelta ?? 0) +
             (combat.ownEffectsApplied ? 0 : (attack.selfLight ?? 0)),
           targetLightDelta:
             (baseResolution.targetLightDelta ?? 0) +
-            (baseResolution.outcome === "miss" ? 0 : (attack.targetLight ?? 0)),
+            (ordered || baseResolution.outcome === "miss" ? 0 : (attack.targetLight ?? 0)),
         };
   if (resolution.status === "refused") return refused(resolution.reason!);
   return {
