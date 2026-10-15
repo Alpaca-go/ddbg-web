@@ -35,4 +35,4 @@
 
 ## 最终验证
 
-（提交后补记本机闸门结果。）
+本机 Node 24.21.0 / pnpm 12.9.1：`pnpm typecheck`、`pnpm lint`、124 文件 / 1103 项单元与场景测试（`pnpm test --maxWorkers=4`）、`pnpm build`、`git diff --check` 全部通过。未检查远端 Actions。用户 8080 配置、临时资料与美术不提交。
