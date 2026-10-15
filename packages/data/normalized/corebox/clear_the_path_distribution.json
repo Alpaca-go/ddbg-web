@@ -1,0 +1,11 @@
+{
+  "questId": "quest:p007",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p7; official R15 room-token legend and R29; print reviewed 2026-10-15",
+  "counts": [
+    { "kind": "dark", "count": 1 },
+    { "kind": "curio", "count": 2 },
+    { "kind": "treasure", "count": 2 },
+    { "kind": "lair", "count": 2 },
+    { "kind": "trap", "count": 1 }
+  ]
+}

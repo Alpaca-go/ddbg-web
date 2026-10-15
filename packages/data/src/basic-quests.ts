@@ -2,6 +2,7 @@ import scout from "../normalized/corebox/scout_ahead_distribution.json";
 import wipe from "../normalized/corebox/wipe_em_out_distribution.json";
 import fundraiser from "../normalized/corebox/fundraiser_distribution.json";
 import reduceToRubble from "../normalized/corebox/reduce_to_rubble_distribution.json";
+import clearThePath from "../normalized/corebox/clear_the_path_distribution.json";
 import { roomDistributionSchema } from "./dungeon-layout";
 
 /** 官方R15 / R29、QUEST：已核对可出征任务；未决特殊规则或未审房间图标仍停点。 */
@@ -35,6 +36,16 @@ export const basicQuests = [
     roomsPerXp: 20,
     maxRooms: 2,
     distribution: roomDistributionSchema.parse(fundraiser),
+  },
+  {
+    id: "quest:p007",
+    name: "Clear the Path II",
+    level: 2 as const,
+    restPoints: 8,
+    xpKind: "all",
+    roomsPerXp: 2,
+    maxRooms: 6,
+    distribution: roomDistributionSchema.parse(clearThePath),
   },
   {
     id: "quest:p008",

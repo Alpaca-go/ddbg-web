@@ -8,7 +8,7 @@ import { matchesQuestCounts, readBasicQuest } from "../../data/src/basic-quests"
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 
-/** QUEST p1–3：按初始任务身份核构成与目标，不从地图或房间名猜测。 */
+/** 已核对QUEST：按初始任务身份核构成与目标，不从地图或房间名猜测。 */
 export function readDungeonQuestProgress(d: DungeonState) {
   const refuse = (reason: string) => ({ status: "refused" as const, reason });
   const quest = readBasicQuest(d.questDistribution);

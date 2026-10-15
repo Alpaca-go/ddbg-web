@@ -2,6 +2,9 @@ import { beforeAll, expect, it } from "vitest";
 import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
 import reduceDistribution from "../../data/normalized/corebox/reduce_to_rubble_distribution.json";
 import { savedCommandSchema } from "../../data/src/quest-save";
+import clearDistribution from "../../data/normalized/corebox/clear_the_path_distribution.json";
+import { basicQuests } from "../../data/src/basic-quests";
+import { dungeonQuestSummarySchema } from "../../data/src/quest-summary";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { naturalAbbeyQuest } from "./test-helpers/abbey-quest";
@@ -81,10 +84,11 @@ it("战役等级 I→II：移出 I 级任务堆、累加 II 级怪物、地牢�
   expect(applyCommand(game, { type: "advanceCampaignLevel" }).state).toBe(game);
 
   step({ type: "offerNextQuest" });
-  expect(game.dungeon!.nextQuestOffers).toEqual(["quest:p008"]);
-  expect(game.dungeon!.pending!.options).toEqual([
-    { id: "quest:p008", label: "Reduce to Rubble II" },
-  ]);
+  expect([...(game.dungeon!.nextQuestOffers ?? [])].sort()).toEqual(["quest:p007", "quest:p008"]);
+  expect(game.dungeon!.pending!.options).toContainEqual({
+    id: "quest:p008",
+    label: "Reduce to Rubble II",
+  });
   step({
     type: "resolveChoice",
     choiceId: game.dungeon!.pending!.id,
@@ -109,11 +113,117 @@ it("战役等级 I→II：移出 I 级任务堆、累加 II 级怪物、地牢�
 it("未推进战役等级时不能抽到 II 级任务；已在 II 级时拒绝再次推进", () => {
   const ready = preparationReady(baseline.game);
   const offered = ok(ready, { type: "offerNextQuest" });
-  expect(offered.dungeon!.nextQuestOffers?.every((id) => id !== "quest:p008")).toBe(true);
+  expect(
+    offered.dungeon!.nextQuestOffers?.every((id) =>
+      ["quest:p001", "quest:p002", "quest:p003"].includes(id),
+    ),
+  ).toBe(true);
   const advanced = ok(preparationReady(baseline.game), { type: "advanceCampaignLevel" });
   expect(applyCommand(advanced, { type: "advanceCampaignLevel" }).state).toBe(advanced);
   const ii = ok(advanced, { type: "offerNextQuest" });
-  expect(ii.dungeon!.nextQuestOffers).toEqual(["quest:p008"]);
+  expect([...(ii.dungeon!.nextQuestOffers ?? [])].sort()).toEqual(["quest:p007", "quest:p008"]);
+});
+it("Clear the Path II印刷黄金表：八房含两宝藏，不套用Scout的两空房；休息8点", () => {
+  const quest = basicQuests.find((q) => q.id === "quest:p007")!;
+  expect(quest).toMatchObject({
+    name: "Clear the Path II",
+    level: 2,
+    restPoints: 8,
+    xpKind: "all",
+    roomsPerXp: 2,
+    maxRooms: 6,
+  });
+  expect(clearDistribution.counts).toEqual([
+    { kind: "dark", count: 1 },
+    { kind: "curio", count: 2 },
+    { kind: "treasure", count: 2 },
+    { kind: "lair", count: 2 },
+    { kind: "trap", count: 1 },
+  ]);
+});
+function embarkII(questId: "quest:p007" | "quest:p008") {
+  const ready = preparationReady(baseline.game);
+  const advanced = ok(ready, { type: "advanceCampaignLevel" });
+  const offered = ok(advanced, { type: "offerNextQuest" });
+  const choice: Command = {
+    type: "resolveChoice",
+    choiceId: offered.dungeon!.pending!.id,
+    optionId: questId,
+  };
+  return { ready, offered, choice, embarked: ok(offered, choice) };
+}
+it("II级两张抽选后只出征Clear the Path，另一张永久弃置；过期/越级选择拒绝，原命令回放", () => {
+  const { ready, offered, choice, embarked } = embarkII("quest:p007");
+  expect(offered.dungeon!.pending!.options).toHaveLength(2);
+  expect(embarked.dungeon!.questDistribution).toEqual(clearDistribution);
+  expect(embarked.dungeon!.rooms.filter((r) => r.kind === "treasure")).toHaveLength(2);
+  expect(embarked.dungeon!.rooms.some((r) => r.kind === "empty")).toBe(false);
+  expect(embarked.dungeon!.rest).toEqual({ questId: "quest:p007", used: false });
+  expect(embarked.dungeon!.discardedQuests).toContain("quest:p008");
+  expect(embarked.dungeon!.discardedQuests).not.toContain("quest:p007");
+  expect(applyCommand(embarked, choice).state).toBe(embarked);
+  expect(applyCommand(offered, { ...choice, optionId: "quest:p001" }).state).toBe(offered);
+  expect(
+    ok(ok(ok(ready, { type: "advanceCampaignLevel" }), { type: "offerNextQuest" }), choice),
+  ).toEqual(embarked);
+});
+it("两张II级任务摘要覆盖0到印刷上限：宝藏计房间XP，暗房/陷阱不能清理，不提前实发XP", () => {
+  for (const questId of ["quest:p007", "quest:p008"] as const) {
+    const { embarked } = embarkII(questId),
+      d = embarked.dungeon!;
+    const countable = d.rooms.filter((r) =>
+      questId === "quest:p007" ? !["dark", "trap"].includes(r.kind) : r.kind === "lair",
+    );
+    for (let count = 0; count <= countable.length; count++) {
+      const ids = countable.slice(0, count).map((r) => r.id);
+      // 明确奖励边界夹具，非II级怪物战斗或自然升幕验收。
+      const exited: GameState = {
+        ...embarked,
+        dungeon: {
+          ...d,
+          phase: "exited",
+          rooms: d.rooms.map((r) =>
+            ids.includes(r.id) ? { ...r, revealed: true, cleared: true } : r,
+          ),
+        },
+      };
+      const before = structuredClone(exited);
+      const result = applyCommand(exited, { type: "summarizeDungeonQuest" });
+      const summary = result.state.dungeon!.questSummary!;
+      expect(summary).toMatchObject({
+        questId,
+        xpPerHero: questId === "quest:p007" ? Math.floor(count / 2) : count,
+        awarded: false,
+      });
+      expect(summary.clearedRoomIds).toHaveLength(count);
+      expect(dungeonQuestSummarySchema.safeParse(summary).success).toBe(true);
+      expect(result.state.dungeon!.heroes).toEqual(d.heroes);
+      expect(result.state.dungeon!.gold).toBe(d.gold);
+      expect(applyCommand(result.state, { type: "summarizeDungeonQuest" }).state).toBe(
+        result.state,
+      );
+      expect(exited).toEqual(before);
+      for (const changed of [
+        { ...summary, name: "Scout Ahead I" },
+        { ...summary, xpPerHero: 4 },
+        { ...summary, clearedRoomIds: ["A", "A"] },
+      ])
+        expect(dungeonQuestSummarySchema.safeParse(changed).success).toBe(false);
+    }
+    for (const room of d.rooms.filter((r) => ["dark", "trap"].includes(r.kind))) {
+      const invalid: GameState = {
+        ...embarked,
+        dungeon: {
+          ...d,
+          phase: "exited",
+          rooms: d.rooms.map((r) =>
+            r.id === room.id ? { ...r, revealed: true, cleared: true } : r,
+          ),
+        },
+      };
+      expect(applyCommand(invalid, { type: "summarizeDungeonQuest" }).state).toBe(invalid);
+    }
+  }
 });
 it("升幕预览不纳入正式存档；坏饰品分区/重复怪物/缩减目录不能借升幕修复", () => {
   expect(savedCommandSchema.safeParse({ type: "advanceCampaignLevel" }).success).toBe(false);
