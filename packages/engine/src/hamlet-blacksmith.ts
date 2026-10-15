@@ -16,14 +16,15 @@ function options(state: GameState) {
   if (
     !hero.attributesVerified ||
     !stat?.attributesVerified ||
-    stat.level !== 1 ||
-    hero.level !== 1 ||
+    ![1, 2, 3].includes(hero.level!) ||
+    stat.level !== hero.level ||
     (hero.heroLevel !== undefined && hero.heroLevel !== hero.level) ||
     !Array.isArray(hero.skillIds) ||
     new Set(hero.skillIds).size !== hero.skillIds.length
   )
     return [];
   const level = recoveryBuildingLevel(d, "blacksmith") === 1 ? 2 : 3;
+  // 边界：铁匠仍只服务已装备技能；未装备拥有技能经 setEquippedSkills 换入后再访问。
   return (hero.skillIds ?? []).flatMap((id) => {
     const original = d.battleCatalog!.skills.find((c) => c.id === id);
     const upgraded = d.battleCatalog!.skills.filter(
@@ -47,7 +48,7 @@ function options(state: GameState) {
     return [{ original, upgraded: upgraded[0]! }];
   });
 }
-/** R34：仅提供已装备、已核实技能；其余拥有技能待装备管理接入。 */
+/** R34：仅提供已装备、已核实技能；未装备拥有技能须先换装。 */
 export function blacksmithOptions(state: GameState) {
   const actor = currentHamletHero(state),
     d = state.dungeon;

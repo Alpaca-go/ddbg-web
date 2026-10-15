@@ -552,7 +552,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   );
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
-  await page.getByRole("button", { name: "访问公会：永久升级技能", exact: true }).click();
+  await page.getByRole("button", { name: "访问公会：永久升级英雄/技能", exact: true }).click();
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();

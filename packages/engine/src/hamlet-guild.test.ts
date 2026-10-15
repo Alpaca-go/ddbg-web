@@ -23,7 +23,7 @@ function ok(g: GameState, c: Command) {
   ).toBe(false);
   return r.state;
 }
-function fixture(): GameState {
+function fixture(xp = 6): GameState {
   const b = baseline.game,
     d = b.dungeon!;
   // 明示资源/封锁服务夹具，不称自然奖励；真实日志单列。
@@ -32,7 +32,7 @@ function fixture(): GameState {
     dungeon: {
       ...d,
       gold: 100,
-      heroes: d.heroes.map((h) => ({ ...h, xp: 6 })),
+      heroes: d.heroes.map((h) => ({ ...h, xp })),
       hamlet: { ...d.hamlet!, blockedBuildings: [] },
     },
   };
@@ -131,9 +131,9 @@ it("缺钱/XP不足仍可查看和离开，封锁/越序/坏XP/坏移除记录�
   expect(applyCommand(b, { type: "visitGuild", actorId: "hero-1" }).state).toBe(b);
   const valid = ok(b, visit);
   for (const id of [
-    "upgrade:hero_skill:p022",
-    "upgrade:hero_skill:p007",
-    "upgrade:hero_skill:p002",
+    "upgrade:hero_skill:p022", // 其他英雄技能
+    "upgrade:hero_skill:p002", // 尚未拥有的II级
+    "upgrade:hero_skill:p003", // 尚未拥有的III级
   ])
     expect(applyCommand(valid, choose(valid, id)).state).toBe(valid);
   const corrupted = {
@@ -233,4 +233,86 @@ it("四英雄各自升级已装备技能，缺失/未核实高等级卡不提供
     const blocked = ok(missing, { type: "visitGuild", actorId: `hero-${i}` });
     expect(applyCommand(blocked, choose(blocked, `upgrade:${old}`)).state).toBe(blocked);
   }
+});
+it("夹具4XP可升英雄I→II并保留疾病；同访可再升技能；真实2XP路径不出现英雄升级项", () => {
+  // 明示4XP夹具；单个现有任务最高3XP，不称自然两任务战役验收。
+  const b = fixture(4),
+    d = b.dungeon!;
+  const withDisease = {
+    ...b,
+    dungeon: {
+      ...d,
+      heroes: d.heroes.map((h, i) => (i === 0 ? { ...h, diseaseId: "disease:p001", xp: 4 } : h)),
+    },
+  };
+  const shop = ok(withDisease, visit);
+  expect(shop.dungeon!.pending!.options.map((o) => o.id)).toContain("upgrade-hero");
+  const real = ok(baseline.game, visit);
+  expect(real.dungeon!.pending!.options.map((o) => o.id)).not.toContain("upgrade-hero");
+  const heroUp = ok(shop, choose(shop, "upgrade-hero"));
+  expect(heroUp.dungeon!.heroes[0]).toMatchObject({
+    level: 2,
+    heroStatId: "hero_stat:p001:back",
+    life: 24,
+    diseaseId: "disease:p001",
+    xp: 0,
+  });
+  expect(heroUp.dungeon!.gold).toBe(d.gold - 2);
+  expect(heroUp.dungeon!.pending!.options.map((o) => o.id)).toEqual(["leave"]);
+  const rich = fixture(8);
+  const shop2 = ok(rich, visit);
+  const afterHero = ok(shop2, choose(shop2, "upgrade-hero"));
+  const afterSkill = ok(afterHero, choose(afterHero, "upgrade:hero_skill:p001"));
+  expect(afterSkill.dungeon!.heroes[0]).toMatchObject({
+    level: 2,
+    skillIds: expect.arrayContaining(["hero_skill:p002"]),
+    permanentlyRemovedSkillIds: ["hero_skill:p001"],
+    xp: 2,
+  });
+  expect(afterSkill.dungeon!.pending).toBeNull();
+  expect(afterSkill.dungeon!.gold).toBe(97);
+  const noCard = {
+    ...fixture(4),
+    dungeon: {
+      ...fixture(4).dungeon!,
+      battleCatalog: {
+        ...fixture(4).dungeon!.battleCatalog!,
+        heroStats: fixture(4).dungeon!.battleCatalog!.heroStats.filter(
+          (s) => s.id !== "hero_stat:p001:back",
+        ),
+      },
+    },
+  };
+  const blocked = ok(noCard, visit);
+  expect(blocked.dungeon!.pending!.options.map((o) => o.id)).not.toContain("upgrade-hero");
+  expect(applyCommand(blocked, choose(blocked, "upgrade-hero")).state).toBe(blocked);
+});
+it("未装备拥有技能可永久升级且不改装备栏；III级英雄不再提供英雄升级", () => {
+  const b = fixture(),
+    unequipped = "hero_skill:p007"; // Stunning Blow I，默认未装备
+  expect(b.dungeon!.heroes[0]!.skillIds).not.toContain(unequipped);
+  const shop = ok(b, visit);
+  expect(shop.dungeon!.pending!.options.some((o) => o.id === `upgrade:${unequipped}`)).toBe(true);
+  const done = ok(shop, choose(shop, `upgrade:${unequipped}`));
+  expect(done.dungeon!.heroes[0]!.skillIds).toEqual(b.dungeon!.heroes[0]!.skillIds);
+  expect(done.dungeon!.heroes[0]!.permanentlyRemovedSkillIds).toEqual([unequipped]);
+  const iii = {
+    ...fixture(8),
+    dungeon: {
+      ...fixture(8).dungeon!,
+      heroes: fixture(8).dungeon!.heroes.map((h, i) =>
+        i === 0
+          ? {
+              ...h,
+              level: 3,
+              heroStatId: "hero_stat:p002:front",
+              life: 32,
+              xp: 8,
+            }
+          : h,
+      ),
+    },
+  };
+  const shop3 = ok(iii, visit);
+  expect(shop3.dungeon!.pending!.options.map((o) => o.id)).not.toContain("upgrade-hero");
 });

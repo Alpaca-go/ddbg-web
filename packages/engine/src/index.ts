@@ -115,6 +115,13 @@ export { visitNomadWagon } from "./hamlet-nomad";
 export { blacksmithOptions } from "./hamlet-blacksmith";
 export { visitGuild } from "./hamlet-guild";
 export {
+  setEquippedSkills,
+  ownedHeroSkills,
+  unequippedHeroSkills,
+  heroSkillSlotCount,
+  heroTrinketSlotCount,
+} from "./hero-loadout";
+export {
   recoveryBuildings,
   upgradableBuildings,
   recoveryBuildingLevel,
