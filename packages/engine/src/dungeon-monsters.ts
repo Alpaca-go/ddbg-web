@@ -1,7 +1,4 @@
-import {
-  monsterPoolCatalogSchema,
-  ruinsMonsterPoolThrough,
-} from "../../data/src/monster-pool";
+import { monsterPoolCatalogSchema, ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
 import { roomCatalogSchema } from "../../data/src/room";
 import { readRoomTile } from "./room-tile-selection";
 import type { ApplyResult, GameState } from "./command";

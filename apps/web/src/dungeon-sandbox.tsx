@@ -1537,7 +1537,8 @@ export function DungeonQuest() {
     })),
   );
   if (started) return <DungeonSandbox formal />;
-  const selectedQuest = basicQuests.find((q) => q.id === questId)!;
+  const startQuests = basicQuests.filter((q) => q.level === 1);
+  const selectedQuest = startQuests.find((q) => q.id === questId) ?? startQuests[0]!;
   return (
     <main className="shell">
       <header className="topbar">
@@ -1553,10 +1554,16 @@ export function DungeonQuest() {
           onSubmit={(e) => {
             e.preventDefault();
             try {
-              const game = createCoreDungeonQuest(Number(seed), questId, mode, party, taskSources);
+              const game = createCoreDungeonQuest(
+                Number(seed),
+                selectedQuest.id,
+                mode,
+                party,
+                taskSources,
+              );
               beginTask(game, {
                 seed: Number(seed),
-                questId,
+                questId: selectedQuest.id,
                 mode,
                 party: party.map((hero) => ({ ...hero, skillIds: [...hero.skillIds] })),
               });
@@ -1570,10 +1577,10 @@ export function DungeonQuest() {
             任务卡
             <select
               aria-label="任务卡"
-              value={questId}
+              value={selectedQuest.id}
               onChange={(e) => setQuestId(e.target.value as BasicQuestId)}
             >
-              {basicQuests.map((q) => (
+              {startQuests.map((q) => (
                 <option key={q.id} value={q.id}>
                   {q.name}
                 </option>

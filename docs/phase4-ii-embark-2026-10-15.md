@@ -40,4 +40,4 @@
 
 ## 最终验证
 
-本机 Node 24.21.0 / pnpm 12.9.1：见提交后闸门记录。未检查远端 Actions。用户 8080 配置、临时资料与美术不提交。
+本机 Node 24.21.0 / pnpm 12.9.1：`pnpm typecheck`、`pnpm lint`、127 文件 / 1114 项单元与场景测试（`pnpm test --maxWorkers=4`）、`pnpm build`、`git diff --check` 全部通过。未检查远端 Actions。用户 8080 配置、临时资料与美术不提交。

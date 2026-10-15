@@ -83,7 +83,9 @@ export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): 
   if (
     dungeonCards.length !== canonical.length ||
     new Set(dungeonCards.map((c) => c.id)).size !== canonical.length ||
-    canonical.some((id) => !dungeonCards.some((c) => c.id === id && trinketCardOk(c, pool.level))) ||
+    canonical.some(
+      (id) => !dungeonCards.some((c) => c.id === id && trinketCardOk(c, pool.level)),
+    ) ||
     foreignCards.length !== foreignHeldIds.length ||
     new Set(foreignCards.map((c) => c.id)).size !== foreignHeldIds.length ||
     foreignHeldIds.some((id) => !foreignCards.some((c) => c.id === id && trinketCardOk(c)))
@@ -146,10 +148,7 @@ export function switchTrinketDungeonLevel(
     return { reason: "已装备的上一级饰品缺失或未核实，不能切换地牢饰品等级（R-048）" };
   return {
     ...next,
-    cards: [
-      ...next.cards,
-      ...foreignCards.filter((c): c is NormalizedTrinketCard => !!c),
-    ],
+    cards: [...next.cards, ...foreignCards.filter((c): c is NormalizedTrinketCard => !!c)],
     held: [...pool.held],
     deck: null,
     discard: [],

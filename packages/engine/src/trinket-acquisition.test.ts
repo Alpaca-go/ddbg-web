@@ -114,5 +114,10 @@ it("R35：切换地牢饰品等级时保留已装备上一级卡，新牌堆为�
   expect(switched.held).toEqual(held.held);
   expect(switched.cards.some((c) => c.id === "trinket:p001" && c.level === 1)).toBe(true);
   expect(switched.cards.filter((c) => c.level === 2)).toHaveLength(12);
-  expect(trinketPoolProblem(switched, [{ id: "a", level: 2 }, { id: "b", level: 1 }])).toBeNull();
+  expect(
+    trinketPoolProblem(switched, [
+      { id: "a", level: 2 },
+      { id: "b", level: 1 },
+    ]),
+  ).toBeNull();
 });

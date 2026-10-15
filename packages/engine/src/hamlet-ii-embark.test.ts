@@ -53,9 +53,7 @@ it("Reduce to Rubble II 房间构成与 I 级已核对图标映射一致（R-038
       { kind: "trap", count: 2 },
     ],
   });
-  expect(
-    reduceDistribution.counts.reduce((n, c) => n + c.count, 0),
-  ).toBe(8);
+  expect(reduceDistribution.counts.reduce((n, c) => n + c.count, 0)).toBe(8);
 });
 
 it("战役等级 I→II：移出 I 级任务堆、累加 II 级怪物、地牢饰品切 II，并可出征 Reduce to Rubble（§2.2 / R35 / R-037）", () => {

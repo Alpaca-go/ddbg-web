@@ -68,10 +68,7 @@ export function advanceCampaignLevel(state: GameState): ApplyResult {
 
   const level1 = ruinsMonsterPool(d.monsterPool.cards, 1).map((m) => m.instanceId);
   const level2 = ruinsMonsterPool(d.monsterPool.cards, 2).map((m) => m.instanceId);
-  const present = new Set([
-    ...(d.monsterPool.remaining ?? level1),
-    ...d.monsterPool.discarded,
-  ]);
+  const present = new Set([...(d.monsterPool.remaining ?? level1), ...d.monsterPool.discarded]);
   if ([...present].some((id) => !level1.includes(id) && !level2.includes(id)))
     return rejectBattleCommand(state, "怪物牌堆含未知实例，未推进战役等级");
   const deck = [...level1.filter((id) => present.has(id)), ...level2];
@@ -86,15 +83,16 @@ export function advanceCampaignLevel(state: GameState): ApplyResult {
     cursor++;
   }
 
+  const { nextQuestOffers: _offers, ...dungeonBase } = d;
+  void _offers;
   return {
     state: {
       ...state,
       dungeon: {
-        ...d,
+        ...dungeonBase,
         campaignLevel: 2,
         cursor,
         discardedQuests: discarded,
-        nextQuestOffers: undefined,
         trinkets: switched,
         monsterPool: {
           ...d.monsterPool,
@@ -102,9 +100,9 @@ export function advanceCampaignLevel(state: GameState): ApplyResult {
           discarded: [],
           active: null,
         },
-        explorationSetup: d.explorationSetup
-          ? { ...d.explorationSetup, dungeonLevel: 2 }
-          : undefined,
+        ...(d.explorationSetup
+          ? { explorationSetup: { ...d.explorationSetup, dungeonLevel: 2 as const } }
+          : {}),
       },
     },
     events: [
