@@ -21,6 +21,21 @@ export function buildHamletEvents(raw: RawFile) {
       const effectLines = front.lines
         .filter((line) => line.bbox[1] >= effectY[i]!)
         .map((line) => line.text);
+      if (
+        i === 15 &&
+        (card.id !== "hamlet_event:p016" ||
+          front.page !== 16 ||
+          match[1] !== "9d38361e87" ||
+          match[2] !== "?" ||
+          match[3] !== "Militia Training" ||
+          JSON.stringify(effectLines) !==
+            JSON.stringify([
+              "All Heroes can Level Up",
+              "one Lvl 1 Skill. If they",
+              "do, 0 days. Else 3 days.",
+            ]))
+      )
+        throw new Error("Militia Training身份或完整效果行漂移（R-048/R-077）");
       return {
         id: card.id,
         name: match[3],
@@ -60,7 +75,9 @@ export function buildHamletEvents(raw: RawFile) {
                               ? "inGoodSpirits"
                               : i === 14
                                 ? "guildTraining"
-                                : "unimplemented",
+                                : i === 15
+                                  ? "militiaTraining"
+                                  : "unimplemented",
       };
     }),
   });

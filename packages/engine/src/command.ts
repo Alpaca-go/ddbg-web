@@ -2,7 +2,7 @@ import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { drawHamletEvent, rollHamletCaretaker, chooseMedicalBreakthrough } from "./hamlet-event";
 import { chooseCaregiversConvention } from "./hamlet-caregivers";
 import { chooseLaborForce } from "./hamlet-labor-force";
-import { chooseGuildTraining } from "./hamlet-guild-training";
+import { chooseGuildTraining, chooseMilitiaTraining } from "./hamlet-guild-training";
 import { chooseTravelingMerchants } from "./hamlet-traveling-merchants";
 import { applyHamletAction, chooseAbbeyQuirk } from "./hamlet-actions";
 import { visitNomadWagon, chooseNomadWagon } from "./hamlet-nomad";
@@ -357,6 +357,10 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return command.type === "resolveChoice"
       ? chooseLaborForce(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先完成Labor Force免费升级选择");
+  if (state.dungeon?.pending?.id.startsWith("hamlet-militia:"))
+    return command.type === "resolveChoice"
+      ? chooseMilitiaTraining(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先完成Militia Training全员升级选择");
   if (state.dungeon?.pending?.id.startsWith("hamlet-guild-training:"))
     return command.type === "resolveChoice"
       ? chooseGuildTraining(state, command.choiceId, command.optionId)

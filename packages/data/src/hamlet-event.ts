@@ -1,4 +1,11 @@
 import { z } from "zod";
+/** R-085：仅四张卡指定效果位置；不改全局词典，不代表运行时已接通。 */
+export const approvedHamletEffectIcons = {
+  "hamlet_event:p001": { d712688f15: "provisionDice" },
+  "hamlet_event:p003": { d712688f15: "provisionDice" },
+  "hamlet_event:p009": { "08a25c05cf": "gold" },
+  "hamlet_event:p010": { d9009c6f91: "wound" },
+} as const;
 export const hamletEventCardSchema = z.strictObject({
   id: z.string().regex(/^hamlet_event:p\d{3}$/),
   name: z.string().min(1),
@@ -25,6 +32,7 @@ export const hamletEventCardSchema = z.strictObject({
     "unsettlingDarkness",
     "travelingMerchants",
     "guildTraining",
+    "militiaTraining",
     "inGoodSpirits",
     "unimplemented",
   ]),
