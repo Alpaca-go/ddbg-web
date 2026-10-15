@@ -21,6 +21,8 @@ const expected = [
   ["monster_medium:p034", 2],
   ["monster_medium:p037", 1],
   ["monster_medium:p013", 2],
+  ["monster_medium:p050", 3],
+  ["monster_medium:p053", 3],
 ] as const;
 const originals = built.monster_medium.cards.map((card) => {
   const copy = structuredClone(card);
@@ -30,7 +32,7 @@ const originals = built.monster_medium.cards.map((card) => {
 const soldier = originals.find((card) => card.id === "monster_medium:p001")!;
 
 describe("获批中型怪物 Speed 入库（R24、R-001、R-048）", () => {
-  it("十四个I级与一张II级获批普通卡带正确数值，大型仅L2获批", () => {
+  it("十四个I级与三张II级获批普通卡带正确数值，大型L1–3已获批", () => {
     expect(verifiedMonsterSpeeds.map((entry) => [entry.id, entry.speed])).toEqual(expected);
     expect(
       built.monster_medium.cards
@@ -47,7 +49,13 @@ describe("获批中型怪物 Speed 入库（R24、R-001、R-048）", () => {
       expect(card.verification.unverified, id).toBe(false);
     }
     for (const card of built.monster_large.cards)
-      expect(card.speed, card.id).toBe(card.id === "monster_large:p002" ? 1 : undefined);
+      expect(card.speed, card.id).toBe(
+        ["monster_large:p001", "monster_large:p002"].includes(card.id)
+          ? 1
+          : card.id === "monster_large:p003"
+            ? 2
+            : undefined,
+      );
     expect(loadNormalizedCorebox()).toEqual(built);
   });
 

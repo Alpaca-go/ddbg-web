@@ -543,6 +543,8 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
+   "innateProtection": false,
    "resistances": [
     {
      "iconId": "ed2299539e",
@@ -1128,7 +1130,21 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}2t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -1436,6 +1452,33 @@
       }
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 6,
+       "skill": 1
+      },
+      {
+       "min": 7,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    },
+    {
+     "stances": [
+      "ranged",
+      "support"
+     ],
+     "skill": 2
+    }
    ],
    "back_texts": []
   },
@@ -4417,6 +4460,8 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
+   "innateProtection": true,
    "resistances": [
     {
      "iconId": "fd4e85ea9d",
@@ -5944,6 +5989,49 @@
       }
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 4,
+       "skill": 1
+      },
+      {
+       "min": 5,
+       "max": 7,
+       "skill": 2
+      },
+      {
+       "min": 8,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    },
+    {
+     "stances": [
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 2
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    }
    ],
    "back_texts": []
   },

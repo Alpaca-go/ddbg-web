@@ -65,7 +65,129 @@ function deploy(seed: number) {
   const room = ok(initial, { type: "prepareDungeonBattle" });
   return { initial, deployed: ok(room.state, { type: "prepareDungeonMonsters" }).state };
 }
-it("R-082限定一张II级：四姿态全部骰面符合独立黄金表，其他高等级未获批", () => {
+it("R-083完整53张池真实抽到Captain/Gargoyle可入场，Rattler/Ghoul保留效果停点", () => {
+  for (const [id, seed, supported] of [
+    ["monster_medium:p050", 3, true],
+    ["monster_large:p001", 13, true],
+    ["monster_medium:p053", 6, false],
+    ["monster_large:p003", 91, false],
+  ] as const) {
+    const { initial, deployed } = deploy(seed),
+      before = structuredClone(deployed);
+    const pool = deployed.dungeon!.monsterPool!;
+    expect(pool.active!.monsters.some((m) => m.cardId === id)).toBe(true);
+    expect(
+      [
+        ...pool.remaining!,
+        ...pool.discarded,
+        ...pool.active!.monsters.map((m) => m.instanceId),
+      ].sort(),
+    ).toEqual(
+      ruinsMonsterPoolThrough(pool.cards, 2)
+        .map((m) => m.instanceId)
+        .sort(),
+    );
+    const result = applyCommand(deployed, { type: "startDungeonBattle" });
+    if (supported) {
+      expect(
+        result.events.some((e) => e.type === "commandRefused"),
+        JSON.stringify(result.events),
+      ).toBe(false);
+      const entity = result.state.battle!.entities.find((e) => e.monsterCardId === id)!;
+      expect(entity).toMatchObject(
+        id === "monster_medium:p050"
+          ? { life: 7, dodge: 2, innateProtection: true, protection: true, stanceSlots: 1 }
+          : { life: 33, dodge: 1, innateProtection: false, protection: false, stanceSlots: 2 },
+      );
+      expect(result.state.battle!.rngCursor).toBe(deployed.dungeon!.cursor);
+      expect(result.state.dungeon!.gold).toBe(deployed.dungeon!.gold);
+      expect(
+        [
+          { type: "prepareDungeonBattle" },
+          { type: "prepareDungeonMonsters" },
+          { type: "startDungeonBattle" },
+        ].reduce((s, c) => ok(s, c as Command).state, initial),
+      ).toEqual(result.state);
+    } else {
+      expect(result.state).toBe(deployed);
+      expect(result.events).toEqual([
+        expect.objectContaining({
+          type: "commandRefused",
+          message: expect.stringContaining(id.endsWith("p053") ? "Rattler" : "Ghoul"),
+        }),
+      ]);
+    }
+    expect(deployed).toEqual(before);
+  }
+});
+it("Gargoyle常驻Protection在状态堆消退后仍生效，真实Smite伤害8减至4；审批字段缺失拒绝", () => {
+  const deployed = deploy(3).deployed;
+  const entered = ok(deployed, { type: "startDungeonBattle" }).state.battle!;
+  const gargoyle = entered.entities.find((e) => e.monsterCardId === "monster_medium:p050")!;
+  const hero = entered.entities.find((e) => e.side === "hero" && e.hero === "CRUSADER")!;
+  const initial = createBattleState(1, {
+    ...sources.catalog,
+    light: 5,
+    entities: [
+      { ...hero, areaId: "a" },
+      { ...gargoyle, areaId: "a", statusStacks: [{ kind: "protection", remaining: 1 }] },
+    ],
+    areas: [{ id: "a", elevation: "normal", adjacent: [] }],
+  });
+  const awaiting: GameState = {
+    ...initial,
+    battle: {
+      ...initial.battle!,
+      encounter: {
+        round: 1,
+        actedIds: [],
+        deck: ["monster"],
+        turn: { type: "awaitingInitiative" },
+      },
+    },
+  };
+  const ticked = ok(awaiting, { type: "drawInitiative" });
+  expect(ticked.state.battle!.entities.find((e) => e.id === gargoyle.id)).toMatchObject({
+    statusStacks: [],
+    innateProtection: true,
+    protection: true,
+  });
+  const { encounter: _encounter, ...free } = ticked.state.battle!;
+  void _encounter;
+  const attacked = ok(
+    { ...ticked.state, battle: { ...free, rngCursor: 0 } },
+    {
+      type: "playHeroSkill",
+      actorId: hero.id,
+      targetId: gargoyle.id,
+      skillId: "hero_skill:p001",
+    },
+  );
+  expect(attacked.state.battle!.entities.find((e) => e.id === gargoyle.id)).toMatchObject({
+    wounds: 4,
+    protection: true,
+    dead: false,
+  });
+  for (const innateProtection of [undefined, false]) {
+    const invalid = {
+      ...deployed,
+      dungeon: {
+        ...deployed.dungeon!,
+        battleCatalog: {
+          ...deployed.dungeon!.battleCatalog!,
+          monsters: deployed.dungeon!.battleCatalog!.monsters.map((c) => {
+            if (c.id !== gargoyle.monsterCardId) return c;
+            const { innateProtection: _protection, ...rest } = c;
+            void _protection;
+            return innateProtection === undefined ? rest : { ...rest, innateProtection };
+          }),
+        },
+      },
+    };
+    expect(applyCommand(invalid, { type: "startDungeonBattle" }).state).toBe(invalid);
+  }
+});
+it("R-082 Spearman黄金表保留，R-083四卡限定字段获批，不外推其他II/III级", () => {
   expect(spearman).toMatchObject({
     name: "Bone Spearman",
     level: 2,
@@ -85,11 +207,55 @@ it("R-082限定一张II级：四姿态全部骰面符合独立黄金表，其他
         roll: random ? roll : null,
       });
   }
-  for (const card of sources.catalog.monsters.filter((c) => c.level > 1 && c.id !== spearman.id))
-    expect(hasApprovedHigherMonsterFields(card), card.id).toBe(false);
+  for (const card of sources.catalog.monsters.filter((c) => c.level > 1))
+    expect(hasApprovedHigherMonsterFields(card), card.id).toBe(
+      [
+        spearman.id,
+        "monster_medium:p050",
+        "monster_medium:p053",
+        "monster_large:p001",
+        "monster_large:p003",
+      ].includes(card.id),
+    );
   expect(
     sources.monsters.filter((c) => c.level === 2 && !c.missingBattleFields.length).map((c) => c.id),
-  ).toEqual([spearman.id]);
+  ).toHaveLength(5);
+});
+it("Captain/Gargoyle四技能印刷伤害、状态与Push黄金表完整执行，落空不施目标效果", () => {
+  for (const [id, slot, range, count, crit, normal, kind, push] of [
+    ["monster_large:p001", 1, 1, 1, 17, 11, null, true],
+    ["monster_large:p001", 2, 0, 4, 7, 5, "stun", false],
+    ["monster_medium:p050", 1, 0, 2, 6, 4, "debuff", false],
+    ["monster_medium:p050", 2, 1, 1, 4, 3, "stun", true],
+  ] as const) {
+    const card = sources.catalog.monsters.find((c) => c.id === id)!;
+    for (const [roll, damage] of [
+      [1, crit],
+      [3, normal],
+      [10, 0],
+    ]) {
+      const r = resolveMonsterSkill(
+        card,
+        slot,
+        {
+          actor: { id: "m", wounds: 0 },
+          target: { id: "h", side: "hero", wounds: 0, stress: 0, dodge: 0 },
+          areaDistance: range,
+          targetsInArea: count,
+        },
+        roll!,
+      );
+      if (r.status !== "resolved") throw new Error(r.reason);
+      expect(r.resolution.skipped).toEqual([]);
+      expect(r.resolution.damageDealt).toBe(roll === 10 ? null : damage);
+      expect(r.resolution.targetShuffle).toEqual(
+        push && roll !== 10 ? { direction: "push", distance: 1 } : null,
+      );
+      expect(r.resolution.targetStatusEffects ?? []).toEqual(
+        kind && roll !== 10 ? [expect.objectContaining({ kind, duration: 2 })] : [],
+      );
+    }
+  }
 });
 it("完整53张池seed10真实混合部署可入场，来源/资源/RNG不改，原命令可回放", () => {
   const { initial, deployed } = deploy(10),
@@ -122,7 +288,7 @@ it("完整53张池seed10真实混合部署可入场，来源/资源/RNG不改，
   ];
   expect(commands.reduce((s, c) => ok(s, c).state, initial)).toEqual(entered.state);
 });
-it("未批准Gargoyle或Spearman审批字段漂移，整次拒绝，保留抽牌/部署/游标/奖励", () => {
+it("Spearman审批字段漂移整次拒绝，保留抽牌/部署/游标/奖励", () => {
   const blocked = deploy(3).deployed;
   expect(
     blocked.dungeon!.monsterPool!.active!.monsters.some((m) => m.cardId === "monster_medium:p050"),
@@ -132,7 +298,6 @@ it("未批准Gargoyle或Spearman审批字段漂移，整次拒绝，保留抽牌
   const { pages: _pages, ...noPages } = spearman;
   void _pages;
   const invalid = [
-    blocked,
     ...[
       { ...spearman, name: "Gargoyle" },
       { ...spearman, level: 1 },

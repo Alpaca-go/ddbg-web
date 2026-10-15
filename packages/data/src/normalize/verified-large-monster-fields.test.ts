@@ -14,7 +14,7 @@ const originals = built.monster_large.cards.map((card) => {
   delete copy.stanceGroups;
   return copy;
 });
-it("只附加获批L2，M30参考卡与其他大型卡不补值；不修改输入或其他字段", () => {
+it("只附加获批L1–3，参考卡与其他大型卡不补值；不修改输入或其他字段", () => {
   const before = structuredClone(originals),
     actual = attachVerifiedLargeMonsterFields(originals);
   expect(actual).toEqual(built.monster_large.cards);
@@ -22,7 +22,9 @@ it("只附加获批L2，M30参考卡与其他大型卡不补值；不修改输�
   expect(attachVerifiedLargeMonsterFields(actual)).toEqual(actual);
   expect(attachVerifiedLargeMonsterFields(originals, [])).toEqual(originals);
   expect(actual.filter((c) => c.speed !== undefined).map((c) => c.id)).toEqual([
+    "monster_large:p001",
     "monster_large:p002",
+    "monster_large:p003",
   ]);
   const reference = built.monster_medium.cards.find((c) => c.id === "monster_medium:p030")!;
   expect("speed" in reference).toBe(false);
@@ -57,8 +59,31 @@ it("L2全部姿态/d10按印刷表选招，大型两格取高优先姿态", () =
     skillSlot: 3,
   });
 });
+it("R-083 Captain/Ghoul四姿态全部骰面符合独立印刷表，大型取占用前姿态", () => {
+  for (const [id, speed, a, s] of [
+    ["monster_large:p001", 1, [1, 1, 1, 1, 1, 1, 2, 2, 2, 2], Array(10).fill(2)],
+    ["monster_large:p003", 2, [1, 1, 1, 1, 2, 2, 2, 3, 3, 3], [2, 2, 2, 2, 2, 3, 3, 3, 3, 3]],
+  ] as const) {
+    const card = built.monster_large.cards.find((c) => c.id === id)!;
+    const view = { ...card, stanceGroups: card.stanceGroups! };
+    expect(card.speed).toBe(speed);
+    for (const stance of ["aggressive", "defensive", "ranged", "support"] as const)
+      for (let roll = 1; roll <= 10; roll++) {
+        const expected =
+          stance === "support" || (id.endsWith("p001") && stance === "ranged") ? s : a;
+        expect(selectMonsterSkill(view, [stance], roll)).toMatchObject({
+          status: "selected",
+          skillSlot: expected[roll - 1],
+        });
+      }
+    expect(selectMonsterSkill(view, ["support", "ranged"], 1)).toMatchObject({
+      status: "selected",
+      skillSlot: id.endsWith("p001") ? 2 : 1,
+    });
+  }
+});
 it("身份漂移、重复映射、脏Speed、冲突与缺技能引用原子拒绝", () => {
-  const entry = verifiedLargeMonsterFields[0]!;
+  const entry = verifiedLargeMonsterFields.find((e) => e.id === "monster_large:p002")!;
   for (const entries of [
     [entry, entry],
     [{ ...entry, id: "monster_large:p999" }],
