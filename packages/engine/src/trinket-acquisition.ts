@@ -51,6 +51,17 @@ export function createTrinketPool(
   return pool;
 }
 
+function trinketCardOk(card: NormalizedTrinketCard, expectedLevel?: number) {
+  return (
+    normalizedTrinketCardSchema.safeParse(card).success &&
+    (expectedLevel === undefined || card.level === expectedLevel) &&
+    card.back_level === card.level &&
+    card.copies === 1 &&
+    card.pages.length === 1 &&
+    card.id === `trinket:p${String(card.pages[0]).padStart(3, "0")}`
+  );
+}
+
 /** 只校验身份 / 持牌与容量；不解释卡面未知图标或执行饰品能力。 */
 export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): string | null {
   if (
@@ -64,20 +75,20 @@ export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): 
   )
     return "饰品池结构无效";
   const canonical = idsFor(pool.level);
+  const foreignHeldIds = [
+    ...new Set(pool.held.map((h) => h.cardId).filter((id) => !canonical.includes(id))),
+  ];
+  const dungeonCards = pool.cards.filter((c) => c.level === pool.level);
+  const foreignCards = pool.cards.filter((c) => c.level !== pool.level);
   if (
-    pool.cards.length !== canonical.length ||
-    pool.cards.some((c) => !normalizedTrinketCardSchema.safeParse(c).success) ||
-    new Set(pool.cards.map((c) => c.id)).size !== canonical.length ||
-    pool.cards.some(
-      (c) =>
-        !normalizedTrinketCardSchema.safeParse(c).success ||
-        !canonical.includes(c.id) ||
-        c.level !== pool.level ||
-        c.back_level !== pool.level ||
-        c.copies !== 1 ||
-        c.pages.length !== 1 ||
-        c.id !== `trinket:p${String(c.pages[0]).padStart(3, "0")}`,
-    )
+    dungeonCards.length !== canonical.length ||
+    new Set(dungeonCards.map((c) => c.id)).size !== canonical.length ||
+    canonical.some(
+      (id) => !dungeonCards.some((c) => c.id === id && trinketCardOk(c, pool.level)),
+    ) ||
+    foreignCards.length !== foreignHeldIds.length ||
+    new Set(foreignCards.map((c) => c.id)).size !== foreignHeldIds.length ||
+    foreignHeldIds.some((id) => !foreignCards.some((c) => c.id === id && trinketCardOk(c)))
   )
     return "饰品需要完整等级牌堆及获批身份，不能修改概率（R-048）";
   if (
@@ -91,27 +102,58 @@ export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): 
         !pool.cards.some((card) => card.id === c.cardId && !card.verification.unverified),
     ) ||
     heroes.some((h) => pool.held.filter((c) => c.heroId === h.id).length > h.level!) ||
-    (pool.incoming && !heroes.some((h) => h.id === pool.incoming!.actorId && !h.dead))
+    (pool.incoming &&
+      (!heroes.some((h) => h.id === pool.incoming!.actorId && !h.dead) ||
+        !canonical.includes(pool.incoming.cardId)))
   )
     return "饰品持有者、英雄等级、装备复核或容量无效（R26、R-048）";
-  const held = pool.held.map((h) => h.cardId);
+  const dungeonHeld = pool.held.map((h) => h.cardId).filter((id) => canonical.includes(id));
   const parts = [
     ...(pool.deck ??
       canonical.filter(
-        (id) => !held.includes(id) && !pool.discard.includes(id) && !pool.display?.includes(id),
+        (id) =>
+          !dungeonHeld.includes(id) && !pool.discard.includes(id) && !pool.display?.includes(id),
       )),
     ...(pool.display ?? []),
     ...pool.discard,
-    ...held,
+    ...dungeonHeld,
     ...(pool.incoming ? [pool.incoming.cardId] : []),
   ];
   if (
     parts.length !== canonical.length ||
     new Set(parts).size !== canonical.length ||
-    parts.some((id) => !canonical.includes(id))
+    parts.some((id) => !canonical.includes(id)) ||
+    pool.discard.some((id) => !canonical.includes(id)) ||
+    (pool.display ?? []).some((id) => !canonical.includes(id))
   )
     return "饰品牌堆、弃牌、持牌与待选入牌不守恒";
   return null;
+}
+
+/** R35 / R-037：地牢饰品改为新等级；已装备的上一级饰品保留在英雄身上，不进新牌堆。 */
+export function switchTrinketDungeonLevel(
+  pool: TrinketPool,
+  catalog: readonly NormalizedTrinketCard[],
+  level: 1 | 2 | 3,
+): TrinketPool | { readonly reason: string } {
+  if (pool.level === level) return pool;
+  if (pool.incoming || pool.display?.length)
+    return { reason: "须先清空游商陈列与待选饰品，才能切换地牢饰品等级（R35）" };
+  const next = createTrinketPool(catalog, level);
+  const foreign = pool.held.filter((h) => !idsFor(level).includes(h.cardId));
+  const foreignCards = foreign.map(
+    (h) => pool.cards.find((c) => c.id === h.cardId) ?? catalog.find((c) => c.id === h.cardId),
+  );
+  if (foreignCards.some((c) => !c || !trinketCardOk(c) || c.verification.unverified))
+    return { reason: "已装备的上一级饰品缺失或未核实，不能切换地牢饰品等级（R-048）" };
+  return {
+    ...next,
+    cards: [...next.cards, ...foreignCards.filter((c): c is NormalizedTrinketCard => !!c)],
+    held: [...pool.held],
+    deck: null,
+    discard: [],
+    incoming: null,
+  };
 }
 
 export function drawTrinket(
@@ -183,11 +225,13 @@ export function trinketOptions(pool: TrinketPool, heroes: readonly Hero[]) {
     });
   for (const held of pool.held.filter((c) => living.some((h) => h.id === c.heroId))) {
     const name = pool.cards.find((c) => c.id === held.cardId)!.name;
-    options.push({
-      id: `discard:${held.cardId}`,
-      label: `弃掉 ${held.heroId} 的 ${name}，腾出位置`,
-      action: { type: "discardHeld", cardId: held.cardId },
-    });
+    // 跨级弃牌尚无独立归还池；不能混入当前地牢弃牌而破坏守恒。
+    if (idsFor(pool.level).includes(held.cardId))
+      options.push({
+        id: `discard:${held.cardId}`,
+        label: `弃掉 ${held.heroId} 的 ${name}，腾出位置`,
+        action: { type: "discardHeld", cardId: held.cardId },
+      });
     for (const hero of free.filter((h) => h.id !== held.heroId))
       options.push({
         id: `transfer:${held.cardId}:${hero.id}`,

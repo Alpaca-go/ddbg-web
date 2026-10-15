@@ -9,6 +9,7 @@ import { visitNomadWagon, chooseNomadWagon } from "./hamlet-nomad";
 import { visitBlacksmith } from "./hamlet-blacksmith";
 import { visitGuild, chooseGuild } from "./hamlet-guild";
 import { offerNextQuest, chooseNextQuest } from "./hamlet-embark";
+import { advanceCampaignLevel } from "./hamlet-campaign";
 import type { BlacksmithCommand } from "./hamlet-blacksmith";
 import type { HamletActionCommand } from "./hamlet-actions";
 import { upgradeHamletBuilding } from "./hamlet-buildings";
@@ -146,6 +147,7 @@ export type Command =
   | { readonly type: "finishReturnToHamlet" }
   | { readonly type: "drawHamletEvent" }
   | { readonly type: "offerNextQuest" }
+  | { readonly type: "advanceCampaignLevel" }
   | { readonly type: "rollHamletCaretaker" }
   | DungeonCommand
   | PlayHeroSkillEmptyAreaCommand
@@ -322,6 +324,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       ? chooseNextQuest(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先选择下一任务");
   if (command.type === "offerNextQuest") return offerNextQuest(state);
+  if (command.type === "advanceCampaignLevel") return advanceCampaignLevel(state);
   if (state.dungeon?.pending?.id.startsWith("hamlet-guild:"))
     return command.type === "resolveChoice"
       ? chooseGuild(state, command.choiceId, command.optionId)

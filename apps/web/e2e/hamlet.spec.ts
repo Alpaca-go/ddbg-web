@@ -560,7 +560,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await expect(page.getByTestId("dungeon-gold")).toHaveText(
     `共享金币：${guild.game.dungeon!.gold - 1}`,
   );
-  await expect(page.getByTestId("guild-skills")).toContainText("hero-0 XP 0，永久移除1张");
+  await expect(page.getByTestId("guild-skills")).toContainText("hero-0 HL1 XP 0，永久移除1张");
   await expect(page.getByTestId("guild-skills")).toContainText("Smite 2");
   await expect(page.getByRole("button", { name: /^永久升级 / })).toHaveCount(0);
   await page.getByRole("button", { name: "保存进度", exact: true }).click();

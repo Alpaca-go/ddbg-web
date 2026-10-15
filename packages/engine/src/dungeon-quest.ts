@@ -15,7 +15,7 @@ export function readDungeonQuestProgress(d: DungeonState) {
   const layout = dungeonLayoutSchema.safeParse(d.layout);
   const rooms = questRoomsSchema.safeParse(d.rooms);
   if (!quest || !layout.success || !rooms.success)
-    return refuse("任务身份或清理记录缺失 / 无效；仅接已核对I级基础任务（R-048）");
+    return refuse("任务身份或清理记录缺失 / 无效；仅接已核对基础任务（R-048）");
   const slots = layout.data.nodes.filter((n) => n.kind === "room").map((n) => n.id);
   const actualCounts = [...new Set(rooms.data.map((r) => r.kind))].map((kind) => ({
     kind,
@@ -36,7 +36,7 @@ export function readDungeonQuestProgress(d: DungeonState) {
     d.monsterPool?.active ||
     d.curio?.active ||
     d.pendingCurioDraw ||
-    (d.explorationSetup && d.explorationSetup.dungeonLevel !== 1) ||
+    (d.explorationSetup && d.explorationSetup.dungeonLevel !== quest.level) ||
     d.exploration?.rolls?.some((r) => !r.resolved) ||
     (d.roomResolution && !d.roomResolution.completed)
   )

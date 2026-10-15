@@ -7,6 +7,7 @@ import {
   chooseTrinket,
   trinketOptions,
   trinketPoolProblem,
+  switchTrinketDungeonLevel,
 } from "./trinket-acquisition";
 const cards = normalizedTrinketFileSchema.parse(raw).cards;
 const heroes = [
@@ -98,4 +99,45 @@ it("缩减 / 重复 / 耗尽 / 越容拒绝，不从弃牌重洗，不使用未�
   ])
     expect(drawTrinket(bad, heroes, "a", 1, 38).status).toBe("refused");
   expect(drawTrinket(pool, [{ id: "a" }], "a", 1, 38).status).toBe("refused");
+});
+it("R35：切换地牢饰品等级时保留已装备上一级卡，新牌堆为完整下级", () => {
+  const base = createTrinketPool(cards, 1);
+  const held = {
+    ...base,
+    deck: base.cards.map((c) => c.id).filter((id) => id !== "trinket:p001"),
+    held: [{ cardId: "trinket:p001", heroId: "a", face: "upright" as const }],
+  };
+  const switched = switchTrinketDungeonLevel(held, cards, 2);
+  expect("reason" in switched).toBe(false);
+  if ("reason" in switched) return;
+  expect(switched.level).toBe(2);
+  expect(switched.held).toEqual(held.held);
+  expect(switched.cards.some((c) => c.id === "trinket:p001" && c.level === 1)).toBe(true);
+  expect(switched.cards.filter((c) => c.level === 2)).toHaveLength(12);
+  expect(
+    trinketPoolProblem(switched, [
+      { id: "a", level: 2 },
+      { id: "b", level: 1 },
+    ]),
+  ).toBeNull();
+  const incoming = {
+    ...switched,
+    deck: switched.cards.filter((c) => c.level === 2 && c.id !== "trinket:p017").map((c) => c.id),
+    incoming: { cardId: "trinket:p017", actorId: "a" },
+  };
+  const before = structuredClone(incoming);
+  expect(trinketOptions(incoming, heroes).map((o) => o.id)).toContain("transfer:trinket:p001:b");
+  expect(trinketOptions(incoming, heroes).map((o) => o.id)).not.toContain("discard:trinket:p001");
+  expect(chooseTrinket(incoming, heroes, "discard:trinket:p001").status).toBe("refused");
+  const transferred = chooseTrinket(incoming, heroes, "transfer:trinket:p001:b");
+  if (transferred.status !== "resolved") throw new Error(transferred.reason);
+  const equipped = chooseTrinket(transferred.pool, heroes, "equip:a");
+  if (equipped.status !== "resolved") throw new Error(equipped.reason);
+  expect(trinketPoolProblem(equipped.pool, heroes)).toBeNull();
+  expect(equipped.pool.held).toContainEqual({
+    cardId: "trinket:p001",
+    heroId: "b",
+    face: "upright",
+  });
+  expect(incoming).toEqual(before);
 });

@@ -1,0 +1,10 @@
+{
+  "questId": "quest:p008",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p8; R15 / R29 / R-038; room kinds from I-level print-reviewed icon map (dark/curio/lair/trap) 2026-10-15",
+  "counts": [
+    { "kind": "dark", "count": 1 },
+    { "kind": "curio", "count": 2 },
+    { "kind": "lair", "count": 3 },
+    { "kind": "trap", "count": 2 }
+  ]
+}

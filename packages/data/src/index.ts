@@ -1,5 +1,10 @@
 import { z } from "zod";
-export { monsterPoolCatalogSchema, monsterPoolFileSchema, ruinsMonsterPool } from "./monster-pool";
+export {
+  monsterPoolCatalogSchema,
+  monsterPoolFileSchema,
+  ruinsMonsterPool,
+  ruinsMonsterPoolThrough,
+} from "./monster-pool";
 export type { MonsterPoolCard } from "./monster-pool";
 export { curioCardSchema, curioCatalogSchema, curioFileSchema } from "./curio";
 export type { CurioCard, CurioEffect } from "./curio";
