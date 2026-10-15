@@ -127,8 +127,13 @@ it("R35：切换地牢饰品等级时保留已装备上一级卡，新牌堆为�
   };
   const before = structuredClone(incoming);
   expect(trinketOptions(incoming, heroes).map((o) => o.id)).toContain("transfer:trinket:p001:b");
-  expect(trinketOptions(incoming, heroes).map((o) => o.id)).not.toContain("discard:trinket:p001");
-  expect(chooseTrinket(incoming, heroes, "discard:trinket:p001").status).toBe("refused");
+  expect(trinketOptions(incoming, heroes).map((o) => o.id)).toContain("discard:trinket:p001");
+  const discarded = chooseTrinket(incoming, heroes, "discard:trinket:p001");
+  if (discarded.status !== "resolved") throw new Error(discarded.reason);
+  expect(discarded.pool.discard).toEqual([]);
+  expect(discarded.pool.inactive![0]!.discard).toEqual(["trinket:p001"]);
+  expect(trinketPoolProblem(discarded.pool, heroes)).toBeNull();
+  expect(chooseTrinket(discarded.pool, heroes, "equip:a").status).toBe("resolved");
   const transferred = chooseTrinket(incoming, heroes, "transfer:trinket:p001:b");
   if (transferred.status !== "resolved") throw new Error(transferred.reason);
   const equipped = chooseTrinket(transferred.pool, heroes, "equip:a");

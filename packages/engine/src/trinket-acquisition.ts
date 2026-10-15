@@ -16,6 +16,12 @@ export type TrinketPool = {
   readonly incoming: { readonly cardId: string; readonly actorId: string } | null;
   /** R33：村庄陈列品不属于牌堆/弃牌/持牌；首次来访后即使买空也不补货。 */
   readonly display?: readonly string[];
+  /** R26/R32/R35：旧等级牌堆单独保留，弃下的旧装备不能进入当前抽牌堆。 */
+  readonly inactive?: readonly {
+    readonly level: 1 | 2 | 3;
+    readonly deck: readonly string[] | null;
+    readonly discard: readonly string[];
+  }[];
 };
 type Action =
   | { type: "discardNew" }
@@ -57,6 +63,7 @@ function trinketCardOk(card: NormalizedTrinketCard, expectedLevel?: number) {
     (expectedLevel === undefined || card.level === expectedLevel) &&
     card.back_level === card.level &&
     card.copies === 1 &&
+    idsFor(card.level).includes(card.id) &&
     card.pages.length === 1 &&
     card.id === `trinket:p${String(card.pages[0]).padStart(3, "0")}`
   );
@@ -71,13 +78,31 @@ export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): 
     !Array.isArray(pool.discard) ||
     !Array.isArray(pool.held) ||
     (pool.deck !== null && !Array.isArray(pool.deck)) ||
+    (pool.inactive !== undefined &&
+      (!Array.isArray(pool.inactive) ||
+        pool.inactive.some(
+          (p) =>
+            !p ||
+            ![1, 2, 3].includes(p.level) ||
+            p.level >= pool.level ||
+            (p.deck !== null && !Array.isArray(p.deck)) ||
+            !Array.isArray(p.discard),
+        ) ||
+        new Set(pool.inactive.map((p) => p.level)).size !== pool.inactive.length)) ||
     (pool.display !== undefined && (!Array.isArray(pool.display) || pool.display.length > 3))
   )
     return "饰品池结构无效";
   const canonical = idsFor(pool.level);
+  const inactive = pool.inactive ?? [];
+  const archivedIds = inactive.flatMap((p) => idsFor(p.level));
   const foreignHeldIds = [
-    ...new Set(pool.held.map((h) => h.cardId).filter((id) => !canonical.includes(id))),
+    ...new Set(
+      pool.held
+        .map((h) => h.cardId)
+        .filter((id) => !canonical.includes(id) && !archivedIds.includes(id)),
+    ),
   ];
+  const foreignIds = [...archivedIds, ...foreignHeldIds];
   const dungeonCards = pool.cards.filter((c) => c.level === pool.level);
   const foreignCards = pool.cards.filter((c) => c.level !== pool.level);
   if (
@@ -86,9 +111,9 @@ export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): 
     canonical.some(
       (id) => !dungeonCards.some((c) => c.id === id && trinketCardOk(c, pool.level)),
     ) ||
-    foreignCards.length !== foreignHeldIds.length ||
-    new Set(foreignCards.map((c) => c.id)).size !== foreignHeldIds.length ||
-    foreignHeldIds.some((id) => !foreignCards.some((c) => c.id === id && trinketCardOk(c)))
+    foreignCards.length !== foreignIds.length ||
+    new Set(foreignCards.map((c) => c.id)).size !== foreignIds.length ||
+    foreignIds.some((id) => !foreignCards.some((c) => c.id === id && trinketCardOk(c)))
   )
     return "饰品需要完整等级牌堆及获批身份，不能修改概率（R-048）";
   if (
@@ -127,6 +152,23 @@ export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): 
     (pool.display ?? []).some((id) => !canonical.includes(id))
   )
     return "饰品牌堆、弃牌、持牌与待选入牌不守恒";
+  if (new Set(pool.held.map((h) => h.cardId)).size !== pool.held.length) return "饰品持牌重复";
+  for (const previous of inactive) {
+    const ids = idsFor(previous.level);
+    const held = pool.held.map((h) => h.cardId).filter((id) => ids.includes(id));
+    const parts = [
+      ...(previous.deck ??
+        ids.filter((id) => !held.includes(id) && !previous.discard.includes(id))),
+      ...previous.discard,
+      ...held,
+    ];
+    if (
+      parts.length !== ids.length ||
+      new Set(parts).size !== ids.length ||
+      parts.some((id) => !ids.includes(id))
+    )
+      return "旧等级饰品牌堆、弃牌与持牌不守恒";
+  }
   return null;
 }
 
@@ -137,6 +179,7 @@ export function switchTrinketDungeonLevel(
   level: 1 | 2 | 3,
 ): TrinketPool | { readonly reason: string } {
   if (pool.level === level) return pool;
+  if (level !== pool.level + 1) return { reason: "饰品牌堆仅按相邻等级向上切换（R35）" };
   if (pool.incoming || pool.display?.length)
     return { reason: "须先清空游商陈列与待选饰品，才能切换地牢饰品等级（R35）" };
   const next = createTrinketPool(catalog, level);
@@ -148,7 +191,15 @@ export function switchTrinketDungeonLevel(
     return { reason: "已装备的上一级饰品缺失或未核实，不能切换地牢饰品等级（R-048）" };
   return {
     ...next,
-    cards: [...next.cards, ...foreignCards.filter((c): c is NormalizedTrinketCard => !!c)],
+    cards: [
+      ...next.cards,
+      ...catalog.filter((c) => c.level === pool.level),
+      ...pool.cards.filter((c) => c.level !== pool.level),
+    ],
+    inactive: [
+      ...(pool.inactive ?? []),
+      { level: pool.level, deck: pool.deck, discard: pool.discard },
+    ],
     held: [...pool.held],
     deck: null,
     discard: [],
@@ -179,6 +230,7 @@ export function drawTrinket(
   const deck = [
     ...(pool.deck ??
       pool.cards
+        .filter((c) => c.level === pool.level)
         .map((c) => c.id)
         .filter(
           (id) =>
@@ -225,8 +277,10 @@ export function trinketOptions(pool: TrinketPool, heroes: readonly Hero[]) {
     });
   for (const held of pool.held.filter((c) => living.some((h) => h.id === c.heroId))) {
     const name = pool.cards.find((c) => c.id === held.cardId)!.name;
-    // 跨级弃牌尚无独立归还池；不能混入当前地牢弃牌而破坏守恒。
-    if (idsFor(pool.level).includes(held.cardId))
+    if (
+      idsFor(pool.level).includes(held.cardId) ||
+      pool.inactive?.some((p) => idsFor(p.level).includes(held.cardId))
+    )
       options.push({
         id: `discard:${held.cardId}`,
         label: `弃掉 ${held.heroId} 的 ${name}，腾出位置`,
@@ -261,7 +315,15 @@ export function chooseTrinket(pool: TrinketPool, heroes: readonly Hero[], option
           ? {
               ...pool,
               held: pool.held.filter((h) => h.cardId !== a.cardId),
-              discard: [...pool.discard, a.cardId],
+              ...(idsFor(pool.level).includes(a.cardId)
+                ? { discard: [...pool.discard, a.cardId] }
+                : {
+                    inactive: pool.inactive!.map((p) =>
+                      idsFor(p.level).includes(a.cardId)
+                        ? { ...p, discard: [...p.discard, a.cardId] }
+                        : p,
+                    ),
+                  }),
             }
           : {
               ...pool,
