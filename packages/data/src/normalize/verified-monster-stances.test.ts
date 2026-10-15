@@ -10,7 +10,7 @@ const originals = built.monster_medium.cards.map((card) => {
 });
 
 describe("获批怪物姿态映射入库（2026-10-09）", () => {
-  it("仅十四个获批普通卡 id 接入生成层，大型仅 L2 获批", () => {
+  it("十四个I级与一张II级获批普通卡接入生成层，大型仅L2获批", () => {
     const approvedIds = [
       "monster_medium:p001",
       "monster_medium:p004",
@@ -26,6 +26,7 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
       "monster_medium:p024",
       "monster_medium:p034",
       "monster_medium:p037",
+      "monster_medium:p013",
     ];
     expect(verifiedMonsterStances.map((entry) => entry.id).sort()).toEqual(approvedIds.sort());
     for (const card of built.monster_medium.cards) {

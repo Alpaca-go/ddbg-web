@@ -2,6 +2,7 @@ import { readRoomTile } from "./room-tile-selection";
 import { readDungeonQuestProgress } from "./dungeon-quest";
 import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
 import { readCampaignLevel } from "./hamlet-campaign";
+import { hasApprovedHigherMonsterFields } from "../../data/src/normalize/verified-monster-entry";
 import { createBattleState, rejectBattleCommand, skillTargetView } from "./battle";
 import type { BattleEntity } from "./battle";
 import { roomTileBattleAreas } from "./battle-monster-movement";
@@ -132,7 +133,14 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       !card.stanceGroups
     )
       return refuse(`${spawn.cardId} 的完整战斗字段待核实；保留真实部署，不重抽（R-048）`);
-    if (!Number.isSafeInteger(card.dodge) || card.dodge < 0 || card.level !== 1)
+    const identity = d.monsterPool!.cards.find((entry) => entry.combatCardId === spawn.cardId);
+    if (
+      card.level !== identity?.level ||
+      card.level > d.explorationSetup.dungeonLevel ||
+      (card.level !== 1 && !hasApprovedHigherMonsterFields(card))
+    )
+      return refuse(`${card.name} 的等级 / 高等级限定批准不符，保留部署（R-082、R-048）`);
+    if (!Number.isSafeInteger(card.dodge) || card.dodge < 0)
       return refuse(`${card.name} 缺少唯一已核实 Dodge`);
     if (
       !card.resistances ||

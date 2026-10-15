@@ -795,6 +795,12 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定 / 限定批准**：Kyries本轮明确“批准这八张卡的表格”。四核心II/III级完整抗性/免疫按[核对表](hero-higher-defence-review-2026-10-15.md)读取：Crusader II抗Stun/Shuffle，III抗Stun/Debuff且免疫Shuffle；Hellion II抗Bleed/Blight，III抗Stun/Bleed/Blight；Highwayman II抗Stun/Bleed，III抗Stun/Bleed/Blight；Vestal II抗Stun/Bleed，III抗Stun/Bleed且免疫Disease；其余免疫栏为空。
 - **依据 / 边界**：当前版Hero STAT FRONT p2/4/8/10及BACK p1/3/7/9完整左右栏，R21/R27术语。只限这八张卡，不改全局词典、不外推其他卡；原始未命名图标/整卡unverified原因保留。数据批准不等于高等级战斗/疾病/位移运行时已完成。Q-84，confirmed。
 
+### R-082
+
+- **编号 / 日期**：R-082，2026-10-15（UTC+8）。
+- **限定批准**：Kyries明确回复“批准这一条”：Bone Spearman II（`monster_medium:p013`，实体M13–15）Speed=2；Aggressive/Defensive共用d10选招表，1–5用技能2，6–10用技能1；Ranged/Support共用固定技能1。
+- **依据 / 边界**：当前版monsters_medium_FRONT完整M13–15、官方R24、R-015/R-048，见[核对记录](phase4-ii-monster-review-2026-10-15.md)。仅此卡Speed/选招，不批准其余II级卡，不改全局图标词典；完整技能及入场另行验证，不自动进入Phase5。Q-85，confirmed。
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。
@@ -1056,3 +1062,8 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **问题 / 来源**：四核心英雄II/III级完整抗性/免疫未在原四张I级批准范围内，Hero STAT FRONT p2/4/8/10及BACK p1/3/7/9。
 - **处理 / 状态**：confirmed（R-081，2026-10-15），Kyries批准八卡限定表；不全局改词典，运行时另题接入。
+
+### Q-85
+
+- **问题 / 来源**：II级怪物缺少已批准Speed/姿态选招，现有I级批准不能外推。
+- **处理 / 状态**：confirmed（R-082，2026-10-15），Kyries仅批准Bone Spearman II（M13–15）Speed=2与A/D骰表2(1–5)/1(6–10)、R/S固定1；其余II级继续待核对。

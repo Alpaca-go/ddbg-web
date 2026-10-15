@@ -6,7 +6,7 @@ import type { NormalizedMonsterMediumCard } from "./schema";
 const entrySchema = z.strictObject({
   id: z.string().min(1),
   name: z.string().min(1),
-  level: z.literal(1),
+  level: z.union([z.literal(1), z.literal(2)]),
   pages: z.array(z.int().positive()).min(1),
   stanceGroups: monsterStanceGroupsSchema,
 });
@@ -194,6 +194,23 @@ export const verifiedMonsterStances = z.array(entrySchema).parse([
     pages: [37, 38, 39],
     stanceGroups: [
       { stances: ["aggressive", "defensive"], skill: 2 },
+      { stances: ["ranged", "support"], skill: 1 },
+    ],
+  },
+  // R-082：限定M13–15，不扩展其他II级或大型参考卡。
+  {
+    id: "monster_medium:p013",
+    name: "Bone Spearman",
+    level: 2,
+    pages: [13, 14, 15],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive"],
+        rollTable: [
+          { min: 1, max: 5, skill: 2 },
+          { min: 6, max: 10, skill: 1 },
+        ],
+      },
       { stances: ["ranged", "support"], skill: 1 },
     ],
   },

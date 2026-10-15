@@ -77,6 +77,7 @@ export type DungeonBattleCatalog = {
     readonly name: string;
     readonly level: number;
     readonly dodge: number;
+    readonly pages?: readonly number[];
   })[];
 };
 

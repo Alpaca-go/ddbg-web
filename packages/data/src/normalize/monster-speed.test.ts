@@ -20,6 +20,7 @@ const expected = [
   ["monster_medium:p024", 1],
   ["monster_medium:p034", 2],
   ["monster_medium:p037", 1],
+  ["monster_medium:p013", 2],
 ] as const;
 const originals = built.monster_medium.cards.map((card) => {
   const copy = structuredClone(card);
@@ -29,7 +30,7 @@ const originals = built.monster_medium.cards.map((card) => {
 const soldier = originals.find((card) => card.id === "monster_medium:p001")!;
 
 describe("获批中型怪物 Speed 入库（R24、R-001、R-048）", () => {
-  it("仅十四个获批普通卡 id 带正确数值，大型仅 L2 获批", () => {
+  it("十四个I级与一张II级获批普通卡带正确数值，大型仅L2获批", () => {
     expect(verifiedMonsterSpeeds.map((entry) => [entry.id, entry.speed])).toEqual(expected);
     expect(
       built.monster_medium.cards
