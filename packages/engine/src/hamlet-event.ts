@@ -12,6 +12,7 @@ import { beginLaborForce } from "./hamlet-labor-force";
 import { applyUnsettlingDarkness } from "./hamlet-unsettling-darkness";
 import { applyTravelingMerchants } from "./hamlet-traveling-merchants";
 import { beginGuildTraining } from "./hamlet-guild-training";
+import { applyInGoodSpirits } from "./hamlet-in-good-spirits";
 import type { DungeonState } from "./dungeon";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;
@@ -118,6 +119,7 @@ export function drawHamletEvent(state: GameState): ApplyResult {
     "unsettlingDarkness",
     "travelingMerchants",
     "guildTraining",
+    "inGoodSpirits",
   ];
   const ready = implemented && !pending && !deferred.includes(card.runtime);
   // R32明确结算后洗回；只有完成的事件才洗回，未完成不替换或重抽。
@@ -150,7 +152,9 @@ export function drawHamletEvent(state: GameState): ApplyResult {
               ? applyTravelingMerchants
               : card.runtime === "guildTraining"
                 ? beginGuildTraining
-                : applyTownFair;
+                : card.runtime === "inGoodSpirits"
+                  ? applyInGoodSpirits
+                  : applyTownFair;
     const result = apply({
       ...state,
       dungeon: { ...dungeonBase, cursor: drawn.cursor, hamlet },

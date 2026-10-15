@@ -56,9 +56,11 @@ export function buildHamletEvents(raw: RawFile) {
                           ? "removeQuirks"
                           : i === 12
                             ? "extraBlock"
-                            : i === 14
-                              ? "guildTraining"
-                              : "unimplemented",
+                            : i === 13
+                              ? "inGoodSpirits"
+                              : i === 14
+                                ? "guildTraining"
+                                : "unimplemented",
       };
     }),
   });

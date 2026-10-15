@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-15）：#191–#196已合并，main `c47b1d1`。当前 `cursor/phase4-in-good-spirits-eca2` 接通 In Good Spirits（卡面p14、d10 `94bfa4dde4` confirmed，事件11/16），见[开发记录](phase4-in-good-spirits-2026-10-15.md)。Militia Training（天数`?`）与含未审图标事件仍停点。下一主题剩余事件（待图标/天数批准）或驿站死亡补人（需扩展英雄池）；Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段事件批次已交付。
+
 > 当前入口（2026-10-15）：#191–#195已合并，main `f75cac8`。当前 `cursor/phase4-hamlet-events-batch-f133` 接通无未审图标的 Guild Training / Unsettling Darkness / Traveling Merchants（事件10/16），见[开发记录](phase4-hamlet-events-batch-2026-10-15.md)。含未审图标的 Supply Run 等仍停点。下一主题剩余事件（如 In Good Spirits）或驿站死亡补人（需扩展英雄池）；Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段高等级出征已交付。
 
 > 当前入口（2026-10-15）：#191–#194已合并，main `6b99c11`。当前 `cursor/phase4-higher-embark-5b82` 接高等级英雄出征与地牢战斗交接（I–III、技能槽=2+HL），见[开发记录](phase4-higher-embark-2026-10-15.md)。优先调查驿站死亡补人：#182仅代币/升级，补人流程仍缺；但仅四名核实英雄且正式入口队满，无可用补员池，故改切本主题。下一主题剩余村庄事件或死亡补人（需扩展英雄池）；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段自然4XP Guild验收已交付。
