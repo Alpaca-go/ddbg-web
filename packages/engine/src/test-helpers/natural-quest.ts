@@ -20,6 +20,13 @@ export const naturalParty = coreParty.map((hero, index) => ({
   ...hero,
   skillIds: equipped[index]!,
 }));
+export type NaturalQuestOptions = {
+  /** Wipe ‘Em Out：至少清理多少间巢穴才离开（默认 1）。 */
+  readonly wipeLairs?: number;
+  /** 从已出征状态续跑（awaitingProvisions / ready），不新建任务入口。 */
+  readonly continueFrom?: GameState;
+};
+
 /** 测试用固定决策驱动，不进入产品；只执行公开命令，不修改任何游戏状态／牌序。 */
 export function naturalQuest(
   seed: number,
@@ -27,8 +34,12 @@ export function naturalQuest(
   keepStop = false,
   sources = coreQuestSources,
   scoutRooms = 2,
+  options: NaturalQuestOptions = {},
 ) {
-  const initial = createCoreDungeonQuest(seed, questId, "radiant", naturalParty, sources);
+  const wipeLairs = options.wipeLairs ?? 1;
+  const initial =
+    options.continueFrom ??
+    createCoreDungeonQuest(seed, questId, "radiant", naturalParty, sources);
   let state = initial;
   const commands: Command[] = [],
     events: GameEvent[] = [];
@@ -258,8 +269,14 @@ export function naturalQuest(
     throw new Error("room loop");
   };
   try {
-    step({ type: "rollDungeonProvisions" });
-    settle();
+    const activeQuestId = (state.dungeon!.questDistribution?.questId ??
+      questId) as BasicQuestId;
+    if (state.dungeon!.phase === "awaitingProvisions") {
+      step({ type: "rollDungeonProvisions" });
+      settle();
+    } else if (state.dungeon!.phase !== "ready") {
+      throw new Error(`unexpected dungeon phase ${state.dungeon!.phase}`);
+    }
     const route = ["G", "D", "A", "B", "A", "D", "E", "D", "G", "H", "G", "F", "C"];
     for (const to of route) {
       if (state.dungeon!.heroes.some((h) => h.dead)) throw new Error("hero died");
@@ -280,16 +297,16 @@ export function naturalQuest(
       const cleared = d.rooms.filter((r) => r.cleared),
         lairs = cleared.filter((r) => r.kind === "lair");
       const done =
-        questId === "quest:p001"
+        activeQuestId === "quest:p001"
           ? cleared.length >= scoutRooms && won > 0
-          : questId === "quest:p002"
-            ? lairs.length > 0
+          : activeQuestId === "quest:p002"
+            ? lairs.length >= wipeLairs
             : lairs.length > 0 && d.gold >= 20;
       if (done) {
         step({ type: "leaveDungeon" });
         choose("agree");
         step({ type: "summarizeDungeonQuest" });
-        if (questId === "quest:p003") choose("give:20");
+        if (activeQuestId === "quest:p003") choose("give:20");
         return { initial, state, commands, events, stopReason: null };
       }
     }

@@ -30,7 +30,7 @@
 
 ## 下一主题
 
-下一任务出征循环、临时技能实际应用/归还、奖励补给骰见 [phase4-next-quest-loop-2026-10-15.md](phase4-next-quest-loop-2026-10-15.md)；连续两任务后的自然4XP Guild英雄升级验收仍后续。
+下一任务出征循环见 [phase4-next-quest-loop-2026-10-15.md](phase4-next-quest-loop-2026-10-15.md)；连续两任务自然4XP Guild升级验收见 [phase4-natural-4xp-guild-2026-10-15.md](phase4-natural-4xp-guild-2026-10-15.md)。
 
 ## 最终验证
 
