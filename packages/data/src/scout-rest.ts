@@ -7,7 +7,7 @@ export const SCOUT_REST_POINTS = 8;
 export const restPoints = (id: BasicQuestId) => basicQuests.find((q) => q.id === id)!.restPoints;
 export const scoutRestSchema = z
   .strictObject({
-    questId: z.enum(["quest:p001", "quest:p002", "quest:p003", "quest:p008"]),
+    questId: z.enum(["quest:p001", "quest:p002", "quest:p003", "quest:p007", "quest:p008"]),
     used: z.boolean(),
     plan: z
       .strictObject({

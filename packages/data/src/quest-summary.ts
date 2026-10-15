@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { basicQuests } from "./basic-quests";
 
 export const questRoomsSchema = z.array(
   z.strictObject({
@@ -70,9 +71,31 @@ export const fundraiserQuestSummarySchema = z
     )
       ctx.addIssue({ code: "custom", message: "Fundraiser捐献 / 巢穴 / 待发XP不一致" });
   });
+/** QUEST p7–8、R15/R29、R-038：仅接受已核对的两张II级任务，不放宽I级schema。 */
+export const level2QuestSummarySchema = z
+  .strictObject({
+    questId: z.enum(["quest:p007", "quest:p008"]),
+    name: z.string(),
+    clearedRoomIds: z.array(z.string().min(1)).max(6),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    const quest = basicQuests.find((q) => q.id === s.questId)!;
+    if (
+      s.name !== quest.name ||
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.clearedRoomIds.length > quest.maxRooms ||
+      s.xpPerHero !== Math.floor(s.clearedRoomIds.length / quest.roomsPerXp) ||
+      s.stagecoachXp !== s.xpPerHero
+    )
+      ctx.addIssue({ code: "custom", message: "II级任务身份 / 清理记录 / 待发XP不一致" });
+  });
 export const dungeonQuestSummarySchema = z.union([
   scoutQuestSummarySchema,
   wipeQuestSummarySchema,
   fundraiserQuestSummarySchema,
+  level2QuestSummarySchema,
 ]);
 export type DungeonQuestSummary = z.infer<typeof dungeonQuestSummarySchema>;
