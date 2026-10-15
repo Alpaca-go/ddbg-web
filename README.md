@@ -25,7 +25,7 @@ pnpm build
 
 接手开发先读 [Codex 总交接](docs/HANDOFF-FROM-CODEX-2026-10-09.md) 顶部的当前入口与最近提交补记；跨代理背景见 [交给 Codex 的说明](docs/HANDOFF-TO-CODEX-2026-10-09.md)。历史段落中的分支 / 合并状态不覆盖当前入口。
 
-本轮补记：#204已审查合并（main `cafde91`）。当前按Kyries本轮批准R-084接Howl逐名光照/压力/疾病、死亡取消与第四怪癖待选续接，Ghoul三招完整可入场；II级五种可战、事件11/16。下一主题为II级自然混合遭遇/退出回村/日志存档验收，见[当前开发记录](docs/phase4-ghoul-howl-2026-10-15.md)。
+本轮补记：#205已合并（main `bfb5221`），II级五种怪物完整可入场。本轮补两张II级任务混合遭遇胜利、提前退出、回村及日志重放验收，另锁住Ghoul重复感染后回村第四负面死亡停点与正式存档拒绝Boss跳过预览的边界；见[当前开发记录](docs/phase4-ii-natural-replay-2026-10-15.md)。事件仍11/16，下一主题剩余村庄事件核对/限定审批，未进入Phase5。
 
 最新补记：#200/#201已合并（main `46ff57a`）；跨等级饰品弃装与旧池回收已接。#202按R-083接四种II级怪物获批基础字段及Captain/Gargoyle完整入场（含常驻Protection），Rattler/Ghoul额外运行时仍停点，见[当前开发记录](docs/phase4-remaining-ii-review-2026-10-15.md)。正式升幕及高等级存档仍未开放。
 

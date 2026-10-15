@@ -1,6 +1,7 @@
 import { applyCommand } from "../command";
 import type { ApplyResult, Command, GameEvent, GameState, PendingChoice } from "../command";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
+import { basicQuests } from "../../../data/src/basic-quests";
 import type { BasicQuestId } from "../../../data/src/basic-quests";
 import { coreParty, coreQuestSources } from "./core-quest";
 import { canRestDungeon } from "../dungeon-rest";
@@ -25,6 +26,10 @@ export type NaturalQuestOptions = {
   readonly wipeLairs?: number;
   /** 从已出征状态续跑（awaitingProvisions / ready），不新建任务入口。 */
   readonly continueFrom?: GameState;
+  /** 仅记录公开命令的观测点；用于在自然战斗待选/结算处验证日志重放。 */
+  readonly observe?: (state: GameState, command: Command) => void;
+  /** 自然完成指定场数后按R14提前离开；不伪造任务目标已完成。 */
+  readonly exitAfterBattles?: number;
 };
 
 /** 测试用固定决策驱动，不进入产品；只执行公开命令，不修改任何游戏状态／牌序。 */
@@ -49,6 +54,7 @@ export function naturalQuest(
     commands.push(command);
     events.push(...r.events);
     state = r.state;
+    options.observe?.(state, command);
     return r;
   };
   const choice = () => state.battle?.pending?.choice ?? state.dungeon?.pending;
@@ -269,6 +275,7 @@ export function naturalQuest(
   };
   try {
     const activeQuestId = (state.dungeon!.questDistribution?.questId ?? questId) as BasicQuestId;
+    const activeQuest = basicQuests.find((q) => q.id === activeQuestId)!;
     if (state.dungeon!.phase === "awaitingProvisions") {
       step({ type: "rollDungeonProvisions" });
       settle();
@@ -295,11 +302,13 @@ export function naturalQuest(
       const cleared = d.rooms.filter((r) => r.cleared),
         lairs = cleared.filter((r) => r.kind === "lair");
       const done =
-        activeQuestId === "quest:p001"
-          ? cleared.length >= scoutRooms && won > 0
-          : activeQuestId === "quest:p002"
-            ? lairs.length >= wipeLairs
-            : lairs.length > 0 && d.gold >= 20;
+        options.exitAfterBattles !== undefined
+          ? events.filter((e) => e.type === "battleFinished").length >= options.exitAfterBattles
+          : activeQuest.xpKind === "all"
+            ? cleared.length >= scoutRooms && won > 0
+            : activeQuest.xpKind === "lair"
+              ? lairs.length >= wipeLairs
+              : lairs.length > 0 && d.gold >= 20;
       if (done) {
         step({ type: "leaveDungeon" });
         choose("agree");
