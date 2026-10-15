@@ -34,6 +34,7 @@ export const hamletEventCardSchema = z.strictObject({
     "guildTraining",
     "militiaTraining",
     "inGoodSpirits",
+    "supplyRun",
     "unimplemented",
   ]),
 });

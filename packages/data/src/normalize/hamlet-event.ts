@@ -22,6 +22,17 @@ export function buildHamletEvents(raw: RawFile) {
         .filter((line) => line.bbox[1] >= effectY[i]!)
         .map((line) => line.text);
       if (
+        i === 0 &&
+        (card.id !== "hamlet_event:p001" ||
+          front.page !== 1 ||
+          match[1] !== "ef839b6878" ||
+          match[2] !== "2" ||
+          match[3] !== "Supply Run" ||
+          JSON.stringify(effectLines) !==
+            JSON.stringify(["Party gains +2 {icon:d712688f15}", "before the next Quest."]))
+      )
+        throw new Error("Supply Run身份或完整效果行漂移（R-048/R-085）");
+      if (
         i === 15 &&
         (card.id !== "hamlet_event:p016" ||
           front.page !== 16 ||
@@ -53,31 +64,33 @@ export function buildHamletEvents(raw: RawFile) {
         ],
         permanentlyRemoved: effectLines.some((line) => line.includes("permanently")),
         runtime:
-          i === 1
-            ? "noCaretaker"
-            : i === 3
-              ? "unsettlingDarkness"
-              : i === 4
-                ? "none"
-                : i === 5
-                  ? "laborForce"
-                  : i === 6
-                    ? "townFair"
-                    : i === 7
-                      ? "travelingMerchants"
-                      : i === 10
-                        ? "removeDisease"
-                        : i === 11
-                          ? "removeQuirks"
-                          : i === 12
-                            ? "extraBlock"
-                            : i === 13
-                              ? "inGoodSpirits"
-                              : i === 14
-                                ? "guildTraining"
-                                : i === 15
-                                  ? "militiaTraining"
-                                  : "unimplemented",
+          i === 0
+            ? "supplyRun"
+            : i === 1
+              ? "noCaretaker"
+              : i === 3
+                ? "unsettlingDarkness"
+                : i === 4
+                  ? "none"
+                  : i === 5
+                    ? "laborForce"
+                    : i === 6
+                      ? "townFair"
+                      : i === 7
+                        ? "travelingMerchants"
+                        : i === 10
+                          ? "removeDisease"
+                          : i === 11
+                            ? "removeQuirks"
+                            : i === 12
+                              ? "extraBlock"
+                              : i === 13
+                                ? "inGoodSpirits"
+                                : i === 14
+                                  ? "guildTraining"
+                                  : i === 15
+                                    ? "militiaTraining"
+                                    : "unimplemented",
       };
     }),
   });
