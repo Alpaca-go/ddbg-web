@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-15）：#191/#192/#193已合并，main `c6a0567`。当前 `cursor/phase4-natural-4xp-guild-6df4` 接连续两任务自然命令路径攒满4XP→Guild英雄升II验收（seed14 Scout四房2XP→Wipe两巢穴2XP），见[开发记录](phase4-natural-4xp-guild-2026-10-15.md)。正式地牢仍仅I级。下一主题剩余村庄事件/驿站死亡补人或高等级出征；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段出征循环已交付。
+
 > 当前入口（2026-10-15）：#191/#192已合并，main `b1c225c`。当前 `cursor/phase4-next-quest-loop-1c30` 接准备结束后抽选下一任务、出征应用铁匠临时技能、R-041奖励补给骰掷出与任务结束归还，见[开发记录](phase4-next-quest-loop-2026-10-15.md)。正式地牢仍仅I级；自然两任务4XP未验收。下一主题优先连续两任务自然XP路径/Guild英雄升级验收，或剩余村庄事件与驿站死亡补人；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段Guild英雄升级已交付。
 
 > 当前入口（2026-10-15）：#191防御运行时仍为独立 tip；当前 `cursor/phase4-guild-hero-upgrade-3c8e` 接Guild英雄等级升级（4XP+2金）、未装备拥有技能永久升级、`setEquippedSkills`（2+HL）与饰品槽随HL，见[开发记录](phase4-guild-hero-upgrade-2026-10-15.md)。正式地牢仍仅I级；自然两任务4XP未验收。下一主题出征循环/临时技能应用/奖励骰与连续任务；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段防御运行时已交付。
