@@ -25,7 +25,7 @@ pnpm build
 
 接手开发先读 [Codex 总交接](docs/HANDOFF-FROM-CODEX-2026-10-09.md) 顶部的当前入口与最近提交补记；跨代理背景见 [交给 Codex 的说明](docs/HANDOFF-TO-CODEX-2026-10-09.md)。历史段落中的分支 / 合并状态不覆盖当前入口。
 
-本轮补记：#203已审查合并（main `b2352a5`），Rattler完整入场已合入。当前接Ghoul Rend/Skull Toss复合效果，Howl仍阻塞整卡入场；II级仍四种可战、事件11/16，下一主题为Howl零伤害多目标与光照/压力/疾病收尾，见[当前开发记录](docs/phase4-ghoul-attacks-2026-10-15.md)。
+本轮补记：#204已审查合并（main `cafde91`）。当前按Kyries本轮批准R-084接Howl逐名光照/压力/疾病、死亡取消与第四怪癖待选续接，Ghoul三招完整可入场；II级五种可战、事件11/16。下一主题为II级自然混合遭遇/退出回村/日志存档验收，见[当前开发记录](docs/phase4-ghoul-howl-2026-10-15.md)。
 
 最新补记：#200/#201已合并（main `46ff57a`）；跨等级饰品弃装与旧池回收已接。#202按R-083接四种II级怪物获批基础字段及Captain/Gargoyle完整入场（含常驻Protection），Rattler/Ghoul额外运行时仍停点，见[当前开发记录](docs/phase4-remaining-ii-review-2026-10-15.md)。正式升幕及高等级存档仍未开放。
 

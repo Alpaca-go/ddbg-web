@@ -20,7 +20,8 @@ import { triggerBattlePassive } from "./battle-passive";
 import { resolveHeroHealth } from "./hero-health";
 import { passiveHeal } from "./passive";
 import { gainDisease } from "./conditions";
-import { readHeroPassiveDefence } from "./battle-skill-status";
+import { applyBattleSkillStatuses, readHeroPassiveDefence } from "./battle-skill-status";
+import { applyPassiveHero } from "./passive-runtime";
 import { endTurnOldAbbey } from "./battle-old-abbey";
 import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
@@ -464,19 +465,101 @@ export function recordMonsterSkill(
           ? [e.resolution]
           : [],
     );
-    // 位移续接只带代表事件，已选多目标数据由 targetIds 保留；疾病目前仅 Maggot 单目标。
-    const infections =
+    // 第四怪癖待选保留未处理目标，已完成的光照/压力/感染不重付。
+    const selectedInfections =
       remainingInfections ??
       (targets.length
         ? targets.filter((r) => r.targetDisease)
         : resolved.resolution.targetDisease
           ? [resolved.resolution]
           : []);
+    const infections =
+      !remainingInfections && selectedInfections.some((r) => r.orderedMonsterTargetEffects)
+        ? [...selectedInfections].sort(
+            (a, b) =>
+              STANCES.indexOf(initial.entities.find((e) => e.id === a.targetId)!.stance!) -
+              STANCES.indexOf(initial.entities.find((e) => e.id === b.targetId)!.stance!),
+          )
+        : selectedInfections;
     let next = initial;
     const events: GameEvent[] = [...result.events];
+    const settlePressure = (): string | null => {
+      const pressure = resolveBattlePressure({
+        state: { ...result.state, battle: next },
+        events: [],
+      });
+      const refused = pressure.events.find((e) => e.type === "commandRefused");
+      if (refused) return refused.message;
+      next = pressure.state.battle!;
+      events.push(...pressure.events);
+      return null;
+    };
+    // R-084：先完成全部攻击/暴击压力，再逐名进入目标效果；续接不重复攻击阶段。
+    if (!remainingInfections && infections.some((r) => r.orderedMonsterTargetEffects)) {
+      const problem = settlePressure();
+      if (problem) return rejectBattleCommand(result.state, problem);
+    }
     for (const [infectionIndex, resolution] of infections.entries()) {
-      const hero = next.entities.find((e) => e.id === resolution.targetId)!;
+      let hero = next.entities.find((e) => e.id === resolution.targetId)!;
       if (hero.dead) continue;
+      const ordered = resolution.orderedMonsterTargetEffects;
+      if (ordered) {
+        const light = applyBattleSkillStatuses(
+          next,
+          next.entities,
+          resolved.actorId,
+          [
+            {
+              ...resolution,
+              actorLightDelta: 0,
+              targetLightDelta: ordered.light,
+              actorStatusEffects: [],
+              targetStatusEffects: [],
+            },
+          ],
+          result.state.seed,
+          next.rngCursor,
+        );
+        if (light.status === "refused") return rejectBattleCommand(result.state, light.reason);
+        next = {
+          ...next,
+          entities: light.entities,
+          light: light.light,
+          rngCursor: light.rngCursor,
+        };
+        events.push(...light.events);
+        const lightProblem = settlePressure();
+        if (lightProblem) return rejectBattleCommand(result.state, lightProblem);
+        hero = next.entities.find((e) => e.id === resolution.targetId)!;
+        if (hero.dead) continue;
+        const stress = applyPassiveHero(
+          hero,
+          { type: "stress", amount: ordered.stress },
+          result.state.seed,
+          next.rngCursor,
+          next.light,
+          next.provisions,
+          readHeroPassiveDefence(next, hero),
+        );
+        if (stress.status === "refused") return rejectBattleCommand(result.state, stress.reason);
+        next = {
+          ...next,
+          entities: next.entities.map((e) => (e.id === hero.id ? stress.hero : e)),
+          rngCursor: stress.cursor,
+          provisions: stress.provisions,
+        };
+        events.push(...stress.events, {
+          type: "monsterTargetEffectsResolved",
+          entityId: hero.id,
+          light: next.light,
+          stress: stress.hero.stress!,
+          message: `Howl：光照降至${next.light}，目标压力${stress.hero.stress}`,
+        });
+        const stressProblem = settlePressure();
+        if (stressProblem) return rejectBattleCommand(result.state, stressProblem);
+        hero = next.entities.find((e) => e.id === resolution.targetId)!;
+        if (hero.dead) continue;
+      }
       if (!next.conditions || !readHeroPassiveDefence(next, hero))
         return rejectBattleCommand(
           result.state,

@@ -246,6 +246,13 @@ export type GameEvent =
     }
   | { readonly type: "heartAttack"; readonly entityId: string; readonly message: string }
   | {
+      readonly type: "monsterTargetEffectsResolved";
+      readonly entityId: string;
+      readonly light: number;
+      readonly stress: number;
+      readonly message: string;
+    }
+  | {
       readonly type: "resolveTested";
       readonly entityId: string;
       readonly roll: number;

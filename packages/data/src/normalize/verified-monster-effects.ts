@@ -17,6 +17,19 @@ const entries: readonly {
     name: "Ghoul",
     level: 2,
     pages: [3],
+    slot: 3,
+    signature: "{target_effects}{light}-1,{stress}+2,{disease}",
+    effects: [
+      { type: "light", scope: "target", amount: -1 },
+      { type: "stress", scope: "target", amount: 2 },
+      { type: "disease", scope: "target" },
+    ],
+  },
+  {
+    id: "monster_large:p003",
+    name: "Ghoul",
+    level: 2,
+    pages: [3],
     slot: 1,
     signature: "{target_effects}3{bleed}2t,{debuff}2t,{stress}+1",
     effects: [
