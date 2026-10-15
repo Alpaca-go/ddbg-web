@@ -1,6 +1,7 @@
 import { beforeAll, expect, it } from "vitest";
 import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
 import reduceDistribution from "../../data/normalized/corebox/reduce_to_rubble_distribution.json";
+import { savedCommandSchema } from "../../data/src/quest-save";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { naturalAbbeyQuest } from "./test-helpers/abbey-quest";
@@ -113,4 +114,24 @@ it("未推进战役等级时不能抽到 II 级任务；已在 II 级时拒绝�
   expect(applyCommand(advanced, { type: "advanceCampaignLevel" }).state).toBe(advanced);
   const ii = ok(advanced, { type: "offerNextQuest" });
   expect(ii.dungeon!.nextQuestOffers).toEqual(["quest:p008"]);
+});
+it("升幕预览不纳入正式存档；坏饰品分区/重复怪物/缩减目录不能借升幕修复", () => {
+  expect(savedCommandSchema.safeParse({ type: "advanceCampaignLevel" }).success).toBe(false);
+  const ready = preparationReady(baseline.game),
+    d = ready.dungeon!;
+  const first = d.monsterPool!.remaining?.[0] ?? "monster-deck:p001";
+  for (const changed of [
+    { ...ready, dungeon: { ...d, trinkets: { ...d.trinkets!, deck: [] } } },
+    { ...ready, dungeon: { ...d, monsterPool: { ...d.monsterPool!, remaining: [first, first] } } },
+    {
+      ...ready,
+      dungeon: { ...d, monsterPool: { ...d.monsterPool!, cards: d.monsterPool!.cards.slice(1) } },
+    },
+  ]) {
+    const before = structuredClone(changed),
+      result = applyCommand(changed, { type: "advanceCampaignLevel" });
+    expect(result.state).toBe(changed);
+    expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
+    expect(changed).toEqual(before);
+  }
 });

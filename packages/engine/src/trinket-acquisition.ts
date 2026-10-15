@@ -225,11 +225,13 @@ export function trinketOptions(pool: TrinketPool, heroes: readonly Hero[]) {
     });
   for (const held of pool.held.filter((c) => living.some((h) => h.id === c.heroId))) {
     const name = pool.cards.find((c) => c.id === held.cardId)!.name;
-    options.push({
-      id: `discard:${held.cardId}`,
-      label: `弃掉 ${held.heroId} 的 ${name}，腾出位置`,
-      action: { type: "discardHeld", cardId: held.cardId },
-    });
+    // 跨级弃牌尚无独立归还池；不能混入当前地牢弃牌而破坏守恒。
+    if (idsFor(pool.level).includes(held.cardId))
+      options.push({
+        id: `discard:${held.cardId}`,
+        label: `弃掉 ${held.heroId} 的 ${name}，腾出位置`,
+        action: { type: "discardHeld", cardId: held.cardId },
+      });
     for (const hero of free.filter((h) => h.id !== held.heroId))
       options.push({
         id: `transfer:${held.cardId}:${hero.id}`,

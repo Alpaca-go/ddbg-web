@@ -14,7 +14,6 @@ const noPayload = z.strictObject({
     "finishReturnToHamlet",
     "drawHamletEvent",
     "offerNextQuest",
-    "advanceCampaignLevel",
     "rollHamletCaretaker",
     "leaveDungeon",
     "scoutDungeon",
