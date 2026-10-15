@@ -1172,7 +1172,9 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                           ? "请逐个英雄选择免费移除一张怪癖，或放弃；全部结算后开始两天准备。"
                           : d.pending?.id.startsWith("hamlet-labor-force:")
                             ? "请选择免费升级一栋建筑，或放弃；事件永久移出后开始三天准备。"
-                            : "本事件效果尚未接通，保留原卡；准备天数与看守人尚未开始。"}
+                            : d.pending
+                              ? d.pending.prompt
+                              : "本事件效果尚未接通，保留原卡；准备天数与看守人尚未开始。"}
                     </p>
                   )}
                   {d.hamlet.phase === "awaitingCaretaker" && (

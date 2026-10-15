@@ -11,7 +11,7 @@ import { applyTownFair } from "./hamlet-town-fair";
 import { beginLaborForce } from "./hamlet-labor-force";
 import { applyUnsettlingDarkness } from "./hamlet-unsettling-darkness";
 import { applyTravelingMerchants } from "./hamlet-traveling-merchants";
-import { beginGuildTraining } from "./hamlet-guild-training";
+import { beginGuildTraining, beginMilitiaTraining } from "./hamlet-guild-training";
 import { applyInGoodSpirits } from "./hamlet-in-good-spirits";
 import type { DungeonState } from "./dungeon";
 
@@ -119,6 +119,7 @@ export function drawHamletEvent(state: GameState): ApplyResult {
     "unsettlingDarkness",
     "travelingMerchants",
     "guildTraining",
+    "militiaTraining",
     "inGoodSpirits",
   ];
   const ready = implemented && !pending && !deferred.includes(card.runtime);
@@ -152,9 +153,11 @@ export function drawHamletEvent(state: GameState): ApplyResult {
               ? applyTravelingMerchants
               : card.runtime === "guildTraining"
                 ? beginGuildTraining
-                : card.runtime === "inGoodSpirits"
-                  ? applyInGoodSpirits
-                  : applyTownFair;
+                : card.runtime === "militiaTraining"
+                  ? beginMilitiaTraining
+                  : card.runtime === "inGoodSpirits"
+                    ? applyInGoodSpirits
+                    : applyTownFair;
     const result = apply({
       ...state,
       dungeon: { ...dungeonBase, cursor: drawn.cursor, hamlet },
@@ -202,11 +205,19 @@ export function hamletEventCompletionProblem(d: DungeonState) {
     : null;
 }
 /** R32/33：事件全部英雄选择完成后，才洗回并启用印刷准备天数。 */
-export function completeHamletEvent(state: GameState): ApplyResult {
+export function completeHamletEvent(state: GameState, militiaDays?: 0 | 3): ApplyResult {
   const d = state.dungeon!,
     h = d.hamlet!;
   const card = catalog.find((candidate) => candidate.id === h.active)!;
-  if (hamletEventCompletionProblem(d) || !card?.days)
+  const days =
+    card?.runtime === "militiaTraining" && card.id === "hamlet_event:p016"
+      ? militiaDays
+      : card?.days;
+  if (
+    hamletEventCompletionProblem(d) ||
+    days == null ||
+    (militiaDays !== undefined && card?.runtime !== "militiaTraining")
+  )
     return rejectBattleCommand(state, "当前事件不能完成并洗回（R32）");
   const returned = card.permanentlyRemoved
     ? { deck: h.deck, cursor: d.cursor }
@@ -227,15 +238,16 @@ export function completeHamletEvent(state: GameState): ApplyResult {
             ? [...h.permanentlyRemoved, h.active!]
             : h.permanentlyRemoved,
           active: null,
-          phase: "awaitingCaretaker",
-          preparationDays: card.days,
+          phase: days === 0 ? "preparationComplete" : "awaitingCaretaker",
+          preparationDays: days,
+          ...(days === 0 ? { remainingDays: 0 } : {}),
         },
       },
     },
     events: [
       {
         type: "dungeonUpdated",
-        message: `${card.name}：事件已结算并${card.permanentlyRemoved ? "永久移出牌堆" : "洗回"}；准备${card.days}天，等待首日看守人（R32/33）`,
+        message: `${card.name}：事件已结算并${card.permanentlyRemoved ? "永久移出牌堆" : "洗回"}；准备${days}天，${days === 0 ? "可选择下一任务" : "等待首日看守人"}（R32/33）`,
       },
     ],
   };

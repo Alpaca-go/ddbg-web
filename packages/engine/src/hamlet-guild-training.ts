@@ -11,7 +11,7 @@ function problem(state: GameState) {
     state.battle ||
     d.phase !== "inHamlet" ||
     d.hamletReturn?.phase !== "complete" ||
-    d.hamlet?.active !== "hamlet_event:p015" ||
+    !["hamlet_event:p015", "hamlet_event:p016"].includes(d.hamlet?.active ?? "") ||
     d.heroes.length !== 4 ||
     new Set(d.heroes.map((h) => h.id)).size !== 4 ||
     d.heroes.some((h) => h.dead) ||
@@ -37,7 +37,11 @@ function skillUpgrades(state: GameState, heroId: string) {
         !s.verification.unverified &&
         !hero.permanentlyRemovedSkillIds?.includes(s.id),
     );
-    return old.level < 3 && next.length === 1 ? [{ old, next: next[0]! }] : [];
+    return old.level < 3 &&
+      (d.hamlet?.active !== "hamlet_event:p016" || old.level === 1) &&
+      next.length === 1
+      ? [{ old, next: next[0]! }]
+      : [];
   });
 }
 
@@ -45,9 +49,12 @@ function continueGuildTraining(state: GameState): ApplyResult {
   const d = state.dungeon!,
     h = d.hamlet!;
   const id = h.eventRemainingHeroes?.[0];
-  if (!id) return completeHamletEvent(state);
+  const militia = h.active === "hamlet_event:p016";
+  if (!id) return completeHamletEvent(state, militia ? 0 : undefined);
   const hero = d.heroes.find((candidate) => candidate.id === id)!;
   const upgrades = skillUpgrades(state, id);
+  if (!upgrades.length && militia)
+    return rejectBattleCommand(state, "Militia Training全员升级需要每名英雄都有可升级的I级技能");
   if (!upgrades.length)
     return continueGuildTraining({
       ...state,
@@ -56,13 +63,15 @@ function continueGuildTraining(state: GameState): ApplyResult {
   const pending = {
     id: `hamlet-guild-training:${d.decision}`,
     actorId: id,
-    prompt: `Guild Training：${id}可免费永久升级一项技能，或放弃（卡面p15）`,
+    prompt: militia
+      ? `Militia Training：${id}选择免费永久升级一项I级技能（卡面p16）`
+      : `Guild Training：${id}可免费永久升级一项技能，或放弃（卡面p15）`,
     options: [
       ...upgrades.map(({ old, next }) => ({
         id: `upgrade:${old.id}`,
         label: `免费升级 ${old.name} ${["I", "II", "III"][old.level - 1]}→${next.level === 2 ? "II" : "III"}${hero.skillIds!.includes(old.id) ? "" : "（未装备）"}`,
       })),
-      { id: "skip", label: "放弃免费技能升级" },
+      ...(militia ? [] : [{ id: "skip", label: "放弃免费技能升级" }]),
     ],
   };
   return {
@@ -90,6 +99,58 @@ export function beginGuildTraining(state: GameState): ApplyResult {
     ...state,
     dungeon: { ...d, hamlet: { ...d.hamlet!, eventRemainingHeroes: order } },
   });
+}
+
+/** p16 / R-077：先集体决定，接受才逐英雄必选一项I→II；不产生半队免费升级。 */
+export function beginMilitiaTraining(state: GameState): ApplyResult {
+  const reason = problem(state);
+  if (reason || state.dungeon?.hamlet?.active !== "hamlet_event:p016")
+    return rejectBattleCommand(state, reason ?? "当前不是Militia Training");
+  const d = state.dungeon!;
+  if (d.heroes.some((hero) => !ownedHeroSkills(hero, d.battleCatalog!)))
+    return rejectBattleCommand(state, "Militia Training缺已核实英雄技能拥有集（R-048）");
+  const canTrain = d.heroes.every((hero) => skillUpgrades(state, hero.id).length > 0);
+  const pending = {
+    id: `hamlet-militia:${d.decision}`,
+    actorId: "party",
+    prompt: "Militia Training：全员各免费升级一项I级技能并跳过村庄准备，或保留3天准备",
+    options: [
+      ...(canTrain ? [{ id: "train", label: "全员升级，0天准备" }] : []),
+      { id: "decline", label: "不升级，3天准备" },
+    ],
+  };
+  return {
+    state: { ...state, dungeon: { ...d, pending, decision: d.decision + 1 } },
+    events: [{ type: "dungeonUpdated", message: pending.prompt }],
+    pendingChoice: pending,
+  };
+}
+
+export function chooseMilitiaTraining(
+  state: GameState,
+  choiceId: string,
+  optionId: string,
+): ApplyResult {
+  const reason = problem(state),
+    d = state.dungeon,
+    p = d?.pending;
+  if (
+    reason ||
+    d?.hamlet?.active !== "hamlet_event:p016" ||
+    !p?.id.startsWith("hamlet-militia:") ||
+    p.id !== choiceId ||
+    !p.options.some((o) => o.id === optionId)
+  )
+    return rejectBattleCommand(state, reason ?? "Militia Training集体选择已过期或无效");
+  if (optionId === "decline") return completeHamletEvent(state, 3);
+  if (
+    optionId !== "train" ||
+    d.heroes.some(
+      (hero) => !ownedHeroSkills(hero, d.battleCatalog!) || !skillUpgrades(state, hero.id).length,
+    )
+  )
+    return rejectBattleCommand(state, "必须全员都有一项可升级的I级技能，未开始升级");
+  return beginGuildTraining({ ...state, dungeon: { ...d, pending: null } });
 }
 
 export function chooseGuildTraining(
@@ -183,7 +244,7 @@ export function chooseGuildTraining(
     events: [
       {
         type: "dungeonUpdated",
-        message: `${hero.id}：${optionId === "skip" ? "放弃免费技能升级" : `免费永久升级 ${optionId}`}（Guild Training、卡面p15）`,
+        message: `${hero.id}：${optionId === "skip" ? "放弃免费技能升级" : `免费永久升级 ${optionId}`}（${h.active === "hamlet_event:p016" ? "Militia Training、卡面p16" : "Guild Training、卡面p15"}）`,
       },
       ...next.events,
     ],
