@@ -38,8 +38,7 @@ export function naturalQuest(
 ) {
   const wipeLairs = options.wipeLairs ?? 1;
   const initial =
-    options.continueFrom ??
-    createCoreDungeonQuest(seed, questId, "radiant", naturalParty, sources);
+    options.continueFrom ?? createCoreDungeonQuest(seed, questId, "radiant", naturalParty, sources);
   let state = initial;
   const commands: Command[] = [],
     events: GameEvent[] = [];
@@ -269,8 +268,7 @@ export function naturalQuest(
     throw new Error("room loop");
   };
   try {
-    const activeQuestId = (state.dungeon!.questDistribution?.questId ??
-      questId) as BasicQuestId;
+    const activeQuestId = (state.dungeon!.questDistribution?.questId ?? questId) as BasicQuestId;
     if (state.dungeon!.phase === "awaitingProvisions") {
       step({ type: "rollDungeonProvisions" });
       settle();

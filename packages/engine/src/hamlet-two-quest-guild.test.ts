@@ -41,10 +41,7 @@ it("seed14：Scout四房2XP→出征Wipe两巢穴2XP，自然累计4XP；同种�
     ),
   ).toBe(true);
   expect(baseline.commands.some((c) => c.type === "useHamletSkill")).toBe(true);
-  const replayed = loadQuestSave(
-    JSON.parse(JSON.stringify(baseline.save)),
-    coreQuestSources,
-  ).game;
+  const replayed = loadQuestSave(JSON.parse(JSON.stringify(baseline.save)), coreQuestSources).game;
   expect(replayed).toEqual(baseline.game);
 }, 120000);
 
