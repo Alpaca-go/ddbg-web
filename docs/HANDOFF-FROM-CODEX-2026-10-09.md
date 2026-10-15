@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-15）：#203已审查合并，main `b2352a5`。当前`codex/phase4-ghoul-attacks`接Ghoul Rend/Skull Toss完整复合效果及死亡/压力回放测试，见[本轮记录](phase4-ghoul-attacks-2026-10-15.md)。Howl仍未接，整张Ghoul不开放入场；下一主题零伤害多目标、光照/压力/疾病与死亡取消。II级四种可战、事件11/16，Q-79/Q-80 pending，正式Boss升幕/高等级正式存档验收未完成，未进入Phase5。下段为历史进度。
+
 > 当前入口（2026-10-15）：#202已合并，main `e22d421`。当前`codex/phase4-rattler-self-status`完成Rattler纯自身Warning Rattle、另两招完整计划与真实53张池入场；只消费选招骰，无假英雄目标/射程/攻击骰，沿既有回合收尾。见[本轮记录](phase4-rattler-self-status-2026-10-15.md)。R-083不重开审批；下一主题Ghoul复合效果，现II级四种可入场/一种仍停点。事件11/16，Q-79/Q-80 pending，未进入Phase5。
 
 > 最新进展（2026-10-15）：Kyries已明确“批准四卡限定表”，记R-083/Q-86 confirmed；#202由送审文档扩展为获批入库与Captain/Gargoyle完整入场。四卡基础Speed/骰表/常驻Protection已生成，Captain/Gargoyle真实53张池部署可战，Rattler/Ghoul仍因完整效果未接原样停场。见[本轮记录](phase4-remaining-ii-review-2026-10-15.md)，后续只需继续各自额外运行时，不重开基础字段审批。下段pending为送审时的历史状态。
