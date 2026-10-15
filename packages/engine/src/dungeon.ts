@@ -99,6 +99,8 @@ export type DungeonState = {
   readonly nextQuestStartingLight?: 4;
   /** Traveling Merchants：下次开局补给掷完后，每名英雄可改一颗己方骰面。 */
   readonly nextQuestProvisionFaceChoice?: true;
+  /** Supply Run p1 / R-085：队伍下次开局额外掷两颗，独立于英雄奖励。 */
+  readonly nextQuestPartyProvisionDice?: 2;
   /** Traveling Merchants 进行中：尚未改骰的英雄顺序。 */
   readonly provisionFaceChoiceRemaining?: readonly string[];
   readonly hamletReturn?: {

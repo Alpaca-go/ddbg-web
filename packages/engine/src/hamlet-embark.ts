@@ -338,6 +338,9 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
     ...(d.stagecoachXp !== undefined ? { stagecoachXp: d.stagecoachXp } : {}),
     ...(d.waitingHeroTokens !== undefined ? { waitingHeroTokens: d.waitingHeroTokens } : {}),
     ...(d.nextQuestProvisionFaceChoice ? { nextQuestProvisionFaceChoice: true as const } : {}),
+    ...(d.nextQuestPartyProvisionDice !== undefined
+      ? { nextQuestPartyProvisionDice: d.nextQuestPartyProvisionDice }
+      : {}),
     discardedQuests,
     hamletMemory: {
       deck: [...d.hamlet!.deck],

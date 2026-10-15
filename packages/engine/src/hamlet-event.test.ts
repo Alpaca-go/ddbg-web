@@ -57,18 +57,18 @@ it("完整16卡逐页原文保留；准备天数仅R-077卡面位置，occupancy
   expect(cards.map((c) => c.days)).toEqual([2, 2, 4, 3, 3, 3, 1, 2, 2, 1, 3, 2, 4, 3, 2, null]);
   expect(cards.filter((c) => c.permanentlyRemoved).map((c) => c.source.page)).toEqual([6, 15]);
   expect(cards.filter((c) => c.runtime !== "unimplemented").map((c) => c.source.page)).toEqual([
-    2, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16,
+    1, 2, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16,
   ]);
   expect(dictionary.icons.find((c) => c.iconId === "43aaf29bbb")!.key).toBe("occupancy_pips");
   expect(hamletEventFileSchema.safeParse({ ...events, cards: cards.slice(1) }).success).toBe(false);
 });
-it("完整牌池抽到未实现Supply Run后保留原卡/天数停点，重复和看守人不能绕过", () => {
-  const s = returned(seedFor("hamlet_event:p001"));
+it("完整牌池抽到未实现Lost Shipment后保留原卡/天数停点，重复和看守人不能绕过", () => {
+  const s = returned(seedFor("hamlet_event:p003"));
   const before = structuredClone(s.game),
     r = s.step({ type: "drawHamletEvent" });
   expect(r.state.dungeon!.hamlet).toMatchObject({
     phase: "eventBlocked",
-    active: "hamlet_event:p001",
+    active: "hamlet_event:p003",
     preparationDays: null,
   });
   expect(r.state.dungeon!.hamlet!.deck).toHaveLength(15);

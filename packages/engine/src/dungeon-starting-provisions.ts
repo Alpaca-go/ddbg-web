@@ -34,6 +34,7 @@ export function setupDungeonProvisions(
     ![4, 5].includes(d.explorationSetup.light) ||
     !Number.isSafeInteger(d.cursor) ||
     d.cursor < 0 ||
+    !Number.isSafeInteger(d.cursor + 16) ||
     (d.mode !== "standard" && d.mode !== "radiant") ||
     d.layout.nodes.find((n) => n.id === d.position)?.kind !== "start" ||
     d.heroes.length !== 4 ||
@@ -100,6 +101,8 @@ export function setupDungeonProvisions(
   const provisions = d.explorationSetup.provisions;
   if (command.type === "rollDungeonProvisions") {
     if (d.pending || d.startingProvisionChoices || provisions.length) return refuse();
+    if (d.nextQuestPartyProvisionDice !== undefined && d.nextQuestPartyProvisionDice !== 2)
+      return refuse();
     if (
       d.heroes.some((h) => {
         const n = h.nextQuestProvisionDice;
@@ -155,9 +158,29 @@ export function setupDungeonProvisions(
       void _removed;
       return rest;
     });
+    // Supply Run是队伍奖励，不借用任一英雄身份；Wild由队伍选择，不受Radiant自选影响。
+    for (
+      let index = 0;
+      index < (d.nextQuestPartyProvisionDice ?? 0) && remainingSlots > 0;
+      index++
+    ) {
+      const id = `dungeon-party-provision:${index}`;
+      const face = nextProvisionFace(state.seed, cursor++);
+      events.push({
+        type: "provisionRolled",
+        actorId: "party",
+        face,
+        message: `Supply Run队伍奖励补给骰：${face === "wild" ? "Wild，待选面" : PROVISION_LABELS[face]}（R-085）`,
+      });
+      if (face === "wild") choices.push({ id, actorId: "party" });
+      else pool.push({ id, face });
+      remainingSlots--;
+    }
+    const { nextQuestPartyProvisionDice: _partyDice, ...consumed } = d;
+    void _partyDice;
     return finish(
       {
-        ...d,
+        ...consumed,
         cursor,
         heroes,
         startingProvisionChoices: choices,
@@ -171,6 +194,7 @@ export function setupDungeonProvisions(
   const ids = [...provisions.map((p) => p.id), ...(choices ?? []).map((p) => p.id)];
   const expectedBase = baseProvisionIds();
   const bonusIds = ids.filter((id) => id.startsWith("dungeon-bonus-provision:"));
+  const partyIds = ["dungeon-party-provision:0", "dungeon-party-provision:1"];
   if (
     !first ||
     !d.pending ||
@@ -183,10 +207,14 @@ export function setupDungeonProvisions(
     ids.length > 16 ||
     new Set(ids).size !== ids.length ||
     expectedBase.some((id) => !ids.includes(id)) ||
-    ids.some((id) => !expectedBase.includes(id) && !bonusIds.includes(id)) ||
+    ids.some(
+      (id) => !expectedBase.includes(id) && !bonusIds.includes(id) && !partyIds.includes(id),
+    ) ||
     bonusIds.some((id) => !/^dungeon-bonus-provision:[^:]+:\d+$/.test(id)) ||
     provisions.some((p) => !PROVISION_FACES.includes(p.face)) ||
-    choices!.some((c) => !d.heroes.some((h) => h.id === c.actorId))
+    choices!.some((c) =>
+      partyIds.includes(c.id) ? c.actorId !== "party" : !d.heroes.some((h) => h.id === c.actorId),
+    )
   )
     return refuse();
   return finish(

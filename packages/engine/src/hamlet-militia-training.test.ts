@@ -67,7 +67,7 @@ function roundTrip(game: GameState, commands: Command[]) {
   ).game;
 }
 
-it("R-077 Militia无未审图标且完整行守门；R-085仅四卡效果映射，其他四张仍未启用", () => {
+it("R-077 Militia无未审图标且完整行守门；R-085仅四卡效果映射，余三张仍未启用", () => {
   expect(cards[15]).toMatchObject({
     name: "Militia Training",
     days: null,
@@ -82,7 +82,7 @@ it("R-077 Militia无未审图标且完整行守门；R-085仅四卡效果映射�
     "hamlet_event:p010",
   ]);
   expect(cards.filter((c) => c.runtime === "unimplemented").map((c) => c.source.page)).toEqual([
-    1, 3, 9, 10,
+    3, 9, 10,
   ]);
   const changed = structuredClone(rawFileSchema.parse(raw));
   changed.cards[15]!.faces.front.lines.at(-1)!.text = "do, 0 days. Else 4 days.";

@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-15）：#207已合并，main `70aa113`。当前`codex/phase4-supply-run`接通Supply Run队伍下次任务+2实际补给骰、Wild待选、16颗上限及正式存档，事件13/16。见[本轮记录](phase4-supply-run-2026-10-15.md)。Lost Shipment减骰分摊/Radiant处理记Q-88 pending；下一主题可独立接Gypsy Trail。Phase4死亡补人/高等级正式存档/人工验收仍未完成，未进Phase5。下段为历史进度。
+
 > 当前入口（2026-10-15）：#206已合并，main `d0f7767`。当前`codex/phase4-militia-training`沿既有R-077接Militia Training全员I级技能免费永久升级、0/3天及待选正式存档；事件12/16。本轮Kyries批准剩余四卡三组限定图标，记R-085，不改全局词典；四卡运行时仍停点。见[本轮记录](phase4-militia-training-2026-10-15.md)。下一主题Supply Run/Lost Shipment队伍奖励/减骰与出征存档，再接Gypsy Trail/The Feast。Q-79/Q-80 pending，未进Phase5。下段为历史进度。
 
 > 当前入口（2026-10-15）：#205已合并，main `bfb5221`。当前`codex/phase4-ii-natural-replay`补两张II级任务seed14混合遭遇胜利/提前退出/一次回村，以及seed2真实Howl后回村第四负面死亡停点，命令检查点重放与正式存档拒绝预览均验收，见[本轮记录](phase4-ii-natural-replay-2026-10-15.md)。仍含明确准备天数夹具和Boss跳过，不代表自然升幕或II级正式存档；未进Phase5。下一主题剩余5张村庄事件核对/限定审批，Q-79/Q-80仍pending。下段为历史进度。
