@@ -13,6 +13,7 @@ const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 
 // 独立列出经 Kyries 批准的卡面结果；数字数组按 d10 的 1–10 排列。
 // docs/monster-stance-review-2026-10-09.md §3–4、§7；R-015、R-048。
+// Bone Spearman II 单卡批准：R-082 / Q-85。
 const approved = [
   { id: "monster_medium:p001", slots: [1, 1, 1, 2] },
   { id: "monster_medium:p004", slots: [2, [1, 1, 1, 1, 1, 2, 2, 2, 2, 2], 1, 1] },
@@ -42,6 +43,10 @@ const approved = [
   },
   { id: "monster_medium:p034", slots: Array(4).fill([1, 1, 1, 1, 1, 2, 2, 2, 2, 2]) },
   { id: "monster_medium:p037", slots: [2, 2, 1, 1] },
+  {
+    id: "monster_medium:p013",
+    slots: [[2, 2, 2, 2, 2, 1, 1, 1, 1, 1], [2, 2, 2, 2, 2, 1, 1, 1, 1, 1], 1, 1],
+  },
 ];
 
 describe("真实卡获批姿态分组与未获批拒绝（R-015、R-048）", () => {

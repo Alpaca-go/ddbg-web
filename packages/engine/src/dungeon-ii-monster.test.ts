@@ -1,0 +1,272 @@
+import { expect, it } from "vitest";
+import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
+import distribution from "../../data/normalized/corebox/clear_the_path_distribution.json";
+import trinkets from "../../data/normalized/corebox/trinket.json";
+import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
+import { hasApprovedHigherMonsterFields } from "../../data/src/normalize/verified-monster-entry";
+import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
+import { coreParty, coreQuestSources as sources } from "./test-helpers/core-quest";
+import { createDungeonSandbox } from "./dungeon";
+import { createTrinketPool } from "./trinket-acquisition";
+import { applyCommand } from "./command";
+import type { Command, GameState } from "./command";
+import { selectMonsterSkill } from "./monster-stance";
+import { resolveMonsterSkill } from "./monster-skill";
+import { createBattleState } from "./battle";
+import type { BattleEntity } from "./battle";
+import { nextBattleRoll } from "./encounter";
+
+const spearman = sources.catalog.monsters.find((c) => c.id === "monster_medium:p013")!;
+const higherTrinkets = createTrinketPool(normalizedTrinketFileSchema.parse(trinkets).cards, 2);
+/** 明确DL2单房入场夹具，整张地图/九房/53张怪物池保留；不冒称自然升幕。 */
+function setup(seed: number): GameState {
+  const heroes = coreParty.map((h, i) => {
+    const stat = sources.catalog.heroStats.find((s) => s.id === h.heroStatId)!;
+    return {
+      ...h,
+      id: `h${i}`,
+      level: 1,
+      life: stat.life,
+      wounds: 0,
+      stress: 0,
+      attributesVerified: true,
+    };
+  });
+  const state = createDungeonSandbox(
+    seed,
+    layout,
+    distribution,
+    "standard",
+    "S",
+    heroes,
+    sources.resolveCards,
+    { dungeonLevel: 2, light: 5, provisions: [] },
+    sources.curios,
+    sources.rooms,
+    sources.monsters,
+    { ...sources.catalog, trinkets: higherTrinkets },
+  );
+  const position = state.dungeon!.rooms.find((r) => r.kind === "lair")!.id;
+  return {
+    ...state,
+    dungeon: { ...state.dungeon!, campaignLevel: 2, phase: "awaitingRoom", position },
+  };
+}
+function ok(state: GameState, command: Command) {
+  const result = applyCommand(state, command);
+  expect(
+    result.events.filter((e) => e.type === "commandRefused"),
+    JSON.stringify(result.events),
+  ).toEqual([]);
+  return result;
+}
+function deploy(seed: number) {
+  const initial = setup(seed);
+  const room = ok(initial, { type: "prepareDungeonBattle" });
+  return { initial, deployed: ok(room.state, { type: "prepareDungeonMonsters" }).state };
+}
+it("R-082限定一张II级：四姿态全部骰面符合独立黄金表，其他高等级未获批", () => {
+  expect(spearman).toMatchObject({
+    name: "Bone Spearman",
+    level: 2,
+    pages: [13, 14, 15],
+    speed: 2,
+    life: 15,
+    dodge: 1,
+  });
+  expect(hasApprovedHigherMonsterFields(spearman)).toBe(true);
+  for (const stance of ["aggressive", "defensive", "ranged", "support"] as const) {
+    const random = stance === "aggressive" || stance === "defensive";
+    expect(selectMonsterSkill(spearman, [stance]).status).toBe(random ? "needsRoll" : "selected");
+    for (let roll = 1; roll <= 10; roll++)
+      expect(selectMonsterSkill(spearman, [stance], roll)).toEqual({
+        status: "selected",
+        skillSlot: random && roll <= 5 ? 2 : 1,
+        roll: random ? roll : null,
+      });
+  }
+  for (const card of sources.catalog.monsters.filter((c) => c.level > 1 && c.id !== spearman.id))
+    expect(hasApprovedHigherMonsterFields(card), card.id).toBe(false);
+  expect(
+    sources.monsters.filter((c) => c.level === 2 && !c.missingBattleFields.length).map((c) => c.id),
+  ).toEqual([spearman.id]);
+});
+it("完整53张池seed10真实混合部署可入场，来源/资源/RNG不改，原命令可回放", () => {
+  const { initial, deployed } = deploy(10),
+    before = structuredClone(deployed);
+  const p = deployed.dungeon!.monsterPool!;
+  expect(p.active!.monsters.map((m) => m.cardId)).toEqual([
+    "monster_medium:p018",
+    "monster_medium:p034",
+    "monster_medium:p013",
+    "monster_medium:p010",
+  ]);
+  const ids = [...p.remaining!, ...p.discarded, ...p.active!.monsters.map((m) => m.instanceId)];
+  expect(ids.sort()).toEqual(
+    ruinsMonsterPoolThrough(p.cards, 2)
+      .map((m) => m.instanceId)
+      .sort(),
+  );
+  expect(ids).toHaveLength(53);
+  const entered = ok(deployed, { type: "startDungeonBattle" });
+  expect(entered.state.battle!.entities.find((e) => e.monsterCardId === spearman.id)).toMatchObject(
+    { life: 15, dodge: 1, stanceSlots: 1 },
+  );
+  expect(entered.state.battle!.rngCursor).toBe(deployed.dungeon!.cursor);
+  expect(entered.state.dungeon!.gold).toBe(deployed.dungeon!.gold);
+  expect(deployed).toEqual(before);
+  const commands: Command[] = [
+    { type: "prepareDungeonBattle" },
+    { type: "prepareDungeonMonsters" },
+    { type: "startDungeonBattle" },
+  ];
+  expect(commands.reduce((s, c) => ok(s, c).state, initial)).toEqual(entered.state);
+});
+it("未批准Gargoyle或Spearman审批字段漂移，整次拒绝，保留抽牌/部署/游标/奖励", () => {
+  const blocked = deploy(3).deployed;
+  expect(
+    blocked.dungeon!.monsterPool!.active!.monsters.some((m) => m.cardId === "monster_medium:p050"),
+  ).toBe(true);
+  const prepared = deploy(10).deployed,
+    d = prepared.dungeon!;
+  const { pages: _pages, ...noPages } = spearman;
+  void _pages;
+  const invalid = [
+    blocked,
+    ...[
+      { ...spearman, name: "Gargoyle" },
+      { ...spearman, level: 1 },
+      { ...spearman, speed: 3 },
+      { ...spearman, pages: [14, 15] },
+      noPages,
+      {
+        ...spearman,
+        stanceGroups: [
+          { stances: ["aggressive", "defensive", "ranged", "support"] as const, skill: 1 },
+        ],
+      },
+    ].map((card): GameState => ({
+      ...prepared,
+      dungeon: {
+        ...d,
+        battleCatalog: {
+          ...d.battleCatalog!,
+          monsters: d.battleCatalog!.monsters.map((c) => (c.id === spearman.id ? card : c)),
+        },
+      },
+    })),
+  ];
+  for (const state of invalid) {
+    const before = structuredClone(state),
+      result = applyCommand(state, { type: "startDungeonBattle" });
+    expect(result.state).toBe(state);
+    expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
+    expect(state).toEqual(before);
+  }
+});
+it("两项印刷技能完整可读：Spear Thrust伤害/Push1，Impale四目标共享攻击视图", () => {
+  const target = { id: "h", side: "hero" as const, wounds: 0, stress: 0, dodge: 0, guard: false };
+  for (const [slot, roll, printed, distance] of [
+    [1, 1, 12, 0],
+    [1, 3, 8, 0],
+    [2, 2, 7, 1],
+    [2, 3, 5, 1],
+  ] as const) {
+    const result = resolveMonsterSkill(
+      spearman,
+      slot,
+      {
+        actor: { id: "m", wounds: 0 },
+        target,
+        areaDistance: distance,
+        targetsInArea: slot === 2 ? 4 : 1,
+      },
+      roll,
+    );
+    expect(result.status, JSON.stringify(result)).toBe("resolved");
+    if (result.status !== "resolved") throw new Error(result.reason);
+    expect(result.resolution.damageDealt).toBe(printed);
+    expect(result.resolution.targetShuffle).toEqual(
+      slot === 1 ? { direction: "push", distance: 1 } : null,
+    );
+    expect(result.resolution.skipped).toEqual([]);
+  }
+});
+it("真实命令Impale四英雄共享一骰；Spear Thrust完成伤害后区域/姿态Push1，不重掷", () => {
+  const seed = Array.from({ length: 100 }, (_, i) => i).find((s) => nextBattleRoll(s, 0) === 3)!;
+  for (const slot of [1, 2]) {
+    const heroes: BattleEntity[] = coreParty.map((h, i) => {
+      const stat = sources.catalog.heroStats.find((s) => s.id === h.heroStatId)!;
+      return {
+        id: `h${i}`,
+        hero: stat.name,
+        heroStatId: stat.id,
+        heroLevel: 1,
+        side: "hero",
+        life: stat.life,
+        wounds: 0,
+        stress: 0,
+        dodge: stat.dodge,
+        stance: h.stance,
+        areaId: "a",
+        skillIds: [],
+        guard: false,
+        dead: false,
+        bleed: [],
+        blight: [],
+      };
+    });
+    const monster: BattleEntity = {
+      id: "m",
+      hero: null,
+      side: "monster",
+      monsterCardId: spearman.id,
+      life: 15,
+      dodge: 1,
+      wounds: 0,
+      areaId: slot === 1 ? "a" : "b",
+      stance: "aggressive",
+      stanceSlots: 1,
+      skillIds: [],
+      guard: false,
+      dead: false,
+      bleed: [],
+      blight: [],
+    };
+    const initial = createBattleState(seed, {
+      heroStats: sources.catalog.heroStats,
+      entities: [...heroes, monster],
+      skills: [],
+      monsters: [spearman],
+      light: 5,
+      areas: [
+        { id: "a", capacity: 8, adjacent: ["b"], elevation: "normal" },
+        { id: "b", capacity: 8, adjacent: ["a"], elevation: "normal" },
+      ],
+    });
+    const before = structuredClone(initial);
+    const command: Command = {
+      type: "playMonsterSkill",
+      actorId: "m",
+      targetId: "h0",
+      skillSlot: slot,
+    };
+    const result = ok(initial, command);
+    expect(result.state.battle!.rngCursor).toBe(1);
+    if (slot === 2) {
+      expect(
+        result.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.wounds),
+      ).toEqual([5, 5, 5, 5]);
+    } else {
+      const shuffled = ok(result.state, { type: "resolveShuffles" });
+      expect(shuffled.state.battle!.entities.find((e) => e.id === "h0")).toMatchObject({
+        wounds: 8,
+        areaId: "b",
+        stance: "defensive",
+      });
+      expect(shuffled.state.battle!.rngCursor).toBe(1);
+    }
+    expect(applyCommand(initial, command)).toEqual(result);
+    expect(initial).toEqual(before);
+  }
+});

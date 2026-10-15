@@ -5,7 +5,7 @@ import type { NormalizedMonsterMediumCard } from "./schema";
 const entrySchema = z.strictObject({
   id: z.string().min(1),
   name: z.string().min(1),
-  level: z.literal(1),
+  level: z.union([z.literal(1), z.literal(2)]),
   pages: z.array(z.int().positive()).min(1),
   speed: z.int().nonnegative(),
 });
@@ -30,6 +30,8 @@ export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
   { id: "monster_medium:p024", name: "Brigand Cutthroat", level: 1, pages: [24, 25, 26], speed: 1 },
   { id: "monster_medium:p034", name: "Webber", level: 1, pages: [34, 35, 36], speed: 2 },
   { id: "monster_medium:p037", name: "Spitter", level: 1, pages: [37, 38, 39], speed: 1 },
+  // R-082：Kyries 2026-10-15仅批准Bone Spearman II，完整M13–15已核图。
+  { id: "monster_medium:p013", name: "Bone Spearman", level: 2, pages: [13, 14, 15], speed: 2 },
 ]);
 
 /** 仅生成管线加载人工获批映射；schema 可表达的值不代表已获批准。 */

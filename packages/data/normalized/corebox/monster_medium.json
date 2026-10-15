@@ -6431,6 +6431,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [],
    "immunities": [
     {
@@ -7156,6 +7157,33 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 2
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 1
+      }
+     ]
+    },
+    {
+     "stances": [
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": []
   },
