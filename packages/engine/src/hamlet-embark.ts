@@ -1,0 +1,329 @@
+import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
+import { basicQuests } from "../../data/src/basic-quests";
+import type { BasicQuestId } from "../../data/src/basic-quests";
+import { dungeonLayoutSchema, roomDistributionSchema } from "../../data/src/dungeon-layout";
+import type { ApplyResult, GameState } from "./command";
+import { rejectBattleCommand } from "./battle";
+import type { DungeonState } from "./dungeon";
+import { createLootState } from "./loot";
+import { createRng } from "./rng";
+import { buildingLevelsProblem } from "./hamlet-buildings";
+import { conditionPoolProblem } from "./conditions";
+import { trinketPoolProblem } from "./trinket-acquisition";
+import { heroSkillSlotCount } from "./hero-loadout";
+
+type Hero = DungeonState["heroes"][number];
+
+function shuffleIds(ids: readonly string[], seed: number, cursor: number) {
+  const rng = createRng(seed),
+    deck = [...ids];
+  for (let i = 0; i < cursor; i++) rng.next();
+  let nextCursor = cursor;
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(rng.next() * (i + 1));
+    [deck[i], deck[j]] = [deck[j]!, deck[i]!];
+    nextCursor++;
+  }
+  return { deck, cursor: nextCursor };
+}
+
+function shuffleKinds(
+  kinds: readonly DungeonState["rooms"][number]["kind"][],
+  seed: number,
+  cursor: number,
+) {
+  const rng = createRng(seed),
+    tokens = [...kinds];
+  for (let i = 0; i < cursor; i++) rng.next();
+  let nextCursor = cursor;
+  for (let i = tokens.length - 1; i > 0; i--) {
+    const j = Math.floor(rng.next() * (i + 1));
+    [tokens[i], tokens[j]] = [tokens[j]!, tokens[i]!];
+    nextCursor++;
+  }
+  return { tokens, cursor: nextCursor };
+}
+
+/** R34：出征时把原装备换成临时卡，计划保留供任务结束归还（R-080）。 */
+export function applyTemporarySkillUpgrades(
+  heroes: readonly Hero[],
+  catalog: NonNullable<DungeonState["battleCatalog"]>,
+): { readonly heroes: readonly Hero[] } | { readonly reason: string } {
+  const next: Hero[] = [];
+  for (const hero of heroes) {
+    const plans = hero.nextQuestSkillUpgrades;
+    if (plans === undefined) {
+      next.push(hero);
+      continue;
+    }
+    if (
+      !Array.isArray(plans) ||
+      plans.some((u) => !u) ||
+      new Set(plans.map((u) => u.originalSkillId)).size !== plans.length ||
+      !Array.isArray(hero.skillIds) ||
+      new Set(hero.skillIds).size !== hero.skillIds.length
+    )
+      return { reason: "铁匠临时技能计划无效，未出征（R34）" };
+    let skillIds = [...hero.skillIds];
+    for (const plan of plans) {
+      const original = catalog.skills.find((s) => s.id === plan.originalSkillId);
+      const temporary = catalog.skills.find((s) => s.id === plan.temporarySkillId);
+      const stat = catalog.heroStats.find((s) => s.id === hero.heroStatId);
+      if (
+        !skillIds.includes(plan.originalSkillId) ||
+        !original?.name ||
+        !temporary ||
+        temporary.verification.unverified ||
+        temporary.name !== original.name ||
+        temporary.hero !== stat?.name ||
+        ![2, 3].includes(temporary.level) ||
+        temporary.level < original.level
+      )
+        return { reason: "临时技能卡缺失、未核实或与原卡不匹配，未出征（R-048/R34）" };
+      skillIds = skillIds.map((id) => (id === plan.originalSkillId ? plan.temporarySkillId : id));
+    }
+    next.push({
+      ...hero,
+      skillIds,
+      ...(hero.combat ? { combat: { ...hero.combat, skillIds } } : {}),
+    });
+  }
+  return { heroes: next };
+}
+
+/** R34 / R-080：任务结束归还当前计划中的原卡（可能已是Guild永久卡），并清除计划与未掷奖励骰字段。 */
+export function restoreTemporarySkillUpgrades(heroes: readonly Hero[]): readonly Hero[] {
+  return heroes.map((hero) => {
+    const { nextQuestSkillUpgrades: plans, nextQuestProvisionDice: _dice, ...base } = hero;
+    void _dice;
+    let skillIds = hero.skillIds ? [...hero.skillIds] : hero.skillIds;
+    if (plans?.length && skillIds) {
+      for (const plan of plans) {
+        if (skillIds.includes(plan.temporarySkillId))
+          skillIds = skillIds.map((id) =>
+            id === plan.temporarySkillId ? plan.originalSkillId : id,
+          );
+      }
+    }
+    return {
+      ...base,
+      ...(skillIds ? { skillIds } : {}),
+      ...(hero.combat && skillIds ? { combat: { ...hero.combat, skillIds } } : {}),
+    };
+  });
+}
+
+function washNomadDisplay(
+  pool: NonNullable<DungeonState["trinkets"]>,
+  seed: number,
+  cursor: number,
+) {
+  if (pool.display === undefined) return { pool, cursor };
+  const shuffled = shuffleIds([...(pool.deck ?? []), ...pool.display], seed, cursor);
+  const { display: _display, ...rest } = pool;
+  void _display;
+  return {
+    pool: { ...rest, deck: shuffled.deck, incoming: null },
+    cursor: shuffled.cursor,
+  };
+}
+
+function embarkProblem(state: GameState, allowPending: boolean): string | null {
+  const d = state.dungeon,
+    h = d?.hamlet;
+  if (
+    !d ||
+    state.battle ||
+    d.phase !== "inHamlet" ||
+    d.hamletReturn?.phase !== "complete" ||
+    !d.questSummary?.awarded ||
+    h?.phase !== "preparationComplete" ||
+    h.active ||
+    (!allowPending && d.pending) ||
+    !d.battleCatalog ||
+    !d.conditions ||
+    !d.trinkets ||
+    !d.roomCards ||
+    !d.monsterPool ||
+    !d.curio ||
+    !d.explorationSetup ||
+    d.heroes.length !== 4 ||
+    d.heroes.some(
+      (hero) =>
+        hero.dead ||
+        !hero.attributesVerified ||
+        hero.level !== 1 ||
+        !hero.heroStatId ||
+        !Number.isSafeInteger(hero.stress) ||
+        hero.stress < 0 ||
+        hero.stress > 9 ||
+        !Array.isArray(hero.skillIds) ||
+        hero.skillIds.length !== heroSkillSlotCount(1),
+    ) ||
+    ["aggressive", "defensive", "ranged", "support"].some(
+      (stance) => d.heroes.filter((hero) => hero.stance === stance).length !== 1,
+    ) ||
+    !Number.isSafeInteger(d.gold) ||
+    d.gold < 0 ||
+    !Number.isSafeInteger(d.cursor) ||
+    d.cursor < 0
+  )
+    return "须在村庄准备完成后、无待选且四名I级英雄齐全时出征下一任务（R32/R33）";
+  return (
+    buildingLevelsProblem(d) ??
+    conditionPoolProblem(d.conditions, d.heroes) ??
+    trinketPoolProblem(d.trinkets, d.heroes)
+  );
+}
+
+/** R33 §4.1：准备天数用尽后抽至多两张剩余I级任务供选择；已进行/未选永久弃掉（R-037）。 */
+export function offerNextQuest(state: GameState): ApplyResult {
+  const reason = embarkProblem(state, false);
+  if (reason) return rejectBattleCommand(state, reason);
+  const d = state.dungeon!;
+  const current = d.questSummary!.questId;
+  const discarded = d.discardedQuests ?? [];
+  if (
+    !basicQuests.some((q) => q.id === current) ||
+    !Array.isArray(discarded) ||
+    discarded.some((id) => typeof id !== "string" || !id) ||
+    new Set(discarded).size !== discarded.length ||
+    discarded.includes(current)
+  )
+    return rejectBattleCommand(state, "上一任务弃置记录无效，未抽下一任务（R-037）");
+  const remaining = basicQuests
+    .map((q) => q.id)
+    .filter((id) => id !== current && !discarded.includes(id));
+  if (!remaining.length) return rejectBattleCommand(state, "已无剩余已接通I级任务可出征（R-037）");
+  const drawn = shuffleIds(remaining, state.seed, d.cursor);
+  const offers = drawn.deck.slice(0, Math.min(2, remaining.length));
+  const pending = {
+    id: `hamlet-next-quest:${d.decision}`,
+    actorId: "party",
+    prompt:
+      offers.length === 1
+        ? "仅剩一张已接通I级任务：确认出征（R33、R-037）"
+        : "选择下一任务：抽到的两张中保留一张，另一张永久移出（R33、R-037）",
+    options: offers.map((id) => {
+      const quest = basicQuests.find((q) => q.id === id)!;
+      return { id, label: quest.name };
+    }),
+  };
+  return {
+    state: {
+      ...state,
+      dungeon: {
+        ...d,
+        cursor: drawn.cursor,
+        pending,
+        decision: d.decision + 1,
+        nextQuestOffers: offers,
+      },
+    },
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: `下一任务候选项：${offers
+          .map((id) => basicQuests.find((q) => q.id === id)!.name)
+          .join(" / ")}`,
+      },
+    ],
+    pendingChoice: pending,
+  };
+}
+
+/** 选定任务后布置新地牢：保留战役资源，应用临时技能，游商陈列洗回，进入开局补给（R12/R33/R34）。 */
+export function chooseNextQuest(state: GameState, choiceId: string, optionId: string): ApplyResult {
+  const reason = embarkProblem(state, true),
+    d = state.dungeon!,
+    pending = d.pending;
+  if (
+    reason ||
+    !pending?.id.startsWith("hamlet-next-quest:") ||
+    pending.id !== choiceId ||
+    !pending.options.some((o) => o.id === optionId) ||
+    !d.nextQuestOffers ||
+    d.nextQuestOffers.length < 1 ||
+    d.nextQuestOffers.length > 2 ||
+    new Set(d.nextQuestOffers).size !== d.nextQuestOffers.length ||
+    !d.nextQuestOffers.includes(optionId as BasicQuestId)
+  )
+    return rejectBattleCommand(state, reason ?? "下一任务选择无效或已过期");
+  const quest = basicQuests.find((q) => q.id === optionId);
+  if (!quest) return rejectBattleCommand(state, "未知任务，未出征");
+  const applied = applyTemporarySkillUpgrades(d.heroes, d.battleCatalog!);
+  if ("reason" in applied) return rejectBattleCommand(state, applied.reason);
+  const washed = washNomadDisplay(d.trinkets!, state.seed, d.cursor);
+  if (trinketPoolProblem(washed.pool, applied.heroes))
+    return rejectBattleCommand(state, trinketPoolProblem(washed.pool, applied.heroes)!);
+  const parsedLayout = dungeonLayoutSchema.parse(layout);
+  const distribution = roomDistributionSchema.parse(quest.distribution);
+  const slots = parsedLayout.nodes.filter((n) => n.kind === "room");
+  const kinds = distribution.counts.flatMap((c) => Array.from({ length: c.count }, () => c.kind));
+  if (kinds.length !== slots.length || parsedLayout.unresolvedMarkers?.length)
+    return rejectBattleCommand(state, "下一任务地图/代币不一致，未出征（R-046）");
+  const shuffled = shuffleKinds(kinds, state.seed, washed.cursor);
+  const discardedQuests = [
+    ...(d.discardedQuests ?? []),
+    d.questSummary!.questId,
+    ...d.nextQuestOffers.filter((id) => id !== optionId),
+  ];
+  if (new Set(discardedQuests).size !== discardedQuests.length)
+    return rejectBattleCommand(state, "任务弃置列表冲突，未出征（R-037）");
+  const { last: _last, ...curioBase } = d.curio!;
+  void _last;
+  const next = {
+    layout: parsedLayout,
+    mode: d.mode,
+    cursor: shuffled.cursor,
+    position: "S" as const,
+    heroes: applied.heroes,
+    resolveCards: d.resolveCards,
+    resolveDecks: d.resolveDecks,
+    gold: d.gold,
+    lootPool: { ...createLootState(), gold: d.gold },
+    battleCatalog: d.battleCatalog!,
+    conditions: d.conditions!,
+    trinkets: washed.pool,
+    roomCards: { ...d.roomCards!, active: null },
+    monsterPool: {
+      ...d.monsterPool!,
+      active: null,
+    },
+    curio: { ...curioBase, active: null },
+    rooms: slots.map((n, i) => ({
+      id: n.id,
+      kind: shuffled.tokens[i]!,
+      revealed: false,
+    })),
+    scoutBonus: false,
+    phase: "awaitingProvisions" as const,
+    pending: null,
+    decision: d.decision + 1,
+    exploration: null,
+    visited: ["S"],
+    explorationSetup: { dungeonLevel: 1, light: 5, provisions: [] },
+    rest: { questId: quest.id, used: false },
+    questDistribution: {
+      ...distribution,
+      counts: distribution.counts.map((c) => ({ ...c })),
+    },
+    ...(d.buildingLevels ? { buildingLevels: d.buildingLevels } : {}),
+    ...(d.stagecoachXp !== undefined ? { stagecoachXp: d.stagecoachXp } : {}),
+    ...(d.waitingHeroTokens !== undefined ? { waitingHeroTokens: d.waitingHeroTokens } : {}),
+    discardedQuests,
+    hamletMemory: {
+      deck: [...d.hamlet!.deck],
+      permanentlyRemoved: [...d.hamlet!.permanentlyRemoved],
+    },
+  } satisfies DungeonState;
+  return {
+    state: { ...state, dungeon: next },
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: `出征 ${quest.name}：临时技能已装备，游商陈列已洗回，等待开局补给（R12/R33/R34）；未选/已完成任务永久弃置`,
+      },
+    ],
+  };
+}

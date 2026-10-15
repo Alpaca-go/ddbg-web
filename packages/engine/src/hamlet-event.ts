@@ -53,7 +53,7 @@ export function currentHamletEvent(state: GameState): HamletEventCard | undefine
     (c) => c.id === (state.dungeon?.hamlet?.active ?? state.dungeon?.hamlet?.last),
   );
 }
-/** R32/33：完整16张只抽一次；未接通卡保留原入牌，不能改概率或先启用准备天数。 */
+/** R32/33：首轮洗满16张；后续出征后从hamletMemory续抽。未接通卡保留原入牌，不能改概率或先启用准备天数。 */
 export function drawHamletEvent(state: GameState): ApplyResult {
   const d = state.dungeon;
   if (
@@ -67,13 +67,27 @@ export function drawHamletEvent(state: GameState): ApplyResult {
     !Number.isSafeInteger(d.cursor + 40)
   )
     return rejectBattleCommand(state, "村庄事件须在回村完成后抽取一次（R32/33）");
-  const drawn = shuffle(
-      catalog.map((c) => c.id),
-      state.seed,
-      d.cursor,
-    ),
+  const memory = d.hamletMemory;
+  if (
+    memory &&
+    (!Array.isArray(memory.deck) ||
+      !Array.isArray(memory.permanentlyRemoved) ||
+      memory.deck.some((id) => typeof id !== "string" || !id) ||
+      memory.permanentlyRemoved.some((id) => typeof id !== "string" || !id) ||
+      new Set(memory.deck).size !== memory.deck.length ||
+      memory.permanentlyRemoved.some((id) => memory.deck.includes(id)))
+  )
+    return rejectBattleCommand(state, "村庄事件牌堆记忆无效，未抽牌（R32/33）");
+  const source = memory
+    ? memory.deck.filter((id) => !memory.permanentlyRemoved.includes(id))
+    : catalog.map((c) => c.id);
+  if (!source.length) return rejectBattleCommand(state, "村庄事件牌堆已空，未抽牌（R32/33）");
+  const drawn = memory
+      ? { deck: [...source], cursor: d.cursor }
+      : shuffle(source, state.seed, d.cursor),
     id = drawn.deck.shift()!;
-  const card = catalog.find((c) => c.id === id)!;
+  const card = catalog.find((c) => c.id === id);
+  if (!card) return rejectBattleCommand(state, "村庄事件卡缺失，未抽牌（R-048）");
   const implemented =
     card.runtime !== "unimplemented" && card.dayBadge.status === "confirmed" && card.days !== null;
   if (card.runtime === "removeDisease" || card.runtime === "removeQuirks") {
@@ -100,7 +114,7 @@ export function drawHamletEvent(state: GameState): ApplyResult {
   const returned = ready ? shuffle([...drawn.deck, id], state.seed, drawn.cursor) : drawn;
   const hamlet: HamletEventState = {
     deck: returned.deck,
-    permanentlyRemoved: [],
+    permanentlyRemoved: memory ? [...memory.permanentlyRemoved] : [],
     active: ready ? null : id,
     last: id,
     phase: ready ? "awaitingCaretaker" : "eventBlocked",
@@ -112,6 +126,8 @@ export function drawHamletEvent(state: GameState): ApplyResult {
     blockedBuildings: [],
     heroOrder: [],
   };
+  const { hamletMemory: _memory, ...dungeonBase } = d;
+  void _memory;
   if (["removeQuirks", "townFair", "laborForce"].includes(card.runtime)) {
     const apply =
       card.runtime === "removeQuirks"
@@ -121,7 +137,7 @@ export function drawHamletEvent(state: GameState): ApplyResult {
           : applyTownFair;
     const result = apply({
       ...state,
-      dungeon: { ...d, cursor: drawn.cursor, hamlet },
+      dungeon: { ...dungeonBase, cursor: drawn.cursor, hamlet },
     });
     const refused = result.events.find((event) => event.type === "commandRefused");
     return refused ? rejectBattleCommand(state, refused.message) : result;
@@ -130,7 +146,7 @@ export function drawHamletEvent(state: GameState): ApplyResult {
     state: {
       ...state,
       dungeon: {
-        ...d,
+        ...dungeonBase,
         cursor: returned.cursor,
         hamlet,
         ...(pending ? { pending, decision: d.decision + 1 } : {}),

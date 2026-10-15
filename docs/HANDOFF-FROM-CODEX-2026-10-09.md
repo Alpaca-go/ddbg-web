@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-15）：#191/#192已合并，main `b1c225c`。当前 `cursor/phase4-next-quest-loop-1c30` 接准备结束后抽选下一任务、出征应用铁匠临时技能、R-041奖励补给骰掷出与任务结束归还，见[开发记录](phase4-next-quest-loop-2026-10-15.md)。正式地牢仍仅I级；自然两任务4XP未验收。下一主题优先连续两任务自然XP路径/Guild英雄升级验收，或剩余村庄事件与驿站死亡补人；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段Guild英雄升级已交付。
+
 > 当前入口（2026-10-15）：#191防御运行时仍为独立 tip；当前 `cursor/phase4-guild-hero-upgrade-3c8e` 接Guild英雄等级升级（4XP+2金）、未装备拥有技能永久升级、`setEquippedSkills`（2+HL）与饰品槽随HL，见[开发记录](phase4-guild-hero-upgrade-2026-10-15.md)。正式地牢仍仅I级；自然两任务4XP未验收。下一主题出征循环/临时技能应用/奖励骰与连续任务；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段防御运行时已交付。
 
 > 当前入口（2026-10-15）：#190已合并，main `9d0cd8d`。当前 `codex/phase4-hero-defence-runtime` 接R-081八卡持续状态防御、Crusader目标Shuffle抗性/免疫及Vestal III怪物/Curio疾病免疫，见[运行时开发记录](phase4-hero-defence-runtime-2026-10-15.md)。已有疾病/状态不因新免疫清除，自身效果保持R20。正式地牢仍仅I级，下一主题Guild英雄升级与装备槽，再接连续任务自然4XP路径；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段数据前置已交付。
