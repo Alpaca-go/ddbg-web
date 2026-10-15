@@ -10,6 +10,8 @@ import type { BlacksmithCommand } from "./hamlet-blacksmith";
 import type { HamletActionCommand } from "./hamlet-actions";
 import { upgradeHamletBuilding } from "./hamlet-buildings";
 import type { UpgradeHamletBuildingCommand } from "./hamlet-buildings";
+import { setEquippedSkills } from "./hero-loadout";
+import type { SetEquippedSkillsCommand } from "./hero-loadout";
 import { applyDungeonCommand } from "./dungeon";
 import { summarizeDungeonQuest, resolveFundraiserGold } from "./dungeon-quest";
 import { restDungeon } from "./dungeon-rest";
@@ -128,6 +130,7 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 export type Command =
   | BlacksmithCommand
   | { readonly type: "visitGuild"; readonly actorId: string }
+  | SetEquippedSkillsCommand
   | UpgradeHamletBuildingCommand
   | HamletActionCommand
   | { readonly type: "visitNomadWagon"; readonly actorId: string }
@@ -315,6 +318,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       ? chooseGuild(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先完成当前公会访问");
   if (command.type === "visitGuild") return visitGuild(state, command.actorId);
+  if (command.type === "setEquippedSkills") return setEquippedSkills(state, command);
   if (state.dungeon?.pending?.id.startsWith("hamlet-nomad:"))
     return command.type === "resolveChoice"
       ? chooseNomadWagon(state, command.choiceId, command.optionId)

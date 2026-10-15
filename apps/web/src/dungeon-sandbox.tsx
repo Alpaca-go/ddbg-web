@@ -13,6 +13,9 @@ import {
   hamletActionOptions,
   blacksmithOptions,
   visitGuild,
+  setEquippedSkills,
+  ownedHeroSkills,
+  heroSkillSlotCount,
   visitNomadWagon,
   upgradableBuildings,
   recoveryBuildingLevel,
@@ -1091,18 +1094,30 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                       <p data-testid="guild-skills">
                         公会永久升级：
                         {d.heroes
-                          .filter((hero) => hero.permanentlyRemovedSkillIds?.length)
-                          .map(
+                          .filter(
                             (hero) =>
-                              `${hero.id} XP ${hero.xp ?? 0}，永久移除${hero.permanentlyRemovedSkillIds!.length}张；装备 ${hero.skillIds
-                                ?.map((id) => {
-                                  const c = d.battleCatalog?.skills.find((s) => s.id === id);
-                                  return `${c?.name ?? id} ${c?.level}`;
-                                })
-                                .join(" / ")}`,
+                              hero.permanentlyRemovedSkillIds?.length ||
+                              (hero.level !== undefined && hero.level > 1),
                           )
+                          .map((hero) => {
+                            const owned = d.battleCatalog
+                              ? ownedHeroSkills(hero, d.battleCatalog)
+                              : null;
+                            const unequipped = owned
+                              ? owned
+                                  .filter((s) => !hero.skillIds?.includes(s.id))
+                                  .map((s) => `${s.name} ${s.level}`)
+                                  .join(" / ")
+                              : "";
+                            return `${hero.id} HL${hero.level ?? "?"} XP ${hero.xp ?? 0}，永久移除${hero.permanentlyRemovedSkillIds?.length ?? 0}张；装备${heroSkillSlotCount(hero.level ?? 1)}槽 ${hero.skillIds
+                              ?.map((id) => {
+                                const c = d.battleCatalog?.skills.find((s) => s.id === id);
+                                return `${c?.name ?? id} ${c?.level}`;
+                              })
+                              .join(" / ")}${unequipped ? `；未装备 ${unequipped}` : ""}`;
+                          })
                           .join(" · ") || "无"}
-                        。英雄等级升级继续开发。
+                        。正式地牢入口仍仅I级。
                       </p>
                       <p data-testid="hamlet-virtues">
                         当前美德：
@@ -1208,9 +1223,48 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                                 })
                               }
                             >
-                              访问公会：永久升级技能
+                              访问公会：永久升级英雄/技能
                             </button>
                           )}
+                        {d.heroes.map((hero) => {
+                          const owned =
+                            d.battleCatalog && !d.pending
+                              ? ownedHeroSkills(hero, d.battleCatalog)
+                              : null;
+                          if (!owned || !hero.level || !hero.id) return null;
+                          const slots = heroSkillSlotCount(hero.level);
+                          const candidate = [
+                            ...(hero.skillIds ?? []),
+                            ...owned.filter((s) => !hero.skillIds?.includes(s.id)).map((s) => s.id),
+                          ].slice(0, slots);
+                          if (
+                            candidate.length !== slots ||
+                            (hero.skillIds?.length === slots &&
+                              hero.skillIds.every((id, i) => id === candidate[i]))
+                          )
+                            return null;
+                          const probe = setEquippedSkills(game, {
+                            type: "setEquippedSkills",
+                            actorId: hero.id,
+                            skillIds: candidate,
+                          });
+                          if (probe.events.some((e) => e.type === "commandRefused")) return null;
+                          return (
+                            <button
+                              key={`loadout-${hero.id}`}
+                              data-testid={`set-skills-${hero.id}`}
+                              onClick={() =>
+                                dispatch({
+                                  type: "setEquippedSkills",
+                                  actorId: hero.id,
+                                  skillIds: candidate,
+                                })
+                              }
+                            >
+                              {hero.id}装满{slots}个技能槽
+                            </button>
+                          );
+                        })}
                         {currentHamletHero(game) &&
                           !visitNomadWagon(game, currentHamletHero(game)!.id).events.some(
                             (e) => e.type === "commandRefused",
