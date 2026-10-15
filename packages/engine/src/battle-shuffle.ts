@@ -8,6 +8,7 @@ import { hasQuirk } from "./passive";
 import { ancestorGlory, clearAncestorConditions } from "./battle-ancestor";
 import { resumeSkillOwnEffects } from "./battle-own-effects";
 import { applySpikedPit } from "./battle-spiked-pit";
+import { readHeroPassiveDefence } from "./battle-skill-status";
 
 /** R27：持有 Balanced 的英雄决定是否少移 1；不改变原技能骰或其他位移意图。 */
 export function chooseBalancedShuffle(state: GameState, optionId: string): ApplyResult {
@@ -71,15 +72,23 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
   while (next.shuffleIntents.length) {
     const intent = next.shuffleIntents[0]!;
     const entity = next.entities.find((entry) => entry.id === intent.entityId);
+    const stat = next.heroStats?.find((card) => card.id === entity?.heroStatId);
+    const defence = entity?.side === "hero" ? readHeroPassiveDefence(next, entity) : undefined;
+    if (entity?.side === "hero" && stat && stat.level !== 1 && !defence)
+      return rejectBattleCommand(state, "英雄位移防御不符合限定审批（R-081）");
     // R20自身效果无视免疫；目标Shuffle在当前A4被免疫，不触发位移被动。
-    if (entity && intent.entityId !== continuation.actorId && ancestorGlory(next.areas, entity)) {
+    if (
+      entity &&
+      intent.entityId !== continuation.actorId &&
+      (ancestorGlory(next.areas, entity) || defence?.shuffleImmune)
+    ) {
       next = { ...next, shuffleIntents: next.shuffleIntents.slice(1) };
       choices = [];
       events.push({
         type: "passiveTriggered",
         entityId: entity.id,
-        trigger: "ancestorGlory",
-        message: `${entity.id} Ancestor's Glory：免疫目标Shuffle（R-065/067、R20）`,
+        trigger: defence?.shuffleImmune ? "shuffleImmunity" : "ancestorGlory",
+        message: `${entity.id}：免疫目标Shuffle（R21、R-065/067、R-081）；自身效果仍按R20`,
       });
       continue;
     }

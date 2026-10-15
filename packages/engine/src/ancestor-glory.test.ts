@@ -21,6 +21,11 @@ import type { GameState } from "./command";
 import { ANCESTOR_CONDITIONS, ancestorGlory } from "./battle-ancestor";
 import { readHeroPassiveDefence } from "./battle-skill-status";
 import { nextBattleRoll } from "./encounter";
+import diseaseData from "../../data/normalized/corebox/disease.json";
+import quirkData from "../../data/normalized/corebox/quirk.json";
+import { diseaseFileSchema } from "../../data/src/disease";
+import { normalizedQuirkFileSchema } from "../../data/src/normalize/schema";
+import { createConditionPool } from "./conditions";
 import type { StatusStack } from "./status";
 
 const tile = approvedExtraRuinsTiles.find((t) => t.number === 7)!;
@@ -94,6 +99,117 @@ function setup(areaId = "A4", firstHero = "CRUSADER", seed = 1): GameState {
   });
 }
 const hero = (s: GameState) => s.battle!.entities.find((e) => e.id === "h0")!;
+function higherCrusader(level: 2 | 3): GameState {
+  const seed = Array.from({ length: 100 }, (_, i) => i).find((s) => nextBattleRoll(s, 0) === 3)!;
+  const initial = setup("A4", "CRUSADER", seed),
+    b = initial.battle!;
+  const stat = normalizedHeroStatFileSchema
+    .parse(statsFile)
+    .cards.find((card) => card.name === "CRUSADER" && card.level === level)!;
+  return {
+    ...initial,
+    battle: {
+      ...b,
+      heroStats: JSON.parse(JSON.stringify([...b.heroStats!, stat])),
+      conditions: createConditionPool(
+        diseaseFileSchema.parse(diseaseData).cards,
+        normalizedQuirkFileSchema.parse(quirkData).cards,
+      ),
+      areas: b.areas.map(({ ancestorGlory: _glory, ...area }) => {
+        void _glory;
+        return area;
+      }),
+      entities: b.entities.map((e) =>
+        e.id === "h0"
+          ? {
+              ...e,
+              heroStatId: stat.id,
+              heroLevel: level,
+              life: stat.life,
+              dodge: stat.dodge,
+              diseaseId: "disease:p007",
+              quirkIds: ["quirk:p014"], // Vertigo / Balanced
+            }
+          : e,
+      ),
+    },
+  };
+}
+it("Crusader II/III真实Dead Weight：抗性减到0/免疫，不触发Balanced或Vertigo", () => {
+  for (const level of [2, 3] as const) {
+    const initial = higherCrusader(level),
+      before = structuredClone(initial);
+    const rolled = applyCommand(initial, {
+      type: "playMonsterSkill",
+      actorId: "m",
+      targetId: "h0",
+      skillSlot: 2,
+    });
+    expect(
+      rolled.events.some((e) => e.type === "commandRefused"),
+      JSON.stringify(rolled.events),
+    ).toBe(false);
+    const done = rolled.state.battle!.shuffleIntents.length
+      ? applyCommand(rolled.state, { type: "resolveShuffles" })
+      : rolled;
+    expect(
+      done.events.some((e) => e.type === "commandRefused"),
+      JSON.stringify(done.events),
+    ).toBe(false);
+    expect(done.pendingChoice).toBeUndefined();
+    expect(hero(done.state)).toMatchObject({
+      areaId: "A4",
+      stance: "aggressive",
+      stress: 0,
+      diseaseId: "disease:p007",
+      statusStacks: [{ kind: "stun", remaining: 1 }],
+    });
+    expect(done.state.battle!.rngCursor).toBe(rolled.state.battle!.rngCursor);
+    expect(initial).toEqual(before);
+    expect(
+      applyCommand(initial, {
+        type: "playMonsterSkill",
+        actorId: "m",
+        targetId: "h0",
+        skillSlot: 2,
+      }),
+    ).toEqual(rolled);
+  }
+});
+it("Crusader III真实Holy Lance自身Pull无视新免疫，仍移动区域和姿态", () => {
+  const base = higherCrusader(3),
+    b = base.battle!;
+  const initial: GameState = {
+    ...base,
+    battle: {
+      ...b,
+      entities: b.entities.map((e) =>
+        e.id === "h0"
+          ? { ...e, areaId: "A2", stance: "ranged", diseaseId: null, quirkIds: [] }
+          : e.id === "h2"
+            ? { ...e, stance: "aggressive" }
+            : e,
+      ),
+    },
+  };
+  const rolled = applyCommand(initial, {
+    type: "playHeroSkill",
+    actorId: "h0",
+    targetId: "m",
+    skillId: "hero_skill:p016",
+  });
+  expect(
+    rolled.events.some((e) => e.type === "commandRefused"),
+    JSON.stringify(rolled.events),
+  ).toBe(false);
+  const done = applyCommand(rolled.state, { type: "resolveShuffles" });
+  expect(
+    done.events.some((e) => e.type === "commandRefused"),
+    JSON.stringify(done.events),
+  ).toBe(false);
+  expect(hero(done.state)).toMatchObject({ areaId: "A4", stance: "defensive" });
+  expect(done.state.battle!.rngCursor).toBe(rolled.state.battle!.rngCursor);
+});
 it("Tomb整面锁定及仅A4连续效果；未就绪或候选区域不投影", () => {
   expect(tile.usable).toBe(true);
   expect(tile.specialRegions.every((r) => r.runtimeReady)).toBe(true);

@@ -12,12 +12,37 @@ import {
   approvedHeroConditionDefences,
   heroConditionDefenceSchema,
 } from "../../data/src/normalize/hero-stat";
+import { readHigherHeroDefence } from "../../data/src/normalize/hero-higher-defence";
+
+type HeroRuntimeDefence = PassiveDefence & {
+  readonly shuffleResistant?: boolean;
+  readonly shuffleImmune?: boolean;
+  readonly diseaseImmune?: boolean;
+};
 
 export function readHeroPassiveDefence(
   battle: Pick<BattleState, "heroStats"> & Partial<Pick<BattleState, "areas">>,
   entity: Pick<BattleEntity, "heroStatId"> & Partial<Pick<BattleEntity, "side" | "areaId">>,
-): PassiveDefence | undefined {
+): HeroRuntimeDefence | undefined {
   const hero = battle.heroStats?.find((h) => h.id === entity.heroStatId);
+  if (hero && hero.level !== 1) {
+    const higher = readHigherHeroDefence(hero);
+    if (!higher) return undefined;
+    const persistent = (kinds: readonly string[]) =>
+      STATUS_KINDS.filter((kind) => kinds.includes(kind));
+    return {
+      resistances: persistent(higher.resistances),
+      immunities: [
+        ...new Set([
+          ...persistent(higher.immunities),
+          ...(ancestorGlory(battle.areas ?? [], entity) ? ANCESTOR_CONDITIONS : []),
+        ]),
+      ],
+      shuffleResistant: higher.resistances.includes("shuffle"),
+      shuffleImmune: higher.immunities.includes("shuffle"),
+      diseaseImmune: higher.immunities.includes("disease"),
+    };
+  }
   const defence = hero?.verified_condition_defence;
   const expected = hero && approvedHeroConditionDefences[hero.id];
   if (
@@ -62,8 +87,17 @@ export function applyBattleSkillStatuses(
     effects: readonly StatusEffect[],
     scope: "self" | "target",
   ): string | null => {
-    if (!effects.length) return null;
     const entity = next.find((entry) => entry.id === id);
+    const stat = battle.heroStats?.find((card) => card.id === entity?.heroStatId);
+    if (
+      scope === "target" &&
+      entity?.side === "hero" &&
+      stat &&
+      stat.level !== 1 &&
+      !readHeroPassiveDefence(battle, entity)
+    )
+      return "英雄条件防御不符合限定审批（R-081），整次未提交";
+    if (!effects.length) return null;
     if (!entity) return "状态效果接收者不存在";
     if (entity.dead) return null;
     if (
@@ -85,19 +119,11 @@ export function applyBattleSkillStatuses(
       const buff = hero?.verified_buff_defence;
       if (entity.side === "hero") {
         const defence = hero?.verified_condition_defence;
-        if (defence) {
-          const expected = hero && approvedHeroConditionDefences[hero.id];
-          if (
-            !hero?.attributesVerified ||
-            hero.level !== 1 ||
-            !expected ||
-            hero.name !== expected.name ||
-            !heroConditionDefenceSchema.safeParse(defence).success ||
-            defence.resistances[0] !== expected.kind
-          )
-            return "英雄条件防御不符合限定审批（R-048）";
-          resistances = [...defence.resistances];
-          immunities = [...(readHeroPassiveDefence(battle, entity)?.immunities ?? [])];
+        if (defence || (hero && hero.level !== 1)) {
+          const approved = readHeroPassiveDefence(battle, entity);
+          if (!approved) return "英雄条件防御不符合限定审批（R-048）";
+          resistances = [...approved.resistances];
+          immunities = [...approved.immunities];
         } else {
           if (
             !hero?.attributesVerified ||

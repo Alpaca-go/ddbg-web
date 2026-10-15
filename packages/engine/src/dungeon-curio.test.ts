@@ -757,6 +757,47 @@ it("第四负面立即发疯死亡，取消Debuff及未发金币；已有金币�
   expect(initial).toEqual(before);
 });
 
+it("Vestal III的Curio疾病免疫按行跳过，不抽牌、不清旧病，其他奖惩继续", () => {
+  const drawn = protectedPage(14),
+    d = drawn.dungeon!;
+  const stat = approvedStats.find((s) => s.name === "VESTAL" && s.level === 3)!;
+  for (const diseaseId of [null, "disease:p011"]) {
+    const initial = {
+      ...drawn,
+      dungeon: {
+        ...d,
+        heroes: d.heroes.map((h, i) =>
+          i ? h : { ...h, level: 3, life: stat.life, heroStatId: stat.id, diseaseId },
+        ),
+        conditions: {
+          ...d.conditions!,
+          diseaseDeck: d.conditions!.diseases.filter((c) => c.id !== diseaseId).map((c) => c.id),
+          negativeDeck: d
+            .conditions!.quirks.filter((c) => c.polarity === "negative")
+            .map((c) => c.id),
+        },
+        curio: { ...d.curio!, active: { ...d.curio!.active!, protected: false } },
+      },
+    };
+    const before = structuredClone(initial);
+    const result = applyCommand(initial, { type: "resolveDungeonCurio" });
+    expect(result.state.dungeon!.curio!.active).toBeNull();
+    expect(result.state.dungeon!.heroes[0]).toMatchObject({ stress: 1, diseaseId });
+    expect(result.state.dungeon!.conditions!.diseaseDeck).toEqual(
+      initial.dungeon.conditions.diseaseDeck,
+    );
+    expect(result.state.dungeon!.conditions!.diseaseDiscard).toEqual(
+      initial.dungeon.conditions.diseaseDiscard,
+    );
+    expect(result.events.filter((e) => e.type === "diseaseAcquired")).toEqual([]);
+    expect(result.state.dungeon!.cursor).toBe(d.cursor);
+    expect(
+      conditionPoolProblem(result.state.dungeon!.conditions!, result.state.dungeon!.heroes),
+    ).toBeNull();
+    expect(applyCommand(initial, { type: "resolveDungeonCurio" })).toEqual(result);
+    expect(initial).toEqual(before);
+  }
+});
 it("新Nervous／The Worries不回改本卡先前压力事件", () => {
   const drawn = protectedPage(14),
     d = drawn.dungeon!;

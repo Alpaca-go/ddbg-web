@@ -35,7 +35,7 @@ import type { PreparedMonsterAction } from "./battle-monster-action";
 import { healingForbidden } from "./battle-healing";
 import { clearAncestorConditions } from "./battle-ancestor";
 import { applySkillHealth } from "./battle-health";
-import { applyBattleSkillStatuses } from "./battle-skill-status";
+import { applyBattleSkillStatuses, readHeroPassiveDefence } from "./battle-skill-status";
 import { statusProjection, statusStackProblem } from "./status";
 import type { StatusStack } from "./status";
 import type { ResolveCard } from "./pressure";
@@ -114,6 +114,7 @@ export type BattleSetup = {
     readonly attributesVerified: boolean;
     readonly level?: number;
     readonly verified_condition_defence?: import("../../data/src/normalize/hero-stat").HeroConditionDefence;
+    readonly verified_higher_condition_defence?: import("../../data/src/normalize/hero-higher-defence").HigherHeroDefence;
     readonly verified_buff_defence?: {
       readonly resistant: boolean;
       readonly immune: boolean;
@@ -594,6 +595,12 @@ export function skillTargetView(entity: BattleEntity, battle?: BattleSetup): Ski
   }
   const { life: _life, ...target } = entity;
   void _life;
+  const stat = battle?.heroStats?.find((card) => card.id === entity.heroStatId);
+  if (stat && stat.level !== 1)
+    return {
+      ...target,
+      shuffleResist: readHeroPassiveDefence(battle!, entity)?.shuffleResistant ?? false,
+    };
   return target;
 }
 

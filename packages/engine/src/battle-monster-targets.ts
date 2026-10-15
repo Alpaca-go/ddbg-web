@@ -58,7 +58,7 @@ export function playMonsterSkillTargets(
       ...(actor.buffStacks === undefined ? {} : { buffStacks: actor.buffStacks }),
       ...(actor.shuffleResist === undefined ? {} : { shuffleResist: actor.shuffleResist }),
     },
-    target: skillTargetView(target),
+    target: skillTargetView(target, battle),
     areaDistance: steps,
     light: battle.light,
     targetsInArea: targets.length,

@@ -82,7 +82,7 @@ export function playMonsterSkill(
       ...(actor.buffStacks === undefined ? {} : { buffStacks: actor.buffStacks }),
       ...(actor.shuffleResist === undefined ? {} : { shuffleResist: actor.shuffleResist }),
     },
-    target: skillTargetView(target),
+    target: skillTargetView(target, battle),
     areaDistance,
     light: battle.light,
     targetAreaLower: heights[actorArea.elevation] > heights[targetArea.elevation],
