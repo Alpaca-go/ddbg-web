@@ -65,11 +65,11 @@ function deploy(seed: number) {
   const room = ok(initial, { type: "prepareDungeonBattle" });
   return { initial, deployed: ok(room.state, { type: "prepareDungeonMonsters" }).state };
 }
-it("R-083完整53张池真实抽到Captain/Gargoyle可入场，Rattler/Ghoul保留效果停点", () => {
+it("完整53张池真实抽到Captain/Gargoyle/Rattler可入场，Ghoul保留效果停点", () => {
   for (const [id, seed, supported] of [
     ["monster_medium:p050", 3, true],
     ["monster_large:p001", 13, true],
-    ["monster_medium:p053", 6, false],
+    ["monster_medium:p053", 6, true],
     ["monster_large:p003", 91, false],
   ] as const) {
     const { initial, deployed } = deploy(seed),
@@ -95,9 +95,11 @@ it("R-083完整53张池真实抽到Captain/Gargoyle可入场，Rattler/Ghoul保�
       ).toBe(false);
       const entity = result.state.battle!.entities.find((e) => e.monsterCardId === id)!;
       expect(entity).toMatchObject(
-        id === "monster_medium:p050"
-          ? { life: 7, dodge: 2, innateProtection: true, protection: true, stanceSlots: 1 }
-          : { life: 33, dodge: 1, innateProtection: false, protection: false, stanceSlots: 2 },
+        id === "monster_medium:p053"
+          ? { life: 22, dodge: 2, stanceSlots: 1 }
+          : id === "monster_medium:p050"
+            ? { life: 7, dodge: 2, innateProtection: true, protection: true, stanceSlots: 1 }
+            : { life: 33, dodge: 1, innateProtection: false, protection: false, stanceSlots: 2 },
       );
       expect(result.state.battle!.rngCursor).toBe(deployed.dungeon!.cursor);
       expect(result.state.dungeon!.gold).toBe(deployed.dungeon!.gold);

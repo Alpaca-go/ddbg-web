@@ -51,6 +51,7 @@ export function battleDataPlugin(): Plugin {
         .parse(read("hero_skill"))
         .cards.filter((card) => skillIds.has(card.id) && !card.verification.unverified);
       const monsterIds = new Set([
+        "monster_medium:p053",
         "monster_large:p001",
         "monster_medium:p050",
         "monster_medium:p013",

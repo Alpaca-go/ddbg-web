@@ -25,6 +25,8 @@ pnpm build
 
 接手开发先读 [Codex 总交接](docs/HANDOFF-FROM-CODEX-2026-10-09.md) 顶部的当前入口与最近提交补记；跨代理背景见 [交给 Codex 的说明](docs/HANDOFF-TO-CODEX-2026-10-09.md)。历史段落中的分支 / 合并状态不覆盖当前入口。
 
+本轮补记：#202已合并（main `e22d421`）；当前接通Rattler无Acc纯自身技能与完整入场，II级已有四种可战，Ghoul复合效果仍停点，见[开发记录](docs/phase4-rattler-self-status-2026-10-15.md)。
+
 最新补记：#200/#201已合并（main `46ff57a`）；跨等级饰品弃装与旧池回收已接。#202按R-083接四种II级怪物获批基础字段及Captain/Gargoyle完整入场（含常驻Protection），Rattler/Ghoul额外运行时仍停点，见[当前开发记录](docs/phase4-remaining-ii-review-2026-10-15.md)。正式升幕及高等级存档仍未开放。
 
 24张Curio已按R-069完成印刷行序结算及待选续接；早期[Q-60交付](docs/phase3-q60-curio-icons-2026-10-12.md)中的未完成数量是历史基线。当前验收边界见[Phase 3复核](docs/phase3-acceptance-gap-2026-10-13.md)。

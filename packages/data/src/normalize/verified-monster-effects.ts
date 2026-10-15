@@ -2,7 +2,7 @@ import type { MonsterEffectPlan } from "../monster-effects";
 import type { NormalizedMonsterMediumCard, NormalizedMonsterLargeCard } from "./schema";
 import { normalizedMonsterMediumCardSchema, normalizedMonsterLargeCardSchema } from "./schema";
 
-/** 完整 I 级卡面逐技能复核，R20–21。原始行保持原样，仅加可校验的原语计划。 */
+/** 已核实I/II级卡面逐技能复核，R20–21。原始行保持原样，仅加可校验的原语计划。 */
 const entries: readonly {
   id: string;
   name: string;
@@ -12,6 +12,37 @@ const entries: readonly {
   signature: string;
   effects: MonsterEffectPlan["effects"];
 }[] = [
+  {
+    id: "monster_medium:p053",
+    name: "Rattler",
+    level: 2,
+    pages: [53, 54, 55],
+    slot: 1,
+    signature: "{self_effects}Self{buff}2t,{guard}1t,{riposte}1t",
+    effects: [
+      { type: "status", scope: "self", kind: "buff", duration: 2 },
+      { type: "status", scope: "self", kind: "guard", duration: 1 },
+      { type: "status", scope: "self", kind: "riposte", duration: 1 },
+    ],
+  },
+  {
+    id: "monster_medium:p053",
+    name: "Rattler",
+    level: 2,
+    pages: [53, 54, 55],
+    slot: 2,
+    signature: "{target_effects}2{bleed}3t",
+    effects: [{ type: "status", scope: "target", kind: "bleed", amount: 2, duration: 3 }],
+  },
+  {
+    id: "monster_medium:p053",
+    name: "Rattler",
+    level: 2,
+    pages: [53, 54, 55],
+    slot: 3,
+    signature: "{self_effects}Self{shuffle}Pull2",
+    effects: [{ type: "shuffle", scope: "self", direction: "pull", distance: 2 }],
+  },
   {
     id: "monster_medium:p050",
     name: "Gargoyle",

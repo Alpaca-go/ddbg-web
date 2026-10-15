@@ -272,6 +272,15 @@ export type GameEvent =
   | MonsterSkillResolvedEvent
   | MonsterSkillTargetsResolvedEvent
   | MonsterActionPreparedEvent
+  | {
+      readonly type: "monsterSelfSkillResolved";
+      readonly actorId: string;
+      readonly skillSlot: number;
+      readonly skillId: string;
+      readonly selectionRoll: number | null;
+      readonly effects: readonly import("./status").StatusEffect[];
+      readonly message: string;
+    }
   | MonsterPositionedEvent
   | HeroMovedEvent
   | {

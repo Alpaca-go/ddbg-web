@@ -791,7 +791,11 @@ export function BattleView({
                 <button onClick={() => send({ type: "prepareMonsterAction", actorId: actor!.id })}>
                   {isInvokingMonster(battle, actor!.id)
                     ? "按 The Invokers 移动"
-                    : "怪物选招与选目标"}
+                    : battle.monsters
+                          ?.find((c) => c.id === actor?.monsterCardId)
+                          ?.skills.some((s) => s.target === "Self")
+                      ? "怪物选招／执行自身技能"
+                      : "怪物选招与选目标"}
                 </button>
               )}
               {action && (
