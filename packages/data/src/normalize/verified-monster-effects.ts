@@ -13,6 +13,31 @@ const entries: readonly {
   effects: MonsterEffectPlan["effects"];
 }[] = [
   {
+    id: "monster_large:p003",
+    name: "Ghoul",
+    level: 2,
+    pages: [3],
+    slot: 1,
+    signature: "{target_effects}3{bleed}2t,{debuff}2t,{stress}+1",
+    effects: [
+      { type: "status", scope: "target", kind: "bleed", amount: 3, duration: 2 },
+      { type: "status", scope: "target", kind: "debuff", duration: 2 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
+  {
+    id: "monster_large:p003",
+    name: "Ghoul",
+    level: 2,
+    pages: [3],
+    slot: 2,
+    signature: "{target_effects}{stun}2t,{stress}+1",
+    effects: [
+      { type: "status", scope: "target", kind: "stun", duration: 2 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
+  {
     id: "monster_medium:p053",
     name: "Rattler",
     level: 2,
