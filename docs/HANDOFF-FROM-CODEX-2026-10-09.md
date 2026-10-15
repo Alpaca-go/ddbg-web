@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-15）：#190已合并，main `9d0cd8d`。当前 `codex/phase4-hero-defence-runtime` 接R-081八卡持续状态防御、Crusader目标Shuffle抗性/免疫及Vestal III怪物/Curio疾病免疫，见[运行时开发记录](phase4-hero-defence-runtime-2026-10-15.md)。已有疾病/状态不因新免疫清除，自身效果保持R20。正式地牢仍仅I级，下一主题Guild英雄升级与装备槽，再接连续任务自然4XP路径；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段数据前置已交付。
+
 > 当前入口（2026-10-15）：#189已合并，main `8b8b5e0`。推进英雄升级时先补高等级防御前置；Kyries已批准八卡完整左右栏，R-081/Q-84 confirmed，当前独立数据/schema/读取器主题，见[核对与开发记录](hero-higher-defence-review-2026-10-15.md)。I级防御/词典不变，尚未启用II/III战斗或Shuffle/Disease运行时，Guild英雄升级及装备槽仍后续；付4XP的自然路径需连续任务接口。事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段技能Guild已交付。
 
 > 当前入口（2026-10-15）：#188已合并，main `c470560`。当前 `codex/phase4-guild-skills` 接Guild技能永久升级、个人2XP/共享1金、单次最多两项、原卡永久移除与待选存档，并按本轮批准R-080更新铁匠归还卡，见[开发记录](phase4-guild-skills-2026-10-15.md)。真实seed64 Scout四房间获得2XP后访问，不注入资源。英雄等级/槽位管理及下一任务循环仍待接入；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段铁匠已交付。

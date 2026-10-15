@@ -248,7 +248,7 @@ export function moveMonsterToRange(
         ...(actor.buffStacks === undefined ? {} : { buffStacks: actor.buffStacks }),
         ...(actor.shuffleResist === undefined ? {} : { shuffleResist: actor.shuffleResist }),
       },
-      target: skillTargetView(target),
+      target: skillTargetView(target, battle),
       areaDistance: minRange,
       light: battle.light,
       shuffleChoice: "push",

@@ -229,6 +229,17 @@ export function resolveCurioRows(state: GameState): ApplyResult {
         events.push(...health.events);
       }
     } else if (effect.type === "drawQuirk" || effect.type === "drawDisease") {
+      if (
+        effect.type === "drawDisease" &&
+        readHeroPassiveDefence(d.battleCatalog!, hero)?.diseaseImmune
+      ) {
+        events.push({
+          type: "dungeonUpdated",
+          message: `${hero.id}：免疫本次疾病，保留已有疾病，不抽牌（R21、R-081）`,
+        });
+        advance(i + 1);
+        continue;
+      }
       const acquired =
         effect.type === "drawDisease"
           ? gainDisease(d.conditions!, d.heroes, hero.id, state.seed, d.cursor)

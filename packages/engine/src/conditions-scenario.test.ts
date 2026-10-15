@@ -24,6 +24,9 @@ import { createConditionPool, conditionPoolProblem } from "./conditions";
 import { nextBattleRoll } from "./encounter";
 import { readMonsterAttackView } from "./monster-skill";
 import { readPrintedRange } from "./hero-skill";
+import { skillTargetView } from "./battle";
+import { applyBattleSkillStatuses, readHeroPassiveDefence } from "./battle-skill-status";
+import { resolveMonsterSkill } from "./monster-skill";
 
 const clean = <T>(value: unknown): T => JSON.parse(JSON.stringify(value)) as T;
 const stats = clean<
@@ -151,6 +154,202 @@ function successful(result: ApplyResult) {
   return result.state;
 }
 const attack = { type: "playMonsterSkill", actorId: "m", targetId: "h0", skillSlot: 1 } as const;
+/** 服务/战斗夹具：只替换获批属性面，不冒称自然战役升级。 */
+function higherHero(state: GameState, name: string, level: number): GameState {
+  const stat = clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number }>(
+    normalizedHeroStatFileSchema
+      .parse(heroData)
+      .cards.find((card) => card.name === name && card.level === level)!,
+  );
+  return {
+    ...state,
+    battle: {
+      ...state.battle!,
+      heroStats: [...state.battle!.heroStats!, stat],
+      entities: state.battle!.entities.map((entity) =>
+        entity.id === "h0"
+          ? {
+              ...entity,
+              hero: name,
+              heroStatId: stat.id,
+              heroLevel: level,
+              life: stat.life,
+              dodge: stat.dodge,
+              skillIds: skills
+                .filter((card) => card.hero === name && card.level === 1)
+                .map((card) => card.id),
+            }
+          : entity,
+      ),
+    },
+  };
+}
+it("R-081八张高等级卡：目标状态仅缩短Nt、自身忽略防御，已有堆保留", () => {
+  const cases = [
+    ["CRUSADER", 2, ["stun"]],
+    ["CRUSADER", 3, ["stun", "debuff"]],
+    ["HELLION", 2, ["bleed", "blight"]],
+    ["HELLION", 3, ["stun", "bleed", "blight"]],
+    ["HIGHWAYMAN", 2, ["stun", "bleed"]],
+    ["HIGHWAYMAN", 3, ["stun", "bleed", "blight"]],
+    ["VESTAL", 2, ["stun", "bleed"]],
+    ["VESTAL", 3, ["stun", "bleed"]],
+  ] as const;
+  for (const [name, level, resisted] of cases) {
+    const state = higherHero(
+        patch(setup(), {
+          guard: true,
+          statusStacks: [{ kind: "guard", remaining: 3 }],
+        }),
+        name,
+        level,
+      ),
+      b = state.battle!,
+      h = hero(state);
+    const probe = resolveMonsterSkill(
+      b.monsters![0]!,
+      1,
+      {
+        actor: b.entities.find((e) => e.id === "m")!,
+        target: skillTargetView(h, b),
+        areaDistance: b.entities.find((e) => e.id === "m")!.areaId === h.areaId ? 0 : 1,
+      },
+      1,
+    );
+    if (probe.status !== "resolved") throw new Error(probe.reason);
+    const effects = (["stun", "bleed", "blight", "debuff"] as const).map((kind) => ({
+      kind,
+      duration: 2,
+      ...(kind === "bleed" || kind === "blight" ? { amount: 2 } : {}),
+    }));
+    const before = structuredClone(state);
+    for (const self of [false, true]) {
+      const result = applyBattleSkillStatuses(b, b.entities, self ? h.id : "m", [
+        {
+          ...probe.resolution,
+          targetId: h.id,
+          actorStatusEffects: self ? effects : [],
+          targetStatusEffects: self ? [] : effects,
+        },
+      ]);
+      expect(result.status).toBe("resolved");
+      if (result.status !== "resolved") throw new Error(result.reason);
+      expect(result.entities.find((e) => e.id === h.id)!.statusStacks).toEqual([
+        { kind: "guard", remaining: 3 },
+        ...effects.map((e) => ({
+          kind: e.kind,
+          remaining: 2 - Number(!self && (resisted as readonly string[]).includes(e.kind)),
+          ...(e.amount === undefined ? {} : { amount: e.amount }),
+        })),
+      ]);
+      expect(result.rngCursor).toBe(b.rngCursor);
+    }
+    expect(state).toEqual(before);
+    expect([...readHeroPassiveDefence(b, h)!.resistances].sort()).toEqual([...resisted].sort());
+  }
+});
+it("Vestal III真实Maggot免疫新感染：不抽牌/怪癖、不重洗，已有病保留", () => {
+  for (const diseaseId of [null, "disease:p011"]) {
+    const initial = higherHero(patch(setup(), { diseaseId }), "VESTAL", 3);
+    const before = structuredClone(initial),
+      result = applyCommand(initial, attack);
+    const done = successful(result);
+    expect(hero(done).diseaseId).toBe(diseaseId);
+    expect(done.battle!.conditions).toEqual(initial.battle!.conditions);
+    expect(done.battle!.rngCursor).toBe(1); // 仅技能骰
+    expect(result.events.filter((e) => e.type === "diseaseAcquired")).toEqual([]);
+    expect(
+      result.events.some((e) => e.type === "passiveTriggered" && e.trigger === "diseaseImmunity"),
+    ).toBe(true);
+    expect(applyCommand(initial, attack)).toEqual(result);
+    expect(initial).toEqual(before);
+  }
+});
+it("Crusader II抵抗真实Push2后接Balanced与区域分岔，各选择不重复减距或掷骰", () => {
+  const seed = Array.from({ length: 100 }, (_, i) => i).find((s) => nextBattleRoll(s, 0) === 3)!;
+  const base = higherHero(
+    patch(setup("monster_medium:p021", seed), {
+      diseaseId: "disease:p007",
+      quirkIds: ["quirk:p014"],
+    }),
+    "CRUSADER",
+    2,
+  );
+  const b = base.battle!;
+  const initial: GameState = {
+    ...base,
+    battle: {
+      ...b,
+      areas: [
+        ...b.areas.map((a) => (a.id === "a" ? { ...a, adjacent: [...a.adjacent, "d"] } : a)),
+        { id: "d", adjacent: ["a"], capacity: 8, elevation: "normal" },
+      ],
+    },
+  };
+  const rolled = applyCommand(initial, { ...attack, skillSlot: 3 });
+  successful(rolled);
+  expect(rolled.state.battle!.shuffleIntents[0]!.move.distance).toBe(1);
+  const balanced = applyCommand(rolled.state, { type: "resolveShuffles" });
+  expect(balanced.pendingChoice?.id).toContain("shuffle-reduction");
+  for (const reduce of [false, true]) {
+    const kept = applyCommand(balanced.state, {
+      type: "resolveChoice",
+      choiceId: balanced.pendingChoice!.id,
+      optionId: reduce ? "reduce" : "keep",
+    });
+    if (reduce) {
+      expect(kept.pendingChoice).toBeUndefined();
+      expect(hero(kept.state)).toMatchObject({ areaId: "a", stance: "aggressive", stress: 0 });
+    } else {
+      expect(kept.pendingChoice?.options.map((o) => o.id)).toEqual(["c", "d"]);
+      const done = applyCommand(kept.state, {
+        type: "resolveChoice",
+        choiceId: kept.pendingChoice!.id,
+        optionId: "c",
+      });
+      successful(done);
+      expect(hero(done.state)).toMatchObject({ areaId: "c", stance: "defensive", stress: 2 });
+      expect(done.state.battle!.rngCursor).toBe(rolled.state.battle!.rngCursor);
+      expect(
+        applyCommand(kept.state, {
+          type: "resolveChoice",
+          choiceId: kept.pendingChoice!.id,
+          optionId: "c",
+        }),
+      ).toEqual(done);
+    }
+  }
+});
+it("高等级防御缺失/伪造时真实攻击整次拒绝，不以Buff专项或I级防御回退", () => {
+  const initial = higherHero(setup(), "VESTAL", 3),
+    b = initial.battle!;
+  for (const change of [
+    { verified_higher_condition_defence: undefined },
+    { name: "CRUSADER" },
+    { level: 2 },
+    {
+      verified_higher_condition_defence: {
+        ...b.heroStats!.at(-1)!.verified_higher_condition_defence!,
+        immunities: [],
+      },
+    },
+  ]) {
+    const changed = {
+      ...initial,
+      battle: {
+        ...b,
+        heroStats: clean<NonNullable<BattleSetup["heroStats"]>>(
+          b.heroStats!.map((card) =>
+            card.id === hero(initial).heroStatId ? { ...card, ...change } : card,
+          ),
+        ),
+      },
+    };
+    const result = applyCommand(changed, attack);
+    expect(result.state).toBe(changed);
+    expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
+  }
+});
 const turn = (state: GameState, actor: "hero" | "monster" = "hero"): GameState => ({
   ...state,
   battle: {

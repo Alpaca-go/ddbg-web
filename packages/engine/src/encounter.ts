@@ -482,6 +482,15 @@ export function recordMonsterSkill(
           result.state,
           "疾病需要完整实体牌堆与已核实免疫栏（R27、R-048）",
         );
+      if (readHeroPassiveDefence(next, hero)?.diseaseImmune) {
+        events.push({
+          type: "passiveTriggered",
+          entityId: hero.id,
+          trigger: "diseaseImmunity",
+          message: "免疫本次疾病；保留已有疾病，不抽牌或推进RNG（R21、R-081）",
+        });
+        continue;
+      }
       const acquired = gainDisease(
         next.conditions,
         next.entities.filter((e) => e.side === "hero"),
