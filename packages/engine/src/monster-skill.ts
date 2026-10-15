@@ -39,6 +39,7 @@ export type MonsterCardView = {
   readonly stanceGroups?: readonly MonsterStanceGroup[];
   /** 只读获批 Speed；缺失不补默认值（R-048）。 */
   readonly speed?: number;
+  readonly innateProtection?: boolean;
   readonly resistances?: readonly { readonly key: string | null; readonly naming: string }[];
   readonly immunities?: readonly { readonly key: string | null; readonly naming: string }[];
 };

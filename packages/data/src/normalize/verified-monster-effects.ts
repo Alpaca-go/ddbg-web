@@ -6,11 +6,42 @@ import { normalizedMonsterMediumCardSchema, normalizedMonsterLargeCardSchema } f
 const entries: readonly {
   id: string;
   name: string;
+  level?: 2;
   pages: number[];
   slot: number;
   signature: string;
   effects: MonsterEffectPlan["effects"];
 }[] = [
+  {
+    id: "monster_medium:p050",
+    name: "Gargoyle",
+    level: 2,
+    pages: [50, 51, 52],
+    slot: 1,
+    signature: "{target_effects}{debuff}2t",
+    effects: [{ type: "status", scope: "target", kind: "debuff", duration: 2 }],
+  },
+  {
+    id: "monster_medium:p050",
+    name: "Gargoyle",
+    level: 2,
+    pages: [50, 51, 52],
+    slot: 2,
+    signature: "{target_effects}{stun}2t,{shuffle}Push1",
+    effects: [
+      { type: "status", scope: "target", kind: "stun", duration: 2 },
+      { type: "shuffle", scope: "target", direction: "push", distance: 1 },
+    ],
+  },
+  {
+    id: "monster_large:p001",
+    name: "Bone Captain",
+    level: 2,
+    pages: [1],
+    slot: 2,
+    signature: "{target_effects}{stun}2t",
+    effects: [{ type: "status", scope: "target", kind: "stun", duration: 2 }],
+  },
   {
     id: "monster_medium:p010",
     name: "Bone Defender",
@@ -233,7 +264,7 @@ export function attachVerifiedMonsterEffects(
       cards.filter((c) => c.id === entry.id).length !== 1 ||
       !("skills" in card) ||
       card.name !== entry.name ||
-      card.level !== 1 ||
+      card.level !== (entry.level ?? 1) ||
       JSON.stringify(card.pages) !== JSON.stringify(entry.pages)
     )
       throw new Error(`怪物效果身份不符：${entry.id}`);

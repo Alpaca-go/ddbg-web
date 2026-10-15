@@ -15,6 +15,24 @@ const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 // docs/monster-stance-review-2026-10-09.md §3–4、§7；R-015、R-048。
 // Bone Spearman II 单卡批准：R-082 / Q-85。
 const approved = [
+  {
+    id: "monster_medium:p050",
+    slots: [
+      [1, 1, 1, 1, 1, 1, 2, 2, 2, 2],
+      [1, 1, 1, 1, 1, 1, 2, 2, 2, 2],
+      [1, 1, 1, 1, 1, 1, 2, 2, 2, 2],
+      2,
+    ],
+  },
+  {
+    id: "monster_medium:p053",
+    slots: [
+      [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],
+      [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],
+      [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 3, 3, 3, 3, 3],
+    ],
+  },
   { id: "monster_medium:p001", slots: [1, 1, 1, 2] },
   { id: "monster_medium:p004", slots: [2, [1, 1, 1, 1, 1, 2, 2, 2, 2, 2], 1, 1] },
   { id: "monster_medium:p007", slots: [2, 2, 1, 1] },

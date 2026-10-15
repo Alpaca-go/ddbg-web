@@ -214,6 +214,44 @@ export const verifiedMonsterStances = z.array(entrySchema).parse([
       { stances: ["ranged", "support"], skill: 1 },
     ],
   },
+  {
+    id: "monster_medium:p050",
+    name: "Gargoyle",
+    level: 2,
+    pages: [50, 51, 52],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged"],
+        rollTable: [
+          { min: 1, max: 6, skill: 1 },
+          { min: 7, max: 10, skill: 2 },
+        ],
+      },
+      { stances: ["support"], skill: 2 },
+    ],
+  },
+  {
+    id: "monster_medium:p053",
+    name: "Rattler",
+    level: 2,
+    pages: [53, 54, 55],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged"],
+        rollTable: [
+          { min: 1, max: 5, skill: 2 },
+          { min: 6, max: 10, skill: 1 },
+        ],
+      },
+      {
+        stances: ["support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
 ]);
 
 /** 仅生成管线加载获批映射；结构验证不替代人工批准。 */

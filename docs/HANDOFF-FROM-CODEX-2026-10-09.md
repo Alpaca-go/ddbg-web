@@ -1,5 +1,9 @@
 # Codex 接线交接（2026-10-09）
 
+> 最新进展（2026-10-15）：Kyries已明确“批准四卡限定表”，记R-083/Q-86 confirmed；#202由送审文档扩展为获批入库与Captain/Gargoyle完整入场。四卡基础Speed/骰表/常驻Protection已生成，Captain/Gargoyle真实53张池部署可战，Rattler/Ghoul仍因完整效果未接原样停场。见[本轮记录](phase4-remaining-ii-review-2026-10-15.md)，后续只需继续各自额外运行时，不重开基础字段审批。下段pending为送审时的历史状态。
+
+> 当前入口（2026-10-15）：#201已合并，main `46ff57a`。当前`codex/phase4-remaining-ii-review`完成Captain/Gargoyle/Rattler/Ghoul的逐面核对及四卡限定审批表（Q-86，pending），见[待审表](phase4-remaining-ii-review-2026-10-15.md)。候选未入生产数据；现有II级仍仅Spearman获批入场。优先等待具体数据批准后逐张补完整运行时，不把Speed/选招批准扩大为全卡自动可用。事件11/16、Q-79/Q-80 pending，未进入Phase5。
+
 > 当前入口（2026-10-15）：#200已审查合并，main `63b3a4e`。当前`codex/phase4-cross-level-trinket`补跨等级旧饰品弃装腾位、独立旧池守恒与回村洗回；完整开发进度及限制见[本轮记录](phase4-cross-level-trinket-2026-10-15.md)。II级仍仅两任务/一种获批怪物，事件11/16，Q-79/Q-80 pending，正式Boss升幕未接，人工试玩未代签，未进入Phase 5。下段为历史交付记录。
 
 > 当前入口（2026-10-15）：#199已合并，head `ca416e3`，main `4122971`。当前 `codex/phase4-ii-monster-entry` 接Kyries本轮仅批准的Bone Spearman II（M13–15）Speed2、A/D骰表2(1–5)/1(6–10)、R/S固定1，记R-082/Q-85；已复核三副本并接完整53张池混合入场，见[核对/开发记录](phase4-ii-monster-review-2026-10-15.md)。其余四种II级仍停点，未筛掉/重抽未批卡；II级任务p7/p8、事件11/16，Q-79/Q-80 pending，正式Boss升幕/新威胁未接，人工试玩未代签，未进入Phase5。下段#199为已交付基线。

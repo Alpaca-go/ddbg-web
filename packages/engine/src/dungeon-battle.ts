@@ -139,7 +139,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       card.level > d.explorationSetup.dungeonLevel ||
       (card.level !== 1 && !hasApprovedHigherMonsterFields(card))
     )
-      return refuse(`${card.name} 的等级 / 高等级限定批准不符，保留部署（R-082、R-048）`);
+      return refuse(`${card.name} 的等级 / 高等级限定批准不符，保留部署（R-082、R-083、R-048）`);
     if (!Number.isSafeInteger(card.dodge) || card.dodge < 0)
       return refuse(`${card.name} 缺少唯一已核实 Dodge`);
     if (
@@ -203,6 +203,12 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       skillIds: [],
       guard: false,
       dead: false,
+      ...(card.innateProtection === undefined
+        ? {}
+        : {
+            innateProtection: card.innateProtection,
+            protection: card.innateProtection,
+          }),
       bleed: [],
       blight: [],
     });

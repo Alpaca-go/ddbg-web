@@ -32,6 +32,9 @@ export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
   { id: "monster_medium:p037", name: "Spitter", level: 1, pages: [37, 38, 39], speed: 1 },
   // R-082：Kyries 2026-10-15仅批准Bone Spearman II，完整M13–15已核图。
   { id: "monster_medium:p013", name: "Bone Spearman", level: 2, pages: [13, 14, 15], speed: 2 },
+  // R-083：2026-10-15四卡限定表获批。
+  { id: "monster_medium:p050", name: "Gargoyle", level: 2, pages: [50, 51, 52], speed: 3 },
+  { id: "monster_medium:p053", name: "Rattler", level: 2, pages: [53, 54, 55], speed: 3 },
 ]);
 
 /** 仅生成管线加载人工获批映射；schema 可表达的值不代表已获批准。 */

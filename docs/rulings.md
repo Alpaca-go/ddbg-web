@@ -801,6 +801,12 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **限定批准**：Kyries明确回复“批准这一条”：Bone Spearman II（`monster_medium:p013`，实体M13–15）Speed=2；Aggressive/Defensive共用d10选招表，1–5用技能2，6–10用技能1；Ranged/Support共用固定技能1。
 - **依据 / 边界**：当前版monsters_medium_FRONT完整M13–15、官方R24、R-015/R-048，见[核对记录](phase4-ii-monster-review-2026-10-15.md)。仅此卡Speed/选招，不批准其余II级卡，不改全局图标词典；完整技能及入场另行验证，不自动进入Phase5。Q-85，confirmed。
 
+### R-083
+
+- **编号 / 日期**：R-083，2026-10-15（UTC+8）。
+- **限定批准**：Kyries对[四卡限定表](phase4-remaining-ii-review-2026-10-15.md)明确回复“批准四卡限定表”：Bone Captain II（大型L1、抽牌M12）Speed1，A/D骰表1(1–6)/2(7–10)，R/S固定2，无常驻Protection；Gargoyle II（M50–52）Speed3，A/D/R骰表1(1–6)/2(7–10)，S固定2，有常驻Protection；Rattler II（M53–55）Speed3，A/D/R骰表2(1–5)/1(6–10)，S骰表1(1–5)/3(6–10)，无常驻Protection；Ghoul II（大型L3、抽牌M49）Speed2，A/D/R骰表1(1–4)/2(5–7)/3(8–10)，S骰表2(1–5)/3(6–10)，有常驻Protection。
+- **依据 / 边界**：官方R24完整页面与上述当前版完整卡面。只限四个具体战斗卡id/等级/页组的Speed、完整选招和头部常驻Protection有无；不全局改词典、不外推其他等级，不等于完整技能均可执行。Rattler自身状态与Ghoul复合效果须另接运行时。Q-86，confirmed。
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。
@@ -1067,3 +1073,8 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **问题 / 来源**：II级怪物缺少已批准Speed/姿态选招，现有I级批准不能外推。
 - **处理 / 状态**：confirmed（R-082，2026-10-15），Kyries仅批准Bone Spearman II（M13–15）Speed=2与A/D骰表2(1–5)/1(6–10)、R/S固定1；其余II级继续待核对。
+
+### Q-86
+
+- **问题 / 来源**：其余四种II级怪物尚无获批Speed/姿态表及头部常驻Protection入场字段；R-082只覆盖Spearman。已对照官方R24完整页面及当前版印刷中型M12/M49/M50–55、大型L1/L3，具体候选见[四卡核对表](phase4-remaining-ii-review-2026-10-15.md)。
+- **处理 / 状态**：confirmed（R-083，2026-10-15），Kyries明确回复“批准四卡限定表”；仅四卡基础字段获批，完整效果运行时仍须逐张接入。原送审状态保留在核对表历史说明中。

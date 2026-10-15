@@ -281,6 +281,8 @@ const monsterCardSchema = z
     life_icon: normalizedIconSchema,
     /** R24：仅接受另行核实的移动区域数；缺失不代表 0，不从图标自动补值。 */
     speed: z.int().nonnegative().optional(),
+    /** R24 / R-083：仅具体获批卡的头部常驻Protection，非可消退状态堆。 */
+    innateProtection: z.boolean().optional(),
     resistances: z.array(normalizedIconSchema),
     immunities: z.array(normalizedIconSchema),
     header_unlabeled_numbers: z.array(normalizedUnlabeledNumberSchema),

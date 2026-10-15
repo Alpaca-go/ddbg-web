@@ -21,7 +21,7 @@ const combat = {
   light: 5,
 };
 describe("怪物复合效果原语（R20–21 / R27–28）", () => {
-  it("所有有计划且不含疾病的真实 I 级技能完整结算，原始数据保持不变", () => {
+  it("所有有计划且不含疾病的真实 I/II 级技能完整结算，原始数据保持不变", () => {
     const before = structuredClone(cards);
     let checked = 0;
     for (const card of cards)
@@ -49,7 +49,7 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
         }
         checked++;
       }
-    expect(checked).toBe(18);
+    expect(checked).toBe(21); // 原18项 + R-083 Captain/Gargoyle三项效果计划。
     expect(cards).toEqual(before);
   });
   it("注解数值 / 范围或原始行漂移原子拒绝，不能靠更新签名放行", () => {

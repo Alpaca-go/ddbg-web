@@ -75,10 +75,7 @@
    ],
    "edge": "front",
    "stanceSlots": 2,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p013",
@@ -286,10 +283,7 @@
    ],
    "edge": "front",
    "stanceSlots": 2,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p050",
@@ -304,10 +298,7 @@
    ],
    "edge": "front",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p053",
@@ -322,10 +313,7 @@
    ],
    "edge": "front",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p056",

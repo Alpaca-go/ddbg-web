@@ -6,7 +6,7 @@ import type { NormalizedMonsterLargeCard } from "./schema";
 const entrySchema = z.strictObject({
   id: z.string().regex(/^monster_large:p\d{3}$/),
   name: z.string().min(1),
-  level: z.literal(1),
+  level: z.union([z.literal(1), z.literal(2)]),
   pages: z.array(z.int().positive()).min(1),
   speed: z.int().nonnegative(),
   stanceGroups: monsterStanceGroupsSchema,
@@ -14,6 +14,47 @@ const entrySchema = z.strictObject({
 
 /** Kyries 2026-10-12 批准 L2；M30 只是抽牌参考卡，不给它附战斗字段。R24、R-015、R-048。 */
 export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
+  {
+    id: "monster_large:p001",
+    name: "Bone Captain",
+    level: 2,
+    pages: [1],
+    speed: 1,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive"],
+        rollTable: [
+          { min: 1, max: 6, skill: 1 },
+          { min: 7, max: 10, skill: 2 },
+        ],
+      },
+      { stances: ["ranged", "support"], skill: 2 },
+    ],
+  },
+  {
+    id: "monster_large:p003",
+    name: "Ghoul",
+    level: 2,
+    pages: [3],
+    speed: 2,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged"],
+        rollTable: [
+          { min: 1, max: 4, skill: 1 },
+          { min: 5, max: 7, skill: 2 },
+          { min: 8, max: 10, skill: 3 },
+        ],
+      },
+      {
+        stances: ["support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 2 },
+          { min: 6, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
   {
     id: "monster_large:p002",
     name: "Brigand Bloodletter",

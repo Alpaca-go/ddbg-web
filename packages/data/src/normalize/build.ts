@@ -17,6 +17,7 @@ import { virtueRole } from "./virtue-role";
 import { attachVerifiedMonsterStances } from "./verified-monster-stances";
 import { attachVerifiedMonsterSpeeds } from "./verified-monster-speeds";
 import { attachVerifiedLargeMonsterFields } from "./verified-large-monster-fields";
+import { attachVerifiedMonsterProtection } from "./verified-monster-protection";
 import { attachVerifiedMonsterEffects } from "./verified-monster-effects";
 import { attachVerifiedMonsterStress } from "./verified-monster-stress";
 import { attachVerifiedMonsterDamage } from "./verified-monster-damage";
@@ -404,7 +405,9 @@ function buildMonsterMedium(
     cards: attachVerifiedMonsterEffects(
       attachVerifiedMonsterDamage(
         attachVerifiedMonsterStress(
-          attachVerifiedMonsterSpeeds(attachVerifiedMonsterStances(cards)),
+          attachVerifiedMonsterProtection(
+            attachVerifiedMonsterSpeeds(attachVerifiedMonsterStances(cards)),
+          ),
         ),
       ),
     ),
@@ -430,7 +433,10 @@ function buildMonsterLarge(
       dictionary: DICTIONARY_SOURCE,
     },
     stats: cardStats(cards),
-    cards: attachVerifiedMonsterEffects(attachVerifiedLargeMonsterFields(cards), true),
+    cards: attachVerifiedMonsterEffects(
+      attachVerifiedMonsterProtection(attachVerifiedLargeMonsterFields(cards), true),
+      true,
+    ),
   });
 }
 
