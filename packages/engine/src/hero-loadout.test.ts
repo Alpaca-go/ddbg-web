@@ -154,6 +154,6 @@ it("英雄升II后技能槽4须装满；饰品容量随HL；已有疾病不因�
   const filled = ok(left, { type: "setEquippedSkills", actorId: "hero-0", skillIds: four });
   expect(filled.dungeon!.heroes[0]!.skillIds).toHaveLength(4);
   expect(heroTrinketSlotCount(2)).toBe(2);
-  // 正式地牢入口仍只接I级：升到II后不能宣称可自然开战。
+  // 装满2+HL后可由出征/战斗交接主题继续；本主题只断言换装。
   expect(hero.level).toBe(2);
 });

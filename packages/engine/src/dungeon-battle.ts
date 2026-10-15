@@ -14,6 +14,7 @@ import type { HeroSkillResolution } from "./hero-skill";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { statusProjection } from "./status";
 import { isGuardedDungeonRoom, awaitDungeonRoomCurio } from "./dungeon-curio-room";
+import { heroSkillSlotCount } from "./hero-loadout";
 
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
 export function startDungeonBattle(state: GameState): ApplyResult {
@@ -49,18 +50,20 @@ export function startDungeonBattle(state: GameState): ApplyResult {
   for (const hero of d.heroes) {
     const stat = stats.find((s) => s.id === hero.heroStatId);
     const selected = hero.skillIds?.map((id) => skills.find((s) => s.id === id));
+    const slots = heroSkillSlotCount(stat?.level ?? 0);
     if (
       !stat ||
       !stat.attributesVerified ||
-      stat.level !== 1 ||
+      ![1, 2, 3].includes(stat.level) ||
       hero.level !== stat.level ||
+      (hero.heroLevel !== undefined && hero.heroLevel !== stat.level) ||
       hero.life !== stat.life ||
       !hero.stance ||
       hero.dead ||
       hero.wounds === undefined ||
       !selected ||
-      selected.length !== 3 ||
-      new Set(hero.skillIds).size !== 3 ||
+      selected.length !== slots ||
+      new Set(hero.skillIds).size !== slots ||
       selected.some(
         (s) =>
           !s ||
@@ -84,7 +87,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
           }),
       )
     )
-      return refuse(`${hero.id} 缺少获批属性或三个有效装备技能（R-048、R-051）`);
+      return refuse(`${hero.id} 缺少获批属性或${slots || "2+HL"}个有效装备技能（R-048、R-051）`);
     heroes.push({
       ...hero.combat,
       diseaseId: hero.diseaseId ?? null,

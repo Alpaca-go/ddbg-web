@@ -148,18 +148,25 @@ function embarkProblem(state: GameState, allowPending: boolean): string | null {
     !d.curio ||
     !d.explorationSetup ||
     d.heroes.length !== 4 ||
-    d.heroes.some(
-      (hero) =>
+    d.heroes.some((hero) => {
+      const level = hero.level;
+      const stat = d.battleCatalog!.heroStats.find((s) => s.id === hero.heroStatId);
+      return (
         hero.dead ||
         !hero.attributesVerified ||
-        hero.level !== 1 ||
         !hero.heroStatId ||
+        ![1, 2, 3].includes(level!) ||
+        !stat?.attributesVerified ||
+        stat.level !== level ||
+        (hero.heroLevel !== undefined && hero.heroLevel !== level) ||
+        hero.life !== stat.life ||
         !Number.isSafeInteger(hero.stress) ||
         hero.stress < 0 ||
         hero.stress > 9 ||
         !Array.isArray(hero.skillIds) ||
-        hero.skillIds.length !== heroSkillSlotCount(1),
-    ) ||
+        hero.skillIds.length !== heroSkillSlotCount(level!)
+      );
+    }) ||
     ["aggressive", "defensive", "ranged", "support"].some(
       (stance) => d.heroes.filter((hero) => hero.stance === stance).length !== 1,
     ) ||
@@ -168,7 +175,7 @@ function embarkProblem(state: GameState, allowPending: boolean): string | null {
     !Number.isSafeInteger(d.cursor) ||
     d.cursor < 0
   )
-    return "须在村庄准备完成后、无待选且四名I级英雄齐全时出征下一任务（R32/R33）";
+    return "须在村庄准备完成后、无待选且四名已核实英雄（I–III，技能槽=2+HL）齐全时出征下一任务（R32/R33、R-051）";
   return (
     buildingLevelsProblem(d) ??
     conditionPoolProblem(d.conditions, d.heroes) ??

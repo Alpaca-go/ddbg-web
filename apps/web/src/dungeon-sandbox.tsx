@@ -1117,7 +1117,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                               .join(" / ")}${unequipped ? `；未装备 ${unequipped}` : ""}`;
                           })
                           .join(" · ") || "无"}
-                        。正式地牢入口仍仅I级。
+                        。出征要求技能槽=2+HL（I–III）。
                       </p>
                       <p data-testid="hamlet-virtues">
                         当前美德：
