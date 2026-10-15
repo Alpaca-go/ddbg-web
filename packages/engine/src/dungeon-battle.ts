@@ -61,9 +61,30 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       !selected ||
       selected.length !== 3 ||
       new Set(hero.skillIds).size !== 3 ||
-      selected.some((s) => !s || s.hero !== stat.name || s.level !== 1 || s.verification.unverified)
+      selected.some(
+        (s) =>
+          !s ||
+          s.hero !== stat.name ||
+          ![1, 2, 3].includes(s.level) ||
+          s.verification.unverified ||
+          hero.permanentlyRemovedSkillIds?.includes(s.id) ||
+          Array.from({ length: s.level - 1 }, (_, i) => i + 1).some((level) => {
+            const previous = skills.filter(
+              (c) =>
+                c.hero === s.hero &&
+                c.name === s.name &&
+                c.level === level &&
+                !c.verification.unverified,
+            );
+            return (
+              !s.name ||
+              previous.length !== 1 ||
+              !hero.permanentlyRemovedSkillIds?.includes(previous[0]!.id)
+            );
+          }),
+      )
     )
-      return refuse(`${hero.id} 缺少获批属性或三个 I 级装备技能（R-048、R-051）`);
+      return refuse(`${hero.id} 缺少获批属性或三个有效装备技能（R-048、R-051）`);
     heroes.push({
       ...hero.combat,
       diseaseId: hero.diseaseId ?? null,

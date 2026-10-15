@@ -113,6 +113,7 @@ export type DungeonState = {
     readonly id: string;
     readonly stress: number;
     readonly xp?: number;
+    readonly permanentlyRemovedSkillIds?: readonly string[];
     /** 村庄购买的下次任务奖励骰；开局按R-041掷出，非当前补给池。 */
     readonly nextQuestProvisionDice?: number;
     /** R34：下次任务临时使用的技能；原卡保留，任务结束恢复。 */

@@ -9,6 +9,7 @@ import type { townFairQuest } from "../../../packages/engine/src/test-helpers/to
 import type { laborQuest } from "../../../packages/engine/src/test-helpers/labor-quest";
 import type { nomadQuest } from "../../../packages/engine/src/test-helpers/nomad-quest";
 import type { nomadSaleQuest } from "../../../packages/engine/src/test-helpers/nomad-sale-quest";
+import type { guildQuest } from "../../../packages/engine/src/test-helpers/guild-quest";
 
 test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存刷新", async ({
   page,
@@ -27,6 +28,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   let labor: ReturnType<typeof laborQuest>;
   let nomad: ReturnType<typeof nomadQuest>;
   let nomadSale: ReturnType<typeof nomadSaleQuest>;
+  let guild: ReturnType<typeof guildQuest>;
   try {
     const helpers = await server.ssrLoadModule(
       fileURLToPath(
@@ -105,6 +107,15 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     nomadSale = saleHelper.nomadSaleQuest({
       ...battleData,
       trinkets: sourceHelpers.coreQuestSources.catalog.trinkets,
+    });
+    const guildHelper = await server.ssrLoadModule(
+      fileURLToPath(
+        new URL("../../../packages/engine/src/test-helpers/guild-quest.ts", import.meta.url),
+      ),
+    );
+    guild = guildHelper.guildQuest({
+      ...sourceHelpers.coreQuestSources,
+      catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
     });
     expect(fairResult.events.some((event) => event.type === "commandRefused")).toBe(false);
     result = engine.applyCommand(journey.game, {
@@ -534,4 +545,36 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     ),
   ).toEqual(smithHero);
   await page.screenshot({ path: testInfo.outputPath("blacksmith-plan-saved.png"), fullPage: true });
+  // 真实四房间Scout任务奖励2XP；Guild待选、付款后待选与完成均保存刷新。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(guild.save),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "访问公会：永久升级技能", exact: true }).click();
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "永久升级 Smite I→II（2 XP，1金）", exact: true }).click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${guild.game.dungeon!.gold - 1}`,
+  );
+  await expect(page.getByTestId("guild-skills")).toContainText("hero-0 XP 0，永久移除1张");
+  await expect(page.getByTestId("guild-skills")).toContainText("Smite 2");
+  await expect(page.getByRole("button", { name: /^永久升级 / })).toHaveCount(0);
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${guild.game.dungeon!.gold - 1}`,
+  );
+  await page.getByRole("button", { name: "结束公会访问", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("guild-skills")).toContainText("Smite 2");
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
+  await page.screenshot({ path: testInfo.outputPath("guild-smite-saved.png"), fullPage: true });
 });
