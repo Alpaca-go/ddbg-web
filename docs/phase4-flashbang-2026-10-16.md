@@ -25,3 +25,5 @@ Kyries 本轮要求“合并，然后继续”。已核对并合并 [#216](https
 最终验证：Node 24.21.0 / pnpm 12.9.1；typecheck、ESLint、排除既有本地未跟踪资料的仓库 Prettier、146 文件 / 1242 项 Vitest（216.86 秒）、build、`git diff --check` 全部通过。根 `pnpm lint` 原样扫描仍会命中既有本地资料，因此明确记录实际执行的两个 lint 部分，未格式化或提交这些资料。本次没有 UI 改动、非阶段末尾，不新增或重跑 Playwright；三条既有战斗冒烟于 #214 合并前已通过。
 
 赏金猎人六张 I 级技能已接，剩 Collect Bounty 的 Humans / Mark 双条件伤害。完成前不开放完整英雄入口；Scout Ahead、战役死亡名单、饰品让渡、驿站继承 XP / 免费升级及实际补人继续后续。村庄事件 16/16，Q-79 / Q-80、正式高等级战役存档及人工验收边界不变，仍在 Phase 4。
+
+独立草稿 [PR #217](https://github.com/Alpaca-go/ddbg-web/pull/217)，实现提交 `7b7839b`，尚未合并。
