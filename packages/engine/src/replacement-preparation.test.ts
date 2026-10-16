@@ -126,6 +126,11 @@ it("两次英雄升级只扣8XP免金币，III级5槽自选且剩余XP保留；�
   expect(game.dungeon!.stagecoachXp).toBe(9);
   expect(game.dungeon!.gold).toBe(base.dungeon!.gold);
   expect(applyCommand(game, begin).state).toBe(game);
+  const joined = ok(game, { type: "joinPreparedReplacements" }).dungeon!;
+  expect(joined.heroes[3]).toMatchObject({ level: 3, xp: 1, stance: "support" });
+  expect(joined.heroes[3]!.skillIds).toHaveLength(5);
+  expect(joined.stagecoachXp).toBe(9);
+  expect(joined.gold).toBe(base.dungeon!.gold);
 });
 it("同一技能可连续两次升级至III，旧卡永久移除；不升级时允许保留全部XP", () => {
   let game = select();
@@ -269,5 +274,24 @@ it("真实入口命令日志：走到房间后侦察至死亡，替补选择/初
       optionId: game.dungeon!.replacementPreparation!.choice.options[0]!.id,
     });
   expect(game.dungeon!.preparedReplacements).toHaveLength(1);
+  saved();
+  const replacementId = game.dungeon!.preparedReplacements![0]!.hero.id;
+  step({ type: "joinPreparedReplacements" });
+  expect(game.dungeon!.heroes.some((h) => h.id === replacementId)).toBe(true);
+  expect(game.dungeon!.heroes.some((h) => h.dead)).toBe(false);
+  saved();
+  step({ type: "leaveDungeon" });
+  step({ type: "resolveChoice", choiceId: game.dungeon!.pending!.id, optionId: "agree" });
+  step({ type: "summarizeDungeonQuest" });
+  step({ type: "beginReturnToHamlet" });
+  while (game.dungeon!.pending)
+    step({
+      type: "resolveChoice",
+      choiceId: game.dungeon!.pending!.id,
+      optionId: game.dungeon!.pending!.options[0]!.id,
+    });
+  step({ type: "finishReturnToHamlet" });
+  expect(game.dungeon!.phase).toBe("inHamlet");
+  expect(game.dungeon!.heroes.some((h) => h.id === replacementId)).toBe(true);
   saved();
 }, 30000);

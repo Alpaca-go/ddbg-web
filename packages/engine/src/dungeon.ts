@@ -82,6 +82,18 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  /** 保存死亡发生的流程，补人只续接已付费的步骤，不重新执行入口。 */
+  readonly replacementResume?:
+    | "scout"
+    | "ready"
+    | "exploration"
+    | "backtracking"
+    | "trap"
+    | "curio"
+    | "roomCurio"
+    | "hamletConvert"
+    | "hamletProvisions"
+    | "hamletScout";
   readonly replacementPreparation?: import("./replacement-preparation").ReplacementPreparation;
   readonly preparedReplacements?: readonly import("./replacement-preparation").PreparedReplacement[];
   readonly replacementChoiceCursor?: number;
@@ -459,7 +471,13 @@ export function applyDungeonCommand(
       d = passive.dungeon;
       if (heroes.some((h) => h.dead)) {
         const stopped = finish(
-          { ...passive.dungeon, phase: "awaitingReplacement", pending: null, scoutBonus: false },
+          {
+            ...passive.dungeon,
+            phase: "awaitingReplacement",
+            pending: null,
+            scoutBonus: false,
+            replacementResume: "scout",
+          },
           "侦察压力被动导致死亡，等待英雄替换（R9）",
         );
         return { ...stopped, events: [...passive.events, ...stopped.events] };

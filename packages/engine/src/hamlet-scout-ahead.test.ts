@@ -6,6 +6,7 @@ import { coreQuestSources } from "./test-helpers/core-quest";
 import { naturalAbbeyQuest } from "./test-helpers/abbey-quest";
 import { savedCommandSchema } from "../../data/src/quest-save";
 import { diseaseRules } from "../../data/src/disease";
+import { prepareTestReplacement } from "./test-helpers/replacement";
 
 let baseline: ReturnType<typeof naturalAbbeyQuest>;
 beforeAll(() => {
@@ -226,6 +227,17 @@ it("R-090：10压力立即检定后完成行动，意志卡/红面延续下一�
   expect(dead.dungeon!.hamletReturn!.phase).toBe("awaitingReplacement");
   expect(dead.dungeon!.nextQuestRoomReveals).toBeUndefined();
   expect(applyCommand(dead, scout).state).toBe(dead);
+  const prepared = prepareTestReplacement(dead),
+    joined = ok(prepared, { type: "joinPreparedReplacements" });
+  expect(joined.dungeon!.phase).toBe("inHamlet");
+  expect(joined.dungeon!.hamletReturn!.phase).toBe("complete");
+  expect(joined.dungeon!.hamletScoutActorId).toBeUndefined();
+  expect(joined.dungeon!.nextQuestRoomReveals).toBeUndefined();
+  expect(joined.dungeon!.hamlet!.actedHeroes).toContain("hero-0");
+  expect(joined.dungeon!.heroes.some((h) => h.dead)).toBe(false);
+  expect(joined.dungeon!.heroes[3]!.stress).toBe(0);
+  expect(joined.dungeon!.waitingHeroTokens).toBe(prepared.dungeon!.waitingHeroTokens);
+  expect(applyCommand(joined, scout).state).toBe(joined);
 });
 it("压力牌池缺失保留已付压力，其他行动锁住；补齐后续接不重复支付", () => {
   const game = actorPatch(fixture(), { stress: 9 });

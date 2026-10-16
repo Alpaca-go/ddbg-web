@@ -63,7 +63,17 @@ export function settleDungeonLight(result: ApplyResult): ApplyResult {
         : {
             state: {
               ...result.state,
-              dungeon: { ...d, phase: "awaitingReplacement", pending: null },
+              dungeon: {
+                ...d,
+                phase: "awaitingReplacement",
+                pending: null,
+                replacementResume:
+                  d.pressureSource === "curioProvision"
+                    ? "curio"
+                    : d.pressureSource === "exploration"
+                      ? "exploration"
+                      : "ready",
+              },
             },
             events: [],
           };

@@ -8,6 +8,7 @@ import { chooseTravelingMerchants } from "./hamlet-traveling-merchants";
 import { chooseScoutAheadReveal } from "./hamlet-scout-ahead";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { continueDeathEstates, chooseDeathTrinket } from "./hero-death-estate";
+import { joinPreparedReplacements } from "./replacement-join";
 import {
   beginReplacementPreparation,
   chooseReplacementPreparation,
@@ -141,6 +142,7 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 
 export type Command =
   | { readonly type: "prepareReplacementHero" }
+  | { readonly type: "joinPreparedReplacements" }
   | BlacksmithCommand
   | { readonly type: "visitGuild"; readonly actorId: string }
   | SetEquippedSkillsCommand
@@ -344,6 +346,7 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (command.type === "joinPreparedReplacements") return joinPreparedReplacements(state);
   if (command.type === "prepareReplacementHero") return beginReplacementPreparation(state);
   if (state.dungeon?.pending?.id.startsWith("hamlet-next-quest:"))
     return command.type === "resolveChoice"

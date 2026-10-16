@@ -139,7 +139,21 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
     return { ...continued, events: [...events, ...continued.events] };
   }
   if (d.heroes.some((h) => h.dead)) {
-    d = { ...d, phase: "awaitingReplacement", scoutBonus: false };
+    d = {
+      ...d,
+      phase: "awaitingReplacement",
+      scoutBonus: false,
+      replacementResume:
+        d.pressureSource === "backtracking"
+          ? "backtracking"
+          : d.pressureSource === "exploration"
+            ? "exploration"
+            : d.pressureSource === "curioProvision" || d.pressureSource === "curioRoom"
+              ? "curio"
+              : d.pressureSource === "provision"
+                ? "ready"
+                : "scout",
+    };
     events.push({
       type: "dungeonUpdated",
       message: "已记录心脏病；等待驿站替换接口（R9），不追加侦察揭示，不推定战役失败",

@@ -81,7 +81,14 @@ export function applyDungeonBacktracking(
   };
   const next = paid.dungeon!.heroes.some((h) => h.dead)
     ? {
-        state: { ...paid, dungeon: { ...paid.dungeon!, phase: "awaitingReplacement" as const } },
+        state: {
+          ...paid,
+          dungeon: {
+            ...paid.dungeon!,
+            phase: "awaitingReplacement" as const,
+            replacementResume: "backtracking" as const,
+          },
+        },
         events: [],
       }
     : paid.dungeon!.heroes.some((h) => h.stress === 10)

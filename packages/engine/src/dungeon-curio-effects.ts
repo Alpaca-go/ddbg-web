@@ -24,6 +24,9 @@ function complete(state: GameState, d: DungeonState, events: readonly GameEvent[
     ...d,
     pending: null,
     phase: dead ? "awaitingReplacement" : fromRoom ? "ready" : "awaitingHazards",
+    ...(dead
+      ? { replacementResume: fromRoom ? ("ready" as const) : ("exploration" as const) }
+      : {}),
     ...(fromRoom
       ? {
           curioRoom: { ...d.curioRoom!, stage: "completed" },

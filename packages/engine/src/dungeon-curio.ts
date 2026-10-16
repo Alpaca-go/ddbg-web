@@ -69,7 +69,7 @@ export function drawDungeonCurio(state: GameState, rollId: string, optionId: str
     if (d.heroes.some((h) => h.dead)) {
       const stopped = finish(
         state,
-        { ...d, phase: "awaitingReplacement", pending: null },
+        { ...d, phase: "awaitingReplacement", pending: null, replacementResume: "exploration" },
         "Curio 交互前被动导致死亡，未抽卡、未扣 Torch",
       );
       return { ...stopped, events: [...beforeEvents, ...stopped.events] };

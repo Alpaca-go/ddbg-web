@@ -7,6 +7,7 @@ const noPayload = z.strictObject({
   type: z.enum([
     "rollDungeonProvisions",
     "prepareReplacementHero",
+    "joinPreparedReplacements",
     "restDungeon",
     "summarizeDungeonQuest",
     "startDungeonBattle",

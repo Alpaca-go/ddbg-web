@@ -11,6 +11,7 @@ import { PROVISION_FACES } from "./loot";
 import { useDungeonProvision } from "./dungeon-provision-use";
 import type { UseProvisionCommand } from "./provision-use";
 import { restoreTemporarySkillUpgrades } from "./hamlet-embark";
+import { resolveDungeonPressure } from "./dungeon-pressure";
 
 /** R32 a-c已完成后，R-074按当前姿态顺序逐英雄转换；待选只续接，不重抽。 */
 function convertResolve(result: ApplyResult): ApplyResult {
@@ -59,6 +60,7 @@ function convertResolve(result: ApplyResult): ApplyResult {
             ...d,
             phase: "awaitingReplacement",
             hamletReturn: { ...d.hamletReturn!, phase: "awaitingReplacement" },
+            replacementResume: "hamletConvert",
           },
         },
         events: [
@@ -264,6 +266,11 @@ function recycleResolve(d: DungeonState, held: readonly string[], seed: number):
 export function useHamletProvision(state: GameState, command: UseProvisionCommand): ApplyResult {
   const used = useDungeonProvision(state, command);
   if (used.events.some((e) => e.type === "commandRefused")) return used;
+  return settleHamletProvisions(used);
+}
+/** 已消费的回村补给只续接后续转换，不再次调用useDungeonProvision。 */
+export function settleHamletProvisions(used: ApplyResult): ApplyResult {
+  const state = used.state;
   let d = used.state.dungeon!;
   if (d.heroes.some((h) => h.dead))
     return {
@@ -274,9 +281,22 @@ export function useHamletProvision(state: GameState, command: UseProvisionComman
           ...d,
           phase: "awaitingReplacement",
           hamletReturn: { ...d.hamletReturn!, phase: "awaitingReplacement" },
+          replacementResume: "hamletProvisions",
         },
       },
     };
+  if (d.heroes.some((h) => h.stress === 10)) {
+    const pressure = resolveDungeonPressure({
+      ...state,
+      dungeon: { ...d, phase: "blockedPressure", pressureSource: "provision" },
+    });
+    if (
+      pressure.state.dungeon!.phase === "blockedPressure" ||
+      pressure.events.some((e) => e.type === "commandRefused")
+    )
+      return rejectBattleCommand(state, "回村补给余下意志检定未完成，保持停点");
+    return settleHamletProvisions({ ...pressure, events: [...used.events, ...pressure.events] });
+  }
   const held = d.heroes.flatMap((h) => (h.resolveCardId ? [h.resolveCardId] : []));
   if (d.phase === "blockedPressure")
     return rejectBattleCommand(state, "回村补给缺少完整意志结算资料，未消费补给");
@@ -333,6 +353,10 @@ export function chooseHamletQuirk(
       { type: "dungeonUpdated", message: "回村怪癖选择完成，从下一英雄继续，不重抽（R26、R-074）" },
     ],
   });
+}
+/** 回村转换已完成的英雄保留标记，只处理原队伍余项。 */
+export function resumeHamletConversion(state: GameState): ApplyResult {
+  return convertResolve({ state, events: [] });
 }
 export function finishReturnToHamlet(state: GameState): ApplyResult {
   const d = state.dungeon;

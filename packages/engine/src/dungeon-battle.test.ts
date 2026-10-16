@@ -41,6 +41,8 @@ import { readMonsterAttackView } from "./monster-skill";
 import { readPrintedRange } from "./hero-skill";
 import { skillTargetView } from "./battle";
 import { tickStatusStacks } from "./status";
+import { coreQuestSources } from "./test-helpers/core-quest";
+import { prepareTestReplacement } from "./test-helpers/replacement";
 
 const stats = normalizedHeroStatFileSchema
   .parse(statsFile)
@@ -411,6 +413,77 @@ function terminal(outcome: "victory" | "retreat") {
     },
   };
 }
+
+it.each(["victory", "retreat"] as const)(
+  "真实部署的%s交接边界：战斗内只能准备，回传后替补入队；Curio奖励/强制离房与金币只结算一次",
+  (outcome) => {
+    const finished = terminal(outcome);
+    // 显式死亡/战斗收尾夹具，保留真实部署与完整牌池；不冒充自然击杀。
+    const boundary: GameState = {
+      ...finished,
+      dungeon: {
+        ...finished.dungeon!,
+        battleCatalog: coreQuestSources.catalog,
+        curio: {
+          cards: curioFileSchema.parse(rawCurios).cards,
+          deck: null,
+          discard: [],
+          active: null,
+        },
+        curioRoom: { roomId: "D", guardRoll: 3, stage: "guarded" },
+        rooms: finished.dungeon!.rooms.map((r) => (r.id === "D" ? { ...r, kind: "curio" } : r)),
+      },
+      battle: {
+        ...finished.battle!,
+        entities: finished.battle!.entities.map((e) =>
+          e.id === "hero-0" ? { ...e, dead: true } : e,
+        ),
+      },
+    };
+    const marked = send(boundary, { type: "ping", message: "登记边界死亡" });
+    const prepared = prepareTestReplacement(marked);
+    expect(applyCommand(prepared, { type: "joinPreparedReplacements" }).state).toBe(prepared);
+    expect(
+      prepared.battle!.entities.some(
+        (e) => e.id === prepared.dungeon!.preparedReplacements![0]!.hero.id,
+      ),
+    ).toBe(false);
+    const returned = send(prepared, { type: "finishDungeonBattle" });
+    expect(returned.dungeon!.replacementResume).toBe(outcome === "victory" ? "roomCurio" : "ready");
+    const joined = send(returned, { type: "joinPreparedReplacements" });
+    expect(joined.dungeon!.heroes.some((h) => h.dead)).toBe(false);
+    expect(joined.dungeon!.heroes[3]!.stance).toBe("support");
+    expect(joined.dungeon!.gold).toBe(returned.dungeon!.gold);
+    expect(joined.dungeon!.waitingHeroTokens).toBe(returned.dungeon!.waitingHeroTokens);
+    expect(joined.dungeon!.pending?.id.startsWith("dungeon-room-curio-draw:") ?? false).toBe(
+      outcome === "victory",
+    );
+    expect(joined.dungeon!.mustLeaveRoomId).toBe(outcome === "retreat" ? "D" : undefined);
+    expect(applyCommand(joined, { type: "joinPreparedReplacements" }).state).toBe(joined);
+    expect(applyCommand(joined, { type: "finishDungeonBattle" }).state).toBe(joined);
+    const deployment = deploy(35);
+    const reentered = applyCommand(
+      {
+        ...deployment,
+        dungeon: {
+          ...deployment.dungeon!,
+          heroes: joined.dungeon!.heroes,
+          battleCatalog: coreQuestSources.catalog,
+          conditions: joined.dungeon!.conditions!,
+        },
+      },
+      { type: "startDungeonBattle" },
+    );
+    expect(
+      reentered.events.some((e) => e.type === "commandRefused"),
+      JSON.stringify(reentered.events),
+    ).toBe(false);
+    const bounty = reentered.state.battle!.entities.find((e) => e.hero === "BOUNTY HUNTER")!;
+    expect(bounty.id).toBe(joined.dungeon!.heroes[3]!.id);
+    expect(bounty.stance).toBe("support");
+    expect(bounty.skillIds).toEqual(joined.dungeon!.heroes[3]!.skillIds);
+  },
+);
 
 it("Curio守卫战后只在胜利时等待英雄/Torch奖励；撤退无奖励、不清理，重复回传拒绝", () => {
   for (const outcome of ["victory", "retreat"] as const) {

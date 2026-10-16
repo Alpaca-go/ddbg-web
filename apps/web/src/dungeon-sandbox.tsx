@@ -1454,7 +1454,18 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
             </button>
           )}
           {!!d.preparedReplacements?.length && (
-            <p>已准备{d.preparedReplacements.length}名替补，等待入队续接。</p>
+            <button
+              disabled={
+                !!d.pending ||
+                !!d.deathTrinketChoice ||
+                !!d.replacementPreparation ||
+                !!d.campaignFailure ||
+                d.heroes.filter((h) => h.dead).length !== d.preparedReplacements.length
+              }
+              onClick={() => dispatch({ type: "joinPreparedReplacements" })}
+            >
+              让{d.preparedReplacements.length}名替补入队并继续
+            </button>
           )}
           {pendingChoice && (
             <div>
