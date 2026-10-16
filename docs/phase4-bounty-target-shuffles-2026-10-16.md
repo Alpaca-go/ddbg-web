@@ -28,3 +28,5 @@ Kyries 本轮要求“合并，检查当前开发进度，然后推进下一步�
 最终验证：Node 24.21.0 / pnpm 12.9.1；typecheck、ESLint、排除既有本地未跟踪资料的仓库 Prettier、144 文件 / 1226 项 Vitest（296.86 秒）、build、`git diff --check` 全部通过。根 `pnpm lint` 的原样扫描仍会碰到既有本地资料，因此以上明确记录实际执行的 lint 两部分，没有格式化或提交这些资料。本次无 UI 变更、非阶段末尾，不新增 Playwright 条数；#214 的三条冒烟已在合并前重跑。
 
 赏金猎人现已接通四张 I 级技能：Mark for Death、Caltrops、Come Hither、Uppercut。下一主题为 Collect Bounty 的 Humans / Mark 双条件、Finish Him 的 Stun 条件，或 Flashbang 的 Stun 与 Push/Pull 选择续接。三张完成前仍不开放完整英雄入口；Scout Ahead、战役死亡名单、饰品让渡、驿站继承 XP / 免费升级及实际死亡替换继续另开主题，不能将机制夹具称作完整战役补人验收。
+
+独立草稿 [PR #215](https://github.com/Alpaca-go/ddbg-web/pull/215)，实现提交 `113402e`，尚未合并。
