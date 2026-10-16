@@ -238,6 +238,19 @@ it("R-090：10压力立即检定后完成行动，意志卡/红面延续下一�
   expect(joined.dungeon!.heroes[3]!.stress).toBe(0);
   expect(joined.dungeon!.waitingHeroTokens).toBe(prepared.dungeon!.waitingHeroTokens);
   expect(applyCommand(joined, scout).state).toBe(joined);
+  const ordered = ok(joined, {
+    type: "setHamletStances",
+    heroIds: joined.dungeon!.heroes.map((h) => h.id).reverse(),
+  });
+  const resumed = ok(ordered, {
+    type: "resolveChoice",
+    choiceId: ordered.dungeon!.pending!.id,
+    optionId: "new-stances",
+  });
+  expect(resumed.dungeon!.hamlet!.heroOrder).toHaveLength(4);
+  expect(resumed.dungeon!.hamlet!.heroOrder[0]).toBe("hero-0");
+  expect(resumed.dungeon!.hamlet!.heroOrder).not.toContain(joined.dungeon!.heroes[3]!.id);
+  expect(resumed.dungeon!.hamlet!.actedHeroes).toEqual(joined.dungeon!.hamlet!.actedHeroes);
 });
 it("压力牌池缺失保留已付压力，其他行动锁住；补齐后续接不重复支付", () => {
   const game = actorPatch(fixture(), { stress: 9 });

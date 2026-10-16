@@ -52,7 +52,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
       await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：8");
       await page.getByRole("button", { name: "抽村庄事件", exact: true }).click();
       await expect(page.getByTestId("hamlet-event")).toContainText("Militia Training");
-      await expect(page.getByTestId("hamlet-event")).toContainText("保留原卡");
+      await expect(page.getByTestId("hamlet-event")).toContainText("全员各免费升级一项I级技能");
       await expect(page.getByRole("button", { name: "开始首日看守人", exact: true })).toHaveCount(
         0,
       );
