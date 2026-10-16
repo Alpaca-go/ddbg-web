@@ -6,9 +6,9 @@ import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 const cards = loadNormalizedCorebox().hero_skill.cards;
 
 describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
-  it("核实四核心39张与赏金猎人四张状态卡，原未命名数字不变，Remove图标不误作施加", () => {
+  it("核实四核心39张与赏金猎人五张状态卡，原未命名数字不变，Remove图标不误作施加", () => {
     const annotated = cards.filter((card) => card.verified_status_effects !== undefined);
-    expect(annotated).toHaveLength(43);
+    expect(annotated).toHaveLength(44);
     expect(annotated.every((card) => !card.verification.unverified)).toBe(true);
     expect(cards.find((card) => card.id === "hero_skill:p037")!.verified_status_effects).toEqual([
       { lineIndex: 1, segmentIndex: 6, scope: "self", kind: "buff", duration: 3 },
@@ -79,6 +79,7 @@ describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
   it.each([
     ["hero_skill:p049", "mark", 2, "Pull 2"],
     ["hero_skill:p052", "stun", 1, "Push 2"],
+    ["hero_skill:p055", "stun", 1, "Push 1"],
   ] as const)("%s 的完整同行状态与位移核实，来源漂移拒绝", (id, kind, duration, move) => {
     const card = cards.find((c) => c.id === id)!;
     expect(card.verified_status_effects).toEqual([
@@ -113,7 +114,7 @@ describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
       mutate(changed.find((c) => c.id === id)!);
       expect(() => attachVerifiedHeroStatuses(changed)).toThrow();
     }
-    for (const page of id === "hero_skill:p049" ? [50, 51] : [53, 54])
+    for (const page of [Number(id.slice(-3)) + 1, Number(id.slice(-3)) + 2])
       expect(cards.find((c) => c.pages[0] === page)!.verified_status_effects).toBeUndefined();
   });
 });

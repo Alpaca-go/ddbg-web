@@ -1237,7 +1237,15 @@ export function needsHeroSkillShuffleChoice(
   if (!selected.ok) return false;
   const push = readShuffles(selected.skill, "push").target;
   const pull = readShuffles(selected.skill, "pull").target;
-  return push?.direction === "push" && pull?.direction === "pull";
+  if (push?.direction === "push" && pull?.direction === "pull") return true;
+  const statusPush = readVerifiedStatusEffects(selected.skill, "push");
+  const statusPull = readVerifiedStatusEffects(selected.skill, "pull");
+  return (
+    statusPush.status === "resolved" &&
+    statusPull.status === "resolved" &&
+    statusPush.targetShuffle?.direction === "push" &&
+    statusPull.targetShuffle?.direction === "pull"
+  );
 }
 
 /** 合并使用者与自身目标的快照时，沿用纯函数的 Self 判定（R19）。 */
@@ -2289,7 +2297,7 @@ function resolveSkill(
     )
       return refuse(skill, combat, "眩晕条件伤害缺少合法的当前状态堆（R-048）");
   }
-  const statuses = readVerifiedStatusEffects(active);
+  const statuses = readVerifiedStatusEffects(active, combat.shuffleChoice);
   if (statuses.status === "refused") return refuse(skill, combat, statuses.reason);
   if (statuses.self.length && combat.actor === undefined)
     return refuse(skill, combat, "自身状态效果缺少使用者");

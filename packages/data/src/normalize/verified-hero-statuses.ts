@@ -18,6 +18,16 @@ type Entry = {
 
 // 完整印刷逐页核对：docs/phase2-four-core-skills-2026-10-11.md。
 const entries: readonly Entry[] = [
+  {
+    id: "hero_skill:p055",
+    hero: "BOUNTY HUNTER",
+    name: "Flashbang",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {stun} 1t, {shuffle} Push 1 or {shuffle} Pull 1",
+    effects: [{ kind: "stun", duration: 1 }],
+  },
   // 当前版 FRONT p49/p52，完整卡面及 R20–21：状态与同行位移一并消费。
   {
     id: "hero_skill:p049",
