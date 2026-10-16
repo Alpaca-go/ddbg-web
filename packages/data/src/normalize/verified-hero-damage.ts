@@ -69,6 +69,15 @@ export function attachVerifiedHeroDamage(
         condition: "marked",
         suffix: "{mark}",
       },
+      "hero_skill:p058": {
+        name: "Finish Him",
+        level: 1,
+        page: 58,
+        lineIndex: 0,
+        amount: 2,
+        condition: "stunned",
+        suffix: "{stun}",
+      },
       "hero_skill:p068": {
         name: "Pistol Shot",
         level: 2,
@@ -151,6 +160,12 @@ export function attachVerifiedHeroDamage(
       .replace(/\s+/g, "");
     if (
       card.name !== entry.name ||
+      (card.id === "hero_skill:p058" &&
+        (card.hero !== "BOUNTY HUNTER" ||
+          card.back_name !== entry.name ||
+          card.back_level !== 1 ||
+          card.copies !== 1 ||
+          card.effect_lines.length !== 1)) ||
       card.level !== entry.level ||
       card.verification.unverified ||
       card.pages.length !== 1 ||

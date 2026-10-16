@@ -1,5 +1,6 @@
 import type { HeroHealthEffect } from "./hero-health";
-import type { StatusEffect } from "./status";
+import { statusStackProblem } from "./status";
+import type { StatusEffect, StatusStack } from "./status";
 import { readVerifiedStatusEffects } from "./skill-status";
 import {
   criticalStress,
@@ -278,7 +279,7 @@ export type HeroSkillCardView = {
   readonly verified_damage_bonus?: {
     readonly lineIndex: number;
     readonly amount: number;
-    readonly condition: "marked" | "unholy";
+    readonly condition: "marked" | "unholy" | "stunned";
     readonly source: "print_front";
   };
   readonly verified_status_effects?: readonly (StatusEffect & {
@@ -351,6 +352,8 @@ export type SkillActorState = PassiveHolder & {
 
 /** 目标已经选好。区域怎么相邻不在这里。 */
 export type SkillTargetState = PassiveHolder & {
+  /** Finish Him 的条件读取当前真实状态堆，不用历史眩晕事件或本回合跳过标记。 */
+  readonly statusStacks?: readonly StatusStack[];
   /** 已验证怪物卡的印刷类型标签；缺失时不能判定 vs Unholy，不按名字推断。 */
   readonly monsterTypeTags?: readonly string[];
   readonly id: string;
@@ -2262,10 +2265,10 @@ function resolveSkill(
       bonus.lineIndex < 0 ||
       !Number.isSafeInteger(bonus.amount) ||
       bonus.amount <= 0 ||
-      !["marked", "unholy"].includes(bonus.condition) ||
+      !["marked", "unholy", "stunned"].includes(bonus.condition) ||
       bonus.source !== "print_front" ||
       text !==
-        `{target_effects}{damage}+${bonus.amount}vs${bonus.condition === "marked" ? "{mark}" : "Unholy"}` ||
+        `{target_effects}{damage}+${bonus.amount}vs${bonus.condition === "marked" ? "{mark}" : bonus.condition === "stunned" ? "{stun}" : "Unholy"}` ||
       line?.some(
         (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
       )
@@ -2279,6 +2282,12 @@ function resolveSkill(
         target.monsterTypeTags.some((tag) => typeof tag !== "string" || !tag.trim()))
     )
       return refuse(skill, combat, "条件伤害缺少已验证怪物类型（R-048）");
+    if (
+      !emptyArea &&
+      bonus.condition === "stunned" &&
+      (!Array.isArray(target.statusStacks) || statusStackProblem(target.statusStacks))
+    )
+      return refuse(skill, combat, "眩晕条件伤害缺少合法的当前状态堆（R-048）");
   }
   const statuses = readVerifiedStatusEffects(active);
   if (statuses.status === "refused") return refuse(skill, combat, statuses.reason);
@@ -2634,7 +2643,9 @@ function resolveSkill(
         target.side !== sourceSide &&
         (bonus.condition === "marked"
           ? (target.markStacks ?? 0) > 0
-          : target.side === "monster" && target.monsterTypeTags?.includes("Unholy"))
+          : bonus.condition === "stunned"
+            ? target.statusStacks!.some((stack) => stack.kind === "stun")
+            : target.side === "monster" && target.monsterTypeTags?.includes("Unholy"))
           ? bonus.amount
           : 0);
       const skipProtection = ignoresProtection.targetLines > 0;
