@@ -43,6 +43,8 @@ export function replacementHeroCandidates(d: DungeonState) {
   ]);
   return catalog.heroStats.filter(
     (s) =>
+      // 属性/转录获批不代表七技能和村庄能力已接通（R-048/R-094）。
+      ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL", "BOUNTY HUNTER"].includes(s.name) &&
       s.level === 1 &&
       s.attributesVerified &&
       !unavailable.has(s.name) &&
