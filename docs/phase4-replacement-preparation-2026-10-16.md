@@ -23,3 +23,5 @@ Kyries本轮要求“合并，然后继续”。#220最终head `2de8c1c`仅比�
 最终本机验证：Node24.21.0/pnpm12.9.1；typecheck、ESLint、受跟踪文件Prettier、build、git diff --check通过；完整151文件/1267项Vitest通过（298.43秒），最终七项专项另复跑通过。新id使用不含冒号的独立序号，兼容既有补给id约束，序号跨出征保留。根原样格式扫描仍受既有未跟踪资料影响，未改这些资料，不声称原样pnpm lint通过。
 
 三条既有战斗Playwright冒烟通过（1.5分钟），不新增条数；使用本机缓存headless Chromium、单worker、独立端口5194，配置只留忽略缓存。主题约660行，略高于600行建议，包含完整替补准备与真实存档回放，仍保持单一主题；入队续接单独后续。
+
+独立草稿[PR #221](https://github.com/Alpaca-go/ddbg-web/pull/221)，实现提交`4eb6e0c`，尚未合并。
