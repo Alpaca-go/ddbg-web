@@ -291,6 +291,26 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
     path: testInfo.outputPath("judgement-range-result.png"),
     fullPage: true,
   });
+  // R14：正式探索入口免费换位，存档刷新后保留；已选路线前后冻结窗口一致。
+  await page.goto("/?phase=3&play=1");
+  await page.getByLabel("任务模式").selectOption("radiant");
+  await page.getByLabel("任务种子").fill("31");
+  await page.getByRole("button", { name: "进入地牢", exact: true }).click();
+  const forward = page.getByRole("button", { name: "VESTAL 前移", exact: true });
+  await expect(forward).toBeDisabled();
+  await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
+  while (await page.getByRole("button", { name: "火把", exact: true }).count())
+    await page.getByRole("button", { name: "火把", exact: true }).click();
+  for (let i = 0; i < 3; i++) await forward.click();
+  await expect(page.getByTestId("dungeon-stance-aggressive")).toContainText("hero-3");
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("dungeon-stance-aggressive")).toContainText("hero-3");
+  const moveOther = page.getByRole("button", { name: "CRUSADER 前移", exact: true });
+  await expect(moveOther).toBeEnabled();
+  await page.getByRole("button", { name: "选择下一段探索", exact: true }).click();
+  await expect(moveOther).toBeDisabled();
 });
 
 test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致", async ({ page }, testInfo) => {

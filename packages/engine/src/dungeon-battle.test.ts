@@ -43,6 +43,7 @@ import { skillTargetView } from "./battle";
 import { tickStatusStacks } from "./status";
 import { coreQuestSources } from "./test-helpers/core-quest";
 import { prepareTestReplacement } from "./test-helpers/replacement";
+import { readRoomTile } from "./room-tile-selection";
 
 const stats = normalizedHeroStatFileSchema
   .parse(statsFile)
@@ -462,12 +463,20 @@ it.each(["victory", "retreat"] as const)(
     expect(applyCommand(joined, { type: "joinPreparedReplacements" }).state).toBe(joined);
     expect(applyCommand(joined, { type: "finishDungeonBattle" }).state).toBe(joined);
     const deployment = deploy(35);
+    const replacementId = joined.dungeon!.heroes[3]!.id;
+    const reordered =
+      outcome === "retreat"
+        ? send(joined, {
+            type: "setDungeonStances",
+            heroIds: [replacementId, ...joined.dungeon!.heroes.slice(0, 3).map((h) => h.id)],
+          })
+        : joined;
     const reentered = applyCommand(
       {
         ...deployment,
         dungeon: {
           ...deployment.dungeon!,
-          heroes: joined.dungeon!.heroes,
+          heroes: reordered.dungeon!.heroes,
           battleCatalog: coreQuestSources.catalog,
           conditions: joined.dungeon!.conditions!,
         },
@@ -480,7 +489,15 @@ it.each(["victory", "retreat"] as const)(
     ).toBe(false);
     const bounty = reentered.state.battle!.entities.find((e) => e.hero === "BOUNTY HUNTER")!;
     expect(bounty.id).toBe(joined.dungeon!.heroes[3]!.id);
-    expect(bounty.stance).toBe("support");
+    expect(bounty.stance).toBe(outcome === "retreat" ? "aggressive" : "support");
+    const selected = readRoomTile(
+      deployment.dungeon!.roomCards!.cards.find(
+        (c) => c.id === deployment.dungeon!.roomCards!.active!.cardId,
+      ),
+      deployment.dungeon!.roomCards!.active!.tileId,
+    );
+    if (selected.status !== "matched") throw new Error(selected.reason);
+    expect(bounty.areaId).toBe(selected.deployment.heroes[bounty.stance!]);
     expect(bounty.skillIds).toEqual(joined.dungeon!.heroes[3]!.skillIds);
   },
 );
