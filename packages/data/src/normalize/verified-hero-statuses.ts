@@ -3,6 +3,7 @@ import type { NormalizedHeroSkillCard, Segment } from "./schema";
 
 type Entry = {
   id: string;
+  hero?: string;
   name: string;
   level: number;
   lineIndex: number;
@@ -17,6 +18,27 @@ type Entry = {
 
 // 完整印刷逐页核对：docs/phase2-four-core-skills-2026-10-11.md。
 const entries: readonly Entry[] = [
+  // 当前版 FRONT p49/p52，完整卡面及 R20–21：状态与同行位移一并消费。
+  {
+    id: "hero_skill:p049",
+    hero: "BOUNTY HUNTER",
+    name: "Come Hither",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {mark} 2t, {shuffle} Pull 2",
+    effects: [{ kind: "mark", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p052",
+    hero: "BOUNTY HUNTER",
+    name: "Uppercut",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {stun} 1t, {shuffle} Push 2",
+    effects: [{ kind: "stun", duration: 1 }],
+  },
   {
     id: "hero_skill:p007",
     name: "Stunning Blow",
@@ -638,6 +660,12 @@ export function attachVerifiedHeroStatuses(
     const page = Number(entry.id.slice(-3));
     if (
       card.name !== entry.name ||
+      (entry.hero !== undefined &&
+        (card.hero !== entry.hero ||
+          card.back_name !== entry.name ||
+          card.back_level !== entry.level ||
+          card.copies !== 1 ||
+          card.effect_lines.length !== 1)) ||
       card.level !== entry.level ||
       card.pages.length !== 1 ||
       card.pages[0] !== page ||

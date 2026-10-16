@@ -15,6 +15,7 @@ export function readVerifiedStatusEffects(skill: HeroSkillCardView):
       readonly selfRemove: boolean;
       readonly targetRemove: boolean;
       readonly selfShuffle: SkillShuffle | null;
+      readonly targetShuffle: SkillShuffle | null;
     } {
   const self: StatusEffect[] = [];
   const target: StatusEffect[] = [];
@@ -27,6 +28,7 @@ export function readVerifiedStatusEffects(skill: HeroSkillCardView):
   let selfRemove = false;
   let targetRemove = false;
   let selfShuffle: SkillShuffle | null = null;
+  let targetShuffle: SkillShuffle | null = null;
   for (const annotation of skill.verified_status_effects ?? []) {
     const line = skill.effect_lines[annotation.lineIndex];
     const segment = line?.[annotation.segmentIndex];
@@ -110,13 +112,17 @@ export function readVerifiedStatusEffects(skill: HeroSkillCardView):
       else targetLight += amount;
     } else if (
       /^\{shuffle\}(Push|Pull)[1-9]\d*$/.test(rest) &&
-      scope === "self" &&
-      selfShuffle === null
+      (scope === "self" ? selfShuffle === null : targetShuffle === null)
     ) {
       const match = /^\{shuffle\}(Push|Pull)(\d+)$/.exec(rest)!;
       const distance = Number(match[2]);
       if (!Number.isSafeInteger(distance)) return { status: "refused", reason: "位移数值溢出" };
-      selfShuffle = { direction: match[1] === "Push" ? "push" : "pull", distance };
+      const move = {
+        direction: match[1] === "Push" ? ("push" as const) : ("pull" as const),
+        distance,
+      };
+      if (scope === "self") selfShuffle = move;
+      else targetShuffle = move;
     } else if (rest !== "")
       return { status: "refused", reason: "状态同行尚未完整支持，整次拒绝（R-048）" };
     for (const entry of group)
@@ -151,5 +157,6 @@ export function readVerifiedStatusEffects(skill: HeroSkillCardView):
     selfRemove,
     targetRemove,
     selfShuffle,
+    targetShuffle,
   };
 }
