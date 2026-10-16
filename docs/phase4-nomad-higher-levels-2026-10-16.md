@@ -2,6 +2,8 @@
 
 本轮按“合并，检查当前开发进度，然后推进下一步开发任务”审查合并 [#211](https://github.com/Alpaca-go/ddbg-web/pull/211)，head `c75ce57`，main 同步到 `2c21f23`。合并前本机 typecheck、ESLint、格式检查、139 文件/1196 项 Vitest 和 build 通过；未重复检查远端 Actions。保留本地 8080 配置和未跟踪资料。
 
+本主题代码提交 `3fe3075`，独立草稿 [PR #212](https://github.com/Alpaca-go/ddbg-web/pull/212)，尚未合并。
+
 ## 当前进度
 
 - Phase 3：三张基础任务自然命令路径贯通，普通遗迹 9/9 可战、核心板块 9/28，仅 QuestMap p1 获批；人工试玩待 Kyries 验收。
