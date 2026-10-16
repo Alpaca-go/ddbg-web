@@ -3,7 +3,10 @@ import { statusStackProblem } from "./status";
 import type { StatusEffect } from "./status";
 
 /** 已核实 Nt 与同行 Light / Remove / Shuffle 必须一起消费；未知残余拒绝整行。 */
-export function readVerifiedStatusEffects(skill: HeroSkillCardView):
+export function readVerifiedStatusEffects(
+  skill: HeroSkillCardView,
+  shuffleChoice?: "push" | "pull",
+):
   | { readonly status: "refused"; readonly reason: string }
   | {
       readonly status: "resolved";
@@ -123,6 +126,18 @@ export function readVerifiedStatusEffects(skill: HeroSkillCardView):
       };
       if (scope === "self") selfShuffle = move;
       else targetShuffle = move;
+    } else if (
+      /^\{shuffle\}Push([1-9]\d*)or\{shuffle\}Pull([1-9]\d*)$/.test(rest) &&
+      scope === "target" &&
+      targetShuffle === null
+    ) {
+      const match = /^\{shuffle\}Push(\d+)or\{shuffle\}Pull(\d+)$/.exec(rest)!;
+      const distance = Number(match[1]);
+      if (!Number.isSafeInteger(distance) || distance !== Number(match[2]))
+        return { status: "refused", reason: "目标状态同行的可选位移距离不一致或溢出" };
+      if (shuffleChoice !== "push" && shuffleChoice !== "pull")
+        return { status: "refused", reason: "目标状态同行位移尚需选择Push或Pull" };
+      targetShuffle = { direction: shuffleChoice, distance };
     } else if (rest !== "")
       return { status: "refused", reason: "状态同行尚未完整支持，整次拒绝（R-048）" };
     for (const entry of group)
