@@ -7,6 +7,7 @@ import { chooseGuildTraining, chooseMilitiaTraining } from "./hamlet-guild-train
 import { chooseTravelingMerchants } from "./hamlet-traveling-merchants";
 import { chooseScoutAheadReveal } from "./hamlet-scout-ahead";
 import { resolveDungeonPressure } from "./dungeon-pressure";
+import { continueDeathEstates, chooseDeathTrinket } from "./hero-death-estate";
 import { applyHamletAction, chooseAbbeyQuirk } from "./hamlet-actions";
 import { visitNomadWagon, chooseNomadWagon } from "./hamlet-nomad";
 import { visitBlacksmith } from "./hamlet-blacksmith";
@@ -622,7 +623,11 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
     )
   )
     return rejectBattleCommand(state, "被动效果需要已核实英雄等级（R-048）");
+  if (state.dungeon?.deathTrinketChoice)
+    return command.type === "resolveChoice"
+      ? chooseDeathTrinket(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先处置死者饰品（R31）");
   const result = dispatchCommand(state, command);
   const refused = result.events.find((event) => event.type === "commandRefused");
-  return refused ? rejectBattleCommand(state, refused.message) : result;
+  return refused ? rejectBattleCommand(state, refused.message) : continueDeathEstates(result);
 }

@@ -530,6 +530,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
     useDungeonStore();
   const [provisionTarget, setProvisionTarget] = useState("hero-0");
   const d = game.dungeon!;
+  const pendingChoice = d.deathTrinketChoice ?? d.pending;
   const hamletCard = currentHamletEvent(game);
   if (game.battle)
     return (
@@ -787,7 +788,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
             </button>
           )}
           {d.phase === "awaitingRoom" &&
-            !d.pending &&
+            !pendingChoice &&
             (currentRoom?.kind === "lair" ||
               currentRoom?.kind === "treasure" ||
               (currentRoom?.kind === "curio" &&
@@ -866,7 +867,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
               );
             })()}
           {d.phase === "awaitingRoom" &&
-            !d.pending &&
+            !pendingChoice &&
             (["trap", "dark"].includes(currentRoom?.kind ?? "") ||
               (currentRoom?.kind === "curio" && d.curioRoom?.roomId !== d.position)) && (
               <button onClick={() => dispatch({ type: "resolveDungeonRoom" })}>
@@ -892,26 +893,26 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
           )}
           {d.phase === "awaitingProvisions" && (
             <button
-              disabled={!!d.pending}
+              disabled={!!pendingChoice}
               onClick={() => dispatch({ type: "rollDungeonProvisions" })}
             >
               掷开局补给骰
             </button>
           )}
           <button
-            disabled={!!d.pending || d.phase !== "ready" || d.mustLeaveRoomId === d.position}
+            disabled={!!pendingChoice || d.phase !== "ready" || d.mustLeaveRoomId === d.position}
             onClick={() => dispatch({ type: "scoutDungeon" })}
           >
             侦察
           </button>{" "}
           <button
-            disabled={!!d.pending || d.phase !== "ready"}
+            disabled={!!pendingChoice || d.phase !== "ready"}
             onClick={() => dispatch({ type: "beginDungeonExploration" })}
           >
             选择下一段探索
           </button>{" "}
           <button
-            disabled={!!d.pending || d.phase !== "ready"}
+            disabled={!!pendingChoice || d.phase !== "ready"}
             onClick={() => dispatch({ type: "beginDungeonBacktrack" })}
           >
             原路返回
@@ -946,7 +947,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
           </p>
           {d.phase === "awaitingHazards" && !d.exploration?.rolls && (
             <button
-              disabled={!!d.pending}
+              disabled={!!pendingChoice}
               onClick={() => dispatch({ type: "rollDungeonExploration" })}
             >
               掷探索骰并开始结算
@@ -991,7 +992,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                 </p>
               ) : (
                 <button
-                  disabled={!!d.pending}
+                  disabled={!!pendingChoice}
                   onClick={() => dispatch({ type: "summarizeDungeonQuest" })}
                 >
                   生成任务结算摘要
@@ -999,7 +1000,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
               )}
               {d.questSummary && !d.hamletReturn && (
                 <button
-                  disabled={!!d.pending}
+                  disabled={!!pendingChoice}
                   onClick={() => dispatch({ type: "beginReturnToHamlet" })}
                 >
                   返回村庄
@@ -1018,7 +1019,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                     <>
                       <p>可在下方使用补给，剩余每颗兑换1金币；完成后发放XP。</p>
                       <button
-                        disabled={!!d.pending}
+                        disabled={!!pendingChoice}
                         onClick={() => dispatch({ type: "finishReturnToHamlet" })}
                       >
                         兑换剩余补给并完成回村
@@ -1166,14 +1167,14 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                   </p>
                   {d.hamlet.phase === "eventBlocked" && (
                     <p>
-                      {d.pending?.id.startsWith("hamlet-medical:")
+                      {pendingChoice?.id.startsWith("hamlet-medical:")
                         ? "请在下方选择一名英雄移除疾病；结算后开始三天准备。"
-                        : d.pending?.id.startsWith("hamlet-caregivers:")
+                        : pendingChoice?.id.startsWith("hamlet-caregivers:")
                           ? "请逐个英雄选择免费移除一张怪癖，或放弃；全部结算后开始两天准备。"
-                          : d.pending?.id.startsWith("hamlet-labor-force:")
+                          : pendingChoice?.id.startsWith("hamlet-labor-force:")
                             ? "请选择免费升级一栋建筑，或放弃；事件永久移出后开始三天准备。"
-                            : d.pending
-                              ? d.pending.prompt
+                            : pendingChoice
+                              ? pendingChoice.prompt
                               : "本事件效果尚未接通，保留原卡；准备天数与看守人尚未开始。"}
                     </p>
                   )}
@@ -1230,7 +1231,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                           )}
                         {d.heroes.map((hero) => {
                           const owned =
-                            d.battleCatalog && !d.pending
+                            d.battleCatalog && !pendingChoice
                               ? ownedHeroSkills(hero, d.battleCatalog)
                               : null;
                           if (!owned || !hero.level || !hero.id) return null;
@@ -1423,7 +1424,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
               </ul>
               {d.phase === "awaitingCurio" && (
                 <button
-                  disabled={!!d.pending}
+                  disabled={!!pendingChoice}
                   onClick={() => dispatch({ type: "resolveDungeonCurio" })}
                 >
                   结算当前 Curio
@@ -1441,23 +1442,27 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                 .join(" · ")}
             </p>
           )}
-          {d.pending && (
+          {pendingChoice && (
             <div>
-              <p>{d.pending.prompt}</p>
-              {d.pending.id.startsWith("dungeon-fundraiser:") ? (
+              <p>{pendingChoice.prompt}</p>
+              {pendingChoice.id.startsWith("dungeon-fundraiser:") ? (
                 <FundraiserChoice
-                  key={d.pending.id}
-                  choice={d.pending}
+                  key={pendingChoice.id}
+                  choice={pendingChoice}
                   choose={(optionId) =>
-                    dispatch({ type: "resolveChoice", choiceId: d.pending!.id, optionId })
+                    dispatch({ type: "resolveChoice", choiceId: pendingChoice!.id, optionId })
                   }
                 />
               ) : (
-                d.pending.options.map((o) => (
+                pendingChoice.options.map((o) => (
                   <button
                     key={o.id}
                     onClick={() =>
-                      dispatch({ type: "resolveChoice", choiceId: d.pending!.id, optionId: o.id })
+                      dispatch({
+                        type: "resolveChoice",
+                        choiceId: pendingChoice!.id,
+                        optionId: o.id,
+                      })
                     }
                   >
                     {o.label}
