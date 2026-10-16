@@ -82,6 +82,11 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  /** R31：按英雄身份永久排除，不按临时实体id或等级属性面去重。 */
+  readonly deadHeroNames?: readonly string[];
+  /** 独立于原流程待选：处置死者饰品后恢复原待选。 */
+  readonly deathTrinketChoice?: PendingChoice;
+  readonly deathChoiceCursor?: number;
   readonly buildingLevels?: BuildingLevels;
   readonly hamlet?: import("./hamlet-event").HamletEventState;
   /** 出征后保留的村庄事件牌堆，供下一轮回村续抽（R32/33）。 */

@@ -65,7 +65,7 @@ export function BattleView({
   const turn = battle.encounter?.turn;
   const actor =
     turn && "actorId" in turn ? battle.entities.find((e) => e.id === turn.actorId) : undefined;
-  const pending = battle.pending?.choice;
+  const pending = game.dungeon?.deathTrinketChoice ?? battle.pending?.choice;
   const pendingArea =
     battle.pending?.type === "shuffleArea" || battle.pending?.type === "monsterMove";
   const shuffled = battle.shuffleIntents[0];

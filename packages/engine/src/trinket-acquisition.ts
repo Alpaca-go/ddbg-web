@@ -338,6 +338,20 @@ function discardTrinket(pool: TrinketPool, cardId: string): TrinketPool {
       };
 }
 
+/** R26/R31：只移除指定已持卡，按其原等级弃置；不洗牌或改变其他卡朝向。 */
+export function discardHeldTrinket(pool: TrinketPool, cardId: string) {
+  const card = pool.cards.find((c) => c.id === cardId);
+  if (!card || !pool.held.some((h) => h.cardId === cardId) || !trinketDeck(pool, card.level))
+    return { status: "refused" as const, reason: "持有饰品缺少原等级牌堆，未弃置（R26/R31）" };
+  return {
+    status: "resolved" as const,
+    pool: {
+      ...discardTrinket(pool, cardId),
+      held: pool.held.filter((h) => h.cardId !== cardId),
+    },
+  };
+}
+
 /** 同一目录下的分级牌堆；隐式未洗牌堆只排除该级已占用的卡。 */
 export function trinketDeck(pool: TrinketPool, level: number) {
   const partition = level === pool.level ? pool : pool.inactive?.find((p) => p.level === level);
