@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-17）：#227已合并为main `8b37268`；当前`codex/phase4-plague-dot-skills`仅为Noxious Blast I与Incision I增加严格的完整状态注解，原有Blight/Debuff/Bleed运行时消费。技能姿态核对表按既有词典修正为左至右S/R/D/A，不改引擎规则。见[本轮记录](phase4-plague-dot-skills-2026-10-17.md)。剩五张I级技能和Experimental Vapours，未开放第六名候选；后续优先Plague Grenade I / Blinding Gas I双目标，保持Phase4。已批准R-094属性不重复问。
+
 > 当前入口（2026-10-17）：#226已合并为main `d88607d`；当前`codex/phase4-plague-doctor-review`按Kyries“批准三行属性与限定防御”记录R-094/Q-96 confirmed，入库瘟疫医生三等级属性及完整左右防御栏。III右栏`8510428636`只限该卡读Blight免疫，不改词典；原十五面保持不变。候选筛选增加完整接通名单，防止属性/转录批准误开放新英雄。见[本轮记录](phase4-plague-doctor-review-2026-10-17.md)。下一主题接完整七张I级技能与Experimental Vapours，再开放第六名候选；不重问已获批的三行属性，保持Phase4。
 
 > 当前入口（2026-10-16）：#225已合并为main `e25f9d3`。当前`codex/phase4-web-replacement-catalog`修复正式网页仍使用四人沙盒目录的问题；任务目录接五英雄获批属性与赏金猎人七张I级技能，旧存档先按固定旧目录验证，再严格比较目录外状态。见[本轮记录](phase4-web-replacement-catalog-2026-10-16.md)。开局仍四英雄，多人死亡目录不足、全灭、Q-79/Q-80、正式高等级战役存档和人工验收继续保留，未进入Phase5。下文为历史记录。

@@ -38,17 +38,19 @@ III级图标外观为绿色液滴，与完整R21的Blight图例和I/II级绿色�
 
 ## 4. 七张I级技能的后续切片
 
-完整卡面核对结果如下，只作接线入口；不在本轮附加生产注解。姿态按卡上四格由左至右A/D/R/S读取。
+> 续块：Noxious Blast I与Incision I已接完整状态，见[专项记录](phase4-plague-dot-skills-2026-10-17.md)。下表缺口为本属性核对块的历史基线；其余五技能与村庄能力继续后续。
+
+完整卡面核对结果如下，只作接线入口；不在本轮附加生产注解。姿态按已确认图标读取；卡上四格由左至右为S/R/D/A（支援/远程/防御/进攻），下表按A/D/R/S书写。
 
 | id / 名称                 | 姿态；射程/目标 | 基础判定                 | 卡面效果与实际缺口                                                     |
 | ------------------------- | --------------- | ------------------------ | ---------------------------------------------------------------------- |
-| p127 Noxious Blast        | A/D/R；1，一怪  | Crit1/伤害4；Acc9/伤害2  | 目标Blight4·2t、Debuff1t；需完整状态注解，不能只打基础伤害             |
-| p130 Plague Grenade       | A/D；2，两怪    | Crit0/伤害2；Acc9/伤害1  | 每个命中目标Blight3·2t；需双目标共享骰及逐名状态接线                   |
-| p133 Blinding Gas         | A/D；1–2，两怪  | Acc9，无伤害栏           | Stun1t；缺区间射程/状态注解，不能把Acc9当伤害或填0伤害占位             |
-| p136 Incision             | D/R/S；0，一怪  | Crit1/伤害8；Acc9/伤害5  | 目标Bleed2·2t；需完整状态注解                                          |
-| p139 Battlefield Medicine | A/D；0，一英雄  | Crit1/治疗2；Acc20/治疗1 | 移除目标全部Bleed和Blight；已有纯函数测试，不等于新英雄命令闭环已验收  |
-| p142 Emboldening Vapours  | A/D；0，一英雄  | 无Acc/Crit，不掷攻击骰   | 目标Buff3t；需状态注解和真实代币验证                                   |
-| p145 Disorienting Blast   | A/D/R；1，一怪  | Acc9，无伤害栏           | 目标Push2或Pull2，再Stun1t；需完整状态与位移续接，掷前选择方向不重掷骰 |
+| p127 Noxious Blast        | D/R/S；1，一怪  | Crit1/伤害4；Acc9/伤害2  | 目标Blight4·2t、Debuff1t；需完整状态注解，不能只打基础伤害             |
+| p130 Plague Grenade       | R/S；2，两怪    | Crit0/伤害2；Acc9/伤害1  | 每个命中目标Blight3·2t；需双目标共享骰及逐名状态接线                   |
+| p133 Blinding Gas         | R/S；1–2，两怪  | Acc9，无伤害栏           | Stun1t；缺区间射程/状态注解，不能把Acc9当伤害或填0伤害占位             |
+| p136 Incision             | A/D/R；0，一怪  | Crit1/伤害8；Acc9/伤害5  | 目标Bleed2·2t；需完整状态注解                                          |
+| p139 Battlefield Medicine | R/S；0，一英雄  | Crit1/治疗2；Acc20/治疗1 | 移除目标全部Bleed和Blight；已有纯函数测试，不等于新英雄命令闭环已验收  |
+| p142 Emboldening Vapours  | R/S；0，一英雄  | 无Acc/Crit，不掷攻击骰   | 目标Buff3t；需状态注解和真实代币验证                                   |
+| p145 Disorienting Blast   | D/R/S；1，一怪  | Acc9，无伤害栏           | 目标Push2或Pull2，再Stun1t；需完整状态与位移续接，掷前选择方向不重掷骰 |
 
 七张均为`verification.unverified=false`，但Nt的raw numeric仍可为null；当前缺少这些卡的完整获核时长注解。Blinding Gas和Disorienting Blast已有拒绝/局部意图测试，不能据此算完整技能完成。后续按R-048保留原字段，以完整签名和精确id附加已核图标的解释，不用默认持续时间。
 
