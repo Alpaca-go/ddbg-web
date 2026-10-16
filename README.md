@@ -25,7 +25,7 @@ pnpm build
 
 接手开发先读 [Codex 总交接](docs/HANDOFF-FROM-CODEX-2026-10-09.md) 顶部的当前入口与最近提交补记；跨代理背景见 [交给 Codex 的说明](docs/HANDOFF-TO-CODEX-2026-10-09.md)。历史段落中的分支 / 合并状态不覆盖当前入口。
 
-当前进度（2026-10-16）：#216 已合并（main `75a3992`），村庄事件 16/16。当前接通 [Flashbang I 眩晕与可选位移](docs/phase4-flashbang-2026-10-16.md)；赏金猎人六张 I 级技能已接，剩 Collect Bounty 双条件伤害，Scout Ahead 与死亡补人仍未完成，网页保留原四英雄。II 级两张任务、五种怪物已接通；Q-79/Q-80、正式高等级战役存档与人工验收仍未完成，未进入 Phase 5。下段为历史记录。
+当前进度（2026-10-16）：#217 已合并（main `d724efd`），村庄事件 16/16。当前接通 [Collect Bounty I 双条件伤害](docs/phase4-collect-bounty-2026-10-16.md)；赏金猎人七张 I 级技能已分别接线，下一主题 Scout Ahead 与死亡补人，正式页面仍保留原四英雄。II 级两张任务、五种怪物已接通；Q-79/Q-80、正式高等级战役存档与人工验收仍未完成，未进入 Phase 5。下段为历史记录。
 
 最新补记：#200/#201已合并（main `46ff57a`）；跨等级饰品弃装与旧池回收已接。#202按R-083接四种II级怪物获批基础字段及Captain/Gargoyle完整入场（含常驻Protection），Rattler/Ghoul额外运行时仍停点，见[当前开发记录](docs/phase4-remaining-ii-review-2026-10-15.md)。正式升幕及高等级存档仍未开放。
 

@@ -5,6 +5,45 @@ export function attachVerifiedHeroDamage(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return cards.map((card) => {
+    if (card.id === "hero_skill:p043") {
+      const signature = (line: (typeof card.effect_lines)[number]) =>
+        line
+          .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+          .join("")
+          .replace(/\s+/g, "");
+      if (
+        card.hero !== "BOUNTY HUNTER" ||
+        card.name !== "Collect Bounty" ||
+        card.back_name !== "Collect Bounty" ||
+        card.level !== 1 ||
+        card.back_level !== 1 ||
+        card.pages.length !== 1 ||
+        card.pages[0] !== 43 ||
+        card.copies !== 1 ||
+        card.verification.unverified ||
+        JSON.stringify(card.effect_lines.map(signature)) !==
+          JSON.stringify([
+            "{target_effects}{damage}+1vsHumans",
+            "{target_effects}{damage}+2vs{mark}",
+          ]) ||
+        !card.stats_line ||
+        signature(card.stats_line) !== "{range}0{target_monster}Crit1{damage}10Acc9{damage}6" ||
+        card.effect_lines
+          .flat()
+          .some(
+            (s) =>
+              s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+          )
+      )
+        throw new Error("Collect Bounty I完整伤害字段漂移（R-048）");
+      return {
+        ...card,
+        verified_damage_bonuses: [
+          { lineIndex: 0, amount: 1, condition: "human" as const, source: "print_front" as const },
+          { lineIndex: 1, amount: 2, condition: "marked" as const, source: "print_front" as const },
+        ],
+      };
+    }
     const reviewed = {
       "hero_skill:p001": {
         name: "Smite",

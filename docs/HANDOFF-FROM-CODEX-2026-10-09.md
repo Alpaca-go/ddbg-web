@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-16）：#217 已审查合并，main `d724efd`。当前 `codex/phase4-collect-bounty` 接 Collect Bounty I 的同框 Humans / Mark 双条件伤害，见[本轮记录](phase4-collect-bounty-2026-10-16.md)。赏金猎人七张 I 级技能分别已接，下一主题核对/接通 Scout Ahead，再接正式补人；仍未开放完整英雄入口，网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
+
 > 当前入口（2026-10-16）：#216 已审查合并，main `75a3992`。当前 `codex/phase4-flashbang` 接 Flashbang I 的1–2射程、Stun1t与掷前Push/Pull选择及落点待选续接，见[本轮记录](phase4-flashbang-2026-10-16.md)。赏金猎人六张 I 级技能已接，剩 Collect Bounty 双条件伤害；Scout Ahead 与死亡替换仍后续，网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
 
 > 当前入口（2026-10-16）：#215 已审查合并，main `7a83675`。当前 `codex/phase4-finish-him` 接 Finish Him I 的0–1射程及对真实Stun堆一次+2伤害，见[本轮记录](phase4-finish-him-2026-10-16.md)。赏金猎人五张 I 级技能已接，Collect Bounty / Flashbang 两张、Scout Ahead 与死亡替换仍后续；网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
