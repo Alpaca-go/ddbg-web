@@ -105,13 +105,39 @@ export function createQuestSave(
     throw new Error("当前状态与任务入口及命令日志不一致，未保存");
   return save;
 }
-export function loadQuestSave(input: unknown, sources: CoreQuestSources) {
+export function loadQuestSave(
+  input: unknown,
+  sources: CoreQuestSources,
+  previousSources?: CoreQuestSources,
+) {
   const parsed = questSaveSchema.safeParse(input);
   if (!parsed.success) throw new Error("存档格式、版本或命令参数不受支持");
   const save = parsed.data;
   const commands = replayCommands(save.commands);
   const restored = replay(save.start, commands, sources);
-  if (canonical(restored.game) !== canonical(upgradeNomadPrompt(save.snapshot, restored.game)))
-    throw new Error("存档快照与回放不一致，或游戏数据版本已变化；未替换当前进度");
+  if (canonical(restored.game) !== canonical(upgradeNomadPrompt(save.snapshot, restored.game))) {
+    if (!previousSources)
+      throw new Error("存档快照与回放不一致，或游戏数据版本已变化；未替换当前进度");
+    // 仅由调用方提供可信旧目录；先完整验证旧快照，再允许目录字段更新。
+    // 玩家状态、牌池、待选、RNG和命令结果仍须与新目录回放逐项一致。
+    const previous = loadQuestSave(input, previousSources).game;
+    const upgraded = {
+      ...previous,
+      ...(previous.dungeon && restored.game.dungeon
+        ? { dungeon: { ...previous.dungeon, battleCatalog: restored.game.dungeon.battleCatalog } }
+        : {}),
+      ...(previous.battle && restored.game.battle
+        ? {
+            battle: {
+              ...previous.battle,
+              heroStats: restored.game.battle.heroStats,
+              skills: restored.game.battle.skills,
+            },
+          }
+        : {}),
+    };
+    if (canonical(upgraded) !== canonical(restored.game))
+      throw new Error("旧存档的目录更新改变了游戏结果；未替换当前进度");
+  }
   return { ...restored, start: save.start, commands };
 }

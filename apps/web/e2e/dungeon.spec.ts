@@ -896,7 +896,7 @@ test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场"
   await page.getByRole("button", { name: "侦察", exact: true }).click();
   await page.getByRole("button", { name: "全员同意", exact: true }).click();
   await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 10（心脏病死亡）");
-  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("等待驿站替换接口");
+  await expect(page.getByTestId("dungeon-checkpoint")).toContainText("请完成驿站替补准备与入队");
   await expect(page.getByTestId("dungeon-node-D")).toContainText("未揭示");
   await expect(page.getByRole("button", { name: "侦察", exact: true })).toBeDisabled();
   await page.getByLabel("侦察测试布置").selectOption("curio");

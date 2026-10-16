@@ -41,3 +41,7 @@ declare module "virtual:battle-data" {
     }[];
   };
 }
+
+declare module "virtual:quest-battle-data" {
+  export const battleData: typeof import("virtual:battle-data").battleData;
+}
