@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-16）：#212 已合并，main `e300c47`，游商 II/III 已进入主线。Kyries 本轮“批准三行属性与限定防御”，R-088/Q-90 confirmed；当前 `codex/phase4-replacement-hero-review` 已入库赏金猎人三等级属性与完整防御，III 级 `c07ea0c507` 只在该卡抗性栏读 Debuff，不改词典或清整卡未验证。见[本轮记录与补人接线缺口](phase4-replacement-hero-review-2026-10-16.md)。网页仍保留四名已完整接通的英雄；下一主题逐卡核对赏金猎人完整技能，再接死亡替换。事件 16/16，Q-79/Q-80 和其余 Phase 4 验收缺口保留，未进 Phase 5。下段为历史进度。
+
 > 当前入口（2026-10-16）：#211 已合并，main `2c21f23`。当前 `codex/phase4-nomad-higher-levels` 接游商 II/III 分级陈列、4/6/8 金购买、2/3/4 金出售与 Gypsy Trail、跨级归池及正式 I 级战役中的高等级游商存档。事件 16/16；见[本轮记录](phase4-nomad-higher-levels-2026-10-16.md)。Q-79/Q-80、死亡补人/英雄池、正式高等级战役存档与人工验收仍未完成，未进 Phase 5。下段为历史进度。
 
 > 当前入口（2026-10-16）：#210已合并，main `b8e4f03`。当前`codex/phase4-lost-shipment`按Kyries本轮A裁定（R-087/Q-88）接Lost Shipment掷前由队伍从常规8颗任意取消2颗（可含Radiant自选）、建筑奖励照常及正式存档，事件16/16。见[本轮记录](phase4-lost-shipment-2026-10-16.md)。下一主题梳理游商II/III；Q-79/Q-80、死亡补人、高等级正式存档和人工验收仍未完成，未进Phase5。下段为历史进度。

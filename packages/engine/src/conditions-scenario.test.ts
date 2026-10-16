@@ -34,7 +34,12 @@ const stats = clean<
 >(
   normalizedHeroStatFileSchema
     .parse(heroData)
-    .cards.filter((s) => s.attributesVerified && s.level === 1),
+    .cards.filter(
+      (s) =>
+        s.attributesVerified &&
+        s.level === 1 &&
+        ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(s.name),
+    ),
 );
 const skills = clean<(HeroSkillCardView & { name: string; level: number })[]>(
   normalizedHeroSkillFileSchema.parse(skillData).cards,

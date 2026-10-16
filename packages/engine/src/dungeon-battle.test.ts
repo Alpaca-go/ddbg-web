@@ -42,7 +42,11 @@ import { readPrintedRange } from "./hero-skill";
 import { skillTargetView } from "./battle";
 import { tickStatusStacks } from "./status";
 
-const stats = normalizedHeroStatFileSchema.parse(statsFile).cards.filter((s) => s.level === 1);
+const stats = normalizedHeroStatFileSchema
+  .parse(statsFile)
+  .cards.filter(
+    (s) => s.level === 1 && ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(s.name),
+  );
 const skills = normalizedHeroSkillFileSchema.parse(skillsFile).cards;
 const catalog = JSON.parse(
   JSON.stringify({

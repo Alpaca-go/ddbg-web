@@ -19,9 +19,9 @@ import type {
 
 const data = loadNormalizedCorebox();
 // 已通过 Zod 的 JSON 在引擎边界只保留存在的可选属性。
-const heroes = data.hero_stat.cards.filter((c) => c.level === 1) as unknown as (NonNullable<
-  BattleSetup["heroStats"]
->[number] & { dodge: number })[];
+const heroes = data.hero_stat.cards.filter(
+  (c) => c.level === 1 && ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(c.name),
+) as unknown as (NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number })[];
 const skills = data.hero_skill.cards.filter(
   (c) => "hero" in c && heroes.some((h) => h.name === c.hero),
 ) as unknown as (HeroSkillCardView & {

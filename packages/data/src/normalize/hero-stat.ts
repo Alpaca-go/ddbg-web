@@ -12,7 +12,7 @@ import {
 
 const FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf";
 const BACK = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf";
-/** Kyries 2026-10-12 限定四个 front / I id；红滴只在这里读 Bleed，不改词典。 */
+/** R-048/R-088：按具体front/I卡限定审批，不改词典；新旧批准日期分别保留。 */
 export const approvedHeroConditionDefences: Readonly<
   Record<string, { name: string; iconId: string; kind: "stun" | "bleed" }>
 > = {
@@ -20,12 +20,13 @@ export const approvedHeroConditionDefences: Readonly<
   "hero_stat:p003:front": { name: "HELLION", iconId: "d29a868ed8", kind: "bleed" },
   "hero_stat:p007:front": { name: "HIGHWAYMAN", iconId: "8db71542d2", kind: "stun" },
   "hero_stat:p009:front": { name: "VESTAL", iconId: "d29a868ed8", kind: "bleed" },
+  "hero_stat:p005:front": { name: "BOUNTY HUNTER", iconId: "8db71542d2", kind: "stun" },
 };
 export const heroConditionDefenceSchema = z.strictObject({
   resistances: z.array(z.enum(["stun", "bleed"])).length(1),
   immunities: z.array(z.never()).length(0),
   source: z.literal("print_front"),
-  approval: z.literal("kyries_review_2026-10-12"),
+  approval: z.enum(["kyries_review_2026-10-12", "kyries_review_2026-10-16"]),
 });
 export type HeroConditionDefence = z.infer<typeof heroConditionDefenceSchema>;
 const attributesSchema = z.strictObject({
@@ -38,7 +39,7 @@ const attributesSchema = z.strictObject({
   speed: z.int().nonnegative(),
 });
 
-/** Kyries 2026-10-10 批准核对表 §3；身份为 raw id + face，不外推同名卡。 */
+/** 原四英雄于2026-10-10获批；R-088于2026-10-16另加赏金猎人三面，不外推同名卡。 */
 export const approvedHeroStats = [
   ["hero_stat:p001", "front", "CRUSADER", 1, 17, 0, 1],
   ["hero_stat:p001", "back", "CRUSADER", 2, 24, 1, 1],
@@ -52,6 +53,9 @@ export const approvedHeroStats = [
   ["hero_stat:p009", "front", "VESTAL", 1, 12, 0, 1],
   ["hero_stat:p009", "back", "VESTAL", 2, 17, 1, 1],
   ["hero_stat:p010", "front", "VESTAL", 3, 22, 2, 2],
+  ["hero_stat:p005", "front", "BOUNTY HUNTER", 1, 14, 1, 2],
+  ["hero_stat:p005", "back", "BOUNTY HUNTER", 2, 18, 2, 2],
+  ["hero_stat:p006", "front", "BOUNTY HUNTER", 3, 23, 3, 2],
 ].map(([rawId, face, name, level, life, dodge, speed]) =>
   attributesSchema.parse({ rawId, face, name, level, life, dodge, speed }),
 );
@@ -61,8 +65,8 @@ export const normalizedHeroStatCardSchema = attributesSchema
     id: z.string().min(1),
     source: z.strictObject({ file: z.enum([FRONT, BACK]), page: z.int().positive() }),
     attributesVerified: z.literal(true),
-    approval: z.literal("kyries_review_2026-10-10"),
-    /** 原有 Buff 专项注解保留兼容；完整条件防御另有四个 id 的限定审批。 */
+    approval: z.enum(["kyries_review_2026-10-10", "kyries_review_2026-10-16"]),
+    /** 原有 Buff 专项注解保留兼容；完整条件防御按具体 I 级 id 限定审批。 */
     verified_buff_defence: z
       .strictObject({
         resistant: z.boolean(),
@@ -78,8 +82,19 @@ export const normalizedHeroStatCardSchema = attributesSchema
     verification: verificationSchema,
   })
   .superRefine((card, ctx) => {
+    const bounty = approvedHeroStats.find(
+      (s) => s.name === "BOUNTY HUNTER" && `${s.rawId}:${s.face}` === card.id,
+    );
+    if (card.name === "BOUNTY HUNTER" || card.approval === "kyries_review_2026-10-16" || bounty) {
+      if (
+        !bounty ||
+        card.approval !== "kyries_review_2026-10-16" ||
+        (Object.keys(bounty) as (keyof typeof bounty)[]).some((key) => card[key] !== bounty[key])
+      )
+        ctx.addIssue({ code: "custom", message: "赏金猎人属性超出三面限定审批（R-088）" });
+    }
     if (card.verified_higher_condition_defence && !readHigherHeroDefence(card))
-      ctx.addIssue({ code: "custom", message: "高等级英雄防御超出八张限定审批（R-081）" });
+      ctx.addIssue({ code: "custom", message: "高等级英雄防御超出限定审批（R-081/R-088）" });
     if (card.verified_condition_defence) {
       const expected = approvedHeroConditionDefences[card.id];
       if (
@@ -87,9 +102,13 @@ export const normalizedHeroStatCardSchema = attributesSchema
         card.face !== "front" ||
         card.level !== 1 ||
         card.name !== expected.name ||
-        card.verified_condition_defence.resistances[0] !== expected.kind
+        card.verified_condition_defence.resistances[0] !== expected.kind ||
+        card.verified_condition_defence.approval !==
+          (expected.name === "BOUNTY HUNTER"
+            ? "kyries_review_2026-10-16"
+            : "kyries_review_2026-10-12")
       )
-        ctx.addIssue({ code: "custom", message: "英雄条件防御超出四张 I 级限定审批" });
+        ctx.addIssue({ code: "custom", message: "英雄条件防御超出 I 级限定审批" });
     }
     if (
       card.id !== `${card.rawId}:${card.face}` ||
@@ -208,6 +227,7 @@ export function buildHeroStats(
       "hero_stat:p003": "d29a868ed8",
       "hero_stat:p007": "8db71542d2",
       "hero_stat:p009": "d29a868ed8",
+      "hero_stat:p005": "8db71542d2",
     };
     const buffReviewed =
       attributes.level === 1 &&
@@ -249,7 +269,10 @@ export function buildHeroStats(
       id: `${attributes.rawId}:${attributes.face}`,
       source: { file: face.file, page: face.page },
       attributesVerified: true,
-      approval: "kyries_review_2026-10-10",
+      approval:
+        attributes.name === "BOUNTY HUNTER"
+          ? "kyries_review_2026-10-16"
+          : "kyries_review_2026-10-10",
       ...(higher ? { verified_higher_condition_defence: higher } : {}),
       ...(buffReviewed
         ? { verified_buff_defence: { resistant: false, immune: false, source: "print_front" } }
@@ -260,7 +283,10 @@ export function buildHeroStats(
               resistances: [defence.kind],
               immunities: [],
               source: "print_front",
-              approval: "kyries_review_2026-10-12",
+              approval:
+                attributes.name === "BOUNTY HUNTER"
+                  ? "kyries_review_2026-10-16"
+                  : "kyries_review_2026-10-12",
             },
           }
         : {}),

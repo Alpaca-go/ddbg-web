@@ -21,7 +21,11 @@ import { endTurnOldAbbey } from "./battle-old-abbey";
 import { nextBattleRoll } from "./encounter";
 
 const tile = approvedExtraRuinsTiles.find((t) => t.number === 9)!;
-const stats = normalizedHeroStatFileSchema.parse(statsFile).cards.filter((s) => s.level === 1);
+const stats = normalizedHeroStatFileSchema
+  .parse(statsFile)
+  .cards.filter(
+    (s) => s.level === 1 && ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(s.name),
+  );
 const battleStats: NonNullable<BattleSetup["heroStats"]> = JSON.parse(JSON.stringify(stats));
 const quirks = normalizedQuirkFileSchema.parse(quirkFile).cards;
 const q = (name: string) => quirks.find((q) => q.name === name)!.id;
