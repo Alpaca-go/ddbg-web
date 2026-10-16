@@ -29,7 +29,11 @@ import { createConditionPool } from "./conditions";
 import type { StatusStack } from "./status";
 
 const tile = approvedExtraRuinsTiles.find((t) => t.number === 7)!;
-const stats = normalizedHeroStatFileSchema.parse(statsFile).cards.filter((s) => s.level === 1);
+const stats = normalizedHeroStatFileSchema
+  .parse(statsFile)
+  .cards.filter(
+    (s) => s.level === 1 && ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(s.name),
+  );
 const skills: (HeroSkillCardView & { readonly level: number })[] = JSON.parse(
   JSON.stringify(normalizedHeroSkillFileSchema.parse(skillsFile).cards),
 );

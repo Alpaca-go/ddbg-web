@@ -19,7 +19,9 @@ import type { ResolveCard } from "./pressure";
 
 const stats = normalizedHeroStatFileSchema
   .parse(statData)
-  .cards.filter((s) => s.level === 1) as DungeonBattleCatalog["heroStats"];
+  .cards.filter(
+    (s) => s.level === 1 && ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(s.name),
+  ) as DungeonBattleCatalog["heroStats"];
 const quirk = (name: (typeof QUIRK_NAMES)[number]) =>
   `quirk:p${String(QUIRK_NAMES.indexOf(name) + 1).padStart(3, "0")}`;
 function seedFor(roll: number, next?: number): number {

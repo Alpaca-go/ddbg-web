@@ -31,7 +31,10 @@ const clean = <T>(value: unknown): T => JSON.parse(JSON.stringify(value));
 const tile = approvedExtraRuinsTiles.find((tile) => tile.number === 8)!;
 const stats = normalizedHeroStatFileSchema
   .parse(statsFile)
-  .cards.filter((stat) => stat.level === 1);
+  .cards.filter(
+    (stat) =>
+      stat.level === 1 && ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(stat.name),
+  );
 const skills = clean<(HeroSkillCardView & { level: number })[]>(
   normalizedHeroSkillFileSchema.parse(skillFile).cards,
 );

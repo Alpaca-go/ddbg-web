@@ -28,7 +28,13 @@ export function battleDataPlugin(): Plugin {
       if (id !== "\0virtual:battle-data") return null;
       const heroStats = normalizedHeroStatFileSchema
         .parse(read("hero_stat"))
-        .cards.filter((card) => card.attributesVerified && card.level === 1);
+        // 新英雄的属性前置获批不等于完整技能已经可战；当前沙盒仍保持四英雄。
+        .cards.filter(
+          (card) =>
+            card.attributesVerified &&
+            card.level === 1 &&
+            ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(card.name),
+        );
       const conditions = createConditionPool(
         diseaseFileSchema.parse(read("disease")).cards,
         normalizedQuirkFileSchema.parse(read("quirk")).cards,

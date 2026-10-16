@@ -6,10 +6,10 @@ export const higherHeroDefenceSchema = z.strictObject({
   resistances: z.array(condition).max(3),
   immunities: z.array(condition).max(1),
   source: z.enum(["print_front", "print_back"]),
-  approval: z.literal("kyries_review_2026-10-15"),
+  approval: z.enum(["kyries_review_2026-10-15", "kyries_review_2026-10-16"]),
 });
 export type HigherHeroDefence = z.infer<typeof higherHeroDefenceSchema>;
-/** R-081：限定八张卡及左右栏；不改全局词典。数组为[图标id,条件名]。 */
+/** R-081八张与R-088赏金猎人两张，分别限定卡与左右栏；不改全局词典。 */
 export const higherHeroDefenceApprovals = [
   {
     id: "hero_stat:p001:back",
@@ -93,6 +93,27 @@ export const higherHeroDefenceApprovals = [
     ],
     immunities: [["28b10f3fb7", "disease"]],
   },
+  {
+    id: "hero_stat:p005:back",
+    name: "BOUNTY HUNTER",
+    level: 2,
+    resistances: [
+      ["8db71542d2", "stun"],
+      ["de6f50b39b", "debuff"],
+    ],
+    immunities: [],
+  },
+  {
+    id: "hero_stat:p006:front",
+    name: "BOUNTY HUNTER",
+    level: 3,
+    resistances: [
+      ["8db71542d2", "stun"],
+      ["c07ea0c507", "debuff"],
+      ["64702f548e", "bleed"],
+    ],
+    immunities: [],
+  },
 ] as const;
 export function approvedHigherDefence(id: string): HigherHeroDefence | undefined {
   const row = higherHeroDefenceApprovals.find((r) => r.id === id);
@@ -101,7 +122,8 @@ export function approvedHigherDefence(id: string): HigherHeroDefence | undefined
         resistances: row.resistances.map((r) => r[1]),
         immunities: row.immunities.map((r) => r[1]),
         source: id.endsWith(":back") ? "print_back" : "print_front",
-        approval: "kyries_review_2026-10-15",
+        approval:
+          row.name === "BOUNTY HUNTER" ? "kyries_review_2026-10-16" : "kyries_review_2026-10-15",
       }
     : undefined;
 }

@@ -18,8 +18,8 @@ const dictionary = iconDictionarySchema.parse(json("dictionary/icon-dictionary-v
 const built = buildHeroStats(raw, dictionary);
 const first = approvedHeroStats[0]!;
 
-describe("四名英雄 12 面获批属性（R10/19/29；R-006/007/048）", () => {
-  it("限定四个 I 级 id 的完整防御批准，红滴读 Bleed，不修改原图标或词典", () => {
+describe("五名英雄15面获批属性（R10/19/29；R-006/007/048/088）", () => {
+  it("限定五个 I 级 id 的完整防御及各自批准日期，红滴读 Bleed，不修改原图标或词典", () => {
     expect(
       built.cards
         .filter((c) => c.verified_condition_defence)
@@ -61,6 +61,15 @@ describe("四名英雄 12 面获批属性（R10/19/29；R-006/007/048）", () =>
           approval: "kyries_review_2026-10-12",
         },
       ],
+      [
+        "hero_stat:p005:front",
+        {
+          resistances: ["stun"],
+          immunities: [],
+          source: "print_front",
+          approval: "kyries_review_2026-10-16",
+        },
+      ],
     ]);
     const hellion = built.cards.find((c) => c.id === "hero_stat:p003:front")!;
     const annotation = hellion.verified_condition_defence!;
@@ -87,12 +96,13 @@ describe("四名英雄 12 面获批属性（R10/19/29；R-006/007/048）", () =>
       expect(() => buildHeroStats(changed, dictionary)).toThrow("完整框漂移");
     }
   });
-  it("只核四张 I 级 Buff 抗性栏；栏位漂移拒绝，其他图标仍保留未验证", () => {
+  it("只核获批 I 级 Buff 抗性栏；栏位漂移拒绝，其他图标仍保留未验证", () => {
     expect(built.cards.filter((c) => c.verified_buff_defence).map((c) => c.id)).toEqual([
       "hero_stat:p001:front",
       "hero_stat:p003:front",
       "hero_stat:p007:front",
       "hero_stat:p009:front",
+      "hero_stat:p005:front",
     ]);
     expect(built.cards.find((c) => c.id === "hero_stat:p003:front")).toMatchObject({
       verified_buff_defence: { resistant: false, immune: false, source: "print_front" },
@@ -106,14 +116,9 @@ describe("四名英雄 12 面获批属性（R10/19/29；R-006/007/048）", () =>
   it("独立预期锁定 raw id + face、英雄、等级及 36 个获批值", () => {
     // 直接来自获批核对表 §3，不从实现映射反推；III 级不能继承 I/II Speed。
     expect(
-      built.cards.map((card) => [
-        card.id,
-        card.name,
-        card.level,
-        card.life,
-        card.dodge,
-        card.speed,
-      ]),
+      built.cards
+        .filter((c) => c.name !== "BOUNTY HUNTER")
+        .map((card) => [card.id, card.name, card.level, card.life, card.dodge, card.speed]),
     ).toEqual([
       ["hero_stat:p001:front", "CRUSADER", 1, 17, 0, 1],
       ["hero_stat:p001:back", "CRUSADER", 2, 24, 1, 1],
@@ -129,13 +134,13 @@ describe("四名英雄 12 面获批属性（R10/19/29；R-006/007/048）", () =>
       ["hero_stat:p010:front", "VESTAL", 3, 22, 2, 2],
     ]);
     expect(built.cards.every((card) => card.attributesVerified)).toBe(true);
-    expect(built.cards.filter((card) => card.verification.unverified)).toHaveLength(9);
+    expect(built.cards.filter((card) => card.verification.unverified)).toHaveLength(10);
   });
 
   it("只输出获批面，无映射不输出，不把 III 级背面或其他英雄补成默认数值", () => {
     expect(buildHeroStats(raw, dictionary, []).cards).toEqual([]);
     expect(buildHeroStats(raw, dictionary, [first]).cards).toEqual([built.cards[0]]);
-    expect(built.cards.some((card) => card.rawId === "hero_stat:p005")).toBe(false);
+    expect(built.cards.some((card) => card.rawId === "hero_stat:p011")).toBe(false);
     expect(
       built.cards.some((card) => card.rawId === "hero_stat:p002" && card.face === "back"),
     ).toBe(false);

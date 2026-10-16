@@ -2342,6 +2342,502 @@
      "icon:4f7549c1b8"
     ]
    }
+  },
+  {
+   "rawId": "hero_stat:p005",
+   "face": "front",
+   "name": "BOUNTY HUNTER",
+   "level": 1,
+   "life": 14,
+   "dodge": 1,
+   "speed": 2,
+   "id": "hero_stat:p005:front",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
+    "page": 5
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-16",
+   "verified_buff_defence": {
+    "resistant": false,
+    "immune": false,
+    "source": "print_front"
+   },
+   "verified_condition_defence": {
+    "resistances": [
+     "stun"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-16"
+   },
+   "lines": [
+    "{icon:605ef84c59}",
+    "I",
+    "{icon:61fd969d50} BOUNTY HUNTER",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 1 {icon:9534ad5184} 14 {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities",
+    "{icon:8db71542d2}",
+    "Hamlet Skill: Scout Ahead",
+    "Self {icon:a84ac4c016} +1, reveal a Room in the next Dungeon."
+   ],
+   "icons": [
+    {
+     "iconId": "605ef84c59",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Bounty Hunter (hero stat card)",
+     "meaning_zh": "英雄头像：赏金猎人（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8db71542d2",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stun",
+     "kind": "status",
+     "meaning_en": "Stun (hero card/player aid)",
+     "meaning_zh": "眩晕（英雄卡/玩家辅助卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a84ac4c016",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "rawId": "hero_stat:p005",
+   "face": "back",
+   "name": "BOUNTY HUNTER",
+   "level": 2,
+   "life": 18,
+   "dodge": 2,
+   "speed": 2,
+   "id": "hero_stat:p005:back",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
+    "page": 5
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-16",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "debuff"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-10-16"
+   },
+   "lines": [
+    "{icon:605ef84c59}",
+    "II",
+    "{icon:61fd969d50}",
+    "BOUNTY HUNTER",
+    "{icon:61fd969d50}",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 2 {icon:9534ad5184} 18 {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities",
+    "{icon:8db71542d2} {icon:de6f50b39b}",
+    "Hamlet Skill: Scout Ahead",
+    "Self {icon:a84ac4c016} +1, reveal a Room in the next Dungeon."
+   ],
+   "icons": [
+    {
+     "iconId": "605ef84c59",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Bounty Hunter (hero stat card)",
+     "meaning_zh": "英雄头像：赏金猎人（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "de6f50b39b",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "debuff",
+     "kind": "status",
+     "meaning_en": "Debuff",
+     "meaning_zh": "减益",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8db71542d2",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stun",
+     "kind": "status",
+     "meaning_en": "Stun (hero card/player aid)",
+     "meaning_zh": "眩晕（英雄卡/玩家辅助卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a84ac4c016",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "rawId": "hero_stat:p006",
+   "face": "front",
+   "name": "BOUNTY HUNTER",
+   "level": 3,
+   "life": 23,
+   "dodge": 3,
+   "speed": 2,
+   "id": "hero_stat:p006:front",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
+    "page": 6
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-16",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "debuff",
+     "bleed"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-16"
+   },
+   "lines": [
+    "{icon:605ef84c59}",
+    "III",
+    "{icon:23cc2e3363}",
+    "{icon:61fd969d50} BOUNTY HUNTER",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 3 {icon:9534ad5184} 23 {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities",
+    "{icon:61fd969d50} {icon:8db71542d2} {icon:c07ea0c507} {icon:64702f548e}",
+    "Hamlet Skill: Scout Ahead",
+    "Self {icon:a84ac4c016} +1, reveal a Room in the next Dungeon."
+   ],
+   "icons": [
+    {
+     "iconId": "605ef84c59",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Bounty Hunter (hero stat card)",
+     "meaning_zh": "英雄头像：赏金猎人（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "23cc2e3363",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c07ea0c507",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_c07ea0c507",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "64702f548e",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (hero stat card)",
+     "meaning_zh": "流血（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8db71542d2",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stun",
+     "kind": "status",
+     "meaning_en": "Stun (hero card/player aid)",
+     "meaning_zh": "眩晕（英雄卡/玩家辅助卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a84ac4c016",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:c07ea0c507"
+    ]
+   }
   }
  ]
 }

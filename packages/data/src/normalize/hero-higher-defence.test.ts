@@ -14,7 +14,7 @@ const cards = buildHeroStats(raw, dictionary).cards;
 it("R-081八卡独立黄金表：完整左右栏，不把Shuffle/Disease当作持续状态或外推其他卡", () => {
   expect(
     cards
-      .filter((c) => c.verified_higher_condition_defence)
+      .filter((c) => c.verified_higher_condition_defence && c.name !== "BOUNTY HUNTER")
       .map((c) => [
         c.id,
         readHigherHeroDefence(c)!.resistances,
@@ -33,7 +33,7 @@ it("R-081八卡独立黄金表：完整左右栏，不把Shuffle/Disease当作�
   expect(
     cards.filter((c) => c.level === 1).every((c) => !c.verified_higher_condition_defence),
   ).toBe(true);
-  expect(cards.filter((c) => c.verified_condition_defence)).toHaveLength(4);
+  expect(cards.filter((c) => c.verified_condition_defence)).toHaveLength(5);
   expect(cards.find((c) => c.id === "hero_stat:p001:back")!.verification.reasons).toContain(
     "icon:7034784ee1",
   );
