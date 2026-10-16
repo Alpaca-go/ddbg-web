@@ -1,6 +1,7 @@
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { drawHamletEvent, rollHamletCaretaker, chooseMedicalBreakthrough } from "./hamlet-event";
 import { chooseCaregiversConvention } from "./hamlet-caregivers";
+import { chooseFeast } from "./hamlet-feast";
 import { chooseLaborForce } from "./hamlet-labor-force";
 import { chooseGuildTraining, chooseMilitiaTraining } from "./hamlet-guild-training";
 import { chooseTravelingMerchants } from "./hamlet-traveling-merchants";
@@ -369,6 +370,10 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return command.type === "resolveChoice"
       ? chooseCaregiversConvention(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先完成Caregivers Convention怪癖选择");
+  if (state.dungeon?.pending?.id.startsWith("hamlet-feast:"))
+    return command.type === "resolveChoice"
+      ? chooseFeast(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先完成The Feast恢复选择");
   if (state.dungeon?.pending?.id.startsWith("hamlet-medical:"))
     return command.type === "resolveChoice"
       ? chooseMedicalBreakthrough(state, command.choiceId, command.optionId)

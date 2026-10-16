@@ -58,6 +58,20 @@ export function buildHamletEvents(raw: RawFile) {
             JSON.stringify(["Heroes gain +5 {icon:08a25c05cf} when", "selling Trinkets."]))
       )
         throw new Error("Gypsy Trail身份或完整效果行漂移（R-048/R-085）");
+      if (
+        i === 9 &&
+        (card.id !== "hamlet_event:p010" ||
+          front.page !== 10 ||
+          match[1] !== "43aaf29bbb" ||
+          match[2] !== "1" ||
+          match[3] !== "The Feast" ||
+          JSON.stringify(effectLines) !==
+            JSON.stringify([
+              "Each Hero can choose to",
+              "fully restore either {icon:9d58d3d431} or {icon:d9009c6f91} .",
+            ]))
+      )
+        throw new Error("The Feast身份或完整效果行漂移（R-048/R-085/R-086）");
       return {
         id: card.id,
         name: match[3],
@@ -91,19 +105,21 @@ export function buildHamletEvents(raw: RawFile) {
                         ? "travelingMerchants"
                         : i === 8
                           ? "gypsyTrail"
-                          : i === 10
-                            ? "removeDisease"
-                            : i === 11
-                              ? "removeQuirks"
-                              : i === 12
-                                ? "extraBlock"
-                                : i === 13
-                                  ? "inGoodSpirits"
-                                  : i === 14
-                                    ? "guildTraining"
-                                    : i === 15
-                                      ? "militiaTraining"
-                                      : "unimplemented",
+                          : i === 9
+                            ? "feast"
+                            : i === 10
+                              ? "removeDisease"
+                              : i === 11
+                                ? "removeQuirks"
+                                : i === 12
+                                  ? "extraBlock"
+                                  : i === 13
+                                    ? "inGoodSpirits"
+                                    : i === 14
+                                      ? "guildTraining"
+                                      : i === 15
+                                        ? "militiaTraining"
+                                        : "unimplemented",
       };
     }),
   });

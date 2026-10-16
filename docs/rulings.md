@@ -820,6 +820,12 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **限定批准**：当前版Hamlet Event FRONT p1 Supply Run与p3 Lost Shipment效果位置的`d712688f15`＝补给骰；p9 Gypsy Trail效果位置的`08a25c05cf`＝金币；p10 The Feast效果位置的`d9009c6f91`＝伤口。The Feast的`9d58d3d431`沿既有压力语义不变。
 - **边界**：仅以上四张卡的指定效果位置，不推广到其他卡或全局词典，不自动批准运行时顺序或“fully restore”事件类型。完整卡面已逐页复核；实际效果运行时仍须另接。Militia Training的0/3天条件已由R-077批准，不重新请求。
 
+### R-086
+
+- **日期 / 状态**：2026-10-16（UTC+8），Kyries本对话选择Q-89的A。
+- **裁定**：The Feast（Hamlet Event FRONT p10）的“fully restore”伤口分支直接将该存活英雄伤口置0，不应用Infirm／Fast Healer治疗数值修正。例如7伤口且持Infirm，结果仍为0伤口。压力分支按卡面完全恢复至0，两轨二选一，不同时恢复；已死亡英雄不复活。
+- **依据 / 边界**：卡面完整图像、R-085限定图标、官方R26/R27怪癖触发与R29生命规则。此次只裁定The Feast，不外推其他“fully restore”效果，不改变R-073的限定范围。
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。
@@ -1101,3 +1107,8 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **问题 / 来源**：Lost Shipment p3的“Party rolls -2”已由R-085批准为补给骰；R12规定每英雄2颗，R37规定Radiant每英雄1掷1选，但现有裁定未明确队伍减2如何分配至英雄，以及是否可减少Radiant自选颗数。R-041仅解释奖励骰，不能直接裁定减骰分配。
 - **处理 / 状态**：pending（2026-10-15）。待Kyries确定减骰分配/选择主体与Radiant处理后再接运行时；完整16张牌池保留Lost Shipment抽中停点，不筛卡或重抽。Supply Run独立接入不依赖该裁定。
+
+### Q-89
+
+- **问题 / 来源**：The Feast p10“fully restore”伤口是直接清零还是按当前伤口量治疗再套Infirm／Fast Healer？R-085仅批图标，R-073只限Treasure Chamber，不能外推。
+- **处理 / 状态**：confirmed（R-086，2026-10-16）。Kyries明确选A：直接伤口归零，不应用Infirm／Fast Healer；7伤口且持Infirm仍变0。
