@@ -311,6 +311,21 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await expect(moveOther).toBeEnabled();
   await page.getByRole("button", { name: "选择下一段探索", exact: true }).click();
   await expect(moveOther).toBeDisabled();
+  // R32：从已保存的空闲探索回村，免费换位及正式存档在村庄同样可用。
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "离开地牢", exact: true }).click();
+  await page.getByRole("button", { name: "全员同意离开", exact: true }).click();
+  await page.getByRole("button", { name: "生成任务结算摘要", exact: true }).click();
+  await page.getByRole("button", { name: "返回村庄", exact: true }).click();
+  await page.getByRole("button", { name: "兑换剩余补给并完成回村", exact: true }).click();
+  await expect(moveOther).toBeEnabled();
+  await moveOther.click();
+  await expect(page.getByTestId("hamlet-stance-aggressive")).toContainText("hero-0");
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("hamlet-stance-aggressive")).toContainText("hero-0");
 });
 
 test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致", async ({ page }, testInfo) => {

@@ -11,6 +11,8 @@ import { continueDeathEstates, chooseDeathTrinket } from "./hero-death-estate";
 import { joinPreparedReplacements } from "./replacement-join";
 import { setDungeonStances } from "./dungeon-stances";
 import type { SetDungeonStancesCommand } from "./dungeon-stances";
+import { setHamletStances, chooseHamletStances } from "./hamlet-stances";
+import type { SetHamletStancesCommand } from "./hamlet-stances";
 import {
   beginReplacementPreparation,
   chooseReplacementPreparation,
@@ -144,6 +146,7 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 
 export type Command =
   | SetDungeonStancesCommand
+  | SetHamletStancesCommand
   | { readonly type: "prepareReplacementHero" }
   | { readonly type: "joinPreparedReplacements" }
   | BlacksmithCommand
@@ -349,6 +352,11 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (state.dungeon?.pending?.id.startsWith("hamlet-stances:"))
+    return command.type === "resolveChoice"
+      ? chooseHamletStances(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先协商本次村庄换位");
+  if (command.type === "setHamletStances") return setHamletStances(state, command);
   if (command.type === "setDungeonStances") return setDungeonStances(state, command);
   if (command.type === "joinPreparedReplacements") return joinPreparedReplacements(state);
   if (command.type === "prepareReplacementHero") return beginReplacementPreparation(state);

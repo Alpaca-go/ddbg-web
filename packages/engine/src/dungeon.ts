@@ -105,6 +105,7 @@ export type DungeonState = {
   readonly deathChoiceCursor?: number;
   readonly buildingLevels?: BuildingLevels;
   readonly hamlet?: import("./hamlet-event").HamletEventState;
+  readonly hamletStanceProposal?: readonly string[];
   /** 出征后保留的村庄事件牌堆，供下一轮回村续抽（R32/33）。 */
   readonly hamletMemory?: {
     readonly deck: readonly string[];
