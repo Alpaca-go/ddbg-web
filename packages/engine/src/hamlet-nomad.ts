@@ -2,7 +2,16 @@ import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import { currentHamletHero, finishHamletAction } from "./hamlet-actions";
 import { buildingLevelsProblem, recoveryBuildingLevel } from "./hamlet-buildings";
-import { trinketPoolProblem, trinketOptions, chooseTrinket } from "./trinket-acquisition";
+import {
+  trinketPoolProblem,
+  trinketOptions,
+  chooseTrinket,
+  trinketDeck,
+  setTrinketDeck,
+} from "./trinket-acquisition";
+import type { TrinketPool } from "./trinket-acquisition";
+import trinketFile from "../../data/normalized/corebox/trinket.json";
+import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
 import { createRng } from "./rng";
 
 function problem(state: GameState) {
@@ -27,36 +36,40 @@ function problem(state: GameState) {
     d.gold < 0 ||
     !Number.isSafeInteger(d.cursor) ||
     d.cursor < 0 ||
-    !Number.isSafeInteger(d.cursor + 13) ||
-    !d.trinkets ||
-    d.trinkets.level !== 1 ||
-    recoveryBuildingLevel(d, "nomadWagon") !== 1
-    ? "当前只接完成回村后的游商马车I级陈列与购买；请按当天顺序行动（R33）"
+    !Number.isSafeInteger(d.cursor + 40) ||
+    !d.trinkets
+    ? "游商访问须在完成回村后按当天顺序行动，且牌池有效（R33）"
     : (buildingLevelsProblem(d) ?? trinketPoolProblem(d.trinkets, d.heroes));
 }
 function shopping(state: GameState): ApplyResult {
   const d = state.dungeon!,
     pool = d.trinkets!,
-    actor = currentHamletHero(state)!,
-    price = saleGold(state);
+    actor = currentHamletHero(state)!;
   const options = pool.incoming
     ? trinketOptions(pool, d.heroes).map(({ id, label }) => ({ id, label }))
     : [
-        ...(!d.hamlet!.nomadSold && Number.isSafeInteger(d.gold + price)
+        ...(!d.hamlet!.nomadSold
           ? pool.held
-              .filter((held) => held.heroId === actor.id)
+              .filter(
+                (held) =>
+                  held.heroId === actor.id &&
+                  trinketDeck(pool, pool.cards.find((c) => c.id === held.cardId)!.level) &&
+                  Number.isSafeInteger(d.gold + saleGold(state, held.cardId)),
+              )
               .map((held) => ({
                 id: `sell:${held.cardId}`,
-                label: `出售 ${pool.cards.find((c) => c.id === held.cardId)!.name}（获得${price}金，立即洗回牌堆）`,
+                label: `出售 ${pool.cards.find((c) => c.id === held.cardId)!.name}（获得${saleGold(state, held.cardId)}金，立即洗回牌堆）`,
               }))
           : []),
         ...(pool.display ?? [])
           .filter(
-            (id) => d.gold >= 4 && !pool.cards.find((c) => c.id === id)!.verification.unverified,
+            (id) =>
+              d.gold >= buyGold(pool, id) &&
+              !pool.cards.find((c) => c.id === id)!.verification.unverified,
           )
           .map((id) => ({
             id: `buy:${id}`,
-            label: `购买 ${pool.cards.find((c) => c.id === id)!.name}（4 金）`,
+            label: `购买 ${pool.cards.find((c) => c.id === id)!.name}（${buyGold(pool, id)} 金）`,
           })),
         { id: "leave", label: "结束游商访问，不购买" },
       ];
@@ -65,7 +78,7 @@ function shopping(state: GameState): ApplyResult {
     actorId: actor.id,
     prompt: pool.incoming
       ? "游商购买已付款：选择装备、转交或弃置，不重复收费（R26）"
-      : "游商马车I：可先出售一件已装备饰品，再购买一件陈列品（R33、R-078）",
+      : `游商马车${["I", "II", "III"][recoveryBuildingLevel(d, "nomadWagon") - 1]}：可先出售一件已装备饰品，再购买一件陈列品（R33、R-078）`,
     options,
   };
   return {
@@ -75,10 +88,17 @@ function shopping(state: GameState): ApplyResult {
   };
 }
 /** Gypsy Trail p9 / R-085：本次村庄出售加5金；离村后hamlet不再保留，不继承加价。 */
-function saleGold(state: GameState) {
-  return state.dungeon!.hamlet!.last === "hamlet_event:p009" ? 7 : 2;
+function saleGold(state: GameState, cardId: string) {
+  return (
+    state.dungeon!.trinkets!.cards.find((c) => c.id === cardId)!.level +
+    1 +
+    (state.dungeon!.hamlet!.last === "hamlet_event:p009" ? 5 : 0)
+  );
 }
-/** R33：本次村庄首次来访陈列三件I级饰品；完整14张牌池保留，未核实卡不筛掉。 */
+const buyGold = (pool: TrinketPool, id: string) =>
+  2 + 2 * pool.cards.find((c) => c.id === id)!.level;
+const catalog = normalizedTrinketFileSchema.parse(trinketFile).cards;
+/** R33–34：I级3/0/0、II级2/1/0、III级1/1/1；未核实卡不筛掉。 */
 export function visitNomadWagon(state: GameState, actorId: string): ApplyResult {
   const reason = problem(state),
     d = state.dungeon,
@@ -99,24 +119,46 @@ export function visitNomadWagon(state: GameState, actorId: string): ApplyResult 
   let cursor = d.cursor,
     nextPool = pool;
   if (pool.display === undefined) {
-    const deck = [
-      ...(pool.deck ??
-        pool.cards
-          .map((c) => c.id)
-          .filter((id) => !pool.discard.includes(id) && !pool.held.some((c) => c.cardId === id))),
-    ];
-    if (deck.length < 3)
-      return rejectBattleCommand(state, "饰品牌堆不足三张，陈列耗尽规则尚待确认（Q-80）；不补弃牌");
-    if (pool.deck === null) {
-      const rng = createRng(state.seed);
-      for (let i = 0; i < cursor; i++) rng.next();
-      for (let i = deck.length - 1; i > 0; i--) {
-        const j = Math.floor(rng.next() * (i + 1));
-        [deck[i], deck[j]] = [deck[j]!, deck[i]!];
-        cursor++;
+    const building = recoveryBuildingLevel(d, "nomadWagon");
+    const counts = { 1: [3, 0, 0], 2: [2, 1, 0], 3: [1, 1, 1] } as const;
+    const display: string[] = [];
+    const rng = createRng(state.seed);
+    for (let i = 0; i < cursor; i++) rng.next();
+    for (const level of [1, 2, 3] as const) {
+      const count = counts[building][level - 1]!;
+      if (!count) continue;
+      if (!trinketDeck(nextPool, level)) {
+        // 第一次启用该级游商池，完整目录不筛卡；已有外级装备只补齐目录，不复制装备。
+        nextPool = {
+          ...nextPool,
+          cards: [
+            ...nextPool.cards,
+            ...catalog.filter(
+              (c) => c.level === level && !nextPool.cards.some((old) => old.id === c.id),
+            ),
+          ],
+          inactive: [...(nextPool.inactive ?? []), { level, deck: null, discard: [] }],
+        };
       }
+      const partition = trinketDeck(nextPool, level)!;
+      const deck = [...partition.deck];
+      if (deck.length < count)
+        return rejectBattleCommand(
+          state,
+          "饰品牌堆不足陈列数量，耗尽规则尚待确认（Q-80）；不补弃牌",
+        );
+      if (partition.unshuffled)
+        for (let i = deck.length - 1; i > 0; i--) {
+          const j = Math.floor(rng.next() * (i + 1));
+          [deck[i], deck[j]] = [deck[j]!, deck[i]!];
+          cursor++;
+        }
+      display.push(...deck.splice(0, count));
+      nextPool = setTrinketDeck(nextPool, level, deck);
     }
-    nextPool = { ...pool, display: deck.splice(0, 3), deck };
+    nextPool = { ...nextPool, display };
+    const issue = trinketPoolProblem(nextPool, d.heroes);
+    if (issue) return rejectBattleCommand(state, issue);
   }
   return shopping({
     ...state,
@@ -163,8 +205,12 @@ export function chooseNomadWagon(
   if (optionId === "leave") return finish({ ...state, dungeon: { ...d, pending: null } }, actorId);
   if (optionId.startsWith("sell:")) {
     const cardId = optionId.slice(5),
-      price = saleGold(state);
+      price = saleGold(state, cardId);
+    const level = pool.cards.find((c) => c.id === cardId)?.level;
+    const partition = level && trinketDeck(pool, level);
     if (
+      !partition ||
+      !level ||
       d.hamlet!.nomadSold ||
       !Number.isSafeInteger(d.gold + price) ||
       !pool.held.some((held) => held.cardId === cardId && held.heroId === actorId)
@@ -172,18 +218,7 @@ export function chooseNomadWagon(
       return rejectBattleCommand(state, "一次游商访问至多出售自己的一件已装备饰品（R33）");
     // R-078：只洗当前牌堆及售出卡；陈列、弃牌、其他持牌不参与。
     const held = pool.held.filter((item) => item.cardId !== cardId);
-    const deck = [
-      ...(pool.deck ??
-        pool.cards
-          .map((c) => c.id)
-          .filter(
-            (id) =>
-              !pool.discard.includes(id) &&
-              !pool.held.some((h) => h.cardId === id) &&
-              !pool.display!.includes(id),
-          )),
-      cardId,
-    ];
+    const deck = [...partition.deck, cardId];
     const rng = createRng(state.seed);
     let cursor = d.cursor;
     for (let i = 0; i < cursor; i++) rng.next();
@@ -199,7 +234,7 @@ export function chooseNomadWagon(
         gold: d.gold + price,
         cursor,
         pending: null,
-        trinkets: { ...pool, deck, held },
+        trinkets: { ...setTrinketDeck(pool, level, deck), held },
         hamlet: { ...d.hamlet!, nomadSold: true },
       },
     });
@@ -208,7 +243,7 @@ export function chooseNomadWagon(
       events: [
         {
           type: "dungeonUpdated",
-          message: `${actorId}出售${pool.cards.find((c) => c.id === cardId)!.name}获得${price}金${price === 7 ? "（Gypsy Trail加5金，R-085）" : ""}，立即洗回I级牌堆；可继续购买，尚未结束行动（R33、R-078）`,
+          message: `${actorId}出售${pool.cards.find((c) => c.id === cardId)!.name}获得${price}金${d.hamlet!.last === "hamlet_event:p009" ? "（Gypsy Trail加5金，R-085）" : ""}，立即洗回${["I", "II", "III"][level - 1]}级牌堆；可继续购买，尚未结束行动（R33、R-078）`,
         },
         ...next.events,
       ],
@@ -221,14 +256,14 @@ export function chooseNomadWagon(
     !pool.display?.includes(cardId) ||
     !card ||
     card.verification.unverified ||
-    d.gold < 4
+    d.gold < buyGold(pool, cardId)
   )
     return rejectBattleCommand(state, "陈列饰品未核实、不在售或金币不足，未付款");
   return shopping({
     ...state,
     dungeon: {
       ...d,
-      gold: d.gold - 4,
+      gold: d.gold - buyGold(pool, cardId),
       pending: null,
       trinkets: {
         ...pool,

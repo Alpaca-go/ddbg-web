@@ -76,7 +76,7 @@ it("真实第四天首次来访完整14张I级池陈列三张并守恒，待选/
   save();
   expect(baseline.game).toEqual(before);
 }, 30000);
-it("缺钱可查看/离开，待选冻结其他命令，越序/封锁/高等级/坏牌池原子拒绝", () => {
+it("缺钱可查看/离开，待选冻结其他命令，越序/封锁/坏牌池原子拒绝", () => {
   const game = baseline.game,
     d = game.dungeon!;
   const poor = { ...game, dungeon: { ...d, gold: 0 } },
@@ -84,7 +84,6 @@ it("缺钱可查看/离开，待选冻结其他命令，越序/封锁/高等级/
   expect(shop.dungeon!.pending!.options.map((o) => o.id)).toEqual(["leave"]);
   expect(ok(shop, choose(shop, "leave")).dungeon!.gold).toBe(0);
   for (const patch of [
-    { buildingLevels: { ...d.buildingLevels, nomadWagon: 2 as const } },
     { hamlet: { ...d.hamlet!, blockedBuildings: ["nomadWagon"] } },
     { hamlet: { ...d.hamlet!, visitedBuildings: ["nomadWagon"] } },
     { trinkets: { ...d.trinkets!, deck: [] } },

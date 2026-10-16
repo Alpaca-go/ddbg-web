@@ -16,7 +16,7 @@ export type TrinketPool = {
   readonly incoming: { readonly cardId: string; readonly actorId: string } | null;
   /** R33：村庄陈列品不属于牌堆/弃牌/持牌；首次来访后即使买空也不补货。 */
   readonly display?: readonly string[];
-  /** R26/R32/R35：旧等级牌堆单独保留，弃下的旧装备不能进入当前抽牌堆。 */
+  /** R26/R32/R35：非地牢当前等级独立保存；也可由高等级游商提前启用。 */
   readonly inactive?: readonly {
     readonly level: 1 | 2 | 3;
     readonly deck: readonly string[] | null;
@@ -84,7 +84,7 @@ export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): 
           (p) =>
             !p ||
             ![1, 2, 3].includes(p.level) ||
-            p.level >= pool.level ||
+            p.level === pool.level ||
             (p.deck !== null && !Array.isArray(p.deck)) ||
             !Array.isArray(p.discard),
         ) ||
@@ -129,7 +129,7 @@ export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): 
     heroes.some((h) => pool.held.filter((c) => c.heroId === h.id).length > h.level!) ||
     (pool.incoming &&
       (!heroes.some((h) => h.id === pool.incoming!.actorId && !h.dead) ||
-        !canonical.includes(pool.incoming.cardId)))
+        ![...canonical, ...archivedIds].includes(pool.incoming.cardId)))
   )
     return "饰品持有者、英雄等级、装备复核或容量无效（R26、R-048）";
   const dungeonHeld = pool.held.map((h) => h.cardId).filter((id) => canonical.includes(id));
@@ -139,17 +139,18 @@ export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): 
         (id) =>
           !dungeonHeld.includes(id) && !pool.discard.includes(id) && !pool.display?.includes(id),
       )),
-    ...(pool.display ?? []),
+    ...(pool.display ?? []).filter((id) => canonical.includes(id)),
     ...pool.discard,
     ...dungeonHeld,
-    ...(pool.incoming ? [pool.incoming.cardId] : []),
+    ...(pool.incoming && canonical.includes(pool.incoming.cardId) ? [pool.incoming.cardId] : []),
   ];
   if (
     parts.length !== canonical.length ||
     new Set(parts).size !== canonical.length ||
     parts.some((id) => !canonical.includes(id)) ||
     pool.discard.some((id) => !canonical.includes(id)) ||
-    (pool.display ?? []).some((id) => !canonical.includes(id))
+    (pool.display ?? []).some((id) => ![...canonical, ...archivedIds].includes(id)) ||
+    new Set(pool.display ?? []).size !== (pool.display ?? []).length
   )
     return "饰品牌堆、弃牌、持牌与待选入牌不守恒";
   if (new Set(pool.held.map((h) => h.cardId)).size !== pool.held.length) return "饰品持牌重复";
@@ -158,9 +159,14 @@ export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): 
     const held = pool.held.map((h) => h.cardId).filter((id) => ids.includes(id));
     const parts = [
       ...(previous.deck ??
-        ids.filter((id) => !held.includes(id) && !previous.discard.includes(id))),
+        ids.filter(
+          (id) =>
+            !held.includes(id) && !previous.discard.includes(id) && !pool.display?.includes(id),
+        )),
       ...previous.discard,
       ...held,
+      ...(pool.display ?? []).filter((id) => ids.includes(id)),
+      ...(pool.incoming && ids.includes(pool.incoming.cardId) ? [pool.incoming.cardId] : []),
     ];
     if (
       parts.length !== ids.length ||
@@ -183,6 +189,7 @@ export function switchTrinketDungeonLevel(
   if (pool.incoming || pool.display?.length)
     return { reason: "须先清空游商陈列与待选饰品，才能切换地牢饰品等级（R35）" };
   const next = createTrinketPool(catalog, level);
+  const reserved = pool.inactive?.find((p) => p.level === level);
   const foreign = pool.held.filter((h) => !idsFor(level).includes(h.cardId));
   const foreignCards = foreign.map(
     (h) => pool.cards.find((c) => c.id === h.cardId) ?? catalog.find((c) => c.id === h.cardId),
@@ -191,18 +198,14 @@ export function switchTrinketDungeonLevel(
     return { reason: "已装备的上一级饰品缺失或未核实，不能切换地牢饰品等级（R-048）" };
   return {
     ...next,
-    cards: [
-      ...next.cards,
-      ...catalog.filter((c) => c.level === pool.level),
-      ...pool.cards.filter((c) => c.level !== pool.level),
-    ],
+    cards: [...next.cards, ...pool.cards.filter((c) => c.level !== level)],
     inactive: [
-      ...(pool.inactive ?? []),
+      ...(pool.inactive ?? []).filter((p) => p.level !== level),
       { level: pool.level, deck: pool.deck, discard: pool.discard },
     ],
     held: [...pool.held],
-    deck: null,
-    discard: [],
+    deck: reserved?.deck ?? null,
+    discard: reserved?.discard ?? [],
     incoming: null,
   };
 }
@@ -304,7 +307,7 @@ export function chooseTrinket(pool: TrinketPool, heroes: readonly Hero[], option
     incoming = pool.incoming.cardId;
   const next: TrinketPool =
     a.type === "discardNew"
-      ? { ...pool, incoming: null, discard: [...pool.discard, incoming] }
+      ? { ...discardTrinket(pool, incoming), incoming: null }
       : a.type === "equip"
         ? {
             ...pool,
@@ -314,20 +317,55 @@ export function chooseTrinket(pool: TrinketPool, heroes: readonly Hero[], option
         : a.type === "discardHeld"
           ? {
               ...pool,
+              ...discardTrinket(pool, a.cardId),
               held: pool.held.filter((h) => h.cardId !== a.cardId),
-              ...(idsFor(pool.level).includes(a.cardId)
-                ? { discard: [...pool.discard, a.cardId] }
-                : {
-                    inactive: pool.inactive!.map((p) =>
-                      idsFor(p.level).includes(a.cardId)
-                        ? { ...p, discard: [...p.discard, a.cardId] }
-                        : p,
-                    ),
-                  }),
             }
           : {
               ...pool,
               held: pool.held.map((h) => (h.cardId === a.cardId ? { ...h, heroId: a.heroId } : h)),
             };
   return { status: "resolved" as const, pool: next };
+}
+
+function discardTrinket(pool: TrinketPool, cardId: string): TrinketPool {
+  return idsFor(pool.level).includes(cardId)
+    ? { ...pool, discard: [...pool.discard, cardId] }
+    : {
+        ...pool,
+        inactive: pool.inactive!.map((p) =>
+          idsFor(p.level).includes(cardId) ? { ...p, discard: [...p.discard, cardId] } : p,
+        ),
+      };
+}
+
+/** 同一目录下的分级牌堆；隐式未洗牌堆只排除该级已占用的卡。 */
+export function trinketDeck(pool: TrinketPool, level: number) {
+  const partition = level === pool.level ? pool : pool.inactive?.find((p) => p.level === level);
+  if (!partition) return null;
+  return {
+    ...partition,
+    deck:
+      partition.deck ??
+      pool.cards
+        .filter((c) => c.level === level)
+        .map((c) => c.id)
+        .filter(
+          (id) =>
+            !partition.discard.includes(id) &&
+            !pool.held.some((h) => h.cardId === id) &&
+            !pool.display?.includes(id) &&
+            pool.incoming?.cardId !== id,
+        ),
+    unshuffled: partition.deck === null,
+  };
+}
+
+export function setTrinketDeck(
+  pool: TrinketPool,
+  level: number,
+  deck: readonly string[],
+): TrinketPool {
+  return level === pool.level
+    ? { ...pool, deck }
+    : { ...pool, inactive: pool.inactive!.map((p) => (p.level === level ? { ...p, deck } : p)) };
 }
