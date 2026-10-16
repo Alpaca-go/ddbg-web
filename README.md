@@ -25,7 +25,7 @@ pnpm build
 
 接手开发先读 [Codex 总交接](docs/HANDOFF-FROM-CODEX-2026-10-09.md) 顶部的当前入口与最近提交补记；跨代理背景见 [交给 Codex 的说明](docs/HANDOFF-TO-CODEX-2026-10-09.md)。历史段落中的分支 / 合并状态不覆盖当前入口。
 
-当前进度（2026-10-16）：#211 Lost Shipment 已合并（main `2c21f23`），村庄事件 16/16。当前分支接通游商 II/III 分级陈列、购买/出售、各级归池及存档，见[当前开发记录](docs/phase4-nomad-higher-levels-2026-10-16.md)。II 级两张任务、五种怪物已接通；Q-79/Q-80、死亡补人/英雄池、正式高等级战役存档与人工验收仍未完成，未进入 Phase 5。下段为历史记录。
+当前进度（2026-10-16）：#212 已合并（main `e300c47`），游商 II/III 分级服务与存档已进入主线，村庄事件 16/16。当前完成死亡补人的[赏金猎人属性/防御待审表](docs/phase4-replacement-hero-review-2026-10-16.md)，Q-90 pending，尚未入生产英雄池。II 级两张任务、五种怪物已接通；Q-79/Q-80、实际死亡补人、正式高等级战役存档与人工验收仍未完成，未进入 Phase 5。下段为历史记录。
 
 最新补记：#200/#201已合并（main `46ff57a`）；跨等级饰品弃装与旧池回收已接。#202按R-083接四种II级怪物获批基础字段及Captain/Gargoyle完整入场（含常驻Protection），Rattler/Ghoul额外运行时仍停点，见[当前开发记录](docs/phase4-remaining-ii-review-2026-10-15.md)。正式升幕及高等级存档仍未开放。
 

@@ -1118,3 +1118,8 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **问题 / 来源**：The Feast p10“fully restore”伤口是直接清零还是按当前伤口量治疗再套Infirm／Fast Healer？R-085仅批图标，R-073只限Treasure Chamber，不能外推。
 - **处理 / 状态**：confirmed（R-086，2026-10-16）。Kyries明确选A：直接伤口归零，不应用Infirm／Fast Healer；7伤口且持Infirm仍变0。
+
+### Q-90
+
+- **问题 / 来源**：死亡补人当前缺少第五名已核实英雄。已目视当前版 Hero STAT FRONT p5/p6、BACK p5 及官方 R10/R21/R29/R31，赏金猎人三等级 Life/Dodge/Speed 和完整防御候选见[限定三行核对表](phase4-replacement-hero-review-2026-10-16.md) §2–3。III 级左栏 `c07ea0c507` 仍为 unreviewed，提出只在 `hero_stat:p006:front` 抗性栏解释为 Debuff 的候选，不能扩大 R-081 或改全局词典。
+- **处理 / 状态**：pending（2026-10-16）。等待 Kyries 确认表 §2 三行属性与防御；未入库，不开放可用英雄/死亡替换。技能、村庄能力和实际补人另开主题。
