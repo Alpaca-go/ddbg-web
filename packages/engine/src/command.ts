@@ -8,6 +8,10 @@ import { chooseTravelingMerchants } from "./hamlet-traveling-merchants";
 import { chooseScoutAheadReveal } from "./hamlet-scout-ahead";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { continueDeathEstates, chooseDeathTrinket } from "./hero-death-estate";
+import {
+  beginReplacementPreparation,
+  chooseReplacementPreparation,
+} from "./replacement-preparation";
 import { applyHamletAction, chooseAbbeyQuirk } from "./hamlet-actions";
 import { visitNomadWagon, chooseNomadWagon } from "./hamlet-nomad";
 import { visitBlacksmith } from "./hamlet-blacksmith";
@@ -136,6 +140,7 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 };
 
 export type Command =
+  | { readonly type: "prepareReplacementHero" }
   | BlacksmithCommand
   | { readonly type: "visitGuild"; readonly actorId: string }
   | SetEquippedSkillsCommand
@@ -339,6 +344,7 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (command.type === "prepareReplacementHero") return beginReplacementPreparation(state);
   if (state.dungeon?.pending?.id.startsWith("hamlet-next-quest:"))
     return command.type === "resolveChoice"
       ? chooseNextQuest(state, command.choiceId, command.optionId)
@@ -627,6 +633,12 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
     return command.type === "resolveChoice"
       ? chooseDeathTrinket(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先处置死者饰品（R31）");
+  if (state.dungeon?.campaignFailure)
+    return rejectBattleCommand(state, "等待英雄代币耗尽，战役已失败（R33）");
+  if (state.dungeon?.replacementPreparation)
+    return command.type === "resolveChoice"
+      ? chooseReplacementPreparation(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先完成替补英雄准备（R31）");
   const result = dispatchCommand(state, command);
   const refused = result.events.find((event) => event.type === "commandRefused");
   return refused ? rejectBattleCommand(state, refused.message) : continueDeathEstates(result);

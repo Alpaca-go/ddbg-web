@@ -359,6 +359,9 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
       : {}),
     ...(d.deadHeroNames ? { deadHeroNames: d.deadHeroNames } : {}),
     ...(d.deathChoiceCursor !== undefined ? { deathChoiceCursor: d.deathChoiceCursor } : {}),
+    ...(d.replacementChoiceCursor !== undefined
+      ? { replacementChoiceCursor: d.replacementChoiceCursor }
+      : {}),
     discardedQuests,
     hamletMemory: {
       deck: [...d.hamlet!.deck],
