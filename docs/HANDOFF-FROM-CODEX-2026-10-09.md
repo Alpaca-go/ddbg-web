@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-16）：#210已合并，main `b8e4f03`。当前`codex/phase4-lost-shipment`按Kyries本轮A裁定（R-087/Q-88）接Lost Shipment掷前由队伍从常规8颗任意取消2颗（可含Radiant自选）、建筑奖励照常及正式存档，事件16/16。见[本轮记录](phase4-lost-shipment-2026-10-16.md)。下一主题梳理游商II/III；Q-79/Q-80、死亡补人、高等级正式存档和人工验收仍未完成，未进Phase5。下段为历史进度。
+
 > 当前入口（2026-10-16）：#209已合并，main `b9c0af4`。当前`codex/phase4-feast`按Kyries本轮A裁定（R-086/Q-89）接The Feast逐英雄压力/伤口完全恢复或放弃、最后洗回/一天准备与正式存档，事件15/16。见[本轮记录](phase4-feast-2026-10-16.md)。剩余Lost Shipment待Q-88；Q-79/Q-80、死亡补人、高等级正式存档和人工验收仍未完成，未进Phase5。下段为历史进度。
 
 > 当前入口（2026-10-15）：#208已合并，main `565cf71`。当前`codex/phase4-gypsy-trail`接Gypsy Trail两天准备内出售加5金（游商I实际7金）、真实选项/支付/溢出与存档，事件14/16。见[本轮记录](phase4-gypsy-trail-2026-10-15.md)。Lost Shipment继续Q-88 pending；下一主题The Feast完整恢复效果核对。Q-79/Q-80、死亡补人、高等级正式存档和人工验收仍未完成，未进Phase5。下段为历史进度。

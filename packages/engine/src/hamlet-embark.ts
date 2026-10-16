@@ -341,6 +341,7 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
     ...(d.nextQuestPartyProvisionDice !== undefined
       ? { nextQuestPartyProvisionDice: d.nextQuestPartyProvisionDice }
       : {}),
+    ...(d.nextQuestLostShipment ? { nextQuestLostShipment: true as const } : {}),
     discardedQuests,
     hamletMemory: {
       deck: [...d.hamlet!.deck],

@@ -101,6 +101,10 @@ export type DungeonState = {
   readonly nextQuestProvisionFaceChoice?: true;
   /** Supply Run p1 / R-085：队伍下次开局额外掷两颗，独立于英雄奖励。 */
   readonly nextQuestPartyProvisionDice?: 2;
+  /** Lost Shipment / R-087：下次出征由队伍在掷骰前取消两颗常规补给。 */
+  readonly nextQuestLostShipment?: true;
+  /** 当前开局已取消的常规骰id；Wild/Radiant待选完成后清除。 */
+  readonly startingProvisionOmittedIds?: readonly string[];
   /** Traveling Merchants 进行中：尚未改骰的英雄顺序。 */
   readonly provisionFaceChoiceRemaining?: readonly string[];
   readonly hamletReturn?: {

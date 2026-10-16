@@ -61,12 +61,10 @@ beforeAll(() => {
 });
 const draw: Command = { type: "drawHamletEvent" };
 
-it("The Feast完整身份/效果行签名守门，只有Lost Shipment继续未实现", () => {
+it("The Feast完整身份/效果行签名守门，完整十六事件已启用", () => {
   expect(buildHamletEvents(rawFileSchema.parse(raw))).toEqual(events);
   expect(events.cards[9]).toMatchObject({ runtime: "feast", days: 1 });
-  expect(events.cards.filter((c) => c.runtime === "unimplemented").map((c) => c.id)).toEqual([
-    "hamlet_event:p003",
-  ]);
+  expect(events.cards.filter((c) => c.runtime === "unimplemented")).toEqual([]);
   for (const field of ["effect", "page", "id"] as const) {
     const changed = structuredClone(rawFileSchema.parse(raw));
     if (field === "effect")

@@ -37,6 +37,7 @@ export const hamletEventCardSchema = z.strictObject({
     "supplyRun",
     "gypsyTrail",
     "feast",
+    "lostShipment",
     "unimplemented",
   ]),
 });
