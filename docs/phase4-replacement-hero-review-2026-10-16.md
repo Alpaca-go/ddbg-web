@@ -2,6 +2,8 @@
 
 状态：**Kyries 已回复“批准三行属性与限定防御”，记 R-088/Q-90 confirmed。三面属性与防御按本轮日期单独入库；仍不是完整可用英雄或死亡补人运行时。**
 
+独立草稿 [PR #213](https://github.com/Alpaca-go/ddbg-web/pull/213)，数据/测试提交 `5121a27`，尚未合并。早先 `a319aca` 为本轮批准前的待审资料提交，不代表当前仍需重复确认。
+
 本轮已审查合并 [#212](https://github.com/Alpaca-go/ddbg-web/pull/212)，head `3ba3123` 与上一轮已验证版本相同，仅末尾补了 PR 记录；main 同步至 `e300c47`。保留本地 8080 配置与未跟踪资料。从该 main 建立 `codex/phase4-replacement-hero-review`，先补死亡替换所需的第五名英雄资料，不跳入 Phase 5。
 
 ## 1. 来源与本次审批范围
