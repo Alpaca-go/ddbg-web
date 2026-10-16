@@ -47,6 +47,17 @@ export function buildHamletEvents(raw: RawFile) {
             ]))
       )
         throw new Error("Militia Training身份或完整效果行漂移（R-048/R-077）");
+      if (
+        i === 8 &&
+        (card.id !== "hamlet_event:p009" ||
+          front.page !== 9 ||
+          match[1] !== "ef839b6878" ||
+          match[2] !== "2" ||
+          match[3] !== "Gypsy Trail" ||
+          JSON.stringify(effectLines) !==
+            JSON.stringify(["Heroes gain +5 {icon:08a25c05cf} when", "selling Trinkets."]))
+      )
+        throw new Error("Gypsy Trail身份或完整效果行漂移（R-048/R-085）");
       return {
         id: card.id,
         name: match[3],
@@ -78,19 +89,21 @@ export function buildHamletEvents(raw: RawFile) {
                       ? "townFair"
                       : i === 7
                         ? "travelingMerchants"
-                        : i === 10
-                          ? "removeDisease"
-                          : i === 11
-                            ? "removeQuirks"
-                            : i === 12
-                              ? "extraBlock"
-                              : i === 13
-                                ? "inGoodSpirits"
-                                : i === 14
-                                  ? "guildTraining"
-                                  : i === 15
-                                    ? "militiaTraining"
-                                    : "unimplemented",
+                        : i === 8
+                          ? "gypsyTrail"
+                          : i === 10
+                            ? "removeDisease"
+                            : i === 11
+                              ? "removeQuirks"
+                              : i === 12
+                                ? "extraBlock"
+                                : i === 13
+                                  ? "inGoodSpirits"
+                                  : i === 14
+                                    ? "guildTraining"
+                                    : i === 15
+                                      ? "militiaTraining"
+                                      : "unimplemented",
       };
     }),
   });

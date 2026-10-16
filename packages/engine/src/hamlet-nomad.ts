@@ -37,16 +37,17 @@ function problem(state: GameState) {
 function shopping(state: GameState): ApplyResult {
   const d = state.dungeon!,
     pool = d.trinkets!,
-    actor = currentHamletHero(state)!;
+    actor = currentHamletHero(state)!,
+    price = saleGold(state);
   const options = pool.incoming
     ? trinketOptions(pool, d.heroes).map(({ id, label }) => ({ id, label }))
     : [
-        ...(!d.hamlet!.nomadSold && Number.isSafeInteger(d.gold + 2)
+        ...(!d.hamlet!.nomadSold && Number.isSafeInteger(d.gold + price)
           ? pool.held
               .filter((held) => held.heroId === actor.id)
               .map((held) => ({
                 id: `sell:${held.cardId}`,
-                label: `出售 ${pool.cards.find((c) => c.id === held.cardId)!.name}（获得2金，立即洗回牌堆）`,
+                label: `出售 ${pool.cards.find((c) => c.id === held.cardId)!.name}（获得${price}金，立即洗回牌堆）`,
               }))
           : []),
         ...(pool.display ?? [])
@@ -72,6 +73,10 @@ function shopping(state: GameState): ApplyResult {
     events: [{ type: "dungeonUpdated", message: pending.prompt }],
     pendingChoice: pending,
   };
+}
+/** Gypsy Trail p9 / R-085：本次村庄出售加5金；离村后hamlet不再保留，不继承加价。 */
+function saleGold(state: GameState) {
+  return state.dungeon!.hamlet!.last === "hamlet_event:p009" ? 7 : 2;
 }
 /** R33：本次村庄首次来访陈列三件I级饰品；完整14张牌池保留，未核实卡不筛掉。 */
 export function visitNomadWagon(state: GameState, actorId: string): ApplyResult {
@@ -157,10 +162,11 @@ export function chooseNomadWagon(
   if (!p.id.startsWith("hamlet-nomad:shop:")) return rejectBattleCommand(state, "游商购买阶段无效");
   if (optionId === "leave") return finish({ ...state, dungeon: { ...d, pending: null } }, actorId);
   if (optionId.startsWith("sell:")) {
-    const cardId = optionId.slice(5);
+    const cardId = optionId.slice(5),
+      price = saleGold(state);
     if (
       d.hamlet!.nomadSold ||
-      !Number.isSafeInteger(d.gold + 2) ||
+      !Number.isSafeInteger(d.gold + price) ||
       !pool.held.some((held) => held.cardId === cardId && held.heroId === actorId)
     )
       return rejectBattleCommand(state, "一次游商访问至多出售自己的一件已装备饰品（R33）");
@@ -190,7 +196,7 @@ export function chooseNomadWagon(
       ...state,
       dungeon: {
         ...d,
-        gold: d.gold + 2,
+        gold: d.gold + price,
         cursor,
         pending: null,
         trinkets: { ...pool, deck, held },
@@ -202,7 +208,7 @@ export function chooseNomadWagon(
       events: [
         {
           type: "dungeonUpdated",
-          message: `${actorId}出售${pool.cards.find((c) => c.id === cardId)!.name}获得2金，立即洗回I级牌堆；可继续购买，尚未结束行动（R33、R-078）`,
+          message: `${actorId}出售${pool.cards.find((c) => c.id === cardId)!.name}获得${price}金${price === 7 ? "（Gypsy Trail加5金，R-085）" : ""}，立即洗回I级牌堆；可继续购买，尚未结束行动（R33、R-078）`,
         },
         ...next.events,
       ],
