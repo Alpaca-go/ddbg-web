@@ -25664,6 +25664,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 2,
+    "condition": "stunned",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -25797,6 +25803,11 @@
      "text": " 6"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",

@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-16）：#215 已审查合并，main `7a83675`。当前 `codex/phase4-finish-him` 接 Finish Him I 的0–1射程及对真实Stun堆一次+2伤害，见[本轮记录](phase4-finish-him-2026-10-16.md)。赏金猎人五张 I 级技能已接，Collect Bounty / Flashbang 两张、Scout Ahead 与死亡替换仍后续；网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
+
 > 当前入口（2026-10-16）：#214 已审查合并，main `1d738c0`，1215 项测试及三条战斗冒烟通过。当前 `codex/phase4-bounty-target-shuffles` 接 Come Hither I / Uppercut I 的完整目标状态与同行 Pull/Push，见[本轮记录](phase4-bounty-target-shuffles-2026-10-16.md)。赏金猎人四张 I 级技能已接，Collect Bounty / Finish Him / Flashbang 三张、Scout Ahead 与死亡替换仍后续；网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
 
 > 当前入口（2026-10-16）：#213 已合并，main `f21a8d4`。当前 `codex/phase4-bounty-skill-review` 按 Kyries“批准两行限定修正及完整效果”记录 R-089/Q-91 confirmed，接通 Mark for Death I / Caltrops I 的完整状态、射程及伤害；只在两卡目标框将 `763ad8e857` 解释为 Debuff，不改全局词典。见[本轮记录](phase4-bounty-skills-2026-10-16.md)。其余五张 I 级技能、Scout Ahead 与死亡替换仍待接，网页保留四英雄。事件16/16、Q-79/Q-80、高等级正式存档与人工验收边界不变，未进 Phase 5。下段为历史进度。

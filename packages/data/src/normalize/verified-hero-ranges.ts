@@ -35,6 +35,12 @@ export function attachVerifiedHeroRanges(
         min: 1,
         max: 2,
       },
+      "hero_skill:p058": {
+        name: "Finish Him",
+        level: 1,
+        min: 0,
+        max: 1,
+      },
       "hero_skill:p068": {
         name: "Pistol Shot",
         level: 2,

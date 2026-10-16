@@ -141,7 +141,7 @@ const lineListSchema = z.array(z.array(segmentSchema));
 const verifiedDamageBonusSchema = z.strictObject({
   lineIndex: z.int().nonnegative(),
   amount: z.int().positive(),
-  condition: z.enum(["marked", "unholy"]),
+  condition: z.enum(["marked", "unholy", "stunned"]),
   source: z.literal("print_front"),
 });
 

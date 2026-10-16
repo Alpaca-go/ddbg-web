@@ -8,12 +8,12 @@ const cards = normalizedHeroSkillFileSchema.parse(
   ),
 ).cards;
 describe("逐卡复核条件伤害", () => {
-  it("五族 I/II/III 条件伤逐页核实，原 null 不变", () => {
+  it("五族 I/II/III 及 Finish Him I 条件伤逐页核实，原 null 不变", () => {
     expect(
       attachVerifiedHeroDamage(cards)
         .filter((card) => card.verified_damage_bonus)
         .map((card) => Number(card.id.slice(-3))),
-    ).toEqual([1, 2, 3, 16, 17, 18, 67, 68, 69, 85, 86, 87, 103, 104, 105]);
+    ).toEqual([1, 2, 3, 16, 17, 18, 58, 67, 68, 69, 85, 86, 87, 103, 104, 105]);
     const lance = cards.find((card) => card.id === "hero_skill:p016")!;
     expect(lance.verified_damage_bonus).toEqual({
       lineIndex: 1,
@@ -65,5 +65,48 @@ describe("逐卡复核条件伤害", () => {
         { ...card, verification: { ...card.verification, unverified: true } },
       ]),
     ).toThrow();
+  });
+
+  it("Finish Him仅I级完整面入库，原始数字不变；身份/条件/图标漂移拒绝", () => {
+    const card = cards.find((c) => c.id === "hero_skill:p058")!;
+    expect(card.verified_damage_bonus).toEqual({
+      lineIndex: 0,
+      amount: 2,
+      condition: "stunned",
+      source: "print_front",
+    });
+    expect(card.verified_range).toEqual({ min: 0, max: 1, source: "print_front" });
+    expect(card.unlabeled_numbers.find((n) => n.text === "+2")?.numeric).toBeNull();
+    expect(card.unlabeled_numbers.find((n) => n.text === "0-1")?.numeric).toBeNull();
+    const before = structuredClone(cards);
+    expect(attachVerifiedHeroDamage(cards)).toEqual(cards);
+    expect(cards).toEqual(before);
+    for (const id of ["hero_skill:p059", "hero_skill:p060"])
+      expect(cards.find((c) => c.id === id)!.verified_damage_bonus).toBeUndefined();
+    for (const mutate of [
+      (c: typeof card) => {
+        c.hero = "VESTAL";
+      },
+      (c: typeof card) => {
+        if ("back_level" in c) c.back_level = 2;
+      },
+      (c: typeof card) => {
+        c.pages = [59];
+      },
+      (c: typeof card) => {
+        c.effect_lines.push(c.effect_lines[0]!);
+      },
+      (c: typeof card) => {
+        c.effect_lines[0] = c.effect_lines[0]!.map((s) =>
+          s.type === "icon" && s.icon.key === "stun"
+            ? { ...s, icon: { ...s.icon, key: "mark" } }
+            : s,
+        );
+      },
+    ]) {
+      const changed = structuredClone(card);
+      mutate(changed);
+      expect(() => attachVerifiedHeroDamage([changed])).toThrow();
+    }
   });
 });
