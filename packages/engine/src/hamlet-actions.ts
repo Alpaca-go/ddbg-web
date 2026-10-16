@@ -6,6 +6,7 @@ import { resolveHeroHealth } from "./hero-health";
 import { passiveHeal, passiveStress } from "./passive";
 import { applyPassiveStatus } from "./passive-runtime";
 import { statusProjection } from "./status";
+import { useScoutAhead } from "./hamlet-scout-ahead";
 import {
   buildingLevelsProblem,
   recoveryServices,
@@ -25,7 +26,8 @@ export type HamletActionCommand =
   | {
       readonly type: "useHamletSkill";
       readonly actorId: string;
-      readonly skill: "intimidate" | "sharpenSpear" | "zealousSpeech" | "pray" | "chant";
+      readonly skill:
+        "intimidate" | "sharpenSpear" | "zealousSpeech" | "pray" | "chant" | "scoutAhead";
     };
 type Hero = DungeonState["heroes"][number];
 /** R27 / §10.1：一次恢复压力事件触发一次Resilient；村庄不套低光照承压。 */
@@ -120,6 +122,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
     message: string;
   let pending: PendingChoice | undefined;
   if (command.type === "useHamletSkill") {
+    if (command.skill === "scoutAhead") return useScoutAhead(state, hero);
     const stat = d.battleCatalog?.heroStats.find((s) => s.id === hero.heroStatId);
     if (
       !stat?.attributesVerified ||
@@ -391,6 +394,10 @@ export function hamletActionOptions(state: GameState) {
       });
   }
   options.push(
+    {
+      label: "Scout Ahead：自身压力 +1，下次地牢揭示一个房间",
+      command: { type: "useHamletSkill", actorId: hero.id, skill: "scoutAhead" },
+    },
     {
       label: "Sharpen Spear：自身 Buff 5t",
       command: { type: "useHamletSkill", actorId: hero.id, skill: "sharpenSpear" },

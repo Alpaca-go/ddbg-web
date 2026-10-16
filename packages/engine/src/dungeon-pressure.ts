@@ -6,6 +6,7 @@ import { continueDungeonTrap, completeDungeonDarkRoom } from "./dungeon-room";
 import { passiveVirtueThreshold } from "./passive";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import { resolveCurioRows } from "./dungeon-curio-effects";
+import { completeScoutAheadAction } from "./hamlet-scout-ahead";
 
 /** R28：侦察支付压力后恢复；沿英雄数组顺序，完整牌堆与 RNG 游标属于本次地牢。 */
 export function resolveDungeonPressure(state: GameState): ApplyResult {
@@ -111,6 +112,10 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
       cardId,
       message: "探索首次意志检定：抽取意志卡，压力归零（R28）；不触发战斗回合效果",
     });
+  }
+  if (d.pressureSource === "hamletScout") {
+    const continued = completeScoutAheadAction({ ...state, dungeon: d });
+    return { ...continued, events: [...events, ...continued.events] };
   }
   if (
     d.pressureSource === "curio" ||
