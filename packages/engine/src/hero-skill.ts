@@ -191,7 +191,7 @@ import { resolveAttackDamage } from "./attack-damage";
  * 英雄时不加，友方治疗和给自己的技能都不会因为对方身上的标记更容易命中。不传堆数就
  * 当作没有。数的是堆，不是一堆里还剩几枚代币（R-018）。不从卡面的「2t」「3t」「4t」
  * 读堆数，那些回合数的 numeric 为 null，这一张技能也不因此放上新的标记。效果行里
- * 「+N vs」伤害只有逐卡复核 verified_damage_bonus 才读取；缺注解 numeric=null 仍跳过。和标记写在同一行的
+ * 「+N vs」伤害只有逐卡复核条件伤害注解才读取；缺注解 numeric=null 仍跳过。和标记写在同一行的
  * Pull 仍整行跳过。饰品仍不加。高地和光照写在后面。
  *
  * 高地（规则书第 25 页，说明书 §6.5 第 4 步、§6.9，R-022）：调用方标明目标所在区域
@@ -279,9 +279,12 @@ export type HeroSkillCardView = {
   readonly verified_damage_bonus?: {
     readonly lineIndex: number;
     readonly amount: number;
-    readonly condition: "marked" | "unholy" | "stunned";
+    readonly condition: "marked" | "unholy" | "stunned" | "human";
     readonly source: "print_front";
   };
+  readonly verified_damage_bonuses?: readonly NonNullable<
+    HeroSkillCardView["verified_damage_bonus"]
+  >[];
   readonly verified_status_effects?: readonly (StatusEffect & {
     readonly lineIndex: number;
     readonly segmentIndex: number;
@@ -2261,8 +2264,20 @@ function resolveSkill(
     if (!emptyArea && target.stress === undefined)
       return refuse(skill, combat, "目标压力效果缺少压力轨");
   }
-  const bonus = active.verified_damage_bonus;
-  if (bonus) {
+  if (
+    active.verified_damage_bonuses !== undefined &&
+    (active.verified_damage_bonus !== undefined ||
+      !Array.isArray(active.verified_damage_bonuses) ||
+      active.verified_damage_bonuses.length < 2 ||
+      Array.from(active.verified_damage_bonuses).some((b) => !b || typeof b !== "object") ||
+      new Set(active.verified_damage_bonuses.map((b) => b.lineIndex)).size !==
+        active.verified_damage_bonuses.length)
+  )
+    return refuse(skill, combat, "多条条件伤害注解重复、缺失或与单条注解冲突（R-048）");
+  const bonuses =
+    active.verified_damage_bonuses ??
+    (active.verified_damage_bonus ? [active.verified_damage_bonus] : []);
+  for (const bonus of bonuses) {
     const line = active.effect_lines[bonus.lineIndex];
     const text = line
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
@@ -2273,10 +2288,10 @@ function resolveSkill(
       bonus.lineIndex < 0 ||
       !Number.isSafeInteger(bonus.amount) ||
       bonus.amount <= 0 ||
-      !["marked", "unholy", "stunned"].includes(bonus.condition) ||
+      !["marked", "unholy", "stunned", "human"].includes(bonus.condition) ||
       bonus.source !== "print_front" ||
       text !==
-        `{target_effects}{damage}+${bonus.amount}vs${bonus.condition === "marked" ? "{mark}" : bonus.condition === "stunned" ? "{stun}" : "Unholy"}` ||
+        `{target_effects}{damage}+${bonus.amount}vs${bonus.condition === "marked" ? "{mark}" : bonus.condition === "stunned" ? "{stun}" : bonus.condition === "human" ? "Humans" : "Unholy"}` ||
       line?.some(
         (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
       )
@@ -2284,7 +2299,7 @@ function resolveSkill(
       return refuse(skill, combat, "条件伤害注解与已确认卡面不符（R-048）");
     if (
       !emptyArea &&
-      bonus.condition === "unholy" &&
+      (bonus.condition === "unholy" || bonus.condition === "human") &&
       target.side === "monster" &&
       (!target.monsterTypeTags?.length ||
         target.monsterTypeTags.some((tag) => typeof tag !== "string" || !tag.trim()))
@@ -2647,15 +2662,24 @@ function resolveSkill(
       // 其他类型修正 / Hard Skinned 缺值仍不加。
       const baseDamage =
         amount +
-        (bonus &&
-        target.side !== sourceSide &&
-        (bonus.condition === "marked"
-          ? (target.markStacks ?? 0) > 0
-          : bonus.condition === "stunned"
-            ? target.statusStacks!.some((stack) => stack.kind === "stun")
-            : target.side === "monster" && target.monsterTypeTags?.includes("Unholy"))
-          ? bonus.amount
-          : 0);
+        bonuses.reduce(
+          (total, bonus) =>
+            total +
+            (target.side !== sourceSide &&
+            (bonus.condition === "marked"
+              ? (target.markStacks ?? 0) > 0
+              : bonus.condition === "stunned"
+                ? target.statusStacks!.some((stack) => stack.kind === "stun")
+                : target.side === "monster" &&
+                  target.monsterTypeTags?.includes(
+                    bonus.condition === "human" ? "Human" : "Unholy",
+                  ))
+              ? bonus.amount
+              : 0),
+          0,
+        );
+      if (!Number.isSafeInteger(baseDamage))
+        return refuse(skill, combat, "条件伤害总量超出安全整数范围");
       const skipProtection = ignoresProtection.targetLines > 0;
       const damage = resolveAttackDamage(
         target,
@@ -2799,7 +2823,7 @@ function resolveSkill(
         ignoresProtection.targetLines +
         formChange.lineCount +
         statuses.lineCount +
-        (bonus ? 1 : 0) +
+        bonuses.length +
         (extraStress ? 1 : 0) +
         (support ? 2 : 0),
     ),

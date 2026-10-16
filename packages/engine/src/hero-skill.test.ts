@@ -73,6 +73,7 @@ for (const entry of file.cards) {
   delete legacy.verified_status_effects;
   delete legacy.verified_range;
   delete legacy.verified_damage_bonus;
+  delete legacy.verified_damage_bonuses;
   delete legacy.verified_target_support;
   if (["hero_skill:p038", "hero_skill:p039"].includes(entry.id)) {
     legacy.stats_line = null;

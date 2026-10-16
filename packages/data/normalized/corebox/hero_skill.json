@@ -18723,6 +18723,20 @@
    "back_level": 3
   },
   {
+   "verified_damage_bonuses": [
+    {
+     "lineIndex": 0,
+     "amount": 1,
+     "condition": "human",
+     "source": "print_front"
+    },
+    {
+     "lineIndex": 1,
+     "amount": 2,
+     "condition": "marked",
+     "source": "print_front"
+    }
+   ],
    "id": "hero_skill:p043",
    "pages": [
     43
@@ -18877,6 +18891,24 @@
      }
     ],
     [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
      {
       "type": "icon",
       "icon": {

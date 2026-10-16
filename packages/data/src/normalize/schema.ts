@@ -141,7 +141,7 @@ const lineListSchema = z.array(z.array(segmentSchema));
 const verifiedDamageBonusSchema = z.strictObject({
   lineIndex: z.int().nonnegative(),
   amount: z.int().positive(),
-  condition: z.enum(["marked", "unholy", "stunned"]),
+  condition: z.enum(["marked", "unholy", "stunned", "human"]),
   source: z.literal("print_front"),
 });
 
@@ -189,6 +189,11 @@ export const verifiedStatusEffectSchema = z.strictObject({
 });
 
 const heroSkillShared = {
+  verified_damage_bonuses: z
+    .array(verifiedDamageBonusSchema)
+    .min(2)
+    .refine((bonuses) => new Set(bonuses.map((b) => b.lineIndex)).size === bonuses.length)
+    .optional(),
   id: z.string().min(1),
   pages: pageListSchema,
   copies: z.int().positive(),
@@ -232,10 +237,12 @@ const doubleFacedHeroSkillSchema = z.strictObject({
   }),
 });
 
-export const normalizedHeroSkillCardSchema = z.union([
-  standardHeroSkillSchema,
-  doubleFacedHeroSkillSchema,
-]);
+export const normalizedHeroSkillCardSchema = z
+  .union([standardHeroSkillSchema, doubleFacedHeroSkillSchema])
+  .refine(
+    (card) => !(card.verified_damage_bonus && card.verified_damage_bonuses),
+    "单条与多条伤害注解不能同时存在",
+  );
 
 const normalizedMonsterSkillSchema = z.strictObject({
   slot: z.int().min(1).max(3),
