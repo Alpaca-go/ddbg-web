@@ -46,7 +46,7 @@ export function continueDungeonExploration(result: ApplyResult): ApplyResult {
   if (d.heroes.some((h) => h.dead)) {
     next = finish(
       result.state,
-      { ...d, phase: "awaitingReplacement" },
+      { ...d, phase: "awaitingReplacement", replacementResume: "exploration" },
       "英雄死亡：等待替换接口，队伍尚未移动（R9）",
     );
   } else {

@@ -91,6 +91,7 @@ export function completeScoutAheadAction(state: GameState): ApplyResult {
           heroes,
           phase: "inHamlet",
           hamletReturn: { ...d.hamletReturn, phase: "awaitingReplacement" },
+          replacementResume: "hamletScout",
         },
       },
       events: [

@@ -380,6 +380,9 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
             ? "awaitingRoom"
             : "ready",
         ...(curioReward ? { curioRoom: { ...previousCurio!, stage: "reward" } } : {}),
+        ...(heroes.some((h) => h.dead)
+          ? { replacementResume: curioReward ? ("roomCurio" as const) : ("ready" as const) }
+          : {}),
         cursor: b.rngCursor + ids.length - 1,
         decision: b.choiceCursor,
         gold: b.loot.gold + bonus,

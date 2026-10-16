@@ -102,6 +102,7 @@ export function completeDungeonDarkRoom(state: GameState): ApplyResult {
       ...d,
       pending: null,
       phase: d.heroes.some((h) => h.dead) ? "awaitingReplacement" : "ready",
+      ...(d.heroes.some((h) => h.dead) ? { replacementResume: "ready" as const } : {}),
       roomResolution: { ...active, completed: true },
     },
     `Dark ${d.position} 已结算，保留代币；下次进入仍降低光照（R15）`,
@@ -154,7 +155,7 @@ export function continueDungeonTrap(state: GameState): ApplyResult {
   }
   if (d.heroes.some((h) => h.dead))
     return emit(
-      { ...d, pending: null, phase: "awaitingReplacement" },
+      { ...d, pending: null, phase: "awaitingReplacement", replacementResume: "trap" },
       `Trap 已记录死亡：队伍在 ${d.position}，等待替换接口；不推定任务 / 战役结果（R9）`,
     );
   const remaining = d.heroes.filter((h) => !active.resolvedHeroIds.includes(h.id));
