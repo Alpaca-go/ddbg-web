@@ -34,6 +34,13 @@ const noPayload = z.strictObject({
 });
 /** 存档仅允许公开命令的完整参数，不接受状态注入或额外字段。 */
 export const savedCommandSchema = z.union([
+  z.strictObject({
+    type: z.literal("setDungeonStances"),
+    heroIds: z
+      .array(id)
+      .length(4)
+      .refine((ids) => new Set(ids).size === 4),
+  }),
   z.strictObject({ type: z.literal("visitGuild"), ...actor }),
   z.strictObject({
     type: z.literal("setEquippedSkills"),

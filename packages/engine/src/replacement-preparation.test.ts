@@ -280,6 +280,20 @@ it("真实入口命令日志：走到房间后侦察至死亡，替补选择/初
   expect(game.dungeon!.heroes.some((h) => h.id === replacementId)).toBe(true);
   expect(game.dungeon!.heroes.some((h) => h.dead)).toBe(false);
   saved();
+  const previousAreas = game.dungeon!.heroes.map((h) => [h.id, h.combat?.areaId]);
+  step({
+    type: "setDungeonStances",
+    heroIds: [
+      replacementId,
+      ...game.dungeon!.heroes.filter((h) => h.id !== replacementId).map((h) => h.id),
+    ],
+  });
+  expect(game.dungeon!.heroes[0]).toMatchObject({ id: replacementId, stance: "aggressive" });
+  for (const h of game.dungeon!.heroes) {
+    if (h.combat) expect(h.combat.stance).toBe(h.stance);
+    expect(h.combat?.areaId).toBe(previousAreas.find(([id]) => id === h.id)![1]);
+  }
+  saved();
   step({ type: "leaveDungeon" });
   step({ type: "resolveChoice", choiceId: game.dungeon!.pending!.id, optionId: "agree" });
   step({ type: "summarizeDungeonQuest" });

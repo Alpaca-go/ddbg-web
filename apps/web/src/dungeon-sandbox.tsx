@@ -41,6 +41,7 @@ import { dungeonLayoutFileSchema } from "../../../packages/data/src/dungeon-layo
 import type { DungeonLayout } from "../../../packages/data/src/dungeon-layout";
 import { battleData } from "virtual:battle-data";
 import { BattleView } from "./battle-view";
+import { DungeonStanceOrder } from "./dungeon-stance-order";
 import { provisionLabels, provisionEffectLabels } from "./provision-labels";
 import distribution from "../../../packages/data/normalized/corebox/scout_ahead_distribution.json";
 import wipeDistribution from "../../../packages/data/normalized/corebox/wipe_em_out_distribution.json";
@@ -744,6 +745,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
       {!preview && (
         <section className="panel">
           <h2>侦察流程</h2>
+          <DungeonStanceOrder game={game} dispatch={dispatch} />
           {d.mustLeaveRoomId === d.position && (
             <p>第四轮撤退：本房间未清理，须先离开才能再次进入（R25）。</p>
           )}
