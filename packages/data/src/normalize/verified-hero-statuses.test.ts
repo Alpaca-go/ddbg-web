@@ -6,9 +6,9 @@ import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 const cards = loadNormalizedCorebox().hero_skill.cards;
 
 describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
-  it("核实四核心39张及R-089两张状态卡，原未命名数字不变，Remove图标不误作施加", () => {
+  it("核实四核心39张与赏金猎人四张状态卡，原未命名数字不变，Remove图标不误作施加", () => {
     const annotated = cards.filter((card) => card.verified_status_effects !== undefined);
-    expect(annotated).toHaveLength(41);
+    expect(annotated).toHaveLength(43);
     expect(annotated.every((card) => !card.verification.unverified)).toBe(true);
     expect(cards.find((card) => card.id === "hero_skill:p037")!.verified_status_effects).toEqual([
       { lineIndex: 1, segmentIndex: 6, scope: "self", kind: "buff", duration: 3 },
@@ -74,5 +74,46 @@ describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
         }).success,
       ).toBe(false);
     }
+  });
+
+  it.each([
+    ["hero_skill:p049", "mark", 2, "Pull 2"],
+    ["hero_skill:p052", "stun", 1, "Push 2"],
+  ] as const)("%s 的完整同行状态与位移核实，来源漂移拒绝", (id, kind, duration, move) => {
+    const card = cards.find((c) => c.id === id)!;
+    expect(card.verified_status_effects).toEqual([
+      { lineIndex: 0, segmentIndex: 2, scope: "target", kind, duration },
+    ]);
+    expect(card.unlabeled_numbers.find((n) => n.text === `${duration}t`)?.numeric).toBeNull();
+    expect(attachVerifiedHeroStatuses(cards)).toEqual(cards);
+    for (const mutate of [
+      (c: typeof card) => {
+        c.hero = "VESTAL";
+      },
+      (c: typeof card) => {
+        if ("back_level" in c) c.back_level = 2;
+      },
+      (c: typeof card) => {
+        c.pages = [999];
+      },
+      (c: typeof card) => {
+        c.effect_lines.push(c.effect_lines[0]!);
+      },
+      (c: typeof card) => {
+        c.effect_lines[0] = c.effect_lines[0]!.map((s) =>
+          s.type === "text" ? { ...s, text: s.text.replace(move, "Push 9") } : s,
+        );
+      },
+      (c: typeof card) => {
+        const s = c.effect_lines[0]!.find((s) => s.type === "icon" && s.icon.key === "shuffle")!;
+        if (s.type === "icon") s.icon.naming = "unverified";
+      },
+    ]) {
+      const changed = structuredClone(cards);
+      mutate(changed.find((c) => c.id === id)!);
+      expect(() => attachVerifiedHeroStatuses(changed)).toThrow();
+    }
+    for (const page of id === "hero_skill:p049" ? [50, 51] : [53, 54])
+      expect(cards.find((c) => c.pages[0] === page)!.verified_status_effects).toBeUndefined();
   });
 });

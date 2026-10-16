@@ -2290,7 +2290,13 @@ function resolveSkill(
   const removal = readConditionRemoval(active);
   const selfBleed = readSelfBleedRemoval(active);
   const originalShuffles = readShuffles(active, combat.shuffleChoice);
-  const shuffles = { ...originalShuffles, self: statuses.selfShuffle ?? originalShuffles.self };
+  if (statuses.targetShuffle && originalShuffles.target)
+    return refuse(skill, combat, "目标状态同行与独立位移重复，拒绝猜测");
+  const shuffles = {
+    ...originalShuffles,
+    self: statuses.selfShuffle ?? originalShuffles.self,
+    target: statuses.targetShuffle ?? originalShuffles.target,
+  };
   const ignoresProtection = readIgnoresProtection(active);
   const formChange = readFormChange(active);
   const keys = namedKeys(active.stats_line);
