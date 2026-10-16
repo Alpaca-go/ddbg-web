@@ -40,6 +40,7 @@ import rawLayouts from "../../../packages/data/normalized/corebox/dungeon_layout
 import { dungeonLayoutFileSchema } from "../../../packages/data/src/dungeon-layout";
 import type { DungeonLayout } from "../../../packages/data/src/dungeon-layout";
 import { battleData } from "virtual:battle-data";
+import { battleData as questBattleData } from "virtual:quest-battle-data";
 import { BattleView } from "./battle-view";
 import { DungeonStanceOrder } from "./dungeon-stance-order";
 import { provisionLabels, provisionEffectLabels } from "./provision-labels";
@@ -491,7 +492,7 @@ function QuestSaveControls({ onLoad }: { onLoad?: () => void }) {
             run(() => {
               const raw = localStorage.getItem(questSaveKey);
               if (!raw) throw new Error("本机还没有任务存档");
-              const loaded = loadQuestSave(JSON.parse(raw), taskSources);
+              const loaded = loadQuestSave(JSON.parse(raw), taskSources, legacyTaskSources);
               restoreTask(loaded);
               setNotice("已读取进度，可继续当前行动或待选决定。");
               onLoad?.();
@@ -1514,7 +1515,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                   : d.phase === "awaitingCurio"
                     ? `Curio 待结算；${d.curio?.active?.roomId ? "队伍已在房间" : "队伍尚未移动"}，不能补用 Torch 或重抽`
                     : d.phase === "awaitingReplacement"
-                      ? `英雄死亡：等待驿站替换接口，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
+                      ? `英雄死亡：请完成驿站替补准备与入队，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
                       : d.phase === "blockedPressure"
                         ? `压力已支付：意志卡数据待核实，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
                         : d.phase === "awaitingRoom"
@@ -1544,7 +1545,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
 }
 
 const coreNames = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"];
-const taskSources: CoreQuestSources = {
+const legacyTaskSources: CoreQuestSources = {
   catalog: {
     ...battleData,
     trinkets: createTrinketPool(normalizedTrinketFileSchema.parse(rawTrinkets).cards, 1),
@@ -1553,6 +1554,10 @@ const taskSources: CoreQuestSources = {
   curios: curios,
   rooms: roomFileSchema.parse(rawRooms).cards,
   monsters: monsterPoolFileSchema.parse(rawMonsterPool).cards,
+};
+const taskSources: CoreQuestSources = {
+  ...legacyTaskSources,
+  catalog: { ...legacyTaskSources.catalog, ...questBattleData },
 };
 export function DungeonQuest() {
   const beginTask = useDungeonStore((s) => s.beginTask);

@@ -23,17 +23,25 @@ export function battleDataPlugin(): Plugin {
     );
   return {
     name: "battle-sandbox-data",
-    resolveId: (id) => (id === "virtual:battle-data" ? "\0virtual:battle-data" : null),
+    resolveId: (id) =>
+      ["virtual:battle-data", "virtual:quest-battle-data"].includes(id) ? `\0${id}` : null,
     load(id) {
-      if (id !== "\0virtual:battle-data") return null;
+      if (!["\0virtual:battle-data", "\0virtual:quest-battle-data"].includes(id)) return null;
+      const questCatalog = id === "\0virtual:quest-battle-data";
       const heroStats = normalizedHeroStatFileSchema
         .parse(read("hero_stat"))
-        // 新英雄的属性前置获批不等于完整技能已经可战；当前沙盒仍保持四英雄。
+        // R-081/088：战役使用获批属性；普通战斗沙盒保留原四英雄。
         .cards.filter(
           (card) =>
             card.attributesVerified &&
-            card.level === 1 &&
-            ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(card.name),
+            (questCatalog || card.level === 1) &&
+            [
+              "CRUSADER",
+              "HELLION",
+              "HIGHWAYMAN",
+              "VESTAL",
+              ...(questCatalog ? ["BOUNTY HUNTER"] : []),
+            ].includes(card.name),
         );
       const conditions = createConditionPool(
         diseaseFileSchema.parse(read("disease")).cards,
@@ -53,6 +61,10 @@ export function battleDataPlugin(): Plugin {
           Array.from({ length: 42 }, (_, i) => `hero_skill:p${String(start + i).padStart(3, "0")}`),
         ),
       );
+      // 赏金猎人仅七张I级技能已接通，不随属性批准开放II/III级技能。
+      if (questCatalog)
+        for (let page = 43; page <= 61; page += 3)
+          skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
       const skills = normalizedHeroSkillFileSchema
         .parse(read("hero_skill"))
         .cards.filter((card) => skillIds.has(card.id) && !card.verification.unverified);
@@ -116,7 +128,7 @@ export function battleDataPlugin(): Plugin {
         !tile ||
         !tile.usable ||
         tile.deployment?.printReview !== "verified" ||
-        heroStats.length !== 4 ||
+        heroStats.length !== (questCatalog ? 15 : 4) ||
         skills.length !== skillIds.size ||
         monsters.length !== monsterIds.size
       )

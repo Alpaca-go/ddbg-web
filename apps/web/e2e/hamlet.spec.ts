@@ -15,7 +15,7 @@ import type { nomadUpgradeQuest } from "../../../packages/engine/src/test-helper
 test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存刷新", async ({
   page,
 }, testInfo) => {
-  test.setTimeout(120_000);
+  test.setTimeout(180_000);
   // Vite处理引擎的TS/JSON模块，与浏览器一致；不改引擎的纯TS依赖。
   const server = await createServer({
     configFile: false,
@@ -31,6 +31,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   let nomadSale: ReturnType<typeof nomadSaleQuest>;
   let guild: ReturnType<typeof guildQuest>;
   let higherNomad: ReturnType<typeof nomadUpgradeQuest>, higherNomadSave: QuestSave;
+  let replacementSave: QuestSave;
   try {
     const helpers = await server.ssrLoadModule(
       fileURLToPath(
@@ -43,7 +44,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     const plugin = await server.ssrLoadModule(
       fileURLToPath(new URL("../battle-data-plugin.ts", import.meta.url)),
     );
-    const code = plugin.battleDataPlugin().load("\0virtual:battle-data");
+    const code = plugin.battleDataPlugin().load("\0virtual:quest-battle-data");
     const battleData = JSON.parse(code.slice("export const battleData = ".length, -1));
     // 同一正式网页目录：只读取获批卡，不把引擎测试的更大目录写入浏览器存档。
     const sourceHelpers = await server.ssrLoadModule(
@@ -143,6 +144,55 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
       ...sourceHelpers.coreQuestSources,
       catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
     });
+    const natural = await server.ssrLoadModule(
+      fileURLToPath(
+        new URL("../../../packages/engine/src/test-helpers/natural-quest.ts", import.meta.url),
+      ),
+    );
+    const legacyCode = plugin.battleDataPlugin().load("\0virtual:battle-data");
+    const legacyBattleData = JSON.parse(legacyCode.slice("export const battleData = ".length, -1));
+    const replacementSources = {
+      ...sourceHelpers.coreQuestSources,
+      catalog: { ...legacyBattleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
+    };
+    const death = natural.naturalQuest(14, "quest:p001", true, replacementSources, 2, {
+      observe(game: import("../../../packages/engine/src/command").GameState) {
+        if (!game.battle && game.dungeon!.phase === "ready" && game.dungeon!.position !== "S")
+          throw new Error("observed-room");
+      },
+    });
+    expect(death.stopReason).toBe("observed-room");
+    const deathStep = (command: import("../../../packages/engine/src/command").Command) => {
+      const r = engine.applyCommand(death.state, command);
+      expect(r.events.some((e: { type: string }) => e.type === "commandRefused")).toBe(false);
+      death.state = r.state;
+      death.commands.push(command);
+    };
+    for (
+      let n = 0;
+      !death.state.dungeon.heroes.some((h: { dead?: boolean }) => h.dead) && n < 25;
+      n++
+    ) {
+      deathStep({ type: "scoutDungeon" });
+      deathStep({
+        type: "resolveChoice",
+        choiceId: death.state.dungeon.pending.id,
+        optionId: "agree",
+      });
+    }
+    expect(death.state.dungeon.heroes.some((h: { dead?: boolean }) => h.dead)).toBe(true);
+    while (death.state.dungeon.deathTrinketChoice)
+      deathStep({
+        type: "resolveChoice",
+        choiceId: death.state.dungeon.deathTrinketChoice.id,
+        optionId: "discard",
+      });
+    replacementSave = saveModule.createQuestSave(
+      { seed: 14, questId: "quest:p001", mode: "radiant", party: natural.naturalParty },
+      death.commands,
+      death.state,
+      replacementSources,
+    );
     expect(fairResult.events.some((event) => event.type === "commandRefused")).toBe(false);
     result = engine.applyCommand(journey.game, {
       type: "visitHamletBuilding",
@@ -632,4 +682,43 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   );
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
   await page.screenshot({ path: testInfo.outputPath("nomad-iii-saved.png"), fullPage: true });
+  // 旧网页的真实死亡存档：验证目录更新后可选候选、技能与入队，并保存刷新。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(replacementSave),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "准备驿站替补", exact: true }).click();
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: /^选择 BOUNTY HUNTER I/ }).click();
+  await page.getByRole("button", { name: "结束升级，选择初始技能", exact: true }).click();
+  await page.getByRole("button", { name: "装备 Collect Bounty 1", exact: true }).click();
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "装备 Mark for Death 1", exact: true }).click();
+  await page.getByRole("button", { name: "装备 Come Hither 1", exact: true }).click();
+  await page.getByRole("button", { name: "让1名替补入队并继续", exact: true }).click();
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  const joined = await page.evaluate(
+    () => JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon,
+  );
+  expect(joined.heroes).toHaveLength(4);
+  expect(
+    joined.heroes.some(
+      (h: { heroStatId: string; dead?: boolean }) =>
+        h.heroStatId === "hero_stat:p005:front" && !h.dead,
+    ),
+  ).toBe(true);
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  expect(
+    await page.evaluate(
+      () => JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon,
+    ),
+  ).toEqual(joined);
 });
