@@ -278,7 +278,11 @@ it("降光触发同伴心脏病：骰已完成但不移动，不重掷、不把�
   };
   const result = pick(scene, "light"),
     done = ok(result);
-  expect(done.dungeon).toMatchObject({ phase: "awaitingReplacement", position: "G", cursor: 15 });
+  expect(done.dungeon).toMatchObject({
+    phase: "awaitingReplacement",
+    position: "G",
+    cursor: 15 + 17 + 4,
+  }); // R-091：负面怪癖及意志洗回。
   expect(done.dungeon!.heroes[1]!.dead).toBe(true);
   expect(done.dungeon!.exploration!.rolls![0]!.resolved).toBe(true);
   expect(result.events.filter((e) => e.type === "heartAttack")).toHaveLength(1);

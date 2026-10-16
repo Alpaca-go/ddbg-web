@@ -211,7 +211,7 @@ it("已抽房间Curio处理前心脏病死亡，取消整张奖励并弃牌一�
   expect(stopped.dungeon).toMatchObject({
     phase: "awaitingReplacement",
     gold: 0,
-    cursor: drawn.dungeon!.cursor,
+    cursor: drawn.dungeon!.cursor + 17 + 4, // R-091：负面怪癖及意志洗回。
   });
   expect(stopped.dungeon!.heroes[0]!.dead).toBe(true);
   expect(stopped.dungeon!.curio!.active).toBeNull();
