@@ -12,6 +12,7 @@ import { conditionPoolProblem } from "./conditions";
 import { trinketPoolProblem, trinketDeck, setTrinketDeck } from "./trinket-acquisition";
 import { heroSkillSlotCount } from "./hero-loadout";
 import { readCampaignLevel } from "./hamlet-campaign";
+import { scoutAheadPlanProblem } from "./hamlet-scout-ahead";
 
 type Hero = DungeonState["heroes"][number];
 
@@ -188,6 +189,7 @@ function embarkProblem(state: GameState, allowPending: boolean): string | null {
   )
     return "须在村庄准备完成后、无待选且四名已核实英雄（I–III，技能槽=2+HL）齐全时出征下一任务（R32/R33、R-051）";
   return (
+    scoutAheadPlanProblem(d.nextQuestRoomReveals) ??
     buildingLevelsProblem(d) ??
     conditionPoolProblem(d.conditions, d.heroes) ??
     trinketPoolProblem(d.trinkets, d.heroes)
@@ -352,6 +354,9 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
       ? { nextQuestPartyProvisionDice: d.nextQuestPartyProvisionDice }
       : {}),
     ...(d.nextQuestLostShipment ? { nextQuestLostShipment: true as const } : {}),
+    ...(d.nextQuestRoomReveals !== undefined
+      ? { nextQuestRoomReveals: d.nextQuestRoomReveals }
+      : {}),
     discardedQuests,
     hamletMemory: {
       deck: [...d.hamlet!.deck],

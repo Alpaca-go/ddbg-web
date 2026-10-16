@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-16）：#218已审查合并，main `643ea1e`。当前`codex/phase4-scout-ahead`接赏金猎人I村庄能力、压力与下次地牢逐房揭示；Kyries已裁定村庄到10沿R28且计入下一任务，记R-090/Q-92。见[本轮记录](phase4-scout-ahead-2026-10-16.md)。正式入口仍保留原四英雄，死亡停在待补人；下一主题继续死亡名单、饰品让渡、驿站继承XP/免费升级与入队续接。事件16/16，Q-79/Q-80、正式高等级存档与人工验收边界不变，Phase4未完成，未进Phase5。下段为历史进度。
+
 > 当前入口（2026-10-16）：#217 已审查合并，main `d724efd`。当前 `codex/phase4-collect-bounty` 接 Collect Bounty I 的同框 Humans / Mark 双条件伤害，见[本轮记录](phase4-collect-bounty-2026-10-16.md)。赏金猎人七张 I 级技能分别已接，下一主题核对/接通 Scout Ahead，再接正式补人；仍未开放完整英雄入口，网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
 
 > 当前入口（2026-10-16）：#216 已审查合并，main `75a3992`。当前 `codex/phase4-flashbang` 接 Flashbang I 的1–2射程、Stun1t与掷前Push/Pull选择及落点待选续接，见[本轮记录](phase4-flashbang-2026-10-16.md)。赏金猎人六张 I 级技能已接，剩 Collect Bounty 双条件伤害；Scout Ahead 与死亡替换仍后续，网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。

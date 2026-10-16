@@ -27,7 +27,7 @@ export function triggerDungeonPassive(
       trigger,
       seed,
       next.cursor,
-      next.explorationSetup?.light ?? 5,
+      next.pressureSource === "hamletScout" ? 5 : (next.explorationSetup?.light ?? 5),
       next.explorationSetup?.provisions,
       defence,
       options,

@@ -4,6 +4,7 @@ import { completeHamletEvent, hamletEventCompletionProblem } from "./hamlet-even
 import { PROVISION_FACES, PROVISION_LABELS } from "./loot";
 import type { ProvisionFace } from "./loot";
 import type { DungeonState } from "./dungeon";
+import { beginScoutAheadReveal } from "./hamlet-scout-ahead";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 
@@ -94,7 +95,7 @@ function continueTravelingMerchants(state: GameState): ApplyResult {
     const { nextQuestProvisionFaceChoice: _flag, provisionFaceChoiceRemaining: _rem, ...rest } = d;
     void _flag;
     void _rem;
-    return {
+    const ready: ApplyResult = {
       state: {
         ...state,
         dungeon: { ...rest, pending: null, phase: "ready", decision: d.decision + 1 },
@@ -106,6 +107,8 @@ function continueTravelingMerchants(state: GameState): ApplyResult {
         },
       ],
     };
+    const revealed = beginScoutAheadReveal(ready.state);
+    return { ...revealed, events: [...ready.events, ...revealed.events] };
   }
   const pending = {
     id: `dungeon-traveling-merchants:${d.decision}`,

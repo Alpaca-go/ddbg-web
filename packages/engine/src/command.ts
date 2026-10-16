@@ -5,6 +5,8 @@ import { chooseFeast } from "./hamlet-feast";
 import { chooseLaborForce } from "./hamlet-labor-force";
 import { chooseGuildTraining, chooseMilitiaTraining } from "./hamlet-guild-training";
 import { chooseTravelingMerchants } from "./hamlet-traveling-merchants";
+import { chooseScoutAheadReveal } from "./hamlet-scout-ahead";
+import { resolveDungeonPressure } from "./dungeon-pressure";
 import { applyHamletAction, chooseAbbeyQuirk } from "./hamlet-actions";
 import { visitNomadWagon, chooseNomadWagon } from "./hamlet-nomad";
 import { visitBlacksmith } from "./hamlet-blacksmith";
@@ -382,6 +384,10 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return command.type === "resolveChoice"
       ? chooseAbbeyQuirk(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先完成修道院正面怪癖选择");
+  if (state.dungeon?.phase === "blockedPressure" && state.dungeon.pressureSource === "hamletScout")
+    return command.type === "resolveDungeonPressure"
+      ? resolveDungeonPressure(state)
+      : rejectBattleCommand(state, "请先完成Scout Ahead村庄意志检定，勿重复支付压力");
   if (command.type === "upgradeHamletBuilding") return upgradeHamletBuilding(state, command);
   if (command.type === "visitHamletBuilding" || command.type === "useHamletSkill")
     return applyHamletAction(state, command);
@@ -396,6 +402,10 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       return useHamletProvision(state, command);
     return rejectBattleCommand(state, "正在回村或已进入村庄，请完成当前回村步骤");
   }
+  if (state.dungeon?.phase === "awaitingScoutAhead")
+    return command.type === "resolveChoice"
+      ? chooseScoutAheadReveal(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先完成Scout Ahead房间揭示");
   if (state.dungeon?.pending?.id.startsWith("dungeon-traveling-merchants:"))
     return command.type === "resolveChoice"
       ? chooseTravelingMerchants(state, command.choiceId, command.optionId)

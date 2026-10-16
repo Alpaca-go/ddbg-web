@@ -103,6 +103,10 @@ export type DungeonState = {
   readonly nextQuestPartyProvisionDice?: 2;
   /** Lost Shipment / R-087：下次出征由队伍在掷骰前取消两颗常规补给。 */
   readonly nextQuestLostShipment?: true;
+  /** Hero STAT FRONT p5：每次 Scout Ahead 在下次地牢揭示一个房间代币。 */
+  readonly nextQuestRoomReveals?: number;
+  /** Scout Ahead已支付压力，意志/补人尚未完成时保留行动人以免重复支付。 */
+  readonly hamletScoutActorId?: string;
   /** 当前开局已取消的常规骰id；Wild/Radiant待选完成后清除。 */
   readonly startingProvisionOmittedIds?: readonly string[];
   /** Traveling Merchants 进行中：尚未改骰的英雄顺序。 */
@@ -194,6 +198,7 @@ export type DungeonState = {
   }[];
   readonly scoutBonus: boolean;
   readonly phase:
+    | "awaitingScoutAhead"
     | "awaitingProvisions"
     | "ready"
     | "awaitingHazards"
@@ -206,6 +211,7 @@ export type DungeonState = {
     | "inHamlet"
     | "awaitingCurio";
   readonly pressureSource?:
+    | "hamletScout"
     | "scout"
     | "exploration"
     | "backtracking"
