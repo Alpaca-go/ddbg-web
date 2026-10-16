@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-16）：#213 已合并，main `f21a8d4`。当前 `codex/phase4-bounty-skill-review` 按 Kyries“批准两行限定修正及完整效果”记录 R-089/Q-91 confirmed，接通 Mark for Death I / Caltrops I 的完整状态、射程及伤害；只在两卡目标框将 `763ad8e857` 解释为 Debuff，不改全局词典。见[本轮记录](phase4-bounty-skills-2026-10-16.md)。其余五张 I 级技能、Scout Ahead 与死亡替换仍待接，网页保留四英雄。事件16/16、Q-79/Q-80、高等级正式存档与人工验收边界不变，未进 Phase 5。下段为历史进度。
+
 > 当前入口（2026-10-16）：#212 已合并，main `e300c47`，游商 II/III 已进入主线。Kyries 本轮“批准三行属性与限定防御”，R-088/Q-90 confirmed；当前 `codex/phase4-replacement-hero-review` 已入库赏金猎人三等级属性与完整防御，III 级 `c07ea0c507` 只在该卡抗性栏读 Debuff，不改词典或清整卡未验证。见[本轮记录与补人接线缺口](phase4-replacement-hero-review-2026-10-16.md)。网页仍保留四名已完整接通的英雄；下一主题逐卡核对赏金猎人完整技能，再接死亡替换。事件 16/16，Q-79/Q-80 和其余 Phase 4 验收缺口保留，未进 Phase 5。下段为历史进度。
 
 > 当前入口（2026-10-16）：#211 已合并，main `2c21f23`。当前 `codex/phase4-nomad-higher-levels` 接游商 II/III 分级陈列、4/6/8 金购买、2/3/4 金出售与 Gypsy Trail、跨级归池及正式 I 级战役中的高等级游商存档。事件 16/16；见[本轮记录](phase4-nomad-higher-levels-2026-10-16.md)。Q-79/Q-80、死亡补人/英雄池、正式高等级战役存档与人工验收仍未完成，未进 Phase 5。下段为历史进度。

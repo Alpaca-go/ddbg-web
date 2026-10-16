@@ -25,7 +25,7 @@ pnpm build
 
 接手开发先读 [Codex 总交接](docs/HANDOFF-FROM-CODEX-2026-10-09.md) 顶部的当前入口与最近提交补记；跨代理背景见 [交给 Codex 的说明](docs/HANDOFF-TO-CODEX-2026-10-09.md)。历史段落中的分支 / 合并状态不覆盖当前入口。
 
-当前进度（2026-10-16）：#212 已合并（main `e300c47`），游商 II/III 分级服务与存档已进入主线，村庄事件 16/16。当前按本轮 R-088 入库[赏金猎人三等级属性/防御](docs/phase4-replacement-hero-review-2026-10-16.md)，Q-90 confirmed；尚未接完整技能或死亡补人，网页仍保留原四英雄。II 级两张任务、五种怪物已接通；Q-79/Q-80、实际死亡补人、正式高等级战役存档与人工验收仍未完成，未进入 Phase 5。下段为历史记录。
+当前进度（2026-10-16）：#213 已合并（main `f21a8d4`），R-088 赏金猎人三等级属性/防御已进入主线，村庄事件 16/16。当前按 R-089 接通 [Mark for Death I / Caltrops I 完整效果](docs/phase4-bounty-skills-2026-10-16.md)，Q-91 confirmed；其余五张 I 级技能与死亡补人仍未完成，网页保留原四英雄。II 级两张任务、五种怪物已接通；Q-79/Q-80、正式高等级战役存档与人工验收仍未完成，未进入 Phase 5。下段为历史记录。
 
 最新补记：#200/#201已合并（main `46ff57a`）；跨等级饰品弃装与旧池回收已接。#202按R-083接四种II级怪物获批基础字段及Captain/Gargoyle完整入场（含常驻Protection），Rattler/Ghoul额外运行时仍停点，见[当前开发记录](docs/phase4-remaining-ii-review-2026-10-15.md)。正式升幕及高等级存档仍未开放。
 

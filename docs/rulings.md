@@ -841,6 +841,14 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **依据 / 边界**：官方 R10/R21/R29/R31、当前版 Hero STAT FRONT p5/p6、BACK p5 的完整页面图像及本轮明确批准。独立于旧四英雄 R-081，不批准其他英雄、技能效果、村庄 Scout Ahead 或死亡替换运行时。
 - **关联待确认**：Q-90，confirmed。
 
+### R-089
+
+- **编号**：R-089
+- **日期**：2026-10-16
+- **裁定（本项目限定审批）**：Kyries 明确回复“批准两行限定修正及完整效果”。仅在 `hero_skill:p046` Mark for Death I 与 `hero_skill:p061` Caltrops I 的目标框，将橙色图标 `763ad8e857` 解释为 Debuff。Mark for Death I：射程0–2，目标 Mark3t＋Debuff2t，自身仍 Buff2t；Caltrops I：保留 Crit1→2、Acc9→1、射程2，目标 Bleed2·3t＋Debuff1t。目标状态按命中施加，自身效果沿规则不受是否命中影响。
+- **依据 / 边界**：当前版技能 FRONT p46/p61 完整卡面、官方 R19–21 与[核图表](phase4-bounty-skills-2026-10-16.md)。p46 自身蓝色 `d4329c2a97` 仍是 Buff；保留原图标 ID、raw/parsed、全局词典与其他卡。只批准上述两张 I 级技能，不扩大到 II/III 或其余技能。
+- **关联待确认**：Q-91，confirmed。
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。
@@ -1132,3 +1140,8 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **问题 / 来源**：死亡补人当前缺少第五名已核实英雄。已目视当前版 Hero STAT FRONT p5/p6、BACK p5 及官方 R10/R21/R29/R31，赏金猎人三等级 Life/Dodge/Speed 和完整防御候选见[限定三行核对表](phase4-replacement-hero-review-2026-10-16.md) §2–3。III 级左栏 `c07ea0c507` 仍为 unreviewed，提出只在 `hero_stat:p006:front` 抗性栏解释为 Debuff 的候选，不能扩大 R-081 或改全局词典。
 - **处理 / 状态**：confirmed（R-088，2026-10-16）。Kyries 回复“批准三行属性与限定防御”，按 §2 三面单独入库；III 图标仅本卡左栏限定映射，不改词典或清除整卡未验证。技能、村庄能力和实际补人另开主题。
+
+### Q-91
+
+- **问题 / 来源**：当前版技能 FRONT p46 Mark for Death I、p61 Caltrops I 目标框橙色下双箭头 `763ad8e857` 与官方 R21 Debuff 图例一致，但词典 v1.8 为 buff。已查看七张 I 级技能完整卡面，具体两行限定修正与完整状态/时长见[核图表](phase4-bounty-skills-2026-10-16.md)。
+- **处理 / 状态**：confirmed（R-089，2026-10-16）。Kyries 回复“批准两行限定修正及完整效果”。仅上述两个 id 的目标框按 Debuff 解释；p46 自身蓝色箭头仍是 Buff，不改 raw/parsed、全局词典或其他卡，完整效果按核图表接线。
