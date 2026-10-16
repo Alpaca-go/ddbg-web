@@ -20450,10 +20450,10 @@
        "iconId": "763ad8e857",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "buff",
+       "key": "debuff",
        "kind": "status",
-       "meaning_en": "Buff",
-       "meaning_zh": "增益",
+       "meaning_en": "Debuff (R-089 card-specific)",
+       "meaning_zh": "减益（R-089本卡限定）",
        "value": null,
        "naming": "confirmed"
       }
@@ -20501,6 +20501,29 @@
       "text": " 2t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "mark",
+     "duration": 3
+    },
+    {
+     "lineIndex": 0,
+     "segmentIndex": 4,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 2
+    },
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 2
+    }
    ],
    "top_row_icons": [
     {
@@ -20567,6 +20590,11 @@
      "text": "Acc 10"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -27044,10 +27072,10 @@
        "iconId": "763ad8e857",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "buff",
+       "key": "debuff",
        "kind": "status",
-       "meaning_en": "Buff",
-       "meaning_zh": "增益",
+       "meaning_en": "Debuff (R-089 card-specific)",
+       "meaning_zh": "减益（R-089本卡限定）",
        "value": null,
        "naming": "confirmed"
       }
@@ -27057,6 +27085,23 @@
       "text": " 1t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 3,
+     "amount": 2
+    },
+    {
+     "lineIndex": 0,
+     "segmentIndex": 4,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 1
+    }
    ],
    "top_row_icons": [
     {

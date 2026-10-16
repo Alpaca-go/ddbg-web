@@ -22,6 +22,7 @@ import { attachVerifiedMonsterEffects } from "./verified-monster-effects";
 import { attachVerifiedMonsterStress } from "./verified-monster-stress";
 import { attachVerifiedMonsterDamage } from "./verified-monster-damage";
 import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
+import { attachVerifiedBountyStatuses } from "./verified-bounty-statuses";
 import { attachVerifiedHeroRanges } from "./verified-hero-ranges";
 import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 import { attachVerifiedHeroSupport } from "./verified-hero-support";
@@ -605,10 +606,12 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       const file = buildHeroSkills(input.heroSkills, input.heroSkillRaw, lookup);
       return normalizedHeroSkillFileSchema.parse({
         ...file,
-        cards: attachVerifiedHeroSupport(
-          attachVerifiedHeroDamage(
-            attachVerifiedHeroRanges(
-              attachVerifiedHeroStatuses(attachVerifiedHeroLayout(file.cards)),
+        cards: attachVerifiedBountyStatuses(
+          attachVerifiedHeroSupport(
+            attachVerifiedHeroDamage(
+              attachVerifiedHeroRanges(
+                attachVerifiedHeroStatuses(attachVerifiedHeroLayout(file.cards)),
+              ),
             ),
           ),
         ),

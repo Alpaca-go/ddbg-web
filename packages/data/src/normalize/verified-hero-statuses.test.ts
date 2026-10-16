@@ -6,9 +6,9 @@ import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 const cards = loadNormalizedCorebox().hero_skill.cards;
 
 describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
-  it("核实四核心 39 张状态卡，原未命名数字不变，Remove 的图标不误作施加", () => {
+  it("核实四核心39张及R-089两张状态卡，原未命名数字不变，Remove图标不误作施加", () => {
     const annotated = cards.filter((card) => card.verified_status_effects !== undefined);
-    expect(annotated).toHaveLength(39);
+    expect(annotated).toHaveLength(41);
     expect(annotated.every((card) => !card.verification.unverified)).toBe(true);
     expect(cards.find((card) => card.id === "hero_skill:p037")!.verified_status_effects).toEqual([
       { lineIndex: 1, segmentIndex: 6, scope: "self", kind: "buff", duration: 3 },
