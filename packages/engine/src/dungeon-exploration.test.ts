@@ -195,7 +195,11 @@ describe("单走廊 → Empty（R14–R15、R-012、R-013、R-026、R-048）", (
       ).state,
       "suffer",
     ).state;
-    expect(death.dungeon).toMatchObject({ position: "G", phase: "awaitingReplacement", cursor: 9 });
+    expect(death.dungeon).toMatchObject({
+      position: "G",
+      phase: "awaitingReplacement",
+      cursor: 9 + 4,
+    }); // R-091意志洗回。
     expect(death.dungeon!.heroes[0]!.dead).toBe(true);
   });
   it("首次到死门不掷骰；已在死门受伤消费一次骰，死亡冻结移动", () => {

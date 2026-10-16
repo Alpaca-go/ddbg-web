@@ -245,6 +245,9 @@ it("真实入口命令日志：走到房间后侦察至死亡，替补选择/初
     const save = createQuestSave(start, commands, game, coreQuestSources);
     expect(loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game).toEqual(game);
   };
+  const dead = game.dungeon!.heroes.filter((h) => h.dead);
+  expect(dead.every((h) => !h.resolveCardId && !h.diseaseId && !h.quirkIds?.length)).toBe(true);
+  saved(); // R-091：真实死亡后、尚未选择替补时也必须可正式回放。
   step(begin);
   saved();
   step({

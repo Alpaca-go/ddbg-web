@@ -629,17 +629,24 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
     )
   )
     return rejectBattleCommand(state, "被动效果需要已核实英雄等级（R-048）");
-  if (state.dungeon?.deathTrinketChoice)
-    return command.type === "resolveChoice"
-      ? chooseDeathTrinket(state, command.choiceId, command.optionId)
-      : rejectBattleCommand(state, "请先处置死者饰品（R31）");
+  if (state.dungeon?.deathTrinketChoice) {
+    const result =
+      command.type === "resolveChoice"
+        ? chooseDeathTrinket(state, command.choiceId, command.optionId)
+        : rejectBattleCommand(state, "请先处置死者饰品（R31）");
+    const refused = result.events.find((event) => event.type === "commandRefused");
+    return refused ? rejectBattleCommand(state, refused.message) : result;
+  }
   if (state.dungeon?.campaignFailure)
     return rejectBattleCommand(state, "等待英雄代币耗尽，战役已失败（R33）");
   if (state.dungeon?.replacementPreparation)
     return command.type === "resolveChoice"
       ? chooseReplacementPreparation(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先完成替补英雄准备（R31）");
-  const result = dispatchCommand(state, command);
+  const dispatched = dispatchCommand(state, command);
+  const result = dispatched.events.some((e) => e.type === "commandRefused")
+    ? dispatched
+    : continueDeathEstates(dispatched);
   const refused = result.events.find((event) => event.type === "commandRefused");
-  return refused ? rejectBattleCommand(state, refused.message) : continueDeathEstates(result);
+  return refused ? rejectBattleCommand(state, refused.message) : result;
 }

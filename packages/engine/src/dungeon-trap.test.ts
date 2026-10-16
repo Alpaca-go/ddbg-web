@@ -173,7 +173,7 @@ it.each([1, 4])("Fragile / Syphilis 附加在同批伤口；已在死门只掷�
   const health = result.events.filter((e) => e.type === "heroHealthResolved");
   expect(health).toHaveLength(1);
   expect(health[0]).toMatchObject({ effect: { amounts: [2, 1, 1] } });
-  expect(d.cursor).toBe(9);
+  expect(d.cursor).toBe(9 + (next <= 3 ? 10 + 17 : 0)); // R-091：死亡时疾病、负面怪癖洗回。
   expect(d.heroes[0]!.dead).toBe(next <= 3);
   expect(d.position).toBe("G");
   expect(d.phase).toBe(next <= 3 ? "awaitingReplacement" : "awaitingHazards");
@@ -194,7 +194,7 @@ it("自身骰面被动：Skilled Gambler 先恢复，Bad Gambler 致死中止，
   ).toBe(4);
   const dead = ok(attack(scene(10, { wounds: 17, quirkIds: [quirk("Bad Gambler")] }, 1, 5, 1)));
   expect(dead).toMatchObject({
-    cursor: 9,
+    cursor: 9 + 17, // R-091负面怪癖洗回，不增加死门骰。
     phase: "awaitingReplacement",
     heroes: [{ dead: true }, {}],
   });

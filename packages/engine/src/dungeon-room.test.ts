@@ -158,7 +158,7 @@ describe("Trap 房间（R15、R28–29、R-026、R-045）", () => {
     expect(result.state.dungeon).toMatchObject({
       position: "D",
       phase: "awaitingReplacement",
-      cursor: 7,
+      cursor: 7 + 4, // R-091：仅意志洗回，不掷心脏病骰。
     });
     expect(result.state.dungeon!.heroes[1]).toEqual(heroes[1]);
     expect(result.events.some((e) => e.type === "heartAttack")).toBe(true);
@@ -186,7 +186,7 @@ describe("Trap 房间（R15、R28–29、R-026、R-045）", () => {
     expect(dead.state.dungeon!.heroes[0]).toMatchObject({ stress: 10, wounds: 0, dead: true });
     expect(dead.state.dungeon).toMatchObject({
       phase: "awaitingReplacement",
-      cursor: 7,
+      cursor: 7 + 4, // R-091意志洗回。
       roomResolution: { resolvedHeroIds: ["h0"] },
     });
     expect(dead.state.dungeon!.roomResolution!.pendingAllocation).toBeUndefined();
@@ -222,7 +222,9 @@ describe("Trap 房间（R15、R28–29、R-026、R-045）", () => {
         wounds: 10,
         dead: faces[0] || faces[1],
       });
-      expect(result.state.dungeon!.cursor).toBe(faces[0] ? 8 : 9);
+      expect(result.state.dungeon!.cursor).toBe(
+        (faces[0] ? 8 : 9) + (faces[0] || faces[1] ? 17 : 0), // R-091：仅死亡时洗回负面怪癖。
+      );
       expect(result.events.filter((e) => e.type === "heroHealthResolved")).toHaveLength(
         faces[0] ? 1 : 2,
       );

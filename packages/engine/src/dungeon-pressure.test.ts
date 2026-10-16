@@ -91,13 +91,13 @@ describe("探索侦察压力恢复（R14、R28、R9）", () => {
     expect(result.state.dungeon!.heroes[1]!.resolveCardId).not.toBe(assigned);
     expect(Object.values(result.state.dungeon!.resolveDecks).flat()).not.toContain(assigned);
   });
-  it("已有意志卡到 10 直接心脏病，无 RNG，停在驿站替换接口", () => {
+  it("已有意志卡到10直接心脏病；本身不掷骰，仅R-091意志洗回消耗RNG，停在驿站替换接口", () => {
     const result = agree(
       setup([{ id: "h", stress: 9, resolveTested: true, resolveCardId: cards[0]!.id }]),
     );
     expect(result.state.dungeon).toMatchObject({
       phase: "awaitingReplacement",
-      cursor: 7,
+      cursor: 7 + 4,
       scoutBonus: false,
     });
     expect(result.state.dungeon!.heroes[0]).toMatchObject({ dead: true, stress: 10 });

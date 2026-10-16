@@ -303,7 +303,7 @@ it("压力被动导致死亡取消后续状态与金币，只支付一次死门�
   const result = resolve(changed);
   expect(result.state.dungeon).toMatchObject({
     phase: "awaitingReplacement",
-    cursor: d.cursor + 1,
+    cursor: d.cursor + 1 + 17, // 一次死门骰 + R-091负面怪癖洗回。
     gold: 0,
   });
   expect(result.state.dungeon!.heroes[0]).toMatchObject({ stress: 1, wounds: life, dead: true });

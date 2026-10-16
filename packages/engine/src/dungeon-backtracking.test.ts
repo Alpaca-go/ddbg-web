@@ -145,7 +145,7 @@ describe("普通走廊原路返回（R14–15、R28）", () => {
     expect(result.state.dungeon).toMatchObject({
       phase: "awaitingReplacement",
       position: "D",
-      cursor: 7,
+      cursor: 7 + 4, // R-091：五张意志卡洗回；心脏病本身不掷骰。
     });
     expect(result.events.some((e) => e.type === "heartAttack")).toBe(true);
     for (const type of ["beginDungeonBacktrack", "rollDungeonExploration"] as const)
