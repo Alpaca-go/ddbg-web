@@ -65,7 +65,10 @@ export function BattleView({
   const turn = battle.encounter?.turn;
   const actor =
     turn && "actorId" in turn ? battle.entities.find((e) => e.id === turn.actorId) : undefined;
-  const pending = game.dungeon?.deathTrinketChoice ?? battle.pending?.choice;
+  const pending =
+    game.dungeon?.deathTrinketChoice ??
+    game.dungeon?.replacementPreparation?.choice ??
+    battle.pending?.choice;
   const pendingArea =
     battle.pending?.type === "shuffleArea" || battle.pending?.type === "monsterMove";
   const shuffled = battle.shuffleIntents[0];
@@ -496,6 +499,26 @@ export function BattleView({
               开始战斗
             </button>
           )}
+          {game.dungeon &&
+            battle.entities.some(
+              (h) =>
+                h.side === "hero" &&
+                h.dead &&
+                !game.dungeon!.preparedReplacements?.some((p) => p.deadHeroId === h.id),
+            ) && (
+              <button
+                disabled={
+                  !!game.dungeon.deathTrinketChoice ||
+                  !!game.dungeon.replacementPreparation ||
+                  !!game.dungeon.campaignFailure
+                }
+                onClick={() => send({ type: "prepareReplacementHero" })}
+              >
+                准备驿站替补
+              </button>
+            )}
+          {game.dungeon?.campaignFailure && <p>等待英雄代币耗尽，战役失败（R33）。</p>}
+          {!!game.dungeon?.preparedReplacements?.length && <p>替补已准备，等待战斗结束后入队。</p>}
           {turn?.type === "awaitingInitiative" && !frozen && (
             <button onClick={() => send({ type: "drawInitiative" })}>抽取先攻</button>
           )}

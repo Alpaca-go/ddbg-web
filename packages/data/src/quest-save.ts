@@ -6,6 +6,7 @@ const shuffle = z.enum(["push", "pull"]);
 const noPayload = z.strictObject({
   type: z.enum([
     "rollDungeonProvisions",
+    "prepareReplacementHero",
     "restDungeon",
     "summarizeDungeonQuest",
     "startDungeonBattle",

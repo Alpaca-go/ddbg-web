@@ -530,7 +530,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
     useDungeonStore();
   const [provisionTarget, setProvisionTarget] = useState("hero-0");
   const d = game.dungeon!;
-  const pendingChoice = d.deathTrinketChoice ?? d.pending;
+  const pendingChoice = d.deathTrinketChoice ?? d.replacementPreparation?.choice ?? d.pending;
   const hamletCard = currentHamletEvent(game);
   if (game.battle)
     return (
@@ -1441,6 +1441,20 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                 .map((r) => `${r.id} ${r.face}${r.resolved ? "（已结算）" : "（待结算）"}`)
                 .join(" · ")}
             </p>
+          )}
+          {d.campaignFailure && <p>等待英雄代币耗尽，战役失败（R33）。</p>}
+          {d.heroes.some(
+            (h) => h.dead && !d.preparedReplacements?.some((p) => p.deadHeroId === h.id),
+          ) && (
+            <button
+              disabled={!!d.deathTrinketChoice || !!d.replacementPreparation || !!d.campaignFailure}
+              onClick={() => dispatch({ type: "prepareReplacementHero" })}
+            >
+              准备驿站替补
+            </button>
+          )}
+          {!!d.preparedReplacements?.length && (
+            <p>已准备{d.preparedReplacements.length}名替补，等待入队续接。</p>
           )}
           {pendingChoice && (
             <div>
