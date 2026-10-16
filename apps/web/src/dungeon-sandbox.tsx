@@ -1059,7 +1059,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                           );
                         })}
                       </section>
-                      <p>铁匠已接下次任务临时技能记录；游商II/III陈列继续开发。</p>
+                      <p>铁匠记录下次任务临时技能；游商按建筑等级陈列 I–III 级饰品。</p>
                       {!!d.hamlet?.weekBlockedBuildings?.length && (
                         <p data-testid="hamlet-week-blocked">
                           Labor Force：本次村庄准备期间不可访问
@@ -1142,11 +1142,11 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                 <section aria-label="村庄事件" data-testid="hamlet-event">
                   {d.trinkets?.display !== undefined && (
                     <p data-testid="nomad-display">
-                      游商I陈列：
+                      游商陈列：
                       {d.trinkets.display
                         .map((id) => {
                           const card = d.trinkets!.cards.find((c) => c.id === id)!;
-                          return `${card.name}${card.verification.unverified ? "（待核实，暂不可购买）" : "（4 金）"}`;
+                          return `${card.name} ${["I", "II", "III"][card.level - 1]}${card.verification.unverified ? "（待核实，暂不可购买）" : `（${2 + 2 * card.level} 金）`}`;
                         })
                         .join(" · ") || "已售空，不补货"}
                     </p>
@@ -1279,7 +1279,9 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                                 })
                               }
                             >
-                              访问游商马车I：陈列与购买饰品
+                              访问游商马车
+                              {["I", "II", "III"][(d.buildingLevels?.nomadWagon ?? 1) - 1]}
+                              ：陈列与购买饰品
                             </button>
                           )}
                         {blacksmithOptions(game).map((option) => (

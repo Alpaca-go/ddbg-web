@@ -9,7 +9,7 @@ import { createLootState } from "./loot";
 import { createRng } from "./rng";
 import { buildingLevelsProblem } from "./hamlet-buildings";
 import { conditionPoolProblem } from "./conditions";
-import { trinketPoolProblem } from "./trinket-acquisition";
+import { trinketPoolProblem, trinketDeck, setTrinketDeck } from "./trinket-acquisition";
 import { heroSkillSlotCount } from "./hero-loadout";
 import { readCampaignLevel } from "./hamlet-campaign";
 
@@ -120,12 +120,22 @@ function washNomadDisplay(
   cursor: number,
 ) {
   if (pool.display === undefined) return { pool, cursor };
-  const shuffled = shuffleIds([...(pool.deck ?? []), ...pool.display], seed, cursor);
-  const { display: _display, ...rest } = pool;
+  let next = pool;
+  for (const level of [pool.level, ...(pool.inactive ?? []).map((p) => p.level)]) {
+    const display = pool.display.filter((id) =>
+      pool.cards.some((c) => c.id === id && c.level === level),
+    );
+    // 保持旧I级已买空陈列的洗牌序列；非当前级无陈列不消费RNG。
+    if (!display.length && (level !== pool.level || pool.level !== 1)) continue;
+    const shuffled = shuffleIds([...trinketDeck(next, level)!.deck, ...display], seed, cursor);
+    next = setTrinketDeck(next, level, shuffled.deck);
+    cursor = shuffled.cursor;
+  }
+  const { display: _display, ...rest } = next;
   void _display;
   return {
-    pool: { ...rest, deck: shuffled.deck, incoming: null },
-    cursor: shuffled.cursor,
+    pool: { ...rest, incoming: null },
+    cursor,
   };
 }
 

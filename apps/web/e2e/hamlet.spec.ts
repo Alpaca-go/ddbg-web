@@ -10,6 +10,7 @@ import type { laborQuest } from "../../../packages/engine/src/test-helpers/labor
 import type { nomadQuest } from "../../../packages/engine/src/test-helpers/nomad-quest";
 import type { nomadSaleQuest } from "../../../packages/engine/src/test-helpers/nomad-sale-quest";
 import type { guildQuest } from "../../../packages/engine/src/test-helpers/guild-quest";
+import type { nomadUpgradeQuest } from "../../../packages/engine/src/test-helpers/nomad-upgrade-quest";
 
 test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存刷新", async ({
   page,
@@ -29,6 +30,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   let nomad: ReturnType<typeof nomadQuest>;
   let nomadSale: ReturnType<typeof nomadSaleQuest>;
   let guild: ReturnType<typeof guildQuest>;
+  let higherNomad: ReturnType<typeof nomadUpgradeQuest>, higherNomadSave: QuestSave;
   try {
     const helpers = await server.ssrLoadModule(
       fileURLToPath(
@@ -108,6 +110,30 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
       ...battleData,
       trinkets: sourceHelpers.coreQuestSources.catalog.trinkets,
     });
+    const higherHelper = await server.ssrLoadModule(
+      fileURLToPath(
+        new URL(
+          "../../../packages/engine/src/test-helpers/nomad-upgrade-quest.ts",
+          import.meta.url,
+        ),
+      ),
+    );
+    higherNomad = higherHelper.nomadUpgradeQuest(3, {
+      ...battleData,
+      trinkets: sourceHelpers.coreQuestSources.catalog.trinkets,
+    });
+    const saveModule = await server.ssrLoadModule(
+      fileURLToPath(new URL("../../../packages/engine/src/quest-save.ts", import.meta.url)),
+    );
+    higherNomadSave = saveModule.createQuestSave(
+      higherNomad.start,
+      higherNomad.commands,
+      higherNomad.game,
+      {
+        ...sourceHelpers.coreQuestSources,
+        catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
+      },
+    );
     const guildHelper = await server.ssrLoadModule(
       fileURLToPath(
         new URL("../../../packages/engine/src/test-helpers/guild-quest.ts", import.meta.url),
@@ -577,4 +603,33 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await expect(page.getByTestId("guild-skills")).toContainText("Smite 2");
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
   await page.screenshot({ path: testInfo.outputPath("guild-smite-saved.png"), fullPage: true });
+  // 同一条村庄冒烟：真实金币升级游商III，跨等级陈列/付款待选保存刷新。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(higherNomadSave),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "访问游商马车III：陈列与购买饰品", exact: true }).click();
+  await expect(page.getByTestId("nomad-display")).toContainText(" III");
+  await expect(page.getByTestId("nomad-display")).toContainText(" II");
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("nomad-display")).toContainText(" III");
+  const purchase = page.getByRole("button", { name: /^购买 / }).last();
+  const price = Number((await purchase.innerText()).match(/（(\d+) 金）/)![1]);
+  await purchase.click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${higherNomad.game.dungeon!.gold - price}`,
+  );
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: /^hero-0 装备 / }).click();
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${higherNomad.game.dungeon!.gold - price}`,
+  );
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
+  await page.screenshot({ path: testInfo.outputPath("nomad-iii-saved.png"), fullPage: true });
 });
