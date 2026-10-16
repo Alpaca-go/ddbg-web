@@ -16,7 +16,7 @@ function bonusProvisionId(heroId: string, index: number) {
   return `dungeon-bonus-provision:${heroId}:${index}`;
 }
 
-/** R12、R37 / 规格书§5.2、§16：开局八颗；Wild和Radiant自选不消费RNG。R-041：奖励骰在常规八颗之后逐颗掷出，池满16即停。 */
+/** R12/R37：常规八颗；R-087掷前取消两颗。Wild/Radiant自选不消费RNG，R-041奖励逐颗加入至16。 */
 export function setupDungeonProvisions(
   state: GameState,
   command: Extract<Command, { type: "rollDungeonProvisions" | "resolveChoice" }>,
@@ -46,6 +46,113 @@ export function setupDungeonProvisions(
     d.rooms.some((r) => r.revealed || r.cleared)
   )
     return refuse();
+  const omitted = d.startingProvisionOmittedIds ?? [];
+  if (d.nextQuestPartyProvisionDice !== undefined && d.nextQuestPartyProvisionDice !== 2)
+    return refuse();
+  if (
+    d.heroes.some(
+      (h) =>
+        h.nextQuestProvisionDice !== undefined &&
+        (!Number.isSafeInteger(h.nextQuestProvisionDice) ||
+          h.nextQuestProvisionDice < 0 ||
+          !Number.isSafeInteger(h.nextQuestProvisionDice + 8)),
+    )
+  )
+    return refuse();
+  if (
+    !Array.isArray(omitted) ||
+    omitted.length > 2 ||
+    new Set(omitted).size !== omitted.length ||
+    omitted.some((id) => !baseProvisionIds().includes(id)) ||
+    (d.nextQuestLostShipment !== undefined && d.nextQuestLostShipment !== true) ||
+    (!d.nextQuestLostShipment && omitted.length !== 0 && omitted.length !== 2)
+  )
+    return refuse();
+  if (d.nextQuestLostShipment) {
+    if (
+      d.explorationSetup.provisions.length ||
+      d.startingProvisionChoices ||
+      omitted.length >= 2 ||
+      !Number.isSafeInteger(d.decision + 2)
+    )
+      return refuse();
+    let cancelled = omitted;
+    let cancelledLabel: string | undefined;
+    if (command.type === "rollDungeonProvisions") {
+      if (d.pending || omitted.length) return refuse();
+    } else {
+      if (
+        !d.pending?.id.startsWith("dungeon-lost-shipment:") ||
+        d.pending.id !== command.choiceId ||
+        d.pending.actorId !== "party" ||
+        !d.pending.options.some((o) => o.id === command.optionId) ||
+        !baseProvisionIds().includes(command.optionId) ||
+        omitted.includes(command.optionId)
+      )
+        return refuse();
+      cancelled = [...omitted, command.optionId];
+      cancelledLabel = d.pending.options.find((o) => o.id === command.optionId)!.label;
+    }
+    if (cancelled.length === 2) {
+      const { nextQuestLostShipment: _plan, ...remaining } = d;
+      void _plan;
+      const rolled = setupDungeonProvisions(
+        {
+          ...state,
+          dungeon: { ...remaining, pending: null, startingProvisionOmittedIds: cancelled },
+        },
+        { type: "rollDungeonProvisions" },
+      );
+      return rolled.events.some((e) => e.type === "commandRefused")
+        ? refuse()
+        : {
+            ...rolled,
+            events: [
+              {
+                type: "dungeonUpdated",
+                message: `Lost Shipment：${cancelledLabel}；两颗取消完成（R-087）`,
+              },
+              ...rolled.events,
+            ],
+          };
+    }
+    const pending = {
+      id: `dungeon-lost-shipment:${d.decision}`,
+      actorId: "party",
+      prompt: `Lost Shipment：掷骰前取消第${cancelled.length + 1}颗常规补给（共2颗，R-087）`,
+      options: STANCES.flatMap((stance, i) =>
+        [0, 1].flatMap((index) => {
+          const id = `dungeon-starting-provision:${stance}:${index}`;
+          return cancelled.includes(id)
+            ? []
+            : [
+                {
+                  id,
+                  label: `取消${["进攻", "防御", "远程", "支援"][i]}姿态英雄的第${index + 1}颗${d.mode === "radiant" && index === 1 ? "自选骰" : "掷出骰"}`,
+                },
+              ];
+        }),
+      ),
+    };
+    return {
+      state: {
+        ...state,
+        dungeon: {
+          ...d,
+          startingProvisionOmittedIds: cancelled,
+          pending,
+          decision: d.decision + 1,
+        },
+      },
+      events: [
+        {
+          type: "dungeonUpdated",
+          message: `${cancelledLabel ? `Lost Shipment：${cancelledLabel}；` : ""}${pending.prompt}`,
+        },
+      ],
+      pendingChoice: pending,
+    };
+  }
   const finish = (next: DungeonState, events: readonly GameEvent[]): ApplyResult => {
     const first = next.startingProvisionChoices?.[0];
     if (first) {
@@ -69,10 +176,12 @@ export function setupDungeonProvisions(
         pendingChoice: pending,
       };
     }
-    if (next.nextQuestProvisionFaceChoice) {
+    const { startingProvisionOmittedIds: _omitted, ...completed } = next;
+    void _omitted;
+    if (completed.nextQuestProvisionFaceChoice) {
       const merchant = beginTravelingMerchantsChoice({
         ...state,
-        dungeon: { ...next, pending: null },
+        dungeon: { ...completed, pending: null },
       });
       return {
         ...merchant,
@@ -83,7 +192,7 @@ export function setupDungeonProvisions(
       state: {
         ...state,
         dungeon: {
-          ...next,
+          ...completed,
           pending: null,
           decision: next.decision + 1,
           phase: "ready",
@@ -101,17 +210,6 @@ export function setupDungeonProvisions(
   const provisions = d.explorationSetup.provisions;
   if (command.type === "rollDungeonProvisions") {
     if (d.pending || d.startingProvisionChoices || provisions.length) return refuse();
-    if (d.nextQuestPartyProvisionDice !== undefined && d.nextQuestPartyProvisionDice !== 2)
-      return refuse();
-    if (
-      d.heroes.some((h) => {
-        const n = h.nextQuestProvisionDice;
-        return (
-          n !== undefined && (!Number.isSafeInteger(n) || n < 0 || !Number.isSafeInteger(n + 8))
-        );
-      })
-    )
-      return refuse();
     const pool: { id: string; face: ProvisionFace }[] = [];
     const choices: { id: string; actorId: string }[] = [];
     const events: GameEvent[] = [];
@@ -120,6 +218,7 @@ export function setupDungeonProvisions(
       const actorId = d.heroes.find((h) => h.stance === stance)!.id;
       for (let index = 0; index < 2; index++) {
         const id = `dungeon-starting-provision:${stance}:${index}`;
+        if (omitted.includes(id)) continue;
         if (d.mode === "radiant" && index === 1) {
           choices.push({ id, actorId });
           continue;
@@ -192,7 +291,7 @@ export function setupDungeonProvisions(
   const choices = d.startingProvisionChoices;
   const first = choices?.[0];
   const ids = [...provisions.map((p) => p.id), ...(choices ?? []).map((p) => p.id)];
-  const expectedBase = baseProvisionIds();
+  const expectedBase = baseProvisionIds().filter((id) => !omitted.includes(id));
   const bonusIds = ids.filter((id) => id.startsWith("dungeon-bonus-provision:"));
   const partyIds = ["dungeon-party-provision:0", "dungeon-party-provision:1"];
   if (
@@ -203,7 +302,7 @@ export function setupDungeonProvisions(
     d.pending.actorId !== first.actorId ||
     !PROVISION_FACES.includes(command.optionId as ProvisionFace) ||
     !d.pending.options.some((o) => o.id === command.optionId) ||
-    ids.length < 8 ||
+    ids.length < expectedBase.length ||
     ids.length > 16 ||
     new Set(ids).size !== ids.length ||
     expectedBase.some((id) => !ids.includes(id)) ||

@@ -72,6 +72,17 @@ export function buildHamletEvents(raw: RawFile) {
             ]))
       )
         throw new Error("The Feast身份或完整效果行漂移（R-048/R-085/R-086）");
+      if (
+        i === 2 &&
+        (card.id !== "hamlet_event:p003" ||
+          front.page !== 3 ||
+          match[1] !== "61587999f3" ||
+          match[2] !== "4" ||
+          match[3] !== "Lost Shipment" ||
+          JSON.stringify(effectLines) !==
+            JSON.stringify(["Party rolls -2 {icon:d712688f15}", "before the next Quest."]))
+      )
+        throw new Error("Lost Shipment身份或完整效果行漂移（R-048/R-085/R-087）");
       return {
         id: card.id,
         name: match[3],
@@ -93,33 +104,35 @@ export function buildHamletEvents(raw: RawFile) {
             ? "supplyRun"
             : i === 1
               ? "noCaretaker"
-              : i === 3
-                ? "unsettlingDarkness"
-                : i === 4
-                  ? "none"
-                  : i === 5
-                    ? "laborForce"
-                    : i === 6
-                      ? "townFair"
-                      : i === 7
-                        ? "travelingMerchants"
-                        : i === 8
-                          ? "gypsyTrail"
-                          : i === 9
-                            ? "feast"
-                            : i === 10
-                              ? "removeDisease"
-                              : i === 11
-                                ? "removeQuirks"
-                                : i === 12
-                                  ? "extraBlock"
-                                  : i === 13
-                                    ? "inGoodSpirits"
-                                    : i === 14
-                                      ? "guildTraining"
-                                      : i === 15
-                                        ? "militiaTraining"
-                                        : "unimplemented",
+              : i === 2
+                ? "lostShipment"
+                : i === 3
+                  ? "unsettlingDarkness"
+                  : i === 4
+                    ? "none"
+                    : i === 5
+                      ? "laborForce"
+                      : i === 6
+                        ? "townFair"
+                        : i === 7
+                          ? "travelingMerchants"
+                          : i === 8
+                            ? "gypsyTrail"
+                            : i === 9
+                              ? "feast"
+                              : i === 10
+                                ? "removeDisease"
+                                : i === 11
+                                  ? "removeQuirks"
+                                  : i === 12
+                                    ? "extraBlock"
+                                    : i === 13
+                                      ? "inGoodSpirits"
+                                      : i === 14
+                                        ? "guildTraining"
+                                        : i === 15
+                                          ? "militiaTraining"
+                                          : "unimplemented",
       };
     }),
   });

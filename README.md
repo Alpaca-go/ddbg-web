@@ -25,7 +25,7 @@ pnpm build
 
 接手开发先读 [Codex 总交接](docs/HANDOFF-FROM-CODEX-2026-10-09.md) 顶部的当前入口与最近提交补记；跨代理背景见 [交给 Codex 的说明](docs/HANDOFF-TO-CODEX-2026-10-09.md)。历史段落中的分支 / 合并状态不覆盖当前入口。
 
-本轮补记：#209已合并（main `b9c0af4`）。当前按R-086接The Feast逐英雄完全恢复一轨、最后洗回/一天准备与正式存档，村庄事件15/16，见[当前开发记录](docs/phase4-feast-2026-10-16.md)。唯一剩余Lost Shipment仍待Q-88。Phase4尚未验收完成，未进入Phase5。
+本轮补记：#210已合并（main `b8e4f03`）。当前按R-087接Lost Shipment队伍掷前取消两颗常规补给（可含Radiant自选）、建筑奖励照常及存档续接，村庄事件16/16，见[当前开发记录](docs/phase4-lost-shipment-2026-10-16.md)。Q-79/Q-80及Phase4其余验收缺口仍保留，未进入Phase5。
 
 最新补记：#200/#201已合并（main `46ff57a`）；跨等级饰品弃装与旧池回收已接。#202按R-083接四种II级怪物获批基础字段及Captain/Gargoyle完整入场（含常驻Protection），Rattler/Ghoul额外运行时仍停点，见[当前开发记录](docs/phase4-remaining-ii-review-2026-10-15.md)。正式升幕及高等级存档仍未开放。
 
