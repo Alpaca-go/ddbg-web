@@ -8,6 +8,31 @@ import { trinketPoolProblem, switchTrinketDungeonLevel } from "./trinket-acquisi
 import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
 import cards from "../../data/normalized/corebox/trinket.json";
 import { createBattleState } from "./battle";
+import { readHeroPassiveDefence } from "./battle-skill-status";
+
+it("R-094仅属性获批和七技能转录通过的瘟疫医生仍不作为完整可用替补", () => {
+  const game = createCoreDungeonQuest(4, "quest:p001", "standard", coreParty, coreQuestSources);
+  expect(
+    coreQuestSources.catalog.heroStats.some(
+      (s) => s.name === "PLAGUE DOCTOR" && s.attributesVerified,
+    ),
+  ).toBe(true);
+  expect(
+    coreQuestSources.catalog.skills.filter(
+      (s) => s.hero === "PLAGUE DOCTOR" && s.level === 1 && !s.verification.unverified,
+    ),
+  ).toHaveLength(7);
+  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual(["BOUNTY HUNTER"]);
+  const battle = { heroStats: coreQuestSources.catalog.heroStats };
+  expect(
+    readHeroPassiveDefence(battle, { heroStatId: "hero_stat:p013:front" })!.resistances,
+  ).toEqual(["blight"]);
+  expect(readHeroPassiveDefence(battle, { heroStatId: "hero_stat:p014:front" })).toMatchObject({
+    resistances: [],
+    immunities: ["blight"],
+    diseaseImmune: true,
+  });
+});
 
 function ok(game: GameState, command: Command) {
   const r = applyCommand(game, command);

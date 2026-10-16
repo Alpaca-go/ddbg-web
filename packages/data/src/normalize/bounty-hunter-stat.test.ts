@@ -67,10 +67,10 @@ it("R-088三面独立黄金值、完整防御与实际批准日期；旧批准�
       },
     ],
   ]);
-  expect(built.cards).toHaveLength(15);
+  expect(built.cards.filter((c) => c.name !== "PLAGUE DOCTOR")).toHaveLength(15);
   expect(
     built.cards
-      .filter((c) => c.name !== "BOUNTY HUNTER")
+      .filter((c) => !["BOUNTY HUNTER", "PLAGUE DOCTOR"].includes(c.name))
       .every((c) => c.approval === "kyries_review_2026-10-10"),
   ).toBe(true);
   expect(cards[0]!.verified_buff_defence).toEqual({

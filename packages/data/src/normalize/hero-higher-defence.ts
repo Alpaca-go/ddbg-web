@@ -4,12 +4,16 @@ import type { RawFile } from "../extract/raw";
 const condition = z.enum(["stun", "bleed", "blight", "debuff", "shuffle", "disease"]);
 export const higherHeroDefenceSchema = z.strictObject({
   resistances: z.array(condition).max(3),
-  immunities: z.array(condition).max(1),
+  immunities: z.array(condition).max(2),
   source: z.enum(["print_front", "print_back"]),
-  approval: z.enum(["kyries_review_2026-10-15", "kyries_review_2026-10-16"]),
+  approval: z.enum([
+    "kyries_review_2026-10-15",
+    "kyries_review_2026-10-16",
+    "kyries_review_2026-10-17",
+  ]),
 });
 export type HigherHeroDefence = z.infer<typeof higherHeroDefenceSchema>;
-/** R-081八张与R-088赏金猎人两张，分别限定卡与左右栏；不改全局词典。 */
+/** R-081/R-088/R-094分批限定卡与左右栏；不改全局词典。 */
 export const higherHeroDefenceApprovals = [
   {
     id: "hero_stat:p001:back",
@@ -114,6 +118,23 @@ export const higherHeroDefenceApprovals = [
     ],
     immunities: [],
   },
+  {
+    id: "hero_stat:p013:back",
+    name: "PLAGUE DOCTOR",
+    level: 2,
+    resistances: [["40bb356305", "blight"]],
+    immunities: [["28b10f3fb7", "disease"]],
+  },
+  {
+    id: "hero_stat:p014:front",
+    name: "PLAGUE DOCTOR",
+    level: 3,
+    resistances: [],
+    immunities: [
+      ["8510428636", "blight"],
+      ["28b10f3fb7", "disease"],
+    ],
+  },
 ] as const;
 export function approvedHigherDefence(id: string): HigherHeroDefence | undefined {
   const row = higherHeroDefenceApprovals.find((r) => r.id === id);
@@ -123,7 +144,11 @@ export function approvedHigherDefence(id: string): HigherHeroDefence | undefined
         immunities: row.immunities.map((r) => r[1]),
         source: id.endsWith(":back") ? "print_back" : "print_front",
         approval:
-          row.name === "BOUNTY HUNTER" ? "kyries_review_2026-10-16" : "kyries_review_2026-10-15",
+          row.name === "PLAGUE DOCTOR"
+            ? "kyries_review_2026-10-17"
+            : row.name === "BOUNTY HUNTER"
+              ? "kyries_review_2026-10-16"
+              : "kyries_review_2026-10-15",
       }
     : undefined;
 }
