@@ -15,6 +15,7 @@ import { beginGuildTraining, beginMilitiaTraining } from "./hamlet-guild-trainin
 import { applyInGoodSpirits } from "./hamlet-in-good-spirits";
 import type { DungeonState } from "./dungeon";
 import { applySupplyRun } from "./hamlet-supply-run";
+import { beginFeast } from "./hamlet-feast";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;
 export type HamletEventState = {
@@ -38,7 +39,7 @@ export type HamletEventState = {
   readonly remainingDays?: number;
   /** Labor Force：整个本次村庄准备期间不能访问，独立于每日看守人。 */
   readonly weekBlockedBuildings?: readonly string[];
-  /** 当前事件尚未选择的英雄，与准备日行动分开；仅Caregivers使用。 */
+  /** 当前事件尚未选择的英雄，与准备日行动分开。 */
   readonly eventRemainingHeroes?: readonly string[];
 };
 function shuffle(ids: readonly string[], seed: number, cursor: number) {
@@ -114,6 +115,7 @@ export function drawHamletEvent(state: GameState): ApplyResult {
       }
     : null;
   const deferred = [
+    "feast",
     "supplyRun",
     "removeQuirks",
     "townFair",
@@ -145,23 +147,25 @@ export function drawHamletEvent(state: GameState): ApplyResult {
   void _memory;
   if (deferred.includes(card.runtime)) {
     const apply =
-      card.runtime === "supplyRun"
-        ? applySupplyRun
-        : card.runtime === "removeQuirks"
-          ? beginCaregiversConvention
-          : card.runtime === "laborForce"
-            ? beginLaborForce
-            : card.runtime === "unsettlingDarkness"
-              ? applyUnsettlingDarkness
-              : card.runtime === "travelingMerchants"
-                ? applyTravelingMerchants
-                : card.runtime === "guildTraining"
-                  ? beginGuildTraining
-                  : card.runtime === "militiaTraining"
-                    ? beginMilitiaTraining
-                    : card.runtime === "inGoodSpirits"
-                      ? applyInGoodSpirits
-                      : applyTownFair;
+      card.runtime === "feast"
+        ? beginFeast
+        : card.runtime === "supplyRun"
+          ? applySupplyRun
+          : card.runtime === "removeQuirks"
+            ? beginCaregiversConvention
+            : card.runtime === "laborForce"
+              ? beginLaborForce
+              : card.runtime === "unsettlingDarkness"
+                ? applyUnsettlingDarkness
+                : card.runtime === "travelingMerchants"
+                  ? applyTravelingMerchants
+                  : card.runtime === "guildTraining"
+                    ? beginGuildTraining
+                    : card.runtime === "militiaTraining"
+                      ? beginMilitiaTraining
+                      : card.runtime === "inGoodSpirits"
+                        ? applyInGoodSpirits
+                        : applyTownFair;
     const result = apply({
       ...state,
       dungeon: { ...dungeonBase, cursor: drawn.cursor, hamlet },
