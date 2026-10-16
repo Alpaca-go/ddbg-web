@@ -35,4 +35,6 @@ Kyries 明确回复“批准两行限定修正及完整效果”（2026-10-16）
 
 ## 后续边界
 
+本轮草稿 PR：[#214](https://github.com/Alpaca-go/ddbg-web/pull/214)，实现提交 `af41d97`。已通过 typecheck、ESLint、改动文件 Prettier、build 与 `git diff --check`；生成前后231张技能中只有 p46/p61 改变。根 lint 会扫描本地未跟踪旧资料，本轮没有格式化这些资料；也未改本地8080。此次没有 UI 改动且不是阶段末尾，未重跑 Playwright。全量测试首轮1214通过、1项旧射程卡清单预期失败；补入 R-089 的 p46 后，复跑143个文件、1215项测试全部通过（323.27秒）。
+
 本小主题优先完整接 Mark for Death I / Caltrops I。其余五张继续独立接线：Collect Bounty 双条件与 Finish Him 的 Stun 条件不套用现有 marked/unholy 单条件注解；Come Hither / Uppercut / Flashbang 需完整状态与目标位移、分支选择续接。未完成前不开放赏金猎人完整英雄入口、不伪装死亡补人已可用；II/III、Scout Ahead、死亡名单/饰品让渡/继承XP/免费升级仍后续。Q-79/Q-80 保持 pending，未进 Phase 5。
