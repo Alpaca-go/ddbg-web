@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-17）：#231已合并为main `58eb6a7`。当前`codex/phase4-experimental-vapours`接瘟疫医生三等级村庄能力：指定英雄治疗4/7/9、除病、压力+3，一次村庄行动；含压力待选/死亡补人续接与combat同步。见[本轮记录](phase4-experimental-vapours-2026-10-17.md)。七张I级技能与村庄能力已接，尚未开放候选；下一主题正式第六名候选、网页目录与旧档兼容、多次死亡验收。保持Phase4，Q-79/Q-80等边界保留。下文为历史记录。
+
 > 当前入口（2026-10-17）：#230已合并为main `8dcf03a`。当前`codex/phase4-disorienting-blast`按完整p145接Disorienting Blast I的Push2/Pull2与Stun1t，保留原两行并附限定scopeLineIndex；复用掷前方向/落点待选与一次RNG/行动，缺状态注解不再部分执行位移。见[本轮记录](phase4-disorienting-blast-2026-10-17.md)。瘟疫医生七张I级技能已接；下一主题Experimental Vapours村庄能力，随后正式候选目录与旧档兼容，尚未开放候选。保持Phase4，Q-79/Q-80等边界保留。下文为历史记录。
 
 > 当前入口（2026-10-17）：#229已合并为main `8a05fd5`。当前`codex/phase4-plague-support-skills`接Emboldening Vapours I完整Buff3t及已核目标行，并验收Battlefield Medicine I公开治疗/清状态命令。p142完整卡面为四姿态可用，修正旧核对表的R/S转写，原数据/词典正确。见[本轮记录](phase4-plague-support-skills-2026-10-17.md)。瘟疫医生六张I级技能已接；下一主题Disorienting Blast I位移/Stun，再接Experimental Vapours村庄能力后才开放候选。Phase4及Q-79/Q-80等边界保留。下文为历史记录。

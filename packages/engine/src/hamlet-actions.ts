@@ -7,6 +7,7 @@ import { passiveHeal, passiveStress } from "./passive";
 import { applyPassiveStatus } from "./passive-runtime";
 import { statusProjection } from "./status";
 import { useScoutAhead } from "./hamlet-scout-ahead";
+import { useExperimentalVapours, experimentalVapoursHealing } from "./hamlet-experimental-vapours";
 import {
   buildingLevelsProblem,
   recoveryServices,
@@ -17,6 +18,12 @@ import { grantGraveyardVirtue } from "./hamlet-graveyard";
 import type { RecoveryServiceId, SurvivalistServiceId } from "./hamlet-buildings";
 
 export type HamletActionCommand =
+  | {
+      readonly type: "useHamletSkill";
+      readonly actorId: string;
+      readonly skill: "experimentalVapours";
+      readonly targetId: string;
+    }
   | {
       readonly type: "visitHamletBuilding";
       readonly actorId: string;
@@ -122,6 +129,8 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
     message: string;
   let pending: PendingChoice | undefined;
   if (command.type === "useHamletSkill") {
+    if (command.skill === "experimentalVapours")
+      return useExperimentalVapours(state, hero, command.targetId);
     if (command.skill === "scoutAhead") return useScoutAhead(state, hero);
     const stat = d.battleCatalog?.heroStats.find((s) => s.id === hero.heroStatId);
     if (
@@ -419,6 +428,16 @@ export function hamletActionOptions(state: GameState) {
       command: { type: "useHamletSkill", actorId: hero.id, skill: "chant" },
     },
   );
+  for (const target of state.dungeon!.heroes)
+    options.push({
+      label: `Experimental Vapours：${target.id}治疗${experimentalVapoursHealing(hero.heroStatId ?? "")}、移除疾病、压力+3`,
+      command: {
+        type: "useHamletSkill",
+        actorId: hero.id,
+        skill: "experimentalVapours",
+        targetId: target.id,
+      },
+    });
   return options.filter(
     (o) => !applyHamletAction(state, o.command).events.some((e) => e.type === "commandRefused"),
   );

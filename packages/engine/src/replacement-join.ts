@@ -10,6 +10,7 @@ import { awaitDungeonRoomCurio } from "./dungeon-curio-room";
 import { resolveCurioRows } from "./dungeon-curio-effects";
 import { resumeHamletConversion, settleHamletProvisions } from "./hamlet-return";
 import { finishHamletAction } from "./hamlet-actions";
+import { completeExperimentalVapoursAction } from "./hamlet-experimental-vapours";
 
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 /** R31、R-039、R-092：战后才入队；新英雄不继承死者未完成的个人效果。 */
@@ -157,6 +158,10 @@ export function joinPreparedReplacements(state: GameState): ApplyResult {
   let continued: ApplyResult;
   const asState = () => ({ ...state, dungeon: next });
   switch (resume) {
+    case "hamletVapours": {
+      continued = completeExperimentalVapoursAction(asState());
+      break;
+    }
     case "hamletScout": {
       const actorId = next.hamletScoutActorId;
       if (!actorId || !deadIds.has(actorId) || !next.hamlet || !next.hamletReturn)

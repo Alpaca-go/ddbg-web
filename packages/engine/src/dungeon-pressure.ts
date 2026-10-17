@@ -7,6 +7,7 @@ import { passiveVirtueThreshold } from "./passive";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import { resolveCurioRows } from "./dungeon-curio-effects";
 import { completeScoutAheadAction } from "./hamlet-scout-ahead";
+import { completeExperimentalVapoursAction } from "./hamlet-experimental-vapours";
 
 /** R28：侦察支付压力后恢复；沿英雄数组顺序，完整牌堆与 RNG 游标属于本次地牢。 */
 export function resolveDungeonPressure(state: GameState): ApplyResult {
@@ -115,6 +116,10 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
   }
   if (d.pressureSource === "hamletScout") {
     const continued = completeScoutAheadAction({ ...state, dungeon: d });
+    return { ...continued, events: [...events, ...continued.events] };
+  }
+  if (d.pressureSource === "hamletVapours") {
+    const continued = completeExperimentalVapoursAction({ ...state, dungeon: d });
     return { ...continued, events: [...events, ...continued.events] };
   }
   if (

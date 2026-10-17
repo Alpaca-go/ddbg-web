@@ -93,7 +93,8 @@ export type DungeonState = {
     | "roomCurio"
     | "hamletConvert"
     | "hamletProvisions"
-    | "hamletScout";
+    | "hamletScout"
+    | "hamletVapours";
   readonly replacementPreparation?: import("./replacement-preparation").ReplacementPreparation;
   readonly preparedReplacements?: readonly import("./replacement-preparation").PreparedReplacement[];
   readonly replacementChoiceCursor?: number;
@@ -129,6 +130,8 @@ export type DungeonState = {
   readonly nextQuestRoomReveals?: number;
   /** Scout Ahead已支付压力，意志/补人尚未完成时保留行动人以免重复支付。 */
   readonly hamletScoutActorId?: string;
+  /** Experimental Vapours三项效果已付；压力/补人后只结束原行动人的行动。 */
+  readonly hamletVapoursActorId?: string;
   /** 当前开局已取消的常规骰id；Wild/Radiant待选完成后清除。 */
   readonly startingProvisionOmittedIds?: readonly string[];
   /** Traveling Merchants 进行中：尚未改骰的英雄顺序。 */
@@ -233,6 +236,7 @@ export type DungeonState = {
     | "inHamlet"
     | "awaitingCurio";
   readonly pressureSource?:
+    | "hamletVapours"
     | "hamletScout"
     | "scout"
     | "exploration"

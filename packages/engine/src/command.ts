@@ -406,10 +406,13 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return command.type === "resolveChoice"
       ? chooseAbbeyQuirk(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先完成修道院正面怪癖选择");
-  if (state.dungeon?.phase === "blockedPressure" && state.dungeon.pressureSource === "hamletScout")
+  if (
+    state.dungeon?.phase === "blockedPressure" &&
+    ["hamletScout", "hamletVapours"].includes(state.dungeon.pressureSource ?? "")
+  )
     return command.type === "resolveDungeonPressure"
       ? resolveDungeonPressure(state)
-      : rejectBattleCommand(state, "请先完成Scout Ahead村庄意志检定，勿重复支付压力");
+      : rejectBattleCommand(state, "请先完成村庄意志检定，勿重复支付压力");
   if (command.type === "upgradeHamletBuilding") return upgradeHamletBuilding(state, command);
   if (command.type === "visitHamletBuilding" || command.type === "useHamletSkill")
     return applyHamletAction(state, command);
