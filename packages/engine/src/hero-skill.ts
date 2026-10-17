@@ -276,6 +276,10 @@ export type HeroSkillCardView = {
     readonly light: number;
     readonly source: "print_front";
   };
+  readonly verified_target_header?: {
+    readonly lineIndex: 0;
+    readonly source: "print_front";
+  };
   readonly verified_damage_bonus?: {
     readonly lineIndex: number;
     readonly amount: number;
@@ -1877,6 +1881,29 @@ function lineTargetIcons(line: readonly SkillSegment[]): SkillIconRef[] {
  * 那些仍不计数。两边都没有时，才用 `front_icons`。
  */
 function readTargetIconCounts(skill: HeroSkillCardView): { hero: number; monster: number } {
+  // 已逐卡核实的无Acc卡：提取器将射程0/单英雄目标行放入effect_lines[0]。
+  // 明确注解才读取；不从其他效果行或未核实卡推断目标。
+  if (skill.verified_target_header !== undefined) {
+    const header = skill.verified_target_header;
+    const line = skill.effect_lines[0];
+    const text = line
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, "");
+    if (
+      header.lineIndex !== 0 ||
+      header.source !== "print_front" ||
+      skill.stats_line !== null ||
+      skill.printed_labels.length !== 0 ||
+      skill.effect_lines.length !== 2 ||
+      text !== "{range}0{target_hero}" ||
+      !skill.verified_status_effects?.length ||
+      skill.verified_status_effects.some((e) => e.lineIndex !== 1 || e.scope !== "target") ||
+      line?.some((s) => s.type === "icon" && !NAMED.has(s.icon.naming))
+    )
+      return { hero: 0, monster: 0 };
+    return { hero: 1, monster: 0 };
+  }
   // p019 的射程 / 目标行被提取到 effect_lines；只读逐卡复核注解对应的已确认行。
   if (skill.verified_target_support) {
     const line = skill.effect_lines[0];
@@ -2825,6 +2852,7 @@ function resolveSkill(
         statuses.lineCount +
         bonuses.length +
         (extraStress ? 1 : 0) +
+        (active.verified_target_header ? 1 : 0) +
         (support ? 2 : 0),
     ),
     ...(statuses.lineCount || support

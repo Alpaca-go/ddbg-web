@@ -150,6 +150,9 @@ const skillStatFields = {
   unlabeled_numbers: z.array(normalizedUnlabeledNumberSchema),
   effect_lines: lineListSchema,
   verified_damage_bonus: verifiedDamageBonusSchema.optional(),
+  verified_target_header: z
+    .object({ lineIndex: z.literal(0), source: z.literal("print_front") })
+    .optional(),
   verified_target_support: z
     .strictObject({
       lineIndex: z.int().nonnegative(),

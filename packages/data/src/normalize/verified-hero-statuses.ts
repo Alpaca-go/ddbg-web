@@ -9,6 +9,7 @@ type Entry = {
   lineIndex: number;
   scope: "self" | "target";
   signature: string;
+  headerSignature?: string;
   effects: {
     kind: "bleed" | "blight" | "stun" | "buff" | "mark" | "riposte" | "protection" | "debuff";
     duration: number;
@@ -18,6 +19,18 @@ type Entry = {
 
 // 完整印刷逐页核对：docs/phase2-four-core-skills-2026-10-11.md。
 const entries: readonly Entry[] = [
+  // 完整FRONT p142：四姿态，无Acc；第一行为射程/目标，第二行为Buff。
+  {
+    id: "hero_skill:p142",
+    hero: "PLAGUE DOCTOR",
+    name: "Emboldening Vapours",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    headerSignature: "{range} 0 {target_hero}",
+    signature: "{target_effects} {buff} 3t",
+    effects: [{ kind: "buff", duration: 3 }],
+  },
   // 完整FRONT p130/p133，R19–21；双目标共用骰、各自结算状态。
   {
     id: "hero_skill:p130",
@@ -720,7 +733,7 @@ export function attachVerifiedHeroStatuses(
           card.back_name !== entry.name ||
           card.back_level !== entry.level ||
           card.copies !== 1 ||
-          card.effect_lines.length !== 1)) ||
+          card.effect_lines.length !== entry.lineIndex + 1)) ||
       card.level !== entry.level ||
       card.pages.length !== 1 ||
       card.pages[0] !== page ||
@@ -728,6 +741,19 @@ export function attachVerifiedHeroStatuses(
     )
       throw new Error(`状态映射的卡名 / 等级 / 页码 / 验证状态不符：${entry.id}`);
     const line = card.effect_lines[entry.lineIndex];
+    if (entry.headerSignature !== undefined) {
+      const header = card.effect_lines[0];
+      if (
+        !header ||
+        signature(header) !== entry.headerSignature ||
+        card.stats_line !== null ||
+        card.printed_labels.length !== 0 ||
+        header.some(
+          (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+        )
+      )
+        throw new Error(`状态映射射程/目标行漂移：${entry.id}`);
+    }
     if (!line || signature(line) !== entry.signature)
       throw new Error(`状态映射效果行漂移：${entry.id}`);
     for (const segment of line) {
@@ -758,7 +784,13 @@ export function attachVerifiedHeroStatuses(
   return cards.map((card) => {
     const effects = annotations.get(card.id);
     return effects
-      ? normalizedHeroSkillCardSchema.parse({ ...card, verified_status_effects: effects })
+      ? normalizedHeroSkillCardSchema.parse({
+          ...card,
+          verified_status_effects: effects,
+          ...(entries.some((e) => e.id === card.id && e.headerSignature !== undefined)
+            ? { verified_target_header: { lineIndex: 0, source: "print_front" } }
+            : {}),
+        })
       : card;
   });
 }
