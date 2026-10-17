@@ -8,13 +8,13 @@ const cards = normalizedHeroSkillFileSchema.parse(
   ),
 ).cards;
 describe("逐卡复核的区间来源", () => {
-  it("保留核心22张及赏金猎人3张区间卡，保留原null", () => {
+  it("保留核心22张及赏金猎人3张，增加Blinding Gas I区间，保留原null", () => {
     const attached = attachVerifiedHeroRanges(cards);
     expect(
       attached.filter((card) => card.verified_range).map((card) => Number(card.id.slice(-3))),
     ).toEqual([
       13, 14, 38, 39, 46, 55, 58, 67, 68, 69, 73, 74, 75, 76, 77, 78, 88, 89, 90, 94, 95, 96, 100,
-      101, 102,
+      101, 102, 133,
     ]);
     const heal = attached.find((card) => card.id === "hero_skill:p013")!;
     expect(heal.verified_range).toEqual({ min: 0, max: 1, source: "print_front" });
@@ -25,7 +25,7 @@ describe("逐卡复核的区间来源", () => {
       expect(card.verified_range).toEqual({ min: 1, max: 2, source: "print_front" });
     }
   });
-  it.each(["hero_skill:p013", "hero_skill:p088", "hero_skill:p055"])(
+  it.each(["hero_skill:p013", "hero_skill:p088", "hero_skill:p055", "hero_skill:p133"])(
     "%s 的卡名、等级、已命名射程与区间必须匹配完整印刷面",
     (id) => {
       const card = cards.find((card) => card.id === id)!;

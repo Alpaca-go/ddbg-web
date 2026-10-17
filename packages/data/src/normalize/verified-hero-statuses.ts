@@ -18,6 +18,27 @@ type Entry = {
 
 // 完整印刷逐页核对：docs/phase2-four-core-skills-2026-10-11.md。
 const entries: readonly Entry[] = [
+  // 完整FRONT p130/p133，R19–21；双目标共用骰、各自结算状态。
+  {
+    id: "hero_skill:p130",
+    hero: "PLAGUE DOCTOR",
+    name: "Plague Grenade",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} 3 {blight} 2t",
+    effects: [{ kind: "blight", amount: 3, duration: 2 }],
+  },
+  {
+    id: "hero_skill:p133",
+    hero: "PLAGUE DOCTOR",
+    name: "Blinding Gas",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {stun} 1t",
+    effects: [{ kind: "stun", duration: 1 }],
+  },
   // 完整FRONT p127/p136，R19–21；仅I级，不从未命名numeric推断时长。
   {
     id: "hero_skill:p127",
