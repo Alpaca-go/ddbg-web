@@ -5,6 +5,13 @@ export function attachVerifiedHeroRanges(
 ): NormalizedHeroSkillCard[] {
   return cards.map((card) => {
     const reviewed: Record<string, { name: string; level: number; min: number; max: number }> = {
+      // 当前版完整FRONT p133；不向II/III级外推。
+      "hero_skill:p133": {
+        name: "Blinding Gas",
+        level: 1,
+        min: 1,
+        max: 2,
+      },
       "hero_skill:p013": {
         name: "Battle Heal",
         level: 1,
