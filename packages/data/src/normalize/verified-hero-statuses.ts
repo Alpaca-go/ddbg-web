@@ -10,7 +10,7 @@ type Entry = {
   scope: "self" | "target";
   signature: string;
   effects: {
-    kind: "bleed" | "stun" | "buff" | "mark" | "riposte" | "protection" | "debuff";
+    kind: "bleed" | "blight" | "stun" | "buff" | "mark" | "riposte" | "protection" | "debuff";
     duration: number;
     amount?: number;
   }[];
@@ -18,6 +18,30 @@ type Entry = {
 
 // 完整印刷逐页核对：docs/phase2-four-core-skills-2026-10-11.md。
 const entries: readonly Entry[] = [
+  // 完整FRONT p127/p136，R19–21；仅I级，不从未命名numeric推断时长。
+  {
+    id: "hero_skill:p127",
+    hero: "PLAGUE DOCTOR",
+    name: "Noxious Blast",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} 4 {blight} 2t, {debuff} 1t",
+    effects: [
+      { kind: "blight", amount: 4, duration: 2 },
+      { kind: "debuff", duration: 1 },
+    ],
+  },
+  {
+    id: "hero_skill:p136",
+    hero: "PLAGUE DOCTOR",
+    name: "Incision",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} 2 {bleed} 2t",
+    effects: [{ kind: "bleed", amount: 2, duration: 2 }],
+  },
   {
     id: "hero_skill:p055",
     hero: "BOUNTY HUNTER",
