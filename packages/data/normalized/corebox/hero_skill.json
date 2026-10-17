@@ -66322,6 +66322,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "scopeLineIndex": 0,
+     "segmentIndex": 0,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",

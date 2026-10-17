@@ -50,6 +50,9 @@ function setup(seed = 0, monsters: Partial<BattleEntity>[] = [{}]): GameState {
       life: e.life!,
       verification: { unverified: false },
       type_position_tags: ["Beast"],
+      // 明示回合机制夹具的空防御，支持完整p145目标状态；不是新游戏卡数据。
+      resistances: [],
+      immunities: [],
       skills: [],
     })),
     areas: [{ id: "a", elevation: "normal", adjacent: [] }],

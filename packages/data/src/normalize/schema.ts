@@ -174,6 +174,7 @@ const skillStatFields = {
 /** 逐卡对照完整页面后附加的 Nt；缺失不表示任何默认持续时间。 */
 export const verifiedStatusEffectSchema = z.strictObject({
   lineIndex: z.int().nonnegative(),
+  scopeLineIndex: z.int().nonnegative().optional(),
   segmentIndex: z.int().nonnegative(),
   scope: z.enum(["self", "target"]),
   kind: z.enum([
