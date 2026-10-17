@@ -48,7 +48,19 @@ function setup(skill = blast, fourHeroes = false, monsterLife = 100): GameState 
             .filter((stance) => stance !== hero.stance)
             .map((stance, index) => ({ ...hero, id: `friend${index}`, skillIds: [], stance }))
         : []),
-      enemy,
+      { ...enemy, monsterCardId: "shuffle-fixture" },
+    ],
+    // 纯位移机制夹具显式给空防御；p145现需完整Stun防御，不能沿用未知栏。
+    monsters: [
+      {
+        id: "shuffle-fixture",
+        life: monsterLife,
+        verification: { unverified: false },
+        type_position_tags: ["Beast"],
+        skills: [],
+        resistances: [],
+        immunities: [],
+      },
     ],
     skills: [skill],
     light: 5,

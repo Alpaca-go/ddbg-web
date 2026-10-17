@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-17）：#230已合并为main `8dcf03a`。当前`codex/phase4-disorienting-blast`按完整p145接Disorienting Blast I的Push2/Pull2与Stun1t，保留原两行并附限定scopeLineIndex；复用掷前方向/落点待选与一次RNG/行动，缺状态注解不再部分执行位移。见[本轮记录](phase4-disorienting-blast-2026-10-17.md)。瘟疫医生七张I级技能已接；下一主题Experimental Vapours村庄能力，随后正式候选目录与旧档兼容，尚未开放候选。保持Phase4，Q-79/Q-80等边界保留。下文为历史记录。
+
 > 当前入口（2026-10-17）：#229已合并为main `8a05fd5`。当前`codex/phase4-plague-support-skills`接Emboldening Vapours I完整Buff3t及已核目标行，并验收Battlefield Medicine I公开治疗/清状态命令。p142完整卡面为四姿态可用，修正旧核对表的R/S转写，原数据/词典正确。见[本轮记录](phase4-plague-support-skills-2026-10-17.md)。瘟疫医生六张I级技能已接；下一主题Disorienting Blast I位移/Stun，再接Experimental Vapours村庄能力后才开放候选。Phase4及Q-79/Q-80等边界保留。下文为历史记录。
 
 > 当前入口（2026-10-17）：#228已合并为main `fdabb88`。当前`codex/phase4-plague-multi-target`接Plague Grenade I的Blight3·2t与Blinding Gas I的1–2射程/Stun1t，复用公开双目标共享骰与逐名结算；毒气无伤害栏，不填零伤害。见[本轮记录](phase4-plague-multi-target-2026-10-17.md)。瘟疫医生四张I级技能已接，剩三技能完整命令验收与Experimental Vapours，齐备后再开放第六名候选；下一主题优先Battlefield Medicine / Emboldening Vapours。事件16/16，Q-79/Q-80、全灭、高等级正式战役存档和人工验收边界保留，保持Phase4。下文为历史记录。

@@ -165,12 +165,13 @@ describe("applyCommand 战斗沙盒（R19–21、R-024、R-031、R-048）", () =
     expect(result.state.battle?.rngCursor).toBe(0);
   });
 
-  it("方向选择等待期间冻结命令和 RNG；有效选择写入位移意图，1t Stun 仍跳过", () => {
+  it("方向选择等待期间冻结命令和 RNG；有效选择写入位移意图与完整Stun续行", () => {
     const skill = card("p145");
-    const state = createBattleState(
-      1,
-      setup(skill, [hero(skill), monster({ areaId: "b", shuffleResist: true })]),
-    );
+    const fixture = setup(skill, [hero(skill), monster({ areaId: "b", shuffleResist: true })]);
+    const state = createBattleState(1, {
+      ...fixture,
+      monsters: fixture.monsters!.map((m) => ({ ...m, resistances: [], immunities: [] })),
+    });
     const waiting = applyCommand(state, play(skill));
     expect(waiting.pendingChoice?.options.map((option) => option.id)).toEqual(["push", "pull"]);
     expect(waiting.state.battle?.rngCursor).toBe(0);
@@ -194,12 +195,16 @@ describe("applyCommand 战斗沙盒（R19–21、R-024、R-031、R-048）", () =
     expect(done).toEqual(applyCommand(waiting.state, command));
     expect(done.events[0]).toMatchObject({
       roll: 7,
-      resolution: { outcome: "hit", damageDealt: null, skipped: [{ code: "effect_lines" }] },
+      resolution: { outcome: "hit", damageDealt: null, skipped: [] },
     });
     expect(done.state.battle?.shuffleIntents).toEqual([
       { entityId: "target", relativeToId: "actor", move: { direction: "pull", distance: 1 } },
     ]);
-    expect(done.state.battle?.entities[1]).toMatchObject({ areaId: "b", wounds: 0 });
+    expect(done.state.battle?.entities[1]).toMatchObject({
+      areaId: "b",
+      wounds: 0,
+      statusStacks: [{ kind: "stun", remaining: 1 }],
+    });
     expect(done.pendingChoice).toBeUndefined();
     expect(done.state.battle?.pending).toBeNull();
     expect(applyCommand(done.state, command).state).toBe(done.state);

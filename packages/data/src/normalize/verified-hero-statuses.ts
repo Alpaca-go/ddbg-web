@@ -10,6 +10,7 @@ type Entry = {
   scope: "self" | "target";
   signature: string;
   headerSignature?: string;
+  scopeLine?: { index: number; signature: string };
   effects: {
     kind: "bleed" | "blight" | "stun" | "buff" | "mark" | "riposte" | "protection" | "debuff";
     duration: number;
@@ -19,6 +20,18 @@ type Entry = {
 
 // 完整印刷逐页核对：docs/phase2-four-core-skills-2026-10-11.md。
 const entries: readonly Entry[] = [
+  // 完整FRONT p145：目标标记/可选位移在第一行，Stun续行不重复印目标标记。
+  {
+    id: "hero_skill:p145",
+    hero: "PLAGUE DOCTOR",
+    name: "Disorienting Blast",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    scopeLine: { index: 0, signature: "{target_effects} {shuffle} Push 2 or Pull 2" },
+    signature: "{stun} 1t",
+    effects: [{ kind: "stun", duration: 1 }],
+  },
   // 完整FRONT p142：四姿态，无Acc；第一行为射程/目标，第二行为Buff。
   {
     id: "hero_skill:p142",
@@ -741,6 +754,17 @@ export function attachVerifiedHeroStatuses(
     )
       throw new Error(`状态映射的卡名 / 等级 / 页码 / 验证状态不符：${entry.id}`);
     const line = card.effect_lines[entry.lineIndex];
+    if (entry.scopeLine !== undefined) {
+      const scopeLine = card.effect_lines[entry.scopeLine.index];
+      if (
+        !scopeLine ||
+        signature(scopeLine) !== entry.scopeLine.signature ||
+        scopeLine.some(
+          (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+        )
+      )
+        throw new Error(`状态映射作用域行漂移：${entry.id}`);
+    }
     if (entry.headerSignature !== undefined) {
       const header = card.effect_lines[0];
       if (
@@ -774,6 +798,7 @@ export function attachVerifiedHeroStatuses(
         scope: entry.scope,
         lineIndex: entry.lineIndex,
         segmentIndex: indexes[0]!,
+        ...(entry.scopeLine ? { scopeLineIndex: entry.scopeLine.index } : {}),
       };
     });
     const previous = annotations.get(entry.id) ?? [];

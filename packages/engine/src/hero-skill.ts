@@ -290,6 +290,7 @@ export type HeroSkillCardView = {
     HeroSkillCardView["verified_damage_bonus"]
   >[];
   readonly verified_status_effects?: readonly (StatusEffect & {
+    readonly scopeLineIndex?: number;
     readonly lineIndex: number;
     readonly segmentIndex: number;
     readonly scope: "self" | "target";

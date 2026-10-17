@@ -97,11 +97,32 @@ export function readVerifiedStatusEffects(
     }
     const scope = group[0]!.scope;
     const prefix = scope === "self" ? "{self_effects}Self" : "{target_effects}";
-    const token = parts
+    let token = parts
       .join("")
       .split(String.fromCharCode(7))
       .join("")
       .replace(/[\s,]+/g, "");
+    if (group.some((e) => e.scopeLineIndex !== undefined)) {
+      const scopeLineIndex = group[0]!.scopeLineIndex;
+      const scopeLine =
+        scopeLineIndex === undefined ? undefined : skill.effect_lines[scopeLineIndex];
+      const scopeText = scopeLine
+        ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+        .join("")
+        .replace(/\s+/g, "");
+      if (
+        scope !== "target" ||
+        scopeLineIndex !== lineIndex - 1 ||
+        group.some((e) => e.scopeLineIndex !== scopeLineIndex) ||
+        !/^\{target_effects\}\{shuffle\}Push([1-9]\d*)orPull\1$/.test(scopeText ?? "") ||
+        scopeLine?.some(
+          (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+        ) ||
+        token !== ""
+      )
+        return { status: "refused", reason: "状态续行与已核目标作用域不符（R-048）" };
+      token = prefix;
+    }
     if (!token.startsWith(prefix))
       return { status: "refused", reason: "状态同行缺少正确的自身 / 目标效果标记" };
     const rest = token.slice(prefix.length);
