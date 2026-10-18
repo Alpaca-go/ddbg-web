@@ -57,8 +57,7 @@ export function battleDataPlugin(): Plugin {
           ? FORMAL_HERO_NAMES.filter((n) => n !== "GRAVE ROBBER" && n !== "OCCULTIST")
           : questCatalog
             ? FORMAL_HERO_NAMES.filter(
-                (n) =>
-                  n !== "PLAGUE DOCTOR" && n !== "GRAVE ROBBER" && n !== "OCCULTIST",
+                (n) => n !== "PLAGUE DOCTOR" && n !== "GRAVE ROBBER" && n !== "OCCULTIST",
               )
             : FORMAL_HERO_NAMES.filter((n) =>
                 ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(n),

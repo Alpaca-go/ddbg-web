@@ -20,10 +20,7 @@ export type FormalHeroName = (typeof FORMAL_HERO_NAMES)[number];
  * I 级战斗技能效果与 Pilfer / Dark Ritual 仍未接线（R-095 边界）。
  * 可编入开局四人，但 UI 须标明；结算走 R-048 拒绝，不发明效果。
  */
-export const FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS = [
-  "GRAVE ROBBER",
-  "OCCULTIST",
-] as const;
+export const FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS = ["GRAVE ROBBER", "OCCULTIST"] as const;
 
 export function isFormalHeroName(name: string): name is FormalHeroName {
   return (FORMAL_HERO_NAMES as readonly string[]).includes(name);

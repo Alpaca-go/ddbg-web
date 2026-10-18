@@ -58,12 +58,7 @@ export function createCoreDungeonQuest(
     const stat = sources.catalog.heroStats.find(
       (stat) => stat.id === selected.heroStatId && stat.level === 1 && stat.attributesVerified,
     );
-    if (
-      !stat ||
-      !isFormalHeroName(stat.name) ||
-      !Number.isSafeInteger(stat.life) ||
-      stat.life < 1
-    )
+    if (!stat || !isFormalHeroName(stat.name) || !Number.isSafeInteger(stat.life) || stat.life < 1)
       throw new Error("需要已核实的正式目录I级英雄属性");
     selectedNames.push(stat.name);
     if (

@@ -1559,12 +1559,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
   );
 }
 
-const defaultPartyNames: FormalHeroName[] = [
-  "CRUSADER",
-  "HELLION",
-  "HIGHWAYMAN",
-  "VESTAL",
-];
+const defaultPartyNames: FormalHeroName[] = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"];
 const stanceLabels = {
   aggressive: "进攻",
   defensive: "防御",
@@ -1706,8 +1701,7 @@ export function DungeonQuest() {
             任务结算仅记待发XP，回村发放。
           </p>
           <p>
-            可选身份共 {FORMAL_HERO_NAMES.length}{" "}
-            名（与替补白名单一致）。盗墓者／神秘学者 I
+            可选身份共 {FORMAL_HERO_NAMES.length} 名（与替补白名单一致）。盗墓者／神秘学者 I
             级技能效果与 Pilfer／Dark Ritual 未接线：可编队并装备已转录技能，战斗结算按 R-048
             拒绝，不发明效果。
           </p>
@@ -1764,8 +1758,7 @@ export function DungeonQuest() {
                     >
                       {questBattleData.skills
                         .filter(
-                          (s) =>
-                            s.hero === name && s.level === 1 && !s.verification.unverified,
+                          (s) => s.hero === name && s.level === 1 && !s.verification.unverified,
                         )
                         .map((s) => (
                           <option key={s.id} value={s.id}>

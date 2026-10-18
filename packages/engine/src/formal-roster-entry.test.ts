@@ -58,20 +58,18 @@ it("正式名录列出八名已核实英雄，且仅 GR/Occ 标为战斗技能�
   expect(isFormalHeroName("ARBALEST")).toBe(false);
   expect(isFormalHeroName("ABOMINATION")).toBe(false);
   for (const name of FORMAL_HERO_NAMES) {
-    expect(heroHasUnwiredCombatSkills(name)).toBe(
-      name === "GRAVE ROBBER" || name === "OCCULTIST",
-    );
+    expect(heroHasUnwiredCombatSkills(name)).toBe(name === "GRAVE ROBBER" || name === "OCCULTIST");
   }
-  expect(sources.catalog.heroStats.filter((s) => s.level === 1).map((s) => s.name).sort()).toEqual(
-    [...FORMAL_HERO_NAMES].sort(),
-  );
+  expect(
+    sources.catalog.heroStats
+      .filter((s) => s.level === 1)
+      .map((s) => s.name)
+      .sort(),
+  ).toEqual([...FORMAL_HERO_NAMES].sort());
 });
 
 it("开局可编入赏金猎人与瘟疫医生；存档往返一致", () => {
-  const party = partyFromNames(
-    ["BOUNTY HUNTER", "PLAGUE DOCTOR", "CRUSADER", "VESTAL"],
-    sources,
-  );
+  const party = partyFromNames(["BOUNTY HUNTER", "PLAGUE DOCTOR", "CRUSADER", "VESTAL"], sources);
   const game = createCoreDungeonQuest(21, "quest:p001", "radiant", party, sources);
   expect(
     game.dungeon!.heroes.map(
@@ -97,10 +95,7 @@ it("开局可编入赏金猎人与瘟疫医生；存档往返一致", () => {
 });
 
 it("开局可编入盗墓者与神秘学者（技能效果未接线，仅转录门槛）；存档往返一致", () => {
-  const party = partyFromNames(
-    ["GRAVE ROBBER", "OCCULTIST", "HELLION", "HIGHWAYMAN"],
-    sources,
-  );
+  const party = partyFromNames(["GRAVE ROBBER", "OCCULTIST", "HELLION", "HIGHWAYMAN"], sources);
   const game = createCoreDungeonQuest(22, "quest:p002", "standard", party, sources);
   expect(
     game.dungeon!.heroes.map(
@@ -120,18 +115,15 @@ it("拒绝目录外身份与重复正式英雄；原四核心开局仍可用", (
   expect(
     createCoreDungeonQuest(1, "quest:p001", "standard", coreParty, sources).dungeon!.heroes,
   ).toHaveLength(4);
-  const outside = partyFromNames(
-    ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"],
-    sources,
-  ).map((h, i) => (i ? h : { ...h, heroStatId: "hero_stat:jester-not-in-catalog" }));
-  expect(() =>
-    createCoreDungeonQuest(1, "quest:p001", "standard", outside, sources),
-  ).toThrow(/正式目录/);
+  const outside = partyFromNames(["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"], sources).map(
+    (h, i) => (i ? h : { ...h, heroStatId: "hero_stat:jester-not-in-catalog" }),
+  );
+  expect(() => createCoreDungeonQuest(1, "quest:p001", "standard", outside, sources)).toThrow(
+    /正式目录/,
+  );
   const duplicate = partyFromNames(
     ["BOUNTY HUNTER", "BOUNTY HUNTER", "CRUSADER", "VESTAL"],
     sources,
   );
-  expect(() =>
-    createCoreDungeonQuest(1, "quest:p001", "standard", duplicate, sources),
-  ).toThrow();
+  expect(() => createCoreDungeonQuest(1, "quest:p001", "standard", duplicate, sources)).toThrow();
 });
