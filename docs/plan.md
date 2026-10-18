@@ -250,7 +250,7 @@ ddbg/
 - **交付物**：可以连续玩第 1 幕两个普通任务的战役。
 - **验收标准**：存档后刷新能完整恢复；英雄死亡补充流程正确；Kyries 试玩第 1 幕前两个任务。
 - **工期**：**1.5–2.5 周**（原 2–3.5 周）。村庄和存档只依赖战役状态模型，可以和 Phase 3 重叠约 1 周，两者合计约 3–4.5 周。
-- **进度摘记（2026-10-18）**：正式八英雄开局已开；Grave Robber I 级七战斗技能与 Pilfer 抽取已接（R-096；翻面结算见 Q-99）；Occultist 技能与 Dark Ritual 仍未接。不进 Phase 5。详见 `docs/phase4-grave-robber-skills-2026-10-18.md`。
+- **进度摘记（2026-10-18）**：正式八英雄开局已开；Grave Robber I 级七战斗技能与 Pilfer 抽取已接（R-096；翻面结算见 Q-99）；Occultist I 级七战斗技能与 Dark Ritual I/II 已接（III 见 Q-100）。不进 Phase 5。详见 `docs/phase4-occultist-skills-2026-10-18.md`。
 
 ### Phase 5：Boss 与第 4 幕（核心盒完结）
 - **目标**：核心盒战役能从头打到尾。

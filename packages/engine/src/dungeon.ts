@@ -94,7 +94,8 @@ export type DungeonState = {
     | "hamletConvert"
     | "hamletProvisions"
     | "hamletScout"
-    | "hamletVapours";
+    | "hamletVapours"
+    | "hamletDarkRitual";
   readonly replacementPreparation?: import("./replacement-preparation").ReplacementPreparation;
   readonly preparedReplacements?: readonly import("./replacement-preparation").PreparedReplacement[];
   readonly replacementChoiceCursor?: number;
@@ -132,6 +133,8 @@ export type DungeonState = {
   readonly hamletScoutActorId?: string;
   /** Experimental Vapours三项效果已付；压力/补人后只结束原行动人的行动。 */
   readonly hamletVapoursActorId?: string;
+  /** Dark Ritual效果已付；压力/补人后只结束原行动人的行动。 */
+  readonly hamletDarkRitualActorId?: string;
   /** 当前开局已取消的常规骰id；Wild/Radiant待选完成后清除。 */
   readonly startingProvisionOmittedIds?: readonly string[];
   /** Traveling Merchants 进行中：尚未改骰的英雄顺序。 */
@@ -238,6 +241,7 @@ export type DungeonState = {
   readonly pressureSource?:
     | "hamletVapours"
     | "hamletScout"
+    | "hamletDarkRitual"
     | "scout"
     | "exploration"
     | "backtracking"

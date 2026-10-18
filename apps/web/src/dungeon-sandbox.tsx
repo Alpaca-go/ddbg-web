@@ -1730,7 +1730,6 @@ export function DungeonQuest() {
                     {FORMAL_HERO_NAMES.filter((n) => n === name || !taken.has(n)).map((n) => (
                       <option key={n} value={n}>
                         {n}
-                        {n === "OCCULTIST" ? "（技能效果未接线）" : ""}
                       </option>
                     ))}
                   </select>

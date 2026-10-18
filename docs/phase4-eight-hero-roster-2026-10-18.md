@@ -14,7 +14,7 @@
 | Bounty Hunter                            | 是       | I 级七技能已接（含 Scout Ahead）        | 无额外标签                                  |
 | Plague Doctor                            | 是       | I 级七技能与 Experimental Vapours 已接  | 无额外标签                                  |
 | Grave Robber                             | 是       | I 级七技能与 Pilfer 抽取已接（R-096）   | 无额外标签；翻面结算见 Q-99                 |
-| Occultist                                | 是       | **未接**（七技能效果 / Dark Ritual）    | 「技能效果未接线」                          |
+| Occultist                                | 是       | I 级七技能已接；Dark Ritual I/II 已接（III 见 Q-100） | 无额外标签                          |
 
 不采用 (b)「仅替补可选」：替补路径本就可装备未接线转录技能，开局与替补门槛对齐更一致；效果仍走 R-048 拒绝，**不会静默发明数值**。若禁用未接线技能的装备，GR/Occ 无法凑齐三槽，等于实质退回 (b)。
 
@@ -31,7 +31,7 @@
 ## 缺口（诚实）
 
 - GR：I 级七战斗技能与 Pilfer 抽取已接（R-096）；翻面结算见 Q-99
-- Occ：I 级技能效果与 Dark Ritual 未接（仍在未接线名单）
+- Occ：I 级七技能与 Dark Ritual I/II 已接；III 见 Q-100
 - 战斗沙盒目录仍仅四核心（`virtual:battle-data`），本主题不扩沙盒
 
 ## 测试
@@ -39,4 +39,4 @@
 - `formal-roster-entry.test.ts`：名录 8；BH/PD 与 GR/Occ 开局；存档往返；目录外拒绝
 - `dungeon-quest-entry.test.ts`：额外四人开局编队
 
-下一主题优先 Occ I 级技能与 Dark Ritual，或 Kyries 裁定 Q-99 后接 Pilfer 翻面。见[GR 技能记录](phase4-grave-robber-skills-2026-10-18.md)。
+下一主题优先 Kyries 裁定 Q-99（Pilfer 翻面）或 Q-100（Dark Ritual III 图标）。见[Occ 技能记录](phase4-occultist-skills-2026-10-18.md)。

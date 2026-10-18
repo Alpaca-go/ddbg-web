@@ -1,6 +1,6 @@
 # Phase 4：Grave Robber I 级战斗技能与 Pilfer（R-096 / Q-98）
 
-状态：**I 级七战斗技能效果已接线；Pilfer 按 R-096 限定命名接通「Draw a Loot Token」抽取；翻面结算停在 Q-99。`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 已移除 GRAVE ROBBER，仅余 OCCULTIST。Occultist 未动。**
+状态：**I 级七战斗技能效果已接线；Pilfer 按 R-096 限定命名接通「Draw a Loot Token」抽取；翻面结算停在 Q-99。`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 已移除 GRAVE ROBBER（后续 Occ 接线后名单已空，见[Occ 技能记录](phase4-occultist-skills-2026-10-18.md)）。**
 
 ## 1. 基线与来源
 
@@ -34,8 +34,8 @@
 
 ## 4. 名单与 UI
 
-- `FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` = `["OCCULTIST"]`。
-- 网页目录去掉 GR「Pilfer 未接线」标签；Occ 仍标技能效果未接线。
+- 本主题结束时 `FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` = `["OCCULTIST"]`（其后 Occ 主题已清空）。
+- 网页目录去掉 GR「Pilfer 未接线」标签。
 
 ## 5. 验收
 

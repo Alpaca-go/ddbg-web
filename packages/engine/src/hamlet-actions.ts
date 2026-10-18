@@ -8,6 +8,7 @@ import { applyPassiveStatus } from "./passive-runtime";
 import { statusProjection } from "./status";
 import { useScoutAhead } from "./hamlet-scout-ahead";
 import { useExperimentalVapours, experimentalVapoursHealing } from "./hamlet-experimental-vapours";
+import { useDarkRitual, darkRitualHealing } from "./hamlet-dark-ritual";
 import { usePilfer } from "./hamlet-pilfer";
 import {
   buildingLevelsProblem,
@@ -22,7 +23,7 @@ export type HamletActionCommand =
   | {
       readonly type: "useHamletSkill";
       readonly actorId: string;
-      readonly skill: "experimentalVapours";
+      readonly skill: "experimentalVapours" | "darkRitual";
       readonly targetId: string;
     }
   | {
@@ -138,6 +139,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
   if (command.type === "useHamletSkill") {
     if (command.skill === "experimentalVapours")
       return useExperimentalVapours(state, hero, command.targetId);
+    if (command.skill === "darkRitual") return useDarkRitual(state, hero, command.targetId);
     if (command.skill === "scoutAhead") return useScoutAhead(state, hero);
     if (command.skill === "pilfer") return usePilfer(state, hero);
     const stat = d.battleCatalog?.heroStats.find((s) => s.id === hero.heroStatId);
@@ -447,6 +449,16 @@ export function hamletActionOptions(state: GameState) {
         type: "useHamletSkill",
         actorId: hero.id,
         skill: "experimentalVapours",
+        targetId: target.id,
+      },
+    });
+  for (const target of state.dungeon!.heroes)
+    options.push({
+      label: `Dark Ritual：自身压力+1；${target.id}治疗${darkRitualHealing(hero.heroStatId ?? "")}、压力−2、Buff 3t`,
+      command: {
+        type: "useHamletSkill",
+        actorId: hero.id,
+        skill: "darkRitual",
         targetId: target.id,
       },
     });

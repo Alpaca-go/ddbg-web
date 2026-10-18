@@ -1252,3 +1252,8 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **问题 / 来源**：Pilfer 在 R-096 下已能「抽取一枚战利品标记」离开可用堆（R-047）。印刷未写翻面或奖励。待确认：(a) 是否立即按 R18 翻面结算；(b) 若在村庄结算，补给类结果进入何处（村庄无地牢补给池）；(c) 可用堆已空时是否可施放 / 如何处理；(d) 村庄已抽取的 claimed 是否应在下次出征保留（出征原 `createLootState()` 会重建十枚）。
 - **处理 / 状态**：待确认。当前实现只做印刷「Draw a {Loot Token}」：种子 RNG 从可用堆抽 1 枚入 `claimedIds`，消耗当天行动；空堆拒绝；出征保留既有 `lootPool` 的 claimed。不发明翻面金币/补给。按 R-001 / R-048 停在本 Q。
+
+### Q-100
+
+- **问题 / 来源**：Occultist 村庄能力 Dark Ritual（Hero STAT FRONT p20 / III）目标行末尾为 `{icon:4f7549c1b8} 3t`。同技能 I/II（FRONT/BACK p19）对应位置为已确认 Buff 图标 `2af41c1ca4`。词典 v1.8 中 `4f7549c1b8` 仍为 `unreviewed` / `unknown_4f7549c1b8`；整卡 `verification.reasons` 含该图标。云环境无印刷页图像，不能目视命名。I/II 的 Self 压力+1、目标治疗/压力−2/Buff 3t 已按印刷接线；III 整次拒绝（R-048），不把 `4f7549c1b8` 猜成 Buff。
+- **处理 / 状态**：待确认。是否在 Dark Ritual III 语境下将 `4f7549c1b8` 限定命名为 Buff（或其它状态），以及是否可按 R-095/R-096 LIMITED 风格不改全局词典。

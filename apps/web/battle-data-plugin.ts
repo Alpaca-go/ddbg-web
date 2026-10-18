@@ -97,7 +97,7 @@ export function battleDataPlugin(): Plugin {
       if (plagueDoctor)
         for (let page = 127; page <= 145; page += 3)
           skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
-      // R-095 / R-096：GR I级七技能与 Pilfer 抽取已接（翻面结算见 Q-99）；Occ 技能/Dark Ritual 未接。
+      // R-095 / R-096：GR I级七技能与 Pilfer 抽取已接（翻面结算见 Q-99）；Occ I级七技能与 Dark Ritual I/II 已接（III见Q-100）。
       if (graveOccultist) {
         for (let page = 169; page <= 187; page += 3)
           skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);

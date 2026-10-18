@@ -145,7 +145,7 @@ it("空堆与身份拒绝（Q-99 / R-048）；UI 选项仅对获核 GR 出现", 
 });
 
 it("GR 退出未接线名单；Occ 仍保留（R-096）", () => {
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual(["OCCULTIST"]);
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual([]);
   expect(
     coreQuestSources.catalog.heroStats.some(
       (s) => s.id === "hero_stat:p017:front" && s.name === "GRAVE ROBBER",

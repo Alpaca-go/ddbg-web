@@ -165,6 +165,24 @@ export function attachVerifiedHeroDamage(
         condition: "blighted",
         suffix: "{blight}",
       },
+      "hero_skill:p190": {
+        name: "Sacrificial Stab",
+        level: 1,
+        page: 190,
+        lineIndex: 0,
+        amount: 1,
+        condition: "eldritch",
+        suffix: "Eldritch",
+      },
+      "hero_skill:p193": {
+        name: "Abyssal Artillery",
+        level: 1,
+        page: 193,
+        lineIndex: 0,
+        amount: 1,
+        condition: "eldritch",
+        suffix: "Eldritch",
+      },
       "hero_skill:p068": {
         name: "Pistol Shot",
         level: 2,
@@ -259,6 +277,12 @@ export function attachVerifiedHeroDamage(
           card.back_level !== 1 ||
           card.copies !== 1 ||
           card.effect_lines.length !== 2)) ||
+      ((card.id === "hero_skill:p190" || card.id === "hero_skill:p193") &&
+        (card.hero !== "OCCULTIST" ||
+          card.back_name !== entry.name ||
+          card.back_level !== 1 ||
+          card.copies !== 1 ||
+          card.effect_lines.length !== 1)) ||
       card.level !== entry.level ||
       card.verification.unverified ||
       card.pages.length !== 1 ||

@@ -151,6 +151,24 @@ export function attachVerifiedHeroRanges(
         min: 0,
         max: 1,
       },
+      "hero_skill:p196": {
+        name: "Weakening Curse",
+        level: 1,
+        min: 1,
+        max: 2,
+      },
+      "hero_skill:p199": {
+        name: "Wyrd Reconstruction",
+        level: 1,
+        min: 0,
+        max: 1,
+      },
+      "hero_skill:p202": {
+        name: "Vulnerability Hex",
+        level: 1,
+        min: 1,
+        max: 2,
+      },
       "hero_skill:p100": {
         name: "Illumination",
         level: 1,
