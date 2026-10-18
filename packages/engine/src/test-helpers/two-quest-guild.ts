@@ -9,7 +9,7 @@ import { gainDisease } from "../conditions";
 /**
  * 自然两任务攒满 4XP 后停在第二轮村庄 heroActions，供 Guild 升级验收。
  * seed14：Scout Ahead 四房 2XP → 出征 Wipe ‘Em Out 两巢穴 2XP（规格书 §13.1 / R-038，QUEST p1–p2）。
- * 第一轮村庄用天数收束夹具（不改 XP/金币/牌序），与 embark 测试同型。
+ * 第一轮村庄全部使用真实看守人/Zealous Speech命令，不注入准备结束状态。
  */
 export function twoQuestGuildPath(sources = coreQuestSources, seed = 14) {
   const first = naturalQuest(seed, "quest:p001", false, sources, 4);
@@ -44,8 +44,7 @@ export function twoQuestGuildPath(sources = coreQuestSources, seed = 14) {
   };
 
   returnHome();
-  // Busy Week 等短准备日：当前英雄若为 Crusader 则用 Zealous Speech 逐日收束（真实命令）。
-  // 若姿态顺序或事件不允许，再退回天数收束夹具（不改 XP/金币/牌序）。
+  // 只接受公开命令能完成的路径，不以天数夹具掩盖场景停点。
   while (game.dungeon!.hamlet!.phase !== "preparationComplete") {
     if (game.dungeon!.hamlet!.phase === "awaitingCaretaker") {
       step({ type: "rollHamletCaretaker" });
@@ -59,24 +58,7 @@ export function twoQuestGuildPath(sources = coreQuestSources, seed = 14) {
       step({ type: "useHamletSkill", actorId, skill: "zealousSpeech" });
       continue;
     }
-    game = {
-      ...game,
-      dungeon: {
-        ...game.dungeon!,
-        hamlet: {
-          ...game.dungeon!.hamlet!,
-          phase: "preparationComplete",
-          remainingDays: 0,
-          actedHeroes: [],
-          visitedBuildings: [],
-          heroOrder: [],
-          caretaker: null,
-          blockedBuildings: game.dungeon!.hamlet!.weekBlockedBuildings ?? [],
-          active: null,
-        },
-      },
-    };
-    break;
+    throw new Error("当前村庄不能通过首行动Zealous Speech结束准备日，保留真实停点");
   }
 
   step({ type: "offerNextQuest" });

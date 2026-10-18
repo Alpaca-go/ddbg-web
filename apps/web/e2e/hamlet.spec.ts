@@ -10,6 +10,7 @@ import type { laborQuest } from "../../../packages/engine/src/test-helpers/labor
 import type { nomadQuest } from "../../../packages/engine/src/test-helpers/nomad-quest";
 import type { nomadSaleQuest } from "../../../packages/engine/src/test-helpers/nomad-sale-quest";
 import type { guildQuest } from "../../../packages/engine/src/test-helpers/guild-quest";
+import type { twoQuestGuildPath } from "../../../packages/engine/src/test-helpers/two-quest-guild";
 import type { nomadUpgradeQuest } from "../../../packages/engine/src/test-helpers/nomad-upgrade-quest";
 
 test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存刷新", async ({
@@ -30,6 +31,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   let nomad: ReturnType<typeof nomadQuest>;
   let nomadSale: ReturnType<typeof nomadSaleQuest>;
   let guild: ReturnType<typeof guildQuest>;
+  let naturalGuild: ReturnType<typeof twoQuestGuildPath>;
   let higherNomad: ReturnType<typeof nomadUpgradeQuest>, higherNomadSave: QuestSave;
   let replacementSave: QuestSave;
   try {
@@ -141,6 +143,15 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
       ),
     );
     guild = guildHelper.guildQuest({
+      ...sourceHelpers.coreQuestSources,
+      catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
+    });
+    const naturalGuildHelper = await server.ssrLoadModule(
+      fileURLToPath(
+        new URL("../../../packages/engine/src/test-helpers/two-quest-guild.ts", import.meta.url),
+      ),
+    );
+    naturalGuild = naturalGuildHelper.twoQuestGuildPath({
       ...sourceHelpers.coreQuestSources,
       catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
     });
@@ -654,6 +665,50 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await expect(page.getByTestId("guild-skills")).toContainText("Smite 2");
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
   await page.screenshot({ path: testInfo.outputPath("guild-smite-saved.png"), fullPage: true });
+  // 两任务自然4XP：升级英雄II时的待选、离开公会、补满四技能及刷新恢复。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(naturalGuild.save),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "访问公会：永久升级英雄/技能", exact: true }).click();
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "永久升级英雄 I→II（4 XP，2金）", exact: true }).click();
+  await expect(page.getByTestId("guild-skills")).toContainText("hero-0 HL2 XP 0");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(
+    `共享金币：${naturalGuild.game.dungeon!.gold - 2}`,
+  );
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "结束公会访问", exact: true }).click();
+  await page.getByTestId("set-skills-hero-0").click();
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  const levelTwo = await page.evaluate(
+    () => JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon,
+  );
+  expect(levelTwo.heroes[0]).toMatchObject({
+    heroStatId: "hero_stat:p001:back",
+    level: 2,
+    life: 24,
+    xp: 0,
+  });
+  expect(levelTwo.heroes[0].skillIds).toHaveLength(4);
+  expect(levelTwo.stagecoachXp).toBe(4);
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("guild-skills")).toContainText("hero-0 HL2 XP 0");
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  expect(
+    await page.evaluate(
+      () => JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon,
+    ),
+  ).toEqual(levelTwo);
+  await page.screenshot({ path: testInfo.outputPath("guild-hero-ii-saved.png"), fullPage: true });
   // 同一条村庄冒烟：真实金币升级游商III，跨等级陈列/付款待选保存刷新。
   await page.evaluate(
     (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
