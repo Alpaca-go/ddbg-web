@@ -314,7 +314,7 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
     resolveCards: d.resolveCards,
     resolveDecks: d.resolveDecks,
     gold: d.gold,
-    // R-047：保留村庄期间已抽取（如 Pilfer）的 claimed；无池或已放置则新建十枚。
+    // R-047 / R-098：保留村庄期间已抽取（如 Pilfer）的 claimed；无池或已放置则新建十枚。
     lootPool: (() => {
       const fresh = { ...createLootState(), gold: d.gold };
       const loot = d.lootPool;

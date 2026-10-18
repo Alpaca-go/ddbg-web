@@ -1,6 +1,6 @@
 # Phase 4：Grave Robber / Occultist 属性与防御（R-095 / Q-97 confirmed）
 
-状态：**Kyries 于 2026-10-18 在聊天确认 Q-97 为 LIMITED per-card mappings（同 R-088/R-094）。六面属性与限定防御已入库；正式白名单/网页目录已扩至四名额外替补。GR I 级七战斗技能与 Pilfer 抽取已另接（R-096）；Occ I 级七战斗技能与 Dark Ritual I–III 已另接（R-097；见[Occ 技能记录](phase4-occultist-skills-2026-10-18.md)）；Pilfer 翻面见 Q-99。**
+状态：**Kyries 于 2026-10-18 在聊天确认 Q-97 为 LIMITED per-card mappings（同 R-088/R-094）。六面属性与限定防御已入库；正式白名单/网页目录已扩至四名额外替补。GR I 级七战斗技能与 Pilfer 抽取已另接（R-096）；Occ I 级七战斗技能与 Dark Ritual I–III 已另接（R-097；见[Occ 技能记录](phase4-occultist-skills-2026-10-18.md)）；Pilfer 抽取边见 R-098。**
 
 ## 1. 基线与来源
 
@@ -52,10 +52,10 @@ Kyries 确认**不是**全局词典升级；仅下列卡面位置：
 
 **仍未接线（保持门控，不发明效果）：**
 
-| 英雄         | I 级技能运行时                    | 村庄能力                                  |
-| ------------ | --------------------------------- | ----------------------------------------- |
-| GRAVE ROBBER | I 级七技能已接（见 GR 技能记录）  | Pilfer 抽取已接（R-096）；翻面结算见 Q-99 |
-| OCCULTIST    | I 级七技能已接（见 Occ 技能记录） | Dark Ritual I–III 已接（R-097）           |
+| 英雄         | I 级技能运行时                    | 村庄能力                                       |
+| ------------ | --------------------------------- | ---------------------------------------------- |
+| GRAVE ROBBER | I 级七技能已接（见 GR 技能记录）  | Pilfer 抽取已接（R-096）；抽取不翻面等见 R-098 |
+| OCCULTIST    | I 级七技能已接（见 Occ 技能记录） | Dark Ritual I–III 已接（R-097）                |
 
 目录仅要求七张 I 级 `verification.unverified=false`；不因本轮属性批准假装技能/村庄完整可用。
 

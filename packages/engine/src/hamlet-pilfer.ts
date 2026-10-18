@@ -37,7 +37,7 @@ function ensureLootPool(d: DungeonState): LootState | { reason: string } {
 /**
  * Hero STAT FRONT/BACK p17、FRONT p18：Hamlet Skill Pilfer — Draw a {Loot Token}。
  * R-096 仅限定命名图标；抽取一枚加入 claimed（离开可用堆）。
- * 翻面结算、补给去向、空堆等见 Q-99，本主题拒绝这些边（R-001/R-048）。
+ * R-098：抽取不翻面；空堆拒绝；出征保留 claimed（R-047 / hamlet-embark）。
  */
 export function usePilfer(state: GameState, hero: Hero): ApplyResult {
   const d = state.dungeon!;
@@ -55,10 +55,7 @@ export function usePilfer(state: GameState, hero: Hero): ApplyResult {
   )
     return rejectBattleCommand(state, "Pilfer只接已核实盗墓者I–III（R-048、R-096）");
   if (!pool.available.length)
-    return rejectBattleCommand(
-      state,
-      "Pilfer：战利品可用堆已空，抽取代币时机/空堆语义待确认（Q-99）",
-    );
+    return rejectBattleCommand(state, "Pilfer：战利品可用堆已空（R-098）");
   if (!Number.isSafeInteger(d.cursor) || d.cursor < 0 || !Number.isSafeInteger(d.cursor + 1))
     return rejectBattleCommand(state, "Pilfer RNG游标无效");
   const rng = createRng(state.seed);
@@ -86,7 +83,7 @@ export function usePilfer(state: GameState, hero: Hero): ApplyResult {
     events: [
       {
         type: "dungeonUpdated",
-        message: `Pilfer：抽取战利品标记 ${drawn.id}（${drawn.kind}）入已抽取堆；未翻面结算（Hero STAT、R33、R-096；结算见 Q-99）`,
+        message: `Pilfer：抽取战利品标记 ${drawn.id}（${drawn.kind}）入已抽取堆；未翻面结算（Hero STAT、R33、R-096、R-098）`,
       },
     ],
   };

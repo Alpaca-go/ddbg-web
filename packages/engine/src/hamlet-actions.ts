@@ -418,7 +418,7 @@ export function hamletActionOptions(state: GameState) {
       command: { type: "useHamletSkill", actorId: hero.id, skill: "scoutAhead" },
     },
     {
-      label: "Pilfer：抽取一枚战利品标记（R-096；翻面结算见 Q-99）",
+      label: "Pilfer：抽取一枚战利品标记（R-096、R-098：抽取不翻面）",
       command: { type: "useHamletSkill", actorId: hero.id, skill: "pilfer" },
     },
     {

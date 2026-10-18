@@ -1,10 +1,10 @@
 # Phase 4：Occultist I 级战斗技能与 Dark Ritual
 
-状态：**I 级七战斗技能效果已接线；Dark Ritual I–III 已接（III 依 R-097 LIMITED：`4f7549c1b8`→Buff）。`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 已清空。Q-99（Pilfer 翻面）仍待确认。**
+状态：**I 级七战斗技能效果已接线；Dark Ritual I–III 已接（III 依 R-097 LIMITED：`4f7549c1b8`→Buff）。`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 已清空。Pilfer 边已由 R-098（Q-99）锁定。**
 
 ## 1. 基线与来源
 
-基线 main tip `b759e7c`（#244：Occ I 七技能 + Dark Ritual I/II；III 曾因 Q-100 拒绝）。本主题确认 Q-100→R-097 并接通 Dark Ritual III，不裁定 Q-79/Q-80/Q-99，不进 Phase 5。
+基线 main tip `b759e7c`（#244：Occ I 七技能 + Dark Ritual I/II；III 曾因 Q-100 拒绝）。本主题确认 Q-100→R-097 并接通 Dark Ritual III，不裁定 Q-79/Q-80，不进 Phase 5。Pilfer 翻面等边另见 R-098。
 
 规则来源：官方 R19–21 / R29 / R33；规格书 §6.5–6.7 / §7；R-001 / R-048 / R-095 / R-096 / R-097；规范化 `hero_skill` p190–p208 与 `hero_stat` p019/p020。不使用 FAQ，不提交 PDF/图片，不改全局词典。
 
