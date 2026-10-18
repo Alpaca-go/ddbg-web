@@ -64,9 +64,9 @@ it("印刷raw六面Life/Dodge/Speed与身份交叉核实；R-095后六面入库�
   }
   const cards = built.cards.filter((c) => ["GRAVE ROBBER", "OCCULTIST"].includes(c.name));
   expect(cards).toHaveLength(6);
-  expect(cards.every((c) => c.attributesVerified && c.approval === "kyries_review_2026-10-18")).toBe(
-    true,
-  );
+  expect(
+    cards.every((c) => c.attributesVerified && c.approval === "kyries_review_2026-10-18"),
+  ).toBe(true);
   expect(built.cards).toHaveLength(24);
   expect(built.cards.some((c) => c.name === "JESTER")).toBe(false);
 });

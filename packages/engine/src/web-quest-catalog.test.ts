@@ -9,7 +9,9 @@ import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { replacementHeroCandidates } from "./hero-death-estate";
 
-function webSources(id: "battle-data" | "quest-battle-data" | "quest-battle-data-v1" | "quest-battle-data-v2"): CoreQuestSources {
+function webSources(
+  id: "battle-data" | "quest-battle-data" | "quest-battle-data-v1" | "quest-battle-data-v2",
+): CoreQuestSources {
   const load = battleDataPlugin().load as (id: string) => string;
   const code = load(`\0virtual:${id}`);
   const catalog = JSON.parse(code.slice("export const battleData = ".length, -1));

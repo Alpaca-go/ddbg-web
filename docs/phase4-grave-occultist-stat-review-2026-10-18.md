@@ -25,22 +25,22 @@
 
 Kyries 确认**不是**全局词典升级；仅下列卡面位置：
 
-| iconId       | 限定含义         | 获批位置                                              | 明确不覆盖                          |
-| ------------ | ---------------- | ----------------------------------------------------- | ----------------------------------- |
-| `e61ed317de` | Blight 抗性      | GR II 左#1；GR III 左#2；Occ III 左#2                 | 其他卡任意位置                      |
-| `8cbe7d6703` | Debuff 抗性      | Occ I 左栏唯一抗性                                    | **Jester I 同 hash（未核实）**      |
-| `a8c4b25b4e` | Debuff 抗性      | Occ II 左#2（Bleed 之后）                             | 其他卡                              |
+| iconId       | 限定含义    | 获批位置                              | 明确不覆盖                     |
+| ------------ | ----------- | ------------------------------------- | ------------------------------ |
+| `e61ed317de` | Blight 抗性 | GR II 左#1；GR III 左#2；Occ III 左#2 | 其他卡任意位置                 |
+| `8cbe7d6703` | Debuff 抗性 | Occ I 左栏唯一抗性                    | **Jester I 同 hash（未核实）** |
+| `a8c4b25b4e` | Debuff 抗性 | Occ II 左#2（Bleed 之后）             | 其他卡                         |
 
 完整左右栏（右栏均空）：
 
-| 面                   | 左栏（抗性）                                      |
-| -------------------- | ------------------------------------------------- |
-| GR I                 | Blight（confirmed `40bb356305`）                  |
-| GR II                | Blight（`e61ed317de`）、Debuff                    |
-| GR III               | Bleed、Blight（`e61ed317de`）、Debuff             |
-| Occ I                | Debuff（`8cbe7d6703`）                            |
-| Occ II               | Bleed、Debuff（`a8c4b25b4e`）                     |
-| Occ III              | Bleed、Blight（`e61ed317de`）、Debuff             |
+| 面      | 左栏（抗性）                          |
+| ------- | ------------------------------------- |
+| GR I    | Blight（confirmed `40bb356305`）      |
+| GR II   | Blight（`e61ed317de`）、Debuff        |
+| GR III  | Bleed、Blight（`e61ed317de`）、Debuff |
+| Occ I   | Debuff（`8cbe7d6703`）                |
+| Occ II  | Bleed、Debuff（`a8c4b25b4e`）         |
+| Occ III | Bleed、Blight（`e61ed317de`）、Debuff |
 
 词典 v1.8 三枚图标仍 `unreviewed`；整卡 `verification.unverified` 原因保留。
 
@@ -52,10 +52,10 @@ Kyries 确认**不是**全局词典升级；仅下列卡面位置：
 
 **仍未接线（保持门控，不发明效果）：**
 
-| 英雄         | I 级技能运行时                         | 村庄能力                                      |
-| ------------ | -------------------------------------- | --------------------------------------------- |
-| GRAVE ROBBER | 七张转录通过 ≠ 效果已接通；逐卡待开    | Pilfer — Draw `{icon:79084a2922}`（仍 unreviewed） |
-| OCCULTIST    | 同上                                   | Dark Ritual — 复合压力/治疗行，未接运行时     |
+| 英雄         | I 级技能运行时                      | 村庄能力                                           |
+| ------------ | ----------------------------------- | -------------------------------------------------- |
+| GRAVE ROBBER | 七张转录通过 ≠ 效果已接通；逐卡待开 | Pilfer — Draw `{icon:79084a2922}`（仍 unreviewed） |
+| OCCULTIST    | 同上                                | Dark Ritual — 复合压力/治疗行，未接运行时          |
 
 目录仅要求七张 I 级 `verification.unverified=false`；不因本轮属性批准假装技能/村庄完整可用。
 

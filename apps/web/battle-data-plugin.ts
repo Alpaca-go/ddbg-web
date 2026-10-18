@@ -160,8 +160,7 @@ export function battleDataPlugin(): Plugin {
         !tile ||
         !tile.usable ||
         tile.deployment?.printReview !== "verified" ||
-        heroStats.length !==
-          (graveOccultist ? 24 : plagueDoctor ? 18 : questCatalog ? 15 : 4) ||
+        heroStats.length !== (graveOccultist ? 24 : plagueDoctor ? 18 : questCatalog ? 15 : 4) ||
         skills.length !== skillIds.size ||
         monsters.length !== monsterIds.size
       )

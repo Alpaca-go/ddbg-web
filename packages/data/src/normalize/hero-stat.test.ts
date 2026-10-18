@@ -125,8 +125,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
     expect(
       built.cards
         .filter(
-          (c) =>
-            !["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].includes(c.name),
+          (c) => !["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].includes(c.name),
         )
         .map((card) => [card.id, card.name, card.level, card.life, card.dodge, card.speed]),
     ).toEqual([
@@ -144,9 +143,9 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
       ["hero_stat:p010:front", "VESTAL", 3, 22, 2, 2],
     ]);
     expect(built.cards.every((card) => card.attributesVerified)).toBe(true);
-    expect(built.cards.filter((card) => card.verification.unverified).length).toBeGreaterThanOrEqual(
-      10,
-    );
+    expect(
+      built.cards.filter((card) => card.verification.unverified).length,
+    ).toBeGreaterThanOrEqual(10);
   });
 
   it("只输出获批面，无映射不输出，不把 III 级背面或其他英雄补成默认数值", () => {
