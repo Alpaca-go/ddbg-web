@@ -69,17 +69,59 @@ function fixture(level = 1): GameState {
   };
 }
 
-it("R-096：I/II/III 抽取一枚战利品标记入 claimed，消耗当天行动；不翻面结算", () => {
+/** 压缩准备日后出征首选项；不注入金币/XP/揭示。 */
+function embark(game: GameState): GameState {
+  const d = game.dungeon!;
+  game = {
+    ...game,
+    dungeon: {
+      ...d,
+      hamlet: {
+        ...d.hamlet!,
+        phase: "preparationComplete",
+        remainingDays: 0,
+        active: null,
+        heroOrder: [],
+        actedHeroes: [],
+      },
+    },
+  };
+  game = ok(game, { type: "offerNextQuest" });
+  return ok(game, {
+    type: "resolveChoice",
+    choiceId: game.dungeon!.pending!.id,
+    optionId: game.dungeon!.pending!.options[0]!.id,
+  });
+}
+
+it("R-096/R-098：I/II/III 抽取一枚入 claimed，消耗行动；不翻面结算", () => {
   for (const level of [1, 2, 3] as const) {
     const g = fixture(level);
-    const before = g.dungeon!.lootPool!.available.length;
+    const before = g.dungeon!.lootPool!;
     const acted = g.dungeon!.hamlet!.actedHeroes?.length ?? 0;
-    const next = ok(g);
-    expect(next.dungeon!.lootPool!.available).toHaveLength(before - 1);
-    expect(next.dungeon!.lootPool!.claimedIds).toHaveLength(1);
+    const result = applyCommand(g, pilfer);
+    expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+    const next = result.state;
+    const pool = next.dungeon!.lootPool!;
+    expect(pool.available).toHaveLength(before.available.length - 1);
+    expect(pool.claimedIds).toHaveLength(1);
+    const claimedId = pool.claimedIds[0]!;
+    expect(before.available.some((t) => t.id === claimedId)).toBe(true);
+    expect(pool.available.some((t) => t.id === claimedId)).toBe(false);
+    expect(pool.placed).toEqual([]);
+    expect(pool.gold).toBe(before.gold);
+    expect(pool.provisionCursor).toBe(before.provisionCursor);
+    expect(next.dungeon!.gold).toBe(g.dungeon!.gold);
     expect(next.dungeon!.cursor).toBe(g.dungeon!.cursor + 1);
     expect(next.dungeon!.hamlet!.actedHeroes).toHaveLength(acted + 1);
-    expect(next.dungeon!.gold).toBe(g.dungeon!.gold);
+    expect(
+      result.events.some(
+        (e) =>
+          e.type === "dungeonUpdated" &&
+          e.message.includes("未翻面结算") &&
+          e.message.includes("R-098"),
+      ),
+    ).toBe(true);
   }
 });
 
@@ -95,7 +137,7 @@ it("同种子同命令确定性；输入不变；JSON schema 接受 pilfer", () 
   ).toEqual(pilfer);
 });
 
-it("空堆与身份拒绝（Q-99 / R-048）；UI 选项仅对获核 GR 出现", () => {
+it("空堆与身份拒绝（R-098 / R-048）；UI 选项仅对获核 GR 出现", () => {
   const empty = fixture();
   const tokens = createLootState().available;
   const emptyPool = {
@@ -110,7 +152,12 @@ it("空堆与身份拒绝（Q-99 / R-048）；UI 选项仅对获核 GR 出现", 
       },
     },
   };
-  expect(refused(emptyPool).events.some((e) => e.type === "commandRefused")).toBe(true);
+  const emptyRefuse = refused(emptyPool);
+  expect(
+    emptyRefuse.events.some(
+      (e) => e.type === "commandRefused" && e.message.includes("可用堆已空") && e.message.includes("R-098"),
+    ),
+  ).toBe(true);
   const wrong = fixture();
   const asCrusader = {
     ...wrong,
@@ -142,6 +189,20 @@ it("空堆与身份拒绝（Q-99 / R-048）；UI 选项仅对获核 GR 出现", 
       (o) => o.command.type === "useHamletSkill" && o.command.skill === "pilfer",
     ),
   ).toBe(false);
+});
+
+it("R-098：出征保留村庄 Pilfer claimedIds / 有效 lootPool", () => {
+  const pilfered = ok(fixture());
+  const before = pilfered.dungeon!.lootPool!;
+  expect(before.claimedIds).toHaveLength(1);
+  const departed = embark(pilfered);
+  const after = departed.dungeon!.lootPool!;
+  expect(after.claimedIds).toEqual(before.claimedIds);
+  expect(after.available.map((t) => t.id).sort()).toEqual(
+    before.available.map((t) => t.id).sort(),
+  );
+  expect(after.placed).toEqual([]);
+  expect(after.gold).toBe(departed.dungeon!.gold);
 });
 
 it("GR 退出未接线名单；Occ 仍保留（R-096）", () => {

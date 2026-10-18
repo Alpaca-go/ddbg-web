@@ -1,6 +1,8 @@
 # Codex 接线交接（2026-10-09）
 
-> 当前入口（2026-10-18）：#244已合并为main `b759e7c`。当前分支确认Q-100→R-097 LIMITED（`4f7549c1b8`→Buff）并接通Dark Ritual III（治疗5、Buff 3t，同I/II路径）；词典全局条目可仍unreviewed；p010仅记命名诚实不接线Vestal III。`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`已清空。Q-99（Pilfer翻面）仍待确认。见[Occ技能记录](phase4-occultist-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+> 当前入口（2026-10-18）：#245已合并为main `5c5a182`。当前分支确认Q-99→R-098（widget keep-current）：Pilfer抽取不翻面、空堆拒绝、出征保留claimed；不发明村庄补给去向。Occ Dark Ritual I–III已接（R-097）。见[rulings](rulings.md) R-098与[GR技能记录](phase4-grave-robber-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+>
+> 当前入口（2026-10-18）：#244已合并为main `b759e7c`。当时确认Q-100→R-097 LIMITED（`4f7549c1b8`→Buff）并接通Dark Ritual III（治疗5、Buff 3t，同I/II路径）；词典全局条目可仍unreviewed；p010仅记命名诚实不接线Vestal III。`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`已清空。Q-99（Pilfer翻面）当时仍待确认（现已见R-098）。见[Occ技能记录](phase4-occultist-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 >
 > 历史入口（2026-10-18）：#243已合并为main `947cbec`。当时`cursor/phase4-occultist-skills-c7e9`接Occultist I级七战斗技能与Dark Ritual I/II；条件伤新增`eldritch`；Dark Ritual III因图标`4f7549c1b8`记Q-100待确认并拒绝。
 

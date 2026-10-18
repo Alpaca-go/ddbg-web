@@ -1702,7 +1702,7 @@ export function DungeonQuest() {
           </p>
           <p>
             可选身份共 {FORMAL_HERO_NAMES.length} 名（与替补白名单一致）。盗墓者 I 级七战斗技能与
-            Pilfer 抽取已接（R-096；翻面结算见 Q-99）；神秘学者 I 级技能与 Dark Ritual
+            Pilfer 抽取已接（R-096、R-098：抽取不翻面）；神秘学者 I 级技能与 Dark Ritual
             未接线。可编队并装备已转录技能；未接线效果按 R-048 拒绝，不发明。
           </p>
           {party.map((hero, index) => {

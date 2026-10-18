@@ -18,7 +18,7 @@
 | VESTAL        | `hero_stat:p009:front` | 是                 | 是         | 是                 | 是             | 是                                                   | 是                   |
 | BOUNTY HUNTER | `hero_stat:p005:front` | 是（仅I级技能）    | 是         | 是（R-088）        | 是             | 是（含Scout Ahead）                                  | 是                   |
 | PLAGUE DOCTOR | `hero_stat:p013:front` | 是（仅I级技能）    | 是         | 是（R-094）        | 是             | 是（含Experimental Vapours）                         | 是                   |
-| GRAVE ROBBER  | `hero_stat:p017:front` | 是                 | 是         | 是（R-095）        | 是             | I级七技能已接；Pilfer 抽取已接（R-096；翻面见 Q-99） | 是                   |
+| GRAVE ROBBER  | `hero_stat:p017:front` | 是                 | 是         | 是（R-095）        | 是             | I级七技能已接；Pilfer 抽取已接（R-096、R-098） | 是                   |
 | OCCULTIST     | `hero_stat:p019:front` | 是                 | 是         | 是（R-095）        | 是             | I级七技能已接；Dark Ritual I–III 已接（R-097）       | 是                   |
 
 目录规模：正式`virtual:quest-battle-data` = 24属性面 / 112技能；`…-v2`六英雄 = 18/98；`…-v1`五英雄 = 15/91；战斗沙盒 = 4/84。
@@ -35,4 +35,4 @@
 
 ## 边界
 
-仍保持 Phase 4。Q-79/Q-80、正式 Boss、人工试玩保留。自然全灭正式存档路径已接（驿站 III 余额 4 → 四名额外 prepare/join → createQuestSave 往返）；**剩余缺口**为 Pilfer 翻面结算（Q-99），不以转录通过冒充效果完成。
+仍保持 Phase 4。Q-79/Q-80、正式 Boss、人工试玩保留。自然全灭正式存档路径已接（驿站 III 余额 4 → 四名额外 prepare/join → createQuestSave 往返）；Pilfer 抽取边已由 R-098 锁定（抽取不翻面 / 空堆拒绝 / 出征保留 claimed），不以转录通过冒充效果完成。

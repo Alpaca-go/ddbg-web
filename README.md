@@ -21,7 +21,7 @@ pnpm build
 
 `pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒，`/?phase=3&play=1` 打开三张基础任务的正式入口。
 
-2026-10-18最新进度：#244已合并，main `b759e7c`。Occultist I级七技能与Dark Ritual I–III已接（R-097 LIMITED Buff）；Pilfer翻面仍见Q-99。见[Occ技能记录](docs/phase4-occultist-skills-2026-10-18.md)。Q-79/Q-80、正式Boss与人工试玩继续保留，保持Phase4。以下段落为历史进度。
+2026-10-18最新进度：#245已合并，main `5c5a182`。Q-99→R-098锁定Pilfer当前行为（抽取不翻面/空堆拒绝/出征保留claimed）；Occultist I级七技能与Dark Ritual I–III已接（R-097）。见[rulings](docs/rulings.md) R-098与[GR技能记录](docs/phase4-grave-robber-skills-2026-10-18.md)。Q-79/Q-80、正式Boss与人工试玩继续保留，保持Phase4。以下段落为历史进度。
 
 2026-10-16最新进度：#219已合并Scout Ahead及R-090村庄意志次数裁定；当前继续战役死亡名单与死者饰品接收/弃置，见[开发记录](docs/phase4-death-estate-2026-10-16.md)。驿站替换与完整死亡补人仍未完成，保持Phase4。
 

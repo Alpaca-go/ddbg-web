@@ -1,6 +1,6 @@
 # Phase 4：Grave Robber I 级战斗技能与 Pilfer（R-096 / Q-98）
 
-状态：**I 级七战斗技能效果已接线；Pilfer 按 R-096 限定命名接通「Draw a Loot Token」抽取；翻面结算停在 Q-99。`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 已移除 GRAVE ROBBER（后续 Occ 接线后名单已空，见[Occ 技能记录](phase4-occultist-skills-2026-10-18.md)）。**
+状态：**I 级七战斗技能效果已接线；Pilfer 按 R-096 限定命名接通「Draw a Loot Token」抽取；翻面/空堆/出征保留边已由 R-098（Q-99）锁定当前行为。`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 已移除 GRAVE ROBBER（后续 Occ 接线后名单已空，见[Occ 技能记录](phase4-occultist-skills-2026-10-18.md)）。**
 
 ## 1. 基线与来源
 
@@ -19,7 +19,7 @@
 | Throw Dagger I     | `hero_skill:p181` | 已接             | 射程 1–2；同框 +1 vs Blight / +2 vs Mark；布局继承目标标记                      |
 | Poison Dart I      | `hero_skill:p184` | 已接             | 射程 1–2；Blight 2·3t                                                           |
 | Toxin Trickery I   | `hero_skill:p187` | 已接             | 无 Acc；Buff 2t + 换行 Remove Bleed/Blight                                      |
-| Pilfer             | Hamlet Skill      | **已接（抽取）** | R-096：`79084a2922`=Loot Token（仅 Pilfer）；抽 1 枚入 claimed；翻面见 Q-99     |
+| Pilfer             | Hamlet Skill      | **已接（抽取）** | R-096：`79084a2922`=Loot Token（仅 Pilfer）；抽 1 枚入 claimed；R-098：不翻面/空堆拒绝/出征保留 |
 
 条件伤害新增 `blighted`（读真实 `statusStacks` 中的 Blight，同 Finish Him 的 Stun 模式）。缺合法状态堆整次拒绝（R-048）。
 
@@ -28,8 +28,8 @@
 - 公开命令 `useHamletSkill / pilfer`；存档 schema 接受该技能名（同 Scout Ahead / Experimental Vapours 模式）。
 - 仅已核实盗墓者 I–III（三面 Pilfer 文案相同）。
 - 效果：种子 RNG 从 `lootPool.available` 抽 1 枚 → `claimedIds`；消耗当天行动；不收费、不占建筑。
-- 空堆拒绝并引用 Q-99；不发明翻面金币/补给。
-- 出征保留既有 `lootPool`（含村庄期间 claimed），不再无条件 `createLootState()` 抹掉（R-047）。
+- 空堆拒绝（R-098）；抽取不翻面、不发明村庄补给去向。
+- 出征保留既有 `lootPool`（含村庄期间 claimed），不再无条件 `createLootState()` 抹掉（R-047 / R-098）。
 - 词典 `79084a2922` 保持 `unreviewed`；卡面 `verification.reasons` 仍含该图标（LIMITED，不改全局）。
 
 ## 4. 名单与 UI
