@@ -26,7 +26,7 @@ Kyries要求“合并，然后继续”。#235精确head `2f2298a`与上轮1384�
 
 ## 续：自然全灭正式存档（#239 之后）
 
-基线：#239 合并 main `438f7da`（R-095，四名已核实额外在池）。本主题分支 `cursor/phase4-natural-wipeout-save-3a36` tip `a6bf6bb`。
+基线：#239 合并 main `438f7da`（R-095，四名已核实额外在池）。本主题分支 `cursor/phase4-natural-wipeout-save-3a36`（以 remote HEAD 为准）。
 
 新增自然公开命令路径 `naturalWipeoutReplacementPath`：
 

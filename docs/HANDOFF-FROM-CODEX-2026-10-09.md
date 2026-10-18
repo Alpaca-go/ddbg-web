@@ -1,6 +1,6 @@
 # Codex 接线交接（2026-10-09）
 
-> 当前入口（2026-10-18）：#239已合并为main `438f7da`。分支`cursor/phase4-natural-wipeout-save-3a36` tip `a6bf6bb`补自然全灭正式存档：Fundraiser seed2→驿站III余额4→Scout Ahead preferWipeout 公开命令至 heroesDefeated→准备四名已核实额外（BH/PD/GR/Occ）并入队，createQuestSave/loadQuestSave往返。机制夹具 wipeoutBoundary 仍仅作边界测试、不冒充自然击杀。GR/Occ技能效果与Pilfer/Dark Ritual仍未接线。见[全灭交接](phase4-wipeout-handoff-2026-10-18.md)与[候选盘点](phase4-replacement-candidates-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+> 当前入口（2026-10-18）：#239已合并为main `438f7da`。分支`cursor/phase4-natural-wipeout-save-3a36`（remote HEAD）补自然全灭正式存档：Fundraiser seed2→驿站III余额4→Scout Ahead preferWipeout 公开命令至 heroesDefeated→准备四名已核实额外（BH/PD/GR/Occ）并入队，createQuestSave/loadQuestSave往返。机制夹具 wipeoutBoundary 仍仅作边界测试、不冒充自然击杀。GR/Occ技能效果与Pilfer/Dark Ritual仍未接线。见[全灭交接](phase4-wipeout-handoff-2026-10-18.md)与[候选盘点](phase4-replacement-candidates-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 
 > 当前入口（2026-10-18）：#238已合并为main `87e9773`。Kyries确认Q-97 LIMITED映射（R-095）：`e61ed317de`=Blight（GR II/III、Occ III左栏指定位）、`8cbe7d6703`=Debuff（仅Occ I；Jester同hash不覆盖）、`a8c4b25b4e`=Debuff（Occ II左#2）。六面属性/防御已入库；正式目录与白名单扩至八英雄/四名额外替补（24属性/112技能）；全灭余额4可准备四人并入队。技能效果与Pilfer/Dark Ritual仍未接线。见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md)与[候选盘点](phase4-replacement-candidates-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 
