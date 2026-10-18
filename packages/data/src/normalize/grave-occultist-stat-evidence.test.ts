@@ -49,9 +49,7 @@ function speedCount(f: NonNullable<ReturnType<typeof face>>) {
   const [, top, right, bottom] = life.bbox;
   return f.icons.filter((icon) => {
     const y = (icon.bbox[1] + icon.bbox[3]) / 2;
-    return (
-      icon.iconId === SPEED && !icon.decor && icon.bbox[0] >= right && y >= top && y <= bottom
-    );
+    return icon.iconId === SPEED && !icon.decor && icon.bbox[0] >= right && y >= top && y <= bottom;
   }).length;
 }
 
