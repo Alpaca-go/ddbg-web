@@ -44,6 +44,7 @@ import { tickStatusStacks } from "./status";
 import { coreQuestSources } from "./test-helpers/core-quest";
 import { prepareTestReplacement } from "./test-helpers/replacement";
 import { readRoomTile } from "./room-tile-selection";
+import { endAfterCasualties } from "./encounter";
 
 const stats = normalizedHeroStatFileSchema
   .parse(statsFile)
@@ -414,6 +415,192 @@ function terminal(outcome: "victory" | "retreat") {
     },
   };
 }
+
+/** 明示死亡边界夹具：真实房间/怪物部署后指定死亡，不冒充自然击杀或正式战役存档。 */
+function wipeoutBoundary(
+  waiting = 4,
+  reason: "heroesDefeated" | "mutualWipeout" = "heroesDefeated",
+  before?: GameState,
+) {
+  const s = before ?? send(started(), { type: "startBattle" });
+  const boundary: GameState = {
+    ...s,
+    dungeon: {
+      ...s.dungeon!,
+      battleCatalog: coreQuestSources.catalog,
+      buildingLevels: { stagecoach: 3 },
+      waitingHeroTokens: waiting,
+    },
+    battle: {
+      ...s.battle!,
+      entities: s.battle!.entities.map((e) =>
+        e.side === "hero" || reason === "mutualWipeout" ? { ...e, dead: true, wounds: e.life! } : e,
+      ),
+    },
+  };
+  const ended = endAfterCasualties({ state: boundary, events: [] })!;
+  return send(ended.state, { type: "ping", message: "登记机制夹具死者" });
+}
+
+it.each([0, 1, 2, 3])("普通任务四英雄全灭、等待%s人：明确失败且不花资源/洗牌/发奖励", (waiting) => {
+  const s = wipeoutBoundary(waiting),
+    before = structuredClone(s);
+  const result = applyCommand(s, { type: "finishDungeonBattle" });
+  expect(result.state.dungeon!.campaignFailure).toBe("insufficientWaitingHeroes");
+  expect(result.state.battle).toEqual(s.battle);
+  expect(result.state.dungeon).toEqual({
+    ...s.dungeon!,
+    campaignFailure: "insufficientWaitingHeroes",
+  });
+  expect(result.events.some((e) => e.type === "battleFinished")).toBe(false);
+  expect(s).toEqual(before);
+  for (const command of [
+    { type: "finishDungeonBattle" },
+    { type: "prepareReplacementHero" },
+    { type: "ping", message: "stop" },
+  ] as const)
+    expect(applyCommand(result.state, command).state).toBe(result.state);
+  expect(
+    applyCommand(JSON.parse(JSON.stringify(s)), { type: "finishDungeonBattle" }).state,
+  ).toEqual(result.state);
+});
+
+it("等待四人时按逃跑交接；不清宝藏/不发20金，登记四死者、强制离房与牌池/RNG守恒", () => {
+  const s = wipeoutBoundary(),
+    b = s.battle!,
+    d = s.dungeon!;
+  const count =
+    (d.monsterPool!.remaining?.length ?? 0) +
+    d.monsterPool!.discarded.length +
+    d.monsterPool!.active!.monsters.length;
+  const returned = send(s, { type: "finishDungeonBattle" });
+  expect(returned.battle).toBeUndefined();
+  expect(returned.dungeon).toMatchObject({
+    phase: "awaitingReplacement",
+    replacementResume: "ready",
+    mustLeaveRoomId: d.position,
+    waitingHeroTokens: 4,
+    gold: b.loot!.gold,
+    cursor: b.rngCursor + count - 1,
+  });
+  expect(returned.dungeon!.campaignFailure).toBeUndefined();
+  expect(returned.dungeon!.heroes.every((h) => h.dead)).toBe(true);
+  expect(returned.dungeon!.deadHeroNames).toHaveLength(4);
+  expect(returned.dungeon!.rooms.find((r) => r.id === d.position)?.cleared).not.toBe(true);
+  expect(returned.dungeon!.roomCards!.active).toBeNull();
+  expect(returned.dungeon!.roomCards!.discard).toContain(d.roomCards!.active!.cardId);
+  expect(returned.dungeon!.monsterPool!.active).toBeNull();
+  expect(new Set(returned.dungeon!.monsterPool!.remaining).size).toBe(count);
+  expect(applyCommand(returned, { type: "finishDungeonBattle" }).state).toBe(returned);
+  let prepared = prepareTestReplacement(returned);
+  prepared = prepareTestReplacement(prepared);
+  expect(prepared.dungeon!.preparedReplacements).toHaveLength(2);
+  expect(prepared.dungeon!.waitingHeroTokens).toBe(2);
+  // 正式已接通身份只有六个，不能伪造另外两名英雄，也不能把目录不足判成战役失败。
+  expect(applyCommand(prepared, { type: "prepareReplacementHero" }).state).toBe(prepared);
+  expect(applyCommand(prepared, { type: "joinPreparedReplacements" }).state).toBe(prepared);
+  expect(prepared.dungeon!.campaignFailure).toBeUndefined();
+});
+
+it("旧I级未记录驿站余额按两人判定；旧全灭停点已准备的替补可继续回传", () => {
+  const s = wipeoutBoundary(2);
+  const { waitingHeroTokens: _tokens, buildingLevels: _levels, ...rest } = s.dungeon!;
+  void _tokens;
+  void _levels;
+  expect(
+    send({ ...s, dungeon: rest }, { type: "finishDungeonBattle" }).dungeon!.campaignFailure,
+  ).toBe("insufficientWaitingHeroes");
+  const prepared = prepareTestReplacement(wipeoutBoundary());
+  expect(prepared.dungeon!.waitingHeroTokens).toBe(3);
+  const result = send(prepared, { type: "finishDungeonBattle" });
+  expect(result.dungeon!.campaignFailure).toBeUndefined();
+  expect(result.dungeon!.preparedReplacements).toHaveLength(1);
+  expect(send(JSON.parse(JSON.stringify(prepared)), { type: "finishDungeonBattle" })).toEqual(
+    result,
+  );
+});
+
+it("战斗内已准备一名替补计入可补人数；交接不重复扣代币", () => {
+  const startedBattle = send(started(), { type: "startBattle" });
+  const firstDeath: GameState = {
+    ...startedBattle,
+    dungeon: {
+      ...startedBattle.dungeon!,
+      battleCatalog: coreQuestSources.catalog,
+      buildingLevels: { stagecoach: 3 },
+      waitingHeroTokens: 4,
+    },
+    battle: {
+      ...startedBattle.battle!,
+      entities: startedBattle.battle!.entities.map((e) =>
+        e.id === "hero-0" ? { ...e, dead: true, wounds: e.life! } : e,
+      ),
+    },
+  };
+  const prepared = prepareTestReplacement(
+    send(firstDeath, { type: "ping", message: "登记首死者" }),
+  );
+  expect(prepared.dungeon!.waitingHeroTokens).toBe(3);
+  const halted = wipeoutBoundary(3, "heroesDefeated", prepared);
+  const returned = send(halted, { type: "finishDungeonBattle" });
+  expect(returned.dungeon!.campaignFailure).toBeUndefined();
+  expect(returned.dungeon!.waitingHeroTokens).toBe(3);
+  expect(returned.dungeon!.preparedReplacements).toEqual(prepared.dungeon!.preparedReplacements);
+  const overCapacity = {
+    ...halted,
+    dungeon: { ...halted.dungeon!, buildingLevels: { stagecoach: 2 as const } },
+  };
+  expect(applyCommand(overCapacity, { type: "finishDungeonBattle" }).state).toBe(overCapacity);
+  const insufficient = wipeoutBoundary(2, "heroesDefeated", prepared);
+  expect(send(insufficient, { type: "finishDungeonBattle" }).dungeon!.campaignFailure).toBe(
+    "insufficientWaitingHeroes",
+  );
+});
+
+it("双方全灭继续R-068停点；假全灭、Boss/未知任务、坏资源/坏牌池/假替补均原子拒绝", () => {
+  const s = wipeoutBoundary();
+  const both = wipeoutBoundary(0, "mutualWipeout");
+  expect(applyCommand(both, { type: "finishDungeonBattle" }).state).toBe(both);
+  expect(both.dungeon!.campaignFailure).toBeUndefined();
+  const invalid: GameState[] = [
+    {
+      ...s,
+      battle: {
+        ...s.battle!,
+        encounter: { ...s.battle!.encounter!, turn: { type: "finished", outcome: "victory" } },
+      },
+    },
+    {
+      ...s,
+      dungeon: {
+        ...s.dungeon!,
+        questDistribution: { ...s.dungeon!.questDistribution!, questId: "boss:unknown" },
+      },
+    },
+    { ...s, dungeon: { ...s.dungeon!, waitingHeroTokens: -1 } },
+    { ...s, dungeon: { ...s.dungeon!, waitingHeroTokens: 5 } },
+    {
+      ...s,
+      dungeon: { ...s.dungeon!, monsterPool: { ...s.dungeon!.monsterPool!, remaining: [] } },
+    },
+    {
+      ...s,
+      battle: {
+        ...s.battle!,
+        entities: s.battle!.entities.map((e) => (e.id === "hero-0" ? { ...e, dead: false } : e)),
+      },
+    },
+    {
+      ...s,
+      dungeon: {
+        ...s.dungeon!,
+        preparedReplacements: [{ deadHeroId: "unknown", hero: s.dungeon!.heroes[0]! }],
+      },
+    },
+  ];
+  for (const bad of invalid)
+    expect(applyCommand(bad, { type: "finishDungeonBattle" }).state).toBe(bad);
+});
 
 it.each(["victory", "retreat"] as const)(
   "真实部署的%s交接边界：战斗内只能准备，回传后替补入队；Curio奖励/强制离房与金币只结算一次",

@@ -61,8 +61,17 @@ export function BattleView({
   const [provisionTargetId, setProvisionTargetId] = useState("hero-0");
   const [provisionEffect, setProvisionEffect] = useState<ProvisionEffect>("heal");
   const battle = game.battle!;
-  const step = battleStep(battle);
   const turn = battle.encounter?.turn;
+  const step = game.dungeon?.campaignFailure
+    ? { label: "战役失败", hint: "驿站等待英雄不足，无法补齐队伍（R9/R25/R33）。" }
+    : layout === "dungeon" && turn?.type === "halted"
+      ? turn.reason === "heroesDefeated"
+        ? {
+            label: "英雄全灭",
+            hint: "先处置死者饰品，再点击「结算英雄全灭」检查驿站人数（R9/R25）。",
+          }
+        : { label: "双方全灭", hint: "单场停止，无胜利或撤退奖励；保留双方全灭停点（R-068）。" }
+      : battleStep(battle);
   const actor =
     turn && "actorId" in turn ? battle.entities.find((e) => e.id === turn.actorId) : undefined;
   const pending =
@@ -140,7 +149,7 @@ export function BattleView({
           : turn.type === "halted"
             ? turn.reason === "mutualWipeout"
               ? "双方同次全灭：单场停止，无胜利／撤退奖励"
-              : "英雄全灭：单场停止（战役结果待接入）"
+              : "英雄全灭：单场停止，真实任务请结算驿站人数"
             : "等待抽取先攻";
   const endpoint = path.at(-1) ?? actor?.areaId;
   const adjacent = battle.areas.find((a) => a.id === endpoint)?.adjacent ?? [];
@@ -231,9 +240,13 @@ export function BattleView({
       {layout === "dungeon" && (
         <p className="sandbox-note">
           真实房间部署 · 每名英雄装备三个 I 级技能；战后保留状态与补给。
-          {turn?.type === "finished" && (
-            <button onClick={() => send({ type: "finishDungeonBattle" })}>返回地牢地图</button>
-          )}
+          {(turn?.type === "finished" ||
+            (turn?.type === "halted" && turn.reason === "heroesDefeated")) &&
+            !game.dungeon?.campaignFailure && (
+              <button onClick={() => send({ type: "finishDungeonBattle" })}>
+                {turn.type === "halted" ? "结算英雄全灭" : "返回地牢地图"}
+              </button>
+            )}
         </p>
       )}
       {layout !== "dungeon" && (
@@ -510,14 +523,21 @@ export function BattleView({
                 disabled={
                   !!game.dungeon.deathTrinketChoice ||
                   !!game.dungeon.replacementPreparation ||
-                  !!game.dungeon.campaignFailure
+                  !!game.dungeon.campaignFailure ||
+                  (turn?.type === "halted" && turn.reason === "heroesDefeated")
                 }
                 onClick={() => send({ type: "prepareReplacementHero" })}
               >
                 准备驿站替补
               </button>
             )}
-          {game.dungeon?.campaignFailure && <p>等待英雄代币耗尽，战役失败（R33）。</p>}
+          {game.dungeon?.campaignFailure && (
+            <p>
+              {game.dungeon.campaignFailure === "insufficientWaitingHeroes"
+                ? "英雄全灭，驿站等待英雄不足四人，战役失败（R9/R25）。"
+                : "等待英雄代币耗尽，战役失败（R33）。"}
+            </p>
+          )}
           {!!game.dungeon?.preparedReplacements?.length && <p>替补已准备，等待战斗结束后入队。</p>}
           {turn?.type === "awaitingInitiative" && !frozen && (
             <button onClick={() => send({ type: "drawInitiative" })}>抽取先攻</button>
