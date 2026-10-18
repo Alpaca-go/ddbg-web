@@ -17,10 +17,7 @@ export function attachVerifiedHeroDamage(
               hero: "BOUNTY HUNTER",
               name: "Collect Bounty",
               page: 43,
-              lines: [
-                "{target_effects}{damage}+1vsHumans",
-                "{target_effects}{damage}+2vs{mark}",
-              ],
+              lines: ["{target_effects}{damage}+1vsHumans", "{target_effects}{damage}+2vs{mark}"],
               stats: "{range}0{target_monster}Crit1{damage}10Acc9{damage}6",
               bonuses: [
                 {
@@ -42,10 +39,7 @@ export function attachVerifiedHeroDamage(
               hero: "GRAVE ROBBER",
               name: "Throw Dagger",
               page: 181,
-              lines: [
-                "{target_effects}{damage}+1vs{blight}",
-                "{target_effects}{damage}+2vs{mark}",
-              ],
+              lines: ["{target_effects}{damage}+1vs{blight}", "{target_effects}{damage}+2vs{mark}"],
               stats: "{range}1-2{target_monster}Crit2{damage}7Acc9{damage}4",
               bonuses: [
                 {

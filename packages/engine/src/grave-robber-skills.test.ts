@@ -32,9 +32,11 @@ function setup(
     areaDistance?: 0 | 1 | 2;
   } = {},
 ) {
-  const distance = patch.areaDistance ?? (readPrintedRange(card).kind === "exact"
-    ? (readPrintedRange(card) as { distance: number }).distance
-    : 1);
+  const distance =
+    patch.areaDistance ??
+    (readPrintedRange(card).kind === "exact"
+      ? (readPrintedRange(card) as { distance: number }).distance
+      : 1);
   const seed = Array.from({ length: 300 }, (_, i) => i).find((s) => nextBattleRoll(s, 0) === roll)!;
   const common = { wounds: 0, guard: false, dead: false, bleed: [], blight: [], statusStacks: [] };
   const lit = card.top_row_icons?.find((icon) => /^stance_.*_lit$/.test(icon.key ?? ""));
@@ -193,21 +195,19 @@ it("Flashing Daggers I：双目标共享骰、逐名伤害；无额外效果行"
         stance: "support",
         skillIds: [card.id],
       },
-      ...(["m1", "m2"] as const).map(
-        (id): BattleEntity => ({
-          ...common,
-          id,
-          side: "monster",
-          hero: null,
-          monsterCardId: monster.id,
-          life: monster.life!,
-          dodge: 0,
-          areaId: "b",
-          stance: id === "m1" ? "aggressive" : "defensive",
-          stanceSlots: 1,
-          skillIds: [],
-        }),
-      ),
+      ...(["m1", "m2"] as const).map((id): BattleEntity => ({
+        ...common,
+        id,
+        side: "monster",
+        hero: null,
+        monsterCardId: monster.id,
+        life: monster.life!,
+        dodge: 0,
+        areaId: "b",
+        stance: id === "m1" ? "aggressive" : "defensive",
+        stanceSlots: 1,
+        skillIds: [],
+      })),
     ],
     areas: [
       { id: "a", elevation: "normal", adjacent: ["b"], capacity: 8 },

@@ -1702,9 +1702,8 @@ export function DungeonQuest() {
           </p>
           <p>
             可选身份共 {FORMAL_HERO_NAMES.length} 名（与替补白名单一致）。盗墓者 I
-            级七战斗技能已接，Pilfer 因 Draw 图标未核实（Q-98）仍未接线；神秘学者 I
-            级技能与 Dark Ritual 未接线。可编队并装备已转录技能；未接线效果按 R-048
-            拒绝，不发明。
+            级七战斗技能已接，Pilfer 因 Draw 图标未核实（Q-98）仍未接线；神秘学者 I 级技能与 Dark
+            Ritual 未接线。可编队并装备已转录技能；未接线效果按 R-048 拒绝，不发明。
           </p>
           {party.map((hero, index) => {
             const name = partyNames[index]!;
