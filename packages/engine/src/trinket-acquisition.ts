@@ -385,11 +385,7 @@ export function setTrinketDeck(
   return {
     ...pool,
     inactive: pool.inactive!.map((p) =>
-      p.level === level
-        ? discard !== undefined
-          ? { ...p, deck, discard }
-          : { ...p, deck }
-        : p,
+      p.level === level ? (discard !== undefined ? { ...p, deck, discard } : { ...p, deck }) : p,
     ),
   };
 }
