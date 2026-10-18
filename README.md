@@ -21,7 +21,9 @@ pnpm build
 
 `pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒，`/?phase=3&play=1` 打开三张基础任务的正式入口。
 
-2026-10-18最新进度：#245已合并，main `5c5a182`。Q-99→R-098锁定Pilfer当前行为（抽取不翻面/空堆拒绝/出征保留claimed）；Occultist I级七技能与Dark Ritual I–III已接（R-097）。见[rulings](docs/rulings.md) R-098与[GR技能记录](docs/phase4-grave-robber-skills-2026-10-18.md)。Q-79/Q-80、正式Boss与人工试玩继续保留，保持Phase4。以下段落为历史进度。
+2026-10-18最新进度：基线 #246 / `acc3c8c`。当前确认 Q-79→R-099（replace-reshuffle）：墓地／In Good Spirits 等获美德路径，已持意志卡时旧卡洗回对应堆再抽新美德。见[rulings](docs/rulings.md) R-099与[接线记录](docs/phase4-graveyard-q79-r099-2026-10-18.md)。Q-80、正式Boss与人工试玩继续保留，保持Phase4。以下段落为历史进度。
+
+2026-10-18进度：#246已合并，main `acc3c8c`。Q-99→R-098锁定Pilfer当前行为；#245合并时 tip `5c5a182`。Occultist I级七技能与Dark Ritual I–III已接（R-097）。见[rulings](docs/rulings.md) R-098与[GR技能记录](docs/phase4-grave-robber-skills-2026-10-18.md)。当时 Q-79/Q-80 仍 pending。
 
 2026-10-16最新进度：#219已合并Scout Ahead及R-090村庄意志次数裁定；当前继续战役死亡名单与死者饰品接收/弃置，见[开发记录](docs/phase4-death-estate-2026-10-16.md)。驿站替换与完整死亡补人仍未完成，保持Phase4。
 

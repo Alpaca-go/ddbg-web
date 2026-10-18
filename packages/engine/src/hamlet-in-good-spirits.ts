@@ -6,7 +6,7 @@ import { grantGraveyardVirtue } from "./hamlet-graveyard";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 
-/** 卡面p14、R28/R32/33、R-048：全员掷d10，最高者获美德并将压力指示物翻红；图标94bfa4dde4已确认。 */
+/** 卡面p14、R28/R32/33、R-048、R-099：全员掷d10，最高者获美德并将压力指示物翻红；已有意志卡则替换洗回。 */
 export function applyInGoodSpirits(state: GameState): ApplyResult {
   const d = state.dungeon;
   if (
@@ -20,13 +20,7 @@ export function applyInGoodSpirits(state: GameState): ApplyResult {
     new Set(d.heroes.map((hero) => hero.id)).size !== 4 ||
     d.heroes.some((hero) => hero.dead) ||
     d.heroes.some(
-      (hero) =>
-        !hero.stance ||
-        !STANCES.includes(hero.stance as (typeof STANCES)[number]) ||
-        hero.resolveCardId ||
-        hero.resolveTested ||
-        hero.combat?.resolveCardId ||
-        hero.combat?.resolveTested,
+      (hero) => !hero.stance || !STANCES.includes(hero.stance as (typeof STANCES)[number]),
     ) ||
     d.resolveCards.length !== 10 ||
     new Set(d.resolveCards.map((card) => card.id)).size !== 10 ||
@@ -36,12 +30,12 @@ export function applyInGoodSpirits(state: GameState): ApplyResult {
     ) ||
     !Number.isSafeInteger(d.cursor) ||
     d.cursor < 0 ||
-    !Number.isSafeInteger(d.cursor + 20) ||
+    !Number.isSafeInteger(d.cursor + 40) ||
     hamletEventCompletionProblem(d)
   )
     return rejectBattleCommand(
       state,
-      "In Good Spirits须在完整回村、无持有意志卡且美德牌池齐全下结算（R28/R32、Q-79）",
+      "In Good Spirits须在完整回村且美德牌池齐全下结算（R28/R32、R-099）",
     );
 
   const order = [...d.heroes].sort(
@@ -74,7 +68,7 @@ export function applyInGoodSpirits(state: GameState): ApplyResult {
     events: [
       {
         type: "dungeonUpdated",
-        message: `In Good Spirits：d10 ${rollSummary}，最高${highest}获美德并翻红（${gained.join("；")}）（卡面p14、R28）`,
+        message: `In Good Spirits：d10 ${rollSummary}，最高${highest}获美德并翻红（${gained.join("；")}）（卡面p14、R28、R-099）`,
       },
       ...completed.events,
     ],

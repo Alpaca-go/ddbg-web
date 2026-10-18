@@ -1,6 +1,8 @@
 # Codex 接线交接（2026-10-09）
 
-> 当前入口（2026-10-18）：#245已合并为main `5c5a182`。当前分支确认Q-99→R-098（widget keep-current）：Pilfer抽取不翻面、空堆拒绝、出征保留claimed；不发明村庄补给去向。Occ Dark Ritual I–III已接（R-097）。见[rulings](rulings.md) R-098与[GR技能记录](phase4-grave-robber-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+> 当前入口（2026-10-18）：基线 #246 / main `acc3c8c`。当前分支确认 Q-79→R-099（replace-reshuffle）：墓地与 In Good Spirits 等获美德路径，已持意志卡时旧卡洗回对应堆再抽新美德。见[rulings](rulings.md) R-099与[接线记录](phase4-graveyard-q79-r099-2026-10-18.md)。不裁定 Q-80，不进 Phase5。下文为历史记录。
+>
+> 历史入口（2026-10-18）：#246已合并为main `acc3c8c`；此前 #245 tip `5c5a182` 确认Q-99→R-098（Pilfer抽取不翻面等）。Occ Dark Ritual I–III已接（R-097）。当时不裁定Q-79/Q-80。
 >
 > 当前入口（2026-10-18）：#244已合并为main `b759e7c`。当时确认Q-100→R-097 LIMITED（`4f7549c1b8`→Buff）并接通Dark Ritual III（治疗5、Buff 3t，同I/II路径）；词典全局条目可仍unreviewed；p010仅记命名诚实不接线Vestal III。`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`已清空。Q-99（Pilfer翻面）当时仍待确认（现已见R-098）。见[Occ技能记录](phase4-occultist-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 >

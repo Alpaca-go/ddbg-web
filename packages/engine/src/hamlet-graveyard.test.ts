@@ -112,7 +112,7 @@ it("缺钱仍可免费来访，封锁/当天占用/越序/未完成事件/坏牌
     expect(applyCommand(bad, visit()).state).toBe(bad);
   }
 });
-it("真实跨日美德保留、第二次访问不换卡；已有卡重复来访保留Q-79停点，不能补牌", () => {
+it("真实跨日美德保留；再次访问墓地按R-099替换洗回：旧卡回美德堆、抽新美德、行动与金币照常", () => {
   let game = baseline.game;
   const commands = [...baseline.commands];
   const step = (c: Command) => {
@@ -120,26 +120,75 @@ it("真实跨日美德保留、第二次访问不换卡；已有卡重复来访�
     game = ok(game, c);
   };
   step(visit());
-  const cardId = game.dungeon!.heroes[0]!.resolveCardId;
+  const oldId = game.dungeon!.heroes[0]!.resolveCardId!;
+  expect(game.dungeon!.resolveDecks.virtue).toHaveLength(4);
+  expect(game.dungeon!.resolveDecks.virtue).not.toContain(oldId);
   step({ type: "useHamletSkill", actorId: "hero-1", skill: "intimidate" });
   step({ type: "visitHamletBuilding", actorId: "hero-2", serviceId: "tavern3", quirkIds: [] });
   step({ type: "useHamletSkill", actorId: "hero-3", skill: "chant" });
   step({ type: "rollHamletCaretaker" });
-  expect(game.dungeon!.heroes[0]!.resolveCardId).toBe(cardId);
+  expect(game.dungeon!.heroes[0]!.resolveCardId).toBe(oldId);
+  const save = createQuestSave(baseline.start, commands, game, coreQuestSources);
+  expect(loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game).toEqual(game);
+  // 次日看守人可能仍封锁墓地：明示解除封锁夹具只测 R-099 替换，不写入存档命令。
   const free: GameState = {
     ...game,
     dungeon: { ...game.dungeon!, hamlet: { ...game.dungeon!.hamlet!, blockedBuildings: [] } },
   };
-  const rejected = applyCommand(free, visit());
-  expect(rejected.state).toBe(free);
-  expect(rejected.events[0]!.message).toContain("Q-79");
   expect(
     hamletActionOptions(free).some(
       (o) => o.command.type === "visitHamletBuilding" && o.command.serviceId === "graveyardVirtue",
     ),
-  ).toBe(false);
-  const save = createQuestSave(baseline.start, commands, game, coreQuestSources);
-  expect(loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game).toEqual(game);
+  ).toBe(true);
+  const gold = free.dungeon!.gold;
+  const cursorBefore = free.dungeon!.cursor;
+  const replaced = ok(free, visit());
+  const hero = replaced.dungeon!.heroes[0]!;
+  const newId = hero.resolveCardId!;
+  expect(replaced.dungeon!.resolveCards.find((c) => c.id === newId)!.role).toBe("virtue");
+  expect(hero.resolveTested).toBe(true);
+  expect(replaced.dungeon!.resolveDecks.virtue).toHaveLength(4);
+  expect(replaced.dungeon!.resolveDecks.virtue).not.toContain(newId);
+  // 洗回后再抽可能抽回同一张；旧卡要么在堆上，要么仍是当前持牌。
+  expect(newId === oldId || replaced.dungeon!.resolveDecks.virtue!.includes(oldId)).toBe(true);
+  const held = replaced.dungeon!.heroes.flatMap((h) => (h.resolveCardId ? [h.resolveCardId] : []));
+  expect(new Set(held).size).toBe(held.length);
+  expect(
+    replaced
+      .dungeon!.resolveCards.filter((c) => c.role === "virtue")
+      .every((c) => held.includes(c.id) || replaced.dungeon!.resolveDecks.virtue!.includes(c.id)),
+  ).toBe(true);
+  expect(replaced.dungeon!.gold).toBe(gold);
+  expect(replaced.dungeon!.cursor).toBeGreaterThan(cursorBefore);
+  expect(replaced.dungeon!.hamlet!.visitedBuildings).toEqual(["graveyard"]);
+  expect(replaced.dungeon!.hamlet!.actedHeroes).toEqual(["hero-0"]);
+});
+
+it("已有苦难时访问墓地：苦难洗回苦难堆，再抽新美德（R-099牌池守恒）", () => {
+  const d = baseline.game.dungeon!;
+  const affliction = d.resolveCards.find((c) => c.role === "affliction")!;
+  const virtues = d.resolveCards.filter((c) => c.role === "virtue").map((c) => c.id);
+  const afflictions = d.resolveCards
+    .filter((c) => c.role === "affliction" && c.id !== affliction.id)
+    .map((c) => c.id);
+  const polluted: GameState = {
+    ...baseline.game,
+    dungeon: {
+      ...d,
+      heroes: d.heroes.map((h, i) =>
+        i === 0 ? { ...h, resolveCardId: affliction.id, resolveTested: true } : h,
+      ),
+      resolveDecks: { virtue: virtues, affliction: afflictions },
+    },
+  };
+  const next = ok(polluted, visit());
+  const hero = next.dungeon!.heroes[0]!;
+  expect(hero.resolveCardId).not.toBe(affliction.id);
+  expect(next.dungeon!.resolveCards.find((c) => c.id === hero.resolveCardId)!.role).toBe("virtue");
+  expect(next.dungeon!.resolveDecks.affliction).toContain(affliction.id);
+  expect(next.dungeon!.resolveDecks.affliction).toHaveLength(5);
+  expect(next.dungeon!.resolveDecks.virtue).toHaveLength(4);
+  expect(next.dungeon!.resolveDecks.virtue).not.toContain(hero.resolveCardId);
 });
 it("墓地真实持牌进入探索压力边界夹具：压力10直接心脏病，不掷意志/死门或再抽美德", () => {
   const held = ok(baseline.game, visit()),
