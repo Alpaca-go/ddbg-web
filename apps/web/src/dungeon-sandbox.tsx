@@ -25,6 +25,8 @@ import {
   readRoomTile,
   PROVISION_EFFECTS,
   dungeonProvisionWindow,
+  FORMAL_HERO_NAMES,
+  heroHasUnwiredCombatSkills,
 } from "@ddbg/engine";
 import type {
   QuestParty,
@@ -35,6 +37,7 @@ import type {
   GameState,
   DungeonState,
   PendingChoice,
+  FormalHeroName,
 } from "@ddbg/engine";
 import rawLayouts from "../../../packages/data/normalized/corebox/dungeon_layouts.json";
 import { dungeonLayoutFileSchema } from "../../../packages/data/src/dungeon-layout";
@@ -1556,7 +1559,29 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
   );
 }
 
-const coreNames = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"];
+const defaultPartyNames: FormalHeroName[] = [
+  "CRUSADER",
+  "HELLION",
+  "HIGHWAYMAN",
+  "VESTAL",
+];
+const stanceLabels = {
+  aggressive: "进攻",
+  defensive: "防御",
+  ranged: "远程",
+  support: "支援",
+} as const;
+function formalPartySlot(name: FormalHeroName, index: number) {
+  const stat = questBattleData.heroStats.find((s) => s.name === name && s.level === 1)!;
+  return {
+    heroStatId: stat.id,
+    stance: (["aggressive", "defensive", "ranged", "support"] as const)[index]!,
+    skillIds: questBattleData.skills
+      .filter((s) => s.hero === name && s.level === 1 && !s.verification.unverified)
+      .slice(0, 3)
+      .map((s) => s.id),
+  };
+}
 const legacyTaskSources: CoreQuestSources = {
   catalog: {
     ...battleData,
@@ -1588,14 +1613,11 @@ export function DungeonQuest() {
     [seed, setSeed] = useState("1"),
     [error, setError] = useState("");
   const [party, setParty] = useState<QuestParty>(() =>
-    coreNames.map((name, index) => ({
-      heroStatId: battleData.heroStats.find((s) => s.name === name && s.level === 1)!.id,
-      stance: (["aggressive", "defensive", "ranged", "support"] as const)[index]!,
-      skillIds: battleData.skills
-        .filter((s) => s.hero === name && s.level === 1)
-        .slice(0, 3)
-        .map((s) => s.id),
-    })),
+    defaultPartyNames.map((name, index) => formalPartySlot(name, index)),
+  );
+  const partyNames = party.map(
+    (hero) =>
+      questBattleData.heroStats.find((s) => s.id === hero.heroStatId)!.name as FormalHeroName,
   );
   if (started) return <DungeonSandbox formal />;
   const startQuests = basicQuests.filter((q) => q.level === 1);
@@ -1604,9 +1626,9 @@ export function DungeonQuest() {
     <main className="shell">
       <header className="topbar">
         <div>
-          <p className="eyebrow">DDBG · PHASE 3</p>
+          <p className="eyebrow">DDBG · PHASE 4</p>
           <h1>开始地牢任务</h1>
-          <p>四名核心英雄 · I级遗迹 · 单设备1–4人轮流操作</p>
+          <p>正式八英雄开局四人 · I级遗迹 · 单设备1–4人轮流操作</p>
           <a href="/">返回战斗沙盒</a>
         </div>
       </header>
@@ -1683,49 +1705,80 @@ export function DungeonQuest() {
               : `每清理${selectedQuest.roomsPerXp}${selectedQuest.xpKind === "lair" ? "间巢穴" : "个房间"}获得1XP，最多${selectedQuest.maxRooms / selectedQuest.roomsPerXp}XP。`}
             任务结算仅记待发XP，回村发放。
           </p>
-          {party.map((hero, index) => (
-            <fieldset key={hero.heroStatId}>
-              <legend>
-                {coreNames[index]} ·{" "}
-                {
-                  { aggressive: "进攻", defensive: "防御", ranged: "远程", support: "支援" }[
-                    hero.stance
-                  ]
-                }
-              </legend>
-              {hero.skillIds.map((id, slot) => (
-                <label key={slot}>
-                  起始技能 {slot + 1}
+          <p>
+            可选身份共 {FORMAL_HERO_NAMES.length}{" "}
+            名（与替补白名单一致）。盗墓者／神秘学者 I
+            级技能效果与 Pilfer／Dark Ritual 未接线：可编队并装备已转录技能，战斗结算按 R-048
+            拒绝，不发明效果。
+          </p>
+          {party.map((hero, index) => {
+            const name = partyNames[index]!;
+            const unwired = heroHasUnwiredCombatSkills(name);
+            const taken = new Set(partyNames.filter((_, i) => i !== index));
+            return (
+              <fieldset key={index}>
+                <legend>
+                  席位 {index + 1} · {stanceLabels[hero.stance]}
+                  {unwired ? " · 技能效果未接线" : ""}
+                </legend>
+                <label>
+                  英雄
                   <select
-                    aria-label={`${coreNames[index]} 技能 ${slot + 1}`}
-                    value={id}
-                    onChange={(e) =>
+                    aria-label={`席位 ${index + 1} 英雄`}
+                    value={name}
+                    onChange={(e) => {
+                      const next = e.target.value as FormalHeroName;
                       setParty(
-                        party.map((h, i) =>
-                          i !== index
-                            ? h
-                            : {
-                                ...h,
-                                skillIds: h.skillIds.map((s, j) =>
-                                  j === slot ? e.target.value : s,
-                                ),
-                              },
-                        ),
-                      )
-                    }
+                        party.map((h, i) => (i === index ? formalPartySlot(next, index) : h)),
+                      );
+                    }}
                   >
-                    {battleData.skills
-                      .filter((s) => s.hero === coreNames[index] && s.level === 1)
-                      .map((s) => (
-                        <option key={s.id} value={s.id}>
-                          {s.name}
-                        </option>
-                      ))}
+                    {FORMAL_HERO_NAMES.filter((n) => n === name || !taken.has(n)).map((n) => (
+                      <option key={n} value={n}>
+                        {n}
+                        {heroHasUnwiredCombatSkills(n) ? "（技能效果未接线）" : ""}
+                      </option>
+                    ))}
                   </select>
                 </label>
-              ))}
-            </fieldset>
-          ))}
+                {hero.skillIds.map((id, slot) => (
+                  <label key={slot}>
+                    起始技能 {slot + 1}
+                    <select
+                      aria-label={`${name} 技能 ${slot + 1}`}
+                      value={id}
+                      onChange={(e) =>
+                        setParty(
+                          party.map((h, i) =>
+                            i !== index
+                              ? h
+                              : {
+                                  ...h,
+                                  skillIds: h.skillIds.map((s, j) =>
+                                    j === slot ? e.target.value : s,
+                                  ),
+                                },
+                          ),
+                        )
+                      }
+                    >
+                      {questBattleData.skills
+                        .filter(
+                          (s) =>
+                            s.hero === name && s.level === 1 && !s.verification.unverified,
+                        )
+                        .map((s) => (
+                          <option key={s.id} value={s.id}>
+                            {s.name}
+                            {unwired ? "（效果未接线，使用时拒绝）" : ""}
+                          </option>
+                        ))}
+                    </select>
+                  </label>
+                ))}
+              </fieldset>
+            );
+          })}
           {error && <p role="alert">{error}</p>}
           <button type="submit">进入地牢</button>
         </form>

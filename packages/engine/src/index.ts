@@ -109,6 +109,13 @@ export { isInvokingMonster } from "./battle-invocation";
 
 export { createCoreDungeonQuest } from "./dungeon-quest-entry";
 export type { CoreQuestSources, QuestParty } from "./dungeon-quest-entry";
+export {
+  FORMAL_HERO_NAMES,
+  FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS,
+  isFormalHeroName,
+  heroHasUnwiredCombatSkills,
+} from "./formal-heroes";
+export type { FormalHeroName } from "./formal-heroes";
 export { createQuestSave, loadQuestSave } from "./quest-save";
 export { currentHamletEvent, caretakerBuilding } from "./hamlet-event";
 export type { QuestStart } from "../../data/src/quest-save";
