@@ -286,25 +286,27 @@ export function naturalQuest(
     }
     throw new Error("battle loop");
   };
+  /** 经闭包读回 phase，避免 step 重赋值后仍被收窄为 ready。 */
+  const dungeonPhase = () => state.dungeon!.phase;
   const room = () => {
     for (let count = 0; count < 20; count++) {
       settle();
-      const d = state.dungeon!;
-      if (d.phase === "ready") return;
-      if (options.preferWipeout && d.phase === "awaitingReplacement") return;
-      if (d.phase !== "awaitingRoom") throw new Error(`dungeon halted ${d.phase}`);
-      const kind = d.rooms.find((r) => r.id === d.position)!.kind;
+      const phase = dungeonPhase();
+      if (phase === "ready") return;
+      if (options.preferWipeout && phase === "awaitingReplacement") return;
+      if (phase !== "awaitingRoom") throw new Error(`dungeon halted ${phase}`);
+      const kind = state.dungeon!.rooms.find((r) => r.id === state.dungeon!.position)!.kind;
       if (
         kind === "lair" ||
         kind === "treasure" ||
-        (kind === "curio" && d.curioRoom?.stage === "guarded")
+        (kind === "curio" && state.dungeon!.curioRoom?.stage === "guarded")
       ) {
         step({ type: "prepareDungeonBattle" });
         if (!state.dungeon!.roomCards!.active!.tileId) throw new Error("unready tile");
         step({ type: "prepareDungeonMonsters" });
         step({ type: "startDungeonBattle" });
         fight();
-        if (options.preferWipeout && state.dungeon!.phase === "awaitingReplacement") return;
+        if (options.preferWipeout && dungeonPhase() === "awaitingReplacement") return;
       } else step({ type: "resolveDungeonRoom" });
     }
     throw new Error("room loop");
@@ -312,15 +314,15 @@ export function naturalQuest(
   try {
     const activeQuestId = (state.dungeon!.questDistribution?.questId ?? questId) as BasicQuestId;
     const activeQuest = basicQuests.find((q) => q.id === activeQuestId)!;
-    if (state.dungeon!.phase === "awaitingProvisions") {
+    if (dungeonPhase() === "awaitingProvisions") {
       step({ type: "rollDungeonProvisions" });
       settle();
-    } else if (state.dungeon!.phase !== "ready") {
-      throw new Error(`unexpected dungeon phase ${state.dungeon!.phase}`);
+    } else if (dungeonPhase() !== "ready") {
+      throw new Error(`unexpected dungeon phase ${dungeonPhase()}`);
     }
     const route = ["G", "D", "A", "B", "A", "D", "E", "D", "G", "H", "G", "F", "C"];
     for (const to of route) {
-      if (options.preferWipeout && state.dungeon!.phase === "awaitingReplacement")
+      if (options.preferWipeout && dungeonPhase() === "awaitingReplacement")
         return { initial, state, commands, events, stopReason: null };
       if (state.dungeon!.heroes.some((h) => h.dead)) throw new Error("hero died");
       const visited = state.dungeon!.visited!.includes(to);
@@ -329,7 +331,7 @@ export function naturalQuest(
       if (!visited) step({ type: "rollDungeonExploration" });
       settle();
       room();
-      if (options.preferWipeout && state.dungeon!.phase === "awaitingReplacement")
+      if (options.preferWipeout && dungeonPhase() === "awaitingReplacement")
         return { initial, state, commands, events, stopReason: null };
       const d = state.dungeon!;
       if (canRestDungeon(state) && d.heroes.reduce((n, h) => n + h.stress + h.wounds!, 0) > 12) {
