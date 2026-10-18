@@ -87,17 +87,26 @@ it("缺钱可查看/离开，待选冻结其他命令，越序/封锁/坏牌池�
     { hamlet: { ...d.hamlet!, blockedBuildings: ["nomadWagon"] } },
     { hamlet: { ...d.hamlet!, visitedBuildings: ["nomadWagon"] } },
     { trinkets: { ...d.trinkets!, deck: [] } },
-    {
+  ]) {
+    const bad = { ...game, dungeon: { ...d, ...patch } };
+    expect(applyCommand(bad, visit).state).toBe(bad);
+  }
+  // R-100：可抽仅 2 张、其余在弃牌时洗回弃牌并抽满 3 张陈列，不拒绝。
+  const shortDeck = {
+    ...game,
+    dungeon: {
+      ...d,
       trinkets: {
         ...d.trinkets!,
         deck: d.trinkets!.cards.slice(0, 2).map((c) => c.id),
         discard: d.trinkets!.cards.slice(2).map((c) => c.id),
       },
     },
-  ]) {
-    const bad = { ...game, dungeon: { ...d, ...patch } };
-    expect(applyCommand(bad, visit).state).toBe(bad);
-  }
+  };
+  const filled = ok(shortDeck, visit);
+  expect(filled.dungeon!.trinkets!.display).toHaveLength(3);
+  expect(filled.dungeon!.trinkets!.discard).toEqual([]);
+  expect(filled.dungeon!.hamlet!.visitedBuildings).toEqual(["nomadWagon"]);
   expect(applyCommand(game, { ...visit, actorId: "hero-1" } as Command).state).toBe(game);
   for (const c of [
     visit,

@@ -1,6 +1,6 @@
 # Phase 4：Q-79 → R-099 墓地／获美德替换洗回
 
-基线 main tip `acc3c8c`（#246 / R-098）。Kyries 于 2026-10-18 确认 Q-79 为 **replace-reshuffle**，记 **R-099**。不裁定 Q-80，不进 Phase 5。
+基线 main tip `acc3c8c`（#246 / R-098）。Kyries 于 2026-10-18 确认 Q-79 为 **replace-reshuffle**，记 **R-099**。当时不裁定 Q-80（现已见 R-100），不进 Phase 5。
 
 ## 裁定
 
@@ -14,4 +14,4 @@
 
 ## 限制
 
-Q-80、正式 Boss、高等级正式战役存档与人工试玩边界不变；仍在 Phase 4。
+正式 Boss、高等级正式战役存档与人工试玩边界不变；仍在 Phase 4。Q-80 另见 R-100。

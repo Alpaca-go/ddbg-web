@@ -1,6 +1,8 @@
 # Codex 接线交接（2026-10-09）
 
-> 当前入口（2026-10-18）：基线 #246 / main `acc3c8c`。当前分支确认 Q-79→R-099（replace-reshuffle）：墓地与 In Good Spirits 等获美德路径，已持意志卡时旧卡洗回对应堆再抽新美德。见[rulings](rulings.md) R-099与[接线记录](phase4-graveyard-q79-r099-2026-10-18.md)。不裁定 Q-80，不进 Phase5。下文为历史记录。
+> 当前入口（2026-10-18）：基线 #247 / main `42b9620`。当前分支确认 Q-80→R-100（recycle_discard_fill）：游商首次陈列可抽不足时将该级弃牌洗回再抽满额；真耗尽才拒绝。见[rulings](rulings.md) R-100与[接线记录](phase4-nomad-q80-r100-2026-10-18.md)。不重开 Q-79／R-099，不进 Phase5。下文为历史记录。
+>
+> 历史入口（2026-10-18）：基线 #246 / main `acc3c8c`。当时确认 Q-79→R-099（replace-reshuffle）；Q-80 仍 pending（现已见 R-100）。见[接线记录](phase4-graveyard-q79-r099-2026-10-18.md)。
 >
 > 历史入口（2026-10-18）：#246已合并为main `acc3c8c`；此前 #245 tip `5c5a182` 确认Q-99→R-098（Pilfer抽取不翻面等）。Occ Dark Ritual I–III已接（R-097）。当时不裁定Q-79/Q-80。
 >

@@ -184,27 +184,14 @@ it("分级价格4/6/8、出售2/3/4及Gypsy加5；弃新卡/售出只回对应�
     }
 }, 30000);
 
-it("分级耗尽Q-80、重复分区/陈列/跨级污染原子拒绝；已陈列升级后不重抽", () => {
+it("重复分区/陈列/跨级污染原子拒绝；已陈列升级后不重抽", () => {
   const b = journeys[2].game,
     shop = ok(b, visit),
     p = shop.dungeon!.trinkets!;
-  const undisplayed = { ...p };
-  delete undisplayed.display;
   for (const trinkets of [
     { ...p, inactive: [...p.inactive!, ...p.inactive!] },
     { ...p, display: [p.display![0]!, p.display![0]!] },
     { ...p, inactive: [{ ...p.inactive![0]!, deck: [p.display![0]!, ...p.inactive![0]!.deck!] }] },
-    {
-      ...undisplayed,
-      inactive: [
-        {
-          ...p.inactive![0]!,
-          deck: [],
-          discard: cards.filter((c) => c.level === 2).map((c) => c.id),
-        },
-      ],
-      deck: cards.filter((c) => c.level === 1).map((c) => c.id),
-    },
   ]) {
     const bad = { ...b, dungeon: { ...b.dungeon!, trinkets } };
     expect(applyCommand(bad, visit).state).toBe(bad);
@@ -222,6 +209,75 @@ it("分级耗尽Q-80、重复分区/陈列/跨级污染原子拒绝；已陈列�
   const revisited = ok(upgraded, visit);
   expect(revisited.dungeon!.trinkets).toBe(left.dungeon!.trinkets);
   expect(revisited.dungeon!.cursor).toBe(left.dungeon!.cursor);
+}, 30000);
+
+it("R-100：II级可抽空而弃牌满时洗回弃牌并抽满陈列；合计仍不足则拒绝且不占用", () => {
+  const b = journeys[2].game,
+    shop = ok(b, visit),
+    p = shop.dungeon!.trinkets!;
+  const undisplayed = { ...p };
+  delete undisplayed.display;
+  const level2Ids = cards.filter((c) => c.level === 2).map((c) => c.id);
+  const recycleFixture = {
+    ...b,
+    dungeon: {
+      ...b.dungeon!,
+      pending: null,
+      hamlet: { ...b.dungeon!.hamlet!, visitedBuildings: [] },
+      trinkets: {
+        ...undisplayed,
+        inactive: [{ ...p.inactive![0]!, deck: [], discard: level2Ids }],
+        deck: cards.filter((c) => c.level === 1).map((c) => c.id),
+      },
+    },
+  };
+  const recycled = ok(recycleFixture, visit);
+  const pool = recycled.dungeon!.trinkets!;
+  expect(pool.display).toHaveLength(3);
+  expect(
+    [1, 2].map(
+      (l) => pool.display!.filter((id) => pool.cards.find((c) => c.id === id)!.level === l).length,
+    ),
+  ).toEqual([2, 1]);
+  expect(trinketDeck(pool, 2)!.discard).toEqual([]);
+  expect(trinketDeck(pool, 2)!.deck).toHaveLength(level2Ids.length - 1);
+  expect(recycled.dungeon!.hamlet!.visitedBuildings).toEqual(["nomadWagon"]);
+  expect(recycled.dungeon!.cursor).toBeGreaterThan(recycleFixture.dungeon!.cursor);
+
+  // 明示机制夹具：把 II 级卡全部标为已核实以便持满，构造可抽+弃牌均为空的真耗尽（R-100）。
+  const heroes = b.dungeon!.heroes.map((h) => ({ ...h, level: 3 as const }));
+  const level2Cards = cards
+    .filter((c) => c.level === 2)
+    .map((c) => ({ ...c, verification: { unverified: false as const, reasons: [] } }));
+  const held = level2Ids.map((cardId, i) => ({
+    cardId,
+    heroId: heroes[i % 4]!.id,
+    face: "upright" as const,
+  }));
+  const exhausted = {
+    ...b,
+    dungeon: {
+      ...b.dungeon!,
+      pending: null,
+      heroes,
+      hamlet: { ...b.dungeon!.hamlet!, visitedBuildings: [] },
+      trinkets: {
+        ...undisplayed,
+        held,
+        cards: [...undisplayed.cards.filter((c) => c.level !== 2), ...level2Cards],
+        inactive: [{ ...p.inactive![0]!, deck: [], discard: [] }],
+        deck: cards.filter((c) => c.level === 1).map((c) => c.id),
+      },
+    },
+  };
+  expect(trinketPoolProblem(exhausted.dungeon!.trinkets!, exhausted.dungeon!.heroes)).toBeNull();
+  const refused = applyCommand(exhausted, visit);
+  expect(refused.state).toBe(exhausted);
+  expect(
+    refused.events.some((e) => e.type === "commandRefused" && e.message.includes("R-100")),
+  ).toBe(true);
+  expect(refused.events.some((e) => e.message.includes("Q-80"))).toBe(false);
+  expect(exhausted.dungeon!.hamlet!.visitedBuildings).toEqual([]);
 }, 30000);
 
 it("游商提前启用II/III牌堆后，地牢升阶沿用原牌序/弃牌和持牌，不复制或重置", () => {
