@@ -10,10 +10,11 @@ import { statusProjection } from "./status";
 
 type Hero = DungeonState["heroes"][number];
 
-/** Hero STAT FRONT/BACK p19：治疗量按等级；III 的 3t 图标见 Q-100。 */
+/** Hero STAT FRONT/BACK p19、FRONT p20：治疗量按等级；III Buff 图标见 R-097。 */
 const reviewed = {
   "hero_stat:p019:front": { level: 1, heal: 2 },
   "hero_stat:p019:back": { level: 2, heal: 4 },
+  "hero_stat:p020:front": { level: 3, heal: 5 },
 } as const;
 
 export function darkRitualHealing(heroStatId: string) {
@@ -50,7 +51,7 @@ function sync(hero: Hero): Hero {
  * Hero STAT：Hamlet Skill Dark Ritual —
  * Self {stress} +1,
  * {target_hero} : {heal} N , {stress} -2, {buff} 3t.
- * 仅 I/II（Buff 图标 confirmed）；III 的 `4f7549c1b8` 待确认（Q-100），按 R-048 拒绝。
+ * I/II Buff 图标 confirmed（`2af41c1ca4`）；III 的 `4f7549c1b8` 按 R-097 LIMITED 解释为 Buff。
  */
 export function useDarkRitual(state: GameState, actor: Hero, targetId: string): ApplyResult {
   const d = state.dungeon!;
@@ -82,7 +83,7 @@ export function useDarkRitual(state: GameState, actor: Hero, targetId: string): 
   )
     return rejectBattleCommand(
       state,
-      "Dark Ritual需要获核秘术师I–II与存活目标、Life和获批Buff防御（R-048；III见Q-100）",
+      "Dark Ritual需要获核秘术师I–III与存活目标、Life和获批Buff防御（R-048/R-097）",
     );
 
   // 1) Self stress +1
@@ -141,7 +142,7 @@ export function useDarkRitual(state: GameState, actor: Hero, targetId: string): 
       ...eased.events,
       {
         type: "dungeonUpdated",
-        message: `Dark Ritual：自身压力+1；${target.id}治疗${row.heal}、压力−2、Buff 3t（Hero STAT、R33）`,
+        message: `Dark Ritual：自身压力+1；${target.id}治疗${row.heal}、压力−2、Buff 3t（Hero STAT、R33、R-097）`,
       },
       ...next.events,
     ],

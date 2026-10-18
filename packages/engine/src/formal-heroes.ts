@@ -18,7 +18,7 @@ export type FormalHeroName = (typeof FORMAL_HERO_NAMES)[number];
 
 /**
  * 仍标「未接线」的正式目录成员（R-095 / R-096 边界）。
- * OCCULTIST I 级七战斗技能与 Dark Ritual I/II 已接；Dark Ritual III 因 Q-100 拒绝。
+ * OCCULTIST I 级七战斗技能与 Dark Ritual I–III 已接（III Buff 图标 R-097 LIMITED）。
  * GRAVE ROBBER 已接 I 级七战斗技能与 Pilfer 抽取（R-096）；翻面结算边见 Q-99。
  * 名单现为空；未接线效果仍按 R-048 拒绝，不发明。
  */

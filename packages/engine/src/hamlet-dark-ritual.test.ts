@@ -110,6 +110,7 @@ const hero = (g: GameState, id = "hero-1") => g.dungeon!.heroes.find((h) => h.id
 it.each([
   [1, 2],
   [2, 4],
+  [3, 5],
 ] as const)("等级%s：自身压力+1；目标治疗%s、压力−2、Buff 3t；JSON回放一致", (level, heal) => {
   const game = fixture(level);
   const before = structuredClone(game);
@@ -127,7 +128,7 @@ it.each([
   expect(savedCommandSchema.parse(command)).toEqual(command);
 });
 
-it("自身可选；III 拒绝（Q-100）；UI 仅 I/II 出现", () => {
+it("自身可选（I）；III 对获批 Buff 目标成功；UI I–III 均出现（R-097）", () => {
   const self: Command = {
     type: "useHamletSkill",
     actorId: "hero-0",
@@ -141,17 +142,19 @@ it("自身可选；III 拒绝（Q-100）；UI 仅 I/II 出现", () => {
     wounds: 4,
     statusStacks: [{ kind: "buff", remaining: 3 }],
   });
-  expect(refused(fixture(3)).events.some((e) => e.type === "commandRefused")).toBe(true);
-  expect(
-    hamletActionOptions(fixture(1)).filter(
-      (o) => o.command.type === "useHamletSkill" && o.command.skill === "darkRitual",
-    ).length,
-  ).toBeGreaterThan(0);
-  expect(
-    hamletActionOptions(fixture(3)).filter(
-      (o) => o.command.type === "useHamletSkill" && o.command.skill === "darkRitual",
-    ),
-  ).toHaveLength(0);
+  const iii = ok(fixture(3));
+  expect(hero(iii, "hero-0")).toMatchObject({ stress: 2 });
+  expect(hero(iii)).toMatchObject({
+    wounds: 1,
+    stress: 0,
+    statusStacks: [{ kind: "buff", remaining: 3 }],
+  });
+  for (const level of [1, 2, 3] as const)
+    expect(
+      hamletActionOptions(fixture(level)).filter(
+        (o) => o.command.type === "useHamletSkill" && o.command.skill === "darkRitual",
+      ).length,
+    ).toBeGreaterThan(0);
   expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual([]);
 });
 
