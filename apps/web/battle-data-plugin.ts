@@ -24,10 +24,22 @@ export function battleDataPlugin(): Plugin {
   return {
     name: "battle-sandbox-data",
     resolveId: (id) =>
-      ["virtual:battle-data", "virtual:quest-battle-data"].includes(id) ? `\0${id}` : null,
+      ["virtual:battle-data", "virtual:quest-battle-data", "virtual:quest-battle-data-v1"].includes(
+        id,
+      )
+        ? `\0${id}`
+        : null,
     load(id) {
-      if (!["\0virtual:battle-data", "\0virtual:quest-battle-data"].includes(id)) return null;
-      const questCatalog = id === "\0virtual:quest-battle-data";
+      if (
+        ![
+          "\0virtual:battle-data",
+          "\0virtual:quest-battle-data",
+          "\0virtual:quest-battle-data-v1",
+        ].includes(id)
+      )
+        return null;
+      const questCatalog = id !== "\0virtual:battle-data";
+      const plagueDoctor = id === "\0virtual:quest-battle-data";
       const heroStats = normalizedHeroStatFileSchema
         .parse(read("hero_stat"))
         // R-081/088：战役使用获批属性；普通战斗沙盒保留原四英雄。
@@ -41,6 +53,7 @@ export function battleDataPlugin(): Plugin {
               "HIGHWAYMAN",
               "VESTAL",
               ...(questCatalog ? ["BOUNTY HUNTER"] : []),
+              ...(plagueDoctor ? ["PLAGUE DOCTOR"] : []),
             ].includes(card.name),
         );
       const conditions = createConditionPool(
@@ -64,6 +77,10 @@ export function battleDataPlugin(): Plugin {
       // 赏金猎人仅七张I级技能已接通，不随属性批准开放II/III级技能。
       if (questCatalog)
         for (let page = 43; page <= 61; page += 3)
+          skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
+      // R-094及后续七技能/村庄能力已接通；仍只开放I级技能。
+      if (plagueDoctor)
+        for (let page = 127; page <= 145; page += 3)
           skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
       const skills = normalizedHeroSkillFileSchema
         .parse(read("hero_skill"))
@@ -128,7 +145,7 @@ export function battleDataPlugin(): Plugin {
         !tile ||
         !tile.usable ||
         tile.deployment?.printReview !== "verified" ||
-        heroStats.length !== (questCatalog ? 15 : 4) ||
+        heroStats.length !== (plagueDoctor ? 18 : questCatalog ? 15 : 4) ||
         skills.length !== skillIds.size ||
         monsters.length !== monsterIds.size
       )

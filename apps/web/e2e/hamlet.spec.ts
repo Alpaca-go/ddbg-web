@@ -149,7 +149,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
         new URL("../../../packages/engine/src/test-helpers/natural-quest.ts", import.meta.url),
       ),
     );
-    const legacyCode = plugin.battleDataPlugin().load("\0virtual:battle-data");
+    const legacyCode = plugin.battleDataPlugin().load("\0virtual:quest-battle-data-v1");
     const legacyBattleData = JSON.parse(legacyCode.slice("export const battleData = ".length, -1));
     const replacementSources = {
       ...sourceHelpers.coreQuestSources,
@@ -187,6 +187,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
         choiceId: death.state.dungeon.deathTrinketChoice.id,
         optionId: "discard",
       });
+    deathStep({ type: "prepareReplacementHero" });
     replacementSave = saveModule.createQuestSave(
       { seed: 14, questId: "quest:p001", mode: "radiant", party: natural.naturalParty },
       death.commands,
@@ -682,25 +683,26 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   );
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
   await page.screenshot({ path: testInfo.outputPath("nomad-iii-saved.png"), fullPage: true });
-  // 旧网页的真实死亡存档：验证目录更新后可选候选、技能与入队，并保存刷新。
+  // 旧五英雄的候选待选存档：迁移后出现瘟疫医生，选择/技能/入队可保存刷新。
   await page.evaluate(
     (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
     JSON.stringify(replacementSave),
   );
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
-  await page.getByRole("button", { name: "准备驿站替补", exact: true }).click();
+  await expect(page.getByRole("button", { name: /^选择 BOUNTY HUNTER I/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /^选择 PLAGUE DOCTOR I/ })).toBeVisible();
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
-  await page.getByRole("button", { name: /^选择 BOUNTY HUNTER I/ }).click();
+  await page.getByRole("button", { name: /^选择 PLAGUE DOCTOR I/ }).click();
   await page.getByRole("button", { name: "结束升级，选择初始技能", exact: true }).click();
-  await page.getByRole("button", { name: "装备 Collect Bounty 1", exact: true }).click();
+  await page.getByRole("button", { name: "装备 Noxious Blast 1", exact: true }).click();
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
-  await page.getByRole("button", { name: "装备 Mark for Death 1", exact: true }).click();
-  await page.getByRole("button", { name: "装备 Come Hither 1", exact: true }).click();
+  await page.getByRole("button", { name: "装备 Plague Grenade 1", exact: true }).click();
+  await page.getByRole("button", { name: "装备 Blinding Gas 1", exact: true }).click();
   await page.getByRole("button", { name: "让1名替补入队并继续", exact: true }).click();
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   const joined = await page.evaluate(
@@ -710,7 +712,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   expect(
     joined.heroes.some(
       (h: { heroStatId: string; dead?: boolean }) =>
-        h.heroStatId === "hero_stat:p005:front" && !h.dead,
+        h.heroStatId === "hero_stat:p013:front" && !h.dead,
     ),
   ).toBe(true);
   await page.reload();

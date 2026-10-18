@@ -69,6 +69,7 @@ it("选英雄才扣一枚、继承全部XP但不扣驿站余额；保持新英�
   expect(offered.dungeon!.waitingHeroTokens).toBeUndefined();
   expect(offered.dungeon!.replacementPreparation!.choice.options.map((o) => o.id)).toEqual([
     "hero_stat:p005:front",
+    "hero_stat:p013:front",
   ]);
   const game = choose(offered, "hero_stat:p005:front"),
     p = game.dungeon!.replacementPreparation!;
@@ -179,7 +180,7 @@ it("代币耗尽明确失败并锁住战役；目录不足不扣代币或冒充�
     ...base,
     dungeon: {
       ...base.dungeon!,
-      deadHeroNames: [...base.dungeon!.deadHeroNames!, "BOUNTY HUNTER"],
+      deadHeroNames: [...base.dungeon!.deadHeroNames!, "BOUNTY HUNTER", "PLAGUE DOCTOR"],
     },
   };
   expect(applyCommand(none, begin).state).toBe(none);
@@ -200,7 +201,9 @@ it("暂存英雄不被再次提供；JSON往返和同命令序列结果一致，
   const command: Command = { type: "resolveChoice", choiceId: p.id, optionId: "upgrade-hero" };
   expect(ok(JSON.parse(JSON.stringify(base)), command)).toEqual(ok(base, command));
   const prepared = equipAll(choose(base, "finish-upgrades"));
-  expect(replacementHeroCandidates(prepared.dungeon!)).toEqual([]);
+  expect(replacementHeroCandidates(prepared.dungeon!).map((s) => s.name)).toEqual([
+    "PLAGUE DOCTOR",
+  ]);
   const bad = {
     ...base,
     dungeon: {
