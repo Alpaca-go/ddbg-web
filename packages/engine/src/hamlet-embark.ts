@@ -314,7 +314,24 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
     resolveCards: d.resolveCards,
     resolveDecks: d.resolveDecks,
     gold: d.gold,
-    lootPool: { ...createLootState(), gold: d.gold },
+    // R-047：保留村庄期间已抽取（如 Pilfer）的 claimed；无池或已放置则新建十枚。
+    lootPool: (() => {
+      const fresh = { ...createLootState(), gold: d.gold };
+      const loot = d.lootPool;
+      if (!loot || loot.placed.length) return fresh;
+      const canonical = createLootState().available;
+      const ids = [...loot.available.map((t) => t.id), ...loot.claimedIds];
+      if (
+        new Set(ids).size !== ids.length ||
+        ids.length !== 10 ||
+        ids.some((id) => !canonical.some((t) => t.id === id)) ||
+        loot.available.some(
+          (t) => !canonical.some((e) => e.id === t.id && e.kind === t.kind),
+        )
+      )
+        return fresh;
+      return { ...loot, gold: d.gold, placed: [] };
+    })(),
     battleCatalog: d.battleCatalog!,
     conditions: d.conditions!,
     trinkets: washed.pool,

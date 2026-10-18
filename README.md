@@ -21,7 +21,7 @@ pnpm build
 
 `pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒，`/?phase=3&play=1` 打开三张基础任务的正式入口。
 
-2026-10-18最新进度：#239已合并，main `438f7da`。自然全灭正式存档路径：驿站III余额4下公开命令至heroesDefeated，准备并入队四名已核实额外替补，见[开发记录](docs/phase4-wipeout-handoff-2026-10-18.md)。GR/Occ技能效果与Pilfer/Dark Ritual仍未接线；Q-79/Q-80、正式Boss与人工试玩继续保留，保持Phase4。以下段落为历史进度。
+2026-10-18最新进度：#242已合并，main `6a8a87b`。Grave Robber I级七技能与Pilfer抽取已接（R-096）；翻面结算见Q-99；Occ技能与Dark Ritual仍未接线。见[GR技能记录](docs/phase4-grave-robber-skills-2026-10-18.md)。Q-79/Q-80、正式Boss与人工试玩继续保留，保持Phase4。以下段落为历史进度。
 
 2026-10-16最新进度：#219已合并Scout Ahead及R-090村庄意志次数裁定；当前继续战役死亡名单与死者饰品接收/弃置，见[开发记录](docs/phase4-death-estate-2026-10-16.md)。驿站替换与完整死亡补人仍未完成，保持Phase4。
 

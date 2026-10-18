@@ -52,13 +52,13 @@ it("正式名录列出八名已核实英雄，且仅 GR/Occ 标为战斗技能�
     "GRAVE ROBBER",
     "OCCULTIST",
   ]);
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual(["GRAVE ROBBER", "OCCULTIST"]);
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual(["OCCULTIST"]);
   expect(FORMAL_HERO_NAMES.every(isFormalHeroName)).toBe(true);
   expect(isFormalHeroName("JESTER")).toBe(false);
   expect(isFormalHeroName("ARBALEST")).toBe(false);
   expect(isFormalHeroName("ABOMINATION")).toBe(false);
   for (const name of FORMAL_HERO_NAMES) {
-    expect(heroHasUnwiredCombatSkills(name)).toBe(name === "GRAVE ROBBER" || name === "OCCULTIST");
+    expect(heroHasUnwiredCombatSkills(name)).toBe(name === "OCCULTIST");
   }
   expect(
     sources.catalog.heroStats

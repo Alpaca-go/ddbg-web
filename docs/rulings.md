@@ -904,8 +904,17 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
   - `8cbe7d6703` = Debuff 抗性，仅 `hero_stat:p019:front` 左栏唯一抗性（Occ I）。**同 hash 出现在 Jester I（`hero_stat:p011:front`）不在本批准范围内，Jester 保持未核实。**
   - `a8c4b25b4e` = Debuff 抗性，仅 `hero_stat:p019:back` 左栏 #2（Occ II，Bleed 之后）。
   其余已 confirmed 图标按既有词典读取：GR I 左栏 Blight；GR II/III、Occ II/III 的 Debuff/Bleed 等同栏 confirmed 图标。六面右栏均为空。
-- **依据 / 边界**：官方 R10/R21/R29/R31/R33、规格书 §2.4/§4.6/§6.5/§7/§9.4、R-001/R-048；Kyries 聊天确认。批准限六属性面与上表位置的防御解释；不改全局词典、不清除整卡未验证原因；不覆盖 I 级技能效果接线、Pilfer / Dark Ritual 村庄能力，也不把 Jester 或其他英雄同 hash 图标一并命名。
+- **依据 / 边界**：官方 R10/R21/R29/R31/R33、规格书 §2.4/§4.6/§6.5/§7/§9.4、R-001/R-048；Kyries 聊天确认。批准限六属性面与上表位置的防御解释；不改全局词典、不清除整卡未验证原因；不覆盖 I 级技能效果接线、Dark Ritual 村庄能力，也不把 Jester 或其他英雄同 hash 图标一并命名。Pilfer 图标命名另见 R-096。
 - **关联待确认**：Q-97，confirmed；见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md)。
+
+### R-096
+
+- **编号**：R-096
+- **日期**：2026-10-18
+- **问题**：Grave Robber 村庄能力 Pilfer（Hero STAT FRONT/BACK p17、FRONT p18）印刷为 `Draw a {icon:79084a2922} .`；词典 v1.8 中该图标仍为 `unreviewed`，需按 R-095 LIMITED per-card 风格确认含义后方可接线。
+- **裁定 / 数据批准**：Kyries 于 2026-10-18 在聊天确认 Q-98：在 **Pilfer 卡面文案语境下**，`79084a2922` = **Loot Token**（战利品标记）。限定范围仅三张属性面的 Pilfer 行：`hero_stat:p017:front`、`hero_stat:p017:back`、`hero_stat:p018:front`。不是全局词典升级；不合并、不改写 `icon-dictionary-v1.8`；整卡 `verification.reasons` 仍可保留 `icon:79084a2922`（同 R-095 防御图标保留 unreviewed 的做法）。
+- **依据 / 边界**：官方 R33（村庄技能）、R-047（十枚战利品堆）、规格书 §4.1/§6.4、R-001/R-048/R-095；Kyries 聊天确认。批准只覆盖上述 Pilfer 文案中的图标命名与「Draw a」数量=1。不批准翻面结算时机、补给奖励去向、空堆语义，或其他卡上同 hash 图标。
+- **关联待确认**：Q-98，confirmed；后续边见 Q-99。
 
 ## 待确认（未裁定）
 
@@ -1237,4 +1246,9 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### Q-98
 
 - **问题 / 来源**：Grave Robber 村庄能力 Pilfer（Hero STAT FRONT/BACK p17、FRONT p18）印刷为 `Draw a {icon:79084a2922} .`。词典 v1.8 中 `79084a2922` 仍为 `unreviewed` / `unknown_79084a2922`，三面属性卡 `verification.reasons` 均含该图标。接线 Pilfer 需要确认该图标含义（抽何种牌／代币）及数量语义；云环境无印刷页图像，不能目视命名。
-- **处理 / 状态**：待确认。按 R-001 / R-048 不发明图标含义，不新增 `useHamletSkill / pilfer` 命令，不改存档 schema。I 级七战斗技能可独立接线；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 在 Pilfer 接通前仍保留 `GRAVE ROBBER`。
+- **处理 / 状态**：confirmed（R-096，2026-10-18）。Kyries 确认 LIMITED：仅 Pilfer 文案中 `79084a2922`→Loot Token（战利品标记）；不改全局词典。印刷「Draw a」数量=1 已接；翻面结算/补给去向/空堆见 Q-99。
+
+### Q-99
+
+- **问题 / 来源**：Pilfer 在 R-096 下已能「抽取一枚战利品标记」离开可用堆（R-047）。印刷未写翻面或奖励。待确认：(a) 是否立即按 R18 翻面结算；(b) 若在村庄结算，补给类结果进入何处（村庄无地牢补给池）；(c) 可用堆已空时是否可施放 / 如何处理；(d) 村庄已抽取的 claimed 是否应在下次出征保留（出征原 `createLootState()` 会重建十枚）。
+- **处理 / 状态**：待确认。当前实现只做印刷「Draw a {Loot Token}」：种子 RNG 从可用堆抽 1 枚入 `claimedIds`，消耗当天行动；空堆拒绝；出征保留既有 `lootPool` 的 claimed。不发明翻面金币/补给。按 R-001 / R-048 停在本 Q。
