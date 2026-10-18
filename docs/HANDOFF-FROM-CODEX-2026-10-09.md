@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-18）：#236已合并为main `e0b8f6b`。当前`cursor/phase4-replacement-candidates-1adf`盘点核心盒替补候选：正式可用池仍仅六名（开局四人+赏金猎人+瘟疫医生），全灭后只够准备两名已核实替补；Jester/Arbalest/Grave Robber/Occultist/Abomination无`attributesVerified`，未进可用池，见Kyries审批清单与[本轮记录](phase4-replacement-candidates-2026-10-18.md)。不发明属性/图标，不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+
 > 当前入口（2026-10-18）：#235已合并为main `924c60d`。当前`codex/phase4-wipeout-handoff`按R9/R25/R31/R33接普通任务四英雄全灭与驿站人数/战后逃跑交接；新增内部失败原因区分“等待人数不足”与原“代币耗尽”。见[本轮记录](phase4-wipeout-handoff-2026-10-18.md)。R-068双方全灭仍停场，无奖励/自动战役失败。正式目录仅两名额外候选，下一主题核对补齐四人替补所缺候选数据，不伪造英雄或提前入队；Q-79/Q-80、Boss与人工试玩保留。下文为历史记录。
 
 > 当前入口（2026-10-18）：#234已合并为main `2efca2f`。当前`codex/phase4-natural-guild-save`补自然4XP后四初始英雄分别升II、补四技能槽及正式存档；另验永久技能I→II→III，移除准备结束夹具退路，现有村庄冒烟补真实升级/刷新。见[本轮记录](phase4-natural-guild-save-2026-10-18.md)。英雄等级与战役等级分开，未跳Boss升幕；下一主题优先全灭/双方全灭与既有死亡替补接口衔接，Q-79/Q-80及人工试玩保留。下文为历史记录。

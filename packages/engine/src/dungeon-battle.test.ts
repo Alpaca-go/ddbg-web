@@ -43,8 +43,10 @@ import { skillTargetView } from "./battle";
 import { tickStatusStacks } from "./status";
 import { coreQuestSources } from "./test-helpers/core-quest";
 import { prepareTestReplacement } from "./test-helpers/replacement";
+import { prepareVerifiedWipeoutReplacements } from "./test-helpers/wipeout-replacement";
 import { readRoomTile } from "./room-tile-selection";
 import { endAfterCasualties } from "./encounter";
+import { replacementHeroCandidates } from "./hero-death-estate";
 
 const stats = normalizedHeroStatFileSchema
   .parse(statsFile)
@@ -492,14 +494,32 @@ it("等待四人时按逃跑交接；不清宝藏/不发20金，登记四死者�
   expect(returned.dungeon!.monsterPool!.active).toBeNull();
   expect(new Set(returned.dungeon!.monsterPool!.remaining).size).toBe(count);
   expect(applyCommand(returned, { type: "finishDungeonBattle" }).state).toBe(returned);
-  let prepared = prepareTestReplacement(returned);
-  prepared = prepareTestReplacement(prepared);
+  expect(replacementHeroCandidates(returned.dungeon!).map((c) => c.name)).toEqual([
+    "BOUNTY HUNTER",
+    "PLAGUE DOCTOR",
+  ]);
+  const { awaiting, prepared, commands } = prepareVerifiedWipeoutReplacements(
+    send(started(), { type: "startBattle" }),
+  );
+  expect(awaiting.dungeon!.phase).toBe("awaitingReplacement");
   expect(prepared.dungeon!.preparedReplacements).toHaveLength(2);
+  expect(prepared.dungeon!.preparedReplacements!.map((p) => p.hero.heroStatId).sort()).toEqual([
+    "hero_stat:p005:front",
+    "hero_stat:p013:front",
+  ]);
   expect(prepared.dungeon!.waitingHeroTokens).toBe(2);
-  // 正式已接通身份只有六个，不能伪造另外两名英雄，也不能把目录不足判成战役失败。
+  expect(replacementHeroCandidates(prepared.dungeon!)).toEqual([]);
+  // 正式已接通额外身份只有两名，不能伪造另外两名英雄，也不能把目录不足判成战役失败。
   expect(applyCommand(prepared, { type: "prepareReplacementHero" }).state).toBe(prepared);
   expect(applyCommand(prepared, { type: "joinPreparedReplacements" }).state).toBe(prepared);
   expect(prepared.dungeon!.campaignFailure).toBeUndefined();
+  let restored = JSON.parse(JSON.stringify(awaiting)) as GameState;
+  for (const command of commands) {
+    const result = applyCommand(restored, command);
+    expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+    restored = result.state;
+  }
+  expect(restored).toEqual(prepared);
 });
 
 it("旧I级未记录驿站余额按两人判定；旧全灭停点已准备的替补可继续回传", () => {
