@@ -44,8 +44,7 @@ export function usePilfer(state: GameState, hero: Hero): ApplyResult {
   const stat = d.battleCatalog?.heroStats.find((s) => s.id === hero.heroStatId);
   const row = reviewed[hero.heroStatId as keyof typeof reviewed];
   const pool = ensureLootPool(d);
-  if ("reason" in pool)
-    return rejectBattleCommand(state, pool.reason);
+  if ("reason" in pool) return rejectBattleCommand(state, pool.reason);
   if (
     !row ||
     !hero.attributesVerified ||

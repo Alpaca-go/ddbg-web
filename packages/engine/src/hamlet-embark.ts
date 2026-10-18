@@ -325,9 +325,7 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
         new Set(ids).size !== ids.length ||
         ids.length !== 10 ||
         ids.some((id) => !canonical.some((t) => t.id === id)) ||
-        loot.available.some(
-          (t) => !canonical.some((e) => e.id === t.id && e.kind === t.kind),
-        )
+        loot.available.some((t) => !canonical.some((e) => e.id === t.id && e.kind === t.kind))
       )
         return fresh;
       return { ...loot, gold: d.gold, placed: [] };
