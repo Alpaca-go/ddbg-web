@@ -86682,6 +86682,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 1,
+    "condition": "eldritch",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -88015,6 +88021,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 1,
+    "condition": "eldritch",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -89425,6 +89437,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -89558,6 +89579,11 @@
      "text": " 2"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -90747,6 +90773,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 2,
+     "amount": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -90916,6 +90952,11 @@
      "text": " 4"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -92252,6 +92293,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "mark",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -92385,6 +92435,11 @@
      "text": " 1"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -93551,6 +93606,15 @@
       "text": " -1"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 2
+    }
    ],
    "top_row_icons": [
     {

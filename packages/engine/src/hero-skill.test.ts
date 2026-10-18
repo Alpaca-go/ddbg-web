@@ -5529,7 +5529,7 @@ describe("resolveHeroSkill", () => {
         )
         .map((item) => [item.text, item.numeric]),
     ).toEqual([["2t", null]]);
-    // 调用方的 1 堆把暴击阈值从 1 抬到 2。卡上的 2t 不加 Acc，所以掷 2 暴击、伤害 3，掷 3 仍是命中、伤害 2；命中施加 Debuff 2t。
+    // 调用方的 1 堆把暴击阈值从 1 抬到 2。卡上的 2t 不加，所以掷 2 暴击、伤害 3，掷 3 仍是命中、伤害 2。
     expect(
       use(
         "hero_skill:p196",
@@ -5546,8 +5546,7 @@ describe("resolveHeroSkill", () => {
       damageDealt: 3,
       wounds: 3,
       actorStress: 1,
-      skipped: [],
-      targetStatusEffects: [{ kind: "debuff", duration: 2 }],
+      skipped: [{ code: "effect_lines" }],
     });
     expect(
       use(
@@ -5565,8 +5564,6 @@ describe("resolveHeroSkill", () => {
       damageDealt: 2,
       wounds: 2,
       actorStress: 2,
-      skipped: [],
-      targetStatusEffects: [{ kind: "debuff", duration: 2 }],
     });
 
     const illumination = card("hero_skill:p100");
@@ -6161,7 +6158,7 @@ describe("resolveHeroSkill", () => {
     expect(
       hex.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
     ).toEqual(["2t", "1-2"]);
-    // Dodge 10，没有已有的标记时命中阈值是 0。若把 2t 读成 2 堆，掷 2 会命中、伤害 1。回合数不进 Acc，所以落空；落空不加 Mark。
+    // Dodge 10，没有已有的标记时命中阈值是 0。若把 2t 读成 2 堆，掷 2 会命中、伤害 1。回合数是 null，所以落空。
     expect(
       use(
         "hero_skill:p202",
@@ -6179,10 +6176,9 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
       wounds: 0,
       actorStress: 2,
-      skipped: [],
-      targetStatusEffects: [],
+      skipped: [{ code: "effect_lines" }],
     });
-    // 调用方的 1 堆把命中阈值抬到 1，卡上的 2t 不再加一堆，掷 2 仍落空。两堆才命中，伤害仍是 1，并施加 Mark 2t。
+    // 调用方的 1 堆把命中阈值抬到 1，卡上的 2t 不再加一堆，掷 2 仍落空。两堆才命中，伤害仍是 1。
     expect(
       use(
         "hero_skill:p202",
@@ -6198,7 +6194,6 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
       wounds: 0,
       actorStress: 2,
-      targetStatusEffects: [],
     });
     expect(
       use(
@@ -6216,8 +6211,7 @@ describe("resolveHeroSkill", () => {
       damageDealt: 1,
       wounds: 1,
       actorStress: 2,
-      skipped: [],
-      targetStatusEffects: [{ kind: "mark", duration: 2 }],
+      skipped: [{ code: "effect_lines" }],
     });
 
     const mark = card("hero_skill:p154");
@@ -9570,7 +9564,8 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
 
-    // Hands from the Abyss I：眩晕 2t 与光照 −1 同行；纯解析不改传入 combat.light，但返回 targetLightDelta。
+    // Hands from the Abyss I：光照「-1」的 numeric 是 −1，但没有挂在光照图标上，
+    // 并且和眩晕 2t 写在同一行。不改伤害，命中也不改压力，不把传入的光照改成 4。
     const abyss = card("hero_skill:p205");
     expect(abyss.name).toBe("Hands from the Abyss");
     expect(abyss.level).toBe(1);
@@ -9609,21 +9604,17 @@ describe("resolveHeroSkill", () => {
       wounds: 4,
       actorWounds: 0,
       actorStress: 4,
-      skipped: [],
-      targetStatusEffects: [{ kind: "stun", duration: 2 }],
-      targetLightDelta: -1,
+      skipped: [{ code: "effect_lines" }],
     });
     expect(dim).toEqual(frozen);
-    // 光照 2 另给暴击。掷 2 暴击、伤害 4。压力只因打出暴击变成 3。
+    // 光照 2 另给暴击。掷 2 暴击、伤害 4。压力只因打出暴击变成 3。卡面 −1 不把光照改掉。
     expect(use("hero_skill:p205", { ...dim, light: 2 }, 2)).toMatchObject({
       outcome: "crit",
       printedAmount: 4,
       damageDealt: 4,
       wounds: 5,
       actorStress: 3,
-      skipped: [],
-      targetStatusEffects: [{ kind: "stun", duration: 2 }],
-      targetLightDelta: -1,
+      skipped: [{ code: "effect_lines" }],
     });
 
     // 说明书 G-07 的 Zealous Accusation I 在光照 1 仍不能结算。stats 行只有技能名。
@@ -9894,8 +9885,9 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p199 Wyrd Reconstruction I 治疗；流血面值 1·2t 经 verified 注解施加，不改本次治疗伤口", () => {
-    // 规则书第 21 页：Bleed 是面值 x、持续 Nt。面值不加减本次治疗伤口（R-026、R-048）。
+  it("hero_skill:p199 Wyrd Reconstruction I 只治疗，流血面值 1 不放堆也不改伤口", () => {
+    // 规则书第 21 页：Bleed 是面值 x、持续 Nt。面值是整数，回合数 numeric 为 null。
+    // 不放代币，也不把面值当成这次治疗多扣或少扣的伤口（R-026、R-048）。
     const skill = card("hero_skill:p199");
     expect(skill.name).toBe("Wyrd Reconstruction");
     expect(skill.level).toBe(1);
@@ -9966,8 +9958,8 @@ describe("resolveHeroSkill", () => {
       targetsInArea: 1,
     };
     const frozen = structuredClone(combat);
-    // 掷 4 命中，治疗 4。伤口变成 2；流血作为状态堆，不改本次治疗量。
-    expect(use("hero_skill:p199", combat, 4)).toMatchObject({
+    // 掷 4 命中，治疗 4。伤口变成 2。若把流血面值 1 加成伤口，会是 3；若从治疗里扣掉，会是 3。
+    expect(use("hero_skill:p199", combat, 4)).toEqual({
       skillId: "hero_skill:p199",
       targetId: "patient",
       status: "resolved",
@@ -9992,8 +9984,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 5,
       besideActorStress: [{ id: "vestal", stress: 2 }],
       untargetedBesideTargetStress: null,
-      skipped: [],
-      targetStatusEffects: [{ kind: "bleed", amount: 1, duration: 2 }],
+      skipped: [{ code: "effect_lines" }],
     });
     expect(combat).toEqual(frozen);
     // 掷 3 暴击，治疗 8，伤口到 0。打出暴击再减使用者压力。目标压力不动：治疗暴击不是承受伤害暴击。
@@ -10011,8 +10002,7 @@ describe("resolveHeroSkill", () => {
       besideActorStress: [{ id: "vestal", stress: 1 }],
       targetBleedCleared: false,
       targetBlightCleared: false,
-      skipped: [],
-      targetStatusEffects: [{ kind: "bleed", amount: 1, duration: 2 }],
+      skipped: [{ code: "effect_lines" }],
     });
     // 掷 10 落空。不治疗，也不放流血。
     expect(use("hero_skill:p199", combat, 10)).toMatchObject({
@@ -10027,8 +10017,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 5,
       besideActorStress: [{ id: "vestal", stress: 2 }],
       targetBleedCleared: false,
-      skipped: [],
-      targetStatusEffects: [],
+      skipped: [{ code: "effect_lines" }],
     });
     // 伤口只有 1，命中治疗仍停在 0，不会因为流血面值变成 1。
     expect(
@@ -10045,26 +10034,24 @@ describe("resolveHeroSkill", () => {
       printedAmount: 4,
       wounds: 0,
       targetBleedCleared: false,
-      targetStatusEffects: [{ kind: "bleed", amount: 1, duration: 2 }],
     });
 
-    // verified_range 0–1：距离 0/1 可结算；距离 2 拒绝。
+    // 射程印成 0-1，numeric 为 null。传入距离就整次拒绝，治疗和流血都不发生。
     expect(use("hero_skill:p199", { ...combat, areaDistance: 0 }, 4)).toMatchObject({
-      status: "resolved",
-      outcome: "hit",
-      printedAmount: 4,
-      wounds: 2,
-      skipped: [],
-      targetStatusEffects: [{ kind: "bleed", amount: 1, duration: 2 }],
+      status: "refused",
+      reason: "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
+      outcome: null,
+      effect: null,
+      printedAmount: null,
+      wounds: 6,
+      actorWounds: 2,
+      actorStress: 4,
+      targetStress: 5,
+      targetBleedCleared: false,
     });
     expect(use("hero_skill:p199", { ...combat, areaDistance: 1 }, 4)).toMatchObject({
-      status: "resolved",
-      outcome: "hit",
-      printedAmount: 4,
-      wounds: 2,
-    });
-    expect(use("hero_skill:p199", { ...combat, areaDistance: 2 }, 4)).toMatchObject({
       status: "refused",
+      reason: "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
       wounds: 6,
       actorWounds: 2,
       actorStress: 4,

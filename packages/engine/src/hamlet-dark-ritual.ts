@@ -95,8 +95,7 @@ export function useDarkRitual(state: GameState, actor: Hero, targetId: string): 
     { life: subject.life!, wounds: subject.wounds!, dead: false },
     { type: "heal", amount: passiveHeal(subject, row.heal) },
   );
-  if (health.status !== "resolved")
-    return rejectBattleCommand(state, "Dark Ritual治疗状态无效");
+  if (health.status !== "resolved") return rejectBattleCommand(state, "Dark Ritual治疗状态无效");
 
   const healed: Hero = { ...subject, wounds: health.state.wounds };
   const eased = applyPassiveHero(

@@ -179,22 +179,20 @@ it("Abyssal Artillery I：双目标共享骰、逐名伤害；Eldritch 各 +1", 
         stance: "support",
         skillIds: [card.id],
       },
-      ...(["m1", "m2"] as const).map(
-        (id): BattleEntity => ({
-          ...common,
-          id,
-          side: "monster",
-          hero: null,
-          monsterCardId: eldritch.id,
-          life: eldritch.life!,
-          dodge: 0,
-          areaId: "c",
-          stance: id === "m1" ? "aggressive" : "defensive",
-          stanceSlots: 1,
-          skillIds: [],
-          monsterTypeTags: ["Eldritch", "Beast"],
-        }),
-      ),
+      ...(["m1", "m2"] as const).map((id): BattleEntity => ({
+        ...common,
+        id,
+        side: "monster",
+        hero: null,
+        monsterCardId: eldritch.id,
+        life: eldritch.life!,
+        dodge: 0,
+        areaId: "c",
+        stance: id === "m1" ? "aggressive" : "defensive",
+        stanceSlots: 1,
+        skillIds: [],
+        monsterTypeTags: ["Eldritch", "Beast"],
+      })),
     ],
     areas: [
       { id: "a", elevation: "normal", adjacent: ["b"], capacity: 8 },
@@ -331,7 +329,7 @@ it("Daemon’s Pull I：命中 Pull 2；落空不移；公开命令续接", () =
       card,
       {
         actor: { id: "h", stance: "support", wounds: 0, stress: 3 },
-        target: { id: "m", side: "monster", wounds: 0, dodge: 0, lifeTypeTags: ["Beast"] },
+        target: { id: "m", side: "monster", wounds: 0, dodge: 0, monsterTypeTags: ["Beast"] },
         areaDistance: 2,
         light: 5,
       },
@@ -361,7 +359,7 @@ it("Occ 退出未接线名单；Dark Ritual 命令 schema 接受；III 不在 re
       targetId: "hero-1",
     }).success,
   ).toBe(true);
-  expect(data.hero_stat.cards.find((c) => c.id === "hero_stat:p020:front")!.lines.join(" ")).toMatch(
-    /Dark Ritual/,
-  );
+  expect(
+    data.hero_stat.cards.find((c) => c.id === "hero_stat:p020:front")!.lines.join(" "),
+  ).toMatch(/Dark Ritual/);
 });
