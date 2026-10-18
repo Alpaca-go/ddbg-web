@@ -10,16 +10,16 @@
 
 ## 正式可用池（已核实属性；技能效果另列）
 
-| 身份          | I级属性id              | 网页正式目录／开局 | 引擎白名单 | attributesVerified | I级技能转录7/7 | 技能/村庄运行时                    | 若未开局则死后可替补 |
-| ------------- | ---------------------- | ------------------ | ---------- | ------------------ | -------------- | ---------------------------------- | -------------------- |
-| CRUSADER      | `hero_stat:p001:front` | 是（含II/III属性） | 是         | 是                 | 是             | 是                                 | 是（若开局未用）     |
-| HELLION       | `hero_stat:p003:front` | 是                 | 是         | 是                 | 是             | 是                                 | 是                   |
-| HIGHWAYMAN    | `hero_stat:p007:front` | 是                 | 是         | 是                 | 是             | 是                                 | 是                   |
-| VESTAL        | `hero_stat:p009:front` | 是                 | 是         | 是                 | 是             | 是                                 | 是                   |
-| BOUNTY HUNTER | `hero_stat:p005:front` | 是（仅I级技能）    | 是         | 是（R-088）        | 是             | 是（含Scout Ahead）                | 是                   |
-| PLAGUE DOCTOR | `hero_stat:p013:front` | 是（仅I级技能）    | 是         | 是（R-094）        | 是             | 是（含Experimental Vapours）       | 是                   |
-| GRAVE ROBBER  | `hero_stat:p017:front` | 是（标明未接线）   | 是         | 是（R-095）        | 是             | **未接**（技能效果 / Pilfer）      | 是                   |
-| OCCULTIST     | `hero_stat:p019:front` | 是（标明未接线）   | 是         | 是（R-095）        | 是             | **未接**（技能效果 / Dark Ritual） | 是                   |
+| 身份          | I级属性id              | 网页正式目录／开局 | 引擎白名单 | attributesVerified | I级技能转录7/7 | 技能/村庄运行时                        | 若未开局则死后可替补 |
+| ------------- | ---------------------- | ------------------ | ---------- | ------------------ | -------------- | -------------------------------------- | -------------------- |
+| CRUSADER      | `hero_stat:p001:front` | 是（含II/III属性） | 是         | 是                 | 是             | 是                                     | 是（若开局未用）     |
+| HELLION       | `hero_stat:p003:front` | 是                 | 是         | 是                 | 是             | 是                                     | 是                   |
+| HIGHWAYMAN    | `hero_stat:p007:front` | 是                 | 是         | 是                 | 是             | 是                                     | 是                   |
+| VESTAL        | `hero_stat:p009:front` | 是                 | 是         | 是                 | 是             | 是                                     | 是                   |
+| BOUNTY HUNTER | `hero_stat:p005:front` | 是（仅I级技能）    | 是         | 是（R-088）        | 是             | 是（含Scout Ahead）                    | 是                   |
+| PLAGUE DOCTOR | `hero_stat:p013:front` | 是（仅I级技能）    | 是         | 是（R-094）        | 是             | 是（含Experimental Vapours）           | 是                   |
+| GRAVE ROBBER  | `hero_stat:p017:front` | 是（Pilfer Q-98）  | 是         | 是（R-095）        | 是             | I级七技能已接；**Pilfer 未接（Q-98）** | 是                   |
+| OCCULTIST     | `hero_stat:p019:front` | 是（标明未接线）   | 是         | 是（R-095）        | 是             | **未接**（技能效果 / Dark Ritual）     | 是                   |
 
 目录规模：正式`virtual:quest-battle-data` = 24属性面 / 112技能；`…-v2`六英雄 = 18/98；`…-v1`五英雄 = 15/91；战斗沙盒 = 4/84。
 
@@ -35,4 +35,4 @@
 
 ## 边界
 
-仍保持 Phase 4。Q-79/Q-80、正式 Boss、人工试玩保留。自然全灭正式存档路径已接（驿站 III 余额 4 → 四名额外 prepare/join → createQuestSave 往返）；**剩余缺口**仍是 GR/Occ I 级技能效果与 Pilfer / Dark Ritual 接线，不以转录通过冒充效果完成。
+仍保持 Phase 4。Q-79/Q-80、正式 Boss、人工试玩保留。自然全灭正式存档路径已接（驿站 III 余额 4 → 四名额外 prepare/join → createQuestSave 往返）；**剩余缺口**为 GR Pilfer（Q-98）与 Occ I 级技能 / Dark Ritual，不以转录通过冒充效果完成。

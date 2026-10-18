@@ -97,7 +97,7 @@ export function battleDataPlugin(): Plugin {
       if (plagueDoctor)
         for (let page = 127; page <= 145; page += 3)
           skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
-      // R-095：目录仅需七张I级转录通过的技能；效果/Pilfer/Dark Ritual仍未接线。
+      // R-095 / Q-98：GR I级七技能效果已接，Pilfer 因 Draw 图标未核实仍未接；Occ 技能/Dark Ritual 未接。
       if (graveOccultist) {
         for (let page = 169; page <= 187; page += 3)
           skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);

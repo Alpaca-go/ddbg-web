@@ -1233,3 +1233,8 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **问题 / 来源**：Kyries选定Grave Robber与Occultist为下一批替补属性/防御候选。印刷raw已核实六面Life/Dodge/Speed（见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md) §2）；完整左右防御栏仍有三枚词典unreviewed图标：`e61ed317de`（GR II/III、Occ III左栏）、`8cbe7d6703`（Occ I唯一抗性）、`a8c4b25b4e`（Occ II左栏第二枚）。需按R-088/R-094模式做**具体卡面位置**限定命名，不改全局词典。云环境无印刷页图像，不能目视提出候选含义。
 - **处理 / 状态**：confirmed（R-095，2026-10-18）。Kyries 在聊天确认 LIMITED per-card mappings：`e61ed317de`→Blight（GR II 左#1、GR III 左#2、Occ III 左#2）；`8cbe7d6703`→Debuff（仅 Occ I）；`a8c4b25b4e`→Debuff（Occ II 左#2）。Jester I 同 hash 不在批准范围。不改全局词典。
+
+### Q-98
+
+- **问题 / 来源**：Grave Robber 村庄能力 Pilfer（Hero STAT FRONT/BACK p17、FRONT p18）印刷为 `Draw a {icon:79084a2922} .`。词典 v1.8 中 `79084a2922` 仍为 `unreviewed` / `unknown_79084a2922`，三面属性卡 `verification.reasons` 均含该图标。接线 Pilfer 需要确认该图标含义（抽何种牌／代币）及数量语义；云环境无印刷页图像，不能目视命名。
+- **处理 / 状态**：待确认。按 R-001 / R-048 不发明图标含义，不新增 `useHamletSkill / pilfer` 命令，不改存档 schema。I 级七战斗技能可独立接线；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 在 Pilfer 接通前仍保留 `GRAVE ROBBER`。
