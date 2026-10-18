@@ -149,26 +149,48 @@ it("真实seed6抽In Good Spirits：三人平手最高获美德翻红、洗回3�
   ).toEqual(drawn.state);
 });
 
-it("已有意志卡时拒绝结算且不抽牌、不消费RNG", () => {
+it("已有意志卡的获奖者按R-099替换洗回：旧卡回堆、获新美德、事件照常完成", () => {
   const seed = seedFor("hamlet_event:p014");
   const base = returned(seed);
-  const polluted = {
+  const oldId = "virtue_affliction:p001";
+  const d = base.game.dungeon!;
+  const virtues = d.resolveCards
+    .filter((c) => c.role === "virtue" && c.id !== oldId)
+    .map((c) => c.id);
+  const afflictions = d.resolveCards.filter((c) => c.role === "affliction").map((c) => c.id);
+  // seed6：姿态序掷点 7/10/10/10，hero-1/2/3 获奖；给 hero-1 预置旧美德验证替换。
+  const withWinnerHeld: GameState = {
     ...base.game,
     dungeon: {
-      ...base.game.dungeon!,
-      heroes: base.game.dungeon!.heroes.map((h, i) =>
-        i === 0 ? { ...h, resolveCardId: "virtue_affliction:p001", resolveTested: true } : h,
+      ...d,
+      heroes: d.heroes.map((h) =>
+        h.id === "hero-1"
+          ? { ...h, resolveCardId: oldId, resolveTested: true }
+          : { ...h, resolveCardId: undefined, resolveTested: false },
       ),
+      resolveDecks: { virtue: virtues, affliction: afflictions },
     },
   };
-  const cursor = polluted.dungeon!.cursor;
-  const bad = applyCommand(polluted, { type: "drawHamletEvent" });
-  expect(bad.events.some((e) => e.type === "commandRefused")).toBe(true);
-  expect(bad.events[0]!.message).toMatch(/In Good Spirits|Q-79/);
-  expect(bad.state.dungeon!.cursor).toBe(cursor);
-  expect(bad.state.dungeon!.hamlet).toBeUndefined();
-  expect(bad.state.dungeon!.heroes[0]).toMatchObject({
-    resolveCardId: "virtue_affliction:p001",
-    resolveTested: true,
+  const drawn = ok(withWinnerHeld, { type: "drawHamletEvent" });
+  const next = drawn.state.dungeon!;
+  const winner = next.heroes.find((h) => h.id === "hero-1")!;
+  expect(winner.resolveTested).toBe(true);
+  expect(winner.resolveCardId).toBeTruthy();
+  expect(next.resolveCards.find((c) => c.id === winner.resolveCardId)!.role).toBe("virtue");
+  expect(next.resolveDecks.virtue).not.toContain(winner.resolveCardId);
+  expect(winner.resolveCardId === oldId || next.resolveDecks.virtue!.includes(oldId)).toBe(true);
+  const held = next.heroes.flatMap((h) => (h.resolveCardId ? [h.resolveCardId] : []));
+  expect(new Set(held).size).toBe(held.length);
+  expect(held).toHaveLength(3);
+  expect(
+    next.resolveCards
+      .filter((c) => c.role === "virtue")
+      .every((c) => held.includes(c.id) || next.resolveDecks.virtue!.includes(c.id)),
+  ).toBe(true);
+  expect(next.hamlet).toMatchObject({
+    active: null,
+    phase: "awaitingCaretaker",
+    preparationDays: 3,
   });
+  expect(drawn.events[0]!.message).toMatch(/R-099/);
 });
