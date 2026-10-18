@@ -28,7 +28,7 @@ export type QuestParty = readonly {
 /**
  * R12–17、R-038/048/065：已批准p1的单任务入口，无状态／代币注入，不代替战役选任务。
  * 开局四人须来自正式八英雄目录（与替补白名单同一集合）；转录通过即可装备，
- * GR/Occ 可编入；GR 战斗技能已接、Pilfer 停 Q-98；Occ 未接线效果按 R-048 拒绝（R-095）。
+ * GR/Occ 可编入；GR 战斗技能与 Pilfer 抽取已接（R-096；翻面结算见 Q-99）；Occ 未接线效果按 R-048 拒绝（R-095）。
  */
 export function createCoreDungeonQuest(
   seed: number,

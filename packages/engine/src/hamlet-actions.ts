@@ -8,6 +8,7 @@ import { applyPassiveStatus } from "./passive-runtime";
 import { statusProjection } from "./status";
 import { useScoutAhead } from "./hamlet-scout-ahead";
 import { useExperimentalVapours, experimentalVapoursHealing } from "./hamlet-experimental-vapours";
+import { usePilfer } from "./hamlet-pilfer";
 import {
   buildingLevelsProblem,
   recoveryServices,
@@ -34,7 +35,13 @@ export type HamletActionCommand =
       readonly type: "useHamletSkill";
       readonly actorId: string;
       readonly skill:
-        "intimidate" | "sharpenSpear" | "zealousSpeech" | "pray" | "chant" | "scoutAhead";
+        | "intimidate"
+        | "sharpenSpear"
+        | "zealousSpeech"
+        | "pray"
+        | "chant"
+        | "scoutAhead"
+        | "pilfer";
     };
 type Hero = DungeonState["heroes"][number];
 /** R27 / §10.1：一次恢复压力事件触发一次Resilient；村庄不套低光照承压。 */
@@ -132,6 +139,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
     if (command.skill === "experimentalVapours")
       return useExperimentalVapours(state, hero, command.targetId);
     if (command.skill === "scoutAhead") return useScoutAhead(state, hero);
+    if (command.skill === "pilfer") return usePilfer(state, hero);
     const stat = d.battleCatalog?.heroStats.find((s) => s.id === hero.heroStatId);
     if (
       !stat?.attributesVerified ||
@@ -406,6 +414,10 @@ export function hamletActionOptions(state: GameState) {
     {
       label: "Scout Ahead：自身压力 +1，下次地牢揭示一个房间",
       command: { type: "useHamletSkill", actorId: hero.id, skill: "scoutAhead" },
+    },
+    {
+      label: "Pilfer：抽取一枚战利品标记（R-096；翻面结算见 Q-99）",
+      command: { type: "useHamletSkill", actorId: hero.id, skill: "pilfer" },
     },
     {
       label: "Sharpen Spear：自身 Buff 5t",

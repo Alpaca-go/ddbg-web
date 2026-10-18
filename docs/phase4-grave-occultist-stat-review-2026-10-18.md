@@ -1,6 +1,6 @@
 # Phase 4：Grave Robber / Occultist 属性与防御（R-095 / Q-97 confirmed）
 
-状态：**Kyries 于 2026-10-18 在聊天确认 Q-97 为 LIMITED per-card mappings（同 R-088/R-094）。六面属性与限定防御已入库；正式白名单/网页目录已扩至四名额外替补。GR I 级七战斗技能已另接（见[GR 技能记录](phase4-grave-robber-skills-2026-10-18.md)）；Pilfer 因 Q-98 未接；Occ 技能与 Dark Ritual 仍未接线。**
+状态：**Kyries 于 2026-10-18 在聊天确认 Q-97 为 LIMITED per-card mappings（同 R-088/R-094）。六面属性与限定防御已入库；正式白名单/网页目录已扩至四名额外替补。GR I 级七战斗技能与 Pilfer 抽取已另接（R-096；见[GR 技能记录](phase4-grave-robber-skills-2026-10-18.md)）；翻面结算见 Q-99；Occ 技能与 Dark Ritual 仍未接线。**
 
 ## 1. 基线与来源
 
@@ -54,7 +54,7 @@ Kyries 确认**不是**全局词典升级；仅下列卡面位置：
 
 | 英雄         | I 级技能运行时                      | 村庄能力                                         |
 | ------------ | ----------------------------------- | ------------------------------------------------ |
-| GRAVE ROBBER | I 级七技能已接（见 GR 技能记录）    | Pilfer — Draw `{icon:79084a2922}`（Q-98 待确认） |
+| GRAVE ROBBER | I 级七技能已接（见 GR 技能记录）    | Pilfer 抽取已接（R-096）；翻面结算见 Q-99         |
 | OCCULTIST    | 七张转录通过 ≠ 效果已接通；逐卡待开 | Dark Ritual — 复合压力/治疗行，未接运行时        |
 
 目录仅要求七张 I 级 `verification.unverified=false`；不因本轮属性批准假装技能/村庄完整可用。

@@ -352,18 +352,19 @@ it("Toxin Trickery I：不掷骰清 Bleed/Blight 并放 Buff 2t；无 skipped", 
   });
 });
 
-it("Pilfer：Draw 图标仍 unverified（Q-98）；不新增命令名；GR 因 Pilfer 缺口保留未接线名单", () => {
+it("Pilfer：R-096 限定命名；词典仍 unreviewed；命令 schema 接受 pilfer；GR 退出未接线名单", () => {
   const face = data.hero_stat.cards.find((c) => c.id === "hero_stat:p017:front")!;
   expect(face.lines.some((line) => line.includes("Hamlet Skill: Pilfer"))).toBe(true);
   expect(
     face.icons.some((icon) => icon.iconId === "79084a2922" && icon.naming === "unverified"),
   ).toBe(true);
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual(["GRAVE ROBBER", "OCCULTIST"]);
+  expect(face.verification.reasons).toContain("icon:79084a2922");
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual(["OCCULTIST"]);
   expect(
     savedCommandSchema.safeParse({
       type: "useHamletSkill",
       actorId: "hero-0",
       skill: "pilfer",
     }).success,
-  ).toBe(false);
+  ).toBe(true);
 });
