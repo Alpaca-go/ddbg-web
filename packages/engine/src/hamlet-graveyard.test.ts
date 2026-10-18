@@ -154,8 +154,8 @@ it("真实跨日美德保留；再次访问墓地按R-099替换洗回：旧卡�
   const held = replaced.dungeon!.heroes.flatMap((h) => (h.resolveCardId ? [h.resolveCardId] : []));
   expect(new Set(held).size).toBe(held.length);
   expect(
-    replaced.dungeon!.resolveCards
-      .filter((c) => c.role === "virtue")
+    replaced
+      .dungeon!.resolveCards.filter((c) => c.role === "virtue")
       .every((c) => held.includes(c.id) || replaced.dungeon!.resolveDecks.virtue!.includes(c.id)),
   ).toBe(true);
   expect(replaced.dungeon!.gold).toBe(gold);
@@ -176,9 +176,7 @@ it("已有苦难时访问墓地：苦难洗回苦难堆，再抽新美德（R-09
     dungeon: {
       ...d,
       heroes: d.heroes.map((h, i) =>
-        i === 0
-          ? { ...h, resolveCardId: affliction.id, resolveTested: true }
-          : h,
+        i === 0 ? { ...h, resolveCardId: affliction.id, resolveTested: true } : h,
       ),
       resolveDecks: { virtue: virtues, affliction: afflictions },
     },
