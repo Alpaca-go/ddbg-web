@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-18）：#237已合并为main `c09b94a`。当前`cursor/phase4-grave-occultist-attrs-8671`按Kyries选定Grave Robber+Occultist核对属性/防御：印刷raw六面Life/Dodge/Speed已齐，但防御栏三枚unreviewed图标（`e61ed317de`/`8cbe7d6703`/`a8c4b25b4e`）缺限定映射（Q-97），按R-048不入库、不扩可用池；正式额外仍仅赏金猎人+瘟疫医生。见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md)。不发明图标含义，不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+
 > 当前入口（2026-10-18）：#236已合并为main `e0b8f6b`。当前`cursor/phase4-replacement-candidates-1adf`盘点核心盒替补候选：正式可用池仍仅六名（开局四人+赏金猎人+瘟疫医生），全灭后只够准备两名已核实替补；Jester/Arbalest/Grave Robber/Occultist/Abomination无`attributesVerified`，未进可用池，见Kyries审批清单与[本轮记录](phase4-replacement-candidates-2026-10-18.md)。不发明属性/图标，不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 
 > 当前入口（2026-10-18）：#235已合并为main `924c60d`。当前`codex/phase4-wipeout-handoff`按R9/R25/R31/R33接普通任务四英雄全灭与驿站人数/战后逃跑交接；新增内部失败原因区分“等待人数不足”与原“代币耗尽”。见[本轮记录](phase4-wipeout-handoff-2026-10-18.md)。R-068双方全灭仍停场，无奖励/自动战役失败。正式目录仅两名额外候选，下一主题核对补齐四人替补所缺候选数据，不伪造英雄或提前入队；Q-79/Q-80、Boss与人工试玩保留。下文为历史记录。

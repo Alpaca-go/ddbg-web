@@ -1215,3 +1215,8 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **问题 / 来源**：正式网页仅一名额外候选，继续核对瘟疫医生三等级属性及防御。已检查当前版Hero STAT FRONT p13/p14、BACK p13及完整官方R10/R21/R29/R31/R33；三行Life/Dodge/Speed和左右栏见[限定核对表](phase4-plague-doctor-review-2026-10-17.md) §2–3。III级右栏第一枚`8510428636`仍为unreviewed，候选只在`hero_stat:p014:front`免疫栏解释为Blight，不改全局词典。
 - **处理 / 状态**：confirmed（R-094，2026-10-17）。Kyries回复“批准三行属性与限定防御”；按§2三面单独入库，III图标只在本卡右栏解释为Blight免疫，不改词典或清除整卡未验证。七技能与Experimental Vapours另行接线，不以转录验证代替完整英雄可用。
+
+### Q-97
+
+- **问题 / 来源**：Kyries选定Grave Robber与Occultist为下一批替补属性/防御候选。印刷raw已核实六面Life/Dodge/Speed（见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md) §2）；完整左右防御栏仍有三枚词典unreviewed图标：`e61ed317de`（GR II/III、Occ III左栏）、`8cbe7d6703`（Occ I唯一抗性）、`a8c4b25b4e`（Occ II左栏第二枚）。需按R-088/R-094模式做**具体卡面位置**限定命名，不改全局词典。云环境无印刷页图像，不能目视提出候选含义。
+- **处理 / 状态**：pending（2026-10-18）。未入库、未扩白名单；等Kyries对照当前版Hero STAT FRONT p17–20 / BACK p17/p19与官方R21后批准限定表，再记R并接线。
