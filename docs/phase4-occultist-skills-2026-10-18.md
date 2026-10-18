@@ -10,15 +10,15 @@
 
 ## 2. 技能状态表
 
-| 技能                   | id                | 接线         | 说明                                                              |
-| ---------------------- | ----------------- | ------------ | ----------------------------------------------------------------- |
-| Sacrificial Stab I     | `hero_skill:p190` | 已接         | `verified_damage_bonus` vs Eldritch +1（新条件 `eldritch`）       |
-| Abyssal Artillery I    | `hero_skill:p193` | 已接         | 双目标共享骰；Eldritch +1                                         |
-| Weakening Curse I      | `hero_skill:p196` | 已接         | 射程 1–2；Debuff 2t                                               |
-| Wyrd Reconstruction I  | `hero_skill:p199` | 已接         | 射程 0–1；治疗 + Bleed 1·2t（面值不改本次治疗伤口）               |
-| Vulnerability Hex I    | `hero_skill:p202` | 已接         | 射程 1–2；Mark 2t                                                 |
-| Hands from the Abyss I | `hero_skill:p205` | 已接         | Stun 2t + 光照 −1（Dazzling Light 余量解析模式）                  |
-| Daemon’s Pull I        | `hero_skill:p208` | 已接         | 既有 Pull 2 位移路径；命中后目标位移                              |
+| 技能                   | id                | 接线           | 说明                                                              |
+| ---------------------- | ----------------- | -------------- | ----------------------------------------------------------------- |
+| Sacrificial Stab I     | `hero_skill:p190` | 已接           | `verified_damage_bonus` vs Eldritch +1（新条件 `eldritch`）       |
+| Abyssal Artillery I    | `hero_skill:p193` | 已接           | 双目标共享骰；Eldritch +1                                         |
+| Weakening Curse I      | `hero_skill:p196` | 已接           | 射程 1–2；Debuff 2t                                               |
+| Wyrd Reconstruction I  | `hero_skill:p199` | 已接           | 射程 0–1；治疗 + Bleed 1·2t（面值不改本次治疗伤口）               |
+| Vulnerability Hex I    | `hero_skill:p202` | 已接           | 射程 1–2；Mark 2t                                                 |
+| Hands from the Abyss I | `hero_skill:p205` | 已接           | Stun 2t + 光照 −1（Dazzling Light 余量解析模式）                  |
+| Daemon’s Pull I        | `hero_skill:p208` | 已接           | 既有 Pull 2 位移路径；命中后目标位移                              |
 | Dark Ritual            | Hamlet Skill      | **I–III 已接** | Self 压力+1；目标治疗 N / 压力−2 / Buff 3t；公开命令 `darkRitual` |
 
 ## 3. Dark Ritual
