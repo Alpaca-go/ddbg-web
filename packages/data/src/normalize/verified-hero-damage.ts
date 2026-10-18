@@ -5,29 +5,77 @@ export function attachVerifiedHeroDamage(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return cards.map((card) => {
-    if (card.id === "hero_skill:p043") {
+    if (card.id === "hero_skill:p043" || card.id === "hero_skill:p181") {
       const signature = (line: (typeof card.effect_lines)[number]) =>
         line
           .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
           .join("")
           .replace(/\s+/g, "");
+      const dual =
+        card.id === "hero_skill:p043"
+          ? {
+              hero: "BOUNTY HUNTER",
+              name: "Collect Bounty",
+              page: 43,
+              lines: [
+                "{target_effects}{damage}+1vsHumans",
+                "{target_effects}{damage}+2vs{mark}",
+              ],
+              stats: "{range}0{target_monster}Crit1{damage}10Acc9{damage}6",
+              bonuses: [
+                {
+                  lineIndex: 0,
+                  amount: 1,
+                  condition: "human" as const,
+                  source: "print_front" as const,
+                },
+                {
+                  lineIndex: 1,
+                  amount: 2,
+                  condition: "marked" as const,
+                  source: "print_front" as const,
+                },
+              ],
+              label: "Collect Bounty I",
+            }
+          : {
+              hero: "GRAVE ROBBER",
+              name: "Throw Dagger",
+              page: 181,
+              lines: [
+                "{target_effects}{damage}+1vs{blight}",
+                "{target_effects}{damage}+2vs{mark}",
+              ],
+              stats: "{range}1-2{target_monster}Crit2{damage}7Acc9{damage}4",
+              bonuses: [
+                {
+                  lineIndex: 0,
+                  amount: 1,
+                  condition: "blighted" as const,
+                  source: "print_front" as const,
+                },
+                {
+                  lineIndex: 1,
+                  amount: 2,
+                  condition: "marked" as const,
+                  source: "print_front" as const,
+                },
+              ],
+              label: "Throw Dagger I",
+            };
       if (
-        card.hero !== "BOUNTY HUNTER" ||
-        card.name !== "Collect Bounty" ||
-        card.back_name !== "Collect Bounty" ||
+        card.hero !== dual.hero ||
+        card.name !== dual.name ||
+        card.back_name !== dual.name ||
         card.level !== 1 ||
         card.back_level !== 1 ||
         card.pages.length !== 1 ||
-        card.pages[0] !== 43 ||
+        card.pages[0] !== dual.page ||
         card.copies !== 1 ||
         card.verification.unverified ||
-        JSON.stringify(card.effect_lines.map(signature)) !==
-          JSON.stringify([
-            "{target_effects}{damage}+1vsHumans",
-            "{target_effects}{damage}+2vs{mark}",
-          ]) ||
+        JSON.stringify(card.effect_lines.map(signature)) !== JSON.stringify(dual.lines) ||
         !card.stats_line ||
-        signature(card.stats_line) !== "{range}0{target_monster}Crit1{damage}10Acc9{damage}6" ||
+        signature(card.stats_line) !== dual.stats ||
         card.effect_lines
           .flat()
           .some(
@@ -35,13 +83,10 @@ export function attachVerifiedHeroDamage(
               s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
           )
       )
-        throw new Error("Collect Bounty I完整伤害字段漂移（R-048）");
+        throw new Error(`${dual.label}完整伤害字段漂移（R-048）`);
       return {
         ...card,
-        verified_damage_bonuses: [
-          { lineIndex: 0, amount: 1, condition: "human" as const, source: "print_front" as const },
-          { lineIndex: 1, amount: 2, condition: "marked" as const, source: "print_front" as const },
-        ],
+        verified_damage_bonuses: dual.bonuses,
       };
     }
     const reviewed = {
@@ -116,6 +161,15 @@ export function attachVerifiedHeroDamage(
         amount: 2,
         condition: "stunned",
         suffix: "{stun}",
+      },
+      "hero_skill:p172": {
+        name: "Lunge",
+        level: 1,
+        page: 172,
+        lineIndex: 1,
+        amount: 2,
+        condition: "blighted",
+        suffix: "{blight}",
       },
       "hero_skill:p068": {
         name: "Pistol Shot",
@@ -205,6 +259,12 @@ export function attachVerifiedHeroDamage(
           card.back_level !== 1 ||
           card.copies !== 1 ||
           card.effect_lines.length !== 1)) ||
+      (card.id === "hero_skill:p172" &&
+        (card.hero !== "GRAVE ROBBER" ||
+          card.back_name !== entry.name ||
+          card.back_level !== 1 ||
+          card.copies !== 1 ||
+          card.effect_lines.length !== 2)) ||
       card.level !== entry.level ||
       card.verification.unverified ||
       card.pages.length !== 1 ||

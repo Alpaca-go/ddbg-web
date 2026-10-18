@@ -28,23 +28,39 @@ export function attachVerifiedHeroLayout(
     ],
   };
   return cards.map((card) => {
-    // FRONT p43：同一目标效果框跨两行，沿用该框实际标记，不改原始转录。
-    if (card.id === "hero_skill:p043") {
+    // FRONT p43 / p181：同一目标效果框跨两行，沿用该框实际标记，不改原始转录。
+    if (card.id === "hero_skill:p043" || card.id === "hero_skill:p181") {
+      const expected =
+        card.id === "hero_skill:p043"
+          ? {
+              hero: "BOUNTY HUNTER",
+              name: "Collect Bounty",
+              page: 43,
+              first: "{target_effects} {damage} +1 vs Humans",
+              second: ["{damage} +2 vs {mark}", "{target_effects} {damage} +2 vs {mark}"],
+              label: "Collect Bounty I",
+            }
+          : {
+              hero: "GRAVE ROBBER",
+              name: "Throw Dagger",
+              page: 181,
+              first: "{target_effects} {damage} +1 vs {blight}",
+              second: ["{damage} +2 vs {mark}", "{target_effects} {damage} +2 vs {mark}"],
+              label: "Throw Dagger I",
+            };
       const signatures = card.effect_lines.map(lineSignature);
       if (
-        card.hero !== "BOUNTY HUNTER" ||
-        card.name !== "Collect Bounty" ||
+        card.hero !== expected.hero ||
+        card.name !== expected.name ||
         card.level !== 1 ||
         card.pages.length !== 1 ||
-        card.pages[0] !== 43 ||
+        card.pages[0] !== expected.page ||
         card.verification.unverified ||
         signatures.length !== 2 ||
-        signatures[0] !== "{target_effects} {damage} +1 vs Humans" ||
-        !["{damage} +2 vs {mark}", "{target_effects} {damage} +2 vs {mark}"].includes(
-          signatures[1]!,
-        )
+        signatures[0] !== expected.first ||
+        !expected.second.includes(signatures[1]!)
       )
-        throw new Error("Collect Bounty I完整目标效果框漂移（R-048）");
+        throw new Error(`${expected.label}完整目标效果框漂移（R-048）`);
       const marker = card.effect_lines[0]![0]!;
       if (
         marker.type !== "icon" ||
@@ -56,7 +72,7 @@ export function attachVerifiedHeroLayout(
               s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
           )
       )
-        throw new Error("Collect Bounty I目标框图标未确认（R-048）");
+        throw new Error(`${expected.label}目标框图标未确认（R-048）`);
       return signatures[1]!.startsWith("{target_effects}")
         ? card
         : {

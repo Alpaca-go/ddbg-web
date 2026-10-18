@@ -1701,19 +1701,25 @@ export function DungeonQuest() {
             任务结算仅记待发XP，回村发放。
           </p>
           <p>
-            可选身份共 {FORMAL_HERO_NAMES.length} 名（与替补白名单一致）。盗墓者／神秘学者 I
-            级技能效果与 Pilfer／Dark Ritual 未接线：可编队并装备已转录技能，战斗结算按 R-048
-            拒绝，不发明效果。
+            可选身份共 {FORMAL_HERO_NAMES.length} 名（与替补白名单一致）。盗墓者 I
+            级七战斗技能已接，Pilfer 因 Draw 图标未核实（Q-98）仍未接线；神秘学者 I
+            级技能与 Dark Ritual 未接线。可编队并装备已转录技能；未接线效果按 R-048
+            拒绝，不发明。
           </p>
           {party.map((hero, index) => {
             const name = partyNames[index]!;
-            const unwired = heroHasUnwiredCombatSkills(name);
+            const combatUnwired = name === "OCCULTIST";
+            const gapLabel = !heroHasUnwiredCombatSkills(name)
+              ? ""
+              : name === "GRAVE ROBBER"
+                ? "Pilfer 未接线（Q-98）"
+                : "技能效果未接线";
             const taken = new Set(partyNames.filter((_, i) => i !== index));
             return (
               <fieldset key={index}>
                 <legend>
                   席位 {index + 1} · {stanceLabels[hero.stance]}
-                  {unwired ? " · 技能效果未接线" : ""}
+                  {gapLabel ? ` · ${gapLabel}` : ""}
                 </legend>
                 <label>
                   英雄
@@ -1730,7 +1736,11 @@ export function DungeonQuest() {
                     {FORMAL_HERO_NAMES.filter((n) => n === name || !taken.has(n)).map((n) => (
                       <option key={n} value={n}>
                         {n}
-                        {heroHasUnwiredCombatSkills(n) ? "（技能效果未接线）" : ""}
+                        {n === "GRAVE ROBBER"
+                          ? "（Pilfer 未接线）"
+                          : n === "OCCULTIST"
+                            ? "（技能效果未接线）"
+                            : ""}
                       </option>
                     ))}
                   </select>
@@ -1763,7 +1773,7 @@ export function DungeonQuest() {
                         .map((s) => (
                           <option key={s.id} value={s.id}>
                             {s.name}
-                            {unwired ? "（效果未接线，使用时拒绝）" : ""}
+                            {combatUnwired ? "（效果未接线，使用时拒绝）" : ""}
                           </option>
                         ))}
                     </select>

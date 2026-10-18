@@ -17,8 +17,10 @@ export const FORMAL_HERO_NAMES = [
 export type FormalHeroName = (typeof FORMAL_HERO_NAMES)[number];
 
 /**
- * I 级战斗技能效果与 Pilfer / Dark Ritual 仍未接线（R-095 边界）。
- * 可编入开局四人，但 UI 须标明；结算走 R-048 拒绝，不发明效果。
+ * 仍标「未接线」的正式目录成员（R-095 / Q-98 边界）。
+ * - GRAVE ROBBER：I 级七战斗技能已接；Pilfer 因 Draw 图标 `79084a2922` 仍 unverified（Q-98）未接，故保留本名单。
+ * - OCCULTIST：I 级战斗技能与 Dark Ritual 均未接。
+ * 可编入开局四人，但 UI 须标明缺口；未接线效果按 R-048 拒绝，不发明。
  */
 export const FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS = ["GRAVE ROBBER", "OCCULTIST"] as const;
 

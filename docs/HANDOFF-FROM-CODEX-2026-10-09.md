@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-18）：#241已合并为main `034f95d`。当前`cursor/phase4-grave-robber-skills-b049`接Grave Robber I级七战斗技能（含`blighted`条件伤、Shadow Fade无Acc自身位移）；Pilfer因Draw图标`79084a2922`仍unverified记Q-98待确认，不新增命令/不改存档schema；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`仍含GR。Occ未动。见[GR技能记录](phase4-grave-robber-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+
 > 当前入口（2026-10-18）：#240已合并为main `1921801`。当前`cursor/phase4-eight-hero-roster-ebfe`开放正式开局八英雄名录：`createCoreDungeonQuest`与网页`DungeonQuest`从`FORMAL_HERO_NAMES`任选四人；GR/Occ可编队但标明I级技能效果未接线（R-048拒绝、不发明）。见[八英雄开局](phase4-eight-hero-roster-2026-10-18.md)。Jester/Arbalest/Abomination仍排除；不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 
 > 当前入口（2026-10-18）：#239已合并为main `438f7da`。分支`cursor/phase4-natural-wipeout-save-3a36`（remote HEAD）补自然全灭正式存档：Fundraiser seed2→驿站III余额4→Scout Ahead preferWipeout 公开命令至 heroesDefeated→准备四名已核实额外（BH/PD/GR/Occ）并入队，createQuestSave/loadQuestSave往返。机制夹具 wipeoutBoundary 仍仅作边界测试、不冒充自然击杀。GR/Occ技能效果与Pilfer/Dark Ritual仍未接线。见[全灭交接](phase4-wipeout-handoff-2026-10-18.md)与[候选盘点](phase4-replacement-candidates-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。

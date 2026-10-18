@@ -283,7 +283,7 @@ export type HeroSkillCardView = {
   readonly verified_damage_bonus?: {
     readonly lineIndex: number;
     readonly amount: number;
-    readonly condition: "marked" | "unholy" | "stunned" | "human";
+    readonly condition: "marked" | "unholy" | "stunned" | "human" | "blighted";
     readonly source: "print_front";
   };
   readonly verified_damage_bonuses?: readonly NonNullable<
@@ -360,7 +360,7 @@ export type SkillActorState = PassiveHolder & {
 
 /** 目标已经选好。区域怎么相邻不在这里。 */
 export type SkillTargetState = PassiveHolder & {
-  /** Finish Him 的条件读取当前真实状态堆，不用历史眩晕事件或本回合跳过标记。 */
+  /** Finish Him / Lunge / Throw Dagger 等条件读取当前真实状态堆，不用历史事件。 */
   readonly statusStacks?: readonly StatusStack[];
   /** 已验证怪物卡的印刷类型标签；缺失时不能判定 vs Unholy，不按名字推断。 */
   readonly monsterTypeTags?: readonly string[];
@@ -2311,15 +2311,24 @@ function resolveSkill(
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
       .join("")
       .replace(/\s+/g, "");
+    const conditionSuffix =
+      bonus.condition === "marked"
+        ? "{mark}"
+        : bonus.condition === "stunned"
+          ? "{stun}"
+          : bonus.condition === "blighted"
+            ? "{blight}"
+            : bonus.condition === "human"
+              ? "Humans"
+              : "Unholy";
     if (
       !Number.isSafeInteger(bonus.lineIndex) ||
       bonus.lineIndex < 0 ||
       !Number.isSafeInteger(bonus.amount) ||
       bonus.amount <= 0 ||
-      !["marked", "unholy", "stunned", "human"].includes(bonus.condition) ||
+      !["marked", "unholy", "stunned", "human", "blighted"].includes(bonus.condition) ||
       bonus.source !== "print_front" ||
-      text !==
-        `{target_effects}{damage}+${bonus.amount}vs${bonus.condition === "marked" ? "{mark}" : bonus.condition === "stunned" ? "{stun}" : bonus.condition === "human" ? "Humans" : "Unholy"}` ||
+      text !== `{target_effects}{damage}+${bonus.amount}vs${conditionSuffix}` ||
       line?.some(
         (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
       )
@@ -2335,10 +2344,16 @@ function resolveSkill(
       return refuse(skill, combat, "条件伤害缺少已验证怪物类型（R-048）");
     if (
       !emptyArea &&
-      bonus.condition === "stunned" &&
+      (bonus.condition === "stunned" || bonus.condition === "blighted") &&
       (!Array.isArray(target.statusStacks) || statusStackProblem(target.statusStacks))
     )
-      return refuse(skill, combat, "眩晕条件伤害缺少合法的当前状态堆（R-048）");
+      return refuse(
+        skill,
+        combat,
+        bonus.condition === "stunned"
+          ? "眩晕条件伤害缺少合法的当前状态堆（R-048）"
+          : "枯萎条件伤害缺少合法的当前状态堆（R-048）",
+      );
   }
   const statuses = readVerifiedStatusEffects(active, combat.shuffleChoice);
   if (statuses.status === "refused") return refuse(skill, combat, statuses.reason);
@@ -2389,12 +2404,13 @@ function resolveSkill(
   }
 
   // 没有伤害、治疗，但已经记上位移：仍要按 Acc 掷骰。变身和没有 Acc 的自身效果不掷。
+  // 无 Acc / 无 printed_labels 的自身位移（如 Shadow Fade）与变身同类，不因 Push/Pull 强行要 Acc。
   const formOnly =
     effect === null &&
-    shuffles.self === null &&
     shuffles.target === null &&
     statuses.target.length === 0 &&
-    !support;
+    !support &&
+    (shuffles.self === null || active.printed_labels.length === 0);
   const selfTarget = readsAsSelfTarget(active);
   const targetCounts = readTargetIconCounts(active);
   const targets = new Set<"target_hero" | "target_monster">();
@@ -2690,22 +2706,21 @@ function resolveSkill(
       // 其他类型修正 / Hard Skinned 缺值仍不加。
       const baseDamage =
         amount +
-        bonuses.reduce(
-          (total, bonus) =>
-            total +
-            (target.side !== sourceSide &&
-            (bonus.condition === "marked"
+        bonuses.reduce((total, bonus) => {
+          if (target.side === sourceSide) return total;
+          const matched =
+            bonus.condition === "marked"
               ? (target.markStacks ?? 0) > 0
               : bonus.condition === "stunned"
                 ? target.statusStacks!.some((stack) => stack.kind === "stun")
-                : target.side === "monster" &&
-                  target.monsterTypeTags?.includes(
-                    bonus.condition === "human" ? "Human" : "Unholy",
-                  ))
-              ? bonus.amount
-              : 0),
-          0,
-        );
+                : bonus.condition === "blighted"
+                  ? target.statusStacks!.some((stack) => stack.kind === "blight")
+                  : target.side === "monster" &&
+                    target.monsterTypeTags?.includes(
+                      bonus.condition === "human" ? "Human" : "Unholy",
+                    );
+          return total + (matched ? bonus.amount : 0);
+        }, 0);
       if (!Number.isSafeInteger(baseDamage))
         return refuse(skill, combat, "条件伤害总量超出安全整数范围");
       const skipProtection = ignoresProtection.targetLines > 0;
