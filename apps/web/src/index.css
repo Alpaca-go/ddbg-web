@@ -251,6 +251,87 @@ small {
   line-height: 1.6;
   overflow-wrap: anywhere;
 }
+.skill-hand {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0.6rem 0 0.9rem;
+}
+.card-face {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #484338;
+  border-radius: 4px;
+  background: #171715;
+  color: inherit;
+  text-align: left;
+  max-width: 100%;
+}
+button.card-face {
+  cursor: pointer;
+}
+button.card-face:hover:enabled {
+  background: #221f1a;
+}
+.card-face--selected {
+  border-color: #d4b879;
+  box-shadow: inset 0 0 0 1px #d4b879;
+}
+.card-face--sm {
+  width: 9.5rem;
+}
+.card-face--md {
+  width: 14rem;
+}
+.card-face__sprite,
+.card-face__placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 28 / 19;
+  background-color: #10100e;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid #3b3931;
+}
+.card-face__placeholder {
+  display: grid;
+  place-items: center;
+  color: #8a8373;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+.card-face__probe {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+.card-face__sprite {
+  position: relative;
+  overflow: hidden;
+}
+.card-face__caption {
+  padding: 0.35rem 0.5rem 0.55rem;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  color: #cec4aa;
+}
+.embark-skill-row {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  margin-bottom: 0.7rem;
+}
+.embark-skill-row .card-face {
+  flex: 0 0 auto;
+}
+.embark-skill-row label {
+  flex: 1;
+  margin-bottom: 0;
+}
 .card-text p {
   color: #aaa599;
   margin-top: 0.5rem;

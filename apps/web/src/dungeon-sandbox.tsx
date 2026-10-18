@@ -46,6 +46,7 @@ import { battleData } from "virtual:battle-data";
 import { battleData as questBattleData } from "virtual:quest-battle-data";
 import { battleData as previousQuestBattleData } from "virtual:quest-battle-data-v1";
 import { battleData as sixHeroQuestBattleData } from "virtual:quest-battle-data-v2";
+import { CardFace } from "./card-art/card-face";
 import { BattleView } from "./battle-view";
 import { DungeonStanceOrder } from "./dungeon-stance-order";
 import { provisionLabels, provisionEffectLabels } from "./provision-labels";
@@ -1735,38 +1736,41 @@ export function DungeonQuest() {
                   </select>
                 </label>
                 {hero.skillIds.map((id, slot) => (
-                  <label key={slot}>
-                    起始技能 {slot + 1}
-                    <select
-                      aria-label={`${name} 技能 ${slot + 1}`}
-                      value={id}
-                      onChange={(e) =>
-                        setParty(
-                          party.map((h, i) =>
-                            i !== index
-                              ? h
-                              : {
-                                  ...h,
-                                  skillIds: h.skillIds.map((s, j) =>
-                                    j === slot ? e.target.value : s,
-                                  ),
-                                },
-                          ),
-                        )
-                      }
-                    >
-                      {questBattleData.skills
-                        .filter(
-                          (s) => s.hero === name && s.level === 1 && !s.verification.unverified,
-                        )
-                        .map((s) => (
-                          <option key={s.id} value={s.id}>
-                            {s.name}
-                            {heroHasUnwiredCombatSkills(name) ? "（效果未接线，使用时拒绝）" : ""}
-                          </option>
-                        ))}
-                    </select>
-                  </label>
+                  <div key={slot} className="embark-skill-row">
+                    <CardFace skillId={id} size="sm" />
+                    <label>
+                      起始技能 {slot + 1}
+                      <select
+                        aria-label={`${name} 技能 ${slot + 1}`}
+                        value={id}
+                        onChange={(e) =>
+                          setParty(
+                            party.map((h, i) =>
+                              i !== index
+                                ? h
+                                : {
+                                    ...h,
+                                    skillIds: h.skillIds.map((s, j) =>
+                                      j === slot ? e.target.value : s,
+                                    ),
+                                  },
+                            ),
+                          )
+                        }
+                      >
+                        {questBattleData.skills
+                          .filter(
+                            (s) => s.hero === name && s.level === 1 && !s.verification.unverified,
+                          )
+                          .map((s) => (
+                            <option key={s.id} value={s.id}>
+                              {s.name}
+                              {heroHasUnwiredCombatSkills(name) ? "（效果未接线，使用时拒绝）" : ""}
+                            </option>
+                          ))}
+                      </select>
+                    </label>
+                  </div>
                 ))}
               </fieldset>
             );

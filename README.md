@@ -21,6 +21,18 @@ pnpm build
 
 `pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒，`/?phase=3&play=1` 打开三张基础任务的正式入口。
 
+### 本地卡图缓存（可选）
+
+英雄技能卡面 URL 来自 TTS Workshop 存档 JSON（不入库）。映射见 `apps/web/src/card-art/hero-skill-face-map.json`。把 Workshop JSON 放在本机后可重生成映射并下载 Face atlas 到 gitignored 目录：
+
+```bash
+node tools/pipeline/scripts/build-tts-hero-skill-face-map.mjs --tts /path/to/3657612854.json
+node tools/pipeline/scripts/cache-tts-card-art.mjs
+# 可选：DDBG_TTS_CARD_ART_CACHE=/abs/path/to/cache
+```
+
+说明见 [docs/phase4-card-art-faces-2026-10-18.md](docs/phase4-card-art-faces-2026-10-18.md)。**不要把 Steam CDN 图像提交进仓库。**
+
 2026-10-18最新进度：基线 #247 / `42b9620`。当前确认 Q-80→R-100（recycle_discard_fill）：游商首次陈列可抽不足时将该级弃牌洗回再抽满额；真耗尽才拒绝。见[rulings](docs/rulings.md) R-100与[接线记录](docs/phase4-nomad-q80-r100-2026-10-18.md)。正式Boss与人工试玩继续保留，保持Phase4。以下段落为历史进度。
 
 2026-10-18进度：基线 #246 / `acc3c8c`。当时确认 Q-79→R-099（replace-reshuffle）；Q-80 仍 pending（现已见 R-100）。见[rulings](docs/rulings.md) R-099与[接线记录](docs/phase4-graveyard-q79-r099-2026-10-18.md)。

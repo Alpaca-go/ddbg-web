@@ -9,6 +9,7 @@ import type { Command, SkillStance, ProvisionEffect, GameState, GameEvent } from
 import { battleData } from "virtual:battle-data";
 import type { SandboxLayout } from "./battle-store";
 import { battleStep } from "./battle-step";
+import { CardFace } from "./card-art/card-face";
 import { SkillCardText } from "./skill-card-text";
 import { SkillRequirements } from "./skill-requirements";
 import { SkillResults } from "./skill-results";
@@ -661,6 +662,20 @@ export function BattleView({
               </fieldset>
               <fieldset disabled={!heroTurn || turn.mustMove}>
                 <legend>使用技能</legend>
+                <div className="skill-hand" role="listbox" aria-label="手牌技能">
+                  {actorSkills.map((s) => (
+                    <CardFace
+                      key={s.id}
+                      skillId={s.id}
+                      size="sm"
+                      selected={skill?.id === s.id}
+                      onSelect={() => {
+                        setSkillId(s.id);
+                        setSelection({ context: "", ids: [] });
+                      }}
+                    />
+                  ))}
+                </div>
                 <label>
                   技能
                   <select
@@ -816,15 +831,18 @@ export function BattleView({
                 </button>
               </fieldset>
               {skill && (
-                <SkillCardText
-                  name={skill.name}
-                  level={skill.level}
-                  lines={
-                    skill.stats_line
-                      ? [skill.stats_line, ...skill.effect_lines]
-                      : skill.effect_lines
-                  }
-                />
+                <>
+                  <CardFace skillId={skill.id} size="md" />
+                  <SkillCardText
+                    name={skill.name}
+                    level={skill.level}
+                    lines={
+                      skill.stats_line
+                        ? [skill.stats_line, ...skill.effect_lines]
+                        : skill.effect_lines
+                    }
+                  />
+                </>
               )}
             </>
           )}
