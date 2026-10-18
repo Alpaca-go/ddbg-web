@@ -42,6 +42,7 @@ import type { DungeonLayout } from "../../../packages/data/src/dungeon-layout";
 import { battleData } from "virtual:battle-data";
 import { battleData as questBattleData } from "virtual:quest-battle-data";
 import { battleData as previousQuestBattleData } from "virtual:quest-battle-data-v1";
+import { battleData as sixHeroQuestBattleData } from "virtual:quest-battle-data-v2";
 import { BattleView } from "./battle-view";
 import { DungeonStanceOrder } from "./dungeon-stance-order";
 import { provisionLabels, provisionEffectLabels } from "./provision-labels";
@@ -494,6 +495,7 @@ function QuestSaveControls({ onLoad }: { onLoad?: () => void }) {
               const raw = localStorage.getItem(questSaveKey);
               if (!raw) throw new Error("本机还没有任务存档");
               const loaded = loadQuestSave(JSON.parse(raw), taskSources, [
+                sixHeroTaskSources,
                 previousTaskSources,
                 legacyTaskSources,
               ]);
@@ -1572,6 +1574,11 @@ const taskSources: CoreQuestSources = {
 const previousTaskSources: CoreQuestSources = {
   ...legacyTaskSources,
   catalog: { ...legacyTaskSources.catalog, ...previousQuestBattleData },
+};
+/** 六英雄正式目录（赏金猎人+瘟疫医生）；R-095 扩八英雄后作旧档迁移可信来源。 */
+const sixHeroTaskSources: CoreQuestSources = {
+  ...legacyTaskSources,
+  catalog: { ...legacyTaskSources.catalog, ...sixHeroQuestBattleData },
 };
 export function DungeonQuest() {
   const beginTask = useDungeonStore((s) => s.beginTask);

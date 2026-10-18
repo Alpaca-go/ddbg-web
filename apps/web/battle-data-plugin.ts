@@ -24,9 +24,12 @@ export function battleDataPlugin(): Plugin {
   return {
     name: "battle-sandbox-data",
     resolveId: (id) =>
-      ["virtual:battle-data", "virtual:quest-battle-data", "virtual:quest-battle-data-v1"].includes(
-        id,
-      )
+      [
+        "virtual:battle-data",
+        "virtual:quest-battle-data",
+        "virtual:quest-battle-data-v1",
+        "virtual:quest-battle-data-v2",
+      ].includes(id)
         ? `\0${id}`
         : null,
     load(id) {
@@ -35,14 +38,18 @@ export function battleDataPlugin(): Plugin {
           "\0virtual:battle-data",
           "\0virtual:quest-battle-data",
           "\0virtual:quest-battle-data-v1",
+          "\0virtual:quest-battle-data-v2",
         ].includes(id)
       )
         return null;
       const questCatalog = id !== "\0virtual:battle-data";
-      const plagueDoctor = id === "\0virtual:quest-battle-data";
+      const currentQuest = id === "\0virtual:quest-battle-data";
+      const sixHeroQuest = id === "\0virtual:quest-battle-data-v2";
+      const plagueDoctor = currentQuest || sixHeroQuest;
+      const graveOccultist = currentQuest;
       const heroStats = normalizedHeroStatFileSchema
         .parse(read("hero_stat"))
-        // R-081/088：战役使用获批属性；普通战斗沙盒保留原四英雄。
+        // R-081/088/094/095：战役使用获批属性；普通战斗沙盒保留原四英雄。
         .cards.filter(
           (card) =>
             card.attributesVerified &&
@@ -54,6 +61,7 @@ export function battleDataPlugin(): Plugin {
               "VESTAL",
               ...(questCatalog ? ["BOUNTY HUNTER"] : []),
               ...(plagueDoctor ? ["PLAGUE DOCTOR"] : []),
+              ...(graveOccultist ? ["GRAVE ROBBER", "OCCULTIST"] : []),
             ].includes(card.name),
         );
       const conditions = createConditionPool(
@@ -82,6 +90,13 @@ export function battleDataPlugin(): Plugin {
       if (plagueDoctor)
         for (let page = 127; page <= 145; page += 3)
           skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
+      // R-095：目录仅需七张I级转录通过的技能；效果/Pilfer/Dark Ritual仍未接线。
+      if (graveOccultist) {
+        for (let page = 169; page <= 187; page += 3)
+          skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
+        for (let page = 190; page <= 208; page += 3)
+          skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
+      }
       const skills = normalizedHeroSkillFileSchema
         .parse(read("hero_skill"))
         .cards.filter((card) => skillIds.has(card.id) && !card.verification.unverified);
@@ -145,7 +160,8 @@ export function battleDataPlugin(): Plugin {
         !tile ||
         !tile.usable ||
         tile.deployment?.printReview !== "verified" ||
-        heroStats.length !== (plagueDoctor ? 18 : questCatalog ? 15 : 4) ||
+        heroStats.length !==
+          (graveOccultist ? 24 : plagueDoctor ? 18 : questCatalog ? 15 : 4) ||
         skills.length !== skillIds.size ||
         monsters.length !== monsterIds.size
       )

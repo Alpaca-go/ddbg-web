@@ -10,7 +10,7 @@ import cards from "../../data/normalized/corebox/trinket.json";
 import { createBattleState } from "./battle";
 import { readHeroPassiveDefence } from "./battle-skill-status";
 
-it("R-094及七技能/村庄能力接通后，瘟疫医生作为第六名正式候选", () => {
+it("R-094/R-095后瘟疫医生与盗墓者/神秘学者进入正式候选白名单", () => {
   const game = createCoreDungeonQuest(4, "quest:p001", "standard", coreParty, coreQuestSources);
   expect(
     coreQuestSources.catalog.heroStats.some(
@@ -25,6 +25,8 @@ it("R-094及七技能/村庄能力接通后，瘟疫医生作为第六名正式�
   expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([
     "BOUNTY HUNTER",
     "PLAGUE DOCTOR",
+    "GRAVE ROBBER",
+    "OCCULTIST",
   ]);
   const battle = { heroStats: coreQuestSources.catalog.heroStats };
   expect(
@@ -35,6 +37,12 @@ it("R-094及七技能/村庄能力接通后，瘟疫医生作为第六名正式�
     immunities: ["blight"],
     diseaseImmune: true,
   });
+  expect(
+    readHeroPassiveDefence(battle, { heroStatId: "hero_stat:p017:front" })!.resistances,
+  ).toEqual(["blight"]);
+  expect(
+    readHeroPassiveDefence(battle, { heroStatId: "hero_stat:p019:front" })!.resistances,
+  ).toEqual(["debuff"]);
 });
 
 function ok(game: GameState, command: Command) {
@@ -232,8 +240,12 @@ it("候选按英雄名排除在队/本战役死亡者，不能用另一等级属
   expect(replacementHeroCandidates(d).map((s) => s.name)).toEqual([
     "BOUNTY HUNTER",
     "PLAGUE DOCTOR",
+    "GRAVE ROBBER",
+    "OCCULTIST",
   ]);
   expect(
-    replacementHeroCandidates({ ...d, deadHeroNames: [...d.deadHeroNames!, "BOUNTY HUNTER"] }),
-  ).toEqual([expect.objectContaining({ name: "PLAGUE DOCTOR" })]);
+    replacementHeroCandidates({ ...d, deadHeroNames: [...d.deadHeroNames!, "BOUNTY HUNTER"] }).map(
+      (s) => s.name,
+    ),
+  ).toEqual(["PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"]);
 });

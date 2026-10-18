@@ -9,11 +9,9 @@ import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { replacementHeroCandidates } from "./hero-death-estate";
 
-function webSources(quest: boolean, previous = false): CoreQuestSources {
+function webSources(id: "battle-data" | "quest-battle-data" | "quest-battle-data-v1" | "quest-battle-data-v2"): CoreQuestSources {
   const load = battleDataPlugin().load as (id: string) => string;
-  const code = load(
-    `\0virtual:${quest ? `quest-battle-data${previous ? "-v1" : ""}` : "battle-data"}`,
-  );
+  const code = load(`\0virtual:${id}`);
   const catalog = JSON.parse(code.slice("export const battleData = ".length, -1));
   return {
     ...coreQuestSources,
@@ -21,9 +19,11 @@ function webSources(quest: boolean, previous = false): CoreQuestSources {
     resolveCards: catalog.resolveCards,
   };
 }
-const sources = webSources(true),
-  fiveSources = webSources(true, true),
-  previousSources = webSources(false);
+const sources = webSources("quest-battle-data"),
+  sixHeroSources = webSources("quest-battle-data-v2"),
+  fiveSources = webSources("quest-battle-data-v1"),
+  previousSources = webSources("battle-data");
+const EXTRA = ["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"] as const;
 const start = {
   seed: 14,
   questId: "quest:p001" as const,
@@ -75,7 +75,7 @@ it("五英雄旧档在候选/升级/技能/入队各停点严格迁移，伪造�
     const before = structuredClone(save);
     const loaded = loadQuestSave(save, sources, trusted).game;
     expect(save).toEqual(before);
-    expect(loaded.dungeon!.battleCatalog!.heroStats).toHaveLength(18);
+    expect(loaded.dungeon!.battleCatalog!.heroStats).toHaveLength(24);
     expect(loaded.seed).toBe(run.game.seed);
     expect(loaded.dungeon!.cursor).toBe(run.game.dungeon!.cursor);
     expect(loaded.dungeon!.heroes).toEqual(run.game.dungeon!.heroes);
@@ -95,9 +95,11 @@ it("五英雄旧档在候选/升级/技能/入队各停点严格迁移，伪造�
   const { loaded, save } = verify();
   const preparation = run.game.dungeon!.replacementPreparation!;
   expect(preparation.choice.options.map((o) => o.id)).toEqual(["hero_stat:p005:front"]);
-  expect(loaded.dungeon!.replacementPreparation!.choice.options.map((o) => o.id)).toEqual([
+  expect(loaded.dungeon!.replacementPreparation!.choice.options.map((o) => o.id).sort()).toEqual([
     "hero_stat:p005:front",
     "hero_stat:p013:front",
+    "hero_stat:p017:front",
+    "hero_stat:p019:front",
   ]);
   expect(loaded.dungeon!.replacementPreparation!.choice).toMatchObject({
     ...preparation.choice,
@@ -156,8 +158,12 @@ it("自然再次侦察多人死亡：第二名候选准备、禁止半队入场�
     if (id === "hero_stat:p013:front") {
       expect(run.game.dungeon!.preparedReplacements).toHaveLength(1);
       expect(run.game.dungeon!.preparedReplacements![0]!.hero.heroStatId).toBe(id);
+      // 三死者仅准备一名，禁止半队入队；目录仍有 GR/Occ，但代币已耗尽。
       expect(applyCommand(run.game, { type: "joinPreparedReplacements" }).state).toBe(run.game);
-      expect(replacementHeroCandidates(run.game.dungeon!)).toEqual([]);
+      expect(replacementHeroCandidates(run.game.dungeon!).map((s) => s.name)).toEqual([
+        "GRAVE ROBBER",
+        "OCCULTIST",
+      ]);
       expect(run.game.dungeon!.waitingHeroTokens).toBe(0);
       run.step({ type: "prepareReplacementHero" });
       expect(run.game.dungeon!.campaignFailure).toBe("noWaitingHeroes");
@@ -174,6 +180,8 @@ it("自然再次侦察多人死亡：第二名候选准备、禁止半队入场�
     if (id === "hero_stat:p005:front") {
       expect(replacementHeroCandidates(run.game.dungeon!).map((s) => s.name)).toEqual([
         "PLAGUE DOCTOR",
+        "GRAVE ROBBER",
+        "OCCULTIST",
       ]);
       for (let n = 0; !run.game.dungeon!.heroes.some((h) => h.dead) && n < 30; n++) {
         run.step({ type: "scoutDungeon" });
@@ -187,28 +195,27 @@ it("自然再次侦察多人死亡：第二名候选准备、禁止半队入场�
     }
   }
   expect(run.game.dungeon!.waitingHeroTokens).toBe(0);
-  expect(replacementHeroCandidates(run.game.dungeon!)).toEqual([]);
+  // 代币耗尽后仍可能有候选；本场景停在 noWaitingHeroes，不要求候选清空。
+  expect(run.game.dungeon!.campaignFailure).toBe("noWaitingHeroes");
 }, 30000);
 
-it("正式六英雄目录含两名替补各七张I级技能，旧五英雄/沙盒目录边界不变", () => {
+it("正式八英雄目录含四名替补各七张I级技能，旧六/五/沙盒目录边界不变", () => {
   expect(previousSources.catalog.heroStats).toHaveLength(4);
   expect(previousSources.catalog.skills).toHaveLength(84);
   expect(fiveSources.catalog.heroStats).toHaveLength(15);
   expect(fiveSources.catalog.skills).toHaveLength(91);
-  expect(sources.catalog.heroStats).toHaveLength(18);
-  expect(sources.catalog.skills).toHaveLength(98);
-  expect(
-    sources.catalog.skills.filter((s) => s.hero === "PLAGUE DOCTOR").map((s) => s.level),
-  ).toEqual(Array(7).fill(1));
-  expect(
-    sources.catalog.skills.filter((s) => s.hero === "BOUNTY HUNTER").map((s) => s.level),
-  ).toEqual(Array(7).fill(1));
+  expect(sixHeroSources.catalog.heroStats).toHaveLength(18);
+  expect(sixHeroSources.catalog.skills).toHaveLength(98);
+  expect(sources.catalog.heroStats).toHaveLength(24);
+  expect(sources.catalog.skills).toHaveLength(112);
+  for (const hero of EXTRA) {
+    expect(sources.catalog.skills.filter((s) => s.hero === hero).map((s) => s.level)).toEqual(
+      Array(7).fill(1),
+    );
+  }
   const game = createCoreDungeonQuest(14, "quest:p001", "radiant", coreParty, sources);
   expect(game.dungeon!.heroes).toHaveLength(4);
-  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([
-    "BOUNTY HUNTER",
-    "PLAGUE DOCTOR",
-  ]);
+  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([...EXTRA]);
 });
 
 it("旧网页存档先验证原目录再更新；伪造快照、日志及非目录变化仍拒绝", () => {
@@ -222,7 +229,7 @@ it("旧网页存档先验证原目录再更新；伪造快照、日志及非目�
   const save = createQuestSave(start, [], game, previousSources);
   expect(() => loadQuestSave(save, sources)).toThrow(/不一致/);
   const loaded = loadQuestSave(save, sources, previousSources);
-  expect(loaded.game.dungeon!.battleCatalog!.heroStats).toHaveLength(18);
+  expect(loaded.game.dungeon!.battleCatalog!.heroStats).toHaveLength(24);
   expect(loaded.game).toEqual(
     createCoreDungeonQuest(start.seed, start.questId, start.mode, start.party, sources),
   );
@@ -255,8 +262,8 @@ it("旧目录真实战斗待选存档更新卡目录后，行动、实体、待�
   const entry = { ...start, seed: 1 };
   const save = createQuestSave(entry, run.commands, run.state, previousSources);
   const updated = loadQuestSave(save, sources, previousSources).game;
-  expect(updated.battle!.heroStats).toHaveLength(18);
-  expect(updated.battle!.skills).toHaveLength(98);
+  expect(updated.battle!.heroStats).toHaveLength(24);
+  expect(updated.battle!.skills).toHaveLength(112);
   expect(updated.battle).toEqual({
     ...run.state.battle!,
     heroStats: sources.catalog.heroStats,

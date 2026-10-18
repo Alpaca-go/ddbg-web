@@ -205,7 +205,11 @@ it.each(["quest:p002", "quest:p003"] as const)(
     expect(game.dungeon!.heroes).toHaveLength(4);
     expect(game.dungeon!.deadHeroNames).toEqual(["HIGHWAYMAN"]);
     expect(game.dungeon!.waitingHeroTokens).toBe(1);
-    expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual(["BOUNTY HUNTER"]);
+    expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([
+      "BOUNTY HUNTER",
+      "GRAVE ROBBER",
+      "OCCULTIST",
+    ]);
     expect(game.dungeon!.heroes.find((h) => h.id === doctor.id)?.skillIds).toEqual(doctor.skillIds);
     expect(game.dungeon!.heroes.find((h) => h.id === doctor.id)?.xp).toBe(
       nextQuestId === "quest:p002" ? 1 : 0,

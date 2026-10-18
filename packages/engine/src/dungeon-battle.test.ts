@@ -497,22 +497,24 @@ it("等待四人时按逃跑交接；不清宝藏/不发20金，登记四死者�
   expect(replacementHeroCandidates(returned.dungeon!).map((c) => c.name)).toEqual([
     "BOUNTY HUNTER",
     "PLAGUE DOCTOR",
+    "GRAVE ROBBER",
+    "OCCULTIST",
   ]);
   const { awaiting, prepared, commands } = prepareVerifiedWipeoutReplacements(
     send(started(), { type: "startBattle" }),
   );
   expect(awaiting.dungeon!.phase).toBe("awaitingReplacement");
-  expect(prepared.dungeon!.preparedReplacements).toHaveLength(2);
+  expect(prepared.dungeon!.preparedReplacements).toHaveLength(4);
   expect(prepared.dungeon!.preparedReplacements!.map((p) => p.hero.heroStatId).sort()).toEqual([
     "hero_stat:p005:front",
     "hero_stat:p013:front",
+    "hero_stat:p017:front",
+    "hero_stat:p019:front",
   ]);
-  expect(prepared.dungeon!.waitingHeroTokens).toBe(2);
+  expect(prepared.dungeon!.waitingHeroTokens).toBe(0);
   expect(replacementHeroCandidates(prepared.dungeon!)).toEqual([]);
-  // 正式已接通额外身份只有两名，不能伪造另外两名英雄，也不能把目录不足判成战役失败。
+  // R-095：四名已核实额外足够驿站III余额4；入队成功，目录不足不再是全灭短板。
   expect(applyCommand(prepared, { type: "prepareReplacementHero" }).state).toBe(prepared);
-  expect(applyCommand(prepared, { type: "joinPreparedReplacements" }).state).toBe(prepared);
-  expect(prepared.dungeon!.campaignFailure).toBeUndefined();
   let restored = JSON.parse(JSON.stringify(awaiting)) as GameState;
   for (const command of commands) {
     const result = applyCommand(restored, command);
@@ -520,6 +522,16 @@ it("等待四人时按逃跑交接；不清宝藏/不发20金，登记四死者�
     restored = result.state;
   }
   expect(restored).toEqual(prepared);
+  const joined = send(prepared, { type: "joinPreparedReplacements" });
+  expect(joined.dungeon!.heroes.every((h) => !h.dead)).toBe(true);
+  expect(joined.dungeon!.heroes.map((h) => h.heroStatId).sort()).toEqual([
+    "hero_stat:p005:front",
+    "hero_stat:p013:front",
+    "hero_stat:p017:front",
+    "hero_stat:p019:front",
+  ]);
+  expect(joined.dungeon!.campaignFailure).toBeUndefined();
+  expect(joined.dungeon!.preparedReplacements).toBeUndefined();
 });
 
 it("旧I级未记录驿站余额按两人判定；旧全灭停点已准备的替补可继续回传", () => {
