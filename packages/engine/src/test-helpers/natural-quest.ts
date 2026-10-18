@@ -313,7 +313,11 @@ export function naturalQuest(
         step({ type: "leaveDungeon" });
         choose("agree");
         step({ type: "summarizeDungeonQuest" });
-        if (activeQuestId === "quest:p003") choose("give:20");
+        if (
+          activeQuestId === "quest:p003" &&
+          state.dungeon!.pending?.id.startsWith("dungeon-fundraiser:")
+        )
+          choose("give:20");
         return { initial, state, commands, events, stopReason: null };
       }
     }
