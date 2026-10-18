@@ -92,7 +92,7 @@ export const savedCommandSchema = z.union([
   z.strictObject({
     type: z.literal("useHamletSkill"),
     ...actor,
-    skill: z.literal("experimentalVapours"),
+    skill: z.enum(["experimentalVapours", "darkRitual"]),
     targetId: id,
   }),
   z.strictObject({

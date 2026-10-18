@@ -359,7 +359,7 @@ it("Pilfer：R-096 限定命名；词典仍 unreviewed；命令 schema 接受 pi
     face.icons.some((icon) => icon.iconId === "79084a2922" && icon.naming === "unverified"),
   ).toBe(true);
   expect(face.verification.reasons).toContain("icon:79084a2922");
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual(["OCCULTIST"]);
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual([]);
   expect(
     savedCommandSchema.safeParse({
       type: "useHamletSkill",

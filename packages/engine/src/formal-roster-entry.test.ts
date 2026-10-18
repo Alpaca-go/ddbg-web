@@ -52,13 +52,13 @@ it("正式名录列出八名已核实英雄，且仅 GR/Occ 标为战斗技能�
     "GRAVE ROBBER",
     "OCCULTIST",
   ]);
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual(["OCCULTIST"]);
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual([]);
   expect(FORMAL_HERO_NAMES.every(isFormalHeroName)).toBe(true);
   expect(isFormalHeroName("JESTER")).toBe(false);
   expect(isFormalHeroName("ARBALEST")).toBe(false);
   expect(isFormalHeroName("ABOMINATION")).toBe(false);
   for (const name of FORMAL_HERO_NAMES) {
-    expect(heroHasUnwiredCombatSkills(name)).toBe(name === "OCCULTIST");
+    expect(heroHasUnwiredCombatSkills(name)).toBe(false);
   }
   expect(
     sources.catalog.heroStats
@@ -94,7 +94,7 @@ it("开局可编入赏金猎人与瘟疫医生；存档往返一致", () => {
   expect(loaded.start.party).toEqual(start.party);
 });
 
-it("开局可编入盗墓者与神秘学者（技能效果未接线，仅转录门槛）；存档往返一致", () => {
+it("开局可编入盗墓者与神秘学者；存档往返一致", () => {
   const party = partyFromNames(["GRAVE ROBBER", "OCCULTIST", "HELLION", "HIGHWAYMAN"], sources);
   const game = createCoreDungeonQuest(22, "quest:p002", "standard", party, sources);
   expect(

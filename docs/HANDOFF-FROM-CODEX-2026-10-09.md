@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-18）：#243已合并为main `947cbec`。当前`cursor/phase4-occultist-skills-c7e9`接Occultist I级七战斗技能与Dark Ritual I/II；条件伤新增`eldritch`；Dark Ritual III因图标`4f7549c1b8`记Q-100待确认并拒绝；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`已清空。Q-99（Pilfer翻面）仍待确认。见[Occ技能记录](phase4-occultist-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+
 > 当前入口（2026-10-18）：#242已合并为main `6a8a87b`。当前`cursor/phase4-pilfer-q98-3df7`记R-096/Q-98 confirmed（LIMITED：Pilfer文案中`79084a2922`=Loot Token），接通`useHamletSkill/pilfer`抽取一枚入claimed；翻面结算/补给去向/空堆记Q-99待确认；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`仅余OCCULTIST。不改全局词典。Occ未动。见[GR技能记录](phase4-grave-robber-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 
 > 当前入口（2026-10-18）：#241已合并为main `034f95d`。当前`cursor/phase4-grave-robber-skills-b049`接Grave Robber I级七战斗技能（含`blighted`条件伤、Shadow Fade无Acc自身位移）；Pilfer因Draw图标`79084a2922`仍unverified记Q-98待确认，不新增命令/不改存档schema；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`仍含GR。Occ未动。见[GR技能记录](phase4-grave-robber-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。

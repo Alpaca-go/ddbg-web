@@ -283,7 +283,7 @@ export type HeroSkillCardView = {
   readonly verified_damage_bonus?: {
     readonly lineIndex: number;
     readonly amount: number;
-    readonly condition: "marked" | "unholy" | "stunned" | "human" | "blighted";
+    readonly condition: "marked" | "unholy" | "stunned" | "human" | "blighted" | "eldritch";
     readonly source: "print_front";
   };
   readonly verified_damage_bonuses?: readonly NonNullable<
@@ -2320,13 +2320,15 @@ function resolveSkill(
             ? "{blight}"
             : bonus.condition === "human"
               ? "Humans"
-              : "Unholy";
+              : bonus.condition === "eldritch"
+                ? "Eldritch"
+                : "Unholy";
     if (
       !Number.isSafeInteger(bonus.lineIndex) ||
       bonus.lineIndex < 0 ||
       !Number.isSafeInteger(bonus.amount) ||
       bonus.amount <= 0 ||
-      !["marked", "unholy", "stunned", "human", "blighted"].includes(bonus.condition) ||
+      !["marked", "unholy", "stunned", "human", "blighted", "eldritch"].includes(bonus.condition) ||
       bonus.source !== "print_front" ||
       text !== `{target_effects}{damage}+${bonus.amount}vs${conditionSuffix}` ||
       line?.some(
@@ -2336,7 +2338,9 @@ function resolveSkill(
       return refuse(skill, combat, "条件伤害注解与已确认卡面不符（R-048）");
     if (
       !emptyArea &&
-      (bonus.condition === "unholy" || bonus.condition === "human") &&
+      (bonus.condition === "unholy" ||
+        bonus.condition === "human" ||
+        bonus.condition === "eldritch") &&
       target.side === "monster" &&
       (!target.monsterTypeTags?.length ||
         target.monsterTypeTags.some((tag) => typeof tag !== "string" || !tag.trim()))
@@ -2717,7 +2721,11 @@ function resolveSkill(
                   ? target.statusStacks!.some((stack) => stack.kind === "blight")
                   : target.side === "monster" &&
                     target.monsterTypeTags?.includes(
-                      bonus.condition === "human" ? "Human" : "Unholy",
+                      bonus.condition === "human"
+                        ? "Human"
+                        : bonus.condition === "eldritch"
+                          ? "Eldritch"
+                          : "Unholy",
                     );
           return total + (matched ? bonus.amount : 0);
         }, 0);
