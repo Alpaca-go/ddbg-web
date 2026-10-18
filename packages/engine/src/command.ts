@@ -656,7 +656,7 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
     return refused ? rejectBattleCommand(state, refused.message) : result;
   }
   if (state.dungeon?.campaignFailure)
-    return rejectBattleCommand(state, "等待英雄代币耗尽，战役已失败（R33）");
+    return rejectBattleCommand(state, "驿站等待英雄不足，战役已失败（R9/R25/R33）");
   if (state.dungeon?.replacementPreparation)
     return command.type === "resolveChoice"
       ? chooseReplacementPreparation(state, command.choiceId, command.optionId)

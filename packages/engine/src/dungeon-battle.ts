@@ -19,6 +19,9 @@ import { isGuardedDungeonRoom, awaitDungeonRoomCurio } from "./dungeon-curio-roo
 import { heroSkillSlotCount } from "./hero-loadout";
 import { readMonsterSelfStatuses } from "./monster-self-status";
 import type { StatusEffect } from "./status";
+import { readBasicQuest } from "../../data/src/basic-quests";
+import { stagecoachWaitingTokens, recoveryBuildingLevel } from "./hamlet-buildings";
+import { ownedHeroSkills } from "./hero-loadout";
 
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
 export function startDungeonBattle(state: GameState): ApplyResult {
@@ -289,13 +292,14 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
     b = state.battle,
     active = d?.monsterPool?.active;
   const turn = b?.encounter?.turn;
+  const wipedOut = turn?.type === "halted" && turn.reason === "heroesDefeated";
   if (
     !d ||
     !b ||
     d.phase !== "inBattle" ||
     active?.roomId !== d.position ||
     d.roomCards?.active?.roomId !== d.position ||
-    turn?.type !== "finished" ||
+    (turn?.type !== "finished" && !wipedOut) ||
     b.pending ||
     b.shuffleIntents.length ||
     b.shuffleContinuation ||
@@ -324,6 +328,83 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
     )
   )
     return rejectBattleCommand(state, "战后英雄 / 牌池 / RNG 交接不一致，保持原状态");
+  if (turn.type === "finished" && b.entities.every((e) => e.side !== "hero" || e.dead))
+    return rejectBattleCommand(
+      state,
+      "英雄全灭不能伪装成胜利或第四轮撤退；保持全灭停点（R25/R-068）",
+    );
+  if (wipedOut) {
+    const dead = b.entities.filter((e) => e.side === "hero");
+    const prepared = d.preparedReplacements ?? [];
+    const waiting = stagecoachWaitingTokens(d);
+    const quest = readBasicQuest(d.questDistribution);
+    const catalog = d.battleCatalog;
+    if (
+      !quest ||
+      quest.level !== readCampaignLevel(d) ||
+      waiting === null ||
+      !catalog ||
+      d.pending ||
+      d.replacementPreparation ||
+      waiting + prepared.length > recoveryBuildingLevel(d, "stagecoach") + 1 ||
+      d.heroes.length !== 4 ||
+      new Set(d.heroes.map((h) => h.id)).size !== 4 ||
+      dead.length !== 4 ||
+      new Set(dead.map((h) => h.id)).size !== 4 ||
+      dead.some(
+        (h) => !h.dead || h.heroStatId !== d.heroes.find((old) => old.id === h.id)?.heroStatId,
+      ) ||
+      !b.entities.some((e) => e.side === "monster" && !e.dead) ||
+      turn.type !== "halted" ||
+      turn.monstersDefeated === true ||
+      new Set(prepared.map((p) => p.deadHeroId)).size !== prepared.length ||
+      new Set(prepared.map((p) => p.hero.id)).size !== prepared.length ||
+      prepared.some(({ deadHeroId, hero }) => {
+        const stat = catalog.heroStats.find((s) => s.id === hero.heroStatId);
+        return (
+          !dead.some((h) => h.id === deadHeroId) ||
+          !stat?.attributesVerified ||
+          !hero.attributesVerified ||
+          hero.level !== stat.level ||
+          hero.heroLevel !== stat.level ||
+          hero.life !== stat.life ||
+          !hero.id ||
+          dead.some((h) => h.id === hero.id) ||
+          hero.dead ||
+          hero.wounds !== 0 ||
+          hero.stress !== 0 ||
+          hero.diseaseId ||
+          hero.quirkIds?.length ||
+          hero.resolveCardId ||
+          hero.resolveTested ||
+          hero.combat ||
+          hero.statusStacks?.length ||
+          hero.nextQuestSkillUpgrades?.length ||
+          !Number.isSafeInteger(hero.xp) ||
+          hero.xp! < 0 ||
+          hero.skillIds?.length !== heroSkillSlotCount(stat.level) ||
+          !ownedHeroSkills(hero, catalog) ||
+          d.deadHeroNames?.includes(stat.name)
+        );
+      }) ||
+      new Set(prepared.map((p) => catalog.heroStats.find((s) => s.id === p.hero.heroStatId)!.name))
+        .size !== prepared.length
+    )
+      return rejectBattleCommand(
+        state,
+        "普通任务全灭需要四名真实死者、匹配任务、有效驿站和替补记录（R9/R25）",
+      );
+    if (waiting + prepared.length < 4)
+      return {
+        state: { ...state, dungeon: { ...d, campaignFailure: "insufficientWaitingHeroes" } },
+        events: [
+          {
+            type: "dungeonUpdated",
+            message: "英雄全灭，驿站及已准备替补不足四人，战役失败；未扣代币或发奖励（R9/R25）",
+          },
+        ],
+      };
+  }
   const ids = [
     ...(pool.remaining ?? []),
     ...pool.discarded,
@@ -335,7 +416,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
     const j = Math.floor(rng.next() * (i + 1));
     [ids[i], ids[j]] = [ids[j]!, ids[i]!];
   }
-  const victory = turn.outcome === "victory";
+  const victory = turn.type === "finished" && turn.outcome === "victory";
   const heroes = d.heroes.map((hero) => {
     const entity = b.entities.find((e) => e.id === hero.id && e.side === "hero")!;
     return {
@@ -411,7 +492,9 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
         type: "dungeonUpdated",
         message: victory
           ? `胜利返回地图：房间已清理${bonus ? `，${kind === "treasure" ? "宝藏" : "Fundraiser巢穴"}奖励 +${bonus} 金币` : ""}；房间牌弃置、怪物洗回（R15、R25）`
-          : "第四轮撤退返回地图：房间未清理，必须先离开；房间牌弃置、怪物洗回（R25）",
+          : wipedOut
+            ? "英雄全灭按逃跑返回地图：房间未清理，无房间奖励，等待全部替补入队；房间牌弃置、怪物洗回（R9/R25/R31）"
+            : "第四轮撤退返回地图：房间未清理，必须先离开；房间牌弃置、怪物洗回（R25）",
       },
     ],
   };

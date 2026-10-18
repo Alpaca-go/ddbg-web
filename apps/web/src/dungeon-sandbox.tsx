@@ -752,7 +752,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
           <h2>侦察流程</h2>
           <DungeonStanceOrder game={game} dispatch={dispatch} />
           {d.mustLeaveRoomId === d.position && (
-            <p>第四轮撤退：本房间未清理，须先离开才能再次进入（R25）。</p>
+            <p>战斗按逃跑收尾：本房间未清理，须先离开才能再次进入（R25）。</p>
           )}
           <p data-testid="dungeon-pressure">
             {d.heroes
@@ -1449,7 +1449,13 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
                 .join(" · ")}
             </p>
           )}
-          {d.campaignFailure && <p>等待英雄代币耗尽，战役失败（R33）。</p>}
+          {d.campaignFailure && (
+            <p>
+              {d.campaignFailure === "insufficientWaitingHeroes"
+                ? "英雄全灭，驿站等待英雄不足四人，战役失败（R9/R25）。"
+                : "等待英雄代币耗尽，战役失败（R33）。"}
+            </p>
+          )}
           {d.heroes.some(
             (h) => h.dead && !d.preparedReplacements?.some((p) => p.deadHeroId === h.id),
           ) && (
