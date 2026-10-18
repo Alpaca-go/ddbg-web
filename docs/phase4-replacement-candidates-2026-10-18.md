@@ -57,3 +57,7 @@ raw：`packages/data/extract/corebox/raw/hero_stat.json`
 ## 边界
 
 仍保持Phase4。相对驿站III余额4仍缺2名已核实不同身份。Q-79/Q-80、正式Boss、人工试玩、自然全灭四人替补入队正式存档均未完成。下一主题须等Kyries对至少两名未入库英雄完成属性/防御批准（建议优先Grave Robber / Occultist，因其I级技能转录已齐），再按赏金猎人/瘟疫医生先例逐技能与村庄接线后扩目录；批准前不扩白名单。
+
+## 续：Grave Robber / Occultist 属性核对（2026-10-18）
+
+Kyries选定本批为Grave Robber + Occultist。印刷raw交叉结果见[专项核对](phase4-grave-occultist-stat-review-2026-10-18.md)：六面Life/Dodge/Speed已齐；防御栏仍缺三枚unreviewed图标的限定映射（`e61ed317de` / `8cbe7d6703` / `a8c4b25b4e`，Q-97 pending）。按R-048不臆测、不入库、不扩可用池；正式额外候选仍为两名。
