@@ -15,6 +15,17 @@ export default tseslint.config(
     },
   },
   {
+    files: ["tools/pipeline/scripts/**/*.{js,mjs,cjs}"],
+    languageOptions: {
+      globals: {
+        console: "readonly",
+        process: "readonly",
+        fetch: "readonly",
+        URL: "readonly",
+      },
+    },
+  },
+  {
     files: ["packages/engine/**/*.ts"],
     rules: {
       "no-restricted-imports": [
