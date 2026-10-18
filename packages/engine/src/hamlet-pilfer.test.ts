@@ -155,7 +155,10 @@ it("空堆与身份拒绝（R-098 / R-048）；UI 选项仅对获核 GR 出现",
   const emptyRefuse = refused(emptyPool);
   expect(
     emptyRefuse.events.some(
-      (e) => e.type === "commandRefused" && e.message.includes("可用堆已空") && e.message.includes("R-098"),
+      (e) =>
+        e.type === "commandRefused" &&
+        e.message.includes("可用堆已空") &&
+        e.message.includes("R-098"),
     ),
   ).toBe(true);
   const wrong = fixture();
@@ -198,9 +201,7 @@ it("R-098：出征保留村庄 Pilfer claimedIds / 有效 lootPool", () => {
   const departed = embark(pilfered);
   const after = departed.dungeon!.lootPool!;
   expect(after.claimedIds).toEqual(before.claimedIds);
-  expect(after.available.map((t) => t.id).sort()).toEqual(
-    before.available.map((t) => t.id).sort(),
-  );
+  expect(after.available.map((t) => t.id).sort()).toEqual(before.available.map((t) => t.id).sort());
   expect(after.placed).toEqual([]);
   expect(after.gold).toBe(departed.dungeon!.gold);
 });

@@ -10,15 +10,15 @@
 
 ## 2. 技能状态表
 
-| 技能               | id                | 接线             | 说明                                                                            |
-| ------------------ | ----------------- | ---------------- | ------------------------------------------------------------------------------- |
-| Pick to the Face I | `hero_skill:p169` | 已接             | 既有「Ignores Protection」运行时；无新增注解                                    |
-| Lunge I            | `hero_skill:p172` | 已接             | 自身 Pull 2；`verified_damage_bonus` vs Blight +2；公开命令先自身位移再结算目标 |
-| Flashing Daggers I | `hero_skill:p175` | 已接             | 双目标共享骰、逐名伤害；效果行空                                                |
-| Shadow Fade I      | `hero_skill:p178` | 已接             | 无 Acc；Buff 2t + Push 2；`formOnly` 允许无 Acc 自身位移                        |
-| Throw Dagger I     | `hero_skill:p181` | 已接             | 射程 1–2；同框 +1 vs Blight / +2 vs Mark；布局继承目标标记                      |
-| Poison Dart I      | `hero_skill:p184` | 已接             | 射程 1–2；Blight 2·3t                                                           |
-| Toxin Trickery I   | `hero_skill:p187` | 已接             | 无 Acc；Buff 2t + 换行 Remove Bleed/Blight                                      |
+| 技能               | id                | 接线             | 说明                                                                                            |
+| ------------------ | ----------------- | ---------------- | ----------------------------------------------------------------------------------------------- |
+| Pick to the Face I | `hero_skill:p169` | 已接             | 既有「Ignores Protection」运行时；无新增注解                                                    |
+| Lunge I            | `hero_skill:p172` | 已接             | 自身 Pull 2；`verified_damage_bonus` vs Blight +2；公开命令先自身位移再结算目标                 |
+| Flashing Daggers I | `hero_skill:p175` | 已接             | 双目标共享骰、逐名伤害；效果行空                                                                |
+| Shadow Fade I      | `hero_skill:p178` | 已接             | 无 Acc；Buff 2t + Push 2；`formOnly` 允许无 Acc 自身位移                                        |
+| Throw Dagger I     | `hero_skill:p181` | 已接             | 射程 1–2；同框 +1 vs Blight / +2 vs Mark；布局继承目标标记                                      |
+| Poison Dart I      | `hero_skill:p184` | 已接             | 射程 1–2；Blight 2·3t                                                                           |
+| Toxin Trickery I   | `hero_skill:p187` | 已接             | 无 Acc；Buff 2t + 换行 Remove Bleed/Blight                                                      |
 | Pilfer             | Hamlet Skill      | **已接（抽取）** | R-096：`79084a2922`=Loot Token（仅 Pilfer）；抽 1 枚入 claimed；R-098：不翻面/空堆拒绝/出征保留 |
 
 条件伤害新增 `blighted`（读真实 `statusStacks` 中的 Blight，同 Finish Him 的 Stun 模式）。缺合法状态堆整次拒绝（R-048）。
