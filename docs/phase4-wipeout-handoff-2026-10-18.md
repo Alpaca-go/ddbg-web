@@ -38,4 +38,6 @@ Kyries要求“合并，然后继续”。#235精确head `2f2298a`与上轮1384�
 
 未改存档 schema / 命令名。GR/Occ 技能效果、Pilfer、Dark Ritual 仍未接线（R-001/R-048）。Q-79/Q-80、Boss 全灭、人工试玩保留；不进 Phase 5。
 
+续：正式开局八英雄（#240 之后）见 [八英雄开局](phase4-eight-hero-roster-2026-10-18.md)：开局与替补共用 `FORMAL_HERO_NAMES`；GR/Occ 可开局但技能效果标明未接线。
+
 下一主题优先 GR/Occ I 级技能与 Pilfer / Dark Ritual 接线。

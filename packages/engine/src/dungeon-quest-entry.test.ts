@@ -92,3 +92,26 @@ it("拒绝重复英雄／姿态／技能、越级技能、缩减来源与非法�
   ])
     expect(() => start(coreParty, sources)).toThrow();
 });
+
+it("coreQuestSources 含正式八名时可开局编入额外英雄", () => {
+  const names = ["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"] as const;
+  const party = names.map((name, index) => {
+    const stat = coreQuestSources.catalog.heroStats.find(
+      (s) => s.name === name && s.level === 1 && s.attributesVerified,
+    )!;
+    return {
+      heroStatId: stat.id,
+      stance: (["aggressive", "defensive", "ranged", "support"] as const)[index]!,
+      skillIds: coreQuestSources.catalog.skills
+        .filter((s) => s.hero === name && s.level === 1 && !s.verification.unverified)
+        .slice(0, 3)
+        .map((s) => s.id),
+    };
+  });
+  const game = createCoreDungeonQuest(7, "quest:p001", "standard", party, coreQuestSources);
+  expect(
+    game.dungeon!.heroes.map(
+      (h) => coreQuestSources.catalog.heroStats.find((s) => s.id === h.heroStatId)!.name,
+    ),
+  ).toEqual([...names]);
+});

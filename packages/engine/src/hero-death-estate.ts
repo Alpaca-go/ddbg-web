@@ -3,6 +3,7 @@ import type { DungeonState } from "./dungeon";
 import { rejectBattleCommand } from "./battle";
 import { discardHeldTrinket, trinketPoolProblem } from "./trinket-acquisition";
 import { releaseDeadHeroCards } from "./hero-death-cards";
+import { isFormalHeroName } from "./formal-heroes";
 
 function context(state: GameState) {
   const d = state.dungeon!;
@@ -44,16 +45,7 @@ export function replacementHeroCandidates(d: DungeonState) {
   return catalog.heroStats.filter(
     (s) =>
       // 属性/转录获批不代表七技能和村庄能力运行时已接通（R-048/R-094/R-095）。
-      [
-        "CRUSADER",
-        "HELLION",
-        "HIGHWAYMAN",
-        "VESTAL",
-        "BOUNTY HUNTER",
-        "PLAGUE DOCTOR",
-        "GRAVE ROBBER",
-        "OCCULTIST",
-      ].includes(s.name) &&
+      isFormalHeroName(s.name) &&
       s.level === 1 &&
       s.attributesVerified &&
       !unavailable.has(s.name) &&

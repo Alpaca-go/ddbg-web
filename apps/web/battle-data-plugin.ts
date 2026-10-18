@@ -1,6 +1,10 @@
 import { readFileSync } from "node:fs";
 import type { Plugin } from "vite";
-import { createConditionPool, roomTileBattleAreas } from "../../packages/engine/src/index";
+import {
+  createConditionPool,
+  roomTileBattleAreas,
+  FORMAL_HERO_NAMES,
+} from "../../packages/engine/src/index";
 import { diseaseFileSchema } from "../../packages/data/src/disease";
 import { normalizedHeroStatFileSchema } from "../../packages/data/src/normalize/hero-stat";
 import { roomTileGeometryFileSchema } from "../../packages/data/src/normalize/room-tile";
@@ -47,6 +51,17 @@ export function battleDataPlugin(): Plugin {
       const sixHeroQuest = id === "\0virtual:quest-battle-data-v2";
       const plagueDoctor = currentQuest || sixHeroQuest;
       const graveOccultist = currentQuest;
+      const catalogNames = graveOccultist
+        ? FORMAL_HERO_NAMES
+        : plagueDoctor
+          ? FORMAL_HERO_NAMES.filter((n) => n !== "GRAVE ROBBER" && n !== "OCCULTIST")
+          : questCatalog
+            ? FORMAL_HERO_NAMES.filter(
+                (n) => n !== "PLAGUE DOCTOR" && n !== "GRAVE ROBBER" && n !== "OCCULTIST",
+              )
+            : FORMAL_HERO_NAMES.filter((n) =>
+                ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(n),
+              );
       const heroStats = normalizedHeroStatFileSchema
         .parse(read("hero_stat"))
         // R-081/088/094/095：战役使用获批属性；普通战斗沙盒保留原四英雄。
@@ -54,15 +69,7 @@ export function battleDataPlugin(): Plugin {
           (card) =>
             card.attributesVerified &&
             (questCatalog || card.level === 1) &&
-            [
-              "CRUSADER",
-              "HELLION",
-              "HIGHWAYMAN",
-              "VESTAL",
-              ...(questCatalog ? ["BOUNTY HUNTER"] : []),
-              ...(plagueDoctor ? ["PLAGUE DOCTOR"] : []),
-              ...(graveOccultist ? ["GRAVE ROBBER", "OCCULTIST"] : []),
-            ].includes(card.name),
+            (catalogNames as readonly string[]).includes(card.name),
         );
       const conditions = createConditionPool(
         diseaseFileSchema.parse(read("disease")).cards,

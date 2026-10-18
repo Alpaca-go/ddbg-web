@@ -10,6 +10,7 @@ import type { ResolveCard } from "./pressure";
 import type { SkillStance } from "./hero-skill";
 import { createConditionPool } from "./conditions";
 import { trinketPoolProblem } from "./trinket-acquisition";
+import { isFormalHeroName } from "./formal-heroes";
 
 export type CoreQuestSources = {
   readonly catalog: DungeonBattleCatalog;
@@ -24,7 +25,11 @@ export type QuestParty = readonly {
   readonly skillIds: readonly string[];
 }[];
 
-/** R12–17、R-038/048/065：已批准p1的单任务入口，无状态／代币注入，不代替战役选任务。 */
+/**
+ * R12–17、R-038/048/065：已批准p1的单任务入口，无状态／代币注入，不代替战役选任务。
+ * 开局四人须来自正式八英雄目录（与替补白名单同一集合）；转录通过即可装备，
+ * GR/Occ 等效果未接线技能仍可编入，结算拒绝不发明（R-048/R-095）。
+ */
 export function createCoreDungeonQuest(
   seed: number,
   questId: BasicQuestId,
@@ -42,20 +47,19 @@ export function createCoreDungeonQuest(
     !["standard", "radiant"].includes(mode)
   )
     throw new Error("请选择已接通的I级任务、模式及32位非负整数种子");
-  const names = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"];
   if (
     party.length !== 4 ||
     new Set(party.map((hero) => hero.stance)).size !== 4 ||
     party.some((hero) => !["aggressive", "defensive", "ranged", "support"].includes(hero.stance))
   )
-    throw new Error("需要四名核心英雄且各占一个姿态");
+    throw new Error("需要四名正式目录英雄且各占一个姿态");
   const selectedNames: string[] = [];
   const heroes = party.map((selected, index) => {
     const stat = sources.catalog.heroStats.find(
       (stat) => stat.id === selected.heroStatId && stat.level === 1 && stat.attributesVerified,
     );
-    if (!stat || !names.includes(stat.name) || !Number.isSafeInteger(stat.life) || stat.life < 1)
-      throw new Error("需要已核实的四名核心I级英雄属性");
+    if (!stat || !isFormalHeroName(stat.name) || !Number.isSafeInteger(stat.life) || stat.life < 1)
+      throw new Error("需要已核实的正式目录I级英雄属性");
     selectedNames.push(stat.name);
     if (
       selected.skillIds.length !== 3 ||
@@ -92,7 +96,7 @@ export function createCoreDungeonQuest(
     sources.resolveCards.length !== 10 ||
     new Set(sources.resolveCards.map((card) => card.id)).size !== 10
   )
-    throw new Error("需要四名不同核心英雄及完整条件、I级饰品与十张意志卡");
+    throw new Error("需要四名不同正式目录英雄及完整条件、I级饰品与十张意志卡");
   const conditions = createConditionPool(
     sources.catalog.conditions.diseases,
     sources.catalog.conditions.quirks,
