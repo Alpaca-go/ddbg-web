@@ -349,7 +349,7 @@ it("Daemon’s Pull I：命中 Pull 2；落空不移；公开命令续接", () =
   expect(entity(done.state, "m").areaId).not.toBe("c");
 });
 
-it("Occ 退出未接线名单；Dark Ritual 命令 schema 接受；III 不在 reviewed", () => {
+it("Occ 退出未接线名单；Dark Ritual 命令 schema 接受；III 印刷治疗 5（R-097）", () => {
   expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual([]);
   expect(
     savedCommandSchema.safeParse({
@@ -359,7 +359,8 @@ it("Occ 退出未接线名单；Dark Ritual 命令 schema 接受；III 不在 re
       targetId: "hero-1",
     }).success,
   ).toBe(true);
-  expect(
-    data.hero_stat.cards.find((c) => c.id === "hero_stat:p020:front")!.lines.join(" "),
-  ).toMatch(/Dark Ritual/);
+  const iii = data.hero_stat.cards.find((c) => c.id === "hero_stat:p020:front")!;
+  expect(iii.lines.join(" ")).toMatch(/Dark Ritual/);
+  expect(iii.lines.join(" ")).toMatch(/20ffe98e2d\} 5/);
+  expect(iii.lines.some((l) => l.includes("4f7549c1b8") && l.includes("3t"))).toBe(true);
 });

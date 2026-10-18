@@ -916,6 +916,18 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **依据 / 边界**：官方 R33（村庄技能）、R-047（十枚战利品堆）、规格书 §4.1/§6.4、R-001/R-048/R-095；Kyries 聊天确认。批准只覆盖上述 Pilfer 文案中的图标命名与「Draw a」数量=1。不批准翻面结算时机、补给奖励去向、空堆语义，或其他卡上同 hash 图标。
 - **关联待确认**：Q-98，confirmed；后续边见 Q-99。
 
+### R-097
+
+- **编号**：R-097
+- **日期**：2026-10-18
+- **问题**：Occultist 村庄能力 Dark Ritual III（Hero STAT FRONT p20）目标行末尾为 `{icon:4f7549c1b8} 3t`；同技能 I/II（FRONT/BACK p19）对应位置为已确认 Buff 图标 `2af41c1ca4`。词典 v1.8 中 `4f7549c1b8` 仍为 `unreviewed`，需按 R-095/R-096 LIMITED per-card 风格确认含义后方可接线。同 hash 亦出现在 `hero_stat:p010:front`（Vestal III Pray/Chant 目标行）。
+- **裁定 / 数据批准**：Kyries 于 2026-10-18 在聊天确认 Q-100（widget value `buff-limited`）：在 **Dark Ritual III 卡面文案语境下**，`4f7549c1b8` = **Buff**（与 I/II 的 `2af41c1ca4` 同义）。限定范围：
+  - 主批准行：`hero_stat:p020:front` Dark Ritual 目标行末 `{icon:4f7549c1b8} 3t`（接线治疗 5、压力 −2、Buff 3t）。
+  - 同 hash 已知第二处印刷：`hero_stat:p010:front` Vestal Pray/Chant 目标行末 `{icon:4f7549c1b8} 3t`——**仅作 LIMITED 命名诚实记录（R-048）**，不因此批准或改写 Vestal III 村庄技能行为（Pray/Chant 仍仅 I 级已接）。
+  不是全局词典升级；不合并、不改写 `icon-dictionary-v1.8`；整卡 `verification.reasons` 仍可保留 `icon:4f7549c1b8`。
+- **依据 / 边界**：官方 R33（村庄技能）、规格书 §4.1/§6.5、R-001/R-048/R-095/R-096；Kyries 聊天确认。批准只覆盖上表印刷行的图标命名，以及 Dark Ritual III 与 I/II 同路径的效果接线（Self 压力 +1 → 目标治疗 5 / 压力 −2 / Buff 3t；目标须有获批 `verified_buff_defence`）。不批准全局词典升级、不清除无关卡的未验证原因、不发明 Vestal III 技能数值或等级门控、不裁定 Q-99 / Q-79 / Q-80。
+- **关联待确认**：Q-100，confirmed；见[Occ 技能记录](phase4-occultist-skills-2026-10-18.md)。
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。
@@ -1255,5 +1267,5 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 ### Q-100
 
-- **问题 / 来源**：Occultist 村庄能力 Dark Ritual（Hero STAT FRONT p20 / III）目标行末尾为 `{icon:4f7549c1b8} 3t`。同技能 I/II（FRONT/BACK p19）对应位置为已确认 Buff 图标 `2af41c1ca4`。词典 v1.8 中 `4f7549c1b8` 仍为 `unreviewed` / `unknown_4f7549c1b8`；整卡 `verification.reasons` 含该图标。云环境无印刷页图像，不能目视命名。I/II 的 Self 压力+1、目标治疗/压力−2/Buff 3t 已按印刷接线；III 整次拒绝（R-048），不把 `4f7549c1b8` 猜成 Buff。
-- **处理 / 状态**：待确认。是否在 Dark Ritual III 语境下将 `4f7549c1b8` 限定命名为 Buff（或其它状态），以及是否可按 R-095/R-096 LIMITED 风格不改全局词典。
+- **问题 / 来源**：Occultist 村庄能力 Dark Ritual（Hero STAT FRONT p20 / III）目标行末尾为 `{icon:4f7549c1b8} 3t`。同技能 I/II（FRONT/BACK p19）对应位置为已确认 Buff 图标 `2af41c1ca4`。词典 v1.8 中 `4f7549c1b8` 仍为 `unreviewed` / `unknown_4f7549c1b8`；整卡 `verification.reasons` 含该图标。云环境无印刷页图像，不能目视命名。I/II 的 Self 压力+1、目标治疗/压力−2/Buff 3t 已按印刷接线；III 曾整次拒绝（R-048），不把 `4f7549c1b8` 猜成 Buff。同 hash 亦见于 `hero_stat:p010:front`（Vestal III Chant 行）。
+- **处理 / 状态**：confirmed（R-097，2026-10-18）。Kyries 确认 LIMITED：Dark Ritual III 语境下 `4f7549c1b8`→Buff；不改全局词典。p010 仅记 LIMITED 命名诚实，不接线 Vestal III。Dark Ritual III 已按印刷治疗 5 与 I/II 同路径接线。
