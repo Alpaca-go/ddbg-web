@@ -378,8 +378,14 @@ export function setTrinketDeck(
   pool: TrinketPool,
   level: number,
   deck: readonly string[],
+  discard?: readonly string[],
 ): TrinketPool {
-  return level === pool.level
-    ? { ...pool, deck }
-    : { ...pool, inactive: pool.inactive!.map((p) => (p.level === level ? { ...p, deck } : p)) };
+  if (level === pool.level)
+    return discard !== undefined ? { ...pool, deck, discard } : { ...pool, deck };
+  return {
+    ...pool,
+    inactive: pool.inactive!.map((p) =>
+      p.level === level ? (discard !== undefined ? { ...p, deck, discard } : { ...p, deck }) : p,
+    ),
+  };
 }

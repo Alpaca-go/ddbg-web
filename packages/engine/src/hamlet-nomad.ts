@@ -141,20 +141,33 @@ export function visitNomadWagon(state: GameState, actorId: string): ApplyResult 
         };
       }
       const partition = trinketDeck(nextPool, level)!;
-      const deck = [...partition.deck];
+      let deck = [...partition.deck];
+      let discard = [...partition.discard];
+      let recycled = false;
+      // R-100：可抽不足所需时先将本级弃牌洗回可抽堆，再抽满额；不陈列不足货架。
+      if (deck.length < count && discard.length > 0) {
+        deck = [...deck, ...discard];
+        discard = [];
+        recycled = true;
+        for (let i = deck.length - 1; i > 0; i--) {
+          const j = Math.floor(rng.next() * (i + 1));
+          [deck[i], deck[j]] = [deck[j]!, deck[i]!];
+          cursor++;
+        }
+      }
       if (deck.length < count)
         return rejectBattleCommand(
           state,
-          "饰品牌堆不足陈列数量，耗尽规则尚待确认（Q-80）；不补弃牌",
+          "饰品牌堆与弃牌合计仍不足陈列所需数量，无法补满货架（R-100）；不支付、不占用、不陈列不足货架",
         );
-      if (partition.unshuffled)
+      if (!recycled && partition.unshuffled)
         for (let i = deck.length - 1; i > 0; i--) {
           const j = Math.floor(rng.next() * (i + 1));
           [deck[i], deck[j]] = [deck[j]!, deck[i]!];
           cursor++;
         }
       display.push(...deck.splice(0, count));
-      nextPool = setTrinketDeck(nextPool, level, deck);
+      nextPool = setTrinketDeck(nextPool, level, deck, recycled ? discard : undefined);
     }
     nextPool = { ...nextPool, display };
     const issue = trinketPoolProblem(nextPool, d.heroes);

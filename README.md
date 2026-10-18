@@ -21,7 +21,9 @@ pnpm build
 
 `pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒，`/?phase=3&play=1` 打开三张基础任务的正式入口。
 
-2026-10-18最新进度：基线 #246 / `acc3c8c`。当前确认 Q-79→R-099（replace-reshuffle）：墓地／In Good Spirits 等获美德路径，已持意志卡时旧卡洗回对应堆再抽新美德。见[rulings](docs/rulings.md) R-099与[接线记录](docs/phase4-graveyard-q79-r099-2026-10-18.md)。Q-80、正式Boss与人工试玩继续保留，保持Phase4。以下段落为历史进度。
+2026-10-18最新进度：基线 #247 / `42b9620`。当前确认 Q-80→R-100（recycle_discard_fill）：游商首次陈列可抽不足时将该级弃牌洗回再抽满额；真耗尽才拒绝。见[rulings](docs/rulings.md) R-100与[接线记录](docs/phase4-nomad-q80-r100-2026-10-18.md)。正式Boss与人工试玩继续保留，保持Phase4。以下段落为历史进度。
+
+2026-10-18进度：基线 #246 / `acc3c8c`。当时确认 Q-79→R-099（replace-reshuffle）；Q-80 仍 pending（现已见 R-100）。见[rulings](docs/rulings.md) R-099与[接线记录](docs/phase4-graveyard-q79-r099-2026-10-18.md)。
 
 2026-10-18进度：#246已合并，main `acc3c8c`。Q-99→R-098锁定Pilfer当前行为；#245合并时 tip `5c5a182`。Occultist I级七技能与Dark Ritual I–III已接（R-097）。见[rulings](docs/rulings.md) R-098与[GR技能记录](docs/phase4-grave-robber-skills-2026-10-18.md)。当时 Q-79/Q-80 仍 pending。
 
