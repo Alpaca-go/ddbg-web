@@ -22,12 +22,20 @@ Kyries要求“合并，然后继续”。#235精确head `2f2298a`与上轮1384�
 
 新增8项机制场景（含0–3余额参数化），连同原交接/替补专项两文件49项通过。覆盖余额不足原子失败/冻结、余额4逃跑交接/宝藏无奖/牌池与RNG守恒、旧I级余额、全灭停点原已准备替补、战中先准备后全灭、不重复扣代币、超建筑容量、重复交接、双方全灭无自动失败、假胜利/假全灭/坏牌池/坏替补/Boss未知任务拒绝，以及JSON状态恢复后同命令一致。
 
-场景使用真实房间/怪物部署之后的明示死亡边界夹具，死亡事实交给既有endAfterCasualties分类，再执行公开交接/替补命令；不冒称自然击杀、完整正式全灭命令日志或人工试玩。当前正式六英雄中仅两名额外候选，准备两名后仍缺两人，保持目录数据停点、剩余两枚代币，不冒充代币耗尽，也不允许半队入场。四人全部替补入队、自然全灭的正式存档和Boss仍待后续数据/验收。
+场景使用真实房间/怪物部署之后的明示死亡边界夹具，死亡事实交给既有endAfterCasualties分类，再执行公开交接/替补命令；**夹具不冒称自然击杀**。机制夹具 `wipeoutBoundary` / `prepareVerifiedWipeoutReplacements` 仅用于边界/机制验收。
 
-最终本机使用Node24.21.0/pnpm12.9.1：typecheck、全仓ESLint、543个受跟踪/本主题新文件Prettier、build及git diff检查通过；完整Vitest为168文件/1392项通过（258.27秒，`--maxWorkers=2 --testTimeout=30000`）。最终交接/替补专项两文件49项通过。构建约428KB gzip，保留既有大包提示。
+## 续：自然全灭正式存档（#239 之后）
 
-首轮现有3条战斗冒烟2条通过、1条循环战斗点击先攻超时；该条单独复跑通过（56.2秒，总1分钟），三条均有通过结果，未把首轮写成全绿。使用独立5194端口与缓存headless Chromium，不增加冒烟条数。浏览器是现有路径回归，不代替新增全灭停点的自然战役/正式存档验收或人工试玩。
+基线：#239 合并 main `438f7da`（R-095，四名已核实额外在池）。
 
-下一主题核对补齐四人替补所缺候选数据；未批准属性/图标不命名，Q-79/Q-80、正式Boss及人工试玩保持未完成，不宣称Phase4验收通过。保留用户本地8080及未跟踪私有资料，格式只检查受跟踪/本主题新文件，不声称原样根格式扫描私有资料通过。
+新增自然公开命令路径 `naturalWipeoutReplacementPath`：
 
-续：候选库存盘点见[phase4-replacement-candidates-2026-10-18.md](phase4-replacement-candidates-2026-10-18.md)。核实后额外候选仍为赏金猎人与瘟疫医生两名；其余五名核心盒英雄缺`attributesVerified`，已列入Kyries审批清单，未扩可用池。
+1. Fundraiser seed2 不捐献攒金 → 付费驿站 I→II→III（余额4）
+2. 村庄结束准备 → 下一任务 Scout Ahead
+3. `naturalQuest({ preferWipeout: true })`：英雄浪费换姿态、不求胜；补给/探索待选固定首项以免 RNG 偏到第4轮撤退；`heroesDefeated` 后公开 `finishDungeonBattle`
+4. 按序准备 VERIFIED_EXTRA_IDS（BH/PD/GR/Occ）→ 可 `joinPreparedReplacements`
+5. 全程 `createQuestSave` / `loadQuestSave` 往返一致
+
+未改存档 schema / 命令名。GR/Occ 技能效果、Pilfer、Dark Ritual 仍未接线（R-001/R-048）。Q-79/Q-80、Boss 全灭、人工试玩保留；不进 Phase 5。
+
+下一主题优先 GR/Occ I 级技能与 Pilfer / Dark Ritual 接线。

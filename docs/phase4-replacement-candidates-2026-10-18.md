@@ -35,4 +35,4 @@
 
 ## 边界
 
-仍保持 Phase 4。Q-79/Q-80、正式 Boss、人工试玩保留。下一主题优先 GR/Occ I 级技能与 Pilfer / Dark Ritual 接线，不以转录通过冒充效果完成。
+仍保持 Phase 4。Q-79/Q-80、正式 Boss、人工试玩保留。自然全灭正式存档路径已接（驿站 III 余额 4 → 四名额外 prepare/join → createQuestSave 往返）；**剩余缺口**仍是 GR/Occ I 级技能效果与 Pilfer / Dark Ritual 接线，不以转录通过冒充效果完成。
