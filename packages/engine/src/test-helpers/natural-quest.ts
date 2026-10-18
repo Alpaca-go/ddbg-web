@@ -30,6 +30,11 @@ export type NaturalQuestOptions = {
   readonly observe?: (state: GameState, command: Command) => void;
   /** 自然完成指定场数后按R14提前离开；不伪造任务目标已完成。 */
   readonly exitAfterBattles?: number;
+  /**
+   * 测试偏好：英雄浪费行动（换姿态）、不求胜，直至 heroesDefeated，
+   * 再公开 finishDungeonBattle。仍只走公开命令，不注入 dead:true。
+   */
+  readonly preferWipeout?: boolean;
 };
 
 /** 测试用固定决策驱动，不进入产品；只执行公开命令，不修改任何游戏状态／牌序。 */
@@ -64,10 +69,12 @@ export function naturalQuest(
     return step({ type: "resolveChoice", choiceId: pending.id, optionId: id });
   };
   const pick = (pending: PendingChoice) => {
-    const options = pending.options;
-    if (pending.id.startsWith("dungeon-rest:") && options.some((o) => o.id.startsWith("heal:"))) {
+    const choices = pending.options;
+    // 全灭偏好：固定首选项，避免智能 pick 改变补给/探索 RNG 导致第4轮撤退而非英雄全灭。
+    if (options.preferWipeout) return choices[0]!.id;
+    if (pending.id.startsWith("dungeon-rest:") && choices.some((o) => o.id.startsWith("heal:"))) {
       const plan = state.dungeon!.rest!.plan!;
-      return [...options].sort((a, b) => {
+      return [...choices].sort((a, b) => {
         const score = (id: string) => {
           const [kind, i] = id.split(":"),
             hero = state.dungeon!.heroes[Number(i)]!,
@@ -89,13 +96,19 @@ export function naturalQuest(
         "attack",
         "agree",
         "20",
-      ].find((id) => options.some((o) => o.id === id)) ??
-      options.find((o) => o.id.startsWith("use:"))?.id ??
-      options[0]!.id
+      ].find((id) => choices.some((o) => o.id === id)) ??
+      choices.find((o) => o.id.startsWith("use:"))?.id ??
+      choices[0]!.id
     );
   };
   const settle = () => {
     for (let count = 0; count < 200; count++) {
+      while (state.dungeon?.deathTrinketChoice)
+        step({
+          type: "resolveChoice",
+          choiceId: state.dungeon.deathTrinketChoice.id,
+          optionId: "discard",
+        });
       const p = choice();
       if (p) {
         choose(pick(p));
@@ -176,16 +189,28 @@ export function naturalQuest(
   };
   const fight = () => {
     step({ type: "startBattle" });
-    for (let count = 0; count < 200; count++) {
+    for (let count = 0; count < 500; count++) {
       settle();
       const b = state.battle!,
         t = b.encounter!.turn;
       if (t.type === "finished") {
+        if (options.preferWipeout)
+          throw new Error(
+            `preferWipeout 期望 heroesDefeated，实为 finished/${t.outcome}（第${b.encounter!.round}轮）`,
+          );
         step({ type: "finishDungeonBattle" });
         settle();
         return;
       }
-      if (t.type === "halted") throw new Error(`battle halted: ${t.reason}`);
+      if (t.type === "halted") {
+        if (options.preferWipeout && t.reason === "heroesDefeated") {
+          settle();
+          step({ type: "finishDungeonBattle" });
+          settle();
+          return;
+        }
+        throw new Error(`battle halted: ${t.reason}`);
+      }
       if (t.type === "awaitingInitiative") {
         step({ type: "drawInitiative" });
         continue;
@@ -205,6 +230,15 @@ export function naturalQuest(
             targetId: action.targetId,
             skillSlot: action.skillSlot,
           });
+        continue;
+      }
+      if (options.preferWipeout) {
+        const actor = b.entities.find((e) => e.id === t.actorId)!;
+        step({
+          type: "changeStance",
+          actorId: actor.id,
+          direction: actor.stance === "aggressive" ? "backward" : "forward",
+        });
         continue;
       }
       const direct = attacks(state)[0];
@@ -252,23 +286,27 @@ export function naturalQuest(
     }
     throw new Error("battle loop");
   };
+  /** 经闭包读回 phase，避免 step 重赋值后仍被收窄为 ready。 */
+  const dungeonPhase = () => state.dungeon!.phase;
   const room = () => {
     for (let count = 0; count < 20; count++) {
       settle();
-      const d = state.dungeon!;
-      if (d.phase === "ready") return;
-      if (d.phase !== "awaitingRoom") throw new Error(`dungeon halted ${d.phase}`);
-      const kind = d.rooms.find((r) => r.id === d.position)!.kind;
+      const phase = dungeonPhase();
+      if (phase === "ready") return;
+      if (options.preferWipeout && phase === "awaitingReplacement") return;
+      if (phase !== "awaitingRoom") throw new Error(`dungeon halted ${phase}`);
+      const kind = state.dungeon!.rooms.find((r) => r.id === state.dungeon!.position)!.kind;
       if (
         kind === "lair" ||
         kind === "treasure" ||
-        (kind === "curio" && d.curioRoom?.stage === "guarded")
+        (kind === "curio" && state.dungeon!.curioRoom?.stage === "guarded")
       ) {
         step({ type: "prepareDungeonBattle" });
         if (!state.dungeon!.roomCards!.active!.tileId) throw new Error("unready tile");
         step({ type: "prepareDungeonMonsters" });
         step({ type: "startDungeonBattle" });
         fight();
+        if (options.preferWipeout && dungeonPhase() === "awaitingReplacement") return;
       } else step({ type: "resolveDungeonRoom" });
     }
     throw new Error("room loop");
@@ -276,14 +314,16 @@ export function naturalQuest(
   try {
     const activeQuestId = (state.dungeon!.questDistribution?.questId ?? questId) as BasicQuestId;
     const activeQuest = basicQuests.find((q) => q.id === activeQuestId)!;
-    if (state.dungeon!.phase === "awaitingProvisions") {
+    if (dungeonPhase() === "awaitingProvisions") {
       step({ type: "rollDungeonProvisions" });
       settle();
-    } else if (state.dungeon!.phase !== "ready") {
-      throw new Error(`unexpected dungeon phase ${state.dungeon!.phase}`);
+    } else if (dungeonPhase() !== "ready") {
+      throw new Error(`unexpected dungeon phase ${dungeonPhase()}`);
     }
     const route = ["G", "D", "A", "B", "A", "D", "E", "D", "G", "H", "G", "F", "C"];
     for (const to of route) {
+      if (options.preferWipeout && dungeonPhase() === "awaitingReplacement")
+        return { initial, state, commands, events, stopReason: null };
       if (state.dungeon!.heroes.some((h) => h.dead)) throw new Error("hero died");
       const visited = state.dungeon!.visited!.includes(to);
       step({ type: visited ? "beginDungeonBacktrack" : "beginDungeonExploration" });
@@ -291,6 +331,8 @@ export function naturalQuest(
       if (!visited) step({ type: "rollDungeonExploration" });
       settle();
       room();
+      if (options.preferWipeout && dungeonPhase() === "awaitingReplacement")
+        return { initial, state, commands, events, stopReason: null };
       const d = state.dungeon!;
       if (canRestDungeon(state) && d.heroes.reduce((n, h) => n + h.stress + h.wounds!, 0) > 12) {
         step({ type: "restDungeon" });

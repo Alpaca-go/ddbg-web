@@ -418,7 +418,10 @@ function terminal(outcome: "victory" | "retreat") {
   };
 }
 
-/** 明示死亡边界夹具：真实房间/怪物部署后指定死亡，不冒充自然击杀或正式战役存档。 */
+/**
+ * 明示死亡边界夹具：真实房间/怪物部署后指定死亡。
+ * 仅用于机制/边界场景；不冒充自然击杀或正式战役存档（自然路径见 natural-wipeout-save）。
+ */
 function wipeoutBoundary(
   waiting = 4,
   reason: "heroesDefeated" | "mutualWipeout" = "heroesDefeated",
