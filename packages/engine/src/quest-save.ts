@@ -108,7 +108,7 @@ export function createQuestSave(
 export function loadQuestSave(
   input: unknown,
   sources: CoreQuestSources,
-  previousSources?: CoreQuestSources,
+  previousSources?: CoreQuestSources | readonly CoreQuestSources[],
 ) {
   const parsed = questSaveSchema.safeParse(input);
   if (!parsed.success) throw new Error("存档格式、版本或命令参数不受支持");
@@ -120,11 +120,45 @@ export function loadQuestSave(
       throw new Error("存档快照与回放不一致，或游戏数据版本已变化；未替换当前进度");
     // 仅由调用方提供可信旧目录；先完整验证旧快照，再允许目录字段更新。
     // 玩家状态、牌池、待选、RNG和命令结果仍须与新目录回放逐项一致。
-    const previous = loadQuestSave(input, previousSources).game;
+    const candidates = Array.isArray(previousSources) ? previousSources : [previousSources];
+    let previous: GameState | undefined;
+    for (const candidate of candidates) {
+      try {
+        previous = loadQuestSave(input, candidate).game;
+        break;
+      } catch {
+        // 每个固定旧目录均独立严格验证，不使用存档携带的数据作来源。
+      }
+    }
+    if (!previous) throw new Error("存档与可信旧目录回放不一致；未替换当前进度");
+    const oldPreparation = previous.dungeon?.replacementPreparation;
+    const newPreparation = restored.game.dungeon?.replacementPreparation;
     const upgraded = {
       ...previous,
       ...(previous.dungeon && restored.game.dungeon
-        ? { dungeon: { ...previous.dungeon, battleCatalog: restored.game.dungeon.battleCatalog } }
+        ? {
+            dungeon: {
+              ...previous.dungeon,
+              battleCatalog: restored.game.dungeon.battleCatalog,
+              ...(oldPreparation?.stage === "hero" &&
+              newPreparation?.stage === "hero" &&
+              oldPreparation.choice.options.every((option) =>
+                newPreparation.choice.options.some(
+                  (current) => canonical(option) === canonical(current),
+                ),
+              )
+                ? {
+                    replacementPreparation: {
+                      ...oldPreparation,
+                      choice: {
+                        ...oldPreparation.choice,
+                        options: newPreparation.choice.options,
+                      },
+                    },
+                  }
+                : {}),
+            },
+          }
         : {}),
       ...(previous.battle && restored.game.battle
         ? {

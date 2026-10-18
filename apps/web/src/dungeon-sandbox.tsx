@@ -41,6 +41,7 @@ import { dungeonLayoutFileSchema } from "../../../packages/data/src/dungeon-layo
 import type { DungeonLayout } from "../../../packages/data/src/dungeon-layout";
 import { battleData } from "virtual:battle-data";
 import { battleData as questBattleData } from "virtual:quest-battle-data";
+import { battleData as previousQuestBattleData } from "virtual:quest-battle-data-v1";
 import { BattleView } from "./battle-view";
 import { DungeonStanceOrder } from "./dungeon-stance-order";
 import { provisionLabels, provisionEffectLabels } from "./provision-labels";
@@ -492,7 +493,10 @@ function QuestSaveControls({ onLoad }: { onLoad?: () => void }) {
             run(() => {
               const raw = localStorage.getItem(questSaveKey);
               if (!raw) throw new Error("本机还没有任务存档");
-              const loaded = loadQuestSave(JSON.parse(raw), taskSources, legacyTaskSources);
+              const loaded = loadQuestSave(JSON.parse(raw), taskSources, [
+                previousTaskSources,
+                legacyTaskSources,
+              ]);
               restoreTask(loaded);
               setNotice("已读取进度，可继续当前行动或待选决定。");
               onLoad?.();
@@ -1558,6 +1562,10 @@ const legacyTaskSources: CoreQuestSources = {
 const taskSources: CoreQuestSources = {
   ...legacyTaskSources,
   catalog: { ...legacyTaskSources.catalog, ...questBattleData },
+};
+const previousTaskSources: CoreQuestSources = {
+  ...legacyTaskSources,
+  catalog: { ...legacyTaskSources.catalog, ...previousQuestBattleData },
 };
 export function DungeonQuest() {
   const beginTask = useDungeonStore((s) => s.beginTask);

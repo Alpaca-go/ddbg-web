@@ -10,7 +10,7 @@ import cards from "../../data/normalized/corebox/trinket.json";
 import { createBattleState } from "./battle";
 import { readHeroPassiveDefence } from "./battle-skill-status";
 
-it("R-094仅属性获批和七技能转录通过的瘟疫医生仍不作为完整可用替补", () => {
+it("R-094及七技能/村庄能力接通后，瘟疫医生作为第六名正式候选", () => {
   const game = createCoreDungeonQuest(4, "quest:p001", "standard", coreParty, coreQuestSources);
   expect(
     coreQuestSources.catalog.heroStats.some(
@@ -22,7 +22,10 @@ it("R-094仅属性获批和七技能转录通过的瘟疫医生仍不作为完�
       (s) => s.hero === "PLAGUE DOCTOR" && s.level === 1 && !s.verification.unverified,
     ),
   ).toHaveLength(7);
-  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual(["BOUNTY HUNTER"]);
+  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([
+    "BOUNTY HUNTER",
+    "PLAGUE DOCTOR",
+  ]);
   const battle = { heroStats: coreQuestSources.catalog.heroStats };
   expect(
     readHeroPassiveDefence(battle, { heroStatId: "hero_stat:p013:front" })!.resistances,
@@ -226,8 +229,11 @@ it("候选按英雄名排除在队/本战役死亡者，不能用另一等级属
     dead = die(game).state;
   expect(dead.dungeon!.deathTrinketChoice).toBeUndefined();
   const d = dead.dungeon!;
-  expect(replacementHeroCandidates(d).map((s) => s.name)).toEqual(["BOUNTY HUNTER"]);
+  expect(replacementHeroCandidates(d).map((s) => s.name)).toEqual([
+    "BOUNTY HUNTER",
+    "PLAGUE DOCTOR",
+  ]);
   expect(
     replacementHeroCandidates({ ...d, deadHeroNames: [...d.deadHeroNames!, "BOUNTY HUNTER"] }),
-  ).toEqual([]);
+  ).toEqual([expect.objectContaining({ name: "PLAGUE DOCTOR" })]);
 });
