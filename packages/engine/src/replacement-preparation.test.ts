@@ -70,6 +70,8 @@ it("选英雄才扣一枚、继承全部XP但不扣驿站余额；保持新英�
   expect(offered.dungeon!.replacementPreparation!.choice.options.map((o) => o.id)).toEqual([
     "hero_stat:p005:front",
     "hero_stat:p013:front",
+    "hero_stat:p017:front",
+    "hero_stat:p019:front",
   ]);
   const game = choose(offered, "hero_stat:p005:front"),
     p = game.dungeon!.replacementPreparation!;
