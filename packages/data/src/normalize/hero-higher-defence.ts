@@ -10,10 +10,11 @@ export const higherHeroDefenceSchema = z.strictObject({
     "kyries_review_2026-10-15",
     "kyries_review_2026-10-16",
     "kyries_review_2026-10-17",
+    "kyries_review_2026-10-18",
   ]),
 });
 export type HigherHeroDefence = z.infer<typeof higherHeroDefenceSchema>;
-/** R-081/R-088/R-094分批限定卡与左右栏；不改全局词典。 */
+/** R-081/R-088/R-094/R-095分批限定卡与左右栏；不改全局词典。 */
 export const higherHeroDefenceApprovals = [
   {
     id: "hero_stat:p001:back",
@@ -135,6 +136,48 @@ export const higherHeroDefenceApprovals = [
       ["28b10f3fb7", "disease"],
     ],
   },
+  {
+    id: "hero_stat:p017:back",
+    name: "GRAVE ROBBER",
+    level: 2,
+    resistances: [
+      ["e61ed317de", "blight"],
+      ["de6f50b39b", "debuff"],
+    ],
+    immunities: [],
+  },
+  {
+    id: "hero_stat:p018:front",
+    name: "GRAVE ROBBER",
+    level: 3,
+    resistances: [
+      ["b942cddccd", "bleed"],
+      ["e61ed317de", "blight"],
+      ["de6f50b39b", "debuff"],
+    ],
+    immunities: [],
+  },
+  {
+    id: "hero_stat:p019:back",
+    name: "OCCULTIST",
+    level: 2,
+    resistances: [
+      ["b942cddccd", "bleed"],
+      ["a8c4b25b4e", "debuff"],
+    ],
+    immunities: [],
+  },
+  {
+    id: "hero_stat:p020:front",
+    name: "OCCULTIST",
+    level: 3,
+    resistances: [
+      ["b942cddccd", "bleed"],
+      ["e61ed317de", "blight"],
+      ["de6f50b39b", "debuff"],
+    ],
+    immunities: [],
+  },
 ] as const;
 export function approvedHigherDefence(id: string): HigherHeroDefence | undefined {
   const row = higherHeroDefenceApprovals.find((r) => r.id === id);
@@ -144,11 +187,13 @@ export function approvedHigherDefence(id: string): HigherHeroDefence | undefined
         immunities: row.immunities.map((r) => r[1]),
         source: id.endsWith(":back") ? "print_back" : "print_front",
         approval:
-          row.name === "PLAGUE DOCTOR"
-            ? "kyries_review_2026-10-17"
-            : row.name === "BOUNTY HUNTER"
-              ? "kyries_review_2026-10-16"
-              : "kyries_review_2026-10-15",
+          row.name === "GRAVE ROBBER" || row.name === "OCCULTIST"
+            ? "kyries_review_2026-10-18"
+            : row.name === "PLAGUE DOCTOR"
+              ? "kyries_review_2026-10-17"
+              : row.name === "BOUNTY HUNTER"
+                ? "kyries_review_2026-10-16"
+                : "kyries_review_2026-10-15",
       }
     : undefined;
 }

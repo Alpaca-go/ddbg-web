@@ -738,7 +738,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   );
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
   await page.screenshot({ path: testInfo.outputPath("nomad-iii-saved.png"), fullPage: true });
-  // 旧五英雄的候选待选存档：迁移后出现瘟疫医生，选择/技能/入队可保存刷新。
+  // 旧五英雄的候选待选存档：迁移后出现瘟疫医生/盗墓者/神秘学者，选择/技能/入队可保存刷新。
   await page.evaluate(
     (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
     JSON.stringify(replacementSave),
@@ -747,6 +747,8 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
   await expect(page.getByRole("button", { name: /^选择 BOUNTY HUNTER I/ })).toBeVisible();
   await expect(page.getByRole("button", { name: /^选择 PLAGUE DOCTOR I/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /^选择 GRAVE ROBBER I/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /^选择 OCCULTIST I/ })).toBeVisible();
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();

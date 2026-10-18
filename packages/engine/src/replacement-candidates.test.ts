@@ -10,10 +10,11 @@ import { replacementHeroCandidates } from "./hero-death-estate";
 import { createQuestSave, loadQuestSave } from "./quest-save";
 import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
 import { naturalParty, naturalQuest } from "./test-helpers/natural-quest";
+import { VERIFIED_EXTRA_IDS } from "./test-helpers/wipeout-replacement";
 
-function webSources(): CoreQuestSources {
+function questSources(id = "quest-battle-data"): CoreQuestSources {
   const load = battleDataPlugin().load as (id: string) => string;
-  const code = load("\0virtual:quest-battle-data");
+  const code = load(`\0virtual:${id}`);
   const catalog = JSON.parse(code.slice("export const battleData = ".length, -1));
   return {
     ...coreQuestSources,
@@ -22,7 +23,8 @@ function webSources(): CoreQuestSources {
   };
 }
 
-const sources = webSources();
+const sources = questSources();
+const sixHeroSources = questSources("quest-battle-data-v2");
 const start = {
   seed: 14,
   questId: "quest:p001" as const,
@@ -30,29 +32,31 @@ const start = {
   party: naturalParty,
 };
 
-const VERIFIED_EXTRA_IDS = ["hero_stat:p005:front", "hero_stat:p013:front"] as const;
-const BANNED = ["JESTER", "ARBALEST", "GRAVE ROBBER", "OCCULTIST", "ABOMINATION"] as const;
+const BANNED = ["JESTER", "ARBALEST", "ABOMINATION"] as const;
+const EXTRA_NAMES = ["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"] as const;
 
-it("库存：规范化仅六名attributesVerified；正式网页两名额外候选已接线且排除未核实身份", () => {
+it("库存：规范化八名attributesVerified；正式网页四名额外候选已接线且排除未核实身份", () => {
   const normalized = normalizedHeroStatFileSchema.parse(statsFile).cards;
   expect([...new Set(normalized.map((c) => c.name))].sort()).toEqual([
     "BOUNTY HUNTER",
     "CRUSADER",
+    "GRAVE ROBBER",
     "HELLION",
     "HIGHWAYMAN",
+    "OCCULTIST",
     "PLAGUE DOCTOR",
     "VESTAL",
   ]);
   expect(normalized.every((c) => c.attributesVerified)).toBe(true);
-  expect(sources.catalog.heroStats).toHaveLength(18);
-  expect(sources.catalog.skills).toHaveLength(98);
+  expect(normalized).toHaveLength(24);
+  expect(sources.catalog.heroStats).toHaveLength(24);
+  expect(sources.catalog.skills).toHaveLength(112);
+  expect(sixHeroSources.catalog.heroStats).toHaveLength(18);
+  expect(sixHeroSources.catalog.skills).toHaveLength(98);
   for (const name of BANNED)
     expect(sources.catalog.heroStats.some((s) => s.name === name)).toBe(false);
   const game = createCoreDungeonQuest(14, "quest:p001", "radiant", coreParty, sources);
-  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([
-    "BOUNTY HUNTER",
-    "PLAGUE DOCTOR",
-  ]);
+  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([...EXTRA_NAMES]);
   expect(
     replacementHeroCandidates(game.dungeon!).every(
       (s) => s.attributesVerified && s.level === 1 && VERIFIED_EXTRA_IDS.includes(s.id as never),
@@ -60,7 +64,7 @@ it("库存：规范化仅六名attributesVerified；正式网页两名额外候�
   ).toBe(true);
 });
 
-it("自然死亡：两名已核实额外候选各自prepare→join→createQuestSave/loadQuestSave往返", () => {
+it("自然死亡：四名已核实额外候选各自prepare→join→createQuestSave/loadQuestSave往返", () => {
   for (const replacementId of VERIFIED_EXTRA_IDS) {
     const run = naturalQuest(14, "quest:p001", true, sources, 2, {
       observe(game) {
@@ -116,9 +120,10 @@ it("自然死亡：两名已核实额外候选各自prepare→join→createQuest
     saved();
     step({ type: "joinPreparedReplacements" });
     expect(game.dungeon!.heroes.some((h) => h.heroStatId === replacementId && !h.dead)).toBe(true);
+    const chosen = sources.catalog.heroStats.find((s) => s.id === replacementId)!.name;
     expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual(
-      replacementId === "hero_stat:p005:front" ? ["PLAGUE DOCTOR"] : ["BOUNTY HUNTER"],
+      EXTRA_NAMES.filter((name) => name !== chosen),
     );
     saved();
   }
-}, 60000);
+}, 120000);

@@ -12,9 +12,9 @@ import {
 
 const FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf";
 const BACK = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf";
-/** R-048/R-088/R-094：按具体front/I卡限定审批，不改词典；新旧批准日期分别保留。 */
+/** R-048/R-088/R-094/R-095：按具体front/I卡限定审批，不改词典；新旧批准日期分别保留。 */
 export const approvedHeroConditionDefences: Readonly<
-  Record<string, { name: string; iconId: string; kind: "stun" | "bleed" | "blight" }>
+  Record<string, { name: string; iconId: string; kind: "stun" | "bleed" | "blight" | "debuff" }>
 > = {
   "hero_stat:p001:front": { name: "CRUSADER", iconId: "8db71542d2", kind: "stun" },
   "hero_stat:p003:front": { name: "HELLION", iconId: "d29a868ed8", kind: "bleed" },
@@ -22,15 +22,19 @@ export const approvedHeroConditionDefences: Readonly<
   "hero_stat:p009:front": { name: "VESTAL", iconId: "d29a868ed8", kind: "bleed" },
   "hero_stat:p005:front": { name: "BOUNTY HUNTER", iconId: "8db71542d2", kind: "stun" },
   "hero_stat:p013:front": { name: "PLAGUE DOCTOR", iconId: "40bb356305", kind: "blight" },
+  "hero_stat:p017:front": { name: "GRAVE ROBBER", iconId: "40bb356305", kind: "blight" },
+  /** R-095：仅 Occ I；Jester I 同 hash `8cbe7d6703` 不在批准范围。 */
+  "hero_stat:p019:front": { name: "OCCULTIST", iconId: "8cbe7d6703", kind: "debuff" },
 };
 export const heroConditionDefenceSchema = z.strictObject({
-  resistances: z.array(z.enum(["stun", "bleed", "blight"])).length(1),
+  resistances: z.array(z.enum(["stun", "bleed", "blight", "debuff"])).length(1),
   immunities: z.array(z.never()).length(0),
   source: z.literal("print_front"),
   approval: z.enum([
     "kyries_review_2026-10-12",
     "kyries_review_2026-10-16",
     "kyries_review_2026-10-17",
+    "kyries_review_2026-10-18",
   ]),
 });
 export type HeroConditionDefence = z.infer<typeof heroConditionDefenceSchema>;
@@ -44,7 +48,7 @@ const attributesSchema = z.strictObject({
   speed: z.int().nonnegative(),
 });
 
-/** 原四英雄、R-088赏金猎人和R-094瘟疫医生分批获批，不外推同名卡。 */
+/** 原四英雄、R-088赏金猎人、R-094瘟疫医生与R-095盗墓者/神秘学者分批获批，不外推同名卡。 */
 export const approvedHeroStats = [
   ["hero_stat:p001", "front", "CRUSADER", 1, 17, 0, 1],
   ["hero_stat:p001", "back", "CRUSADER", 2, 24, 1, 1],
@@ -64,15 +68,26 @@ export const approvedHeroStats = [
   ["hero_stat:p013", "front", "PLAGUE DOCTOR", 1, 11, 0, 3],
   ["hero_stat:p013", "back", "PLAGUE DOCTOR", 2, 15, 1, 3],
   ["hero_stat:p014", "front", "PLAGUE DOCTOR", 3, 19, 2, 3],
+  ["hero_stat:p017", "front", "GRAVE ROBBER", 1, 11, 1, 3],
+  ["hero_stat:p017", "back", "GRAVE ROBBER", 2, 15, 2, 3],
+  ["hero_stat:p018", "front", "GRAVE ROBBER", 3, 19, 3, 3],
+  ["hero_stat:p019", "front", "OCCULTIST", 1, 10, 1, 2],
+  ["hero_stat:p019", "back", "OCCULTIST", 2, 14, 2, 2],
+  ["hero_stat:p020", "front", "OCCULTIST", 3, 18, 3, 3],
 ].map(([rawId, face, name, level, life, dodge, speed]) =>
   attributesSchema.parse({ rawId, face, name, level, life, dodge, speed }),
 );
 
 const laterHeroApprovals: Readonly<
-  Record<string, "kyries_review_2026-10-16" | "kyries_review_2026-10-17">
+  Record<
+    string,
+    "kyries_review_2026-10-16" | "kyries_review_2026-10-17" | "kyries_review_2026-10-18"
+  >
 > = {
   "BOUNTY HUNTER": "kyries_review_2026-10-16",
   "PLAGUE DOCTOR": "kyries_review_2026-10-17",
+  "GRAVE ROBBER": "kyries_review_2026-10-18",
+  OCCULTIST: "kyries_review_2026-10-18",
 };
 
 export const normalizedHeroStatCardSchema = attributesSchema
@@ -84,6 +99,7 @@ export const normalizedHeroStatCardSchema = attributesSchema
       "kyries_review_2026-10-10",
       "kyries_review_2026-10-16",
       "kyries_review_2026-10-17",
+      "kyries_review_2026-10-18",
     ]),
     /** 原有 Buff 专项注解保留兼容；完整条件防御按具体 I 级 id 限定审批。 */
     verified_buff_defence: z
@@ -116,10 +132,10 @@ export const normalizedHeroStatCardSchema = attributesSchema
           (key) => card[key] !== reviewed[key],
         )
       )
-        ctx.addIssue({ code: "custom", message: "英雄属性超出三面限定审批（R-088/R-094）" });
+        ctx.addIssue({ code: "custom", message: "英雄属性超出三面限定审批（R-088/R-094/R-095）" });
     }
     if (card.verified_higher_condition_defence && !readHigherHeroDefence(card))
-      ctx.addIssue({ code: "custom", message: "高等级英雄防御超出限定审批（R-081/R-088）" });
+      ctx.addIssue({ code: "custom", message: "高等级英雄防御超出限定审批（R-081/R-088/R-095）" });
     if (card.verified_condition_defence) {
       const expected = approvedHeroConditionDefences[card.id];
       if (
@@ -252,6 +268,8 @@ export function buildHeroStats(
       "hero_stat:p009": "d29a868ed8",
       "hero_stat:p005": "8db71542d2",
       "hero_stat:p013": "40bb356305",
+      "hero_stat:p017": "40bb356305",
+      "hero_stat:p019": "8cbe7d6703",
     };
     const buffReviewed =
       attributes.level === 1 &&

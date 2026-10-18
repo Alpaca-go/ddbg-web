@@ -1,5 +1,7 @@
 # Codex 接线交接（2026-10-09）
 
+> 当前入口（2026-10-18）：#238已合并为main `87e9773`。Kyries确认Q-97 LIMITED映射（R-095）：`e61ed317de`=Blight（GR II/III、Occ III左栏指定位）、`8cbe7d6703`=Debuff（仅Occ I；Jester同hash不覆盖）、`a8c4b25b4e`=Debuff（Occ II左#2）。六面属性/防御已入库；正式目录与白名单扩至八英雄/四名额外替补（24属性/112技能）；全灭余额4可准备四人并入队。技能效果与Pilfer/Dark Ritual仍未接线。见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md)与[候选盘点](phase4-replacement-candidates-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+
 > 当前入口（2026-10-18）：#237已合并为main `c09b94a`。当前`cursor/phase4-grave-occultist-attrs-8671`按Kyries选定Grave Robber+Occultist核对属性/防御：印刷raw六面Life/Dodge/Speed已齐，但防御栏三枚unreviewed图标（`e61ed317de`/`8cbe7d6703`/`a8c4b25b4e`）缺限定映射（Q-97），按R-048不入库、不扩可用池；正式额外仍仅赏金猎人+瘟疫医生。见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md)。不发明图标含义，不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 
 > 当前入口（2026-10-18）：#236已合并为main `e0b8f6b`。当前`cursor/phase4-replacement-candidates-1adf`盘点核心盒替补候选：正式可用池仍仅六名（开局四人+赏金猎人+瘟疫医生），全灭后只够准备两名已核实替补；Jester/Arbalest/Grave Robber/Occultist/Abomination无`attributesVerified`，未进可用池，见Kyries审批清单与[本轮记录](phase4-replacement-candidates-2026-10-18.md)。不发明属性/图标，不裁定Q-79/Q-80，不进Phase5。下文为历史记录。

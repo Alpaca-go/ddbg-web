@@ -36,7 +36,8 @@ it("R-094三面独立黄金值；III从Blight抗性变为Blight/Disease双免疫
         "kyries_review_2026-10-17",
     ),
   ).toBe(true);
-  expect(built.cards).toHaveLength(18);
+  expect(built.cards.filter((c) => c.name === "PLAGUE DOCTOR")).toHaveLength(3);
+  expect(built.cards).toHaveLength(24);
   expect(
     built.cards
       .filter((c) => c.name !== "PLAGUE DOCTOR")

@@ -14,7 +14,7 @@ const LIFE = "9534ad5184";
 const DODGE = "7a472f5d6f";
 const SPEED = "4648c9e5ec";
 
-/** Q-97：印刷数字已齐，但未审防御图标未获限定批准前不得入库（R-048）。 */
+/** Q-97/R-095：印刷数字与限定防御入库后仍保留词典 unreviewed（不改全局）。 */
 const PRINT_FACES = [
   ["hero_stat:p017", "front", "GRAVE ROBBER", "I", 11, 1, 3],
   ["hero_stat:p017", "back", "GRAVE ROBBER", "II", 15, 2, 3],
@@ -24,7 +24,7 @@ const PRINT_FACES = [
   ["hero_stat:p020", "front", "OCCULTIST", "III", 18, 3, 3],
 ] as const;
 
-const BLOCKING_ICONS = ["e61ed317de", "8cbe7d6703", "a8c4b25b4e"] as const;
+const LIMITED_ICONS = ["e61ed317de", "8cbe7d6703", "a8c4b25b4e"] as const;
 
 function face(rawId: string, side: "front" | "back") {
   const card = raw.cards.find((c) => c.id === rawId)!;
@@ -53,7 +53,7 @@ function speedCount(f: NonNullable<ReturnType<typeof face>>) {
   }).length;
 }
 
-it("印刷raw六面Life/Dodge/Speed与身份交叉核实；Q-97未批前不进规范化池", () => {
+it("印刷raw六面Life/Dodge/Speed与身份交叉核实；R-095后六面入库且attributesVerified", () => {
   for (const [rawId, side, name, levelMark, life, dodge, speed] of PRINT_FACES) {
     const f = face(rawId, side);
     expect(f.spans.some((s) => s.t === name)).toBe(true);
@@ -62,17 +62,23 @@ it("印刷raw六面Life/Dodge/Speed与身份交叉核实；Q-97未批前不进�
     expect(printedNumber(f, DODGE)).toBe(dodge);
     expect(speedCount(f)).toBe(speed);
   }
-  expect(built.cards.some((c) => ["GRAVE ROBBER", "OCCULTIST"].includes(c.name))).toBe(false);
-  expect(built.cards).toHaveLength(18);
+  const cards = built.cards.filter((c) => ["GRAVE ROBBER", "OCCULTIST"].includes(c.name));
+  expect(cards).toHaveLength(6);
+  expect(
+    cards.every((c) => c.attributesVerified && c.approval === "kyries_review_2026-10-18"),
+  ).toBe(true);
+  expect(built.cards).toHaveLength(24);
+  expect(built.cards.some((c) => c.name === "JESTER")).toBe(false);
 });
 
-it("阻断防御入库的三枚图标保持词典unreviewed；左右栏与印刷一致（R-048）", () => {
-  for (const iconId of BLOCKING_ICONS) {
+it("三枚限定图标保持词典unreviewed；左右栏与印刷一致；Jester同hash不入库（R-048/R-095）", () => {
+  for (const iconId of LIMITED_ICONS) {
     expect(dictionary.icons.find((i) => i.iconId === iconId)).toMatchObject({
       status: "unreviewed",
       key: `unknown_${iconId}`,
     });
   }
+  expect(face("hero_stat:p011", "front").icons.some((i) => i.iconId === "8cbe7d6703")).toBe(true);
   const defence: ReadonlyArray<readonly [string, "front" | "back", readonly string[]]> = [
     ["hero_stat:p017", "front", ["40bb356305"]],
     ["hero_stat:p017", "back", ["e61ed317de", "de6f50b39b"]],

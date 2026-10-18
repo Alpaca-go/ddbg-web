@@ -17,7 +17,7 @@ it("R-081八卡独立黄金表：完整左右栏，不把Shuffle/Disease当作�
       .filter(
         (c) =>
           c.verified_higher_condition_defence &&
-          !["BOUNTY HUNTER", "PLAGUE DOCTOR"].includes(c.name),
+          !["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].includes(c.name),
       )
       .map((c) => [
         c.id,
@@ -38,7 +38,11 @@ it("R-081八卡独立黄金表：完整左右栏，不把Shuffle/Disease当作�
     cards.filter((c) => c.level === 1).every((c) => !c.verified_higher_condition_defence),
   ).toBe(true);
   expect(
-    cards.filter((c) => c.verified_condition_defence && c.name !== "PLAGUE DOCTOR"),
+    cards.filter(
+      (c) =>
+        c.verified_condition_defence &&
+        !["PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].includes(c.name),
+    ),
   ).toHaveLength(5);
   expect(cards.find((c) => c.id === "hero_stat:p001:back")!.verification.reasons).toContain(
     "icon:7034784ee1",

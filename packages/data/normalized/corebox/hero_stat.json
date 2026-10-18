@@ -3489,6 +3489,1222 @@
      "icon:8510428636"
     ]
    }
+  },
+  {
+   "rawId": "hero_stat:p017",
+   "face": "front",
+   "name": "GRAVE ROBBER",
+   "level": 1,
+   "life": 11,
+   "dodge": 1,
+   "speed": 3,
+   "id": "hero_stat:p017:front",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
+    "page": 17
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-18",
+   "verified_buff_defence": {
+    "resistant": false,
+    "immune": false,
+    "source": "print_front"
+   },
+   "verified_condition_defence": {
+    "resistances": [
+     "blight"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-18"
+   },
+   "lines": [
+    "{icon:f9b2a22c96}",
+    "I",
+    "{icon:61fd969d50} GRAVE ROBBER",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 1 {icon:9534ad5184} 11 {icon:4648c9e5ec} {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities",
+    "{icon:40bb356305}",
+    "Hamlet Skill: Pilfer",
+    "Draw a {icon:79084a2922} ."
+   ],
+   "icons": [
+    {
+     "iconId": "f9b2a22c96",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Grave Robber (hero stat card)",
+     "meaning_zh": "英雄头像：盗墓者（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "40bb356305",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "blight",
+     "kind": "status",
+     "meaning_en": "Blight (hero stat card, large)",
+     "meaning_zh": "枯萎（英雄属性卡，大）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "79084a2922",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_79084a2922",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:79084a2922"
+    ]
+   }
+  },
+  {
+   "rawId": "hero_stat:p017",
+   "face": "back",
+   "name": "GRAVE ROBBER",
+   "level": 2,
+   "life": 15,
+   "dodge": 2,
+   "speed": 3,
+   "id": "hero_stat:p017:back",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
+    "page": 17
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-18",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "blight",
+     "debuff"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-10-18"
+   },
+   "lines": [
+    "{icon:f9b2a22c96}",
+    "II",
+    "{icon:61fd969d50}",
+    "GRAVE ROBBER",
+    "{icon:61fd969d50} {icon:ea576f3383} {icon:7a472f5d6f} 2 {icon:9534ad5184} 15 {icon:4648c9e5ec} {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities",
+    "{icon:e61ed317de} {icon:de6f50b39b}",
+    "Hamlet Skill: Pilfer",
+    "Draw a {icon:79084a2922} ."
+   ],
+   "icons": [
+    {
+     "iconId": "f9b2a22c96",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Grave Robber (hero stat card)",
+     "meaning_zh": "英雄头像：盗墓者（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "de6f50b39b",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "debuff",
+     "kind": "status",
+     "meaning_en": "Debuff",
+     "meaning_zh": "减益",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e61ed317de",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_e61ed317de",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "79084a2922",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_79084a2922",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:79084a2922",
+     "icon:e61ed317de"
+    ]
+   }
+  },
+  {
+   "rawId": "hero_stat:p018",
+   "face": "front",
+   "name": "GRAVE ROBBER",
+   "level": 3,
+   "life": 19,
+   "dodge": 3,
+   "speed": 3,
+   "id": "hero_stat:p018:front",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
+    "page": 18
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-18",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "bleed",
+     "blight",
+     "debuff"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-18"
+   },
+   "lines": [
+    "{icon:f9b2a22c96}",
+    "III",
+    "{icon:23cc2e3363}",
+    "{icon:61fd969d50} GRAVE ROBBER",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 3 {icon:9534ad5184} 19 {icon:4648c9e5ec} {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities",
+    "{icon:61fd969d50}",
+    "{icon:b942cddccd} {icon:e61ed317de} {icon:de6f50b39b}",
+    "Hamlet Skill: Pilfer",
+    "Draw a {icon:79084a2922} ."
+   ],
+   "icons": [
+    {
+     "iconId": "f9b2a22c96",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Grave Robber (hero stat card)",
+     "meaning_zh": "英雄头像：盗墓者（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "23cc2e3363",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "de6f50b39b",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "debuff",
+     "kind": "status",
+     "meaning_en": "Debuff",
+     "meaning_zh": "减益",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "b942cddccd",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (hero stat card)",
+     "meaning_zh": "流血（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e61ed317de",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_e61ed317de",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "79084a2922",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_79084a2922",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:79084a2922",
+     "icon:e61ed317de"
+    ]
+   }
+  },
+  {
+   "rawId": "hero_stat:p019",
+   "face": "front",
+   "name": "OCCULTIST",
+   "level": 1,
+   "life": 10,
+   "dodge": 1,
+   "speed": 2,
+   "id": "hero_stat:p019:front",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
+    "page": 19
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-18",
+   "verified_buff_defence": {
+    "resistant": false,
+    "immune": false,
+    "source": "print_front"
+   },
+   "verified_condition_defence": {
+    "resistances": [
+     "debuff"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-18"
+   },
+   "lines": [
+    "{icon:164f6dde5a}",
+    "I",
+    "{icon:61fd969d50} OCCULTIST",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 1 {icon:9534ad5184} 10 {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities",
+    "{icon:8cbe7d6703}",
+    "Hamlet Skill: Dark Ritual",
+    "Self {icon:a84ac4c016} +1,",
+    "{icon:7616568d52} : {icon:e8a4b7eebf} {icon:20ffe98e2d} 2 , {icon:9d58d3d431} -2, {icon:2af41c1ca4} 3t."
+   ],
+   "icons": [
+    {
+     "iconId": "164f6dde5a",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Occultist (hero stat card)",
+     "meaning_zh": "英雄头像：神秘学者（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8cbe7d6703",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_8cbe7d6703",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a84ac4c016",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9d58d3d431",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (amount follows)",
+     "meaning_zh": "压力（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e8a4b7eebf",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage_or_heal_combined_marker",
+     "kind": "other",
+     "meaning_en": "Damage-or-Heal combined marker (red burst + green cross) – confirm",
+     "meaning_zh": "伤害/治疗组合标记（红色爆发+绿十字）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "2af41c1ca4",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "buff",
+     "kind": "status",
+     "meaning_en": "Buff",
+     "meaning_zh": "增益",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "20ffe98e2d",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal (amount printed inside)",
+     "meaning_zh": "治疗（图标内数字）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:8cbe7d6703"
+    ]
+   }
+  },
+  {
+   "rawId": "hero_stat:p019",
+   "face": "back",
+   "name": "OCCULTIST",
+   "level": 2,
+   "life": 14,
+   "dodge": 2,
+   "speed": 2,
+   "id": "hero_stat:p019:back",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
+    "page": 19
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-18",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "bleed",
+     "debuff"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-10-18"
+   },
+   "lines": [
+    "{icon:164f6dde5a}",
+    "II",
+    "{icon:61fd969d50}",
+    "OCCULTIST",
+    "{icon:61fd969d50}",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 2 {icon:9534ad5184} 14 {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities",
+    "{icon:b942cddccd} {icon:a8c4b25b4e}",
+    "Hamlet Skill: Dark Ritual",
+    "Self {icon:a84ac4c016} +1,",
+    "{icon:7616568d52} : {icon:e8a4b7eebf} {icon:20ffe98e2d} 4 , {icon:9d58d3d431} -2, {icon:2af41c1ca4} 3t."
+   ],
+   "icons": [
+    {
+     "iconId": "164f6dde5a",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Occultist (hero stat card)",
+     "meaning_zh": "英雄头像：神秘学者（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a8c4b25b4e",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_a8c4b25b4e",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b942cddccd",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (hero stat card)",
+     "meaning_zh": "流血（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a84ac4c016",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9d58d3d431",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (amount follows)",
+     "meaning_zh": "压力（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e8a4b7eebf",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage_or_heal_combined_marker",
+     "kind": "other",
+     "meaning_en": "Damage-or-Heal combined marker (red burst + green cross) – confirm",
+     "meaning_zh": "伤害/治疗组合标记（红色爆发+绿十字）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "2af41c1ca4",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "buff",
+     "kind": "status",
+     "meaning_en": "Buff",
+     "meaning_zh": "增益",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "20ffe98e2d",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal (amount printed inside)",
+     "meaning_zh": "治疗（图标内数字）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:a8c4b25b4e"
+    ]
+   }
+  },
+  {
+   "rawId": "hero_stat:p020",
+   "face": "front",
+   "name": "OCCULTIST",
+   "level": 3,
+   "life": 18,
+   "dodge": 3,
+   "speed": 3,
+   "id": "hero_stat:p020:front",
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
+    "page": 20
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-18",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "bleed",
+     "blight",
+     "debuff"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-10-18"
+   },
+   "lines": [
+    "{icon:164f6dde5a}",
+    "III",
+    "{icon:23cc2e3363}",
+    "{icon:61fd969d50} OCCULTIST",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 3 {icon:9534ad5184} 18 {icon:4648c9e5ec} {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities",
+    "{icon:61fd969d50}",
+    "{icon:b942cddccd} {icon:e61ed317de} {icon:de6f50b39b}",
+    "Hamlet Skill: Dark Ritual",
+    "Self {icon:a84ac4c016} +1,",
+    "{icon:7616568d52} : {icon:e8a4b7eebf} {icon:20ffe98e2d} 5 , {icon:9d58d3d431} -2, {icon:4f7549c1b8} 3t."
+   ],
+   "icons": [
+    {
+     "iconId": "164f6dde5a",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Occultist (hero stat card)",
+     "meaning_zh": "英雄头像：神秘学者（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "23cc2e3363",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "de6f50b39b",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "debuff",
+     "kind": "status",
+     "meaning_en": "Debuff",
+     "meaning_zh": "减益",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "b942cddccd",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (hero stat card)",
+     "meaning_zh": "流血（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e61ed317de",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_e61ed317de",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a84ac4c016",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9d58d3d431",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress (amount follows)",
+     "meaning_zh": "压力（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e8a4b7eebf",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage_or_heal_combined_marker",
+     "kind": "other",
+     "meaning_en": "Damage-or-Heal combined marker (red burst + green cross) – confirm",
+     "meaning_zh": "伤害/治疗组合标记（红色爆发+绿十字）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4f7549c1b8",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_4f7549c1b8",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "20ffe98e2d",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal (amount printed inside)",
+     "meaning_zh": "治疗（图标内数字）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:4f7549c1b8",
+     "icon:e61ed317de"
+    ]
+   }
   }
  ]
 }

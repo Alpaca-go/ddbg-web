@@ -4,9 +4,17 @@ import { endAfterCasualties } from "../encounter";
 import { coreQuestSources } from "./core-quest";
 import { replacementStep } from "./replacement";
 
+/** 正式已核实额外替补（开局四人死后）：赏金猎人、瘟疫医生、盗墓者、神秘学者。 */
+export const VERIFIED_EXTRA_IDS = [
+  "hero_stat:p005:front",
+  "hero_stat:p013:front",
+  "hero_stat:p017:front",
+  "hero_stat:p019:front",
+] as const;
+
 /**
  * 从已进入战斗且可 finishDungeonBattle 的状态构造#236同款全灭交接，
- * 再按固定顺序公开准备赏金猎人与瘟疫医生。调用方负责提供真实部署后的战斗态。
+ * 再按固定顺序公开准备四名已核实额外替补。调用方负责提供真实部署后的战斗态。
  */
 export function prepareVerifiedWipeoutReplacements(battleState: GameState): {
   awaiting: GameState;
@@ -46,7 +54,7 @@ export function prepareVerifiedWipeoutReplacements(battleState: GameState): {
     game = result.state;
     commands.push(command);
   };
-  for (const id of ["hero_stat:p005:front", "hero_stat:p013:front"] as const) {
+  for (const id of VERIFIED_EXTRA_IDS) {
     step({ type: "prepareReplacementHero" });
     step({
       type: "resolveChoice",

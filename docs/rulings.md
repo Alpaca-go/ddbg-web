@@ -894,6 +894,19 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **依据 / 边界**：完整Hero STAT FRONT p13/p14、BACK p13，官方R10/R21/R29/R31/R33、规格书§2.4/§4.6/§6.5/§7/§9.4。批准限三属性面与左右防御栏，不覆盖七技能、村庄能力、开局选择或完整候选可用性；整卡其他未验证原因保留。
 - **关联待确认**：Q-96，confirmed；见[限定核对表](phase4-plague-doctor-review-2026-10-17.md) §2–3。
 
+### R-095
+
+- **编号**：R-095
+- **日期**：2026-10-18
+- **问题**：Grave Robber / Occultist 六面属性与完整左右防御栏；三枚词典 unreviewed 图标需按 R-088/R-094 模式做**具体卡面位置**限定命名，不改全局词典。
+- **裁定 / 数据批准**：Kyries 于 2026-10-18 在聊天确认 Q-97 为 LIMITED per-card mappings（同 R-088/R-094 风格），不是全局词典升级。印刷 Life/Dodge/Speed 见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md) §2。限定映射仅如下：
+  - `e61ed317de` = Blight 抗性，仅 `hero_stat:p017:back` 左栏 #1（GR II）、`hero_stat:p018:front` 左栏 #2（GR III）、`hero_stat:p020:front` 左栏 #2（Occ III）。
+  - `8cbe7d6703` = Debuff 抗性，仅 `hero_stat:p019:front` 左栏唯一抗性（Occ I）。**同 hash 出现在 Jester I（`hero_stat:p011:front`）不在本批准范围内，Jester 保持未核实。**
+  - `a8c4b25b4e` = Debuff 抗性，仅 `hero_stat:p019:back` 左栏 #2（Occ II，Bleed 之后）。
+  其余已 confirmed 图标按既有词典读取：GR I 左栏 Blight；GR II/III、Occ II/III 的 Debuff/Bleed 等同栏 confirmed 图标。六面右栏均为空。
+- **依据 / 边界**：官方 R10/R21/R29/R31/R33、规格书 §2.4/§4.6/§6.5/§7/§9.4、R-001/R-048；Kyries 聊天确认。批准限六属性面与上表位置的防御解释；不改全局词典、不清除整卡未验证原因；不覆盖 I 级技能效果接线、Pilfer / Dark Ritual 村庄能力，也不把 Jester 或其他英雄同 hash 图标一并命名。
+- **关联待确认**：Q-97，confirmed；见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md)。
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。
@@ -1219,4 +1232,4 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### Q-97
 
 - **问题 / 来源**：Kyries选定Grave Robber与Occultist为下一批替补属性/防御候选。印刷raw已核实六面Life/Dodge/Speed（见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md) §2）；完整左右防御栏仍有三枚词典unreviewed图标：`e61ed317de`（GR II/III、Occ III左栏）、`8cbe7d6703`（Occ I唯一抗性）、`a8c4b25b4e`（Occ II左栏第二枚）。需按R-088/R-094模式做**具体卡面位置**限定命名，不改全局词典。云环境无印刷页图像，不能目视提出候选含义。
-- **处理 / 状态**：pending（2026-10-18）。未入库、未扩白名单；等Kyries对照当前版Hero STAT FRONT p17–20 / BACK p17/p19与官方R21后批准限定表，再记R并接线。
+- **处理 / 状态**：confirmed（R-095，2026-10-18）。Kyries 在聊天确认 LIMITED per-card mappings：`e61ed317de`→Blight（GR II 左#1、GR III 左#2、Occ III 左#2）；`8cbe7d6703`→Debuff（仅 Occ I）；`a8c4b25b4e`→Debuff（Occ II 左#2）。Jester I 同 hash 不在批准范围。不改全局词典。
