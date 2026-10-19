@@ -8,6 +8,7 @@
 pip install -r requirements.txt
 node ../../scripts/export-print-card-art.mjs --input /path/to/EN_FILES --out .cache/print-card-art
 node ../../scripts/build-print-monster-art-map.mjs
+node ../../scripts/build-print-hero-skill-art-map.mjs
 ```
 
-审阅 CSV 与 Web 映射说明：[docs/phase4-print-monster-art-map-2026-10-19.md](../../../docs/phase4-print-monster-art-map-2026-10-19.md)
+审阅 CSV 与 Web 映射说明：[怪物](docs/phase4-print-monster-art-map-2026-10-19.md)、[英雄技能](docs/phase4-print-hero-skill-art-map-2026-10-19.md)（相对仓库根 `docs/`）。

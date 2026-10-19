@@ -452,13 +452,17 @@ button.card-face:hover:enabled {
   width: 14rem;
 }
 .card-face__sprite,
-.card-face__placeholder {
+.card-face__placeholder,
+.card-face__print {
   display: block;
   width: 100%;
   aspect-ratio: 28 / 19;
   background-color: #10100e;
   background-repeat: no-repeat;
   border-bottom: 1px solid #3b3931;
+}
+.card-face__print {
+  object-fit: contain;
 }
 .card-face__placeholder {
   display: grid;
