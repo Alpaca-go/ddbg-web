@@ -1,5 +1,5 @@
-import explorationMap from "./exploration-art-map.json";
 import printMap from "./exploration-print-art-map.json";
+import roomTokenPrintMap from "./room-token-print-art-map.json";
 import { CARD_ART_CACHE_PUBLIC_PREFIX } from "./resolve-card-art";
 
 export type PrintExplorationArtEntry = {
@@ -27,8 +27,12 @@ export type RoomCardArtEntry = PrintExplorationArtEntry & {
 
 export type RoomTokenArtEntry = {
   readonly kind: string;
-  readonly imageUrl: string;
-  readonly cacheName: string;
+  readonly face: string;
+  readonly pngRel: string;
+  readonly printPage: number;
+  readonly primaryPdf: string;
+  readonly matchMethod: string;
+  readonly reviewVerdict: string;
 };
 
 const printById = new Map<string, PrintExplorationArtEntry>(
@@ -52,7 +56,9 @@ for (const card of printMap.cards as PrintExplorationArtEntry[]) {
 }
 
 const tokenByKind = new Map<string, RoomTokenArtEntry>(
-  (explorationMap.roomTokens as RoomTokenArtEntry[]).map((e) => [e.kind, e]),
+  (roomTokenPrintMap.tokens as RoomTokenArtEntry[])
+    .filter((e) => e.face === "revealed")
+    .map((e) => [e.kind, e]),
 );
 
 /** Public URL path served by Vite from the gitignored print cache dir. */
@@ -89,8 +95,8 @@ export function cachedPrintExplorationUrl(entry: Pick<PrintExplorationArtEntry, 
 }
 
 export function explorationArtMapMeta(): {
-  readonly ttsSchema: string;
   readonly printSchema: string;
+  readonly roomTokenPrintSchema: string;
   readonly questMapCount: number;
   readonly roomCardCount: number;
   readonly roomTokenCount: number;
@@ -98,13 +104,16 @@ export function explorationArtMapMeta(): {
   readonly pendingConfirmation: readonly string[];
 } {
   return {
-    ttsSchema: explorationMap.schema,
     printSchema: printMap.schema,
+    roomTokenPrintSchema: roomTokenPrintMap.schema,
     questMapCount: questById.size,
     roomCardCount: roomCardById.size,
-    roomTokenCount: explorationMap.roomTokens.length,
+    roomTokenCount: tokenByKind.size,
     printCardCount: printMap.cards.length,
-    pendingConfirmation: [...explorationMap.pendingConfirmation, ...printMap.pendingConfirmation],
+    pendingConfirmation: [
+      ...printMap.pendingConfirmation,
+      ...roomTokenPrintMap.pendingConfirmation,
+    ],
   };
 }
 
@@ -119,5 +128,17 @@ export function printExplorationArtMapMeta(): {
     cardCount: printMap.cards.length,
     uiCardCount: printMap.source.uiCardCount,
     pendingConfirmation: printMap.pendingConfirmation,
+  };
+}
+
+export function roomTokenPrintArtMapMeta(): {
+  readonly schema: string;
+  readonly tokenCount: number;
+  readonly pendingConfirmation: readonly string[];
+} {
+  return {
+    schema: roomTokenPrintMap.schema,
+    tokenCount: roomTokenPrintMap.tokens.length,
+    pendingConfirmation: roomTokenPrintMap.pendingConfirmation,
   };
 }

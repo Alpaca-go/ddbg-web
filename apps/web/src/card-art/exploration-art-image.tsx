@@ -1,23 +1,19 @@
 import { useState } from "react";
 import {
   cachedPrintExplorationUrl,
-  cachedRasterUrl,
   type PrintExplorationArtEntry,
   type RoomTokenArtEntry,
 } from "./resolve-exploration-art";
 
-type TtsRasterEntry = Pick<RoomTokenArtEntry, "cacheName">;
-type PrintRasterEntry = Pick<PrintExplorationArtEntry, "pngRel">;
+type PrintRasterEntry =
+  Pick<PrintExplorationArtEntry, "pngRel"> | Pick<RoomTokenArtEntry, "pngRel">;
 
-function initialUrl(entry: TtsRasterEntry | PrintRasterEntry): string {
-  if ("pngRel" in entry && entry.pngRel) {
-    return cachedPrintExplorationUrl(entry);
-  }
-  return cachedRasterUrl((entry as TtsRasterEntry).cacheName, "png");
+function initialUrl(entry: PrintRasterEntry): string {
+  return cachedPrintExplorationUrl(entry);
 }
 
 /**
- * Cached raster for exploration UI: print PNG (QuestMap) or TTS cache (room tokens).
+ * Cached raster for exploration UI: print PNG (QuestMap, room cards, room tokens).
  */
 export function ExplorationArtImage({
   entry,
@@ -25,16 +21,14 @@ export function ExplorationArtImage({
   className = "",
   testId,
 }: {
-  readonly entry: TtsRasterEntry | PrintRasterEntry;
+  readonly entry: PrintRasterEntry;
   readonly alt: string;
   readonly className?: string;
   readonly testId?: string;
 }) {
-  const [url, setUrl] = useState(() => initialUrl(entry));
   const [failed, setFailed] = useState(false);
-  const isPrint = "pngRel" in entry && Boolean(entry.pngRel);
 
-  if (failed) {
+  if (failed || !entry.pngRel) {
     return (
       <div
         className={`exploration-art-placeholder ${className}`}
@@ -50,18 +44,12 @@ export function ExplorationArtImage({
 
   return (
     <img
-      src={url}
+      src={initialUrl(entry)}
       alt={alt}
       className={className}
       data-testid={testId}
-      data-card-art={isPrint ? "print" : "cached"}
-      onError={() => {
-        if (!isPrint && url.endsWith(".png")) {
-          setUrl(cachedRasterUrl((entry as TtsRasterEntry).cacheName, "jpg"));
-          return;
-        }
-        setFailed(true);
-      }}
+      data-card-art="print"
+      onError={() => setFailed(true)}
     />
   );
 }

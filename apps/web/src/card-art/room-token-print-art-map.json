@@ -1,0 +1,100 @@
+{
+  "schema": "ddbg.print-room-token-art-map.v1",
+  "source": {
+    "geometry": "PANTONE Rubine Red C Separation stroke, roundrect 61.37pt; punchboard 200x300 p3 (R-048)",
+    "exportScript": "tools/pipeline/print-card-art/export_room_tokens.py",
+    "notes": [
+      "pngRel slugs from export_room_tokens.py; run export then build.",
+      "Production raster should omit Separation plate; clip uses inset die-cut bbox.",
+      "Bleed optional via export --crop bleed (~82.2pt fill disc from PDF).",
+      "UI uses revealed kinds only; door face reserved for unrevealed presentation."
+    ],
+    "reviewedAt": "2026-10-19"
+  },
+  "tokens": [
+    {
+      "kind": "curio",
+      "face": "revealed",
+      "pngRel": "png/room-token-curio_revealed.png",
+      "primaryPdf": "DD_EN_COREBOX_PUNCHBOARD_200x300_BACK_V2.pdf",
+      "printPage": 3,
+      "imageXref": 171,
+      "matchMethod": "rubine_diecut_bbox",
+      "reviewVerdict": "geometry_evidence_2026-10-19"
+    },
+    {
+      "kind": "dark",
+      "face": "revealed",
+      "pngRel": "png/room-token-dark_revealed.png",
+      "primaryPdf": "DD_EN_COREBOX_PUNCHBOARD_200x300_BACK_V2.pdf",
+      "printPage": 3,
+      "imageXref": 169,
+      "matchMethod": "rubine_diecut_bbox",
+      "reviewVerdict": "geometry_evidence_2026-10-19"
+    },
+    {
+      "kind": "empty",
+      "face": "revealed",
+      "pngRel": "png/room-token-empty_revealed.png",
+      "primaryPdf": "DD_EN_COREBOX_PUNCHBOARD_200x300_BACK_V2.pdf",
+      "printPage": 3,
+      "imageXref": 167,
+      "matchMethod": "rubine_diecut_bbox",
+      "reviewVerdict": "geometry_evidence_2026-10-19"
+    },
+    {
+      "kind": "lair",
+      "face": "revealed",
+      "pngRel": "png/room-token-lair_revealed.png",
+      "primaryPdf": "DD_EN_COREBOX_PUNCHBOARD_200x300_BACK_V2.pdf",
+      "printPage": 3,
+      "imageXref": 175,
+      "matchMethod": "rubine_diecut_bbox",
+      "reviewVerdict": "geometry_evidence_2026-10-19"
+    },
+    {
+      "kind": "objective",
+      "face": "revealed",
+      "pngRel": "png/room-token-objective_revealed.png",
+      "primaryPdf": "DD_EN_COREBOX_PUNCHBOARD_200x300_BACK_V2.pdf",
+      "printPage": 3,
+      "imageXref": 165,
+      "matchMethod": "rubine_diecut_bbox",
+      "reviewVerdict": "geometry_evidence_2026-10-19"
+    },
+    {
+      "kind": "trap",
+      "face": "revealed",
+      "pngRel": "png/room-token-trap_revealed.png",
+      "primaryPdf": "DD_EN_COREBOX_PUNCHBOARD_200x300_BACK_V2.pdf",
+      "printPage": 3,
+      "imageXref": 173,
+      "matchMethod": "rubine_diecut_bbox",
+      "reviewVerdict": "geometry_evidence_2026-10-19"
+    },
+    {
+      "kind": "treasure",
+      "face": "revealed",
+      "pngRel": "png/room-token-treasure_revealed.png",
+      "primaryPdf": "DD_EN_COREBOX_PUNCHBOARD_200x300_BACK_V2.pdf",
+      "printPage": 3,
+      "imageXref": 163,
+      "matchMethod": "rubine_diecut_bbox",
+      "reviewVerdict": "geometry_evidence_2026-10-19"
+    },
+    {
+      "kind": "door",
+      "face": "unrevealed",
+      "pngRel": "png/room-token-door_unrevealed.png",
+      "primaryPdf": "DD_EN_COREBOX_PUNCHBOARD_200x300_FRONT_V2.pdf",
+      "printPage": 3,
+      "imageXref": 192,
+      "matchMethod": "rubine_diecut_bbox",
+      "reviewVerdict": "geometry_evidence_2026-10-19"
+    }
+  ],
+  "pendingConfirmation": [
+    "COM punchboard room tokens not exported in this slice.",
+    "Battle Room Tile faces (room_tile_geometry) not mapped."
+  ]
+}

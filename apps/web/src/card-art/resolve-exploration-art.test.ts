@@ -1,15 +1,15 @@
 import { describe, expect, it } from "vitest";
-import explorationMap from "./exploration-art-map.json";
 import printMap from "./exploration-print-art-map.json";
+import roomTokenMap from "./room-token-print-art-map.json";
 import {
   cachedPrintExplorationUrl,
-  cachedRasterUrl,
   explorationArtMapMeta,
   lookupQuestMapArt,
   lookupQuestMapArtByPage,
   lookupRoomCardArt,
   lookupRoomTokenArt,
   printExplorationArtMapMeta,
+  roomTokenPrintArtMapMeta,
 } from "./resolve-exploration-art";
 
 describe("print exploration art map (Kyries CSV)", () => {
@@ -51,25 +51,27 @@ describe("print exploration art map (Kyries CSV)", () => {
   });
 });
 
-describe("TTS exploration art map (room tokens only)", () => {
-  it("covers 7 room token kinds from committed TTS URLs", () => {
+describe("print room token art map (punchboard Rubine die-cut)", () => {
+  it("covers 7 revealed kinds with print pngRel", () => {
+    const meta = roomTokenPrintArtMapMeta();
+    expect(meta.schema).toBe("ddbg.print-room-token-art-map.v1");
+    expect(meta.tokenCount).toBe(8);
+    const revealed = roomTokenMap.tokens.filter((t) => t.face === "revealed");
+    expect(revealed).toHaveLength(7);
+    for (const token of revealed) {
+      expect(token.pngRel).toMatch(/^png\/room-token-.+_revealed\.png$/);
+      expect(lookupRoomTokenArt(token.kind)?.pngRel).toBe(token.pngRel);
+      expect(cachedPrintExplorationUrl(token)).toBe(`/print-card-art/${token.pngRel}`);
+    }
+  });
+
+  it("aggregates exploration meta without TTS token schema", () => {
     const meta = explorationArtMapMeta();
-    expect(meta.ttsSchema).toBe("ddbg.tts-exploration-art-map.v1");
     expect(meta.printSchema).toBe("ddbg.print-exploration-art-map.v1");
+    expect(meta.roomTokenPrintSchema).toBe("ddbg.print-room-token-art-map.v1");
     expect(meta.questMapCount).toBe(14);
     expect(meta.roomCardCount).toBe(25);
     expect(meta.roomTokenCount).toBe(7);
-    for (const token of explorationMap.roomTokens) {
-      expect(token.imageUrl).toMatch(/^https:\/\/steamusercontent/);
-      expect(lookupRoomTokenArt(token.kind)?.cacheName).toBe(token.cacheName);
-    }
-    expect(cachedRasterUrl("token-empty")).toBe("/tts-card-art/token-empty.png");
-  });
-
-  it("records pending items for tokens and out-of-UI print rows", () => {
-    expect(explorationArtMapMeta().pendingConfirmation.length).toBeGreaterThan(0);
-    expect(
-      printExplorationArtMapMeta().pendingConfirmation.some((s) => s.includes("room_token")),
-    ).toBe(true);
+    expect(meta.pendingConfirmation.length).toBeGreaterThan(0);
   });
 });
