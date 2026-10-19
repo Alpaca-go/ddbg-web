@@ -24,9 +24,7 @@ const result = spawnSync("python3", [runPy, ...userArgs], {
 
 if (result.error) {
   console.error(result.error.message);
-  console.error(
-    "Install deps: pip install -r tools/pipeline/print-card-art/requirements.txt",
-  );
+  console.error("Install deps: pip install -r tools/pipeline/print-card-art/requirements.txt");
   process.exit(1);
 }
 process.exit(result.status ?? 1);

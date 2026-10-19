@@ -17,6 +17,7 @@
     "build-tts-hero-skill-face-map": "node ./scripts/build-tts-hero-skill-face-map.mjs",
     "build-tts-exploration-art-map": "node ./scripts/build-tts-exploration-art-map.mjs",
     "cache-tts-card-art": "node ./scripts/cache-tts-card-art.mjs",
-    "export-print-card-art": "node ./scripts/export-print-card-art.mjs"
+    "export-print-card-art": "node ./scripts/export-print-card-art.mjs",
+    "build-print-monster-art-map": "node ./scripts/build-print-monster-art-map.mjs"
   }
 }

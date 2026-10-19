@@ -318,6 +318,52 @@ small {
   flex-shrink: 0;
   border: 1px solid #47453b;
 }
+.monster-card-face {
+  flex-shrink: 0;
+  border: 1px solid #47453b;
+  border-radius: 2px;
+  overflow: hidden;
+  background: #10100e;
+}
+.monster-card-face--chip {
+  width: 2.35rem;
+}
+.monster-card-face--chip .monster-card-face__sprite,
+.monster-card-face--chip .monster-card-face__placeholder,
+.monster-card-face--chip .monster-card-face__print {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+.monster-card-face--md {
+  width: 10rem;
+  margin: 0.5rem 0;
+}
+.monster-card-face--md .monster-card-face__sprite,
+.monster-card-face--md .monster-card-face__placeholder,
+.monster-card-face--md .monster-card-face__print {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+.monster-card-face__sprite {
+  background-repeat: no-repeat;
+  background-color: #10100e;
+}
+.monster-card-face__placeholder {
+  display: grid;
+  place-items: center;
+  font-size: 0.55rem;
+  color: #888;
+  background: #1a1916;
+}
+.monster-card-face__caption {
+  font-size: 0.7rem;
+  padding: 0.25rem 0.35rem;
+  text-align: center;
+}
 .battle-position-art-placeholder {
   width: 2rem;
   height: 2rem;
