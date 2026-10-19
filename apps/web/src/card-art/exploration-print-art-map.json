@@ -10,7 +10,7 @@
       "Kyries 2026-10-19: skip human review page; PDF page-order exports trusted.",
       "pngRel paths are relative to .cache/print-card-art/ after export-print-card-art.mjs.",
       "Room cards + QuestMap UI use print PNG only (no TTS fallback); see resolve-exploration-art.ts.",
-      "room_token not in CSV (punchboard only, R-048); tokens stay on exploration-art-map.json TTS.",
+      "room_token: per-kind PNG via export_room_tokens.py + room-token-print-art-map.json.",
       "curio / trinket / quest rows committed for pipeline parity; exploration UI is text-only today.",
       "R-048: raster uses TrimBox / 3 mm bleed from print pipeline; no invented crop in UI."
     ]
@@ -1091,7 +1091,7 @@
     }
   ],
   "pendingConfirmation": [
-    "room_token ×7: print export is punchboard sheet only; per-token PNG export or TTS until confirmed.",
+    "room_token per-kind PNG: see room-token-print-art-map.json and docs/phase4-print-room-token-art-2026-10-19.md.",
     "Battle Room Tile faces (room_tile_geometry) not mapped.",
     "Corridor segment tiles not wired — web map has no corridor geometry."
   ]

@@ -45,4 +45,4 @@ node tools/pipeline/scripts/cache-tts-card-art.mjs
 
 ## 范围外
 
-探索：房间牌 + QuestMap 印刷见 [phase4-print-exploration-art-map-2026-10-19.md](phase4-print-exploration-art-map-2026-10-19.md)；房间代币仍 TTS，总览 [phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md)。战斗 Room Tile 板块、走廊段、Boss 全量、Stygian、R-048 效果图标切图仍在本文件范围外。
+探索：房间牌 + QuestMap + 房间代币印刷见 [phase4-print-exploration-art-map-2026-10-19.md](phase4-print-exploration-art-map-2026-10-19.md)、[phase4-print-room-token-art-2026-10-19.md](phase4-print-room-token-art-2026-10-19.md)；总览 [phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md)。战斗 Room Tile 板块、走廊段、Boss 全量、Stygian、R-048 效果图标切图仍在本文件范围外。

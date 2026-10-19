@@ -17,16 +17,12 @@ import { pipeline } from "node:stream/promises";
 
 const root = resolve(fileURLToPath(new URL("../../../", import.meta.url)));
 const heroMapPath = resolve(root, "apps/web/src/card-art/hero-skill-face-map.json");
-const explorationMapPath = resolve(root, "apps/web/src/card-art/exploration-art-map.json");
 const battlePositionMapPath = resolve(root, "apps/web/src/card-art/battle-position-art-map.json");
 const cacheDir = resolve(
   process.env.DDBG_TTS_CARD_ART_CACHE || resolve(root, ".cache/tts-card-art"),
 );
 
 const heroMap = JSON.parse(readFileSync(heroMapPath, "utf8"));
-const explorationMap = existsSync(explorationMapPath)
-  ? JSON.parse(readFileSync(explorationMapPath, "utf8"))
-  : null;
 const battlePositionMap = existsSync(battlePositionMapPath)
   ? JSON.parse(readFileSync(battlePositionMapPath, "utf8"))
   : null;
@@ -59,11 +55,6 @@ for (const [deckId, atlas] of Object.entries(heroMap.atlases || {})) {
   jobs.push(download(atlas.faceUrl, resolve(cacheDir, `face-${deckId}`)));
   if (atlas.backUrl) {
     jobs.push(download(atlas.backUrl, resolve(cacheDir, `back-${deckId}`)));
-  }
-}
-if (explorationMap) {
-  for (const token of explorationMap.roomTokens || []) {
-    jobs.push(download(token.imageUrl, resolve(cacheDir, token.cacheName)));
   }
 }
 if (battlePositionMap) {

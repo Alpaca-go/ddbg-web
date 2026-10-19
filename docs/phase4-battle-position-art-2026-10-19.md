@@ -34,7 +34,7 @@ node tools/pipeline/scripts/build-tts-battle-position-art-map.mjs \
 node tools/pipeline/scripts/cache-tts-card-art.mjs
 ```
 
-脚本会额外下载 `battle-position-art-map.json` 中的 color tile 与 hero token（并保留对 `hero-skill-face-map.json`、`exploration-art-map.json` 房间代币的处理）。
+脚本会额外下载 `battle-position-art-map.json` 中的 color tile 与 hero token（以及可选的历史 `hero-skill-face-map.json`）。房间代币已改印刷，见 [phase4-print-room-token-art-2026-10-19.md](phase4-print-room-token-art-2026-10-19.md)。
 
 ## UI 接入面
 

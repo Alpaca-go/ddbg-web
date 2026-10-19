@@ -20,6 +20,8 @@
     "export-print-card-art": "node ./scripts/export-print-card-art.mjs",
     "build-print-monster-art-map": "node ./scripts/build-print-monster-art-map.mjs",
     "build-print-hero-skill-art-map": "node ./scripts/build-print-hero-skill-art-map.mjs",
-    "build-print-exploration-art-map": "node ./scripts/build-print-exploration-art-map.mjs"
+    "build-print-exploration-art-map": "node ./scripts/build-print-exploration-art-map.mjs",
+    "export-print-room-tokens": "node ./scripts/export-print-room-tokens.mjs",
+    "build-print-room-token-art-map": "node ./scripts/build-print-room-token-art-map.mjs"
   }
 }
