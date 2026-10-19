@@ -1,8 +1,0 @@
-{
-  "schema": "ddbg.tts-monster-face-art-map.v1",
-  "cards": [],
-  "atlases": {},
-  "pendingConfirmation": [
-    "TTS monster atlas map not merged (PR #252); print PNG map is authoritative when .cache/print-card-art exists."
-  ]
-}
