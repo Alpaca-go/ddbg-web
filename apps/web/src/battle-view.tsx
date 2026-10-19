@@ -10,6 +10,7 @@ import { battleData } from "virtual:battle-data";
 import type { SandboxLayout } from "./battle-store";
 import { battleStep } from "./battle-step";
 import { CardFace } from "./card-art/card-face";
+import { BattleStanceTrack } from "./battle-stance-track";
 import { SkillCardText } from "./skill-card-text";
 import { SkillRequirements } from "./skill-requirements";
 import { SkillResults } from "./skill-results";
@@ -20,18 +21,6 @@ import { EncounterEventDetails } from "./encounter-event-details";
 import { provisionLabels, provisionEffectLabels } from "./provision-labels";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
-const stanceLabels = { aggressive: "进攻", defensive: "防御", ranged: "远程", support: "支援" };
-const statusLabels = {
-  bleed: "流血",
-  blight: "腐蚀",
-  stun: "眩晕",
-  buff: "增益",
-  debuff: "减益",
-  mark: "标记",
-  guard: "守护",
-  riposte: "反击",
-  protection: "防护",
-};
 export function BattleView({
   game,
   dispatch,
@@ -372,77 +361,7 @@ export function BattleView({
               );
             })}
           </div>
-          <h2 className="track-heading">姿态与生命</h2>
-          <div className="tracks">
-            {(["hero", "monster"] as const).map((side) => (
-              <div key={side}>
-                <h3>{side === "hero" ? "英雄" : "怪物"}</h3>
-                {stances.map((stance) => (
-                  <div className="stance-slot" key={stance}>
-                    <span>{stanceLabels[stance]}</span>
-                    {battle.entities
-                      .filter((e) => e.side === side && !e.dead && e.stance === stance)
-                      .map((e) => (
-                        <div key={e.id} data-testid={`entity-${e.id}`}>
-                          <strong>
-                            {entityName(e.id)}
-                            {actor?.id === e.id ? " ← 当前" : ""}
-                          </strong>
-                          <p>
-                            区域 {e.areaId} · 伤口 {e.wounds}/{e.life} · Dodge {e.dodge}
-                            {e.side === "hero"
-                              ? ` · 压力 ${e.stress}/10${e.wounds === e.life ? " · 死门" : ""}`
-                              : ""}
-                          </p>
-                          {!!e.statusStacks?.length && (
-                            <p className="muted">
-                              状态：
-                              {e.statusStacks
-                                .map(
-                                  (stack) =>
-                                    `${statusLabels[stack.kind]}${stack.amount === undefined ? "" : ` ${stack.amount}`} / ${stack.remaining}t`,
-                                )
-                                .join("；")}
-                            </p>
-                          )}
-                          {e.side === "hero" && !!(e.diseaseId || e.quirkIds?.length) && (
-                            <p className="muted" data-testid={`conditions-${e.id}`}>
-                              疾病：
-                              {battle.conditions?.diseases.find((c) => c.id === e.diseaseId)
-                                ?.name ?? "无"}{" "}
-                              · 怪癖：
-                              {e.quirkIds
-                                ?.map(
-                                  (id) =>
-                                    battle.conditions?.quirks.find((q) => q.id === id)?.name ?? id,
-                                )
-                                .join("、") || "无"}
-                            </p>
-                          )}
-                          {e.resolveCardId && (
-                            <p className="muted">
-                              意志卡：
-                              {battleData.resolveCards.find((card) => card.id === e.resolveCardId)
-                                ?.name ?? e.resolveCardId}{" "}
-                              · 压力红面
-                            </p>
-                          )}
-                        </div>
-                      ))}
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
-          {battle.entities.some((e) => e.dead) && (
-            <p className="muted">
-              阵亡：
-              {battle.entities
-                .filter((e) => e.dead)
-                .map((e) => entityName(e.id))
-                .join("、")}
-            </p>
-          )}
+          <BattleStanceTrack battle={battle} entityName={entityName} actorId={actor?.id} />
         </section>
         <aside className="panel actions" aria-label="行动面板">
           <h2>行动面板</h2>

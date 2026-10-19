@@ -49,4 +49,4 @@ node tools/pipeline/scripts/cache-tts-card-art.mjs
 
 ## 范围外
 
-战斗站位色块、印刷 PDF 裁切管线、Phase 5、热链 Steam CDN（仅本机缓存经 Vite 提供）。
+战斗站位色块见 [phase4-battle-position-art-2026-10-19.md](phase4-battle-position-art-2026-10-19.md)。印刷 PDF 裁切管线、Phase 5、热链 Steam CDN（仅本机缓存经 Vite 提供）。
