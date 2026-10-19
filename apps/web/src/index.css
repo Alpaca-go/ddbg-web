@@ -580,8 +580,17 @@ button.card-face:hover:enabled {
   flex: 0 0 auto;
 }
 .room-card-face .card-face__sprite,
-.room-card-face .card-face__placeholder {
+.room-card-face .card-face__placeholder,
+.room-card-face .card-face__print {
   aspect-ratio: 63 / 88;
+}
+.room-card-face .card-face__print {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  background-color: #10100e;
+  border-bottom: 1px solid #3b3931;
 }
 @media (max-width: 1000px) {
   .workspace {

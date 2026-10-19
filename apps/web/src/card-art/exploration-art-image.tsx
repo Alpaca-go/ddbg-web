@@ -1,14 +1,23 @@
 import { useState } from "react";
 import {
+  cachedPrintExplorationUrl,
   cachedRasterUrl,
-  type QuestMapArtEntry,
+  type PrintExplorationArtEntry,
   type RoomTokenArtEntry,
 } from "./resolve-exploration-art";
 
-type RasterEntry = Pick<QuestMapArtEntry | RoomTokenArtEntry, "cacheName">;
+type TtsRasterEntry = Pick<RoomTokenArtEntry, "cacheName">;
+type PrintRasterEntry = Pick<PrintExplorationArtEntry, "pngRel">;
+
+function initialUrl(entry: TtsRasterEntry | PrintRasterEntry): string {
+  if ("pngRel" in entry && entry.pngRel) {
+    return cachedPrintExplorationUrl(entry);
+  }
+  return cachedRasterUrl((entry as TtsRasterEntry).cacheName, "png");
+}
 
 /**
- * Full-bleed TTS image (quest map page or room token) from gitignored cache.
+ * Cached raster for exploration UI: print PNG (QuestMap) or TTS cache (room tokens).
  */
 export function ExplorationArtImage({
   entry,
@@ -16,13 +25,14 @@ export function ExplorationArtImage({
   className = "",
   testId,
 }: {
-  readonly entry: RasterEntry;
+  readonly entry: TtsRasterEntry | PrintRasterEntry;
   readonly alt: string;
   readonly className?: string;
   readonly testId?: string;
 }) {
-  const [url, setUrl] = useState(() => cachedRasterUrl(entry.cacheName, "png"));
+  const [url, setUrl] = useState(() => initialUrl(entry));
   const [failed, setFailed] = useState(false);
+  const isPrint = "pngRel" in entry && Boolean(entry.pngRel);
 
   if (failed) {
     return (
@@ -44,10 +54,10 @@ export function ExplorationArtImage({
       alt={alt}
       className={className}
       data-testid={testId}
-      data-card-art="cached"
+      data-card-art={isPrint ? "print" : "cached"}
       onError={() => {
-        if (url.endsWith(".png")) {
-          setUrl(cachedRasterUrl(entry.cacheName, "jpg"));
+        if (!isPrint && url.endsWith(".png")) {
+          setUrl(cachedRasterUrl((entry as TtsRasterEntry).cacheName, "jpg"));
           return;
         }
         setFailed(true);

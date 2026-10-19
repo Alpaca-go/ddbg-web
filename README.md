@@ -23,7 +23,7 @@ pnpm build
 
 ### 本地卡图缓存（可选）
 
-英雄技能与怪物卡面使用印刷 PNG（不入库）：映射见 `hero-skill-print-art-map.json`、`monster-print-art-map.json`，导出到 gitignored `.cache/print-card-art/`（见 [phase4-print-art-pipeline-2026-10-19.md](docs/phase4-print-art-pipeline-2026-10-19.md)）。探索与站位色条仍用 TTS Workshop atlas（`exploration-art-map.json` 等）：
+英雄技能、怪物卡面、探索房间牌与 QuestMap 使用印刷 PNG（不入库）：映射见 `hero-skill-print-art-map.json`、`monster-print-art-map.json`、`exploration-print-art-map.json`，导出到 gitignored `.cache/print-card-art/`（见 [phase4-print-art-pipeline-2026-10-19.md](docs/phase4-print-art-pipeline-2026-10-19.md)）。探索**房间代币**与站位色条仍用 TTS Workshop atlas（`exploration-art-map.json` 仅代币等）：
 
 ```bash
 node tools/pipeline/scripts/export-print-card-art.mjs --input /path/to/EN_FILES --out .cache/print-card-art
@@ -31,7 +31,7 @@ node tools/pipeline/scripts/cache-tts-card-art.mjs
 # 可选：DDBG_PRINT_CARD_ART_CACHE / DDBG_TTS_CARD_ART_CACHE
 ```
 
-说明见 [docs/phase4-print-hero-skill-art-map-2026-10-19.md](docs/phase4-print-hero-skill-art-map-2026-10-19.md)、[docs/phase4-print-monster-art-map-2026-10-19.md](docs/phase4-print-monster-art-map-2026-10-19.md) 与 [docs/phase4-exploration-art-2026-10-19.md](docs/phase4-exploration-art-2026-10-19.md)。**不要把印刷 PNG 或 Steam CDN 图像提交进仓库。**
+说明见 [docs/phase4-print-hero-skill-art-map-2026-10-19.md](docs/phase4-print-hero-skill-art-map-2026-10-19.md)、[docs/phase4-print-monster-art-map-2026-10-19.md](docs/phase4-print-monster-art-map-2026-10-19.md)、[docs/phase4-print-exploration-art-map-2026-10-19.md](docs/phase4-print-exploration-art-map-2026-10-19.md) 与 [docs/phase4-exploration-art-2026-10-19.md](docs/phase4-exploration-art-2026-10-19.md)。**不要把印刷 PNG 或 Steam CDN 图像提交进仓库。**
 
 2026-10-18最新进度：基线 #247 / `42b9620`。当前确认 Q-80→R-100（recycle_discard_fill）：游商首次陈列可抽不足时将该级弃牌洗回再抽满额；真耗尽才拒绝。见[rulings](docs/rulings.md) R-100与[接线记录](docs/phase4-nomad-q80-r100-2026-10-18.md)。正式Boss与人工试玩继续保留，保持Phase4。以下段落为历史进度。
 

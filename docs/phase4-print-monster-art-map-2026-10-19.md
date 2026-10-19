@@ -40,7 +40,7 @@ Kyries 在印刷导出 manifest 上人工核对；本批仅包含核心盒 **mon
 
 组件：`MonsterCardFace`（`BattleStanceTrack` 怪物 chip、`BattleView` 怪物回合侧栏）。
 
-英雄技能卡面已切印刷（见 [phase4-print-hero-skill-art-map-2026-10-19.md](phase4-print-hero-skill-art-map-2026-10-19.md)）；探索 / 站位色条仍可用 TTS。怪物与英雄技能 Face **仅**认印刷映射与 `pngRel`。
+英雄技能卡面已切印刷（见 [phase4-print-hero-skill-art-map-2026-10-19.md](phase4-print-hero-skill-art-map-2026-10-19.md)）；探索房间牌与 QuestMap 见 [phase4-print-exploration-art-map-2026-10-19.md](phase4-print-exploration-art-map-2026-10-19.md)；探索房间代币 / 站位色条仍可用 TTS。怪物与英雄技能 Face **仅**认印刷映射与 `pngRel`。
 
 ## R-048
 
