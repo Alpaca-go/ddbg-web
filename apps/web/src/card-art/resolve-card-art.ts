@@ -1,4 +1,5 @@
-import faceMap from "./hero-skill-face-map.json";
+/** Public URL path served by Vite from the gitignored TTS cache dir. */
+export const CARD_ART_CACHE_PUBLIC_PREFIX = "/tts-card-art";
 
 export type AtlasFaceEntry = {
   readonly faceUrl: string;
@@ -9,33 +10,13 @@ export type AtlasFaceEntry = {
   readonly cell: number;
 };
 
-export type CardArtEntry = AtlasFaceEntry & {
-  readonly id: string;
-  readonly name: string;
-  readonly level: number;
-  readonly hero: string;
-  readonly ttsCardId: number;
-  readonly cellSource: string;
-};
-
-const byId = new Map<string, CardArtEntry>(
-  (faceMap.cards as CardArtEntry[]).map((card) => [card.id, card]),
-);
-
-/** Public URL path served by Vite from the gitignored cache dir. */
-export const CARD_ART_CACHE_PUBLIC_PREFIX = "/tts-card-art";
-
-export function lookupHeroSkillFace(skillId: string): CardArtEntry | undefined {
-  return byId.get(skillId);
-}
-
 /** Local cache filename for a deck face sheet (png preferred; jpg fallback in resolver). */
 export function faceCacheBaseName(deckId: string): string {
   return `face-${deckId}`;
 }
 
 /**
- * Resolve a cached atlas URL for a mapped skill.
+ * Resolve a cached atlas URL for exploration / room deck sheets.
  * Prefer png then jpg; callers should treat load errors as missing cache.
  */
 export function cachedFaceSheetUrl(
@@ -55,16 +36,4 @@ export function atlasBackgroundPosition(entry: AtlasFaceEntry): string {
 
 export function atlasBackgroundSize(entry: AtlasFaceEntry): string {
   return `${entry.numWidth * 100}% ${entry.numHeight * 100}%`;
-}
-
-export function heroSkillFaceMapMeta(): {
-  readonly schema: string;
-  readonly cardCount: number;
-  readonly pendingConfirmation: readonly string[];
-} {
-  return {
-    schema: faceMap.schema,
-    cardCount: faceMap.cards.length,
-    pendingConfirmation: faceMap.pendingConfirmation,
-  };
 }

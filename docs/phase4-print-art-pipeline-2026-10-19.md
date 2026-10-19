@@ -60,13 +60,13 @@ python3 tools/pipeline/print-card-art/run.py \
 | `maps/*-print-art-map.json`              | 其它品类 **scaffold**（已导出页列表，`engineId` 待补）                             |
 | `run-meta.json`                          | 本次运行摘要                                                                       |
 
-怪物 **Kyries 审阅 CSV** 已提升为 `apps/web/src/card-art/monster-print-art-map.json`（见 [phase4-print-monster-art-map-2026-10-19.md](phase4-print-monster-art-map-2026-10-19.md)）；亦可从 `maps/monster-*-print-art-map.json` 手工对照。战斗 UI 怪物卡面仅 `/print-card-art/png/…`（无 TTS 回退；原 PR #252 已关闭）。
+怪物与英雄技能 **Kyries 审阅 CSV** 已提升为 `apps/web/src/card-art/monster-print-art-map.json`、`hero-skill-print-art-map.json`（见 [phase4-print-monster-art-map-2026-10-19.md](phase4-print-monster-art-map-2026-10-19.md)、[phase4-print-hero-skill-art-map-2026-10-19.md](phase4-print-hero-skill-art-map-2026-10-19.md)）；亦可从 `maps/*-print-art-map.json` 手工对照。战斗 UI 怪物与英雄技能 Face 仅 `/print-card-art/png/…`（无 TTS 回退）。
 
 ## 与 TTS 暂代的关系
 
-- **怪物**：已切到印刷 PNG + print map；未缓存或加载失败时显示占位，不回退 Workshop atlas。
-- **其它品类**（英雄技能、探索、站位色条等）：仍见 [phase4-card-art-faces-2026-10-18.md](phase4-card-art-faces-2026-10-18.md)，使用 `FaceURL` + `.cache/tts-card-art/`。
-- `cache-tts-card-art.mjs` 与 `build-tts-*-map.mjs` 不变（非怪物仍依赖）。
+- **怪物、英雄技能 Face**：已切到印刷 PNG + print map；未缓存或加载失败时显示占位，不回退 Workshop atlas。
+- **探索、站位色条等**：仍见 [phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md) 等，使用 `FaceURL` + `.cache/tts-card-art/`。
+- `cache-tts-card-art.mjs` 仍下载探索/站位（及可选的历史 hero TTS map）；`build-tts-*-map.mjs` 保留供对照。
 
 ## 对照源
 
@@ -94,7 +94,7 @@ python3 -m unittest discover -s tools/pipeline/print-card-art/tests -p 'test_*.p
 ## 待确认 / pending
 
 - 扩展包 PDF（Warrens / Cove / Weald 等）品类规则与引擎 id 表尚未全接。
-- Hero skill 等需按 FRONT 页序与 `hero_skill:pNNN` 对齐的专用匹配器（当前 scaffold）。
+- 其它品类（房间牌 BACK 等）需按 FRONT 页序与引擎 id 对齐的专用匹配器（部分仍为 scaffold）。
 - Boss / Stygian / 板块 / 骰子网等是否纳入卡图 UI 另开主题。
 - 确认后由 Kyries 批跑并 PR 提交 `apps/web/src/card-art/*-print-art-map.json`（仍无 PNG 二进制）。
 
