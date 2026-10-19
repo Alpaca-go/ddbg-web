@@ -7,4 +7,7 @@
 ```bash
 pip install -r requirements.txt
 node ../../scripts/export-print-card-art.mjs --input /path/to/EN_FILES --out .cache/print-card-art
+node ../../scripts/build-print-monster-art-map.mjs
 ```
+
+审阅 CSV 与 Web 映射说明：[docs/phase4-print-monster-art-map-2026-10-19.md](../../../docs/phase4-print-monster-art-map-2026-10-19.md)

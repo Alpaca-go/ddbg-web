@@ -51,16 +51,16 @@ python3 tools/pipeline/print-card-art/run.py \
 
 ### 输出布局（均在 `--out` 下，已 gitignore）
 
-| 路径 | 说明 |
-|------|------|
-| `manifest.csv` | 每页：PDF 相对路径、页码、品类、正反面、裁切方式、`png_rel`、文字摘要、`engine_id` |
-| `png/*.png` | 按页导出的卡面图 |
-| `maps/monster-medium-print-art-map.json` | 怪物中卡：页码 ↔ `packages/data` 引擎 id |
-| `maps/monster-large-print-art-map.json` | 怪物大卡 |
-| `maps/*-print-art-map.json` | 其它品类 **scaffold**（已导出页列表，`engineId` 待补） |
-| `run-meta.json` | 本次运行摘要 |
+| 路径                                     | 说明                                                                               |
+| ---------------------------------------- | ---------------------------------------------------------------------------------- |
+| `manifest.csv`                           | 每页：PDF 相对路径、页码、品类、正反面、裁切方式、`png_rel`、文字摘要、`engine_id` |
+| `png/*.png`                              | 按页导出的卡面图                                                                   |
+| `maps/monster-medium-print-art-map.json` | 怪物中卡：页码 ↔ `packages/data` 引擎 id                                           |
+| `maps/monster-large-print-art-map.json`  | 怪物大卡                                                                           |
+| `maps/*-print-art-map.json`              | 其它品类 **scaffold**（已导出页列表，`engineId` 待补）                             |
+| `run-meta.json`                          | 本次运行摘要                                                                       |
 
-确认映射后，可将 `maps/*.json` 复制到 `apps/web/src/card-art/`（与现有 TTS `*-map.json` 并列）；本刀不强制改 UI。
+怪物 **Kyries 审阅 CSV** 已提升为 `apps/web/src/card-art/monster-print-art-map.json`（见 [phase4-print-monster-art-map-2026-10-19.md](phase4-print-monster-art-map-2026-10-19.md)）；亦可从 `maps/monster-*-print-art-map.json` 手工对照。战斗 UI 已优先 `/print-card-art/png/…`。
 
 ## 与 TTS 暂代的关系
 
@@ -70,20 +70,20 @@ python3 tools/pipeline/print-card-art/run.py \
 
 ## 对照源
 
-| 用途 | 路径 |
-|------|------|
-| 引擎卡牌 id | `packages/data/normalized/corebox/*.json` |
+| 用途                  | 路径                                                             |
+| --------------------- | ---------------------------------------------------------------- |
+| 引擎卡牌 id           | `packages/data/normalized/corebox/*.json`                        |
 | 页码 / 卡名（提取侧） | `packages/data/extract/corebox/parsed/`（与 extract-print 同源） |
-| TTS 辅助 | `apps/web/src/card-art/hero-skill-face-map.json` 等 |
+| TTS 辅助              | `apps/web/src/card-art/hero-skill-face-map.json` 等              |
 
 怪物映射逻辑：印刷 FRONT/BACK **页码**与 normalized `pages` 对齐；页内文字与 `name` 不一致时写入 map `pending`。
 
 ## 与 extract-print 的分工
 
-| 工具 | 目的 |
-|------|------|
-| `tools/pipeline/extract-print/` | 卡面**文字 / 图标位置** → `packages/data/extract`（已入库结构化数据） |
-| `tools/pipeline/print-card-art/` | **整页 raster** + 卡图路径映射（不进 CI，依赖本机 PDF） |
+| 工具                             | 目的                                                                  |
+| -------------------------------- | --------------------------------------------------------------------- |
+| `tools/pipeline/extract-print/`  | 卡面**文字 / 图标位置** → `packages/data/extract`（已入库结构化数据） |
+| `tools/pipeline/print-card-art/` | **整页 raster** + 卡图路径映射（不进 CI，依赖本机 PDF）               |
 
 ## 自测（无真实印刷 PDF）
 
