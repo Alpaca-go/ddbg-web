@@ -1,0 +1,64 @@
+{
+  "schema": "ddbg.print-monster-stance-art-map.v1",
+  "source": {
+    "manifest": "tools/pipeline/print-card-art/fixtures/print-monster-stance-manifest.csv",
+    "rowFilter": "Monster_Stance + trimbox",
+    "reviewedAt": "2026-10-19",
+    "notes": [
+      "Kyries 2026-10-19: whole-board display only (no per-stance strip crops).",
+      "pngRel paths are relative to .cache/print-card-art/ after export-print-card-art.mjs.",
+      "UI uses TrimBox PNG as a single raster; stance highlights are CSS overlays only.",
+      "R-048: map stores no invented crop rectangles or icon geometry from the board."
+    ]
+  },
+  "boards": [
+    {
+      "id": "back",
+      "side": "back",
+      "category": "stance_board",
+      "pngRel": "png/wave1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_BOARD_Monster_Stance_BACK.pdf_p001.png",
+      "printPage": 1,
+      "primaryPdf": "DD_COREBOX_BOARD_Monster_Stance_BACK",
+      "cropMethod": "trimbox",
+      "matchStatus": "skipped",
+      "pdfRel": "wave1/MG_DD_01_EN_COREBOX/Print/DD_COREBOX_BOARD_Monster_Stance_BACK.pdf"
+    },
+    {
+      "id": "front",
+      "side": "front",
+      "category": "stance_board",
+      "pngRel": "png/wave1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_BOARD_Monster_Stance_FRONT.pdf_p001.png",
+      "printPage": 1,
+      "primaryPdf": "DD_COREBOX_BOARD_Monster_Stance_FRONT",
+      "cropMethod": "trimbox",
+      "matchStatus": "skipped",
+      "pdfRel": "wave1/MG_DD_01_EN_COREBOX/Print/DD_COREBOX_BOARD_Monster_Stance_FRONT.pdf"
+    }
+  ],
+  "stanceSlots": [
+    {
+      "stance": "aggressive",
+      "rank": 1,
+      "labelZh": "进攻"
+    },
+    {
+      "stance": "defensive",
+      "rank": 2,
+      "labelZh": "防御"
+    },
+    {
+      "stance": "ranged",
+      "rank": 3,
+      "labelZh": "远程"
+    },
+    {
+      "stance": "support",
+      "rank": 4,
+      "labelZh": "支援"
+    }
+  ],
+  "pendingConfirmation": [
+    "Hero stance track uses the same Monster Stance board art in UI; printed Hero Dashboard not wired.",
+    "Large monster 2-slot span: no print strip; show width on entity chip only."
+  ]
+}

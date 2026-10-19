@@ -236,6 +236,69 @@ small {
 .stance-track-monster {
   padding-left: 0.25rem;
 }
+.monster-stance-board {
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+.monster-stance-board-art {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #47453b;
+  background: #141412;
+  min-height: 5.5rem;
+}
+.monster-stance-board-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 7.5rem;
+  object-fit: contain;
+  opacity: 0.88;
+  pointer-events: none;
+}
+.monster-stance-board-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 5.5rem;
+  padding: 0.75rem;
+  font-size: 0.72rem;
+  color: #aaa599;
+  text-align: center;
+}
+.monster-stance-board-columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.35rem;
+  margin-top: 0.45rem;
+}
+.monster-stance-column {
+  font-size: 0.72rem;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  padding: 0.3rem 0.25rem;
+  min-height: 3rem;
+  background: rgba(20, 20, 18, 0.55);
+}
+.monster-stance-column.has-occupants {
+  border-color: #6b8f4e;
+  box-shadow: inset 0 0 0 1px rgba(107, 143, 78, 0.35);
+  background: rgba(42, 48, 32, 0.75);
+}
+.monster-stance-column-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.25rem;
+}
+.monster-stance-column-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
 .stance-slot-row {
   margin-bottom: 0.55rem;
   font-size: 0.75rem;

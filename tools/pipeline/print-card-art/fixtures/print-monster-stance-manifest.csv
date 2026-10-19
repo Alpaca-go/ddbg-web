@@ -1,0 +1,3 @@
+pdf_rel,page,is_old_path,side,category,crop_method,png_rel,text_snippet,engine_id,match_status
+wave1/MG_DD_01_EN_COREBOX/Print/DD_COREBOX_BOARD_Monster_Stance_FRONT.pdf,1,false,front,stance_board,trimbox,png/wave1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_BOARD_Monster_Stance_FRONT.pdf_p001.png,,monster_stance:front,skipped
+wave1/MG_DD_01_EN_COREBOX/Print/DD_COREBOX_BOARD_Monster_Stance_BACK.pdf,1,false,back,stance_board,trimbox,png/wave1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_BOARD_Monster_Stance_BACK.pdf_p001.png,,monster_stance:back,skipped
