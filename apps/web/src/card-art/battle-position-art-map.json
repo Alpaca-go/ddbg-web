@@ -1,0 +1,147 @@
+{
+  "schema": "ddbg.tts-battle-position-art-map.v1",
+  "source": {
+    "ttsWorkshopId": "3657612854",
+    "ttsSaveName": "Darkest Dungeon - Complete Edition",
+    "notes": [
+      "Stance row strips from TTS Color Room Tiles Custom_Tile ImageURL only.",
+      "Hero portraits from The Darkest Heroes Custom_Token ImageURL (formal eight).",
+      "No print PDF; no Steam CDN hotlink in UI (local cache via cache-tts-card-art.mjs)."
+    ]
+  },
+  "colorTiles": [
+    {
+      "ttsNickname": "3",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/15373966918185725801/71E20DDED102B89DF1CF6D3313452D9A77D79D01/",
+      "cacheName": "stance-color-tile-3",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Color Room Tiles"
+    },
+    {
+      "ttsNickname": "1-2",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/12835719023813306521/DA6F48D361068FA0779F52B75D14B5BEF8B6B523/",
+      "cacheName": "stance-color-tile-1-2",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Color Room Tiles"
+    },
+    {
+      "ttsNickname": "Large 1-2",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/16924371250412477838/719649854F1283ED099EF4EF8A466FC4D76743B3/",
+      "cacheName": "stance-color-tile-large-1-2",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Color Room Tiles"
+    }
+  ],
+  "stanceSlots": [
+    {
+      "stance": "aggressive",
+      "rank": 1,
+      "labelZh": "进攻",
+      "colorTileNick": "1-2",
+      "cacheName": "stance-color-tile-1-2",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/12835719023813306521/DA6F48D361068FA0779F52B75D14B5BEF8B6B523/"
+    },
+    {
+      "stance": "defensive",
+      "rank": 2,
+      "labelZh": "防御",
+      "colorTileNick": "1-2",
+      "cacheName": "stance-color-tile-1-2",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/12835719023813306521/DA6F48D361068FA0779F52B75D14B5BEF8B6B523/"
+    },
+    {
+      "stance": "ranged",
+      "rank": 3,
+      "labelZh": "远程",
+      "colorTileNick": "3",
+      "cacheName": "stance-color-tile-3",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/15373966918185725801/71E20DDED102B89DF1CF6D3313452D9A77D79D01/"
+    },
+    {
+      "stance": "support",
+      "rank": 4,
+      "labelZh": "支援",
+      "colorTileNick": null,
+      "cacheName": null,
+      "imageUrl": null
+    }
+  ],
+  "heroTokens": [
+    {
+      "hero": "CRUSADER",
+      "ttsHero": "Crusader",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/14134909977686966995/47F1C5B74E86EDC42FB61CF1D8AC53AD70693FCF/",
+      "cacheName": "hero-token-crusader",
+      "ttsObject": "Custom_Token",
+      "ttsPath": "The Darkest Heroes/Crusader"
+    },
+    {
+      "hero": "HELLION",
+      "ttsHero": "Hellion",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/11786018847691997347/48FD688BD47C23F0708BBED6E2E541255A7766D9/",
+      "cacheName": "hero-token-hellion",
+      "ttsObject": "Custom_Token",
+      "ttsPath": "The Darkest Heroes/Hellion"
+    },
+    {
+      "hero": "HIGHWAYMAN",
+      "ttsHero": "Highwayman",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/17534242086827878411/B5B90BEB9E905338AF84B45D2793D05B2924C54A/",
+      "cacheName": "hero-token-highwayman",
+      "ttsObject": "Custom_Token",
+      "ttsPath": "The Darkest Heroes/Highwayman"
+    },
+    {
+      "hero": "VESTAL",
+      "ttsHero": "Vestal",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/15600370206271797478/C108185728F1E73B69ACBD73779DA6B23C052B8B/",
+      "cacheName": "hero-token-vestal",
+      "ttsObject": "Custom_Token",
+      "ttsPath": "The Darkest Heroes/Vestal"
+    },
+    {
+      "hero": "BOUNTY HUNTER",
+      "ttsHero": "Bounty Hunter",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/16624396347459129436/381F59E611A50773B1947C72531C80681F403B7F/",
+      "cacheName": "hero-token-bounty-hunter",
+      "ttsObject": "Custom_Token",
+      "ttsPath": "The Darkest Heroes/Bounty Hunter"
+    },
+    {
+      "hero": "PLAGUE DOCTOR",
+      "ttsHero": "Plague Doctor",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/10015942689814867474/3FED09F5D458A0B58D2B2239A2CA03C4C0DFB356/",
+      "cacheName": "hero-token-plague-doctor",
+      "ttsObject": "Custom_Token",
+      "ttsPath": "The Darkest Heroes/Plague Doctor"
+    },
+    {
+      "hero": "GRAVE ROBBER",
+      "ttsHero": "Grave Robber",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/13185854514714184544/D40AEA9EC0AF83A2D7E9CA262D4C1710BEF0CF92/",
+      "cacheName": "hero-token-grave-robber",
+      "ttsObject": "Custom_Token",
+      "ttsPath": "The Darkest Heroes/Grave Robber"
+    },
+    {
+      "hero": "OCCULTIST",
+      "ttsHero": "Occultist",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/13946172998928895232/53874F2E9151289C9896AFA0A68DD1D349A2ABF9/",
+      "cacheName": "hero-token-occultist",
+      "ttsObject": "Custom_Token",
+      "ttsPath": "The Darkest Heroes/Occultist"
+    }
+  ],
+  "monsterWidthArt": {
+    "ttsNickname": "Large 1-2",
+    "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/16924371250412477838/719649854F1283ED099EF4EF8A466FC4D76743B3/",
+    "cacheName": "stance-color-tile-large-1-2",
+    "semantic": "large_monster_stance_span",
+    "pendingConfirmation": "TTS nickname only; not matched to printed stance width rules in this slice."
+  },
+  "pendingConfirmation": [
+    "stance:support: no dedicated Color Room Tile in TTS; UI uses CSS fallback strip only",
+    "Monster standee / card atlas not mapped in this slice (see phase4-card-art-faces out of scope).",
+    "Color Room Tile nicknames (1-2, 3) aligned to stance rows by TTS bag labels only; not verified against print stance track colors."
+  ]
+}

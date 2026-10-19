@@ -18,6 +18,7 @@ import { pipeline } from "node:stream/promises";
 const root = resolve(fileURLToPath(new URL("../../../", import.meta.url)));
 const heroMapPath = resolve(root, "apps/web/src/card-art/hero-skill-face-map.json");
 const explorationMapPath = resolve(root, "apps/web/src/card-art/exploration-art-map.json");
+const battlePositionMapPath = resolve(root, "apps/web/src/card-art/battle-position-art-map.json");
 const cacheDir = resolve(
   process.env.DDBG_TTS_CARD_ART_CACHE || resolve(root, ".cache/tts-card-art"),
 );
@@ -25,6 +26,9 @@ const cacheDir = resolve(
 const heroMap = JSON.parse(readFileSync(heroMapPath, "utf8"));
 const explorationMap = existsSync(explorationMapPath)
   ? JSON.parse(readFileSync(explorationMapPath, "utf8"))
+  : null;
+const battlePositionMap = existsSync(battlePositionMapPath)
+  ? JSON.parse(readFileSync(battlePositionMapPath, "utf8"))
   : null;
 mkdirSync(cacheDir, { recursive: true });
 
@@ -69,6 +73,18 @@ if (explorationMap) {
   }
   for (const token of explorationMap.roomTokens || []) {
     jobs.push(download(token.imageUrl, resolve(cacheDir, token.cacheName)));
+  }
+}
+if (battlePositionMap) {
+  for (const tile of battlePositionMap.colorTiles || []) {
+    jobs.push(download(tile.imageUrl, resolve(cacheDir, tile.cacheName)));
+  }
+  for (const token of battlePositionMap.heroTokens || []) {
+    jobs.push(download(token.imageUrl, resolve(cacheDir, token.cacheName)));
+  }
+  const width = battlePositionMap.monsterWidthArt;
+  if (width?.imageUrl && width.cacheName) {
+    jobs.push(download(width.imageUrl, resolve(cacheDir, width.cacheName)));
   }
 }
 
