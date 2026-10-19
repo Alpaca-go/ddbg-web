@@ -2,11 +2,9 @@ import type { GameState, SkillStance } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
 import { MonsterCardFace } from "./card-art/monster-card-face";
 import { BattlePositionRaster } from "./card-art/battle-position-raster";
-import {
-  lookupHeroTokenArt,
-  lookupStanceSlotArt,
-  listStanceSlotArt,
-} from "./card-art/resolve-battle-position-art";
+import { MonsterStanceBoard } from "./card-art/monster-stance-board";
+import { lookupHeroTokenArt } from "./card-art/resolve-battle-position-art";
+import { listMonsterStanceSlots } from "./card-art/resolve-print-monster-stance-art";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -33,48 +31,39 @@ export function BattleStanceTrack({
   readonly entityName: (id: string) => string;
   readonly actorId?: string | undefined;
 }) {
-  const stanceRows = listStanceSlotArt();
+  const stanceRows = listMonsterStanceSlots();
 
   return (
     <section className="stance-track" aria-label="站位轨道">
       <p className="muted stance-track-note">
-        四格站位（进攻→支援）：色条来自 TTS「Color Room Tiles」本地缓存；怪物头像优先印刷 PNG（
-        <code>.cache/print-card-art</code>），缺图时回退 TTS 或占位。
+        四格站位（进攻→支援）：背景为印刷 Monster Stance 整板 TrimBox PNG（
+        <code>.cache/print-card-art</code>）；无本地图时占位，不回退 TTS 色条。怪物头像优先印刷
+        PNG，缺图时回退 TTS 或占位。
       </p>
       <div className="stance-track-grid">
-        {(["hero", "monster"] as const).map((side) => (
-          <div className={`stance-track-side stance-track-${side}`} key={side}>
-            <h3>{side === "hero" ? "英雄站位" : "怪物站位"}</h3>
-            {stances.map((stance) => {
-              const row =
-                stanceRows.find((r) => r.stance === stance) ?? lookupStanceSlotArt(stance);
-              const occupants = battle.entities.filter(
-                (e) => e.side === side && !e.dead && e.stance === stance,
-              );
-              return (
-                <div
-                  className={`stance-slot stance-slot-row stance-slot-${stance}`}
-                  key={stance}
-                  data-testid={`stance-${side}-${stance}`}
-                >
-                  <span className="stance-label">{row?.labelZh ?? stance}</span>
-                  <div className="stance-slot-row-head">
-                    <span className="stance-rank" aria-hidden="true">
-                      {row?.rank ?? "—"}
-                    </span>
-                  </div>
-                  <div
-                    className={`stance-slot-strip ${row?.cacheName ? "has-art" : "fallback-strip"}`}
-                  >
-                    {row?.cacheName && (
-                      <BattlePositionRaster
-                        cacheName={row.cacheName}
-                        alt={`${side === "hero" ? "英雄" : "怪物"}${row.labelZh}站位色条`}
-                        className="stance-slot-strip-img"
-                        testId={`stance-strip-${side}-${stance}`}
-                      />
-                    )}
-                    <div className="stance-slot-occupants">
+        {(["hero", "monster"] as const).map((side) => {
+          const occupantCountByStance = Object.fromEntries(
+            stances.map((stance) => [
+              stance,
+              battle.entities.filter((e) => e.side === side && !e.dead && e.stance === stance)
+                .length,
+            ]),
+          ) as Record<SkillStance, number>;
+
+          return (
+            <div className={`stance-track-side stance-track-${side}`} key={side}>
+              <h3>{side === "hero" ? "英雄站位" : "怪物站位"}</h3>
+              <MonsterStanceBoard
+                sideLabel={side === "hero" ? "英雄" : "怪物"}
+                testIdPrefix={`stance-${side}`}
+                slots={stanceRows}
+                occupantCountByStance={occupantCountByStance}
+                renderOccupants={(stance) => {
+                  const occupants = battle.entities.filter(
+                    (e) => e.side === side && !e.dead && e.stance === stance,
+                  );
+                  return (
+                    <>
                       {occupants.length === 0 && <span className="stance-empty muted">空</span>}
                       {occupants.map((e) => (
                         <EntityChip
@@ -85,13 +74,13 @@ export function BattleStanceTrack({
                           battle={battle}
                         />
                       ))}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        ))}
+                    </>
+                  );
+                }}
+              />
+            </div>
+          );
+        })}
       </div>
       {battle.entities.some((e) => e.dead) && (
         <p className="muted">

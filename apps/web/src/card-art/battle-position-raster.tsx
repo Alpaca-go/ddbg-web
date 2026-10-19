@@ -2,7 +2,7 @@ import { useState } from "react";
 import { cachedBattleRasterUrl } from "./resolve-battle-position-art";
 
 /**
- * Raster from gitignored TTS cache (stance color tile or hero token).
+ * Raster from gitignored TTS cache (hero standee token).
  */
 export function BattlePositionRaster({
   cacheName,

@@ -58,15 +58,8 @@ for (const [deckId, atlas] of Object.entries(heroMap.atlases || {})) {
   }
 }
 if (battlePositionMap) {
-  for (const tile of battlePositionMap.colorTiles || []) {
-    jobs.push(download(tile.imageUrl, resolve(cacheDir, tile.cacheName)));
-  }
   for (const token of battlePositionMap.heroTokens || []) {
     jobs.push(download(token.imageUrl, resolve(cacheDir, token.cacheName)));
-  }
-  const width = battlePositionMap.monsterWidthArt;
-  if (width?.imageUrl && width.cacheName) {
-    jobs.push(download(width.imageUrl, resolve(cacheDir, width.cacheName)));
   }
 }
 

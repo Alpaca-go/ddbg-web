@@ -1,71 +1,14 @@
 {
-  "schema": "ddbg.tts-battle-position-art-map.v1",
+  "schema": "ddbg.tts-hero-token-art-map.v1",
   "source": {
     "ttsWorkshopId": "3657612854",
     "ttsSaveName": "Darkest Dungeon - Complete Edition",
     "notes": [
-      "Stance row strips from TTS Color Room Tiles Custom_Tile ImageURL only.",
       "Hero portraits from The Darkest Heroes Custom_Token ImageURL (formal eight).",
-      "No print PDF; no Steam CDN hotlink in UI (local cache via cache-tts-card-art.mjs)."
+      "Stance track art uses monster-stance-print-art-map.json (print TrimBox board); no TTS Color Room Tiles.",
+      "No Steam CDN hotlink in UI (local cache via cache-tts-card-art.mjs)."
     ]
   },
-  "colorTiles": [
-    {
-      "ttsNickname": "3",
-      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/15373966918185725801/71E20DDED102B89DF1CF6D3313452D9A77D79D01/",
-      "cacheName": "stance-color-tile-3",
-      "ttsObject": "Custom_Tile",
-      "ttsBag": "Color Room Tiles"
-    },
-    {
-      "ttsNickname": "1-2",
-      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/12835719023813306521/DA6F48D361068FA0779F52B75D14B5BEF8B6B523/",
-      "cacheName": "stance-color-tile-1-2",
-      "ttsObject": "Custom_Tile",
-      "ttsBag": "Color Room Tiles"
-    },
-    {
-      "ttsNickname": "Large 1-2",
-      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/16924371250412477838/719649854F1283ED099EF4EF8A466FC4D76743B3/",
-      "cacheName": "stance-color-tile-large-1-2",
-      "ttsObject": "Custom_Tile",
-      "ttsBag": "Color Room Tiles"
-    }
-  ],
-  "stanceSlots": [
-    {
-      "stance": "aggressive",
-      "rank": 1,
-      "labelZh": "进攻",
-      "colorTileNick": "1-2",
-      "cacheName": "stance-color-tile-1-2",
-      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/12835719023813306521/DA6F48D361068FA0779F52B75D14B5BEF8B6B523/"
-    },
-    {
-      "stance": "defensive",
-      "rank": 2,
-      "labelZh": "防御",
-      "colorTileNick": "1-2",
-      "cacheName": "stance-color-tile-1-2",
-      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/12835719023813306521/DA6F48D361068FA0779F52B75D14B5BEF8B6B523/"
-    },
-    {
-      "stance": "ranged",
-      "rank": 3,
-      "labelZh": "远程",
-      "colorTileNick": "3",
-      "cacheName": "stance-color-tile-3",
-      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/15373966918185725801/71E20DDED102B89DF1CF6D3313452D9A77D79D01/"
-    },
-    {
-      "stance": "support",
-      "rank": 4,
-      "labelZh": "支援",
-      "colorTileNick": null,
-      "cacheName": null,
-      "imageUrl": null
-    }
-  ],
   "heroTokens": [
     {
       "hero": "CRUSADER",
@@ -132,16 +75,7 @@
       "ttsPath": "The Darkest Heroes/Occultist"
     }
   ],
-  "monsterWidthArt": {
-    "ttsNickname": "Large 1-2",
-    "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/16924371250412477838/719649854F1283ED099EF4EF8A466FC4D76743B3/",
-    "cacheName": "stance-color-tile-large-1-2",
-    "semantic": "large_monster_stance_span",
-    "pendingConfirmation": "TTS nickname only; not matched to printed stance width rules in this slice."
-  },
   "pendingConfirmation": [
-    "stance:support: no dedicated Color Room Tile in TTS; UI uses CSS fallback strip only",
-    "Monster standee / card atlas not mapped in this slice (see phase4-card-art-faces out of scope).",
-    "Color Room Tile nicknames (1-2, 3) aligned to stance rows by TTS bag labels only; not verified against print stance track colors."
+    "Monster standee / card atlas not mapped in this slice (see phase4-card-art-faces out of scope)."
   ]
 }
