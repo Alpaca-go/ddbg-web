@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Download TTS FaceURL (and optional BackURL) atlas sheets referenced by the
- * committed hero-skill face map into a gitignored local cache.
+ * committed art maps (hero skill, exploration, battle position, monster face) into a gitignored local cache.
  *
  * Usage:
  *   node tools/pipeline/scripts/cache-tts-card-art.mjs
@@ -19,6 +19,7 @@ const root = resolve(fileURLToPath(new URL("../../../", import.meta.url)));
 const heroMapPath = resolve(root, "apps/web/src/card-art/hero-skill-face-map.json");
 const explorationMapPath = resolve(root, "apps/web/src/card-art/exploration-art-map.json");
 const battlePositionMapPath = resolve(root, "apps/web/src/card-art/battle-position-art-map.json");
+const monsterFaceMapPath = resolve(root, "apps/web/src/card-art/monster-face-art-map.json");
 const cacheDir = resolve(
   process.env.DDBG_TTS_CARD_ART_CACHE || resolve(root, ".cache/tts-card-art"),
 );
@@ -29,6 +30,9 @@ const explorationMap = existsSync(explorationMapPath)
   : null;
 const battlePositionMap = existsSync(battlePositionMapPath)
   ? JSON.parse(readFileSync(battlePositionMapPath, "utf8"))
+  : null;
+const monsterFaceMap = existsSync(monsterFaceMapPath)
+  ? JSON.parse(readFileSync(monsterFaceMapPath, "utf8"))
   : null;
 mkdirSync(cacheDir, { recursive: true });
 
@@ -85,6 +89,14 @@ if (battlePositionMap) {
   const width = battlePositionMap.monsterWidthArt;
   if (width?.imageUrl && width.cacheName) {
     jobs.push(download(width.imageUrl, resolve(cacheDir, width.cacheName)));
+  }
+}
+if (monsterFaceMap) {
+  for (const [deckId, atlas] of Object.entries(monsterFaceMap.atlases || {})) {
+    jobs.push(download(atlas.faceUrl, resolve(cacheDir, `face-${deckId}`)));
+    if (atlas.backUrl) {
+      jobs.push(download(atlas.backUrl, resolve(cacheDir, `back-${deckId}`)));
+    }
   }
 }
 

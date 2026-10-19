@@ -141,7 +141,7 @@
   },
   "pendingConfirmation": [
     "stance:support: no dedicated Color Room Tile in TTS; UI uses CSS fallback strip only",
-    "Monster standee / card atlas not mapped in this slice (see phase4-card-art-faces out of scope).",
+    "Monster card face atlas: see monster-face-art-map.json and docs/phase4-monster-face-art-2026-10-19.md.",
     "Color Room Tile nicknames (1-2, 3) aligned to stance rows by TTS bag labels only; not verified against print stance track colors."
   ]
 }

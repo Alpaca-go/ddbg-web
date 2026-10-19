@@ -156,7 +156,7 @@ for (const [ttsHero, engineHero] of Object.entries(FORMAL_TTS)) {
 }
 
 pending.push(
-  "Monster standee / card atlas not mapped in this slice (see phase4-card-art-faces out of scope).",
+  "Monster card face atlas mapped separately in monster-face-art-map.json (not in this script).",
 );
 pending.push(
   "Color Room Tile nicknames (1-2, 3) aligned to stance rows by TTS bag labels only; not verified against print stance track colors.",

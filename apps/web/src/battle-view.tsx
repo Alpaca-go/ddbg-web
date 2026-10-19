@@ -10,6 +10,7 @@ import { battleData } from "virtual:battle-data";
 import type { SandboxLayout } from "./battle-store";
 import { battleStep } from "./battle-step";
 import { CardFace } from "./card-art/card-face";
+import { MonsterCardFace } from "./card-art/monster-card-face";
 import { BattleStanceTrack } from "./battle-stance-track";
 import { SkillCardText } from "./skill-card-text";
 import { SkillRequirements } from "./skill-requirements";
@@ -806,6 +807,9 @@ export function BattleView({
                 </>
               )}
             </div>
+          )}
+          {turn?.type === "monster" && monsterCard && (
+            <MonsterCardFace monsterCardId={monsterCard.id} size="md" />
           )}
           {turn?.type === "monster" && monsterCard && monsterSkill && (
             <SkillCardText

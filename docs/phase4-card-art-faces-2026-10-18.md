@@ -54,4 +54,4 @@ DDBG_TTS_CARD_ART_CACHE=/abs/path/to/cache \
 
 ## 范围外
 
-探索 QuestMap / 房间代币 / 遗迹房间牌见 [phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md)。战斗 Room Tile 板块、走廊段、怪物 atlas、印刷 PDF 管线、Boss 全量、Stygian、R-048 效果图标切图仍在本文件首刀范围外。
+探索 QuestMap / 房间代币 / 遗迹房间牌见 [phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md)。战斗怪物卡面 atlas 见 [phase4-monster-face-art-2026-10-19.md](phase4-monster-face-art-2026-10-19.md)。战斗 Room Tile 板块、走廊段、印刷 PDF 管线、Boss 全量、Stygian、R-048 效果图标切图仍在本文件首刀范围外。

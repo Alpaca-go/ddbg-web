@@ -1,6 +1,7 @@
 import type { GameState, SkillStance } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
 import { BattlePositionRaster } from "./card-art/battle-position-raster";
+import { MonsterCardFace } from "./card-art/monster-card-face";
 import {
   lookupHeroTokenArt,
   lookupStanceSlotArt,
@@ -37,8 +38,8 @@ export function BattleStanceTrack({
   return (
     <section className="stance-track" aria-label="站位轨道">
       <p className="muted stance-track-note">
-        四格站位（进攻→支援）：色条来自 TTS「Color Room
-        Tiles」本地缓存；无缓存时显示占位与文字标签。
+        四格站位（进攻→支援）：色条来自 TTS「Color Room Tiles」、英雄 token 与怪物卡面 atlas
+        本地缓存；无缓存时占位与文字标签。
       </p>
       <div className="stance-track-grid">
         {(["hero", "monster"] as const).map((side) => (
@@ -130,6 +131,13 @@ function EntityChip({
           alt={entityName(entity.id)}
           className="stance-hero-token"
           testId={`hero-token-${entity.id}`}
+        />
+      )}
+      {entity.side === "monster" && entity.monsterCardId && (
+        <MonsterCardFace
+          monsterCardId={entity.monsterCardId}
+          label={entityName(entity.id)}
+          size="chip"
         />
       )}
       <div className="stance-entity-text">

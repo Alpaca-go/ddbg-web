@@ -46,7 +46,7 @@ node tools/pipeline/scripts/cache-tts-card-art.mjs
 - `支援` 行无单独 Color Room Tile，仅 CSS 占位条。
 - Color Tile nickname → 姿态行对应关系仅依 TTS 袋内标签，未与印刷 stance track 逐色对照。
 - `Large 1-2` 已入库 URL，本刀未绑定引擎 `stanceSlots` 宽度的 UI 条。
-- 怪物卡面 / atlas 全量仍范围外（与 #250 一致）。
+- 怪物卡面 atlas 见 [phase4-monster-face-art-2026-10-19.md](phase4-monster-face-art-2026-10-19.md)（本刀 #251 范围外）。
 
 ## 范围外
 
