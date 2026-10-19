@@ -31,17 +31,16 @@ Kyries 在印刷导出 manifest 上人工核对；本批仅包含核心盒 **mon
 
 未导出时 UI 显示「无卡图」占位，**不影响**规则与战斗逻辑。
 
-## UI 回退策略
+## UI 展示策略
 
-| 顺序 | 来源           | 条件                                                                                            |
-| ---- | -------------- | ----------------------------------------------------------------------------------------------- |
-| 1    | 印刷 PNG       | `monster-print-art-map.json` 含 `engineId`，且本地缓存存在对应 `pngRel`                         |
-| 2    | TTS 怪物 atlas | PR #252 `monster-face-art-map.json` 有行且 `.cache/tts-card-art` 有图集；印刷加载失败时也会尝试 |
-| 3    | 占位           | 以上皆无                                                                                        |
+| 顺序 | 来源     | 条件                                                                                       |
+| ---- | -------- | ------------------------------------------------------------------------------------------ |
+| 1    | 印刷 PNG | `monster-print-art-map.json` 含 `engineId`，且本地缓存存在对应 `pngRel`                    |
+| 2    | 占位     | 无映射行、未导出 PNG，或运行时加载失败（**不**回退 TTS；Kyries 定调统一印刷稿，#252 已关） |
 
 组件：`MonsterCardFace`（`BattleStanceTrack` 怪物 chip、`BattleView` 怪物回合侧栏）。
 
-与 [phase4-card-art-faces-2026-10-18.md](phase4-card-art-faces-2026-10-18.md) 英雄技能 TTS 图并列；**不得**用 TTS 覆盖印刷页序或引擎 id 绑定（同印刷管线文档）。
+英雄技能 / 探索 / 站位色条仍可用 TTS（见 [phase4-card-art-faces-2026-10-18.md](phase4-card-art-faces-2026-10-18.md)）；怪物卡面仅认印刷映射与 `pngRel`。
 
 ## R-048
 

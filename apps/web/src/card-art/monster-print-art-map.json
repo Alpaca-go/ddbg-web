@@ -7,7 +7,7 @@
     "notes": [
       "Human review CSV (Kyries); includes corrected monsters_medium FRONT p021 → Cultist Acolyte.",
       "pngRel paths are relative to .cache/print-card-art/ after export-print-card-art.mjs.",
-      "UI prefers this map over TTS monster atlas (#252); see resolve-monster-art.ts.",
+      "Monster UI uses print PNG only (no TTS fallback); see resolve-monster-art.ts.",
       "R-048: raster uses TrimBox / 3 mm bleed from print pipeline; no invented crop in UI."
     ]
   },
