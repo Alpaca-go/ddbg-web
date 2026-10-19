@@ -11,6 +11,7 @@ blob-report/
 
 # TTS / Steam CDN art — local private cache only (never commit binaries)
 .cache/tts-card-art/
+.cache/print-card-art/
 .cache/tts-workshop/
 *.tts-cache/
 apps/web/public/tts-card-art/
