@@ -1,0 +1,1098 @@
+{
+  "schema": "ddbg.print-exploration-art-map.v1",
+  "source": {
+    "csv": "tools/pipeline/print-card-art/fixtures/print-exploration-review-ok-auto.csv",
+    "verdictFilter": "ok",
+    "rowCount": 106,
+    "uiCardCount": 39,
+    "reviewedAt": "2026-10-19",
+    "notes": [
+      "Kyries 2026-10-19: skip human review page; PDF page-order exports trusted.",
+      "pngRel paths are relative to .cache/print-card-art/ after export-print-card-art.mjs.",
+      "Room cards + QuestMap UI use print PNG only (no TTS fallback); see resolve-exploration-art.ts.",
+      "room_token not in CSV (punchboard only, R-048); tokens stay on exploration-art-map.json TTS.",
+      "curio / trinket / quest rows committed for pipeline parity; exploration UI is text-only today.",
+      "R-048: raster uses TrimBox / 3 mm bleed from print pipeline; no invented crop in UI."
+    ]
+  },
+  "cards": [
+    {
+      "id": "quest_map:p001",
+      "name": "QuestMap p1",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p001.png",
+      "printPage": 1,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest_map:p002",
+      "name": "QuestMap p2",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p002.png",
+      "printPage": 2,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest_map:p003",
+      "name": "QuestMap p3",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p003.png",
+      "printPage": 3,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest_map:p004",
+      "name": "QuestMap p4",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p004.png",
+      "printPage": 4,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest_map:p005",
+      "name": "QuestMap p5",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p005.png",
+      "printPage": 5,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest_map:p006",
+      "name": "QuestMap p6",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p006.png",
+      "printPage": 6,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest_map:p007",
+      "name": "QuestMap p7",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p007.png",
+      "printPage": 7,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest_map:p008",
+      "name": "QuestMap p8",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p008.png",
+      "printPage": 8,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest_map:p009",
+      "name": "QuestMap p9",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p009.png",
+      "printPage": 9,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest_map:p010",
+      "name": "QuestMap p10",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p010.png",
+      "printPage": 10,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest_map:p011",
+      "name": "QuestMap p11",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p011.png",
+      "printPage": 11,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest_map:p012",
+      "name": "QuestMap p12",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p012.png",
+      "printPage": 12,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest_map:p013",
+      "name": "QuestMap p13",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p013.png",
+      "printPage": 13,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest_map:p014",
+      "name": "QuestMap p14",
+      "category": "quest_map",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf_p014.png",
+      "printPage": 14,
+      "primaryPdf": "DD_COREBOX_CARDS_193x203_QuestMap_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "room:p001",
+      "name": "Ritual Chamber",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p001.png",
+      "printPage": 1,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok",
+      "boss": false
+    },
+    {
+      "id": "room:p002",
+      "name": "Torture Chamber",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p002.png",
+      "printPage": 2,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok",
+      "boss": false
+    },
+    {
+      "id": "room:p003",
+      "name": "Healing Fountain",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p003.png",
+      "printPage": 3,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok",
+      "boss": false
+    },
+    {
+      "id": "room:p004",
+      "name": "Spiked Pit",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p004.png",
+      "printPage": 4,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok",
+      "boss": false
+    },
+    {
+      "id": "room:p005",
+      "name": "Beacon of Light",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p005.png",
+      "printPage": 5,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok",
+      "boss": false
+    },
+    {
+      "id": "room:p006",
+      "name": "Treasure Chamber",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p006.png",
+      "printPage": 6,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok",
+      "boss": false
+    },
+    {
+      "id": "room:p007",
+      "name": "Tomb of Ancestor",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p007.png",
+      "printPage": 7,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok",
+      "boss": false
+    },
+    {
+      "id": "room:p008",
+      "name": "Invocation Chamber",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p008.png",
+      "printPage": 8,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok",
+      "boss": false
+    },
+    {
+      "id": "room:p009",
+      "name": "Old Abbey",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p009.png",
+      "printPage": 9,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok",
+      "boss": false
+    },
+    {
+      "id": "room:p010",
+      "name": "Necromancer Room",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p010.png",
+      "printPage": 10,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok",
+      "boss": true
+    },
+    {
+      "id": "room:p011",
+      "name": "Prophet Room",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p011.png",
+      "printPage": 11,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok",
+      "boss": true
+    },
+    {
+      "id": "room:p012",
+      "name": "Collector Room",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p012.png",
+      "printPage": 12,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok",
+      "boss": true
+    },
+    {
+      "id": "room:p013",
+      "name": "Fanatic Room",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p013.png",
+      "printPage": 13,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok",
+      "boss": true
+    },
+    {
+      "id": "room:p014",
+      "name": "Pool of Rebirth",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p014.png",
+      "printPage": 14,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "room:p015",
+      "name": "Hall of Ascension",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p015.png",
+      "printPage": 15,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "room:p016",
+      "name": "Eldritch Vault",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p016.png",
+      "printPage": 16,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "room:p017",
+      "name": "Toxic Chamber",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p017.png",
+      "printPage": 17,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "room:p018",
+      "name": "Eldritch Power Chamber",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p018.png",
+      "printPage": 18,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "room:p019",
+      "name": "Teleporters",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p019.png",
+      "printPage": 19,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "room:p020",
+      "name": "Evil Eye",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p020.png",
+      "printPage": 20,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "room:p021",
+      "name": "Temple of the Chosen",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p021.png",
+      "printPage": 21,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "room:p022",
+      "name": "Templars Room",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p022.png",
+      "printPage": 22,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "room:p023",
+      "name": "Shuffling Horror Room",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p023.png",
+      "printPage": 23,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "room:p024",
+      "name": "Mammoth Cyst Room",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p024.png",
+      "printPage": 24,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "room:p025",
+      "name": "Ancestor Room",
+      "category": "room",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p025.png",
+      "printPage": 25,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p001",
+      "name": "Eldritch Altar",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p001.png",
+      "printPage": 1,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p002",
+      "name": "Eldritch Altar",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p002.png",
+      "printPage": 2,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p003",
+      "name": "Heirloom Chest",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p003.png",
+      "printPage": 3,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p004",
+      "name": "Heirloom Chest",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p004.png",
+      "printPage": 4,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p005",
+      "name": "Stack of Books",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p005.png",
+      "printPage": 5,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p006",
+      "name": "Stack of Books",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p006.png",
+      "printPage": 6,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p007",
+      "name": "Strongbox",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p007.png",
+      "printPage": 7,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p008",
+      "name": "Strongbox",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p008.png",
+      "printPage": 8,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p009",
+      "name": "Alchemy Table",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p009.png",
+      "printPage": 9,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p010",
+      "name": "Altar of Light",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p010.png",
+      "printPage": 10,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p011",
+      "name": "Bookshelf",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p011.png",
+      "printPage": 11,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p012",
+      "name": "Bookshelf",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p012.png",
+      "printPage": 12,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p013",
+      "name": "Confession Booth",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p013.png",
+      "printPage": 13,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p014",
+      "name": "Confession Booth",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p014.png",
+      "printPage": 14,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p015",
+      "name": "Decorative Urn",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p015.png",
+      "printPage": 15,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p016",
+      "name": "Holy Fountain",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p016.png",
+      "printPage": 16,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p017",
+      "name": "Iron Maiden",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p017.png",
+      "printPage": 17,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p018",
+      "name": "Iron Maiden",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p018.png",
+      "printPage": 18,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p019",
+      "name": "Display Cabinet",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p019.png",
+      "printPage": 19,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p020",
+      "name": "Display Cabinet",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p020.png",
+      "printPage": 20,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p021",
+      "name": "Sarcophagus",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p021.png",
+      "printPage": 21,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p022",
+      "name": "Sarcophagus",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p022.png",
+      "printPage": 22,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p023",
+      "name": "Suit of Armor",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p023.png",
+      "printPage": 23,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p024",
+      "name": "Suit of Armor",
+      "category": "curio",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p024.png",
+      "printPage": 24,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p001",
+      "name": "Accuracy Stone",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p001.png",
+      "printPage": 1,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p002",
+      "name": "Archer’s Ring",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p002.png",
+      "printPage": 2,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p003",
+      "name": "Bleed Charm",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p003.png",
+      "printPage": 3,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p004",
+      "name": "Blight Charm",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p004.png",
+      "printPage": 4,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p005",
+      "name": "Caution Cloak",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p005.png",
+      "printPage": 5,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p006",
+      "name": "Critical Stone",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p006.png",
+      "printPage": 6,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p007",
+      "name": "Damage Stone",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p007.png",
+      "printPage": 7,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p008",
+      "name": "Debuff Charm",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p008.png",
+      "printPage": 8,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p009",
+      "name": "Sage’s Book",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p009.png",
+      "printPage": 9,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p010",
+      "name": "Speed Stone",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p010.png",
+      "printPage": 10,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p011",
+      "name": "Stun Charm",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p011.png",
+      "printPage": 11,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p012",
+      "name": "Survival Guide",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p012.png",
+      "printPage": 12,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p013",
+      "name": "Warrior’s Bracer",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p013.png",
+      "printPage": 13,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p014",
+      "name": "Warrior’s Cap",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p014.png",
+      "printPage": 14,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p015",
+      "name": "Bloodthirst Ring",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p015.png",
+      "printPage": 15,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p016",
+      "name": "Book of Constitution",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p016.png",
+      "printPage": 16,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p017",
+      "name": "Book of Holiness",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p017.png",
+      "printPage": 17,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p018",
+      "name": "Book of Relaxation",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p018.png",
+      "printPage": 18,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p019",
+      "name": "Camouflage Cloak",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p019.png",
+      "printPage": 19,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p020",
+      "name": "Chirurgeon’s Charm",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p020.png",
+      "printPage": 20,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p021",
+      "name": "Dark Bracer",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p021.png",
+      "printPage": 21,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p022",
+      "name": "Protective Padlock",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p022.png",
+      "printPage": 22,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p023",
+      "name": "Bloodcourse Medallion",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p023.png",
+      "printPage": 23,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p024",
+      "name": "Camper’s Helmet",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p024.png",
+      "printPage": 24,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p025",
+      "name": "Fortunate Armlet",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p025.png",
+      "printPage": 25,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p026",
+      "name": "Solar Bracer",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p026.png",
+      "printPage": 26,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p027",
+      "name": "Berserk Charm",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p027.png",
+      "printPage": 27,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p028",
+      "name": "Dark Crown",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p028.png",
+      "printPage": 28,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p029",
+      "name": "Fasting Seal",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p029.png",
+      "printPage": 29,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p030",
+      "name": "Recovery Charm",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p030.png",
+      "printPage": 30,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p031",
+      "name": "Sniper’s Ring",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p031.png",
+      "printPage": 31,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p032",
+      "name": "Warrior’s Ring",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p032.png",
+      "printPage": 32,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p033",
+      "name": "Defender’s Ring",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p033.png",
+      "printPage": 33,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p034",
+      "name": "Scholar’s Ring",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p034.png",
+      "printPage": 34,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p035",
+      "name": "Solar Crown",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p035.png",
+      "printPage": 35,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p036",
+      "name": "Book of Sanity",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p036.png",
+      "printPage": 36,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p037",
+      "name": "Candle of Life",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p037.png",
+      "printPage": 37,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "trinket:p038",
+      "name": "Cleansing Crystal",
+      "category": "trinket",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf_p038.png",
+      "printPage": 38,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p001",
+      "name": "Scout Ahead I",
+      "category": "quest",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p001.png",
+      "printPage": 1,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p002",
+      "name": "Wipe 'Em Out I",
+      "category": "quest",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p002.png",
+      "printPage": 2,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p003",
+      "name": "Fundraiser I",
+      "category": "quest",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p003.png",
+      "printPage": 3,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p007",
+      "name": "Clear the Path II",
+      "category": "quest",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p007.png",
+      "printPage": 7,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p008",
+      "name": "Reduce to Rubble II",
+      "category": "quest",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p008.png",
+      "printPage": 8,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    }
+  ],
+  "pendingConfirmation": [
+    "room_token ×7: print export is punchboard sheet only; per-token PNG export or TTS until confirmed.",
+    "Battle Room Tile faces (room_tile_geometry) not mapped.",
+    "Corridor segment tiles not wired — web map has no corridor geometry."
+  ]
+}

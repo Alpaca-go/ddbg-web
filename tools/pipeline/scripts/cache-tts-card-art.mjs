@@ -62,15 +62,6 @@ for (const [deckId, atlas] of Object.entries(heroMap.atlases || {})) {
   }
 }
 if (explorationMap) {
-  for (const [deckId, atlas] of Object.entries(explorationMap.atlases || {})) {
-    jobs.push(download(atlas.faceUrl, resolve(cacheDir, `face-${deckId}`)));
-    if (atlas.backUrl) {
-      jobs.push(download(atlas.backUrl, resolve(cacheDir, `back-${deckId}`)));
-    }
-  }
-  for (const page of explorationMap.questMapPages || []) {
-    jobs.push(download(page.imageUrl, resolve(cacheDir, page.cacheName)));
-  }
   for (const token of explorationMap.roomTokens || []) {
     jobs.push(download(token.imageUrl, resolve(cacheDir, token.cacheName)));
   }

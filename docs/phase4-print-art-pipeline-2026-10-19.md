@@ -65,8 +65,9 @@ python3 tools/pipeline/print-card-art/run.py \
 ## 与 TTS 暂代的关系
 
 - **怪物、英雄技能 Face**：已切到印刷 PNG + print map；未缓存或加载失败时显示占位，不回退 Workshop atlas。
-- **探索、站位色条等**：仍见 [phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md) 等，使用 `FaceURL` + `.cache/tts-card-art/`。
-- `cache-tts-card-art.mjs` 仍下载探索/站位（及可选的历史 hero TTS map）；`build-tts-*-map.mjs` 保留供对照。
+- **探索**：房间牌 + QuestMap 已切印刷（[phase4-print-exploration-art-map-2026-10-19.md](phase4-print-exploration-art-map-2026-10-19.md)）；房间代币仍 TTS。
+- **站位色条等**：仍见 [phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md) 等，使用 `FaceURL` + `.cache/tts-card-art/`。
+- `cache-tts-card-art.mjs` 仍下载探索代币/站位（及可选的历史 hero TTS map）；`build-tts-*-map.mjs` 保留供对照。
 
 ## 对照源
 
