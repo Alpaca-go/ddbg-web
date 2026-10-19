@@ -14,3 +14,4 @@ blob-report/
 .cache/tts-workshop/
 *.tts-cache/
 apps/web/public/tts-card-art/
+artifacts/*.png

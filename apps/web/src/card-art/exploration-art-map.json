@@ -1,0 +1,370 @@
+{
+  "schema": "ddbg.tts-exploration-art-map.v1",
+  "source": {
+    "ttsWorkshopId": "3657612854",
+    "ttsSaveName": "Darkest Dungeon - Complete Edition",
+    "notes": [
+      "QuestMap images: ImageURL order in TTS bags Dungeon Tiles (12) then Darkest Dungeon Tiles (2).",
+      "Room tokens: first Custom_Tile ImageURL under each exploration token Infinite_Bag.",
+      "Ruins room cards: deck 447 cells = rooms_FRONT print page + 12 (TTS CardID % 100).",
+      "No print PDF imagery; battle Room Tile boards not present as keyed TTS objects in this save."
+    ]
+  },
+  "atlases": {
+    "447": {
+      "faceUrl": "https://steamusercontent-a.akamaihd.net/ugc/14650257961976472599/445EF67B8C222C8A53D77851BDE565AE244DB926/",
+      "backUrl": "https://steamusercontent-a.akamaihd.net/ugc/17333801302800106181/A04A0E7401D90F77CA8642F6A8F7766FF887DB93/",
+      "numWidth": 6,
+      "numHeight": 6
+    }
+  },
+  "questMapPages": [
+    {
+      "id": "quest_map:p001",
+      "page": 1,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/14593206483879076071/E8EC589B155D34066CD7FFB27F956936F83D3CE9/",
+      "cacheName": "quest-map-p001",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Dungeon Tiles",
+      "ttsIndex": 0
+    },
+    {
+      "id": "quest_map:p002",
+      "page": 2,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/18073975866602202363/325561728B1240A0D806F185D86E61158C6C96DE/",
+      "cacheName": "quest-map-p002",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Dungeon Tiles",
+      "ttsIndex": 1
+    },
+    {
+      "id": "quest_map:p003",
+      "page": 3,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/11263906518896083603/6474A0DCAE72A9C0826D35CCB57C89456D1E2BB9/",
+      "cacheName": "quest-map-p003",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Dungeon Tiles",
+      "ttsIndex": 2
+    },
+    {
+      "id": "quest_map:p004",
+      "page": 4,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/16909116113632939904/9BF2D3D647A5E7D15BABE0B1B8E51CF9F1606AE6/",
+      "cacheName": "quest-map-p004",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Dungeon Tiles",
+      "ttsIndex": 3
+    },
+    {
+      "id": "quest_map:p005",
+      "page": 5,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/11797205784438366068/536E9C5D1466B15327A49647E3BBC4D26E11B6FD/",
+      "cacheName": "quest-map-p005",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Dungeon Tiles",
+      "ttsIndex": 4
+    },
+    {
+      "id": "quest_map:p006",
+      "page": 6,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/12564985552324046261/1748056DABC6E587EDDAAFFA9034C5536ACA84ED/",
+      "cacheName": "quest-map-p006",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Dungeon Tiles",
+      "ttsIndex": 5
+    },
+    {
+      "id": "quest_map:p007",
+      "page": 7,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/18250478779919226835/E5B6757B5444135F504DAB831BC939439748BDB1/",
+      "cacheName": "quest-map-p007",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Dungeon Tiles",
+      "ttsIndex": 6
+    },
+    {
+      "id": "quest_map:p008",
+      "page": 8,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/14364594296756044637/3FCCC2CF3AE02AF40F6E0459F7A27B81DDBC1B3A/",
+      "cacheName": "quest-map-p008",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Dungeon Tiles",
+      "ttsIndex": 7
+    },
+    {
+      "id": "quest_map:p009",
+      "page": 9,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/9336917192195613672/581F614FF58879BF2BD63BCDB6C2458921EB101A/",
+      "cacheName": "quest-map-p009",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Dungeon Tiles",
+      "ttsIndex": 8
+    },
+    {
+      "id": "quest_map:p010",
+      "page": 10,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/17644395049057062237/ED126F1F757C336D7F27F89560891D4437612783/",
+      "cacheName": "quest-map-p010",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Dungeon Tiles",
+      "ttsIndex": 9
+    },
+    {
+      "id": "quest_map:p011",
+      "page": 11,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/13856349368449465443/15C82565FD087874A42F2CC005E505A61C69AFC1/",
+      "cacheName": "quest-map-p011",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Dungeon Tiles",
+      "ttsIndex": 10
+    },
+    {
+      "id": "quest_map:p012",
+      "page": 12,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/17659118063146585789/D8D6A9EE338BFEA4B0A7C77C88584BE311C3ADB3/",
+      "cacheName": "quest-map-p012",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Dungeon Tiles",
+      "ttsIndex": 11
+    },
+    {
+      "id": "quest_map:p013",
+      "page": 13,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/18153630558740090023/DE4A6739065E1A5F37C6A6E9CF9621472E7291AD/",
+      "cacheName": "quest-map-p013",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Darkest Dungeon Tiles",
+      "ttsIndex": 12
+    },
+    {
+      "id": "quest_map:p014",
+      "page": 14,
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/14056689639152204527/8DF07B591F565C87BBB74EF80E7620AE31032A93/",
+      "cacheName": "quest-map-p014",
+      "ttsObject": "Custom_Tile",
+      "ttsBag": "Darkest Dungeon Tiles",
+      "ttsIndex": 13
+    }
+  ],
+  "roomTokens": [
+    {
+      "kind": "empty",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/1851553656175343455/20AC51D3C8C7102C05A2AC03F69365807600DBBE/",
+      "cacheName": "token-empty",
+      "ttsBag": "Empty"
+    },
+    {
+      "kind": "dark",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/1851553656175342735/D44CB39E90CA83644E3D3872CBFFE0DBABA18166/",
+      "cacheName": "token-dark",
+      "ttsBag": "Dark Room"
+    },
+    {
+      "kind": "curio",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/1851553656175341325/B2CD11864583F299459794C7BB68B26276A4A1EB/",
+      "cacheName": "token-curio",
+      "ttsBag": "Curio"
+    },
+    {
+      "kind": "lair",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/1851553656175344697/32E2BDB3C84250B9A464E3D174805F86C177C063/",
+      "cacheName": "token-lair",
+      "ttsBag": "Lair"
+    },
+    {
+      "kind": "trap",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/1851553656175346137/63CAE620E00BBA9A77CD21679A9AB5D0111CA370/",
+      "cacheName": "token-trap",
+      "ttsBag": "Trap"
+    },
+    {
+      "kind": "treasure",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/1851553656175346827/3EE9BFBB5A513CA32CD0922B9F69E957647B123F/",
+      "cacheName": "token-treasure",
+      "ttsBag": "Treasure"
+    },
+    {
+      "kind": "objective",
+      "imageUrl": "https://steamusercontent-a.akamaihd.net/ugc/1851553656175345518/36CD44B122EB70B8E2323F483D90F689C3229305/",
+      "cacheName": "token-objective",
+      "ttsBag": "Objective"
+    }
+  ],
+  "roomCards": [
+    {
+      "id": "room:p001",
+      "name": "Ritual Chamber",
+      "page": 1,
+      "boss": false,
+      "faceUrl": "https://steamusercontent-a.akamaihd.net/ugc/14650257961976472599/445EF67B8C222C8A53D77851BDE565AE244DB926/",
+      "backUrl": "https://steamusercontent-a.akamaihd.net/ugc/17333801302800106181/A04A0E7401D90F77CA8642F6A8F7766FF887DB93/",
+      "numWidth": 6,
+      "numHeight": 6,
+      "deckId": "447",
+      "cell": 13,
+      "ttsCardId": 44713,
+      "cellSource": "room_print_page_plus_12"
+    },
+    {
+      "id": "room:p002",
+      "name": "Torture Chamber",
+      "page": 2,
+      "boss": false,
+      "faceUrl": "https://steamusercontent-a.akamaihd.net/ugc/14650257961976472599/445EF67B8C222C8A53D77851BDE565AE244DB926/",
+      "backUrl": "https://steamusercontent-a.akamaihd.net/ugc/17333801302800106181/A04A0E7401D90F77CA8642F6A8F7766FF887DB93/",
+      "numWidth": 6,
+      "numHeight": 6,
+      "deckId": "447",
+      "cell": 14,
+      "ttsCardId": 44714,
+      "cellSource": "room_print_page_plus_12"
+    },
+    {
+      "id": "room:p003",
+      "name": "Healing Fountain",
+      "page": 3,
+      "boss": false,
+      "faceUrl": "https://steamusercontent-a.akamaihd.net/ugc/14650257961976472599/445EF67B8C222C8A53D77851BDE565AE244DB926/",
+      "backUrl": "https://steamusercontent-a.akamaihd.net/ugc/17333801302800106181/A04A0E7401D90F77CA8642F6A8F7766FF887DB93/",
+      "numWidth": 6,
+      "numHeight": 6,
+      "deckId": "447",
+      "cell": 15,
+      "ttsCardId": 44715,
+      "cellSource": "room_print_page_plus_12"
+    },
+    {
+      "id": "room:p004",
+      "name": "Spiked Pit",
+      "page": 4,
+      "boss": false,
+      "faceUrl": "https://steamusercontent-a.akamaihd.net/ugc/14650257961976472599/445EF67B8C222C8A53D77851BDE565AE244DB926/",
+      "backUrl": "https://steamusercontent-a.akamaihd.net/ugc/17333801302800106181/A04A0E7401D90F77CA8642F6A8F7766FF887DB93/",
+      "numWidth": 6,
+      "numHeight": 6,
+      "deckId": "447",
+      "cell": 16,
+      "ttsCardId": 44716,
+      "cellSource": "room_print_page_plus_12"
+    },
+    {
+      "id": "room:p005",
+      "name": "Beacon of Light",
+      "page": 5,
+      "boss": false,
+      "faceUrl": "https://steamusercontent-a.akamaihd.net/ugc/14650257961976472599/445EF67B8C222C8A53D77851BDE565AE244DB926/",
+      "backUrl": "https://steamusercontent-a.akamaihd.net/ugc/17333801302800106181/A04A0E7401D90F77CA8642F6A8F7766FF887DB93/",
+      "numWidth": 6,
+      "numHeight": 6,
+      "deckId": "447",
+      "cell": 17,
+      "ttsCardId": 44717,
+      "cellSource": "room_print_page_plus_12"
+    },
+    {
+      "id": "room:p006",
+      "name": "Treasure Chamber",
+      "page": 6,
+      "boss": false,
+      "faceUrl": "https://steamusercontent-a.akamaihd.net/ugc/14650257961976472599/445EF67B8C222C8A53D77851BDE565AE244DB926/",
+      "backUrl": "https://steamusercontent-a.akamaihd.net/ugc/17333801302800106181/A04A0E7401D90F77CA8642F6A8F7766FF887DB93/",
+      "numWidth": 6,
+      "numHeight": 6,
+      "deckId": "447",
+      "cell": 18,
+      "ttsCardId": 44718,
+      "cellSource": "room_print_page_plus_12"
+    },
+    {
+      "id": "room:p007",
+      "name": "Tomb of Ancestor",
+      "page": 7,
+      "boss": false,
+      "faceUrl": "https://steamusercontent-a.akamaihd.net/ugc/14650257961976472599/445EF67B8C222C8A53D77851BDE565AE244DB926/",
+      "backUrl": "https://steamusercontent-a.akamaihd.net/ugc/17333801302800106181/A04A0E7401D90F77CA8642F6A8F7766FF887DB93/",
+      "numWidth": 6,
+      "numHeight": 6,
+      "deckId": "447",
+      "cell": 19,
+      "ttsCardId": 44719,
+      "cellSource": "room_print_page_plus_12"
+    },
+    {
+      "id": "room:p008",
+      "name": "Invocation Chamber",
+      "page": 8,
+      "boss": false,
+      "faceUrl": "https://steamusercontent-a.akamaihd.net/ugc/14650257961976472599/445EF67B8C222C8A53D77851BDE565AE244DB926/",
+      "backUrl": "https://steamusercontent-a.akamaihd.net/ugc/17333801302800106181/A04A0E7401D90F77CA8642F6A8F7766FF887DB93/",
+      "numWidth": 6,
+      "numHeight": 6,
+      "deckId": "447",
+      "cell": 20,
+      "ttsCardId": 44720,
+      "cellSource": "room_print_page_plus_12"
+    },
+    {
+      "id": "room:p009",
+      "name": "Old Abbey",
+      "page": 9,
+      "boss": false,
+      "faceUrl": "https://steamusercontent-a.akamaihd.net/ugc/14650257961976472599/445EF67B8C222C8A53D77851BDE565AE244DB926/",
+      "backUrl": "https://steamusercontent-a.akamaihd.net/ugc/17333801302800106181/A04A0E7401D90F77CA8642F6A8F7766FF887DB93/",
+      "numWidth": 6,
+      "numHeight": 6,
+      "deckId": "447",
+      "cell": 21,
+      "ttsCardId": 44721,
+      "cellSource": "room_print_page_plus_12"
+    },
+    {
+      "id": "room:p010",
+      "name": "Necromancer Room",
+      "page": 10,
+      "boss": true,
+      "faceUrl": "https://steamusercontent-a.akamaihd.net/ugc/14650257961976472599/445EF67B8C222C8A53D77851BDE565AE244DB926/",
+      "backUrl": "https://steamusercontent-a.akamaihd.net/ugc/17333801302800106181/A04A0E7401D90F77CA8642F6A8F7766FF887DB93/",
+      "numWidth": 6,
+      "numHeight": 6,
+      "deckId": "447",
+      "cell": 22,
+      "ttsCardId": 44722,
+      "cellSource": "room_print_page_plus_12"
+    },
+    {
+      "id": "room:p011",
+      "name": "Prophet Room",
+      "page": 11,
+      "boss": true,
+      "faceUrl": "https://steamusercontent-a.akamaihd.net/ugc/14650257961976472599/445EF67B8C222C8A53D77851BDE565AE244DB926/",
+      "backUrl": "https://steamusercontent-a.akamaihd.net/ugc/17333801302800106181/A04A0E7401D90F77CA8642F6A8F7766FF887DB93/",
+      "numWidth": 6,
+      "numHeight": 6,
+      "deckId": "447",
+      "cell": 23,
+      "ttsCardId": 44723,
+      "cellSource": "room_print_page_plus_12"
+    },
+    {
+      "id": "room:p012",
+      "name": "Collector Room",
+      "page": 12,
+      "boss": true,
+      "faceUrl": "https://steamusercontent-a.akamaihd.net/ugc/14650257961976472599/445EF67B8C222C8A53D77851BDE565AE244DB926/",
+      "backUrl": "https://steamusercontent-a.akamaihd.net/ugc/17333801302800106181/A04A0E7401D90F77CA8642F6A8F7766FF887DB93/",
+      "numWidth": 6,
+      "numHeight": 6,
+      "deckId": "447",
+      "cell": 24,
+      "ttsCardId": 44724,
+      "cellSource": "room_print_page_plus_12"
+    }
+  ],
+  "pendingConfirmation": [
+    "room:p013 page 13 → cell 25 not present on TTS deck 447",
+    "QuestMap tile order follows TTS ContainedObjects order only; not re-verified page-by-page against print FRONT p1–14.",
+    "Corridor segment tiles (Base/Darkest Room Tiles nicknames 0-1, 1-2, …) not wired — web map has no corridor geometry.",
+    "Battle Room Tile faces (room_tile_geometry) not mapped; TTS has no per-tile identity for ruins boards in this save.",
+    "Stygian / other location room cards use other decks (e.g. 450) — out of this slice."
+  ]
+}

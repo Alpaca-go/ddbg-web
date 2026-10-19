@@ -47,6 +47,9 @@ import { battleData as questBattleData } from "virtual:quest-battle-data";
 import { battleData as previousQuestBattleData } from "virtual:quest-battle-data-v1";
 import { battleData as sixHeroQuestBattleData } from "virtual:quest-battle-data-v2";
 import { CardFace } from "./card-art/card-face";
+import { ExplorationArtImage } from "./card-art/exploration-art-image";
+import { lookupQuestMapArt, lookupRoomTokenArt } from "./card-art/resolve-exploration-art";
+import { RoomCardFace } from "./card-art/room-card-face";
 import { BattleView } from "./battle-view";
 import { DungeonStanceOrder } from "./dungeon-stance-order";
 import { provisionLabels, provisionEffectLabels } from "./provision-labels";
@@ -565,6 +568,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
   const currentRoom = d.rooms.find((r) => r.id === d.position);
   const quest = readBasicQuest(d.questDistribution);
   const map = preview ?? d.layout;
+  const questMapArt = lookupQuestMapArt(map.id);
   const shownCurio = d.curio?.active ?? d.curio?.last;
   const card = d.curio?.cards.find((c) => c.id === shownCurio?.cardId);
   return (
@@ -687,71 +691,99 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
             </label>
           </>
         )}
-        <svg
-          viewBox="0 0 100 92"
-          role="img"
-          aria-label={`QuestMap p${page} 标注`}
-          style={{ width: "100%", maxWidth: 540 }}
-        >
-          {map.edges.map(([a, b]) => {
-            const from = map.nodes.find((n) => n.id === a)!;
-            const to = map.nodes.find((n) => n.id === b)!;
-            return (
-              <line
-                key={`${a}-${b}`}
-                x1={from.x}
-                y1={from.y}
-                x2={to.x}
-                y2={to.y}
-                stroke="#827d72"
-                strokeWidth="0.7"
-              />
-            );
-          })}
-          {map.nodes.map((n) => {
-            const room = preview ? undefined : d.rooms.find((r) => r.id === n.id);
-            return (
-              <g key={n.id} data-testid={`dungeon-node-${n.id}`}>
-                <rect
-                  x={n.x - 6}
-                  y={n.y - 6}
-                  width="12"
-                  height="12"
-                  rx="1"
-                  fill={!preview && d.position === n.id ? "#735629" : "#202523"}
+        <div className="quest-map-frame" data-testid="quest-map-frame">
+          {questMapArt && (
+            <ExplorationArtImage
+              entry={questMapArt}
+              alt={`QuestMap FRONT p${questMapArt.page}`}
+              className="quest-map-frame__art"
+              testId={`quest-map-art-p${questMapArt.page}`}
+            />
+          )}
+          <svg
+            viewBox="0 0 100 92"
+            role="img"
+            aria-label={`QuestMap p${page} 标注`}
+            className="quest-map-frame__svg"
+          >
+            {map.edges.map(([a, b]) => {
+              const from = map.nodes.find((n) => n.id === a)!;
+              const to = map.nodes.find((n) => n.id === b)!;
+              return (
+                <line
+                  key={`${a}-${b}`}
+                  x1={from.x}
+                  y1={from.y}
+                  x2={to.x}
+                  y2={to.y}
                   stroke="#827d72"
-                  strokeWidth="0.5"
+                  strokeWidth="0.7"
                 />
-                <text x={n.x} y={n.y - 1} textAnchor="middle" fill="#f5e7ce" fontSize="3.5">
-                  {n.id}
-                  {!preview && d.position === n.id ? " · 队伍" : ""}
-                </text>
-                <text
-                  x={n.x}
-                  y={n.y + 3.5}
-                  textAnchor="middle"
-                  fill="#f5e7ce"
-                  fontSize={room?.cleared ? 1.7 : 3}
-                >
-                  {room
-                    ? room.cleared
-                      ? "已清理 · 无代币"
-                      : room.revealed
-                        ? labels[room.kind]
-                        : "未揭示"
-                    : n.kind === "dot"
-                      ? "灰点"
-                      : n.kind === "unresolved" ||
-                          map.unresolvedMarkers?.some((m) => m.nodeId === n.id)
-                        ? "待确认"
-                        : n.kind === "start"
-                          ? "起点"
-                          : "房间槽"}
-                </text>
-              </g>
-            );
-          })}
-        </svg>
+              );
+            })}
+            {map.nodes.map((n) => {
+              const room = preview ? undefined : d.rooms.find((r) => r.id === n.id);
+              const tokenArt =
+                room?.revealed && !room.cleared ? lookupRoomTokenArt(room.kind) : undefined;
+              return (
+                <g key={n.id} data-testid={`dungeon-node-${n.id}`}>
+                  {tokenArt && (
+                    <foreignObject x={n.x - 5} y={n.y - 5} width="10" height="10">
+                      <ExplorationArtImage
+                        entry={tokenArt}
+                        alt={labels[room!.kind]}
+                        className="dungeon-node-token"
+                        testId={`dungeon-token-${n.id}`}
+                      />
+                    </foreignObject>
+                  )}
+                  <rect
+                    x={n.x - 6}
+                    y={n.y - 6}
+                    width="12"
+                    height="12"
+                    rx="1"
+                    fill={
+                      tokenArt
+                        ? "rgba(32, 37, 35, 0.35)"
+                        : !preview && d.position === n.id
+                          ? "#735629"
+                          : "#202523"
+                    }
+                    stroke="#827d72"
+                    strokeWidth="0.5"
+                  />
+                  <text x={n.x} y={n.y - 1} textAnchor="middle" fill="#f5e7ce" fontSize="3.5">
+                    {n.id}
+                    {!preview && d.position === n.id ? " · 队伍" : ""}
+                  </text>
+                  <text
+                    x={n.x}
+                    y={n.y + 3.5}
+                    textAnchor="middle"
+                    fill="#f5e7ce"
+                    fontSize={room?.cleared ? 1.7 : 3}
+                  >
+                    {room
+                      ? room.cleared
+                        ? "已清理 · 无代币"
+                        : room.revealed
+                          ? labels[room.kind]
+                          : "未揭示"
+                      : n.kind === "dot"
+                        ? "灰点"
+                        : n.kind === "unresolved" ||
+                            map.unresolvedMarkers?.some((m) => m.nodeId === n.id)
+                          ? "待确认"
+                          : n.kind === "start"
+                            ? "起点"
+                            : "房间槽"}
+                  </text>
+                </g>
+              );
+            })}
+          </svg>
+        </div>
       </section>
       {!preview && (
         <section className="panel">
@@ -819,14 +851,19 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
               const selectedTile = readRoomTile(roomCard, active.tileId);
               return (
                 <div className="panel" data-testid="dungeon-room-card">
-                  <h3>
-                    {roomCard.name} · 遗迹 {roomCard.number}
-                  </h3>
-                  <p>
-                    完整遗迹房间牌池 9 张 · 余牌 {d.roomCards.deck!.length} · 已抽 1 张 · 印刷页{" "}
-                    {roomCard.source.page}
-                  </p>
-                  <p>地点与 Boss 分堆；效果栏保留原文和图标 ID，尚未执行。</p>
+                  <div className="dungeon-room-card-row">
+                    <RoomCardFace roomCardId={roomCard.id} label={roomCard.name} />
+                    <div>
+                      <h3>
+                        {roomCard.name} · 遗迹 {roomCard.number}
+                      </h3>
+                      <p>
+                        完整遗迹房间牌池 9 张 · 余牌 {d.roomCards.deck!.length} · 已抽 1 张 · 印刷页{" "}
+                        {roomCard.source.page}
+                      </p>
+                      <p>地点与 Boss 分堆；效果栏保留原文和图标 ID，尚未执行。</p>
+                    </div>
+                  </div>
                   <details>
                     <summary>查看卡面转录（含未解释图标）</summary>
                     {roomCard.printedLines.map((line, i) => (

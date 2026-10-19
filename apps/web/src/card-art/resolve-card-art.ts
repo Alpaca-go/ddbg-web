@@ -1,16 +1,19 @@
 import faceMap from "./hero-skill-face-map.json";
 
-export type CardArtEntry = {
-  readonly id: string;
-  readonly name: string;
-  readonly level: number;
-  readonly hero: string;
+export type AtlasFaceEntry = {
   readonly faceUrl: string;
-  readonly backUrl: string | null;
+  readonly backUrl?: string | null;
   readonly numWidth: number;
   readonly numHeight: number;
   readonly deckId: string;
   readonly cell: number;
+};
+
+export type CardArtEntry = AtlasFaceEntry & {
+  readonly id: string;
+  readonly name: string;
+  readonly level: number;
+  readonly hero: string;
   readonly ttsCardId: number;
   readonly cellSource: string;
 };
@@ -35,11 +38,14 @@ export function faceCacheBaseName(deckId: string): string {
  * Resolve a cached atlas URL for a mapped skill.
  * Prefer png then jpg; callers should treat load errors as missing cache.
  */
-export function cachedFaceSheetUrl(entry: CardArtEntry, ext: "png" | "jpg" = "png"): string {
+export function cachedFaceSheetUrl(
+  entry: Pick<AtlasFaceEntry, "deckId">,
+  ext: "png" | "jpg" = "png",
+): string {
   return `${CARD_ART_CACHE_PUBLIC_PREFIX}/${faceCacheBaseName(entry.deckId)}.${ext}`;
 }
 
-export function atlasBackgroundPosition(entry: CardArtEntry): string {
+export function atlasBackgroundPosition(entry: AtlasFaceEntry): string {
   const col = entry.cell % entry.numWidth;
   const row = Math.floor(entry.cell / entry.numWidth);
   const x = entry.numWidth === 1 ? 0 : (col / (entry.numWidth - 1)) * 100;
@@ -47,7 +53,7 @@ export function atlasBackgroundPosition(entry: CardArtEntry): string {
   return `${x}% ${y}%`;
 }
 
-export function atlasBackgroundSize(entry: CardArtEntry): string {
+export function atlasBackgroundSize(entry: AtlasFaceEntry): string {
   return `${entry.numWidth * 100}% ${entry.numHeight * 100}%`;
 }
 

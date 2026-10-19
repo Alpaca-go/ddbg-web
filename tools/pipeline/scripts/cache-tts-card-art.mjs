@@ -16,12 +16,16 @@ import { fileURLToPath } from "node:url";
 import { pipeline } from "node:stream/promises";
 
 const root = resolve(fileURLToPath(new URL("../../../", import.meta.url)));
-const mapPath = resolve(root, "apps/web/src/card-art/hero-skill-face-map.json");
+const heroMapPath = resolve(root, "apps/web/src/card-art/hero-skill-face-map.json");
+const explorationMapPath = resolve(root, "apps/web/src/card-art/exploration-art-map.json");
 const cacheDir = resolve(
   process.env.DDBG_TTS_CARD_ART_CACHE || resolve(root, ".cache/tts-card-art"),
 );
 
-const map = JSON.parse(readFileSync(mapPath, "utf8"));
+const heroMap = JSON.parse(readFileSync(heroMapPath, "utf8"));
+const explorationMap = existsSync(explorationMapPath)
+  ? JSON.parse(readFileSync(explorationMapPath, "utf8"))
+  : null;
 mkdirSync(cacheDir, { recursive: true });
 
 async function download(url, destBase) {
@@ -47,10 +51,24 @@ async function download(url, destBase) {
 }
 
 const jobs = [];
-for (const [deckId, atlas] of Object.entries(map.atlases || {})) {
+for (const [deckId, atlas] of Object.entries(heroMap.atlases || {})) {
   jobs.push(download(atlas.faceUrl, resolve(cacheDir, `face-${deckId}`)));
   if (atlas.backUrl) {
     jobs.push(download(atlas.backUrl, resolve(cacheDir, `back-${deckId}`)));
+  }
+}
+if (explorationMap) {
+  for (const [deckId, atlas] of Object.entries(explorationMap.atlases || {})) {
+    jobs.push(download(atlas.faceUrl, resolve(cacheDir, `face-${deckId}`)));
+    if (atlas.backUrl) {
+      jobs.push(download(atlas.backUrl, resolve(cacheDir, `back-${deckId}`)));
+    }
+  }
+  for (const page of explorationMap.questMapPages || []) {
+    jobs.push(download(page.imageUrl, resolve(cacheDir, page.cacheName)));
+  }
+  for (const token of explorationMap.roomTokens || []) {
+    jobs.push(download(token.imageUrl, resolve(cacheDir, token.cacheName)));
   }
 }
 
