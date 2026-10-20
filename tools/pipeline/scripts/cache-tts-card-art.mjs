@@ -62,5 +62,5 @@ if (failed.length) {
   process.exit(1);
 }
 console.log(
-  `Point Vite at this dir via DDBG_TTS_CARD_ART_CACHE (see docs/phase4-card-art-faces-2026-10-18.md).`,
+  `Optional cross-check only (runtime UI uses print PNG). Vite: DDBG_TTS_CARD_ART_CACHE → /tts-card-art/ (see docs/phase4-card-art-faces-2026-10-18.md).`,
 );

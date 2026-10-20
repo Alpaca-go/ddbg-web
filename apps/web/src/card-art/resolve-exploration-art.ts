@@ -1,6 +1,5 @@
 import printMap from "./exploration-print-art-map.json";
 import roomTokenPrintMap from "./room-token-print-art-map.json";
-import { CARD_ART_CACHE_PUBLIC_PREFIX } from "./resolve-card-art";
 
 export type PrintExplorationArtEntry = {
   readonly id: string;
@@ -82,10 +81,6 @@ export function lookupRoomCardArt(roomCardId: string): RoomCardArtEntry | undefi
 
 export function lookupPrintExplorationArt(engineId: string): PrintExplorationArtEntry | undefined {
   return printById.get(engineId);
-}
-
-export function cachedRasterUrl(cacheName: string, ext: "png" | "jpg" = "png"): string {
-  return `${CARD_ART_CACHE_PUBLIC_PREFIX}/${cacheName}.${ext}`;
 }
 
 /** Local cache path under `.cache/print-card-art/` (e.g. `png/page_….png`). */

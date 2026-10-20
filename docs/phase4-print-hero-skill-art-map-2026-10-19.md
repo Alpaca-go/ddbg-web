@@ -56,7 +56,7 @@ Kyries 在印刷导出 manifest 上人工核对 **SKILLS_FRONT** 页序；引擎
 
 - 不改规则数值与引擎行为；不进 Phase 5。
 - 英雄技能 BACK 面、效果图标切格仍不在本刀。
-- 探索 / 站位色条仍用 TTS（见 [phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md)）。
+- 探索与战斗站位美术见印刷 map（[phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md)、[phase4-print-monster-stance-art-2026-10-19.md](phase4-print-monster-stance-art-2026-10-19.md)、[phase4-print-hero-standee-art-2026-10-20.md](phase4-print-hero-standee-art-2026-10-20.md)）；运行时无 TTS 回退。
 
 ## 历史 TTS 映射
 

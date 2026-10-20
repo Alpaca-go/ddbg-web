@@ -1,6 +1,6 @@
-# Phase 4 · 探索卡图（TTS 暂代 → 印刷）
+# Phase 4 · 探索卡图（印刷）
 
-状态：**大部分 supersede**——房间牌、QuestMap、房间代币均已切印刷 PNG。站位色条等仍 TTS。美术二进制不入库。
+状态：**已接线**——探索 UI（房间牌、QuestMap、房间代币）仅 `/print-card-art/…`；无缓存时占位，**无 TTS 回退**。战斗站位立牌 / Monster Stance 见 [phase4-print-hero-standee-art-2026-10-20.md](phase4-print-hero-standee-art-2026-10-20.md)、[phase4-print-monster-stance-art-2026-10-19.md](phase4-print-monster-stance-art-2026-10-19.md)。美术二进制不入库。
 
 | 内容                        | 来源                                                                                                                                              |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |

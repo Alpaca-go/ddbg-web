@@ -38,8 +38,8 @@ export function BattleStanceTrack({
       <p className="muted stance-track-note">
         四格站位（进攻→支援）：背景为印刷 Monster Stance 整板 TrimBox PNG（
         <code>.cache/print-card-art</code>）；英雄立牌为 DH 冲压板 Rubine 刀线 bbox
-        PNG，无本地图时占位， 不回退 TTS <code>hero-token-*</code>。怪物头像优先印刷 PNG，缺图时回退
-        TTS 或占位。
+        PNG，无本地图时占位，不回退 TTS <code>hero-token-*</code>。怪物头像为印刷
+        PNG，缺图时占位（无 TTS 回退）。
       </p>
       <div className="stance-track-grid">
         {(["hero", "monster"] as const).map((side) => {

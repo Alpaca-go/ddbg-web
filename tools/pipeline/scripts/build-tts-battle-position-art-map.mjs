@@ -87,7 +87,7 @@ const out = {
     notes: [
       "Hero portraits from The Darkest Heroes Custom_Token ImageURL (formal eight).",
       "Stance track art uses monster-stance-print-art-map.json (print TrimBox board); no TTS Color Room Tiles.",
-      "No print PDF; no Steam CDN hotlink in UI (local cache via cache-tts-card-art.mjs).",
+      "Historical TTS URLs only; runtime UI uses hero-standee-print-art-map.json (print PNG).",
     ],
   },
   heroTokens,
