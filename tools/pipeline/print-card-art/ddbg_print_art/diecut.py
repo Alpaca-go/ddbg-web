@@ -31,6 +31,14 @@ BUILDING_TILE_SHORT_77_PT = 77.42
 BUILDING_TILE_SHORT_76_PT = 75.88
 BUILDING_TILE_SHORT_TOLERANCE_PT = 1.5
 
+# Vector die-cut path bboxes on BLD p1 (page.get_drawings), Kyries EN export.
+BUILDING_DIE_LONG_MIN_PT = 85.0
+BUILDING_DIE_LONG_MAX_PT = 200.0
+BUILDING_DIE_SHORT_MIN_PT = 39.0
+BUILDING_DIE_SHORT_MAX_PT = 125.0
+BUILDING_DIE_DEDUPE_CENTER_PT = 18.0
+BUILDING_DIE_MAX_AREA_PT2 = 35_000.0
+
 # The Darkest Heroes punchboard — Rubine die-cut panel (arched silhouette bbox).
 HERO_STANDEE_WIDTH_PT = 177.83
 HERO_STANDEE_HEIGHT_PT = 237.09
@@ -315,6 +323,75 @@ def _rect_matches_building_tile_panel(rect: pymupdf.Rect) -> bool:
     if abs(long - BUILDING_TILE_LONG_PT) > BUILDING_TILE_LONG_TOLERANCE_PT:
         return False
     return _short_side_matches_building_tile(short)
+
+
+def _rect_matches_building_diecut_panel(rect: pymupdf.Rect) -> bool:
+    long = max(rect.width, rect.height)
+    short = min(rect.width, rect.height)
+    if long < BUILDING_DIE_LONG_MIN_PT or long > BUILDING_DIE_LONG_MAX_PT:
+        return False
+    if short < BUILDING_DIE_SHORT_MIN_PT or short > BUILDING_DIE_SHORT_MAX_PT:
+        return False
+    if rect.width * rect.height > BUILDING_DIE_MAX_AREA_PT2:
+        return False
+    return True
+
+
+def iter_building_upgrade_diecut_panels(
+    page: pymupdf.Page,
+    *,
+    trim: pymupdf.Rect | None = None,
+) -> list[BuildingTilePanel]:
+    """Vector die-cut path bboxes (~122×71.6 / ~124×74 / portrait strips) on BLD p1."""
+    raw: list[pymupdf.Rect] = []
+    for drawing in page.get_drawings():
+        rect = drawing.get("rect")
+        if rect is None:
+            continue
+        r = pymupdf.Rect(rect)
+        if trim is not None and r.x0 < trim.x0 - 2:
+            continue
+        if trim is not None and r.y0 < trim.y0 - 2:
+            continue
+        if not _rect_matches_building_diecut_panel(r):
+            continue
+        raw.append(r)
+
+    deduped: list[pymupdf.Rect] = []
+    for r in raw:
+        cx = (r.x0 + r.x1) / 2.0
+        cy = (r.y0 + r.y1) / 2.0
+        duplicate = False
+        for prior in deduped:
+            pcx = (prior.x0 + prior.x1) / 2.0
+            pcy = (prior.y0 + prior.y1) / 2.0
+            if (
+                abs(cx - pcx) <= BUILDING_DIE_DEDUPE_CENTER_PT
+                and abs(cy - pcy) <= BUILDING_DIE_DEDUPE_CENTER_PT
+            ):
+                duplicate = True
+                if r.get_area() > prior.get_area():
+                    deduped.remove(prior)
+                    deduped.append(r)
+                break
+        if not duplicate:
+            deduped.append(r)
+
+    out: list[BuildingTilePanel] = []
+    for r in deduped:
+        long = max(r.width, r.height)
+        short = min(r.width, r.height)
+        out.append(
+            BuildingTilePanel(
+                xref=0,
+                form_name="die",
+                rect=r,
+                long_pt=long,
+                short_pt=short,
+            )
+        )
+    out.sort(key=lambda p: (round(p.rect.y0, 2), round(p.rect.x0, 2)))
+    return out
 
 
 def iter_building_upgrade_panel_candidates(

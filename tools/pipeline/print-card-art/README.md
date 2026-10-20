@@ -21,7 +21,7 @@ node ../../scripts/build-print-hamlet-board-art-map.mjs
 node ../../scripts/build-print-hamlet-building-tile-art-map.mjs
 ```
 
-村庄版图 / 建筑升级板说明：[docs/phase4-print-hamlet-art-2026-10-20.md](../../../docs/phase4-print-hamlet-art-2026-10-20.md)。
+村庄版图 / 建筑升级板说明：[docs/phase4-print-hamlet-art-2026-10-20.md](../../../docs/phase4-print-hamlet-art-2026-10-20.md)。本机 14 块拼图与 Guild 剔除对比：`python3 render_hamlet_building_previews.py`（需已导出 `.cache/print-card-art/png/`）。
 
 房间代币刀线说明：[docs/phase4-print-room-token-art-2026-10-19.md](../../../docs/phase4-print-room-token-art-2026-10-19.md)。
 

@@ -4,12 +4,20 @@
 
 ## 几何依据（R-048）
 
-| 部件                       | PDF                                          | 页  | 几何                                                                                                                                                |
-| -------------------------- | -------------------------------------------- | --- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HB** 村庄版图正面        | `DD_EN_COREBOX_BOARD_Hamlet_FRONT.pdf`       | 1   | TrimBox **841.89×476.22 pt**，原点 **(56.69, 56.69)**                                                                                               |
-| **BLD** 建筑 II/III 升级板 | `DD_EN_COREBOX_PUNCHBOARD_300x300_FRONT.pdf` | 1   | Form 放置框 **长≈130.1 pt**、**短≈77.4 pt**（Blacksmith / Stagecoach III 等为 **≈75.9 pt**）；共 **14** 块，与 `upgradableBuildings` 各 II/III 一致 |
+| 部件                       | PDF                                          | 页  | 几何                                                                                                                                                                       |
+| -------------------------- | -------------------------------------------- | --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **HB** 村庄版图正面        | `DD_EN_COREBOX_BOARD_Hamlet_FRONT.pdf`       | 1   | TrimBox **841.89×476.22 pt**，原点 **(56.69, 56.69)**                                                                                                                      |
+| **BLD** 建筑 II/III 升级板 | `DD_EN_COREBOX_PUNCHBOARD_300x300_FRONT.pdf` | 1   | **TrimBox** 原点 **(21, 21) pt**；裁切为 `page.get_drawings()` 上模切路径 bbox（约 **122×71.6** / **124×74** / **139×82** pt 等），内缩 **0.65 pt** 后栅格化；共 **14** 块 |
 
-说明：BLD p1 在 Kyries EN 导出中 **未检出** 可解析的 PANTONE Rubine 矢量刀线（与 200×300 房间代币页不同）；裁切使用 PDF **Form XObject 放置边界**。十四块与印刷服务文案的对应及 `diecutPt` 数值见 `tools/pipeline/print-card-art/fixtures/hamlet-building-tile-bld-p1-hints.json`。
+说明：Form XObject 放置框与可见印刷面 **不对齐**（会裁到刀线/沟槽碎片），故 **不用 Form bbox**。十四块 `diecutPt` 与 `verifyPhrases` 见 `tools/pipeline/print-card-art/fixtures/hamlet-building-tile-bld-p1-hints.json`；匹配为签名打分 + `scipy` 线性分配 + 导出前栅格/短语断言（`tile_raster_quality.py`）。
+
+本地预览拼图：
+
+```bash
+python3 tools/pipeline/print-card-art/render_hamlet_building_previews.py
+```
+
+输出：`/opt/cursor/artifacts/hamlet-building-tiles-preview.png`、`hamlet-building-guild-redaction-compare.png`。
 
 ## 本机导出
 
@@ -44,6 +52,6 @@ node tools/pipeline/scripts/build-print-hamlet-building-tile-art-map.mjs
 
 ## 待确认
 
-- BLD p1 无 Rubine 矢量刀线时的 Form 框是否等同生产模切（见 map `pendingConfirmation`）。
-- Guild / Graveyard 隐藏文字层：导出时对裁切区内 `Guild`/`Graveyard` 做 **文本 redaction**（非 Separation OCG）；需 Kyries 本机 PNG 目视确认。
+- 模切几何取自 **矢量 path 外接框**，非 PANTONE Rubine 描边解析（见 map `pendingConfirmation`）。
+- Guild / Graveyard：导出时对裁切区内 `Guild`/`Graveyard` 做 **文本 redaction**（非 Separation OCG）；对比图见 `hamlet-building-guild-redaction-compare.png`。
 - Hamlet 版图 **背面** 出血不同，本 PR 不导出。

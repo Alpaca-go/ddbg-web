@@ -1,3 +1,4 @@
 # Print card art export (local batch + CI unit tests)
 # Rubine die-cut detection tested on PyMuPDF 1.28.x (Kyries Windows export).
 PyMuPDF>=1.24.0,<2
+scipy>=1.11.0,<2

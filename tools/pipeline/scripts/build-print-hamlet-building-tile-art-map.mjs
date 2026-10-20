@@ -102,19 +102,19 @@ const map = {
   schema: "ddbg.print-hamlet-building-tile-art-map.v1",
   source: {
     geometry:
-      "PUNCHBOARD_300x300 FRONT p1 Form panel bbox long≈130.1pt short≈77.4/75.9pt (BLD, R-048)",
+      "PUNCHBOARD_300x300 FRONT p1 vector die-cut path bbox (~122×71.6 / ~124×74 / ~139×82 pt, TrimBox origin 21pt, R-048)",
     hintsFixture: "tools/pipeline/print-card-art/fixtures/hamlet-building-tile-bld-p1-hints.json",
     exportScript: "tools/pipeline/scripts/export-print-hamlet-building-tiles.mjs",
     reviewedAt: "2026-10-20",
     notes: [
       exportNote,
       "Guild/Graveyard overprint text redacted per tile when omit-hidden-terms is enabled.",
-      "No Rubine vector die-cut on BLD p1 in PyMuPDF; clip uses Form placement bounds.",
+      "Clip = die-cut bbox inset 0.65pt; Form XObject placement bboxes are not used (they mis-align raster).",
     ],
   },
   tiles,
   pendingConfirmation: [
-    "BLD p1 lacks extractable PANTONE Rubine hairlines in this PDF build; geometry is Form XObject placement bbox.",
+    "Die-cut geometry is vector path bbox from page.get_drawings(), not PANTONE Rubine hairline parse.",
     "Guild/Graveyard hidden layer omission uses text redaction (not Separation OCG); confirm visually on first Kyries export.",
   ],
 };

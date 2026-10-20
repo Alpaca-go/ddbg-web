@@ -2,91 +2,91 @@
   "schema": "ddbg.hamlet-building-tile-bld-p1-hints.v1",
   "sourcePdf": "DD_EN_COREBOX_PUNCHBOARD_300x300_FRONT.pdf",
   "page": 1,
-  "geometryNote": "Form placement bbox (long≈130.1pt, short≈77.4 or≈75.9pt) measured on Kyries EN export; paired to II/III via printed service text.",
+  "geometryNote": "Vector die-cut path bbox from page.get_drawings() (~122\u00d771.6 / ~124\u00d774 / ~139\u00d782 pt classes), matched via signature + verifyPhrases.",
   "tiles": [
     {
       "buildingId": "abbey",
       "level": 2,
-      "diecutPt": [327.92, 109.75, 458.07, 187.17],
+      "diecutPt": [268.76, 54.58, 393.23, 136.15],
       "verifyPhrases": ["Remove 2 Quirks"]
     },
     {
       "buildingId": "abbey",
       "level": 3,
-      "diecutPt": [434.21, 705.23, 564.36, 782.65],
+      "diecutPt": [472.25, 698.57, 613.76, 783.1],
       "verifyPhrases": ["Gain 1 Positive Quirk", "-6"]
-    },
-    {
-      "buildingId": "tavern",
-      "level": 2,
-      "diecutPt": [593.66, 331.05, 723.8, 408.48],
-      "verifyPhrases": ["Tavern", "-9"]
-    },
-    {
-      "buildingId": "tavern",
-      "level": 3,
-      "diecutPt": [593.65, 336.52, 723.79, 413.94],
-      "verifyPhrases": ["Tavern", "-6"]
-    },
-    {
-      "buildingId": "sanitarium",
-      "level": 2,
-      "diecutPt": [576.88, 289.94, 707.03, 367.36],
-      "verifyPhrases": ["Heal 7", "Heal 14"]
-    },
-    {
-      "buildingId": "sanitarium",
-      "level": 3,
-      "diecutPt": [168.49, 478.46, 298.64, 555.88],
-      "verifyPhrases": ["Heal 9", "Heal 18"]
-    },
-    {
-      "buildingId": "survivalist",
-      "level": 2,
-      "diecutPt": [168.48, 483.92, 298.62, 561.35],
-      "verifyPhrases": ["Gain 1", "Gain 2"]
-    },
-    {
-      "buildingId": "survivalist",
-      "level": 3,
-      "diecutPt": [747.13, 406.01, 824.55, 536.15],
-      "verifyPhrases": ["Gain 3"]
-    },
-    {
-      "buildingId": "stagecoach",
-      "level": 2,
-      "diecutPt": [67.73, 356.25, 145.15, 486.39],
-      "verifyPhrases": ["Waiting"]
-    },
-    {
-      "buildingId": "stagecoach",
-      "level": 3,
-      "diecutPt": [717.37, 637.2, 793.25, 767.34],
-      "verifyPhrases": ["Add another Waiting"]
     },
     {
       "buildingId": "blacksmith",
       "level": 2,
-      "diecutPt": [343.24, 328.6, 473.38, 404.48],
+      "diecutPt": [424.24, 346.88, 547.85, 403.28],
       "verifyPhrases": ["Blacksmith", "Use One of"]
     },
     {
       "buildingId": "blacksmith",
       "level": 3,
-      "diecutPt": [315.93, 361.87, 446.07, 437.74],
+      "diecutPt": [343.24, 489.7, 467.71, 559.94],
       "verifyPhrases": ["Next Quest Only"]
     },
     {
       "buildingId": "nomadWagon",
       "level": 2,
-      "diecutPt": [355.23, 76.48, 485.37, 153.9],
+      "diecutPt": [452.58, 66.23, 497.45, 212.75],
       "verifyPhrases": ["Reveal two Level I"]
     },
     {
       "buildingId": "nomadWagon",
       "level": 3,
-      "diecutPt": [406.91, 738.49, 537.33, 815.91],
+      "diecutPt": [394.83, 679.64, 439.7, 826.16],
       "verifyPhrases": ["Reveal one Level I Trinket"]
+    },
+    {
+      "buildingId": "sanitarium",
+      "level": 2,
+      "diecutPt": [598.76, 324.59, 689.14, 406.15],
+      "verifyPhrases": ["Heal 7", "Heal 14"]
+    },
+    {
+      "buildingId": "sanitarium",
+      "level": 3,
+      "diecutPt": [203.13, 485.9, 293.52, 567.46],
+      "verifyPhrases": ["Heal 9", "Heal 18"]
+    },
+    {
+      "buildingId": "stagecoach",
+      "level": 2,
+      "diecutPt": [754.79, 608.91, 896.3, 693.44],
+      "verifyPhrases": ["Waiting"]
+    },
+    {
+      "buildingId": "stagecoach",
+      "level": 3,
+      "diecutPt": [797.02, 635.79, 838.74, 760.26],
+      "verifyPhrases": ["Add another Waiting"]
+    },
+    {
+      "buildingId": "survivalist",
+      "level": 2,
+      "diecutPt": [60.37, 319.65, 143.45, 432.02],
+      "verifyPhrases": ["Gain 1", "Gain 2"]
+    },
+    {
+      "buildingId": "survivalist",
+      "level": 3,
+      "diecutPt": [730.49, 460.43, 831.98, 575.35],
+      "verifyPhrases": ["Gain 3"]
+    },
+    {
+      "buildingId": "tavern",
+      "level": 2,
+      "diecutPt": [60.97, 532.04, 145.51, 673.54],
+      "verifyPhrases": ["Tavern", "-9"]
+    },
+    {
+      "buildingId": "tavern",
+      "level": 3,
+      "diecutPt": [77.75, 490.92, 162.28, 632.43],
+      "verifyPhrases": ["Tavern", "-6"]
     }
   ]
 }

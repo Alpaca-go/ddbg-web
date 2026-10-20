@@ -31,7 +31,11 @@ describe("print hamlet building tile art map", () => {
         expect(tile!.buildingId).toBe(buildingId);
         expect(tile!.level).toBe(level);
         expect(tile!.diecutPt).toHaveLength(4);
-        expect(tile!.matchMethod).toContain("bld_form_panel_bbox");
+        expect(tile!.matchMethod).toContain("bld_vector_diecut");
+        expect(tile!.cropMethod).toContain("bld_vector_diecut");
+        for (const n of tile!.diecutPt) {
+          expect(n).toBeGreaterThan(0);
+        }
         expect(cachedPrintHamletBuildingTileUrl(tile!)).toBe(`/print-card-art/${tile!.pngRel}`);
       }
     }

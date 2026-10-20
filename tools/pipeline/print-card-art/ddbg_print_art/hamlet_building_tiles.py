@@ -14,7 +14,8 @@ from .diecut import (
     BUILDING_TILE_LONG_PT,
     BUILDING_TILE_SHORT_PT,
     BuildingTilePanel,
-    iter_building_upgrade_panel_candidates,
+    inset_diecut_clip,
+    iter_building_upgrade_diecut_panels,
     png_slug_for_building_tile,
     punchboard_300x300_pdf_candidates,
 )
@@ -22,6 +23,7 @@ from .export_pdf import page_text_snippet
 from .input_scan import assert_unique_png_outputs
 from .separation_omit import omit_rubine_separation_stroke
 from .text_layer_omit import redact_hidden_building_terms
+from .tile_raster_quality import assert_building_tile_raster, non_black_pixel_ratio
 
 PRINT_NAME_TO_BUILDING_ID: dict[str, str] = {
     "Abbey": "abbey",
@@ -39,12 +41,10 @@ EXPECTED_UPGRADE_TILE_COUNT = 14
 BLD_P1_HINTS_PATH = (
     Path(__file__).resolve().parents[1] / "fixtures" / "hamlet-building-tile-bld-p1-hints.json"
 )
-DIE_CUT_HINT_TOLERANCE_PT = 2.5
-
-MATCH_EXPAND_LEFT_PT = 80.0
-MATCH_EXPAND_TOP_PT = 150.0
-MATCH_EXPAND_RIGHT_PT = 80.0
-MATCH_EXPAND_BOTTOM_PT = 60.0
+DIE_CUT_HINT_CENTER_TOLERANCE_PT = 22.0
+BUILDING_TILE_EXPORT_INSET_PT = 0.65
+MATCH_SCORE_NON_BLACK_WEIGHT = 8.0
+MATCH_SCORE_TEXT_TOKEN_WEIGHT = 0.35
 
 
 @dataclass(frozen=True)
@@ -121,33 +121,25 @@ def _collect_upgrade_label_anchors(page: pymupdf.Page) -> list[BuildingLabelAnch
     return anchors
 
 
-def _expanded_match_clip(panel: BuildingTilePanel) -> pymupdf.Rect:
-    rect = panel.rect
-    return pymupdf.Rect(
-        rect.x0 - MATCH_EXPAND_LEFT_PT,
-        rect.y0 - MATCH_EXPAND_TOP_PT,
-        rect.x1 + MATCH_EXPAND_RIGHT_PT,
-        rect.y1 + MATCH_EXPAND_BOTTOM_PT,
-    )
-
-
 def _match_text_for_panel(page: pymupdf.Page, panel: BuildingTilePanel) -> str:
-    tight = _norm_text(page_text_snippet(page, panel.rect))
-    clip = _expanded_match_clip(panel)
-    expanded = _norm_text(page_text_snippet(page, clip))
-    if not tight:
-        return expanded
-    if not expanded:
-        return tight
-    return expanded if len(expanded) > len(tight) else tight
+    return _norm_text(page_text_snippet(page, panel.rect))
+
+
+def _export_clip_for_panel(panel: BuildingTilePanel) -> pymupdf.Rect:
+    return inset_diecut_clip(panel.rect, BUILDING_TILE_EXPORT_INSET_PT)
 
 
 def _tile_match_score(building_id: str, level: int, match_text: str) -> float:
     """Score expanded clip text for one BLD upgrade tile (higher = better)."""
     text = match_text
     if building_id == "abbey" and level == 2:
+        if "IIIIII" in text:
+            return 0.0
+        if "Gain 1 Positive Quirk" in text and "-6" in text:
+            return 0.0
         if (
             "Remove 2 Quirks" in text
+            and "Abbey" in text
             and "-6" not in text
             and "Heal 7" not in text
             and "Reveal two" not in text
@@ -201,20 +193,31 @@ def _tile_match_score(building_id: str, level: int, match_text: str) -> float:
             return 46.0
         return 0.0
     if building_id == "blacksmith" and level == 2:
-        if "Blacksmith" in text and "Use One of" in text:
-            return 42.0 if "Next Quest Only" in text else 48.0
+        if (
+            "Blacksmith" in text
+            and "Use One of" in text
+            and "IIII" in text
+            and "IIIIII" not in text
+        ):
+            return 48.0
         return 0.0
     if building_id == "blacksmith" and level == 3:
-        if "Next Quest Only" in text:
+        if "Blacksmith" in text and "Use One of" in text and "IIIIII" in text:
             return 48.0
         return 0.0
     if building_id == "nomadWagon" and level == 2:
         if "Reveal two Level I" in text:
-            return 50.0
+            score = 50.0
+            if "Nomad Wagon Nomad Wagon" in text:
+                score += 12.0
+            return score
         return 0.0
     if building_id == "nomadWagon" and level == 3:
         if "Reveal one Level I Trinket" in text or "one Level II Trinket" in text:
-            return 50.0
+            score = 50.0
+            if "Nomad Wagon Nomad Wagon" in text:
+                score += 12.0
+            return score
         return 0.0
     return 0.0
 
@@ -249,16 +252,22 @@ def _panel_for_diecut_hint(
     diecut_pt: list[float],
 ) -> BuildingTilePanel:
     hint = pymupdf.Rect(diecut_pt)
+    hcx = (hint.x0 + hint.x1) / 2.0
+    hcy = (hint.y0 + hint.y1) / 2.0
+    best: tuple[float, BuildingTilePanel] | None = None
     for panel in panels:
         rect = panel.rect
-        if (
-            abs(rect.x0 - hint.x0) <= DIE_CUT_HINT_TOLERANCE_PT
-            and abs(rect.y0 - hint.y0) <= DIE_CUT_HINT_TOLERANCE_PT
-        ):
-            return panel
+        pcx = (rect.x0 + rect.x1) / 2.0
+        pcy = (rect.y0 + rect.y1) / 2.0
+        dist = abs(pcx - hcx) + abs(pcy - hcy)
+        if dist <= DIE_CUT_HINT_CENTER_TOLERANCE_PT:
+            if best is None or dist < best[0]:
+                best = (dist, panel)
+    if best is not None:
+        return best[1]
     raise ValueError(
-        f"BLD p1: no Form panel at diecut origin ({hint.x0:.2f}, {hint.y0:.2f}) "
-        f"(tolerance {DIE_CUT_HINT_TOLERANCE_PT}pt)"
+        f"BLD p1: no die-cut panel near hint center ({hcx:.2f}, {hcy:.2f}) "
+        f"(tolerance {DIE_CUT_HINT_CENTER_TOLERANCE_PT}pt)"
     )
 
 
@@ -316,10 +325,14 @@ def _assign_panels_by_signature(
     n_p = len(panels)
     scores: list[list[float]] = []
     for target in targets:
-        row = [
-            _tile_match_score(target.building_id, target.level, match_texts[col])
-            for col in range(n_p)
-        ]
+        row: list[float] = []
+        for col in range(n_p):
+            score = _tile_match_score(target.building_id, target.level, match_texts[col])
+            if score >= 40.0:
+                clip = _export_clip_for_panel(panels[col])
+                score += non_black_pixel_ratio(page, clip) * MATCH_SCORE_NON_BLACK_WEIGHT
+                score += len(match_texts[col].split()) * MATCH_SCORE_TEXT_TOKEN_WEIGHT
+            row.append(score)
         scores.append(row)
 
     try:
@@ -382,9 +395,9 @@ def _export_panel_clip(
     pix.save(str(dest))
     snippet = page_text_snippet(page, clip)
     tile_doc.close()
-    method = "bld_form_panel_bbox"
+    method = "bld_vector_diecut_bbox_inset"
     if omit_hidden_terms and redacted:
-        method = "bld_form_panel_bbox_hidden_text_redacted"
+        method = "bld_vector_diecut_bbox_inset_hidden_text_redacted"
     return method, snippet, redacted
 
 
@@ -414,8 +427,27 @@ def run_hamlet_building_tile_export(
         doc.close()
         raise ValueError(f"{front_rel} p{page_no}: expected TrimBox (R-048), got {trim_method}")
     _collect_upgrade_label_anchors(page)
-    panels = iter_building_upgrade_panel_candidates(page, trim=trim)
-    assignments = _assign_panels_from_hints(page, panels)
+    panels = iter_building_upgrade_diecut_panels(page, trim=trim)
+    if len(panels) < EXPECTED_UPGRADE_TILE_COUNT:
+        raise ValueError(
+            f"BLD p1: expected ≥{EXPECTED_UPGRADE_TILE_COUNT} vector die-cut panels, got {len(panels)}"
+        )
+    assignments = _assign_panels_by_signature(page, panels)
+    hint_by_key = {
+        (str(h["buildingId"]), int(h["level"])): h for h in _load_bld_p1_hints()
+    }
+    for anchor, panel, match_text in assignments:
+        hint = hint_by_key.get((anchor.building_id, anchor.level))
+        if hint is None:
+            continue
+        phrases = hint.get("verifyPhrases") or []
+        if isinstance(phrases, list):
+            for phrase in phrases:
+                if str(phrase) not in match_text:
+                    raise ValueError(
+                        f"BLD verify failed for {anchor.print_name} {anchor.level_roman}: "
+                        f"missing {phrase!r} in {match_text[:120]!r}"
+                    )
 
     png_dir = out_root / "png"
     png_claims: dict[str, str] = {}
@@ -425,7 +457,7 @@ def run_hamlet_building_tile_export(
         assignments,
         key=lambda pair: (pair[0].building_id, pair[0].level),
     ):
-        clip = panel.rect
+        clip = _export_clip_for_panel(panel)
         png_name = png_slug_for_building_tile(anchor.building_id, anchor.level)
         png_rel = f"png/{png_name}"
         claim = f"{anchor.building_id}:L{anchor.level}"
@@ -436,6 +468,12 @@ def run_hamlet_building_tile_export(
             snippet = ""
             redacted = 0
         else:
+            hint = hint_by_key.get((anchor.building_id, anchor.level))
+            phrases = []
+            if hint and isinstance(hint.get("verifyPhrases"), list):
+                phrases = [str(p) for p in hint["verifyPhrases"]]
+            if phrases:
+                assert_building_tile_raster(page, clip, verify_phrases=phrases)
             method, snippet, redacted = _export_panel_clip(
                 doc,
                 page_no - 1,
@@ -466,7 +504,7 @@ def run_hamlet_building_tile_export(
                     round(panel.rect.y1, 2),
                 ],
                 text_snippet=(match_text or snippet)[:240],
-                match_method="bld_form_panel_bbox_hints",
+                match_method="bld_vector_diecut_signature",
                 hidden_terms_redacted=redacted,
             )
         )
@@ -479,8 +517,8 @@ def run_hamlet_building_tile_export(
             "dpi": dpi,
             "page": page_no,
             "geometry": (
-                "PUNCHBOARD_300x300 FRONT p1 Form panel bbox "
-                f"~{BUILDING_TILE_LONG_PT}×{BUILDING_TILE_SHORT_PT} pt (R-048)"
+                "PUNCHBOARD_300x300 FRONT p1 vector die-cut path bbox "
+                f"(~{BUILDING_TILE_LONG_PT}×{BUILDING_TILE_SHORT_PT} pt class, R-048)"
             ),
             "tiles": [asdict(r) for r in rows],
         }
