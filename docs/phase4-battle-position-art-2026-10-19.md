@@ -1,6 +1,6 @@
 # Phase 4 · 战斗站位美术
 
-状态：**站位轨道已切印刷 Monster Stance 整板**（见 [phase4-print-monster-stance-art-2026-10-19.md](phase4-print-monster-stance-art-2026-10-19.md)）。八英雄 standee 仍 TTS 本地缓存；美术二进制不入库。
+状态：**站位轨道已切印刷 Monster Stance 整板**（见 [phase4-print-monster-stance-art-2026-10-19.md](phase4-print-monster-stance-art-2026-10-19.md)）。八英雄立牌已切 **DH 冲压板印刷 PNG**（见 [phase4-print-hero-standee-art-2026-10-20.md](phase4-print-hero-standee-art-2026-10-20.md)）；美术二进制不入库。
 
 ## 站位轨道（印刷）
 
@@ -8,28 +8,15 @@
 - 映射：`monster-stance-print-art-map.json`；解析 `resolve-print-monster-stance-art.ts`。
 - UI：`BattleStanceTrack` + `MonsterStanceBoard`；无 PNG 时占位，不回退 TTS 色条。
 
-## 英雄肖像（TTS）
+## 英雄立牌（印刷）
 
-| 用途           | TTS 来源                                     | 缓存文件名              |
-| -------------- | -------------------------------------------- | ----------------------- |
-| 正式八英雄肖像 | `The Darkest Heroes` · 各英雄 `Custom_Token` | `hero-token-<slug>.png` |
+- 源：`DD_EN_THE_DARKEST_HEROES_PUNCHBOARD_FRONT.pdf` p1–p2，Rubine 刀线 bbox 177.83×237.09 pt。
+- 映射：`hero-standee-print-art-map.json`；解析 `resolve-print-hero-standee-art.ts`。
+- UI：`BattlePositionRaster` → `/print-card-art/png/{hero}-front.png`；无 PNG 时占位，不回退 TTS。
 
-已提交映射：`apps/web/src/card-art/battle-position-art-map.json`（`ddbg.tts-hero-token-art-map.v1`）。
+本机导出与建图见 [phase4-print-hero-standee-art-2026-10-20.md](phase4-print-hero-standee-art-2026-10-20.md)。
 
-重生成：
-
-```bash
-node tools/pipeline/scripts/build-tts-battle-position-art-map.mjs \
-  --tts /path/to/3657612854.json
-```
-
-## 本地缓存
-
-```bash
-node tools/pipeline/scripts/cache-tts-card-art.mjs
-```
-
-仅下载 `battle-position-art-map.json` 中的 hero token（以及可选的历史 `hero-skill-face-map.json`）。**不**再下载 Color Room Tiles。房间代币已改印刷，见 [phase4-print-room-token-art-2026-10-19.md](phase4-print-room-token-art-2026-10-19.md)。
+`cache-tts-card-art.mjs` 仅服务英雄技能卡面 atlas，**不再**下载 hero token。
 
 ## 历史说明
 

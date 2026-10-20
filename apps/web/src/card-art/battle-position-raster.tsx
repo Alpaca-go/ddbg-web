@@ -1,22 +1,25 @@
 import { useState } from "react";
-import { cachedBattleRasterUrl } from "./resolve-battle-position-art";
+import {
+  cachedPrintHeroStandeeUrl,
+  type HeroStandeeArtEntry,
+} from "./resolve-print-hero-standee-art";
 
 /**
- * Raster from gitignored TTS cache (hero standee token).
+ * Raster from gitignored print cache (DH punchboard hero standee).
  */
 export function BattlePositionRaster({
-  cacheName,
+  standee,
   alt,
   className = "",
   testId,
 }: {
-  readonly cacheName: string;
+  readonly standee: HeroStandeeArtEntry;
   readonly alt: string;
   readonly className?: string;
   readonly testId?: string;
 }) {
-  const [url, setUrl] = useState(() => cachedBattleRasterUrl(cacheName, "png"));
   const [failed, setFailed] = useState(false);
+  const url = cachedPrintHeroStandeeUrl(standee);
 
   if (failed) {
     return (
@@ -26,6 +29,7 @@ export function BattlePositionRaster({
         data-card-art="placeholder"
         role="img"
         aria-label={alt}
+        title="本地无印刷立牌 PNG"
       />
     );
   }
@@ -37,13 +41,7 @@ export function BattlePositionRaster({
       className={className}
       data-testid={testId}
       data-card-art="cached"
-      onError={() => {
-        if (url.endsWith(".png")) {
-          setUrl(cachedBattleRasterUrl(cacheName, "jpg"));
-          return;
-        }
-        setFailed(true);
-      }}
+      onError={() => setFailed(true)}
     />
   );
 }

@@ -375,11 +375,15 @@ small {
 }
 .stance-hero-token {
   width: 2rem;
-  height: 2rem;
-  object-fit: cover;
+  aspect-ratio: 177.83 / 237.09;
+  height: auto;
+  max-height: 2.65rem;
+  object-fit: contain;
+  object-position: center bottom;
   border-radius: 2px;
   flex-shrink: 0;
   border: 1px solid #47453b;
+  background: #10100e;
 }
 .monster-card-face {
   flex-shrink: 0;
@@ -429,7 +433,8 @@ small {
 }
 .battle-position-art-placeholder {
   width: 2rem;
-  height: 2rem;
+  aspect-ratio: 177.83 / 237.09;
+  max-height: 2.65rem;
   flex-shrink: 0;
   display: flex;
   align-items: center;

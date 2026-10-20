@@ -17,15 +17,11 @@ import { pipeline } from "node:stream/promises";
 
 const root = resolve(fileURLToPath(new URL("../../../", import.meta.url)));
 const heroMapPath = resolve(root, "apps/web/src/card-art/hero-skill-face-map.json");
-const battlePositionMapPath = resolve(root, "apps/web/src/card-art/battle-position-art-map.json");
 const cacheDir = resolve(
   process.env.DDBG_TTS_CARD_ART_CACHE || resolve(root, ".cache/tts-card-art"),
 );
 
 const heroMap = JSON.parse(readFileSync(heroMapPath, "utf8"));
-const battlePositionMap = existsSync(battlePositionMapPath)
-  ? JSON.parse(readFileSync(battlePositionMapPath, "utf8"))
-  : null;
 mkdirSync(cacheDir, { recursive: true });
 
 async function download(url, destBase) {
@@ -57,12 +53,6 @@ for (const [deckId, atlas] of Object.entries(heroMap.atlases || {})) {
     jobs.push(download(atlas.backUrl, resolve(cacheDir, `back-${deckId}`)));
   }
 }
-if (battlePositionMap) {
-  for (const token of battlePositionMap.heroTokens || []) {
-    jobs.push(download(token.imageUrl, resolve(cacheDir, token.cacheName)));
-  }
-}
-
 const results = await Promise.allSettled(jobs);
 const failed = results.filter((r) => r.status === "rejected");
 console.log(`Cache dir: ${cacheDir}`);

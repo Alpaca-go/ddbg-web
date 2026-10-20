@@ -7,7 +7,7 @@
 | `quest_map:p001`–`p014`     | 印刷 QuestMap → `exploration-print-art-map.json`                                                                                                  |
 | `room:p001`–`p025`（Ruins） | 同上                                                                                                                                              |
 | 房间代币 7 kind             | 冲压板 Rubine 刀线 → `room-token-print-art-map.json`（见 [phase4-print-room-token-art-2026-10-19.md](phase4-print-room-token-art-2026-10-19.md)） |
-| 战斗站位色条 / hero token   | TTS → `battle-position-art-map.json`                                                                                                              |
+| 战斗站位 hero 立牌          | 印刷 DH 冲压板 → `hero-standee-print-art-map.json`（见 phase4-print-hero-standee-art-2026-10-20.md）                                              |
 
 已入库映射：
 

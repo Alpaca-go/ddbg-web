@@ -15,6 +15,21 @@ BLEED_FILL_DISC_PT = 82.21
 SIDE_TOLERANCE_PT = 0.75
 SQUARE_TOLERANCE_PT = 1.25
 
+# The Darkest Heroes punchboard — Rubine die-cut panel (arched silhouette bbox).
+HERO_STANDEE_WIDTH_PT = 177.83
+HERO_STANDEE_HEIGHT_PT = 237.09
+
+FORMAL_HERO_PRINT_NAMES: tuple[str, ...] = (
+    "CRUSADER",
+    "HELLION",
+    "BOUNTY HUNTER",
+    "HIGHWAYMAN",
+    "GRAVE ROBBER",
+    "VESTAL",
+    "OCCULTIST",
+    "PLAGUE DOCTOR",
+)
+
 _ROOM_TOKEN_KINDS = (
     "treasure",
     "objective",
@@ -83,6 +98,38 @@ def stroke_looks_like_rubine_diecut(drawing: dict, page_has_rubine: bool) -> boo
 
 def _rect_side(rect: pymupdf.Rect) -> float:
     return min(rect.width, rect.height)
+
+
+def _rect_matches_hero_standee_panel(rect: pymupdf.Rect) -> bool:
+    return (
+        abs(rect.width - HERO_STANDEE_WIDTH_PT) < SIDE_TOLERANCE_PT
+        and abs(rect.height - HERO_STANDEE_HEIGHT_PT) < SIDE_TOLERANCE_PT
+    )
+
+
+def iter_hero_standee_diecut_candidates(
+    page: pymupdf.Page,
+    *,
+    require_rubine_stroke: bool = True,
+) -> list[DieCutRect]:
+    """Rubine path bbox for DH / formal hero portrait panels (177.83×237.09 pt)."""
+    page_has_rubine = page_mentions_rubine_separation(page)
+    out: list[DieCutRect] = []
+    for drawing in page.get_drawings():
+        rect = drawing.get("rect")
+        if rect is None:
+            continue
+        rect = pymupdf.Rect(rect)
+        if not _rect_matches_hero_standee_panel(rect):
+            continue
+        if require_rubine_stroke and page_has_rubine:
+            if not stroke_looks_like_rubine_diecut(drawing, page_has_rubine):
+                continue
+        elif require_rubine_stroke and not page_has_rubine:
+            continue
+        side = min(rect.width, rect.height)
+        out.append(DieCutRect(rect=rect, side_pt=side))
+    return _dedupe_rects(out)
 
 
 def iter_diecut_candidates(
@@ -205,3 +252,37 @@ def punchboard_pdf_candidates(input_root: str) -> tuple[str | None, str | None]:
 def png_slug_for_token(kind: str, face: str) -> str:
     safe = re.sub(r"[^a-z0-9_-]+", "-", kind.lower())
     return f"room-token-{safe}_{face}.png"
+
+
+def png_slug_for_hero_standee(hero_print_name: str, face: str) -> str:
+    safe = re.sub(r"[^a-z0-9_-]+", "-", hero_print_name.lower())
+    return f"{safe}-{face}.png"
+
+
+def darkest_heroes_pdf_candidates(input_root: str) -> tuple[str | None, str | None]:
+    """Return (back_pdf_rel, front_pdf_rel) under EN_FILES."""
+    from pathlib import Path
+
+    root = Path(input_root)
+    backs: list[Path] = []
+    fronts: list[Path] = []
+    for path in root.rglob("*.pdf"):
+        upper = path.name.upper()
+        if "THE_DARKEST_HEROES_PUNCHBOARD" not in upper:
+            continue
+        rel = path.relative_to(root).as_posix()
+        if "BACK" in upper:
+            backs.append(path)
+        elif "FRONT" in upper:
+            fronts.append(path)
+
+    def pick(candidates: list[Path]) -> str | None:
+        if not candidates:
+            return None
+        pool = [p for p in candidates if "Old_version" not in p.as_posix()]
+        if not pool:
+            pool = candidates
+        pool.sort(key=lambda p: p.as_posix())
+        return pool[0].relative_to(root).as_posix()
+
+    return pick(backs), pick(fronts)

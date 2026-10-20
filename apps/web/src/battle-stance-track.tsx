@@ -3,7 +3,7 @@ import { battleData } from "virtual:battle-data";
 import { MonsterCardFace } from "./card-art/monster-card-face";
 import { BattlePositionRaster } from "./card-art/battle-position-raster";
 import { MonsterStanceBoard } from "./card-art/monster-stance-board";
-import { lookupHeroTokenArt } from "./card-art/resolve-battle-position-art";
+import { lookupHeroStandeeArt } from "./card-art/resolve-print-hero-standee-art";
 import { listMonsterStanceSlots } from "./card-art/resolve-print-monster-stance-art";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
@@ -37,8 +37,9 @@ export function BattleStanceTrack({
     <section className="stance-track" aria-label="站位轨道">
       <p className="muted stance-track-note">
         四格站位（进攻→支援）：背景为印刷 Monster Stance 整板 TrimBox PNG（
-        <code>.cache/print-card-art</code>）；无本地图时占位，不回退 TTS 色条。怪物头像优先印刷
-        PNG，缺图时回退 TTS 或占位。
+        <code>.cache/print-card-art</code>）；英雄立牌为 DH 冲压板 Rubine 刀线 bbox
+        PNG，无本地图时占位， 不回退 TTS <code>hero-token-*</code>。怪物头像优先印刷 PNG，缺图时回退
+        TTS 或占位。
       </p>
       <div className="stance-track-grid">
         {(["hero", "monster"] as const).map((side) => {
@@ -106,7 +107,7 @@ function EntityChip({
   readonly isActor: boolean;
   readonly battle: NonNullable<GameState["battle"]>;
 }) {
-  const heroToken = entity.hero ? lookupHeroTokenArt(entity.hero) : undefined;
+  const heroStandee = entity.hero ? lookupHeroStandeeArt(entity.hero) : undefined;
   const widthLabel =
     entity.side === "monster" && entity.stanceSlots && entity.stanceSlots > 1
       ? `占${entity.stanceSlots}格`
@@ -114,12 +115,12 @@ function EntityChip({
 
   return (
     <div className={`stance-entity-chip ${entity.side}`} data-testid={`entity-${entity.id}`}>
-      {heroToken && (
+      {heroStandee && (
         <BattlePositionRaster
-          cacheName={heroToken.cacheName}
+          standee={heroStandee}
           alt={entityName(entity.id)}
           className="stance-hero-token"
-          testId={`hero-token-${entity.id}`}
+          testId={`hero-standee-${entity.id}`}
         />
       )}
       {entity.side === "monster" && entity.monsterCardId && (
