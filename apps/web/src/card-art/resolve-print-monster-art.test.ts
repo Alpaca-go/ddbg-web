@@ -7,14 +7,15 @@ import {
 } from "./resolve-print-monster-art";
 
 describe("print monster art map (Kyries CSV)", () => {
-  it("covers 72 reviewed core-box monsters with pngRel under png/", () => {
+  it("covers reviewed CSV monsters plus ADD_014 aliases with pngRel under png/", () => {
     const meta = printMonsterArtMapMeta();
     expect(meta.schema).toBe("ddbg.print-monster-art-map.v1");
-    expect(meta.cardCount).toBe(72);
-    expect(printMap.cards.length).toBe(72);
+    expect(meta.cardCount).toBe(74);
+    expect(printMap.cards.length).toBe(74);
+    expect(meta.uncoveredEngineIds).toEqual([]);
     for (const card of printMap.cards) {
       expect(card.pngRel).toMatch(/^png\/.+\.png$/);
-      expect(card.reviewVerdict).toBe("ok");
+      expect(["ok", "alias"]).toContain(card.reviewVerdict);
       expect(lookupPrintMonsterFace(card.id)?.pngRel).toBe(card.pngRel);
       expect(cachedPrintMonsterUrl(card)).toBe(`/print-card-art/${card.pngRel}`);
     }
@@ -27,11 +28,17 @@ describe("print monster art map (Kyries CSV)", () => {
     expect(acolyte?.pngRel).toContain("_p021.png");
   });
 
-  it("lists ADD_014 medium ids outside CSV scope", () => {
-    const meta = printMonsterArtMapMeta();
-    expect(meta.uncoveredEngineIds).toEqual([
-      "monster_medium:ADD_014:p001",
-      "monster_medium:ADD_014:p003",
-    ]);
+  it("resolves ADD_014 Perfect / Imperfect Reflection to base p106 / p109 PNG", () => {
+    const perfectBase = lookupPrintMonsterFace("monster_medium:p106");
+    const imperfectBase = lookupPrintMonsterFace("monster_medium:p109");
+    expect(perfectBase?.pngRel).toBeTruthy();
+    expect(imperfectBase?.pngRel).toBeTruthy();
+
+    const perfectAdd = lookupPrintMonsterFace("monster_medium:ADD_014:p001");
+    const imperfectAdd = lookupPrintMonsterFace("monster_medium:ADD_014:p003");
+    expect(perfectAdd?.pngRel).toBe(perfectBase?.pngRel);
+    expect(imperfectAdd?.pngRel).toBe(imperfectBase?.pngRel);
+    expect(perfectAdd?.reviewVerdict).toBe("alias");
+    expect(imperfectAdd?.reviewVerdict).toBe("alias");
   });
 });
