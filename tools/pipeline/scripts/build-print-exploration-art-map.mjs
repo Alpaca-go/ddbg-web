@@ -100,7 +100,7 @@ const map = {
       "pngRel paths are relative to .cache/print-card-art/ after export-print-card-art.mjs.",
       "Room cards + QuestMap UI use print PNG only (no TTS fallback); see resolve-exploration-art.ts.",
       "room_token: per-kind PNG via export_room_tokens.py + room-token-print-art-map.json.",
-      "curio / trinket / quest rows committed for pipeline parity; exploration UI is text-only today.",
+      "curio / trinket / quest UI uses dedicated print art maps (see docs/phase4-print-curio-trinket-quest-art-2026-10-20.md).",
       "R-048: raster uses TrimBox / 3 mm bleed from print pipeline; no invented crop in UI.",
     ],
   },

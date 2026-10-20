@@ -1,0 +1,145 @@
+{
+  "schema": "ddbg.print-quest-art-map.v1",
+  "source": {
+    "csv": "tools/pipeline/print-card-art/fixtures/print-exploration-review-ok-auto.csv",
+    "geometry": "Full-page TrimBox 198.43×340.16pt (R-048)",
+    "trimBoxPt": {
+      "widthPt": 198.43,
+      "heightPt": 340.16
+    },
+    "exportScript": "tools/pipeline/scripts/export-print-corebox-trim-decks.mjs",
+    "enabledQuestIds": ["quest:p001", "quest:p002", "quest:p003", "quest:p007", "quest:p008"],
+    "reviewedAt": "2026-10-20",
+    "notes": [
+      "Only basic-quests.ts enabled ids wired to UI; other 14 quest pages exported but not mapped."
+    ]
+  },
+  "cards": [
+    {
+      "id": "quest:p001",
+      "name": "Scout Ahead I",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p001.png",
+          "printPage": 1,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Scout Ahead"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p001.png",
+          "printPage": 1,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Scout Ahead I"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p002",
+      "name": "Wipe 'Em Out I",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p002.png",
+          "printPage": 2,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Wipe 'Em Out"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p002.png",
+          "printPage": 2,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Wipe 'Em Out I"
+        }
+      },
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p003",
+      "name": "Fundraiser I",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p003.png",
+          "printPage": 3,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Fundraiser"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p003.png",
+          "printPage": 3,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Fundraiser I"
+        }
+      },
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p007",
+      "name": "Clear the Path II",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p007.png",
+          "printPage": 7,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Clear the Path"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p007.png",
+          "printPage": 7,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Clear the Path II"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p008",
+      "name": "Reduce to Rubble II",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p008.png",
+          "printPage": 8,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Reduce to Rubble"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p008.png",
+          "printPage": 8,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Reduce to Rubble II"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    }
+  ],
+  "pendingConfirmation": [
+    "quest:p004: quest card not enabled in basic-quests.ts",
+    "quest:p005: quest card not enabled in basic-quests.ts",
+    "quest:p006: quest card not enabled in basic-quests.ts",
+    "quest:p009: quest card not enabled in basic-quests.ts",
+    "quest:p010: quest card not enabled in basic-quests.ts",
+    "quest:p011: quest card not enabled in basic-quests.ts",
+    "quest:p012: quest card not enabled in basic-quests.ts",
+    "quest:p013: quest card not enabled in basic-quests.ts",
+    "quest:p014: quest card not enabled in basic-quests.ts",
+    "quest:p015: quest card not enabled in basic-quests.ts",
+    "quest:p016: quest card not enabled in basic-quests.ts",
+    "quest:p017: quest card not enabled in basic-quests.ts",
+    "quest:p018: quest card not enabled in basic-quests.ts",
+    "quest:p019: quest card not enabled in basic-quests.ts"
+  ]
+}
