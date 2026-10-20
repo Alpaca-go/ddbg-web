@@ -15,6 +15,26 @@ export function DungeonDecksZone({
   const tid = (id: string) => (withTestIds ? { "data-testid": id } : {});
   return (
     <div className="dungeon-decks-zone">
+      <p {...tid("dungeon-pressure")}>
+        {d.heroes
+          .map(
+            (h) =>
+              `${h.id} 压力 ${h.stress}${h.dead ? (h.wounds === h.life ? "（死门死亡）" : "（心脏病死亡）") : h.resolveCardId ? ` · 意志卡 ${d.resolveCards.find((c) => c.id === h.resolveCardId)?.name}` : ""} · 伤口 ${h.wounds}/${h.life}`,
+          )
+          .join(" · ")}
+      </p>
+      <p {...tid("dungeon-bonus")}>
+        下一次探索：每人 {(d.mode === "radiant" ? 1 : 2) - (d.scoutBonus ? 1 : 0)} 骰 · {d.mode}
+      </p>
+      <p {...tid("dungeon-conditions")}>
+        {d.heroes
+          .filter((h) => h.diseaseId || h.quirkIds?.length)
+          .map(
+            (h) =>
+              `${h.id} · 疾病：${d.conditions?.diseases.find((c) => c.id === h.diseaseId)?.name ?? "无"} · 怪癖：${h.quirkIds?.map((id) => d.conditions?.quirks.find((q) => q.id === id)?.name ?? id).join("、") || "无"}`,
+          )
+          .join("；") || "疾病 / 怪癖：无"}
+      </p>
       <p {...tid("dungeon-provision-count")}>
         公共补给（{d.explorationSetup!.provisions.length}/16）
       </p>
