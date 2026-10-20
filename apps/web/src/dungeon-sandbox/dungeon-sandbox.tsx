@@ -7,6 +7,7 @@ import { QuestMapPanel } from "./dungeon-map/quest-map-panel";
 import { QuestMapDebugControls } from "./dungeon-map/quest-map-debug-controls";
 import { ScoutingPanel } from "./expedition/scouting-panel";
 import { DungeonExitNavStub } from "./expedition/dungeon-exit-nav-stub";
+import { DungeonPendingChoice } from "./expedition/dungeon-pending-choice";
 import { DungeonDecksZone } from "./expedition/dungeon-decks-zone";
 import { fixtureDescription } from "./expedition/dungeon-header-copy";
 import { HamletPhaseView } from "./hamlet/hamlet-phase-view";
@@ -48,15 +49,18 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
   ) : null;
 
   const eventsFooter = (
-    <p data-testid="dungeon-events">
-      {events
-        .map((e) =>
-          e.type === "resolveTested"
-            ? `${e.entityId}：d10 ${e.roll}，${d.resolveCards.find((c) => c.id === e.cardId)?.name}，压力归零`
-            : e.message,
-        )
-        .join("；")}
-    </p>
+    <>
+      <DungeonPendingChoice pendingChoice={pendingChoice} dispatch={dispatch} />
+      <p data-testid="dungeon-events">
+        {events
+          .map((e) =>
+            e.type === "resolveTested"
+              ? `${e.entityId}：d10 ${e.roll}，${d.resolveCards.find((c) => c.id === e.cardId)?.name}，压力归零`
+              : e.message,
+          )
+          .join("；")}
+      </p>
+    </>
   );
 
   const mapPanel = (

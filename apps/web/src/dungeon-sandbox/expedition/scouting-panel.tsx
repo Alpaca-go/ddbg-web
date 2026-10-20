@@ -13,7 +13,6 @@ import { RoomCardFace } from "../../card-art/room-card-face";
 import { DungeonStanceOrder } from "../../dungeon-stance-order";
 import { provisionLabels, provisionEffectLabels } from "../../provision-labels";
 import { curioEffectLabel } from "../curio-effect-label";
-import { FundraiserChoice } from "../fundraiser-choice";
 import { QuestSummaryPanel } from "../quest-return/quest-summary-panel";
 import type { DungeonViewProps } from "../view-props";
 import { isNegativeCurioEffect } from "../../../../../packages/data/src/curio";
@@ -384,35 +383,6 @@ export function ScoutingPanel({
         >
           让{d.preparedReplacements.length}名替补入队并继续
         </button>
-      )}
-      {pendingChoice && (
-        <div>
-          <p>{pendingChoice.prompt}</p>
-          {pendingChoice.id.startsWith("dungeon-fundraiser:") ? (
-            <FundraiserChoice
-              key={pendingChoice.id}
-              choice={pendingChoice}
-              choose={(optionId) =>
-                dispatch({ type: "resolveChoice", choiceId: pendingChoice!.id, optionId })
-              }
-            />
-          ) : (
-            pendingChoice.options.map((o) => (
-              <button
-                key={o.id}
-                onClick={() =>
-                  dispatch({
-                    type: "resolveChoice",
-                    choiceId: pendingChoice!.id,
-                    optionId: o.id,
-                  })
-                }
-              >
-                {o.label}
-              </button>
-            ))
-          )}
-        </div>
       )}
     </section>
   );
