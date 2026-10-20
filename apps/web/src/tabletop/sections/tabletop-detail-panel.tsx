@@ -1,20 +1,17 @@
 import { MonsterCardFace } from "../../card-art/monster-card-face";
-import { RoomCardFace } from "../../card-art/room-card-face";
 import { AssetPlaceholder } from "../asset-placeholder";
-import type { TabletopHeroState, TabletopMonsterState, TabletopQuestMeta } from "../tabletop-types";
+import type { TabletopHeroState, TabletopMonsterState } from "../tabletop-types";
 
 export function TabletopDetailPanel({
   kind,
   targetId,
   heroes,
   monsters,
-  quest,
 }: {
   readonly kind: "hero" | "monster";
   readonly targetId: string | null;
   readonly heroes: readonly TabletopHeroState[];
   readonly monsters: readonly TabletopMonsterState[];
-  readonly quest: TabletopQuestMeta;
 }) {
   const hero = kind === "hero" ? heroes.find((h) => h.id === targetId) : undefined;
   const monster = kind === "monster" ? monsters.find((m) => m.id === targetId) : undefined;
@@ -30,7 +27,6 @@ export function TabletopDetailPanel({
           <p className="tt-detail__stat">
             伤口 {monster.wounds}/{monster.life}（代币计数，非 HP 条）
           </p>
-          <p className="muted">修正：光照 {quest.locationLabel} · Protection 堆见卡面</p>
         </>
       )}
       {hero && !monster && (
@@ -46,10 +42,6 @@ export function TabletopDetailPanel({
         </>
       )}
       {!hero && !monster && <p className="muted">点选立牌或英雄行查看详情</p>}
-      <div className="tt-detail__room">
-        <h4>房间卡（替换光环位）</h4>
-        <RoomCardFace roomCardId={quest.currentRoomCardId} />
-      </div>
     </aside>
   );
 }

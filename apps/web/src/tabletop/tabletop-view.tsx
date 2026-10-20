@@ -63,7 +63,6 @@ export function TabletopView() {
         targetId={state.ui.detailTargetId}
         heroes={state.heroes}
         monsters={state.monsters}
-        quest={state.quest}
       />
 
       <TabletopInitiativePanel battle={state.battle} turnHero={turnHero} />

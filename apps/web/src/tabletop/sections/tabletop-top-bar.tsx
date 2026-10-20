@@ -1,4 +1,4 @@
-import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
+import { QuestThumb } from "../quest-thumb";
 import type { TabletopPhase, TabletopQuestMeta, TabletopBattleMeta } from "../tabletop-types";
 
 const PHASES: readonly { readonly id: TabletopPhase; readonly label: string }[] = [
@@ -73,7 +73,7 @@ export function TabletopTopBar({
             ))}
           </ol>
         </div>
-        <CoreboxPrintCardFace deck="quest" cardId={quest.questCardId} size="sm" />
+        <QuestThumb cardId={quest.questCardId} caption={quest.questLabel} />
         <button type="button" className="tt-top__btn" onClick={onToggleLog}>
           日志
         </button>

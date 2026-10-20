@@ -1,12 +1,19 @@
 import { lookupHeroStandeeArt } from "../../card-art/resolve-print-hero-standee-art";
-import { TabletopRasterPiece } from "../tabletop-raster-piece";
-import { AssetPlaceholder } from "../asset-placeholder";
+import { StandeeToken } from "../standee-token";
 import { stanceLabelZh } from "../tabletop-stance-label";
 import type { TabletopHeroState } from "../tabletop-types";
 
 function StressTrack({ stress }: { readonly stress: number }) {
   return (
-    <div className="tt-stress" aria-label={`压力 ${stress}/10`} data-asset-type="punchboard_token">
+    <div
+      className="tt-stress"
+      aria-label={`压力 ${stress}/10`}
+      data-asset-type="punchboard_token"
+      role="meter"
+      aria-valuemin={0}
+      aria-valuemax={10}
+      aria-valuenow={stress}
+    >
       {Array.from({ length: 10 }, (_, i) => (
         <span
           key={i}
@@ -50,24 +57,17 @@ export function TabletopPartyColumn({
             data-testid={`tabletop-hero-row-${hero.id}`}
             aria-pressed={active}
           >
-            <div className="tt-hero-row__avatar" data-asset-type="hero_standee">
-              {standee?.pngRel ? (
-                <TabletopRasterPiece
-                  {...{ pngRel: standee.pngRel }}
-                  label={hero.hero}
-                  aspect="square"
-                />
-              ) : (
-                <AssetPlaceholder assetType="hero_standee" label={hero.hero} />
-              )}
-            </div>
+            <StandeeToken
+              label={hero.hero}
+              {...(standee?.pngRel ? { pngRel: standee.pngRel } : {})}
+              size="row"
+            />
             <div className="tt-hero-row__body">
               <div className="tt-hero-row__title">
-                <span>{hero.hero}</span>
+                <span className="tt-hero-row__name">{hero.hero}</span>
                 <span className="tt-hero-row__level">
                   {["I", "II", "III"][hero.heroLevel - 1] ?? hero.heroLevel}
                 </span>
-                <span className="muted">席 {hero.seat}</span>
               </div>
               <div className="tt-hero-row__wounds" data-asset-type="punchboard_token">
                 伤口 {hero.wounds}/{hero.life}
@@ -85,18 +85,13 @@ export function TabletopPartyColumn({
                     </span>
                   ))
                 ) : (
-                  <span className="muted">无状态堆</span>
+                  <span className="tt-hero-row__cond-empty muted">无状态</span>
                 )}
               </div>
-              <div className="tt-hero-row__trinkets">
-                {Array.from({ length: hero.trinketSlotCount }, (_, i) => (
-                  <span key={i} className="tt-trinket-slot" data-asset-type="trinket">
-                    饰 {i + 1}
-                  </span>
-                ))}
-              </div>
-              <div className="muted tt-hero-row__meta">
-                {stanceLabelZh(hero.stance)} · 技能 {hero.skillIds.length} · 区域 {hero.areaId}
+              <div className="tt-hero-row__meta">
+                <span>{stanceLabelZh(hero.stance)}</span>
+                <span>席{hero.seat}</span>
+                <span>区{hero.areaId}</span>
               </div>
             </div>
           </button>
