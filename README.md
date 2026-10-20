@@ -23,13 +23,14 @@ pnpm build
 
 ### 本地卡图缓存（可选）
 
-英雄技能、怪物卡面、探索房间牌与 QuestMap 使用印刷 PNG（不入库）：映射见 `hero-skill-print-art-map.json`、`monster-print-art-map.json`、`exploration-print-art-map.json`，导出到 gitignored `.cache/print-card-art/`（见 [phase4-print-art-pipeline-2026-10-19.md](docs/phase4-print-art-pipeline-2026-10-19.md)）。探索**房间代币**亦用印刷 PNG（`room-token-print-art-map.json`）；站位色条等仍用 TTS Workshop atlas：
+运行时卡图均为**印刷 PNG**（不入库）：英雄技能、怪物、探索房间牌 / QuestMap、房间代币、Monster Stance 整板、八英雄立牌等映射见 `apps/web/src/card-art/*-print-art-map.json`（及 `hero-standee-print-art-map.json`），导出到 gitignored `.cache/print-card-art/`（见 [phase4-print-art-pipeline-2026-10-19.md](docs/phase4-print-art-pipeline-2026-10-19.md)）。无本地缓存或加载失败时 UI **占位**，不回退 TTS Workshop atlas。
 
 ```bash
 node tools/pipeline/scripts/export-print-card-art.mjs --input /path/to/EN_FILES --out .cache/print-card-art
-node tools/pipeline/scripts/cache-tts-card-art.mjs
-# 可选：DDBG_PRINT_CARD_ART_CACHE / DDBG_TTS_CARD_ART_CACHE
+# 可选：DDBG_PRINT_CARD_ART_CACHE
 ```
+
+**对照用（不喂运行时 UI）**：`hero-skill-face-map.json`、`build-tts-hero-skill-face-map.mjs`、`build-tts-battle-position-art-map.mjs`；可选 `cache-tts-card-art.mjs` 把技能 atlas 下到 `.cache/tts-card-art/`（`pnpm dev` 仍挂载 `/tts-card-art/` 仅供人工对照）。`build-tts-exploration-art-map.mjs` 已废弃。
 
 说明见 [docs/phase4-print-hero-skill-art-map-2026-10-19.md](docs/phase4-print-hero-skill-art-map-2026-10-19.md)、[docs/phase4-print-monster-art-map-2026-10-19.md](docs/phase4-print-monster-art-map-2026-10-19.md)、[docs/phase4-print-exploration-art-map-2026-10-19.md](docs/phase4-print-exploration-art-map-2026-10-19.md)、[docs/phase4-print-room-token-art-2026-10-19.md](docs/phase4-print-room-token-art-2026-10-19.md) 与 [docs/phase4-exploration-art-2026-10-19.md](docs/phase4-exploration-art-2026-10-19.md)。**不要把印刷 PNG 或 Steam CDN 图像提交进仓库。**
 

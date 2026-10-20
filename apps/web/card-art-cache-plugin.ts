@@ -50,8 +50,9 @@ function mountCacheStatic(
 
 /**
  * Serve gitignored card art from local cache directories.
- * - TTS atlases: DDBG_TTS_CARD_ART_CACHE or <repo>/.cache/tts-card-art (flat filenames)
- * - Print PNGs: DDBG_PRINT_CARD_ART_CACHE or <repo>/.cache/print-card-art (png/… subpaths)
+ * - Print PNGs (runtime UI): DDBG_PRINT_CARD_ART_CACHE or <repo>/.cache/print-card-art (png/… subpaths)
+ * - TTS atlases (legacy / cross-check only; UI does not request these): DDBG_TTS_CARD_ART_CACHE or
+ *   <repo>/.cache/tts-card-art (flat filenames from cache-tts-card-art.mjs + hero-skill-face-map.json)
  */
 export function cardArtCachePlugin(repoRoot: string): Plugin {
   const ttsCacheDir = resolve(

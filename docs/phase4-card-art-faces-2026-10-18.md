@@ -21,14 +21,14 @@ node tools/pipeline/scripts/build-tts-hero-skill-face-map.mjs \
   --tts /path/to/3657612854.json
 ```
 
-## 本地 TTS 缓存（探索 / 站位仍用）
+## 本地 TTS 缓存（对照用，非运行时 UI）
 
 ```bash
-# 默认写入 <repo>/.cache/tts-card-art/（已 gitignore）
+# 默认写入 <repo>/.cache/tts-card-art/（已 gitignore）；仅 hero-skill-face-map 中的 atlas
 node tools/pipeline/scripts/cache-tts-card-art.mjs
 ```
 
-`pnpm dev` 时 Vite 插件把该目录挂到 `/tts-card-art/*`。
+`pnpm dev` 时 Vite 仍挂载 `/tts-card-art/*` 供人工打开对照；**应用 UI 不请求该路径**。
 
 ## UI 接入面
 

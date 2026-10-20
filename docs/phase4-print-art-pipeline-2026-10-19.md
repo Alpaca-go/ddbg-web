@@ -62,12 +62,15 @@ python3 tools/pipeline/print-card-art/run.py \
 
 怪物与英雄技能 **Kyries 审阅 CSV** 已提升为 `apps/web/src/card-art/monster-print-art-map.json`、`hero-skill-print-art-map.json`（见 [phase4-print-monster-art-map-2026-10-19.md](phase4-print-monster-art-map-2026-10-19.md)、[phase4-print-hero-skill-art-map-2026-10-19.md](phase4-print-hero-skill-art-map-2026-10-19.md)）；亦可从 `maps/*-print-art-map.json` 手工对照。战斗 UI 怪物与英雄技能 Face 仅 `/print-card-art/png/…`（无 TTS 回退）。
 
-## 与 TTS 暂代的关系
+## 运行时 UI 与 TTS 对照工具
 
-- **怪物、英雄技能 Face**：已切到印刷 PNG + print map；未缓存或加载失败时显示占位，不回退 Workshop atlas。
-- **探索**：房间牌 + QuestMap + 房间代币已切印刷（[phase4-print-exploration-art-map-2026-10-19.md](phase4-print-exploration-art-map-2026-10-19.md)、[phase4-print-room-token-art-2026-10-19.md](phase4-print-room-token-art-2026-10-19.md)）。
-- **站位色条等**：仍见 [phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md) 等，使用 `FaceURL` + `.cache/tts-card-art/`。
-- `cache-tts-card-art.mjs` 仍下载探索代币/站位（及可选的历史 hero TTS map）；`build-tts-*-map.mjs` 保留供对照。
+- **运行时**：怪物、英雄技能、探索（房间牌 / QuestMap / 房间代币）、Monster Stance 整板、八英雄立牌等均仅印刷 PNG + `*-print-art-map.json`；失败 → 占位，**不回退** Workshop atlas。
+- **对照用（不喂 UI）**：
+  - `apps/web/src/card-art/hero-skill-face-map.json` + `build-tts-hero-skill-face-map.mjs`
+  - `build-tts-battle-position-art-map.mjs`（历史 hero token URL；站位已切印刷）
+  - `cache-tts-card-art.mjs`（仅下载英雄技能 atlas 到 `.cache/tts-card-art/`；可选）
+  - `build-tts-exploration-art-map.mjs`：**已废弃**（执行即报错并提示印刷管线）
+- `pnpm dev` 的 Vite 插件仍挂载 `/tts-card-art/` 与 `/print-card-art/`；前者仅供本机对照已缓存 atlas，**无运行时请求**。
 
 ## 对照源
 
