@@ -1,6 +1,6 @@
 # Phase 4 · 战斗站位板印刷整板（Monster Stance）
 
-状态：**已接线**——战斗界面英雄/怪物四格站位轨道以印刷 `DD_COREBOX_BOARD_Monster_Stance_FRONT.pdf`（及 BACK 映射）TrimBox 整页 PNG 为底图；四姿态列用 UI 叠层高亮与实体芯片，**不**裁切色条、**不**回退 TTS `stance-color-tile-*`。八英雄 standee 仍走 TTS `hero-token-*`。
+状态：**已接线**——战斗界面英雄/怪物四格站位轨道以印刷 `DD_COREBOX_BOARD_Monster_Stance_FRONT.pdf`（及 BACK 映射）TrimBox 整页 PNG 为底图；四姿态列用 UI 叠层高亮与实体芯片，**不**裁切色条、**不**回退 TTS `stance-color-tile-*`。八英雄立牌走印刷 DH 冲压板（见 [phase4-print-hero-standee-art-2026-10-20.md](phase4-print-hero-standee-art-2026-10-20.md)）。
 
 ## 为何整板（R-048）
 
@@ -30,7 +30,7 @@ node tools/pipeline/scripts/build-print-monster-stance-art-map.mjs \
 ## 去 TTS 范围
 
 - **移除**：运行时 `stance-color-tile-*`、`battle-position-art-map.json` 内 `colorTiles` / `stanceSlots` 色条绑定；`cache-tts-card-art.mjs` 不再下载 Color Room Tiles。
-- **保留**：`battle-position-art-map.json`（schema `ddbg.tts-hero-token-art-map.v1`）八英雄 `Custom_Token`；`build-tts-battle-position-art-map.mjs` 仅再生 hero token。
+- **英雄立牌**：`hero-standee-print-art-map.json`（印刷 DH Rubine bbox）；已移除 TTS `battle-position-art-map.json`。
 
 ## UI
 

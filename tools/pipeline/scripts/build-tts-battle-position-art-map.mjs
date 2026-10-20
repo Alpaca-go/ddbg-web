@@ -1,11 +1,9 @@
 #!/usr/bin/env node
 /**
- * Parse TTS Workshop save JSON → apps/web/src/card-art/battle-position-art-map.json
+ * @deprecated Hero standees use print DH punchboard — see export-print-hero-standees.mjs
+ * and hero-standee-print-art-map.json. This script remains for historical TTS URL extraction only.
  *
- * Maps (presentation only):
- * - The Darkest Heroes/{Hero}/Custom_Token → formal eight hero standee portraits
- *
- * Stance track art: monster-stance-print-art-map.json (print TrimBox board).
+ * Parse TTS Workshop save JSON → battle-position-art-map.json (no longer committed).
  */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";

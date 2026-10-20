@@ -1,0 +1,118 @@
+{
+  "schema": "ddbg.print-hero-standee-art-map.v1",
+  "source": {
+    "geometry": "PANTONE Rubine Red C Separation die-cut path bbox 177.83×237.09pt; DD_EN_THE_DARKEST_HEROES_PUNCHBOARD (R-048)",
+    "exportScript": "tools/pipeline/print-card-art/export_hero_standees.py",
+    "notes": [
+      "pngRel slugs from export_hero_standees.py; run export then build on a machine with EN_FILES PDFs.",
+      "Gothic arch panel — not circular TTS Custom_Token; UI uses full bbox clip (no circular mask).",
+      "Production raster omits Separation plate via content-stream SCN patch when exporting.",
+      "CORE PUNCHBOARD_300x300 p3 is reference only; Hellion Rubine path unstable — DH is canonical."
+    ],
+    "reviewedAt": "2026-10-20"
+  },
+  "standees": [
+    {
+      "hero": "BOUNTY HUNTER",
+      "face": "front",
+      "pngRel": "png/bounty-hunter-front.png",
+      "primaryPdf": "DD_EN_THE_DARKEST_HEROES_PUNCHBOARD_FRONT.pdf",
+      "printPage": 1,
+      "diecutPt": [442.82, 39.53, 620.65, 276.62],
+      "diecutWhPt": [177.83, 237.09],
+      "cropMethod": "rubine_diecut_bbox_inset",
+      "matchMethod": "rubine_diecut_bbox+hero_text",
+      "reviewVerdict": "geometry_evidence_2026-10-20"
+    },
+    {
+      "hero": "CRUSADER",
+      "face": "front",
+      "pngRel": "png/crusader-front.png",
+      "primaryPdf": "DD_EN_THE_DARKEST_HEROES_PUNCHBOARD_FRONT.pdf",
+      "printPage": 1,
+      "diecutPt": [44.08, 39.53, 221.91, 276.62],
+      "diecutWhPt": [177.83, 237.09],
+      "cropMethod": "rubine_diecut_bbox_inset",
+      "matchMethod": "rubine_diecut_bbox+hero_text",
+      "reviewVerdict": "geometry_evidence_2026-10-20"
+    },
+    {
+      "hero": "GRAVE ROBBER",
+      "face": "front",
+      "pngRel": "png/grave-robber-front.png",
+      "primaryPdf": "DD_EN_THE_DARKEST_HEROES_PUNCHBOARD_FRONT.pdf",
+      "printPage": 1,
+      "diecutPt": [243.45, 299.37, 421.28, 536.46],
+      "diecutWhPt": [177.83, 237.09],
+      "cropMethod": "rubine_diecut_bbox_inset",
+      "matchMethod": "rubine_diecut_bbox+hero_text",
+      "reviewVerdict": "geometry_evidence_2026-10-20"
+    },
+    {
+      "hero": "HELLION",
+      "face": "front",
+      "pngRel": "png/hellion-front.png",
+      "primaryPdf": "DD_EN_THE_DARKEST_HEROES_PUNCHBOARD_FRONT.pdf",
+      "printPage": 1,
+      "diecutPt": [243.45, 39.53, 421.28, 276.62],
+      "diecutWhPt": [177.83, 237.09],
+      "cropMethod": "rubine_diecut_bbox_inset",
+      "matchMethod": "rubine_diecut_bbox+hero_text",
+      "reviewVerdict": "geometry_evidence_2026-10-20"
+    },
+    {
+      "hero": "HIGHWAYMAN",
+      "face": "front",
+      "pngRel": "png/highwayman-front.png",
+      "primaryPdf": "DD_EN_THE_DARKEST_HEROES_PUNCHBOARD_FRONT.pdf",
+      "printPage": 1,
+      "diecutPt": [44.08, 299.37, 221.91, 536.46],
+      "diecutWhPt": [177.83, 237.09],
+      "cropMethod": "rubine_diecut_bbox_inset",
+      "matchMethod": "rubine_diecut_bbox+hero_text",
+      "reviewVerdict": "geometry_evidence_2026-10-20"
+    },
+    {
+      "hero": "OCCULTIST",
+      "face": "front",
+      "pngRel": "png/occultist-front.png",
+      "primaryPdf": "DD_EN_THE_DARKEST_HEROES_PUNCHBOARD_FRONT.pdf",
+      "printPage": 2,
+      "diecutPt": [44.08, 39.53, 221.91, 276.62],
+      "diecutWhPt": [177.83, 237.09],
+      "cropMethod": "rubine_diecut_bbox_inset",
+      "matchMethod": "rubine_diecut_bbox+hero_text",
+      "reviewVerdict": "geometry_evidence_2026-10-20"
+    },
+    {
+      "hero": "PLAGUE DOCTOR",
+      "face": "front",
+      "pngRel": "png/plague-doctor-front.png",
+      "primaryPdf": "DD_EN_THE_DARKEST_HEROES_PUNCHBOARD_FRONT.pdf",
+      "printPage": 2,
+      "diecutPt": [243.45, 39.53, 421.28, 276.62],
+      "diecutWhPt": [177.83, 237.09],
+      "cropMethod": "rubine_diecut_bbox_inset",
+      "matchMethod": "rubine_diecut_bbox+hero_text",
+      "reviewVerdict": "geometry_evidence_2026-10-20"
+    },
+    {
+      "hero": "VESTAL",
+      "face": "front",
+      "pngRel": "png/vestal-front.png",
+      "primaryPdf": "DD_EN_THE_DARKEST_HEROES_PUNCHBOARD_FRONT.pdf",
+      "printPage": 1,
+      "diecutPt": [44.08, 559.22, 221.91, 796.3],
+      "diecutWhPt": [177.83, 237.09],
+      "cropMethod": "rubine_diecut_bbox_inset",
+      "matchMethod": "rubine_diecut_bbox+hero_text",
+      "reviewVerdict": "geometry_evidence_2026-10-20"
+    }
+  ],
+  "pendingConfirmation": [
+    "DH punchboard UNLABELED die-cut slots (Jester / Abomination / Arbalest?) not mapped in formal8 slice.",
+    "FRONT vs BACK raster bytes differ for Crusader trial — duplex same art vs mirrored face 待目视确认.",
+    "Bleed vs inset clip at arch points vs physical die-cut 待确认.",
+    "TTS Custom_Token may be circular crop of same portrait art 待确认."
+  ]
+}
