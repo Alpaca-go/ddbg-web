@@ -67,6 +67,7 @@ export function TabletopControlRail({
       {primaryActionLabel && !showBattleControls && (
         <button type="button" className="tt-draw-init tt-draw-init--phase" disabled>
           {primaryActionLabel}
+          {phase === "hamlet" ? "（待确认）" : ""}
         </button>
       )}
     </aside>

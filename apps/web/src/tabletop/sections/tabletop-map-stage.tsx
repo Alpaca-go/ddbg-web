@@ -1,11 +1,17 @@
-import { ExplorationArtImage } from "../../card-art/exploration-art-image";
 import { lookupQuestMapArt, lookupRoomCardArt } from "../../card-art/resolve-exploration-art";
 import { lookupHeroStandeeArt } from "../../card-art/resolve-print-hero-standee-art";
 import { lookupPrintMonsterFace } from "../../card-art/resolve-print-monster-art";
 import { PRINT_CARD_ART_PUBLIC_PREFIX } from "../../card-art/resolve-print-hero-skill-art";
+import { ExplorationArtImage } from "../../card-art/exploration-art-image";
 import { AssetPlaceholder } from "../asset-placeholder";
 import type { FlowPhaseId } from "../phase/flow-phase";
-import { PhasePlaceholder } from "../phase/phase-placeholder";
+import {
+  TabletopDungeonCenterStage,
+  TabletopExpeditionCenterStage,
+  TabletopHamletCenterStage,
+  TabletopQuestSetupCenterStage,
+  TabletopReturnCenterStage,
+} from "./tabletop-center-stage";
 import { StandeeToken } from "../standee-token";
 import { TabletopCardStack } from "../tabletop-card-stack";
 import type {
@@ -46,66 +52,21 @@ export function TabletopMapStage({
     ? `${PRINT_CARD_ART_PUBLIC_PREFIX}/${roomArt.pngRel.replace(/^\//, "")}`
     : undefined;
 
-  const showDungeonMap = phase === "dungeonExploration";
   const showBattleBoard = phase === "battle" && showBattleTokens;
 
   return (
     <section className="tt-map tt-phase-surface" aria-label="中央舞台" data-testid="tabletop-stage">
-      {!showBattleBoard && !showDungeonMap && (
-        <PhasePlaceholder label={centerCaption} testId="tabletop-center-phase-ph" />
-      )}
-
-      {showDungeonMap && (
-        <div className="tt-map__explore tabletop-board-slab" data-testid="tabletop-dungeon-stage">
-          <PhasePlaceholder label={centerCaption} testId="tabletop-dungeon-phase-caption" />
-          <div className="tt-map__minimap tt-map__minimap--large" data-testid="tabletop-minimap">
-            {mapArt ? (
-              <ExplorationArtImage
-                entry={mapArt}
-                alt=""
-                className="tt-map__minimap-img"
-                testId="tabletop-quest-map"
-              />
-            ) : (
-              <AssetPlaceholder assetType="quest_map" label="QuestMap" />
-            )}
-            <div className="tt-map__minimap-dots">
-              {mapNodes.map((node) => (
-                <span
-                  key={node.id}
-                  className={[
-                    "tt-minimap-dot",
-                    !node.explored ? "tt-minimap-dot--dark" : "",
-                    node.isCurrent ? "tt-minimap-dot--here" : "",
-                  ].join(" ")}
-                  title={node.label}
-                />
-              ))}
-            </div>
-          </div>
-          {showDeckStacks && (
-            <div className="tt-map__stacks tt-map__stacks--explore">
-              <TabletopCardStack
-                label="房间"
-                count={12}
-                aspect="room"
-                testId="tabletop-deck-room"
-              />
-              <TabletopCardStack
-                label="怪物"
-                count={14}
-                aspect="monster"
-                testId="tabletop-deck-monster"
-              />
-              <TabletopCardStack
-                label="Curio"
-                count={6}
-                aspect="square"
-                testId="tabletop-deck-curio"
-              />
-            </div>
-          )}
-        </div>
+      {phase === "hamlet" && <TabletopHamletCenterStage />}
+      {phase === "questSetup" && <TabletopQuestSetupCenterStage />}
+      {phase === "expeditionPrep" && <TabletopExpeditionCenterStage quest={quest} />}
+      {phase === "questReturn" && <TabletopReturnCenterStage />}
+      {phase === "dungeonExploration" && (
+        <TabletopDungeonCenterStage
+          quest={quest}
+          mapNodes={mapNodes}
+          showDeckStacks={showDeckStacks}
+          centerCaption={centerCaption}
+        />
       )}
 
       {showBattleBoard && (

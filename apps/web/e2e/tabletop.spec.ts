@@ -23,15 +23,18 @@ test("桌面原型：阶段导航与 mock 阶段切换", async ({ page }) => {
   await expect(page.getByTestId("phase-breadcrumb")).toBeVisible();
   await expect(page.getByTestId("phase-crumb-battle")).toHaveAttribute("aria-current", "step");
   await expect(page.getByTestId("dungeon-checkpoint")).toBeVisible();
+  await expect(page.getByTestId("debug-drawer-body")).toHaveCount(0);
 
   await page
     .getByTestId("debug-drawer")
-    .getByRole("button", { name: /调试选项/ })
+    .getByRole("button", { name: /^调试选项$/ })
     .click();
+  await expect(page.getByTestId("debug-drawer-body")).toBeVisible();
   await page.getByTestId("tabletop-demo-phase").selectOption("hamlet");
 
   await expect(page.getByTestId("phase-crumb-hamlet")).toHaveAttribute("aria-current", "step");
-  await expect(page.getByTestId("tabletop-center-phase-ph")).toBeVisible();
+  await expect(page.getByTestId("tabletop-hamlet-stage")).toBeVisible();
+  await expect(page.getByTestId("tabletop-hamlet-board")).toBeVisible();
   await expect(page.getByTestId("tabletop-effective-phase")).toContainText("hamlet");
 
   await page.getByTestId("tabletop-demo-phase").selectOption("dungeonExploration");
