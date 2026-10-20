@@ -11,6 +11,11 @@ import pymupdf
 from .input_scan import iter_input_pdfs
 
 RUBINE_SEPARATION_NAME = "PANTONE Rubine Red C"
+# DeviceRGB from PyMuPDF 1.28.2 on DD_EN_COREBOX_PUNCHBOARD Rubine strokes (Kyries export).
+RUBINE_RED_C_RGB: tuple[float, float, float] = (0.855, 0.034, 0.402)
+RUBINE_RGB_TOLERANCE: tuple[float, float, float] = (0.12, 0.10, 0.12)
+# Smaller punchboard art (not room-token die-cuts); filtered by DIE_CUT_SIDE_PT only.
+SMALL_TOKEN_STROKE_SIDE_PT = 33.02
 DIE_CUT_SIDE_PT = 61.37
 CHIP_GRID_SIDE_PT = 76.54
 BLEED_FILL_DISC_PT = 82.21
@@ -117,6 +122,20 @@ def _color_repr(color: object) -> str:
     return repr(color)
 
 
+def rgb_looks_like_rubine_red_c(r: float, g: float, b: float) -> bool:
+    """Match PANTONE Rubine Red C as DeviceRGB (magenta-red, not pure red)."""
+    ref = RUBINE_RED_C_RGB
+    tol = RUBINE_RGB_TOLERANCE
+    if (
+        abs(r - ref[0]) <= tol[0]
+        and abs(g - ref[1]) <= tol[1]
+        and abs(b - ref[2]) <= tol[2]
+    ):
+        return True
+    # Synthetic fixtures / pure-red stand-ins on Rubine pages.
+    return r > 0.85 and g < 0.15 and b < 0.15
+
+
 def stroke_looks_like_rubine_diecut(drawing: dict, page_has_rubine: bool) -> bool:
     """True when stroke is the die-cut separation (or test stand-in on fixture pages)."""
     if drawing.get("type") not in ("s", "fs"):
@@ -125,21 +144,22 @@ def stroke_looks_like_rubine_diecut(drawing: dict, page_has_rubine: bool) -> boo
     rep = _color_repr(color).lower()
     if "rubine" in rep:
         return True
-    if page_has_rubine and isinstance(color, (tuple, list)):
+    if not page_has_rubine:
+        return False
+    if isinstance(color, (tuple, list)):
         if len(color) == 1 and float(color[0]) > 0.5:
             return True
         if len(color) >= 3:
             r, g, b = float(color[0]), float(color[1]), float(color[2])
-            if r > 0.85 and g < 0.15 and b < 0.15:
+            if rgb_looks_like_rubine_red_c(r, g, b):
                 return True
             # PyMuPDF 1.24+ may normalize Separation spot strokes to black when converting.
             width = float(drawing.get("width") or 0)
             if width <= 2.5 and r < 0.08 and g < 0.08 and b < 0.08:
                 return True
-    if page_has_rubine:
-        width = float(drawing.get("width") or 0)
-        if color is None and width <= 2.5:
-            return True
+    width = float(drawing.get("width") or 0)
+    if color is None and width <= 2.5:
+        return True
     return False
 
 

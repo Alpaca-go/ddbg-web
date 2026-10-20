@@ -10,22 +10,33 @@ import pymupdf
 from ddbg_print_art.diecut import (
     DIE_CUT_SIDE_PT,
     REVEALED_IMAGE_XREF_TO_KIND,
+    RUBINE_RED_C_RGB,
+    SMALL_TOKEN_STROKE_SIDE_PT,
     bleed_disc_rect,
     iter_diecut_candidates,
     png_slug_for_token,
     punchboard_pdf_candidates,
+    rgb_looks_like_rubine_red_c,
+    stroke_looks_like_rubine_diecut,
 )
 from ddbg_print_art.room_tokens import export_tokens_from_page
 
 KINDS = ("treasure", "objective", "empty", "dark", "curio", "trap", "lair")
 
 
-def _draw_diecut_square(page: pymupdf.Page, x: float, y: float) -> None:
-    side = DIE_CUT_SIDE_PT
+def _draw_diecut_square(
+    page: pymupdf.Page,
+    x: float,
+    y: float,
+    *,
+    side: float = DIE_CUT_SIDE_PT,
+    color: tuple[float, float, float] = (1, 0, 0),
+    width: float = 1,
+) -> None:
     page.draw_rect(
         pymupdf.Rect(x, y, x + side, y + side),
-        color=(1, 0, 0),
-        width=1,
+        color=color,
+        width=width,
         stroke_opacity=1,
     )
 
@@ -47,7 +58,44 @@ class PunchboardCandidateTest(unittest.TestCase):
             self.assertIn("BACK", back_rel.upper())
 
 
+class RubineRgbTest(unittest.TestCase):
+    def test_print_pdf_rubine_rgb_tuple(self):
+        r, g, b = RUBINE_RED_C_RGB
+        self.assertTrue(rgb_looks_like_rubine_red_c(r, g, b))
+        drawing = {"type": "s", "color": RUBINE_RED_C_RGB, "width": 0.99}
+        self.assertTrue(stroke_looks_like_rubine_diecut(drawing, page_has_rubine=True))
+        self.assertFalse(stroke_looks_like_rubine_diecut(drawing, page_has_rubine=False))
+
+
 class DiecutFixtureTest(unittest.TestCase):
+    def test_iter_diecut_61pt_excludes_33pt_rubine_decoys(self):
+        doc = pymupdf.open()
+        page = doc.new_page(width=900, height=500)
+        page.insert_text((10, 20), "PANTONE Rubine Red C")
+        for i in range(21):
+            _draw_diecut_square(
+                page,
+                20 + (i % 7) * 72,
+                40 + (i // 7) * 72,
+                side=DIE_CUT_SIDE_PT,
+                color=RUBINE_RED_C_RGB,
+                width=0.99,
+            )
+        for i in range(15):
+            _draw_diecut_square(
+                page,
+                520 + (i % 5) * 40,
+                40 + (i // 5) * 40,
+                side=SMALL_TOKEN_STROKE_SIDE_PT,
+                color=RUBINE_RED_C_RGB,
+                width=0.99,
+            )
+        cuts = iter_diecut_candidates(page, require_rubine_stroke=True)
+        self.assertEqual(len(cuts), 21)
+        for cut in cuts:
+            self.assertAlmostEqual(cut.side_pt, DIE_CUT_SIDE_PT, delta=0.75)
+        doc.close()
+
     def test_iter_diecut_candidates_fixture_page(self):
         doc = pymupdf.open()
         page = doc.new_page(width=500, height=500)
