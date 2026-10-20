@@ -6,12 +6,14 @@ import {
   lookupHamletBoardArt,
 } from "../../card-art/resolve-print-hamlet-board-art";
 import { AssetPlaceholder } from "../asset-placeholder";
+import { TabletopRasterImage } from "../tabletop-raster-image";
 import { TabletopCardStack } from "../tabletop-card-stack";
 import type { TabletopMapNode, TabletopQuestMeta } from "../tabletop-types";
 
 /** hamlet_board TrimBox 841.89×476.22 pt（hamlet-board-print-art-map.json） */
 const HAMLET_BOARD_ASPECT = 841.89 / 476.22;
 
+/** 待确认（未核实印刷几何）：下列 left/top 仅为示意百分比，非规则书/U-07 热区坐标。 */
 const HAMLET_BUILDING_MARKERS: readonly {
   readonly id: string;
   readonly label: string;
@@ -54,11 +56,12 @@ export function TabletopHamletCenterStage() {
           style={{ aspectRatio: String(HAMLET_BOARD_ASPECT) }}
           data-testid="tabletop-hamlet-board"
         >
-          <img
-            className="tt-hamlet-board__img"
+          <TabletopRasterImage
             src={boardUrl}
-            alt=""
-            data-testid="tabletop-hamlet-board-img"
+            label="hamlet_board 村庄版图"
+            assetType="hamlet_board"
+            className="tt-hamlet-board__img"
+            testId="tabletop-hamlet-board-img"
           />
           <div className="tt-hamlet-board__markers" aria-hidden="true">
             {HAMLET_BUILDING_MARKERS.map((m) => (
@@ -66,7 +69,7 @@ export function TabletopHamletCenterStage() {
                 key={m.id}
                 className="tt-hamlet-marker"
                 style={{ left: `${m.leftPct}%`, top: `${m.topPct}%` }}
-                title={`建筑热区待核实 U-07：${m.label}`}
+                title={`待确认（未核实印刷几何）：${m.label}`}
               >
                 {m.label}
               </span>

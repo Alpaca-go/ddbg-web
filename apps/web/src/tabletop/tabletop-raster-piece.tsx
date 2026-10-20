@@ -1,5 +1,6 @@
-import { useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { PRINT_CARD_ART_PUBLIC_PREFIX } from "../card-art/resolve-print-hero-skill-art";
+import { TabletopRasterImage } from "./tabletop-raster-image";
 
 export type TabletopPieceAspect = "skill" | "room" | "quest" | "quest-map" | "monster" | "square";
 
@@ -33,24 +34,22 @@ export function TabletopRasterPiece({
   readonly testId?: string;
   readonly footer?: ReactNode;
 }) {
-  const [failed, setFailed] = useState(!pngRel);
-
-  const showImg = pngRel && !failed;
+  const hasSrc = Boolean(pngRel);
 
   return (
     <figure
       className={["tabletop-piece", aspectClass[aspect]].filter(Boolean).join(" ")}
       data-testid={testId}
-      data-card-art={showImg ? "print" : "placeholder"}
+      data-card-art={hasSrc ? "print" : "placeholder"}
     >
       <div className="tabletop-piece__shell">
         <div className="tabletop-piece__face">
-          {showImg ? (
-            <img
-              src={urlFromRel(pngRel)}
-              alt={label}
+          {hasSrc ? (
+            <TabletopRasterImage
+              src={urlFromRel(pngRel!)}
+              label={label}
+              assetType="print"
               className="tabletop-piece__img"
-              onError={() => setFailed(true)}
             />
           ) : (
             <div className="tabletop-piece__placeholder" aria-hidden="true">
