@@ -6,11 +6,15 @@ import { TabletopDetailPanel } from "./sections/tabletop-detail-panel";
 import { TabletopActionDock } from "./sections/tabletop-action-dock";
 import { TabletopControlRail } from "./sections/tabletop-control-rail";
 import { useTabletopMockMachine } from "./use-tabletop-mock-machine";
+import { TabletopDebugPanel } from "./tabletop-debug-panel";
+import { planForPhase } from "./phase/phase-zone-plan";
 import "./tabletop.css";
 
 export function TabletopView() {
   const {
     state,
+    flowPhase,
+    flowStepText,
     activeHero,
     canConfirm,
     selectHero,
@@ -21,20 +25,26 @@ export function TabletopView() {
     drawInitiative,
     toggleLog,
     toggleAtmosphere,
+    setDemoPhase,
   } = useTabletopMockMachine();
 
+  const plan = planForPhase(flowPhase);
   const turnHero = state.heroes.find((h) => h.id === state.battle.turnActorId) ?? activeHero;
+  const showInteractiveBattle = flowPhase === "battle";
 
   return (
     <div
       className={[
         "tt-root",
         state.ui.atmosphereEnabled ? "tt-root--atmosphere" : "tt-root--flat",
+        `tt-root--phase-${flowPhase}`,
       ].join(" ")}
       data-testid="tabletop-view"
+      data-phase={flowPhase}
     >
       <TabletopTopBar
-        phase={state.ui.phase}
+        phase={flowPhase}
+        stepText={flowStepText}
         quest={state.quest}
         battle={state.battle}
         onToggleLog={toggleLog}
@@ -43,12 +53,18 @@ export function TabletopView() {
       />
 
       <TabletopPartyColumn
+        phase={flowPhase}
+        phaseCaption={plan.party}
         heroes={state.heroes}
         activeHeroId={state.ui.activeHeroId}
         onSelectHero={selectHero}
       />
 
       <TabletopMapStage
+        phase={flowPhase}
+        centerCaption={plan.center}
+        showDeckStacks={plan.deckStacks}
+        showBattleTokens={plan.showBattleTokens}
         quest={state.quest}
         mapNodes={state.mapNodes}
         heroes={state.heroes}
@@ -59,15 +75,25 @@ export function TabletopView() {
       />
 
       <TabletopDetailPanel
+        phase={flowPhase}
+        detailCaption={plan.detail}
         kind={state.ui.detailTargetKind}
         targetId={state.ui.detailTargetId}
         heroes={state.heroes}
         monsters={state.monsters}
       />
 
-      <TabletopInitiativePanel battle={state.battle} turnHero={turnHero} />
+      <TabletopInitiativePanel
+        phase={flowPhase}
+        initiativeCaption={plan.initiative}
+        battle={state.battle}
+        turnHero={turnHero}
+      />
 
       <TabletopActionDock
+        phase={flowPhase}
+        dockCaption={plan.dock}
+        showSkillHand={showInteractiveBattle}
         tab={state.ui.bottomTab}
         onTab={setTab}
         activeHero={activeHero}
@@ -77,10 +103,19 @@ export function TabletopView() {
       />
 
       <TabletopControlRail
+        phase={flowPhase}
+        diceCaption={plan.diceTray}
+        primaryActionLabel={plan.primaryAction}
         mockDice={state.ui.mockDice}
-        canConfirm={canConfirm}
+        canConfirm={showInteractiveBattle && canConfirm}
         onConfirm={confirmAction}
         onDrawInitiative={drawInitiative}
+      />
+
+      <TabletopDebugPanel
+        demoPhaseOverride={state.ui.demoPhaseOverride}
+        defaultPhase={state.ui.phase}
+        onSetDemoPhase={setDemoPhase}
       />
 
       <div className={["tt-log", state.ui.logOpen ? "tt-log--open" : ""].join(" ")}>

@@ -4,6 +4,8 @@ import { lookupHeroStandeeArt } from "../../card-art/resolve-print-hero-standee-
 import { lookupPrintMonsterFace } from "../../card-art/resolve-print-monster-art";
 import { PRINT_CARD_ART_PUBLIC_PREFIX } from "../../card-art/resolve-print-hero-skill-art";
 import { AssetPlaceholder } from "../asset-placeholder";
+import type { FlowPhaseId } from "../phase/flow-phase";
+import { PhasePlaceholder } from "../phase/phase-placeholder";
 import { StandeeToken } from "../standee-token";
 import { TabletopCardStack } from "../tabletop-card-stack";
 import type {
@@ -14,6 +16,10 @@ import type {
 } from "../tabletop-types";
 
 export function TabletopMapStage({
+  phase,
+  centerCaption,
+  showDeckStacks,
+  showBattleTokens,
   quest,
   mapNodes,
   heroes,
@@ -22,6 +28,10 @@ export function TabletopMapStage({
   onSelectTarget,
   onSelectHeroToken,
 }: {
+  readonly phase: FlowPhaseId;
+  readonly centerCaption: string;
+  readonly showDeckStacks: boolean;
+  readonly showBattleTokens: boolean;
   readonly quest: TabletopQuestMeta;
   readonly mapNodes: readonly TabletopMapNode[];
   readonly heroes: readonly TabletopHeroState[];
@@ -36,118 +46,197 @@ export function TabletopMapStage({
     ? `${PRINT_CARD_ART_PUBLIC_PREFIX}/${roomArt.pngRel.replace(/^\//, "")}`
     : undefined;
 
+  const showDungeonMap = phase === "dungeonExploration";
+  const showBattleBoard = phase === "battle" && showBattleTokens;
+
   return (
-    <section className="tt-map" aria-label="中央战斗舞台" data-testid="tabletop-stage">
-      <div className="tt-map__battle tabletop-board-slab">
-        {roomBg && (
-          <div
-            className="tt-map__room-plate"
-            style={{ backgroundImage: `url(${roomBg})` }}
-            aria-hidden="true"
-          />
-        )}
-        {!roomBg && (
-          <AssetPlaceholder
-            assetType="room"
-            label="当前房间板块"
-            className="tt-map__room-plate tt-map__room-plate--ph"
-          />
-        )}
+    <section className="tt-map tt-phase-surface" aria-label="中央舞台" data-testid="tabletop-stage">
+      {!showBattleBoard && !showDungeonMap && (
+        <PhasePlaceholder label={centerCaption} testId="tabletop-center-phase-ph" />
+      )}
 
-        <div className="tt-map__stacks">
-          <TabletopCardStack label="房间" count={12} aspect="room" testId="tabletop-deck-room" />
-          <TabletopCardStack label="走廊" count={8} aspect="room" testId="tabletop-deck-corridor" />
-          <TabletopCardStack
-            label="怪物"
-            count={14}
-            aspect="monster"
-            testId="tabletop-deck-monster"
-          />
-          <TabletopCardStack label="战利品" count={7} aspect="square" testId="tabletop-deck-loot" />
-        </div>
-
-        <div className="tt-map__minimap" data-testid="tabletop-minimap">
-          <span className="tt-map__minimap-label">小地图</span>
-          {mapArt ? (
-            <ExplorationArtImage
-              entry={mapArt}
-              alt=""
-              className="tt-map__minimap-img"
-              testId="tabletop-quest-map"
-            />
-          ) : (
-            <AssetPlaceholder assetType="quest_map" label="QuestMap" />
-          )}
-          <div className="tt-map__minimap-dots">
-            {mapNodes.map((node) => (
-              <span
-                key={node.id}
-                className={[
-                  "tt-minimap-dot",
-                  !node.explored ? "tt-minimap-dot--dark" : "",
-                  node.isCurrent ? "tt-minimap-dot--here" : "",
-                ].join(" ")}
-                title={node.label}
+      {showDungeonMap && (
+        <div className="tt-map__explore tabletop-board-slab" data-testid="tabletop-dungeon-stage">
+          <PhasePlaceholder label={centerCaption} testId="tabletop-dungeon-phase-caption" />
+          <div className="tt-map__minimap tt-map__minimap--large" data-testid="tabletop-minimap">
+            {mapArt ? (
+              <ExplorationArtImage
+                entry={mapArt}
+                alt=""
+                className="tt-map__minimap-img"
+                testId="tabletop-quest-map"
               />
-            ))}
+            ) : (
+              <AssetPlaceholder assetType="quest_map" label="QuestMap" />
+            )}
+            <div className="tt-map__minimap-dots">
+              {mapNodes.map((node) => (
+                <span
+                  key={node.id}
+                  className={[
+                    "tt-minimap-dot",
+                    !node.explored ? "tt-minimap-dot--dark" : "",
+                    node.isCurrent ? "tt-minimap-dot--here" : "",
+                  ].join(" ")}
+                  title={node.label}
+                />
+              ))}
+            </div>
+          </div>
+          {showDeckStacks && (
+            <div className="tt-map__stacks tt-map__stacks--explore">
+              <TabletopCardStack
+                label="房间"
+                count={12}
+                aspect="room"
+                testId="tabletop-deck-room"
+              />
+              <TabletopCardStack
+                label="怪物"
+                count={14}
+                aspect="monster"
+                testId="tabletop-deck-monster"
+              />
+              <TabletopCardStack
+                label="Curio"
+                count={6}
+                aspect="square"
+                testId="tabletop-deck-curio"
+              />
+            </div>
+          )}
+        </div>
+      )}
+
+      {showBattleBoard && (
+        <div className="tt-map__battle tabletop-board-slab">
+          {roomBg && (
+            <div
+              className="tt-map__room-plate"
+              style={{ backgroundImage: `url(${roomBg})` }}
+              aria-hidden="true"
+            />
+          )}
+          {!roomBg && (
+            <AssetPlaceholder
+              assetType="room"
+              label="当前房间板块"
+              className="tt-map__room-plate tt-map__room-plate--ph"
+            />
+          )}
+
+          {showDeckStacks && (
+            <div className="tt-map__stacks">
+              <TabletopCardStack
+                label="房间"
+                count={12}
+                aspect="room"
+                testId="tabletop-deck-room"
+              />
+              <TabletopCardStack
+                label="走廊"
+                count={8}
+                aspect="room"
+                testId="tabletop-deck-corridor"
+              />
+              <TabletopCardStack
+                label="怪物"
+                count={14}
+                aspect="monster"
+                testId="tabletop-deck-monster"
+              />
+              <TabletopCardStack
+                label="战利品"
+                count={7}
+                aspect="square"
+                testId="tabletop-deck-loot"
+              />
+            </div>
+          )}
+
+          <div className="tt-map__minimap" data-testid="tabletop-minimap">
+            <span className="tt-map__minimap-label">小地图</span>
+            {mapArt ? (
+              <ExplorationArtImage
+                entry={mapArt}
+                alt=""
+                className="tt-map__minimap-img"
+                testId="tabletop-quest-map"
+              />
+            ) : (
+              <AssetPlaceholder assetType="quest_map" label="QuestMap" />
+            )}
+            <div className="tt-map__minimap-dots">
+              {mapNodes.map((node) => (
+                <span
+                  key={node.id}
+                  className={[
+                    "tt-minimap-dot",
+                    !node.explored ? "tt-minimap-dot--dark" : "",
+                    node.isCurrent ? "tt-minimap-dot--here" : "",
+                  ].join(" ")}
+                  title={node.label}
+                />
+              ))}
+            </div>
+          </div>
+
+          <header className="tt-map__battle-head">
+            <h3>当前房间 · {quest.currentRoomCardId}</h3>
+            <span className="muted">区域网格占位 U-12</span>
+          </header>
+
+          <div className="tt-map__grid">
+            {["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"].map((areaId) => {
+              const hereHeroes = heroes.filter((h) => h.areaId === areaId);
+              const hereMonsters = monsters.filter((m) => m.areaId === areaId);
+              const occupied = hereHeroes.length + hereMonsters.length > 0;
+              return (
+                <div
+                  key={areaId}
+                  className={occupied ? "tt-area tt-area--occupied" : "tt-area"}
+                  data-testid={`tabletop-area-${areaId}`}
+                >
+                  <span className="tt-area__id">{areaId}</span>
+                  <div className="tt-area__tokens">
+                    {hereHeroes.map((h) => {
+                      const standee = lookupHeroStandeeArt(h.hero);
+                      return (
+                        <StandeeToken
+                          key={h.id}
+                          label={h.hero}
+                          {...(standee?.pngRel ? { pngRel: standee.pngRel } : {})}
+                          assetType="hero_standee"
+                          wounds={h.wounds}
+                          life={h.life}
+                          onClick={() => onSelectHeroToken(h.id)}
+                          testId={`tabletop-standee-hero-${h.id}`}
+                        />
+                      );
+                    })}
+                    {hereMonsters.map((m) => {
+                      const art = lookupPrintMonsterFace(m.monsterCardId);
+                      return (
+                        <StandeeToken
+                          key={m.id}
+                          label={m.name}
+                          {...(art?.pngRel ? { pngRel: art.pngRel } : {})}
+                          assetType="monster_medium"
+                          wounds={m.wounds}
+                          life={m.life}
+                          selected={selectedTargetId === m.id}
+                          onClick={() => onSelectTarget(m.id)}
+                          testId={`tabletop-target-${m.id}`}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
-
-        <header className="tt-map__battle-head">
-          <h3>当前房间 · {quest.currentRoomCardId}</h3>
-          <span className="muted">区域网格占位 U-12</span>
-        </header>
-
-        <div className="tt-map__grid">
-          {["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"].map((areaId) => {
-            const hereHeroes = heroes.filter((h) => h.areaId === areaId);
-            const hereMonsters = monsters.filter((m) => m.areaId === areaId);
-            const occupied = hereHeroes.length + hereMonsters.length > 0;
-            return (
-              <div
-                key={areaId}
-                className={occupied ? "tt-area tt-area--occupied" : "tt-area"}
-                data-testid={`tabletop-area-${areaId}`}
-              >
-                <span className="tt-area__id">{areaId}</span>
-                <div className="tt-area__tokens">
-                  {hereHeroes.map((h) => {
-                    const standee = lookupHeroStandeeArt(h.hero);
-                    return (
-                      <StandeeToken
-                        key={h.id}
-                        label={h.hero}
-                        {...(standee?.pngRel ? { pngRel: standee.pngRel } : {})}
-                        assetType="hero_standee"
-                        wounds={h.wounds}
-                        life={h.life}
-                        onClick={() => onSelectHeroToken(h.id)}
-                        testId={`tabletop-standee-hero-${h.id}`}
-                      />
-                    );
-                  })}
-                  {hereMonsters.map((m) => {
-                    const art = lookupPrintMonsterFace(m.monsterCardId);
-                    return (
-                      <StandeeToken
-                        key={m.id}
-                        label={m.name}
-                        {...(art?.pngRel ? { pngRel: art.pngRel } : {})}
-                        assetType="monster_medium"
-                        wounds={m.wounds}
-                        life={m.life}
-                        selected={selectedTargetId === m.id}
-                        onClick={() => onSelectTarget(m.id)}
-                        testId={`tabletop-target-${m.id}`}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+      )}
     </section>
   );
 }

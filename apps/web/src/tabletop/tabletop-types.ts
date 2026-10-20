@@ -1,5 +1,6 @@
-import type { SkillStance } from "@ddbg/engine";
-import type { StatusStack } from "@ddbg/engine";
+import type { SkillStance, StatusStack } from "@ddbg/engine";
+import type { TabletopEngineBridge } from "./phase/engine-bridge";
+import type { FlowPhaseId } from "./phase/flow-phase";
 
 /** 与 `BattleEntity` / `SkillActorState` / dungeon hero 字段对齐的 mock 形状（V-14）。 */
 export type TabletopHeroState = {
@@ -40,7 +41,7 @@ export type TabletopMapNode = {
   readonly y: number;
 };
 
-export type TabletopPhase = "roster" | "hamlet" | "embark" | "dungeon" | "battle" | "return";
+export type TabletopPhase = FlowPhaseId;
 
 export type TabletopBottomTab = "skills" | "items" | "move";
 
@@ -52,7 +53,11 @@ export type TabletopMockDice = {
 };
 
 export type TabletopUiState = {
+  /** mock 默认阶段（无引擎时） */
   readonly phase: TabletopPhase;
+  /** 调试抽屉：覆盖阶段以演示五区切换 */
+  readonly demoPhaseOverride: TabletopPhase | null;
+  readonly engineBridge: TabletopEngineBridge;
   readonly activeHeroId: string;
   readonly detailTargetId: string | null;
   readonly detailTargetKind: "hero" | "monster";
