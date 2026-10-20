@@ -1,0 +1,552 @@
+{
+  "schema": "ddbg.print-curio-art-map.v1",
+  "source": {
+    "csv": "tools/pipeline/print-card-art/fixtures/print-exploration-review-ok-auto.csv",
+    "geometry": "Full-page TrimBox per card (21,21)-(199.58,270.45) = 178.58×249.45pt (R-048)",
+    "trimBoxPt": {
+      "widthPt": 178.58,
+      "heightPt": 249.45,
+      "x0Pt": 21,
+      "y0Pt": 21,
+      "x1Pt": 199.58,
+      "y1Pt": 270.45
+    },
+    "exportScript": "tools/pipeline/scripts/export-print-corebox-trim-decks.mjs",
+    "reviewedAt": "2026-10-20",
+    "notes": [
+      "Page n → curio:p0nn; FRONT V2 + BACK PDFs各 24 页。",
+      "pngRel paths relative to .cache/print-card-art after export."
+    ]
+  },
+  "cards": [
+    {
+      "id": "curio:p001",
+      "name": "Eldritch Altar",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p001.png",
+          "printPage": 1,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Eldritch Altar"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p001.png",
+          "printPage": 1,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Eldritch Altar"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p002",
+      "name": "Eldritch Altar",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p002.png",
+          "printPage": 2,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Eldritch Altar"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p002.png",
+          "printPage": 2,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Eldritch Altar"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p003",
+      "name": "Heirloom Chest",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p003.png",
+          "printPage": 3,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Heirloom Chest"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p003.png",
+          "printPage": 3,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Heirloom Chest"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p004",
+      "name": "Heirloom Chest",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p004.png",
+          "printPage": 4,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Heirloom Chest"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p004.png",
+          "printPage": 4,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Heirloom Chest"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p005",
+      "name": "Stack of Books",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p005.png",
+          "printPage": 5,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Stack of Books"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p005.png",
+          "printPage": 5,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Stack of Books"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p006",
+      "name": "Stack of Books",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p006.png",
+          "printPage": 6,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Stack of Books"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p006.png",
+          "printPage": 6,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Stack of Books"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p007",
+      "name": "Strongbox",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p007.png",
+          "printPage": 7,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Strongbox"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p007.png",
+          "printPage": 7,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Strongbox"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p008",
+      "name": "Strongbox",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p008.png",
+          "printPage": 8,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Strongbox"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p008.png",
+          "printPage": 8,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Strongbox"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p009",
+      "name": "Alchemy Table",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p009.png",
+          "printPage": 9,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Alchemy Table"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p009.png",
+          "printPage": 9,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Alchemy Table"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p010",
+      "name": "Altar of Light",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p010.png",
+          "printPage": 10,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Altar of Light"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p010.png",
+          "printPage": 10,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Altar of Light"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p011",
+      "name": "Bookshelf",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p011.png",
+          "printPage": 11,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Bookshelf"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p011.png",
+          "printPage": 11,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Bookshelf"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p012",
+      "name": "Bookshelf",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p012.png",
+          "printPage": 12,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Bookshelf"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p012.png",
+          "printPage": 12,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Bookshelf"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p013",
+      "name": "Confession Booth",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p013.png",
+          "printPage": 13,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Confession Booth"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p013.png",
+          "printPage": 13,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Confession Booth"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p014",
+      "name": "Confession Booth",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p014.png",
+          "printPage": 14,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Confession Booth"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p014.png",
+          "printPage": 14,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Confession Booth"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p015",
+      "name": "Decorative Urn",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p015.png",
+          "printPage": 15,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Decorative Urn"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p015.png",
+          "printPage": 15,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Decorative Urn"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p016",
+      "name": "Holy Fountain",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p016.png",
+          "printPage": 16,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Holy Fountain"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p016.png",
+          "printPage": 16,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Holy Fountain"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p017",
+      "name": "Iron Maiden",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p017.png",
+          "printPage": 17,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Iron Maiden"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p017.png",
+          "printPage": 17,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Iron Maiden"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p018",
+      "name": "Iron Maiden",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p018.png",
+          "printPage": 18,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Iron Maiden"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p018.png",
+          "printPage": 18,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Iron Maiden"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p019",
+      "name": "Display Cabinet",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p019.png",
+          "printPage": 19,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Display Cabinet"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p019.png",
+          "printPage": 19,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Display Cabinet"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p020",
+      "name": "Display Cabinet",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p020.png",
+          "printPage": 20,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Display Cabinet"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p020.png",
+          "printPage": 20,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Display Cabinet"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p021",
+      "name": "Sarcophagus",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p021.png",
+          "printPage": 21,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Sarcophagus"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p021.png",
+          "printPage": 21,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Sarcophagus"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p022",
+      "name": "Sarcophagus",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p022.png",
+          "printPage": 22,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Sarcophagus"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p022.png",
+          "printPage": 22,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Sarcophagus"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p023",
+      "name": "Suit of Armor",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p023.png",
+          "printPage": 23,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Suit of Armor"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p023.png",
+          "printPage": 23,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Suit of Armor"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:p024",
+      "name": "Suit of Armor",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf_p024.png",
+          "printPage": 24,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Suit of Armor"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf_p024.png",
+          "printPage": 24,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Suit of Armor"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    }
+  ],
+  "pendingConfirmation": []
+}

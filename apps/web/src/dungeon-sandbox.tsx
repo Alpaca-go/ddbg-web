@@ -49,6 +49,7 @@ import { battleData as sixHeroQuestBattleData } from "virtual:quest-battle-data-
 import { CardFace } from "./card-art/card-face";
 import { ExplorationArtImage } from "./card-art/exploration-art-image";
 import { lookupQuestMapArt, lookupRoomTokenArt } from "./card-art/resolve-exploration-art";
+import { CoreboxPrintCardFace } from "./card-art/corebox-print-card-face";
 import { RoomCardFace } from "./card-art/room-card-face";
 import { BattleView } from "./battle-view";
 import { DungeonStanceOrder } from "./dungeon-stance-order";
@@ -812,15 +813,28 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
               )
               .join("；") || "疾病 / 怪癖：无"}
           </p>
-          <p data-testid="dungeon-trinkets">
-            携带饰品：
-            {d.trinkets?.held
-              .map(
-                (h) =>
-                  `${h.heroId} · ${d.trinkets!.cards.find((c) => c.id === h.cardId)!.name}（${h.face === "upright" ? "正面" : "反面"}）`,
-              )
-              .join("；") || "无"}
-          </p>
+          <div data-testid="dungeon-trinkets">
+            <p>携带饰品：</p>
+            {d.trinkets?.held.length ? (
+              <div className="trinket-held-row">
+                {d.trinkets.held.map((h) => {
+                  const trinketCard = d.trinkets!.cards.find((c) => c.id === h.cardId)!;
+                  return (
+                    <CoreboxPrintCardFace
+                      key={`${h.heroId}-${h.cardId}`}
+                      deck="trinket"
+                      cardId={h.cardId}
+                      face={h.face === "upright" ? "front" : "back"}
+                      size="sm"
+                      label={`${h.heroId} · ${trinketCard.name}（${h.face === "upright" ? "正面" : "反面"}）`}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <p>无</p>
+            )}
+          </div>
           {!formal && (
             <>
               <button onClick={() => reset("standard")}>重置标准模式</button>{" "}
@@ -1192,15 +1206,30 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
               {d.hamlet && (
                 <section aria-label="村庄事件" data-testid="hamlet-event">
                   {d.trinkets?.display !== undefined && (
-                    <p data-testid="nomad-display">
-                      游商陈列：
-                      {d.trinkets.display
-                        .map((id) => {
-                          const card = d.trinkets!.cards.find((c) => c.id === id)!;
-                          return `${card.name} ${["I", "II", "III"][card.level - 1]}${card.verification.unverified ? "（待核实，暂不可购买）" : `（${2 + 2 * card.level} 金）`}`;
-                        })
-                        .join(" · ") || "已售空，不补货"}
-                    </p>
+                    <div data-testid="nomad-display">
+                      <p>游商陈列：</p>
+                      {d.trinkets.display.length ? (
+                        <div className="trinket-held-row">
+                          {d.trinkets.display.map((id) => {
+                            const card = d.trinkets!.cards.find((c) => c.id === id)!;
+                            const price = card.verification.unverified
+                              ? "待核实，暂不可购买"
+                              : `${2 + 2 * card.level} 金`;
+                            return (
+                              <CoreboxPrintCardFace
+                                key={id}
+                                deck="trinket"
+                                cardId={id}
+                                size="sm"
+                                label={`${card.name} ${["I", "II", "III"][card.level - 1]}（${price}）`}
+                              />
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <p>已售空，不补货</p>
+                      )}
+                    </div>
                   )}
                   <h3>{hamletCard!.name}</h3>
                   <p>
@@ -1450,19 +1479,24 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
               ))}
           {card && shownCurio && (
             <div className="panel" data-testid="dungeon-curio">
-              <h3>
-                Curio · {card.name} · p{card.source.page}
-              </h3>
-              <p>{card.text}</p>
-              <p>
-                按卡面行序结算，新疾病／怪癖影响后续行；死亡取消剩余效果和未发奖励。行间使用 Torch
-                只改变光照。
-              </p>
-              <p>
-                {shownCurio.heroId || "等待选择处理英雄"} · 抽卡前{" "}
-                {shownCurio.protected ? "已使用 Torch" : "未使用 Torch"} · 牌池剩余{" "}
-                {d.curio!.deck?.length ?? 24} · 弃牌 {d.curio!.discard.length}
-              </p>
+              <div className="dungeon-room-card-row">
+                <CoreboxPrintCardFace deck="curio" cardId={card.id} label={card.name} />
+                <div>
+                  <h3>
+                    Curio · {card.name} · p{card.source.page}
+                  </h3>
+                  <p>{card.text}</p>
+                  <p>
+                    按卡面行序结算，新疾病／怪癖影响后续行；死亡取消剩余效果和未发奖励。行间使用
+                    Torch 只改变光照。
+                  </p>
+                  <p>
+                    {shownCurio.heroId || "等待选择处理英雄"} · 抽卡前{" "}
+                    {shownCurio.protected ? "已使用 Torch" : "未使用 Torch"} · 牌池剩余{" "}
+                    {d.curio!.deck?.length ?? 24} · 弃牌 {d.curio!.discard.length}
+                  </p>
+                </div>
+              </div>
               <ul>
                 {card.rows.map((r, i) => (
                   <li key={i}>
@@ -1703,6 +1737,14 @@ export function DungeonQuest() {
               ))}
             </select>
           </label>
+          <div className="quest-start-card">
+            <CoreboxPrintCardFace
+              deck="quest"
+              cardId={selectedQuest.id}
+              label={selectedQuest.name}
+              testId={`quest-card-face-${selectedQuest.id}`}
+            />
+          </div>
           <label>
             模式
             <select
