@@ -6,6 +6,7 @@ import { useDungeonStore } from "./store";
 import { QuestMapPanel } from "./dungeon-map/quest-map-panel";
 import { QuestMapDebugControls } from "./dungeon-map/quest-map-debug-controls";
 import { ScoutingPanel } from "./expedition/scouting-panel";
+import { DungeonExitNavStub } from "./expedition/dungeon-exit-nav-stub";
 import { DungeonDecksZone } from "./expedition/dungeon-decks-zone";
 import { fixtureDescription } from "./expedition/dungeon-header-copy";
 import { HamletPhaseView } from "./hamlet/hamlet-phase-view";
@@ -138,15 +139,18 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
           subtitle={subtitle}
           headerExtra={headerExtra}
           player={
-            <QuestSummaryPanel
-              game={game}
-              dispatch={dispatch}
-              formal={formal}
-              pendingChoice={pendingChoice}
-              events={events}
-              commands={commands}
-              includeHamletEvent={false}
-            />
+            <>
+              <QuestSummaryPanel
+                game={game}
+                dispatch={dispatch}
+                formal={formal}
+                pendingChoice={pendingChoice}
+                events={events}
+                commands={commands}
+                includeHamletEvent={false}
+              />
+              <DungeonExitNavStub game={game} />
+            </>
           }
           table={mapPanel}
           decks={decks}
