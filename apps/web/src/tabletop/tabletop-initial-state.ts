@@ -1,4 +1,31 @@
-import type { TabletopState } from "./tabletop-types";
+import type { TabletopHeroState, TabletopState } from "./tabletop-types";
+
+function mockHero(
+  partial: Omit<
+    TabletopHeroState,
+    | "lifeKnown"
+    | "stressFace"
+    | "trinkets"
+    | "isCurrentActor"
+    | "dead"
+    | "isEmpty"
+    | "quirkCount"
+    | "diseaseCount"
+  > &
+    Partial<TabletopHeroState>,
+): TabletopHeroState {
+  return {
+    lifeKnown: true,
+    stressFace: null,
+    trinkets: [],
+    isCurrentActor: false,
+    dead: false,
+    isEmpty: false,
+    quirkCount: 0,
+    diseaseCount: 0,
+    ...partial,
+  };
+}
 
 export function createTabletopInitialState(): TabletopState {
   return {
@@ -25,7 +52,7 @@ export function createTabletopInitialState(): TabletopState {
       initiativeRevealed: ["monster", "hero"],
     },
     heroes: [
-      {
+      mockHero({
         id: "hero-0",
         hero: "CRUSADER",
         wounds: 2,
@@ -39,8 +66,8 @@ export function createTabletopInitialState(): TabletopState {
         trinketSlotCount: 1,
         seat: 1,
         actedThisRound: true,
-      },
-      {
+      }),
+      mockHero({
         id: "hero-1",
         hero: "HELLION",
         wounds: 5,
@@ -54,8 +81,9 @@ export function createTabletopInitialState(): TabletopState {
         trinketSlotCount: 1,
         seat: 2,
         actedThisRound: false,
-      },
-      {
+        isCurrentActor: true,
+      }),
+      mockHero({
         id: "hero-2",
         hero: "HIGHWAYMAN",
         wounds: 0,
@@ -69,8 +97,8 @@ export function createTabletopInitialState(): TabletopState {
         trinketSlotCount: 1,
         seat: 3,
         actedThisRound: false,
-      },
-      {
+      }),
+      mockHero({
         id: "hero-3",
         hero: "VESTAL",
         wounds: 3,
@@ -84,7 +112,7 @@ export function createTabletopInitialState(): TabletopState {
         trinketSlotCount: 1,
         seat: 4,
         actedThisRound: false,
-      },
+      }),
     ],
     monsters: [
       {

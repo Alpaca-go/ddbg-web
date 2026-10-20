@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+import { resolveEffectiveFlowPhase, resolveFlowStepText } from "./phase/engine-bridge";
 import { TabletopTopBar } from "./sections/tabletop-top-bar";
 import { TabletopPartyColumn } from "./sections/tabletop-party-column";
 import { TabletopInitiativePanel } from "./sections/tabletop-initiative-panel";
@@ -6,16 +8,16 @@ import { TabletopDetailPanel } from "./sections/tabletop-detail-panel";
 import { TabletopActionDock } from "./sections/tabletop-action-dock";
 import { TabletopControlRail } from "./sections/tabletop-control-rail";
 import { useTabletopMockMachine } from "./use-tabletop-mock-machine";
+import { useTabletopEngineSession } from "./use-tabletop-engine-session";
+import { useTabletopDisplayState } from "./use-tabletop-display-state";
 import { TabletopDebugPanel } from "./tabletop-debug-panel";
 import { planForPhase } from "./phase/phase-zone-plan";
 import "./tabletop.css";
 
 export function TabletopView() {
+  const { engineGame, worldPatch, engineMode } = useTabletopEngineSession();
   const {
-    state,
-    flowPhase,
-    flowStepText,
-    activeHero,
+    state: mockState,
     canConfirm,
     selectHero,
     selectSkill,
@@ -27,6 +29,19 @@ export function TabletopView() {
     toggleAtmosphere,
     setDemoPhase,
   } = useTabletopMockMachine();
+
+  const state = useTabletopDisplayState(mockState, engineGame, worldPatch);
+
+  const flowPhase = useMemo(
+    () =>
+      resolveEffectiveFlowPhase(state.ui.engineBridge, state.ui.demoPhaseOverride, state.ui.phase),
+    [state.ui.engineBridge, state.ui.demoPhaseOverride, state.ui.phase],
+  );
+  const flowStepText = useMemo(
+    () => resolveFlowStepText(state.ui.engineBridge, state.ui.demoPhaseOverride, flowPhase),
+    [state.ui.engineBridge, state.ui.demoPhaseOverride, flowPhase],
+  );
+  const activeHero = state.heroes.find((h) => h.id === state.ui.activeHeroId) ?? state.heroes[0]!;
 
   const plan = planForPhase(flowPhase);
   const turnHero = state.heroes.find((h) => h.id === state.battle.turnActorId) ?? activeHero;
@@ -58,6 +73,7 @@ export function TabletopView() {
           phaseCaption={plan.party}
           heroes={state.heroes}
           activeHeroId={state.ui.activeHeroId}
+          dataSource={engineMode ? "engine" : "mock"}
           onSelectHero={selectHero}
         />
 

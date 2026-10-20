@@ -1,5 +1,5 @@
+import { HeroStatCardFace } from "../../card-art/hero-stat-card-face";
 import { MonsterCardFace } from "../../card-art/monster-card-face";
-import { AssetPlaceholder } from "../asset-placeholder";
 import type { FlowPhaseId } from "../phase/flow-phase";
 import { PhasePlaceholder } from "../phase/phase-placeholder";
 import type { TabletopHeroState, TabletopMonsterState } from "../tabletop-types";
@@ -46,10 +46,11 @@ export function TabletopDetailPanel({
       )}
       {showBattleDetail && hero && !monster && (
         <>
-          <AssetPlaceholder
-            assetType="hero_stat"
+          <HeroStatCardFace
+            {...(hero.heroStatId ? { heroStatId: hero.heroStatId } : {})}
             label={`${hero.hero} 英雄卡`}
             className="tt-detail__hero-stat"
+            testId={`hero-stat-face-${hero.id}`}
           />
           <p>
             伤口 {hero.wounds}/{hero.life} · 压力 {hero.stress}/10

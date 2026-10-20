@@ -16,6 +16,16 @@ test("桌面原型：选技能 → 选目标 → 确认展示 mock 骰子", asyn
   await expect(tray).toContainText("d10=7");
 });
 
+test("桌面原型：引擎战斗左栏显示真实英雄名与伤口", async ({ page }) => {
+  await page.setViewportSize({ width: 1920, height: 1080 });
+  await page.goto("/?view=tabletop&engine=battle");
+  const party = page.getByTestId("tabletop-party");
+  await expect(party).toHaveAttribute("data-source", "engine");
+  const crusader = page.getByTestId("tabletop-hero-row-hero-0");
+  await expect(crusader).toContainText("CRUSADER");
+  await expect(crusader).toContainText("伤口 0/");
+});
+
 test("桌面原型：阶段导航与 mock 阶段切换", async ({ page }) => {
   await page.setViewportSize({ width: 1920, height: 1080 });
   await page.goto("/?view=tabletop");
