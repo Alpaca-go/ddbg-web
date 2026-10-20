@@ -1,8 +1,11 @@
-import { useCallback, useReducer } from "react";
+import { useCallback, useMemo, useReducer } from "react";
 import { createTabletopInitialState } from "./tabletop-initial-state";
+import { resolveEffectiveFlowPhase, resolveFlowStepText } from "./phase/engine-bridge";
+import type { FlowPhaseId } from "./phase/flow-phase";
 import type { TabletopBottomTab, TabletopMockDice, TabletopState } from "./tabletop-types";
 
 type Action =
+  | { readonly type: "setDemoPhase"; readonly phase: FlowPhaseId | null }
   | { readonly type: "selectHero"; readonly heroId: string }
   | { readonly type: "selectSkill"; readonly skillId: string | null }
   | { readonly type: "selectTarget"; readonly targetId: string }
@@ -14,6 +17,8 @@ type Action =
 
 function reducer(state: TabletopState, action: Action): TabletopState {
   switch (action.type) {
+    case "setDemoPhase":
+      return { ...state, ui: { ...state.ui, demoPhaseOverride: action.phase } };
     case "selectHero":
       return {
         ...state,
@@ -149,13 +154,31 @@ export function useTabletopMockMachine() {
     dispatch({ type: "toggleAtmosphere" });
   }, []);
 
+  const setDemoPhase = useCallback((phase: FlowPhaseId | null) => {
+    dispatch({ type: "setDemoPhase", phase });
+  }, []);
+
   const activeHero = state.heroes.find((h) => h.id === state.ui.activeHeroId) ?? state.heroes[0]!;
   const canConfirm = Boolean(state.ui.selectedSkillId && state.ui.selectedTargetId);
 
+  const flowPhase = useMemo(
+    () =>
+      resolveEffectiveFlowPhase(state.ui.engineBridge, state.ui.demoPhaseOverride, state.ui.phase),
+    [state.ui.engineBridge, state.ui.demoPhaseOverride, state.ui.phase],
+  );
+
+  const flowStepText = useMemo(
+    () => resolveFlowStepText(state.ui.engineBridge, state.ui.demoPhaseOverride, flowPhase),
+    [state.ui.engineBridge, state.ui.demoPhaseOverride, flowPhase],
+  );
+
   return {
     state,
+    flowPhase,
+    flowStepText,
     activeHero,
     canConfirm,
+    setDemoPhase,
     selectHero,
     selectSkill,
     selectTarget,

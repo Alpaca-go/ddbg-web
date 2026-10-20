@@ -1,13 +1,19 @@
 import { MonsterCardFace } from "../../card-art/monster-card-face";
 import { AssetPlaceholder } from "../asset-placeholder";
+import type { FlowPhaseId } from "../phase/flow-phase";
+import { PhasePlaceholder } from "../phase/phase-placeholder";
 import type { TabletopHeroState, TabletopMonsterState } from "../tabletop-types";
 
 export function TabletopDetailPanel({
+  phase,
+  detailCaption,
   kind,
   targetId,
   heroes,
   monsters,
 }: {
+  readonly phase: FlowPhaseId;
+  readonly detailCaption: string;
   readonly kind: "hero" | "monster";
   readonly targetId: string | null;
   readonly heroes: readonly TabletopHeroState[];
@@ -16,10 +22,19 @@ export function TabletopDetailPanel({
   const hero = kind === "hero" ? heroes.find((h) => h.id === targetId) : undefined;
   const monster = kind === "monster" ? monsters.find((m) => m.id === targetId) : undefined;
 
+  const showBattleDetail = phase === "battle" || phase === "dungeonExploration";
+
   return (
-    <aside className="tt-detail" aria-label="选中目标详情" data-testid="tabletop-detail">
+    <aside
+      className="tt-detail tt-phase-surface"
+      aria-label="选中目标详情"
+      data-testid="tabletop-detail"
+    >
       <h3 className="tt-detail__title">目标详情</h3>
-      {monster && (
+      {!showBattleDetail && (
+        <PhasePlaceholder label={detailCaption} testId="tabletop-detail-phase-ph" />
+      )}
+      {showBattleDetail && monster && (
         <>
           <div className="tt-detail__card-slot" data-asset-type="monster_medium">
             <MonsterCardFace monsterCardId={monster.monsterCardId} size="md" />
@@ -29,7 +44,7 @@ export function TabletopDetailPanel({
           </p>
         </>
       )}
-      {hero && !monster && (
+      {showBattleDetail && hero && !monster && (
         <>
           <AssetPlaceholder
             assetType="hero_stat"
@@ -41,7 +56,7 @@ export function TabletopDetailPanel({
           </p>
         </>
       )}
-      {!hero && !monster && <p className="muted">点选立牌或英雄行查看详情</p>}
+      {showBattleDetail && !hero && !monster && <p className="muted">点选立牌或英雄行查看详情</p>}
     </aside>
   );
 }

@@ -118,6 +118,8 @@ export function createTabletopInitialState(): TabletopState {
     ],
     ui: {
       phase: "battle",
+      demoPhaseOverride: null,
+      engineBridge: { game: null, questSetupActive: false },
       activeHeroId: "hero-1",
       detailTargetId: "m0",
       detailTargetKind: "monster",

@@ -1,4 +1,6 @@
 import { lookupHeroStandeeArt } from "../../card-art/resolve-print-hero-standee-art";
+import { PhasePlaceholder } from "../phase/phase-placeholder";
+import type { FlowPhaseId } from "../phase/flow-phase";
 import { StandeeToken } from "../standee-token";
 import { stanceLabelZh } from "../tabletop-stance-label";
 import type { TabletopHeroState } from "../tabletop-types";
@@ -25,10 +27,14 @@ function StressTrack({ stress }: { readonly stress: number }) {
 }
 
 export function TabletopPartyColumn({
+  phase,
+  phaseCaption,
   heroes,
   activeHeroId,
   onSelectHero,
 }: {
+  readonly phase: FlowPhaseId;
+  readonly phaseCaption: string;
   readonly heroes: readonly TabletopHeroState[];
   readonly activeHeroId: string;
   readonly onSelectHero: (id: string) => void;
@@ -41,6 +47,9 @@ export function TabletopPartyColumn({
 
   return (
     <aside className="tt-party" aria-label="队伍" data-testid="tabletop-party">
+      {phase !== "battle" && phase !== "dungeonExploration" && (
+        <PhasePlaceholder label={phaseCaption} testId="tabletop-party-phase-ph" />
+      )}
       {ordered.map((hero) => {
         const standee = lookupHeroStandeeArt(hero.hero);
         const active = hero.id === activeHeroId;

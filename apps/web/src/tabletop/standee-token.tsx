@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { PRINT_CARD_ART_PUBLIC_PREFIX } from "../card-art/resolve-print-hero-skill-art";
-import { AssetPlaceholder } from "./asset-placeholder";
+import { TabletopRasterImage } from "./tabletop-raster-image";
 
 /** 战斗/列表用竖向立牌占位：图 + 底座 + 脚下伤口条（非 HP 条）。 */
 export function StandeeToken({
@@ -24,8 +23,10 @@ export function StandeeToken({
   readonly testId?: string;
   readonly size?: "battle" | "row";
 }) {
-  const [failed, setFailed] = useState(!pngRel);
   const Tag = onClick ? "button" : "div";
+  const imgSrc = pngRel
+    ? `${PRINT_CARD_ART_PUBLIC_PREFIX}/${pngRel.replace(/^\//, "")}`
+    : undefined;
   const woundRatio =
     wounds !== undefined && life !== undefined && life > 0 ? Math.min(1, wounds / life) : undefined;
 
@@ -42,15 +43,12 @@ export function StandeeToken({
       aria-pressed={onClick ? selected : undefined}
     >
       <div className="tt-token__figure" data-asset-type={assetType}>
-        {pngRel && !failed ? (
-          <img
-            src={`${PRINT_CARD_ART_PUBLIC_PREFIX}/${pngRel.replace(/^\//, "")}`}
-            alt=""
-            onError={() => setFailed(true)}
-          />
-        ) : (
-          <AssetPlaceholder assetType={assetType} label={label} className="tt-token__ph" />
-        )}
+        <TabletopRasterImage
+          {...(imgSrc ? { src: imgSrc } : {})}
+          label={label}
+          assetType={assetType}
+          className="tt-token__img"
+        />
       </div>
       <div className="tt-token__base" aria-hidden="true" />
       {woundRatio !== undefined && (
