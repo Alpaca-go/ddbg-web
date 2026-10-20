@@ -24,10 +24,12 @@ export function ScoutingPanel({
   events,
   commands,
   formal,
+  reset,
   pendingChoice,
   surface = "exploration",
   showQuestSummary = false,
 }: DungeonViewProps & {
+  reset?: (mode: import("@ddbg/engine").DungeonState["mode"]) => void;
   pendingChoice: PendingChoice | null | undefined;
   surface?: "expeditionPrep" | "exploration";
   showQuestSummary?: boolean;
@@ -43,6 +45,16 @@ export function ScoutingPanel({
   return (
     <section className="panel scouting-panel">
       <h2>{expeditionPrep ? "出征准备" : "侦察流程"}</h2>
+      {!formal && reset && (
+        <p className="sandbox-reset-row">
+          <button type="button" onClick={() => reset("standard")}>
+            重置标准模式
+          </button>{" "}
+          <button type="button" onClick={() => reset("radiant")}>
+            重置 Radiant
+          </button>
+        </p>
+      )}
       <DungeonStanceOrder game={game} dispatch={dispatch} />
       {d.mustLeaveRoomId === d.position && (
         <p>战斗按逃跑收尾：本房间未清理，须先离开才能再次进入（R25）。</p>

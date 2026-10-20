@@ -15,7 +15,9 @@ export function DebugDrawer({ children }: { children: ReactNode }) {
       </button>
       <div
         className={
-          open ? "debug-drawer__body panel" : "debug-drawer__body debug-drawer__body--collapsed panel"
+          open
+            ? "debug-drawer__body panel"
+            : "debug-drawer__body debug-drawer__body--collapsed panel"
         }
         hidden={false}
       >

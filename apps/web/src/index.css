@@ -792,6 +792,10 @@ button.card-face:hover:enabled {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+  pointer-events: none;
+}
+.debug-drawer {
+  position: relative;
 }
 @media (max-width: 1000px) {
   .workspace {

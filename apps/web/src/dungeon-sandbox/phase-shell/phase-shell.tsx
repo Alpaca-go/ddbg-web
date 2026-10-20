@@ -63,7 +63,7 @@ export function PhaseShell({
           })}
         </ol>
       </nav>
-      <div className="phase-step-banner" role="status" data-testid="dungeon-checkpoint">
+      <div className="phase-step-banner" data-testid="dungeon-checkpoint">
         <span className="phase-step-banner__phase">{flowPhaseLabel(phase)}</span>
         <span className="phase-step-banner__text">{stepText}</span>
       </div>

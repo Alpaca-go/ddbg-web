@@ -16,9 +16,9 @@ function gameWithDungeon(
 
 describe("resolveFlowPhase", () => {
   it("正式开局前为建队", () => {
-    expect(resolveFlowPhase({ questSetupActive: true, game: gameWithDungeon({ phase: "ready" }) })).toBe(
-      "questSetup",
-    );
+    expect(
+      resolveFlowPhase({ questSetupActive: true, game: gameWithDungeon({ phase: "ready" }) }),
+    ).toBe("questSetup");
   });
 
   it("开局补给阶段为出征准备", () => {
@@ -41,7 +41,13 @@ describe("resolveFlowPhase", () => {
   it("村庄子状态为村庄", () => {
     const game = gameWithDungeon({
       phase: "ready",
-      hamlet: { phase: "heroActions", day: 1, preparationDays: 3, deck: [], permanentlyRemoved: [] },
+      hamlet: {
+        phase: "heroActions",
+        day: 1,
+        preparationDays: 3,
+        deck: [],
+        permanentlyRemoved: [],
+      },
     });
     expect(resolveFlowPhase({ game })).toBe("hamlet");
     expect(dungeonFlowStep(game)).toContain("村庄");

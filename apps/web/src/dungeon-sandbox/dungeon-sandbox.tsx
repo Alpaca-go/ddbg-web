@@ -40,12 +40,6 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
     <DebugDrawer>
       <QuestMapDebugControls page={page} fixture={fixture} select={select} />
       <p className="muted">{fixtureDescription(fixture, preview)}</p>
-      <button type="button" onClick={() => reset("standard")}>
-        重置标准模式
-      </button>{" "}
-      <button type="button" onClick={() => reset("radiant")}>
-        重置 Radiant
-      </button>
       <p className="muted">
         命令 {commands.length} · 布置 RNG 游标 {d.cursor} · 探索按当前光照结算
       </p>
@@ -170,6 +164,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
       events={events}
       commands={commands}
       formal={formal}
+      reset={reset}
       pendingChoice={pendingChoice}
       surface={flowPhase === "expeditionPrep" ? "expeditionPrep" : "exploration"}
     />
