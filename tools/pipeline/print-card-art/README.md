@@ -15,7 +15,17 @@ node ../../scripts/build-print-monster-stance-art-map.mjs \
   --manifest .cache/print-card-art/manifest.csv
 node ../../scripts/export-print-hero-standees.mjs --input /path/to/EN_FILES --out .cache/print-card-art
 node ../../scripts/build-print-hero-standee-art-map.mjs
+node ../../scripts/export-print-hamlet-board.mjs --input /path/to/EN_FILES --out .cache/print-card-art
+node ../../scripts/build-print-hamlet-board-art-map.mjs
 ```
+
+村庄版图与建筑手裁说明：[docs/phase4-print-hamlet-art-2026-10-20.md](../../../docs/phase4-print-hamlet-art-2026-10-20.md)。
+
+建筑升级板 **II/III**（Kyries 手裁，无自动导出）：将 PNG 放入
+
+`.cache/print-card-art/manual/hamlet-building-tiles/{buildingId}-{ii|iii}.png`
+
+（`buildingId` 为 `abbey`、`tavern`、`sanitarium`、`survivalist`、`stagecoach`、`blacksmith`、`nomadWagon`；正向朝上，透明背景可选。）
 
 房间代币刀线说明：[docs/phase4-print-room-token-art-2026-10-19.md](../../../docs/phase4-print-room-token-art-2026-10-19.md)。
 

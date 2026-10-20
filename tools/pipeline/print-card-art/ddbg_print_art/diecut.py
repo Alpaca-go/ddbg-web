@@ -284,6 +284,35 @@ def kind_for_revealed_xref(xref: int) -> str | None:
     return REVEALED_IMAGE_XREF_TO_KIND.get(xref)
 
 
+def hamlet_board_pdf_candidate(input_root: str) -> str | None:
+    """Return relative path to DD_EN_COREBOX_BOARD_Hamlet_FRONT.pdf."""
+    from pathlib import Path
+
+    root = Path(input_root)
+    matches: list[Path] = []
+    for path in iter_input_pdfs(root):
+        if "BOARD_Hamlet" not in path.name and "BOARD_HAMLET" not in path.name.upper():
+            continue
+        if "FRONT" not in path.name.upper():
+            continue
+        matches.append(path)
+
+    def pick(candidates: list[Path]) -> str | None:
+        if not candidates:
+            return None
+        pool = [
+            p
+            for p in candidates
+            if "Old_version" not in p.as_posix() and "/old/" not in p.as_posix().lower()
+        ]
+        if not pool:
+            pool = candidates
+        pool.sort(key=lambda p: p.as_posix())
+        return pool[0].relative_to(root).as_posix()
+
+    return pick(matches)
+
+
 def punchboard_pdf_candidates(input_root: str) -> tuple[str | None, str | None]:
     """Return (back_pdf_rel, front_pdf_rel) preferring *_V2.pdf over Old_version."""
     from pathlib import Path

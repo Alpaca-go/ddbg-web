@@ -1,0 +1,113 @@
+{
+  "schema": "ddbg.print-hamlet-building-tile-art-map.v1",
+  "source": {
+    "geometry": "Kyries 手裁 PNG → .cache/print-card-art/manual/hamlet-building-tiles/{buildingId}-{ii|iii}.png",
+    "manualDir": "manual/hamlet-building-tiles",
+    "reviewedAt": "2026-10-20",
+    "notes": [
+      "buildingId 对齐 packages/engine upgradableBuildings（camelCase）。",
+      "PNG 正向朝上；透明背景可选。文件不入库，仅本地 .cache。"
+    ]
+  },
+  "tiles": [
+    {
+      "buildingId": "abbey",
+      "level": 2,
+      "pngRel": "manual/hamlet-building-tiles/abbey-ii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    },
+    {
+      "buildingId": "abbey",
+      "level": 3,
+      "pngRel": "manual/hamlet-building-tiles/abbey-iii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    },
+    {
+      "buildingId": "blacksmith",
+      "level": 2,
+      "pngRel": "manual/hamlet-building-tiles/blacksmith-ii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    },
+    {
+      "buildingId": "blacksmith",
+      "level": 3,
+      "pngRel": "manual/hamlet-building-tiles/blacksmith-iii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    },
+    {
+      "buildingId": "nomadWagon",
+      "level": 2,
+      "pngRel": "manual/hamlet-building-tiles/nomadWagon-ii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    },
+    {
+      "buildingId": "nomadWagon",
+      "level": 3,
+      "pngRel": "manual/hamlet-building-tiles/nomadWagon-iii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    },
+    {
+      "buildingId": "sanitarium",
+      "level": 2,
+      "pngRel": "manual/hamlet-building-tiles/sanitarium-ii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    },
+    {
+      "buildingId": "sanitarium",
+      "level": 3,
+      "pngRel": "manual/hamlet-building-tiles/sanitarium-iii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    },
+    {
+      "buildingId": "stagecoach",
+      "level": 2,
+      "pngRel": "manual/hamlet-building-tiles/stagecoach-ii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    },
+    {
+      "buildingId": "stagecoach",
+      "level": 3,
+      "pngRel": "manual/hamlet-building-tiles/stagecoach-iii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    },
+    {
+      "buildingId": "survivalist",
+      "level": 2,
+      "pngRel": "manual/hamlet-building-tiles/survivalist-ii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    },
+    {
+      "buildingId": "survivalist",
+      "level": 3,
+      "pngRel": "manual/hamlet-building-tiles/survivalist-iii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    },
+    {
+      "buildingId": "tavern",
+      "level": 2,
+      "pngRel": "manual/hamlet-building-tiles/tavern-ii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    },
+    {
+      "buildingId": "tavern",
+      "level": 3,
+      "pngRel": "manual/hamlet-building-tiles/tavern-iii.png",
+      "cropMethod": "manual_kyries",
+      "reviewVerdict": "manual"
+    }
+  ],
+  "pendingConfirmation": []
+}
