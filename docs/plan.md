@@ -253,6 +253,7 @@ ddbg/
 - **进度摘记（2026-10-18）**：正式八英雄开局已开；Grave Robber I 级七战斗技能与 Pilfer 抽取已接（R-096、R-098）；Occultist I 级七战斗技能与 Dark Ritual I–III 已接（R-097 LIMITED Buff）。不进 Phase 5。详见 `docs/phase4-occultist-skills-2026-10-18.md`。
 - **进度摘记（2026-10-20）**：Curio / Trinket / Quest 三类卡 UI 已接印刷 TrimBox PNG（`docs/phase4-print-curio-trinket-quest-art-2026-10-20.md`）；Quest 19 页均已入 map（14 张 art-only，任务池仍仅 `basic-quests.ts` 五张）。
 - **进度摘记（2026-10-20）**：ADD_014 两张中型怪物卡（Perfect / Imperfect Reflection）印刷图复用基础版 `p106` / `p109` PNG，不导 ADD PDF；见 `docs/phase4-print-monster-art-map-2026-10-19.md`。
+- **进度摘记（2026-10-20）**：印刷导出管线修复 EN_FILES 过滤、Rubine 刀线（PyMuPDF 1.28）、Windows Python 解析与一键脚本；见 `docs/phase4-print-art-pipeline-2026-10-19.md` §本机一键导出。
 
 ### Phase 5：Boss 与第 4 幕（核心盒完结）
 - **目标**：核心盒战役能从头打到尾。

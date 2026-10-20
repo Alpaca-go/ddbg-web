@@ -12,6 +12,7 @@ import pymupdf
 
 from .bleed import crop_rect
 from .export_pdf import export_page_png, page_text_snippet
+from .input_scan import assert_unique_png_outputs, is_en_print_pdf_rel
 from .old_path import is_old_path
 from .paths import png_basename
 
@@ -102,7 +103,12 @@ def _prefer_corebox(paths: list[Path]) -> Path:
 
 
 def find_deck_pdf(input_root: Path, filename: str) -> Path:
-    matches = [p for p in input_root.rglob(filename) if p.name == filename]
+    matches = [
+        p
+        for p in input_root.rglob(filename)
+        if p.name == filename
+        and is_en_print_pdf_rel(p.relative_to(input_root).as_posix())
+    ]
     if not matches:
         raise FileNotFoundError(
             f"Missing print PDF {filename} under {input_root} "
@@ -141,6 +147,7 @@ def run_corebox_trim_export(
     dry_run: bool = False,
 ) -> list[TrimPageExportRow]:
     png_dir = out_root / "png"
+    png_claims: dict[str, str] = {}
     rows: list[TrimPageExportRow] = []
     wanted = set(decks) if decks else {s.key for s in DECK_SPECS}
 
@@ -165,6 +172,7 @@ def run_corebox_trim_export(
                 snippet = page_text_snippet(page, clip)
                 png_name = png_basename(pdf_rel, page_no, old)
                 png_rel = f"png/{png_name}"
+                assert_unique_png_outputs(png_rel, f"{pdf_rel} p{page_no}", png_claims)
                 png_abs = out_root / png_rel
                 if dry_run:
                     method = "dry_run"

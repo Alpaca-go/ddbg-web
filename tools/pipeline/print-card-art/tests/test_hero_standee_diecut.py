@@ -11,6 +11,7 @@ from ddbg_print_art.diecut import (
     HERO_STANDEE_WIDTH_PT,
     iter_hero_standee_diecut_candidates,
     png_slug_for_hero_standee,
+    stroke_looks_like_rubine_diecut,
 )
 from ddbg_print_art.hero_standees import export_heroes_from_page
 from ddbg_print_art.separation_omit import omit_rubine_separation_stroke
@@ -23,6 +24,20 @@ def _draw_hero_panel(page: pymupdf.Page, x: float, y: float) -> pymupdf.Rect:
 
 
 class HeroStandeeDiecutTest(unittest.TestCase):
+    def test_rubine_spot_stroke_black_normalized(self):
+        drawing = {"type": "s", "color": (0.0, 0.0, 0.0), "width": 0.25}
+        self.assertTrue(stroke_looks_like_rubine_diecut(drawing, page_has_rubine=True))
+
+    def test_iter_hero_standee_diecut_black_stroke_on_rubine_page(self):
+        doc = pymupdf.open()
+        page = doc.new_page(width=700, height=900)
+        page.insert_text((10, 20), "PANTONE Rubine Red C")
+        rect = pymupdf.Rect(44, 40, 44 + HERO_STANDEE_WIDTH_PT, 40 + HERO_STANDEE_HEIGHT_PT)
+        page.draw_rect(rect, color=(0, 0, 0), width=0.25)
+        cuts = iter_hero_standee_diecut_candidates(page, require_rubine_stroke=True)
+        self.assertEqual(len(cuts), 1)
+        doc.close()
+
     def test_iter_hero_standee_diecut_candidates(self):
         doc = pymupdf.open()
         page = doc.new_page(width=700, height=900)

@@ -20,6 +20,7 @@ from ddbg_print_art.map_monsters import (
     write_maps as write_monster_maps,
 )
 from ddbg_print_art.map_scaffold import write_scaffolds
+from ddbg_print_art.input_scan import assert_unique_png_outputs, iter_input_pdfs
 from ddbg_print_art.old_path import is_old_path
 from ddbg_print_art.paths import png_basename
 
@@ -29,7 +30,7 @@ def repo_root_from_here() -> Path:
 
 
 def scan_pdfs(input_root: Path) -> list[Path]:
-    return sorted(input_root.rglob("*.pdf"))
+    return iter_input_pdfs(input_root)
 
 
 def resolve_engine_id(
@@ -68,6 +69,7 @@ def run(args: argparse.Namespace) -> int:
         return 1
 
     manifest_rows: list[dict] = []
+    png_claims: dict[str, str] = {}
     dpi = int(args.dpi)
     limit = int(args.limit) if args.limit else None
     processed_pages = 0
@@ -86,6 +88,8 @@ def run(args: argparse.Namespace) -> int:
             snippet = page_text_snippet(page, clip)
             png_name = png_basename(rel, page_no, old)
             png_rel = f"png/{png_name}"
+            source = f"{rel} p{page_no}"
+            assert_unique_png_outputs(png_rel, source, png_claims)
             png_abs = out_root / png_rel
             if not args.dry_run:
                 method, _ = export_page_png(page, png_abs, dpi)

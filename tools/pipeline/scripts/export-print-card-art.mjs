@@ -7,17 +7,17 @@
  *     --input "C:\\Users\\kyrie\\Desktop\\DARKEST DUNGEON EN_FILES" \
  *     --out .cache/print-card-art
  *
- * Requires: python3 + pip install -r tools/pipeline/print-card-art/requirements.txt
+ * Requires: Python 3.10+ (see DDBG_PYTHON) + pip install -r tools/pipeline/print-card-art/requirements.txt
  */
-import { spawnSync } from "node:child_process";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawnPython } from "./lib/resolve-python.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const runPy = resolve(here, "../print-card-art/run.py");
 const userArgs = process.argv.slice(2);
 
-const result = spawnSync("python3", [runPy, ...userArgs], {
+const result = spawnPython(runPy, userArgs, {
   stdio: "inherit",
   cwd: resolve(here, "../../.."),
 });
