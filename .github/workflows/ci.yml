@@ -25,6 +25,13 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install -r tools/pipeline/print-card-art/requirements.txt
+      - run: python3 -m unittest discover -s tools/pipeline/print-card-art/tests -p 'test_*.py'
+        env:
+          PYTHONPATH: tools/pipeline/print-card-art
       - run: pnpm typecheck
       - run: pnpm lint
       - run: pnpm test

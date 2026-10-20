@@ -17,6 +17,7 @@ from .diecut import (
     iter_hero_standee_diecut_candidates,
     png_slug_for_hero_standee,
 )
+from .input_scan import assert_unique_png_outputs
 from .separation_omit import omit_rubine_separation_stroke
 
 Face = Literal["front", "back"]
@@ -84,6 +85,7 @@ def export_heroes_from_page(
     dpi: int,
     require_rubine_stroke: bool = True,
     omit_separation: bool = True,
+    png_claims: dict[str, str] | None = None,
 ) -> list[HeroStandeeExportRow]:
     if omit_separation:
         omit_rubine_separation_stroke(doc, page)
@@ -103,6 +105,10 @@ def export_heroes_from_page(
         clip = inset_diecut_clip(cut.rect)
         png_name = png_slug_for_hero_standee(hero_name, face)
         png_rel = f"png/{png_name}"
+        if png_claims is not None:
+            assert_unique_png_outputs(
+                png_rel, f"{pdf_rel} p{page_no} {hero_name}", png_claims
+            )
         dest = png_dir / png_name
         _export_clip(page, clip, dest, dpi)
         rows.append(
@@ -136,6 +142,7 @@ def run_hero_standee_export(
             "Could not find DD_EN_THE_DARKEST_HEROES_PUNCHBOARD_FRONT.pdf under input root"
         )
     png_dir = out_root / "png"
+    png_claims: dict[str, str] = {}
     all_rows: list[HeroStandeeExportRow] = []
 
     jobs: list[tuple[str, Face, tuple[int, ...]]] = []
@@ -170,6 +177,7 @@ def run_hero_standee_export(
                 dpi=dpi,
                 require_rubine_stroke=require_rubine_stroke,
                 omit_separation=omit_separation,
+                png_claims=png_claims,
             )
             all_rows.extend(rows)
         doc.close()

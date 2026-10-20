@@ -1,20 +1,16 @@
 #!/usr/bin/env node
 /**
- * Node wrapper → Python corebox curio/trinket/quest TrimBox exporter.
- *
- *   node tools/pipeline/scripts/export-print-corebox-trim-decks.mjs \
- *     --input "/path/to/DARKEST DUNGEON EN_FILES" \
- *     --out .cache/print-card-art
+ * Node wrapper → Python corebox curio/trinket/quest trim-deck exporter.
  */
-import { spawnSync } from "node:child_process";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawnPython } from "./lib/resolve-python.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const runPy = resolve(here, "../print-card-art/export_corebox_trim_decks.py");
 const userArgs = process.argv.slice(2);
 
-const result = spawnSync("python3", [runPy, ...userArgs], {
+const result = spawnPython(runPy, userArgs, {
   stdio: "inherit",
   cwd: resolve(here, "../../.."),
 });

@@ -16,23 +16,23 @@
       "id": "back",
       "side": "back",
       "category": "stance_board",
-      "pngRel": "png/wave1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_BOARD_Monster_Stance_BACK.pdf_p001.png",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_BOARD_Monster_Stance_BACK.pdf_p001.png",
       "printPage": 1,
       "primaryPdf": "DD_COREBOX_BOARD_Monster_Stance_BACK",
       "cropMethod": "trimbox",
       "matchStatus": "skipped",
-      "pdfRel": "wave1/MG_DD_01_EN_COREBOX/Print/DD_COREBOX_BOARD_Monster_Stance_BACK.pdf"
+      "pdfRel": "DARKEST_DUNGEON_PRINT_EN_WAVE_1/MG_DD_01_EN_COREBOX_Print/DD_COREBOX_BOARD_Monster_Stance_BACK.pdf"
     },
     {
       "id": "front",
       "side": "front",
       "category": "stance_board",
-      "pngRel": "png/wave1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_BOARD_Monster_Stance_FRONT.pdf_p001.png",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_BOARD_Monster_Stance_FRONT.pdf_p001.png",
       "printPage": 1,
       "primaryPdf": "DD_COREBOX_BOARD_Monster_Stance_FRONT",
       "cropMethod": "trimbox",
       "matchStatus": "skipped",
-      "pdfRel": "wave1/MG_DD_01_EN_COREBOX/Print/DD_COREBOX_BOARD_Monster_Stance_FRONT.pdf"
+      "pdfRel": "DARKEST_DUNGEON_PRINT_EN_WAVE_1/MG_DD_01_EN_COREBOX_Print/DD_COREBOX_BOARD_Monster_Stance_FRONT.pdf"
     }
   ],
   "stanceSlots": [

@@ -13,6 +13,7 @@ from ddbg_print_art.diecut import (
     bleed_disc_rect,
     iter_diecut_candidates,
     png_slug_for_token,
+    punchboard_pdf_candidates,
 )
 from ddbg_print_art.room_tokens import export_tokens_from_page
 
@@ -27,6 +28,23 @@ def _draw_diecut_square(page: pymupdf.Page, x: float, y: float) -> None:
         width=1,
         stroke_opacity=1,
     )
+
+
+class PunchboardCandidateTest(unittest.TestCase):
+    def test_punchboard_200x300_case_insensitive(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            wave = root / "DARKEST_DUNGEON_PRINT_EN_WAVE 1" / "MG_DD_01_EN_COREBOX_Print"
+            wave.mkdir(parents=True)
+            front = wave / "DD_EN_COREBOX_PUNCHBOARD_200x300_FRONT_V2.pdf"
+            back = wave / "DD_EN_COREBOX_PUNCHBOARD_200X300_BACK_V2.pdf"
+            front.write_bytes(b"%PDF-1.4\n")
+            back.write_bytes(b"%PDF-1.4\n")
+            back_rel, front_rel = punchboard_pdf_candidates(str(root))
+            self.assertIsNotNone(front_rel)
+            self.assertIsNotNone(back_rel)
+            self.assertIn("FRONT", front_rel.upper())
+            self.assertIn("BACK", back_rel.upper())
 
 
 class DiecutFixtureTest(unittest.TestCase):

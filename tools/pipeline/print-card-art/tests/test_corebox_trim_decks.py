@@ -29,7 +29,12 @@ class CoreboxTrimDeckTest(unittest.TestCase):
 
     def test_export_fixture_pdf_tree(self):
         with tempfile.TemporaryDirectory() as tmp:
-            input_root = Path(tmp) / "WAVE 1" / "MG_DD_01_EN_COREBOX_Print" / "02_DD_CARDS_COREBOX"
+            input_root = (
+                Path(tmp)
+                / "DARKEST_DUNGEON_PRINT_EN_WAVE 1"
+                / "MG_DD_01_EN_COREBOX_Print"
+                / "02_DD_CARDS_COREBOX"
+            )
             input_root.mkdir(parents=True)
             spec = next(s for s in DECK_SPECS if s.key == "quest")
             for pdf_spec in spec.pdfs:

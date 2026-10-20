@@ -89,10 +89,37 @@ python3 tools/pipeline/print-card-art/run.py \
 | `tools/pipeline/extract-print/`  | 卡面**文字 / 图标位置** → `packages/data/extract`（已入库结构化数据） |
 | `tools/pipeline/print-card-art/` | **整页 raster** + 卡图路径映射（不进 CI，依赖本机 PDF）               |
 
+## 本机一键导出
+
+依赖：`pip install -r tools/pipeline/print-card-art/requirements.txt`。Windows 建议设置 `DDBG_PYTHON` 或确保 `py -3` 可用（脚本会跳过 Microsoft Store 的 `python3` 占位别名）。
+
+在仓库根目录，将 `--input` 换成本机 `DARKEST DUNGEON EN_FILES` 路径（须含 `DARKEST_DUNGEON_PRINT_EN_WAVE *` / `MASTER_WEBBER_EN`；默认跳过 `中文版`、`tmp` 与 zip）：
+
+```bash
+# 串联：整批 PDF → 房间代币 → 英雄立牌 → Curio/Trinket/Quest TrimBox → Monster Stance map → map 引用检查
+node tools/pipeline/scripts/export-print-all.mjs \
+  --input "C:\Users\kyrie\Desktop\DARKEST DUNGEON EN_FILES" \
+  --out .cache/print-card-art
+```
+
+分步（与 `export-print-all.mjs` 相同顺序）：
+
+```bash
+node tools/pipeline/scripts/export-print-card-art.mjs --input "<EN_FILES>" --out .cache/print-card-art --dpi 200
+node tools/pipeline/scripts/export-print-room-tokens.mjs --input "<EN_FILES>" --out .cache/print-card-art --dpi 300
+node tools/pipeline/scripts/export-print-hero-standees.mjs --input "<EN_FILES>" --out .cache/print-card-art --dpi 300
+node tools/pipeline/scripts/export-print-corebox-trim-decks.mjs --input "<EN_FILES>" --out .cache/print-card-art --dpi 200
+node tools/pipeline/scripts/build-print-monster-stance-art-map.mjs --manifest .cache/print-card-art/manifest.csv
+node tools/pipeline/scripts/check-print-art-map-refs.mjs --cache .cache/print-card-art
+```
+
+审阅 CSV / 提升 Web map（怪物、英雄技能、探索等）仍用既有 `build-print-*-art-map.mjs`；见各 `docs/phase4-print-*` 文档。
+
 ## 自测（无真实印刷 PDF）
 
 ```bash
-python3 -m unittest discover -s tools/pipeline/print-card-art/tests -p 'test_*.py'
+PYTHONPATH=tools/pipeline/print-card-art \
+  python3 -m unittest discover -s tools/pipeline/print-card-art/tests -p 'test_*.py'
 ```
 
 ## 待确认 / pending
