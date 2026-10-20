@@ -15,7 +15,13 @@ node ../../scripts/build-print-monster-stance-art-map.mjs \
   --manifest .cache/print-card-art/manifest.csv
 node ../../scripts/export-print-hero-standees.mjs --input /path/to/EN_FILES --out .cache/print-card-art
 node ../../scripts/build-print-hero-standee-art-map.mjs
+node ../../scripts/export-print-hamlet-board.mjs --input /path/to/EN_FILES --out .cache/print-card-art
+node ../../scripts/export-print-hamlet-building-tiles.mjs --input /path/to/EN_FILES --out .cache/print-card-art
+node ../../scripts/build-print-hamlet-board-art-map.mjs
+node ../../scripts/build-print-hamlet-building-tile-art-map.mjs
 ```
+
+村庄版图 / 建筑升级板说明：[docs/phase4-print-hamlet-art-2026-10-20.md](../../../docs/phase4-print-hamlet-art-2026-10-20.md)。
 
 房间代币刀线说明：[docs/phase4-print-room-token-art-2026-10-19.md](../../../docs/phase4-print-room-token-art-2026-10-19.md)。
 

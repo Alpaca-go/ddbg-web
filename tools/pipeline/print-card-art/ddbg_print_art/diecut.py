@@ -22,6 +22,15 @@ BLEED_FILL_DISC_PT = 82.21
 SIDE_TOLERANCE_PT = 0.75
 SQUARE_TOLERANCE_PT = 1.25
 
+# BLD upgrade panels on PUNCHBOARD_300x300 FRONT p1 (Form placement bbox, Kyries EN export).
+BUILDING_TILE_LONG_PT = 130.08
+BUILDING_TILE_SHORT_PT = 77.42
+BUILDING_TILE_LONG_TOLERANCE_PT = 2.5
+# BLD p1 upgrade panels: long ≈130.1 pt; short ≈77.4 pt or ≈75.9 pt (Stagecoach / Blacksmith).
+BUILDING_TILE_SHORT_77_PT = 77.42
+BUILDING_TILE_SHORT_76_PT = 75.88
+BUILDING_TILE_SHORT_TOLERANCE_PT = 1.5
+
 # The Darkest Heroes punchboard — Rubine die-cut panel (arched silhouette bbox).
 HERO_STANDEE_WIDTH_PT = 177.83
 HERO_STANDEE_HEIGHT_PT = 237.09
@@ -282,6 +291,139 @@ def dominant_image_xref_in_rect(
 
 def kind_for_revealed_xref(xref: int) -> str | None:
     return REVEALED_IMAGE_XREF_TO_KIND.get(xref)
+
+
+@dataclass(frozen=True)
+class BuildingTilePanel:
+    xref: int
+    form_name: str
+    rect: pymupdf.Rect
+    long_pt: float
+    short_pt: float
+
+
+def _short_side_matches_building_tile(short: float) -> bool:
+    return (
+        abs(short - BUILDING_TILE_SHORT_77_PT) <= BUILDING_TILE_SHORT_TOLERANCE_PT
+        or abs(short - BUILDING_TILE_SHORT_76_PT) <= BUILDING_TILE_SHORT_TOLERANCE_PT
+    )
+
+
+def _rect_matches_building_tile_panel(rect: pymupdf.Rect) -> bool:
+    long = max(rect.width, rect.height)
+    short = min(rect.width, rect.height)
+    if abs(long - BUILDING_TILE_LONG_PT) > BUILDING_TILE_LONG_TOLERANCE_PT:
+        return False
+    return _short_side_matches_building_tile(short)
+
+
+def iter_building_upgrade_panel_candidates(
+    page: pymupdf.Page,
+    *,
+    trim: pymupdf.Rect | None = None,
+) -> list[BuildingTilePanel]:
+    """Form XObject placement bboxes for II/III building upgrade panels (BLD p1)."""
+    out: list[BuildingTilePanel] = []
+    for xref, name, _invoker, bbox in page.get_xobjects():
+        rect = pymupdf.Rect(bbox)
+        if trim is not None:
+            if (
+                rect.x1 < trim.x0
+                or rect.y1 < trim.y0
+                or rect.x0 > trim.x1
+                or rect.y0 > trim.y1
+            ):
+                continue
+        if not _rect_matches_building_tile_panel(rect):
+            continue
+        long = max(rect.width, rect.height)
+        short = min(rect.width, rect.height)
+        out.append(
+            BuildingTilePanel(
+                xref=int(xref),
+                form_name=str(name),
+                rect=rect,
+                long_pt=long,
+                short_pt=short,
+            )
+        )
+    deduped: dict[tuple[int, int], BuildingTilePanel] = {}
+    for panel in out:
+        key = (round(panel.rect.x0), round(panel.rect.y0))
+        prior = deduped.get(key)
+        if prior is None or panel.xref < prior.xref:
+            deduped[key] = panel
+    unique = list(deduped.values())
+    unique.sort(key=lambda p: (round(p.rect.y0, 2), round(p.rect.x0, 2)))
+    return unique
+
+
+def punchboard_300x300_pdf_candidates(input_root: str) -> tuple[str | None, str | None]:
+    """Return (back_pdf_rel, front_pdf_rel) for corebox 300×300 punchboard."""
+    from pathlib import Path
+
+    root = Path(input_root)
+    backs: list[Path] = []
+    fronts: list[Path] = []
+    for path in iter_input_pdfs(root):
+        name = path.name
+        if "punchboard_300x300" not in name.casefold():
+            continue
+        rel = path.relative_to(root).as_posix()
+        upper = name.upper()
+        if "BACK" in upper:
+            backs.append(path)
+        elif "FRONT" in upper:
+            fronts.append(path)
+
+    def pick(candidates: list[Path]) -> str | None:
+        if not candidates:
+            return None
+        pool = [
+            p
+            for p in candidates
+            if "Old_version" not in p.as_posix() and "/old/" not in p.as_posix().lower()
+        ]
+        if not pool:
+            pool = candidates
+        pool.sort(key=lambda p: p.as_posix())
+        return pool[0].relative_to(root).as_posix()
+
+    return pick(backs), pick(fronts)
+
+
+def hamlet_board_pdf_candidate(input_root: str) -> str | None:
+    """Return relative path to DD_EN_COREBOX_BOARD_Hamlet_FRONT.pdf."""
+    from pathlib import Path
+
+    root = Path(input_root)
+    matches: list[Path] = []
+    for path in iter_input_pdfs(root):
+        if "BOARD_Hamlet" not in path.name and "BOARD_HAMLET" not in path.name.upper():
+            continue
+        if "FRONT" not in path.name.upper():
+            continue
+        matches.append(path)
+
+    def pick(candidates: list[Path]) -> str | None:
+        if not candidates:
+            return None
+        pool = [
+            p
+            for p in candidates
+            if "Old_version" not in p.as_posix() and "/old/" not in p.as_posix().lower()
+        ]
+        if not pool:
+            pool = candidates
+        pool.sort(key=lambda p: p.as_posix())
+        return pool[0].relative_to(root).as_posix()
+
+    return pick(matches)
+
+
+def png_slug_for_building_tile(building_id: str, level: int) -> str:
+    safe = re.sub(r"[^a-z0-9_-]+", "-", building_id.lower())
+    return f"hamlet-building-{safe}_L{level}.png"
 
 
 def punchboard_pdf_candidates(input_root: str) -> tuple[str | None, str | None]:
