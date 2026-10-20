@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { FLOW_PHASE_BREADCRUMB, type FlowPhaseId } from "./phase/flow-phase";
 import { resolveEffectiveFlowPhase, resolveFlowStepText } from "./phase/engine-bridge";
 import { TabletopTopBar } from "./sections/tabletop-top-bar";
 import { TabletopPartyColumn } from "./sections/tabletop-party-column";
@@ -33,6 +34,13 @@ export function TabletopView() {
     toggleAtmosphere,
     setDemoPhase,
   } = useTabletopMockMachine();
+
+  useEffect(() => {
+    const raw = new URLSearchParams(window.location.search).get("demoPhase");
+    if (!raw) return;
+    const valid = FLOW_PHASE_BREADCRUMB.some((p) => p.id === raw);
+    if (valid) setDemoPhase(raw as FlowPhaseId);
+  }, [setDemoPhase]);
 
   const state = useTabletopDisplayState(mockState, engineGame, worldPatch);
   const entityName = useTabletopEntityName(state.heroes, state.monsters);

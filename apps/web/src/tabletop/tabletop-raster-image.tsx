@@ -5,12 +5,16 @@ import { AssetPlaceholder } from "./asset-placeholder";
 export function TabletopRasterImage({
   src,
   label,
+  placeholderLabel,
   assetType,
   className = "",
   testId,
 }: {
   readonly src?: string;
+  /** 加载成功时 alt 等用；缺图时若未提供 placeholderLabel 则用作占位文案 */
   readonly label: string;
+  /** 缺图占位仅显示此中文短名（不展示 assetType / 英文 key） */
+  readonly placeholderLabel?: string;
   readonly assetType: string;
   readonly className?: string;
   readonly testId?: string;
@@ -21,7 +25,7 @@ export function TabletopRasterImage({
   if (!showImg) {
     const phProps = {
       assetType,
-      label,
+      label: placeholderLabel ?? label,
       className: ["tabletop-raster-img-fallback", className].filter(Boolean).join(" "),
       ...(testId ? { testId } : {}),
     };

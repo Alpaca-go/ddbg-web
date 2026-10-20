@@ -63,7 +63,7 @@ function MonsterDetail({
         <MonsterCardFace monsterCardId={monster.monsterCardId} label={monster.name} size="md" />
       </div>
       <p className="tt-detail__stat" data-testid="tabletop-detail-wounds">
-        {woundsLine(monster.wounds, monster.life, monster.lifeKnown)}（代币计数，非 HP 条）
+        {woundsLine(monster.wounds, monster.life, monster.lifeKnown)}
       </p>
       {monster.stance && (
         <p className="tt-detail__stat">
@@ -98,13 +98,14 @@ function MonsterDetail({
 function RoomDetail({ roomCardId }: { readonly roomCardId: string }) {
   const entry = lookupRoomCardArt(roomCardId);
   const src = entry ? cachedPrintExplorationUrl(entry) : undefined;
-  const caption = entry?.name ?? roomCardId;
+  const caption = entry?.name ?? "房间卡";
   return (
     <div className="tt-detail__body" data-testid="tabletop-detail-room">
       <div className="tt-detail__card-slot" data-asset-type="room">
         <TabletopRasterImage
           {...(src ? { src } : {})}
           label={caption}
+          placeholderLabel={caption}
           assetType="room"
           className="tt-detail__room-img"
           testId={`tabletop-detail-room-img-${roomCardId}`}
@@ -126,6 +127,7 @@ function BuildingDetail({ buildingId }: { readonly buildingId: string }) {
         <TabletopRasterImage
           {...(src ? { src } : {})}
           label={`${label} 建筑板块`}
+          placeholderLabel={`${label} 建筑板块`}
           assetType="hamlet_building"
           className="tt-detail__building-tile"
           testId={`tabletop-detail-building-${buildingId}`}

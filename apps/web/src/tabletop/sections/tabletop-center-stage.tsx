@@ -52,7 +52,8 @@ export function TabletopHamletCenterStage({
         >
           <TabletopRasterImage
             src={boardUrl}
-            label="hamlet_board 村庄版图"
+            label="村庄版图"
+            placeholderLabel="村庄版图"
             assetType="hamlet_board"
             className="tt-hamlet-board__img"
             testId="tabletop-hamlet-board-img"

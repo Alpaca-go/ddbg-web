@@ -69,6 +69,12 @@ test("桌面原型：右栏详情切换英雄与怪物", async ({ page }) => {
   await expect(page.getByTestId("tabletop-detail-hero-status")).toBeVisible();
 });
 
+test("桌面原型：demoPhase 查询参数且调试抽屉默认收起", async ({ page }) => {
+  await page.goto("/?view=tabletop&demoPhase=hamlet");
+  await expect(page.getByTestId("tabletop-hamlet-stage")).toBeVisible();
+  await expect(page.getByTestId("debug-drawer-body")).toHaveCount(0);
+});
+
 test("桌面原型：顶栏任务缩略图切换任务详情", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto("/?view=tabletop");

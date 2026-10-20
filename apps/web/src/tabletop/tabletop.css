@@ -196,6 +196,29 @@
   box-sizing: border-box;
 }
 
+.tabletop-asset-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 2rem;
+  padding: 0.2rem;
+  box-sizing: border-box;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px dashed var(--tt-gold-dim);
+  border-radius: 3px;
+}
+
+.tabletop-asset-ph__label {
+  font-size: 0.62rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  color: #c9b896;
+}
+
 .tt-hamlet-board .tabletop-raster-img-fallback {
   min-height: 6rem;
 }
@@ -207,8 +230,8 @@
   object-fit: contain;
 }
 
-.tt-token__figure .tabletop-raster-img-fallback {
-  font-size: 0.45rem;
+.tt-token__figure .tabletop-asset-ph__label {
+  font-size: 0.5rem;
 }
 
 .tt-quest-thumb__chip .tt-quest-thumb__img {
@@ -990,6 +1013,8 @@
   margin: 0 0 0.35rem;
   font-size: 0.8rem;
   color: var(--tt-gold);
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .tt-detail__stat {
@@ -1008,6 +1033,9 @@
   font-size: 0.7rem;
   color: var(--tt-gold-dim);
   font-weight: 600;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
 }
 
 .tt-detail__card-slot {
