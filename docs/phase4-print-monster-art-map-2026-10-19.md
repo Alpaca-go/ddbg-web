@@ -52,14 +52,18 @@ Kyries 在印刷导出 manifest 上人工核对；本批仅包含核心盒 **mon
 2. 打开战斗沙盒（或地牢战斗入口），布置含骨兵/骨贵族等怪物
 3. 站位轨道上怪物 chip 与怪物行动侧栏应出现印刷卡面（需本机已导出 PNG）
 
-## 未覆盖引擎 id
+## ADD_014 别名（2026-10-20 Kyries）
 
-normalized 中存在但本 CSV **未纳入**审阅的 id（扩展包页，非本批 72 张）：
+`monster_medium` normalized 含 ADD_014 补页 2 张（Perfect / Imperfect Reflection），与基础版同名、正面文字相同，仅怪物标记颜色小图标不同；TrimBox 均为 198.425×340.157 pt（见 `packages/data/extract/corebox/reports/reconciliation.md`）。ADD_014 不进当前怪物池（[phase3-monster-pool-2026-10-12.md](phase3-monster-pool-2026-10-12.md)）。
 
-- `monster_medium:ADD_014:p001`
-- `monster_medium:ADD_014:p003`
+**不单独导出 ADD PDF**；`build-print-monster-art-map.mjs` 的 `PRINT_MONSTER_ART_ALIASES` 将：
 
-`monster_large` 20/20 均在 CSV 内。
+| 引擎 id                       | 复用基础 id           | 印刷 PNG            |
+| ----------------------------- | --------------------- | ------------------- |
+| `monster_medium:ADD_014:p001` | `monster_medium:p106` | 同 p106 `chosenPng` |
+| `monster_medium:ADD_014:p003` | `monster_medium:p109` | 同 p109 `chosenPng` |
+
+入库后 `uncoveredEngineIds` 为空（含 `monster_large` 20/20 CSV 行）。
 
 ## 范围外
 

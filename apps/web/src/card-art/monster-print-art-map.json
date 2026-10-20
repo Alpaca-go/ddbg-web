@@ -3,13 +3,16 @@
   "source": {
     "csv": "tools/pipeline/print-card-art/fixtures/print-monster-review-ok-fixed-p021.csv",
     "verdictFilter": "ok",
-    "rowCount": 72,
+    "rowCount": 74,
     "notes": [
       "Human review CSV (Kyries); includes corrected monsters_medium FRONT p021 → Cultist Acolyte.",
+      "ADD_014 medium monsters reuse base print PNG via PRINT_MONSTER_ART_ALIASES (2026-10-20 Kyries).",
       "pngRel paths are relative to .cache/print-card-art/ after export-print-card-art.mjs.",
       "Monster UI uses print PNG only (no TTS fallback); see resolve-monster-art.ts.",
       "R-048: raster uses TrimBox / 3 mm bleed from print pipeline; no invented crop in UI."
-    ]
+    ],
+    "reviewedCsvRowCount": 72,
+    "aliasRowCount": 2
   },
   "cards": [
     {
@@ -875,10 +878,32 @@
       "matchMethod": "page+name",
       "reviewVerdict": "ok",
       "reviewedAt": "2026-10-19T05:31:57.851Z"
+    },
+    {
+      "id": "monster_medium:ADD_014:p001",
+      "name": "Perfect Reflection",
+      "level": 3,
+      "category": "monster_medium",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_monsters_medium_FRONT.pdf_p106.png",
+      "printPage": 106,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_monsters_medium_FRONT",
+      "matchMethod": "reuse-base:monster_medium:p106",
+      "reviewVerdict": "alias",
+      "reviewedAt": "2026-10-19T05:31:56.767Z"
+    },
+    {
+      "id": "monster_medium:ADD_014:p003",
+      "name": "Imperfect Reflection",
+      "level": 3,
+      "category": "monster_medium",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_monsters_medium_FRONT.pdf_p109.png",
+      "printPage": 109,
+      "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_monsters_medium_FRONT",
+      "matchMethod": "reuse-base:monster_medium:p109",
+      "reviewVerdict": "alias",
+      "reviewedAt": "2026-10-19T05:31:55.879Z"
     }
   ],
-  "uncoveredEngineIds": ["monster_medium:ADD_014:p001", "monster_medium:ADD_014:p003"],
-  "pendingConfirmation": [
-    "2 normalized engine id(s) not in reviewed CSV (extension / out of scope)."
-  ]
+  "uncoveredEngineIds": [],
+  "pendingConfirmation": []
 }
