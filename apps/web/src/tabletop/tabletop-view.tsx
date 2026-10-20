@@ -10,6 +10,7 @@ import { TabletopControlRail } from "./sections/tabletop-control-rail";
 import { useTabletopMockMachine } from "./use-tabletop-mock-machine";
 import { useTabletopEngineSession } from "./use-tabletop-engine-session";
 import { useTabletopDisplayState } from "./use-tabletop-display-state";
+import { useTabletopEntityName } from "./use-tabletop-entity-name";
 import { TabletopDebugPanel } from "./tabletop-debug-panel";
 import { planForPhase } from "./phase/phase-zone-plan";
 import "./tabletop.css";
@@ -20,6 +21,9 @@ export function TabletopView() {
     state: mockState,
     canConfirm,
     selectHero,
+    selectBuilding,
+    selectRoom,
+    selectQuest,
     selectSkill,
     selectTarget,
     setTab,
@@ -31,6 +35,7 @@ export function TabletopView() {
   } = useTabletopMockMachine();
 
   const state = useTabletopDisplayState(mockState, engineGame, worldPatch);
+  const entityName = useTabletopEntityName(state.heroes, state.monsters);
 
   const flowPhase = useMemo(
     () =>
@@ -66,6 +71,11 @@ export function TabletopView() {
           onToggleLog={toggleLog}
           onToggleAtmosphere={toggleAtmosphere}
           atmosphereEnabled={state.ui.atmosphereEnabled}
+          onSelectQuest={() => selectQuest(state.quest.questCardId)}
+          questDetailSelected={
+            state.ui.detailTargetKind === "quest" &&
+            state.ui.detailTargetId === state.quest.questCardId
+          }
         />
 
         <TabletopPartyColumn
@@ -87,17 +97,23 @@ export function TabletopView() {
           heroes={state.heroes}
           monsters={state.monsters}
           selectedTargetId={state.ui.selectedTargetId}
+          detailTargetKind={state.ui.detailTargetKind}
+          detailTargetId={state.ui.detailTargetId}
           onSelectTarget={selectTarget}
           onSelectHeroToken={selectHero}
+          onSelectBuilding={selectBuilding}
+          onSelectRoom={selectRoom}
+          onSelectQuest={selectQuest}
         />
 
         <TabletopDetailPanel
-          phase={flowPhase}
           detailCaption={plan.detail}
           kind={state.ui.detailTargetKind}
           targetId={state.ui.detailTargetId}
+          quest={state.quest}
           heroes={state.heroes}
           monsters={state.monsters}
+          entityName={entityName}
         />
 
         <TabletopInitiativePanel

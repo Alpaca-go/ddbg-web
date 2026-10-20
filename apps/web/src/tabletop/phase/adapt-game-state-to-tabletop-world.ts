@@ -1,5 +1,11 @@
 import type { BattleEntity, GameState, SkillStance, TrinketPool } from "@ddbg/engine";
-import type { TabletopBattleMeta, TabletopHeroState, TabletopWorldState } from "../tabletop-types";
+import { monsterCardName, projectMonsterPreparedSkill } from "../resolve-monster-skill-display";
+import type {
+  TabletopBattleMeta,
+  TabletopHeroState,
+  TabletopMonsterState,
+  TabletopWorldState,
+} from "../tabletop-types";
 
 export type AdaptGameStateOptions = {
   readonly heroDisplayName?: (hero: {
@@ -12,6 +18,7 @@ export type AdaptGameStateOptions = {
 const STANCE_ORDER: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
 export type TabletopWorldAdaptation = Pick<TabletopWorldState, "heroes"> & {
+  readonly monsters?: readonly TabletopMonsterState[];
   readonly battle?: Partial<TabletopBattleMeta>;
 };
 
@@ -238,6 +245,36 @@ function projectDungeonHeroes(
   return padPartySlots(sortByStance(heroes));
 }
 
+function projectBattleMonsters(game: GameState): TabletopMonsterState[] {
+  const battle = game.battle!;
+  const prepared = battle.monsterAction;
+  return battle.entities
+    .filter((entity) => entity.side === "monster" && !entity.dead)
+    .map((entity) => {
+      const cardId = entity.monsterCardId ?? "";
+      const card = battle.monsters?.find((entry) => entry.id === cardId);
+      const life = card?.life ?? entity.life;
+      const wounds = entity.wounds ?? 0;
+      const skillForActor =
+        prepared && prepared.actorId === entity.id
+          ? projectMonsterPreparedSkill(prepared, cardId)
+          : null;
+      const name = cardId ? monsterCardName(cardId) : entity.id;
+      return {
+        id: entity.id,
+        monsterCardId: cardId,
+        name,
+        wounds,
+        life: life ?? 0,
+        lifeKnown: life !== undefined,
+        areaId: entity.areaId,
+        ...(entity.stance ? { stance: entity.stance } : {}),
+        statusStacks: projectStatusStacks(entity.statusStacks),
+        preparedSkill: skillForActor,
+      };
+    });
+}
+
 function projectBattleMeta(game: GameState): Partial<TabletopBattleMeta> {
   const battle = game.battle;
   if (!battle) return {};
@@ -263,6 +300,7 @@ export function adaptGameStateToTabletopWorld(
   if (game.battle) {
     return {
       heroes: projectBattleHeroes(game, options),
+      monsters: projectBattleMonsters(game),
       battle: projectBattleMeta(game),
     };
   }

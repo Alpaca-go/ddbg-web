@@ -30,6 +30,8 @@ export function TabletopTopBar({
   onToggleLog,
   onToggleAtmosphere,
   atmosphereEnabled,
+  onSelectQuest,
+  questDetailSelected,
 }: {
   readonly phase: FlowPhaseId;
   readonly stepText: string;
@@ -38,6 +40,8 @@ export function TabletopTopBar({
   readonly onToggleLog: () => void;
   readonly onToggleAtmosphere: () => void;
   readonly atmosphereEnabled: boolean;
+  readonly onSelectQuest?: () => void;
+  readonly questDetailSelected?: boolean;
 }) {
   const contextLine = phaseContextLine(phase, quest, stepText);
 
@@ -110,7 +114,11 @@ export function TabletopTopBar({
           </div>
         )}
         {(phase === "dungeonExploration" || phase === "battle") && (
-          <QuestThumb cardId={quest.questCardId} caption={quest.questLabel} />
+          <QuestThumb
+            cardId={quest.questCardId}
+            caption={quest.questLabel}
+            {...(onSelectQuest ? { onSelect: onSelectQuest, selected: questDetailSelected } : {})}
+          />
         )}
         <button type="button" className="tt-top__btn" onClick={onToggleLog}>
           日志

@@ -6,9 +6,13 @@ import { cachedPrintQuestUrl, lookupPrintQuestFace } from "../card-art/resolve-p
 export function QuestThumb({
   cardId,
   caption,
+  onSelect,
+  selected,
 }: {
   readonly cardId: string;
   readonly caption: string;
+  readonly onSelect?: () => void;
+  readonly selected?: boolean;
 }) {
   const mapped = lookupPrintQuestFace(cardId, "front");
   const thumbSrc = mapped ? cachedPrintQuestUrl(mapped.faceEntry) : undefined;
@@ -16,8 +20,19 @@ export function QuestThumb({
   const showImg = Boolean(thumbSrc) && !failed;
 
   return (
-    <div className="tt-quest-thumb" data-testid="tabletop-quest-thumb" title={caption}>
-      <div className="tt-quest-thumb__chip" title={caption} aria-label={`${caption}（任务卡缩略）`}>
+    <div
+      className={["tt-quest-thumb", selected ? "tt-quest-thumb--selected" : ""].join(" ")}
+      data-testid="tabletop-quest-thumb"
+      title={caption}
+    >
+      <button
+        type="button"
+        className="tt-quest-thumb__chip"
+        title={caption}
+        aria-label={`${caption}（任务卡缩略）`}
+        aria-pressed={onSelect ? selected : undefined}
+        onClick={onSelect}
+      >
         {showImg ? (
           <img
             src={thumbSrc}
@@ -31,7 +46,7 @@ export function QuestThumb({
             Q
           </span>
         )}
-      </div>
+      </button>
       <div className="tt-quest-thumb__flyout" aria-hidden="true">
         <CoreboxPrintCardFace deck="quest" cardId={cardId} label={caption} size="sm" />
       </div>

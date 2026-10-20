@@ -240,6 +240,14 @@
   background: rgba(20, 18, 16, 0.75);
   color: var(--tt-gold);
   white-space: nowrap;
+  pointer-events: auto;
+  cursor: pointer;
+  font: inherit;
+}
+
+.tt-hamlet-marker--selected {
+  border-style: solid;
+  box-shadow: 0 0 0 1px var(--tt-gold);
 }
 
 .tt-hamlet-event {
@@ -455,14 +463,22 @@
 }
 
 .tt-quest-thumb__chip {
+  display: block;
   width: 2rem;
   height: 2.75rem;
+  padding: 0;
   border: 1px solid var(--tt-gold-dim);
   border-radius: 3px;
   overflow: hidden;
   background: #252219;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
-  cursor: default;
+  cursor: pointer;
+  font: inherit;
+}
+
+.tt-quest-thumb--selected .tt-quest-thumb__chip {
+  border-color: var(--tt-gold);
+  box-shadow: 0 0 0 1px var(--tt-gold);
 }
 
 .tt-quest-thumb__chip img {
@@ -958,7 +974,9 @@
 .tt-detail {
   grid-area: detail;
   min-height: 0;
-  overflow: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   padding: 0.35rem;
   border: 1px solid var(--tt-panel-edge);
   border-radius: 6px;
@@ -976,6 +994,89 @@
 
 .tt-detail__stat {
   font-size: 0.75rem;
+}
+
+.tt-detail__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+.tt-detail__section {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 0.7rem;
+  color: var(--tt-gold-dim);
+  font-weight: 600;
+}
+
+.tt-detail__card-slot {
+  max-width: 100%;
+  margin-bottom: 0.35rem;
+}
+
+.tt-detail__hero-stat,
+.tt-detail__room-img,
+.tt-detail__building-tile {
+  width: 100%;
+  max-height: 12rem;
+  object-fit: contain;
+  object-position: top center;
+}
+
+.tt-detail__status-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+}
+
+.tt-detail__service-list {
+  margin: 0.25rem 0 0;
+  padding-left: 1rem;
+  font-size: 0.72rem;
+}
+
+.tt-detail__hint {
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+.tt-dungeon-room-pick,
+.tt-embark-quest-pick {
+  margin-top: 0.35rem;
+  padding: 0.2rem;
+  border: 1px dashed var(--tt-gold-dim);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  max-width: 6rem;
+}
+
+.tt-dungeon-room-pick--selected,
+.tt-embark-quest-pick--selected {
+  border-style: solid;
+  border-color: var(--tt-gold);
+}
+
+.tt-dungeon-room-pick__label {
+  display: block;
+  font-size: 0.55rem;
+  text-align: center;
+  margin-top: 0.15rem;
+}
+
+.tt-map__room-plate--pick {
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
 }
 
 .tt-detail__room h4 {

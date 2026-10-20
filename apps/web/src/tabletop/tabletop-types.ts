@@ -1,6 +1,10 @@
 import type { SkillStance, StatusStack } from "@ddbg/engine";
 import type { TabletopEngineBridge } from "./phase/engine-bridge";
 import type { FlowPhaseId } from "./phase/flow-phase";
+import type {
+  TabletopDetailTargetKind,
+  TabletopMonsterPreparedSkill,
+} from "./tabletop-detail-types";
 
 /** 与 `BattleEntity` / `SkillActorState` / dungeon hero 字段对齐的 mock 形状（V-14）。 */
 export type TabletopHeroTrinketSlot = {
@@ -45,7 +49,12 @@ export type TabletopMonsterState = {
   readonly name: string;
   readonly wounds: number;
   readonly life: number;
+  readonly lifeKnown: boolean;
   readonly areaId: string;
+  readonly stance?: SkillStance;
+  readonly statusStacks: readonly StatusStack[];
+  /** 本回合引擎已保存的选招；无选招或未接引擎时为 null */
+  readonly preparedSkill: TabletopMonsterPreparedSkill | null;
 };
 
 export type TabletopMapNode = {
@@ -77,7 +86,7 @@ export type TabletopUiState = {
   readonly engineBridge: TabletopEngineBridge;
   readonly activeHeroId: string;
   readonly detailTargetId: string | null;
-  readonly detailTargetKind: "hero" | "monster";
+  readonly detailTargetKind: TabletopDetailTargetKind;
   readonly selectedSkillId: string | null;
   readonly selectedTargetId: string | null;
   readonly bottomTab: TabletopBottomTab;

@@ -2,10 +2,16 @@ import { useCallback, useMemo, useReducer } from "react";
 import { createTabletopInitialState } from "./tabletop-initial-state";
 import { resolveEffectiveFlowPhase, resolveFlowStepText } from "./phase/engine-bridge";
 import type { FlowPhaseId } from "./phase/flow-phase";
+import type { TabletopDetailTargetKind } from "./tabletop-detail-types";
 import type { TabletopBottomTab, TabletopMockDice, TabletopState } from "./tabletop-types";
 
 type Action =
   | { readonly type: "setDemoPhase"; readonly phase: FlowPhaseId | null }
+  | {
+      readonly type: "selectDetail";
+      readonly kind: TabletopDetailTargetKind;
+      readonly targetId: string;
+    }
   | { readonly type: "selectHero"; readonly heroId: string }
   | { readonly type: "selectSkill"; readonly skillId: string | null }
   | { readonly type: "selectTarget"; readonly targetId: string }
@@ -18,7 +24,34 @@ type Action =
 function reducer(state: TabletopState, action: Action): TabletopState {
   switch (action.type) {
     case "setDemoPhase":
-      return { ...state, ui: { ...state.ui, demoPhaseOverride: action.phase } };
+      return {
+        ...state,
+        ui: {
+          ...state.ui,
+          demoPhaseOverride: action.phase,
+          detailTargetId: null,
+        },
+      };
+    case "selectDetail":
+      return {
+        ...state,
+        ui: {
+          ...state.ui,
+          detailTargetKind: action.kind,
+          detailTargetId: action.targetId,
+          ...(action.kind === "hero"
+            ? {
+                activeHeroId: action.targetId,
+                selectedSkillId: null,
+                selectedTargetId: null,
+                mockDice: null,
+              }
+            : {}),
+          ...(action.kind === "monster"
+            ? { selectedTargetId: action.targetId, mockDice: null }
+            : {}),
+        },
+      };
     case "selectHero":
       return {
         ...state,
@@ -122,8 +155,24 @@ function reducer(state: TabletopState, action: Action): TabletopState {
 export function useTabletopMockMachine() {
   const [state, dispatch] = useReducer(reducer, undefined, createTabletopInitialState);
 
+  const selectDetail = useCallback((kind: TabletopDetailTargetKind, targetId: string) => {
+    dispatch({ type: "selectDetail", kind, targetId });
+  }, []);
+
   const selectHero = useCallback((heroId: string) => {
     dispatch({ type: "selectHero", heroId });
+  }, []);
+
+  const selectBuilding = useCallback((buildingId: string) => {
+    dispatch({ type: "selectDetail", kind: "building", targetId: buildingId });
+  }, []);
+
+  const selectRoom = useCallback((roomCardId: string) => {
+    dispatch({ type: "selectDetail", kind: "room", targetId: roomCardId });
+  }, []);
+
+  const selectQuest = useCallback((questCardId: string) => {
+    dispatch({ type: "selectDetail", kind: "quest", targetId: questCardId });
   }, []);
 
   const selectSkill = useCallback((skillId: string | null) => {
@@ -179,7 +228,11 @@ export function useTabletopMockMachine() {
     activeHero,
     canConfirm,
     setDemoPhase,
+    selectDetail,
     selectHero,
+    selectBuilding,
+    selectRoom,
+    selectQuest,
     selectSkill,
     selectTarget,
     setTab,

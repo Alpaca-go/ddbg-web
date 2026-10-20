@@ -12,6 +12,7 @@ export function mergeTabletopDisplayState(
   return {
     ...base,
     heroes: worldPatch.heroes,
+    ...(worldPatch.monsters ? { monsters: worldPatch.monsters } : {}),
     battle: { ...base.battle, ...worldPatch.battle },
     ui: {
       ...base.ui,

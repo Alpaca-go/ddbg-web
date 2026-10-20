@@ -1,3 +1,4 @@
+import { resolveMonsterSkillId, resolveMonsterSkillName } from "./resolve-monster-skill-display";
 import type { TabletopHeroState, TabletopState } from "./tabletop-types";
 
 function mockHero(
@@ -121,7 +122,18 @@ export function createTabletopInitialState(): TabletopState {
         name: "Bone Soldier",
         wounds: 3,
         life: 9,
+        lifeKnown: true,
         areaId: "D",
+        stance: "aggressive",
+        statusStacks: [{ kind: "mark", remaining: 1 }],
+        preparedSkill: {
+          skillSlot: 1,
+          skillId: resolveMonsterSkillId("monster_medium:p001", 1),
+          skillName: resolveMonsterSkillName("monster_medium:p001", 1),
+          selectionRoll: 4,
+          targetPriority: null,
+          targetId: "hero-1",
+        },
       },
       {
         id: "m1",
@@ -129,7 +141,10 @@ export function createTabletopInitialState(): TabletopState {
         name: "Bone Courtier",
         wounds: 0,
         life: 7,
+        lifeKnown: true,
         areaId: "F",
+        statusStacks: [],
+        preparedSkill: null,
       },
     ],
     mapNodes: [
@@ -149,8 +164,8 @@ export function createTabletopInitialState(): TabletopState {
       demoPhaseOverride: null,
       engineBridge: { game: null, questSetupActive: false },
       activeHeroId: "hero-1",
-      detailTargetId: "m0",
-      detailTargetKind: "monster",
+      detailTargetId: null,
+      detailTargetKind: "hero",
       selectedSkillId: null,
       selectedTargetId: null,
       bottomTab: "skills",

@@ -14,6 +14,7 @@ import {
 } from "./tabletop-center-stage";
 import { StandeeToken } from "../standee-token";
 import { TabletopCardStack } from "../tabletop-card-stack";
+import type { TabletopDetailTargetKind } from "../tabletop-detail-types";
 import type {
   TabletopHeroState,
   TabletopMapNode,
@@ -31,8 +32,13 @@ export function TabletopMapStage({
   heroes,
   monsters,
   selectedTargetId,
+  detailTargetKind,
+  detailTargetId,
   onSelectTarget,
   onSelectHeroToken,
+  onSelectBuilding,
+  onSelectRoom,
+  onSelectQuest,
 }: {
   readonly phase: FlowPhaseId;
   readonly centerCaption: string;
@@ -43,8 +49,13 @@ export function TabletopMapStage({
   readonly heroes: readonly TabletopHeroState[];
   readonly monsters: readonly TabletopMonsterState[];
   readonly selectedTargetId: string | null;
+  readonly detailTargetKind: TabletopDetailTargetKind;
+  readonly detailTargetId: string | null;
   readonly onSelectTarget: (id: string) => void;
   readonly onSelectHeroToken: (id: string) => void;
+  readonly onSelectBuilding: (buildingId: string) => void;
+  readonly onSelectRoom: (roomCardId: string) => void;
+  readonly onSelectQuest: (questCardId: string) => void;
 }) {
   const mapArt = lookupQuestMapArt(quest.layoutId);
   const roomArt = lookupRoomCardArt(quest.currentRoomCardId);
@@ -56,9 +67,20 @@ export function TabletopMapStage({
 
   return (
     <section className="tt-map tt-phase-surface" aria-label="中央舞台" data-testid="tabletop-stage">
-      {phase === "hamlet" && <TabletopHamletCenterStage />}
+      {phase === "hamlet" && (
+        <TabletopHamletCenterStage
+          onSelectBuilding={onSelectBuilding}
+          selectedBuildingId={detailTargetKind === "building" ? detailTargetId : null}
+        />
+      )}
       {phase === "questSetup" && <TabletopQuestSetupCenterStage />}
-      {phase === "expeditionPrep" && <TabletopExpeditionCenterStage quest={quest} />}
+      {phase === "expeditionPrep" && (
+        <TabletopExpeditionCenterStage
+          quest={quest}
+          onSelectQuest={onSelectQuest}
+          selectedQuestId={detailTargetKind === "quest" ? detailTargetId : null}
+        />
+      )}
       {phase === "questReturn" && <TabletopReturnCenterStage />}
       {phase === "dungeonExploration" && (
         <TabletopDungeonCenterStage
@@ -66,16 +88,21 @@ export function TabletopMapStage({
           mapNodes={mapNodes}
           showDeckStacks={showDeckStacks}
           centerCaption={centerCaption}
+          onSelectRoom={onSelectRoom}
+          selectedRoomCardId={detailTargetKind === "room" ? detailTargetId : null}
         />
       )}
 
       {showBattleBoard && (
         <div className="tt-map__battle tabletop-board-slab">
           {roomBg && (
-            <div
-              className="tt-map__room-plate"
+            <button
+              type="button"
+              className="tt-map__room-plate tt-map__room-plate--pick"
               style={{ backgroundImage: `url(${roomBg})` }}
-              aria-hidden="true"
+              data-testid="tabletop-battle-room-plate"
+              aria-label="当前房间卡"
+              onClick={() => onSelectRoom(quest.currentRoomCardId)}
             />
           )}
           {!roomBg && (

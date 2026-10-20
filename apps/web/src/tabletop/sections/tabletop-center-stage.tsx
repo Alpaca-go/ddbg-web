@@ -5,30 +5,18 @@ import {
   cachedPrintHamletBoardUrl,
   lookupHamletBoardArt,
 } from "../../card-art/resolve-print-hamlet-board-art";
+import {
+  cachedPrintExplorationUrl,
+  lookupRoomCardArt,
+} from "../../card-art/resolve-exploration-art";
 import { AssetPlaceholder } from "../asset-placeholder";
+import { HAMLET_BUILDING_MARKERS } from "../hamlet-building-markers";
 import { TabletopRasterImage } from "../tabletop-raster-image";
 import { TabletopCardStack } from "../tabletop-card-stack";
 import type { TabletopMapNode, TabletopQuestMeta } from "../tabletop-types";
 
 /** hamlet_board TrimBox 841.89×476.22 pt（hamlet-board-print-art-map.json） */
 const HAMLET_BOARD_ASPECT = 841.89 / 476.22;
-
-/** 待确认（未核实印刷几何）：下列 left/top 仅为示意百分比，非规则书/U-07 热区坐标。 */
-const HAMLET_BUILDING_MARKERS: readonly {
-  readonly id: string;
-  readonly label: string;
-  readonly leftPct: number;
-  readonly topPct: number;
-}[] = [
-  { id: "abbey", label: "Abbey", leftPct: 12, topPct: 22 },
-  { id: "tavern", label: "Tavern", leftPct: 28, topPct: 18 },
-  { id: "sanitarium", label: "Sanitarium", leftPct: 44, topPct: 22 },
-  { id: "guild", label: "Guild", leftPct: 58, topPct: 18 },
-  { id: "stagecoach", label: "Stagecoach", leftPct: 74, topPct: 24 },
-  { id: "blacksmith", label: "Blacksmith", leftPct: 18, topPct: 52 },
-  { id: "nomad", label: "Nomad Wagon", leftPct: 42, topPct: 55 },
-  { id: "survivalist", label: "Survivalist", leftPct: 66, topPct: 52 },
-];
 
 function CenterSlab({
   testId,
@@ -44,7 +32,13 @@ function CenterSlab({
   );
 }
 
-export function TabletopHamletCenterStage() {
+export function TabletopHamletCenterStage({
+  onSelectBuilding,
+  selectedBuildingId,
+}: {
+  readonly onSelectBuilding?: (buildingId: string) => void;
+  readonly selectedBuildingId?: string | null;
+}) {
   const board = lookupHamletBoardArt();
   const boardUrl = cachedPrintHamletBoardUrl(board);
 
@@ -63,16 +57,22 @@ export function TabletopHamletCenterStage() {
             className="tt-hamlet-board__img"
             testId="tabletop-hamlet-board-img"
           />
-          <div className="tt-hamlet-board__markers" aria-hidden="true">
+          <div className="tt-hamlet-board__markers">
             {HAMLET_BUILDING_MARKERS.map((m) => (
-              <span
+              <button
                 key={m.id}
-                className="tt-hamlet-marker"
+                type="button"
+                className={[
+                  "tt-hamlet-marker",
+                  selectedBuildingId === m.id ? "tt-hamlet-marker--selected" : "",
+                ].join(" ")}
                 style={{ left: `${m.leftPct}%`, top: `${m.topPct}%` }}
                 title={`待确认（未核实印刷几何）：${m.label}`}
+                data-testid={`tabletop-building-${m.id}`}
+                onClick={() => onSelectBuilding?.(m.id)}
               >
                 {m.label}
-              </span>
+              </button>
             ))}
           </div>
           <aside className="tt-hamlet-event" data-testid="tabletop-hamlet-event">
@@ -111,14 +111,39 @@ export function TabletopQuestSetupCenterStage() {
   );
 }
 
-export function TabletopExpeditionCenterStage({ quest }: { readonly quest: TabletopQuestMeta }) {
+export function TabletopExpeditionCenterStage({
+  quest,
+  onSelectQuest,
+  selectedQuestId,
+}: {
+  readonly quest: TabletopQuestMeta;
+  readonly onSelectQuest?: (questCardId: string) => void;
+  readonly selectedQuestId?: string | null;
+}) {
   const mapArt = lookupQuestMapArt(quest.layoutId);
   return (
     <CenterSlab testId="tabletop-embark-stage">
       <div className="tt-center-fill tt-center-fill--embark">
         <div className="tt-embark-quests">
-          <AssetPlaceholder assetType="quest" label="任务卡候选 A" />
-          <AssetPlaceholder assetType="quest" label="任务卡候选 B" />
+          <button
+            type="button"
+            className={[
+              "tt-embark-quest-pick",
+              selectedQuestId === quest.questCardId ? "tt-embark-quest-pick--selected" : "",
+            ].join(" ")}
+            data-testid="tabletop-quest-candidate-a"
+            onClick={() => onSelectQuest?.(quest.questCardId)}
+          >
+            <AssetPlaceholder assetType="quest" label="任务卡候选 A" />
+          </button>
+          <button
+            type="button"
+            className="tt-embark-quest-pick"
+            data-testid="tabletop-quest-candidate-b"
+            onClick={() => onSelectQuest?.("quest:p002")}
+          >
+            <AssetPlaceholder assetType="quest" label="任务卡候选 B" />
+          </button>
         </div>
         <div className="tt-embark-map">
           {mapArt ? (
@@ -160,13 +185,19 @@ export function TabletopDungeonCenterStage({
   mapNodes,
   showDeckStacks,
   centerCaption,
+  onSelectRoom,
+  selectedRoomCardId,
 }: {
   readonly quest: TabletopQuestMeta;
   readonly mapNodes: readonly TabletopMapNode[];
   readonly showDeckStacks: boolean;
   readonly centerCaption: string;
+  readonly onSelectRoom?: (roomCardId: string) => void;
+  readonly selectedRoomCardId?: string | null;
 }) {
   const mapArt = lookupQuestMapArt(quest.layoutId);
+  const roomArt = lookupRoomCardArt(quest.currentRoomCardId);
+  const roomSrc = roomArt ? cachedPrintExplorationUrl(roomArt) : undefined;
   return (
     <CenterSlab testId="tabletop-dungeon-stage">
       <div className="tt-center-fill">
@@ -198,6 +229,23 @@ export function TabletopDungeonCenterStage({
             队伍 token
           </span>
         </div>
+        <button
+          type="button"
+          className={[
+            "tt-dungeon-room-pick",
+            selectedRoomCardId === quest.currentRoomCardId ? "tt-dungeon-room-pick--selected" : "",
+          ].join(" ")}
+          data-testid="tabletop-current-room-card"
+          onClick={() => onSelectRoom?.(quest.currentRoomCardId)}
+        >
+          <TabletopRasterImage
+            {...(roomSrc ? { src: roomSrc } : {})}
+            label={roomArt?.name ?? quest.currentRoomCardId}
+            assetType="room"
+            className="tt-dungeon-room-pick__img"
+          />
+          <span className="tt-dungeon-room-pick__label">当前房间卡</span>
+        </button>
         <p className="tt-center-caption muted">{centerCaption}</p>
       </div>
       {showDeckStacks && (

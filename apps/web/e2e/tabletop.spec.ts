@@ -54,3 +54,25 @@ test("桌面原型：阶段导航与 mock 阶段切换", async ({ page }) => {
   );
   await expect(page.getByTestId("tabletop-dungeon-stage")).toBeVisible();
 });
+
+test("桌面原型：右栏详情切换英雄与怪物", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto("/?view=tabletop");
+  await expect(page.getByTestId("tabletop-detail-phase-hint")).toBeVisible();
+
+  await page.getByTestId("tabletop-target-m0").click();
+  await expect(page.getByTestId("tabletop-detail-monster")).toBeVisible();
+  await expect(page.getByTestId("tabletop-detail-monster-skill")).toContainText("d10=4");
+
+  await page.getByTestId("tabletop-hero-row-hero-1").click();
+  await expect(page.getByTestId("tabletop-detail-hero")).toBeVisible();
+  await expect(page.getByTestId("tabletop-detail-hero-status")).toBeVisible();
+});
+
+test("桌面原型：顶栏任务缩略图切换任务详情", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto("/?view=tabletop");
+  await page.getByTestId("tabletop-quest-thumb").getByRole("button").click();
+  await expect(page.getByTestId("tabletop-detail-quest")).toBeVisible();
+  await expect(page.getByTestId("tabletop-detail-quest")).toContainText("Scout Ahead I");
+});
