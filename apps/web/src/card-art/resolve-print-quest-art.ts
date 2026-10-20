@@ -8,9 +8,12 @@ export type PrintQuestFaceEntry = {
   readonly textSnippet: string;
 };
 
+export type PrintQuestArtStatus = "enabled" | "art-only";
+
 export type PrintQuestArtCard = {
   readonly id: string;
   readonly name: string;
+  readonly status: PrintQuestArtStatus;
   readonly faces: {
     readonly front: PrintQuestFaceEntry;
     readonly back: PrintQuestFaceEntry;
@@ -44,6 +47,7 @@ export function printQuestArtMapMeta() {
     schema: printMap.schema,
     cardCount: printMap.cards.length,
     enabledQuestIds: printMap.source.enabledQuestIds,
+    artOnlyQuestIds: printMap.source.artOnlyQuestIds ?? [],
     trimBoxPt: printMap.source.trimBoxPt,
     pendingConfirmation: printMap.pendingConfirmation,
   };

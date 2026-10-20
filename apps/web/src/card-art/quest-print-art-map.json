@@ -9,15 +9,33 @@
     },
     "exportScript": "tools/pipeline/scripts/export-print-corebox-trim-decks.mjs",
     "enabledQuestIds": ["quest:p001", "quest:p002", "quest:p003", "quest:p007", "quest:p008"],
+    "artOnlyQuestIds": [
+      "quest:p004",
+      "quest:p005",
+      "quest:p006",
+      "quest:p009",
+      "quest:p010",
+      "quest:p011",
+      "quest:p012",
+      "quest:p013",
+      "quest:p014",
+      "quest:p015",
+      "quest:p016",
+      "quest:p017",
+      "quest:p018",
+      "quest:p019"
+    ],
     "reviewedAt": "2026-10-20",
     "notes": [
-      "Only basic-quests.ts enabled ids wired to UI; other 14 quest pages exported but not mapped."
+      "All 19 quest print pages mapped; status enabled = basic-quests.ts + UI quest pool, art-only = raster only (Kyries 2026-10-20).",
+      "Enabling art-only quests requires basic-quests / rules changes; not in this slice."
     ]
   },
   "cards": [
     {
       "id": "quest:p001",
       "name": "Scout Ahead I",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p001.png",
@@ -40,6 +58,7 @@
     {
       "id": "quest:p002",
       "name": "Wipe 'Em Out I",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p002.png",
@@ -62,6 +81,7 @@
     {
       "id": "quest:p003",
       "name": "Fundraiser I",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p003.png",
@@ -82,8 +102,78 @@
       "reviewVerdict": "ok"
     },
     {
+      "id": "quest:p004",
+      "name": "Dem Bones I",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p004.png",
+          "printPage": 4,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Dem Bones"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p004.png",
+          "printPage": 4,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Dem Bones I"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p005",
+      "name": "Rising Threat I",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p005.png",
+          "printPage": 5,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Rising Threat"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p005.png",
+          "printPage": 5,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Rising Threat I"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p006",
+      "name": "Disruption II",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p006.png",
+          "printPage": 6,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Disruption"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p006.png",
+          "printPage": 6,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Disruption II"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
       "id": "quest:p007",
       "name": "Clear the Path II",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p007.png",
@@ -106,6 +196,7 @@
     {
       "id": "quest:p008",
       "name": "Reduce to Rubble II",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p008.png",
@@ -124,22 +215,260 @@
       },
       "matchMethod": "page_order+ocr",
       "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p009",
+      "name": "Break Them II",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p009.png",
+          "printPage": 9,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Break Them"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p009.png",
+          "printPage": 9,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Break Them II"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p010",
+      "name": "Purify the Fountains II",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p010.png",
+          "printPage": 10,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Purify the Fountains"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p010.png",
+          "printPage": 10,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Purify the Fountains II"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p011",
+      "name": "Warm Up the Halls III",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p011.png",
+          "printPage": 11,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Warm Up the Halls"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p011.png",
+          "printPage": 11,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Warm Up the Halls III"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p012",
+      "name": "Forward Camps III",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p012.png",
+          "printPage": 12,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Forward Camps"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p012.png",
+          "printPage": 12,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Forward Camps III"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p013",
+      "name": "They Are Back III",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p013.png",
+          "printPage": 13,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "They Are Back"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p013.png",
+          "printPage": 13,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "They Are Back III"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p014",
+      "name": "Creeping Darkness III",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p014.png",
+          "printPage": 14,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Creeping Darkness"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p014.png",
+          "printPage": 14,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Creeping Darkness III"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p015",
+      "name": "The Threat is Real III",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p015.png",
+          "printPage": 15,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "The Threat is Real"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p015.png",
+          "printPage": 15,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "The Threat is Real III"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p016",
+      "name": "We Are The Flame",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p016.png",
+          "printPage": 16,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "We Are The Flame"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p016.png",
+          "printPage": 16,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "We Are The Flame"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p017",
+      "name": "Light the Way",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p017.png",
+          "printPage": 17,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Light the Way"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p017.png",
+          "printPage": 17,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Light the Way"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p018",
+      "name": "Belly of the Beast",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p018.png",
+          "printPage": 18,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Belly of the Beast"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p018.png",
+          "printPage": 18,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Belly of the Beast"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
+    },
+    {
+      "id": "quest:p019",
+      "name": "Face the Threat!",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p019.png",
+          "printPage": 19,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Face the Threat!"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf_p019.png",
+          "printPage": 19,
+          "primaryPdf": "DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Face the Threat!"
+        }
+      },
+      "matchMethod": "page_order+ocr",
+      "reviewVerdict": "ok"
     }
   ],
-  "pendingConfirmation": [
-    "quest:p004: quest card not enabled in basic-quests.ts",
-    "quest:p005: quest card not enabled in basic-quests.ts",
-    "quest:p006: quest card not enabled in basic-quests.ts",
-    "quest:p009: quest card not enabled in basic-quests.ts",
-    "quest:p010: quest card not enabled in basic-quests.ts",
-    "quest:p011: quest card not enabled in basic-quests.ts",
-    "quest:p012: quest card not enabled in basic-quests.ts",
-    "quest:p013: quest card not enabled in basic-quests.ts",
-    "quest:p014: quest card not enabled in basic-quests.ts",
-    "quest:p015: quest card not enabled in basic-quests.ts",
-    "quest:p016: quest card not enabled in basic-quests.ts",
-    "quest:p017: quest card not enabled in basic-quests.ts",
-    "quest:p018: quest card not enabled in basic-quests.ts",
-    "quest:p019: quest card not enabled in basic-quests.ts"
-  ]
+  "pendingConfirmation": []
 }
