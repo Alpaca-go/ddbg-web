@@ -686,6 +686,98 @@ button.card-face:hover:enabled {
   background-color: #10100e;
   border-bottom: 1px solid #3b3931;
 }
+.phase-shell__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.phase-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+}
+.phase-breadcrumb__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #8a8478;
+}
+.phase-breadcrumb__item--current .phase-breadcrumb__label {
+  color: #f5e7ce;
+  font-weight: 600;
+}
+.phase-breadcrumb__sep {
+  color: #5c564c;
+  margin-left: 0.15rem;
+}
+.phase-step-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: baseline;
+  background: #30291e;
+  border-left: 3px solid #c3a86c;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.phase-step-banner__phase {
+  color: #d4b879;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.phase-desktop {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(280px, 1.4fr) minmax(200px, 0.9fr);
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  align-items: start;
+}
+.phase-zone {
+  border: 1px solid #4e4432;
+  background: #1a1916;
+  padding: 0.85rem 1rem;
+  min-height: 4rem;
+}
+.phase-zone__caption {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7a7468;
+  margin: 0 0 0.6rem;
+}
+.phase-zone--footer {
+  grid-column: 1 / -1;
+  font-size: 0.85rem;
+  color: #b8b1a1;
+}
+.phase-battle-fill {
+  grid-column: 1 / -1;
+}
+.debug-drawer {
+  margin-top: 1.5rem;
+  border: 1px dashed #4e4432;
+  padding: 0.5rem 0.75rem;
+}
+.debug-drawer__summary {
+  cursor: pointer;
+  color: #bda16a;
+  font-size: 0.85rem;
+}
+.debug-drawer__body {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
 @media (max-width: 1000px) {
   .workspace {
     grid-template-columns: 1fr;
@@ -695,5 +787,11 @@ button.card-face:hover:enabled {
   }
   .topbar {
     flex-wrap: wrap;
+  }
+  .phase-desktop {
+    grid-template-columns: 1fr;
+  }
+  .phase-zone--footer {
+    grid-column: 1;
   }
 }

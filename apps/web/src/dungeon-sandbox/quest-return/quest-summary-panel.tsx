@@ -17,7 +17,11 @@ export function QuestSummaryPanel({
   dispatch,
   formal,
   pendingChoice,
-}: DungeonViewProps & { pendingChoice: PendingChoice | null | undefined }) {
+  includeHamletEvent = true,
+}: DungeonViewProps & {
+  pendingChoice: PendingChoice | null | undefined;
+  includeHamletEvent?: boolean;
+}) {
   const d = game.dungeon!;
   const quest = readBasicQuest(d.questDistribution);
   if (!(d.phase === "exited" || d.hamletReturn)) return null;
@@ -166,14 +170,16 @@ export function QuestSummaryPanel({
           )}
         </section>
       )}
-      <HamletEventSection
-        game={game}
-        dispatch={dispatch}
-        formal={formal}
-        pendingChoice={pendingChoice}
-        events={[]}
-        commands={[]}
-      />
+      {includeHamletEvent && (
+        <HamletEventSection
+          game={game}
+          dispatch={dispatch}
+          formal={formal}
+          pendingChoice={pendingChoice}
+          events={[]}
+          commands={[]}
+        />
+      )}
     </div>
   );
 }
