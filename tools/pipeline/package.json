@@ -25,6 +25,7 @@
     "build-print-room-token-art-map": "node ./scripts/build-print-room-token-art-map.mjs",
     "build-print-monster-stance-art-map": "node ./scripts/build-print-monster-stance-art-map.mjs",
     "export-print-all": "node ./scripts/export-print-all.mjs",
-    "check-print-art-map-refs": "node ./scripts/check-print-art-map-refs.mjs"
+    "check-print-art-map-refs": "node ./scripts/check-print-art-map-refs.mjs",
+    "test:print-card-art": "python3 -m unittest discover -s print-card-art/tests -p test_*.py"
   }
 }

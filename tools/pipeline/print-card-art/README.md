@@ -4,6 +4,34 @@
 
 **完整说明**：[docs/phase4-print-art-pipeline-2026-10-19.md](../../../docs/phase4-print-art-pipeline-2026-10-19.md)
 
+## 单元测试
+
+先安装 Python 依赖（含 PyMuPDF）：
+
+```bash
+pip install -r tools/pipeline/print-card-art/requirements.txt
+```
+
+在**仓库根目录**运行（无需设置 `PYTHONPATH`，也无需 `pip install -e`）：
+
+```bash
+# Linux / macOS
+python3 -m unittest discover -s tools/pipeline/print-card-art/tests
+
+# Windows（Python Launcher）
+py -3 -m unittest discover -s tools/pipeline/print-card-art/tests
+```
+
+等价 pnpm 脚本（同样从仓库根目录执行）：
+
+```bash
+pnpm --filter @ddbg/pipeline test:print-card-art
+```
+
+`unittest discover` 会把 `tests/` 加入 `sys.path`，因此测试目录里带有 `tests/ddbg_print_art/` 重定向包，把 `import ddbg_print_art` 指向上级真正的包目录。
+
+## 导出
+
 ```bash
 pip install -r requirements.txt
 node ../../scripts/export-print-card-art.mjs --input /path/to/EN_FILES --out .cache/print-card-art
