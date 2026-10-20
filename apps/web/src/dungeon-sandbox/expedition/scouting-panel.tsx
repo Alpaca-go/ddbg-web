@@ -201,7 +201,7 @@ export function ScoutingPanel({
           掷开局补给骰
         </button>
       )}
-      {exploration && (
+      {(exploration || expeditionPrep) && (
         <>
           <button
             disabled={!!pendingChoice || d.phase !== "ready" || d.mustLeaveRoomId === d.position}

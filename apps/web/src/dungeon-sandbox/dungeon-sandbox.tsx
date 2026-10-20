@@ -26,7 +26,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
 
   const subtitle = formal
     ? `QuestMap p1 ${d.layout.review === "confirmed" ? "已批准" : "标注待批准"} · ${quest?.name ?? "任务"} · 光照 ${d.explorationSetup?.light ?? "—"}、DL ${d.explorationSetup!.dungeonLevel}`
-    : `QuestMap p${page} · 固定种子 ${game.seed}`;
+    : `QuestMap p${page} · 固定种子 ${game.seed} · 光照 ${d.explorationSetup?.light ?? "—"}、DL ${d.explorationSetup!.dungeonLevel}`;
 
   const title = formal ? quest!.name : "地牢布局与侦察";
   const headerExtra = (
