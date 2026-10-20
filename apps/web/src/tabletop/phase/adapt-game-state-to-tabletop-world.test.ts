@@ -39,7 +39,10 @@ import { adaptGameStateToTabletopWorld } from "./adapt-game-state-to-tabletop-wo
 const soldierCard = (
   JSON.parse(
     readFileSync(
-      new URL("../../../../../packages/data/normalized/corebox/monster_medium.json", import.meta.url),
+      new URL(
+        "../../../../../packages/data/normalized/corebox/monster_medium.json",
+        import.meta.url,
+      ),
       "utf8",
     ),
   ) as { cards: MonsterCardView[] }
