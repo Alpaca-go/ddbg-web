@@ -1,10 +1,13 @@
 import { describe, expect, it } from "vitest";
 import printMap from "./hamlet-building-tile-print-art-map.json";
 import {
+  HAMLET_BUILDING_TILE_MANUAL_DIR,
   cachedPrintHamletBuildingTileUrl,
   hamletBuildingTileArtMapMeta,
   listHamletBuildingTileArt,
   lookupHamletBuildingTileArt,
+  manualHamletBuildingTilePngRel,
+  resolveHamletBuildingTileArt,
 } from "./resolve-print-hamlet-building-tile-art";
 
 const UPGRADABLE = [
@@ -18,10 +21,11 @@ const UPGRADABLE = [
 ] as const;
 
 describe("print hamlet building tile art map", () => {
-  it("maps fourteen II/III upgrade tiles", () => {
+  it("maps fourteen II/III manual tiles", () => {
     const meta = hamletBuildingTileArtMapMeta();
     expect(meta.schema).toBe("ddbg.print-hamlet-building-tile-art-map.v1");
     expect(meta.tileCount).toBe(14);
+    expect(meta.manualDir).toBe(HAMLET_BUILDING_TILE_MANUAL_DIR);
     expect(printMap.tiles).toHaveLength(14);
 
     for (const buildingId of UPGRADABLE) {
@@ -30,16 +34,22 @@ describe("print hamlet building tile art map", () => {
         expect(tile).toBeDefined();
         expect(tile!.buildingId).toBe(buildingId);
         expect(tile!.level).toBe(level);
-        expect(tile!.diecutPt).toHaveLength(4);
-        expect(tile!.matchMethod).toContain("bld_vector_diecut");
-        expect(tile!.cropMethod).toContain("bld_vector_diecut");
-        for (const n of tile!.diecutPt) {
-          expect(n).toBeGreaterThan(0);
-        }
+        expect(tile!.cropMethod).toBe("manual_kyries");
+        expect(tile!.pngRel).toBe(manualHamletBuildingTilePngRel(buildingId, level));
         expect(cachedPrintHamletBuildingTileUrl(tile!)).toBe(`/print-card-art/${tile!.pngRel}`);
+        const resolved = resolveHamletBuildingTileArt(buildingId, level);
+        expect(resolved.kind).toBe("print");
+        if (resolved.kind === "print") {
+          expect(resolved.url).toBe(`/print-card-art/${tile!.pngRel}`);
+        }
       }
     }
 
     expect(listHamletBuildingTileArt().length).toBe(14);
+  });
+
+  it("falls back when building tile is not mapped", () => {
+    expect(resolveHamletBuildingTileArt("guild", 2)).toEqual({ kind: "missing" });
+    expect(lookupHamletBuildingTileArt("guild", 2)).toBeUndefined();
   });
 });

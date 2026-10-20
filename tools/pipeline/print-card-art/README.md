@@ -16,12 +16,16 @@ node ../../scripts/build-print-monster-stance-art-map.mjs \
 node ../../scripts/export-print-hero-standees.mjs --input /path/to/EN_FILES --out .cache/print-card-art
 node ../../scripts/build-print-hero-standee-art-map.mjs
 node ../../scripts/export-print-hamlet-board.mjs --input /path/to/EN_FILES --out .cache/print-card-art
-node ../../scripts/export-print-hamlet-building-tiles.mjs --input /path/to/EN_FILES --out .cache/print-card-art
 node ../../scripts/build-print-hamlet-board-art-map.mjs
-node ../../scripts/build-print-hamlet-building-tile-art-map.mjs
 ```
 
-村庄版图 / 建筑升级板说明：[docs/phase4-print-hamlet-art-2026-10-20.md](../../../docs/phase4-print-hamlet-art-2026-10-20.md)。本机 14 块拼图与 Guild 剔除对比：`python3 render_hamlet_building_previews.py`（需已导出 `.cache/print-card-art/png/`）。
+村庄版图与建筑手裁说明：[docs/phase4-print-hamlet-art-2026-10-20.md](../../../docs/phase4-print-hamlet-art-2026-10-20.md)。
+
+建筑升级板 **II/III**（Kyries 手裁，无自动导出）：将 PNG 放入
+
+`.cache/print-card-art/manual/hamlet-building-tiles/{buildingId}-{ii|iii}.png`
+
+（`buildingId` 为 `abbey`、`tavern`、`sanitarium`、`survivalist`、`stagecoach`、`blacksmith`、`nomadWagon`；正向朝上，透明背景可选。）
 
 房间代币刀线说明：[docs/phase4-print-room-token-art-2026-10-19.md](../../../docs/phase4-print-room-token-art-2026-10-19.md)。
 
