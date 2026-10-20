@@ -211,8 +211,7 @@
   font-size: 0.45rem;
 }
 
-.tt-quest-thumb__chip .tt-quest-thumb__img,
-.tt-quest-thumb__chip .tabletop-raster-img-fallback {
+.tt-quest-thumb__chip .tt-quest-thumb__img {
   display: block;
   width: 100%;
   height: 100%;
@@ -473,12 +472,17 @@
   object-position: top center;
 }
 
-.tt-quest-thumb__fallback {
-  font-size: 0.55rem;
+.tt-quest-thumb__icon-ph {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   height: 100%;
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1;
+  color: #b8a88a;
+  user-select: none;
 }
 
 .tt-quest-thumb__flyout {
@@ -564,6 +568,78 @@
 .tt-hero-row__wounds {
   font-size: 0.7rem;
   color: #e8b4b4;
+}
+
+.tt-stat-animate {
+  transition:
+    color 280ms ease,
+    opacity 280ms ease,
+    transform 280ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-stat-animate {
+    transition: none;
+  }
+}
+
+.tt-hero-row--turn {
+  box-shadow: inset 0 0 0 1px var(--tt-gold);
+}
+
+.tt-hero-row--dead {
+  opacity: 0.45;
+  filter: grayscale(0.85);
+}
+
+.tt-hero-row--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  border: 1px dashed #4a4234;
+  border-radius: 4px;
+  margin-bottom: 0.35rem;
+}
+
+.tt-hero-row__dead-tag,
+.tt-hero-row__turn-tag {
+  margin-left: 0.35rem;
+  color: var(--tt-gold);
+}
+
+.tt-stress-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.tt-stress-face {
+  font-size: 0.58rem;
+  min-width: 1rem;
+  text-align: center;
+}
+
+.tt-trinket-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  margin: 0.15rem 0;
+}
+
+.tt-trinket-slot--empty {
+  display: inline-block;
+  width: 1.4rem;
+  height: 1.8rem;
+  border: 1px dashed #4a4234;
+  border-radius: 2px;
+}
+
+.tt-trinket-slot .corebox-print-card-face {
+  transform: scale(0.55);
+  transform-origin: top left;
+  margin-right: -0.6rem;
+  margin-bottom: -0.6rem;
 }
 
 .tt-stress {

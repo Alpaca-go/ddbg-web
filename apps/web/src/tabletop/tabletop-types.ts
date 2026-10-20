@@ -3,23 +3,40 @@ import type { TabletopEngineBridge } from "./phase/engine-bridge";
 import type { FlowPhaseId } from "./phase/flow-phase";
 
 /** 与 `BattleEntity` / `SkillActorState` / dungeon hero 字段对齐的 mock 形状（V-14）。 */
+export type TabletopHeroTrinketSlot = {
+  readonly cardId: string;
+  readonly face: "upright" | "inverted";
+};
+
 export type TabletopHeroState = {
   readonly id: string;
   /** 对应 `BattleEntity.hero` 职业名 */
   readonly hero: string;
+  readonly heroStatId?: string;
   readonly wounds: number;
   readonly life: number;
+  /** 引擎未提供 Life 时为 false，UI 显示占位 */
+  readonly lifeKnown: boolean;
   /** 0–10，对应 `SkillActorState.stress` / dungeon hero */
   readonly stress: number;
+  /** 压力指示物白/红面；引擎无字段时为 null（V-14） */
+  readonly stressFace: "white" | "red" | null;
   readonly stance: SkillStance;
   readonly areaId: string;
   readonly heroLevel: number;
   /** 已装备技能 id，对应 `BattleEntity.skillIds` */
   readonly skillIds: readonly string[];
   readonly statusStacks: readonly StatusStack[];
+  /** R26：槽数 = 英雄等级 */
   readonly trinketSlotCount: number;
+  readonly trinkets: readonly TabletopHeroTrinketSlot[];
   readonly seat: number;
   readonly actedThisRound: boolean;
+  readonly isCurrentActor: boolean;
+  readonly dead: boolean;
+  readonly isEmpty: boolean;
+  readonly quirkCount: number;
+  readonly diseaseCount: number;
 };
 
 export type TabletopMonsterState = {
