@@ -211,8 +211,7 @@
   font-size: 0.45rem;
 }
 
-.tt-quest-thumb__chip .tt-quest-thumb__img,
-.tt-quest-thumb__chip .tabletop-raster-img-fallback {
+.tt-quest-thumb__chip .tt-quest-thumb__img {
   display: block;
   width: 100%;
   height: 100%;
@@ -473,12 +472,17 @@
   object-position: top center;
 }
 
-.tt-quest-thumb__fallback {
-  font-size: 0.55rem;
+.tt-quest-thumb__icon-ph {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   height: 100%;
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1;
+  color: #b8a88a;
+  user-select: none;
 }
 
 .tt-quest-thumb__flyout {
