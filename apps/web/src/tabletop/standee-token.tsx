@@ -46,6 +46,7 @@ export function StandeeToken({
         <TabletopRasterImage
           {...(imgSrc ? { src: imgSrc } : {})}
           label={label}
+          placeholderLabel="英雄立牌"
           assetType={assetType}
           className="tt-token__img"
         />

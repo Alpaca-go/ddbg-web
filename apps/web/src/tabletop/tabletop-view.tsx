@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { FLOW_PHASE_BREADCRUMB, type FlowPhaseId } from "./phase/flow-phase";
 import { resolveEffectiveFlowPhase, resolveFlowStepText } from "./phase/engine-bridge";
 import { TabletopTopBar } from "./sections/tabletop-top-bar";
 import { TabletopPartyColumn } from "./sections/tabletop-party-column";
@@ -10,6 +11,7 @@ import { TabletopControlRail } from "./sections/tabletop-control-rail";
 import { useTabletopMockMachine } from "./use-tabletop-mock-machine";
 import { useTabletopEngineSession } from "./use-tabletop-engine-session";
 import { useTabletopDisplayState } from "./use-tabletop-display-state";
+import { useTabletopEntityName } from "./use-tabletop-entity-name";
 import { TabletopDebugPanel } from "./tabletop-debug-panel";
 import { planForPhase } from "./phase/phase-zone-plan";
 import "./tabletop.css";
@@ -20,6 +22,9 @@ export function TabletopView() {
     state: mockState,
     canConfirm,
     selectHero,
+    selectBuilding,
+    selectRoom,
+    selectQuest,
     selectSkill,
     selectTarget,
     setTab,
@@ -30,7 +35,15 @@ export function TabletopView() {
     setDemoPhase,
   } = useTabletopMockMachine();
 
+  useEffect(() => {
+    const raw = new URLSearchParams(window.location.search).get("demoPhase");
+    if (!raw) return;
+    const valid = FLOW_PHASE_BREADCRUMB.some((p) => p.id === raw);
+    if (valid) setDemoPhase(raw as FlowPhaseId);
+  }, [setDemoPhase]);
+
   const state = useTabletopDisplayState(mockState, engineGame, worldPatch);
+  const entityName = useTabletopEntityName(state.heroes, state.monsters);
 
   const flowPhase = useMemo(
     () =>
@@ -66,6 +79,11 @@ export function TabletopView() {
           onToggleLog={toggleLog}
           onToggleAtmosphere={toggleAtmosphere}
           atmosphereEnabled={state.ui.atmosphereEnabled}
+          onSelectQuest={() => selectQuest(state.quest.questCardId)}
+          questDetailSelected={
+            state.ui.detailTargetKind === "quest" &&
+            state.ui.detailTargetId === state.quest.questCardId
+          }
         />
 
         <TabletopPartyColumn
@@ -87,17 +105,23 @@ export function TabletopView() {
           heroes={state.heroes}
           monsters={state.monsters}
           selectedTargetId={state.ui.selectedTargetId}
+          detailTargetKind={state.ui.detailTargetKind}
+          detailTargetId={state.ui.detailTargetId}
           onSelectTarget={selectTarget}
           onSelectHeroToken={selectHero}
+          onSelectBuilding={selectBuilding}
+          onSelectRoom={selectRoom}
+          onSelectQuest={selectQuest}
         />
 
         <TabletopDetailPanel
-          phase={flowPhase}
           detailCaption={plan.detail}
           kind={state.ui.detailTargetKind}
           targetId={state.ui.detailTargetId}
+          quest={state.quest}
           heroes={state.heroes}
           monsters={state.monsters}
+          entityName={entityName}
         />
 
         <TabletopInitiativePanel

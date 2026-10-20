@@ -19,6 +19,7 @@ export function HeroStatCardFace({
     <TabletopRasterImage
       assetType="hero_stat"
       label={label}
+      placeholderLabel="英雄卡"
       className={className}
       {...(testId ? { testId } : {})}
     />

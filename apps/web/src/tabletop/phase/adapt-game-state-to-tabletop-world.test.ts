@@ -1,7 +1,52 @@
-import { describe, expect, it } from "vitest";
-import type { BattleEntity, GameState, SkillStance } from "@ddbg/engine";
+import { readFileSync } from "node:fs";
+import { describe, expect, it, vi } from "vitest";
+import type { BattleEntity, GameState, MonsterCardView, SkillStance } from "@ddbg/engine";
 import { createBattleState } from "@ddbg/engine";
+
+vi.mock("virtual:battle-data", () => {
+  const soldier = (
+    JSON.parse(
+      readFileSync(
+        new URL(
+          "../../../../../packages/data/normalized/corebox/monster_medium.json",
+          import.meta.url,
+        ),
+        "utf8",
+      ),
+    ) as { cards: MonsterCardView[] }
+  ).cards.find((card) => card.id === "monster_medium:p001" && "skills" in card)!;
+  return {
+    battleData: {
+      monsters: [
+        {
+          id: soldier.id,
+          name: "Bone Soldier",
+          life: soldier.life,
+          skills: soldier.skills.map((skill) => ({
+            slot: skill.slot,
+            name: skill.name ?? `技能位 ${skill.slot}`,
+          })),
+        },
+      ],
+      heroStats: [],
+      skills: [],
+    },
+  };
+});
+
 import { adaptGameStateToTabletopWorld } from "./adapt-game-state-to-tabletop-world";
+
+const soldierCard = (
+  JSON.parse(
+    readFileSync(
+      new URL(
+        "../../../../../packages/data/normalized/corebox/monster_medium.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ) as { cards: MonsterCardView[] }
+).cards.find((card) => card.id === "monster_medium:p001" && "skills" in card)!;
 
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -120,5 +165,53 @@ describe("adaptGameStateToTabletopWorld", () => {
 
   it("无战斗也无队伍时返回 null", () => {
     expect(adaptGameStateToTabletopWorld({ seed: 1, notes: [] })).toBeNull();
+  });
+
+  it("战斗怪物与 monsterAction 只读投影", () => {
+    const card = soldierCard;
+    const game = battleGame();
+    const withMonster: GameState = {
+      ...game,
+      battle: {
+        ...game.battle!,
+        entities: [
+          ...game.battle!.entities,
+          {
+            id: "m0",
+            side: "monster",
+            hero: null,
+            skillIds: [],
+            areaId: "A",
+            stance: "aggressive",
+            stanceSlots: 1,
+            monsterCardId: card.id,
+            wounds: 2,
+            life: card.life,
+            dodge: 0,
+            guard: false,
+            dead: false,
+            bleed: [],
+            blight: [],
+            statusStacks: [{ kind: "mark", remaining: 1 }],
+          },
+        ],
+        monsters: [card],
+        monsterAction: {
+          actorId: "m0",
+          skillSlot: 1,
+          targetId: "hero-0",
+          selectionRoll: 6,
+        },
+      },
+    };
+    const patch = adaptGameStateToTabletopWorld(withMonster);
+    expect(patch?.monsters).toHaveLength(1);
+    expect(patch?.monsters![0]).toMatchObject({
+      id: "m0",
+      wounds: 2,
+      preparedSkill: { skillSlot: 1, targetId: "hero-0", selectionRoll: 6 },
+    });
+    const monster = patch?.monsters?.[0];
+    expect(monster?.preparedSkill?.targetPriority).toBeNull();
   });
 });
