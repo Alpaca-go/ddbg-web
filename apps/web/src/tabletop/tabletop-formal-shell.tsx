@@ -307,6 +307,7 @@ export function TabletopFormalShell({
         )}
 
         <TabletopControlRail
+          actionsInDock={flowPhase === "battle"}
           phase={flowPhase}
           diceCaption={plan.diceTray}
           primaryActionLabel={

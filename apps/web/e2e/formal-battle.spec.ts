@@ -64,10 +64,20 @@ test("S2/S3：正式同页战斗与底栏技能、分页和移动", async ({ pag
   await click("结算回合开始效果");
   await expect(page.getByTestId("turn-status")).toContainText(/剩余 .* 行动|怪物回合/);
   const dock = page.getByTestId("tabletop-action-dock");
+  await expect(page.getByTestId("tabletop-draw-initiative")).toHaveCount(0);
   await expect(dock.getByRole("complementary", { name: "行动面板" })).toBeVisible();
   await expect(page.getByTestId("tabletop-formal-center").getByLabel("行动面板")).toHaveCount(0);
   const hand = dock.getByRole("listbox", { name: "手牌技能" });
   await expect(hand.getByRole("button")).toHaveCount(3);
+  const skillTab = dock.getByRole("tab", { name: "技能", exact: true });
+  await skillTab.focus();
+  await skillTab.press("ArrowRight");
+  await expect(dock.getByRole("tab", { name: "移动", exact: true })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  await dock.getByRole("tab", { name: "移动", exact: true }).press("ArrowLeft");
+  await expect(skillTab).toHaveAttribute("aria-selected", "true");
   await hand.getByRole("button", { name: "Zealous Accusation I", exact: true }).click();
   await expect(dock.getByRole("group", { name: "同区目标" })).toBeVisible();
   for (const [tab, legend] of [

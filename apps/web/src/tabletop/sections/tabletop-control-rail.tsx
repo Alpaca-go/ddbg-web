@@ -11,6 +11,7 @@ export function TabletopControlRail({
   canConfirm,
   onConfirm,
   onDrawInitiative,
+  actionsInDock = false,
 }: {
   readonly phase: FlowPhaseId;
   readonly diceCaption: string | null;
@@ -19,6 +20,7 @@ export function TabletopControlRail({
   readonly canConfirm: boolean;
   readonly onConfirm: () => void;
   readonly onDrawInitiative: () => void;
+  readonly actionsInDock?: boolean;
 }) {
   const showBattleControls = phase === "battle";
 
@@ -44,24 +46,28 @@ export function TabletopControlRail({
               <AssetPlaceholder assetType="dice_net" label="d10（战斗技能）" />
             )}
           </div>
-          <button
-            type="button"
-            className="tt-confirm"
-            disabled={!canConfirm}
-            onClick={onConfirm}
-            data-testid="tabletop-confirm-action"
-          >
-            确认使用
-          </button>
-          <button
-            type="button"
-            className="tt-draw-init"
-            onClick={onDrawInitiative}
-            data-testid="tabletop-draw-initiative"
-            title="V-01 待确认：替代 End Turn"
-          >
-            抽下一张先攻
-          </button>
+          {!actionsInDock && (
+            <>
+              <button
+                type="button"
+                className="tt-confirm"
+                disabled={!canConfirm}
+                onClick={onConfirm}
+                data-testid="tabletop-confirm-action"
+              >
+                确认使用
+              </button>
+              <button
+                type="button"
+                className="tt-draw-init"
+                onClick={onDrawInitiative}
+                data-testid="tabletop-draw-initiative"
+                title="V-01 待确认：替代 End Turn"
+              >
+                抽下一张先攻
+              </button>
+            </>
+          )}
         </>
       )}
       {primaryActionLabel && !showBattleControls && (
