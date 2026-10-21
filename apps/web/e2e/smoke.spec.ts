@@ -295,6 +295,7 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await page.goto("/?phase=3&play=1");
   await page.getByLabel("任务模式").selectOption("radiant");
   await page.getByLabel("任务种子").fill("31");
+  await page.getByRole("button", { name: "前往出征准备", exact: true }).click();
   await page.getByRole("button", { name: "进入地牢", exact: true }).click();
   const forward = page.getByRole("button", { name: "VESTAL 前移", exact: true });
   await expect(forward).toBeDisabled();

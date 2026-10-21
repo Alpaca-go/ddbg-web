@@ -9,6 +9,7 @@ import {
   cachedPrintExplorationUrl,
   lookupRoomCardArt,
 } from "../../card-art/resolve-exploration-art";
+import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
 import { AssetPlaceholder } from "../asset-placeholder";
 import { HAMLET_BUILDING_MARKERS } from "../hamlet-building-markers";
 import { TabletopRasterImage } from "../tabletop-raster-image";
@@ -135,7 +136,12 @@ export function TabletopExpeditionCenterStage({
             data-testid="tabletop-quest-candidate-a"
             onClick={() => onSelectQuest?.(quest.questCardId)}
           >
-            <AssetPlaceholder assetType="quest" label="任务卡候选 A" />
+            <CoreboxPrintCardFace
+              deck="quest"
+              cardId={quest.questCardId}
+              label="任务卡候选 A"
+              size="sm"
+            />
           </button>
           <button
             type="button"
@@ -143,7 +149,7 @@ export function TabletopExpeditionCenterStage({
             data-testid="tabletop-quest-candidate-b"
             onClick={() => onSelectQuest?.("quest:p002")}
           >
-            <AssetPlaceholder assetType="quest" label="任务卡候选 B" />
+            <CoreboxPrintCardFace deck="quest" cardId="quest:p002" label="任务卡候选 B" size="sm" />
           </button>
         </div>
         <div className="tt-embark-map">

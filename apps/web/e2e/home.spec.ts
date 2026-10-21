@@ -10,6 +10,9 @@ test("首页：四人建队可开始任务，旧沙盒与桌面预览保留入�
   await expect(page).toHaveURL(/view=battle/);
   await expect(page.getByTestId("turn-status")).toHaveText("尚未开始");
   await page.goto("/");
+  await expect(page.getByLabel("任务卡", { exact: true })).toHaveCount(0);
+  await page.getByRole("button", { name: "前往出征准备", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "出征准备", exact: true })).toBeVisible();
   const questName = await page
     .getByLabel("任务卡", { exact: true })
     .locator("option:checked")
