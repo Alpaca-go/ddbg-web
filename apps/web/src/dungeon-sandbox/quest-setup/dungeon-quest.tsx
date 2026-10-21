@@ -14,7 +14,14 @@ import { DungeonSandbox } from "../dungeon-sandbox";
 import { QuestSaveControls } from "../quest-save-controls";
 import { useDungeonStore } from "../store";
 import { taskSources } from "../task-sources";
-import { defaultPartyNames, formalPartySlot, stanceLabels } from "./formal-party";
+import { EmbarkHeroPicker } from "./embark-hero-picker";
+import {
+  defaultPartyNames,
+  formalHeroLevel1Skills,
+  formalPartySlot,
+  stanceLabels,
+  toggleEmbarkSkillIds,
+} from "./formal-party";
 
 export function DungeonQuest() {
   const beginTask = useDungeonStore((s) => s.beginTask);
@@ -132,69 +139,53 @@ export function DungeonQuest() {
           {party.map((hero, index) => {
             const name = partyNames[index]!;
             const gapLabel = heroHasUnwiredCombatSkills(name) ? "技能效果未接线" : "";
-            const taken = new Set(partyNames.filter((_, i) => i !== index));
             return (
               <fieldset key={index}>
                 <legend>
                   席位 {index + 1} · {stanceLabels[hero.stance]}
                   {gapLabel ? ` · ${gapLabel}` : ""}
                 </legend>
-                <label>
-                  英雄
-                  <select
-                    aria-label={`席位 ${index + 1} 英雄`}
-                    value={name}
-                    onChange={(e) => {
-                      const next = e.target.value as FormalHeroName;
+                <div className="embark-seat">
+                  <EmbarkHeroPicker
+                    seatIndex={index}
+                    heroName={name}
+                    partyNames={partyNames}
+                    onSelect={(next) =>
                       setParty(
                         party.map((h, i) => (i === index ? formalPartySlot(next, index) : h)),
-                      );
-                    }}
+                      )
+                    }
+                  />
+                  <div
+                    className="embark-seat-skills"
+                    role="group"
+                    aria-label={`${name} 起始技能（已选 ${hero.skillIds.length}/3）`}
                   >
-                    {FORMAL_HERO_NAMES.filter((n) => n === name || !taken.has(n)).map((n) => (
-                      <option key={n} value={n}>
-                        {n}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                {hero.skillIds.map((id, slot) => (
-                  <div key={slot} className="embark-skill-row">
-                    <CardFace skillId={id} size="sm" />
-                    <label>
-                      起始技能 {slot + 1}
-                      <select
-                        aria-label={`${name} 技能 ${slot + 1}`}
-                        value={id}
-                        onChange={(e) =>
-                          setParty(
-                            party.map((h, i) =>
-                              i !== index
-                                ? h
-                                : {
-                                    ...h,
-                                    skillIds: h.skillIds.map((s, j) =>
-                                      j === slot ? e.target.value : s,
-                                    ),
-                                  },
-                            ),
-                          )
-                        }
-                      >
-                        {questBattleData.skills
-                          .filter(
-                            (s) => s.hero === name && s.level === 1 && !s.verification.unverified,
-                          )
-                          .map((s) => (
-                            <option key={s.id} value={s.id}>
-                              {s.name}
-                              {heroHasUnwiredCombatSkills(name) ? "（效果未接线，使用时拒绝）" : ""}
-                            </option>
-                          ))}
-                      </select>
-                    </label>
+                    {formalHeroLevel1Skills(name).map((skill) => {
+                      const selected = hero.skillIds.includes(skill.id);
+                      return (
+                        <CardFace
+                          key={skill.id}
+                          skillId={skill.id}
+                          size="sm"
+                          selected={selected}
+                          onSelect={() =>
+                            setParty(
+                              party.map((h, i) =>
+                                i !== index
+                                  ? h
+                                  : {
+                                      ...h,
+                                      skillIds: toggleEmbarkSkillIds(h.skillIds, skill.id),
+                                    },
+                              ),
+                            )
+                          }
+                        />
+                      );
+                    })}
                   </div>
-                ))}
+                </div>
               </fieldset>
             );
           })}

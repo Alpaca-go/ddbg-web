@@ -556,18 +556,101 @@ button.card-face:hover:enabled {
   line-height: 1.35;
   color: #cec4aa;
 }
-.embark-skill-row {
+.embark-seat {
   display: flex;
-  gap: 0.7rem;
+  gap: 1.25rem;
   align-items: flex-start;
+}
+.embark-seat-hero {
+  flex: 0 0 10.75rem;
+}
+.embark-hero-label {
+  margin: 0 0 0.45rem;
+  font-size: 0.85rem;
+  color: #aaa599;
+}
+.embark-hero-current {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 0.7rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid #484338;
 }
-.embark-skill-row .card-face {
-  flex: 0 0 auto;
+.embark-hero-current .tt-token--battle {
+  width: 4.75rem;
 }
-.embark-skill-row label {
+.embark-hero-current .tt-token__name {
+  display: none;
+}
+.embark-hero-current__name {
+  margin-top: 0.4rem;
+  font-size: 0.78rem;
+  line-height: 1.25;
+  color: #cec4aa;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.embark-hero-roster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+}
+.embark-hero-roster .tt-token--battle {
+  width: 2.35rem;
+}
+.embark-hero-pick--taken {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+.embark-hero-pick--taken .tt-token--battle {
+  pointer-events: none;
+}
+.embark-hero-current .tt-token--selected .tt-token__figure,
+.embark-hero-roster .tt-token--selected .tt-token__figure {
+  border-color: #e8c96a;
+  outline: none;
+  box-shadow:
+    0 0 0 2px rgba(212, 184, 121, 0.45),
+    0 0 14px 3px rgba(232, 201, 106, 0.55);
+}
+.embark-seat-skills {
   flex: 1;
-  margin-bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+  align-items: start;
+  min-width: 0;
+}
+.embark-seat-skills .card-face--sm {
+  width: 100%;
+  max-width: none;
+}
+.embark-seat-skills .card-face__caption {
+  display: none;
+}
+.embark-seat-skills .card-face--selected {
+  border-color: #e8c96a;
+  box-shadow:
+    0 0 0 2px rgba(212, 184, 121, 0.45),
+    0 0 14px 3px rgba(232, 201, 106, 0.55);
+}
+@media (max-width: 720px) {
+  .embark-seat {
+    flex-direction: column;
+  }
+  .embark-seat-hero {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+  .embark-seat-skills {
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 .card-text p {
   color: #aaa599;

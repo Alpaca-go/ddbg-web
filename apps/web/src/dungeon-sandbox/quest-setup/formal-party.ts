@@ -8,13 +8,24 @@ export const stanceLabels = {
   ranged: "远程",
   support: "支援",
 } as const;
+export function formalHeroLevel1Skills(name: FormalHeroName) {
+  return questBattleData.skills.filter(
+    (s) => s.hero === name && s.level === 1 && !s.verification.unverified,
+  );
+}
+
+export function toggleEmbarkSkillIds(skillIds: readonly string[], skillId: string) {
+  if (skillIds.includes(skillId)) return skillIds.filter((id) => id !== skillId);
+  if (skillIds.length >= 3) return [...skillIds];
+  return [...skillIds, skillId];
+}
+
 export function formalPartySlot(name: FormalHeroName, index: number) {
   const stat = questBattleData.heroStats.find((s) => s.name === name && s.level === 1)!;
   return {
     heroStatId: stat.id,
     stance: (["aggressive", "defensive", "ranged", "support"] as const)[index]!,
-    skillIds: questBattleData.skills
-      .filter((s) => s.hero === name && s.level === 1 && !s.verification.unverified)
+    skillIds: formalHeroLevel1Skills(name)
       .slice(0, 3)
       .map((s) => s.id),
   };

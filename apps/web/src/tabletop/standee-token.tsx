@@ -11,6 +11,7 @@ export function StandeeToken({
   selected = false,
   onClick,
   testId,
+  ariaLabel,
   size = "battle",
 }: {
   readonly label: string;
@@ -21,6 +22,7 @@ export function StandeeToken({
   readonly selected?: boolean;
   readonly onClick?: () => void;
   readonly testId?: string;
+  readonly ariaLabel?: string;
   readonly size?: "battle" | "row";
 }) {
   const Tag = onClick ? "button" : "div";
@@ -40,6 +42,7 @@ export function StandeeToken({
       ].join(" ")}
       onClick={onClick}
       data-testid={testId}
+      {...(onClick && ariaLabel ? { "aria-label": ariaLabel } : {})}
       aria-pressed={onClick ? selected : undefined}
     >
       <div className="tt-token__figure" data-asset-type={assetType}>
