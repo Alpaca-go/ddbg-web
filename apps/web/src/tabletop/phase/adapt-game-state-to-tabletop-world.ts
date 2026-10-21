@@ -1,4 +1,4 @@
-import type { BattleEntity, GameState, SkillStance, TrinketPool } from "@ddbg/engine";
+import type { BattleEntity, GameEvent, GameState, SkillStance, TrinketPool } from "@ddbg/engine";
 import { monsterCardName, projectMonsterPreparedSkill } from "../resolve-monster-skill-display";
 import type {
   TabletopBattleMeta,
@@ -8,6 +8,7 @@ import type {
 } from "../tabletop-types";
 
 export type AdaptGameStateOptions = {
+  readonly events?: readonly GameEvent[];
   readonly heroDisplayName?: (hero: {
     readonly id: string;
     readonly hero?: string | null;
@@ -261,6 +262,8 @@ function projectBattleMonsters(game: GameState): TabletopMonsterState[] {
           : null;
       const name = cardId ? monsterCardName(cardId) : entity.id;
       return {
+        ...(entity.stanceSlots !== undefined ? { stanceSlots: entity.stanceSlots } : {}),
+        actedThisRound: battle.encounter?.actedIds.includes(entity.id) ?? false,
         id: entity.id,
         monsterCardId: cardId,
         name,
@@ -275,13 +278,63 @@ function projectBattleMonsters(game: GameState): TabletopMonsterState[] {
     });
 }
 
-function projectBattleMeta(game: GameState): Partial<TabletopBattleMeta> {
+function projectBattleMeta(
+  game: GameState,
+  options?: AdaptGameStateOptions,
+): Partial<TabletopBattleMeta> {
   const battle = game.battle;
   if (!battle) return {};
   const turnCtx = battleTurnContext(game);
   const heroCards = turnCtx.deck.filter((s) => s === "hero").length;
   const monsterCards = turnCtx.deck.filter((s) => s === "monster").length;
+  const turn = battle.encounter?.turn;
+  const turnLabel = !turn
+    ? "尚未开始战斗"
+    : turn.type === "hero"
+      ? `英雄回合 · 剩余 ${turn.actions} 行动`
+      : turn.type === "monster"
+        ? "怪物回合"
+        : turn.type === "awaitingInitiative"
+          ? "等待抽取先攻"
+          : turn.type === "finished"
+            ? turn.outcome === "victory"
+              ? "战斗胜利"
+              : "第 4 轮结束 · 撤退"
+            : turn.reason === "mutualWipeout"
+              ? "双方全灭 · 战斗停止"
+              : "英雄全灭 · 战斗停止";
+  const candidates = [...battle.entities]
+    .filter(
+      (e) =>
+        turn &&
+        (turn.type === "hero" || turn.type === "monster" || turn.type === "awaitingInitiative") &&
+        e.stance &&
+        !e.dead &&
+        e.id !== turnCtx.turnActorId &&
+        !turnCtx.actedIds.includes(e.id),
+    )
+    .sort(
+      (a, b) =>
+        STANCE_ORDER.indexOf(a.stance ?? "support") - STANCE_ORDER.indexOf(b.stance ?? "support"),
+    );
+  const events = options?.events ?? [];
+  const start = events.reduce((last, e, index) => (e.type === "roundStarted" ? index : last), -1);
+  const revealed = events
+    .slice(start + 1)
+    .flatMap((e) =>
+      (e.type === "turnStarted" || e.type === "initiativeDiscarded") &&
+      e.round === turnCtx.round &&
+      e.side
+        ? [e.side]
+        : [],
+    );
   return {
+    areas: battle.areas,
+    turnLabel,
+    nextHeroId: candidates.find((e) => e.side === "hero")?.id ?? null,
+    nextMonsterId: candidates.find((e) => e.side === "monster")?.id ?? null,
+    roomCardId: game.dungeon?.roomCards?.active?.cardId ?? null,
+    initiativeRevealed: revealed,
     light: battle.light,
     round: turnCtx.round,
     actionsRemaining: turnCtx.actionsRemaining,
@@ -301,13 +354,13 @@ export function adaptGameStateToTabletopWorld(
     return {
       heroes: projectBattleHeroes(game, options),
       monsters: projectBattleMonsters(game),
-      battle: projectBattleMeta(game),
+      battle: projectBattleMeta(game, options),
     };
   }
   if (game.dungeon?.heroes?.length) {
     return {
       heroes: projectDungeonHeroes(game, options),
-      battle: projectBattleMeta(game),
+      battle: projectBattleMeta(game, options),
     };
   }
   return null;

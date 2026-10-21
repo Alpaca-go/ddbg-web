@@ -1449,3 +1449,201 @@
     width: 7.25rem;
   }
 }
+
+/* T4：姿态与区域分别展示；网格不推定印刷坐标或邻接。 */
+.tt-battle-board {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  border: 1px solid var(--tt-panel-edge);
+  border-radius: 6px;
+  background: linear-gradient(165deg, #252018, #141210);
+  overflow: hidden;
+}
+.tt-battle-board__heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.7rem;
+  font-size: 0.65rem;
+  color: #afa590;
+}
+.tt-battle-board__heading h3,
+.tt-battle-stance h3 {
+  margin: 0;
+  color: var(--tt-gold);
+  font-size: 0.75rem;
+}
+.tt-battle-stance h3 {
+  margin-bottom: 0.3rem;
+}
+.tt-battle-stance h3 small {
+  color: #aaa08d;
+  font-weight: normal;
+}
+.tt-battle-stance__slots {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+.tt-battle-stance__slot {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.3rem;
+  border: 1px solid #534633;
+  background: #1c1914;
+  border-radius: 4px;
+  font-size: 0.65rem;
+}
+.tt-battle-stance button {
+  min-width: 0;
+  padding: 0.3rem;
+  text-align: left;
+  overflow-wrap: anywhere;
+  font-size: 0.68rem;
+  background: #30281f;
+  border: 1px solid #5a4b34;
+  border-radius: 3px;
+}
+.tt-battle-stance button small,
+.tt-init__deck small {
+  display: block;
+  font-size: 0.6rem;
+}
+.tt-battle-stance button[aria-pressed="true"] {
+  border-color: var(--tt-gold);
+}
+.tt-battle-stance .tt-battle-stance__actor {
+  box-shadow: inset 3px 0 var(--tt-gold);
+}
+.tt-battle-grid {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.4rem;
+  align-content: start;
+}
+.tt-battle-area {
+  min-width: 0;
+  padding: 0.4rem;
+  border: 1px dashed #695738;
+  border-radius: 4px;
+  background: #12110e;
+}
+.tt-battle-area header {
+  font-size: 0.65rem;
+  color: #c4bda9;
+}
+.tt-battle-area__tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: end;
+  justify-content: center;
+  min-height: 2rem;
+  padding-top: 0.3rem;
+}
+.tt-battle-area .tt-token {
+  width: 3.2rem;
+}
+.tt-token__figure img {
+  object-fit: contain;
+  object-position: center;
+}
+.tt-battle-area .tt-token__woundbar {
+  height: auto;
+}
+.tt-battle-area .tt-token__woundtext {
+  position: static;
+  font-size: 0.58rem;
+}
+.tt-battle-area .tt-token__name {
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+  font-size: 0.58rem;
+  overflow-wrap: anywhere;
+  text-overflow: clip;
+}
+.tt-init {
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+}
+.tt-init__round {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  font-size: 0.65rem;
+}
+.tt-init__round ol {
+  display: flex;
+  gap: 0.2rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.tt-init__round li {
+  border: 1px solid #625236;
+  border-radius: 3px;
+  padding: 0.1rem 0.35rem;
+}
+.tt-init__round li[aria-current="step"] {
+  background: var(--tt-gold);
+  color: #19140c;
+}
+.tt-init__deck {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+  font-size: 0.65rem;
+}
+.tt-init__back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 3rem;
+  min-height: 3.7rem;
+  border: 1px dashed #8a7348;
+  border-radius: 4px;
+  box-shadow: 2px 2px #453a29;
+  background: #2a241c;
+}
+.tt-init__revealed {
+  flex-wrap: wrap;
+  font-size: 0.6rem;
+}
+.tt-init__card {
+  width: 1.8rem;
+  flex-shrink: 0;
+}
+.tt-init__card--monster {
+  border-color: #975656;
+}
+.tt-init__card--hero {
+  border-color: #a58a4a;
+}
+.tt-init__candidates {
+  margin: 0.4rem 0 0;
+  font-size: 0.6rem;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 1600px) {
+  .tt-battle-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .tt-battle-area .tt-token {
+    width: 4rem;
+  }
+}

@@ -445,9 +445,9 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
           continue;
         }
         const stance = await page
-          .locator(".stance-slot")
+          .locator(".monster-stance-column")
           .filter({ hasText: "← 当前" })
-          .locator(":scope > span")
+          .locator(".stance-label")
           .innerText();
         if (formal) {
           const hero = turn.split(" · ")[0]!;
@@ -626,9 +626,9 @@ test("位移分岔冻结其他行动，选择后续接一次并可重放", async
   await expect(page.getByTestId("entity-hero-2")).toContainText("区域 E");
   await expect(
     page
-      .locator(".stance-slot")
+      .locator(".monster-stance-column")
       .filter({ has: page.getByTestId("entity-hero-2") })
-      .locator("span"),
+      .locator(".stance-label"),
   ).toHaveText("进攻");
   await expect(page.getByTestId("turn-status")).toHaveText("等待抽取先攻");
   await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5");

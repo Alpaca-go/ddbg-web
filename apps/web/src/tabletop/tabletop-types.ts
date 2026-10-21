@@ -1,4 +1,4 @@
-import type { SkillStance, StatusStack } from "@ddbg/engine";
+import type { BattleArea, SkillStance, StatusStack } from "@ddbg/engine";
 import type { TabletopEngineBridge } from "./phase/engine-bridge";
 import type { FlowPhaseId } from "./phase/flow-phase";
 import type {
@@ -44,6 +44,8 @@ export type TabletopHeroState = {
 };
 
 export type TabletopMonsterState = {
+  readonly stanceSlots?: number;
+  readonly actedThisRound?: boolean;
   readonly id: string;
   readonly monsterCardId: string;
   readonly name: string;
@@ -97,6 +99,11 @@ export type TabletopUiState = {
 };
 
 export type TabletopBattleMeta = {
+  readonly areas?: readonly BattleArea[];
+  readonly turnLabel?: string;
+  readonly nextHeroId?: string | null;
+  readonly nextMonsterId?: string | null;
+  readonly roomCardId?: string | null;
   readonly light: number;
   readonly gold: number;
   readonly round: number;
