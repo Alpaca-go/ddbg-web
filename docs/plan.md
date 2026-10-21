@@ -522,9 +522,9 @@ ddbg/
 
 | 切片 | 内容 | 对应原规划 |
 |---|---|---|
-| **S0** | 正式流程接入桌面外壳（顶栏由引擎阶段驱动；左右栏有数据时读引擎；中央仍用现有正式 UI） | 本 PR |
-| **S1** | 地牢桌面：探索 | 原 T8 · **本 PR（完成）** |
-| **S2** | 战斗同页展开 + 左下先攻牌堆与回合轨 | 原 T4 |
+| **S0** | 正式流程接入桌面外壳（顶栏由引擎阶段驱动；左右栏有数据时读引擎；中央仍用现有正式 UI） | **已完成**（[#278](https://github.com/Alpaca-go/ddbg-web/pull/278)） |
+| **S1** | 地牢桌面：探索 | 原 T8 · **已完成**（tip `b051c9b`，[#279](https://github.com/Alpaca-go/ddbg-web/pull/279)） |
+| **S2** | 战斗同页展开 + 左下先攻牌堆与回合轨 | 原 T4 · **下一步 / Codex 接手** |
 | **S3** | 底栏行动分页与技能手牌 | 原 T5 |
 | **S4** | 骰盘与结束回合 | 原 T6 |
 | **S5** | 统一选择托盘 | 原 T7 |
@@ -537,4 +537,6 @@ ddbg/
 
 **待确认**：第二轮及以后是否仍经过出征准备页（当前村庄内 `chooseNextQuest` 可直接进地牢；属流程层，S0 不改）。
 
-交接与验收细节见 [docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md)。
+交接与验收细节见 [docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md)（T0–T3 / S0 前背景，已过时）。
+
+**Codex 接手（S2 起）**：[docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md)（tip `b051c9b`）。
