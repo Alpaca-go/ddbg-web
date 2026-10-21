@@ -30,12 +30,13 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
     <>
       {formal && <QuestSaveControls />}
       <BattleView
+        formal={formal}
         game={game}
         dispatch={dispatch}
         events={events}
         commands={commands}
         layout="dungeon"
-        notice={events.map((e) => e.message).join("；")}
+        notice={formal ? (events.at(-1)?.message ?? "") : events.map((e) => e.message).join("；")}
       />
     </>
   ) : formalTabletopExploration && !preview ? (

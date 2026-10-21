@@ -60,7 +60,7 @@ export function ScoutingPanel({
     : null;
 
   const pendingBlock = pendingChoice ? (
-    <div>
+    <div data-testid="dungeon-pending-choice">
       <p>{pendingChoice.prompt}</p>
       {pendingChoice.id.startsWith("dungeon-fundraiser:") ? (
         <FundraiserChoice

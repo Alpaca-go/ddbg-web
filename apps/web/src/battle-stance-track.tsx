@@ -26,12 +26,70 @@ export function BattleStanceTrack({
   battle,
   entityName,
   actorId,
+  compact = false,
 }: {
   readonly battle: NonNullable<GameState["battle"]>;
   readonly entityName: (id: string) => string;
   readonly actorId?: string | undefined;
+  readonly compact?: boolean;
 }) {
   const stanceRows = listMonsterStanceSlots();
+
+  if (compact) {
+    return (
+      <section className="tt-battle-stances" aria-label="站位轨道">
+        {(["hero", "monster"] as const).map((side) => (
+          <div key={side} className="tt-battle-stances__side">
+            <h3>{side === "hero" ? "英雄站位" : "怪物站位"}</h3>
+            <div className="tt-battle-stances__slots">
+              {stanceRows.map((slot) => (
+                <div key={slot.stance} className="tt-battle-stances__slot">
+                  <h4>{slot.labelZh}</h4>
+                  {battle.entities
+                    .filter((e) => e.side === side && !e.dead && e.stance === slot.stance)
+                    .map((e) => (
+                      <details key={e.id} className={side} data-testid={`entity-${e.id}`}>
+                        <summary>
+                          <strong>
+                            {entityName(e.id)}
+                            {actorId === e.id ? " ← 当前" : ""}
+                          </strong>
+                          <span>
+                            区域 {e.areaId} · 伤口 {e.wounds}/{e.life}
+                          </span>
+                          {e.side === "monster" && (e.stanceSlots ?? 0) > 1 && (
+                            <span>占 {e.stanceSlots} 格</span>
+                          )}
+                        </summary>
+                        <EntityChip
+                          entity={e}
+                          entityName={entityName}
+                          isActor={actorId === e.id}
+                          battle={battle}
+                          testId={`entity-detail-${e.id}`}
+                        />
+                      </details>
+                    ))}
+                  {!battle.entities.some(
+                    (e) => e.side === side && !e.dead && e.stance === slot.stance,
+                  ) && <span className="muted">空</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+        {battle.entities.some((e) => e.dead) && (
+          <p className="muted">
+            阵亡：
+            {battle.entities
+              .filter((e) => e.dead)
+              .map((e) => entityName(e.id))
+              .join("、")}
+          </p>
+        )}
+      </section>
+    );
+  }
 
   return (
     <section className="stance-track" aria-label="站位轨道">
@@ -101,11 +159,13 @@ function EntityChip({
   entityName,
   isActor,
   battle,
+  testId,
 }: {
   readonly entity: BattleEntity;
   readonly entityName: (id: string) => string;
   readonly isActor: boolean;
   readonly battle: NonNullable<GameState["battle"]>;
+  readonly testId?: string;
 }) {
   const heroStandee = entity.hero ? lookupHeroStandeeArt(entity.hero) : undefined;
   const widthLabel =
@@ -114,7 +174,10 @@ function EntityChip({
       : null;
 
   return (
-    <div className={`stance-entity-chip ${entity.side}`} data-testid={`entity-${entity.id}`}>
+    <div
+      className={`stance-entity-chip ${entity.side}`}
+      data-testid={testId ?? `entity-${entity.id}`}
+    >
       {heroStandee && (
         <BattlePositionRaster
           standee={heroStandee}
