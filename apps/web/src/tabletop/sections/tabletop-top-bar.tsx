@@ -14,7 +14,7 @@ function phaseContextLine(phase: FlowPhaseId, quest: TabletopQuestMeta, stepText
     case "questReturn":
       return `${phaseName} · ${quest.questLabel} · ${stepText}`;
     case "dungeonExploration":
-      return `${phaseName} · ${quest.locationLabel} · ${quest.dungeonLevel} · ${quest.questLabel} · ${stepText}`;
+      return `${phaseName} · ${quest.locationLabel} · ${quest.dungeonLevel} · ${quest.questLabel} · ${quest.xpProgress} · ${stepText}`;
     case "battle":
       return `${phaseName} · ${quest.locationLabel} · DL · 任务 ${quest.xpProgress} · 已清理 ${quest.roomsCleared}/${quest.roomTotal} · ${stepText}`;
     default:
@@ -27,6 +27,7 @@ export function TabletopTopBar({
   stepText,
   quest,
   battle,
+  explorationObjective,
   onToggleLog,
   onToggleAtmosphere,
   atmosphereEnabled,
@@ -37,6 +38,7 @@ export function TabletopTopBar({
   readonly stepText: string;
   readonly quest: TabletopQuestMeta;
   readonly battle: TabletopBattleMeta;
+  readonly explorationObjective?: string | null;
   readonly onToggleLog: () => void;
   readonly onToggleAtmosphere: () => void;
   readonly atmosphereEnabled: boolean;
@@ -111,6 +113,12 @@ export function TabletopTopBar({
           <div className="tt-resource">
             <span className="tt-resource__label">回合</span>
             <strong>{battle.round}/4</strong>
+          </div>
+        )}
+        {phase === "dungeonExploration" && explorationObjective && (
+          <div className="tt-resource tt-top__quest-progress" data-testid="tabletop-quest-progress">
+            <span className="tt-resource__label">任务进度</span>
+            <strong title={explorationObjective}>{explorationObjective}</strong>
           </div>
         )}
         {(phase === "dungeonExploration" || phase === "battle") && (

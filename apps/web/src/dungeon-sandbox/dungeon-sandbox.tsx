@@ -1,3 +1,4 @@
+import type { GameState } from "@ddbg/engine";
 import { BattleView } from "../battle-view";
 import { TabletopFormalShell } from "../tabletop/tabletop-formal-shell";
 import { QuestSaveControls } from "./quest-save-controls";
@@ -5,6 +6,16 @@ import { useDungeonStore } from "./store";
 import { DungeonHeader } from "./expedition/dungeon-header";
 import { QuestMapPanel } from "./dungeon-map/quest-map-panel";
 import { ScoutingPanel } from "./expedition/scouting-panel";
+import { FormalDungeonExplorationView } from "./formal/formal-dungeon-exploration-view";
+
+function isFormalDungeonTabletopExploration(game: GameState, formal: boolean): boolean {
+  if (!formal || game.battle) return false;
+  const d = game.dungeon;
+  if (!d) return false;
+  if (d.hamlet || d.hamletReturn || d.phase === "exited") return false;
+  if (d.phase === "awaitingProvisions") return false;
+  return true;
+}
 
 export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
   const { game, events, commands, dispatch, reset, select, page, fixture, preview } =
@@ -14,6 +25,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
   const hamletPhase = Boolean(d.hamlet);
   const questReturnPhase = Boolean(d.hamletReturn || d.phase === "exited");
   const showDungeonMap = !hamletPhase && !(formal && questReturnPhase);
+  const formalTabletopExploration = isFormalDungeonTabletopExploration(game, formal);
   const body = game.battle ? (
     <>
       {formal && <QuestSaveControls />}
@@ -26,6 +38,19 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
         notice={events.map((e) => e.message).join("；")}
       />
     </>
+  ) : formalTabletopExploration && !preview ? (
+    <main className="shell shell--formal-exploration">
+      <QuestSaveControls />
+      <FormalDungeonExplorationView
+        game={game}
+        dispatch={dispatch}
+        events={events}
+        commands={commands}
+        formal
+        reset={reset}
+        pendingChoice={pendingChoice}
+      />
+    </main>
   ) : (
     <main className="shell">
       {formal && <QuestSaveControls />}
