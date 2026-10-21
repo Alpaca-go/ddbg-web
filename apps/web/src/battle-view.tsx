@@ -21,6 +21,7 @@ import { ResolveEventDetails } from "./resolve-event-details";
 import { EncounterEventDetails } from "./encounter-event-details";
 import { humanizeChoiceOptionLabel } from "./choice-display-label";
 import { provisionLabels, provisionEffectLabels } from "./provision-labels";
+import { BattleActionsSurface } from "./tabletop/sections/battle-actions-surface";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 export function BattleView({
@@ -82,6 +83,10 @@ export function BattleView({
   const maxTargets = printedTargets?.kind === "exact" ? printedTargets.max : 1;
   const multiTarget = maxTargets > 1;
   const selfTarget = skill ? heroSkillUsesSelfTarget(skill) : false;
+  const selectedTargetId =
+    formal && !battle.entities.some((e) => !e.dead && e.id === targetId)
+      ? (battle.entities.find((e) => !e.dead)?.id ?? "")
+      : targetId;
   const emptyAreaSelection = emptyAreaMode && !selfTarget;
   const emptyAreas = battle.areas.filter(
     (a) => !battle.entities.some((e) => !e.dead && e.areaId === a.id),
@@ -378,9 +383,14 @@ export function BattleView({
             <BattleStanceTrack battle={battle} entityName={entityName} actorId={actor?.id} />
           )}
         </section>
-        <aside className="panel actions" aria-label="行动面板">
+        <BattleActionsSurface
+          formal={formal}
+          actorKey={`${battle.encounter?.round}:${actor?.id}`}
+          heroTurn={turn?.type === "hero"}
+          caption={turnText}
+        >
           <h2>行动面板</h2>
-          <fieldset disabled={!canUseProvision}>
+          <fieldset data-action-group="provisions" disabled={!canUseProvision}>
             <legend>免费补给 · {battle.provisions?.length ?? 0}/16</legend>
             <label>
               补给
@@ -509,7 +519,7 @@ export function BattleView({
           )}
           {turn?.type === "hero" && (
             <>
-              <fieldset disabled={!heroTurn}>
+              <fieldset data-action-group="move" disabled={!heroTurn}>
                 <legend>移动 · Speed {stat?.speed}</legend>
                 <p>
                   路径：{actor?.areaId}
@@ -538,7 +548,7 @@ export function BattleView({
                   </button>
                 </div>
               </fieldset>
-              <fieldset disabled={!heroTurn || turn.mustMove}>
+              <fieldset data-action-group="loot" disabled={!heroTurn || turn.mustMove}>
                 <legend>
                   战利品 · 金币 {battle.loot?.gold ?? 0} · 补给 {battle.provisions?.length ?? 0}/16
                 </legend>
@@ -551,6 +561,7 @@ export function BattleView({
               </fieldset>
               {battle.areas.find((area) => area.id === actor!.areaId)?.lootTheChest && (
                 <button
+                  data-action-group="loot"
                   disabled={!heroTurn || turn.mustMove || turn.actions < 2 || battle.lootChestUsed}
                   onClick={() => send({ type: "lootTreasureChest", actorId: actor!.id })}
                 >
@@ -559,6 +570,7 @@ export function BattleView({
               )}
               {battle.areas.find((area) => area.id === actor!.areaId)?.hideAndHeal && (
                 <button
+                  data-action-group="loot"
                   disabled={
                     !heroTurn ||
                     turn.mustMove ||
@@ -573,7 +585,7 @@ export function BattleView({
                   Hide and Heal（1行动，压力+2）
                 </button>
               )}
-              <fieldset disabled={!heroTurn || turn.mustMove}>
+              <fieldset data-action-group="stance" disabled={!heroTurn || turn.mustMove}>
                 <legend>换姿态</legend>
                 <div className="button-row">
                   <button
@@ -594,20 +606,29 @@ export function BattleView({
                   </button>
                 </div>
               </fieldset>
-              <fieldset disabled={!heroTurn || turn.mustMove}>
+              <fieldset data-action-group="skills" disabled={!heroTurn || turn.mustMove}>
                 <legend>使用技能</legend>
                 <div className="skill-hand" role="listbox" aria-label="手牌技能">
                   {actorSkills.map((s) => (
-                    <CardFace
+                    <div
                       key={s.id}
-                      skillId={s.id}
-                      size="sm"
-                      selected={skill?.id === s.id}
-                      onSelect={() => {
-                        setSkillId(s.id);
-                        setSelection({ context: "", ids: [] });
-                      }}
-                    />
+                      className="battle-skill-wrap"
+                      data-used={formal && turn.usedSkillIds.includes(s.id) ? "true" : undefined}
+                    >
+                      <CardFace
+                        skillId={s.id}
+                        size="sm"
+                        selected={skill?.id === s.id}
+                        disabled={formal && turn.usedSkillIds.includes(s.id)}
+                        onSelect={() => {
+                          setSkillId(s.id);
+                          setSelection({ context: "", ids: [] });
+                        }}
+                      />
+                      {formal && turn.usedSkillIds.includes(s.id) && (
+                        <span className="tt-skill-used">本回合已用</span>
+                      )}
+                    </div>
                   ))}
                 </div>
                 <label>
@@ -621,13 +642,25 @@ export function BattleView({
                     }}
                   >
                     {actorSkills.map((s) => (
-                      <option key={s.id} value={s.id}>
+                      <option
+                        key={s.id}
+                        value={s.id}
+                        disabled={formal && turn.usedSkillIds.includes(s.id)}
+                      >
                         {s.name} {(["I", "II", "III"] as const)[s.level - 1]}
                       </option>
                     ))}
                   </select>
                 </label>
-                {skill && <SkillRequirements skill={skill} />}
+                {skill &&
+                  (formal ? (
+                    <details className="tt-battle-requirements">
+                      <summary>卡面要求</summary>
+                      <SkillRequirements skill={skill} />
+                    </details>
+                  ) : (
+                    <SkillRequirements skill={skill} />
+                  ))}
                 {!selfTarget && (
                   <div className="target-options">
                     <label>
@@ -657,10 +690,13 @@ export function BattleView({
                         ))}
                       </select>
                     </label>
-                    <p className="muted">
-                      须符合卡面姿态与射程；没有目标命中、暴击或目标效果。自身 Push / Pull
-                      以所选区域为参照，完成位移选择后扣行动。
-                    </p>
+                    <details open={!formal}>
+                      <summary hidden={!formal}>空区域说明</summary>
+                      <p className="muted">
+                        须符合卡面姿态与射程；没有目标命中、暴击或目标效果。自身 Push / Pull
+                        以所选区域为参照，完成位移选择后扣行动。
+                      </p>
+                    </details>
                     {!emptyAreas.length && <p className="muted">当前没有空区域。</p>}
                   </>
                 ) : multiTarget ? (
@@ -718,7 +754,7 @@ export function BattleView({
                     目标
                     <select
                       aria-label="目标"
-                      value={targetId}
+                      value={selectedTargetId}
                       onChange={(e) => setTargetId(e.target.value)}
                     >
                       {battle.entities
@@ -734,6 +770,7 @@ export function BattleView({
                 <button
                   disabled={
                     !skill ||
+                    (formal && turn.usedSkillIds.includes(skill.id)) ||
                     (emptyAreaSelection ? !selectedEmptyArea : multiTarget && !selectedIds.length)
                   }
                   onClick={() =>
@@ -755,7 +792,7 @@ export function BattleView({
                           : {
                               type: "playHeroSkill",
                               actorId: actor!.id,
-                              targetId: selfTarget ? actor!.id : targetId,
+                              targetId: selfTarget ? actor!.id : selectedTargetId,
                               skillId: skill!.id,
                             },
                     )
@@ -765,7 +802,12 @@ export function BattleView({
                 </button>
               </fieldset>
               {skill && (
-                <>
+                <details
+                  open={!formal}
+                  data-action-group="skills"
+                  className="tt-battle-skill-detail"
+                >
+                  <summary hidden={!formal}>技能详情 · {skill.name}</summary>
                   <CardFace skillId={skill.id} size="md" />
                   <SkillCardText
                     name={skill.name}
@@ -776,7 +818,7 @@ export function BattleView({
                         : skill.effect_lines
                     }
                   />
-                </>
+                </details>
               )}
             </>
           )}
@@ -840,7 +882,7 @@ export function BattleView({
             </p>
             <pre>{JSON.stringify(commands, null, 2)}</pre>
           </details>
-        </aside>
+        </BattleActionsSurface>
       </div>
       <section className="panel log" aria-label="战斗日志">
         <h2>

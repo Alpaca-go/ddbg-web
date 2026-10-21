@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useReducer, type ReactNode } from "react";
+import { useCallback, useMemo, useReducer, useState, type ReactNode } from "react";
 import type { GameState } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
 import { useDungeonStore } from "../dungeon-sandbox/store";
@@ -94,6 +94,7 @@ export function TabletopFormalShell({
   readonly children: ReactNode;
 }) {
   const storeGame = useDungeonStore((s) => s.game);
+  const [battleActionHost, setBattleActionHost] = useState<HTMLDivElement | null>(null);
   const beforeEmbark = questSetupActive || Boolean(preEmbarkPhase);
   const engineGame: GameState | null = beforeEmbark ? null : storeGame;
 
@@ -207,8 +208,8 @@ export function TabletopFormalShell({
   }, [engineGame, storeEvents, state.logLines]);
 
   const formalUiApi = useMemo(
-    () => ({ selectRoomCard, selectRoomNode }),
-    [selectRoomCard, selectRoomNode],
+    () => ({ selectRoomCard, selectRoomNode, battleActionHost }),
+    [selectRoomCard, selectRoomNode, battleActionHost],
   );
 
   const explorationObjective =
@@ -283,17 +284,27 @@ export function TabletopFormalShell({
           />
         )}
 
-        <TabletopActionDock
-          phase={flowPhase}
-          dockCaption={plan.dock}
-          showSkillHand={false}
-          tab={state.ui.bottomTab}
-          onTab={() => {}}
-          activeHero={activeHero}
-          selectedSkillId={null}
-          usedSkillIds={[]}
-          onSelectSkill={() => {}}
-        />
+        {flowPhase === "battle" ? (
+          <section
+            className="tt-dock tt-dock--formal-battle"
+            aria-label="行动底栏"
+            data-testid="tabletop-action-dock"
+          >
+            <div ref={setBattleActionHost} className="tt-battle-action-host" />
+          </section>
+        ) : (
+          <TabletopActionDock
+            phase={flowPhase}
+            dockCaption={plan.dock}
+            showSkillHand={false}
+            tab={state.ui.bottomTab}
+            onTab={() => {}}
+            activeHero={activeHero}
+            selectedSkillId={null}
+            usedSkillIds={[]}
+            onSelectSkill={() => {}}
+          />
+        )}
 
         <TabletopControlRail
           phase={flowPhase}
