@@ -27,6 +27,7 @@ export function TabletopView() {
     selectQuest,
     selectSkill,
     selectTarget,
+    selectDetail,
     setTab,
     confirmAction,
     drawInitiative,
@@ -57,7 +58,6 @@ export function TabletopView() {
   const activeHero = state.heroes.find((h) => h.id === state.ui.activeHeroId) ?? state.heroes[0]!;
 
   const plan = planForPhase(flowPhase);
-  const turnHero = state.heroes.find((h) => h.id === state.battle.turnActorId) ?? activeHero;
   const showInteractiveBattle = flowPhase === "battle";
 
   return (
@@ -96,6 +96,7 @@ export function TabletopView() {
         />
 
         <TabletopMapStage
+          battle={state.battle}
           phase={flowPhase}
           centerCaption={plan.center}
           showDeckStacks={plan.deckStacks}
@@ -107,7 +108,7 @@ export function TabletopView() {
           selectedTargetId={state.ui.selectedTargetId}
           detailTargetKind={state.ui.detailTargetKind}
           detailTargetId={state.ui.detailTargetId}
-          onSelectTarget={selectTarget}
+          onSelectTarget={engineMode ? (id) => selectDetail("monster", id) : selectTarget}
           onSelectHeroToken={selectHero}
           onSelectBuilding={selectBuilding}
           onSelectRoom={selectRoom}
@@ -128,7 +129,9 @@ export function TabletopView() {
           phase={flowPhase}
           initiativeCaption={plan.initiative}
           battle={state.battle}
-          turnHero={turnHero}
+          heroes={state.heroes}
+          monsters={state.monsters}
+          entityName={entityName}
         />
 
         <TabletopActionDock

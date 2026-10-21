@@ -1,7 +1,7 @@
 import { PRINT_CARD_ART_PUBLIC_PREFIX } from "../card-art/resolve-print-hero-skill-art";
 import { TabletopRasterImage } from "./tabletop-raster-image";
 
-/** 战斗/列表用竖向立牌占位：图 + 底座 + 脚下伤口条（非 HP 条）。 */
+/** 印刷整图 + 底座 + 伤口数字徽标；不裁切卡面或绘制血条。 */
 export function StandeeToken({
   label,
   pngRel,
@@ -27,8 +27,6 @@ export function StandeeToken({
   const imgSrc = pngRel
     ? `${PRINT_CARD_ART_PUBLIC_PREFIX}/${pngRel.replace(/^\//, "")}`
     : undefined;
-  const woundRatio =
-    wounds !== undefined && life !== undefined && life > 0 ? Math.min(1, wounds / life) : undefined;
 
   return (
     <Tag
@@ -46,21 +44,24 @@ export function StandeeToken({
         <TabletopRasterImage
           {...(imgSrc ? { src: imgSrc } : {})}
           label={label}
-          placeholderLabel="英雄立牌"
+          placeholderLabel={assetType === "hero_standee" ? "英雄立牌" : "怪物卡"}
           assetType={assetType}
           className="tt-token__img"
         />
       </div>
       <div className="tt-token__base" aria-hidden="true" />
-      {woundRatio !== undefined && (
-        <div className="tt-token__woundbar" aria-label={`伤口 ${wounds}/${life}`}>
-          <span className="tt-token__woundfill" style={{ width: `${woundRatio * 100}%` }} />
+      {wounds !== undefined && (
+        <div
+          className="tt-token__woundbar"
+          aria-label={`伤口 ${wounds}${life !== undefined ? `/${life}` : ""}`}
+        >
           <span className="tt-token__woundtext">
-            {wounds}/{life}
+            伤口 {wounds}
+            {life !== undefined ? `/${life}` : ""}
           </span>
         </div>
       )}
-      {size === "battle" && <span className="tt-token__name">{label.split(" ")[0]}</span>}
+      {size === "battle" && <span className="tt-token__name">{label}</span>}
     </Tag>
   );
 }

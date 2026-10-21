@@ -106,6 +106,70 @@ function dungeonGame(heroes: NonNullable<GameState["dungeon"]>["heroes"]): GameS
 }
 
 describe("adaptGameStateToTabletopWorld", () => {
+  it("T4：区域只读，怪物回合不借用英雄，翻牌记录在新轮清空", () => {
+    const base = battleGame();
+    const game: GameState = {
+      ...base,
+      battle: {
+        ...base.battle!,
+        encounter: {
+          round: 2,
+          deck: ["hero", "monster"],
+          actedIds: ["hero-0"],
+          turn: { type: "monster", actorId: "m0" },
+        },
+      },
+    };
+    const events = [
+      { type: "turnStarted" as const, message: "", round: 1, side: "hero" as const },
+      { type: "roundStarted" as const, message: "", round: 2 },
+      { type: "turnStarted" as const, message: "", round: 2, side: "monster" as const },
+      { type: "initiativeDiscarded" as const, message: "", round: 2, side: "hero" as const },
+    ];
+    const patch = adaptGameStateToTabletopWorld(game, { events });
+    expect(patch?.battle).toMatchObject({
+      turnActorId: "m0",
+      turnLabel: "怪物回合",
+      actionsRemaining: 0,
+      initiativeDeckHero: 1,
+      initiativeDeckMonster: 1,
+      initiativeRevealed: ["monster", "hero"],
+      nextHeroId: "hero-1",
+      roomCardId: null,
+    });
+    expect(patch?.battle?.areas).toBe(game.battle!.areas);
+    expect(
+      adaptGameStateToTabletopWorld(game, {
+        events: [...events, { type: "roundStarted", message: "", round: 3 }],
+      })?.battle?.initiativeRevealed,
+    ).toEqual([]);
+  });
+
+  it("T4：无先攻记录时不混入 mock，结束战斗后没有下一名候选", () => {
+    const base = battleGame();
+    expect(adaptGameStateToTabletopWorld(base)?.battle).toMatchObject({
+      turnLabel: "尚未开始战斗",
+      initiativeRevealed: [],
+      nextHeroId: null,
+    });
+    const game: GameState = {
+      ...base,
+      battle: {
+        ...base.battle!,
+        encounter: {
+          round: 4,
+          deck: [],
+          actedIds: [],
+          turn: { type: "finished", outcome: "retreat" },
+        },
+      },
+    };
+    expect(adaptGameStateToTabletopWorld(game)?.battle).toMatchObject({
+      turnLabel: "第 4 轮结束 · 撤退",
+      nextHeroId: null,
+      nextMonsterId: null,
+    });
+  });
   it("初始建队：地牢四名英雄与等级、饰品槽", () => {
     const heroes = stances.map((stance, i) => ({
       id: `hero-${i}`,
