@@ -26,7 +26,7 @@ export const PHASE_ZONE_PLAN: Record<FlowPhaseId, PhaseZonePlan> = {
     detail: "选中英雄的英雄卡（Life、Dodge、Speed）",
     dock: "技能 7 选 3",
     diceTray: null,
-    primaryAction: "开始战役",
+    primaryAction: null,
     showBattleTokens: false,
   },
   hamlet: {

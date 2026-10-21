@@ -19,6 +19,7 @@ import { StateEventDetails } from "./state-event-details";
 import { MonsterActionDetails } from "./monster-action-details";
 import { ResolveEventDetails } from "./resolve-event-details";
 import { EncounterEventDetails } from "./encounter-event-details";
+import { humanizeChoiceOptionLabel } from "./choice-display-label";
 import { provisionLabels, provisionEffectLabels } from "./provision-labels";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
@@ -485,7 +486,7 @@ export function BattleView({
                     send({ type: "resolveChoice", choiceId: pending.id, optionId: option.id })
                   }
                 >
-                  {option.label}
+                  {humanizeChoiceOptionLabel(option.label, option.id)}
                 </button>
               ))}
             </fieldset>

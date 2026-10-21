@@ -47,7 +47,7 @@ export function TabletopTopBar({
 
   return (
     <header className="tt-top" data-testid="tabletop-top-bar">
-      <p className="tt-top__context" data-testid="dungeon-checkpoint" title={contextLine}>
+      <p className="tt-top__context" data-testid="tabletop-flow-step" title={contextLine}>
         {contextLine}
       </p>
 

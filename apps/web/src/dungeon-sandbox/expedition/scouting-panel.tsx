@@ -12,14 +12,21 @@ import { restPoints } from "../../../../../packages/data/src/scout-rest";
 import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
 import { RoomCardFace } from "../../card-art/room-card-face";
 import { DungeonStanceOrder } from "../../dungeon-stance-order";
-import { provisionLabels, provisionEffectLabels } from "../../provision-labels";
+import {
+  formatProvisionInventoryLine,
+  formatProvisionUseButton,
+  humanizeChoiceOptionLabel,
+} from "../../choice-display-label";
+import { provisionEffectLabels } from "../../provision-labels";
 import { curioEffectLabel } from "../curio-effect-label";
 import { FundraiserChoice } from "../fundraiser-choice";
+import { HamletEventSection } from "../hamlet/hamlet-event-section";
 import { QuestSummaryPanel } from "../quest-return/quest-summary-panel";
 import type { DungeonViewProps } from "../view-props";
 import type { DungeonState } from "@ddbg/engine";
 import { isNegativeCurioEffect } from "../../../../../packages/data/src/curio";
 import { QuestCardField } from "../quest-setup/quest-card-field";
+import { dungeonFlowStep } from "../../tabletop/phase/dungeon-flow-step";
 
 export function ScoutingPanel({
   game,
@@ -50,9 +57,104 @@ export function ScoutingPanel({
       }
     : null;
 
-  return (
-    <section className="panel">
-      {formal && d.phase === "awaitingProvisions" && activeQuest && (
+  const pendingBlock = pendingChoice ? (
+    <div>
+      <p>{pendingChoice.prompt}</p>
+      {pendingChoice.id.startsWith("dungeon-fundraiser:") ? (
+        <FundraiserChoice
+          key={pendingChoice.id}
+          choice={pendingChoice}
+          choose={(optionId) =>
+            dispatch({ type: "resolveChoice", choiceId: pendingChoice!.id, optionId })
+          }
+        />
+      ) : (
+        pendingChoice.options.map((o) => (
+          <button
+            key={o.id}
+            onClick={() =>
+              dispatch({
+                type: "resolveChoice",
+                choiceId: pendingChoice!.id,
+                optionId: o.id,
+              })
+            }
+          >
+            {humanizeChoiceOptionLabel(o.label, o.id)}
+          </button>
+        ))
+      )}
+    </div>
+  ) : null;
+
+  if (d.hamletReturn || d.phase === "exited") {
+    return (
+      <section className="panel quest-return-center" data-testid="quest-return-center">
+        <QuestSummaryPanel
+          game={game}
+          dispatch={dispatch}
+          formal={formal}
+          pendingChoice={pendingChoice}
+          events={events}
+          commands={commands}
+        />
+        <DungeonStanceOrder game={game} dispatch={dispatch} />
+        <p data-testid="dungeon-checkpoint">{dungeonFlowStep(game)}</p>
+        <p data-testid="dungeon-pressure">
+          {d.heroes
+            .map(
+              (h) =>
+                `${h.id} 压力 ${h.stress}${h.dead ? (h.wounds === h.life ? "（死门死亡）" : "（心脏病死亡）") : h.resolveCardId ? ` · 意志卡 ${d.resolveCards.find((c) => c.id === h.resolveCardId)?.name}` : ""} · 伤口 ${h.wounds}/${h.life}`,
+            )
+            .join(" · ")}
+        </p>
+        <p data-testid="dungeon-provisions">
+          剩余补给：
+          {(() => {
+            const tallies = new Map<string, number>();
+            for (const p of d.explorationSetup!.provisions) {
+              tallies.set(p.face, (tallies.get(p.face) ?? 0) + 1);
+            }
+            const parts = [...tallies.entries()].map(([face, count]) =>
+              formatProvisionInventoryLine(face, count),
+            );
+            return parts.join(" · ") || "无";
+          })()}
+        </p>
+        {pendingBlock}
+        <p data-testid="dungeon-provision-count">
+          公共补给（{d.explorationSetup?.provisions.length ?? 0}/16）
+        </p>
+        <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
+      </section>
+    );
+  }
+
+  if (d.hamlet) {
+    return (
+      <section className="panel hamlet-phase-center" data-testid="hamlet-phase-center">
+        <HamletEventSection
+          game={game}
+          dispatch={dispatch}
+          formal={formal}
+          pendingChoice={pendingChoice}
+          events={events}
+          commands={commands}
+        />
+        <DungeonStanceOrder game={game} dispatch={dispatch} />
+        {pendingBlock}
+        <p data-testid="dungeon-checkpoint">{dungeonFlowStep(game)}</p>
+        <p data-testid="dungeon-provision-count">
+          公共补给（{d.explorationSetup?.provisions.length ?? 0}/16）
+        </p>
+        <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
+      </section>
+    );
+  }
+
+  if (formal && d.phase === "awaitingProvisions" && activeQuest) {
+    return (
+      <section className="panel expedition-prep-center" data-testid="expedition-prep-center">
         <div
           className="expedition-prep-inline"
           aria-label="出征准备"
@@ -61,7 +163,24 @@ export function ScoutingPanel({
           <h2>出征准备</h2>
           <QuestCardField quests={[activeQuest]} questId={activeQuest.id} readOnly />
         </div>
-      )}
+        <DungeonStanceOrder game={game} dispatch={dispatch} />
+        <button
+          disabled={!!pendingChoice}
+          onClick={() => dispatch({ type: "rollDungeonProvisions" })}
+        >
+          掷开局补给骰
+        </button>
+        {pendingBlock}
+        <p data-testid="dungeon-provision-count">
+          公共补给（{d.explorationSetup?.provisions.length ?? 0}/16）
+        </p>
+        <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
+      </section>
+    );
+  }
+
+  return (
+    <section className="panel">
       <h2>侦察流程</h2>
       <DungeonStanceOrder game={game} dispatch={dispatch} />
       {d.mustLeaveRoomId === d.position && (
@@ -298,7 +417,16 @@ export function ScoutingPanel({
       </p>
       <p data-testid="dungeon-provisions">
         剩余补给：
-        {d.explorationSetup!.provisions.map((p) => `${p.id} ${p.face}`).join(" · ") || "无"}
+        {(() => {
+          const tallies = new Map<string, number>();
+          for (const p of d.explorationSetup!.provisions) {
+            tallies.set(p.face, (tallies.get(p.face) ?? 0) + 1);
+          }
+          const parts = [...tallies.entries()].map(([face, count]) =>
+            formatProvisionInventoryLine(face, count),
+          );
+          return parts.join(" · ") || "无";
+        })()}
       </p>
       <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
       {quest?.id === "quest:p003" && (
@@ -346,7 +474,7 @@ export function ScoutingPanel({
                   })
                 }
               >
-                {provisionLabels[p.face]}（{p.id}）：{provisionEffectLabels[effect]}
+                {formatProvisionUseButton(p.face, provisionEffectLabels[effect])}
               </button>
             )),
           )}
@@ -367,7 +495,7 @@ export function ScoutingPanel({
                 })
               }
             >
-              使用 Torch（{p.id}）：光照 +1
+              使用火把：光照 +1
             </button>
           ))}
       {card && shownCurio && (
@@ -448,62 +576,8 @@ export function ScoutingPanel({
           让{d.preparedReplacements.length}名替补入队并继续
         </button>
       )}
-      {pendingChoice && (
-        <div>
-          <p>{pendingChoice.prompt}</p>
-          {pendingChoice.id.startsWith("dungeon-fundraiser:") ? (
-            <FundraiserChoice
-              key={pendingChoice.id}
-              choice={pendingChoice}
-              choose={(optionId) =>
-                dispatch({ type: "resolveChoice", choiceId: pendingChoice!.id, optionId })
-              }
-            />
-          ) : (
-            pendingChoice.options.map((o) => (
-              <button
-                key={o.id}
-                onClick={() =>
-                  dispatch({
-                    type: "resolveChoice",
-                    choiceId: pendingChoice!.id,
-                    optionId: o.id,
-                  })
-                }
-              >
-                {o.label}
-              </button>
-            ))
-          )}
-        </div>
-      )}
-      <p data-testid="dungeon-checkpoint">
-        {d.hamletReturn
-          ? d.hamletReturn.phase === "complete"
-            ? d.hamlet?.phase === "preparationComplete"
-              ? "村庄准备完成；可抽取下一任务"
-              : d.hamlet
-                ? "村庄准备进行中"
-                : "回村完成；等待村庄事件"
-            : "回村步骤进行中；探索已经结束"
-          : d.phase === "exited"
-            ? `已从 ${d.position} 离开地牢；金币与英雄状态已保留，等待任务 XP / 回村接口`
-            : d.phase === "ready" && d.mustLeaveRoomId === d.position
-              ? `已撤退到 ${d.position} 地图节点；房间未清理，必须离开`
-              : d.phase === "awaitingCurio"
-                ? `Curio 待结算；${d.curio?.active?.roomId ? "队伍已在房间" : "队伍尚未移动"}，不能补用 Torch 或重抽`
-                : d.phase === "awaitingReplacement"
-                  ? `英雄死亡：请完成驿站替补准备与入队，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
-                  : d.phase === "blockedPressure"
-                    ? `压力已支付：意志卡数据待核实，${d.pressureSource === "room" ? `队伍已在 ${d.position}` : "队伍尚未移动"}`
-                    : d.phase === "awaitingRoom"
-                      ? `进入 ${d.position}：等待${d.roomCards?.active ? "守卫战斗准备完成；原牌已记录，房间未清理" : currentRoom?.kind === "trap" ? " Trap 分配，保留代币" : currentRoom?.kind === "dark" ? " Dark 降光，保留代币" : "非 Empty 房间效果"}`
-                      : d.phase === "ready" && (d.exploration || (d.visited?.length ?? 0) > 1)
-                        ? `已到达 ${d.position}；${currentRoom?.cleared ? (currentRoom.kind === "empty" ? "Empty 已清理，移除房间代币" : "已清理，移除房间代币") : currentRoom?.kind === "trap" ? "Trap 已结算，保留代币" : currentRoom?.kind === "dark" ? "Dark 已结算，保留代币" : "灰点必须停留"}`
-                        : d.exploration
-                          ? `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`
-                          : "等待侦察 / 路线选择"}
-      </p>
+      {pendingBlock}
+      <p data-testid="dungeon-checkpoint">{dungeonFlowStep(game)}</p>
       <p data-testid="dungeon-events">
         {events
           .map((e) =>

@@ -9,11 +9,11 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     ["quest:p003", "Fundraiser I"],
   ]) {
     await page.goto("/?phase=3&play=1");
+    await page.getByLabel("任务模式", { exact: true }).selectOption("radiant");
+    await page.getByLabel("任务种子", { exact: true }).fill("31");
     await page.getByRole("button", { name: "前往出征准备", exact: true }).click();
     await page.getByLabel("任务卡", { exact: true }).selectOption(id!);
     if (id === "quest:p003") await expect(page.getByText(/最多捐献60金币、获得3XP/)).toBeVisible();
-    await page.getByLabel("任务模式").selectOption("radiant");
-    await page.getByLabel("任务种子").fill("31");
     await page.getByRole("button", { name: "进入地牢", exact: true }).click();
     await expect(page.getByRole("heading", { name: name!, exact: true })).toBeVisible();
     await expect(page.getByLabel("侦察测试布置")).toHaveCount(0);
@@ -154,23 +154,19 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByRole("heading", { name: "地牢布局与侦察" })).toBeVisible();
   await page.getByLabel("侦察测试布置").selectOption("navigationProvisions");
   await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 3 · 伤口 3/17");
-  await page.getByRole("button", { name: "食物（nav-food）：治疗 1", exact: true }).click();
+  await page.getByRole("button", { name: "食物：治疗 1", exact: true }).click();
   await expect(page.getByTestId("dungeon-pressure")).toContainText("伤口 2/17");
-  await page
-    .getByRole("button", { name: "绷带（nav-bandage）：移除所有流血", exact: true })
-    .click();
+  await page.getByRole("button", { name: "绷带：移除所有流血", exact: true }).click();
   await expect(page.getByTestId("dungeon-status-stacks")).not.toContainText("bleed");
   await expect(page.getByTestId("dungeon-status-stacks")).toContainText("blight 3t");
-  await page.getByRole("button", { name: "药水（nav-potion）：移除所有腐蚀", exact: true }).click();
+  await page.getByRole("button", { name: "药水：移除所有腐蚀", exact: true }).click();
   await expect(page.getByTestId("dungeon-status-stacks")).not.toContainText("blight");
   await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（0/16）");
   await page.getByRole("button", { name: "重置标准模式" }).click();
-  await page.getByRole("button", { name: "药水（nav-potion）：压力 −1", exact: true }).click();
+  await page.getByRole("button", { name: "药水：压力 −1", exact: true }).click();
   await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 2");
   await page.getByRole("button", { name: "选择下一段探索" }).click();
-  await expect(
-    page.getByRole("button", { name: "食物（nav-food）：治疗 1", exact: true }),
-  ).toBeDisabled();
+  await expect(page.getByRole("button", { name: "食物：治疗 1", exact: true })).toBeDisabled();
   await page.screenshot({ path: testInfo.outputPath("navigation-provisions.png"), fullPage: true });
   await page.getByLabel("侦察测试布置").selectOption("startingProvisions");
   for (const mode of ["标准模式", "Radiant"]) {
@@ -190,8 +186,8 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（8/16）");
     await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeEnabled();
     await expect(page.getByRole("button", { name: "掷开局补给骰", exact: true })).toHaveCount(0);
-    await expect(page.getByTestId("dungeon-provisions")).toContainText("bandage");
-    await expect(page.getByTestId("dungeon-provisions")).toContainText("potion");
+    await expect(page.getByTestId("dungeon-provisions")).toContainText("绷带");
+    await expect(page.getByTestId("dungeon-provisions")).toContainText("药水");
     await page.getByRole("button", { name: "选择下一段探索" }).click();
     await page.getByRole("button", { name: "G", exact: true }).click();
     await page.getByRole("button", { name: "掷探索骰并开始结算", exact: true }).click();
@@ -244,21 +240,21 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   // 真实种子 31 的八骰；同一英雄可先结算第二颗。
   await page.getByRole("button", { name: "hero-0:2 · Trap", exact: true }).click();
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("队伍尚未移动");
-  await expect(page.getByTestId("dungeon-provisions")).toContainText("tool-1");
-  await page.getByRole("button", { name: "使用 tool（tool-1）抵消", exact: true }).click();
+  await expect(page.getByTestId("dungeon-provisions")).toContainText("工具（仅探索）");
+  await page.getByRole("button", { name: "使用工具（仅探索）·1：抵消", exact: true }).click();
   const sequence = [
     "hero-0:1 · Stressful Darkness",
-    "使用 torch（torch-1）抵消",
+    "使用火把·1：抵消",
     "hero-1:1 · 空白",
     "hero-1:2 · Rubble",
-    "使用 tool（tool-2）抵消",
+    "使用工具（仅探索）·2：抵消",
     "hero-2:1 · Trap",
-    "使用 tool（tool-3）抵消",
+    "使用工具（仅探索）·3：抵消",
     "hero-2:2 · 空白",
     "hero-3:1 · Hunger",
-    "使用 food（food-1）抵消",
+    "使用食物·1：抵消",
     "hero-3:2 · Trap",
-    "使用 tool（tool-4）抵消",
+    "使用工具（仅探索）·4：抵消",
   ];
   for (const name of sequence) await page.getByRole("button", { name, exact: true }).click();
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已到达 D；Empty 已清理");
@@ -311,8 +307,8 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已从 D 离开地牢");
   await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 0");
   await expect(page.getByTestId("dungeon-provisions")).toHaveText("剩余补给：无");
-  await expect(page.getByRole("button", { name: "离开地牢", exact: true })).toBeDisabled();
-  await expect(page.getByRole("button", { name: "选择下一段探索", exact: true })).toBeDisabled();
+  await expect(page.getByRole("button", { name: "离开地牢", exact: true })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "选择下一段探索", exact: true })).toHaveCount(0);
   await page.getByRole("button", { name: "生成任务结算摘要", exact: true }).click();
   await expect(page.getByTestId("dungeon-quest-summary")).toContainText(
     "Scout Ahead I · 清理 2 / 6 间",
@@ -327,28 +323,26 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await page.getByRole("button", { name: "掷探索骰并开始结算" }).click();
   await page.getByRole("button", { name: "hero-0:1 · Curio", exact: true }).click();
   await expect(page.getByTestId("dungeon-curio")).toHaveCount(0);
-  await page
-    .getByRole("button", { name: "使用 torch（torch-1），抽卡前抑制负面效果", exact: true })
-    .click();
+  await page.getByRole("button", { name: "使用火把，抽卡前抑制负面效果", exact: true }).click();
   await expect(page.getByTestId("dungeon-curio")).toContainText("Sarcophagus · p21");
   await expect(page.getByTestId("dungeon-curio")).toContainText("抽卡前 已使用 Torch");
-  await expect(page.getByTestId("dungeon-provisions")).not.toContainText("torch-1");
+  await expect(page.getByTestId("dungeon-provisions")).not.toContainText("火把");
   await page.getByRole("button", { name: "结算当前 Curio" }).click();
   await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：10");
   const curioSequence = [
     "hero-0:2 · Rubble",
-    "使用 tool（tool-1）抵消",
+    "使用工具（仅探索）·1：抵消",
     "hero-1:1 · 空白",
     "hero-1:2 · Hunger",
-    "使用 food（food-1）抵消",
+    "使用食物·1：抵消",
     "hero-2:1 · Rubble",
-    "使用 tool（tool-2）抵消",
+    "使用工具（仅探索）·2：抵消",
     "hero-2:2 · Stressful Darkness",
     "承受 2 压力",
     "hero-3:1 · Rubble",
-    "使用 tool（tool-3）抵消",
+    "使用工具（仅探索）·3：抵消",
     "hero-3:2 · Rubble",
-    "使用 tool（tool-4）抵消",
+    "使用工具（仅探索）·4：抵消",
   ];
   for (const name of curioSequence) await page.getByRole("button", { name, exact: true }).click();
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已到达 D；Empty 已清理");
@@ -591,18 +585,18 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   for (const name of [
     "hero-1:1 · 空白",
     "hero-1:2 · Rubble",
-    "使用 tool（tool-1）抵消",
+    "使用工具（仅探索）·2：抵消",
     "hero-2:1 · Trap",
-    "使用 tool（tool-2）抵消",
+    "使用工具（仅探索）·3：抵消",
     "hero-2:2 · 空白",
     "hero-3:1 · Hunger",
-    "使用 food（food-1）抵消",
+    "使用食物·1：抵消",
     "hero-3:2 · Trap",
-    "使用 tool（tool-3）抵消",
+    "使用工具（仅探索）·4：抵消",
   ])
     await page.getByRole("button", { name, exact: true }).click();
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已到达 D；Empty 已清理");
-  await expect(page.getByTestId("dungeon-provisions")).toContainText("torch-1");
+  await expect(page.getByTestId("dungeon-provisions")).toContainText("火把");
   await page.getByRole("button", { name: "选择下一段探索" }).click();
   await page.getByRole("button", { name: "E", exact: true }).click();
   await page.getByRole("button", { name: "掷探索骰并开始结算" }).click();
@@ -629,7 +623,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 1 · 伤口 0/17");
   await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：5");
   await expect(page.getByRole("button", { name: "结算当前 Curio" })).toHaveCount(0);
-  await expect(page.getByTestId("dungeon-provisions")).toContainText("torch-1");
+  await expect(page.getByTestId("dungeon-provisions")).toContainText("火把");
   await page.screenshot({ path: testInfo.outputPath("curio-negative-status.png"), fullPage: true });
   await page.getByLabel("侦察测试布置").selectOption("curioBuff");
   for (const name of [
@@ -638,7 +632,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     "D",
     "掷探索骰并开始结算",
     "hero-0:1 · Curio",
-    "使用 torch（torch-1），抽卡前抑制负面效果",
+    "使用火把，抽卡前抑制负面效果",
   ])
     await page.getByRole("button", { name, exact: true }).click();
   await expect(page.getByTestId("dungeon-curio")).toContainText("Eldritch Altar · p2");
@@ -657,19 +651,17 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     "D",
     "掷探索骰并开始结算",
     "hero-0:1 · Curio",
-    "使用 torch（torch-1），抽卡前抑制负面效果",
+    "使用火把，抽卡前抑制负面效果",
     "结算当前 Curio",
   ])
     await page.getByRole("button", { name, exact: true }).click();
   await expect(page.getByTestId("dungeon-events")).toContainText("Wild");
   await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：10");
   await expect(page.getByRole("button", { name: "结算当前 Curio" })).toBeDisabled();
-  await page.getByRole("button", { name: "工具", exact: true }).click();
+  await page.getByRole("button", { name: "工具（仅探索）", exact: true }).click();
   await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：10");
   await expect(page.getByTestId("dungeon-curio")).toContainText("弃牌 1");
-  await expect(page.getByTestId("dungeon-provisions")).toContainText(
-    "curio-provision:curio:p008:hero-0:1",
-  );
+  await expect(page.getByTestId("dungeon-provisions")).toContainText("工具（仅探索）");
   await page.screenshot({ path: testInfo.outputPath("curio-provision-wild.png"), fullPage: true });
   await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 0 · 伤口 0/17");
   await expect(page.getByText(/布置 RNG 游标 39/)).toBeVisible();
@@ -681,7 +673,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     "D",
     "掷探索骰并开始结算",
     "hero-0:1 · Curio",
-    "使用 torch（torch-1），抽卡前抑制负面效果",
+    "使用火把，抽卡前抑制负面效果",
     "结算当前 Curio",
   ])
     await page.getByRole("button", { name, exact: true }).click();
@@ -699,20 +691,18 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     "D",
     "掷探索骰并开始结算",
     "hero-0:1 · Curio",
-    "使用 torch（torch-1），抽卡前抑制负面效果",
+    "使用火把，抽卡前抑制负面效果",
     "结算当前 Curio",
   ])
     await page.getByRole("button", { name, exact: true }).click();
   await expect(page.getByTestId("dungeon-curio")).toContainText("Altar of Light · p10");
   await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：5");
   await expect(page.getByRole("button", { name: "结算当前 Curio" })).toBeDisabled();
-  await page.getByRole("button", { name: "工具", exact: true }).click();
+  await page.getByRole("button", { name: "工具（仅探索）", exact: true }).click();
   await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：5");
   await expect(page.getByTestId("dungeon-curio")).toContainText("弃牌 1");
   await expect(page.getByText(/布置 RNG 游标 55/)).toBeVisible();
-  await expect(page.getByTestId("dungeon-provisions")).toContainText(
-    "curio-provision:curio:p010:hero-0:1",
-  );
+  await expect(page.getByTestId("dungeon-provisions")).toContainText("工具（仅探索）");
   await page.screenshot({
     path: testInfo.outputPath("curio-positive-provisions.png"),
     fullPage: true,
@@ -724,7 +714,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     "D",
     "掷探索骰并开始结算",
     "hero-0:1 · Curio",
-    "使用 torch（torch-1），抽卡前抑制负面效果",
+    "使用火把，抽卡前抑制负面效果",
     "结算当前 Curio",
   ])
     await page.getByRole("button", { name, exact: true }).click();
@@ -746,7 +736,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     "D",
     "掷探索骰并开始结算",
     "hero-0:1 · Curio",
-    "使用 torch（torch-1），抽卡前抑制负面效果",
+    "使用火把，抽卡前抑制负面效果",
     "结算当前 Curio",
   ])
     await page.getByRole("button", { name, exact: true }).click();
@@ -772,7 +762,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("dungeon-node-D")).toContainText("已清理");
   await expect(page.getByRole("button", { name: "离开地牢", exact: true })).toBeDisabled();
   await expect(page.getByTestId("dungeon-curio")).toHaveCount(0);
-  await page.getByRole("button", { name: "先使用 Torch（torch-1）", exact: true }).click();
+  await page.getByRole("button", { name: "先使用火把", exact: true }).click();
   await expect(page.getByTestId("dungeon-curio")).toContainText("Sarcophagus · p21");
   await expect(page.getByTestId("dungeon-curio")).toContainText("等待选择处理英雄");
   await expect(page.getByRole("button", { name: "结算当前 Curio", exact: true })).toBeDisabled();
@@ -912,7 +902,7 @@ test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场"
   await expect(page.getByTestId("dungeon-curio")).toContainText("弃牌 1");
   await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：10");
   await expect(page.getByTestId("dungeon-events")).toContainText("Curio获得疾病");
-  await expect(page.getByTestId("dungeon-provisions")).toContainText("torch-1");
+  await expect(page.getByTestId("dungeon-provisions")).toContainText("火把");
   await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 1");
   await page.getByLabel("侦察测试布置").selectOption("trap");
   await page.getByRole("button", { name: "重置 Radiant" }).click();
@@ -953,7 +943,7 @@ test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场"
   await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-1 压力 5 · 伤口 4/14");
   await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-2 压力 3 · 伤口 6/12");
   await expect(page.getByTestId("dungeon-room-resolution")).toContainText("全员完成，保留代币");
-  await expect(page.getByTestId("dungeon-provisions")).toContainText("tool-1");
+  await expect(page.getByTestId("dungeon-provisions")).toContainText("工具（仅探索）");
   await page.screenshot({ path: testInfo.outputPath("dungeon-trap-room.png"), fullPage: true });
   await page.getByLabel("侦察测试布置").selectOption("dark");
   for (const name of [
@@ -969,9 +959,9 @@ test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场"
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("Dark 已结算，保留代币");
   await expect(page.getByTestId("dungeon-node-D")).not.toContainText("已清理");
   await expect(page.getByText(/光照 4、DL 1/)).toBeVisible();
-  await page.getByRole("button", { name: "使用 Torch（torch-1）：光照 +1", exact: true }).click();
+  await page.getByRole("button", { name: "使用火把：光照 +1", exact: true }).click();
   await expect(page.getByText(/光照 5、DL 1/)).toBeVisible();
-  await expect(page.getByTestId("dungeon-provisions")).not.toContainText("torch-1");
+  await expect(page.getByTestId("dungeon-provisions")).not.toContainText("火把");
   for (const to of ["G", "D"]) {
     await page.getByRole("button", { name: "原路返回", exact: true }).click();
     await page.getByRole("button", { name: `返回 ${to}（全员压力 +1）`, exact: true }).click();

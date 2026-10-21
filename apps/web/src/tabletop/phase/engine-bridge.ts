@@ -13,6 +13,7 @@ export { adaptWorld as adaptGameStateToTabletopWorld };
 export type TabletopEngineBridge = {
   readonly game: GameState | null;
   readonly questSetupActive?: boolean;
+  readonly preEmbarkPhase?: FlowPhaseId;
 };
 
 export function resolveEffectiveFlowPhase(
@@ -21,12 +22,9 @@ export function resolveEffectiveFlowPhase(
   mockDefaultPhase: FlowPhaseId,
 ): FlowPhaseId {
   if (demoPhaseOverride) return demoPhaseOverride;
-  if (bridge.game) {
-    const opts = bridge.questSetupActive
-      ? { game: bridge.game, questSetupActive: bridge.questSetupActive }
-      : { game: bridge.game };
-    return resolveFlowPhase(opts);
-  }
+  if (bridge.preEmbarkPhase) return bridge.preEmbarkPhase;
+  if (bridge.questSetupActive) return "questSetup";
+  if (bridge.game) return resolveFlowPhase({ game: bridge.game });
   return mockDefaultPhase;
 }
 
@@ -35,6 +33,12 @@ export function resolveFlowStepText(
   demoPhaseOverride: FlowPhaseId | null,
   effectivePhase: FlowPhaseId,
 ): string {
+  if (bridge.preEmbarkPhase === "expeditionPrep" && !demoPhaseOverride) {
+    return "选定任务卡并掷开局补给骰，完成后进入遗迹探索";
+  }
+  if (bridge.questSetupActive && !demoPhaseOverride) {
+    return "选择模式与种子，为四名英雄选技能后前往出征准备";
+  }
   if (bridge.game && !demoPhaseOverride) {
     return dungeonFlowStep(bridge.game);
   }

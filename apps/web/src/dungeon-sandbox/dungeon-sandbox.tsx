@@ -1,4 +1,5 @@
 import { BattleView } from "../battle-view";
+import { TabletopFormalShell } from "../tabletop/tabletop-formal-shell";
 import { QuestSaveControls } from "./quest-save-controls";
 import { useDungeonStore } from "./store";
 import { DungeonHeader } from "./expedition/dungeon-header";
@@ -10,36 +11,43 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
     useDungeonStore();
   const d = game.dungeon!;
   const pendingChoice = d.deathTrinketChoice ?? d.replacementPreparation?.choice ?? d.pending;
-  if (game.battle)
-    return (
-      <>
-        {formal && (
-          <div className="shell">
-            <QuestSaveControls />
-          </div>
-        )}
-        <BattleView
-          game={game}
-          dispatch={dispatch}
-          events={events}
-          commands={commands}
-          layout="dungeon"
-          notice={events.map((e) => e.message).join("；")}
-        />
-      </>
-    );
-  return (
+  const hamletPhase = Boolean(d.hamlet);
+  const questReturnPhase = Boolean(d.hamletReturn || d.phase === "exited");
+  const showDungeonMap = !hamletPhase && !(formal && questReturnPhase);
+  const body = game.battle ? (
+    <>
+      {formal && <QuestSaveControls />}
+      <BattleView
+        game={game}
+        dispatch={dispatch}
+        events={events}
+        commands={commands}
+        layout="dungeon"
+        notice={events.map((e) => e.message).join("；")}
+      />
+    </>
+  ) : (
     <main className="shell">
       {formal && <QuestSaveControls />}
-      <DungeonHeader game={game} formal={formal} page={page} fixture={fixture} preview={preview} />
-      <QuestMapPanel
-        game={game}
-        formal={formal}
-        page={page}
-        fixture={fixture}
-        preview={preview}
-        select={select}
-      />
+      {showDungeonMap && (
+        <DungeonHeader
+          game={game}
+          formal={formal}
+          page={page}
+          fixture={fixture}
+          preview={preview}
+        />
+      )}
+      {showDungeonMap && (
+        <QuestMapPanel
+          game={game}
+          formal={formal}
+          page={page}
+          fixture={fixture}
+          preview={preview}
+          select={select}
+        />
+      )}
       {!preview && (
         <ScoutingPanel
           game={game}
@@ -53,4 +61,23 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
       )}
     </main>
   );
+  if (formal) return <TabletopFormalShell>{body}</TabletopFormalShell>;
+  if (game.battle) {
+    return (
+      <>
+        <div className="shell">
+          <QuestSaveControls />
+        </div>
+        <BattleView
+          game={game}
+          dispatch={dispatch}
+          events={events}
+          commands={commands}
+          layout="dungeon"
+          notice={events.map((e) => e.message).join("；")}
+        />
+      </>
+    );
+  }
+  return body;
 }
