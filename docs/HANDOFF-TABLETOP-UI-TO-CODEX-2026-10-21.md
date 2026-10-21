@@ -1,5 +1,7 @@
 # DDBG · Tabletop UI 交接给 Codex（2026-10-21，Asia/Shanghai）
 
+> **已被 [HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md) 取代（tip `b051c9b`）。** 下文仅作 T0–T3 时期背景留存。
+
 > **读者**：即将接手的 Codex（或其他本地编码代理）。  
 > **作者**：DDBG·桌游 UI（Grok Bot 侧 UI 协调）。  
 > **仓库 tip**：main **`0e72e33`**（合并 [PR #273](https://github.com/Alpaca-go/ddbg-web/pull/273) 之后）。  
