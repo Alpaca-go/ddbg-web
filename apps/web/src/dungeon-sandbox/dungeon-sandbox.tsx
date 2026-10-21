@@ -13,7 +13,7 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
   const pendingChoice = d.deathTrinketChoice ?? d.replacementPreparation?.choice ?? d.pending;
   const hamletPhase = Boolean(d.hamlet);
   const questReturnPhase = Boolean(d.hamletReturn || d.phase === "exited");
-  const showDungeonMap = !hamletPhase && !questReturnPhase;
+  const showDungeonMap = !hamletPhase && !(formal && questReturnPhase);
   const body = game.battle ? (
     <>
       {formal && <QuestSaveControls />}
@@ -30,7 +30,13 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
     <main className="shell">
       {formal && <QuestSaveControls />}
       {showDungeonMap && (
-        <DungeonHeader game={game} formal={formal} page={page} fixture={fixture} preview={preview} />
+        <DungeonHeader
+          game={game}
+          formal={formal}
+          page={page}
+          fixture={fixture}
+          preview={preview}
+        />
       )}
       {showDungeonMap && (
         <QuestMapPanel

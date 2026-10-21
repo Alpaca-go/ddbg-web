@@ -42,6 +42,11 @@ export function humanizeChoiceOptionLabel(label: string, optionId?: string): str
     return provisionLabels[optionId as keyof typeof provisionLabels];
   }
   if (optionId?.startsWith("use:")) {
+    const tail = optionId.slice("use:".length).split(":").pop() ?? "";
+    const short = /^([a-z]+)-(\d+)$/.exec(tail);
+    if (short && text.endsWith("抵消")) {
+      text = text.replace(/抵消$/, `·${short[2]}：抵消`);
+    }
     return text || "使用补给";
   }
   return text || label;
@@ -55,6 +60,9 @@ export function formatProvisionUseButton(
 }
 
 export function formatProvisionInventoryLine(face: string, count: number): string {
-  const name = face in provisionLabels ? provisionLabels[face as keyof typeof provisionLabels] : faceLabel(face);
+  const name =
+    face in provisionLabels
+      ? provisionLabels[face as keyof typeof provisionLabels]
+      : faceLabel(face);
   return count > 1 ? `${name}×${count}` : name;
 }

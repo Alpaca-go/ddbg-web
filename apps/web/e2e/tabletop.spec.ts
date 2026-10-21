@@ -32,7 +32,7 @@ test("桌面原型：阶段导航与 mock 阶段切换", async ({ page }) => {
 
   await expect(page.getByTestId("phase-breadcrumb")).toBeVisible();
   await expect(page.getByTestId("phase-crumb-battle")).toHaveAttribute("aria-current", "step");
-  await expect(page.getByTestId("dungeon-checkpoint")).toBeVisible();
+  await expect(page.getByTestId("tabletop-flow-step")).toBeVisible();
   await expect(page.getByTestId("debug-drawer-body")).toHaveCount(0);
 
   await page

@@ -1,4 +1,20 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
+
+async function stanceLabelForChip(chip: ReturnType<Page["locator"]>): Promise<string> {
+  return chip.evaluate((el) => {
+    const col = el.closest("[data-stance]");
+    return col?.querySelector(".stance-label")?.textContent?.trim() ?? "";
+  });
+}
+
+async function currentActorStanceLabel(page: Page): Promise<string> {
+  const chip = page.locator(".stance-entity-chip").filter({ hasText: "← 当前" });
+  return stanceLabelForChip(chip);
+}
+
+async function heroStanceLabel(page: Page, heroTestId: string): Promise<string> {
+  return stanceLabelForChip(page.getByTestId(heroTestId));
+}
 
 test("加载获批数据，多目标治疗共用一骰且选择不会跨区域残留", async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 1440, height: 1050 });
@@ -445,11 +461,7 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
           lootUsed = true;
           continue;
         }
-        const stance = await page
-          .locator(".stance-slot")
-          .filter({ hasText: "← 当前" })
-          .locator(":scope > span")
-          .innerText();
+        const stance = await currentActorStanceLabel(page);
         if (formal) {
           const hero = turn.split(" · ")[0]!;
           if (!heroSkillsUsed.has(hero)) {
@@ -625,12 +637,7 @@ test("位移分岔冻结其他行动，选择后续接一次并可重放", async
   await expect(page.getByRole("button", { name: "使用技能", exact: true })).toBeDisabled();
   await page.getByRole("button", { name: "结算位移", exact: true }).click();
   await expect(page.getByTestId("entity-hero-2")).toContainText("区域 E");
-  await expect(
-    page
-      .locator(".stance-slot")
-      .filter({ has: page.getByTestId("entity-hero-2") })
-      .locator("span"),
-  ).toHaveText("进攻");
+  expect(await heroStanceLabel(page, "entity-hero-2")).toBe("进攻");
   await expect(page.getByTestId("turn-status")).toHaveText("等待抽取先攻");
   await expect(page.getByTestId("rng-status")).toContainText("RNG 游标 5");
   await expect(page.getByRole("region", { name: "战斗日志" })).not.toContainText("拒绝");

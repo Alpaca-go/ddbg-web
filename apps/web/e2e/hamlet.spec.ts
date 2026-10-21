@@ -522,11 +522,13 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
   await page.getByRole("button", { name: "访问游商马车I：陈列与购买饰品", exact: true }).click();
-  const display = await page.getByTestId("nomad-display").innerText();
+  const nomadDisplayText = async () =>
+    (await page.getByTestId("nomad-display").innerText()).replace(/\s+/g, " ").trim();
+  const display = await nomadDisplayText();
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
-  await expect(page.getByTestId("nomad-display")).toHaveText(display);
+  expect(await nomadDisplayText()).toBe(display);
   await page
     .getByRole("button", { name: /^购买 / })
     .first()
@@ -563,13 +565,13 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
   await page.getByRole("button", { name: "访问游商马车I：陈列与购买饰品", exact: true }).click();
-  const saleDisplay = await page.getByTestId("nomad-display").innerText();
+  const saleDisplay = await nomadDisplayText();
   await page.getByRole("button", { name: /^出售 / }).click();
   await expect(page.getByTestId("dungeon-gold")).toHaveText(
     `共享金币：${nomadSale.game.dungeon!.gold + 2}`,
   );
   await expect(page.getByRole("button", { name: /^出售 / })).toHaveCount(0);
-  await expect(page.getByTestId("nomad-display")).toHaveText(saleDisplay);
+  expect(await nomadDisplayText()).toBe(saleDisplay);
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*CRUSADER/);
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   const saleSnapshot = await page.evaluate(
