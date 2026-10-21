@@ -1936,11 +1936,6 @@
   gap: 0.3rem;
   font-size: 0.68rem;
 }
-.tt-battle-actions fieldset[data-action-group="skills"] > button {
-  position: sticky;
-  bottom: 0;
-  z-index: 1;
-}
 .tt-battle-actions__body {
   display: flex;
   flex-direction: column;

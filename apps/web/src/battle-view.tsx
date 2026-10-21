@@ -631,7 +631,7 @@ export function BattleView({
                     </div>
                   ))}
                 </div>
-                <label>
+                <label hidden={formal}>
                   技能
                   <select
                     aria-label="技能"
