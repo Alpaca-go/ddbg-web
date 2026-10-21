@@ -146,7 +146,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     path: testInfo.outputPath("hamlet-preparation-complete.png"),
     fullPage: true,
   });
-  await page.goto("/");
+  await page.goto("/?view=battle");
   await page.getByRole("link", { name: "打开 Phase 3 布局与侦察沙盒" }).click();
   await expect(page.getByRole("heading", { name: "地牢布局与侦察" })).toBeVisible();
   await page.getByLabel("侦察测试布置").selectOption("navigationProvisions");

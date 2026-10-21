@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test("加载获批数据，多目标治疗共用一骰且选择不会跨区域残留", async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 1440, height: 1050 });
-  await page.goto("/");
+  await page.goto("/?view=battle");
   await expect(page).toHaveTitle("暗黑地牢桌游");
   await expect(page.getByRole("heading", { name: "暗黑地牢桌游" })).toBeVisible();
   await expect(page.getByTestId("turn-status")).toHaveText("尚未开始");
@@ -331,7 +331,7 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
 test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致", async ({ page }, testInfo) => {
   test.setTimeout(150000);
   await page.setViewportSize({ width: 1440, height: 1050 });
-  await page.goto("/");
+  await page.goto("/?view=battle");
   async function win() {
     await page.getByRole("button", { name: "开始战斗", exact: true }).click();
     await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
@@ -563,7 +563,7 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
 });
 
 test("位移分岔冻结其他行动，选择后续接一次并可重放", async ({ page }, testInfo) => {
-  await page.goto("/");
+  await page.goto("/?view=battle");
   await page.getByLabel("测试布置", { exact: true }).selectOption("shuffle");
   async function choose(seed: string, area: string) {
     await page.getByLabel("种子", { exact: true }).fill(seed);

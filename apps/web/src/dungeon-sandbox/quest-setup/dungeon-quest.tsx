@@ -38,9 +38,9 @@ export function DungeonQuest() {
       <header className="topbar">
         <div>
           <p className="eyebrow">DDBG · PHASE 4</p>
-          <h1>开始地牢任务</h1>
+          <h1>开局建队</h1>
           <p>正式八英雄开局四人 · I级遗迹 · 单设备1–4人轮流操作</p>
-          <a href="/">返回战斗沙盒</a>
+          <a href="/?view=battle">打开战斗沙盒</a>
         </div>
       </header>
       <section className="panel">

@@ -47,7 +47,7 @@ export function DungeonHeader({
             </p>
           </>
         )}
-        <a href="/">返回战斗沙盒</a>
+        <a href="/?view=battle">返回战斗沙盒</a>
       </div>
     </header>
   );
