@@ -1810,3 +1810,145 @@
 .tt-init--formal .tt-init__revealed {
   flex-wrap: wrap;
 }
+
+/* S3：正式行动控件进入底栏；只有底栏内容滚动，中央战场保留位置。 */
+.tt-dock--formal-battle,
+.tt-battle-action-host,
+.tt-battle-actions {
+  min-height: 0;
+  height: 100%;
+  min-width: 0;
+}
+.tt-battle-actions {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+}
+.tt-battle-actions__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1rem;
+  padding: 0.35rem 0.5rem;
+  border-bottom: 1px solid var(--tt-panel-edge);
+}
+.tt-battle-actions__header [role="tablist"] {
+  display: flex;
+  gap: 0.3rem;
+}
+.tt-battle-actions button {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+.tt-battle-actions [role="tab"][aria-selected="true"] {
+  background: var(--tt-gold);
+  color: #181612;
+}
+.tt-battle-actions__body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0.4rem 0.5rem;
+}
+.tt-battle-actions__body > h2,
+.tt-battle-actions [data-action-group] {
+  display: none;
+}
+.tt-battle-actions[data-active-tab="skills"] [data-action-group="skills"],
+.tt-battle-actions[data-active-tab="move"] [data-action-group="move"],
+.tt-battle-actions[data-active-tab="stance"] [data-action-group="stance"],
+.tt-battle-actions[data-active-tab="loot"] [data-action-group="loot"],
+.tt-battle-actions[data-active-tab="provisions"] [data-action-group="provisions"] {
+  display: block;
+}
+.tt-battle-actions fieldset {
+  min-width: 0;
+  padding: 0.4rem;
+  margin: 0 0 0.4rem;
+}
+.tt-battle-actions label,
+.tt-battle-actions .muted,
+.tt-battle-actions select {
+  font-size: 0.75rem;
+}
+.tt-battle-actions select {
+  max-width: 100%;
+}
+.tt-battle-actions .skill-hand {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  margin: 0 0 0.4rem;
+  padding: 0.25rem;
+}
+.tt-battle-actions .battle-skill-wrap {
+  position: relative;
+  flex: 0 0 7.5rem;
+}
+.tt-battle-actions .card-face--sm {
+  width: 100%;
+}
+.tt-battle-actions .card-face__print {
+  object-fit: contain;
+}
+.tt-battle-actions .card-face__caption {
+  font-size: 0.65rem;
+}
+.tt-battle-actions .battle-skill-wrap[data-used="true"] {
+  opacity: 0.55;
+}
+.tt-battle-actions .tt-battle-skill-detail > .card-face,
+.tt-battle-actions .monster-card-face {
+  max-width: 9rem;
+}
+.tt-battle-actions[data-active-tab="skills"] fieldset[data-action-group="skills"] {
+  display: grid;
+  grid-template-columns: minmax(22rem, 1fr) minmax(0, 1fr);
+  gap: 0.3rem 0.75rem;
+}
+.tt-battle-actions fieldset[data-action-group="skills"] > * {
+  grid-column: 2;
+}
+.tt-battle-actions fieldset[data-action-group="skills"] > .skill-hand {
+  grid-column: 1;
+  grid-row: 1 / span 10;
+  align-items: start;
+}
+.tt-battle-actions .skill-hand .card-face__print,
+.tt-battle-actions .skill-hand .card-face__placeholder {
+  aspect-ratio: 28 / 19;
+  height: auto;
+}
+.tt-battle-actions .tt-battle-requirements {
+  font-size: 0.7rem;
+}
+.tt-battle-actions .tt-battle-skill-detail summary {
+  cursor: pointer;
+}
+.tt-battle-actions label {
+  margin-bottom: 0.15rem;
+}
+.tt-battle-actions .skill-hand {
+  flex-wrap: nowrap;
+}
+.tt-battle-actions .target-options label {
+  align-items: start;
+  gap: 0.3rem;
+  font-size: 0.68rem;
+}
+.tt-battle-actions__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.tt-battle-actions__body > * {
+  flex-shrink: 0;
+}
+.tt-battle-actions__body > .choice,
+.tt-battle-actions__body > .monster-controls,
+.tt-battle-actions__body > button {
+  order: -1;
+}
+.tt-battle-actions__body > button {
+  align-self: start;
+}

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("S2：正式探索遇敌同页展开，先攻只读且 1280 无横向溢出", async ({ page }, testInfo) => {
+test("S2/S3：正式同页战斗与底栏技能、分页和移动", async ({ page }, testInfo) => {
   test.setTimeout(120_000);
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto("/");
@@ -63,6 +63,44 @@ test("S2：正式探索遇敌同页展开，先攻只读且 1280 无横向溢出
   ).toHaveText("1");
   await click("结算回合开始效果");
   await expect(page.getByTestId("turn-status")).toContainText(/剩余 .* 行动|怪物回合/);
+  const dock = page.getByTestId("tabletop-action-dock");
+  await expect(page.getByTestId("tabletop-draw-initiative")).toHaveCount(0);
+  await expect(dock.getByRole("complementary", { name: "行动面板" })).toBeVisible();
+  await expect(page.getByTestId("tabletop-formal-center").getByLabel("行动面板")).toHaveCount(0);
+  const hand = dock.getByRole("listbox", { name: "手牌技能" });
+  await expect(hand.getByRole("button")).toHaveCount(3);
+  const skillTab = dock.getByRole("tab", { name: "技能", exact: true });
+  await skillTab.focus();
+  await skillTab.press("ArrowRight");
+  await expect(dock.getByRole("tab", { name: "移动", exact: true })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  await dock.getByRole("tab", { name: "移动", exact: true }).press("ArrowLeft");
+  await expect(skillTab).toHaveAttribute("aria-selected", "true");
+  await hand.getByRole("button", { name: "Zealous Accusation I", exact: true }).click();
+  await expect(dock.getByRole("group", { name: "同区目标" })).toBeVisible();
+  for (const [tab, legend] of [
+    ["移动", "移动 · Speed"],
+    ["换姿态", "向后换姿态"],
+    ["战利品", "拾取同区宝箱"],
+    ["补给", "免费使用补给"],
+  ]) {
+    await dock.getByRole("tab", { name: tab!, exact: true }).click();
+    await expect(dock.getByRole("tabpanel")).toContainText(legend!);
+    await expect(hand).not.toBeVisible();
+  }
+  await dock.getByRole("tab", { name: "技能", exact: true }).click();
+  await hand.getByRole("button", { name: "Smite I", exact: true }).click();
+  await hand.getByRole("button", { name: "Zealous Accusation I", exact: true }).click();
+  await dock.getByLabel("选择空区域", { exact: true }).check();
+  await dock.getByLabel("空区域", { exact: true }).selectOption("I6");
+  await dock.getByRole("button", { name: "使用技能", exact: true }).click();
+  await expect(page.getByTestId("turn-status")).toContainText("剩余 1 行动");
+  await expect(
+    hand.getByRole("button", { name: "Zealous Accusation I", exact: true }),
+  ).toBeDisabled();
+  await expect(hand).toContainText("本回合已用");
   for (const width of [1280, 1920]) {
     await page.setViewportSize({ width, height: width === 1280 ? 800 : 1080 });
     await page.locator(".tt-formal-center__scroll").evaluate((node) => {
@@ -71,11 +109,18 @@ test("S2：正式探索遇敌同页展开，先攻只读且 1280 无横向溢出
     const overflow = await page.evaluate(() =>
       [
         ...document.querySelectorAll(
-          ".tt-root, .tt-formal-center__scroll, .shell--formal-battle, .shell--formal-battle .workspace, .shell--formal-battle .area-grid",
+          ".tt-root, .tt-formal-center__scroll, .shell--formal-battle, .shell--formal-battle .workspace, .shell--formal-battle .area-grid, .tt-battle-actions__body",
         ),
       ].some((node) => node.scrollWidth > node.clientWidth + 1),
     );
     expect(overflow).toBe(false);
-    await page.screenshot({ path: testInfo.outputPath(`s2-battle-${width}.png`) });
+    await page.screenshot({ path: testInfo.outputPath(`s3-battle-${width}.png`) });
   }
+  await dock.getByRole("tab", { name: "移动", exact: true }).click();
+  await dock.getByRole("button", { name: "前往 I6", exact: true }).click();
+  await dock.getByRole("button", { name: "确认移动", exact: true }).click();
+  await expect(page.getByTestId("entity-hero-0")).toContainText("区域 I6");
+  await expect(page.getByTestId("turn-status")).toHaveText("等待抽取先攻");
+  await expect(hand).toHaveCount(0);
+  await expect(dock.getByRole("button", { name: "抽取先攻", exact: true })).toBeVisible();
 });

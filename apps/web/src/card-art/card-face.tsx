@@ -19,12 +19,14 @@ export function CardFace({
   size = "md",
   selected = false,
   onSelect,
+  disabled = false,
 }: {
   readonly skillId: string;
   readonly label?: string;
   readonly size?: Size;
   readonly selected?: boolean;
   readonly onSelect?: () => void;
+  readonly disabled?: boolean;
 }) {
   const printEntry = lookupPrintHeroSkillFace(skillId);
   const caption =
@@ -66,6 +68,7 @@ export function CardFace({
         data-card-art={failed ? "placeholder" : "print"}
         aria-pressed={selected}
         aria-label={caption}
+        disabled={disabled}
         onClick={onSelect}
       >
         {body}

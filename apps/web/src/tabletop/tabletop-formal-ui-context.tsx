@@ -1,6 +1,7 @@
 import { createContext, useContext, type ReactNode } from "react";
 
 export type TabletopFormalUiApi = {
+  readonly battleActionHost: HTMLDivElement | null;
   readonly selectRoomCard: (roomCardId: string) => void;
   readonly selectRoomNode: (roomNodeId: string) => void;
 };
