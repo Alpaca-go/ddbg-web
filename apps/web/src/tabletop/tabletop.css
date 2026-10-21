@@ -1670,3 +1670,143 @@
     width: 7.25rem;
   }
 }
+
+/* S2：正式战斗保持地牢外壳，战场与行动纵向排布。 */
+.shell--formal-battle > .topbar[hidden] {
+  display: none;
+}
+.tt-formal-center__scroll:has(.shell--formal-battle) > [aria-label="任务存档"] {
+  padding: 0.25rem 0.5rem;
+}
+.tt-formal-center__scroll:has(.shell--formal-battle) > [aria-label="任务存档"] button {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.72rem;
+}
+.tt-root--formal .shell--formal-battle {
+  padding: 0.45rem;
+  margin: 0;
+}
+.shell--formal-battle .workspace {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.65rem;
+}
+.shell--formal-battle .panel {
+  min-width: 0;
+  padding: 0.65rem;
+}
+.shell--formal-battle .board > h2 {
+  margin-bottom: 0.3rem;
+}
+.shell--formal-battle .board > .muted {
+  font-size: 0.7rem;
+}
+.shell--formal-battle .statusbar {
+  padding: 0.4rem;
+  font-size: 0.75rem;
+  flex-wrap: wrap;
+}
+.shell--formal-battle .step-hint,
+.shell--formal-battle .notice {
+  margin: 0.35rem 0;
+  padding: 0.4rem;
+  font-size: 0.75rem;
+}
+.shell--formal-battle .area-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+}
+.shell--formal-battle .area {
+  padding: 0.5rem;
+  min-width: 0;
+  min-height: 5rem;
+  overflow-wrap: break-word;
+}
+.shell--formal-battle .area li {
+  overflow-wrap: normal;
+}
+.shell--formal-battle .actions fieldset,
+.shell--formal-battle .actions select {
+  min-width: 0;
+  max-width: 100%;
+}
+.shell--formal-battle .skill-hand {
+  flex-wrap: wrap;
+}
+.tt-battle-stances {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+.tt-battle-stances__side > h3 {
+  font-size: 0.75rem;
+  margin-bottom: 0.25rem;
+  color: var(--tt-gold);
+}
+.tt-battle-stances__slots {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+.tt-battle-stances__slot {
+  min-width: 0;
+  padding: 0.35rem;
+  border: 1px solid var(--tt-panel-edge);
+  border-radius: 4px;
+  background: #181612;
+  font-size: 0.72rem;
+  overflow-wrap: break-word;
+}
+.tt-battle-stances__slot h4 {
+  margin-bottom: 0.25rem;
+  color: #c4bdb0;
+}
+.tt-battle-stances__slot summary {
+  cursor: pointer;
+}
+.tt-battle-stances__slot summary span {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.68rem;
+}
+.tt-battle-stances__slot .stance-entity-chip {
+  display: block;
+  margin-top: 0.4rem;
+}
+.tt-battle-stances__slot .stance-hero-token {
+  max-width: 3rem;
+}
+.tt-init--formal {
+  min-height: 0;
+  overflow: auto;
+}
+.tt-init__round-track {
+  display: flex;
+  list-style: none;
+  gap: 0.3rem;
+  padding: 0;
+  margin: 0.4rem 0;
+}
+.tt-init__round-track li {
+  flex: 1;
+  text-align: center;
+  border: 1px solid var(--tt-panel-edge);
+  border-radius: 3px;
+}
+.tt-init__round-track [aria-current="step"] {
+  background: var(--tt-gold);
+  color: #181612;
+}
+.tt-init--formal .tt-init__deck {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.tt-init--formal .tt-init__deck-back {
+  width: 4rem;
+  min-height: 3rem;
+}
+.tt-init--formal .tt-init__revealed {
+  flex-wrap: wrap;
+}

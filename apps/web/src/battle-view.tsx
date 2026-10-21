@@ -31,6 +31,7 @@ export function BattleView({
   events,
   commands,
   notice,
+  formal = false,
 }: {
   game: GameState;
   dispatch: (command: Command) => void;
@@ -39,6 +40,7 @@ export function BattleView({
   events: readonly GameEvent[];
   commands: readonly Command[];
   notice: string;
+  formal?: boolean;
 }) {
   const [seed, setSeed] = useState("1");
   const [selectedLayout, setSelectedLayout] = useState<SandboxLayout>("basic");
@@ -164,8 +166,8 @@ export function BattleView({
           (turn.type === "monster" && !!action?.positioned))));
 
   return (
-    <main className="shell">
-      <header className="topbar">
+    <main className={`shell ${formal ? "shell--formal-battle" : ""}`}>
+      <header className="topbar" hidden={formal}>
         <div>
           <p className="eyebrow">DDBG · {layout === "dungeon" ? "PHASE 3" : "PHASE 2"}</p>
           <h1>暗黑地牢桌游</h1>
@@ -229,18 +231,19 @@ export function BattleView({
           </form>
         )}
       </header>
-      {layout === "dungeon" && (
-        <p className="sandbox-note">
-          真实房间部署 · 每名英雄装备三个 I 级技能；战后保留状态与补给。
-          {(turn?.type === "finished" ||
-            (turn?.type === "halted" && turn.reason === "heroesDefeated")) &&
-            !game.dungeon?.campaignFailure && (
-              <button onClick={() => send({ type: "finishDungeonBattle" })}>
-                {turn.type === "halted" ? "结算英雄全灭" : "返回地牢地图"}
-              </button>
-            )}
-        </p>
-      )}
+      {layout === "dungeon" &&
+        (!formal || turn?.type === "finished" || turn?.type === "halted") && (
+          <p className="sandbox-note">
+            {!formal && "真实房间部署 · 每名英雄装备三个 I 级技能；战后保留状态与补给。"}
+            {(turn?.type === "finished" ||
+              (turn?.type === "halted" && turn.reason === "heroesDefeated")) &&
+              !game.dungeon?.campaignFailure && (
+                <button onClick={() => send({ type: "finishDungeonBattle" })}>
+                  {turn.type === "halted" ? "结算英雄全灭" : "返回地牢地图"}
+                </button>
+              )}
+          </p>
+        )}
       {layout !== "dungeon" && (
         <p className="sandbox-note">
           {layout.startsWith("formal")
@@ -275,7 +278,7 @@ export function BattleView({
       <p className="step-hint" data-testid="step-hint">
         <strong>{step.label}</strong> · {step.hint}
       </p>
-      <p className="notice" role="status">
+      <p className="notice" role="status" hidden={formal && !notice}>
         {notice}
       </p>
       <div className="workspace">
@@ -286,6 +289,14 @@ export function BattleView({
           <p className="muted">
             区域卡片顺序不表示空间相邻；移动使用本房间下列已核实连接，不能穿过黑墙或空隙。
           </p>
+          {formal && (
+            <BattleStanceTrack
+              battle={battle}
+              entityName={entityName}
+              actorId={actor?.id}
+              compact
+            />
+          )}
           <div className="area-grid">
             {battle.areas.map((area) => {
               const occupants = battle.entities.filter((e) => !e.dead && e.areaId === area.id);
@@ -363,7 +374,9 @@ export function BattleView({
               );
             })}
           </div>
-          <BattleStanceTrack battle={battle} entityName={entityName} actorId={actor?.id} />
+          {!formal && (
+            <BattleStanceTrack battle={battle} entityName={entityName} actorId={actor?.id} />
+          )}
         </section>
         <aside className="panel actions" aria-label="行动面板">
           <h2>行动面板</h2>

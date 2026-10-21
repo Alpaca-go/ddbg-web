@@ -14,6 +14,7 @@ import { TabletopActionDock } from "./sections/tabletop-action-dock";
 import { TabletopControlRail } from "./sections/tabletop-control-rail";
 import { TabletopDetailPanel } from "./sections/tabletop-detail-panel";
 import { TabletopInitiativePanel } from "./sections/tabletop-initiative-panel";
+import { FormalBattleInitiative } from "./sections/formal-battle-initiative";
 import { TabletopPartyColumn } from "./sections/tabletop-party-column";
 import { TabletopTopBar } from "./sections/tabletop-top-bar";
 import { createTabletopInitialState } from "./tabletop-initial-state";
@@ -271,12 +272,16 @@ export function TabletopFormalShell({
           entityName={entityName}
         />
 
-        <TabletopInitiativePanel
-          phase={flowPhase}
-          initiativeCaption={plan.initiative}
-          battle={state.battle}
-          turnHero={turnHero}
-        />
+        {flowPhase === "battle" && engineGame?.battle ? (
+          <FormalBattleInitiative encounter={engineGame.battle.encounter} entityName={entityName} />
+        ) : (
+          <TabletopInitiativePanel
+            phase={flowPhase}
+            initiativeCaption={plan.initiative}
+            battle={state.battle}
+            turnHero={turnHero}
+          />
+        )}
 
         <TabletopActionDock
           phase={flowPhase}
