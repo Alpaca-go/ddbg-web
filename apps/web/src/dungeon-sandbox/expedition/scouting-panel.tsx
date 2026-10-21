@@ -36,9 +36,11 @@ export function ScoutingPanel({
   formal,
   reset,
   pendingChoice,
+  layout = "panel",
 }: DungeonViewProps & {
   reset: (mode: DungeonState["mode"]) => void;
   pendingChoice: PendingChoice | null | undefined;
+  layout?: "panel" | "tabletop";
 }) {
   const [provisionTarget, setProvisionTarget] = useState("hero-0");
   const d = game.dungeon!;
@@ -179,9 +181,13 @@ export function ScoutingPanel({
     );
   }
 
+  const tabletop = formal && layout === "tabletop";
+  const PanelTag = tabletop ? "div" : "section";
+  const panelClass = tabletop ? "tt-scouting-tabletop panel" : "panel";
+
   return (
-    <section className="panel">
-      <h2>侦察流程</h2>
+    <PanelTag className={panelClass}>
+      {!tabletop && <h2>侦察流程</h2>}
       <DungeonStanceOrder game={game} dispatch={dispatch} />
       {d.mustLeaveRoomId === d.position && (
         <p>战斗按逃跑收尾：本房间未清理，须先离开才能再次进入（R25）。</p>
@@ -590,6 +596,6 @@ export function ScoutingPanel({
       <p className="muted">
         命令 {commands.length} · 布置 RNG 游标 {d.cursor} · 探索按当前光照结算
       </p>
-    </section>
+    </PanelTag>
   );
 }

@@ -1,5 +1,6 @@
 import type { GameState } from "@ddbg/engine";
 import { basicQuests } from "../../../../../packages/data/src/basic-quests";
+import { questXpProgressShort } from "../../dungeon-sandbox/formal/quest-objective-line";
 import type { TabletopQuestMeta } from "../tabletop-types";
 
 /** 从引擎地牢状态投影顶栏/详情用任务元数据（缺字段用「—」，不编造数值）。 */
@@ -20,7 +21,7 @@ export function adaptQuestMetaFromGame(game: GameState): Partial<TabletopQuestMe
     locationLabel: "—",
     dungeonLevel: quest.level ? `DL ${quest.level === 1 ? "I" : quest.level}` : "—",
     actLabel: d?.campaignLevel ? `第 ${d.campaignLevel} 幕` : "—",
-    xpProgress: "—",
+    xpProgress: questXpProgressShort(game),
     roomsCleared: cleared,
     roomTotal: roomTotal > 0 ? roomTotal : 0,
     layoutId: `quest_map:${mapKey}`,

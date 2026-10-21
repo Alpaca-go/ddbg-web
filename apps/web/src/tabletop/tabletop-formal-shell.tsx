@@ -21,6 +21,8 @@ import type { TabletopDetailTargetKind } from "./tabletop-detail-types";
 import type { TabletopHeroState, TabletopQuestMeta, TabletopState } from "./tabletop-types";
 import { mergeTabletopDisplayState } from "./use-tabletop-display-state";
 import { useTabletopEntityName } from "./use-tabletop-entity-name";
+import { TabletopFormalUiProvider } from "./tabletop-formal-ui-context";
+import { questObjectiveProgressLine } from "../dungeon-sandbox/formal/quest-objective-line";
 import "./tabletop.css";
 
 type FormalUiAction =
@@ -175,103 +177,141 @@ export function TabletopFormalShell({
   const selectQuest = useCallback((questCardId: string) => {
     dispatchUi({ type: "selectDetail", kind: "quest", targetId: questCardId });
   }, []);
+  const selectRoomCard = useCallback((roomCardId: string) => {
+    dispatchUi({ type: "selectDetail", kind: "room", targetId: roomCardId });
+  }, []);
+  const selectRoomNode = useCallback(
+    (roomNodeId: string) => {
+      const active = engineGame?.dungeon?.roomCards?.active;
+      const position = engineGame?.dungeon?.position;
+      if (active?.cardId && position === roomNodeId) {
+        dispatchUi({ type: "selectDetail", kind: "room", targetId: active.cardId });
+      }
+    },
+    [engineGame],
+  );
   const toggleLog = useCallback(() => dispatchUi({ type: "toggleLog" }), []);
   const toggleAtmosphere = useCallback(() => dispatchUi({ type: "toggleAtmosphere" }), []);
 
+  const storeEvents = useDungeonStore((s) => s.events);
+  const logLines = useMemo(() => {
+    if (!engineGame || !storeEvents.length) return state.logLines;
+    return storeEvents.map((e, index) => {
+      const text =
+        e.type === "resolveTested"
+          ? `${e.entityId}：d10 ${e.roll}，意志检定`
+          : ((e as { message?: string }).message ?? e.type);
+      return { id: `engine-log-${index}`, text };
+    });
+  }, [engineGame, storeEvents, state.logLines]);
+
+  const formalUiApi = useMemo(
+    () => ({ selectRoomCard, selectRoomNode }),
+    [selectRoomCard, selectRoomNode],
+  );
+
+  const explorationObjective =
+    engineGame && flowPhase === "dungeonExploration"
+      ? questObjectiveProgressLine(engineGame)
+      : null;
+
   return (
-    <div
-      className={[
-        "tt-root",
-        "tt-root--formal",
-        state.ui.atmosphereEnabled ? "tt-root--atmosphere" : "tt-root--flat",
-        `tt-root--phase-${flowPhase}`,
-      ].join(" ")}
-      data-testid="tabletop-view"
-      data-phase={flowPhase}
-      data-formal-flow="1"
-    >
-      <TabletopTopBar
-        phase={flowPhase}
-        stepText={flowStepText}
-        quest={state.quest}
-        battle={state.battle}
-        onToggleLog={toggleLog}
-        onToggleAtmosphere={toggleAtmosphere}
-        atmosphereEnabled={state.ui.atmosphereEnabled}
-        onSelectQuest={() => selectQuest(state.quest.questCardId)}
-        questDetailSelected={
-          state.ui.detailTargetKind === "quest" &&
-          state.ui.detailTargetId === state.quest.questCardId
-        }
-      />
-
-      <TabletopPartyColumn
-        phase={flowPhase}
-        phaseCaption={plan.party}
-        heroes={state.heroes}
-        activeHeroId={state.ui.activeHeroId}
-        dataSource={hasEngineParty ? "engine" : "mock"}
-        onSelectHero={selectHero}
-      />
-
-      <section
-        className="tt-formal-center tt-phase-surface"
-        aria-label="正式流程主区"
-        data-testid="tabletop-formal-center"
+    <TabletopFormalUiProvider value={formalUiApi}>
+      <div
+        className={[
+          "tt-root",
+          "tt-root--formal",
+          state.ui.atmosphereEnabled ? "tt-root--atmosphere" : "tt-root--flat",
+          `tt-root--phase-${flowPhase}`,
+        ].join(" ")}
+        data-testid="tabletop-view"
+        data-phase={flowPhase}
+        data-formal-flow="1"
       >
-        <div className="tt-formal-center__scroll">{children}</div>
-      </section>
+        <TabletopTopBar
+          phase={flowPhase}
+          stepText={flowStepText}
+          quest={state.quest}
+          battle={state.battle}
+          explorationObjective={explorationObjective}
+          onToggleLog={toggleLog}
+          onToggleAtmosphere={toggleAtmosphere}
+          atmosphereEnabled={state.ui.atmosphereEnabled}
+          onSelectQuest={() => selectQuest(state.quest.questCardId)}
+          questDetailSelected={
+            state.ui.detailTargetKind === "quest" &&
+            state.ui.detailTargetId === state.quest.questCardId
+          }
+        />
 
-      <TabletopDetailPanel
-        detailCaption={plan.detail}
-        kind={state.ui.detailTargetKind}
-        targetId={state.ui.detailTargetId}
-        quest={state.quest}
-        heroes={state.heroes}
-        monsters={state.monsters}
-        entityName={entityName}
-      />
+        <TabletopPartyColumn
+          phase={flowPhase}
+          phaseCaption={plan.party}
+          heroes={state.heroes}
+          activeHeroId={state.ui.activeHeroId}
+          dataSource={hasEngineParty ? "engine" : "mock"}
+          onSelectHero={selectHero}
+        />
 
-      <TabletopInitiativePanel
-        phase={flowPhase}
-        initiativeCaption={plan.initiative}
-        battle={state.battle}
-        turnHero={turnHero}
-      />
+        <section
+          className="tt-formal-center tt-phase-surface"
+          aria-label="正式流程主区"
+          data-testid="tabletop-formal-center"
+        >
+          <div className="tt-formal-center__scroll">{children}</div>
+        </section>
 
-      <TabletopActionDock
-        phase={flowPhase}
-        dockCaption={plan.dock}
-        showSkillHand={false}
-        tab={state.ui.bottomTab}
-        onTab={() => {}}
-        activeHero={activeHero}
-        selectedSkillId={null}
-        usedSkillIds={[]}
-        onSelectSkill={() => {}}
-      />
+        <TabletopDetailPanel
+          detailCaption={plan.detail}
+          kind={state.ui.detailTargetKind}
+          targetId={state.ui.detailTargetId}
+          quest={state.quest}
+          heroes={state.heroes}
+          monsters={state.monsters}
+          entityName={entityName}
+        />
 
-      <TabletopControlRail
-        phase={flowPhase}
-        diceCaption={plan.diceTray}
-        primaryActionLabel={
-          flowPhase === "questSetup" || flowPhase === "expeditionPrep" ? null : plan.primaryAction
-        }
-        mockDice={null}
-        canConfirm={false}
-        onConfirm={() => {}}
-        onDrawInitiative={() => {}}
-      />
+        <TabletopInitiativePanel
+          phase={flowPhase}
+          initiativeCaption={plan.initiative}
+          battle={state.battle}
+          turnHero={turnHero}
+        />
 
-      <div className={["tt-log", state.ui.logOpen ? "tt-log--open" : ""].join(" ")}>
-        <div className="tt-log__panel" role="region" aria-label="日志抽屉">
-          <ul>
-            {state.logLines.map((line) => (
-              <li key={line.id}>{line.text}</li>
-            ))}
-          </ul>
+        <TabletopActionDock
+          phase={flowPhase}
+          dockCaption={plan.dock}
+          showSkillHand={false}
+          tab={state.ui.bottomTab}
+          onTab={() => {}}
+          activeHero={activeHero}
+          selectedSkillId={null}
+          usedSkillIds={[]}
+          onSelectSkill={() => {}}
+        />
+
+        <TabletopControlRail
+          phase={flowPhase}
+          diceCaption={plan.diceTray}
+          primaryActionLabel={
+            flowPhase === "questSetup" || flowPhase === "expeditionPrep" ? null : plan.primaryAction
+          }
+          mockDice={null}
+          canConfirm={false}
+          onConfirm={() => {}}
+          onDrawInitiative={() => {}}
+        />
+
+        <div className={["tt-log", state.ui.logOpen ? "tt-log--open" : ""].join(" ")}>
+          <div className="tt-log__panel" role="region" aria-label="日志抽屉">
+            <ul>
+              {logLines.map((line) => (
+                <li key={line.id}>{line.text}</li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+    </TabletopFormalUiProvider>
   );
 }
