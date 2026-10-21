@@ -12,7 +12,13 @@ import { restPoints } from "../../../../../packages/data/src/scout-rest";
 import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
 import { RoomCardFace } from "../../card-art/room-card-face";
 import { DungeonStanceOrder } from "../../dungeon-stance-order";
-import { provisionLabels, provisionEffectLabels } from "../../provision-labels";
+import {
+  formatProvisionInventoryLine,
+  formatProvisionUseButton,
+  humanizeChoiceOptionLabel,
+} from "../../choice-display-label";
+import { provisionEffectLabels } from "../../provision-labels";
+import { HamletEventSection } from "../hamlet/hamlet-event-section";
 import { curioEffectLabel } from "../curio-effect-label";
 import { FundraiserChoice } from "../fundraiser-choice";
 import { QuestSummaryPanel } from "../quest-return/quest-summary-panel";
@@ -50,18 +56,91 @@ export function ScoutingPanel({
       }
     : null;
 
-  return (
-    <section className="panel">
-      {formal && d.phase === "awaitingProvisions" && activeQuest && (
-        <div
-          className="expedition-prep-inline"
-          aria-label="出征准备"
-          data-testid="expedition-prep-inline"
-        >
+  const pendingBlock = pendingChoice ? (
+    <div>
+      <p>{pendingChoice.prompt}</p>
+      {pendingChoice.id.startsWith("dungeon-fundraiser:") ? (
+        <FundraiserChoice
+          key={pendingChoice.id}
+          choice={pendingChoice}
+          choose={(optionId) =>
+            dispatch({ type: "resolveChoice", choiceId: pendingChoice!.id, optionId })
+          }
+        />
+      ) : (
+        pendingChoice.options.map((o) => (
+          <button
+            key={o.id}
+            onClick={() =>
+              dispatch({
+                type: "resolveChoice",
+                choiceId: pendingChoice!.id,
+                optionId: o.id,
+              })
+            }
+          >
+            {humanizeChoiceOptionLabel(o.label, o.id)}
+          </button>
+        ))
+      )}
+    </div>
+  ) : null;
+
+  if (d.hamlet) {
+    return (
+      <section className="panel hamlet-phase-center" data-testid="hamlet-phase-center">
+        <HamletEventSection
+          game={game}
+          dispatch={dispatch}
+          formal={formal}
+          pendingChoice={pendingChoice}
+          events={events}
+          commands={commands}
+        />
+        {pendingBlock}
+        <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
+      </section>
+    );
+  }
+
+  if (d.hamletReturn || d.phase === "exited") {
+    return (
+      <section className="panel quest-return-center" data-testid="quest-return-center">
+        <QuestSummaryPanel
+          game={game}
+          dispatch={dispatch}
+          formal={formal}
+          pendingChoice={pendingChoice}
+          events={events}
+          commands={commands}
+        />
+        {pendingBlock}
+        <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
+      </section>
+    );
+  }
+
+  if (formal && d.phase === "awaitingProvisions" && activeQuest) {
+    return (
+      <section className="panel expedition-prep-center" data-testid="expedition-prep-center">
+        <div className="expedition-prep-inline" aria-label="出征准备" data-testid="expedition-prep-inline">
           <h2>出征准备</h2>
           <QuestCardField quests={[activeQuest]} questId={activeQuest.id} readOnly />
         </div>
-      )}
+        <button
+          disabled={!!pendingChoice}
+          onClick={() => dispatch({ type: "rollDungeonProvisions" })}
+        >
+          掷开局补给骰
+        </button>
+        {pendingBlock}
+        <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
+      </section>
+    );
+  }
+
+  return (
+    <section className="panel">
       <h2>侦察流程</h2>
       <DungeonStanceOrder game={game} dispatch={dispatch} />
       {d.mustLeaveRoomId === d.position && (
@@ -298,7 +377,16 @@ export function ScoutingPanel({
       </p>
       <p data-testid="dungeon-provisions">
         剩余补给：
-        {d.explorationSetup!.provisions.map((p) => `${p.id} ${p.face}`).join(" · ") || "无"}
+        {(() => {
+          const tallies = new Map<string, number>();
+          for (const p of d.explorationSetup!.provisions) {
+            tallies.set(p.face, (tallies.get(p.face) ?? 0) + 1);
+          }
+          const parts = [...tallies.entries()].map(([face, count]) =>
+            formatProvisionInventoryLine(face, count),
+          );
+          return parts.join(" · ") || "无";
+        })()}
       </p>
       <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
       {quest?.id === "quest:p003" && (
@@ -346,7 +434,7 @@ export function ScoutingPanel({
                   })
                 }
               >
-                {provisionLabels[p.face]}（{p.id}）：{provisionEffectLabels[effect]}
+                {formatProvisionUseButton(p.face, provisionEffectLabels[effect])}
               </button>
             )),
           )}
@@ -367,7 +455,7 @@ export function ScoutingPanel({
                 })
               }
             >
-              使用 Torch（{p.id}）：光照 +1
+              使用火把：光照 +1
             </button>
           ))}
       {card && shownCurio && (
@@ -448,35 +536,7 @@ export function ScoutingPanel({
           让{d.preparedReplacements.length}名替补入队并继续
         </button>
       )}
-      {pendingChoice && (
-        <div>
-          <p>{pendingChoice.prompt}</p>
-          {pendingChoice.id.startsWith("dungeon-fundraiser:") ? (
-            <FundraiserChoice
-              key={pendingChoice.id}
-              choice={pendingChoice}
-              choose={(optionId) =>
-                dispatch({ type: "resolveChoice", choiceId: pendingChoice!.id, optionId })
-              }
-            />
-          ) : (
-            pendingChoice.options.map((o) => (
-              <button
-                key={o.id}
-                onClick={() =>
-                  dispatch({
-                    type: "resolveChoice",
-                    choiceId: pendingChoice!.id,
-                    optionId: o.id,
-                  })
-                }
-              >
-                {o.label}
-              </button>
-            ))
-          )}
-        </div>
-      )}
+      {pendingBlock}
       <p data-testid="dungeon-checkpoint">
         {d.hamletReturn
           ? d.hamletReturn.phase === "complete"

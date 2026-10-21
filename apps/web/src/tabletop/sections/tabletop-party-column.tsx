@@ -101,7 +101,8 @@ export function TabletopPartyColumn({
     phase === "dungeonExploration" ||
     phase === "hamlet" ||
     phase === "expeditionPrep" ||
-    phase === "questReturn";
+    phase === "questReturn" ||
+    phase === "questSetup";
 
   return (
     <aside

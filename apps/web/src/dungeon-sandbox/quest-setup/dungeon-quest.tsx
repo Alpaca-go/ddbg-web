@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   createCoreDungeonQuest,
   FORMAL_HERO_NAMES,
@@ -13,6 +13,8 @@ import { DungeonSandbox } from "../dungeon-sandbox";
 import { QuestSaveControls } from "../quest-save-controls";
 import { useDungeonStore } from "../store";
 import { taskSources } from "../task-sources";
+import { TabletopFormalShell } from "../../tabletop/tabletop-formal-shell";
+import { projectQuestSetupHeroes } from "../../tabletop/phase/project-quest-setup-heroes";
 import { EmbarkHeroPicker } from "./embark-hero-picker";
 import { ExpeditionPrepSection } from "./expedition-prep-section";
 import {
@@ -39,8 +41,20 @@ export function DungeonQuest() {
       questBattleData.heroStats.find((s) => s.id === hero.heroStatId)!.name as FormalHeroName,
   );
   if (started) return <DungeonSandbox formal />;
+
   const startQuests = basicQuests.filter((q) => q.level === 1);
   const selectedQuest = startQuests.find((q) => q.id === questId) ?? startQuests[0]!;
+  const setupHeroes = projectQuestSetupHeroes(party, partyNames);
+  const setupQuest = {
+    questCardId: selectedQuest.id,
+    questLabel: selectedQuest.name,
+    dungeonLevel: "DL I",
+    locationLabel: "—",
+    actLabel: "—",
+    xpProgress: "—",
+    layoutId: `quest_map:${selectedQuest.id.replace(/^quest:/, "")}`,
+  };
+  const preEmbarkPhase = prepStep === "expedition" ? "expeditionPrep" : "questSetup";
 
   const embark = () => {
     setError("");
@@ -58,9 +72,20 @@ export function DungeonQuest() {
     }
   };
 
+  const shell = (children: ReactNode) => (
+    <TabletopFormalShell
+      questSetupActive={prepStep === "party"}
+      preEmbarkPhase={preEmbarkPhase}
+      setupHeroes={setupHeroes}
+      setupQuest={setupQuest}
+    >
+      {children}
+    </TabletopFormalShell>
+  );
+
   if (prepStep === "expedition") {
-    return (
-      <main className="shell">
+    return shell(
+      <>
         <ExpeditionPrepSection
           quests={startQuests}
           questId={questId}
@@ -74,11 +99,11 @@ export function DungeonQuest() {
           embarking={false}
         />
         <QuestSaveControls onLoad={() => setStarted(true)} />
-      </main>
+      </>,
     );
   }
 
-  return (
+  return shell(
     <main className="shell">
       <header className="topbar">
         <div>
@@ -183,6 +208,6 @@ export function DungeonQuest() {
         </form>
       </section>
       <QuestSaveControls onLoad={() => setStarted(true)} />
-    </main>
+    </main>,
   );
 }
