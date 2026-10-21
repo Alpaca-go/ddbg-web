@@ -19,6 +19,7 @@ import { QuestSummaryPanel } from "../quest-return/quest-summary-panel";
 import type { DungeonViewProps } from "../view-props";
 import type { DungeonState } from "@ddbg/engine";
 import { isNegativeCurioEffect } from "../../../../../packages/data/src/curio";
+import { QuestCardField } from "../quest-setup/quest-card-field";
 
 export function ScoutingPanel({
   game,
@@ -38,8 +39,29 @@ export function ScoutingPanel({
   const quest = readBasicQuest(d.questDistribution);
   const shownCurio = d.curio?.active ?? d.curio?.last;
   const card = d.curio?.cards.find((c) => c.id === shownCurio?.cardId);
+  const activeQuest = quest
+    ? {
+        id: quest.id,
+        name: quest.name,
+        restPoints: quest.restPoints,
+        xpKind: quest.xpKind,
+        roomsPerXp: quest.roomsPerXp,
+        maxRooms: quest.maxRooms,
+      }
+    : null;
+
   return (
     <section className="panel">
+      {formal && d.phase === "awaitingProvisions" && activeQuest && (
+        <div
+          className="expedition-prep-inline"
+          aria-label="出征准备"
+          data-testid="expedition-prep-inline"
+        >
+          <h2>出征准备</h2>
+          <QuestCardField quests={[activeQuest]} questId={activeQuest.id} readOnly />
+        </div>
+      )}
       <h2>侦察流程</h2>
       <DungeonStanceOrder game={game} dispatch={dispatch} />
       {d.mustLeaveRoomId === d.position && (

@@ -756,6 +756,24 @@ button.card-face:hover:enabled {
 .quest-start-card {
   margin: 0.75rem 0 1rem;
 }
+.quest-card-field__readonly-name {
+  margin: 0.35rem 0 0.5rem;
+  font-weight: 600;
+}
+.expedition-prep-inline {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #3b3931;
+}
+.expedition-prep-header {
+  margin-bottom: 1rem;
+}
+.expedition-prep-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
 .room-card-face .card-face__sprite,
 .room-card-face .card-face__placeholder,
 .room-card-face .card-face__print {

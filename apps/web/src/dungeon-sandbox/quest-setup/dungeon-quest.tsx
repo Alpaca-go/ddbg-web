@@ -9,12 +9,12 @@ import { battleData as questBattleData } from "virtual:quest-battle-data";
 import { basicQuests } from "../../../../../packages/data/src/basic-quests";
 import type { BasicQuestId } from "../../../../../packages/data/src/basic-quests";
 import { CardFace } from "../../card-art/card-face";
-import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
 import { DungeonSandbox } from "../dungeon-sandbox";
 import { QuestSaveControls } from "../quest-save-controls";
 import { useDungeonStore } from "../store";
 import { taskSources } from "../task-sources";
 import { EmbarkHeroPicker } from "./embark-hero-picker";
+import { ExpeditionPrepSection } from "./expedition-prep-section";
 import {
   defaultPartyNames,
   formalHeroLevel1Skills,
@@ -26,6 +26,7 @@ import {
 export function DungeonQuest() {
   const beginTask = useDungeonStore((s) => s.beginTask);
   const [started, setStarted] = useState(false),
+    [prepStep, setPrepStep] = useState<"party" | "expedition">("party"),
     [questId, setQuestId] = useState<BasicQuestId>("quest:p001"),
     [mode, setMode] = useState<DungeonState["mode"]>("standard"),
     [seed, setSeed] = useState("1"),
@@ -40,6 +41,43 @@ export function DungeonQuest() {
   if (started) return <DungeonSandbox formal />;
   const startQuests = basicQuests.filter((q) => q.level === 1);
   const selectedQuest = startQuests.find((q) => q.id === questId) ?? startQuests[0]!;
+
+  const embark = () => {
+    setError("");
+    try {
+      const game = createCoreDungeonQuest(Number(seed), selectedQuest.id, mode, party, taskSources);
+      beginTask(game, {
+        seed: Number(seed),
+        questId: selectedQuest.id,
+        mode,
+        party: party.map((hero) => ({ ...hero, skillIds: [...hero.skillIds] })),
+      });
+      setStarted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    }
+  };
+
+  if (prepStep === "expedition") {
+    return (
+      <main className="shell">
+        <ExpeditionPrepSection
+          quests={startQuests}
+          questId={questId}
+          onQuestIdChange={setQuestId}
+          onBack={() => {
+            setError("");
+            setPrepStep("party");
+          }}
+          onEmbark={embark}
+          error={error}
+          embarking={false}
+        />
+        <QuestSaveControls onLoad={() => setStarted(true)} />
+      </main>
+    );
+  }
+
   return (
     <main className="shell">
       <header className="topbar">
@@ -54,48 +92,10 @@ export function DungeonQuest() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            try {
-              const game = createCoreDungeonQuest(
-                Number(seed),
-                selectedQuest.id,
-                mode,
-                party,
-                taskSources,
-              );
-              beginTask(game, {
-                seed: Number(seed),
-                questId: selectedQuest.id,
-                mode,
-                party: party.map((hero) => ({ ...hero, skillIds: [...hero.skillIds] })),
-              });
-              setStarted(true);
-            } catch (error) {
-              setError(error instanceof Error ? error.message : String(error));
-            }
+            setError("");
+            setPrepStep("expedition");
           }}
         >
-          <label>
-            任务卡
-            <select
-              aria-label="任务卡"
-              value={selectedQuest.id}
-              onChange={(e) => setQuestId(e.target.value as BasicQuestId)}
-            >
-              {startQuests.map((q) => (
-                <option key={q.id} value={q.id}>
-                  {q.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <div className="quest-start-card">
-            <CoreboxPrintCardFace
-              deck="quest"
-              cardId={selectedQuest.id}
-              label={selectedQuest.name}
-              testId={`quest-card-face-${selectedQuest.id}`}
-            />
-          </div>
           <label>
             模式
             <select
@@ -120,17 +120,6 @@ export function DungeonQuest() {
               onChange={(e) => setSeed(e.target.value)}
             />
           </label>
-          <p>
-            QuestMap FRONT
-            p1（已批准）。从起点S开始，房间代币按任务随机分布，先领取八颗开局补给。普通遗迹全部九面已接通。
-          </p>
-          <p>
-            柴火休息 {selectedQuest.restPoints} 点。
-            {selectedQuest.xpKind === "gold"
-              ? "清理至少一间巢穴后，可每捐献20金币获得1XP，最多捐献60金币、获得3XP。"
-              : `每清理${selectedQuest.roomsPerXp}${selectedQuest.xpKind === "lair" ? "间巢穴" : "个房间"}获得1XP，最多${selectedQuest.maxRooms / selectedQuest.roomsPerXp}XP。`}
-            任务结算仅记待发XP，回村发放。
-          </p>
           <p>
             可选身份共 {FORMAL_HERO_NAMES.length} 名（与替补白名单一致）。盗墓者 I 级七战斗技能与
             Pilfer 抽取已接（R-096、R-098：抽取不翻面）；神秘学者 I 级技能与 Dark Ritual
@@ -190,7 +179,7 @@ export function DungeonQuest() {
             );
           })}
           {error && <p role="alert">{error}</p>}
-          <button type="submit">进入地牢</button>
+          <button type="submit">前往出征准备</button>
         </form>
       </section>
       <QuestSaveControls onLoad={() => setStarted(true)} />
