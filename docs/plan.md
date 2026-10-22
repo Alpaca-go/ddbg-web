@@ -544,6 +544,8 @@ ddbg/
 
 **UX-01**：Kyries 已批准 UX-00 与 PR #283，核验仅两份文档后合并至 `5ed06a9`。以此为基线完成正式外壳整理，见 [UX-01 交付与回归说明](ux01-formal-shell-2026-10-22.md)；待人工截图验收，不自动合并，不进入 UX-02，S4–S11 继续暂停。
 
+**UX-02A**：在 `main` @ `1b05f376` 上整理正式地牢探索中央桌面（地图优先、信息精简、Curio 当前/历史分离），见 [UX-02A 交付说明](ux02a-dungeon-map-info-2026-10-22.md)。Draft PR 待截图验收；**不**含 UX-02B 底栏迁移，S4–S11 继续暂停。
+
 交接与验收细节见 [docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md)（T0–T3 / S0 前背景，已过时）。
 
 **Codex 接手（S2 起）**：[docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md)（tip `b051c9b`）。

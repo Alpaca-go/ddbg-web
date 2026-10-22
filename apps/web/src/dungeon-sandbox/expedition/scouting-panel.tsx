@@ -27,6 +27,7 @@ import type { DungeonState } from "@ddbg/engine";
 import { isNegativeCurioEffect } from "../../../../../packages/data/src/curio";
 import { QuestCardField } from "../quest-setup/quest-card-field";
 import { dungeonFlowStep } from "../../tabletop/phase/dungeon-flow-step";
+import { FormalTabletopScoutingPanel } from "./formal-tabletop-scouting-panel";
 
 export function ScoutingPanel({
   game,
@@ -182,12 +183,23 @@ export function ScoutingPanel({
   }
 
   const tabletop = formal && layout === "tabletop";
-  const PanelTag = tabletop ? "div" : "section";
-  const panelClass = tabletop ? "tt-scouting-tabletop panel" : "panel";
+  if (tabletop) {
+    return (
+      <FormalTabletopScoutingPanel
+        game={game}
+        dispatch={dispatch}
+        events={events}
+        commands={commands}
+        pendingChoice={pendingChoice}
+      />
+    );
+  }
+  const PanelTag = "section";
+  const panelClass = "panel";
 
   return (
     <PanelTag className={panelClass}>
-      {!tabletop && <h2>侦察流程</h2>}
+      <h2>侦察流程</h2>
       <DungeonStanceOrder game={game} dispatch={dispatch} />
       {d.mustLeaveRoomId === d.position && (
         <p>战斗按逃跑收尾：本房间未清理，须先离开才能再次进入（R25）。</p>

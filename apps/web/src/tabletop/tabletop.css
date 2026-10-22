@@ -1498,34 +1498,36 @@
   margin: 0;
 }
 
+.tt-root--formal.tt-root--phase-dungeonExploration .tt-formal-center__scroll {
+  overflow: hidden;
+}
+
 .tt-formal-exploration {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 0.35rem;
   min-height: 0;
   height: 100%;
 }
 
-.tt-formal-exploration__head {
+.tt-formal-exploration__map-stage {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.tt-formal-exploration__location {
+  margin: 0;
+  font-size: 0.55rem;
+  text-align: center;
   flex: 0 0 auto;
 }
 
-.tt-formal-exploration__title {
-  margin: 0;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--tt-gold);
-}
-
-.tt-formal-exploration__objective {
-  margin: 0.15rem 0 0;
-  font-size: 0.62rem;
-  color: var(--tt-muted);
-}
-
 .tt-formal-exploration__map-slab {
+  position: relative;
   flex: 1 1 auto;
-  min-height: 8rem;
+  min-height: 10rem;
   padding: 0.35rem;
   display: flex;
   align-items: center;
@@ -1547,23 +1549,22 @@
   display: block;
 }
 
-.tt-formal-exploration__room-row {
-  flex: 0 0 auto;
-  display: flex;
-  justify-content: center;
-}
-
 .tt-formal-exploration__room-pick {
+  position: absolute;
+  right: 0.45rem;
+  bottom: 0.45rem;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2rem;
+  gap: 0.15rem;
   padding: 0.25rem;
   border: 1px solid var(--tt-panel-edge);
   border-radius: 4px;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(20, 18, 16, 0.88);
   cursor: pointer;
   transition: border-color 0.2s ease;
+  max-width: 6.5rem;
 }
 
 .tt-formal-exploration__room-pick:hover {
@@ -1596,35 +1597,108 @@
 
 .tt-formal-exploration__actions {
   flex: 0 1 auto;
-  max-height: 12rem;
-  overflow-x: hidden;
-  overflow-y: auto;
+  max-height: min(38vh, 14rem);
+  overflow: hidden;
   border-top: 1px solid var(--tt-panel-edge);
-  padding-top: 0.35rem;
+  padding-top: 0.25rem;
+  min-height: 0;
 }
 
-.tt-formal-exploration__actions .tt-scouting-tabletop {
+.tt-scouting-tabletop {
+  display: grid;
+  grid-template-columns: minmax(9rem, 1fr) minmax(0, 1.4fr);
+  grid-template-rows: auto auto;
+  gap: 0.35rem 0.5rem;
   border: none;
   padding: 0;
   margin: 0;
   background: transparent;
+  min-height: 0;
+  max-height: inherit;
 }
 
-.tt-formal-exploration__actions .tt-scouting-tabletop > p[data-testid="dungeon-pressure"],
-.tt-formal-exploration__actions .tt-scouting-tabletop > p[data-testid="dungeon-bonus"],
-.tt-formal-exploration__actions .tt-scouting-tabletop > p[data-testid="dungeon-conditions"],
-.tt-formal-exploration__actions .tt-scouting-tabletop > div[data-testid="dungeon-trinkets"],
-.tt-formal-exploration__actions .tt-scouting-tabletop > p[data-testid="dungeon-firewood"],
-.tt-formal-exploration__actions .tt-scouting-tabletop > p.muted,
-.tt-formal-exploration__actions .tt-scouting-tabletop > p[data-testid="dungeon-status-stacks"],
-.tt-formal-exploration__actions .tt-scouting-tabletop > p[data-testid="dungeon-provisions"],
-.tt-formal-exploration__actions .tt-scouting-tabletop > p[data-testid="dungeon-events"] {
-  display: none;
+.tt-scouting-tabletop__decisions {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  max-height: inherit;
+  padding-right: 0.25rem;
+  font-size: 0.62rem;
 }
 
-.tt-formal-exploration__actions .tt-scouting-tabletop > button,
-.tt-formal-exploration__actions .tt-scouting-tabletop fieldset {
-  margin: 0.15rem 0.2rem 0.15rem 0;
+.tt-scouting-tabletop__commands {
+  grid-column: 2;
+  grid-row: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  max-height: 9rem;
+}
+
+.tt-scouting-tabletop__commands button,
+.tt-scouting-tabletop__commands fieldset {
+  margin: 0.12rem 0.2rem 0.12rem 0;
+}
+
+.tt-scouting-tabletop__archive {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: 0.58rem;
+  color: var(--tt-muted);
+  overflow: hidden;
+}
+
+.tt-scouting-tabletop__archive summary {
+  cursor: pointer;
+  color: #a8a294;
+}
+
+.tt-scouting-tabletop__decisions .tt-alert,
+.tt-scouting-tabletop__decisions [data-testid="dungeon-pending-choice"] {
+  border-left: 2px solid var(--tt-gold-dim);
+  padding-left: 0.35rem;
+  margin: 0.2rem 0;
+}
+
+.tt-curio-teaser {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 1280px), (max-height: 800px) {
+  .tt-formal-exploration__map-slab {
+    min-height: 12rem;
+  }
+
+  .tt-formal-exploration__actions {
+    max-height: min(42vh, 13rem);
+  }
+
+  .tt-scouting-tabletop {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .tt-scouting-tabletop__decisions {
+    grid-column: 1;
+    grid-row: 1;
+    max-height: 6.5rem;
+  }
+
+  .tt-scouting-tabletop__commands {
+    grid-column: 1;
+    grid-row: 2;
+    max-height: 5.5rem;
+  }
+
+  .tt-scouting-tabletop__archive {
+    grid-column: 1;
+    grid-row: 3;
+  }
 }
 
 .tt-top__quest-progress strong {

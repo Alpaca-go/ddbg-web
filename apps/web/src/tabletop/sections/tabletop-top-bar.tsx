@@ -40,6 +40,8 @@ export function TabletopTopBar({
     light: number | undefined;
     round: number | undefined;
     stagecoachXp: number | undefined;
+    provisionCount?: number;
+    firewoodLabel?: string;
   };
   readonly phase: FlowPhaseId;
   readonly stepText: string;
@@ -138,6 +140,18 @@ export function TabletopTopBar({
           <div className="tt-resource tt-top__quest-progress" data-testid="tabletop-quest-progress">
             <span className="tt-resource__label">任务进度</span>
             <strong title={explorationObjective}>{explorationObjective}</strong>
+          </div>
+        )}
+        {phase === "dungeonExploration" && formalResources?.provisionCount !== undefined && (
+          <div className="tt-resource" data-testid="tabletop-provision-count">
+            <span className="tt-resource__label">补给</span>
+            <strong>{formalResources.provisionCount}/16</strong>
+          </div>
+        )}
+        {phase === "dungeonExploration" && formalResources?.firewoodLabel && (
+          <div className="tt-resource" data-testid="tabletop-firewood">
+            <span className="tt-resource__label">柴火</span>
+            <strong>{formalResources.firewoodLabel}</strong>
           </div>
         )}
         {(phase === "dungeonExploration" || phase === "battle") && (
