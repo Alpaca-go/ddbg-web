@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("首页：四人建队可开始任务，旧沙盒与桌面预览保留入口", async ({ page }) => {
+test("首页：四人建队可开始任务，旧沙盒与桌面预览保留入口", async ({ page }, testInfo) => {
   await page.goto("/");
   for (const width of [1280, 1920]) {
     await page.setViewportSize({ width, height: width === 1280 ? 800 : 1080 });
@@ -41,7 +41,14 @@ test("首页：四人建队可开始任务，旧沙盒与桌面预览保留入�
   await expect(page.getByTestId("turn-status")).toHaveText("尚未开始");
   await page.goto("/");
   await expect(page.getByLabel("任务卡", { exact: true })).toHaveCount(0);
+  await page.getByTestId("tabletop-hero-row-hero-0").click();
   await page.getByRole("button", { name: "前往出征准备", exact: true }).click();
+  await expect(page.getByTestId("tabletop-detail-hero")).toBeVisible();
+  for (const width of [1280, 1920]) {
+    await page.setViewportSize({ width, height: width === 1280 ? 800 : 1080 });
+    await page.screenshot({ path: testInfo.outputPath(`detail-prep-${width}.png`) });
+  }
+  await page.keyboard.press("Escape");
   await expect(page.getByRole("heading", { name: "出征准备", exact: true })).toBeVisible();
   await expect(page.getByTestId("tabletop-party")).not.toContainText(/buff|protection|mark/);
   await expect(page.getByTestId("tabletop-gold")).toHaveText("—");
