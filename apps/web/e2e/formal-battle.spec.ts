@@ -2,6 +2,10 @@ import { expect, test } from "@playwright/test";
 
 test("S2/S3：正式同页战斗与底栏技能、分页和移动", async ({ page }, testInfo) => {
   test.setTimeout(120_000);
+  const duplicateKeys: string[] = [];
+  page.on("console", (message) => {
+    if (message.text().includes("same key")) duplicateKeys.push(message.text());
+  });
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto("/");
   const click = (name: string) => page.getByRole("button", { name, exact: true }).click();
@@ -61,6 +65,13 @@ test("S2/S3：正式同页战斗与底栏技能、分页和移动", async ({ pag
   await expect(
     page.getByRole("list", { name: "回合轨" }).locator('[aria-current="step"]'),
   ).toHaveText("1");
+  await page.getByTestId("tabletop-hero-row-hero-0").click();
+  await expect(page.getByTestId("tabletop-detail")).toBeInViewport();
+  const detailBox = await page.getByTestId("tabletop-detail").boundingBox();
+  const dockBox = await page.getByTestId("tabletop-action-dock").boundingBox();
+  expect(detailBox!.y + detailBox!.height).toBeLessThanOrEqual(dockBox!.y);
+  await page.getByRole("button", { name: "关闭详情", exact: true }).click();
+  await expect(page.getByRole("group", { name: "待选决策 · 当前玩家" })).toBeVisible();
   await click("结算回合开始效果");
   await expect(page.getByTestId("turn-status")).toContainText(/剩余 .* 行动|怪物回合/);
   const dock = page.getByTestId("tabletop-action-dock");
@@ -80,6 +91,18 @@ test("S2/S3：正式同页战斗与底栏技能、分页和移动", async ({ pag
   await expect(skillTab).toHaveAttribute("aria-selected", "true");
   await hand.getByRole("button", { name: "Zealous Accusation I", exact: true }).click();
   await expect(dock.getByRole("group", { name: "同区目标" })).toBeVisible();
+  const chosenTarget = dock.getByLabel("选择 HELLION", { exact: true });
+  await chosenTarget.check();
+  await page.getByTestId("tabletop-hero-row-hero-0").click();
+  const statuses = page.getByTestId("tabletop-detail-hero-status").locator("li");
+  expect(
+    await page
+      .getByTestId("tabletop-hero-row-hero-0")
+      .locator(".tt-condition-chip")
+      .allTextContents(),
+  ).toEqual(await statuses.allTextContents());
+  await page.keyboard.press("Escape");
+  await expect(chosenTarget).toBeChecked();
   for (const [tab, legend] of [
     ["移动", "移动 · Speed"],
     ["换姿态", "向后换姿态"],
@@ -114,6 +137,14 @@ test("S2/S3：正式同页战斗与底栏技能、分页和移动", async ({ pag
       ].some((node) => node.scrollWidth > node.clientWidth + 1),
     );
     expect(overflow).toBe(false);
+    const heroesFit = await page
+      .getByTestId("tabletop-party")
+      .evaluate((party) =>
+        [...party.querySelectorAll("button")].every(
+          (row) => row.getBoundingClientRect().bottom <= party.getBoundingClientRect().bottom,
+        ),
+      );
+    expect(heroesFit).toBe(true);
     await page.screenshot({ path: testInfo.outputPath(`s3-battle-${width}.png`) });
   }
   await dock.getByRole("tab", { name: "移动", exact: true }).click();
@@ -123,4 +154,5 @@ test("S2/S3：正式同页战斗与底栏技能、分页和移动", async ({ pag
   await expect(page.getByTestId("turn-status")).toHaveText("等待抽取先攻");
   await expect(hand).toHaveCount(0);
   await expect(dock.getByRole("button", { name: "抽取先攻", exact: true })).toBeVisible();
+  expect(duplicateKeys).toEqual([]);
 });

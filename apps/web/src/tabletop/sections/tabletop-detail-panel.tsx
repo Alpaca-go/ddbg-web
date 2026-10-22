@@ -34,7 +34,9 @@ function HeroDetail({ hero }: { readonly hero: TabletopHeroState }) {
         />
       </div>
       <p className="tt-detail__stat" data-testid="tabletop-detail-wounds">
-        {woundsLine(hero.wounds, hero.life, hero.lifeKnown)} · 压力 {hero.stress}/10
+        {hero.lifeKnown
+          ? `${woundsLine(hero.wounds, hero.life, true)} · 压力 ${hero.stress}/10`
+          : "伤口 — · 压力 —"}
       </p>
       <p className="tt-detail__stat">
         姿态 {stanceLabelZh(hero.stance)} · 区 {hero.areaId}
@@ -42,6 +44,18 @@ function HeroDetail({ hero }: { readonly hero: TabletopHeroState }) {
       </p>
       <h4 className="tt-detail__section">当前状态</h4>
       <TabletopStatusList stacks={hero.statusStacks} testId="tabletop-detail-hero-status" />
+      <p className="tt-detail__stat">
+        饰品 {hero.trinkets.length}/{hero.trinketSlotCount}
+      </p>
+      {hero.trinkets.map((trinket) => (
+        <CoreboxPrintCardFace
+          key={trinket.cardId}
+          deck="trinket"
+          cardId={trinket.cardId}
+          face={trinket.face === "inverted" ? "back" : "front"}
+          size="sm"
+        />
+      ))}
       {hero.quirkCount > 0 && (
         <p className="tt-detail__stat muted">怪癖 {hero.quirkCount}（明细待确认）</p>
       )}
@@ -172,6 +186,8 @@ function QuestDetail({
 }
 
 export function TabletopDetailPanel({
+  collapsible = false,
+  onClose,
   detailCaption,
   kind,
   targetId,
@@ -180,6 +196,8 @@ export function TabletopDetailPanel({
   monsters,
   entityName,
 }: {
+  readonly collapsible?: boolean;
+  readonly onClose?: () => void;
   readonly detailCaption: string;
   readonly kind: TabletopDetailTargetKind;
   readonly targetId: string | null;
@@ -199,13 +217,22 @@ export function TabletopDetailPanel({
     (kind === "building" && targetId) ||
     (kind === "quest" && targetId);
 
+  if (collapsible && !showObject) return null;
+
   return (
     <aside
       className="tt-detail tt-phase-surface"
       aria-label="选中目标详情"
       data-testid="tabletop-detail"
     >
-      <h3 className="tt-detail__title">详情</h3>
+      <div className="tt-detail__header">
+        <h3 className="tt-detail__title">详情</h3>
+        {onClose && (
+          <button type="button" onClick={onClose} aria-label="关闭详情">
+            关闭
+          </button>
+        )}
+      </div>
       <div className="tt-detail__scroll">
         {!showObject && (
           <p className="tt-detail__hint muted" data-testid="tabletop-detail-phase-hint">

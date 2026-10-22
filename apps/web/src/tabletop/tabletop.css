@@ -1952,3 +1952,129 @@
 .tt-battle-actions__body > button {
   align-self: start;
 }
+
+/* UX-01：正式外壳；mock 与 S3 行动宿主保持原状。 */
+.tt-root--formal {
+  position: relative;
+  grid-template-columns: minmax(13.5rem, 15rem) minmax(0, 1fr);
+  grid-template-rows: 64px minmax(0, 1fr) minmax(15rem, 30vh);
+  grid-template-areas: "top top" "party center" "init dock";
+}
+.tt-root--formal:not(.tt-root--phase-battle) {
+  grid-template-rows: 64px minmax(0, 1fr);
+  grid-template-areas: "top top" "party center";
+}
+.tt-root--formal .tt-party {
+  overflow: auto;
+  gap: 0.4rem;
+}
+.tt-root--formal .tt-hero-row {
+  flex: 0 0 auto;
+  padding: 0.45rem;
+  line-height: 1.25;
+}
+.tt-root--formal .tt-hero-row__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.tt-root--formal .tt-hero-row__title,
+.tt-root--formal .tt-hero-row__conditions,
+.tt-root--formal .tt-hero-row__meta {
+  grid-column: 1 / -1;
+}
+.tt-root--formal .tt-hero-row__title {
+  font-size: 0.8rem;
+  gap: 0.25rem;
+}
+.tt-root--formal .tt-hero-row__wounds,
+.tt-root--formal .tt-hero-row__stress {
+  font-size: 0.8rem;
+}
+.tt-root--formal .tt-hero-row__meta,
+.tt-root--formal .tt-hero-row__badges,
+.tt-root--formal .tt-condition-chip {
+  font-size: 0.7rem;
+}
+.tt-root--formal .tt-hero-row__conditions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+}
+.tt-root--formal .tt-detail {
+  grid-area: auto;
+  position: absolute;
+  top: 80px;
+  bottom: 0.55rem;
+  right: 0.55rem;
+  width: min(20rem, 45vw);
+  z-index: 10;
+  background: var(--tt-panel);
+  border: 1px solid var(--tt-gold-dim);
+}
+.tt-root--formal.tt-root--phase-battle .tt-detail {
+  bottom: calc(max(15rem, 30vh) + 1.1rem);
+}
+.tt-detail__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.tt-root--formal .tt-detail__header button {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+}
+.tt-root--formal .tt-top {
+  overflow: visible;
+}
+.tt-top__goal {
+  flex: 1 1 20rem;
+  min-width: 0;
+}
+.tt-top__goal summary {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.tt-top__goal p {
+  position: absolute;
+  left: 0.55rem;
+  top: 64px;
+  z-index: 20;
+  width: min(38rem, 80vw);
+  padding: 0.8rem;
+  border: 1px solid var(--tt-gold-dim);
+  background: var(--tt-panel);
+  white-space: normal;
+}
+.tt-root--formal .tt-phase-nav {
+  flex: 0 1 auto;
+}
+.tt-root--formal :focus-visible {
+  outline: 2px solid var(--tt-gold);
+  outline-offset: 2px;
+}
+@media (max-width: 1439px) {
+  .tt-root--formal.tt-root--detail-open:not(.tt-root--phase-battle):has(
+      [data-testid="dungeon-pending-choice"]
+    )
+    .tt-formal-center {
+    margin-right: calc(min(20rem, 45vw) + 0.55rem);
+  }
+}
+@media (min-width: 1440px) {
+  .tt-root--formal.tt-root--detail-open {
+    grid-template-columns: minmax(13.5rem, 15rem) minmax(0, 1fr) minmax(17rem, 20rem);
+    grid-template-areas: "top top top" "party center detail" "init dock dock";
+  }
+  .tt-root--formal.tt-root--detail-open:not(.tt-root--phase-battle) {
+    grid-template-areas: "top top top" "party center detail";
+  }
+  .tt-root--formal .tt-detail {
+    grid-area: detail;
+    position: static;
+    width: auto;
+  }
+}
