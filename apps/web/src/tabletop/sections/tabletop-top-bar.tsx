@@ -23,6 +23,7 @@ function phaseContextLine(phase: FlowPhaseId, quest: TabletopQuestMeta, stepText
 }
 
 export function TabletopTopBar({
+  formalResources,
   phase,
   stepText,
   quest,
@@ -34,6 +35,12 @@ export function TabletopTopBar({
   onSelectQuest,
   questDetailSelected,
 }: {
+  readonly formalResources?: {
+    gold: number | undefined;
+    light: number | undefined;
+    round: number | undefined;
+    stagecoachXp: number | undefined;
+  };
   readonly phase: FlowPhaseId;
   readonly stepText: string;
   readonly quest: TabletopQuestMeta;
@@ -45,13 +52,25 @@ export function TabletopTopBar({
   readonly onSelectQuest?: () => void;
   readonly questDetailSelected?: boolean;
 }) {
-  const contextLine = phaseContextLine(phase, quest, stepText);
+  const contextLine = formalResources
+    ? `${flowPhaseLabel(phase)} · ${stepText.split(/[；。]/)[0]}`
+    : phaseContextLine(phase, quest, stepText);
+  const light = formalResources ? formalResources.light : battle.light;
 
   return (
     <header className="tt-top" data-testid="tabletop-top-bar">
-      <p className="tt-top__context" data-testid="tabletop-flow-step" title={contextLine}>
-        {contextLine}
-      </p>
+      {formalResources ? (
+        <details className="tt-top__goal">
+          <summary data-testid="tabletop-flow-step" title={stepText}>
+            {contextLine}
+          </summary>
+          <p>{stepText}</p>
+        </details>
+      ) : (
+        <p className="tt-top__context" data-testid="tabletop-flow-step" title={contextLine}>
+          {contextLine}
+        </p>
+      )}
 
       <nav className="tt-phase-nav" aria-label="阶段导航（仅显示）" data-testid="phase-breadcrumb">
         <ol>
@@ -81,7 +100,9 @@ export function TabletopTopBar({
       <div className="tt-top__resources">
         <div className="tt-resource" data-asset-type="punchboard_token">
           <span className="tt-resource__label">金币</span>
-          <strong data-testid="tabletop-gold">{battle.gold}</strong>
+          <strong data-testid="tabletop-gold">
+            {formalResources ? (formalResources.gold ?? "—") : battle.gold}
+          </strong>
         </div>
         {(phase === "dungeonExploration" || phase === "battle") && (
           <div className="tt-light" aria-label="光照 0–5">
@@ -90,9 +111,7 @@ export function TabletopTopBar({
               {[5, 4, 3, 2, 1, 0].map((n) => (
                 <li
                   key={n}
-                  className={
-                    n === battle.light ? "tt-light__pip tt-light__pip--on" : "tt-light__pip"
-                  }
+                  className={n === light ? "tt-light__pip tt-light__pip--on" : "tt-light__pip"}
                 >
                   {n}
                 </li>
@@ -103,13 +122,13 @@ export function TabletopTopBar({
         {phase === "hamlet" && (
           <div className="tt-resource" data-asset-type="punchboard_token">
             <span className="tt-resource__label">驿站 XP</span>
-            <strong>—</strong>
+            <strong>{formalResources?.stagecoachXp ?? "—"}</strong>
           </div>
         )}
-        {phase === "expeditionPrep" && (
+        {!formalResources && phase === "expeditionPrep" && (
           <div className="tt-resource muted tt-top__resource-note">补给骰 8/16 · 柴火 2</div>
         )}
-        {phase === "battle" && (
+        {!formalResources && phase === "battle" && (
           <div className="tt-resource">
             <span className="tt-resource__label">回合</span>
             <strong>{battle.round}/4</strong>
@@ -135,7 +154,7 @@ export function TabletopTopBar({
           type="button"
           className="tt-top__btn"
           onClick={onToggleAtmosphere}
-          title="V-06：切换木桌烛光氛围（纯 CSS）"
+          title={formalResources ? "切换桌面氛围" : "V-06：切换木桌烛光氛围（纯 CSS）"}
         >
           氛围{atmosphereEnabled ? "开" : "关"}
         </button>

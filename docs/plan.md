@@ -539,6 +539,8 @@ ddbg/
 
 **2026-10-22 调整**：S3 经 Kyries 本聊天确认后合并。原 S4 及后续功能路线暂缓，先按用户提供的 UI 信息精简规划分 UX-00～UX-06 推进；本次仅做 [UX-00 基线冻结与信息审计](ux00-ui-baseline-audit-2026-10-22.md)，交付双尺寸截图与 UX-01 范围，等待审核再实施 UX-01。仅整理 Web UI，不改引擎、数据、随机结算或存档，保留 S3 全部功能。
 
+**UX-01**：Kyries 已批准 UX-00 与 PR #283，核验仅两份文档后合并至 `5ed06a9`。以此为基线完成正式外壳整理，见 [UX-01 交付与回归说明](ux01-formal-shell-2026-10-22.md)；待人工截图验收，不自动合并，不进入 UX-02，S4–S11 继续暂停。
+
 交接与验收细节见 [docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md)（T0–T3 / S0 前背景，已过时）。
 
 **Codex 接手（S2 起）**：[docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md)（tip `b051c9b`）。
