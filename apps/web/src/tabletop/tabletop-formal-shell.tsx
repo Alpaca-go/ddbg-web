@@ -22,7 +22,7 @@ import { TabletopDetailPanel } from "./sections/tabletop-detail-panel";
 import { FormalBattleInitiative } from "./sections/formal-battle-initiative";
 import { TabletopPartyColumn } from "./sections/tabletop-party-column";
 import { TabletopTopBar } from "./sections/tabletop-top-bar";
-import { createFormalDisplayState } from "./phase/formal-display-state";
+import { createFormalDisplayState, formalDetailIsValid } from "./phase/formal-display-state";
 import type { TabletopDetailTargetKind } from "./tabletop-detail-types";
 import type { TabletopHeroState, TabletopQuestMeta, TabletopState } from "./tabletop-types";
 import { mergeTabletopDisplayState } from "./use-tabletop-display-state";
@@ -222,7 +222,11 @@ export function TabletopFormalShell({
       if (detailTrigger.current?.isConnected) detailTrigger.current.focus();
     }
   }, []);
-  const detailOpen = state.ui.detailTargetId !== null;
+  const detailValid = formalDetailIsValid(state, flowPhase);
+  const detailOpen = state.ui.detailTargetId !== null && detailValid;
+  useEffect(() => {
+    if (!detailValid) dispatchUi({ type: "closeDetail" });
+  }, [detailValid]);
   useEffect(() => {
     if (!detailOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
@@ -290,6 +294,7 @@ export function TabletopFormalShell({
           atmosphereEnabled={state.ui.atmosphereEnabled}
           onSelectQuest={() => selectQuest(state.quest.questCardId)}
           questDetailSelected={
+            detailOpen &&
             state.ui.detailTargetKind === "quest" &&
             state.ui.detailTargetId === state.quest.questCardId
           }
@@ -318,7 +323,7 @@ export function TabletopFormalShell({
           onClose={closeDetail}
           detailCaption={plan.detail}
           kind={state.ui.detailTargetKind}
-          targetId={state.ui.detailTargetId}
+          targetId={detailOpen ? state.ui.detailTargetId : null}
           quest={state.quest}
           heroes={state.heroes}
           monsters={state.monsters}
