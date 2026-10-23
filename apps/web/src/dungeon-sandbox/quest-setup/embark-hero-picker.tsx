@@ -44,6 +44,7 @@ type EmbarkHeroSeatProps = {
   readonly seatIndex: number;
   readonly heroName: FormalHeroName;
   readonly partyNames: readonly FormalHeroName[];
+  readonly heroLocked: boolean;
   readonly onSelect: (name: FormalHeroName) => void;
 };
 
@@ -51,6 +52,7 @@ export function EmbarkHeroToken({
   seatIndex,
   heroName,
   partyNames,
+  heroLocked,
   onSelect,
 }: EmbarkHeroSeatProps) {
   const seatLabel = `席位 ${seatIndex + 1} 英雄`;
@@ -66,6 +68,7 @@ export function EmbarkHeroToken({
               className="embark-hero-cycle__btn"
               aria-label={`${seatLabel} · 上一名`}
               data-testid={`embark-hero-prev-${seatIndex}`}
+              disabled={heroLocked}
               onClick={() => onSelect(cycleEmbarkHero(heroName, -1, partyNames, seatIndex))}
             >
               <img src={menuArrowUrl("left")} alt="" className="embark-hero-cycle__arrow" />
@@ -80,6 +83,7 @@ export function EmbarkHeroToken({
               className="embark-hero-cycle__btn"
               aria-label={`${seatLabel} · 下一名`}
               data-testid={`embark-hero-next-${seatIndex}`}
+              disabled={heroLocked}
               onClick={() => onSelect(cycleEmbarkHero(heroName, 1, partyNames, seatIndex))}
             >
               <img src={menuArrowUrl("right")} alt="" className="embark-hero-cycle__arrow" />
