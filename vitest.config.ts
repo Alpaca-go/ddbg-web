@@ -6,11 +6,8 @@ export default defineConfig({
       "packages/engine/**/*.test.ts",
       "packages/data/**/*.test.ts",
       "apps/web/**/*.test.ts",
-<<<<<<< HEAD
-      "tools/pipeline/scripts/**/*.test.ts",
-=======
       "apps/web/**/*.test.tsx",
->>>>>>> 0e22ef5 (UX-02A: center dungeon map and slim formal exploration UI.)
+      "tools/pipeline/scripts/**/*.test.ts",
     ],
   },
 });

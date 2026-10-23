@@ -10,8 +10,7 @@ test("UX-02A：正式探索地图优先布局与顶栏资源", async ({ page }, 
 
   await page.goto("/");
   const click = (name: string) => page.getByRole("button", { name, exact: true }).click();
-  await page.getByLabel("任务种子", { exact: true }).fill("1");
-  await page.getByLabel("任务模式", { exact: true }).selectOption("radiant");
+  await page.getByTestId("embark-mode-radiant").click();
   await click("前往出征准备");
   await click("进入地牢");
   await click("掷开局补给骰");

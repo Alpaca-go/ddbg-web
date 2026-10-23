@@ -5,6 +5,8 @@ import { TabletopRasterImage } from "./tabletop-raster-image";
 export function StandeeToken({
   label,
   pngRel,
+  imageSrc,
+  visual = "standee",
   assetType = "hero_standee",
   wounds,
   life,
@@ -16,6 +18,8 @@ export function StandeeToken({
 }: {
   readonly label: string;
   readonly pngRel?: string;
+  readonly imageSrc?: string;
+  readonly visual?: "standee" | "hero_token";
   readonly assetType?: string;
   readonly wounds?: number;
   readonly life?: number;
@@ -26,9 +30,10 @@ export function StandeeToken({
   readonly size?: "battle" | "row";
 }) {
   const Tag = onClick ? "button" : "div";
-  const imgSrc = pngRel
-    ? `${PRINT_CARD_ART_PUBLIC_PREFIX}/${pngRel.replace(/^\//, "")}`
-    : undefined;
+  const resolvedAssetType = visual === "hero_token" ? "hero_token" : assetType;
+  const imgSrc =
+    imageSrc ??
+    (pngRel ? `${PRINT_CARD_ART_PUBLIC_PREFIX}/${pngRel.replace(/^\//, "")}` : undefined);
   const woundRatio =
     wounds !== undefined && life !== undefined && life > 0 ? Math.min(1, wounds / life) : undefined;
 
@@ -38,6 +43,7 @@ export function StandeeToken({
       className={[
         "tt-token",
         size === "row" ? "tt-token--row" : "tt-token--battle",
+        visual === "hero_token" ? "tt-token--hero-token" : "",
         selected ? "tt-token--selected" : "",
       ].join(" ")}
       onClick={onClick}
@@ -45,16 +51,16 @@ export function StandeeToken({
       {...(onClick && ariaLabel ? { "aria-label": ariaLabel } : {})}
       aria-pressed={onClick ? selected : undefined}
     >
-      <div className="tt-token__figure" data-asset-type={assetType}>
+      <div className="tt-token__figure" data-asset-type={resolvedAssetType}>
         <TabletopRasterImage
           {...(imgSrc ? { src: imgSrc } : {})}
           label={label}
           placeholderLabel="英雄立牌"
-          assetType={assetType}
+          assetType={resolvedAssetType}
           className="tt-token__img"
         />
       </div>
-      <div className="tt-token__base" aria-hidden="true" />
+      {visual !== "hero_token" && <div className="tt-token__base" aria-hidden="true" />}
       {woundRatio !== undefined && (
         <div className="tt-token__woundbar" aria-label={`伤口 ${wounds}/${life}`}>
           <span className="tt-token__woundfill" style={{ width: `${woundRatio * 100}%` }} />

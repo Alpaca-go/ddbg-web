@@ -317,15 +317,17 @@ export function TabletopFormalShell({
           }
         />
 
-        <TabletopPartyColumn
-          phase={flowPhase}
-          phaseCaption={plan.party}
-          heroes={state.heroes}
-          activeHeroId={state.ui.activeHeroId}
-          compact
-          dataSource={beforeEmbark ? "setup" : "engine"}
-          onSelectHero={selectHero}
-        />
+        {flowPhase !== "questSetup" && (
+          <TabletopPartyColumn
+            phase={flowPhase}
+            phaseCaption={plan.party}
+            heroes={state.heroes}
+            activeHeroId={state.ui.activeHeroId}
+            compact
+            dataSource={beforeEmbark ? "setup" : "engine"}
+            onSelectHero={selectHero}
+          />
+        )}
 
         <section
           className="tt-formal-center tt-phase-surface"

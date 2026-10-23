@@ -1,3 +1,9 @@
+import {
+  embarkStanceForRosterSlot,
+  preferredEmbarkStanceFromSelectedSkills,
+  resolveEmbarkRosterSlotIndex,
+  type EmbarkRosterSlotIndex,
+} from "@ddbg/engine";
 import { battleData as questBattleData } from "virtual:quest-battle-data";
 import { embarkSkillAllowed, skillBelongsToFormalHero, type FormalHeroName } from "@ddbg/engine";
 
@@ -31,4 +37,38 @@ export function formalPartySlot(name: FormalHeroName, index: number) {
       .slice(0, 3)
       .map((s) => s.id),
   };
+}
+
+export function assignEmbarkRosterSlotForSeat(
+  seatIndex: number,
+  skillIds: readonly string[],
+  rosterSlotBySeat: readonly (number | null)[],
+  skillsConfirmedBySeat: readonly boolean[],
+): { rosterSlot: EmbarkRosterSlotIndex; stance: ReturnType<typeof embarkStanceForRosterSlot> } {
+  const skills = skillIds
+    .map((id) => questBattleData.skills.find((s) => s.id === id))
+    .filter((s): s is NonNullable<typeof s> => s !== undefined);
+  const preferred = preferredEmbarkStanceFromSelectedSkills(skills);
+  const occupied = new Set<number>();
+  for (let i = 0; i < rosterSlotBySeat.length; i++) {
+    if (i === seatIndex || !skillsConfirmedBySeat[i]) continue;
+    const slot = rosterSlotBySeat[i];
+    if (slot !== null) occupied.add(slot);
+  }
+  const rosterSlot = resolveEmbarkRosterSlotIndex(preferred, occupied);
+  return { rosterSlot, stance: embarkStanceForRosterSlot(rosterSlot) };
+}
+
+export function applyRosterSlotsToParty<
+  T extends { readonly stance: ReturnType<typeof embarkStanceForRosterSlot> },
+>(
+  party: readonly T[],
+  rosterSlotBySeat: readonly (number | null)[],
+  skillsConfirmedBySeat: readonly boolean[],
+): T[] {
+  return party.map((hero, seatIndex) => {
+    const slot = rosterSlotBySeat[seatIndex];
+    if (!skillsConfirmedBySeat[seatIndex] || slot === null) return hero;
+    return { ...hero, stance: embarkStanceForRosterSlot(slot as EmbarkRosterSlotIndex) };
+  });
 }

@@ -5,6 +5,11 @@ import type { Plugin } from "vite";
 
 const TTS_PUBLIC_PREFIX = "/tts-card-art";
 const PRINT_PUBLIC_PREFIX = "/print-card-art";
+const HERO_SKILL_ICON_PREFIX = "/hero-skill-icons";
+const ASSETS_PLUS_PREFIX = "/ddbg-assets-plus";
+
+const DEFAULT_ASSETS_PLUS_ROOT = "D:/ddbg-assets plus";
+const DEFAULT_HERO_SKILL_ICON_ROOT = `${DEFAULT_ASSETS_PLUS_ROOT}/hero`;
 
 function mountCacheStatic(
   middlewares: Connect.Server,
@@ -53,6 +58,8 @@ function mountCacheStatic(
  * - Print PNGs (runtime UI): DDBG_PRINT_CARD_ART_CACHE or <repo>/.cache/print-card-art (png/… subpaths)
  * - TTS atlases (legacy / cross-check only; UI does not request these): DDBG_TTS_CARD_ART_CACHE or
  *   <repo>/.cache/tts-card-art (flat filenames from cache-tts-card-art.mjs + hero-skill-face-map.json)
+ * - Hero skill icons (建队 UI): DDBG_HERO_SKILL_ICON_ROOT or D:/ddbg-assets plus/hero
+ * - Kyries UI PNGs (menu 箭头等): DDBG_ASSETS_PLUS_ROOT or D:/ddbg-assets plus
  */
 export function cardArtCachePlugin(repoRoot: string): Plugin {
   const ttsCacheDir = resolve(
@@ -61,12 +68,25 @@ export function cardArtCachePlugin(repoRoot: string): Plugin {
   const printCacheDir = resolve(
     process.env.DDBG_PRINT_CARD_ART_CACHE || resolve(repoRoot, ".cache/print-card-art"),
   );
+  const assetsPlusDir = resolve(process.env.DDBG_ASSETS_PLUS_ROOT || DEFAULT_ASSETS_PLUS_ROOT);
+  const heroSkillIconDir = resolve(
+    process.env.DDBG_HERO_SKILL_ICON_ROOT || DEFAULT_HERO_SKILL_ICON_ROOT,
+  );
+
+  const mountAll = (middlewares: Connect.Server) => {
+    mountCacheStatic(middlewares, TTS_PUBLIC_PREFIX, ttsCacheDir, false);
+    mountCacheStatic(middlewares, PRINT_PUBLIC_PREFIX, printCacheDir, true);
+    mountCacheStatic(middlewares, ASSETS_PLUS_PREFIX, assetsPlusDir, true);
+    mountCacheStatic(middlewares, HERO_SKILL_ICON_PREFIX, heroSkillIconDir, true);
+  };
 
   return {
     name: "ddbg-card-art-cache",
     configureServer(server) {
-      mountCacheStatic(server.middlewares, TTS_PUBLIC_PREFIX, ttsCacheDir, false);
-      mountCacheStatic(server.middlewares, PRINT_PUBLIC_PREFIX, printCacheDir, true);
+      mountAll(server.middlewares);
+    },
+    configurePreviewServer(server) {
+      mountAll(server.middlewares);
     },
   };
 }
