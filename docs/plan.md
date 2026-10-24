@@ -255,6 +255,7 @@ ddbg/
 - **进度摘记（2026-10-24）**：Kyries 批准 Jester / Arbalest / Abomination 九面 STAT 入库；核心 trio 各七张 I 级战斗技能已核实接线（R-102 Dirk Stab 无视守护、R-103 Rallying Flare 混阵营目标），Jester / Arbalest / Abomination 均可替补。见 [核心 trio 技能记录](phase4-core-trio-skills-2026-10-24.md)。
 - **进度摘记（2026-10-24，Warrens）**：R-104：Antiquarian / Leper STAT（TDH p28–31）与 I 级七技能（印刷 p274–315，Q-103）入库接线；两人移出未接线名单并纳入替补白名单。见 [Warrens 两人记录](phase4-warrens-antiquarian-leper-2026-10-24.md)。
 - **进度摘记（2026-10-24，Cove）**：R-105：Man-at-Arms / Flagellant STAT（Cove p1–4）与 I 级七技能（TDH p232–273，Q-105）入库接线；两人移出未接线名单并纳入替补白名单。见 [Cove 两人记录](phase4-cove-maa-flagellant-2026-10-24.md)。
+- **进度摘记（2026-10-24，Weald）**：R-106：Houndmaster / Shieldbreaker STAT（Weald p1–4）与 I 级七技能（TDH p316–357，Q-106）入库接线；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 仅余 Musketeer。见 [Weald 两人记录](phase4-weald-houndmaster-shieldbreaker-2026-10-24.md)。
 - **进度摘记（2026-10-20）**：Curio / Trinket / Quest 三类卡 UI 已接印刷 TrimBox PNG（`docs/phase4-print-curio-trinket-quest-art-2026-10-20.md`）；Quest 19 页均已入 map（14 张 art-only，任务池仍仅 `basic-quests.ts` 五张）。
 - **进度摘记（2026-10-20）**：ADD_014 两张中型怪物卡（Perfect / Imperfect Reflection）印刷图复用基础版 `p106` / `p109` PNG，不导 ADD PDF；见 `docs/phase4-print-monster-art-map-2026-10-19.md`。
 - **进度摘记（2026-10-20）**：印刷导出管线修复 EN_FILES 过滤、Rubine 刀线（PyMuPDF 1.28）、Windows Python 解析与一键脚本；见 `docs/phase4-print-art-pipeline-2026-10-19.md` §本机一键导出。

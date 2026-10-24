@@ -267,12 +267,17 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
       ...coreFile,
       cards: coreFile.cards.filter(
         (c: { id: string }) =>
-          !c.id.startsWith("hero_stat:warrens:") && !c.id.startsWith("hero_stat:cove:"),
+          !c.id.startsWith("hero_stat:warrens:") &&
+          !c.id.startsWith("hero_stat:cove:") &&
+          !c.id.startsWith("hero_stat:weald:"),
       ),
     };
     expect(
       loadNormalizedCorebox().hero_stat.cards.filter(
-        (c) => !c.id.startsWith("hero_stat:warrens:") && !c.id.startsWith("hero_stat:cove:"),
+        (c) =>
+          !c.id.startsWith("hero_stat:warrens:") &&
+          !c.id.startsWith("hero_stat:cove:") &&
+          !c.id.startsWith("hero_stat:weald:"),
       ),
     ).toEqual(built.cards);
     expect(buildHeroStats(raw, dictionary)).toEqual(coreOnly);

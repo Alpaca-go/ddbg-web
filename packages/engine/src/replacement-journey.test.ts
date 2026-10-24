@@ -217,10 +217,12 @@ it.each(["quest:p002", "quest:p003"] as const)(
         "BOUNTY HUNTER",
         "FLAGELLANT",
         "GRAVE ROBBER",
+        "HOUNDMASTER",
         "JESTER",
         "LEPER",
         "MAN-AT-ARMS",
         "OCCULTIST",
+        "SHIELDBREAKER",
       ].sort(),
     );
     expect(game.dungeon!.heroes.find((h) => h.id === doctor.id)?.skillIds).toEqual(doctor.skillIds);

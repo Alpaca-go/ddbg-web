@@ -44,10 +44,10 @@ function partyFromNames(names: readonly string[], sources: CoreQuestSources): Qu
 
 const sources = webQuestSources();
 
-it("正式名录列出十八名英雄；三名扩展占位 STAT 与三名战斗未接线", () => {
+it("正式名录列出十八名英雄；一名扩展占位 STAT 与一名战斗未接线", () => {
   expect(FORMAL_HERO_NAMES).toHaveLength(18);
   expect(FORMAL_HERO_NAMES.every(isFormalHeroName)).toBe(true);
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toHaveLength(3);
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual(["MUSKETEER"]);
   expect(isFormalHeroName("CRUSADER")).toBe(true);
   expect(isFormalHeroName("MUSKETEER")).toBe(true);
   expect(heroHasUnwiredCombatSkills("JESTER")).toBe(false);
@@ -59,7 +59,7 @@ it("正式名录列出十八名英雄；三名扩展占位 STAT 与三名战斗�
       .map((s) => s.name)
       .sort(),
   ).toEqual([...FORMAL_HERO_NAMES].sort());
-  expect(sources.catalog.heroStats).toHaveLength(47);
+  expect(sources.catalog.heroStats).toHaveLength(51);
 });
 
 it("开局可编入赏金猎人与瘟疫医生；存档往返一致", () => {

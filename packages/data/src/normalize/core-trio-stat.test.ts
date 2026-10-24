@@ -121,7 +121,9 @@ it("与 committed normalized 快照一致", () => {
     ...file,
     cards: file.cards.filter(
       (c: { id: string }) =>
-        !c.id.startsWith("hero_stat:warrens:") && !c.id.startsWith("hero_stat:cove:"),
+        !c.id.startsWith("hero_stat:warrens:") &&
+        !c.id.startsWith("hero_stat:cove:") &&
+        !c.id.startsWith("hero_stat:weald:"),
     ),
   });
 });

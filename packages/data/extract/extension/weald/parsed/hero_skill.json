@@ -1,0 +1,2368 @@
+{
+  "schema": "ddbg-parsed-v0",
+  "extractor_version": "1.0.4",
+  "category": "hero_skill",
+  "source": "raw/extension/weald/hero_skill.json",
+  "field_notes": "TDH skills p316–357 (Shieldbreaker + Houndmaster).",
+  "icon_token": "{icon:<iconId>} = unannotated icon cluster, see icons/catalog.json",
+  "stats": {
+    "cards": 42,
+    "ok": 42,
+    "failed": 0,
+    "success_rate": 1.0
+  },
+  "failures": [],
+  "cards": [
+    {
+      "id": "hero_skill:p316",
+      "copies": 1,
+      "pages": [316],
+      "name": "Pierce",
+      "level": 1,
+      "hero": "SHIELDBREAKER",
+      "back_level": 1,
+      "back_name": "Pierce",
+      "crit": 1,
+      "crit_value": 10,
+      "acc": 9,
+      "acc_value": 6,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 2 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 10 Acc 9 {icon:8d4bbe5e11} 6",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Pull 1",
+        "{icon:20ffe98e2d} Ignores {icon:4fcb32ac31}"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [9.4, 22.54, 11.3, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p317",
+      "copies": 1,
+      "pages": [317],
+      "name": "Pierce",
+      "level": 2,
+      "hero": "SHIELDBREAKER",
+      "back_level": 2,
+      "back_name": "Pierce",
+      "crit": 1,
+      "crit_value": 14,
+      "acc": 10,
+      "acc_value": 9,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 2 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 14 Acc 10 {icon:8d4bbe5e11} 9",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Pull 1",
+        "{icon:20ffe98e2d} Ignores {icon:4fcb32ac31}"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [9.4, 22.54, 11.3, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p318",
+      "copies": 1,
+      "pages": [318],
+      "name": "Pierce",
+      "level": 3,
+      "hero": "SHIELDBREAKER",
+      "back_level": 3,
+      "back_name": "Pierce",
+      "crit": 1,
+      "crit_value": 17,
+      "acc": 11,
+      "acc_value": 12,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 2 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 17 Acc 11 {icon:8d4bbe5e11} 12",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Pull 1",
+        "{icon:20ffe98e2d} Ignores {icon:4fcb32ac31}"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [9.4, 22.54, 11.3, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p319",
+      "copies": 1,
+      "pages": [319],
+      "name": "Puncture",
+      "level": 1,
+      "hero": "SHIELDBREAKER",
+      "back_level": 1,
+      "back_name": "Puncture",
+      "crit": 0,
+      "crit_value": 7,
+      "acc": 9,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 2 {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 7 Acc 9 {icon:8d4bbe5e11} 4",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:b6afaa4d7b} Pull 1",
+        "{icon:9ffbd6087a} Ignores {icon:b6afaa4d7b} , {icon:b6afaa4d7b} Pull 1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [9.4, 22.54, 11.3, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p320",
+      "copies": 1,
+      "pages": [320],
+      "name": "Puncture",
+      "level": 2,
+      "hero": "SHIELDBREAKER",
+      "back_level": 2,
+      "back_name": "Puncture",
+      "crit": 0,
+      "crit_value": 8,
+      "acc": 10,
+      "acc_value": 5,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 8 Acc 10 {icon:8d4bbe5e11} 5",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:b6afaa4d7b} Pull 1",
+        "{icon:9ffbd6087a} Ignores {icon:b6afaa4d7b} , {icon:b6afaa4d7b} Pull 1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "1-2",
+          "bbox": [9.39, 22.54, 14.39, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p321",
+      "copies": 1,
+      "pages": [321],
+      "name": "Puncture",
+      "level": 3,
+      "hero": "SHIELDBREAKER",
+      "back_level": 3,
+      "back_name": "Puncture",
+      "crit": 0,
+      "crit_value": 10,
+      "acc": 11,
+      "acc_value": 7,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 10 Acc 11 {icon:8d4bbe5e11} 7",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:b6afaa4d7b} Pull 1",
+        "{icon:9ffbd6087a} Ignores {icon:b6afaa4d7b} , {icon:b6afaa4d7b} Pull 1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "1-2",
+          "bbox": [9.39, 22.54, 14.39, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p322",
+      "copies": 1,
+      "pages": [322],
+      "name": "Adder’s Kiss",
+      "level": 1,
+      "hero": "SHIELDBREAKER",
+      "back_level": 1,
+      "back_name": "Adder’s Kiss",
+      "crit": 1,
+      "crit_value": 11,
+      "acc": 9,
+      "acc_value": 7,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 11 Acc 9 {icon:8d4bbe5e11} 7",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Push 1",
+        "{icon:b6afaa4d7b} 2 {icon:f70a42e51f} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [55.91, 32.35, 57.39, 36.59],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "b2e9d87127"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.35, 63.0, 36.59],
+          "left_icon": "f70a42e51f",
+          "inside_icon": "b2e9d87127"
+        },
+        {
+          "text": "0",
+          "bbox": [9.3, 22.54, 11.41, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p323",
+      "copies": 1,
+      "pages": [323],
+      "name": "Adder’s Kiss",
+      "level": 2,
+      "hero": "SHIELDBREAKER",
+      "back_level": 2,
+      "back_name": "Adder’s Kiss",
+      "crit": 1,
+      "crit_value": 16,
+      "acc": 10,
+      "acc_value": 10,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 16 Acc 10 {icon:8d4bbe5e11} 10",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Push 1",
+        "{icon:b6afaa4d7b} 2 {icon:1fd9f6ec6d} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [55.85, 32.35, 57.33, 36.59],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "b2e9d87127"
+        },
+        {
+          "text": "3t",
+          "bbox": [60.51, 32.35, 63.0, 36.59],
+          "left_icon": "1fd9f6ec6d",
+          "inside_icon": "b2e9d87127"
+        },
+        {
+          "text": "0",
+          "bbox": [9.3, 22.54, 11.41, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p324",
+      "copies": 1,
+      "pages": [324],
+      "name": "Adder’s Kiss",
+      "level": 3,
+      "hero": "SHIELDBREAKER",
+      "back_level": 3,
+      "back_name": "Adder’s Kiss",
+      "crit": 1,
+      "crit_value": 19,
+      "acc": 11,
+      "acc_value": 14,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 19 Acc 11 {icon:8d4bbe5e11} 14",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Push 1",
+        "{icon:b6afaa4d7b} 2 {icon:1fd9f6ec6d} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [55.85, 32.35, 57.33, 36.59],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "b2e9d87127"
+        },
+        {
+          "text": "3t",
+          "bbox": [60.51, 32.35, 63.0, 36.59],
+          "left_icon": "1fd9f6ec6d",
+          "inside_icon": "b2e9d87127"
+        },
+        {
+          "text": "0",
+          "bbox": [9.3, 22.54, 11.41, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p325",
+      "copies": 1,
+      "pages": [325],
+      "name": "Impale",
+      "level": 1,
+      "hero": "SHIELDBREAKER",
+      "back_level": 1,
+      "back_name": "Impale",
+      "crit": 0,
+      "crit_value": 5,
+      "acc": 9,
+      "acc_value": 3,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} Crit 0 {icon:8d4bbe5e11} 5 Acc 9 {icon:8d4bbe5e11} 3",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Push 1",
+        "{icon:b6afaa4d7b} {icon:f70a42e51f} 1t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [60.98, 32.35, 63.0, 36.59],
+          "left_icon": "f70a42e51f",
+          "inside_icon": "f70a42e51f"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p326",
+      "copies": 1,
+      "pages": [326],
+      "name": "Impale",
+      "level": 2,
+      "hero": "SHIELDBREAKER",
+      "back_level": 2,
+      "back_name": "Impale",
+      "crit": 0,
+      "crit_value": 7,
+      "acc": 10,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} Crit 0 {icon:8d4bbe5e11} 7 Acc 10 {icon:8d4bbe5e11} 4",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Push 1",
+        "{icon:b6afaa4d7b} {icon:f70a42e51f} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.35, 63.0, 36.59],
+          "left_icon": "f70a42e51f",
+          "inside_icon": "1fd9f6ec6d"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p327",
+      "copies": 1,
+      "pages": [327],
+      "name": "Impale",
+      "level": 3,
+      "hero": "SHIELDBREAKER",
+      "back_level": 3,
+      "back_name": "Impale",
+      "crit": 0,
+      "crit_value": 9,
+      "acc": 11,
+      "acc_value": 6,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} Crit 0 {icon:8d4bbe5e11} 9 Acc 11 {icon:8d4bbe5e11} 6",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Push 1",
+        "{icon:b6afaa4d7b} {icon:f70a42e51f} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.35, 63.0, 36.59],
+          "left_icon": "f70a42e51f",
+          "inside_icon": "1fd9f6ec6d"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p328",
+      "copies": 1,
+      "pages": [328],
+      "name": "Expose",
+      "level": 1,
+      "hero": "SHIELDBREAKER",
+      "back_level": 1,
+      "back_name": "Expose",
+      "crit": 1,
+      "crit_value": 9,
+      "acc": 8,
+      "acc_value": 5,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 9 Acc 8 {icon:8d4bbe5e11} 5",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Push 1",
+        "{icon:b6afaa4d7b} {icon:f70a42e51f} 1t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [60.98, 32.35, 63.0, 36.59],
+          "left_icon": "f70a42e51f",
+          "inside_icon": "f70a42e51f"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p329",
+      "copies": 1,
+      "pages": [329],
+      "name": "Expose",
+      "level": 2,
+      "hero": "SHIELDBREAKER",
+      "back_level": 2,
+      "back_name": "Expose",
+      "crit": 1,
+      "crit_value": 10,
+      "acc": 9,
+      "acc_value": 6,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 10 Acc 9 {icon:8d4bbe5e11} 6",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Push 1",
+        "{icon:b6afaa4d7b} {icon:f70a42e51f} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.35, 63.0, 36.59],
+          "left_icon": "f70a42e51f",
+          "inside_icon": "1fd9f6ec6d"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p330",
+      "copies": 1,
+      "pages": [330],
+      "name": "Expose",
+      "level": 3,
+      "hero": "SHIELDBREAKER",
+      "back_level": 3,
+      "back_name": "Expose",
+      "crit": 1,
+      "crit_value": 12,
+      "acc": 10,
+      "acc_value": 8,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 12 Acc 10 {icon:8d4bbe5e11} 8",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Push 1",
+        "{icon:b6afaa4d7b} {icon:f70a42e51f} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.35, 63.0, 36.59],
+          "left_icon": "f70a42e51f",
+          "inside_icon": "1fd9f6ec6d"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p331",
+      "copies": 1,
+      "pages": [331],
+      "name": "Captivate",
+      "level": 1,
+      "hero": "SHIELDBREAKER",
+      "back_level": 1,
+      "back_name": "Captivate",
+      "crit": 1,
+      "crit_value": 9,
+      "acc": 8,
+      "acc_value": 6,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:b6afaa4d7b} 9 Acc 8 {icon:b6afaa4d7b} 6",
+      "effect_lines_raw": [
+        "{icon:92104a3c6b} {icon:b6afaa4d7b} +2 vs {icon:8d4bbe5e11} , 2 {icon:c22f085b95} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "+2",
+          "bbox": [42.72, 32.88, 45.43, 36.95],
+          "left_icon": "92104a3c6b",
+          "inside_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "2",
+          "bbox": [56.19, 32.71, 57.67, 36.96],
+          "left_icon": "8d4bbe5e11"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.71, 63.0, 36.96],
+          "left_icon": "c22f085b95"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p332",
+      "copies": 1,
+      "pages": [332],
+      "name": "Captivate",
+      "level": 2,
+      "hero": "SHIELDBREAKER",
+      "back_level": 2,
+      "back_name": "Captivate",
+      "crit": 1,
+      "crit_value": 12,
+      "acc": 9,
+      "acc_value": 8,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:b6afaa4d7b} 12 Acc 9 {icon:b6afaa4d7b} 8",
+      "effect_lines_raw": [
+        "{icon:92104a3c6b} {icon:b6afaa4d7b} +4 vs {icon:8d4bbe5e11} , 3 {icon:c22f085b95} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "+4",
+          "bbox": [42.6, 32.88, 45.42, 36.95],
+          "left_icon": "92104a3c6b",
+          "inside_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "3",
+          "bbox": [56.13, 32.71, 57.67, 36.96],
+          "left_icon": "8d4bbe5e11"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.71, 63.0, 36.96],
+          "left_icon": "c22f085b95"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p333",
+      "copies": 1,
+      "pages": [333],
+      "name": "Captivate",
+      "level": 3,
+      "hero": "SHIELDBREAKER",
+      "back_level": 3,
+      "back_name": "Captivate",
+      "crit": 1,
+      "crit_value": 15,
+      "acc": 10,
+      "acc_value": 10,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:b6afaa4d7b} 15 Acc 10 {icon:b6afaa4d7b} 10",
+      "effect_lines_raw": [
+        "{icon:92104a3c6b} {icon:b6afaa4d7b} +4 vs {icon:8d4bbe5e11} , 3 {icon:c22f085b95} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "+4",
+          "bbox": [42.6, 32.88, 45.42, 36.95],
+          "left_icon": "92104a3c6b",
+          "inside_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "3",
+          "bbox": [56.13, 32.71, 57.67, 36.96],
+          "left_icon": "8d4bbe5e11"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.71, 63.0, 36.96],
+          "left_icon": "c22f085b95"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p334",
+      "copies": 1,
+      "pages": [334],
+      "name": "Serpent Sway",
+      "level": 1,
+      "hero": "SHIELDBREAKER",
+      "back_level": 1,
+      "back_name": "Serpent Sway",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} {icon:1ff34c908b} Self",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:4fcb32ac31} 2t, {icon:1ce58a493c} Pull 1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [21.45, 32.35, 23.88, 36.59],
+          "left_icon": "4fcb32ac31"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p335",
+      "copies": 1,
+      "pages": [335],
+      "name": "Serpent Sway",
+      "level": 2,
+      "hero": "SHIELDBREAKER",
+      "back_level": 2,
+      "back_name": "Serpent Sway",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} {icon:1ff34c908b} Self",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:4fcb32ac31} 3t, {icon:1ce58a493c} Pull 1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [21.45, 32.35, 23.94, 36.59],
+          "left_icon": "4fcb32ac31"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p336",
+      "copies": 1,
+      "pages": [336],
+      "name": "Serpent Sway",
+      "level": 3,
+      "hero": "SHIELDBREAKER",
+      "back_level": 3,
+      "back_name": "Serpent Sway",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 1 {icon:7616568d52}",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:b2e9d87127} 3t, {icon:1ce58a493c} Pull 1",
+        "{icon:1e762d801a} {icon:b2e9d87127} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [21.45, 32.1, 23.94, 36.34],
+          "left_icon": "4fcb32ac31"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.1, 63.0, 36.34],
+          "left_icon": "b2e9d87127",
+          "inside_icon": "b2e9d87127"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p337",
+      "copies": 1,
+      "pages": [337],
+      "name": "Hound’s Rush",
+      "level": 1,
+      "hero": "HOUNDMASTER",
+      "back_level": 1,
+      "back_name": "Hound’s Rush",
+      "crit": 1,
+      "crit_value": 8,
+      "acc": 9,
+      "acc_value": 5,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 8 Acc 9 {icon:8d4bbe5e11} 5",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 2t",
+        "{icon:b6afaa4d7b} 1 {icon:c22f085b95} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [56.35, 31.99, 57.41, 36.23],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "3t",
+          "bbox": [60.51, 31.99, 63.0, 36.23],
+          "left_icon": "c22f085b95",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "2t",
+          "bbox": [18.92, 31.83, 21.35, 36.07],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p338",
+      "copies": 1,
+      "pages": [338],
+      "name": "Hound’s Rush",
+      "level": 2,
+      "hero": "HOUNDMASTER",
+      "back_level": 2,
+      "back_name": "Hound’s Rush",
+      "crit": 1,
+      "crit_value": 11,
+      "acc": 10,
+      "acc_value": 7,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 11 Acc 10 {icon:8d4bbe5e11} 7",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 3t",
+        "{icon:b6afaa4d7b} 2 {icon:c22f085b95} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [55.99, 31.99, 57.47, 36.23],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 31.99, 63.0, 36.23],
+          "left_icon": "c22f085b95",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "3t",
+          "bbox": [18.92, 31.83, 21.41, 36.07],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p339",
+      "copies": 1,
+      "pages": [339],
+      "name": "Hound’s Rush",
+      "level": 3,
+      "hero": "HOUNDMASTER",
+      "back_level": 3,
+      "back_name": "Hound’s Rush",
+      "crit": 1,
+      "crit_value": 14,
+      "acc": 11,
+      "acc_value": 8,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 14 Acc 11 {icon:8d4bbe5e11} 8",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 3t",
+        "{icon:b6afaa4d7b} 2 {icon:c22f085b95} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [55.93, 31.99, 57.41, 36.23],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "3t",
+          "bbox": [60.51, 31.99, 63.0, 36.23],
+          "left_icon": "c22f085b95",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "3t",
+          "bbox": [18.92, 31.83, 21.41, 36.07],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p340",
+      "copies": 1,
+      "pages": [340],
+      "name": "Hound’s Harry",
+      "level": 1,
+      "hero": "HOUNDMASTER",
+      "back_level": 1,
+      "back_name": "Hound’s Harry",
+      "crit": 0,
+      "crit_value": 4,
+      "acc": 9,
+      "acc_value": 2,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} Crit 0 {icon:8d4bbe5e11} 4 Acc 9 {icon:8d4bbe5e11} 2",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} 1 {icon:c22f085b95} 3t"],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [56.35, 31.99, 57.41, 36.23],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "3t",
+          "bbox": [60.51, 31.99, 63.0, 36.23],
+          "left_icon": "c22f085b95",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p341",
+      "copies": 1,
+      "pages": [341],
+      "name": "Hound’s Harry",
+      "level": 2,
+      "hero": "HOUNDMASTER",
+      "back_level": 2,
+      "back_name": "Hound’s Harry",
+      "crit": 0,
+      "crit_value": 5,
+      "acc": 10,
+      "acc_value": 3,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} Crit 0 {icon:8d4bbe5e11} 5 Acc 10 {icon:8d4bbe5e11} 3",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} 2 {icon:c22f085b95} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [55.99, 31.99, 57.47, 36.23],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 31.99, 63.0, 36.23],
+          "left_icon": "c22f085b95",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p342",
+      "copies": 1,
+      "pages": [342],
+      "name": "Hound’s Harry",
+      "level": 3,
+      "hero": "HOUNDMASTER",
+      "back_level": 3,
+      "back_name": "Hound’s Harry",
+      "crit": 0,
+      "crit_value": 6,
+      "acc": 11,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} Crit 0 {icon:8d4bbe5e11} 6 Acc 11 {icon:8d4bbe5e11} 4",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} 3 {icon:c22f085b95} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "3",
+          "bbox": [55.93, 31.99, 57.47, 36.23],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 31.99, 63.0, 36.23],
+          "left_icon": "c22f085b95",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p343",
+      "copies": 1,
+      "pages": [343],
+      "name": "Target Whistle",
+      "level": 1,
+      "hero": "HOUNDMASTER",
+      "back_level": 1,
+      "back_name": "Target Whistle",
+      "acc": 10,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 10",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:b2102a1a20} 2t, {icon:f70a42e51f} 1t"],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [53.66, 32.21, 56.09, 36.45],
+          "inside_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "1t",
+          "bbox": [60.98, 32.21, 63.0, 36.45],
+          "left_icon": "f70a42e51f",
+          "inside_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "0-2",
+          "bbox": [9.56, 22.54, 15.29, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p344",
+      "copies": 1,
+      "pages": [344],
+      "name": "Target Whistle",
+      "level": 2,
+      "hero": "HOUNDMASTER",
+      "back_level": 2,
+      "back_name": "Target Whistle",
+      "acc": 11,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 11",
+      "effect_lines_raw": ["{icon:20ffe98e2d} {icon:b2102a1a20} 3t, {icon:f70a42e51f} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [53.19, 32.21, 55.68, 36.45]
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.21, 63.0, 36.45],
+          "left_icon": "f70a42e51f"
+        },
+        {
+          "text": "0-2",
+          "bbox": [9.56, 22.54, 15.29, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p345",
+      "copies": 1,
+      "pages": [345],
+      "name": "Target Whistle",
+      "level": 3,
+      "hero": "HOUNDMASTER",
+      "back_level": 3,
+      "back_name": "Target Whistle",
+      "acc": 12,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 12",
+      "effect_lines_raw": ["{icon:20ffe98e2d} {icon:b2102a1a20} 3t, {icon:f70a42e51f} 3t"],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [53.13, 32.21, 55.62, 36.45]
+        },
+        {
+          "text": "3t",
+          "bbox": [60.51, 32.21, 63.0, 36.45],
+          "left_icon": "f70a42e51f"
+        },
+        {
+          "text": "0-2",
+          "bbox": [9.56, 22.54, 15.29, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p346",
+      "copies": 1,
+      "pages": [346],
+      "name": "Cry Havoc",
+      "level": 1,
+      "hero": "HOUNDMASTER",
+      "back_level": 1,
+      "back_name": "Cry Havoc",
+      "acc": 9,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 9",
+      "effect_lines_raw": [
+        "{icon:b6afaa4d7b} {icon:d4329c2a97} -1",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} -1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "-1",
+          "bbox": [60.6, 31.91, 63.0, 36.15],
+          "left_icon": "9d58d3d431",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "-1",
+          "bbox": [19.71, 32.05, 22.11, 36.29],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p347",
+      "copies": 1,
+      "pages": [347],
+      "name": "Cry Havoc",
+      "level": 2,
+      "hero": "HOUNDMASTER",
+      "back_level": 2,
+      "back_name": "Cry Havoc",
+      "acc": 10,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 10",
+      "effect_lines_raw": [
+        "{icon:b6afaa4d7b} {icon:d4329c2a97} -1",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} -1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "-1",
+          "bbox": [60.6, 31.91, 63.0, 36.15],
+          "left_icon": "9d58d3d431",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "-1",
+          "bbox": [19.71, 32.05, 22.11, 36.29],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p348",
+      "copies": 1,
+      "pages": [348],
+      "name": "Cry Havoc",
+      "level": 3,
+      "hero": "HOUNDMASTER",
+      "back_level": 3,
+      "back_name": "Cry Havoc",
+      "acc": 11,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 11",
+      "effect_lines_raw": [
+        "{icon:b6afaa4d7b} {icon:d4329c2a97} -1",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} -2"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "-1",
+          "bbox": [60.6, 31.91, 63.0, 36.15],
+          "left_icon": "9d58d3d431",
+          "inside_icon": "9d58d3d431"
+        },
+        {
+          "text": "-2",
+          "bbox": [19.71, 32.05, 22.52, 36.29],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p349",
+      "copies": 1,
+      "pages": [349],
+      "name": "Guard Dog",
+      "level": 1,
+      "hero": "HOUNDMASTER",
+      "back_level": 1,
+      "back_name": "Guard Dog",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} {icon:1ff34c908b} Self",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:4fcb32ac31} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [21.45, 32.1, 23.88, 36.34],
+          "left_icon": "4fcb32ac31"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p350",
+      "copies": 1,
+      "pages": [350],
+      "name": "Guard Dog",
+      "level": 2,
+      "hero": "HOUNDMASTER",
+      "back_level": 2,
+      "back_name": "Guard Dog",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} {icon:1ff34c908b} Self",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:4fcb32ac31} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [21.45, 32.1, 23.94, 36.34],
+          "left_icon": "4fcb32ac31"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p351",
+      "copies": 1,
+      "pages": [351],
+      "name": "Guard Dog",
+      "level": 3,
+      "hero": "HOUNDMASTER",
+      "back_level": 3,
+      "back_name": "Guard Dog",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} {icon:1ff34c908b} Self",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:4fcb32ac31} 4t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "4t",
+          "bbox": [21.45, 32.1, 24.0, 36.34],
+          "left_icon": "4fcb32ac31"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p352",
+      "copies": 1,
+      "pages": [352],
+      "name": "Lick Wounds",
+      "level": 1,
+      "hero": "HOUNDMASTER",
+      "back_level": 1,
+      "back_name": "Lick Wounds",
+      "crit": 2,
+      "crit_value": 5,
+      "acc": 20,
+      "acc_value": 3,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} {icon:7616568d52} Self Crit 2 {icon:3ee34939e2} {icon:8d4bbe5e11} 5 Acc 20 {icon:3ee34939e2} {icon:8d4bbe5e11} 3",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p353",
+      "copies": 1,
+      "pages": [353],
+      "name": "Lick Wounds",
+      "level": 2,
+      "hero": "HOUNDMASTER",
+      "back_level": 2,
+      "back_name": "Lick Wounds",
+      "crit": 2,
+      "crit_value": 6,
+      "acc": 20,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} {icon:7616568d52} Self Crit 2 {icon:3ee34939e2} {icon:8d4bbe5e11} 6 Acc 20 {icon:3ee34939e2} {icon:8d4bbe5e11} 4",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p354",
+      "copies": 1,
+      "pages": [354],
+      "name": "Lick Wounds",
+      "level": 3,
+      "hero": "HOUNDMASTER",
+      "back_level": 3,
+      "back_name": "Lick Wounds",
+      "crit": 2,
+      "crit_value": 8,
+      "acc": 20,
+      "acc_value": 6,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} {icon:7616568d52} Self Crit 2 {icon:3ee34939e2} {icon:8d4bbe5e11} 8 Acc 20 {icon:3ee34939e2} {icon:8d4bbe5e11} 6",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p355",
+      "copies": 1,
+      "pages": [355],
+      "name": "Blackjack",
+      "level": 1,
+      "hero": "HOUNDMASTER",
+      "back_level": 1,
+      "back_name": "Blackjack",
+      "crit": 1,
+      "crit_value": 5,
+      "acc": 10,
+      "acc_value": 3,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 5 Acc 10 {icon:8d4bbe5e11} 3",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:763ad8e857} 1t"],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [60.98, 32.32, 63.0, 36.56],
+          "inside_icon": "1fd9f6ec6d"
+        },
+        {
+          "text": "0",
+          "bbox": [9.3, 22.54, 11.41, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p356",
+      "copies": 1,
+      "pages": [356],
+      "name": "Blackjack",
+      "level": 2,
+      "hero": "HOUNDMASTER",
+      "back_level": 2,
+      "back_name": "Blackjack",
+      "crit": 2,
+      "crit_value": 6,
+      "acc": 11,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0 {icon:a396e95c00} Crit 2 {icon:8d4bbe5e11} 6 Acc 11 {icon:8d4bbe5e11} 4",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:763ad8e857} 1t"],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [60.98, 32.32, 63.0, 36.56],
+          "inside_icon": "1fd9f6ec6d"
+        },
+        {
+          "text": "0",
+          "bbox": [9.3, 22.54, 11.41, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p357",
+      "copies": 1,
+      "pages": [357],
+      "name": "Blackjack",
+      "level": 3,
+      "hero": "HOUNDMASTER",
+      "back_level": 3,
+      "back_name": "Blackjack",
+      "crit": 3,
+      "crit_value": 7,
+      "acc": 12,
+      "acc_value": 5,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0 {icon:a396e95c00} Crit 3 {icon:8d4bbe5e11} 7 Acc 12 {icon:8d4bbe5e11} 5",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:763ad8e857} 1t"],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [60.98, 32.32, 63.0, 36.56],
+          "inside_icon": "1fd9f6ec6d"
+        },
+        {
+          "text": "0",
+          "bbox": [9.3, 22.54, 11.41, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    }
+  ]
+}
