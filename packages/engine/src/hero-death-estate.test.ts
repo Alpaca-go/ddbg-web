@@ -9,6 +9,7 @@ import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
 import cards from "../../data/normalized/corebox/trinket.json";
 import { createBattleState } from "./battle";
 import { readHeroPassiveDefence } from "./battle-skill-status";
+import { VERIFIED_REPLACEMENT_NAMES } from "./test-helpers/verified-replacement";
 
 it("R-094/R-095后瘟疫医生与盗墓者/神秘学者进入正式候选白名单", () => {
   const game = createCoreDungeonQuest(4, "quest:p001", "standard", coreParty, coreQuestSources);
@@ -22,12 +23,11 @@ it("R-094/R-095后瘟疫医生与盗墓者/神秘学者进入正式候选白名�
       (s) => s.hero === "PLAGUE DOCTOR" && s.level === 1 && !s.verification.unverified,
     ),
   ).toHaveLength(7);
-  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([
-    "BOUNTY HUNTER",
-    "PLAGUE DOCTOR",
-    "GRAVE ROBBER",
-    "OCCULTIST",
-  ]);
+  expect(
+    replacementHeroCandidates(game.dungeon!)
+      .map((s) => s.name)
+      .sort(),
+  ).toEqual([...VERIFIED_REPLACEMENT_NAMES].sort());
   const battle = { heroStats: coreQuestSources.catalog.heroStats };
   expect(
     readHeroPassiveDefence(battle, { heroStatId: "hero_stat:p013:front" })!.resistances,
@@ -237,15 +237,14 @@ it("候选按英雄名排除在队/本战役死亡者，不能用另一等级属
     dead = die(game).state;
   expect(dead.dungeon!.deathTrinketChoice).toBeUndefined();
   const d = dead.dungeon!;
-  expect(replacementHeroCandidates(d).map((s) => s.name)).toEqual([
-    "BOUNTY HUNTER",
-    "PLAGUE DOCTOR",
-    "GRAVE ROBBER",
-    "OCCULTIST",
-  ]);
   expect(
-    replacementHeroCandidates({ ...d, deadHeroNames: [...d.deadHeroNames!, "BOUNTY HUNTER"] }).map(
-      (s) => s.name,
-    ),
-  ).toEqual(["PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"]);
+    replacementHeroCandidates(d)
+      .map((s) => s.name)
+      .sort(),
+  ).toEqual([...VERIFIED_REPLACEMENT_NAMES].sort());
+  expect(
+    replacementHeroCandidates({ ...d, deadHeroNames: [...d.deadHeroNames!, "BOUNTY HUNTER"] })
+      .map((s) => s.name)
+      .sort(),
+  ).toEqual(["ABOMINATION", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].sort());
 });

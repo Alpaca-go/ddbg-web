@@ -209,11 +209,11 @@ it("暂存英雄不被再次提供；JSON往返和同命令序列结果一致，
   const command: Command = { type: "resolveChoice", choiceId: p.id, optionId: "upgrade-hero" };
   expect(ok(JSON.parse(JSON.stringify(base)), command)).toEqual(ok(base, command));
   const prepared = equipAll(choose(base, "finish-upgrades"));
-  expect(replacementHeroCandidates(prepared.dungeon!).map((s) => s.name)).toEqual([
-    "PLAGUE DOCTOR",
-    "GRAVE ROBBER",
-    "OCCULTIST",
-  ]);
+  expect(
+    replacementHeroCandidates(prepared.dungeon!)
+      .map((s) => s.name)
+      .sort(),
+  ).toEqual(["ABOMINATION", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].sort());
   const bad = {
     ...base,
     dungeon: {

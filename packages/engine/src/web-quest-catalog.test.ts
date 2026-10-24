@@ -8,6 +8,8 @@ import { createQuestSave, loadQuestSave } from "./quest-save";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { replacementHeroCandidates } from "./hero-death-estate";
+import { verifiedLevel1CombatSkillsForHero } from "./formal-roster-catalog";
+import { VERIFIED_REPLACEMENT_NAMES } from "./test-helpers/verified-replacement";
 
 function webSources(
   id: "battle-data" | "quest-battle-data" | "quest-battle-data-v1" | "quest-battle-data-v2",
@@ -25,7 +27,7 @@ const sources = webSources("quest-battle-data"),
   sixHeroSources = webSources("quest-battle-data-v2"),
   fiveSources = webSources("quest-battle-data-v1"),
   previousSources = webSources("battle-data");
-const EXTRA = ["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"] as const;
+const EXTRA = VERIFIED_REPLACEMENT_NAMES;
 const start = {
   seed: 14,
   questId: "quest:p001" as const,
@@ -162,10 +164,11 @@ it("自然再次侦察多人死亡：第二名候选准备、禁止半队入场�
       expect(run.game.dungeon!.preparedReplacements![0]!.hero.heroStatId).toBe(id);
       // 三死者仅准备一名，禁止半队入队；目录仍有 GR/Occ，但代币已耗尽。
       expect(applyCommand(run.game, { type: "joinPreparedReplacements" }).state).toBe(run.game);
-      expect(replacementHeroCandidates(run.game.dungeon!).map((s) => s.name)).toEqual([
-        "GRAVE ROBBER",
-        "OCCULTIST",
-      ]);
+      expect(
+        replacementHeroCandidates(run.game.dungeon!)
+          .map((s) => s.name)
+          .sort(),
+      ).toEqual(["ABOMINATION", "GRAVE ROBBER", "OCCULTIST"].sort());
       expect(run.game.dungeon!.waitingHeroTokens).toBe(0);
       run.step({ type: "prepareReplacementHero" });
       expect(run.game.dungeon!.campaignFailure).toBe("noWaitingHeroes");
@@ -180,11 +183,11 @@ it("自然再次侦察多人死亡：第二名候选准备、禁止半队入场�
     const save = createQuestSave(start, run.commands, run.game, sources);
     expect(loadQuestSave(JSON.parse(JSON.stringify(save)), sources).game).toEqual(run.game);
     if (id === "hero_stat:p005:front") {
-      expect(replacementHeroCandidates(run.game.dungeon!).map((s) => s.name)).toEqual([
-        "PLAGUE DOCTOR",
-        "GRAVE ROBBER",
-        "OCCULTIST",
-      ]);
+      expect(
+        replacementHeroCandidates(run.game.dungeon!)
+          .map((s) => s.name)
+          .sort(),
+      ).toEqual(["ABOMINATION", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].sort());
       for (let n = 0; !run.game.dungeon!.heroes.some((h) => h.dead) && n < 30; n++) {
         run.step({ type: "scoutDungeon" });
         run.step({
@@ -211,13 +214,17 @@ it("正式十八英雄目录含替补与建队占位，旧六/五/沙盒目录�
   expect(sources.catalog.heroStats).toHaveLength(40);
   expect(sources.catalog.skills.length).toBeGreaterThan(112);
   for (const hero of EXTRA) {
-    expect(sources.catalog.skills.filter((s) => s.hero === hero).map((s) => s.level)).toEqual(
-      Array(7).fill(1),
-    );
+    expect(
+      verifiedLevel1CombatSkillsForHero(hero, sources.catalog.skills).map((s) => s.level),
+    ).toEqual(Array(7).fill(1));
   }
   const game = createCoreDungeonQuest(14, "quest:p001", "radiant", coreParty, sources);
   expect(game.dungeon!.heroes).toHaveLength(4);
-  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([...EXTRA]);
+  expect(
+    replacementHeroCandidates(game.dungeon!)
+      .map((s) => s.name)
+      .sort(),
+  ).toEqual([...EXTRA].sort());
 });
 
 it("旧网页存档先验证原目录再更新；伪造快照、日志及非目录变化仍拒绝", () => {

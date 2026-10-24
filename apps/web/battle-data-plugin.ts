@@ -5,6 +5,7 @@ import {
   roomTileBattleAreas,
   FORMAL_HERO_NAMES,
   FORMAL_HEROES_PARTIAL_CORE_SKILLS,
+  verifiedLevel1CombatSkillsForHero,
   formalRosterArtOnlySkills,
   formalRosterPendingHeroStats,
 } from "../../packages/engine/src/index";
@@ -117,12 +118,8 @@ export function battleDataPlugin(): Plugin {
       }
       const allHeroSkills = normalizedHeroSkillFileSchema.parse(read("hero_skill")).cards;
       if (graveOccultist) {
-        for (const card of allHeroSkills) {
-          if (
-            card.hero &&
-            (FORMAL_HEROES_PARTIAL_CORE_SKILLS as readonly string[]).includes(card.hero) &&
-            !card.verification.unverified
-          )
+        for (const hero of [...FORMAL_HEROES_PARTIAL_CORE_SKILLS, "ABOMINATION"] as const) {
+          for (const card of verifiedLevel1CombatSkillsForHero(hero, allHeroSkills))
             skillIds.add(card.id);
         }
       }

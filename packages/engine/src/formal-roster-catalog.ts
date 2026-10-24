@@ -16,12 +16,15 @@ export const FORMAL_HEROES_VERIFIED_ATTRIBUTES: readonly FormalHeroName[] = [
   "ABOMINATION",
 ];
 
-/** 核心盒三名：STAT 已 attributesVerified；I 级技能在目录中可选，战斗效果仍 R-048。 */
-export const FORMAL_HEROES_PARTIAL_CORE_SKILLS: readonly FormalHeroName[] = [
-  "JESTER",
-  "ARBALEST",
-  "ABOMINATION",
-];
+/** 核心盒两名：STAT 已核实；各缺一张已核实 I 级技能（R-048），战斗其余六张已接线。 */
+export const FORMAL_HEROES_PARTIAL_CORE_SKILLS: readonly FormalHeroName[] = ["JESTER", "ARBALEST"];
+
+/** Abomination 双面变身卡：规范化 `hero` 为 null，出征/替补按英雄归属。 */
+export const ABOMINATION_DOUBLE_FACED_SKILL_IDS: Record<1 | 2 | 3, string> = {
+  1: "hero_skill:p220",
+  2: "hero_skill:p221",
+  3: "hero_skill:p222",
+};
 
 const EXTENSION_ROSTER_HEROES: readonly FormalHeroName[] = [
   "ANTIQUARIAN",
@@ -173,16 +176,46 @@ export function isFormalRosterArtSkill(skill: {
   return skill.rosterArtOnly === true;
 }
 
+export function skillBelongsToFormalHero(
+  heroName: string,
+  skill: { readonly hero: string | null; readonly level: number; readonly id: string },
+): boolean {
+  if (skill.hero === heroName) return true;
+  return (
+    heroName === "ABOMINATION" &&
+    skill.level >= 1 &&
+    skill.level <= 3 &&
+    skill.id === ABOMINATION_DOUBLE_FACED_SKILL_IDS[skill.level as 1 | 2 | 3]
+  );
+}
+
+export function verifiedLevel1CombatSkillsForHero<
+  T extends {
+    readonly hero: string | null;
+    readonly level: number;
+    readonly id: string;
+    readonly verification: { readonly unverified: boolean };
+  },
+>(heroName: string, skills: readonly T[]): T[] {
+  return skills.filter(
+    (skill) =>
+      skillBelongsToFormalHero(heroName, skill) &&
+      skill.level === 1 &&
+      !skill.verification.unverified,
+  );
+}
+
 export function embarkSkillAllowed(
   heroName: string,
   skill: {
     readonly hero: string | null;
     readonly level: number;
+    readonly id: string;
     readonly verification: { readonly unverified: boolean };
     readonly rosterArtOnly?: boolean;
   },
 ): boolean {
-  if (skill.hero !== heroName || skill.level !== 1) return false;
+  if (!skillBelongsToFormalHero(heroName, skill) || skill.level !== 1) return false;
   if (!skill.verification.unverified) return true;
   return isFormalRosterArtSkill(skill) && isFormalHeroRosterPendingAttributes(heroName);
 }

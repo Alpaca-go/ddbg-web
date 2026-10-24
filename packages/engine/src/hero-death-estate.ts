@@ -4,6 +4,7 @@ import { rejectBattleCommand } from "./battle";
 import { discardHeldTrinket, trinketPoolProblem } from "./trinket-acquisition";
 import { releaseDeadHeroCards } from "./hero-death-cards";
 import { isFormalHeroName } from "./formal-heroes";
+import { verifiedLevel1CombatSkillsForHero } from "./formal-roster-catalog";
 
 function context(state: GameState) {
   const d = state.dungeon!;
@@ -49,9 +50,7 @@ export function replacementHeroCandidates(d: DungeonState) {
       s.level === 1 &&
       s.attributesVerified &&
       !unavailable.has(s.name) &&
-      catalog.skills.filter(
-        (skill) => skill.hero === s.name && skill.level === 1 && !skill.verification.unverified,
-      ).length === 7,
+      verifiedLevel1CombatSkillsForHero(s.name, catalog.skills).length === 7,
   );
 }
 

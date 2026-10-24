@@ -7,10 +7,10 @@
 `FORMAL_HERO_NAMES`（18）：Abomination, Antiquarian, Arbalest, Bounty Hunter, Crusader, Flagellant, Grave Robber, Hellion, Highwayman, Houndmaster, Jester, Leper, Man-at-Arms, Musketeer, Occultist, Plague Doctor, Shieldbreaker, Vestal。
 
 - **已核实 STAT（11）**：原正式八英雄 + Jester / Arbalest / Abomination；替补仍要求七张已核实 I 级技能。
-- **属性已核实 + 技能未全接线（3）**：Jester / Arbalest / Abomination（九面 STAT `attributesVerified`；I 级技能在目录，效果仍 R-048）。
+- **属性已核实 + 技能未全接线（2）**：Jester / Arbalest（各缺一张已核实 I 级；其余六张已接）。**Abomination**：七张 I 级已接（含 Transform），可替补。
 - **扩展 art-only（7）**：Antiquarian, Leper, Flagellant, Man-at-Arms, Houndmaster, Shieldbreaker, Musketeer（`hero_skill:art:*` + 扩展 STAT 印刷面）。
 
-`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` = 上述十名非八核心；UI 标「技能效果未接线」。
+`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` = 九名（十名非八核心去掉 Abomination）；UI 标「技能效果未接线」。
 
 ## 代码触点
 
@@ -21,5 +21,5 @@
 ## 待确认
 
 - 扩展 STAT 页序（map `pendingConfirmation`）
-- Jester / Arbalest / Abomination 七张 I 级技能效果接线与替补入队（属性已入库 2026-10-24）
+- Jester Dirk Stab（Q-101）、Arbalest Rallying Flare（Q-102）图标核实后收尾 I 级接线
 - 十名英雄的 standee token / 技能 icon（Kyries 后续补图）

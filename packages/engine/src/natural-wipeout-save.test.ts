@@ -8,6 +8,7 @@ import {
   naturalWipeoutReplacementPath,
 } from "./test-helpers/wipeout-replacement";
 import { coreQuestSources } from "./test-helpers/core-quest";
+import { VERIFIED_REPLACEMENT_NAMES } from "./test-helpers/verified-replacement";
 
 it("自然全灭命令日志→正式存档往返；驿站III余额4可准备并入队四名已核实额外", () => {
   const path = naturalWipeoutReplacementPath();
@@ -18,12 +19,11 @@ it("自然全灭命令日志→正式存档往返；驿站III余额4可准备并
   expect(awaiting.dungeon!.heroes.every((h) => h.dead)).toBe(true);
   expect(awaiting.dungeon!.deadHeroNames).toHaveLength(4);
   expect(awaiting.dungeon!.campaignFailure).toBeUndefined();
-  expect(replacementHeroCandidates(awaiting.dungeon!).map((c) => c.name)).toEqual([
-    "BOUNTY HUNTER",
-    "PLAGUE DOCTOR",
-    "GRAVE ROBBER",
-    "OCCULTIST",
-  ]);
+  expect(
+    replacementHeroCandidates(awaiting.dungeon!)
+      .map((c) => c.name)
+      .sort(),
+  ).toEqual([...VERIFIED_REPLACEMENT_NAMES].sort());
 
   expect(prepared.dungeon!.preparedReplacements).toHaveLength(4);
   expect(prepared.dungeon!.preparedReplacements!.map((p) => p.hero.heroStatId).sort()).toEqual(

@@ -497,12 +497,11 @@ it("等待四人时按逃跑交接；不清宝藏/不发20金，登记四死者�
   expect(returned.dungeon!.monsterPool!.active).toBeNull();
   expect(new Set(returned.dungeon!.monsterPool!.remaining).size).toBe(count);
   expect(applyCommand(returned, { type: "finishDungeonBattle" }).state).toBe(returned);
-  expect(replacementHeroCandidates(returned.dungeon!).map((c) => c.name)).toEqual([
-    "BOUNTY HUNTER",
-    "PLAGUE DOCTOR",
-    "GRAVE ROBBER",
-    "OCCULTIST",
-  ]);
+  expect(
+    replacementHeroCandidates(returned.dungeon!)
+      .map((c) => c.name)
+      .sort(),
+  ).toEqual(["ABOMINATION", "BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].sort());
   const { awaiting, prepared, commands } = prepareVerifiedWipeoutReplacements(
     send(started(), { type: "startBattle" }),
   );
