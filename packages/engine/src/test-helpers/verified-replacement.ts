@@ -4,8 +4,10 @@ export const VERIFIED_REPLACEMENT_NAMES = [
   "ANTIQUARIAN",
   "ARBALEST",
   "BOUNTY HUNTER",
+  "FLAGELLANT",
   "JESTER",
   "LEPER",
+  "MAN-AT-ARMS",
   "PLAGUE DOCTOR",
   "GRAVE ROBBER",
   "OCCULTIST",
@@ -19,6 +21,8 @@ export const VERIFIED_REPLACEMENT_STAT_IDS = [
   "hero_stat:p019:front",
   "hero_stat:p011:front",
   "hero_stat:warrens:leper:p001:front",
+  "hero_stat:cove:flagellant:p001:front",
+  "hero_stat:cove:man-at-arms:p001:front",
   "hero_stat:p015:front",
   "hero_stat:p021:front",
 ] as const;
@@ -30,6 +34,8 @@ export const VERIFIED_REMAINING_AFTER_FOUR_PREP = [
   "ARBALEST",
   "JESTER",
   "LEPER",
+  "FLAGELLANT",
+  "MAN-AT-ARMS",
 ] as const;
 
 export function verifiedReplacementNamesExcluding(...exclude: readonly string[]) {

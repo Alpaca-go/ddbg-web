@@ -16,6 +16,8 @@ export const FORMAL_HEROES_VERIFIED_ATTRIBUTES: readonly FormalHeroName[] = [
   "ABOMINATION",
   "ANTIQUARIAN",
   "LEPER",
+  "FLAGELLANT",
+  "MAN-AT-ARMS",
 ];
 
 /** 核心盒两名：STAT 与七张 I 级战斗技能均已核实接线（R-102/R-103，2026-10-24）。 */
@@ -29,8 +31,6 @@ export const ABOMINATION_DOUBLE_FACED_SKILL_IDS: Record<1 | 2 | 3, string> = {
 };
 
 const EXTENSION_ROSTER_HEROES: readonly FormalHeroName[] = [
-  "FLAGELLANT",
-  "MAN-AT-ARMS",
   "HOUNDMASTER",
   "SHIELDBREAKER",
   "MUSKETEER",
@@ -71,6 +71,12 @@ const ROSTER_PENDING_STAT_IDS: Record<FormalHeroName, string> = {
 export const WARRENS_VERIFIED_SKILL_PAGE_BLOCKS = [
   { hero: "LEPER" as const, startPage: 274, count: 21 },
   { hero: "ANTIQUARIAN" as const, startPage: 295, count: 21 },
+] as const;
+
+/** Man-at-Arms / Flagellant：规范化 `hero_skill:p232`–`p273`（TDH 印刷页，见 Q-105）。 */
+export const COVE_VERIFIED_SKILL_PAGE_BLOCKS = [
+  { hero: "MAN-AT-ARMS" as const, startPage: 232, count: 21 },
+  { hero: "FLAGELLANT" as const, startPage: 253, count: 21 },
 ] as const;
 
 const EXTENSION_SKILL_BLOCKS = [

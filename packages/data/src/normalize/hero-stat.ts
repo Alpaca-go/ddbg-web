@@ -10,6 +10,7 @@ import {
   readHigherHeroDefence,
 } from "./hero-higher-defence";
 import { warrensHeroStatCardSchema } from "./warrens-hero-stat";
+import { coveHeroStatCardSchema } from "./cove-hero-stat";
 
 const FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf";
 const BACK = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf";
@@ -196,7 +197,9 @@ export const normalizedHeroStatFileSchema = z
       raw: z.literal("extract/corebox/raw/hero_stat.json"),
       dictionary: z.literal("dictionary/icon-dictionary-v1.8.json"),
     }),
-    cards: z.array(z.union([normalizedHeroStatCardSchema, warrensHeroStatCardSchema])),
+    cards: z.array(
+      z.union([normalizedHeroStatCardSchema, warrensHeroStatCardSchema, coveHeroStatCardSchema]),
+    ),
   })
   .superRefine((file, ctx) => {
     if (new Set(file.cards.map((card) => card.id)).size !== file.cards.length)

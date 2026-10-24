@@ -52,6 +52,15 @@ export function loadNormalizedCorebox(): NormalizedCorebox {
     extensionWarrensHeroStatRaw: rawFileSchema.parse(
       readJson("extract/extension/warrens/raw/hero_stat.json"),
     ),
+    extensionCoveHeroSkills: heroSkillFileSchema.parse(
+      readJson("extract/extension/cove/parsed/hero_skill.json"),
+    ),
+    extensionCoveHeroSkillRaw: rawFileSchema.parse(
+      readJson("extract/extension/cove/raw/hero_skill.json"),
+    ),
+    extensionCoveHeroStatRaw: rawFileSchema.parse(
+      readJson("extract/extension/cove/raw/hero_stat.json"),
+    ),
   });
 }
 

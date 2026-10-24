@@ -1,0 +1,2570 @@
+{
+  "schema": "ddbg-parsed-v0",
+  "extractor_version": "1.0.4",
+  "category": "hero_skill",
+  "source": "raw/extension/cove/hero_skill.json",
+  "field_notes": "TDH skills p232–273 (Man-at-Arms + Flagellant).",
+  "icon_token": "{icon:<iconId>} = unannotated icon cluster, see icons/catalog.json",
+  "stats": {
+    "cards": 42,
+    "ok": 42,
+    "failed": 0,
+    "success_rate": 1.0
+  },
+  "failures": [],
+  "cards": [
+    {
+      "id": "hero_skill:p232",
+      "copies": 1,
+      "pages": [232],
+      "name": "Crush",
+      "level": 1,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 1,
+      "back_name": "Crush",
+      "crit": 1,
+      "crit_value": 10,
+      "acc": 8,
+      "acc_value": 7,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 10 Acc 8 {icon:8d4bbe5e11} 7",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p233",
+      "copies": 1,
+      "pages": [233],
+      "name": "Crush",
+      "level": 2,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 2,
+      "back_name": "Crush",
+      "crit": 1,
+      "crit_value": 14,
+      "acc": 9,
+      "acc_value": 9,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 14 Acc 9 {icon:8d4bbe5e11} 9",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p234",
+      "copies": 1,
+      "pages": [234],
+      "name": "Crush",
+      "level": 3,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 3,
+      "back_name": "Crush",
+      "crit": 1,
+      "crit_value": 16,
+      "acc": 10,
+      "acc_value": 11,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 16 Acc 10 {icon:8d4bbe5e11} 11",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p235",
+      "copies": 1,
+      "pages": [235],
+      "name": "Rampart",
+      "level": 1,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 1,
+      "back_name": "Rampart",
+      "crit": 1,
+      "crit_value": 7,
+      "acc": 9,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 7 Acc 9 {icon:8d4bbe5e11} 4",
+      "effect_lines_raw": [
+        "{icon:b6afaa4d7b} {icon:1fd9f6ec6d} 1t, {icon:92104a3c6b} Push 1",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Pull 1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [48.27, 32.01, 50.29, 36.25]
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p236",
+      "copies": 1,
+      "pages": [236],
+      "name": "Rampart",
+      "level": 2,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 2,
+      "back_name": "Rampart",
+      "crit": 1,
+      "crit_value": 9,
+      "acc": 10,
+      "acc_value": 5,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 9 Acc 10 {icon:8d4bbe5e11} 5",
+      "effect_lines_raw": [
+        "{icon:b6afaa4d7b} {icon:1fd9f6ec6d} 1t, {icon:92104a3c6b} Push 2",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Pull 1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [48.27, 32.01, 50.29, 36.25]
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p237",
+      "copies": 1,
+      "pages": [237],
+      "name": "Rampart",
+      "level": 3,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 3,
+      "back_name": "Rampart",
+      "crit": 1,
+      "crit_value": 10,
+      "acc": 11,
+      "acc_value": 6,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 10 Acc 11 {icon:8d4bbe5e11} 6",
+      "effect_lines_raw": [
+        "{icon:b6afaa4d7b} {icon:1fd9f6ec6d} 1t, {icon:92104a3c6b} Push 2",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} Pull 1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [48.27, 32.01, 50.29, 36.25]
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p238",
+      "copies": 1,
+      "pages": [238],
+      "name": "Bellow",
+      "level": 1,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 1,
+      "back_name": "Bellow",
+      "crit": 0,
+      "crit_value": null,
+      "acc": 9,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} Crit 0 Acc 9",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:f70a42e51f} 1t"],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [60.98, 32.35, 63.0, 36.59],
+          "left_icon": "f70a42e51f",
+          "inside_icon": "f70a42e51f"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p239",
+      "copies": 1,
+      "pages": [239],
+      "name": "Bellow",
+      "level": 2,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 2,
+      "back_name": "Bellow",
+      "crit": 0,
+      "crit_value": null,
+      "acc": 10,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} Crit 0 Acc 10",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:f70a42e51f} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.35, 63.0, 36.59],
+          "left_icon": "f70a42e51f",
+          "inside_icon": "1fd9f6ec6d"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p240",
+      "copies": 1,
+      "pages": [240],
+      "name": "Bellow",
+      "level": 3,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 3,
+      "back_name": "Bellow",
+      "crit": 1,
+      "crit_value": null,
+      "acc": 11,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} Crit 1 Acc 11",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:f70a42e51f} 3t"],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [60.51, 32.35, 63.0, 36.59],
+          "left_icon": "f70a42e51f",
+          "inside_icon": "1fd9f6ec6d"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p241",
+      "copies": 1,
+      "pages": [241],
+      "name": "Defender",
+      "level": 1,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 1,
+      "back_name": "Defender",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} {icon:1ff34c908b} Self",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:a0290ad4ce} 1t, {icon:ac56561b87} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [19.79, 32.35, 21.81, 36.59],
+          "left_icon": "a0290ad4ce"
+        },
+        {
+          "text": "2t",
+          "bbox": [28.87, 32.35, 31.45, 36.59],
+          "left_icon": "ac56561b87"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p242",
+      "copies": 1,
+      "pages": [242],
+      "name": "Defender",
+      "level": 2,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 2,
+      "back_name": "Defender",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} {icon:1ff34c908b} Self",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:a0290ad4ce} 2t, {icon:ac56561b87} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [19.79, 32.35, 22.22, 36.59],
+          "left_icon": "a0290ad4ce"
+        },
+        {
+          "text": "2t",
+          "bbox": [29.28, 32.35, 31.87, 36.59],
+          "left_icon": "1ce58a493c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p243",
+      "copies": 1,
+      "pages": [243],
+      "name": "Defender",
+      "level": 3,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 3,
+      "back_name": "Defender",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} {icon:1ff34c908b} Self",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:a0290ad4ce} 2t, {icon:ac56561b87} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [19.79, 32.35, 22.22, 36.59],
+          "left_icon": "a0290ad4ce"
+        },
+        {
+          "text": "3t",
+          "bbox": [29.28, 32.35, 31.77, 36.59],
+          "left_icon": "1ce58a493c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p244",
+      "copies": 1,
+      "pages": [244],
+      "name": "Retribution",
+      "level": 1,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 1,
+      "back_name": "Retribution",
+      "crit": 1,
+      "crit_value": 5,
+      "acc": 8,
+      "acc_value": 3,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 5 Acc 8 {icon:8d4bbe5e11} 3",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:9d58d3d431} 2t, {icon:1ce58a493c} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [20.62, 32.46, 23.05, 36.7]
+        },
+        {
+          "text": "2t",
+          "bbox": [28.07, 32.46, 30.5, 36.7],
+          "left_icon": "1ce58a493c"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.53, 22.54, 14.52, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p245",
+      "copies": 1,
+      "pages": [245],
+      "name": "Retribution",
+      "level": 2,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 2,
+      "back_name": "Retribution",
+      "crit": 2,
+      "crit_value": 7,
+      "acc": 9,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00} Crit 2 {icon:8d4bbe5e11} 7 Acc 9 {icon:8d4bbe5e11} 4",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:9d58d3d431} 2t, {icon:1ce58a493c} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [20.62, 32.46, 23.05, 36.7]
+        },
+        {
+          "text": "3t",
+          "bbox": [28.07, 32.46, 30.56, 36.7],
+          "left_icon": "1ce58a493c"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.53, 22.54, 14.52, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p246",
+      "copies": 1,
+      "pages": [246],
+      "name": "Retribution",
+      "level": 3,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 3,
+      "back_name": "Retribution",
+      "crit": 2,
+      "crit_value": 9,
+      "acc": 10,
+      "acc_value": 5,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00} Crit 2 {icon:8d4bbe5e11} 9 Acc 10 {icon:8d4bbe5e11} 5",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:9d58d3d431} 2t, {icon:1ce58a493c} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [20.62, 32.46, 23.05, 36.7]
+        },
+        {
+          "text": "3t",
+          "bbox": [28.07, 32.46, 30.56, 36.7],
+          "left_icon": "1ce58a493c"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.53, 22.54, 14.52, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p247",
+      "copies": 1,
+      "pages": [247],
+      "name": "Command",
+      "level": 1,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 1,
+      "back_name": "Command",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 1 {icon:7616568d52}",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:1fd9f6ec6d} 2t",
+        "{icon:b6afaa4d7b} {icon:1fd9f6ec6d} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [19.2, 32.16, 21.63, 36.4],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.35, 63.0, 36.59],
+          "left_icon": "1fd9f6ec6d",
+          "inside_icon": "1fd9f6ec6d"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p248",
+      "copies": 1,
+      "pages": [248],
+      "name": "Command",
+      "level": 2,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 2,
+      "back_name": "Command",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 1 {icon:7616568d52} {icon:7616568d52}",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:1fd9f6ec6d} 2t",
+        "{icon:b6afaa4d7b} {icon:1fd9f6ec6d} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [19.2, 32.16, 21.63, 36.4],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.35, 63.0, 36.59],
+          "left_icon": "1fd9f6ec6d",
+          "inside_icon": "1fd9f6ec6d"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p249",
+      "copies": 1,
+      "pages": [249],
+      "name": "Command",
+      "level": 3,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 3,
+      "back_name": "Command",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 1 {icon:7616568d52} {icon:7616568d52} {icon:7616568d52}",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:1fd9f6ec6d} 3t",
+        "{icon:b6afaa4d7b} {icon:1fd9f6ec6d} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [19.2, 32.16, 21.69, 36.4],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "3t",
+          "bbox": [60.51, 32.35, 63.0, 36.59],
+          "left_icon": "1fd9f6ec6d",
+          "inside_icon": "1fd9f6ec6d"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p250",
+      "copies": 1,
+      "pages": [250],
+      "name": "Bolster",
+      "level": 1,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 1,
+      "back_name": "Bolster",
+      "crit": 1,
+      "crit_value": null,
+      "acc": 12,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 1 Acc 12",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:0fa747a534} -1",
+        "{icon:f18923574c} {icon:0fa747a534} -1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "-1",
+          "bbox": [19.71, 32.16, 22.11, 36.4],
+          "left_icon": "9d58d3d431",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "-1",
+          "bbox": [60.6, 32.35, 63.0, 36.59],
+          "left_icon": "0fa747a534",
+          "inside_icon": "0fa747a534"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p251",
+      "copies": 1,
+      "pages": [251],
+      "name": "Bolster",
+      "level": 2,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 2,
+      "back_name": "Bolster",
+      "crit": 1,
+      "crit_value": null,
+      "acc": 14,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 1 Acc 14",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:0fa747a534} -1",
+        "{icon:f18923574c} {icon:0fa747a534} -1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "-1",
+          "bbox": [19.71, 32.16, 22.11, 36.4],
+          "left_icon": "9d58d3d431",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "-1",
+          "bbox": [60.6, 32.35, 63.0, 36.59],
+          "left_icon": "0fa747a534",
+          "inside_icon": "0fa747a534"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p252",
+      "copies": 1,
+      "pages": [252],
+      "name": "Bolster",
+      "level": 3,
+      "hero": "MAN-AT-ARMS",
+      "back_level": 3,
+      "back_name": "Bolster",
+      "crit": 2,
+      "crit_value": null,
+      "acc": 16,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} Crit 2 Acc 16",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:0fa747a534} -1",
+        "{icon:f18923574c} {icon:0fa747a534} -1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "-1",
+          "bbox": [19.71, 32.16, 22.11, 36.4],
+          "left_icon": "9d58d3d431",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "-1",
+          "bbox": [60.6, 32.35, 63.0, 36.59],
+          "left_icon": "0fa747a534",
+          "inside_icon": "0fa747a534"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p253",
+      "copies": 1,
+      "pages": [253],
+      "name": "Punish",
+      "level": 1,
+      "hero": "FLAGELLANT",
+      "back_level": 1,
+      "back_name": "Punish",
+      "crit": 1,
+      "crit_value": 7,
+      "acc": 10,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:d4329c2a97} 7 Acc 10 {icon:d4329c2a97} 4",
+      "effect_lines_raw": [
+        "{icon:c7faf2bc86} {icon:d4329c2a97} +2 if Flagellant has {icon:1fd9f6ec6d} {icon:b2102a1a20} ,",
+        "2 {icon:c3fb3612ce} 2t, {icon:3a60c92c83} 1t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "+2",
+          "bbox": [32.65, 30.94, 35.36, 35.01],
+          "left_icon": "c7faf2bc86",
+          "inside_icon": "d4329c2a97"
+        },
+        {
+          "text": "2",
+          "bbox": [49.17, 34.65, 50.64, 38.9]
+        },
+        {
+          "text": "2t",
+          "bbox": [53.75, 34.65, 56.18, 38.9],
+          "left_icon": "c3fb3612ce"
+        },
+        {
+          "text": "1t",
+          "bbox": [60.98, 34.65, 63.0, 38.9],
+          "left_icon": "3a60c92c83"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p254",
+      "copies": 1,
+      "pages": [254],
+      "name": "Punish",
+      "level": 2,
+      "hero": "FLAGELLANT",
+      "back_level": 2,
+      "back_name": "Punish",
+      "crit": 1,
+      "crit_value": 9,
+      "acc": 11,
+      "acc_value": 6,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:d4329c2a97} 9 Acc 11 {icon:d4329c2a97} 6",
+      "effect_lines_raw": [
+        "{icon:c7faf2bc86} {icon:d4329c2a97} +2 if Flagellant has {icon:1fd9f6ec6d} {icon:b2102a1a20} ,",
+        "2 {icon:c3fb3612ce} 3t, {icon:3a60c92c83} 1t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "+2",
+          "bbox": [32.65, 30.94, 35.36, 35.01],
+          "left_icon": "c7faf2bc86",
+          "inside_icon": "d4329c2a97"
+        },
+        {
+          "text": "2",
+          "bbox": [49.11, 34.65, 50.59, 38.9]
+        },
+        {
+          "text": "3t",
+          "bbox": [53.69, 34.65, 56.18, 38.9],
+          "left_icon": "c3fb3612ce"
+        },
+        {
+          "text": "1t",
+          "bbox": [60.98, 34.65, 63.0, 38.9],
+          "left_icon": "3a60c92c83"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p255",
+      "copies": 1,
+      "pages": [255],
+      "name": "Punish",
+      "level": 3,
+      "hero": "FLAGELLANT",
+      "back_level": 3,
+      "back_name": "Punish",
+      "crit": 1,
+      "crit_value": 12,
+      "acc": 12,
+      "acc_value": 8,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:d4329c2a97} 12 Acc 12 {icon:d4329c2a97} 8",
+      "effect_lines_raw": [
+        "{icon:c7faf2bc86} {icon:d4329c2a97} +2 if Flagellant has {icon:1fd9f6ec6d} {icon:b2102a1a20} ,",
+        "3 {icon:c3fb3612ce} 3t, {icon:3a60c92c83} 1t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "+2",
+          "bbox": [32.65, 30.94, 35.36, 35.01],
+          "left_icon": "c7faf2bc86",
+          "inside_icon": "d4329c2a97"
+        },
+        {
+          "text": "3",
+          "bbox": [49.05, 34.65, 50.59, 38.9]
+        },
+        {
+          "text": "3t",
+          "bbox": [53.69, 34.65, 56.18, 38.9],
+          "left_icon": "c3fb3612ce"
+        },
+        {
+          "text": "1t",
+          "bbox": [60.98, 34.65, 63.0, 38.9],
+          "left_icon": "3a60c92c83"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p256",
+      "copies": 1,
+      "pages": [256],
+      "name": "Rain of Sorrows",
+      "level": 1,
+      "hero": "FLAGELLANT",
+      "back_level": 1,
+      "back_name": "Rain of Sorrows",
+      "crit": 1,
+      "crit_value": 5,
+      "acc": 10,
+      "acc_value": 2,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 2 {icon:a396e95c00} {icon:a396e95c00} Crit 1 {icon:d4329c2a97} 5 Acc 10 {icon:d4329c2a97} 2",
+      "effect_lines_raw": [
+        "{icon:c7faf2bc86} {icon:d4329c2a97} +2 if Flagellant has {icon:1fd9f6ec6d} {icon:b2102a1a20} ,",
+        "3 {icon:3a60c92c83} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "+2",
+          "bbox": [32.65, 30.94, 35.36, 35.01],
+          "left_icon": "c7faf2bc86",
+          "inside_icon": "d4329c2a97"
+        },
+        {
+          "text": "3",
+          "bbox": [56.13, 34.65, 57.67, 38.9]
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 34.65, 63.0, 38.9],
+          "left_icon": "3a60c92c83"
+        },
+        {
+          "text": "2",
+          "bbox": [9.4, 22.54, 11.3, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p257",
+      "copies": 1,
+      "pages": [257],
+      "name": "Rain of Sorrows",
+      "level": 2,
+      "hero": "FLAGELLANT",
+      "back_level": 2,
+      "back_name": "Rain of Sorrows",
+      "crit": 1,
+      "crit_value": 6,
+      "acc": 11,
+      "acc_value": 3,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 2 {icon:a396e95c00} {icon:a396e95c00} Crit 1 {icon:d4329c2a97} 6 Acc 11 {icon:d4329c2a97} 3",
+      "effect_lines_raw": [
+        "{icon:c7faf2bc86} {icon:d4329c2a97} +3 if Flagellant has {icon:1fd9f6ec6d} {icon:b2102a1a20} ,",
+        "3 {icon:3a60c92c83} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "+3",
+          "bbox": [32.62, 30.94, 35.38, 35.01],
+          "left_icon": "c7faf2bc86",
+          "inside_icon": "d4329c2a97"
+        },
+        {
+          "text": "3",
+          "bbox": [56.07, 34.65, 57.61, 38.9]
+        },
+        {
+          "text": "3t",
+          "bbox": [60.51, 34.65, 63.0, 38.9],
+          "left_icon": "3a60c92c83"
+        },
+        {
+          "text": "2",
+          "bbox": [9.4, 22.54, 11.3, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p258",
+      "copies": 1,
+      "pages": [258],
+      "name": "Rain of Sorrows",
+      "level": 3,
+      "hero": "FLAGELLANT",
+      "back_level": 3,
+      "back_name": "Rain of Sorrows",
+      "crit": 1,
+      "crit_value": 8,
+      "acc": 12,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 2 {icon:a396e95c00} {icon:a396e95c00} Crit 1 {icon:d4329c2a97} 8 Acc 12 {icon:d4329c2a97} 4",
+      "effect_lines_raw": [
+        "{icon:c7faf2bc86} {icon:d4329c2a97} +4 if Flagellant has {icon:1fd9f6ec6d} {icon:b2102a1a20} ,",
+        "3 {icon:3a60c92c83} 4t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "+4",
+          "bbox": [32.59, 30.94, 35.41, 35.01],
+          "left_icon": "c7faf2bc86",
+          "inside_icon": "d4329c2a97"
+        },
+        {
+          "text": "3",
+          "bbox": [56.01, 34.65, 57.55, 38.9]
+        },
+        {
+          "text": "4t",
+          "bbox": [60.46, 34.65, 63.0, 38.9],
+          "left_icon": "3a60c92c83"
+        },
+        {
+          "text": "2",
+          "bbox": [9.4, 22.54, 11.3, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p259",
+      "copies": 1,
+      "pages": [259],
+      "name": "Exsanguinate",
+      "level": 1,
+      "hero": "FLAGELLANT",
+      "back_level": 1,
+      "back_name": "Exsanguinate",
+      "crit": 1,
+      "crit_value": 7,
+      "acc": 9,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 7 Acc 9 {icon:8d4bbe5e11} 4",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} {icon:20ffe98e2d} 3 , {icon:f18923574c} 1t",
+        "{icon:b6afaa4d7b} 2 {icon:f70a42e51f} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3",
+          "bbox": [17.58, 32.37, 19.25, 37.0],
+          "left_icon": "1ff34c908b",
+          "inside_icon": "20ffe98e2d"
+        },
+        {
+          "text": "1t",
+          "bbox": [25.69, 32.54, 27.86, 36.78],
+          "left_icon": "f18923574c"
+        },
+        {
+          "text": "2",
+          "bbox": [55.93, 32.43, 57.41, 36.67],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "b2e9d87127"
+        },
+        {
+          "text": "3t",
+          "bbox": [60.51, 32.43, 63.0, 36.67],
+          "left_icon": "f70a42e51f",
+          "inside_icon": "b2e9d87127"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p260",
+      "copies": 1,
+      "pages": [260],
+      "name": "Exsanguinate",
+      "level": 2,
+      "hero": "FLAGELLANT",
+      "back_level": 2,
+      "back_name": "Exsanguinate",
+      "crit": 1,
+      "crit_value": 9,
+      "acc": 10,
+      "acc_value": 6,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 9 Acc 10 {icon:8d4bbe5e11} 6",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} {icon:20ffe98e2d} 5 , {icon:f18923574c} 1t",
+        "{icon:b6afaa4d7b} 3 {icon:f70a42e51f} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "5",
+          "bbox": [17.55, 32.37, 19.28, 37.0],
+          "left_icon": "1ff34c908b",
+          "inside_icon": "20ffe98e2d"
+        },
+        {
+          "text": "1t",
+          "bbox": [25.69, 32.54, 27.86, 36.78],
+          "left_icon": "f18923574c"
+        },
+        {
+          "text": "3",
+          "bbox": [55.87, 32.43, 57.41, 36.67],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "b2e9d87127"
+        },
+        {
+          "text": "3t",
+          "bbox": [60.51, 32.43, 63.0, 36.67],
+          "left_icon": "f70a42e51f",
+          "inside_icon": "b2e9d87127"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p261",
+      "copies": 1,
+      "pages": [261],
+      "name": "Exsanguinate",
+      "level": 3,
+      "hero": "FLAGELLANT",
+      "back_level": 3,
+      "back_name": "Exsanguinate",
+      "crit": 1,
+      "crit_value": 12,
+      "acc": 11,
+      "acc_value": 8,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 12 Acc 11 {icon:8d4bbe5e11} 8",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} {icon:20ffe98e2d} 7 , {icon:f18923574c} 1t",
+        "{icon:b6afaa4d7b} 3 {icon:1fd9f6ec6d} 4t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "7",
+          "bbox": [17.68, 32.37, 19.15, 37.0],
+          "left_icon": "1ff34c908b",
+          "inside_icon": "20ffe98e2d"
+        },
+        {
+          "text": "1t",
+          "bbox": [25.69, 32.54, 27.86, 36.78],
+          "left_icon": "f18923574c"
+        },
+        {
+          "text": "3",
+          "bbox": [55.82, 32.43, 57.35, 36.67],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "b2e9d87127"
+        },
+        {
+          "text": "4t",
+          "bbox": [60.46, 32.43, 63.0, 36.67],
+          "left_icon": "1fd9f6ec6d",
+          "inside_icon": "b2e9d87127"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p262",
+      "copies": 1,
+      "pages": [262],
+      "name": "Reclaim",
+      "level": 1,
+      "hero": "FLAGELLANT",
+      "back_level": 1,
+      "back_name": "Reclaim",
+      "crit": 2,
+      "crit_value": 4,
+      "acc": 12,
+      "acc_value": 2,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0-1 {icon:7616568d52} Crit 2 {icon:e8a4b7eebf} {icon:20ffe98e2d} 4 Acc 12 {icon:e8a4b7eebf} {icon:20ffe98e2d} 2",
+      "effect_lines_raw": ["{icon:8fc8635162} {icon:1ff34c908b} Self 1 {icon:4fcb32ac31} 3t"],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [15.67, 32.49, 16.73, 36.73],
+          "left_icon": "1ff34c908b",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "3t",
+          "bbox": [19.83, 32.49, 22.32, 36.73],
+          "left_icon": "4fcb32ac31",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "0-1",
+          "bbox": [9.48, 22.54, 14.68, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p263",
+      "copies": 1,
+      "pages": [263],
+      "name": "Reclaim",
+      "level": 2,
+      "hero": "FLAGELLANT",
+      "back_level": 2,
+      "back_name": "Reclaim",
+      "crit": 2,
+      "crit_value": 6,
+      "acc": 14,
+      "acc_value": 3,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0-1 {icon:7616568d52} Crit 2 {icon:3ee34939e2} {icon:20ffe98e2d} 6 Acc 14 {icon:3ee34939e2} {icon:20ffe98e2d} 3",
+      "effect_lines_raw": ["{icon:8fc8635162} {icon:1ff34c908b} Self 1 {icon:4fcb32ac31} 3t"],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [15.67, 32.49, 16.73, 36.73],
+          "left_icon": "1ff34c908b",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "3t",
+          "bbox": [19.83, 32.49, 22.32, 36.73],
+          "left_icon": "4fcb32ac31",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "0-1",
+          "bbox": [9.48, 22.54, 14.68, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p264",
+      "copies": 1,
+      "pages": [264],
+      "name": "Reclaim",
+      "level": 3,
+      "hero": "FLAGELLANT",
+      "back_level": 3,
+      "back_name": "Reclaim",
+      "crit": 2,
+      "crit_value": 8,
+      "acc": 16,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0-1 {icon:7616568d52} Crit 2 {icon:e8a4b7eebf} {icon:20ffe98e2d} 8 Acc 16 {icon:d4329c2a97} {icon:20ffe98e2d} 4",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} {icon:20ffe98e2d} 5 , 1 {icon:ac56561b87} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "5",
+          "bbox": [17.55, 32.37, 19.28, 37.0],
+          "left_icon": "1ff34c908b",
+          "inside_icon": "20ffe98e2d"
+        },
+        {
+          "text": "1",
+          "bbox": [22.44, 32.54, 23.5, 36.78],
+          "left_icon": "20ffe98e2d"
+        },
+        {
+          "text": "3t",
+          "bbox": [26.61, 32.54, 29.09, 36.78],
+          "left_icon": "ac56561b87"
+        },
+        {
+          "text": "0-1",
+          "bbox": [9.48, 22.54, 14.68, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p265",
+      "copies": 1,
+      "pages": [265],
+      "name": "Redeem",
+      "level": 1,
+      "hero": "FLAGELLANT",
+      "back_level": 1,
+      "back_name": "Redeem",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 1 {icon:7616568d52}",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:1fd9f6ec6d} {icon:839d76424c} 3 , {icon:f18923574c} 1t",
+        "{icon:b6afaa4d7b} {icon:1fd9f6ec6d} {icon:839d76424c} 3"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3",
+          "bbox": [17.58, 32.37, 19.25, 37.0],
+          "left_icon": "1ff34c908b",
+          "inside_icon": "20ffe98e2d"
+        },
+        {
+          "text": "1t",
+          "bbox": [25.69, 32.54, 27.71, 36.78],
+          "left_icon": "f18923574c"
+        },
+        {
+          "text": "3",
+          "bbox": [59.41, 32.56, 61.09, 37.19],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "c3fb3612ce"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p266",
+      "copies": 1,
+      "pages": [266],
+      "name": "Redeem",
+      "level": 2,
+      "hero": "FLAGELLANT",
+      "back_level": 2,
+      "back_name": "Redeem",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 1 {icon:7616568d52}",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:1fd9f6ec6d} {icon:839d76424c} 5 , {icon:f18923574c} 1t",
+        "{icon:b6afaa4d7b} {icon:1fd9f6ec6d} {icon:839d76424c} 5"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "5",
+          "bbox": [17.55, 32.37, 19.28, 37.0],
+          "left_icon": "1ff34c908b",
+          "inside_icon": "20ffe98e2d"
+        },
+        {
+          "text": "1t",
+          "bbox": [25.69, 32.54, 27.71, 36.78],
+          "left_icon": "f18923574c"
+        },
+        {
+          "text": "5",
+          "bbox": [59.38, 32.56, 61.12, 37.19],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "c3fb3612ce"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p267",
+      "copies": 1,
+      "pages": [267],
+      "name": "Redeem",
+      "level": 3,
+      "hero": "FLAGELLANT",
+      "back_level": 3,
+      "back_name": "Redeem",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 1 {icon:7616568d52}",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} {icon:839d76424c} 7 , {icon:f18923574c} 1t",
+        "{icon:b6afaa4d7b} {icon:1fd9f6ec6d} {icon:839d76424c} 7"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "7",
+          "bbox": [17.68, 32.37, 19.15, 37.0],
+          "left_icon": "1ff34c908b",
+          "inside_icon": "20ffe98e2d"
+        },
+        {
+          "text": "1t",
+          "bbox": [25.69, 32.54, 27.71, 36.78],
+          "left_icon": "f18923574c"
+        },
+        {
+          "text": "7",
+          "bbox": [59.52, 32.56, 60.98, 37.19],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "c3fb3612ce"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p268",
+      "copies": 1,
+      "pages": [268],
+      "name": "Endure",
+      "level": 1,
+      "hero": "FLAGELLANT",
+      "back_level": 1,
+      "back_name": "Endure",
+      "crit": 0,
+      "crit_value": null,
+      "acc": 12,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 0 Acc 12",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:0fa747a534} -1",
+        "{icon:f18923574c} {icon:0fa747a534} -1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "-1",
+          "bbox": [19.71, 32.16, 22.11, 36.4],
+          "left_icon": "9d58d3d431",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "-1",
+          "bbox": [60.6, 32.35, 63.0, 36.59],
+          "left_icon": "0fa747a534",
+          "inside_icon": "0fa747a534"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p269",
+      "copies": 1,
+      "pages": [269],
+      "name": "Endure",
+      "level": 2,
+      "hero": "FLAGELLANT",
+      "back_level": 2,
+      "back_name": "Endure",
+      "crit": 0,
+      "crit_value": null,
+      "acc": 14,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 0 Acc 14",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:0fa747a534} -1",
+        "{icon:f18923574c} {icon:0fa747a534} -1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "-1",
+          "bbox": [19.71, 32.16, 22.11, 36.4],
+          "left_icon": "9d58d3d431",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "-1",
+          "bbox": [60.6, 32.35, 63.0, 36.59],
+          "left_icon": "0fa747a534",
+          "inside_icon": "0fa747a534"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.58, 22.54, 14.57, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p270",
+      "copies": 1,
+      "pages": [270],
+      "name": "Endure",
+      "level": 3,
+      "hero": "FLAGELLANT",
+      "back_level": 3,
+      "back_name": "Endure",
+      "crit": 1,
+      "crit_value": null,
+      "acc": 16,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 1 Acc 16",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:0fa747a534} -1",
+        "{icon:f18923574c} {icon:0fa747a534} -1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "-1",
+          "bbox": [19.71, 32.16, 22.11, 36.4],
+          "left_icon": "9d58d3d431",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "-1",
+          "bbox": [60.6, 32.35, 63.0, 36.59],
+          "left_icon": "0fa747a534",
+          "inside_icon": "0fa747a534"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.58, 22.54, 14.57, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p271",
+      "copies": 1,
+      "pages": [271],
+      "name": "Suffer",
+      "level": 1,
+      "hero": "FLAGELLANT",
+      "back_level": 1,
+      "back_name": "Suffer",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 1 {icon:7616568d52}",
+        "{icon:b6afaa4d7b} Transfer all {icon:8d4bbe5e11} or {icon:98edfaca0a}",
+        "{icon:9d58d3d431}",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self 2t , {icon:1ce58a493c} 2t",
+        "to the Flagellant."
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [20.4, 32.35, 22.83, 36.59]
+        },
+        {
+          "text": "2t",
+          "bbox": [28.25, 32.35, 30.84, 36.59],
+          "left_icon": "1ce58a493c"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p272",
+      "copies": 1,
+      "pages": [272],
+      "name": "Suffer",
+      "level": 2,
+      "hero": "FLAGELLANT",
+      "back_level": 2,
+      "back_name": "Suffer",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 1 {icon:7616568d52}",
+        "{icon:b6afaa4d7b} Transfer all {icon:8d4bbe5e11} or {icon:98edfaca0a}",
+        "{icon:9d58d3d431}",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self 2t , {icon:1ce58a493c} 3t",
+        "to the Flagellant."
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [20.4, 32.35, 22.83, 36.59]
+        },
+        {
+          "text": "3t",
+          "bbox": [28.25, 32.35, 30.74, 36.59],
+          "left_icon": "1ce58a493c"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p273",
+      "copies": 1,
+      "pages": [273],
+      "name": "Suffer",
+      "level": 3,
+      "hero": "FLAGELLANT",
+      "back_level": 3,
+      "back_name": "Suffer",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 1 {icon:7616568d52}",
+        "{icon:b6afaa4d7b} Transfer all {icon:8d4bbe5e11} or {icon:98edfaca0a}",
+        "{icon:9d58d3d431}",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self 1t , {icon:ac56561b87} 4t",
+        "to the Flagellant."
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [20.4, 32.35, 22.42, 36.59]
+        },
+        {
+          "text": "4t",
+          "bbox": [27.84, 32.35, 30.38, 36.59],
+          "left_icon": "ac56561b87"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    }
+  ]
+}

@@ -119,6 +119,9 @@ it("与 committed normalized 快照一致", () => {
   const file = json("normalized/corebox/hero_stat.json");
   expect(built).toEqual({
     ...file,
-    cards: file.cards.filter((c: { id: string }) => !c.id.startsWith("hero_stat:warrens:")),
+    cards: file.cards.filter(
+      (c: { id: string }) =>
+        !c.id.startsWith("hero_stat:warrens:") && !c.id.startsWith("hero_stat:cove:"),
+    ),
   });
 });

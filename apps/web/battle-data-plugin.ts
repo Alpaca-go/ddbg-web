@@ -8,6 +8,7 @@ import {
   formalRosterArtOnlySkills,
   formalRosterPendingHeroStats,
   WARRENS_VERIFIED_SKILL_PAGE_BLOCKS,
+  COVE_VERIFIED_SKILL_PAGE_BLOCKS,
 } from "../../packages/engine/src/index";
 import { diseaseFileSchema } from "../../packages/data/src/disease";
 import { normalizedHeroStatFileSchema } from "../../packages/data/src/normalize/hero-stat";
@@ -118,11 +119,24 @@ export function battleDataPlugin(): Plugin {
       }
       const allHeroSkills = normalizedHeroSkillFileSchema.parse(read("hero_skill")).cards;
       if (graveOccultist) {
-        for (const hero of ["JESTER", "ARBALEST", "ABOMINATION", "ANTIQUARIAN", "LEPER"] as const) {
+        for (const hero of [
+          "JESTER",
+          "ARBALEST",
+          "ABOMINATION",
+          "ANTIQUARIAN",
+          "LEPER",
+          "FLAGELLANT",
+          "MAN-AT-ARMS",
+        ] as const) {
           for (const card of verifiedLevel1CombatSkillsForHero(hero, allHeroSkills))
             skillIds.add(card.id);
         }
         for (const block of WARRENS_VERIFIED_SKILL_PAGE_BLOCKS) {
+          for (let i = 0; i < block.count; i += 3) {
+            skillIds.add(`hero_skill:p${String(block.startPage + i).padStart(3, "0")}`);
+          }
+        }
+        for (const block of COVE_VERIFIED_SKILL_PAGE_BLOCKS) {
           for (let i = 0; i < block.count; i += 3) {
             skillIds.add(`hero_skill:p${String(block.startPage + i).padStart(3, "0")}`);
           }
@@ -193,7 +207,7 @@ export function battleDataPlugin(): Plugin {
         !tile ||
         !tile.usable ||
         tile.deployment?.printReview !== "verified" ||
-        heroStats.length !== (graveOccultist ? 43 : plagueDoctor ? 32 : questCatalog ? 29 : 4) ||
+        heroStats.length !== (graveOccultist ? 47 : plagueDoctor ? 38 : questCatalog ? 35 : 4) ||
         skills.length !== skillIds.size + rosterArtSkills.length ||
         monsters.length !== monsterIds.size
       )
