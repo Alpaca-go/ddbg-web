@@ -137,7 +137,9 @@ const coreHeroStatFile = () => {
     ...file,
     cards: file.cards.filter(
       (c: { id: string }) =>
-        !c.id.startsWith("hero_stat:warrens:") && !c.id.startsWith("hero_stat:cove:"),
+        !c.id.startsWith("hero_stat:warrens:") &&
+        !c.id.startsWith("hero_stat:cove:") &&
+        !c.id.startsWith("hero_stat:weald:"),
     ),
   };
 };

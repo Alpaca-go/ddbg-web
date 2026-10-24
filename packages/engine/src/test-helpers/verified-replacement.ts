@@ -8,6 +8,8 @@ export const VERIFIED_REPLACEMENT_NAMES = [
   "JESTER",
   "LEPER",
   "MAN-AT-ARMS",
+  "HOUNDMASTER",
+  "SHIELDBREAKER",
   "PLAGUE DOCTOR",
   "GRAVE ROBBER",
   "OCCULTIST",
@@ -23,6 +25,8 @@ export const VERIFIED_REPLACEMENT_STAT_IDS = [
   "hero_stat:warrens:leper:p001:front",
   "hero_stat:cove:flagellant:p001:front",
   "hero_stat:cove:man-at-arms:p001:front",
+  "hero_stat:weald:houndmaster:p001:front",
+  "hero_stat:weald:shieldbreaker:p001:front",
   "hero_stat:p015:front",
   "hero_stat:p021:front",
 ] as const;
@@ -36,6 +40,8 @@ export const VERIFIED_REMAINING_AFTER_FOUR_PREP = [
   "LEPER",
   "FLAGELLANT",
   "MAN-AT-ARMS",
+  "HOUNDMASTER",
+  "SHIELDBREAKER",
 ] as const;
 
 export function verifiedReplacementNamesExcluding(...exclude: readonly string[]) {

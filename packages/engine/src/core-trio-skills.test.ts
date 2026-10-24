@@ -241,5 +241,5 @@ it("Jester/Arbalest 可替补；七张 I 级已核实", () => {
   expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).not.toContain("JESTER");
   expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).not.toContain("ARBALEST");
   expect(FORMAL_HEROES_PARTIAL_CORE_SKILLS).toEqual([]);
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toHaveLength(3);
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual(["MUSKETEER"]);
 });
