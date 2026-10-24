@@ -215,9 +215,11 @@ it.each(["quest:p002", "quest:p003"] as const)(
         "ANTIQUARIAN",
         "ARBALEST",
         "BOUNTY HUNTER",
+        "FLAGELLANT",
         "GRAVE ROBBER",
         "JESTER",
         "LEPER",
+        "MAN-AT-ARMS",
         "OCCULTIST",
       ].sort(),
     );

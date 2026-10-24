@@ -135,7 +135,10 @@ const coreHeroStatFile = () => {
   const file = json("normalized/corebox/hero_stat.json");
   return {
     ...file,
-    cards: file.cards.filter((c: { id: string }) => !c.id.startsWith("hero_stat:warrens:")),
+    cards: file.cards.filter(
+      (c: { id: string }) =>
+        !c.id.startsWith("hero_stat:warrens:") && !c.id.startsWith("hero_stat:cove:"),
+    ),
   };
 };
 

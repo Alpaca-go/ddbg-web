@@ -7957,6 +7957,1343 @@
      "icon:7034784ee1"
     ]
    }
+  },
+  {
+   "rawId": "hero_stat:cove:flagellant:p001",
+   "face": "front",
+   "name": "FLAGELLANT",
+   "level": 1,
+   "life": 12,
+   "dodge": 2,
+   "speed": 0,
+   "id": "hero_stat:cove:flagellant:p001:front",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_FRONT.pdf",
+    "page": 1
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-24",
+   "lines": [
+    "{icon:bb21119dee}",
+    "{icon:8466c441ea} I",
+    "{icon:61fd969d50} FLAGELLANT",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 2 {icon:9534ad5184}",
+    "12 {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities {icon:55a3fded25}",
+    "{icon:40bb356305}",
+    "Hamlet Skill: Lashe’s Solace",
+    "{icon:7616568d52} Self : 8 {icon:e8a4b7eebf} , {icon:e8a4b7eebf} -3, gain {icon:a84ac4c016} ."
+   ],
+   "icons": [
+    {
+     "iconId": "bb21119dee",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Crusader (hero stat card)",
+     "meaning_zh": "英雄头像：十字军（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8466c441ea",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "55a3fded25",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "40bb356305",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "blight",
+     "kind": "status",
+     "meaning_en": "Blight (hero stat card, large)",
+     "meaning_zh": "枯萎（英雄属性卡，大）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a84ac4c016",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e8a4b7eebf",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage_or_heal_combined_marker",
+     "kind": "other",
+     "meaning_en": "Damage-or-Heal combined marker (red burst + green cross) – confirm",
+     "meaning_zh": "伤害/治疗组合标记（红色爆发+绿十字）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e8a4b7eebf",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage_or_heal_combined_marker",
+     "kind": "other",
+     "meaning_en": "Damage-or-Heal combined marker (red burst + green cross) – confirm",
+     "meaning_zh": "伤害/治疗组合标记（红色爆发+绿十字）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "rawId": "hero_stat:cove:flagellant:p001",
+   "face": "back",
+   "name": "FLAGELLANT",
+   "level": 2,
+   "life": 16,
+   "dodge": 3,
+   "speed": 0,
+   "id": "hero_stat:cove:flagellant:p001:back",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_BACK.pdf",
+    "page": 1
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-24",
+   "lines": [
+    "{icon:bb21119dee}",
+    "{icon:8466c441ea} II",
+    "{icon:61fd969d50}",
+    "FLAGELLANT",
+    "{icon:61fd969d50} {icon:ea576f3383} {icon:7a472f5d6f} 3 {icon:9534ad5184}",
+    "16 {icon:4648c9e5ec} {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities {icon:55a3fded25}",
+    "{icon:e61ed317de} {icon:de6f50b39b}",
+    "Hamlet Skill: Lashe’s Solace",
+    "{icon:7616568d52} Self : 11 {icon:e8a4b7eebf} , {icon:e8a4b7eebf} -3, gain {icon:a84ac4c016} ."
+   ],
+   "icons": [
+    {
+     "iconId": "bb21119dee",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Crusader (hero stat card)",
+     "meaning_zh": "英雄头像：十字军（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8466c441ea",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "55a3fded25",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "de6f50b39b",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "debuff",
+     "kind": "status",
+     "meaning_en": "Debuff",
+     "meaning_zh": "减益",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e61ed317de",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_e61ed317de",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a84ac4c016",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e8a4b7eebf",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage_or_heal_combined_marker",
+     "kind": "other",
+     "meaning_en": "Damage-or-Heal combined marker (red burst + green cross) – confirm",
+     "meaning_zh": "伤害/治疗组合标记（红色爆发+绿十字）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e8a4b7eebf",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage_or_heal_combined_marker",
+     "kind": "other",
+     "meaning_en": "Damage-or-Heal combined marker (red burst + green cross) – confirm",
+     "meaning_zh": "伤害/治疗组合标记（红色爆发+绿十字）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:e61ed317de"
+    ]
+   }
+  },
+  {
+   "rawId": "hero_stat:cove:flagellant:p002",
+   "face": "front",
+   "name": "FLAGELLANT",
+   "level": 3,
+   "life": 22,
+   "dodge": 3,
+   "speed": 0,
+   "id": "hero_stat:cove:flagellant:p002:front",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_FRONT.pdf",
+    "page": 2
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-24",
+   "lines": [
+    "{icon:bb21119dee}",
+    "{icon:8466c441ea} III",
+    "{icon:23cc2e3363}",
+    "{icon:61fd969d50} FLAGELLANT",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 3 {icon:9534ad5184}",
+    "22 {icon:4648c9e5ec} {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities {icon:55a3fded25}",
+    "{icon:61fd969d50} {icon:8db71542d2} {icon:64702f548e} {icon:64702f548e}",
+    "Hamlet Skill: Lashe’s Solace",
+    "{icon:7616568d52} Self : 15 {icon:e8a4b7eebf} , {icon:e8a4b7eebf} -3, gain {icon:a84ac4c016} ."
+   ],
+   "icons": [
+    {
+     "iconId": "bb21119dee",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Crusader (hero stat card)",
+     "meaning_zh": "英雄头像：十字军（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8466c441ea",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "23cc2e3363",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "55a3fded25",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8db71542d2",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stun",
+     "kind": "status",
+     "meaning_en": "Stun (hero card/player aid)",
+     "meaning_zh": "眩晕（英雄卡/玩家辅助卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "64702f548e",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (hero stat card)",
+     "meaning_zh": "流血（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "64702f548e",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (hero stat card)",
+     "meaning_zh": "流血（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a84ac4c016",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e8a4b7eebf",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage_or_heal_combined_marker",
+     "kind": "other",
+     "meaning_en": "Damage-or-Heal combined marker (red burst + green cross) – confirm",
+     "meaning_zh": "伤害/治疗组合标记（红色爆发+绿十字）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e8a4b7eebf",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage_or_heal_combined_marker",
+     "kind": "other",
+     "meaning_en": "Damage-or-Heal combined marker (red burst + green cross) – confirm",
+     "meaning_zh": "伤害/治疗组合标记（红色爆发+绿十字）待确认",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": false,
+    "reasons": []
+   }
+  },
+  {
+   "rawId": "hero_stat:cove:man-at-arms:p001",
+   "face": "front",
+   "name": "MAN-AT-ARMS",
+   "level": 1,
+   "life": 16,
+   "dodge": 1,
+   "speed": 1,
+   "id": "hero_stat:cove:man-at-arms:p001:front",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_FRONT.pdf",
+    "page": 3
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-24",
+   "lines": [
+    "{icon:bb21119dee}",
+    "{icon:8466c441ea} I",
+    "{icon:61fd969d50} MAN-AT-ARMS",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 1 {icon:9534ad5184}",
+    "16 {icon:4648c9e5ec}",
+    "Resistances        Immunities {icon:55a3fded25}",
+    "{icon:df4eb1ac47}",
+    "Hamlet Skill: Wound Care",
+    "{icon:2053ba65e6} Self : {icon:4f849b8ded} 4t, remove {icon:7616568d52} OR remove",
+    "Quirk OR {icon:7616568d52} -5 OR {icon:7616568d52} 10 {icon:7616568d52} ."
+   ],
+   "icons": [
+    {
+     "iconId": "bb21119dee",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Crusader (hero stat card)",
+     "meaning_zh": "英雄头像：十字军（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8466c441ea",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "55a3fded25",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "df4eb1ac47",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "shuffle_resist",
+     "kind": "resist",
+     "meaning_en": "Shuffle (hero stat card)",
+     "meaning_zh": "位移（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4f849b8ded",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal (small)",
+     "meaning_zh": "治疗（小）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "2053ba65e6",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:2053ba65e6"
+    ]
+   }
+  },
+  {
+   "rawId": "hero_stat:cove:man-at-arms:p001",
+   "face": "back",
+   "name": "MAN-AT-ARMS",
+   "level": 2,
+   "life": 22,
+   "dodge": 2,
+   "speed": 1,
+   "id": "hero_stat:cove:man-at-arms:p001:back",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_BACK.pdf",
+    "page": 3
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-24",
+   "lines": [
+    "{icon:bb21119dee}",
+    "{icon:8466c441ea} II",
+    "{icon:61fd969d50}",
+    "MAN-AT-ARMS",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 2 {icon:9534ad5184}",
+    "{icon:61fd969d50}",
+    "22 {icon:4648c9e5ec}",
+    "Resistances        Immunities {icon:55a3fded25}",
+    "{icon:e61ed317de} {icon:de6f50b39b}",
+    "Hamlet Skill: Wound Care",
+    "{icon:2053ba65e6} Self : {icon:4f849b8ded} 4t, remove {icon:7616568d52} OR remove",
+    "Quirk OR {icon:7616568d52} -5 OR {icon:7616568d52} 10 {icon:7616568d52} ."
+   ],
+   "icons": [
+    {
+     "iconId": "bb21119dee",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Crusader (hero stat card)",
+     "meaning_zh": "英雄头像：十字军（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8466c441ea",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "55a3fded25",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "de6f50b39b",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "debuff",
+     "kind": "status",
+     "meaning_en": "Debuff",
+     "meaning_zh": "减益",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "e61ed317de",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_e61ed317de",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4f849b8ded",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal (small)",
+     "meaning_zh": "治疗（小）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "2053ba65e6",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:2053ba65e6",
+     "icon:e61ed317de"
+    ]
+   }
+  },
+  {
+   "rawId": "hero_stat:cove:man-at-arms:p002",
+   "face": "front",
+   "name": "MAN-AT-ARMS",
+   "level": 3,
+   "life": 28,
+   "dodge": 3,
+   "speed": 1,
+   "id": "hero_stat:cove:man-at-arms:p002:front",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_FRONT.pdf",
+    "page": 4
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-10-24",
+   "lines": [
+    "{icon:bb21119dee}",
+    "{icon:8466c441ea} III",
+    "{icon:23cc2e3363}",
+    "{icon:61fd969d50} MAN-AT-ARMS",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 3 {icon:9534ad5184}",
+    "28 {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities {icon:55a3fded25}",
+    "{icon:61fd969d50} {icon:8db71542d2} {icon:64702f548e} {icon:64702f548e}",
+    "Hamlet Skill: Wound Care",
+    "{icon:2053ba65e6} Self : {icon:4f849b8ded} 4t, remove {icon:7616568d52} OR remove",
+    "Quirk OR {icon:7616568d52} -5 OR {icon:7616568d52} 10 {icon:7616568d52} ."
+   ],
+   "icons": [
+    {
+     "iconId": "bb21119dee",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Crusader (hero stat card)",
+     "meaning_zh": "英雄头像：十字军（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8466c441ea",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "23cc2e3363",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "55a3fded25",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8db71542d2",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stun",
+     "kind": "status",
+     "meaning_en": "Stun (hero card/player aid)",
+     "meaning_zh": "眩晕（英雄卡/玩家辅助卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "64702f548e",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (hero stat card)",
+     "meaning_zh": "流血（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "64702f548e",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (hero stat card)",
+     "meaning_zh": "流血（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4f849b8ded",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "heal",
+     "kind": "other",
+     "meaning_en": "Heal (small)",
+     "meaning_zh": "治疗（小）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "2053ba65e6",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:2053ba65e6"
+    ]
+   }
   }
  ]
 }

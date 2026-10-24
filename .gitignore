@@ -16,3 +16,4 @@ blob-report/
 *.tts-cache/
 apps/web/public/tts-card-art/
 artifacts/*.png
+ddbg-print/

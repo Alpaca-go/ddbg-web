@@ -34,6 +34,7 @@ import { buildRoomTileGeometry } from "./room-tile";
 import type { RoomTileGeometryFile } from "./room-tile";
 import { buildHeroStats, normalizedHeroStatFileSchema } from "./hero-stat";
 import { buildWarrensHeroStats } from "./warrens-hero-stat";
+import { buildCoveHeroStats } from "./cove-hero-stat";
 import { buildRooms } from "./room";
 import { buildMonsterPool } from "./monster-pool";
 import { buildCurios } from "./curio";
@@ -117,6 +118,9 @@ export type NormalizedCoreboxInput = {
   extensionWarrensHeroSkills?: HeroSkillFile;
   extensionWarrensHeroSkillRaw?: RawFile;
   extensionWarrensHeroStatRaw?: RawFile;
+  extensionCoveHeroSkills?: HeroSkillFile;
+  extensionCoveHeroSkillRaw?: RawFile;
+  extensionCoveHeroStatRaw?: RawFile;
 };
 
 function rawIndex(file: RawFile): Map<string, RawCard> {
@@ -612,19 +616,28 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
         input.extensionWarrensHeroStatRaw && input.dictionary
           ? buildWarrensHeroStats(input.extensionWarrensHeroStatRaw, input.dictionary)
           : [];
+      const cove =
+        input.extensionCoveHeroStatRaw && input.dictionary
+          ? buildCoveHeroStats(input.extensionCoveHeroStatRaw, input.dictionary)
+          : [];
       return normalizedHeroStatFileSchema.parse({
         ...core,
-        cards: [...core.cards, ...warrens],
+        cards: [...core.cards, ...warrens, ...cove],
       });
     })(),
     hero_skill: (() => {
       const parsed = {
         ...input.heroSkills,
-        cards: [...input.heroSkills.cards, ...(input.extensionWarrensHeroSkills?.cards ?? [])],
+        cards: [
+          ...input.heroSkills.cards,
+          ...(input.extensionWarrensHeroSkills?.cards ?? []),
+          ...(input.extensionCoveHeroSkills?.cards ?? []),
+        ],
       };
       const rawCards = [
         ...input.heroSkillRaw.cards,
         ...(input.extensionWarrensHeroSkillRaw?.cards ?? []),
+        ...(input.extensionCoveHeroSkillRaw?.cards ?? []),
       ];
       const raw = { ...input.heroSkillRaw, cards: rawCards };
       const file = buildHeroSkills(parsed, raw, lookup);

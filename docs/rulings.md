@@ -1039,6 +1039,26 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **暂定**：R-104 按上表批准属性；未确认图标不命名、不猜效果；整卡 `verification` 可仍为 unverified。
 - **状态**：待 Kyries 确认
 
+### R-105
+
+- **编号**：R-105
+- **日期**：2026-10-24
+- **问题**：Cove 扩展包 Man-at-Arms / Flagellant Hero STAT（Cove 印刷 `DD_EN_COVE_CARDS_100x180_Hero_STAT` p1–4；与 TDH 同序 p24–27 几何）与七张 I 级战斗技能（TDH 技能页 **p232–273**，见 Q-105）待核实入库与接线。
+- **裁定**（Kyries 批准转录；不改全局词典除非另开 Q）：
+  - **STAT 入库**（`attributesVerified: true`，`kyries_review_2026-10-24`）：Flagellant I/II/III 与 MAA I/II/III 共六面——Life/Dodge/Speed：Flagellant 12/2/0、16/3/0、22/3/0；MAA 16/1/1、22/2/1、28/3/1。CE `speed` 缺印时 Speed 记 **0**；MAA Speed 以移动栏图标数量核实为 1（Flagellant I 亦 Speed 0，III 虽有 movement boot 3 仍 Speed 0）。
+  - TDH 免疫栏标题装饰 `55a3fded25` 不入词典、不参与 STAT 核实（同 Q-104 / Q-105）。
+  - **战斗**：各七张 I 级技能 id `hero_skill:p232`–`p250`（MAA）、`p253`–`p271`（Flagellant）规范化核实后接线；移出 `FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`，纳入正式替补白名单。
+- **依据 / 边界**：Cove/TDH 印刷 PDF、CE OFFICIAL_PRINTED_COMPONENT 字面、`extract/extension/cove`、R-048/R-104 路径。不使用 FAQ。
+- **关联待确认**：Q-105
+- **状态**：Kyries 已确认（2026-10-24）
+
+### Q-105
+
+- **编号**：Q-105
+- **问题**：`print-hero-18-art-catalog` 登记 MAA 技能 p232–252、Flagellant p253–273；Cove 英雄包 STAT 为 p1–4，TDH STAT 重印为 p24–27。本 PR 技能 id 与 extract 采用 **TDH 技能页 p232–273**；STAT raw 文件路径用 Cove 包 PDF、页码 p1–4（几何自 TDH p24–27 提取，见 import 脚本注释）。
+- **暂定**：art map 中 EXTENSION_SKILL_BLOCKS 仍登记 p274+ 待与 Kyries 对齐；不阻塞本 PR 接线。
+- **状态**：待 Kyries 确认
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。
