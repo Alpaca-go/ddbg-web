@@ -1,5 +1,25 @@
 import { renderToStaticMarkup } from "react-dom/server";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock("virtual:battle-data", () => ({
+  battleData: {
+    monsters: [
+      {
+        id: "monster_medium:p001",
+        name: "Bone Soldier",
+        skills: [{ slot: 1, name: "Strike" }],
+      },
+      {
+        id: "monster_medium:p004",
+        name: "Bone Courtier",
+        skills: [],
+      },
+    ],
+    heroStats: [],
+    skills: [],
+  },
+}));
+
 import { createTabletopInitialState } from "../tabletop-initial-state";
 import { TabletopDetailPanel } from "./tabletop-detail-panel";
 

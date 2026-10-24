@@ -73,15 +73,15 @@
 
 ## 5. 质量命令（本机 2026-10-22）
 
-| 命令 | 结果 |
-| --- | --- |
-| `pnpm typecheck` | 通过 |
-| `pnpm exec eslint`（UX-02A 触及的 `apps/web` 源文件 + `vitest.config.ts`） | 通过 |
-| `pnpm lint`（全仓库） | 失败：工作区存在未忽略的 `/.cache/check.cjs`（与本次改动无关） |
-| `pnpm build` | 通过 |
-| `pnpm exec vitest run apps/web/src/dungeon-sandbox/expedition/formal-tabletop-scouting-panel.test.tsx` | 2/2 通过 |
-| `pnpm test:e2e -- apps/web/e2e/formal-exploration.spec.ts` | 通过；生成 `docs/screenshots/ux02a-{1280,1920}-exploration.png` |
-| `pnpm test:e2e -- apps/web/e2e/formal-battle.spec.ts` | 通过（S3 底栏回归） |
+| 命令                                                                                                   | 结果                                                            |
+| ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------- |
+| `pnpm typecheck`                                                                                       | 通过                                                            |
+| `pnpm exec eslint`（UX-02A 触及的 `apps/web` 源文件 + `vitest.config.ts`）                             | 通过                                                            |
+| `pnpm lint`（全仓库）                                                                                  | 失败：工作区存在未忽略的 `/.cache/check.cjs`（与本次改动无关）  |
+| `pnpm build`                                                                                           | 通过                                                            |
+| `pnpm exec vitest run apps/web/src/dungeon-sandbox/expedition/formal-tabletop-scouting-panel.test.tsx` | 2/2 通过                                                        |
+| `pnpm test:e2e -- apps/web/e2e/formal-exploration.spec.ts`                                             | 通过；生成 `docs/screenshots/ux02a-{1280,1920}-exploration.png` |
+| `pnpm test:e2e -- apps/web/e2e/formal-battle.spec.ts`                                                  | 通过（S3 底栏回归）                                             |
 
 ## 6. 未解决问题
 

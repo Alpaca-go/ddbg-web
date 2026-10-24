@@ -61,7 +61,12 @@ export function DungeonQuest() {
   const [party, setParty] = useState<QuestParty>(() =>
     defaultPartyNames.map((name, index) => formalPartySlot(name, index)),
   );
-  const [skillsConfirmedBySeat, setSkillsConfirmedBySeat] = useState(() => [false, false, false, false]);
+  const [skillsConfirmedBySeat, setSkillsConfirmedBySeat] = useState(() => [
+    false,
+    false,
+    false,
+    false,
+  ]);
   const [rosterSlotBySeat, setRosterSlotBySeat] = useState<(number | null)[]>(() => [
     null,
     null,
@@ -75,9 +80,7 @@ export function DungeonQuest() {
   const moveRosterSeat = (fromSeat: number, toSlot: EmbarkRosterSlotIndex) => {
     setRosterSlotBySeat((prev) => {
       const next = moveEmbarkRosterSeatToSlot(prev, fromSeat, toSlot);
-      setParty((partyState) =>
-        applyRosterSlotsToParty(partyState, next, skillsConfirmedBySeat),
-      );
+      setParty((partyState) => applyRosterSlotsToParty(partyState, next, skillsConfirmedBySeat));
       return next;
     });
   };
@@ -194,10 +197,7 @@ export function DungeonQuest() {
                 <fieldset
                   key={index}
                   className="embark-seat-column"
-                  aria-label={[
-                    `席位 ${index + 1} · ${stanceLabels[hero.stance]}`,
-                    gapLabel,
-                  ]
+                  aria-label={[`席位 ${index + 1} · ${stanceLabels[hero.stance]}`, gapLabel]
                     .filter(Boolean)
                     .join(" · ")}
                 >
@@ -306,7 +306,9 @@ export function DungeonQuest() {
                     className="embark-begin-btn__img embark-begin-btn__img--hover"
                   />
                 </span>
-                <span className="embark-begin-btn__label" aria-hidden="true">Begin</span>
+                <span className="embark-begin-btn__label" aria-hidden="true">
+                  Begin
+                </span>
               </span>
             </button>
             <EmbarkPartyRosterBar

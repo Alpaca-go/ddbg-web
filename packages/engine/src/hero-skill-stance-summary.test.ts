@@ -1,9 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../../data/src/normalize/write";
-import {
-  aggregateLitHeroSkillStanceCounts,
-  readHeroSkillStanceMarks,
-} from "./hero-skill";
+import { aggregateLitHeroSkillStanceCounts, readHeroSkillStanceMarks } from "./hero-skill";
 import type { HeroSkillCardView } from "./hero-skill";
 
 const smite = loadNormalizedCorebox().hero_skill.cards.find(

@@ -53,7 +53,7 @@ export function assignEmbarkRosterSlotForSeat(
   for (let i = 0; i < rosterSlotBySeat.length; i++) {
     if (i === seatIndex || !skillsConfirmedBySeat[i]) continue;
     const slot = rosterSlotBySeat[i];
-    if (slot !== null) occupied.add(slot);
+    if (slot != null) occupied.add(slot);
   }
   const rosterSlot = resolveEmbarkRosterSlotIndex(preferred, occupied);
   return { rosterSlot, stance: embarkStanceForRosterSlot(rosterSlot) };

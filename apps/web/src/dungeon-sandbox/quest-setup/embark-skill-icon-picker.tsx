@@ -14,7 +14,9 @@ import {
 import { heroSkillIconUrl } from "../../card-art/resolve-hero-skill-icon-art";
 import { EmbarkSkillStanceSummary } from "./embark-skill-stance-summary";
 
-type EmbarkSkillOption = Pick<HeroSkillCardView, "id" | "top_row_icons"> & { readonly name: string };
+type EmbarkSkillOption = Pick<HeroSkillCardView, "id" | "top_row_icons"> & {
+  readonly name: string;
+};
 
 export function EmbarkSkillIconPicker({
   seatIndex,

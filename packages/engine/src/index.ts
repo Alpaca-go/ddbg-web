@@ -59,11 +59,7 @@ export {
 export type { EmbarkRosterSlotIndex } from "./embark-roster-placement";
 export { resolveSkillHeroHealth } from "./skill-hero-health";
 export type { SkillHeroHealth, SkillHeroHealthResult } from "./skill-hero-health";
-export type {
-  SkillHealthEffect,
-  SkillEffectsResolution,
-  HeroSkillStanceMark,
-} from "./hero-skill";
+export type { SkillHealthEffect, SkillEffectsResolution, HeroSkillStanceMark } from "./hero-skill";
 export { resolveMonsterSkill, resolveMonsterSkillEffects } from "./monster-skill";
 export { selectMonsterTarget } from "./monster-target";
 export { selectMonsterSkill } from "./monster-stance";

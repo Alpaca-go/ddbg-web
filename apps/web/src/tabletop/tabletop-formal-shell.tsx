@@ -272,11 +272,7 @@ export function TabletopFormalShell({
     };
     if (flowPhase !== "dungeonExploration" || !engineGame?.dungeon) return base;
     const d = engineGame.dungeon;
-    const firewoodLabel = d.rest
-      ? d.rest.used
-        ? "柴火已弃"
-        : "柴火可用"
-      : undefined;
+    const firewoodLabel = d.rest ? (d.rest.used ? "柴火已弃" : "柴火可用") : undefined;
     const provisionCount = d.explorationSetup?.provisions.length;
     return {
       ...base,

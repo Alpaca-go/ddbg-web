@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("首页：四人建队可开始任务，旧沙盒与桌面预览保留入口", async ({ page }, testInfo) => {
+test("首页：四人建队可开始任务，旧沙盒与桌面预览保留入口", async ({ page }) => {
   await page.goto("/");
   for (const width of [1280, 1920]) {
     await page.setViewportSize({ width, height: width === 1280 ? 800 : 1080 });

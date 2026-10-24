@@ -904,9 +904,10 @@ button.card-face:hover:enabled {
   --embark-position-track-padding-inline: 4px;
   --embark-position-icon-gap: calc(
     (
-        var(--embark-skill-third-span) - 2 * var(--embark-position-track-padding-inline) -
-          4 * var(--embark-skill-position-art-size)
-      ) / 3
+        var(--embark-skill-third-span) - 2 * var(--embark-position-track-padding-inline) - 4 *
+          var(--embark-skill-position-art-size)
+      ) /
+      3
   );
   --embark-skill-position-nudge-y: 6px;
   --embark-skill-icons-nudge-y: 0.12rem;
@@ -1007,9 +1008,8 @@ button.card-face:hover:enabled {
   visibility: hidden;
 }
 .embark-skill-activity-btn:hover .embark-skill-activity-btn__cancel,
-.embark-skill-activity-btn:hover .embark-skill-activity-btn__confirm:not(
-    .embark-skill-activity-btn__confirm--hidden
-  ) {
+.embark-skill-activity-btn:hover
+  .embark-skill-activity-btn__confirm:not(.embark-skill-activity-btn__confirm--hidden) {
   filter: brightness(1.12);
 }
 .embark-skill-activity-btn:focus-visible {
@@ -1029,7 +1029,9 @@ button.card-face:hover:enabled {
   background: rgba(0, 0, 0, 0.5);
   pointer-events: none;
 }
-.embark-skill-loadout--locked .embark-skill-icon:not(.embark-skill-icon--selected) .embark-skill-icon__fallback {
+.embark-skill-loadout--locked
+  .embark-skill-icon:not(.embark-skill-icon--selected)
+  .embark-skill-icon__fallback {
   color: #6a655c;
 }
 .embark-skill-icon:disabled {

@@ -72,7 +72,7 @@ export function moveEmbarkRosterSeatToSlot(
   toSlot: EmbarkRosterSlotIndex,
 ): (number | null)[] {
   const fromSlot = rosterSlotBySeat[fromSeat];
-  if (fromSlot === null || fromSlot === toSlot) return [...rosterSlotBySeat];
+  if (fromSlot == null || fromSlot === toSlot) return [...rosterSlotBySeat];
   const next = rosterSlotBySeat.map((slot) => slot);
   const occupantSeat = next.findIndex((slot, i) => i !== fromSeat && slot === toSlot);
   if (occupantSeat >= 0) {

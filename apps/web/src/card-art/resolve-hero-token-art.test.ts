@@ -1,9 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  heroHasHeroToken,
-  heroHeroTokenRelPath,
-  heroHeroTokenUrl,
-} from "./resolve-hero-token-art";
+import { heroHasHeroToken, heroHeroTokenRelPath, heroHeroTokenUrl } from "./resolve-hero-token-art";
 
 describe("hero token paths", () => {
   it("maps known heroes to Kyries hero_token PNGs", () => {

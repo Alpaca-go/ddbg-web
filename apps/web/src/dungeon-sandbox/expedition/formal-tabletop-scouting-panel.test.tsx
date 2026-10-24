@@ -3,10 +3,7 @@ import { describe, expect, it } from "vitest";
 import type { GameState } from "@ddbg/engine";
 import { FormalTabletopScoutingPanel } from "./formal-tabletop-scouting-panel";
 
-function curioGame(overrides: {
-  activeCurioId?: string;
-  lastCurioId?: string;
-}): GameState {
+function curioGame(overrides: { activeCurioId?: string; lastCurioId?: string }): GameState {
   return {
     seed: 1,
     notes: [],
@@ -84,9 +81,9 @@ describe("FormalTabletopScoutingPanel", () => {
       />,
     );
     const decisions =
-      html.split('data-testid="dungeon-exploration-decisions"')[1]?.split(
-        'data-testid="dungeon-exploration-commands"',
-      )[0] ?? "";
+      html
+        .split('data-testid="dungeon-exploration-decisions"')[1]
+        ?.split('data-testid="dungeon-exploration-commands"')[0] ?? "";
     expect(decisions).toContain('data-testid="dungeon-curio"');
     expect(decisions).toContain("Other Curio");
     expect(decisions).not.toContain("Iron Maiden");
