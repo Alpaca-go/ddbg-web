@@ -174,7 +174,11 @@ it("限定审批不可换英雄、等级、数字、源页或日期，不能把�
 });
 
 it("生成数据含获批面，不生成III背面或Jester；数字/来源漂移拒绝", () => {
-  expect(built).toEqual(json("normalized/corebox/hero_stat.json"));
+  const file = json("normalized/corebox/hero_stat.json");
+  expect(built).toEqual({
+    ...file,
+    cards: file.cards.filter((c: { id: string }) => !c.id.startsWith("hero_stat:warrens:")),
+  });
   expect(built.cards.some((c) => c.rawId === "hero_stat:p006" && c.face === "back")).toBe(false);
   expect(built.cards.some((c) => c.name === "JESTER")).toBe(true);
   for (const c of cards)

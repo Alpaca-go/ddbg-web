@@ -1,0 +1,1640 @@
+{
+  "schema": "ddbg-raw-v1",
+  "extractor_version": "1.0.4",
+  "category": "hero_stat",
+  "kind": "card",
+  "units": {
+    "length": "mm",
+    "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+    "y_axis": "down",
+    "font_size": "pt"
+  },
+  "sources": [
+    {
+      "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf",
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_BACK.pdf",
+      "source_set": "extension",
+      "kind": "card",
+      "front_pages": 35,
+      "back_pages": 35
+    }
+  ],
+  "n_pages": 4,
+  "n_unique": 4,
+  "n_copies_total": 4,
+  "cards": [
+    {
+      "id": "hero_stat:warrens:leper:p001",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [28],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf",
+          "page": 28,
+          "trim_mm": [100.0, 180.0],
+          "face_phash": "c16ae0637ea62bd1",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [20.32, 29.71, 22.09, 38.11],
+              "font": "DwarvenAxeBB",
+              "size": 21.78,
+              "color": "#ffffff"
+            },
+            {
+              "t": "18",
+              "bbox": [49.04, 110.62, 56.23, 120.92],
+              "font": "DwarvenAxeBB",
+              "size": 27.8,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Resistances        Immunities",
+              "bbox": [15.66, 127.91, 63.85, 133.57],
+              "font": "DwarvenAxeBB",
+              "size": 14.69,
+              "color": "#919396"
+            },
+            {
+              "t": "0",
+              "bbox": [25.92, 106.73, 29.02, 114.78],
+              "font": "DwarvenAxeBB",
+              "size": 20.88,
+              "color": "#ffffff"
+            },
+            {
+              "t": "LEPER",
+              "bbox": [35.42, 87.6, 65.05, 105.34],
+              "font": "DwarvenAxeBB",
+              "size": 46.0,
+              "color": "#231f20",
+              "dup": 2
+            },
+            {
+              "t": "Hamlet Skill:",
+              "bbox": [31.72, 150.84, 51.31, 156.23],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Quarantine",
+              "bbox": [52.38, 150.84, 67.48, 156.23],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 13.36,
+              "color": "#5a4540"
+            },
+            {
+              "t": "Self",
+              "bbox": [43.61, 157.57, 48.3, 160.66],
+              "font": "Ubuntu-Medium",
+              "size": 7.35,
+              "color": "#231f20"
+            },
+            {
+              "t": ":",
+              "bbox": [49.56, 157.64, 50.28, 160.87],
+              "font": "Ubuntu-Medium",
+              "size": 7.68,
+              "color": "#231f20"
+            },
+            {
+              "t": "6",
+              "bbox": [53.16, 157.23, 54.75, 161.3],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#840b01"
+            },
+            {
+              "t": ":",
+              "bbox": [52.94, 163.22, 53.78, 167.01],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "-4",
+              "bbox": [59.57, 162.54, 63.03, 167.56],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [63.03, 163.75, 63.7, 166.87],
+              "font": "Ubuntu-Regular",
+              "size": 7.68,
+              "color": "#231f20"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "bb21119dee",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "iconId": "8466c441ea",
+              "bbox": [18.92, 30.36, 23.36, 37.22]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 93.32, 10.48, 99.72],
+              "bbox_full": [1.17, 90.35, 13.36, 102.67]
+            },
+            {
+              "iconId": "ea576f3383",
+              "bbox": [20.29, 104.68, 34.39, 115.6]
+            },
+            {
+              "iconId": "7a472f5d6f",
+              "bbox": [25.04, 107.94, 40.48, 123.38]
+            },
+            {
+              "iconId": "9534ad5184",
+              "bbox": [45.2, 108.01, 60.5, 123.31]
+            },
+            {
+              "iconId": "4648c9e5ec",
+              "bbox": [68.92, 111.16, 78.96, 121.21]
+            },
+            {
+              "iconId": "55a3fded25",
+              "bbox": [38.92, 126.0, 40.42, 144.77]
+            },
+            {
+              "iconId": "8db71542d2",
+              "bbox": [21.17, 135.47, 27.52, 142.52],
+              "bbox_full": [19.1, 133.5, 29.64, 144.48]
+            },
+            {
+              "iconId": "a84ac4c016",
+              "bbox": [50.57, 156.09, 58.07, 162.82]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [42.45, 157.66, 49.46, 160.99]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [54.68, 162.98, 58.91, 167.22],
+              "bbox_full": [53.54, 162.26, 59.89, 168.23]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [36.12, 163.56, 39.31, 166.66]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [40.43, 163.56, 43.62, 166.66]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [44.74, 163.56, 47.93, 166.66]
+            },
+            {
+              "iconId": "9d58d3d431",
+              "bbox": [49.05, 163.56, 52.24, 166.66]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:bb21119dee}",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8466c441ea} I",
+              "bbox": [18.92, 29.71, 23.36, 38.11]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50} LEPER",
+              "bbox": [4.08, 87.6, 65.05, 105.34]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ea576f3383} {icon:7a472f5d6f} 0 {icon:9534ad5184}",
+              "bbox": [20.29, 104.68, 60.5, 123.38]
+            },
+            {
+              "rot": 0,
+              "text": "18 {icon:4648c9e5ec}",
+              "bbox": [49.04, 110.62, 78.96, 121.21]
+            },
+            {
+              "rot": 0,
+              "text": "Resistances        Immunities {icon:55a3fded25}",
+              "bbox": [15.66, 126.0, 63.85, 144.77]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8db71542d2}",
+              "bbox": [21.17, 135.47, 27.52, 142.52]
+            },
+            {
+              "rot": 0,
+              "text": "Hamlet Skill: Quarantine",
+              "bbox": [31.72, 150.84, 67.48, 156.23]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7616568d52} Self : {icon:a84ac4c016} 6",
+              "bbox": [42.45, 156.09, 58.07, 162.82]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:9d58d3d431} {icon:9d58d3d431} {icon:9d58d3d431} {icon:9d58d3d431} : {icon:7616568d52} -4.",
+              "bbox": [36.12, 162.54, 63.7, 167.56]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_BACK.pdf",
+          "page": 28,
+          "trim_mm": [100.0, 180.0],
+          "face_phash": "d168e0637ee07b91",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [19.44, 29.71, 22.98, 38.11],
+              "font": "DwarvenAxeBB",
+              "size": 21.78,
+              "color": "#ffffff"
+            },
+            {
+              "t": "25",
+              "bbox": [48.6, 110.62, 56.67, 120.92],
+              "font": "DwarvenAxeBB",
+              "size": 27.8,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Resistances        Immunities",
+              "bbox": [15.66, 127.91, 63.85, 133.57],
+              "font": "DwarvenAxeBB",
+              "size": 14.69,
+              "color": "#919396"
+            },
+            {
+              "t": "1",
+              "bbox": [26.46, 106.73, 28.48, 114.78],
+              "font": "DwarvenAxeBB",
+              "size": 20.88,
+              "color": "#ffffff"
+            },
+            {
+              "t": "LEPER",
+              "bbox": [35.42, 87.6, 65.05, 105.34],
+              "font": "DwarvenAxeBB",
+              "size": 46.0,
+              "color": "#231f20",
+              "dup": 2
+            },
+            {
+              "t": "Hamlet Skill:",
+              "bbox": [31.72, 150.84, 51.31, 156.23],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Quarantine",
+              "bbox": [52.38, 150.84, 67.48, 156.23],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 13.36,
+              "color": "#5a4540"
+            },
+            {
+              "t": "Self",
+              "bbox": [43.61, 157.57, 48.3, 160.66],
+              "font": "Ubuntu-Medium",
+              "size": 7.35,
+              "color": "#231f20"
+            },
+            {
+              "t": ":",
+              "bbox": [49.56, 157.64, 50.28, 160.87],
+              "font": "Ubuntu-Medium",
+              "size": 7.68,
+              "color": "#231f20"
+            },
+            {
+              "t": "8",
+              "bbox": [52.91, 157.23, 54.5, 161.3],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#840b01"
+            },
+            {
+              "t": ":",
+              "bbox": [52.94, 163.22, 53.78, 167.01],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "-4",
+              "bbox": [59.57, 162.54, 63.03, 167.56],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [63.03, 163.75, 63.7, 166.87],
+              "font": "Ubuntu-Regular",
+              "size": 7.68,
+              "color": "#231f20"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "bb21119dee",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "iconId": "8466c441ea",
+              "bbox": [18.03, 30.36, 24.25, 37.22]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 65.22, 10.48, 71.62],
+              "bbox_full": [1.17, 62.25, 13.36, 74.57]
+            },
+            {
+              "iconId": "ea576f3383",
+              "bbox": [20.29, 104.68, 34.39, 115.6]
+            },
+            {
+              "iconId": "7a472f5d6f",
+              "bbox": [25.04, 107.94, 40.48, 123.38]
+            },
+            {
+              "iconId": "9534ad5184",
+              "bbox": [45.2, 108.01, 60.5, 123.31]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 111.56, 10.48, 117.96],
+              "bbox_full": [1.17, 108.59, 13.36, 120.91]
+            },
+            {
+              "iconId": "4648c9e5ec",
+              "bbox": [68.92, 111.16, 78.96, 121.21]
+            },
+            {
+              "iconId": "55a3fded25",
+              "bbox": [38.92, 126.0, 40.42, 144.77]
+            },
+            {
+              "iconId": "8db71542d2",
+              "bbox": [17.29, 136.17, 24.34, 142.52],
+              "bbox_full": [15.32, 134.24, 26.24, 144.65]
+            },
+            {
+              "iconId": "de6f50b39b",
+              "bbox": [25.75, 136.52, 32.1, 143.23],
+              "bbox_full": [23.78, 134.38, 34.32, 145.36]
+            },
+            {
+              "iconId": "a84ac4c016",
+              "bbox": [50.57, 156.09, 58.07, 162.82]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [42.45, 157.66, 49.46, 160.99]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [54.68, 162.98, 58.91, 167.22],
+              "bbox_full": [53.54, 162.26, 59.89, 168.23]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [36.12, 163.56, 39.31, 166.66]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [40.43, 163.56, 43.62, 166.66]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [44.74, 163.56, 47.93, 166.66]
+            },
+            {
+              "iconId": "9d58d3d431",
+              "bbox": [49.05, 163.56, 52.24, 166.66]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:bb21119dee}",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8466c441ea} II",
+              "bbox": [18.03, 29.71, 24.25, 38.11]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50}",
+              "bbox": [4.08, 65.22, 10.48, 71.62]
+            },
+            {
+              "rot": 0,
+              "text": "LEPER",
+              "bbox": [35.42, 87.6, 65.05, 105.34]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ea576f3383} {icon:7a472f5d6f} 1 {icon:9534ad5184}",
+              "bbox": [20.29, 104.68, 60.5, 123.38]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50}",
+              "bbox": [4.08, 111.56, 10.48, 117.96]
+            },
+            {
+              "rot": 0,
+              "text": "25 {icon:4648c9e5ec}",
+              "bbox": [48.6, 110.62, 78.96, 121.21]
+            },
+            {
+              "rot": 0,
+              "text": "Resistances        Immunities {icon:55a3fded25}",
+              "bbox": [15.66, 126.0, 63.85, 144.77]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8db71542d2} {icon:de6f50b39b}",
+              "bbox": [17.29, 136.17, 32.1, 143.23]
+            },
+            {
+              "rot": 0,
+              "text": "Hamlet Skill: Quarantine",
+              "bbox": [31.72, 150.84, 67.48, 156.23]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7616568d52} Self : {icon:a84ac4c016} 8",
+              "bbox": [42.45, 156.09, 58.07, 162.82]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:9d58d3d431} {icon:9d58d3d431} {icon:9d58d3d431} {icon:9d58d3d431} : {icon:7616568d52} -4.",
+              "bbox": [36.12, 162.54, 63.7, 167.56]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_stat:warrens:leper:p002",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [29],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf",
+          "page": 29,
+          "trim_mm": [100.0, 180.0],
+          "face_phash": "d168e0631ee73b91",
+          "spans": [
+            {
+              "t": "33",
+              "bbox": [48.59, 110.62, 56.68, 120.92],
+              "font": "DwarvenAxeBB",
+              "size": 27.8,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Resistances        Immunities",
+              "bbox": [15.66, 127.91, 63.85, 133.57],
+              "font": "DwarvenAxeBB",
+              "size": 14.69,
+              "color": "#919396"
+            },
+            {
+              "t": "2",
+              "bbox": [26.07, 106.73, 28.87, 114.78],
+              "font": "DwarvenAxeBB",
+              "size": 20.88,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Hamlet Skill:",
+              "bbox": [31.72, 150.84, 51.31, 156.23],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Quarantine",
+              "bbox": [52.38, 150.84, 67.48, 156.23],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 13.36,
+              "color": "#5a4540"
+            },
+            {
+              "t": "Self",
+              "bbox": [43.61, 157.57, 48.3, 160.66],
+              "font": "Ubuntu-Medium",
+              "size": 7.35,
+              "color": "#231f20"
+            },
+            {
+              "t": ":",
+              "bbox": [49.56, 157.64, 50.28, 160.87],
+              "font": "Ubuntu-Medium",
+              "size": 7.68,
+              "color": "#231f20"
+            },
+            {
+              "t": "11",
+              "bbox": [52.93, 157.23, 54.98, 161.3],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": ":",
+              "bbox": [52.94, 163.22, 53.78, 167.01],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "-4",
+              "bbox": [59.57, 162.54, 63.03, 167.56],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [63.03, 163.75, 63.7, 166.87],
+              "font": "Ubuntu-Regular",
+              "size": 7.68,
+              "color": "#231f20"
+            },
+            {
+              "t": "LEPER",
+              "bbox": [35.42, 87.6, 65.05, 105.34],
+              "font": "DwarvenAxeBB",
+              "size": 46.0,
+              "color": "#231f20",
+              "dup": 2
+            },
+            {
+              "t": "III",
+              "bbox": [18.31, 29.21, 23.61, 37.61],
+              "font": "DwarvenAxeBB",
+              "size": 21.78,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "bb21119dee",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "iconId": "8466c441ea",
+              "bbox": [16.89, 29.86, 24.89, 36.72]
+            },
+            {
+              "iconId": "23cc2e3363",
+              "bbox": [4.08, 40.72, 10.48, 47.12],
+              "bbox_full": [1.17, 37.75, 13.36, 50.07]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 87.06, 10.48, 93.46],
+              "bbox_full": [1.17, 84.08, 13.36, 96.4]
+            },
+            {
+              "iconId": "ea576f3383",
+              "bbox": [20.29, 104.68, 34.39, 115.6]
+            },
+            {
+              "iconId": "7a472f5d6f",
+              "bbox": [25.04, 107.94, 40.48, 123.38]
+            },
+            {
+              "iconId": "9534ad5184",
+              "bbox": [45.2, 108.01, 60.5, 123.31]
+            },
+            {
+              "iconId": "4648c9e5ec",
+              "bbox": [68.92, 111.16, 78.96, 121.21]
+            },
+            {
+              "iconId": "55a3fded25",
+              "bbox": [38.92, 126.0, 40.42, 144.77]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 133.4, 10.48, 139.8],
+              "bbox_full": [1.17, 130.43, 13.36, 142.74]
+            },
+            {
+              "iconId": "8db71542d2",
+              "bbox": [13.2, 133.98, 22.73, 144.15]
+            },
+            {
+              "iconId": "8db71542d2",
+              "bbox": [22.22, 136.17, 29.28, 142.52],
+              "bbox_full": [20.22, 134.24, 31.14, 144.65]
+            },
+            {
+              "iconId": "64702f548e",
+              "bbox": [30.69, 136.52, 37.04, 143.23],
+              "bbox_full": [28.68, 134.38, 39.22, 145.36]
+            },
+            {
+              "iconId": "a84ac4c016",
+              "bbox": [50.57, 156.09, 58.07, 162.82]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [42.45, 157.66, 49.46, 160.99]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [54.68, 162.98, 58.91, 167.22],
+              "bbox_full": [53.54, 162.26, 59.89, 168.23]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [36.12, 163.56, 39.31, 166.66]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [40.43, 163.56, 43.62, 166.66]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [44.74, 163.56, 47.93, 166.66]
+            },
+            {
+              "iconId": "9d58d3d431",
+              "bbox": [49.05, 163.56, 52.24, 166.66]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:bb21119dee}",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8466c441ea} III",
+              "bbox": [16.89, 29.21, 24.89, 37.61]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:23cc2e3363}",
+              "bbox": [4.08, 40.72, 10.48, 47.12]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50} LEPER",
+              "bbox": [4.08, 87.06, 65.05, 105.34]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ea576f3383} {icon:7a472f5d6f} 2 {icon:9534ad5184}",
+              "bbox": [20.29, 104.68, 60.5, 123.38]
+            },
+            {
+              "rot": 0,
+              "text": "33 {icon:4648c9e5ec}",
+              "bbox": [48.59, 110.62, 78.96, 121.21]
+            },
+            {
+              "rot": 0,
+              "text": "Resistances        Immunities {icon:55a3fded25}",
+              "bbox": [15.66, 126.0, 63.85, 144.77]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50} {icon:8db71542d2} {icon:8db71542d2} {icon:64702f548e}",
+              "bbox": [4.08, 133.4, 37.04, 144.15]
+            },
+            {
+              "rot": 0,
+              "text": "Hamlet Skill: Quarantine",
+              "bbox": [31.72, 150.84, 67.48, 156.23]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7616568d52} Self : {icon:a84ac4c016} 11",
+              "bbox": [42.45, 156.09, 58.07, 162.82]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:9d58d3d431} {icon:9d58d3d431} {icon:9d58d3d431} {icon:9d58d3d431} : {icon:7616568d52} -4.",
+              "bbox": [36.12, 162.54, 63.7, 167.56]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_BACK.pdf",
+          "page": 29,
+          "trim_mm": [100.0, 180.0],
+          "face_phash": "d94307d1e4273b6c",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "hero_stat:warrens:antiquarian:p001",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [30],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf",
+          "page": 30,
+          "trim_mm": [100.0, 180.0],
+          "face_phash": "d16ae161dea52e94",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [20.32, 29.71, 22.09, 38.11],
+              "font": "DwarvenAxeBB",
+              "size": 21.78,
+              "color": "#ffffff"
+            },
+            {
+              "t": "9",
+              "bbox": [44.95, 110.62, 49.31, 120.92],
+              "font": "DwarvenAxeBB",
+              "size": 27.8,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Resistances        Immunities",
+              "bbox": [15.66, 127.91, 63.85, 133.57],
+              "font": "DwarvenAxeBB",
+              "size": 14.69,
+              "color": "#919396"
+            },
+            {
+              "t": "1",
+              "bbox": [21.96, 106.73, 23.99, 114.78],
+              "font": "DwarvenAxeBB",
+              "size": 20.88,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Hamlet Skill:",
+              "bbox": [27.29, 148.17, 46.88, 153.57],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Trinket Scrounge",
+              "bbox": [48.13, 148.17, 71.91, 153.57],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 13.36,
+              "color": "#5a4540"
+            },
+            {
+              "t": "Pay",
+              "bbox": [33.86, 153.53, 39.09, 157.31],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "5",
+              "bbox": [39.83, 152.85, 41.71, 157.86],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and roll",
+              "bbox": [47.58, 153.53, 58.83, 157.31],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ":",
+              "bbox": [64.49, 153.53, 65.34, 157.31],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "1-5",
+              "bbox": [14.26, 157.94, 18.59, 161.49],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": ": Draw 2 Trinkets",
+              "bbox": [18.55, 157.86, 41.06, 161.44],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "equal to the Hero Level",
+              "bbox": [14.26, 161.46, 45.82, 165.04],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "and pick one.",
+              "bbox": [14.26, 165.06, 32.0, 168.64],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "6-10",
+              "bbox": [51.63, 157.94, 57.76, 161.49],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": ": Draw 2 Trinkets",
+              "bbox": [57.76, 157.86, 80.99, 161.44],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "1 Level higher than the",
+              "bbox": [51.63, 161.46, 83.62, 165.04],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Hero Level, and pick one.",
+              "bbox": [51.63, 165.06, 86.41, 168.64],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "ANTIQUARIAN",
+              "bbox": [17.95, 87.6, 82.52, 105.34],
+              "font": "DwarvenAxeBB",
+              "size": 46.0,
+              "color": "#231f20",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "bb21119dee",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "iconId": "8466c441ea",
+              "bbox": [18.92, 30.36, 23.36, 37.22]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 93.32, 10.48, 99.72],
+              "bbox_full": [1.17, 90.35, 13.36, 102.67]
+            },
+            {
+              "iconId": "ea576f3383",
+              "bbox": [15.79, 104.68, 29.89, 115.6]
+            },
+            {
+              "iconId": "7a472f5d6f",
+              "bbox": [20.54, 107.94, 35.98, 123.38]
+            },
+            {
+              "iconId": "9534ad5184",
+              "bbox": [39.7, 108.01, 55.0, 123.31]
+            },
+            {
+              "iconId": "4648c9e5ec",
+              "bbox": [59.0, 110.66, 69.04, 120.71]
+            },
+            {
+              "iconId": "4648c9e5ec",
+              "bbox": [71.6, 110.66, 81.64, 120.71]
+            },
+            {
+              "iconId": "55a3fded25",
+              "bbox": [38.92, 126.0, 40.42, 144.77]
+            },
+            {
+              "iconId": "df4eb1ac47",
+              "bbox": [21.52, 136.17, 28.22, 142.52],
+              "bbox_full": [19.26, 134.24, 30.18, 144.65]
+            },
+            {
+              "iconId": "a84ac4c016",
+              "bbox": [42.33, 152.75, 46.92, 158.04]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [59.57, 153.06, 64.49, 157.72]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:bb21119dee}",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8466c441ea} I",
+              "bbox": [18.92, 29.71, 23.36, 38.11]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50} ANTIQUARIAN",
+              "bbox": [4.08, 87.6, 82.52, 105.34]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ea576f3383} {icon:7a472f5d6f} 1 {icon:9534ad5184}",
+              "bbox": [15.79, 104.68, 55.0, 123.38]
+            },
+            {
+              "rot": 0,
+              "text": "9 {icon:4648c9e5ec} {icon:4648c9e5ec}",
+              "bbox": [44.95, 110.62, 81.64, 120.92]
+            },
+            {
+              "rot": 0,
+              "text": "Resistances        Immunities {icon:55a3fded25}",
+              "bbox": [15.66, 126.0, 63.85, 144.77]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df4eb1ac47}",
+              "bbox": [21.52, 136.17, 28.22, 142.52]
+            },
+            {
+              "rot": 0,
+              "text": "Hamlet Skill: Trinket Scrounge",
+              "bbox": [27.29, 148.17, 71.91, 153.57]
+            },
+            {
+              "rot": 0,
+              "text": "Pay 5 {icon:a84ac4c016} and roll {icon:7616568d52} :",
+              "bbox": [33.86, 152.75, 65.34, 158.04]
+            },
+            {
+              "rot": 0,
+              "text": "1-5: Draw 2 Trinkets",
+              "bbox": [14.26, 157.86, 41.06, 161.49]
+            },
+            {
+              "rot": 0,
+              "text": "6-10: Draw 2 Trinkets",
+              "bbox": [51.63, 157.86, 80.99, 161.49]
+            },
+            {
+              "rot": 0,
+              "text": "equal to the Hero Level 1 Level higher than the",
+              "bbox": [14.26, 161.46, 83.62, 165.04]
+            },
+            {
+              "rot": 0,
+              "text": "and pick one.",
+              "bbox": [14.26, 165.06, 32.0, 168.64]
+            },
+            {
+              "rot": 0,
+              "text": "Hero Level, and pick one.",
+              "bbox": [51.63, 165.06, 86.41, 168.64]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_BACK.pdf",
+          "page": 30,
+          "trim_mm": [100.0, 180.0],
+          "face_phash": "d17ae1614ae56e94",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [19.44, 29.71, 22.98, 38.11],
+              "font": "DwarvenAxeBB",
+              "size": 21.78,
+              "color": "#ffffff"
+            },
+            {
+              "t": "12",
+              "bbox": [43.79, 110.62, 50.49, 120.92],
+              "font": "DwarvenAxeBB",
+              "size": 27.8,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Resistances        Immunities",
+              "bbox": [15.66, 127.91, 63.85, 133.57],
+              "font": "DwarvenAxeBB",
+              "size": 14.69,
+              "color": "#919396"
+            },
+            {
+              "t": "2",
+              "bbox": [21.57, 106.73, 24.37, 114.78],
+              "font": "DwarvenAxeBB",
+              "size": 20.88,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Hamlet Skill:",
+              "bbox": [27.29, 148.17, 46.88, 153.57],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Trinket Scrounge",
+              "bbox": [48.13, 148.17, 71.91, 153.57],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 13.36,
+              "color": "#5a4540"
+            },
+            {
+              "t": "Pay",
+              "bbox": [33.86, 153.53, 39.09, 157.31],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "5",
+              "bbox": [39.83, 152.85, 41.71, 157.86],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and roll",
+              "bbox": [47.58, 153.53, 58.83, 157.31],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ":",
+              "bbox": [64.49, 153.53, 65.34, 157.31],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "ANTIQUARIAN",
+              "bbox": [17.95, 87.6, 82.52, 105.34],
+              "font": "DwarvenAxeBB",
+              "size": 46.0,
+              "color": "#231f20",
+              "dup": 2
+            },
+            {
+              "t": "1-5",
+              "bbox": [14.26, 157.94, 18.59, 161.49],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": ": Draw 2 Trinkets",
+              "bbox": [18.55, 157.86, 41.06, 161.44],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "equal to the Hero Level",
+              "bbox": [14.26, 161.46, 45.82, 165.04],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "and pick one.",
+              "bbox": [14.26, 165.06, 32.0, 168.64],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "6-10",
+              "bbox": [51.63, 157.94, 57.76, 161.49],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": ": Draw 2 Trinkets",
+              "bbox": [57.76, 157.86, 80.99, 161.44],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "1 Level higher than the",
+              "bbox": [51.63, 161.46, 83.62, 165.04],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Hero Level, and pick one.",
+              "bbox": [51.63, 165.06, 86.41, 168.64],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "bb21119dee",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "iconId": "8466c441ea",
+              "bbox": [18.03, 30.36, 24.25, 37.22]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 65.22, 10.48, 71.62],
+              "bbox_full": [1.17, 62.25, 13.36, 74.57]
+            },
+            {
+              "iconId": "ea576f3383",
+              "bbox": [15.79, 104.68, 29.89, 115.6]
+            },
+            {
+              "iconId": "7a472f5d6f",
+              "bbox": [20.54, 107.94, 35.98, 123.38]
+            },
+            {
+              "iconId": "9534ad5184",
+              "bbox": [39.7, 108.01, 55.0, 123.31]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 111.56, 10.48, 117.96],
+              "bbox_full": [1.17, 108.59, 13.36, 120.91]
+            },
+            {
+              "iconId": "4648c9e5ec",
+              "bbox": [59.0, 110.66, 69.04, 120.71]
+            },
+            {
+              "iconId": "4648c9e5ec",
+              "bbox": [71.6, 110.66, 81.64, 120.71]
+            },
+            {
+              "iconId": "55a3fded25",
+              "bbox": [38.92, 126.0, 40.42, 144.77]
+            },
+            {
+              "iconId": "7034784ee1",
+              "bbox": [16.55, 134.2, 26.08, 144.36]
+            },
+            {
+              "iconId": "df4eb1ac47",
+              "bbox": [26.46, 136.17, 33.51, 142.52],
+              "bbox_full": [24.51, 134.24, 35.43, 144.65]
+            },
+            {
+              "iconId": "a84ac4c016",
+              "bbox": [42.33, 152.75, 46.92, 158.04]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [59.57, 153.06, 64.49, 157.72]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:bb21119dee}",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8466c441ea} II",
+              "bbox": [18.03, 29.71, 24.25, 38.11]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50}",
+              "bbox": [4.08, 65.22, 10.48, 71.62]
+            },
+            {
+              "rot": 0,
+              "text": "ANTIQUARIAN",
+              "bbox": [17.95, 87.6, 82.52, 105.34]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50} {icon:ea576f3383} {icon:7a472f5d6f} 2 {icon:9534ad5184}",
+              "bbox": [4.08, 104.68, 55.0, 123.38]
+            },
+            {
+              "rot": 0,
+              "text": "12 {icon:4648c9e5ec} {icon:4648c9e5ec}",
+              "bbox": [43.79, 110.62, 81.64, 120.92]
+            },
+            {
+              "rot": 0,
+              "text": "Resistances        Immunities {icon:55a3fded25}",
+              "bbox": [15.66, 126.0, 63.85, 144.77]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7034784ee1} {icon:df4eb1ac47}",
+              "bbox": [16.55, 134.2, 33.51, 144.36]
+            },
+            {
+              "rot": 0,
+              "text": "Hamlet Skill: Trinket Scrounge",
+              "bbox": [27.29, 148.17, 71.91, 153.57]
+            },
+            {
+              "rot": 0,
+              "text": "Pay 5 {icon:a84ac4c016} and roll {icon:7616568d52} :",
+              "bbox": [33.86, 152.75, 65.34, 158.04]
+            },
+            {
+              "rot": 0,
+              "text": "1-5: Draw 2 Trinkets",
+              "bbox": [14.26, 157.86, 41.06, 161.49]
+            },
+            {
+              "rot": 0,
+              "text": "6-10: Draw 2 Trinkets",
+              "bbox": [51.63, 157.86, 80.99, 161.49]
+            },
+            {
+              "rot": 0,
+              "text": "equal to the Hero Level 1 Level higher than the",
+              "bbox": [14.26, 161.46, 83.62, 165.04]
+            },
+            {
+              "rot": 0,
+              "text": "and pick one.",
+              "bbox": [14.26, 165.06, 32.0, 168.64]
+            },
+            {
+              "rot": 0,
+              "text": "Hero Level, and pick one.",
+              "bbox": [51.63, 165.06, 86.41, 168.64]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_stat:warrens:antiquarian:p002",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [31],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf",
+          "page": 31,
+          "trim_mm": [100.0, 180.0],
+          "face_phash": "d16ae17942ed2e94",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [18.31, 29.21, 23.61, 37.61],
+              "font": "DwarvenAxeBB",
+              "size": 21.78,
+              "color": "#ffffff"
+            },
+            {
+              "t": "15",
+              "bbox": [43.64, 110.62, 50.63, 120.92],
+              "font": "DwarvenAxeBB",
+              "size": 27.8,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Resistances        Immunities",
+              "bbox": [15.66, 127.91, 63.85, 133.57],
+              "font": "DwarvenAxeBB",
+              "size": 14.69,
+              "color": "#919396"
+            },
+            {
+              "t": "3",
+              "bbox": [21.51, 106.73, 24.43, 114.78],
+              "font": "DwarvenAxeBB",
+              "size": 20.88,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Hamlet Skill:",
+              "bbox": [27.29, 148.17, 46.88, 153.57],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Trinket Scrounge",
+              "bbox": [48.13, 148.17, 71.91, 153.57],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 13.36,
+              "color": "#5a4540"
+            },
+            {
+              "t": "Pay",
+              "bbox": [33.86, 153.53, 39.09, 157.31],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "5",
+              "bbox": [39.83, 152.85, 41.71, 157.86],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and roll",
+              "bbox": [47.58, 153.53, 58.83, 157.31],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ":",
+              "bbox": [64.49, 153.53, 65.34, 157.31],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "1-5",
+              "bbox": [15.0, 157.94, 19.34, 161.49],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": ": Draw 2 Trinkets",
+              "bbox": [19.29, 157.86, 41.8, 161.44],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "equal than the Hero",
+              "bbox": [15.0, 161.46, 41.96, 165.04],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Level and pick one.",
+              "bbox": [15.0, 165.06, 40.6, 168.64],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "6-10",
+              "bbox": [52.91, 157.94, 59.04, 161.49],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": ": Draw 2 Trinkets",
+              "bbox": [59.04, 157.86, 82.27, 161.44],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "equal to the Hero Level",
+              "bbox": [52.91, 161.46, 85.46, 165.04],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "and keep them.",
+              "bbox": [52.91, 165.06, 74.34, 168.64],
+              "font": "Ubuntu-Medium",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "ANTIQUARIAN",
+              "bbox": [17.95, 87.6, 82.52, 105.34],
+              "font": "DwarvenAxeBB",
+              "size": 46.0,
+              "color": "#231f20",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "bb21119dee",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "iconId": "8466c441ea",
+              "bbox": [16.89, 29.86, 24.89, 36.72]
+            },
+            {
+              "iconId": "23cc2e3363",
+              "bbox": [4.08, 40.72, 10.48, 47.12],
+              "bbox_full": [1.17, 37.75, 13.36, 50.07]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 87.06, 10.48, 93.46],
+              "bbox_full": [1.17, 84.08, 13.36, 96.4]
+            },
+            {
+              "iconId": "ea576f3383",
+              "bbox": [15.79, 104.68, 29.89, 115.6]
+            },
+            {
+              "iconId": "7a472f5d6f",
+              "bbox": [20.54, 107.94, 35.98, 123.38]
+            },
+            {
+              "iconId": "9534ad5184",
+              "bbox": [39.7, 108.01, 55.0, 123.31]
+            },
+            {
+              "iconId": "4648c9e5ec",
+              "bbox": [59.0, 110.66, 69.04, 120.71]
+            },
+            {
+              "iconId": "4648c9e5ec",
+              "bbox": [71.6, 110.66, 81.64, 120.71]
+            },
+            {
+              "iconId": "55a3fded25",
+              "bbox": [38.92, 126.0, 40.42, 144.77]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 133.4, 10.48, 139.8],
+              "bbox_full": [1.17, 130.43, 13.36, 142.74]
+            },
+            {
+              "iconId": "8510428636",
+              "bbox": [46.92, 136.88, 53.62, 143.23],
+              "bbox_full": [44.86, 134.79, 55.78, 145.2]
+            },
+            {
+              "iconId": "40bb356305",
+              "bbox": [20.05, 134.95, 29.58, 145.12]
+            },
+            {
+              "iconId": "28b10f3fb7",
+              "bbox": [54.92, 136.0, 61.77, 144.0]
+            },
+            {
+              "iconId": "a84ac4c016",
+              "bbox": [42.33, 152.75, 46.92, 158.04]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [59.57, 153.06, 64.49, 157.72]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:bb21119dee}",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8466c441ea} III",
+              "bbox": [16.89, 29.21, 24.89, 37.61]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:23cc2e3363}",
+              "bbox": [4.08, 40.72, 10.48, 47.12]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50} ANTIQUARIAN",
+              "bbox": [4.08, 87.06, 82.52, 105.34]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ea576f3383} {icon:7a472f5d6f} 3 {icon:9534ad5184}",
+              "bbox": [15.79, 104.68, 55.0, 123.38]
+            },
+            {
+              "rot": 0,
+              "text": "15 {icon:4648c9e5ec} {icon:4648c9e5ec}",
+              "bbox": [43.64, 110.62, 81.64, 120.92]
+            },
+            {
+              "rot": 0,
+              "text": "Resistances        Immunities {icon:55a3fded25}",
+              "bbox": [15.66, 126.0, 63.85, 144.77]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50}",
+              "bbox": [4.08, 133.4, 10.48, 139.8]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:40bb356305}",
+              "bbox": [20.05, 134.95, 29.58, 145.12]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8510428636}",
+              "bbox": [46.92, 136.88, 53.62, 143.23]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:28b10f3fb7}",
+              "bbox": [54.92, 136.0, 61.77, 144.0]
+            },
+            {
+              "rot": 0,
+              "text": "Hamlet Skill: Trinket Scrounge",
+              "bbox": [27.29, 148.17, 71.91, 153.57]
+            },
+            {
+              "rot": 0,
+              "text": "Pay 5 {icon:a84ac4c016} and roll {icon:7616568d52} :",
+              "bbox": [33.86, 152.75, 65.34, 158.04]
+            },
+            {
+              "rot": 0,
+              "text": "1-5: Draw 2 Trinkets",
+              "bbox": [15.0, 157.86, 41.8, 161.49]
+            },
+            {
+              "rot": 0,
+              "text": "6-10: Draw 2 Trinkets",
+              "bbox": [52.91, 157.86, 82.27, 161.49]
+            },
+            {
+              "rot": 0,
+              "text": "equal than the Hero",
+              "bbox": [15.0, 161.46, 41.96, 165.04]
+            },
+            {
+              "rot": 0,
+              "text": "equal to the Hero Level",
+              "bbox": [52.91, 161.46, 85.46, 165.04]
+            },
+            {
+              "rot": 0,
+              "text": "Level and pick one.",
+              "bbox": [15.0, 165.06, 40.6, 168.64]
+            },
+            {
+              "rot": 0,
+              "text": "and keep them.",
+              "bbox": [52.91, 165.06, 74.34, 168.64]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_BACK.pdf",
+          "page": 31,
+          "trim_mm": [100.0, 180.0],
+          "face_phash": "c6434be6b16b261d",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    }
+  ]
+}

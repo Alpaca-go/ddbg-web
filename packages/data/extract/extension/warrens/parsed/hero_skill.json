@@ -1,0 +1,2381 @@
+{
+  "schema": "ddbg-parsed-v0",
+  "extractor_version": "1.0.4",
+  "category": "hero_skill",
+  "source": "raw/extension/warrens/hero_skill.json",
+  "field_notes": "TDH skills p232–273 (Antiquarian + Leper).",
+  "icon_token": "{icon:<iconId>} = unannotated icon cluster, see icons/catalog.json",
+  "stats": {
+    "cards": 42,
+    "ok": 42,
+    "failed": 0,
+    "success_rate": 1.0
+  },
+  "failures": [],
+  "cards": [
+    {
+      "id": "hero_skill:p274",
+      "copies": 1,
+      "pages": [274],
+      "name": "Chop",
+      "level": 1,
+      "hero": "LEPER",
+      "back_level": 1,
+      "back_name": "Chop",
+      "crit": 1,
+      "crit_value": 17,
+      "acc": 7,
+      "acc_value": 12,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 17 Acc 7 {icon:8d4bbe5e11} 12",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p275",
+      "copies": 1,
+      "pages": [275],
+      "name": "Chop",
+      "level": 2,
+      "hero": "LEPER",
+      "back_level": 2,
+      "back_name": "Chop",
+      "crit": 1,
+      "crit_value": 22,
+      "acc": 8,
+      "acc_value": 15,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 22 Acc 8 {icon:8d4bbe5e11} 15",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p276",
+      "copies": 1,
+      "pages": [276],
+      "name": "Chop",
+      "level": 3,
+      "hero": "LEPER",
+      "back_level": 3,
+      "back_name": "Chop",
+      "crit": 1,
+      "crit_value": 27,
+      "acc": 9,
+      "acc_value": 18,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 27 Acc 9 {icon:8d4bbe5e11} 18",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p277",
+      "copies": 1,
+      "pages": [277],
+      "name": "Hew",
+      "level": 1,
+      "hero": "LEPER",
+      "back_level": 1,
+      "back_name": "Hew",
+      "crit": 0,
+      "crit_value": 9,
+      "acc": 7,
+      "acc_value": 6,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 9 Acc 7 {icon:8d4bbe5e11} 6",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p278",
+      "copies": 1,
+      "pages": [278],
+      "name": "Hew",
+      "level": 2,
+      "hero": "LEPER",
+      "back_level": 2,
+      "back_name": "Hew",
+      "crit": 0,
+      "crit_value": 12,
+      "acc": 8,
+      "acc_value": 8,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 12 Acc 8 {icon:8d4bbe5e11} 8",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p279",
+      "copies": 1,
+      "pages": [279],
+      "name": "Hew",
+      "level": 3,
+      "hero": "LEPER",
+      "back_level": 3,
+      "back_name": "Hew",
+      "crit": 0,
+      "crit_value": 16,
+      "acc": 9,
+      "acc_value": 10,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 16 Acc 9 {icon:8d4bbe5e11} 10",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p280",
+      "copies": 1,
+      "pages": [280],
+      "name": "Purge",
+      "level": 1,
+      "hero": "LEPER",
+      "back_level": 1,
+      "back_name": "Purge",
+      "crit": 0,
+      "crit_value": 11,
+      "acc": 9,
+      "acc_value": 7,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0 {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 11 Acc 9 {icon:8d4bbe5e11} 7",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 2t",
+        "{icon:b6afaa4d7b} {icon:92104a3c6b} Push 2"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [19.2, 31.83, 21.78, 36.07],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "0",
+          "bbox": [9.3, 22.54, 11.41, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p281",
+      "copies": 1,
+      "pages": [281],
+      "name": "Purge",
+      "level": 2,
+      "hero": "LEPER",
+      "back_level": 2,
+      "back_name": "Purge",
+      "crit": 0,
+      "crit_value": 14,
+      "acc": 10,
+      "acc_value": 10,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0 {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 14 Acc 10 {icon:8d4bbe5e11} 10",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 2t",
+        "{icon:b6afaa4d7b} {icon:92104a3c6b} Push 2"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [19.2, 31.83, 21.78, 36.07],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "0",
+          "bbox": [9.3, 22.54, 11.41, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p282",
+      "copies": 1,
+      "pages": [282],
+      "name": "Purge",
+      "level": 3,
+      "hero": "LEPER",
+      "back_level": 3,
+      "back_name": "Purge",
+      "crit": 0,
+      "crit_value": 19,
+      "acc": 11,
+      "acc_value": 12,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0 {icon:a396e95c00} Crit 0 {icon:20ffe98e2d} 19 Acc 11 {icon:20ffe98e2d} 12",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 2t",
+        "{icon:b6afaa4d7b} {icon:92104a3c6b} Push 2"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [19.2, 31.83, 21.78, 36.07],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "0",
+          "bbox": [9.3, 22.54, 11.41, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p283",
+      "copies": 1,
+      "pages": [283],
+      "name": "Revenge",
+      "level": 1,
+      "hero": "LEPER",
+      "back_level": 1,
+      "back_name": "Revenge",
+      "crit": 1,
+      "crit_value": null,
+      "acc": 10,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 1 Acc 10",
+      "effect_lines_raw": ["{icon:20ffe98e2d} {icon:b2102a1a20} 2t, {icon:c3fb3612ce} 1t"],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [53.59, 32.06, 56.18, 36.3],
+          "inside_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "1t",
+          "bbox": [60.98, 32.06, 63.0, 36.3],
+          "left_icon": "c3fb3612ce",
+          "inside_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p284",
+      "copies": 1,
+      "pages": [284],
+      "name": "Revenge",
+      "level": 2,
+      "hero": "LEPER",
+      "back_level": 2,
+      "back_name": "Revenge",
+      "crit": 1,
+      "crit_value": null,
+      "acc": 11,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 1 Acc 11",
+      "effect_lines_raw": ["{icon:20ffe98e2d} {icon:b2102a1a20} 2t, {icon:c3fb3612ce} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [53.18, 32.06, 55.76, 36.3]
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.06, 63.0, 36.3],
+          "left_icon": "c3fb3612ce"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p285",
+      "copies": 1,
+      "pages": [285],
+      "name": "Revenge",
+      "level": 3,
+      "hero": "LEPER",
+      "back_level": 3,
+      "back_name": "Revenge",
+      "crit": 1,
+      "crit_value": null,
+      "acc": 12,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 1 Acc 12",
+      "effect_lines_raw": ["{icon:20ffe98e2d} {icon:b2102a1a20} 3t, {icon:c3fb3612ce} 3t"],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [53.22, 32.06, 55.71, 36.3]
+        },
+        {
+          "text": "3t",
+          "bbox": [60.51, 32.06, 63.0, 36.3],
+          "left_icon": "c3fb3612ce"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p286",
+      "copies": 1,
+      "pages": [286],
+      "name": "Withstand",
+      "level": 1,
+      "hero": "LEPER",
+      "back_level": 1,
+      "back_name": "Withstand",
+      "crit": 1,
+      "crit_value": null,
+      "acc": 12,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 1 Acc 12",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:4fcb32ac31} 2t, {icon:1ce58a493c} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [21.45, 32.12, 24.03, 36.36],
+          "left_icon": "4fcb32ac31"
+        },
+        {
+          "text": "2t",
+          "bbox": [30.26, 32.12, 32.69, 36.36]
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p287",
+      "copies": 1,
+      "pages": [287],
+      "name": "Withstand",
+      "level": 2,
+      "hero": "LEPER",
+      "back_level": 2,
+      "back_name": "Withstand",
+      "crit": 1,
+      "crit_value": null,
+      "acc": 14,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 1 Acc 14",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:4fcb32ac31} 2t, {icon:1ce58a493c} 1t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [21.45, 32.12, 24.03, 36.36],
+          "left_icon": "4fcb32ac31"
+        },
+        {
+          "text": "1t",
+          "bbox": [30.26, 32.12, 32.28, 36.36]
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p288",
+      "copies": 1,
+      "pages": [288],
+      "name": "Withstand",
+      "level": 3,
+      "hero": "LEPER",
+      "back_level": 3,
+      "back_name": "Withstand",
+      "crit": 1,
+      "crit_value": null,
+      "acc": 16,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 1 Acc 16",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:4fcb32ac31} 3t, {icon:1ce58a493c} 1t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [21.45, 32.12, 23.94, 36.36],
+          "left_icon": "4fcb32ac31"
+        },
+        {
+          "text": "1t",
+          "bbox": [30.16, 32.12, 32.18, 36.36]
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p289",
+      "copies": 1,
+      "pages": [289],
+      "name": "Solemnity",
+      "level": 1,
+      "hero": "LEPER",
+      "back_level": 1,
+      "back_name": "Solemnity",
+      "crit": 1,
+      "crit_value": null,
+      "acc": 12,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 1 Acc 12",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} {icon:20ffe98e2d} 6 , {icon:f18923574c} -1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "6",
+          "bbox": [17.78, 32.04, 19.58, 36.66],
+          "left_icon": "1ff34c908b",
+          "inside_icon": "20ffe98e2d"
+        },
+        {
+          "text": "-1",
+          "bbox": [26.48, 32.21, 28.88, 36.45],
+          "left_icon": "f18923574c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p290",
+      "copies": 1,
+      "pages": [290],
+      "name": "Solemnity",
+      "level": 2,
+      "hero": "LEPER",
+      "back_level": 2,
+      "back_name": "Solemnity",
+      "crit": 1,
+      "crit_value": null,
+      "acc": 14,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 1 Acc 14",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} {icon:20ffe98e2d} 9 , {icon:f18923574c} -1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "9",
+          "bbox": [18.05, 32.04, 19.86, 36.66],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "20ffe98e2d"
+        },
+        {
+          "text": "-1",
+          "bbox": [26.48, 32.21, 28.88, 36.45],
+          "left_icon": "f18923574c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p291",
+      "copies": 1,
+      "pages": [291],
+      "name": "Solemnity",
+      "level": 3,
+      "hero": "LEPER",
+      "back_level": 3,
+      "back_name": "Solemnity",
+      "crit": 1,
+      "crit_value": null,
+      "acc": 16,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Crit 1 Acc 16",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 12 {icon:20ffe98e2d} , {icon:f18923574c} -1"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "12",
+          "bbox": [17.29, 32.04, 20.07, 36.66],
+          "left_icon": "1ff34c908b",
+          "inside_icon": "20ffe98e2d"
+        },
+        {
+          "text": "-1",
+          "bbox": [26.48, 32.21, 28.88, 36.45],
+          "left_icon": "f18923574c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p292",
+      "copies": 1,
+      "pages": [292],
+      "name": "Intimidate",
+      "level": 1,
+      "hero": "LEPER",
+      "back_level": 1,
+      "back_name": "Intimidate",
+      "crit": 0,
+      "crit_value": 7,
+      "acc": 9,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 2 {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 7 Acc 9 {icon:8d4bbe5e11} 4",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 2t",
+        "{icon:9ffbd6087a} Ignores {icon:b6afaa4d7b} {icon:b6afaa4d7b} , {icon:d13c8b76af} 1t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [20.62, 32.12, 23.05, 36.36]
+        },
+        {
+          "text": "1t",
+          "bbox": [60.98, 32.01, 63.0, 36.25],
+          "left_icon": "d13c8b76af"
+        },
+        {
+          "text": "2",
+          "bbox": [9.4, 22.54, 11.3, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p293",
+      "copies": 1,
+      "pages": [293],
+      "name": "Intimidate",
+      "level": 2,
+      "hero": "LEPER",
+      "back_level": 2,
+      "back_name": "Intimidate",
+      "crit": 1,
+      "crit_value": 10,
+      "acc": 10,
+      "acc_value": 6,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 2 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 10 Acc 10 {icon:8d4bbe5e11} 6",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 2t",
+        "{icon:9ffbd6087a} Ignores {icon:b6afaa4d7b} {icon:b6afaa4d7b} , {icon:c3fb3612ce} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [20.62, 32.12, 23.05, 36.36]
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.01, 63.0, 36.25],
+          "left_icon": "c3fb3612ce"
+        },
+        {
+          "text": "2",
+          "bbox": [9.4, 22.54, 11.3, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p294",
+      "copies": 1,
+      "pages": [294],
+      "name": "Intimidate",
+      "level": 3,
+      "hero": "LEPER",
+      "back_level": 3,
+      "back_name": "Intimidate",
+      "crit": 1,
+      "crit_value": 12,
+      "acc": 11,
+      "acc_value": 8,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 2 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 12 Acc 11 {icon:8d4bbe5e11} 8",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 1t",
+        "{icon:9ffbd6087a} Ignores {icon:b6afaa4d7b} {icon:b6afaa4d7b} , {icon:c3fb3612ce} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [60.51, 32.01, 63.0, 36.25],
+          "left_icon": "c3fb3612ce"
+        },
+        {
+          "text": "1t",
+          "bbox": [20.62, 32.12, 22.63, 36.36],
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "2",
+          "bbox": [9.4, 22.54, 11.3, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p295",
+      "copies": 1,
+      "pages": [295],
+      "name": "Nervous Stab",
+      "level": 1,
+      "hero": "ANTIQUARIAN",
+      "back_level": 1,
+      "back_name": "Nervous Stab",
+      "crit": 1,
+      "crit_value": 6,
+      "acc": 9,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 6 Acc 9 {icon:8d4bbe5e11} 4",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p296",
+      "copies": 1,
+      "pages": [296],
+      "name": "Nervous Stab",
+      "level": 2,
+      "hero": "ANTIQUARIAN",
+      "back_level": 2,
+      "back_name": "Nervous Stab",
+      "crit": 1,
+      "crit_value": 9,
+      "acc": 10,
+      "acc_value": 6,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 9 Acc 10 {icon:8d4bbe5e11} 6",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p297",
+      "copies": 1,
+      "pages": [297],
+      "name": "Nervous Stab",
+      "level": 3,
+      "hero": "ANTIQUARIAN",
+      "back_level": 3,
+      "back_name": "Nervous Stab",
+      "crit": 1,
+      "crit_value": 10,
+      "acc": 11,
+      "acc_value": 7,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 10 Acc 11 {icon:8d4bbe5e11} 7",
+      "effect_lines_raw": [],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p298",
+      "copies": 1,
+      "pages": [298],
+      "name": "Festering Vapours",
+      "level": 1,
+      "hero": "ANTIQUARIAN",
+      "back_level": 1,
+      "back_name": "Festering Vapours",
+      "crit": 0,
+      "crit_value": 2,
+      "acc": 10,
+      "acc_value": 1,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 2 Acc 10 {icon:8d4bbe5e11} 1",
+      "effect_lines_raw": ["{icon:8d4bbe5e11} 2 {icon:8d4bbe5e11} 2t, {icon:9d0ef9dd87} 1t"],
+      "unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [49.96, 32.63, 51.44, 36.87],
+          "left_icon": "8d4bbe5e11",
+          "inside_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "2t",
+          "bbox": [54.62, 32.63, 57.05, 36.87],
+          "left_icon": "8d4bbe5e11",
+          "inside_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "1t",
+          "bbox": [61.58, 32.63, 63.75, 36.87],
+          "left_icon": "9d0ef9dd87",
+          "inside_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p299",
+      "copies": 1,
+      "pages": [299],
+      "name": "Festering Vapours",
+      "level": 2,
+      "hero": "ANTIQUARIAN",
+      "back_level": 2,
+      "back_name": "Festering Vapours",
+      "crit": 0,
+      "crit_value": 3,
+      "acc": 10,
+      "acc_value": 2,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 3 Acc 10 {icon:8d4bbe5e11} 2",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} 2 {icon:c22f085b95} 3t, {icon:c3fb3612ce} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [48.9, 32.63, 50.38, 36.87],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "f18923574c"
+        },
+        {
+          "text": "3t",
+          "bbox": [53.56, 32.63, 56.05, 36.87],
+          "left_icon": "c22f085b95",
+          "inside_icon": "f18923574c"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.63, 63.0, 36.87],
+          "left_icon": "c3fb3612ce",
+          "inside_icon": "f18923574c"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p300",
+      "copies": 1,
+      "pages": [300],
+      "name": "Festering Vapours",
+      "level": 3,
+      "hero": "ANTIQUARIAN",
+      "back_level": 3,
+      "back_name": "Festering Vapours",
+      "crit": 1,
+      "crit_value": 5,
+      "acc": 12,
+      "acc_value": 3,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 5 Acc 12 {icon:8d4bbe5e11} 3",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} 3 {icon:c22f085b95} 3t, {icon:c3fb3612ce} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "3",
+          "bbox": [48.84, 32.63, 50.38, 36.87],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "8d4bbe5e11"
+        },
+        {
+          "text": "3t",
+          "bbox": [53.56, 32.63, 56.05, 36.87],
+          "left_icon": "c22f085b95",
+          "inside_icon": "8d4bbe5e11"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.63, 63.0, 36.87],
+          "left_icon": "c3fb3612ce",
+          "inside_icon": "8d4bbe5e11"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p301",
+      "copies": 1,
+      "pages": [301],
+      "name": "Get Down!",
+      "level": 1,
+      "hero": "ANTIQUARIAN",
+      "back_level": 1,
+      "back_name": "Get Down!",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} {icon:1ff34c908b} Self",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 2t, {icon:ac56561b87} Push 2"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [19.2, 32.13, 21.78, 36.37],
+          "left_icon": "d4329c2a97"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p302",
+      "copies": 1,
+      "pages": [302],
+      "name": "Get Down!",
+      "level": 2,
+      "hero": "ANTIQUARIAN",
+      "back_level": 2,
+      "back_name": "Get Down!",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} {icon:1ff34c908b} Self",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 3t, {icon:ac56561b87} Push 2"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [19.2, 32.13, 21.69, 36.37],
+          "left_icon": "d4329c2a97"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p303",
+      "copies": 1,
+      "pages": [303],
+      "name": "Get Down!",
+      "level": 3,
+      "hero": "ANTIQUARIAN",
+      "back_level": 3,
+      "back_name": "Get Down!",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} {icon:1ff34c908b} Self",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 4t, {icon:ac56561b87} Push 1 or Push 2"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "4t",
+          "bbox": [19.2, 32.11, 21.75, 36.35],
+          "left_icon": "d4329c2a97"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p304",
+      "copies": 1,
+      "pages": [304],
+      "name": "Flashpowder",
+      "level": 1,
+      "hero": "ANTIQUARIAN",
+      "back_level": 1,
+      "back_name": "Flashpowder",
+      "acc": 10,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 10",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:98edfaca0a} 1t, {icon:763ad8e857} 1t"],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [54.44, 33.04, 56.46, 37.28],
+          "inside_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "1t",
+          "bbox": [60.98, 33.04, 63.0, 37.28],
+          "left_icon": "763ad8e857",
+          "inside_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p305",
+      "copies": 1,
+      "pages": [305],
+      "name": "Flashpowder",
+      "level": 2,
+      "hero": "ANTIQUARIAN",
+      "back_level": 2,
+      "back_name": "Flashpowder",
+      "acc": 11,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 11",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:c22f085b95} 1t, {icon:763ad8e857} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [54.03, 33.04, 56.05, 37.28],
+          "inside_icon": "f18923574c"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 33.04, 63.0, 37.28],
+          "left_icon": "763ad8e857",
+          "inside_icon": "f18923574c"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p306",
+      "copies": 1,
+      "pages": [306],
+      "name": "Flashpowder",
+      "level": 3,
+      "hero": "ANTIQUARIAN",
+      "back_level": 3,
+      "back_name": "Flashpowder",
+      "acc": 12,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 12",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:b6afaa4d7b} 2t, {icon:763ad8e857} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [53.62, 33.04, 56.05, 37.28],
+          "inside_icon": "f18923574c"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 33.04, 63.0, 37.28],
+          "left_icon": "763ad8e857",
+          "inside_icon": "f18923574c"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p307",
+      "copies": 1,
+      "pages": [307],
+      "name": "Fortifying Vapours",
+      "level": 1,
+      "hero": "ANTIQUARIAN",
+      "back_level": 1,
+      "back_name": "Fortifying Vapours",
+      "crit": 0,
+      "crit_value": 2,
+      "acc": 12,
+      "acc_value": 1,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:7616568d52} Crit 0 {icon:d4329c2a97} {icon:20ffe98e2d} 2 Acc 12 {icon:d4329c2a97} {icon:20ffe98e2d} 1",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} {icon:20ffe98e2d} 1 , {icon:9d58d3d431} 2t",
+        "{icon:b6afaa4d7b} {icon:c3fb3612ce} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.16, 63.0, 36.4],
+          "left_icon": "c3fb3612ce",
+          "inside_icon": "c3fb3612ce"
+        },
+        {
+          "text": "1",
+          "bbox": [18.37, 32.04, 19.54, 36.66],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "20ffe98e2d"
+        },
+        {
+          "text": "2t",
+          "bbox": [25.97, 32.21, 28.4, 36.45],
+          "left_icon": "9d58d3d431"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p308",
+      "copies": 1,
+      "pages": [308],
+      "name": "Fortifying Vapours",
+      "level": 2,
+      "hero": "ANTIQUARIAN",
+      "back_level": 2,
+      "back_name": "Fortifying Vapours",
+      "crit": 0,
+      "crit_value": 3,
+      "acc": 14,
+      "acc_value": 2,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:7616568d52} Crit 0 {icon:d4329c2a97} {icon:20ffe98e2d} 3 Acc 14 {icon:d4329c2a97} {icon:20ffe98e2d} 2",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} {icon:20ffe98e2d} 2 , {icon:9d58d3d431} 3t",
+        "{icon:b6afaa4d7b} {icon:c3fb3612ce} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [60.51, 32.16, 63.0, 36.4],
+          "left_icon": "c3fb3612ce",
+          "inside_icon": "c3fb3612ce"
+        },
+        {
+          "text": "2",
+          "bbox": [18.15, 32.04, 19.76, 36.66],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "20ffe98e2d"
+        },
+        {
+          "text": "3t",
+          "bbox": [25.97, 32.21, 28.46, 36.45],
+          "left_icon": "9d58d3d431"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p309",
+      "copies": 1,
+      "pages": [309],
+      "name": "Fortifying Vapours",
+      "level": 3,
+      "hero": "ANTIQUARIAN",
+      "back_level": 3,
+      "back_name": "Fortifying Vapours",
+      "crit": 1,
+      "crit_value": 5,
+      "acc": 16,
+      "acc_value": 3,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:7616568d52} Crit 1 {icon:d4329c2a97} {icon:20ffe98e2d} 5 Acc 16 {icon:d4329c2a97} {icon:20ffe98e2d} 3",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} {icon:20ffe98e2d} 4 , {icon:9d58d3d431} 3t",
+        "{icon:b6afaa4d7b} {icon:c3fb3612ce} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [60.51, 32.16, 63.0, 36.4],
+          "left_icon": "c3fb3612ce",
+          "inside_icon": "c3fb3612ce"
+        },
+        {
+          "text": "4",
+          "bbox": [18.08, 32.04, 19.82, 36.66],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "20ffe98e2d"
+        },
+        {
+          "text": "3t",
+          "bbox": [25.97, 32.21, 28.46, 36.45],
+          "left_icon": "9d58d3d431"
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p310",
+      "copies": 1,
+      "pages": [310],
+      "name": "Invigorating Vapours",
+      "level": 1,
+      "hero": "ANTIQUARIAN",
+      "back_level": 1,
+      "back_name": "Invigorating Vapours",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 0 {icon:7616568d52}",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 2t",
+        "{icon:b6afaa4d7b} {icon:c3fb3612ce} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [60.57, 31.91, 63.0, 36.15],
+          "left_icon": "c3fb3612ce",
+          "inside_icon": "763ad8e857"
+        },
+        {
+          "text": "2t",
+          "bbox": [19.2, 31.83, 21.63, 36.07],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "0",
+          "bbox": [9.3, 22.54, 11.41, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p311",
+      "copies": 1,
+      "pages": [311],
+      "name": "Invigorating Vapours",
+      "level": 2,
+      "hero": "ANTIQUARIAN",
+      "back_level": 2,
+      "back_name": "Invigorating Vapours",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 0 {icon:7616568d52} {icon:7616568d52}",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 2t",
+        "{icon:b6afaa4d7b} {icon:c3fb3612ce} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [60.51, 31.91, 63.0, 36.15],
+          "left_icon": "c3fb3612ce",
+          "inside_icon": "763ad8e857"
+        },
+        {
+          "text": "2t",
+          "bbox": [19.2, 31.83, 21.63, 36.07],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "0",
+          "bbox": [9.3, 22.54, 11.41, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p312",
+      "copies": 1,
+      "pages": [312],
+      "name": "Invigorating Vapours",
+      "level": 3,
+      "hero": "ANTIQUARIAN",
+      "back_level": 3,
+      "back_name": "Invigorating Vapours",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 0 {icon:d93aef1e33} {icon:d93aef1e33} {icon:d93aef1e33}",
+        "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:d4329c2a97} 3t",
+        "{icon:b6afaa4d7b} {icon:c3fb3612ce} 4t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "4t",
+          "bbox": [60.46, 31.91, 63.0, 36.15],
+          "left_icon": "c3fb3612ce",
+          "inside_icon": "763ad8e857"
+        },
+        {
+          "text": "3t",
+          "bbox": [19.2, 31.83, 21.69, 36.07],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "0",
+          "bbox": [9.3, 22.54, 11.41, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p313",
+      "copies": 1,
+      "pages": [313],
+      "name": "Protect Me",
+      "level": 1,
+      "hero": "ANTIQUARIAN",
+      "back_level": 1,
+      "back_name": "Protect Me",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 1 {icon:7616568d52}",
+        "{icon:9ffbd6087a} {icon:92104a3c6b} 2t, {icon:8d4bbe5e11} 2t, {icon:b2e9d87127} 3t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [42.07, 32.21, 44.65, 36.45],
+          "left_icon": "92104a3c6b"
+        },
+        {
+          "text": "2t",
+          "bbox": [51.71, 32.21, 54.29, 36.45],
+          "left_icon": "8d4bbe5e11"
+        },
+        {
+          "text": "3t",
+          "bbox": [60.51, 32.21, 63.0, 36.45]
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p314",
+      "copies": 1,
+      "pages": [314],
+      "name": "Protect Me",
+      "level": 2,
+      "hero": "ANTIQUARIAN",
+      "back_level": 2,
+      "back_name": "Protect Me",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 1 {icon:7616568d52}",
+        "{icon:9ffbd6087a} {icon:92104a3c6b} 3t, {icon:8d4bbe5e11} 2t, {icon:b2e9d87127} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [42.22, 32.21, 44.71, 36.45],
+          "left_icon": "92104a3c6b"
+        },
+        {
+          "text": "2t",
+          "bbox": [51.76, 32.21, 54.35, 36.45],
+          "left_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "2t",
+          "bbox": [60.57, 32.21, 63.0, 36.45]
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:p315",
+      "copies": 1,
+      "pages": [315],
+      "name": "Protect Me",
+      "level": 3,
+      "hero": "ANTIQUARIAN",
+      "back_level": 3,
+      "back_name": "Protect Me",
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": null,
+      "effect_lines_raw": [
+        "{icon:3ab7e7544c} 1 {icon:7616568d52}",
+        "{icon:9ffbd6087a} {icon:b6afaa4d7b} 3t, {icon:b6afaa4d7b} 3t, {icon:9d58d3d431} 1t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [42.73, 32.21, 45.22, 36.45],
+          "left_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "3t",
+          "bbox": [52.27, 32.21, 54.76, 36.45],
+          "left_icon": "b6afaa4d7b"
+        },
+        {
+          "text": "1t",
+          "bbox": [60.98, 32.21, 63.0, 36.45]
+        },
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    }
+  ]
+}

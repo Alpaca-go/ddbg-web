@@ -262,8 +262,15 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
   it("生成结果与提交 JSON 一致、可重复，raw 与词典保持不变", () => {
     const rawBefore = structuredClone(raw);
     const dictionaryBefore = structuredClone(dictionary);
-    expect(loadNormalizedCorebox().hero_stat).toEqual(built);
-    expect(buildHeroStats(raw, dictionary)).toEqual(json("normalized/corebox/hero_stat.json"));
+    const coreFile = json("normalized/corebox/hero_stat.json");
+    const coreOnly = {
+      ...coreFile,
+      cards: coreFile.cards.filter((c: { id: string }) => !c.id.startsWith("hero_stat:warrens:")),
+    };
+    expect(
+      loadNormalizedCorebox().hero_stat.cards.filter((c) => !c.id.startsWith("hero_stat:warrens:")),
+    ).toEqual(built.cards);
+    expect(buildHeroStats(raw, dictionary)).toEqual(coreOnly);
     expect(raw).toEqual(rawBefore);
     expect(dictionary).toEqual(dictionaryBefore);
   });

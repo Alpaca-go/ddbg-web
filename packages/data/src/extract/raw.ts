@@ -73,7 +73,7 @@ const faceSchema = z.strictObject({
 const rawSourceSchema = z.strictObject({
   front: z.string().min(1),
   back: z.string().min(1).nullable(),
-  source_set: z.enum(["base", "ADD_014"]),
+  source_set: z.enum(["base", "ADD_014", "extension"]),
   kind: z.enum(["card", "sheet"]),
   front_pages: z.int().positive(),
   back_pages: z.int().positive().nullable(),
@@ -81,7 +81,7 @@ const rawSourceSchema = z.strictObject({
 
 const rawCardSchema = z.strictObject({
   id: z.string().min(1),
-  source_set: z.enum(["base", "ADD_014"]),
+  source_set: z.enum(["base", "ADD_014", "extension"]),
   copies: z.int().positive(),
   pages: z.array(z.int().positive()).min(1),
   copy_variants: z.array(copyVariantSchema).optional(),

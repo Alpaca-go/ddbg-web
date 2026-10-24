@@ -131,8 +131,16 @@ it("身份/属性/日期/来源漂移拒绝；两项免疫只允许精确获批I
   expect(built.cards.some((c) => c.id === "hero_stat:p014:back")).toBe(false);
 });
 
+const coreHeroStatFile = () => {
+  const file = json("normalized/corebox/hero_stat.json");
+  return {
+    ...file,
+    cards: file.cards.filter((c: { id: string }) => !c.id.startsWith("hero_stat:warrens:")),
+  };
+};
+
 it("生成一致且只输出获批面；原始生命数字、移动数量或来源变化均拒绝", () => {
-  expect(built).toEqual(json("normalized/corebox/hero_stat.json"));
+  expect(built).toEqual(coreHeroStatFile());
   for (const card of cards)
     for (const change of ["number", "speed", "page"] as const) {
       const changed = structuredClone(raw);

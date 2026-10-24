@@ -32,7 +32,8 @@ import { attachVerifiedRallyingFlare } from "./verified-rallying-flare";
 import { approvedResolveLookup } from "./approved-resolve-icons";
 import { buildRoomTileGeometry } from "./room-tile";
 import type { RoomTileGeometryFile } from "./room-tile";
-import { buildHeroStats } from "./hero-stat";
+import { buildHeroStats, normalizedHeroStatFileSchema } from "./hero-stat";
+import { buildWarrensHeroStats } from "./warrens-hero-stat";
 import { buildRooms } from "./room";
 import { buildMonsterPool } from "./monster-pool";
 import { buildCurios } from "./curio";
@@ -113,6 +114,9 @@ export type NormalizedCoreboxInput = {
   trinketRaw: RawFile;
   quirks: RawFile;
   virtues: RawFile;
+  extensionWarrensHeroSkills?: HeroSkillFile;
+  extensionWarrensHeroSkillRaw?: RawFile;
+  extensionWarrensHeroStatRaw?: RawFile;
 };
 
 function rawIndex(file: RawFile): Map<string, RawCard> {
@@ -602,9 +606,28 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
     monster_pool: buildMonsterPool(input.monsterMediumRaw, medium, large),
     room: buildRooms(input.rooms),
     curio: buildCurios(input.curios, input.dictionary),
-    hero_stat: buildHeroStats(input.heroStats, input.dictionary),
+    hero_stat: (() => {
+      const core = buildHeroStats(input.heroStats, input.dictionary);
+      const warrens =
+        input.extensionWarrensHeroStatRaw && input.dictionary
+          ? buildWarrensHeroStats(input.extensionWarrensHeroStatRaw, input.dictionary)
+          : [];
+      return normalizedHeroStatFileSchema.parse({
+        ...core,
+        cards: [...core.cards, ...warrens],
+      });
+    })(),
     hero_skill: (() => {
-      const file = buildHeroSkills(input.heroSkills, input.heroSkillRaw, lookup);
+      const parsed = {
+        ...input.heroSkills,
+        cards: [...input.heroSkills.cards, ...(input.extensionWarrensHeroSkills?.cards ?? [])],
+      };
+      const rawCards = [
+        ...input.heroSkillRaw.cards,
+        ...(input.extensionWarrensHeroSkillRaw?.cards ?? []),
+      ];
+      const raw = { ...input.heroSkillRaw, cards: rawCards };
+      const file = buildHeroSkills(parsed, raw, lookup);
       return normalizedHeroSkillFileSchema.parse({
         ...file,
         cards: attachVerifiedRallyingFlare(

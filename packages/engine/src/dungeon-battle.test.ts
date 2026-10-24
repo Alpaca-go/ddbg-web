@@ -505,9 +505,11 @@ it("等待四人时按逃跑交接；不清宝藏/不发20金，登记四死者�
   ).toEqual(
     [
       "ABOMINATION",
+      "ANTIQUARIAN",
       "ARBALEST",
       "BOUNTY HUNTER",
       "JESTER",
+      "LEPER",
       "PLAGUE DOCTOR",
       "GRAVE ROBBER",
       "OCCULTIST",
