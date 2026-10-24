@@ -63,11 +63,13 @@ it("库存：规范化十一名核心 attributesVerified；扩展七名建队占
     expect(stat?.life).toBeGreaterThan(1);
   }
   const game = createCoreDungeonQuest(14, "quest:p001", "radiant", coreParty, sources);
-  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([...EXTRA_NAMES]);
   expect(
-    replacementHeroCandidates(game.dungeon!).every(
-      (s) => s.attributesVerified && s.level === 1 && s.name !== "JESTER" && s.name !== "ARBALEST",
-    ),
+    replacementHeroCandidates(game.dungeon!)
+      .map((s) => s.name)
+      .sort(),
+  ).toEqual([...EXTRA_NAMES].sort());
+  expect(
+    replacementHeroCandidates(game.dungeon!).every((s) => s.attributesVerified && s.level === 1),
   ).toBe(true);
 });
 
@@ -130,9 +132,11 @@ it("自然死亡：四名已核实额外候选各自prepare→join→createQuest
     step({ type: "joinPreparedReplacements" });
     expect(game.dungeon!.heroes.some((h) => h.heroStatId === replacementId && !h.dead)).toBe(true);
     const chosen = sources.catalog.heroStats.find((s) => s.id === replacementId)!.name;
-    expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual(
-      EXTRA_NAMES.filter((name) => name !== chosen),
-    );
+    expect(
+      replacementHeroCandidates(game.dungeon!)
+        .map((s) => s.name)
+        .sort(),
+    ).toEqual(EXTRA_NAMES.filter((name) => name !== chosen).sort());
     saved();
   }
 }, 120000);

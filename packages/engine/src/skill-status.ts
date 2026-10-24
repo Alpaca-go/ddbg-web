@@ -75,6 +75,33 @@ export function readVerifiedStatusEffects(
   }
   for (const [lineIndex, group] of groups) {
     const line = skill.effect_lines[lineIndex]!;
+    const rallying = skill.verified_rallying_flare;
+    if (
+      rallying &&
+      lineIndex === rallying.monsterDebuffLineIndex &&
+      group.length === 1 &&
+      group[0]!.scope === "target"
+    ) {
+      const actual = line
+        .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+        .join("")
+        .replace(/\s+/g, " ")
+        .trim();
+      if (
+        actual !== rallying.monsterDebuffSignature ||
+        line.some(
+          (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+        )
+      )
+        return { status: "refused", reason: "Rallying Flare 怪物减益行与注解不符（R-103）" };
+      const entry = group[0]!;
+      target.push({
+        kind: entry.kind,
+        duration: entry.duration,
+        ...(entry.amount === undefined ? {} : { amount: entry.amount }),
+      });
+      continue;
+    }
     if (
       line.some(
         (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),

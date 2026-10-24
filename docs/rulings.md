@@ -983,6 +983,33 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **依据 / 边界**：印刷 Hero STAT FRONT/BACK、extract raw、`hero-stat-print-art-map`（#286）；R-048/R-095。不使用 FAQ。
 - **状态**：Kyries 已确认（2026-10-24）
 
+### R-102
+
+- **编号**：R-102
+- **日期**：2026-10-24
+- **问题**：Jester Dirk Stab I–III（`hero_skill:p106` 等）效果行「Ignores `{icon:a2e7252e06}`」；词典 `pending_a2e7252e06` / needs_review（Q-101）。
+- **裁定**（Kyries 已确认，2026-10-24）：
+  - 全局词典：`a2e7252e06` = **Guard（守护）**，`key=guard`，`kind=status`。
+  - 规则语义（与 R-024 一致）：除非使用范围技能，针对被守护对象的非范围技能须转移到守护者；够不到则按 R-023 / R-024 补充移动或跳过。
+  - Dirk Stab 印刷「Ignores `{icon:a2e7252e06}`」= **无视守护**，可直接对被守护对象结算伤害（不强制改选 Guard 敌人）。
+  - 同图标出现于 Dirk Stab I–III；II/III 若仅该图标阻碍核实则一并核实接线，不扩其它未核实图标。
+- **依据 / 出处**：官方 R21 / R24、规格书 §6.7；Kyries 聊天裁定 Q-101。不使用 FAQ。
+- **关联待确认**：Q-101，confirmed
+- **状态**：Kyries 已确认（2026-10-24）
+
+### R-103
+
+- **编号**：R-103
+- **日期**：2026-10-24
+- **问题**：Arbalest Rallying Flare I–III（`hero_skill:p166` 等）射程行后 `{icon:d93aef1e33}`（红骷髅/金头盔斜线）；词典 needs_review（Q-102）。
+- **裁定**（Kyries 已确认，2026-10-24）：
+  - 全局词典：`d93aef1e33` = **目标：英雄或怪物**，`key=target_hero_or_monster`，`kind=target`（与低置信 proposal 一致）。
+  - 射程旁 ×N 该图标 = **同一区域内可选英雄或怪物目标，最多 N 个**；不另猜双阵营混排或额外效果。
+  - Rallying Flare I–III 整卡可核实并接线；II/III 若仅该图标阻碍则一并核实。
+- **依据 / 出处**：印刷 Hero Skill FRONT；Kyries 聊天裁定 Q-102；R-048。不使用 FAQ。
+- **关联待确认**：Q-102，confirmed
+- **状态**：Kyries 已确认（2026-10-24）
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。
@@ -1326,9 +1353,9 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### Q-101
 
 - **问题 / 来源**：Jester Dirk Stab I–III（`hero_skill:p106` 等）效果行含 `{icon:a2e7252e06}`（词典 `pending_a2e7252e06` / needs_review）。整卡 `verification.unverified`；其余六张 Jester I 级已核实并接线。
-- **处理 / 状态**：待确认。按 R-048 整卡拒绝，不根据技能名补伤害或效果。
+- **处理 / 状态**：confirmed（R-102，2026-10-24）。Kyries 确认 `a2e7252e06`→Guard；Dirk Stab「Ignores」= 无视守护。词典已确认，I–III 整卡核实并接线。
 
 ### Q-102
 
 - **问题 / 来源**：Arbalest Rallying Flare I–III（`hero_skill:p166` 等）射程行后含 `{icon:d93aef1e33}`（红骷髅/金头盔斜线，词典 needs_review）。整卡 `verification.unverified`；其余六张 Arbalest I 级已核实并接线。
-- **处理 / 状态**：待确认。按 R-048 整卡拒绝，不猜测双目标或额外效果语义。
+- **处理 / 状态**：confirmed（R-103，2026-10-24）。Kyries 确认 `d93aef1e33`→target_hero_or_monster；射程旁 ×2 = 可选英雄或怪物目标。词典已确认，I–III 整卡核实并接线。

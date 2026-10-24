@@ -209,7 +209,9 @@ it.each(["quest:p002", "quest:p003"] as const)(
       replacementHeroCandidates(game.dungeon!)
         .map((s) => s.name)
         .sort(),
-    ).toEqual(["ABOMINATION", "BOUNTY HUNTER", "GRAVE ROBBER", "OCCULTIST"].sort());
+    ).toEqual(
+      ["ABOMINATION", "ARBALEST", "BOUNTY HUNTER", "GRAVE ROBBER", "JESTER", "OCCULTIST"].sort(),
+    );
     expect(game.dungeon!.heroes.find((h) => h.id === doctor.id)?.skillIds).toEqual(doctor.skillIds);
     expect(game.dungeon!.heroes.find((h) => h.id === doctor.id)?.xp).toBe(
       nextQuestId === "quest:p002" ? 1 : 0,

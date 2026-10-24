@@ -788,6 +788,33 @@ const entries: readonly Entry[] = [
       },
     ],
   },
+  {
+    id: "hero_skill:p166",
+    name: "Rallying Flare",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    signature: "{target_monster} : {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p167",
+    name: "Rallying Flare",
+    level: 2,
+    lineIndex: 1,
+    scope: "target",
+    signature: "{target_monster} : {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p168",
+    name: "Rallying Flare",
+    level: 3,
+    lineIndex: 1,
+    scope: "target",
+    signature: "{target_monster} : {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
+  },
 ];
 
 function signature(line: readonly Segment[]): string {

@@ -115,6 +115,10 @@ import { resolveAttackDamage } from "./attack-damage";
  * 也不改 Riposte：反弹仍按减半之前的伤害。治疗本来就不减半。自身效果上的
  * Protection、带回合数的防护，以及「Ignores」旁边没命名的图标，都不算这条。
  *
+ * 无视守护（R-102、规则书第 21 页 Guard 与 R-024）：一条效果行只有文字「Ignores」、
+ * 已命名的 `guard`。不把 Guard 代币移除；调用方在选目标时不强制改选 Guard 敌人。
+ * 「Ignores」旁边没命名的图标不算这条。
+ *
  * 切换形态（规则书第 38 页，说明书 §16.3；自身效果见第 20 页，说明书 §6.5
  * 第 5 步）：一条效果行只有已命名的自身效果，文字恰好是「Self Change: Beast」
  * 或「Self Change: Human」。没有 Acc 的技能不掷骰，直接生效（规则书第 19 页
@@ -295,6 +299,14 @@ export type HeroSkillCardView = {
     readonly segmentIndex: number;
     readonly scope: "self" | "target";
   })[];
+  readonly verified_rallying_flare?: {
+    readonly cleanupLineIndex: 0;
+    readonly cleanupSignature: string;
+    readonly monsterDebuffLineIndex: 1;
+    readonly monsterDebuffSignature: string;
+    readonly debuffDuration: number;
+    readonly source: "print_front";
+  };
   /**
    * 技能卡顶行。点亮的姿态图标表示能从那个姿态使用（规则书第 19 页）。
    * 不传就无法在调用方给出当前姿态时核对。
@@ -559,6 +571,10 @@ export type HeroSkillResolution = {
    * 不表示防护代币被移除。
    */
   readonly targetProtectionIgnored: boolean;
+  /** Rallying Flare 等：自身效果清除眩晕与标记堆（R-103）。 */
+  readonly actorStunMarkCleared: boolean;
+  /** 英雄目标清除眩晕与标记；怪物目标不设置。 */
+  readonly targetStunMarkCleared: boolean;
   /**
    * 自身效果印的「Self Change: Beast / Human」。没有 Acc 时不掷骰也记上。
    * 没有这条效果时为 null。不表示卡和棋子已经翻面。
@@ -646,6 +662,8 @@ function refuse(
     actorShuffle: null,
     targetShuffle: null,
     targetProtectionIgnored: false,
+    actorStunMarkCleared: false,
+    targetStunMarkCleared: false,
     actorForm: null,
     actorStress,
     targetStress,
@@ -1389,6 +1407,47 @@ function ignoresProtectionLine(line: readonly SkillSegment[]): boolean {
   return target === 1 && protection === 1 && sawIgnores;
 }
 
+type IgnoresGuard = {
+  readonly targetLines: number;
+};
+
+/** 只接受「Ignores + guard」整行（R-102）。 */
+function readIgnoresGuard(skill: HeroSkillCardView): IgnoresGuard {
+  let targetLines = 0;
+  for (const line of skill.effect_lines) {
+    if (ignoresGuardLine(line)) targetLines += 1;
+  }
+  return { targetLines };
+}
+
+export function skillIgnoresGuard(skill: HeroSkillCardView): boolean {
+  return readIgnoresGuard(skill).targetLines > 0;
+}
+
+function ignoresGuardLine(line: readonly SkillSegment[]): boolean {
+  let guard = 0;
+  let sawIgnores = false;
+  for (const segment of line) {
+    if (segment.type === "text") {
+      const text = segment.text.trim();
+      if (text === "") continue;
+      if (text === "Ignores") {
+        if (sawIgnores) return false;
+        sawIgnores = true;
+        continue;
+      }
+      return false;
+    }
+    if (!NAMED.has(segment.icon.naming) || segment.icon.key === null) return false;
+    if (segment.icon.key === "guard") {
+      guard += 1;
+      continue;
+    }
+    return false;
+  }
+  return guard === 1 && sawIgnores;
+}
+
 type FormChange = {
   readonly form: SkillForm | null;
   /** 对得上的变身行。没有，或不止一条时为 0。 */
@@ -1855,18 +1914,25 @@ function elevationProblem(skill: HeroSkillCardView, combat: SkillCombatState): s
 
 type PrintedTargets =
   | { readonly kind: "exact"; readonly max: number }
+  | { readonly kind: "hero_or_monster"; readonly max: number }
   | { readonly kind: "absent" }
   | { readonly kind: "mixed" };
 
-function countNamedTargets(icons: readonly SkillIconRef[]): { hero: number; monster: number } {
+function countNamedTargets(icons: readonly SkillIconRef[]): {
+  hero: number;
+  monster: number;
+  heroOrMonster: number;
+} {
   let hero = 0;
   let monster = 0;
+  let heroOrMonster = 0;
   for (const icon of icons) {
     if (!NAMED.has(icon.naming) || icon.key === null) continue;
     if (icon.key === "target_hero") hero += 1;
     if (icon.key === "target_monster") monster += 1;
+    if (icon.key === "target_hero_or_monster") heroOrMonster += 1;
   }
-  return { hero, monster };
+  return { hero, monster, heroOrMonster };
 }
 
 function lineTargetIcons(line: readonly SkillSegment[]): SkillIconRef[] {
@@ -1881,7 +1947,11 @@ function lineTargetIcons(line: readonly SkillSegment[]): SkillIconRef[] {
  * stats 行优先。效果行里已经有已命名的头盔或怪物头时，不改用正面图标，
  * 那些仍不计数。两边都没有时，才用 `front_icons`。
  */
-function readTargetIconCounts(skill: HeroSkillCardView): { hero: number; monster: number } {
+function readTargetIconCounts(skill: HeroSkillCardView): {
+  hero: number;
+  monster: number;
+  heroOrMonster: number;
+} {
   // 已逐卡核实的无Acc卡：提取器将射程0/单英雄目标行放入effect_lines[0]。
   // 明确注解才读取；不从其他效果行或未核实卡推断目标。
   if (skill.verified_target_header !== undefined) {
@@ -1902,10 +1972,17 @@ function readTargetIconCounts(skill: HeroSkillCardView): { hero: number; monster
       skill.verified_status_effects.some((e) => e.lineIndex !== 1 || e.scope !== "target") ||
       line?.some((s) => s.type === "icon" && !NAMED.has(s.icon.naming))
     )
-      return { hero: 0, monster: 0 };
-    return { hero: 1, monster: 0 };
+      return { hero: 0, monster: 0, heroOrMonster: 0 };
+    return { hero: 1, monster: 0, heroOrMonster: 0 };
   }
   // p019 的射程 / 目标行被提取到 effect_lines；只读逐卡复核注解对应的已确认行。
+  if (skill.verified_rallying_flare) {
+    const heroOrMonster = (skill.front_icons ?? []).filter(
+      (icon) => NAMED.has(icon.naming) && icon.key === "target_hero_or_monster",
+    ).length;
+    if (heroOrMonster > 0) return { hero: 0, monster: 0, heroOrMonster };
+    return { hero: 0, monster: 0, heroOrMonster: 0 };
+  }
   if (skill.verified_target_support) {
     const line = skill.effect_lines[0];
     const text = line
@@ -1917,13 +1994,13 @@ function readTargetIconCounts(skill: HeroSkillCardView): { hero: number; monster
       !line?.some((s) => s.type === "icon" && !NAMED.has(s.icon.naming))
     )
       return countNamedTargets(lineTargetIcons(line!));
-    return { hero: 0, monster: 0 };
+    return { hero: 0, monster: 0, heroOrMonster: 0 };
   }
   const stats = countNamedTargets(lineTargetIcons(skill.stats_line ?? []));
-  if (stats.hero > 0 || stats.monster > 0) return stats;
+  if (stats.hero > 0 || stats.monster > 0 || stats.heroOrMonster > 0) return stats;
   for (const line of skill.effect_lines) {
     const onLine = countNamedTargets(lineTargetIcons(line));
-    if (onLine.hero > 0 || onLine.monster > 0) return { hero: 0, monster: 0 };
+    if (onLine.hero > 0 || onLine.monster > 0) return { hero: 0, monster: 0, heroOrMonster: 0 };
   }
   return countNamedTargets(skill.front_icons ?? []);
 }
@@ -1936,6 +2013,8 @@ function readTargetIconCounts(skill: HeroSkillCardView): { hero: number; monster
 export function readPrintedTargets(skill: HeroSkillCardView): PrintedTargets {
   const counts = readTargetIconCounts(skill);
   if (counts.hero > 0 && counts.monster > 0) return { kind: "mixed" };
+  if (counts.heroOrMonster > 0 && (counts.hero > 0 || counts.monster > 0)) return { kind: "mixed" };
+  if (counts.heroOrMonster > 0) return { kind: "hero_or_monster", max: counts.heroOrMonster };
   if (counts.hero > 0) return { kind: "exact", max: counts.hero };
   if (counts.monster > 0) return { kind: "exact", max: counts.monster };
   return { kind: "absent" };
@@ -1955,13 +2034,13 @@ function targetCountProblem(skill: HeroSkillCardView, combat: SkillCombatState):
   if (printed.kind === "mixed") {
     return "stats 行同时有英雄和怪物目标图标，不能确定一个区域内能选几个（规则书第 19 页）";
   }
-  if (printed.kind !== "exact") {
-    return "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）";
+  if (printed.kind === "hero_or_monster" || printed.kind === "exact") {
+    if (combat.targetsInArea < 1 || combat.targetsInArea > printed.max) {
+      return "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）";
+    }
+    return null;
   }
-  if (combat.targetsInArea < 1 || combat.targetsInArea > printed.max) {
-    return "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）";
-  }
-  return null;
+  return "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）";
 }
 
 function combatProblem(combat: SkillCombatState): string | null {
@@ -2359,8 +2438,9 @@ function resolveSkill(
           : "枯萎条件伤害缺少合法的当前状态堆（R-048）",
       );
   }
-  const statuses = readVerifiedStatusEffects(active, combat.shuffleChoice);
-  if (statuses.status === "refused") return refuse(skill, combat, statuses.reason);
+  const statusesRead = readVerifiedStatusEffects(active, combat.shuffleChoice);
+  if (statusesRead.status === "refused") return refuse(skill, combat, statusesRead.reason);
+  let statuses = statusesRead;
   if (statuses.self.length && combat.actor === undefined)
     return refuse(skill, combat, "自身状态效果缺少使用者");
   const selfHeal = readSelfHeal(active);
@@ -2377,6 +2457,39 @@ function resolveSkill(
     target: statuses.targetShuffle ?? originalShuffles.target,
   };
   const ignoresProtection = readIgnoresProtection(active);
+  const ignoresGuard = readIgnoresGuard(active);
+  const rallyingFlare = active.verified_rallying_flare;
+  if (rallyingFlare) {
+    const cleanup = active.effect_lines[rallyingFlare.cleanupLineIndex];
+    const monsterLine = active.effect_lines[rallyingFlare.monsterDebuffLineIndex];
+    const cleanupSig = cleanup
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, " ")
+      .trim();
+    const monsterSig = monsterLine
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (
+      cleanupSig !== rallyingFlare.cleanupSignature ||
+      monsterSig !== rallyingFlare.monsterDebuffSignature ||
+      cleanup?.some(
+        (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+      ) ||
+      monsterLine?.some(
+        (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+      )
+    )
+      return refuse(skill, combat, "Rallying Flare 注解与已确认卡面不符（R-048）");
+  }
+  if (rallyingFlare && target.side === "hero") {
+    statuses = {
+      ...statuses,
+      target: statuses.target.filter((effect) => effect.kind !== "debuff"),
+    };
+  }
   const formChange = readFormChange(active);
   const keys = namedKeys(active.stats_line);
   const kinds = new Set(keys.filter((key) => key === "damage" || key === "heal"));
@@ -2395,7 +2508,8 @@ function resolveSkill(
         shuffles.self === null &&
         shuffles.target === null &&
         statuses.lineCount === 0 &&
-        !support
+        !support &&
+        !active.verified_rallying_flare
       ) {
         return refuse(skill, combat, "stats_line 没有已命名的 damage 或 heal");
       }
@@ -2417,31 +2531,50 @@ function resolveSkill(
     (shuffles.self === null || active.printed_labels.length === 0);
   const selfTarget = readsAsSelfTarget(active);
   const targetCounts = readTargetIconCounts(active);
+  const printedTargets = readPrintedTargets(active);
   const targets = new Set<"target_hero" | "target_monster">();
   if (targetCounts.hero > 0) targets.add("target_hero");
   if (targetCounts.monster > 0) targets.add("target_monster");
-  if (!formOnly && !selfTarget && targets.size !== 1) {
-    return refuse(
-      skill,
-      combat,
-      targets.size === 0
-        ? "stats_line 没有已命名的 target_hero 或 target_monster"
-        : "stats_line 同时有 target_hero 和 target_monster",
-    );
-  }
   if (!formOnly && !selfTarget) {
-    const expectedSide = targets.has("target_hero") ? "hero" : "monster";
-    if (target.side !== expectedSide) {
-      return refuse(skill, combat, "目标阵营与技能的目标图标不一致");
-    }
-    // 规则书第 21 页、R-024：不以友方为目标的技能，必须把有 Guard 的敌人选为目标之一。
-    // 做不到就不能使用，所以自身效果也不发生。英雄目标和 Self 已经在上面分开。
-    if (expectedSide !== sourceSide && combat.guardedEnemyOmitted === true) {
+    if (printedTargets.kind === "hero_or_monster") {
+      if (target.side !== "hero" && target.side !== "monster") {
+        return refuse(skill, combat, "目标阵营与技能的目标图标不一致");
+      }
+      if (
+        target.side === "monster" &&
+        ignoresGuard.targetLines === 0 &&
+        combat.guardedEnemyOmitted === true
+      ) {
+        return refuse(
+          skill,
+          combat,
+          "不以友方为目标的技能必须把有 Guard 的敌人选为目标之一，这次没有选中（规则书第 21 页，R-024）",
+        );
+      }
+    } else if (targets.size !== 1) {
       return refuse(
         skill,
         combat,
-        "不以友方为目标的技能必须把有 Guard 的敌人选为目标之一，这次没有选中（规则书第 21 页，R-024）",
+        targets.size === 0
+          ? "stats_line 没有已命名的 target_hero 或 target_monster"
+          : "stats_line 同时有 target_hero 和 target_monster",
       );
+    } else {
+      const expectedSide = targets.has("target_hero") ? "hero" : "monster";
+      if (target.side !== expectedSide) {
+        return refuse(skill, combat, "目标阵营与技能的目标图标不一致");
+      }
+      if (
+        expectedSide !== sourceSide &&
+        ignoresGuard.targetLines === 0 &&
+        combat.guardedEnemyOmitted === true
+      ) {
+        return refuse(
+          skill,
+          combat,
+          "不以友方为目标的技能必须把有 Guard 的敌人选为目标之一，这次没有选中（规则书第 21 页，R-024）",
+        );
+      }
     }
   }
   if (selfTarget) {
@@ -2798,6 +2931,10 @@ function resolveSkill(
   }
   const conditionsCleared =
     !emptyArea && outcome !== "miss" && (removal.targetLines > 0 || statuses.targetRemove);
+  const actorStunMarkCleared =
+    rallyingFlare !== undefined && outcome !== null && !combat.ownEffectsApplied;
+  const targetStunMarkCleared =
+    rallyingFlare !== undefined && !emptyArea && outcome !== "miss" && target.side === "hero";
 
   const targetDead =
     target.side === "monster" && target.life !== undefined && wounds >= target.life;
@@ -2856,6 +2993,8 @@ function resolveSkill(
       emptyArea || outcome === "miss" ? null : resistedTargetShuffle(shuffles.target, combat),
     targetProtectionIgnored:
       !emptyArea && outcome !== "miss" && effect === "damage" && ignoresProtection.targetLines > 0,
+    actorStunMarkCleared,
+    targetStunMarkCleared,
     actorForm: combat.ownEffectsApplied ? null : formChange.form,
     actorStress,
     targetStress,
@@ -2872,6 +3011,7 @@ function resolveSkill(
         selfBleed.lineCount +
         shuffles.lineCount +
         ignoresProtection.targetLines +
+        ignoresGuard.targetLines +
         formChange.lineCount +
         statuses.lineCount +
         bonuses.length +

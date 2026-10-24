@@ -44,6 +44,7 @@ import { tickStatusStacks } from "./status";
 import { coreQuestSources } from "./test-helpers/core-quest";
 import { prepareTestReplacement } from "./test-helpers/replacement";
 import { prepareVerifiedWipeoutReplacements } from "./test-helpers/wipeout-replacement";
+import { VERIFIED_REMAINING_AFTER_FOUR_PREP } from "./test-helpers/verified-replacement";
 import { readRoomTile } from "./room-tile-selection";
 import { endAfterCasualties } from "./encounter";
 import { replacementHeroCandidates } from "./hero-death-estate";
@@ -501,7 +502,17 @@ it("等待四人时按逃跑交接；不清宝藏/不发20金，登记四死者�
     replacementHeroCandidates(returned.dungeon!)
       .map((c) => c.name)
       .sort(),
-  ).toEqual(["ABOMINATION", "BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].sort());
+  ).toEqual(
+    [
+      "ABOMINATION",
+      "ARBALEST",
+      "BOUNTY HUNTER",
+      "JESTER",
+      "PLAGUE DOCTOR",
+      "GRAVE ROBBER",
+      "OCCULTIST",
+    ].sort(),
+  );
   const { awaiting, prepared, commands } = prepareVerifiedWipeoutReplacements(
     send(started(), { type: "startBattle" }),
   );
@@ -514,7 +525,11 @@ it("等待四人时按逃跑交接；不清宝藏/不发20金，登记四死者�
     "hero_stat:p019:front",
   ]);
   expect(prepared.dungeon!.waitingHeroTokens).toBe(0);
-  expect(replacementHeroCandidates(prepared.dungeon!)).toEqual([]);
+  expect(
+    replacementHeroCandidates(prepared.dungeon!)
+      .map((c) => c.name)
+      .sort(),
+  ).toEqual([...VERIFIED_REMAINING_AFTER_FOUR_PREP].sort());
   // R-095：四名已核实额外足够驿站III余额4；入队成功，目录不足不再是全灭短板。
   expect(applyCommand(prepared, { type: "prepareReplacementHero" }).state).toBe(prepared);
   let restored = JSON.parse(JSON.stringify(awaiting)) as GameState;

@@ -271,6 +271,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
@@ -358,6 +360,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
@@ -414,6 +418,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
@@ -450,6 +456,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
@@ -942,6 +950,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
@@ -1127,6 +1137,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
@@ -1340,6 +1352,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
@@ -1569,6 +1583,8 @@ describe("resolveHeroSkill", () => {
       actorBleedCleared: true,
       actorBlightCleared: true,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
     expect(
@@ -1591,6 +1607,8 @@ describe("resolveHeroSkill", () => {
       actorBleedCleared: true,
       actorBlightCleared: true,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
   });
@@ -1710,6 +1728,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: true,
       targetBlightCleared: true,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
@@ -1735,6 +1755,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: true,
       targetBlightCleared: true,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       besideActorStress: [{ id: "crusader", stress: 2 }],
       skipped: [],
     });
@@ -1751,6 +1773,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       skipped: [],
     });
 
@@ -1763,6 +1787,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: true,
       targetBlightCleared: true,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorStress: 3,
     });
 
@@ -1773,6 +1799,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
   });
 
@@ -1805,6 +1833,8 @@ describe("resolveHeroSkill", () => {
       actorBleedCleared: true,
       actorBlightCleared: true,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
     expect(
@@ -1827,6 +1857,8 @@ describe("resolveHeroSkill", () => {
       actorBleedCleared: true,
       actorBlightCleared: true,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
     expect(
       use(
@@ -1848,6 +1880,8 @@ describe("resolveHeroSkill", () => {
       actorBleedCleared: true,
       actorBlightCleared: true,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
   });
 
@@ -1880,6 +1914,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
     expect(use("hero_skill:p007", target("monster", 1, 0), 10)).toMatchObject({
@@ -1890,6 +1926,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
 
@@ -1930,6 +1968,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
   });
 
@@ -1969,6 +2009,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorShuffle: { direction: "pull", distance: 1 },
       targetShuffle: null,
       actorForm: null,
@@ -2350,6 +2392,8 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
   });
 
@@ -2379,6 +2423,8 @@ describe("resolveHeroSkill", () => {
       wounds: 4,
       targetDead: false,
       targetProtectionIgnored: true,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       skipped: [],
     });
 
@@ -2398,6 +2444,8 @@ describe("resolveHeroSkill", () => {
       actorStress: 2,
       actorWounds: 1,
       targetProtectionIgnored: true,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       skipped: [],
     });
 
@@ -2408,6 +2456,8 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
       wounds: 0,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       skipped: [],
     });
 
@@ -2421,6 +2471,8 @@ describe("resolveHeroSkill", () => {
       wounds: 7,
       targetDead: true,
       targetProtectionIgnored: true,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
     expect(
       use("hero_skill:p169", { target: { ...protectedTarget, wounds: 0, life } }, 9),
@@ -2430,6 +2482,8 @@ describe("resolveHeroSkill", () => {
       wounds: 4,
       targetDead: false,
       targetProtectionIgnored: true,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
 
     expect(
@@ -2449,6 +2503,8 @@ describe("resolveHeroSkill", () => {
       wounds: 5,
       actorWounds: 4,
       targetProtectionIgnored: true,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
   });
 
@@ -2472,6 +2528,8 @@ describe("resolveHeroSkill", () => {
       damageDealt: 6,
       wounds: 7,
       targetProtectionIgnored: true,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       skipped: [],
     });
     expect(
@@ -2490,12 +2548,16 @@ describe("resolveHeroSkill", () => {
       wounds: 11,
       actorStress: 3,
       targetProtectionIgnored: true,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
     expect(use("hero_skill:p170", { target: { ...shielded.target, dodge: 1 } }, 10)).toMatchObject({
       outcome: "miss",
       damageDealt: null,
       wounds: 1,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
 
     const third = card("hero_skill:p171");
@@ -2509,6 +2571,8 @@ describe("resolveHeroSkill", () => {
       damageDealt: 7,
       wounds: 8,
       targetProtectionIgnored: true,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       skipped: [],
     });
     expect(use("hero_skill:p171", shielded, 1)).toMatchObject({
@@ -2517,12 +2581,16 @@ describe("resolveHeroSkill", () => {
       damageDealt: 12,
       wounds: 13,
       targetProtectionIgnored: true,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
     expect(use("hero_skill:p171", { target: { ...shielded.target, dodge: 2 } }, 10)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       wounds: 1,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
   });
 
@@ -2555,39 +2623,37 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
       wounds: 3,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
 
     const dirk = card("hero_skill:p106");
     expect(dirk.name).toBe("Dirk Stab");
     expect(dirk.level).toBe(1);
     expect(dirk.hero).toBe("JESTER");
-    expect(dirk.verification.unverified).toBe(true);
+    expect(dirk.verification.unverified).toBe(false);
     expect(
       dirk.effect_lines[1]
         ?.filter((segment) => segment.type === "icon")
         .map((segment) => segment.icon.key),
-    ).toEqual(["pending_a2e7252e06"]);
+    ).toEqual(["guard"]);
     expect(
       use(
         "hero_skill:p106",
         {
           actor: { id: "jester", wounds: 0, stress: 2 },
-          target: { id: "soldier", side: "monster", wounds: 4, dodge: 0, protection: true },
+          target: { id: "soldier", side: "monster", wounds: 4, dodge: 0 },
+          guardedEnemyOmitted: true,
         },
         5,
       ),
     ).toMatchObject({
-      status: "refused",
-      reason: "未验证的技能不结算（R-048）",
-      outcome: null,
-      effect: null,
-      printedAmount: null,
-      damageDealt: null,
-      wounds: 4,
-      targetProtectionIgnored: false,
-      actorForm: null,
-      actorBleedCleared: false,
-      actorBlightCleared: false,
+      status: "resolved",
+      outcome: "hit",
+      damageDealt: 5,
+      wounds: 9,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
     });
   });
 
@@ -2655,6 +2721,8 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorForm: "beast",
       actorBleedCleared: false,
       actorBlightCleared: false,
@@ -2846,6 +2914,8 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorForm: "human",
       actorBleedCleared: false,
       actorBlightCleared: false,
@@ -3298,6 +3368,8 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorShuffle: null,
       targetShuffle: null,
       actorForm: null,
@@ -9713,6 +9785,8 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorForm: null,
       actorBleedCleared: false,
       actorBlightCleared: false,
@@ -9977,6 +10051,8 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorForm: null,
       actorBleedCleared: false,
       actorBlightCleared: false,
@@ -10537,6 +10613,8 @@ describe("resolveHeroSkill", () => {
         actorShuffle: null,
         targetShuffle: null,
         targetProtectionIgnored: false,
+        actorStunMarkCleared: false,
+        targetStunMarkCleared: false,
         actorForm: null,
         actorBleedCleared: false,
         actorBlightCleared: false,
@@ -10790,6 +10868,8 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorForm: null,
       actorStress: 4,
       targetStress: 6,
@@ -10939,6 +11019,8 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorForm: null,
       actorStress: 3,
       targetStress: 3,
@@ -11124,6 +11206,8 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: { direction: "push", distance: 2 },
       targetProtectionIgnored: false,
+      actorStunMarkCleared: false,
+      targetStunMarkCleared: false,
       actorForm: null,
       actorStress: 5,
       targetStress: null,

@@ -8,7 +8,10 @@ import {
   naturalWipeoutReplacementPath,
 } from "./test-helpers/wipeout-replacement";
 import { coreQuestSources } from "./test-helpers/core-quest";
-import { VERIFIED_REPLACEMENT_NAMES } from "./test-helpers/verified-replacement";
+import {
+  VERIFIED_REMAINING_AFTER_FOUR_PREP,
+  VERIFIED_REPLACEMENT_NAMES,
+} from "./test-helpers/verified-replacement";
 
 it("自然全灭命令日志→正式存档往返；驿站III余额4可准备并入队四名已核实额外", () => {
   const path = naturalWipeoutReplacementPath();
@@ -30,7 +33,11 @@ it("自然全灭命令日志→正式存档往返；驿站III余额4可准备并
     [...VERIFIED_EXTRA_IDS].sort(),
   );
   expect(prepared.dungeon!.waitingHeroTokens).toBe(0);
-  expect(replacementHeroCandidates(prepared.dungeon!)).toEqual([]);
+  expect(
+    replacementHeroCandidates(prepared.dungeon!)
+      .map((c) => c.name)
+      .sort(),
+  ).toEqual([...VERIFIED_REMAINING_AFTER_FOUR_PREP].sort());
 
   const restored = loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game;
   expect(restored).toEqual(prepared);

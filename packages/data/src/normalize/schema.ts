@@ -216,6 +216,16 @@ const heroSkillShared = {
     })
     .refine((range) => range.min <= range.max)
     .optional(),
+  verified_rallying_flare: z
+    .strictObject({
+      cleanupLineIndex: z.literal(0),
+      cleanupSignature: z.string().min(1),
+      monsterDebuffLineIndex: z.literal(1),
+      monsterDebuffSignature: z.string().min(1),
+      debuffDuration: z.int().positive(),
+      source: z.literal("print_front"),
+    })
+    .optional(),
   front_icons: z.array(normalizedIconSchema),
   back_icons: z.array(normalizedIconSchema),
   issues: z.array(z.string()),

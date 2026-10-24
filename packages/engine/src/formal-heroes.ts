@@ -31,10 +31,8 @@ export type FormalHeroName = (typeof FORMAL_HERO_NAMES)[number];
  */
 export const FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS = [
   "ANTIQUARIAN",
-  "ARBALEST",
   "FLAGELLANT",
   "HOUNDMASTER",
-  "JESTER",
   "LEPER",
   "MAN-AT-ARMS",
   "MUSKETEER",

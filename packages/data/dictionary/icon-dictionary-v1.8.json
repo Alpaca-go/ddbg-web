@@ -171,30 +171,30 @@
    "total_occurrences": 14855,
    "top525_card_occurrences": 13793,
    "status_top525": {
-    "confirmed": 420,
+    "confirmed": 421,
     "confirmed_rulebook": 44,
-    "needs_review": 9,
+    "needs_review": 8,
     "decor": 52,
     "unsure": 0,
     "unreviewed": 0
    },
    "status_all976": {
-    "confirmed": 660,
+    "confirmed": 662,
     "confirmed_rulebook": 44,
-    "needs_review": 31,
+    "needs_review": 29,
     "decor": 110,
     "unsure": 0,
     "unreviewed": 138
    },
    "coverage_all976_confirmed_rulebook_decor": {
-    "card_occurrences": 14293,
-    "card_pct": 97.93,
-    "occurrences": 14479,
-    "occ_pct": 97.47
+    "card_occurrences": 14307,
+    "card_pct": 98.03,
+    "occurrences": 14493,
+    "occ_pct": 97.56
    },
    "coverage_top525_confirmed_rulebook_decor": {
-    "card_occurrences": 13737,
-    "card_pct": 99.59
+    "card_occurrences": 13748,
+    "card_pct": 99.67
    },
    "coverage_all976_plus_needs_review": {
     "card_occurrences": 14384,
@@ -204,10 +204,10 @@
    },
    "coverage_all976_by_status": {
     "confirmed": {
-     "card_occurrences": 13039,
-     "card_pct": 89.34,
-     "occurrences": 13145,
-     "occ_pct": 88.49
+     "card_occurrences": 13053,
+     "card_pct": 89.43,
+     "occurrences": 13159,
+     "occ_pct": 88.58
     },
     "confirmed_rulebook": {
      "card_occurrences": 482,
@@ -216,10 +216,10 @@
      "occ_pct": 3.3
     },
     "needs_review": {
-     "card_occurrences": 91,
-     "card_pct": 0.62,
-     "occurrences": 115,
-     "occ_pct": 0.77
+     "card_occurrences": 77,
+     "card_pct": 0.53,
+     "occurrences": 101,
+     "occ_pct": 0.68
     },
     "decor": {
      "card_occurrences": 772,
@@ -5457,30 +5457,24 @@
    "rank": 195,
    "card_occurrences": 11,
    "occurrences": 11,
-   "meaning_en": "Unconfirmed glyph: red skull and gold helmet split by a slash",
-   "meaning_zh": "待确认图形：红骷髅与金头盔被斜线分开",
-   "kind": "",
-   "status": "needs_review",
-   "group": "g_d93aef1e",
-   "key": "pending_d93aef1e33",
+   "meaning_en": "Target: Hero or Monster (split skull/helmet glyph)",
+   "meaning_zh": "目标：英雄或怪物",
+   "kind": "target",
+   "status": "confirmed",
+   "group": "target_hero_or_monster",
+   "key": "target_hero_or_monster",
    "value": null,
    "value_in_glyph": false,
    "placeholder": "{icon:d93aef1e33}",
-   "source": "followup_proposal_2026-10-07",
+   "source": "kyries_review_2026-10-24",
    "categories": "hero_skill:9; hero_pvp:2",
-   "notes": "v1.2 (Kyries approved 2026-10-07): kept as needs_review with neutral placeholder; v1.1 proposed meaning moved to proposal | 头盔与骷髅被斜线分开的组合图形，没有对应的已确认图标；规则书里也没有 | v1.3 (Kyries approved batch-01 2026-10-07): kept as needs_review",
+   "notes": "R-103（Q-102，2026-10-24）：确认 target_hero_or_monster；Rallying Flare 射程后 ×N = 可选英雄或怪物目标数。",
    "rulebook_refs": [],
-   "confidence": "low",
-   "evidence": "glyph = r5 red skull + r3 helmet split by a slash; only on Arbalest \"Rallying Flare\" (hero_skill I-III, hero_pvp) after range 1-2, ×2; not shown in Core/OR24/COM rulebooks",
-   "previous_status": "unsure",
-   "previous_meaning_en": "Target: Hero or Monster (split skull/helmet glyph)",
-   "proposal": {
-    "key": "target_hero_or_monster",
-    "meaning_en": "Target: Hero or Monster (split skull/helmet glyph)",
-    "meaning_zh": "目标：英雄或怪物",
-    "confidence": "low",
-    "evidence": "glyph = r5 red skull + r3 helmet split by a slash; only on Arbalest \"Rallying Flare\" (hero_skill I-III, hero_pvp) after range 1-2, ×2; not shown in Core/OR24/COM rulebooks"
-   }
+   "confidence": "high",
+   "evidence": "Kyries 裁定 Q-102→R-103（2026-10-24）：红骷髅/金头盔斜线 = 目标英雄或怪物；Arbalest Rallying Flare I–III 与 hero_pvp 印刷一致。",
+   "previous_status": "needs_review",
+   "previous_meaning_en": "Unconfirmed glyph: red skull and gold helmet split by a slash",
+   "proposal": null
   },
   {
    "iconId": "d9a647ec08",
@@ -14582,23 +14576,23 @@
    "rank": 569,
    "card_occurrences": 3,
    "occurrences": 3,
-   "meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
-   "meaning_zh": "待确认图形：技能卡正面切图（Dirk Stab，JESTER）",
-   "kind": "",
-   "status": "needs_review",
+   "meaning_en": "Guard",
+   "meaning_zh": "守护",
+   "kind": "status",
+   "status": "confirmed",
    "group": "guard",
-   "key": "pending_a2e7252e06",
+   "key": "guard",
    "value": null,
    "value_in_glyph": false,
    "placeholder": "{icon:a2e7252e06}",
-   "source": "kyries_approved_proposal_2026-10-07",
+   "source": "kyries_review_2026-10-24",
    "categories": "hero_skill:3",
-   "notes": "v1.4 (Kyries approved batch-04 2026-10-07): kept as needs_review with neutral placeholder; replaces v1.3 unreviewed 'unknown_a2e7252e06' | 技能卡杂项切图：JESTER / 「Dirk Stab」/ front面。非 batch-03 技能插画同英雄+同技能+同面匹配池；最佳相似 r5（target_monster，comb=0.326）字形家族不同，保留。",
+   "notes": "R-102（Q-101，2026-10-24）：确认 Guard；Dirk Stab「Ignores」行语义见 R-102。",
    "rulebook_refs": [],
-   "confidence": null,
-   "evidence": "技能卡杂项切图：JESTER / 「Dirk Stab」/ front面。非 batch-03 技能插画同英雄+同技能+同面匹配池；最佳相似 r5（target_monster，comb=0.326）字形家族不同，保留。",
-   "previous_status": "unreviewed",
-   "previous_meaning_en": null,
+   "confidence": "high",
+   "evidence": "Kyries 裁定 Q-101→R-102（2026-10-24）：Jester Dirk Stab I–III「Ignores {icon}」= 无视守护，直接攻击被守护对象。",
+   "previous_status": "needs_review",
+   "previous_meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
    "proposal": null
   },
   {

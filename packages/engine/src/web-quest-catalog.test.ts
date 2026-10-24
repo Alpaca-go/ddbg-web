@@ -9,7 +9,11 @@ import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { replacementHeroCandidates } from "./hero-death-estate";
 import { verifiedLevel1CombatSkillsForHero } from "./formal-roster-catalog";
-import { VERIFIED_REPLACEMENT_NAMES } from "./test-helpers/verified-replacement";
+import {
+  VERIFIED_REPLACEMENT_NAMES,
+  VERIFIED_REPLACEMENT_STAT_IDS,
+  verifiedReplacementNamesExcluding,
+} from "./test-helpers/verified-replacement";
 
 function webSources(
   id: "battle-data" | "quest-battle-data" | "quest-battle-data-v1" | "quest-battle-data-v2",
@@ -99,12 +103,9 @@ it("五英雄旧档在候选/升级/技能/入队各停点严格迁移，伪造�
   const { loaded, save } = verify();
   const preparation = run.game.dungeon!.replacementPreparation!;
   expect(preparation.choice.options.map((o) => o.id)).toEqual(["hero_stat:p005:front"]);
-  expect(loaded.dungeon!.replacementPreparation!.choice.options.map((o) => o.id).sort()).toEqual([
-    "hero_stat:p005:front",
-    "hero_stat:p013:front",
-    "hero_stat:p017:front",
-    "hero_stat:p019:front",
-  ]);
+  expect(loaded.dungeon!.replacementPreparation!.choice.options.map((o) => o.id).sort()).toEqual(
+    [...VERIFIED_REPLACEMENT_STAT_IDS].sort(),
+  );
   expect(loaded.dungeon!.replacementPreparation!.choice).toMatchObject({
     ...preparation.choice,
     options: expect.any(Array),
@@ -168,7 +169,7 @@ it("自然再次侦察多人死亡：第二名候选准备、禁止半队入场�
         replacementHeroCandidates(run.game.dungeon!)
           .map((s) => s.name)
           .sort(),
-      ).toEqual(["ABOMINATION", "GRAVE ROBBER", "OCCULTIST"].sort());
+      ).toEqual(verifiedReplacementNamesExcluding("BOUNTY HUNTER", "PLAGUE DOCTOR"));
       expect(run.game.dungeon!.waitingHeroTokens).toBe(0);
       run.step({ type: "prepareReplacementHero" });
       expect(run.game.dungeon!.campaignFailure).toBe("noWaitingHeroes");
@@ -187,7 +188,7 @@ it("自然再次侦察多人死亡：第二名候选准备、禁止半队入场�
         replacementHeroCandidates(run.game.dungeon!)
           .map((s) => s.name)
           .sort(),
-      ).toEqual(["ABOMINATION", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].sort());
+      ).toEqual(verifiedReplacementNamesExcluding("BOUNTY HUNTER"));
       for (let n = 0; !run.game.dungeon!.heroes.some((h) => h.dead) && n < 30; n++) {
         run.step({ type: "scoutDungeon" });
         run.step({

@@ -3,6 +3,7 @@ import {
   needsHeroSkillShuffleChoice,
   resolveHeroSkill,
   resolveHeroSkillEffects,
+  skillIgnoresGuard,
 } from "./hero-skill";
 import type {
   HeroSkillCardView,
@@ -431,9 +432,10 @@ export function playHeroSkill(
     targetInActorArea: target.side === "hero" && sameArea,
     heroesBesideActor: nearby(actor.areaId),
     untargetedHeroesBesideTarget: sameArea ? [] : nearby(target.areaId),
-    guardedEnemyOmitted:
-      !target.guard &&
-      battle.entities.some((entity) => entity.side === "monster" && !entity.dead && entity.guard),
+    guardedEnemyOmitted: skillIgnoresGuard(skill)
+      ? false
+      : !target.guard &&
+        battle.entities.some((entity) => entity.side === "monster" && !entity.dead && entity.guard),
     ...(command.face ? { face: command.face } : {}),
     ...(command.shuffleChoice ? { shuffleChoice: command.shuffleChoice } : {}),
   };
@@ -643,9 +645,14 @@ export function writeResolution(
     const removeBlight =
       (entity.id === actorId && result.actorBlightCleared) ||
       (entity.id === targetId && result.targetBlightCleared);
+    const removeStunMark =
+      (entity.id === actorId && result.actorStunMarkCleared) ||
+      (entity.id === targetId && result.targetStunMarkCleared);
     const statusStacks = updated.statusStacks.filter(
       (stack) =>
-        !(removeBleed && stack.kind === "bleed") && !(removeBlight && stack.kind === "blight"),
+        !(removeBleed && stack.kind === "bleed") &&
+        !(removeBlight && stack.kind === "blight") &&
+        !(removeStunMark && (stack.kind === "stun" || stack.kind === "mark")),
     );
     updated = {
       ...updated,
