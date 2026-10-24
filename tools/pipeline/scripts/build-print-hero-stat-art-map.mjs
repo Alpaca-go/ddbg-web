@@ -109,15 +109,14 @@ const map = {
     notes: [
       "Core faces use extract/corebox raw hero_stat page order (MG_DD_01 Hero_STAT).",
       "dataStatus verified-data = normalized hero_stat.json id present; art-only = print raster only (R-048).",
-      "Extension pack folders/MG_DD ids must match local EN_FILES; re-run export-print-card-art.mjs after path fixes.",
+      "Extension paths: MG_DD_04/05/06 Warrens/Cove/Weald + MG_DD_08 Musketeer + MG_DD_10 TDH (flat package root, Kyries EN_FILES 2026-10-24).",
       "pngRel paths relative to .cache/print-card-art/ (TrimBox full page, R-048).",
     ],
     reviewedAt: "2026-10-24",
   },
   faces,
   pendingConfirmation: [
-    "Extension STAT page order per pack (Warrens/Cove/Weald/Musketeer) not Kyries-reviewed in this PR.",
-    "MG_DD_05/06/07/10 folder names inferred from EN_FILES layout — confirm on first export.",
+    "Extension STAT page order per pack not Kyries-reviewed in this PR (R-048).",
     "Core Jester/Arbalest/Abomination STAT faces are art-only until attributesVerified gameplay data lands.",
     ...(missingHeroes.length
       ? [`Catalog heroes missing from map faces: ${missingHeroes.join(", ")}`]

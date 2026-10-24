@@ -20,7 +20,7 @@
 | 同批核心盒其余面（Jester / Arbalest / Abomination 等） | `art-only`               | 仅有印刷页序 + raw 身份，无已核实属性数值             |
 | Warrens / Cove / Weald / Musketeer 扩展 STAT           | `art-only`               | 合成 id `hero_stat:{pack}:{hero-slug}:p00x:{face}`    |
 
-18 名英雄名均在 map 中至少有一张 STAT 面；扩展包 **MG_DD 文件夹名与页序** 见 `pendingConfirmation`，需本机 export 后目视确认（R-048）。
+18 名英雄名均在 map 中至少有一张 STAT 面。扩展包路径对齐本机 EN_FILES：**MG_DD_04 Warrens / 05 Cove / 06 Weald**（包根扁平 PDF）、**MG_DD_08 Musketeer**、**MG_DD_10 The Darkest Heroes**（技能 TDH p232–357）。`pngRel` 与 Python `png_basename` 一致（`…FRONT.pdf_p001.png`，无 `.pdf.pdf_`）。页序仍见 `pendingConfirmation`（R-048）。
 
 ## 本机导出
 

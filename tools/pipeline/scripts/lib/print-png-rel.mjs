@@ -8,11 +8,16 @@ export function slugifyPdfRel(pdfRel) {
   return s.length > 180 ? s.slice(0, 180) : s;
 }
 
-export function pngRelFromPdf(pdfRel, page, { old = false } = {}) {
+/** Same shape as Python `png_basename` → `png/{slug}_pNNN.png` (slug already ends with `.pdf`). */
+export function pngBasename(pdfRel, page, { old = false } = {}) {
   const slug = slugifyPdfRel(pdfRel);
   const suffix = old ? "_old" : "";
-  const pagePart = `p${String(page).padStart(3, "0")}`;
-  return `png/${slug}.pdf_${pagePart}${suffix}.png`;
+  const pagePart = String(page).padStart(3, "0");
+  return `${slug}_p${pagePart}${suffix}.png`;
+}
+
+export function pngRelFromPdf(pdfRel, page, options) {
+  return `png/${pngBasename(pdfRel, page, options)}`;
 }
 
 export const COREBOX_STAT_FRONT =

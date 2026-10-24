@@ -128,7 +128,6 @@ const map = {
   uncoveredEngineIds,
   pendingConfirmation: [
     "Extension skill page blocks (TDH p232–357, Musketeer pack) not Kyries CSV-reviewed.",
-    "MG_DD_05/06/07/08/10 PDF paths — confirm on first local export.",
     ...(uncoveredEngineIds.length
       ? [
           `${uncoveredEngineIds.length} normalized engine id(s) not in reviewed CSV (extension / out of scope).`,
