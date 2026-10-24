@@ -11,7 +11,6 @@ import { useTabletopFormalUi } from "../../tabletop/tabletop-formal-ui-context";
 import { DungeonQuestMapFrame } from "../dungeon-map/dungeon-quest-map-frame";
 import { roomKindLabels } from "../labels";
 import { ScoutingPanel } from "../expedition/scouting-panel";
-import { questObjectiveProgressLine } from "./quest-objective-line";
 import type { DungeonViewProps } from "../view-props";
 import type { PendingChoice } from "@ddbg/engine";
 
@@ -30,7 +29,6 @@ export function FormalDungeonExplorationView({
   const d = game.dungeon!;
   const quest = readBasicQuest(d.questDistribution);
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
-  const objectiveLine = useMemo(() => questObjectiveProgressLine(game), [game]);
 
   const currentRoom = d.rooms.find((r) => r.id === d.position);
   const activeRoomCardId = d.roomCards?.active?.cardId;
@@ -40,6 +38,12 @@ export function FormalDungeonExplorationView({
     currentRoom && currentRoom.revealed && !currentRoom.cleared
       ? lookupRoomTokenArt(currentRoom.kind)
       : undefined;
+
+  const roomPickLabel = useMemo(() => {
+    if (activeRoomCardId) return "当前房间卡";
+    if (currentRoom?.revealed) return roomKindLabels[currentRoom.kind];
+    return "房间代币";
+  }, [activeRoomCardId, currentRoom]);
 
   const onSelectNode = (nodeId: string) => {
     setSelectedNodeId(nodeId);
@@ -51,62 +55,51 @@ export function FormalDungeonExplorationView({
 
   return (
     <div className="tt-formal-exploration" data-testid="formal-dungeon-exploration">
-      <header className="tt-formal-exploration__head">
-        <h1 className="tt-formal-exploration__title">{quest?.name ?? "地牢探索"}</h1>
-        <p className="tt-formal-exploration__objective" data-testid="dungeon-quest-objective">
-          {objectiveLine}
+      <div className="tt-formal-exploration__map-stage" aria-label="地牢地图与当前房间">
+        <div className="tt-formal-exploration__map-slab tabletop-board-slab">
+          <DungeonQuestMapFrame
+            game={game}
+            map={d.layout}
+            preview={false}
+            selectedRoomNodeId={selectedNodeId}
+            onSelectRoomNode={onSelectNode}
+          />
+          <button
+            type="button"
+            className="tt-formal-exploration__room-pick"
+            data-testid="tabletop-current-room-card"
+            onClick={() => {
+              if (activeRoomCardId) formalUi?.selectRoomCard(activeRoomCardId);
+            }}
+          >
+            {activeRoomCardId && roomSrc ? (
+              <TabletopRasterImage
+                src={roomSrc}
+                label={roomArt?.name ?? activeRoomCardId}
+                assetType="room"
+                className="tt-formal-exploration__room-img"
+              />
+            ) : positionToken ? (
+              <ExplorationArtImage
+                entry={positionToken}
+                alt={currentRoom ? roomKindLabels[currentRoom.kind] : "房间代币"}
+                className="tt-formal-exploration__room-token"
+                testId="tabletop-position-room-token"
+              />
+            ) : (
+              <span
+                className="tt-formal-exploration__room-back"
+                data-testid="tabletop-room-token-back"
+              >
+                {currentRoom?.revealed ? roomKindLabels[currentRoom.kind] : "背面"}
+              </span>
+            )}
+            <span className="tt-formal-exploration__room-label">{roomPickLabel}</span>
+          </button>
+        </div>
+        <p className="tt-formal-exploration__location muted">
+          {quest?.name ?? "地牢探索"} · 队伍位于 {d.position}
         </p>
-      </header>
-
-      <div className="tt-formal-exploration__map-slab tabletop-board-slab">
-        <DungeonQuestMapFrame
-          game={game}
-          map={d.layout}
-          preview={false}
-          selectedRoomNodeId={selectedNodeId}
-          onSelectRoomNode={onSelectNode}
-        />
-      </div>
-
-      <div className="tt-formal-exploration__room-row">
-        <button
-          type="button"
-          className="tt-formal-exploration__room-pick"
-          data-testid="tabletop-current-room-card"
-          onClick={() => {
-            if (activeRoomCardId) formalUi?.selectRoomCard(activeRoomCardId);
-          }}
-        >
-          {activeRoomCardId && roomSrc ? (
-            <TabletopRasterImage
-              src={roomSrc}
-              label={roomArt?.name ?? activeRoomCardId}
-              assetType="room"
-              className="tt-formal-exploration__room-img"
-            />
-          ) : positionToken ? (
-            <ExplorationArtImage
-              entry={positionToken}
-              alt={currentRoom ? roomKindLabels[currentRoom.kind] : "房间代币"}
-              className="tt-formal-exploration__room-token"
-              testId="tabletop-position-room-token"
-            />
-          ) : (
-            <span
-              className="tt-formal-exploration__room-back"
-              data-testid="tabletop-room-token-back"
-            >
-              {currentRoom?.revealed ? roomKindLabels[currentRoom.kind] : "房间代币背面"}
-            </span>
-          )}
-          <span className="tt-formal-exploration__room-label">
-            {activeRoomCardId
-              ? "当前房间卡（翻开）"
-              : currentRoom?.revealed
-                ? "房间代币（翻开）"
-                : "房间代币（背面）"}
-          </span>
-        </button>
       </div>
 
       <section

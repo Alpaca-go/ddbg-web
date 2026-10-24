@@ -263,6 +263,24 @@ export function TabletopFormalShell({
       ? questObjectiveProgressLine(engineGame)
       : null;
 
+  const formalResources = useMemo(() => {
+    const base = {
+      gold: engineGame?.dungeon?.gold,
+      light: engineGame?.battle?.light ?? engineGame?.dungeon?.explorationSetup?.light,
+      round: engineGame?.battle?.encounter?.round,
+      stagecoachXp: engineGame?.dungeon?.stagecoachXp,
+    };
+    if (flowPhase !== "dungeonExploration" || !engineGame?.dungeon) return base;
+    const d = engineGame.dungeon;
+    const firewoodLabel = d.rest ? (d.rest.used ? "柴火已弃" : "柴火可用") : undefined;
+    const provisionCount = d.explorationSetup?.provisions.length;
+    return {
+      ...base,
+      ...(provisionCount !== undefined ? { provisionCount } : {}),
+      ...(firewoodLabel ? { firewoodLabel } : {}),
+    };
+  }, [engineGame, flowPhase]);
+
   return (
     <TabletopFormalUiProvider value={formalUiApi}>
       <div
@@ -278,12 +296,7 @@ export function TabletopFormalShell({
         data-formal-flow="1"
       >
         <TabletopTopBar
-          formalResources={{
-            gold: engineGame?.dungeon?.gold,
-            light: engineGame?.battle?.light ?? engineGame?.dungeon?.explorationSetup?.light,
-            round: engineGame?.battle?.encounter?.round,
-            stagecoachXp: engineGame?.dungeon?.stagecoachXp,
-          }}
+          formalResources={formalResources}
           phase={flowPhase}
           stepText={flowStepText}
           quest={state.quest}
@@ -300,15 +313,17 @@ export function TabletopFormalShell({
           }
         />
 
-        <TabletopPartyColumn
-          phase={flowPhase}
-          phaseCaption={plan.party}
-          heroes={state.heroes}
-          activeHeroId={state.ui.activeHeroId}
-          compact
-          dataSource={beforeEmbark ? "setup" : "engine"}
-          onSelectHero={selectHero}
-        />
+        {flowPhase !== "questSetup" && (
+          <TabletopPartyColumn
+            phase={flowPhase}
+            phaseCaption={plan.party}
+            heroes={state.heroes}
+            activeHeroId={state.ui.activeHeroId}
+            compact
+            dataSource={beforeEmbark ? "setup" : "engine"}
+            onSelectHero={selectHero}
+          />
+        )}
 
         <section
           className="tt-formal-center tt-phase-surface"

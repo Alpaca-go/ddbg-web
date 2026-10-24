@@ -42,10 +42,24 @@ export {
   readPrintedRange,
   readPrintedTargets,
   heroSkillUsesSelfTarget,
+  readHeroSkillStanceMarks,
+  aggregateLitHeroSkillStanceCounts,
+  HERO_SKILL_STANCE_DISPLAY_ORDER,
 } from "./hero-skill";
+export {
+  EMBARK_FRONT_STANCE_PRIORITY,
+  EMBARK_ROSTER_SLOT_STANCES,
+  embarkRosterSlotIndexForStance,
+  embarkStanceForRosterSlot,
+  preferredEmbarkStanceFromLitCounts,
+  preferredEmbarkStanceFromSelectedSkills,
+  resolveEmbarkRosterSlotIndex,
+  moveEmbarkRosterSeatToSlot,
+} from "./embark-roster-placement";
+export type { EmbarkRosterSlotIndex } from "./embark-roster-placement";
 export { resolveSkillHeroHealth } from "./skill-hero-health";
 export type { SkillHeroHealth, SkillHeroHealthResult } from "./skill-hero-health";
-export type { SkillHealthEffect, SkillEffectsResolution } from "./hero-skill";
+export type { SkillHealthEffect, SkillEffectsResolution, HeroSkillStanceMark } from "./hero-skill";
 export { resolveMonsterSkill, resolveMonsterSkillEffects } from "./monster-skill";
 export { selectMonsterTarget } from "./monster-target";
 export { selectMonsterSkill } from "./monster-stance";

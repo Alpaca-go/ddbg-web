@@ -1729,7 +1729,17 @@ const STANCE_UNLIT = new Map<string, SkillStance>([
  */
 const STANCE_UNMARKED = new Map<string, SkillStance>([["stance_ranged_abomination_row", "ranged"]]);
 
-type StanceMark = "lit" | "unlit" | "unknown";
+export type HeroSkillStanceMark = "lit" | "unlit" | "unknown";
+
+type StanceMark = HeroSkillStanceMark;
+
+/** 卡面顶行从左到右：支援 → 远程 → 防御 → 进攻（规则书 §6.5 / UI 原型）。 */
+export const HERO_SKILL_STANCE_DISPLAY_ORDER = [
+  "support",
+  "ranged",
+  "defensive",
+  "aggressive",
+] as const satisfies readonly SkillStance[];
 
 function isSkillStance(value: unknown): value is SkillStance {
   return (
@@ -1741,8 +1751,35 @@ function isSkillStance(value: unknown): value is SkillStance {
  * 顶行里已命名的点亮 / 未点亮姿态。文字底板跳过，不读成形态。
  * 同一姿态出现两次，或有认不出的图标，整行都不采用。
  */
+export function readHeroSkillStanceMarks(
+  skill: Pick<HeroSkillCardView, "top_row_icons">,
+): Record<SkillStance, HeroSkillStanceMark> | null {
+  const read = readStanceMarks(skill);
+  return read.ok ? read.marks : null;
+}
+
+/** 已选技能里，每个姿态被多少张卡面标为「点亮可用」。 */
+export function aggregateLitHeroSkillStanceCounts(
+  skills: readonly Pick<HeroSkillCardView, "top_row_icons">[],
+): Record<SkillStance, number> {
+  const counts: Record<SkillStance, number> = {
+    support: 0,
+    ranged: 0,
+    defensive: 0,
+    aggressive: 0,
+  };
+  for (const skill of skills) {
+    const marks = readHeroSkillStanceMarks(skill);
+    if (!marks) continue;
+    for (const stance of HERO_SKILL_STANCE_DISPLAY_ORDER) {
+      if (marks[stance] === "lit") counts[stance] += 1;
+    }
+  }
+  return counts;
+}
+
 function readStanceMarks(
-  skill: HeroSkillCardView,
+  skill: Pick<HeroSkillCardView, "top_row_icons">,
 ): { ok: true; marks: Record<SkillStance, StanceMark> } | { ok: false } {
   const icons = skill.top_row_icons;
   if (!Array.isArray(icons)) return { ok: false };

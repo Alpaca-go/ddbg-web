@@ -16,8 +16,7 @@ test("S2/S3：正式同页战斗与底栏技能、分页和移动", async ({ pag
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto("/");
   const click = (name: string) => page.getByRole("button", { name, exact: true }).click();
-  await page.getByLabel("任务种子", { exact: true }).fill("1");
-  await page.getByLabel("任务模式", { exact: true }).selectOption("radiant");
+  await page.getByTestId("embark-mode-radiant").click();
   await click("前往出征准备");
   await click("进入地牢");
   await click("掷开局补给骰");

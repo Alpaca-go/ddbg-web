@@ -6,6 +6,7 @@ export default defineConfig({
       "packages/engine/**/*.test.ts",
       "packages/data/**/*.test.ts",
       "apps/web/**/*.test.ts",
+      "apps/web/**/*.test.tsx",
       "tools/pipeline/scripts/**/*.test.ts",
     ],
   },

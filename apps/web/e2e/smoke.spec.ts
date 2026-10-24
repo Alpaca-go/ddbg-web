@@ -308,9 +308,8 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
     fullPage: true,
   });
   // R14：正式探索入口免费换位，存档刷新后保留；已选路线前后冻结窗口一致。
-  await page.goto("/?phase=3&play=1");
-  await page.getByLabel("任务模式").selectOption("radiant");
-  await page.getByLabel("任务种子").fill("31");
+  await page.goto("/?phase=3&play=1&seed=31");
+  await page.getByTestId("embark-mode-radiant").click();
   await page.getByRole("button", { name: "前往出征准备", exact: true }).click();
   await page.getByRole("button", { name: "进入地牢", exact: true }).click();
   const forward = page.getByRole("button", { name: "VESTAL 前移", exact: true });
