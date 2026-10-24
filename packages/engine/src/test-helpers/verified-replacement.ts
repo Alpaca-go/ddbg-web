@@ -1,9 +1,11 @@
 /** 正式替补：attributesVerified + 七张已核实 I 级战斗技能（含 Abomination 双面 Transform）。 */
 export const VERIFIED_REPLACEMENT_NAMES = [
   "ABOMINATION",
+  "ANTIQUARIAN",
   "ARBALEST",
   "BOUNTY HUNTER",
   "JESTER",
+  "LEPER",
   "PLAGUE DOCTOR",
   "GRAVE ROBBER",
   "OCCULTIST",
@@ -11,16 +13,24 @@ export const VERIFIED_REPLACEMENT_NAMES = [
 
 export const VERIFIED_REPLACEMENT_STAT_IDS = [
   "hero_stat:p005:front",
+  "hero_stat:warrens:antiquarian:p001:front",
   "hero_stat:p013:front",
   "hero_stat:p017:front",
   "hero_stat:p019:front",
   "hero_stat:p011:front",
+  "hero_stat:warrens:leper:p001:front",
   "hero_stat:p015:front",
   "hero_stat:p021:front",
 ] as const;
 
 /** 驿站 III 余额 4 的全灭夹具仍只准备原四名额外；其余三名替补仍在候选池。 */
-export const VERIFIED_REMAINING_AFTER_FOUR_PREP = ["ABOMINATION", "ARBALEST", "JESTER"] as const;
+export const VERIFIED_REMAINING_AFTER_FOUR_PREP = [
+  "ABOMINATION",
+  "ANTIQUARIAN",
+  "ARBALEST",
+  "JESTER",
+  "LEPER",
+] as const;
 
 export function verifiedReplacementNamesExcluding(...exclude: readonly string[]) {
   const blocked = new Set(exclude);

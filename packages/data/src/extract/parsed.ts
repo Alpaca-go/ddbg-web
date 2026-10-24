@@ -30,7 +30,10 @@ function parsedFileSchema<T extends z.ZodType>(category: string, cardSchema: T) 
     schema: z.literal("ddbg-parsed-v0"),
     extractor_version: z.literal("1.0.4"),
     category: z.literal(category),
-    source: z.literal(`raw/corebox/${category}.json`),
+    source: z.union([
+      z.literal(`raw/corebox/${category}.json`),
+      z.literal(`raw/extension/warrens/${category}.json`),
+    ]),
     field_notes: z.string().min(1),
     icon_token: z.literal("{icon:<iconId>} = unannotated icon cluster, see icons/catalog.json"),
     stats: parsedStatsSchema,

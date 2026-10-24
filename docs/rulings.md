@@ -1010,6 +1010,35 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **关联待确认**：Q-102，confirmed
 - **状态**：Kyries 已确认（2026-10-24）
 
+### R-104
+
+- **编号**：R-104
+- **日期**：2026-10-24
+- **问题**：Warrens 扩展包 Antiquarian / Leper Hero STAT（TDH 印刷 `DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT` p28–31；与 Warrens 英雄包 p1–4 同序）与七张 I 级战斗技能（TDH 技能页 **p274–315**，见 Q-103）待核实入库与接线。
+- **裁定**（Kyries 批准转录；不改全局词典除非另开 Q）：
+  - **STAT 入库**（`attributesVerified: true`，`kyries_review_2026-10-24`）：Leper I/II/III 与 Antiquarian I/II 共五面——Life/Dodge/Speed：Leper 18/0/1、25/1/1、33/2/1；Antiquarian 9/1/0、12/2/0。Leper I 左栏 `8db71542d2`→Stun 写入 `verified_condition_defence`。Antiquarian I 无已确认左栏抗性（Shuffle `df4eb1ac47` 在 Speed 行误 remap，不写入 shuffle 抗性）。
+  - **Antiquarian III**（`hero_stat:warrens:antiquarian:p002:front`）免疫栏含未确认 `8510428636`，**不**批准 `attributesVerified`（Q-104）。
+  - **Antiquarian II 背面**村庄技能行含未确认图标时，属性仍批准，整卡可保留 `verification.unverified`（R-048，同 R-101 村庄栏）。
+  - TDH 免疫栏标题装饰 `55a3fded25` 不入词典、不参与 STAT 核实（Q-104）。
+  - **战斗**：各七张 I 级技能 id `hero_skill:p274`–`p292`（Leper）、`p295`–`p313`（Antiquarian）规范化核实后接线；移出 `FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`，纳入正式替补白名单（与 Abom/Jester/Arbalest 同）。
+- **依据 / 边界**：TDH 印刷 PDF、extract `extension/warrens`、R-048/R-101 路径。不使用 FAQ。
+- **关联待确认**：Q-103、Q-104
+- **状态**：Kyries 已确认（2026-10-24）
+
+### Q-103
+
+- **编号**：Q-103
+- **问题**：#286 / `print-hero-18-art-catalog` 登记 Antiquarian 技能 p232–252、Leper p253–273；当前仓内 TDH 技能 PDF 上 Leper 自 **p274**、Antiquarian 自 **p295**（Nervous Stab 在 p295）。
+- **暂定**（数据层）：扩展技能 extract 与规范化 id 采用 **印刷页** `hero_skill:p274`–`p315`；art map 页码待与 Kyries 对齐后改 catalog，不阻塞本 PR 接线。
+- **状态**：待 Kyries 确认
+
+### Q-104
+
+- **编号**：Q-104
+- **问题**：TDH Hero STAT 免疫栏标题 `55a3fded25`、Antiquarian III 免疫 `8510428636`、II 背村庄行 `7034784ee1` 等未入词典或 needs_review。
+- **暂定**：R-104 按上表批准属性；未确认图标不命名、不猜效果；整卡 `verification` 可仍为 unverified。
+- **状态**：待 Kyries 确认
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。

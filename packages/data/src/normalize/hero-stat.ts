@@ -9,6 +9,7 @@ import {
   buildHigherHeroDefence,
   readHigherHeroDefence,
 } from "./hero-higher-defence";
+import { warrensHeroStatCardSchema } from "./warrens-hero-stat";
 
 const FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf";
 const BACK = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf";
@@ -195,7 +196,7 @@ export const normalizedHeroStatFileSchema = z
       raw: z.literal("extract/corebox/raw/hero_stat.json"),
       dictionary: z.literal("dictionary/icon-dictionary-v1.8.json"),
     }),
-    cards: z.array(normalizedHeroStatCardSchema),
+    cards: z.array(z.union([normalizedHeroStatCardSchema, warrensHeroStatCardSchema])),
   })
   .superRefine((file, ctx) => {
     if (new Set(file.cards.map((card) => card.id)).size !== file.cards.length)
@@ -205,12 +206,29 @@ export const normalizedHeroStatFileSchema = z
 export type NormalizedHeroStatCard = z.infer<typeof normalizedHeroStatCardSchema>;
 export type NormalizedHeroStatFile = z.infer<typeof normalizedHeroStatFileSchema>;
 
+const coreHeroStatFileSchema = z
+  .strictObject({
+    schema: z.literal("ddbg-normalized-v0"),
+    dictionary_version: z.literal("1.8"),
+    category: z.literal("hero_stat"),
+    sources: z.strictObject({
+      parsed: z.null(),
+      raw: z.literal("extract/corebox/raw/hero_stat.json"),
+      dictionary: z.literal("dictionary/icon-dictionary-v1.8.json"),
+    }),
+    cards: z.array(normalizedHeroStatCardSchema),
+  })
+  .superRefine((file, ctx) => {
+    if (new Set(file.cards.map((card) => card.id)).size !== file.cards.length)
+      ctx.addIssue({ code: "custom", message: "英雄属性 raw id + face 重复" });
+  });
+
 /** 获批属性单独入库，其他图标仍由词典决定验证状态；纯函数，不修改 raw / 词典。 */
 export function buildHeroStats(
   raw: RawFile,
   dictionary: IconDictionary,
   approved = approvedHeroStats,
-): NormalizedHeroStatFile {
+): z.infer<typeof coreHeroStatFileSchema> {
   if (raw.category !== "hero_stat" || raw.kind !== "card") throw new Error("英雄属性来源类别错误");
   const lookup = createIconLookup(dictionary);
   const cards = approved.map((entry) => {
@@ -353,7 +371,7 @@ export function buildHeroStats(
       verification: finishVerification(reasons),
     });
   });
-  return normalizedHeroStatFileSchema.parse({
+  return coreHeroStatFileSchema.parse({
     schema: "ddbg-normalized-v0",
     dictionary_version: "1.8",
     category: "hero_stat",

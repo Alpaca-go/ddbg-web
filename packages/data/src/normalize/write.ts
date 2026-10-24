@@ -43,6 +43,15 @@ export function loadNormalizedCorebox(): NormalizedCorebox {
     trinketRaw: rawFileSchema.parse(readJson("extract/corebox/raw/trinket.json")),
     quirks: rawFileSchema.parse(readJson("extract/corebox/raw/quirk.json")),
     virtues: rawFileSchema.parse(readJson("extract/corebox/raw/virtue_affliction.json")),
+    extensionWarrensHeroSkills: heroSkillFileSchema.parse(
+      readJson("extract/extension/warrens/parsed/hero_skill.json"),
+    ),
+    extensionWarrensHeroSkillRaw: rawFileSchema.parse(
+      readJson("extract/extension/warrens/raw/hero_skill.json"),
+    ),
+    extensionWarrensHeroStatRaw: rawFileSchema.parse(
+      readJson("extract/extension/warrens/raw/hero_stat.json"),
+    ),
   });
 }
 

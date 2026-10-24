@@ -142,6 +142,7 @@ export {
   embarkSkillAllowed,
   skillBelongsToFormalHero,
   verifiedLevel1CombatSkillsForHero,
+  WARRENS_VERIFIED_SKILL_PAGE_BLOCKS,
   ABOMINATION_DOUBLE_FACED_SKILL_IDS,
 } from "./formal-roster-catalog";
 export { createQuestSave, loadQuestSave } from "./quest-save";

@@ -30,10 +30,8 @@ export type FormalHeroName = (typeof FORMAL_HERO_NAMES)[number];
  * 战斗技能效果未完整接线或 STAT 待核实（R-048）。建队可选卡面；出征后相关命令拒绝，不发明数值。
  */
 export const FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS = [
-  "ANTIQUARIAN",
   "FLAGELLANT",
   "HOUNDMASTER",
-  "LEPER",
   "MAN-AT-ARMS",
   "MUSKETEER",
   "SHIELDBREAKER",
