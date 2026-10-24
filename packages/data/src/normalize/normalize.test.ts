@@ -158,11 +158,12 @@ describe("规范化核心盒", () => {
       built.hero_skill,
       (icon) => icon.key?.startsWith("pending_") === true,
     );
-    expect(pending.length).toBeGreaterThan(0);
     for (const icon of pending) expect(icon.naming).toBe("unverified");
     const flare = built.hero_skill.cards.find((card) => card.id === "hero_skill:p166");
-    expect(flare?.verification.unverified).toBe(true);
-    expect(flare?.verification.reasons).toContain("icon:d93aef1e33");
+    expect(flare?.verification.unverified).toBe(false);
+    expect(flare?.verified_rallying_flare?.source).toBe("print_front");
+    const dirk = built.hero_skill.cards.find((card) => card.id === "hero_skill:p106");
+    expect(dirk?.verification.unverified).toBe(false);
 
     const merged = iconsNamed(built.virtue_affliction, (icon) => icon.iconId === "5d95c49a05");
     expect(merged.length).toBeGreaterThan(0);

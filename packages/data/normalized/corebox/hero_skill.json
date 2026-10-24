@@ -9,8 +9,8 @@
  },
  "stats": {
   "cards": 231,
-  "verified": 225,
-  "unverified": 6
+  "verified": 231,
+  "unverified": 0
  },
  "cards": [
   {
@@ -48451,13 +48451,13 @@
       "icon": {
        "iconId": "a2e7252e06",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_a2e7252e06",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
-       "meaning_zh": "待确认图形：技能卡正面切图（Dirk Stab，JESTER）",
+       "status": "confirmed",
+       "key": "guard",
+       "kind": "status",
+       "meaning_en": "Guard",
+       "meaning_zh": "守护",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      }
     ]
@@ -48742,13 +48742,13 @@
     {
      "iconId": "a2e7252e06",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_a2e7252e06",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
-     "meaning_zh": "待确认图形：技能卡正面切图（Dirk Stab，JESTER）",
+     "status": "confirmed",
+     "key": "guard",
+     "kind": "status",
+     "meaning_en": "Guard",
+     "meaning_zh": "守护",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "back_icons": [
@@ -48788,10 +48788,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:a2e7252e06"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "hero": "JESTER",
    "back_name": "Dirk Stab",
@@ -48903,13 +48901,13 @@
       "icon": {
        "iconId": "a2e7252e06",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_a2e7252e06",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
-       "meaning_zh": "待确认图形：技能卡正面切图（Dirk Stab，JESTER）",
+       "status": "confirmed",
+       "key": "guard",
+       "kind": "status",
+       "meaning_en": "Guard",
+       "meaning_zh": "守护",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      }
     ]
@@ -49194,13 +49192,13 @@
     {
      "iconId": "a2e7252e06",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_a2e7252e06",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
-     "meaning_zh": "待确认图形：技能卡正面切图（Dirk Stab，JESTER）",
+     "status": "confirmed",
+     "key": "guard",
+     "kind": "status",
+     "meaning_en": "Guard",
+     "meaning_zh": "守护",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "back_icons": [
@@ -49240,10 +49238,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:a2e7252e06"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "hero": "JESTER",
    "back_name": "Dirk Stab",
@@ -49355,13 +49351,13 @@
       "icon": {
        "iconId": "a2e7252e06",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_a2e7252e06",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
-       "meaning_zh": "待确认图形：技能卡正面切图（Dirk Stab，JESTER）",
+       "status": "confirmed",
+       "key": "guard",
+       "kind": "status",
+       "meaning_en": "Guard",
+       "meaning_zh": "守护",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      }
     ]
@@ -49646,13 +49642,13 @@
     {
      "iconId": "a2e7252e06",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_a2e7252e06",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: skill-card front crop (Dirk Stab, JESTER)",
-     "meaning_zh": "待确认图形：技能卡正面切图（Dirk Stab，JESTER）",
+     "status": "confirmed",
+     "key": "guard",
+     "kind": "status",
+     "meaning_en": "Guard",
+     "meaning_zh": "守护",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "back_icons": [
@@ -49681,10 +49677,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:a2e7252e06"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "hero": "JESTER",
    "back_name": "Dirk Stab",
@@ -75453,6 +75447,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -75518,6 +75521,19 @@
      "text": "Acc 10"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
+   "verified_rallying_flare": {
+    "cleanupLineIndex": 0,
+    "cleanupSignature": "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",
+    "monsterDebuffLineIndex": 1,
+    "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
+    "debuffDuration": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -75610,24 +75626,24 @@
     {
      "iconId": "d93aef1e33",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_d93aef1e33",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red skull and gold helmet split by a slash",
-     "meaning_zh": "待确认图形：红骷髅与金头盔被斜线分开",
+     "status": "confirmed",
+     "key": "target_hero_or_monster",
+     "kind": "target",
+     "meaning_en": "Target: Hero or Monster (split skull/helmet glyph)",
+     "meaning_zh": "目标：英雄或怪物",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "d93aef1e33",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_d93aef1e33",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red skull and gold helmet split by a slash",
-     "meaning_zh": "待确认图形：红骷髅与金头盔被斜线分开",
+     "status": "confirmed",
+     "key": "target_hero_or_monster",
+     "kind": "target",
+     "meaning_en": "Target: Hero or Monster (split skull/helmet glyph)",
+     "meaning_zh": "目标：英雄或怪物",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "1fd9f6ec6d",
@@ -75766,10 +75782,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:d93aef1e33"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "hero": "ARBALEST",
    "back_name": "Rallying Flare",
@@ -75994,6 +76008,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -76059,6 +76082,19 @@
      "text": "Acc 11"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
+   "verified_rallying_flare": {
+    "cleanupLineIndex": 0,
+    "cleanupSignature": "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",
+    "monsterDebuffLineIndex": 1,
+    "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
+    "debuffDuration": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -76151,35 +76187,35 @@
     {
      "iconId": "d93aef1e33",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_d93aef1e33",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red skull and gold helmet split by a slash",
-     "meaning_zh": "待确认图形：红骷髅与金头盔被斜线分开",
+     "status": "confirmed",
+     "key": "target_hero_or_monster",
+     "kind": "target",
+     "meaning_en": "Target: Hero or Monster (split skull/helmet glyph)",
+     "meaning_zh": "目标：英雄或怪物",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "d93aef1e33",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_d93aef1e33",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red skull and gold helmet split by a slash",
-     "meaning_zh": "待确认图形：红骷髅与金头盔被斜线分开",
+     "status": "confirmed",
+     "key": "target_hero_or_monster",
+     "kind": "target",
+     "meaning_en": "Target: Hero or Monster (split skull/helmet glyph)",
+     "meaning_zh": "目标：英雄或怪物",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "d93aef1e33",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_d93aef1e33",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red skull and gold helmet split by a slash",
-     "meaning_zh": "待确认图形：红骷髅与金头盔被斜线分开",
+     "status": "confirmed",
+     "key": "target_hero_or_monster",
+     "kind": "target",
+     "meaning_en": "Target: Hero or Monster (split skull/helmet glyph)",
+     "meaning_zh": "目标：英雄或怪物",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "1fd9f6ec6d",
@@ -76318,10 +76354,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:d93aef1e33"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "hero": "ARBALEST",
    "back_name": "Rallying Flare",
@@ -76546,6 +76580,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -76611,6 +76654,19 @@
      "text": "Acc 12"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
+   "verified_rallying_flare": {
+    "cleanupLineIndex": 0,
+    "cleanupSignature": "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",
+    "monsterDebuffLineIndex": 1,
+    "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
+    "debuffDuration": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -76703,46 +76759,46 @@
     {
      "iconId": "d93aef1e33",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_d93aef1e33",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red skull and gold helmet split by a slash",
-     "meaning_zh": "待确认图形：红骷髅与金头盔被斜线分开",
+     "status": "confirmed",
+     "key": "target_hero_or_monster",
+     "kind": "target",
+     "meaning_en": "Target: Hero or Monster (split skull/helmet glyph)",
+     "meaning_zh": "目标：英雄或怪物",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "d93aef1e33",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_d93aef1e33",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red skull and gold helmet split by a slash",
-     "meaning_zh": "待确认图形：红骷髅与金头盔被斜线分开",
+     "status": "confirmed",
+     "key": "target_hero_or_monster",
+     "kind": "target",
+     "meaning_en": "Target: Hero or Monster (split skull/helmet glyph)",
+     "meaning_zh": "目标：英雄或怪物",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "d93aef1e33",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_d93aef1e33",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red skull and gold helmet split by a slash",
-     "meaning_zh": "待确认图形：红骷髅与金头盔被斜线分开",
+     "status": "confirmed",
+     "key": "target_hero_or_monster",
+     "kind": "target",
+     "meaning_en": "Target: Hero or Monster (split skull/helmet glyph)",
+     "meaning_zh": "目标：英雄或怪物",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "d93aef1e33",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_d93aef1e33",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red skull and gold helmet split by a slash",
-     "meaning_zh": "待确认图形：红骷髅与金头盔被斜线分开",
+     "status": "confirmed",
+     "key": "target_hero_or_monster",
+     "kind": "target",
+     "meaning_en": "Target: Hero or Monster (split skull/helmet glyph)",
+     "meaning_zh": "目标：英雄或怪物",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "1fd9f6ec6d",
@@ -76870,10 +76926,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:d93aef1e33"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "hero": "ARBALEST",
    "back_name": "Rallying Flare",

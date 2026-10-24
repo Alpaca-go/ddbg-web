@@ -9,7 +9,10 @@ import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
 import cards from "../../data/normalized/corebox/trinket.json";
 import { createBattleState } from "./battle";
 import { readHeroPassiveDefence } from "./battle-skill-status";
-import { VERIFIED_REPLACEMENT_NAMES } from "./test-helpers/verified-replacement";
+import {
+  VERIFIED_REPLACEMENT_NAMES,
+  verifiedReplacementNamesExcluding,
+} from "./test-helpers/verified-replacement";
 
 it("R-094/R-095后瘟疫医生与盗墓者/神秘学者进入正式候选白名单", () => {
   const game = createCoreDungeonQuest(4, "quest:p001", "standard", coreParty, coreQuestSources);
@@ -246,5 +249,5 @@ it("候选按英雄名排除在队/本战役死亡者，不能用另一等级属
     replacementHeroCandidates({ ...d, deadHeroNames: [...d.deadHeroNames!, "BOUNTY HUNTER"] })
       .map((s) => s.name)
       .sort(),
-  ).toEqual(["ABOMINATION", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].sort());
+  ).toEqual(verifiedReplacementNamesExcluding("BOUNTY HUNTER"));
 });

@@ -16,8 +16,8 @@ export const FORMAL_HEROES_VERIFIED_ATTRIBUTES: readonly FormalHeroName[] = [
   "ABOMINATION",
 ];
 
-/** 核心盒两名：STAT 已核实；各缺一张已核实 I 级技能（R-048），战斗其余六张已接线。 */
-export const FORMAL_HEROES_PARTIAL_CORE_SKILLS: readonly FormalHeroName[] = ["JESTER", "ARBALEST"];
+/** 核心盒两名：STAT 与七张 I 级战斗技能均已核实接线（R-102/R-103，2026-10-24）。 */
+export const FORMAL_HEROES_PARTIAL_CORE_SKILLS: readonly FormalHeroName[] = [];
 
 /** Abomination 双面变身卡：规范化 `hero` 为 null，出征/替补按英雄归属。 */
 export const ABOMINATION_DOUBLE_FACED_SKILL_IDS: Record<1 | 2 | 3, string> = {

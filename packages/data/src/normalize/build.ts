@@ -28,6 +28,7 @@ import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 import { attachVerifiedHeroSupport } from "./verified-hero-support";
 import { attachVerifiedHeroLayout } from "./verified-hero-layout";
 import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
+import { attachVerifiedRallyingFlare } from "./verified-rallying-flare";
 import { approvedResolveLookup } from "./approved-resolve-icons";
 import { buildRoomTileGeometry } from "./room-tile";
 import type { RoomTileGeometryFile } from "./room-tile";
@@ -606,11 +607,13 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       const file = buildHeroSkills(input.heroSkills, input.heroSkillRaw, lookup);
       return normalizedHeroSkillFileSchema.parse({
         ...file,
-        cards: attachVerifiedBountyStatuses(
-          attachVerifiedHeroSupport(
-            attachVerifiedHeroDamage(
-              attachVerifiedHeroRanges(
-                attachVerifiedHeroStatuses(attachVerifiedHeroLayout(file.cards)),
+        cards: attachVerifiedRallyingFlare(
+          attachVerifiedBountyStatuses(
+            attachVerifiedHeroSupport(
+              attachVerifiedHeroDamage(
+                attachVerifiedHeroRanges(
+                  attachVerifiedHeroStatuses(attachVerifiedHeroLayout(file.cards)),
+                ),
               ),
             ),
           ),

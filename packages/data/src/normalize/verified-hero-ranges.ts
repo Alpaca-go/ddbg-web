@@ -187,6 +187,24 @@ export function attachVerifiedHeroRanges(
         min: 1,
         max: 2,
       },
+      "hero_skill:p166": {
+        name: "Rallying Flare",
+        level: 1,
+        min: 1,
+        max: 2,
+      },
+      "hero_skill:p167": {
+        name: "Rallying Flare",
+        level: 2,
+        min: 1,
+        max: 2,
+      },
+      "hero_skill:p168": {
+        name: "Rallying Flare",
+        level: 3,
+        min: 1,
+        max: 2,
+      },
     };
     const range = reviewed[card.id];
     if (!range) return card;

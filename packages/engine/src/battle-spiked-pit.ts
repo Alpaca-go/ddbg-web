@@ -31,6 +31,8 @@ function pitResolution(entity: BattleEntity): HeroSkillResolution {
     actorShuffle: null,
     targetShuffle: null,
     targetProtectionIgnored: false,
+    actorStunMarkCleared: false,
+    targetStunMarkCleared: false,
     actorForm: null,
     actorStress: null,
     targetStress: null,

@@ -213,8 +213,6 @@ const V18_CATEGORIZE = [
   633, 636, 638,
 ] as const;
 
-const V18_KEEPS = [195, 544, 569] as const;
-
 const V18_CATEGORIZE_SET = new Set<number>(V18_CATEGORIZE);
 
 const V16_KEEP_MEANING: Record<number, string> = {
@@ -510,7 +508,7 @@ describe("图标词典 v1.8", () => {
       expect(icon?.source).toBe("kyries_approved_proposal_2026-10-07");
     }
 
-    for (const rank of V12_KEPT.filter((rank) => rank !== 296)) {
+    for (const rank of V12_KEPT.filter((rank) => rank !== 296 && rank !== 195)) {
       const icon = byRank.get(rank);
       expect(icon?.status).toBe("needs_review");
       expect(icon?.key).toBe(`pending_${icon?.iconId}`);
@@ -566,7 +564,10 @@ describe("图标词典 v1.8", () => {
       expect(icon?.previous_status).toBe("unreviewed");
     }
 
-    for (const rank of [195, 216] as const) {
+    const flareTarget = byRank.get(195);
+    expect(flareTarget?.status).toBe("confirmed");
+    expect(flareTarget?.key).toBe("target_hero_or_monster");
+    for (const rank of [216] as const) {
       const icon = byRank.get(rank);
       expect(icon?.status).toBe("needs_review");
       expect(icon?.key).toBe(`pending_${icon?.iconId}`);
@@ -706,6 +707,7 @@ describe("图标词典 v1.8", () => {
     for (const rank of V14_SKILL_KEEPS) {
       const icon = byRank.get(rank);
       if (rank === 544) continue; // 2026-10-11 Wound 补充批准
+      if (rank === 569) continue; // R-102 Guard（2026-10-24）
       if (V18_CATEGORIZE_SET.has(rank)) {
         // v1.8 batch-08 归入 skill_art。r544、r569 不在这批里。
         expect(icon?.status).toBe("confirmed");
@@ -728,8 +730,8 @@ describe("图标词典 v1.8", () => {
       ).toBe(true);
       skillMeanings.add(icon?.meaning_en ?? "");
     }
-    expect(stillKept).toEqual([569]);
-    expect(skillMeanings.size).toBe(1);
+    expect(stillKept).toEqual([]);
+    expect(skillMeanings.size).toBe(0);
 
     for (const rank of V14_OTHER_KEEPS.filter((rank) => ![668, 693].includes(rank))) {
       const icon = byRank.get(rank);
@@ -959,17 +961,17 @@ describe("图标词典 v1.8", () => {
     expect(new Set(V18_CATEGORIZE).size).toBe(79);
     expect(dictionary.meta.resolved_in_v1_8.length).toBeGreaterThan(0);
     expect(dictionary.meta.stats.status_all976).toEqual({
-      confirmed: 660,
+      confirmed: 662,
       confirmed_rulebook: 44,
-      needs_review: 31,
+      needs_review: 29,
       decor: 110,
       unsure: 0,
       unreviewed: 138,
     });
     expect(dictionary.meta.stats.status_top525).toEqual({
-      confirmed: 420,
+      confirmed: 421,
       confirmed_rulebook: 44,
-      needs_review: 9,
+      needs_review: 8,
       decor: 52,
       unsure: 0,
       unreviewed: 0,
@@ -1024,13 +1026,9 @@ describe("图标词典 v1.8", () => {
     expect(highwayman?.meaning_en).not.toBe(jesterBack?.meaning_en);
     expect(highwayman?.notes).toContain("Not merge_into r490");
 
-    for (const rank of V18_KEEPS.filter((rank) => rank !== 544)) {
-      const icon = byRank.get(rank);
-      expect(icon?.status).toBe("needs_review");
-      expect(icon?.key).toBe(`pending_${icon?.iconId}`);
-      expect(icon?.kind).toBe("");
-      expect(icon?.key).not.toBe("skill_art");
-    }
+    expect(byRank.get(195)?.key).toBe("target_hero_or_monster");
+    expect(byRank.get(569)?.key).toBe("guard");
+    expect(byRank.get(544)?.key).toBe("wound");
   });
 });
 

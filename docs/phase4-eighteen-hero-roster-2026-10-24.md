@@ -10,7 +10,7 @@
 - **属性已核实 + 技能未全接线（2）**：Jester / Arbalest（各缺一张已核实 I 级；其余六张已接）。**Abomination**：七张 I 级已接（含 Transform），可替补。
 - **扩展 art-only（7）**：Antiquarian, Leper, Flagellant, Man-at-Arms, Houndmaster, Shieldbreaker, Musketeer（`hero_skill:art:*` + 扩展 STAT 印刷面）。
 
-`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` = 九名（十名非八核心去掉 Abomination）；UI 标「技能效果未接线」。
+`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` = 七名扩展英雄；核心 trio 已接线。UI 标「技能效果未接线」。
 
 ## 代码触点
 
@@ -21,5 +21,5 @@
 ## 待确认
 
 - 扩展 STAT 页序（map `pendingConfirmation`）
-- Jester Dirk Stab（Q-101）、Arbalest Rallying Flare（Q-102）图标核实后收尾 I 级接线
+- Jester / Arbalest I 级七张已接线（R-102 / R-103，2026-10-24）
 - 十名英雄的 standee token / 技能 icon（Kyries 后续补图）

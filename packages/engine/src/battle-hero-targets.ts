@@ -10,7 +10,11 @@ import {
   nextBattleRoll,
   recordEncounterSkill,
 } from "./encounter";
-import { needsHeroSkillShuffleChoice, resolveHeroSkillEffects } from "./hero-skill";
+import {
+  needsHeroSkillShuffleChoice,
+  resolveHeroSkillEffects,
+  skillIgnoresGuard,
+} from "./hero-skill";
 import type { ShuffleIntent } from "./shuffle";
 import type { SkillCombatState } from "./hero-skill";
 import type { ApplyResult, GameState, HeroSkillTargetsResolvedEvent } from "./command";
@@ -58,9 +62,10 @@ export function playHeroSkillTargets(
   if (!targetArea || areaDistance === null || living.some((e) => e.areaId !== targetArea.id))
     return rejectBattleCommand(state, "目标须在同一个可达区域（R19）");
   const heights = { low: 0, normal: 1, high: 2 };
-  const guardedEnemyOmitted =
-    !living.some((e) => e.side === "monster" && e.guard) &&
-    battle.entities.some((e) => e.side === "monster" && !e.dead && e.guard);
+  const guardedEnemyOmitted = skillIgnoresGuard(skill!)
+    ? false
+    : !living.some((e) => e.side === "monster" && e.guard) &&
+      battle.entities.some((e) => e.side === "monster" && !e.dead && e.guard);
   let contexts: SkillCombatState[] = living.map((target) => ({
     actor,
     target: skillTargetView(target, battle),

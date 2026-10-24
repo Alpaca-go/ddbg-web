@@ -8,7 +8,7 @@ const cards = loadNormalizedCorebox().hero_skill.cards;
 describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
   it("核实四核心39张、赏金猎人五张、瘟疫医生六张、盗墓者三张与秘术师四张状态卡，原未命名数字不变", () => {
     const annotated = cards.filter((card) => card.verified_status_effects !== undefined);
-    expect(annotated).toHaveLength(57);
+    expect(annotated).toHaveLength(60);
     expect(annotated.every((card) => !card.verification.unverified)).toBe(true);
     expect(cards.find((card) => card.id === "hero_skill:p037")!.verified_status_effects).toEqual([
       { lineIndex: 1, segmentIndex: 6, scope: "self", kind: "buff", duration: 3 },

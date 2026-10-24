@@ -7,6 +7,11 @@ import { replacementHeroCandidates } from "./hero-death-estate";
 import { savedCommandSchema } from "../../data/src/quest-save";
 import { naturalQuest, naturalParty } from "./test-helpers/natural-quest";
 import { createQuestSave, loadQuestSave } from "./quest-save";
+import {
+  VERIFIED_REPLACEMENT_NAMES,
+  VERIFIED_REPLACEMENT_STAT_IDS,
+  verifiedReplacementNamesExcluding,
+} from "./test-helpers/verified-replacement";
 
 function ok(game: GameState, command: Command) {
   const r = applyCommand(game, command);
@@ -67,12 +72,9 @@ it("选英雄才扣一枚、继承全部XP但不扣驿站余额；保持新英�
     before = structuredClone(base),
     offered = ok(base, begin);
   expect(offered.dungeon!.waitingHeroTokens).toBeUndefined();
-  expect(offered.dungeon!.replacementPreparation!.choice.options.map((o) => o.id)).toEqual([
-    "hero_stat:p005:front",
-    "hero_stat:p013:front",
-    "hero_stat:p017:front",
-    "hero_stat:p019:front",
-  ]);
+  expect(offered.dungeon!.replacementPreparation!.choice.options.map((o) => o.id).sort()).toEqual(
+    [...VERIFIED_REPLACEMENT_STAT_IDS].sort(),
+  );
   const game = choose(offered, "hero_stat:p005:front"),
     p = game.dungeon!.replacementPreparation!;
   expect(game.dungeon!.waitingHeroTokens).toBe(1);
@@ -182,13 +184,7 @@ it("代币耗尽明确失败并锁住战役；目录不足不扣代币或冒充�
     ...base,
     dungeon: {
       ...base.dungeon!,
-      deadHeroNames: [
-        ...base.dungeon!.deadHeroNames!,
-        "BOUNTY HUNTER",
-        "PLAGUE DOCTOR",
-        "GRAVE ROBBER",
-        "OCCULTIST",
-      ],
+      deadHeroNames: [...base.dungeon!.deadHeroNames!, ...VERIFIED_REPLACEMENT_NAMES],
     },
   };
   expect(applyCommand(none, begin).state).toBe(none);
@@ -213,7 +209,7 @@ it("暂存英雄不被再次提供；JSON往返和同命令序列结果一致，
     replacementHeroCandidates(prepared.dungeon!)
       .map((s) => s.name)
       .sort(),
-  ).toEqual(["ABOMINATION", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].sort());
+  ).toEqual(verifiedReplacementNamesExcluding("BOUNTY HUNTER"));
   const bad = {
     ...base,
     dungeon: {

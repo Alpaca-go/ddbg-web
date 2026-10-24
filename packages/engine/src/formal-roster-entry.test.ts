@@ -47,10 +47,10 @@ const sources = webQuestSources();
 it("正式名录列出十八名英雄；七名扩展占位 STAT 与十名战斗未接线标", () => {
   expect(FORMAL_HERO_NAMES).toHaveLength(18);
   expect(FORMAL_HERO_NAMES.every(isFormalHeroName)).toBe(true);
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toHaveLength(9); // Jester/Arbalest 仍缺一张 I 级（R-048）
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toHaveLength(7);
   expect(isFormalHeroName("CRUSADER")).toBe(true);
   expect(isFormalHeroName("MUSKETEER")).toBe(true);
-  expect(heroHasUnwiredCombatSkills("JESTER")).toBe(true);
+  expect(heroHasUnwiredCombatSkills("JESTER")).toBe(false);
   expect(heroHasUnwiredCombatSkills("ABOMINATION")).toBe(false);
   expect(heroHasUnwiredCombatSkills("CRUSADER")).toBe(false);
   expect(
@@ -91,7 +91,7 @@ it("开局可编入 Jester（已核实属性 + 已转录 I 级技能）；attrib
   expect(game.dungeon!.heroes[0]!.attributesVerified).toBe(true);
   expect(game.dungeon!.heroes[0]!.heroStatId).toBe("hero_stat:p011:front");
   expect(isFormalHeroRosterPendingAttributes("JESTER")).toBe(false);
-  expect(heroHasUnwiredCombatSkills("JESTER")).toBe(true);
+  expect(heroHasUnwiredCombatSkills("JESTER")).toBe(false);
 });
 
 it("开局可编入 Musketeer（art-only I 级技能）；存档往返一致", () => {

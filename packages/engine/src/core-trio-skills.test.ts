@@ -5,14 +5,14 @@ import type { BattleEntity, BattleSetup } from "./battle";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
-import type { CoreQuestSources, QuestParty } from "./dungeon-quest-entry";
+import type { CoreQuestSources } from "./dungeon-quest-entry";
 import {
   FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS,
   heroHasUnwiredCombatSkills,
 } from "./formal-heroes";
 import { FORMAL_HEROES_PARTIAL_CORE_SKILLS } from "./formal-roster-catalog";
 import { embarkSkillAllowed, verifiedLevel1CombatSkillsForHero } from "./formal-roster-catalog";
-import { resolveHeroSkillEffects, readPrintedRange } from "./hero-skill";
+import { resolveHeroSkillEffects, readPrintedRange, readPrintedTargets } from "./hero-skill";
 import type { HeroSkillCardView } from "./hero-skill";
 import { replacementHeroCandidates } from "./hero-death-estate";
 import { battleDataPlugin } from "../../../apps/web/battle-data-plugin";
@@ -31,7 +31,7 @@ const monster = clean<NonNullable<BattleSetup["monsters"]>[number]>(
 );
 
 const JESTER_L1 = [
-  ["hero_skill:p106", "Dirk Stab", true],
+  ["hero_skill:p106", "Dirk Stab", false],
   ["hero_skill:p109", "Harvest", false],
   ["hero_skill:p112", "Finale", false],
   ["hero_skill:p115", "Solo", false],
@@ -43,16 +43,16 @@ const JESTER_L1 = [
 const ARBALEST_L1 = [
   ["hero_skill:p148", "Sniper Shot", false],
   ["hero_skill:p151", "Suppressive Fire", false],
-  ["hero_skill:p154", "Sniper’s Mark", false],
+  ["hero_skill:p154", "Sniper\u2019s Mark", false],
   ["hero_skill:p157", "Bola", false],
   ["hero_skill:p160", "Blindfire", false],
   ["hero_skill:p163", "Battlefield Bandage", false],
-  ["hero_skill:p166", "Rallying Flare", true],
+  ["hero_skill:p166", "Rallying Flare", false],
 ] as const;
 
 const ABOMINATION_L1 = [
   ["hero_skill:p211", "Manacles", false],
-  ["hero_skill:p214", "Beast’s Bile", false],
+  ["hero_skill:p214", "Beast\u2019s Bile", false],
   ["hero_skill:p217", "Absolution", false],
   ["hero_skill:p220", "Transform to Beast", false],
   ["hero_skill:p223", "Rake", false],
@@ -150,7 +150,7 @@ function play(game: GameState, command: Command) {
   return result;
 }
 
-it("I 级目录：Jester/Arbalest 各一张未核实；Abomination 七张（含双面 Transform）已核实", () => {
+it("I 级目录：Jester/Arbalest 七张已核实；Abomination 七张（含双面 Transform）", () => {
   for (const [id, name, unverified] of JESTER_L1) {
     const skill = card(id) as HeroSkillCardView & { name: string; level: number };
     expect(skill.name).toBe(name);
@@ -170,12 +170,12 @@ it("I 级目录：Jester/Arbalest 各一张未核实；Abomination 七张（含�
     if (id === "hero_skill:p220") expect(skill.hero).toBeNull();
     else expect(skill.hero).toBe("ABOMINATION");
   }
-  expect(verifiedLevel1CombatSkillsForHero("JESTER", data.hero_skill.cards)).toHaveLength(6);
-  expect(verifiedLevel1CombatSkillsForHero("ARBALEST", data.hero_skill.cards)).toHaveLength(6);
+  expect(verifiedLevel1CombatSkillsForHero("JESTER", data.hero_skill.cards)).toHaveLength(7);
+  expect(verifiedLevel1CombatSkillsForHero("ARBALEST", data.hero_skill.cards)).toHaveLength(7);
   expect(verifiedLevel1CombatSkillsForHero("ABOMINATION", data.hero_skill.cards)).toHaveLength(7);
 });
 
-it("未核实卡整次拒绝；已核实卡可经公开命令结算（R-048）", () => {
+it("Dirk Stab / Rallying Flare I 可结算；R-102 无视 Guard", () => {
   const dirk = card("hero_skill:p106");
   expect(
     resolveHeroSkillEffects(
@@ -183,37 +183,34 @@ it("未核实卡整次拒绝；已核实卡可经公开命令结算（R-048）",
       {
         actor: { id: "h", wounds: 0, stress: 2 },
         target: { id: "m", side: "monster", wounds: 4, dodge: 0 },
+        areaDistance: 1,
+        guardedEnemyOmitted: true,
       },
       5,
     ).resolution,
-  ).toMatchObject({ status: "refused", reason: "未验证的技能不结算（R-048）" });
+  ).toMatchObject({ status: "resolved", outcome: "hit", damageDealt: 5 });
 
   const flare = card("hero_skill:p166");
+  expect(readPrintedTargets(flare)).toEqual({ kind: "hero_or_monster", max: 2 });
   expect(
     resolveHeroSkillEffects(
       flare,
       {
         actor: { id: "h", wounds: 0, stress: 0 },
-        target: { id: "m", side: "monster", wounds: 3, dodge: 0 },
+        target: { id: "m", side: "monster", wounds: 3, dodge: 0, statusStacks: [] },
         areaDistance: 1,
       },
       5,
     ).resolution,
-  ).toMatchObject({ status: "refused", reason: "未验证的技能不结算（R-048）" });
-
-  expect(
-    resolveHeroSkillEffects(
-      card("hero_skill:p112"),
-      {
-        actor: { id: "h", wounds: 0, stress: 5 },
-        target: { id: "m", side: "monster", wounds: 2, dodge: 10 },
-      },
-      4,
-    ).resolution,
-  ).toMatchObject({ status: "resolved", outcome: "hit", damageDealt: 7 });
+  ).toMatchObject({
+    status: "resolved",
+    outcome: "hit",
+    actorStunMarkCleared: true,
+    targetStatusEffects: [{ kind: "debuff", duration: 2 }],
+  });
 
   const transform = card("hero_skill:p220");
-  const abom = setupBattle("ABOMINATION", "hero_stat:p021:front", transform, 1);
+  const abom = setupBattle("ABOMINATION", "hero_stat:p021:front", transform, { areaDistance: 1 });
   const transformCmd: Command = {
     type: "playHeroSkill",
     actorId: "h",
@@ -224,32 +221,25 @@ it("未核实卡整次拒绝；已核实卡可经公开命令结算（R-048）",
   expect(changed.state.battle!.entities.find((e) => e.id === "h")!.form).toBe("beast");
 });
 
-it("Abomination 出征可选 Transform；替补白名单含七张已核实 I 级", () => {
+it("Jester/Arbalest 可替补；七张 I 级已核实", () => {
   const sources = webQuestSources();
   type EmbarkSkill = Parameters<typeof embarkSkillAllowed>[1];
-  expect(embarkSkillAllowed("ABOMINATION", card("hero_skill:p220") as unknown as EmbarkSkill)).toBe(
+  expect(embarkSkillAllowed("JESTER", card("hero_skill:p106") as unknown as EmbarkSkill)).toBe(
     true,
   );
-  expect(embarkSkillAllowed("JESTER", card("hero_skill:p106") as unknown as EmbarkSkill)).toBe(
-    false,
+  expect(embarkSkillAllowed("ARBALEST", card("hero_skill:p166") as unknown as EmbarkSkill)).toBe(
+    true,
   );
 
-  const abomParty: QuestParty = [
-    {
-      heroStatId: "hero_stat:p021:front",
-      stance: "aggressive",
-      skillIds: ["hero_skill:p220", "hero_skill:p217", "hero_skill:p226"],
-    },
-    ...coreParty.slice(1),
-  ];
-  const abomGame = createCoreDungeonQuest(30, "quest:p001", "radiant", abomParty, sources);
-  expect(abomGame.dungeon!.heroes[0]!.skillIds).toContain("hero_skill:p220");
   const game = createCoreDungeonQuest(31, "quest:p001", "radiant", coreParty, sources);
-  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toContain("ABOMINATION");
+  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual(
+    expect.arrayContaining(["JESTER", "ARBALEST", "ABOMINATION"]),
+  );
+  expect(heroHasUnwiredCombatSkills("JESTER")).toBe(false);
+  expect(heroHasUnwiredCombatSkills("ARBALEST")).toBe(false);
   expect(heroHasUnwiredCombatSkills("ABOMINATION")).toBe(false);
-  expect(heroHasUnwiredCombatSkills("JESTER")).toBe(true);
-  expect(heroHasUnwiredCombatSkills("ARBALEST")).toBe(true);
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).not.toContain("ABOMINATION");
-  expect(FORMAL_HEROES_PARTIAL_CORE_SKILLS).toEqual(["JESTER", "ARBALEST"]);
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toHaveLength(9);
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).not.toContain("JESTER");
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).not.toContain("ARBALEST");
+  expect(FORMAL_HEROES_PARTIAL_CORE_SKILLS).toEqual([]);
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toHaveLength(7);
 });
