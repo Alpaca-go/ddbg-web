@@ -1322,3 +1322,13 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **问题 / 来源**：Occultist 村庄能力 Dark Ritual（Hero STAT FRONT p20 / III）目标行末尾为 `{icon:4f7549c1b8} 3t`。同技能 I/II（FRONT/BACK p19）对应位置为已确认 Buff 图标 `2af41c1ca4`。词典 v1.8 中 `4f7549c1b8` 仍为 `unreviewed` / `unknown_4f7549c1b8`；整卡 `verification.reasons` 含该图标。云环境无印刷页图像，不能目视命名。I/II 的 Self 压力+1、目标治疗/压力−2/Buff 3t 已按印刷接线；III 曾整次拒绝（R-048），不把 `4f7549c1b8` 猜成 Buff。同 hash 亦见于 `hero_stat:p010:front`（Vestal III Chant 行）。
 - **处理 / 状态**：confirmed（R-097，2026-10-18）。Kyries 确认 LIMITED：Dark Ritual III 语境下 `4f7549c1b8`→Buff；不改全局词典。p010 仅记 LIMITED 命名诚实，不接线 Vestal III。Dark Ritual III 已按印刷治疗 5 与 I/II 同路径接线。
+
+### Q-101
+
+- **问题 / 来源**：Jester Dirk Stab I–III（`hero_skill:p106` 等）效果行含 `{icon:a2e7252e06}`（词典 `pending_a2e7252e06` / needs_review）。整卡 `verification.unverified`；其余六张 Jester I 级已核实并接线。
+- **处理 / 状态**：待确认。按 R-048 整卡拒绝，不根据技能名补伤害或效果。
+
+### Q-102
+
+- **问题 / 来源**：Arbalest Rallying Flare I–III（`hero_skill:p166` 等）射程行后含 `{icon:d93aef1e33}`（红骷髅/金头盔斜线，词典 needs_review）。整卡 `verification.unverified`；其余六张 Arbalest I 级已核实并接线。
+- **处理 / 状态**：待确认。按 R-048 整卡拒绝，不猜测双目标或额外效果语义。

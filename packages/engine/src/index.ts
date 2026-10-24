@@ -126,6 +126,9 @@ export {
   isFormalHeroRosterPendingAttributes,
   isFormalRosterArtSkill,
   embarkSkillAllowed,
+  skillBelongsToFormalHero,
+  verifiedLevel1CombatSkillsForHero,
+  ABOMINATION_DOUBLE_FACED_SKILL_IDS,
 } from "./formal-roster-catalog";
 export { createQuestSave, loadQuestSave } from "./quest-save";
 export { currentHamletEvent, caretakerBuilding } from "./hamlet-event";

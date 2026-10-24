@@ -1,5 +1,5 @@
 import { battleData as questBattleData } from "virtual:quest-battle-data";
-import { embarkSkillAllowed, type FormalHeroName } from "@ddbg/engine";
+import { embarkSkillAllowed, skillBelongsToFormalHero, type FormalHeroName } from "@ddbg/engine";
 
 export const defaultPartyNames: FormalHeroName[] = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"];
 export const stanceLabels = {
@@ -10,7 +10,7 @@ export const stanceLabels = {
 } as const;
 export function formalHeroLevel1Skills(name: FormalHeroName) {
   return questBattleData.skills.filter(
-    (s) => s.hero === name && s.level === 1 && embarkSkillAllowed(name, s),
+    (s) => skillBelongsToFormalHero(name, s) && s.level === 1 && embarkSkillAllowed(name, s),
   );
 }
 

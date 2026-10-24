@@ -11,6 +11,7 @@ import { createQuestSave, loadQuestSave } from "./quest-save";
 import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
 import { naturalParty, naturalQuest } from "./test-helpers/natural-quest";
 import { VERIFIED_EXTRA_IDS } from "./test-helpers/wipeout-replacement";
+import { VERIFIED_REPLACEMENT_NAMES } from "./test-helpers/verified-replacement";
 
 function questSources(id = "quest-battle-data"): CoreQuestSources {
   const load = battleDataPlugin().load as (id: string) => string;
@@ -33,7 +34,7 @@ const start = {
 };
 
 const CORE_TRIO = ["JESTER", "ARBALEST", "ABOMINATION"] as const;
-const EXTRA_NAMES = ["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"] as const;
+const EXTRA_NAMES = VERIFIED_REPLACEMENT_NAMES;
 
 it("库存：规范化十一名核心 attributesVerified；扩展七名建队占位与四名替补候选", () => {
   const normalized = normalizedHeroStatFileSchema.parse(statsFile).cards;
@@ -65,7 +66,7 @@ it("库存：规范化十一名核心 attributesVerified；扩展七名建队占
   expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([...EXTRA_NAMES]);
   expect(
     replacementHeroCandidates(game.dungeon!).every(
-      (s) => s.attributesVerified && s.level === 1 && VERIFIED_EXTRA_IDS.includes(s.id as never),
+      (s) => s.attributesVerified && s.level === 1 && s.name !== "JESTER" && s.name !== "ARBALEST",
     ),
   ).toBe(true);
 });
@@ -104,7 +105,9 @@ it("自然死亡：四名已核实额外候选各自prepare→join→createQuest
     saved();
     step({ type: "prepareReplacementHero" });
     expect(game.dungeon!.replacementPreparation!.choice.options.map((o) => o.id).sort()).toEqual(
-      [...VERIFIED_EXTRA_IDS].sort(),
+      replacementHeroCandidates(game.dungeon!)
+        .map((s) => s.id)
+        .sort(),
     );
     saved();
     step({

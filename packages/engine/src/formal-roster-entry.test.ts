@@ -47,10 +47,11 @@ const sources = webQuestSources();
 it("正式名录列出十八名英雄；七名扩展占位 STAT 与十名战斗未接线标", () => {
   expect(FORMAL_HERO_NAMES).toHaveLength(18);
   expect(FORMAL_HERO_NAMES.every(isFormalHeroName)).toBe(true);
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toHaveLength(10); // 含 Jester/Arbalest/Abomination（技能 R-048）
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toHaveLength(9); // Jester/Arbalest 仍缺一张 I 级（R-048）
   expect(isFormalHeroName("CRUSADER")).toBe(true);
   expect(isFormalHeroName("MUSKETEER")).toBe(true);
   expect(heroHasUnwiredCombatSkills("JESTER")).toBe(true);
+  expect(heroHasUnwiredCombatSkills("ABOMINATION")).toBe(false);
   expect(heroHasUnwiredCombatSkills("CRUSADER")).toBe(false);
   expect(
     sources.catalog.heroStats
@@ -70,7 +71,7 @@ it("开局可编入赏金猎人与瘟疫医生；存档往返一致", () => {
     ),
   ).toEqual(["BOUNTY HUNTER", "PLAGUE DOCTOR", "CRUSADER", "VESTAL"]);
   expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual(
-    expect.arrayContaining(["HELLION", "HIGHWAYMAN", "GRAVE ROBBER", "OCCULTIST"]),
+    expect.arrayContaining(["ABOMINATION", "HELLION", "HIGHWAYMAN", "GRAVE ROBBER", "OCCULTIST"]),
   );
   const start = {
     seed: 21,

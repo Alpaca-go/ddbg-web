@@ -252,7 +252,7 @@ ddbg/
 - **工期**：**1.5–2.5 周**（原 2–3.5 周）。村庄和存档只依赖战役状态模型，可以和 Phase 3 重叠约 1 周，两者合计约 3–4.5 周。
 - **进度摘记（2026-10-18）**：正式八英雄开局已开；Grave Robber I 级七战斗技能与 Pilfer 抽取已接（R-096、R-098）；Occultist I 级七战斗技能与 Dark Ritual I–III 已接（R-097 LIMITED Buff）。不进 Phase 5。详见 `docs/phase4-occultist-skills-2026-10-18.md`。
 - **进度摘记（2026-10-24）**：`FORMAL_HERO_NAMES` 扩至十八名；开局建队可选全员并展示印刷技能卡（#286 map）。十名扩展／未核实 STAT 用占位属性 + art-only 技能，标待确认；缺 token/icon 降级不阻塞。不进 Phase 5。
-- **进度摘记（2026-10-24）**：Kyries 批准 Jester / Arbalest / Abomination 九面 STAT 入库（`hero_stat:p011–p012`、`p015–p016`、`p021–p023`）；建队不再占位 life=1。技能效果仍 R-048；替补白名单仍要求七张已核实 I 级技能。
+- **进度摘记（2026-10-24）**：Kyries 批准 Jester / Arbalest / Abomination 九面 STAT 入库（`hero_stat:p011–p012`、`p015–p016`、`p021–p023`）；建队不再占位 life=1。Abomination 七张 I 级技能效果已接、可替补（含双面 `hero_skill:p220`）；Jester / Arbalest 各六张已接，Dirk Stab / Rallying Flare 仍整卡 R-048（见 [核心 trio 技能记录](phase4-core-trio-skills-2026-10-24.md) 与 Q-101 / Q-102）。替补白名单仍要求七张已核实 I 级技能。
 - **进度摘记（2026-10-20）**：Curio / Trinket / Quest 三类卡 UI 已接印刷 TrimBox PNG（`docs/phase4-print-curio-trinket-quest-art-2026-10-20.md`）；Quest 19 页均已入 map（14 张 art-only，任务池仍仅 `basic-quests.ts` 五张）。
 - **进度摘记（2026-10-20）**：ADD_014 两张中型怪物卡（Perfect / Imperfect Reflection）印刷图复用基础版 `p106` / `p109` PNG，不导 ADD PDF；见 `docs/phase4-print-monster-art-map-2026-10-19.md`。
 - **进度摘记（2026-10-20）**：印刷导出管线修复 EN_FILES 过滤、Rubine 刀线（PyMuPDF 1.28）、Windows Python 解析与一键脚本；见 `docs/phase4-print-art-pipeline-2026-10-19.md` §本机一键导出。
