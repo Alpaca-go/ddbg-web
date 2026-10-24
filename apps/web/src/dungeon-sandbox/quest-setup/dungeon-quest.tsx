@@ -146,8 +146,8 @@ export function DungeonQuest() {
             />
           </label>
           <p>
-            可选身份共 {FORMAL_HERO_NAMES.length} 名（与替补白名单一致）。八名核心属性已核实；
-            其余十名展示印刷 STAT/技能卡，属性占位或 art-only 技能，标「技能效果未接线」。 缺
+            可选身份共 {FORMAL_HERO_NAMES.length} 名（与替补白名单一致）。十一名核心盒属性已核实；
+            其余七名扩展展示印刷 STAT/技能卡，属性占位或 art-only 技能，标「技能效果未接线」。 缺
             token/icon 不阻塞建队；未核实战斗效果按 R-048 拒绝，不发明数值。
           </p>
           {party.map((hero, index) => {

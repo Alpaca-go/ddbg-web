@@ -23,8 +23,10 @@ export const approvedHeroConditionDefences: Readonly<
   "hero_stat:p005:front": { name: "BOUNTY HUNTER", iconId: "8db71542d2", kind: "stun" },
   "hero_stat:p013:front": { name: "PLAGUE DOCTOR", iconId: "40bb356305", kind: "blight" },
   "hero_stat:p017:front": { name: "GRAVE ROBBER", iconId: "40bb356305", kind: "blight" },
-  /** R-095：仅 Occ I；Jester I 同 hash `8cbe7d6703` 不在批准范围。 */
+  /** R-095 / 核心三英雄 2026-10-24：Occ I 与 Jester I 同 hash `8cbe7d6703` 分卡批准。 */
   "hero_stat:p019:front": { name: "OCCULTIST", iconId: "8cbe7d6703", kind: "debuff" },
+  "hero_stat:p011:front": { name: "JESTER", iconId: "8cbe7d6703", kind: "debuff" },
+  "hero_stat:p021:front": { name: "ABOMINATION", iconId: "40bb356305", kind: "blight" },
 };
 export const heroConditionDefenceSchema = z.strictObject({
   resistances: z.array(z.enum(["stun", "bleed", "blight", "debuff"])).length(1),
@@ -35,6 +37,7 @@ export const heroConditionDefenceSchema = z.strictObject({
     "kyries_review_2026-10-16",
     "kyries_review_2026-10-17",
     "kyries_review_2026-10-18",
+    "kyries_review_2026-10-24",
   ]),
 });
 export type HeroConditionDefence = z.infer<typeof heroConditionDefenceSchema>;
@@ -74,6 +77,15 @@ export const approvedHeroStats = [
   ["hero_stat:p019", "front", "OCCULTIST", 1, 10, 1, 2],
   ["hero_stat:p019", "back", "OCCULTIST", 2, 14, 2, 2],
   ["hero_stat:p020", "front", "OCCULTIST", 3, 18, 3, 3],
+  ["hero_stat:p011", "front", "JESTER", 1, 10, 2, 3],
+  ["hero_stat:p011", "back", "JESTER", 2, 14, 3, 3],
+  ["hero_stat:p012", "front", "JESTER", 3, 18, 4, 3],
+  ["hero_stat:p015", "front", "ARBALEST", 1, 14, 0, 1],
+  ["hero_stat:p015", "back", "ARBALEST", 2, 19, 1, 1],
+  ["hero_stat:p016", "front", "ARBALEST", 3, 24, 2, 2],
+  ["hero_stat:p021", "front", "ABOMINATION", 1, 13, 1, 2],
+  ["hero_stat:p022", "front", "ABOMINATION", 2, 18, 2, 3],
+  ["hero_stat:p023", "front", "ABOMINATION", 3, 23, 3, 3],
 ].map(([rawId, face, name, level, life, dodge, speed]) =>
   attributesSchema.parse({ rawId, face, name, level, life, dodge, speed }),
 );
@@ -81,13 +93,19 @@ export const approvedHeroStats = [
 const laterHeroApprovals: Readonly<
   Record<
     string,
-    "kyries_review_2026-10-16" | "kyries_review_2026-10-17" | "kyries_review_2026-10-18"
+    | "kyries_review_2026-10-16"
+    | "kyries_review_2026-10-17"
+    | "kyries_review_2026-10-18"
+    | "kyries_review_2026-10-24"
   >
 > = {
   "BOUNTY HUNTER": "kyries_review_2026-10-16",
   "PLAGUE DOCTOR": "kyries_review_2026-10-17",
   "GRAVE ROBBER": "kyries_review_2026-10-18",
   OCCULTIST: "kyries_review_2026-10-18",
+  JESTER: "kyries_review_2026-10-24",
+  ARBALEST: "kyries_review_2026-10-24",
+  ABOMINATION: "kyries_review_2026-10-24",
 };
 
 export const normalizedHeroStatCardSchema = attributesSchema
@@ -100,6 +118,7 @@ export const normalizedHeroStatCardSchema = attributesSchema
       "kyries_review_2026-10-16",
       "kyries_review_2026-10-17",
       "kyries_review_2026-10-18",
+      "kyries_review_2026-10-24",
     ]),
     /** 原有 Buff 专项注解保留兼容；完整条件防御按具体 I 级 id 限定审批。 */
     verified_buff_defence: z
@@ -270,6 +289,9 @@ export function buildHeroStats(
       "hero_stat:p013": "40bb356305",
       "hero_stat:p017": "40bb356305",
       "hero_stat:p019": "8cbe7d6703",
+      "hero_stat:p011": "8cbe7d6703",
+      "hero_stat:p015": "df4eb1ac47",
+      "hero_stat:p021": "40bb356305",
     };
     const buffReviewed =
       attributes.level === 1 &&

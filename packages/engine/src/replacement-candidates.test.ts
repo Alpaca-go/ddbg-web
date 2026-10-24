@@ -32,30 +32,34 @@ const start = {
   party: naturalParty,
 };
 
-const BANNED = ["JESTER", "ARBALEST", "ABOMINATION"] as const;
+const CORE_TRIO = ["JESTER", "ARBALEST", "ABOMINATION"] as const;
 const EXTRA_NAMES = ["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"] as const;
 
-it("库存：规范化八名 attributesVerified；网页目录含建队占位与四名替补候选", () => {
+it("库存：规范化十一名核心 attributesVerified；扩展七名建队占位与四名替补候选", () => {
   const normalized = normalizedHeroStatFileSchema.parse(statsFile).cards;
   expect([...new Set(normalized.map((c) => c.name))].sort()).toEqual([
+    "ABOMINATION",
+    "ARBALEST",
     "BOUNTY HUNTER",
     "CRUSADER",
     "GRAVE ROBBER",
     "HELLION",
     "HIGHWAYMAN",
+    "JESTER",
     "OCCULTIST",
     "PLAGUE DOCTOR",
     "VESTAL",
   ]);
   expect(normalized.every((c) => c.attributesVerified)).toBe(true);
-  expect(normalized).toHaveLength(24);
-  expect(sources.catalog.heroStats).toHaveLength(34);
+  expect(normalized).toHaveLength(33);
+  expect(sources.catalog.heroStats).toHaveLength(40);
   expect(sources.catalog.skills.length).toBeGreaterThan(112);
-  expect(sixHeroSources.catalog.heroStats).toHaveLength(18);
+  expect(sixHeroSources.catalog.heroStats).toHaveLength(27);
   expect(sixHeroSources.catalog.skills).toHaveLength(98);
-  for (const name of BANNED) {
-    const pending = sources.catalog.heroStats.find((s) => s.name === name && s.level === 1);
-    expect(pending?.attributesVerified).toBe(false);
+  for (const name of CORE_TRIO) {
+    const stat = sources.catalog.heroStats.find((s) => s.name === name && s.level === 1);
+    expect(stat?.attributesVerified).toBe(true);
+    expect(stat?.life).toBeGreaterThan(1);
   }
   const game = createCoreDungeonQuest(14, "quest:p001", "radiant", coreParty, sources);
   expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([...EXTRA_NAMES]);
