@@ -25,7 +25,14 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
         .filter(
           (c) =>
             c.verified_condition_defence &&
-            !["PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].includes(c.name),
+            ![
+              "PLAGUE DOCTOR",
+              "GRAVE ROBBER",
+              "OCCULTIST",
+              "JESTER",
+              "ARBALEST",
+              "ABOMINATION",
+            ].includes(c.name),
         )
         .map((c) => [c.id, c.verified_condition_defence]),
     ).toEqual([
@@ -110,6 +117,9 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
       "hero_stat:p013:front",
       "hero_stat:p017:front",
       "hero_stat:p019:front",
+      "hero_stat:p011:front",
+      "hero_stat:p015:front",
+      "hero_stat:p021:front",
     ]);
     expect(built.cards.find((c) => c.id === "hero_stat:p003:front")).toMatchObject({
       verified_buff_defence: { resistant: false, immune: false, source: "print_front" },
@@ -125,7 +135,16 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
     expect(
       built.cards
         .filter(
-          (c) => !["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].includes(c.name),
+          (c) =>
+            ![
+              "BOUNTY HUNTER",
+              "PLAGUE DOCTOR",
+              "GRAVE ROBBER",
+              "OCCULTIST",
+              "JESTER",
+              "ARBALEST",
+              "ABOMINATION",
+            ].includes(c.name),
         )
         .map((card) => [card.id, card.name, card.level, card.life, card.dodge, card.speed]),
     ).toEqual([
@@ -151,7 +170,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
   it("只输出获批面，无映射不输出，不把 III 级背面或其他英雄补成默认数值", () => {
     expect(buildHeroStats(raw, dictionary, []).cards).toEqual([]);
     expect(buildHeroStats(raw, dictionary, [first]).cards).toEqual([built.cards[0]]);
-    expect(built.cards.some((card) => card.rawId === "hero_stat:p011")).toBe(false);
+    expect(built.cards.some((card) => card.rawId === "hero_stat:p011")).toBe(true);
     expect(
       built.cards.some((card) => card.rawId === "hero_stat:p002" && card.face === "back"),
     ).toBe(false);

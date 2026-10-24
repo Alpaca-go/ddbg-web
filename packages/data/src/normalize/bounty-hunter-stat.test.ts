@@ -71,7 +71,16 @@ it("R-088三面独立黄金值、完整防御与实际批准日期；旧批准�
   expect(
     built.cards
       .filter(
-        (c) => !["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].includes(c.name),
+        (c) =>
+          ![
+            "BOUNTY HUNTER",
+            "PLAGUE DOCTOR",
+            "GRAVE ROBBER",
+            "OCCULTIST",
+            "JESTER",
+            "ARBALEST",
+            "ABOMINATION",
+          ].includes(c.name),
       )
       .every((c) => c.approval === "kyries_review_2026-10-10"),
   ).toBe(true);
@@ -167,7 +176,7 @@ it("限定审批不可换英雄、等级、数字、源页或日期，不能把�
 it("生成数据含获批面，不生成III背面或Jester；数字/来源漂移拒绝", () => {
   expect(built).toEqual(json("normalized/corebox/hero_stat.json"));
   expect(built.cards.some((c) => c.rawId === "hero_stat:p006" && c.face === "back")).toBe(false);
-  expect(built.cards.some((c) => c.name === "JESTER")).toBe(false);
+  expect(built.cards.some((c) => c.name === "JESTER")).toBe(true);
   for (const c of cards)
     for (const key of ["page", "number", "speed", "name"] as const) {
       const changed = structuredClone(raw),

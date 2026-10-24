@@ -901,7 +901,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **问题**：Grave Robber / Occultist 六面属性与完整左右防御栏；三枚词典 unreviewed 图标需按 R-088/R-094 模式做**具体卡面位置**限定命名，不改全局词典。
 - **裁定 / 数据批准**：Kyries 于 2026-10-18 在聊天确认 Q-97 为 LIMITED per-card mappings（同 R-088/R-094 风格），不是全局词典升级。印刷 Life/Dodge/Speed 见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md) §2。限定映射仅如下：
   - `e61ed317de` = Blight 抗性，仅 `hero_stat:p017:back` 左栏 #1（GR II）、`hero_stat:p018:front` 左栏 #2（GR III）、`hero_stat:p020:front` 左栏 #2（Occ III）。
-  - `8cbe7d6703` = Debuff 抗性，仅 `hero_stat:p019:front` 左栏唯一抗性（Occ I）。**同 hash 出现在 Jester I（`hero_stat:p011:front`）不在本批准范围内，Jester 保持未核实。**
+  - `8cbe7d6703` = Debuff 抗性，仅 `hero_stat:p019:front` 左栏唯一抗性（Occ I）。**同 hash 在 Jester I（`hero_stat:p011:front`）另见 R-101 分卡批准。**
   - `a8c4b25b4e` = Debuff 抗性，仅 `hero_stat:p019:back` 左栏 #2（Occ II，Bleed 之后）。
   其余已 confirmed 图标按既有词典读取：GR I 左栏 Blight；GR II/III、Occ II/III 的 Debuff/Bleed 等同栏 confirmed 图标。六面右栏均为空。
 - **依据 / 边界**：官方 R10/R21/R29/R31/R33、规格书 §2.4/§4.6/§6.5/§7/§9.4、R-001/R-048；Kyries 聊天确认。批准限六属性面与上表位置的防御解释；不改全局词典、不清除整卡未验证原因；不覆盖 I 级技能效果接线、Dark Ritual 村庄能力，也不把 Jester 或其他英雄同 hash 图标一并命名。Pilfer 图标命名另见 R-096。
@@ -969,6 +969,19 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **依据 / 出处**：官方 R33 Nomad Wagon；规格书 §4.5；R-040／R-078；Kyries 聊天确认 recycle_discard_fill。不使用 FAQ。不重开 Q-79／R-099。
 - **关联待确认**：Q-80，confirmed
 - **状态**：Kyries 已确认（2026-10-18）
+
+### R-101
+
+- **编号**：R-101
+- **日期**：2026-10-24
+- **问题**：核心盒 Jester / Arbalest / Abomination 九面 Hero STAT（`p011`–`p012`、`p015`–`p016`、`p021`–`p023`）Life/Dodge/Speed 与可核实防御栏未入库；建队仍用占位 life=1。
+- **裁定**（Kyries 批准转录；不改全局词典）：
+  - 九面三行属性按印刷 raw 入库，`attributesVerified: true`，批准标记 `kyries_review_2026-10-24`。
+  - I 级条件防御：`hero_stat:p011:front` 左栏 `8cbe7d6703`→Debuff（与 R-095 Occ I 分卡批准）；`hero_stat:p021:front` 左栏 `40bb356305`→Blight；Arbalest I 仅 `df4eb1ac47`（Shuffle）在左栏，不写入 I 级 `verified_condition_defence`（schema 不含 shuffle）。
+  - II/III 高等级防御：Arbalest `p015:back` / `p016:front`、Abomination `p022:front` / `p023:front` 按左右栏入库；Jester II/III 含词典 `unreviewed` 的 `f912c18659`，不批准 higher 注解。
+  - 不批准村庄技能效果、不接线战斗技能；`f912c18659` 等仍保留整卡 `verification.unverified` 原因（R-048）。
+- **依据 / 边界**：印刷 Hero STAT FRONT/BACK、extract raw、`hero-stat-print-art-map`（#286）；R-048/R-095。不使用 FAQ。
+- **状态**：Kyries 已确认（2026-10-24）
 
 ## 待确认（未裁定）
 

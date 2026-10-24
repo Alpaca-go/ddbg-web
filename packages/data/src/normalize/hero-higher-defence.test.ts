@@ -33,6 +33,10 @@ it("R-081八卡独立黄金表：完整左右栏，不把Shuffle/Disease当作�
     ["hero_stat:p008:front", ["stun", "bleed", "blight"], []],
     ["hero_stat:p009:back", ["stun", "bleed"], []],
     ["hero_stat:p010:front", ["stun", "bleed"], ["disease"]],
+    ["hero_stat:p015:back", ["stun", "shuffle"], []],
+    ["hero_stat:p016:front", ["stun"], ["shuffle"]],
+    ["hero_stat:p022:front", ["stun", "blight"], []],
+    ["hero_stat:p023:front", ["stun"], ["blight"]],
   ]);
   expect(
     cards.filter((c) => c.level === 1).every((c) => !c.verified_higher_condition_defence),
@@ -41,7 +45,14 @@ it("R-081八卡独立黄金表：完整左右栏，不把Shuffle/Disease当作�
     cards.filter(
       (c) =>
         c.verified_condition_defence &&
-        !["PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].includes(c.name),
+        ![
+          "PLAGUE DOCTOR",
+          "GRAVE ROBBER",
+          "OCCULTIST",
+          "JESTER",
+          "ARBALEST",
+          "ABOMINATION",
+        ].includes(c.name),
     ),
   ).toHaveLength(5);
   expect(cards.find((c) => c.id === "hero_stat:p001:back")!.verification.reasons).toContain(

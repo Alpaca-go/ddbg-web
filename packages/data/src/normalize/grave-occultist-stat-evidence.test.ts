@@ -67,8 +67,8 @@ it("印刷raw六面Life/Dodge/Speed与身份交叉核实；R-095后六面入库�
   expect(
     cards.every((c) => c.attributesVerified && c.approval === "kyries_review_2026-10-18"),
   ).toBe(true);
-  expect(built.cards).toHaveLength(24);
-  expect(built.cards.some((c) => c.name === "JESTER")).toBe(false);
+  expect(built.cards).toHaveLength(33);
+  expect(built.cards.filter((c) => c.name === "JESTER")).toHaveLength(3);
 });
 
 it("三枚限定图标保持词典unreviewed；左右栏与印刷一致；Jester同hash不入库（R-048/R-095）", () => {

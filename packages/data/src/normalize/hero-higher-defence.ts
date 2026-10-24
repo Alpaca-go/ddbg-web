@@ -11,6 +11,7 @@ export const higherHeroDefenceSchema = z.strictObject({
     "kyries_review_2026-10-16",
     "kyries_review_2026-10-17",
     "kyries_review_2026-10-18",
+    "kyries_review_2026-10-24",
   ]),
 });
 export type HigherHeroDefence = z.infer<typeof higherHeroDefenceSchema>;
@@ -178,6 +179,40 @@ export const higherHeroDefenceApprovals = [
     ],
     immunities: [],
   },
+  {
+    id: "hero_stat:p015:back",
+    name: "ARBALEST",
+    level: 2,
+    resistances: [
+      ["8db71542d2", "stun"],
+      ["df4eb1ac47", "shuffle"],
+    ],
+    immunities: [],
+  },
+  {
+    id: "hero_stat:p016:front",
+    name: "ARBALEST",
+    level: 3,
+    resistances: [["8db71542d2", "stun"]],
+    immunities: [["df4eb1ac47", "shuffle"]],
+  },
+  {
+    id: "hero_stat:p022:front",
+    name: "ABOMINATION",
+    level: 2,
+    resistances: [
+      ["8db71542d2", "stun"],
+      ["40bb356305", "blight"],
+    ],
+    immunities: [],
+  },
+  {
+    id: "hero_stat:p023:front",
+    name: "ABOMINATION",
+    level: 3,
+    resistances: [["8db71542d2", "stun"]],
+    immunities: [["40bb356305", "blight"]],
+  },
 ] as const;
 export function approvedHigherDefence(id: string): HigherHeroDefence | undefined {
   const row = higherHeroDefenceApprovals.find((r) => r.id === id);
@@ -187,13 +222,15 @@ export function approvedHigherDefence(id: string): HigherHeroDefence | undefined
         immunities: row.immunities.map((r) => r[1]),
         source: id.endsWith(":back") ? "print_back" : "print_front",
         approval:
-          row.name === "GRAVE ROBBER" || row.name === "OCCULTIST"
-            ? "kyries_review_2026-10-18"
-            : row.name === "PLAGUE DOCTOR"
-              ? "kyries_review_2026-10-17"
-              : row.name === "BOUNTY HUNTER"
-                ? "kyries_review_2026-10-16"
-                : "kyries_review_2026-10-15",
+          row.name === "ARBALEST" || row.name === "ABOMINATION"
+            ? "kyries_review_2026-10-24"
+            : row.name === "GRAVE ROBBER" || row.name === "OCCULTIST"
+              ? "kyries_review_2026-10-18"
+              : row.name === "PLAGUE DOCTOR"
+                ? "kyries_review_2026-10-17"
+                : row.name === "BOUNTY HUNTER"
+                  ? "kyries_review_2026-10-16"
+                  : "kyries_review_2026-10-15",
       }
     : undefined;
 }

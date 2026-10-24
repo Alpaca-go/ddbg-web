@@ -13,7 +13,7 @@ const built = buildHeroStats(raw, dictionary);
 const grave = built.cards.filter((c) => c.name === "GRAVE ROBBER");
 const occult = built.cards.filter((c) => c.name === "OCCULTIST");
 
-it("R-095六面独立黄金值与限定防御；旧批准日期不重写；Jester不入库", () => {
+it("R-095六面独立黄金值与限定防御；旧批准日期不重写", () => {
   expect(
     [...grave, ...occult].map((c) => [
       c.id,
@@ -51,8 +51,7 @@ it("R-095六面独立黄金值与限定防御；旧批准日期不重写；Jeste
       "kyries_review_2026-10-18",
     ],
   ]);
-  expect(built.cards).toHaveLength(24);
-  expect(built.cards.some((c) => c.name === "JESTER")).toBe(false);
+  expect(built.cards).toHaveLength(33);
   expect(
     built.cards
       .filter((c) => !["GRAVE ROBBER", "OCCULTIST"].includes(c.name))

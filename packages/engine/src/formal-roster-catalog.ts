@@ -1,7 +1,7 @@
 import type { FormalHeroName } from "./formal-heroes";
 import { isFormalHeroName } from "./formal-heroes";
 
-/** 八名已核实属性（与 normalized hero_stat 一致）；其余十名为建队印刷接线 + 占位属性（R-048）。 */
+/** 十一名核心盒已核实属性（与 normalized hero_stat 一致）；扩展七名为建队印刷接线 + 占位属性（R-048）。 */
 export const FORMAL_HEROES_VERIFIED_ATTRIBUTES: readonly FormalHeroName[] = [
   "CRUSADER",
   "HELLION",
@@ -11,9 +11,12 @@ export const FORMAL_HEROES_VERIFIED_ATTRIBUTES: readonly FormalHeroName[] = [
   "PLAGUE DOCTOR",
   "GRAVE ROBBER",
   "OCCULTIST",
+  "JESTER",
+  "ARBALEST",
+  "ABOMINATION",
 ];
 
-/** 核心盒三名：部分 I 级技能已规范化，但 STAT 未 attributesVerified（R-048 / rulings）。 */
+/** 核心盒三名：STAT 已 attributesVerified；I 级技能在目录中可选，战斗效果仍 R-048。 */
 export const FORMAL_HEROES_PARTIAL_CORE_SKILLS: readonly FormalHeroName[] = [
   "JESTER",
   "ARBALEST",
@@ -40,9 +43,6 @@ export function isFormalHeroRosterPendingAttributes(name: string): boolean {
 
 /** 建队 I 级 STAT 面 id（与 hero-stat-print-art-map 一致；数值为占位，待 Kyries 核实）。 */
 const ROSTER_PENDING_STAT_IDS: Record<FormalHeroName, string> = {
-  JESTER: "hero_stat:p011:front",
-  ARBALEST: "hero_stat:p015:front",
-  ABOMINATION: "hero_stat:p021:front",
   ANTIQUARIAN: "hero_stat:warrens:antiquarian:p001:front",
   LEPER: "hero_stat:warrens:leper:p001:front",
   FLAGELLANT: "hero_stat:cove:flagellant:p001:front",
@@ -58,6 +58,9 @@ const ROSTER_PENDING_STAT_IDS: Record<FormalHeroName, string> = {
   "PLAGUE DOCTOR": "",
   "GRAVE ROBBER": "",
   OCCULTIST: "",
+  JESTER: "",
+  ARBALEST: "",
+  ABOMINATION: "",
 };
 
 /** 与 tools/pipeline/print-card-art/fixtures/print-hero-18-art-catalog.mjs EXTENSION_SKILL_BLOCKS 对齐。 */
@@ -112,10 +115,7 @@ function extensionLevel1SkillIds(hero: FormalHeroName): readonly string[] {
 }
 
 export function formalRosterPendingHeroStats(): readonly FormalRosterHeroStat[] {
-  const pending = [
-    ...FORMAL_HEROES_PARTIAL_CORE_SKILLS,
-    ...EXTENSION_ROSTER_HEROES,
-  ] as FormalHeroName[];
+  const pending = [...EXTENSION_ROSTER_HEROES] as FormalHeroName[];
   return pending.map((name) => {
     const id = ROSTER_PENDING_STAT_IDS[name];
     if (!id) throw new Error(`缺少建队占位 STAT id：${name}`);

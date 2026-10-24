@@ -44,10 +44,10 @@ function partyFromNames(names: readonly string[], sources: CoreQuestSources): Qu
 
 const sources = webQuestSources();
 
-it("正式名录列出十八名英雄；十名扩展／未核实 STAT 标为战斗未接线", () => {
+it("正式名录列出十八名英雄；七名扩展占位 STAT 与十名战斗未接线标", () => {
   expect(FORMAL_HERO_NAMES).toHaveLength(18);
   expect(FORMAL_HERO_NAMES.every(isFormalHeroName)).toBe(true);
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toHaveLength(10);
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toHaveLength(10); // 含 Jester/Arbalest/Abomination（技能 R-048）
   expect(isFormalHeroName("CRUSADER")).toBe(true);
   expect(isFormalHeroName("MUSKETEER")).toBe(true);
   expect(heroHasUnwiredCombatSkills("JESTER")).toBe(true);
@@ -58,7 +58,7 @@ it("正式名录列出十八名英雄；十名扩展／未核实 STAT 标为战�
       .map((s) => s.name)
       .sort(),
   ).toEqual([...FORMAL_HERO_NAMES].sort());
-  expect(sources.catalog.heroStats).toHaveLength(34);
+  expect(sources.catalog.heroStats).toHaveLength(40);
 });
 
 it("开局可编入赏金猎人与瘟疫医生；存档往返一致", () => {
@@ -84,11 +84,13 @@ it("开局可编入赏金猎人与瘟疫医生；存档往返一致", () => {
   expect(loaded.start.party).toEqual(start.party);
 });
 
-it("开局可编入 Jester（占位属性 + 已转录 I 级技能）；attributesVerified 为 false", () => {
+it("开局可编入 Jester（已核实属性 + 已转录 I 级技能）；attributesVerified 为 true", () => {
   const party = partyFromNames(["JESTER", "CRUSADER", "HELLION", "HIGHWAYMAN"], sources);
   const game = createCoreDungeonQuest(23, "quest:p001", "standard", party, sources);
-  expect(game.dungeon!.heroes[0]!.attributesVerified).toBe(false);
-  expect(isFormalHeroRosterPendingAttributes("JESTER")).toBe(true);
+  expect(game.dungeon!.heroes[0]!.attributesVerified).toBe(true);
+  expect(game.dungeon!.heroes[0]!.heroStatId).toBe("hero_stat:p011:front");
+  expect(isFormalHeroRosterPendingAttributes("JESTER")).toBe(false);
+  expect(heroHasUnwiredCombatSkills("JESTER")).toBe(true);
 });
 
 it("开局可编入 Musketeer（art-only I 级技能）；存档往返一致", () => {
