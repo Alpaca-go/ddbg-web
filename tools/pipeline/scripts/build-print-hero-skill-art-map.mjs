@@ -9,6 +9,8 @@
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { EXTENSION_SKILL_BLOCKS } from "../print-card-art/fixtures/print-hero-18-art-catalog.mjs";
+import { pngRelFromPdf } from "./lib/print-png-rel.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "../../..");
@@ -58,17 +60,46 @@ if (rows.length !== expectedCount) {
   process.exit(1);
 }
 
-const cards = rows.map((r) => ({
+const coreCards = rows.map((r) => ({
   id: r.engineId,
   name: r.name,
   level: Number(r.level),
   hero: r.hero,
+  dataStatus: "verified-data",
   pngRel: r.pngRel,
   printPage: Number(r.printPage),
   primaryPdf: r.pdfBase,
   matchMethod: r.matchMethod,
   reviewVerdict: r.verdict,
 }));
+
+function extensionArtOnlyCards() {
+  const out = [];
+  for (const block of EXTENSION_SKILL_BLOCKS) {
+    for (let i = 0; i < block.count; i++) {
+      const printPage = block.startPage + i;
+      const level = (i % 3) + 1;
+      const skillSlot = Math.floor(i / 3) + 1;
+      const slug = block.hero.toLowerCase().replace(/\s+/g, "-");
+      out.push({
+        id: `hero_skill:art:${slug}:p${String(printPage).padStart(3, "0")}`,
+        name: `Skill ${skillSlot} (art-only)`,
+        level,
+        hero: block.hero,
+        dataStatus: "art-only",
+        pngRel: pngRelFromPdf(block.pdfRel, printPage),
+        printPage,
+        primaryPdf: block.pdfRel.split("/").pop()?.replace(".pdf", "") ?? "",
+        matchMethod: "extension_page_order_pending",
+        reviewVerdict: "art-only",
+      });
+    }
+  }
+  return out;
+}
+
+const extensionCards = extensionArtOnlyCards();
+const cards = [...coreCards, ...extensionCards];
 
 const covered = new Set(cards.map((c) => c.id));
 const uncoveredEngineIds = normalizedIds.filter((id) => !covered.has(id));
@@ -82,9 +113,12 @@ const map = {
   source: {
     csv: csv.replace(repoRoot + "/", "").replace(/\\/g, "/"),
     verdictFilter: "ok",
+    coreRowCount: coreCards.length,
+    extensionArtOnlyCount: extensionCards.length,
     rowCount: cards.length,
     notes: [
       "Human review CSV (Kyries); 231 core-box hero_skill cards on SKILLS_FRONT page order.",
+      "Extension / Musketeer rows are art-only synthetic ids (hero_skill:art:…) until normalized data lands.",
       "pngRel paths are relative to .cache/print-card-art/ after export-print-card-art.mjs.",
       "Hero skill UI uses print PNG only (no TTS fallback); see resolve-print-hero-skill-art.ts.",
       "R-048: raster uses TrimBox / 3 mm bleed from print pipeline; no invented crop in UI.",
@@ -92,13 +126,18 @@ const map = {
   },
   cards,
   uncoveredEngineIds,
-  pendingConfirmation: uncoveredEngineIds.length
-    ? [
-        `${uncoveredEngineIds.length} normalized engine id(s) not in reviewed CSV (extension / out of scope).`,
-      ]
-    : [],
+  pendingConfirmation: [
+    "Extension skill page blocks (TDH p232–357, Musketeer pack) not Kyries CSV-reviewed.",
+    ...(uncoveredEngineIds.length
+      ? [
+          `${uncoveredEngineIds.length} normalized engine id(s) not in reviewed CSV (extension / out of scope).`,
+        ]
+      : []),
+  ],
 };
 
 mkdirSync(dirname(out), { recursive: true });
 writeFileSync(out, JSON.stringify(map, null, 2) + "\n", "utf8");
-console.log(`Wrote ${cards.length} cards → ${out.replace(repoRoot + "/", "")}`);
+console.log(
+  `Wrote ${cards.length} cards (${coreCards.length} core + ${extensionCards.length} art-only ext) → ${out.replace(repoRoot + "/", "")}`,
+);

@@ -1,10 +1,13 @@
 import printMap from "./hero-skill-print-art-map.json";
 
+export type PrintHeroSkillDataStatus = "verified-data" | "art-only";
+
 export type PrintHeroSkillArtEntry = {
   readonly id: string;
   readonly name: string;
   readonly level: number;
   readonly hero: string;
+  readonly dataStatus?: PrintHeroSkillDataStatus;
   readonly pngRel: string;
   readonly printPage: number;
   readonly primaryPdf: string;
