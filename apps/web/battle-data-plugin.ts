@@ -10,6 +10,7 @@ import {
   WARRENS_VERIFIED_SKILL_PAGE_BLOCKS,
   COVE_VERIFIED_SKILL_PAGE_BLOCKS,
   WEALD_VERIFIED_SKILL_PAGE_BLOCKS,
+  MUSKETEER_VERIFIED_SKILL_PAGE_BLOCKS,
 } from "../../packages/engine/src/index";
 import { diseaseFileSchema } from "../../packages/data/src/disease";
 import { normalizedHeroStatFileSchema } from "../../packages/data/src/normalize/hero-stat";
@@ -131,6 +132,7 @@ export function battleDataPlugin(): Plugin {
           "MAN-AT-ARMS",
           "HOUNDMASTER",
           "SHIELDBREAKER",
+          "MUSKETEER",
         ] as const) {
           for (const card of verifiedLevel1CombatSkillsForHero(hero, allHeroSkills))
             skillIds.add(card.id);
@@ -148,6 +150,11 @@ export function battleDataPlugin(): Plugin {
         for (const block of WEALD_VERIFIED_SKILL_PAGE_BLOCKS) {
           for (let i = 0; i < block.count; i += 3) {
             skillIds.add(`hero_skill:p${String(block.startPage + i).padStart(3, "0")}`);
+          }
+        }
+        for (const block of MUSKETEER_VERIFIED_SKILL_PAGE_BLOCKS) {
+          for (let i = 0; i < block.count; i += 3) {
+            skillIds.add(`hero_skill:musketeer:p${String(block.startPage + i).padStart(3, "0")}`);
           }
         }
       }
@@ -213,11 +220,11 @@ export function battleDataPlugin(): Plugin {
           (entry) => entry.id === "room_tile:p001" && entry.rawId === "dungeon_tile:p001",
         );
       const expectedHeroStats = graveOccultist
-        ? 51
+        ? 53
         : sixHeroQuest
-          ? 44
+          ? 47
           : fiveHeroQuest
-            ? 41
+            ? 44
             : questCatalog
               ? 35
               : 4;

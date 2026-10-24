@@ -1,0 +1,5486 @@
+{
+  "schema": "ddbg-raw-v1",
+  "extractor_version": "1.0.4",
+  "category": "hero_skill",
+  "kind": "card",
+  "units": {
+    "length": "mm",
+    "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+    "y_axis": "down",
+    "font_size": "pt"
+  },
+  "sources": [
+    {
+      "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+      "source_set": "extension",
+      "kind": "card",
+      "front_pages": 21,
+      "back_pages": 21
+    }
+  ],
+  "n_pages": 21,
+  "n_unique": 21,
+  "n_copies_total": 21,
+  "cards": [
+    {
+      "id": "hero_skill:musketeer:p001",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [1],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 1,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "9cdb5314582f63f0",
+          "spans": [
+            {
+              "t": "Crit 1",
+              "bbox": [23.32, 22.56, 31.93, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "9",
+              "bbox": [34.71, 23.15, 36.52, 27.78],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "Acc 9",
+              "bbox": [44.34, 22.56, 53.17, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "6",
+              "bbox": [55.96, 23.06, 57.76, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "+3",
+              "bbox": [52.6, 32.51, 55.37, 36.58],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "vs",
+              "bbox": [56.98, 33.01, 59.74, 36.16],
+              "font": "Ubuntu-Bold",
+              "size": 7.55,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [9.4, 22.54, 11.3, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#231f20"
+            },
+            {
+              "t": "Aimed Shot I",
+              "bbox": [24.75, 16.28, 43.25, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [53.18, 21.86, 61.81, 29.35]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [31.94, 21.95, 40.58, 29.44]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [12.18, 24.08, 14.68, 26.38]
+            },
+            {
+              "iconId": "462bd48a91",
+              "bbox": [47.01, 30.29, 66.32, 39.05],
+              "container": true
+            },
+            {
+              "iconId": "f18923574c",
+              "bbox": [50.78, 31.37, 58.28, 38.1]
+            },
+            {
+              "iconId": "98edfaca0a",
+              "bbox": [59.67, 31.44, 65.25, 37.29]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [48.79, 33.16, 51.3, 35.82]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Aimed Shot I",
+              "bbox": [24.75, 16.28, 43.25, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 2 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 9 Acc 9 {icon:8d4bbe5e11} 6",
+              "bbox": [5.0, 21.86, 61.81, 29.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b6afaa4d7b} {icon:f18923574c} +3 vs {icon:98edfaca0a}",
+              "bbox": [48.79, 31.37, 65.25, 38.1]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 1,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f06ccf708c5b31",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [9.4, 17.32, 10.52, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Aimed Shot",
+              "bbox": [26.24, 35.48, 41.27, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [5.42, 15.6, 14.44, 26.85],
+              "bbox_full": [3.69, 13.78, 16.27, 28.64]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "6d7ce0f38a",
+              "bbox": [15.87, 37.39, 25.75, 38.81]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [41.98, 37.39, 51.51, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} I",
+              "bbox": [5.42, 15.6, 14.44, 26.85]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6d7ce0f38a} Aimed Shot {icon:b6afaa4d7b}",
+              "bbox": [15.87, 35.48, 51.51, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p002",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [2],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 2,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "9cdb5314582f63f0",
+          "spans": [
+            {
+              "t": "Crit 1",
+              "bbox": [22.64, 22.56, 31.26, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "12",
+              "bbox": [33.56, 23.15, 36.33, 27.78],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Acc 10",
+              "bbox": [43.67, 22.56, 53.84, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "8",
+              "bbox": [56.62, 23.06, 58.44, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "+5",
+              "bbox": [52.58, 32.51, 55.39, 36.58],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "vs",
+              "bbox": [56.98, 33.01, 59.74, 36.16],
+              "font": "Ubuntu-Bold",
+              "size": 7.55,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [9.4, 22.54, 11.3, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#231f20"
+            },
+            {
+              "t": "Aimed Shot II",
+              "bbox": [24.22, 16.28, 43.78, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [53.86, 21.86, 62.49, 29.35]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [31.27, 21.95, 39.9, 29.44]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [12.18, 24.08, 14.68, 26.38]
+            },
+            {
+              "iconId": "462bd48a91",
+              "bbox": [47.01, 30.29, 66.32, 39.05],
+              "container": true
+            },
+            {
+              "iconId": "f18923574c",
+              "bbox": [50.78, 31.37, 58.28, 38.1]
+            },
+            {
+              "iconId": "98edfaca0a",
+              "bbox": [59.67, 31.44, 65.25, 37.29]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [48.79, 33.16, 51.3, 35.82]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Aimed Shot II",
+              "bbox": [24.22, 16.28, 43.78, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 2 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 12 Acc 10 {icon:8d4bbe5e11} 8",
+              "bbox": [5.0, 21.86, 62.49, 29.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b6afaa4d7b} {icon:f18923574c} +5 vs {icon:98edfaca0a}",
+              "bbox": [48.79, 31.37, 65.25, 38.1]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 2,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f07cce708c5b31",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [8.84, 17.32, 11.09, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Aimed Shot",
+              "bbox": [26.24, 35.48, 41.27, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "7fd9b8f208",
+              "bbox": [3.5, 15.33, 16.36, 24.62],
+              "bbox_full": [1.68, 13.51, 18.07, 26.34]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "6d7ce0f38a",
+              "bbox": [15.87, 37.39, 25.75, 38.81]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [41.98, 37.39, 51.51, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7fd9b8f208} II",
+              "bbox": [3.5, 15.33, 16.36, 24.62]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6d7ce0f38a} Aimed Shot {icon:b6afaa4d7b}",
+              "bbox": [15.87, 35.48, 51.51, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p003",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [3],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 3,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "9cdb5314582f63f0",
+          "spans": [
+            {
+              "t": "Crit 1",
+              "bbox": [23.0, 22.56, 31.62, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "16",
+              "bbox": [33.83, 23.15, 36.79, 27.78],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Acc 11",
+              "bbox": [44.04, 22.56, 53.48, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "10",
+              "bbox": [55.69, 23.06, 58.64, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "+9",
+              "bbox": [52.55, 32.51, 55.42, 36.58],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "vs",
+              "bbox": [56.98, 33.01, 59.74, 36.16],
+              "font": "Ubuntu-Bold",
+              "size": 7.55,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [9.4, 22.54, 11.3, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#231f20"
+            },
+            {
+              "t": "Aimed Shot III",
+              "bbox": [23.69, 16.28, 44.31, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [53.49, 21.86, 62.12, 29.35]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [31.63, 21.95, 40.27, 29.44]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [12.18, 24.08, 14.68, 26.38]
+            },
+            {
+              "iconId": "462bd48a91",
+              "bbox": [47.01, 30.29, 66.32, 39.05],
+              "container": true
+            },
+            {
+              "iconId": "f18923574c",
+              "bbox": [50.78, 31.37, 58.28, 38.1]
+            },
+            {
+              "iconId": "98edfaca0a",
+              "bbox": [59.67, 31.44, 65.25, 37.29]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [48.79, 33.16, 51.3, 35.82]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Aimed Shot III",
+              "bbox": [23.69, 16.28, 44.31, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 2 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 16 Acc 11 {icon:8d4bbe5e11} 10",
+              "bbox": [5.0, 21.86, 62.12, 29.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b6afaa4d7b} {icon:f18923574c} +9 vs {icon:98edfaca0a}",
+              "bbox": [48.79, 31.37, 65.25, 38.1]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 3,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f06cce708d5a71",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [8.27, 18.93, 11.65, 24.28],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Aimed Shot",
+              "bbox": [26.24, 35.48, 41.27, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "6d7ce0f38a",
+              "bbox": [15.87, 37.39, 25.75, 38.81]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [41.98, 37.39, 51.51, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} III",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6d7ce0f38a} Aimed Shot {icon:b6afaa4d7b}",
+              "bbox": [15.87, 35.48, 51.51, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p004",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [4],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 4,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8da5b04d62f62f0",
+          "spans": [
+            {
+              "t": "1t",
+              "bbox": [62.48, 32.73, 64.5, 36.97],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Crit 0",
+              "bbox": [24.21, 22.56, 33.56, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "4",
+              "bbox": [36.38, 23.15, 38.12, 27.78],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "Acc 9",
+              "bbox": [44.7, 22.56, 53.53, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "2",
+              "bbox": [56.41, 23.06, 58.03, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "1-2",
+              "bbox": [9.48, 22.54, 14.47, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Smokescreen I",
+              "bbox": [23.16, 16.28, 44.84, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [53.54, 21.86, 62.18, 29.35]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [33.57, 21.95, 42.21, 29.44]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [15.07, 24.08, 17.57, 26.38]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [18.07, 24.08, 20.57, 26.38]
+            },
+            {
+              "iconId": "4fcb32ac31",
+              "bbox": [54.0, 31.49, 66.19, 38.1],
+              "container": true
+            },
+            {
+              "iconId": "4fcb32ac31",
+              "bbox": [58.91, 33.16, 62.09, 36.34],
+              "bbox_full": [58.18, 32.48, 62.63, 37.18]
+            },
+            {
+              "iconId": "b2e9d87127",
+              "bbox": [55.82, 33.67, 58.33, 36.33]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Smokescreen I",
+              "bbox": [23.16, 16.28, 44.84, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00} {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 4 Acc 9 {icon:8d4bbe5e11} 2",
+              "bbox": [5.0, 21.86, 62.18, 29.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b2e9d87127} {icon:4fcb32ac31} 1t",
+              "bbox": [55.82, 32.73, 64.5, 36.97]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 4,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f025c770cc7a35",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [9.4, 17.32, 10.52, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Smokescreen",
+              "bbox": [24.77, 35.48, 42.74, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [5.42, 15.6, 14.44, 26.85],
+              "bbox_full": [3.69, 13.78, 16.27, 28.64]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "a2e7252e06",
+              "bbox": [14.46, 37.39, 24.34, 38.81]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [43.39, 37.39, 52.92, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} I",
+              "bbox": [5.42, 15.6, 14.44, 26.85]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a2e7252e06} Smokescreen {icon:8d4bbe5e11}",
+              "bbox": [14.46, 35.48, 52.92, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p005",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [5],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 5,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8da5b04d62f62f0",
+          "spans": [
+            {
+              "t": "2t",
+              "bbox": [62.07, 32.73, 64.5, 36.97],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Crit 0",
+              "bbox": [23.54, 22.56, 32.89, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "6",
+              "bbox": [35.68, 23.15, 37.48, 27.78],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "Acc 10",
+              "bbox": [44.03, 22.56, 54.21, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "3",
+              "bbox": [57.05, 23.06, 58.73, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "1-2",
+              "bbox": [9.48, 22.54, 14.47, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Smokescreen II",
+              "bbox": [22.63, 16.28, 45.37, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [54.21, 21.86, 62.85, 29.35]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [32.9, 21.95, 41.53, 29.44]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [15.07, 24.08, 17.57, 26.38]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [18.07, 24.08, 20.57, 26.38]
+            },
+            {
+              "iconId": "4fcb32ac31",
+              "bbox": [53.62, 31.49, 66.19, 38.1],
+              "container": true
+            },
+            {
+              "iconId": "4fcb32ac31",
+              "bbox": [58.56, 33.16, 61.38, 36.34],
+              "bbox_full": [57.77, 32.48, 62.21, 37.18]
+            },
+            {
+              "iconId": "462bd48a91",
+              "bbox": [55.41, 33.67, 57.92, 36.33]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Smokescreen II",
+              "bbox": [22.63, 16.28, 45.37, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00} {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 6 Acc 10 {icon:8d4bbe5e11} 3",
+              "bbox": [5.0, 21.86, 62.85, 29.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:462bd48a91} {icon:4fcb32ac31} 2t",
+              "bbox": [55.41, 32.73, 64.5, 36.97]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 5,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "c8f074ce60cc7a3d",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [8.84, 17.32, 11.09, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Smokescreen",
+              "bbox": [24.77, 35.48, 42.74, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "7fd9b8f208",
+              "bbox": [3.5, 15.33, 16.36, 24.62],
+              "bbox_full": [1.68, 13.51, 18.07, 26.34]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "a2e7252e06",
+              "bbox": [14.46, 37.39, 24.34, 38.81]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [43.39, 37.39, 52.92, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7fd9b8f208} II",
+              "bbox": [3.5, 15.33, 16.36, 24.62]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a2e7252e06} Smokescreen {icon:8d4bbe5e11}",
+              "bbox": [14.46, 35.48, 52.92, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p006",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [6],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 6,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8da5b04d62f62f0",
+          "spans": [
+            {
+              "t": "3t",
+              "bbox": [61.86, 32.73, 64.5, 36.97],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Crit 0",
+              "bbox": [23.9, 22.56, 33.26, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "7",
+              "bbox": [36.21, 23.15, 37.68, 27.78],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "Acc 11",
+              "bbox": [44.4, 22.56, 53.84, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "4",
+              "bbox": [56.66, 23.06, 58.4, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "1-2",
+              "bbox": [9.48, 22.54, 14.47, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Smokescreen III",
+              "bbox": [22.11, 16.28, 45.9, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [53.85, 21.86, 62.48, 29.35]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [33.26, 21.95, 41.9, 29.44]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [15.07, 24.08, 17.57, 26.38]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [18.07, 24.08, 20.57, 26.38]
+            },
+            {
+              "iconId": "9d0ef9dd87",
+              "bbox": [53.36, 31.49, 66.19, 38.1],
+              "container": true
+            },
+            {
+              "iconId": "9d0ef9dd87",
+              "bbox": [58.21, 33.16, 61.38, 36.34],
+              "bbox_full": [57.56, 32.48, 62.0, 37.18]
+            },
+            {
+              "iconId": "462bd48a91",
+              "bbox": [55.2, 33.67, 57.71, 36.33]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Smokescreen III",
+              "bbox": [22.11, 16.28, 45.9, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00} {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 7 Acc 11 {icon:8d4bbe5e11} 4",
+              "bbox": [5.0, 21.86, 62.48, 29.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:462bd48a91} {icon:9d0ef9dd87} 3t",
+              "bbox": [55.2, 32.73, 64.5, 36.97]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 6,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f064c2708f7b39",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [8.27, 18.93, 11.65, 24.28],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Smokescreen",
+              "bbox": [24.77, 35.48, 42.74, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "a2e7252e06",
+              "bbox": [14.46, 37.39, 24.34, 38.81]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [43.39, 37.39, 52.92, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} III",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a2e7252e06} Smokescreen {icon:8d4bbe5e11}",
+              "bbox": [14.46, 35.48, 52.92, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p007",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [7],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 7,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8da07505a2f66f2",
+          "spans": [
+            {
+              "t": "2t",
+              "bbox": [61.92, 32.41, 64.5, 36.65],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Acc 10",
+              "bbox": [36.82, 22.52, 47.0, 27.99],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "1-2",
+              "bbox": [9.48, 22.54, 14.47, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Call the Shot I",
+              "bbox": [23.65, 16.28, 44.35, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [15.07, 24.08, 17.57, 26.38]
+            },
+            {
+              "iconId": "9d0ef9dd87",
+              "bbox": [52.86, 30.48, 66.19, 38.36],
+              "container": true
+            },
+            {
+              "iconId": "f70a42e51f",
+              "bbox": [56.47, 31.52, 62.05, 37.36]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [54.67, 33.36, 57.18, 36.01]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Call the Shot I",
+              "bbox": [23.65, 16.28, 44.35, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00}",
+              "bbox": [5.0, 22.54, 17.57, 28.0]
+            },
+            {
+              "rot": 0,
+              "text": "Acc 10",
+              "bbox": [36.82, 22.52, 47.0, 27.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b6afaa4d7b} {icon:f70a42e51f} 2t",
+              "bbox": [54.67, 31.52, 64.5, 37.36]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 7,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f06dcb708c5a35",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [9.4, 17.32, 10.52, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Call the Shot",
+              "bbox": [25.22, 35.48, 42.28, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [5.42, 15.6, 14.44, 26.85],
+              "bbox_full": [3.69, 13.78, 16.27, 28.64]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "a2e7252e06",
+              "bbox": [14.82, 37.39, 24.69, 38.81]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [42.69, 37.39, 52.56, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} I",
+              "bbox": [5.42, 15.6, 14.44, 26.85]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a2e7252e06} Call the Shot {icon:8d4bbe5e11}",
+              "bbox": [14.82, 35.48, 52.56, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p008",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [8],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 8,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8da0e505a2f66f2",
+          "spans": [
+            {
+              "t": "3t",
+              "bbox": [61.78, 32.41, 64.5, 36.65],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Acc 11",
+              "bbox": [37.19, 22.52, 46.63, 27.99],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "1-2",
+              "bbox": [9.48, 22.54, 14.47, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Call the Shot II",
+              "bbox": [23.12, 16.28, 44.88, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [15.07, 24.08, 17.57, 26.38]
+            },
+            {
+              "iconId": "9d0ef9dd87",
+              "bbox": [52.73, 30.48, 66.19, 38.36],
+              "container": true
+            },
+            {
+              "iconId": "f70a42e51f",
+              "bbox": [56.33, 31.52, 61.92, 37.36]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [54.54, 33.36, 57.04, 36.01]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Call the Shot II",
+              "bbox": [23.12, 16.28, 44.88, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00}",
+              "bbox": [5.0, 22.54, 17.57, 28.0]
+            },
+            {
+              "rot": 0,
+              "text": "Acc 11",
+              "bbox": [37.19, 22.52, 46.63, 27.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b6afaa4d7b} {icon:f70a42e51f} 3t",
+              "bbox": [54.54, 31.52, 64.5, 37.36]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 8,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f06cca708e7a35",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [8.84, 17.32, 11.09, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Call the Shot",
+              "bbox": [25.22, 35.48, 42.28, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "7fd9b8f208",
+              "bbox": [3.5, 15.33, 16.36, 24.62],
+              "bbox_full": [1.68, 13.51, 18.07, 26.34]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "a2e7252e06",
+              "bbox": [14.82, 37.39, 24.69, 38.81]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [42.69, 37.39, 52.56, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7fd9b8f208} II",
+              "bbox": [3.5, 15.33, 16.36, 24.62]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a2e7252e06} Call the Shot {icon:8d4bbe5e11}",
+              "bbox": [14.82, 35.48, 52.56, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p009",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [9],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 9,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8da0e505a2f66f2",
+          "spans": [
+            {
+              "t": "4t",
+              "bbox": [61.95, 32.41, 64.5, 36.65],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Acc 12",
+              "bbox": [36.93, 22.52, 46.89, 27.99],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "1-2",
+              "bbox": [9.48, 22.54, 14.47, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Call the Shot III",
+              "bbox": [22.6, 16.28, 45.4, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [15.07, 24.08, 17.57, 26.38]
+            },
+            {
+              "iconId": "9d0ef9dd87",
+              "bbox": [52.98, 30.48, 66.19, 38.36],
+              "container": true
+            },
+            {
+              "iconId": "f70a42e51f",
+              "bbox": [56.5, 31.52, 62.09, 37.36]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [54.71, 33.36, 57.22, 36.01]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Call the Shot III",
+              "bbox": [22.6, 16.28, 45.4, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00}",
+              "bbox": [5.0, 22.54, 17.57, 28.0]
+            },
+            {
+              "rot": 0,
+              "text": "Acc 12",
+              "bbox": [36.93, 22.52, 46.89, 27.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b6afaa4d7b} {icon:f70a42e51f} 4t",
+              "bbox": [54.71, 31.52, 64.5, 37.36]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 9,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f06dc8708e7a35",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [8.27, 18.93, 11.65, 24.28],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Call the Shot",
+              "bbox": [25.22, 35.48, 42.28, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "a2e7252e06",
+              "bbox": [14.82, 37.39, 24.69, 38.81]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [42.69, 37.39, 52.56, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} III",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a2e7252e06} Call the Shot {icon:8d4bbe5e11}",
+              "bbox": [14.82, 35.48, 52.56, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p010",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [10],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 10,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8db53501e2d27d2",
+          "spans": [
+            {
+              "t": "Push 2",
+              "bbox": [56.52, 32.9, 64.5, 35.97],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": "Self",
+              "bbox": [8.39, 32.65, 12.86, 35.59],
+              "font": "Ubuntu-Medium",
+              "size": 7.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Push 1",
+              "bbox": [17.79, 32.8, 25.77, 35.87],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": "Crit 1",
+              "bbox": [22.64, 22.56, 31.26, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "6",
+              "bbox": [34.04, 23.15, 35.84, 27.78],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "Acc 10",
+              "bbox": [43.67, 22.56, 53.84, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "3",
+              "bbox": [56.69, 23.06, 58.37, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "1",
+              "bbox": [9.66, 22.54, 11.04, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#231f20"
+            },
+            {
+              "t": "Buckshot I",
+              "bbox": [26.14, 16.28, 41.86, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [53.86, 21.86, 62.49, 29.35]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [31.27, 21.95, 39.9, 29.44]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [12.18, 24.08, 14.68, 26.38]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [15.07, 24.08, 17.57, 26.38]
+            },
+            {
+              "iconId": "b2e9d87127",
+              "bbox": [48.54, 31.24, 65.94, 37.72],
+              "container": true
+            },
+            {
+              "iconId": "d4329c2a97",
+              "bbox": [14.46, 32.81, 17.99, 35.98],
+              "bbox_full": [13.9, 32.17, 18.59, 36.61]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [53.27, 33.16, 56.44, 35.98],
+              "bbox_full": [52.63, 32.27, 57.33, 36.71]
+            },
+            {
+              "iconId": "69ab8837e5",
+              "bbox": [7.28, 32.73, 13.96, 35.91]
+            },
+            {
+              "iconId": "8fc8635162",
+              "bbox": [4.0, 33.04, 6.51, 35.69]
+            },
+            {
+              "iconId": "1fd9f6ec6d",
+              "bbox": [50.27, 33.18, 52.78, 35.83]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Buckshot I",
+              "bbox": [26.14, 16.28, 41.86, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 6 Acc 10 {icon:8d4bbe5e11} 3",
+              "bbox": [5.0, 21.86, 62.49, 29.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8fc8635162} {icon:69ab8837e5} Self {icon:d4329c2a97} Push 1",
+              "bbox": [4.0, 32.65, 25.77, 35.98]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:1fd9f6ec6d} {icon:b6afaa4d7b} Push 2",
+              "bbox": [50.27, 32.9, 64.5, 35.98]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 10,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f06dcf708d5231",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [9.4, 17.32, 10.52, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Buckshot",
+              "bbox": [27.52, 35.48, 39.98, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [5.42, 15.6, 14.44, 26.85],
+              "bbox_full": [3.69, 13.78, 16.27, 28.64]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "c7faf2bc86",
+              "bbox": [17.29, 37.39, 26.81, 38.81]
+            },
+            {
+              "iconId": "1e762d801a",
+              "bbox": [40.57, 37.39, 50.45, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} I",
+              "bbox": [5.42, 15.6, 14.44, 26.85]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:c7faf2bc86} Buckshot {icon:1e762d801a}",
+              "bbox": [17.29, 35.48, 50.45, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p011",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [11],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 11,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8db53501e2d27d2",
+          "spans": [
+            {
+              "t": "Push 2",
+              "bbox": [56.52, 32.9, 64.5, 35.97],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": "Self",
+              "bbox": [8.39, 32.65, 12.86, 35.59],
+              "font": "Ubuntu-Medium",
+              "size": 7.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Push 2",
+              "bbox": [17.79, 32.8, 25.77, 35.87],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": "Crit 1",
+              "bbox": [23.0, 22.56, 31.62, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "8",
+              "bbox": [34.4, 23.15, 36.22, 27.78],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "Acc 11",
+              "bbox": [44.04, 22.56, 53.48, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "4",
+              "bbox": [56.3, 23.06, 58.04, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "1",
+              "bbox": [9.66, 22.54, 11.04, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#231f20"
+            },
+            {
+              "t": "Buckshot II",
+              "bbox": [25.62, 16.28, 42.38, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [53.49, 21.86, 62.12, 29.35]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [31.63, 21.95, 40.27, 29.44]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [12.18, 24.08, 14.68, 26.38]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [15.07, 24.08, 17.57, 26.38]
+            },
+            {
+              "iconId": "b2e9d87127",
+              "bbox": [48.54, 31.24, 65.94, 37.72],
+              "container": true
+            },
+            {
+              "iconId": "d4329c2a97",
+              "bbox": [14.46, 32.81, 17.99, 35.98],
+              "bbox_full": [13.9, 32.17, 18.59, 36.61]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [53.27, 33.16, 56.44, 35.98],
+              "bbox_full": [52.63, 32.27, 57.33, 36.71]
+            },
+            {
+              "iconId": "69ab8837e5",
+              "bbox": [7.28, 32.73, 13.96, 35.91]
+            },
+            {
+              "iconId": "8fc8635162",
+              "bbox": [4.0, 33.04, 6.51, 35.69]
+            },
+            {
+              "iconId": "1fd9f6ec6d",
+              "bbox": [50.27, 33.18, 52.78, 35.83]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Buckshot II",
+              "bbox": [25.62, 16.28, 42.38, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 8 Acc 11 {icon:8d4bbe5e11} 4",
+              "bbox": [5.0, 21.86, 62.12, 29.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8fc8635162} {icon:69ab8837e5} Self {icon:d4329c2a97} Push 2",
+              "bbox": [4.0, 32.65, 25.77, 35.98]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:1fd9f6ec6d} {icon:b6afaa4d7b} Push 2",
+              "bbox": [50.27, 32.9, 64.5, 35.98]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 11,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f07ccf708d5231",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [8.84, 17.32, 11.09, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Buckshot",
+              "bbox": [27.52, 35.48, 39.98, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "7fd9b8f208",
+              "bbox": [3.5, 15.33, 16.36, 24.62],
+              "bbox_full": [1.68, 13.51, 18.07, 26.34]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "c7faf2bc86",
+              "bbox": [17.29, 37.39, 26.81, 38.81]
+            },
+            {
+              "iconId": "1e762d801a",
+              "bbox": [40.57, 37.39, 50.45, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7fd9b8f208} II",
+              "bbox": [3.5, 15.33, 16.36, 24.62]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:c7faf2bc86} Buckshot {icon:1e762d801a}",
+              "bbox": [17.29, 35.48, 50.45, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p012",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [12],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 12,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8db52501e2d27f2",
+          "spans": [
+            {
+              "t": "Push 2",
+              "bbox": [56.52, 32.9, 64.5, 35.97],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": "Self",
+              "bbox": [8.39, 32.65, 12.86, 35.59],
+              "font": "Ubuntu-Medium",
+              "size": 7.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Push 2",
+              "bbox": [17.79, 32.8, 25.77, 35.87],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": "Crit 1",
+              "bbox": [22.74, 22.56, 31.36, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "9",
+              "bbox": [34.14, 23.15, 35.95, 27.78],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "Acc 12",
+              "bbox": [43.77, 22.56, 53.74, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "5",
+              "bbox": [56.56, 23.06, 58.3, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "1",
+              "bbox": [9.66, 22.54, 11.04, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#231f20"
+            },
+            {
+              "t": "Buckshot III",
+              "bbox": [25.09, 16.28, 42.91, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [53.75, 21.86, 62.39, 29.35]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [31.37, 21.95, 40.0, 29.44]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [12.18, 24.08, 14.68, 26.38]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [15.07, 24.08, 17.57, 26.38]
+            },
+            {
+              "iconId": "b2e9d87127",
+              "bbox": [48.54, 31.24, 65.94, 37.72],
+              "container": true
+            },
+            {
+              "iconId": "d4329c2a97",
+              "bbox": [14.46, 32.81, 17.99, 35.98],
+              "bbox_full": [13.9, 32.17, 18.59, 36.61]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [53.27, 33.16, 56.44, 35.98],
+              "bbox_full": [52.63, 32.27, 57.33, 36.71]
+            },
+            {
+              "iconId": "69ab8837e5",
+              "bbox": [7.28, 32.73, 13.96, 35.91]
+            },
+            {
+              "iconId": "8fc8635162",
+              "bbox": [4.0, 33.04, 6.51, 35.69]
+            },
+            {
+              "iconId": "1fd9f6ec6d",
+              "bbox": [50.27, 33.18, 52.78, 35.83]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Buckshot III",
+              "bbox": [25.09, 16.28, 42.91, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 9 Acc 12 {icon:8d4bbe5e11} 5",
+              "bbox": [5.0, 21.86, 62.39, 29.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8fc8635162} {icon:69ab8837e5} Self {icon:d4329c2a97} Push 2",
+              "bbox": [4.0, 32.65, 25.77, 35.98]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:1fd9f6ec6d} {icon:b6afaa4d7b} Push 2",
+              "bbox": [50.27, 32.9, 64.5, 35.98]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 12,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f06cce708dd271",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [8.27, 18.93, 11.65, 24.28],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Buckshot",
+              "bbox": [27.52, 35.48, 39.98, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "c7faf2bc86",
+              "bbox": [17.29, 37.39, 26.81, 38.81]
+            },
+            {
+              "iconId": "1e762d801a",
+              "bbox": [40.57, 37.39, 50.45, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} III",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:c7faf2bc86} Buckshot {icon:1e762d801a}",
+              "bbox": [17.29, 35.48, 50.45, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p013",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [13],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 13,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "dcbd13501c6b67c2",
+          "spans": [
+            {
+              "t": "Self",
+              "bbox": [9.39, 32.79, 13.86, 35.74],
+              "font": "Ubuntu-Medium",
+              "size": 7.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Push 1",
+              "bbox": [18.8, 32.95, 26.77, 36.02],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": "Crit 0",
+              "bbox": [22.94, 22.56, 32.29, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "8",
+              "bbox": [35.07, 23.15, 36.89, 27.78],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "Acc 8",
+              "bbox": [44.7, 22.56, 53.54, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "5",
+              "bbox": [56.36, 23.06, 58.1, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "0-2",
+              "bbox": [9.31, 22.54, 15.04, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Sidearm I",
+              "bbox": [26.84, 16.28, 41.16, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [53.34, 1.28, 65.28, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [44.23, 1.31, 56.17, 13.24]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [53.55, 21.86, 62.19, 29.35]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [32.3, 21.95, 40.94, 29.44]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [15.32, 24.08, 17.82, 26.38]
+            },
+            {
+              "iconId": "f18923574c",
+              "bbox": [15.52, 33.16, 18.7, 35.98],
+              "bbox_full": [14.9, 32.32, 19.6, 36.77]
+            },
+            {
+              "iconId": "1ff34c908b",
+              "bbox": [8.29, 32.88, 14.96, 36.05]
+            },
+            {
+              "iconId": "8fc8635162",
+              "bbox": [5.0, 33.19, 7.51, 35.85]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Sidearm I",
+              "bbox": [26.84, 16.28, 41.16, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 0-2 {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 8 Acc 8 {icon:8d4bbe5e11} 5",
+              "bbox": [5.0, 21.86, 62.19, 29.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:f18923574c} Push 1",
+              "bbox": [5.0, 32.79, 26.77, 36.05]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 13,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "c8f06dcf709c7234",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [9.4, 17.32, 10.52, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Sidearm",
+              "bbox": [28.17, 35.48, 39.33, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [5.42, 15.6, 14.44, 26.85],
+              "bbox_full": [3.69, 13.78, 16.27, 28.64]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "c7faf2bc86",
+              "bbox": [17.99, 37.39, 27.52, 38.81]
+            },
+            {
+              "iconId": "462bd48a91",
+              "bbox": [39.86, 37.39, 49.74, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} I",
+              "bbox": [5.42, 15.6, 14.44, 26.85]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:c7faf2bc86} Sidearm {icon:462bd48a91}",
+              "bbox": [17.99, 35.48, 49.74, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p014",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [14],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 14,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "dcbd13501c6b67c2",
+          "spans": [
+            {
+              "t": "Self",
+              "bbox": [9.39, 32.79, 13.86, 35.74],
+              "font": "Ubuntu-Medium",
+              "size": 7.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Push 2",
+              "bbox": [18.8, 32.95, 26.77, 36.02],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": "Crit 0",
+              "bbox": [22.94, 22.56, 32.3, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "11",
+              "bbox": [34.82, 23.15, 37.15, 27.78],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Acc 9",
+              "bbox": [44.71, 22.56, 53.54, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "6",
+              "bbox": [56.32, 23.06, 58.12, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "0-2",
+              "bbox": [9.31, 22.54, 15.04, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Sidearm II",
+              "bbox": [26.32, 16.28, 41.68, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [53.34, 1.28, 65.28, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [44.23, 1.31, 56.17, 13.24]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [53.55, 21.86, 62.18, 29.35]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [32.31, 21.95, 40.94, 29.44]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [15.32, 24.08, 17.82, 26.38]
+            },
+            {
+              "iconId": "f18923574c",
+              "bbox": [15.52, 33.16, 18.7, 35.98],
+              "bbox_full": [14.9, 32.32, 19.6, 36.77]
+            },
+            {
+              "iconId": "1ff34c908b",
+              "bbox": [8.29, 32.88, 14.96, 36.05]
+            },
+            {
+              "iconId": "8fc8635162",
+              "bbox": [5.0, 33.19, 7.51, 35.85]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Sidearm II",
+              "bbox": [26.32, 16.28, 41.68, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 0-2 {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 11 Acc 9 {icon:8d4bbe5e11} 6",
+              "bbox": [5.0, 21.86, 62.18, 29.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:f18923574c} Push 2",
+              "bbox": [5.0, 32.79, 26.77, 36.05]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 14,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "c8f06cce709d7274",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [8.84, 17.32, 11.09, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Sidearm",
+              "bbox": [28.17, 35.48, 39.33, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "7fd9b8f208",
+              "bbox": [3.5, 15.33, 16.36, 24.62],
+              "bbox_full": [1.68, 13.51, 18.07, 26.34]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "c7faf2bc86",
+              "bbox": [17.99, 37.39, 27.52, 38.81]
+            },
+            {
+              "iconId": "462bd48a91",
+              "bbox": [39.86, 37.39, 49.74, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7fd9b8f208} II",
+              "bbox": [3.5, 15.33, 16.36, 24.62]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:c7faf2bc86} Sidearm {icon:462bd48a91}",
+              "bbox": [17.99, 35.48, 49.74, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p015",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [15],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 15,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "dcbf13501c6b27c2",
+          "spans": [
+            {
+              "t": "Self",
+              "bbox": [9.39, 32.79, 13.86, 35.74],
+              "font": "Ubuntu-Medium",
+              "size": 7.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Push 2",
+              "bbox": [18.8, 32.95, 26.77, 36.02],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": "Crit 0",
+              "bbox": [22.27, 22.56, 31.62, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "14",
+              "bbox": [33.86, 23.15, 36.76, 27.78],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Acc 10",
+              "bbox": [44.04, 22.56, 54.21, 28.02],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "8",
+              "bbox": [56.99, 23.06, 58.81, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#840b01"
+            },
+            {
+              "t": "0-2",
+              "bbox": [9.31, 22.54, 15.04, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Sidearm III",
+              "bbox": [25.79, 16.28, 42.21, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [53.34, 1.28, 65.28, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [44.23, 1.31, 56.17, 13.24]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [54.22, 21.86, 62.86, 29.35]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [31.63, 21.95, 40.27, 29.44]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [15.32, 24.08, 17.82, 26.38]
+            },
+            {
+              "iconId": "f18923574c",
+              "bbox": [15.52, 33.16, 18.7, 35.98],
+              "bbox_full": [14.9, 32.32, 19.6, 36.77]
+            },
+            {
+              "iconId": "1ff34c908b",
+              "bbox": [8.29, 32.88, 14.96, 36.05]
+            },
+            {
+              "iconId": "8fc8635162",
+              "bbox": [5.0, 33.19, 7.51, 35.85]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Sidearm III",
+              "bbox": [25.79, 16.28, 42.21, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 0-2 {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 14 Acc 10 {icon:8d4bbe5e11} 8",
+              "bbox": [5.0, 21.86, 62.86, 29.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8fc8635162} {icon:1ff34c908b} Self {icon:f18923574c} Push 2",
+              "bbox": [5.0, 32.79, 26.77, 36.05]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 15,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "c8f06ccc709f7274",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [8.27, 18.93, 11.65, 24.28],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Sidearm",
+              "bbox": [28.17, 35.48, 39.33, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "c7faf2bc86",
+              "bbox": [17.99, 37.39, 27.52, 38.81]
+            },
+            {
+              "iconId": "462bd48a91",
+              "bbox": [39.86, 37.39, 49.74, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} III",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:c7faf2bc86} Sidearm {icon:462bd48a91}",
+              "bbox": [17.99, 35.48, 49.74, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p016",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [16],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 16,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d89b5a509c6f2792",
+          "spans": [
+            {
+              "t": "Self",
+              "bbox": [8.39, 32.39, 12.86, 35.33],
+              "font": "Ubuntu-Medium",
+              "size": 7.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [18.2, 31.88, 20.79, 36.12],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Crit 0",
+              "bbox": [23.97, 22.49, 33.33, 27.95],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "6",
+              "bbox": [35.81, 23.07, 37.61, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#40ad49"
+            },
+            {
+              "t": "Acc 8",
+              "bbox": [43.27, 22.49, 52.11, 27.95],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "4",
+              "bbox": [54.62, 23.07, 56.36, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#40ad49"
+            },
+            {
+              "t": "0-1",
+              "bbox": [9.48, 22.54, 14.68, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Patch Up I",
+              "bbox": [26.93, 16.28, 41.07, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "4f849b8ded",
+              "bbox": [34.29, 23.08, 36.28, 24.99]
+            },
+            {
+              "iconId": "e8a4b7eebf",
+              "bbox": [53.07, 23.08, 55.05, 24.99]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [15.56, 23.77, 18.24, 26.38]
+            },
+            {
+              "iconId": "20ffe98e2d",
+              "bbox": [35.71, 23.97, 39.25, 27.38]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [54.49, 23.97, 58.03, 27.38]
+            },
+            {
+              "iconId": "1ff34c908b",
+              "bbox": [2.41, 30.59, 22.48, 37.58],
+              "container": true
+            },
+            {
+              "iconId": "d4329c2a97",
+              "bbox": [14.46, 32.46, 17.64, 35.63],
+              "bbox_full": [13.91, 31.58, 18.35, 36.28]
+            },
+            {
+              "iconId": "69ab8837e5",
+              "bbox": [7.28, 32.47, 13.96, 35.65]
+            },
+            {
+              "iconId": "8fc8635162",
+              "bbox": [4.0, 32.79, 6.51, 35.44]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Patch Up I",
+              "bbox": [26.93, 16.28, 41.07, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 0-1 {icon:7616568d52} Crit 0 {icon:e8a4b7eebf} {icon:8d4bbe5e11} 6 Acc 8 {icon:e8a4b7eebf} {icon:8d4bbe5e11} 4",
+              "bbox": [5.0, 22.49, 58.03, 28.0]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8fc8635162} {icon:69ab8837e5} Self {icon:d4329c2a97} 2t",
+              "bbox": [4.0, 31.88, 20.79, 36.12]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 16,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f06cce70845b3d",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [9.4, 17.32, 10.52, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Patch Up",
+              "bbox": [28.25, 35.48, 39.26, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [5.42, 15.6, 14.44, 26.85],
+              "bbox_full": [3.69, 13.78, 16.27, 28.64]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "c7faf2bc86",
+              "bbox": [17.99, 37.39, 27.87, 38.81]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [39.86, 37.39, 49.39, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} I",
+              "bbox": [5.42, 15.6, 14.44, 26.85]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:c7faf2bc86} Patch Up {icon:b6afaa4d7b}",
+              "bbox": [17.99, 35.48, 49.39, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p017",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [17],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 17,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d89b5a509c6f2792",
+          "spans": [
+            {
+              "t": "Self",
+              "bbox": [8.39, 32.39, 12.86, 35.33],
+              "font": "Ubuntu-Medium",
+              "size": 7.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [18.2, 31.88, 20.79, 36.12],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Crit 0",
+              "bbox": [23.98, 22.49, 33.33, 27.95],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "8",
+              "bbox": [35.81, 23.07, 37.62, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#40ad49"
+            },
+            {
+              "t": "Acc 9",
+              "bbox": [43.27, 22.49, 52.1, 27.95],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "5",
+              "bbox": [54.62, 23.07, 56.35, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#40ad49"
+            },
+            {
+              "t": "0-1",
+              "bbox": [9.48, 22.54, 14.68, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Patch Up II",
+              "bbox": [26.4, 16.28, 41.6, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "4f849b8ded",
+              "bbox": [34.3, 23.08, 36.28, 24.99]
+            },
+            {
+              "iconId": "e8a4b7eebf",
+              "bbox": [53.06, 23.08, 55.05, 24.99]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [15.56, 23.77, 18.24, 26.38]
+            },
+            {
+              "iconId": "20ffe98e2d",
+              "bbox": [35.72, 23.97, 39.26, 27.38]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [54.49, 23.97, 58.02, 27.38]
+            },
+            {
+              "iconId": "1ff34c908b",
+              "bbox": [2.41, 30.59, 22.48, 37.58],
+              "container": true
+            },
+            {
+              "iconId": "d4329c2a97",
+              "bbox": [14.46, 32.46, 17.64, 35.63],
+              "bbox_full": [13.91, 31.58, 18.35, 36.28]
+            },
+            {
+              "iconId": "69ab8837e5",
+              "bbox": [7.28, 32.47, 13.96, 35.65]
+            },
+            {
+              "iconId": "8fc8635162",
+              "bbox": [4.0, 32.79, 6.51, 35.44]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Patch Up II",
+              "bbox": [26.4, 16.28, 41.6, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 0-1 {icon:7616568d52} Crit 0 {icon:e8a4b7eebf} {icon:8d4bbe5e11} 8 Acc 9 {icon:e8a4b7eebf} {icon:8d4bbe5e11} 5",
+              "bbox": [5.0, 22.49, 58.02, 28.0]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8fc8635162} {icon:69ab8837e5} Self {icon:d4329c2a97} 2t",
+              "bbox": [4.0, 31.88, 20.79, 36.12]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 17,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f06cce70855a3d",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [8.84, 17.32, 11.09, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Patch Up",
+              "bbox": [28.25, 35.48, 39.26, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "7fd9b8f208",
+              "bbox": [3.5, 15.33, 16.36, 24.62],
+              "bbox_full": [1.68, 13.51, 18.07, 26.34]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "c7faf2bc86",
+              "bbox": [17.99, 37.39, 27.87, 38.81]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [39.86, 37.39, 49.39, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7fd9b8f208} II",
+              "bbox": [3.5, 15.33, 16.36, 24.62]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:c7faf2bc86} Patch Up {icon:b6afaa4d7b}",
+              "bbox": [17.99, 35.48, 49.39, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p018",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [18],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 18,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d89b5a509c6f2792",
+          "spans": [
+            {
+              "t": "Self",
+              "bbox": [8.39, 32.39, 12.86, 35.33],
+              "font": "Ubuntu-Medium",
+              "size": 7.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [18.2, 31.88, 20.79, 36.12],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Crit 0",
+              "bbox": [23.31, 22.49, 32.66, 27.95],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": "10",
+              "bbox": [34.57, 23.07, 37.52, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Acc 10",
+              "bbox": [42.6, 22.49, 52.78, 27.95],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "7",
+              "bbox": [55.42, 23.07, 56.89, 27.69],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#40ad49"
+            },
+            {
+              "t": "0-1",
+              "bbox": [9.48, 22.54, 14.68, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Patch Up III",
+              "bbox": [25.87, 16.28, 42.13, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [45.41, 2.48, 54.93, 12.01]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [54.52, 2.46, 64.05, 11.98]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "4f849b8ded",
+              "bbox": [33.62, 23.08, 35.61, 24.99]
+            },
+            {
+              "iconId": "e8a4b7eebf",
+              "bbox": [53.74, 23.08, 55.72, 24.99]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [15.56, 23.77, 18.24, 26.38]
+            },
+            {
+              "iconId": "20ffe98e2d",
+              "bbox": [35.04, 23.97, 38.58, 27.38]
+            },
+            {
+              "iconId": "8d4bbe5e11",
+              "bbox": [55.16, 23.97, 58.7, 27.38]
+            },
+            {
+              "iconId": "1ff34c908b",
+              "bbox": [2.41, 30.59, 22.48, 37.58],
+              "container": true
+            },
+            {
+              "iconId": "d4329c2a97",
+              "bbox": [14.46, 32.46, 17.64, 35.63],
+              "bbox_full": [13.91, 31.58, 18.35, 36.28]
+            },
+            {
+              "iconId": "69ab8837e5",
+              "bbox": [7.28, 32.47, 13.96, 35.65]
+            },
+            {
+              "iconId": "8fc8635162",
+              "bbox": [4.0, 32.79, 6.51, 35.44]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Patch Up III",
+              "bbox": [25.87, 16.28, 42.13, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 0-1 {icon:7616568d52} Crit 0 {icon:e8a4b7eebf} 10 {icon:8d4bbe5e11} Acc 10 {icon:e8a4b7eebf} {icon:8d4bbe5e11} 7",
+              "bbox": [5.0, 22.49, 58.7, 28.0]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8fc8635162} {icon:69ab8837e5} Self {icon:d4329c2a97} 2t",
+              "bbox": [4.0, 31.88, 20.79, 36.12]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 18,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "d8f06ccc708d5a3d",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [8.27, 18.93, 11.65, 24.28],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Patch Up",
+              "bbox": [28.25, 35.48, 39.26, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "c7faf2bc86",
+              "bbox": [17.99, 37.39, 27.87, 38.81]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [39.86, 37.39, 49.39, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} III",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:c7faf2bc86} Patch Up {icon:b6afaa4d7b}",
+              "bbox": [17.99, 35.48, 49.39, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p019",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [19],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 19,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "919e16d25a2d6673",
+          "spans": [
+            {
+              "t": "Self",
+              "bbox": [8.89, 31.04, 13.36, 33.99],
+              "font": "Ubuntu-Medium",
+              "size": 7.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Remove",
+              "bbox": [15.17, 31.2, 24.95, 34.27],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": ": Remove",
+              "bbox": [43.93, 30.88, 54.99, 33.94],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": ":",
+              "bbox": [56.11, 35.53, 56.77, 38.6],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": "2t",
+              "bbox": [60.91, 34.87, 63.5, 39.11],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Acc 10",
+              "bbox": [38.97, 22.52, 49.15, 27.99],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "1-2",
+              "bbox": [9.58, 22.54, 14.57, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Skeet Shot I",
+              "bbox": [25.24, 16.28, 42.76, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [53.34, 1.28, 65.28, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [44.23, 1.31, 56.17, 13.24]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "d93aef1e33",
+              "bbox": [15.29, 23.78, 18.47, 26.79]
+            },
+            {
+              "iconId": "d93aef1e33",
+              "bbox": [18.92, 23.78, 22.1, 26.79]
+            },
+            {
+              "iconId": "1fd9f6ec6d",
+              "bbox": [54.83, 28.94, 60.17, 34.66]
+            },
+            {
+              "iconId": "1fd9f6ec6d",
+              "bbox": [24.8, 29.27, 30.13, 34.98]
+            },
+            {
+              "iconId": "98edfaca0a",
+              "bbox": [58.67, 29.31, 64.25, 35.15]
+            },
+            {
+              "iconId": "b2102a1a20",
+              "bbox": [28.63, 29.64, 34.22, 35.48]
+            },
+            {
+              "iconId": "98edfaca0a",
+              "bbox": [7.79, 31.13, 14.46, 34.3]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [37.48, 31.15, 39.99, 33.81]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [40.91, 31.36, 43.59, 33.96]
+            },
+            {
+              "iconId": "8fc8635162",
+              "bbox": [4.5, 31.44, 7.01, 34.1]
+            },
+            {
+              "iconId": "3a60c92c83",
+              "bbox": [57.5, 35.28, 60.32, 38.45],
+              "bbox_full": [56.61, 34.62, 61.06, 39.32]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [53.44, 36.06, 55.94, 38.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Skeet Shot I",
+              "bbox": [25.24, 16.28, 42.76, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 1-2 {icon:d93aef1e33} {icon:d93aef1e33}",
+              "bbox": [5.0, 22.54, 22.1, 28.0]
+            },
+            {
+              "rot": 0,
+              "text": "Acc 10",
+              "bbox": [38.97, 22.52, 49.15, 27.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8fc8635162} {icon:98edfaca0a} Self Remove {icon:1fd9f6ec6d} {icon:b2102a1a20} {icon:b6afaa4d7b} {icon:b6afaa4d7b} : Remove {icon:1fd9f6ec6d} {icon:b2102a1a20}",
+              "bbox": [4.5, 28.94, 64.25, 35.48]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a396e95c00} : {icon:3a60c92c83} 2t",
+              "bbox": [53.44, 34.87, 63.5, 39.11]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 19,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "c8f0258770cd7b39",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [9.4, 17.32, 10.52, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Skeet Shot",
+              "bbox": [26.69, 35.48, 40.81, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [5.42, 15.6, 14.44, 26.85],
+              "bbox_full": [3.69, 13.78, 16.27, 28.64]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "6d7ce0f38a",
+              "bbox": [16.23, 37.39, 26.11, 38.81]
+            },
+            {
+              "iconId": "1e762d801a",
+              "bbox": [41.27, 37.39, 51.15, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} I",
+              "bbox": [5.42, 15.6, 14.44, 26.85]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6d7ce0f38a} Skeet Shot {icon:1e762d801a}",
+              "bbox": [16.23, 35.48, 51.15, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p020",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [20],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 20,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "949f1dd24a2d6672",
+          "spans": [
+            {
+              "t": "Self",
+              "bbox": [8.89, 31.04, 13.36, 33.99],
+              "font": "Ubuntu-Medium",
+              "size": 7.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Remove",
+              "bbox": [15.17, 31.2, 24.95, 34.27],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": ": Remove",
+              "bbox": [43.68, 30.88, 54.74, 33.94],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": ":",
+              "bbox": [55.86, 35.53, 56.51, 38.6],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": "2t",
+              "bbox": [60.67, 34.87, 63.25, 39.11],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Acc 11",
+              "bbox": [43.64, 22.52, 53.09, 27.99],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "1-2",
+              "bbox": [9.58, 22.54, 14.57, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Skeet Shot II",
+              "bbox": [24.72, 16.28, 43.28, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [53.34, 1.28, 65.28, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [44.23, 1.31, 56.17, 13.24]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "d93aef1e33",
+              "bbox": [15.29, 23.78, 18.47, 26.79]
+            },
+            {
+              "iconId": "d93aef1e33",
+              "bbox": [18.97, 23.78, 22.15, 26.79]
+            },
+            {
+              "iconId": "d93aef1e33",
+              "bbox": [22.64, 23.78, 25.82, 26.79]
+            },
+            {
+              "iconId": "1fd9f6ec6d",
+              "bbox": [54.59, 28.94, 59.92, 34.66]
+            },
+            {
+              "iconId": "1fd9f6ec6d",
+              "bbox": [24.8, 29.27, 30.13, 34.98]
+            },
+            {
+              "iconId": "b2102a1a20",
+              "bbox": [58.42, 29.31, 64.0, 35.15]
+            },
+            {
+              "iconId": "b2102a1a20",
+              "bbox": [28.63, 29.64, 34.22, 35.48]
+            },
+            {
+              "iconId": "98edfaca0a",
+              "bbox": [7.79, 31.13, 14.46, 34.3]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [37.23, 31.15, 39.74, 33.81]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [40.66, 31.36, 43.34, 33.96]
+            },
+            {
+              "iconId": "8fc8635162",
+              "bbox": [4.5, 31.44, 7.01, 34.1]
+            },
+            {
+              "iconId": "3a60c92c83",
+              "bbox": [57.15, 35.28, 59.97, 38.45],
+              "bbox_full": [56.36, 34.62, 60.81, 39.32]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [53.2, 36.06, 55.69, 38.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Skeet Shot II",
+              "bbox": [24.72, 16.28, 43.28, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 1-2 {icon:d93aef1e33} {icon:d93aef1e33} {icon:d93aef1e33}",
+              "bbox": [5.0, 22.54, 25.82, 28.0]
+            },
+            {
+              "rot": 0,
+              "text": "Acc 11",
+              "bbox": [43.64, 22.52, 53.09, 27.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8fc8635162} {icon:98edfaca0a} Self Remove {icon:1fd9f6ec6d} {icon:b2102a1a20} {icon:b6afaa4d7b} {icon:b6afaa4d7b} : Remove {icon:1fd9f6ec6d} {icon:b2102a1a20}",
+              "bbox": [4.5, 28.94, 64.0, 35.48]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a396e95c00} : {icon:3a60c92c83} 2t",
+              "bbox": [53.2, 34.87, 63.25, 39.11]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 20,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "c0f07c85708d7b79",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [8.84, 17.32, 11.09, 22.67],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Skeet Shot",
+              "bbox": [26.69, 35.48, 40.81, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "7fd9b8f208",
+              "bbox": [3.5, 15.33, 16.36, 24.62],
+              "bbox_full": [1.68, 13.51, 18.07, 26.34]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "6d7ce0f38a",
+              "bbox": [16.23, 37.39, 26.11, 38.81]
+            },
+            {
+              "iconId": "1e762d801a",
+              "bbox": [41.27, 37.39, 51.15, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7fd9b8f208} II",
+              "bbox": [3.5, 15.33, 16.36, 24.62]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6d7ce0f38a} Skeet Shot {icon:1e762d801a}",
+              "bbox": [16.23, 35.48, 51.15, 40.11]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_skill:musketeer:p021",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [21],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+          "page": 21,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "949b1bc64e2d6666",
+          "spans": [
+            {
+              "t": "Self",
+              "bbox": [8.89, 31.04, 13.36, 33.99],
+              "font": "Ubuntu-Medium",
+              "size": 7.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Remove",
+              "bbox": [15.17, 31.2, 24.95, 34.27],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": ": Remove",
+              "bbox": [43.93, 30.88, 54.99, 33.94],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": ":",
+              "bbox": [56.11, 35.53, 56.77, 38.6],
+              "font": "Ubuntu-Regular",
+              "size": 7.55,
+              "color": "#fab89e"
+            },
+            {
+              "t": "2t",
+              "bbox": [60.91, 34.87, 63.5, 39.11],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Acc 12",
+              "bbox": [46.08, 22.52, 56.05, 27.99],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#b6b8ba",
+              "dup": 2
+            },
+            {
+              "t": "1-2",
+              "bbox": [9.58, 22.54, 14.57, 28.0],
+              "font": "DwarvenAxeBB",
+              "size": 14.16,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "Skeet Shot III",
+              "bbox": [24.19, 16.28, 43.81, 21.29],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#dbc680"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "978f861dea",
+              "bbox": [28.05, 3.18, 36.16, 11.3],
+              "bbox_full": [26.14, 1.28, 38.08, 13.22]
+            },
+            {
+              "iconId": "208e98c5d6",
+              "bbox": [55.25, 3.18, 63.37, 11.3],
+              "bbox_full": [53.34, 1.28, 65.28, 13.22]
+            },
+            {
+              "iconId": "cd12362298",
+              "bbox": [37.05, 3.21, 45.17, 11.32],
+              "bbox_full": [35.14, 1.31, 47.08, 13.24]
+            },
+            {
+              "iconId": "8bc055471a",
+              "bbox": [46.14, 3.21, 54.25, 11.32],
+              "bbox_full": [44.23, 1.31, 56.17, 13.24]
+            },
+            {
+              "iconId": "e8f651e5f8",
+              "bbox": [53.63, 12.29, 63.46, 22.13],
+              "bbox_full": [53.36, 12.02, 63.73, 22.39]
+            },
+            {
+              "iconId": "f6fb6f4a67",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "iconId": "6e265a35fe",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "iconId": "3ab7e7544c",
+              "bbox": [5.0, 23.76, 9.0, 26.83]
+            },
+            {
+              "iconId": "d93aef1e33",
+              "bbox": [15.29, 23.78, 18.47, 26.79]
+            },
+            {
+              "iconId": "d93aef1e33",
+              "bbox": [18.89, 23.78, 22.07, 26.79]
+            },
+            {
+              "iconId": "d93aef1e33",
+              "bbox": [22.49, 23.78, 25.67, 26.79]
+            },
+            {
+              "iconId": "d93aef1e33",
+              "bbox": [26.09, 23.78, 29.27, 26.79]
+            },
+            {
+              "iconId": "1fd9f6ec6d",
+              "bbox": [54.83, 28.94, 60.17, 34.66]
+            },
+            {
+              "iconId": "1fd9f6ec6d",
+              "bbox": [24.8, 29.27, 30.13, 34.98]
+            },
+            {
+              "iconId": "98edfaca0a",
+              "bbox": [58.67, 29.31, 64.25, 35.15]
+            },
+            {
+              "iconId": "b2102a1a20",
+              "bbox": [28.63, 29.64, 34.22, 35.48]
+            },
+            {
+              "iconId": "98edfaca0a",
+              "bbox": [7.79, 31.13, 14.46, 34.3]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [37.48, 31.15, 39.99, 33.81]
+            },
+            {
+              "iconId": "b6afaa4d7b",
+              "bbox": [40.91, 31.36, 43.59, 33.96]
+            },
+            {
+              "iconId": "8fc8635162",
+              "bbox": [4.5, 31.44, 7.01, 34.1]
+            },
+            {
+              "iconId": "3a60c92c83",
+              "bbox": [57.5, 35.28, 60.32, 38.45],
+              "bbox_full": [56.61, 34.62, 61.06, 39.32]
+            },
+            {
+              "iconId": "a396e95c00",
+              "bbox": [53.44, 36.06, 55.94, 38.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:978f861dea} {icon:cd12362298} {icon:8bc055471a} {icon:208e98c5d6}",
+              "bbox": [28.05, 3.18, 63.37, 11.32]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:f6fb6f4a67}",
+              "bbox": [33.75, 15.55, 34.71, 16.51]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e8f651e5f8}",
+              "bbox": [53.63, 12.29, 63.46, 22.13]
+            },
+            {
+              "rot": 0,
+              "text": "Skeet Shot III",
+              "bbox": [24.19, 16.28, 43.81, 21.29]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6e265a35fe}",
+              "bbox": [33.79, 21.03, 34.75, 21.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3ab7e7544c} 1-2 {icon:d93aef1e33} {icon:d93aef1e33} {icon:d93aef1e33} {icon:d93aef1e33}",
+              "bbox": [5.0, 22.54, 29.27, 28.0]
+            },
+            {
+              "rot": 0,
+              "text": "Acc 12",
+              "bbox": [46.08, 22.52, 56.05, 27.99]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8fc8635162} {icon:98edfaca0a} Self Remove {icon:1fd9f6ec6d} {icon:b2102a1a20} {icon:b6afaa4d7b} {icon:b6afaa4d7b} : Remove {icon:1fd9f6ec6d} {icon:b2102a1a20}",
+              "bbox": [4.5, 28.94, 64.25, 35.48]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a396e95c00} : {icon:3a60c92c83} 2t",
+              "bbox": [53.44, 34.87, 63.5, 39.11]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_BACK.pdf",
+          "page": 21,
+          "trim_mm": [68.0, 44.0],
+          "face_phash": "c8f064c5708d7b79",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [8.27, 18.93, 11.65, 24.28],
+              "font": "DwarvenAxeBB",
+              "size": 13.87,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Skeet Shot",
+              "bbox": [26.69, 35.48, 40.81, 40.11],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#d2232a",
+              "dup": 2
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.38, 28.93, 47.13, 37.02],
+              "font": "DwarvenAxeBB",
+              "size": 21.0,
+              "color": "#dbc680",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "ccf3510c3f",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "iconId": "4a17acd159",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "iconId": "0fa747a534",
+              "bbox": [52.85, 29.27, 63.49, 39.91],
+              "bbox_full": [51.03, 27.45, 65.26, 41.68]
+            },
+            {
+              "iconId": "6d7ce0f38a",
+              "bbox": [16.23, 37.39, 26.11, 38.81]
+            },
+            {
+              "iconId": "1e762d801a",
+              "bbox": [41.27, 37.39, 51.15, 38.81]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:ccf3510c3f}",
+              "bbox": [4.87, 0.0, 15.23, 16.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4a17acd159} III",
+              "bbox": [4.1, 15.33, 15.76, 30.0]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER {icon:0fa747a534}",
+              "bbox": [20.38, 28.93, 63.49, 39.91]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6d7ce0f38a} Skeet Shot {icon:1e762d801a}",
+              "bbox": [16.23, 35.48, 51.15, 40.11]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

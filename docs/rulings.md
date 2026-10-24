@@ -1080,6 +1080,27 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **暂定**：art map / EXTENSION_SKILL_BLOCKS 仍登记 HM→316、SB→337 待与 Kyries 对齐；不阻塞本 PR 接线。Shieldbreaker I/II CE `movement.literal` 为 3 而 Weald 印刷移动栏仅两枚靴，R-106 Speed 记 2。
 - **状态**：待 Kyries 确认
 
+### R-107
+
+- **编号**：R-107
+- **日期**：2026-10-24
+- **问题**：Musketeer 扩展包 Hero STAT（`MG_DD_08_EN_MUSKETEER` 印刷 `DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT` p1–2）与七张 I 级战斗技能（同包 `DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT` p1–21，见 Q-107）待核实入库与接线。
+- **裁定**（Kyries 批准转录；不改全局词典除非另开 Q）：
+  - **STAT 入库**（`attributesVerified: true`，`kyries_review_2026-10-24`）：Musketeer I/II/III 三面——Life/Dodge/Speed：14/0/1、19/1/1、24/2/2（STAT_FRONT p1、STAT_BACK p1、STAT_FRONT p2）。
+  - I 级条件防御：Shuffle 抗性 `{icon:df4eb1ac47}` 仅记印刷存在，本 PR 不写入 `verified_condition_defence`（schema 仅 stun/bleed/blight/debuff）。
+  - 免疫栏标题装饰 `55a3fded25` / `f9c2c60dad` 不入词典、不参与 STAT 核实（同 R-104–R-106）。
+  - **战斗**：七张 I 级技能 id `hero_skill:musketeer:p001`、`p004`、`p007`、`p010`、`p013`、`p016`、`p019`（Aimed Shot、Smokescreen、Call the Shot、Buckshot、Sidearm、Patch Up、Skeet Shot）规范化核实后接线；移出 `FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`（名单清空），纳入正式替补白名单。
+- **依据 / 边界**：Musketeer 包印刷 PDF、CE OFFICIAL_PRINTED_COMPONENT 字面、`extract/extension/musketeer`、R-048/R-103。不打开 PvP / 专属扩展机制。不使用 FAQ。
+- **关联待确认**：Q-107
+- **状态**：Kyries 已确认（2026-10-24）
+
+### Q-107
+
+- **编号**：Q-107
+- **问题**：`print-hero-18-art-catalog` 与 `EXTENSION_SKILL_BLOCKS` 登记 Musketeer 技能 `startPage: 1`（与 MG_DD_08 包内页序一致），但规范化 id 使用前缀 `hero_skill:musketeer:p###` 以避免与核心盒 `hero_skill:p001` 冲突；art map 仍为 `hero_skill:art:musketeer:p###`。
+- **暂定**：战役沙盒与 `MUSKETEER_VERIFIED_SKILL_PAGE_BLOCKS` 采用 **包内页 p1–21** + `musketeer:` 前缀 id；catalog 登记待与 Kyries 对齐。
+- **状态**：待 Kyries 确认
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。

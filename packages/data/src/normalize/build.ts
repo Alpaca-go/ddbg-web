@@ -36,6 +36,7 @@ import { buildHeroStats, normalizedHeroStatFileSchema } from "./hero-stat";
 import { buildWarrensHeroStats } from "./warrens-hero-stat";
 import { buildCoveHeroStats } from "./cove-hero-stat";
 import { buildWealdHeroStats } from "./weald-hero-stat";
+import { buildMusketeerHeroStats } from "./musketeer-hero-stat";
 import { buildRooms } from "./room";
 import { buildMonsterPool } from "./monster-pool";
 import { buildCurios } from "./curio";
@@ -125,6 +126,9 @@ export type NormalizedCoreboxInput = {
   extensionWealdHeroSkills?: HeroSkillFile;
   extensionWealdHeroSkillRaw?: RawFile;
   extensionWealdHeroStatRaw?: RawFile;
+  extensionMusketeerHeroSkills?: HeroSkillFile;
+  extensionMusketeerHeroSkillRaw?: RawFile;
+  extensionMusketeerHeroStatRaw?: RawFile;
 };
 
 function rawIndex(file: RawFile): Map<string, RawCard> {
@@ -628,9 +632,13 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
         input.extensionWealdHeroStatRaw && input.dictionary
           ? buildWealdHeroStats(input.extensionWealdHeroStatRaw, input.dictionary)
           : [];
+      const musketeer =
+        input.extensionMusketeerHeroStatRaw && input.dictionary
+          ? buildMusketeerHeroStats(input.extensionMusketeerHeroStatRaw, input.dictionary)
+          : [];
       return normalizedHeroStatFileSchema.parse({
         ...core,
-        cards: [...core.cards, ...warrens, ...cove, ...weald],
+        cards: [...core.cards, ...warrens, ...cove, ...weald, ...musketeer],
       });
     })(),
     hero_skill: (() => {
@@ -641,6 +649,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
           ...(input.extensionWarrensHeroSkills?.cards ?? []),
           ...(input.extensionCoveHeroSkills?.cards ?? []),
           ...(input.extensionWealdHeroSkills?.cards ?? []),
+          ...(input.extensionMusketeerHeroSkills?.cards ?? []),
         ],
       };
       const rawCards = [
@@ -648,6 +657,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
         ...(input.extensionWarrensHeroSkillRaw?.cards ?? []),
         ...(input.extensionCoveHeroSkillRaw?.cards ?? []),
         ...(input.extensionWealdHeroSkillRaw?.cards ?? []),
+        ...(input.extensionMusketeerHeroSkillRaw?.cards ?? []),
       ];
       const raw = { ...input.heroSkillRaw, cards: rawCards };
       const file = buildHeroSkills(parsed, raw, lookup);

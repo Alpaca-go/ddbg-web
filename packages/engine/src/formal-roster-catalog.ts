@@ -20,6 +20,7 @@ export const FORMAL_HEROES_VERIFIED_ATTRIBUTES: readonly FormalHeroName[] = [
   "MAN-AT-ARMS",
   "HOUNDMASTER",
   "SHIELDBREAKER",
+  "MUSKETEER",
 ];
 
 /** 核心盒两名：STAT 与七张 I 级战斗技能均已核实接线（R-102/R-103，2026-10-24）。 */
@@ -32,7 +33,7 @@ export const ABOMINATION_DOUBLE_FACED_SKILL_IDS: Record<1 | 2 | 3, string> = {
   3: "hero_skill:p222",
 };
 
-const EXTENSION_ROSTER_HEROES: readonly FormalHeroName[] = ["MUSKETEER"];
+const EXTENSION_ROSTER_HEROES: readonly FormalHeroName[] = [];
 
 export function isFormalHeroVerifiedAttributes(name: string): boolean {
   return (FORMAL_HEROES_VERIFIED_ATTRIBUTES as readonly string[]).includes(name);
@@ -50,7 +51,7 @@ const ROSTER_PENDING_STAT_IDS: Record<FormalHeroName, string> = {
   "MAN-AT-ARMS": "hero_stat:cove:man-at-arms:p001:front",
   HOUNDMASTER: "hero_stat:weald:houndmaster:p001:front",
   SHIELDBREAKER: "hero_stat:weald:shieldbreaker:p001:front",
-  MUSKETEER: "hero_stat:musketeer:musketeer:p001:front",
+  MUSKETEER: "",
   CRUSADER: "",
   HELLION: "",
   HIGHWAYMAN: "",
@@ -83,12 +84,16 @@ export const WEALD_VERIFIED_SKILL_PAGE_BLOCKS = [
   { hero: "HOUNDMASTER" as const, startPage: 337, count: 21 },
 ] as const;
 
+/** Musketeer：规范化 `hero_skill:musketeer:p001`–`p021`（MG_DD_08 包 p1–21，见 Q-107）。 */
+export const MUSKETEER_VERIFIED_SKILL_PAGE_BLOCKS = [
+  { hero: "MUSKETEER" as const, startPage: 1, count: 21 },
+] as const;
+
 const EXTENSION_SKILL_BLOCKS = [
   { hero: "FLAGELLANT" as const, startPage: 274, count: 21 },
   { hero: "MAN-AT-ARMS" as const, startPage: 295, count: 21 },
   { hero: "HOUNDMASTER" as const, startPage: 316, count: 21 },
   { hero: "SHIELDBREAKER" as const, startPage: 337, count: 21 },
-  { hero: "MUSKETEER" as const, startPage: 1, count: 21 },
 ];
 
 export type FormalRosterHeroStat = {

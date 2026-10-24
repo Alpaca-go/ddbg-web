@@ -221,6 +221,7 @@ it.each(["quest:p002", "quest:p003"] as const)(
         "JESTER",
         "LEPER",
         "MAN-AT-ARMS",
+        "MUSKETEER",
         "OCCULTIST",
         "SHIELDBREAKER",
       ].sort(),

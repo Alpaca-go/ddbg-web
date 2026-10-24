@@ -513,6 +513,7 @@ it("等待四人时按逃跑交接；不清宝藏/不发20金，登记四死者�
       "JESTER",
       "LEPER",
       "MAN-AT-ARMS",
+      "MUSKETEER",
       "PLAGUE DOCTOR",
       "SHIELDBREAKER",
       "GRAVE ROBBER",

@@ -472,7 +472,7 @@ ddbg/
 
 ### F.5 卡牌以外的收获
 
-- **Musketeer（原待确认 Q-07）**：在 `MG_DD_08_EN_MUSKETEER`（Wave 1）里是一个独立英雄包，有属性卡 2 张（I/II/III 级，HP 14/19/24，村庄技能「Field Dressing」）、PvP 卡 2 张（4 种配置）、技能卡 21 张（Aimed Shot、Smokescreen、Call the Shot、Buckshot、Sidearm、Patch Up、Skeet Shot，各 3 级）和 1 块指示物板。**没有专门的规则书**，应该是按通用英雄规则使用。数据完整，纳入的话工作量约 0.5 周；是否纳入仍由 Kyries 决定。
+- **Musketeer（R-107，2026-10-24）**：`MG_DD_08_EN_MUSKETEER` 独立英雄包；STAT I–III 与七张 I 级战斗技能已 extract + 规范化接线（`extract/extension/musketeer`）。PvP 与指示物板本阶段不接。
 - **Q-08**：Crimson Court 的印刷文件里没有任何英雄卡，可以作为「Crimson Court 不附带英雄」的佐证。
 - **Q-06**：18 名英雄的 I/II/III 级属性卡和技能卡在印刷 PDF 里都是齐全的（Abomination 另有变身卡）。
 - **Q-04**：死门 D10 骰的展开图共 10 面，其中 **3 面是骷髅**，和推断的 3/10 一致。探索骰和补给骰的展开图也在，可以照图录入骰面。

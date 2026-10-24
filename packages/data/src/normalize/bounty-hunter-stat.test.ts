@@ -181,7 +181,8 @@ it("生成数据含获批面，不生成III背面或Jester；数字/来源漂移
       (c: { id: string }) =>
         !c.id.startsWith("hero_stat:warrens:") &&
         !c.id.startsWith("hero_stat:cove:") &&
-        !c.id.startsWith("hero_stat:weald:"),
+        !c.id.startsWith("hero_stat:weald:") &&
+        !c.id.startsWith("hero_stat:musketeer:"),
     ),
   });
   expect(built.cards.some((c) => c.rawId === "hero_stat:p006" && c.face === "back")).toBe(false);

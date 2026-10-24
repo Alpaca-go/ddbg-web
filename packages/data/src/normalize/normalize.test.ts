@@ -94,7 +94,6 @@ describe("规范化核心盒", () => {
       const keys = new Set<string>();
       walk(file, (key) => keys.add(key));
       for (const forbidden of FORBIDDEN_KEYS) expect(keys.has(forbidden)).toBe(false);
-      expect(JSON.stringify(file).toLowerCase()).not.toContain("musketeer");
     }
   });
 
