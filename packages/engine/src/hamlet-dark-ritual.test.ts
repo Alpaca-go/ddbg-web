@@ -155,7 +155,7 @@ it("自身可选（I）；III 对获批 Buff 目标成功；UI I–III 均出现
         (o) => o.command.type === "useHamletSkill" && o.command.skill === "darkRitual",
       ).length,
     ).toBeGreaterThan(0);
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual([]);
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).not.toContain("OCCULTIST");
 });
 
 it("目标缺 Buff 防御或死亡拒绝；压力10走意志续接", () => {

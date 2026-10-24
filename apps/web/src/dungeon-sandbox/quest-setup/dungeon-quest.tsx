@@ -109,7 +109,7 @@ export function DungeonQuest() {
         <div>
           <p className="eyebrow">DDBG · PHASE 4</p>
           <h1>开局建队</h1>
-          <p>正式八英雄开局四人 · I级遗迹 · 单设备1–4人轮流操作</p>
+          <p>正式十八英雄开局四人 · I级遗迹 · 单设备1–4人轮流操作</p>
           <a href="/?view=battle">打开战斗沙盒</a>
         </div>
       </header>
@@ -146,9 +146,9 @@ export function DungeonQuest() {
             />
           </label>
           <p>
-            可选身份共 {FORMAL_HERO_NAMES.length} 名（与替补白名单一致）。盗墓者 I 级七战斗技能与
-            Pilfer 抽取已接（R-096、R-098：抽取不翻面）；神秘学者 I 级技能与 Dark Ritual
-            未接线。可编队并装备已转录技能；未接线效果按 R-048 拒绝，不发明。
+            可选身份共 {FORMAL_HERO_NAMES.length} 名（与替补白名单一致）。八名核心属性已核实；
+            其余十名展示印刷 STAT/技能卡，属性占位或 art-only 技能，标「技能效果未接线」。 缺
+            token/icon 不阻塞建队；未核实战斗效果按 R-048 拒绝，不发明数值。
           </p>
           {party.map((hero, index) => {
             const name = partyNames[index]!;

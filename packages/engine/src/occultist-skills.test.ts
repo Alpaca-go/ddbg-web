@@ -350,7 +350,7 @@ it("Daemon’s Pull I：命中 Pull 2；落空不移；公开命令续接", () =
 });
 
 it("Occ 退出未接线名单；Dark Ritual 命令 schema 接受；III 印刷治疗 5（R-097）", () => {
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual([]);
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).not.toContain("OCCULTIST");
   expect(
     savedCommandSchema.safeParse({
       type: "useHamletSkill",

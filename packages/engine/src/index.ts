@@ -116,6 +116,17 @@ export {
   heroHasUnwiredCombatSkills,
 } from "./formal-heroes";
 export type { FormalHeroName } from "./formal-heroes";
+export {
+  FORMAL_HEROES_VERIFIED_ATTRIBUTES,
+  FORMAL_HEROES_PARTIAL_CORE_SKILLS,
+  formalRosterPendingHeroStats,
+  formalRosterArtOnlySkills,
+  formalRosterLevel1ArtSkillIds,
+  isFormalHeroVerifiedAttributes,
+  isFormalHeroRosterPendingAttributes,
+  isFormalRosterArtSkill,
+  embarkSkillAllowed,
+} from "./formal-roster-catalog";
 export { createQuestSave, loadQuestSave } from "./quest-save";
 export { currentHamletEvent, caretakerBuilding } from "./hamlet-event";
 export type { QuestStart } from "../../data/src/quest-save";

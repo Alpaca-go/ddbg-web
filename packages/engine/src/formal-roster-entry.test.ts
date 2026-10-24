@@ -8,6 +8,11 @@ import {
   heroHasUnwiredCombatSkills,
   isFormalHeroName,
 } from "./formal-heroes";
+import {
+  embarkSkillAllowed,
+  formalRosterLevel1ArtSkillIds,
+  isFormalHeroRosterPendingAttributes,
+} from "./formal-roster-catalog";
 import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
 import { createQuestSave, loadQuestSave } from "./quest-save";
 import { replacementHeroCandidates } from "./hero-death-estate";
@@ -25,47 +30,35 @@ function webQuestSources(): CoreQuestSources {
 
 function partyFromNames(names: readonly string[], sources: CoreQuestSources): QuestParty {
   return names.map((name, index) => {
-    const stat = sources.catalog.heroStats.find(
-      (s) => s.name === name && s.level === 1 && s.attributesVerified,
-    )!;
+    const stat = sources.catalog.heroStats.find((s) => s.name === name && s.level === 1)!;
+    const skills = sources.catalog.skills.filter(
+      (s) => embarkSkillAllowed(name, s) && s.level === 1,
+    );
     return {
       heroStatId: stat.id,
       stance: (["aggressive", "defensive", "ranged", "support"] as const)[index]!,
-      skillIds: sources.catalog.skills
-        .filter((s) => s.hero === name && s.level === 1 && !s.verification.unverified)
-        .slice(0, 3)
-        .map((s) => s.id),
+      skillIds: skills.slice(0, 3).map((s) => s.id),
     };
   });
 }
 
 const sources = webQuestSources();
 
-it("正式名录列出八名已核实英雄，且仅 GR/Occ 标为战斗技能未接线", () => {
-  expect(FORMAL_HERO_NAMES).toEqual([
-    "CRUSADER",
-    "HELLION",
-    "HIGHWAYMAN",
-    "VESTAL",
-    "BOUNTY HUNTER",
-    "PLAGUE DOCTOR",
-    "GRAVE ROBBER",
-    "OCCULTIST",
-  ]);
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual([]);
+it("正式名录列出十八名英雄；十名扩展／未核实 STAT 标为战斗未接线", () => {
+  expect(FORMAL_HERO_NAMES).toHaveLength(18);
   expect(FORMAL_HERO_NAMES.every(isFormalHeroName)).toBe(true);
-  expect(isFormalHeroName("JESTER")).toBe(false);
-  expect(isFormalHeroName("ARBALEST")).toBe(false);
-  expect(isFormalHeroName("ABOMINATION")).toBe(false);
-  for (const name of FORMAL_HERO_NAMES) {
-    expect(heroHasUnwiredCombatSkills(name)).toBe(false);
-  }
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toHaveLength(10);
+  expect(isFormalHeroName("CRUSADER")).toBe(true);
+  expect(isFormalHeroName("MUSKETEER")).toBe(true);
+  expect(heroHasUnwiredCombatSkills("JESTER")).toBe(true);
+  expect(heroHasUnwiredCombatSkills("CRUSADER")).toBe(false);
   expect(
     sources.catalog.heroStats
       .filter((s) => s.level === 1)
       .map((s) => s.name)
       .sort(),
   ).toEqual([...FORMAL_HERO_NAMES].sort());
+  expect(sources.catalog.heroStats).toHaveLength(34);
 });
 
 it("开局可编入赏金猎人与瘟疫医生；存档往返一致", () => {
@@ -76,12 +69,9 @@ it("开局可编入赏金猎人与瘟疫医生；存档往返一致", () => {
       (h) => sources.catalog.heroStats.find((s) => s.id === h.heroStatId)!.name,
     ),
   ).toEqual(["BOUNTY HUNTER", "PLAGUE DOCTOR", "CRUSADER", "VESTAL"]);
-  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([
-    "HELLION",
-    "HIGHWAYMAN",
-    "GRAVE ROBBER",
-    "OCCULTIST",
-  ]);
+  expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual(
+    expect.arrayContaining(["HELLION", "HIGHWAYMAN", "GRAVE ROBBER", "OCCULTIST"]),
+  );
   const start = {
     seed: 21,
     questId: "quest:p001" as const,
@@ -94,16 +84,24 @@ it("开局可编入赏金猎人与瘟疫医生；存档往返一致", () => {
   expect(loaded.start.party).toEqual(start.party);
 });
 
-it("开局可编入盗墓者与神秘学者；存档往返一致", () => {
-  const party = partyFromNames(["GRAVE ROBBER", "OCCULTIST", "HELLION", "HIGHWAYMAN"], sources);
-  const game = createCoreDungeonQuest(22, "quest:p002", "standard", party, sources);
+it("开局可编入 Jester（占位属性 + 已转录 I 级技能）；attributesVerified 为 false", () => {
+  const party = partyFromNames(["JESTER", "CRUSADER", "HELLION", "HIGHWAYMAN"], sources);
+  const game = createCoreDungeonQuest(23, "quest:p001", "standard", party, sources);
+  expect(game.dungeon!.heroes[0]!.attributesVerified).toBe(false);
+  expect(isFormalHeroRosterPendingAttributes("JESTER")).toBe(true);
+});
+
+it("开局可编入 Musketeer（art-only I 级技能）；存档往返一致", () => {
+  const party = partyFromNames(["MUSKETEER", "VESTAL", "HELLION", "HIGHWAYMAN"], sources);
+  const game = createCoreDungeonQuest(24, "quest:p002", "standard", party, sources);
   expect(
     game.dungeon!.heroes.map(
       (h) => sources.catalog.heroStats.find((s) => s.id === h.heroStatId)!.name,
     ),
-  ).toEqual(["GRAVE ROBBER", "OCCULTIST", "HELLION", "HIGHWAYMAN"]);
+  ).toEqual(["MUSKETEER", "VESTAL", "HELLION", "HIGHWAYMAN"]);
+  expect(formalRosterLevel1ArtSkillIds("MUSKETEER")).toHaveLength(7);
   const start = {
-    seed: 22,
+    seed: 24,
     questId: "quest:p002" as const,
     mode: "standard" as const,
     party: party.map((h) => ({ ...h, skillIds: [...h.skillIds] })),
