@@ -254,6 +254,7 @@ ddbg/
 - **进度摘记（2026-10-20）**：Curio / Trinket / Quest 三类卡 UI 已接印刷 TrimBox PNG（`docs/phase4-print-curio-trinket-quest-art-2026-10-20.md`）；Quest 19 页均已入 map（14 张 art-only，任务池仍仅 `basic-quests.ts` 五张）。
 - **进度摘记（2026-10-20）**：ADD_014 两张中型怪物卡（Perfect / Imperfect Reflection）印刷图复用基础版 `p106` / `p109` PNG，不导 ADD PDF；见 `docs/phase4-print-monster-art-map-2026-10-19.md`。
 - **进度摘记（2026-10-20）**：印刷导出管线修复 EN_FILES 过滤、Rubine 刀线（PyMuPDF 1.28）、Windows Python 解析与一键脚本；见 `docs/phase4-print-art-pipeline-2026-10-19.md` §本机一键导出。
+- **进度摘记（2026-10-24）**：Kyries 方案 2：18 名英雄 STAT/SKILLS **印刷卡图**接线（`hero-stat-print-art-map.json`、技能 map 扩展 art-only 行）；玩法数据与 `FORMAL_HERO_NAMES` 不扩。见 `docs/phase4-print-hero-stat-art-map-2026-10-24.md`。
 
 ### Phase 5：Boss 与第 4 幕（核心盒完结）
 - **目标**：核心盒战役能从头打到尾。
