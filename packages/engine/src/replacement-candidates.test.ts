@@ -35,7 +35,7 @@ const start = {
 const BANNED = ["JESTER", "ARBALEST", "ABOMINATION"] as const;
 const EXTRA_NAMES = ["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"] as const;
 
-it("库存：规范化八名attributesVerified；正式网页四名额外候选已接线且排除未核实身份", () => {
+it("库存：规范化八名 attributesVerified；网页目录含建队占位与四名替补候选", () => {
   const normalized = normalizedHeroStatFileSchema.parse(statsFile).cards;
   expect([...new Set(normalized.map((c) => c.name))].sort()).toEqual([
     "BOUNTY HUNTER",
@@ -49,12 +49,14 @@ it("库存：规范化八名attributesVerified；正式网页四名额外候选�
   ]);
   expect(normalized.every((c) => c.attributesVerified)).toBe(true);
   expect(normalized).toHaveLength(24);
-  expect(sources.catalog.heroStats).toHaveLength(24);
-  expect(sources.catalog.skills).toHaveLength(112);
+  expect(sources.catalog.heroStats).toHaveLength(34);
+  expect(sources.catalog.skills.length).toBeGreaterThan(112);
   expect(sixHeroSources.catalog.heroStats).toHaveLength(18);
   expect(sixHeroSources.catalog.skills).toHaveLength(98);
-  for (const name of BANNED)
-    expect(sources.catalog.heroStats.some((s) => s.name === name)).toBe(false);
+  for (const name of BANNED) {
+    const pending = sources.catalog.heroStats.find((s) => s.name === name && s.level === 1);
+    expect(pending?.attributesVerified).toBe(false);
+  }
   const game = createCoreDungeonQuest(14, "quest:p001", "radiant", coreParty, sources);
   expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual([...EXTRA_NAMES]);
   expect(

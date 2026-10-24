@@ -11,6 +11,7 @@ import type { SkillStance } from "./hero-skill";
 import { createConditionPool } from "./conditions";
 import { trinketPoolProblem } from "./trinket-acquisition";
 import { isFormalHeroName } from "./formal-heroes";
+import { embarkSkillAllowed, isFormalHeroRosterPendingAttributes } from "./formal-roster-catalog";
 
 export type CoreQuestSources = {
   readonly catalog: DungeonBattleCatalog;
@@ -27,8 +28,8 @@ export type QuestParty = readonly {
 
 /**
  * R12–17、R-038/048/065：已批准p1的单任务入口，无状态／代币注入，不代替战役选任务。
- * 开局四人须来自正式八英雄目录（与替补白名单同一集合）；转录通过即可装备，
- * GR/Occ 可编入；GR 战斗技能与 Pilfer 抽取已接（R-096、R-098）；Occ I 级七技能与 Dark Ritual I–III 已接（R-097）。
+ * 开局四人须来自正式十八英雄目录（与替补白名单同一集合）。八名已核实 STAT 可正常出征；
+ * 其余十名为建队印刷接线 + 占位属性或 art-only 技能，未核实效果按 R-048 拒绝。
  */
 export function createCoreDungeonQuest(
   seed: number,
@@ -56,32 +57,32 @@ export function createCoreDungeonQuest(
   const selectedNames: string[] = [];
   const heroes = party.map((selected, index) => {
     const stat = sources.catalog.heroStats.find(
-      (stat) => stat.id === selected.heroStatId && stat.level === 1 && stat.attributesVerified,
+      (stat) => stat.id === selected.heroStatId && stat.level === 1,
     );
-    if (!stat || !isFormalHeroName(stat.name) || !Number.isSafeInteger(stat.life) || stat.life < 1)
-      throw new Error("需要已核实的正式目录I级英雄属性");
+    if (
+      !stat ||
+      !isFormalHeroName(stat.name) ||
+      !Number.isSafeInteger(stat.life) ||
+      stat.life < 1 ||
+      (stat.attributesVerified !== true && !isFormalHeroRosterPendingAttributes(stat.name))
+    )
+      throw new Error("需要正式目录I级英雄（已核实属性或已登记的建队占位）");
     selectedNames.push(stat.name);
     if (
       selected.skillIds.length !== 3 ||
       new Set(selected.skillIds).size !== 3 ||
-      selected.skillIds.some(
-        (id) =>
-          !sources.catalog.skills.some(
-            (skill) =>
-              skill.id === id &&
-              skill.hero === stat.name &&
-              skill.level === 1 &&
-              !skill.verification.unverified,
-          ),
-      )
+      selected.skillIds.some((id) => {
+        const skill = sources.catalog.skills.find((entry) => entry.id === id);
+        return !skill || !embarkSkillAllowed(stat.name, skill);
+      })
     )
-      throw new Error("每名英雄须装备三个不同的已核实I级技能");
+      throw new Error("每名英雄须装备三个不同的可用I级技能（已核实或建队印刷 art-only）");
     return {
       id: `hero-${index}`,
       heroStatId: stat.id,
       level: 1,
       life: stat.life,
-      attributesVerified: true,
+      attributesVerified: stat.attributesVerified === true,
       wounds: 0,
       stress: 0,
       stance: selected.stance,

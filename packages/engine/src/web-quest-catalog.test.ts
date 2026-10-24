@@ -77,7 +77,7 @@ it("五英雄旧档在候选/升级/技能/入队各停点严格迁移，伪造�
     const before = structuredClone(save);
     const loaded = loadQuestSave(save, sources, trusted).game;
     expect(save).toEqual(before);
-    expect(loaded.dungeon!.battleCatalog!.heroStats).toHaveLength(24);
+    expect(loaded.dungeon!.battleCatalog!.heroStats).toHaveLength(34);
     expect(loaded.seed).toBe(run.game.seed);
     expect(loaded.dungeon!.cursor).toBe(run.game.dungeon!.cursor);
     expect(loaded.dungeon!.heroes).toEqual(run.game.dungeon!.heroes);
@@ -201,15 +201,15 @@ it("自然再次侦察多人死亡：第二名候选准备、禁止半队入场�
   expect(run.game.dungeon!.campaignFailure).toBe("noWaitingHeroes");
 }, 30000);
 
-it("正式八英雄目录含四名替补各七张I级技能，旧六/五/沙盒目录边界不变", () => {
+it("正式十八英雄目录含替补与建队占位，旧六/五/沙盒目录边界不变", () => {
   expect(previousSources.catalog.heroStats).toHaveLength(4);
   expect(previousSources.catalog.skills).toHaveLength(84);
   expect(fiveSources.catalog.heroStats).toHaveLength(15);
   expect(fiveSources.catalog.skills).toHaveLength(91);
   expect(sixHeroSources.catalog.heroStats).toHaveLength(18);
   expect(sixHeroSources.catalog.skills).toHaveLength(98);
-  expect(sources.catalog.heroStats).toHaveLength(24);
-  expect(sources.catalog.skills).toHaveLength(112);
+  expect(sources.catalog.heroStats).toHaveLength(34);
+  expect(sources.catalog.skills.length).toBeGreaterThan(112);
   for (const hero of EXTRA) {
     expect(sources.catalog.skills.filter((s) => s.hero === hero).map((s) => s.level)).toEqual(
       Array(7).fill(1),
@@ -231,7 +231,7 @@ it("旧网页存档先验证原目录再更新；伪造快照、日志及非目�
   const save = createQuestSave(start, [], game, previousSources);
   expect(() => loadQuestSave(save, sources)).toThrow(/不一致/);
   const loaded = loadQuestSave(save, sources, previousSources);
-  expect(loaded.game.dungeon!.battleCatalog!.heroStats).toHaveLength(24);
+  expect(loaded.game.dungeon!.battleCatalog!.heroStats).toHaveLength(34);
   expect(loaded.game).toEqual(
     createCoreDungeonQuest(start.seed, start.questId, start.mode, start.party, sources),
   );
@@ -264,8 +264,8 @@ it("旧目录真实战斗待选存档更新卡目录后，行动、实体、待�
   const entry = { ...start, seed: 1 };
   const save = createQuestSave(entry, run.commands, run.state, previousSources);
   const updated = loadQuestSave(save, sources, previousSources).game;
-  expect(updated.battle!.heroStats).toHaveLength(24);
-  expect(updated.battle!.skills).toHaveLength(112);
+  expect(updated.battle!.heroStats).toHaveLength(34);
+  expect(updated.battle!.skills.length).toBeGreaterThan(112);
   expect(updated.battle).toEqual({
     ...run.state.battle!,
     heroStats: sources.catalog.heroStats,

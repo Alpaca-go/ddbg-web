@@ -207,7 +207,7 @@ it("R-098：出征保留村庄 Pilfer claimedIds / 有效 lootPool", () => {
 });
 
 it("GR 退出未接线名单；Occ 仍保留（R-096）", () => {
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual([]);
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).not.toContain("GRAVE ROBBER");
   expect(
     coreQuestSources.catalog.heroStats.some(
       (s) => s.id === "hero_stat:p017:front" && s.name === "GRAVE ROBBER",

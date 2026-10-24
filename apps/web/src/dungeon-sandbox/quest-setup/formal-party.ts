@@ -1,5 +1,5 @@
 import { battleData as questBattleData } from "virtual:quest-battle-data";
-import type { FormalHeroName } from "@ddbg/engine";
+import { embarkSkillAllowed, type FormalHeroName } from "@ddbg/engine";
 
 export const defaultPartyNames: FormalHeroName[] = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"];
 export const stanceLabels = {
@@ -10,7 +10,7 @@ export const stanceLabels = {
 } as const;
 export function formalHeroLevel1Skills(name: FormalHeroName) {
   return questBattleData.skills.filter(
-    (s) => s.hero === name && s.level === 1 && !s.verification.unverified,
+    (s) => s.hero === name && s.level === 1 && embarkSkillAllowed(name, s),
   );
 }
 
@@ -21,7 +21,9 @@ export function toggleEmbarkSkillIds(skillIds: readonly string[], skillId: strin
 }
 
 export function formalPartySlot(name: FormalHeroName, index: number) {
-  const stat = questBattleData.heroStats.find((s) => s.name === name && s.level === 1)!;
+  const stat =
+    questBattleData.heroStats.find((s) => s.name === name && s.level === 1) ??
+    questBattleData.heroStats.find((s) => s.name === name)!;
   return {
     heroStatId: stat.id,
     stance: (["aggressive", "defensive", "ranged", "support"] as const)[index]!,

@@ -4,6 +4,9 @@ import {
   createConditionPool,
   roomTileBattleAreas,
   FORMAL_HERO_NAMES,
+  FORMAL_HEROES_PARTIAL_CORE_SKILLS,
+  formalRosterArtOnlySkills,
+  formalRosterPendingHeroStats,
 } from "../../packages/engine/src/index";
 import { diseaseFileSchema } from "../../packages/data/src/disease";
 import { normalizedHeroStatFileSchema } from "../../packages/data/src/normalize/hero-stat";
@@ -62,7 +65,7 @@ export function battleDataPlugin(): Plugin {
             : FORMAL_HERO_NAMES.filter((n) =>
                 ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(n),
               );
-      const heroStats = normalizedHeroStatFileSchema
+      const verifiedHeroStats = normalizedHeroStatFileSchema
         .parse(read("hero_stat"))
         // R-081/088/094/095：战役使用获批属性；普通战斗沙盒保留原四英雄。
         .cards.filter(
@@ -71,6 +74,14 @@ export function battleDataPlugin(): Plugin {
             (questCatalog || card.level === 1) &&
             (catalogNames as readonly string[]).includes(card.name),
         );
+      const heroStats = graveOccultist
+        ? [
+            ...verifiedHeroStats,
+            ...formalRosterPendingHeroStats().filter((card) =>
+              (catalogNames as readonly string[]).includes(card.name),
+            ),
+          ]
+        : verifiedHeroStats;
       const conditions = createConditionPool(
         diseaseFileSchema.parse(read("disease")).cards,
         normalizedQuirkFileSchema.parse(read("quirk")).cards,
@@ -104,9 +115,22 @@ export function battleDataPlugin(): Plugin {
         for (let page = 190; page <= 208; page += 3)
           skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
       }
-      const skills = normalizedHeroSkillFileSchema
-        .parse(read("hero_skill"))
-        .cards.filter((card) => skillIds.has(card.id) && !card.verification.unverified);
+      const allHeroSkills = normalizedHeroSkillFileSchema.parse(read("hero_skill")).cards;
+      if (graveOccultist) {
+        for (const card of allHeroSkills) {
+          if (
+            card.hero &&
+            (FORMAL_HEROES_PARTIAL_CORE_SKILLS as readonly string[]).includes(card.hero) &&
+            !card.verification.unverified
+          )
+            skillIds.add(card.id);
+        }
+      }
+      const rosterArtSkills = graveOccultist ? formalRosterArtOnlySkills() : [];
+      const skills = [
+        ...allHeroSkills.filter((card) => skillIds.has(card.id) && !card.verification.unverified),
+        ...rosterArtSkills,
+      ];
       const monsterIds = new Set([
         "monster_large:p003",
         "monster_medium:p053",
@@ -167,8 +191,8 @@ export function battleDataPlugin(): Plugin {
         !tile ||
         !tile.usable ||
         tile.deployment?.printReview !== "verified" ||
-        heroStats.length !== (graveOccultist ? 24 : plagueDoctor ? 18 : questCatalog ? 15 : 4) ||
-        skills.length !== skillIds.size ||
+        heroStats.length !== (graveOccultist ? 34 : plagueDoctor ? 18 : questCatalog ? 15 : 4) ||
+        skills.length !== skillIds.size + rosterArtSkills.length ||
         monsters.length !== monsterIds.size
       )
         throw new Error("战斗沙盒缺少获批卡牌，拒绝替换或补值（R-048）");
