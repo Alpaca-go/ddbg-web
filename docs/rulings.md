@@ -1059,6 +1059,27 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **暂定**：art map 中 EXTENSION_SKILL_BLOCKS 仍登记 p274+ 待与 Kyries 对齐；不阻塞本 PR 接线。
 - **状态**：待 Kyries 确认
 
+### R-106
+
+- **编号**：R-106
+- **日期**：2026-10-24
+- **问题**：Weald 扩展包 Houndmaster / Shieldbreaker Hero STAT（Weald 印刷 `DD_EN_WEALD_CARDS_100x180_Hero_STAT` p1–4；几何自 TDH 同序 p32–35）与七张 I 级战斗技能（TDH 技能页 **p316–357**，见 Q-106）待核实入库与接线。
+- **裁定**（Kyries 批准转录；不改全局词典除非另开 Q）：
+  - **STAT 入库**（`attributesVerified: true`，`kyries_review_2026-10-24`）：Houndmaster I/II/III 与 Shieldbreaker I/II/III 共六面——Life/Dodge/Speed：HM 11/1/2、15/2/2、19/3/2；SB 11/1/2、15/2/2、19/3/3。CE `speed` 缺印时以移动栏图标数量核实 Speed；Shieldbreaker I/II 印刷两枚靴记 Speed **2**（CE movement.literal 仍为 3，见 Q-106）。
+  - I 级条件防御：两名英雄 I 级正面 `{icon:8db71542d2}` 记 **Stun** 抗性（与核心盒路径一致）。
+  - TDH 免疫栏标题装饰 `55a3fded25` 不入词典、不参与 STAT 核实（同 Q-104 / Q-105 / Q-106）。
+  - **战斗**：各七张 I 级技能 id `hero_skill:p316`–`p334`（Shieldbreaker）、`p337`–`p355`（Houndmaster）规范化核实后接线；移出 `FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`，纳入正式替补白名单。
+- **依据 / 边界**：Weald/TDH 印刷 PDF、CE OFFICIAL_PRINTED_COMPONENT 字面、`extract/extension/weald`、R-048/R-104/R-105 路径。不使用 FAQ。
+- **关联待确认**：Q-106
+- **状态**：Kyries 已确认（2026-10-24）
+
+### Q-106
+
+- **编号**：Q-106
+- **问题**：`print-hero-18-art-catalog` 登记 Houndmaster 技能 p316–336、Shieldbreaker p337–357；CE / 当前 TDH 技能 PDF 上 **Shieldbreaker 自 p316、Houndmaster 自 p337**（与 catalog 英雄顺序对调）。本 PR 技能 id 与 extract 采用 **印刷页 p316–357**；STAT raw 文件路径用 Weald 包 PDF、页码 p1–4（几何自 TDH p32–35 提取）。
+- **暂定**：art map / EXTENSION_SKILL_BLOCKS 仍登记 HM→316、SB→337 待与 Kyries 对齐；不阻塞本 PR 接线。Shieldbreaker I/II CE `movement.literal` 为 3 而 Weald 印刷移动栏仅两枚靴，R-106 Speed 记 2。
+- **状态**：待 Kyries 确认
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。

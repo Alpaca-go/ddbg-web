@@ -18,6 +18,8 @@ export const FORMAL_HEROES_VERIFIED_ATTRIBUTES: readonly FormalHeroName[] = [
   "LEPER",
   "FLAGELLANT",
   "MAN-AT-ARMS",
+  "HOUNDMASTER",
+  "SHIELDBREAKER",
 ];
 
 /** 核心盒两名：STAT 与七张 I 级战斗技能均已核实接线（R-102/R-103，2026-10-24）。 */
@@ -30,11 +32,7 @@ export const ABOMINATION_DOUBLE_FACED_SKILL_IDS: Record<1 | 2 | 3, string> = {
   3: "hero_skill:p222",
 };
 
-const EXTENSION_ROSTER_HEROES: readonly FormalHeroName[] = [
-  "HOUNDMASTER",
-  "SHIELDBREAKER",
-  "MUSKETEER",
-];
+const EXTENSION_ROSTER_HEROES: readonly FormalHeroName[] = ["MUSKETEER"];
 
 export function isFormalHeroVerifiedAttributes(name: string): boolean {
   return (FORMAL_HEROES_VERIFIED_ATTRIBUTES as readonly string[]).includes(name);
@@ -77,6 +75,12 @@ export const WARRENS_VERIFIED_SKILL_PAGE_BLOCKS = [
 export const COVE_VERIFIED_SKILL_PAGE_BLOCKS = [
   { hero: "MAN-AT-ARMS" as const, startPage: 232, count: 21 },
   { hero: "FLAGELLANT" as const, startPage: 253, count: 21 },
+] as const;
+
+/** Shieldbreaker / Houndmaster：规范化 `hero_skill:p316`–`p357`（TDH 印刷页，见 Q-106）。 */
+export const WEALD_VERIFIED_SKILL_PAGE_BLOCKS = [
+  { hero: "SHIELDBREAKER" as const, startPage: 316, count: 21 },
+  { hero: "HOUNDMASTER" as const, startPage: 337, count: 21 },
 ] as const;
 
 const EXTENSION_SKILL_BLOCKS = [

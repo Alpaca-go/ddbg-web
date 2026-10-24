@@ -9,6 +9,7 @@ import {
   formalRosterPendingHeroStats,
   WARRENS_VERIFIED_SKILL_PAGE_BLOCKS,
   COVE_VERIFIED_SKILL_PAGE_BLOCKS,
+  WEALD_VERIFIED_SKILL_PAGE_BLOCKS,
 } from "../../packages/engine/src/index";
 import { diseaseFileSchema } from "../../packages/data/src/disease";
 import { normalizedHeroStatFileSchema } from "../../packages/data/src/normalize/hero-stat";
@@ -54,6 +55,7 @@ export function battleDataPlugin(): Plugin {
       const questCatalog = id !== "\0virtual:battle-data";
       const currentQuest = id === "\0virtual:quest-battle-data";
       const sixHeroQuest = id === "\0virtual:quest-battle-data-v2";
+      const fiveHeroQuest = id === "\0virtual:quest-battle-data-v1";
       const plagueDoctor = currentQuest || sixHeroQuest;
       const graveOccultist = currentQuest;
       const catalogNames = graveOccultist
@@ -127,6 +129,8 @@ export function battleDataPlugin(): Plugin {
           "LEPER",
           "FLAGELLANT",
           "MAN-AT-ARMS",
+          "HOUNDMASTER",
+          "SHIELDBREAKER",
         ] as const) {
           for (const card of verifiedLevel1CombatSkillsForHero(hero, allHeroSkills))
             skillIds.add(card.id);
@@ -137,6 +141,11 @@ export function battleDataPlugin(): Plugin {
           }
         }
         for (const block of COVE_VERIFIED_SKILL_PAGE_BLOCKS) {
+          for (let i = 0; i < block.count; i += 3) {
+            skillIds.add(`hero_skill:p${String(block.startPage + i).padStart(3, "0")}`);
+          }
+        }
+        for (const block of WEALD_VERIFIED_SKILL_PAGE_BLOCKS) {
           for (let i = 0; i < block.count; i += 3) {
             skillIds.add(`hero_skill:p${String(block.startPage + i).padStart(3, "0")}`);
           }
@@ -203,12 +212,22 @@ export function battleDataPlugin(): Plugin {
         .tiles.find(
           (entry) => entry.id === "room_tile:p001" && entry.rawId === "dungeon_tile:p001",
         );
+      const expectedHeroStats = graveOccultist
+        ? 51
+        : sixHeroQuest
+          ? 44
+          : fiveHeroQuest
+            ? 41
+            : questCatalog
+              ? 35
+              : 4;
+      const expectedSkills = skillIds.size + rosterArtSkills.length;
       if (
         !tile ||
         !tile.usable ||
         tile.deployment?.printReview !== "verified" ||
-        heroStats.length !== (graveOccultist ? 47 : plagueDoctor ? 38 : questCatalog ? 35 : 4) ||
-        skills.length !== skillIds.size + rosterArtSkills.length ||
+        heroStats.length !== expectedHeroStats ||
+        skills.length !== expectedSkills ||
         monsters.length !== monsterIds.size
       )
         throw new Error("战斗沙盒缺少获批卡牌，拒绝替换或补值（R-048）");
