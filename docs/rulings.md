@@ -1101,6 +1101,46 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **暂定**：战役沙盒与 `MUSKETEER_VERIFIED_SKILL_PAGE_BLOCKS` 采用 **包内页 p1–21** + `musketeer:` 前缀 id；catalog 登记待与 Kyries 对齐。
 - **状态**：待 Kyries 确认
 
+### R-108
+
+- **编号**：R-108
+- **日期**：2026-10-25
+- **问题**：核心盒任务卡 FRONT 底部 quest_setup 小图标 `7d43c83ef2` 对应房间代币种类（Q-108）。
+- **裁定**：`{icon:7d43c83ef2}` 在任务分布行中表示 **Objective** 房代币（`kind: objective`），与冲压板 Rubine 刀线 objective / 绳绑卷轴图案一致（见 `docs/phase4-print-room-token-art-2026-10-19.md` xref 165）。用于 Dem Bones / Disruption / Break Them / Purify / They Are Back 等卡面分布行。
+- **依据 / 边界**：`DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf` 任务 p4/p6/p9/p10/p13 等；R15 房间代币图例；R-048 不猜未核实图标。数字角标 `a2e7f1dd7b` / `f698b6fd6c` 等仅为数量，不单独命名房间 kind。
+- **关联待确认**：Q-108
+- **状态**：Kyries 已确认（2026-10-25）
+
+### R-109
+
+- **编号**：R-109
+- **日期**：2026-10-25
+- **问题**：任务卡图标 `ecd1d4820d`（常与数量角标连用）对应房间种类（Q-109）。
+- **裁定**：`{icon:ecd1d4820d}` 在任务分布行中表示 **Treasure** 房代币（`kind: treasure`）。Rising Threat I（quest:p005）第二行 `ecd1d4820d` + `723d85db03` 计 **1× treasure**，不是 lair。先例：Fundraiser I（quest:p003）已批准 `ecd1d4820d` + `a2e7f1dd7b` → treasure。
+- **依据 / 边界**：任务 FRONT p5 裁剪为宝箱图案；`fundraiser_distribution.json`；冲压板 treasure（xref 163）。`723d85db03` / `a2e7f1dd7b` 仅为数量角标。
+- **关联待确认**：Q-109
+- **状态**：Kyries 已确认（2026-10-25）
+
+### R-110
+
+- **编号**：R-110
+- **日期**：2026-10-25
+- **问题**：任务卡图标 `0fd90af65e` 对应房间种类（Q-110）。
+- **裁定**：`{icon:0fd90af65e}` 在任务分布行中表示 **Dark** 房代币（`kind: dark`）。They Are Back III（quest:p013）第一行该图标计 **1× dark**；同卡 `feea73ac43×1` 为 **1× curio**（不是把 `0fd90af65e` 当 curio）。
+- **依据 / 边界**：任务 FRONT p13 裁剪为火把图案；与 `25bc58381e`→dark 同族；R15。`a2e7f1dd7b` 若同行出现仅为数量角标。
+- **关联待确认**：Q-110
+- **状态**：Kyries 已确认（2026-10-25）
+
+### R-111
+
+- **编号**：R-111
+- **日期**：2026-10-25
+- **问题**：任务卡图标 `5281dfacce` 对应房间种类（Q-111）。
+- **裁定**：`{icon:5281dfacce}` 在任务分布行中表示 **Lair** 房代币（`kind: lair`）。The Threat is Real III（quest:p015）行 `5281dfacce` + `f698b6fd6c` 计 **3× lair**；`f698b6fd6c` 仅为数量角标。
+- **依据 / 边界**：任务 FRONT p15；冲压板 lair（xref 175）；R15。不使用 FAQ。
+- **关联待确认**：Q-111
+- **状态**：Kyries 已确认（2026-10-25）
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。
@@ -1157,6 +1197,10 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 | Q-49 | R-050 | Kyries 已确认（2026-10-06） |
 | Q-50 | R-051 | 依据印刷件 |
 | Q-51 | R-052 | 暂定（规则书未写明） |
+| Q-108 | R-108 | Kyries 已确认（2026-10-25） |
+| Q-109 | R-109 | Kyries 已确认（2026-10-25） |
+| Q-110 | R-110 | Kyries 已确认（2026-10-25） |
+| Q-111 | R-111 | Kyries 已确认（2026-10-25） |
 
 ### 仍待确认
 

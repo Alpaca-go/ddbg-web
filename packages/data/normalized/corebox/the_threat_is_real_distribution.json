@@ -1,6 +1,6 @@
 {
   "questId": "quest:p015",
-  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p15; R15 / R29 / R-038; 5281dfacce+f698→lair pending Q-111; print reviewed 2026-10-25",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p15; R15 / R29 / R-038; 5281dfacce→lair (R-111, Kyries 2026-10-25; 冲压板 lair 图案); f698 仅为数量角标; print reviewed 2026-10-25",
   "counts": [
     { "kind": "dark", "count": 2 },
     { "kind": "treasure", "count": 1 },

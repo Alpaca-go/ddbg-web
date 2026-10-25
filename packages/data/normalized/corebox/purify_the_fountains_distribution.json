@@ -1,6 +1,6 @@
 {
   "questId": "quest:p010",
-  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p10; R15 / R29 / R-038; 7d43c83ef2→objective pending Q-108; print reviewed 2026-10-25",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p10; R15 / R29 / R-038; 7d43c83ef2→objective (R-108, Kyries 2026-10-25); print reviewed 2026-10-25",
   "counts": [
     { "kind": "objective", "count": 3 },
     { "kind": "dark", "count": 2 },

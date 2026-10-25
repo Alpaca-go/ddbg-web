@@ -42,6 +42,23 @@ it("Dem Bones / Rising Threat / Creeping Darkness 分布 JSON 与 basic-quests �
   expect(basicQuests.find((q) => q.id === "quest:p014")!.distribution).toEqual(creepingDarkness);
 });
 
+it("R-109 / R-110：Rising Threat 无 lair；They Are Back dark×1 curio×1（Kyries 2026-10-25）", () => {
+  expect(risingThreat.counts).toEqual([
+    { kind: "empty", count: 2 },
+    { kind: "dark", count: 1 },
+    { kind: "curio", count: 3 },
+    { kind: "treasure", count: 1 },
+    { kind: "trap", count: 1 },
+  ]);
+  expect(basicQuests.find((q) => q.id === "quest:p013")!.distribution.counts).toEqual([
+    { kind: "objective", count: 3 },
+    { kind: "empty", count: 1 },
+    { kind: "dark", count: 1 },
+    { kind: "curio", count: 1 },
+    { kind: "trap", count: 2 },
+  ]);
+});
+
 it("standardBasicQuestSummarySchema 接受新任务待发 XP", () => {
   const parsed = standardBasicQuestSummarySchema.safeParse({
     questId: "quest:p005",

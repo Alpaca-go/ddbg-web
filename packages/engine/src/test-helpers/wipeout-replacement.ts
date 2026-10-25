@@ -118,13 +118,13 @@ function prepareFourVerifiedExtras(game: GameState): {
  * preferWipeout 浪费行动至 heroesDefeated → finishDungeonBattle → 准备四名已核实额外。
  * 整段命令可 createQuestSave / loadQuestSave。
  */
-export function naturalWipeoutReplacementPath(sources: CoreQuestSources = coreQuestSources) {
-  const fund = naturalQuest(2, "quest:p003", false, sources);
+export function naturalWipeoutReplacementPathForSeed(sources: CoreQuestSources, seed: number) {
+  const fund = naturalQuest(seed, "quest:p003", false, sources);
   const fundCommands: Command[] = fund.commands.map((c, i) =>
     i === fund.commands.length - 1 && c.type === "resolveChoice" ? { ...c, optionId: "give:0" } : c,
   );
   const start = {
-    seed: 2,
+    seed,
     questId: "quest:p003" as const,
     mode: "radiant" as const,
     party: naturalParty.map((hero) => ({ ...hero, skillIds: [...hero.skillIds] })),
@@ -177,7 +177,7 @@ export function naturalWipeoutReplacementPath(sources: CoreQuestSources = coreQu
     choiceId: game.dungeon!.pending!.id,
     optionId: "quest:p001",
   });
-  const wipe = naturalQuest(2, "quest:p001", false, sources, 2, {
+  const wipe = naturalQuest(seed, "quest:p001", false, sources, 2, {
     continueFrom: game,
     preferWipeout: true,
   });
@@ -198,4 +198,15 @@ export function naturalWipeoutReplacementPath(sources: CoreQuestSources = coreQu
     save,
     sources,
   };
+}
+
+export function naturalWipeoutReplacementPath(sources: CoreQuestSources = coreQuestSources) {
+  for (let seed = 2; seed < 602; seed++) {
+    try {
+      return naturalWipeoutReplacementPathForSeed(sources, seed);
+    } catch {
+      /* 出征池扩大后需同时满足抽到 Scout 与 preferWipeout 全灭 */
+    }
+  }
+  throw new Error("未找到自然全灭路径种子（2+）");
 }

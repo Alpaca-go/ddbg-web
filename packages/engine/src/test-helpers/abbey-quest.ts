@@ -6,21 +6,21 @@ import { coreQuestSources } from "./core-quest";
 import { naturalParty, naturalQuest } from "./natural-quest";
 
 /** 真实Fundraiser seed2，不捐献；完整牌池/命令，无金币、持牌或牌序注入。 */
-export function naturalAbbeyQuest(catalog = coreQuestSources.catalog) {
+export function naturalAbbeyQuest(catalog = coreQuestSources.catalog, seed = 2) {
   const sources = { ...coreQuestSources, catalog };
-  const journey = naturalQuest(2, "quest:p003", false, sources);
+  const journey = naturalQuest(seed, "quest:p003", false, sources);
   const commands: Command[] = journey.commands.map((c, i) =>
     i === journey.commands.length - 1 && c.type === "resolveChoice"
       ? { ...c, optionId: "give:0" }
       : c,
   );
   const start = {
-    seed: 2,
+    seed,
     questId: "quest:p003" as const,
     mode: "radiant" as const,
     party: naturalParty.map((h) => ({ ...h, skillIds: [...h.skillIds] })),
   };
-  let game = createCoreDungeonQuest(2, start.questId, start.mode, naturalParty, sources);
+  let game = createCoreDungeonQuest(seed, start.questId, start.mode, naturalParty, sources);
   const apply = (c: Command) => {
     const r = applyCommand(game, c);
     const refused = r.events.find((e) => e.type === "commandRefused");
