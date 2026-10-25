@@ -1,0 +1,11 @@
+{
+  "questId": "quest:p005",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p5; R15 / R29 / R-038; feea73ac43×3 curio; ecd1d4820d+723d85db03→lair pending Q-109; print reviewed 2026-10-25",
+  "counts": [
+    { "kind": "empty", "count": 2 },
+    { "kind": "dark", "count": 1 },
+    { "kind": "curio", "count": 3 },
+    { "kind": "lair", "count": 1 },
+    { "kind": "trap", "count": 1 }
+  ]
+}

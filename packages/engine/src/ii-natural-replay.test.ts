@@ -10,12 +10,14 @@ import { coreQuestSources as sources } from "./test-helpers/core-quest";
 import { naturalAbbeyQuest } from "./test-helpers/abbey-quest";
 import { guildQuest } from "./test-helpers/guild-quest";
 import { naturalQuest } from "./test-helpers/natural-quest";
+import { scoutThenDualIiOfferSeed } from "./test-helpers/quest-offer-seed";
 
 let scout: ReturnType<typeof guildQuest>, fundraiser: ReturnType<typeof naturalAbbeyQuest>;
 beforeAll(() => {
-  scout = guildQuest(sources, 14);
+  const seed = scoutThenDualIiOfferSeed(sources, 14);
+  scout = guildQuest(sources, seed);
   fundraiser = naturalAbbeyQuest();
-}, 60000);
+}, 120000);
 
 /** 与既有II级出征测试相同的准备结束夹具；仅收束天数，不改资源/英雄/牌序。 */
 function preparationReady(game: GameState): GameState {
@@ -122,6 +124,7 @@ function journey(base: GameState, questId: "quest:p007" | "quest:p008") {
   };
   step({ type: "advanceCampaignLevel" }); // 明示沙盒Boss跳过，不算正式升幕。
   step({ type: "offerNextQuest" });
+  expect(state.dungeon!.nextQuestOffers).toContain(questId);
   step({ type: "resolveChoice", choiceId: state.dungeon!.pending!.id, optionId: questId });
   const run = naturalQuest(state.seed, questId, false, sources, 2, {
     continueFrom: state,

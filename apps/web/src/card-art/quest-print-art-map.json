@@ -8,27 +8,27 @@
       "heightPt": 340.16
     },
     "exportScript": "tools/pipeline/scripts/export-print-corebox-trim-decks.mjs",
-    "enabledQuestIds": ["quest:p001", "quest:p002", "quest:p003", "quest:p007", "quest:p008"],
-    "artOnlyQuestIds": [
+    "enabledQuestIds": [
+      "quest:p001",
+      "quest:p002",
+      "quest:p003",
       "quest:p004",
       "quest:p005",
       "quest:p006",
+      "quest:p007",
+      "quest:p008",
       "quest:p009",
       "quest:p010",
       "quest:p011",
-      "quest:p012",
       "quest:p013",
       "quest:p014",
-      "quest:p015",
-      "quest:p016",
-      "quest:p017",
-      "quest:p018",
-      "quest:p019"
+      "quest:p015"
     ],
+    "artOnlyQuestIds": ["quest:p012", "quest:p016", "quest:p017", "quest:p018", "quest:p019"],
     "reviewedAt": "2026-10-20",
     "notes": [
-      "All 19 quest print pages mapped; status enabled = basic-quests.ts + UI quest pool, art-only = raster only (Kyries 2026-10-20).",
-      "Enabling art-only quests requires basic-quests / rules changes; not in this slice."
+      "All 19 quest print pages mapped; status enabled = basic-quests.ts + UI quest pool, art-only = raster only.",
+      "quest:p012 Forward Camps 仍 art-only：印刷 extract 房间计数为 ?，待目视核实后再接 basic-quests（2026-10-25）。"
     ]
   },
   "cards": [
@@ -104,7 +104,7 @@
     {
       "id": "quest:p004",
       "name": "Dem Bones I",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p004.png",
@@ -127,7 +127,7 @@
     {
       "id": "quest:p005",
       "name": "Rising Threat I",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p005.png",
@@ -150,7 +150,7 @@
     {
       "id": "quest:p006",
       "name": "Disruption II",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p006.png",
@@ -219,7 +219,7 @@
     {
       "id": "quest:p009",
       "name": "Break Them II",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p009.png",
@@ -242,7 +242,7 @@
     {
       "id": "quest:p010",
       "name": "Purify the Fountains II",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p010.png",
@@ -265,7 +265,7 @@
     {
       "id": "quest:p011",
       "name": "Warm Up the Halls III",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p011.png",
@@ -311,7 +311,7 @@
     {
       "id": "quest:p013",
       "name": "They Are Back III",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p013.png",
@@ -334,7 +334,7 @@
     {
       "id": "quest:p014",
       "name": "Creeping Darkness III",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p014.png",
@@ -357,7 +357,7 @@
     {
       "id": "quest:p015",
       "name": "The Threat is Real III",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p015.png",

@@ -127,12 +127,22 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
     stagecoachXp: xpPerHero,
     awarded: false,
   });
+  const xpUnit =
+    quest.xpKind === "lair"
+      ? "巢穴"
+      : quest.xpKind === "curio"
+        ? "Curio 房"
+        : quest.xpKind === "dark"
+          ? "暗房"
+          : quest.xpKind === "objective"
+            ? "目标房"
+            : "房间";
   return {
     state: { ...state, dungeon: { ...d, questSummary } },
     events: [
       {
         type: "dungeonUpdated",
-        message: `${quest.name}：${quest.xpKind === "lair" ? "巢穴" : "房间"}清理 ${clearedRoomIds.length} 间，每名英雄与驿站待发 ${xpPerHero} XP；回村发放尚未接线（R29、R-038）`,
+        message: `${quest.name}：${xpUnit}清理 ${clearedRoomIds.length} 间，每名英雄与驿站待发 ${xpPerHero} XP；回村发放尚未接线（R29、R-038）`,
       },
     ],
   };

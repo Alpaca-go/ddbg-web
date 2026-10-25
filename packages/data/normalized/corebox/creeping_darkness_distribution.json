@@ -1,0 +1,12 @@
+{
+  "questId": "quest:p014",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p14; R15 / R29 / R-038; same quest_setup→kind map as Scout/Clear the Path; print reviewed 2026-10-25",
+  "counts": [
+    { "kind": "empty", "count": 1 },
+    { "kind": "dark", "count": 1 },
+    { "kind": "curio", "count": 2 },
+    { "kind": "treasure", "count": 1 },
+    { "kind": "lair", "count": 2 },
+    { "kind": "trap", "count": 1 }
+  ]
+}

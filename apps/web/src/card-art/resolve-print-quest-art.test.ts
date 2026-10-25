@@ -7,23 +7,8 @@ import {
   printQuestArtMapMeta,
 } from "./resolve-print-quest-art";
 
-const ENABLED = ["quest:p001", "quest:p002", "quest:p003", "quest:p007", "quest:p008"] as const;
-const ART_ONLY = [
-  "quest:p004",
-  "quest:p005",
-  "quest:p006",
-  "quest:p009",
-  "quest:p010",
-  "quest:p011",
-  "quest:p012",
-  "quest:p013",
-  "quest:p014",
-  "quest:p015",
-  "quest:p016",
-  "quest:p017",
-  "quest:p018",
-  "quest:p019",
-] as const;
+const ENABLED = printMap.source.enabledQuestIds;
+const ART_ONLY = printMap.source.artOnlyQuestIds;
 
 const basicQuestIds = new Set<string>(basicQuests.map((q) => q.id));
 
@@ -40,8 +25,8 @@ describe("print quest art map", () => {
 
     const enabledCards = printMap.cards.filter((c) => c.status === "enabled");
     const artOnlyCards = printMap.cards.filter((c) => c.status === "art-only");
-    expect(enabledCards).toHaveLength(5);
-    expect(artOnlyCards).toHaveLength(14);
+    expect(enabledCards).toHaveLength(ENABLED.length);
+    expect(artOnlyCards).toHaveLength(ART_ONLY.length);
 
     for (const card of printMap.cards) {
       expect(lookupPrintQuestFace(card.id)).toBeDefined();
@@ -69,10 +54,17 @@ describe("print quest art map", () => {
     expect(scout?.faces.front.textSnippet).toContain("Scout Ahead");
   });
 
-  it("resolves art-only Dem Bones I without basic-quests entry", () => {
+  it("enables Dem Bones I with basic-quests entry", () => {
     const demBones = lookupPrintQuestFace("quest:p004");
     expect(demBones?.name).toBe("Dem Bones I");
-    expect(demBones?.status).toBe("art-only");
-    expect(basicQuestIds.has("quest:p004")).toBe(false);
+    expect(demBones?.status).toBe("enabled");
+    expect(basicQuestIds.has("quest:p004")).toBe(true);
+  });
+
+  it("keeps Forward Camps art-only until print counts verified", () => {
+    const forward = lookupPrintQuestFace("quest:p012");
+    expect(forward?.name).toBe("Forward Camps III");
+    expect(forward?.status).toBe("art-only");
+    expect(basicQuestIds.has("quest:p012")).toBe(false);
   });
 });

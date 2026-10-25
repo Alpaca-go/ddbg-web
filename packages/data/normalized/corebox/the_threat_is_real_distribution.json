@@ -1,0 +1,10 @@
+{
+  "questId": "quest:p015",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p15; R15 / R29 / R-038; 5281dfacce+f698→lair pending Q-111; print reviewed 2026-10-25",
+  "counts": [
+    { "kind": "dark", "count": 2 },
+    { "kind": "treasure", "count": 1 },
+    { "kind": "lair", "count": 3 },
+    { "kind": "trap", "count": 2 }
+  ]
+}

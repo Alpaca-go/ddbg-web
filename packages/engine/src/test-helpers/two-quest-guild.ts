@@ -5,13 +5,15 @@ import { coreQuestSources } from "./core-quest";
 import { naturalParty, naturalQuest } from "./natural-quest";
 import { currentHamletHero } from "../hamlet-actions";
 import { gainDisease } from "../conditions";
+import { scoutThenWipeOfferSeed } from "./quest-offer-seed";
 
 /**
  * 自然两任务攒满 4XP 后停在第二轮村庄 heroActions，供 Guild 升级验收。
- * seed14：Scout Ahead 四房 2XP → 出征 Wipe ‘Em Out 两巢穴 2XP（规格书 §13.1 / R-038，QUEST p1–p2）。
+ * Scout Ahead 四房 2XP → 出征 Wipe ‘Em Out 两巢穴 2XP（规格书 §13.1 / R-038，QUEST p1–p2）。
  * 第一轮村庄全部使用真实看守人/Zealous Speech命令，不注入准备结束状态。
  */
 export function twoQuestGuildPath(sources = coreQuestSources, seed = 14) {
+  seed = scoutThenWipeOfferSeed(sources, seed);
   const first = naturalQuest(seed, "quest:p001", false, sources, 4);
   const commands: Command[] = [...first.commands];
   let game = first.state;

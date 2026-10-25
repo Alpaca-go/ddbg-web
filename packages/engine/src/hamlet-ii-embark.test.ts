@@ -84,7 +84,12 @@ it("战役等级 I→II：移出 I 级任务堆、累加 II 级怪物、地牢�
   expect(applyCommand(game, { type: "advanceCampaignLevel" }).state).toBe(game);
 
   step({ type: "offerNextQuest" });
-  expect([...(game.dungeon!.nextQuestOffers ?? [])].sort()).toEqual(["quest:p007", "quest:p008"]);
+  expect(game.dungeon!.nextQuestOffers).toHaveLength(2);
+  expect(
+    game.dungeon!.nextQuestOffers!.every((id) =>
+      basicQuests.some((q) => q.id === id && q.level === 2),
+    ),
+  ).toBe(true);
   expect(game.dungeon!.pending!.options).toContainEqual({
     id: "quest:p008",
     label: "Reduce to Rubble II",
@@ -115,13 +120,18 @@ it("未推进战役等级时不能抽到 II 级任务；已在 II 级时拒绝�
   const offered = ok(ready, { type: "offerNextQuest" });
   expect(
     offered.dungeon!.nextQuestOffers?.every((id) =>
-      ["quest:p001", "quest:p002", "quest:p003"].includes(id),
+      basicQuests.some((q) => q.id === id && q.level === 1),
     ),
   ).toBe(true);
   const advanced = ok(preparationReady(baseline.game), { type: "advanceCampaignLevel" });
   expect(applyCommand(advanced, { type: "advanceCampaignLevel" }).state).toBe(advanced);
   const ii = ok(advanced, { type: "offerNextQuest" });
-  expect([...(ii.dungeon!.nextQuestOffers ?? [])].sort()).toEqual(["quest:p007", "quest:p008"]);
+  expect(ii.dungeon!.nextQuestOffers).toHaveLength(2);
+  expect(
+    ii.dungeon!.nextQuestOffers!.every((id) =>
+      basicQuests.some((q) => q.id === id && q.level === 2),
+    ),
+  ).toBe(true);
 });
 it("Clear the Path II印刷黄金表：八房含两宝藏，不套用Scout的两空房；休息8点", () => {
   const quest = basicQuests.find((q) => q.id === "quest:p007")!;

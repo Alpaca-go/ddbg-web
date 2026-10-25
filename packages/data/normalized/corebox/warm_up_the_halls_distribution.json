@@ -1,0 +1,10 @@
+{
+  "questId": "quest:p011",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p11; R15 / R29 / R-038; feea73ac43×2 curio; print reviewed 2026-10-25",
+  "counts": [
+    { "kind": "dark", "count": 3 },
+    { "kind": "curio", "count": 2 },
+    { "kind": "lair", "count": 2 },
+    { "kind": "trap", "count": 1 }
+  ]
+}

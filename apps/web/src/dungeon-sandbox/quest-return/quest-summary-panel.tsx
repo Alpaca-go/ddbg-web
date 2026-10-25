@@ -30,6 +30,7 @@ export function QuestSummaryPanel({
           {d.questSummary.awarded ? "已发" : "待发"} {d.questSummary.xpPerHero} XP · 驿站
           {d.questSummary.awarded ? "已发" : "待发"} {d.questSummary.stagecoachXp} XP
           {d.questSummary.questId === "quest:p003" &&
+            "objectiveMet" in d.questSummary &&
             (d.questSummary.objectiveMet
               ? ` · 捐献${d.questSummary.donatedGold}金币`
               : " · 提前离开，目标未达；跳过捐献")}

@@ -6,6 +6,7 @@ import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../data/normalized/corebox/scout_ahead_distribution.json";
 import { nextProvisionFace } from "./loot";
 import { naturalAbbeyQuest } from "./test-helpers/abbey-quest";
+import { basicQuests } from "../../data/src/basic-quests";
 import { coreQuestSources } from "./test-helpers/core-quest";
 import { applyTemporarySkillUpgrades, restoreTemporarySkillUpgrades } from "./hamlet-embark";
 
@@ -254,7 +255,7 @@ it("未准备完成/重复抽卡/无剩余任务原子拒绝", () => {
     dungeon: {
       ...dungeon,
       pending: null,
-      discardedQuests: ["quest:p001", "quest:p002"],
+      discardedQuests: basicQuests.filter((q) => q.level === 1).map((q) => q.id),
     },
   };
   expect(applyCommand(empty, { type: "offerNextQuest" }).state).toBe(empty);

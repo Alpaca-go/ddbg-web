@@ -8,10 +8,12 @@ import { naturalParty, naturalQuest } from "./test-helpers/natural-quest";
 import { currentHamletHero, hamletActionOptions } from "./hamlet-actions";
 import { createQuestSave, loadQuestSave } from "./quest-save";
 import { replacementHeroCandidates } from "./hero-death-estate";
+import { scoutThenOfferSeed } from "./test-helpers/quest-offer-seed";
 
 it.each(["quest:p002", "quest:p003"] as const)(
   "正式瘟疫医生替补：回村能力→%s自然战斗→再次回村与完整存档",
   (nextQuestId) => {
+    const seed = scoutThenOfferSeed(coreQuestSources, nextQuestId);
     const load = battleDataPlugin().load as (id: string) => string;
     const code = load("\0virtual:quest-battle-data");
     const catalog = JSON.parse(code.slice("export const battleData = ".length, -1));
@@ -20,7 +22,7 @@ it.each(["quest:p002", "quest:p003"] as const)(
       catalog: { ...catalog, trinkets: coreQuestSources.catalog.trinkets },
       resolveCards: catalog.resolveCards,
     };
-    const run = naturalQuest(14, "quest:p001", true, sources, 2, {
+    const run = naturalQuest(seed, "quest:p001", true, sources, 2, {
       observe(game) {
         if (!game.battle && game.dungeon!.phase === "ready" && game.dungeon!.position !== "S")
           throw new Error("observed-room");
@@ -49,7 +51,7 @@ it.each(["quest:p002", "quest:p003"] as const)(
     };
     const saved = (snapshot = game, log: readonly Command[] = commands) => {
       const start = {
-        seed: 14,
+        seed,
         questId: "quest:p001" as const,
         mode: "radiant" as const,
         party: naturalParty,
@@ -135,7 +137,7 @@ it.each(["quest:p002", "quest:p003"] as const)(
     let sawBattle = false,
       sawDoctor = false,
       sawBlight = false;
-    const second = naturalQuest(14, nextQuestId, true, sources, 2, {
+    const second = naturalQuest(seed, nextQuestId, true, sources, 2, {
       continueFrom: game,
       exitAfterBattles: 1,
       observe(snapshot, command) {
