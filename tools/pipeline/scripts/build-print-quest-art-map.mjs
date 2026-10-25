@@ -29,11 +29,12 @@ const ENABLED_QUEST_IDS = [
   "quest:p009",
   "quest:p010",
   "quest:p011",
+  "quest:p012",
   "quest:p013",
   "quest:p014",
   "quest:p015",
 ];
-const ART_ONLY_QUEST_IDS = ["quest:p012", "quest:p016", "quest:p017", "quest:p018", "quest:p019"];
+const ART_ONLY_QUEST_IDS = ["quest:p016", "quest:p017", "quest:p018", "quest:p019"];
 const ALL_QUEST_IDS = [...ENABLED_QUEST_IDS, ...ART_ONLY_QUEST_IDS].sort(
   (a, b) => Number(a.replace("quest:p", "")) - Number(b.replace("quest:p", "")),
 );
@@ -129,7 +130,7 @@ const map = {
     reviewedAt: "2026-10-20",
     notes: [
       "All 19 quest print pages mapped; status enabled = basic-quests.ts + UI quest pool, art-only = raster only.",
-      "quest:p012 Forward Camps 仍 art-only：印刷 extract 房间计数为 ?，待目视核实后再接 basic-quests（2026-10-25）。",
+      "quest:p012 Forward Camps III：data-pool-only（empty×3 + randomizeNonObjective×5）；camp XP / SPECIAL 设营地运行时另刀（R-112，2026-10-25）。",
     ],
   },
   cards,

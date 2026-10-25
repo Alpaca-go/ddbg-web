@@ -64,6 +64,26 @@ export const dungeonLayoutFileSchema = z
   });
 
 /** R12：每一枚代币独立参与洗混；不靠未命名图标推断种类。 */
+export const roomTokenKindSchema = z.enum([
+  "empty",
+  "dark",
+  "curio",
+  "lair",
+  "trap",
+  "treasure",
+  "objective",
+]);
+export type RoomTokenKind = z.infer<typeof roomTokenKindSchema>;
+
+/** Forward Camps 等卡面「?」槽：仅非 Objective 五类（印刷底栏 dark/curio/treasure/lair/trap）。 */
+export const randomNonObjectiveRoomKinds: readonly RoomTokenKind[] = [
+  "dark",
+  "curio",
+  "treasure",
+  "lair",
+  "trap",
+];
+
 export const roomDistributionSchema = z
   .strictObject({
     questId: z.string().min(1),
@@ -71,14 +91,25 @@ export const roomDistributionSchema = z
     counts: z
       .array(
         z.strictObject({
-          kind: z.enum(["empty", "dark", "curio", "lair", "trap", "treasure", "objective"]),
+          kind: roomTokenKindSchema,
           count: z.int().positive(),
         }),
       )
       .min(1),
+    /** 出征前由种子展开为 counts 中的具体种类；不写入印刷 JSON 的「?」数量。 */
+    randomizeNonObjective: z.int().positive().optional(),
   })
   .superRefine((data, ctx) => {
     if (new Set(data.counts.map((c) => c.kind)).size !== data.counts.length)
       ctx.addIssue({ code: "custom", message: "代币种类重复" });
+    if (data.randomizeNonObjective && data.counts.some((c) => c.kind === "objective"))
+      ctx.addIssue({ code: "custom", message: "randomizeNonObjective 与固定 objective 代币冲突" });
   });
 export type RoomDistribution = z.infer<typeof roomDistributionSchema>;
+
+export function roomDistributionTokenTotal(
+  distribution: Pick<RoomDistribution, "counts" | "randomizeNonObjective">,
+) {
+  const fixed = distribution.counts.reduce((n, c) => n + c.count, 0);
+  return fixed + (distribution.randomizeNonObjective ?? 0);
+}

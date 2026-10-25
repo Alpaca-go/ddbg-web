@@ -12,7 +12,13 @@ import warmUpTheHalls from "../normalized/corebox/warm_up_the_halls_distribution
 import theyAreBack from "../normalized/corebox/they_are_back_distribution.json";
 import creepingDarkness from "../normalized/corebox/creeping_darkness_distribution.json";
 import theThreatIsReal from "../normalized/corebox/the_threat_is_real_distribution.json";
-import { roomDistributionSchema } from "./dungeon-layout";
+import forwardCamps from "../normalized/corebox/forward_camps_distribution.json";
+import {
+  randomNonObjectiveRoomKinds,
+  roomDistributionSchema,
+  roomDistributionTokenTotal,
+  type RoomDistribution,
+} from "./dungeon-layout";
 
 export type QuestXpKind = "all" | "lair" | "gold" | "objective" | "curio" | "dark";
 
@@ -129,6 +135,17 @@ export const basicQuests = [
     distribution: roomDistributionSchema.parse(warmUpTheHalls),
   },
   {
+    id: "quest:p012",
+    name: "Forward Camps III",
+    level: 3 as const,
+    restPoints: 8,
+    // Q-112：印刷「1 Xp / Set up camp」；QuestXpKind 无 camp，本刀不接设营 XP 结算（勿误用 all/objective）。
+    xpKind: "all" as const,
+    roomsPerXp: 999,
+    maxRooms: 8,
+    distribution: roomDistributionSchema.parse(forwardCamps),
+  },
+  {
     id: "quest:p013",
     name: "They Are Back III",
     level: 3 as const,
@@ -170,8 +187,28 @@ export function readBasicQuest(input: unknown) {
   const parsed = roomDistributionSchema.safeParse(input);
   if (!parsed.success) return null;
   const quest = basicQuests.find((q) => q.id === parsed.data.questId);
-  if (!quest || !matchesQuestCounts(parsed.data.counts, quest.distribution.counts)) return null;
+  if (!quest || !storedDistributionMatchesQuest(parsed.data, quest.distribution)) return null;
   return quest;
+}
+
+/** 出征后 state 存展开 counts；模板 JSON 可含 randomizeNonObjective。 */
+export function storedDistributionMatchesQuest(
+  stored: RoomDistribution,
+  template: RoomDistribution,
+) {
+  if (stored.questId !== template.questId) return false;
+  if (!template.randomizeNonObjective) return matchesQuestCounts(stored.counts, template.counts);
+  const fixed = template.counts;
+  for (const f of fixed) {
+    const row = stored.counts.find((c) => c.kind === f.kind);
+    if (!row || row.count !== f.count) return false;
+  }
+  const fixedKinds = new Set(fixed.map((c) => c.kind));
+  const randomRows = stored.counts.filter((c) => !fixedKinds.has(c.kind));
+  const randomTotal = randomRows.reduce((n, c) => n + c.count, 0);
+  if (randomTotal !== template.randomizeNonObjective) return false;
+  if (randomRows.some((c) => !randomNonObjectiveRoomKinds.includes(c.kind))) return false;
+  return roomDistributionTokenTotal(stored) === roomDistributionTokenTotal(template);
 }
 export function matchesQuestCounts(
   actual: readonly { kind: string; count: number }[],

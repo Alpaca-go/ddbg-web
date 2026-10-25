@@ -20,15 +20,16 @@
       "quest:p009",
       "quest:p010",
       "quest:p011",
+      "quest:p012",
       "quest:p013",
       "quest:p014",
       "quest:p015"
     ],
-    "artOnlyQuestIds": ["quest:p012", "quest:p016", "quest:p017", "quest:p018", "quest:p019"],
+    "artOnlyQuestIds": ["quest:p016", "quest:p017", "quest:p018", "quest:p019"],
     "reviewedAt": "2026-10-20",
     "notes": [
       "All 19 quest print pages mapped; status enabled = basic-quests.ts + UI quest pool, art-only = raster only.",
-      "quest:p012 Forward Camps 仍 art-only：印刷 extract 房间计数为 ?，待目视核实后再接 basic-quests（2026-10-25）。"
+      "quest:p012 Forward Camps III：data-pool-only（empty×3 + randomizeNonObjective×5）；camp XP / SPECIAL 设营地运行时另刀（R-112，2026-10-25）。"
     ]
   },
   "cards": [
@@ -288,7 +289,7 @@
     {
       "id": "quest:p012",
       "name": "Forward Camps III",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p012.png",

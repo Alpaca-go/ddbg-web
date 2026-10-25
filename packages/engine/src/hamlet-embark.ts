@@ -13,6 +13,7 @@ import { trinketPoolProblem, trinketDeck, setTrinketDeck } from "./trinket-acqui
 import { heroSkillSlotCount } from "./hero-loadout";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { scoutAheadPlanProblem } from "./hamlet-scout-ahead";
+import { resolveRoomDistributionForEmbark } from "./room-distribution-resolve";
 
 type Hero = DungeonState["heroes"][number];
 
@@ -289,12 +290,17 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
   if (trinketPoolProblem(washed.pool, applied.heroes))
     return rejectBattleCommand(state, trinketPoolProblem(washed.pool, applied.heroes)!);
   const parsedLayout = dungeonLayoutSchema.parse(layout);
-  const distribution = roomDistributionSchema.parse(quest.distribution);
+  const resolved = resolveRoomDistributionForEmbark(
+    roomDistributionSchema.parse(quest.distribution),
+    state.seed,
+    washed.cursor,
+  );
+  const distribution = resolved.distribution;
   const slots = parsedLayout.nodes.filter((n) => n.kind === "room");
   const kinds = distribution.counts.flatMap((c) => Array.from({ length: c.count }, () => c.kind));
   if (kinds.length !== slots.length || parsedLayout.unresolvedMarkers?.length)
     return rejectBattleCommand(state, "下一任务地图/代币不一致，未出征（R-046）");
-  const shuffled = shuffleKinds(kinds, state.seed, washed.cursor);
+  const shuffled = shuffleKinds(kinds, state.seed, resolved.cursor);
   const priorDiscarded = d.discardedQuests ?? [];
   const newlyDiscarded = [
     d.questSummary!.questId,

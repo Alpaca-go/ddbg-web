@@ -1,0 +1,6 @@
+{
+  "questId": "quest:p012",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p12; R15 / R29 / R-038; Kyries data-pool-only 2026-10-25; empty×3 印刷核实；底栏五格 ? = randomizeNonObjective×5（dark/curio/treasure/lair/trap 槽位，非 Objective）",
+  "counts": [{ "kind": "empty", "count": 3 }],
+  "randomizeNonObjective": 5
+}
