@@ -1,5 +1,6 @@
 import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
-import { basicQuests, questsForCampaignLevel } from "../../data/src/basic-quests";
+import { basicQuests } from "../../data/src/basic-quests";
+import { questsForCampaignLevel } from "./campaign-quest-pool";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import {
   dungeonLayoutSchema,

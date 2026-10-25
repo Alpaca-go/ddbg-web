@@ -1,5 +1,6 @@
 import trinketFile from "../../data/normalized/corebox/trinket.json";
-import { basicQuests, questsForCampaignLevel } from "../../data/src/basic-quests";
+import { basicQuests } from "../../data/src/basic-quests";
+import { questsForCampaignLevel } from "./campaign-quest-pool";
 import type { CampaignLevel } from "../../data/src/basic-quests";
 import { monsterPoolCatalogSchema, ruinsMonsterPool } from "../../data/src/monster-pool";
 import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
