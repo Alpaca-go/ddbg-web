@@ -1,6 +1,6 @@
 # Phase 4：Weald — Houndmaster / Shieldbreaker（2026-10-24）
 
-状态：**I 级七战斗技能与 STAT I–III 已接线（R-106）。`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 仅余 MUSKETEER。**
+状态：**I 级七战斗技能与 STAT I–III 已接线（R-106）。Musketeer 见 [phase4-musketeer-2026-10-24.md](phase4-musketeer-2026-10-24.md)（R-107）。**
 
 ## 范围
 

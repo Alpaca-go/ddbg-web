@@ -269,7 +269,8 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
         (c: { id: string }) =>
           !c.id.startsWith("hero_stat:warrens:") &&
           !c.id.startsWith("hero_stat:cove:") &&
-          !c.id.startsWith("hero_stat:weald:"),
+          !c.id.startsWith("hero_stat:weald:") &&
+          !c.id.startsWith("hero_stat:musketeer:"),
       ),
     };
     expect(
@@ -277,7 +278,8 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
         (c) =>
           !c.id.startsWith("hero_stat:warrens:") &&
           !c.id.startsWith("hero_stat:cove:") &&
-          !c.id.startsWith("hero_stat:weald:"),
+          !c.id.startsWith("hero_stat:weald:") &&
+          !c.id.startsWith("hero_stat:musketeer:"),
       ),
     ).toEqual(built.cards);
     expect(buildHeroStats(raw, dictionary)).toEqual(coreOnly);

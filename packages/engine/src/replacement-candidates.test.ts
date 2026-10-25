@@ -36,7 +36,7 @@ const start = {
 const CORE_TRIO = ["JESTER", "ARBALEST", "ABOMINATION"] as const;
 const EXTRA_NAMES = VERIFIED_REPLACEMENT_NAMES;
 
-it("库存：规范化十七名已核实 attributesVerified；一名扩展建队占位与十三名替补候选", () => {
+it("库存：规范化十八名已核实 attributesVerified；十四名替补候选", () => {
   const normalized = normalizedHeroStatFileSchema.parse(statsFile).cards;
   expect([...new Set(normalized.map((c) => c.name))].sort()).toEqual([
     "ABOMINATION",
@@ -52,16 +52,17 @@ it("库存：规范化十七名已核实 attributesVerified；一名扩展建队
     "JESTER",
     "LEPER",
     "MAN-AT-ARMS",
+    "MUSKETEER",
     "OCCULTIST",
     "PLAGUE DOCTOR",
     "SHIELDBREAKER",
     "VESTAL",
   ]);
   expect(normalized.every((c) => c.attributesVerified)).toBe(true);
-  expect(normalized).toHaveLength(50);
-  expect(sources.catalog.heroStats).toHaveLength(51);
+  expect(normalized).toHaveLength(53);
+  expect(sources.catalog.heroStats).toHaveLength(53);
   expect(sources.catalog.skills.length).toBeGreaterThan(112);
-  expect(sixHeroSources.catalog.heroStats).toHaveLength(44);
+  expect(sixHeroSources.catalog.heroStats).toHaveLength(47);
   expect(sixHeroSources.catalog.skills).toHaveLength(98);
   for (const name of [...CORE_TRIO, "ANTIQUARIAN", "LEPER"] as const) {
     const stat = sources.catalog.heroStats.find((s) => s.name === name && s.level === 1);

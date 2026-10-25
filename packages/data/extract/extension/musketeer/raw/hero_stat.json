@@ -1,0 +1,878 @@
+{
+  "schema": "ddbg-raw-v1",
+  "extractor_version": "1.0.4",
+  "category": "hero_stat",
+  "kind": "card",
+  "units": {
+    "length": "mm",
+    "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+    "y_axis": "down",
+    "font_size": "pt"
+  },
+  "sources": [
+    {
+      "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_FRONT.pdf",
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_BACK.pdf",
+      "source_set": "extension",
+      "kind": "card",
+      "front_pages": 2,
+      "back_pages": 2
+    }
+  ],
+  "n_pages": 2,
+  "n_unique": 2,
+  "n_copies_total": 2,
+  "cards": [
+    {
+      "id": "hero_stat:musketeer:musketeer:p001",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [1],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_FRONT.pdf",
+          "page": 1,
+          "trim_mm": [100.0, 180.0],
+          "face_phash": "c16ae063faa13bd4",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [20.32, 29.71, 22.09, 38.11],
+              "font": "DwarvenAxeBB",
+              "size": 21.78,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Resistances        Immunities",
+              "bbox": [15.66, 127.91, 63.85, 133.57],
+              "font": "DwarvenAxeBB",
+              "size": 14.69,
+              "color": "#919396"
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.93, 87.6, 79.53, 105.34],
+              "font": "DwarvenAxeBB",
+              "size": 46.0,
+              "color": "#231f20",
+              "dup": 2
+            },
+            {
+              "t": "Hamlet Skill:",
+              "bbox": [29.43, 151.03, 49.01, 156.43],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Field Dressing",
+              "bbox": [50.27, 151.03, 69.77, 156.43],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 13.36,
+              "color": "#5a4540"
+            },
+            {
+              "t": "Choose",
+              "bbox": [31.99, 156.94, 42.93, 160.73],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and roll",
+              "bbox": [49.45, 156.94, 60.7, 160.73],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ":",
+              "bbox": [66.36, 156.94, 67.21, 160.73],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "1-3:",
+              "bbox": [25.94, 162.24, 31.4, 166.0],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "4",
+              "bbox": [34.42, 161.46, 36.51, 167.01],
+              "font": "DwarvenAxeBB",
+              "size": 14.4,
+              "color": "#40af4a"
+            },
+            {
+              "t": ",",
+              "bbox": [38.77, 162.24, 39.55, 165.9],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "4-8:",
+              "bbox": [41.01, 162.24, 46.48, 166.0],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "2",
+              "bbox": [49.58, 161.46, 51.51, 167.01],
+              "font": "DwarvenAxeBB",
+              "size": 14.4,
+              "color": "#40af4a"
+            },
+            {
+              "t": ",",
+              "bbox": [53.84, 162.24, 54.62, 165.9],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "9-10:",
+              "bbox": [56.09, 162.24, 63.36, 166.0],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "+2",
+              "bbox": [69.15, 161.48, 72.48, 166.49],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [72.48, 162.24, 73.26, 165.9],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "14",
+              "bbox": [49.43, 110.62, 56.44, 120.92],
+              "font": "DwarvenAxeBB",
+              "size": 27.8,
+              "color": "#ffffff"
+            },
+            {
+              "t": "0",
+              "bbox": [27.35, 106.73, 30.46, 114.78],
+              "font": "DwarvenAxeBB",
+              "size": 20.88,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "bb21119dee",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "iconId": "8466c441ea",
+              "bbox": [18.94, 30.34, 23.39, 37.2]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 93.32, 10.48, 99.72],
+              "bbox_full": [1.2, 90.43, 13.39, 102.63]
+            },
+            {
+              "iconId": "ea576f3383",
+              "bbox": [24.54, 106.41, 34.32, 115.56]
+            },
+            {
+              "iconId": "7a472f5d6f",
+              "bbox": [26.47, 107.94, 41.91, 123.38]
+            },
+            {
+              "iconId": "9534ad5184",
+              "bbox": [45.5, 108.01, 60.8, 123.31]
+            },
+            {
+              "iconId": "4648c9e5ec",
+              "bbox": [64.42, 111.16, 74.47, 121.21]
+            },
+            {
+              "iconId": "f9c2c60dad",
+              "bbox": [38.92, 126.0, 40.42, 144.77]
+            },
+            {
+              "iconId": "df4eb1ac47",
+              "bbox": [21.52, 136.17, 28.22, 142.52],
+              "bbox_full": [19.29, 134.29, 30.21, 144.61]
+            },
+            {
+              "iconId": "94bfa4dde4",
+              "bbox": [61.44, 156.47, 66.36, 161.13]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [44.44, 157.14, 47.86, 160.48]
+            },
+            {
+              "iconId": "9d58d3d431",
+              "bbox": [64.21, 161.92, 68.44, 166.16],
+              "bbox_full": [63.04, 161.24, 69.39, 167.08]
+            },
+            {
+              "iconId": "e8a4b7eebf",
+              "bbox": [32.56, 161.47, 34.94, 163.76]
+            },
+            {
+              "iconId": "e8a4b7eebf",
+              "bbox": [47.64, 161.47, 50.02, 163.76]
+            },
+            {
+              "iconId": "20ffe98e2d",
+              "bbox": [34.27, 162.55, 38.52, 166.64]
+            },
+            {
+              "iconId": "20ffe98e2d",
+              "bbox": [49.35, 162.55, 53.59, 166.64]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:bb21119dee}",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8466c441ea} I",
+              "bbox": [18.94, 29.71, 23.39, 38.11]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50} MUSKETEER",
+              "bbox": [4.08, 87.6, 79.53, 105.34]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ea576f3383} {icon:7a472f5d6f} 0 {icon:9534ad5184} 14 {icon:4648c9e5ec}",
+              "bbox": [24.54, 106.41, 74.47, 123.38]
+            },
+            {
+              "rot": 0,
+              "text": "Resistances        Immunities {icon:f9c2c60dad}",
+              "bbox": [15.66, 126.0, 63.85, 144.77]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df4eb1ac47}",
+              "bbox": [21.52, 136.17, 28.22, 142.52]
+            },
+            {
+              "rot": 0,
+              "text": "Hamlet Skill: Field Dressing",
+              "bbox": [29.43, 151.03, 69.77, 156.43]
+            },
+            {
+              "rot": 0,
+              "text": "Choose {icon:7616568d52} and roll {icon:94bfa4dde4} :",
+              "bbox": [31.99, 156.47, 67.21, 161.13]
+            },
+            {
+              "rot": 0,
+              "text": "1-3: {icon:e8a4b7eebf} {icon:20ffe98e2d} 4 , 4-8: {icon:e8a4b7eebf} {icon:20ffe98e2d} 2 , 9-10: {icon:9d58d3d431} +2.",
+              "bbox": [25.94, 161.46, 73.26, 167.01]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_BACK.pdf",
+          "page": 1,
+          "trim_mm": [100.0, 180.0],
+          "face_phash": "c16ae06352f17bd4",
+          "spans": [
+            {
+              "t": "19",
+              "bbox": [47.25, 110.62, 54.42, 120.92],
+              "font": "DwarvenAxeBB",
+              "size": 27.8,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [25.79, 106.73, 27.81, 114.78],
+              "font": "DwarvenAxeBB",
+              "size": 20.88,
+              "color": "#ffffff"
+            },
+            {
+              "t": "II",
+              "bbox": [19.44, 29.71, 22.98, 38.11],
+              "font": "DwarvenAxeBB",
+              "size": 21.78,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Resistances        Immunities",
+              "bbox": [15.66, 127.91, 63.85, 133.57],
+              "font": "DwarvenAxeBB",
+              "size": 14.69,
+              "color": "#919396"
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.93, 87.6, 79.53, 105.34],
+              "font": "DwarvenAxeBB",
+              "size": 46.0,
+              "color": "#231f20",
+              "dup": 2
+            },
+            {
+              "t": "Hamlet Skill:",
+              "bbox": [29.43, 151.03, 49.01, 156.43],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Field Dressing",
+              "bbox": [50.27, 151.03, 69.77, 156.43],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 13.36,
+              "color": "#5a4540"
+            },
+            {
+              "t": "Choose",
+              "bbox": [31.99, 156.94, 42.93, 160.73],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and roll",
+              "bbox": [49.45, 156.94, 60.7, 160.73],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ":",
+              "bbox": [66.36, 156.94, 67.21, 160.73],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "1-3:",
+              "bbox": [25.94, 162.24, 31.4, 166.0],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "7",
+              "bbox": [34.58, 161.46, 36.35, 167.01],
+              "font": "DwarvenAxeBB",
+              "size": 14.4,
+              "color": "#40af4a"
+            },
+            {
+              "t": ",",
+              "bbox": [38.77, 162.24, 39.55, 165.9],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "4-8:",
+              "bbox": [41.01, 162.24, 46.48, 166.0],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "4",
+              "bbox": [49.5, 161.46, 51.59, 167.01],
+              "font": "DwarvenAxeBB",
+              "size": 14.4,
+              "color": "#40af4a"
+            },
+            {
+              "t": ",",
+              "bbox": [53.84, 162.24, 54.62, 165.9],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "9-10:",
+              "bbox": [56.09, 162.24, 63.36, 166.0],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "+2",
+              "bbox": [69.15, 161.48, 72.48, 166.49],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [72.48, 162.24, 73.26, 165.9],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "bb21119dee",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "iconId": "8466c441ea",
+              "bbox": [18.06, 30.34, 24.28, 37.2]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 65.22, 10.48, 71.62],
+              "bbox_full": [1.2, 62.34, 13.39, 74.53]
+            },
+            {
+              "iconId": "ea576f3383",
+              "bbox": [22.44, 106.41, 32.22, 115.56]
+            },
+            {
+              "iconId": "7a472f5d6f",
+              "bbox": [24.37, 107.94, 39.81, 123.38]
+            },
+            {
+              "iconId": "9534ad5184",
+              "bbox": [43.4, 108.01, 58.7, 123.31]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 111.56, 10.48, 117.96],
+              "bbox_full": [1.2, 108.67, 13.39, 120.87]
+            },
+            {
+              "iconId": "4648c9e5ec",
+              "bbox": [62.4, 111.16, 72.44, 121.21]
+            },
+            {
+              "iconId": "f9c2c60dad",
+              "bbox": [38.92, 126.0, 40.42, 144.77]
+            },
+            {
+              "iconId": "7034784ee1",
+              "bbox": [16.55, 134.28, 25.98, 144.31]
+            },
+            {
+              "iconId": "df4eb1ac47",
+              "bbox": [26.46, 136.17, 33.51, 142.52],
+              "bbox_full": [24.54, 134.29, 35.46, 144.61]
+            },
+            {
+              "iconId": "94bfa4dde4",
+              "bbox": [61.44, 156.47, 66.36, 161.13]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [44.44, 157.14, 47.86, 160.48]
+            },
+            {
+              "iconId": "9d58d3d431",
+              "bbox": [64.21, 161.92, 68.44, 166.16],
+              "bbox_full": [63.04, 161.24, 69.39, 167.08]
+            },
+            {
+              "iconId": "e8a4b7eebf",
+              "bbox": [32.56, 161.47, 34.94, 163.76]
+            },
+            {
+              "iconId": "e8a4b7eebf",
+              "bbox": [47.64, 161.47, 50.02, 163.76]
+            },
+            {
+              "iconId": "20ffe98e2d",
+              "bbox": [34.27, 162.55, 38.52, 166.64]
+            },
+            {
+              "iconId": "20ffe98e2d",
+              "bbox": [49.35, 162.55, 53.59, 166.64]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:bb21119dee}",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8466c441ea} II",
+              "bbox": [18.06, 29.71, 24.28, 38.11]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50}",
+              "bbox": [4.08, 65.22, 10.48, 71.62]
+            },
+            {
+              "rot": 0,
+              "text": "MUSKETEER",
+              "bbox": [20.93, 87.6, 79.53, 105.34]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50}",
+              "bbox": [4.08, 111.56, 10.48, 117.96]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ea576f3383} {icon:7a472f5d6f} 1 {icon:9534ad5184} 19 {icon:4648c9e5ec}",
+              "bbox": [22.44, 106.41, 72.44, 123.38]
+            },
+            {
+              "rot": 0,
+              "text": "Resistances        Immunities {icon:f9c2c60dad}",
+              "bbox": [15.66, 126.0, 63.85, 144.77]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7034784ee1} {icon:df4eb1ac47}",
+              "bbox": [16.55, 134.28, 33.51, 144.31]
+            },
+            {
+              "rot": 0,
+              "text": "Hamlet Skill: Field Dressing",
+              "bbox": [29.43, 151.03, 69.77, 156.43]
+            },
+            {
+              "rot": 0,
+              "text": "Choose {icon:7616568d52} and roll {icon:94bfa4dde4} :",
+              "bbox": [31.99, 156.47, 67.21, 161.13]
+            },
+            {
+              "rot": 0,
+              "text": "1-3: {icon:e8a4b7eebf} {icon:20ffe98e2d} 7 , 4-8: {icon:e8a4b7eebf} {icon:20ffe98e2d} 4 , 9-10: {icon:9d58d3d431} +2.",
+              "bbox": [25.94, 161.46, 73.26, 167.01]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "hero_stat:musketeer:musketeer:p002",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [2],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_FRONT.pdf",
+          "page": 2,
+          "trim_mm": [100.0, 180.0],
+          "face_phash": "d56ae16142f13bd4",
+          "spans": [
+            {
+              "t": "24",
+              "bbox": [41.89, 110.62, 49.98, 120.92],
+              "font": "DwarvenAxeBB",
+              "size": 27.8,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Resistances        Immunities",
+              "bbox": [15.66, 127.91, 63.85, 133.57],
+              "font": "DwarvenAxeBB",
+              "size": 14.69,
+              "color": "#919396"
+            },
+            {
+              "t": "2",
+              "bbox": [20.5, 106.73, 23.3, 114.78],
+              "font": "DwarvenAxeBB",
+              "size": 20.88,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Hamlet Skill:",
+              "bbox": [29.43, 151.03, 49.01, 156.43],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Field Dressing",
+              "bbox": [50.27, 151.03, 69.77, 156.43],
+              "font": "DwarvenAxeBB-Italic",
+              "size": 13.36,
+              "color": "#5a4540"
+            },
+            {
+              "t": "Choose",
+              "bbox": [31.99, 156.94, 42.93, 160.73],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and roll",
+              "bbox": [49.45, 156.94, 60.7, 160.73],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ":",
+              "bbox": [66.36, 156.94, 67.21, 160.73],
+              "font": "Ubuntu-Medium",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "1-3:",
+              "bbox": [25.94, 162.24, 31.4, 166.0],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "9",
+              "bbox": [34.38, 161.46, 36.55, 167.01],
+              "font": "DwarvenAxeBB",
+              "size": 14.4,
+              "color": "#40af4a"
+            },
+            {
+              "t": ",",
+              "bbox": [38.77, 162.24, 39.55, 165.9],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "4-8:",
+              "bbox": [41.01, 162.24, 46.48, 166.0],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "5",
+              "bbox": [49.5, 161.46, 51.58, 167.01],
+              "font": "DwarvenAxeBB",
+              "size": 14.4,
+              "color": "#40af4a"
+            },
+            {
+              "t": ",",
+              "bbox": [53.84, 162.24, 54.62, 165.9],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "9-10:",
+              "bbox": [56.09, 162.24, 63.36, 166.0],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "+2",
+              "bbox": [69.15, 161.48, 72.48, 166.49],
+              "font": "DwarvenAxeBB",
+              "size": 13.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [72.48, 162.24, 73.26, 165.9],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "III",
+              "bbox": [18.31, 29.21, 23.61, 37.61],
+              "font": "DwarvenAxeBB",
+              "size": 21.78,
+              "color": "#ffffff"
+            },
+            {
+              "t": "MUSKETEER",
+              "bbox": [20.93, 87.6, 79.53, 105.34],
+              "font": "DwarvenAxeBB",
+              "size": 46.0,
+              "color": "#231f20",
+              "dup": 2
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "bb21119dee",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "iconId": "8466c441ea",
+              "bbox": [16.92, 29.84, 24.92, 36.7]
+            },
+            {
+              "iconId": "23cc2e3363",
+              "bbox": [4.08, 40.72, 10.48, 47.12],
+              "bbox_full": [1.2, 37.83, 13.39, 50.02]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 87.06, 10.48, 93.46],
+              "bbox_full": [1.2, 84.17, 13.39, 96.36]
+            },
+            {
+              "iconId": "ea576f3383",
+              "bbox": [17.54, 106.41, 27.32, 115.56]
+            },
+            {
+              "iconId": "7a472f5d6f",
+              "bbox": [19.47, 107.94, 34.91, 123.38]
+            },
+            {
+              "iconId": "9534ad5184",
+              "bbox": [38.5, 108.01, 53.8, 123.31]
+            },
+            {
+              "iconId": "4648c9e5ec",
+              "bbox": [57.5, 111.16, 67.54, 121.21]
+            },
+            {
+              "iconId": "4648c9e5ec",
+              "bbox": [70.77, 111.16, 80.81, 121.21]
+            },
+            {
+              "iconId": "f9c2c60dad",
+              "bbox": [38.92, 126.0, 40.42, 144.77]
+            },
+            {
+              "iconId": "61fd969d50",
+              "bbox": [4.08, 133.4, 10.48, 139.8],
+              "bbox_full": [1.2, 130.51, 13.39, 142.7]
+            },
+            {
+              "iconId": "8db71542d2",
+              "bbox": [20.04, 134.28, 29.48, 144.31]
+            },
+            {
+              "iconId": "df4eb1ac47",
+              "bbox": [52.21, 136.17, 58.91, 142.52],
+              "bbox_full": [50.04, 134.29, 60.96, 144.61]
+            },
+            {
+              "iconId": "94bfa4dde4",
+              "bbox": [61.44, 156.47, 66.36, 161.13]
+            },
+            {
+              "iconId": "7616568d52",
+              "bbox": [44.44, 157.14, 47.86, 160.48]
+            },
+            {
+              "iconId": "9d58d3d431",
+              "bbox": [64.21, 161.92, 68.44, 166.16],
+              "bbox_full": [63.04, 161.24, 69.39, 167.08]
+            },
+            {
+              "iconId": "e8a4b7eebf",
+              "bbox": [32.56, 161.47, 34.94, 163.76]
+            },
+            {
+              "iconId": "e8a4b7eebf",
+              "bbox": [47.64, 161.47, 50.02, 163.76]
+            },
+            {
+              "iconId": "20ffe98e2d",
+              "bbox": [34.27, 162.55, 38.52, 166.64]
+            },
+            {
+              "iconId": "20ffe98e2d",
+              "bbox": [49.35, 162.55, 53.59, 166.64]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:bb21119dee}",
+              "bbox": [13.48, 9.18, 28.71, 24.41]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8466c441ea} III",
+              "bbox": [16.92, 29.21, 24.92, 37.61]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:23cc2e3363}",
+              "bbox": [4.08, 40.72, 10.48, 47.12]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50} MUSKETEER",
+              "bbox": [4.08, 87.06, 79.53, 105.34]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ea576f3383} {icon:7a472f5d6f} 2 {icon:9534ad5184} 24 {icon:4648c9e5ec} {icon:4648c9e5ec}",
+              "bbox": [17.54, 106.41, 80.81, 123.38]
+            },
+            {
+              "rot": 0,
+              "text": "Resistances        Immunities {icon:f9c2c60dad}",
+              "bbox": [15.66, 126.0, 63.85, 144.77]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:61fd969d50}",
+              "bbox": [4.08, 133.4, 10.48, 139.8]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8db71542d2}",
+              "bbox": [20.04, 134.28, 29.48, 144.31]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df4eb1ac47}",
+              "bbox": [52.21, 136.17, 58.91, 142.52]
+            },
+            {
+              "rot": 0,
+              "text": "Hamlet Skill: Field Dressing",
+              "bbox": [29.43, 151.03, 69.77, 156.43]
+            },
+            {
+              "rot": 0,
+              "text": "Choose {icon:7616568d52} and roll {icon:94bfa4dde4} :",
+              "bbox": [31.99, 156.47, 67.21, 161.13]
+            },
+            {
+              "rot": 0,
+              "text": "1-3: {icon:e8a4b7eebf} {icon:20ffe98e2d} 9 , 4-8: {icon:e8a4b7eebf} {icon:20ffe98e2d} 5 , 9-10: {icon:9d58d3d431} +2.",
+              "bbox": [25.94, 161.46, 73.26, 167.01]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_BACK.pdf",
+          "page": 2,
+          "trim_mm": [100.0, 180.0],
+          "face_phash": "c74323d3e564636c",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    }
+  ]
+}

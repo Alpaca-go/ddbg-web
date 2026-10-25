@@ -44,10 +44,10 @@ function partyFromNames(names: readonly string[], sources: CoreQuestSources): Qu
 
 const sources = webQuestSources();
 
-it("正式名录列出十八名英雄；一名扩展占位 STAT 与一名战斗未接线", () => {
+it("正式名录列出十八名英雄；战斗技能未接线名单已空", () => {
   expect(FORMAL_HERO_NAMES).toHaveLength(18);
   expect(FORMAL_HERO_NAMES.every(isFormalHeroName)).toBe(true);
-  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual(["MUSKETEER"]);
+  expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual([]);
   expect(isFormalHeroName("CRUSADER")).toBe(true);
   expect(isFormalHeroName("MUSKETEER")).toBe(true);
   expect(heroHasUnwiredCombatSkills("JESTER")).toBe(false);
@@ -59,7 +59,7 @@ it("正式名录列出十八名英雄；一名扩展占位 STAT 与一名战斗�
       .map((s) => s.name)
       .sort(),
   ).toEqual([...FORMAL_HERO_NAMES].sort());
-  expect(sources.catalog.heroStats).toHaveLength(51);
+  expect(sources.catalog.heroStats).toHaveLength(53);
 });
 
 it("开局可编入赏金猎人与瘟疫医生；存档往返一致", () => {
@@ -94,7 +94,7 @@ it("开局可编入 Jester（已核实属性 + 已转录 I 级技能）；attrib
   expect(heroHasUnwiredCombatSkills("JESTER")).toBe(false);
 });
 
-it("开局可编入 Musketeer（art-only I 级技能）；存档往返一致", () => {
+it("开局可编入 Musketeer（已核实属性 + I 级技能）；存档往返一致", () => {
   const party = partyFromNames(["MUSKETEER", "VESTAL", "HELLION", "HIGHWAYMAN"], sources);
   const game = createCoreDungeonQuest(24, "quest:p002", "standard", party, sources);
   expect(
@@ -102,7 +102,10 @@ it("开局可编入 Musketeer（art-only I 级技能）；存档往返一致", (
       (h) => sources.catalog.heroStats.find((s) => s.id === h.heroStatId)!.name,
     ),
   ).toEqual(["MUSKETEER", "VESTAL", "HELLION", "HIGHWAYMAN"]);
-  expect(formalRosterLevel1ArtSkillIds("MUSKETEER")).toHaveLength(7);
+  expect(game.dungeon!.heroes[0]!.attributesVerified).toBe(true);
+  expect(game.dungeon!.heroes[0]!.heroStatId).toBe("hero_stat:musketeer:musketeer:p001:front");
+  expect(formalRosterLevel1ArtSkillIds("MUSKETEER")).toHaveLength(0);
+  expect(isFormalHeroRosterPendingAttributes("MUSKETEER")).toBe(false);
   const start = {
     seed: 24,
     questId: "quest:p002" as const,

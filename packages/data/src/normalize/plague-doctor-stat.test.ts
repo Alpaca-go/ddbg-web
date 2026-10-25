@@ -139,7 +139,8 @@ const coreHeroStatFile = () => {
       (c: { id: string }) =>
         !c.id.startsWith("hero_stat:warrens:") &&
         !c.id.startsWith("hero_stat:cove:") &&
-        !c.id.startsWith("hero_stat:weald:"),
+        !c.id.startsWith("hero_stat:weald:") &&
+        !c.id.startsWith("hero_stat:musketeer:"),
     ),
   };
 };

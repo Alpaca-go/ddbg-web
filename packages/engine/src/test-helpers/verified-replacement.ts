@@ -13,6 +13,7 @@ export const VERIFIED_REPLACEMENT_NAMES = [
   "PLAGUE DOCTOR",
   "GRAVE ROBBER",
   "OCCULTIST",
+  "MUSKETEER",
 ] as const;
 
 export const VERIFIED_REPLACEMENT_STAT_IDS = [
@@ -29,6 +30,7 @@ export const VERIFIED_REPLACEMENT_STAT_IDS = [
   "hero_stat:weald:shieldbreaker:p001:front",
   "hero_stat:p015:front",
   "hero_stat:p021:front",
+  "hero_stat:musketeer:musketeer:p001:front",
 ] as const;
 
 /** 驿站 III 余额 4 的全灭夹具仍只准备原四名额外；其余三名替补仍在候选池。 */
@@ -42,6 +44,7 @@ export const VERIFIED_REMAINING_AFTER_FOUR_PREP = [
   "MAN-AT-ARMS",
   "HOUNDMASTER",
   "SHIELDBREAKER",
+  "MUSKETEER",
 ] as const;
 
 export function verifiedReplacementNamesExcluding(...exclude: readonly string[]) {

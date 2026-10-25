@@ -1,0 +1,1115 @@
+{
+  "schema": "ddbg-parsed-v0",
+  "extractor_version": "1.0.4",
+  "category": "hero_skill",
+  "source": "raw/extension/musketeer/hero_skill.json",
+  "field_notes": "Musketeer package skills p1–21 (MG_DD_08).",
+  "icon_token": "{icon:<iconId>} = unannotated icon cluster, see icons/catalog.json",
+  "stats": {
+    "cards": 21,
+    "ok": 21,
+    "failed": 0,
+    "success_rate": 1.0
+  },
+  "failures": [],
+  "cards": [
+    {
+      "id": "hero_skill:musketeer:p001",
+      "copies": 1,
+      "pages": [1],
+      "name": "Aimed Shot",
+      "level": 1,
+      "hero": "MUSKETEER",
+      "back_level": 1,
+      "back_name": "Aimed Shot",
+      "crit": 1,
+      "crit_value": 9,
+      "acc": 9,
+      "acc_value": 6,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 2 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 9 Acc 9 {icon:8d4bbe5e11} 6",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:f18923574c} +3 vs {icon:98edfaca0a}"],
+      "unlabeled_numbers": [
+        {
+          "text": "+3",
+          "bbox": [52.6, 32.51, 55.37, 36.58],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "462bd48a91"
+        },
+        {
+          "text": "2",
+          "bbox": [9.4, 22.54, 11.3, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p002",
+      "copies": 1,
+      "pages": [2],
+      "name": "Aimed Shot",
+      "level": 2,
+      "hero": "MUSKETEER",
+      "back_level": 2,
+      "back_name": "Aimed Shot",
+      "crit": 1,
+      "crit_value": 12,
+      "acc": 10,
+      "acc_value": 8,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 2 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 12 Acc 10 {icon:8d4bbe5e11} 8",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:f18923574c} +5 vs {icon:98edfaca0a}"],
+      "unlabeled_numbers": [
+        {
+          "text": "+5",
+          "bbox": [52.58, 32.51, 55.39, 36.58],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "462bd48a91"
+        },
+        {
+          "text": "2",
+          "bbox": [9.4, 22.54, 11.3, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p003",
+      "copies": 1,
+      "pages": [3],
+      "name": "Aimed Shot",
+      "level": 3,
+      "hero": "MUSKETEER",
+      "back_level": 3,
+      "back_name": "Aimed Shot",
+      "crit": 1,
+      "crit_value": 16,
+      "acc": 11,
+      "acc_value": 10,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 2 {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 16 Acc 11 {icon:8d4bbe5e11} 10",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:f18923574c} +9 vs {icon:98edfaca0a}"],
+      "unlabeled_numbers": [
+        {
+          "text": "+9",
+          "bbox": [52.55, 32.51, 55.42, 36.58],
+          "left_icon": "b6afaa4d7b",
+          "inside_icon": "462bd48a91"
+        },
+        {
+          "text": "2",
+          "bbox": [9.4, 22.54, 11.3, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p004",
+      "copies": 1,
+      "pages": [4],
+      "name": "Smokescreen",
+      "level": 1,
+      "hero": "MUSKETEER",
+      "back_level": 1,
+      "back_name": "Smokescreen",
+      "crit": 0,
+      "crit_value": 4,
+      "acc": 9,
+      "acc_value": 2,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00} {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 4 Acc 9 {icon:8d4bbe5e11} 2",
+      "effect_lines_raw": ["{icon:b2e9d87127} {icon:4fcb32ac31} 1t"],
+      "unlabeled_numbers": [
+        {
+          "text": "1t",
+          "bbox": [62.48, 32.73, 64.5, 36.97],
+          "left_icon": "4fcb32ac31",
+          "inside_icon": "4fcb32ac31"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.48, 22.54, 14.47, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p005",
+      "copies": 1,
+      "pages": [5],
+      "name": "Smokescreen",
+      "level": 2,
+      "hero": "MUSKETEER",
+      "back_level": 2,
+      "back_name": "Smokescreen",
+      "crit": 0,
+      "crit_value": 6,
+      "acc": 10,
+      "acc_value": 3,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00} {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 6 Acc 10 {icon:8d4bbe5e11} 3",
+      "effect_lines_raw": ["{icon:462bd48a91} {icon:4fcb32ac31} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [62.07, 32.73, 64.5, 36.97],
+          "left_icon": "4fcb32ac31",
+          "inside_icon": "4fcb32ac31"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.48, 22.54, 14.47, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p006",
+      "copies": 1,
+      "pages": [6],
+      "name": "Smokescreen",
+      "level": 3,
+      "hero": "MUSKETEER",
+      "back_level": 3,
+      "back_name": "Smokescreen",
+      "crit": 0,
+      "crit_value": 7,
+      "acc": 11,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1-2 {icon:a396e95c00} {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 7 Acc 11 {icon:8d4bbe5e11} 4",
+      "effect_lines_raw": ["{icon:462bd48a91} {icon:9d0ef9dd87} 3t"],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [61.86, 32.73, 64.5, 36.97],
+          "left_icon": "9d0ef9dd87",
+          "inside_icon": "9d0ef9dd87"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.48, 22.54, 14.47, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p007",
+      "copies": 1,
+      "pages": [7],
+      "name": "Call the Shot",
+      "level": 1,
+      "hero": "MUSKETEER",
+      "back_level": 1,
+      "back_name": "Call the Shot",
+      "acc": 10,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 10",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:f70a42e51f} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [61.92, 32.41, 64.5, 36.65],
+          "inside_icon": "9d0ef9dd87"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.48, 22.54, 14.47, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p008",
+      "copies": 1,
+      "pages": [8],
+      "name": "Call the Shot",
+      "level": 2,
+      "hero": "MUSKETEER",
+      "back_level": 2,
+      "back_name": "Call the Shot",
+      "acc": 11,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 11",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:f70a42e51f} 3t"],
+      "unlabeled_numbers": [
+        {
+          "text": "3t",
+          "bbox": [61.78, 32.41, 64.5, 36.65],
+          "inside_icon": "9d0ef9dd87"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.48, 22.54, 14.47, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p009",
+      "copies": 1,
+      "pages": [9],
+      "name": "Call the Shot",
+      "level": 3,
+      "hero": "MUSKETEER",
+      "back_level": 3,
+      "back_name": "Call the Shot",
+      "acc": 12,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 12",
+      "effect_lines_raw": ["{icon:b6afaa4d7b} {icon:f70a42e51f} 4t"],
+      "unlabeled_numbers": [
+        {
+          "text": "4t",
+          "bbox": [61.95, 32.41, 64.5, 36.65],
+          "inside_icon": "9d0ef9dd87"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.48, 22.54, 14.47, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p010",
+      "copies": 1,
+      "pages": [10],
+      "name": "Buckshot",
+      "level": 1,
+      "hero": "MUSKETEER",
+      "back_level": 1,
+      "back_name": "Buckshot",
+      "crit": 1,
+      "crit_value": 6,
+      "acc": 10,
+      "acc_value": 3,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 6 Acc 10 {icon:8d4bbe5e11} 3",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:69ab8837e5} Self {icon:d4329c2a97} Push 1",
+        "{icon:1fd9f6ec6d} {icon:b6afaa4d7b} Push 2"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p011",
+      "copies": 1,
+      "pages": [11],
+      "name": "Buckshot",
+      "level": 2,
+      "hero": "MUSKETEER",
+      "back_level": 2,
+      "back_name": "Buckshot",
+      "crit": 1,
+      "crit_value": 8,
+      "acc": 11,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 8 Acc 11 {icon:8d4bbe5e11} 4",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:69ab8837e5} Self {icon:d4329c2a97} Push 2",
+        "{icon:1fd9f6ec6d} {icon:b6afaa4d7b} Push 2"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p012",
+      "copies": 1,
+      "pages": [12],
+      "name": "Buckshot",
+      "level": 3,
+      "hero": "MUSKETEER",
+      "back_level": 3,
+      "back_name": "Buckshot",
+      "crit": 1,
+      "crit_value": 9,
+      "acc": 12,
+      "acc_value": 5,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 1 {icon:a396e95c00} {icon:a396e95c00} Crit 1 {icon:8d4bbe5e11} 9 Acc 12 {icon:8d4bbe5e11} 5",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:69ab8837e5} Self {icon:d4329c2a97} Push 2",
+        "{icon:1fd9f6ec6d} {icon:b6afaa4d7b} Push 2"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [9.66, 22.54, 11.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p013",
+      "copies": 1,
+      "pages": [13],
+      "name": "Sidearm",
+      "level": 1,
+      "hero": "MUSKETEER",
+      "back_level": 1,
+      "back_name": "Sidearm",
+      "crit": 0,
+      "crit_value": 8,
+      "acc": 8,
+      "acc_value": 5,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0-2 {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 8 Acc 8 {icon:8d4bbe5e11} 5",
+      "effect_lines_raw": ["{icon:8fc8635162} {icon:1ff34c908b} Self {icon:f18923574c} Push 1"],
+      "unlabeled_numbers": [
+        {
+          "text": "0-2",
+          "bbox": [9.31, 22.54, 15.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p014",
+      "copies": 1,
+      "pages": [14],
+      "name": "Sidearm",
+      "level": 2,
+      "hero": "MUSKETEER",
+      "back_level": 2,
+      "back_name": "Sidearm",
+      "crit": 0,
+      "crit_value": 11,
+      "acc": 9,
+      "acc_value": 6,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0-2 {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 11 Acc 9 {icon:8d4bbe5e11} 6",
+      "effect_lines_raw": ["{icon:8fc8635162} {icon:1ff34c908b} Self {icon:f18923574c} Push 2"],
+      "unlabeled_numbers": [
+        {
+          "text": "0-2",
+          "bbox": [9.31, 22.54, 15.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p015",
+      "copies": 1,
+      "pages": [15],
+      "name": "Sidearm",
+      "level": 3,
+      "hero": "MUSKETEER",
+      "back_level": 3,
+      "back_name": "Sidearm",
+      "crit": 0,
+      "crit_value": 14,
+      "acc": 10,
+      "acc_value": 8,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0-2 {icon:a396e95c00} Crit 0 {icon:8d4bbe5e11} 14 Acc 10 {icon:8d4bbe5e11} 8",
+      "effect_lines_raw": ["{icon:8fc8635162} {icon:1ff34c908b} Self {icon:f18923574c} Push 2"],
+      "unlabeled_numbers": [
+        {
+          "text": "0-2",
+          "bbox": [9.31, 22.54, 15.04, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p016",
+      "copies": 1,
+      "pages": [16],
+      "name": "Patch Up",
+      "level": 1,
+      "hero": "MUSKETEER",
+      "back_level": 1,
+      "back_name": "Patch Up",
+      "crit": 0,
+      "crit_value": 6,
+      "acc": 8,
+      "acc_value": 4,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0-1 {icon:7616568d52} Crit 0 {icon:e8a4b7eebf} {icon:8d4bbe5e11} 6 Acc 8 {icon:e8a4b7eebf} {icon:8d4bbe5e11} 4",
+      "effect_lines_raw": ["{icon:8fc8635162} {icon:69ab8837e5} Self {icon:d4329c2a97} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [18.2, 31.88, 20.79, 36.12],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "0-1",
+          "bbox": [9.48, 22.54, 14.68, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p017",
+      "copies": 1,
+      "pages": [17],
+      "name": "Patch Up",
+      "level": 2,
+      "hero": "MUSKETEER",
+      "back_level": 2,
+      "back_name": "Patch Up",
+      "crit": 0,
+      "crit_value": 8,
+      "acc": 9,
+      "acc_value": 5,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0-1 {icon:7616568d52} Crit 0 {icon:e8a4b7eebf} {icon:8d4bbe5e11} 8 Acc 9 {icon:e8a4b7eebf} {icon:8d4bbe5e11} 5",
+      "effect_lines_raw": ["{icon:8fc8635162} {icon:69ab8837e5} Self {icon:d4329c2a97} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [18.2, 31.88, 20.79, 36.12],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "0-1",
+          "bbox": [9.48, 22.54, 14.68, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p018",
+      "copies": 1,
+      "pages": [18],
+      "name": "Patch Up",
+      "level": 3,
+      "hero": "MUSKETEER",
+      "back_level": 3,
+      "back_name": "Patch Up",
+      "crit": 0,
+      "crit_value": 10,
+      "acc": 10,
+      "acc_value": 7,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "{icon:3ab7e7544c} 0-1 {icon:7616568d52} Crit 0 {icon:e8a4b7eebf} 10 {icon:8d4bbe5e11} Acc 10 {icon:e8a4b7eebf} {icon:8d4bbe5e11} 7",
+      "effect_lines_raw": ["{icon:8fc8635162} {icon:69ab8837e5} Self {icon:d4329c2a97} 2t"],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [18.2, 31.88, 20.79, 36.12],
+          "left_icon": "d4329c2a97",
+          "inside_icon": "1ff34c908b"
+        },
+        {
+          "text": "0-1",
+          "bbox": [9.48, 22.54, 14.68, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p019",
+      "copies": 1,
+      "pages": [19],
+      "name": "Skeet Shot",
+      "level": 1,
+      "hero": "MUSKETEER",
+      "back_level": 1,
+      "back_name": "Skeet Shot",
+      "acc": 10,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 10",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:98edfaca0a} Self Remove {icon:1fd9f6ec6d} {icon:b2102a1a20} {icon:b6afaa4d7b} {icon:b6afaa4d7b} : Remove {icon:1fd9f6ec6d} {icon:b2102a1a20}",
+        "{icon:a396e95c00} : {icon:3a60c92c83} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [60.91, 34.87, 63.5, 39.11],
+          "left_icon": "3a60c92c83"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.58, 22.54, 14.57, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p020",
+      "copies": 1,
+      "pages": [20],
+      "name": "Skeet Shot",
+      "level": 2,
+      "hero": "MUSKETEER",
+      "back_level": 2,
+      "back_name": "Skeet Shot",
+      "acc": 11,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 11",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:98edfaca0a} Self Remove {icon:1fd9f6ec6d} {icon:b2102a1a20} {icon:b6afaa4d7b} {icon:b6afaa4d7b} : Remove {icon:1fd9f6ec6d} {icon:b2102a1a20}",
+        "{icon:a396e95c00} : {icon:3a60c92c83} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [60.67, 34.87, 63.25, 39.11],
+          "left_icon": "3a60c92c83"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.58, 22.54, 14.57, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    },
+    {
+      "id": "hero_skill:musketeer:p021",
+      "copies": 1,
+      "pages": [21],
+      "name": "Skeet Shot",
+      "level": 3,
+      "hero": "MUSKETEER",
+      "back_level": 3,
+      "back_name": "Skeet Shot",
+      "acc": 12,
+      "acc_value": null,
+      "top_row_icons": [
+        {
+          "iconId": "978f861dea",
+          "bbox": [28.05, 3.18, 36.16, 11.3]
+        },
+        {
+          "iconId": "cd12362298",
+          "bbox": [37.05, 3.21, 45.17, 11.32]
+        },
+        {
+          "iconId": "8bc055471a",
+          "bbox": [46.14, 3.21, 54.25, 11.32]
+        },
+        {
+          "iconId": "208e98c5d6",
+          "bbox": [55.25, 3.18, 63.37, 11.3]
+        }
+      ],
+      "name_row_icons": [
+        {
+          "iconId": "e8f651e5f8",
+          "bbox": [53.63, 12.29, 63.46, 22.13]
+        }
+      ],
+      "stats_line_raw": "Acc 12",
+      "effect_lines_raw": [
+        "{icon:8fc8635162} {icon:98edfaca0a} Self Remove {icon:1fd9f6ec6d} {icon:b2102a1a20} {icon:b6afaa4d7b} {icon:b6afaa4d7b} : Remove {icon:1fd9f6ec6d} {icon:b2102a1a20}",
+        "{icon:a396e95c00} : {icon:3a60c92c83} 2t"
+      ],
+      "unlabeled_numbers": [
+        {
+          "text": "2t",
+          "bbox": [60.91, 34.87, 63.5, 39.11],
+          "left_icon": "3a60c92c83"
+        },
+        {
+          "text": "1-2",
+          "bbox": [9.58, 22.54, 14.57, 28.0],
+          "left_icon": "3ab7e7544c"
+        }
+      ],
+      "issues": []
+    }
+  ]
+}

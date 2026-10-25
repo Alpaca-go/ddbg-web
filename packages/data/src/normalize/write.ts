@@ -70,6 +70,15 @@ export function loadNormalizedCorebox(): NormalizedCorebox {
     extensionWealdHeroStatRaw: rawFileSchema.parse(
       readJson("extract/extension/weald/raw/hero_stat.json"),
     ),
+    extensionMusketeerHeroSkills: heroSkillFileSchema.parse(
+      readJson("extract/extension/musketeer/parsed/hero_skill.json"),
+    ),
+    extensionMusketeerHeroSkillRaw: rawFileSchema.parse(
+      readJson("extract/extension/musketeer/raw/hero_skill.json"),
+    ),
+    extensionMusketeerHeroStatRaw: rawFileSchema.parse(
+      readJson("extract/extension/musketeer/raw/hero_stat.json"),
+    ),
   });
 }
 

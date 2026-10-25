@@ -35,6 +35,7 @@ function parsedFileSchema<T extends z.ZodType>(category: string, cardSchema: T) 
       z.literal(`raw/extension/warrens/${category}.json`),
       z.literal(`raw/extension/cove/${category}.json`),
       z.literal(`raw/extension/weald/${category}.json`),
+      z.literal(`raw/extension/musketeer/${category}.json`),
     ]),
     field_notes: z.string().min(1),
     icon_token: z.literal("{icon:<iconId>} = unannotated icon cluster, see icons/catalog.json"),
