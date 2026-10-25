@@ -1,5 +1,21 @@
 # 图标词典 v1.8 更新记录（2026-10-08）
 
+## 2026-10-26 补充：Q-47 needs_review 批（7 hash）
+
+Kyries 经 DDBG·规则书助手拍板本批 7 条 `needs_review`（Q-47 整体仍延后）。只改下列 hash，其余 `needs_review` / `unreviewed` 不动。`source` 为 `kyries_review_2026-10-26`。饰品行按已有 key **归类**为 `trinket_picture`，不 merge 不同 iconId。
+
+| hash | rank | 采用 key | status |
+| --- | --- | --- | --- |
+| `293f170eab` | 216 | `stance_support_monster_slot` | `confirmed` |
+| `73a29c830c` | 379 | `start_monster_any` | `confirmed_rulebook` |
+| `3deae1ab2a` | 478 | `quirk` | `confirmed` |
+| `c80192cfcc` | 603 | `trinket_picture` | `confirmed` |
+| `032fd6cccd` | 642 | `trinket_picture` | `confirmed` |
+| `a08da49488` | 714 | `trinket_picture` | `confirmed` |
+| `a64616e9c5` | 715 | `bleed` | `confirmed` |
+
+JSON / CSV 与 `meta.stats` 同步（字段名 `status_all976` 保留）：全部 983 条中 `confirmed` 668、`confirmed_rulebook` 45、`needs_review` 22（较本批前约 29 减 7）、`decor` 110、`unsure` 0、`unreviewed` 138；前 525 条 `needs_review` 8→5。
+
 ## 2026-10-13 / R-067补充
 
 Kyries逐项批准`8c4c3c2ec2`=Shuffle、`ce2f57ed90`=Blight、`5c9604da90`=Wound。三条由unreviewed变confirmed，保留原ID、空value与出现次数；记录真实source日期`kyries_review_2026-10-13`及previous_status，不补图标内数字或复合顺序。JSON/CSV与覆盖率同步：全部983条中confirmed660、confirmed_rulebook44、needs_review31、decor110、unsure0、unreviewed138；前525计数不变。下文原版计数保留为历史记录。
