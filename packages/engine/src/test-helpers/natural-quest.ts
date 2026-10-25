@@ -237,26 +237,11 @@ export function naturalQuest(
       }
       if (options.preferWipeout) {
         const actor = b.entities.find((e) => e.id === t.actorId)!;
-        const tryDirections = [
-          actor.stance === "aggressive" ? "backward" : "forward",
-          actor.stance === "aggressive" ? "forward" : "backward",
-        ] as const;
-        let moved = false;
-        for (const direction of tryDirections) {
-          const r = applyCommand(state, {
-            type: "changeStance",
-            actorId: actor.id,
-            direction,
-          });
-          if (r.events.some((e) => e.type === "commandRefused")) continue;
-          commands.push({ type: "changeStance", actorId: actor.id, direction });
-          events.push(...r.events);
-          state = r.state;
-          options.observe?.(state, commands.at(-1)!);
-          moved = true;
-          break;
-        }
-        if (!moved) throw new Error("preferWipeout 无法换姿态");
+        step({
+          type: "changeStance",
+          actorId: actor.id,
+          direction: actor.stance === "aggressive" ? "backward" : "forward",
+        });
         continue;
       }
       const direct = attacks(state)[0];

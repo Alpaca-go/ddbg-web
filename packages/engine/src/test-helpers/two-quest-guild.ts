@@ -4,15 +4,16 @@ import type { CoreQuestSources } from "../dungeon-quest-entry";
 import { createQuestSave } from "../quest-save";
 import { coreQuestSources } from "./core-quest";
 import { naturalParty, naturalQuest } from "./natural-quest";
-import { currentHamletHero } from "../hamlet-actions";
+import { currentHamletHero, hamletActionOptions } from "../hamlet-actions";
 import { gainDisease } from "../conditions";
+import { SCENARIO_SEED_SEARCH_LIMIT } from "./scenario-seed-search";
 
 /**
  * 自然两任务攒满 4XP 后停在第二轮村庄 heroActions，供 Guild 升级验收。
  * Scout Ahead 四房 2XP → 出征 Wipe ‘Em Out 两巢穴 2XP（规格书 §13.1 / R-038，QUEST p1–p2）。
  * 第一轮村庄全部使用真实看守人/Zealous Speech命令，不注入准备结束状态。
  */
-function twoQuestGuildPathForSeed(sources: CoreQuestSources, seed: number) {
+export function twoQuestGuildPathForSeed(sources: CoreQuestSources, seed: number) {
   const first = naturalQuest(seed, "quest:p001", false, sources, 4);
   const commands: Command[] = [...first.commands];
   let game = first.state;
@@ -89,6 +90,25 @@ function twoQuestGuildPathForSeed(sources: CoreQuestSources, seed: number) {
   const guildProbe = applyCommand(game, { type: "visitGuild", actorId });
   if (guildProbe.events.some((e) => e.type === "commandRefused"))
     throw new Error("公会访问顺序不满足 R33/34");
+  const diseased = withNaturalDisease(game, actorId);
+  let probe = diseased;
+  for (let i = 0; i < 12; i++) {
+    const actor = currentHamletHero(probe)?.id;
+    if (!actor) throw new Error("疾病夹具后无当前英雄");
+    const trial = applyCommand(probe, { type: "visitGuild", actorId: actor });
+    if (!trial.events.some((e) => e.type === "commandRefused")) break;
+    const next = hamletActionOptions(probe)[0];
+    if (!next) throw new Error("疾病夹具后无法轮到公会");
+    const r = applyCommand(probe, next.command);
+    if (r.events.some((e) => e.type === "commandRefused")) throw new Error("村庄行动被拒");
+    probe = r.state;
+  }
+  const afterDisease = applyCommand(probe, {
+    type: "visitGuild",
+    actorId: currentHamletHero(probe)!.id,
+  });
+  if (afterDisease.events.some((e) => e.type === "commandRefused"))
+    throw new Error("疾病夹具后公会不可用");
 
   return {
     game,
@@ -99,7 +119,11 @@ function twoQuestGuildPathForSeed(sources: CoreQuestSources, seed: number) {
   };
 }
 
-export function twoQuestGuildPath(sources = coreQuestSources, start = 14, tries = 800) {
+export function twoQuestGuildPath(
+  sources = coreQuestSources,
+  start = 14,
+  tries = SCENARIO_SEED_SEARCH_LIMIT,
+) {
   for (let seed = start; seed < start + tries; seed++) {
     try {
       return twoQuestGuildPathForSeed(sources, seed);
@@ -107,7 +131,7 @@ export function twoQuestGuildPath(sources = coreQuestSources, start = 14, tries 
       /* 出征池扩大后需同时满足抽到 Wipe 与公会访问顺序 */
     }
   }
-  throw new Error(`未找到两任务 Guild 路径种子（${start}+）`);
+  throw new Error(`未找到两任务 Guild 路径种子（已搜索 ${start}..${start + tries - 1}）`);
 }
 
 /** 在自然 4XP 状态上按牌堆守恒感染疾病，供升级保留断言；不写入命令日志。 */

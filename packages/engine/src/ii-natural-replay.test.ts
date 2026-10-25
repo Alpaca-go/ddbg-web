@@ -7,7 +7,6 @@ import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
 import { conditionPoolProblem } from "./conditions";
 import { trinketPoolProblem } from "./trinket-acquisition";
 import { coreQuestSources as sources } from "./test-helpers/core-quest";
-import { naturalAbbeyQuest } from "./test-helpers/abbey-quest";
 import { guildQuest } from "./test-helpers/guild-quest";
 import { naturalQuest } from "./test-helpers/natural-quest";
 import { scoutThenDualIiOfferSeed } from "./test-helpers/quest-offer-seed";
@@ -217,24 +216,17 @@ it.each(["quest:p007", "quest:p008"] as const)(
   60000,
 );
 
+// 待确认：main 上 journey(fundraiser.game,p007)@seed2 的黄金遭遇/感染链，在扩大出征池后
+// guildQuest+advance 的 cursor 漂移，scout 夹具种子下无法复现 Ghoul Howl/疯狂死亡停点；0..799 有上限搜索亦未纳入本 PR。
+// 需另刀：mock questsForCampaignLevel 池大小或锁定 II 出征 cursor 夹具。
 it.skip("seed2：真实Ghoul Howl/重复感染后战斗胜利，回村第四负面永久死亡停在补人门，不发XP/补给金", () => {
-  let run: ReturnType<typeof journey> | undefined;
-  for (let seed = 2; seed < 800; seed++) {
-    const abbey = naturalAbbeyQuest(undefined, seed);
-    const candidate = journey(abbey.game, "quest:p007");
-    if (candidate.state.dungeon!.phase !== "awaitingReplacement") continue;
-    if (candidate.events.filter((e) => e.type === "diseaseAcquired").length < 2) continue;
-    if (!candidate.exited.dungeon!.heroes.every((h) => !h.dead)) continue;
-    run = candidate;
-    break;
-  }
-  if (!run) throw new Error("未找到 Ghoul/感染停在补人门的 Fundraiser 种子（2+）");
+  const run = journey(scout.game, "quest:p007");
   const d = run.state.dungeon!;
   expect(run.battles).toEqual([
     ["monster_medium:p018", "monster_medium:p053", "monster_large:p003"],
   ]);
   expect(run.events.some((e) => e.type === "monsterTargetEffectsResolved")).toBe(true);
-  expect(run.events.filter((e) => e.type === "diseaseAcquired").length).toBeGreaterThanOrEqual(2);
+  expect(run.events.filter((e) => e.type === "diseaseAcquired").length).toBeGreaterThanOrEqual(4);
   expect(run.events.some((e) => e.type === "battleFinished" && e.outcome === "victory")).toBe(true);
   expect(run.exited.dungeon!.heroes.every((h) => !h.dead)).toBe(true);
   expect(d).toMatchObject({
@@ -250,7 +242,7 @@ it.skip("seed2：真实Ghoul Howl/重复感染后战斗胜利，回村第四负�
   expect(applyCommand(run.state, { type: "finishReturnToHamlet" }).state).toBe(run.state);
   conserved(run.state);
   replay(run);
-}, 60000);
+}, 120000);
 
 it("正式I级前缀可保存恢复；Boss跳过预览命令/伪造II级快照仍拒绝", () => {
   const loaded = loadQuestSave(JSON.parse(JSON.stringify(scout.save)), sources);

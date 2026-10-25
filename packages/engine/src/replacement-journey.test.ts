@@ -8,8 +8,10 @@ import { naturalParty, naturalQuest } from "./test-helpers/natural-quest";
 import { currentHamletHero, hamletActionOptions } from "./hamlet-actions";
 import { createQuestSave, loadQuestSave } from "./quest-save";
 import { replacementHeroCandidates } from "./hero-death-estate";
-import { scoutThenOfferSeed } from "./test-helpers/quest-offer-seed";
+import { replacementJourneySeed } from "./test-helpers/replacement-journey-seed";
 
+// 待确认：replacementJourneySeed 在 14..801 内可命中村庄/Experimental Vapours，但全链路断言（hero-1 wounds=2 等）
+// 仍随出征池 cursor 漂移；需与 wipeout/Ghoul 同类的池大小夹具后再去 skip。
 for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
   it.skip(`正式瘟疫医生替补：回村能力→${nextQuestId}自然战斗→再次回村与完整存档`, () => {
     const load = battleDataPlugin().load as (id: string) => string;
@@ -20,7 +22,7 @@ for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
       catalog: { ...catalog, trinkets: coreQuestSources.catalog.trinkets },
       resolveCards: catalog.resolveCards,
     };
-    const seed = scoutThenOfferSeed(coreQuestSources, nextQuestId);
+    const seed = replacementJourneySeed(sources, nextQuestId);
     const run = naturalQuest(seed, "quest:p001", true, sources, 2, {
       observe(game) {
         if (!game.battle && game.dungeon!.phase === "ready" && game.dungeon!.position !== "S")
@@ -85,59 +87,39 @@ for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
     expect(game.dungeon!.deadHeroNames).toHaveLength(1);
     expect(game.dungeon!.waitingHeroTokens).toBe(1);
     expect(doctor.skillIds).toEqual(["hero_skill:p136", "hero_skill:p127", "hero_skill:p139"]);
-    let usedVapours = false;
-    let visitedService = false;
-    while (!usedVapours) {
-      if (game.dungeon!.hamlet!.phase === "awaitingCaretaker") {
-        step({ type: "rollHamletCaretaker" });
-        continue;
-      }
-      const actor = currentHamletHero(game);
-      if (actor?.id === doctor.id && visitedService) {
-        const target = game.dungeon!.heroes.find(
-          (h) => !h.dead && h.id !== doctor.id && (h.wounds ?? 0) > 0,
-        );
-        if (!target) throw new Error("无受伤目标供 Experimental Vapours");
-        const nervousBefore = game
-          .dungeon!.conditions!.quirks.filter((q) => target.quirkIds?.includes(q.id))
-          .map((q) => q.name);
-        step({
-          type: "useHamletSkill",
-          actorId: doctor.id,
-          skill: "experimentalVapours",
-          targetId: target.id,
-        });
-        const healed = game.dungeon!.heroes.find((h) => h.id === target.id)!;
-        expect(healed.wounds).toBe(0);
-        expect(nervousBefore).toEqual(["Nervous"]);
-        expect(healed.stress).toBe(7);
-        usedVapours = true;
-        continue;
-      }
-      const options = hamletActionOptions(game);
-      const service =
-        !visitedService &&
-        options.find(
-          (o) =>
-            o.command.type === "visitHamletBuilding" &&
-            ["heal5", "tavern3", "survivalist1"].includes(o.command.serviceId),
-        );
-      if (service) {
-        step(service.command);
-        visitedService = true;
-        continue;
-      }
-      const next = options.find((o) => o.command.type === "useHamletSkill") ?? options[0];
-      if (!next) throw new Error(`村庄无可用行动（${game.dungeon!.hamlet!.phase}）`);
-      step(next.command);
-    }
+    step({ type: "useHamletSkill", actorId: "hero-0", skill: "zealousSpeech" });
+    step({ type: "rollHamletCaretaker" });
+    const service = hamletActionOptions(game).find(
+      (o) =>
+        o.command.type === "visitHamletBuilding" &&
+        ["heal5", "tavern3", "survivalist1"].includes(o.command.serviceId),
+    );
+    expect(service).toBeDefined();
+    step(service!.command);
+    step({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
+    step({ type: "useHamletSkill", actorId: "hero-3", skill: "chant" });
+    expect(currentHamletHero(game)?.id).toBe(doctor.id);
+    const before = game.dungeon!.heroes.find((h) => h.id === "hero-1")!;
+    step({
+      type: "useHamletSkill",
+      actorId: doctor.id,
+      skill: "experimentalVapours",
+      targetId: "hero-1",
+    });
+    const healed = game.dungeon!.heroes.find((h) => h.id === "hero-1")!;
+    expect(before.wounds).toBe(2);
+    expect(healed.wounds).toBe(0);
+    expect(
+      game
+        .dungeon!.conditions!.quirks.filter((q) => before.quirkIds?.includes(q.id))
+        .map((q) => q.name),
+    ).toEqual(["Nervous"]);
+    expect(healed.stress).toBe(7);
     saved();
     while (game.dungeon!.hamlet!.phase !== "preparationComplete") {
       if (game.dungeon!.hamlet!.phase === "awaitingCaretaker")
         step({ type: "rollHamletCaretaker" });
-      const next = hamletActionOptions(game)[0];
-      if (!next) throw new Error("村庄无可用行动");
-      step(next.command);
+      step({ type: "useHamletSkill", actorId: "hero-0", skill: "zealousSpeech" });
     }
     step({ type: "setHamletStances", heroIds: ["hero-0", "hero-1", doctor.id, "hero-3"] });
     expect(game.dungeon!.pending).toBeNull();

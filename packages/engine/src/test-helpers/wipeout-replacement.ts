@@ -7,6 +7,7 @@ import { coreQuestSources } from "./core-quest";
 import type { CoreQuestSources } from "../dungeon-quest-entry";
 import { naturalParty, naturalQuest } from "./natural-quest";
 import { replacementStep } from "./replacement";
+import { SCENARIO_SEED_SEARCH_LIMIT } from "./scenario-seed-search";
 
 /** 正式已核实额外替补（开局四人死后）：赏金猎人、瘟疫医生、盗墓者、神秘学者。 */
 export const VERIFIED_EXTRA_IDS = [
@@ -200,13 +201,15 @@ export function naturalWipeoutReplacementPathForSeed(sources: CoreQuestSources, 
   };
 }
 
+/** 在 [2, 2+SCENARIO_SEED_SEARCH_LIMIT) 内搜索；未命中则抛错（供非 skip 用例或显式探测）。 */
 export function naturalWipeoutReplacementPath(sources: CoreQuestSources = coreQuestSources) {
-  for (let seed = 2; seed < 602; seed++) {
+  const end = 2 + SCENARIO_SEED_SEARCH_LIMIT;
+  for (let seed = 2; seed < end; seed++) {
     try {
       return naturalWipeoutReplacementPathForSeed(sources, seed);
     } catch {
-      /* 出征池扩大后需同时满足抽到 Scout 与 preferWipeout 全灭 */
+      /* 出征池扩大后 shuffleIds 消耗漂移，preferWipeout 全灭与候选项需同种子命中 */
     }
   }
-  throw new Error("未找到自然全灭路径种子（2+）");
+  throw new Error(`未找到自然全灭路径种子（已搜索 2..${end - 1}）`);
 }
