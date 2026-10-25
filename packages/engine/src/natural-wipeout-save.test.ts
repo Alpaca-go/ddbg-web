@@ -1,4 +1,4 @@
-import { expect, it } from "vitest";
+import { afterAll, beforeAll, expect, it } from "vitest";
 import { applyCommand } from "./command";
 import type { GameState } from "./command";
 import { createQuestSave, loadQuestSave } from "./quest-save";
@@ -12,11 +12,15 @@ import {
   VERIFIED_REMAINING_AFTER_FOUR_PREP,
   VERIFIED_REPLACEMENT_NAMES,
 } from "./test-helpers/verified-replacement";
+import {
+  installGoldenMainCampaignQuestPool,
+  restoreCampaignQuestPool,
+} from "./test-helpers/golden-quest-pool";
 
-// 待确认：I 级出征池扩大后 offerNextQuest 的 shuffleIds(remaining) 步数变化 → 地牢 cursor 漂移，
-// seed 2（main 黄金路径）下 preferWipeout 现为第 4 轮 retreat 而非 heroesDefeated；2..801 穷举未命中。
-// 需另 PR：固定池子夹具 / mock remaining 长度，或 Kyries 裁定可接受的非全自然路径。
-it.skip("自然全灭命令日志→正式存档往返；驿站III余额4可准备并入队四名已核实额外", () => {
+beforeAll(() => installGoldenMainCampaignQuestPool());
+afterAll(() => restoreCampaignQuestPool());
+
+it("自然全灭命令日志→正式存档往返；驿站III余额4可准备并入队四名已核实额外", () => {
   const path = naturalWipeoutReplacementPath();
   const { awaiting, prepared, start, commands, save } = path;
   expect(awaiting.dungeon!.phase).toBe("awaitingReplacement");

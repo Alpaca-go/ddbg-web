@@ -1,4 +1,4 @@
-import { expect, it } from "vitest";
+import { afterAll, beforeAll, expect, it } from "vitest";
 import { battleDataPlugin } from "../../../apps/web/battle-data-plugin";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
@@ -9,11 +9,16 @@ import { currentHamletHero, hamletActionOptions } from "./hamlet-actions";
 import { createQuestSave, loadQuestSave } from "./quest-save";
 import { replacementHeroCandidates } from "./hero-death-estate";
 import { replacementJourneySeed } from "./test-helpers/replacement-journey-seed";
+import {
+  installGoldenMainCampaignQuestPool,
+  restoreCampaignQuestPool,
+} from "./test-helpers/golden-quest-pool";
 
-// 待确认：replacementJourneySeed 在 14..801 内可命中村庄/Experimental Vapours，但全链路断言（hero-1 wounds=2 等）
-// 仍随出征池 cursor 漂移；需与 wipeout/Ghoul 同类的池大小夹具后再去 skip。
+beforeAll(() => installGoldenMainCampaignQuestPool());
+afterAll(() => restoreCampaignQuestPool());
+
 for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
-  it.skip(`正式瘟疫医生替补：回村能力→${nextQuestId}自然战斗→再次回村与完整存档`, () => {
+  it(`正式瘟疫医生替补：回村能力→${nextQuestId}自然战斗→再次回村与完整存档`, () => {
     const load = battleDataPlugin().load as (id: string) => string;
     const code = load("\0virtual:quest-battle-data");
     const catalog = JSON.parse(code.slice("export const battleData = ".length, -1));

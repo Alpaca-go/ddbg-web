@@ -1,4 +1,4 @@
-import { beforeAll, expect, it } from "vitest";
+import { afterAll, beforeAll, expect, it } from "vitest";
 import { applyCommand } from "./command";
 import type { Command, GameEvent, GameState } from "./command";
 import { createQuestSave, loadQuestSave } from "./quest-save";
@@ -7,15 +7,22 @@ import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
 import { conditionPoolProblem } from "./conditions";
 import { trinketPoolProblem } from "./trinket-acquisition";
 import { coreQuestSources as sources } from "./test-helpers/core-quest";
+import { naturalAbbeyQuest } from "./test-helpers/abbey-quest";
 import { guildQuest } from "./test-helpers/guild-quest";
 import { naturalQuest } from "./test-helpers/natural-quest";
-import { scoutThenDualIiOfferSeed } from "./test-helpers/quest-offer-seed";
+import {
+  installGoldenMainCampaignQuestPool,
+  restoreCampaignQuestPool,
+} from "./test-helpers/golden-quest-pool";
 
 let scout: ReturnType<typeof guildQuest>;
+let fundraiser: ReturnType<typeof naturalAbbeyQuest>;
 beforeAll(() => {
-  const seed = scoutThenDualIiOfferSeed(sources, 0, 800);
-  scout = guildQuest(sources, seed);
+  installGoldenMainCampaignQuestPool();
+  scout = guildQuest(sources, 14);
+  fundraiser = naturalAbbeyQuest();
 }, 120000);
+afterAll(() => restoreCampaignQuestPool());
 
 /** 与既有II级出征测试相同的准备结束夹具；仅收束天数，不改资源/英雄/牌序。 */
 function preparationReady(game: GameState): GameState {
@@ -175,11 +182,12 @@ it.each(["quest:p007", "quest:p008"] as const)(
     const before = structuredClone(scout.game),
       run = journey(scout.game, questId);
     expect(run.battles).toEqual([
-      ["monster_medium:p046", "monster_medium:p001", "monster_medium:p024", "monster_medium:p001"],
+      ["monster_medium:p053", "monster_medium:p004", "monster_medium:p004", "monster_medium:p004"],
     ]);
     expect(run.events.filter((e) => e.type === "battleFinished")).toEqual([
       expect.objectContaining({ outcome: "victory", round: 3 }),
     ]);
+    expect(run.events.some((e) => e.type === "monsterSelfSkillResolved")).toBe(true);
     expect(run.commands.some((c) => c.type === "rollDungeonExploration")).toBe(true);
     expect(run.commands.some((c) => c.type === "restDungeon")).toBe(true);
     const xp = questId === "quest:p007" ? 0 : 1;
@@ -216,11 +224,8 @@ it.each(["quest:p007", "quest:p008"] as const)(
   60000,
 );
 
-// 待确认：main 上 journey(fundraiser.game,p007)@seed2 的黄金遭遇/感染链，在扩大出征池后
-// guildQuest+advance 的 cursor 漂移，scout 夹具种子下无法复现 Ghoul Howl/疯狂死亡停点；0..799 有上限搜索亦未纳入本 PR。
-// 需另刀：mock questsForCampaignLevel 池大小或锁定 II 出征 cursor 夹具。
-it.skip("seed2：真实Ghoul Howl/重复感染后战斗胜利，回村第四负面永久死亡停在补人门，不发XP/补给金", () => {
-  const run = journey(scout.game, "quest:p007");
+it("seed2：真实Ghoul Howl/重复感染后战斗胜利，回村第四负面永久死亡停在补人门，不发XP/补给金", () => {
+  const run = journey(fundraiser.game, "quest:p007");
   const d = run.state.dungeon!;
   expect(run.battles).toEqual([
     ["monster_medium:p018", "monster_medium:p053", "monster_large:p003"],
