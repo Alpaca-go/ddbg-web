@@ -17,6 +17,7 @@ import { trinketPoolProblem, trinketDeck, setTrinketDeck } from "./trinket-acqui
 import { heroSkillSlotCount } from "./hero-loadout";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { scoutAheadPlanProblem } from "./hamlet-scout-ahead";
+import { expandRoomDistributionForEmbark } from "./room-distribution-expand";
 
 type Hero = DungeonState["heroes"][number];
 
@@ -293,14 +294,16 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
   if (trinketPoolProblem(washed.pool, applied.heroes))
     return rejectBattleCommand(state, trinketPoolProblem(washed.pool, applied.heroes)!);
   const parsedLayout = dungeonLayoutSchema.parse(layout);
-  const distribution = roomDistributionSchema.parse(quest.distribution);
+  const template = roomDistributionSchema.parse(quest.distribution);
+  const expanded = expandRoomDistributionForEmbark(template, state.seed, washed.cursor);
+  const distribution = expanded.distribution;
   const embarkBlock = roomDistributionEmbarkBlockReason(distribution);
   if (embarkBlock) return rejectBattleCommand(state, embarkBlock);
   const slots = parsedLayout.nodes.filter((n) => n.kind === "room");
   const kinds = distribution.counts.flatMap((c) => Array.from({ length: c.count }, () => c.kind));
   if (kinds.length !== slots.length || parsedLayout.unresolvedMarkers?.length)
     return rejectBattleCommand(state, "下一任务地图/代币不一致，未出征（R-046）");
-  const shuffled = shuffleKinds(kinds, state.seed, washed.cursor);
+  const shuffled = shuffleKinds(kinds, state.seed, expanded.cursor);
   const priorDiscarded = d.discardedQuests ?? [];
   const newlyDiscarded = [
     d.questSummary!.questId,
@@ -366,7 +369,7 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
     questDistribution: {
       ...distribution,
       counts: distribution.counts.map((c) => ({ ...c })),
-    },
+    }, // 已展开 counts，匹配 storedDistributionMatchesQuest（R-112）
     ...(d.buildingLevels ? { buildingLevels: d.buildingLevels } : {}),
     ...(d.stagecoachXp !== undefined ? { stagecoachXp: d.stagecoachXp } : {}),
     ...(d.waitingHeroTokens !== undefined ? { waitingHeroTokens: d.waitingHeroTokens } : {}),

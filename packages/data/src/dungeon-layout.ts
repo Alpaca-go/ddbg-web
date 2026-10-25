@@ -96,7 +96,7 @@ export const roomDistributionSchema = z
         }),
       )
       .min(1),
-    /** 印刷底栏 `?` 枚数；展开程序待 Q-112b，未接线前拒出征。 */
+    /** 印刷底栏 `?` 枚数；建局时自实体池展开（Q-112b / R-112），展开后不再保留此字段。 */
     randomizeNonObjective: z.int().positive().optional(),
   })
   .superRefine((data, ctx) => {
@@ -114,11 +114,11 @@ export function roomDistributionTokenTotal(
   return fixed + (distribution.randomizeNonObjective ?? 0);
 }
 
-/** Q-112b：含待展开 ? 槽时拒出征，禁止引擎自造抽法。 */
+/** 未展开的模板（仍含 ? 槽）拒出征；建局路径须先 expandRoomDistributionForEmbark（R-112）。 */
 export function roomDistributionEmbarkBlockReason(
   distribution: Pick<RoomDistribution, "questId" | "randomizeNonObjective">,
 ): string | null {
   const n = distribution.randomizeNonObjective;
   if (!n) return null;
-  return `任务 ${distribution.questId}：底栏 ?×${n}（randomize non-Objective）展开规则待确认（Q-112b / R-112），拒出征`;
+  return `任务 ${distribution.questId}：底栏 ?×${n}（randomize non-Objective）尚未建局展开（Q-112b / R-112），拒出征`;
 }

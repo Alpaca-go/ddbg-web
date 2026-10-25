@@ -6,6 +6,7 @@ import {
 import type { DungeonLayout, RoomDistribution } from "../../data/src/dungeon-layout";
 import type { ApplyResult, GameState, PendingChoice } from "./command";
 import { createRng } from "./rng";
+import { expandRoomDistributionForEmbark } from "./room-distribution-expand";
 import type { ResolveCard } from "./pressure";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { applyDungeonBacktracking } from "./dungeon-backtracking";
@@ -316,7 +317,9 @@ export function createDungeonSandbox(
   startingProvisions = false,
 ): GameState {
   const layout = dungeonLayoutSchema.parse(layoutInput);
-  const distribution = roomDistributionSchema.parse(distributionInput);
+  const template = roomDistributionSchema.parse(distributionInput);
+  const expanded = expandRoomDistributionForEmbark(template, seed, 0);
+  const distribution = expanded.distribution;
   const embarkBlock = roomDistributionEmbarkBlockReason(distribution);
   if (embarkBlock) throw new Error(embarkBlock);
   const slots = layout.nodes.filter((n) => n.kind === "room");
@@ -346,7 +349,8 @@ export function createDungeonSandbox(
   )
     throw new Error("英雄 / 压力无效");
   const rng = createRng(seed);
-  let cursor = 0;
+  let cursor = expanded.cursor;
+  for (let i = 0; i < cursor; i += 1) rng.next();
   for (let i = tokens.length - 1; i > 0; i -= 1) {
     const j = Math.floor(rng.next() * (i + 1));
     cursor += 1;

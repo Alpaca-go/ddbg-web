@@ -1144,16 +1144,20 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 ### R-112
 
 - **编号**：R-112
-- **日期**：2026-10-25（2026-10-25 修订：去掉引擎独立匀掷）
+- **日期**：2026-10-25（2026-10-25 修订：Q-112b 已确认；去掉引擎独立匀掷）
 - **问题**：Forward Camps III（quest:p012）任务分布底栏 `?`、出征池与未接线的 camp XP / SPECIAL 设营地（Q-112 / Q-112b）。
 - **裁定（已核实部分）**：
   - **印刷**：FRONT p12 核实 **Rest 8**、**empty×3**（`6f701b5f5f`）、**Objective×0**；其余五格为卡面印刷 **`?`**（非提取失败），SPECIAL 要求用 **3 Empty** 并 **randomize non-Objective** 补足；与其它 III 级任务一致 **tokenTotal = 8**（固定 empty×3 + 待展开 **5**）。
-  - **data-pool-only**：`forward_camps_distribution.json` 记 `counts: empty×3` + `randomizeNonObjective: 5`；`basic-quests` + 出征池 + 印刷 art `enabled`。引擎**不得**用独立均匀或其它自造算法静默展开 `?`；出征路径在展开未接线时 **拒出征**（错误信息点名 **Q-112b**）。
+  - **data-pool-only**：`forward_camps_distribution.json` 记 `counts: empty×3` + `randomizeNonObjective: 5`；`basic-quests` + 出征池 + 印刷 art `enabled`。数据层保留 `?` 槽；**建局**时由引擎展开（见 Q-112b）。未展开模板仍 **拒出征**（错误信息点名 **Q-112b**）。
   - **本刀不接**：`xpKind: camp` 结算（印刷「1 Xp / Set up camp」）；Empty 房用 Torch/Shovel **设 forward camp** 的 SPECIAL **运行时**。`summarizeDungeonQuest` 对 p012 拒绝生成摘要直至另刀。
-- **待确认（Q-112b）**：底栏 `?` /「randomize non-Objective」的**抽法**——规则书未写清程序；类比 **R-030 / R-036** 应从实体代币池取枚再洗混，**不可**在引擎里当作未具名算法。**禁止**「独立均匀掷 kind」类实现：实体池每种非 Objective 代币通常 **≤3**，独立匀掷可产生非法 multiset。
-- **依据 / 边界**：`DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf` p12；DDBG·规则书答疑（Kyries 2026-10-25）；R-001 / R-048。
-- **关联待确认**：Q-112（骨架）、Q-112b（`?` 展开）
-- **状态**：部分确认（骨架与 data-pool-only）；**Q-112b 待 Kyries 确认**
+- **Q-112b（Kyries 2026-10-25 已确认）**：
+  - **C（展开时机）**：**建局**时从实体池一次取出所需枚数，与固定 empty 合并后 **洗混**、**面朝下** 放入地图房间槽；对齐规则书 **印刷 p12** 建局流程。进房只揭面，**不在进房时** 再决定 kind。
+  - **B（抽法）**：再抽 **5** 枚 = 仅从 **dark / curio / treasure / lair / trap** 五类 **实体代币池无放回** 抽取（**排除 Empty 与 Objective**）。**禁止**对 kind 独立均匀掷骰（会产生非法 multiset；实体池每种通常 **≤3**）。固定 **empty×3 + 抽到的 5 枚 → 共 8**，与 `forward_camps_distribution.json` 骨架一致。
+  - **弱类比**：规则书 p30 / p36 等处的「random / random non-Objective」措辞仅作弱类比，**不可**直接当作本卡底栏 `?` 的算法。
+  - **待确认（不阻塞）**：冲压板五类非 Objective 代币是否**恰好各 3 枚**仍可标待确认；本裁定按 B 池不含 Empty，与「从含 Empty 的全池抽」不等价时仍按 **B**。
+- **依据 / 边界**：`DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf` p12（建局）；R-001 / R-048。
+- **关联待确认**：Q-112（骨架，已确认）
+- **状态**：Kyries 已确认（2026-10-25）；Q-112b 已确认（C+B）
 
 ## 待确认（未裁定）
 
@@ -1215,12 +1219,12 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 | Q-109 | R-109 | Kyries 已确认（2026-10-25） |
 | Q-110 | R-110 | Kyries 已确认（2026-10-25） |
 | Q-111 | R-111 | Kyries 已确认（2026-10-25） |
-| Q-112 | R-112 | 部分确认（data-pool-only 骨架，2026-10-25） |
-| Q-112b | R-112 | 待 Kyries 确认（`?` / randomize non-Objective 抽法） |
+| Q-112 | R-112 | Kyries 已确认（2026-10-25） |
+| Q-112b | R-112 | Kyries 已确认（2026-10-25；建局实体池无放回 C+B） |
 
 ### 仍待确认
 
-Q-112b 见 R-112（Forward Camps 底栏 `?` 展开；拒引擎独立匀掷）。Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，见 #79）；Q-54 见 R-056（已核 PDF 正式批准）；Q-58 见 R-060（已批准一名挤出及无去处处理）。
+Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，见 #79）；Q-54 见 R-056（已核 PDF 正式批准）；Q-58 见 R-060（已批准一名挤出及无去处处理）。
 
 ### Q-52
 
