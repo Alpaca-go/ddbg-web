@@ -1144,15 +1144,16 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 ### R-112
 
 - **编号**：R-112
-- **日期**：2026-10-25
-- **问题**：Forward Camps III（quest:p012）任务分布底栏 `?`、出征池与未接线的 camp XP / SPECIAL 设营地（Q-112）。
-- **裁定**：
-  - **印刷**：FRONT p12 核实 **Rest 8**、**empty×3**（`6f701b5f5f`）；其余五格为卡面印刷 **`?`**（非提取失败），对应 dark / curio / treasure / lair / trap 五类槽位，SPECIAL 要求 **randomize non-Objective** 填满剩余 **5** 枚代币；与其它 III 级任务一致 **tokenTotal = 8**。
-  - **data-pool-only（本刀）**：`forward_camps_distribution.json` 记 `counts: empty×3` + `randomizeNonObjective: 5`；`basic-quests` + 出征池 + 印刷 art `enabled`。出征时用种子将五枚 `?` **独立均匀** 掷入 `dark|curio|treasure|lair|trap`，写入 state 的展开 `counts`（确定性回放）。
+- **日期**：2026-10-25（2026-10-25 修订：去掉引擎独立匀掷）
+- **问题**：Forward Camps III（quest:p012）任务分布底栏 `?`、出征池与未接线的 camp XP / SPECIAL 设营地（Q-112 / Q-112b）。
+- **裁定（已核实部分）**：
+  - **印刷**：FRONT p12 核实 **Rest 8**、**empty×3**（`6f701b5f5f`）、**Objective×0**；其余五格为卡面印刷 **`?`**（非提取失败），SPECIAL 要求用 **3 Empty** 并 **randomize non-Objective** 补足；与其它 III 级任务一致 **tokenTotal = 8**（固定 empty×3 + 待展开 **5**）。
+  - **data-pool-only**：`forward_camps_distribution.json` 记 `counts: empty×3` + `randomizeNonObjective: 5`；`basic-quests` + 出征池 + 印刷 art `enabled`。引擎**不得**用独立均匀或其它自造算法静默展开 `?`；出征路径在展开未接线时 **拒出征**（错误信息点名 **Q-112b**）。
   - **本刀不接**：`xpKind: camp` 结算（印刷「1 Xp / Set up camp」）；Empty 房用 Torch/Shovel **设 forward camp** 的 SPECIAL **运行时**。`summarizeDungeonQuest` 对 p012 拒绝生成摘要直至另刀。
-- **依据 / 边界**：`DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf` p12；Kyries 切片裁定 2026-10-25；R-001 / R-048。五枚 `?` 的桌游随机程序若与「独立均匀」不同，以规则书为准另修（Q-112b）。
-- **关联待确认**：Q-112
-- **状态**：Kyries 已确认（2026-10-25）
+- **待确认（Q-112b）**：底栏 `?` /「randomize non-Objective」的**抽法**——规则书未写清程序；类比 **R-030 / R-036** 应从实体代币池取枚再洗混，**不可**在引擎里当作未具名算法。**禁止**「独立均匀掷 kind」类实现：实体池每种非 Objective 代币通常 **≤3**，独立匀掷可产生非法 multiset。
+- **依据 / 边界**：`DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf` p12；DDBG·规则书答疑（Kyries 2026-10-25）；R-001 / R-048。
+- **关联待确认**：Q-112（骨架）、Q-112b（`?` 展开）
+- **状态**：部分确认（骨架与 data-pool-only）；**Q-112b 待 Kyries 确认**
 
 ## 待确认（未裁定）
 
@@ -1214,11 +1215,12 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 | Q-109 | R-109 | Kyries 已确认（2026-10-25） |
 | Q-110 | R-110 | Kyries 已确认（2026-10-25） |
 | Q-111 | R-111 | Kyries 已确认（2026-10-25） |
-| Q-112 | R-112 | Kyries 已确认（2026-10-25） |
+| Q-112 | R-112 | 部分确认（data-pool-only 骨架，2026-10-25） |
+| Q-112b | R-112 | 待 Kyries 确认（`?` / randomize non-Objective 抽法） |
 
 ### 仍待确认
 
-Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，见 #79）；Q-54 见 R-056（已核 PDF 正式批准）；Q-58 见 R-060（已批准一名挤出及无去处处理）。
+Q-112b 见 R-112（Forward Camps 底栏 `?` 展开；拒引擎独立匀掷）。Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，见 #79）；Q-54 见 R-056（已核 PDF 正式批准）；Q-58 见 R-060（已批准一名挤出及无去处处理）。
 
 ### Q-52
 
