@@ -5,7 +5,7 @@ export type QuestCardOption = {
   readonly id: BasicQuestId;
   readonly name: string;
   readonly restPoints: number;
-  readonly xpKind: "all" | "lair" | "gold";
+  readonly xpKind: "all" | "lair" | "gold" | "objective" | "curio" | "dark";
   readonly roomsPerXp: number;
   readonly maxRooms: number;
 };
@@ -21,7 +21,17 @@ export function QuestGoalNotes({ quest }: { readonly quest: QuestCardOption }) {
         柴火休息 {quest.restPoints} 点。
         {quest.xpKind === "gold"
           ? "清理至少一间巢穴后，可每捐献20金币获得1XP，最多捐献60金币、获得3XP。"
-          : `每清理${quest.roomsPerXp}${quest.xpKind === "lair" ? "间巢穴" : "个房间"}获得1XP，最多${quest.maxRooms / quest.roomsPerXp}XP。`}
+          : `每清理${quest.roomsPerXp}${
+              quest.xpKind === "lair"
+                ? "间巢穴"
+                : quest.xpKind === "curio"
+                  ? "间 Curio 房"
+                  : quest.xpKind === "dark"
+                    ? "间已点亮暗房"
+                    : quest.xpKind === "objective"
+                      ? "个目标"
+                      : "个房间"
+            }获得1XP，最多${quest.maxRooms / quest.roomsPerXp}XP。`}
         任务结算仅记待发XP，回村发放。
       </p>
     </>

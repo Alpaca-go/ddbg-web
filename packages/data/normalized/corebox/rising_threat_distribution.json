@@ -1,0 +1,11 @@
+{
+  "questId": "quest:p005",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p5; R15 / R29 / R-038; feea73ac43×3 curio; ecd1d4820d+723d85db03→treasure (R-109, Kyries 2026-10-25; 同 quest:p003 ecd1+a2e7); 723d/a2e7/f698 仅为数量角标; print reviewed 2026-10-25",
+  "counts": [
+    { "kind": "empty", "count": 2 },
+    { "kind": "dark", "count": 1 },
+    { "kind": "curio", "count": 3 },
+    { "kind": "treasure", "count": 1 },
+    { "kind": "trap", "count": 1 }
+  ]
+}

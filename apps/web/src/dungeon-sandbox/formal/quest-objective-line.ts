@@ -10,13 +10,26 @@ export function questObjectiveProgressLine(game: GameState): string {
 
   const clearedRooms = d.rooms.filter((r) => r.cleared);
   const clearedForXp =
-    quest.xpKind === "lair"
-      ? clearedRooms.filter((r) => r.kind === "lair").length
-      : clearedRooms.length;
+    quest.xpKind === "all"
+      ? clearedRooms.length
+      : quest.xpKind === "gold"
+        ? clearedRooms.length
+        : clearedRooms.filter((r) => r.kind === quest.xpKind).length;
 
   const maxXp = quest.maxRooms / quest.roomsPerXp;
   const xpEarned = Math.min(maxXp, Math.floor(clearedForXp / quest.roomsPerXp));
-  const unit = quest.xpKind === "lair" ? "巢穴" : quest.xpKind === "gold" ? "金币目标" : "房间";
+  const unit =
+    quest.xpKind === "lair"
+      ? "巢穴"
+      : quest.xpKind === "gold"
+        ? "金币目标"
+        : quest.xpKind === "curio"
+          ? "Curio 房"
+          : quest.xpKind === "dark"
+            ? "暗房"
+            : quest.xpKind === "objective"
+              ? "目标房"
+              : "房间";
   const progressDetail =
     quest.xpKind === "gold"
       ? `已清理 ${clearedRooms.length} 间`

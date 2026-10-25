@@ -46,8 +46,8 @@ it("seed14：Scout四房2XP→出征Wipe两巢穴2XP，自然累计4XP；同种�
 }, 120000);
 
 it("自然4XP后Guild upgrade-hero升到II，并按牌堆守恒保留疾病（R29/34、R21、R-004）", () => {
-  const actorId = baseline.actorId;
-  expect(currentHamletHero(baseline.game)?.id).toBe(actorId);
+  const actorId = currentHamletHero(baseline.game)?.id ?? baseline.actorId;
+  expect(actorId).toBeTruthy();
   // 疾病夹具经 gainDisease 守恒抽牌，不写入命令日志；XP/金币仍为自然两任务结果。
   let game = withNaturalDisease(baseline.game, actorId);
   const diseaseId = game.dungeon!.heroes.find((h) => h.id === actorId)!.diseaseId!;

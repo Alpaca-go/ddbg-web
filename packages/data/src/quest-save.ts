@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { basicQuests, type BasicQuestId } from "./basic-quests";
 
 const id = z.string().min(1);
 const actor = { actorId: id };
@@ -159,9 +160,14 @@ export const savedCommandSchema = z.union([
     shuffleChoices: z.record(id, shuffle).optional(),
   }),
 ]);
+const phase3QuestIds = basicQuests.filter((q) => q.level === 1).map((q) => q.id) as [
+  BasicQuestId,
+  ...BasicQuestId[],
+];
+
 export const questStartSchema = z.strictObject({
   seed: z.int().min(0).max(0xffffffff),
-  questId: z.enum(["quest:p001", "quest:p002", "quest:p003"]),
+  questId: z.enum(phase3QuestIds),
   mode: z.enum(["standard", "radiant"]),
   party: z
     .array(

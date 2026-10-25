@@ -17,23 +17,23 @@ const repoRoot = resolve(here, "../../..");
 
 const CSV = "tools/pipeline/print-card-art/fixtures/print-exploration-review-ok-auto.csv";
 const TRIM = { widthPt: 198.43, heightPt: 340.16 };
-const ENABLED_QUEST_IDS = ["quest:p001", "quest:p002", "quest:p003", "quest:p007", "quest:p008"];
-const ART_ONLY_QUEST_IDS = [
+const ENABLED_QUEST_IDS = [
+  "quest:p001",
+  "quest:p002",
+  "quest:p003",
   "quest:p004",
   "quest:p005",
   "quest:p006",
+  "quest:p007",
+  "quest:p008",
   "quest:p009",
   "quest:p010",
   "quest:p011",
-  "quest:p012",
   "quest:p013",
   "quest:p014",
   "quest:p015",
-  "quest:p016",
-  "quest:p017",
-  "quest:p018",
-  "quest:p019",
 ];
+const ART_ONLY_QUEST_IDS = ["quest:p012", "quest:p016", "quest:p017", "quest:p018", "quest:p019"];
 const ALL_QUEST_IDS = [...ENABLED_QUEST_IDS, ...ART_ONLY_QUEST_IDS].sort(
   (a, b) => Number(a.replace("quest:p", "")) - Number(b.replace("quest:p", "")),
 );
@@ -128,8 +128,8 @@ const map = {
     artOnlyQuestIds: ART_ONLY_QUEST_IDS,
     reviewedAt: "2026-10-20",
     notes: [
-      "All 19 quest print pages mapped; status enabled = basic-quests.ts + UI quest pool, art-only = raster only (Kyries 2026-10-20).",
-      "Enabling art-only quests requires basic-quests / rules changes; not in this slice.",
+      "All 19 quest print pages mapped; status enabled = basic-quests.ts + UI quest pool, art-only = raster only.",
+      "quest:p012 Forward Camps 仍 art-only：印刷 extract 房间计数为 ?，待目视核实后再接 basic-quests（2026-10-25）。",
     ],
   },
   cards,

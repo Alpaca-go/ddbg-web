@@ -203,7 +203,10 @@ export function naturalQuest(
         return;
       }
       if (t.type === "halted") {
-        if (options.preferWipeout && t.reason === "heroesDefeated") {
+        if (
+          options.preferWipeout &&
+          (t.reason === "heroesDefeated" || t.reason === "mutualWipeout")
+        ) {
           settle();
           step({ type: "finishDungeonBattle" });
           settle();

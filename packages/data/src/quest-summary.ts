@@ -92,10 +92,46 @@ export const level2QuestSummarySchema = z
     )
       ctx.addIssue({ code: "custom", message: "II级任务身份 / 清理记录 / 待发XP不一致" });
   });
+
+const LEGACY_QUEST_SUMMARY_IDS = new Set([
+  "quest:p001",
+  "quest:p002",
+  "quest:p003",
+  "quest:p007",
+  "quest:p008",
+]);
+
+/** 2026-10-25 非 Boss 任务卡：标准 XP 公式（不含 Fundraiser 捐献）。 */
+export const standardBasicQuestSummarySchema = z
+  .strictObject({
+    questId: z.string().min(1),
+    name: z.string().min(1),
+    clearedRoomIds: z.array(z.string().min(1)),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    const quest = basicQuests.find((q) => q.id === s.questId);
+    if (!quest || LEGACY_QUEST_SUMMARY_IDS.has(s.questId) || quest.xpKind === "gold") {
+      ctx.addIssue({ code: "custom", message: "非标准任务摘要身份" });
+      return;
+    }
+    if (
+      s.name !== quest.name ||
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.clearedRoomIds.length > quest.maxRooms ||
+      s.xpPerHero !== Math.min(3, Math.floor(s.clearedRoomIds.length / quest.roomsPerXp)) ||
+      s.stagecoachXp !== s.xpPerHero
+    )
+      ctx.addIssue({ code: "custom", message: "任务身份 / 清理记录 / 待发 XP 不一致" });
+  });
+
 export const dungeonQuestSummarySchema = z.union([
   scoutQuestSummarySchema,
   wipeQuestSummarySchema,
   fundraiserQuestSummarySchema,
   level2QuestSummarySchema,
+  standardBasicQuestSummarySchema,
 ]);
 export type DungeonQuestSummary = z.infer<typeof dungeonQuestSummarySchema>;
