@@ -130,7 +130,7 @@ const map = {
     reviewedAt: "2026-10-20",
     notes: [
       "All 19 quest print pages mapped; status enabled = basic-quests.ts + UI quest pool, art-only = raster only.",
-      "quest:p012 Forward Camps III：data-pool-only（empty×3 + randomizeNonObjective×5）；camp XP / SPECIAL 设营地运行时另刀（R-112，2026-10-25）。",
+      "quest:p012 Forward Camps III：data-pool-only（empty×3 + randomizeNonObjective×5）；? 展开 Q-112b；camp XP / SPECIAL 另刀（R-112，2026-10-25）。",
     ],
   },
   cards,

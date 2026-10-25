@@ -96,7 +96,7 @@ export const roomDistributionSchema = z
         }),
       )
       .min(1),
-    /** 出征前由种子展开为 counts 中的具体种类；不写入印刷 JSON 的「?」数量。 */
+    /** 印刷底栏 `?` 枚数；展开程序待 Q-112b，未接线前拒出征。 */
     randomizeNonObjective: z.int().positive().optional(),
   })
   .superRefine((data, ctx) => {
@@ -112,4 +112,13 @@ export function roomDistributionTokenTotal(
 ) {
   const fixed = distribution.counts.reduce((n, c) => n + c.count, 0);
   return fixed + (distribution.randomizeNonObjective ?? 0);
+}
+
+/** Q-112b：含待展开 ? 槽时拒出征，禁止引擎自造抽法。 */
+export function roomDistributionEmbarkBlockReason(
+  distribution: Pick<RoomDistribution, "questId" | "randomizeNonObjective">,
+): string | null {
+  const n = distribution.randomizeNonObjective;
+  if (!n) return null;
+  return `任务 ${distribution.questId}：底栏 ?×${n}（randomize non-Objective）展开规则待确认（Q-112b / R-112），拒出征`;
 }
