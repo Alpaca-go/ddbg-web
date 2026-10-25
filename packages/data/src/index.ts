@@ -16,9 +16,19 @@ export type { ExplorationFace } from "./exploration";
 export {
   dungeonLayoutSchema,
   dungeonLayoutFileSchema,
+  randomNonObjectiveRoomKinds,
+  roomDistributionEmbarkBlockReason,
   roomDistributionSchema,
+  roomDistributionTokenTotal,
 } from "./dungeon-layout";
-export type { DungeonLayout, RoomDistribution } from "./dungeon-layout";
+export type { DungeonLayout, RoomDistribution, RoomTokenKind } from "./dungeon-layout";
+export {
+  buildNonObjectiveRoomTokenPool,
+  drawAndMaterializeRoomDistribution,
+  drawRoomKindsWithoutReplacement,
+  materializeRoomDistribution,
+  nonObjectiveRoomTokenPoolCopiesPerKind,
+} from "./room-distribution-expand";
 
 /** 早期占位。卡牌数据用 normalize 里的 schema。 */
 export const placeholderRecordSchema = z.object({
