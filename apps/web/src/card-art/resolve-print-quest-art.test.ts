@@ -61,10 +61,10 @@ describe("print quest art map", () => {
     expect(basicQuestIds.has("quest:p004")).toBe(true);
   });
 
-  it("keeps Forward Camps art-only until print counts verified", () => {
+  it("enables Forward Camps III with basic-quests entry (data-pool-only, R-112)", () => {
     const forward = lookupPrintQuestFace("quest:p012");
     expect(forward?.name).toBe("Forward Camps III");
-    expect(forward?.status).toBe("art-only");
-    expect(basicQuestIds.has("quest:p012")).toBe(false);
+    expect(forward?.status).toBe("enabled");
+    expect(basicQuestIds.has("quest:p012")).toBe(true);
   });
 });

@@ -1,5 +1,6 @@
 import { dungeonLayoutSchema, roomDistributionSchema } from "../../data/src/dungeon-layout";
 import type { DungeonLayout, RoomDistribution } from "../../data/src/dungeon-layout";
+import { resolveRoomDistributionForEmbark } from "./room-distribution-resolve";
 import type { ApplyResult, GameState, PendingChoice } from "./command";
 import { createRng } from "./rng";
 import type { ResolveCard } from "./pressure";
@@ -312,10 +313,12 @@ export function createDungeonSandbox(
   startingProvisions = false,
 ): GameState {
   const layout = dungeonLayoutSchema.parse(layoutInput);
-  const distribution = roomDistributionSchema.parse(distributionInput);
+  const distributionTemplate = roomDistributionSchema.parse(distributionInput);
   const slots = layout.nodes.filter((n) => n.kind === "room");
   if (layout.unresolvedMarkers?.length || layout.nodes.some((n) => n.kind === "unresolved"))
     throw new Error("地图含未解释标记，只能预览（R-048）");
+  const resolved = resolveRoomDistributionForEmbark(distributionTemplate, seed, 0);
+  const distribution = resolved.distribution;
   const tokens = distribution.counts.flatMap((c) => Array.from({ length: c.count }, () => c.kind));
   if (tokens.length !== slots.length) throw new Error("房间槽与任务代币总数不一致（R-046）");
   if (mode !== "standard" && mode !== "radiant") throw new Error("本切片不开放 Stygian");
@@ -340,7 +343,8 @@ export function createDungeonSandbox(
   )
     throw new Error("英雄 / 压力无效");
   const rng = createRng(seed);
-  let cursor = 0;
+  let cursor = resolved.cursor;
+  for (let i = 0; i < cursor; i++) rng.next();
   for (let i = tokens.length - 1; i > 0; i -= 1) {
     const j = Math.floor(rng.next() * (i + 1));
     cursor += 1;

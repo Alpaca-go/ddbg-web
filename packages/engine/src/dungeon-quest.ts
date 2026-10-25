@@ -4,7 +4,11 @@ import {
   dungeonQuestSummarySchema,
   fundraiserQuestSummarySchema,
 } from "../../data/src/quest-summary";
-import { matchesQuestCounts, readBasicQuest } from "../../data/src/basic-quests";
+import {
+  matchesQuestCounts,
+  readBasicQuest,
+  storedDistributionMatchesQuest,
+} from "../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 
@@ -21,8 +25,11 @@ export function readDungeonQuestProgress(d: DungeonState) {
     kind,
     count: rooms.data.filter((r) => r.kind === kind).length,
   }));
+  const storedDistribution = d.questDistribution;
   if (
-    !matchesQuestCounts(actualCounts, quest.distribution.counts) ||
+    !storedDistribution ||
+    !storedDistributionMatchesQuest(storedDistribution, quest.distribution) ||
+    !matchesQuestCounts(actualCounts, storedDistribution.counts) ||
     rooms.data.length !== slots.length ||
     new Set(rooms.data.map((r) => r.id)).size !== slots.length ||
     rooms.data.some(
@@ -118,6 +125,10 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
       pendingChoice: pending,
     };
   }
+  if (quest.id === "quest:p012")
+    return refuse(
+      "Forward Camps：设营 XP（camp）与 SPECIAL 设营地未接线，本切片仅数据与出征池（Q-112 / R-112）",
+    );
   const xpPerHero = Math.min(3, Math.floor(clearedRoomIds.length / quest.roomsPerXp));
   const questSummary = dungeonQuestSummarySchema.parse({
     questId: quest.id,

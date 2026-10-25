@@ -1141,6 +1141,19 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **关联待确认**：Q-111
 - **状态**：Kyries 已确认（2026-10-25）
 
+### R-112
+
+- **编号**：R-112
+- **日期**：2026-10-25
+- **问题**：Forward Camps III（quest:p012）任务分布底栏 `?`、出征池与未接线的 camp XP / SPECIAL 设营地（Q-112）。
+- **裁定**：
+  - **印刷**：FRONT p12 核实 **Rest 8**、**empty×3**（`6f701b5f5f`）；其余五格为卡面印刷 **`?`**（非提取失败），对应 dark / curio / treasure / lair / trap 五类槽位，SPECIAL 要求 **randomize non-Objective** 填满剩余 **5** 枚代币；与其它 III 级任务一致 **tokenTotal = 8**。
+  - **data-pool-only（本刀）**：`forward_camps_distribution.json` 记 `counts: empty×3` + `randomizeNonObjective: 5`；`basic-quests` + 出征池 + 印刷 art `enabled`。出征时用种子将五枚 `?` **独立均匀** 掷入 `dark|curio|treasure|lair|trap`，写入 state 的展开 `counts`（确定性回放）。
+  - **本刀不接**：`xpKind: camp` 结算（印刷「1 Xp / Set up camp」）；Empty 房用 Torch/Shovel **设 forward camp** 的 SPECIAL **运行时**。`summarizeDungeonQuest` 对 p012 拒绝生成摘要直至另刀。
+- **依据 / 边界**：`DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf` p12；Kyries 切片裁定 2026-10-25；R-001 / R-048。五枚 `?` 的桌游随机程序若与「独立均匀」不同，以规则书为准另修（Q-112b）。
+- **关联待确认**：Q-112
+- **状态**：Kyries 已确认（2026-10-25）
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。
@@ -1201,6 +1214,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 | Q-109 | R-109 | Kyries 已确认（2026-10-25） |
 | Q-110 | R-110 | Kyries 已确认（2026-10-25） |
 | Q-111 | R-111 | Kyries 已确认（2026-10-25） |
+| Q-112 | R-112 | Kyries 已确认（2026-10-25） |
 
 ### 仍待确认
 

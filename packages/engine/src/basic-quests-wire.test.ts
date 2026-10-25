@@ -2,6 +2,8 @@ import { expect, it } from "vitest";
 import demBones from "../../data/normalized/corebox/dem_bones_distribution.json";
 import risingThreat from "../../data/normalized/corebox/rising_threat_distribution.json";
 import creepingDarkness from "../../data/normalized/corebox/creeping_darkness_distribution.json";
+import forwardCamps from "../../data/normalized/corebox/forward_camps_distribution.json";
+import { roomDistributionTokenTotal } from "../../data/src/dungeon-layout";
 import { basicQuests } from "../../data/src/basic-quests";
 import { standardBasicQuestSummarySchema } from "../../data/src/quest-summary";
 
@@ -15,12 +17,13 @@ const GOLDEN: Record<
   "quest:p009": { restPoints: 8, xpKind: "objective", roomsPerXp: 1, maxRooms: 3, tokenTotal: 8 },
   "quest:p010": { restPoints: 12, xpKind: "objective", roomsPerXp: 1, maxRooms: 1, tokenTotal: 8 },
   "quest:p011": { restPoints: 4, xpKind: "dark", roomsPerXp: 1, maxRooms: 3, tokenTotal: 8 },
+  "quest:p012": { restPoints: 8, xpKind: "all", roomsPerXp: 999, maxRooms: 8, tokenTotal: 8 },
   "quest:p013": { restPoints: 8, xpKind: "objective", roomsPerXp: 1, maxRooms: 3, tokenTotal: 8 },
   "quest:p014": { restPoints: 8, xpKind: "all", roomsPerXp: 2, maxRooms: 6, tokenTotal: 8 },
   "quest:p015": { restPoints: 8, xpKind: "lair", roomsPerXp: 1, maxRooms: 3, tokenTotal: 8 },
 };
 
-it("非 Boss 九张任务：八枚代币、休息点与 XP 口径对齐印刷 extract（p012 待确认跳过）", () => {
+it("非 Boss 十张 III 级任务等：八枚代币、休息点与 XP 口径对齐印刷 extract（p012 camp XP 另刀）", () => {
   for (const [id, expected] of Object.entries(GOLDEN)) {
     const quest = basicQuests.find((q) => q.id === id);
     expect(quest).toBeDefined();
@@ -30,16 +33,16 @@ it("非 Boss 九张任务：八枚代币、休息点与 XP 口径对齐印刷 ex
       roomsPerXp: expected.roomsPerXp,
       maxRooms: expected.maxRooms,
     });
-    const total = quest!.distribution.counts.reduce((n, c) => n + c.count, 0);
-    expect(total).toBe(expected.tokenTotal);
+    expect(roomDistributionTokenTotal(quest!.distribution)).toBe(expected.tokenTotal);
   }
-  expect(basicQuests.map((q) => q.id)).not.toContain("quest:p012");
+  expect(basicQuests.map((q) => q.id)).toContain("quest:p012");
 });
 
-it("Dem Bones / Rising Threat / Creeping Darkness 分布 JSON 与 basic-quests 一致", () => {
+it("Dem Bones / Rising Threat / Creeping Darkness / Forward Camps 分布 JSON 与 basic-quests 一致", () => {
   expect(basicQuests.find((q) => q.id === "quest:p004")!.distribution).toEqual(demBones);
   expect(basicQuests.find((q) => q.id === "quest:p005")!.distribution).toEqual(risingThreat);
   expect(basicQuests.find((q) => q.id === "quest:p014")!.distribution).toEqual(creepingDarkness);
+  expect(basicQuests.find((q) => q.id === "quest:p012")!.distribution).toEqual(forwardCamps);
 });
 
 it("R-109 / R-110：Rising Threat 无 lair；They Are Back dark×1 curio×1（Kyries 2026-10-25）", () => {
