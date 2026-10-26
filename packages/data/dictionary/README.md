@@ -9,4 +9,4 @@
 
 这些文件不参与 Prettier。Zod schema 在 `packages/data/src/dictionary/`。
 
-`confirmed` 与 `confirmed_rulebook` 可以用来命名。`needs_review`（key 为 `pending_<iconId>`）、`unsure`、`unreviewed` 仍按 R-048 保留占位。规范化层在 `packages/data/normalized/`。Musketeer 不在这批数据里（R-008）。
+`confirmed` 与 `confirmed_rulebook` 可以用来命名。`needs_review`（key 为 `pending_<iconId>`）、`unsure`、`unreviewed` 仍按 R-048 保留占位。截至 2026-10-26 Q-47 第二刀，全表仅 rank 335（`9b1134d0b0`）仍为 `needs_review`。规范化层在 `packages/data/normalized/`。Musketeer 不在这批数据里（R-008）。

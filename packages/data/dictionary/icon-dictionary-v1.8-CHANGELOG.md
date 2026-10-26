@@ -1,5 +1,34 @@
 # 图标词典 v1.8 更新记录（2026-10-08）
 
+## 2026-10-26 补充：Q-47 needs_review 第二刀（21 确认 + r335 leave）
+
+在首批 7 hash 之后，Kyries 拍板余下 `needs_review` 子集（除 rank 335 暂 leave）。`source` 仍为 `kyries_review_2026-10-26`。比较符半笔 merge 到 `compare_lte`（`c1d74de856`）与 `compare_gte`（`b3f370e3ec`）代表行。
+
+| hash | rank | key | status |
+| --- | --- | --- | --- |
+| `096ea91bb9` | 232 | `area_d10_marker` | `confirmed_rulebook` |
+| `ef839b6878` / `1cdbcf4cc7` | 307 / 315 | `preparation_days` | `confirmed_rulebook` |
+| `41dee17ee1` | 323 | `area_d10_marker` | `confirmed_rulebook` |
+| `9b1134d0b0` | 335 | `pending_…` | `needs_review`（leave；proposal `area_d10_teleport` 待确认） |
+| `003b470410` | 640 | `dodge` | `confirmed` |
+| `269d523c85` | 666 | `curio` | `confirmed` |
+| `5a4fbf9781` | 687 | `d10_result_guide_arrow` | `confirmed` |
+| `8707d5d8cf` | 702 | `summon` | `confirmed` |
+| `c1d74de856` | 726 | `compare_lte` | `confirmed` |
+| `ed3b7ac902` | 746 | `compare_lte` | `confirmed`（merged_into r726） |
+| `206c655597` | 775 | `compare_lte` | `confirmed`（merged_into r726） |
+| `52e99dee17` | 799 | `value_badge` | `confirmed`（value −2） |
+| `599b5b0881` | 800 | `compare_gte` | `confirmed`（merged_into r855） |
+| `66254314c8` | 809 | `hunger` | `confirmed` |
+| `8c829e3754` | 831 | `compare_gte` | `confirmed`（merged_into r855） |
+| `9ce4169551` | 845 | `value_badge` | `confirmed`（value +2） |
+| `b3f370e3ec` | 855 | `compare_gte` | `confirmed` |
+| `be2e32545a` | 868 | `compare_gte` | `confirmed`（merged_into r855） |
+| `72efe52ca5` / `adcab0541a` | 910 / 911 | `d10` | `confirmed`（value 1 / 10） |
+| `c3727c7056` | 912 | `dodge` | `confirmed` |
+
+统计（`status_all976`）：`needs_review` 22→**1**（仅 r335）；`confirmed` 668→685；`confirmed_rulebook` 45→49。
+
 ## 2026-10-26 补充：Q-47 needs_review 批（7 hash）
 
 Kyries 经 DDBG·规则书助手拍板本批 7 条 `needs_review`（Q-47 整体仍延后）。只改下列 hash，其余 `needs_review` / `unreviewed` 不动。`source` 为 `kyries_review_2026-10-26`。饰品行按已有 key **归类**为 `trinket_picture`，不 merge 不同 iconId。

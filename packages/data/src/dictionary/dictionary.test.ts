@@ -46,7 +46,11 @@ const INCONSISTENCY_IDS = [
 const MIXED_START_RANKS = [127, 132, 258, 259, 379] as const;
 
 /** 2026-10-26 Q-47 batch：历史 batch 里曾留下的 rank，现已 confirmed。 */
-const Q47_RESOLVED_RANKS = new Set([216, 379, 478, 603, 642, 714, 715]);
+const Q47_RESOLVED_RANKS = new Set([
+  216, 379, 478, 603, 642, 714, 715,
+  232, 307, 315, 323, 640, 666, 687, 702, 726, 746, 775, 799, 800, 809, 831, 845, 855,
+  868, 910, 911, 912,
+]);
 
 /** v1.2 批准的 31 条。合并行应与目标的含义、status、key、kind、value 相同。 */
 const V12_MERGES = [
@@ -379,6 +383,27 @@ describe("图标词典 v1.8", () => {
       status: "confirmed",
       kind: "status",
       group: "bleed",
+    });
+  });
+
+  it("Q-47 batch-2 2026-10-26：余下 needs_review 仅 r335 leave", () => {
+    const byId = new Map(dictionary.icons.map((icon) => [icon.iconId, icon]));
+    const needs = dictionary.icons.filter((icon) => icon.status === "needs_review");
+    expect(needs.map((icon) => icon.rank)).toEqual([335]);
+    expect(needs[0]?.iconId).toBe("9b1134d0b0");
+    expect(needs[0]?.proposal?.key).toBe("area_d10_teleport");
+    expect(byId.get("c1d74de856")).toMatchObject({ key: "compare_lte", status: "confirmed" });
+    expect(byId.get("b3f370e3ec")).toMatchObject({ key: "compare_gte", status: "confirmed" });
+    expect(byId.get("ed3b7ac902")?.notes).toContain("merged_into=c1d74de856");
+    expect(byId.get("52e99dee17")).toMatchObject({
+      key: "value_badge",
+      value: -2,
+      value_in_glyph: true,
+    });
+    expect(byId.get("adcab0541a")).toMatchObject({
+      key: "d10",
+      value: 10,
+      value_in_glyph: true,
     });
   });
 
@@ -894,7 +919,9 @@ describe("图标词典 v1.8", () => {
       }
     }
 
-    for (const rank of V16_KEEPS.filter((rank) => ![731, 793].includes(rank))) {
+    for (const rank of V16_KEEPS.filter(
+      (rank) => ![731, 793].includes(rank) && !Q47_RESOLVED_RANKS.has(rank),
+    )) {
       const kept = byRank.get(rank);
       expect(kept?.status).toBe("needs_review");
       expect(kept?.key).toBe(`pending_${kept?.iconId}`);
@@ -906,9 +933,9 @@ describe("图标词典 v1.8", () => {
       expect(kept?.meaning_zh.startsWith("待确认图形：")).toBe(true);
     }
 
-    const pot = byRank.get(809);
-    expect(pot?.key).toBe("pending_66254314c8");
-    expect(pot?.group).toBe("stress");
+    const hunger = byRank.get(809);
+    expect(hunger?.key).toBe("hunger");
+    expect(hunger?.status).toBe("confirmed");
   });
 
   it("v1.7 batch-07：新 rank 907-976，合并沿用目标，饰品插图不并入 r468，留下的仍是 pending_", () => {
@@ -959,7 +986,7 @@ describe("图标词典 v1.8", () => {
     expect(life?.value_in_glyph).toBe(false);
     expect(life?.evidence).toContain("26");
 
-    for (const rank of V17_KEEPS) {
+    for (const rank of V17_KEEPS.filter((r) => !Q47_RESOLVED_RANKS.has(r))) {
       const kept = byRank.get(rank);
       expect(kept?.status).toBe("needs_review");
       expect(kept?.key).toBe(`pending_${kept?.iconId}`);
@@ -998,17 +1025,17 @@ describe("图标词典 v1.8", () => {
     expect(new Set(V18_CATEGORIZE).size).toBe(79);
     expect(dictionary.meta.resolved_in_v1_8.length).toBeGreaterThan(0);
     expect(dictionary.meta.stats.status_all976).toEqual({
-      confirmed: 668,
-      confirmed_rulebook: 45,
-      needs_review: 22,
+      confirmed: 685,
+      confirmed_rulebook: 49,
+      needs_review: 1,
       decor: 110,
       unsure: 0,
       unreviewed: 138,
     });
     expect(dictionary.meta.stats.status_top525).toEqual({
       confirmed: 423,
-      confirmed_rulebook: 45,
-      needs_review: 5,
+      confirmed_rulebook: 49,
+      needs_review: 1,
       decor: 52,
       unsure: 0,
       unreviewed: 0,
