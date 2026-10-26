@@ -42,8 +42,15 @@ const INCONSISTENCY_IDS = [
   "batch04_kept",
 ] as const;
 
-/** 同一 iconId 里站位或阵营不一致，词典 key 仍用 any。rank 379 在 v1.2 改为 pending_。 */
-const MIXED_START_RANKS = [127, 132, 258, 259] as const;
+/** 同一 iconId 里站位或阵营不一致，词典 key 仍用 any。rank 379 现为 start_monster_any。 */
+const MIXED_START_RANKS = [127, 132, 258, 259, 379] as const;
+
+/** 2026-10-26 Q-47 batch：历史 batch 里曾留下的 rank，现已 confirmed。 */
+const Q47_RESOLVED_RANKS = new Set([
+  216, 379, 478, 603, 642, 714, 715,
+  232, 307, 315, 323, 640, 666, 687, 702, 726, 746, 775, 799, 800, 809, 831, 845, 855,
+  868, 910, 911, 912,
+]);
 
 /** v1.2 批准的 31 条。合并行应与目标的含义、status、key、kind、value 相同。 */
 const V12_MERGES = [
@@ -345,6 +352,61 @@ const dictionary = parseSchema(
 );
 
 describe("图标词典 v1.8", () => {
+  it("Q-47 batch 2026-10-26：Kyries 批准 7 个 needs_review hash", () => {
+    const byId = new Map(dictionary.icons.map((icon) => [icon.iconId, icon]));
+    expect(byId.get("293f170eab")).toMatchObject({
+      key: "stance_support_monster_slot",
+      status: "confirmed",
+      source: "kyries_review_2026-10-26",
+      previous_status: "needs_review",
+    });
+    expect(byId.get("73a29c830c")).toMatchObject({
+      key: "start_monster_any",
+      status: "confirmed_rulebook",
+      source: "kyries_review_2026-10-26",
+      previous_status: "needs_review",
+    });
+    expect(byId.get("3deae1ab2a")).toMatchObject({
+      key: "quirk",
+      status: "confirmed",
+      proposal: null,
+    });
+    for (const id of ["c80192cfcc", "032fd6cccd", "a08da49488"]) {
+      expect(byId.get(id)).toMatchObject({
+        key: "trinket_picture",
+        status: "confirmed",
+        kind: "other",
+      });
+    }
+    expect(byId.get("a64616e9c5")).toMatchObject({
+      key: "bleed",
+      status: "confirmed",
+      kind: "status",
+      group: "bleed",
+    });
+  });
+
+  it("Q-47 batch-2 2026-10-26：余下 needs_review 仅 r335 leave", () => {
+    const byId = new Map(dictionary.icons.map((icon) => [icon.iconId, icon]));
+    const needs = dictionary.icons.filter((icon) => icon.status === "needs_review");
+    expect(needs.map((icon) => icon.rank)).toEqual([335]);
+    expect(needs[0]?.iconId).toBe("9b1134d0b0");
+    expect(needs[0]?.proposal?.key).toBe("area_d10_teleport");
+    expect(byId.get("c1d74de856")).toMatchObject({ key: "compare_lte", status: "confirmed" });
+    expect(byId.get("b3f370e3ec")).toMatchObject({ key: "compare_gte", status: "confirmed" });
+    expect(byId.get("ed3b7ac902")?.notes).toContain("merged_into=c1d74de856");
+    expect(byId.get("52e99dee17")).toMatchObject({
+      key: "value_badge",
+      value: -2,
+      value_in_glyph: true,
+    });
+    expect(byId.get("adcab0541a")).toMatchObject({
+      key: "d10",
+      value: 10,
+      value_in_glyph: true,
+    });
+  });
+
   it("R-067逐项批准Shuffle/Blight/Wound三个hash，不补value或推广其他图标", () => {
     for (const [id, key] of [
       ["8c4c3c2ec2", "shuffle"],
@@ -508,7 +570,9 @@ describe("图标词典 v1.8", () => {
       expect(icon?.source).toBe("kyries_approved_proposal_2026-10-07");
     }
 
-    for (const rank of V12_KEPT.filter((rank) => rank !== 296 && rank !== 195)) {
+    for (const rank of V12_KEPT.filter(
+      (rank) => rank !== 296 && rank !== 195 && !Q47_RESOLVED_RANKS.has(rank),
+    )) {
       const icon = byRank.get(rank);
       expect(icon?.status).toBe("needs_review");
       expect(icon?.key).toBe(`pending_${icon?.iconId}`);
@@ -567,16 +631,12 @@ describe("图标词典 v1.8", () => {
     const flareTarget = byRank.get(195);
     expect(flareTarget?.status).toBe("confirmed");
     expect(flareTarget?.key).toBe("target_hero_or_monster");
-    for (const rank of [216] as const) {
-      const icon = byRank.get(rank);
-      expect(icon?.status).toBe("needs_review");
-      expect(icon?.key).toBe(`pending_${icon?.iconId}`);
-      expect(icon?.kind).toBe("");
-      expect(icon?.source).toBe("followup_proposal_2026-10-07");
-      expect(icon?.notes).toContain(
-        "v1.3 (Kyries approved batch-01 2026-10-07): kept as needs_review",
-      );
-    }
+    const stanceSlot = byRank.get(216);
+    expect(stanceSlot?.status).toBe("confirmed");
+    expect(stanceSlot?.key).toBe("stance_support_monster_slot");
+    expect(stanceSlot?.notes).toContain(
+      "v1.3 (Kyries approved batch-01 2026-10-07): kept as needs_review",
+    );
 
     // r539 在 batch-01 留下。v1.8 batch-08 归入 skill_art，不是 merge_into r490。
     const keptArt = byRank.get(539);
@@ -646,7 +706,7 @@ describe("图标词典 v1.8", () => {
     for (const rank of V13_BATCH02_OTHER_KEEPS) {
       const icon = byRank.get(rank);
       // r836 在 v1.6 batch-06 改成装饰。batch-02 当时留下的另外一条仍是 pending_。
-      if (rank === 836) continue;
+      if (rank === 836 || Q47_RESOLVED_RANKS.has(rank)) continue;
       expect(icon?.status).toBe("needs_review");
       expect(icon?.key).toBe(`pending_${icon?.iconId}`);
       expect(icon?.kind).toBe("");
@@ -733,7 +793,9 @@ describe("图标词典 v1.8", () => {
     expect(stillKept).toEqual([]);
     expect(skillMeanings.size).toBe(0);
 
-    for (const rank of V14_OTHER_KEEPS.filter((rank) => ![668, 693].includes(rank))) {
+    for (const rank of V14_OTHER_KEEPS.filter(
+      (rank) => ![668, 693].includes(rank) && !Q47_RESOLVED_RANKS.has(rank),
+    )) {
       const icon = byRank.get(rank);
       expect(icon?.status).toBe("needs_review");
       expect(icon?.key).toBe(`pending_${icon?.iconId}`);
@@ -857,7 +919,9 @@ describe("图标词典 v1.8", () => {
       }
     }
 
-    for (const rank of V16_KEEPS.filter((rank) => ![731, 793].includes(rank))) {
+    for (const rank of V16_KEEPS.filter(
+      (rank) => ![731, 793].includes(rank) && !Q47_RESOLVED_RANKS.has(rank),
+    )) {
       const kept = byRank.get(rank);
       expect(kept?.status).toBe("needs_review");
       expect(kept?.key).toBe(`pending_${kept?.iconId}`);
@@ -869,9 +933,9 @@ describe("图标词典 v1.8", () => {
       expect(kept?.meaning_zh.startsWith("待确认图形：")).toBe(true);
     }
 
-    const pot = byRank.get(809);
-    expect(pot?.key).toBe("pending_66254314c8");
-    expect(pot?.group).toBe("stress");
+    const hunger = byRank.get(809);
+    expect(hunger?.key).toBe("hunger");
+    expect(hunger?.status).toBe("confirmed");
   });
 
   it("v1.7 batch-07：新 rank 907-976，合并沿用目标，饰品插图不并入 r468，留下的仍是 pending_", () => {
@@ -922,7 +986,7 @@ describe("图标词典 v1.8", () => {
     expect(life?.value_in_glyph).toBe(false);
     expect(life?.evidence).toContain("26");
 
-    for (const rank of V17_KEEPS) {
+    for (const rank of V17_KEEPS.filter((r) => !Q47_RESOLVED_RANKS.has(r))) {
       const kept = byRank.get(rank);
       expect(kept?.status).toBe("needs_review");
       expect(kept?.key).toBe(`pending_${kept?.iconId}`);
@@ -961,17 +1025,17 @@ describe("图标词典 v1.8", () => {
     expect(new Set(V18_CATEGORIZE).size).toBe(79);
     expect(dictionary.meta.resolved_in_v1_8.length).toBeGreaterThan(0);
     expect(dictionary.meta.stats.status_all976).toEqual({
-      confirmed: 662,
-      confirmed_rulebook: 44,
-      needs_review: 29,
+      confirmed: 685,
+      confirmed_rulebook: 49,
+      needs_review: 1,
       decor: 110,
       unsure: 0,
       unreviewed: 138,
     });
     expect(dictionary.meta.stats.status_top525).toEqual({
-      confirmed: 421,
-      confirmed_rulebook: 44,
-      needs_review: 8,
+      confirmed: 423,
+      confirmed_rulebook: 49,
+      needs_review: 1,
       decor: 52,
       unsure: 0,
       unreviewed: 0,
@@ -1111,22 +1175,15 @@ describe("起始位置逐处归类", () => {
         return icon?.key.startsWith("start_") !== true;
       })
       .sort((a, b) => a - b);
-    // rank 216、379 在逐处表里。v1.2 把它们留成 pending_，不是 start_*。
-    expect(notStart).toEqual([216, 379]);
+    // rank 216 在逐处表里为怪物 support，但词典 key 是站位栏而非 start_*。
+    expect(notStart).toEqual([216]);
     const stanceSupport = iconsByRank.get(216);
-    expect(stanceSupport?.key).toBe("pending_293f170eab");
-    expect(stanceSupport?.status).toBe("needs_review");
+    expect(stanceSupport?.key).toBe("stance_support_monster_slot");
+    expect(stanceSupport?.status).toBe("confirmed");
     expect([...(byRank.get(216) ?? [])]).toEqual(["monster_support"]);
-    const mixedKept = iconsByRank.get(379);
-    expect(mixedKept?.key).toBe("pending_73a29c830c");
-    expect(mixedKept?.status).toBe("needs_review");
-    const mixedPlacements = [...(byRank.get(379) ?? [])].filter(
-      (placement) => placement !== "other",
-    );
-    expect(new Set(mixedPlacements).size).toBeGreaterThan(1);
 
     for (const [rank, classes] of byRank) {
-      if (rank === 216 || rank === 379) continue;
+      if (rank === 216) continue;
       const icon = iconsByRank.get(rank);
       expect(icon, `rank ${rank}`).toBeDefined();
       if (!icon) continue;

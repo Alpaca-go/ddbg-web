@@ -526,6 +526,8 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **进展**（2026-10-07，v1.6）：Kyries 批准 batch-06（34 条：合并 1、装饰 20、留下 13）。r833 旋转 180° 后并入 r240（食物），与 r397→r4 相同。r836 从 `needs_review` 改成装饰。留下的条目是 `needs_review`（`pending_<iconId>`，kind 为空），含义只描述外观。没有新造含义。
 - **进展**（2026-10-08，v1.7）：Kyries 批准 batch-07（70 条：合并 3、归类 64、留下 3）。这 70 个 iconId 原先不在词典里（误放进装饰切图），新增 rank 907–976。r907 并入 r21，value 沿用空，不把心内的 26 写成 value。64 条饰品插图按 2026-10-08 的规则归入 `trinket_picture`，不是并入 r468。留下的条目是 `needs_review`（`pending_<iconId>`，kind 为空），含义只描述外观。没有新造含义。
 - **进展**（2026-10-08，v1.8）：Kyries 批准 batch-08 的 79 条归类。key 用已有的 `skill_art`，kind 为 `other`，含义是通用句「技能插画 / Skill picture」，value 为空。不是并入 r274、r431 或 r490，也不照抄正面或背面更长的说明。核对后 31 条原是 `needs_review`，48 条原是 `unreviewed`。r195、r544、r569 仍留下，含义只描述外观。没有新造含义。
+- **进展**（2026-10-26，v1.8 补充）：Kyries 拍板 Q-47 子集 7 hash：`293f170eab`、`73a29c830c`、`3deae1ab2a`、`c80192cfcc`、`032fd6cccd`、`a08da49488`、`a64616e9c5`（见 `icon-dictionary-v1.8-CHANGELOG.md` 2026-10-26）。Q-47 整体仍延后；其余 `needs_review` 未动。
+- **进展**（2026-10-26，v1.8 第二刀）：余下 `needs_review` 21 条确认 + rank 335（`9b1134d0b0`）暂 leave（proposal `area_d10_teleport` 待 Kyries）。词典 `needs_review` 22→1。详见 CHANGELOG 第二刀表。
 - **关联待确认**：Q-47
 - **状态**：延后（词典 v1.8 已入库；`needs_review` / `unsure` / `unreviewed` 仍不命名。说明书 §21.2 P-01~P-10，以及抗性 / 免疫栏里尚未 `confirmed` 的图标。）
 

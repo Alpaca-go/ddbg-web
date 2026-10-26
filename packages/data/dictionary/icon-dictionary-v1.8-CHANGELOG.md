@@ -1,5 +1,50 @@
 # 图标词典 v1.8 更新记录（2026-10-08）
 
+## 2026-10-26 补充：Q-47 needs_review 第二刀（21 确认 + r335 leave）
+
+在首批 7 hash 之后，Kyries 拍板余下 `needs_review` 子集（除 rank 335 暂 leave）。`source` 仍为 `kyries_review_2026-10-26`。比较符半笔 merge 到 `compare_lte`（`c1d74de856`）与 `compare_gte`（`b3f370e3ec`）代表行。
+
+| hash | rank | key | status |
+| --- | --- | --- | --- |
+| `096ea91bb9` | 232 | `area_d10_marker` | `confirmed_rulebook` |
+| `ef839b6878` / `1cdbcf4cc7` | 307 / 315 | `preparation_days` | `confirmed_rulebook` |
+| `41dee17ee1` | 323 | `area_d10_marker` | `confirmed_rulebook` |
+| `9b1134d0b0` | 335 | `pending_…` | `needs_review`（leave；proposal `area_d10_teleport` 待确认） |
+| `003b470410` | 640 | `dodge` | `confirmed` |
+| `269d523c85` | 666 | `curio` | `confirmed` |
+| `5a4fbf9781` | 687 | `d10_result_guide_arrow` | `confirmed` |
+| `8707d5d8cf` | 702 | `summon` | `confirmed` |
+| `c1d74de856` | 726 | `compare_lte` | `confirmed` |
+| `ed3b7ac902` | 746 | `compare_lte` | `confirmed`（merged_into r726） |
+| `206c655597` | 775 | `compare_lte` | `confirmed`（merged_into r726） |
+| `52e99dee17` | 799 | `value_badge` | `confirmed`（value −2） |
+| `599b5b0881` | 800 | `compare_gte` | `confirmed`（merged_into r855） |
+| `66254314c8` | 809 | `hunger` | `confirmed` |
+| `8c829e3754` | 831 | `compare_gte` | `confirmed`（merged_into r855） |
+| `9ce4169551` | 845 | `value_badge` | `confirmed`（value +2） |
+| `b3f370e3ec` | 855 | `compare_gte` | `confirmed` |
+| `be2e32545a` | 868 | `compare_gte` | `confirmed`（merged_into r855） |
+| `72efe52ca5` / `adcab0541a` | 910 / 911 | `d10` | `confirmed`（value 1 / 10） |
+| `c3727c7056` | 912 | `dodge` | `confirmed` |
+
+统计（`status_all976`）：`needs_review` 22→**1**（仅 r335）；`confirmed` 668→685；`confirmed_rulebook` 45→49。
+
+## 2026-10-26 补充：Q-47 needs_review 批（7 hash）
+
+Kyries 经 DDBG·规则书助手拍板本批 7 条 `needs_review`（Q-47 整体仍延后）。只改下列 hash，其余 `needs_review` / `unreviewed` 不动。`source` 为 `kyries_review_2026-10-26`。饰品行按已有 key **归类**为 `trinket_picture`，不 merge 不同 iconId。
+
+| hash | rank | 采用 key | status |
+| --- | --- | --- | --- |
+| `293f170eab` | 216 | `stance_support_monster_slot` | `confirmed` |
+| `73a29c830c` | 379 | `start_monster_any` | `confirmed_rulebook` |
+| `3deae1ab2a` | 478 | `quirk` | `confirmed` |
+| `c80192cfcc` | 603 | `trinket_picture` | `confirmed` |
+| `032fd6cccd` | 642 | `trinket_picture` | `confirmed` |
+| `a08da49488` | 714 | `trinket_picture` | `confirmed` |
+| `a64616e9c5` | 715 | `bleed` | `confirmed` |
+
+JSON / CSV 与 `meta.stats` 同步（字段名 `status_all976` 保留）：全部 983 条中 `confirmed` 668、`confirmed_rulebook` 45、`needs_review` 22（较本批前约 29 减 7）、`decor` 110、`unsure` 0、`unreviewed` 138；前 525 条 `needs_review` 8→5。
+
 ## 2026-10-13 / R-067补充
 
 Kyries逐项批准`8c4c3c2ec2`=Shuffle、`ce2f57ed90`=Blight、`5c9604da90`=Wound。三条由unreviewed变confirmed，保留原ID、空value与出现次数；记录真实source日期`kyries_review_2026-10-13`及previous_status，不补图标内数字或复合顺序。JSON/CSV与覆盖率同步：全部983条中confirmed660、confirmed_rulebook44、needs_review31、decor110、unsure0、unreviewed138；前525计数不变。下文原版计数保留为历史记录。
