@@ -142,6 +142,17 @@ describe("Phase 3 首切片（R12、R14、R-013、R-046、R-048）", () => {
     expect(result.dungeon!.rooms.filter((r) => r.revealed).map((r) => r.id)).toEqual(["G"]);
     expect(applyCommand(result, { type: "beginDungeonExploration" }).state).toBe(result);
   });
+  it("实际 p11 红点 X 为灰点（R-114）；A/B/G 未解释标记仍拒出征", () => {
+    const p11 = layouts.layouts[10]!;
+    expect(p11.nodes.find((n) => n.id === "X")!.kind).toBe("dot");
+    expect(() =>
+      createDungeonSandbox(1, p11, {
+        questId: "quest:p011",
+        source: "test",
+        counts: [{ kind: "empty", count: 16 }],
+      }),
+    ).toThrow("未解释标记");
+  });
   it("实际 p3 分岔灰点挡住远端房间；p11 / p12 未解释标记不能开局", () => {
     const initial = createDungeonSandbox(1, layouts.layouts[2], distribution, "standard", "D");
     const after = scout(initial).state;

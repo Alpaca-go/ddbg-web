@@ -32,14 +32,14 @@
 | 8               | 8      | 8      | 无                       | S-G、G-D、G-F、G-H、F-C、C-A、H-E、E-B                                                        |
 | 9               | 8      | 9      | X 四岔                   | A-X、X-B、X-C、X-F、F-H、B-E、E-D、D-G、E-S                                                   |
 | 10              | 8      | 11     | X / Y 各四岔             | A-B、A-X、B-Y、C-X、X-D、X-F、D-Y、Y-E、Y-H、D-G、G-S                                         |
-| 11              | 16     | 19     | 红点 X，特殊槽 A / B / G | A-D、B-C、C-X、X-D、X-E、D-F、E-F、F-G、E-I、I-L、H-K、J-K、K-L、L-M、M-N、K-O、O-S、S-P、P-M |
+| 11              | 16     | 19     | 灰点 X（R-114），特殊槽 A / B / G | A-D、B-C、C-X、X-D、X-E、D-F、E-F、F-G、E-I、I-L、H-K、J-K、K-L、L-M、M-N、K-O、O-S、S-P、P-M |
 | 12              | 16     | 17     | 特殊槽 A / C / D         | A-B、B-C、B-E、D-E、E-G、F-G、G-H、F-J、H-L、I-J、J-K、K-L、L-M、I-N、K-O、M-P、O-S           |
 | 13              | 8      | 8      | 无                       | S-A、A-B、B-C、S-D、D-E、E-H、D-G、G-F                                                        |
 | 14              | 8      | 8      | 无                       | A-B、B-C、C-E、E-S、D-G、G-S、H-S、H-F                                                        |
 
 首切片“灰点必须恰好两段”的 schema 假设与实际 p3 / p4 / p5 / p9 / p10 不符，已修正为至少两段，允许三岔与四岔。侦察只看当前节点的直接邻室，不跨越灰点；灰点不能侦察（R14、R-046）。这不是新规则裁定，而是按印刷图修正数据约束。
 
-p11 / p12 的 BACK 为红边；FRONT 的三个特殊图案槽与 p11 红点只存观察文字及 `semantic=null`，未命名为 Boss 位 / 灰点。红点节点类型是 `unresolved`。含这些标记的地图在引擎开局前拒绝，只能预览（R-048）。
+p11 / p12 的 BACK 为红边；FRONT 三个特殊图案槽仍只存观察文字及 `semantic=null`。p11 **红点 X** 已按 **R-114** 标为走廊灰点 `dot`；A/B/G 未解释。含未解释标记的地图在引擎开局前拒绝，只能预览（R-048）。
 
 ## 验证与待确认
 
