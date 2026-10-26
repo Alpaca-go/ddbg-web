@@ -53,7 +53,7 @@ describe("QuestMap 14 页印刷标注（Q-45、R-048）", () => {
         .filter((n) => n.kind === "dot")
         .map((n) => l.edges.filter((e) => e.includes(n.id)).length),
     );
-    expect(degrees).toEqual([3, 3, 3, 3, 2, 4, 4, 4]);
+    expect(degrees).toEqual([3, 3, 3, 3, 2, 4, 4, 4, 3]);
     const l = parsed.layouts[2]!;
     expect(
       dungeonLayoutSchema.safeParse({
@@ -62,9 +62,9 @@ describe("QuestMap 14 页印刷标注（Q-45、R-048）", () => {
       }).success,
     ).toBe(false);
   });
-  it("红点与特殊图案只存观察，保留 semantic=null", () => {
-    expect(parsed.layouts[10]!.nodes.find((n) => n.id === "X")!.kind).toBe("unresolved");
-    expect(parsed.layouts[10]!.unresolvedMarkers).toHaveLength(4);
+  it("p11 红点 X 为走廊灰点（R-114）；其余特殊图案仍 semantic=null", () => {
+    expect(parsed.layouts[10]!.nodes.find((n) => n.id === "X")!.kind).toBe("dot");
+    expect(parsed.layouts[10]!.unresolvedMarkers).toHaveLength(3);
     expect(parsed.layouts[11]!.unresolvedMarkers).toHaveLength(3);
     expect(
       parsed.layouts.flatMap((l) => l.unresolvedMarkers ?? []).every((m) => m.semantic === null),

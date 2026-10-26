@@ -1212,7 +1212,7 @@
     },
     {
      "id": "X",
-     "kind": "unresolved",
+     "kind": "dot",
      "x": 50,
      "y": 28
     }
@@ -1296,11 +1296,6 @@
     ]
    ],
    "unresolvedMarkers": [
-    {
-     "nodeId": "X",
-     "observation": "red circular corridor marker",
-     "semantic": null
-    },
     {
      "nodeId": "A",
      "observation": "distinct illustrated slot",

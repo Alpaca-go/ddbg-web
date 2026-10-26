@@ -271,6 +271,32 @@ describe("单走廊 → Empty（R14–R15、R-012、R-013、R-026、R-048）", (
     expect(room.dungeon).toMatchObject({ position: "A", phase: "awaitingRoom" });
     expect(room.dungeon!.rooms.find((r) => r.id === "A")!.cleared).toBeUndefined();
   });
+  it("实际 p11 红点 X（R-114）灰点必须停留；下段重新掷骰，不能从灰点侦察", () => {
+    const p11 = {
+      ...layouts.layouts[10]!,
+      unresolvedMarkers: undefined,
+    };
+    const distribution16 = {
+      questId: "quest:p011",
+      source: "test",
+      counts: [{ kind: "empty", count: 16 }],
+    };
+    const initial = createDungeonSandbox(
+      31,
+      p11,
+      distribution16,
+      "radiant",
+      "E",
+      heroes,
+      catalog.cards as ResolveCard[],
+      { dungeonLevel: 1, light: 5, provisions },
+    );
+    const scouted = choose(applyCommand(initial, { type: "scoutDungeon" }).state, "agree").state;
+    const dot = applyCommand(route(scouted, "X"), { type: "rollDungeonExploration" }).state;
+    expect(dot.dungeon).toMatchObject({ position: "X", phase: "ready" });
+    expect(applyCommand(dot, { type: "scoutDungeon" }).state).toBe(dot);
+    expect(route(dot, "D").dungeon!.exploration!.dicePerHero).toBe(1);
+  });
   it("实际 p3 灰点必须停留；下段重新掷骰，不能从灰点侦察", () => {
     const initial = createDungeonSandbox(
       31,
