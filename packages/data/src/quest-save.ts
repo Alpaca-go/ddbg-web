@@ -135,6 +135,7 @@ export const savedCommandSchema = z.union([
     targetId: id,
     effect: z.enum(["heal", "clearBleed", "clearBlight", "reduceStress", "raiseLight"]),
   }),
+  z.strictObject({ type: z.literal("setupForwardCamp"), provisionId: id }),
   z.strictObject({ type: z.literal("playHeroSkillEmptyArea"), ...actor, skillId: id, areaId: id }),
   z.strictObject({
     type: z.literal("playHeroSkill"),

@@ -34,6 +34,7 @@ import { summarizeDungeonQuest, resolveFundraiserGold } from "./dungeon-quest";
 import { restDungeon } from "./dungeon-rest";
 import { setupDungeonProvisions } from "./dungeon-starting-provisions";
 import { useDungeonProvision } from "./dungeon-provision-use";
+import { setupForwardCamp } from "./dungeon-forward-camp";
 import {
   beginReturnToHamlet,
   chooseHamletQuirk,
@@ -157,6 +158,7 @@ export type Command =
   | { readonly type: "visitNomadWagon"; readonly actorId: string }
   | { readonly type: "rollDungeonProvisions" }
   | { readonly type: "restDungeon" }
+  | { readonly type: "setupForwardCamp"; readonly provisionId: string }
   | { readonly type: "summarizeDungeonQuest" }
   | { readonly type: "startDungeonBattle" }
   | { readonly type: "finishDungeonBattle" }
@@ -444,6 +446,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       ? resolveFundraiserGold(state, command)
       : rejectBattleCommand(state, "请先完成捐献选择");
   if (command.type === "restDungeon") return restDungeon(state, command);
+  if (command.type === "setupForwardCamp") return setupForwardCamp(state, command);
   if (state.dungeon?.pending?.id.startsWith("dungeon-rest:"))
     return command.type === "resolveChoice"
       ? restDungeon(state, command)

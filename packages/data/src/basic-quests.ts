@@ -20,7 +20,7 @@ import {
   type RoomDistribution,
 } from "./dungeon-layout";
 
-export type QuestXpKind = "all" | "lair" | "gold" | "objective" | "curio" | "dark";
+export type QuestXpKind = "all" | "lair" | "gold" | "objective" | "curio" | "dark" | "camp";
 
 /** 官方R15 / R29、QUEST：已核对可出征任务；未决特殊规则或未审房间图标仍停点。 */
 export const basicQuests = [
@@ -139,10 +139,9 @@ export const basicQuests = [
     name: "Forward Camps III",
     level: 3 as const,
     restPoints: 8,
-    // Q-112：印刷「1 Xp / Set up camp」；QuestXpKind 无 camp，本刀不接设营 XP 结算（勿误用 all/objective）。
-    xpKind: "all" as const,
-    roomsPerXp: 999,
-    maxRooms: 8,
+    xpKind: "camp" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
     distribution: roomDistributionSchema.parse(forwardCamps),
   },
   {

@@ -17,13 +17,13 @@ const GOLDEN: Record<
   "quest:p009": { restPoints: 8, xpKind: "objective", roomsPerXp: 1, maxRooms: 3, tokenTotal: 8 },
   "quest:p010": { restPoints: 12, xpKind: "objective", roomsPerXp: 1, maxRooms: 1, tokenTotal: 8 },
   "quest:p011": { restPoints: 4, xpKind: "dark", roomsPerXp: 1, maxRooms: 3, tokenTotal: 8 },
-  "quest:p012": { restPoints: 8, xpKind: "all", roomsPerXp: 999, maxRooms: 8, tokenTotal: 8 },
+  "quest:p012": { restPoints: 8, xpKind: "camp", roomsPerXp: 1, maxRooms: 3, tokenTotal: 8 },
   "quest:p013": { restPoints: 8, xpKind: "objective", roomsPerXp: 1, maxRooms: 3, tokenTotal: 8 },
   "quest:p014": { restPoints: 8, xpKind: "all", roomsPerXp: 2, maxRooms: 6, tokenTotal: 8 },
   "quest:p015": { restPoints: 8, xpKind: "lair", roomsPerXp: 1, maxRooms: 3, tokenTotal: 8 },
 };
 
-it("非 Boss 十张 III 级任务等：八枚代币、休息点与 XP 口径对齐印刷 extract（p012 camp XP 另刀）", () => {
+it("非 Boss 十张 III 级任务等：八枚代币、休息点与 XP 口径对齐印刷 extract（p012 camp XP，R-113）", () => {
   for (const [id, expected] of Object.entries(GOLDEN)) {
     const quest = basicQuests.find((q) => q.id === id);
     expect(quest).toBeDefined();

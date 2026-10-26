@@ -9,6 +9,7 @@ import { triggerDungeonPassive } from "./dungeon-passive";
 import { resolveDungeonTrap } from "./dungeon-trap";
 import { changeDungeonLight } from "./dungeon-light";
 import { PROVISION_FACES } from "./loot";
+import { readBasicQuest } from "../../data/src/basic-quests";
 
 const faces = explorationDieSchema.parse(die).faces;
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
@@ -72,6 +73,7 @@ export function continueDungeonExploration(result: ApplyResult): ApplyResult {
       const to = d.exploration.to;
       const room = d.rooms.find((r) => r.id === to);
       const cleared = room?.cleared || room?.kind === "empty";
+      const forwardCamps = readBasicQuest(d.questDistribution)?.id === "quest:p012";
       next = finish(
         result.state,
         {
@@ -87,7 +89,9 @@ export function continueDungeonExploration(result: ApplyResult): ApplyResult {
           phase: !room || cleared ? "ready" : "awaitingRoom",
         },
         cleared
-          ? `进入 ${to}：Empty 自动清理，移除房间代币（R15）`
+          ? forwardCamps && room?.kind === "empty"
+            ? `进入 ${to}：Empty 已清理，保留代币供设营（R-113）`
+            : `进入 ${to}：Empty 自动清理，移除房间代币（R15）`
           : room
             ? `进入 ${to}：等待 ${room.kind} 房间效果，未清理代币`
             : `停在灰点 ${to}，下一段须再次探索，不能侦察（R14）`,

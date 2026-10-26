@@ -10,11 +10,13 @@ export function questObjectiveProgressLine(game: GameState): string {
 
   const clearedRooms = d.rooms.filter((r) => r.cleared);
   const clearedForXp =
-    quest.xpKind === "all"
-      ? clearedRooms.length
-      : quest.xpKind === "gold"
+    quest.xpKind === "camp"
+      ? (d.forwardCampSetups ?? 0)
+      : quest.xpKind === "all"
         ? clearedRooms.length
-        : clearedRooms.filter((r) => r.kind === quest.xpKind).length;
+        : quest.xpKind === "gold"
+          ? clearedRooms.length
+          : clearedRooms.filter((r) => r.kind === quest.xpKind).length;
 
   const maxXp = quest.maxRooms / quest.roomsPerXp;
   const xpEarned = Math.min(maxXp, Math.floor(clearedForXp / quest.roomsPerXp));
@@ -29,11 +31,15 @@ export function questObjectiveProgressLine(game: GameState): string {
             ? "暗房"
             : quest.xpKind === "objective"
               ? "目标房"
-              : "房间";
+              : quest.xpKind === "camp"
+                ? "次设营"
+                : "房间";
   const progressDetail =
     quest.xpKind === "gold"
       ? `已清理 ${clearedRooms.length} 间`
-      : `已计 ${clearedForXp}/${quest.maxRooms} ${unit}`;
+      : quest.xpKind === "camp"
+        ? `已设营 ${clearedForXp}/${quest.maxRooms} 次`
+        : `已计 ${clearedForXp}/${quest.maxRooms} ${unit}`;
 
   return `${quest.name} · 任务 XP ${xpEarned}/${maxXp} · ${progressDetail}`;
 }

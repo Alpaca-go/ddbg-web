@@ -1151,7 +1151,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定（已核实部分）**：
   - **印刷**：FRONT p12 核实 **Rest 8**、**empty×3**（`6f701b5f5f`）、**Objective×0**；其余五格为卡面印刷 **`?`**（非提取失败），SPECIAL 要求用 **3 Empty** 并 **randomize non-Objective** 补足；与其它 III 级任务一致 **tokenTotal = 8**（固定 empty×3 + 待展开 **5**）。
   - **data-pool-only**：`forward_camps_distribution.json` 记 `counts: empty×3` + `randomizeNonObjective: 5`；`basic-quests` + 出征池 + 印刷 art `enabled`。数据层保留 `?` 槽；**建局**时由引擎展开（见 Q-112b）。未展开模板仍 **拒出征**（错误信息点名 **Q-112b**）。
-  - **本刀不接**：`xpKind: camp` 结算（印刷「1 Xp / Set up camp」）；Empty 房用 Torch/Shovel **设 forward camp** 的 SPECIAL **运行时**。`summarizeDungeonQuest` 对 p012 拒绝生成摘要直至另刀。
+  - **设营 XP / SPECIAL**：见 **R-113**（已另刀接线）；本条只管分布与建局展开（Q-112b），不含 QuestMap。
 - **Q-112b（Kyries 2026-10-25 已确认）**：
   - **C（展开时机）**：**建局**时从实体池一次取出所需枚数，与固定 empty 合并后 **洗混**、**面朝下** 放入地图房间槽；对齐规则书 **印刷 p12** 建局流程。进房只揭面，**不在进房时** 再决定 kind。
   - **B（抽法）**：再抽 **5** 枚 = 仅从 **dark / curio / treasure / lair / trap** 五类 **实体代币池无放回** 抽取（**排除 Empty 与 Objective**）。**禁止**对 kind 独立均匀掷骰（会产生非法 multiset；实体池每种通常 **≤3**）。固定 **empty×3 + 抽到的 5 枚 → 共 8**，与 `forward_camps_distribution.json` 骨架一致。
@@ -1160,6 +1160,19 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **依据 / 边界**：`DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf` p12（建局）；R-001 / R-048。
 - **关联待确认**：Q-112（骨架，已确认）
 - **状态**：Kyries 已确认（2026-10-25）；Q-112b 已确认（C+B）
+
+### R-113
+
+- **编号**：R-113
+- **日期**：2026-10-26
+- **问题**：Forward Camps III（quest:p012）SPECIAL 设营、`xpKind: camp` 任务 XP 与退出摘要（承接 R-112 未接线部分）。
+- **裁定**：
+  - **SPECIAL**：在 **已清理** 的 **Empty** 房，消耗 **1 Torch 或 1 Tool（Shovel）** → 成功设 1 次 forward camp；**同一 Empty 可多次**（每耗 1 补给计一次）；**不移除** Empty 代币（与 R15 一般 Empty「移除代币」表述区分：本任务保留代币供重复设营）。
+  - **XP**：每次成功设营 **1 XP**（印刷「1 Xp / Set up camp」）；数据层 `xpKind: camp`、`roomsPerXp: 1`；适用 **R-038** 封顶 **3**。
+  - **摘要**：`summarizeDungeonQuest` 按设营次数计待发 XP；建局分布仍只认 **R-112**，本条不管 QuestMap / R-048 几何。
+- **依据 / 边界**：QUEST FRONT p12；规格书 §13.1（R15、R29、R-038）；R-112（分布与出征池）。
+- **关联待确认**：Q-112（骨架，已确认）
+- **状态**：Kyries 已确认（2026-10-26）
 
 ## 待确认（未裁定）
 
@@ -1223,6 +1236,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 | Q-111 | R-111 | Kyries 已确认（2026-10-25） |
 | Q-112 | R-112 | Kyries 已确认（2026-10-25） |
 | Q-112b | R-112 | Kyries 已确认（2026-10-25；建局实体池无放回 C+B） |
+| Q-113 | R-113 | Kyries 已确认（2026-10-26；设营 SPECIAL + camp XP + 摘要） |
 
 ### 仍待确认
 

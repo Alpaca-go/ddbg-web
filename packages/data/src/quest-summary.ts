@@ -72,6 +72,28 @@ export const fundraiserQuestSummarySchema = z
       ctx.addIssue({ code: "custom", message: "Fundraiser捐献 / 巢穴 / 待发XP不一致" });
   });
 /** QUEST p7–8、R15/R29、R-038：仅接受已核对的两张II级任务，不放宽I级schema。 */
+export const forwardCampsQuestSummarySchema = z
+  .strictObject({
+    questId: z.literal("quest:p012"),
+    name: z.literal("Forward Camps III"),
+    clearedRoomIds: z.array(z.string().min(1)),
+    forwardCampSetups: z.int().min(0),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    if (
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.xpPerHero !== Math.min(3, s.forwardCampSetups) ||
+      s.stagecoachXp !== s.xpPerHero
+    )
+      ctx.addIssue({
+        code: "custom",
+        message: "Forward Camps 设营次数 / 清理记录 / 待发 XP 不一致",
+      });
+  });
+
 export const level2QuestSummarySchema = z
   .strictObject({
     questId: z.enum(["quest:p007", "quest:p008"]),
@@ -113,7 +135,12 @@ export const standardBasicQuestSummarySchema = z
   })
   .superRefine((s, ctx) => {
     const quest = basicQuests.find((q) => q.id === s.questId);
-    if (!quest || LEGACY_QUEST_SUMMARY_IDS.has(s.questId) || quest.xpKind === "gold") {
+    if (
+      !quest ||
+      LEGACY_QUEST_SUMMARY_IDS.has(s.questId) ||
+      quest.xpKind === "gold" ||
+      quest.xpKind === "camp"
+    ) {
       ctx.addIssue({ code: "custom", message: "非标准任务摘要身份" });
       return;
     }
@@ -131,6 +158,7 @@ export const dungeonQuestSummarySchema = z.union([
   scoutQuestSummarySchema,
   wipeQuestSummarySchema,
   fundraiserQuestSummarySchema,
+  forwardCampsQuestSummarySchema,
   level2QuestSummarySchema,
   standardBasicQuestSummarySchema,
 ]);
