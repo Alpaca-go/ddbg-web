@@ -163,6 +163,8 @@ export type DungeonState = {
   readonly rest?: ScoutRest;
   readonly questDistribution?: RoomDistribution;
   readonly questSummary?: DungeonQuestSummary;
+  /** Forward Camps III：成功设营次数（R-113）。 */
+  readonly forwardCampSetups?: number;
   readonly trinkets?: TrinketPool;
   readonly pendingCurioDraw?: { readonly rollId: string; readonly optionId: string };
   readonly conditions?: ConditionPool;

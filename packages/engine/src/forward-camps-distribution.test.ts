@@ -32,7 +32,7 @@ it("Forward Camps 分布：empty×3、Objective×0、randomizeNonObjective×5，
     name: "Forward Camps III",
     level: 3,
     restPoints: 8,
-    maxRooms: 8,
+    maxRooms: 3,
   });
 });
 

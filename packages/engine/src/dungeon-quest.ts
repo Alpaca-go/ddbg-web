@@ -2,6 +2,7 @@ import { dungeonLayoutSchema } from "../../data/src/dungeon-layout";
 import {
   questRoomsSchema,
   dungeonQuestSummarySchema,
+  forwardCampsQuestSummarySchema,
   fundraiserQuestSummarySchema,
 } from "../../data/src/quest-summary";
 import {
@@ -52,14 +53,24 @@ export function readDungeonQuestProgress(d: DungeonState) {
     .filter((r) => r.cleared)
     .map((r) => r.id)
     .sort();
-  const completedRoomIds = rooms.data
-    .filter(
-      (r) =>
-        r.cleared &&
-        (quest.xpKind === "all" || r.kind === (quest.xpKind === "gold" ? "lair" : quest.xpKind)),
-    )
-    .map((r) => r.id)
-    .sort();
+  const completedRoomIds =
+    quest.xpKind === "camp"
+      ? clearedRoomIds
+      : rooms.data
+          .filter(
+            (r) =>
+              r.cleared &&
+              (quest.xpKind === "all" ||
+                r.kind === (quest.xpKind === "gold" ? "lair" : quest.xpKind)),
+          )
+          .map((r) => r.id)
+          .sort();
+  if (
+    quest.xpKind === "camp" &&
+    d.forwardCampSetups !== undefined &&
+    (!Number.isSafeInteger(d.forwardCampSetups) || d.forwardCampSetups < 0)
+  )
+    return refuse("Forward Camps 设营记录无效（R-113）");
   return { status: "matched" as const, clearedRoomIds, completedRoomIds, quest };
 }
 
@@ -125,10 +136,28 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
       pendingChoice: pending,
     };
   }
-  if (quest.id === "quest:p012")
-    return refuse(
-      "Forward Camps：设营 XP（camp）与 SPECIAL 设营地未接线，本切片仅数据与出征池（Q-112 / R-112）",
-    );
+  if (quest.xpKind === "camp") {
+    const forwardCampSetups = d.forwardCampSetups ?? 0;
+    const xpPerHero = Math.min(3, forwardCampSetups);
+    const questSummary = forwardCampsQuestSummarySchema.parse({
+      questId: quest.id,
+      name: quest.name,
+      clearedRoomIds,
+      forwardCampSetups,
+      xpPerHero,
+      stagecoachXp: xpPerHero,
+      awarded: false,
+    });
+    return {
+      state: { ...state, dungeon: { ...d, questSummary } },
+      events: [
+        {
+          type: "dungeonUpdated",
+          message: `${quest.name}：设营 ${forwardCampSetups} 次，每名英雄与驿站待发 ${xpPerHero} XP；回村发放尚未接线（R29、R-038、R-113）`,
+        },
+      ],
+    };
+  }
   const xpPerHero = Math.min(3, Math.floor(clearedRoomIds.length / quest.roomsPerXp));
   const questSummary = dungeonQuestSummarySchema.parse({
     questId: quest.id,

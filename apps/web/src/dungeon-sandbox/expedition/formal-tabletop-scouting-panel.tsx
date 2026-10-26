@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   canLeaveDungeon,
   canRestDungeon,
+  canSetupForwardCamp,
   readRoomTile,
   PROVISION_EFFECTS,
   dungeonProvisionWindow,
@@ -370,6 +371,21 @@ export function FormalTabletopScoutingPanel({
         <button disabled={!canRestDungeon(game)} onClick={() => dispatch({ type: "restDungeon" })}>
           柴火休息
         </button>
+        {canSetupForwardCamp(game) &&
+          d
+            .explorationSetup!.provisions.filter((p) => p.face === "torch" || p.face === "tool")
+            .map((p) => (
+              <button
+                key={`forward-camp:${p.id}`}
+                type="button"
+                onClick={() => dispatch({ type: "setupForwardCamp", provisionId: p.id })}
+              >
+                设 forward camp（{p.face === "torch" ? "Torch" : "Shovel"}）
+              </button>
+            ))}
+        {quest?.id === "quest:p012" && (
+          <p data-testid="forward-camp-count">设营次数：{d.forwardCampSetups ?? 0}</p>
+        )}
         {d.phase === "awaitingHazards" && !d.exploration?.rolls && (
           <button
             disabled={!!pendingChoice}
