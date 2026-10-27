@@ -157,7 +157,7 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
       events: [
         {
           type: "dungeonUpdated",
-          message: `${quest.name}：设营 ${forwardCampSetups} 次，每名英雄与驿站待发 ${xpPerHero} XP；回村发放尚未接线（R29、R-038、R-113）`,
+          message: `${quest.name}：设营 ${forwardCampSetups} 次，每名英雄与驿站待发 ${xpPerHero} XP；于兑换剩余补给并完成回村时发放（R29、R-038、R-113）`,
         },
       ],
     };
@@ -189,7 +189,7 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
     events: [
       {
         type: "dungeonUpdated",
-        message: `${quest.name}：${xpUnit}清理 ${clearedRoomIds.length} 间，每名英雄与驿站待发 ${xpPerHero} XP；回村发放尚未接线（R29、R-038）`,
+        message: `${quest.name}：${xpUnit}清理 ${clearedRoomIds.length} 间，每名英雄与驿站待发 ${xpPerHero} XP；于兑换剩余补给并完成回村时发放（R29、R-038）`,
       },
     ],
   };
@@ -260,7 +260,7 @@ export function resolveFundraiserGold(
     events: [
       {
         type: "dungeonUpdated",
-        message: `Fundraiser捐献${gold}金币，每名英雄与驿站待发${xp}XP；回村发放尚未接线（R29、R-038）`,
+        message: `Fundraiser捐献${gold}金币，每名英雄与驿站待发${xp}XP；于兑换剩余补给并完成回村时发放（R29、R-038）`,
       },
     ],
   };
