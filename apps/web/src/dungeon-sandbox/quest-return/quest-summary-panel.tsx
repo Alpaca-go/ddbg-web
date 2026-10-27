@@ -114,7 +114,7 @@ export function QuestSummaryPanel({
               <p data-testid="next-quest-provisions">
                 下次任务奖励补给骰：
                 {d.heroes.map((h) => `${h.id} +${h.nextQuestProvisionDice ?? 0}`).join(" · ")}。
-                下一次出征尚未接通；届时实际掷出，含开局补给最多16颗（R-041）。
+                村庄准备结束后在下方抽取下一任务；出征开局时掷出奖励骰，计入开局补给，公共池最多16颗（R-041）。
               </p>
               <p data-testid="blacksmith-plan">
                 下次任务铁匠临时技能：
@@ -126,7 +126,7 @@ export function QuestSummaryPanel({
                     ),
                   )
                   .join(" · ") || "无"}
-                。原卡保留，出征使用/归还等待下一任务接入。
+                。原卡保留；抽取下一任务并入队后，出征开局应用并在任务结束后归还。
               </p>
               <p data-testid="guild-skills">
                 公会永久升级：
