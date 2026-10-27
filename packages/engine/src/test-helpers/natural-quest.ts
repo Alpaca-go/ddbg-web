@@ -302,6 +302,7 @@ export function naturalQuest(
       if (
         kind === "lair" ||
         kind === "treasure" ||
+        kind === "objective" ||
         (kind === "curio" && state.dungeon!.curioRoom?.stage === "guarded")
       ) {
         step({ type: "prepareDungeonBattle" });
@@ -310,6 +311,14 @@ export function naturalQuest(
         step({ type: "startDungeonBattle" });
         fight();
         if (options.preferWipeout && dungeonPhase() === "awaitingReplacement") return;
+        if (kind === "objective") {
+          for (let i = 0; i < 10; i++) {
+            const roomState = state.dungeon!.rooms.find((r) => r.id === state.dungeon!.position)!;
+            if (roomState.cleared || dungeonPhase() !== "awaitingRoom") break;
+            step({ type: "resolveDungeonRoom" });
+            settle();
+          }
+        }
       } else step({ type: "resolveDungeonRoom" });
     }
     throw new Error("room loop");
@@ -353,7 +362,11 @@ export function naturalQuest(
             ? cleared.length >= scoutRooms && won > 0
             : activeQuest.xpKind === "lair"
               ? lairs.length >= wipeLairs
-              : lairs.length > 0 && d.gold >= 20;
+              : activeQuest.xpKind === "objective"
+                ? cleared.filter((r) => r.kind === "objective").length >= 1
+                : activeQuest.xpKind === "curio"
+                  ? cleared.filter((r) => r.kind === "curio").length >= 1
+                  : lairs.length > 0 && d.gold >= 20;
       if (done) {
         step({ type: "leaveDungeon" });
         choose("agree");

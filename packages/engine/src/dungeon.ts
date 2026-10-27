@@ -26,6 +26,7 @@ import type { CurioCard } from "../../data/src/curio";
 import { resolveDungeonCurio } from "./dungeon-curio";
 import { beginDungeonRoom, chooseDungeonTrap } from "./dungeon-room";
 import { chooseDungeonRoomCurio } from "./dungeon-curio-room";
+import { chooseObjectiveRecovery, embarkSetAsideRoomCardId } from "./dungeon-objective";
 import type { BattleEntity, BattleSetup } from "./battle";
 import type { MonsterCardView } from "./monster-skill";
 import type { LootState, ProvisionFace } from "./loot";
@@ -225,6 +226,8 @@ export type DungeonState = {
       readonly blockedReason: string;
     } | null;
   };
+  /** QUEST p4 等：旁置房间牌 id，不计入随机遭遇洗牌堆。 */
+  readonly setAsideRoomCardId?: string;
   readonly rooms: readonly {
     readonly id: string;
     readonly kind: RoomDistribution["counts"][number]["kind"];
@@ -259,12 +262,14 @@ export type DungeonState = {
     | "curioProvision";
   readonly roomResolution?: {
     /** 旧 Trap 快照缺少 kind 时仍按 Trap 读取。 */
-    readonly kind?: "trap" | "dark";
+    readonly kind?: "trap" | "dark" | "objective";
     readonly roomId: string;
     readonly dungeonLevel: number;
     readonly resolvedHeroIds: readonly string[];
     /** R-069：压力已经支付；意志后只对存活者支付本次分配的伤口。 */
     readonly pendingAllocation?: { readonly heroId: string; readonly wounds: number };
+    /** Dem Bones 等：守卫战胜利后剩余须花费的拾取行动。 */
+    readonly actionsRemaining?: number;
     readonly completed: boolean;
   };
   readonly traversedCorridors?: readonly (readonly [string, string])[];
@@ -388,7 +393,14 @@ export function createDungeonSandbox(
           }
         : {}),
       ...(roomCards
-        ? { roomCards: { cards: roomCatalogSchema.parse(roomCards), deck: null, active: null } }
+        ? (() => {
+            const parsed = roomCatalogSchema.parse(roomCards);
+            const setAsideRoomCardId = embarkSetAsideRoomCardId(distribution.questId);
+            return {
+              ...(setAsideRoomCardId ? { setAsideRoomCardId } : {}),
+              roomCards: { cards: parsed, deck: null, active: null },
+            };
+          })()
         : {}),
       ...(curioCards
         ? {
@@ -455,6 +467,8 @@ export function applyDungeonCommand(
     return chooseDungeonRoomCurio(state, command.choiceId, command.optionId);
   if (command.type === "resolveChoice" && d.pending?.id.startsWith("dungeon-trap-"))
     return chooseDungeonTrap(state, command);
+  if (command.type === "resolveChoice" && d.pending?.id.startsWith("dungeon-objective-recover:"))
+    return chooseObjectiveRecovery(state, command);
   if (
     command.type === "beginDungeonBacktrack" ||
     (command.type === "resolveChoice" && d.pending?.id.startsWith("dungeon-backtrack:"))

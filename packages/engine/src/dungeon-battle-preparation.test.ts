@@ -89,10 +89,12 @@ describe("守卫房间准备（R10、R15–17、R-048）", () => {
     expect([...seen].sort()).toEqual(cards.slice(0, 9).map((c) => c.id));
   });
   it("非守卫入口、陈旧活动牌、截断 / 重复 / 错地点牌堆、缺目录均原子拒绝", () => {
-    for (const kind of ["empty", "trap", "curio", "objective"] as const) {
+    for (const kind of ["empty", "trap", "curio"] as const) {
       const s = setup(1, kind);
       expect(draw(s).state).toBe(s);
     }
+    const objective = draw(setup(1, "objective"));
+    expect(objective.state.dungeon!.roomCards!.active?.cardId).toBeDefined();
     const s = setup();
     const c = s.dungeon!.roomCards!;
     const decks = [

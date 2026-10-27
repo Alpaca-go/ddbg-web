@@ -149,6 +149,7 @@ export function isGuardedDungeonRoom(d: NonNullable<GameState["dungeon"]>): bool
   return (
     room?.kind === "lair" ||
     room?.kind === "treasure" ||
+    room?.kind === "objective" ||
     (room?.kind === "curio" &&
       d.curioRoom?.roomId === d.position &&
       d.curioRoom.stage === "guarded")

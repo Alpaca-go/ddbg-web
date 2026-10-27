@@ -83,6 +83,10 @@ export const basicQuests = [
     roomsPerXp: 1,
     maxRooms: 1,
     expeditionRegion: "ruins" as const,
+    /** QUEST p4：开局旁置 room 7，目标房内使用 Tomb of Ancestor（R15、规格书 §5.1）。 */
+    setAsideRoomCardId: "room:p007" as const,
+    /** 任务卡 SPECIAL RULES：英雄须在区域内花费 2 行动拾取骨骸后目标房才算清理。 */
+    objectiveRecoveryActions: 2 as const,
     distribution: roomDistributionSchema.parse(demBones),
   },
   {

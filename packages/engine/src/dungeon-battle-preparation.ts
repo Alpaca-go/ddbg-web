@@ -3,6 +3,12 @@ import { readRoomTile } from "./room-tile-selection";
 import type { ApplyResult, GameState } from "./command";
 import { createRng } from "./rng";
 import { isGuardedDungeonRoom } from "./dungeon-curio-room";
+import {
+  allRuinsRoomCardIds,
+  prepareObjectiveRoomBattle,
+  ruinsRoomDeckWithoutSetAside,
+  readSetAsideRoomCardId,
+} from "./dungeon-objective";
 
 /** R10、R15：遗迹普通房间完整洗牌，取顶牌再匹配板块；不替换未获批房间。 */
 export function prepareDungeonBattle(state: GameState): ApplyResult {
@@ -21,25 +27,24 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
     room?.cleared ||
     !isGuardedDungeonRoom(d)
   )
-    return refuse("需要未清理的 Lair / Treasure / 有守卫 Curio 战斗入口（R15）");
+    return refuse("需要未清理的 Lair / Treasure / Objective / 有守卫 Curio 战斗入口（R15）");
+  const objective = prepareObjectiveRoomBattle(state);
+  if (objective) return objective;
   if (!c || !roomCatalogSchema.safeParse(c.cards).success)
     return refuse("需要完整核心盒房间目录，不能只装入已获批板块对应的牌（R10）");
   const pool = c.cards.filter((card) => card.location === "ruins" && !card.boss);
-  const available = [
-    ...(c.deck ?? pool.map((card) => card.id)),
-    ...(c.active ? [c.active.cardId] : []),
-    ...(c.discard ?? []),
-  ];
+  const defaultDeck = ruinsRoomDeckWithoutSetAside(c.cards, readSetAsideRoomCardId(d));
+  const available = allRuinsRoomCardIds(d);
   if (
     available.length !== 9 ||
     new Set(available).size !== 9 ||
     available.some((id) => !pool.some((card) => card.id === id)) ||
-    (c.active && (c.active.roomId !== d.position || c.deck === null))
+    (c.active && c.active.roomId !== d.position)
   )
     return refuse("遗迹房间牌池不守恒 / 活动房间不一致，保持原状态");
   // 同一入口不重抽；本场完成交接后弃置已抽房间牌。
   if (c.active) return refuse("该房间牌已记录；等待板块 / 正式遭遇战接线，不能重抽");
-  const deck = [...(c.deck ?? pool.map((card) => card.id))];
+  const deck = [...(c.deck ?? defaultDeck)];
   if (!deck.length) return refuse("本地牢房间牌已用尽；不洗回弃牌（R25）");
   let cursor = d.cursor;
   if (c.deck === null) {
