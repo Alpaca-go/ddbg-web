@@ -22,6 +22,8 @@ import { EncounterEventDetails } from "./encounter-event-details";
 import { humanizeChoiceOptionLabel } from "./choice-display-label";
 import { provisionLabels, provisionEffectLabels } from "./provision-labels";
 import { BattleActionsSurface } from "./tabletop/sections/battle-actions-surface";
+import { BattleFormalBoard } from "./battle-formal-board";
+import { BattleFormalMultiTargetBadge, BattleFormalSingleTarget } from "./battle-formal-targets";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 export function BattleView({
@@ -287,102 +289,108 @@ export function BattleView({
         {notice}
       </p>
       <div className="workspace">
-        <section className="panel board" aria-label="区域板">
-          <h2>
-            {battle.roomName ?? battleData.tileName} <small>区域邻接视图</small>
-          </h2>
-          <p className="muted">
-            区域卡片顺序不表示空间相邻；移动使用本房间下列已核实连接，不能穿过黑墙或空隙。
-          </p>
-          {formal && (
-            <BattleStanceTrack
-              battle={battle}
-              entityName={entityName}
-              actorId={actor?.id}
-              compact
-            />
-          )}
-          <div className="area-grid">
-            {battle.areas.map((area) => {
-              const occupants = battle.entities.filter((e) => !e.dead && e.areaId === area.id);
-              const count = occupants.reduce(
-                (sum, e) => sum + (e.side === "hero" ? 1 : e.stanceSlots!),
-                0,
-              );
-              return (
-                <article
-                  className={`area ${actor?.areaId === area.id ? "active-area" : ""} ${pendingArea && pending?.options.some((option) => option.id === area.id) ? "choice-area" : ""}`}
-                  key={area.id}
-                  data-testid={`area-${area.id}`}
-                >
-                  <div className="area-heading">
-                    <h3>{area.id}</h3>
-                    <span>
-                      {count}/{area.capacity} 格{area.elevation === "high" ? " · 高地" : ""}
-                    </span>
-                  </div>
-                  <p className="connections">连接：{area.adjacent.join(" · ") || "无"}</p>
-                  {area.endTurnStress === 1 && (
-                    <p className="muted">
-                      {area.endTurnStressName ?? "Cornered"}：英雄结束回合压力 +1
-                    </p>
-                  )}
-                  {area.endTurnStress === -1 && (
-                    <p className="muted">Beacon of Light：英雄结束回合恢复 1 压力</p>
-                  )}
-                  {area.healingForbidden && (
-                    <p className="muted">Unholy Aura：英雄不能治疗或被治疗</p>
-                  )}
-                  {area.ancestorGlory && (
-                    <p>
-                      Ancestor’s Glory：站立英雄免疫并移除
-                      Blight／Bleed／Debuff／Stun／Mark，免疫目标 Shuffle；自身效果遵循 R20。
-                    </p>
-                  )}
-                  {area.feelingThePresence && (
-                    <p>
-                      Feeling the Presence：英雄结束回合先压力 +1 × 负面怪癖数，存活再治疗 HL ×
-                      正面怪癖数。
-                    </p>
-                  )}
-                  {area.spikedPit && (
-                    <p>
-                      Spiked Pit：Shuffle实际落点或结束回合站立时，伤害3 → Bleed
-                      1·3t；先坑后Vertigo。
-                    </p>
-                  )}
-                  {area.invokerGoal && (
-                    <p>The Invokers：本轮最后一只可行动怪物改为向本区移动，替代整个第2步。</p>
-                  )}
-                  {area.invokingAbyss && (
-                    <p>Invoking Abyss：轮末本区有存活怪物时，全体存活英雄各压力+2。</p>
-                  )}
-                  {area.lootTheChest && <p>Loot the Chest：花2行动抽1张饰品，每场一次。</p>}
-                  {area.hideAndHeal && (
-                    <p>Hide and Heal：本区无怪物时，花1行动、压力+2，存活后移除全部伤口。</p>
-                  )}
-                  {area.circleOfPower && <p>Circle of Power：怪物在本区结束回合治疗4。</p>}
-                  {area.endTurnHeal === 3 && (
-                    <p className="muted">Healing Waters：英雄结束回合治疗 3</p>
-                  )}
-                  {battle.loot?.placed.some((token) => token.areaId === area.id) && (
-                    <p>宝箱：可在同区花一个行动拾取</p>
-                  )}
-                  <ul>
-                    {occupants.map((e) => (
-                      <li key={e.id} className={e.side}>
-                        {entityName(e.id)}
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              );
-            })}
-          </div>
-          {!formal && (
+        {formal ? (
+          <BattleFormalBoard
+            battle={battle}
+            entityName={entityName}
+            {...(actor ? { actor } : {})}
+            {...(skill ? { skill } : {})}
+            selectedTargetId={selectedTargetId}
+            {...(multiTarget ? { selectedAreaId: selectedArea } : {})}
+            path={path}
+            pendingArea={pendingArea}
+            {...(pending?.options
+              ? { pendingAreaIds: pending.options.map((option) => option.id) }
+              : {})}
+          />
+        ) : (
+          <section className="panel board" aria-label="区域板">
+            <h2>
+              {battle.roomName ?? battleData.tileName} <small>区域邻接视图</small>
+            </h2>
+            <p className="muted">
+              区域卡片顺序不表示空间相邻；移动使用本房间下列已核实连接，不能穿过黑墙或空隙。
+            </p>
+            <div className="area-grid">
+              {battle.areas.map((area) => {
+                const occupants = battle.entities.filter((e) => !e.dead && e.areaId === area.id);
+                const count = occupants.reduce(
+                  (sum, e) => sum + (e.side === "hero" ? 1 : e.stanceSlots!),
+                  0,
+                );
+                return (
+                  <article
+                    className={`area ${actor?.areaId === area.id ? "active-area" : ""} ${pendingArea && pending?.options.some((option) => option.id === area.id) ? "choice-area" : ""}`}
+                    key={area.id}
+                    data-testid={`area-${area.id}`}
+                  >
+                    <div className="area-heading">
+                      <h3>{area.id}</h3>
+                      <span>
+                        {count}/{area.capacity} 格{area.elevation === "high" ? " · 高地" : ""}
+                      </span>
+                    </div>
+                    <p className="connections">连接：{area.adjacent.join(" · ") || "无"}</p>
+                    {area.endTurnStress === 1 && (
+                      <p className="muted">
+                        {area.endTurnStressName ?? "Cornered"}：英雄结束回合压力 +1
+                      </p>
+                    )}
+                    {area.endTurnStress === -1 && (
+                      <p className="muted">Beacon of Light：英雄结束回合恢复 1 压力</p>
+                    )}
+                    {area.healingForbidden && (
+                      <p className="muted">Unholy Aura：英雄不能治疗或被治疗</p>
+                    )}
+                    {area.ancestorGlory && (
+                      <p>
+                        Ancestor’s Glory：站立英雄免疫并移除
+                        Blight／Bleed／Debuff／Stun／Mark，免疫目标 Shuffle；自身效果遵循 R20。
+                      </p>
+                    )}
+                    {area.feelingThePresence && (
+                      <p>
+                        Feeling the Presence：英雄结束回合先压力 +1 × 负面怪癖数，存活再治疗 HL ×
+                        正面怪癖数。
+                      </p>
+                    )}
+                    {area.spikedPit && (
+                      <p>
+                        Spiked Pit：Shuffle实际落点或结束回合站立时，伤害3 → Bleed
+                        1·3t；先坑后Vertigo。
+                      </p>
+                    )}
+                    {area.invokerGoal && (
+                      <p>The Invokers：本轮最后一只可行动怪物改为向本区移动，替代整个第2步。</p>
+                    )}
+                    {area.invokingAbyss && (
+                      <p>Invoking Abyss：轮末本区有存活怪物时，全体存活英雄各压力+2。</p>
+                    )}
+                    {area.lootTheChest && <p>Loot the Chest：花2行动抽1张饰品，每场一次。</p>}
+                    {area.hideAndHeal && (
+                      <p>Hide and Heal：本区无怪物时，花1行动、压力+2，存活后移除全部伤口。</p>
+                    )}
+                    {area.circleOfPower && <p>Circle of Power：怪物在本区结束回合治疗4。</p>}
+                    {area.endTurnHeal === 3 && (
+                      <p className="muted">Healing Waters：英雄结束回合治疗 3</p>
+                    )}
+                    {battle.loot?.placed.some((token) => token.areaId === area.id) && (
+                      <p>宝箱：可在同区花一个行动拾取</p>
+                    )}
+                    <ul>
+                      {occupants.map((e) => (
+                        <li key={e.id} className={e.side}>
+                          {entityName(e.id)}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                );
+              })}
+            </div>
             <BattleStanceTrack battle={battle} entityName={entityName} actorId={actor?.id} />
-          )}
-        </section>
+          </section>
+        )}
         <BattleActionsSurface
           formal={formal}
           actorKey={`${battle.encounter?.round}:${actor?.id}`}
@@ -738,6 +746,14 @@ export function BattleView({
                             }
                           />
                           {entityName(entity.id)} · 伤口 {entity.wounds}/{entity.life}
+                          {formal && actor && skill && (
+                            <BattleFormalMultiTargetBadge
+                              battle={battle}
+                              actor={actor}
+                              skill={skill}
+                              entity={entity}
+                            />
+                          )}
                         </label>
                       ))}
                       {!areaTargets.length && <p className="muted">此区域没有存活目标。</p>}
@@ -749,6 +765,16 @@ export function BattleView({
                   </>
                 ) : selfTarget ? (
                   <p>目标：自身 · {actor ? entityName(actor.id) : ""}</p>
+                ) : formal && actor && skill ? (
+                  <BattleFormalSingleTarget
+                    battle={battle}
+                    actor={actor}
+                    skill={skill}
+                    entities={battle.entities.filter((e) => !e.dead)}
+                    selectedTargetId={selectedTargetId}
+                    onSelect={setTargetId}
+                    entityName={entityName}
+                  />
                 ) : (
                   <label>
                     目标

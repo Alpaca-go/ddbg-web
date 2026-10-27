@@ -27,13 +27,65 @@ export function BattleStanceTrack({
   entityName,
   actorId,
   compact = false,
+  visual = false,
 }: {
   readonly battle: NonNullable<GameState["battle"]>;
   readonly entityName: (id: string) => string;
   readonly actorId?: string | undefined;
   readonly compact?: boolean;
+  /** 正式战斗：四格站位板 + 简令牌，减少文字折叠。 */
+  readonly visual?: boolean;
 }) {
   const stanceRows = listMonsterStanceSlots();
+
+  if (compact && visual) {
+    return (
+      <section className="tt-battle-stances tt-battle-stances--visual" aria-label="站位轨道">
+        {(["hero", "monster"] as const).map((side) => {
+          const occupantCountByStance = Object.fromEntries(
+            stances.map((stance) => [
+              stance,
+              battle.entities.filter((e) => e.side === side && !e.dead && e.stance === stance)
+                .length,
+            ]),
+          ) as Record<SkillStance, number>;
+
+          return (
+            <div className={`stance-track-side stance-track-${side}`} key={side}>
+              <h3>{side === "hero" ? "英雄姿态轨" : "怪物姿态轨"}</h3>
+              <MonsterStanceBoard
+                sideLabel={side === "hero" ? "英雄" : "怪物"}
+                testIdPrefix={`stance-${side}`}
+                slots={stanceRows}
+                occupantCountByStance={occupantCountByStance}
+                renderOccupants={(stance) => {
+                  const occupants = battle.entities.filter(
+                    (e) => e.side === side && !e.dead && e.stance === stance,
+                  );
+                  return (
+                    <>
+                      {occupants.length === 0 && <span className="stance-empty muted">空</span>}
+                      {occupants.map((e) => (
+                        <div
+                          key={e.id}
+                          className={`tt-stance-token ${e.side} ${actorId === e.id ? "tt-stance-token--actor" : ""}`}
+                          data-testid={`entity-${e.id}`}
+                          title={`${entityName(e.id)} · 区域 ${e.areaId}`}
+                        >
+                          <span className="tt-stance-token__name">{entityName(e.id)}</span>
+                          <span className="tt-stance-token__area">{e.areaId}</span>
+                        </div>
+                      ))}
+                    </>
+                  );
+                }}
+              />
+            </div>
+          );
+        })}
+      </section>
+    );
+  }
 
   if (compact) {
     return (

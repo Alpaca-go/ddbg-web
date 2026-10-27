@@ -549,6 +549,8 @@ ddbg/
 
 **UX-02A**：在 `main` @ `1b05f376` 上整理正式地牢探索中央桌面（地图优先、信息精简、Curio 当前/历史分离），见 [UX-02A 交付说明](ux02a-dungeon-map-info-2026-10-22.md)。Draft PR 待截图验收；**不**含 UX-02B 底栏迁移，S4–S11 继续暂停。
 
+**UX-03（战斗站位/射程，局部）**：`b07bb4e` 起正式战斗中央区姿态轨 + 区域距离/射程可达展示、底栏目标对比标签；见 [UX-03 交付说明](ux03-battle-position-distance-2026-10-27.md)。待 Kyries 截图验收，S4–S11 继续暂停。
+
 交接与验收细节见 [docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md)（T0–T3 / S0 前背景，已过时）。
 
 **Codex 接手（S2 起）**：[docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md)（tip `b051c9b`）。
