@@ -13,8 +13,6 @@ export function adaptQuestMetaFromGame(game: GameState): Partial<TabletopQuestMe
 
   const cleared = d?.rooms?.filter((room) => room.cleared).length ?? 0;
   const roomTotal = d?.rooms?.length ?? 0;
-  const mapKey = quest.id.replace(/^quest:/, "");
-
   return {
     questCardId: quest.id,
     questLabel: quest.name,
@@ -24,7 +22,7 @@ export function adaptQuestMetaFromGame(game: GameState): Partial<TabletopQuestMe
     xpProgress: questXpProgressShort(game),
     roomsCleared: cleared,
     roomTotal: roomTotal > 0 ? roomTotal : 0,
-    layoutId: `quest_map:${mapKey}`,
+    layoutId: d?.layout?.id ?? "—",
     currentRoomCardId: d?.roomCards?.active?.cardId ?? "—",
   };
 }

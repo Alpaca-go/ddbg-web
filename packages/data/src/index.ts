@@ -22,6 +22,20 @@ export {
   roomDistributionTokenTotal,
 } from "./dungeon-layout";
 export type { DungeonLayout, RoomDistribution, RoomTokenKind } from "./dungeon-layout";
+export { asQuestMapPairingQuest, basicQuestExpeditionRegion } from "./basic-quests";
+export {
+  compatibleQuestMapLayouts,
+  coreQuestMapLayouts,
+  dungeonLayoutRoomSlotCount,
+  inferQuestMapRegion,
+  isQuestMapPageHardBind,
+  pickEmbarkQuestMapLayout,
+  pickQuestMapLayout,
+  pickQuestMapLayoutId,
+  questIdPageNumber,
+  questMapLayoutPageNumber,
+} from "./quest-map-pairing";
+export type { QuestExpeditionRegion, QuestMapPairingInput } from "./quest-map-pairing";
 export {
   buildNonObjectiveRoomTokenPool,
   drawAndMaterializeRoomDistribution,

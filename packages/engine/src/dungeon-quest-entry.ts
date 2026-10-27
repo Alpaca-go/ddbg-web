@@ -1,5 +1,5 @@
-import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
-import { basicQuests } from "../../data/src/basic-quests";
+import { asQuestMapPairingQuest, basicQuests } from "../../data/src/basic-quests";
+import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import type { CurioCard } from "../../data/src/curio";
 import type { RoomCard } from "../../data/src/room";
@@ -111,6 +111,7 @@ export function createCoreDungeonQuest(
   };
   const problem = trinketPoolProblem(trinkets, heroes);
   if (problem) throw new Error(problem);
+  const layout = pickEmbarkQuestMapLayout(asQuestMapPairingQuest(quest), seed, 0);
   return createDungeonSandbox(
     seed,
     layout,

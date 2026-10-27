@@ -1,9 +1,8 @@
-import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
-import { basicQuests } from "../../data/src/basic-quests";
+import { asQuestMapPairingQuest, basicQuests } from "../../data/src/basic-quests";
+import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";
 import { questsForCampaignLevel } from "./campaign-quest-pool";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import {
-  dungeonLayoutSchema,
   roomDistributionEmbarkBlockReason,
   roomDistributionSchema,
 } from "../../data/src/dungeon-layout";
@@ -294,7 +293,11 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
   const washed = washNomadDisplay(d.trinkets!, state.seed, d.cursor);
   if (trinketPoolProblem(washed.pool, applied.heroes))
     return rejectBattleCommand(state, trinketPoolProblem(washed.pool, applied.heroes)!);
-  const parsedLayout = dungeonLayoutSchema.parse(layout);
+  const parsedLayout = pickEmbarkQuestMapLayout(
+    asQuestMapPairingQuest(quest),
+    state.seed,
+    washed.cursor,
+  );
   const template = roomDistributionSchema.parse(quest.distribution);
   const expanded = expandRoomDistributionForEmbark(template, state.seed, washed.cursor);
   const distribution = expanded.distribution;
