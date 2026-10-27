@@ -1,0 +1,212 @@
+{
+  "schema": "ddbg.print-room-tile-art-map.v1",
+  "source": {
+    "geometry": "packages/data/normalized/corebox/room_tile_geometry.json",
+    "tileCount": 9,
+    "notes": [
+      "facePngRel paths are relative to .cache/print-card-art/ (DDBG_PRINT_CARD_ART_CACHE).",
+      "Battle UI uses whole face only: manual/room-tile-faces/<tileId>.png (no per-area crops in web).",
+      "R-048: no invented print geometry in UI; missing PNG → Chinese placeholder.",
+      "Regenerate: node tools/pipeline/scripts/build-print-room-tile-art-map.mjs"
+    ]
+  },
+  "tiles": [
+    {
+      "tileId": "room_tile:p001",
+      "name": "Ritual Chamber",
+      "facePngRel": "manual/room-tile-faces/room_tile-p001.png",
+      "printPage": 1,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "manual_path_convention",
+      "reviewVerdict": "path_convention",
+      "areaIds": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J"
+      ]
+    },
+    {
+      "tileId": "room_tile:p002:back",
+      "name": "Torture Chamber",
+      "facePngRel": "manual/room-tile-faces/room_tile-p002-back.png",
+      "printPage": 2,
+      "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
+      "face": "back",
+      "matchMethod": "manual_path_convention",
+      "reviewVerdict": "path_convention",
+      "areaIds": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H"
+      ]
+    },
+    {
+      "tileId": "room_tile:p002:front",
+      "name": "Healing Fountain",
+      "facePngRel": "manual/room-tile-faces/room_tile-p002-front.png",
+      "printPage": 2,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "manual_path_convention",
+      "reviewVerdict": "path_convention",
+      "areaIds": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J"
+      ]
+    },
+    {
+      "tileId": "room_tile:p003:front",
+      "name": "Beacon of Light",
+      "facePngRel": "manual/room-tile-faces/room_tile-p003-front.png",
+      "printPage": 3,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "manual_path_convention",
+      "reviewVerdict": "path_convention",
+      "areaIds": [
+        "L1",
+        "L2",
+        "L3",
+        "L4",
+        "L5",
+        "L6",
+        "L7",
+        "L8",
+        "L9"
+      ]
+    },
+    {
+      "tileId": "room_tile:p003:back",
+      "name": "Spiked Pit",
+      "facePngRel": "manual/room-tile-faces/room_tile-p003-back.png",
+      "printPage": 3,
+      "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
+      "face": "back",
+      "matchMethod": "manual_path_convention",
+      "reviewVerdict": "path_convention",
+      "areaIds": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10",
+        "S11",
+        "S12"
+      ]
+    },
+    {
+      "tileId": "room_tile:p004:back",
+      "name": "Treasure Chamber",
+      "facePngRel": "manual/room-tile-faces/room_tile-p004-back.png",
+      "printPage": 4,
+      "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
+      "face": "back",
+      "matchMethod": "manual_path_convention",
+      "reviewVerdict": "path_convention",
+      "areaIds": [
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6",
+        "T7",
+        "T8",
+        "T9"
+      ]
+    },
+    {
+      "tileId": "room_tile:p004:front",
+      "name": "Tomb of Ancestor",
+      "facePngRel": "manual/room-tile-faces/room_tile-p004-front.png",
+      "printPage": 4,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "manual_path_convention",
+      "reviewVerdict": "path_convention",
+      "areaIds": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5",
+        "A6",
+        "A7",
+        "A8",
+        "A9"
+      ]
+    },
+    {
+      "tileId": "room_tile:p005:back",
+      "name": "Invocation Chamber",
+      "facePngRel": "manual/room-tile-faces/room_tile-p005-back.png",
+      "printPage": 5,
+      "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
+      "face": "back",
+      "matchMethod": "manual_path_convention",
+      "reviewVerdict": "path_convention",
+      "areaIds": [
+        "I1",
+        "I2",
+        "I3",
+        "I4",
+        "I5",
+        "I6",
+        "I7",
+        "I8",
+        "I9",
+        "I10"
+      ]
+    },
+    {
+      "tileId": "room_tile:p005:front",
+      "name": "Old Abbey",
+      "facePngRel": "manual/room-tile-faces/room_tile-p005-front.png",
+      "printPage": 5,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "manual_path_convention",
+      "reviewVerdict": "path_convention",
+      "areaIds": [
+        "O1",
+        "O2",
+        "O3",
+        "O4",
+        "O5",
+        "O6",
+        "O7",
+        "O8",
+        "O9"
+      ]
+    }
+  ],
+  "pendingConfirmation": [
+    "Kyries manual exports for room tile faces are not committed; paths are conventions only."
+  ]
+}

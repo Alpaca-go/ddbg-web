@@ -9,6 +9,7 @@ export function TabletopRasterImage({
   assetType,
   className = "",
   testId,
+  onLoadError,
 }: {
   readonly src?: string;
   /** 加载成功时 alt 等用；缺图时若未提供 placeholderLabel 则用作占位文案 */
@@ -18,6 +19,7 @@ export function TabletopRasterImage({
   readonly assetType: string;
   readonly className?: string;
   readonly testId?: string;
+  readonly onLoadError?: () => void;
 }) {
   const [failed, setFailed] = useState(!src);
   const showImg = Boolean(src) && !failed;
@@ -39,7 +41,10 @@ export function TabletopRasterImage({
       className={className}
       {...(testId ? { "data-testid": testId } : {})}
       data-card-art="print"
-      onError={() => setFailed(true)}
+      onError={() => {
+        onLoadError?.();
+        setFailed(true);
+      }}
     />
   );
 }

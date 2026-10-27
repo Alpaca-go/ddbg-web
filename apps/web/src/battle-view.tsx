@@ -23,6 +23,9 @@ import { EncounterEventDetails } from "./encounter-event-details";
 import { humanizeChoiceOptionLabel } from "./choice-display-label";
 import { provisionLabels, provisionEffectLabels } from "./provision-labels";
 import { BattleActionsSurface } from "./tabletop/sections/battle-actions-surface";
+import { BattleAreaCell } from "./card-art/battle-area-tile";
+import { BattleRoomTileBoard } from "./card-art/battle-room-tile-board";
+import { resolveBattleRoomTileId } from "./battle/resolve-battle-room-tile-id";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 export function BattleView({
@@ -57,6 +60,7 @@ export function BattleView({
   const [provisionTargetId, setProvisionTargetId] = useState("hero-0");
   const [provisionEffect, setProvisionEffect] = useState<ProvisionEffect>("heal");
   const battle = game.battle!;
+  const roomTileId = resolveBattleRoomTileId(game, battle.roomName ?? battleData.tileName);
   const turn = battle.encounter?.turn;
   const step = game.dungeon?.campaignFailure
     ? { label: "战役失败", hint: "驿站等待英雄不足，无法补齐队伍（R9/R25/R33）。" }
@@ -303,7 +307,10 @@ export function BattleView({
               compact
             />
           )}
-          <div className="area-grid">
+          <BattleRoomTileBoard
+            {...(roomTileId ? { roomTileId } : {})}
+            tileLabel={battle.roomName ?? battleData.tileName}
+          >
             {battle.areas.map((area) => {
               const occupants = battle.entities.filter((e) => !e.dead && e.areaId === area.id);
               const count = occupants.reduce(
@@ -311,13 +318,16 @@ export function BattleView({
                 0,
               );
               return (
-                <article
-                  className={`area ${actor?.areaId === area.id ? "active-area" : ""} ${pendingArea && pending?.options.some((option) => option.id === area.id) ? "choice-area" : ""}`}
+                <BattleAreaCell
                   key={area.id}
-                  data-testid={`area-${area.id}`}
+                  areaId={area.id}
+                  active={actor?.areaId === area.id}
+                  choice={
+                    !!pendingArea && !!pending?.options.some((option) => option.id === area.id)
+                  }
+                  testId={`area-${area.id}`}
                 >
                   <div className="area-heading">
-                    <h3>{area.id}</h3>
                     <span>
                       {count}/{area.capacity} 格{area.elevation === "high" ? " · 高地" : ""}
                     </span>
@@ -387,10 +397,10 @@ export function BattleView({
                       </li>
                     ))}
                   </ul>
-                </article>
+                </BattleAreaCell>
               );
             })}
-          </div>
+          </BattleRoomTileBoard>
           {!formal && (
             <BattleStanceTrack battle={battle} entityName={entityName} actorId={actor?.id} />
           )}
