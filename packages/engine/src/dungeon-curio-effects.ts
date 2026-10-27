@@ -117,7 +117,7 @@ export function resolveCurioRows(state: GameState): ApplyResult {
   const unknown = card.rows.filter((r) => r.effect === null);
   if (unknown.length)
     return block(
-      `${card.id} p${card.source.page} 待确认：${unknown.map((r) => `${r.printed}（${r.reason}）`).join("；")}；未结算任何效果，不把未知行判作负面或装饰`,
+      `${card.id} p${card.source.page} 待确认（R-048 / Q-60 停点模板）：${unknown.map((r) => `${r.printed}（${r.reason}）`).join("；")}；未结算任何效果，不把未知行判作负面或装饰`,
     );
   const effects = card.rows.flatMap((r) =>
     r.effect && (!active.protected || !isNegativeCurioEffect(r.effect)) ? [r.effect] : [],

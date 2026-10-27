@@ -994,6 +994,7 @@ it("完整牌池包含未核实卡：抽到实际 p1 后保留具体行，即使
   };
   const drawn = choose(ordered, "use:p4").state;
   const stopped = applyCommand(drawn, { type: "resolveDungeonCurio" }).state;
+  expect(stopped.dungeon!.curio!.active!.blockedReason).toContain("Q-60");
   expect(stopped.dungeon!.curio!.active!.blockedReason).toContain("449d2d43ed");
   expect(stopped.dungeon!.curio!.active!.blockedReason).toContain("40c4cc438c");
   expect(stopped.dungeon).toMatchObject({
@@ -1078,6 +1079,7 @@ it("同一已核实卡丢失转录时停住；恢复原资料后原牌续接，�
     },
   };
   const stopped = applyCommand(missing, { type: "resolveDungeonCurio" }).state;
+  expect(stopped.dungeon!.curio!.active!.blockedReason).toContain("Q-60");
   expect(stopped.dungeon!.gold).toBe(0);
   const repaired = {
     ...stopped,
