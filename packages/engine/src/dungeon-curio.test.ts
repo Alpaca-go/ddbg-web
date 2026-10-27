@@ -102,19 +102,12 @@ it("R-064 全池逐卡：Torch 后二十四张可完成，饰品明确选弃新�
         result.pendingChoice.id.startsWith("dungeon-trinket:") ? "discard-new" : "food",
       );
     const d = result.state.dungeon!;
-    if (!d.curio!.active) {
-      completed.push(page);
-      expect(d.curio!.discard).toEqual([`curio:p${String(page).padStart(3, "0")}`]);
-      expect(d.heroes.every((h) => h.stress === 0 && h.wounds === 0)).toBe(true);
-      expect(d.exploration!.rolls![0]!.resolved).toBe(true);
-      expect(applyCommand(result.state, { type: "resolveDungeonCurio" }).state).toBe(result.state);
-    } else {
-      expect(d.curio!.active!.blockedReason).toContain("接口尚未接线");
-      expect(d.curio!.active!.blockedReason).not.toContain("Q-60");
-      expect(d.gold).toBe(0);
-      expect(d.heroes).toEqual(drawn.dungeon!.heroes);
-      expect(d.exploration!.rolls![0]!.resolved).toBe(false);
-    }
+    expect(d.curio!.active).toBeNull();
+    completed.push(page);
+    expect(d.curio!.discard).toEqual([`curio:p${String(page).padStart(3, "0")}`]);
+    expect(d.heroes.every((h) => h.stress === 0 && h.wounds === 0)).toBe(true);
+    expect(d.exploration!.rolls![0]!.resolved).toBe(true);
+    expect(applyCommand(result.state, { type: "resolveDungeonCurio" }).state).toBe(result.state);
     expect(d.cursor).toBe(
       drawn.dungeon!.cursor +
         Number(awardsProvision) +
@@ -1093,4 +1086,70 @@ it("同一已核实卡丢失转录时停住；恢复原资料后原牌续接，�
   const result = applyCommand(repaired, { type: "resolveDungeonCurio" }).state;
   expect(result).toEqual(applyCommand(drawn, { type: "resolveDungeonCurio" }).state);
   expect(result.dungeon).toMatchObject({ cursor: 38, gold: 10 });
+});
+
+it("走廊抽 Curio 前 Fear 压力 10：pendingCurioDraw 意志后抽牌并结算，无 commandRefused", () => {
+  const fear = normalizedQuirkFileSchema
+    .parse(quirks)
+    .cards.find((q) => q.name === "Fear of the Unknown")!.id;
+  const base = pending();
+  const d = base.dungeon!;
+  const prepared = {
+    ...base,
+    dungeon: {
+      ...d,
+      resolveCards: resolveData.cards as ResolveCard[],
+      conditions: createConditionPool(
+        diseaseFileSchema.parse(diseases).cards,
+        normalizedQuirkFileSchema.parse(quirks).cards,
+      ),
+      heroes: d.heroes.map((h, i) => ({
+        ...h,
+        heroStatId: approvedStats.find(
+          (s) => s.level === 1 && s.name === ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"][i],
+        )!.id,
+        ...(i === 0 ? { stress: 9, quirkIds: [fear] } : {}),
+      })),
+      battleCatalog: { heroStats: approvedStats, skills: [], monsters: [] },
+      trinkets: createTrinketPool(normalizedTrinketFileSchema.parse(trinkets).cards, 1),
+    },
+  };
+  const drawn = choose(prepared, "draw").state;
+  expect(drawn.dungeon!.curio!.active).toBeTruthy();
+  expect(drawn.dungeon!.heroes[0]!.stress).toBe(0);
+  let result = applyCommand(drawn, { type: "resolveDungeonCurio" });
+  while (result.state.dungeon!.curio!.active && result.pendingChoice)
+    result = choose(
+      result.state,
+      result.pendingChoice.id.startsWith("dungeon-trinket:") ? "discard-new" : "food",
+    );
+  expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  expect(result.state.dungeon!.curio!.active).toBeNull();
+  expect(result.state.dungeon!.exploration!.rolls![0]!.resolved).toBe(true);
+});
+
+it("Wild 补给待选时重复 resolveDungeonCurio 给出公开命令提示", () => {
+  const drawn = protectedPage(10),
+    d = drawn.dungeon!;
+  const seed = Array.from({ length: 100 }, (_, i) => i).find(
+    (s) => nextProvisionFace(s, d.cursor + 15) === "wild",
+  )!;
+  const initial = {
+    ...drawn,
+    seed,
+    dungeon: {
+      ...d,
+      heroes: d.heroes.map((h, i) =>
+        i ? h : { ...h, quirkIds: ["quirk:p001", "quirk:p018", "quirk:p019"] },
+      ),
+    },
+  };
+  let state = applyCommand(initial, { type: "resolveDungeonCurio" }).state;
+  state = choose(state, state.dungeon!.conditions!.incomingQuirk!.cardId).state;
+  expect(state.dungeon!.pending!.id).toContain("dungeon-curio-provision:");
+  const refused = applyCommand(state, { type: "resolveDungeonCurio" });
+  expect(refused.events[0]).toMatchObject({
+    type: "commandRefused",
+    message: expect.stringContaining("Wild"),
+  });
 });

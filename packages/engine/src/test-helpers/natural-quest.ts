@@ -114,6 +114,10 @@ export function naturalQuest(
         choose(pick(p));
         continue;
       }
+      if (state.dungeon?.phase === "blockedPressure") {
+        step({ type: "resolveDungeonPressure" });
+        continue;
+      }
       if (!state.battle && state.dungeon?.phase === "awaitingCurio") {
         step({ type: "resolveDungeonCurio" });
         continue;
