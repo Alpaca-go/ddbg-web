@@ -32,7 +32,7 @@ export function QuestMapPanel({
               {layouts.map((l) => (
                 <option key={l.id} value={l.source.page}>
                   p{l.source.page}
-                  {l.unresolvedMarkers?.length ? "（仅预览）" : ""}
+                  {l.unresolvedMarkers?.length || l.review !== "confirmed" ? "（仅预览）" : ""}
                 </option>
               ))}
             </select>

@@ -1,5 +1,17 @@
 import { z } from "zod";
 
+/** R12：每一枚代币独立参与洗混；不靠未命名图标推断种类。 */
+export const roomTokenKindSchema = z.enum([
+  "empty",
+  "dark",
+  "curio",
+  "lair",
+  "trap",
+  "treasure",
+  "objective",
+]);
+export type RoomTokenKind = z.infer<typeof roomTokenKindSchema>;
+
 /** Q-45 / R-046：探索地图与战斗 Room Tile 分开；未批准标注只能进沙盒。 */
 export const dungeonLayoutSchema = z
   .strictObject({
@@ -15,6 +27,8 @@ export const dungeonLayoutSchema = z
         z.strictObject({
           id: z.string().min(1),
           kind: z.enum(["start", "room", "dot", "unresolved"]),
+          /** 印刷房槽图案语义（R-115 等）；节点仍为 room，不代替出征洗混结果。 */
+          slotKind: roomTokenKindSchema.optional(),
           x: z.number().min(0).max(100),
           y: z.number().min(0).max(100),
         }),
@@ -47,6 +61,9 @@ export const dungeonLayoutSchema = z
     for (const n of layout.nodes.filter((n) => n.kind === "dot")) {
       if (layout.edges.filter((e) => e.includes(n.id)).length < 2) fail("灰点必须连接至少两段走廊");
     }
+    for (const n of layout.nodes) {
+      if (n.slotKind && n.kind !== "room") fail("slotKind 仅允许 room 节点");
+    }
     if (layout.unresolvedMarkers?.some((m) => !ids.has(m.nodeId))) fail("未解释标记引用未知节点");
   });
 export type DungeonLayout = z.infer<typeof dungeonLayoutSchema>;
@@ -62,18 +79,6 @@ export const dungeonLayoutFileSchema = z
     )
       ctx.addIssue({ code: "custom", message: "地图 ID / 来源页重复" });
   });
-
-/** R12：每一枚代币独立参与洗混；不靠未命名图标推断种类。 */
-export const roomTokenKindSchema = z.enum([
-  "empty",
-  "dark",
-  "curio",
-  "lair",
-  "trap",
-  "treasure",
-  "objective",
-]);
-export type RoomTokenKind = z.infer<typeof roomTokenKindSchema>;
 
 /** Forward Camps 等卡面「?」槽：仅非 Objective 五类（印刷底栏 dark/curio/treasure/lair/trap）。 */
 export const randomNonObjectiveRoomKinds: readonly RoomTokenKind[] = [
