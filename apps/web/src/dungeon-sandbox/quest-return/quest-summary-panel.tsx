@@ -11,6 +11,7 @@ import {
 import { buildingLabels } from "../labels";
 import { HamletEventSection } from "../hamlet/hamlet-event-section";
 import type { DungeonViewProps } from "../view-props";
+import { ReplacementHeroActions } from "../expedition/replacement-hero-actions";
 
 export function QuestSummaryPanel({
   game,
@@ -59,7 +60,12 @@ export function QuestSummaryPanel({
           <p>弃牌已洗回 · 状态已移除 · 光照5 · 饰品正置；伤口和压力保留。</p>
           {d.hamletReturn.phase === "converting" && <p>按当前姿态顺序转换意志，请完成怪癖选择。</p>}
           {d.hamletReturn.phase === "awaitingReplacement" && (
-            <p>有英雄永久死亡，等待驿站替换；XP尚未发放。</p>
+            <>
+              <p>
+                有英雄永久死亡：先完成死者饰品与驿站替补准备，全部齐备后入队；XP 尚未发放（R29/R31）。
+              </p>
+              <ReplacementHeroActions game={game} dispatch={dispatch} />
+            </>
           )}
           {d.hamletReturn.phase === "provisions" && (
             <>
@@ -108,8 +114,8 @@ export function QuestSummaryPanel({
                 </p>
               )}
               <p data-testid="stagecoach-tokens">
-                驿站等待英雄代币：{stagecoachWaitingTokens(d) ?? "数据无效"} 枚。 升至 II / III
-                级各增加 1 枚；驿站不可访问，死亡补人流程继续开发。
+                驿站等待英雄代币：{stagecoachWaitingTokens(d) ?? "数据无效"} 枚（战役余额，每名替补消耗
+                1 枚）。升至 II / III 级各增加 1 枚上限；村庄英雄行动中驿站不作为可访问建筑，升级见上方按钮（R33）。
               </p>
               <p data-testid="next-quest-provisions">
                 下次任务奖励补给骰：

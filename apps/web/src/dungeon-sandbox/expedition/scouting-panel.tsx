@@ -29,6 +29,7 @@ import { isNegativeCurioEffect } from "../../../../../packages/data/src/curio";
 import { QuestCardField } from "../quest-setup/quest-card-field";
 import { dungeonFlowStep } from "../../tabletop/phase/dungeon-flow-step";
 import { FormalTabletopScoutingPanel } from "./formal-tabletop-scouting-panel";
+import { ReplacementHeroActions } from "./replacement-hero-actions";
 
 function FormalPhaseSection({
   testId,
@@ -161,6 +162,7 @@ export function ScoutingPanel({
           })()}
         </p>
         {pendingBlock}
+        <ReplacementHeroActions game={game} dispatch={dispatch} />
         <p data-testid="dungeon-provision-count">
           公共补给（{d.explorationSetup?.provisions.length ?? 0}/16）
         </p>
@@ -632,37 +634,7 @@ export function ScoutingPanel({
             .join(" · ")}
         </p>
       )}
-      {d.campaignFailure && (
-        <p>
-          {d.campaignFailure === "insufficientWaitingHeroes"
-            ? "英雄全灭，驿站等待英雄不足四人，战役失败（R9/R25）。"
-            : "等待英雄代币耗尽，战役失败（R33）。"}
-        </p>
-      )}
-      {d.heroes.some(
-        (h) => h.dead && !d.preparedReplacements?.some((p) => p.deadHeroId === h.id),
-      ) && (
-        <button
-          disabled={!!d.deathTrinketChoice || !!d.replacementPreparation || !!d.campaignFailure}
-          onClick={() => dispatch({ type: "prepareReplacementHero" })}
-        >
-          准备驿站替补
-        </button>
-      )}
-      {!!d.preparedReplacements?.length && (
-        <button
-          disabled={
-            !!d.pending ||
-            !!d.deathTrinketChoice ||
-            !!d.replacementPreparation ||
-            !!d.campaignFailure ||
-            d.heroes.filter((h) => h.dead).length !== d.preparedReplacements.length
-          }
-          onClick={() => dispatch({ type: "joinPreparedReplacements" })}
-        >
-          让{d.preparedReplacements.length}名替补入队并继续
-        </button>
-      )}
+      <ReplacementHeroActions game={game} dispatch={dispatch} />
       {pendingBlock}
       <p data-testid="dungeon-checkpoint">{dungeonFlowStep(game)}</p>
       <p data-testid="dungeon-events">

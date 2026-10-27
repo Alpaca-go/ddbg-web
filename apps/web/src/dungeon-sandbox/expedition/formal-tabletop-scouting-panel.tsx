@@ -28,6 +28,7 @@ import {
 } from "../../../../../packages/data/src/curio";
 import type { DungeonViewProps } from "../view-props";
 import { dungeonFlowStep } from "../../tabletop/phase/dungeon-flow-step";
+import { ReplacementHeroActions } from "./replacement-hero-actions";
 
 function provisionTallyLine(d: NonNullable<GameState["dungeon"]>): string {
   const tallies = new Map<string, number>();
@@ -276,37 +277,7 @@ export function FormalTabletopScoutingPanel({
             {pendingRolls.join(" · ")}
           </p>
         )}
-        {d.campaignFailure && (
-          <p className="tt-alert" role="status">
-            {d.campaignFailure === "insufficientWaitingHeroes"
-              ? "英雄全灭，驿站等待英雄不足四人，战役失败（R9/R25）。"
-              : "等待英雄代币耗尽，战役失败（R33）。"}
-          </p>
-        )}
-        {d.heroes.some(
-          (h) => h.dead && !d.preparedReplacements?.some((p) => p.deadHeroId === h.id),
-        ) && (
-          <button
-            disabled={!!d.deathTrinketChoice || !!d.replacementPreparation || !!d.campaignFailure}
-            onClick={() => dispatch({ type: "prepareReplacementHero" })}
-          >
-            准备驿站替补
-          </button>
-        )}
-        {!!d.preparedReplacements?.length && (
-          <button
-            disabled={
-              !!d.pending ||
-              !!d.deathTrinketChoice ||
-              !!d.replacementPreparation ||
-              !!d.campaignFailure ||
-              d.heroes.filter((h) => h.dead).length !== d.preparedReplacements.length
-            }
-            onClick={() => dispatch({ type: "joinPreparedReplacements" })}
-          >
-            让{d.preparedReplacements.length}名替补入队并继续
-          </button>
-        )}
+        <ReplacementHeroActions game={game} dispatch={dispatch} />
       </div>
 
       <div className="tt-scouting-tabletop__commands" data-testid="dungeon-exploration-commands">
