@@ -19,8 +19,20 @@ import {
   roomDistributionTokenTotal,
   type RoomDistribution,
 } from "./dungeon-layout";
+import type { QuestExpeditionRegion } from "./quest-map-pairing";
 
 export type QuestXpKind = "all" | "lair" | "gold" | "objective" | "curio" | "dark" | "camp";
+
+/** 核心盒 basic-quests 出征地点（R-116 选图配对）；最暗地牢 16 代币任务另接。 */
+export const basicQuestExpeditionRegion: QuestExpeditionRegion = "ruins";
+
+export function asQuestMapPairingQuest(quest: (typeof basicQuests)[number]) {
+  return {
+    id: quest.id,
+    distribution: quest.distribution,
+    expeditionRegion: basicQuestExpeditionRegion,
+  };
+}
 
 /** 官方R15 / R29、QUEST：已核对可出征任务；未决特殊规则或未审房间图标仍停点。 */
 export const basicQuests = [

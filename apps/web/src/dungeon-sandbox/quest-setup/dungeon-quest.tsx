@@ -6,7 +6,8 @@ import {
 } from "@ddbg/engine";
 import type { QuestParty, DungeonState, FormalHeroName } from "@ddbg/engine";
 import { battleData as questBattleData } from "virtual:quest-battle-data";
-import { basicQuests } from "../../../../../packages/data/src/basic-quests";
+import { asQuestMapPairingQuest, basicQuests } from "../../../../../packages/data/src/basic-quests";
+import { pickQuestMapLayoutId } from "../../../../../packages/data/src/quest-map-pairing";
 import type { BasicQuestId } from "../../../../../packages/data/src/basic-quests";
 import { EmbarkPartyRosterBar } from "./embark-party-roster-bar";
 import { EmbarkSkillIconPicker } from "./embark-skill-icon-picker";
@@ -89,6 +90,7 @@ export function DungeonQuest() {
   const startQuests = basicQuests.filter((q) => q.level === 1);
   const selectedQuest = startQuests.find((q) => q.id === questId) ?? startQuests[0]!;
   const setupHeroes = projectQuestSetupHeroes(party, partyNames);
+  const setupSeed = resolveQuestSeed();
   const setupQuest = {
     questCardId: selectedQuest.id,
     questLabel: selectedQuest.name,
@@ -96,7 +98,7 @@ export function DungeonQuest() {
     locationLabel: "—",
     actLabel: "—",
     xpProgress: "—",
-    layoutId: `quest_map:${selectedQuest.id.replace(/^quest:/, "")}`,
+    layoutId: pickQuestMapLayoutId(asQuestMapPairingQuest(selectedQuest), setupSeed, 0),
   };
   const preEmbarkPhase = prepStep === "expedition" ? "expeditionPrep" : "questSetup";
 
