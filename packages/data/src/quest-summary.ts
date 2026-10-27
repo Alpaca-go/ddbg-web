@@ -105,6 +105,10 @@ export const level2QuestSummarySchema = z
   })
   .superRefine((s, ctx) => {
     const quest = basicQuests.find((q) => q.id === s.questId)!;
+    if (!("roomsPerXp" in quest) || !("maxRooms" in quest)) {
+      ctx.addIssue({ code: "custom", message: "II级任务身份无效" });
+      return;
+    }
     if (
       s.name !== quest.name ||
       new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
@@ -139,9 +143,14 @@ export const standardBasicQuestSummarySchema = z
       !quest ||
       LEGACY_QUEST_SUMMARY_IDS.has(s.questId) ||
       quest.xpKind === "gold" ||
-      quest.xpKind === "camp"
+      quest.xpKind === "camp" ||
+      quest.xpKind === "flat"
     ) {
       ctx.addIssue({ code: "custom", message: "非标准任务摘要身份" });
+      return;
+    }
+    if (!("roomsPerXp" in quest) || !("maxRooms" in quest)) {
+      ctx.addIssue({ code: "custom", message: "任务身份无效" });
       return;
     }
     if (
@@ -154,6 +163,22 @@ export const standardBasicQuestSummarySchema = z
       ctx.addIssue({ code: "custom", message: "任务身份 / 清理记录 / 待发 XP 不一致" });
   });
 
+/** Boss / 最暗定额任务（R-122）；击败后固定 3 XP，发放接线仍 hold。 */
+export const bossFlatQuestSummarySchema = z
+  .strictObject({
+    questId: z.enum(["quest:p016", "quest:p017", "quest:p018", "quest:p019"]),
+    name: z.string().min(1),
+    clearedRoomIds: z.array(z.string().min(1)),
+    xpPerHero: z.literal(3),
+    stagecoachXp: z.literal(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    const quest = basicQuests.find((q) => q.id === s.questId);
+    if (!quest || quest.xpKind !== "flat" || quest.flatXp !== 3 || s.name !== quest.name)
+      ctx.addIssue({ code: "custom", message: "Boss 定额任务身份不一致" });
+  });
+
 export const dungeonQuestSummarySchema = z.union([
   scoutQuestSummarySchema,
   wipeQuestSummarySchema,
@@ -161,5 +186,6 @@ export const dungeonQuestSummarySchema = z.union([
   forwardCampsQuestSummarySchema,
   level2QuestSummarySchema,
   standardBasicQuestSummarySchema,
+  bossFlatQuestSummarySchema,
 ]);
 export type DungeonQuestSummary = z.infer<typeof dungeonQuestSummarySchema>;

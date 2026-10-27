@@ -142,11 +142,11 @@ describe("Phase 3 首切片（R12、R14、R-013、R-046、R-048）", () => {
     expect(result.dungeon!.rooms.filter((r) => r.revealed).map((r) => r.id)).toEqual(["G"]);
     expect(applyCommand(result, { type: "beginDungeonExploration" }).state).toBe(result);
   });
-  it("实际 p11 红点 X 为灰点（R-114）；A/B/G Objective 槽（R-115）不再因未解释标记拒沙盒", () => {
+  it("实际 p11 红点 X 为灰点（R-114）；A/B/G Boss 位（R-121）不再因未解释标记拒沙盒", () => {
     const p11 = dungeonLayoutSchema.parse(layouts.layouts[10]);
     expect(p11.nodes.find((n) => n.id === "X")!.kind).toBe("dot");
     for (const id of ["A", "B", "G"])
-      expect(p11.nodes.find((n) => n.id === id)!.slotKind).toBe("objective");
+      expect(p11.nodes.find((n) => n.id === id)!.slotKind).toBe("boss");
     expect(
       createDungeonSandbox(1, p11, {
         questId: "quest:p011",
@@ -170,10 +170,10 @@ describe("Phase 3 首切片（R12、R14、R-013、R-046、R-048）", () => {
     expect(routed.dungeon!.exploration).toEqual({ from: "D", to: "X", dicePerHero: 1 });
     expect(routed.dungeon!.position).toBe("D");
   });
-  it("实际 p12 A/C/D Objective 槽（R-117）不再因未解释标记拒沙盒", () => {
+  it("实际 p12 A/C/D Boss 位（R-121）不再因未解释标记拒沙盒", () => {
     const p12 = dungeonLayoutSchema.parse(layouts.layouts[11]);
     for (const id of ["A", "C", "D"])
-      expect(p12.nodes.find((n) => n.id === id)!.slotKind).toBe("objective");
+      expect(p12.nodes.find((n) => n.id === id)!.slotKind).toBe("boss");
     expect(
       createDungeonSandbox(1, p12, {
         questId: "quest:p012",

@@ -151,9 +151,11 @@ export function DungeonQuestMapFrame({
                       ? "待确认"
                       : n.kind === "start"
                         ? "起点"
-                        : n.slotKind
-                          ? roomKindLabels[n.slotKind]
-                          : "房间槽"}
+                        : n.slotKind === "boss"
+                          ? "Boss 位"
+                          : n.slotKind
+                            ? roomKindLabels[n.slotKind]
+                            : "房间槽"}
               </text>
             </g>
           );

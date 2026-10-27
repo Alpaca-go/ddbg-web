@@ -56,8 +56,9 @@ export function ScoutingPanel({
         name: quest.name,
         restPoints: quest.restPoints,
         xpKind: quest.xpKind,
-        roomsPerXp: quest.roomsPerXp,
-        maxRooms: quest.maxRooms,
+        ...(quest.xpKind === "flat"
+          ? { flatXp: quest.flatXp }
+          : { roomsPerXp: quest.roomsPerXp, maxRooms: quest.maxRooms }),
       }
     : null;
 

@@ -1200,6 +1200,8 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **关联**：R-046、R-048、R-108、R-114、R-117、VQ-08；Q-45。
 - **状态**：Kyries 已确认（2026-10-27）
 
+> **【R-121 修正 · 2026-10-27】** 废止本条「A/B/G = Objective 房槽 / 不是 Boss 位」。Kyries 对照规则书 p36 与印刷确认：QuestMap 绳绑卷轴槽 = **Boss 位**；Objective 房代币是洗入三格之一的内容，不是槽图标本身。详见 **R-121**。节点仍为 **A / B / G**。
+
 ### R-117
 
 - **编号**：R-117
@@ -1210,6 +1212,8 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **依据 / 出处**：Kyries 于 2026-10-27 本对话当面确认（选项 1）；R-108（绳绑卷轴 = Objective 房代币）；R-115（同语义先例）；规格书 I-53（Objective = 紫色卷轴/手）；VQ-09；R-046 / R-048。
 - **关联**：R-046、R-048、R-108、R-115、R-116、VQ-09；Q-45。
 - **状态**：Kyries 已确认（2026-10-27）
+
+> **【R-121 修正 · 2026-10-27】** 废止本条「A/C/D = Objective 房槽 / 不是 Boss 位」。同 R-121：卷轴槽 = **Boss 位**。节点仍为 **A / C / D**。
 
 ### R-119
 
@@ -1253,12 +1257,50 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **问题**：核心盒 Boss 任务卡 **quest:p016–p019** 如何按印刷表接线并启用沙盒出征？XP、Boss 位与 Boss 战斗何时实现？
 - **裁定**（本项目，Kyries 批 2026-10-27）：
   - **分布**：p016–p018 各 **16** 枚代币（objective×1、empty×3、dark×3、curio×3、lair×3、trap×3）；curio 行 **d07a10730a + 5790845c5c** 读 **3× curio**（5790845c5c 仅为数量角标）。p019 **8** 枚（objective×1、empty×1、dark×2、curio×1（d07a+f698 角标）、treasure×1、lair×1、trap×1）。数据文件 `*_distribution.json`；**R-108** objective、**R-038** XP 封顶。
-  - **元数据**：p016–p018 `level: 3`、`restPoints: 20`、`expeditionRegion: darkestDungeon`；p019 `restPoints: 12`、`expeditionRegion: ruins`；`bossQuest: true`（**不进**战役 `questsForCampaignLevel` 普通「抽 2 选 1」池，**R-030** 按幕另接）。p019 卡面无罗马级标记：`level: 3` 为 schema 占位，**非**普通 III 级随机池卡（幕威胁触发待 Phase 5）。
-  - **XP 占位**：卡面「3 Xp」；数据 `xpKind: all`、`roomsPerXp: 2`、`maxRooms: 6`（`standardBasicQuestSummarySchema` + **R-038** 封顶 3）；细项 XP 规则待 Kyries 补刀。
+  - **元数据**：p016–p018 `level: 3`、`restPoints: 20`、`expeditionRegion: darkestDungeon`；p019 `restPoints: 12`、`expeditionRegion: ruins`；`bossQuest: true`（**不进**战役 `questsForCampaignLevel` 普通「抽 2 选 1」池，规则书 **R30** 按幕另接；项目 **R-030** 为姿态补位，勿混淆）。p019 卡面无罗马级标记：`level: 3` 为 schema 占位，**非**普通 III 级随机池卡（幕威胁触发待 Phase 5）。
+  - **XP**：卡面「3 Xp」之定额语义见 **R-122**（本条废止 Scout Ahead 式 `xpKind: all` / `roomsPerXp: 2` / `maxRooms: 6` 占位）。
   - **出征 / 选图**：`basic-quests` + 印刷 art **enabled**；沙盒 `sandboxEmbarkQuests()` 可选；QuestMap 按 **R-116**（tokenTotal + `expeditionRegion`；16 槽用 confirmed **p11/p12**）。**不做** Boss 位几何、Boss 战斗 / 多形态 / Ancestor 终局；SPECIAL 文案与 `bossRef` 仅数据/裁定记录，运行时未实现。
 - **限定**：不发明未核实图标；不修改 **R-116** 配对语义正文；Boss 拒建局若因 **R-046** hold 须在 PR 说明。
 - **依据 / 出处**：`DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf` p16–p19；R-108、R-038、R-116、R-048、R-030；Kyries 2026-10-27。
 - **关联**：R-046、R-108、R-116、R-030、Q-45。
+- **状态**：Kyries 已确认（2026-10-27）
+
+> **【R-122 修正 · 2026-10-27】** 废止本条「XP 占位：`xpKind: all` / `roomsPerXp: 2` / `maxRooms: 6`」。Boss/最暗任务 XP = **击败后固定 3**（既是额也是顶，与 R-038 一致）。详见 **R-122**。
+
+### R-121
+
+- **编号**：R-121
+- **日期**：2026-10-27（Asia/Shanghai / UTC+8）
+- **授权**：Kyries 当面确认「卷轴槽确实是 BOSS 位」（消息 t109u / pt109u）
+- **问题**：QuestMap FRONT 上印刷的「绳绑卷轴」方形槽，究竟是 Objective 房槽，还是规则书 R36 的 Boss 位（3 格）？此前 R-115 / R-117 将 p011 A/B/G、p012 A/C/D 批为 Objective，是否应推翻？
+- **裁定**：
+  1. **QuestMap 卷轴槽图标 = 规则书 R36 / 规格 §5.1 的 Boss 位（Boss slots）**。最暗地牢布置**不用**普通边缘房；用板块上带该图标的 **3 格**；将 **目标房代币 + 2 张随机非目标房代币** 洗混后先放入这 3 格，再填其余房间。
+  2. **印刷识别**：方形槽内 **绳绑卷轴**（紫底卷轴、绳/链绑）。规则书 p36 正文将该图标内嵌于句中，并称其为 **Boss Slots**（「the ones indicated on the tile with the [卷轴图标]… Place them first on the indicated Boss Slots」）。图例角标 **「3」** 对应「三处可能发现 Boss」。规格 I-62 曾写「紫色小方块」——印刷实为绳绑卷轴；**以印刷 + R36 正文为准**，I-62 图标描述应更正为绳绑卷轴（规格文案另刀）。
+  3. **与 Objective 的关系**：Objective **房代币**（任务卡分布行 / 冲压板，见 **R-108** / I-53）是**洗入这 3 格之一的内容**，**不是**「卷轴槽图标本身 = 目标房」。卷轴槽 = Boss 候选格；其中一格最终放 Objective 代币，另两格放随机非 Objective。
+  4. **节点 ID**（与 `dungeon_layouts.json` 字段对齐）：
+     - **`quest_map:p011`**（VQ-08）：**A**（x65,y15 顶支）、**B**（x20,y28 左支）、**G**（x80,y41 右支）。
+     - **`quest_map:p012`**（VQ-09）：**A**（x35,y15 顶排左）、**C**（x65,y15 顶排右）、**D**（x35,y28 次排左）。
+  5. **推翻 / 修正**：**R-115**、**R-117** 废止「卷轴槽 = Objective 房槽 / 不是 Boss 位」；见本条修正注。**R-108 不变**。
+  6. **数据**：上述六节点 `slotKind: boss`。**不**实现布置接线（目标+2 随机入三格；仍 R-046 / hold）。
+  7. **限定**：本条仅批准 p011 A/B/G 与 p012 A/C/D；**不**扩散其它 QuestMap 页特殊槽；**不**实现 Boss 战斗 / 多形态运行时（仍 R-120 / Phase 5 hold）；**不**改八槽 confirmed 流程。
+- **依据 / 出处**：Kyries 2026-10-27 对照确认；规则书核心盒 **p36 / R36**；FRONT p11/p12；R-108；R-046。
+- **关联**：R-046、R-048、R-108、R-114、R-115（修正）、R-116、R-117（修正）、R-118、R-119、R-120、VQ-08、VQ-09、Q-45；规格 I-62 / §5.1。
+- **状态**：Kyries 已确认（2026-10-27）
+
+### R-122
+
+- **编号**：R-122
+- **日期**：2026-10-27（Asia/Shanghai / UTC+8）
+- **问题**：核心盒 Boss / 最暗任务卡（quest:p016–p019）卡面「3 Xp」如何计发？R-120 的 `xpKind: all` / `roomsPerXp: 2` / `maxRooms: 6` 占位是否作废？
+- **裁定**（本项目，Kyries 拍板 2026-10-27）：
+  1. **Boss / 最暗任务 XP = 击败 Boss 并回村后，每名英雄与驿站各固定获得 3 XP**（卡面「3 Xp」/「3 XP」字面）。
+  2. **废止** R-120 对 p016–p019 套用的 Scout Ahead 式占位：`xpKind: all`、`roomsPerXp: 2`、`maxRooms: 6`。
+  3. 与 **R-038** 一致：固定 3 **既是额度也是封顶**。
+  4. **最终战**（Heart of Darkness / Ancestor 多形态）：规则书未见单独 XP 任务卡或「发 XP」句；本条记为 **不发 XP / 非任务卡奖励**（待若发现印刷反证再改）。
+  5. **数据**：p016–p019 使用 `xpKind: flat`、`flatXp: 3`（等价定额字段）；**不**实现 `summarizeDungeonQuest` / 回村发放 Boss 分支（仍 hold）。
+- **限定**：仅批准 p016–p019 定额语义；不改普通任务公式类 XP；不实现 Boss 战斗运行时。
+- **依据 / 出处**：Kyries 2026-10-27 拍板；QUEST FRONT p16–p19「3 Xp」；规则书 R29 / R36；R-038；R-120（修正）。
+- **关联**：R-038、R-120（修正）、R-044、R-113、Q-37。
 - **状态**：Kyries 已确认（2026-10-27）
 
 ## 待确认（未裁定）

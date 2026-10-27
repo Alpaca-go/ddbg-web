@@ -69,21 +69,21 @@ describe("QuestMap 14 页印刷标注（Q-45、R-048）", () => {
       }).success,
     ).toBe(false);
   });
-  it("p11 红点 X 为走廊灰点（R-114）；A/B/G 为 Objective 房槽（R-115）；p12 A/C/D 为 Objective 房槽（R-117）", () => {
+  it("p11 红点 X 为走廊灰点（R-114）；A/B/G 为 Boss 位（R-121）；p12 A/C/D 为 Boss 位（R-121）", () => {
     const p11 = parsed.layouts[10]!;
     expect(p11.nodes.find((n) => n.id === "X")!.kind).toBe("dot");
     expect(p11.unresolvedMarkers ?? []).toHaveLength(0);
     for (const id of ["A", "B", "G"])
       expect(p11.nodes.find((n) => n.id === id)).toMatchObject({
         kind: "room",
-        slotKind: "objective",
+        slotKind: "boss",
       });
     const p12 = parsed.layouts[11]!;
     expect(p12.unresolvedMarkers ?? []).toHaveLength(0);
     for (const id of ["A", "C", "D"])
       expect(p12.nodes.find((n) => n.id === id)).toMatchObject({
         kind: "room",
-        slotKind: "objective",
+        slotKind: "boss",
       });
     expect(parsed.layouts.flatMap((l) => l.unresolvedMarkers ?? [])).toHaveLength(0);
   });

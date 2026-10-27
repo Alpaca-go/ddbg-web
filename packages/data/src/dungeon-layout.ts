@@ -12,6 +12,10 @@ export const roomTokenKindSchema = z.enum([
 ]);
 export type RoomTokenKind = z.infer<typeof roomTokenKindSchema>;
 
+/** QuestMap 房槽印刷图案（R-121 Boss 位等）；与出征洗混用的 room 代币种类分开。 */
+export const questMapSlotKindSchema = z.union([roomTokenKindSchema, z.literal("boss")]);
+export type QuestMapSlotKind = z.infer<typeof questMapSlotKindSchema>;
+
 /** Q-45 / R-046：探索地图与战斗 Room Tile 分开；未批准标注只能进沙盒。 */
 export const dungeonLayoutSchema = z
   .strictObject({
@@ -27,8 +31,8 @@ export const dungeonLayoutSchema = z
         z.strictObject({
           id: z.string().min(1),
           kind: z.enum(["start", "room", "dot", "unresolved"]),
-          /** 印刷房槽图案语义（R-115 等）；节点仍为 room，不代替出征洗混结果。 */
-          slotKind: roomTokenKindSchema.optional(),
+          /** 印刷房槽图案语义（R-121 Boss 位等）；节点仍为 room，不代替出征洗混结果。 */
+          slotKind: questMapSlotKindSchema.optional(),
           x: z.number().min(0).max(100),
           y: z.number().min(0).max(100),
         }),

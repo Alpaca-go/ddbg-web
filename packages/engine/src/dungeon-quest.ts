@@ -61,6 +61,7 @@ export function readDungeonQuestProgress(d: DungeonState) {
             (r) =>
               r.cleared &&
               (quest.xpKind === "all" ||
+                quest.xpKind === "flat" ||
                 r.kind === (quest.xpKind === "gold" ? "lair" : quest.xpKind)),
           )
           .map((r) => r.id)
@@ -136,6 +137,9 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
       pendingChoice: pending,
     };
   }
+  if (quest.xpKind === "flat") {
+    return refuse("Boss 任务 XP 摘要尚未接线（R-122）；击败后固定 3 XP");
+  }
   if (quest.xpKind === "camp") {
     const forwardCampSetups = d.forwardCampSetups ?? 0;
     const xpPerHero = Math.min(3, forwardCampSetups);
@@ -157,6 +161,9 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
         },
       ],
     };
+  }
+  if (!("roomsPerXp" in quest)) {
+    return refuse("任务 XP 公式未接线");
   }
   const xpPerHero = Math.min(3, Math.floor(clearedRoomIds.length / quest.roomsPerXp));
   const questSummary = dungeonQuestSummarySchema.parse({
