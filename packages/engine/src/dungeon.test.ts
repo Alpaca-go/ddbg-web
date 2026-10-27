@@ -155,7 +155,7 @@ describe("Phase 3 首切片（R12、R14、R-013、R-046、R-048）", () => {
       }).dungeon!.layout.id,
     ).toBe("quest_map:p011");
   });
-  it("实际 p3 分岔灰点挡住远端房间；p12 未解释标记不能开局", () => {
+  it("实际 p3 分岔灰点挡住远端房间", () => {
     const initial = createDungeonSandbox(1, layouts.layouts[2], distribution, "standard", "D");
     const after = scout(initial).state;
     expect(after.dungeon!.rooms.filter((r) => r.revealed).map((r) => r.id)).toEqual([
@@ -169,11 +169,17 @@ describe("Phase 3 首切片（R12、R14、R-013、R-046、R-048）", () => {
     ).state;
     expect(routed.dungeon!.exploration).toEqual({ from: "D", to: "X", dicePerHero: 1 });
     expect(routed.dungeon!.position).toBe("D");
-    expect(() =>
-      createDungeonSandbox(1, layouts.layouts[11], {
-        ...distribution,
+  });
+  it("实际 p12 A/C/D Objective 槽（R-117）不再因未解释标记拒沙盒", () => {
+    const p12 = dungeonLayoutSchema.parse(layouts.layouts[11]);
+    for (const id of ["A", "C", "D"])
+      expect(p12.nodes.find((n) => n.id === id)!.slotKind).toBe("objective");
+    expect(
+      createDungeonSandbox(1, p12, {
+        questId: "quest:p012",
+        source: "test",
         counts: [{ kind: "empty", count: 16 }],
-      }),
-    ).toThrow("未解释标记");
+      }).dungeon!.layout.id,
+    ).toBe("quest_map:p012");
   });
 });
