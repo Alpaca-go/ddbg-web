@@ -1,0 +1,12 @@
+{
+  "questId": "quest:p018",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p18; R-108 / R-038 / R-120; 7d43c83ef2→objective×1; d07a10730a+5790845c5c curio×3（5790845c5c 数量角标，Kyries 2026-10-27）; print reviewed 2026-10-27",
+  "counts": [
+    { "kind": "objective", "count": 1 },
+    { "kind": "empty", "count": 3 },
+    { "kind": "dark", "count": 3 },
+    { "kind": "curio", "count": 3 },
+    { "kind": "lair", "count": 3 },
+    { "kind": "trap", "count": 3 }
+  ]
+}

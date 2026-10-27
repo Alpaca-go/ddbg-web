@@ -53,6 +53,13 @@ describe("QuestMap 选图配对（R-116）", () => {
     expect(layout.source.page).not.toBe(12);
   });
 
+  it("R-120：16 代币最暗地牢 Boss 任务配对 confirmed p11/p12", () => {
+    const quest = basicQuests.find((q) => q.id === "quest:p016")!;
+    const layout = pickEmbarkQuestMapLayout(asQuestMapPairingQuest(quest), 3, 0, layouts);
+    expect(layout.review).toBe("confirmed");
+    expect(["quest_map:p011", "quest_map:p012"]).toContain(layout.id);
+  });
+
   it("出征优先 confirmed 八槽图（遗迹 I 级任务仍用 p001）", () => {
     const quest = basicQuests.find((q) => q.id === "quest:p001")!;
     const layout = pickEmbarkQuestMapLayout(asQuestMapPairingQuest(quest), 7, 0, layouts);

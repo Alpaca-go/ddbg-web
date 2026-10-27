@@ -23,9 +23,13 @@
       "quest:p012",
       "quest:p013",
       "quest:p014",
-      "quest:p015"
+      "quest:p015",
+      "quest:p016",
+      "quest:p017",
+      "quest:p018",
+      "quest:p019"
     ],
-    "artOnlyQuestIds": ["quest:p016", "quest:p017", "quest:p018", "quest:p019"],
+    "artOnlyQuestIds": [],
     "reviewedAt": "2026-10-20",
     "notes": [
       "All 19 quest print pages mapped; status enabled = basic-quests.ts + UI quest pool, art-only = raster only.",
@@ -381,7 +385,7 @@
     {
       "id": "quest:p016",
       "name": "We Are The Flame",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p016.png",
@@ -404,7 +408,7 @@
     {
       "id": "quest:p017",
       "name": "Light the Way",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p017.png",
@@ -427,7 +431,7 @@
     {
       "id": "quest:p018",
       "name": "Belly of the Beast",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p018.png",
@@ -450,7 +454,7 @@
     {
       "id": "quest:p019",
       "name": "Face the Threat!",
-      "status": "art-only",
+      "status": "enabled",
       "faces": {
         "front": {
           "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf_p019.png",

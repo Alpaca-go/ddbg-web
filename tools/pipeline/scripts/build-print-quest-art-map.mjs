@@ -33,8 +33,12 @@ const ENABLED_QUEST_IDS = [
   "quest:p013",
   "quest:p014",
   "quest:p015",
+  "quest:p016",
+  "quest:p017",
+  "quest:p018",
+  "quest:p019",
 ];
-const ART_ONLY_QUEST_IDS = ["quest:p016", "quest:p017", "quest:p018", "quest:p019"];
+const ART_ONLY_QUEST_IDS = [];
 const ALL_QUEST_IDS = [...ENABLED_QUEST_IDS, ...ART_ONLY_QUEST_IDS].sort(
   (a, b) => Number(a.replace("quest:p", "")) - Number(b.replace("quest:p", "")),
 );

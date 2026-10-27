@@ -3,8 +3,15 @@ import demBones from "../../data/normalized/corebox/dem_bones_distribution.json"
 import risingThreat from "../../data/normalized/corebox/rising_threat_distribution.json";
 import creepingDarkness from "../../data/normalized/corebox/creeping_darkness_distribution.json";
 import forwardCamps from "../../data/normalized/corebox/forward_camps_distribution.json";
+import weAreTheFlame from "../../data/normalized/corebox/we_are_the_flame_distribution.json";
+import faceTheThreat from "../../data/normalized/corebox/face_the_threat_distribution.json";
 import { roomDistributionTokenTotal } from "../../data/src/dungeon-layout";
-import { basicQuests } from "../../data/src/basic-quests";
+import {
+  asQuestMapPairingQuest,
+  basicQuests,
+  questsForCampaignLevel,
+} from "../../data/src/basic-quests";
+import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";
 import { standardBasicQuestSummarySchema } from "../../data/src/quest-summary";
 
 const GOLDEN: Record<
@@ -60,6 +67,45 @@ it("R-109 / R-110：Rising Threat 无 lair；They Are Back dark×1 curio×1（Ky
     { kind: "curio", count: 1 },
     { kind: "trap", count: 2 },
   ]);
+});
+
+it("R-120：Boss 任务 p016–p019 分布、region、tokenTotal；p019 不进 III 级普通出征池", () => {
+  const bossIds = ["quest:p016", "quest:p017", "quest:p018", "quest:p019"] as const;
+  for (const id of bossIds) {
+    const quest = basicQuests.find((q) => q.id === id)!;
+    expect("bossQuest" in quest && quest.bossQuest).toBe(true);
+    expect(quest.xpKind).toBe("all");
+    expect(quest.roomsPerXp).toBe(2);
+    expect(quest.maxRooms).toBe(6);
+  }
+  for (const id of ["quest:p016", "quest:p017", "quest:p018"] as const) {
+    const quest = basicQuests.find((q) => q.id === id)!;
+    expect(quest.expeditionRegion).toBe("darkestDungeon");
+    expect(roomDistributionTokenTotal(quest.distribution)).toBe(16);
+    const layout = pickEmbarkQuestMapLayout(asQuestMapPairingQuest(quest), 0, 0);
+    expect(["quest_map:p011", "quest_map:p012"]).toContain(layout.id);
+  }
+  const p019 = basicQuests.find((q) => q.id === "quest:p019")!;
+  expect(p019.expeditionRegion).toBe("ruins");
+  expect(p019.restPoints).toBe(12);
+  expect(roomDistributionTokenTotal(p019.distribution)).toBe(8);
+  expect(basicQuests.find((q) => q.id === "quest:p016")!.distribution).toEqual(weAreTheFlame);
+  expect(p019.distribution).toEqual(faceTheThreat);
+  const level3Pool = questsForCampaignLevel(3).map((q) => q.id);
+  for (const id of bossIds) expect(level3Pool).not.toContain(id);
+  expect(level3Pool).toContain("quest:p011");
+});
+
+it("standardBasicQuestSummarySchema 接受 Boss 任务待发 XP（R-120 占位）", () => {
+  const parsedBoss = standardBasicQuestSummarySchema.safeParse({
+    questId: "quest:p016",
+    name: "We Are The Flame",
+    clearedRoomIds: ["A", "B", "C", "D", "E", "F"],
+    xpPerHero: 3,
+    stagecoachXp: 3,
+    awarded: false,
+  });
+  expect(parsedBoss.success).toBe(true);
 });
 
 it("standardBasicQuestSummarySchema 接受新任务待发 XP", () => {

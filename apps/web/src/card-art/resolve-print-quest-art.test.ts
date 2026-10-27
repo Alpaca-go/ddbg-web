@@ -67,4 +67,13 @@ describe("print quest art map", () => {
     expect(forward?.status).toBe("enabled");
     expect(basicQuestIds.has("quest:p012")).toBe(true);
   });
+
+  it("enables Boss quests p016–p019 (R-120)", () => {
+    for (const id of ["quest:p016", "quest:p017", "quest:p018", "quest:p019"] as const) {
+      const card = lookupPrintQuestFace(id);
+      expect(card?.status).toBe("enabled");
+      expect(basicQuestIds.has(id)).toBe(true);
+    }
+    expect(ART_ONLY).toHaveLength(0);
+  });
 });

@@ -22,7 +22,11 @@ export {
   roomDistributionTokenTotal,
 } from "./dungeon-layout";
 export type { DungeonLayout, RoomDistribution, RoomTokenKind } from "./dungeon-layout";
-export { asQuestMapPairingQuest, basicQuestExpeditionRegion } from "./basic-quests";
+export {
+  asQuestMapPairingQuest,
+  basicQuestExpeditionRegion,
+  sandboxEmbarkQuests,
+} from "./basic-quests";
 export {
   compatibleQuestMapLayouts,
   coreQuestMapLayouts,

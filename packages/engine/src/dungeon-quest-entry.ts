@@ -39,15 +39,17 @@ export function createCoreDungeonQuest(
   sources: CoreQuestSources,
 ) {
   const quest = basicQuests.find((quest) => quest.id === questId);
+  const sandboxEmbarkOk =
+    quest &&
+    (quest.level === 1 || ("bossQuest" in quest && quest.bossQuest));
   if (
-    !quest ||
-    quest.level !== 1 ||
+    !sandboxEmbarkOk ||
     !Number.isInteger(seed) ||
     seed < 0 ||
     seed > 0xffffffff ||
     !["standard", "radiant"].includes(mode)
   )
-    throw new Error("请选择已接通的I级任务、模式及32位非负整数种子");
+    throw new Error("请选择已接通的沙盒出征任务、模式及32位非负整数种子");
   if (
     party.length !== 4 ||
     new Set(party.map((hero) => hero.stance)).size !== 4 ||
@@ -120,7 +122,7 @@ export function createCoreDungeonQuest(
     "S",
     heroes,
     sources.resolveCards,
-    { dungeonLevel: 1, light: 5, provisions: [] },
+    { dungeonLevel: quest!.level, light: 5, provisions: [] },
     sources.curios,
     sources.rooms,
     sources.monsters,

@@ -13,6 +13,10 @@ import theyAreBack from "../normalized/corebox/they_are_back_distribution.json";
 import creepingDarkness from "../normalized/corebox/creeping_darkness_distribution.json";
 import theThreatIsReal from "../normalized/corebox/the_threat_is_real_distribution.json";
 import forwardCamps from "../normalized/corebox/forward_camps_distribution.json";
+import weAreTheFlame from "../normalized/corebox/we_are_the_flame_distribution.json";
+import lightTheWay from "../normalized/corebox/light_the_way_distribution.json";
+import bellyOfTheBeast from "../normalized/corebox/belly_of_the_beast_distribution.json";
+import faceTheThreat from "../normalized/corebox/face_the_threat_distribution.json";
 import {
   randomNonObjectiveRoomKinds,
   roomDistributionSchema,
@@ -23,14 +27,14 @@ import type { QuestExpeditionRegion } from "./quest-map-pairing";
 
 export type QuestXpKind = "all" | "lair" | "gold" | "objective" | "curio" | "dark" | "camp";
 
-/** 核心盒 basic-quests 出征地点（R-116 选图配对）；最暗地牢 16 代币任务另接。 */
+/** 遗迹任务默认出征地点；单任务以 `expeditionRegion` 为准（R-116）。 */
 export const basicQuestExpeditionRegion: QuestExpeditionRegion = "ruins";
 
 export function asQuestMapPairingQuest(quest: (typeof basicQuests)[number]) {
   return {
     id: quest.id,
     distribution: quest.distribution,
-    expeditionRegion: basicQuestExpeditionRegion,
+    expeditionRegion: quest.expeditionRegion,
   };
 }
 
@@ -44,6 +48,7 @@ export const basicQuests = [
     xpKind: "all" as const,
     roomsPerXp: 2,
     maxRooms: 6,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(scout),
   },
   {
@@ -54,6 +59,7 @@ export const basicQuests = [
     xpKind: "lair" as const,
     roomsPerXp: 1,
     maxRooms: 3,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(wipe),
   },
   {
@@ -64,6 +70,7 @@ export const basicQuests = [
     xpKind: "gold" as const,
     roomsPerXp: 20,
     maxRooms: 2,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(fundraiser),
   },
   {
@@ -74,6 +81,7 @@ export const basicQuests = [
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 1,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(demBones),
   },
   {
@@ -84,6 +92,7 @@ export const basicQuests = [
     xpKind: "curio" as const,
     roomsPerXp: 1,
     maxRooms: 3,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(risingThreat),
   },
   {
@@ -94,6 +103,7 @@ export const basicQuests = [
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 2,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(disruption),
   },
   {
@@ -104,6 +114,7 @@ export const basicQuests = [
     xpKind: "all" as const,
     roomsPerXp: 2,
     maxRooms: 6,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(clearThePath),
   },
   {
@@ -114,6 +125,7 @@ export const basicQuests = [
     xpKind: "lair" as const,
     roomsPerXp: 1,
     maxRooms: 3,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(reduceToRubble),
   },
   {
@@ -124,6 +136,7 @@ export const basicQuests = [
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 3,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(breakThem),
   },
   {
@@ -134,6 +147,7 @@ export const basicQuests = [
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 1,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(purifyTheFountains),
   },
   {
@@ -144,6 +158,7 @@ export const basicQuests = [
     xpKind: "dark" as const,
     roomsPerXp: 1,
     maxRooms: 3,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(warmUpTheHalls),
   },
   {
@@ -154,6 +169,7 @@ export const basicQuests = [
     xpKind: "camp" as const,
     roomsPerXp: 1,
     maxRooms: 3,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(forwardCamps),
   },
   {
@@ -164,6 +180,7 @@ export const basicQuests = [
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 3,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(theyAreBack),
   },
   {
@@ -174,6 +191,7 @@ export const basicQuests = [
     xpKind: "all" as const,
     roomsPerXp: 2,
     maxRooms: 6,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(creepingDarkness),
   },
   {
@@ -184,14 +202,69 @@ export const basicQuests = [
     xpKind: "lair" as const,
     roomsPerXp: 1,
     maxRooms: 3,
+    expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(theThreatIsReal),
+  },
+  {
+    id: "quest:p016",
+    name: "We Are The Flame",
+    level: 3 as const,
+    restPoints: 20,
+    xpKind: "all" as const,
+    roomsPerXp: 2,
+    maxRooms: 6,
+    expeditionRegion: "darkestDungeon" as const,
+    bossQuest: true as const,
+    distribution: roomDistributionSchema.parse(weAreTheFlame),
+  },
+  {
+    id: "quest:p017",
+    name: "Light the Way",
+    level: 3 as const,
+    restPoints: 20,
+    xpKind: "all" as const,
+    roomsPerXp: 2,
+    maxRooms: 6,
+    expeditionRegion: "darkestDungeon" as const,
+    bossQuest: true as const,
+    distribution: roomDistributionSchema.parse(lightTheWay),
+  },
+  {
+    id: "quest:p018",
+    name: "Belly of the Beast",
+    level: 3 as const,
+    restPoints: 20,
+    xpKind: "all" as const,
+    roomsPerXp: 2,
+    maxRooms: 6,
+    expeditionRegion: "darkestDungeon" as const,
+    bossQuest: true as const,
+    distribution: roomDistributionSchema.parse(bellyOfTheBeast),
+  },
+  {
+    id: "quest:p019",
+    name: "Face the Threat!",
+    level: 3 as const,
+    restPoints: 12,
+    xpKind: "all" as const,
+    roomsPerXp: 2,
+    maxRooms: 6,
+    expeditionRegion: "ruins" as const,
+    bossQuest: true as const,
+    distribution: roomDistributionSchema.parse(faceTheThreat),
   },
 ] as const;
 export type BasicQuestId = (typeof basicQuests)[number]["id"];
 export type CampaignLevel = 1 | 2 | 3;
 
+/** 战役「抽 2 选 1」普通出征池（R33、R-030）；不含 Boss 任务卡（R-120）。 */
 export function questsForCampaignLevel(level: CampaignLevel) {
-  return basicQuests.filter((q) => q.level === level);
+  return basicQuests.filter((q) => q.level === level && !("bossQuest" in q && q.bossQuest));
+}
+
+/** 沙盒 / 调试出征：I 级普通任务 + 已接通的 Boss 任务卡（R-120）。 */
+export function sandboxEmbarkQuests() {
+  return basicQuests.filter((q) => q.level === 1 || ("bossQuest" in q && q.bossQuest));
 }
 
 export function readBasicQuest(input: unknown) {
