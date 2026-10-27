@@ -4,8 +4,8 @@
     "geometry": "packages/data/normalized/corebox/room_tile_geometry.json",
     "tileCount": 9,
     "notes": [
-      "facePngRel / areaPngRelTemplate are relative to .cache/print-card-art/ (DDBG_PRINT_CARD_ART_CACHE).",
-      "Per-area crops: manual/room-tile-areas/<tileId>/<areaId>.png; whole face: manual/room-tile-faces/<tileId>.png.",
+      "facePngRel paths are relative to .cache/print-card-art/ (DDBG_PRINT_CARD_ART_CACHE).",
+      "Battle UI uses whole face only: manual/room-tile-faces/<tileId>.png (no per-area crops in web).",
       "R-048: no invented print geometry in UI; missing PNG → Chinese placeholder.",
       "Regenerate: node tools/pipeline/scripts/build-print-room-tile-art-map.mjs"
     ]
@@ -31,8 +31,7 @@
         "H",
         "I",
         "J"
-      ],
-      "areaPngRelTemplate": "manual/room-tile-areas/room_tile-p001/{areaId}.png"
+      ]
     },
     {
       "tileId": "room_tile:p002:back",
@@ -52,8 +51,7 @@
         "F",
         "G",
         "H"
-      ],
-      "areaPngRelTemplate": "manual/room-tile-areas/room_tile-p002-back/{areaId}.png"
+      ]
     },
     {
       "tileId": "room_tile:p002:front",
@@ -75,8 +73,7 @@
         "H",
         "I",
         "J"
-      ],
-      "areaPngRelTemplate": "manual/room-tile-areas/room_tile-p002-front/{areaId}.png"
+      ]
     },
     {
       "tileId": "room_tile:p003:front",
@@ -97,8 +94,7 @@
         "L7",
         "L8",
         "L9"
-      ],
-      "areaPngRelTemplate": "manual/room-tile-areas/room_tile-p003-front/{areaId}.png"
+      ]
     },
     {
       "tileId": "room_tile:p003:back",
@@ -122,8 +118,7 @@
         "S10",
         "S11",
         "S12"
-      ],
-      "areaPngRelTemplate": "manual/room-tile-areas/room_tile-p003-back/{areaId}.png"
+      ]
     },
     {
       "tileId": "room_tile:p004:back",
@@ -144,8 +139,7 @@
         "T7",
         "T8",
         "T9"
-      ],
-      "areaPngRelTemplate": "manual/room-tile-areas/room_tile-p004-back/{areaId}.png"
+      ]
     },
     {
       "tileId": "room_tile:p004:front",
@@ -166,8 +160,7 @@
         "A7",
         "A8",
         "A9"
-      ],
-      "areaPngRelTemplate": "manual/room-tile-areas/room_tile-p004-front/{areaId}.png"
+      ]
     },
     {
       "tileId": "room_tile:p005:back",
@@ -189,8 +182,7 @@
         "I8",
         "I9",
         "I10"
-      ],
-      "areaPngRelTemplate": "manual/room-tile-areas/room_tile-p005-back/{areaId}.png"
+      ]
     },
     {
       "tileId": "room_tile:p005:front",
@@ -211,11 +203,10 @@
         "O7",
         "O8",
         "O9"
-      ],
-      "areaPngRelTemplate": "manual/room-tile-areas/room_tile-p005-front/{areaId}.png"
+      ]
     }
   ],
   "pendingConfirmation": [
-    "Kyries manual exports for room tile faces and per-area crops are not committed; paths are conventions only."
+    "Kyries manual exports for room tile faces are not committed; paths are conventions only."
   ]
 }

@@ -23,7 +23,8 @@ import { EncounterEventDetails } from "./encounter-event-details";
 import { humanizeChoiceOptionLabel } from "./choice-display-label";
 import { provisionLabels, provisionEffectLabels } from "./provision-labels";
 import { BattleActionsSurface } from "./tabletop/sections/battle-actions-surface";
-import { BattleAreaTile } from "./card-art/battle-area-tile";
+import { BattleAreaCell } from "./card-art/battle-area-tile";
+import { BattleRoomTileBoard } from "./card-art/battle-room-tile-board";
 import { resolveBattleRoomTileId } from "./battle/resolve-battle-room-tile-id";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
@@ -306,7 +307,10 @@ export function BattleView({
               compact
             />
           )}
-          <div className="area-grid">
+          <BattleRoomTileBoard
+            {...(roomTileId ? { roomTileId } : {})}
+            tileLabel={battle.roomName ?? battleData.tileName}
+          >
             {battle.areas.map((area) => {
               const occupants = battle.entities.filter((e) => !e.dead && e.areaId === area.id);
               const count = occupants.reduce(
@@ -314,10 +318,9 @@ export function BattleView({
                 0,
               );
               return (
-                <BattleAreaTile
+                <BattleAreaCell
                   key={area.id}
                   areaId={area.id}
-                  {...(roomTileId ? { roomTileId } : {})}
                   active={actor?.areaId === area.id}
                   choice={
                     !!pendingArea && !!pending?.options.some((option) => option.id === area.id)
@@ -394,10 +397,10 @@ export function BattleView({
                       </li>
                     ))}
                   </ul>
-                </BattleAreaTile>
+                </BattleAreaCell>
               );
             })}
-          </div>
+          </BattleRoomTileBoard>
           {!formal && (
             <BattleStanceTrack battle={battle} entityName={entityName} actorId={actor?.id} />
           )}
