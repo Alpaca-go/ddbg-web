@@ -1498,6 +1498,12 @@
   overflow: hidden;
 }
 
+.tt-root--formal.tt-root--phase-questReturn .tt-formal-center__scroll,
+.tt-root--formal.tt-root--phase-hamlet .tt-formal-center__scroll,
+.tt-root--formal.tt-root--phase-expeditionPrep .tt-formal-center__scroll {
+  overflow: hidden;
+}
+
 .tt-formal-exploration {
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
@@ -1598,6 +1604,29 @@
   border-top: 1px solid var(--tt-panel-edge);
   padding-top: 0.25rem;
   min-height: 0;
+}
+
+.tt-formal-exploration--hub {
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.tt-formal-exploration--hub .tt-formal-exploration__actions {
+  max-height: none;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  border-top: none;
+  padding-top: 0;
+}
+
+.tt-formal-phase-center.tt-scouting-tabletop {
+  max-height: inherit;
+  height: 100%;
+}
+
+.tt-formal-phase-center .tt-scouting-tabletop__decisions {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  max-height: none;
 }
 
 .tt-scouting-tabletop {

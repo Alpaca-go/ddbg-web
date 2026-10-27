@@ -48,6 +48,7 @@ test("B12：回村结算后抽取下一任务并进入第二任务开局补给",
   );
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
 
+  await expect(page.getByTestId("formal-dungeon-phase-center")).toBeVisible();
   await expect(page.getByTestId("hamlet-event")).toContainText("准备天数已用完");
   await expect(page.getByTestId("offer-next-quest")).toBeVisible();
 
@@ -58,10 +59,12 @@ test("B12：回村结算后抽取下一任务并进入第二任务开局补给",
   const questLabel = (await questButton.innerText()).trim();
   await questButton.click();
 
+  await expect(page.getByTestId("formal-dungeon-phase-center")).toBeVisible();
+  await expect(page.getByTestId("expedition-prep-center")).toBeVisible();
   await expect(page.getByRole("button", { name: "掷开局补给骰", exact: true })).toBeVisible();
   await expect(page.getByTestId("phase-crumb-expeditionPrep")).toHaveAttribute(
     "aria-current",
     "step",
   );
-  await expect(page.getByRole("heading", { name: questLabel, exact: true })).toBeVisible();
+  await expect(page.getByTestId("quest-card-readonly-name")).toHaveText(questLabel);
 });

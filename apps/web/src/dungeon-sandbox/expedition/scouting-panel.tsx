@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   canLeaveDungeon,
   canRestDungeon,
@@ -29,6 +29,36 @@ import { isNegativeCurioEffect } from "../../../../../packages/data/src/curio";
 import { QuestCardField } from "../quest-setup/quest-card-field";
 import { dungeonFlowStep } from "../../tabletop/phase/dungeon-flow-step";
 import { FormalTabletopScoutingPanel } from "./formal-tabletop-scouting-panel";
+
+function FormalPhaseSection({
+  testId,
+  extraClass,
+  layout,
+  children,
+}: {
+  readonly testId: string;
+  readonly extraClass?: string;
+  readonly layout: "panel" | "tabletop";
+  readonly children: ReactNode;
+}) {
+  if (layout === "tabletop") {
+    return (
+      <div
+        className={["tt-scouting-tabletop", "panel", "tt-formal-phase-center", extraClass]
+          .filter(Boolean)
+          .join(" ")}
+        data-testid={testId}
+      >
+        <div className="tt-scouting-tabletop__decisions">{children}</div>
+      </div>
+    );
+  }
+  return (
+    <section className={["panel", extraClass].filter(Boolean).join(" ")} data-testid={testId}>
+      {children}
+    </section>
+  );
+}
 
 export function ScoutingPanel({
   game,
@@ -94,7 +124,11 @@ export function ScoutingPanel({
 
   if (d.hamletReturn || d.phase === "exited") {
     return (
-      <section className="panel quest-return-center" data-testid="quest-return-center">
+      <FormalPhaseSection
+        testId="quest-return-center"
+        extraClass="quest-return-center"
+        layout={layout}
+      >
         <QuestSummaryPanel
           game={game}
           dispatch={dispatch}
@@ -131,13 +165,17 @@ export function ScoutingPanel({
           公共补给（{d.explorationSetup?.provisions.length ?? 0}/16）
         </p>
         <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
-      </section>
+      </FormalPhaseSection>
     );
   }
 
   if (d.hamlet) {
     return (
-      <section className="panel hamlet-phase-center" data-testid="hamlet-phase-center">
+      <FormalPhaseSection
+        testId="hamlet-phase-center"
+        extraClass="hamlet-phase-center"
+        layout={layout}
+      >
         <HamletEventSection
           game={game}
           dispatch={dispatch}
@@ -153,13 +191,17 @@ export function ScoutingPanel({
           公共补给（{d.explorationSetup?.provisions.length ?? 0}/16）
         </p>
         <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
-      </section>
+      </FormalPhaseSection>
     );
   }
 
   if (formal && d.phase === "awaitingProvisions" && activeQuest) {
     return (
-      <section className="panel expedition-prep-center" data-testid="expedition-prep-center">
+      <FormalPhaseSection
+        testId="expedition-prep-center"
+        extraClass="expedition-prep-center"
+        layout={layout}
+      >
         <div
           className="expedition-prep-inline"
           aria-label="出征准备"
@@ -180,7 +222,7 @@ export function ScoutingPanel({
           公共补给（{d.explorationSetup?.provisions.length ?? 0}/16）
         </p>
         <p data-testid="dungeon-gold">共享金币：{d.gold}</p>
-      </section>
+      </FormalPhaseSection>
     );
   }
 

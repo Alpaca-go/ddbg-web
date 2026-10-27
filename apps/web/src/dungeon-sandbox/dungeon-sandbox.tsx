@@ -8,13 +8,10 @@ import { QuestMapPanel } from "./dungeon-map/quest-map-panel";
 import { ScoutingPanel } from "./expedition/scouting-panel";
 import { FormalDungeonExplorationView } from "./formal/formal-dungeon-exploration-view";
 
+/** Formal non-battle dungeon phases share the tabletop center shell (exploration, return, hamlet, prep). */
 function isFormalDungeonTabletopExploration(game: GameState, formal: boolean): boolean {
   if (!formal || game.battle) return false;
-  const d = game.dungeon;
-  if (!d) return false;
-  if (d.hamlet || d.hamletReturn || d.phase === "exited") return false;
-  if (d.phase === "awaitingProvisions") return false;
-  return true;
+  return Boolean(game.dungeon);
 }
 
 export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
