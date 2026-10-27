@@ -1821,6 +1821,17 @@
   min-height: 5rem;
   overflow-wrap: break-word;
 }
+.shell--formal-battle .battle-area-tile {
+  padding: 0;
+  min-height: 7.5rem;
+}
+.shell--formal-battle .battle-area-tile__meta {
+  font-size: 0.68rem;
+  padding: 0.3rem 0.4rem 0.45rem;
+}
+.shell--formal-battle .battle-area-tile__badge {
+  font-size: 1rem;
+}
 .shell--formal-battle .area li {
   overflow-wrap: normal;
 }
