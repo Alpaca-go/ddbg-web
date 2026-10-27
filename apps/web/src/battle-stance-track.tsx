@@ -1,9 +1,7 @@
 import type { GameState, SkillStance } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
-import { MonsterCardFace } from "./card-art/monster-card-face";
-import { BattlePositionRaster } from "./card-art/battle-position-raster";
+import { BattleEntityCardThumb } from "./card-art/battle-entity-card-thumb";
 import { MonsterStanceBoard } from "./card-art/monster-stance-board";
-import { lookupHeroStandeeArt } from "./card-art/resolve-print-hero-standee-art";
 import { listMonsterStanceSlots } from "./card-art/resolve-print-monster-stance-art";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
@@ -48,27 +46,15 @@ export function BattleStanceTrack({
                   {battle.entities
                     .filter((e) => e.side === side && !e.dead && e.stance === slot.stance)
                     .map((e) => (
-                      <details key={e.id} className={side} data-testid={`entity-${e.id}`}>
-                        <summary>
-                          <strong>
-                            {entityName(e.id)}
-                            {actorId === e.id ? " ← 当前" : ""}
-                          </strong>
-                          <span>
-                            区域 {e.areaId} · 伤口 {e.wounds}/{e.life}
-                          </span>
-                          {e.side === "monster" && (e.stanceSlots ?? 0) > 1 && (
-                            <span>占 {e.stanceSlots} 格</span>
-                          )}
-                        </summary>
-                        <EntityChip
-                          entity={e}
-                          entityName={entityName}
-                          isActor={actorId === e.id}
-                          battle={battle}
-                          testId={`entity-detail-${e.id}`}
-                        />
-                      </details>
+                      <EntityChip
+                        key={e.id}
+                        entity={e}
+                        entityName={entityName}
+                        isActor={actorId === e.id}
+                        battle={battle}
+                        compact
+                        testId={`entity-${e.id}`}
+                      />
                     ))}
                   {!battle.entities.some(
                     (e) => e.side === side && !e.dead && e.stance === slot.stance,
@@ -160,52 +146,50 @@ function EntityChip({
   isActor,
   battle,
   testId,
+  compact = false,
 }: {
   readonly entity: BattleEntity;
   readonly entityName: (id: string) => string;
   readonly isActor: boolean;
   readonly battle: NonNullable<GameState["battle"]>;
   readonly testId?: string;
+  readonly compact?: boolean;
 }) {
-  const heroStandee = entity.hero ? lookupHeroStandeeArt(entity.hero) : undefined;
   const widthLabel =
     entity.side === "monster" && entity.stanceSlots && entity.stanceSlots > 1
       ? `占${entity.stanceSlots}格`
       : null;
+  const name = entityName(entity.id);
 
   return (
     <div
-      className={`stance-entity-chip ${entity.side}`}
+      className={[
+        "stance-entity-chip",
+        entity.side,
+        compact ? "stance-entity-chip--compact" : "",
+      ].join(" ")}
       data-testid={testId ?? `entity-${entity.id}`}
     >
-      {heroStandee && (
-        <BattlePositionRaster
-          standee={heroStandee}
-          alt={entityName(entity.id)}
-          className="stance-hero-token"
-          testId={`hero-standee-${entity.id}`}
-        />
-      )}
-      {entity.side === "monster" && entity.monsterCardId && (
-        <MonsterCardFace
-          monsterCardId={entity.monsterCardId}
-          label={entityName(entity.id)}
-          size="chip"
-        />
-      )}
+      <BattleEntityCardThumb entity={entity} label={name} testId={`entity-thumb-${entity.id}`} />
       <div className="stance-entity-text">
         <strong>
-          {entityName(entity.id)}
+          {name}
           {isActor ? " ← 当前" : ""}
           {widthLabel ? ` · ${widthLabel}` : ""}
         </strong>
         <p>
-          区域 {entity.areaId} · 伤口 {entity.wounds}/{entity.life} · Dodge {entity.dodge}
-          {entity.side === "hero"
-            ? ` · 压力 ${entity.stress}/10${entity.wounds === entity.life ? " · 死门" : ""}`
-            : ""}
+          区域 {entity.areaId} · 伤口 {entity.wounds}/{entity.life}
+          {!compact && (
+            <>
+              {" "}
+              · Dodge {entity.dodge}
+              {entity.side === "hero"
+                ? ` · 压力 ${entity.stress}/10${entity.wounds === entity.life ? " · 死门" : ""}`
+                : ""}
+            </>
+          )}
         </p>
-        {!!entity.statusStacks?.length && (
+        {!compact && !!entity.statusStacks?.length && (
           <p className="muted">
             状态：
             {entity.statusStacks
@@ -216,7 +200,7 @@ function EntityChip({
               .join("；")}
           </p>
         )}
-        {entity.side === "hero" && !!(entity.diseaseId || entity.quirkIds?.length) && (
+        {!compact && entity.side === "hero" && !!(entity.diseaseId || entity.quirkIds?.length) && (
           <p className="muted" data-testid={`conditions-${entity.id}`}>
             疾病：
             {battle.conditions?.diseases.find((c) => c.id === entity.diseaseId)?.name ?? "无"} ·
@@ -226,7 +210,7 @@ function EntityChip({
               .join("、") || "无"}
           </p>
         )}
-        {entity.resolveCardId && (
+        {!compact && entity.resolveCardId && (
           <p className="muted">
             意志卡：
             {battleData.resolveCards.find((card) => card.id === entity.resolveCardId)?.name ??

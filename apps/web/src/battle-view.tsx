@@ -9,6 +9,7 @@ import type { Command, SkillStance, ProvisionEffect, GameState, GameEvent } from
 import { battleData } from "virtual:battle-data";
 import type { SandboxLayout } from "./battle-store";
 import { battleStep } from "./battle-step";
+import { BattleEntityCardThumb } from "./card-art/battle-entity-card-thumb";
 import { CardFace } from "./card-art/card-face";
 import { MonsterCardFace } from "./card-art/monster-card-face";
 import { BattleStanceTrack } from "./battle-stance-track";
@@ -368,10 +369,21 @@ export function BattleView({
                   {battle.loot?.placed.some((token) => token.areaId === area.id) && (
                     <p>宝箱：可在同区花一个行动拾取</p>
                   )}
-                  <ul>
+                  <ul className={formal ? "area-occupants area-occupants--cards" : undefined}>
                     {occupants.map((e) => (
                       <li key={e.id} className={e.side}>
-                        {entityName(e.id)}
+                        {formal ? (
+                          <span className="area-occupant-card">
+                            <BattleEntityCardThumb
+                              entity={e}
+                              label={entityName(e.id)}
+                              testId={`area-occupant-${e.id}`}
+                            />
+                            <span className="area-occupant-card__name">{entityName(e.id)}</span>
+                          </span>
+                        ) : (
+                          entityName(e.id)
+                        )}
                       </li>
                     ))}
                   </ul>

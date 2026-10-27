@@ -210,6 +210,7 @@ export function DungeonQuest() {
                     <EmbarkHeroToken
                       seatIndex={index}
                       heroName={name}
+                      heroStatId={hero.heroStatId}
                       partyNames={partyNames}
                       heroLocked={skillsConfirmedBySeat[index]!}
                       onSelect={(next) => {

@@ -1876,6 +1876,31 @@
 .tt-battle-stances__slot .stance-hero-token {
   max-width: 3rem;
 }
+.stance-entity-chip--compact {
+  margin-top: 0.25rem;
+}
+.stance-entity-chip--compact .battle-entity-card-thumb .card-face,
+.stance-entity-chip--compact .battle-entity-card-thumb .monster-card-face {
+  max-width: 100%;
+}
+.stance-entity-chip--compact .card-face__caption,
+.stance-entity-chip--compact .monster-card-face__caption {
+  font-size: 0.62rem;
+}
+.stance-entity-chip--compact .stance-entity-text {
+  margin-top: 0.2rem;
+  font-size: 0.68rem;
+}
+.tt-hero-row__art {
+  flex-shrink: 0;
+  max-width: 3.4rem;
+}
+.tt-hero-row__stat-face .card-face__caption {
+  display: none;
+}
+.tt-hero-row__stat-face.card-face--sm {
+  width: 3.2rem;
+}
 .tt-init--formal {
   min-height: 0;
   overflow: auto;

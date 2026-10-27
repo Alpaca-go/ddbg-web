@@ -1,4 +1,5 @@
 import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
+import { HeroStatCardFace } from "../../card-art/hero-stat-card-face";
 import { lookupHeroStandeeArt } from "../../card-art/resolve-print-hero-standee-art";
 import { PhasePlaceholder } from "../phase/phase-placeholder";
 import type { FlowPhaseId } from "../phase/flow-phase";
@@ -148,11 +149,23 @@ export function TabletopPartyColumn({
               aria-pressed={active}
               disabled={hero.dead && !compact}
             >
-              <StandeeToken
-                label={hero.hero}
-                {...(standee?.pngRel ? { pngRel: standee.pngRel } : {})}
-                size="row"
-              />
+              <div className="tt-hero-row__art">
+                {hero.heroStatId ? (
+                  <HeroStatCardFace
+                    heroStatId={hero.heroStatId}
+                    label={hero.hero}
+                    size="sm"
+                    className="tt-hero-row__stat-face"
+                    testId={`tabletop-hero-stat-${hero.id}`}
+                  />
+                ) : (
+                  <StandeeToken
+                    label={hero.hero}
+                    {...(standee?.pngRel ? { pngRel: standee.pngRel } : {})}
+                    size="row"
+                  />
+                )}
+              </div>
               <div className="tt-hero-row__body">
                 <div className="tt-hero-row__title">
                   <span className="tt-hero-row__name">{hero.hero}</span>

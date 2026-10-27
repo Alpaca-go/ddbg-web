@@ -237,6 +237,56 @@ small {
 .track-heading {
   margin-top: 1.5rem;
 }
+.battle-entity-card-thumb {
+  display: flex;
+  justify-content: center;
+}
+.battle-entity-card-thumb__stat.card-face--sm,
+.battle-entity-card-thumb .monster-card-face--chip {
+  width: 100%;
+  max-width: 4.5rem;
+}
+.area-occupants--cards {
+  list-style: none;
+  padding: 0;
+  margin: 0.35rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.area-occupant-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  max-width: 4.5rem;
+  font-size: 0.68rem;
+}
+.area-occupant-card__name {
+  text-align: center;
+  line-height: 1.15;
+}
+.dungeon-stance-order__card {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.35rem;
+  max-width: 2.8rem;
+}
+.dungeon-stance-order__card .card-face__caption {
+  display: none;
+}
+.dungeon-monster-deploy-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.35rem 0;
+}
+.embark-hero-stat-face {
+  max-width: min(100%, 9rem);
+}
+.embark-hero-cycle {
+  align-items: flex-start;
+}
 .stance-track {
   margin-top: 1.5rem;
 }

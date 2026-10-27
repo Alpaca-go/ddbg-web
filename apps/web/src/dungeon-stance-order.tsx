@@ -1,5 +1,6 @@
 import { canSetDungeonStances, canSetHamletStances, DUNGEON_HERO_STANCES } from "@ddbg/engine";
 import type { Command, GameState } from "@ddbg/engine";
+import { HeroStatCardFace } from "./card-art/hero-stat-card-face";
 
 const labels = ["进攻", "防御", "远程", "支援"];
 export function DungeonStanceOrder({
@@ -39,6 +40,14 @@ export function DungeonStanceOrder({
             d.battleCatalog?.heroStats.find((s) => s.id === hero.heroStatId)?.name ?? hero.id;
           return (
             <li key={hero.id} data-testid={`${prefix}-stance-${DUNGEON_HERO_STANCES[i]}`}>
+              <span className="dungeon-stance-order__card">
+                <HeroStatCardFace
+                  {...(hero.heroStatId ? { heroStatId: hero.heroStatId } : {})}
+                  label={name}
+                  size="sm"
+                  testId={`${prefix}-stance-stat-${hero.id}`}
+                />
+              </span>
               {labels[i]}：{name}（{hero.id}）
               <button aria-label={`${name} 前移`} disabled={i === 0} onClick={() => move(i, i - 1)}>
                 前移
