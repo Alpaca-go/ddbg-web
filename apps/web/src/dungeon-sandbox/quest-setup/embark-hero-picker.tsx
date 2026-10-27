@@ -1,6 +1,7 @@
 import { FORMAL_HERO_NAMES, type FormalHeroName } from "@ddbg/engine";
 import { menuArrowUrl } from "../../card-art/resolve-assets-plus-art";
 import { heroHasHeroToken, heroHeroTokenUrl } from "../../card-art/resolve-hero-token-art";
+import { HeroStatCardFace } from "../../card-art/hero-stat-card-face";
 import { lookupHeroStandeeArt } from "../../card-art/resolve-print-hero-standee-art";
 import { StandeeToken } from "../../tabletop/standee-token";
 import "../../tabletop/tabletop.css";
@@ -43,6 +44,7 @@ export function cycleEmbarkHero(
 type EmbarkHeroSeatProps = {
   readonly seatIndex: number;
   readonly heroName: FormalHeroName;
+  readonly heroStatId: string;
   readonly partyNames: readonly FormalHeroName[];
   readonly heroLocked: boolean;
   readonly onSelect: (name: FormalHeroName) => void;
@@ -51,6 +53,7 @@ type EmbarkHeroSeatProps = {
 export function EmbarkHeroToken({
   seatIndex,
   heroName,
+  heroStatId,
   partyNames,
   heroLocked,
   onSelect,
@@ -73,11 +76,21 @@ export function EmbarkHeroToken({
             >
               <img src={menuArrowUrl("left")} alt="" className="embark-hero-cycle__arrow" />
             </button>
-            <StandeeToken
-              label={heroName}
-              {...tokenProps}
-              testId={`embark-hero-current-${seatIndex}`}
-            />
+            {heroStatId ? (
+              <HeroStatCardFace
+                heroStatId={heroStatId}
+                label={heroName}
+                size="md"
+                className="embark-hero-stat-face"
+                testId={`embark-hero-stat-${seatIndex}`}
+              />
+            ) : (
+              <StandeeToken
+                label={heroName}
+                {...tokenProps}
+                testId={`embark-hero-current-${seatIndex}`}
+              />
+            )}
             <button
               type="button"
               className="embark-hero-cycle__btn"

@@ -11,6 +11,7 @@ import type { DungeonState, GameState, PendingChoice } from "@ddbg/engine";
 import { readBasicQuest } from "../../../../../packages/data/src/basic-quests";
 import { restPoints } from "../../../../../packages/data/src/scout-rest";
 import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
+import { MonsterCardFace } from "../../card-art/monster-card-face";
 import { RoomCardFace } from "../../card-art/room-card-face";
 import { DungeonStanceOrder } from "../../dungeon-stance-order";
 import {
@@ -249,12 +250,21 @@ export function FormalTabletopScoutingPanel({
                     <button onClick={() => dispatch({ type: "startDungeonBattle" })}>
                       进入房间战斗
                     </button>
-                    {d.monsterPool.active.monsters.map((m) => (
-                      <p key={m.instanceId}>
-                        {d.monsterPool!.cards.find((c) => c.combatCardId === m.cardId)!.name} ·{" "}
-                        {m.instanceId} → {m.areaId}
-                      </p>
-                    ))}
+                    {d.monsterPool.active.monsters.map((m) => {
+                      const card = d.monsterPool!.cards.find((c) => c.combatCardId === m.cardId)!;
+                      return (
+                        <div key={m.instanceId} className="dungeon-monster-deploy-row">
+                          <MonsterCardFace
+                            monsterCardId={card.combatCardId}
+                            label={card.name}
+                            size="chip"
+                          />
+                          <p>
+                            {card.name} · {m.instanceId} → {m.areaId}
+                          </p>
+                        </div>
+                      );
+                    })}
                   </div>
                 )}
               </div>
