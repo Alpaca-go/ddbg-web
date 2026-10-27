@@ -4,9 +4,10 @@ import type { Command } from "../command";
 import { basicQuests } from "../../../data/src/basic-quests";
 import type { BasicQuestId } from "../../../data/src/basic-quests";
 import { currentHamletHero } from "../hamlet-actions";
-import { naturalQuest } from "./natural-quest";
+import { naturalParty, naturalQuest } from "./natural-quest";
 import type { CoreQuestSources } from "../dungeon-quest-entry";
 import { guildQuest } from "./guild-quest";
+import { createQuestSave } from "../quest-save";
 
 /** 回村并收束准备日后抽下一任务，返回候选项（会推进 cursor）。 */
 export function offerNextQuestFromPrepared(game: GameState): readonly BasicQuestId[] {
@@ -16,19 +17,22 @@ export function offerNextQuestFromPrepared(game: GameState): readonly BasicQuest
   return result.state.dungeon!.nextQuestOffers! as readonly BasicQuestId[];
 }
 
-function hamletReadyAfterQuest(
-  seed: number,
-  questId: BasicQuestId,
+/** 完成指定 I 级任务、回村结算与村庄准备日后停在 `preparationComplete`（可回放存档）。 */
+export function firstQuestHamletReadySave(
   sources: CoreQuestSources,
-  rooms: number,
+  seed = 14,
+  questId: BasicQuestId = "quest:p001",
+  rooms = 4,
 ) {
   const first = naturalQuest(seed, questId, false, sources, rooms);
   let game = first.state;
-  const step = (command: Parameters<typeof applyCommand>[1]) => {
+  const commands: Command[] = [...first.commands];
+  const step = (command: Command) => {
     const r = applyCommand(game, command);
     const refused = r.events.find((e) => e.type === "commandRefused");
     if (refused) throw new Error(`${command.type}: ${refused.message}`);
     game = r.state;
+    commands.push(command);
   };
   const settle = () => {
     while (game.dungeon!.pending) {
@@ -53,7 +57,27 @@ function hamletReadyAfterQuest(
     const actorId = currentHamletHero(game)!.id;
     step({ type: "useHamletSkill", actorId, skill: "zealousSpeech" });
   }
-  return game;
+  const start = {
+    seed,
+    questId,
+    mode: "radiant" as const,
+    party: naturalParty.map((hero) => ({ ...hero, skillIds: [...hero.skillIds] })),
+  };
+  return {
+    game,
+    commands,
+    start,
+    save: createQuestSave(start, commands, game, sources),
+  };
+}
+
+function hamletReadyAfterQuest(
+  seed: number,
+  questId: BasicQuestId,
+  sources: CoreQuestSources,
+  rooms: number,
+) {
+  return firstQuestHamletReadySave(sources, seed, questId, rooms).game;
 }
 
 /** 完成指定 I 级任务并收束准备日后，寻找下一任务候选项含 target 的种子。 */
