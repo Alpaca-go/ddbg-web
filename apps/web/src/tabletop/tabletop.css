@@ -1876,6 +1876,215 @@
 .tt-battle-stances__slot .stance-hero-token {
   max-width: 3rem;
 }
+.tt-battle-stances--visual {
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+}
+.tt-battle-stances--visual .stance-track-side h3 {
+  font-size: 0.72rem;
+  margin-bottom: 0.35rem;
+  color: var(--tt-gold);
+}
+.tt-battle-stances--visual .monster-stance-board {
+  max-width: 100%;
+}
+.tt-battle-stances--visual .monster-stance-column-body {
+  min-height: 2.6rem;
+  gap: 0.25rem;
+}
+.tt-stance-token {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0.2rem 0.3rem;
+  border-radius: 3px;
+  border: 1px solid #4a463c;
+  background: #12100e;
+  font-size: 0.62rem;
+  line-height: 1.25;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.tt-stance-token.hero {
+  border-color: #5a6b52;
+}
+.tt-stance-token.monster {
+  border-color: #7a4f45;
+}
+.tt-stance-token--actor {
+  border-color: var(--tt-gold);
+  box-shadow: 0 0 0 1px rgba(195, 168, 108, 0.35);
+}
+.tt-stance-token__name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tt-stance-token__area {
+  color: #9a9488;
+  font-size: 0.58rem;
+}
+.tt-battle-board__head {
+  margin-bottom: 0.35rem;
+}
+.tt-battle-board__actor {
+  font-size: 0.72rem;
+  margin: 0.25rem 0 0;
+  line-height: 1.45;
+}
+.tt-battle-area-grid {
+  margin-top: 0.5rem;
+}
+.tt-battle-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+.tt-battle-area--path {
+  outline: 1px dashed #8a7a5a;
+}
+.tt-battle-area--range-in {
+  border-color: #5f7a55;
+}
+.tt-battle-area--range-out {
+  border-color: #6a4540;
+  opacity: 0.92;
+}
+.tt-battle-area--target-zone {
+  box-shadow: inset 0 0 0 1px rgba(195, 168, 108, 0.45);
+}
+.tt-battle-area__distance,
+.tt-battle-area__reach {
+  white-space: nowrap;
+}
+.tt-battle-area__reach--in,
+.tt-battle-area__reach--self {
+  color: #9cb88f;
+}
+.tt-battle-area__reach--out {
+  color: #c98a7f;
+}
+.tt-battle-area__reach--unknown {
+  color: #a8a294;
+}
+.tt-area-rules {
+  font-size: 0.65rem;
+  color: #a8a294;
+}
+.tt-area-rules summary {
+  cursor: pointer;
+  color: #c4bdb0;
+}
+.tt-area-rules ul {
+  margin: 0.25rem 0 0;
+  padding-left: 1rem;
+}
+.tt-battle-area__occupants {
+  list-style: none;
+  padding: 0;
+  margin: 0.15rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.tt-battle-occupant {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.25rem 0.4rem;
+  align-items: center;
+  padding: 0.25rem 0.35rem;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  font-size: 0.68rem;
+}
+.tt-battle-occupant--range-in {
+  border-color: #4a5f44;
+  background: rgba(90, 120, 80, 0.08);
+}
+.tt-battle-occupant--range-out {
+  border-color: #5f3f3a;
+  background: rgba(120, 70, 60, 0.1);
+}
+.tt-battle-occupant--selected {
+  border-color: var(--tt-gold);
+}
+.tt-battle-occupant--actor {
+  border-color: rgba(195, 168, 108, 0.65);
+}
+.tt-battle-occupant__stance {
+  font-size: 0.6rem;
+  padding: 0.1rem 0.25rem;
+  border-radius: 2px;
+  background: #1e1c18;
+  color: #c4bdb0;
+}
+.tt-battle-targets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+}
+.tt-battle-targets__hint {
+  font-size: 0.65rem;
+  margin: 0;
+}
+.tt-battle-target {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.2rem 0.45rem;
+  align-items: center;
+  padding: 0.35rem 0.45rem;
+  border: 1px solid #47453b;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.72rem;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+.tt-battle-target input {
+  margin: 0;
+}
+.tt-battle-target__name {
+  font-weight: 600;
+}
+.tt-battle-target__meta {
+  grid-column: 2;
+  font-size: 0.65rem;
+}
+.tt-battle-target__reach {
+  font-size: 0.62rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 2px;
+  background: #1a1814;
+}
+.tt-battle-target--in,
+.tt-battle-target--self {
+  border-color: #5f7a55;
+}
+.tt-battle-target--out {
+  border-color: #7a4f48;
+  background: rgba(90, 50, 45, 0.12);
+}
+.tt-battle-target--selected {
+  box-shadow: inset 0 0 0 1px var(--tt-gold);
+}
+.tt-battle-target--out .tt-battle-target__reach {
+  color: #d9a195;
+}
+.tt-battle-target--in .tt-battle-target__reach,
+.tt-battle-target--self .tt-battle-target__reach {
+  color: #a8c99a;
+}
+.tt-battle-target__reach--inline {
+  margin-left: 0.35rem;
+  font-size: 0.62rem;
+}
 .tt-init--formal {
   min-height: 0;
   overflow: auto;
