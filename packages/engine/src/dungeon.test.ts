@@ -142,18 +142,20 @@ describe("Phase 3 首切片（R12、R14、R-013、R-046、R-048）", () => {
     expect(result.dungeon!.rooms.filter((r) => r.revealed).map((r) => r.id)).toEqual(["G"]);
     expect(applyCommand(result, { type: "beginDungeonExploration" }).state).toBe(result);
   });
-  it("实际 p11 红点 X 为灰点（R-114）；A/B/G 未解释标记仍拒出征", () => {
-    const p11 = layouts.layouts[10]!;
+  it("实际 p11 红点 X 为灰点（R-114）；A/B/G Objective 槽（R-115）不再因未解释标记拒沙盒", () => {
+    const p11 = dungeonLayoutSchema.parse(layouts.layouts[10]);
     expect(p11.nodes.find((n) => n.id === "X")!.kind).toBe("dot");
-    expect(() =>
+    for (const id of ["A", "B", "G"])
+      expect(p11.nodes.find((n) => n.id === id)!.slotKind).toBe("objective");
+    expect(
       createDungeonSandbox(1, p11, {
         questId: "quest:p011",
         source: "test",
         counts: [{ kind: "empty", count: 16 }],
-      }),
-    ).toThrow("未解释标记");
+      }).dungeon!.layout.id,
+    ).toBe("quest_map:p011");
   });
-  it("实际 p3 分岔灰点挡住远端房间；p11 / p12 未解释标记不能开局", () => {
+  it("实际 p3 分岔灰点挡住远端房间；p12 未解释标记不能开局", () => {
     const initial = createDungeonSandbox(1, layouts.layouts[2], distribution, "standard", "D");
     const after = scout(initial).state;
     expect(after.dungeon!.rooms.filter((r) => r.revealed).map((r) => r.id)).toEqual([
@@ -167,12 +169,11 @@ describe("Phase 3 首切片（R12、R14、R-013、R-046、R-048）", () => {
     ).state;
     expect(routed.dungeon!.exploration).toEqual({ from: "D", to: "X", dicePerHero: 1 });
     expect(routed.dungeon!.position).toBe("D");
-    for (const page of [10, 11])
-      expect(() =>
-        createDungeonSandbox(1, layouts.layouts[page], {
-          ...distribution,
-          counts: [{ kind: "empty", count: 16 }],
-        }),
-      ).toThrow("未解释标记");
+    expect(() =>
+      createDungeonSandbox(1, layouts.layouts[11], {
+        ...distribution,
+        counts: [{ kind: "empty", count: 16 }],
+      }),
+    ).toThrow("未解释标记");
   });
 });

@@ -42,7 +42,7 @@ export function DungeonHeader({
                       : fixture === "roomSpiked"
                         ? "房间测试：固定D为巢穴；种子9按完整九房／42怪池自然抽到Spiked Pit，不代表完整任务验收。"
                         : preview
-                          ? "16 槽地图仅预览，未解释标记保留，未开启 Boss 规则。"
+                          ? "16 槽地图仅预览（pending 或未接代币分布），未开启 Boss 规则。"
                           : "测试注入：导航就绪英雄与六个补给；从选路开始，逐骰结算后进入目标节点。"}
             </p>
           </>

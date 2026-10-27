@@ -10,6 +10,7 @@ import rawMonsterPool from "../../../../packages/data/normalized/corebox/monster
 import { monsterPoolFileSchema } from "../../../../packages/data/src/monster-pool";
 import rawTrinkets from "../../../../packages/data/normalized/corebox/trinket.json";
 import { normalizedTrinketFileSchema } from "../../../../packages/data/src/normalize/schema";
+import { roomDistributionTokenTotal } from "../../../../packages/data/src/dungeon-layout";
 import { curios, layouts } from "./dungeon-data";
 import type { Fixture } from "./fixture-types";
 
@@ -17,7 +18,16 @@ export type { Fixture };
 
 export function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral") {
   const selected = layouts.find((l) => l.source.page === page)!;
-  const preview = selected.unresolvedMarkers?.length ? selected : null;
+  const scoutTokens = roomDistributionTokenTotal(
+    distribution as Parameters<typeof roomDistributionTokenTotal>[0],
+  );
+  const roomSlots = selected.nodes.filter((n) => n.kind === "room").length;
+  const preview =
+    selected.unresolvedMarkers?.length ||
+    selected.review !== "confirmed" ||
+    roomSlots !== scoutTokens
+      ? selected
+      : null;
   const layout = preview ? layouts[0]! : selected;
   const position =
     layout.nodes.find(

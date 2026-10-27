@@ -1117,12 +1117,14 @@
     {
      "id": "A",
      "kind": "room",
+     "slotKind": "objective",
      "x": 65,
      "y": 15
     },
     {
      "id": "B",
      "kind": "room",
+     "slotKind": "objective",
      "x": 20,
      "y": 28
     },
@@ -1153,6 +1155,7 @@
     {
      "id": "G",
      "kind": "room",
+     "slotKind": "objective",
      "x": 80,
      "y": 41
     },
@@ -1294,23 +1297,6 @@
      "P",
      "M"
     ]
-   ],
-   "unresolvedMarkers": [
-    {
-     "nodeId": "A",
-     "observation": "distinct illustrated slot",
-     "semantic": null
-    },
-    {
-     "nodeId": "B",
-     "observation": "distinct illustrated slot",
-     "semantic": null
-    },
-    {
-     "nodeId": "G",
-     "observation": "distinct illustrated slot",
-     "semantic": null
-    }
    ]
   },
   {

@@ -272,10 +272,7 @@ describe("单走廊 → Empty（R14–R15、R-012、R-013、R-026、R-048）", (
     expect(room.dungeon!.rooms.find((r) => r.id === "A")!.cleared).toBeUndefined();
   });
   it("实际 p11 红点 X（R-114）灰点必须停留；下段重新掷骰，不能从灰点侦察", () => {
-    const p11 = {
-      ...layouts.layouts[10]!,
-      unresolvedMarkers: undefined,
-    };
+    const p11 = layouts.layouts[10]!;
     const distribution16 = {
       questId: "quest:p011",
       source: "test",
