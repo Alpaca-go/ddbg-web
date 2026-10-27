@@ -26,15 +26,19 @@
 2. **`resolveDungeonCurio` 拒令文案**：待选 Wild / 饰品 / 怪癖或 `blockedPressure` 时，明确应使用的**公开命令**（仍 `commandRefused`，不伪造结算）。
 3. **回归**：I 级 `quest:p001` / `quest:p005` 多种子自然路径；走廊 Fear + `pendingCurioDraw` 集成测。
 
-## 3. 仍须待确认（不实现）
+## 3. §3 停点（已由 R-048 切片接线，2026-10-27）
 
-- 词典降级或印刷变更导致 `rows[].effect === null`（Q-60 停点模板）。
-- 未获批饰品卡面主动装备（R-048：可弃新卡完成，或保留停点）。
-- Q-61 等地牢内 Curio 抽空洗回（仍为拒抽 + 不洗回，见 R-068 裁定记录）。
+详见 [`docs/r048-curio-pending-slice-2026-10-27.md`](r048-curio-pending-slice-2026-10-27.md)。
+
+- **`rows[].effect === null`**：Q-60 停点模板，`blockedReason` 标明 R-048，不结算、不弃牌。
+- **未核实饰品**：仅 `discard-new` 完成 Curio；不提供装备 / 转交选项。
+- **Curio 抽空（Q-61）**：R-068 拒抽 + 地牢内不洗回；扣 Torch 前拒绝。
+
+仍可能因 **新** 未批准印刷 / 词典项出现停点，需数据或 R-064 类裁定，本引擎不伪造 `effect`。
 
 ## 4. 如何测
 
 ```bash
 pnpm typecheck
-cd packages/engine && pnpm exec vitest run dungeon-curio b09-curio-natural-paths
+cd packages/engine && pnpm exec vitest run dungeon-curio r048-curio-pending b09-curio-natural-paths
 ```
