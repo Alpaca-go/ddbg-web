@@ -63,11 +63,19 @@ function complete(state: GameState, d: DungeonState, events: readonly GameEvent[
 export function resolveCurioRows(state: GameState): ApplyResult {
   let d = state.dungeon!;
   const active = d.curio?.active;
-  if (d.phase !== "awaitingCurio" || !active || d.pending)
-    return {
-      state,
-      events: [{ type: "commandRefused", message: "当前没有可续接的Curio，或尚有待选决定" }],
-    };
+  if (d.phase !== "awaitingCurio" || !active || d.pending) {
+    const pending = d.pending;
+    const message = pending?.id.startsWith("dungeon-curio-provision:")
+      ? "请先完成 Curio Wild 补给选择（公开 resolveChoice），不能重复 resolveDungeonCurio"
+      : pending?.id.startsWith("dungeon-trinket:")
+        ? "请先完成 Curio 饰品获得选择（公开 resolveChoice），不能重复 resolveDungeonCurio"
+        : pending?.id.startsWith("dungeon-condition:")
+          ? "请先完成 Curio 怪癖 / 疾病替换选择（公开 resolveChoice），不能重复 resolveDungeonCurio"
+          : d.phase === "blockedPressure"
+            ? "Curio 行间或抽牌前意志检定未完成；请先 resolveDungeonPressure"
+            : "当前没有可续接的 Curio，或尚有待选决定";
+    return { state, events: [{ type: "commandRefused", message }] };
+  }
   const events: GameEvent[] = [];
   const block = (reason: string): ApplyResult => ({
     state: {
