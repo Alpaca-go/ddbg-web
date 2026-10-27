@@ -10,6 +10,7 @@ it.each([
   ["quest:p002", 1, ["E"], 15, ["victory"]],
   ["quest:p003", 3, ["B"], 5, ["retreat", "victory"]],
   ["quest:p004", 1, ["G"], 10, ["victory"]],
+  ["quest:p005", 1, ["E"], 15, ["victory"]],
 ] as const)(
   "%s seed%i：真实起点→探索/战斗/休息/返回→离开摘要，完整池及命令回放",
   (questId, seed, cleared, gold, outcomes) => {
