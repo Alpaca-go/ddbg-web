@@ -29,7 +29,14 @@ describe("QuestMap 14 页印刷标注（Q-45、R-048）", () => {
       [14, 8, 8],
     ]);
     expect(parsed.layouts[0]!.review).toBe("confirmed");
-    expect(parsed.layouts.slice(1).every((l) => l.review === "pending")).toBe(true);
+    expect(parsed.layouts[10]!.review).toBe("confirmed"); // R-119 quest_map:p011
+    expect(parsed.layouts[11]!.review).toBe("confirmed"); // R-118 quest_map:p012
+    const confirmedPages = new Set([1, 11, 12]);
+    expect(
+      parsed.layouts.every((l) =>
+        confirmedPages.has(l.source.page) ? l.review === "confirmed" : l.review === "pending",
+      ),
+    ).toBe(true);
     expect(parsed.layouts[0]).toEqual(first);
     expect(first.edges).toEqual([
       ["S", "G"],

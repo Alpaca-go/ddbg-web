@@ -1106,7 +1106,7 @@
     "page": 11,
     "face": "front"
    },
-   "review": "pending",
+   "review": "confirmed",
    "nodes": [
     {
      "id": "S",
@@ -1306,7 +1306,7 @@
     "page": 12,
     "face": "front"
    },
-   "review": "pending",
+   "review": "confirmed",
    "nodes": [
     {
      "id": "S",
