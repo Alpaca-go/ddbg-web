@@ -1246,6 +1246,21 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **关联**：R-046、R-112、R-114、R-115、R-117、VQ-08、VQ-09、Q-45。
 - **状态**：Kyries 已确认（2026-10-27）
 
+### R-120
+
+- **编号**：R-120
+- **日期**：2026-10-27（UTC+8）
+- **问题**：核心盒 Boss 任务卡 **quest:p016–p019** 如何按印刷表接线并启用沙盒出征？XP、Boss 位与 Boss 战斗何时实现？
+- **裁定**（本项目，Kyries 批 2026-10-27）：
+  - **分布**：p016–p018 各 **16** 枚代币（objective×1、empty×3、dark×3、curio×3、lair×3、trap×3）；curio 行 **d07a10730a + 5790845c5c** 读 **3× curio**（5790845c5c 仅为数量角标）。p019 **8** 枚（objective×1、empty×1、dark×2、curio×1（d07a+f698 角标）、treasure×1、lair×1、trap×1）。数据文件 `*_distribution.json`；**R-108** objective、**R-038** XP 封顶。
+  - **元数据**：p016–p018 `level: 3`、`restPoints: 20`、`expeditionRegion: darkestDungeon`；p019 `restPoints: 12`、`expeditionRegion: ruins`；`bossQuest: true`（**不进**战役 `questsForCampaignLevel` 普通「抽 2 选 1」池，**R-030** 按幕另接）。p019 卡面无罗马级标记：`level: 3` 为 schema 占位，**非**普通 III 级随机池卡（幕威胁触发待 Phase 5）。
+  - **XP 占位**：卡面「3 Xp」；数据 `xpKind: all`、`roomsPerXp: 2`、`maxRooms: 6`（`standardBasicQuestSummarySchema` + **R-038** 封顶 3）；细项 XP 规则待 Kyries 补刀。
+  - **出征 / 选图**：`basic-quests` + 印刷 art **enabled**；沙盒 `sandboxEmbarkQuests()` 可选；QuestMap 按 **R-116**（tokenTotal + `expeditionRegion`；16 槽用 confirmed **p11/p12**）。**不做** Boss 位几何、Boss 战斗 / 多形态 / Ancestor 终局；SPECIAL 文案与 `bossRef` 仅数据/裁定记录，运行时未实现。
+- **限定**：不发明未核实图标；不修改 **R-116** 配对语义正文；Boss 拒建局若因 **R-046** hold 须在 PR 说明。
+- **依据 / 出处**：`DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf` p16–p19；R-108、R-038、R-116、R-048、R-030；Kyries 2026-10-27。
+- **关联**：R-046、R-108、R-116、R-030、Q-45。
+- **状态**：Kyries 已确认（2026-10-27）
+
 ## 待确认（未裁定）
 
 依据规则书、依据印刷件、暂定（规则书未写明），以及 Kyries 已确认的 Q，都已写入上面的 R-002~R-052，这里只保留索引。状态为「延后」的仍留在本节。Q-07、Q-48、Q-49 已于 2026-10-06 由 Kyries 确认（R-008、R-049、R-050），不再列在待确认里。

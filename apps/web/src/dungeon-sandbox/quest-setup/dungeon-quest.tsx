@@ -6,7 +6,10 @@ import {
 } from "@ddbg/engine";
 import type { QuestParty, DungeonState, FormalHeroName } from "@ddbg/engine";
 import { battleData as questBattleData } from "virtual:quest-battle-data";
-import { asQuestMapPairingQuest, basicQuests } from "../../../../../packages/data/src/basic-quests";
+import {
+  asQuestMapPairingQuest,
+  sandboxEmbarkQuests,
+} from "../../../../../packages/data/src/basic-quests";
 import { pickQuestMapLayoutId } from "../../../../../packages/data/src/quest-map-pairing";
 import type { BasicQuestId } from "../../../../../packages/data/src/basic-quests";
 import { EmbarkPartyRosterBar } from "./embark-party-roster-bar";
@@ -87,7 +90,7 @@ export function DungeonQuest() {
   };
   if (started) return <DungeonSandbox formal />;
 
-  const startQuests = basicQuests.filter((q) => q.level === 1);
+  const startQuests = sandboxEmbarkQuests();
   const selectedQuest = startQuests.find((q) => q.id === questId) ?? startQuests[0]!;
   const setupHeroes = projectQuestSetupHeroes(party, partyNames);
   const setupSeed = resolveQuestSeed();

@@ -1,0 +1,13 @@
+{
+  "questId": "quest:p019",
+  "source": "DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf p19; R-108 / R-038 / R-120; 7d43c83ef2→objective×1; d07a10730a+f698b6fd6c curio×1（f698 数量角标，Kyries 2026-10-27）; print reviewed 2026-10-27",
+  "counts": [
+    { "kind": "objective", "count": 1 },
+    { "kind": "empty", "count": 1 },
+    { "kind": "dark", "count": 2 },
+    { "kind": "curio", "count": 1 },
+    { "kind": "treasure", "count": 1 },
+    { "kind": "lair", "count": 1 },
+    { "kind": "trap", "count": 1 }
+  ]
+}
