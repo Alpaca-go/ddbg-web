@@ -233,10 +233,10 @@ small {
   position: relative;
   z-index: 1;
   margin-top: 0;
-  gap: 0.35rem;
-  padding: 0.45rem;
+  gap: 0;
+  padding: 0.25rem;
   min-height: 14rem;
-  align-content: start;
+  align-content: stretch;
 }
 .area {
   border: 1px solid #47453b;
@@ -246,41 +246,29 @@ small {
 }
 .battle-area-cell {
   position: relative;
-  padding: 0.45rem 0.5rem 0.55rem;
-  min-height: 6.5rem;
-  background: rgba(0, 0, 0, 0.42);
-  border-color: rgba(90, 86, 72, 0.75);
+  padding: 0.2rem 0.25rem;
+  min-height: 5rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background: transparent;
   transition:
-    border-color 0.2s ease,
     box-shadow 0.2s ease,
     background-color 0.2s ease;
 }
-.battle-area-cell__badge {
-  position: absolute;
-  top: 0.2rem;
-  left: 0.35rem;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #f0e2b8;
-  text-shadow:
-    0 0 6px rgba(0, 0, 0, 0.95),
-    0 1px 2px rgba(0, 0, 0, 0.9);
-  pointer-events: none;
-  line-height: 1;
-  z-index: 1;
-}
-.battle-area-cell__body {
-  padding-top: 1.15rem;
-}
 .battle-area-cell.active-area {
-  border-color: #d4b879;
-  background: rgba(0, 0, 0, 0.55);
-  box-shadow: 0 0 0 1px rgba(212, 184, 121, 0.4);
+  border-color: transparent;
+  background: rgba(0, 0, 0, 0.22);
+  box-shadow: inset 0 0 0 2px rgba(212, 184, 121, 0.55);
 }
 .battle-area-cell.choice-area {
-  border-color: #8fb4d4;
-  background: rgba(20, 28, 36, 0.55);
-  box-shadow: 0 0 0 1px rgba(143, 180, 212, 0.45);
+  border-color: transparent;
+  background: rgba(0, 0, 0, 0.18);
+  box-shadow: inset 0 0 0 2px rgba(143, 180, 212, 0.5);
+}
+.battle-area-cell .connections,
+.battle-area-cell .area-heading span,
+.battle-area-cell li {
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.85);
 }
 .active-area {
   border-color: #d4b879;
