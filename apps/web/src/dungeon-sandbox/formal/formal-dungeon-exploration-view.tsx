@@ -53,54 +53,64 @@ export function FormalDungeonExplorationView({
     }
   };
 
+  const showQuestMap =
+    !d.hamlet && !d.hamletReturn && d.phase !== "exited" && d.phase !== "awaitingProvisions";
+
   return (
-    <div className="tt-formal-exploration" data-testid="formal-dungeon-exploration">
-      <div className="tt-formal-exploration__map-stage" aria-label="地牢地图与当前房间">
-        <div className="tt-formal-exploration__map-slab tabletop-board-slab">
-          <DungeonQuestMapFrame
-            game={game}
-            map={d.layout}
-            preview={false}
-            selectedRoomNodeId={selectedNodeId}
-            onSelectRoomNode={onSelectNode}
-          />
-          <button
-            type="button"
-            className="tt-formal-exploration__room-pick"
-            data-testid="tabletop-current-room-card"
-            onClick={() => {
-              if (activeRoomCardId) formalUi?.selectRoomCard(activeRoomCardId);
-            }}
-          >
-            {activeRoomCardId && roomSrc ? (
-              <TabletopRasterImage
-                src={roomSrc}
-                label={roomArt?.name ?? activeRoomCardId}
-                assetType="room"
-                className="tt-formal-exploration__room-img"
-              />
-            ) : positionToken ? (
-              <ExplorationArtImage
-                entry={positionToken}
-                alt={currentRoom ? roomKindLabels[currentRoom.kind] : "房间代币"}
-                className="tt-formal-exploration__room-token"
-                testId="tabletop-position-room-token"
-              />
-            ) : (
-              <span
-                className="tt-formal-exploration__room-back"
-                data-testid="tabletop-room-token-back"
-              >
-                {currentRoom?.revealed ? roomKindLabels[currentRoom.kind] : "背面"}
-              </span>
-            )}
-            <span className="tt-formal-exploration__room-label">{roomPickLabel}</span>
-          </button>
+    <div
+      className={["tt-formal-exploration", showQuestMap ? "" : "tt-formal-exploration--hub"]
+        .filter(Boolean)
+        .join(" ")}
+      data-testid={showQuestMap ? "formal-dungeon-exploration" : "formal-dungeon-phase-center"}
+    >
+      {showQuestMap && (
+        <div className="tt-formal-exploration__map-stage" aria-label="地牢地图与当前房间">
+          <div className="tt-formal-exploration__map-slab tabletop-board-slab">
+            <DungeonQuestMapFrame
+              game={game}
+              map={d.layout}
+              preview={false}
+              selectedRoomNodeId={selectedNodeId}
+              onSelectRoomNode={onSelectNode}
+            />
+            <button
+              type="button"
+              className="tt-formal-exploration__room-pick"
+              data-testid="tabletop-current-room-card"
+              onClick={() => {
+                if (activeRoomCardId) formalUi?.selectRoomCard(activeRoomCardId);
+              }}
+            >
+              {activeRoomCardId && roomSrc ? (
+                <TabletopRasterImage
+                  src={roomSrc}
+                  label={roomArt?.name ?? activeRoomCardId}
+                  assetType="room"
+                  className="tt-formal-exploration__room-img"
+                />
+              ) : positionToken ? (
+                <ExplorationArtImage
+                  entry={positionToken}
+                  alt={currentRoom ? roomKindLabels[currentRoom.kind] : "房间代币"}
+                  className="tt-formal-exploration__room-token"
+                  testId="tabletop-position-room-token"
+                />
+              ) : (
+                <span
+                  className="tt-formal-exploration__room-back"
+                  data-testid="tabletop-room-token-back"
+                >
+                  {currentRoom?.revealed ? roomKindLabels[currentRoom.kind] : "背面"}
+                </span>
+              )}
+              <span className="tt-formal-exploration__room-label">{roomPickLabel}</span>
+            </button>
+          </div>
+          <p className="tt-formal-exploration__location muted">
+            {quest?.name ?? "地牢探索"} · 队伍位于 {d.position}
+          </p>
         </div>
-        <p className="tt-formal-exploration__location muted">
-          {quest?.name ?? "地牢探索"} · 队伍位于 {d.position}
-        </p>
-      </div>
+      )}
 
       <section
         className="tt-formal-exploration__actions"
