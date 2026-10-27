@@ -5,9 +5,10 @@ export type QuestCardOption = {
   readonly id: BasicQuestId;
   readonly name: string;
   readonly restPoints: number;
-  readonly xpKind: "all" | "lair" | "gold" | "objective" | "curio" | "dark" | "camp";
-  readonly roomsPerXp: number;
-  readonly maxRooms: number;
+  readonly xpKind: "all" | "lair" | "gold" | "objective" | "curio" | "dark" | "camp" | "flat";
+  readonly roomsPerXp?: number;
+  readonly maxRooms?: number;
+  readonly flatXp?: 3;
 };
 
 export function QuestGoalNotes({ quest }: { readonly quest: QuestCardOption }) {
@@ -19,21 +20,23 @@ export function QuestGoalNotes({ quest }: { readonly quest: QuestCardOption }) {
       </p>
       <p>
         柴火休息 {quest.restPoints} 点。
-        {quest.xpKind === "gold"
-          ? "清理至少一间巢穴后，可每捐献20金币获得1XP，最多捐献60金币、获得3XP。"
-          : quest.xpKind === "camp"
-            ? "在已清理 Empty 房每次消耗 1 Torch 或 1 Shovel 设营获得 1XP，最多 3XP（R-113）。"
-            : `每清理${quest.roomsPerXp}${
-                quest.xpKind === "lair"
-                  ? "间巢穴"
-                  : quest.xpKind === "curio"
-                    ? "间 Curio 房"
-                    : quest.xpKind === "dark"
-                      ? "间已点亮暗房"
-                      : quest.xpKind === "objective"
-                        ? "个目标"
-                        : "个房间"
-              }获得1XP，最多${quest.maxRooms / quest.roomsPerXp}XP。`}
+        {quest.xpKind === "flat"
+          ? `击败 Boss 并回村后每名英雄与驿站各固定 ${quest.flatXp ?? 3} XP（R-122）；摘要与回村发放尚未接线。`
+          : quest.xpKind === "gold"
+            ? "清理至少一间巢穴后，可每捐献20金币获得1XP，最多捐献60金币、获得3XP。"
+            : quest.xpKind === "camp"
+              ? "在已清理 Empty 房每次消耗 1 Torch 或 1 Shovel 设营获得 1XP，最多 3XP（R-113）。"
+              : `每清理${quest.roomsPerXp ?? 1}${
+                  quest.xpKind === "lair"
+                    ? "间巢穴"
+                    : quest.xpKind === "curio"
+                      ? "间 Curio 房"
+                      : quest.xpKind === "dark"
+                        ? "间已点亮暗房"
+                        : quest.xpKind === "objective"
+                          ? "个目标"
+                          : "个房间"
+                }获得1XP，最多${(quest.maxRooms ?? 0) / (quest.roomsPerXp ?? 1)}XP。`}
         任务结算仅记待发XP，回村发放。
       </p>
     </>

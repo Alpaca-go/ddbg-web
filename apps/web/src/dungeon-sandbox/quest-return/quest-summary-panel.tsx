@@ -1,5 +1,5 @@
 import type { PendingChoice } from "@ddbg/engine";
-import { readBasicQuest } from "../../../../../packages/data/src/basic-quests";
+import { questPrintedXpCap, readBasicQuest } from "../../../../../packages/data/src/basic-quests";
 import {
   upgradableBuildings,
   recoveryBuildingLevel,
@@ -26,7 +26,10 @@ export function QuestSummaryPanel({
       {d.questSummary ? (
         <p>
           {d.questSummary.name} · {d.questSummary.questId !== "quest:p001" ? "巢穴清理" : "清理"}{" "}
-          {d.questSummary.clearedRoomIds.length} / {quest!.maxRooms} 间 · 每名英雄
+          {quest!.xpKind === "flat"
+            ? "Boss 定额"
+            : `${d.questSummary.clearedRoomIds.length} / ${questPrintedXpCap(quest!)} 间`}{" "}
+          · 每名英雄
           {d.questSummary.awarded ? "已发" : "待发"} {d.questSummary.xpPerHero} XP · 驿站
           {d.questSummary.awarded ? "已发" : "待发"} {d.questSummary.stagecoachXp} XP
           {d.questSummary.questId === "quest:p003" &&

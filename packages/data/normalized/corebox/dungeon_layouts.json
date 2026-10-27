@@ -1117,14 +1117,14 @@
     {
      "id": "A",
      "kind": "room",
-     "slotKind": "objective",
+     "slotKind": "boss",
      "x": 65,
      "y": 15
     },
     {
      "id": "B",
      "kind": "room",
-     "slotKind": "objective",
+     "slotKind": "boss",
      "x": 20,
      "y": 28
     },
@@ -1155,7 +1155,7 @@
     {
      "id": "G",
      "kind": "room",
-     "slotKind": "objective",
+     "slotKind": "boss",
      "x": 80,
      "y": 41
     },
@@ -1317,7 +1317,7 @@
     {
      "id": "A",
      "kind": "room",
-     "slotKind": "objective",
+     "slotKind": "boss",
      "x": 35,
      "y": 15
     },
@@ -1330,14 +1330,14 @@
     {
      "id": "C",
      "kind": "room",
-     "slotKind": "objective",
+     "slotKind": "boss",
      "x": 65,
      "y": 15
     },
     {
      "id": "D",
      "kind": "room",
-     "slotKind": "objective",
+     "slotKind": "boss",
      "x": 35,
      "y": 28
     },

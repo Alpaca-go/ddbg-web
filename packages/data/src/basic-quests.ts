@@ -25,7 +25,8 @@ import {
 } from "./dungeon-layout";
 import type { QuestExpeditionRegion } from "./quest-map-pairing";
 
-export type QuestXpKind = "all" | "lair" | "gold" | "objective" | "curio" | "dark" | "camp";
+export type QuestXpKind =
+  "all" | "lair" | "gold" | "objective" | "curio" | "dark" | "camp" | "flat";
 
 /** 遗迹任务默认出征地点；单任务以 `expeditionRegion` 为准（R-116）。 */
 export const basicQuestExpeditionRegion: QuestExpeditionRegion = "ruins";
@@ -210,9 +211,8 @@ export const basicQuests = [
     name: "We Are The Flame",
     level: 3 as const,
     restPoints: 20,
-    xpKind: "all" as const,
-    roomsPerXp: 2,
-    maxRooms: 6,
+    xpKind: "flat" as const,
+    flatXp: 3 as const,
     expeditionRegion: "darkestDungeon" as const,
     bossQuest: true as const,
     distribution: roomDistributionSchema.parse(weAreTheFlame),
@@ -222,9 +222,8 @@ export const basicQuests = [
     name: "Light the Way",
     level: 3 as const,
     restPoints: 20,
-    xpKind: "all" as const,
-    roomsPerXp: 2,
-    maxRooms: 6,
+    xpKind: "flat" as const,
+    flatXp: 3 as const,
     expeditionRegion: "darkestDungeon" as const,
     bossQuest: true as const,
     distribution: roomDistributionSchema.parse(lightTheWay),
@@ -234,9 +233,8 @@ export const basicQuests = [
     name: "Belly of the Beast",
     level: 3 as const,
     restPoints: 20,
-    xpKind: "all" as const,
-    roomsPerXp: 2,
-    maxRooms: 6,
+    xpKind: "flat" as const,
+    flatXp: 3 as const,
     expeditionRegion: "darkestDungeon" as const,
     bossQuest: true as const,
     distribution: roomDistributionSchema.parse(bellyOfTheBeast),
@@ -246,9 +244,8 @@ export const basicQuests = [
     name: "Face the Threat!",
     level: 3 as const,
     restPoints: 12,
-    xpKind: "all" as const,
-    roomsPerXp: 2,
-    maxRooms: 6,
+    xpKind: "flat" as const,
+    flatXp: 3 as const,
     expeditionRegion: "ruins" as const,
     bossQuest: true as const,
     distribution: roomDistributionSchema.parse(faceTheThreat),
@@ -265,6 +262,13 @@ export function questsForCampaignLevel(level: CampaignLevel) {
 /** 沙盒 / 调试出征：I 级普通任务 + 已接通的 Boss 任务卡（R-120）。 */
 export function sandboxEmbarkQuests() {
   return basicQuests.filter((q) => q.level === 1 || ("bossQuest" in q && q.bossQuest));
+}
+
+/** 任务卡印刷 XP 上限（R-038）；Boss 定额见 R-122 `flatXp`。 */
+export function questPrintedXpCap(quest: (typeof basicQuests)[number]): number {
+  if (quest.xpKind === "flat") return quest.flatXp;
+  if (quest.xpKind === "gold" || quest.xpKind === "camp") return 3;
+  return Math.min(3, quest.maxRooms / quest.roomsPerXp);
 }
 
 export function readBasicQuest(input: unknown) {

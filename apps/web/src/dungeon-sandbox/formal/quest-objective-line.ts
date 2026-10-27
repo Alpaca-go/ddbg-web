@@ -1,5 +1,5 @@
 import type { GameState } from "@ddbg/engine";
-import { readBasicQuest } from "../../../../../packages/data/src/basic-quests";
+import { questPrintedXpCap, readBasicQuest } from "../../../../../packages/data/src/basic-quests";
 
 /** 任务目标进度文案（只读引擎与任务表，缺字段用「—」）。 */
 export function questObjectiveProgressLine(game: GameState): string {
@@ -7,6 +7,10 @@ export function questObjectiveProgressLine(game: GameState): string {
   if (!d) return "—";
   const quest = readBasicQuest(d.questDistribution);
   if (!quest) return "—";
+
+  if (quest.xpKind === "flat") {
+    return `${quest.name} · 任务 XP —/${quest.flatXp} · 击败 Boss 后固定 ${quest.flatXp} XP（R-122，发放未接线）`;
+  }
 
   const clearedRooms = d.rooms.filter((r) => r.cleared);
   const clearedForXp =
@@ -18,7 +22,7 @@ export function questObjectiveProgressLine(game: GameState): string {
           ? clearedRooms.length
           : clearedRooms.filter((r) => r.kind === quest.xpKind).length;
 
-  const maxXp = quest.maxRooms / quest.roomsPerXp;
+  const maxXp = questPrintedXpCap(quest);
   const xpEarned = Math.min(maxXp, Math.floor(clearedForXp / quest.roomsPerXp));
   const unit =
     quest.xpKind === "lair"

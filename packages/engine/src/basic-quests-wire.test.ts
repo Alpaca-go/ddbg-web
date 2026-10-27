@@ -12,7 +12,10 @@ import {
   questsForCampaignLevel,
 } from "../../data/src/basic-quests";
 import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";
-import { standardBasicQuestSummarySchema } from "../../data/src/quest-summary";
+import {
+  bossFlatQuestSummarySchema,
+  standardBasicQuestSummarySchema,
+} from "../../data/src/quest-summary";
 
 const GOLDEN: Record<
   string,
@@ -74,9 +77,11 @@ it("R-120：Boss 任务 p016–p019 分布、region、tokenTotal；p019 不进 I
   for (const id of bossIds) {
     const quest = basicQuests.find((q) => q.id === id)!;
     expect("bossQuest" in quest && quest.bossQuest).toBe(true);
-    expect(quest.xpKind).toBe("all");
-    expect(quest.roomsPerXp).toBe(2);
-    expect(quest.maxRooms).toBe(6);
+    expect(quest.xpKind).toBe("flat");
+    if (quest.xpKind !== "flat") throw new Error("expected flat boss quest");
+    expect(quest.flatXp).toBe(3);
+    expect("roomsPerXp" in quest).toBe(false);
+    expect("maxRooms" in quest).toBe(false);
   }
   for (const id of ["quest:p016", "quest:p017", "quest:p018"] as const) {
     const quest = basicQuests.find((q) => q.id === id)!;
@@ -96,11 +101,21 @@ it("R-120：Boss 任务 p016–p019 分布、region、tokenTotal；p019 不进 I
   expect(level3Pool).toContain("quest:p011");
 });
 
-it("standardBasicQuestSummarySchema 接受 Boss 任务待发 XP（R-120 占位）", () => {
-  const parsedBoss = standardBasicQuestSummarySchema.safeParse({
+it("R-122：Boss 定额摘要用 bossFlatQuestSummarySchema，不走标准清房公式", () => {
+  expect(
+    standardBasicQuestSummarySchema.safeParse({
+      questId: "quest:p016",
+      name: "We Are The Flame",
+      clearedRoomIds: ["A"],
+      xpPerHero: 3,
+      stagecoachXp: 3,
+      awarded: false,
+    }).success,
+  ).toBe(false);
+  const parsedBoss = bossFlatQuestSummarySchema.safeParse({
     questId: "quest:p016",
     name: "We Are The Flame",
-    clearedRoomIds: ["A", "B", "C", "D", "E", "F"],
+    clearedRoomIds: ["A"],
     xpPerHero: 3,
     stagecoachXp: 3,
     awarded: false,
