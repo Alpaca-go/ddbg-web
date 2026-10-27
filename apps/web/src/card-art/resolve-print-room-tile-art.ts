@@ -10,13 +10,11 @@ export type RoomTileArtEntry = {
   readonly matchMethod: string;
   readonly reviewVerdict: string;
   readonly areaIds: readonly string[];
-  readonly areaPngRelTemplate: string;
 };
 
 export const PRINT_CARD_ART_PUBLIC_PREFIX = "/print-card-art";
 
 export const ROOM_TILE_FACE_MANUAL_DIR = "manual/room-tile-faces";
-export const ROOM_TILE_AREA_MANUAL_DIR = "manual/room-tile-areas";
 
 const byTileId = new Map<string, RoomTileArtEntry>(
   (printMap.tiles as RoomTileArtEntry[]).map((tile) => [tile.tileId, tile]),
@@ -28,10 +26,6 @@ export function sanitizeRoomTileIdForPath(tileId: string): string {
 
 export function manualRoomTileFacePngRel(tileId: string): string {
   return `${ROOM_TILE_FACE_MANUAL_DIR}/${sanitizeRoomTileIdForPath(tileId)}.png`;
-}
-
-export function manualRoomTileAreaPngRel(tileId: string, areaId: string): string {
-  return `${ROOM_TILE_AREA_MANUAL_DIR}/${sanitizeRoomTileIdForPath(tileId)}/${areaId}.png`;
 }
 
 export function lookupRoomTileArt(tileId: string): RoomTileArtEntry | undefined {
@@ -48,22 +42,12 @@ export function cachedPrintRoomTileRelUrl(pngRel: string): string {
   return `${PRINT_CARD_ART_PUBLIC_PREFIX}/${rel}`;
 }
 
-/**
- * Prefer per-area manual crop; callers load face URL as fallback when area PNG 404s.
- */
-export function resolveRoomTileAreaArtSources(
-  tileId: string | undefined,
-  areaId: string,
-): { areaUrl?: string; faceUrl?: string; tileId?: string } {
-  if (!tileId) return {};
+/** Whole room-tile face URL for battle board underlay (no per-area crops). */
+export function resolveRoomTileFaceUrl(tileId: string | undefined): string | undefined {
+  if (!tileId) return undefined;
   const entry = lookupRoomTileArt(tileId);
-  const areaRel = manualRoomTileAreaPngRel(tileId, areaId);
   const faceRel = entry?.facePngRel ?? manualRoomTileFacePngRel(tileId);
-  return {
-    tileId,
-    areaUrl: cachedPrintRoomTileRelUrl(areaRel),
-    faceUrl: cachedPrintRoomTileRelUrl(faceRel),
-  };
+  return cachedPrintRoomTileRelUrl(faceRel);
 }
 
 export function roomTileArtMapMeta() {
@@ -71,7 +55,6 @@ export function roomTileArtMapMeta() {
     schema: printMap.schema,
     tileCount: (printMap.tiles as RoomTileArtEntry[]).length,
     faceManualDir: ROOM_TILE_FACE_MANUAL_DIR,
-    areaManualDir: ROOM_TILE_AREA_MANUAL_DIR,
     pendingConfirmation: printMap.pendingConfirmation,
   };
 }

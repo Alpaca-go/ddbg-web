@@ -14,7 +14,6 @@ const geometryPath = resolve(repoRoot, "packages/data/normalized/corebox/room_ti
 const out = resolve(repoRoot, "apps/web/src/card-art/room-tile-print-art-map.json");
 
 const FACE_DIR = "manual/room-tile-faces";
-const AREA_DIR = "manual/room-tile-areas";
 
 function sanitizeTileId(tileId) {
   return tileId.replace(/:/g, "-");
@@ -37,7 +36,6 @@ const tiles = geometry.tiles
     matchMethod: "manual_path_convention",
     reviewVerdict: "path_convention",
     areaIds: t.areas.map((a) => a.id),
-    areaPngRelTemplate: `${AREA_DIR}/${sanitizeTileId(t.id)}/{areaId}.png`,
   }));
 
 const map = {
@@ -46,15 +44,15 @@ const map = {
     geometry: "packages/data/normalized/corebox/room_tile_geometry.json",
     tileCount: tiles.length,
     notes: [
-      "facePngRel / areaPngRelTemplate are relative to .cache/print-card-art/ (DDBG_PRINT_CARD_ART_CACHE).",
-      "Per-area crops: manual/room-tile-areas/<tileId>/<areaId>.png; whole face: manual/room-tile-faces/<tileId>.png.",
+      "facePngRel paths are relative to .cache/print-card-art/ (DDBG_PRINT_CARD_ART_CACHE).",
+      "Battle UI uses whole face only: manual/room-tile-faces/<tileId>.png (no per-area crops in web).",
       "R-048: no invented print geometry in UI; missing PNG → Chinese placeholder.",
       "Regenerate: node tools/pipeline/scripts/build-print-room-tile-art-map.mjs",
     ],
   },
   tiles,
   pendingConfirmation: [
-    "Kyries manual exports for room tile faces and per-area crops are not committed; paths are conventions only.",
+    "Kyries manual exports for room tile faces are not committed; paths are conventions only.",
   ],
 };
 
