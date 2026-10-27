@@ -16,6 +16,12 @@ import type { HeroSkillResolution } from "./hero-skill";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { statusProjection } from "./status";
 import { isGuardedDungeonRoom, awaitDungeonRoomCurio } from "./dungeon-curio-room";
+import {
+  allRuinsRoomCardIds,
+  objectiveRoomClearsOnVictory,
+  objectiveRoomResolutionAfterVictory,
+  readSetAsideRoomCardId,
+} from "./dungeon-objective";
 import { heroSkillSlotCount } from "./hero-loadout";
 import { readMonsterSelfStatuses } from "./monster-self-status";
 import type { StatusEffect } from "./status";
@@ -445,7 +451,12 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
   }
   const kind = d.rooms.find((r) => r.id === d.position)?.kind;
   const curioReward = victory && kind === "curio";
+  const objectiveRecovery =
+    victory && kind === "objective" ? objectiveRoomResolutionAfterVictory(d, d.position) : undefined;
+  const clearsRoom = victory && objectiveRoomClearsOnVictory(d, kind);
   const bonus = victory ? (kind === "treasure" ? 20 : fundraiser && kind === "lair" ? 10 : 0) : 0;
+  const activeCardId = d.roomCards!.active!.cardId;
+  const setAside = readSetAsideRoomCardId(d);
   const { curioRoom: previousCurio, ...returnedDungeon } = d;
   const { battle: _finished, ...outside } = state;
   void _finished;
@@ -457,7 +468,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
         heroes,
         phase: heroes.some((h) => h.dead)
           ? "awaitingReplacement"
-          : curioReward
+          : curioReward || objectiveRecovery
             ? "awaitingRoom"
             : "ready",
         ...(curioReward ? { curioRoom: { ...previousCurio!, stage: "reward" } } : {}),
@@ -482,16 +493,22 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
         roomCards: {
           ...d.roomCards!,
           active: null,
-          discard: [...(d.roomCards!.discard ?? []), d.roomCards!.active!.cardId],
+          discard:
+            activeCardId === setAside
+              ? d.roomCards!.discard ?? []
+              : [...(d.roomCards!.discard ?? []), activeCardId],
         },
-        rooms: d.rooms.map((r) => (r.id === d.position && victory ? { ...r, cleared: true } : r)),
+        ...(objectiveRecovery ? { roomResolution: objectiveRecovery } : {}),
+        rooms: d.rooms.map((r) => (r.id === d.position && clearsRoom ? { ...r, cleared: true } : r)),
       },
     },
     events: [
       {
         type: "dungeonUpdated",
         message: victory
-          ? `胜利返回地图：房间已清理${bonus ? `，${kind === "treasure" ? "宝藏" : "Fundraiser巢穴"}奖励 +${bonus} 金币` : ""}；房间牌弃置、怪物洗回（R15、R25）`
+          ? objectiveRecovery
+            ? `胜利返回地图：须再花费行动拾取任务目标后目标房才算清理；旁置房间牌保留（R15、QUEST p4）`
+            : `胜利返回地图：房间已清理${bonus ? `，${kind === "treasure" ? "宝藏" : "Fundraiser巢穴"}奖励 +${bonus} 金币` : ""}；房间牌弃置、怪物洗回（R15、R25）`
           : wipedOut
             ? "英雄全灭按逃跑返回地图：房间未清理，无房间奖励，等待全部替补入队；房间牌弃置、怪物洗回（R9/R25/R31）"
             : "第四轮撤退返回地图：房间未清理，必须先离开；房间牌弃置、怪物洗回（R25）",
@@ -515,7 +532,7 @@ function partitionsValid(d: DungeonState): boolean {
     ...pool.discarded,
     ...pool.active.monsters.map((m) => m.instanceId),
   ];
-  const roomIds = [...(rooms.deck ?? []), ...(rooms.discard ?? []), rooms.active.cardId];
+  const roomIds = allRuinsRoomCardIds(d, rooms.active.cardId);
   return (
     ids.length === catalog.length &&
     new Set(ids).size === catalog.length &&

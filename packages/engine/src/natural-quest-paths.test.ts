@@ -3,11 +3,13 @@ import { applyCommand } from "./command";
 import type { GameState } from "./command";
 import { naturalQuest } from "./test-helpers/natural-quest";
 import { coreQuestSources } from "./test-helpers/core-quest";
+import { allRuinsRoomCardIds } from "./dungeon-objective";
 
 it.each([
   ["quest:p001", 1, ["B", "E", "G"], 15, ["victory"]],
   ["quest:p002", 1, ["E"], 15, ["victory"]],
   ["quest:p003", 3, ["B"], 5, ["retreat", "victory"]],
+  ["quest:p004", 1, ["G"], 10, ["victory"]],
 ] as const)(
   "%s seed%i：真实起点→探索/战斗/休息/返回→离开摘要，完整池及命令回放",
   (questId, seed, cleared, gold, outcomes) => {
@@ -29,8 +31,19 @@ it.each([
     expect(
       run.events.flatMap((e) => (e.type === "battleFinished" && "outcome" in e ? [e.outcome] : [])),
     ).toEqual(outcomes);
-    if (questId !== "quest:p003")
+    if (questId !== "quest:p003" && questId !== "quest:p004")
       expect(run.commands.some((c) => c.type === "beginDungeonBacktrack")).toBe(true);
+    if (questId === "quest:p004") {
+      expect(d.setAsideRoomCardId).toBe("room:p007");
+      expect(run.commands.some((c) => c.type === "resolveDungeonRoom")).toBe(true);
+      expect(
+        run.commands.filter(
+          (c) =>
+            c.type === "resolveChoice" &&
+            c.choiceId.startsWith("dungeon-objective-recover:"),
+        ).length,
+      ).toBe(2);
+    }
     expect(
       run.commands.some((c) => c.type === "playHeroSkill" || c.type === "playHeroSkillTargets"),
     ).toBe(true);
@@ -43,7 +56,8 @@ it.each([
     expect(run.initial.dungeon!.rooms.every((r) => !r.revealed && !r.cleared)).toBe(true);
     expect(d.monsterPool!.remaining).toHaveLength(42);
     expect(d.monsterPool!.active).toBeNull();
-    expect([...(d.roomCards!.deck ?? []), ...(d.roomCards!.discard ?? [])]).toHaveLength(9);
+    if (questId === "quest:p004") expect(allRuinsRoomCardIds(d)).toHaveLength(9);
+    else expect([...(d.roomCards!.deck ?? []), ...(d.roomCards!.discard ?? [])]).toHaveLength(9);
     expect([...(d.curio!.deck ?? []), ...d.curio!.discard]).toHaveLength(24);
     expect(run.commands.reduce<GameState>((s, c) => applyCommand(s, c).state, run.initial)).toEqual(
       run.state,

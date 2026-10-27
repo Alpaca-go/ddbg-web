@@ -314,12 +314,22 @@ export function FormalTabletopScoutingPanel({
           !pendingChoice &&
           (currentRoom?.kind === "lair" ||
             currentRoom?.kind === "treasure" ||
+            currentRoom?.kind === "objective" ||
             (currentRoom?.kind === "curio" &&
               d.curioRoom?.roomId === d.position &&
               d.curioRoom.stage === "guarded")) &&
           !d.roomCards?.active && (
             <button onClick={() => dispatch({ type: "prepareDungeonBattle" })}>
               抽房间牌并匹配战斗板块
+            </button>
+          )}
+        {d.phase === "awaitingRoom" &&
+          !pendingChoice &&
+          currentRoom?.kind === "objective" &&
+          d.roomResolution?.kind === "objective" &&
+          !d.roomResolution.completed && (
+            <button onClick={() => dispatch({ type: "resolveDungeonRoom" })}>
+              拾取任务目标（骨骸）
             </button>
           )}
         {d.phase === "awaitingRoom" &&

@@ -5,6 +5,7 @@ import type { ApplyResult, GameState } from "./command";
 import { createRng } from "./rng";
 import { spawnMonsters } from "./spawn";
 import { isGuardedDungeonRoom } from "./dungeon-curio-room";
+import { allRuinsRoomCardIds } from "./dungeon-objective";
 import { readCampaignLevel } from "./hamlet-campaign";
 
 /** R10、R16–17：完整 Common + Ruins（1..DL 累加）一次洗牌，真实抽牌后记录部署，不筛掉缺战斗字段的卡。 */
@@ -33,7 +34,7 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
   )
     return refuse("需要已抽房间与可用板块的获批部署；不能替换房间或提前抽怪物（R-048）");
   const { deployment } = selected;
-  const roomIds = [...(d.roomCards!.deck ?? []), ...(d.roomCards!.discard ?? []), active.cardId];
+  const roomIds = allRuinsRoomCardIds(d, active.cardId);
   if (
     roomIds.length !== 9 ||
     new Set(roomIds).size !== 9 ||
