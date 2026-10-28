@@ -90,17 +90,24 @@ function protectedPage(page: number) {
   };
   return choose(ordered, "use:p4").state;
 }
-it("R-064 全池逐卡：Torch 后二十四张可完成，饰品明确选弃新卡", () => {
+function resolveCurioPendingChoice(
+  pending: { id: string; options: readonly { id: string }[] },
+): string {
+  if (pending.id.startsWith("dungeon-trinket:")) {
+    const equip = pending.options.find((o) => o.id.startsWith("equip:"));
+    if (equip) return equip.id;
+    return "discard-new";
+  }
+  return "food";
+}
+it("R-064 全池逐卡：Torch 后二十四张可完成；已核实饰品优先装备", () => {
   const completed: number[] = [];
   for (let page = 1; page <= 24; page++) {
     const drawn = protectedPage(page);
     let result = applyCommand(drawn, { type: "resolveDungeonCurio" });
     const awardsProvision = [3, 8, 10, 15, 16, 20].includes(page);
     while (result.state.dungeon!.curio!.active && result.pendingChoice)
-      result = choose(
-        result.state,
-        result.pendingChoice.id.startsWith("dungeon-trinket:") ? "discard-new" : "food",
-      );
+      result = choose(result.state, resolveCurioPendingChoice(result.pendingChoice));
     const d = result.state.dungeon!;
     expect(d.curio!.active).toBeNull();
     completed.push(page);

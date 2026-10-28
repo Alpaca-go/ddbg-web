@@ -81,6 +81,9 @@ it("R-064：24 张全部效果行已核实且可再生，来源 / 份数 / ID �
   const file = buildCurios(raw, dictionary);
   expect(file).toEqual(curioFileSchema.parse(normalized));
   expect(file.cards.filter((c) => c.rows.every((r) => r.effect))).toHaveLength(24);
+  expect(curioFileSchema.parse(normalized).cards.every((c) => c.rows.every((r) => r.effect))).toBe(
+    true,
+  );
   expect(file.cards[20]!.rows.map((r) => r.effect!.type)).toEqual([
     "stress",
     "status",
