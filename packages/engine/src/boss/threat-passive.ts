@@ -87,6 +87,18 @@ export function tavernStressRecoveryDeltaFromBossThreat(
 }
 
 /** 英雄使用补给（药瓶类）时的额外压力（地牢侧威胁）；运行时未接 provision 管线时供调用方合并。 */
+/** Large 怪物生成时 Guard 回合数（地牢侧威胁）；未接线 spawn 管线时供调用方合并。 */
+export function guardTurnsOnLargeMonsterSpawnFromBossThreat(
+  script: BossScriptDefinition,
+): number {
+  const passive = runBossHook(script, "threatPassiveDungeon", {
+    scriptId: script.id,
+    side: "dungeon",
+  });
+  if (passive.status !== "ok" || passive.effect !== "guardOnLargeMonsterSpawn") return 0;
+  return passive.guardTurns;
+}
+
 export function stressOnHeroProvisionUseFromBossThreat(script: BossScriptDefinition): number {
   const passive = runBossHook(script, "threatPassiveDungeon", {
     scriptId: script.id,

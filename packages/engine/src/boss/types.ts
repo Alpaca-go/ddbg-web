@@ -49,6 +49,14 @@ export type BossThreatPassiveDungeonOk =
       readonly damageDelta: number;
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
+      readonly effect: "guardOnLargeMonsterSpawn";
+      /** 战斗中 Large 怪物被生成时给予的 Guard 回合数（The Flesh · Big Troubles I 等为 2t）。 */
+      readonly guardTurns: number;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
     };
 
 export type BossThreatPassiveHamletOk =

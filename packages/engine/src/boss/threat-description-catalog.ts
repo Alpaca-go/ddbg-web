@@ -17,6 +17,10 @@ import {
   SWINE_PRINCE_I_SCRIPT_ID,
 } from "./swine-prince-i";
 import {
+  FLESH_I_DESCRIPTION_ABILITY_CARD_ID,
+  FLESH_I_SCRIPT_ID,
+} from "./flesh-i";
+import {
   SIREN_I_DESCRIPTION_ABILITY_CARD_ID,
   SIREN_I_SCRIPT_ID,
 } from "./siren-i";
@@ -103,7 +107,7 @@ export const WARRENS_BOSS_DESCRIPTION_CARD_ID: Record<
     3: undefined,
   },
   flesh: {
-    1: undefined,
+    1: FLESH_I_DESCRIPTION_ABILITY_CARD_ID,
     2: undefined,
     3: undefined,
   },
@@ -230,6 +234,9 @@ export function resolveScriptIdForDescriptionCard(
   }
   if (descriptionCardId === SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID) {
     return SWINE_PRINCE_I_SCRIPT_ID;
+  }
+  if (descriptionCardId === FLESH_I_DESCRIPTION_ABILITY_CARD_ID) {
+    return FLESH_I_SCRIPT_ID;
   }
   if (descriptionCardId === SIREN_I_DESCRIPTION_ABILITY_CARD_ID) {
     return SIREN_I_SCRIPT_ID;

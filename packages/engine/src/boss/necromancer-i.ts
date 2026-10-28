@@ -2,6 +2,7 @@ import { getBossScript, registerBossScript } from "./registry";
 import { ensureHagIBossScriptRegistered } from "./hag-i";
 import { ensureProphetIBossScriptRegistered } from "./prophet-i";
 import { ensureSirenIBossScriptRegistered } from "./siren-i";
+import { ensureFleshIBossScriptRegistered } from "./flesh-i";
 import { ensureSwinePrinceIBossScriptRegistered } from "./swine-prince-i";
 import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
 import type {
@@ -94,4 +95,5 @@ export function ensureCoreBossScriptsRegistered(): void {
   ensureHagIBossScriptRegistered();
   ensureSwinePrinceIBossScriptRegistered();
   ensureSirenIBossScriptRegistered();
+  ensureFleshIBossScriptRegistered();
 }
