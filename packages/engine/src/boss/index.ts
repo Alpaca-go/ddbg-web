@@ -26,6 +26,7 @@ export {
   hamletBuildingsBlockedByBossThreat,
   beastMonsterDamageBonusFromBossThreat,
   eldritchMonsterDamageBonusFromBossThreat,
+  guardTurnsOnLargeMonsterSpawnFromBossThreat,
   sanitariumHealLifeDeltaFromBossThreat,
   stressOnDungeonEntryPerHeroFromBossThreat,
   stressOnHeroProvisionUseFromBossThreat,
@@ -120,6 +121,18 @@ export {
   SIREN_I_SCRIPT_ID,
   sirenIBossScript,
 } from "./siren-i";
+export {
+  ensureFleshIBossScriptRegistered,
+  FLESH_I_COMBAT_ABILITY_CARD_ID,
+  FLESH_I_COMBAT_MONSTER_CARD_ID,
+  FLESH_I_DESCRIPTION_ABILITY_CARD_ID,
+  FLESH_I_SCRIPT_ID,
+  FLESH_I_HEAD_MONSTER_CARD_ID,
+  FLESH_I_BONE_MONSTER_CARD_ID,
+  FLESH_I_HEART_MONSTER_CARD_ID,
+  FLESH_I_BUTT_MONSTER_CARD_ID,
+  fleshIBossScript,
+} from "./flesh-i";
 export {
   clearBossScriptsForTest,
   getBossScript,

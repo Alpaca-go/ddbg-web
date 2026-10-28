@@ -33,7 +33,8 @@
 | Warrens 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
 | quest / Face the Threat → Swine Prince | `faceTheThreatEmbark` stub |
 | **R-121** Boss 位 | `bossSlotPlacement` stub |
-| Swine Prince II/III、The Flesh、Brigand Vvulf | 未注册 |
+| Swine Prince II/III、Brigand Vvulf | 未注册 |
+| The Flesh I | 见 `docs/phase5-flesh-i-script-2026-10-28.md` |
 
 ## 印刷 / 数据映射
 
