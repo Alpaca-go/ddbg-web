@@ -35,7 +35,7 @@ describe("Phase 3 首切片（R12、R14、R-013、R-046、R-048）", () => {
     expect(createDungeonSandbox(2, layout, distribution).dungeon!.rooms).not.toEqual(
       a.dungeon!.rooms,
     );
-    expect(layout.review).toBe("confirmed"); // R-065仅批准p1。
+    expect(layout.review).toBe("confirmed"); // R-065 / VQ-07 quest_map:p001。
   });
   it("坏图、重复种类、数量不符拒绝，不填占位槽", () => {
     for (const broken of [

@@ -107,7 +107,7 @@
     "page": 2,
     "face": "front"
    },
-   "review": "pending",
+   "review": "confirmed",
    "nodes": [
     {
      "id": "S",
@@ -206,7 +206,7 @@
     "page": 3,
     "face": "front"
    },
-   "review": "pending",
+   "review": "confirmed",
    "nodes": [
     {
      "id": "S",
@@ -325,7 +325,7 @@
     "page": 4,
     "face": "front"
    },
-   "review": "pending",
+   "review": "confirmed",
    "nodes": [
     {
      "id": "S",
@@ -438,7 +438,7 @@
     "page": 5,
     "face": "front"
    },
-   "review": "pending",
+   "review": "confirmed",
    "nodes": [
     {
      "id": "S",
@@ -551,7 +551,7 @@
     "page": 6,
     "face": "front"
    },
-   "review": "pending",
+   "review": "confirmed",
    "nodes": [
     {
      "id": "S",
@@ -668,7 +668,7 @@
     "page": 7,
     "face": "front"
    },
-   "review": "pending",
+   "review": "confirmed",
    "nodes": [
     {
      "id": "S",
@@ -775,7 +775,7 @@
     "page": 8,
     "face": "front"
    },
-   "review": "pending",
+   "review": "confirmed",
    "nodes": [
     {
      "id": "S",
@@ -874,7 +874,7 @@
     "page": 9,
     "face": "front"
    },
-   "review": "pending",
+   "review": "confirmed",
    "nodes": [
     {
      "id": "S",
@@ -983,7 +983,7 @@
     "page": 10,
     "face": "front"
    },
-   "review": "pending",
+   "review": "confirmed",
    "nodes": [
     {
      "id": "S",
@@ -1492,7 +1492,7 @@
     "page": 13,
     "face": "front"
    },
-   "review": "pending",
+   "review": "confirmed",
    "nodes": [
     {
      "id": "S",
@@ -1591,7 +1591,7 @@
     "page": 14,
     "face": "front"
    },
-   "review": "pending",
+   "review": "confirmed",
    "nodes": [
     {
      "id": "S",

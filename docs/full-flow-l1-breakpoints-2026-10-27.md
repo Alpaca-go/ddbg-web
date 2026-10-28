@@ -21,7 +21,7 @@
 | `quest:p005` | Rising Threat I | enabled | 是 | 有（seed1，#311） | `xpKind: curio`，3×Curio 代币 |
 
 - **任务语义与分布 JSON**：均已写入 `basic-quests.ts` + `packages/data/normalized/corebox/*_distribution.json`，本清单不重复裁定。
-- **QuestMap**：八槽 I 级任务出征时 `pickEmbarkQuestMapLayout` 优先 `review: confirmed` 布局；目前仅 **`quest_map:p001`** 为 confirmed（`dungeon_layouts.json`），p004/p005 与 p001–p003 共用该图，不表示 p004/p005 专用图已批。
+- **QuestMap**：八槽 I 级任务出征时 `pickEmbarkQuestMapLayout` 在 12 张 confirmed 八槽图（p001–p010、p013–p014，**R-065** / **R-123**）中按 seed 择一（**R-116**）；不因 quest 页码硬绑 map 页。
 
 ### 1.2 玩家入口路径（Web）
 
@@ -121,7 +121,7 @@ flowchart LR
 | Boss XP 发放 | R-122（tip） | 摘要 schema 占位；无 Boss 胜利发放 |
 | `quest:p019` 幕触发 / 边缘房 | Face the Threat | Boss 任务在沙盒列表可点，**不应当作 I 级战役路径** |
 | Boss 专属板 / 最暗地牢 16 槽图 | R-120、R-116 | p016–p018 区域与地图 pending |
-| 非 p001 QuestMap 正式批准 | R-065 等 | 13+ 图 pending；I 级仍借用 `quest_map:p001` |
+| QuestMap 八槽 confirmed | R-123 | p002–p010 / p013–p014 已批；Q-59 / Q-63 仍待裁定 |
 
 ---
 
