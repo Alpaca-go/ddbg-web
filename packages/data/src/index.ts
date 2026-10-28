@@ -104,6 +104,20 @@ export type { NormalizedCorebox, NormalizedCoreboxInput } from "./normalize/buil
 export { loadNormalizedCorebox, writeNormalizedCorebox } from "./normalize/write";
 export { roomTileGeometrySchema, roomTileGeometryFileSchema } from "./normalize/room-tile";
 export type { RoomTileGeometryFile } from "./normalize/room-tile";
+export {
+  corridorTileGeometryFileSchema,
+  corridorTileSchema,
+  buildCorridorTileGeometry,
+} from "./normalize/corridor-tile";
+export type { CorridorTileGeometryFile } from "./normalize/corridor-tile";
+export {
+  corridorLayoutBindingFileSchema,
+  corridorLayoutBindingSchema,
+  lookupCorridorLayoutBinding,
+  resolveCorridorLayoutBinding,
+  corridorBindingKey,
+} from "./corridor-layout-bindings";
+export type { CorridorLayoutBinding } from "./corridor-layout-bindings";
 export { normalizedHeroStatCardSchema, normalizedHeroStatFileSchema } from "./normalize/hero-stat";
 export type { NormalizedHeroStatCard, NormalizedHeroStatFile } from "./normalize/hero-stat";
 export {

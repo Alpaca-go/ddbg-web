@@ -95,6 +95,7 @@ export function writeNormalizedCorebox(
     ["curio.json", built.curio],
     ["hero_stat.json", built.hero_stat],
     ["room_tile_geometry.json", built.room_tile_geometry],
+    ["corridor_tile_geometry.json", built.corridor_tile_geometry],
     ["hero_skill.json", built.hero_skill],
     ["monster_medium.json", built.monster_medium],
     ["monster_large.json", built.monster_large],

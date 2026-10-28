@@ -1,0 +1,312 @@
+{
+ "schema": "ddbg-corridor-tile-geometry-v0",
+ "category": "corridor_tile_geometry",
+ "tiles": [
+  {
+   "id": "corridor_tile:p006",
+   "rawId": "dungeon_tile:p006",
+   "sheetNumber": 11,
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 6,
+    "face": "front"
+   },
+   "review": "pending",
+   "geometryVerified": false,
+   "ports": [
+    {
+     "label": "6",
+     "x": 102.53,
+     "y": 157.35
+    },
+    {
+     "label": "3",
+     "x": 101.655,
+     "y": 79.555
+    },
+    {
+     "label": "4",
+     "x": 193.365,
+     "y": 63.73
+    },
+    {
+     "label": "7-8",
+     "x": 193.115,
+     "y": 202.105
+    },
+    {
+     "label": "10",
+     "x": 102.775,
+     "y": 243.685
+    },
+    {
+     "label": "5",
+     "x": 15.035,
+     "y": 186.68
+    },
+    {
+     "label": "9",
+     "x": 15.035,
+     "y": 258.845
+    },
+    {
+     "label": "1-2",
+     "x": 14.785,
+     "y": 110.935
+    }
+   ],
+   "segments": [],
+   "pendingReasons": [
+    "段内通道 / 灰点 / 容量未批（Q-45 / R-046）；已入库项仅为 span 可证的连接口编号与 bbox 中心",
+    "QuestMap 边 ↔ 本板块实例映射未批；引擎探索仍用抽象边"
+   ]
+  },
+  {
+   "id": "corridor_tile:p007",
+   "rawId": "dungeon_tile:p007",
+   "sheetNumber": 13,
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 7,
+    "face": "front"
+   },
+   "review": "pending",
+   "geometryVerified": false,
+   "ports": [],
+   "segments": [],
+   "pendingReasons": [
+    "段内通道 / 灰点 / 容量未批（Q-45 / R-046）；已入库项仅为 span 可证的连接口编号与 bbox 中心",
+    "QuestMap 边 ↔ 本板块实例映射未批；引擎探索仍用抽象边",
+    "本面 span 仅有右上板块编号、无 body 连接口数字；门洞编号待 Kyries 目视 / 标注（R-048）"
+   ]
+  },
+  {
+   "id": "corridor_tile:p008",
+   "rawId": "dungeon_tile:p008",
+   "sheetNumber": null,
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 8,
+    "face": "front"
+   },
+   "review": "pending",
+   "geometryVerified": false,
+   "ports": [
+    {
+     "label": "1",
+     "x": 134.94,
+     "y": 134.58
+    },
+    {
+     "label": "2",
+     "x": 60.65,
+     "y": 134.58
+    },
+    {
+     "label": "3",
+     "x": 209.60500000000002,
+     "y": 134.5
+    },
+    {
+     "label": "5",
+     "x": 134.245,
+     "y": 31.509999999999998
+    },
+    {
+     "label": "8",
+     "x": 134.68,
+     "y": 238.2
+    },
+    {
+     "label": "9",
+     "x": 34.315,
+     "y": 221.29
+    },
+    {
+     "label": "4",
+     "x": 46.09,
+     "y": 47.485
+    },
+    {
+     "label": "6",
+     "x": 236.31,
+     "y": 45.870000000000005
+    },
+    {
+     "label": "7",
+     "x": 223.89,
+     "y": 223.45
+    }
+   ],
+   "segments": [],
+   "pendingReasons": [
+    "段内通道 / 灰点 / 容量未批（Q-45 / R-046）；已入库项仅为 span 可证的连接口编号与 bbox 中心",
+    "QuestMap 边 ↔ 本板块实例映射未批；引擎探索仍用抽象边"
+   ]
+  },
+  {
+   "id": "corridor_tile:p009",
+   "rawId": "dungeon_tile:p009",
+   "sheetNumber": 1,
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 9,
+    "face": "front"
+   },
+   "review": "pending",
+   "geometryVerified": false,
+   "ports": [],
+   "segments": [],
+   "pendingReasons": [
+    "段内通道 / 灰点 / 容量未批（Q-45 / R-046）；已入库项仅为 span 可证的连接口编号与 bbox 中心",
+    "QuestMap 边 ↔ 本板块实例映射未批；引擎探索仍用抽象边",
+    "本面 span 仅有右上板块编号、无 body 连接口数字；门洞编号待 Kyries 目视 / 标注（R-048）"
+   ]
+  },
+  {
+   "id": "corridor_tile:p010",
+   "rawId": "dungeon_tile:p010",
+   "sheetNumber": 3,
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 10,
+    "face": "front"
+   },
+   "review": "pending",
+   "geometryVerified": false,
+   "ports": [],
+   "segments": [],
+   "pendingReasons": [
+    "段内通道 / 灰点 / 容量未批（Q-45 / R-046）；已入库项仅为 span 可证的连接口编号与 bbox 中心",
+    "QuestMap 边 ↔ 本板块实例映射未批；引擎探索仍用抽象边",
+    "本面 span 仅有右上板块编号、无 body 连接口数字；门洞编号待 Kyries 目视 / 标注（R-048）"
+   ]
+  },
+  {
+   "id": "corridor_tile:p011",
+   "rawId": "dungeon_tile:p011",
+   "sheetNumber": 5,
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 11,
+    "face": "front"
+   },
+   "review": "pending",
+   "geometryVerified": false,
+   "ports": [],
+   "segments": [],
+   "pendingReasons": [
+    "段内通道 / 灰点 / 容量未批（Q-45 / R-046）；已入库项仅为 span 可证的连接口编号与 bbox 中心",
+    "QuestMap 边 ↔ 本板块实例映射未批；引擎探索仍用抽象边",
+    "本面 span 仅有右上板块编号、无 body 连接口数字；门洞编号待 Kyries 目视 / 标注（R-048）"
+   ]
+  },
+  {
+   "id": "corridor_tile:p012",
+   "rawId": "dungeon_tile:p012",
+   "sheetNumber": 7,
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 12,
+    "face": "front"
+   },
+   "review": "pending",
+   "geometryVerified": false,
+   "ports": [],
+   "segments": [],
+   "pendingReasons": [
+    "段内通道 / 灰点 / 容量未批（Q-45 / R-046）；已入库项仅为 span 可证的连接口编号与 bbox 中心",
+    "QuestMap 边 ↔ 本板块实例映射未批；引擎探索仍用抽象边",
+    "本面 span 仅有右上板块编号、无 body 连接口数字；门洞编号待 Kyries 目视 / 标注（R-048）"
+   ]
+  },
+  {
+   "id": "corridor_tile:p013",
+   "rawId": "dungeon_tile:p013",
+   "sheetNumber": 9,
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 13,
+    "face": "front"
+   },
+   "review": "pending",
+   "geometryVerified": false,
+   "ports": [
+    {
+     "label": "5-6",
+     "x": 136.225,
+     "y": 135.52499999999998
+    },
+    {
+     "label": "7-8",
+     "x": 45.8,
+     "y": 226.52499999999998
+    },
+    {
+     "label": "9-10",
+     "x": 226.22500000000002,
+     "y": 226.52499999999998
+    },
+    {
+     "label": "1-2",
+     "x": 45.8,
+     "y": 44.525000000000006
+    },
+    {
+     "label": "3-4",
+     "x": 226.23,
+     "y": 44.525000000000006
+    }
+   ],
+   "segments": [],
+   "pendingReasons": [
+    "段内通道 / 灰点 / 容量未批（Q-45 / R-046）；已入库项仅为 span 可证的连接口编号与 bbox 中心",
+    "QuestMap 边 ↔ 本板块实例映射未批；引擎探索仍用抽象边"
+   ]
+  },
+  {
+   "id": "corridor_tile:p014",
+   "rawId": "dungeon_tile:p014",
+   "sheetNumber": 11,
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 14,
+    "face": "front"
+   },
+   "review": "pending",
+   "geometryVerified": false,
+   "ports": [
+    {
+     "label": "1-2",
+     "x": 15.549999999999999,
+     "y": 28.525000000000002
+    },
+    {
+     "label": "5-6",
+     "x": 149.225,
+     "y": 28.525000000000002
+    },
+    {
+     "label": "3-4",
+     "x": 238.8,
+     "y": 21.525
+    },
+    {
+     "label": "9-10",
+     "x": 249.55,
+     "y": 179.27499999999998
+    },
+    {
+     "label": "7-8",
+     "x": 20.8,
+     "y": 183.02499999999998
+    }
+   ],
+   "segments": [],
+   "pendingReasons": [
+    "段内通道 / 灰点 / 容量未批（Q-45 / R-046）；已入库项仅为 span 可证的连接口编号与 bbox 中心",
+    "QuestMap 边 ↔ 本板块实例映射未批；引擎探索仍用抽象边"
+   ]
+  }
+ ]
+}

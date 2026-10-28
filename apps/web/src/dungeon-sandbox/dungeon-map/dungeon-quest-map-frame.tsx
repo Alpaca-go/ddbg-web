@@ -1,5 +1,6 @@
 import { ExplorationArtImage } from "../../card-art/exploration-art-image";
 import { lookupQuestMapArt, lookupRoomTokenArt } from "../../card-art/resolve-exploration-art";
+import { resolveQuestMapEdgeCorridor } from "@ddbg/engine";
 import { roomKindLabels } from "../labels";
 import type { GameState } from "@ddbg/engine";
 import type { DungeonLayout } from "../../../../../packages/data/src/dungeon-layout";
@@ -39,6 +40,9 @@ export function DungeonQuestMapFrame({
         {map.edges.map(([a, b]) => {
           const from = map.nodes.find((n) => n.id === a)!;
           const to = map.nodes.find((n) => n.id === b)!;
+          const corridorBinding = preview
+            ? undefined
+            : resolveQuestMapEdgeCorridor(map.id, a, b);
           return (
             <line
               key={`${a}-${b}`}
@@ -48,6 +52,8 @@ export function DungeonQuestMapFrame({
               y2={to.y}
               stroke="#827d72"
               strokeWidth="0.7"
+              data-corridor-binding={corridorBinding?.status}
+              data-corridor-tile-id={corridorBinding?.corridorTileId ?? undefined}
             />
           );
         })}

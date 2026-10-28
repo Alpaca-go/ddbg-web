@@ -2,6 +2,12 @@ export { applyCommand, createInitialState } from "./command";
 export { canSetDungeonStances, DUNGEON_HERO_STANCES } from "./dungeon-stances";
 export { canSetHamletStances } from "./hamlet-stances";
 export { readRoomTile } from "./room-tile-selection";
+export {
+  lookupCorridorTile,
+  readCorridorTileCatalog,
+  resolveQuestMapEdgeCorridor,
+} from "./corridor-tile-catalog";
+export type { CorridorLayoutBinding } from "./corridor-tile-catalog";
 export { createTrinketPool } from "./trinket-acquisition";
 export type { TrinketPool } from "./trinket-acquisition";
 export { createDungeonSandbox } from "./dungeon";

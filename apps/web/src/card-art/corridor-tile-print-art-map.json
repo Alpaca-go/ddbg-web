@@ -1,0 +1,96 @@
+{
+  "schema": "ddbg.print-corridor-tile-art-map.v1",
+  "source": {
+    "notes": [
+      "pngRel relative to .cache/print-card-art/ after export-print-card-art.mjs on TILES FRONT.",
+      "R-048: TrimBox export only; corridor segment geometry in corridor_tile_geometry.json."
+    ]
+  },
+  "tiles": [
+    {
+      "id": "corridor_tile:p006",
+      "rawId": "dungeon_tile:p006",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_TILES_FRONT.pdf_p006.png",
+      "printPage": 6,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "geometry_catalog_2026-10-28"
+    },
+    {
+      "id": "corridor_tile:p007",
+      "rawId": "dungeon_tile:p007",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_TILES_FRONT.pdf_p007.png",
+      "printPage": 7,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "geometry_catalog_2026-10-28"
+    },
+    {
+      "id": "corridor_tile:p008",
+      "rawId": "dungeon_tile:p008",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_TILES_FRONT.pdf_p008.png",
+      "printPage": 8,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "geometry_catalog_2026-10-28"
+    },
+    {
+      "id": "corridor_tile:p009",
+      "rawId": "dungeon_tile:p009",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_TILES_FRONT.pdf_p009.png",
+      "printPage": 9,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "geometry_catalog_2026-10-28"
+    },
+    {
+      "id": "corridor_tile:p010",
+      "rawId": "dungeon_tile:p010",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_TILES_FRONT.pdf_p010.png",
+      "printPage": 10,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "geometry_catalog_2026-10-28"
+    },
+    {
+      "id": "corridor_tile:p011",
+      "rawId": "dungeon_tile:p011",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_TILES_FRONT.pdf_p011.png",
+      "printPage": 11,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "geometry_catalog_2026-10-28"
+    },
+    {
+      "id": "corridor_tile:p012",
+      "rawId": "dungeon_tile:p012",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_TILES_FRONT.pdf_p012.png",
+      "printPage": 12,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "geometry_catalog_2026-10-28"
+    },
+    {
+      "id": "corridor_tile:p013",
+      "rawId": "dungeon_tile:p013",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_TILES_FRONT.pdf_p013.png",
+      "printPage": 13,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "geometry_catalog_2026-10-28"
+    },
+    {
+      "id": "corridor_tile:p014",
+      "rawId": "dungeon_tile:p014",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_DD_COREBOX_TILES_FRONT.pdf_p014.png",
+      "printPage": 14,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "matchMethod": "page_order_only",
+      "reviewVerdict": "geometry_catalog_2026-10-28"
+    }
+  ],
+  "pendingConfirmation": [
+    "段内通道 / 灰点 / 容量：corridor_tile_geometry.json 全页 geometryVerified=false",
+    "QuestMap 边绑定：corridor_layout_bindings.json review=pending、bindings=[]"
+  ]
+}
