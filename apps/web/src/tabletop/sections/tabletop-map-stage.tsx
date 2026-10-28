@@ -14,6 +14,7 @@ import {
 } from "./tabletop-center-stage";
 import { StandeeToken } from "../standee-token";
 import { TabletopCardStack } from "../tabletop-card-stack";
+import { TabletopConditionsPlayerAid } from "./tabletop-conditions-player-aid";
 import type { TabletopDetailTargetKind } from "../tabletop-detail-types";
 import type {
   TabletopHeroState,
@@ -115,6 +116,7 @@ export function TabletopMapStage({
 
           {showDeckStacks && (
             <div className="tt-map__stacks">
+              <TabletopConditionsPlayerAid testId="tabletop-battle-conditions-aid" />
               <TabletopCardStack
                 label="房间"
                 count={12}

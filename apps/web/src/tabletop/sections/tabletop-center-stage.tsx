@@ -12,6 +12,7 @@ import {
 import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
 import { AssetPlaceholder } from "../asset-placeholder";
 import { TabletopProvisionPlayerAid } from "./tabletop-provision-player-aid";
+import { TabletopDungeonPlayerAidRefs } from "./tabletop-dungeon-player-aid-refs";
 import { HAMLET_BUILDING_MARKERS } from "../hamlet-building-markers";
 import { TabletopRasterImage } from "../tabletop-raster-image";
 import { TabletopCardStack } from "../tabletop-card-stack";
@@ -263,7 +264,7 @@ export function TabletopDungeonCenterStage({
       </div>
       {showDeckStacks && (
         <div className="tt-map__stacks tt-map__stacks--explore">
-          <TabletopProvisionPlayerAid testId="tabletop-dungeon-provision-aid" />
+          <TabletopDungeonPlayerAidRefs testIdPrefix="tabletop-dungeon" />
           <TabletopCardStack label="房间" count={12} aspect="room" testId="tabletop-deck-room" />
           <TabletopCardStack
             label="怪物"
