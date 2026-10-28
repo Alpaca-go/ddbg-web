@@ -32,6 +32,7 @@ import {
   applyBossThreatAfterBattleToPool,
   clearedBossThreatScriptIdAfterVictory,
 } from "./boss/threat-campaign";
+import { recordRuinsBossDefeatOnThreatCleared } from "./boss/establish-imminent-threat";
 
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
 export function startDungeonBattle(state: GameState): ApplyResult {
@@ -422,7 +423,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
   ];
   const threatPool = applyBossThreatAfterBattleToPool(d, pool, active.monsters, ids);
   pool = threatPool.pool;
-  let shuffledIds = [...threatPool.instanceIds];
+  const shuffledIds = [...threatPool.instanceIds];
   const clearedThreatId = clearedBossThreatScriptIdAfterVictory(state);
   const rng = createRng(state.seed);
   for (let i = 0; i < b.rngCursor; i++) rng.next();
@@ -460,7 +461,9 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
   const kind = d.rooms.find((r) => r.id === d.position)?.kind;
   const curioReward = victory && kind === "curio";
   const objectiveRecovery =
-    victory && kind === "objective" ? objectiveRoomResolutionAfterVictory(d, d.position) : undefined;
+    victory && kind === "objective"
+      ? objectiveRoomResolutionAfterVictory(d, d.position)
+      : undefined;
   const clearsRoom = victory && objectiveRoomClearsOnVictory(d, kind);
   const bonus = victory ? (kind === "treasure" ? 20 : fundraiser && kind === "lair" ? 10 : 0) : 0;
   const activeCardId = d.roomCards!.active!.cardId;
@@ -470,7 +473,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
     ? (() => {
         const { activeBossThreatScriptId: _cleared, ...rest } = returnedDungeon;
         void _cleared;
-        return rest;
+        return recordRuinsBossDefeatOnThreatCleared(rest, clearedThreatId);
       })()
     : returnedDungeon;
   const { battle: _finished, ...outside } = state;
@@ -515,11 +518,13 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
           active: null,
           discard:
             activeCardId === setAside
-              ? d.roomCards!.discard ?? []
+              ? (d.roomCards!.discard ?? [])
               : [...(d.roomCards!.discard ?? []), activeCardId],
         },
         ...(objectiveRecovery ? { roomResolution: objectiveRecovery } : {}),
-        rooms: d.rooms.map((r) => (r.id === d.position && clearsRoom ? { ...r, cleared: true } : r)),
+        rooms: d.rooms.map((r) =>
+          r.id === d.position && clearsRoom ? { ...r, cleared: true } : r,
+        ),
       },
     },
     events: [

@@ -25,6 +25,14 @@ import { offerNextQuest, chooseNextQuest } from "./hamlet-embark";
 import { advanceCampaignLevel } from "./hamlet-campaign";
 import { setActiveBossThreat } from "./boss/set-active-boss-threat";
 import type { SetActiveBossThreatCommand } from "./boss/set-active-boss-threat";
+import {
+  drawImminentThreatAfterActAdvance,
+  establishImminentThreat,
+} from "./boss/establish-imminent-threat";
+import type {
+  DrawImminentThreatAfterActAdvanceCommand,
+  EstablishImminentThreatCommand,
+} from "./boss/establish-imminent-threat";
 import type { BlacksmithCommand } from "./hamlet-blacksmith";
 import type { HamletActionCommand } from "./hamlet-actions";
 import { upgradeHamletBuilding } from "./hamlet-buildings";
@@ -170,6 +178,8 @@ export type Command =
   | { readonly type: "offerNextQuest" }
   | { readonly type: "advanceCampaignLevel" }
   | SetActiveBossThreatCommand
+  | EstablishImminentThreatCommand
+  | DrawImminentThreatAfterActAdvanceCommand
   | { readonly type: "rollHamletCaretaker" }
   | DungeonCommand
   | PlayHeroSkillEmptyAreaCommand
@@ -371,6 +381,9 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       : rejectBattleCommand(state, "请先选择下一任务");
   if (command.type === "offerNextQuest") return offerNextQuest(state);
   if (command.type === "advanceCampaignLevel") return advanceCampaignLevel(state);
+  if (command.type === "establishImminentThreat") return establishImminentThreat(state, command);
+  if (command.type === "drawImminentThreatAfterActAdvance")
+    return drawImminentThreatAfterActAdvance(state, command);
   if (command.type === "setActiveBossThreat") return setActiveBossThreat(state, command);
   if (state.dungeon?.pending?.id.startsWith("hamlet-guild:"))
     return command.type === "resolveChoice"

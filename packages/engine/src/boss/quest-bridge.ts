@@ -1,9 +1,7 @@
-import {
-  basicQuests,
-  type BasicQuestId,
-  type CampaignLevel,
-} from "../../../data/src/basic-quests";
+import { basicQuests, type BasicQuestId, type CampaignLevel } from "../../../data/src/basic-quests";
 import { readCampaignLevel } from "../hamlet-campaign";
+import { ensureCoreBossScriptsRegistered } from "./necromancer-i";
+import { getBossScript } from "./registry";
 import { NECROMANCER_I_SCRIPT_ID } from "./necromancer-i";
 import type { BossScriptId } from "./types";
 
@@ -32,17 +30,17 @@ export const bossQuestScriptId: Partial<Record<BasicQuestId, BossScriptId>> = {}
  * 已核实且已注册：战役 I 级 → Necromancer I（`boss:ruins:necromancer:1`，#331）。
  * II/III 与其它 Boss 脚本落地后再填；未映射等级仍走普通第 4 轮撤退（Kyries 认可）。
  */
-export const faceTheThreatBossScriptByCampaignLevel: Partial<
-  Record<CampaignLevel, BossScriptId>
-> = {
-  1: NECROMANCER_I_SCRIPT_ID,
-};
+export const faceTheThreatBossScriptByCampaignLevel: Partial<Record<CampaignLevel, BossScriptId>> =
+  {
+    1: NECROMANCER_I_SCRIPT_ID,
+  };
 
 /** Face the Threat 任务卡 id（印刷 p19）。 */
 export const FACE_THE_THREAT_QUEST_ID = "quest:p019" as const satisfies BasicQuestId;
 
 export type BossQuestScriptContext = {
   readonly campaignLevel?: CampaignLevel;
+  readonly activeBossThreatScriptId?: BossScriptId;
 };
 
 export function resolveBossScriptIdForQuest(
@@ -53,6 +51,9 @@ export function resolveBossScriptIdForQuest(
   const direct = bossQuestScriptId[questId];
   if (direct) return direct;
   if (questId === FACE_THE_THREAT_QUEST_ID) {
+    ensureCoreBossScriptsRegistered();
+    const active = context?.activeBossThreatScriptId;
+    if (active && getBossScript(active)) return active;
     const level = readCampaignLevel(context ?? {});
     return faceTheThreatBossScriptByCampaignLevel[level];
   }

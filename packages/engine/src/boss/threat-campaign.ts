@@ -130,7 +130,7 @@ export function clearedBossThreatScriptIdAfterVictory(state: GameState): BossScr
   return scriptId;
 }
 
-/** 待确认：非 Boss 战胜利 / 任务卡定义的其它清除威胁入口（定威胁、升幕抽牌）。 */
+/** 清除威胁后未自动抽下一张时的事件说明（升幕 §2.2 其余步骤仍 hold）。 */
 export function bossThreatClearHoldReason(): string {
-  return "定威胁 / 升幕 Imminent Threat / faceTheThreatEmbark 未接线；仅 Boss 战胜利且本场含对应战斗卡时清除 activeBossThreatScriptId";
+  return "升幕抽下一张迫近威胁请用 drawImminentThreatAfterActAdvance；faceTheThreatEmbark 仍 hold";
 }

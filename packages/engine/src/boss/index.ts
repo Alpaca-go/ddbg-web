@@ -37,6 +37,27 @@ export {
 export { setActiveBossThreat } from "./set-active-boss-threat";
 export type { SetActiveBossThreatCommand } from "./set-active-boss-threat";
 export {
+  drawImminentThreatAfterActAdvance,
+  establishImminentThreat,
+  recordRuinsBossDefeatOnThreatCleared,
+} from "./establish-imminent-threat";
+export type {
+  DrawImminentThreatAfterActAdvanceCommand,
+  EstablishImminentThreatCommand,
+  ImminentThreatCommand,
+} from "./establish-imminent-threat";
+export {
+  RUINS_BOSS_DESCRIPTION_CARD_ID,
+  RUINS_BOSS_IDENTITIES,
+  imminentThreatPoolForCampaign,
+  resolveScriptIdForDescriptionCard,
+  ruinsBossIdentityForDescriptionCard,
+  ruinsBossIdentityForScriptId,
+  unregisteredImminentThreatHold,
+} from "./threat-description-catalog";
+export type { RuinsBossIdentity } from "./threat-description-catalog";
+export { applyActiveBossThreatToDungeon } from "./apply-active-boss-threat";
+export {
   ensureCoreBossScriptsRegistered,
   ensureNecromancerIBossScriptRegistered,
   NECROMANCER_I_COMBAT_ABILITY_CARD_ID,

@@ -211,6 +211,8 @@ export {
   resolveEncounterBossBattleRules,
   runBossHook,
   setActiveBossThreat,
+  establishImminentThreat,
+  drawImminentThreatAfterActAdvance,
   readActiveBossThreatScriptId,
   applyBossThreatAfterBattleToPool,
   clearedBossThreatScriptIdAfterVictory,
@@ -230,5 +232,8 @@ export type {
   BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
   SetActiveBossThreatCommand,
+  EstablishImminentThreatCommand,
+  DrawImminentThreatAfterActAdvanceCommand,
+  RuinsBossIdentity,
 } from "./boss/index";
 export { dungeonMonsterPoolThrough, combatCardIdForPoolInstance } from "./monster-pool-runtime";
