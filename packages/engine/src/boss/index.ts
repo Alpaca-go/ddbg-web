@@ -146,6 +146,15 @@ export {
   collectorIBossScript,
 } from "./collector-i";
 export {
+  ensureFanaticIBossScriptRegistered,
+  FANATIC_I_COMBAT_ABILITY_CARD_ID,
+  FANATIC_I_COMBAT_MONSTER_CARD_ID,
+  FANATIC_I_DESCRIPTION_ABILITY_CARD_ID,
+  FANATIC_I_PYRE_MONSTER_CARD_ID,
+  FANATIC_I_SCRIPT_ID,
+  fanaticIBossScript,
+} from "./fanatic-i";
+export {
   clearBossScriptsForTest,
   getBossScript,
   listBossScripts,

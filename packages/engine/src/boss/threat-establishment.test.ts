@@ -13,6 +13,7 @@ import {
   ensureSirenIBossScriptRegistered,
   ensureFleshIBossScriptRegistered,
   ensureCollectorIBossScriptRegistered,
+  ensureFanaticIBossScriptRegistered,
   establishImminentThreat,
   resolveBossScriptIdForQuest,
   HAG_I_DESCRIPTION_ABILITY_CARD_ID,
@@ -25,8 +26,11 @@ import {
   FLESH_I_SCRIPT_ID,
   COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
   COLLECTOR_I_SCRIPT_ID,
+  FANATIC_I_DESCRIPTION_ABILITY_CARD_ID,
+  FANATIC_I_SCRIPT_ID,
   FACE_THE_THREAT_QUEST_ID,
   getBossScript,
+  runBossHook,
 } from "../index";
 import { applyActiveBossThreatToDungeon } from "./apply-active-boss-threat";
 import { RUINS_BOSS_DESCRIPTION_CARD_ID } from "./threat-description-catalog";
@@ -69,6 +73,7 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     ensureSirenIBossScriptRegistered();
     ensureFleshIBossScriptRegistered();
     ensureCollectorIBossScriptRegistered();
+    ensureFanaticIBossScriptRegistered();
   });
 
   it("战役开局 establishImminentThreat 确定性抽牌并写入描述卡 id", () => {
@@ -121,16 +126,20 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     expect(skipCurioDrawInCurioRoomsFromBossThreat(script)).toBe(true);
   });
 
-  it("抽到未注册 Fanatic I 时记录 hold，不写入 activeBossThreatScriptId", () => {
+  it("抽到已注册 Fanatic I 时挂接 activeBossThreatScriptId（威胁被动仍为 stub）", () => {
     let fanaticSeed: number | undefined;
     for (let seed = 0; seed < 500 && fanaticSeed === undefined; seed++) {
       if (drawnDescription(seed) === RUINS_BOSS_DESCRIPTION_CARD_ID.fanatic[1]) fanaticSeed = seed;
     }
     expect(fanaticSeed).toBeDefined();
     const game = ok(baseQuest(fanaticSeed!), { type: "establishImminentThreat" });
-    expect(game.dungeon!.activeBossThreatScriptId).toBeUndefined();
-    expect(game.dungeon!.unregisteredImminentThreatHold).toMatch(/fanatic/);
-    expect(bossThreatHamletBlockedBuildings(game.dungeon!)).not.toContain("nomadWagon");
+    expect(game.dungeon!.activeBossThreatScriptId).toBe(FANATIC_I_SCRIPT_ID);
+    expect(game.dungeon!.unregisteredImminentThreatHold).toBeUndefined();
+    expect(bossThreatHamletBlockedBuildings(game.dungeon!)).toEqual([]);
+    const script = getBossScript(FANATIC_I_SCRIPT_ID)!;
+    expect(runBossHook(script, "threatPassiveHamlet", { scriptId: FANATIC_I_SCRIPT_ID, side: "hamlet" }).status).toBe(
+      "stub",
+    );
   });
 
   it("重复 establish 与战斗中被拒", () => {
