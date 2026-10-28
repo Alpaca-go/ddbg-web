@@ -12,6 +12,10 @@ import {
   HAG_I_DESCRIPTION_ABILITY_CARD_ID,
   HAG_I_SCRIPT_ID,
 } from "./hag-i";
+import {
+  SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
+  SWINE_PRINCE_I_SCRIPT_ID,
+} from "./swine-prince-i";
 import { getBossScript, listBossScripts } from "./registry";
 import type { BossScriptId } from "./types";
 
@@ -82,6 +86,50 @@ export const WEALD_BOSS_IDENTITIES: readonly WealdBossIdentity[] = [
   "shrieker",
 ];
 
+/** Warrens 三 Boss（spec 扩展 §2.3；迫近威胁池接线仍 hold）。 */
+export type WarrensBossIdentity = "swinePrince" | "flesh" | "brigandVvulf";
+
+export const WARRENS_BOSS_DESCRIPTION_CARD_ID: Record<
+  WarrensBossIdentity,
+  Record<CampaignLevel, string | undefined>
+> = {
+  swinePrince: {
+    1: SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
+    2: undefined,
+    3: undefined,
+  },
+  flesh: {
+    1: undefined,
+    2: undefined,
+    3: undefined,
+  },
+  brigandVvulf: {
+    1: undefined,
+    2: undefined,
+    3: undefined,
+  },
+};
+
+export const WARRENS_BOSS_IDENTITIES: readonly WarrensBossIdentity[] = [
+  "swinePrince",
+  "flesh",
+  "brigandVvulf",
+];
+
+const warrensDescriptionToIdentity = new Map<string, WarrensBossIdentity>();
+for (const identity of WARRENS_BOSS_IDENTITIES) {
+  for (const level of [1, 2, 3] as const) {
+    const cardId = WARRENS_BOSS_DESCRIPTION_CARD_ID[identity][level];
+    if (cardId) warrensDescriptionToIdentity.set(cardId, identity);
+  }
+}
+
+export function warrensBossIdentityForDescriptionCard(
+  descriptionCardId: string,
+): WarrensBossIdentity | undefined {
+  return warrensDescriptionToIdentity.get(descriptionCardId);
+}
+
 const wealdDescriptionToIdentity = new Map<string, WealdBossIdentity>();
 for (const identity of WEALD_BOSS_IDENTITIES) {
   for (const level of [1, 2, 3] as const) {
@@ -132,6 +180,9 @@ export function resolveScriptIdForDescriptionCard(
   if (descriptionCardId === HAG_I_DESCRIPTION_ABILITY_CARD_ID) {
     return HAG_I_SCRIPT_ID;
   }
+  if (descriptionCardId === SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID) {
+    return SWINE_PRINCE_I_SCRIPT_ID;
+  }
   ensureCoreBossScriptsRegistered();
   for (const script of listBossScripts()) {
     if (script.combatEntry?.descriptionAbilityCardId === descriptionCardId) return script.id;
@@ -155,6 +206,10 @@ export function unregisteredImminentThreatHold(descriptionCardId: string): strin
   const wealdIdentity = wealdBossIdentityForDescriptionCard(descriptionCardId);
   if (wealdIdentity) {
     return `${wealdIdentity} 迫近威胁脚本未注册（Weald / spec §2.3）；被动与 Face the Threat 仍 hold`;
+  }
+  const warrensIdentity = warrensBossIdentityForDescriptionCard(descriptionCardId);
+  if (warrensIdentity) {
+    return `${warrensIdentity} 迫近威胁脚本未注册（Warrens / spec §2.3）；被动与 Face the Threat 仍 hold`;
   }
   return `未知 Boss 描述卡 ${descriptionCardId}；脚本未注册`;
 }
