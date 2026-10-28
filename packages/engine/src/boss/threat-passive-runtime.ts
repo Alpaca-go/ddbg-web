@@ -202,14 +202,15 @@ export function shouldSkipCurioDrawInCurioRoom(d: DungeonState): boolean {
 /** 跳过 Curio 房间奖励抽牌，直接清理房间并返回导航。 */
 export function completeCurioRoomWithoutCurioDraw(state: GameState): ApplyResult {
   const d = state.dungeon!;
+  const { curioRoom: _room, ...rest } = d;
+  void _room;
   return {
     state: {
       ...state,
       dungeon: {
-        ...d,
+        ...rest,
         phase: "ready",
         pending: null,
-        curioRoom: undefined,
         rooms: d.rooms.map((r) => (r.id === d.position ? { ...r, cleared: true } : r)),
       },
     },

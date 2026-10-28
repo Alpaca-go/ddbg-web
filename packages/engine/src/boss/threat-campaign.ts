@@ -45,9 +45,12 @@ export function syncHamletBlockedBuildingsForBossThreat(
 ): HamletEventState {
   const threat = bossThreatHamletBlockedBuildings(d);
   const base = stripKnownBossThreatBlocks(hamlet.blockedBuildings);
+  const withCaretaker = hamlet.caretaker
+    ? [...new Set([...base, hamlet.caretaker])]
+    : base;
   return {
     ...hamlet,
-    blockedBuildings: [...new Set([...base, ...threat])],
+    blockedBuildings: [...new Set([...withCaretaker, ...threat])],
   };
 }
 

@@ -7,8 +7,11 @@ import {
   HAG_I_SCRIPT_ID,
   PROPHET_I_SCRIPT_ID,
   SIREN_I_SCRIPT_ID,
+  COLLECTOR_I_SCRIPT_ID,
   applyBossThreatStressOnDungeonEntry,
+  completeCurioRoomWithoutCurioDraw,
   ensureCoreBossScriptsRegistered,
+  shouldSkipCurioDrawInCurioRoom,
 } from "./index";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
@@ -94,7 +97,7 @@ describe("威胁被动运行时接线", () => {
     let game = createCoreDungeonQuest(903, "quest:p001", "standard", coreParty, coreQuestSources);
     game = ok(game, { type: "setActiveBossThreat", scriptId: PROPHET_I_SCRIPT_ID });
     const entry = applyBossThreatStressOnDungeonEntry(game);
-    expect(entry.state.dungeon!.heroes.every((h) => h.stress === 2)).toBe(true);
+    expect(entry.state.dungeon!.heroes.every((h: { stress: number }) => h.stress === 2)).toBe(true);
   });
 
   it("Prophet I：酒馆减压有效 −1", () => {
@@ -196,28 +199,28 @@ describe("威胁被动运行时接线", () => {
       },
     } as unknown as GameState;
     expect(rollHamletCaretaker(state).state.dungeon!.hamlet!.blockedBuildings).toContain("abbey");
-  it("Collector I：无守卫 Curio 房间不进入抽牌", () => {
+  });
+
+  it("Collector I：激活威胁时跳过 Curio 房间抽牌", () => {
     let game = createCoreDungeonQuest(905, "quest:p001", "standard", coreParty, coreQuestSources);
-    game = ok(game, { type: "setActiveBossThreat", scriptId: "boss:ruins:collector:1" });
-    game = finishProvisions(game);
+    game = ok(game, { type: "setActiveBossThreat", scriptId: COLLECTOR_I_SCRIPT_ID });
+    expect(shouldSkipCurioDrawInCurioRoom(game.dungeon!)).toBe(true);
+    const roomId = game.dungeon!.rooms.find((r) => r.kind === "curio")?.id ?? game.dungeon!.position;
     game = {
       ...game,
       dungeon: {
         ...game.dungeon!,
-        position: "D",
+        position: roomId,
         phase: "awaitingRoom",
+        curioRoom: { roomId, guardRoll: 8, stage: "reward" },
         rooms: game.dungeon!.rooms.map((r) =>
-          r.id === "D" ? { ...r, kind: "curio" as const, cleared: false } : r,
+          r.id === roomId ? { ...r, kind: "curio" as const, cleared: false } : r,
         ),
       },
     };
-    const result = applyCommand(game, { type: "resolveDungeonRoom" });
-    expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
-    expect(result.state.dungeon!.phase).toBe("ready");
-    expect(result.state.dungeon!.rooms.find((r) => r.id === "D")!.cleared).toBe(true);
-    expect(result.state.dungeon!.pending).toBeUndefined();
-    expect(result.events.some((e) => e.type === "dungeonUpdated" && e.message.includes("不抽 Curio"))).toBe(
-      true,
-    );
+    const skipped = completeCurioRoomWithoutCurioDraw(game);
+    expect(skipped.state.dungeon!.phase).toBe("ready");
+    expect(skipped.state.dungeon!.rooms.find((r) => r.id === roomId)!.cleared).toBe(true);
+    expect("curioRoom" in skipped.state.dungeon!).toBe(false);
   });
 });

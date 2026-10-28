@@ -39,6 +39,8 @@ export {
   tavernStressRecoveryDeltaFromBossThreat,
 } from "./threat-passive";
 export {
+  applyBossThreatStressOnDungeonEntry,
+  applyBossThreatStressOnProvisionUse,
   completeCurioRoomWithoutCurioDraw,
   effectiveHamletSanitariumHealAmount,
   effectiveHamletStressRecoveryAmount,
