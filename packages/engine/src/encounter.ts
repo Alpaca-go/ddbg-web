@@ -25,6 +25,7 @@ import { applyPassiveHero } from "./passive-runtime";
 import { endTurnOldAbbey } from "./battle-old-abbey";
 import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
+import { encounterForcesRetreatAfterRound } from "./boss/encounter-rules";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -257,7 +258,8 @@ export function finishTurn(
       ["halted", "finished"].includes(abyss.state.battle!.encounter!.turn.type)
     )
       return abyss;
-    if (encounter.round === 4) return finishBattle(abyss.state, "retreat", abyss.events);
+    if (encounterForcesRetreatAfterRound(abyss.state, encounter.round))
+      return finishBattle(abyss.state, "retreat", abyss.events);
     const next = startRound(state.seed, abyss.state.battle!, encounter.round + 1);
     return {
       state: { ...abyss.state, battle: next },
@@ -825,7 +827,8 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
       ["halted", "finished"].includes(abyss.state.battle!.encounter!.turn.type)
     )
       return abyss;
-    if (encounter.round === 4) return finishBattle(abyss.state, "retreat", abyss.events);
+    if (encounterForcesRetreatAfterRound(abyss.state, encounter.round))
+      return finishBattle(abyss.state, "retreat", abyss.events);
     const next = startRound(state.seed, abyss.state.battle!, encounter.round + 1);
     return {
       state: { ...state, battle: next },
