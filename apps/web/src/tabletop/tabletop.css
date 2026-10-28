@@ -326,6 +326,29 @@
   flex: 0 0 8rem;
 }
 
+.tt-embark-map-row {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
+  gap: 0.5rem;
+  min-height: 0;
+  min-width: 0;
+}
+
+.tt-player-aid-ref {
+  flex: 0 0 auto;
+  width: 5.5rem;
+  max-height: 100%;
+}
+
+.tt-player-aid-ref .corebox-print-card-face {
+  width: 100%;
+}
+
+.tt-map__stacks .tt-player-aid-ref {
+  width: 4.5rem;
+}
+
 .tt-embark-map {
   flex: 1 1 auto;
   min-width: 0;

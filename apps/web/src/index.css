@@ -1402,6 +1402,10 @@ button.card-face:hover:enabled {
 .corebox-print-card-face--quest .card-face__placeholder {
   aspect-ratio: 198.43 / 340.16;
 }
+.corebox-print-card-face--player-aid .card-face__print,
+.corebox-print-card-face--player-aid .card-face__placeholder {
+  aspect-ratio: 198.43 / 340.16;
+}
 .corebox-print-card-face--sm {
   width: 8.5rem;
 }
