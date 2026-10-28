@@ -44,7 +44,11 @@ export function hamletBuildingsBlockedByBossThreat(
     side: "hamlet",
   }) as BossThreatPassiveHamletResult;
   if (passive.status !== "ok") return [];
-  if (passive.effect === "graveyardBlocked" || passive.effect === "survivalistBlocked") {
+  if (
+    passive.effect === "graveyardBlocked" ||
+    passive.effect === "survivalistBlocked" ||
+    passive.effect === "abbeyBlocked"
+  ) {
     return passive.blockedBuildings;
   }
   return [];
@@ -57,6 +61,16 @@ export function beastMonsterDamageBonusFromBossThreat(script: BossScriptDefiniti
     side: "dungeon",
   });
   if (passive.status !== "ok" || passive.effect !== "beastMonsterDamageBonus") return 0;
+  return passive.damageDelta;
+}
+
+/** Eldritch 类型怪物伤害修正（地牢侧威胁）；未接线 encounter 时供调用方合并。 */
+export function eldritchMonsterDamageBonusFromBossThreat(script: BossScriptDefinition): number {
+  const passive = runBossHook(script, "threatPassiveDungeon", {
+    scriptId: script.id,
+    side: "dungeon",
+  });
+  if (passive.status !== "ok" || passive.effect !== "eldritchMonsterDamageBonus") return 0;
   return passive.damageDelta;
 }
 

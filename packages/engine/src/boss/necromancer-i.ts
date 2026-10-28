@@ -1,6 +1,7 @@
 import { getBossScript, registerBossScript } from "./registry";
 import { ensureHagIBossScriptRegistered } from "./hag-i";
 import { ensureProphetIBossScriptRegistered } from "./prophet-i";
+import { ensureSirenIBossScriptRegistered } from "./siren-i";
 import { ensureSwinePrinceIBossScriptRegistered } from "./swine-prince-i";
 import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
 import type {
@@ -86,10 +87,11 @@ export function ensureNecromancerIBossScriptRegistered(): void {
   registerBossScript(necromancerIBossScript);
 }
 
-/** 注册当前已核实的核心盒 / Weald / Warrens Boss 脚本。 */
+/** 注册当前已核实的核心盒 / Weald / Warrens / Cove Boss 脚本。 */
 export function ensureCoreBossScriptsRegistered(): void {
   ensureNecromancerIBossScriptRegistered();
   ensureProphetIBossScriptRegistered();
   ensureHagIBossScriptRegistered();
   ensureSwinePrinceIBossScriptRegistered();
+  ensureSirenIBossScriptRegistered();
 }
