@@ -210,6 +210,11 @@ export {
   resolveBossScriptIdForQuest,
   resolveEncounterBossBattleRules,
   runBossHook,
+  setActiveBossThreat,
+  readActiveBossThreatScriptId,
+  applyBossThreatAfterBattleToPool,
+  clearedBossThreatScriptIdAfterVictory,
+  syncHamletBlockedBuildingsForBossThreat,
 } from "./boss/index";
 export type {
   BossBattleRules,
@@ -224,4 +229,6 @@ export type {
   BossSummonOk,
   BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
+  SetActiveBossThreatCommand,
 } from "./boss/index";
+export { dungeonMonsterPoolThrough, combatCardIdForPoolInstance } from "./monster-pool-runtime";

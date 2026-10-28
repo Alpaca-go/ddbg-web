@@ -1,6 +1,5 @@
 import { readRoomTile } from "./room-tile-selection";
 import { readDungeonQuestProgress } from "./dungeon-quest";
-import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { hasApprovedHigherMonsterFields } from "../../data/src/normalize/verified-monster-entry";
 import { createBattleState, rejectBattleCommand, skillTargetView } from "./battle";
@@ -28,6 +27,11 @@ import type { StatusEffect } from "./status";
 import { readBasicQuest } from "../../data/src/basic-quests";
 import { stagecoachWaitingTokens, recoveryBuildingLevel } from "./hamlet-buildings";
 import { ownedHeroSkills } from "./hero-loadout";
+import { dungeonMonsterPoolThrough } from "./monster-pool-runtime";
+import {
+  applyBossThreatAfterBattleToPool,
+  clearedBossThreatScriptIdAfterVictory,
+} from "./boss/threat-campaign";
 
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
 export function startDungeonBattle(state: GameState): ApplyResult {
@@ -316,7 +320,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
       state,
       "战斗尚未完成或仍有待选 / 全灭停点，不能回传奖励（R25、Q-52）",
     );
-  const pool = d.monsterPool!;
+  let pool = d.monsterPool!;
   if (
     !partitionsValid(d) ||
     !Number.isSafeInteger(b.rngCursor) ||
@@ -416,11 +420,15 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
     ...pool.discarded,
     ...active.monsters.map((m) => m.instanceId),
   ];
+  const threatPool = applyBossThreatAfterBattleToPool(d, pool, active.monsters, ids);
+  pool = threatPool.pool;
+  let shuffledIds = [...threatPool.instanceIds];
+  const clearedThreatId = clearedBossThreatScriptIdAfterVictory(state);
   const rng = createRng(state.seed);
   for (let i = 0; i < b.rngCursor; i++) rng.next();
-  for (let i = ids.length - 1; i > 0; i--) {
+  for (let i = shuffledIds.length - 1; i > 0; i--) {
     const j = Math.floor(rng.next() * (i + 1));
-    [ids[i], ids[j]] = [ids[j]!, ids[i]!];
+    [shuffledIds[i], shuffledIds[j]] = [shuffledIds[j]!, shuffledIds[i]!];
   }
   const victory = turn.type === "finished" && turn.outcome === "victory";
   const heroes = d.heroes.map((hero) => {
@@ -458,13 +466,25 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
   const activeCardId = d.roomCards!.active!.cardId;
   const setAside = readSetAsideRoomCardId(d);
   const { curioRoom: previousCurio, ...returnedDungeon } = d;
+  const dungeonBase = clearedThreatId
+    ? (() => {
+        const { activeBossThreatScriptId: _cleared, ...rest } = returnedDungeon;
+        void _cleared;
+        return rest;
+      })()
+    : returnedDungeon;
   const { battle: _finished, ...outside } = state;
   void _finished;
+  const threatRemovedNote =
+    threatPool.removedCombatCardIds.length > 0
+      ? `；威胁永久移出 ${threatPool.removedCombatCardIds.join("、")}`
+      : "";
+  const threatClearedNote = clearedThreatId ? `；击败 Boss，清除迫近威胁 ${clearedThreatId}` : "";
   const result: ApplyResult = {
     state: {
       ...outside,
       dungeon: {
-        ...returnedDungeon,
+        ...dungeonBase,
         heroes,
         phase: heroes.some((h) => h.dead)
           ? "awaitingReplacement"
@@ -475,7 +495,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
         ...(heroes.some((h) => h.dead)
           ? { replacementResume: curioReward ? ("roomCurio" as const) : ("ready" as const) }
           : {}),
-        cursor: b.rngCursor + ids.length - 1,
+        cursor: b.rngCursor + shuffledIds.length - 1,
         decision: b.choiceCursor,
         gold: b.loot.gold + bonus,
         lootPool: { ...b.loot, gold: b.loot.gold + bonus },
@@ -489,7 +509,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
           light: b.light,
           provisions: b.provisions ?? [],
         },
-        monsterPool: { ...pool, remaining: ids, discarded: [], active: null },
+        monsterPool: { ...pool, remaining: shuffledIds, discarded: [], active: null },
         roomCards: {
           ...d.roomCards!,
           active: null,
@@ -508,10 +528,10 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
         message: victory
           ? objectiveRecovery
             ? `胜利返回地图：须再花费行动拾取任务目标后目标房才算清理；旁置房间牌保留（R15、QUEST p4）`
-            : `胜利返回地图：房间已清理${bonus ? `，${kind === "treasure" ? "宝藏" : "Fundraiser巢穴"}奖励 +${bonus} 金币` : ""}；房间牌弃置、怪物洗回（R15、R25）`
+            : `胜利返回地图：房间已清理${bonus ? `，${kind === "treasure" ? "宝藏" : "Fundraiser巢穴"}奖励 +${bonus} 金币` : ""}；房间牌弃置、怪物洗回（R15、R25）${threatRemovedNote}${threatClearedNote}`
           : wipedOut
-            ? "英雄全灭按逃跑返回地图：房间未清理，无房间奖励，等待全部替补入队；房间牌弃置、怪物洗回（R9/R25/R31）"
-            : "第四轮撤退返回地图：房间未清理，必须先离开；房间牌弃置、怪物洗回（R25）",
+            ? `英雄全灭按逃跑返回地图：房间未清理，无房间奖励，等待全部替补入队；房间牌弃置、怪物洗回（R9/R25/R31）${threatRemovedNote}`
+            : `第四轮撤退返回地图：房间未清理，必须先离开；房间牌弃置、怪物洗回（R25）${threatRemovedNote}`,
       },
     ],
   };
@@ -526,7 +546,7 @@ function partitionsValid(d: DungeonState): boolean {
   if (!pool?.active || !rooms?.active) return false;
   const level = d.explorationSetup?.dungeonLevel ?? readCampaignLevel(d);
   if (![1, 2, 3].includes(level)) return false;
-  const catalog = ruinsMonsterPoolThrough(pool.cards, level);
+  const catalog = dungeonMonsterPoolThrough(pool, level);
   const ids = [
     ...(pool.remaining ?? []),
     ...pool.discarded,

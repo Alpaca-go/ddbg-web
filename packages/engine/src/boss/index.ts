@@ -26,6 +26,17 @@ export {
   hamletBuildingsBlockedByBossThreat,
 } from "./threat-passive";
 export {
+  applyBossThreatAfterBattleToPool,
+  bossThreatClearHoldReason,
+  bossThreatHamletBlockedBuildings,
+  clearedBossThreatScriptIdAfterVictory,
+  mergeHamletCaretakerBlockedWithBossThreat,
+  readActiveBossThreatScriptId,
+  syncHamletBlockedBuildingsForBossThreat,
+} from "./threat-campaign";
+export { setActiveBossThreat } from "./set-active-boss-threat";
+export type { SetActiveBossThreatCommand } from "./set-active-boss-threat";
+export {
   ensureCoreBossScriptsRegistered,
   ensureNecromancerIBossScriptRegistered,
   NECROMANCER_I_COMBAT_ABILITY_CARD_ID,

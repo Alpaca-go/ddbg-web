@@ -23,6 +23,8 @@ import { visitBlacksmith } from "./hamlet-blacksmith";
 import { visitGuild, chooseGuild } from "./hamlet-guild";
 import { offerNextQuest, chooseNextQuest } from "./hamlet-embark";
 import { advanceCampaignLevel } from "./hamlet-campaign";
+import { setActiveBossThreat } from "./boss/set-active-boss-threat";
+import type { SetActiveBossThreatCommand } from "./boss/set-active-boss-threat";
 import type { BlacksmithCommand } from "./hamlet-blacksmith";
 import type { HamletActionCommand } from "./hamlet-actions";
 import { upgradeHamletBuilding } from "./hamlet-buildings";
@@ -167,6 +169,7 @@ export type Command =
   | { readonly type: "drawHamletEvent" }
   | { readonly type: "offerNextQuest" }
   | { readonly type: "advanceCampaignLevel" }
+  | SetActiveBossThreatCommand
   | { readonly type: "rollHamletCaretaker" }
   | DungeonCommand
   | PlayHeroSkillEmptyAreaCommand
@@ -368,6 +371,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       : rejectBattleCommand(state, "请先选择下一任务");
   if (command.type === "offerNextQuest") return offerNextQuest(state);
   if (command.type === "advanceCampaignLevel") return advanceCampaignLevel(state);
+  if (command.type === "setActiveBossThreat") return setActiveBossThreat(state, command);
   if (state.dungeon?.pending?.id.startsWith("hamlet-guild:"))
     return command.type === "resolveChoice"
       ? chooseGuild(state, command.choiceId, command.optionId)
