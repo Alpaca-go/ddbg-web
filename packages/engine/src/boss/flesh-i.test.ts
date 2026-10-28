@@ -67,24 +67,22 @@ describe("The Flesh I Boss 脚本", () => {
     expect(passive.status).toBe("stub");
   });
 
-  it("One Body / morph 为 stub；Face the Threat 与 Boss 位仍为 stub", () => {
+  it("Face the Threat 通用钩子 ok；Boss 位 R-121 校验 ok（出征 / 洗牌 仍 hold）", () => {
     const script = getBossScript(FLESH_I_SCRIPT_ID)!;
-    expect(runBossHook(script, "summon", { scriptId: FLESH_I_SCRIPT_ID, skillSlot: 0 }).status).toBe(
-      "stub",
-    );
-    expect(
-      runBossHook(script, "faceTheThreatEmbark", {
-        scriptId: FLESH_I_SCRIPT_ID,
-        questId: "quest:p019",
-      }).status,
-    ).toBe("stub");
-    expect(
-      runBossHook(script, "bossSlotPlacement", {
-        scriptId: FLESH_I_SCRIPT_ID,
-        layoutId: "layout:fixture",
-        bossSlotNodeIds: ["A", "B", "G"],
-      }).status,
-    ).toBe("stub");
+    const face = runBossHook(script, "faceTheThreatEmbark", {
+      scriptId: FLESH_I_SCRIPT_ID,
+      questId: "quest:p019",
+      campaignLevel: 1,
+      activeBossThreatScriptId: FLESH_I_SCRIPT_ID,
+    });
+    expect(face.status).toBe("ok");
+
+    const placement = runBossHook(script, "bossSlotPlacement", {
+      scriptId: FLESH_I_SCRIPT_ID,
+      layoutId: "quest_map:p011",
+      bossSlotNodeIds: ["A", "B", "G"],
+    });
+    expect(placement.status).toBe("ok");
   });
 
   it("单部位每回合 1 次行动（卡面 One Body / 部位 1 action）", () => {

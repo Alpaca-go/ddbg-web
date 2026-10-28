@@ -1,5 +1,6 @@
 import { getBossScript, registerBossScript } from "./registry";
 import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
+import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
 import type {
   BossScriptDefinition,
   BossThreatPassiveDungeonOk,
@@ -13,8 +14,7 @@ export const SIREN_I_SCRIPT_ID = "boss:cove:siren:1" as const;
  * Boss Description I（风味面）。
  * Cove `DD_EN_COVE_CARDS_70_120_Boss_Abilities` 正面 p7；extract 占位 id。
  */
-export const SIREN_I_DESCRIPTION_ABILITY_CARD_ID =
-  "boss_ability:cove:siren:p001" as const;
+export const SIREN_I_DESCRIPTION_ABILITY_CARD_ID = "boss_ability:cove:siren:p001" as const;
 
 /**
  * Boss Abilities 战斗面 + 威胁面背面 I（PDF 正面 p10 / 背面 p10）。
@@ -60,16 +60,8 @@ export const sirenIBossScript: BossScriptDefinition = {
   hooks: {
     threatPassiveDungeon: dungeonThreatPassive,
     threatPassiveHamlet: hamletThreatPassive,
-    faceTheThreatEmbark: (ctx) => ({
-      status: "stub",
-      message: `Siren I：Face the Threat / 定威胁进幕 quest=${ctx.questId} 未接线`,
-      hold: "quest→Boss 映射待确认 / Cove 任务卡",
-    }),
-    bossSlotPlacement: (ctx) => ({
-      status: "stub",
-      message: `Siren I：Boss 位 layout=${ctx.layoutId} slots=${ctx.bossSlotNodeIds.length}`,
-      hold: "R-121 / 归任务卡",
-    }),
+    faceTheThreatEmbark: defaultFaceTheThreatEmbarkHook,
+    bossSlotPlacement: defaultBossSlotPlacementHook,
     monsterTurnActionCount: () => ({ status: "ok", value: 2 }),
     summon: () => ({
       status: "stub",

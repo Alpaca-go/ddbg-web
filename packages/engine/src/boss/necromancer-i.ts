@@ -1,12 +1,6 @@
 import { getBossScript, registerBossScript } from "./registry";
-import { ensureHagIBossScriptRegistered } from "./hag-i";
-import { ensureProphetIBossScriptRegistered } from "./prophet-i";
-import { ensureSirenIBossScriptRegistered } from "./siren-i";
-import { ensureCollectorIBossScriptRegistered } from "./collector-i";
-import { ensureFanaticIBossScriptRegistered } from "./fanatic-i";
-import { ensureFleshIBossScriptRegistered } from "./flesh-i";
-import { ensureSwinePrinceIBossScriptRegistered } from "./swine-prince-i";
 import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
+import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
 import type {
   BossScriptDefinition,
   BossSummonOk,
@@ -63,16 +57,8 @@ export const necromancerIBossScript: BossScriptDefinition = {
   hooks: {
     threatPassiveDungeon: dungeonThreatPassive,
     threatPassiveHamlet: hamletThreatPassive,
-    faceTheThreatEmbark: (ctx) => ({
-      status: "stub",
-      message: `Necromancer I：Face the Threat / 定威胁进幕 quest=${ctx.questId} 未接线`,
-      hold: "quest→Boss 映射待确认 / 归任务卡",
-    }),
-    bossSlotPlacement: (ctx) => ({
-      status: "stub",
-      message: `Necromancer I：Boss 位 layout=${ctx.layoutId} slots=${ctx.bossSlotNodeIds.length}`,
-      hold: "R-121 / 归任务卡",
-    }),
+    faceTheThreatEmbark: defaultFaceTheThreatEmbarkHook,
+    bossSlotPlacement: defaultBossSlotPlacementHook,
     monsterTurnActionCount: () => ({ status: "ok", value: 1 }),
     summon: (): BossSummonOk => ({
       status: "ok",
@@ -91,13 +77,4 @@ export function ensureNecromancerIBossScriptRegistered(): void {
 }
 
 /** 注册当前已核实的核心盒 / Weald / Warrens / Cove Boss 脚本。 */
-export function ensureCoreBossScriptsRegistered(): void {
-  ensureNecromancerIBossScriptRegistered();
-  ensureProphetIBossScriptRegistered();
-  ensureCollectorIBossScriptRegistered();
-  ensureFanaticIBossScriptRegistered();
-  ensureHagIBossScriptRegistered();
-  ensureSwinePrinceIBossScriptRegistered();
-  ensureSirenIBossScriptRegistered();
-  ensureFleshIBossScriptRegistered();
-}
+export { ensureCoreBossScriptsRegistered } from "./ensure-core-boss-scripts";

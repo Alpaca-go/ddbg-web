@@ -15,7 +15,7 @@
 | 地牢威胁 | **Taken Away I**：Curio 房间不抽 Curio（`skipCurioDrawInCurioRooms`；**curio-room 运行时未接**） |
 | 村庄威胁 | **Missing Artefacts I**：`nomadWagon` 封锁（合并进 `bossThreatHamletBlockedBuildings`） |
 | 先攻 / 行动 | 先攻 1、`ACTIONS / Round: 1`（spec §2.3 / R38） |
-| 仍 stub | `faceTheThreatEmbark`、`bossSlotPlacement`、`summon`（Collect All 三 Collected + 区域 / 先攻洗入） |
+| 仍 stub | `summon`（Collect All 三 Collected + 区域 / 先攻洗入）；出征 applyCommand 仍 hold |
 
 定威胁：`resolveScriptIdForDescriptionCard("boss_ability:p013")` → 挂 `activeBossThreatScriptId`；不再写 `unregisteredImminentThreatHold`。
 

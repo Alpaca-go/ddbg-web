@@ -1,5 +1,6 @@
 import { getBossScript, registerBossScript } from "./registry";
 import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
+import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
 import type {
   BossScriptDefinition,
   BossThreatPassiveDungeonOk,
@@ -13,8 +14,7 @@ export const FLESH_I_SCRIPT_ID = "boss:warrens:flesh:1" as const;
  * Boss Description I（风味面）。
  * Warrens `DD_EN_WARRENS_CARDS_70_120_Boss_Abilities` 正面 p13；extract 占位 id。
  */
-export const FLESH_I_DESCRIPTION_ABILITY_CARD_ID =
-  "boss_ability:warrens:flesh:p001" as const;
+export const FLESH_I_DESCRIPTION_ABILITY_CARD_ID = "boss_ability:warrens:flesh:p001" as const;
 
 /**
  * Boss Abilities 战斗面 + 威胁面背面 I（PDF 正面 p16 / 背面 p16）。
@@ -43,8 +43,7 @@ const dungeonThreatPassive = (): BossThreatPassiveDungeonOk => ({
 
 const hamletThreatPassive = (): BossThreatPassiveHamletResult => ({
   status: "stub",
-  message:
-    "Flesh I：Creeping Sickness I（未访建筑累积 Wound、访问时转移）村庄威胁未接线",
+  message: "Flesh I：Creeping Sickness I（未访建筑累积 Wound、访问时转移）村庄威胁未接线",
   hold: `${FLESH_I_COMBAT_ABILITY_CARD_ID} / Creeping Sickness I`,
 });
 
@@ -64,16 +63,8 @@ export const fleshIBossScript: BossScriptDefinition = {
   hooks: {
     threatPassiveDungeon: dungeonThreatPassive,
     threatPassiveHamlet: hamletThreatPassive,
-    faceTheThreatEmbark: (ctx) => ({
-      status: "stub",
-      message: `The Flesh I：Face the Threat / 定威胁进幕 quest=${ctx.questId} 未接线`,
-      hold: "quest→Boss 映射待确认 / Warrens 任务卡",
-    }),
-    bossSlotPlacement: (ctx) => ({
-      status: "stub",
-      message: `The Flesh I：Boss 位 layout=${ctx.layoutId} slots=${ctx.bossSlotNodeIds.length}`,
-      hold: "R-121 / 归任务卡",
-    }),
+    faceTheThreatEmbark: defaultFaceTheThreatEmbarkHook,
+    bossSlotPlacement: defaultBossSlotPlacementHook,
     monsterTurnActionCount: () => ({ status: "ok", value: 1 }),
     summon: () => ({
       status: "stub",

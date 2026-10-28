@@ -89,22 +89,29 @@ describe("Necromancer I Boss 脚本", () => {
     }
   });
 
-  it("Face the Threat 与 Boss 位仍为 stub（归任务卡 / 映射待确认）", () => {
+  it("Face the Threat 通用钩子 ok；Boss 位 R-121 校验 ok（出征 / 洗牌仍 hold）", () => {
     const script = getBossScript(NECROMANCER_I_SCRIPT_ID)!;
     const face = runBossHook(script, "faceTheThreatEmbark", {
       scriptId: NECROMANCER_I_SCRIPT_ID,
       questId: "quest:p019",
+      campaignLevel: 1,
+      activeBossThreatScriptId: NECROMANCER_I_SCRIPT_ID,
     });
-    expect(face.status).toBe("stub");
-    if (face.status === "stub") expect(face.hold).toMatch(/待确认|任务卡/);
+    expect(face.status).toBe("ok");
+    if (face.status === "ok") {
+      expect(face.value.resolvedScriptId).toBe(NECROMANCER_I_SCRIPT_ID);
+      expect(face.value.wiringHold).toMatch(/applyCommand/);
+    }
 
     const placement = runBossHook(script, "bossSlotPlacement", {
       scriptId: NECROMANCER_I_SCRIPT_ID,
-      layoutId: "layout:fixture",
+      layoutId: "quest_map:p011",
       bossSlotNodeIds: ["A", "B", "G"],
     });
-    expect(placement.status).toBe("stub");
-    if (placement.status === "stub") expect(placement.hold).toMatch(/R-121/);
+    expect(placement.status).toBe("ok");
+    if (placement.status === "ok") {
+      expect(placement.value.placementAlgorithm).toBe("objectivePlusTwoRandomNonObjective");
+    }
   });
 
   it("每回合 1 次行动（卡面 ACTIONS / Round: 1）", () => {

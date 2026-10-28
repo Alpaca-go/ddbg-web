@@ -1,4 +1,4 @@
-import type { BasicQuestId } from "../../../data/src/basic-quests";
+import type { BasicQuestId, CampaignLevel } from "../../../data/src/basic-quests";
 
 /** 引擎内 Boss 脚本标识；与印刷 monster id 分离，避免未核实卡面硬编码。 */
 export type BossScriptId = `boss:${string}`;
@@ -144,9 +144,12 @@ export type BossScriptHooks = {
     BossThreatPassiveHamletResult
   >;
   /** Face the Threat / Boss 任务出征或进幕（p019 等）。 */
-  readonly faceTheThreatEmbark?: BossHookHandler<BossFaceTheThreatContext, BossHookStubResult>;
+  readonly faceTheThreatEmbark?: BossHookHandler<
+    BossFaceTheThreatContext,
+    BossFaceTheThreatEmbarkResult
+  >;
   /** R36 / R-121：目标 + 2 随机非目标入 Boss 三格；布置 hold。 */
-  readonly bossSlotPlacement?: BossHookHandler<BossSlotPlacementContext, BossHookStubResult>;
+  readonly bossSlotPlacement?: BossHookHandler<BossSlotPlacementContext, BossSlotPlacementResult>;
   /** 本怪物回合行动次数（G-05 多行动）；默认 1，完整 AI 未接。 */
   readonly monsterTurnActionCount?: BossHookHandler<
     BossMonsterTurnContext,
@@ -184,15 +187,49 @@ export type BossThreatPassiveContext = {
   readonly side: "dungeon" | "hamlet";
 };
 
+export type BossFaceTheThreatEmbarkPlan = {
+  readonly resolvedScriptId: BossScriptId;
+  readonly questId: BasicQuestId;
+  readonly combatEntry: BossCombatEntryRefs;
+  readonly rulesRef: readonly string[];
+  /** 已解析脚本与 combatEntry；出征命令 / 边缘房 / dungeon 状态写入仍 hold。 */
+  readonly wiringHold: string;
+};
+
+export type BossFaceTheThreatEmbarkResult =
+  BossHookOk<BossFaceTheThreatEmbarkPlan> | BossHookStubResult;
+
+export type BossSlotPlacementPlan = {
+  readonly layoutId: string;
+  readonly bossSlotNodeIds: readonly string[];
+  /** R-121 / spec §5.1：目标房代币 + 2 张随机非目标洗入三格（算法语义；RNG 写入 hold）。 */
+  readonly placementAlgorithm: "objectivePlusTwoRandomNonObjective";
+  readonly rulesRef: readonly string[];
+  /** 节点校验已通过；洗牌与 room token 写入 dungeon 仍 hold。 */
+  readonly wiringHold: string;
+};
+
+export type BossSlotPlacementResult = BossHookOk<BossSlotPlacementPlan> | BossHookStubResult;
+
 export type BossFaceTheThreatContext = {
   readonly scriptId: BossScriptId;
   readonly questId: BasicQuestId;
+  readonly campaignLevel?: CampaignLevel;
+  readonly activeBossThreatScriptId?: BossScriptId;
 };
 
 export type BossSlotPlacementContext = {
   readonly scriptId: BossScriptId;
   readonly layoutId: string;
   readonly bossSlotNodeIds: readonly string[];
+  readonly questId?: BasicQuestId;
+};
+
+/** 引擎层 Face the Threat 解析输入（不绑定单一脚本钩子）。 */
+export type FaceTheThreatQuestContext = {
+  readonly questId: BasicQuestId;
+  readonly campaignLevel?: CampaignLevel;
+  readonly activeBossThreatScriptId?: BossScriptId;
 };
 
 export type BossMonsterTurnContext = {

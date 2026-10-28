@@ -1,9 +1,12 @@
 import { basicQuests, type BasicQuestId, type CampaignLevel } from "../../../data/src/basic-quests";
 import { readCampaignLevel } from "../hamlet-campaign";
-import { ensureCoreBossScriptsRegistered } from "./necromancer-i";
+import { ensureCoreBossScriptsRegistered } from "./ensure-core-boss-scripts";
 import { getBossScript } from "./registry";
-import { NECROMANCER_I_SCRIPT_ID } from "./necromancer-i";
 import type { BossScriptId } from "./types";
+
+/** quest:p019 @ CL I 沙盒缺省；与 `necromancer-i` 脚本 id 一致，避免 quest-bridge ↔ 脚本模块循环依赖。 */
+const FACE_THE_THREAT_DEFAULT_SCRIPT_ID_CL1 =
+  "boss:ruins:necromancer:1" as const satisfies BossScriptId;
 
 /** R-120：是否为 Boss / 最暗定额任务卡。 */
 export function isBossQuestId(questId: string): questId is BasicQuestId {
@@ -32,7 +35,7 @@ export const bossQuestScriptId: Partial<Record<BasicQuestId, BossScriptId>> = {}
  */
 export const faceTheThreatBossScriptByCampaignLevel: Partial<Record<CampaignLevel, BossScriptId>> =
   {
-    1: NECROMANCER_I_SCRIPT_ID,
+    1: FACE_THE_THREAT_DEFAULT_SCRIPT_ID_CL1,
   };
 
 /** Face the Threat 任务卡 id（印刷 p19）。 */

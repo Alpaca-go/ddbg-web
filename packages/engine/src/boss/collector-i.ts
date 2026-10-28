@@ -1,5 +1,6 @@
 import { getBossScript, registerBossScript } from "./registry";
 import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
+import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
 import type {
   BossScriptDefinition,
   BossThreatPassiveDungeonOk,
@@ -57,16 +58,8 @@ export const collectorIBossScript: BossScriptDefinition = {
   hooks: {
     threatPassiveDungeon: dungeonThreatPassive,
     threatPassiveHamlet: hamletThreatPassive,
-    faceTheThreatEmbark: (ctx) => ({
-      status: "stub",
-      message: `Collector I：Face the Threat / 定威胁进幕 quest=${ctx.questId} 未接线`,
-      hold: "quest→Boss 映射待确认 / 归任务卡",
-    }),
-    bossSlotPlacement: (ctx) => ({
-      status: "stub",
-      message: `Collector I：Boss 位 layout=${ctx.layoutId} slots=${ctx.bossSlotNodeIds.length}`,
-      hold: "R-121 / 归任务卡",
-    }),
+    faceTheThreatEmbark: defaultFaceTheThreatEmbarkHook,
+    bossSlotPlacement: defaultBossSlotPlacementHook,
     monsterTurnActionCount: () => ({ status: "ok", value: 1 }),
     summon: () => ({
       status: "stub",
