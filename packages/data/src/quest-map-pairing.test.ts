@@ -60,10 +60,13 @@ describe("QuestMap 选图配对（R-116）", () => {
     expect(["quest_map:p011", "quest_map:p012"]).toContain(layout.id);
   });
 
-  it("出征优先 confirmed 八槽图（遗迹 I 级任务仍用 p001）", () => {
+  it("出征在 confirmed 八槽池中稳定择一（R-123 / R-116）", () => {
     const quest = basicQuests.find((q) => q.id === "quest:p001")!;
+    const compatible = compatibleQuestMapLayouts(asQuestMapPairingQuest(quest), layouts);
+    expect(compatible.every((l) => l.review === "confirmed")).toBe(true);
+    expect(compatible).toHaveLength(12);
     const layout = pickEmbarkQuestMapLayout(asQuestMapPairingQuest(quest), 7, 0, layouts);
-    expect(layout.id).toBe("quest_map:p001");
+    expect(layout.id).toBe("quest_map:p008");
     expect(layout.review).toBe("confirmed");
   });
 });
