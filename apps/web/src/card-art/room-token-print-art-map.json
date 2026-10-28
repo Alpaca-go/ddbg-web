@@ -95,6 +95,6 @@
   ],
   "pendingConfirmation": [
     "COM punchboard room tokens not exported in this slice.",
-    "Battle Room Tile faces (room_tile_geometry) not mapped."
+    "Battle Room Tile faces: see room-tile-print-art-map.json (9 approved Ruins faces only)."
   ]
 }

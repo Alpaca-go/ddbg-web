@@ -1810,16 +1810,21 @@
   padding: 0.4rem;
   font-size: 0.75rem;
 }
-.shell--formal-battle .area-grid {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
-  gap: 0.5rem;
-  margin-top: 0.65rem;
+.shell--formal-battle .battle-room-tile-board {
+  min-height: 12rem;
 }
-.shell--formal-battle .area {
-  padding: 0.5rem;
+.shell--formal-battle .battle-room-tile-board__grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+  gap: 0;
+  padding: 0.3rem;
+  min-height: 12rem;
+}
+.shell--formal-battle .battle-area-cell {
+  padding: 0.25rem;
   min-width: 0;
-  min-height: 5rem;
+  min-height: 4.75rem;
   overflow-wrap: break-word;
+  font-size: 0.68rem;
 }
 .shell--formal-battle .area li {
   overflow-wrap: normal;

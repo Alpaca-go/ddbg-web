@@ -107,7 +107,7 @@ const map = {
   cards,
   pendingConfirmation: [
     "room_token per-kind PNG: see room-token-print-art-map.json.",
-    "Battle Room Tile faces (room_tile_geometry) not mapped.",
+    "Battle Room Tile faces: see room-tile-print-art-map.json (9 approved Ruins faces only).",
     "走廊段：连接口 catalog 见 corridor_tile_geometry.json（全页 geometryVerified=false）；印刷图 corridor-tile-print-art-map.json；QuestMap 边绑定 corridor_layout_bindings.json review=pending。",
   ],
 };
