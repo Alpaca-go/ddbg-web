@@ -123,6 +123,11 @@ export type DungeonState = {
   readonly discardedQuests?: readonly string[];
   /** 战役等级 / 地牢等级（DL）；缺省按 I 级解释（§2.2 / R35）。 */
   readonly campaignLevel?: 1 | 2 | 3;
+  /**
+   * 当前迫近威胁对应的 Boss 脚本 id（定威胁 / 升幕抽牌未接；`setActiveBossThreat` 为测试与最小 stub）。
+   * spec §2.3 R11：威胁被动在 Boss 被击败前持续生效。
+   */
+  readonly activeBossThreatScriptId?: import("./boss/types").BossScriptId;
   /** 准备结束后抽到的下一任务候选项，选定后清除。 */
   readonly nextQuestOffers?: readonly string[];
   /** Unsettling Darkness：下次出征起始光照（印刷 Light 4，图标 d13c8b76af 已确认）。 */
@@ -206,6 +211,8 @@ export type DungeonState = {
   readonly mustLeaveRoomId?: string | undefined;
   readonly monsterPool?: {
     readonly cards: readonly MonsterPoolCard[];
+    /** Boss 威胁「永久移出游戏」的战斗怪物卡 id（catalog 仍完整；实例由 runtime 过滤）。 */
+    readonly permanentlyRemovedCombatCardIds?: readonly string[];
     readonly remaining: readonly string[] | null;
     readonly discarded: readonly string[];
     readonly active: {

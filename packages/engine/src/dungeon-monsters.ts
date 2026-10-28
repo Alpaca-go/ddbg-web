@@ -1,4 +1,5 @@
-import { monsterPoolCatalogSchema, ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
+import { monsterPoolCatalogSchema } from "../../data/src/monster-pool";
+import { dungeonMonsterPoolThrough } from "./monster-pool-runtime";
 import { roomCatalogSchema } from "../../data/src/room";
 import { readRoomTile } from "./room-tile-selection";
 import type { ApplyResult, GameState } from "./command";
@@ -56,7 +57,7 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
   if (pool.active || pool.discarded.length)
     return refuse("本场怪物已记录或牌堆状态不一致；不能重抽 / 重洗 / 发奖励");
   if (!Number.isSafeInteger(d.cursor) || d.cursor < 0) return refuse("RNG 游标无效");
-  const catalog = ruinsMonsterPoolThrough(pool.cards, dungeonLevel);
+  const catalog = dungeonMonsterPoolThrough(pool, dungeonLevel);
   const ids = pool.remaining ?? catalog.map((card) => card.instanceId);
   if (
     ids.length !== catalog.length ||

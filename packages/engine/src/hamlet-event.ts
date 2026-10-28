@@ -17,6 +17,7 @@ import type { DungeonState } from "./dungeon";
 import { applySupplyRun } from "./hamlet-supply-run";
 import { beginFeast } from "./hamlet-feast";
 import { applyLostShipment } from "./hamlet-lost-shipment";
+import { mergeHamletCaretakerBlockedWithBossThreat } from "./boss/threat-campaign";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;
 export type HamletEventState = {
@@ -399,7 +400,7 @@ export function rollHamletCaretaker(state: GameState): ApplyResult {
           ...h,
           phase: "heroActions",
           caretaker,
-          blockedBuildings: [...new Set([...blocked, ...(h.weekBlockedBuildings ?? [])])],
+          blockedBuildings: mergeHamletCaretakerBlockedWithBossThreat(d, blocked),
           heroOrder,
         },
       },
