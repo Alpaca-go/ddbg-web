@@ -1,5 +1,6 @@
 import { getBossScript, registerBossScript } from "./registry";
 import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
+import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
 import type {
   BossScriptDefinition,
   BossThreatPassiveDungeonOk,
@@ -31,8 +32,7 @@ export const SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID =
   "monster_large:warrens:swine_prince:p001" as const;
 
 /** Wilbur I（Beast · Small）；Boss 战伴，不进 `combatEntry`。Warrens medium PDF p20。 */
-export const SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID =
-  "monster_medium:warrens:wilbur:p001" as const;
+export const SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID = "monster_medium:warrens:wilbur:p001" as const;
 
 const dungeonThreatPassive = (): BossThreatPassiveDungeonOk => ({
   status: "ok",
@@ -66,16 +66,8 @@ export const swinePrinceIBossScript: BossScriptDefinition = {
   hooks: {
     threatPassiveDungeon: dungeonThreatPassive,
     threatPassiveHamlet: hamletThreatPassive,
-    faceTheThreatEmbark: (ctx) => ({
-      status: "stub",
-      message: `Swine Prince I：Face the Threat / 定威胁进幕 quest=${ctx.questId} 未接线`,
-      hold: "quest→Boss 映射待确认 / Warrens 任务卡",
-    }),
-    bossSlotPlacement: (ctx) => ({
-      status: "stub",
-      message: `Swine Prince I：Boss 位 layout=${ctx.layoutId} slots=${ctx.bossSlotNodeIds.length}`,
-      hold: "R-121 / 归任务卡",
-    }),
+    faceTheThreatEmbark: defaultFaceTheThreatEmbarkHook,
+    bossSlotPlacement: defaultBossSlotPlacementHook,
     monsterTurnActionCount: () => ({ status: "ok", value: 2 }),
     summon: () => ({
       status: "stub",

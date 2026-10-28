@@ -26,11 +26,11 @@ import {
   FLESH_I_SCRIPT_ID,
   COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
   COLLECTOR_I_SCRIPT_ID,
-  FANATIC_I_DESCRIPTION_ABILITY_CARD_ID,
   FANATIC_I_SCRIPT_ID,
   FACE_THE_THREAT_QUEST_ID,
   getBossScript,
   runBossHook,
+  runFaceTheThreatEmbarkForQuest,
 } from "../index";
 import { applyActiveBossThreatToDungeon } from "./apply-active-boss-threat";
 import { RUINS_BOSS_DESCRIPTION_CARD_ID } from "./threat-description-catalog";
@@ -114,8 +114,7 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
   it("抽到已注册 Collector I 时挂接 activeBossThreatScriptId 与游商马车封锁", () => {
     let collectorSeed: number | undefined;
     for (let seed = 0; seed < 500 && collectorSeed === undefined; seed++) {
-      if (drawnDescription(seed) === COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID)
-        collectorSeed = seed;
+      if (drawnDescription(seed) === COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID) collectorSeed = seed;
     }
     expect(collectorSeed).toBeDefined();
     const game = ok(baseQuest(collectorSeed!), { type: "establishImminentThreat" });
@@ -137,9 +136,10 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     expect(game.dungeon!.unregisteredImminentThreatHold).toBeUndefined();
     expect(bossThreatHamletBlockedBuildings(game.dungeon!)).toEqual([]);
     const script = getBossScript(FANATIC_I_SCRIPT_ID)!;
-    expect(runBossHook(script, "threatPassiveHamlet", { scriptId: FANATIC_I_SCRIPT_ID, side: "hamlet" }).status).toBe(
-      "stub",
-    );
+    expect(
+      runBossHook(script, "threatPassiveHamlet", { scriptId: FANATIC_I_SCRIPT_ID, side: "hamlet" })
+        .status,
+    ).toBe("stub");
   });
 
   it("重复 establish 与战斗中被拒", () => {
@@ -265,6 +265,18 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     const script = getBossScript(FLESH_I_SCRIPT_ID)!;
     expect(guardTurnsOnLargeMonsterSpawnFromBossThreat(script)).toBe(2);
     expect(bossThreatHamletBlockedBuildings(game.dungeon!)).toEqual([]);
+  });
+
+  it("Face the Threat 引擎入口与 activeBossThreatScriptId 一致", () => {
+    const fromEngine = runFaceTheThreatEmbarkForQuest({
+      questId: FACE_THE_THREAT_QUEST_ID,
+      campaignLevel: 1,
+      activeBossThreatScriptId: NECROMANCER_I_SCRIPT_ID,
+    });
+    expect(fromEngine.status).toBe("ok");
+    if (fromEngine.status === "ok") {
+      expect(fromEngine.value.resolvedScriptId).toBe(NECROMANCER_I_SCRIPT_ID);
+    }
   });
 
   it("Face the Threat 解析优先 activeBossThreatScriptId", () => {

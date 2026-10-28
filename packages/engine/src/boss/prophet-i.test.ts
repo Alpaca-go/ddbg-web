@@ -70,26 +70,22 @@ describe("Prophet I Boss 脚本", () => {
     expect(tavernStressRecoveryDeltaFromBossThreat(script)).toBe(-1);
   });
 
-  it("召唤为 stub（木长椅 / R38–R39）；Face the Threat 与 Boss 位仍为 stub", () => {
+  it("Face the Threat 通用钩子 ok；Boss 位 R-121 校验 ok（出征 / 洗牌 仍 hold）", () => {
     const script = getBossScript(PROPHET_I_SCRIPT_ID)!;
-    const summon = runBossHook(script, "summon", {
-      scriptId: PROPHET_I_SCRIPT_ID,
-      skillSlot: 0,
-    });
-    expect(summon.status).toBe("stub");
-
     const face = runBossHook(script, "faceTheThreatEmbark", {
       scriptId: PROPHET_I_SCRIPT_ID,
       questId: "quest:p019",
+      campaignLevel: 1,
+      activeBossThreatScriptId: PROPHET_I_SCRIPT_ID,
     });
-    expect(face.status).toBe("stub");
+    expect(face.status).toBe("ok");
 
     const placement = runBossHook(script, "bossSlotPlacement", {
       scriptId: PROPHET_I_SCRIPT_ID,
-      layoutId: "layout:fixture",
+      layoutId: "quest_map:p011",
       bossSlotNodeIds: ["A", "B", "G"],
     });
-    expect(placement.status).toBe("stub");
+    expect(placement.status).toBe("ok");
   });
 
   it("每回合 3 次行动（卡面 ACTIONS / Round: 3；R38 先攻 3）", () => {

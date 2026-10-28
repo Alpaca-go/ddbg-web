@@ -132,5 +132,5 @@ export function clearedBossThreatScriptIdAfterVictory(state: GameState): BossScr
 
 /** 清除威胁后未自动抽下一张时的事件说明（升幕 §2.2 其余步骤仍 hold）。 */
 export function bossThreatClearHoldReason(): string {
-  return "升幕抽下一张迫近威胁请用 drawImminentThreatAfterActAdvance；faceTheThreatEmbark 仍 hold";
+  return "升幕抽下一张迫近威胁请用 drawImminentThreatAfterActAdvance；地牢出征 applyCommand 仍 hold（faceTheThreatEmbark 已解析 combatEntry）";
 }

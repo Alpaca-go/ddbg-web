@@ -76,26 +76,22 @@ describe("Siren I Boss 脚本", () => {
     expect(hamletBuildingsBlockedByBossThreat(SIREN_I_SCRIPT_ID, script)).toEqual(["abbey"]);
   });
 
-  it("Song of Desire / High Tide 为 stub；Face the Threat 与 Boss 位仍为 stub", () => {
+  it("Face the Threat 通用钩子 ok；Boss 位 R-121 校验 ok（出征 / 洗牌 仍 hold）", () => {
     const script = getBossScript(SIREN_I_SCRIPT_ID)!;
-    const summon = runBossHook(script, "summon", {
-      scriptId: SIREN_I_SCRIPT_ID,
-      skillSlot: 0,
-    });
-    expect(summon.status).toBe("stub");
-
     const face = runBossHook(script, "faceTheThreatEmbark", {
       scriptId: SIREN_I_SCRIPT_ID,
       questId: "quest:p019",
+      campaignLevel: 1,
+      activeBossThreatScriptId: SIREN_I_SCRIPT_ID,
     });
-    expect(face.status).toBe("stub");
+    expect(face.status).toBe("ok");
 
     const placement = runBossHook(script, "bossSlotPlacement", {
       scriptId: SIREN_I_SCRIPT_ID,
-      layoutId: "layout:fixture",
+      layoutId: "quest_map:p011",
       bossSlotNodeIds: ["A", "B", "G"],
     });
-    expect(placement.status).toBe("stub");
+    expect(placement.status).toBe("ok");
   });
 
   it("每回合 2 次行动（卡面 ACTIONS / Round: 2）", () => {

@@ -2,6 +2,8 @@ export type {
   BossBattleRules,
   BossCombatEntryRefs,
   BossFaceTheThreatContext,
+  BossFaceTheThreatEmbarkPlan,
+  BossFaceTheThreatEmbarkResult,
   BossHookName,
   BossHookOk,
   BossHookStubResult,
@@ -10,6 +12,8 @@ export type {
   BossScriptHooks,
   BossScriptId,
   BossSlotPlacementContext,
+  BossSlotPlacementPlan,
+  BossSlotPlacementResult,
   BossSummonContext,
   BossSummonOk,
   BossSummonPlacement,
@@ -19,6 +23,7 @@ export type {
   BossThreatPassiveDungeonResult,
   BossThreatPassiveHamletOk,
   BossThreatPassiveHamletResult,
+  FaceTheThreatQuestContext,
 } from "./types";
 export { readBossCombatEntry } from "./combat-entry";
 export {
@@ -162,6 +167,19 @@ export {
 } from "./registry";
 export { DEFAULT_BOSS_BATTLE_RULES, encounterRoundRetreatLimit } from "./rules";
 export { defaultMonsterTurnActionCount, runBossHook } from "./hooks";
+export {
+  BOSS_SLOT_WIRING_HOLD,
+  canonicalBossSlotNodeIdsForLayout,
+  defaultBossSlotPlacementHook,
+  defaultFaceTheThreatEmbarkHook,
+  FACE_EMBARK_WIRING_HOLD,
+  R121_BOSS_SLOTS_QUEST_MAP_P011,
+  R121_BOSS_SLOTS_QUEST_MAP_P012,
+  R121_BOSS_SLOT_LAYOUTS,
+  resolveBossScriptIdForFaceTheThreatContext,
+  runBossSlotPlacementForScript,
+  runFaceTheThreatEmbarkForQuest,
+} from "./face-the-threat-hooks";
 export {
   ensureFixtureBossScriptRegistered,
   FIXTURE_BOSS_COMBAT_MONSTER_CARD_ID,
