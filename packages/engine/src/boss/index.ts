@@ -24,6 +24,7 @@ export { readBossCombatEntry } from "./combat-entry";
 export {
   cardIdsPermanentlyRemovedAfterBattle,
   hamletBuildingsBlockedByBossThreat,
+  beastMonsterDamageBonusFromBossThreat,
   sanitariumHealLifeDeltaFromBossThreat,
   stressOnDungeonEntryPerHeroFromBossThreat,
   stressOnHeroProvisionUseFromBossThreat,
@@ -61,8 +62,15 @@ export {
   WEALD_BOSS_DESCRIPTION_CARD_ID,
   WEALD_BOSS_IDENTITIES,
   wealdBossIdentityForDescriptionCard,
+  WARRENS_BOSS_DESCRIPTION_CARD_ID,
+  WARRENS_BOSS_IDENTITIES,
+  warrensBossIdentityForDescriptionCard,
 } from "./threat-description-catalog";
-export type { RuinsBossIdentity, WealdBossIdentity } from "./threat-description-catalog";
+export type {
+  RuinsBossIdentity,
+  WealdBossIdentity,
+  WarrensBossIdentity,
+} from "./threat-description-catalog";
 export { applyActiveBossThreatToDungeon } from "./apply-active-boss-threat";
 export {
   ensureCoreBossScriptsRegistered,
@@ -90,6 +98,15 @@ export {
   HAG_I_SCRIPT_ID,
   hagIBossScript,
 } from "./hag-i";
+export {
+  ensureSwinePrinceIBossScriptRegistered,
+  SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID,
+  SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID,
+  SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
+  SWINE_PRINCE_I_SCRIPT_ID,
+  SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
+  swinePrinceIBossScript,
+} from "./swine-prince-i";
 export {
   clearBossScriptsForTest,
   getBossScript,

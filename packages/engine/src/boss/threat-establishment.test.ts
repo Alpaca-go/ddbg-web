@@ -9,10 +9,13 @@ import {
   ensureNecromancerIBossScriptRegistered,
   ensureProphetIBossScriptRegistered,
   ensureHagIBossScriptRegistered,
+  ensureSwinePrinceIBossScriptRegistered,
   establishImminentThreat,
   resolveBossScriptIdForQuest,
   HAG_I_DESCRIPTION_ABILITY_CARD_ID,
   HAG_I_SCRIPT_ID,
+  SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
+  SWINE_PRINCE_I_SCRIPT_ID,
   FACE_THE_THREAT_QUEST_ID,
   getBossScript,
 } from "../index";
@@ -20,7 +23,10 @@ import { applyActiveBossThreatToDungeon } from "./apply-active-boss-threat";
 import { RUINS_BOSS_DESCRIPTION_CARD_ID } from "./threat-description-catalog";
 import { resolveScriptIdForDescriptionCard } from "./threat-description-catalog";
 import { bossThreatHamletBlockedBuildings } from "./threat-campaign";
-import { sanitariumHealLifeDeltaFromBossThreat } from "./threat-passive";
+import {
+  beastMonsterDamageBonusFromBossThreat,
+  sanitariumHealLifeDeltaFromBossThreat,
+} from "./threat-passive";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
 
@@ -47,6 +53,7 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     ensureNecromancerIBossScriptRegistered();
     ensureProphetIBossScriptRegistered();
     ensureHagIBossScriptRegistered();
+    ensureSwinePrinceIBossScriptRegistered();
   });
 
   it("战役开局 establishImminentThreat 确定性抽牌并写入描述卡 id", () => {
@@ -157,6 +164,27 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     const script = getBossScript(HAG_I_SCRIPT_ID)!;
     expect(sanitariumHealLifeDeltaFromBossThreat(script)).toBe(-3);
     expect(bossThreatHamletBlockedBuildings(game.dungeon!)).not.toContain("graveyard");
+  });
+
+  it("Swine Prince I 描述卡解析脚本并挂接 activeBossThreatScriptId（Warrens；Ruins 开局池不含）", () => {
+    expect(resolveScriptIdForDescriptionCard(SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID)).toBe(
+      SWINE_PRINCE_I_SCRIPT_ID,
+    );
+    let game = baseQuest(3);
+    game = {
+      ...game,
+      dungeon: applyActiveBossThreatToDungeon(
+        {
+          ...game.dungeon!,
+          imminentThreatDescriptionCardId: SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
+        },
+        SWINE_PRINCE_I_SCRIPT_ID,
+      ),
+    };
+    expect(game.dungeon!.activeBossThreatScriptId).toBe(SWINE_PRINCE_I_SCRIPT_ID);
+    const script = getBossScript(SWINE_PRINCE_I_SCRIPT_ID)!;
+    expect(beastMonsterDamageBonusFromBossThreat(script)).toBe(2);
+    expect(bossThreatHamletBlockedBuildings(game.dungeon!)).toContain("survivalist");
   });
 
   it("Face the Threat 解析优先 activeBossThreatScriptId", () => {

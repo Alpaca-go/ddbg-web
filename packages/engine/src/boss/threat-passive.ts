@@ -43,8 +43,21 @@ export function hamletBuildingsBlockedByBossThreat(
     scriptId: script.id,
     side: "hamlet",
   }) as BossThreatPassiveHamletResult;
-  if (passive.status !== "ok" || passive.effect !== "graveyardBlocked") return [];
-  return passive.blockedBuildings;
+  if (passive.status !== "ok") return [];
+  if (passive.effect === "graveyardBlocked" || passive.effect === "survivalistBlocked") {
+    return passive.blockedBuildings;
+  }
+  return [];
+}
+
+/** Beast 类型怪物伤害修正（地牢侧威胁）；未接线 encounter 时供调用方合并。 */
+export function beastMonsterDamageBonusFromBossThreat(script: BossScriptDefinition): number {
+  const passive = runBossHook(script, "threatPassiveDungeon", {
+    scriptId: script.id,
+    side: "dungeon",
+  });
+  if (passive.status !== "ok" || passive.effect !== "beastMonsterDamageBonus") return 0;
+  return passive.damageDelta;
 }
 
 /** 酒馆减压服务有效恢复量修正（村庄侧威胁）；未接线 hamlet-actions 时供调用方合并。 */

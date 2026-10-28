@@ -33,6 +33,14 @@ export type BossThreatPassiveDungeonOk =
       readonly stressDelta: number;
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
+      readonly effect: "beastMonsterDamageBonus";
+      /** Beast 类型怪物造成的伤害修正（印刷卡常为 +2 / +4 / +6）。 */
+      readonly damageDelta: number;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
     };
 
 export type BossThreatPassiveHamletOk =
@@ -56,6 +64,13 @@ export type BossThreatPassiveHamletOk =
       readonly effect: "sanitariumHealLifeDelta";
       /** 疗养院单次治疗有效 Life 修正（印刷卡常为负数）。 */
       readonly healDelta: number;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
+      readonly effect: "survivalistBlocked";
+      readonly blockedBuildings: readonly ["survivalist"];
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];
     };
