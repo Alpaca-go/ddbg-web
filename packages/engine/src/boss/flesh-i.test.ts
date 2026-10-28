@@ -15,7 +15,10 @@ import {
   readBossCombatEntry,
   runBossHook,
 } from "./index";
-import { guardTurnsOnLargeMonsterSpawnFromBossThreat } from "./threat-passive";
+import {
+  guardTurnsOnLargeMonsterSpawnFromBossThreat,
+  creepingSicknessWoundsPerUnvisitedBuildingFromBossThreat,
+} from "./threat-passive";
 import { resolveScriptIdForDescriptionCard } from "./threat-description-catalog";
 
 describe("The Flesh I Boss 脚本", () => {
@@ -58,13 +61,19 @@ describe("The Flesh I Boss 脚本", () => {
     expect(guardTurnsOnLargeMonsterSpawnFromBossThreat(script)).toBe(2);
   });
 
-  it("村庄侧威胁：Creeping Sickness I 仍为 stub", () => {
+  it("村庄侧威胁：Creeping Sickness I 声明每日未访建筑累积伤口", () => {
     const script = getBossScript(FLESH_I_SCRIPT_ID)!;
     const passive = runBossHook(script, "threatPassiveHamlet", {
       scriptId: FLESH_I_SCRIPT_ID,
       side: "hamlet",
     });
-    expect(passive.status).toBe("stub");
+    expect(passive).toMatchObject({
+      status: "ok",
+      effect: "creepingSicknessBuildingWounds",
+      woundsPerUnvisitedBuilding: 1,
+      sourceAbilityCardId: FLESH_I_COMBAT_ABILITY_CARD_ID,
+    });
+    expect(creepingSicknessWoundsPerUnvisitedBuildingFromBossThreat(script)).toBe(1);
   });
 
   it("Face the Threat 通用钩子 ok；Boss 位 R-121 校验 ok（出征 / 洗牌 仍 hold）", () => {

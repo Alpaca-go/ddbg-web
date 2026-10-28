@@ -127,3 +127,25 @@ export function sanitariumHealLifeDeltaFromBossThreat(script: BossScriptDefiniti
   if (passive.status !== "ok" || passive.effect !== "sanitariumHealLifeDelta") return 0;
   return passive.healDelta;
 }
+
+/** Fanatic I 等：揭示村庄事件前 d10 最低者额外压力；未接线 hamlet 事件路径时供调用方查询。 */
+export function blackSheepStressDeltaFromBossThreat(script: BossScriptDefinition): number {
+  const passive = runBossHook(script, "threatPassiveHamlet", {
+    scriptId: script.id,
+    side: "hamlet",
+  }) as BossThreatPassiveHamletResult;
+  if (passive.status !== "ok" || passive.effect !== "blackSheepBeforeHamletEvent") return 0;
+  return passive.stressDelta;
+}
+
+/** Flesh I 等：每日末未访建筑累积伤口；未接线 hamlet 日结束时供调用方查询。 */
+export function creepingSicknessWoundsPerUnvisitedBuildingFromBossThreat(
+  script: BossScriptDefinition,
+): number {
+  const passive = runBossHook(script, "threatPassiveHamlet", {
+    scriptId: script.id,
+    side: "hamlet",
+  }) as BossThreatPassiveHamletResult;
+  if (passive.status !== "ok" || passive.effect !== "creepingSicknessBuildingWounds") return 0;
+  return passive.woundsPerUnvisitedBuilding;
+}

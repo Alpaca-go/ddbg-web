@@ -13,6 +13,8 @@ import { usePilfer } from "./hamlet-pilfer";
 import {
   effectiveHamletSanitariumHealAmount,
   effectiveHamletStressRecoveryAmount,
+  applyBossThreatCreepingSicknessEndOfHamletDay,
+  transferCreepingSicknessBuildingWoundsToHero,
 } from "./boss/threat-passive-runtime";
 import { grantGraveyardVirtue } from "./hamlet-graveyard";
 import {
@@ -258,45 +260,50 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
           : 5
         : service.cost;
     if (d.gold < cost) return rejectBattleCommand(state, "共享金币不足，未支付或消耗行动");
+    const transferred = transferCreepingSicknessBuildingWoundsToHero(d, hero, service.building);
+    if (transferred.status === "refused") return rejectBattleCommand(state, transferred.reason);
+    next = transferred.dungeon;
+    updated = transferred.hero;
     if (service.effect === "virtue") {
       const gained = grantGraveyardVirtue(d, hero.id, state.seed);
       if (gained.status === "refused") return rejectBattleCommand(state, gained.reason);
       next = gained.dungeon;
       updated = next.heroes.find((a) => a.id === hero.id)!;
     } else if (service.effect === "provisions") {
-      const previous = hero.nextQuestProvisionDice === undefined ? 0 : hero.nextQuestProvisionDice;
+      const previous =
+        updated.nextQuestProvisionDice === undefined ? 0 : updated.nextQuestProvisionDice;
       if (
         !Number.isSafeInteger(previous) ||
         previous < 0 ||
         !Number.isSafeInteger(previous + service.amount)
       )
         return rejectBattleCommand(state, "下次任务奖励补给骰数量无效，未付款或消耗行动（R-041）");
-      updated = { ...hero, nextQuestProvisionDice: previous + service.amount };
+      updated = { ...updated, nextQuestProvisionDice: previous + service.amount };
     } else if (service.effect === "stress")
       updated = {
-        ...hero,
+        ...updated,
         stress: recoverStress(
-          hero,
-          effectiveHamletStressRecoveryAmount(d, service.building, service.amount),
+          updated,
+          effectiveHamletStressRecoveryAmount(next, service.building, service.amount),
         ),
       };
     else if (service.effect === "heal") {
-      if (!hero.attributesVerified || hero.life === undefined || hero.wounds === undefined)
+      if (!updated.attributesVerified || updated.life === undefined || updated.wounds === undefined)
         return rejectBattleCommand(state, "治疗缺已核实Life / 伤口（R-048）");
       const health = resolveHeroHealth(
-        { life: hero.life, wounds: hero.wounds, dead: false },
+        { life: updated.life, wounds: updated.wounds, dead: false },
         {
           type: "heal",
           amount: passiveHeal(
-            hero,
+            updated,
             service.building === "sanitarium"
-              ? effectiveHamletSanitariumHealAmount(d, service.amount)
+              ? effectiveHamletSanitariumHealAmount(next, service.amount)
               : service.amount,
           ),
         },
       );
       if (health.status !== "resolved") return rejectBattleCommand(state, "治疗状态无效（R29）");
-      updated = { ...hero, wounds: health.state.wounds };
+      updated = { ...updated, wounds: health.state.wounds };
     } else {
       const pool = d.conditions,
         problem = pool ? conditionPoolProblem(pool, d.heroes) : "缺疾病 / 怪癖池";
@@ -338,8 +345,11 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
     next = {
       ...next,
       gold: d.gold - cost,
-      heroes: d.heroes.map((a) => (a.id === hero.id ? syncHero(updated) : a)),
-      hamlet: { ...h, visitedBuildings: [...(h.visitedBuildings ?? []), service.building] },
+      heroes: next.heroes.map((a) => (a.id === hero.id ? syncHero(updated) : a)),
+      hamlet: {
+        ...(next.hamlet ?? h),
+        visitedBuildings: [...((next.hamlet ?? h).visitedBuildings ?? []), service.building],
+      },
     };
     message = `${hero.id}访问${service.building}，支付${cost}金币并完成一个选项（R33/34）`;
   }
@@ -350,6 +360,23 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
       pendingChoice: pending,
     };
   next = finishHamletAction(next, hero.id, endDay);
+  const hamletAfter = next.hamlet;
+  const dayEnded =
+    hamletAfter &&
+    (hamletAfter.phase === "awaitingCaretaker" || hamletAfter.phase === "preparationComplete");
+  if (dayEnded) {
+    const creeping = applyBossThreatCreepingSicknessEndOfHamletDay({ ...state, dungeon: next });
+    if (creeping.events.some((event) => event.type === "commandRefused")) {
+      const refused = creeping.events.find((event) => event.type === "commandRefused");
+      return rejectBattleCommand(state, refused?.message ?? "Creeping Sickness 日末结算失败");
+    }
+    next = creeping.state.dungeon!;
+    const events = [
+      { type: "dungeonUpdated" as const, message },
+      ...creeping.events,
+    ];
+    return { state: { ...state, dungeon: next }, events };
+  }
   return { state: { ...state, dungeon: next }, events: [{ type: "dungeonUpdated", message }] };
 }
 /** R26/R33：已付款并占用；选择仅收尾当前访问，不重抽、不重复收费。 */

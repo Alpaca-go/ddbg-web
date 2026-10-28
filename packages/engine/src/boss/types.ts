@@ -109,6 +109,22 @@ export type BossThreatPassiveHamletOk =
       readonly blockedBuildings: readonly ["nomadWagon"];
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
+      readonly effect: "blackSheepBeforeHamletEvent";
+      /** 揭示村庄事件前 d10 最低者承受的压力（The Black Sheep I 为 +4）。 */
+      readonly stressDelta: number;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
+      readonly effect: "creepingSicknessBuildingWounds";
+      /** 每日末未访问建筑累积的伤口代币数（Creeping Sickness I 为 1）。 */
+      readonly woundsPerUnvisitedBuilding: number;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
     };
 
 export type BossThreatPassiveDungeonResult = BossThreatPassiveDungeonOk | BossHookStubResult;

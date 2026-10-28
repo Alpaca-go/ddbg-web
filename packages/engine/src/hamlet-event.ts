@@ -18,6 +18,7 @@ import { applySupplyRun } from "./hamlet-supply-run";
 import { beginFeast } from "./hamlet-feast";
 import { applyLostShipment } from "./hamlet-lost-shipment";
 import { mergeHamletCaretakerBlockedWithBossThreat } from "./boss/threat-campaign";
+import { applyBossThreatBlackSheepBeforeHamletEvent } from "./boss/threat-passive-runtime";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;
 export type HamletEventState = {
@@ -43,6 +44,8 @@ export type HamletEventState = {
   readonly weekBlockedBuildings?: readonly string[];
   /** 当前事件尚未选择的英雄，与准备日行动分开。 */
   readonly eventRemainingHeroes?: readonly string[];
+  /** Flesh I Creeping Sickness：建筑上未转移的伤口代币（Hamlet 阶段结束清空）。 */
+  readonly buildingWounds?: Readonly<Partial<Record<string, number>>>;
 };
 function shuffle(ids: readonly string[], seed: number, cursor: number) {
   const rng = createRng(seed),
@@ -90,29 +93,39 @@ export function drawHamletEvent(state: GameState): ApplyResult {
     ? memory.deck.filter((id) => !memory.permanentlyRemoved.includes(id))
     : catalog.map((c) => c.id);
   if (!source.length) return rejectBattleCommand(state, "村庄事件牌堆已空，未抽牌（R32/33）");
+  const blackSheep = applyBossThreatBlackSheepBeforeHamletEvent(state);
+  if (blackSheep.events.some((event) => event.type === "commandRefused")) {
+    const refused = blackSheep.events.find((event) => event.type === "commandRefused");
+    return rejectBattleCommand(state, refused?.message ?? "The Black Sheep 压力结算失败");
+  }
+  state = blackSheep.state;
+  const blackSheepEvents = blackSheep.events;
+  const dAfterSheep = state.dungeon!;
   const drawn = memory
-      ? { deck: [...source], cursor: d.cursor }
-      : shuffle(source, state.seed, d.cursor),
+      ? { deck: [...source], cursor: dAfterSheep.cursor }
+      : shuffle(source, state.seed, dAfterSheep.cursor),
     id = drawn.deck.shift()!;
   const card = catalog.find((c) => c.id === id);
   if (!card) return rejectBattleCommand(state, "村庄事件卡缺失，未抽牌（R-048）");
   const implemented =
     card.runtime !== "unimplemented" && card.dayBadge.status === "confirmed" && card.days !== null;
   if (card.runtime === "removeDisease" || card.runtime === "removeQuirks") {
-    const problem = d.conditions ? conditionPoolProblem(d.conditions, d.heroes) : "缺疾病牌池";
-    if (problem || d.heroes.some((hero) => hero.dead))
+    const problem = dAfterSheep.conditions
+      ? conditionPoolProblem(dAfterSheep.conditions, dAfterSheep.heroes)
+      : "缺疾病牌池";
+    if (problem || dAfterSheep.heroes.some((hero) => hero.dead))
       return rejectBattleCommand(state, problem ?? "请先完成死亡英雄补位（R33）");
   }
   const candidates =
-    card.runtime === "removeDisease" ? d.heroes.filter((hero) => hero.diseaseId) : [];
+    card.runtime === "removeDisease" ? dAfterSheep.heroes.filter((hero) => hero.diseaseId) : [];
   const pending = candidates.length
     ? {
-        id: `hamlet-medical:${d.decision}`,
+        id: `hamlet-medical:${dAfterSheep.decision}`,
         actorId: "party",
         prompt: "Medical Breakthrough：队伍选择一名英雄，移除其疾病（卡面 p11）",
         options: candidates.map((hero) => ({
           id: hero.id,
-          label: `${hero.id}：移除 ${d.conditions!.diseases.find((disease) => disease.id === hero.diseaseId)!.name}`,
+          label: `${hero.id}：移除 ${dAfterSheep.conditions!.diseases.find((disease) => disease.id === hero.diseaseId)!.name}`,
         })),
       }
     : null;
@@ -146,7 +159,7 @@ export function drawHamletEvent(state: GameState): ApplyResult {
     blockedBuildings: [],
     heroOrder: [],
   };
-  const { hamletMemory: _memory, ...dungeonBase } = d;
+  const { hamletMemory: _memory, ...dungeonBase } = dAfterSheep;
   void _memory;
   if (deferred.includes(card.runtime)) {
     const apply =
@@ -176,7 +189,9 @@ export function drawHamletEvent(state: GameState): ApplyResult {
       dungeon: { ...dungeonBase, cursor: drawn.cursor, hamlet },
     });
     const refused = result.events.find((event) => event.type === "commandRefused");
-    return refused ? rejectBattleCommand(state, refused.message) : result;
+    return refused
+      ? rejectBattleCommand(state, refused.message)
+      : { ...result, events: [...blackSheepEvents, ...result.events] };
   }
   return {
     state: {
@@ -185,10 +200,11 @@ export function drawHamletEvent(state: GameState): ApplyResult {
         ...dungeonBase,
         cursor: returned.cursor,
         hamlet,
-        ...(pending ? { pending, decision: d.decision + 1 } : {}),
+        ...(pending ? { pending, decision: dAfterSheep.decision + 1 } : {}),
       },
     },
     events: [
+      ...blackSheepEvents,
       {
         type: "dungeonUpdated",
         message: ready

@@ -4,7 +4,7 @@ import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./
 import type {
   BossScriptDefinition,
   BossThreatPassiveDungeonOk,
-  BossThreatPassiveHamletResult,
+  BossThreatPassiveHamletOk,
 } from "./types";
 
 /** 引擎脚本 id；与印刷卡 id 分离。 */
@@ -41,10 +41,12 @@ const dungeonThreatPassive = (): BossThreatPassiveDungeonOk => ({
   rulesRef: ["R11", "spec:§2.3", FLESH_I_COMBAT_ABILITY_CARD_ID],
 });
 
-const hamletThreatPassive = (): BossThreatPassiveHamletResult => ({
-  status: "stub",
-  message: "Flesh I：Creeping Sickness I（未访建筑累积 Wound、访问时转移）村庄威胁未接线",
-  hold: `${FLESH_I_COMBAT_ABILITY_CARD_ID} / Creeping Sickness I`,
+const hamletThreatPassive = (): BossThreatPassiveHamletOk => ({
+  status: "ok",
+  effect: "creepingSicknessBuildingWounds",
+  woundsPerUnvisitedBuilding: 1,
+  sourceAbilityCardId: FLESH_I_COMBAT_ABILITY_CARD_ID,
+  rulesRef: ["R11", "R32", FLESH_I_COMBAT_ABILITY_CARD_ID],
 });
 
 export const fleshIBossScript: BossScriptDefinition = {

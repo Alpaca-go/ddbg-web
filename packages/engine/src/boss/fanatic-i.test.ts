@@ -16,7 +16,7 @@ import {
   readBossCombatEntry,
   runBossHook,
 } from "./index";
-import { hamletBuildingsBlockedByBossThreat } from "./threat-passive";
+import { hamletBuildingsBlockedByBossThreat, blackSheepStressDeltaFromBossThreat } from "./threat-passive";
 import { resolveScriptIdForDescriptionCard } from "./threat-description-catalog";
 
 describe("Fanatic I Boss 脚本", () => {
@@ -54,13 +54,19 @@ describe("Fanatic I Boss 脚本", () => {
     });
   });
 
-  it("村庄侧威胁：The Black Sheep 仍为 stub（事件前 d10 最低 +4 压力未接线）", () => {
+  it("村庄侧威胁：The Black Sheep 声明事件前 d10 最低 +4 压力", () => {
     const script = getBossScript(FANATIC_I_SCRIPT_ID)!;
     const passive = runBossHook(script, "threatPassiveHamlet", {
       scriptId: FANATIC_I_SCRIPT_ID,
       side: "hamlet",
     });
-    expect(passive.status).toBe("stub");
+    expect(passive).toMatchObject({
+      status: "ok",
+      effect: "blackSheepBeforeHamletEvent",
+      stressDelta: 4,
+      sourceAbilityCardId: FANATIC_I_COMBAT_ABILITY_CARD_ID,
+    });
+    expect(blackSheepStressDeltaFromBossThreat(script)).toBe(4);
     expect(hamletBuildingsBlockedByBossThreat(FANATIC_I_SCRIPT_ID, script)).toEqual([]);
   });
 

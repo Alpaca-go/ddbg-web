@@ -22,7 +22,7 @@
 | 战斗怪物 | `monster_large:p008`（Fanatic I · Human · Front · Large） |
 | Pyre（战斗布置 hold） | `monster_large:p011`（常量导出，不进 `combatEntry`） |
 | 地牢威胁 | **Marked for Death I**：开战全体 d10、最低 +2 压力 → **钩子 stub**（无 `stressOnBattleStart` 原语） |
-| 村庄威胁 | **The Black Sheep I**：揭示事件前全体 d10、最低 +4 压力 → **钩子 stub**（无 hamlet 事件原语） |
+| 村庄威胁 | **The Black Sheep I**：揭示事件前全体 d10、最低 +4 压力 → **已接**（`drawHamletEvent` / `phase5-threat-passive-runtime-2026-10-28.md`） |
 | 先攻 / 行动 | 先攻 4（Fanatic 3 + Pyre 1，spec §14.5）、`ACTIONS / Round: 3`（卡面 extract） |
 | 仍 stub | `faceTheThreatEmbark`、`bossSlotPlacement`、`summon`（Pyre 远程 + Sentence Rendered） |
 
