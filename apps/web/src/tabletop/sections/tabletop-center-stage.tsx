@@ -11,6 +11,7 @@ import {
 } from "../../card-art/resolve-exploration-art";
 import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
 import { AssetPlaceholder } from "../asset-placeholder";
+import { TabletopProvisionPlayerAid } from "./tabletop-provision-player-aid";
 import { HAMLET_BUILDING_MARKERS } from "../hamlet-building-markers";
 import { TabletopRasterImage } from "../tabletop-raster-image";
 import { TabletopCardStack } from "../tabletop-card-stack";
@@ -152,19 +153,24 @@ export function TabletopExpeditionCenterStage({
             <CoreboxPrintCardFace deck="quest" cardId="quest:p002" label="任务卡候选 B" size="sm" />
           </button>
         </div>
-        <div className="tt-embark-map">
-          {mapArt ? (
-            <ExplorationArtImage
-              entry={mapArt}
-              alt=""
-              className="tt-embark-map__img"
-              testId="tabletop-embark-quest-map"
-            />
-          ) : (
-            <AssetPlaceholder assetType="quest_map" label="QuestMap 预览" />
-          )}
+        <div className="tt-embark-map-row">
+          <TabletopProvisionPlayerAid testId="tabletop-embark-provision-aid" />
+          <div className="tt-embark-map">
+            {mapArt ? (
+              <ExplorationArtImage
+                entry={mapArt}
+                alt=""
+                className="tt-embark-map__img"
+                testId="tabletop-embark-quest-map"
+              />
+            ) : (
+              <AssetPlaceholder assetType="quest_map" label="QuestMap 预览" />
+            )}
+          </div>
         </div>
-        <p className="tt-center-caption muted">2 张任务卡并排 + QuestMap 预览</p>
+        <p className="tt-center-caption muted">
+          2 张任务卡并排 · 补给参考卡 · QuestMap 预览
+        </p>
       </div>
       <div className="tt-map__stacks tt-map__stacks--explore">
         <TabletopCardStack label="任务" count={8} aspect="room" testId="tabletop-deck-quest" />
@@ -257,6 +263,7 @@ export function TabletopDungeonCenterStage({
       </div>
       {showDeckStacks && (
         <div className="tt-map__stacks tt-map__stacks--explore">
+          <TabletopProvisionPlayerAid testId="tabletop-dungeon-provision-aid" />
           <TabletopCardStack label="房间" count={12} aspect="room" testId="tabletop-deck-room" />
           <TabletopCardStack
             label="怪物"
