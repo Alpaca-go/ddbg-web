@@ -13,11 +13,53 @@ export type BossBattleRules = {
   readonly campaignFailOnPartyWipe: boolean;
 };
 
+export type BossThreatPassiveDungeonOk = {
+  readonly status: "ok";
+  readonly effect: "afterBattleRemoveNonUnholyMonstersPermanently";
+  readonly sourceAbilityCardId: string;
+  readonly rulesRef: readonly string[];
+};
+
+export type BossThreatPassiveHamletOk = {
+  readonly status: "ok";
+  readonly effect: "graveyardBlocked";
+  readonly blockedBuildings: readonly ["graveyard"];
+  readonly sourceAbilityCardId: string;
+  readonly rulesRef: readonly string[];
+};
+
+export type BossThreatPassiveDungeonResult = BossThreatPassiveDungeonOk | BossHookStubResult;
+export type BossThreatPassiveHamletResult = BossThreatPassiveHamletOk | BossHookStubResult;
+
+export type BossSummonPlacement = "targetArea" | "stanceArea";
+
+export type BossSummonOk = BossHookOk<{
+  readonly summonMonsterCardId: string;
+  readonly miniaturePlacement: BossSummonPlacement;
+  readonly rulesRef: readonly string[];
+}>;
+
+export type BossSummonResult = BossSummonOk | BossHookStubResult;
+
+export type BossCombatEntryRefs = {
+  readonly descriptionAbilityCardId: string;
+  readonly combatAbilityCardId: string;
+  readonly combatMonsterCardId: string;
+  readonly printedInitiativeCards: number;
+  readonly printedActionsPerRound: number;
+};
+
 export type BossScriptHooks = {
   /** Boss Abilities 威胁面 · 地牢侧（R11、R35）。 */
-  readonly threatPassiveDungeon?: BossHookHandler<BossThreatPassiveContext, BossHookStubResult>;
+  readonly threatPassiveDungeon?: BossHookHandler<
+    BossThreatPassiveContext,
+    BossThreatPassiveDungeonResult
+  >;
   /** Boss Abilities 威胁面 · 村庄侧；升幕 / Imminent Threat hold。 */
-  readonly threatPassiveHamlet?: BossHookHandler<BossThreatPassiveContext, BossHookStubResult>;
+  readonly threatPassiveHamlet?: BossHookHandler<
+    BossThreatPassiveContext,
+    BossThreatPassiveHamletResult
+  >;
   /** Face the Threat / Boss 任务出征或进幕（p019 等）。 */
   readonly faceTheThreatEmbark?: BossHookHandler<BossFaceTheThreatContext, BossHookStubResult>;
   /** R36 / R-121：目标 + 2 随机非目标入 Boss 三格；布置 hold。 */
@@ -28,7 +70,7 @@ export type BossScriptHooks = {
     BossHookOk<number> | BossHookStubResult
   >;
   /** R31 / R11 召唤；姿态轨、先攻等 hold。 */
-  readonly summon?: BossHookHandler<BossSummonContext, BossHookStubResult>;
+  readonly summon?: BossHookHandler<BossSummonContext, BossSummonResult>;
 };
 
 export type BossScriptDefinition = {
@@ -36,6 +78,8 @@ export type BossScriptDefinition = {
   readonly displayName: string;
   readonly rules: BossBattleRules;
   readonly hooks: BossScriptHooks;
+  /** 战斗卡 / Boss Abilities 印刷 id；encounter 部署 hold。 */
+  readonly combatEntry?: BossCombatEntryRefs;
   /** 可选：关联任务卡；完整映射待 Kyries 确认。 */
   readonly questIds?: readonly BasicQuestId[];
   readonly notes?: string;
