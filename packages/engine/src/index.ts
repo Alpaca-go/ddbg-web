@@ -180,6 +180,7 @@ export {
 } from "./hamlet-buildings";
 export {
   bossQuestScriptId,
+  faceTheThreatBossScriptByCampaignLevel,
   cardIdsPermanentlyRemovedAfterBattle,
   clearBossScriptsForTest,
   DEFAULT_BOSS_BATTLE_RULES,
@@ -216,6 +217,7 @@ export type {
   BossHookName,
   BossHookOk,
   BossHookStubResult,
+  BossQuestScriptContext,
   BossScriptDefinition,
   BossScriptHooks,
   BossScriptId,

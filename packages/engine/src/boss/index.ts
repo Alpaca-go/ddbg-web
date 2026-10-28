@@ -56,7 +56,9 @@ export {
 } from "./encounter-rules";
 export {
   bossQuestScriptId,
+  faceTheThreatBossScriptByCampaignLevel,
   FACE_THE_THREAT_QUEST_ID,
   isBossQuestId,
   resolveBossScriptIdForQuest,
 } from "./quest-bridge";
+export type { BossQuestScriptContext } from "./quest-bridge";

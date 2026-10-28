@@ -9,11 +9,13 @@ import {
   bossQuestScriptId,
   clearBossScriptsForTest,
   encounterForcesRetreatAfterRound,
+  ensureCoreBossScriptsRegistered,
   FACE_THE_THREAT_QUEST_ID,
   FIXTURE_BOSS_COMBAT_MONSTER_CARD_ID,
   FIXTURE_BOSS_SCRIPT_ID,
   fixtureBossSkeletonScript,
   isBossEncounter,
+  NECROMANCER_I_COMBAT_MONSTER_CARD_ID,
   registerBossScript,
   resolveEncounterBossBattleRules,
 } from "./index";
@@ -92,9 +94,10 @@ function sandboxBattle(
   };
 }
 
-function bossQuestDungeon(): GameState["dungeon"] {
+function bossQuestDungeon(campaignLevel: 1 | 2 | 3 = 1): GameState["dungeon"] {
   return {
     questDistribution: { questId: FACE_THE_THREAT_QUEST_ID, counts: [] },
+    campaignLevel,
   } as unknown as GameState["dungeon"];
 }
 
@@ -155,12 +158,25 @@ describe("encounter 轮数撤退与 Boss 规则", () => {
     expect(isBossEncounter(finished)).toBe(true);
   });
 
+  it("生产路径：Face the Threat I 级 + Necromancer 战斗卡注册脚本时不触发第 4 轮撤退", () => {
+    ensureCoreBossScriptsRegistered();
+    const initial = sandboxBattle(
+      0,
+      [{ monsterCardId: NECROMANCER_I_COMBAT_MONSTER_CARD_ID }],
+      bossQuestDungeon(1),
+    );
+    expect(resolveEncounterBossBattleRules(initial)?.countsRounds).toBe(false);
+    const finished = playThroughRoundFour(initial);
+    expect(finished.battle!.encounter!.round).toBeGreaterThan(4);
+    expect(isBossEncounter(finished)).toBe(true);
+  });
+
   it("Boss 任务但未映射脚本：仍按普通第 4 轮撤退", () => {
     const finished = playThroughRoundFour(
       sandboxBattle(
         0,
         [{ monsterCardId: FIXTURE_BOSS_COMBAT_MONSTER_CARD_ID }],
-        bossQuestDungeon(),
+        bossQuestDungeon(2),
       ),
     );
     expect(finished.battle!.encounter!.round).toBe(4);

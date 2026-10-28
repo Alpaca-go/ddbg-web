@@ -1,5 +1,6 @@
 import type { GameState } from "../command";
 import { readBossCombatEntry } from "./combat-entry";
+import { ensureCoreBossScriptsRegistered } from "./necromancer-i";
 import { getBossScript } from "./registry";
 import { encounterRoundRetreatLimit } from "./rules";
 import { isBossQuestId, resolveBossScriptIdForQuest } from "./quest-bridge";
@@ -24,9 +25,10 @@ function deployedMonsterCardIds(state: GameState): readonly string[] {
  * Boss 任务但未映射脚本 / 非 Boss 怪物遭遇：仍走普通第 4 轮撤退（quest→Boss 映射待 Kyries）。
  */
 export function resolveEncounterBossBattleRules(state: GameState): BossBattleRules | undefined {
+  ensureCoreBossScriptsRegistered();
   const questId = state.dungeon?.questDistribution?.questId;
   if (!questId || !isBossQuestId(questId)) return undefined;
-  const scriptId = resolveBossScriptIdForQuest(questId);
+  const scriptId = resolveBossScriptIdForQuest(questId, state.dungeon);
   if (!scriptId) return undefined;
   const script = getBossScript(scriptId);
   const bossCardId = readBossCombatEntry(script)?.combatMonsterCardId;
