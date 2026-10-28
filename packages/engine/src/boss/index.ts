@@ -39,6 +39,15 @@ export {
   tavernStressRecoveryDeltaFromBossThreat,
 } from "./threat-passive";
 export {
+  completeCurioRoomWithoutCurioDraw,
+  effectiveHamletSanitariumHealAmount,
+  effectiveHamletStressRecoveryAmount,
+  monsterCombatThreatDamageBonus,
+  monsterThreatFlatDamageBonus,
+  readActiveBossThreatScript,
+  shouldSkipCurioDrawInCurioRoom,
+} from "./threat-passive-runtime";
+export {
   applyBossThreatAfterBattleToPool,
   bossThreatClearHoldReason,
   bossThreatHamletBlockedBuildings,

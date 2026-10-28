@@ -6,6 +6,7 @@ import { createRng } from "./rng";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { drawDungeonCurio } from "./dungeon-curio";
 import { triggerDungeonPassive } from "./dungeon-passive";
+import { applyBossThreatStressOnProvisionUse } from "./boss/threat-passive-runtime";
 import { resolveDungeonTrap } from "./dungeon-trap";
 import { changeDungeonLight } from "./dungeon-light";
 import { PROVISION_FACES } from "./loot";
@@ -269,7 +270,9 @@ export function applyDungeonExploration(
       roll.id,
       `${roll.heroId} 使用补给抵消 ${faceLabels[roll.face]}；弃掉 ${id}（R12、R14）`,
     );
-    return { ...completed, events: [...events, ...completed.events] };
+    const merged = { ...completed, events: [...events, ...completed.events] };
+    const threat = applyBossThreatStressOnProvisionUse(merged.state, roll.heroId);
+    return { ...threat, events: [...merged.events, ...threat.events] };
   }
   const hero = d.heroes.find((h) => h.id === roll.heroId)!;
   let changed = d;

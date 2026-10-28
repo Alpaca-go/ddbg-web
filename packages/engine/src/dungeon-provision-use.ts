@@ -8,6 +8,7 @@ import { statusProjection, statusStackProblem } from "./status";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import { settleDungeonLight, useDungeonTorch } from "./dungeon-light";
 import { dungeonProvisionWindow } from "./dungeon-provision-window";
+import { applyBossThreatStressOnProvisionUse } from "./boss/threat-passive-runtime";
 
 /** R12 / 规格书§5.2：完成效果之间使用补给；各颗是独立事件，不套Q-69休息分组。 */
 export function useDungeonProvision(state: GameState, command: UseProvisionCommand): ApplyResult {
@@ -124,13 +125,19 @@ export function useDungeonProvision(state: GameState, command: UseProvisionComma
   }
   const settled = settleDungeonLight(result);
   if (settled.events.some((e) => e.type === "commandRefused")) return settled;
+  const threat = applyBossThreatStressOnProvisionUse(settled.state, target.id);
+  if (threat.events.some((e) => e.type === "commandRefused")) return threat;
+  const merged = {
+    ...threat,
+    events: [...settled.events, ...threat.events],
+  };
   return {
-    ...settled,
+    ...merged,
     state: {
-      ...settled.state,
+      ...merged.state,
       dungeon: {
-        ...settled.state.dungeon!,
-        heroes: settled.state.dungeon!.heroes.map((h) => {
+        ...merged.state.dungeon!,
+        heroes: merged.state.dungeon!.heroes.map((h) => {
           if (!h.combat) return h;
           const stacks = h.statusStacks ?? h.combat.statusStacks;
           return {

@@ -4,6 +4,7 @@ import { nextProvisionFace, PROVISION_FACES, PROVISION_LABELS } from "./loot";
 import type { ProvisionFace } from "./loot";
 import { beginTravelingMerchantsChoice } from "./hamlet-traveling-merchants";
 import { beginScoutAheadReveal, scoutAheadPlanProblem } from "./hamlet-scout-ahead";
+import { applyBossThreatStressOnDungeonEntry } from "./boss/threat-passive-runtime";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 
@@ -209,7 +210,17 @@ export function setupDungeonProvisions(
       ],
     };
     const revealed = beginScoutAheadReveal(ready.state);
-    return { ...revealed, events: [...ready.events, ...revealed.events] };
+    const entryThreat = applyBossThreatStressOnDungeonEntry(revealed.state);
+    if (entryThreat.events.some((e) => e.type === "commandRefused")) {
+      return {
+        ...entryThreat,
+        events: [...ready.events, ...revealed.events, ...entryThreat.events],
+      };
+    }
+    return {
+      ...entryThreat,
+      events: [...ready.events, ...revealed.events, ...entryThreat.events],
+    };
   };
   const provisions = d.explorationSetup.provisions;
   if (command.type === "rollDungeonProvisions") {

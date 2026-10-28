@@ -27,7 +27,7 @@
 | 项 | 说明 |
 | --- | --- |
 | Cove Boss **extract JSON** 与占位 id 对齐 PDF 页序 | 当前 id 按 `boss_ability:cove:siren:p00x` / `monster_large:cove:siren:p001` 约定 |
-| Eldritch +2 伤害、修道院封锁 **写入** encounter / hamlet-actions | helper 仅返回值 |
+| Eldritch +2 伤害、修道院封锁 **写入** encounter / hamlet-actions | **已接**（`battle-monster*` / `threat-campaign` KNOWN 含 abbey） |
 | Song of Desire 魅惑、High Tide 召唤 Pelagic 完整 AI | `summon` stub |
 | Cove 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
 | quest / Face the Threat → Siren | `faceTheThreatEmbark` stub |

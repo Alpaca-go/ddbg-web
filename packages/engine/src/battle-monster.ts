@@ -6,6 +6,7 @@ import { playMonsterSkillTargets } from "./battle-monster-targets";
 import { readPrintedTargets } from "./hero-skill";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent, PendingChoice } from "./command";
 import { nextBattleRoll, newlyDefeatedIds, recordMonsterSkill } from "./encounter";
+import { monsterCombatThreatDamageBonus } from "./boss/threat-passive-runtime";
 import {
   needsMonsterSkillShuffleChoice,
   resolveMonsterSkill,
@@ -99,6 +100,7 @@ export function playMonsterSkill(
       )
       .map((entry) => ({ ...entry, stress: entry.stress! })),
     ...(command.shuffleChoice === undefined ? {} : { shuffleChoice: command.shuffleChoice }),
+    threatFlatDamageBonus: monsterCombatThreatDamageBonus(state.dungeon, card),
   };
   const needsChoice =
     command.shuffleChoice === undefined && needsMonsterSkillShuffleChoice(card, command.skillSlot);

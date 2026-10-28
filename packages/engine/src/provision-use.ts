@@ -7,6 +7,7 @@ import { passiveHeal, passiveStress } from "./passive";
 import { triggerBattlePassive } from "./battle-passive";
 import { resolveBattlePressure } from "./pressure";
 import { removeCasualties, endAfterCasualties, newlyDefeatedIds, finishTurn } from "./encounter";
+import { applyBossThreatStressOnProvisionUse } from "./boss/threat-passive-runtime";
 
 export type ProvisionEffect = "heal" | "clearBleed" | "clearBlight" | "reduceStress" | "raiseLight";
 export type UseProvisionCommand = {
@@ -149,5 +150,7 @@ export function useProvision(state: GameState, command: UseProvisionCommand): Ap
     removed.state.battle!.entities.find((e) => e.id === turn.actorId)!.dead
   )
     return finishTurn(removed.state, turn.actorId, removed.events);
-  return removed;
+  const threat = applyBossThreatStressOnProvisionUse(removed.state, target.id);
+  if (threat.events.some((e) => e.type === "commandRefused")) return threat;
+  return { ...threat, events: [...removed.events, ...threat.events] };
 }

@@ -28,7 +28,7 @@
 | --- | --- |
 | Weald Boss **extract JSON** 与占位 id 对齐 PDF 页序 | 当前 id 按 `boss_ability:weald:hag:p00x` / `monster_large:weald:hag:p001` 约定 |
 | **Cauldron** 能力卡（42418）与 Empty/Full 战斗卡（54212） | `summon` stub；不进 `combatEntry` |
-| 进地牢被动、疗养院 −3 Life **写入** runtime | helper 仅返回值 |
+| 进地牢被动、疗养院 −3 Life **写入** runtime | **已接**（`threat-passive-runtime` / `hamlet-actions` / 补给消耗） |
 | Weald 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
 | quest / Face the Threat → Hag | `faceTheThreatEmbark` stub |
 | **R-121** Boss 位 | `bossSlotPlacement` stub |

@@ -9,6 +9,7 @@ import { resolveDungeonPressure } from "./dungeon-pressure";
 import type { ProvisionFace } from "./loot";
 import { chooseTrinket } from "./trinket-acquisition";
 import { resolveCurioRows as resolveDungeonCurio } from "./dungeon-curio-effects";
+import { applyBossThreatStressOnProvisionUse } from "./boss/threat-passive-runtime";
 export { resolveDungeonCurio };
 
 const refuse = (state: GameState, message: string): ApplyResult => ({
@@ -140,7 +141,7 @@ export function drawDungeonCurio(state: GameState, rollId: string, optionId: str
       prompt: "选择处理已揭示房间 Curio 的英雄（R15）",
       options: d.heroes.filter((h) => !h.dead).map((h) => ({ id: h.id, label: h.id })),
     };
-    return {
+    let result: ApplyResult = {
       ...drawn,
       state: {
         ...drawn.state,
@@ -149,8 +150,18 @@ export function drawDungeonCurio(state: GameState, rollId: string, optionId: str
       events: [...beforeEvents, ...drawn.events],
       pendingChoice: pending,
     };
+    if (protectedCard && heroId) {
+      const threat = applyBossThreatStressOnProvisionUse(result.state, heroId);
+      result = { ...threat, events: [...result.events, ...threat.events] };
+    }
+    return result;
   }
-  return { ...drawn, events: [...beforeEvents, ...drawn.events] };
+  let result: ApplyResult = { ...drawn, events: [...beforeEvents, ...drawn.events] };
+  if (protectedCard && heroId) {
+    const threat = applyBossThreatStressOnProvisionUse(result.state, heroId);
+    result = { ...threat, events: [...result.events, ...threat.events] };
+  }
+  return result;
 }
 
 /** R12 / R18：Wild 的决定沿用已掷骰，整卡奖励在选择完成后提交一次。 */
