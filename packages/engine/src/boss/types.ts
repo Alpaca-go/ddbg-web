@@ -57,6 +57,12 @@ export type BossThreatPassiveDungeonOk =
       readonly guardTurns: number;
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
+      readonly effect: "skipCurioDrawInCurioRooms";
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
     };
 
 export type BossThreatPassiveHamletOk =
@@ -94,6 +100,13 @@ export type BossThreatPassiveHamletOk =
       readonly status: "ok";
       readonly effect: "abbeyBlocked";
       readonly blockedBuildings: readonly ["abbey"];
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
+      readonly effect: "nomadWagonBlocked";
+      readonly blockedBuildings: readonly ["nomadWagon"];
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];
     };

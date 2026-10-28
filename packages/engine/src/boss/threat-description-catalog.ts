@@ -24,6 +24,10 @@ import {
   SIREN_I_DESCRIPTION_ABILITY_CARD_ID,
   SIREN_I_SCRIPT_ID,
 } from "./siren-i";
+import {
+  COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
+  COLLECTOR_I_SCRIPT_ID,
+} from "./collector-i";
 import { getBossScript, listBossScripts } from "./registry";
 import type { BossScriptId } from "./types";
 
@@ -228,6 +232,9 @@ export function resolveScriptIdForDescriptionCard(
   }
   if (descriptionCardId === PROPHET_I_DESCRIPTION_ABILITY_CARD_ID) {
     return PROPHET_I_SCRIPT_ID;
+  }
+  if (descriptionCardId === COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID) {
+    return COLLECTOR_I_SCRIPT_ID;
   }
   if (descriptionCardId === HAG_I_DESCRIPTION_ABILITY_CARD_ID) {
     return HAG_I_SCRIPT_ID;

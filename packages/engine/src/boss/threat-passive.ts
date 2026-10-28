@@ -47,11 +47,21 @@ export function hamletBuildingsBlockedByBossThreat(
   if (
     passive.effect === "graveyardBlocked" ||
     passive.effect === "survivalistBlocked" ||
-    passive.effect === "abbeyBlocked"
+    passive.effect === "abbeyBlocked" ||
+    passive.effect === "nomadWagonBlocked"
   ) {
     return passive.blockedBuildings;
   }
   return [];
+}
+
+/** Curio 房间是否禁止抽 Curio 卡（地牢侧威胁）；未接线 curio-room 管线时供调用方查询。 */
+export function skipCurioDrawInCurioRoomsFromBossThreat(script: BossScriptDefinition): boolean {
+  const passive = runBossHook(script, "threatPassiveDungeon", {
+    scriptId: script.id,
+    side: "dungeon",
+  });
+  return passive.status === "ok" && passive.effect === "skipCurioDrawInCurioRooms";
 }
 
 /** Beast 类型怪物伤害修正（地牢侧威胁）；未接线 encounter 时供调用方合并。 */
