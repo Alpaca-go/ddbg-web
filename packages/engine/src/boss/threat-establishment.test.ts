@@ -4,7 +4,10 @@ import type { Command, GameState } from "../command";
 import {
   NECROMANCER_I_DESCRIPTION_ABILITY_CARD_ID,
   NECROMANCER_I_SCRIPT_ID,
+  PROPHET_I_DESCRIPTION_ABILITY_CARD_ID,
+  PROPHET_I_SCRIPT_ID,
   ensureNecromancerIBossScriptRegistered,
+  ensureProphetIBossScriptRegistered,
   establishImminentThreat,
   resolveBossScriptIdForQuest,
   FACE_THE_THREAT_QUEST_ID,
@@ -35,6 +38,7 @@ function drawnDescription(seed: number): string {
 describe("定威胁 / Imminent Threat 正式流程", () => {
   beforeEach(() => {
     ensureNecromancerIBossScriptRegistered();
+    ensureProphetIBossScriptRegistered();
   });
 
   it("战役开局 establishImminentThreat 确定性抽牌并写入描述卡 id", () => {
@@ -60,15 +64,28 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     expect(game.dungeon!.unregisteredImminentThreatHold).toBeUndefined();
   });
 
-  it("抽到未注册 Boss 时记录 hold，不写入 activeBossThreatScriptId", () => {
+  it("抽到已注册 Prophet I 时挂接 activeBossThreatScriptId（无 graveyard 封锁）", () => {
     let prophetSeed: number | undefined;
     for (let seed = 0; seed < 500 && prophetSeed === undefined; seed++) {
-      if (drawnDescription(seed) === RUINS_BOSS_DESCRIPTION_CARD_ID.prophet[1]) prophetSeed = seed;
+      if (drawnDescription(seed) === PROPHET_I_DESCRIPTION_ABILITY_CARD_ID) prophetSeed = seed;
     }
     expect(prophetSeed).toBeDefined();
     const game = ok(baseQuest(prophetSeed!), { type: "establishImminentThreat" });
+    expect(game.dungeon!.activeBossThreatScriptId).toBe(PROPHET_I_SCRIPT_ID);
+    expect(game.dungeon!.unregisteredImminentThreatHold).toBeUndefined();
+    expect(bossThreatHamletBlockedBuildings(game.dungeon!)).not.toContain("graveyard");
+  });
+
+  it("抽到未注册 Boss 时记录 hold，不写入 activeBossThreatScriptId", () => {
+    let collectorSeed: number | undefined;
+    for (let seed = 0; seed < 500 && collectorSeed === undefined; seed++) {
+      if (drawnDescription(seed) === RUINS_BOSS_DESCRIPTION_CARD_ID.collector[1])
+        collectorSeed = seed;
+    }
+    expect(collectorSeed).toBeDefined();
+    const game = ok(baseQuest(collectorSeed!), { type: "establishImminentThreat" });
     expect(game.dungeon!.activeBossThreatScriptId).toBeUndefined();
-    expect(game.dungeon!.unregisteredImminentThreatHold).toMatch(/prophet/);
+    expect(game.dungeon!.unregisteredImminentThreatHold).toMatch(/collector/);
     expect(bossThreatHamletBlockedBuildings(game.dungeon!)).not.toContain("graveyard");
   });
 

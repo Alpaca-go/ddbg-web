@@ -13,20 +13,37 @@ export type BossBattleRules = {
   readonly campaignFailOnPartyWipe: boolean;
 };
 
-export type BossThreatPassiveDungeonOk = {
-  readonly status: "ok";
-  readonly effect: "afterBattleRemoveNonUnholyMonstersPermanently";
-  readonly sourceAbilityCardId: string;
-  readonly rulesRef: readonly string[];
-};
+export type BossThreatPassiveDungeonOk =
+  | {
+      readonly status: "ok";
+      readonly effect: "afterBattleRemoveNonUnholyMonstersPermanently";
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
+      readonly effect: "stressOnDungeonEntryPerHero";
+      readonly stressDelta: number;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    };
 
-export type BossThreatPassiveHamletOk = {
-  readonly status: "ok";
-  readonly effect: "graveyardBlocked";
-  readonly blockedBuildings: readonly ["graveyard"];
-  readonly sourceAbilityCardId: string;
-  readonly rulesRef: readonly string[];
-};
+export type BossThreatPassiveHamletOk =
+  | {
+      readonly status: "ok";
+      readonly effect: "graveyardBlocked";
+      readonly blockedBuildings: readonly ["graveyard"];
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
+      readonly effect: "tavernStressRecoveryDelta";
+      /** 酒馆减压服务有效恢复量的修正（印刷卡常为 −1）。 */
+      readonly recoveryDelta: number;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    };
 
 export type BossThreatPassiveDungeonResult = BossThreatPassiveDungeonOk | BossHookStubResult;
 export type BossThreatPassiveHamletResult = BossThreatPassiveHamletOk | BossHookStubResult;

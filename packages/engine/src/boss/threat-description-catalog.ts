@@ -4,6 +4,10 @@ import {
   NECROMANCER_I_DESCRIPTION_ABILITY_CARD_ID,
   NECROMANCER_I_SCRIPT_ID,
 } from "./necromancer-i";
+import {
+  PROPHET_I_DESCRIPTION_ABILITY_CARD_ID,
+  PROPHET_I_SCRIPT_ID,
+} from "./prophet-i";
 import { getBossScript, listBossScripts } from "./registry";
 import type { BossScriptId } from "./types";
 
@@ -73,6 +77,9 @@ export function resolveScriptIdForDescriptionCard(
 ): BossScriptId | undefined {
   if (descriptionCardId === NECROMANCER_I_DESCRIPTION_ABILITY_CARD_ID) {
     return NECROMANCER_I_SCRIPT_ID;
+  }
+  if (descriptionCardId === PROPHET_I_DESCRIPTION_ABILITY_CARD_ID) {
+    return PROPHET_I_SCRIPT_ID;
   }
   ensureCoreBossScriptsRegistered();
   for (const script of listBossScripts()) {
