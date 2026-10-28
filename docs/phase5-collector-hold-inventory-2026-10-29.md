@@ -1,6 +1,6 @@
 # Phase 5：Collector / 定威胁 hold 清点（2026-10-29）
 
-> **范围**：Kyries 批准切片——盘点 Boss 脚本 hold + 落地 **Collector I**（`boss:ruins:collector:1`）。  
+> **范围**：Kyries 批准切片——盘点 Boss 脚本 hold + 落地 **Collector I**（`boss:ruins:collector:1`）；**Fanatic I** 见 [phase5-fanatic-i-script-2026-10-28.md](./phase5-fanatic-i-script-2026-10-28.md)。  
 > **不做**：R-121/122 全面收、Phase 6、II/III 全量、扩展包 Boss。  
 > **规则来源**：R-001；卡面 id 以 `packages/data/extract/corebox/raw/boss_ability.json` / normalized monster 为准（R-048）。
 
@@ -25,7 +25,8 @@
 | --- | --- | --- |
 | `boss:ruins:necromancer:1` | Ruins | `boss_ability:p001` |
 | `boss:ruins:prophet:1` | Ruins | `boss_ability:p007` |
-| `boss:ruins:collector:1` | Ruins | `boss_ability:p013` **（本 PR）** |
+| `boss:ruins:collector:1` | Ruins | `boss_ability:p013` **（Collector PR）** |
+| `boss:ruins:fanatic:1` | Ruins | `boss_ability:p019` **（Fanatic PR）** |
 | `boss:weald:hag:1` | Weald | `boss_ability:weald:hag:p001` |
 | `boss:warrens:swine_prince:1` | Warrens | `boss_ability:warrens:swine_prince:p001` |
 | `boss:warrens:flesh:1` | Warrens | `boss_ability:warrens:flesh:p001` |
@@ -35,8 +36,7 @@
 
 | Boss | CL I/II/III 描述卡 id | 状态 |
 | --- | --- | --- |
-| Fanatic | `p019` / `p020` / `p021` | **无脚本** → 抽到仍 hold |
-| Necromancer / Prophet / Collector | `p00x` | I 已注册；**II/III 无脚本**（升幕抽牌可抽到 `p002`/`p003` 等，仍 hold） |
+| Necromancer / Prophet / Collector / Fanatic | `p00x` | **I 已注册**；**II/III 无脚本**（升幕抽牌可抽到 `p002`/`p003` 等，仍 hold） |
 
 文案模板：`threat-description-catalog.unregisteredImminentThreatHold`（按 Ruins / Weald / Warrens / Cove 身份分支）。
 
@@ -87,6 +87,7 @@
 | Necromancer I | Graveyard blocked | 封锁已合并 |
 | Prophet I | 酒馆减压 −1 | helper 有；hamlet-actions **未合并** |
 | Collector I | Nomad Wagon blocked | 封锁已合并 |
+| Fanatic I | The Black Sheep（事件前 d10） | **hamlet 钩子 stub** |
 | Hag I | 疗养院 Life −3 | helper 有；**未合并** |
 | Swine Prince I | Survivalist blocked | 封锁已合并 |
 | Siren I | Abbey blocked | 封锁已合并（`KNOWN_BOSS_THREAT` 未含 abbey，换威胁时 strip 行为待任务卡） |
@@ -98,7 +99,6 @@
 
 | Boss | 区域 | 数据 | 引擎脚本 |
 | --- | --- | --- | --- |
-| Fanatic | Ruins | 描述 `p019–p021`、monster 在 pool | **无** |
 | Brigand Pounder | Weald | 描述卡 id 未填 | **无** |
 | Shrieker | Weald | 同上 | **无** |
 | Vvulf | Warrens | 同上 | **无** |
@@ -108,14 +108,15 @@
 
 ## 8. 建议下一刀（供 Kyries 拍板）
 
-1. **Fanatic I**：Ruins 迫近池最后一格；模式同 Collector（`p019` + 战斗/威胁卡 extract 对齐）。
-2. **Fanatic I 之后 · Ruins II**：单 Boss 切片（如 Necromancer II `p002`）或统一「II 描述卡 hold 策略」裁定。
-3. **任务卡 · Face the Threat**：`faceTheThreatEmbark` + quest:p016–p019 与 `activeBossThreatScriptId`（不兼收 R-121 布置）。
+1. **Ruins II**：单 Boss 切片（如 Necromancer II `p002`）或统一「II 描述卡 hold 策略」裁定。
+2. **任务卡 · Face the Threat**：`faceTheThreatEmbark` + quest:p016–p019 与 `activeBossThreatScriptId`（不兼收 R-121 布置）。
+3. **Fanatic 战斗**：Pyre 远程 + Sentence Rendered + Marked for Death 开战压力（需新威胁 / 战斗原语）。
 4. **Collector 战斗**：Collect All + 宝箱房 + Collected 三卡 summon（R-034 区域语义已有裁定）。
 5. **地牢威胁接线**：优先高触达项——Prophet 进地牢压力、Collector Curio 房间、Flesh Creeping Sickness（需新 hamlet 状态机，不单 stub）。
 
 ## 9. 测试
 
 - `packages/engine/src/boss/collector-i.test.ts`
-- `packages/engine/src/boss/threat-establishment.test.ts`（Collector 定威胁、Fanatic hold）
+- `packages/engine/src/boss/fanatic-i.test.ts`
+- `packages/engine/src/boss/threat-establishment.test.ts`（Collector / Fanatic 定威胁）
 - `pnpm typecheck` + 上述 vitest

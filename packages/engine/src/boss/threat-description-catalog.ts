@@ -28,6 +28,10 @@ import {
   COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
   COLLECTOR_I_SCRIPT_ID,
 } from "./collector-i";
+import {
+  FANATIC_I_DESCRIPTION_ABILITY_CARD_ID,
+  FANATIC_I_SCRIPT_ID,
+} from "./fanatic-i";
 import { getBossScript, listBossScripts } from "./registry";
 import type { BossScriptId } from "./types";
 
@@ -235,6 +239,9 @@ export function resolveScriptIdForDescriptionCard(
   }
   if (descriptionCardId === COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID) {
     return COLLECTOR_I_SCRIPT_ID;
+  }
+  if (descriptionCardId === FANATIC_I_DESCRIPTION_ABILITY_CARD_ID) {
+    return FANATIC_I_SCRIPT_ID;
   }
   if (descriptionCardId === HAG_I_DESCRIPTION_ABILITY_CARD_ID) {
     return HAG_I_SCRIPT_ID;
