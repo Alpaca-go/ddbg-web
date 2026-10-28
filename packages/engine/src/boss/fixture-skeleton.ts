@@ -5,11 +5,21 @@ import type { BossScriptDefinition } from "./types";
 /** 测试与集成探针用；不引用印刷 Boss 名称或数值。 */
 export const FIXTURE_BOSS_SCRIPT_ID = "boss:fixture:phase5-skeleton" as const;
 
+/** 测试用 Boss 战斗卡 id；不引用印刷卡。 */
+export const FIXTURE_BOSS_COMBAT_MONSTER_CARD_ID = "monster:fixture:boss-combat" as const;
+
 export const fixtureBossSkeletonScript: BossScriptDefinition = {
   id: FIXTURE_BOSS_SCRIPT_ID,
   displayName: "Phase5 Skeleton Fixture",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes: "仅用于单元测试；不代表任何印刷 Boss。",
+  combatEntry: {
+    descriptionAbilityCardId: "boss_ability:fixture:desc",
+    combatAbilityCardId: "boss_ability:fixture:combat",
+    combatMonsterCardId: FIXTURE_BOSS_COMBAT_MONSTER_CARD_ID,
+    printedInitiativeCards: 1,
+    printedActionsPerRound: 1,
+  },
   hooks: {
     threatPassiveDungeon: () => ({
       status: "stub",

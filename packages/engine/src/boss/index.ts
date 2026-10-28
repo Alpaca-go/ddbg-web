@@ -45,9 +45,15 @@ export { DEFAULT_BOSS_BATTLE_RULES, encounterRoundRetreatLimit } from "./rules";
 export { defaultMonsterTurnActionCount, runBossHook } from "./hooks";
 export {
   ensureFixtureBossScriptRegistered,
+  FIXTURE_BOSS_COMBAT_MONSTER_CARD_ID,
   FIXTURE_BOSS_SCRIPT_ID,
   fixtureBossSkeletonScript,
 } from "./fixture-skeleton";
+export {
+  encounterForcesRetreatAfterRound,
+  isBossEncounter,
+  resolveEncounterBossBattleRules,
+} from "./encounter-rules";
 export {
   bossQuestScriptId,
   FACE_THE_THREAT_QUEST_ID,
