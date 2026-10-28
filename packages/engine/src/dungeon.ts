@@ -124,10 +124,16 @@ export type DungeonState = {
   /** 战役等级 / 地牢等级（DL）；缺省按 I 级解释（§2.2 / R35）。 */
   readonly campaignLevel?: 1 | 2 | 3;
   /**
-   * 当前迫近威胁对应的 Boss 脚本 id（定威胁 / 升幕抽牌未接；`setActiveBossThreat` 为测试与最小 stub）。
+   * 当前迫近威胁对应的 Boss 脚本 id（已注册脚本时由定威胁 / 升幕抽牌写入；`setActiveBossThreat` 为测试 stub）。
    * spec §2.3 R11：威胁被动在 Boss 被击败前持续生效。
    */
   readonly activeBossThreatScriptId?: import("./boss/types").BossScriptId;
+  /** 最近一次 Imminent Threat 抽到的 Boss Description 印刷 id（spec §2.4 / §2.2）。 */
+  readonly imminentThreatDescriptionCardId?: string;
+  /** 抽到未注册 Boss 时的 hold 文案；脚本落地后由正式抽牌清除。 */
+  readonly unregisteredImminentThreatHold?: string;
+  /** 本战役已击败的 Ruins Boss（升幕抽下一张威胁时排除，spec §2.2）。 */
+  readonly defeatedRuinsBossIdentities?: readonly import("./boss/threat-description-catalog").RuinsBossIdentity[];
   /** 准备结束后抽到的下一任务候选项，选定后清除。 */
   readonly nextQuestOffers?: readonly string[];
   /** Unsettling Darkness：下次出征起始光照（印刷 Light 4，图标 d13c8b76af 已确认）。 */

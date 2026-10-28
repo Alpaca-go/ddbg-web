@@ -1,12 +1,9 @@
 import type { ApplyResult, GameState } from "../command";
 import { rejectBattleCommand } from "../battle";
+import { applyActiveBossThreatToDungeon } from "./apply-active-boss-threat";
 import { ensureCoreBossScriptsRegistered } from "./necromancer-i";
 import { getBossScript } from "./registry";
-import {
-  bossThreatClearHoldReason,
-  readActiveBossThreatScriptId,
-  syncHamletBlockedBuildingsForBossThreat,
-} from "./threat-campaign";
+import { bossThreatClearHoldReason, readActiveBossThreatScriptId } from "./threat-campaign";
 import type { BossScriptId } from "./types";
 
 export type SetActiveBossThreatCommand = {
@@ -15,6 +12,10 @@ export type SetActiveBossThreatCommand = {
   readonly scriptId: BossScriptId | null;
 };
 
+/**
+ * 测试 / 调试 stub：直接写入脚本 id。
+ * 正式流程请用 `establishImminentThreat` / `drawImminentThreatAfterActAdvance`（spec §2.4 / §2.2）。
+ */
 export function setActiveBossThreat(
   state: GameState,
   command: SetActiveBossThreatCommand,
@@ -28,23 +29,13 @@ export function setActiveBossThreat(
       return rejectBattleCommand(state, `未知或未注册的 Boss 脚本：${command.scriptId}`);
   }
   const previous = readActiveBossThreatScriptId(d);
-  const { activeBossThreatScriptId: _previousThreat, ...dungeonBase } = d;
-  void _previousThreat;
-  let dungeon = command.scriptId
-    ? { ...dungeonBase, activeBossThreatScriptId: command.scriptId }
-    : dungeonBase;
-  if (dungeon.hamlet) {
-    dungeon = {
-      ...dungeon,
-      hamlet: syncHamletBlockedBuildingsForBossThreat(dungeon, dungeon.hamlet),
-    };
-  }
+  const dungeon = applyActiveBossThreatToDungeon(d, command.scriptId);
   const message =
     command.scriptId === null
       ? previous
         ? `已清除迫近威胁 ${previous}（${bossThreatClearHoldReason()}）`
         : "当前无激活迫近威胁"
-      : `迫近威胁设为 ${command.scriptId}；村庄 / 地牢被动已挂接`;
+      : `迫近威胁设为 ${command.scriptId}（stub）；村庄 / 地牢被动已挂接`;
   return {
     state: { ...state, dungeon },
     events: [{ type: "dungeonUpdated", message }],

@@ -31,8 +31,18 @@ describe("Boss 任务 → 脚本映射（quest-bridge）", () => {
     );
   });
 
+  it("Face the Threat：有 activeBossThreatScriptId 时优先于缺省 Necromancer I", () => {
+    expect(
+      resolveBossScriptIdForQuest(FACE_THE_THREAT_QUEST_ID, {
+        campaignLevel: 1,
+        activeBossThreatScriptId: NECROMANCER_I_SCRIPT_ID,
+      }),
+    ).toBe(NECROMANCER_I_SCRIPT_ID);
+  });
+
   it("静态表条目优先于 Face the Threat 等级表", () => {
-    bossQuestScriptId[FACE_THE_THREAT_QUEST_ID] = "boss:fixture:override" as typeof NECROMANCER_I_SCRIPT_ID;
+    bossQuestScriptId[FACE_THE_THREAT_QUEST_ID] =
+      "boss:fixture:override" as typeof NECROMANCER_I_SCRIPT_ID;
     expect(resolveBossScriptIdForQuest(FACE_THE_THREAT_QUEST_ID, { campaignLevel: 1 })).toBe(
       "boss:fixture:override",
     );
