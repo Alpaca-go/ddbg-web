@@ -84,6 +84,10 @@ export function naturalQuest(
         return score(b.id) - score(a.id);
       })[0]!.id;
     }
+    if (pending.id.startsWith("dungeon-trinket:")) {
+      const equip = choices.find((o) => o.id.startsWith("equip:"));
+      if (equip) return equip.id;
+    }
     return (
       [
         "continue",
