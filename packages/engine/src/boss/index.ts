@@ -24,6 +24,8 @@ export { readBossCombatEntry } from "./combat-entry";
 export {
   cardIdsPermanentlyRemovedAfterBattle,
   hamletBuildingsBlockedByBossThreat,
+  stressOnDungeonEntryPerHeroFromBossThreat,
+  tavernStressRecoveryDeltaFromBossThreat,
 } from "./threat-passive";
 export {
   applyBossThreatAfterBattleToPool,
@@ -67,6 +69,14 @@ export {
   NECROMANCER_I_SUMMON_MONSTER_CARD_ID,
   necromancerIBossScript,
 } from "./necromancer-i";
+export {
+  ensureProphetIBossScriptRegistered,
+  PROPHET_I_COMBAT_ABILITY_CARD_ID,
+  PROPHET_I_COMBAT_MONSTER_CARD_ID,
+  PROPHET_I_DESCRIPTION_ABILITY_CARD_ID,
+  PROPHET_I_SCRIPT_ID,
+  prophetIBossScript,
+} from "./prophet-i";
 export {
   clearBossScriptsForTest,
   getBossScript,

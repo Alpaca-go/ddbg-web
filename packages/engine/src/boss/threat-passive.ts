@@ -21,6 +21,18 @@ export function cardIdsPermanentlyRemovedAfterBattle(
     .map((m) => m.cardId);
 }
 
+/** 进地牢时每名英雄额外承受的压力（地牢侧威胁）；未接线 encounter 时供调用方合并。 */
+export function stressOnDungeonEntryPerHeroFromBossThreat(
+  script: BossScriptDefinition,
+): number {
+  const passive = runBossHook(script, "threatPassiveDungeon", {
+    scriptId: script.id,
+    side: "dungeon",
+  });
+  if (passive.status !== "ok" || passive.effect !== "stressOnDungeonEntryPerHero") return 0;
+  return passive.stressDelta;
+}
+
 /** 村庄侧威胁被动：追加封锁建筑（不含看守人 weekBlockedBuildings）。运行时未接 campaign 威胁层时供调用方合并。 */
 export function hamletBuildingsBlockedByBossThreat(
   scriptId: BossScriptId,
@@ -31,6 +43,18 @@ export function hamletBuildingsBlockedByBossThreat(
     scriptId: script.id,
     side: "hamlet",
   }) as BossThreatPassiveHamletResult;
-  if (passive.status !== "ok") return [];
+  if (passive.status !== "ok" || passive.effect !== "graveyardBlocked") return [];
   return passive.blockedBuildings;
+}
+
+/** 酒馆减压服务有效恢复量修正（村庄侧威胁）；未接线 hamlet-actions 时供调用方合并。 */
+export function tavernStressRecoveryDeltaFromBossThreat(
+  script: BossScriptDefinition,
+): number {
+  const passive = runBossHook(script, "threatPassiveHamlet", {
+    scriptId: script.id,
+    side: "hamlet",
+  }) as BossThreatPassiveHamletResult;
+  if (passive.status !== "ok" || passive.effect !== "tavernStressRecoveryDelta") return 0;
+  return passive.recoveryDelta;
 }
