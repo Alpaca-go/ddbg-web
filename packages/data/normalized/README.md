@@ -24,4 +24,6 @@ pnpm --filter @ddbg/pipeline normalize
 
 `corebox/room_tile_geometry.json` 使用独立的 `ddbg-room-tile-geometry-v0` schema，只包含 Kyries 批准的 Ritual Chamber FRONT 第 1 页（raw `dungeon_tile:p001`，规范化 `room_tile:p001`）。容量、高低地与邻接来自人工映射；E-F 按 R-054 黑墙阻隔，`blocked=true`，F 没有通行邻接。通行边须同时满足 `blocked=false` 和 `cornerOnly=false`。
 
+`corebox/corridor_tile_geometry.json` 使用 `ddbg-corridor-tile-geometry-v0`，覆盖 raw `dungeon_tile:p006`–`p014`（TILES FRONT p6–p14）。当前仅从 span 提取连接口编号与 bbox 中心；`geometryVerified` 全为 `false`，段内通道 / 灰点 / 容量与 QuestMap 边绑定见 `corridor_layout_bindings.json`（`review: pending`）。
+
 `geometryVerified=true` 只批准几何；`usable=false` 保留完整板块的可用卡池限制。未命名标记只保留原始 ID / 空语义，不赋数值，不改词典状态（R-048）。本文件没有出生 / 交互效果、精确多边形、移动或寻路逻辑。通过现有 normalize 命令生成，其他板块没有默认几何。
