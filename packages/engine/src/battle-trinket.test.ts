@@ -13,6 +13,14 @@ import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
 import type { TrinketPool } from "./trinket-acquisition";
 const tile = approvedExtraRuinsTiles.find((t) => t.number === 6)!;
 const basePool = coreQuestSources.catalog.trinkets!;
+const poolMarkUnverified = (cardId: string, pool: TrinketPool): TrinketPool => ({
+  ...pool,
+  cards: pool.cards.map((c) =>
+    c.id === cardId
+      ? { ...c, verification: { unverified: true, reasons: ["test-fixture"] } }
+      : c,
+  ),
+});
 // 真实获批整面；人工设置当前英雄回合，仅用于交互规则测试。
 function setup(seed = 1, pool: TrinketPool = basePool): GameState {
   const d = createCoreDungeonQuest(
@@ -230,7 +238,8 @@ it("转交旧反面饰品腾位后继续原入牌，不重抽、不重扣行动�
   expect(done.state.battle!.encounter!.actedIds).toEqual(["hero-0"]);
 });
 it("未知饰品保留真实入牌，仅可明确弃牌；不自动装备、丢弃或重抽", () => {
-  const r = success(open(setup(1, ordered("trinket:p009"))));
+  const pool = poolMarkUnverified("trinket:p009", ordered("trinket:p009"));
+  const r = success(open(setup(1, pool)));
   expect(r.pendingChoice!.options.map((o) => o.id)).toEqual(["discard-new"]);
   expect(r.state.battle!.trinkets!.incoming!.cardId).toBe("trinket:p009");
   expect(choose(r, "equip:hero-0").state).toBe(r.state);
