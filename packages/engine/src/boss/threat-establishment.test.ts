@@ -12,6 +12,7 @@ import {
   ensureSwinePrinceIBossScriptRegistered,
   ensureSirenIBossScriptRegistered,
   ensureFleshIBossScriptRegistered,
+  ensureCollectorIBossScriptRegistered,
   establishImminentThreat,
   resolveBossScriptIdForQuest,
   HAG_I_DESCRIPTION_ABILITY_CARD_ID,
@@ -22,6 +23,8 @@ import {
   SIREN_I_SCRIPT_ID,
   FLESH_I_DESCRIPTION_ABILITY_CARD_ID,
   FLESH_I_SCRIPT_ID,
+  COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
+  COLLECTOR_I_SCRIPT_ID,
   FACE_THE_THREAT_QUEST_ID,
   getBossScript,
 } from "../index";
@@ -34,6 +37,7 @@ import {
   eldritchMonsterDamageBonusFromBossThreat,
   guardTurnsOnLargeMonsterSpawnFromBossThreat,
   sanitariumHealLifeDeltaFromBossThreat,
+  skipCurioDrawInCurioRoomsFromBossThreat,
 } from "./threat-passive";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
@@ -64,6 +68,7 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     ensureSwinePrinceIBossScriptRegistered();
     ensureSirenIBossScriptRegistered();
     ensureFleshIBossScriptRegistered();
+    ensureCollectorIBossScriptRegistered();
   });
 
   it("战役开局 establishImminentThreat 确定性抽牌并写入描述卡 id", () => {
@@ -101,17 +106,31 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     expect(bossThreatHamletBlockedBuildings(game.dungeon!)).not.toContain("graveyard");
   });
 
-  it("抽到未注册 Boss 时记录 hold，不写入 activeBossThreatScriptId", () => {
+  it("抽到已注册 Collector I 时挂接 activeBossThreatScriptId 与游商马车封锁", () => {
     let collectorSeed: number | undefined;
     for (let seed = 0; seed < 500 && collectorSeed === undefined; seed++) {
-      if (drawnDescription(seed) === RUINS_BOSS_DESCRIPTION_CARD_ID.collector[1])
+      if (drawnDescription(seed) === COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID)
         collectorSeed = seed;
     }
     expect(collectorSeed).toBeDefined();
     const game = ok(baseQuest(collectorSeed!), { type: "establishImminentThreat" });
+    expect(game.dungeon!.activeBossThreatScriptId).toBe(COLLECTOR_I_SCRIPT_ID);
+    expect(game.dungeon!.unregisteredImminentThreatHold).toBeUndefined();
+    expect(bossThreatHamletBlockedBuildings(game.dungeon!)).toContain("nomadWagon");
+    const script = getBossScript(COLLECTOR_I_SCRIPT_ID)!;
+    expect(skipCurioDrawInCurioRoomsFromBossThreat(script)).toBe(true);
+  });
+
+  it("抽到未注册 Fanatic I 时记录 hold，不写入 activeBossThreatScriptId", () => {
+    let fanaticSeed: number | undefined;
+    for (let seed = 0; seed < 500 && fanaticSeed === undefined; seed++) {
+      if (drawnDescription(seed) === RUINS_BOSS_DESCRIPTION_CARD_ID.fanatic[1]) fanaticSeed = seed;
+    }
+    expect(fanaticSeed).toBeDefined();
+    const game = ok(baseQuest(fanaticSeed!), { type: "establishImminentThreat" });
     expect(game.dungeon!.activeBossThreatScriptId).toBeUndefined();
-    expect(game.dungeon!.unregisteredImminentThreatHold).toMatch(/collector/);
-    expect(bossThreatHamletBlockedBuildings(game.dungeon!)).not.toContain("graveyard");
+    expect(game.dungeon!.unregisteredImminentThreatHold).toMatch(/fanatic/);
+    expect(bossThreatHamletBlockedBuildings(game.dungeon!)).not.toContain("nomadWagon");
   });
 
   it("重复 establish 与战斗中被拒", () => {

@@ -30,6 +30,7 @@ export {
   sanitariumHealLifeDeltaFromBossThreat,
   stressOnDungeonEntryPerHeroFromBossThreat,
   stressOnHeroProvisionUseFromBossThreat,
+  skipCurioDrawInCurioRoomsFromBossThreat,
   tavernStressRecoveryDeltaFromBossThreat,
 } from "./threat-passive";
 export {
@@ -133,6 +134,17 @@ export {
   FLESH_I_BUTT_MONSTER_CARD_ID,
   fleshIBossScript,
 } from "./flesh-i";
+export {
+  ensureCollectorIBossScriptRegistered,
+  COLLECTOR_I_COMBAT_ABILITY_CARD_ID,
+  COLLECTOR_I_COMBAT_MONSTER_CARD_ID,
+  COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
+  COLLECTOR_I_SCRIPT_ID,
+  COLLECTOR_I_COLLECTED_HIGHWAYMAN_CARD_ID,
+  COLLECTOR_I_COLLECTED_MAN_AT_ARMS_CARD_ID,
+  COLLECTOR_I_COLLECTED_VESTAL_CARD_ID,
+  collectorIBossScript,
+} from "./collector-i";
 export {
   clearBossScriptsForTest,
   getBossScript,

@@ -12,7 +12,7 @@ import {
 import type { BossScriptId } from "./types";
 
 /** 村庄侧威胁可能封锁的建筑（当前核心盒核实项；新 Boss 落地后扩展）。 */
-const KNOWN_BOSS_THREAT_BLOCKED_BUILDINGS = ["graveyard", "survivalist"] as const;
+const KNOWN_BOSS_THREAT_BLOCKED_BUILDINGS = ["graveyard", "survivalist", "nomadWagon"] as const;
 
 export function readActiveBossThreatScriptId(d: DungeonState): BossScriptId | undefined {
   return d.activeBossThreatScriptId;
