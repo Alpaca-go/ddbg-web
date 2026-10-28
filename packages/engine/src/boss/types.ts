@@ -26,6 +26,13 @@ export type BossThreatPassiveDungeonOk =
       readonly stressDelta: number;
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
+      readonly effect: "stressOnHeroProvisionUse";
+      readonly stressDelta: number;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
     };
 
 export type BossThreatPassiveHamletOk =
@@ -41,6 +48,14 @@ export type BossThreatPassiveHamletOk =
       readonly effect: "tavernStressRecoveryDelta";
       /** 酒馆减压服务有效恢复量的修正（印刷卡常为 −1）。 */
       readonly recoveryDelta: number;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
+      readonly effect: "sanitariumHealLifeDelta";
+      /** 疗养院单次治疗有效 Life 修正（印刷卡常为负数）。 */
+      readonly healDelta: number;
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];
     };

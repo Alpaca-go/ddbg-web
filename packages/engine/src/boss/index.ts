@@ -24,7 +24,9 @@ export { readBossCombatEntry } from "./combat-entry";
 export {
   cardIdsPermanentlyRemovedAfterBattle,
   hamletBuildingsBlockedByBossThreat,
+  sanitariumHealLifeDeltaFromBossThreat,
   stressOnDungeonEntryPerHeroFromBossThreat,
+  stressOnHeroProvisionUseFromBossThreat,
   tavernStressRecoveryDeltaFromBossThreat,
 } from "./threat-passive";
 export {
@@ -56,8 +58,11 @@ export {
   ruinsBossIdentityForDescriptionCard,
   ruinsBossIdentityForScriptId,
   unregisteredImminentThreatHold,
+  WEALD_BOSS_DESCRIPTION_CARD_ID,
+  WEALD_BOSS_IDENTITIES,
+  wealdBossIdentityForDescriptionCard,
 } from "./threat-description-catalog";
-export type { RuinsBossIdentity } from "./threat-description-catalog";
+export type { RuinsBossIdentity, WealdBossIdentity } from "./threat-description-catalog";
 export { applyActiveBossThreatToDungeon } from "./apply-active-boss-threat";
 export {
   ensureCoreBossScriptsRegistered,
@@ -77,6 +82,14 @@ export {
   PROPHET_I_SCRIPT_ID,
   prophetIBossScript,
 } from "./prophet-i";
+export {
+  ensureHagIBossScriptRegistered,
+  HAG_I_COMBAT_ABILITY_CARD_ID,
+  HAG_I_COMBAT_MONSTER_CARD_ID,
+  HAG_I_DESCRIPTION_ABILITY_CARD_ID,
+  HAG_I_SCRIPT_ID,
+  hagIBossScript,
+} from "./hag-i";
 export {
   clearBossScriptsForTest,
   getBossScript,
