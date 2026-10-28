@@ -32,6 +32,10 @@ import {
   applyBossThreatAfterBattleToPool,
   clearedBossThreatScriptIdAfterVictory,
 } from "./boss/threat-campaign";
+import {
+  completeCurioRoomWithoutCurioDraw,
+  shouldSkipCurioDrawInCurioRoom,
+} from "./boss/threat-passive-runtime";
 import { recordRuinsBossDefeatOnThreatCleared } from "./boss/establish-imminent-threat";
 
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
@@ -541,6 +545,10 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
     ],
   };
   if (!curioReward || heroes.some((h) => h.dead)) return result;
+  if (shouldSkipCurioDrawInCurioRoom(result.state.dungeon!)) {
+    const skipped = completeCurioRoomWithoutCurioDraw(result.state);
+    return { ...skipped, events: [...result.events, ...skipped.events] };
+  }
   const reward = awaitDungeonRoomCurio(result.state);
   return { ...reward, events: [...result.events, ...reward.events] };
 }

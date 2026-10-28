@@ -11,12 +11,16 @@ import { useExperimentalVapours, experimentalVapoursHealing } from "./hamlet-exp
 import { useDarkRitual, darkRitualHealing } from "./hamlet-dark-ritual";
 import { usePilfer } from "./hamlet-pilfer";
 import {
+  effectiveHamletSanitariumHealAmount,
+  effectiveHamletStressRecoveryAmount,
+} from "./boss/threat-passive-runtime";
+import { grantGraveyardVirtue } from "./hamlet-graveyard";
+import {
   buildingLevelsProblem,
   recoveryServices,
   survivalistServices,
   graveyardServices,
 } from "./hamlet-buildings";
-import { grantGraveyardVirtue } from "./hamlet-graveyard";
 import type { RecoveryServiceId, SurvivalistServiceId } from "./hamlet-buildings";
 
 export type HamletActionCommand =
@@ -269,13 +273,27 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
         return rejectBattleCommand(state, "下次任务奖励补给骰数量无效，未付款或消耗行动（R-041）");
       updated = { ...hero, nextQuestProvisionDice: previous + service.amount };
     } else if (service.effect === "stress")
-      updated = { ...hero, stress: recoverStress(hero, service.amount) };
+      updated = {
+        ...hero,
+        stress: recoverStress(
+          hero,
+          effectiveHamletStressRecoveryAmount(d, service.building, service.amount),
+        ),
+      };
     else if (service.effect === "heal") {
       if (!hero.attributesVerified || hero.life === undefined || hero.wounds === undefined)
         return rejectBattleCommand(state, "治疗缺已核实Life / 伤口（R-048）");
       const health = resolveHeroHealth(
         { life: hero.life, wounds: hero.wounds, dead: false },
-        { type: "heal", amount: passiveHeal(hero, service.amount) },
+        {
+          type: "heal",
+          amount: passiveHeal(
+            hero,
+            service.building === "sanitarium"
+              ? effectiveHamletSanitariumHealAmount(d, service.amount)
+              : service.amount,
+          ),
+        },
       );
       if (health.status !== "resolved") return rejectBattleCommand(state, "治疗状态无效（R29）");
       updated = { ...hero, wounds: health.state.wounds };

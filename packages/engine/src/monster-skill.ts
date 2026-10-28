@@ -61,6 +61,8 @@ export type MonsterCombatState = Pick<
     Pick<SkillTargetState, "shuffleResist">;
   readonly areaDistance: number;
   readonly guardedHeroOmitted?: boolean;
+  /** 迫近威胁对英雄攻击的 flat 伤害加值（Beast / Eldritch）；由运行时从 `activeBossThreatScriptId` 合并。 */
+  readonly threatFlatDamageBonus?: number;
 };
 
 export type MonsterSkillResolution = {
@@ -271,6 +273,25 @@ function resolveMonsterSkillInternal(
             (ordered || baseResolution.outcome === "miss" ? 0 : (attack.targetLight ?? 0)),
         };
   if (resolution.status === "refused") return refused(resolution.reason!);
+  const threatBonus = combat.threatFlatDamageBonus ?? 0;
+  const healthEffects =
+    includeHealthEffects && threatBonus > 0 && effects.healthEffects?.length
+      ? effects.healthEffects.map((entry) => {
+          if (
+            entry.source !== "attack" ||
+            entry.side !== "hero" ||
+            entry.effect.type !== "wounds"
+          ) {
+            return entry;
+          }
+          const [first, ...rest] = entry.effect.amounts;
+          if (first === undefined) return entry;
+          return {
+            ...entry,
+            effect: { type: "wounds" as const, amounts: [first + threatBonus, ...rest] },
+          };
+        })
+      : effects.healthEffects;
   return {
     monsterId: monster.id,
     skillSlot,
@@ -278,7 +299,7 @@ function resolveMonsterSkillInternal(
     actorDead: resolution.actorWounds !== null && resolution.actorWounds >= monster.life,
     ...(includeHealthEffects
       ? {
-          healthEffects: effects.healthEffects,
+          healthEffects: healthEffects,
           ...(effects.own
             ? {
                 own: {

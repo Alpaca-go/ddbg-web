@@ -28,7 +28,7 @@
 | 项 | 说明 |
 | --- | --- |
 | Warrens Boss **extract JSON** 与占位 id 对齐 PDF 页序 | 当前 id 按 `boss_ability:warrens:swine_prince:p00x` / `monster_*:warrens:*` 约定 |
-| Beast +2 伤害、生存专家封锁 **写入** encounter / hamlet-actions | helper 仅返回值 |
+| Beast +2 伤害、生存专家封锁 **写入** encounter / hamlet-actions | **已接**（`battle-monster*` / 村庄封锁既有路径） |
 | Wilbur 布置、Enraged Destruction、Mark 完整 AI | `summon` stub |
 | Warrens 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
 | quest / Face the Threat → Swine Prince | `faceTheThreatEmbark` stub |

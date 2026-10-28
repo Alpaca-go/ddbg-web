@@ -4,6 +4,10 @@ import { createRng, rollD10 } from "./rng";
 import { drawDungeonCurio, resolveDungeonCurio } from "./dungeon-curio";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import { resolveDungeonPressure } from "./dungeon-pressure";
+import {
+  completeCurioRoomWithoutCurioDraw,
+  shouldSkipCurioDrawInCurioRoom,
+} from "./boss/threat-passive-runtime";
 
 const refuse = (state: GameState, message: string): ApplyResult => ({
   state,
@@ -40,7 +44,11 @@ export function beginDungeonCurioRoom(state: GameState): ApplyResult {
       curioRoom: { roomId: d.position, guardRoll, stage: guarded ? "guarded" : "reward" },
     },
   };
-  const result = guarded ? { state: next, events: [] } : awaitDungeonRoomCurio(next);
+  const result = guarded
+    ? { state: next, events: [] }
+    : shouldSkipCurioDrawInCurioRoom(next.dungeon!)
+      ? completeCurioRoomWithoutCurioDraw(next)
+      : awaitDungeonRoomCurio(next);
   return {
     ...result,
     events: [
