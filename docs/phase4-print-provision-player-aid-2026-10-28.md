@@ -45,7 +45,7 @@ node tools/pipeline/scripts/build-print-player-aid-art-map.mjs
 
 | 项 | 说明 |
 | --- | --- |
-| `DD_COREBOX_DICE_D6_Provision.pdf` dice_net | 引擎面 key 已接；展开图→桌面骰面 raster / 面序 **未批**，不接 map |
+| `DD_COREBOX_DICE_D6_Provision.pdf` dice_net | 引擎面 key 已接；展开图→桌面骰面 raster / 面序 **未批**，不接 map；候选面序与证据见 [phase4-print-provision-dice-net-2026-10-28.md](phase4-print-provision-dice-net-2026-10-28.md) |
 | 辅助卡 icon 行内小图 | 仍走词典 confirmed hash；不在此 map 裁切 |
 
 ## 测试
