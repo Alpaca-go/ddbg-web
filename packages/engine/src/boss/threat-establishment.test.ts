@@ -8,12 +8,19 @@ import {
   PROPHET_I_SCRIPT_ID,
   ensureNecromancerIBossScriptRegistered,
   ensureProphetIBossScriptRegistered,
+  ensureHagIBossScriptRegistered,
   establishImminentThreat,
   resolveBossScriptIdForQuest,
+  HAG_I_DESCRIPTION_ABILITY_CARD_ID,
+  HAG_I_SCRIPT_ID,
   FACE_THE_THREAT_QUEST_ID,
+  getBossScript,
 } from "../index";
+import { applyActiveBossThreatToDungeon } from "./apply-active-boss-threat";
 import { RUINS_BOSS_DESCRIPTION_CARD_ID } from "./threat-description-catalog";
+import { resolveScriptIdForDescriptionCard } from "./threat-description-catalog";
 import { bossThreatHamletBlockedBuildings } from "./threat-campaign";
+import { sanitariumHealLifeDeltaFromBossThreat } from "./threat-passive";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
 
@@ -39,6 +46,7 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
   beforeEach(() => {
     ensureNecromancerIBossScriptRegistered();
     ensureProphetIBossScriptRegistered();
+    ensureHagIBossScriptRegistered();
   });
 
   it("战役开局 establishImminentThreat 确定性抽牌并写入描述卡 id", () => {
@@ -128,6 +136,27 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
         RUINS_BOSS_DESCRIPTION_CARD_ID.fanatic[2],
       ].includes(cardId),
     ).toBe(true);
+  });
+
+  it("Hag I 描述卡解析脚本并挂接 activeBossThreatScriptId（Weald；Ruins 开局池不含）", () => {
+    expect(resolveScriptIdForDescriptionCard(HAG_I_DESCRIPTION_ABILITY_CARD_ID)).toBe(
+      HAG_I_SCRIPT_ID,
+    );
+    let game = baseQuest(3);
+    game = {
+      ...game,
+      dungeon: applyActiveBossThreatToDungeon(
+        {
+          ...game.dungeon!,
+          imminentThreatDescriptionCardId: HAG_I_DESCRIPTION_ABILITY_CARD_ID,
+        },
+        HAG_I_SCRIPT_ID,
+      ),
+    };
+    expect(game.dungeon!.activeBossThreatScriptId).toBe(HAG_I_SCRIPT_ID);
+    const script = getBossScript(HAG_I_SCRIPT_ID)!;
+    expect(sanitariumHealLifeDeltaFromBossThreat(script)).toBe(-3);
+    expect(bossThreatHamletBlockedBuildings(game.dungeon!)).not.toContain("graveyard");
   });
 
   it("Face the Threat 解析优先 activeBossThreatScriptId", () => {

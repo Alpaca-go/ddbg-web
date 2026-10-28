@@ -58,3 +58,23 @@ export function tavernStressRecoveryDeltaFromBossThreat(
   if (passive.status !== "ok" || passive.effect !== "tavernStressRecoveryDelta") return 0;
   return passive.recoveryDelta;
 }
+
+/** 英雄使用补给（药瓶类）时的额外压力（地牢侧威胁）；运行时未接 provision 管线时供调用方合并。 */
+export function stressOnHeroProvisionUseFromBossThreat(script: BossScriptDefinition): number {
+  const passive = runBossHook(script, "threatPassiveDungeon", {
+    scriptId: script.id,
+    side: "dungeon",
+  });
+  if (passive.status !== "ok" || passive.effect !== "stressOnHeroProvisionUse") return 0;
+  return passive.stressDelta;
+}
+
+/** 疗养院单次治疗 Life 修正（村庄侧威胁）；未接线 hamlet-actions 时供调用方合并。 */
+export function sanitariumHealLifeDeltaFromBossThreat(script: BossScriptDefinition): number {
+  const passive = runBossHook(script, "threatPassiveHamlet", {
+    scriptId: script.id,
+    side: "hamlet",
+  }) as BossThreatPassiveHamletResult;
+  if (passive.status !== "ok" || passive.effect !== "sanitariumHealLifeDelta") return 0;
+  return passive.healDelta;
+}

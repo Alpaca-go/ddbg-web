@@ -1,4 +1,5 @@
 import { getBossScript, registerBossScript } from "./registry";
+import { ensureHagIBossScriptRegistered } from "./hag-i";
 import { ensureProphetIBossScriptRegistered } from "./prophet-i";
 import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
 import type {
@@ -84,8 +85,9 @@ export function ensureNecromancerIBossScriptRegistered(): void {
   registerBossScript(necromancerIBossScript);
 }
 
-/** 注册当前已核实的第一批核心盒 Boss 脚本（Necromancer I、Prophet I）。 */
+/** 注册当前已核实的第一批核心盒 / Weald Boss 脚本（Necromancer I、Prophet I、Hag I）。 */
 export function ensureCoreBossScriptsRegistered(): void {
   ensureNecromancerIBossScriptRegistered();
   ensureProphetIBossScriptRegistered();
+  ensureHagIBossScriptRegistered();
 }

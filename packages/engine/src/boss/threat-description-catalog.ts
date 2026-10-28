@@ -8,6 +8,10 @@ import {
   PROPHET_I_DESCRIPTION_ABILITY_CARD_ID,
   PROPHET_I_SCRIPT_ID,
 } from "./prophet-i";
+import {
+  HAG_I_DESCRIPTION_ABILITY_CARD_ID,
+  HAG_I_SCRIPT_ID,
+} from "./hag-i";
 import { getBossScript, listBossScripts } from "./registry";
 import type { BossScriptId } from "./types";
 
@@ -48,6 +52,50 @@ export const RUINS_BOSS_IDENTITIES: readonly RuinsBossIdentity[] = [
   "fanatic",
 ];
 
+/** 核心盒 Weald 三 Boss（spec 扩展 §2.3；迫近威胁池接线仍 hold）。 */
+export type WealdBossIdentity = "hag" | "brigandPounder" | "shrieker";
+
+export const WEALD_BOSS_DESCRIPTION_CARD_ID: Record<
+  WealdBossIdentity,
+  Record<CampaignLevel, string | undefined>
+> = {
+  hag: {
+    1: HAG_I_DESCRIPTION_ABILITY_CARD_ID,
+    2: undefined,
+    3: undefined,
+  },
+  brigandPounder: {
+    1: undefined,
+    2: undefined,
+    3: undefined,
+  },
+  shrieker: {
+    1: undefined,
+    2: undefined,
+    3: undefined,
+  },
+};
+
+export const WEALD_BOSS_IDENTITIES: readonly WealdBossIdentity[] = [
+  "hag",
+  "brigandPounder",
+  "shrieker",
+];
+
+const wealdDescriptionToIdentity = new Map<string, WealdBossIdentity>();
+for (const identity of WEALD_BOSS_IDENTITIES) {
+  for (const level of [1, 2, 3] as const) {
+    const cardId = WEALD_BOSS_DESCRIPTION_CARD_ID[identity][level];
+    if (cardId) wealdDescriptionToIdentity.set(cardId, identity);
+  }
+}
+
+export function wealdBossIdentityForDescriptionCard(
+  descriptionCardId: string,
+): WealdBossIdentity | undefined {
+  return wealdDescriptionToIdentity.get(descriptionCardId);
+}
+
 const descriptionToIdentity = new Map<string, RuinsBossIdentity>();
 for (const identity of RUINS_BOSS_IDENTITIES) {
   for (const level of [1, 2, 3] as const) {
@@ -81,6 +129,9 @@ export function resolveScriptIdForDescriptionCard(
   if (descriptionCardId === PROPHET_I_DESCRIPTION_ABILITY_CARD_ID) {
     return PROPHET_I_SCRIPT_ID;
   }
+  if (descriptionCardId === HAG_I_DESCRIPTION_ABILITY_CARD_ID) {
+    return HAG_I_SCRIPT_ID;
+  }
   ensureCoreBossScriptsRegistered();
   for (const script of listBossScripts()) {
     if (script.combatEntry?.descriptionAbilityCardId === descriptionCardId) return script.id;
@@ -97,8 +148,13 @@ export function imminentThreatPoolForCampaign(
 }
 
 export function unregisteredImminentThreatHold(descriptionCardId: string): string {
-  const identity = ruinsBossIdentityForDescriptionCard(descriptionCardId);
-  return identity
-    ? `${identity} 迫近威胁脚本未注册（spec §2.3）；被动与 Face the Threat 仍 hold`
-    : `未知 Boss 描述卡 ${descriptionCardId}；脚本未注册`;
+  const ruinsIdentity = ruinsBossIdentityForDescriptionCard(descriptionCardId);
+  if (ruinsIdentity) {
+    return `${ruinsIdentity} 迫近威胁脚本未注册（spec §2.3）；被动与 Face the Threat 仍 hold`;
+  }
+  const wealdIdentity = wealdBossIdentityForDescriptionCard(descriptionCardId);
+  if (wealdIdentity) {
+    return `${wealdIdentity} 迫近威胁脚本未注册（Weald / spec §2.3）；被动与 Face the Threat 仍 hold`;
+  }
+  return `未知 Boss 描述卡 ${descriptionCardId}；脚本未注册`;
 }
