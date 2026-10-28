@@ -1,6 +1,9 @@
 import type { GameState } from "@ddbg/engine";
 import roomTileGeometry from "../../../../packages/data/normalized/corebox/room_tile_geometry.json";
-import { battleData } from "virtual:battle-data";
+
+/** Matches battle-data-plugin sandbox (Ritual Chamber / room_tile:p001). */
+const SANDBOX_DEFAULT_TILE_ID = "room_tile:p001";
+const SANDBOX_DEFAULT_TILE_NAME = "Ritual Chamber";
 
 type GeometryTile = { readonly id: string; readonly name: string };
 
@@ -17,6 +20,6 @@ export function resolveBattleRoomTileId(
   if (fromDungeon) return fromDungeon;
   const label = roomName?.trim();
   if (label && tilesByName.has(label)) return tilesByName.get(label);
-  if (label === battleData.tileName) return "room_tile:p001";
+  if (label === SANDBOX_DEFAULT_TILE_NAME) return SANDBOX_DEFAULT_TILE_ID;
   return undefined;
 }

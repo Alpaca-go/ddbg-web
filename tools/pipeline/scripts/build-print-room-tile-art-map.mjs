@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Promote room_tile_geometry tiles → apps/web room-tile-print-art-map.json.
- * PNG paths are Kyries manual / export conventions under .cache/print-card-art/ (gitignored).
+ * Promote geometryVerified room tiles → apps/web room-tile-print-art-map.json.
+ * PNGs: export_room_tile_faces.py (TrimBox page from each tile's source PDF/page).
  */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
@@ -33,8 +33,8 @@ const tiles = geometry.tiles
     printPage: t.source.page,
     primaryPdf: t.source.file,
     face: t.source.face,
-    matchMethod: "manual_path_convention",
-    reviewVerdict: "path_convention",
+    matchMethod: "geometry_source_trim_page",
+    reviewVerdict: t.ruling ?? t.approval ?? "geometry_verified",
     areaIds: t.areas.map((a) => a.id),
   }));
 
@@ -43,16 +43,20 @@ const map = {
   source: {
     geometry: "packages/data/normalized/corebox/room_tile_geometry.json",
     tileCount: tiles.length,
+    exportScript: "tools/pipeline/print-card-art/export_room_tile_faces.py",
     notes: [
       "facePngRel paths are relative to .cache/print-card-art/ (DDBG_PRINT_CARD_ART_CACHE).",
-      "Battle UI uses whole face only: manual/room-tile-faces/<tileId>.png (no per-area crops in web).",
-      "R-048: no invented print geometry in UI; missing PNG → Chinese placeholder.",
-      "Regenerate: node tools/pipeline/scripts/build-print-room-tile-art-map.mjs",
+      "Battle UI uses whole TrimBox page only (no per-area crops in web).",
+      "R-048: page/file come from approved room_tile_geometry source; missing PNG → Chinese placeholder.",
+      "Regenerate map: node tools/pipeline/scripts/build-print-room-tile-art-map.mjs",
+      "Export PNGs: node tools/pipeline/scripts/export-print-room-tile-faces.mjs --input <EN_FILES>",
     ],
   },
   tiles,
   pendingConfirmation: [
-    "Kyries manual exports for room tile faces are not committed; paths are conventions only.",
+    "Mapped: 9 geometryVerified Ruins faces (room_tile_geometry rooms 1–5, FRONT/BACK pages only).",
+    "Not mapped: Ruins p006–p012 faces and all Darkest Dungeon / other location tiles (no approved geometry).",
+    "PNG binaries gitignored; local cache required for battle underlay art.",
   ],
 };
 

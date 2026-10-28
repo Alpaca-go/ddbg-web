@@ -48,8 +48,10 @@ runNode("export-print-card-art.mjs", [...common, "--dpi", dpi]);
 runNode("export-print-room-tokens.mjs", [...common, "--dpi", "300"]);
 runNode("export-print-hero-standees.mjs", [...common, "--dpi", "300"]);
 runNode("export-print-corebox-trim-decks.mjs", [...common, "--dpi", dpi]);
+runNode("export-print-room-tile-faces.mjs", [...common, "--dpi", dpi]);
 
 runNode("build-print-monster-stance-art-map.mjs", ["--manifest", resolve(out, "manifest.csv")]);
+runNode("build-print-room-tile-art-map.mjs");
 runNode("check-print-art-map-refs.mjs", ["--cache", out]);
 
 console.log(`Print-card-art export complete → ${out}`);

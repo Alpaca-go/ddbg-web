@@ -3,11 +3,13 @@
   "source": {
     "geometry": "packages/data/normalized/corebox/room_tile_geometry.json",
     "tileCount": 9,
+    "exportScript": "tools/pipeline/print-card-art/export_room_tile_faces.py",
     "notes": [
       "facePngRel paths are relative to .cache/print-card-art/ (DDBG_PRINT_CARD_ART_CACHE).",
-      "Battle UI uses whole face only: manual/room-tile-faces/<tileId>.png (no per-area crops in web).",
-      "R-048: no invented print geometry in UI; missing PNG → Chinese placeholder.",
-      "Regenerate: node tools/pipeline/scripts/build-print-room-tile-art-map.mjs"
+      "Battle UI uses whole TrimBox page only (no per-area crops in web).",
+      "R-048: page/file come from approved room_tile_geometry source; missing PNG → Chinese placeholder.",
+      "Regenerate map: node tools/pipeline/scripts/build-print-room-tile-art-map.mjs",
+      "Export PNGs: node tools/pipeline/scripts/export-print-room-tile-faces.mjs --input <EN_FILES>"
     ]
   },
   "tiles": [
@@ -18,8 +20,8 @@
       "printPage": 1,
       "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
       "face": "front",
-      "matchMethod": "manual_path_convention",
-      "reviewVerdict": "path_convention",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-054",
       "areaIds": [
         "A",
         "B",
@@ -40,8 +42,8 @@
       "printPage": 2,
       "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
       "face": "back",
-      "matchMethod": "manual_path_convention",
-      "reviewVerdict": "path_convention",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-048",
       "areaIds": [
         "A",
         "B",
@@ -60,8 +62,8 @@
       "printPage": 2,
       "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
       "face": "front",
-      "matchMethod": "manual_path_convention",
-      "reviewVerdict": "path_convention",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-065",
       "areaIds": [
         "A",
         "B",
@@ -82,8 +84,8 @@
       "printPage": 3,
       "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
       "face": "front",
-      "matchMethod": "manual_path_convention",
-      "reviewVerdict": "path_convention",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-065",
       "areaIds": [
         "L1",
         "L2",
@@ -103,8 +105,8 @@
       "printPage": 3,
       "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
       "face": "back",
-      "matchMethod": "manual_path_convention",
-      "reviewVerdict": "path_convention",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-066",
       "areaIds": [
         "S1",
         "S2",
@@ -127,8 +129,8 @@
       "printPage": 4,
       "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
       "face": "back",
-      "matchMethod": "manual_path_convention",
-      "reviewVerdict": "path_convention",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-065",
       "areaIds": [
         "T1",
         "T2",
@@ -148,8 +150,8 @@
       "printPage": 4,
       "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
       "face": "front",
-      "matchMethod": "manual_path_convention",
-      "reviewVerdict": "path_convention",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-065",
       "areaIds": [
         "A1",
         "A2",
@@ -169,8 +171,8 @@
       "printPage": 5,
       "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
       "face": "back",
-      "matchMethod": "manual_path_convention",
-      "reviewVerdict": "path_convention",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-065",
       "areaIds": [
         "I1",
         "I2",
@@ -191,8 +193,8 @@
       "printPage": 5,
       "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
       "face": "front",
-      "matchMethod": "manual_path_convention",
-      "reviewVerdict": "path_convention",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-065",
       "areaIds": [
         "O1",
         "O2",
@@ -207,6 +209,8 @@
     }
   ],
   "pendingConfirmation": [
-    "Kyries manual exports for room tile faces are not committed; paths are conventions only."
+    "Mapped: 9 geometryVerified Ruins faces (room_tile_geometry rooms 1–5, FRONT/BACK pages only).",
+    "Not mapped: Ruins p006–p012 faces and all Darkest Dungeon / other location tiles (no approved geometry).",
+    "PNG binaries gitignored; local cache required for battle underlay art."
   ]
 }
