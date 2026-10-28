@@ -7,6 +7,7 @@ import {
   FIXTURE_BOSS_SCRIPT_ID,
   getBossScript,
   isBossQuestId,
+  NECROMANCER_I_SCRIPT_ID,
   registerBossScript,
   resolveBossScriptIdForQuest,
   runBossHook,
@@ -56,10 +57,12 @@ describe("Phase 5 Boss 框架骨架", () => {
     if (actions.status === "ok") expect(actions.value).toBe(2);
   });
 
-  it("Boss 任务识别与脚本映射表为空时不编造 script id", () => {
+  it("Boss 任务识别与已核实 quest→脚本映射", () => {
     expect(isBossQuestId("quest:p019")).toBe(true);
     expect(isBossQuestId("quest:p001")).toBe(false);
-    expect(resolveBossScriptIdForQuest("quest:p019")).toBeUndefined();
+    expect(resolveBossScriptIdForQuest("quest:p019")).toBe(NECROMANCER_I_SCRIPT_ID);
+    expect(resolveBossScriptIdForQuest("quest:p019", { campaignLevel: 2 })).toBeUndefined();
+    expect(resolveBossScriptIdForQuest("quest:p016")).toBeUndefined();
   });
 
   it("注册表拒绝静默覆盖不同定义", () => {
