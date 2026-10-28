@@ -8,6 +8,10 @@ import {
   PROPHET_I_SCRIPT_ID,
   SIREN_I_SCRIPT_ID,
   COLLECTOR_I_SCRIPT_ID,
+  FANATIC_I_SCRIPT_ID,
+  FLESH_I_SCRIPT_ID,
+  applyBossThreatBlackSheepBeforeHamletEvent,
+  applyBossThreatCreepingSicknessEndOfHamletDay,
   applyBossThreatStressOnDungeonEntry,
   completeCurioRoomWithoutCurioDraw,
   ensureCoreBossScriptsRegistered,
@@ -16,6 +20,7 @@ import {
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
 import { rollHamletCaretaker } from "../hamlet-event";
+import { currentHamletHero } from "../hamlet-actions";
 import { readFileSync } from "node:fs";
 
 const arbalist: MonsterCardView = JSON.parse(
@@ -222,5 +227,92 @@ describe("威胁被动运行时接线", () => {
     expect(skipped.state.dungeon!.phase).toBe("ready");
     expect(skipped.state.dungeon!.rooms.find((r) => r.id === roomId)!.cleared).toBe(true);
     expect("curioRoom" in skipped.state.dungeon!).toBe(false);
+  });
+
+  it("Fanatic I：drawHamletEvent 前 The Black Sheep 对 d10 最低者 +4 压力", () => {
+    let game = createCoreDungeonQuest(906, "quest:p001", "standard", coreParty, coreQuestSources);
+    let result = applyCommand(game, { type: "rollDungeonProvisions" });
+    expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+    game = result.state;
+    while (result.pendingChoice) {
+      result = applyCommand(game, {
+        type: "resolveChoice",
+        choiceId: result.pendingChoice.id,
+        optionId: result.pendingChoice.options[0]!.id,
+      });
+      game = result.state;
+    }
+    result = applyCommand(game, { type: "leaveDungeon" });
+    game = ok(result.state, {
+      type: "resolveChoice",
+      choiceId: result.pendingChoice!.id,
+      optionId: "agree",
+    });
+    for (const type of ["summarizeDungeonQuest", "beginReturnToHamlet", "finishReturnToHamlet"] as const)
+      game = ok(game, { type });
+    game = ok(game, { type: "setActiveBossThreat", scriptId: FANATIC_I_SCRIPT_ID });
+    const before = game.dungeon!.heroes.map((h) => h.stress);
+    game = ok(game, { type: "drawHamletEvent" });
+    const after = game.dungeon!.heroes.map((h) => h.stress);
+    expect(after.some((s, i) => s > before[i]!)).toBe(true);
+    const delta = after.map((s, i) => s - before[i]!);
+    expect(delta.filter((d) => d === 4).length).toBeGreaterThanOrEqual(1);
+    expect(delta.every((d) => d === 0 || d === 4)).toBe(true);
+  });
+
+  it("Fanatic I：The Black Sheep helper 可单独调用", () => {
+    let game = createCoreDungeonQuest(907, "quest:p001", "standard", coreParty, coreQuestSources);
+    game = ok(game, { type: "setActiveBossThreat", scriptId: FANATIC_I_SCRIPT_ID });
+    const result = applyBossThreatBlackSheepBeforeHamletEvent(game);
+    expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(result.state.dungeon!.heroes.some((h) => h.stress === 4)).toBe(true);
+  });
+
+  it("Flesh I：日末未访建筑累积伤口，访问时转移", () => {
+    let game = hamletJourney(40);
+    game = ok(game, { type: "setActiveBossThreat", scriptId: FLESH_I_SCRIPT_ID });
+    const endDay = applyBossThreatCreepingSicknessEndOfHamletDay({
+      ...game,
+      dungeon: {
+        ...game.dungeon!,
+        hamlet: {
+          ...game.dungeon!.hamlet!,
+          phase: "awaitingCaretaker",
+          visitedBuildings: ["tavern"],
+        },
+      },
+    });
+    expect(endDay.state.dungeon!.hamlet!.buildingWounds?.tavern).toBeUndefined();
+    expect(endDay.state.dungeon!.hamlet!.buildingWounds?.sanitarium).toBe(1);
+
+    game = ok(endDay.state, { type: "rollHamletCaretaker" });
+    const actorId = currentHamletHero(game)!.id;
+    game = {
+      ...game,
+      dungeon: {
+        ...game.dungeon!,
+        gold: 999,
+        hamlet: {
+          ...game.dungeon!.hamlet!,
+          blockedBuildings: [],
+          caretaker: "graveyard",
+          visitedBuildings: [],
+          buildingWounds: { tavern: 2 },
+        },
+        heroes: game.dungeon!.heroes.map((h) =>
+          h.id === actorId
+            ? { ...h, stress: 5, wounds: 0, attributesVerified: true, life: 33 }
+            : h,
+        ),
+      },
+    };
+    game = ok(game, {
+      type: "visitHamletBuilding",
+      actorId,
+      serviceId: "tavern3",
+      quirkIds: [],
+    });
+    expect(game.dungeon!.hamlet!.buildingWounds?.tavern).toBeUndefined();
+    expect(game.dungeon!.heroes.find((h) => h.id === actorId)!.wounds).toBe(2);
   });
 });

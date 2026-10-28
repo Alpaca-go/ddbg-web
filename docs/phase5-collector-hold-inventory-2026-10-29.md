@@ -87,11 +87,11 @@
 | Necromancer I | Graveyard blocked | 封锁已合并 |
 | Prophet I | 酒馆减压 −1 | helper 有；hamlet-actions **未合并** |
 | Collector I | Nomad Wagon blocked | 封锁已合并 |
-| Fanatic I | The Black Sheep（事件前 d10） | **hamlet 钩子 stub** |
+| Fanatic I | The Black Sheep（事件前 d10） | **已接**（`drawHamletEvent`） |
 | Hag I | 疗养院 Life −3 | helper 有；**未合并** |
 | Swine Prince I | Survivalist blocked | 封锁已合并 |
 | Siren I | Abbey blocked | 封锁已合并（`KNOWN_BOSS_THREAT` 未含 abbey，换威胁时 strip 行为待任务卡） |
-| Flesh I | Creeping Sickness I | **hamlet 钩子 stub** |
+| Flesh I | Creeping Sickness I | **已接**（日末 / 访问 / 阶段结束） |
 
 地牢威胁（进地牢压力、Beast/Eldritch 加伤、药瓶压力、Large Guard、战后移出非 Unholy、Curio 不抽等）均为 **脚本 + helper**；探索 / 战斗 / curio / spawn **主路径多数未接**（见各 `*-i.test.ts` 与 `threat-passive.ts`）。
 

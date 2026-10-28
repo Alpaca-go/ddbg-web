@@ -37,17 +37,23 @@ export {
   stressOnHeroProvisionUseFromBossThreat,
   skipCurioDrawInCurioRoomsFromBossThreat,
   tavernStressRecoveryDeltaFromBossThreat,
+  blackSheepStressDeltaFromBossThreat,
+  creepingSicknessWoundsPerUnvisitedBuildingFromBossThreat,
 } from "./threat-passive";
 export {
+  applyBossThreatBlackSheepBeforeHamletEvent,
+  applyBossThreatCreepingSicknessEndOfHamletDay,
   applyBossThreatStressOnDungeonEntry,
   applyBossThreatStressOnProvisionUse,
   completeCurioRoomWithoutCurioDraw,
+  CREEPING_SICKNESS_HAMLET_BUILDINGS,
   effectiveHamletSanitariumHealAmount,
   effectiveHamletStressRecoveryAmount,
   monsterCombatThreatDamageBonus,
   monsterThreatFlatDamageBonus,
   readActiveBossThreatScript,
   shouldSkipCurioDrawInCurioRoom,
+  transferCreepingSicknessBuildingWoundsToHero,
 } from "./threat-passive-runtime";
 export {
   applyBossThreatAfterBattleToPool,

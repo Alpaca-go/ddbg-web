@@ -1,6 +1,8 @@
 import type { ApplyResult, GameState } from "../command";
 import type { DungeonState } from "../dungeon";
+import { nextBattleRoll } from "../encounter";
 import { passiveStress } from "../passive";
+import { resolveHeroHealth } from "../hero-health";
 import { resolveBattlePressure } from "../pressure";
 import { triggerDungeonPassive } from "../dungeon-passive";
 import { resolveDungeonPressure } from "../dungeon-pressure";
@@ -10,6 +12,8 @@ import { getBossScript } from "./registry";
 import { readActiveBossThreatScriptId } from "./threat-campaign";
 import {
   beastMonsterDamageBonusFromBossThreat,
+  blackSheepStressDeltaFromBossThreat,
+  creepingSicknessWoundsPerUnvisitedBuildingFromBossThreat,
   eldritchMonsterDamageBonusFromBossThreat,
   sanitariumHealLifeDeltaFromBossThreat,
   stressOnDungeonEntryPerHeroFromBossThreat,
@@ -18,6 +22,20 @@ import {
 } from "./threat-passive";
 import { skipCurioDrawInCurioRoomsFromBossThreat } from "./threat-passive";
 import type { BossScriptDefinition } from "./types";
+
+const HAMLET_HERO_STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
+
+/** 与看守人 d10 表一致的唯一建筑 id（Creeping Sickness I）。 */
+export const CREEPING_SICKNESS_HAMLET_BUILDINGS = [
+  "survivalist",
+  "tavern",
+  "sanitarium",
+  "abbey",
+  "graveyard",
+  "guild",
+  "blacksmith",
+  "nomadWagon",
+] as const;
 
 export function readActiveBossThreatScript(d: DungeonState): BossScriptDefinition | undefined {
   const scriptId = readActiveBossThreatScriptId(d);
@@ -220,5 +238,125 @@ export function completeCurioRoomWithoutCurioDraw(state: GameState): ApplyResult
         message: "迫近威胁：Curio 房间不抽 Curio，房间已清理（Collector I / Taken Away I）",
       },
     ],
+  };
+}
+
+/** Fanatic I · The Black Sheep：揭示村庄事件前全体 d10，最低者承受威胁压力。 */
+export function applyBossThreatBlackSheepBeforeHamletEvent(state: GameState): ApplyResult {
+  const d = state.dungeon;
+  if (!d || d.heroes.some((hero) => hero.dead)) return { state, events: [] };
+  const script = readActiveBossThreatScript(d);
+  if (!script) return { state, events: [] };
+  const stressDelta = blackSheepStressDeltaFromBossThreat(script);
+  if (stressDelta <= 0) return { state, events: [] };
+
+  const order = [...d.heroes].sort(
+    (a, b) =>
+      HAMLET_HERO_STANCES.indexOf(a.stance as (typeof HAMLET_HERO_STANCES)[number]) -
+      HAMLET_HERO_STANCES.indexOf(b.stance as (typeof HAMLET_HERO_STANCES)[number]),
+  );
+  let cursor = d.cursor;
+  const rolls = order.map((hero) => {
+    const roll = nextBattleRoll(state.seed, cursor++);
+    return { heroId: hero.id, roll };
+  });
+  const lowest = Math.min(...rolls.map((entry) => entry.roll));
+  const losers = rolls.filter((entry) => entry.roll === lowest).map((entry) => entry.heroId);
+  const rollSummary = rolls.map((entry) => `${entry.heroId}:${entry.roll}`).join("、");
+
+  const stressed = applyStressToHeroes(
+    { ...state, dungeon: { ...d, cursor } },
+    losers,
+    stressDelta,
+    "exploration",
+    `迫近威胁 · The Black Sheep：d10 ${rollSummary}，最低 ${lowest} 压力 +${stressDelta}（${script.displayName}）`,
+  );
+  return stressed;
+}
+
+/** Flesh I · Creeping Sickness：每日末未访建筑放伤口；Hamlet 阶段结束清建筑代币。 */
+export function applyBossThreatCreepingSicknessEndOfHamletDay(state: GameState): ApplyResult {
+  const d = state.dungeon;
+  const h = d?.hamlet;
+  if (!d || !h) return { state, events: [] };
+  const script = readActiveBossThreatScript(d);
+  const perBuilding = script
+    ? creepingSicknessWoundsPerUnvisitedBuildingFromBossThreat(script)
+    : 0;
+  if (perBuilding <= 0) return { state, events: [] };
+
+  const visited = new Set(h.visitedBuildings ?? []);
+  let buildingWounds: Partial<Record<string, number>> = { ...(h.buildingWounds ?? {}) };
+  const added: string[] = [];
+  for (const building of CREEPING_SICKNESS_HAMLET_BUILDINGS) {
+    if (visited.has(building)) continue;
+    const next = (buildingWounds[building] ?? 0) + perBuilding;
+    buildingWounds[building] = next;
+    added.push(`${building}+${perBuilding}`);
+  }
+  const prepComplete = h.phase === "preparationComplete";
+  if (prepComplete) buildingWounds = {};
+
+  const messages: string[] = [];
+  if (added.length) {
+    messages.push(
+      `迫近威胁 · Creeping Sickness：未访建筑累积伤口（${added.join("、")}；${script!.displayName}）`,
+    );
+  }
+  if (prepComplete && (h.buildingWounds && Object.keys(h.buildingWounds).length)) {
+    messages.push("Hamlet 阶段结束：清除建筑上剩余伤口代币（Creeping Sickness I）");
+  }
+  if (!added.length && !prepComplete) return { state, events: [] };
+
+  return {
+    state: {
+      ...state,
+      dungeon: {
+        ...d,
+        hamlet: { ...h, buildingWounds },
+      },
+    },
+    events: messages.length ? [{ type: "dungeonUpdated", message: messages.join("；") }] : [],
+  };
+}
+
+type HamletHero = DungeonState["heroes"][number];
+
+/** 访问建筑时把建筑上 Creeping Sickness 伤口转移给当前英雄。 */
+export function transferCreepingSicknessBuildingWoundsToHero(
+  d: DungeonState,
+  hero: HamletHero,
+  building: string,
+): { readonly status: "ok"; readonly dungeon: DungeonState; readonly hero: HamletHero } | { readonly status: "refused"; readonly reason: string } {
+  const woundsOnBuilding = d.hamlet?.buildingWounds?.[building] ?? 0;
+  if (woundsOnBuilding <= 0) return { status: "ok", dungeon: d, hero };
+  if (
+    !hero.attributesVerified ||
+    hero.life === undefined ||
+    hero.wounds === undefined ||
+    hero.dead
+  )
+    return { status: "refused", reason: "Creeping Sickness 转移伤口缺已核实 Life / 伤口（R-048）" };
+
+  const health = resolveHeroHealth(
+    { life: hero.life, wounds: hero.wounds, dead: false },
+    { type: "wounds", amounts: Array.from({ length: woundsOnBuilding }, () => 1) },
+  );
+  if (health.status !== "resolved") {
+    return {
+      status: "refused",
+      reason: health.status === "refused" ? health.reason : "Creeping Sickness 伤口转移需掷骰（待确认）",
+    };
+  }
+
+  const buildingWounds = { ...(d.hamlet!.buildingWounds ?? {}) };
+  delete buildingWounds[building];
+  return {
+    status: "ok",
+    dungeon: {
+      ...d,
+      hamlet: { ...d.hamlet!, buildingWounds },
+    },
+    hero: { ...hero, wounds: health.state.wounds },
   };
 }

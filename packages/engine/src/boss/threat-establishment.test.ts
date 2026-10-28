@@ -125,7 +125,7 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     expect(skipCurioDrawInCurioRoomsFromBossThreat(script)).toBe(true);
   });
 
-  it("抽到已注册 Fanatic I 时挂接 activeBossThreatScriptId（威胁被动仍为 stub）", () => {
+  it("抽到已注册 Fanatic I 时挂接 activeBossThreatScriptId（村庄 The Black Sheep 已声明）", () => {
     let fanaticSeed: number | undefined;
     for (let seed = 0; seed < 500 && fanaticSeed === undefined; seed++) {
       if (drawnDescription(seed) === RUINS_BOSS_DESCRIPTION_CARD_ID.fanatic[1]) fanaticSeed = seed;
@@ -137,9 +137,12 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     expect(bossThreatHamletBlockedBuildings(game.dungeon!)).toEqual([]);
     const script = getBossScript(FANATIC_I_SCRIPT_ID)!;
     expect(
-      runBossHook(script, "threatPassiveHamlet", { scriptId: FANATIC_I_SCRIPT_ID, side: "hamlet" })
-        .status,
-    ).toBe("stub");
+      runBossHook(script, "threatPassiveHamlet", { scriptId: FANATIC_I_SCRIPT_ID, side: "hamlet" }),
+    ).toMatchObject({
+      status: "ok",
+      effect: "blackSheepBeforeHamletEvent",
+      stressDelta: 4,
+    });
   });
 
   it("重复 establish 与战斗中被拒", () => {

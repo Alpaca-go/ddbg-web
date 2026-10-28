@@ -4,7 +4,7 @@ import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./
 import type {
   BossScriptDefinition,
   BossThreatPassiveDungeonResult,
-  BossThreatPassiveHamletResult,
+  BossThreatPassiveHamletOk,
 } from "./types";
 
 /** 引擎脚本 id；与印刷卡 id 分离。 */
@@ -31,10 +31,12 @@ const dungeonThreatPassive = (): BossThreatPassiveDungeonResult => ({
   hold: `${FANATIC_I_COMBAT_ABILITY_CARD_ID} / Marked for Death I`,
 });
 
-const hamletThreatPassive = (): BossThreatPassiveHamletResult => ({
-  status: "stub",
-  message: "Fanatic I：The Black Sheep（揭示事件前全体掷 d10、最低者 +4 压力）村庄威胁未接线",
-  hold: `${FANATIC_I_COMBAT_ABILITY_CARD_ID} / The Black Sheep I`,
+const hamletThreatPassive = (): BossThreatPassiveHamletOk => ({
+  status: "ok",
+  effect: "blackSheepBeforeHamletEvent",
+  stressDelta: 4,
+  sourceAbilityCardId: FANATIC_I_COMBAT_ABILITY_CARD_ID,
+  rulesRef: ["R11", "R32", FANATIC_I_COMBAT_ABILITY_CARD_ID],
 });
 
 export const fanaticIBossScript: BossScriptDefinition = {

@@ -8,7 +8,7 @@
 | 内容 | 依据 |
 | --- | --- |
 | 地牢侧威胁 **Big Troubles I**：「When a large Monster is spawned in battle, give it Guard 2t.」 | `boss_ability:warrens:flesh:p002` 威胁背面（Boss Abilities BACK p16） |
-| 村庄侧威胁 **Creeping Sickness I**：每日末未访建筑放 Wound；访问时转移；Hamlet 阶段结束清建筑上剩余 Wound | 同上卡背面（旋转半区）；**引擎 `threatPassiveHamlet` 仍为 stub** |
+| 村庄侧威胁 **Creeping Sickness I**：每日末未访建筑放 Wound；访问时转移；Hamlet 阶段结束清建筑上剩余 Wound | 同上卡背面（旋转半区）；**已接**（`hamlet.buildingWounds` + `hamlet-actions`） |
 | Boss Abilities 战斗面：ACTIONS / Round **4**；**One Body**（共享 Life、部位 morph） | Boss Abilities FRONT p16 |
 | Boss Description I（风味） | `boss_ability:warrens:flesh:p001`（Boss Abilities FRONT p13） |
 | 四部位战斗卡（Head / Bone / Heart / Butt） | `monster_medium:warrens:flesh_*:p001`（不进 `combatEntry`） |
@@ -29,7 +29,7 @@
 | --- | --- |
 | Warrens Boss **extract JSON** 与占位 id 对齐 PDF 页序 | 当前 id 按 `boss_ability:warrens:flesh:p00x` / `monster_*:warrens:flesh_*` 约定 |
 | Large 生成 Guard 2t **写入** encounter spawn | helper 仅返回值 |
-| Creeping Sickness I 村庄 Wound 转移 | `threatPassiveHamlet` stub |
+| Creeping Sickness I 村庄 Wound 转移 | **已接**（`threat-passive-runtime` / `hamlet-actions`） |
 | One Body morph / 部位位移、四单位 Boss 战 | `summon` stub |
 | Warrens 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
 | quest / Face the Threat → The Flesh | `faceTheThreatEmbark` stub |
