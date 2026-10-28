@@ -25,6 +25,7 @@ export type PrintPlayerAidArtCard = {
 };
 
 export const PROVISION_PLAYER_AID_ID = "player_aid:p001";
+export const ROOMS_PLAYER_AID_ID = "player_aid:p005";
 
 export const PRINT_CARD_ART_PUBLIC_PREFIX = "/print-card-art";
 
@@ -45,6 +46,24 @@ export function lookupProvisionPlayerAidFront():
   | (PrintPlayerAidArtCard & { faceEntry: PrintPlayerAidFaceEntry })
   | undefined {
   return lookupPrintPlayerAidFace(PROVISION_PLAYER_AID_ID, "front");
+}
+
+export function lookupExplorationPlayerAidBack():
+  | (PrintPlayerAidArtCard & { faceEntry: PrintPlayerAidFaceEntry })
+  | undefined {
+  return lookupPrintPlayerAidFace(PROVISION_PLAYER_AID_ID, "back");
+}
+
+export function lookupRoomsPlayerAidFront():
+  | (PrintPlayerAidArtCard & { faceEntry: PrintPlayerAidFaceEntry })
+  | undefined {
+  return lookupPrintPlayerAidFace(ROOMS_PLAYER_AID_ID, "front");
+}
+
+export function lookupConditionsPlayerAidBack():
+  | (PrintPlayerAidArtCard & { faceEntry: PrintPlayerAidFaceEntry })
+  | undefined {
+  return lookupPrintPlayerAidFace(ROOMS_PLAYER_AID_ID, "back");
 }
 
 export function cachedPrintPlayerAidUrl(entry: Pick<PrintPlayerAidFaceEntry, "pngRel">): string {
