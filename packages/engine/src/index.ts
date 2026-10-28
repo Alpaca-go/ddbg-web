@@ -178,3 +178,29 @@ export {
   stagecoachWaitingTokens,
   upgradeHamletBuilding,
 } from "./hamlet-buildings";
+export {
+  bossQuestScriptId,
+  clearBossScriptsForTest,
+  DEFAULT_BOSS_BATTLE_RULES,
+  defaultMonsterTurnActionCount,
+  encounterRoundRetreatLimit,
+  ensureFixtureBossScriptRegistered,
+  FACE_THE_THREAT_QUEST_ID,
+  FIXTURE_BOSS_SCRIPT_ID,
+  fixtureBossSkeletonScript,
+  getBossScript,
+  isBossQuestId,
+  listBossScripts,
+  registerBossScript,
+  resolveBossScriptIdForQuest,
+  runBossHook,
+} from "./boss/index";
+export type {
+  BossBattleRules,
+  BossHookName,
+  BossHookOk,
+  BossHookStubResult,
+  BossScriptDefinition,
+  BossScriptHooks,
+  BossScriptId,
+} from "./boss/index";
