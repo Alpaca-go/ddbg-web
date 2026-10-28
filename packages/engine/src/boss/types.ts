@@ -41,6 +41,14 @@ export type BossThreatPassiveDungeonOk =
       readonly damageDelta: number;
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
+      readonly effect: "eldritchMonsterDamageBonus";
+      /** Eldritch 类型怪物造成的伤害修正（印刷卡常为 +2 / +4 / +6）。 */
+      readonly damageDelta: number;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
     };
 
 export type BossThreatPassiveHamletOk =
@@ -71,6 +79,13 @@ export type BossThreatPassiveHamletOk =
       readonly status: "ok";
       readonly effect: "survivalistBlocked";
       readonly blockedBuildings: readonly ["survivalist"];
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
+      readonly effect: "abbeyBlocked";
+      readonly blockedBuildings: readonly ["abbey"];
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];
     };

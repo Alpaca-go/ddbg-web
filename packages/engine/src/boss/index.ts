@@ -25,6 +25,7 @@ export {
   cardIdsPermanentlyRemovedAfterBattle,
   hamletBuildingsBlockedByBossThreat,
   beastMonsterDamageBonusFromBossThreat,
+  eldritchMonsterDamageBonusFromBossThreat,
   sanitariumHealLifeDeltaFromBossThreat,
   stressOnDungeonEntryPerHeroFromBossThreat,
   stressOnHeroProvisionUseFromBossThreat,
@@ -65,11 +66,15 @@ export {
   WARRENS_BOSS_DESCRIPTION_CARD_ID,
   WARRENS_BOSS_IDENTITIES,
   warrensBossIdentityForDescriptionCard,
+  COVE_BOSS_DESCRIPTION_CARD_ID,
+  COVE_BOSS_IDENTITIES,
+  coveBossIdentityForDescriptionCard,
 } from "./threat-description-catalog";
 export type {
   RuinsBossIdentity,
   WealdBossIdentity,
   WarrensBossIdentity,
+  CoveBossIdentity,
 } from "./threat-description-catalog";
 export { applyActiveBossThreatToDungeon } from "./apply-active-boss-threat";
 export {
@@ -107,6 +112,14 @@ export {
   SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
   swinePrinceIBossScript,
 } from "./swine-prince-i";
+export {
+  ensureSirenIBossScriptRegistered,
+  SIREN_I_COMBAT_ABILITY_CARD_ID,
+  SIREN_I_COMBAT_MONSTER_CARD_ID,
+  SIREN_I_DESCRIPTION_ABILITY_CARD_ID,
+  SIREN_I_SCRIPT_ID,
+  sirenIBossScript,
+} from "./siren-i";
 export {
   clearBossScriptsForTest,
   getBossScript,

@@ -10,12 +10,15 @@ import {
   ensureProphetIBossScriptRegistered,
   ensureHagIBossScriptRegistered,
   ensureSwinePrinceIBossScriptRegistered,
+  ensureSirenIBossScriptRegistered,
   establishImminentThreat,
   resolveBossScriptIdForQuest,
   HAG_I_DESCRIPTION_ABILITY_CARD_ID,
   HAG_I_SCRIPT_ID,
   SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
   SWINE_PRINCE_I_SCRIPT_ID,
+  SIREN_I_DESCRIPTION_ABILITY_CARD_ID,
+  SIREN_I_SCRIPT_ID,
   FACE_THE_THREAT_QUEST_ID,
   getBossScript,
 } from "../index";
@@ -25,6 +28,7 @@ import { resolveScriptIdForDescriptionCard } from "./threat-description-catalog"
 import { bossThreatHamletBlockedBuildings } from "./threat-campaign";
 import {
   beastMonsterDamageBonusFromBossThreat,
+  eldritchMonsterDamageBonusFromBossThreat,
   sanitariumHealLifeDeltaFromBossThreat,
 } from "./threat-passive";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
@@ -54,6 +58,7 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     ensureProphetIBossScriptRegistered();
     ensureHagIBossScriptRegistered();
     ensureSwinePrinceIBossScriptRegistered();
+    ensureSirenIBossScriptRegistered();
   });
 
   it("战役开局 establishImminentThreat 确定性抽牌并写入描述卡 id", () => {
@@ -185,6 +190,27 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     const script = getBossScript(SWINE_PRINCE_I_SCRIPT_ID)!;
     expect(beastMonsterDamageBonusFromBossThreat(script)).toBe(2);
     expect(bossThreatHamletBlockedBuildings(game.dungeon!)).toContain("survivalist");
+  });
+
+  it("Siren I 描述卡解析脚本并挂接 activeBossThreatScriptId（Cove；Ruins 开局池不含）", () => {
+    expect(resolveScriptIdForDescriptionCard(SIREN_I_DESCRIPTION_ABILITY_CARD_ID)).toBe(
+      SIREN_I_SCRIPT_ID,
+    );
+    let game = baseQuest(3);
+    game = {
+      ...game,
+      dungeon: applyActiveBossThreatToDungeon(
+        {
+          ...game.dungeon!,
+          imminentThreatDescriptionCardId: SIREN_I_DESCRIPTION_ABILITY_CARD_ID,
+        },
+        SIREN_I_SCRIPT_ID,
+      ),
+    };
+    expect(game.dungeon!.activeBossThreatScriptId).toBe(SIREN_I_SCRIPT_ID);
+    const script = getBossScript(SIREN_I_SCRIPT_ID)!;
+    expect(eldritchMonsterDamageBonusFromBossThreat(script)).toBe(2);
+    expect(bossThreatHamletBlockedBuildings(game.dungeon!)).toContain("abbey");
   });
 
   it("Face the Threat 解析优先 activeBossThreatScriptId", () => {
