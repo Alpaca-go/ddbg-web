@@ -235,4 +235,18 @@ describe("规范化核心盒", () => {
       expect(card?.verification).toEqual({ unverified: false, reasons: [] });
     }
   });
+
+  it("核心盒 38 张饰品 verification 与词典 v1.8 Q-47 批一致", () => {
+    expect(built.trinket.cards).toHaveLength(38);
+    expect(built.trinket.stats.verified).toBe(38);
+    expect(built.trinket.stats.unverified).toBe(0);
+    for (const card of built.trinket.cards) {
+      expect(card.verification).toEqual({ unverified: false, reasons: [] });
+    }
+    const byPage = new Map(built.trinket.cards.map((c) => [c.pages[0], c.id]));
+    expect(byPage.get(9)).toBe("trinket:p009");
+    expect(byPage.get(10)).toBe("trinket:p010");
+    expect(byPage.get(12)).toBe("trinket:p012");
+    expect(byPage.get(14)).toBe("trinket:p014");
+  });
 });

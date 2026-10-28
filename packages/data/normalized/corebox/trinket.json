@@ -9,8 +9,8 @@
  },
  "stats": {
   "cards": 38,
-  "verified": 25,
-  "unverified": 13
+  "verified": 38,
+  "unverified": 0
  },
  "cards": [
   {
@@ -1110,13 +1110,13 @@
     {
      "iconId": "c80192cfcc",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_c80192cfcc",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: trinket illustration",
-     "meaning_zh": "待确认图形：饰品插图",
+     "status": "confirmed",
+     "key": "trinket_picture",
+     "kind": "other",
+     "meaning_en": "Trinket picture (Sage's Book)",
+     "meaning_zh": "饰品插图（Sage's Book）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "f4539842c2",
@@ -1154,13 +1154,13 @@
     {
      "iconId": "032fd6cccd",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_032fd6cccd",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: closed wax-sealed book",
-     "meaning_zh": "待确认图形：合上的封蜡古书",
+     "status": "confirmed",
+     "key": "trinket_picture",
+     "kind": "other",
+     "meaning_en": "Trinket picture (Sage's Book, inverted)",
+     "meaning_zh": "饰品插图（Sage's Book，逆位）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "fecb71daa7",
@@ -1189,11 +1189,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:032fd6cccd",
-     "icon:c80192cfcc"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -1286,13 +1283,13 @@
        "icon": {
         "iconId": "003b470410",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_003b470410",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: gold jagged silhouette",
-        "meaning_zh": "待确认图形：金黄锯齿剪影",
+        "status": "confirmed",
+        "key": "dodge",
+        "kind": "other",
+        "meaning_en": "Dodge (inverted glyph)",
+        "meaning_zh": "闪避（逆位图形）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -1373,13 +1370,13 @@
     {
      "iconId": "003b470410",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_003b470410",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: gold jagged silhouette",
-     "meaning_zh": "待确认图形：金黄锯齿剪影",
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (inverted glyph)",
+     "meaning_zh": "闪避（逆位图形）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "b0f4ca8612",
@@ -1408,10 +1405,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:003b470410"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -1607,13 +1602,13 @@
        "icon": {
         "iconId": "66254314c8",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_66254314c8",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: red pot or puddle glyph",
-        "meaning_zh": "待确认图形：红色锅/水洼图标",
+        "status": "confirmed",
+        "key": "hunger",
+        "kind": "other",
+        "meaning_en": "Hunger",
+        "meaning_zh": "饥饿",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       }
      ]
@@ -1681,24 +1676,24 @@
     {
      "iconId": "a08da49488",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_a08da49488",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: trinket illustration",
-     "meaning_zh": "待确认图形：饰品插图",
+     "status": "confirmed",
+     "key": "trinket_picture",
+     "kind": "other",
+     "meaning_en": "Trinket picture (Survival Guide)",
+     "meaning_zh": "饰品插图（Survival Guide）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "66254314c8",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_66254314c8",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red pot or puddle glyph",
-     "meaning_zh": "待确认图形：红色锅/水洼图标",
+     "status": "confirmed",
+     "key": "hunger",
+     "kind": "other",
+     "meaning_en": "Hunger",
+     "meaning_zh": "饥饿",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "07a4208ff9",
@@ -1782,11 +1777,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:66254314c8",
-     "icon:a08da49488"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -1953,13 +1945,13 @@
     {
      "iconId": "a08da49488",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_a08da49488",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: trinket illustration",
-     "meaning_zh": "待确认图形：饰品插图",
+     "status": "confirmed",
+     "key": "trinket_picture",
+     "kind": "other",
+     "meaning_en": "Trinket picture (Survival Guide)",
+     "meaning_zh": "饰品插图（Survival Guide）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "f7bd151d17",
@@ -2021,10 +2013,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:a08da49488"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -2113,13 +2103,13 @@
        "icon": {
         "iconId": "a64616e9c5",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_a64616e9c5",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: red heart or shield fragment",
-        "meaning_zh": "待确认图形：红色心形或盾形碎块",
+        "status": "confirmed",
+        "key": "bleed",
+        "kind": "status",
+        "meaning_en": "Bleed (inverted glyph)",
+        "meaning_zh": "流血（逆位图形）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -2211,13 +2201,13 @@
     {
      "iconId": "a64616e9c5",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_a64616e9c5",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red heart or shield fragment",
-     "meaning_zh": "待确认图形：红色心形或盾形碎块",
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (inverted glyph)",
+     "meaning_zh": "流血（逆位图形）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "back_icons": [
@@ -2235,10 +2225,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:a64616e9c5"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -2318,13 +2306,13 @@
     {
      "iconId": "c80192cfcc",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_c80192cfcc",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: trinket illustration",
-     "meaning_zh": "待确认图形：饰品插图",
+     "status": "confirmed",
+     "key": "trinket_picture",
+     "kind": "other",
+     "meaning_en": "Trinket picture (Sage's Book)",
+     "meaning_zh": "饰品插图（Sage's Book）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "96dfcd2af2",
@@ -2408,10 +2396,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:c80192cfcc"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -2585,13 +2571,13 @@
        "icon": {
         "iconId": "003b470410",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_003b470410",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: gold jagged silhouette",
-        "meaning_zh": "待确认图形：金黄锯齿剪影",
+        "status": "confirmed",
+        "key": "dodge",
+        "kind": "other",
+        "meaning_en": "Dodge (inverted glyph)",
+        "meaning_zh": "闪避（逆位图形）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -2606,13 +2592,13 @@
     {
      "iconId": "c80192cfcc",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_c80192cfcc",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: trinket illustration",
-     "meaning_zh": "待确认图形：饰品插图",
+     "status": "confirmed",
+     "key": "trinket_picture",
+     "kind": "other",
+     "meaning_en": "Trinket picture (Sage's Book)",
+     "meaning_zh": "饰品插图（Sage's Book）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "33b2d5bc22",
@@ -2650,24 +2636,24 @@
     {
      "iconId": "032fd6cccd",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_032fd6cccd",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: closed wax-sealed book",
-     "meaning_zh": "待确认图形：合上的封蜡古书",
+     "status": "confirmed",
+     "key": "trinket_picture",
+     "kind": "other",
+     "meaning_en": "Trinket picture (Sage's Book, inverted)",
+     "meaning_zh": "饰品插图（Sage's Book，逆位）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "003b470410",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_003b470410",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: gold jagged silhouette",
-     "meaning_zh": "待确认图形：金黄锯齿剪影",
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (inverted glyph)",
+     "meaning_zh": "闪避（逆位图形）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "back_icons": [
@@ -2685,12 +2671,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:003b470410",
-     "icon:032fd6cccd",
-     "icon:c80192cfcc"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -2750,13 +2732,13 @@
        "icon": {
         "iconId": "206c655597",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_206c655597",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-        "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+        "status": "confirmed",
+        "key": "compare_lte",
+        "kind": "other",
+        "meaning_en": "Less-than comparison (trinket light condition)",
+        "meaning_zh": "小于比较符（饰品光照条件）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -2835,13 +2817,13 @@
     {
      "iconId": "206c655597",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_206c655597",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-     "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+     "status": "confirmed",
+     "key": "compare_lte",
+     "kind": "other",
+     "meaning_en": "Less-than comparison (trinket light condition)",
+     "meaning_zh": "小于比较符（饰品光照条件）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "a54d817382",
@@ -2903,10 +2885,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:206c655597"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -3158,13 +3138,13 @@
        "icon": {
         "iconId": "c1d74de856",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_c1d74de856",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-        "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+        "status": "confirmed",
+        "key": "compare_lte",
+        "kind": "other",
+        "meaning_en": "Less-than comparison (trinket light condition)",
+        "meaning_zh": "小于比较符（饰品光照条件）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -3185,13 +3165,13 @@
        "icon": {
         "iconId": "b3f370e3ec",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_b3f370e3ec",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-        "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+        "status": "confirmed",
+        "key": "compare_gte",
+        "kind": "other",
+        "meaning_en": "Greater-than comparison (trinket light condition)",
+        "meaning_zh": "大于比较符（饰品光照条件）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -3287,13 +3267,13 @@
     {
      "iconId": "c1d74de856",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_c1d74de856",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-     "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+     "status": "confirmed",
+     "key": "compare_lte",
+     "kind": "other",
+     "meaning_en": "Less-than comparison (trinket light condition)",
+     "meaning_zh": "小于比较符（饰品光照条件）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -3353,13 +3333,13 @@
     {
      "iconId": "b3f370e3ec",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_b3f370e3ec",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-     "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+     "status": "confirmed",
+     "key": "compare_gte",
+     "kind": "other",
+     "meaning_en": "Greater-than comparison (trinket light condition)",
+     "meaning_zh": "大于比较符（饰品光照条件）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0bda5a65b4",
@@ -3388,11 +3368,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:b3f370e3ec",
-     "icon:c1d74de856"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -3623,13 +3600,13 @@
        "icon": {
         "iconId": "a64616e9c5",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_a64616e9c5",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: red heart or shield fragment",
-        "meaning_zh": "待确认图形：红色心形或盾形碎块",
+        "status": "confirmed",
+        "key": "bleed",
+        "kind": "status",
+        "meaning_en": "Bleed (inverted glyph)",
+        "meaning_zh": "流血（逆位图形）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -3710,13 +3687,13 @@
     {
      "iconId": "a64616e9c5",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_a64616e9c5",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red heart or shield fragment",
-     "meaning_zh": "待确认图形：红色心形或盾形碎块",
+     "status": "confirmed",
+     "key": "bleed",
+     "kind": "status",
+     "meaning_en": "Bleed (inverted glyph)",
+     "meaning_zh": "流血（逆位图形）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "back_icons": [
@@ -3734,10 +3711,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:a64616e9c5"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -4058,13 +4033,13 @@
        "icon": {
         "iconId": "ed3b7ac902",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_ed3b7ac902",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-        "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+        "status": "confirmed",
+        "key": "compare_lte",
+        "kind": "other",
+        "meaning_en": "Less-than comparison (trinket light condition)",
+        "meaning_zh": "小于比较符（饰品光照条件）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -4113,13 +4088,13 @@
        "icon": {
         "iconId": "8c829e3754",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_8c829e3754",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-        "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+        "status": "confirmed",
+        "key": "compare_gte",
+        "kind": "other",
+        "meaning_en": "Greater-than comparison (trinket light condition)",
+        "meaning_zh": "大于比较符（饰品光照条件）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -4185,13 +4160,13 @@
     {
      "iconId": "ed3b7ac902",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_ed3b7ac902",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-     "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+     "status": "confirmed",
+     "key": "compare_lte",
+     "kind": "other",
+     "meaning_en": "Less-than comparison (trinket light condition)",
+     "meaning_zh": "小于比较符（饰品光照条件）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -4251,13 +4226,13 @@
     {
      "iconId": "8c829e3754",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_8c829e3754",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-     "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+     "status": "confirmed",
+     "key": "compare_gte",
+     "kind": "other",
+     "meaning_en": "Greater-than comparison (trinket light condition)",
+     "meaning_zh": "大于比较符（饰品光照条件）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     }
    ],
    "back_icons": [
@@ -4275,11 +4250,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:8c829e3754",
-     "icon:ed3b7ac902"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -4462,13 +4434,13 @@
        "icon": {
         "iconId": "c1d74de856",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_c1d74de856",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-        "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+        "status": "confirmed",
+        "key": "compare_lte",
+        "kind": "other",
+        "meaning_en": "Less-than comparison (trinket light condition)",
+        "meaning_zh": "小于比较符（饰品光照条件）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -4517,13 +4489,13 @@
        "icon": {
         "iconId": "599b5b0881",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_599b5b0881",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-        "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+        "status": "confirmed",
+        "key": "compare_gte",
+        "kind": "other",
+        "meaning_en": "Greater-than comparison (trinket light condition)",
+        "meaning_zh": "大于比较符（饰品光照条件）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -4571,13 +4543,13 @@
     {
      "iconId": "c1d74de856",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_c1d74de856",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-     "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+     "status": "confirmed",
+     "key": "compare_lte",
+     "kind": "other",
+     "meaning_en": "Less-than comparison (trinket light condition)",
+     "meaning_zh": "小于比较符（饰品光照条件）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -4626,13 +4598,13 @@
     {
      "iconId": "599b5b0881",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_599b5b0881",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-     "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+     "status": "confirmed",
+     "key": "compare_gte",
+     "kind": "other",
+     "meaning_en": "Greater-than comparison (trinket light condition)",
+     "meaning_zh": "大于比较符（饰品光照条件）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0bda5a65b4",
@@ -4661,11 +4633,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:599b5b0881",
-     "icon:c1d74de856"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -5640,13 +5609,13 @@
        "icon": {
         "iconId": "ed3b7ac902",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_ed3b7ac902",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-        "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+        "status": "confirmed",
+        "key": "compare_lte",
+        "kind": "other",
+        "meaning_en": "Less-than comparison (trinket light condition)",
+        "meaning_zh": "小于比较符（饰品光照条件）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -5681,13 +5650,13 @@
        "icon": {
         "iconId": "be2e32545a",
         "in_dictionary": true,
-        "status": "needs_review",
-        "key": "pending_be2e32545a",
-        "kind": "",
-        "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-        "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+        "status": "confirmed",
+        "key": "compare_gte",
+        "kind": "other",
+        "meaning_en": "Greater-than comparison (trinket light condition)",
+        "meaning_zh": "大于比较符（饰品光照条件）",
         "value": null,
-        "naming": "unverified"
+        "naming": "confirmed"
        }
       },
       {
@@ -5761,13 +5730,13 @@
     {
      "iconId": "ed3b7ac902",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_ed3b7ac902",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-     "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+     "status": "confirmed",
+     "key": "compare_lte",
+     "kind": "other",
+     "meaning_en": "Less-than comparison (trinket light condition)",
+     "meaning_zh": "小于比较符（饰品光照条件）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0c9e989b70",
@@ -5816,13 +5785,13 @@
     {
      "iconId": "be2e32545a",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_be2e32545a",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: orange diagonal stroke (one stroke of a comparison mark)",
-     "meaning_zh": "待确认图形：橙色斜笔画（比较符一笔）",
+     "status": "confirmed",
+     "key": "compare_gte",
+     "kind": "other",
+     "meaning_en": "Greater-than comparison (trinket light condition)",
+     "meaning_zh": "大于比较符（饰品光照条件）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "0bda5a65b4",
@@ -5851,11 +5820,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:be2e32545a",
-     "icon:ed3b7ac902"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {

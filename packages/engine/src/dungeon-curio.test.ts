@@ -241,6 +241,11 @@ it("p5 Buff 在饰品选择前只施加一次；未知饰品可明确弃掉完�
       ...d,
       trinkets: {
         ...pool,
+        cards: pool.cards.map((c) =>
+          c.id === "trinket:p009"
+            ? { ...c, verification: { unverified: true, reasons: ["test-fixture"] } }
+            : c,
+        ),
         deck: [
           "trinket:p009",
           ...pool.cards.map((c) => c.id).filter((id) => id !== "trinket:p009"),

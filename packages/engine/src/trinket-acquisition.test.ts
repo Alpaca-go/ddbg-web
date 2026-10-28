@@ -14,6 +14,12 @@ const heroes = [
   { id: "a", level: 1 },
   { id: "b", level: 1 },
 ];
+const withUnverified = (cardId: string) =>
+  cards.map((c) =>
+    c.id === cardId
+      ? { ...c, verification: { unverified: true, reasons: ["test-fixture"] } }
+      : c,
+  );
 it("完整 38 张来源分级为 14 / 12 / 12；未知卡不删，种子洗牌只一次，输入不变", () => {
   for (const level of [1, 2, 3] as const) {
     const pool = createTrinketPool(cards, level),
@@ -32,12 +38,7 @@ it("完整 38 张来源分级为 14 / 12 / 12；未知卡不删，种子洗牌�
     expect(second.cursor).toBe(first.cursor);
     expect(second.pool.incoming!.cardId).not.toBe(first.pool.incoming!.cardId);
   }
-  expect(() =>
-    createTrinketPool(
-      cards.filter((c) => !c.verification.unverified),
-      1,
-    ),
-  ).toThrow();
+  expect(() => createTrinketPool(cards.filter((c) => c.id !== "trinket:p038"), 1)).toThrow();
 });
 it("R26 携带上限与转交旧饰品：保留旧面、新装备正面；不囤积、不转给死亡英雄", () => {
   const base = createTrinketPool(cards, 1);
@@ -75,7 +76,8 @@ it("R26 携带上限与转交旧饰品：保留旧面、新装备正面；不囤
   expect(freed.pool.incoming).toEqual(pool.incoming);
 });
 it("R-048 未复核卡保留真实抽取，不装备、不解读；可明确弃新卡", () => {
-  const base = createTrinketPool(cards, 1);
+  const fixtureCards = withUnverified("trinket:p009");
+  const base = createTrinketPool(fixtureCards, 1);
   const pool = {
     ...base,
     deck: ["trinket:p009", ...base.cards.map((c) => c.id).filter((id) => id !== "trinket:p009")],
