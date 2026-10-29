@@ -165,6 +165,8 @@ export type BattleState = BattleSetup & {
   readonly prophetCalamitousUsedThisRound?: true;
   /** Prophet I：本战斗轮内已完成的先知行动次数（Calamitous=1、Rubble=3 等边界）。 */
   readonly prophetActionsThisRound?: number;
+  /** Hag I：本战斗轮内已完成的 Hag 行动次数（Into the Pot! 首行动边界）。 */
+  readonly hagActionsThisRound?: number;
   readonly skillPrefix?: SkillPrefix | null;
   readonly encounter?: EncounterState;
   readonly rngCursor: number;

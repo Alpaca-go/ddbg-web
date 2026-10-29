@@ -83,7 +83,7 @@
 | **Prophet I** | Calamitous 首次行动 4d10 → Wooden Pew；第 3 行动 Rubble（每 pew 攻击） | `prophet-i-combat-runtime.ts`、`battle-monster-action.ts`；`prophet-i-combat-runtime.test.ts` |
 | **Necromancer I** | `summon` 声明 Bone Rabble（等级表语义；encounter 完整 AI 仍 hold） | `necromancer-i.ts`；`encounter-rules.test.ts` 等 |
 | **Swine Prince I** | Wilbur 开战 + Enraged + Wilbur Mark AI | `swine-prince-i-combat-runtime.ts`；`swine-prince-i-combat-runtime.test.ts` |
-| **Hag I** | Cauldron Empty `startBattle` 开战 summon | `hag-i-combat-runtime.ts`；`hag-i-combat-runtime.test.ts` |
+| **Hag I** | Cauldron Empty `startBattle`；Into the Pot! / Empty→Full | `hag-i-combat-runtime.ts`；42418 / 先攻 / 英雄入锅 hold |
 | **Siren I** | High Tide slot → Pelagic `targetArea` 召唤 | `siren-i-combat-runtime.ts`、`battle-monster.ts`；`siren-i-combat-runtime.test.ts` |
 
 ---
@@ -97,7 +97,7 @@
 | **`faceTheThreatBossScriptByCampaignLevel` II/III** | CL 2/3 无映射 → 钩子 / `chooseNextQuest` 拒绝 | 待确认 / II 脚本切片 |
 | **II/III `offerNextQuest` 强制 p019** | 仅 I 级幕末强制；II/III 仍普通池 | 升幕 / 任务卡 |
 | **`summon` · Prophet** | 木长椅 / Rubble 已接；第 2 行动 AI 等仍 hold | R38–R39 / Prophet |
-| **`summon` · Hag / Siren 完整 AI** | Cauldron Empty 开战 / High Tide Pelagic 最小已接；Into the Pot! / Full / 魅惑 / 先攻洗入仍 hold | R38–R39 / 各 Boss 切片 |
+| **`summon` · Hag / Siren 完整 AI** | Cauldron Empty 开战 / Into the Pot!+Full morph / High Tide Pelagic 最小已接；42418 / 魅惑 / 先攻洗入 / 锅完整生命周期仍 hold | R38–R39 / 各 Boss 切片 |
 | **`summon(purpose:skill)` · Swine / Fanatic / Collector / Flesh** | Swine **Wilbur 开战** + **Enraged** + **Wilbur Mark AI** 已接；Wilbur 非 Mark 召唤仍 stub | R38–R39 / Swine Prince |
 | **Prophet I** 第 2 行动 AI / room 卡→战斗区域几何 / 先攻 3 洗入 | Calamitous + Rubble 最小运行时后仍 hold（见 `prophet-i.ts` notes） | R38–R39 / R-048 |
 | **Collector** 宝箱房 / 先攻 4 洗入 / 最近区域挤占 | Collect All 最小运行时后仍 hold（见 `collector-i.ts` notes） | R-034 / R38–R39 |

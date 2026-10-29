@@ -20,6 +20,10 @@ import {
   readSwinePrinceIWilburMarkSkillSlot,
   swinePrinceIWilburMarkShouldForceSkill,
 } from "./boss/swine-prince-i-combat-runtime";
+import {
+  hagIntoThePotShouldForceSkill,
+  readHagIIntoThePotSkillSlot,
+} from "./boss/hag-i-combat-runtime";
 import { getBossScript } from "./boss/registry";
 import { resolveEncounterBossScriptId } from "./boss/encounter-rules";
 import { readMonsterSelfStatuses } from "./monster-self-status";
@@ -95,6 +99,7 @@ export function prepareMonsterAction(
     return applyFanaticSentenceRendered(state, actor.id);
   }
   const forceWilburMark = swinePrinceIWilburMarkShouldForceSkill(state, actor.id);
+  const forceIntoThePot = hagIntoThePotShouldForceSkill(state, actor.id);
   let selected: MonsterSkillSelection;
   let needsRoll = false;
   if (forceWilburMark) {
@@ -103,6 +108,18 @@ export function prepareMonsterAction(
     const slot = script ? readSwinePrinceIWilburMarkSkillSlot(script) : null;
     if (slot === null) {
       return rejectBattleCommand(state, "Wilbur Mark AI 未声明（R-048）");
+    }
+    const attack = readMonsterAttackView(card, slot);
+    if (attack.status === "refused") {
+      return rejectBattleCommand(state, attack.reason);
+    }
+    selected = { status: "selected", skillSlot: slot, roll: null };
+  } else if (forceIntoThePot) {
+    const scriptId = resolveEncounterBossScriptId(state);
+    const script = scriptId ? getBossScript(scriptId) : undefined;
+    const slot = script ? readHagIIntoThePotSkillSlot(script) : null;
+    if (slot === null) {
+      return rejectBattleCommand(state, "Hag Into the Pot! AI 未声明（R-048）");
     }
     const attack = readMonsterAttackView(card, slot);
     if (attack.status === "refused") {

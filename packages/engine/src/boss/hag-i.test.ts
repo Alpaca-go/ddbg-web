@@ -1,9 +1,11 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import {
   HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
+  HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
   HAG_I_COMBAT_ABILITY_CARD_ID,
   HAG_I_COMBAT_MONSTER_CARD_ID,
   HAG_I_DESCRIPTION_ABILITY_CARD_ID,
+  HAG_I_INTO_THE_POT_SKILL_SLOT,
   HAG_I_SCRIPT_ID,
   ensureHagIBossScriptRegistered,
   hagIBossScript,
@@ -127,5 +129,24 @@ describe("Hag I Boss 脚本", () => {
       purpose: "skill",
     });
     expect(skill.status).toBe("stub");
+  });
+
+  it("intoThePot / summon(cauldronFullMorph) 已声明（运行时见 hag-i-combat-runtime）", () => {
+    const script = getBossScript(HAG_I_SCRIPT_ID)!;
+    const intoThePot = runBossHook(script, "intoThePot", { scriptId: HAG_I_SCRIPT_ID });
+    expect(intoThePot).toMatchObject({
+      status: "ok",
+      effect: "forceIntoThePotWhileCauldronEmptyOnFirstActionEachRound",
+      skillSlot: HAG_I_INTO_THE_POT_SKILL_SLOT,
+    });
+    const full = runBossHook(script, "summon", {
+      scriptId: HAG_I_SCRIPT_ID,
+      skillSlot: 0,
+      purpose: "cauldronFullMorph",
+    });
+    expect(full).toMatchObject({
+      status: "ok",
+      value: { summonMonsterCardId: HAG_I_CAULDRON_FULL_MONSTER_CARD_ID },
+    });
   });
 });

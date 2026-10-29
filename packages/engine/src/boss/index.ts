@@ -161,16 +161,27 @@ export {
 export {
   ensureHagIBossScriptRegistered,
   HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
+  HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
   HAG_I_COMBAT_ABILITY_CARD_ID,
   HAG_I_COMBAT_MONSTER_CARD_ID,
   HAG_I_DESCRIPTION_ABILITY_CARD_ID,
+  HAG_I_FIRST_ACTION_INDEX,
+  HAG_I_INTO_THE_POT_SKILL_SLOT,
   HAG_I_SCRIPT_ID,
   hagIBossScript,
   hagICauldronBattleStartStance,
 } from "./hag-i";
 export {
   applyHagICauldronBattleStart,
+  applyHagICauldronEmptyToFullMorph,
+  bumpHagIActionRoundCount,
+  chainHagICauldronFullAfterIntoThePot,
+  hagActionIndexBeforeTurn,
+  hagIntoThePotShouldForceSkill,
   readHagICauldronBattleStartPlan,
+  readHagICauldronFullMorphPlan,
+  readHagIIntoThePotEnabled,
+  readHagIIntoThePotSkillSlot,
 } from "./hag-i-combat-runtime";
 export {
   ensureSwinePrinceIBossScriptRegistered,
