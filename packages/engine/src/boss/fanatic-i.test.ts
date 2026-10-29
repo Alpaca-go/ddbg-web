@@ -104,4 +104,29 @@ describe("Fanatic I Boss 脚本", () => {
     });
     expect(count).toEqual({ status: "ok", value: 3 });
   });
+
+  it("summon(battleStartPyre) 与 sentenceRendered 钩子已声明（运行时见 fanatic-i-combat-runtime）", () => {
+    const script = getBossScript(FANATIC_I_SCRIPT_ID)!;
+    const pyre = runBossHook(script, "summon", {
+      scriptId: FANATIC_I_SCRIPT_ID,
+      skillSlot: 0,
+      purpose: "battleStartPyre",
+    });
+    expect(pyre).toMatchObject({
+      status: "ok",
+      value: {
+        summonMonsterCardId: FANATIC_I_PYRE_MONSTER_CARD_ID,
+        fixedStance: "ranged",
+      },
+    });
+    const sentence = runBossHook(script, "sentenceRendered", {
+      scriptId: FANATIC_I_SCRIPT_ID,
+      monsterEntityId: "fanatic",
+      round: 1,
+    });
+    expect(sentence).toMatchObject({
+      status: "ok",
+      effect: "moveTowardClosestHeroOrTossIntoPyreArea",
+    });
+  });
 });
