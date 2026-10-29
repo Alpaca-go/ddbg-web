@@ -31,7 +31,11 @@ import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "./boss/flesh-i-combat-runtime";
 import { applySwinePrinceIWilburBattleStart } from "./boss/swine-prince-i-combat-runtime";
 import { applyHagICauldronBattleStart, bumpHagIActionRoundCount, chainHagICauldronFullAfterIntoThePot } from "./boss/hag-i-combat-runtime";
-import { bumpProphetIActionRoundCount } from "./boss/prophet-i-combat-runtime";
+import {
+  bumpProphetIActionRoundCount,
+  expandProphetIInitiativeDeckSides,
+  prophetShouldEnterActedIdsAfterTurn,
+} from "./boss/prophet-i-combat-runtime";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -92,8 +96,13 @@ export type EncounterEvent = {
 
 export { nextBattleRoll } from "./battle-roll";
 
-function startRound(seed: number, battle: BattleState, round: number): BattleState {
-  const deck = battle.entities.filter((entity) => !entity.dead).map((entity) => entity.side);
+function startRound(seed: number, battle: BattleState, round: number, gameState?: GameState): BattleState {
+  let deck: SkillTargetSide[] = battle.entities
+    .filter((entity) => !entity.dead)
+    .map((entity) => entity.side);
+  if (gameState) {
+    deck = expandProphetIInitiativeDeckSides(deck, battle, gameState);
+  }
   const rng = createRng(seed);
   for (let index = 0; index < battle.rngCursor; index += 1) rng.next();
   let cursor = battle.rngCursor;
@@ -255,7 +264,9 @@ export function finishTurn(
   state = bumpHagIActionRoundCount(state, actorId);
   const battle = state.battle!;
   const encounter = battle.encounter!;
-  const actedIds = [...encounter.actedIds, actorId];
+  const actedIds = prophetShouldEnterActedIdsAfterTurn(state, actorId)
+    ? [...encounter.actedIds, actorId]
+    : [...encounter.actedIds];
   const ended = [...events, { ...event(battle, "turnEnded", "回合结束"), actorId }];
   if (
     encounter.deck.length === 0 ||
@@ -272,7 +283,7 @@ export function finishTurn(
       return abyss;
     if (encounterForcesRetreatAfterRound(abyss.state, encounter.round))
       return finishBattle(abyss.state, "retreat", abyss.events);
-    const next = startRound(state.seed, abyss.state.battle!, encounter.round + 1);
+    const next = startRound(state.seed, abyss.state.battle!, encounter.round + 1, state);
     return {
       state: { ...abyss.state, battle: next },
       events: [...abyss.events, event(next, "roundStarted", "开始下一轮")],
@@ -788,7 +799,7 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     const deployed = placeBattleLoot(cauldron.state.battle!, state.seed);
     if (!deployed)
       return rejectBattleCommand(state, "战利品池必须保留十枚真实实例的可用 / 已拾取分区");
-    const next = startRound(state.seed, deployed, 1);
+    const next = startRound(state.seed, deployed, 1, cauldron.state);
     return {
       state: { ...cauldron.state, battle: next },
       events: [
@@ -876,7 +887,7 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
       return abyss;
     if (encounterForcesRetreatAfterRound(abyss.state, encounter.round))
       return finishBattle(abyss.state, "retreat", abyss.events);
-    const next = startRound(state.seed, abyss.state.battle!, encounter.round + 1);
+    const next = startRound(state.seed, abyss.state.battle!, encounter.round + 1, state);
     return {
       state: { ...state, battle: next },
       events: [...abyss.events, event(next, "roundStarted", "开始下一轮")],

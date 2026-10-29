@@ -123,7 +123,7 @@ export const prophetIBossScript: BossScriptDefinition = {
   displayName: "Prophet I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38：先攻 3、ACTIONS / Round: 3；Calamitous + Rubble 最小运行时；第 2 行动 AI / room→战斗几何 / 先攻 3 张洗入仍 hold。",
+    "R38：先攻 3、ACTIONS / Round: 3；Calamitous + Rubble + 第 2 行动默认选招 + 先攻 3 张最小运行时；room→战斗板几何仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: PROPHET_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: PROPHET_I_COMBAT_ABILITY_CARD_ID,

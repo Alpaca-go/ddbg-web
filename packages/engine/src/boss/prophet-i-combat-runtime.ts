@@ -13,7 +13,9 @@ import {
   prophetRoomMarkerForD10Roll,
   type ProphetRoomD10Marker,
 } from "./prophet-i";
+import { readBossCombatEntry } from "./combat-entry";
 import { getBossScript } from "./registry";
+import { defaultMonsterTurnActionCount } from "./hooks";
 import type { BossScriptDefinition, BossSummonOk, ProphetWoodenPewIndex } from "./types";
 import type { SkillStance } from "../hero-skill";
 import { resolveMonsterSkill, resolveMonsterSkillEffects } from "../monster-skill";
@@ -22,9 +24,65 @@ import { monsterCombatThreatDamageBonus } from "./threat-passive-runtime";
 const PEW_INDICES: readonly ProphetWoodenPewIndex[] = [0, 1, 2, 3];
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
-/** 每轮第 1 / 3 次先知行动在 `prophetActionsThisRound` 上的索引（0-based，行动前）。 */
+/** 每轮第 1 / 2 / 3 次先知行动在 `prophetActionsThisRound` 上的索引（0-based，行动前）。 */
 export const PROPHET_I_FIRST_ACTION_INDEX = 0 as const;
+export const PROPHET_I_SECOND_ACTION_INDEX = 1 as const;
 export const PROPHET_I_THIRD_ACTION_INDEX = 2 as const;
+
+export type InitiativeSide = "hero" | "monster";
+
+/** R38：单只 Prophet I 时先攻堆补足至 `printedInitiativeCards`（3）；多怪伴战 hold。 */
+export function expandProphetIInitiativeDeckSides(
+  deck: readonly InitiativeSide[],
+  battle: BattleState,
+  state: GameState,
+): InitiativeSide[] {
+  if (resolveEncounterBossScriptId(state) !== PROPHET_I_SCRIPT_ID) return [...deck];
+  const script = getBossScript(PROPHET_I_SCRIPT_ID);
+  const entry = script ? readBossCombatEntry(script) : undefined;
+  if (!entry) return [...deck];
+  const livingMonsters = battle.entities.filter((entity) => entity.side === "monster" && !entity.dead);
+  if (
+    livingMonsters.length !== 1 ||
+    livingMonsters[0]!.monsterCardId !== PROPHET_I_COMBAT_MONSTER_CARD_ID
+  ) {
+    return [...deck];
+  }
+  const extra = entry.printedInitiativeCards - livingMonsters.length;
+  if (extra <= 0) return [...deck];
+  return [...deck, ...Array.from({ length: extra }, (): InitiativeSide => "monster")];
+}
+
+/** 第 2 行动走卡面姿态骰表选招（R38–R39；仅第 1 / 3 行动有特殊替代）。 */
+export function prophetSecondActionUsesDefaultSkillSelection(
+  battle: BattleState,
+  actorId: string,
+): boolean {
+  const actor = battle.entities.find((entity) => entity.id === actorId);
+  if (!actor || actor.dead || actor.monsterCardId !== PROPHET_I_COMBAT_MONSTER_CARD_ID) {
+    return false;
+  }
+  return prophetActionIndexBeforeTurn(battle) === PROPHET_I_SECOND_ACTION_INDEX;
+}
+
+/** 多行动轮内：完成 3 次先知行动后再记入 `actedIds`（配合先攻 3 张）。 */
+export function prophetShouldEnterActedIdsAfterTurn(state: GameState, actorId: string): boolean {
+  const battle = state.battle;
+  if (!battle?.encounter) return true;
+  const actor = battle.entities.find((entity) => entity.id === actorId);
+  if (!actor || actor.side !== "monster") return true;
+  if (resolveEncounterBossScriptId(state) !== PROPHET_I_SCRIPT_ID) return true;
+  if (actor.monsterCardId !== PROPHET_I_COMBAT_MONSTER_CARD_ID) return true;
+  const script = getBossScript(PROPHET_I_SCRIPT_ID);
+  if (!script) return true;
+  const budget = defaultMonsterTurnActionCount(script, {
+    scriptId: PROPHET_I_SCRIPT_ID,
+    monsterEntityId: actorId,
+    round: battle.encounter.round,
+  });
+  if (budget.status !== "ok" || budget.value <= 1) return true;
+  return (battle.prophetActionsThisRound ?? 0) >= budget.value;
+}
 
 export function readProphetICalamitousEnabled(script: BossScriptDefinition): boolean {
   if (script.id !== PROPHET_I_SCRIPT_ID) return false;
@@ -216,7 +274,7 @@ export function applyProphetCalamitousPrognostication(
     [
       {
         type: "dungeonUpdated",
-        message: `Prophet I · Calamitous Prognostication：Wooden Pew 区域 d10（rolls=${rolls.join(",")}；markers=${markers.join("|")}；第 2 行动 / 先攻 hold）`,
+        message: `Prophet I · Calamitous Prognostication：Wooden Pew 区域 d10（rolls=${rolls.join(",")}；markers=${markers.join("|")}；room→board 几何 hold）`,
       },
     ],
   );

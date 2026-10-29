@@ -23,7 +23,12 @@ import {
   prophetRubbleShouldReplaceSkill,
   prophetRoomD10AreaTableFromMarkers,
   PROPHET_I_RUBBLE_SKILL_SLOT,
+  PROPHET_I_FIRST_ACTION_INDEX,
+  PROPHET_I_SECOND_ACTION_INDEX,
   PROPHET_I_THIRD_ACTION_INDEX,
+  expandProphetIInitiativeDeckSides,
+  prophetSecondActionUsesDefaultSkillSelection,
+  prophetShouldEnterActedIdsAfterTurn,
   readProphetICalamitousEnabled,
   readProphetIRubbleEnabled,
   readProphetIWwoodenPewPlan,
@@ -299,5 +304,84 @@ describe("Prophet I · Rubble of Ruin 战斗最小运行时", () => {
     expect(result.events.some((event) => event.type === "dungeonUpdated" && event.message.includes("Rubble of Ruin"))).toBe(
       true,
     );
+  });
+});
+
+describe("Prophet I · 先攻 3 洗入与多行动 actedIds", () => {
+  beforeEach(() => {
+    clearBossScriptsForTest();
+    ensureProphetIBossScriptRegistered();
+  });
+
+  it("单只 Prophet 时先攻堆补足 3 张 monster 侧", () => {
+    const base = prophetBattle();
+    const sides = expandProphetIInitiativeDeckSides(
+      base.battle!.entities.filter((entity) => !entity.dead).map((entity) => entity.side),
+      base.battle!,
+      base,
+    );
+    expect(sides.filter((side) => side === "monster")).toHaveLength(3);
+    expect(sides.filter((side) => side === "hero")).toHaveLength(4);
+  });
+
+  it("startBattle 写入 3 张 monster 先攻卡", () => {
+    const started = applyCommand(prophetBattle(), { type: "startBattle" });
+    const deck = started.state.battle!.encounter!.deck;
+    expect(deck.filter((side) => side === "monster")).toHaveLength(3);
+    expect(deck.filter((side) => side === "hero")).toHaveLength(4);
+  });
+
+  it("Calamitous 后先知未进入 actedIds，prophetActionsThisRound=1", () => {
+    let state = prophetBattle();
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        encounter: {
+          round: 1,
+          deck: ["monster", "hero"],
+          actedIds: [],
+          turn: { type: "monster", actorId: "prophet" },
+        },
+      },
+    };
+    const result = applyProphetCalamitousPrognostication(state, "prophet");
+    expect(result.state.battle!.prophetActionsThisRound).toBe(1);
+    expect(result.state.battle!.encounter!.actedIds).not.toContain("prophet");
+    expect(prophetShouldEnterActedIdsAfterTurn(result.state, "prophet")).toBe(false);
+  });
+});
+
+describe("Prophet I · 第 2 行动默认选招", () => {
+  beforeEach(() => {
+    clearBossScriptsForTest();
+    ensureProphetIBossScriptRegistered();
+  });
+
+  it("第 2 行动索引走姿态骰表（非 Calamitous / Rubble）", () => {
+    let state = prophetBattle();
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        prophetCalamitousUsedThisRound: true,
+        prophetActionsThisRound: PROPHET_I_SECOND_ACTION_INDEX,
+        encounter: {
+          round: 1,
+          deck: ["monster"],
+          actedIds: [],
+          turn: { type: "monster", actorId: "prophet" },
+        },
+      },
+    };
+    expect(prophetActionIndexBeforeTurn(state.battle!)).toBe(1);
+    expect(prophetSecondActionUsesDefaultSkillSelection(state.battle!, "prophet")).toBe(true);
+    expect(prophetCalamitousShouldReplaceSkill(state, "prophet")).toBe(false);
+    expect(prophetRubbleShouldReplaceSkill(state, "prophet")).toBe(false);
+
+    const result = applyCommand(state, { type: "prepareMonsterAction", actorId: "prophet" });
+    expect(result.events.some((event) => event.type === "monsterActionPrepared")).toBe(true);
+    expect(result.state.battle!.monsterAction?.skillSlot).toBeGreaterThanOrEqual(1);
+    expect(result.state.battle!.monsterAction?.skillSlot).toBeLessThanOrEqual(2);
   });
 });

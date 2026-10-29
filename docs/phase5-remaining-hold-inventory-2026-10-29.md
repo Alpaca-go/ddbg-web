@@ -80,7 +80,7 @@
 | **Fanatic I** | Pyre `startBattle` 远程姿态 + 区域；`sentenceRendered` 同区丢 Pyre / 否则移向英雄 | `fanatic-i-combat-runtime.ts`；`fanatic-i-combat-runtime.test.ts` |
 | **Flesh I** | One Body 四部位开战 + 共享 Life；回合初 morph | `flesh-i-combat-runtime.ts`、`battle.ts`；`flesh-i-combat-runtime.test.ts` |
 | **Collector I** | Collect All 回合开始替换技能；三 Collected + 固定姿态区域 | `collector-i-combat-runtime.ts`、`battle-monster-action.ts`；`collector-i-combat-runtime.test.ts` |
-| **Prophet I** | Calamitous 首次行动 4d10 → Wooden Pew；第 3 行动 Rubble（每 pew 攻击） | `prophet-i-combat-runtime.ts`、`battle-monster-action.ts`；`prophet-i-combat-runtime.test.ts` |
+| **Prophet I** | Calamitous + Rubble + **第 2 行动默认选招** + **先攻 3 张** + 多行动 `actedIds` | `prophet-i-combat-runtime.ts`、`encounter.ts`；`prophet-i-combat-runtime.test.ts` |
 | **Necromancer I** | `summon` 声明 Bone Rabble（等级表语义；encounter 完整 AI 仍 hold） | `necromancer-i.ts`；`encounter-rules.test.ts` 等 |
 | **Swine Prince I** | Wilbur 开战 + Enraged + Wilbur Mark AI | `swine-prince-i-combat-runtime.ts`；`swine-prince-i-combat-runtime.test.ts` |
 | **Hag I** | Cauldron Empty `startBattle`；Into the Pot! / Empty→Full | `hag-i-combat-runtime.ts`；42418 / 先攻 / 英雄入锅 hold |
@@ -96,10 +96,10 @@
 | **Face the Threat 边缘房选图** | 出征仍走普通 R-116 选图 + shuffle；非 p011/p012 边缘语义 | **R-121** / R-046 |
 | **`faceTheThreatBossScriptByCampaignLevel` II/III** | CL 2/3 无映射 → 钩子 / `chooseNextQuest` 拒绝 | 待确认 / II 脚本切片 |
 | **II/III `offerNextQuest` 强制 p019** | 仅 I 级幕末强制；II/III 仍普通池 | 升幕 / 任务卡 |
-| **`summon` · Prophet** | 木长椅 / Rubble 已接；第 2 行动 AI 等仍 hold | R38–R39 / Prophet |
+| **`summon` · Prophet** | 木长椅 / Rubble 已接；`summon(purpose:skill)` 仍 stub | R38–R39 / Prophet |
 | **`summon` · Hag / Siren 完整 AI** | Cauldron Empty 开战 / Into the Pot!+Full morph / High Tide Pelagic 最小已接；42418 / 魅惑 / 先攻洗入 / 锅完整生命周期仍 hold | R38–R39 / 各 Boss 切片 |
 | **`summon(purpose:skill)` · Swine / Fanatic / Collector / Flesh** | Swine **Wilbur 开战** + **Enraged** + **Wilbur Mark AI** 已接；Wilbur 非 Mark 召唤仍 stub | R38–R39 / Swine Prince |
-| **Prophet I** 第 2 行动 AI / room 卡→战斗区域几何 / 先攻 3 洗入 | Calamitous + Rubble 最小运行时后仍 hold（见 `prophet-i.ts` notes） | R38–R39 / R-048 |
+| **Prophet I** room 卡→战斗区域几何 / Rubble 同区多目标 / 多怪伴战先攻 | 第 2 行动 + 先攻 3 最小运行时已接（`expandProphetIInitiativeDeckSides` / `prophetShouldEnterActedIdsAfterTurn`） | R38–R39 / R-048 |
 | **Collector** 宝箱房 / 先攻 4 洗入 / 最近区域挤占 | Collect All 最小运行时后仍 hold（见 `collector-i.ts` notes） | R-034 / R38–R39 |
 | **Fanatic** Pit Toss / 技能 AI / 先攻 4 张洗入 | Pyre + Sentence 已接；其余 stub | G-05 / R39 |
 | **Flesh** 战斗中途再召 Large | 仅遭遇开局 Guard；无 mid-battle spawn | R31 |
@@ -174,7 +174,7 @@ Helper 汇总：`threat-passive.ts`（纯查询）；运行时：`threat-passive
 
 1. **R-121 最小写入**：`bossSlotPlacement` 探针已有 → 选图 p011/p012 + 目标 + 2 随机非目标 room token 洗入 dungeon（不单改文档）。
 2. **Ruins Boss II 单切片**：例如 Necromancer II（`p002`）注册 + `faceTheThreatBossScriptByCampaignLevel[2]` 策略裁定。
-3. **Prophet I 战斗**：Calamitous + Rubble 最小运行时已接；第 2 行动 / room 几何 / 先攻仍 hold。
+3. **Prophet I 战斗**：第 2 行动 + 先攻 3 最小运行时已接；room 几何 / Rubble 同区多目标 / 生产地牢 Prophet Room 绑定仍 hold。
 4. **Swine Prince I**：Wilbur 先攻洗入 / Enraged **skill slot** 与 Warrens 卡面 extract / End These Two / Prince 倒下后 Wilbur Squeal 选招仍 hold（Wilbur 开战 + Enraged + Wilbur Mark 最小 AI 已接 `swine-prince-i-combat-runtime`）。
 5. **R-122 Boss XP**：`summarizeDungeonQuest` 摘要已接；最暗 p016–p018 击败判定与 Rising Threat 仍 hold。
 6. **II 级幕末 p019 / 升幕 §2.2**：在 II 映射确认后扩展 `shouldForceFaceTheThreatOfferAtNextQuest` 与 `drawImminentThreatAfterActAdvance` 与 `advanceCampaignLevel` 合并策略。
