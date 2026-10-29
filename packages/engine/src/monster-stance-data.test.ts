@@ -17,6 +17,8 @@ const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 const approved = [
   // C-012：当前版 Necromancer I p089；四姿态同一完整 d10 表。
   { id: "monster_medium:p089", slots: Array(4).fill([1, 1, 1, 2, 2, 2, 3, 3, 3, 3]) },
+  // C-019：独立核对 II 级 p090。
+  { id: "monster_medium:p090", slots: Array(4).fill([1, 1, 1, 2, 2, 2, 3, 3, 3, 3]) },
   {
     id: "monster_medium:p050",
     slots: [

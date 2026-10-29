@@ -11,25 +11,27 @@ const originals = built.monster_medium.cards.map((card) => {
 });
 
 describe("获批怪物姿态映射入库（2026-10-09）", () => {
-  it("C-012：Necromancer I 生成与入库一致，不向 II/III 推断字段", () => {
-    const committed = JSON.parse(
-      readFileSync(
-        new URL("../../normalized/corebox/monster_medium.json", import.meta.url),
-        "utf8",
-      ),
-    ).cards.find((c: { id: string }) => c.id === "monster_medium:p089");
-    expect(built.monster_medium.cards.find((c) => c.id === "monster_medium:p089")).toEqual(
-      committed,
-    );
-    for (const id of ["monster_medium:p090", "monster_medium:p091"]) {
-      const card = built.monster_medium.cards.find((c) => c.id === id)!;
-      expect("speed" in card).toBe(false);
-      expect("stanceGroups" in card).toBe(false);
-    }
-  });
+  it.each(["monster_medium:p089", "monster_medium:p090"])(
+    "C-012/019：%s 生成与入库一致，不向 III 推断字段",
+    (id) => {
+      const committed = JSON.parse(
+        readFileSync(
+          new URL("../../normalized/corebox/monster_medium.json", import.meta.url),
+          "utf8",
+        ),
+      ).cards.find((c: { id: string }) => c.id === id);
+      expect(built.monster_medium.cards.find((c) => c.id === id)).toEqual(committed);
+      for (const id of ["monster_medium:p091"]) {
+        const card = built.monster_medium.cards.find((c) => c.id === id)!;
+        expect("speed" in card).toBe(false);
+        expect("stanceGroups" in card).toBe(false);
+      }
+    },
+  );
   it("十四个I级与三张II级获批普通卡接入生成层，大型L1–3已获批", () => {
     const approvedIds = [
       "monster_medium:p089",
+      "monster_medium:p090",
       "monster_medium:p001",
       "monster_medium:p004",
       "monster_medium:p007",

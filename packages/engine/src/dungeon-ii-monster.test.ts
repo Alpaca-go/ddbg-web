@@ -191,7 +191,7 @@ it("Gargoyle常驻Protection在状态堆消退后仍生效，真实Smite伤害8�
     expect(applyCommand(invalid, { type: "startDungeonBattle" }).state).toBe(invalid);
   }
 });
-it("R-082 Spearman黄金表保留，R-083四卡限定字段获批，不外推其他II/III级", () => {
+it("R-082/083 普通卡与 C-019 死灵法师 II 限定字段获批，其余 II/III 不外推", () => {
   expect(spearman).toMatchObject({
     name: "Bone Spearman",
     level: 2,
@@ -217,6 +217,7 @@ it("R-082 Spearman黄金表保留，R-083四卡限定字段获批，不外推其
         spearman.id,
         "monster_medium:p050",
         "monster_medium:p053",
+        "monster_medium:p090", // C-019 Boss 战斗卡；不加入下方普通怪物池。
         "monster_large:p001",
         "monster_large:p003",
       ].includes(card.id),

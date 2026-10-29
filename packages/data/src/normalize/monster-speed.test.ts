@@ -24,6 +24,7 @@ const expected = [
   ["monster_medium:p050", 3],
   ["monster_medium:p053", 3],
   ["monster_medium:p089", 3],
+  ["monster_medium:p090", 3],
 ] as const;
 const originals = built.monster_medium.cards.map((card) => {
   const copy = structuredClone(card);

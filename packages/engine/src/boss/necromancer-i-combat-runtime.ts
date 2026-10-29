@@ -11,17 +11,42 @@ import {
   NECROMANCER_I_SCRIPT_ID,
   NECROMANCER_I_SUMMON_MONSTER_CARD_ID,
 } from "./necromancer-i";
+import {
+  NECROMANCER_II_COMBAT_MONSTER_CARD_ID,
+  NECROMANCER_II_SCRIPT_ID,
+  NECROMANCER_II_SUMMON_MONSTER_CARD_ID,
+} from "./necromancer-ii";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
+
+/** 两等级独立核实的卡引用；不从等级或同名卡推导。 */
+function necromancerCombat(state: GameState) {
+  const id = resolveEncounterBossScriptId(state);
+  if (id === NECROMANCER_I_SCRIPT_ID)
+    return {
+      id,
+      card: NECROMANCER_I_COMBAT_MONSTER_CARD_ID,
+      summon: NECROMANCER_I_SUMMON_MONSTER_CARD_ID,
+      summonName: "Bone Rabble",
+    };
+  if (id === NECROMANCER_II_SCRIPT_ID)
+    return {
+      id,
+      card: NECROMANCER_II_COMBAT_MONSTER_CARD_ID,
+      summon: NECROMANCER_II_SUMMON_MONSTER_CARD_ID,
+      summonName: "Bone Soldier",
+    };
+  return undefined;
+}
 
 /** R38：移出伴战怪物，保留日志身份与原伤口；不冒充攻击伤害或永久移出怪物池。 */
 export function clearNecromancerICompanions(result: ApplyResult, ids: readonly string[]) {
   const battle = result.state.battle!;
+  const boss = necromancerCombat(result.state);
   if (
-    resolveEncounterBossScriptId(result.state) !== NECROMANCER_I_SCRIPT_ID ||
+    !boss ||
     !battle.entities.some(
-      (e) =>
-        e.monsterCardId === NECROMANCER_I_COMBAT_MONSTER_CARD_ID && e.dead && ids.includes(e.id),
+      (e) => e.side === "monster" && e.monsterCardId === boss.card && e.dead && ids.includes(e.id),
     )
   )
     return { result, ids };
@@ -39,7 +64,10 @@ export function clearNecromancerICompanions(result: ApplyResult, ids: readonly s
       },
       events: [
         ...result.events,
-        { type: "dungeonUpdated" as const, message: "Necromancer I 被击败：移出其余怪物（R38）" },
+        {
+          type: "dungeonUpdated" as const,
+          message: `${getBossScript(boss.id)!.displayName} 被击败：移出其余怪物（R38）`,
+        },
       ],
     },
   };
@@ -57,23 +85,22 @@ export function continueNecromancerISummon(
   const state = result.state;
   const battle = state.battle!;
   const actor = battle.entities.find((e) => e.id === resolved.actorId);
-  if (
-    resolveEncounterBossScriptId(state) !== NECROMANCER_I_SCRIPT_ID ||
-    actor?.monsterCardId !== NECROMANCER_I_COMBAT_MONSTER_CARD_ID
-  )
-    return rejectBattleCommand(state, "Necromancer I 召唤缺少对应 Boss 遭遇（R-048）");
+  const boss = necromancerCombat(state);
+  if (!boss || actor?.monsterCardId !== boss.card)
+    return rejectBattleCommand(state, "Necromancer 召唤缺少对应 Boss 遭遇（R-048）");
   if (actor.dead) return recordMonsterSkill(result, continued, casualtyIds);
-  const plan = runBossHook(getBossScript(NECROMANCER_I_SCRIPT_ID)!, "summon", {
-    scriptId: NECROMANCER_I_SCRIPT_ID,
+  const script = getBossScript(boss.id)!;
+  const plan = runBossHook(script, "summon", {
+    scriptId: boss.id,
     purpose: "skill",
     skillSlot: resolved.skillSlot,
   });
   if (
     plan.status !== "ok" ||
-    plan.value.summonMonsterCardId !== NECROMANCER_I_SUMMON_MONSTER_CARD_ID ||
+    plan.value.summonMonsterCardId !== boss.summon ||
     plan.value.miniaturePlacement !== "targetArea"
   )
-    return rejectBattleCommand(state, "Necromancer I 召唤声明未核实（R-048）");
+    return rejectBattleCommand(state, "Necromancer 召唤声明未核实（R-048）");
   const living = battle.entities.filter((e) => !e.dead);
   const occupied = new Set<number>();
   for (const monster of living.filter((e) => e.side === "monster")) {
@@ -96,7 +123,7 @@ export function continueNecromancerISummon(
           ...result.events,
           {
             type: "dungeonUpdated",
-            message: "Necromancer I：姿态轨已满，召唤无效（R31）",
+            message: `${script.displayName}：姿态轨已满，召唤无效（R31）`,
           },
         ],
       },
@@ -106,7 +133,7 @@ export function continueNecromancerISummon(
   const card =
     battle.monsters?.find((c) => c.id === plan.value.summonMonsterCardId) ??
     state.dungeon?.battleCatalog?.monsters.find((c) => c.id === plan.value.summonMonsterCardId);
-  // Bone Rabble 的 Dodge 来自已确认 dodge 图标，不补默认 0。
+  // 召唤物 Dodge 来自已确认 dodge 图标，不补默认 0。
   const dodge = (card as typeof card & { dodge?: number })?.dodge;
   const printedDodge = (
     card as typeof card & {
@@ -129,9 +156,12 @@ export function continueNecromancerISummon(
     !Number.isSafeInteger(verifiedDodge) ||
     verifiedDodge! < 0 ||
     !card.resistances ||
-    card.resistances.some((i) => !["confirmed", "confirmed_rulebook"].includes(i.naming))
+    card.resistances.some((i) => !["confirmed", "confirmed_rulebook"].includes(i.naming)) ||
+    (boss.id === NECROMANCER_II_SCRIPT_ID &&
+      (!card.immunities ||
+        card.immunities.some((i) => !["confirmed", "confirmed_rulebook"].includes(i.naming))))
   )
-    return rejectBattleCommand(state, "召唤缺少已核实 Bone Rabble 属性（R-048）");
+    return rejectBattleCommand(state, "召唤缺少已核实 Bone Rabble / Bone Soldier 属性（R-048）");
   if (
     battle.areas.some((a) => !Number.isSafeInteger(a.capacity)) ||
     !battle.areas.some((a) => a.id === areaId)
@@ -186,7 +216,7 @@ export function continueNecromancerISummon(
     entities = entities.map((e) => (e.id === id ? { ...e, areaId: destination } : e));
   }
   const summon: BattleEntity = {
-    id: `boss:necromancer:rabble:${battle.entities.length}`,
+    id: `boss:necromancer:${boss.id === NECROMANCER_I_SCRIPT_ID ? "rabble" : "soldier"}:${battle.entities.length}`,
     side: "monster",
     hero: null,
     monsterCardId: card.id,
@@ -224,7 +254,7 @@ export function continueNecromancerISummon(
         ...result.events,
         {
           type: "dungeonUpdated",
-          message: `Necromancer I：Bone Rabble 召唤到 ${areaId}，先攻洗入当前牌堆（R38、R-034）`,
+          message: `${script.displayName}：${boss.summonName} 召唤到 ${areaId}，先攻洗入当前牌堆（R38、R-034）`,
         },
       ],
     },
