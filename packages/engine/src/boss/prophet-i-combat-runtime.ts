@@ -1,8 +1,21 @@
 import type { BattleEntity, BattleState } from "../battle";
-import type { ApplyResult, GameEvent, GameState, MonsterSkillResolvedEvent } from "../command";
+import type {
+  ApplyResult,
+  GameEvent,
+  GameState,
+  MonsterSkillTargetsResolvedEvent,
+} from "../command";
 import { applySkillHealth } from "../battle-health";
 import { skillTargetView, writeResolution, distance, rejectBattleCommand } from "../battle";
-import { nextBattleRoll, finishTurn } from "../encounter";
+import {
+  nextBattleRoll,
+  finishTurn,
+  newlyDefeatedIds,
+  removeCasualties,
+  endAfterCasualties,
+} from "../encounter";
+import { resolveBattlePressure } from "../pressure";
+import { multiTargetHealthEffects, projectActorWounds } from "../skill-actor-health";
 import { runBossHook } from "./hooks";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 import {
@@ -18,7 +31,7 @@ import { getBossScript } from "./registry";
 import { defaultMonsterTurnActionCount } from "./hooks";
 import type { BossScriptDefinition, BossSummonOk, ProphetWoodenPewIndex } from "./types";
 import type { SkillStance } from "../hero-skill";
-import { resolveMonsterSkill, resolveMonsterSkillEffects } from "../monster-skill";
+import { resolveMonsterSkillEffects } from "../monster-skill";
 import { monsterCombatThreatDamageBonus } from "./threat-passive-runtime";
 import { readProphetIRoomD10Binding } from "./prophet-i-room-runtime";
 
@@ -32,7 +45,7 @@ export const PROPHET_I_THIRD_ACTION_INDEX = 2 as const;
 
 export type InitiativeSide = "hero" | "monster";
 
-/** R38：单只 Prophet I 时先攻堆补足至 `printedInitiativeCards`（3）；多怪伴战 hold。 */
+/** R30、R38：Prophet 的一张基础先攻补至三张，伴战怪物各自的先攻保留。 */
 export function expandProphetIInitiativeDeckSides(
   deck: readonly InitiativeSide[],
   battle: BattleState,
@@ -42,16 +55,8 @@ export function expandProphetIInitiativeDeckSides(
   const script = getBossScript(PROPHET_I_SCRIPT_ID);
   const entry = script ? readBossCombatEntry(script) : undefined;
   if (!entry) return [...deck];
-  const livingMonsters = battle.entities.filter(
-    (entity) => entity.side === "monster" && !entity.dead,
-  );
-  if (
-    livingMonsters.length !== 1 ||
-    livingMonsters[0]!.monsterCardId !== PROPHET_I_COMBAT_MONSTER_CARD_ID
-  ) {
-    return [...deck];
-  }
-  const extra = entry.printedInitiativeCards - livingMonsters.length;
+  if (!prophetEntity(battle)) return [...deck];
+  const extra = entry.printedInitiativeCards - 1;
   if (extra <= 0) return [...deck];
   return [...deck, ...Array.from({ length: extra }, (): InitiativeSide => "monster")];
 }
@@ -289,19 +294,17 @@ export function prophetRubbleShouldReplaceSkill(state: GameState, actorId: strin
   return true;
 }
 
-function rubbleTargetHeroInArea(battle: BattleState, areaId: string): BattleEntity | null {
+function rubbleTargetsInArea(battle: BattleState, areaId: string): BattleEntity[] {
   const heroes = battle.entities.filter(
     (entity) => entity.side === "hero" && !entity.dead && entity.areaId === areaId,
   );
-  if (!heroes.length) return null;
-  if (heroes.some((hero) => !hero.stance || !STANCES.includes(hero.stance))) return null;
   return [...heroes].sort(
     (a, b) =>
       Number(b.guard) - Number(a.guard) || STANCES.indexOf(a.stance!) - STANCES.indexOf(b.stance!),
-  )[0]!;
+  );
 }
 
-/** Prophet I · Rubble of Ruin：每轮第 3 次行动；每个 Wooden Pew 独立掷攻击（同区多英雄 hold）。 */
+/** R19、R38–39：每张木长椅独立攻击所在区域；该区存活英雄共享一次攻击骰。 */
 export function applyProphetRubbleOfRuin(state: GameState, actorId: string): ApplyResult {
   const battle = state.battle!;
   const scriptId = resolveEncounterBossScriptId(state);
@@ -319,7 +322,7 @@ export function applyProphetRubbleOfRuin(state: GameState, actorId: string): App
 
   const actor = battle.entities.find((entity) => entity.id === actorId);
   const card = battle.monsters?.find((entry) => entry.id === actor?.monsterCardId);
-  if (!actor || !card || card.verification.unverified) {
+  if (!actor || actor.id !== prophetEntity(battle)?.id || !card || card.verification.unverified) {
     return {
       state,
       events: [{ type: "commandRefused", message: "Rubble：先知卡未核实（R-048）" }],
@@ -330,28 +333,40 @@ export function applyProphetRubbleOfRuin(state: GameState, actorId: string): App
   }
 
   const pews = battle.woodenPews ?? [];
-  let cursor = battle.rngCursor;
-  let entities = battle.entities;
-  const events: GameEvent[] = [];
-  const skillEvents: MonsterSkillResolvedEvent[] = [];
+  let next = battle;
+  let events: readonly GameEvent[] = [];
   let pewAttacks = 0;
 
   const heights = { low: 0, normal: 1, high: 2 };
   const threatBonus = monsterCombatThreatDamageBonus(state.dungeon, card);
 
   for (const pew of pews) {
-    const target = rubbleTargetHeroInArea({ ...battle, entities }, pew.areaId);
-    if (!target) continue;
-    const actorArea = battle.areas.find((entry) => entry.id === actor.areaId);
-    const targetArea = battle.areas.find((entry) => entry.id === target.areaId);
+    const targets = rubbleTargetsInArea(next, pew.areaId);
+    const actorArea = next.areas.find((entry) => entry.id === actor.areaId);
+    const targetArea = next.areas.find((entry) => entry.id === pew.areaId);
     if (!actorArea || !targetArea) {
       return {
         state,
         events: [{ type: "commandRefused", message: "Rubble：区域几何未核实（R-048）" }],
       };
     }
-    const areaDistance =
-      actor.areaId === target.areaId ? 0 : distance(battle.areas, actor.areaId, target.areaId);
+    if (!targets.length) {
+      // R19 允许空区；R38 仍要求每张木长椅单独掷骰。
+      const roll = nextBattleRoll(state.seed, next.rngCursor);
+      next = { ...next, rngCursor: next.rngCursor + 1 };
+      events = [
+        ...events,
+        {
+          type: "dungeonUpdated",
+          message: `Rubble · pew ${pew.pewIndex} → ${pew.areaId}：骰 ${roll}，区域内无存活英雄`,
+        },
+      ];
+      pewAttacks += 1;
+      continue;
+    }
+    if (targets.some((hero) => !hero.stance || !STANCES.includes(hero.stance)))
+      return rejectBattleCommand(state, "Rubble：同区英雄缺少已核实姿态（R19、R-048）");
+    const areaDistance = distance(next.areas, actor.areaId, pew.areaId);
     if (areaDistance === null) {
       return {
         state,
@@ -359,88 +374,114 @@ export function applyProphetRubbleOfRuin(state: GameState, actorId: string): App
       };
     }
 
-    const roll = nextBattleRoll(state.seed, cursor);
-    cursor += 1;
-    const combat = {
-      actor: {
-        id: actor.id,
-        wounds: actor.wounds,
-        ...(actor.buffStacks === undefined ? {} : { buffStacks: actor.buffStacks }),
-        ...(actor.shuffleResist === undefined ? {} : { shuffleResist: actor.shuffleResist }),
-      },
-      target: skillTargetView(target, { ...battle, entities }),
-      areaDistance,
-      light: battle.light,
-      targetAreaLower: heights[actorArea.elevation] > heights[targetArea.elevation],
-      guardedHeroOmitted:
-        !target.guard &&
-        entities.some((entry) => entry.side === "hero" && !entry.dead && entry.guard),
-      untargetedHeroesBesideTarget: entities
-        .filter(
-          (entry) =>
-            entry.side === "hero" &&
-            !entry.dead &&
-            entry.id !== target.id &&
-            entry.areaId === target.areaId,
-        )
-        .map((entry) => ({ ...entry, stress: entry.stress! })),
-      threatFlatDamageBonus: threatBonus,
-    };
-    const resolved = resolveMonsterSkill(card, PROPHET_I_RUBBLE_SKILL_SLOT, combat, roll);
-    if (resolved.status === "refused") {
-      return { state, events: [{ type: "commandRefused", message: resolved.reason }] };
-    }
-    const effects = resolveMonsterSkillEffects(card, PROPHET_I_RUBBLE_SKILL_SLOT, combat, roll);
-    if (effects.status === "refused") {
-      return { state, events: [{ type: "commandRefused", message: effects.reason }] };
-    }
-    if (resolved.resolution.skipped.length) {
-      return {
-        state,
-        events: [{ type: "commandRefused", message: "Rubble：技能效果未全接入（R-048）" }],
-      };
-    }
-    entities = entities.map((entry) => {
-      const updated = writeResolution(entry, actor.id, target.id, resolved.resolution, false);
-      return entry.id === actor.id ? { ...updated, dead: resolved.actorDead } : updated;
+    const currentActor = next.entities.find((entity) => entity.id === actorId)!;
+    const roll = nextBattleRoll(state.seed, next.rngCursor);
+    const results = targets.map((target) =>
+      resolveMonsterSkillEffects(
+        card,
+        PROPHET_I_RUBBLE_SKILL_SLOT,
+        {
+          actor: {
+            id: actor.id,
+            wounds: currentActor.wounds,
+            ...(currentActor.buffStacks === undefined
+              ? {}
+              : { buffStacks: currentActor.buffStacks }),
+            ...(currentActor.shuffleResist === undefined
+              ? {}
+              : { shuffleResist: currentActor.shuffleResist }),
+          },
+          target: skillTargetView(target, next),
+          areaDistance,
+          targetsInArea: targets.length,
+          light: next.light,
+          targetAreaLower: heights[actorArea.elevation] > heights[targetArea.elevation],
+          // Special 直接攻击木长椅区域；该区全部存活英雄均已选中（R38–39）。
+          guardedHeroOmitted: false,
+          untargetedHeroesBesideTarget: [],
+          threatFlatDamageBonus: threatBonus,
+        },
+        roll,
+      ),
+    );
+    const resultsOk = results.filter((result) => result.status === "resolved");
+    const refused = results.find((result) => result.status === "refused");
+    if (refused) return rejectBattleCommand(state, refused.reason);
+    if (resultsOk.some((result) => result.resolution.skipped.length))
+      return rejectBattleCommand(state, "Rubble：技能效果未全接入（R-048）");
+    const resolutions = resultsOk.map((result) => result.resolution);
+    const representative =
+      resolutions.find((result) => result.outcome === "crit") ?? resolutions[0]!;
+    const healthEffects = multiTargetHealthEffects(resultsOk);
+    const actorWounds = projectActorWounds(actorId, currentActor.wounds, healthEffects);
+    const actorDead = actorWounds >= card.life;
+    const entities = next.entities.map((entry) => {
+      const resolution =
+        resolutions.find((result) => result.targetId === entry.id) ?? representative;
+      const updated = writeResolution(
+        entry,
+        actorId,
+        resolution.targetId,
+        { ...resolution, actorWounds },
+        false,
+      );
+      return entry.id === actorId ? { ...updated, dead: actorDead } : updated;
     });
     const health = applySkillHealth(
-      { ...battle, entities, rngCursor: cursor },
+      next,
       entities,
-      effects,
+      { resolution: representative, healthEffects },
       state.seed,
-      cursor,
+      next.rngCursor + 1,
     );
     if (health.status === "refused") {
       return { state, events: [{ type: "commandRefused", message: health.reason }] };
     }
-    entities = health.entities;
-    cursor = health.rngCursor;
     pewAttacks += 1;
-    skillEvents.push({
-      type: "monsterSkillResolved",
-      message: `Rubble · pew ${pew.pewIndex} → ${target.id}`,
+    const skillEvent: MonsterSkillTargetsResolvedEvent = {
+      type: "monsterSkillTargetsResolved",
+      message: `Rubble · pew ${pew.pewIndex} → ${pew.areaId}（${targets.map((target) => target.id).join(",")}）`,
       actorId: actor.id,
       skillSlot: PROPHET_I_RUBBLE_SKILL_SLOT,
       roll,
-      actorDead: resolved.actorDead,
-      resolution: resolved.resolution,
+      actorDead,
+      resolutions,
+    };
+    const pressure = resolveBattlePressure({
+      state: {
+        ...state,
+        battle: {
+          ...next,
+          entities: health.entities,
+          rngCursor: health.rngCursor,
+          monsterAction: null,
+        },
+      },
+      events: [...events, skillEvent, ...health.events],
     });
+    const problem = pressure.events.find((event) => event.type === "commandRefused");
+    if (problem) return rejectBattleCommand(state, problem.message);
+    const removed = removeCasualties(
+      pressure,
+      newlyDefeatedIds(next, pressure.state.battle!.entities),
+    );
+    const ended = endAfterCasualties(removed);
+    if (ended) return ended;
+    next = removed.state.battle!;
+    events = removed.events;
+    if (actorDead) break;
   }
 
   const nextBattle: BattleState = {
-    ...battle,
-    entities,
-    rngCursor: cursor,
+    ...next,
     monsterAction: null,
   };
 
   return finishTurn({ ...state, battle: nextBattle }, actorId, [
     ...events,
-    ...skillEvents,
     {
       type: "dungeonUpdated",
-      message: `Prophet I · Rubble of Ruin：${pewAttacks}/${pews.length} 木长椅攻击（slot=${PROPHET_I_RUBBLE_SKILL_SLOT}；同区多目标 / 空区 hold）`,
+      message: `Prophet I · Rubble of Ruin：${pewAttacks}/${pews.length} 木长椅区域攻击（slot=${PROPHET_I_RUBBLE_SKILL_SLOT}；每区目标共享骰，空区无英雄受击）`,
     },
   ]);
 }
