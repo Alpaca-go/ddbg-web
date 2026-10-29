@@ -81,7 +81,7 @@
 | **Flesh I** | One Body 四部位开战 + 共享 Life；回合初 morph | `flesh-i-combat-runtime.ts`、`battle.ts`；`flesh-i-combat-runtime.test.ts` |
 | **Collector I** | Collect All / 先攻 4 / 英雄挤占；C-015 显式区域绑定后三箱同区布置、有限池抽空即止；缺绑定明确拒绝 | `collector-i-combat-runtime.ts`、`collector-i-room-runtime.ts` / `.test.ts`；Collector Room 生产几何仍 hold |
 | **Prophet I** | Calamitous + Rubble + **第 2 行动默认选招** + **先攻 3 张** + 多行动 `actedIds`；C-013 开战 / 第 1 行动前校验完整八组 d10 绑定，缺表拒绝，UI 显示每区木长椅数 | `prophet-i-room-runtime.ts`、`prophet-i-combat-runtime.ts`、`encounter.ts`；`prophet-i-combat-runtime.test.ts`；正式几何仍 hold |
-| **Necromancer I** | C-011 第一刀：R38 死亡清场；前两招已选技能召唤、满轨无效、满区挤占待选、当前轮先攻 | `necromancer-i-combat-runtime.ts` / `.test.ts`；自动选招与第三招留 C-012 |
+| **Necromancer I** | C-011/012：死亡清场，三招自动选招 / 目标 / Speed 3 移动 / 技能召唤；Six Feet Under 纯压力，满轨无效、满区待选及当前轮先攻 | `necromancer-i-skill-ai.test.ts`；`phase5-necromancer-i-skill-ai-2026-10-29.md` |
 | **Swine Prince I** | Wilbur 开战 + Enraged + Wilbur Mark AI | `swine-prince-i-combat-runtime.ts`；`swine-prince-i-combat-runtime.test.ts` |
 | **Hag I** | Cauldron Empty `startBattle`；Into the Pot! / Empty→Full | `hag-i-combat-runtime.ts`；42418 / 先攻 / 英雄入锅 hold |
 | **Siren I** | High Tide slot → Pelagic `targetArea` 召唤 | `siren-i-combat-runtime.ts`、`battle-monster.ts`；`siren-i-combat-runtime.test.ts` |
@@ -103,7 +103,7 @@
 | **Collector** Room 几何绑定 | 三箱布置与 C-016 挤占选择 / 连续续接已接；召唤使用显式固定姿态区域绑定，怪物满区时玩家选移，不能把召唤物改放别区。**Collector Room 生产几何 / 落区绑定仍 hold**，缺绑定拒绝 | R31、R39 / R-034/047/048/059；`phase5-collector-i-displacement-2026-10-29.md` |
 | **Fanatic** Pyre 自身技能 / 死亡移除 | 本体三招 AI 与效果已接（C-017）；无技能召唤可实现。**Pyre 的 Burn the Heretic（无 Acc、99 伤害）与 Fanatic 被击败后移除 Pyre（R39）仍 hold**，不把本体三招完成称作整场闭环 | G-05 / R39 / `monster_large:p011` |
 | **Flesh** 战斗中途再召 Large | 仅遭遇开局 Guard；无 mid-battle spawn | R31 |
-| **Necromancer** 完整 encounter AI / 多级召唤 | **死亡清场与 I 级前两招已选技能召唤已接**；姿态选招表、第三招 Six Feet Under 仍 hold（C-012）；II/III 未开 | C-011 第一刀 / C-012；见 `phase5-necromancer-i-combat-runtime-2026-10-29.md` |
+| **Necromancer** 多级召唤 / 正式入场 | C-012 已补 I 级选招表、移动与第三招；II/III、Boss 房间及 R-121 生产入场仍未开 | `phase5-necromancer-i-skill-ai-2026-10-29.md` |
 | **`encounterRoundRetreatLimit` 生产路径** | C-018：已注册 Ruins I 四 Boss 共用的两条轮末路径已回归；未击败前禁止从探索离场。正式 Boss 房间入场和未映射脚本仍 hold | R30、R-044；`phase5-boss-retreat-boundary-2026-10-29.md` |
 | **Boss XP / `summarizeDungeonQuest`** | **已接**：`bossFlatQuestSummarySchema` + `bossQuestVictory`（p019 / 映射 Boss 遭遇）；p016–p018 击败判定仍 hold | **R-122**（部分） |
 | **Rising Threat SPECIAL** | 未接 | 任务卡 |

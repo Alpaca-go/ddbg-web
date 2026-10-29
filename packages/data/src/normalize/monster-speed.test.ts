@@ -23,6 +23,7 @@ const expected = [
   ["monster_medium:p013", 2],
   ["monster_medium:p050", 3],
   ["monster_medium:p053", 3],
+  ["monster_medium:p089", 3],
 ] as const;
 const originals = built.monster_medium.cards.map((card) => {
   const copy = structuredClone(card);
@@ -52,7 +53,7 @@ describe("获批中型怪物 Speed 入库（R24、R-001、R-048）", () => {
       expect(card.speed, card.id).toBe(
         ["monster_large:p001", "monster_large:p002"].includes(card.id)
           ? 1
-          : card.id === "monster_large:p003"
+          : ["monster_large:p003", "monster_large:p008"].includes(card.id)
             ? 2
             : undefined,
       );

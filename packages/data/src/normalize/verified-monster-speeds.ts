@@ -35,6 +35,8 @@ export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
   // R-083：2026-10-15四卡限定表获批。
   { id: "monster_medium:p050", name: "Gargoyle", level: 2, pages: [50, 51, 52], speed: 3 },
   { id: "monster_medium:p053", name: "Rattler", level: 2, pages: [53, 54, 55], speed: 3 },
+  // C-012：当前版核心盒 FRONT p089，三枚脚印；仅 Necromancer I。
+  { id: "monster_medium:p089", name: "Necromancer", level: 1, pages: [89], speed: 3 },
 ]);
 
 /** 仅生成管线加载人工获批映射；schema 可表达的值不代表已获批准。 */
