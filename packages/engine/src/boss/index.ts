@@ -132,8 +132,22 @@ export {
   PROPHET_I_COMBAT_MONSTER_CARD_ID,
   PROPHET_I_DESCRIPTION_ABILITY_CARD_ID,
   PROPHET_I_SCRIPT_ID,
+  PROPHET_I_WOODEN_PEW_SUMMON_TOKEN_ID,
+  PROPHET_ROOM_CARD_ID,
+  PROPHET_ROOM_D10_MARKERS,
+  prophetD10RollMatchesMarker,
   prophetIBossScript,
+  prophetRoomMarkerForD10Roll,
 } from "./prophet-i";
+export {
+  applyProphetCalamitousPrognostication,
+  countWoodenPewsInArea,
+  prophetCalamitousShouldReplaceSkill,
+  prophetRoomD10AreaTableFromMarkers,
+  readProphetICalamitousEnabled,
+  readProphetIWwoodenPewPlan,
+  resolveProphetAreaIdForD10Roll,
+} from "./prophet-i-combat-runtime";
 export {
   ensureHagIBossScriptRegistered,
   HAG_I_COMBAT_ABILITY_CARD_ID,

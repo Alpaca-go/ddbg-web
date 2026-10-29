@@ -1,0 +1,217 @@
+import { readFileSync } from "node:fs";
+import { describe, expect, it, beforeEach } from "vitest";
+import { createBattleState, type BattleEntity } from "../battle";
+import { applyCommand, type GameState } from "../command";
+import { normalizedMonsterLargeFileSchema } from "../../../data/src/normalize/schema";
+import { createLootState } from "../loot";
+import type { SkillStance } from "../hero-skill";
+import type { MonsterCardView } from "../monster-skill";
+import {
+  PROPHET_I_COMBAT_MONSTER_CARD_ID,
+  PROPHET_I_SCRIPT_ID,
+  PROPHET_I_WOODEN_PEW_SUMMON_TOKEN_ID,
+  PROPHET_ROOM_D10_MARKERS,
+  applyProphetCalamitousPrognostication,
+  clearBossScriptsForTest,
+  countWoodenPewsInArea,
+  ensureProphetIBossScriptRegistered,
+  getBossScript,
+  prophetCalamitousShouldReplaceSkill,
+  prophetD10RollMatchesMarker,
+  prophetRoomD10AreaTableFromMarkers,
+  readProphetICalamitousEnabled,
+  readProphetIWwoodenPewPlan,
+  resolveProphetAreaIdForD10Roll,
+  FACE_THE_THREAT_QUEST_ID,
+} from "./index";
+
+const largeCards = normalizedMonsterLargeFileSchema.parse(
+  JSON.parse(
+    readFileSync(
+      new URL("../../../data/normalized/corebox/monster_large.json", import.meta.url),
+      { encoding: "utf8" },
+    ),
+  ),
+).cards;
+
+const prophetCardRaw = largeCards.find((card) => card.id === PROPHET_I_COMBAT_MONSTER_CARD_ID)!;
+const prophetLife = "life" in prophetCardRaw ? prophetCardRaw.life : 79;
+
+const prophetCardView = {
+  ...(prophetCardRaw as MonsterCardView),
+  id: prophetCardRaw.id,
+  name: prophetCardRaw.name,
+  life: prophetLife,
+  dodge: 0,
+  speed: 1,
+  verification: { unverified: false },
+  skills: [],
+  typeTags: ["Unholy"],
+} as MonsterCardView;
+
+const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
+
+const markerAreas = Object.fromEntries(
+  PROPHET_ROOM_D10_MARKERS.map((marker, index) => [marker, `pew-area-${index}`]),
+) as Record<(typeof PROPHET_ROOM_D10_MARKERS)[number], string>;
+
+function prophetBossDungeon(): GameState["dungeon"] {
+  return {
+    phase: "inBattle",
+    cursor: 0,
+    heroes: [],
+    questDistribution: { questId: FACE_THE_THREAT_QUEST_ID, campaignLevel: 1 },
+    activeBossThreatScriptId: PROPHET_I_SCRIPT_ID,
+  } as unknown as GameState["dungeon"];
+}
+
+function prophetBattle(): GameState {
+  const heroes: BattleEntity[] = stances.map((stance, index) => ({
+    id: `h${index}`,
+    side: "hero",
+    areaId: "pew-area-0",
+    stance,
+    hero: "CRUSADER",
+    skillIds: [],
+    wounds: 0,
+    stress: 0,
+    dodge: 0,
+    guard: false,
+    dead: false,
+    bleed: [],
+    blight: [],
+  }));
+
+  const battle = createBattleState(42, {
+    entities: [
+      ...heroes,
+      {
+        id: "prophet",
+        side: "monster",
+        hero: null,
+        monsterCardId: prophetCardView.id,
+        life: prophetLife,
+        dodge: 0,
+        areaId: "pew-area-0",
+        stance: "aggressive",
+        stanceSlots: 2,
+        shuffleResist: false,
+        wounds: 0,
+        skillIds: [],
+        guard: false,
+        dead: false,
+        bleed: [],
+        blight: [],
+      },
+    ],
+    areas: PROPHET_ROOM_D10_MARKERS.map((_, index) => ({
+      id: `pew-area-${index}`,
+      elevation: "normal" as const,
+      adjacent: [],
+      capacity: 4,
+    })),
+    prophetRoomD10AreaTable: prophetRoomD10AreaTableFromMarkers(markerAreas),
+    skills: [],
+    monsters: [prophetCardView],
+    light: 5,
+    heroStats: [],
+    lootPool: createLootState(),
+  });
+
+  return {
+    ...battle,
+    dungeon: prophetBossDungeon(),
+  } as GameState;
+}
+
+describe("Prophet I · Calamitous Prognostication 战斗最小运行时", () => {
+  beforeEach(() => {
+    clearBossScriptsForTest();
+    ensureProphetIBossScriptRegistered();
+  });
+
+  it("d10 标记匹配 room:p011 印刷范围", () => {
+    expect(prophetD10RollMatchesMarker(1, "1-2")).toBe(true);
+    expect(prophetD10RollMatchesMarker(2, "1-2")).toBe(true);
+    expect(prophetD10RollMatchesMarker(8, "7-8")).toBe(true);
+    expect(prophetD10RollMatchesMarker(4, "3")).toBe(false);
+    expect(resolveProphetAreaIdForD10Roll(5, prophetRoomD10AreaTableFromMarkers(markerAreas))).toBe(
+      markerAreas["5"],
+    );
+  });
+
+  it("summon(calamitousWoodenPew) 与 calamitousPrognostication 钩子已声明", () => {
+    const script = getBossScript(PROPHET_I_SCRIPT_ID)!;
+    expect(readProphetICalamitousEnabled(script)).toBe(true);
+    for (const pewIndex of [0, 1, 2, 3] as const) {
+      const plan = readProphetIWwoodenPewPlan(script, pewIndex);
+      expect(plan?.summonMonsterCardId).toBe(PROPHET_I_WOODEN_PEW_SUMMON_TOKEN_ID);
+      expect(plan?.miniaturePlacement).toBe("areaD10Marker");
+      expect(plan?.woodenPewIndex).toBe(pewIndex);
+    }
+  });
+
+  it("Prophet I · Calamitous Prognostication：Wooden Pew 区域 d10 写入", () => {
+    let state = prophetBattle();
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        encounter: {
+          round: 1,
+          deck: [],
+          actedIds: [],
+          turn: { type: "monster", actorId: "prophet" },
+        },
+      },
+    };
+    expect(prophetCalamitousShouldReplaceSkill(state, "prophet")).toBe(true);
+
+    const result = applyProphetCalamitousPrognostication(state, "prophet");
+    expect(result.state.battle!.woodenPews).toHaveLength(4);
+    for (const pew of result.state.battle!.woodenPews ?? []) {
+      expect(pew.areaId.startsWith("pew-area-")).toBe(true);
+    }
+    expect(result.events.some((event) => event.type === "dungeonUpdated" && event.message.includes("Wooden Pew 区域 d10"))).toBe(
+      true,
+    );
+    expect(countWoodenPewsInArea(result.state.battle!, "pew-area-0")).toBeGreaterThanOrEqual(0);
+  });
+
+  it("prepareMonsterAction 路径触发 Calamitous 并写入木长椅", () => {
+    let state = prophetBattle();
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        encounter: {
+          round: 1,
+          deck: [],
+          actedIds: [],
+          turn: { type: "monster", actorId: "prophet" },
+        },
+      },
+    };
+    const result = applyCommand(state, { type: "prepareMonsterAction", actorId: "prophet" });
+    expect(result.state.battle!.woodenPews).toHaveLength(4);
+    expect(prophetCalamitousShouldReplaceSkill(result.state, "prophet")).toBe(false);
+  });
+
+  it("本回合已 Calamitous 后不再替代选招", () => {
+    let state = prophetBattle();
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        prophetCalamitousUsedThisRound: true,
+        encounter: {
+          round: 1,
+          deck: [],
+          actedIds: [],
+          turn: { type: "monster", actorId: "prophet" },
+        },
+      },
+    };
+    expect(prophetCalamitousShouldReplaceSkill(state, "prophet")).toBe(false);
+  });
+});

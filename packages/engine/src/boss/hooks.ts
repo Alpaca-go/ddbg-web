@@ -11,6 +11,7 @@ import type {
   BossSentenceRenderedContext,
   BossOneBodyMorphContext,
   BossCollectAllContext,
+  BossCalamitousPrognosticationContext,
   BossThreatPassiveContext,
 } from "./types";
 
@@ -24,6 +25,7 @@ type HookContextMap = {
   sentenceRendered: BossSentenceRenderedContext;
   oneBodyMorph: BossOneBodyMorphContext;
   collectAll: BossCollectAllContext;
+  calamitousPrognostication: BossCalamitousPrognosticationContext;
 };
 
 export type RunBossHookResult<N extends BossHookName> =

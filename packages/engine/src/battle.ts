@@ -135,6 +135,11 @@ export type BattleSetup = {
   /** 下一房间可显式传回同地牢的有限池；回村另行重建。 */
   readonly lootPool?: LootState;
   readonly startingProvisions?: true;
+  /** Prophet Room · 房间卡 d10 标记与战斗区域 id 绑定；Prophet 战由已核实布局提供（R-048 几何 hold 时测试夹具显式传入）。 */
+  readonly prophetRoomD10AreaTable?: readonly {
+    readonly marker: string;
+    readonly areaId: string;
+  }[];
   /** 显式保留先攻确定后、回合开始效果前的免费补给窗口。 */
   readonly provisionWindows?: true;
   readonly provisions?: readonly {
@@ -151,6 +156,12 @@ export type OneBodyLifePool = {
 export type BattleState = BattleSetup & {
   readonly oneBodyPools?: Readonly<Record<string, OneBodyLifePool>>;
   readonly lootChestUsed?: true;
+  /** Prophet · Wooden Pew 区域标记（不占容量、非可选目标；room 代币）。 */
+  readonly woodenPews?: readonly {
+    readonly areaId: string;
+    readonly pewIndex: 0 | 1 | 2 | 3;
+  }[];
+  readonly prophetCalamitousUsedThisRound?: true;
   readonly skillPrefix?: SkillPrefix | null;
   readonly encounter?: EncounterState;
   readonly rngCursor: number;
