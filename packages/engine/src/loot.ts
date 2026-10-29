@@ -49,8 +49,14 @@ export function closeBattleLoot(loot: LootState | undefined): LootState | undefi
       }
     : undefined;
 }
-export function placeBattleLoot(battle: BattleState, seed: number): BattleState | null {
-  if (!battle.lootAreas || battle.loot) return battle;
+/** placements 可重复同一区域，以表示同区多个独立代币；普通房间仍用唯一 lootAreas。 */
+export function placeBattleLoot(
+  battle: BattleState,
+  seed: number,
+  placements: readonly string[] | undefined = battle.lootAreas,
+): BattleState | null {
+  if (!placements || battle.loot) return battle;
+  if (placements.some((id) => !battle.areas.some((area) => area.id === id))) return null;
   const loot = battle.lootPool ?? createLootState();
   const canonical = createLootState().available;
   const ids = [...loot.available.map((token) => token.id), ...loot.claimedIds];
@@ -78,7 +84,7 @@ export function placeBattleLoot(battle: BattleState, seed: number): BattleState 
     [deck[index], deck[other]] = [deck[other]!, deck[index]!];
     cursor++;
   }
-  const placed = battle.lootAreas.flatMap((areaId) => {
+  const placed = placements.flatMap((areaId) => {
     const token = deck.shift();
     return token ? [{ ...token, areaId, revealed: false }] : [];
   });

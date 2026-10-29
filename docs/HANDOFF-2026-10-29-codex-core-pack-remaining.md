@@ -208,8 +208,11 @@
 
 #### C-015 · Collector I：宝箱房布置
 
-- [ ]  
-- **现状**：Collect All + 先攻 4 + 英雄挤占已接；**宝箱房布置仍 hold**（`collector-i.ts` notes；hold inventory）  
+- [ ] Collector Room 的正式几何绑定仍未获批，本刀不勾总项。
+  - [x] `startBattle` 按显式区域绑定放置同区三枚有限宝箱；池不足按 R-047 抽空即止，逐枚拾取 / 回池沿用 R-059，UI 显示同区数量。
+  - [x] 缺绑定、未知区域、房间 / 标记冲突及重复布置原子拒绝；单测用抽象逻辑区，不代表几何审批。
+  - [ ] 获批 Collector Room 几何 → 生产绑定 `collectorRoomLootAreaId`，再验收正式入场。见 `phase5-collector-i-room-loot-2026-10-29.md`。
+- **现状**：三箱布置最小运行时已接；正式区域绑定仍 hold。Collect All / 先攻 / C-016 沿用原范围。
 - **验收**：按 R-034/卡面布置宝箱房 token/区域；单测  
 - **依赖/阻塞**：R-048 几何/布置裁定  
 - **归口**：核心包  

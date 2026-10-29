@@ -377,7 +377,10 @@ export function BattleView({
                     <p className="muted">Healing Waters：英雄结束回合治疗 3</p>
                   )}
                   {battle.loot?.placed.some((token) => token.areaId === area.id) && (
-                    <p>宝箱：可在同区花一个行动拾取</p>
+                    <p>
+                      宝箱 ×{battle.loot.placed.filter((token) => token.areaId === area.id).length}
+                      ：可在同区花一个行动拾取一枚
+                    </p>
                   )}
                   <ul className={formal ? "area-occupants area-occupants--cards" : undefined}>
                     {occupants.map((e) => (

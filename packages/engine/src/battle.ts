@@ -133,6 +133,8 @@ export type BattleSetup = {
   readonly light: number;
   readonly resolveCards?: readonly ResolveCard[];
   readonly lootAreas?: readonly string[];
+  /** Collector Room 三箱所在逻辑区；仅由获批几何绑定。生产目录未批时留空，测试夹具显式传入。 */
+  readonly collectorRoomLootAreaId?: string;
   /** 下一房间可显式传回同地牢的有限池；回村另行重建。 */
   readonly lootPool?: LootState;
   readonly startingProvisions?: true;
