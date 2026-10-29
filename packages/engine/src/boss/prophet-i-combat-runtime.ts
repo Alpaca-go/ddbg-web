@@ -1,7 +1,7 @@
 import type { BattleEntity, BattleState } from "../battle";
 import type { ApplyResult, GameEvent, GameState, MonsterSkillResolvedEvent } from "../command";
 import { applySkillHealth } from "../battle-health";
-import { skillTargetView, writeResolution, distance } from "../battle";
+import { skillTargetView, writeResolution, distance, rejectBattleCommand } from "../battle";
 import { nextBattleRoll, finishTurn } from "../encounter";
 import { runBossHook } from "./hooks";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
@@ -20,6 +20,7 @@ import type { BossScriptDefinition, BossSummonOk, ProphetWoodenPewIndex } from "
 import type { SkillStance } from "../hero-skill";
 import { resolveMonsterSkill, resolveMonsterSkillEffects } from "../monster-skill";
 import { monsterCombatThreatDamageBonus } from "./threat-passive-runtime";
+import { readProphetIRoomD10Binding } from "./prophet-i-room-runtime";
 
 const PEW_INDICES: readonly ProphetWoodenPewIndex[] = [0, 1, 2, 3];
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
@@ -41,7 +42,9 @@ export function expandProphetIInitiativeDeckSides(
   const script = getBossScript(PROPHET_I_SCRIPT_ID);
   const entry = script ? readBossCombatEntry(script) : undefined;
   if (!entry) return [...deck];
-  const livingMonsters = battle.entities.filter((entity) => entity.side === "monster" && !entity.dead);
+  const livingMonsters = battle.entities.filter(
+    (entity) => entity.side === "monster" && !entity.dead,
+  );
   if (
     livingMonsters.length !== 1 ||
     livingMonsters[0]!.monsterCardId !== PROPHET_I_COMBAT_MONSTER_CARD_ID
@@ -155,8 +158,8 @@ export function resolveProphetAreaIdForD10Roll(
   if (!table?.length) return null;
   const marker = prophetRoomMarkerForD10Roll(roll);
   if (!marker) return null;
-  const binding = table.find((entry) => entry.marker === marker);
-  return binding?.areaId ?? null;
+  const bindings = table.filter((entry) => entry.marker === marker);
+  return bindings.length === 1 ? bindings[0]!.areaId || null : null;
 }
 
 function prophetEntity(battle: BattleState) {
@@ -184,7 +187,8 @@ export function prophetCalamitousShouldReplaceSkill(state: GameState, actorId: s
   if (!actor || actor.monsterCardId !== PROPHET_I_COMBAT_MONSTER_CARD_ID || actor.dead) {
     return false;
   }
-  return Boolean(battle.prophetRoomD10AreaTable?.length);
+  // R38：第 1 行动必须尝试 Calamitous；缺表由结算入口拒绝，不能退回普通技能。
+  return true;
 }
 
 /** Prophet I · Calamitous Prognostication：每轮首次行动掷 4d10，按 room 标记写入 Wooden Pew（区域语义）。 */
@@ -206,23 +210,14 @@ export function applyProphetCalamitousPrognostication(
     };
   }
 
-  const table = battle.prophetRoomD10AreaTable;
-  if (!table?.length) {
-    return {
-      state,
-      events: [
-        {
-          type: "commandRefused",
-          message: "Calamitous：缺少 prophetRoomD10AreaTable（Prophet Room 几何 hold）",
-        },
-      ],
-    };
-  }
+  const binding = readProphetIRoomD10Binding(state);
+  if (binding.status === "refused") return rejectBattleCommand(state, binding.message);
+  if (binding.status !== "ready") return { state, events: [] };
+  const table = binding.table;
 
   let cursor = battle.rngCursor;
   const rolls: number[] = [];
-  const pewPlacements: { readonly areaId: string; readonly pewIndex: ProphetWoodenPewIndex }[] =
-    [];
+  const pewPlacements: { readonly areaId: string; readonly pewIndex: ProphetWoodenPewIndex }[] = [];
 
   for (const pewIndex of PEW_INDICES) {
     const plan = readProphetIWwoodenPewPlan(script, pewIndex);
@@ -268,16 +263,12 @@ export function applyProphetCalamitousPrognostication(
     monsterAction: null,
   };
 
-  return finishTurn(
-    { ...state, battle: nextBattle },
-    actorId,
-    [
-      {
-        type: "dungeonUpdated",
-        message: `Prophet I · Calamitous Prognostication：Wooden Pew 区域 d10（rolls=${rolls.join(",")}；markers=${markers.join("|")}；room→board 几何 hold）`,
-      },
-    ],
-  );
+  return finishTurn({ ...state, battle: nextBattle }, actorId, [
+    {
+      type: "dungeonUpdated",
+      message: `Prophet I · Calamitous Prognostication：Wooden Pew 区域 d10（rolls=${rolls.join(",")}；markers=${markers.join("|")}）`,
+    },
+  ]);
 }
 
 export function prophetRubbleShouldReplaceSkill(state: GameState, actorId: string): boolean {
@@ -306,8 +297,7 @@ function rubbleTargetHeroInArea(battle: BattleState, areaId: string): BattleEnti
   if (heroes.some((hero) => !hero.stance || !STANCES.includes(hero.stance))) return null;
   return [...heroes].sort(
     (a, b) =>
-      Number(b.guard) - Number(a.guard) ||
-      STANCES.indexOf(a.stance!) - STANCES.indexOf(b.stance!),
+      Number(b.guard) - Number(a.guard) || STANCES.indexOf(a.stance!) - STANCES.indexOf(b.stance!),
   )[0]!;
 }
 
@@ -330,7 +320,10 @@ export function applyProphetRubbleOfRuin(state: GameState, actorId: string): App
   const actor = battle.entities.find((entity) => entity.id === actorId);
   const card = battle.monsters?.find((entry) => entry.id === actor?.monsterCardId);
   if (!actor || !card || card.verification.unverified) {
-    return { state, events: [{ type: "commandRefused", message: "Rubble：先知卡未核实（R-048）" }] };
+    return {
+      state,
+      events: [{ type: "commandRefused", message: "Rubble：先知卡未核实（R-048）" }],
+    };
   }
   if (actor.life !== card.life) {
     return { state, events: [{ type: "commandRefused", message: "Rubble：Life 不一致（R-048）" }] };
@@ -442,18 +435,14 @@ export function applyProphetRubbleOfRuin(state: GameState, actorId: string): App
     monsterAction: null,
   };
 
-  return finishTurn(
-    { ...state, battle: nextBattle },
-    actorId,
-    [
-      ...events,
-      ...skillEvents,
-      {
-        type: "dungeonUpdated",
-        message: `Prophet I · Rubble of Ruin：${pewAttacks}/${pews.length} 木长椅攻击（slot=${PROPHET_I_RUBBLE_SKILL_SLOT}；同区多目标 / 空区 hold）`,
-      },
-    ],
-  );
+  return finishTurn({ ...state, battle: nextBattle }, actorId, [
+    ...events,
+    ...skillEvents,
+    {
+      type: "dungeonUpdated",
+      message: `Prophet I · Rubble of Ruin：${pewAttacks}/${pews.length} 木长椅攻击（slot=${PROPHET_I_RUBBLE_SKILL_SLOT}；同区多目标 / 空区 hold）`,
+    },
+  ]);
 }
 
 export function prophetRoomD10AreaTableFromMarkers(

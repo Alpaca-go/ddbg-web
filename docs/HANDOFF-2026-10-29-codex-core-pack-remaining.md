@@ -190,8 +190,11 @@
 
 #### C-013 · Prophet I：Room 卡 → 战斗板几何 / d10 区域表生产绑定
 
-- [ ]  
-- **现状**：Calamitous + Wooden Pew 最小运行时已接；缺 `prophetRoomD10AreaTable` / room→board 时 `commandRefused`（`prophet-i-combat-runtime.ts`）  
+- [ ] Prophet Room 的正式几何绑定仍未获批，本刀不勾总项。
+  - [x] 开战与 Calamitous 前校验完整八组印刷标记及已存在的逻辑区域；缺组、重复、未知区域或当前房间身份冲突原子拒绝。
+  - [x] 第 1 行动必走 Calamitous，缺表明确拒绝，不退回普通选招；完整夹具绑定可重放 4d10 布置，UI 显示每区木长椅数量。
+  - [ ] 获批 Prophet Room 几何 → 生产绑定 `prophetRoomD10AreaTable`，再验收正式入场。抽象测试区不代表几何审批；见 `phase5-prophet-i-room-binding-2026-10-29.md`。
+- **现状**：d10 绑定校验与布置最小运行时可测；正式 room→board 几何仍 hold。C-014 同区多目标与多怪伴战先攻未动。
 - **验收**：Prophet Room 绑定获批几何后 d10→区域可结算；R-048  
 - **依赖/阻塞**：Room/几何批（或既有 Prophet Room 数据核实）  
 - **归口**：核心包  

@@ -382,6 +382,12 @@ export function BattleView({
                       ：可在同区花一个行动拾取一枚
                     </p>
                   )}
+                  {battle.woodenPews?.some((pew) => pew.areaId === area.id) && (
+                    <p>
+                      木长椅 ×{battle.woodenPews.filter((pew) => pew.areaId === area.id).length}
+                      （Wooden Pew）
+                    </p>
+                  )}
                   <ul className={formal ? "area-occupants area-occupants--cards" : undefined}>
                     {occupants.map((e) => (
                       <li key={e.id} className={e.side}>

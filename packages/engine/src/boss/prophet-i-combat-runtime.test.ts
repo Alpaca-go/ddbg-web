@@ -1,9 +1,10 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, beforeEach } from "vitest";
-import { createBattleState, type BattleEntity } from "../battle";
+import { createBattleState, type BattleEntity, type BattleState } from "../battle";
 import { applyCommand, type GameState } from "../command";
 import { normalizedMonsterLargeFileSchema } from "../../../data/src/normalize/schema";
 import { createLootState } from "../loot";
+import { nextBattleRoll } from "../battle-roll";
 import type { SkillStance } from "../hero-skill";
 import type { MonsterCardView } from "../monster-skill";
 import {
@@ -38,10 +39,9 @@ import {
 
 const largeCards = normalizedMonsterLargeFileSchema.parse(
   JSON.parse(
-    readFileSync(
-      new URL("../../../data/normalized/corebox/monster_large.json", import.meta.url),
-      { encoding: "utf8" },
-    ),
+    readFileSync(new URL("../../../data/normalized/corebox/monster_large.json", import.meta.url), {
+      encoding: "utf8",
+    }),
   ),
 ).cards;
 
@@ -193,9 +193,11 @@ describe("Prophet I · Calamitous Prognostication 战斗最小运行时", () => 
     for (const pew of result.state.battle!.woodenPews ?? []) {
       expect(pew.areaId.startsWith("pew-area-")).toBe(true);
     }
-    expect(result.events.some((event) => event.type === "dungeonUpdated" && event.message.includes("Wooden Pew 区域 d10"))).toBe(
-      true,
-    );
+    expect(
+      result.events.some(
+        (event) => event.type === "dungeonUpdated" && event.message.includes("Wooden Pew 区域 d10"),
+      ),
+    ).toBe(true);
     expect(countWoodenPewsInArea(result.state.battle!, "pew-area-0")).toBeGreaterThanOrEqual(0);
   });
 
@@ -276,9 +278,11 @@ describe("Prophet I · Rubble of Ruin 战斗最小运行时", () => {
     const heroBefore = state.battle!.entities.find((entity) => entity.id === "h0")!.wounds;
     const result = applyProphetRubbleOfRuin(state, "prophet");
     expect(result.events.some((event) => event.type === "monsterSkillResolved")).toBe(true);
-    expect(result.events.some((event) => event.type === "dungeonUpdated" && event.message.includes("Rubble of Ruin"))).toBe(
-      true,
-    );
+    expect(
+      result.events.some(
+        (event) => event.type === "dungeonUpdated" && event.message.includes("Rubble of Ruin"),
+      ),
+    ).toBe(true);
     const heroAfter = result.state.battle!.entities.find((entity) => entity.id === "h0")!.wounds;
     expect(heroAfter).toBeGreaterThanOrEqual(heroBefore);
     expect(prophetActionIndexBeforeTurn(result.state.battle!)).toBe(3);
@@ -301,9 +305,11 @@ describe("Prophet I · Rubble of Ruin 战斗最小运行时", () => {
       },
     };
     const result = applyCommand(state, { type: "prepareMonsterAction", actorId: "prophet" });
-    expect(result.events.some((event) => event.type === "dungeonUpdated" && event.message.includes("Rubble of Ruin"))).toBe(
-      true,
-    );
+    expect(
+      result.events.some(
+        (event) => event.type === "dungeonUpdated" && event.message.includes("Rubble of Ruin"),
+      ),
+    ).toBe(true);
   });
 });
 
@@ -349,6 +355,147 @@ describe("Prophet I · 先攻 3 洗入与多行动 actedIds", () => {
     expect(result.state.battle!.prophetActionsThisRound).toBe(1);
     expect(result.state.battle!.encounter!.actedIds).not.toContain("prophet");
     expect(prophetShouldEnterActedIdsAfterTurn(result.state, "prophet")).toBe(false);
+  });
+});
+
+describe("C-013 · Prophet Room d10 绑定与正式几何停点", () => {
+  const expectedMarkersByRoll = [
+    "1-2",
+    "1-2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7-8",
+    "7-8",
+    "9",
+    "10",
+  ] as const;
+  beforeEach(() => {
+    clearBossScriptsForTest();
+    ensureProphetIBossScriptRegistered();
+  });
+
+  function withTable(state: GameState, table: BattleState["prophetRoomD10AreaTable"]): GameState {
+    const { prophetRoomD10AreaTable: previous, ...rest } = state.battle!;
+    void previous;
+    return {
+      ...state,
+      battle: { ...rest, ...(table === undefined ? {} : { prophetRoomD10AreaTable: table }) },
+    };
+  }
+  function firstTurn(state: GameState): GameState {
+    return {
+      ...state,
+      battle: {
+        ...state.battle!,
+        encounter: {
+          round: 1,
+          deck: ["monster", "hero"],
+          actedIds: [],
+          turn: { type: "monster", actorId: "prophet" },
+        },
+      },
+    };
+  }
+
+  it("八个绑定键与 room:p011 的已确认印刷标记一致，覆盖全部十面", () => {
+    const room = JSON.parse(
+      readFileSync(new URL("../../../data/normalized/corebox/room.json", import.meta.url), "utf8"),
+    ).cards.find((c: { id: string }) => c.id === "room:p011");
+    const printed = room.printedLines.flatMap((line: string) => {
+      const marker = /^\{icon:096ea91bb9\} (.+)$/.exec(line);
+      return marker ? [marker[1]] : [];
+    });
+    expect(printed).toEqual(PROPHET_ROOM_D10_MARKERS);
+    for (let roll = 1; roll <= 10; roll++) {
+      expect(
+        resolveProphetAreaIdForD10Roll(roll, prophetBattle().battle!.prophetRoomD10AreaTable),
+      ).toBe(markerAreas[expectedMarkersByRoll[roll - 1]!]);
+    }
+  });
+
+  const valid = prophetRoomD10AreaTableFromMarkers(markerAreas);
+  it.each([
+    { label: "缺失", table: undefined },
+    { label: "缺一组", table: valid.slice(1) },
+    { label: "重复印刷标记", table: [valid[0]!, ...valid.slice(0, -1)] },
+    { label: "非印刷范围", table: valid.map((e, i) => (i === 0 ? { ...e, marker: "1-10" } : e)) },
+    {
+      label: "不存在的战斗区",
+      table: valid.map((e, i) => (i === 0 ? { ...e, areaId: "unmapped" } : e)),
+    },
+  ])("$label：开战与第1行动均原子拒绝，不退回普通选招或推进骰序", ({ table }) => {
+    const initial = withTable(prophetBattle(), table);
+    const start = applyCommand(initial, { type: "startBattle" });
+    expect(start.events[0]).toMatchObject({
+      type: "commandRefused",
+      message: expect.stringContaining("R-048"),
+    });
+    expect(start.state).toBe(initial);
+    const acting = firstTurn(initial);
+    expect(prophetActionIndexBeforeTurn(acting.battle!)).toBe(PROPHET_I_FIRST_ACTION_INDEX);
+    expect(prophetCalamitousShouldReplaceSkill(acting, "prophet")).toBe(true);
+    const result = applyCommand(acting, { type: "prepareMonsterAction", actorId: "prophet" });
+    expect(result.events[0]!.type).toBe("commandRefused");
+    expect(result.state).toBe(acting);
+    expect(result.state.battle!.rngCursor).toBe(0);
+    expect(result.state.battle!.woodenPews).toBeUndefined();
+    expect(result.state.battle!.monsterAction).toBeNull();
+  });
+
+  it("房间身份冲突拒绝；同一标记有两个候选落点时不取首项", () => {
+    const initial = prophetBattle();
+    const wrong = {
+      ...initial,
+      dungeon: {
+        ...initial.dungeon!,
+        roomCards: {
+          active: { cardId: "room:p012" },
+        } as unknown as NonNullable<NonNullable<GameState["dungeon"]>["roomCards"]>,
+      },
+    };
+    const result = applyCommand(wrong, { type: "startBattle" });
+    expect(result.events[0]).toMatchObject({
+      type: "commandRefused",
+      message: expect.stringContaining("房间身份"),
+    });
+    expect(result.state).toBe(wrong);
+    expect(
+      resolveProphetAreaIdForD10Roll(5, [...valid, { marker: "5", areaId: "pew-area-0" }]),
+    ).toBeNull();
+  });
+
+  it("完整夹具绑定通过开战与4d10布置，落点可解析，输入不变且可重放", () => {
+    const initial = prophetBattle();
+    const before = structuredClone(initial);
+    const started = applyCommand(initial, { type: "startBattle" });
+    expect(started.events.some((e) => e.type === "commandRefused")).toBe(false);
+    const acting = firstTurn(started.state);
+    const cursor = acting.battle!.rngCursor;
+    const placed = applyCommand(acting, { type: "prepareMonsterAction", actorId: "prophet" });
+    expect(placed.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(placed).toEqual(
+      applyCommand(acting, { type: "prepareMonsterAction", actorId: "prophet" }),
+    );
+    expect(initial).toEqual(before);
+    expect(placed.state.battle!.rngCursor).toBe(cursor + 4);
+    expect(placed.state.battle!.woodenPews?.map((p) => p.pewIndex)).toEqual([0, 1, 2, 3]);
+    expect(placed.state.battle!.woodenPews?.map((p) => p.areaId)).toEqual(
+      [0, 1, 2, 3].map(
+        (i) => markerAreas[expectedMarkersByRoll[nextBattleRoll(acting.seed, cursor + i) - 1]!],
+      ),
+    );
+    expect(
+      placed.state.battle!.woodenPews?.every((p) =>
+        acting.battle!.areas.some((a) => a.id === p.areaId),
+      ),
+    ).toBe(true);
+    expect(placed.state.battle!.entities).toEqual(acting.battle!.entities);
+    expect(placed.state.battle!.prophetActionsThisRound).toBe(1);
+    const repeated = applyProphetCalamitousPrognostication(placed.state, "prophet");
+    expect(repeated.events[0]!.type).toBe("commandRefused");
+    expect(repeated.state).toBe(placed.state);
   });
 });
 
