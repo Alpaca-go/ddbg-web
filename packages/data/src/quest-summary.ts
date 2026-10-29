@@ -163,7 +163,7 @@ export const standardBasicQuestSummarySchema = z
       ctx.addIssue({ code: "custom", message: "任务身份 / 清理记录 / 待发 XP 不一致" });
   });
 
-/** Boss / 最暗定额任务（R-122）；击败后固定 3 XP，发放接线仍 hold。 */
+/** Boss / 最暗定额任务（R-122）；击败后固定 3 XP；回村发放走 `finishReturnToHamlet`。 */
 export const bossFlatQuestSummarySchema = z
   .strictObject({
     questId: z.enum(["quest:p016", "quest:p017", "quest:p018", "quest:p019"]),

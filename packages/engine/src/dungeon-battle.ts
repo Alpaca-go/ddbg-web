@@ -38,6 +38,8 @@ import {
   withLargeMonsterSpawnGuard,
 } from "./boss/threat-passive-runtime";
 import { recordRuinsBossDefeatOnThreatCleared } from "./boss/establish-imminent-threat";
+import { resolveEncounterBossScriptId } from "./boss/encounter-rules";
+import { isBossQuestId } from "./boss/quest-bridge";
 
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
 export function startDungeonBattle(state: GameState): ApplyResult {
@@ -441,6 +443,14 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
     [shuffledIds[i], shuffledIds[j]] = [shuffledIds[j]!, shuffledIds[i]!];
   }
   const victory = turn.type === "finished" && turn.outcome === "victory";
+  const questId = d.questDistribution?.questId;
+  const bossQuestVictory =
+    victory &&
+    questId &&
+    isBossQuestId(questId) &&
+    (clearedThreatId !== undefined || resolveEncounterBossScriptId(state) !== undefined)
+      ? (true as const)
+      : undefined;
   const heroes = d.heroes.map((hero) => {
     const entity = b.entities.find((e) => e.id === hero.id && e.side === "hero")!;
     return {
@@ -531,6 +541,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
               : [...(d.roomCards!.discard ?? []), activeCardId],
         },
         ...(objectiveRecovery ? { roomResolution: objectiveRecovery } : {}),
+        ...(bossQuestVictory ? { bossQuestVictory } : {}),
         rooms: d.rooms.map((r) =>
           r.id === d.position && clearsRoom ? { ...r, cleared: true } : r,
         ),
