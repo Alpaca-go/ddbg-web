@@ -16,6 +16,12 @@ import {
   prophetCalamitousShouldReplaceSkill,
   prophetRubbleShouldReplaceSkill,
 } from "./boss/prophet-i-combat-runtime";
+import {
+  readSwinePrinceIWilburMarkSkillSlot,
+  swinePrinceIWilburMarkShouldForceSkill,
+} from "./boss/swine-prince-i-combat-runtime";
+import { getBossScript } from "./boss/registry";
+import { resolveEncounterBossScriptId } from "./boss/encounter-rules";
 import { readMonsterSelfStatuses } from "./monster-self-status";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import type { SkillStance } from "./hero-skill";
@@ -24,6 +30,7 @@ import { selectMonsterTarget } from "./monster-target";
 import type { MonsterTargetHero } from "./monster-target";
 import { readPrintedRange, readPrintedTargets } from "./hero-skill";
 import { readMonsterAttackView } from "./monster-skill";
+import type { MonsterSkillSelection } from "./monster-stance";
 
 export type PrepareMonsterActionCommand = {
   readonly type: "prepareMonsterAction";
@@ -87,16 +94,36 @@ export function prepareMonsterAction(
   if (fanaticSentenceRenderedShouldReplaceSkill(state, actor.id)) {
     return applyFanaticSentenceRendered(state, actor.id);
   }
-  let selected = selectMonsterSkill(card, occupied);
-  if (selected.status === "refused") return rejectBattleCommand(state, selected.reason);
-  const needsRoll = selected.status === "needsRoll";
-  if (needsRoll)
-    selected = selectMonsterSkill(card, occupied, nextBattleRoll(state.seed, battle.rngCursor));
-  if (selected.status !== "selected")
-    return rejectBattleCommand(
-      state,
-      selected.status === "refused" ? selected.reason : "选招骰表无效",
-    );
+  const forceWilburMark = swinePrinceIWilburMarkShouldForceSkill(state, actor.id);
+  let selected: MonsterSkillSelection;
+  let needsRoll = false;
+  if (forceWilburMark) {
+    const scriptId = resolveEncounterBossScriptId(state);
+    const script = scriptId ? getBossScript(scriptId) : undefined;
+    const slot = script ? readSwinePrinceIWilburMarkSkillSlot(script) : null;
+    if (slot === null) {
+      return rejectBattleCommand(state, "Wilbur Mark AI 未声明（R-048）");
+    }
+    const attack = readMonsterAttackView(card, slot);
+    if (attack.status === "refused") {
+      return rejectBattleCommand(state, attack.reason);
+    }
+    selected = { status: "selected", skillSlot: slot, roll: null };
+  } else {
+    let pick = selectMonsterSkill(card, occupied);
+    if (pick.status === "refused") return rejectBattleCommand(state, pick.reason);
+    if (pick.status === "needsRoll") {
+      needsRoll = true;
+      pick = selectMonsterSkill(card, occupied, nextBattleRoll(state.seed, battle.rngCursor));
+    }
+    if (pick.status !== "selected") {
+      return rejectBattleCommand(
+        state,
+        pick.status === "refused" ? pick.reason : "选招骰表无效",
+      );
+    }
+    selected = pick;
+  }
 
   const self = readMonsterSelfStatuses(card, selected.skillSlot);
   if (self.status === "refused") return rejectBattleCommand(state, self.reason);
@@ -119,7 +146,7 @@ export function prepareMonsterAction(
           ...battle,
           entities: applied.entities,
           monsterAction: null,
-          rngCursor: battle.rngCursor + Number(needsRoll),
+          rngCursor: battle.rngCursor + (needsRoll ? 1 : 0),
         },
       },
       actor.id,

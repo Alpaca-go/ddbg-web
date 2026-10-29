@@ -12,6 +12,7 @@ import {
   SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID,
   SWINE_PRINCE_I_ENRAGED_DESTRUCTION_SKILL_SLOT,
   SWINE_PRINCE_I_SCRIPT_ID,
+  SWINE_PRINCE_I_WILBUR_MARK_SKILL_SLOT,
   SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
   applySwinePrinceIEnragedDestruction,
   applySwinePrinceIWilburBattleStart,
@@ -21,8 +22,11 @@ import {
   getBossScript,
   readSwinePrinceIEnragedDestructionEnabled,
   readSwinePrinceIWilburBattleStartPlan,
+  readSwinePrinceIWilburMarkEnabled,
+  readSwinePrinceIWilburMarkSkillSlot,
   runBossHook,
   swinePrinceIWilburBattleStartStance,
+  swinePrinceIWilburMarkShouldForceSkill,
   FACE_THE_THREAT_QUEST_ID,
 } from "./index";
 
@@ -63,7 +67,19 @@ const princeCard: MonsterCardView = {
   ...verifiedMonsterCard(SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID, princeLife, 2),
   skills: [{ ...enragedSkill, slot: SWINE_PRINCE_I_ENRAGED_DESTRUCTION_SKILL_SLOT }],
 };
+const markSkillTemplate = soldier.skills.find((skill) => skill.slot === 1)!;
+const wilburMarkSkill = {
+  ...markSkillTemplate,
+  slot: SWINE_PRINCE_I_WILBUR_MARK_SKILL_SLOT,
+  target: "Furthest",
+};
+const wilburDecoySkill = { ...markSkillTemplate, slot: 2 as const };
 const wilburCard = verifiedMonsterCard(SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID, wilburLife);
+const wilburCardForMarkAi: MonsterCardView = {
+  ...wilburCard,
+  skills: [wilburMarkSkill, wilburDecoySkill],
+  stanceGroups: [{ stances: ["support"], skill: 2 }],
+};
 
 function swinePrinceBossDungeon(): GameState["dungeon"] {
   return {
@@ -361,5 +377,86 @@ describe("Swine Prince I · Enraged Destruction 最小运行时", () => {
     expect(wilburAfter.wounds).toBeGreaterThan(wilbur.wounds);
     const heroWoundsAfter = played.state.battle!.entities.find((entity) => entity.id === "h0")!.wounds;
     expect(heroWoundsAfter).toBeGreaterThanOrEqual(heroWoundsBefore);
+  });
+});
+
+describe("Swine Prince I · Wilbur Mark AI 最小运行时", () => {
+  beforeEach(() => {
+    clearBossScriptsForTest();
+    ensureSwinePrinceIBossScriptRegistered();
+  });
+
+  it("wilburMark 钩子与 Mark slot 常量已声明", () => {
+    const script = getBossScript(SWINE_PRINCE_I_SCRIPT_ID)!;
+    expect(readSwinePrinceIWilburMarkEnabled(script)).toBe(true);
+    expect(readSwinePrinceIWilburMarkSkillSlot(script)).toBe(SWINE_PRINCE_I_WILBUR_MARK_SKILL_SLOT);
+    expect(
+      runBossHook(script, "wilburMark", { scriptId: SWINE_PRINCE_I_SCRIPT_ID }),
+    ).toMatchObject({
+      status: "ok",
+      effect: "forceMarkSkillWhilePrinceAlive",
+      skillSlot: 1,
+    });
+  });
+
+  it("Prince 存活且 Wilbur 怪物回合时应强制 Mark 选招", () => {
+    let state = applySwinePrinceIWilburBattleStart(
+      swinePrinceBattle({ monsters: [princeCard, wilburCardForMarkAi] }),
+    ).state;
+    const wilbur = state.battle!.entities.find(
+      (entity) => entity.monsterCardId === SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
+    )!;
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        monsters: [princeCard, wilburCardForMarkAi],
+        encounter: {
+          round: 1,
+          deck: ["monster"],
+          actedIds: [],
+          turn: { type: "monster", actorId: wilbur.id },
+        },
+      },
+    };
+    expect(swinePrinceIWilburMarkShouldForceSkill(state, wilbur.id)).toBe(true);
+    const prepared = applyCommand(state, { type: "prepareMonsterAction", actorId: wilbur.id });
+    const refused = prepared.events.find((event) => event.type === "commandRefused");
+    expect(refused, refused?.message).toBeUndefined();
+    expect(prepared.state.battle!.monsterAction).toMatchObject({
+      actorId: wilbur.id,
+      skillSlot: SWINE_PRINCE_I_WILBUR_MARK_SKILL_SLOT,
+    });
+  });
+
+  it("Prince 已倒下时不强制 Wilbur Mark 选招", () => {
+    let state = applySwinePrinceIWilburBattleStart(
+      swinePrinceBattle({ monsters: [princeCard, wilburCardForMarkAi] }),
+    ).state;
+    const wilbur = state.battle!.entities.find(
+      (entity) => entity.monsterCardId === SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
+    )!;
+    const prince = state.battle!.entities.find((entity) => entity.id === "swine-prince")!;
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        entities: state.battle!.entities.map((entity) =>
+          entity.id === prince.id ? { ...entity, dead: true } : entity,
+        ),
+        encounter: {
+          round: 1,
+          deck: ["monster"],
+          actedIds: [],
+          turn: { type: "monster", actorId: wilbur.id },
+        },
+      },
+    };
+    expect(swinePrinceIWilburMarkShouldForceSkill(state, wilbur.id)).toBe(false);
+  });
+
+  it("非 Wilbur 怪物回合不触发 Wilbur Mark 强制", () => {
+    const state = swinePrinceBattle();
+    expect(swinePrinceIWilburMarkShouldForceSkill(state, "swine-prince")).toBe(false);
   });
 });

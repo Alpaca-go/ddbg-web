@@ -4,6 +4,7 @@ import {
   SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID,
   SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
   SWINE_PRINCE_I_SCRIPT_ID,
+  SWINE_PRINCE_I_WILBUR_MARK_SKILL_SLOT,
   SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
   ensureSwinePrinceIBossScriptRegistered,
   swinePrinceIBossScript,
@@ -107,7 +108,7 @@ describe("Swine Prince I Boss 脚本", () => {
     expect(count).toEqual({ status: "ok", value: 2 });
   });
 
-  it("summon(battleStartWilbur) 与 enragedDestruction 钩子已声明（运行时见 swine-prince-i-combat-runtime）", () => {
+  it("summon(battleStartWilbur) / wilburMark / enragedDestruction 钩子已声明（运行时见 swine-prince-i-combat-runtime）", () => {
     const script = getBossScript(SWINE_PRINCE_I_SCRIPT_ID)!;
     const wilbur = runBossHook(script, "summon", {
       scriptId: SWINE_PRINCE_I_SCRIPT_ID,
@@ -123,6 +124,12 @@ describe("Swine Prince I Boss 脚本", () => {
       scriptId: SWINE_PRINCE_I_SCRIPT_ID,
     });
     expect(enraged.status).toBe("ok");
+    const mark = runBossHook(script, "wilburMark", { scriptId: SWINE_PRINCE_I_SCRIPT_ID });
+    expect(mark).toMatchObject({
+      status: "ok",
+      effect: "forceMarkSkillWhilePrinceAlive",
+      skillSlot: SWINE_PRINCE_I_WILBUR_MARK_SKILL_SLOT,
+    });
     const skill = runBossHook(script, "summon", {
       scriptId: SWINE_PRINCE_I_SCRIPT_ID,
       skillSlot: 1,
