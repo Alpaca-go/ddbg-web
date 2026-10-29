@@ -1,6 +1,8 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import {
   SIREN_I_COMBAT_ABILITY_CARD_ID,
+  SIREN_I_HIGH_TIDE_SKILL_SLOT,
+  SIREN_I_PELAGIC_MONSTER_CARD_ID,
   SIREN_I_COMBAT_MONSTER_CARD_ID,
   SIREN_I_DESCRIPTION_ABILITY_CARD_ID,
   SIREN_I_SCRIPT_ID,
@@ -102,5 +104,27 @@ describe("Siren I Boss 脚本", () => {
       round: 1,
     });
     expect(count).toEqual({ status: "ok", value: 2 });
+  });
+
+  it("summon(highTidePelagic) 已声明（运行时见 siren-i-combat-runtime）", () => {
+    const script = getBossScript(SIREN_I_SCRIPT_ID)!;
+    const pelagic = runBossHook(script, "summon", {
+      scriptId: SIREN_I_SCRIPT_ID,
+      skillSlot: SIREN_I_HIGH_TIDE_SKILL_SLOT,
+      purpose: "highTidePelagic",
+    });
+    expect(pelagic).toMatchObject({
+      status: "ok",
+      value: {
+        summonMonsterCardId: SIREN_I_PELAGIC_MONSTER_CARD_ID,
+        miniaturePlacement: "targetArea",
+      },
+    });
+    const skill = runBossHook(script, "summon", {
+      scriptId: SIREN_I_SCRIPT_ID,
+      skillSlot: 1,
+      purpose: "skill",
+    });
+    expect(skill.status).toBe("stub");
   });
 });

@@ -20,14 +20,14 @@
 - 威胁 helper：`stressOnHeroProvisionUseFromBossThreat`、`sanitariumHealLifeDeltaFromBossThreat`。
 - `threat-description-catalog.resolveScriptIdForDescriptionCard`：`boss_ability:weald:hag:p001` → `boss:weald:hag:1`；`WEALD_BOSS_DESCRIPTION_CARD_ID` 仅填 Hag I，其余 Boss 留 `undefined`。
 - 类型：`BossThreatPassiveDungeonOk` / `BossThreatPassiveHamletOk` 扩展 Hag 两种 `effect`。
-- 单测：`hag-i.test.ts`。
+- 单测：`hag-i.test.ts`、`hag-i-combat-runtime.test.ts`。
 
 ## 仍待确认 / hold（本 PR 未收）
 
 | 项 | 说明 |
 | --- | --- |
 | Weald Boss **extract JSON** 与占位 id 对齐 PDF 页序 | 当前 id 按 `boss_ability:weald:hag:p00x` / `monster_large:weald:hag:p001` 约定 |
-| **Cauldron** 能力卡（42418）与 Empty/Full 战斗卡（54212） | `summon` stub；不进 `combatEntry` |
+| **Cauldron** 能力卡（42418）与 Empty/Full 切换 / Into the Pot! | Empty 开战 summon 已接（`hag-i-combat-runtime`）；42418 / Full / 锅生命周期 hold | R38–R39 |
 | 进地牢被动、疗养院 −3 Life **写入** runtime | **已接**（`threat-passive-runtime` / `hamlet-actions` / 补给消耗） |
 | Weald 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
 | quest / Face the Threat → Hag | `defaultFaceTheThreatEmbarkHook` **ok**（出征 plan 见 `face-the-threat-embark-runtime`） |
@@ -40,7 +40,7 @@
 | --- | --- |
 | Boss Description I · 42412 | `boss_ability:weald:hag:p001` |
 | Threat + Abilities I · 42415 | `boss_ability:weald:hag:p002` |
-| Cauldron Abilities I · 42418 | （未接） |
+| Cauldron Empty I · 54212 | `monster_large:weald:cauldron_empty:p001`（开战 summon；Full / 42418 hold） |
 | 战斗 Hag I · 54209 | `monster_large:weald:hag:p001` |
 | Boss 脚本 | `boss:weald:hag:1` |
 

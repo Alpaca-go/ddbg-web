@@ -3,6 +3,7 @@ import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
 import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
 import type {
   BossScriptDefinition,
+  BossSummonOk,
   BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
 } from "./types";
@@ -28,6 +29,23 @@ export const SIREN_I_COMBAT_ABILITY_CARD_ID = "boss_ability:cove:siren:p002" as 
  */
 export const SIREN_I_COMBAT_MONSTER_CARD_ID = "monster_large:cove:siren:p001" as const;
 
+/**
+ * Pelagic I（High Tide 召唤；不进 `combatEntry`）。
+ * Cove `monster_medium` extract 入库前用占位 id。
+ */
+export const SIREN_I_PELAGIC_MONSTER_CARD_ID = "monster_medium:cove:pelagic:p001" as const;
+
+/**
+ * Siren I · High Tide 技能 slot。
+ * Cove Boss Abilities p10 / extract 入库前由常量 + 测试夹具对齐。
+ */
+export const SIREN_I_HIGH_TIDE_SKILL_SLOT = 2 as const;
+
+/** High Tide 召唤 Pelagic 的怪物姿态；待 Kyries 对照卡面 / medium extract。 */
+export function sirenIPelagicHighTideStance(): "support" {
+  return "support";
+}
+
 const dungeonThreatPassive = (): BossThreatPassiveDungeonOk => ({
   status: "ok",
   effect: "eldritchMonsterDamageBonus",
@@ -49,7 +67,7 @@ export const sirenIBossScript: BossScriptDefinition = {
   displayName: "Siren I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38：先攻 2；Song of Desire / High Tide 召唤与魅惑完整 AI 未接；Pelagic 召唤物不进 combatEntry。",
+    "R38：先攻 2；High Tide → Pelagic 最小 summon 运行时已接；Song of Desire 魅惑 / 完整 AI 仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: SIREN_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: SIREN_I_COMBAT_ABILITY_CARD_ID,
@@ -63,11 +81,27 @@ export const sirenIBossScript: BossScriptDefinition = {
     faceTheThreatEmbark: defaultFaceTheThreatEmbarkHook,
     bossSlotPlacement: defaultBossSlotPlacementHook,
     monsterTurnActionCount: () => ({ status: "ok", value: 2 }),
-    summon: () => ({
-      status: "stub",
-      message: "Siren I：High Tide 召唤 Pelagic 与 Song of Desire 未接",
-      hold: "R38–R39 / Siren 魅惑 + 召唤",
-    }),
+    summon: (ctx): BossSummonOk | { status: "stub"; message: string; hold?: string } => {
+      const highTide =
+        ctx.purpose === "highTidePelagic" ||
+        (ctx.purpose === "skill" && ctx.skillSlot === SIREN_I_HIGH_TIDE_SKILL_SLOT);
+      if (highTide) {
+        return {
+          status: "ok",
+          value: {
+            summonMonsterCardId: SIREN_I_PELAGIC_MONSTER_CARD_ID,
+            miniaturePlacement: "targetArea",
+            fixedStance: sirenIPelagicHighTideStance(),
+            rulesRef: ["R31", "R-034", "R38", SIREN_I_COMBAT_ABILITY_CARD_ID],
+          },
+        };
+      }
+      return {
+        status: "stub",
+        message: "Siren I：非 High Tide 技能召唤与 Song of Desire 未接",
+        hold: "R38–R39 / Siren 魅惑 + 其它召唤",
+      };
+    },
   },
 };
 
