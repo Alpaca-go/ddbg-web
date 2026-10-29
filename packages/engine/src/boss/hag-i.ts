@@ -3,6 +3,7 @@ import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
 import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
 import type {
   BossScriptDefinition,
+  BossSummonOk,
   BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
 } from "./types";
@@ -28,6 +29,18 @@ export const HAG_I_COMBAT_ABILITY_CARD_ID = "boss_ability:weald:hag:p002" as con
  */
 export const HAG_I_COMBAT_MONSTER_CARD_ID = "monster_large:weald:hag:p001" as const;
 
+/**
+ * Cauldron Empty I（Large · 2 格）；Boss 战伴，不进 `combatEntry`。
+ * TTS/CE 54212；Weald `monster_large` extract 入库前用占位 id。
+ */
+export const HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID =
+  "monster_large:weald:cauldron_empty:p001" as const;
+
+/** 开战 Cauldron 姿态（Large 占 2 格）；待 Kyries 对照 54212 / Boss Abilities 42415。 */
+export function hagICauldronBattleStartStance(): "aggressive" {
+  return "aggressive";
+}
+
 const dungeonThreatPassive = (): BossThreatPassiveDungeonOk => ({
   status: "ok",
   effect: "stressOnHeroProvisionUse",
@@ -49,7 +62,7 @@ export const hagIBossScript: BossScriptDefinition = {
   displayName: "Hag I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38/R39：先攻 2（ACTIONS / Round: 2）；Cauldron（42418）与 Into the Pot! / 锅生命周期未接；单独 Cauldron 能力卡不进 combatEntry。",
+    "R38/R39：先攻 2（ACTIONS / Round: 2）；Cauldron Empty 开战 summon 最小运行时已接；Into the Pot! / Full 切换 / 42418 能力卡仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: HAG_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: HAG_I_COMBAT_ABILITY_CARD_ID,
@@ -63,11 +76,24 @@ export const hagIBossScript: BossScriptDefinition = {
     faceTheThreatEmbark: defaultFaceTheThreatEmbarkHook,
     bossSlotPlacement: defaultBossSlotPlacementHook,
     monsterTurnActionCount: () => ({ status: "ok", value: 2 }),
-    summon: () => ({
-      status: "stub",
-      message: "Hag I：Cauldron Empty/Full、Into the Pot! 未接",
-      hold: "R38–R39 / Hag + Cauldron 双单位",
-    }),
+    summon: (ctx): BossSummonOk | { status: "stub"; message: string; hold?: string } => {
+      if (ctx.purpose === "battleStartCauldron") {
+        return {
+          status: "ok",
+          value: {
+            summonMonsterCardId: HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
+            miniaturePlacement: "stanceArea",
+            fixedStance: hagICauldronBattleStartStance(),
+            rulesRef: ["R39", "spec:§14.5", "R-034", HAG_I_COMBAT_ABILITY_CARD_ID],
+          },
+        };
+      }
+      return {
+        status: "stub",
+        message: "Hag I：Into the Pot! / Cauldron Full 与技能召唤未接",
+        hold: "R38–R39 / Hag 锅生命周期",
+      };
+    },
   },
 };
 

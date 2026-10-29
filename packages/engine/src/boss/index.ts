@@ -160,12 +160,18 @@ export {
 } from "./prophet-i-combat-runtime";
 export {
   ensureHagIBossScriptRegistered,
+  HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
   HAG_I_COMBAT_ABILITY_CARD_ID,
   HAG_I_COMBAT_MONSTER_CARD_ID,
   HAG_I_DESCRIPTION_ABILITY_CARD_ID,
   HAG_I_SCRIPT_ID,
   hagIBossScript,
+  hagICauldronBattleStartStance,
 } from "./hag-i";
+export {
+  applyHagICauldronBattleStart,
+  readHagICauldronBattleStartPlan,
+} from "./hag-i-combat-runtime";
 export {
   ensureSwinePrinceIBossScriptRegistered,
   SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID,
@@ -194,9 +200,19 @@ export {
   SIREN_I_COMBAT_ABILITY_CARD_ID,
   SIREN_I_COMBAT_MONSTER_CARD_ID,
   SIREN_I_DESCRIPTION_ABILITY_CARD_ID,
+  SIREN_I_HIGH_TIDE_SKILL_SLOT,
+  SIREN_I_PELAGIC_MONSTER_CARD_ID,
   SIREN_I_SCRIPT_ID,
   sirenIBossScript,
+  sirenIPelagicHighTideStance,
 } from "./siren-i";
+export {
+  applySirenIHighTidePelagicSummon,
+  chainSirenIHighTidePelagicAfterMonsterSkill,
+  readSirenIHighTidePelagicPlan,
+  readSirenIHighTideSkillSlot,
+  sirenIHighTideShouldSummonPelagic,
+} from "./siren-i-combat-runtime";
 export {
   ensureFleshIBossScriptRegistered,
   FLESH_I_COMBAT_ABILITY_CARD_ID,

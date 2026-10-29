@@ -20,7 +20,7 @@
 - 威胁 helper：`eldritchMonsterDamageBonusFromBossThreat`；村庄封锁经 `hamletBuildingsBlockedByBossThreat`（`abbeyBlocked`）。
 - `threat-description-catalog`：`boss_ability:cove:siren:p001` → `boss:cove:siren:1`；`COVE_BOSS_DESCRIPTION_CARD_ID` 仅填 Siren I。
 - 类型：`BossThreatPassiveDungeonOk` / `BossThreatPassiveHamletOk` 扩展 `eldritchMonsterDamageBonus`、`abbeyBlocked`。
-- 单测：`siren-i.test.ts`；`threat-establishment.test.ts` 增加 Cove 挂接用例。
+- 单测：`siren-i.test.ts`、`siren-i-combat-runtime.test.ts`；`threat-establishment.test.ts` 增加 Cove 挂接用例。
 
 ## 仍待确认 / hold（本 PR 未收）
 
@@ -28,7 +28,7 @@
 | --- | --- |
 | Cove Boss **extract JSON** 与占位 id 对齐 PDF 页序 | 当前 id 按 `boss_ability:cove:siren:p00x` / `monster_large:cove:siren:p001` 约定 |
 | Eldritch +2 伤害、修道院封锁 **写入** encounter / hamlet-actions | **已接**（`battle-monster*` / `threat-campaign` KNOWN 含 abbey） |
-| Song of Desire 魅惑、High Tide 召唤 Pelagic 完整 AI | `summon` stub |
+| Song of Desire 魅惑、High Tide 以外召唤 / 完整 AI | High Tide → Pelagic 最小运行时已接（`siren-i-combat-runtime`）；魅惑 hold |
 | Cove 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
 | quest / Face the Threat → Siren | `defaultFaceTheThreatEmbarkHook` **ok** |
 | **R-121** Boss 位 | `defaultBossSlotPlacementHook` 校验 **ok**；洗牌写入 hold |
@@ -41,6 +41,7 @@
 | Boss Description I · Abilities p7 | `boss_ability:cove:siren:p001` |
 | Threat + Abilities I · p10 | `boss_ability:cove:siren:p002` |
 | 战斗 Siren I · large p5 | `monster_large:cove:siren:p001` |
+| Pelagic I（High Tide） | `monster_medium:cove:pelagic:p001`（占位；extract 入库前） |
 | Boss 脚本 | `boss:cove:siren:1` |
 
 ## 测试

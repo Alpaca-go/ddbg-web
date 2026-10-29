@@ -7,6 +7,7 @@ import { readPrintedTargets } from "./hero-skill";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent, PendingChoice } from "./command";
 import { nextBattleRoll, newlyDefeatedIds, recordMonsterSkill } from "./encounter";
 import { monsterCombatThreatDamageBonus } from "./boss/threat-passive-runtime";
+import { chainSirenIHighTidePelagicAfterMonsterSkill } from "./boss/siren-i-combat-runtime";
 import {
   needsMonsterSkillShuffleChoice,
   resolveMonsterSkill,
@@ -225,5 +226,12 @@ export function playMonsterSkill(
     },
     events: [event, ...pressure.events, ...statuses.events],
   };
-  return intents.length ? applied : recordMonsterSkill(applied, event, casualtyIds);
+  return intents.length
+    ? applied
+    : chainSirenIHighTidePelagicAfterMonsterSkill(
+        recordMonsterSkill(applied, event, casualtyIds),
+        actor.id,
+        command.skillSlot,
+        target.areaId,
+      );
 }

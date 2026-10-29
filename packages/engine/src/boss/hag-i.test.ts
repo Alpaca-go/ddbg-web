@@ -1,5 +1,6 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import {
+  HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
   HAG_I_COMBAT_ABILITY_CARD_ID,
   HAG_I_COMBAT_MONSTER_CARD_ID,
   HAG_I_DESCRIPTION_ABILITY_CARD_ID,
@@ -104,5 +105,27 @@ describe("Hag I Boss 脚本", () => {
       round: 1,
     });
     expect(count).toEqual({ status: "ok", value: 2 });
+  });
+
+  it("summon(battleStartCauldron) 已声明（运行时见 hag-i-combat-runtime）", () => {
+    const script = getBossScript(HAG_I_SCRIPT_ID)!;
+    const cauldron = runBossHook(script, "summon", {
+      scriptId: HAG_I_SCRIPT_ID,
+      skillSlot: 0,
+      purpose: "battleStartCauldron",
+    });
+    expect(cauldron).toMatchObject({
+      status: "ok",
+      value: {
+        summonMonsterCardId: HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
+        miniaturePlacement: "stanceArea",
+      },
+    });
+    const skill = runBossHook(script, "summon", {
+      scriptId: HAG_I_SCRIPT_ID,
+      skillSlot: 0,
+      purpose: "skill",
+    });
+    expect(skill.status).toBe("stub");
   });
 });

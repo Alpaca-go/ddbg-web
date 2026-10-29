@@ -30,6 +30,7 @@ import { applyBossThreatMarkedForDeathOnBattleStart } from "./boss/threat-passiv
 import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "./boss/flesh-i-combat-runtime";
 import { applySwinePrinceIWilburBattleStart } from "./boss/swine-prince-i-combat-runtime";
+import { applyHagICauldronBattleStart } from "./boss/hag-i-combat-runtime";
 import { bumpProphetIActionRoundCount } from "./boss/prophet-i-combat-runtime";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
@@ -768,17 +769,30 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
         state,
         events: [...marked.events, ...pyre.events, ...oneBody.events, ...wilbur.events],
       };
-    const deployed = placeBattleLoot(wilbur.state.battle!, state.seed);
+    const cauldron = applyHagICauldronBattleStart(wilbur.state);
+    if (cauldron.events.some((entry) => entry.type === "commandRefused"))
+      return {
+        state,
+        events: [
+          ...marked.events,
+          ...pyre.events,
+          ...oneBody.events,
+          ...wilbur.events,
+          ...cauldron.events,
+        ],
+      };
+    const deployed = placeBattleLoot(cauldron.state.battle!, state.seed);
     if (!deployed)
       return rejectBattleCommand(state, "战利品池必须保留十枚真实实例的可用 / 已拾取分区");
     const next = startRound(state.seed, deployed, 1);
     return {
-      state: { ...wilbur.state, battle: next },
+      state: { ...cauldron.state, battle: next },
       events: [
         ...marked.events,
         ...pyre.events,
         ...oneBody.events,
         ...wilbur.events,
+        ...cauldron.events,
         event(next, "roundStarted", "开始第 1 轮"),
       ],
     };
