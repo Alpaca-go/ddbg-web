@@ -45,6 +45,7 @@ import type { ConditionPool } from "./conditions";
 import type { PassiveHolder } from "./passive";
 import { cancelSkillAfterRoll } from "./battle-passive";
 import { withFleshOneBodyPoolState } from "./boss/flesh-i-combat-runtime";
+import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./boss/swine-prince-i-combat-runtime";
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
@@ -601,7 +602,10 @@ export function playHeroSkill(
     },
     events: [skillEvent, ...pressure.events, ...statuses.events],
   };
-  return shuffleIntents.length ? result : recordEncounterSkill(result, skillEvent, casualtyIds);
+  const chained = chainSwinePrinceIEnragedDestructionAfterHeroSkill(result, battle.entities, actor.id);
+  return shuffleIntents.length
+    ? chained
+    : recordEncounterSkill(chained, skillEvent, casualtyIds);
 }
 
 /** 旧技能视图只计算原始伤口；Life 由有序生命层处理，不能误判英雄为怪物死亡。 */
