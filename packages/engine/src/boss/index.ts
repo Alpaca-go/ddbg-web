@@ -325,9 +325,14 @@ export {
 } from "./encounter-rules";
 export {
   applyFanaticIPyreBattleStart,
+  applyFanaticPitTossHeroIntoPyreArea,
   applyFanaticSentenceRendered,
+  bumpFanaticIActionRoundCount,
+  expandFanaticIInitiativeDeckSides,
   fanaticSentenceRenderedShouldReplaceSkill,
+  fanaticShouldEnterActedIdsAfterTurn,
   pyreAreaHasSpaceForHero,
+  readFanaticIPitTossEnabled,
   readFanaticIPyreBattleStartPlan,
   readFanaticISentenceRenderedEnabled,
 } from "./fanatic-i-combat-runtime";

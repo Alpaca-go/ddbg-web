@@ -37,6 +37,11 @@ import {
   prophetShouldEnterActedIdsAfterTurn,
 } from "./boss/prophet-i-combat-runtime";
 import { expandCollectorIInitiativeDeckSides } from "./boss/collector-i-combat-runtime";
+import {
+  bumpFanaticIActionRoundCount,
+  expandFanaticIInitiativeDeckSides,
+  fanaticShouldEnterActedIdsAfterTurn,
+} from "./boss/fanatic-i-combat-runtime";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -104,6 +109,7 @@ function startRound(seed: number, battle: BattleState, round: number, gameState?
   if (gameState) {
     deck = expandProphetIInitiativeDeckSides(deck, battle, gameState);
     deck = expandCollectorIInitiativeDeckSides(deck, battle, gameState);
+    deck = expandFanaticIInitiativeDeckSides(deck, battle, gameState);
   }
   const rng = createRng(seed);
   for (let index = 0; index < battle.rngCursor; index += 1) rng.next();
@@ -117,11 +123,13 @@ function startRound(seed: number, battle: BattleState, round: number, gameState?
     prophetCalamitousUsedThisRound: _calamitousRoundFlag,
     prophetActionsThisRound: _prophetRoundActions,
     hagActionsThisRound: _hagRoundActions,
+    fanaticActionsThisRound: _fanaticRoundActions,
     ...battleRest
   } = battle;
   void _calamitousRoundFlag;
   void _prophetRoundActions;
   void _hagRoundActions;
+  void _fanaticRoundActions;
   return {
     ...battleRest,
     rngCursor: cursor,
@@ -264,11 +272,14 @@ export function finishTurn(
   }
   state = bumpProphetIActionRoundCount(state, actorId);
   state = bumpHagIActionRoundCount(state, actorId);
+  state = bumpFanaticIActionRoundCount(state, actorId);
   const battle = state.battle!;
   const encounter = battle.encounter!;
-  const actedIds = prophetShouldEnterActedIdsAfterTurn(state, actorId)
-    ? [...encounter.actedIds, actorId]
-    : [...encounter.actedIds];
+  const actedIds =
+    prophetShouldEnterActedIdsAfterTurn(state, actorId) &&
+    fanaticShouldEnterActedIdsAfterTurn(state, actorId)
+      ? [...encounter.actedIds, actorId]
+      : [...encounter.actedIds];
   const ended = [...events, { ...event(battle, "turnEnded", "回合结束"), actorId }];
   if (
     encounter.deck.length === 0 ||

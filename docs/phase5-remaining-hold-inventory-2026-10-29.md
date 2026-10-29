@@ -101,7 +101,7 @@
 | **`summon(purpose:skill)` · Swine / Fanatic / Collector / Flesh** | Swine **Wilbur 开战** + **Enraged** + **Wilbur Mark AI** 已接；Wilbur 非 Mark 召唤仍 stub | R38–R39 / Swine Prince |
 | **Prophet I** room 卡→战斗区域几何 / Rubble 同区多目标 / 多怪伴战先攻 | 第 2 行动 + 先攻 3 最小运行时已接（`expandProphetIInitiativeDeckSides` / `prophetShouldEnterActedIdsAfterTurn`） | R38–R39 / R-048 |
 | **Collector** 宝箱房 / 怪物挤占玩家选移 | Collect All + 先攻 4 + 英雄最近区域挤占已接（`expandCollectorIInitiativeDeckSides` / R39 洗入）；宝箱房布置仍 hold | R-034 / R38–R39 / R-048 |
-| **Fanatic** Pit Toss / 技能 AI / 先攻 4 张洗入 | Pyre + Sentence 已接；其余 stub | G-05 / R39 |
+| **Fanatic** Pit Toss / 技能 AI / 先攻 4 张洗入 | Pyre + Sentence + **Pit Toss（同区丢 Pyre）+ 先攻 4 洗入 + G-05 actedIds** 已接（`expandFanaticIInitiativeDeckSides` / `applyFanaticPitTossHeroIntoPyreArea`）；卡面技能 AI / `summon(purpose:skill)` 仍 hold | G-05 / R39 |
 | **Flesh** 战斗中途再召 Large | 仅遭遇开局 Guard；无 mid-battle spawn | R31 |
 | **Necromancer** 死亡清场 / 多级 Rabble 完整 encounter | helper + 最小 summon 声明 | encounter |
 | **`encounterRoundRetreatLimit` 生产路径** | helper 有；非全 Boss 任务已接 | Phase 5 后续 |

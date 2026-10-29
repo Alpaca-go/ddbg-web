@@ -12,12 +12,17 @@ import {
   FANATIC_I_PYRE_MONSTER_CARD_ID,
   FANATIC_I_SCRIPT_ID,
   applyFanaticIPyreBattleStart,
+  applyFanaticPitTossHeroIntoPyreArea,
   applyFanaticSentenceRendered,
   bossQuestScriptId,
+  bumpFanaticIActionRoundCount,
+  expandFanaticIInitiativeDeckSides,
+  fanaticSentenceRenderedShouldReplaceSkill,
+  fanaticShouldEnterActedIdsAfterTurn,
   clearBossScriptsForTest,
   ensureFanaticIBossScriptRegistered,
-  fanaticSentenceRenderedShouldReplaceSkill,
   getBossScript,
+  readFanaticIPitTossEnabled,
   readFanaticIPyreBattleStartPlan,
   readFanaticISentenceRenderedEnabled,
   runBossHook,
@@ -270,6 +275,124 @@ describe("Fanatic I 战斗运行时", () => {
     const tossed = applyFanaticSentenceRendered(state, "fanatic");
     expect(tossed.events.some((event) => event.type === "commandRefused")).toBe(false);
     expect(tossed.state.battle!.entities.find((entity) => entity.id === "h2")!.areaId).toBe("a");
-    expect(tossed.events.some((event) => event.type === "dungeonUpdated" && event.message.includes("丢入 Pyre"))).toBe(true);
+    expect(tossed.events.some((event) => event.type === "dungeonUpdated" && event.message.includes("Pit Toss"))).toBe(
+      true,
+    );
+  });
+});
+
+describe("Fanatic I · 先攻 4 洗入与 Pit Toss 钩子", () => {
+  beforeEach(() => {
+    clearBossScriptsForTest();
+    ensureFanaticIBossScriptRegistered();
+    bossQuestScriptId[FACE_THE_THREAT_QUEST_ID] = FANATIC_I_SCRIPT_ID;
+  });
+
+  it("Fanatic + Pyre 在场时先攻堆补足 4 张 monster 侧（spec §14.5 R39）", () => {
+    let base = fanaticBattle();
+    base = applyFanaticIPyreBattleStart(base).state;
+    const sides = expandFanaticIInitiativeDeckSides(
+      base.battle!.entities.filter((entity) => !entity.dead).map((entity) => entity.side),
+      base.battle!,
+      base,
+    );
+    expect(sides.filter((side) => side === "monster")).toHaveLength(4);
+    expect(sides.filter((side) => side === "hero")).toHaveLength(4);
+  });
+
+  it("startBattle 写入 4 张 monster 先攻", () => {
+    const started = applyCommand(fanaticBattle(), { type: "startBattle" });
+    const deck = started.state.battle!.encounter!.deck;
+    expect(deck.filter((side) => side === "monster")).toHaveLength(4);
+  });
+
+  it("pitToss 钩子已声明", () => {
+    const script = getBossScript(FANATIC_I_SCRIPT_ID)!;
+    expect(readFanaticIPitTossEnabled(script)).toBe(true);
+    const hook = runBossHook(script, "pitToss", {
+      scriptId: FANATIC_I_SCRIPT_ID,
+      monsterEntityId: "fanatic",
+      round: 1,
+    });
+    expect(hook).toMatchObject({ status: "ok", effect: "tossReachHeroIntoPyreArea" });
+  });
+
+  it("Sentence Rendered 第 1 次行动后 Fanatic 未进入 actedIds", () => {
+    let state = fanaticBattle();
+    state = applyFanaticIPyreBattleStart(state).state;
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        encounter: {
+          round: 1,
+          deck: ["monster"],
+          actedIds: [],
+          turn: { type: "monster", actorId: "fanatic" },
+        },
+      },
+    };
+    const moved = applyFanaticSentenceRendered(state, "fanatic");
+    expect(moved.state.battle!.fanaticActionsThisRound).toBe(1);
+    expect(moved.state.battle!.encounter!.actedIds).not.toContain("fanatic");
+    expect(fanaticShouldEnterActedIdsAfterTurn(moved.state, "fanatic")).toBe(false);
+  });
+
+  it("applyFanaticPitTossHeroIntoPyreArea 同区丢入 Pyre", () => {
+    let state = fanaticBattle({
+      entities: [
+        {
+          id: "h2",
+          side: "hero" as const,
+          areaId: "a",
+          stance: "ranged" as const,
+          hero: "CRUSADER",
+          skillIds: [] as string[],
+          wounds: 0,
+          stress: 0,
+          dodge: 0,
+          guard: false,
+          dead: false,
+          bleed: [] as string[],
+          blight: [] as string[],
+        },
+        {
+          id: "fanatic",
+          side: "monster" as const,
+          hero: null,
+          monsterCardId: fanaticCard.id,
+          life: fanaticCard.life,
+          dodge: 0,
+          areaId: "a",
+          stance: "aggressive" as const,
+          stanceSlots: 2 as const,
+          shuffleResist: false,
+          wounds: 0,
+          skillIds: [] as string[],
+          guard: false,
+          dead: false,
+          bleed: [] as string[],
+          blight: [] as string[],
+        },
+      ],
+    });
+    state = applyFanaticIPyreBattleStart(state).state;
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        encounter: {
+          round: 1,
+          deck: [],
+          actedIds: [],
+          turn: { type: "monster", actorId: "fanatic" },
+        },
+      },
+    };
+    const tossed = applyFanaticPitTossHeroIntoPyreArea(state, "fanatic", "h2");
+    expect(tossed.state.battle!.entities.find((entity) => entity.id === "h2")!.areaId).toBe("a");
+    expect(tossed.events.some((event) => event.type === "dungeonUpdated" && event.message.includes("Pit Toss"))).toBe(
+      true,
+    );
   });
 });

@@ -112,7 +112,7 @@
 
 1. **Ruins II**：单 Boss 切片（如 Necromancer II `p002`）或统一「II 描述卡 hold 策略」裁定。
 2. **任务卡 · Face the Threat**：`faceTheThreatEmbark` + quest:p016–p019 与 `activeBossThreatScriptId`（不兼收 R-121 布置）。
-3. **Fanatic 战斗**：Sentence Rendered 与 Pyre 开局已接最小运行时；Fanatic 技能 / Pit Toss / 先攻 4 洗入仍 hold。
+3. **Fanatic 战斗**：Sentence Rendered / Pyre 开局 / Pit Toss（同区丢 Pyre）/ 先攻 4 洗入已接最小运行时；Fanatic 卡面技能 AI 仍 hold。
 4. **Collector 战斗**：Collect All + 宝箱房 + Collected 三卡 summon（R-034 区域语义已有裁定）。
 5. **地牢威胁接线**：优先高触达项——Prophet 进地牢压力、Collector Curio 房间、Flesh Creeping Sickness（需新 hamlet 状态机，不单 stub）。
 
