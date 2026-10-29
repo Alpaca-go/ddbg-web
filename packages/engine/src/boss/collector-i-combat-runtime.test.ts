@@ -120,6 +120,7 @@ function collectorBattle(extra?: Partial<GameState["battle"]>): GameState {
       lootPool: createLootState(),
       // C-015：只用于机制夹具，不代表 Collector Room 生产几何已批。
       collectorRoomLootAreaId: "b",
+      collectorCollectedStanceAreas: { defensive: "a", ranged: "b", support: "a" },
       ...extra,
     }),
     dungeon: collectorBossDungeon(),
@@ -384,5 +385,281 @@ describe("Collector I · 最近区域挤占", () => {
     if ("status" in placement) return;
     expect(placement.areaId).toBe("a");
     expect(placement.battle.entities.find((entity) => entity.id === "h0")?.areaId).toBe("b");
+  });
+});
+
+describe("C-016 · Collector 挤占选择与原子续接", () => {
+  beforeEach(() => {
+    clearBossScriptsForTest();
+    ensureCollectorIBossScriptRegistered();
+  });
+  function fixture(): GameState {
+    const base = collectorBattle();
+    return {
+      ...base,
+      battle: {
+        ...base.battle!,
+        entities: base.battle!.entities.map((e) => ({
+          ...e,
+          areaId: e.side === "hero" ? "c" : "a",
+        })),
+        areas: [
+          { id: "a", adjacent: ["b", "d"], elevation: "normal", capacity: 1 },
+          { id: "b", adjacent: ["a", "c"], elevation: "normal", capacity: 1 },
+          { id: "d", adjacent: ["a"], elevation: "normal", capacity: 2 },
+          { id: "c", adjacent: ["b"], elevation: "normal", capacity: 8 },
+        ],
+        collectorCollectedStanceAreas: { defensive: "a", ranged: "b", support: "c" },
+        encounter: {
+          round: 1,
+          deck: ["hero"],
+          actedIds: [],
+          turn: { type: "monster", actorId: "collector" },
+        },
+      },
+    };
+  }
+  function prepare(state: GameState) {
+    return applyCommand(state, { type: "prepareMonsterAction", actorId: "collector" });
+  }
+  function choose(result: ReturnType<typeof applyCommand>, entity: string, area: string) {
+    expect(result.pendingChoice).toBeDefined();
+    return applyCommand(result.state, {
+      type: "resolveChoice",
+      choiceId: result.pendingChoice!.id,
+      optionId: JSON.stringify([entity, area]),
+    });
+  }
+  function refused(result: ReturnType<typeof applyCommand>, state: GameState) {
+    expect(result.state).toBe(state);
+    expect(result.events).toHaveLength(1);
+    expect(result.events[0]!.type).toBe("commandRefused");
+  }
+  it("怪物满区公开待选只列最近落点，未确认不改实体/骰序；多次选择完成后一次召唤", () => {
+    const state = fixture(),
+      original = structuredClone(state);
+    const first = prepare(state);
+    expect(first.pendingChoice!.options.map((o) => JSON.parse(o.id))).toEqual([
+      ["collector", "b"],
+      ["collector", "d"],
+    ]);
+    expect(first.state.battle!.entities).toEqual(state.battle!.entities);
+    expect(first.state.battle!.rngCursor).toBe(state.battle!.rngCursor);
+    expect(first.state.battle!.encounter).toEqual(state.battle!.encounter);
+    const second = choose(first, "collector", "b");
+    expect(second.pendingChoice!.id).not.toBe(first.pendingChoice!.id);
+    expect(second.pendingChoice!.options.map((o) => JSON.parse(o.id))).toEqual([
+      ["collector", "c"],
+    ]);
+    expect(second.state.battle!.entities).toEqual(state.battle!.entities);
+    expect(second.state.battle!.rngCursor).toBe(state.battle!.rngCursor);
+    const done = choose(second, "collector", "c");
+    expect(done.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(done.state.battle!.pending).toBeNull();
+    expect(done.state.battle!.entities.find((e) => e.id === "collector")!.areaId).toBe("c");
+    expect(
+      done.state
+        .battle!.entities.filter((e) => e.id.startsWith("collected:"))
+        .map((e) => [e.id, e.areaId]),
+    ).toEqual([
+      ["collected:manAtArms", "a"],
+      ["collected:highwayman", "b"],
+      ["collected:vestal", "c"],
+    ]);
+    expect(new Set(done.state.battle!.entities.map((e) => e.id)).size).toBe(
+      done.state.battle!.entities.length,
+    );
+    expect(done.state.battle!.rngCursor).toBe(state.battle!.rngCursor + 4);
+    expect(done.state.battle!.encounter!.deck.filter((s) => s === "monster")).toHaveLength(4);
+    expect(done.events.filter((e) => e.type === "turnEnded")).toHaveLength(1);
+    expect(done).toEqual(choose(choose(prepare(state), "collector", "b"), "collector", "c"));
+    expect(state).toEqual(original);
+  });
+
+  it("待选冻结其它行动，非法/旧选择/重复确认均原子拒绝", () => {
+    const first = prepare(fixture());
+    refused(prepare(first.state), first.state);
+    refused(applyCommand(first.state, { type: "drawInitiative" }), first.state);
+    refused(choose(first, "collector", "c"), first.state);
+    refused(
+      applyCommand(first.state, {
+        type: "resolveChoice",
+        choiceId: "stale",
+        optionId: first.pendingChoice!.options[0]!.id,
+      }),
+      first.state,
+    );
+    const second = choose(first, "collector", "b");
+    refused(
+      applyCommand(second.state, {
+        type: "resolveChoice",
+        choiceId: first.pendingChoice!.id,
+        optionId: first.pendingChoice!.options[0]!.id,
+      }),
+      second.state,
+    );
+    const done = choose(second, "collector", "c");
+    refused(
+      applyCommand(done.state, {
+        type: "resolveChoice",
+        choiceId: second.pendingChoice!.id,
+        optionId: second.pendingChoice!.options[0]!.id,
+      }),
+      done.state,
+    );
+  });
+
+  it("英雄挤走后仍用原姿态区域；后续被挤出的已规划召唤物也只落地一次", () => {
+    const base = fixture();
+    const state = {
+      ...base,
+      battle: {
+        ...base.battle!,
+        entities: base.battle!.entities.map((e) => ({ ...e, areaId: e.id === "h1" ? "a" : "c" })),
+        collectorCollectedStanceAreas: { defensive: "a", ranged: "a", support: "a" },
+      },
+    };
+    const first = prepare(state);
+    const second = choose(first, "h1", "b");
+    expect(second.pendingChoice!.options.map((o) => JSON.parse(o.id))).toEqual([
+      ["collected:manAtArms", "d"],
+    ]);
+    const third = choose(second, "collected:manAtArms", "d");
+    expect(third.state.battle!.entities).toEqual(state.battle!.entities);
+    const done = choose(third, "collected:highwayman", "d");
+    expect(done.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(done.state.battle!.entities.find((e) => e.id === "h1")!.areaId).toBe("b");
+    expect(
+      done.state
+        .battle!.entities.filter((e) => e.id.startsWith("collected:"))
+        .map((e) => [e.id, e.areaId]),
+    ).toEqual([
+      ["collected:manAtArms", "d"],
+      ["collected:highwayman", "d"],
+      ["collected:vestal", "a"],
+    ]);
+  });
+
+  it("多只怪物占满时玩家选哪只；Large 的最近可用区域按实际占格筛选", () => {
+    const base = fixture().battle!,
+      monster = base.entities.find((e) => e.id === "collector")!;
+    const battle = {
+      ...base,
+      entities: [
+        { ...monster, id: "m1" },
+        { ...monster, id: "m2" },
+      ],
+      areas: base.areas.map((a) => (a.id === "a" ? { ...a, capacity: 2 } : a)),
+    };
+    const result = resolveCollectorCollectedAreaPlacement(battle, "a");
+    expect("status" in result && result.status).toBe("choice");
+    if (!("status" in result) || result.status !== "choice") throw new Error("expected choice");
+    expect(result.options.map((o) => JSON.parse(o.id))).toEqual([
+      ["m1", "b"],
+      ["m1", "d"],
+      ["m2", "b"],
+      ["m2", "d"],
+    ]);
+    const moved = resolveCollectorCollectedAreaPlacement(battle, "a", JSON.stringify(["m2", "d"]));
+    expect("status" in moved).toBe(false);
+    if (!("status" in moved))
+      expect(moved.battle.entities.map((e) => e.areaId)).toEqual(["a", "d"]);
+    const large = { ...battle, entities: [{ ...monster, stanceSlots: 2 as const }] };
+    const largeChoice = resolveCollectorCollectedAreaPlacement(large, "a");
+    expect(largeChoice).toMatchObject({
+      status: "choice",
+      options: [{ id: JSON.stringify(["collector", "d"]) }],
+    });
+  });
+
+  it("没有能容纳被挤怪物的区域时拒绝，不能把召唤物改放到远处空小区", () => {
+    const base = fixture(),
+      monster = base.battle!.entities.find((e) => e.id === "collector")!;
+    const battle = {
+      ...base.battle!,
+      entities: [{ ...monster, stanceSlots: 2 as const }],
+      areas: [
+        { id: "a", adjacent: ["b"], elevation: "normal" as const, capacity: 2 },
+        { id: "b", adjacent: ["a"], elevation: "normal" as const, capacity: 1 },
+      ],
+    };
+    expect(resolveCollectorCollectedAreaPlacement(battle, "a")).toMatchObject({
+      status: "refused",
+      message: expect.stringContaining("不能改放召唤物"),
+    });
+  });
+
+  it.each(["missing", "unknown"])("%s 姿态绑定明确拒绝，不再从英雄当前位置推断", (kind) => {
+    const base = fixture();
+    const { collectorCollectedStanceAreas: removed, ...rest } = base.battle!;
+    void removed;
+    const state = {
+      ...base,
+      battle: {
+        ...rest,
+        ...(kind === "unknown"
+          ? { collectorCollectedStanceAreas: { defensive: "unknown", ranged: "b", support: "c" } }
+          : {}),
+      },
+    };
+    refused(prepare(state), state);
+  });
+
+  it("待选后卡牌失去核实则整次拒绝，既有计划不落地", () => {
+    const first = prepare(fixture());
+    const state = {
+      ...first.state,
+      battle: {
+        ...first.state.battle!,
+        monsters: first.state.battle!.monsters!.map((c) =>
+          c.id === COLLECTOR_I_COLLECTED_VESTAL_CARD_ID
+            ? { ...c, verification: { unverified: true } }
+            : c,
+        ),
+      },
+    };
+    refused(
+      applyCommand(state, {
+        type: "resolveChoice",
+        choiceId: first.pendingChoice!.id,
+        optionId: first.pendingChoice!.options[0]!.id,
+      }),
+      state,
+    );
+  });
+
+  it("后续召唤完全没有合法去处时回滚，保留玩家当前待选而不消耗 RNG", () => {
+    const base = fixture();
+    const state = {
+      ...base,
+      battle: {
+        ...base.battle!,
+        areas: base.battle!.areas.map((a) =>
+          a.id === "d" ? { ...a, capacity: 0 } : a.id === "c" ? { ...a, capacity: 4 } : a,
+        ),
+      },
+    };
+    const first = prepare(state);
+    expect(first.pendingChoice!.options.map((o) => JSON.parse(o.id))).toEqual([["collector", "b"]]);
+    refused(choose(first, "collector", "b"), first.state);
+  });
+
+  it("待选目的地容量改变后重新校验，旧合法选项也不能强行落地", () => {
+    const first = prepare(fixture());
+    const state = {
+      ...first.state,
+      battle: {
+        ...first.state.battle!,
+        areas: first.state.battle!.areas.map((a) => (a.id === "b" ? { ...a, capacity: 0 } : a)),
+      },
+    };
+    refused(
+      applyCommand(state, {
+        type: "resolveChoice",
+        choiceId: first.pendingChoice!.id,
+        optionId: JSON.stringify(["collector", "b"]),
+      }),
+      state,
+    );
   });
 });

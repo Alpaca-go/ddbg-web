@@ -135,6 +135,10 @@ export type BattleSetup = {
   readonly lootAreas?: readonly string[];
   /** Collector Room 三箱所在逻辑区；仅由获批几何绑定。生产目录未批时留空，测试夹具显式传入。 */
   readonly collectorRoomLootAreaId?: string;
+  /** Collector 固定姿态对应的板块区域；显式逻辑区绑定，不从英雄当前位置推断几何。 */
+  readonly collectorCollectedStanceAreas?: Readonly<
+    Partial<Record<"defensive" | "ranged" | "support", string>>
+  >;
   /** 下一房间可显式传回同地牢的有限池；回村另行重建。 */
   readonly lootPool?: LootState;
   readonly startingProvisions?: true;
@@ -181,6 +185,15 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | {
+        readonly type: "collectorSummon";
+        readonly actorId: string;
+        readonly choice: PendingChoice;
+        readonly part: import("./boss/types").CollectorCollectedPart;
+        readonly displacements: Readonly<
+          Partial<Record<import("./boss/types").CollectorCollectedPart, string>>
+        >;
+      }
     | {
         readonly type: "necromancerSummon";
         readonly choice: PendingChoice;

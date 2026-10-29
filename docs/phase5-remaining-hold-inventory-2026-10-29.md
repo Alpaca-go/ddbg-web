@@ -100,7 +100,7 @@
 | **`summon` · Hag / Siren 完整 AI** | Cauldron Empty 开战 / Into the Pot!+Full morph / High Tide Pelagic 最小已接；42418 / 魅惑 / 先攻洗入 / 锅完整生命周期仍 hold | R38–R39 / 各 Boss 切片 |
 | **`summon(purpose:skill)` · Swine / Collector / Flesh** | Swine **Wilbur 开战** + **Enraged** + **Wilbur Mark AI** 已接；Wilbur 非 Mark 召唤仍 stub；Fanatic I 三招无召唤，已改为 `notApplicable`，从此 hold 行移出 | R38–R39 / Swine Prince；C-017 |
 | **Prophet I** room 卡→战斗区域几何 | 完整 d10 逻辑区绑定校验已接；缺表明确拒绝。C-014 已接每木长椅独立区域共骰、多目标生命 / 压力 / 死亡收尾，以及先知三张加普通伴战各一张先攻。**Prophet Room 生产几何仍 hold** | R19、R30、R38–R39 / R-048；`phase5-prophet-i-rubble-initiative-2026-10-29.md` |
-| **Collector** Room 几何绑定 / 怪物挤占玩家选移 | 三箱同区布置已接 `startBattle`，测试夹具显式绑定；**Collector Room 生产几何 / 落区绑定仍 hold**，缺绑定拒绝。C-016 怪物挤占选择未动 | R39 / R-047/048/059；`phase5-collector-i-room-loot-2026-10-29.md` |
+| **Collector** Room 几何绑定 | 三箱布置与 C-016 挤占选择 / 连续续接已接；召唤使用显式固定姿态区域绑定，怪物满区时玩家选移，不能把召唤物改放别区。**Collector Room 生产几何 / 落区绑定仍 hold**，缺绑定拒绝 | R31、R39 / R-034/047/048/059；`phase5-collector-i-displacement-2026-10-29.md` |
 | **Fanatic** Pyre 自身技能 / 死亡移除 | 本体三招 AI 与效果已接（C-017）；无技能召唤可实现。**Pyre 的 Burn the Heretic（无 Acc、99 伤害）与 Fanatic 被击败后移除 Pyre（R39）仍 hold**，不把本体三招完成称作整场闭环 | G-05 / R39 / `monster_large:p011` |
 | **Flesh** 战斗中途再召 Large | 仅遭遇开局 Guard；无 mid-battle spawn | R31 |
 | **Necromancer** 完整 encounter AI / 多级召唤 | **死亡清场与 I 级前两招已选技能召唤已接**；姿态选招表、第三招 Six Feet Under 仍 hold（C-012）；II/III 未开 | C-011 第一刀 / C-012；见 `phase5-necromancer-i-combat-runtime-2026-10-29.md` |

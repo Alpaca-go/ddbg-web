@@ -55,6 +55,7 @@ import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
 import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
 import { recordMonsterSkill } from "./encounter";
 import { chooseNecromancerISummon } from "./boss/necromancer-i-combat-runtime";
+import { chooseCollectorISummon } from "./boss/collector-i-combat-runtime";
 import {
   resolveDungeonConditionChoice,
   resolveDungeonCurioProvisionChoice,
@@ -542,6 +543,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     }
     if (pending.type === "necromancerSummon")
       return chooseNecromancerISummon(state, command.optionId);
+    if (pending.type === "collectorSummon") return chooseCollectorISummon(state, command.optionId);
     if (pending.type === "shuffleReduction") return chooseBalancedShuffle(state, command.optionId);
     if (pending.type === "shuffleArea")
       return applyBattleShuffles(state, [...pending.path, command.optionId]);
