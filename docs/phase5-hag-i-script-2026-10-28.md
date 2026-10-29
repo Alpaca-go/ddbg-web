@@ -30,8 +30,8 @@
 | **Cauldron** 能力卡（42418）与 Empty/Full 战斗卡（54212） | `summon` stub；不进 `combatEntry` |
 | 进地牢被动、疗养院 −3 Life **写入** runtime | **已接**（`threat-passive-runtime` / `hamlet-actions` / 补给消耗） |
 | Weald 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
-| quest / Face the Threat → Hag | `faceTheThreatEmbark` stub |
-| **R-121** Boss 位 | `bossSlotPlacement` stub |
+| quest / Face the Threat → Hag | `defaultFaceTheThreatEmbarkHook` **ok**（出征 plan 见 `face-the-threat-embark-runtime`） |
+| **R-121** Boss 位 | `defaultBossSlotPlacementHook` 校验 **ok**；洗牌写入 hold |
 | Hag II/III、Brigand Pounder、Shrieker | 未注册 |
 
 ## 印刷 / 数据映射

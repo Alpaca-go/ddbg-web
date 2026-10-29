@@ -37,12 +37,12 @@
 
 | 项                                  | 说明                                         |
 | ----------------------------------- | -------------------------------------------- |
-| `faceTheThreatEmbark`               | quest:p019 → Boss 脚本与出征仍 stub          |
+| `faceTheThreatEmbark`               | #343 钩子 ok；#349/#350 已接 `chooseNextQuest` / 幕末 p019 offer（R-121 边缘房仍 hold） |
 | 升幕 §2.2 步骤 2–5                  | 与 `advanceCampaignLevel` 沙盒预览未合并     |
 | 永久移出的怪物                      | **不**在清除威胁时恢复（规则为永久移出游戏） |
 | R-121 / R-122 / encounter Boss 轮数 | 仍 hold                                      |
 
-## 测试
+总表：[phase5-remaining-hold-inventory-2026-10-29.md](./phase5-remaining-hold-inventory-2026-10-29.md)（tip `3b50f2e`）。
 
 ```bash
 pnpm exec vitest run packages/engine/src/boss/threat-campaign.test.ts packages/engine/src/boss/necromancer-i.test.ts packages/engine/src/boss/threat-establishment.test.ts packages/engine/src/boss/threat-passive-runtime.test.ts packages/engine/src/boss/set-active-boss-threat.test.ts

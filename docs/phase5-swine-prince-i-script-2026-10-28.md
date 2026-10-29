@@ -31,8 +31,8 @@
 | Beast +2 伤害、生存专家封锁 **写入** encounter / hamlet-actions | **已接**（`battle-monster*` / 村庄封锁既有路径） |
 | Wilbur 布置、Enraged Destruction、Mark 完整 AI | `summon` stub |
 | Warrens 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
-| quest / Face the Threat → Swine Prince | `faceTheThreatEmbark` stub |
-| **R-121** Boss 位 | `bossSlotPlacement` stub |
+| quest / Face the Threat → Swine Prince | `defaultFaceTheThreatEmbarkHook` **ok** |
+| **R-121** Boss 位 | `defaultBossSlotPlacementHook` 校验 **ok**；洗牌写入 hold |
 | Swine Prince II/III、Brigand Vvulf | 未注册 |
 | The Flesh I | 见 `docs/phase5-flesh-i-script-2026-10-28.md` |
 
