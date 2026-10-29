@@ -4,6 +4,7 @@ import {
   dungeonQuestSummarySchema,
   forwardCampsQuestSummarySchema,
   fundraiserQuestSummarySchema,
+  bossFlatQuestSummarySchema,
 } from "../../data/src/quest-summary";
 import {
   matchesQuestCounts,
@@ -138,7 +139,29 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
     };
   }
   if (quest.xpKind === "flat") {
-    return refuse("Boss 任务 XP 摘要尚未接线（R-122）；击败后固定 3 XP");
+    if (!d.bossQuestVictory) {
+      return refuse("须击败 Boss 后方可生成定额 XP 摘要（R-122）；最暗 p016–p018 击败判定仍 hold");
+    }
+    if (quest.flatXp !== 3) {
+      return refuse("Boss 定额 XP 与 R-122 不一致，待确认");
+    }
+    const questSummary = bossFlatQuestSummarySchema.parse({
+      questId: quest.id,
+      name: quest.name,
+      clearedRoomIds,
+      xpPerHero: 3,
+      stagecoachXp: 3,
+      awarded: false,
+    });
+    return {
+      state: { ...state, dungeon: { ...d, questSummary } },
+      events: [
+        {
+          type: "dungeonUpdated",
+          message: `${quest.name}：击败 Boss，每名英雄与驿站待发 3 XP；于兑换剩余补给并完成回村时发放（R-122、R-038）`,
+        },
+      ],
+    };
   }
   if (quest.xpKind === "camp") {
     const forwardCampSetups = d.forwardCampSetups ?? 0;

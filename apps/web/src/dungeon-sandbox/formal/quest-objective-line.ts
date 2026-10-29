@@ -9,7 +9,7 @@ export function questObjectiveProgressLine(game: GameState): string {
   if (!quest) return "—";
 
   if (quest.xpKind === "flat") {
-    return `${quest.name} · 任务 XP —/${quest.flatXp} · 击败 Boss 后固定 ${quest.flatXp} XP（R-122，发放未接线）`;
+    return `${quest.name} · 任务 XP —/${quest.flatXp} · 击败 Boss 后固定 ${quest.flatXp} XP（R-122）`;
   }
 
   const clearedRooms = d.rooms.filter((r) => r.cleared);

@@ -21,7 +21,7 @@ export function QuestGoalNotes({ quest }: { readonly quest: QuestCardOption }) {
       <p>
         柴火休息 {quest.restPoints} 点。
         {quest.xpKind === "flat"
-          ? `击败 Boss 并回村后每名英雄与驿站各固定 ${quest.flatXp ?? 3} XP（R-122）；摘要与回村发放尚未接线。`
+          ? `击败 Boss 并回村后每名英雄与驿站各固定 ${quest.flatXp ?? 3} XP（R-122）；摘要于离开地牢后生成，XP 于回村完成时发放。`
           : quest.xpKind === "gold"
             ? "清理至少一间巢穴后，可每捐献20金币获得1XP，最多捐献60金币、获得3XP。"
             : quest.xpKind === "camp"

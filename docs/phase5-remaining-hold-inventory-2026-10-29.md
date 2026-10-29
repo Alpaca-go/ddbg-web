@@ -101,7 +101,7 @@
 | **Flesh** 战斗中途再召 Large | 仅遭遇开局 Guard；无 mid-battle spawn | R31 |
 | **Necromancer** 死亡清场 / 多级 Rabble 完整 encounter | helper + 最小 summon 声明 | encounter |
 | **`encounterRoundRetreatLimit` 生产路径** | helper 有；非全 Boss 任务已接 | Phase 5 后续 |
-| **Boss XP / `summarizeDungeonQuest`** | 仍 refuse（R-122） | **R-122** |
+| **Boss XP / `summarizeDungeonQuest`** | **已接**：`bossFlatQuestSummarySchema` + `bossQuestVictory`（p019 / 映射 Boss 遭遇）；p016–p018 击败判定仍 hold | **R-122**（部分） |
 | **Rising Threat SPECIAL** | 未接 | 任务卡 |
 | **Ruins II/III 脚本** | 描述卡 id 在 catalog；**无** `boss:*:2/3` 注册；升幕可抽到 hold 文案 | 核心包切片 / 待确认 |
 | **Weald/Warrens/Cove 非 I 迫近池** | 主路径仍 Ruins 四 Boss 池（`imminentThreatPoolForCampaign`） | 扩展 / 任务卡 |
@@ -172,7 +172,7 @@ Helper 汇总：`threat-passive.ts`（纯查询）；运行时：`threat-passive
 2. **Ruins Boss II 单切片**：例如 Necromancer II（`p002`）注册 + `faceTheThreatBossScriptByCampaignLevel[2]` 策略裁定。
 3. **Prophet I 战斗**：Calamitous + Rubble 最小运行时已接；第 2 行动 / room 几何 / 先攻仍 hold。
 4. **Swine Prince I**：Enraged Destruction / Wilbur Mark AI / Wilbur 先攻洗入仍 hold（Wilbur **开战伴战**已接 `swine-prince-i-combat-runtime`）。
-5. **R-122 Boss XP**：与 `summarizeDungeonQuest` 摘要 hold 一并收，避免半接发放。
+5. **R-122 Boss XP**：`summarizeDungeonQuest` 摘要已接；最暗 p016–p018 击败判定与 Rising Threat 仍 hold。
 6. **II 级幕末 p019 / 升幕 §2.2**：在 II 映射确认后扩展 `shouldForceFaceTheThreatOfferAtNextQuest` 与 `drawImminentThreatAfterActAdvance` 与 `advanceCampaignLevel` 合并策略。
 
 ---

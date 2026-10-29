@@ -177,6 +177,8 @@ export type DungeonState = {
   readonly rest?: ScoutRest;
   readonly questDistribution?: RoomDistribution;
   readonly questSummary?: DungeonQuestSummary;
+  /** Boss / 最暗定额任务：本场已击败 Boss，方可生成 R-122 摘要（p016–p018 判定仍 hold）。 */
+  readonly bossQuestVictory?: true;
   /** Forward Camps III：成功设营次数（R-113）。 */
   readonly forwardCampSetups?: number;
   readonly trinkets?: TrinketPool;
