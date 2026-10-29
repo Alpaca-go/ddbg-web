@@ -3,7 +3,7 @@ import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
 import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
 import type {
   BossScriptDefinition,
-  BossThreatPassiveDungeonResult,
+  BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
 } from "./types";
 
@@ -25,10 +25,12 @@ export const FANATIC_I_COMBAT_MONSTER_CARD_ID = "monster_large:p008" as const;
 /** Pyre I（远程姿态开局；不进 `combatEntry`；Sentence Rendered / 先攻洗入仍 hold）。 */
 export const FANATIC_I_PYRE_MONSTER_CARD_ID = "monster_large:p011" as const;
 
-const dungeonThreatPassive = (): BossThreatPassiveDungeonResult => ({
-  status: "stub",
-  message: "Fanatic I：Marked for Death（开战全体掷 d10、最低者 +2 压力）地牢威胁未接线",
-  hold: `${FANATIC_I_COMBAT_ABILITY_CARD_ID} / Marked for Death I`,
+const dungeonThreatPassive = (): BossThreatPassiveDungeonOk => ({
+  status: "ok",
+  effect: "markOnBattleStartLowestD10",
+  markTurns: 2,
+  sourceAbilityCardId: FANATIC_I_COMBAT_ABILITY_CARD_ID,
+  rulesRef: ["R11", "R-048", FANATIC_I_COMBAT_ABILITY_CARD_ID],
 });
 
 const hamletThreatPassive = (): BossThreatPassiveHamletOk => ({

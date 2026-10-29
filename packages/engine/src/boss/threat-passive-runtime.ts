@@ -1,12 +1,15 @@
 import type { ApplyResult, GameState } from "../command";
 import type { DungeonState } from "../dungeon";
-import { nextBattleRoll } from "../encounter";
+import { nextBattleRoll } from "../battle-roll";
 import { passiveStress } from "../passive";
 import { resolveHeroHealth } from "../hero-health";
 import { resolveBattlePressure } from "../pressure";
 import { triggerDungeonPassive } from "../dungeon-passive";
 import { resolveDungeonPressure } from "../dungeon-pressure";
 import type { MonsterCardView } from "../monster-skill";
+import { readHeroPassiveDefence } from "../battle-skill-status";
+import { addStatusStack, STATUS_KINDS, statusProjection } from "../status";
+import type { StatusKind, StatusStack } from "../status";
 import { ensureCoreBossScriptsRegistered } from "./ensure-core-boss-scripts";
 import { getBossScript } from "./registry";
 import { readActiveBossThreatScriptId } from "./threat-campaign";
@@ -15,6 +18,8 @@ import {
   blackSheepStressDeltaFromBossThreat,
   creepingSicknessWoundsPerUnvisitedBuildingFromBossThreat,
   eldritchMonsterDamageBonusFromBossThreat,
+  guardTurnsOnLargeMonsterSpawnFromBossThreat,
+  markTurnsOnBattleStartFromBossThreat,
   sanitariumHealLifeDeltaFromBossThreat,
   stressOnDungeonEntryPerHeroFromBossThreat,
   stressOnHeroProvisionUseFromBossThreat,
@@ -280,9 +285,7 @@ export function applyBossThreatCreepingSicknessEndOfHamletDay(state: GameState):
   const h = d?.hamlet;
   if (!d || !h) return { state, events: [] };
   const script = readActiveBossThreatScript(d);
-  const perBuilding = script
-    ? creepingSicknessWoundsPerUnvisitedBuildingFromBossThreat(script)
-    : 0;
+  const perBuilding = script ? creepingSicknessWoundsPerUnvisitedBuildingFromBossThreat(script) : 0;
   if (perBuilding <= 0) return { state, events: [] };
 
   const visited = new Set(h.visitedBuildings ?? []);
@@ -303,7 +306,7 @@ export function applyBossThreatCreepingSicknessEndOfHamletDay(state: GameState):
       `迫近威胁 · Creeping Sickness：未访建筑累积伤口（${added.join("、")}；${script!.displayName}）`,
     );
   }
-  if (prepComplete && (h.buildingWounds && Object.keys(h.buildingWounds).length)) {
+  if (prepComplete && h.buildingWounds && Object.keys(h.buildingWounds).length) {
     messages.push("Hamlet 阶段结束：清除建筑上剩余伤口代币（Creeping Sickness I）");
   }
   if (!added.length && !prepComplete) return { state, events: [] };
@@ -327,15 +330,12 @@ export function transferCreepingSicknessBuildingWoundsToHero(
   d: DungeonState,
   hero: HamletHero,
   building: string,
-): { readonly status: "ok"; readonly dungeon: DungeonState; readonly hero: HamletHero } | { readonly status: "refused"; readonly reason: string } {
+):
+  | { readonly status: "ok"; readonly dungeon: DungeonState; readonly hero: HamletHero }
+  | { readonly status: "refused"; readonly reason: string } {
   const woundsOnBuilding = d.hamlet?.buildingWounds?.[building] ?? 0;
   if (woundsOnBuilding <= 0) return { status: "ok", dungeon: d, hero };
-  if (
-    !hero.attributesVerified ||
-    hero.life === undefined ||
-    hero.wounds === undefined ||
-    hero.dead
-  )
+  if (!hero.attributesVerified || hero.life === undefined || hero.wounds === undefined || hero.dead)
     return { status: "refused", reason: "Creeping Sickness 转移伤口缺已核实 Life / 伤口（R-048）" };
 
   const health = resolveHeroHealth(
@@ -345,7 +345,8 @@ export function transferCreepingSicknessBuildingWoundsToHero(
   if (health.status !== "resolved") {
     return {
       status: "refused",
-      reason: health.status === "refused" ? health.reason : "Creeping Sickness 伤口转移需掷骰（待确认）",
+      reason:
+        health.status === "refused" ? health.reason : "Creeping Sickness 伤口转移需掷骰（待确认）",
     };
   }
 
@@ -358,5 +359,206 @@ export function transferCreepingSicknessBuildingWoundsToHero(
       hamlet: { ...d.hamlet!, buildingWounds },
     },
     hero: { ...hero, wounds: health.state.wounds },
+  };
+}
+
+type StatusDefenceIcon = { readonly key: string | null; readonly naming: string };
+
+/** 已确认抗性 / 免疫图标 → 状态种类。未确认则拒绝，不猜（R-048）。Shuffle 抗性不是持久状态。 */
+export function confirmedStatusKinds(
+  icons: readonly StatusDefenceIcon[] | undefined,
+): readonly StatusKind[] | null {
+  if (!icons) return null;
+  const kinds: StatusKind[] = [];
+  for (const icon of icons) {
+    if (
+      icon.key === "shuffle_resist" &&
+      (icon.naming === "confirmed" || icon.naming === "confirmed_rulebook")
+    )
+      continue;
+    const kind = STATUS_KINDS.find((entry) => icon.key === entry || icon.key === `${entry}_resist`);
+    if (!kind || (icon.naming !== "confirmed" && icon.naming !== "confirmed_rulebook")) return null;
+    kinds.push(kind);
+  }
+  return kinds;
+}
+
+function legacyStatusWithoutStacks(entity: {
+  readonly statusStacks?: readonly StatusStack[];
+  readonly bleed: readonly string[];
+  readonly blight: readonly string[];
+  readonly buffStacks?: number;
+  readonly debuffStacks?: number;
+  readonly markStacks?: number;
+  readonly guard: boolean;
+  readonly riposte?: boolean;
+  readonly protection?: boolean;
+  readonly innateProtection?: boolean;
+}): boolean {
+  if (entity.statusStacks !== undefined) return false;
+  return (
+    entity.bleed.length > 0 ||
+    entity.blight.length > 0 ||
+    (entity.buffStacks ?? 0) > 0 ||
+    (entity.debuffStacks ?? 0) > 0 ||
+    (entity.markStacks ?? 0) > 0 ||
+    entity.guard ||
+    entity.riposte === true ||
+    (entity.protection === true && entity.innateProtection !== true)
+  );
+}
+
+/**
+ * Fanatic I · Marked for Death：开战时全体存活英雄掷 d10，最低者（含并列）承受 Mark。
+ * 骰序与 The Black Sheep 相同（姿态 aggressive→support）。无威胁时不改状态、不消耗 RNG。
+ */
+export function applyBossThreatMarkedForDeathOnBattleStart(state: GameState): ApplyResult {
+  const battle = state.battle;
+  const d = state.dungeon;
+  if (!battle || !d) return { state, events: [] };
+  const script = readActiveBossThreatScript(d);
+  if (!script) return { state, events: [] };
+  const markTurns = markTurnsOnBattleStartFromBossThreat(script);
+  if (markTurns <= 0) return { state, events: [] };
+
+  const order = battle.entities
+    .filter((entity) => entity.side === "hero" && !entity.dead)
+    .sort(
+      (a, b) =>
+        HAMLET_HERO_STANCES.indexOf(a.stance as (typeof HAMLET_HERO_STANCES)[number]) -
+        HAMLET_HERO_STANCES.indexOf(b.stance as (typeof HAMLET_HERO_STANCES)[number]),
+    );
+  if (order.some((entity) => !entity.stance || HAMLET_HERO_STANCES.indexOf(entity.stance) < 0)) {
+    return {
+      state,
+      events: [
+        { type: "commandRefused", message: "Marked for Death 缺英雄姿态，不能猜掷骰顺序（R-048）" },
+      ],
+    };
+  }
+
+  let cursor = battle.rngCursor;
+  const rolls = order.map((hero) => {
+    const roll = nextBattleRoll(state.seed, cursor++);
+    return { heroId: hero.id, roll };
+  });
+  const lowest = Math.min(...rolls.map((entry) => entry.roll));
+  const losers = new Set(
+    rolls.filter((entry) => entry.roll === lowest).map((entry) => entry.heroId),
+  );
+
+  let entities = battle.entities;
+  const applied: string[] = [];
+  for (const heroId of losers) {
+    const entity = entities.find((entry) => entry.id === heroId)!;
+    const defence = readHeroPassiveDefence(battle, entity);
+    if (!defence) {
+      return {
+        state,
+        events: [
+          {
+            type: "commandRefused",
+            message: `Marked for Death：${heroId} 缺已核实条件防御，不能猜 Mark 抗性（R-048）`,
+          },
+        ],
+      };
+    }
+    if (legacyStatusWithoutStacks(entity)) {
+      return {
+        state,
+        events: [
+          {
+            type: "commandRefused",
+            message: `Marked for Death：${heroId} 已有状态缺少 duration，不能伪造堆叠（R-048）`,
+          },
+        ],
+      };
+    }
+    const added = addStatusStack(
+      entity.statusStacks ?? [],
+      { kind: "mark", duration: markTurns },
+      "target",
+      defence,
+    );
+    if (added.status === "refused") {
+      return { state, events: [{ type: "commandRefused", message: added.reason }] };
+    }
+    const gained = added.stacks.length > (entity.statusStacks?.length ?? 0);
+    const remaining = gained ? added.stacks[added.stacks.length - 1]!.remaining : 0;
+    entities = entities.map((entry) =>
+      entry.id === heroId
+        ? {
+            ...entry,
+            statusStacks: added.stacks,
+            ...statusProjection(added.stacks, entry.innateProtection),
+          }
+        : entry,
+    );
+    applied.push(gained ? `${heroId} Mark ${remaining}t` : `${heroId} Mark 免疫`);
+  }
+
+  const rollSummary = rolls.map((entry) => `${entry.heroId}:${entry.roll}`).join("、");
+  return {
+    state: {
+      ...state,
+      battle: { ...battle, entities, rngCursor: cursor },
+    },
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: `迫近威胁 · Marked for Death：d10 ${rollSummary}，最低 ${lowest}（${applied.join("、")}；${script.displayName}）`,
+      },
+    ],
+  };
+}
+
+type SpawnGuardEntity = {
+  readonly stanceSlots?: 1 | 2;
+  readonly statusStacks?: readonly StatusStack[];
+  readonly guard: boolean;
+  readonly innateProtection?: boolean;
+  readonly bleed: readonly string[];
+  readonly blight: readonly string[];
+};
+
+/**
+ * Flesh I · Big Troubles：遭遇生成写入战斗实体时，Large（占 2 格）获得 Guard。
+ * 抗性 / 免疫按已确认图标缩短或取消（R-018）。非 Large 或无此威胁时原样返回。
+ */
+export function withLargeMonsterSpawnGuard<E extends SpawnGuardEntity>(
+  dungeon: DungeonState | undefined,
+  entity: E,
+  card: {
+    readonly resistances?: readonly StatusDefenceIcon[];
+    readonly immunities?: readonly StatusDefenceIcon[];
+  },
+):
+  | { readonly status: "ok"; readonly entity: E }
+  | { readonly status: "refused"; readonly reason: string } {
+  if (!dungeon || entity.stanceSlots !== 2) return { status: "ok", entity };
+  const script = readActiveBossThreatScript(dungeon);
+  if (!script) return { status: "ok", entity };
+  const guardTurns = guardTurnsOnLargeMonsterSpawnFromBossThreat(script);
+  if (guardTurns <= 0) return { status: "ok", entity };
+  const resistances = confirmedStatusKinds(card.resistances);
+  const immunities = confirmedStatusKinds(card.immunities);
+  if (!resistances || !immunities) {
+    return { status: "refused", reason: "Large 生成 Guard 缺已确认抗性 / 免疫，不能猜（R-048）" };
+  }
+  const added = addStatusStack(
+    entity.statusStacks ?? [],
+    { kind: "guard", duration: guardTurns },
+    "target",
+    { resistances, immunities },
+  );
+  if (added.status === "refused") return { status: "refused", reason: added.reason };
+  if (added.stacks.length === (entity.statusStacks?.length ?? 0)) return { status: "ok", entity };
+  return {
+    status: "ok",
+    entity: {
+      ...entity,
+      statusStacks: added.stacks,
+      ...statusProjection(added.stacks, entity.innateProtection),
+    },
   };
 }

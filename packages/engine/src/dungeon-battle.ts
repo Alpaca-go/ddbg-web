@@ -35,6 +35,7 @@ import {
 import {
   completeCurioRoomWithoutCurioDraw,
   shouldSkipCurioDrawInCurioRoom,
+  withLargeMonsterSpawnGuard,
 } from "./boss/threat-passive-runtime";
 import { recordRuinsBossDefeatOnThreatCleared } from "./boss/establish-imminent-threat";
 
@@ -215,9 +216,9 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       if (probe.resolution.targetDisease && !d.conditions)
         return refuse("真实疾病技能需要完整疾病 / 怪癖目录，保留部署，不进入半场战斗（R27）");
     }
-    entities.push({
+    const spawnedMonster = {
       id: spawn.instanceId,
-      side: "monster",
+      side: "monster" as const,
       hero: null,
       monsterCardId: card.id,
       life: card.life,
@@ -227,7 +228,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       stanceSlots: spawn.stanceSlots,
       shuffleResist: card.resistances.some((icon) => icon.key === "shuffle_resist"),
       wounds: 0,
-      skillIds: [],
+      skillIds: [] as readonly string[],
       guard: false,
       dead: false,
       ...(card.innateProtection === undefined
@@ -236,9 +237,13 @@ export function startDungeonBattle(state: GameState): ApplyResult {
             innateProtection: card.innateProtection,
             protection: card.innateProtection,
           }),
-      bleed: [],
-      blight: [],
-    });
+      bleed: [] as readonly string[],
+      blight: [] as readonly string[],
+    };
+    const guarded = withLargeMonsterSpawnGuard(d, spawnedMonster, card);
+    if (guarded.status === "refused")
+      return refuse(`Big Troubles：${guarded.reason}（${card.name}）`);
+    entities.push(guarded.entity);
   }
   try {
     const battle = createBattleState(state.seed, {

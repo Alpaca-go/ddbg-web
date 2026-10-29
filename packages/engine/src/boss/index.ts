@@ -32,6 +32,7 @@ export {
   beastMonsterDamageBonusFromBossThreat,
   eldritchMonsterDamageBonusFromBossThreat,
   guardTurnsOnLargeMonsterSpawnFromBossThreat,
+  markTurnsOnBattleStartFromBossThreat,
   sanitariumHealLifeDeltaFromBossThreat,
   stressOnDungeonEntryPerHeroFromBossThreat,
   stressOnHeroProvisionUseFromBossThreat,
@@ -43,6 +44,8 @@ export {
 export {
   applyBossThreatBlackSheepBeforeHamletEvent,
   applyBossThreatCreepingSicknessEndOfHamletDay,
+  applyBossThreatMarkedForDeathOnBattleStart,
+  withLargeMonsterSpawnGuard,
   applyBossThreatStressOnDungeonEntry,
   applyBossThreatStressOnProvisionUse,
   completeCurioRoomWithoutCurioDraw,
