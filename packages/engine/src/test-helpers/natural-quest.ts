@@ -10,6 +10,7 @@ import { playHeroSkillTargets } from "../battle-hero-targets";
 import { moveHero } from "../battle-hero-movement";
 import type { PlayHeroSkillCommand } from "../battle";
 import type { PlayHeroSkillTargetsCommand } from "../battle-hero-targets";
+import { nextNaturalRoute } from "./natural-route";
 
 const equipped = [
   ["hero_skill:p001", "hero_skill:p004", "hero_skill:p016"],
@@ -340,15 +341,15 @@ export function naturalQuest(
     } else if (dungeonPhase() !== "ready") {
       throw new Error(`unexpected dungeon phase ${dungeonPhase()}`);
     }
-    const route = ["G", "D", "A", "B", "A", "D", "E", "D", "G", "H", "G", "F", "C"];
-    for (const to of route) {
+    for (let hops = 0; hops < state.dungeon!.layout.nodes.length ** 2; hops++) {
       if (options.preferWipeout && dungeonPhase() === "awaitingReplacement")
         return { initial, state, commands, events, stopReason: null };
       if (state.dungeon!.heroes.some((h) => h.dead)) throw new Error("hero died");
-      const visited = state.dungeon!.visited!.includes(to);
-      step({ type: visited ? "beginDungeonBacktrack" : "beginDungeonExploration" });
-      choose(to);
-      if (!visited) step({ type: "rollDungeonExploration" });
+      const route = nextNaturalRoute(state.dungeon!);
+      if (!route) break;
+      step({ type: route.backtrack ? "beginDungeonBacktrack" : "beginDungeonExploration" });
+      choose(route.to);
+      if (!route.backtrack) step({ type: "rollDungeonExploration" });
       settle();
       room();
       if (options.preferWipeout && dungeonPhase() === "awaitingReplacement")

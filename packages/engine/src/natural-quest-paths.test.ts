@@ -1,19 +1,21 @@
 import { expect, it } from "vitest";
 import { applyCommand } from "./command";
 import type { GameState } from "./command";
-import { naturalQuest } from "./test-helpers/natural-quest";
+import { naturalParty, naturalQuest } from "./test-helpers/natural-quest";
+import { createCoreDungeonQuest } from "./dungeon-quest-entry";
+import { nextNaturalRoute } from "./test-helpers/natural-route";
 import { coreQuestSources } from "./test-helpers/core-quest";
 import { allRuinsRoomCardIds } from "./dungeon-objective";
 
 it.each([
-  ["quest:p001", 1, ["B", "E", "G"], 15, ["victory"]],
-  ["quest:p002", 1, ["E"], 15, ["victory"]],
-  ["quest:p003", 3, ["B"], 5, ["retreat", "victory"]],
-  ["quest:p004", 1, ["G"], 10, ["victory"]],
-  ["quest:p005", 1, ["E"], 15, ["victory"]],
+  ["quest:p001", 1, ["B", "E", "G"], 15, ["victory"], false],
+  ["quest:p002", 1, ["E"], 15, ["victory"], false],
+  ["quest:p003", 3, ["B"], 20, ["victory"], true],
+  ["quest:p004", 1, ["G"], 10, ["victory"], false],
+  ["quest:p005", 1, ["E"], 15, ["victory"], false],
 ] as const)(
   "%s seed%i：真实起点→探索/战斗/休息/返回→离开摘要，完整池及命令回放",
-  (questId, seed, cleared, gold, outcomes) => {
+  (questId, seed, cleared, gold, outcomes, backtracked) => {
     const before = structuredClone(coreQuestSources),
       run = naturalQuest(seed, questId),
       d = run.state.dungeon!;
@@ -32,16 +34,13 @@ it.each([
     expect(
       run.events.flatMap((e) => (e.type === "battleFinished" && "outcome" in e ? [e.outcome] : [])),
     ).toEqual(outcomes);
-    if (questId !== "quest:p003" && questId !== "quest:p004")
-      expect(run.commands.some((c) => c.type === "beginDungeonBacktrack")).toBe(true);
+    expect(run.commands.some((c) => c.type === "beginDungeonBacktrack")).toBe(backtracked);
     if (questId === "quest:p004") {
       expect(d.setAsideRoomCardId).toBe("room:p007");
       expect(run.commands.some((c) => c.type === "resolveDungeonRoom")).toBe(true);
       expect(
         run.commands.filter(
-          (c) =>
-            c.type === "resolveChoice" &&
-            c.choiceId.startsWith("dungeon-objective-recover:"),
+          (c) => c.type === "resolveChoice" && c.choiceId.startsWith("dungeon-objective-recover:"),
         ).length,
       ).toBe(2);
     }
@@ -60,9 +59,19 @@ it.each([
     if (questId === "quest:p004") expect(allRuinsRoomCardIds(d)).toHaveLength(9);
     else expect([...(d.roomCards!.deck ?? []), ...(d.roomCards!.discard ?? [])]).toHaveLength(9);
     expect([...(d.curio!.deck ?? []), ...d.curio!.discard]).toHaveLength(24);
-    expect(run.commands.reduce<GameState>((s, c) => applyCommand(s, c).state, run.initial)).toEqual(
-      run.state,
-    );
+    expect(
+      run.commands.reduce<GameState>((s, c) => {
+        if (
+          c.type === "resolveChoice" &&
+          (c.choiceId.startsWith("dungeon-route:") || c.choiceId.startsWith("dungeon-backtrack:"))
+        ) {
+          expect(s.dungeon!.pending!.options.map((o) => o.id)).toContain(c.optionId);
+        }
+        const result = applyCommand(s, c);
+        expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+        return result.state;
+      }, run.initial),
+    ).toEqual(run.state);
     expect(coreQuestSources).toEqual(before);
     expect(applyCommand(run.state, { type: "summarizeDungeonQuest" }).state).toBe(run.state);
     if (questId === "quest:p002")
@@ -88,6 +97,8 @@ it.each([
       ).toEqual([
         "hero-0 Curio：金币 +10（印刷行序，R-069）",
         "hero-2 Curio：金币 +5（印刷行序，R-069）",
+        "hero-0 Curio：金币 +5（印刷行序，R-069）",
+        "hero-2 Curio：金币 +10（印刷行序，R-069）",
       ]);
     }
   },
@@ -112,17 +123,34 @@ it("Fundraiser seed1：真实命令导致英雄死亡，保留状态／金币，
     expect(applyCommand(run.state, command).state).toBe(run.state);
 }, 20000);
 it("Fundraiser从真实首个Empty提前离开：0巢穴不失败、不开放捐献、不给XP", () => {
-  const run = naturalQuest(3, "quest:p003");
-  let s = run.initial;
-  for (const c of run.commands) {
-    s = applyCommand(s, c).state;
-    if (
-      s.dungeon!.phase === "ready" &&
-      s.dungeon!.position === "G" &&
-      s.dungeon!.rooms.find((r) => r.id === "G")!.cleared
-    )
-      break;
-  }
+  // 选择首个实际相邻节点为 Empty 的种子，不固定旧图的 G，不注入房间或牌序。
+  const seed = Array.from({ length: 24 }, (_, i) => i + 1).find((candidate) => {
+    const d = createCoreDungeonQuest(
+      candidate,
+      "quest:p003",
+      "radiant",
+      naturalParty,
+      coreQuestSources,
+    ).dungeon!;
+    return d.rooms.some((r) => r.id === nextNaturalRoute(d)?.to && r.kind === "empty");
+  });
+  expect(seed).toBeDefined();
+  const run = naturalQuest(seed!, "quest:p003", true, coreQuestSources, 2, {
+    observe: (state) => {
+      if (
+        state.dungeon!.phase === "ready" &&
+        state.dungeon!.rooms.some(
+          (r) => r.id === state.dungeon!.position && r.kind === "empty" && r.cleared,
+        )
+      )
+        throw new Error("observed-empty");
+    },
+  });
+  expect(run.stopReason).toBe("observed-empty");
+  let s = run.state;
+  expect(
+    run.commands.reduce<GameState>((state, c) => applyCommand(state, c).state, run.initial),
+  ).toEqual(s);
   expect(s.dungeon!.rooms.some((r) => r.kind === "lair" && r.cleared)).toBe(false);
   s = applyCommand(s, { type: "leaveDungeon" }).state;
   s = applyCommand(s, {
