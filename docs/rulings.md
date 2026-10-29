@@ -1689,3 +1689,8 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **问题 / 来源**：Arbalest Rallying Flare I–III（`hero_skill:p166` 等）射程行后含 `{icon:d93aef1e33}`（红骷髅/金头盔斜线，词典 needs_review）。整卡 `verification.unverified`；其余六张 Arbalest I 级已核实并接线。
 - **处理 / 状态**：confirmed（R-103，2026-10-24）。Kyries 确认 `d93aef1e33`→target_hero_or_monster；射程旁 ×2 = 可选英雄或怪物目标。词典已确认，I–III 整卡核实并接线。
+
+### Q-114
+
+- **问题 / 来源**：C-019，Necromancer II `boss_ability:p005` 背面 Haunted Graveyard：准备首日英雄掷 d10，最低者首日去墓地守卫，可照常使用建筑效果。卡面、官方核心规则书与现有裁定未说明：(a) 最低点数并列时由玩家选一人还是所有并列者都守卫；(b) 墓地被看守人 / 事件封锁或当天已接待英雄时，守卫是否只完成守卫而不享服务，还是覆盖这些限制。
+- **处理 / 状态**：pending（2026-10-29）。已在聊天向 Kyries 提交两项具体选择，未获答复前不猜平手规则或封锁优先级。Haunted Graveyard 钩子保持 `stub`，II 不自动注册到正式迫近池；R-124 实际威胁映射与 Army of the Dead 可独立接线。

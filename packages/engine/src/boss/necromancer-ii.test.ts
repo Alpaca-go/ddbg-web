@@ -41,14 +41,22 @@ describe("C-019 · Necromancer II 显式战斗脚本", () => {
       printedInitiativeCards: 1,
       printedActionsPerRound: 1,
     });
-    for (const side of ["dungeon", "hamlet"] as const) {
-      const result = runBossHook(
-        necromancerIIBossScript,
-        side === "dungeon" ? "threatPassiveDungeon" : "threatPassiveHamlet",
-        { scriptId: NECROMANCER_II_SCRIPT_ID, side },
-      );
-      expect(result).toMatchObject({ status: "stub", hold: "C-019 / boss_ability:p005" });
-    }
+    expect(
+      runBossHook(necromancerIIBossScript, "threatPassiveDungeon", {
+        scriptId: NECROMANCER_II_SCRIPT_ID,
+        side: "dungeon",
+      }),
+    ).toMatchObject({
+      status: "ok",
+      effect: "firstBattleBoneCaptain",
+      monsterCardId: "monster_large:p001",
+    });
+    expect(
+      runBossHook(necromancerIIBossScript, "threatPassiveHamlet", {
+        scriptId: NECROMANCER_II_SCRIPT_ID,
+        side: "hamlet",
+      }),
+    ).toMatchObject({ status: "stub", hold: "C-019 / boss_ability:p005" });
     expect(
       runBossHook(necromancerIIBossScript, "summon", {
         scriptId: NECROMANCER_II_SCRIPT_ID,

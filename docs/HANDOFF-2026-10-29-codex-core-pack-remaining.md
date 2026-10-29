@@ -252,8 +252,9 @@
 
 - [ ] 总项未完成：II 正式迫近威胁 / 等级映射仍待接。
   - [x] 死灵法师 II 的 p090 数据、三招、Bone Soldier 召唤与死亡清场已接显式战斗场景；I / II 公开命令回归，见 `phase5-c019-necromancer-ii-combat-2026-10-29.md`。
-  - [ ] Army of the Dead / Haunted Graveyard 两项新被动仍明确 `stub`；不继承 I 被动，不自动注册到正式迫近池。
-  - [x] R-124：Kyries 批准先做死灵法师 II，II 仅按实际同级迫近威胁匹配；缺威胁 / 描述卡不一致 / 其它未实现 Boss 继续停点。严格匹配已接；两项被动完成前，正式升幕抽到 p002 仍停点。
+  - [x] Army of the Dead：地牢首场从真实牌池先生成唯一 Bone Captain，再填满四姿态；成功入场才消费标记，新任务重置，见 `phase5-c019-necromancer-ii-army-2026-10-29.md`。
+  - [ ] Haunted Graveyard：首日最低 d10 去墓地守卫；最低并列和墓地封锁 / 占用冲突记为 Q-114 待裁定，钩子仍 `stub`，不自动注册到正式迫近池。
+  - [x] R-124：Kyries 批准先做死灵法师 II，II 仅按实际同级迫近威胁匹配；缺威胁 / 描述卡不一致 / 其它未实现 Boss 继续停点。严格匹配已接；村庄被动完成前，正式升幕抽到 p002 仍停点。
 - **现状**：I 四脚本正式注册；死灵法师 II 仅显式注册可测，III 未接；尚不声明 II 战役闭环。
 - **验收**：注册 `boss:ruins:necromancer:2`（或 Kyries 点名身份）+ `faceTheThreatBossScriptByCampaignLevel[2]` 策略有裁定 + 威胁被动等级差按卡面  
 - **依赖/阻塞**：**须 Kyries 批** II 映射策略与切片身份  

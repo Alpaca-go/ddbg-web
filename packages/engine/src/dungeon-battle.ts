@@ -40,6 +40,7 @@ import {
 import { recordRuinsBossDefeatOnThreatCleared } from "./boss/establish-imminent-threat";
 import { resolveEncounterBossScriptId } from "./boss/encounter-rules";
 import { isBossQuestId } from "./boss/quest-bridge";
+import { firstBattleThreatEntry } from "./boss/necromancer-ii-army";
 
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
 export function startDungeonBattle(state: GameState): ApplyResult {
@@ -285,10 +286,12 @@ export function startDungeonBattle(state: GameState): ApplyResult {
           return refuse(`怪物完整效果尚未接入：${statuses.reason}，保留真实部署（R-048）`);
       }
     }
+    const firstBattle = firstBattleThreatEntry(d);
+    if (firstBattle.status === "refused") return refuse(firstBattle.reason);
     return {
       state: {
         ...state,
-        dungeon: { ...d, phase: "inBattle" },
+        dungeon: { ...firstBattle.dungeon, phase: "inBattle" },
         battle: {
           ...battle,
           rngCursor: d.cursor,

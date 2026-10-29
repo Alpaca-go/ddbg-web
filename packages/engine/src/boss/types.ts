@@ -16,6 +16,13 @@ export type BossBattleRules = {
 export type BossThreatPassiveDungeonOk =
   | {
       readonly status: "ok";
+      readonly effect: "firstBattleBoneCaptain";
+      readonly monsterCardId: "monster_large:p001";
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
       readonly effect: "afterBattleRemoveNonUnholyMonstersPermanently";
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];

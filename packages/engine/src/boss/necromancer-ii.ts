@@ -7,12 +7,13 @@ export const NECROMANCER_II_SCRIPT_ID = "boss:ruins:necromancer:2" as const;
 export const NECROMANCER_II_COMBAT_MONSTER_CARD_ID = "monster_medium:p090" as const;
 export const NECROMANCER_II_SUMMON_MONSTER_CARD_ID = "monster_medium:p001" as const;
 
-/** C-019 首切片：R38 战斗；p005 两项威胁仍显式停点，不自动注册到正式迫近池。 */
+/** C-019：战斗与 Army 已接；Haunted Graveyard 仍停点，不自动注册到正式迫近池。 */
 export const necromancerIIBossScript: BossScriptDefinition = {
   id: NECROMANCER_II_SCRIPT_ID,
   displayName: "Necromancer II",
   rules: DEFAULT_BOSS_BATTLE_RULES,
-  notes: "三招与 Bone Soldier 召唤 / 死亡清场可测；II 映射与两项威胁被动未接，不开放正式战役。",
+  notes:
+    "三招、Bone Soldier 召唤 / 死亡清场与 Army of the Dead 已接；Haunted Graveyard 未完成，正式池仍停点。",
   combatEntry: {
     descriptionAbilityCardId: "boss_ability:p002",
     combatAbilityCardId: "boss_ability:p005",
@@ -22,9 +23,11 @@ export const necromancerIIBossScript: BossScriptDefinition = {
   },
   hooks: {
     threatPassiveDungeon: () => ({
-      status: "stub",
-      message: "Army of the Dead：地牢首次战斗首位生成 Bone Captain，运行时未接（p005）",
-      hold: "C-019 / boss_ability:p005",
+      status: "ok",
+      effect: "firstBattleBoneCaptain",
+      monsterCardId: "monster_large:p001",
+      sourceAbilityCardId: "boss_ability:p005",
+      rulesRef: ["R11", "R16–17", "boss_ability:p005"],
     }),
     threatPassiveHamlet: () => ({
       status: "stub",
@@ -45,7 +48,7 @@ export const necromancerIIBossScript: BossScriptDefinition = {
   },
 };
 
-/** 仅显式战斗场景注册；两项被动与映射收齐后才加入 ensureCoreBossScriptsRegistered。 */
+/** 仅显式场景注册；Haunted Graveyard 收齐后才加入 ensureCoreBossScriptsRegistered。 */
 export function ensureNecromancerIIBossScriptRegistered(): void {
   if (!getBossScript(NECROMANCER_II_SCRIPT_ID)) registerBossScript(necromancerIIBossScript);
 }
