@@ -18,8 +18,8 @@ import { heroSkillSlotCount } from "./hero-loadout";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { scoutAheadPlanProblem } from "./hamlet-scout-ahead";
 import { expandRoomDistributionForEmbark } from "./room-distribution-expand";
-import { resolveFaceTheThreatEmbarkForChoose } from "./boss/face-the-threat-embark-runtime";
-import { isFaceTheThreatQuestId } from "./boss/quest-bridge";
+import { resolveFaceTheThreatEmbarkForChoose, shouldForceFaceTheThreatOfferAtNextQuest } from "./boss/face-the-threat-embark-runtime";
+import { FACE_THE_THREAT_QUEST_ID, isFaceTheThreatQuestId } from "./boss/quest-bridge";
 
 type Hero = DungeonState["heroes"][number];
 
@@ -221,6 +221,36 @@ export function offerNextQuest(state: GameState): ApplyResult {
     (discarded.includes(current) && currentQuest.level === campaignLevel)
   )
     return rejectBattleCommand(state, "上一任务弃置记录无效，未抽下一任务（R-037）");
+
+  if (shouldForceFaceTheThreatOfferAtNextQuest(state)) {
+    const faceQuest = basicQuests.find((q) => q.id === FACE_THE_THREAT_QUEST_ID)!;
+    const offers = [FACE_THE_THREAT_QUEST_ID] as const;
+    const pending = {
+      id: `hamlet-next-quest:${d.decision}`,
+      actorId: "party",
+      prompt: "当前幕普通任务已完成：出征 Face the Threat!（spec §14.1 / R30；不抽任务卡）",
+      options: [{ id: FACE_THE_THREAT_QUEST_ID, label: faceQuest.name }],
+    };
+    return {
+      state: {
+        ...state,
+        dungeon: {
+          ...d,
+          pending,
+          decision: d.decision + 1,
+          nextQuestOffers: offers,
+        },
+      },
+      events: [
+        {
+          type: "dungeonUpdated",
+          message: `下一任务候选项：${faceQuest.name}（Face the Threat；不消耗 RNG 洗牌）`,
+        },
+      ],
+      pendingChoice: pending,
+    };
+  }
+
   const remaining = questsForCampaignLevel(campaignLevel)
     .map((q) => q.id)
     .filter((id) => id !== current && !discarded.includes(id));

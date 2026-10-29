@@ -4,6 +4,7 @@ import { chooseNextQuest } from "../hamlet-embark";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
 import {
+  countCompletedRegularQuestsAtCampaignLevel,
   ensureNecromancerIBossScriptRegistered,
   ensureProphetIBossScriptRegistered,
   FACE_THE_THREAT_QUEST_ID,
@@ -12,6 +13,7 @@ import {
   PROPHET_I_SCRIPT_ID,
   readStoredFaceTheThreatEmbarkPlan,
   resolveFaceTheThreatEmbarkForChoose,
+  shouldForceFaceTheThreatOfferAtNextQuest,
 } from "./index";
 
 function ok(game: GameState, command: Command) {
@@ -77,25 +79,33 @@ function preparationReady(game: GameState): GameState {
   };
 }
 
-function hamletReadyForFaceEmbark(game: GameState): GameState {
-  const ready = preparationReady(game);
-  const d = ready.dungeon!;
-  const pending = {
-    id: `hamlet-next-quest:${d.decision}`,
-    actorId: "party",
-    prompt: "Face the Threat 测试",
-    options: [{ id: FACE_THE_THREAT_QUEST_ID, label: "Face the Threat!" }],
-  };
+function actEndTwoRegularQuestsFixture(): GameState {
+  const base = hamletJourney(40);
   return {
-    ...ready,
+    ...base,
     dungeon: {
-      ...d,
-      pending,
-      nextQuestOffers: [FACE_THE_THREAT_QUEST_ID],
+      ...base.dungeon!,
+      discardedQuests: ["quest:p001", "quest:p003"],
+      questSummary: {
+        ...base.dungeon!.questSummary!,
+        questId: "quest:p002",
+        name: "Wipe ‘Em Out I",
+        awarded: true,
+      },
       activeBossThreatScriptId: NECROMANCER_I_SCRIPT_ID,
-      campaignLevel: 1,
     },
   };
+}
+
+function hamletReadyForFaceEmbark(game: GameState = actEndTwoRegularQuestsFixture()): GameState {
+  const ready = preparationReady(game);
+  const offered = applyCommand(ready, { type: "offerNextQuest" });
+  expect(
+    offered.events.some((e) => e.type === "commandRefused"),
+    JSON.stringify(offered.events),
+  ).toBe(false);
+  expect(offered.state.dungeon!.nextQuestOffers).toEqual([FACE_THE_THREAT_QUEST_ID]);
+  return offered.state;
 }
 
 describe("Face the Threat 出征 applyCommand 最小运行时", () => {
@@ -104,8 +114,72 @@ describe("Face the Threat 出征 applyCommand 最小运行时", () => {
     ensureProphetIBossScriptRegistered();
   });
 
+  it("countCompletedRegularQuestsAtCampaignLevel：两趟普通任务计 2", () => {
+    expect(
+      countCompletedRegularQuestsAtCampaignLevel(
+        {
+          discardedQuests: ["quest:p001", "quest:p003"],
+          questSummary: {
+            questId: "quest:p002",
+            name: "Wipe ‘Em Out I",
+            clearedRoomIds: [],
+            awarded: true,
+            xpPerHero: 2,
+            stagecoachXp: 2,
+          },
+        },
+        1,
+      ),
+    ).toBe(2);
+  });
+
+  it("shouldForceFaceTheThreatOfferAtNextQuest：I 级两任务 + 激活威胁为 true", () => {
+    const base = hamletJourney(40);
+    const game: GameState = {
+      ...base,
+      dungeon: {
+        ...base.dungeon!,
+        discardedQuests: ["quest:p001", "quest:p003"],
+        questSummary: {
+          ...base.dungeon!.questSummary!,
+          questId: "quest:p002",
+          awarded: true,
+        },
+        activeBossThreatScriptId: NECROMANCER_I_SCRIPT_ID,
+      },
+    };
+    expect(shouldForceFaceTheThreatOfferAtNextQuest(game)).toBe(true);
+  });
+
+  it("offerNextQuest：I 级幕末两普通任务后仅提供 quest:p019（不洗牌）", () => {
+    const ready = preparationReady(actEndTwoRegularQuestsFixture());
+    expect(shouldForceFaceTheThreatOfferAtNextQuest(ready)).toBe(true);
+    const cursorBefore = ready.dungeon!.cursor;
+    const offered = applyCommand(ready, { type: "offerNextQuest" });
+    expect(offered.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(offered.state.dungeon!.nextQuestOffers).toEqual([FACE_THE_THREAT_QUEST_ID]);
+    expect(offered.state.dungeon!.cursor).toBe(cursorBefore);
+    expect(offered.events.at(-1)?.message).toMatch(/不消耗 RNG/);
+  });
+
+  it("offerNextQuest：仅完成一趟普通任务时仍抽卡", () => {
+    const base = hamletJourney(40);
+    const ready = preparationReady({
+      ...base,
+      dungeon: {
+        ...base.dungeon!,
+        activeBossThreatScriptId: NECROMANCER_I_SCRIPT_ID,
+      },
+    });
+    expect(shouldForceFaceTheThreatOfferAtNextQuest(ready)).toBe(false);
+    const offered = applyCommand(ready, { type: "offerNextQuest" });
+    expect(offered.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(offered.state.dungeon!.nextQuestOffers).toHaveLength(2);
+    expect(offered.state.dungeon!.nextQuestOffers).not.toContain(FACE_THE_THREAT_QUEST_ID);
+  });
+
   it("chooseNextQuest：钩子 ok 写入 faceTheThreatEmbarkPlan", () => {
-    const base = hamletReadyForFaceEmbark(hamletJourney());
+    const base = hamletReadyForFaceEmbark();
     const cursorBefore = base.dungeon!.cursor;
     const result = chooseNextQuest(
       base,
@@ -123,7 +197,7 @@ describe("Face the Threat 出征 applyCommand 最小运行时", () => {
   });
 
   it("chooseNextQuest：II 级无 faceTheThreatBossScriptByCampaignLevel 映射时拒绝且 cursor 不变", () => {
-    let base = hamletReadyForFaceEmbark(hamletJourney());
+    let base = hamletReadyForFaceEmbark();
     base = {
       ...base,
       dungeon: {
