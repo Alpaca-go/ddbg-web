@@ -40,6 +40,7 @@ export type {
   BossThreatPassiveHamletResult,
   FaceTheThreatQuestContext,
 } from "./types";
+export { isHauntedGraveyardGuard } from "./necromancer-ii-graveyard";
 export { readBossCombatEntry } from "./combat-entry";
 export {
   cardIdsPermanentlyRemovedAfterBattle,

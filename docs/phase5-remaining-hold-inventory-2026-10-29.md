@@ -94,7 +94,7 @@
 | --- | --- | --- |
 | **`bossSlotPlacement` RNG 写入** | 钩子 `ok` + `wiringHold`；**不**洗 room token 入 dungeon | **R-121** / 任务卡 |
 | **Face the Threat 边缘房选图** | 出征仍走普通 R-116 选图 + shuffle；非 p011/p012 边缘语义 | **R-121** / R-046 |
-| **`faceTheThreatBossScriptByCampaignLevel` II/III** | CL 2/3 无映射 → 钩子 / `chooseNextQuest` 拒绝 | 待确认 / II 脚本切片 |
+| **II/III 出征匹配** | C-019 / R-124：死灵法师 II 仅凭实际同级 p002 + 已注册脚本匹配，不设 II 缺省；其它 II/III、缺项与错配继续拒绝 | R-124；C-019 已实现，待有序合入 |
 | **II/III `offerNextQuest` 强制 p019** | 仅 I 级幕末强制；II/III 仍普通池 | 升幕 / 任务卡 |
 | **`summon` · Prophet** | 木长椅 / Rubble 已接；`summon(purpose:skill)` 仍 stub | R38–R39 / Prophet |
 | **`summon` · Hag / Siren 完整 AI** | Cauldron Empty 开战 / Into the Pot!+Full morph / High Tide Pelagic 最小已接；42418 / 魅惑 / 先攻洗入 / 锅完整生命周期仍 hold | R38–R39 / 各 Boss 切片 |
@@ -103,11 +103,11 @@
 | **Collector** Room 几何绑定 | 三箱布置与 C-016 挤占选择 / 连续续接已接；召唤使用显式固定姿态区域绑定，怪物满区时玩家选移，不能把召唤物改放别区。**Collector Room 生产几何 / 落区绑定仍 hold**，缺绑定拒绝 | R31、R39 / R-034/047/048/059；`phase5-collector-i-displacement-2026-10-29.md` |
 | **Fanatic** Pyre 自身技能 | 本体三招 AI 与效果已接（C-017）；R39 的本体死亡移除 Pyre 已接。**Pyre 的 Burn the Heretic（无 Acc、99 伤害）仍 hold**，不称整场闭环 | G-05 / R39 / `monster_large:p011`；`phase5-fanatic-i-pyre-defeat-2026-10-29.md` |
 | **Flesh** 战斗中途再召 Large | 仅遭遇开局 Guard；无 mid-battle spawn | R31 |
-| **Necromancer** 多级召唤 / 正式入场 | C-012 已补 I 级选招表、移动与第三招；II/III、Boss 房间及 R-121 生产入场仍未开 | `phase5-necromancer-i-skill-ai-2026-10-29.md` |
+| **Necromancer** 多级召唤 / 正式入场 | C-019 已接 II 级三招、Bone Soldier 召唤、死亡清场与两项威胁；III、Boss 房间及 R-121 生产入场仍未开 | `phase5-c019-necromancer-ii-graveyard-2026-10-29.md`；待有序合入 |
 | **`encounterRoundRetreatLimit` 生产路径** | C-018：已注册 Ruins I 四 Boss 共用的两条轮末路径已回归；未击败前禁止从探索离场。正式 Boss 房间入场和未映射脚本仍 hold | R30、R-044；`phase5-boss-retreat-boundary-2026-10-29.md` |
 | **Boss XP / `summarizeDungeonQuest`** | **已接**：`bossFlatQuestSummarySchema` + `bossQuestVictory`（p019 / 映射 Boss 遭遇）；p016–p018 击败判定仍 hold | **R-122**（部分） |
 | **Rising Threat SPECIAL** | 未接 | 任务卡 |
-| **Ruins II/III 脚本** | 描述卡 id 在 catalog；**无** `boss:*:2/3` 注册；升幕可抽到 hold 文案 | 核心包切片 / 待确认 |
+| **Ruins II/III 脚本** | C-019：死灵法师 II 战斗、Army / Haunted 与正式注册已实现；其它 II/III 仍未注册，升幕可抽到 hold 文案 | R-124 / R-125；C-019 已实现，待有序合入 |
 | **Weald/Warrens/Cove 非 I 迫近池** | 主路径仍 Ruins 四 Boss 池（`imminentThreatPoolForCampaign`） | 扩展 / 任务卡 |
 | **p016–p018 区域 Boss / 八槽 confirmed** | 数据有；引擎无 I 脚本 | **R-120** / 任务卡 |
 | **最暗 / Stygian 线 Boss** | 房间与任务 hold | Phase 6 / 范围外 |

@@ -21,9 +21,9 @@ describe("C-019 · Necromancer II 显式战斗脚本", () => {
     ensureCoreBossScriptsRegistered();
   });
 
-  it("两项威胁未接前，正式池不自动注册或激活 II；III 同样未开放", () => {
-    expect(getBossScript(NECROMANCER_II_SCRIPT_ID)).toBeUndefined();
-    expect(resolveScriptIdForDescriptionCard("boss_ability:p002")).toBeUndefined();
+  it("两项威胁完成后，正式注册死灵法师 II；III 与缺实际威胁仍停点", () => {
+    expect(getBossScript(NECROMANCER_II_SCRIPT_ID)).toBe(necromancerIIBossScript);
+    expect(resolveScriptIdForDescriptionCard("boss_ability:p002")).toBe(NECROMANCER_II_SCRIPT_ID);
     expect(resolveScriptIdForDescriptionCard("boss_ability:p003")).toBeUndefined();
     expect(runFaceTheThreatEmbarkForQuest({ questId: "quest:p019", campaignLevel: 2 }).status).toBe(
       "stub",
@@ -56,7 +56,11 @@ describe("C-019 · Necromancer II 显式战斗脚本", () => {
         scriptId: NECROMANCER_II_SCRIPT_ID,
         side: "hamlet",
       }),
-    ).toMatchObject({ status: "stub", hold: "C-019 / boss_ability:p005" });
+    ).toMatchObject({
+      status: "ok",
+      effect: "firstDayGraveyardGuard",
+      sourceAbilityCardId: "boss_ability:p005",
+    });
     expect(
       runBossHook(necromancerIIBossScript, "summon", {
         scriptId: NECROMANCER_II_SCRIPT_ID,

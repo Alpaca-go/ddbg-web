@@ -19,6 +19,7 @@ import { beginFeast } from "./hamlet-feast";
 import { applyLostShipment } from "./hamlet-lost-shipment";
 import { mergeHamletCaretakerBlockedWithBossThreat } from "./boss/threat-campaign";
 import { applyBossThreatBlackSheepBeforeHamletEvent } from "./boss/threat-passive-runtime";
+import { beginHauntedGraveyard } from "./boss/necromancer-ii-graveyard";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;
 export type HamletEventState = {
@@ -46,6 +47,10 @@ export type HamletEventState = {
   readonly eventRemainingHeroes?: readonly string[];
   /** Flesh I Creeping Sickness：建筑上未转移的伤口代币（Hamlet 阶段结束清空）。 */
   readonly buildingWounds?: Readonly<Partial<Record<string, number>>>;
+  readonly hauntedGraveyard?: {
+    readonly rolls: readonly { readonly heroId: string; readonly roll: number }[];
+    readonly guardHeroId?: string;
+  };
 };
 function shuffle(ids: readonly string[], seed: number, cursor: number) {
   const rng = createRng(seed),
@@ -406,7 +411,7 @@ export function rollHamletCaretaker(state: GameState): ApplyResult {
   const heroOrder = [...d.heroes]
     .sort((a, b) => stances.indexOf(a.stance!) - stances.indexOf(b.stance!))
     .map((hero) => hero.id);
-  return {
+  const result: ApplyResult = {
     state: {
       ...state,
       dungeon: {
@@ -428,4 +433,7 @@ export function rollHamletCaretaker(state: GameState): ApplyResult {
       },
     ],
   };
+  const haunted = beginHauntedGraveyard(result);
+  const refused = haunted.events.find((e) => e.type === "commandRefused");
+  return refused ? rejectBattleCommand(state, refused.message) : haunted;
 }

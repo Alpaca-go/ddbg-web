@@ -24,6 +24,10 @@ import { visitGuild, chooseGuild } from "./hamlet-guild";
 import { offerNextQuest, chooseNextQuest } from "./hamlet-embark";
 import { advanceCampaignLevel } from "./hamlet-campaign";
 import { setActiveBossThreat } from "./boss/set-active-boss-threat";
+import {
+  chooseHauntedGraveyard,
+  hauntedHamletCommandProblem,
+} from "./boss/necromancer-ii-graveyard";
 import type { SetActiveBossThreatCommand } from "./boss/set-active-boss-threat";
 import {
   drawImminentThreatAfterActAdvance,
@@ -371,6 +375,12 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (state.dungeon?.pending?.id.startsWith("hamlet-haunted:"))
+    return command.type === "resolveChoice"
+      ? chooseHauntedGraveyard(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先选择并列最低者中的墓地守卫");
+  const hauntedProblem = hauntedHamletCommandProblem(state, command);
+  if (hauntedProblem) return rejectBattleCommand(state, hauntedProblem);
   if (state.dungeon?.pending?.id.startsWith("hamlet-stances:"))
     return command.type === "resolveChoice"
       ? chooseHamletStances(state, command.choiceId, command.optionId)

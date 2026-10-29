@@ -300,3 +300,4 @@ export type {
   WarrensBossIdentity,
 } from "./boss/index";
 export { dungeonMonsterPoolThrough, combatCardIdForPoolInstance } from "./monster-pool-runtime";
+export { isHauntedGraveyardGuard } from "./boss/necromancer-ii-graveyard";

@@ -18,6 +18,10 @@ import {
 } from "./boss/threat-passive-runtime";
 import { grantGraveyardVirtue } from "./hamlet-graveyard";
 import {
+  hauntedHamletCommandProblem,
+  isHauntedGraveyardGuard,
+} from "./boss/necromancer-ii-graveyard";
+import {
   buildingLevelsProblem,
   recoveryServices,
   survivalistServices,
@@ -35,7 +39,8 @@ export type HamletActionCommand =
   | {
       readonly type: "visitHamletBuilding";
       readonly actorId: string;
-      readonly serviceId: RecoveryServiceId | SurvivalistServiceId | "graveyardVirtue";
+      readonly serviceId:
+        RecoveryServiceId | SurvivalistServiceId | "graveyardVirtue" | "graveyardGuard";
       readonly quirkIds: readonly string[];
     }
   | {
@@ -137,12 +142,29 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
     d.gold < 0
   )
     return rejectBattleCommand(state, "请按当天姿态顺序完成当前英雄的村庄行动（R33）");
-  let next = d,
+  const hauntedProblem = hauntedHamletCommandProblem(state, command);
+  if (hauntedProblem) return rejectBattleCommand(state, hauntedProblem);
+  let next: DungeonState,
     updated = hero,
     endDay = false,
     message: string;
   let pending: PendingChoice | undefined;
-  if (command.type === "useHamletSkill") {
+  if (command.type === "visitHamletBuilding" && command.serviceId === "graveyardGuard") {
+    if (
+      !isHauntedGraveyardGuard(d, hero.id) ||
+      !Array.isArray(command.quirkIds) ||
+      command.quirkIds.length
+    )
+      return rejectBattleCommand(state, "只有指定首日守卫可以选择仅完成墓地守卫（R-125）");
+    next = {
+      ...d,
+      hamlet: {
+        ...h,
+        visitedBuildings: [...new Set([...(h.visitedBuildings ?? []), "graveyard"])],
+      },
+    };
+    message = `${hero.id} 完成墓地守卫，不使用建筑服务（R-125）`;
+  } else if (command.type === "useHamletSkill") {
     if (command.skill === "experimentalVapours")
       return useExperimentalVapours(state, hero, command.targetId);
     if (command.skill === "darkRitual") return useDarkRitual(state, hero, command.targetId);
@@ -371,10 +393,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
       return rejectBattleCommand(state, refused?.message ?? "Creeping Sickness 日末结算失败");
     }
     next = creeping.state.dungeon!;
-    const events = [
-      { type: "dungeonUpdated" as const, message },
-      ...creeping.events,
-    ];
+    const events = [{ type: "dungeonUpdated" as const, message }, ...creeping.events];
     return { state: { ...state, dungeon: next }, events };
   }
   return { state: { ...state, dungeon: next }, events: [{ type: "dungeonUpdated", message }] };
@@ -430,6 +449,16 @@ export function hamletActionOptions(state: GameState) {
   const hero = currentHamletHero(state);
   if (!hero) return [];
   const options: { label: string; command: HamletActionCommand }[] = [];
+  if (isHauntedGraveyardGuard(state.dungeon!, hero.id))
+    options.push({
+      label: "墓地：仅完成守卫（不使用建筑服务）",
+      command: {
+        type: "visitHamletBuilding",
+        actorId: hero.id,
+        serviceId: "graveyardGuard",
+        quirkIds: [],
+      },
+    });
   for (const service of [
     ...recoveryServices(state.dungeon!),
     ...survivalistServices(state.dungeon!),

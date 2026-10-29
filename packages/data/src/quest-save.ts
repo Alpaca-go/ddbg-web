@@ -87,6 +87,7 @@ export const savedCommandSchema = z.union([
       "abbeyStress3",
       "abbeyStress6",
       "graveyardVirtue",
+      "graveyardGuard",
     ]),
     quirkIds: z.array(id).max(2),
   }),
