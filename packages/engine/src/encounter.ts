@@ -36,6 +36,7 @@ import {
   expandProphetIInitiativeDeckSides,
   prophetShouldEnterActedIdsAfterTurn,
 } from "./boss/prophet-i-combat-runtime";
+import { expandCollectorIInitiativeDeckSides } from "./boss/collector-i-combat-runtime";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -102,6 +103,7 @@ function startRound(seed: number, battle: BattleState, round: number, gameState?
     .map((entity) => entity.side);
   if (gameState) {
     deck = expandProphetIInitiativeDeckSides(deck, battle, gameState);
+    deck = expandCollectorIInitiativeDeckSides(deck, battle, gameState);
   }
   const rng = createRng(seed);
   for (let index = 0; index < battle.rngCursor; index += 1) rng.next();

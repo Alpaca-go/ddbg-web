@@ -1,6 +1,6 @@
 # Phase 5：Boss / 迫近威胁剩余 hold 清点（2026-10-29 · tip `3b50f2e`）
 
-> **基线**：`main` @ `d74a46c`（#359 Wilbur Mark）。  
+> **基线**：`main` @ `300ba3b`（#362 Prophet 先攻 3）。  
 > **范围**：对照引擎与单测**重新清点**已接 vs 仍 hold；**不**接线新运行时。  
 > **规则**：R-001；卡面 id R-048；R-121 / R-122 / Rising Threat 等只标归口。  
 > **旧文**：[`phase5-collector-hold-inventory-2026-10-29.md`](./phase5-collector-hold-inventory-2026-10-29.md)（#341）已过时，以本文为准。
@@ -79,7 +79,7 @@
 | --- | --- | --- |
 | **Fanatic I** | Pyre `startBattle` 远程姿态 + 区域；`sentenceRendered` 同区丢 Pyre / 否则移向英雄 | `fanatic-i-combat-runtime.ts`；`fanatic-i-combat-runtime.test.ts` |
 | **Flesh I** | One Body 四部位开战 + 共享 Life；回合初 morph | `flesh-i-combat-runtime.ts`、`battle.ts`；`flesh-i-combat-runtime.test.ts` |
-| **Collector I** | Collect All 回合开始替换技能；三 Collected + 固定姿态区域 | `collector-i-combat-runtime.ts`、`battle-monster-action.ts`；`collector-i-combat-runtime.test.ts` |
+| **Collector I** | Collect All 回合开始替换技能；三 Collected + 固定姿态区域；**先攻 4（单 Collector 开战补足 + Collect All 洗入）**；**最近区域挤占（英雄）** | `collector-i-combat-runtime.ts`、`encounter.ts`；`collector-i-combat-runtime.test.ts` |
 | **Prophet I** | Calamitous + Rubble + **第 2 行动默认选招** + **先攻 3 张** + 多行动 `actedIds` | `prophet-i-combat-runtime.ts`、`encounter.ts`；`prophet-i-combat-runtime.test.ts` |
 | **Necromancer I** | `summon` 声明 Bone Rabble（等级表语义；encounter 完整 AI 仍 hold） | `necromancer-i.ts`；`encounter-rules.test.ts` 等 |
 | **Swine Prince I** | Wilbur 开战 + Enraged + Wilbur Mark AI | `swine-prince-i-combat-runtime.ts`；`swine-prince-i-combat-runtime.test.ts` |
@@ -100,7 +100,7 @@
 | **`summon` · Hag / Siren 完整 AI** | Cauldron Empty 开战 / Into the Pot!+Full morph / High Tide Pelagic 最小已接；42418 / 魅惑 / 先攻洗入 / 锅完整生命周期仍 hold | R38–R39 / 各 Boss 切片 |
 | **`summon(purpose:skill)` · Swine / Fanatic / Collector / Flesh** | Swine **Wilbur 开战** + **Enraged** + **Wilbur Mark AI** 已接；Wilbur 非 Mark 召唤仍 stub | R38–R39 / Swine Prince |
 | **Prophet I** room 卡→战斗区域几何 / Rubble 同区多目标 / 多怪伴战先攻 | 第 2 行动 + 先攻 3 最小运行时已接（`expandProphetIInitiativeDeckSides` / `prophetShouldEnterActedIdsAfterTurn`） | R38–R39 / R-048 |
-| **Collector** 宝箱房 / 先攻 4 洗入 / 最近区域挤占 | Collect All 最小运行时后仍 hold（见 `collector-i.ts` notes） | R-034 / R38–R39 |
+| **Collector** 宝箱房 / 怪物挤占玩家选移 | Collect All + 先攻 4 + 英雄最近区域挤占已接（`expandCollectorIInitiativeDeckSides` / R39 洗入）；宝箱房布置仍 hold | R-034 / R38–R39 / R-048 |
 | **Fanatic** Pit Toss / 技能 AI / 先攻 4 张洗入 | Pyre + Sentence 已接；其余 stub | G-05 / R39 |
 | **Flesh** 战斗中途再召 Large | 仅遭遇开局 Guard；无 mid-battle spawn | R31 |
 | **Necromancer** 死亡清场 / 多级 Rabble 完整 encounter | helper + 最小 summon 声明 | encounter |

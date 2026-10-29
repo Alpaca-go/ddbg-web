@@ -10,15 +10,19 @@ import {
   COLLECTOR_I_COLLECTED_HIGHWAYMAN_CARD_ID,
   COLLECTOR_I_COLLECTED_MAN_AT_ARMS_CARD_ID,
   COLLECTOR_I_COLLECTED_VESTAL_CARD_ID,
+  COLLECTOR_I_COLLECT_ALL_INITIATIVE_SHUFFLE_COUNT,
   COLLECTOR_I_COMBAT_MONSTER_CARD_ID,
+  COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES,
   COLLECTOR_I_SCRIPT_ID,
   bossQuestScriptId,
   clearBossScriptsForTest,
   collectorCollectAllShouldReplaceSkill,
   ensureCollectorIBossScriptRegistered,
+  expandCollectorIInitiativeDeckSides,
   getBossScript,
   readCollectorICollectAllEnabled,
   readCollectorICollectAllPartPlan,
+  resolveCollectorCollectedAreaPlacement,
   runBossHook,
   FACE_THE_THREAT_QUEST_ID,
 } from "./index";
@@ -262,5 +266,116 @@ describe("Collector I Collect All 战斗运行时", () => {
       },
     };
     expect(collectorCollectAllShouldReplaceSkill(state, "collector")).toBe(false);
+  });
+});
+
+describe("Collector I · 先攻 4 与 Collect All 洗入", () => {
+  beforeEach(() => {
+    clearBossScriptsForTest();
+    ensureCollectorIBossScriptRegistered();
+    bossQuestScriptId[FACE_THE_THREAT_QUEST_ID] = COLLECTOR_I_SCRIPT_ID;
+  });
+
+  it("仅 Collector 在场时 startRound 补足 4 张 monster 侧（1 印刷 + R39×3）", () => {
+    const base = collectorBattle();
+    const sides = expandCollectorIInitiativeDeckSides(
+      base.battle!.entities.filter((entity) => !entity.dead).map((entity) => entity.side),
+      base.battle!,
+      base,
+    );
+    expect(sides.filter((side) => side === "monster")).toHaveLength(
+      COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES,
+    );
+    expect(COLLECTOR_I_COLLECT_ALL_INITIATIVE_SHUFFLE_COUNT).toBe(3);
+  });
+
+  it("startBattle 写入 4 张 monster 先攻", () => {
+    const started = applyCommand(collectorBattle(), { type: "startBattle" });
+    const deck = started.state.battle!.encounter!.deck;
+    expect(deck.filter((side) => side === "monster")).toHaveLength(
+      COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES,
+    );
+  });
+
+  it("Collect All 后当前牌堆补足至 4 张 monster 侧", () => {
+    let state = collectorBattle();
+    state = applyCommand(state, { type: "startBattle" }).state;
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        encounter: {
+          ...state.battle!.encounter!,
+          turn: { type: "monster", actorId: "collector" },
+          deck: ["hero", "hero"],
+        },
+      },
+    };
+    const before = state.battle!.encounter!.deck.filter((side) => side === "monster").length;
+    const result = applyCommand(state, { type: "prepareMonsterAction", actorId: "collector" });
+    const after = result.state.battle!.encounter!.deck.filter((side) => side === "monster").length;
+    expect(after).toBe(COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES);
+    expect(after).toBeGreaterThanOrEqual(before);
+  });
+});
+
+describe("Collector I · 最近区域挤占", () => {
+  beforeEach(() => {
+    clearBossScriptsForTest();
+    ensureCollectorIBossScriptRegistered();
+  });
+
+  it("姿态对应区域满员时把英雄挤到相邻区域并写入 Collected", () => {
+    const battle = createBattleState(1, {
+      entities: [
+        {
+          id: "h0",
+          side: "hero",
+          areaId: "a",
+          stance: "defensive",
+          hero: "CRUSADER",
+          skillIds: [],
+          wounds: 0,
+          stress: 0,
+          dodge: 0,
+          guard: false,
+          dead: false,
+          bleed: [],
+          blight: [],
+        },
+        {
+          id: "collector",
+          side: "monster",
+          hero: null,
+          monsterCardId: collectorCard.id,
+          life: collectorLife,
+          dodge: 0,
+          areaId: "a",
+          stance: "aggressive",
+          stanceSlots: 1,
+          shuffleResist: false,
+          wounds: 0,
+          skillIds: [],
+          guard: false,
+          dead: false,
+          bleed: [],
+          blight: [],
+        },
+      ],
+      monsters: [collectorCard as MonsterCardView],
+      areas: [
+        { id: "a", elevation: "normal", adjacent: ["b"], capacity: 2 },
+        { id: "b", elevation: "normal", adjacent: ["a"], capacity: 4 },
+      ],
+      light: 5,
+      skills: [],
+      heroStats: [],
+      lootPool: createLootState(),
+    }).battle!;
+    const placement = resolveCollectorCollectedAreaPlacement(battle, "a");
+    expect("status" in placement).toBe(false);
+    if ("status" in placement) return;
+    expect(placement.areaId).toBe("a");
+    expect(placement.battle.entities.find((entity) => entity.id === "h0")?.areaId).toBe("b");
   });
 });

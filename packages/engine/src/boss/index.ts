@@ -254,6 +254,8 @@ export {
   COLLECTOR_I_COLLECTED_MAN_AT_ARMS_CARD_ID,
   COLLECTOR_I_COLLECTED_VESTAL_CARD_ID,
   COLLECTOR_I_COLLECT_ALL_PART_ORDER,
+  COLLECTOR_I_COLLECT_ALL_INITIATIVE_SHUFFLE_COUNT,
+  COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES,
   collectorCollectedPartCardId,
   collectorCollectedPartStance,
   collectorIBossScript,
@@ -261,9 +263,12 @@ export {
 export {
   applyCollectorCollectAll,
   collectorCollectAllShouldReplaceSkill,
+  expandCollectorIInitiativeDeckSides,
   isCollectorCollectedMonsterCardId,
   readCollectorICollectAllEnabled,
   readCollectorICollectAllPartPlan,
+  resolveCollectorCollectedAreaPlacement,
+  shuffleCollectorCollectAllInitiativeIntoDeck,
 } from "./collector-i-combat-runtime";
 export {
   ensureFanaticIBossScriptRegistered,
