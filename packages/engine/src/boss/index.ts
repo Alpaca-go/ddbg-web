@@ -315,6 +315,7 @@ export {
   REGULAR_QUESTS_PER_ACT_BEFORE_FACE_THE_THREAT,
   requireFaceTheThreatEmbarkPlanForSandbox,
   resolveFaceTheThreatEmbarkForChoose,
+  resolveFaceTheThreatOfferAtNextQuest,
   shouldForceFaceTheThreatOfferAtNextQuest,
   storedFaceTheThreatEmbarkPlanFromHook,
 } from "./face-the-threat-embark-runtime";

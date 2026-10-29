@@ -20,7 +20,7 @@ import { scoutAheadPlanProblem } from "./hamlet-scout-ahead";
 import { expandRoomDistributionForEmbark } from "./room-distribution-expand";
 import {
   resolveFaceTheThreatEmbarkForChoose,
-  shouldForceFaceTheThreatOfferAtNextQuest,
+  resolveFaceTheThreatOfferAtNextQuest,
 } from "./boss/face-the-threat-embark-runtime";
 import { FACE_THE_THREAT_QUEST_ID, isFaceTheThreatQuestId } from "./boss/quest-bridge";
 
@@ -225,7 +225,9 @@ export function offerNextQuest(state: GameState): ApplyResult {
   )
     return rejectBattleCommand(state, "上一任务弃置记录无效，未抽下一任务（R-037）");
 
-  if (shouldForceFaceTheThreatOfferAtNextQuest(state)) {
+  const faceOffer = resolveFaceTheThreatOfferAtNextQuest(state);
+  if (faceOffer.kind === "refused") return faceOffer.result;
+  if (faceOffer.kind === "ok") {
     const faceQuest = basicQuests.find((q) => q.id === FACE_THE_THREAT_QUEST_ID)!;
     const offers = [FACE_THE_THREAT_QUEST_ID] as const;
     const pending = {

@@ -69,22 +69,27 @@ export function countCompletedRegularQuestsAtCampaignLevel(
 }
 
 /**
- * 正式 I 级战役：幕末两普通任务完成 + 仍有激活迫近威胁 → `offerNextQuest` 不洗牌，只给 p019。
- * II/III 映射 / 升幕完整流程仍 hold（不强制 offer）。
+ * R30 / R-126：幕末两普通任务后解析 p019。II 级沿 R-124 匹配实际威胁；
+ * 缺失或不匹配时返回拒绝，不回退普通抽卡。I 级保留既有行为，III 级仍 hold。
  */
-export function shouldForceFaceTheThreatOfferAtNextQuest(state: GameState): boolean {
+export function resolveFaceTheThreatOfferAtNextQuest(state: GameState): FaceTheThreatEmbarkResolve {
   const d = state.dungeon;
-  if (!d?.questSummary?.awarded || !d.activeBossThreatScriptId) return false;
+  if (!d?.questSummary?.awarded) return { kind: "notApplicable" };
   const campaignLevel = readCampaignLevel(d);
-  if (campaignLevel !== 1) return false;
+  if (campaignLevel !== 1 && campaignLevel !== 2) return { kind: "notApplicable" };
+  if (campaignLevel === 1 && !d.activeBossThreatScriptId) return { kind: "notApplicable" };
   if (
     countCompletedRegularQuestsAtCampaignLevel(d, campaignLevel) <
     REGULAR_QUESTS_PER_ACT_BEFORE_FACE_THE_THREAT
   ) {
-    return false;
+    return { kind: "notApplicable" };
   }
   const embark = resolveFaceTheThreatEmbarkForChoose(state, FACE_THE_THREAT_QUEST_ID);
-  return embark.kind === "ok";
+  return campaignLevel === 1 && embark.kind !== "ok" ? { kind: "notApplicable" } : embark;
+}
+
+export function shouldForceFaceTheThreatOfferAtNextQuest(state: GameState): boolean {
+  return resolveFaceTheThreatOfferAtNextQuest(state).kind === "ok";
 }
 
 /**
