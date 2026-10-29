@@ -101,4 +101,38 @@ describe("Collector I Boss 脚本", () => {
     });
     expect(count).toEqual({ status: "ok", value: 1 });
   });
+
+  it("summon(collectAllPart) 与 collectAll 钩子已声明（运行时见 collector-i-combat-runtime）", () => {
+    const script = getBossScript(COLLECTOR_I_SCRIPT_ID)!;
+    for (const part of ["manAtArms", "highwayman", "vestal"] as const) {
+      const plan = runBossHook(script, "summon", {
+        scriptId: COLLECTOR_I_SCRIPT_ID,
+        skillSlot: 0,
+        purpose: "collectAllPart",
+        collectedPart: part,
+      });
+      expect(plan.status).toBe("ok");
+      if (plan.status === "ok") {
+        expect(plan.value.miniaturePlacement).toBe("stanceArea");
+        expect(plan.value.fixedStance).toBe(
+          part === "manAtArms" ? "defensive" : part === "highwayman" ? "ranged" : "support",
+        );
+      }
+    }
+    const collectAll = runBossHook(script, "collectAll", {
+      scriptId: COLLECTOR_I_SCRIPT_ID,
+      monsterEntityId: "collector",
+      round: 1,
+    });
+    expect(collectAll).toMatchObject({
+      status: "ok",
+      effect: "summonThreeCollectedIfNoneInPlayAtTurnStart",
+    });
+    const skillSummon = runBossHook(script, "summon", {
+      scriptId: COLLECTOR_I_SCRIPT_ID,
+      skillSlot: 1,
+      purpose: "skill",
+    });
+    expect(skillSummon.status).toBe("stub");
+  });
 });

@@ -140,10 +140,16 @@ export type BossThreatPassiveHamletResult = BossThreatPassiveHamletOk | BossHook
 
 export type BossSummonPlacement = "targetArea" | "stanceArea";
 
-/** `battleStartPyre`：Fanatic 战开局 Pyre；`battleStartOneBodyPart`：Flesh 四部位之一；`skill`：技能召唤（默认）。 */
-export type BossSummonPurpose = "skill" | "battleStartPyre" | "battleStartOneBodyPart";
+/** `battleStartPyre`：Fanatic 战开局 Pyre；`battleStartOneBodyPart`：Flesh 四部位之一；`collectAllPart`：Collector Collect All 单卡；`skill`：技能召唤（默认）。 */
+export type BossSummonPurpose =
+  | "skill"
+  | "battleStartPyre"
+  | "battleStartOneBodyPart"
+  | "collectAllPart";
 
 export type FleshOneBodyPart = "head" | "bone" | "heart" | "butt";
+
+export type CollectorCollectedPart = "manAtArms" | "highwayman" | "vestal";
 
 export type BossSummonOk = BossHookOk<{
   readonly summonMonsterCardId: string;
@@ -151,6 +157,7 @@ export type BossSummonOk = BossHookOk<{
   /** R39 / R-034：Collector 等写明姿态时指定（Fanatic Pyre → ranged）。 */
   readonly fixedStance?: "aggressive" | "defensive" | "ranged" | "support";
   readonly oneBodyPart?: FleshOneBodyPart;
+  readonly collectedPart?: CollectorCollectedPart;
   readonly rulesRef: readonly string[];
 }>;
 
@@ -173,6 +180,15 @@ export type BossOneBodyMorphOk = {
 };
 
 export type BossOneBodyMorphResult = BossOneBodyMorphOk | BossHookStubResult;
+
+export type BossCollectAllOk = {
+  readonly status: "ok";
+  readonly effect: "summonThreeCollectedIfNoneInPlayAtTurnStart";
+  readonly sourceAbilityCardId: string;
+  readonly rulesRef: readonly string[];
+};
+
+export type BossCollectAllResult = BossCollectAllOk | BossHookStubResult;
 
 export type BossCombatEntryRefs = {
   readonly descriptionAbilityCardId: string;
@@ -214,6 +230,8 @@ export type BossScriptHooks = {
   >;
   /** The Flesh · One Body：每轮开始部位 morph（随机表 hold 时运行时拒绝）。 */
   readonly oneBodyMorph?: BossHookHandler<BossOneBodyMorphContext, BossOneBodyMorphResult>;
+  /** Collector · Collect All：回合开始无 Collected 时替代选招（spec §14.5 R39）。 */
+  readonly collectAll?: BossHookHandler<BossCollectAllContext, BossCollectAllResult>;
 };
 
 export type BossScriptDefinition = {
@@ -300,6 +318,13 @@ export type BossSummonContext = {
   readonly skillSlot: number;
   readonly purpose?: BossSummonPurpose;
   readonly oneBodyPart?: FleshOneBodyPart;
+  readonly collectedPart?: CollectorCollectedPart;
+};
+
+export type BossCollectAllContext = {
+  readonly scriptId: BossScriptId;
+  readonly monsterEntityId: string;
+  readonly round: number;
 };
 
 export type BossOneBodyMorphContext = {

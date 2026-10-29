@@ -6,6 +6,10 @@ import {
   applyFanaticSentenceRendered,
   fanaticSentenceRenderedShouldReplaceSkill,
 } from "./boss/fanatic-i-combat-runtime";
+import {
+  applyCollectorCollectAll,
+  collectorCollectAllShouldReplaceSkill,
+} from "./boss/collector-i-combat-runtime";
 import { readMonsterSelfStatuses } from "./monster-self-status";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import type { SkillStance } from "./hero-skill";
@@ -65,6 +69,9 @@ export function prepareMonsterAction(
   if (occupied.length !== actor.stanceSlots)
     return rejectBattleCommand(state, "怪物姿态占格超出轨道（R17）");
   if (isInvokingMonster(battle, actor.id)) return moveInvokingMonster(state, actor.id);
+  if (collectorCollectAllShouldReplaceSkill(state, actor.id)) {
+    return applyCollectorCollectAll(state, actor.id);
+  }
   if (fanaticSentenceRenderedShouldReplaceSkill(state, actor.id)) {
     return applyFanaticSentenceRendered(state, actor.id);
   }
