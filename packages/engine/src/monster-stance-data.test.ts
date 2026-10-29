@@ -15,6 +15,8 @@ const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 // docs/monster-stance-review-2026-10-09.md §3–4、§7；R-015、R-048。
 // Bone Spearman II 单卡批准：R-082 / Q-85。
 const approved = [
+  // C-012：当前版 Necromancer I p089；四姿态同一完整 d10 表。
+  { id: "monster_medium:p089", slots: Array(4).fill([1, 1, 1, 2, 2, 2, 3, 3, 3, 3]) },
   {
     id: "monster_medium:p050",
     slots: [

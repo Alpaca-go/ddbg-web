@@ -232,7 +232,8 @@ function resolveMonsterSkillInternal(
         segment.type === "icon" &&
         segment.icon.key === "damage" &&
         ["confirmed", "confirmed_rulebook"].includes(segment.icon.naming),
-    )
+    ) &&
+    !(attack.necromancerSummon && skillSlot === 3)
   ) {
     return refused("当前怪物攻击需要已命名的 damage，支援与纯状态技能尚未接入（R-048）");
   }

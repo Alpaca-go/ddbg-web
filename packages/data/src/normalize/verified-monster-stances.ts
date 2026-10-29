@@ -252,6 +252,23 @@ export const verifiedMonsterStances = z.array(entrySchema).parse([
       },
     ],
   },
+  // C-012：当前版 FRONT p089，四姿态共用完整 d10 表。
+  {
+    id: "monster_medium:p089",
+    name: "Necromancer",
+    level: 1,
+    pages: [89],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 3, skill: 1 },
+          { min: 4, max: 6, skill: 2 },
+          { min: 7, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
 ]);
 
 /** 仅生成管线加载获批映射；结构验证不替代人工批准。 */

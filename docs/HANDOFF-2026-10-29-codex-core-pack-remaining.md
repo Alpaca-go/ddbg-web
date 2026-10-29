@@ -169,11 +169,11 @@
 
 #### C-011 · Necromancer I：死亡清场 + 完整召唤 / encounter AI
 
-- [ ] 完整项仍未收口；本次第一刀见下列子项。
+- [x] I 级死亡清场、三招召唤及自动 AI 已接；正式 Boss 房间入场仍待几何 / R-121。
   - [x] R38 死亡清场接入统一死亡收尾，攻击 / Blight 均清除伴战怪物并结束战斗。
   - [x] 前两招通过 `playMonsterSkill` → 自身 Push 续接 → `summon(purpose:skill)`：Target Area、首个空姿态、满轨无效、满区待选挤占、当前堆先攻与当轮行动。
-  - [ ] 自动姿态选招、第三招 Six Feet Under 及完整 encounter AI 留 C-012；不因本刀勾选整项。证据与限制见 `phase5-necromancer-i-combat-runtime-2026-10-29.md`。
-- **现状**：死亡清场与前两招已选技能召唤可测；完整自动 AI 仍 hold。
+  - [x] C-012 补齐 Speed 3、四姿态 d10 选招与 Six Feet Under；三招均有选招→目标→移动→结算→召唤公开命令回归。见 `phase5-necromancer-i-skill-ai-2026-10-29.md`。
+- **现状**：I 级三招战斗逻辑可测；不声明从正式出征走完 Boss，几何 / R-121 保持原 hold。
 - **验收**：按卡面/R38 死亡清场写入战斗状态；召唤进生产 encounter 路径；单测覆盖  
 - **依赖/阻塞**：encounter 主路径钩子  
 - **归口**：核心包  
@@ -181,8 +181,8 @@
 
 #### C-012 · Necromancer I：卡面技能 AI / `summon(purpose:skill)` 补全
 
-- [ ]  
-- **现状**：框架级 summon 声明有；技能态完整 AI 仍 hold（对照其它 Ruins Boss）  
+- [x] I 级三招最小 AI 与技能召唤已接。
+- **现状**：印刷 p089 的 Speed 3、四姿态完整 d10 表已接数据生成；Six Feet Under 保留 Acc 10、无 Crit / 无伤害，使用已有自身 Push / 目标压力原语，命中后在目标区域召唤一次。缺字段和未确认效果仍拒绝，II/III 不从 I 推断。见 `phase5-necromancer-i-skill-ai-2026-10-29.md`。
 - **验收**：印刷技能表最小可测运行时 + 测试；不发明未核实数值  
 - **依赖/阻塞**：C-011 或可并行若切口干净  
 - **归口**：核心包  

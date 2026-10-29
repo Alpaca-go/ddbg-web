@@ -353,15 +353,32 @@ describe("C-011 · Necromancer I（R38、R-034）", () => {
     },
   );
 
-  it("自动选招与第三招仍明确拒绝，留给 C-012", () => {
-    const initial = setup();
-    for (const command of [
-      { type: "prepareMonsterAction", actorId: "necro" },
-      { type: "playMonsterSkill", actorId: "necro", targetId: "h0", skillSlot: 3 },
-    ] as const) {
-      const result = applyCommand(initial, command);
-      expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
-      expect(result.state).toBe(initial);
-    }
+  it("未确认的第三招效果仍整次拒绝", () => {
+    const base = setup();
+    const state = {
+      ...base,
+      battle: {
+        ...base.battle!,
+        entities: base.battle!.entities.map((e) => (e.id === "necro" ? { ...e, areaId: "c" } : e)),
+        monsters: base.battle!.monsters!.map((c) =>
+          c.id === necromancer.id
+            ? {
+                ...c,
+                skills: c.skills.map((s) =>
+                  s.slot === 3 ? { ...s, effect_lines: [...s.effect_lines, []] } : s,
+                ),
+              }
+            : c,
+        ),
+      },
+    };
+    const result = applyCommand(state, {
+      type: "playMonsterSkill",
+      actorId: "necro",
+      targetId: "h0",
+      skillSlot: 3,
+    });
+    expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
+    expect(result.state).toBe(state);
   });
 });
