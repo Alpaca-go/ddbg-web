@@ -15,7 +15,7 @@
 
 各 Ruins / Weald / Warrens / Cove I 脚本 `hooks` 改为引用上述默认实现；**per-boss override** 仍可在单脚本上替换同名钩子（fixture 测试脚本保留独立 stub）。
 
-## 2. Face the Threat 状态语义（本刀 **不** applyCommand）
+## 2. Face the Threat 状态语义（出征 **已** 接 applyCommand 最小路径）
 
 ### 2.1 输入
 
@@ -31,11 +31,12 @@
 ### 2.3 输出 `ok` 时携带
 
 - `resolvedScriptId`、`combatEntry`（`readBossCombatEntry`）、`rulesRef`。
-- `wiringHold` = `FACE_EMBARK_WIRING_HOLD`：地牢出征 / 边缘房选图 / quest-wire **未接**；Boss XP 仍 **R-122** hold。
+- `wiringHold` = `FACE_EMBARK_WIRING_HOLD`：边缘房 / R-121 洗牌 **未接**；Boss XP 仍 **R-122** hold。
+- **`chooseNextQuest` 成功** 后 additionally 写入 `dungeon.faceTheThreatEmbarkPlan`（见 [phase5-face-the-threat-embark-runtime-2026-10-29.md](./phase5-face-the-threat-embark-runtime-2026-10-29.md)）。
 
 ### 2.4 仍 hold（不发明）
 
-- 边缘房板块选择、room token 洗混、Rest 12 点进地牢命令。
+- 边缘房板块选择、room token 洗混（R-121 算法写入）、Rest 12 点以外的 Boss 布置命令。
 - 非 p019 各区域 Face the Threat 任务卡与 Weald/Warrens/Cove 迫近池（见 [phase5-collector-hold-inventory-2026-10-29.md](./phase5-collector-hold-inventory-2026-10-29.md) §8）。
 
 ## 3. Boss 位 `bossSlotPlacement`
@@ -79,6 +80,7 @@ pnpm exec vitest run \
 
 ## 6. 下一刀（未做）
 
-- quest-wire：`applyCommand` 出征 + 边缘房 + R-121 洗牌写入。
+- R-121 / 边缘房：`bossSlotPlacement` RNG 写入 dungeon。
 - `faceTheThreatBossScriptByCampaignLevel` II/III 与升幕描述卡等级对齐。
 - Collector hold 文档 §8 其余战斗 / 地牢威胁主路径。
+- 幕末 `offerNextQuest` 强制 p019（不抽卡）。

@@ -18,6 +18,8 @@ import { heroSkillSlotCount } from "./hero-loadout";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { scoutAheadPlanProblem } from "./hamlet-scout-ahead";
 import { expandRoomDistributionForEmbark } from "./room-distribution-expand";
+import { resolveFaceTheThreatEmbarkForChoose } from "./boss/face-the-threat-embark-runtime";
+import { isFaceTheThreatQuestId } from "./boss/quest-bridge";
 
 type Hero = DungeonState["heroes"][number];
 
@@ -284,7 +286,12 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
   const quest = basicQuests.find((q) => q.id === optionId);
   const campaignLevel = readCampaignLevel(d);
   if (!quest) return rejectBattleCommand(state, "未知任务，未出征");
-  if (quest.level !== campaignLevel)
+  const faceEmbark = resolveFaceTheThreatEmbarkForChoose(state, optionId);
+  if (faceEmbark.kind === "refused") return faceEmbark.result;
+  if (
+    !isFaceTheThreatQuestId(quest.id) &&
+    quest.level !== campaignLevel
+  )
     return rejectBattleCommand(state, "任务等级与战役等级不符，未出征（R35 / R-037）");
   if (d.trinkets!.level !== campaignLevel)
     return rejectBattleCommand(state, "地牢饰品等级须等于战役等级，未出征（R35）");
@@ -395,15 +402,20 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
       deck: [...d.hamlet!.deck],
       permanentlyRemoved: [...d.hamlet!.permanentlyRemoved],
     },
+    ...(faceEmbark.kind === "ok" ? { faceTheThreatEmbarkPlan: faceEmbark.plan } : {}),
   } satisfies DungeonState;
   const lightNote = d.nextQuestStartingLight === 4 ? "；Unsettling Darkness起始光照4" : "";
   const merchantNote = d.nextQuestProvisionFaceChoice ? "；Traveling Merchants待改骰" : "";
+  const faceNote =
+    faceEmbark.kind === "ok"
+      ? `；Face the Threat→${faceEmbark.plan.resolvedScriptId}（${faceEmbark.plan.combatEntry.combatMonsterCardId}；layout hold）`
+      : "";
   return {
     state: { ...state, dungeon: next },
     events: [
       {
         type: "dungeonUpdated",
-        message: `出征 ${quest.name}：临时技能已装备，游商陈列已洗回，等待开局补给（R12/R33/R34）；未选/已完成任务永久弃置${lightNote}${merchantNote}`,
+        message: `出征 ${quest.name}：临时技能已装备，游商陈列已洗回，等待开局补给（R12/R33/R34）；未选/已完成任务永久弃置${lightNote}${merchantNote}${faceNote}`,
       },
     ],
   };
