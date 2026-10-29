@@ -173,6 +173,7 @@ export {
   SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
   SWINE_PRINCE_I_ENRAGED_DESTRUCTION_SKILL_SLOT,
   SWINE_PRINCE_I_SCRIPT_ID,
+  SWINE_PRINCE_I_WILBUR_MARK_SKILL_SLOT,
   SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
   swinePrinceIBossScript,
   swinePrinceIWilburBattleStartStance,
@@ -184,6 +185,9 @@ export {
   readSwinePrinceIEnragedDestructionEnabled,
   readSwinePrinceIEnragedDestructionSkillSlot,
   readSwinePrinceIWilburBattleStartPlan,
+  readSwinePrinceIWilburMarkEnabled,
+  readSwinePrinceIWilburMarkSkillSlot,
+  swinePrinceIWilburMarkShouldForceSkill,
 } from "./swine-prince-i-combat-runtime";
 export {
   ensureSirenIBossScriptRegistered,

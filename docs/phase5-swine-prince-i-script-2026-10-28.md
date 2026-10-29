@@ -10,6 +10,7 @@
 | 地牢侧威胁 **Uneasy Times I**：「Beasts deal +2 [damage].」 | `boss_ability:warrens:swine_prince:p002` 威胁背面（Boss Abilities BACK p10） |
 | 村庄侧威胁 **Bestial Rage**：「The Survivalist is blocked.」 | 同上卡背面 |
 | Boss Abilities 战斗面：ACTIONS / Round **2**；Enraged Destruction（Wilbur 受伤时 Prince 反击） | Boss Abilities FRONT p10 |
+| Wilbur 回合（Prince 存活）：强制 **End This One** Mark 技能（`wilburMark` / slot 常量） | Boss Abilities FRONT p10 + `monster_medium:warrens:wilbur:p001` medium p20（slot 待 extract 对齐） |
 | 战斗卡 **Swine Prince I**（Beast · Large · 84 Life） | `monster_large:warrens:swine_prince:p001`（large PDF p5） |
 | Boss Description I（风味） | `boss_ability:warrens:swine_prince:p001`（Boss Abilities FRONT p7） |
 | 伴战 **Wilbur I**（不进 `combatEntry`） | `monster_medium:warrens:wilbur:p001`（medium PDF p20） |
@@ -29,7 +30,7 @@
 | --- | --- |
 | Warrens Boss **extract JSON** 与占位 id 对齐 PDF 页序 | 当前 id 按 `boss_ability:warrens:swine_prince:p00x` / `monster_*:warrens:*` 约定 |
 | Beast +2 伤害、生存专家封锁 **写入** encounter / hamlet-actions | **已接**（`battle-monster*` / 村庄封锁既有路径） |
-| Wilbur 布置、Mark 完整 AI | Wilbur **开战伴战** + **Enraged Destruction** 最小运行时已接（`swine-prince-i-combat-runtime`）；Mark AI / Wilbur 先攻洗入 / Enraged **slot** Warrens extract 对齐仍 hold |
+| Wilbur 布置、Mark 完整 AI | Wilbur **开战伴战** + **Enraged Destruction** + **Wilbur Mark 最小 AI** 已接（`swine-prince-i-combat-runtime` / `wilburMark` 钩子）；Wilbur 先攻洗入 / End These Two / Mark slot Warrens extract 对齐仍 hold |
 | Warrens 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
 | quest / Face the Threat → Swine Prince | `defaultFaceTheThreatEmbarkHook` **ok** |
 | **R-121** Boss 位 | `defaultBossSlotPlacementHook` 校验 **ok**；洗牌写入 hold |

@@ -234,6 +234,22 @@ export type BossEnragedDestructionContext = {
   readonly scriptId: BossScriptId;
 };
 
+export type BossWilburMarkOk = {
+  readonly status: "ok";
+  /** Prince 存活时 Wilbur 回合强制 End This One（Mark）；Prince 倒下后走卡面选招（Squeal 等待确认）。 */
+  readonly effect: "forceMarkSkillWhilePrinceAlive";
+  /** Wilbur 战斗卡 slot；Warrens extract 入库前由常量 + 测试夹具对齐。 */
+  readonly skillSlot: number;
+  readonly sourceAbilityCardId: string;
+  readonly rulesRef: readonly string[];
+};
+
+export type BossWilburMarkResult = BossWilburMarkOk | BossHookStubResult;
+
+export type BossWilburMarkContext = {
+  readonly scriptId: BossScriptId;
+};
+
 export type BossCombatEntryRefs = {
   readonly descriptionAbilityCardId: string;
   readonly combatAbilityCardId: string;
@@ -291,6 +307,8 @@ export type BossScriptHooks = {
     BossEnragedDestructionContext,
     BossEnragedDestructionResult
   >;
+  /** Swine Prince · Wilbur Mark：Prince 存活时 Wilbur 回合强制 Mark 技能（Boss Abilities p10 / medium p20）。 */
+  readonly wilburMark?: BossHookHandler<BossWilburMarkContext, BossWilburMarkResult>;
 };
 
 export type BossScriptDefinition = {

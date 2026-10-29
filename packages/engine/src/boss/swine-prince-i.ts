@@ -7,6 +7,7 @@ import type {
   BossSummonOk,
   BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
+  BossWilburMarkOk,
 } from "./types";
 
 /** 引擎脚本 id；与印刷卡 id 分离。 */
@@ -42,6 +43,12 @@ export const SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID = "monster_medium:warrens:wil
  */
 export const SWINE_PRINCE_I_ENRAGED_DESTRUCTION_SKILL_SLOT = 3 as const;
 
+/**
+ * Wilbur I · End This One（Mark）技能 slot。
+ * Warrens `monster_medium` extract / PDF p20 页序待 Kyries 核实前，运行时与单测均用本常量。
+ */
+export const SWINE_PRINCE_I_WILBUR_MARK_SKILL_SLOT = 1 as const;
+
 /** 开战伴战姿态（Small · 1 格）；待 Kyries 对照 Boss Abilities p10 / medium p20。 */
 export function swinePrinceIWilburBattleStartStance(): "support" {
   return "support";
@@ -72,12 +79,20 @@ const enragedDestructionHook = (): BossEnragedDestructionOk => ({
   rulesRef: ["R39", "spec:§14.5", SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID],
 });
 
+const wilburMarkHook = (): BossWilburMarkOk => ({
+  status: "ok",
+  effect: "forceMarkSkillWhilePrinceAlive",
+  skillSlot: SWINE_PRINCE_I_WILBUR_MARK_SKILL_SLOT,
+  sourceAbilityCardId: SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID,
+  rulesRef: ["R39", "spec:§14.5", SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID, SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID],
+});
+
 export const swinePrinceIBossScript: BossScriptDefinition = {
   id: SWINE_PRINCE_I_SCRIPT_ID,
   displayName: "Swine Prince I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38：先攻 2、ACTIONS / Round: 2；Wilbur 开战伴战 + Enraged Destruction 最小运行时已接；Mark AI / Wilbur 先攻洗入仍 hold。",
+    "R38：先攻 2、ACTIONS / Round: 2；Wilbur 开战伴战 + Enraged + Wilbur Mark 最小运行时已接；Wilbur 先攻洗入 / End These Two 仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID,
@@ -105,11 +120,12 @@ export const swinePrinceIBossScript: BossScriptDefinition = {
       }
       return {
         status: "stub",
-        message: "Swine Prince I：Wilbur 技能 Mark 未接",
-        hold: "R38–R39 / Wilbur AI",
+        message: "Swine Prince I：Wilbur 非 Mark 技能召唤未接",
+        hold: "R38–R39 / Wilbur 其他技能",
       };
     },
     enragedDestruction: enragedDestructionHook,
+    wilburMark: wilburMarkHook,
   },
 };
 

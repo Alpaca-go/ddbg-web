@@ -13,6 +13,7 @@ import type {
   BossCollectAllContext,
   BossCalamitousPrognosticationContext,
   BossEnragedDestructionContext,
+  BossWilburMarkContext,
   BossThreatPassiveContext,
 } from "./types";
 
@@ -29,6 +30,7 @@ type HookContextMap = {
   calamitousPrognostication: BossCalamitousPrognosticationContext;
   rubbleOfRuin: BossCalamitousPrognosticationContext;
   enragedDestruction: BossEnragedDestructionContext;
+  wilburMark: BossWilburMarkContext;
 };
 
 export type RunBossHookResult<N extends BossHookName> =

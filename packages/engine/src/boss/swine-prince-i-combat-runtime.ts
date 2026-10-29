@@ -11,6 +11,7 @@ import {
   SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID,
   SWINE_PRINCE_I_ENRAGED_DESTRUCTION_SKILL_SLOT,
   SWINE_PRINCE_I_SCRIPT_ID,
+  SWINE_PRINCE_I_WILBUR_MARK_SKILL_SLOT,
   SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
   swinePrinceIWilburBattleStartStance,
 } from "./swine-prince-i";
@@ -47,6 +48,47 @@ function wilburEntity(battle: BattleState): BattleEntity | undefined {
   return livingMonsters(battle).find(
     (entity) => entity.monsterCardId === SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
   );
+}
+
+export function readSwinePrinceIWilburMarkEnabled(script: BossScriptDefinition): boolean {
+  if (script.id !== SWINE_PRINCE_I_SCRIPT_ID) return false;
+  const result = runBossHook(script, "wilburMark", { scriptId: script.id });
+  return (
+    result.status === "ok" &&
+    result.effect === "forceMarkSkillWhilePrinceAlive" &&
+    result.skillSlot === SWINE_PRINCE_I_WILBUR_MARK_SKILL_SLOT
+  );
+}
+
+export function readSwinePrinceIWilburMarkSkillSlot(
+  script: BossScriptDefinition,
+): number | null {
+  if (!readSwinePrinceIWilburMarkEnabled(script)) return null;
+  const result = runBossHook(script, "wilburMark", { scriptId: script.id });
+  if (result.status !== "ok") return null;
+  return result.skillSlot;
+}
+
+/** Prince 仍在场且 Wilbur 轮到行动 → 强制 Mark 技能 slot，不走姿态骰表。 */
+export function swinePrinceIWilburMarkShouldForceSkill(
+  state: GameState,
+  actorId: string,
+): boolean {
+  const battle = state.battle;
+  if (!battle?.encounter || battle.monsterAction) return false;
+  const turn = battle.encounter.turn;
+  if (turn.type !== "monster" || turn.actorId !== actorId) return false;
+
+  const scriptId = resolveEncounterBossScriptId(state);
+  const script = scriptId ? getBossScript(scriptId) : undefined;
+  if (!script || !readSwinePrinceIWilburMarkEnabled(script)) return false;
+
+  const actor = battle.entities.find((entity) => entity.id === actorId);
+  if (!actor || actor.dead || actor.monsterCardId !== SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID) {
+    return false;
+  }
+  const prince = princeEntity(battle);
+  return Boolean(prince);
 }
 
 function readWilburCard(battle: BattleState): MonsterCardView | null {
