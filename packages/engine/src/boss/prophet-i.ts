@@ -39,16 +39,7 @@ export const PROPHET_ROOM_CARD_ID = "room:p011" as const;
  * `room:p011` 上 `{icon:096ea91bb9}` 标记的印刷数字/范围（顺序同 normalized `printedLines`）。
  * 区域与标记几何对应仍 hold（R-048）；运行时依赖 `prophetRoomD10AreaTable` 绑定。
  */
-export const PROPHET_ROOM_D10_MARKERS = [
-  "4",
-  "3",
-  "1-2",
-  "6",
-  "5",
-  "7-8",
-  "10",
-  "9",
-] as const;
+export const PROPHET_ROOM_D10_MARKERS = ["4", "3", "1-2", "6", "5", "7-8", "10", "9"] as const;
 
 export type ProphetRoomD10Marker = (typeof PROPHET_ROOM_D10_MARKERS)[number];
 
@@ -123,7 +114,7 @@ export const prophetIBossScript: BossScriptDefinition = {
   displayName: "Prophet I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38：先攻 3、ACTIONS / Round: 3；Calamitous + Rubble + 第 2 行动默认选招 + 先攻 3 张最小运行时；room→战斗板几何仍 hold。",
+    "C-013 / R38：开战与 Calamitous 前校验完整 d10→区域绑定；缺表拒绝，不退回普通选招。Prophet Room 生产几何仍 hold；先攻 / 第 2 行动 / Rubble 沿用原范围。",
   combatEntry: {
     descriptionAbilityCardId: PROPHET_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: PROPHET_I_COMBAT_ABILITY_CARD_ID,

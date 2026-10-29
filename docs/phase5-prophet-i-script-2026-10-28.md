@@ -22,6 +22,7 @@
 - 类型：`BossThreatPassiveDungeonOk` / `BossThreatPassiveHamletOk` 扩展为判别联合（Necromancer 与 Prophet 各一种 `effect`）。
 - 单测：`prophet-i.test.ts`、`prophet-i-combat-runtime.test.ts`；`threat-establishment.test.ts` 中 Prophet 抽牌用例改为已注册。
 - 战斗最小运行时：`prophet-i-combat-runtime.ts`（Calamitous · 4d10 · Wooden Pew；Rubble slot 3；**第 2 行动**默认姿态选招；**先攻 3 张** + 多行动 `actedIds`；`prophetActionsThisRound`；Room 卡→战斗板几何仍 hold）。
+- C-013 第一刀：开战与 Calamitous 前校验完整八组 d10→逻辑区绑定；缺表不退回普通选招；UI 显示每区木长椅数。正式几何仍 hold，证据与测试范围见 [`phase5-prophet-i-room-binding-2026-10-29.md`](./phase5-prophet-i-room-binding-2026-10-29.md)。
 
 ## 仍待确认 / hold（本 PR 未收）
 

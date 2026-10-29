@@ -42,6 +42,7 @@ import {
 } from "./boss/prophet-i-combat-runtime";
 import { expandCollectorIInitiativeDeckSides } from "./boss/collector-i-combat-runtime";
 import { readCollectorIRoomLootPlacement } from "./boss/collector-i-room-runtime";
+import { readProphetIRoomD10Binding } from "./boss/prophet-i-room-runtime";
 import {
   clearNecromancerICompanions,
   continueNecromancerISummon,
@@ -799,6 +800,9 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     }
     if (living.some(unsupportedTurnStart))
       return rejectBattleCommand(state, "回合开始状态 / 压力检定尚未接入（R-048）");
+    const prophetBinding = readProphetIRoomD10Binding(state);
+    if (prophetBinding.status === "refused")
+      return rejectBattleCommand(state, prophetBinding.message);
     const marked = applyBossThreatMarkedForDeathOnBattleStart(state);
     if (marked.events.some((entry) => entry.type === "commandRefused"))
       return { state, events: marked.events };
