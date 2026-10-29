@@ -250,7 +250,7 @@
 
 #### C-019 · Ruins Boss II 首切片（建议 Necromancer II `p002`）
 
-- [x] C-019 实现完成，待有序合入 #375 → #376 → 本刀；不代表 R-121 或自然 II 级 Boss 入场闭环。
+- [x] C-019 实现完成，待有序合入 #375 → #376 → #377；不代表 R-121 或自然 II 级 Boss 入场闭环。
   - [x] 死灵法师 II 的 p090 数据、三招、Bone Soldier 召唤与死亡清场已接显式战斗场景；I / II 公开命令回归，见 `phase5-c019-necromancer-ii-combat-2026-10-29.md`。
   - [x] Army of the Dead：地牢首场从真实牌池先生成唯一 Bone Captain，再填满四姿态；成功入场才消费标记，新任务重置，见 `phase5-c019-necromancer-ii-army-2026-10-29.md`。
   - [x] R-125 / Q-114 confirmed：首日掷骰、并列最低选一人、守卫行动与合法墓地服务已接；封锁 / 当日已访问仍可只守卫，存档命令支持守卫服务。见 `phase5-c019-necromancer-ii-graveyard-2026-10-29.md`。
