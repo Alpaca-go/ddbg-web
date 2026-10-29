@@ -104,7 +104,7 @@
 | **Fanatic** Pyre 自身技能 / 死亡移除 | 本体三招 AI 与效果已接（C-017）；无技能召唤可实现。**Pyre 的 Burn the Heretic（无 Acc、99 伤害）与 Fanatic 被击败后移除 Pyre（R39）仍 hold**，不把本体三招完成称作整场闭环 | G-05 / R39 / `monster_large:p011` |
 | **Flesh** 战斗中途再召 Large | 仅遭遇开局 Guard；无 mid-battle spawn | R31 |
 | **Necromancer** 完整 encounter AI / 多级召唤 | **死亡清场与 I 级前两招已选技能召唤已接**；姿态选招表、第三招 Six Feet Under 仍 hold（C-012）；II/III 未开 | C-011 第一刀 / C-012；见 `phase5-necromancer-i-combat-runtime-2026-10-29.md` |
-| **`encounterRoundRetreatLimit` 生产路径** | helper 有；非全 Boss 任务已接 | Phase 5 后续 |
+| **`encounterRoundRetreatLimit` 生产路径** | C-018：已注册 Ruins I 四 Boss 共用的两条轮末路径已回归；未击败前禁止从探索离场。正式 Boss 房间入场和未映射脚本仍 hold | R30、R-044；`phase5-boss-retreat-boundary-2026-10-29.md` |
 | **Boss XP / `summarizeDungeonQuest`** | **已接**：`bossFlatQuestSummarySchema` + `bossQuestVictory`（p019 / 映射 Boss 遭遇）；p016–p018 击败判定仍 hold | **R-122**（部分） |
 | **Rising Threat SPECIAL** | 未接 | 任务卡 |
 | **Ruins II/III 脚本** | 描述卡 id 在 catalog；**无** `boss:*:2/3` 注册；升幕可抽到 hold 文案 | 核心包切片 / 待确认 |

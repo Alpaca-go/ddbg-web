@@ -198,3 +198,70 @@ describe("R14 掷探索骰前离开地牢", () => {
     expect(replay().dungeon!.cursor).toBe(setup().dungeon!.cursor);
   });
 });
+
+describe("C-018 · Boss 任务在击败前不能撤离（R30、R-044）", () => {
+  const bosses = [
+    "boss:ruins:necromancer:1",
+    "boss:ruins:prophet:1",
+    "boss:ruins:collector:1",
+    "boss:ruins:fanatic:1",
+  ] as const;
+  it.each(bosses)("%s：普通探索离场入口拒绝；击败标记后仍可正常同意离场", (scriptId) => {
+    const base = setup();
+    const state = {
+      ...base,
+      dungeon: {
+        ...base.dungeon!,
+        questDistribution: { ...base.dungeon!.questDistribution!, questId: "quest:p019" },
+        activeBossThreatScriptId: scriptId,
+      },
+    };
+    const before = structuredClone(state);
+    expect(canLeaveDungeon(state)).toBe(false);
+    const refused = applyCommand(state, { type: "leaveDungeon" });
+    expect(refused.state).toBe(state);
+    expect(refused.events).toEqual([
+      { type: "commandRefused", message: expect.stringContaining("R-044") },
+    ]);
+    expect(refused.pendingChoice).toBeUndefined();
+    expect(state).toEqual(before);
+    const victory = { ...state, dungeon: { ...state.dungeon!, bossQuestVictory: true as const } };
+    expect(canLeaveDungeon(victory)).toBe(true);
+    const pending = applyCommand(victory, { type: "leaveDungeon" });
+    expect(pending.pendingChoice).toBeDefined();
+    expect(choose(pending.state, "agree").state.dungeon!.phase).toBe("exited");
+  });
+  it("未掷探索骰窗口同样禁止；旧离场同意不能绕过 Boss 任务限制", () => {
+    const routed = selectedRoute();
+    const state = {
+      ...routed,
+      dungeon: {
+        ...routed.dungeon!,
+        questDistribution: { ...routed.dungeon!.questDistribution!, questId: "quest:p019" },
+      },
+    };
+    expect(canLeaveDungeon(state)).toBe(false);
+    expect(applyCommand(state, { type: "leaveDungeon" }).state).toBe(state);
+    const pending = applyCommand(setup(), { type: "leaveDungeon" }).state;
+    const legacy = {
+      ...pending,
+      dungeon: {
+        ...pending.dungeon!,
+        questDistribution: { ...pending.dungeon!.questDistribution!, questId: "quest:p019" },
+      },
+    };
+    const result = choose(legacy, "agree");
+    expect(result.state).toBe(legacy);
+    expect(result.events[0]).toMatchObject({
+      type: "commandRefused",
+      message: expect.stringContaining("R-044"),
+    });
+  });
+  it("普通任务带迫近威胁仍允许离开；不把威胁被动当成 Boss 任务", () => {
+    const base = setup();
+    const state = { ...base, dungeon: { ...base.dungeon!, activeBossThreatScriptId: bosses[0] } };
+    expect(canLeaveDungeon(state)).toBe(true);
+    const pending = applyCommand(state, { type: "leaveDungeon" });
+    expect(choose(pending.state, "agree").state.dungeon!.phase).toBe("exited");
+  });
+});

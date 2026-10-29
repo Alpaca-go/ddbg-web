@@ -1,9 +1,12 @@
 import type { ApplyResult, GameState } from "./command";
 import { readDungeonQuestProgress } from "./dungeon-quest";
+import { isBossQuestId } from "./boss/quest-bridge";
 
 /** R14：探索阶段、掷骰前，全员同意离开；不能跳过已开始的结算。 */
 export function canLeaveDungeon(state: GameState): boolean {
   const d = state.dungeon;
+  if (isBossQuestId(d?.questDistribution?.questId ?? "") && d?.bossQuestVictory !== true)
+    return false;
   if (d?.questDistribution?.questId === "quest:p003") {
     const progress = readDungeonQuestProgress(d);
     if (progress.status !== "matched") return false;
@@ -28,7 +31,15 @@ export function leaveDungeon(
   const d = state.dungeon!;
   const refuse = (): ApplyResult => ({
     state,
-    events: [{ type: "commandRefused", message: "离开须在探索掷骰前且全员同意（R14）" }],
+    events: [
+      {
+        type: "commandRefused",
+        message:
+          isBossQuestId(d.questDistribution?.questId ?? "") && d.bossQuestVictory !== true
+            ? "Boss 任务须先击败 Boss，不能撤离地牢（R30、R-044）"
+            : "离开须在探索掷骰前且全员同意（R14）",
+      },
+    ],
   });
   if (command.type === "leaveDungeon") {
     if (!canLeaveDungeon(state)) return refuse();

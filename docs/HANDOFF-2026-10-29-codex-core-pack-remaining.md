@@ -241,8 +241,8 @@
 
 #### C-018 · Ruins 四 Boss：`encounterRoundRetreatLimit` 生产路径
 
-- [ ]  
-- **现状**：helper 有；**非全 Boss 任务已接生产路径**（hold inventory §3）  
+- [x] 已注册 Ruins I 四 Boss 的两条轮末路径均经公开命令回归；未击败 Boss 时禁止任务撤离。
+- **现状**：共用轮末入口原已调用 `encounterForcesRetreatAfterRound`；本刀补四脚本回归并修复普通探索离场入口可绕过 Boss 限制的问题。击败标记后仍允许正常离场；Boss 任务内普通遭遇、未映射 II/III 维持原四轮边界。详见 `phase5-boss-retreat-boundary-2026-10-29.md`，不代表 R-121 / 正式 Boss 房间入场已完成。
 - **验收**：Boss 战不计轮数/不可逃按 §14 / R-044 挂 encounter 主路径；四 Boss 回归绿  
 - **依赖/阻塞**：可与任一 Boss 战斗 PR 合并但建议独立以免夹带  
 - **归口**：核心包  
