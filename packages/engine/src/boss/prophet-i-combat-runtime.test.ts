@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it, beforeEach } from "vitest";
 import { createBattleState, type BattleEntity, type BattleState } from "../battle";
 import { applyCommand, type GameState } from "../command";
+import { finishTurn } from "../encounter";
 import { normalizedMonsterLargeFileSchema } from "../../../data/src/normalize/schema";
 import { createLootState } from "../loot";
 import { nextBattleRoll } from "../battle-roll";
@@ -277,7 +278,7 @@ describe("Prophet I · Rubble of Ruin 战斗最小运行时", () => {
 
     const heroBefore = state.battle!.entities.find((entity) => entity.id === "h0")!.wounds;
     const result = applyProphetRubbleOfRuin(state, "prophet");
-    expect(result.events.some((event) => event.type === "monsterSkillResolved")).toBe(true);
+    expect(result.events.some((event) => event.type === "monsterSkillTargetsResolved")).toBe(true);
     expect(
       result.events.some(
         (event) => event.type === "dungeonUpdated" && event.message.includes("Rubble of Ruin"),
@@ -530,5 +531,403 @@ describe("Prophet I · 第 2 行动默认选招", () => {
     expect(result.events.some((event) => event.type === "monsterActionPrepared")).toBe(true);
     expect(result.state.battle!.monsterAction?.skillSlot).toBeGreaterThanOrEqual(1);
     expect(result.state.battle!.monsterAction?.skillSlot).toBeLessThanOrEqual(2);
+  });
+});
+
+describe("C-014 · Rubble 区域多目标与伴战先攻", () => {
+  beforeEach(() => {
+    clearBossScriptsForTest();
+    ensureProphetIBossScriptRegistered();
+  });
+
+  function rubbleState(): GameState {
+    const state = prophetBattle();
+    return {
+      ...state,
+      battle: {
+        ...state.battle!,
+        entities: state.battle!.entities.map((e) => (e.side === "hero" ? { ...e, life: 40 } : e)),
+        areas: state.battle!.areas.map((a, i) => ({
+          ...a,
+          adjacent: i === 0 ? ["pew-area-1"] : i === 1 ? ["pew-area-0"] : [],
+        })),
+        woodenPews: [{ areaId: "pew-area-0", pewIndex: 0 }],
+        prophetActionsThisRound: 2,
+        encounter: {
+          round: 1,
+          deck: ["hero"],
+          actedIds: [],
+          turn: { type: "monster", actorId: "prophet" },
+        },
+      },
+    };
+  }
+  function editEntities(state: GameState, change: (e: BattleEntity) => BattleEntity): GameState {
+    return { ...state, battle: { ...state.battle!, entities: state.battle!.entities.map(change) } };
+  }
+  function hitCursor(seed: number): number {
+    return Array.from({ length: 100 }, (_, i) => i).find(
+      (i) => nextBattleRoll(seed, i) <= 8 && nextBattleRoll(seed, i + 1) <= 8,
+    )!;
+  }
+  function attack(state: GameState) {
+    return applyCommand(state, { type: "prepareMonsterAction", actorId: "prophet" });
+  }
+  function attacks(result: ReturnType<typeof applyCommand>) {
+    return result.events.filter((e) => e.type === "monsterSkillTargetsResolved");
+  }
+
+  it("同区全体存活英雄共骰，逐名 Dodge 判定；Guard 不遮掉同区目标，异区和死者不受击", () => {
+    let state = editEntities(rubbleState(), (e) =>
+      e.id === "h1"
+        ? { ...e, dodge: 10, guard: true }
+        : e.id === "h2"
+          ? { ...e, dead: true }
+          : e.id === "h3"
+            ? { ...e, areaId: "pew-area-1", guard: true }
+            : e,
+    );
+    state = { ...state, battle: { ...state.battle!, rngCursor: hitCursor(state.seed) } };
+    const original = structuredClone(state);
+    const result = attack(state);
+    expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(result).toEqual(attack(state));
+    expect(state).toEqual(original);
+    expect(attacks(result)).toHaveLength(1);
+    expect(attacks(result)[0]!.resolutions.map((r) => [r.targetId, r.outcome])).toEqual([
+      ["h1", "miss"],
+      ["h0", "hit"],
+    ]);
+    expect(result.state.battle!.entities.find((e) => e.id === "h0")!.wounds).toBe(9);
+    expect(
+      result.state
+        .battle!.entities.filter((e) => ["h1", "h2", "h3"].includes(e.id))
+        .map((e) => e.wounds),
+    ).toEqual([0, 0, 0]);
+    expect(result.state.battle!.rngCursor).toBe(state.battle!.rngCursor + 1);
+    expect(result.state.battle!.prophetActionsThisRound).toBe(3);
+    expect(result.state.battle!.encounter!.actedIds).toContain("prophet");
+  });
+
+  it("同区两张木长椅各掷一次，每次均击中该区四名英雄", () => {
+    const initial = rubbleState();
+    const state = {
+      ...initial,
+      battle: {
+        ...initial.battle!,
+        rngCursor: hitCursor(initial.seed),
+        woodenPews: [
+          { areaId: "pew-area-0", pewIndex: 0 as const },
+          { areaId: "pew-area-0", pewIndex: 1 as const },
+        ],
+      },
+    };
+    const result = attack(state);
+    expect(attacks(result).map((e) => e.roll)).toEqual(
+      [0, 1].map((i) => nextBattleRoll(state.seed, state.battle!.rngCursor + i)),
+    );
+    expect(attacks(result).map((e) => e.resolutions.map((r) => r.targetId))).toEqual([
+      ["h0", "h1", "h2", "h3"],
+      ["h0", "h1", "h2", "h3"],
+    ]);
+    expect(
+      result.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.wounds),
+    ).toEqual([18, 18, 18, 18]);
+    expect(result.state.battle!.rngCursor).toBe(state.battle!.rngCursor + 2);
+    expect(result.events.filter((e) => e.type === "turnEnded")).toHaveLength(1);
+  });
+
+  it("两区域分别共骰；空区木长椅仍掷一次骰但没有受击事件", () => {
+    const initial = editEntities(rubbleState(), (e) =>
+      ["h2", "h3"].includes(e.id) ? { ...e, areaId: "pew-area-1" } : e,
+    );
+    const state = {
+      ...initial,
+      battle: {
+        ...initial.battle!,
+        woodenPews: [
+          { areaId: "pew-area-0", pewIndex: 0 as const },
+          { areaId: "pew-area-1", pewIndex: 1 as const },
+          { areaId: "pew-area-2", pewIndex: 2 as const },
+        ],
+      },
+    };
+    const result = attack(state);
+    expect(attacks(result).map((e) => e.resolutions.map((r) => r.targetId))).toEqual([
+      ["h0", "h1"],
+      ["h2", "h3"],
+    ]);
+    expect(result.state.battle!.rngCursor).toBe(state.battle!.rngCursor + 3);
+    expect(
+      result.events.some(
+        (e) => e.type === "dungeonUpdated" && e.message.includes("区域内无存活英雄"),
+      ),
+    ).toBe(true);
+  });
+
+  it.each(["区域", "Dodge", "姿态"])(
+    "后续木长椅的%s无效时，整次拒绝并保留原骰序和伤口",
+    (problem) => {
+      const initial = editEntities(rubbleState(), (e) =>
+        e.id === "h2"
+          ? ({
+              ...e,
+              areaId: "pew-area-1",
+              ...(problem === "Dodge"
+                ? { dodge: -1 }
+                : problem === "姿态"
+                  ? { stance: undefined }
+                  : {}),
+            } as BattleEntity)
+          : e,
+      );
+      const state = {
+        ...initial,
+        battle: {
+          ...initial.battle!,
+          woodenPews: [
+            { areaId: "pew-area-0", pewIndex: 0 as const },
+            { areaId: problem === "区域" ? "unknown" : "pew-area-1", pewIndex: 1 as const },
+          ],
+        },
+      };
+      const original = structuredClone(state);
+      const result = attack(state);
+      expect(result.state).toBe(state);
+      expect(state).toEqual(original);
+      expect(result.events).toHaveLength(1);
+      expect(result.events[0]!.type).toBe("commandRefused");
+    },
+  );
+
+  it("第一张木长椅造成死门死亡后补姿态；下一张不再攻击死者，并保留生命事件", () => {
+    let state = editEntities(rubbleState(), (e) =>
+      e.id === "h0" ? { ...e, life: 1, wounds: 1 } : e,
+    );
+    const cursor = Array.from({ length: 100 }, (_, i) => i).find(
+      (i) => nextBattleRoll(state.seed, i) <= 8 && nextBattleRoll(state.seed, i + 1) <= 3,
+    )!;
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        rngCursor: cursor,
+        woodenPews: [
+          { areaId: "pew-area-0", pewIndex: 0 },
+          { areaId: "pew-area-0", pewIndex: 1 },
+        ],
+      },
+    };
+    const result = attack(state);
+    expect(attacks(result).map((e) => e.resolutions.map((r) => r.targetId))).toEqual([
+      ["h0", "h1", "h2", "h3"],
+      ["h1", "h2", "h3"],
+    ]);
+    expect(attacks(result).map((e) => e.roll)).toEqual([
+      nextBattleRoll(state.seed, cursor),
+      nextBattleRoll(state.seed, cursor + 2),
+    ]);
+    expect(result.state.battle!.rngCursor).toBe(cursor + 3);
+    expect(result.state.battle!.entities.find((e) => e.id === "h0")!.dead).toBe(true);
+    expect(result.state.battle!.entities.find((e) => e.id === "h1")!.stance).toBe("aggressive");
+    expect(result.events.some((e) => e.type === "heroHealthResolved" && e.entityId === "h0")).toBe(
+      true,
+    );
+    expect(result.events.flatMap((e) => (e.type === "casualtyRemoved" ? [e.actorId] : []))).toEqual(
+      ["h0"],
+    );
+  });
+
+  it("共骰暴击仅给每名受击英雄加一次压力，心脏病走统一死亡收尾", () => {
+    const cards: NonNullable<BattleState["resolveCards"]> = JSON.parse(
+      readFileSync(
+        new URL("../../../data/normalized/corebox/virtue_affliction.json", import.meta.url),
+        "utf8",
+      ),
+    ).cards;
+    let state = editEntities(rubbleState(), (e) =>
+      e.id === "prophet"
+        ? { ...e, buffStacks: 10 }
+        : e.id === "h0"
+          ? { ...e, stress: 9, resolveTested: true, resolveCardId: cards[0]!.id }
+          : e,
+    );
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        rngCursor: hitCursor(state.seed),
+        resolveCards: cards,
+        resolveDecks: {},
+      },
+    };
+    const result = attack(state);
+    expect(attacks(result)[0]!.resolutions.every((r) => r.outcome === "crit")).toBe(true);
+    expect(
+      result.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress),
+    ).toEqual([10, 1, 1, 1]);
+    expect(result.state.battle!.entities.find((e) => e.id === "h0")!.dead).toBe(true);
+    expect(result.events.some((e) => e.type === "heartAttack")).toBe(true);
+    expect(result.events.some((e) => e.type === "casualtyRemoved" && e.actorId === "h0")).toBe(
+      true,
+    );
+  });
+
+  it("同次区域攻击使英雄全灭则立即停战，后续木长椅不再掷骰", () => {
+    let state = editEntities(rubbleState(), (e) =>
+      e.side === "hero" ? { ...e, life: 1, wounds: 1 } : e,
+    );
+    const seed = Array.from({ length: 2000 }, (_, i) => i).find(
+      (s) => nextBattleRoll(s, 0) <= 8 && [1, 2, 3, 4].every((i) => nextBattleRoll(s, i) <= 3),
+    )!;
+    state = {
+      ...state,
+      seed,
+      battle: {
+        ...state.battle!,
+        woodenPews: [
+          { areaId: "pew-area-0", pewIndex: 0 },
+          { areaId: "pew-area-0", pewIndex: 1 },
+        ],
+      },
+    };
+    const result = attack(state);
+    expect(attacks(result)).toHaveLength(1);
+    expect(result.state.battle!.rngCursor).toBe(5);
+    expect(result.state.battle!.encounter!.turn).toMatchObject({
+      type: "halted",
+      reason: "heroesDefeated",
+    });
+    expect(result.events.filter((e) => e.type === "heroHealthResolved")).toHaveLength(4);
+    expect(result.events.filter((e) => e.type === "casualtyRemoved")).toHaveLength(4);
+  });
+
+  it("同区多名 Riposte 累加，先知被反击击败后停止后续木长椅", () => {
+    let state = editEntities(rubbleState(), (e) =>
+      e.id === "prophet" ? { ...e, wounds: prophetLife - 1 } : { ...e, riposte: true },
+    );
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        rngCursor: hitCursor(state.seed),
+        woodenPews: [
+          { areaId: "pew-area-0", pewIndex: 0 },
+          { areaId: "pew-area-0", pewIndex: 1 },
+        ],
+      },
+    };
+    const result = attack(state);
+    expect(attacks(result)).toHaveLength(1);
+    expect(attacks(result)[0]!.resolutions.every((r) => r.outcome === "hit")).toBe(true);
+    expect(result.state.battle!.entities.find((e) => e.id === "prophet")!.wounds).toBe(
+      prophetLife - 1 + 4 * 5,
+    );
+    expect(result.state.battle!.encounter!.turn).toEqual({ type: "finished", outcome: "victory" });
+    expect(result.events.filter((e) => e.type === "casualtyRemoved").length).toBe(1);
+  });
+
+  function accompanied(): GameState {
+    const state = prophetBattle();
+    const prophet = state.battle!.entities.find((e) => e.id === "prophet")!;
+    return {
+      ...state,
+      battle: {
+        ...state.battle!,
+        entities: [
+          ...state.battle!.entities,
+          {
+            ...prophet,
+            id: "companion",
+            monsterCardId: "fixture-small",
+            stance: "ranged",
+            stanceSlots: 1,
+          },
+          {
+            ...prophet,
+            id: "companion-back",
+            monsterCardId: "fixture-small",
+            stance: "support",
+            stanceSlots: 1,
+          },
+        ],
+      },
+    };
+  }
+  it("伴战先攻为先知3+普通怪各1；死者不入堆，普通任务不扩张", () => {
+    const state = accompanied();
+    const started = applyCommand(state, { type: "startBattle" });
+    expect(started).toEqual(applyCommand(state, { type: "startBattle" }));
+    expect(started.state.battle!.encounter!.deck.filter((s) => s === "monster")).toHaveLength(5);
+    expect(started.state.battle!.encounter!.deck.filter((s) => s === "hero")).toHaveLength(4);
+    const dead = editEntities(state, (e) => (e.id === "companion" ? { ...e, dead: true } : e));
+    expect(
+      applyCommand(dead, { type: "startBattle" }).state.battle!.encounter!.deck.filter(
+        (s) => s === "monster",
+      ),
+    ).toHaveLength(4);
+    const noProphet = editEntities(state, (e) => (e.id === "prophet" ? { ...e, dead: true } : e));
+    expect(
+      applyCommand(noProphet, { type: "startBattle" }).state.battle!.encounter!.deck.filter(
+        (s) => s === "monster",
+      ),
+    ).toHaveLength(2);
+    const ordinary = {
+      ...state,
+      dungeon: {
+        ...state.dungeon!,
+        questDistribution: { ...state.dungeon!.questDistribution!, questId: "quest:p001" },
+      },
+    };
+    expect(
+      applyCommand(ordinary, { type: "startBattle" }).state.battle!.encounter!.deck.filter(
+        (s) => s === "monster",
+      ),
+    ).toHaveLength(3);
+  });
+
+  it("当前姿态决定伴战行动先后；先知三次后才入 actedIds，新轮恢复3+2张", () => {
+    let state = applyCommand(accompanied(), { type: "startBattle" }).state;
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        encounter: {
+          ...state.battle!.encounter!,
+          deck: ["monster", "monster", "monster", "monster", "monster"],
+        },
+      },
+    };
+    const actors: string[] = [];
+    for (let i = 0; i < 5; i++) {
+      const drawn = applyCommand(state, { type: "drawInitiative" });
+      expect(
+        drawn.events.some((e) => e.type === "commandRefused"),
+        JSON.stringify(drawn.events),
+      ).toBe(false);
+      const turn = drawn.state.battle!.encounter!.turn;
+      expect(turn.type).toBe("monster");
+      if (turn.type !== "monster") throw new Error("expected monster turn");
+      actors.push(turn.actorId);
+      // 只测先攻调度：用统一回合收尾推进，不冒充伴战怪物完整技能 AI。
+      state = finishTurn(drawn.state, turn.actorId, []).state;
+      if (i === 3) {
+        expect(state.battle!.prophetActionsThisRound).toBe(3);
+        expect(state.battle!.encounter!.actedIds.filter((id) => id === "prophet")).toHaveLength(1);
+      }
+      if (i === 0)
+        state = editEntities(state, (e) =>
+          e.id === "prophet"
+            ? { ...e, stance: "defensive" }
+            : e.id === "companion"
+              ? { ...e, stance: "aggressive" }
+              : e,
+        );
+    }
+    expect(actors).toEqual(["prophet", "companion", "prophet", "prophet", "companion-back"]);
+    expect(state.battle!.encounter!.round).toBe(2);
+    expect(state.battle!.encounter!.deck.filter((s) => s === "monster")).toHaveLength(5);
+    expect(state.battle!.prophetActionsThisRound).toBeUndefined();
+    expect(state.battle!.encounter!.actedIds).toEqual([]);
   });
 });
