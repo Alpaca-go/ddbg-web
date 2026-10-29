@@ -6,6 +6,10 @@ const pendingSteps: Record<
   NonNullable<BattleState["pending"]>["type"],
   { readonly label: string; readonly hint: string }
 > = {
+  collectorSummon: {
+    label: "等待收藏家召唤挤占选择",
+    hint: "选择角色与最近可用区域，完成 Collect All 召唤。",
+  },
   necromancerSummon: {
     label: "等待召唤挤占选择",
     hint: "选择下方角色与最近可用区域，完成 Bone Rabble 召唤。",
