@@ -50,7 +50,7 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
         }
         checked++;
       }
-    expect(checked).toBe(25); // 原23项攻击 + Ghoul前两项；Howl仍未接通。
+    expect(checked).toBe(28); // 原25项攻击 + Fanatic I 三招。
     expect(cards).toEqual(before);
   });
   it("注解数值 / 范围或原始行漂移原子拒绝，不能靠更新签名放行", () => {

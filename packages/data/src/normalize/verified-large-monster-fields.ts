@@ -14,6 +14,24 @@ const entrySchema = z.strictObject({
 
 /** Kyries 2026-10-12 批准 L2；M30 只是抽牌参考卡，不给它附战斗字段。R24、R-015、R-048。 */
 export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
+  // C-017：当前版 Fanatic I p008 卡图；全部姿态同一 d10 表，Speed 为两枚脚印。
+  {
+    id: "monster_large:p008",
+    name: "Fanatic",
+    level: 1,
+    pages: [8],
+    speed: 2,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 2, skill: 1 },
+          { min: 3, max: 6, skill: 2 },
+          { min: 7, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
   {
     id: "monster_large:p001",
     name: "Bone Captain",

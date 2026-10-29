@@ -3,7 +3,7 @@ import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
 import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
 import type {
   BossScriptDefinition,
-  BossSummonOk,
+  BossSummonResult,
   BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
   BossSentenceRenderedOk,
@@ -49,7 +49,7 @@ export const fanaticIBossScript: BossScriptDefinition = {
   displayName: "Fanatic I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38–R39：先攻 4（Fanatic 3 + Pyre 1）、ACTIONS / Round: 3；Pyre / Sentence / Pit Toss / 先攻洗入最小运行时已接；Fanatic 卡面技能 AI 仍 hold。",
+    "C-017 / R39：Fanatic I 三招骰表与完整效果已接；卡面无技能召唤（notApplicable）。Pyre / Sentence / Pit Toss / 先攻 4 沿用原运行时；Pyre 无 Acc 的 99 伤害技能仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: FANATIC_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: FANATIC_I_COMBAT_ABILITY_CARD_ID,
@@ -63,7 +63,7 @@ export const fanaticIBossScript: BossScriptDefinition = {
     faceTheThreatEmbark: defaultFaceTheThreatEmbarkHook,
     bossSlotPlacement: defaultBossSlotPlacementHook,
     monsterTurnActionCount: () => ({ status: "ok", value: 3 }),
-    summon: (ctx): BossSummonOk | { status: "stub"; message: string; hold?: string } => {
+    summon: (ctx): BossSummonResult => {
       if (ctx.purpose === "battleStartPyre") {
         return {
           status: "ok",
@@ -75,10 +75,16 @@ export const fanaticIBossScript: BossScriptDefinition = {
           },
         };
       }
+      if (ctx.purpose === "skill" || ctx.purpose === undefined)
+        return {
+          status: "notApplicable",
+          message: "Fanatic I 三招无召唤图标；Pyre 仅在开战布置，不由技能召唤",
+          rulesRef: ["R39", FANATIC_I_COMBAT_ABILITY_CARD_ID, FANATIC_I_COMBAT_MONSTER_CARD_ID],
+        };
       return {
         status: "stub",
-        message: "Fanatic I：技能召唤未接",
-        hold: "Fanatic 怪物技能 / R38–R39",
+        message: "Fanatic I：不支持该召唤用途",
+        hold: "召唤用途不符；仅有开战 Pyre 布置",
       };
     },
     sentenceRendered: (): BossSentenceRenderedOk => ({

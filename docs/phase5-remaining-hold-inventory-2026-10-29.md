@@ -77,7 +77,7 @@
 
 | Boss | 已接 | 模块 / 测试 |
 | --- | --- | --- |
-| **Fanatic I** | Pyre `startBattle` 远程姿态 + 区域；`sentenceRendered` 同区丢 Pyre / 否则移向英雄 | `fanatic-i-combat-runtime.ts`；`fanatic-i-combat-runtime.test.ts` |
+| **Fanatic I** | Pyre 开战 / Sentence / Pit Toss / 先攻 4；C-017 本体三招 d10、Speed、完整效果与目标 AI；技能召唤无印刷依据，明确不适用 | `fanatic-i-combat-runtime.ts`；`fanatic-i-skill-ai.test.ts`；`phase5-fanatic-i-skill-ai-2026-10-29.md` |
 | **Flesh I** | One Body 四部位开战 + 共享 Life；回合初 morph | `flesh-i-combat-runtime.ts`、`battle.ts`；`flesh-i-combat-runtime.test.ts` |
 | **Collector I** | Collect All 回合开始替换技能；三 Collected + 固定姿态区域；**先攻 4（单 Collector 开战补足 + Collect All 洗入）**；**最近区域挤占（英雄）** | `collector-i-combat-runtime.ts`、`encounter.ts`；`collector-i-combat-runtime.test.ts` |
 | **Prophet I** | Calamitous + Rubble + **第 2 行动默认选招** + **先攻 3 张** + 多行动 `actedIds` | `prophet-i-combat-runtime.ts`、`encounter.ts`；`prophet-i-combat-runtime.test.ts` |
@@ -98,10 +98,10 @@
 | **II/III `offerNextQuest` 强制 p019** | 仅 I 级幕末强制；II/III 仍普通池 | 升幕 / 任务卡 |
 | **`summon` · Prophet** | 木长椅 / Rubble 已接；`summon(purpose:skill)` 仍 stub | R38–R39 / Prophet |
 | **`summon` · Hag / Siren 完整 AI** | Cauldron Empty 开战 / Into the Pot!+Full morph / High Tide Pelagic 最小已接；42418 / 魅惑 / 先攻洗入 / 锅完整生命周期仍 hold | R38–R39 / 各 Boss 切片 |
-| **`summon(purpose:skill)` · Swine / Fanatic / Collector / Flesh** | Swine **Wilbur 开战** + **Enraged** + **Wilbur Mark AI** 已接；Wilbur 非 Mark 召唤仍 stub | R38–R39 / Swine Prince |
+| **`summon(purpose:skill)` · Swine / Collector / Flesh** | Swine **Wilbur 开战** + **Enraged** + **Wilbur Mark AI** 已接；Wilbur 非 Mark 召唤仍 stub；Fanatic I 三招无召唤，已改为 `notApplicable`，从此 hold 行移出 | R38–R39 / Swine Prince；C-017 |
 | **Prophet I** room 卡→战斗区域几何 / Rubble 同区多目标 / 多怪伴战先攻 | 第 2 行动 + 先攻 3 最小运行时已接（`expandProphetIInitiativeDeckSides` / `prophetShouldEnterActedIdsAfterTurn`） | R38–R39 / R-048 |
 | **Collector** 宝箱房 / 怪物挤占玩家选移 | Collect All + 先攻 4 + 英雄最近区域挤占已接（`expandCollectorIInitiativeDeckSides` / R39 洗入）；宝箱房布置仍 hold | R-034 / R38–R39 / R-048 |
-| **Fanatic** Pit Toss / 技能 AI / 先攻 4 张洗入 | Pyre + Sentence + **Pit Toss（同区丢 Pyre）+ 先攻 4 洗入 + G-05 actedIds** 已接（`expandFanaticIInitiativeDeckSides` / `applyFanaticPitTossHeroIntoPyreArea`）；卡面技能 AI / `summon(purpose:skill)` 仍 hold | G-05 / R39 |
+| **Fanatic** Pyre 自身技能 / 死亡移除 | 本体三招 AI 与效果已接（C-017）；无技能召唤可实现。**Pyre 的 Burn the Heretic（无 Acc、99 伤害）与 Fanatic 被击败后移除 Pyre（R39）仍 hold**，不把本体三招完成称作整场闭环 | G-05 / R39 / `monster_large:p011` |
 | **Flesh** 战斗中途再召 Large | 仅遭遇开局 Guard；无 mid-battle spawn | R31 |
 | **Necromancer** 完整 encounter AI / 多级召唤 | **死亡清场与 I 级前两招已选技能召唤已接**；姿态选招表、第三招 Six Feet Under 仍 hold（C-012）；II/III 未开 | C-011 第一刀 / C-012；见 `phase5-necromancer-i-combat-runtime-2026-10-29.md` |
 | **`encounterRoundRetreatLimit` 生产路径** | helper 有；非全 Boss 任务已接 | Phase 5 后续 |

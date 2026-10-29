@@ -28,7 +28,9 @@ export function expandFanaticIInitiativeDeckSides(
   const script = getBossScript(FANATIC_I_SCRIPT_ID);
   const entry = script ? readBossCombatEntry(script) : undefined;
   if (!entry) return [...deck];
-  const livingMonsters = battle.entities.filter((entity) => entity.side === "monster" && !entity.dead);
+  const livingMonsters = battle.entities.filter(
+    (entity) => entity.side === "monster" && !entity.dead,
+  );
   if (livingMonsters.length !== 2) return [...deck];
   const cardIds = new Set(livingMonsters.map((entity) => entity.monsterCardId));
   if (
@@ -352,7 +354,9 @@ export function applyFanaticPitTossHeroIntoPyreArea(
   if (!actor || !hero || !pyre || actor.areaId !== hero.areaId) {
     return {
       state,
-      events: [{ type: "commandRefused", message: "Fanatic Pit Toss：需 Fanatic 与英雄同区（R-048）" }],
+      events: [
+        { type: "commandRefused", message: "Fanatic Pit Toss：需 Fanatic 与英雄同区（R-048）" },
+      ],
     };
   }
   if (!pyreAreaHasSpaceForHero(battle, pyre)) {
@@ -364,26 +368,18 @@ export function applyFanaticPitTossHeroIntoPyreArea(
   const entities = battle.entities.map((entity) =>
     entity.id === hero.id ? { ...entity, areaId: pyre.areaId } : entity,
   );
-  return finishTurn(
-    { ...state, battle: { ...battle, entities, monsterAction: null } },
-    fanaticId,
-    [
-      {
-        type: "dungeonUpdated",
-        message: `Fanatic I · Pit Toss：${hero.id} 丢入 Pyre 区域 ${pyre.areaId}`,
-      },
-    ],
-  );
+  return finishTurn({ ...state, battle: { ...battle, entities, monsterAction: null } }, fanaticId, [
+    {
+      type: "dungeonUpdated",
+      message: `Fanatic I · Pit Toss：${hero.id} 丢入 Pyre 区域 ${pyre.areaId}`,
+    },
+  ]);
 }
 
 /** Sentence Rendered：同区丢入 Pyre 区域，否则向最近英雄移动一步并结束本怪物回合。 */
-export function applyFanaticSentenceRendered(
-  state: GameState,
-  actorId: string,
-): ApplyResult {
+export function applyFanaticSentenceRendered(state: GameState, actorId: string): ApplyResult {
   const battle = state.battle!;
   const actor = battle.entities.find((entity) => entity.id === actorId)!;
-  const pyre = pyreEntity(battle)!;
   const hero = closestLivingHero(battle, actor.areaId)!;
 
   if (actor.areaId === hero.areaId) {
@@ -405,10 +401,7 @@ export function applyFanaticSentenceRendered(
 
   const area = battle.areas.find((entry) => entry.id === nextArea)!;
   const occupied = areaOccupancy(battle, nextArea);
-  if (
-    !Number.isSafeInteger(area.capacity) ||
-    occupied + actor.stanceSlots! > area.capacity!
-  ) {
+  if (!Number.isSafeInteger(area.capacity) || occupied + actor.stanceSlots! > area.capacity!) {
     return {
       state,
       events: [

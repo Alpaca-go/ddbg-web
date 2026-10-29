@@ -27,7 +27,7 @@
 | Sentence Rendered | **已接** 最小运行时（`boss_ability:p022` / spec §14.5 R39） |
 | Pit Toss | **已接** 同区丢入 Pyre 区域（`pitToss` 钩子；boss_ability 文案 toss，非 Templar d10 尖刺坑） |
 | 先攻 4 洗入 | **已接** `expandFanaticIInitiativeDeckSides`（2 实体 + 2 补足 = 4 monster 侧；spec §14.5 R39） |
-| 仍 stub / hold | Fanatic 卡面技能 AI；`summon(purpose:skill)` |
+| C-017 更新 | 本体三招骰表 / Speed / 完整效果与目标 AI 已接；无技能召唤，`purpose:skill` 返回 `notApplicable`。Pyre 独立技能 / 死亡移除仍 hold，见 `phase5-fanatic-i-skill-ai-2026-10-29.md` |
 
 定威胁：`resolveScriptIdForDescriptionCard("boss_ability:p019")` → 挂 `activeBossThreatScriptId`；不再写 `unregisteredImminentThreatHold`。
 

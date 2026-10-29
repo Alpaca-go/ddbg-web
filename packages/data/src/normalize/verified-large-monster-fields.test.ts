@@ -1,4 +1,5 @@
 import { expect, it } from "vitest";
+import { readFileSync } from "node:fs";
 import { loadNormalizedCorebox } from "./write";
 import {
   attachVerifiedLargeMonsterFields,
@@ -14,7 +15,17 @@ const originals = built.monster_large.cards.map((card) => {
   delete copy.stanceGroups;
   return copy;
 });
-it("只附加获批L1–3，参考卡与其他大型卡不补值；不修改输入或其他字段", () => {
+it("C-017：Fanatic I 生成结果与提交数据一致，三招完整效果均有计划", () => {
+  const committed = JSON.parse(
+    readFileSync(new URL("../../normalized/corebox/monster_large.json", import.meta.url), "utf8"),
+  );
+  const generated = built.monster_large.cards.find((c) => c.id === "monster_large:p008")!;
+  expect(generated).toEqual(committed.cards.find((c: { id: string }) => c.id === generated.id));
+  expect(generated.skills.map((s) => s.verified_monster_effects?.effects.length)).toEqual([
+    2, 3, 1,
+  ]);
+});
+it("只附加已核实大型卡，参考卡与其他卡不补值；不修改输入或其他字段", () => {
   const before = structuredClone(originals),
     actual = attachVerifiedLargeMonsterFields(originals);
   expect(actual).toEqual(built.monster_large.cards);
@@ -25,6 +36,7 @@ it("只附加获批L1–3，参考卡与其他大型卡不补值；不修改输�
     "monster_large:p001",
     "monster_large:p002",
     "monster_large:p003",
+    "monster_large:p008",
   ]);
   const reference = built.monster_medium.cards.find((c) => c.id === "monster_medium:p030")!;
   expect("speed" in reference).toBe(false);

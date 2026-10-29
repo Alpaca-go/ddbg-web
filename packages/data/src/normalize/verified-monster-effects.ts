@@ -12,6 +12,38 @@ const entries: readonly {
   signature: string;
   effects: MonsterEffectPlan["effects"];
 }[] = [
+  // C-017：Fanatic I 三招；不含召唤图标。R20–21 / monster_large_FRONT p008。
+  {
+    id: "monster_large:p008",
+    name: "Fanatic",
+    pages: [8],
+    slot: 1,
+    signature: "{self_effects}Self{buff}3t{target_effects}{stress}+2",
+    effects: [
+      { type: "status", scope: "self", kind: "buff", duration: 3 },
+      { type: "stress", scope: "target", amount: 2 },
+    ],
+  },
+  {
+    id: "monster_large:p008",
+    name: "Fanatic",
+    pages: [8],
+    slot: 2,
+    signature: "{target_effects}{stun}1t,{shuffle}Push2,{stress}+1",
+    effects: [
+      { type: "status", scope: "target", kind: "stun", duration: 1 },
+      { type: "shuffle", scope: "target", direction: "push", distance: 2 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
+  {
+    id: "monster_large:p008",
+    name: "Fanatic",
+    pages: [8],
+    slot: 3,
+    signature: "{target_effects}{stress}+1",
+    effects: [{ type: "stress", scope: "target", amount: 1 }],
+  },
   {
     id: "monster_large:p003",
     name: "Ghoul",
