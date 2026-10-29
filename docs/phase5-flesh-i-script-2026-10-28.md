@@ -28,7 +28,7 @@
 | 项 | 说明 |
 | --- | --- |
 | Warrens Boss **extract JSON** 与占位 id 对齐 PDF 页序 | 当前 id 按 `boss_ability:warrens:flesh:p00x` / `monster_*:warrens:flesh_*` 约定 |
-| Large 生成 Guard 2t **写入** encounter spawn | helper 仅返回值 |
+| Large 生成 Guard 2t **写入** encounter spawn | **已接** `startDungeonBattle`（Large = `stanceSlots === 2`）。战斗中途召唤 Large 仍无原语，hold |
 | Creeping Sickness I 村庄 Wound 转移 | **已接**（`threat-passive-runtime` / `hamlet-actions`） |
 | One Body morph / 部位位移、四单位 Boss 战 | `summon` stub |
 | Warrens 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |

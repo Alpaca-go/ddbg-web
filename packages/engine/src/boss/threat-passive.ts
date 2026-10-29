@@ -22,9 +22,7 @@ export function cardIdsPermanentlyRemovedAfterBattle(
 }
 
 /** 进地牢时每名英雄额外承受的压力（地牢侧威胁）；未接线 encounter 时供调用方合并。 */
-export function stressOnDungeonEntryPerHeroFromBossThreat(
-  script: BossScriptDefinition,
-): number {
+export function stressOnDungeonEntryPerHeroFromBossThreat(script: BossScriptDefinition): number {
   const passive = runBossHook(script, "threatPassiveDungeon", {
     scriptId: script.id,
     side: "dungeon",
@@ -85,9 +83,7 @@ export function eldritchMonsterDamageBonusFromBossThreat(script: BossScriptDefin
 }
 
 /** 酒馆减压服务有效恢复量修正（村庄侧威胁）；未接线 hamlet-actions 时供调用方合并。 */
-export function tavernStressRecoveryDeltaFromBossThreat(
-  script: BossScriptDefinition,
-): number {
+export function tavernStressRecoveryDeltaFromBossThreat(script: BossScriptDefinition): number {
   const passive = runBossHook(script, "threatPassiveHamlet", {
     scriptId: script.id,
     side: "hamlet",
@@ -96,11 +92,8 @@ export function tavernStressRecoveryDeltaFromBossThreat(
   return passive.recoveryDelta;
 }
 
-/** 英雄使用补给（药瓶类）时的额外压力（地牢侧威胁）；运行时未接 provision 管线时供调用方合并。 */
-/** Large 怪物生成时 Guard 回合数（地牢侧威胁）；未接线 spawn 管线时供调用方合并。 */
-export function guardTurnsOnLargeMonsterSpawnFromBossThreat(
-  script: BossScriptDefinition,
-): number {
+/** Large 怪物生成时 Guard 回合数（地牢侧威胁）；由 `startDungeonBattle` 写入 Large 实体。 */
+export function guardTurnsOnLargeMonsterSpawnFromBossThreat(script: BossScriptDefinition): number {
   const passive = runBossHook(script, "threatPassiveDungeon", {
     scriptId: script.id,
     side: "dungeon",
@@ -109,6 +102,17 @@ export function guardTurnsOnLargeMonsterSpawnFromBossThreat(
   return passive.guardTurns;
 }
 
+/** 开战 d10 最低者的 Mark 回合数（地牢侧威胁）；由 `startBattle` 写入英雄。 */
+export function markTurnsOnBattleStartFromBossThreat(script: BossScriptDefinition): number {
+  const passive = runBossHook(script, "threatPassiveDungeon", {
+    scriptId: script.id,
+    side: "dungeon",
+  });
+  if (passive.status !== "ok" || passive.effect !== "markOnBattleStartLowestD10") return 0;
+  return passive.markTurns;
+}
+
+/** 英雄使用补给（药瓶类）时的额外压力（地牢侧威胁）。 */
 export function stressOnHeroProvisionUseFromBossThreat(script: BossScriptDefinition): number {
   const passive = runBossHook(script, "threatPassiveDungeon", {
     scriptId: script.id,

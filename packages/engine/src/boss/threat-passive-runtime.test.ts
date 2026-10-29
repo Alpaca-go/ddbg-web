@@ -1,6 +1,11 @@
 import { describe, expect, it, beforeEach } from "vitest";
+import layout from "../../../data/normalized/corebox/dungeon_layout_p001.json";
+import distribution from "../../../data/normalized/corebox/scout_ahead_distribution.json";
 import { applyCommand } from "../command";
 import type { Command, GameState } from "../command";
+import { createBattleState } from "../battle";
+import { createDungeonSandbox } from "../dungeon";
+import { nextBattleRoll } from "../encounter";
 import { resolveMonsterSkillEffects } from "../monster-skill";
 import type { MonsterCardView } from "../monster-skill";
 import {
@@ -16,6 +21,7 @@ import {
   completeCurioRoomWithoutCurioDraw,
   ensureCoreBossScriptsRegistered,
   shouldSkipCurioDrawInCurioRoom,
+  withLargeMonsterSpawnGuard,
 } from "./index";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
@@ -210,7 +216,8 @@ describe("威胁被动运行时接线", () => {
     let game = createCoreDungeonQuest(905, "quest:p001", "standard", coreParty, coreQuestSources);
     game = ok(game, { type: "setActiveBossThreat", scriptId: COLLECTOR_I_SCRIPT_ID });
     expect(shouldSkipCurioDrawInCurioRoom(game.dungeon!)).toBe(true);
-    const roomId = game.dungeon!.rooms.find((r) => r.kind === "curio")?.id ?? game.dungeon!.position;
+    const roomId =
+      game.dungeon!.rooms.find((r) => r.kind === "curio")?.id ?? game.dungeon!.position;
     game = {
       ...game,
       dungeon: {
@@ -248,7 +255,11 @@ describe("威胁被动运行时接线", () => {
       choiceId: result.pendingChoice!.id,
       optionId: "agree",
     });
-    for (const type of ["summarizeDungeonQuest", "beginReturnToHamlet", "finishReturnToHamlet"] as const)
+    for (const type of [
+      "summarizeDungeonQuest",
+      "beginReturnToHamlet",
+      "finishReturnToHamlet",
+    ] as const)
       game = ok(game, { type });
     game = ok(game, { type: "setActiveBossThreat", scriptId: FANATIC_I_SCRIPT_ID });
     const before = game.dungeon!.heroes.map((h) => h.stress);
@@ -300,9 +311,7 @@ describe("威胁被动运行时接线", () => {
           buildingWounds: { tavern: 2 },
         },
         heroes: game.dungeon!.heroes.map((h) =>
-          h.id === actorId
-            ? { ...h, stress: 5, wounds: 0, attributesVerified: true, life: 33 }
-            : h,
+          h.id === actorId ? { ...h, stress: 5, wounds: 0, attributesVerified: true, life: 33 } : h,
         ),
       },
     };
@@ -315,4 +324,291 @@ describe("威胁被动运行时接线", () => {
     expect(game.dungeon!.hamlet!.buildingWounds?.tavern).toBeUndefined();
     expect(game.dungeon!.heroes.find((h) => h.id === actorId)!.wounds).toBe(2);
   });
+
+  it("Fanatic I：startBattle 对 d10 最低英雄施加 Mark 2t，并先于先攻消耗 4 次 RNG", () => {
+    const names = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"] as const;
+    const stances = ["aggressive", "defensive", "ranged", "support"] as const;
+    const stats = names.map((name) =>
+      coreQuestSources.catalog.heroStats.find((s) => s.level === 1 && s.name === name)!,
+    );
+    const seed = 11;
+    const rolls = stances.map((_, index) => nextBattleRoll(seed, index));
+    const lowest = Math.min(...rolls);
+    const make = (battleSeed: number, threat: boolean) => {
+      const game = createBattleState(battleSeed, {
+        entities: [
+          ...stats.map((stat, index) => ({
+            id: `h${index}`,
+            side: "hero" as const,
+            areaId: "a",
+            stance: stances[index]!,
+            hero: stat.name,
+            heroStatId: stat.id,
+            life: stat.life,
+            skillIds: [] as string[],
+            wounds: 0,
+            stress: 0,
+            dodge: stat.dodge,
+            guard: false,
+            dead: false,
+            bleed: [] as string[],
+            blight: [] as string[],
+          })),
+          {
+            id: "m0",
+            side: "monster" as const,
+            areaId: "a",
+            stance: "aggressive" as const,
+            stanceSlots: 1 as const,
+            hero: null,
+            monsterCardId: "m0",
+            skillIds: [] as string[],
+            wounds: 0,
+            life: 8,
+            dodge: 0,
+            guard: false,
+            dead: false,
+            bleed: [] as string[],
+            blight: [] as string[],
+          },
+        ],
+        heroStats: stats,
+        monsters: [
+          {
+            id: "m0",
+            life: 8,
+            verification: { unverified: false },
+            resistances: [],
+            immunities: [],
+            skills: [],
+          },
+        ],
+        areas: [{ id: "a", elevation: "normal", adjacent: [] }],
+        light: 5,
+        skills: [],
+      });
+      if (!threat) return game;
+      return {
+        ...game,
+        dungeon: {
+          phase: "inBattle",
+          cursor: 0,
+          heroes: [],
+          activeBossThreatScriptId: FANATIC_I_SCRIPT_ID,
+        },
+      } as unknown as GameState;
+    };
+    const plain = applyCommand(make(seed, false), { type: "startBattle" });
+    const marked = applyCommand(make(seed, true), { type: "startBattle" });
+    expect(
+      marked.events.some((e) => e.type === "commandRefused"),
+      JSON.stringify(marked.events),
+    ).toBe(false);
+    expect(marked.state.battle!.rngCursor - plain.state.battle!.rngCursor).toBe(4);
+    expect(marked).toEqual(applyCommand(make(seed, true), { type: "startBattle" }));
+    for (const [index, roll] of rolls.entries()) {
+      const hero = marked.state.battle!.entities.find((e) => e.id === `h${index}`)!;
+      if (roll === lowest) {
+        expect(hero.statusStacks).toEqual([{ kind: "mark", remaining: 2 }]);
+        expect(hero.markStacks).toBe(1);
+      } else {
+        expect(hero.statusStacks ?? []).toEqual([]);
+      }
+    }
+    const tieSeed = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 13, 14, 15, 16].find((candidate) => {
+      const sample = stances.map((_, index) => nextBattleRoll(candidate, index));
+      return sample.filter((roll) => roll === Math.min(...sample)).length >= 2;
+    });
+    expect(tieSeed).toBeDefined();
+    const tieRolls = stances.map((_, index) => nextBattleRoll(tieSeed!, index));
+    const tieLowest = Math.min(...tieRolls);
+    const tiedBattle = applyCommand(make(tieSeed!, true), { type: "startBattle" });
+    expect(tiedBattle.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(
+      tiedBattle.state
+        .battle!.entities.filter((e) => e.side === "hero" && e.markStacks === 1)
+        .map((e) => e.id),
+    ).toEqual(tieRolls.flatMap((roll, index) => (roll === tieLowest ? [`h${index}`] : [])));
+  });
+
+  it("Fanatic I：英雄没有已核实条件防御时开战拒绝，不留下遭遇", () => {
+    const game = createBattleState(3, {
+      entities: [
+        ...(["aggressive", "defensive", "ranged", "support"] as const).map((stance, index) => ({
+          id: `h${index}`,
+          side: "hero" as const,
+          areaId: "a",
+          stance,
+          hero: "CRUSADER",
+          skillIds: [] as string[],
+          wounds: 0,
+          stress: 0,
+          dodge: 0,
+          guard: false,
+          dead: false,
+          bleed: [] as string[],
+          blight: [] as string[],
+        })),
+        {
+          id: "m0",
+          side: "monster" as const,
+          areaId: "a",
+          stance: "aggressive" as const,
+          stanceSlots: 1 as const,
+          hero: null,
+          monsterCardId: "m0",
+          skillIds: [] as string[],
+          wounds: 0,
+          life: 8,
+          dodge: 0,
+          guard: false,
+          dead: false,
+          bleed: [] as string[],
+          blight: [] as string[],
+        },
+      ],
+      monsters: [
+        {
+          id: "m0",
+          life: 8,
+          verification: { unverified: false },
+          resistances: [],
+          immunities: [],
+          skills: [],
+        },
+      ],
+      areas: [{ id: "a", elevation: "normal", adjacent: [] }],
+      light: 5,
+      skills: [],
+    });
+    const threatened = {
+      ...game,
+      dungeon: {
+        phase: "inBattle",
+        cursor: 0,
+        heroes: [],
+        activeBossThreatScriptId: FANATIC_I_SCRIPT_ID,
+      },
+    } as unknown as GameState;
+    const result = applyCommand(threatened, { type: "startBattle" });
+    expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
+    expect(result.state.battle!.encounter).toBeUndefined();
+    expect(result.state.battle!.rngCursor).toBe(0);
+  });
+
+  it("Flesh I：Large 生成 Guard 2t；抗性减为 1t；免疫不加；小型怪不加", () => {
+    const dungeon = {
+      phase: "inBattle",
+      cursor: 0,
+      heroes: [],
+      activeBossThreatScriptId: FLESH_I_SCRIPT_ID,
+    } as unknown as NonNullable<GameState["dungeon"]>;
+    const base = { guard: false, bleed: [] as string[], blight: [] as string[] };
+    const card = {
+      resistances: [{ key: "shuffle_resist", naming: "confirmed" }],
+      immunities: [{ key: "stun", naming: "confirmed" }],
+    };
+    const large = withLargeMonsterSpawnGuard(dungeon, { ...base, stanceSlots: 2 as const }, card);
+    expect(large).toMatchObject({
+      status: "ok",
+      entity: { guard: true, statusStacks: [{ kind: "guard", remaining: 2 }] },
+    });
+    const small = withLargeMonsterSpawnGuard(dungeon, { ...base, stanceSlots: 1 as const }, card);
+    expect(small).toEqual({ status: "ok", entity: { ...base, stanceSlots: 1 } });
+    const resisted = withLargeMonsterSpawnGuard(
+      dungeon,
+      { ...base, stanceSlots: 2 as const },
+      { resistances: [{ key: "guard", naming: "confirmed" }], immunities: [] },
+    );
+    expect(resisted).toMatchObject({
+      status: "ok",
+      entity: { guard: true, statusStacks: [{ kind: "guard", remaining: 1 }] },
+    });
+    const immune = withLargeMonsterSpawnGuard(
+      dungeon,
+      { ...base, stanceSlots: 2 as const },
+      { resistances: [], immunities: [{ key: "guard", naming: "confirmed" }] },
+    );
+    expect(immune).toMatchObject({ status: "ok", entity: { guard: false } });
+    const unverified = withLargeMonsterSpawnGuard(
+      dungeon,
+      { ...base, stanceSlots: 2 as const },
+      { resistances: [{ key: "guard", naming: "unreviewed" }], immunities: [] },
+    );
+    expect(unverified.status).toBe("refused");
+  });
+
+  it("Flesh I：自然遭遇生成的 Large 在 startDungeonBattle 上带 Guard 2t", () => {
+    const stats = coreParty.map((hero) =>
+      coreQuestSources.catalog.heroStats.find((s) => s.id === hero.heroStatId)!,
+    );
+    const heroes = coreParty.map((hero, index) => {
+      const stat = stats[index]!;
+      return {
+        id: `hero-${index}`,
+        heroStatId: stat.id,
+        level: 1 as const,
+        life: stat.life,
+        wounds: 0,
+        stress: 0,
+        attributesVerified: true as const,
+        stance: hero.stance,
+        skillIds: hero.skillIds,
+      };
+    });
+    const deploy = (seed: number) => {
+      const sandbox = createDungeonSandbox(
+        seed,
+        layout,
+        distribution,
+        "radiant",
+        "D",
+        heroes,
+        coreQuestSources.resolveCards,
+        { dungeonLevel: 1, light: 5, provisions: [{ id: "food", face: "food" }] },
+        undefined,
+        coreQuestSources.rooms,
+        coreQuestSources.monsters,
+        coreQuestSources.catalog,
+      );
+      let game: GameState = {
+        ...sandbox,
+        dungeon: {
+          ...sandbox.dungeon!,
+          phase: "awaitingRoom",
+          rooms: sandbox.dungeon!.rooms.map((room) =>
+            room.id === "D" ? { ...room, kind: "treasure" as const } : room,
+          ),
+        },
+      };
+      game = ok(game, { type: "prepareDungeonBattle" });
+      game = ok(game, { type: "prepareDungeonMonsters" });
+      return game;
+    };
+    let entered: GameState | undefined;
+    let lastRefuse = "";
+    for (let seed = 1; seed <= 400 && !entered; seed++) {
+      const prepared = deploy(seed);
+      const spawned = prepared.dungeon!.monsterPool?.active?.monsters ?? [];
+      if (!spawned.some((monster) => monster.stanceSlots === 2)) continue;
+      const threatened = ok(prepared, { type: "setActiveBossThreat", scriptId: FLESH_I_SCRIPT_ID });
+      const started = applyCommand(threatened, { type: "startDungeonBattle" });
+      const refusal = started.events.find((event) => event.type === "commandRefused");
+      if (refusal && refusal.type === "commandRefused") {
+        lastRefuse = refusal.message;
+        continue;
+      }
+      entered = started.state;
+    }
+    expect(entered, lastRefuse || "DL1 自然抽到 Large 后应能入场").toBeDefined();
+    const monsters = entered!.battle!.entities.filter((entity) => entity.side === "monster");
+    const large = monsters.filter((entity) => entity.stanceSlots === 2);
+    const small = monsters.filter((entity) => entity.stanceSlots === 1);
+    expect(large.length).toBeGreaterThan(0);
+    expect(
+      large.every((entity) => entity.guard && entity.statusStacks?.[0]?.kind === "guard"),
+    ).toBe(true);
+    expect(large.every((entity) => entity.statusStacks?.[0]?.remaining === 2)).toBe(true);
+    expect(small.every((entity) => !entity.guard)).toBe(true);
+  }, 20_000);
 });

@@ -16,7 +16,11 @@ import {
   readBossCombatEntry,
   runBossHook,
 } from "./index";
-import { hamletBuildingsBlockedByBossThreat, blackSheepStressDeltaFromBossThreat } from "./threat-passive";
+import {
+  hamletBuildingsBlockedByBossThreat,
+  blackSheepStressDeltaFromBossThreat,
+  markTurnsOnBattleStartFromBossThreat,
+} from "./threat-passive";
 import { resolveScriptIdForDescriptionCard } from "./threat-description-catalog";
 
 describe("Fanatic I Boss 脚本", () => {
@@ -42,16 +46,19 @@ describe("Fanatic I Boss 脚本", () => {
     );
   });
 
-  it("地牢侧威胁：Marked for Death 仍为 stub（开战 d10 最低 +2 压力未接线）", () => {
+  it("地牢侧威胁：Marked for Death 开战 d10 最低者 Mark 2t（图标 192ea1fea9）", () => {
     const script = getBossScript(FANATIC_I_SCRIPT_ID)!;
     const passive = runBossHook(script, "threatPassiveDungeon", {
       scriptId: FANATIC_I_SCRIPT_ID,
       side: "dungeon",
     });
-    expect(passive.status).toBe("stub");
     expect(passive).toMatchObject({
-      hold: `${FANATIC_I_COMBAT_ABILITY_CARD_ID} / Marked for Death I`,
+      status: "ok",
+      effect: "markOnBattleStartLowestD10",
+      markTurns: 2,
+      sourceAbilityCardId: FANATIC_I_COMBAT_ABILITY_CARD_ID,
     });
+    expect(markTurnsOnBattleStartFromBossThreat(script)).toBe(2);
   });
 
   it("村庄侧威胁：The Black Sheep 声明事件前 d10 最低 +4 压力", () => {

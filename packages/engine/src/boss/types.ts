@@ -60,6 +60,14 @@ export type BossThreatPassiveDungeonOk =
     }
   | {
       readonly status: "ok";
+      readonly effect: "markOnBattleStartLowestD10";
+      /** 开战全体英雄掷 d10，最低者（含并列）承受的 Mark 回合数（Marked for Death I 为 2t）。 */
+      readonly markTurns: number;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
       readonly effect: "skipCurioDrawInCurioRooms";
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];

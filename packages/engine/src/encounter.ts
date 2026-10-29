@@ -9,7 +9,7 @@ import type {
   MonsterSkillResolvedEvent,
 } from "./command";
 import type { SkillStance, SkillTargetSide } from "./hero-skill";
-import { createRng, rollD10 } from "./rng";
+import { createRng } from "./rng";
 import { statusStackProblem } from "./status";
 import { resolveTurnStartStatus } from "./battle-status";
 import { pressureCasualties, resolveBattlePressure } from "./pressure";
@@ -26,6 +26,7 @@ import { endTurnOldAbbey } from "./battle-old-abbey";
 import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
 import { encounterForcesRetreatAfterRound } from "./boss/encounter-rules";
+import { applyBossThreatMarkedForDeathOnBattleStart } from "./boss/threat-passive-runtime";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -84,12 +85,7 @@ export type EncounterEvent = {
   readonly haltReason?: "heroesDefeated" | "mutualWipeout";
 };
 
-/** 共享 RNG 游标；技能骰与先攻洗牌消费同一个可回放序列。 */
-export function nextBattleRoll(seed: number, cursor: number): number {
-  const rng = createRng(seed);
-  for (let index = 0; index < cursor; index += 1) rng.next();
-  return rollD10(rng);
-}
+export { nextBattleRoll } from "./battle-roll";
 
 function startRound(seed: number, battle: BattleState, round: number): BattleState {
   const deck = battle.entities.filter((entity) => !entity.dead).map((entity) => entity.side);
@@ -745,13 +741,16 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     }
     if (living.some(unsupportedTurnStart))
       return rejectBattleCommand(state, "回合开始状态 / 压力检定尚未接入（R-048）");
-    const deployed = placeBattleLoot(battle, state.seed);
+    const marked = applyBossThreatMarkedForDeathOnBattleStart(state);
+    if (marked.events.some((entry) => entry.type === "commandRefused"))
+      return { state, events: marked.events };
+    const deployed = placeBattleLoot(marked.state.battle!, state.seed);
     if (!deployed)
       return rejectBattleCommand(state, "战利品池必须保留十枚真实实例的可用 / 已拾取分区");
     const next = startRound(state.seed, deployed, 1);
     return {
-      state: { ...state, battle: next },
-      events: [event(next, "roundStarted", "开始第 1 轮")],
+      state: { ...marked.state, battle: next },
+      events: [...marked.events, event(next, "roundStarted", "开始第 1 轮")],
     };
   }
   const encounter = battle.encounter;
