@@ -128,6 +128,8 @@ export type DungeonState = {
    * spec §2.3 R11：威胁被动在 Boss 被击败前持续生效。
    */
   readonly activeBossThreatScriptId?: import("./boss/types").BossScriptId;
+  /** Face the Threat 出征钩子 ok 后写入（`chooseNextQuest` / 沙盒 p019）；R-121 布局仍 hold。 */
+  readonly faceTheThreatEmbarkPlan?: import("./boss/face-the-threat-embark-runtime").StoredFaceTheThreatEmbarkPlan;
   /** 最近一次 Imminent Threat 抽到的 Boss Description 印刷 id（spec §2.4 / §2.2）。 */
   readonly imminentThreatDescriptionCardId?: string;
   /** 抽到未注册 Boss 时的 hold 文案；脚本落地后由正式抽牌清除。 */

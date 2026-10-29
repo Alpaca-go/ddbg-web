@@ -12,6 +12,8 @@ import { createConditionPool } from "./conditions";
 import { trinketPoolProblem } from "./trinket-acquisition";
 import { isFormalHeroName } from "./formal-heroes";
 import { embarkSkillAllowed, isFormalHeroRosterPendingAttributes } from "./formal-roster-catalog";
+import { FACE_THE_THREAT_QUEST_ID } from "./boss/quest-bridge";
+import { requireFaceTheThreatEmbarkPlanForSandbox } from "./boss/face-the-threat-embark-runtime";
 
 export type CoreQuestSources = {
   readonly catalog: DungeonBattleCatalog;
@@ -114,7 +116,7 @@ export function createCoreDungeonQuest(
   const problem = trinketPoolProblem(trinkets, heroes);
   if (problem) throw new Error(problem);
   const layout = pickEmbarkQuestMapLayout(asQuestMapPairingQuest(quest), seed, 0);
-  return createDungeonSandbox(
+  const game = createDungeonSandbox(
     seed,
     layout,
     quest.distribution,
@@ -129,4 +131,16 @@ export function createCoreDungeonQuest(
     { ...sources.catalog, conditions, trinkets },
     true,
   );
+  if (questId !== FACE_THE_THREAT_QUEST_ID) return game;
+  const dungeon = game.dungeon;
+  if (!dungeon) throw new Error("沙盒 p019 缺地牢状态");
+  const plan = requireFaceTheThreatEmbarkPlanForSandbox(
+    dungeon.activeBossThreatScriptId
+      ? { campaignLevel: 1, activeBossThreatScriptId: dungeon.activeBossThreatScriptId }
+      : { campaignLevel: 1 },
+  );
+  return {
+    ...game,
+    dungeon: { ...dungeon, faceTheThreatEmbarkPlan: plan },
+  };
 }

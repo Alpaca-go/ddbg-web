@@ -34,7 +34,7 @@ describe("Face the Threat 通用钩子", () => {
     if (result.status === "ok") {
       expect(result.value.resolvedScriptId).toBe(PROPHET_I_SCRIPT_ID);
       expect(result.value.combatEntry.combatMonsterCardId).toBeTruthy();
-      expect(result.value.wiringHold).toMatch(/applyCommand/);
+      expect(result.value.wiringHold).toMatch(/R-121/);
       expect(result.value.rulesRef).toContain("spec:§14.1");
     }
   });

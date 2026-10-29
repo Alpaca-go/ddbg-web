@@ -33,7 +33,7 @@ Marked for Death 卡面 `{icon:192ea1fea9}` 在词典 v1.8 为 confirmed **Mark*
 | 项                                                         | 说明                                                         |
 | ---------------------------------------------------------- | ------------------------------------------------------------ |
 | **Flesh I** 战斗中途再生成 Large                           | 无召唤入场原语；只接遭遇开局 `startDungeonBattle` 的生成写入 |
-| **Face the Threat** `applyCommand` 出征                    | #343 解析钩子 hold；本刀不接                                 |
+| **Face the Threat** `applyCommand` 出征                    | #349 已接 `chooseNextQuest` / `faceTheThreatEmbarkPlan`；R-121 / 边缘房仍 hold |
 | R-121 / R-122 / Rising Threat / II·III 全量                | 任务卡 hold                                                  |
 | Guild / Blacksmith / Nomad 等非 `visitHamletBuilding` 入口 | Creeping Sickness 转移 **待确认**是否需同样挂钩              |
 

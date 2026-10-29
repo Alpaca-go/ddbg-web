@@ -213,6 +213,14 @@ export {
   runFaceTheThreatEmbarkForQuest,
 } from "./face-the-threat-hooks";
 export {
+  FACE_EMBARK_LAYOUT_WIRING_HOLD,
+  readStoredFaceTheThreatEmbarkPlan,
+  requireFaceTheThreatEmbarkPlanForSandbox,
+  resolveFaceTheThreatEmbarkForChoose,
+  storedFaceTheThreatEmbarkPlanFromHook,
+} from "./face-the-threat-embark-runtime";
+export type { StoredFaceTheThreatEmbarkPlan } from "./face-the-threat-embark-runtime";
+export {
   ensureFixtureBossScriptRegistered,
   FIXTURE_BOSS_COMBAT_MONSTER_CARD_ID,
   FIXTURE_BOSS_SCRIPT_ID,
@@ -246,6 +254,7 @@ export {
   faceTheThreatBossScriptByCampaignLevel,
   FACE_THE_THREAT_QUEST_ID,
   isBossQuestId,
+  isFaceTheThreatQuestId,
   resolveBossScriptIdForQuest,
 } from "./quest-bridge";
 export type { BossQuestScriptContext } from "./quest-bridge";

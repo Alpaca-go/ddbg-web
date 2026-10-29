@@ -41,6 +41,10 @@ export const faceTheThreatBossScriptByCampaignLevel: Partial<Record<CampaignLeve
 /** Face the Threat 任务卡 id（印刷 p19）。 */
 export const FACE_THE_THREAT_QUEST_ID = "quest:p019" as const satisfies BasicQuestId;
 
+export function isFaceTheThreatQuestId(questId: string): questId is typeof FACE_THE_THREAT_QUEST_ID {
+  return questId === FACE_THE_THREAT_QUEST_ID;
+}
+
 export type BossQuestScriptContext = {
   readonly campaignLevel?: CampaignLevel;
   readonly activeBossThreatScriptId?: BossScriptId;

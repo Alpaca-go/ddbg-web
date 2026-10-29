@@ -26,7 +26,7 @@ export const R121_BOSS_SLOT_LAYOUTS = {
 } as const satisfies Record<string, readonly string[]>;
 
 export const FACE_EMBARK_WIRING_HOLD =
-  "地牢出征 applyCommand / 边缘房选图 / quest-wire 未接（spec §14.1、R-046；Boss XP 仍 R-122 hold）";
+  "边缘房选图 / R-121 三格洗牌与 room token 写入 dungeon 未接（R-121 §6、R-046；Boss XP 仍 R-122 hold）";
 
 export const BOSS_SLOT_WIRING_HOLD =
   "目标 + 2 随机非目标洗入三格与 room token 写入 dungeon 未接（R-121 §6、R-046）";
