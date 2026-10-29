@@ -140,14 +140,17 @@ export type BossThreatPassiveHamletResult = BossThreatPassiveHamletOk | BossHook
 
 export type BossSummonPlacement = "targetArea" | "stanceArea";
 
-/** `battleStartPyre`：Fanatic 战开局 Pyre；`skill`：技能召唤（默认）。 */
-export type BossSummonPurpose = "skill" | "battleStartPyre";
+/** `battleStartPyre`：Fanatic 战开局 Pyre；`battleStartOneBodyPart`：Flesh 四部位之一；`skill`：技能召唤（默认）。 */
+export type BossSummonPurpose = "skill" | "battleStartPyre" | "battleStartOneBodyPart";
+
+export type FleshOneBodyPart = "head" | "bone" | "heart" | "butt";
 
 export type BossSummonOk = BossHookOk<{
   readonly summonMonsterCardId: string;
   readonly miniaturePlacement: BossSummonPlacement;
   /** R39 / R-034：Collector 等写明姿态时指定（Fanatic Pyre → ranged）。 */
   readonly fixedStance?: "aggressive" | "defensive" | "ranged" | "support";
+  readonly oneBodyPart?: FleshOneBodyPart;
   readonly rulesRef: readonly string[];
 }>;
 
@@ -161,6 +164,15 @@ export type BossSentenceRenderedOk = {
 };
 
 export type BossSentenceRenderedResult = BossSentenceRenderedOk | BossHookStubResult;
+
+export type BossOneBodyMorphOk = {
+  readonly status: "ok";
+  readonly effect: "randomPartCardPerStanceEachRoundStart";
+  readonly sourceAbilityCardId: string;
+  readonly rulesRef: readonly string[];
+};
+
+export type BossOneBodyMorphResult = BossOneBodyMorphOk | BossHookStubResult;
 
 export type BossCombatEntryRefs = {
   readonly descriptionAbilityCardId: string;
@@ -200,6 +212,8 @@ export type BossScriptHooks = {
     BossSentenceRenderedContext,
     BossSentenceRenderedResult
   >;
+  /** The Flesh · One Body：每轮开始部位 morph（随机表 hold 时运行时拒绝）。 */
+  readonly oneBodyMorph?: BossHookHandler<BossOneBodyMorphContext, BossOneBodyMorphResult>;
 };
 
 export type BossScriptDefinition = {
@@ -285,6 +299,12 @@ export type BossSummonContext = {
   readonly scriptId: BossScriptId;
   readonly skillSlot: number;
   readonly purpose?: BossSummonPurpose;
+  readonly oneBodyPart?: FleshOneBodyPart;
+};
+
+export type BossOneBodyMorphContext = {
+  readonly scriptId: BossScriptId;
+  readonly round: number;
 };
 
 export type BossSentenceRenderedContext = {

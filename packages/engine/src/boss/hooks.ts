@@ -9,6 +9,7 @@ import type {
   BossSlotPlacementContext,
   BossSummonContext,
   BossSentenceRenderedContext,
+  BossOneBodyMorphContext,
   BossThreatPassiveContext,
 } from "./types";
 
@@ -20,6 +21,7 @@ type HookContextMap = {
   monsterTurnActionCount: BossMonsterTurnContext;
   summon: BossSummonContext;
   sentenceRendered: BossSentenceRenderedContext;
+  oneBodyMorph: BossOneBodyMorphContext;
 };
 
 export type RunBossHookResult<N extends BossHookName> =

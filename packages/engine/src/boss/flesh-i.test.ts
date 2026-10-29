@@ -103,4 +103,31 @@ describe("The Flesh I Boss 脚本", () => {
     });
     expect(count).toEqual({ status: "ok", value: 1 });
   });
+
+  it("summon(battleStartOneBodyPart) 与 oneBodyMorph 钩子已声明（运行时见 flesh-i-combat-runtime）", () => {
+    const script = getBossScript(FLESH_I_SCRIPT_ID)!;
+    for (const part of ["head", "bone", "heart", "butt"] as const) {
+      const plan = runBossHook(script, "summon", {
+        scriptId: FLESH_I_SCRIPT_ID,
+        skillSlot: 0,
+        purpose: "battleStartOneBodyPart",
+        oneBodyPart: part,
+      });
+      expect(plan.status).toBe("ok");
+    }
+    const morph = runBossHook(script, "oneBodyMorph", {
+      scriptId: FLESH_I_SCRIPT_ID,
+      round: 2,
+    });
+    expect(morph).toMatchObject({
+      status: "ok",
+      effect: "randomPartCardPerStanceEachRoundStart",
+    });
+    const skillSummon = runBossHook(script, "summon", {
+      scriptId: FLESH_I_SCRIPT_ID,
+      skillSlot: 1,
+      purpose: "skill",
+    });
+    expect(skillSummon.status).toBe("stub");
+  });
 });

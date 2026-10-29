@@ -22,6 +22,10 @@ export type {
   BossSentenceRenderedContext,
   BossSentenceRenderedOk,
   BossSentenceRenderedResult,
+  BossOneBodyMorphContext,
+  BossOneBodyMorphOk,
+  BossOneBodyMorphResult,
+  FleshOneBodyPart,
   BossThreatPassiveContext,
   BossThreatPassiveDungeonOk,
   BossThreatPassiveDungeonResult,
@@ -161,7 +165,11 @@ export {
   FLESH_I_BONE_MONSTER_CARD_ID,
   FLESH_I_HEART_MONSTER_CARD_ID,
   FLESH_I_BUTT_MONSTER_CARD_ID,
+  FLESH_I_ONE_BODY_POOL_ID,
+  FLESH_I_ONE_BODY_PART_ORDER,
   fleshIBossScript,
+  fleshOneBodyPartCardId,
+  fleshOneBodyPartStance,
 } from "./flesh-i";
 export {
   ensureCollectorIBossScriptRegistered,
@@ -224,6 +232,15 @@ export {
   readFanaticIPyreBattleStartPlan,
   readFanaticISentenceRenderedEnabled,
 } from "./fanatic-i-combat-runtime";
+export {
+  applyFleshIOneBodyBattleStart,
+  applyFleshOneBodyMorphAtRoundStart,
+  isFleshOneBodyCombatMonsterCardId,
+  readFleshIOneBodyMorphEnabled,
+  readFleshIOneBodyPartBattleStartPlan,
+  reconcileFleshOneBodyPools,
+  withFleshOneBodyPoolState,
+} from "./flesh-i-combat-runtime";
 export {
   bossQuestScriptId,
   faceTheThreatBossScriptByCampaignLevel,
