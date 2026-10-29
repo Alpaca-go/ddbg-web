@@ -10,6 +10,7 @@ import type {
   BossSummonContext,
   BossSentenceRenderedContext,
   BossOneBodyMorphContext,
+  BossCollectAllContext,
   BossThreatPassiveContext,
 } from "./types";
 
@@ -22,6 +23,7 @@ type HookContextMap = {
   summon: BossSummonContext;
   sentenceRendered: BossSentenceRenderedContext;
   oneBodyMorph: BossOneBodyMorphContext;
+  collectAll: BossCollectAllContext;
 };
 
 export type RunBossHookResult<N extends BossHookName> =

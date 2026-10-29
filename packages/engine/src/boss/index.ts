@@ -19,6 +19,9 @@ export type {
   BossSummonPlacement,
   BossSummonPurpose,
   BossSummonResult,
+  BossCollectAllContext,
+  BossCollectAllOk,
+  BossCollectAllResult,
   BossSentenceRenderedContext,
   BossSentenceRenderedOk,
   BossSentenceRenderedResult,
@@ -26,6 +29,7 @@ export type {
   BossOneBodyMorphOk,
   BossOneBodyMorphResult,
   FleshOneBodyPart,
+  CollectorCollectedPart,
   BossThreatPassiveContext,
   BossThreatPassiveDungeonOk,
   BossThreatPassiveDungeonResult,
@@ -180,8 +184,18 @@ export {
   COLLECTOR_I_COLLECTED_HIGHWAYMAN_CARD_ID,
   COLLECTOR_I_COLLECTED_MAN_AT_ARMS_CARD_ID,
   COLLECTOR_I_COLLECTED_VESTAL_CARD_ID,
+  COLLECTOR_I_COLLECT_ALL_PART_ORDER,
+  collectorCollectedPartCardId,
+  collectorCollectedPartStance,
   collectorIBossScript,
 } from "./collector-i";
+export {
+  applyCollectorCollectAll,
+  collectorCollectAllShouldReplaceSkill,
+  isCollectorCollectedMonsterCardId,
+  readCollectorICollectAllEnabled,
+  readCollectorICollectAllPartPlan,
+} from "./collector-i-combat-runtime";
 export {
   ensureFanaticIBossScriptRegistered,
   FANATIC_I_COMBAT_ABILITY_CARD_ID,
