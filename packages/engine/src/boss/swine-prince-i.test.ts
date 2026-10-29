@@ -107,7 +107,7 @@ describe("Swine Prince I Boss 脚本", () => {
     expect(count).toEqual({ status: "ok", value: 2 });
   });
 
-  it("summon(battleStartWilbur) 与 skill 默认 stub（运行时见 swine-prince-i-combat-runtime）", () => {
+  it("summon(battleStartWilbur) 与 enragedDestruction 钩子已声明（运行时见 swine-prince-i-combat-runtime）", () => {
     const script = getBossScript(SWINE_PRINCE_I_SCRIPT_ID)!;
     const wilbur = runBossHook(script, "summon", {
       scriptId: SWINE_PRINCE_I_SCRIPT_ID,
@@ -119,6 +119,10 @@ describe("Swine Prince I Boss 脚本", () => {
       expect(wilbur.value.summonMonsterCardId).toBe(SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID);
       expect(wilbur.value.miniaturePlacement).toBe("stanceArea");
     }
+    const enraged = runBossHook(script, "enragedDestruction", {
+      scriptId: SWINE_PRINCE_I_SCRIPT_ID,
+    });
+    expect(enraged.status).toBe("ok");
     const skill = runBossHook(script, "summon", {
       scriptId: SWINE_PRINCE_I_SCRIPT_ID,
       skillSlot: 1,

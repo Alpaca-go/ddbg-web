@@ -21,6 +21,7 @@ import type { ApplyResult, GameState, HeroSkillTargetsResolvedEvent } from "./co
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
+import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./boss/swine-prince-i-combat-runtime";
 
 export type PlayHeroSkillTargetsCommand = {
   readonly type: "playHeroSkillTargets";
@@ -263,11 +264,11 @@ export function playHeroSkillTargets(
     },
     events: [event, ...pressure.events, ...statuses.events],
   };
-  // 复用一次技能的回合收尾；任一目标成功就锁定重用，全部落空才允许再用。
+  const chained = chainSwinePrinceIEnragedDestructionAfterHeroSkill(result, battle.entities, actor.id);
   return intents.length
-    ? result
+    ? chained
     : recordEncounterSkill(
-        result,
+        chained,
         {
           type: "heroSkillResolved",
           message: event.message,

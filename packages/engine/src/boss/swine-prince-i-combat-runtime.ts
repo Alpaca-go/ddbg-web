@@ -1,16 +1,22 @@
 import type { BattleEntity, BattleState } from "../battle";
-import type { ApplyResult, GameState } from "../command";
+import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../command";
+import { skillTargetView, writeResolution, distance } from "../battle";
+import { applySkillHealth } from "../battle-health";
+import { nextBattleRoll } from "../encounter";
 import type { MonsterCardView } from "../monster-skill";
+import { readMonsterAttackView, resolveMonsterSkill, resolveMonsterSkillEffects } from "../monster-skill";
 import { runBossHook } from "./hooks";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 import {
   SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID,
+  SWINE_PRINCE_I_ENRAGED_DESTRUCTION_SKILL_SLOT,
   SWINE_PRINCE_I_SCRIPT_ID,
   SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
   swinePrinceIWilburBattleStartStance,
 } from "./swine-prince-i";
 import { getBossScript } from "./registry";
 import type { BossScriptDefinition, BossSummonOk } from "./types";
+import { monsterCombatThreatDamageBonus } from "./threat-passive-runtime";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 
@@ -183,5 +189,223 @@ export function applySwinePrinceIWilburBattleStart(state: GameState): ApplyResul
         message: `Swine Prince I · Wilbur：支援姿态开局写入 ${wilburId}（${areaId}；${script.displayName}）`,
       },
     ],
+  };
+}
+
+export function readSwinePrinceIEnragedDestructionEnabled(script: BossScriptDefinition): boolean {
+  if (script.id !== SWINE_PRINCE_I_SCRIPT_ID) return false;
+  const result = runBossHook(script, "enragedDestruction", { scriptId: script.id });
+  return (
+    result.status === "ok" &&
+    result.effect === "princeUsesSkillWhenWilburDamaged" &&
+    result.targetPolicy === "offendingHero" &&
+    result.skillSlot === SWINE_PRINCE_I_ENRAGED_DESTRUCTION_SKILL_SLOT
+  );
+}
+
+export function readSwinePrinceIEnragedDestructionSkillSlot(
+  script: BossScriptDefinition,
+): number | null {
+  if (!readSwinePrinceIEnragedDestructionEnabled(script)) return null;
+  const result = runBossHook(script, "enragedDestruction", { scriptId: script.id });
+  if (result.status !== "ok") return null;
+  return result.skillSlot;
+}
+
+function wilburWoundsIncreased(
+  before: readonly BattleEntity[],
+  after: readonly BattleEntity[],
+): boolean {
+  const prior = before.find(
+    (entity) => entity.monsterCardId === SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID && !entity.dead,
+  );
+  const next = after.find(
+    (entity) => entity.monsterCardId === SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID && !entity.dead,
+  );
+  if (!prior || !next) return false;
+  return next.wounds > prior.wounds;
+}
+
+/** Wilbur 本技能结算后伤口增加 → Prince 对施法英雄立即 Enraged Destruction（不占用怪物回合）。 */
+export function applySwinePrinceIEnragedDestruction(
+  state: GameState,
+  offendingHeroId: string,
+): ApplyResult {
+  const battle = state.battle;
+  if (!battle) return { state, events: [] };
+  const scriptId = resolveEncounterBossScriptId(state);
+  if (scriptId !== SWINE_PRINCE_I_SCRIPT_ID) return { state, events: [] };
+  const script = getBossScript(scriptId);
+  if (!script || !readSwinePrinceIEnragedDestructionEnabled(script)) return { state, events: [] };
+
+  const prince = princeEntity(battle);
+  if (!prince) return { state, events: [] };
+  const offender = battle.entities.find(
+    (entity) => entity.id === offendingHeroId && entity.side === "hero" && !entity.dead,
+  );
+  if (!offender) {
+    return {
+      state,
+      events: [{ type: "commandRefused", message: "Enraged Destruction：缺有效施法英雄（R-048）" }],
+    };
+  }
+
+  const card = battle.monsters?.find((entry) => entry.id === prince.monsterCardId);
+  if (!card || card.verification.unverified) {
+    return {
+      state,
+      events: [
+        {
+          type: "commandRefused",
+          message: "Enraged Destruction：Swine Prince 卡未核实（R-048）",
+        },
+      ],
+    };
+  }
+  if (prince.life !== card.life) {
+    return {
+      state,
+      events: [{ type: "commandRefused", message: "Enraged Destruction：Prince Life 不一致（R-048）" }],
+    };
+  }
+
+  const skillSlot = readSwinePrinceIEnragedDestructionSkillSlot(script);
+  if (skillSlot === null) return { state, events: [] };
+  const attack = readMonsterAttackView(card, skillSlot);
+  if (attack.status === "refused") {
+    return {
+      state,
+      events: [{ type: "commandRefused", message: attack.reason }],
+    };
+  }
+
+  const actorArea = battle.areas.find((entry) => entry.id === prince.areaId);
+  const targetArea = battle.areas.find((entry) => entry.id === offender.areaId);
+  if (!actorArea || !targetArea) {
+    return {
+      state,
+      events: [{ type: "commandRefused", message: "Enraged Destruction：区域几何未核实（R-048）" }],
+    };
+  }
+  const areaDistance =
+    prince.areaId === offender.areaId
+      ? 0
+      : distance(battle.areas, prince.areaId, offender.areaId);
+  if (areaDistance === null) {
+    return {
+      state,
+      events: [
+        { type: "commandRefused", message: "Enraged Destruction：Prince 与目标不可达（R-048）" },
+      ],
+    };
+  }
+
+  const heights = { low: 0, normal: 1, high: 2 };
+  let cursor = battle.rngCursor;
+  const roll = nextBattleRoll(state.seed, cursor);
+  cursor += 1;
+  const combat = {
+    actor: {
+      id: prince.id,
+      wounds: prince.wounds,
+      ...(prince.buffStacks === undefined ? {} : { buffStacks: prince.buffStacks }),
+      ...(prince.shuffleResist === undefined ? {} : { shuffleResist: prince.shuffleResist }),
+    },
+    target: skillTargetView(offender, battle),
+    areaDistance,
+    light: battle.light,
+    targetAreaLower: heights[actorArea.elevation] > heights[targetArea.elevation],
+    guardedHeroOmitted:
+      !offender.guard &&
+      battle.entities.some((entry) => entry.side === "hero" && !entry.dead && entry.guard),
+    untargetedHeroesBesideTarget: battle.entities
+      .filter(
+        (entry) =>
+          entry.side === "hero" &&
+          !entry.dead &&
+          entry.id !== offender.id &&
+          entry.areaId === offender.areaId,
+      )
+      .map((entry) => ({ ...entry, stress: entry.stress! })),
+    threatFlatDamageBonus: monsterCombatThreatDamageBonus(state.dungeon, card),
+  };
+
+  const resolved = resolveMonsterSkill(card, skillSlot, combat, roll);
+  if (resolved.status === "refused") {
+    return { state, events: [{ type: "commandRefused", message: resolved.reason }] };
+  }
+  const effects = resolveMonsterSkillEffects(card, skillSlot, combat, roll);
+  if (effects.status === "refused") {
+    return { state, events: [{ type: "commandRefused", message: effects.reason }] };
+  }
+  if (resolved.resolution.skipped.length) {
+    return {
+      state,
+      events: [
+        { type: "commandRefused", message: "Enraged Destruction：技能效果未全接入（R-048）" },
+      ],
+    };
+  }
+
+  let entities = battle.entities.map((entry) => {
+    const updated = writeResolution(entry, prince.id, offender.id, resolved.resolution, false);
+    return entry.id === prince.id ? { ...updated, dead: resolved.actorDead } : updated;
+  });
+  const health = applySkillHealth(
+    { ...battle, entities, rngCursor: cursor },
+    entities,
+    effects,
+    state.seed,
+    cursor,
+  );
+  if (health.status === "refused") {
+    return { state, events: [{ type: "commandRefused", message: health.reason }] };
+  }
+
+  const skillEvent: MonsterSkillResolvedEvent = {
+    type: "monsterSkillResolved",
+    message: "Swine Prince I · Enraged Destruction 已结算",
+    actorId: prince.id,
+    skillSlot,
+    roll,
+    actorDead: resolved.actorDead,
+    resolution: resolved.resolution,
+  };
+
+  return {
+    state: {
+      ...state,
+      battle: {
+        ...battle,
+        entities: health.entities,
+        rngCursor: health.rngCursor,
+      },
+    },
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: `Swine Prince I · Enraged Destruction：Wilbur 受伤 → Prince 反击 ${offender.id}（slot ${skillSlot}）`,
+      },
+      skillEvent,
+      ...health.events,
+    ],
+  };
+}
+
+/** 英雄技能结算后链接 Enraged Destruction（Wilbur 伤口增加且 Prince 在场）。 */
+export function chainSwinePrinceIEnragedDestructionAfterHeroSkill(
+  result: ApplyResult,
+  beforeEntities: readonly BattleEntity[],
+  heroActorId: string,
+): ApplyResult {
+  if (result.events.some((event) => event.type === "commandRefused")) return result;
+  const battle = result.state.battle;
+  if (!battle?.encounter) return result;
+  if (!wilburWoundsIncreased(beforeEntities, battle.entities)) return result;
+  const enraged = applySwinePrinceIEnragedDestruction(result.state, heroActorId);
+  if (enraged.events.some((event) => event.type === "commandRefused")) return enraged;
+  return {
+    state: enraged.state,
+    events: [...result.events, ...enraged.events],
   };
 }

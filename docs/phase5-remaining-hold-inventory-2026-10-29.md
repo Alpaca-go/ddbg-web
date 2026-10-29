@@ -94,7 +94,7 @@
 | **`faceTheThreatBossScriptByCampaignLevel` II/III** | CL 2/3 无映射 → 钩子 / `chooseNextQuest` 拒绝 | 待确认 / II 脚本切片 |
 | **II/III `offerNextQuest` 强制 p019** | 仅 I 级幕末强制；II/III 仍普通池 | 升幕 / 任务卡 |
 | **`summon` · Hag / Siren** | 钩子 **stub**（Cauldron、Pelagic 等） | R38–R39 / 各 Boss 切片 |
-| **`summon(purpose:skill)` · Swine / Fanatic / Collector / Flesh** | Swine **Wilbur 开战**已接（`battleStartWilbur`）；Enraged / Mark AI 仍 stub | R38–R39 / Swine Prince |
+| **`summon(purpose:skill)` · Swine / Fanatic / Collector / Flesh** | Swine **Wilbur 开战** + **Enraged** 已接；Wilbur Mark AI 仍 stub | R38–R39 / Swine Prince |
 | **Prophet I** 第 2 行动 AI / room 卡→战斗区域几何 / 先攻 3 洗入 | Calamitous + Rubble 最小运行时后仍 hold（见 `prophet-i.ts` notes） | R38–R39 / R-048 |
 | **Collector** 宝箱房 / 先攻 4 洗入 / 最近区域挤占 | Collect All 最小运行时后仍 hold（见 `collector-i.ts` notes） | R-034 / R38–R39 |
 | **Fanatic** Pit Toss / 技能 AI / 先攻 4 张洗入 | Pyre + Sentence 已接；其余 stub | G-05 / R39 |
@@ -171,7 +171,7 @@ Helper 汇总：`threat-passive.ts`（纯查询）；运行时：`threat-passive
 1. **R-121 最小写入**：`bossSlotPlacement` 探针已有 → 选图 p011/p012 + 目标 + 2 随机非目标 room token 洗入 dungeon（不单改文档）。
 2. **Ruins Boss II 单切片**：例如 Necromancer II（`p002`）注册 + `faceTheThreatBossScriptByCampaignLevel[2]` 策略裁定。
 3. **Prophet I 战斗**：Calamitous + Rubble 最小运行时已接；第 2 行动 / room 几何 / 先攻仍 hold。
-4. **Swine Prince I**：Enraged Destruction / Wilbur Mark AI / Wilbur 先攻洗入仍 hold（Wilbur **开战伴战**已接 `swine-prince-i-combat-runtime`）。
+4. **Swine Prince I**：Wilbur Mark AI / Wilbur 先攻洗入 / Enraged **skill slot** 与 Warrens 卡面 extract 仍 hold（Wilbur 开战 + Enraged 最小运行时已接 `swine-prince-i-combat-runtime`）。
 5. **R-122 Boss XP**：`summarizeDungeonQuest` 摘要已接；最暗 p016–p018 击败判定与 Rising Threat 仍 hold。
 6. **II 级幕末 p019 / 升幕 §2.2**：在 II 映射确认后扩展 `shouldForceFaceTheThreatOfferAtNextQuest` 与 `drawImminentThreatAfterActAdvance` 与 `advanceCampaignLevel` 合并策略。
 

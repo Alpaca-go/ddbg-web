@@ -218,6 +218,22 @@ export type BossRubbleOfRuinOk = {
 
 export type BossRubbleOfRuinResult = BossRubbleOfRuinOk | BossHookStubResult;
 
+export type BossEnragedDestructionOk = {
+  readonly status: "ok";
+  readonly effect: "princeUsesSkillWhenWilburDamaged";
+  /** Swine Prince 战斗卡 slot；Warrens extract 入库前由常量 + 测试夹具对齐。 */
+  readonly skillSlot: number;
+  readonly targetPolicy: "offendingHero";
+  readonly sourceAbilityCardId: string;
+  readonly rulesRef: readonly string[];
+};
+
+export type BossEnragedDestructionResult = BossEnragedDestructionOk | BossHookStubResult;
+
+export type BossEnragedDestructionContext = {
+  readonly scriptId: BossScriptId;
+};
+
 export type BossCombatEntryRefs = {
   readonly descriptionAbilityCardId: string;
   readonly combatAbilityCardId: string;
@@ -269,6 +285,11 @@ export type BossScriptHooks = {
   readonly rubbleOfRuin?: BossHookHandler<
     BossCalamitousPrognosticationContext,
     BossRubbleOfRuinResult
+  >;
+  /** Swine Prince · Enraged Destruction：Wilbur 受伤时 Prince 立即反击（spec §14.5 / Boss Abilities p10）。 */
+  readonly enragedDestruction?: BossHookHandler<
+    BossEnragedDestructionContext,
+    BossEnragedDestructionResult
   >;
 };
 

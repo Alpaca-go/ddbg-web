@@ -29,7 +29,7 @@
 | --- | --- |
 | Warrens Boss **extract JSON** 与占位 id 对齐 PDF 页序 | 当前 id 按 `boss_ability:warrens:swine_prince:p00x` / `monster_*:warrens:*` 约定 |
 | Beast +2 伤害、生存专家封锁 **写入** encounter / hamlet-actions | **已接**（`battle-monster*` / 村庄封锁既有路径） |
-| Wilbur 布置、Enraged Destruction、Mark 完整 AI | Wilbur **开战伴战**已接（`swine-prince-i-combat-runtime`）；Enraged / Mark AI / Wilbur 先攻仍 hold |
+| Wilbur 布置、Mark 完整 AI | Wilbur **开战伴战** + **Enraged Destruction** 最小运行时已接（`swine-prince-i-combat-runtime`）；Mark AI / Wilbur 先攻洗入 / Enraged **slot** Warrens extract 对齐仍 hold |
 | Warrens 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
 | quest / Face the Threat → Swine Prince | `defaultFaceTheThreatEmbarkHook` **ok** |
 | **R-121** Boss 位 | `defaultBossSlotPlacementHook` 校验 **ok**；洗牌写入 hold |

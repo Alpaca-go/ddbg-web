@@ -22,6 +22,9 @@ export type {
   BossCollectAllContext,
   BossCollectAllOk,
   BossCollectAllResult,
+  BossEnragedDestructionContext,
+  BossEnragedDestructionOk,
+  BossEnragedDestructionResult,
   BossSentenceRenderedContext,
   BossSentenceRenderedOk,
   BossSentenceRenderedResult,
@@ -168,6 +171,7 @@ export {
   SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID,
   SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID,
   SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
+  SWINE_PRINCE_I_ENRAGED_DESTRUCTION_SKILL_SLOT,
   SWINE_PRINCE_I_SCRIPT_ID,
   SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
   swinePrinceIBossScript,
@@ -175,6 +179,10 @@ export {
 } from "./swine-prince-i";
 export {
   applySwinePrinceIWilburBattleStart,
+  applySwinePrinceIEnragedDestruction,
+  chainSwinePrinceIEnragedDestructionAfterHeroSkill,
+  readSwinePrinceIEnragedDestructionEnabled,
+  readSwinePrinceIEnragedDestructionSkillSlot,
   readSwinePrinceIWilburBattleStartPlan,
 } from "./swine-prince-i-combat-runtime";
 export {
