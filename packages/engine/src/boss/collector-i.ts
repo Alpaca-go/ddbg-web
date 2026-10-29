@@ -25,7 +25,7 @@ export const COLLECTOR_I_COMBAT_ABILITY_CARD_ID = "boss_ability:p016" as const;
 /** Collector I 战斗卡（Eldritch · Human · Front · `monster_medium` PDF p92）。 */
 export const COLLECTOR_I_COMBAT_MONSTER_CARD_ID = "monster_medium:p092" as const;
 
-/** Collect All I 召唤物（不进 `combatEntry`；先攻洗入 / 最近区域挤占仍 hold）。 */
+/** Collect All I 召唤物（不进 `combatEntry`；洗入先攻与英雄最近区域挤占已有运行时）。 */
 export const COLLECTOR_I_COLLECTED_MAN_AT_ARMS_CARD_ID = "monster_medium:p098" as const;
 export const COLLECTOR_I_COLLECTED_HIGHWAYMAN_CARD_ID = "monster_medium:p095" as const;
 export const COLLECTOR_I_COLLECTED_VESTAL_CARD_ID = "monster_medium:p101" as const;
@@ -109,7 +109,7 @@ export const collectorIBossScript: BossScriptDefinition = {
   displayName: "Collector I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38/R39：先攻 1、ACTIONS / Round: 1；Collect All + 先攻 3 洗入 + 最近区域挤占已接最小运行时；宝箱房仍 hold。",
+    "R39 / C-015：三宝箱同区布置已接 startBattle，缺少获批区域绑定则拒绝；Collector Room 生产几何仍 hold。Collect All / 先攻洗入 / 最近区域挤占沿用原运行时。",
   combatEntry: {
     descriptionAbilityCardId: COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: COLLECTOR_I_COMBAT_ABILITY_CARD_ID,

@@ -41,6 +41,7 @@ import {
   prophetShouldEnterActedIdsAfterTurn,
 } from "./boss/prophet-i-combat-runtime";
 import { expandCollectorIInitiativeDeckSides } from "./boss/collector-i-combat-runtime";
+import { readCollectorIRoomLootPlacement } from "./boss/collector-i-room-runtime";
 import {
   clearNecromancerICompanions,
   continueNecromancerISummon,
@@ -825,7 +826,14 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
           ...cauldron.events,
         ],
       };
-    const deployed = placeBattleLoot(cauldron.state.battle!, state.seed);
+    const collectorLoot = readCollectorIRoomLootPlacement(cauldron.state);
+    if (collectorLoot.status === "refused")
+      return rejectBattleCommand(state, collectorLoot.message);
+    const deployed = placeBattleLoot(
+      cauldron.state.battle!,
+      state.seed,
+      collectorLoot.status === "ready" ? collectorLoot.placements : undefined,
+    );
     if (!deployed)
       return rejectBattleCommand(state, "战利品池必须保留十枚真实实例的可用 / 已拾取分区");
     const next = startRound(state.seed, deployed, 1, cauldron.state);
@@ -837,6 +845,14 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
         ...oneBody.events,
         ...wilbur.events,
         ...cauldron.events,
+        ...(collectorLoot.status === "ready"
+          ? [
+              {
+                type: "dungeonUpdated" as const,
+                message: `Collector Room：指定区域布置 ${deployed.loot!.placed.length} 个宝箱（R39；有限堆按 R-047 抽空即止）`,
+              },
+            ]
+          : []),
         event(next, "roundStarted", "开始第 1 轮"),
       ],
     };

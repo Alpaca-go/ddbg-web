@@ -29,10 +29,9 @@ import {
 
 const mediumCards = normalizedMonsterMediumFileSchema.parse(
   JSON.parse(
-    readFileSync(
-      new URL("../../../data/normalized/corebox/monster_medium.json", import.meta.url),
-      { encoding: "utf8" },
-    ),
+    readFileSync(new URL("../../../data/normalized/corebox/monster_medium.json", import.meta.url), {
+      encoding: "utf8",
+    }),
   ),
 ).cards;
 
@@ -119,6 +118,8 @@ function collectorBattle(extra?: Partial<GameState["battle"]>): GameState {
       skills: [],
       heroStats: [],
       lootPool: createLootState(),
+      // C-015：只用于机制夹具，不代表 Collector Room 生产几何已批。
+      collectorRoomLootAreaId: "b",
       ...extra,
     }),
     dungeon: collectorBossDungeon(),
@@ -184,17 +185,23 @@ describe("Collector I Collect All 战斗运行时", () => {
       (entity) => entity.monsterCardId && ids.includes(entity.monsterCardId),
     );
     expect(summoned).toHaveLength(3);
-    expect(summoned.find((entity) => entity.monsterCardId === COLLECTOR_I_COLLECTED_MAN_AT_ARMS_CARD_ID)).toMatchObject({
+    expect(
+      summoned.find((entity) => entity.monsterCardId === COLLECTOR_I_COLLECTED_MAN_AT_ARMS_CARD_ID),
+    ).toMatchObject({
       stance: "defensive",
       areaId: "a",
     });
-    expect(summoned.find((entity) => entity.monsterCardId === COLLECTOR_I_COLLECTED_HIGHWAYMAN_CARD_ID)).toMatchObject({
+    expect(
+      summoned.find((entity) => entity.monsterCardId === COLLECTOR_I_COLLECTED_HIGHWAYMAN_CARD_ID),
+    ).toMatchObject({
       stance: "ranged",
       areaId: "b",
     });
-    expect(result.events.some((event) => event.type === "dungeonUpdated" && event.message.includes("Collect All"))).toBe(
-      true,
-    );
+    expect(
+      result.events.some(
+        (event) => event.type === "dungeonUpdated" && event.message.includes("Collect All"),
+      ),
+    ).toBe(true);
   });
 
   it("场上已有 Collected 时不替代选招", () => {
