@@ -26,6 +26,7 @@ type HookContextMap = {
   oneBodyMorph: BossOneBodyMorphContext;
   collectAll: BossCollectAllContext;
   calamitousPrognostication: BossCalamitousPrognosticationContext;
+  rubbleOfRuin: BossCalamitousPrognosticationContext;
 };
 
 export type RunBossHookResult<N extends BossHookName> =

@@ -12,7 +12,9 @@ import {
 } from "./boss/collector-i-combat-runtime";
 import {
   applyProphetCalamitousPrognostication,
+  applyProphetRubbleOfRuin,
   prophetCalamitousShouldReplaceSkill,
+  prophetRubbleShouldReplaceSkill,
 } from "./boss/prophet-i-combat-runtime";
 import { readMonsterSelfStatuses } from "./monster-self-status";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
@@ -78,6 +80,9 @@ export function prepareMonsterAction(
   }
   if (prophetCalamitousShouldReplaceSkill(state, actor.id)) {
     return applyProphetCalamitousPrognostication(state, actor.id);
+  }
+  if (prophetRubbleShouldReplaceSkill(state, actor.id)) {
+    return applyProphetRubbleOfRuin(state, actor.id);
   }
   if (fanaticSentenceRenderedShouldReplaceSkill(state, actor.id)) {
     return applyFanaticSentenceRendered(state, actor.id);

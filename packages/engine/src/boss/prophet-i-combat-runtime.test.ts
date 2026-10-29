@@ -12,14 +12,20 @@ import {
   PROPHET_I_WOODEN_PEW_SUMMON_TOKEN_ID,
   PROPHET_ROOM_D10_MARKERS,
   applyProphetCalamitousPrognostication,
+  applyProphetRubbleOfRuin,
   clearBossScriptsForTest,
   countWoodenPewsInArea,
   ensureProphetIBossScriptRegistered,
   getBossScript,
+  prophetActionIndexBeforeTurn,
   prophetCalamitousShouldReplaceSkill,
   prophetD10RollMatchesMarker,
+  prophetRubbleShouldReplaceSkill,
   prophetRoomD10AreaTableFromMarkers,
+  PROPHET_I_RUBBLE_SKILL_SLOT,
+  PROPHET_I_THIRD_ACTION_INDEX,
   readProphetICalamitousEnabled,
+  readProphetIRubbleEnabled,
   readProphetIWwoodenPewPlan,
   resolveProphetAreaIdForD10Roll,
   FACE_THE_THREAT_QUEST_ID,
@@ -45,7 +51,17 @@ const prophetCardView = {
   dodge: 0,
   speed: 1,
   verification: { unverified: false },
-  skills: [],
+  skills: prophetCardRaw.skills,
+  stanceGroups: [
+    {
+      stances: ["aggressive", "defensive", "ranged", "support"],
+      rollTable: [
+        { min: 1, max: 4, skill: 1 },
+        { min: 5, max: 7, skill: 2 },
+        { min: 8, max: 10, skill: 3 },
+      ],
+    },
+  ],
   typeTags: ["Unholy"],
 } as MonsterCardView;
 
@@ -159,7 +175,7 @@ describe("Prophet I · Calamitous Prognostication 战斗最小运行时", () => 
         ...state.battle!,
         encounter: {
           round: 1,
-          deck: [],
+          deck: ["hero"],
           actedIds: [],
           turn: { type: "monster", actorId: "prophet" },
         },
@@ -186,7 +202,7 @@ describe("Prophet I · Calamitous Prognostication 战斗最小运行时", () => 
         ...state.battle!,
         encounter: {
           round: 1,
-          deck: [],
+          deck: ["hero"],
           actedIds: [],
           turn: { type: "monster", actorId: "prophet" },
         },
@@ -206,12 +222,82 @@ describe("Prophet I · Calamitous Prognostication 战斗最小运行时", () => 
         prophetCalamitousUsedThisRound: true,
         encounter: {
           round: 1,
-          deck: [],
+          deck: ["hero"],
           actedIds: [],
           turn: { type: "monster", actorId: "prophet" },
         },
       },
     };
     expect(prophetCalamitousShouldReplaceSkill(state, "prophet")).toBe(false);
+  });
+});
+
+describe("Prophet I · Rubble of Ruin 战斗最小运行时", () => {
+  beforeEach(() => {
+    clearBossScriptsForTest();
+    ensureProphetIBossScriptRegistered();
+  });
+
+  it("rubbleOfRuin 钩子与卡面 slot 3 已声明", () => {
+    const script = getBossScript(PROPHET_I_SCRIPT_ID)!;
+    expect(readProphetIRubbleEnabled(script)).toBe(true);
+    expect(PROPHET_I_RUBBLE_SKILL_SLOT).toBe(3);
+    expect(prophetCardRaw.skills.find((skill) => skill.slot === 3)?.name).toBe("Rubble of Ruin");
+  });
+
+  it("Prophet I · Rubble of Ruin：第 3 行动每木长椅独立攻击", () => {
+    let state = prophetBattle();
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        woodenPews: [
+          { areaId: "pew-area-0", pewIndex: 0 },
+          { areaId: "pew-area-1", pewIndex: 1 },
+        ],
+        prophetActionsThisRound: PROPHET_I_THIRD_ACTION_INDEX,
+        rngCursor: 0,
+        encounter: {
+          round: 1,
+          deck: ["hero"],
+          actedIds: [],
+          turn: { type: "monster", actorId: "prophet" },
+        },
+      },
+    };
+    expect(prophetActionIndexBeforeTurn(state.battle!)).toBe(2);
+    expect(prophetRubbleShouldReplaceSkill(state, "prophet")).toBe(true);
+
+    const heroBefore = state.battle!.entities.find((entity) => entity.id === "h0")!.wounds;
+    const result = applyProphetRubbleOfRuin(state, "prophet");
+    expect(result.events.some((event) => event.type === "monsterSkillResolved")).toBe(true);
+    expect(result.events.some((event) => event.type === "dungeonUpdated" && event.message.includes("Rubble of Ruin"))).toBe(
+      true,
+    );
+    const heroAfter = result.state.battle!.entities.find((entity) => entity.id === "h0")!.wounds;
+    expect(heroAfter).toBeGreaterThanOrEqual(heroBefore);
+    expect(prophetActionIndexBeforeTurn(result.state.battle!)).toBe(3);
+  });
+
+  it("prepareMonsterAction 路径在第 3 行动触发 Rubble", () => {
+    let state = prophetBattle();
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        woodenPews: [{ areaId: "pew-area-0", pewIndex: 0 }],
+        prophetActionsThisRound: PROPHET_I_THIRD_ACTION_INDEX,
+        encounter: {
+          round: 1,
+          deck: ["hero"],
+          actedIds: [],
+          turn: { type: "monster", actorId: "prophet" },
+        },
+      },
+    };
+    const result = applyCommand(state, { type: "prepareMonsterAction", actorId: "prophet" });
+    expect(result.events.some((event) => event.type === "dungeonUpdated" && event.message.includes("Rubble of Ruin"))).toBe(
+      true,
+    );
   });
 });

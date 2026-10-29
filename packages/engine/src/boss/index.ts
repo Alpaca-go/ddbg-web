@@ -131,6 +131,7 @@ export {
   PROPHET_I_COMBAT_ABILITY_CARD_ID,
   PROPHET_I_COMBAT_MONSTER_CARD_ID,
   PROPHET_I_DESCRIPTION_ABILITY_CARD_ID,
+  PROPHET_I_RUBBLE_SKILL_SLOT,
   PROPHET_I_SCRIPT_ID,
   PROPHET_I_WOODEN_PEW_SUMMON_TOKEN_ID,
   PROPHET_ROOM_CARD_ID,
@@ -141,10 +142,16 @@ export {
 } from "./prophet-i";
 export {
   applyProphetCalamitousPrognostication,
+  applyProphetRubbleOfRuin,
   countWoodenPewsInArea,
+  prophetActionIndexBeforeTurn,
   prophetCalamitousShouldReplaceSkill,
+  prophetRubbleShouldReplaceSkill,
   prophetRoomD10AreaTableFromMarkers,
+  PROPHET_I_FIRST_ACTION_INDEX,
+  PROPHET_I_THIRD_ACTION_INDEX,
   readProphetICalamitousEnabled,
+  readProphetIRubbleEnabled,
   readProphetIWwoodenPewPlan,
   resolveProphetAreaIdForD10Roll,
 } from "./prophet-i-combat-runtime";
