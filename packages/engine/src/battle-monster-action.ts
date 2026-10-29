@@ -10,6 +10,10 @@ import {
   applyCollectorCollectAll,
   collectorCollectAllShouldReplaceSkill,
 } from "./boss/collector-i-combat-runtime";
+import {
+  applyProphetCalamitousPrognostication,
+  prophetCalamitousShouldReplaceSkill,
+} from "./boss/prophet-i-combat-runtime";
 import { readMonsterSelfStatuses } from "./monster-self-status";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import type { SkillStance } from "./hero-skill";
@@ -71,6 +75,9 @@ export function prepareMonsterAction(
   if (isInvokingMonster(battle, actor.id)) return moveInvokingMonster(state, actor.id);
   if (collectorCollectAllShouldReplaceSkill(state, actor.id)) {
     return applyCollectorCollectAll(state, actor.id);
+  }
+  if (prophetCalamitousShouldReplaceSkill(state, actor.id)) {
+    return applyProphetCalamitousPrognostication(state, actor.id);
   }
   if (fanaticSentenceRenderedShouldReplaceSkill(state, actor.id)) {
     return applyFanaticSentenceRendered(state, actor.id);

@@ -99,8 +99,9 @@ function startRound(seed: number, battle: BattleState, round: number): BattleSta
     [deck[index], deck[other]] = [deck[other]!, deck[index]!];
     cursor += 1;
   }
+  const { prophetCalamitousUsedThisRound: _omitCalamitousFlag, ...battleRest } = battle;
   return {
-    ...battle,
+    ...battleRest,
     rngCursor: cursor,
     encounter: { round, deck, actedIds: [], turn: { type: "awaitingInitiative" } },
   };

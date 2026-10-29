@@ -138,14 +138,17 @@ export type BossThreatPassiveHamletOk =
 export type BossThreatPassiveDungeonResult = BossThreatPassiveDungeonOk | BossHookStubResult;
 export type BossThreatPassiveHamletResult = BossThreatPassiveHamletOk | BossHookStubResult;
 
-export type BossSummonPlacement = "targetArea" | "stanceArea";
+export type BossSummonPlacement = "targetArea" | "stanceArea" | "areaD10Marker";
 
-/** `battleStartPyre`：Fanatic 战开局 Pyre；`battleStartOneBodyPart`：Flesh 四部位之一；`collectAllPart`：Collector Collect All 单卡；`skill`：技能召唤（默认）。 */
+/** `battleStartPyre`：Fanatic 战开局 Pyre；`battleStartOneBodyPart`：Flesh 四部位之一；`collectAllPart`：Collector Collect All 单卡；`calamitousWoodenPew`：Prophet 木长椅；`skill`：技能召唤（默认）。 */
 export type BossSummonPurpose =
   | "skill"
   | "battleStartPyre"
   | "battleStartOneBodyPart"
-  | "collectAllPart";
+  | "collectAllPart"
+  | "calamitousWoodenPew";
+
+export type ProphetWoodenPewIndex = 0 | 1 | 2 | 3;
 
 export type FleshOneBodyPart = "head" | "bone" | "heart" | "butt";
 
@@ -158,6 +161,8 @@ export type BossSummonOk = BossHookOk<{
   readonly fixedStance?: "aggressive" | "defensive" | "ranged" | "support";
   readonly oneBodyPart?: FleshOneBodyPart;
   readonly collectedPart?: CollectorCollectedPart;
+  /** Prophet · Wooden Pew（room 代币，非 normalized 怪物卡）。 */
+  readonly woodenPewIndex?: ProphetWoodenPewIndex;
   readonly rulesRef: readonly string[];
 }>;
 
@@ -189,6 +194,18 @@ export type BossCollectAllOk = {
 };
 
 export type BossCollectAllResult = BossCollectAllOk | BossHookStubResult;
+
+export type BossCalamitousPrognosticationOk = {
+  readonly status: "ok";
+  readonly effect: "rollFourD10PlaceWoodenPewsOnFirstActionEachRound";
+  readonly pewCount: 4;
+  readonly sourceAbilityCardId: string;
+  readonly rulesRef: readonly string[];
+};
+
+export type BossCalamitousPrognosticationResult =
+  | BossCalamitousPrognosticationOk
+  | BossHookStubResult;
 
 export type BossCombatEntryRefs = {
   readonly descriptionAbilityCardId: string;
@@ -232,6 +249,11 @@ export type BossScriptHooks = {
   readonly oneBodyMorph?: BossHookHandler<BossOneBodyMorphContext, BossOneBodyMorphResult>;
   /** Collector · Collect All：回合开始无 Collected 时替代选招（spec §14.5 R39）。 */
   readonly collectAll?: BossHookHandler<BossCollectAllContext, BossCollectAllResult>;
+  /** Prophet · Calamitous Prognostication：每轮首次行动掷 4d10 放木长椅（spec §14.5 R38–R39）。 */
+  readonly calamitousPrognostication?: BossHookHandler<
+    BossCalamitousPrognosticationContext,
+    BossCalamitousPrognosticationResult
+  >;
 };
 
 export type BossScriptDefinition = {
@@ -319,6 +341,13 @@ export type BossSummonContext = {
   readonly purpose?: BossSummonPurpose;
   readonly oneBodyPart?: FleshOneBodyPart;
   readonly collectedPart?: CollectorCollectedPart;
+  readonly woodenPewIndex?: ProphetWoodenPewIndex;
+};
+
+export type BossCalamitousPrognosticationContext = {
+  readonly scriptId: BossScriptId;
+  readonly monsterEntityId: string;
+  readonly round: number;
 };
 
 export type BossCollectAllContext = {

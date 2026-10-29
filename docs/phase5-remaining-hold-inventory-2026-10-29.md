@@ -1,6 +1,6 @@
 # Phase 5：Boss / 迫近威胁剩余 hold 清点（2026-10-29 · tip `3b50f2e`）
 
-> **基线**：`main` @ `3b50f2e`（#352 `setActiveBossThreat` 沙盒命令）。  
+> **基线**：`main` @ `c136430`（#353 清点文档）。  
 > **范围**：对照引擎与单测**重新清点**已接 vs 仍 hold；**不**接线新运行时。  
 > **规则**：R-001；卡面 id R-048；R-121 / R-122 / Rising Threat 等只标归口。  
 > **旧文**：[`phase5-collector-hold-inventory-2026-10-29.md`](./phase5-collector-hold-inventory-2026-10-29.md)（#341）已过时，以本文为准。
@@ -80,6 +80,7 @@
 | **Fanatic I** | Pyre `startBattle` 远程姿态 + 区域；`sentenceRendered` 同区丢 Pyre / 否则移向英雄 | `fanatic-i-combat-runtime.ts`；`fanatic-i-combat-runtime.test.ts` |
 | **Flesh I** | One Body 四部位开战 + 共享 Life；回合初 morph | `flesh-i-combat-runtime.ts`、`battle.ts`；`flesh-i-combat-runtime.test.ts` |
 | **Collector I** | Collect All 回合开始替换技能；三 Collected + 固定姿态区域 | `collector-i-combat-runtime.ts`、`battle-monster-action.ts`；`collector-i-combat-runtime.test.ts` |
+| **Prophet I** | Calamitous 首次行动 4d10 → Wooden Pew 区域标记（`prophetRoomD10AreaTable`） | `prophet-i-combat-runtime.ts`、`battle-monster-action.ts`；`prophet-i-combat-runtime.test.ts` |
 | **Necromancer I** | `summon` 声明 Bone Rabble（等级表语义；encounter 完整 AI 仍 hold） | `necromancer-i.ts`；`encounter-rules.test.ts` 等 |
 
 ---
@@ -92,8 +93,9 @@
 | **Face the Threat 边缘房选图** | 出征仍走普通 R-116 选图 + shuffle；非 p011/p012 边缘语义 | **R-121** / R-046 |
 | **`faceTheThreatBossScriptByCampaignLevel` II/III** | CL 2/3 无映射 → 钩子 / `chooseNextQuest` 拒绝 | 待确认 / II 脚本切片 |
 | **II/III `offerNextQuest` 强制 p019** | 仅 I 级幕末强制；II/III 仍普通池 | 升幕 / 任务卡 |
-| **`summon` · Prophet / Hag / Siren / Swine** | 钩子 **stub**（Pew、Cauldron、Pelagic、Wilbur 等） | R38–R39 / 各 Boss 切片 |
+| **`summon` · Hag / Siren / Swine** | 钩子 **stub**（Cauldron、Pelagic、Wilbur 等） | R38–R39 / 各 Boss 切片 |
 | **`summon(purpose:skill)` · Fanatic / Collector / Flesh** | 仅 battleStart / collectAllPart / oneBodyPart 等已声明路径 ok | R31 / 怪物技能 |
+| **Prophet I** Rubble / 第 2–3 行动 / room 卡→战斗区域几何 | Calamitous + Wooden Pew 最小运行时后仍 hold（见 `prophet-i.ts` notes） | R38–R39 / R-048 |
 | **Collector** 宝箱房 / 先攻 4 洗入 / 最近区域挤占 | Collect All 最小运行时后仍 hold（见 `collector-i.ts` notes） | R-034 / R38–R39 |
 | **Fanatic** Pit Toss / 技能 AI / 先攻 4 张洗入 | Pyre + Sentence 已接；其余 stub | G-05 / R39 |
 | **Flesh** 战斗中途再召 Large | 仅遭遇开局 Guard；无 mid-battle spawn | R31 |
@@ -168,7 +170,7 @@ Helper 汇总：`threat-passive.ts`（纯查询）；运行时：`threat-passive
 
 1. **R-121 最小写入**：`bossSlotPlacement` 探针已有 → 选图 p011/p012 + 目标 + 2 随机非目标 room token 洗入 dungeon（不单改文档）。
 2. **Ruins Boss II 单切片**：例如 Necromancer II（`p002`）注册 + `faceTheThreatBossScriptByCampaignLevel[2]` 策略裁定。
-3. **Prophet I 战斗**：Wooden Pew / Calamitous 区域 d10（`prophet-i.ts` summon stub）— 依赖 R-034 区域语义已部分用于 Collector/Fanatic。
+3. **Prophet I 战斗**：~~Wooden Pew / Calamitous 区域 d10~~ **Calamitous 最小运行时已接**；Rubble / room 几何 / 多行动仍 hold。
 4. **Swine Prince I**：Wilbur 伴战 + Enraged（`swine-prince-i.ts` summon stub）— 与 Warrens 区域数据一并核。
 5. **R-122 Boss XP**：与 `summarizeDungeonQuest` 摘要 hold 一并收，避免半接发放。
 6. **II 级幕末 p019 / 升幕 §2.2**：在 II 映射确认后扩展 `shouldForceFaceTheThreatOfferAtNextQuest` 与 `drawImminentThreatAfterActAdvance` 与 `advanceCampaignLevel` 合并策略。
@@ -188,5 +190,6 @@ pnpm exec vitest run \
   packages/engine/src/boss/set-active-boss-threat.test.ts \
   packages/engine/src/boss/fanatic-i-combat-runtime.test.ts \
   packages/engine/src/boss/flesh-i-combat-runtime.test.ts \
-  packages/engine/src/boss/collector-i-combat-runtime.test.ts
+  packages/engine/src/boss/collector-i-combat-runtime.test.ts \
+  packages/engine/src/boss/prophet-i-combat-runtime.test.ts
 ```
