@@ -1,8 +1,10 @@
 import { distance, type BattleEntity, type BattleState } from "../battle";
 import type { ApplyResult, GameState } from "../command";
 import { finishTurn } from "../encounter";
+import type { SkillTargetSide } from "../hero-skill";
 import type { MonsterCardView } from "../monster-skill";
-import { runBossHook } from "./hooks";
+import { defaultMonsterTurnActionCount, runBossHook } from "./hooks";
+import { readBossCombatEntry } from "./combat-entry";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 import {
   FANATIC_I_COMBAT_MONSTER_CARD_ID,
@@ -13,6 +15,33 @@ import { getBossScript } from "./registry";
 import type { BossScriptDefinition, BossSummonOk } from "./types";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
+
+export type InitiativeSide = SkillTargetSide;
+
+/** spec §14.5 R39：Fanatic 3 + Pyre 1 共 4 张 monster 先攻（2 实体 + 2 洗入）。 */
+export function expandFanaticIInitiativeDeckSides(
+  deck: readonly InitiativeSide[],
+  battle: BattleState,
+  state: GameState,
+): InitiativeSide[] {
+  if (resolveEncounterBossScriptId(state) !== FANATIC_I_SCRIPT_ID) return [...deck];
+  const script = getBossScript(FANATIC_I_SCRIPT_ID);
+  const entry = script ? readBossCombatEntry(script) : undefined;
+  if (!entry) return [...deck];
+  const livingMonsters = battle.entities.filter((entity) => entity.side === "monster" && !entity.dead);
+  if (livingMonsters.length !== 2) return [...deck];
+  const cardIds = new Set(livingMonsters.map((entity) => entity.monsterCardId));
+  if (
+    !cardIds.has(FANATIC_I_COMBAT_MONSTER_CARD_ID) ||
+    !cardIds.has(FANATIC_I_PYRE_MONSTER_CARD_ID)
+  ) {
+    return [...deck];
+  }
+  const monsterSides = deck.filter((side) => side === "monster").length;
+  const extra = entry.printedInitiativeCards - monsterSides;
+  if (extra <= 0) return [...deck];
+  return [...deck, ...Array.from({ length: extra }, (): InitiativeSide => "monster")];
+}
 
 export function readFanaticIPyreBattleStartPlan(
   script: BossScriptDefinition,
@@ -35,6 +64,45 @@ export function readFanaticISentenceRenderedEnabled(script: BossScriptDefinition
     round: 1,
   });
   return result.status === "ok" && result.effect === "moveTowardClosestHeroOrTossIntoPyreArea";
+}
+
+export function readFanaticIPitTossEnabled(script: BossScriptDefinition): boolean {
+  if (script.id !== FANATIC_I_SCRIPT_ID) return false;
+  const result = runBossHook(script, "pitToss", {
+    scriptId: script.id,
+    monsterEntityId: "fanatic",
+    round: 1,
+  });
+  return result.status === "ok" && result.effect === "tossReachHeroIntoPyreArea";
+}
+
+/** 多行动轮内：Fanatic 完成 3 次行动后再记入 `actedIds`（配合先攻 3 张 Fanatic 语义）。 */
+export function fanaticShouldEnterActedIdsAfterTurn(state: GameState, actorId: string): boolean {
+  const battle = state.battle;
+  if (!battle?.encounter) return true;
+  const actor = battle.entities.find((entity) => entity.id === actorId);
+  if (!actor || actor.side !== "monster") return true;
+  if (resolveEncounterBossScriptId(state) !== FANATIC_I_SCRIPT_ID) return true;
+  if (actor.monsterCardId !== FANATIC_I_COMBAT_MONSTER_CARD_ID) return true;
+  const script = getBossScript(FANATIC_I_SCRIPT_ID);
+  if (!script) return true;
+  const budget = defaultMonsterTurnActionCount(script, {
+    scriptId: FANATIC_I_SCRIPT_ID,
+    monsterEntityId: actorId,
+    round: battle.encounter.round,
+  });
+  if (budget.status !== "ok" || budget.value <= 1) return true;
+  return (battle.fanaticActionsThisRound ?? 0) >= budget.value;
+}
+
+export function bumpFanaticIActionRoundCount(state: GameState, actorId: string): GameState {
+  const battle = state.battle;
+  if (!battle?.encounter) return state;
+  const actor = battle.entities.find((entity) => entity.id === actorId);
+  if (!actor || actor.monsterCardId !== FANATIC_I_COMBAT_MONSTER_CARD_ID) return state;
+  if (resolveEncounterBossScriptId(state) !== FANATIC_I_SCRIPT_ID) return state;
+  const count = battle.fanaticActionsThisRound ?? 0;
+  return { ...state, battle: { ...battle, fanaticActionsThisRound: count + 1 } };
 }
 
 function livingMonsters(battle: BattleState) {
@@ -260,6 +328,54 @@ function nextAreaTowardHero(
   return tied[0]?.id ?? null;
 }
 
+/**
+ * Fanatic Pit Toss（hold 文档用语）：boss_ability Sentence Rendered 同区分支——
+ * 将目标英雄棋子移到 Pyre 所在区域（非 Templar Impaler d10 尖刺坑）。
+ */
+export function applyFanaticPitTossHeroIntoPyreArea(
+  state: GameState,
+  fanaticId: string,
+  heroId: string,
+): ApplyResult {
+  const battle = state.battle!;
+  const scriptId = resolveEncounterBossScriptId(state);
+  const script = scriptId ? getBossScript(scriptId) : undefined;
+  if (!script || !readFanaticIPitTossEnabled(script)) {
+    return {
+      state,
+      events: [{ type: "commandRefused", message: "Fanatic Pit Toss 未声明（R-048）" }],
+    };
+  }
+  const actor = battle.entities.find((entity) => entity.id === fanaticId);
+  const hero = battle.entities.find((entity) => entity.id === heroId);
+  const pyre = pyreEntity(battle);
+  if (!actor || !hero || !pyre || actor.areaId !== hero.areaId) {
+    return {
+      state,
+      events: [{ type: "commandRefused", message: "Fanatic Pit Toss：需 Fanatic 与英雄同区（R-048）" }],
+    };
+  }
+  if (!pyreAreaHasSpaceForHero(battle, pyre)) {
+    return {
+      state,
+      events: [{ type: "commandRefused", message: "Fanatic Pit Toss：Pyre 区域无空间（R-048）" }],
+    };
+  }
+  const entities = battle.entities.map((entity) =>
+    entity.id === hero.id ? { ...entity, areaId: pyre.areaId } : entity,
+  );
+  return finishTurn(
+    { ...state, battle: { ...battle, entities, monsterAction: null } },
+    fanaticId,
+    [
+      {
+        type: "dungeonUpdated",
+        message: `Fanatic I · Pit Toss：${hero.id} 丢入 Pyre 区域 ${pyre.areaId}`,
+      },
+    ],
+  );
+}
+
 /** Sentence Rendered：同区丢入 Pyre 区域，否则向最近英雄移动一步并结束本怪物回合。 */
 export function applyFanaticSentenceRendered(
   state: GameState,
@@ -271,26 +387,7 @@ export function applyFanaticSentenceRendered(
   const hero = closestLivingHero(battle, actor.areaId)!;
 
   if (actor.areaId === hero.areaId) {
-    if (!pyreAreaHasSpaceForHero(battle, pyre)) {
-      return {
-        state,
-        events: [{ type: "commandRefused", message: "Sentence Rendered：Pyre 区域无空间（R-048）" }],
-      };
-    }
-    const entities = battle.entities.map((entity) =>
-      entity.id === hero.id ? { ...entity, areaId: pyre.areaId } : entity,
-    );
-    const finished = finishTurn(
-      { ...state, battle: { ...battle, entities, monsterAction: null } },
-      actorId,
-      [
-        {
-          type: "dungeonUpdated",
-          message: `Fanatic I · Sentence Rendered：${hero.id} 丢入 Pyre 区域 ${pyre.areaId}`,
-        },
-      ],
-    );
-    return finished;
+    return applyFanaticPitTossHeroIntoPyreArea(state, actorId, hero.id);
   }
 
   const nextArea = nextAreaTowardHero(battle, actor.areaId, hero.areaId);

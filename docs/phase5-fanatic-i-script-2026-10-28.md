@@ -25,7 +25,9 @@
 | 村庄威胁 | **The Black Sheep I**：揭示事件前全体 d10、最低 +4 压力 → **已接**（`drawHamletEvent` / `phase5-threat-passive-runtime-2026-10-28.md`） |
 | 先攻 / 行动 | 先攻 4（Fanatic 3 + Pyre 1，spec §14.5）、`ACTIONS / Round: 3`（卡面 extract） |
 | Sentence Rendered | **已接** 最小运行时（`boss_ability:p022` / spec §14.5 R39） |
-| 仍 stub / hold | Face the Threat 出征 applyCommand；Fanatic 技能 / Pit Toss；先攻 4 张洗入（G-05）；`summon(purpose:skill)` |
+| Pit Toss | **已接** 同区丢入 Pyre 区域（`pitToss` 钩子；boss_ability 文案 toss，非 Templar d10 尖刺坑） |
+| 先攻 4 洗入 | **已接** `expandFanaticIInitiativeDeckSides`（2 实体 + 2 补足 = 4 monster 侧；spec §14.5 R39） |
+| 仍 stub / hold | Fanatic 卡面技能 AI；`summon(purpose:skill)` |
 
 定威胁：`resolveScriptIdForDescriptionCard("boss_ability:p019")` → 挂 `activeBossThreatScriptId`；不再写 `unregisteredImminentThreatHold`。
 

@@ -167,6 +167,8 @@ export type BattleState = BattleSetup & {
   readonly prophetActionsThisRound?: number;
   /** Hag I：本战斗轮内已完成的 Hag 行动次数（Into the Pot! 首行动边界）。 */
   readonly hagActionsThisRound?: number;
+  /** Fanatic I：本战斗轮内已完成的 Fanatic 行动次数（G-05 / 先攻 3 张配合）。 */
+  readonly fanaticActionsThisRound?: number;
   readonly skillPrefix?: SkillPrefix | null;
   readonly encounter?: EncounterState;
   readonly rngCursor: number;

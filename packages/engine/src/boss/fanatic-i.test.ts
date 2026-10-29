@@ -128,5 +128,11 @@ describe("Fanatic I Boss 脚本", () => {
       status: "ok",
       effect: "moveTowardClosestHeroOrTossIntoPyreArea",
     });
+    const pitToss = runBossHook(script, "pitToss", {
+      scriptId: FANATIC_I_SCRIPT_ID,
+      monsterEntityId: "fanatic",
+      round: 1,
+    });
+    expect(pitToss).toMatchObject({ status: "ok", effect: "tossReachHeroIntoPyreArea" });
   });
 });

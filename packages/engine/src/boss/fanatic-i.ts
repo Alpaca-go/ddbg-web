@@ -7,6 +7,7 @@ import type {
   BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
   BossSentenceRenderedOk,
+  BossPitTossOk,
 } from "./types";
 
 /** 引擎脚本 id；与印刷卡 id 分离。 */
@@ -24,7 +25,7 @@ export const FANATIC_I_COMBAT_ABILITY_CARD_ID = "boss_ability:p022" as const;
 /** Fanatic I 战斗卡（Human · Front · Large · `monster_large` PDF p8）。 */
 export const FANATIC_I_COMBAT_MONSTER_CARD_ID = "monster_large:p008" as const;
 
-/** Pyre I（远程姿态开局；不进 `combatEntry`；Sentence Rendered / 先攻洗入仍 hold）。 */
+/** Pyre I（远程姿态开局；不进 `combatEntry`）。 */
 export const FANATIC_I_PYRE_MONSTER_CARD_ID = "monster_large:p011" as const;
 
 const dungeonThreatPassive = (): BossThreatPassiveDungeonOk => ({
@@ -48,7 +49,7 @@ export const fanaticIBossScript: BossScriptDefinition = {
   displayName: "Fanatic I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38–R39：先攻 4（Fanatic 3 + Pyre 1）、ACTIONS / Round: 3；Pyre 远程 + Sentence Rendered 已接最小运行时；Fanatic 技能 / Pit Toss / 先攻洗入仍 hold。",
+    "R38–R39：先攻 4（Fanatic 3 + Pyre 1）、ACTIONS / Round: 3；Pyre / Sentence / Pit Toss / 先攻洗入最小运行时已接；Fanatic 卡面技能 AI 仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: FANATIC_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: FANATIC_I_COMBAT_ABILITY_CARD_ID,
@@ -76,7 +77,7 @@ export const fanaticIBossScript: BossScriptDefinition = {
       }
       return {
         status: "stub",
-        message: "Fanatic I：技能召唤 / Pit Toss 未接",
+        message: "Fanatic I：技能召唤未接",
         hold: "Fanatic 怪物技能 / R38–R39",
       };
     },
@@ -85,6 +86,17 @@ export const fanaticIBossScript: BossScriptDefinition = {
       effect: "moveTowardClosestHeroOrTossIntoPyreArea",
       sourceAbilityCardId: FANATIC_I_COMBAT_ABILITY_CARD_ID,
       rulesRef: ["R39", "spec:§14.5", FANATIC_I_COMBAT_ABILITY_CARD_ID],
+    }),
+    pitToss: (): BossPitTossOk => ({
+      status: "ok",
+      effect: "tossReachHeroIntoPyreArea",
+      sourceAbilityCardId: FANATIC_I_COMBAT_ABILITY_CARD_ID,
+      rulesRef: [
+        "R39",
+        "spec:§14.5",
+        FANATIC_I_COMBAT_ABILITY_CARD_ID,
+        "boss_ability:p022 toss into Area with the Pyre",
+      ],
     }),
   },
 };

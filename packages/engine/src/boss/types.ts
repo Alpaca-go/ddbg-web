@@ -181,6 +181,16 @@ export type BossSentenceRenderedOk = {
 
 export type BossSentenceRenderedResult = BossSentenceRenderedOk | BossHookStubResult;
 
+/** Fanatic · Sentence Rendered 同区丢入 Pyre 区域（boss_ability 文案 toss；非 Templar d10 Pit Toss）。 */
+export type BossPitTossOk = {
+  readonly status: "ok";
+  readonly effect: "tossReachHeroIntoPyreArea";
+  readonly sourceAbilityCardId: string;
+  readonly rulesRef: readonly string[];
+};
+
+export type BossPitTossResult = BossPitTossOk | BossHookStubResult;
+
 export type BossOneBodyMorphOk = {
   readonly status: "ok";
   readonly effect: "randomPartCardPerStanceEachRoundStart";
@@ -307,6 +317,8 @@ export type BossScriptHooks = {
     BossSentenceRenderedContext,
     BossSentenceRenderedResult
   >;
+  /** Fanatic · 同区将英雄丢入 Pyre 区域（Sentence Rendered 命中分支；spec §14.5 R39）。 */
+  readonly pitToss?: BossHookHandler<BossSentenceRenderedContext, BossPitTossResult>;
   /** The Flesh · One Body：每轮开始部位 morph（随机表 hold 时运行时拒绝）。 */
   readonly oneBodyMorph?: BossHookHandler<BossOneBodyMorphContext, BossOneBodyMorphResult>;
   /** Collector · Collect All：回合开始无 Collected 时替代选招（spec §14.5 R39）。 */

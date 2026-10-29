@@ -26,6 +26,7 @@ type HookContextMap = {
   monsterTurnActionCount: BossMonsterTurnContext;
   summon: BossSummonContext;
   sentenceRendered: BossSentenceRenderedContext;
+  pitToss: BossSentenceRenderedContext;
   oneBodyMorph: BossOneBodyMorphContext;
   collectAll: BossCollectAllContext;
   calamitousPrognostication: BossCalamitousPrognosticationContext;
