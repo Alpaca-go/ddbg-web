@@ -30,13 +30,21 @@ import { applyBossThreatMarkedForDeathOnBattleStart } from "./boss/threat-passiv
 import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "./boss/flesh-i-combat-runtime";
 import { applySwinePrinceIWilburBattleStart } from "./boss/swine-prince-i-combat-runtime";
-import { applyHagICauldronBattleStart, bumpHagIActionRoundCount, chainHagICauldronFullAfterIntoThePot } from "./boss/hag-i-combat-runtime";
+import {
+  applyHagICauldronBattleStart,
+  bumpHagIActionRoundCount,
+  chainHagICauldronFullAfterIntoThePot,
+} from "./boss/hag-i-combat-runtime";
 import {
   bumpProphetIActionRoundCount,
   expandProphetIInitiativeDeckSides,
   prophetShouldEnterActedIdsAfterTurn,
 } from "./boss/prophet-i-combat-runtime";
 import { expandCollectorIInitiativeDeckSides } from "./boss/collector-i-combat-runtime";
+import {
+  clearNecromancerICompanions,
+  continueNecromancerISummon,
+} from "./boss/necromancer-i-combat-runtime";
 import {
   bumpFanaticIActionRoundCount,
   expandFanaticIInitiativeDeckSides,
@@ -102,7 +110,12 @@ export type EncounterEvent = {
 
 export { nextBattleRoll } from "./battle-roll";
 
-function startRound(seed: number, battle: BattleState, round: number, gameState?: GameState): BattleState {
+function startRound(
+  seed: number,
+  battle: BattleState,
+  round: number,
+  gameState?: GameState,
+): BattleState {
   let deck: SkillTargetSide[] = battle.entities
     .filter((entity) => !entity.dead)
     .map((entity) => entity.side);
@@ -356,6 +369,7 @@ export function encounterSkillProblem(
 
 /** R24–25、R-030：只补本次死亡空位；旧尸体保留日志身份，不再占位。 */
 export function removeCasualties(result: ApplyResult, ids: readonly string[]): ApplyResult {
+  ({ result, ids } = clearNecromancerICompanions(result, ids));
   const battle = result.state.battle!;
   const casualties = battle.entities.filter((entity) => entity.dead && ids.includes(entity.id));
   if (!casualties.length) return result;
@@ -494,6 +508,8 @@ export function recordMonsterSkill(
   conditionsDone = false,
   remainingInfections?: readonly import("./hero-skill").HeroSkillResolution[],
 ): ApplyResult {
+  const summoned = continueNecromancerISummon(result, resolved, casualtyIds);
+  if (summoned) return summoned;
   if (!conditionsDone) {
     const initial = result.state.battle!;
     const targets = result.events.flatMap((e) =>

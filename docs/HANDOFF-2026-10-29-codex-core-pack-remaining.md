@@ -169,8 +169,11 @@
 
 #### C-011 · Necromancer I：死亡清场 + 完整召唤 / encounter AI
 
-- [ ]  
-- **现状**：`summon` 声明 Bone Rabble + Target Area ok；**Necromancer 死亡后移除其他怪物、完整 encounter AI 未接**（`necromancer-i.ts` notes；`phase5-remaining-hold-inventory` §3）  
+- [ ] 完整项仍未收口；本次第一刀见下列子项。
+  - [x] R38 死亡清场接入统一死亡收尾，攻击 / Blight 均清除伴战怪物并结束战斗。
+  - [x] 前两招通过 `playMonsterSkill` → 自身 Push 续接 → `summon(purpose:skill)`：Target Area、首个空姿态、满轨无效、满区待选挤占、当前堆先攻与当轮行动。
+  - [ ] 自动姿态选招、第三招 Six Feet Under 及完整 encounter AI 留 C-012；不因本刀勾选整项。证据与限制见 `phase5-necromancer-i-combat-runtime-2026-10-29.md`。
+- **现状**：死亡清场与前两招已选技能召唤可测；完整自动 AI 仍 hold。
 - **验收**：按卡面/R38 死亡清场写入战斗状态；召唤进生产 encounter 路径；单测覆盖  
 - **依赖/阻塞**：encounter 主路径钩子  
 - **归口**：核心包  

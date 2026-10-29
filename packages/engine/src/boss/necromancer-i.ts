@@ -46,7 +46,7 @@ export const necromancerIBossScript: BossScriptDefinition = {
   displayName: "Necromancer I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38：先攻 1；召唤按 Boss 等级 Bone Rabble/Soldier/Spearman；Necromancer 死亡后移除其他怪物（encounter 未接）。",
+    "C-011 / R38：I 级死亡清场、前两招已选技能召唤 Bone Rabble + 当前轮先攻已接；卡面自动选招与 Six Feet Under 留 C-012，II/III 未开。",
   combatEntry: {
     descriptionAbilityCardId: NECROMANCER_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: NECROMANCER_I_COMBAT_ABILITY_CARD_ID,

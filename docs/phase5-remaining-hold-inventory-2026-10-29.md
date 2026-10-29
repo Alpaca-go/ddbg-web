@@ -81,7 +81,7 @@
 | **Flesh I** | One Body 四部位开战 + 共享 Life；回合初 morph | `flesh-i-combat-runtime.ts`、`battle.ts`；`flesh-i-combat-runtime.test.ts` |
 | **Collector I** | Collect All 回合开始替换技能；三 Collected + 固定姿态区域；**先攻 4（单 Collector 开战补足 + Collect All 洗入）**；**最近区域挤占（英雄）** | `collector-i-combat-runtime.ts`、`encounter.ts`；`collector-i-combat-runtime.test.ts` |
 | **Prophet I** | Calamitous + Rubble + **第 2 行动默认选招** + **先攻 3 张** + 多行动 `actedIds` | `prophet-i-combat-runtime.ts`、`encounter.ts`；`prophet-i-combat-runtime.test.ts` |
-| **Necromancer I** | `summon` 声明 Bone Rabble（等级表语义；encounter 完整 AI 仍 hold） | `necromancer-i.ts`；`encounter-rules.test.ts` 等 |
+| **Necromancer I** | C-011 第一刀：R38 死亡清场；前两招已选技能召唤、满轨无效、满区挤占待选、当前轮先攻 | `necromancer-i-combat-runtime.ts` / `.test.ts`；自动选招与第三招留 C-012 |
 | **Swine Prince I** | Wilbur 开战 + Enraged + Wilbur Mark AI | `swine-prince-i-combat-runtime.ts`；`swine-prince-i-combat-runtime.test.ts` |
 | **Hag I** | Cauldron Empty `startBattle`；Into the Pot! / Empty→Full | `hag-i-combat-runtime.ts`；42418 / 先攻 / 英雄入锅 hold |
 | **Siren I** | High Tide slot → Pelagic `targetArea` 召唤 | `siren-i-combat-runtime.ts`、`battle-monster.ts`；`siren-i-combat-runtime.test.ts` |
@@ -103,7 +103,7 @@
 | **Collector** 宝箱房 / 怪物挤占玩家选移 | Collect All + 先攻 4 + 英雄最近区域挤占已接（`expandCollectorIInitiativeDeckSides` / R39 洗入）；宝箱房布置仍 hold | R-034 / R38–R39 / R-048 |
 | **Fanatic** Pit Toss / 技能 AI / 先攻 4 张洗入 | Pyre + Sentence + **Pit Toss（同区丢 Pyre）+ 先攻 4 洗入 + G-05 actedIds** 已接（`expandFanaticIInitiativeDeckSides` / `applyFanaticPitTossHeroIntoPyreArea`）；卡面技能 AI / `summon(purpose:skill)` 仍 hold | G-05 / R39 |
 | **Flesh** 战斗中途再召 Large | 仅遭遇开局 Guard；无 mid-battle spawn | R31 |
-| **Necromancer** 死亡清场 / 多级 Rabble 完整 encounter | helper + 最小 summon 声明 | encounter |
+| **Necromancer** 完整 encounter AI / 多级召唤 | **死亡清场与 I 级前两招已选技能召唤已接**；姿态选招表、第三招 Six Feet Under 仍 hold（C-012）；II/III 未开 | C-011 第一刀 / C-012；见 `phase5-necromancer-i-combat-runtime-2026-10-29.md` |
 | **`encounterRoundRetreatLimit` 生产路径** | helper 有；非全 Boss 任务已接 | Phase 5 后续 |
 | **Boss XP / `summarizeDungeonQuest`** | **已接**：`bossFlatQuestSummarySchema` + `bossQuestVictory`（p019 / 映射 Boss 遭遇）；p016–p018 击败判定仍 hold | **R-122**（部分） |
 | **Rising Threat SPECIAL** | 未接 | 任务卡 |

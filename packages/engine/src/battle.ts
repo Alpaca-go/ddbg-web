@@ -179,6 +179,12 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | {
+        readonly type: "necromancerSummon";
+        readonly choice: PendingChoice;
+        readonly resolved: MonsterSkillResolvedEvent;
+        readonly casualtyIds: readonly string[];
+      }
     | { readonly type: "trinketReward"; readonly actorId: string; readonly choice: PendingChoice }
     | { readonly type: "invokerMove"; readonly actorId: string; readonly choice: PendingChoice }
     | {
@@ -606,10 +612,12 @@ export function playHeroSkill(
     },
     events: [skillEvent, ...pressure.events, ...statuses.events],
   };
-  const chained = chainSwinePrinceIEnragedDestructionAfterHeroSkill(result, battle.entities, actor.id);
-  return shuffleIntents.length
-    ? chained
-    : recordEncounterSkill(chained, skillEvent, casualtyIds);
+  const chained = chainSwinePrinceIEnragedDestructionAfterHeroSkill(
+    result,
+    battle.entities,
+    actor.id,
+  );
+  return shuffleIntents.length ? chained : recordEncounterSkill(chained, skillEvent, casualtyIds);
 }
 
 /** 旧技能视图只计算原始伤口；Life 由有序生命层处理，不能误判英雄为怪物死亡。 */
