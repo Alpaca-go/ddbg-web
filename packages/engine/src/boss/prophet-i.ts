@@ -3,6 +3,7 @@ import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
 import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
 import type {
   BossCalamitousPrognosticationOk,
+  BossRubbleOfRuinOk,
   BossScriptDefinition,
   BossSummonOk,
   BossThreatPassiveDungeonOk,
@@ -106,12 +107,23 @@ const calamitousHook = (): BossCalamitousPrognosticationOk => ({
   rulesRef: ["R38", "R39", "spec:§14.5", PROPHET_I_COMBAT_ABILITY_CARD_ID],
 });
 
+const rubbleHook = (): BossRubbleOfRuinOk => ({
+  status: "ok",
+  effect: "useRubbleSkillOnThirdActionEachRound",
+  skillSlot: 3,
+  sourceAbilityCardId: PROPHET_I_COMBAT_ABILITY_CARD_ID,
+  rulesRef: ["R38", "R39", "spec:§14.5", "boss_ability:p010", PROPHET_I_COMBAT_ABILITY_CARD_ID],
+});
+
+/** 战斗卡 `monster_large:p005` · slot 3（Rubble of Ruin · Special）。 */
+export const PROPHET_I_RUBBLE_SKILL_SLOT = 3 as const;
+
 export const prophetIBossScript: BossScriptDefinition = {
   id: PROPHET_I_SCRIPT_ID,
   displayName: "Prophet I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38：先攻 3、ACTIONS / Round: 3；Calamitous 木长椅 + 区域 d10 已接最小运行时；Rubble / 第 2–3 行动 / 房间几何仍 hold。",
+    "R38：先攻 3、ACTIONS / Round: 3；Calamitous + Rubble 最小运行时；第 2 行动 AI / room→战斗几何 / 先攻 3 张洗入仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: PROPHET_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: PROPHET_I_COMBAT_ABILITY_CARD_ID,
@@ -131,11 +143,12 @@ export const prophetIBossScript: BossScriptDefinition = {
       }
       return {
         status: "stub",
-        message: "Prophet I：怪物技能召唤 / Rubble 未接",
+        message: "Prophet I：怪物技能召唤未接",
         hold: "Prophet 怪物技能 / R38–R39",
       };
     },
     calamitousPrognostication: calamitousHook,
+    rubbleOfRuin: rubbleHook,
   },
 };
 

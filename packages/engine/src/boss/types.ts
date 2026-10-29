@@ -207,6 +207,16 @@ export type BossCalamitousPrognosticationResult =
   | BossCalamitousPrognosticationOk
   | BossHookStubResult;
 
+export type BossRubbleOfRuinOk = {
+  readonly status: "ok";
+  readonly effect: "useRubbleSkillOnThirdActionEachRound";
+  readonly skillSlot: 3;
+  readonly sourceAbilityCardId: string;
+  readonly rulesRef: readonly string[];
+};
+
+export type BossRubbleOfRuinResult = BossRubbleOfRuinOk | BossHookStubResult;
+
 export type BossCombatEntryRefs = {
   readonly descriptionAbilityCardId: string;
   readonly combatAbilityCardId: string;
@@ -253,6 +263,11 @@ export type BossScriptHooks = {
   readonly calamitousPrognostication?: BossHookHandler<
     BossCalamitousPrognosticationContext,
     BossCalamitousPrognosticationResult
+  >;
+  /** Prophet · Rubble of Ruin：每轮第 3 次行动强制技能 3（spec §14.5 R38–R39）。 */
+  readonly rubbleOfRuin?: BossHookHandler<
+    BossCalamitousPrognosticationContext,
+    BossRubbleOfRuinResult
   >;
 };
 

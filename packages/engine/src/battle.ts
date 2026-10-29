@@ -162,6 +162,8 @@ export type BattleState = BattleSetup & {
     readonly pewIndex: 0 | 1 | 2 | 3;
   }[];
   readonly prophetCalamitousUsedThisRound?: true;
+  /** Prophet I：本战斗轮内已完成的先知行动次数（Calamitous=1、Rubble=3 等边界）。 */
+  readonly prophetActionsThisRound?: number;
   readonly skillPrefix?: SkillPrefix | null;
   readonly encounter?: EncounterState;
   readonly rngCursor: number;

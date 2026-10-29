@@ -29,6 +29,7 @@ import { encounterForcesRetreatAfterRound } from "./boss/encounter-rules";
 import { applyBossThreatMarkedForDeathOnBattleStart } from "./boss/threat-passive-runtime";
 import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "./boss/flesh-i-combat-runtime";
+import { bumpProphetIActionRoundCount } from "./boss/prophet-i-combat-runtime";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -99,7 +100,13 @@ function startRound(seed: number, battle: BattleState, round: number): BattleSta
     [deck[index], deck[other]] = [deck[other]!, deck[index]!];
     cursor += 1;
   }
-  const { prophetCalamitousUsedThisRound: _omitCalamitousFlag, ...battleRest } = battle;
+  const {
+    prophetCalamitousUsedThisRound: _calamitousRoundFlag,
+    prophetActionsThisRound: _prophetRoundActions,
+    ...battleRest
+  } = battle;
+  void _calamitousRoundFlag;
+  void _prophetRoundActions;
   return {
     ...battleRest,
     rngCursor: cursor,
@@ -240,6 +247,7 @@ export function finishTurn(
     state = spiked.state;
     events = spiked.events;
   }
+  state = bumpProphetIActionRoundCount(state, actorId);
   const battle = state.battle!;
   const encounter = battle.encounter!;
   const actedIds = [...encounter.actedIds, actorId];

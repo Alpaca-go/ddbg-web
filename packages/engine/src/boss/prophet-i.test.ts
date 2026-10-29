@@ -98,7 +98,7 @@ describe("Prophet I Boss 脚本", () => {
     expect(count).toEqual({ status: "ok", value: 3 });
   });
 
-  it("summon(calamitousWoodenPew) 与 calamitousPrognostication 钩子已声明（运行时见 prophet-i-combat-runtime）", () => {
+  it("calamitousPrognostication / rubbleOfRuin 钩子已声明（运行时见 prophet-i-combat-runtime）", () => {
     const script = getBossScript(PROPHET_I_SCRIPT_ID)!;
     const calamitous = runBossHook(script, "calamitousPrognostication", {
       scriptId: PROPHET_I_SCRIPT_ID,
@@ -109,6 +109,16 @@ describe("Prophet I Boss 脚本", () => {
       status: "ok",
       effect: "rollFourD10PlaceWoodenPewsOnFirstActionEachRound",
       pewCount: 4,
+    });
+    const rubble = runBossHook(script, "rubbleOfRuin", {
+      scriptId: PROPHET_I_SCRIPT_ID,
+      monsterEntityId: "prophet",
+      round: 1,
+    });
+    expect(rubble).toMatchObject({
+      status: "ok",
+      effect: "useRubbleSkillOnThirdActionEachRound",
+      skillSlot: 3,
     });
     for (const pewIndex of [0, 1, 2, 3] as const) {
       const plan = runBossHook(script, "summon", {

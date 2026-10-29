@@ -1904,6 +1904,9 @@ export function readPrintedRange(
  */
 function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.areaDistance === undefined) return null;
+  if ((skill as HeroSkillCardView & { readonly target?: string }).target === "Special") {
+    return null;
+  }
   if (skill.verified_status_effects?.length && readsAsSelfTarget(skill))
     return combat.areaDistance === 0 && combat.actor?.id === combat.target.id
       ? null
@@ -2063,6 +2066,7 @@ export function readPrintedTargets(skill: HeroSkillCardView): PrintedTargets {
  */
 function targetCountProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.targetsInArea === undefined) return null;
+  if ((skill as HeroSkillCardView & { readonly target?: string }).target === "Special") return null;
   if (skill.verified_status_effects?.length && readsAsSelfTarget(skill))
     return combat.targetsInArea === 1 && combat.actor?.id === combat.target.id
       ? null
@@ -2573,7 +2577,9 @@ function resolveSkill(
   if (targetCounts.hero > 0) targets.add("target_hero");
   if (targetCounts.monster > 0) targets.add("target_monster");
   if (!formOnly && !selfTarget) {
-    if (printedTargets.kind === "hero_or_monster") {
+    if ((active as HeroSkillCardView & { readonly target?: string }).target === "Special") {
+      // Boss Special：目标语义在 Boss 能力卡，不读 stats 行 target 图标（R38–R39）。
+    } else if (printedTargets.kind === "hero_or_monster") {
       if (target.side !== "hero" && target.side !== "monster") {
         return refuse(skill, combat, "目标阵营与技能的目标图标不一致");
       }
