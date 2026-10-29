@@ -62,7 +62,7 @@
 ### 仍 hold 的横切（多条共用）
 
 - **R-121**：`bossSlotPlacement` 探针 ok，**RNG 写入 / room token 洗入 dungeon** 未接；Face the Threat **边缘房选图**仍走普通 R-116  
-- **II/III**：`faceTheThreatBossScriptByCampaignLevel` 无映射；Ruins II/III 描述卡可抽到但无 `boss:*:2/3` → `unregisteredImminentThreatHold`  
+- **II/III**：死灵法师 II 已按 R-124 / R-125 接入实际威胁匹配与两项被动；不设置 II 默认 Boss。其它 Ruins II/III 描述卡仍可能抽到 `unregisteredImminentThreatHold`。
 - **最暗** p016–p018 / Stygian / 英雄 II·III：Phase 5 尾或 Phase 6，须批
 
 ---
@@ -250,14 +250,14 @@
 
 #### C-019 · Ruins Boss II 首切片（建议 Necromancer II `p002`）
 
-- [ ] 总项未完成：II 正式迫近威胁 / 等级映射仍待接。
+- [x] C-019 实现完成，待有序合入 #375 → #376 → #377；不代表 R-121 或自然 II 级 Boss 入场闭环。
   - [x] 死灵法师 II 的 p090 数据、三招、Bone Soldier 召唤与死亡清场已接显式战斗场景；I / II 公开命令回归，见 `phase5-c019-necromancer-ii-combat-2026-10-29.md`。
   - [x] Army of the Dead：地牢首场从真实牌池先生成唯一 Bone Captain，再填满四姿态；成功入场才消费标记，新任务重置，见 `phase5-c019-necromancer-ii-army-2026-10-29.md`。
-  - [ ] Haunted Graveyard：首日最低 d10 去墓地守卫；最低并列和墓地封锁 / 占用冲突记为 Q-114 待裁定，钩子仍 `stub`，不自动注册到正式迫近池。
-  - [x] R-124：Kyries 批准先做死灵法师 II，II 仅按实际同级迫近威胁匹配；缺威胁 / 描述卡不一致 / 其它未实现 Boss 继续停点。严格匹配已接；村庄被动完成前，正式升幕抽到 p002 仍停点。
-- **现状**：I 四脚本正式注册；死灵法师 II 仅显式注册可测，III 未接；尚不声明 II 战役闭环。
-- **验收**：注册 `boss:ruins:necromancer:2`（或 Kyries 点名身份）+ `faceTheThreatBossScriptByCampaignLevel[2]` 策略有裁定 + 威胁被动等级差按卡面  
-- **依赖/阻塞**：**须 Kyries 批** II 映射策略与切片身份  
+  - [x] R-125 / Q-114 confirmed：首日掷骰、并列最低选一人、守卫行动与合法墓地服务已接；封锁 / 当日已访问仍可只守卫，存档命令支持守卫服务。见 `phase5-c019-necromancer-ii-graveyard-2026-10-29.md`。
+  - [x] R-124：II 仅按实际同级迫近威胁匹配；缺威胁 / 描述卡不一致 / 其它未实现 Boss 继续停点。死灵法师 II 已正式注册，公开升幕抽到 p002 可激活脚本。
+- **现状**：死灵法师 II 战斗、两项威胁与严格出征映射已接；其它 II/III、正式 Boss 房间 / R-121、II/III 幕末强制 offer 仍分属后续，不声明自然战役闭环。
+- **验收**：注册 `boss:ruins:necromancer:2` + R-124 已裁定的 II 实际威胁匹配策略（无缺省替换）+ 两项威胁按独立卡面及 R-125 接线。
+- **依赖/阻塞**：R-124 / R-125 已批准；待 PR 依赖链依次合入，正式房间仍归 R-121。
 - **归口**：核心包 / 须 Kyries  
 - **建议优先级**：P1（批后）
 

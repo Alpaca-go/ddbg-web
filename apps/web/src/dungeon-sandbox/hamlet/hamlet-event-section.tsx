@@ -8,6 +8,7 @@ import {
   ownedHeroSkills,
   heroSkillSlotCount,
   visitNomadWagon,
+  isHauntedGraveyardGuard,
 } from "@ddbg/engine";
 import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
 import { buildingLabels } from "../labels";
@@ -23,6 +24,10 @@ export function HamletEventSection({
   const d = game.dungeon!;
   const hamletCard = currentHamletEvent(game);
   if (!d.hamlet) return null;
+  const guarding = isHauntedGraveyardGuard(d, currentHamletHero(game)?.id);
+  const guardHero = d.heroes.find((h) => h.id === d.hamlet!.hauntedGraveyard?.guardHeroId);
+  const guardName =
+    d.battleCatalog?.heroStats.find((s) => s.id === guardHero?.heroStatId)?.name ?? guardHero?.id;
   return (
     <section aria-label="村庄事件" data-testid="hamlet-event">
       {d.trinkets?.display !== undefined && (
@@ -83,6 +88,16 @@ export function HamletEventSection({
       )}
       {d.hamlet.phase === "heroActions" && (
         <>
+          {d.hamlet.day === 1 && d.hamlet.hauntedGraveyard && (
+            <p data-testid="haunted-graveyard">
+              Haunted Graveyard：
+              {d.hamlet.hauntedGraveyard.guardHeroId
+                ? !guardHero || guardHero.dead
+                  ? "原守卫英雄已阵亡，取消其个人守卫义务。"
+                  : `${guardName}${d.hamlet.actedHeroes?.includes(d.hamlet.hauntedGraveyard.guardHeroId) ? "已完成墓地守卫。" : "首日去墓地守卫；服务仍受封锁和每日一次限制。"}`
+                : "请从并列最低点数的英雄中选择一名墓地守卫。"}
+            </p>
+          )}
           <p>
             准备 {d.hamlet.preparationDays} 天 · 当前第 {d.hamlet.day} 天 · 剩余{" "}
             {d.hamlet.remainingDays ?? d.hamlet.preparationDays} 天
@@ -109,8 +124,9 @@ export function HamletEventSection({
             当天已访问：
             {d.hamlet.visitedBuildings?.map((id) => buildingLabels[id]).join("、") || "无"}
           </p>
-          <div aria-label="村庄行动">
-            {currentHamletHero(game) &&
+          <div aria-label="村庄行动" hidden={pendingChoice?.id.startsWith("hamlet-haunted:")}>
+            {!guarding &&
+              currentHamletHero(game) &&
               !visitGuild(game, currentHamletHero(game)!.id).events.some(
                 (e) => e.type === "commandRefused",
               ) && (
@@ -162,7 +178,8 @@ export function HamletEventSection({
                 </button>
               );
             })}
-            {currentHamletHero(game) &&
+            {!guarding &&
+              currentHamletHero(game) &&
               !visitNomadWagon(game, currentHamletHero(game)!.id).events.some(
                 (e) => e.type === "commandRefused",
               ) && (
@@ -179,19 +196,20 @@ export function HamletEventSection({
                   ：陈列与购买饰品
                 </button>
               )}
-            {blacksmithOptions(game).map((option) => (
-              <button
-                key={option.command.skillId}
-                disabled={
-                  d.gold < 1 ||
-                  d.hamlet?.blockedBuildings.includes("blacksmith") ||
-                  d.hamlet?.visitedBuildings?.includes("blacksmith")
-                }
-                onClick={() => dispatch(option.command)}
-              >
-                {option.label}
-              </button>
-            ))}
+            {!guarding &&
+              blacksmithOptions(game).map((option) => (
+                <button
+                  key={option.command.skillId}
+                  disabled={
+                    d.gold < 1 ||
+                    d.hamlet?.blockedBuildings.includes("blacksmith") ||
+                    d.hamlet?.visitedBuildings?.includes("blacksmith")
+                  }
+                  onClick={() => dispatch(option.command)}
+                >
+                  {option.label}
+                </button>
+              ))}
             {hamletActionOptions(game).map((option) => (
               <button key={JSON.stringify(option.command)} onClick={() => dispatch(option.command)}>
                 {option.label}

@@ -83,6 +83,12 @@ export type BossThreatPassiveDungeonOk =
 export type BossThreatPassiveHamletOk =
   | {
       readonly status: "ok";
+      readonly effect: "firstDayGraveyardGuard";
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
       readonly effect: "graveyardBlocked";
       readonly blockedBuildings: readonly ["graveyard"];
       readonly sourceAbilityCardId: string;
