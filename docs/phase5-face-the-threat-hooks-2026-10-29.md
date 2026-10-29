@@ -59,7 +59,7 @@
 
 - `establishImminentThreat` / `drawImminentThreatAfterActAdvance`：仍负责写 `activeBossThreatScriptId`（#334）。
 - `clearedBossThreatScriptIdAfterVictory`：击败 Boss 清威胁；`bossThreatClearHoldReason()` 文案更新为「embark 已解析 combatEntry，出征命令仍 hold」。
-- `setActiveBossThreat`：测试 stub 不变。
+- `setActiveBossThreat`：沙盒已接（写 `activeBossThreatScriptId`）；仍不替代 `establishImminentThreat` / 升幕抽牌。
 
 ## 5. 测试
 

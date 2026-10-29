@@ -13,8 +13,9 @@ export type SetActiveBossThreatCommand = {
 };
 
 /**
- * 测试 / 调试 stub：直接写入脚本 id。
- * 正式流程请用 `establishImminentThreat` / `drawImminentThreatAfterActAdvance`（spec §2.4 / §2.2）。
+ * 测试 / 沙盒命令：经 `applyActiveBossThreatToDungeon` 写 `activeBossThreatScriptId` 并同步村庄封锁，
+ * 与 `establishImminentThreat` / 升幕抽牌挂接被动相同（不洗描述卡、不耗 RNG）。
+ * 正式战役请用 `establishImminentThreat` / `drawImminentThreatAfterActAdvance`（spec §2.4 / §2.2）。
  */
 export function setActiveBossThreat(
   state: GameState,
@@ -29,7 +30,12 @@ export function setActiveBossThreat(
       return rejectBattleCommand(state, `未知或未注册的 Boss 脚本：${command.scriptId}`);
   }
   const previous = readActiveBossThreatScriptId(d);
-  const dungeon = applyActiveBossThreatToDungeon(d, command.scriptId);
+  let dungeon = applyActiveBossThreatToDungeon(d, command.scriptId);
+  if (command.scriptId !== null) {
+    const { unregisteredImminentThreatHold: _hold, ...withoutHold } = dungeon;
+    void _hold;
+    dungeon = withoutHold;
+  }
   const message =
     command.scriptId === null
       ? previous

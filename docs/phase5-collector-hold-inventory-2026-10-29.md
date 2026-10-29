@@ -75,7 +75,7 @@
 | `faceTheThreatEmbark` | 全部 **stub** | quest:p019 / 各幕 Boss 与 `activeBossThreatScriptId` 映射 **待确认** |
 | `bossSlotPlacement` | 全部 **stub** | **R-121** / 任务卡 |
 | `summon` | Necromancer I 最小 ok；其余 **stub**（含 Collector Collect All） | R38–R39 / encounter |
-| `setActiveBossThreat` | 命令 **stub** | 测试/沙盒 |
+| `setActiveBossThreat` | **已接**（沙盒；同 `applyActiveBossThreatToDungeon`，不洗描述卡 / 不耗 RNG） | 测试 / `threat-passive-runtime.test.ts` |
 | Boss XP / flat 摘要 | schema 有；`summarizeDungeonQuest` 仍 refuse | **R-122** hold |
 | Rising Threat SPECIAL | 未接 | 任务卡 |
 | `encounterRoundRetreatLimit` | helper 有；主 encounter 路径未改 | Phase 5 后续 |
@@ -90,7 +90,7 @@
 | Fanatic I | The Black Sheep（事件前 d10） | **已接**（`drawHamletEvent`） |
 | Hag I | 疗养院 Life −3 | helper 有；**未合并** |
 | Swine Prince I | Survivalist blocked | 封锁已合并 |
-| Siren I | Abbey blocked | 封锁已合并（`KNOWN_BOSS_THREAT` 未含 abbey，换威胁时 strip 行为待任务卡） |
+| Siren I | Abbey blocked | 封锁已合并（`KNOWN_BOSS_THREAT_BLOCKED_BUILDINGS` 含 `abbey`；换威胁 strip 见 `phase5-threat-passive-runtime` 待确认表） |
 | Flesh I | Creeping Sickness I | **已接**（日末 / 访问 / 阶段结束） |
 
 地牢威胁（进地牢压力、Beast/Eldritch 加伤、药瓶压力、Large Guard、战后移出非 Unholy、Curio 不抽等）均为 **脚本 + helper**；探索 / 战斗 / curio / spawn **主路径多数未接**（见各 `*-i.test.ts` 与 `threat-passive.ts`）。

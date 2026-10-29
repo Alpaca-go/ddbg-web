@@ -12,8 +12,8 @@
 
 ## 与 `setActiveBossThreat` 的关系
 
-- **`setActiveBossThreat`**：测试 / 调试 **stub**，直接写脚本 id，**不**洗描述卡；事件文案含「stub」。
-- **正式战役**应使用上表两命令；被动仍经 `applyActiveBossThreatToDungeon` 与 #334 相同路径挂接。
+- **`setActiveBossThreat`**：测试 / 沙盒命令，经 `applyActiveBossThreatToDungeon` 挂接被动（与上表相同），**不**洗描述卡、**不**耗 RNG；事件文案含「stub」以区别于正式定威胁。
+- **正式战役**应使用上表两命令。
 
 ## 状态字段
 
