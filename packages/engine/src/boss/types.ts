@@ -140,10 +140,11 @@ export type BossThreatPassiveHamletResult = BossThreatPassiveHamletOk | BossHook
 
 export type BossSummonPlacement = "targetArea" | "stanceArea" | "areaD10Marker";
 
-/** `battleStartPyre`：Fanatic 战开局 Pyre；`battleStartOneBodyPart`：Flesh 四部位之一；`collectAllPart`：Collector Collect All 单卡；`calamitousWoodenPew`：Prophet 木长椅；`skill`：技能召唤（默认）。 */
+/** `battleStartPyre`：Fanatic 战开局 Pyre；`battleStartWilbur`：Swine Prince 战开局 Wilbur；`battleStartOneBodyPart`：Flesh 四部位之一；`collectAllPart`：Collector Collect All 单卡；`calamitousWoodenPew`：Prophet 木长椅；`skill`：技能召唤（默认）。 */
 export type BossSummonPurpose =
   | "skill"
   | "battleStartPyre"
+  | "battleStartWilbur"
   | "battleStartOneBodyPart"
   | "collectAllPart"
   | "calamitousWoodenPew";

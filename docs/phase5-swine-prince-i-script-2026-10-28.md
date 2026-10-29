@@ -21,7 +21,7 @@
 - 威胁 helper：`beastMonsterDamageBonusFromBossThreat`；村庄封锁经 `hamletBuildingsBlockedByBossThreat`（`survivalistBlocked`）。
 - `threat-description-catalog`：`boss_ability:warrens:swine_prince:p001` → `boss:warrens:swine_prince:1`；`WARRENS_BOSS_DESCRIPTION_CARD_ID` 仅填 Swine Prince I。
 - 类型：`BossThreatPassiveDungeonOk` / `BossThreatPassiveHamletOk` 扩展 `beastMonsterDamageBonus`、`survivalistBlocked`。
-- 单测：`swine-prince-i.test.ts`；`threat-establishment.test.ts` 增加 Warrens 挂接用例。
+- 单测：`swine-prince-i.test.ts`、`swine-prince-i-combat-runtime.test.ts`；`threat-establishment.test.ts` 增加 Warrens 挂接用例。
 
 ## 仍待确认 / hold（本 PR 未收）
 
@@ -29,7 +29,7 @@
 | --- | --- |
 | Warrens Boss **extract JSON** 与占位 id 对齐 PDF 页序 | 当前 id 按 `boss_ability:warrens:swine_prince:p00x` / `monster_*:warrens:*` 约定 |
 | Beast +2 伤害、生存专家封锁 **写入** encounter / hamlet-actions | **已接**（`battle-monster*` / 村庄封锁既有路径） |
-| Wilbur 布置、Enraged Destruction、Mark 完整 AI | `summon` stub |
+| Wilbur 布置、Enraged Destruction、Mark 完整 AI | Wilbur **开战伴战**已接（`swine-prince-i-combat-runtime`）；Enraged / Mark AI / Wilbur 先攻仍 hold |
 | Warrens 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
 | quest / Face the Threat → Swine Prince | `defaultFaceTheThreatEmbarkHook` **ok** |
 | **R-121** Boss 位 | `defaultBossSlotPlacementHook` 校验 **ok**；洗牌写入 hold |
@@ -43,12 +43,12 @@
 | Boss Description I · Abilities p7 | `boss_ability:warrens:swine_prince:p001` |
 | Threat + Abilities I · p10 | `boss_ability:warrens:swine_prince:p002` |
 | 战斗 Swine Prince I · large p5 | `monster_large:warrens:swine_prince:p001` |
-| Wilbur I · medium p20 | `monster_medium:warrens:wilbur:p001`（未接 combatEntry） |
+| Wilbur I · medium p20 | `monster_medium:warrens:wilbur:p001`（不进 combatEntry；开战 `battleStartWilbur`） |
 | Boss 脚本 | `boss:warrens:swine_prince:1` |
 
 ## 测试
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/swine-prince-i.test.ts packages/engine/src/boss/threat-establishment.test.ts packages/engine/src/boss/hag-i.test.ts packages/engine/src/boss/prophet-i.test.ts packages/engine/src/boss/necromancer-i.test.ts
+pnpm exec vitest run packages/engine/src/boss/swine-prince-i.test.ts packages/engine/src/boss/swine-prince-i-combat-runtime.test.ts packages/engine/src/boss/threat-establishment.test.ts packages/engine/src/boss/hag-i.test.ts packages/engine/src/boss/prophet-i.test.ts packages/engine/src/boss/necromancer-i.test.ts
 pnpm typecheck
 ```

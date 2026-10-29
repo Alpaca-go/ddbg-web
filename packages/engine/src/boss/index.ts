@@ -171,7 +171,12 @@ export {
   SWINE_PRINCE_I_SCRIPT_ID,
   SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
   swinePrinceIBossScript,
+  swinePrinceIWilburBattleStartStance,
 } from "./swine-prince-i";
+export {
+  applySwinePrinceIWilburBattleStart,
+  readSwinePrinceIWilburBattleStartPlan,
+} from "./swine-prince-i-combat-runtime";
 export {
   ensureSirenIBossScriptRegistered,
   SIREN_I_COMBAT_ABILITY_CARD_ID,
