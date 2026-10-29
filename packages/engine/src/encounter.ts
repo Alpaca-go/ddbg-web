@@ -27,6 +27,7 @@ import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
 import { encounterForcesRetreatAfterRound } from "./boss/encounter-rules";
 import { applyBossThreatMarkedForDeathOnBattleStart } from "./boss/threat-passive-runtime";
+import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -744,13 +745,16 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     const marked = applyBossThreatMarkedForDeathOnBattleStart(state);
     if (marked.events.some((entry) => entry.type === "commandRefused"))
       return { state, events: marked.events };
-    const deployed = placeBattleLoot(marked.state.battle!, state.seed);
+    const pyre = applyFanaticIPyreBattleStart(marked.state);
+    if (pyre.events.some((entry) => entry.type === "commandRefused"))
+      return { state, events: [...marked.events, ...pyre.events] };
+    const deployed = placeBattleLoot(pyre.state.battle!, state.seed);
     if (!deployed)
       return rejectBattleCommand(state, "战利品池必须保留十枚真实实例的可用 / 已拾取分区");
     const next = startRound(state.seed, deployed, 1);
     return {
-      state: { ...marked.state, battle: next },
-      events: [...marked.events, event(next, "roundStarted", "开始第 1 轮")],
+      state: { ...pyre.state, battle: next },
+      events: [...marked.events, ...pyre.events, event(next, "roundStarted", "开始第 1 轮")],
     };
   }
   const encounter = battle.encounter;

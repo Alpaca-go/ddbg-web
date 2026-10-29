@@ -140,13 +140,27 @@ export type BossThreatPassiveHamletResult = BossThreatPassiveHamletOk | BossHook
 
 export type BossSummonPlacement = "targetArea" | "stanceArea";
 
+/** `battleStartPyre`：Fanatic 战开局 Pyre；`skill`：技能召唤（默认）。 */
+export type BossSummonPurpose = "skill" | "battleStartPyre";
+
 export type BossSummonOk = BossHookOk<{
   readonly summonMonsterCardId: string;
   readonly miniaturePlacement: BossSummonPlacement;
+  /** R39 / R-034：Collector 等写明姿态时指定（Fanatic Pyre → ranged）。 */
+  readonly fixedStance?: "aggressive" | "defensive" | "ranged" | "support";
   readonly rulesRef: readonly string[];
 }>;
 
 export type BossSummonResult = BossSummonOk | BossHookStubResult;
+
+export type BossSentenceRenderedOk = {
+  readonly status: "ok";
+  readonly effect: "moveTowardClosestHeroOrTossIntoPyreArea";
+  readonly sourceAbilityCardId: string;
+  readonly rulesRef: readonly string[];
+};
+
+export type BossSentenceRenderedResult = BossSentenceRenderedOk | BossHookStubResult;
 
 export type BossCombatEntryRefs = {
   readonly descriptionAbilityCardId: string;
@@ -181,6 +195,11 @@ export type BossScriptHooks = {
   >;
   /** R31 / R11 召唤；姿态轨、先攻等 hold。 */
   readonly summon?: BossHookHandler<BossSummonContext, BossSummonResult>;
+  /** Fanatic · Sentence Rendered：回合开始替代选招（spec §14.5 R39）。 */
+  readonly sentenceRendered?: BossHookHandler<
+    BossSentenceRenderedContext,
+    BossSentenceRenderedResult
+  >;
 };
 
 export type BossScriptDefinition = {
@@ -265,6 +284,13 @@ export type BossMonsterTurnContext = {
 export type BossSummonContext = {
   readonly scriptId: BossScriptId;
   readonly skillSlot: number;
+  readonly purpose?: BossSummonPurpose;
+};
+
+export type BossSentenceRenderedContext = {
+  readonly scriptId: BossScriptId;
+  readonly monsterEntityId: string;
+  readonly round: number;
 };
 
 export type BossHookName = keyof BossScriptHooks;

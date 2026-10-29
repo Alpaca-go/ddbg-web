@@ -2,6 +2,10 @@ import { isInvokingMonster, moveInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
 import { applyEncounterCommand, nextBattleRoll, finishTurn } from "./encounter";
+import {
+  applyFanaticSentenceRendered,
+  fanaticSentenceRenderedShouldReplaceSkill,
+} from "./boss/fanatic-i-combat-runtime";
 import { readMonsterSelfStatuses } from "./monster-self-status";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import type { SkillStance } from "./hero-skill";
@@ -56,6 +60,9 @@ export function prepareMonsterAction(
   if (occupied.length !== actor.stanceSlots)
     return rejectBattleCommand(state, "怪物姿态占格超出轨道（R17）");
   if (isInvokingMonster(battle, actor.id)) return moveInvokingMonster(state, actor.id);
+  if (fanaticSentenceRenderedShouldReplaceSkill(state, actor.id)) {
+    return applyFanaticSentenceRendered(state, actor.id);
+  }
   let selected = selectMonsterSkill(card, occupied);
   if (selected.status === "refused") return rejectBattleCommand(state, selected.reason);
   const needsRoll = selected.status === "needsRoll";

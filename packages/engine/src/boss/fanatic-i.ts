@@ -3,8 +3,10 @@ import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
 import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
 import type {
   BossScriptDefinition,
+  BossSummonOk,
   BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
+  BossSentenceRenderedOk,
 } from "./types";
 
 /** 引擎脚本 id；与印刷卡 id 分离。 */
@@ -46,7 +48,7 @@ export const fanaticIBossScript: BossScriptDefinition = {
   displayName: "Fanatic I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38–R39：先攻 4（Fanatic 3 + Pyre 1）、ACTIONS / Round: 3；Pyre 远程 + Sentence Rendered / Pit Toss 未接；Pyre 卡不进 combatEntry。",
+    "R38–R39：先攻 4（Fanatic 3 + Pyre 1）、ACTIONS / Round: 3；Pyre 远程 + Sentence Rendered 已接最小运行时；Fanatic 技能 / Pit Toss / 先攻洗入仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: FANATIC_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: FANATIC_I_COMBAT_ABILITY_CARD_ID,
@@ -60,10 +62,29 @@ export const fanaticIBossScript: BossScriptDefinition = {
     faceTheThreatEmbark: defaultFaceTheThreatEmbarkHook,
     bossSlotPlacement: defaultBossSlotPlacementHook,
     monsterTurnActionCount: () => ({ status: "ok", value: 3 }),
-    summon: () => ({
-      status: "stub",
-      message: "Fanatic I：Pyre 远程姿态开局 + Sentence Rendered 位移 / 丢入 Pyre 区域未接",
-      hold: "R38–R39 / Fanatic Room",
+    summon: (ctx): BossSummonOk | { status: "stub"; message: string; hold?: string } => {
+      if (ctx.purpose === "battleStartPyre") {
+        return {
+          status: "ok",
+          value: {
+            summonMonsterCardId: FANATIC_I_PYRE_MONSTER_CARD_ID,
+            miniaturePlacement: "stanceArea",
+            fixedStance: "ranged",
+            rulesRef: ["R39", "spec:§14.5", "R-034", FANATIC_I_COMBAT_ABILITY_CARD_ID],
+          },
+        };
+      }
+      return {
+        status: "stub",
+        message: "Fanatic I：技能召唤 / Pit Toss 未接",
+        hold: "Fanatic 怪物技能 / R38–R39",
+      };
+    },
+    sentenceRendered: (): BossSentenceRenderedOk => ({
+      status: "ok",
+      effect: "moveTowardClosestHeroOrTossIntoPyreArea",
+      sourceAbilityCardId: FANATIC_I_COMBAT_ABILITY_CARD_ID,
+      rulesRef: ["R39", "spec:§14.5", FANATIC_I_COMBAT_ABILITY_CARD_ID],
     }),
   },
 };

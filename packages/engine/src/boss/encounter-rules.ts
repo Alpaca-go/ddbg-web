@@ -4,7 +4,7 @@ import { ensureCoreBossScriptsRegistered } from "./necromancer-i";
 import { getBossScript } from "./registry";
 import { encounterRoundRetreatLimit } from "./rules";
 import { isBossQuestId, resolveBossScriptIdForQuest } from "./quest-bridge";
-import type { BossBattleRules } from "./types";
+import type { BossBattleRules, BossScriptId } from "./types";
 
 function deployedMonsterCardIds(state: GameState): readonly string[] {
   const fromBattle = state.battle?.entities
@@ -24,7 +24,7 @@ function deployedMonsterCardIds(state: GameState): readonly string[] {
  * 且部署怪物含该脚本的 `combatMonsterCardId`。
  * Boss 任务但未映射脚本 / 非 Boss 怪物遭遇：仍走普通第 4 轮撤退（quest→Boss 映射待 Kyries）。
  */
-export function resolveEncounterBossBattleRules(state: GameState): BossBattleRules | undefined {
+export function resolveEncounterBossScriptId(state: GameState): BossScriptId | undefined {
   ensureCoreBossScriptsRegistered();
   const questId = state.dungeon?.questDistribution?.questId;
   if (!questId || !isBossQuestId(questId)) return undefined;
@@ -35,7 +35,13 @@ export function resolveEncounterBossBattleRules(state: GameState): BossBattleRul
   if (!script || !bossCardId) return undefined;
   const deployed = deployedMonsterCardIds(state);
   if (!deployed.includes(bossCardId)) return undefined;
-  return script.rules;
+  return scriptId;
+}
+
+export function resolveEncounterBossBattleRules(state: GameState): BossBattleRules | undefined {
+  const scriptId = resolveEncounterBossScriptId(state);
+  if (!scriptId) return undefined;
+  return getBossScript(scriptId)?.rules;
 }
 
 /** 与 `encounter.ts` 轮末分支共用：达到上限则被迫撤退。 */

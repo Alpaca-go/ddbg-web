@@ -17,7 +17,11 @@ export type {
   BossSummonContext,
   BossSummonOk,
   BossSummonPlacement,
+  BossSummonPurpose,
   BossSummonResult,
+  BossSentenceRenderedContext,
+  BossSentenceRenderedOk,
+  BossSentenceRenderedResult,
   BossThreatPassiveContext,
   BossThreatPassiveDungeonOk,
   BossThreatPassiveDungeonResult,
@@ -210,7 +214,16 @@ export {
   encounterForcesRetreatAfterRound,
   isBossEncounter,
   resolveEncounterBossBattleRules,
+  resolveEncounterBossScriptId,
 } from "./encounter-rules";
+export {
+  applyFanaticIPyreBattleStart,
+  applyFanaticSentenceRendered,
+  fanaticSentenceRenderedShouldReplaceSkill,
+  pyreAreaHasSpaceForHero,
+  readFanaticIPyreBattleStartPlan,
+  readFanaticISentenceRenderedEnabled,
+} from "./fanatic-i-combat-runtime";
 export {
   bossQuestScriptId,
   faceTheThreatBossScriptByCampaignLevel,
