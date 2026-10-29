@@ -7,7 +7,7 @@
 
 | 字段                                                  | 位置           | 含义                                                                                                                                           |
 | ----------------------------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `dungeon.activeBossThreatScriptId`                    | `DungeonState` | 当前激活迫近威胁（Boss 脚本 id）。**正式**：`establishImminentThreat` / `drawImminentThreatAfterActAdvance`；**stub**：`setActiveBossThreat`。 |
+| `dungeon.activeBossThreatScriptId`                    | `DungeonState` | 当前激活迫近威胁（Boss 脚本 id）。**正式**：`establishImminentThreat` / `drawImminentThreatAfterActAdvance`；**沙盒**：`setActiveBossThreat`（同 `applyActiveBossThreatToDungeon`）。 |
 | `dungeon.imminentThreatDescriptionCardId`             | `DungeonState` | 最近一次 Imminent Threat 抽到的 Boss Description 卡 id                                                                                         |
 | `dungeon.defeatedRuinsBossIdentities`                 | `DungeonState` | 已击败 Ruins Boss，升幕抽牌时排除（§2.2）                                                                                                      |
 | `dungeon.monsterPool.permanentlyRemovedCombatCardIds` | 怪物池         | Unsettling Silhouettes 等威胁永久移出的**战斗怪物卡 id**；`cards` 仍保留完整 24 张 catalog。                                                   |
@@ -31,7 +31,7 @@
 
 - `{ type: "establishImminentThreat" }` — spec §2.4 战役开局定威胁（见 `docs/phase5-imminent-threat-establishment-2026-10-28.md`）
 - `{ type: "drawImminentThreatAfterActAdvance" }` — spec §2.2 升幕抽下一张威胁
-- `{ type: "setActiveBossThreat", scriptId }` — **stub**（测试 / 调试，不洗描述卡）
+- `{ type: "setActiveBossThreat", scriptId }` — **沙盒已接**（测试 / 调试：写脚本 id + 村庄封锁；不洗描述卡、不耗 RNG；见 `set-active-boss-threat.test.ts`）
 
 ## 待确认 / hold
 
@@ -45,5 +45,5 @@
 ## 测试
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/threat-campaign.test.ts packages/engine/src/boss/necromancer-i.test.ts packages/engine/src/boss/threat-establishment.test.ts packages/engine/src/boss/threat-passive-runtime.test.ts
+pnpm exec vitest run packages/engine/src/boss/threat-campaign.test.ts packages/engine/src/boss/necromancer-i.test.ts packages/engine/src/boss/threat-establishment.test.ts packages/engine/src/boss/threat-passive-runtime.test.ts packages/engine/src/boss/set-active-boss-threat.test.ts
 ```

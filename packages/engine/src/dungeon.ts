@@ -124,7 +124,7 @@ export type DungeonState = {
   /** 战役等级 / 地牢等级（DL）；缺省按 I 级解释（§2.2 / R35）。 */
   readonly campaignLevel?: 1 | 2 | 3;
   /**
-   * 当前迫近威胁对应的 Boss 脚本 id（已注册脚本时由定威胁 / 升幕抽牌写入；`setActiveBossThreat` 为测试 stub）。
+   * 当前迫近威胁对应的 Boss 脚本 id（正式：`establishImminentThreat` / 升幕抽牌；沙盒：`setActiveBossThreat`）。
    * spec §2.3 R11：威胁被动在 Boss 被击败前持续生效。
    */
   readonly activeBossThreatScriptId?: import("./boss/types").BossScriptId;
