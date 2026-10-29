@@ -1,11 +1,15 @@
 import { readFileSync } from "node:fs";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { createBattleState, type BattleEntity, type BattleSetup } from "../battle";
 import { applyCommand, type ApplyResult, type Command, type GameState } from "../command";
 import { nextBattleRoll } from "../battle-roll";
 import { selectMonsterSkill } from "../monster-stance";
 import type { MonsterCardView } from "../monster-skill";
 import { NECROMANCER_I_SCRIPT_ID } from "./necromancer-i";
+import {
+  NECROMANCER_II_SCRIPT_ID,
+  ensureNecromancerIIBossScriptRegistered,
+} from "./necromancer-ii";
 
 function cards<T>(file: string): T[] {
   return JSON.parse(
@@ -13,8 +17,6 @@ function cards<T>(file: string): T[] {
   ).cards;
 }
 const monsters = cards<MonsterCardView>("monster_medium");
-const necro = monsters.find((c) => c.id === "monster_medium:p089")!;
-const rabble = monsters.find((c) => c.id === "monster_medium:p040")!;
 const profiles = cards<NonNullable<BattleSetup["heroStats"]>[number]>("hero_stat");
 const resolves = cards<NonNullable<BattleSetup["resolveCards"]>[number]>("virtue_affliction");
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
@@ -24,7 +26,11 @@ function ok(state: GameState, command: Command): ApplyResult {
   expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
   return result;
 }
-function setup(slot = 3, attackRoll = 5): GameState {
+function setupLevel(slot = 3, attackRoll = 5, level: 1 | 2 = 1): GameState {
+  const necro = monsters.find((c) => c.id === `monster_medium:p0${level === 1 ? "89" : "90"}`)!;
+  const rabble = monsters.find(
+    (c) => c.id === (level === 1 ? "monster_medium:p040" : "monster_medium:p001"),
+  )!;
   const seed = 7;
   const cursor = Array.from({ length: 2000 }, (_, i) => i).find(
     (i) =>
@@ -93,7 +99,9 @@ function setup(slot = 3, attackRoll = 5): GameState {
       heroes: [],
       cursor: 0,
       questDistribution: { questId: "quest:p019" },
-      activeBossThreatScriptId: NECROMANCER_I_SCRIPT_ID,
+      campaignLevel: level,
+      imminentThreatDescriptionCardId: level === 1 ? "boss_ability:p001" : "boss_ability:p002",
+      activeBossThreatScriptId: level === 1 ? NECROMANCER_I_SCRIPT_ID : NECROMANCER_II_SCRIPT_ID,
     } as unknown as NonNullable<GameState["dungeon"]>,
     battle: {
       ...initial.battle!,
@@ -125,15 +133,25 @@ function perform(state: GameState): ApplyResult {
   }
   return { ...result, events };
 }
-const summoned = (state: GameState) =>
-  state.battle!.entities.filter((e) => e.monsterCardId === rabble.id && !e.dead);
 const targets = (result: ApplyResult) =>
   result.events.flatMap((e) =>
     e.type === "monsterSkillTargetsResolved" && e.phase !== "ownPending" ? e.resolutions : [],
   );
 const heroes = (state: GameState) => state.battle!.entities.filter((e) => e.side === "hero");
 
-describe("C-012 · Necromancer I 卡面选招与三招公开命令", () => {
+describe.each([1, 2] as const)("C-012/019 · Necromancer %i 卡面选招与三招公开命令", (level) => {
+  beforeEach(() => {
+    if (level === 2) ensureNecromancerIIBossScriptRegistered();
+  });
+  const necro = monsters.find(
+    (c) => c.id === (level === 1 ? "monster_medium:p089" : "monster_medium:p090"),
+  )!;
+  const rabble = monsters.find(
+    (c) => c.id === (level === 1 ? "monster_medium:p040" : "monster_medium:p001"),
+  )!;
+  const setup = (slot = 3, roll = 5) => setupLevel(slot, roll, level);
+  const summoned = (state: GameState) =>
+    state.battle!.entities.filter((e) => e.monsterCardId === rabble.id && !e.dead);
   it("Speed 3、四姿态全部十面按印刷表选招；不从 footer 动态猜表", () => {
     expect(necro.speed).toBe(3);
     for (const stance of stances)
@@ -166,7 +184,7 @@ describe("C-012 · Necromancer I 卡面选招与三招公开命令", () => {
       expect(summoned(result.state)[0]).toMatchObject({
         areaId: "a",
         stance: "defensive",
-        life: 6,
+        life: level === 1 ? 6 : 7,
         dodge: 0,
       });
       expect(result.state.battle!.rngCursor).toBe(state.battle!.rngCursor + 3);

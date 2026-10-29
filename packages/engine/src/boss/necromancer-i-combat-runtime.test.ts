@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { applyCommand } from "../command";
 import type { ApplyResult, Command, GameState } from "../command";
 import { createBattleState } from "../battle";
@@ -9,6 +9,10 @@ import type { HeroSkillCardView } from "../hero-skill";
 import { createLootState } from "../loot";
 import { nextBattleRoll } from "../battle-roll";
 import { NECROMANCER_I_SCRIPT_ID } from "./necromancer-i";
+import {
+  NECROMANCER_II_SCRIPT_ID,
+  ensureNecromancerIIBossScriptRegistered,
+} from "./necromancer-ii";
 import { continueNecromancerISummon } from "./necromancer-i-combat-runtime";
 
 function cards<T>(file: string): T[] {
@@ -17,8 +21,6 @@ function cards<T>(file: string): T[] {
   ).cards;
 }
 const monsters = cards<MonsterCardView>("monster_medium");
-const necromancer = monsters.find((c) => c.id === "monster_medium:p089")!;
-const rabble = monsters.find((c) => c.id === "monster_medium:p040")!;
 const smite = cards<HeroSkillCardView>("hero_skill").find((c) => c.id === "hero_skill:p001")!;
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 function monster(id: string, card: MonsterCardView, index: number, areaId = "b"): BattleEntity {
@@ -40,7 +42,13 @@ function monster(id: string, card: MonsterCardView, index: number, areaId = "b")
     blight: [],
   };
 }
-function setup(): GameState {
+function setupLevel(level: 1 | 2): GameState {
+  const necromancer = monsters.find(
+    (c) => c.id === (level === 1 ? "monster_medium:p089" : "monster_medium:p090"),
+  )!;
+  const rabble = monsters.find(
+    (c) => c.id === (level === 1 ? "monster_medium:p040" : "monster_medium:p001"),
+  )!;
   const initial = createBattleState(5, {
     entities: [
       ...stances.map((stance, index): BattleEntity => ({
@@ -76,8 +84,10 @@ function setup(): GameState {
       phase: "inBattle",
       cursor: 0,
       heroes: [],
-      questDistribution: { questId: "quest:p019", campaignLevel: 1 },
-      activeBossThreatScriptId: NECROMANCER_I_SCRIPT_ID,
+      campaignLevel: level,
+      imminentThreatDescriptionCardId: level === 1 ? "boss_ability:p001" : "boss_ability:p002",
+      questDistribution: { questId: "quest:p019", campaignLevel: level },
+      activeBossThreatScriptId: level === 1 ? NECROMANCER_I_SCRIPT_ID : NECROMANCER_II_SCRIPT_ID,
     } as unknown as NonNullable<GameState["dungeon"]>,
     battle: {
       ...initial.battle!,
@@ -116,10 +126,19 @@ function attack(state: GameState, slot = 1): ApplyResult {
   }
   return result;
 }
-const livingRabble = (state: GameState) =>
-  state.battle!.entities.filter((e) => e.monsterCardId === rabble.id && !e.dead);
-
-describe("C-011 · Necromancer I（R38、R-034）", () => {
+describe.each([1, 2] as const)("C-011/019 · Necromancer %i（R38、R-034）", (level) => {
+  beforeEach(() => {
+    if (level === 2) ensureNecromancerIIBossScriptRegistered();
+  });
+  const necromancer = monsters.find(
+    (c) => c.id === (level === 1 ? "monster_medium:p089" : "monster_medium:p090"),
+  )!;
+  const rabble = monsters.find(
+    (c) => c.id === (level === 1 ? "monster_medium:p040" : "monster_medium:p001"),
+  )!;
+  const setup = () => setupLevel(level);
+  const livingRabble = (state: GameState) =>
+    state.battle!.entities.filter((e) => e.monsterCardId === rabble.id && !e.dead);
   it.each([1, 2])(
     "真实卡 slot %i：自身 Push 后召唤一次，洗入当前堆，当轮可行动且确定性回放",
     (slot) => {
@@ -132,7 +151,7 @@ describe("C-011 · Necromancer I（R38、R-034）", () => {
       expect(livingRabble(result.state)[0]).toMatchObject({
         areaId: "a",
         stance: "aggressive",
-        life: 6,
+        life: level === 1 ? 6 : 7,
         dodge: 0,
       });
       expect(result.state.battle!.entities.find((e) => e.id === "necro")).toMatchObject({

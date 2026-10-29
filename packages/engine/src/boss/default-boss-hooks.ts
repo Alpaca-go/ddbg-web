@@ -43,17 +43,12 @@ export function canonicalBossSlotNodeIdsForLayout(layoutId: string): readonly st
 }
 
 export function resolveBossScriptIdForFaceTheThreatContext(
-  ctx: Pick<BossFaceTheThreatContext, "questId" | "campaignLevel" | "activeBossThreatScriptId">,
+  ctx: Pick<
+    BossFaceTheThreatContext,
+    "questId" | "campaignLevel" | "activeBossThreatScriptId" | "imminentThreatDescriptionCardId"
+  >,
 ): BossScriptId | undefined {
-  const bridgeContext: {
-    campaignLevel?: CampaignLevel;
-    activeBossThreatScriptId?: BossScriptId;
-  } = {};
-  if (ctx.campaignLevel !== undefined) bridgeContext.campaignLevel = ctx.campaignLevel;
-  if (ctx.activeBossThreatScriptId !== undefined) {
-    bridgeContext.activeBossThreatScriptId = ctx.activeBossThreatScriptId;
-  }
-  return resolveBossScriptIdForQuest(ctx.questId, bridgeContext);
+  return resolveBossScriptIdForQuest(ctx.questId, ctx);
 }
 
 function faceTheThreatUnresolvedHold(
@@ -64,7 +59,7 @@ function faceTheThreatUnresolvedHold(
   const isP019 = questId === FACE_THE_THREAT_QUEST_ID;
   const hold =
     isP019 && (campaignLevel === 2 || campaignLevel === 3)
-      ? "faceTheThreatBossScriptByCampaignLevel II/III 待确认"
+      ? "II/III 需已注册且同级的实际迫近威胁（R-124）；缺失或未实现仍 hold"
       : isP019
         ? "faceTheThreatBossScriptByCampaignLevel / activeBossThreatScriptId"
         : "bossQuestScriptId 待脚本";

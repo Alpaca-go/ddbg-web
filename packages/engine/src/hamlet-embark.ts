@@ -18,7 +18,10 @@ import { heroSkillSlotCount } from "./hero-loadout";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { scoutAheadPlanProblem } from "./hamlet-scout-ahead";
 import { expandRoomDistributionForEmbark } from "./room-distribution-expand";
-import { resolveFaceTheThreatEmbarkForChoose, shouldForceFaceTheThreatOfferAtNextQuest } from "./boss/face-the-threat-embark-runtime";
+import {
+  resolveFaceTheThreatEmbarkForChoose,
+  shouldForceFaceTheThreatOfferAtNextQuest,
+} from "./boss/face-the-threat-embark-runtime";
 import { FACE_THE_THREAT_QUEST_ID, isFaceTheThreatQuestId } from "./boss/quest-bridge";
 
 type Hero = DungeonState["heroes"][number];
@@ -318,10 +321,7 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
   if (!quest) return rejectBattleCommand(state, "未知任务，未出征");
   const faceEmbark = resolveFaceTheThreatEmbarkForChoose(state, optionId);
   if (faceEmbark.kind === "refused") return faceEmbark.result;
-  if (
-    !isFaceTheThreatQuestId(quest.id) &&
-    quest.level !== campaignLevel
-  )
+  if (!isFaceTheThreatQuestId(quest.id) && quest.level !== campaignLevel)
     return rejectBattleCommand(state, "任务等级与战役等级不符，未出征（R35 / R-037）");
   if (d.trinkets!.level !== campaignLevel)
     return rejectBattleCommand(state, "地牢饰品等级须等于战役等级，未出征（R35）");
@@ -401,6 +401,17 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
     exploration: null,
     visited: ["S"],
     campaignLevel,
+    // R-124 / R11：换任务保留实际威胁与已击败身份，不能只留下出征计划。
+    ...(d.activeBossThreatScriptId ? { activeBossThreatScriptId: d.activeBossThreatScriptId } : {}),
+    ...(d.imminentThreatDescriptionCardId
+      ? { imminentThreatDescriptionCardId: d.imminentThreatDescriptionCardId }
+      : {}),
+    ...(d.unregisteredImminentThreatHold
+      ? { unregisteredImminentThreatHold: d.unregisteredImminentThreatHold }
+      : {}),
+    ...(d.defeatedRuinsBossIdentities
+      ? { defeatedRuinsBossIdentities: d.defeatedRuinsBossIdentities }
+      : {}),
     explorationSetup: {
       dungeonLevel: campaignLevel,
       light: d.nextQuestStartingLight === 4 ? 4 : 5,

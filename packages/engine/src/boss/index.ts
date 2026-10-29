@@ -130,6 +130,13 @@ export {
   necromancerIBossScript,
 } from "./necromancer-i";
 export {
+  ensureNecromancerIIBossScriptRegistered,
+  necromancerIIBossScript,
+  NECROMANCER_II_SCRIPT_ID,
+  NECROMANCER_II_COMBAT_MONSTER_CARD_ID,
+  NECROMANCER_II_SUMMON_MONSTER_CARD_ID,
+} from "./necromancer-ii";
+export {
   ensureProphetIBossScriptRegistered,
   PROPHET_I_COMBAT_ABILITY_CARD_ID,
   PROPHET_I_COMBAT_MONSTER_CARD_ID,
