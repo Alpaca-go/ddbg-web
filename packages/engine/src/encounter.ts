@@ -49,6 +49,7 @@ import {
 } from "./boss/necromancer-i-combat-runtime";
 import {
   bumpFanaticIActionRoundCount,
+  clearFanaticIPyre,
   expandFanaticIInitiativeDeckSides,
   fanaticShouldEnterActedIdsAfterTurn,
 } from "./boss/fanatic-i-combat-runtime";
@@ -372,6 +373,7 @@ export function encounterSkillProblem(
 /** R24–25、R-030：只补本次死亡空位；旧尸体保留日志身份，不再占位。 */
 export function removeCasualties(result: ApplyResult, ids: readonly string[]): ApplyResult {
   ({ result, ids } = clearNecromancerICompanions(result, ids));
+  ({ result, ids } = clearFanaticIPyre(result, ids));
   const battle = result.state.battle!;
   const casualties = battle.entities.filter((entity) => entity.dead && ids.includes(entity.id));
   if (!casualties.length) return result;
