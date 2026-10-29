@@ -1,11 +1,16 @@
+import type { CampaignLevel } from "../../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "../command";
 import { rejectBattleCommand } from "../battle";
 import type { DungeonState } from "../dungeon";
+import { questsForCampaignLevel } from "../campaign-quest-pool";
 import { readCampaignLevel } from "../hamlet-campaign";
 import { FACE_EMBARK_WIRING_HOLD } from "./default-boss-hooks";
 import { runFaceTheThreatEmbarkForQuest } from "./face-the-threat-hooks";
 import { FACE_THE_THREAT_QUEST_ID, isFaceTheThreatQuestId } from "./quest-bridge";
 import type { BossCombatEntryRefs, BossFaceTheThreatEmbarkPlan, BossScriptId } from "./types";
+
+/** spec §2.1 / §14.1：每幕 2 个普通任务后再接 Face the Threat。 */
+export const REGULAR_QUESTS_PER_ACT_BEFORE_FACE_THE_THREAT = 2 as const;
 
 /** 与钩子 `wiringHold` 一致；layout / R-121 仍 hold。 */
 export const FACE_EMBARK_LAYOUT_WIRING_HOLD = FACE_EMBARK_WIRING_HOLD;
@@ -40,6 +45,46 @@ export function readStoredFaceTheThreatEmbarkPlan(
   d: DungeonState | undefined,
 ): StoredFaceTheThreatEmbarkPlan | undefined {
   return d?.faceTheThreatEmbarkPlan;
+}
+
+/**
+ * 当前战役等级下已完成的普通任务数（不含 Boss 卡）。
+ * `chooseNextQuest` 每次把上一趟 `questSummary` 与未选 offer 写入 `discardedQuests`；
+ * 首趟任务完成前无 choose 循环，靠当前 summary 计 1。
+ */
+export function countCompletedRegularQuestsAtCampaignLevel(
+  d: Pick<DungeonState, "discardedQuests" | "questSummary">,
+  campaignLevel: CampaignLevel,
+): number {
+  const regularIds = questsForCampaignLevel(campaignLevel).map((q) => q.id);
+  const regularSet = new Set<string>(regularIds);
+  const discardedRegular = (d.discardedQuests ?? []).filter((id) => regularSet.has(id));
+  const chooseCycles = Math.floor(discardedRegular.length / 2);
+  const trailingSingleOffer = discardedRegular.length % 2;
+  const completedInDiscarded = chooseCycles + trailingSingleOffer;
+  const current = d.questSummary?.awarded ? d.questSummary.questId : undefined;
+  const includeCurrent =
+    current && regularSet.has(current) && !(d.discardedQuests ?? []).includes(current) ? 1 : 0;
+  return completedInDiscarded + includeCurrent;
+}
+
+/**
+ * 正式 I 级战役：幕末两普通任务完成 + 仍有激活迫近威胁 → `offerNextQuest` 不洗牌，只给 p019。
+ * II/III 映射 / 升幕完整流程仍 hold（不强制 offer）。
+ */
+export function shouldForceFaceTheThreatOfferAtNextQuest(state: GameState): boolean {
+  const d = state.dungeon;
+  if (!d?.questSummary?.awarded || !d.activeBossThreatScriptId) return false;
+  const campaignLevel = readCampaignLevel(d);
+  if (campaignLevel !== 1) return false;
+  if (
+    countCompletedRegularQuestsAtCampaignLevel(d, campaignLevel) <
+    REGULAR_QUESTS_PER_ACT_BEFORE_FACE_THE_THREAT
+  ) {
+    return false;
+  }
+  const embark = resolveFaceTheThreatEmbarkForChoose(state, FACE_THE_THREAT_QUEST_ID);
+  return embark.kind === "ok";
 }
 
 /**
