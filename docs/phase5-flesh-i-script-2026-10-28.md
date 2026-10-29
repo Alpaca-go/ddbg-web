@@ -33,8 +33,8 @@
 | Creeping Sickness I 村庄 Wound 转移 | **已接**（`threat-passive-runtime` / `hamlet-actions`） |
 | One Body morph / 部位位移、四单位 Boss 战 | `summon` stub |
 | Warrens 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
-| quest / Face the Threat → The Flesh | `faceTheThreatEmbark` stub |
-| **R-121** Boss 位 | `bossSlotPlacement` stub |
+| quest / Face the Threat → The Flesh | `defaultFaceTheThreatEmbarkHook` **ok** |
+| **R-121** Boss 位 | `defaultBossSlotPlacementHook` 校验 **ok**；洗牌写入 hold |
 | Flesh II/III、Brigand Vvulf | 未注册 |
 
 ## 与 `docs/plan.md` 差异

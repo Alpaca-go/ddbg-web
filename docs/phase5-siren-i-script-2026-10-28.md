@@ -30,8 +30,8 @@
 | Eldritch +2 伤害、修道院封锁 **写入** encounter / hamlet-actions | **已接**（`battle-monster*` / `threat-campaign` KNOWN 含 abbey） |
 | Song of Desire 魅惑、High Tide 召唤 Pelagic 完整 AI | `summon` stub |
 | Cove 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
-| quest / Face the Threat → Siren | `faceTheThreatEmbark` stub |
-| **R-121** Boss 位 | `bossSlotPlacement` stub |
+| quest / Face the Threat → Siren | `defaultFaceTheThreatEmbarkHook` **ok** |
+| **R-121** Boss 位 | `defaultBossSlotPlacementHook` 校验 **ok**；洗牌写入 hold |
 | Siren II/III、Shambler、Drowned Crew | 未注册 |
 
 ## 印刷 / 数据映射

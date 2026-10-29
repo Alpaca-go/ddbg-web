@@ -58,7 +58,7 @@
 ## 4. 与威胁战役的边界
 
 - `establishImminentThreat` / `drawImminentThreatAfterActAdvance`：仍负责写 `activeBossThreatScriptId`（#334）。
-- `clearedBossThreatScriptIdAfterVictory`：击败 Boss 清威胁；`bossThreatClearHoldReason()` 文案更新为「embark 已解析 combatEntry，出征命令仍 hold」。
+- `clearedBossThreatScriptIdAfterVictory`：击败 Boss 清威胁；`bossThreatClearHoldReason()` 指向升幕抽牌与 Face the Threat 出征（见 `face-the-threat-embark-runtime`）；R-121 仍 hold。
 - `setActiveBossThreat`：沙盒已接（写 `activeBossThreatScriptId`）；仍不替代 `establishImminentThreat` / 升幕抽牌。
 
 ## 5. 测试

@@ -1,5 +1,7 @@
 # Phase 5 第一刀：Boss 通用框架盘点（2026-10-28）
 
+> **2026-10-29**：#331–#352 已合。**最新 hold 总表**见 [phase5-remaining-hold-inventory-2026-10-29.md](./phase5-remaining-hold-inventory-2026-10-29.md)。下文 §2 为 #330 骨架时代描述，勿与 tip `3b50f2e` 代码混读。
+
 > **范围**：仅骨架与盘点；不实现 Necromancer / Prophet / Collector / Fanatic 完整脚本，不碰 Phase 6。  
 > **规则来源**：R-001（规则书 + `docs/rulings.md`）；印刷几何/未核实图标仍 R-048。
 
