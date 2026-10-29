@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, beforeEach } from "vitest";
 import { createBattleState, type BattleEntity } from "../battle";
-import { type GameState } from "../command";
+import { applyCommand, type GameState } from "../command";
 import { applyEncounterCommand } from "../encounter";
 import type { SkillStance, HeroSkillCardView } from "../hero-skill";
 import type { EncounterCommand } from "../encounter";
@@ -16,6 +16,13 @@ import {
   fixtureBossSkeletonScript,
   isBossEncounter,
   NECROMANCER_I_COMBAT_MONSTER_CARD_ID,
+  NECROMANCER_I_SCRIPT_ID,
+  PROPHET_I_COMBAT_MONSTER_CARD_ID,
+  PROPHET_I_SCRIPT_ID,
+  COLLECTOR_I_COMBAT_MONSTER_CARD_ID,
+  COLLECTOR_I_SCRIPT_ID,
+  FANATIC_I_COMBAT_MONSTER_CARD_ID,
+  FANATIC_I_SCRIPT_ID,
   registerBossScript,
   resolveEncounterBossBattleRules,
 } from "./index";
@@ -182,4 +189,106 @@ describe("encounter 轮数撤退与 Boss 规则", () => {
     expect(finished.battle!.encounter!.round).toBe(4);
     expect(finished.battle!.encounter!.turn).toEqual({ type: "finished", outcome: "retreat" });
   });
+});
+
+describe("C-018 · Ruins 四 Boss 的公开命令轮末边界", () => {
+  const cases = [
+    [NECROMANCER_I_SCRIPT_ID, NECROMANCER_I_COMBAT_MONSTER_CARD_ID],
+    [PROPHET_I_SCRIPT_ID, PROPHET_I_COMBAT_MONSTER_CARD_ID],
+    [COLLECTOR_I_SCRIPT_ID, COLLECTOR_I_COMBAT_MONSTER_CARD_ID],
+    [FANATIC_I_SCRIPT_ID, FANATIC_I_COMBAT_MONSTER_CARD_ID],
+  ] as const;
+  beforeEach(() => {
+    clearBossScriptsForTest();
+    for (const key of Object.keys(bossQuestScriptId))
+      delete bossQuestScriptId[key as keyof typeof bossQuestScriptId];
+    ensureCoreBossScriptsRegistered();
+  });
+  function boundary(
+    scriptId: (typeof cases)[number][0],
+    cardId: string,
+    via: "hero" | "deck",
+  ): GameState {
+    const base = sandboxBattle(23, [{ monsterCardId: cardId }], {
+      ...bossQuestDungeon(),
+      phase: "inBattle",
+      heroes: [],
+      activeBossThreatScriptId: scriptId,
+    } as GameState["dungeon"]);
+    return {
+      ...base,
+      battle: {
+        ...base.battle!,
+        encounter: {
+          round: 4,
+          deck: via === "hero" ? [] : ["monster"],
+          actedIds: base
+            .battle!.entities.filter((e) => via !== "hero" || e.id !== "h0")
+            .map((e) => e.id),
+          turn:
+            via === "hero"
+              ? { type: "hero", actorId: "h0", actions: 2, usedSkillIds: [] }
+              : { type: "awaitingInitiative" },
+        },
+      },
+    };
+  }
+  function finish(state: GameState, via: "hero" | "deck") {
+    const commands = via === "hero" ? 2 : 1;
+    let result: ReturnType<typeof applyCommand> = { state, events: [] };
+    for (let i = 0; i < commands; i++) {
+      result = applyCommand(
+        result.state,
+        via === "hero" ? swap(result.state) : { type: "drawInitiative" },
+      );
+      expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+    }
+    return result;
+  }
+  for (const via of ["hero", "deck"] as const) {
+    it.each(cases)(
+      "%s · " + via + " 分支经过第4轮继续第5轮，同命令确定且不改输入",
+      (scriptId, cardId) => {
+        const state = boundary(scriptId, cardId, via),
+          before = structuredClone(state);
+        expect(resolveEncounterBossBattleRules(state)).toMatchObject({
+          countsRounds: false,
+          allowsRetreat: false,
+        });
+        const result = finish(state, via);
+        expect(result.state.battle!.encounter!.round).toBe(5);
+        expect(result.state.battle!.encounter!.turn.type).toBe("awaitingInitiative");
+        expect(
+          result.events.some((e) => e.type === "battleFinished" && e.outcome === "retreat"),
+        ).toBe(false);
+        expect(encounterForcesRetreatAfterRound(result.state, 99)).toBe(false);
+        expect(result).toEqual(finish(state, via));
+        expect(state).toEqual(before);
+      },
+    );
+    it("Boss 任务里的普通遭遇仍按第4轮撤退 · " + via, () => {
+      const state = boundary(PROPHET_I_SCRIPT_ID, "fixture-ordinary-monster", via);
+      expect(isBossEncounter(state)).toBe(false);
+      const result = finish(state, via);
+      expect(result.state.battle!.encounter!.turn).toEqual({
+        type: "finished",
+        outcome: "retreat",
+      });
+      expect(result.state.battle!.encounter!.round).toBe(4);
+    });
+    it("普通任务即使出现 Boss 卡也不扩大为无限轮数 · " + via, () => {
+      const initial = boundary(NECROMANCER_I_SCRIPT_ID, NECROMANCER_I_COMBAT_MONSTER_CARD_ID, via);
+      const state = {
+        ...initial,
+        dungeon: {
+          ...initial.dungeon!,
+          questDistribution: { ...initial.dungeon!.questDistribution!, questId: "quest:p001" },
+        },
+      };
+      expect(finish(state, via).state.battle!.encounter!.turn).toEqual({
+        type: "finished",
+        outcome: "retreat",
+      });
+    });
+  }
 });
