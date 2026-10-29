@@ -16,6 +16,43 @@ import type { BossScriptDefinition, BossSummonOk } from "./types";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 
+/** R39：Fanatic 被击败后移出仍在场的 Pyre；保留原伤口与日志身份。 */
+export function clearFanaticIPyre(result: ApplyResult, ids: readonly string[]) {
+  const battle = result.state.battle!;
+  if (
+    resolveEncounterBossScriptId(result.state) !== FANATIC_I_SCRIPT_ID ||
+    !battle.entities.some(
+      (e) =>
+        e.side === "monster" &&
+        e.monsterCardId === FANATIC_I_COMBAT_MONSTER_CARD_ID &&
+        e.dead &&
+        ids.includes(e.id),
+    )
+  )
+    return { result, ids };
+  const pyres = battle.entities.filter(
+    (e) => e.side === "monster" && e.monsterCardId === FANATIC_I_PYRE_MONSTER_CARD_ID && !e.dead,
+  );
+  if (!pyres.length) return { result, ids };
+  return {
+    ids: [...ids, ...pyres.map((e) => e.id)],
+    result: {
+      ...result,
+      state: {
+        ...result.state,
+        battle: {
+          ...battle,
+          entities: battle.entities.map((e) => (pyres.includes(e) ? { ...e, dead: true } : e)),
+        },
+      },
+      events: [
+        ...result.events,
+        { type: "dungeonUpdated" as const, message: "Fanatic I 被击败：移出火刑架 Pyre（R39）" },
+      ],
+    },
+  };
+}
+
 export type InitiativeSide = SkillTargetSide;
 
 /** spec §14.5 R39：Fanatic 3 + Pyre 1 共 4 张 monster 先攻（2 实体 + 2 洗入）。 */

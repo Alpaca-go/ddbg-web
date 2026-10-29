@@ -5,8 +5,10 @@ import { applyCommand, type GameState } from "../command";
 import { applyEncounterCommand } from "../encounter";
 import { normalizedMonsterLargeFileSchema } from "../../../data/src/normalize/schema";
 import type { MonsterCardView } from "../monster-skill";
-import type { SkillStance } from "../hero-skill";
+import type { HeroSkillCardView, SkillStance } from "../hero-skill";
 import { createLootState } from "../loot";
+import { nextBattleRoll } from "../battle-roll";
+import { clearFanaticIPyre } from "./fanatic-i-combat-runtime";
 import {
   FANATIC_I_COMBAT_MONSTER_CARD_ID,
   FANATIC_I_PYRE_MONSTER_CARD_ID,
@@ -38,6 +40,12 @@ const largeCards = normalizedMonsterLargeFileSchema.parse(
 
 const fanaticCard = largeCards.find((card) => card.id === FANATIC_I_COMBAT_MONSTER_CARD_ID)!;
 const pyreCard = largeCards.find((card) => card.id === FANATIC_I_PYRE_MONSTER_CARD_ID)!;
+const smite: HeroSkillCardView = JSON.parse(
+  readFileSync(
+    new URL("../../../data/normalized/corebox/hero_skill.json", import.meta.url),
+    "utf8",
+  ),
+).cards.find((card: HeroSkillCardView) => card.id === "hero_skill:p001");
 
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -102,11 +110,203 @@ function fanaticBattle(extra?: Partial<GameState["battle"]>): GameState {
   } as GameState;
 }
 
+function defeatSetup(cause = "attack"): GameState {
+  const started = applyCommand(fanaticBattle({ skills: [smite] }), { type: "startBattle" });
+  expect(started.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  const battle = started.state.battle!;
+  let cursor = battle.rngCursor;
+  while (nextBattleRoll(started.state.seed, cursor) > 5) cursor++;
+  return {
+    ...started.state,
+    battle: {
+      ...battle,
+      rngCursor: cursor,
+      entities: battle.entities.map((e) => {
+        if (e.id === "h0") return { ...e, skillIds: [smite.id] };
+        if (e.monsterCardId === pyreCard.id) return { ...e, wounds: 1 };
+        if (e.id !== "fanatic") return e;
+        return {
+          ...e,
+          wounds: e.life! - 1,
+          ...(cause === "attack"
+            ? {}
+            : { statusStacks: [{ kind: cause as "bleed" | "blight", remaining: 1, amount: 1 }] }),
+        };
+      }),
+      encounter: {
+        round: 1,
+        deck: ["monster", "hero", "monster"],
+        actedIds: [],
+        turn:
+          cause === "attack"
+            ? { type: "hero", actorId: "h0", actions: 2, usedSkillIds: [] }
+            : { type: "awaitingInitiative" },
+      },
+    },
+  };
+}
+
 describe("Fanatic I 战斗运行时", () => {
   beforeEach(() => {
     clearBossScriptsForTest();
     ensureFanaticIBossScriptRegistered();
     bossQuestScriptId[FACE_THE_THREAT_QUEST_ID] = FANATIC_I_SCRIPT_ID;
+  });
+
+  it.each(["attack", "bleed", "blight"])(
+    "%s 击败 Fanatic：移出存活 Pyre 后胜利，无额外伤害 / 骰子，重放一致",
+    (cause) => {
+      const initial = defeatSetup(cause);
+      const before = structuredClone(initial);
+      const command =
+        cause === "attack"
+          ? ({
+              type: "playHeroSkill",
+              actorId: "h0",
+              targetId: "fanatic",
+              skillId: smite.id,
+            } as const)
+          : ({ type: "drawInitiative" } as const);
+      const result = applyCommand(initial, command);
+      expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+      expect(applyCommand(initial, command)).toEqual(result);
+      expect(initial).toEqual(before);
+      expect(result.state.battle!.entities.find((e) => e.monsterCardId === pyreCard.id)).toEqual({
+        ...initial.battle!.entities.find((e) => e.monsterCardId === pyreCard.id),
+        dead: true,
+      });
+      expect(result.state.battle!.encounter!.turn).toEqual({
+        type: "finished",
+        outcome: "victory",
+      });
+      expect(result.state.battle!.encounter!.deck).toEqual([]);
+      expect(result.state.battle!.monsterAction).toBeNull();
+      expect(result.state.battle!.rngCursor).toBe(
+        initial.battle!.rngCursor + (cause === "attack" ? 1 : 0),
+      );
+      expect(
+        result.events.flatMap((e) => (e.type === "casualtyRemoved" ? [e.actorId] : [])),
+      ).toEqual(["fanatic", "boss:fanatic:pyre"]);
+      expect(result.events.filter((e) => e.type === "battleFinished")).toHaveLength(1);
+      const repeated = applyCommand(result.state, command);
+      expect(repeated.state).toBe(result.state);
+      expect(repeated.events.some((e) => e.type === "casualtyRemoved")).toBe(false);
+    },
+  );
+
+  it.each(["dead", "absent"])("Pyre 已%s 时击败 Fanatic，不重复移除或重建火刑架", (pyre) => {
+    const base = defeatSetup();
+    const initial: GameState = {
+      ...base,
+      battle: {
+        ...base.battle!,
+        entities: base.battle!.entities.flatMap((e) =>
+          e.monsterCardId !== pyreCard.id ? [e] : pyre === "dead" ? [{ ...e, dead: true }] : [],
+        ),
+      },
+    };
+    const result = applyCommand(initial, {
+      type: "playHeroSkill",
+      actorId: "h0",
+      targetId: "fanatic",
+      skillId: smite.id,
+    });
+    expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+    expect(result.state.battle!.encounter!.turn).toEqual({ type: "finished", outcome: "victory" });
+    expect(result.events.flatMap((e) => (e.type === "casualtyRemoved" ? [e.actorId] : []))).toEqual(
+      ["fanatic"],
+    );
+    expect(
+      result.events.some((e) => e.type === "dungeonUpdated" && e.message.includes("移出火刑架")),
+    ).toBe(false);
+  });
+
+  it.each(["ordinary", "sandbox"])("%s 战斗不凭卡名清除 Pyre", (context) => {
+    const base = defeatSetup();
+    const { dungeon, ...sandbox } = base;
+    const initial: GameState =
+      context === "sandbox"
+        ? sandbox
+        : {
+            ...base,
+            dungeon: {
+              ...dungeon!,
+              questDistribution: { ...dungeon!.questDistribution!, questId: "quest:p001" },
+            },
+          };
+    const result = applyCommand(initial, {
+      type: "playHeroSkill",
+      actorId: "h0",
+      targetId: "fanatic",
+      skillId: smite.id,
+    });
+    expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+    expect(result.state.battle!.entities.find((e) => e.monsterCardId === pyreCard.id)?.dead).toBe(
+      false,
+    );
+    expect(result.events.some((e) => e.type === "battleFinished")).toBe(false);
+  });
+
+  it("英雄反击击败 Fanatic：怪物技能收尾移出 Pyre 并停止剩余先攻", () => {
+    const base = defeatSetup();
+    const initial: GameState = {
+      ...base,
+      battle: {
+        ...base.battle!,
+        entities: base.battle!.entities.map((e) =>
+          e.id === "h0"
+            ? { ...e, riposte: true, statusStacks: [{ kind: "riposte", remaining: 1 }] }
+            : e.id === "fanatic"
+              ? { ...e, areaId: "b" }
+              : e,
+        ),
+        encounter: {
+          ...base.battle!.encounter!,
+          turn: { type: "monster", actorId: "fanatic" },
+        },
+      },
+    };
+    const result = applyCommand(initial, {
+      type: "playMonsterSkill",
+      actorId: "fanatic",
+      targetId: "h0",
+      skillSlot: 3,
+    });
+    expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+    expect(result.state.battle!.entities.find((e) => e.id === "fanatic")?.dead).toBe(true);
+    expect(
+      result.state.battle!.entities.find((e) => e.monsterCardId === pyreCard.id),
+    ).toMatchObject({ dead: true, wounds: 1 });
+    expect(result.state.battle!.encounter!.turn).toEqual({ type: "finished", outcome: "victory" });
+    expect(result.state.battle!.encounter!.deck).toEqual([]);
+    expect(result.events.filter((e) => e.type === "casualtyRemoved")).toHaveLength(2);
+    expect(result.events.filter((e) => e.type === "battleFinished")).toHaveLength(1);
+  });
+
+  it("清场只跟随本次 Fanatic 死亡，不重放旧尸体，也不移除其它卡", () => {
+    const base = defeatSetup();
+    const state: GameState = {
+      ...base,
+      battle: {
+        ...base.battle!,
+        entities: [
+          ...base.battle!.entities.map((e) => (e.id === "fanatic" ? { ...e, dead: true } : e)),
+          {
+            ...base.battle!.entities.find((e) => e.id === "fanatic")!,
+            id: "other",
+            monsterCardId: "monster_small:p001",
+          },
+        ],
+      },
+    };
+    const input = { state, events: [] };
+    expect(clearFanaticIPyre(input, ["other"]).result).toBe(input);
+    const cleared = clearFanaticIPyre(input, ["fanatic"]);
+    expect(cleared.ids).toEqual(["fanatic", "boss:fanatic:pyre"]);
+    expect(cleared.result.state.battle!.entities.find((e) => e.id === "other")).toBe(
+      state.battle!.entities.find((e) => e.id === "other"),
+    );
+    expect(clearFanaticIPyre(cleared.result, ["fanatic"]).result).toBe(cleared.result);
   });
 
   it("summon(battleStartPyre) 声明 Pyre 远程姿态 + stanceArea", () => {

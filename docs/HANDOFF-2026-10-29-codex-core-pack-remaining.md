@@ -233,7 +233,7 @@
 #### C-017 · Fanatic I：卡面技能 AI / `summon(purpose:skill)`
 
 - [x] Fanatic 本体三招最小 AI 与技能召唤口径已收；不代表整场 Boss 闭环。
-- **现状**：p008 已接 Speed 2、四姿态共用 d10（1–2 / 3–6 / 7–10）、三招完整效果；公开命令覆盖选招、目标、移动、攻击和状态。卡面无召唤，`purpose:skill` 明确 `notApplicable`，Pyre 仍只在开战布置。原 Sentence / Pit Toss / 先攻 4 沿用；Pyre 自身无 Acc 的 99 伤害技能、Fanatic 死后移除 Pyre 仍 hold。见 `phase5-fanatic-i-skill-ai-2026-10-29.md`。
+- **现状**：p008 已接 Speed 2、四姿态共用 d10（1–2 / 3–6 / 7–10）、三招完整效果；公开命令覆盖选招、目标、移动、攻击和状态。卡面无召唤，`purpose:skill` 明确 `notApplicable`，Pyre 仍只在开战布置。原 Sentence / Pit Toss / 先攻 4 沿用；R39 的 Fanatic 死后移除 Pyre 已接共用死亡收尾，覆盖攻击 / 持续伤害 / 反击并立即结束先攻。Pyre 自身无 Acc 的 99 伤害技能仍 hold。见 `phase5-fanatic-i-skill-ai-2026-10-29.md`、`phase5-fanatic-i-pyre-defeat-2026-10-29.md`。
 - **验收**：剩余印刷技能最小 AI + 测试；不重做 Pit Toss/先攻  
 - **依赖/阻塞**：无  
 - **归口**：核心包  
