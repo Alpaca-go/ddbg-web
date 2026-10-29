@@ -271,12 +271,14 @@ export function naturalQuest(
         .map((path) => {
           const command = { type: "moveHero" as const, actorId: actor.id, path },
             r = moveHero(state, command);
+          const refused = r.events.some((e) => e.type === "commandRefused");
+          const followUp = !refused && t.actions > 1 ? (attacks(r.state)[0]?.score ?? 0) : 0;
           return {
             command,
             r,
-            score: r.events.some((e) => e.type === "commandRefused")
+            score: refused
               ? -Infinity
-              : (t.actions > 1 ? (attacks(r.state)[0]?.score ?? 0) * 0.8 : 0) -
+              : (Number.isFinite(followUp) ? followUp : 0) * 0.8 -
                 Math.min(
                   ...b.entities
                     .filter((e) => e.side === "monster" && !e.dead)

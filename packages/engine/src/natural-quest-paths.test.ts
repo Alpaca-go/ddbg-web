@@ -104,6 +104,16 @@ it.each([
   },
   20000,
 );
+it("Scout Ahead seed87：没有可用攻击时仍可合法移动，真实死亡停点可回放", () => {
+  const run = naturalQuest(87, "quest:p001", true);
+  expect(run.stopReason).toBe("dungeon halted awaitingReplacement");
+  expect(run.commands.some((c) => c.type === "moveHero" && c.actorId === "hero-3")).toBe(true);
+  expect(run.state.dungeon!.heroes.some((h) => h.dead)).toBe(true);
+  expect(run.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  expect(run.commands.reduce<GameState>((s, c) => applyCommand(s, c).state, run.initial)).toEqual(
+    run.state,
+  );
+});
 it("Fundraiser seed1：真实命令导致英雄死亡，保留状态／金币，等待替换而不伪造成功摘要", () => {
   const run = naturalQuest(1, "quest:p003", true),
     d = run.state.dungeon!;

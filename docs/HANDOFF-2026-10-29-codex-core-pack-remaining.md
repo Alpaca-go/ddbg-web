@@ -156,7 +156,7 @@
 
 #### C-010 · I 级全流程残留内容缺口（文案 / UX / E2E）
 
-- [ ] C-010 总项未完成；本刀仅修自然流程测试对实际 QuestMap 的路线适配，待独立 PR 合入。
+- [ ] C-010 总项未完成；本刀仅修自然流程测试对实际 QuestMap 的路线适配，草稿 #379 待合入。
   - [x] `naturalQuest` 按实际连接探索 / 返回；12 张 confirmed 八槽图路由回归、五张 I 级任务摘要与完整命令回放已接，见 `phase5-c010-natural-map-route-2026-10-29.md`。
 - **现状**：`docs/full-flow-l1-breakpoints-2026-10-27.md` B03/B06–B08/B12 等：回村壳 UX、摘要文案与真实 XP、死亡补位 UI、再出征 E2E  
 - **验收**：逐断点 PR；不夹带 Boss hold  
