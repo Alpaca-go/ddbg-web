@@ -170,7 +170,14 @@ export type BossSummonOk = BossHookOk<{
   readonly rulesRef: readonly string[];
 }>;
 
-export type BossSummonResult = BossSummonOk | BossHookStubResult;
+export type BossSummonResult =
+  | BossSummonOk
+  | BossHookStubResult
+  | {
+      readonly status: "notApplicable";
+      readonly message: string;
+      readonly rulesRef: readonly string[];
+    };
 
 export type BossSentenceRenderedOk = {
   readonly status: "ok";
@@ -218,8 +225,7 @@ export type BossCalamitousPrognosticationOk = {
 };
 
 export type BossCalamitousPrognosticationResult =
-  | BossCalamitousPrognosticationOk
-  | BossHookStubResult;
+  BossCalamitousPrognosticationOk | BossHookStubResult;
 
 export type BossRubbleOfRuinOk = {
   readonly status: "ok";

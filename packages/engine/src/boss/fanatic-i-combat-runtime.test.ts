@@ -15,7 +15,6 @@ import {
   applyFanaticPitTossHeroIntoPyreArea,
   applyFanaticSentenceRendered,
   bossQuestScriptId,
-  bumpFanaticIActionRoundCount,
   expandFanaticIInitiativeDeckSides,
   fanaticSentenceRenderedShouldReplaceSkill,
   fanaticShouldEnterActedIdsAfterTurn,
@@ -123,7 +122,7 @@ describe("Fanatic I 战斗运行时", () => {
       skillSlot: 0,
       purpose: "skill",
     });
-    expect(hook.status).toBe("stub");
+    expect(hook.status).toBe("notApplicable");
   });
 
   it("sentenceRendered 钩子 ok", () => {
@@ -259,7 +258,11 @@ describe("Fanatic I 战斗运行时", () => {
       ],
     });
     state = applyFanaticIPyreBattleStart(state).state;
-    expect(state.battle!.entities.find((entity) => entity.monsterCardId === FANATIC_I_PYRE_MONSTER_CARD_ID)!.areaId).toBe("a");
+    expect(
+      state.battle!.entities.find(
+        (entity) => entity.monsterCardId === FANATIC_I_PYRE_MONSTER_CARD_ID,
+      )!.areaId,
+    ).toBe("a");
     state = {
       ...state,
       battle: {
@@ -275,9 +278,11 @@ describe("Fanatic I 战斗运行时", () => {
     const tossed = applyFanaticSentenceRendered(state, "fanatic");
     expect(tossed.events.some((event) => event.type === "commandRefused")).toBe(false);
     expect(tossed.state.battle!.entities.find((entity) => entity.id === "h2")!.areaId).toBe("a");
-    expect(tossed.events.some((event) => event.type === "dungeonUpdated" && event.message.includes("Pit Toss"))).toBe(
-      true,
-    );
+    expect(
+      tossed.events.some(
+        (event) => event.type === "dungeonUpdated" && event.message.includes("Pit Toss"),
+      ),
+    ).toBe(true);
   });
 });
 
@@ -391,8 +396,10 @@ describe("Fanatic I · 先攻 4 洗入与 Pit Toss 钩子", () => {
     };
     const tossed = applyFanaticPitTossHeroIntoPyreArea(state, "fanatic", "h2");
     expect(tossed.state.battle!.entities.find((entity) => entity.id === "h2")!.areaId).toBe("a");
-    expect(tossed.events.some((event) => event.type === "dungeonUpdated" && event.message.includes("Pit Toss"))).toBe(
-      true,
-    );
+    expect(
+      tossed.events.some(
+        (event) => event.type === "dungeonUpdated" && event.message.includes("Pit Toss"),
+      ),
+    ).toBe(true);
   });
 });
