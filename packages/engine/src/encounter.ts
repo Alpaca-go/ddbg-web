@@ -30,7 +30,7 @@ import { applyBossThreatMarkedForDeathOnBattleStart } from "./boss/threat-passiv
 import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "./boss/flesh-i-combat-runtime";
 import { applySwinePrinceIWilburBattleStart } from "./boss/swine-prince-i-combat-runtime";
-import { applyHagICauldronBattleStart } from "./boss/hag-i-combat-runtime";
+import { applyHagICauldronBattleStart, bumpHagIActionRoundCount, chainHagICauldronFullAfterIntoThePot } from "./boss/hag-i-combat-runtime";
 import { bumpProphetIActionRoundCount } from "./boss/prophet-i-combat-runtime";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
@@ -105,10 +105,12 @@ function startRound(seed: number, battle: BattleState, round: number): BattleSta
   const {
     prophetCalamitousUsedThisRound: _calamitousRoundFlag,
     prophetActionsThisRound: _prophetRoundActions,
+    hagActionsThisRound: _hagRoundActions,
     ...battleRest
   } = battle;
   void _calamitousRoundFlag;
   void _prophetRoundActions;
+  void _hagRoundActions;
   return {
     ...battleRest,
     rngCursor: cursor,
@@ -250,6 +252,7 @@ export function finishTurn(
     events = spiked.events;
   }
   state = bumpProphetIActionRoundCount(state, actorId);
+  state = bumpHagIActionRoundCount(state, actorId);
   const battle = state.battle!;
   const encounter = battle.encounter!;
   const actedIds = [...encounter.actedIds, actorId];
@@ -651,7 +654,8 @@ export function recordMonsterSkill(
     ...pressureCasualties(battle, pressure),
     ...(resolved.actorDead ? [resolved.actorId] : []),
   ]);
-  return endAfterCasualties(removed) ?? finishTurn(removed.state, resolved.actorId, removed.events);
+  const morphed = chainHagICauldronFullAfterIntoThePot(removed, resolved);
+  return endAfterCasualties(morphed) ?? finishTurn(morphed.state, resolved.actorId, morphed.events);
 }
 
 /** 意志触发（含待选补给）完成后，只执行一次压力、状态与死亡收尾。 */

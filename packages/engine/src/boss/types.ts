@@ -149,7 +149,8 @@ export type BossSummonPurpose =
   | "battleStartOneBodyPart"
   | "collectAllPart"
   | "calamitousWoodenPew"
-  | "highTidePelagic";
+  | "highTidePelagic"
+  | "cauldronFullMorph";
 
 export type ProphetWoodenPewIndex = 0 | 1 | 2 | 3;
 
@@ -252,6 +253,22 @@ export type BossWilburMarkContext = {
   readonly scriptId: BossScriptId;
 };
 
+export type BossIntoThePotOk = {
+  readonly status: "ok";
+  /** 锅 Empty 时 Hag 每轮首次行动强制 Into the Pot!（42415 / spec §14.5 R39）。 */
+  readonly effect: "forceIntoThePotWhileCauldronEmptyOnFirstActionEachRound";
+  /** Hag 战斗卡 slot；Weald extract 入库前由常量 + 测试夹具对齐。 */
+  readonly skillSlot: number;
+  readonly sourceAbilityCardId: string;
+  readonly rulesRef: readonly string[];
+};
+
+export type BossIntoThePotResult = BossIntoThePotOk | BossHookStubResult;
+
+export type BossIntoThePotContext = {
+  readonly scriptId: BossScriptId;
+};
+
 export type BossCombatEntryRefs = {
   readonly descriptionAbilityCardId: string;
   readonly combatAbilityCardId: string;
@@ -311,6 +328,8 @@ export type BossScriptHooks = {
   >;
   /** Swine Prince · Wilbur Mark：Prince 存活时 Wilbur 回合强制 Mark 技能（Boss Abilities p10 / medium p20）。 */
   readonly wilburMark?: BossHookHandler<BossWilburMarkContext, BossWilburMarkResult>;
+  /** Hag · Into the Pot!：Cauldron Empty 时 Hag 每轮首次行动强制该技能（Boss Abilities 42415）。 */
+  readonly intoThePot?: BossHookHandler<BossIntoThePotContext, BossIntoThePotResult>;
 };
 
 export type BossScriptDefinition = {

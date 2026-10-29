@@ -27,7 +27,7 @@
 | 项 | 说明 |
 | --- | --- |
 | Weald Boss **extract JSON** 与占位 id 对齐 PDF 页序 | 当前 id 按 `boss_ability:weald:hag:p00x` / `monster_large:weald:hag:p001` 约定 |
-| **Cauldron** 能力卡（42418）与 Empty/Full 切换 / Into the Pot! | Empty 开战 summon 已接（`hag-i-combat-runtime`）；42418 / Full / 锅生命周期 hold | R38–R39 |
+| **Cauldron** 能力卡（42418）与锅完整生命周期 | Empty 开战 + Into the Pot! / Empty→Full 最小运行时已接（`hag-i-combat-runtime`）；42418 / 先攻洗入 / 英雄入锅 hold | R38–R39 |
 | 进地牢被动、疗养院 −3 Life **写入** runtime | **已接**（`threat-passive-runtime` / `hamlet-actions` / 补给消耗） |
 | Weald 战役定威胁池 / 多地点 Boss 堆 | Ruins `establishImminentThreat` 不变 |
 | quest / Face the Threat → Hag | `defaultFaceTheThreatEmbarkHook` **ok**（出征 plan 见 `face-the-threat-embark-runtime`） |
@@ -40,7 +40,8 @@
 | --- | --- |
 | Boss Description I · 42412 | `boss_ability:weald:hag:p001` |
 | Threat + Abilities I · 42415 | `boss_ability:weald:hag:p002` |
-| Cauldron Empty I · 54212 | `monster_large:weald:cauldron_empty:p001`（开战 summon；Full / 42418 hold） |
+| Cauldron Empty I · 54212 | `monster_large:weald:cauldron_empty:p001`（开战 summon） |
+| Cauldron Full I · 54213（待页序核实） | `monster_large:weald:cauldron_full:p001`（Into the Pot! morph；42418 hold） |
 | 战斗 Hag I · 54209 | `monster_large:weald:hag:p001` |
 | Boss 脚本 | `boss:weald:hag:1` |
 

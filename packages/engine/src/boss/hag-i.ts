@@ -2,6 +2,7 @@ import { getBossScript, registerBossScript } from "./registry";
 import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
 import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
 import type {
+  BossIntoThePotOk,
   BossScriptDefinition,
   BossSummonOk,
   BossThreatPassiveDungeonOk,
@@ -36,6 +37,22 @@ export const HAG_I_COMBAT_MONSTER_CARD_ID = "monster_large:weald:hag:p001" as co
 export const HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID =
   "monster_large:weald:cauldron_empty:p001" as const;
 
+/**
+ * Cauldron Full I（Large · 2 格）；Into the Pot! 后 Empty→Full 切换，不进 `combatEntry`。
+ * TTS/CE 54213（待 Weald `monster_large` extract 页序核实）；占位 id。
+ */
+export const HAG_I_CAULDRON_FULL_MONSTER_CARD_ID =
+  "monster_large:weald:cauldron_full:p001" as const;
+
+/**
+ * Hag I 战斗卡 · Into the Pot! 技能 slot。
+ * Weald `monster_large` extract / PDF p10 页序待 Kyries 核实前，运行时与单测均用本常量。
+ */
+export const HAG_I_INTO_THE_POT_SKILL_SLOT = 1 as const;
+
+/** 每轮 Hag 首次行动在 `hagActionsThisRound` 上的索引（0-based，行动前）。 */
+export const HAG_I_FIRST_ACTION_INDEX = 0 as const;
+
 /** 开战 Cauldron 姿态（Large 占 2 格）；待 Kyries 对照 54212 / Boss Abilities 42415。 */
 export function hagICauldronBattleStartStance(): "aggressive" {
   return "aggressive";
@@ -57,12 +74,20 @@ const hamletThreatPassive = (): BossThreatPassiveHamletOk => ({
   rulesRef: ["R11", "R32", HAG_I_COMBAT_ABILITY_CARD_ID],
 });
 
+const intoThePotHook = (): BossIntoThePotOk => ({
+  status: "ok",
+  effect: "forceIntoThePotWhileCauldronEmptyOnFirstActionEachRound",
+  skillSlot: HAG_I_INTO_THE_POT_SKILL_SLOT,
+  sourceAbilityCardId: HAG_I_COMBAT_ABILITY_CARD_ID,
+  rulesRef: ["R39", "spec:§14.5", HAG_I_COMBAT_ABILITY_CARD_ID],
+});
+
 export const hagIBossScript: BossScriptDefinition = {
   id: HAG_I_SCRIPT_ID,
   displayName: "Hag I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38/R39：先攻 2（ACTIONS / Round: 2）；Cauldron Empty 开战 summon 最小运行时已接；Into the Pot! / Full 切换 / 42418 能力卡仍 hold。",
+    "R38/R39：先攻 2（ACTIONS / Round: 2）；Cauldron Empty 开战 + Into the Pot! / Empty→Full 最小运行时已接；42418 / 先攻洗入 / 锅完整生命周期仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: HAG_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: HAG_I_COMBAT_ABILITY_CARD_ID,
@@ -88,12 +113,24 @@ export const hagIBossScript: BossScriptDefinition = {
           },
         };
       }
+      if (ctx.purpose === "cauldronFullMorph") {
+        return {
+          status: "ok",
+          value: {
+            summonMonsterCardId: HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
+            miniaturePlacement: "stanceArea",
+            fixedStance: hagICauldronBattleStartStance(),
+            rulesRef: ["R39", "spec:§14.5", HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID],
+          },
+        };
+      }
       return {
         status: "stub",
-        message: "Hag I：Into the Pot! / Cauldron Full 与技能召唤未接",
-        hold: "R38–R39 / Hag 锅生命周期",
+        message: "Hag I：Cauldron 能力卡 42418 / 技能召唤 / 先攻洗入未接",
+        hold: "R38–R39 / Hag 锅完整生命周期",
       };
     },
+    intoThePot: intoThePotHook,
   },
 };
 
