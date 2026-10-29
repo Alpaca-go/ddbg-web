@@ -29,6 +29,7 @@ import { encounterForcesRetreatAfterRound } from "./boss/encounter-rules";
 import { applyBossThreatMarkedForDeathOnBattleStart } from "./boss/threat-passive-runtime";
 import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "./boss/flesh-i-combat-runtime";
+import { applySwinePrinceIWilburBattleStart } from "./boss/swine-prince-i-combat-runtime";
 import { bumpProphetIActionRoundCount } from "./boss/prophet-i-combat-runtime";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
@@ -761,16 +762,23 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     const oneBody = applyFleshIOneBodyBattleStart(pyre.state);
     if (oneBody.events.some((entry) => entry.type === "commandRefused"))
       return { state, events: [...marked.events, ...pyre.events, ...oneBody.events] };
-    const deployed = placeBattleLoot(oneBody.state.battle!, state.seed);
+    const wilbur = applySwinePrinceIWilburBattleStart(oneBody.state);
+    if (wilbur.events.some((entry) => entry.type === "commandRefused"))
+      return {
+        state,
+        events: [...marked.events, ...pyre.events, ...oneBody.events, ...wilbur.events],
+      };
+    const deployed = placeBattleLoot(wilbur.state.battle!, state.seed);
     if (!deployed)
       return rejectBattleCommand(state, "战利品池必须保留十枚真实实例的可用 / 已拾取分区");
     const next = startRound(state.seed, deployed, 1);
     return {
-      state: { ...oneBody.state, battle: next },
+      state: { ...wilbur.state, battle: next },
       events: [
         ...marked.events,
         ...pyre.events,
         ...oneBody.events,
+        ...wilbur.events,
         event(next, "roundStarted", "开始第 1 轮"),
       ],
     };

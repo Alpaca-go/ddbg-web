@@ -3,6 +3,7 @@ import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
 import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
 import type {
   BossScriptDefinition,
+  BossSummonOk,
   BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
 } from "./types";
@@ -34,6 +35,11 @@ export const SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID =
 /** Wilbur I（Beast · Small）；Boss 战伴，不进 `combatEntry`。Warrens medium PDF p20。 */
 export const SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID = "monster_medium:warrens:wilbur:p001" as const;
 
+/** 开战伴战姿态（Small · 1 格）；待 Kyries 对照 Boss Abilities p10 / medium p20。 */
+export function swinePrinceIWilburBattleStartStance(): "support" {
+  return "support";
+}
+
 const dungeonThreatPassive = (): BossThreatPassiveDungeonOk => ({
   status: "ok",
   effect: "beastMonsterDamageBonus",
@@ -55,7 +61,7 @@ export const swinePrinceIBossScript: BossScriptDefinition = {
   displayName: "Swine Prince I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38：先攻 2；Enraged Destruction / Wilbur（medium p20）双单位与 Mark AI 未接；Wilbur 能力卡不进 combatEntry。",
+    "R38：先攻 2、ACTIONS / Round: 2；Wilbur 开战伴战已接最小运行时；Enraged Destruction / Mark AI / Wilbur 先攻洗入仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID,
@@ -69,11 +75,24 @@ export const swinePrinceIBossScript: BossScriptDefinition = {
     faceTheThreatEmbark: defaultFaceTheThreatEmbarkHook,
     bossSlotPlacement: defaultBossSlotPlacementHook,
     monsterTurnActionCount: () => ({ status: "ok", value: 2 }),
-    summon: () => ({
-      status: "stub",
-      message: "Swine Prince I：Wilbur 伴战布置与 Enraged Destruction 未接",
-      hold: "R38–R39 / Swine Prince + Wilbur",
-    }),
+    summon: (ctx): BossSummonOk | { status: "stub"; message: string; hold?: string } => {
+      if (ctx.purpose === "battleStartWilbur") {
+        return {
+          status: "ok",
+          value: {
+            summonMonsterCardId: SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
+            miniaturePlacement: "stanceArea",
+            fixedStance: swinePrinceIWilburBattleStartStance(),
+            rulesRef: ["R39", "spec:§14.5", "R-034", SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID],
+          },
+        };
+      }
+      return {
+        status: "stub",
+        message: "Swine Prince I：Enraged Destruction / 技能 Mark 未接",
+        hold: "R38–R39 / Swine Prince 反击与 Wilbur AI",
+      };
+    },
   },
 };
 
