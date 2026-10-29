@@ -21,7 +21,8 @@
 - 地牢威胁 helper：`guardTurnsOnLargeMonsterSpawnFromBossThreat`（`guardOnLargeMonsterSpawn`）。
 - `threat-description-catalog`：`boss_ability:warrens:flesh:p001` → `boss:warrens:flesh:1`；`WARRENS_BOSS_DESCRIPTION_CARD_ID.flesh[1]` 已填。
 - 类型：`BossThreatPassiveDungeonOk` 扩展 `guardOnLargeMonsterSpawn`。
-- 单测：`flesh-i.test.ts`；`threat-establishment.test.ts` 增加 Warrens Flesh 挂接用例。
+- One Body 最小运行时：`flesh-i-combat-runtime.ts`（`startBattle` 四部位 + 共享 Life；`battle.ts` 伤口同步）。
+- 单测：`flesh-i.test.ts`、`flesh-i-combat-runtime.test.ts`；`threat-establishment.test.ts` 增加 Warrens Flesh 挂接用例。
 
 ## 仍待确认 / hold（本 PR 未收）
 
@@ -53,6 +54,6 @@
 ## 测试
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/flesh-i.test.ts packages/engine/src/boss/threat-establishment.test.ts
+pnpm exec vitest run packages/engine/src/boss/flesh-i.test.ts packages/engine/src/boss/flesh-i-combat-runtime.test.ts packages/engine/src/boss/threat-establishment.test.ts
 pnpm typecheck
 ```

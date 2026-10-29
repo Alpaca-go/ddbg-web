@@ -44,6 +44,7 @@ import type { LootState, LootToken } from "./loot";
 import type { ConditionPool } from "./conditions";
 import type { PassiveHolder } from "./passive";
 import { cancelSkillAfterRoll } from "./battle-passive";
+import { withFleshOneBodyPoolState } from "./boss/flesh-i-combat-runtime";
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
@@ -60,6 +61,8 @@ export type BattleEntity = PassiveHolder &
     /** 怪物占姿态格数，必须由已核实数据提供；先攻接入时不猜大型与否。 */
     readonly stanceSlots?: 1 | 2;
     readonly monsterCardId?: string;
+    /** The Flesh · One Body 共享 Life 池标识；同池实体 wounds / life 由运行时同步。 */
+    readonly oneBodyPoolId?: string;
     readonly heroStatId?: string;
     /** 仅保存已有堆的标识，清除时整堆移除；不猜 duration / 面值。 */
     readonly bleed: readonly string[];
@@ -140,7 +143,13 @@ export type BattleSetup = {
   }[];
 };
 
+export type OneBodyLifePool = {
+  readonly life: number;
+  readonly wounds: number;
+};
+
 export type BattleState = BattleSetup & {
+  readonly oneBodyPools?: Readonly<Record<string, OneBodyLifePool>>;
   readonly lootChestUsed?: true;
   readonly skillPrefix?: SkillPrefix | null;
   readonly encounter?: EncounterState;
@@ -556,12 +565,15 @@ export function playHeroSkill(
     roll,
     resolution,
   };
+  const syncedBattle = withFleshOneBodyPoolState(
+    { ...pressure.state.battle!, entities: statuses.entities },
+    statuses.entities,
+  );
   const result: ApplyResult = {
     state: {
       ...state,
       battle: {
-        ...pressure.state.battle!,
-        entities: statuses.entities,
+        ...syncedBattle,
         light: statuses.light,
         shuffleIntents,
         pending: null,

@@ -50,7 +50,12 @@ export function prepareMonsterAction(
   if (battle.monsterAction) return rejectBattleCommand(state, "已保存本回合选招，不能重新掷骰");
   const actor = battle.entities.find((entry) => entry.id === command.actorId);
   const card = battle.monsters?.find((entry) => entry.id === actor?.monsterCardId);
-  if (!actor || actor.side !== "monster" || actor.dead || !card || actor.life !== card.life)
+  if (!actor || actor.side !== "monster" || actor.dead || !card)
+    return rejectBattleCommand(state, "怪物或已关联卡牌不可用（R-048）");
+  if (actor.oneBodyPoolId) {
+    if (actor.life === undefined)
+      return rejectBattleCommand(state, "One Body 部位缺少共享 Life（R-048）");
+  } else if (actor.life !== card.life)
     return rejectBattleCommand(state, "怪物或已关联卡牌不可用（R-048）");
   const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
   const position = stances.indexOf(actor.stance!);
