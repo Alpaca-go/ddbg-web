@@ -407,6 +407,7 @@ export type BossFaceTheThreatContext = {
   readonly questId: BasicQuestId;
   readonly campaignLevel?: CampaignLevel;
   readonly activeBossThreatScriptId?: BossScriptId;
+  readonly imminentThreatDescriptionCardId?: string;
 };
 
 export type BossSlotPlacementContext = {
@@ -421,6 +422,7 @@ export type FaceTheThreatQuestContext = {
   readonly questId: BasicQuestId;
   readonly campaignLevel?: CampaignLevel;
   readonly activeBossThreatScriptId?: BossScriptId;
+  readonly imminentThreatDescriptionCardId?: string;
 };
 
 export type BossMonsterTurnContext = {

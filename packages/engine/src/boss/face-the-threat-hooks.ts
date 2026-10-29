@@ -36,6 +36,7 @@ export function runFaceTheThreatEmbarkForQuest(
   const resolvedScriptId = resolveBossScriptIdForFaceTheThreatContext(context);
   if (!resolvedScriptId) {
     return defaultFaceTheThreatEmbarkHook({
+      ...context,
       scriptId: "boss:unresolved:0" as BossScriptId,
       questId: context.questId,
       ...(context.campaignLevel !== undefined ? { campaignLevel: context.campaignLevel } : {}),
@@ -53,6 +54,7 @@ export function runFaceTheThreatEmbarkForQuest(
     };
   }
   return runBossHook(script, "faceTheThreatEmbark", {
+    ...context,
     scriptId: resolvedScriptId,
     questId: context.questId,
     ...(context.campaignLevel !== undefined ? { campaignLevel: context.campaignLevel } : {}),

@@ -104,14 +104,23 @@ export function faceTheThreatEmbarkLevelMismatchReason(
  * 解析 Face the Threat 钩子；**不**消耗 RNG。stub 时由调用方拒绝命令。
  */
 function faceTheThreatQuestContext(
-  d: Pick<DungeonState, "campaignLevel" | "activeBossThreatScriptId">,
+  d: Pick<
+    DungeonState,
+    "campaignLevel" | "activeBossThreatScriptId" | "imminentThreatDescriptionCardId"
+  >,
 ): import("./types").FaceTheThreatQuestContext {
   const base = {
     questId: FACE_THE_THREAT_QUEST_ID,
     campaignLevel: readCampaignLevel(d),
   };
   if (d.activeBossThreatScriptId) {
-    return { ...base, activeBossThreatScriptId: d.activeBossThreatScriptId };
+    return {
+      ...base,
+      activeBossThreatScriptId: d.activeBossThreatScriptId,
+      ...(d.imminentThreatDescriptionCardId
+        ? { imminentThreatDescriptionCardId: d.imminentThreatDescriptionCardId }
+        : {}),
+    };
   }
   return base;
 }
@@ -150,7 +159,10 @@ export function resolveFaceTheThreatEmbarkForChoose(
 
 /** 沙盒 `createCoreDungeonQuest`：p019 须钩子 ok，否则 throw（无 applyCommand）。 */
 export function requireFaceTheThreatEmbarkPlanForSandbox(
-  d: Pick<DungeonState, "campaignLevel" | "activeBossThreatScriptId">,
+  d: Pick<
+    DungeonState,
+    "campaignLevel" | "activeBossThreatScriptId" | "imminentThreatDescriptionCardId"
+  >,
 ): StoredFaceTheThreatEmbarkPlan {
   const hook = runFaceTheThreatEmbarkForQuest(faceTheThreatQuestContext(d));
   if (hook.status === "stub") {

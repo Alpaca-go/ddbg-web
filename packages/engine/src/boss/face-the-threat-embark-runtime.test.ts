@@ -3,6 +3,9 @@ import { applyCommand, type Command, type GameState } from "../command";
 import { chooseNextQuest } from "../hamlet-embark";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
+import trinkets from "../../../data/normalized/corebox/trinket.json";
+import { normalizedTrinketFileSchema } from "../../../data/src/normalize/schema";
+import { createTrinketPool } from "../trinket-acquisition";
 import {
   countCompletedRegularQuestsAtCampaignLevel,
   ensureNecromancerIBossScriptRegistered,
@@ -15,6 +18,10 @@ import {
   resolveFaceTheThreatEmbarkForChoose,
   shouldForceFaceTheThreatOfferAtNextQuest,
 } from "./index";
+import {
+  ensureNecromancerIIBossScriptRegistered,
+  NECROMANCER_II_SCRIPT_ID,
+} from "./necromancer-ii";
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);
@@ -181,11 +188,7 @@ describe("Face the Threat 出征 applyCommand 最小运行时", () => {
   it("chooseNextQuest：钩子 ok 写入 faceTheThreatEmbarkPlan", () => {
     const base = hamletReadyForFaceEmbark();
     const cursorBefore = base.dungeon!.cursor;
-    const result = chooseNextQuest(
-      base,
-      base.dungeon!.pending!.id,
-      FACE_THE_THREAT_QUEST_ID,
-    );
+    const result = chooseNextQuest(base, base.dungeon!.pending!.id, FACE_THE_THREAT_QUEST_ID);
     expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
     const plan = readStoredFaceTheThreatEmbarkPlan(result.state.dungeon);
     expect(plan?.resolvedScriptId).toBe(NECROMANCER_I_SCRIPT_ID);
@@ -196,7 +199,7 @@ describe("Face the Threat 出征 applyCommand 最小运行时", () => {
     expect(result.events.at(-1)?.message).toMatch(/Face the Threat→/);
   });
 
-  it("chooseNextQuest：II 级无 faceTheThreatBossScriptByCampaignLevel 映射时拒绝且 cursor 不变", () => {
+  it("chooseNextQuest：II 级错误威胁拒绝且 cursor 不变；实际 p002 显式场景保留威胁与计划", () => {
     let base = hamletReadyForFaceEmbark();
     base = {
       ...base,
@@ -208,14 +211,36 @@ describe("Face the Threat 出征 applyCommand 最小运行时", () => {
       },
     };
     const cursorBefore = base.dungeon!.cursor;
-    const result = chooseNextQuest(
-      base,
-      base.dungeon!.pending!.id,
-      FACE_THE_THREAT_QUEST_ID,
-    );
+    const result = chooseNextQuest(base, base.dungeon!.pending!.id, FACE_THE_THREAT_QUEST_ID);
     expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
     expect(result.state.dungeon!.cursor).toBe(cursorBefore);
     expect(result.state.dungeon!.phase).toBe("inHamlet");
+    ensureNecromancerIIBossScriptRegistered();
+    const matched: GameState = {
+      ...base,
+      dungeon: {
+        ...base.dungeon!,
+        activeBossThreatScriptId: NECROMANCER_II_SCRIPT_ID,
+        imminentThreatDescriptionCardId: "boss_ability:p002",
+        defeatedRuinsBossIdentities: ["prophet"],
+        trinkets: createTrinketPool(normalizedTrinketFileSchema.parse(trinkets).cards, 2),
+      },
+    };
+    const embarked = chooseNextQuest(
+      matched,
+      matched.dungeon!.pending!.id,
+      FACE_THE_THREAT_QUEST_ID,
+    );
+    expect(embarked.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+    expect(embarked.state.dungeon).toMatchObject({
+      activeBossThreatScriptId: NECROMANCER_II_SCRIPT_ID,
+      imminentThreatDescriptionCardId: "boss_ability:p002",
+      defeatedRuinsBossIdentities: ["prophet"],
+      faceTheThreatEmbarkPlan: { resolvedScriptId: NECROMANCER_II_SCRIPT_ID },
+    });
+    expect(embarked).toEqual(
+      chooseNextQuest(matched, matched.dungeon!.pending!.id, FACE_THE_THREAT_QUEST_ID),
+    );
   });
 
   it("resolveFaceTheThreatEmbarkForChoose 与 establishImminentThreat 的 active 威胁一致", () => {

@@ -100,6 +100,7 @@ function setupLevel(slot = 3, attackRoll = 5, level: 1 | 2 = 1): GameState {
       cursor: 0,
       questDistribution: { questId: "quest:p019" },
       campaignLevel: level,
+      imminentThreatDescriptionCardId: level === 1 ? "boss_ability:p001" : "boss_ability:p002",
       activeBossThreatScriptId: level === 1 ? NECROMANCER_I_SCRIPT_ID : NECROMANCER_II_SCRIPT_ID,
     } as unknown as NonNullable<GameState["dungeon"]>,
     battle: {

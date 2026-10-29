@@ -22,7 +22,9 @@ II 的威胁背面与 I 不同，不能继承 I 的永久移除非 Unholy / 封�
 - Army of the Dead：本次地牢首次战斗首位生成 Bone Captain，运行时未接。
 - Haunted Graveyard：准备首日全体掷 d10，最低者首日去墓地守卫并可照常用建筑，运行时未接。
 
-这两项钩子明确返回 `stub`。II 不加入 `ensureCoreBossScriptsRegistered`，正常升幕抽到 p002 仍停点；只有显式战斗场景注册后才可运行本刀。未增加 II 默认映射、II/III 幕末 offer、正式 Boss 入场或存档字段；映射方案仍待 Kyries 确认。R-121、其它 Boss、任务卡与 Phase 6 保持原范围。
+这两项钩子明确返回 `stub`。II 不加入 `ensureCoreBossScriptsRegistered`，正常升幕抽到 p002 仍停点；只有显式战斗场景注册后才可运行本刀。未增加 II 默认映射、II/III 幕末 offer、正式 Boss 入场或存档字段。R-121、其它 Boss、任务卡与 Phase 6 保持原范围。
+
+Kyries 随后确认 R-124：先做死灵法师 II；II 仅按实际同级迫近威胁匹配，不默认替换缺失或未实现 Boss。解析要求战役 II + 实际描述卡 p002 + 已注册的死灵法师 II；错级、缺项、描述卡冲突、I 级缺省或任务临时映射均不能绕过。上下文已传入出征钩子；两项被动完成后才自动注册至正式迫近池。
 
 ## 验证
 

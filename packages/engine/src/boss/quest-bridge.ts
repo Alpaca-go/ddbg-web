@@ -41,13 +41,16 @@ export const faceTheThreatBossScriptByCampaignLevel: Partial<Record<CampaignLeve
 /** Face the Threat 任务卡 id（印刷 p19）。 */
 export const FACE_THE_THREAT_QUEST_ID = "quest:p019" as const satisfies BasicQuestId;
 
-export function isFaceTheThreatQuestId(questId: string): questId is typeof FACE_THE_THREAT_QUEST_ID {
+export function isFaceTheThreatQuestId(
+  questId: string,
+): questId is typeof FACE_THE_THREAT_QUEST_ID {
   return questId === FACE_THE_THREAT_QUEST_ID;
 }
 
 export type BossQuestScriptContext = {
   readonly campaignLevel?: CampaignLevel;
   readonly activeBossThreatScriptId?: BossScriptId;
+  readonly imminentThreatDescriptionCardId?: string;
 };
 
 export function resolveBossScriptIdForQuest(
@@ -55,13 +58,26 @@ export function resolveBossScriptIdForQuest(
   context?: BossQuestScriptContext | null,
 ): BossScriptId | undefined {
   if (!isBossQuestId(questId)) return undefined;
+  const level = readCampaignLevel(context ?? {});
+  if (questId === FACE_THE_THREAT_QUEST_ID && level > 1) {
+    // R-124：II 只按本次实际威胁匹配；不使用沙盒缺省或任务级临时映射。
+    ensureCoreBossScriptsRegistered();
+    const active = context?.activeBossThreatScriptId;
+    const entry = active ? getBossScript(active)?.combatEntry : undefined;
+    return level === 2 &&
+      active === "boss:ruins:necromancer:2" &&
+      context?.imminentThreatDescriptionCardId === "boss_ability:p002" &&
+      entry?.descriptionAbilityCardId === context.imminentThreatDescriptionCardId
+      ? active
+      : undefined;
+  }
   const direct = bossQuestScriptId[questId];
   if (direct) return direct;
   if (questId === FACE_THE_THREAT_QUEST_ID) {
     ensureCoreBossScriptsRegistered();
     const active = context?.activeBossThreatScriptId;
+    if (active === "boss:ruins:necromancer:2") return undefined;
     if (active && getBossScript(active)) return active;
-    const level = readCampaignLevel(context ?? {});
     return faceTheThreatBossScriptByCampaignLevel[level];
   }
   return undefined;
