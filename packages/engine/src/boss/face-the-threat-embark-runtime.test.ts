@@ -223,6 +223,7 @@ describe("Face the Threat 出征 applyCommand 最小运行时", () => {
         activeBossThreatScriptId: NECROMANCER_II_SCRIPT_ID,
         imminentThreatDescriptionCardId: "boss_ability:p002",
         defeatedRuinsBossIdentities: ["prophet"],
+        necromancerIIArmyUsed: true,
         trinkets: createTrinketPool(normalizedTrinketFileSchema.parse(trinkets).cards, 2),
       },
     };
@@ -238,6 +239,7 @@ describe("Face the Threat 出征 applyCommand 最小运行时", () => {
       defeatedRuinsBossIdentities: ["prophet"],
       faceTheThreatEmbarkPlan: { resolvedScriptId: NECROMANCER_II_SCRIPT_ID },
     });
+    expect(embarked.state.dungeon!.necromancerIIArmyUsed).toBeUndefined();
     expect(embarked).toEqual(
       chooseNextQuest(matched, matched.dungeon!.pending!.id, FACE_THE_THREAT_QUEST_ID),
     );

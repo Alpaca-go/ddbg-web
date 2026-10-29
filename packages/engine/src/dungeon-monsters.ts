@@ -8,6 +8,7 @@ import { spawnMonsters } from "./spawn";
 import { isGuardedDungeonRoom } from "./dungeon-curio-room";
 import { allRuinsRoomCardIds } from "./dungeon-objective";
 import { readCampaignLevel } from "./hamlet-campaign";
+import { firstBattleThreatDeck } from "./boss/necromancer-ii-army";
 
 /** R10、R16–17：完整 Common + Ruins（1..DL 累加）一次洗牌，真实抽牌后记录部署，不筛掉缺战斗字段的卡。 */
 export function prepareDungeonMonsters(state: GameState): ApplyResult {
@@ -72,7 +73,9 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
     const j = Math.floor(rng.next() * (i + 1));
     [deck[i], deck[j]] = [deck[j]!, deck[i]!];
   }
-  const spawned = spawnMonsters(deck, deployment.monsters);
+  const threatDeck = firstBattleThreatDeck(d, deck);
+  if (threatDeck.status === "refused") return refuse(threatDeck.reason);
+  const spawned = spawnMonsters(threatDeck.deck, deployment.monsters);
   if (spawned.type === "refused") return refuse(spawned.reason);
   if (spawned.monsters.reduce((n, m) => n + m.stanceSlots, 0) !== 4)
     return refuse("牌堆未填满四姿态，不提交半场部署");
@@ -102,7 +105,7 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
     events: [
       {
         type: "dungeonUpdated",
-        message: `完整 ${catalog.length} 张怪物池（DL${dungeonLevel}）已抽 ${spawned.drawn} 张：${blockedReason}`,
+        message: `完整 ${catalog.length} 张怪物池（DL${dungeonLevel}）已抽 ${spawned.drawn} 张${threatDeck.forced ? "；Army of the Dead 首位生成 Bone Captain" : ""}：${blockedReason}`,
       },
     ],
   };
