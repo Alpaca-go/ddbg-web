@@ -76,7 +76,7 @@ describe("Necromancer I Boss 脚本", () => {
     ]);
   });
 
-  it("召唤钩子返回 I 级 Bone Rabble 与 Target Area 放置（R38·R-034）；完整 AI 未接", () => {
+  it("召唤钩子返回 I 级 Bone Rabble 与 Target Area 放置（运行时见 necromancer-i-combat-runtime）", () => {
     const script = getBossScript(NECROMANCER_I_SCRIPT_ID)!;
     const summon = runBossHook(script, "summon", {
       scriptId: NECROMANCER_I_SCRIPT_ID,
@@ -100,7 +100,7 @@ describe("Necromancer I Boss 脚本", () => {
     expect(face.status).toBe("ok");
     if (face.status === "ok") {
       expect(face.value.resolvedScriptId).toBe(NECROMANCER_I_SCRIPT_ID);
-      expect(face.value.wiringHold).toMatch(/applyCommand/);
+      expect(face.value.wiringHold).toMatch(/R-121/);
     }
 
     const placement = runBossHook(script, "bossSlotPlacement", {

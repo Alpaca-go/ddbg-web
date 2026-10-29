@@ -183,6 +183,9 @@ export function playMonsterSkill(
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
   const casualtyIds = newlyDefeatedIds(battle, statuses.entities);
   const event: MonsterSkillResolvedEvent = {
+    ...(attack.necromancerSummon && result.resolution.outcome !== "miss"
+      ? { summonTargetAreaId: target.areaId }
+      : {}),
     ...(resume?.announced ? { phase: "afterOwn" as const } : {}),
     type: "monsterSkillResolved",
     message: "已选怪物攻击已结算",

@@ -2,6 +2,7 @@ import { needsHeroSkillShuffleChoice, resolveMonsterAttackEffects } from "./hero
 import type { MonsterStanceGroup } from "./monster-stance";
 import type { MonsterEffectPlan } from "../../data/src/monster-effects";
 import { compileMonsterEffectPlan } from "./monster-effect-plan";
+import { readNecromancerISkillEffects } from "./boss/necromancer-i-skill";
 import type {
   HeroSkillCardView,
   HeroSkillResolution,
@@ -112,6 +113,7 @@ export function readMonsterAttackView(
       readonly view: HeroSkillCardView;
       readonly selfLight?: number;
       readonly targetLight?: number;
+      readonly necromancerSummon?: true;
     }
   | { readonly status: "refused"; readonly reason: string } {
   const matches = monster.skills.filter((skill) => skill.slot === skillSlot);
@@ -135,6 +137,8 @@ export function readMonsterAttackView(
     verification: monster.verification,
     stats_line: skill.lines.flatMap((line, index) => (excluded.has(index) ? [] : [...line])),
   };
+  const necromancer = readNecromancerISkillEffects(view);
+  if (necromancer) return { status: "ready", view: necromancer, necromancerSummon: true };
   return skill.verified_monster_effects
     ? compileMonsterEffectPlan(view, skill.verified_monster_effects)
     : { status: "ready", view };

@@ -54,6 +54,7 @@ import {
 import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
 import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
 import { recordMonsterSkill } from "./encounter";
+import { chooseNecromancerISummon } from "./boss/necromancer-i-combat-runtime";
 import {
   resolveDungeonConditionChoice,
   resolveDungeonCurioProvisionChoice,
@@ -128,6 +129,8 @@ export type HeroSkillTargetsResolvedEvent = {
 };
 
 export type MonsterSkillResolvedEvent = {
+  /** 已核实召唤原语的目标区域；穿过自身位移续接后，只在回合收尾消费一次。 */
+  readonly summonTargetAreaId?: string;
   readonly phase?: "ownPending" | "afterOwn";
   readonly type: "monsterSkillResolved";
   readonly message: string;
@@ -537,6 +540,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     ) {
       return rejectBattleCommand(state, "选择不存在、已过期或选项无效");
     }
+    if (pending.type === "necromancerSummon")
+      return chooseNecromancerISummon(state, command.optionId);
     if (pending.type === "shuffleReduction") return chooseBalancedShuffle(state, command.optionId);
     if (pending.type === "shuffleArea")
       return applyBattleShuffles(state, [...pending.path, command.optionId]);
