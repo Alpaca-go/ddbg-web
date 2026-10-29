@@ -1,12 +1,16 @@
-import type { BattleEntity, BattleState } from "../battle";
+import type { BattleArea, BattleEntity, BattleState } from "../battle";
 import type { ApplyResult, GameState } from "../command";
 import { finishTurn } from "../encounter";
+import type { SkillTargetSide } from "../hero-skill";
 import type { MonsterCardView } from "../monster-skill";
+import { createRng } from "../rng";
 import { runBossHook } from "./hooks";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 import {
+  COLLECTOR_I_COLLECT_ALL_INITIATIVE_SHUFFLE_COUNT,
   COLLECTOR_I_COLLECT_ALL_PART_ORDER,
   COLLECTOR_I_COMBAT_MONSTER_CARD_ID,
+  COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES,
   COLLECTOR_I_SCRIPT_ID,
   collectorCollectedCardIds,
   collectorCollectedPartCardId,
@@ -16,6 +20,8 @@ import { getBossScript } from "./registry";
 import type { BossScriptDefinition, BossSummonOk, CollectorCollectedPart } from "./types";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
+
+type InitiativeSide = SkillTargetSide;
 
 export function readCollectorICollectAllPartPlan(
   script: BossScriptDefinition,
@@ -98,6 +104,154 @@ function areaHasSpaceForCollected(battle: BattleState, areaId: string, width: 1 
   return areaOccupancy(battle, areaId) + width <= area.capacity!;
 }
 
+function areasByIncreasingDistance(
+  areas: readonly BattleArea[],
+  fromAreaId: string,
+): readonly string[] {
+  const layers: string[][] = [];
+  const seen = new Set<string>([fromAreaId]);
+  let frontier = [fromAreaId];
+  while (frontier.length > 0) {
+    const next: string[] = [];
+    for (const id of frontier) {
+      for (const adjacent of areas.find((area) => area.id === id)?.adjacent ?? []) {
+        if (seen.has(adjacent)) continue;
+        seen.add(adjacent);
+        next.push(adjacent);
+      }
+    }
+    if (next.length > 0) {
+      layers.push([...next].sort((left, right) => left.localeCompare(right)));
+    }
+    frontier = next;
+  }
+  return layers.flat();
+}
+
+/** R38–R39：仅 Collector I 在场（无 Collected 实体）时先攻堆补足至 4 张 monster 侧（1 印刷 + 3 Collect All 语义）。 */
+export function expandCollectorIInitiativeDeckSides(
+  deck: readonly InitiativeSide[],
+  battle: BattleState,
+  state: GameState,
+): InitiativeSide[] {
+  if (resolveEncounterBossScriptId(state) !== COLLECTOR_I_SCRIPT_ID) return [...deck];
+  const livingMonsters = battle.entities.filter((entity) => entity.side === "monster" && !entity.dead);
+  if (
+    livingMonsters.length !== 1 ||
+    livingMonsters[0]!.monsterCardId !== COLLECTOR_I_COMBAT_MONSTER_CARD_ID
+  ) {
+    return [...deck];
+  }
+  const monsterSides = deck.filter((side) => side === "monster").length;
+  const extra = COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES - monsterSides;
+  if (extra <= 0) return [...deck];
+  return [...deck, ...Array.from({ length: extra }, (): InitiativeSide => "monster")];
+}
+
+function occupancyExcluding(
+  battle: BattleState,
+  areaId: string,
+  excludeEntityId?: string,
+): number {
+  return battle.entities
+    .filter((entity) => !entity.dead && entity.areaId === areaId && entity.id !== excludeEntityId)
+    .reduce((sum, entity) => sum + (entity.side === "hero" ? 1 : entity.stanceSlots!), 0);
+}
+
+function areaHasSpaceExcluding(
+  battle: BattleState,
+  areaId: string,
+  width: 1 | 2,
+  excludeEntityId?: string,
+): boolean {
+  const area = battle.areas.find((entry) => entry.id === areaId);
+  if (!area || !Number.isSafeInteger(area.capacity)) return false;
+  return occupancyExcluding(battle, areaId, excludeEntityId) + width <= area.capacity!;
+}
+
+/** R-034 + boss_ability:p016「closest Area with enough space」：姿态对应区域满员时挤占英雄。 */
+export function resolveCollectorCollectedAreaPlacement(
+  battle: BattleState,
+  preferredAreaId: string,
+): { readonly battle: BattleState; readonly areaId: string } | { readonly status: "refused"; readonly message: string } {
+  const preferred = battle.areas.find((area) => area.id === preferredAreaId);
+  if (!preferred || !Number.isSafeInteger(preferred.capacity)) {
+    return { status: "refused", message: "Collect All：姿态对应区域未核实（R-048）" };
+  }
+  if (areaHasSpaceForCollected(battle, preferredAreaId, 1)) {
+    return { battle, areaId: preferredAreaId };
+  }
+
+  const heroesInPreferred = battle.entities
+    .filter((entity) => !entity.dead && entity.side === "hero" && entity.areaId === preferredAreaId)
+    .sort((left, right) => left.id.localeCompare(right.id));
+
+  for (const hero of heroesInPreferred) {
+    for (const candidateId of areasByIncreasingDistance(battle.areas, preferredAreaId)) {
+      if (!areaHasSpaceExcluding(battle, candidateId, 1, hero.id)) continue;
+      const movedEntities = battle.entities.map((entity) =>
+        entity.id === hero.id ? { ...entity, areaId: candidateId } : entity,
+      );
+      const movedBattle = { ...battle, entities: movedEntities };
+      if (areaHasSpaceForCollected(movedBattle, preferredAreaId, 1)) {
+        return { battle: movedBattle, areaId: preferredAreaId };
+      }
+    }
+  }
+
+  for (const candidateId of areasByIncreasingDistance(battle.areas, preferredAreaId)) {
+    if (areaHasSpaceForCollected(battle, candidateId, 1)) {
+      return { battle, areaId: candidateId };
+    }
+  }
+
+  return {
+    status: "refused",
+    message: "Collect All：无最近可用区域（R-048；怪物挤占选择仍 hold）",
+  };
+}
+
+function shuffleMonsterInitiativeIntoDeck(
+  seed: number,
+  cursor: number,
+  deck: readonly InitiativeSide[],
+  count: number,
+): { readonly deck: InitiativeSide[]; readonly cursor: number } {
+  let nextDeck = [...deck];
+  let nextCursor = cursor;
+  for (let added = 0; added < count; added += 1) {
+    const rng = createRng(seed);
+    for (let index = 0; index < nextCursor; index += 1) rng.next();
+    const insertAt = Math.floor(rng.next() * (nextDeck.length + 1));
+    nextCursor += 1;
+    nextDeck.splice(insertAt, 0, "monster");
+  }
+  return { deck: nextDeck, cursor: nextCursor };
+}
+
+export function shuffleCollectorCollectAllInitiativeIntoDeck(
+  state: GameState,
+  count: number = COLLECTOR_I_COLLECT_ALL_INITIATIVE_SHUFFLE_COUNT,
+): GameState {
+  const battle = state.battle;
+  if (!battle?.encounter || count <= 0) return state;
+  if (resolveEncounterBossScriptId(state) !== COLLECTOR_I_SCRIPT_ID) return state;
+  const shuffled = shuffleMonsterInitiativeIntoDeck(
+    state.seed,
+    battle.rngCursor,
+    battle.encounter.deck,
+    count,
+  );
+  return {
+    ...state,
+    battle: {
+      ...battle,
+      rngCursor: shuffled.cursor,
+      encounter: { ...battle.encounter, deck: shuffled.deck },
+    },
+  };
+}
+
 export function collectorCollectAllShouldReplaceSkill(
   state: GameState,
   actorId: string,
@@ -149,7 +303,7 @@ function buildCollectedEntity(
   };
 }
 
-/** Collector I · Collect All：回合开始无 Collected 时召唤三卡并结束本怪物回合（先攻洗入 hold）。 */
+/** Collector I · Collect All：回合开始无 Collected 时召唤三卡、洗入先攻并结束本怪物回合。 */
 export function applyCollectorCollectAll(state: GameState, actorId: string): ApplyResult {
   const battle = state.battle!;
   const scriptId = resolveEncounterBossScriptId(state);
@@ -209,19 +363,24 @@ export function applyCollectorCollectAll(state: GameState, actorId: string): App
         ],
       };
     }
-    const areaId = stanceAreaId(nextBattle, stance);
-    if (!areaId || !areaHasSpaceForCollected(nextBattle, areaId, 1)) {
+    const preferredAreaId = stanceAreaId(nextBattle, stance);
+    if (!preferredAreaId) {
       return {
         state,
         events: [
           {
             type: "commandRefused",
-            message: `Collect All：${stance} 对应区域无容量（R-048；最近区域 hold）`,
+            message: `Collect All：${stance} 无对应英雄区域（R-048）`,
           },
         ],
       };
     }
-    const entity = buildCollectedEntity(part, card, areaId, stance);
+    const placement = resolveCollectorCollectedAreaPlacement(nextBattle, preferredAreaId);
+    if ("status" in placement) {
+      return { state, events: [{ type: "commandRefused", message: placement.message }] };
+    }
+    nextBattle = placement.battle;
+    const entity = buildCollectedEntity(part, card, placement.areaId, stance);
     const monsters = nextBattle.monsters?.some((entry) => entry.id === cardId)
       ? nextBattle.monsters
       : [...(nextBattle.monsters ?? []), card];
@@ -240,19 +399,29 @@ export function applyCollectorCollectAll(state: GameState, actorId: string): App
     };
   }
 
-  return finishTurn(
-    {
-      ...state,
-      battle: { ...nextBattle, monsterAction: null },
-    },
-    actorId,
-    [
-      {
-        type: "dungeonUpdated",
-        message: `Collector I · Collect All：写入 ${added.join("、")}（${script.displayName}；先攻洗入 hold）`,
-      },
-    ],
+  let nextState: GameState = {
+    ...state,
+    battle: { ...nextBattle, monsterAction: null },
+  };
+  const monsterInDeck =
+    nextState.battle!.encounter!.deck.filter((side) => side === "monster").length;
+  const initiativeShuffle = Math.max(
+    0,
+    COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES - monsterInDeck,
   );
+  if (initiativeShuffle > 0) {
+    nextState = shuffleCollectorCollectAllInitiativeIntoDeck(
+      nextState,
+      initiativeShuffle,
+    );
+  }
+
+  return finishTurn(nextState, actorId, [
+    {
+      type: "dungeonUpdated",
+      message: `Collector I · Collect All：写入 ${added.join("、")}（${script.displayName}；洗入 ${initiativeShuffle} 张怪物先攻，spec §14.5 R39）`,
+    },
+  ]);
 }
 
 export function isCollectorCollectedMonsterCardId(cardId: string): boolean {

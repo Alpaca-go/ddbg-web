@@ -30,6 +30,12 @@ export const COLLECTOR_I_COLLECTED_MAN_AT_ARMS_CARD_ID = "monster_medium:p098" a
 export const COLLECTOR_I_COLLECTED_HIGHWAYMAN_CARD_ID = "monster_medium:p095" as const;
 export const COLLECTOR_I_COLLECTED_VESTAL_CARD_ID = "monster_medium:p101" as const;
 
+/** Collect All 洗入先攻：spec §14.5 R39「洗入 3 张先攻卡」；与 Collector 印刷 1 张合计 4 张怪物先攻。 */
+export const COLLECTOR_I_COLLECT_ALL_INITIATIVE_SHUFFLE_COUNT = 3 as const;
+
+/** 场上 Collected 全在时怪物先攻侧张数（1 Collector + 3 Collected）。 */
+export const COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES = 4 as const;
+
 /** Collect All 召唤顺序（boss_ability:p016 / spec §14.5 R39）。 */
 export const COLLECTOR_I_COLLECT_ALL_PART_ORDER = [
   "manAtArms",
@@ -103,7 +109,7 @@ export const collectorIBossScript: BossScriptDefinition = {
   displayName: "Collector I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38/R39：先攻 1、ACTIONS / Round: 1；Collect All 三 Collected + 姿态区域已接最小运行时；宝箱房 / 先攻洗入 / 最近区域挤占仍 hold。",
+    "R38/R39：先攻 1、ACTIONS / Round: 1；Collect All + 先攻 3 洗入 + 最近区域挤占已接最小运行时；宝箱房仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: COLLECTOR_I_COMBAT_ABILITY_CARD_ID,
