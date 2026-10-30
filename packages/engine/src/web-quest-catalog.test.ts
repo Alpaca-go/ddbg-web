@@ -1,4 +1,4 @@
-import { expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 import { battleDataPlugin } from "../../../apps/web/battle-data-plugin";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import type { CoreQuestSources } from "./dungeon-quest-entry";
@@ -75,68 +75,114 @@ function naturalDeath(catalog: CoreQuestSources) {
   };
 }
 
-it("五英雄旧档在候选/升级/技能/入队各停点严格迁移，伪造待选和资源拒绝", () => {
-  const run = naturalDeath(fiveSources);
+describe("五英雄旧目录补员存档迁移", () => {
+  const stages = [
+    "阵亡",
+    "英雄候选",
+    "升级待选",
+    "第1张技能待选",
+    "第2张技能待选",
+    "第3张技能待选",
+    "准备完成",
+    "入队",
+  ] as const;
+  type Stage = (typeof stages)[number];
+  const checkpoints = new Map<Stage, { game: GameState; commands: Command[] }>();
   const trusted = [previousSources, fiveSources];
-  const verify = () => {
-    const save = createQuestSave(start, run.commands, run.game, fiveSources);
-    const before = structuredClone(save);
-    const loaded = loadQuestSave(save, sources, trusted).game;
-    expect(save).toEqual(before);
-    expect(loaded.dungeon!.battleCatalog!.heroStats).toHaveLength(53);
-    expect(loaded.seed).toBe(run.game.seed);
-    expect(loaded.dungeon!.cursor).toBe(run.game.dungeon!.cursor);
-    expect(loaded.dungeon!.heroes).toEqual(run.game.dungeon!.heroes);
-    expect(loaded.dungeon!.waitingHeroTokens).toBe(run.game.dungeon!.waitingHeroTokens);
-    expect(
-      loadQuestSave(createQuestSave(start, run.commands, loaded, sources), sources).game,
-    ).toEqual(loaded);
-    for (const bad of [
-      { ...save, snapshot: { ...run.game, dungeon: { ...run.game.dungeon!, gold: 999 } } },
-      { ...save, commands: [...run.commands, { type: "ping", message: "forged" }] },
-    ])
-      expect(() => loadQuestSave(bad, sources, trusted)).toThrow();
-    return { loaded, save };
-  };
-  verify();
-  run.step({ type: "prepareReplacementHero" });
-  const { loaded, save } = verify();
-  const preparation = run.game.dungeon!.replacementPreparation!;
-  expect(preparation.choice.options.map((o) => o.id)).toEqual(["hero_stat:p005:front"]);
-  expect(loaded.dungeon!.replacementPreparation!.choice.options.map((o) => o.id).sort()).toEqual(
-    [...VERIFIED_REPLACEMENT_STAT_IDS].sort(),
+
+  beforeAll(() => {
+    const run = naturalDeath(fiveSources);
+    // 只记录公开命令生成的不可变态与独立日志，逐停点回放完整前缀。
+    const record = (stage: Stage) =>
+      checkpoints.set(stage, { game: run.game, commands: [...run.commands] });
+    const choice = (optionId: string) =>
+      run.step({
+        type: "resolveChoice",
+        choiceId: run.game.dungeon!.replacementPreparation!.choice.id,
+        optionId,
+      });
+    record("阵亡");
+    run.step({ type: "prepareReplacementHero" });
+    record("英雄候选");
+    choice("hero_stat:p005:front");
+    expect(run.game.dungeon!.replacementPreparation!.stage).toBe("upgrades");
+    record("升级待选");
+    choice("finish-upgrades");
+    for (const stage of ["第1张技能待选", "第2张技能待选", "第3张技能待选"] as const) {
+      expect(run.game.dungeon!.replacementPreparation!.stage).toBe("skills");
+      record(stage);
+      choice(run.game.dungeon!.replacementPreparation!.choice.options[0]!.id);
+    }
+    expect(run.game.dungeon!.replacementPreparation).toBeUndefined();
+    expect(run.game.dungeon!.preparedReplacements).toHaveLength(1);
+    record("准备完成");
+    run.step({ type: "joinPreparedReplacements" });
+    expect(run.game.dungeon!.heroes).toHaveLength(4);
+    expect(run.game.dungeon!.heroes.every((h) => !h.dead)).toBe(true);
+    record("入队");
+    expect([...checkpoints.keys()]).toEqual(stages);
+  }, 30000);
+
+  it.each(stages)(
+    "%s：严格迁移、拒绝伪造并继续入队",
+    (stage) => {
+      const { game, commands } = checkpoints.get(stage)!;
+      const save = JSON.parse(JSON.stringify(createQuestSave(start, commands, game, fiveSources)));
+      const before = structuredClone(save);
+      const loaded = loadQuestSave(save, sources, trusted).game;
+      expect(save).toEqual(before);
+      expect(loaded.dungeon!.battleCatalog!.heroStats).toHaveLength(53);
+      expect(loaded.seed).toBe(game.seed);
+      expect(loaded.dungeon!.cursor).toBe(game.dungeon!.cursor);
+      expect(loaded.dungeon!.heroes).toEqual(game.dungeon!.heroes);
+      expect(loaded.dungeon!.waitingHeroTokens).toBe(game.dungeon!.waitingHeroTokens);
+      expect(
+        loadQuestSave(createQuestSave(start, commands, loaded, sources), sources).game,
+      ).toEqual(loaded);
+      for (const bad of [
+        { ...save, snapshot: { ...game, dungeon: { ...game.dungeon!, gold: 999 } } },
+        { ...save, commands: [...commands, { type: "ping", message: "forged" }] },
+      ])
+        expect(() => loadQuestSave(bad, sources, trusted)).toThrow();
+
+      if (stage === "英雄候选") {
+        const preparation = game.dungeon!.replacementPreparation!;
+        expect(preparation.choice.options.map((o) => o.id)).toEqual(["hero_stat:p005:front"]);
+        expect(
+          loaded.dungeon!.replacementPreparation!.choice.options.map((o) => o.id).sort(),
+        ).toEqual([...VERIFIED_REPLACEMENT_STAT_IDS].sort());
+        expect(loaded.dungeon!.replacementPreparation!.choice).toMatchObject({
+          ...preparation.choice,
+          options: expect.any(Array),
+        });
+        const forged = JSON.parse(JSON.stringify(save));
+        forged.snapshot.dungeon.replacementPreparation.choice.options[0].label = "forged";
+        expect(() => loadQuestSave(forged, sources, trusted)).toThrow();
+        // 迁移后新增选项可继续执行，而非仅显示按钮。
+        const chosen = applyCommand(loaded, {
+          type: "resolveChoice",
+          choiceId: preparation.choice.id,
+          optionId: "hero_stat:p013:front",
+        });
+        expect(chosen.events.some((e) => e.type === "commandRefused")).toBe(false);
+      }
+
+      const final = checkpoints.get("入队")!;
+      let resumed = loaded;
+      for (const command of final.commands.slice(commands.length)) {
+        const result = applyCommand(resumed, command);
+        expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+        resumed = result.state;
+      }
+      // 所有停点续跑到同一完整入队状态，保留 RNG、资源与英雄。
+      expect(resumed).toEqual({
+        ...final.game,
+        dungeon: { ...final.game.dungeon!, battleCatalog: sources.catalog },
+      });
+    },
+    30000,
   );
-  expect(loaded.dungeon!.replacementPreparation!.choice).toMatchObject({
-    ...preparation.choice,
-    options: expect.any(Array),
-  });
-  const forged = JSON.parse(JSON.stringify(save));
-  forged.snapshot.dungeon.replacementPreparation.choice.options[0].label = "forged";
-  expect(() => loadQuestSave(forged, sources, trusted)).toThrow();
-  // 迁移后新增选项可继续执行，而非仅显示按钮。
-  const chosen = applyCommand(loaded, {
-    type: "resolveChoice",
-    choiceId: preparation.choice.id,
-    optionId: "hero_stat:p013:front",
-  });
-  expect(chosen.events.some((e) => e.type === "commandRefused")).toBe(false);
-  const choice = (optionId: string) =>
-    run.step({
-      type: "resolveChoice",
-      choiceId: run.game.dungeon!.replacementPreparation!.choice.id,
-      optionId,
-    });
-  choice("hero_stat:p005:front");
-  verify();
-  choice("finish-upgrades");
-  while (run.game.dungeon!.replacementPreparation) {
-    verify();
-    choice(run.game.dungeon!.replacementPreparation!.choice.options[0]!.id);
-  }
-  verify();
-  run.step({ type: "joinPreparedReplacements" });
-  verify();
-}, 30000);
+});
 
 it("自然再次侦察多人死亡：第二名候选准备、禁止半队入场与代币耗尽存档", () => {
   const run = naturalDeath(sources);
