@@ -21,7 +21,7 @@ function choose(game: GameState, optionId: string) {
   ).toBe(false);
   return { game: result.state, command };
 }
-it("真实seed14逐英雄可移除正/负一张或跳过，无怪癖者不产生空选择，全部选完才洗回和启用准备日", () => {
+it("真实seed1逐英雄可移除正/负一张或跳过，无怪癖者不产生空选择，全部选完才洗回和启用准备日", () => {
   const original = baseline.game,
     before = structuredClone(original),
     d = original.dungeon!;
@@ -29,29 +29,40 @@ it("真实seed14逐英雄可移除正/负一张或跳过，无怪癖者不产生
     active: "hamlet_event:p012",
     phase: "eventBlocked",
     preparationDays: null,
-    eventRemainingHeroes: ["hero-0", "hero-2", "hero-3"],
+    eventRemainingHeroes: ["hero-0", "hero-1", "hero-2"],
   });
   expect(d.hamlet!.deck).toHaveLength(15);
+  expect(d.conditions!.quirks.find((quirk) => quirk.id === "quirk:p030")!.polarity).toBe(
+    "negative",
+  );
+  expect(d.conditions!.quirks.find((quirk) => quirk.id === "quirk:p017")!.polarity).toBe(
+    "positive",
+  );
   expect(d.pending!.actorId).toBe("hero-0");
-  expect(d.pending!.options.map((option) => option.id)).toEqual(["quirk:p020", "skip"]);
-  let game = choose(original, "quirk:p020").game;
-  expect(game.dungeon!.pending!.actorId).toBe("hero-2");
+  expect(d.pending!.options.map((option) => option.id)).toEqual([
+    "quirk:p030",
+    "quirk:p028",
+    "skip",
+  ]);
+  let game = choose(original, "quirk:p030").game;
+  expect(game.dungeon!.pending!.actorId).toBe("hero-1");
   expect(game.dungeon!.cursor).toBe(d.cursor);
-  expect(game.dungeon!.heroes[0]!.quirkIds).toEqual([]);
-  expect(game.dungeon!.heroes[0]!.combat!.quirkIds).toEqual([]);
+  expect(game.dungeon!.heroes[0]!.quirkIds).toEqual(["quirk:p028"]);
+  expect(game.dungeon!.heroes[0]!.combat!.quirkIds).toEqual(["quirk:p028"]);
   expect(game.dungeon!.hamlet!.deck).toHaveLength(15);
   expect(game.dungeon!.hamlet!.preparationDays).toBeNull();
-  game = choose(game, "skip").game;
-  expect(game.dungeon!.heroes[2]!.quirkIds).toEqual(["quirk:p007"]);
-  expect(game.dungeon!.pending!.actorId).toBe("hero-3");
-  const last = choose(game, "quirk:p010");
+  game = choose(game, "quirk:p017").game;
+  expect(game.dungeon!.heroes[1]!.quirkIds).toEqual(["quirk:p032", "quirk:p026"]);
+  expect(game.dungeon!.pending!.actorId).toBe("hero-2");
+  const last = choose(game, "skip");
   game = last.game;
   const n = game.dungeon!;
-  expect(n.heroes[3]!.quirkIds).toEqual(["quirk:p034"]);
+  expect(n.heroes[2]!.quirkIds).toEqual(["quirk:p034", "quirk:p025"]);
+  expect(n.heroes[3]!.quirkIds).toEqual([]);
   expect(n.conditions!.quirkDiscard).toEqual([
     ...d.conditions!.quirkDiscard,
-    "quirk:p020",
-    "quirk:p010",
+    "quirk:p030",
+    "quirk:p017",
   ]);
   expect(conditionPoolProblem(n.conditions!, n.heroes)).toBeNull();
   expect(n.pending).toBeNull();
@@ -80,7 +91,7 @@ it("每段真实待选日志可保存回放，刷新不重复移除；最终看�
     expect(loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game).toEqual(game);
   };
   replay();
-  for (const option of ["quirk:p020", "skip", "quirk:p010"]) {
+  for (const option of ["quirk:p030", "quirk:p017", "skip"]) {
     const result = choose(game, option);
     game = result.game;
     commands.push(result.command);
@@ -101,7 +112,7 @@ it("其他命令、过期选择、别人的怪癖、坏牌池或英雄队列均�
     { type: "upgradeHamletBuilding", building: "abbey" },
     { type: "useHamletSkill", actorId: "hero-0", skill: "zealousSpeech" },
     { type: "resolveChoice", choiceId: "stale", optionId: "skip" },
-    { type: "resolveChoice", choiceId: pending.id, optionId: "quirk:p007" },
+    { type: "resolveChoice", choiceId: pending.id, optionId: "quirk:p034" },
   ] as Command[])
     expect(applyCommand(game, command).state).toBe(game);
   const skipped = choose(game, "skip");
@@ -112,7 +123,7 @@ it("其他命令、过期选择、别人的怪癖、坏牌池或英雄队列均�
   for (const broken of [
     {
       ...d,
-      conditions: { ...d.conditions!, quirkDiscard: [...d.conditions!.quirkDiscard, "quirk:p020"] },
+      conditions: { ...d.conditions!, quirkDiscard: [...d.conditions!.quirkDiscard, "quirk:p030"] },
     },
     { ...d, hamlet: { ...d.hamlet!, deck: [] } },
     { ...d, hamlet: { ...d.hamlet!, eventRemainingHeroes: ["missing"] } },

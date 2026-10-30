@@ -2,14 +2,14 @@ import { beforeAll, expect, it } from "vitest";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { stagecoachWaitingTokens, recoveryBuildingLevel } from "./hamlet-buildings";
-import { townFairQuest } from "./test-helpers/town-fair-quest";
+import { paidUpgradeQuest } from "./test-helpers/natural-scout-return";
 import { coreQuestSources } from "./test-helpers/core-quest";
 import { createQuestSave, loadQuestSave } from "./quest-save";
 import { savedCommandSchema } from "../../data/src/quest-save";
 
-let baseline: ReturnType<typeof townFairQuest>;
+let baseline: ReturnType<typeof paidUpgradeQuest>;
 beforeAll(() => {
-  baseline = townFairQuest();
+  baseline = paidUpgradeQuest();
 }, 30000);
 const upgrade: Command = { type: "upgradeHamletBuilding", building: "stagecoach" };
 function ok(game: GameState, command: Command = upgrade) {
@@ -116,7 +116,7 @@ it("余额非法、缺升级后余额、金币不足、事件/待选/阶段停�
   }
   expect(ok({ ...game, dungeon: { ...d, gold: 20 } }).dungeon!.gold).toBe(0);
 });
-it("真实Scout Ahead seed64回村用22金升级II，保存刷新不重复发放/收费，XP与英雄行动保持", () => {
+it("真实Scout Ahead seed6回村用30金升级II，保存刷新不重复发放/收费，XP与英雄行动保持", () => {
   let game = ok(baseline.game, { type: "drawHamletEvent" });
   const commands = [...baseline.commands, { type: "drawHamletEvent" } as const];
   const before = game.dungeon!;
@@ -130,5 +130,5 @@ it("真实Scout Ahead seed64回村用22金升级II，保存刷新不重复发放
   expect(restored.dungeon!.hamlet).toEqual(before.hamlet);
   expect(restored.dungeon!.heroes).toEqual(before.heroes);
   expect(restored.dungeon!.cursor).toBe(before.cursor);
-  expect(applyCommand(restored, upgrade).state).toBe(restored); // 剩余2金，不能再升级
+  expect(applyCommand(restored, upgrade).state).toBe(restored); // 剩余10金，不能再升级
 }, 30000);

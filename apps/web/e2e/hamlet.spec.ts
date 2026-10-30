@@ -6,6 +6,7 @@ import type { ApplyResult } from "../../../packages/engine/src/command";
 import type { QuestSave } from "../../../packages/data/src/quest-save";
 import type { caregiversQuest } from "../../../packages/engine/src/test-helpers/caregivers-quest";
 import type { townFairQuest } from "../../../packages/engine/src/test-helpers/town-fair-quest";
+import type { paidUpgradeQuest } from "../../../packages/engine/src/test-helpers/natural-scout-return";
 import type { laborQuest } from "../../../packages/engine/src/test-helpers/labor-quest";
 import type { nomadQuest } from "../../../packages/engine/src/test-helpers/nomad-quest";
 import type { nomadSaleQuest } from "../../../packages/engine/src/test-helpers/nomad-sale-quest";
@@ -27,6 +28,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   let medicalSave: QuestSave;
   let caregivers: ReturnType<typeof caregiversQuest>;
   let townFair: ReturnType<typeof townFairQuest>, fairResult: ApplyResult;
+  let funded: ReturnType<typeof paidUpgradeQuest>;
   let labor: ReturnType<typeof laborQuest>;
   let nomad: ReturnType<typeof nomadQuest>;
   let nomadSale: ReturnType<typeof nomadSaleQuest>;
@@ -86,6 +88,18 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
       catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
     });
     fairResult = engine.applyCommand(townFair.game, { type: "drawHamletEvent" });
+    const fundedHelper = await server.ssrLoadModule(
+      fileURLToPath(
+        new URL(
+          "../../../packages/engine/src/test-helpers/natural-scout-return.ts",
+          import.meta.url,
+        ),
+      ),
+    );
+    funded = fundedHelper.paidUpgradeQuest({
+      ...sourceHelpers.coreQuestSources,
+      catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
+    });
     const laborHelper = await server.ssrLoadModule(
       fileURLToPath(
         new URL("../../../packages/engine/src/test-helpers/labor-quest.ts", import.meta.url),
@@ -296,7 +310,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     path: testInfo.outputPath("medical-breakthrough-saved.png"),
     fullPage: true,
   });
-  // 真实seed14任务和回村日志，保存于事件第一名英雄待选；不注入持牌或状态。
+  // 真实seed1任务和回村日志，保存于事件第一名英雄待选；不注入持牌或状态。
   await page.evaluate(
     (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
     JSON.stringify(caregivers.save),
@@ -313,7 +327,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
   await expect(
-    page.getByText("Caregivers Convention：hero-2可免费移除一张怪癖，或放弃（卡面p12）", {
+    page.getByText("Caregivers Convention：hero-1可免费移除一张怪癖，或放弃（卡面p12）", {
       exact: true,
     }),
   ).toBeVisible();
@@ -321,16 +335,16 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     path: testInfo.outputPath("caregivers-pending-saved.png"),
     fullPage: true,
   });
-  await page.getByRole("button", { name: "放弃移除怪癖", exact: true }).click();
+  const positive = caregivers.game.dungeon!.conditions!.quirks.find(
+    (quirk) => quirk.id === "quirk:p017",
+  )!.name;
+  await page.getByRole("button", { name: `移除 ${positive}`, exact: true }).click();
   await expect(
-    page.getByText("Caregivers Convention：hero-3可免费移除一张怪癖，或放弃（卡面p12）", {
+    page.getByText("Caregivers Convention：hero-2可免费移除一张怪癖，或放弃（卡面p12）", {
       exact: true,
     }),
   ).toBeVisible();
-  const positive = caregivers.game.dungeon!.conditions!.quirks.find(
-    (quirk) => quirk.id === "quirk:p010",
-  )!.name;
-  await page.getByRole("button", { name: `移除 ${positive}`, exact: true }).click();
+  await page.getByRole("button", { name: "放弃移除怪癖", exact: true }).click();
   await expect(page.getByTestId("hamlet-event")).toContainText("村庄事件牌堆 16 张");
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   const storedQuirks = await page.evaluate(() =>
@@ -338,7 +352,12 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
       (hero: { quirkIds: string[] }) => hero.quirkIds,
     ),
   );
-  expect(storedQuirks).toEqual([[], [], ["quirk:p007"], ["quirk:p034"]]);
+  expect(storedQuirks).toEqual([
+    ["quirk:p028"],
+    ["quirk:p032", "quirk:p026"],
+    ["quirk:p034", "quirk:p025"],
+    [],
+  ]);
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
   await expect(page.getByTestId("dungeon-gold")).toHaveText(
@@ -350,7 +369,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     path: testInfo.outputPath("caregivers-complete-saved.png"),
     fullPage: true,
   });
-  // 真实seed64任务日志，页面实际抽出并结算Town Fair；保存刷新不重复治疗或减压。
+  // 真实seed40任务日志，页面实际抽出并结算Town Fair；保存刷新不重复治疗或减压。
   await page.evaluate(
     (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
     JSON.stringify(townFair.save),
@@ -390,7 +409,15 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await page.getByRole("button", { name: "开始首日看守人", exact: true }).click();
   await expect(page.getByTestId("hamlet-event")).toContainText("准备 1 天");
   await page.screenshot({ path: testInfo.outputPath("town-fair-saved.png"), fullPage: true });
-  // 同一真实seed64回村：用真实22金升级驿站，不消耗当前英雄行动；保存刷新不重复发放。
+  // 独立真实seed6回村：30金足够支付驿站升级，不依赖Town Fair场景的金币。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(funded.save),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "抽村庄事件", exact: true }).click();
+  await page.getByRole("button", { name: "开始首日看守人", exact: true }).click();
   await expect(page.getByTestId("stagecoach-tokens")).toContainText("驿站等待英雄代币：2 枚");
   const actorLabel = page
     .getByTestId("hamlet-event")
@@ -401,7 +428,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await expect(page.getByTestId("hamlet-buildings")).toContainText("驿站 II");
   await expect(page.getByTestId("stagecoach-tokens")).toContainText("驿站等待英雄代币：3 枚");
   await expect(page.getByTestId("dungeon-gold")).toHaveText(
-    `共享金币：${townFair.game.dungeon!.gold - 20}`,
+    `共享金币：${funded.game.dungeon!.gold - 20}`,
   );
   await expect(actorLabel).toHaveText(currentActor);
   await expect(page.getByRole("button", { name: "升级驿站（20 金）", exact: true })).toBeDisabled();
@@ -411,7 +438,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await expect(page.getByTestId("stagecoach-tokens")).toContainText("驿站等待英雄代币：3 枚");
   await expect(page.getByTestId("hamlet-buildings")).toContainText("驿站 II");
   await expect(page.getByTestId("dungeon-gold")).toHaveText(
-    `共享金币：${townFair.game.dungeon!.gold - 20}`,
+    `共享金币：${funded.game.dungeon!.gold - 20}`,
   );
   await expect(actorLabel).toHaveText(currentActor);
   await page.screenshot({
