@@ -42,7 +42,7 @@
 | 任务卡 19 张 | enabled；I 级战役池 5 张自然路径已有（`full-flow-l1-breakpoints-2026-10-27.md`）；细节 hold 仍归任务卡 |
 | 村庄事件 | 16/16 已接 |
 | Curio I 级主路径 | R-064 全池可完成获得选择；§3 三项停点已接（#318）；见 `docs/r048-curio-remaining-2026-10-28.md` |
-| Trinket verification | **38/38** `unverified=false`（`docs/trinket-verification-2026-10-28.md`）；#390–#392 已接九张的持有者技能能力，两张光照护腕见 C-005 本刀待合入项 |
+| Trinket verification | **38/38** `unverified=false`（`docs/trinket-verification-2026-10-28.md`）；#390–#393 已接十一张的持有者技能能力，Warrior’s Bracer 见 C-005 本刀待合入项 |
 | Provision 辅助卡 map | `player_aid:p001` / `p005` 双面桌面 reference 已接；**D6 dice_net raster 未批** |
 | Room Tile 遗迹 | **9** 面 geometryVerified+usable + print map（p001 + p002–p005 正反）；p006–p012 / 最暗无几何批 |
 | Disease / Quirk / Virtue·Affliction | 引擎有接线；**桌面卡图刻意未展** |
@@ -117,8 +117,9 @@
   - [x] `trinket:p006`：单 / 多目标技能掷骰后选择使用，正面 Crit+2 / 反面 Acc−2、交替翻面、每角色回合限一次、自身位移续接与网页待选已接；新命令标记兼容旧日志。见 `phase5-c005-critical-stone-2026-10-30.md`；#390 已合入 main `f3efdf7`。
   - [x] Accuracy Stone / Archer’s Ring / Sage’s Book / Warrior’s Cap（`p001/p002/p009/p014`）正反面命中修正与姿态条件；同次技能可逐件选择，每件独立限次，共用原骰；命令记录能力名单以固定旧回放。见 `phase5-c005-accuracy-trinkets-2026-10-30.md`；#391 已合入 main `1803a8b`。
   - [x] Sniper’s Ring / Warrior’s Ring / Defender’s Ring / Scholar’s Ring（`p031–p034`）正面对应姿态 Crit+4、反面非对应姿态 Acc−2；沿已有技能窗口逐件选择、翻面与限次；旧五张能力名单和 `true` 标记不扩充选项。见 `phase5-c005-stance-crit-rings-2026-10-30.md`；#392 已合入 main `b4d7e22`。
-  - [x] 本刀待合入：Dark Bracer / Solar Bracer（`p021/p026`）按光照条件提供正面 Crit+2、反面命中零伤害；保留状态 / 位移，多饰品随已选修正更新适用选项，旧九张名单保持原行为。见 `phase5-c005-light-bracers-2026-10-30.md`。
-- **现状**：verification 38/38 已收；主干 9/38 张已接持有者技能主动能力，本刀再接 2 张，合入后为 11/38。此计数不代表完整战斗 / 探索能力验收；其余饰品、战斗外能力与未裁定正反面仍未收齐。
+  - [x] Dark Bracer / Solar Bracer（`p021/p026`）按光照条件提供正面 Crit+2、反面命中零伤害；保留状态 / 位移，多饰品随已选修正更新适用选项，旧九张名单保持原行为。见 `phase5-c005-light-bracers-2026-10-30.md`；#393 已合入 main `6e62bb5`。
+  - [x] 本刀待合入：Warrior’s Bracer（`p013`）正面进攻姿态 Acc+2、反面 Acc−1；完整卡面与已确认 `fe18ec5b80` 绑定，明确校验 raw 行误归后仍存在的 `front_icons`；旧十一张名单保持原行为。见 `phase5-c005-warriors-bracer-2026-10-30.md`。
+- **现状**：verification 38/38 已收；主干 11/38 张已接持有者技能主动能力，本刀再接 1 张，合入后为 12/38。此计数不代表完整战斗 / 探索能力验收；其余饰品、战斗外能力与未裁定正反面仍未收齐。
 - **验收**：按卡面/词典 confirmed 逐效果接线 + 单测；正反面语义未裁定处标待确认  
 - **依赖/阻塞**：能力阶段设计与个案裁定  
 - **归口**：核心包  

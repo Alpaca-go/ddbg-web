@@ -133,6 +133,7 @@ it.each([
   ["trinket:p002", "ranged", "hero_skill:p067"],
   ["trinket:p009", "support", "hero_skill:p088"],
   ["trinket:p014", "defensive", "hero_skill:p001"],
+  ["trinket:p013", "aggressive", "hero_skill:p001"],
 ] as const)("%s：正面精确补足命中差值，反面−1令原命中变落空", (id, stance, skill) => {
   // 骰10：命中石对 Dodge0 的骷髅士兵补1；其余对 Dodge1 的骷髅廷臣须补足2。
   const { state, command } = fixture(
@@ -165,6 +166,7 @@ it.each([
   ["trinket:p002", "support", "hero_skill:p067"],
   ["trinket:p009", "ranged", "hero_skill:p088"],
   ["trinket:p014", "aggressive", "hero_skill:p001"],
+  ["trinket:p013", "defensive", "hero_skill:p001"],
 ] as const)("%s：姿态不符不提供正面，反面不额外要求姿态", (id, stance, skill) => {
   const { state, command } = fixture([id], stance, skill);
   const result = ok(applyCommand(state, command));
@@ -176,38 +178,41 @@ it.each([
   ).toContain(id);
 });
 
-it("新名单多目标技能共骰并只翻一次：两目标均由落空变命中", () => {
-  const { state, command } = fixture(["trinket:p001"], "aggressive", "hero_skill:p004");
-  const window = ok(
-    applyCommand(state, {
-      type: "playHeroSkillTargets",
-      actorId: command.actorId,
-      skillId: command.skillId,
-      trinketWindow: HERO_SKILL_TRINKET_IDS,
-      targetIds: ["m", "m2"],
-    }),
-  );
-  const multi = (result: ApplyResult) =>
-    result.events.find((e) => e.type === "heroSkillTargetsResolved");
-  expect(multi(choose(window, "continue"))).toMatchObject({
-    roll: 10,
-    resolutions: [
-      expect.objectContaining({ outcome: "miss" }),
-      expect.objectContaining({ outcome: "miss" }),
-    ],
-  });
-  const used = choose(window, "trinket:p001");
-  expect(multi(used)).toMatchObject({
-    roll: 10,
-    resolutions: [
-      expect.objectContaining({ outcome: "hit" }),
-      expect.objectContaining({ outcome: "hit" }),
-    ],
-  });
-  expect(used.events.filter((e) => e.type === "trinketUsed")).toHaveLength(1);
-  expect(used.state.battle!.usedTrinketIds).toEqual(["trinket:p001"]);
-  expect(used.state.battle!.rngCursor).toBe(1);
-});
+it.each(["trinket:p001", "trinket:p013"] as const)(
+  "%s：新名单多目标技能共骰并只翻一次，两目标均由落空变命中",
+  (id) => {
+    const { state, command } = fixture([id], "aggressive", "hero_skill:p004");
+    const window = ok(
+      applyCommand(state, {
+        type: "playHeroSkillTargets",
+        actorId: command.actorId,
+        skillId: command.skillId,
+        trinketWindow: HERO_SKILL_TRINKET_IDS,
+        targetIds: ["m", "m2"],
+      }),
+    );
+    const multi = (result: ApplyResult) =>
+      result.events.find((e) => e.type === "heroSkillTargetsResolved");
+    expect(multi(choose(window, "continue"))).toMatchObject({
+      roll: 10,
+      resolutions: [
+        expect.objectContaining({ outcome: "miss" }),
+        expect.objectContaining({ outcome: "miss" }),
+      ],
+    });
+    const used = choose(window, id);
+    expect(multi(used)).toMatchObject({
+      roll: 10,
+      resolutions: [
+        expect.objectContaining({ outcome: "hit" }),
+        expect.objectContaining({ outcome: "hit" }),
+      ],
+    });
+    expect(used.events.filter((e) => e.type === "trinketUsed")).toHaveLength(1);
+    expect(used.state.battle!.usedTrinketIds).toEqual([id]);
+    expect(used.state.battle!.rngCursor).toBe(1);
+  },
+);
 
 it("三件饰品逐件选择并一次提交，停点JSON续接不重掷，顺序不改变技能效果", () => {
   const ids = ["trinket:p006", "trinket:p001", "trinket:p014"] as const;
@@ -294,19 +299,86 @@ it("能力名单固定日志行为；未知、重复、空名单与卡面漂移�
   ).toBe(forged);
 });
 
-it("每件饰品分别限一次：第一行动用命中石，第二行动仍可用未使用的暴击石", () => {
-  const { state, command } = fixture(["trinket:p006", "trinket:p001"]);
-  const first = choose(choose(ok(applyCommand(state, command)), "trinket:p001"), "continue");
-  expect(first.state.battle!.usedTrinketIds).toEqual(["trinket:p001"]);
-  expect(first.state.battle!.encounter!.turn).toMatchObject({ actions: 1 });
-  const second = ok(
-    applyCommand(first.state, { ...command, targetId: "m2", skillId: "hero_skill:p007" }),
-  );
-  expect(second.pendingChoice!.options.map((o) => o.id)).toEqual(["continue", "trinket:p006"]);
-  expect(choose(second, "trinket:p006").state.battle!.usedTrinketIds).toEqual([
-    "trinket:p001",
+it.each(["trinket:p001", "trinket:p013"] as const)(
+  "%s：每件饰品分别限一次，第二行动仍可用未使用的暴击石",
+  (id) => {
+    const { state, command } = fixture(["trinket:p006", id]);
+    const first = choose(choose(ok(applyCommand(state, command)), id), "continue");
+    expect(first.state.battle!.usedTrinketIds).toEqual([id]);
+    expect(first.state.battle!.encounter!.turn).toMatchObject({ actions: 1 });
+    const second = ok(
+      applyCommand(first.state, { ...command, targetId: "m2", skillId: "hero_skill:p007" }),
+    );
+    expect(second.pendingChoice!.options.map((o) => o.id)).toEqual(["continue", "trinket:p006"]);
+    expect(choose(second, "trinket:p006").state.battle!.usedTrinketIds).toEqual([
+      id,
+      "trinket:p006",
+    ]);
+  },
+);
+
+it("Warrior’s Bracer需要p013的已确认正面图标，缺失、改名、未核实或冲突均拒绝", () => {
+  const { state, command } = fixture(["trinket:p013"]);
+  const bracer = state.battle.trinkets!.cards.find((c) => c.id === "trinket:p013")!;
+  const glyph = bracer.front_icons.find((i) => i.iconId === "fe18ec5b80")!;
+  const others = bracer.front_icons.filter((i) => i.iconId !== glyph.iconId);
+  for (const front_icons of [
+    others,
+    [...others, { ...glyph, key: "stance_defensive_lit" }],
+    [...others, { ...glyph, iconId: "0000000000" }],
+    [...others, { ...glyph, status: "needs_review" as const, naming: "unverified" as const }],
+    [...bracer.front_icons, glyph],
+  ]) {
+    const broken: GameState = {
+      ...state,
+      battle: {
+        ...state.battle,
+        trinkets: {
+          ...state.battle.trinkets!,
+          cards: state.battle.trinkets!.cards.map((c) =>
+            c.id === bracer.id ? { ...c, front_icons } : c,
+          ),
+        },
+      },
+    };
+    expect(applyCommand(broken, command).state).toBe(broken);
+  }
+});
+
+it("Warrior’s Bracer的新旧能力名单与JSON续接：旧十一张不增窗口，新名单不提前翻面", () => {
+  const { state, command } = fixture(["trinket:p013"]);
+  const before = structuredClone(state);
+  const { trinketWindow: _window, ...unflagged } = command;
+  void _window;
+  const oldIds = [
     "trinket:p006",
-  ]);
+    "trinket:p001",
+    "trinket:p002",
+    "trinket:p009",
+    "trinket:p014",
+    "trinket:p031",
+    "trinket:p032",
+    "trinket:p033",
+    "trinket:p034",
+    "trinket:p021",
+    "trinket:p026",
+  ] as const;
+  for (const trinketWindow of [undefined, true, oldIds] as const) {
+    const legacy = trinketWindow === undefined ? unflagged : { ...command, trinketWindow };
+    const skipped = ok(applyCommand(state, legacy));
+    expect(skipped.pendingChoice).toBeUndefined();
+    expect(outcome(skipped)).toMatchObject({ roll: 10, resolution: { outcome: "miss" } });
+    expect(skipped.state.battle!.trinkets!.held[0]!.face).toBe("upright");
+    expect(savedCommandSchema.parse(legacy)).toEqual(legacy);
+  }
+  const opened = ok(applyCommand(state, command));
+  expect(opened.state.battle!.trinkets).toEqual(state.battle.trinkets);
+  expect(opened.state.battle!.rngCursor).toBe(0);
+  expect(
+    choose({ ...opened, state: JSON.parse(JSON.stringify(opened.state)) }, "trinket:p013"),
+  ).toEqual(choose(opened, "trinket:p013"));
+  expect(savedCommandSchema.parse(command)).toEqual(command);
+  expect(state).toEqual(before);
 });
 
 const stanceRings = [
