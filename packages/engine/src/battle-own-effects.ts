@@ -13,6 +13,7 @@ import { applyBattleShuffles } from "./battle-shuffle";
 import { playMonsterSkill } from "./battle-monster";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
 import type { MonsterCombatState } from "./monster-skill";
+import type { HeroTrinketAttack } from "./battle-trinket-ability";
 
 /** R20：声明快照只保留一次；后续命令沿用骰面，当前实体保留已支付效果。 */
 export type SkillPrefix = {
@@ -20,6 +21,7 @@ export type SkillPrefix = {
   readonly command: PlayHeroSkillCommand | PlayHeroSkillTargetsCommand | PlayMonsterSkillCommand;
   readonly roll: number | null;
   readonly announced?: true;
+  readonly trinketAttack?: HeroTrinketAttack;
 };
 
 /** 命中阈值仍用声明时的姿态／Buff／光照；生命和暴击同区名单用自身结算后状态。 */
@@ -92,6 +94,7 @@ export function beginSkillOwnEffects(
   roll: number | null,
   effects: SkillEffectsResolution,
   allEffects: readonly SkillEffectsResolution[] = [effects],
+  trinketAttack?: HeroTrinketAttack,
 ): ApplyResult | null {
   const battle = state.battle!;
   const actor = battle.entities.find((entry) => entry.id === command.actorId)!;
@@ -176,6 +179,7 @@ export function beginSkillOwnEffects(
       },
     );
   const prefix: SkillPrefix = {
+    ...(trinketAttack ? { trinketAttack } : {}),
     original: battle,
     command,
     roll,

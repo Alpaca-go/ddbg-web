@@ -903,6 +903,7 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
             ...state,
             battle: {
               ...battle,
+              ...(battle.usedTrinketIds ? { usedTrinketIds: [] } : {}),
               choiceCursor: battle.choiceCursor + 1,
               encounter: { ...encounter, deck, turn },
               pending: { type: "turnStartProvision", actorId: actor.id, choice },
@@ -921,7 +922,14 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
       }
       return beginResolveTurn(
         {
-          state: { ...state, battle: { ...battle, encounter: { ...encounter, deck, turn } } },
+          state: {
+            ...state,
+            battle: {
+              ...battle,
+              ...(battle.usedTrinketIds ? { usedTrinketIds: [] } : {}),
+              encounter: { ...encounter, deck, turn },
+            },
+          },
           events: [
             ...events,
             { ...event(battle, "turnStarted", "按当前姿态开始回合"), actorId: actor.id, side },

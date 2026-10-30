@@ -87,6 +87,7 @@ import type { MoveMonsterToRangeCommand, MonsterPositionedEvent } from "./battle
 import { moveHero } from "./battle-hero-movement";
 import { consumeResolveProvision } from "./resolve-trigger";
 import { lootTreasureChest, resolveBattleTrinketChoice } from "./battle-trinket";
+import { chooseHeroTrinket } from "./battle-trinket-ability";
 import { hideAndHeal } from "./battle-hide-and-heal";
 import { interactLoot, resolveLootChoice } from "./loot";
 import { chooseStartingProvision, startWithProvisions } from "./starting-provisions";
@@ -214,6 +215,13 @@ export type Command =
     };
 
 export type GameEvent =
+  | {
+      readonly type: "trinketUsed";
+      readonly actorId: string;
+      readonly cardId: string;
+      readonly face: "upright" | "inverted";
+      readonly message: string;
+    }
   | { readonly type: "roomInteractionResolved"; readonly actorId: string; readonly message: string }
   | { readonly type: "healingPrevented"; readonly entityId: string; readonly message: string }
   | {
@@ -553,6 +561,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     }
     if (pending.type === "necromancerSummon")
       return chooseNecromancerISummon(state, command.optionId);
+    if (pending.type === "heroTrinket") return chooseHeroTrinket(state, command.optionId);
     if (pending.type === "collectorSummon") return chooseCollectorISummon(state, command.optionId);
     if (pending.type === "shuffleReduction") return chooseBalancedShuffle(state, command.optionId);
     if (pending.type === "shuffleArea")

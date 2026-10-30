@@ -49,6 +49,8 @@ import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./boss/swine-
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
+import { beginHeroTrinketWindow } from "./battle-trinket-ability";
+import type { HeroTrinketAttack } from "./battle-trinket-ability";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
 export type BattleEntity = PassiveHolder &
@@ -99,6 +101,8 @@ export type BattleArea = {
 
 export type PlayHeroSkillCommand = {
   readonly type: "playHeroSkill";
+  /** 新网页宣告启用 R26 窗口；旧日志缺此字段时保留原来的直接结算。 */
+  readonly trinketWindow?: true;
   readonly actorId: string;
   readonly targetId: string;
   readonly skillId: string;
@@ -161,6 +165,8 @@ export type OneBodyLifePool = {
 };
 
 export type BattleState = BattleSetup & {
+  /** R-028：任一角色的新回合开始时清空；每件饰品各自计数。 */
+  readonly usedTrinketIds?: readonly string[];
   readonly oneBodyPools?: Readonly<Record<string, OneBodyLifePool>>;
   readonly lootChestUsed?: true;
   /** Prophet · Wooden Pew 区域标记（不占容量、非可选目标；room 代币）。 */
@@ -185,6 +191,13 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | {
+        readonly type: "heroTrinket";
+        readonly choice: PendingChoice;
+        readonly command: PlayHeroSkillCommand | PlayHeroSkillTargetsCommand;
+        readonly roll: number;
+        readonly face: "upright" | "inverted";
+      }
     | {
         readonly type: "collectorSummon";
         readonly actorId: string;
@@ -439,6 +452,7 @@ export function playHeroSkill(
   state: GameState,
   command: PlayHeroSkillCommand,
   resume?: SkillPrefix,
+  trinketAttack?: HeroTrinketAttack,
 ): ApplyResult {
   const battle = resume?.original ?? state.battle;
   if (!battle) return rejectBattleCommand(state, "尚未创建战斗沙盒");
@@ -473,6 +487,9 @@ export function playHeroSkill(
       .map((entity) => ({ ...entity, stress: entity.stress! }));
   const sameArea = actor.areaId === target.areaId;
   const context: SkillCombatState = {
+    ...((resume?.trinketAttack ?? trinketAttack)
+      ? { trinketModifiers: (resume?.trinketAttack ?? trinketAttack)!.modifiers }
+      : {}),
     actor,
     target: skillTargetView(target, battle),
     light: battle.light,
@@ -538,18 +555,24 @@ export function playHeroSkill(
   let roll: number | null = null;
   let resolution = probe;
   if (probe.outcome !== null) {
-    roll = resume ? resume.roll : nextBattleRoll(state.seed, battle.rngCursor);
+    roll = resume
+      ? resume.roll
+      : (trinketAttack?.roll ?? nextBattleRoll(state.seed, battle.rngCursor));
     if (roll === null) return rejectBattleCommand(state, "技能续接缺少原骰面");
     resolution = resolveHeroSkill(skill, combat, roll);
   }
   if (resolution.status === "refused")
     return rejectBattleCommand(state, resolution.reason ?? "技能拒绝结算");
+  if (command.trinketWindow && !resume && !trinketAttack && roll !== null) {
+    const window = beginHeroTrinketWindow(state, command, roll, skill, resolution);
+    if (window) return window;
+  }
   const current = resume ? state.battle! : battle;
   const effectCombat = resume ? afterHeroOwnCombat(combat, current) : combat;
   const effects = resolveHeroSkillEffects(skill, effectCombat, roll ?? 1);
   resolution = effects.resolution;
   if (!resume) {
-    const own = beginSkillOwnEffects(state, command, roll, effects);
+    const own = beginSkillOwnEffects(state, command, roll, effects, undefined, trinketAttack);
     if (own) return own;
   }
   const entities = current.entities.map((entity) =>

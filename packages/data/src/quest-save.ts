@@ -140,6 +140,7 @@ export const savedCommandSchema = z.union([
   z.strictObject({ type: z.literal("playHeroSkillEmptyArea"), ...actor, skillId: id, areaId: id }),
   z.strictObject({
     type: z.literal("playHeroSkill"),
+    trinketWindow: z.literal(true).optional(),
     ...actor,
     targetId: id,
     skillId: id,
@@ -148,6 +149,7 @@ export const savedCommandSchema = z.union([
   }),
   z.strictObject({
     type: z.literal("playHeroSkillTargets"),
+    trinketWindow: z.literal(true).optional(),
     ...actor,
     skillId: id,
     targetIds: z.array(id).min(1),

@@ -415,6 +415,8 @@ export type SkillTargetState = PassiveHolder & {
 };
 
 export type SkillCombatState = {
+  /** R26：本次技能宣告后主动使用的饰品修正，不是常驻属性或 Buff。 */
+  readonly trinketModifiers?: { readonly crit: number; readonly accuracy: number };
   /** 引擎内部续接：骰面阈值仍用声明时光照，自身效果不重复。 */
   readonly ownEffectsApplied?: true;
   readonly effectLight?: number;
@@ -2085,6 +2087,12 @@ function targetCountProblem(skill: HeroSkillCardView, combat: SkillCombatState):
 }
 
 function combatProblem(combat: SkillCombatState): string | null {
+  if (
+    combat.trinketModifiers &&
+    (!Number.isSafeInteger(combat.trinketModifiers.crit) ||
+      !Number.isSafeInteger(combat.trinketModifiers.accuracy))
+  )
+    return "饰品修正必须是已核实整数（R26、R-048）";
   const target = combat.target;
   if (target.side !== "hero" && target.side !== "monster") {
     return "目标阵营必须是 hero 或 monster";
@@ -2716,6 +2724,7 @@ function resolveSkill(
     accThreshold === null
       ? null
       : accThreshold +
+        (combat.trinketModifiers?.accuracy ?? 0) +
         enemyMarkStacks +
         lowerAreaAcc -
         target.dodge -
@@ -2723,7 +2732,15 @@ function resolveSkill(
         lightMonsterDodge +
         lightMonsterAcc;
   if (!emptyArea && !formOnly && critThreshold !== null && hitThreshold !== null) {
-    if (roll <= critThreshold + buffStacks + enemyDebuffStacks + lightCrit) outcome = "crit";
+    if (
+      roll <=
+      critThreshold +
+        buffStacks +
+        enemyDebuffStacks +
+        lightCrit +
+        (combat.trinketModifiers?.crit ?? 0)
+    )
+      outcome = "crit";
     else if (roll <= hitThreshold) outcome = "hit";
     else outcome = "miss";
   } else if (!emptyArea && !formOnly && hitThreshold !== null) {

@@ -816,12 +816,14 @@ export function BattleView({
                         : multiTarget
                           ? {
                               type: "playHeroSkillTargets",
+                              trinketWindow: true,
                               actorId: actor!.id,
                               targetIds: selectedIds,
                               skillId: skill!.id,
                             }
                           : {
                               type: "playHeroSkill",
+                              trinketWindow: true,
                               actorId: actor!.id,
                               targetId: selfTarget ? actor!.id : selectedTargetId,
                               skillId: skill!.id,
