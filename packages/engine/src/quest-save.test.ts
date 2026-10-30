@@ -47,7 +47,11 @@ it("自然任务含真实战斗的日志可恢复到摘要，牌池、金币、X
   // 首场攻击尚无饰品；新版窗口标记必须随命令保存 / 恢复，旧日志仍不补默认标记。
   const firstAttack = run.commands.findIndex((command) => command.type === "playHeroSkill");
   expect(firstAttack).toBeGreaterThanOrEqual(0);
-  for (const trinketWindow of [true, HERO_SKILL_TRINKET_IDS] as const) {
+  for (const trinketWindow of [
+    true,
+    ["trinket:p006", "trinket:p001", "trinket:p002", "trinket:p009", "trinket:p014"],
+    HERO_SKILL_TRINKET_IDS,
+  ] as const) {
     const flagged: Command[] = run.commands.map((command, index) =>
       index === firstAttack && command.type === "playHeroSkill"
         ? { ...command, trinketWindow }
