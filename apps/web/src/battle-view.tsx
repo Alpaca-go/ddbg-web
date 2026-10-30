@@ -1,3 +1,4 @@
+import { isFreeTrinketId, freeTrinketUseProblem } from "@ddbg/engine";
 import { useState } from "react";
 import {
   heroSkillUsesSelfTarget,
@@ -501,6 +502,29 @@ export function BattleView({
                   }
                 >
                   Fortunate Armlet：压力 +1，翻回正面
+                </button>
+              </fieldset>
+            ))}
+          {battle.trinkets?.held
+            .filter((h) => isFreeTrinketId(h.cardId))
+            .map((h) => (
+              <fieldset
+                key={h.cardId}
+                data-action-group="provisions"
+                disabled={
+                  frozen ||
+                  (isFreeTrinketId(h.cardId) && !!freeTrinketUseProblem(game, h.heroId, h.cardId))
+                }
+              >
+                <legend>饰品 · {entityName(h.heroId)}</legend>
+                <button
+                  onClick={() => {
+                    if (isFreeTrinketId(h.cardId))
+                      send({ type: "useTrinket", actorId: h.heroId, cardId: h.cardId });
+                  }}
+                >
+                  使用 {battle.trinkets!.cards.find((c) => c.id === h.cardId)?.name}（
+                  {h.face === "upright" ? "正面" : "反面"}）
                 </button>
               </fieldset>
             ))}
