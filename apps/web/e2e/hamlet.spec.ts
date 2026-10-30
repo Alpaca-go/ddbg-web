@@ -662,7 +662,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     ),
   ).toEqual(smithHero);
   await page.screenshot({ path: testInfo.outputPath("blacksmith-plan-saved.png"), fullPage: true });
-  // 真实四房间Scout任务奖励2XP；Guild待选、付款后待选与完成均保存刷新。
+  // seed11真实四房间Scout任务奖励2XP；公开恢复姿态，Guild待选、付款与完成均保存刷新。
   await page.evaluate(
     (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
     JSON.stringify(guild.save),
