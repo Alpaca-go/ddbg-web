@@ -1259,3 +1259,107 @@ it("旧九张能力名单不启用护腕；比较符漂移、光照篡改的待�
     }).state,
   ).toBe(forged);
 });
+
+const damageStone = "trinket:p007" as const;
+function withoutTrinkets(command: PlayHeroSkillCommand): PlayHeroSkillCommand {
+  const legacy = { ...command };
+  delete legacy.trinketWindow;
+  return legacy;
+}
+it.each([false, true])("Damage Stone +3在Protection前相加：protection=%s", (protection) => {
+  const { state, command } = fixture([damageStone], "aggressive", "hero_skill:p001", "upright", 7);
+  const prepared = {
+    ...state,
+    battle: {
+      ...state.battle!,
+      entities: state.battle!.entities.map((e) =>
+        e.side === "monster" ? { ...e, protection } : e,
+      ),
+    },
+  };
+  const before = JSON.stringify(prepared);
+
+  const opened = ok(applyCommand(prepared, command));
+  expect(opened.pendingChoice!.options.some((o) => o.id === damageStone)).toBe(true);
+  const used = choose(opened, damageStone);
+  const baseDamage = outcome(ok(applyCommand(state, withoutTrinkets(command))))!.resolution
+    .damageDealt!;
+  expect(outcome(used)!.resolution.damageDealt).toBe(
+    protection ? Math.ceil((baseDamage + 3) / 2) : baseDamage + 3,
+  );
+  expect(JSON.stringify(prepared)).toBe(before);
+  expect(used.state.battle!.trinkets!.held[0]!.face).toBe("inverted");
+  expect(used.state.battle!.usedTrinketIds).toContain(damageStone);
+  expect(used.state.battle!.rngCursor).toBe(1);
+  expect(
+    choose({ ...opened, state: JSON.parse(JSON.stringify(opened.state)) }, damageStone),
+  ).toEqual(used);
+});
+it("Damage Stone落空及反面不提供，旧十三张名单无新增选择", () => {
+  const miss = fixture([damageStone]);
+  expect(ok(applyCommand(miss.state, miss.command)).pendingChoice).toBeUndefined();
+  const back = fixture([damageStone], "aggressive", "hero_skill:p001", "inverted", 7);
+  expect(ok(applyCommand(back.state, back.command)).pendingChoice).toBeUndefined();
+  const old = fixture([damageStone], "aggressive", "hero_skill:p001", "upright", 7);
+  expect(
+    ok(
+      applyCommand(old.state, {
+        ...old.command,
+        trinketWindow: HERO_SKILL_TRINKET_IDS.filter((id) => id !== damageStone),
+      }),
+    ).pendingChoice,
+  ).toBeUndefined();
+});
+it("Damage Stone多目标共享同一骰，翻面一次且每目标加3", () => {
+  const { state, command } = fixture([damageStone], "aggressive", "hero_skill:p004", "upright", 7);
+  const multi = {
+    type: "playHeroSkillTargets" as const,
+    actorId: "h0",
+    skillId: command.skillId,
+    targetIds: ["m", "m2"],
+    trinketWindow: HERO_SKILL_TRINKET_IDS,
+  };
+  const opened = ok(applyCommand(state, multi));
+  const used = choose(opened, damageStone);
+  expect(used.events.filter((e) => e.type === "trinketUsed")).toHaveLength(1);
+  expect(
+    used.events
+      .find((e) => e.type === "heroSkillTargetsResolved")!
+      .resolutions.every(
+        (r) =>
+          r.damageDealt ===
+          outcome(ok(applyCommand(state, withoutTrinkets(command))))!.resolution.damageDealt! + 3,
+      ),
+  ).toBe(true);
+});
+
+it("Damage Stone卡面漂移拒绝；与Critical Stone同技能暴击叠加仍限次", () => {
+  const { state, command } = fixture(
+    [damageStone, "trinket:p006"],
+    "aggressive",
+    "hero_skill:p001",
+    "upright",
+    7,
+  );
+  const opened = ok(applyCommand(state, command));
+  const selected = choose(opened, damageStone);
+  const done = choose(selected, "trinket:p006");
+  expect(outcome(done)!.resolution.outcome).toBe("crit");
+  const baseline = choose(ok(applyCommand(state, command)), "trinket:p006");
+  const crit = choose(baseline, "continue");
+  expect(outcome(done)!.resolution.damageDealt).toBe(outcome(crit)!.resolution.damageDealt! + 3);
+  expect(done.events.filter((e) => e.type === "trinketUsed")).toHaveLength(2);
+  const pool = state.battle!.trinkets!;
+  const drift = {
+    ...state,
+    battle: {
+      ...state.battle!,
+      trinkets: {
+        ...pool,
+        cards: pool.cards.map((c) => (c.id === damageStone ? { ...c, name: "drift" } : c)),
+      },
+    },
+  };
+  expect(applyCommand(drift, command).events[0]!.type).toBe("commandRefused");
+  expect(applyCommand(drift, command).state).toEqual(drift);
+});

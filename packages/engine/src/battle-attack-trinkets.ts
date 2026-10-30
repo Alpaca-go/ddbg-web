@@ -28,8 +28,19 @@ type Definition = {
   frontIconId?: string;
   light?: "dark" | "solar";
   freeInverted?: true;
+  damage?: number;
 };
 const definitions: Record<HeroSkillTrinketId, Definition> = {
+  "trinket:p007": {
+    name: "Damage Stone",
+    level: 1,
+    positive: "",
+    negative: "",
+    crit: 0,
+    accuracy: 0,
+    penalty: 0,
+    damage: 3,
+  },
   "trinket:p025": {
     name: "Fortunate Armlet",
     level: 2,
@@ -179,6 +190,7 @@ type Offer = {
   crit: number;
   accuracy: number;
   noDamage?: true;
+  damage?: number;
 };
 // 分行和比较符半笔按规范化原样核对；完整印刷 p021/p026 决定各面 ≤/≥ 方向。
 function lightFacesMatch(card: NormalizedTrinketCard, light: "dark" | "solar") {
@@ -218,6 +230,22 @@ function lightFacesMatch(card: NormalizedTrinketCard, light: "dark" | "solar") {
         ];
   return JSON.stringify(tokens) === JSON.stringify(expected);
 }
+function damageStoneFacesMatch(card: NormalizedTrinketCard) {
+  return (
+    [card.upright_half, card.inverted_half].every((h) =>
+      h.effect_lines
+        .flat()
+        .every(
+          (s) => s.type === "text" || ["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+        ),
+    ) &&
+    JSON.stringify(
+      [card.upright_half, card.inverted_half].map((h) =>
+        h.effect_lines.map((l) => l.map((s) => (s.type === "text" ? s.text : "@" + s.icon.key))),
+      ),
+    ) === '[[["@damage"," +3"]],[["When you take Damage:"],["suffer 2 ","@wound"]]]'
+  );
+}
 function modifiersFor(
   offers: readonly Offer[],
   selected: readonly HeroSkillTrinketId[],
@@ -226,6 +254,9 @@ function modifiersFor(
   return {
     crit: used.reduce((sum, o) => sum + o.crit, 0),
     accuracy: used.reduce((sum, o) => sum + o.accuracy, 0),
+    ...(used.some((o) => o.damage)
+      ? { damage: used.reduce((sum, o) => sum + (o.damage ?? 0), 0) }
+      : {}),
     ...(used.some((o) => o.noDamage) ? { dealNoDamage: true } : {}),
   };
 }
@@ -298,33 +329,35 @@ function readOffers(
       card.inverted_half.name !== rule.name ||
       card.upright_half.printed_rotation !== 0 ||
       card.inverted_half.printed_rotation !== 180 ||
-      !(rule.freeInverted
-        ? isFortunateArmlet(card)
-        : rule.light
-          ? lightFacesMatch(card, rule.light)
-          : exactLine(
-              card.upright_half.effect_lines,
-              rule.positive,
-              rule.frontIconId ? undefined : rule.icon,
-            ) &&
-            (!rule.frontIconId ||
-              (card.front_icons.filter((i) => i.key?.startsWith("stance_")).length === 1 &&
-                card.front_icons.some(
-                  (i) =>
-                    i.iconId === rule.frontIconId &&
-                    i.key === rule.icon &&
-                    ["confirmed", "confirmed_rulebook"].includes(i.naming),
-                ))) &&
-            exactLine(
-              card.inverted_half.effect_lines,
-              rule.negative,
-              rule.invertedNotInStance ? rule.icon : undefined,
-            ))
+      !(rule.damage
+        ? damageStoneFacesMatch(card)
+        : rule.freeInverted
+          ? isFortunateArmlet(card)
+          : rule.light
+            ? lightFacesMatch(card, rule.light)
+            : exactLine(
+                card.upright_half.effect_lines,
+                rule.positive,
+                rule.frontIconId ? undefined : rule.icon,
+              ) &&
+              (!rule.frontIconId ||
+                (card.front_icons.filter((i) => i.key?.startsWith("stance_")).length === 1 &&
+                  card.front_icons.some(
+                    (i) =>
+                      i.iconId === rule.frontIconId &&
+                      i.key === rule.icon &&
+                      ["confirmed", "confirmed_rulebook"].includes(i.naming),
+                  ))) &&
+              exactLine(
+                card.inverted_half.effect_lines,
+                rule.negative,
+                rule.invertedNotInStance ? rule.icon : undefined,
+              ))
     )
       return { problem: `${rule.name} 的已核实卡面发生变化，保留停点（R-048）` };
     if (
       b.usedTrinketIds?.includes(id) ||
-      (item.face === "inverted" && rule.freeInverted) ||
+      (item.face === "inverted" && (rule.freeInverted || rule.damage)) ||
       (item.face === "upright" && rule.stance && actor.stance !== rule.stance) ||
       (item.face === "inverted" && actor.stance === rule.invertedNotInStance)
     )
@@ -334,7 +367,9 @@ function readOffers(
       const low = (rule.light === "dark") === (item.face === "upright");
       if (low ? b.light > 3 : b.light < 3) continue;
     }
+
     if (
+      !rule.damage &&
       !skill.printed_labels.some((l) =>
         rule.freeInverted
           ? l.label === "Crit" || l.label === "Acc"
@@ -346,6 +381,7 @@ function readOffers(
       cardId: id,
       face: item.face,
       name: rule.name,
+      ...(rule.damage ? { damage: rule.damage } : {}),
       crit: item.face === "upright" ? rule.crit : 0,
       accuracy: item.face === "upright" ? rule.accuracy : rule.penalty,
       ...(rule.light && item.face === "inverted" ? { noDamage: true as const } : {}),
@@ -373,14 +409,16 @@ function readOffers(
           ),
     );
   };
-  const selectedNoDamage = offers.some((o) => o.noDamage && selected.includes(o.cardId));
+  const selectedNoDamage = offers.some(
+    (o) => (o.noDamage || o.damage) && selected.includes(o.cardId),
+  );
   if (selectedNoDamage && !hasDamageHit(selected))
-    return { problem: "零伤害饰品需要技能命中目标，未翻面或结算技能" };
+    return { problem: "伤害饰品需要技能命中目标，未翻面或结算技能" };
   return {
     offers: offers.filter(
       (o) =>
         selected.includes(o.cardId) ||
-        !(o.noDamage || selectedNoDamage) ||
+        !(o.noDamage || o.damage || selectedNoDamage) ||
         hasDamageHit([...selected, o.cardId]),
     ),
   };
@@ -403,7 +441,7 @@ function present(
         .filter((o) => !selected.includes(o.cardId))
         .map((o) => ({
           id: o.cardId,
-          label: `${o.name}：${o.noDamage ? "命中目标但不造成伤害" : [o.accuracy ? `Acc${o.accuracy > 0 ? "+" : ""}${o.accuracy}` : "", o.crit ? `Crit+${o.crit}` : ""].filter(Boolean).join("、")}（${o.face === "upright" ? "正面→反面" : "反面→正面"}）`,
+          label: `${o.name}：${o.noDamage ? "命中目标但不造成伤害" : [o.damage ? `伤害+${o.damage}` : "", o.accuracy ? `Acc${o.accuracy > 0 ? "+" : ""}${o.accuracy}` : "", o.crit ? `Crit+${o.crit}` : ""].filter(Boolean).join("、")}（${o.face === "upright" ? "正面→反面" : "反面→正面"}）`,
         })),
     ],
   };

@@ -420,6 +420,7 @@ export type SkillCombatState = {
     readonly crit: number;
     readonly accuracy: number;
     readonly dealNoDamage?: boolean;
+    readonly damage?: number;
   };
   /** 引擎内部续接：骰面阈值仍用声明时光照，自身效果不重复。 */
   readonly ownEffectsApplied?: true;
@@ -2093,7 +2094,10 @@ function targetCountProblem(skill: HeroSkillCardView, combat: SkillCombatState):
 function combatProblem(combat: SkillCombatState): string | null {
   if (
     combat.trinketModifiers &&
-    (!Number.isSafeInteger(combat.trinketModifiers.crit) ||
+    ((combat.trinketModifiers.damage !== undefined &&
+      (!Number.isSafeInteger(combat.trinketModifiers.damage) ||
+        combat.trinketModifiers.damage < 0)) ||
+      !Number.isSafeInteger(combat.trinketModifiers.crit) ||
       !Number.isSafeInteger(combat.trinketModifiers.accuracy) ||
       (combat.trinketModifiers.dealNoDamage !== undefined &&
         typeof combat.trinketModifiers.dealNoDamage !== "boolean"))
@@ -2909,6 +2913,7 @@ function resolveSkill(
       // 其他类型修正 / Hard Skinned 缺值仍不加。
       let baseDamage =
         amount +
+        (combat.trinketModifiers?.damage ?? 0) +
         bonuses.reduce((total, bonus) => {
           if (target.side === sourceSide) return total;
           const matched =
