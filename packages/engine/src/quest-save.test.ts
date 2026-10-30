@@ -74,6 +74,7 @@ it("自然任务含真实战斗的日志可恢复到摘要，牌池、金币、X
       "trinket:p021",
       "trinket:p026",
     ],
+    HERO_SKILL_TRINKET_IDS.filter((id) => id !== "trinket:p025"),
     HERO_SKILL_TRINKET_IDS,
   ] as const) {
     const flagged: Command[] = run.commands.map((command, index) =>

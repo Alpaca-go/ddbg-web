@@ -5,6 +5,8 @@ import {
   PROVISION_EFFECTS,
   isInvokingMonster,
   HERO_SKILL_TRINKET_IDS,
+  fortunateArmletUseProblem,
+  FORTUNATE_ARMLET_ID,
 } from "@ddbg/engine";
 import type { Command, SkillStance, ProvisionEffect, GameState, GameEvent } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
@@ -484,6 +486,24 @@ export function BattleView({
               免费使用补给
             </button>
           </fieldset>
+          {battle.trinkets?.held
+            .filter((h) => h.cardId === FORTUNATE_ARMLET_ID)
+            .map((h) => (
+              <fieldset
+                key={h.cardId}
+                data-action-group="provisions"
+                disabled={frozen || !!fortunateArmletUseProblem(game, h.heroId)}
+              >
+                <legend>饰品 · {entityName(h.heroId)}</legend>
+                <button
+                  onClick={() =>
+                    send({ type: "useTrinket", actorId: h.heroId, cardId: FORTUNATE_ARMLET_ID })
+                  }
+                >
+                  Fortunate Armlet：压力 +1，翻回正面
+                </button>
+              </fieldset>
+            ))}
           {!turn && (
             <button disabled={frozen} onClick={() => send({ type: "startBattle" })}>
               开始战斗

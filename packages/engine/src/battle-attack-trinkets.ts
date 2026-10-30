@@ -10,6 +10,7 @@ import type { HeroSkillResolution, SkillStance } from "./hero-skill";
 import type { HeroTrinketAttack } from "./battle-trinket-ability";
 import { nextBattleRoll } from "./battle-roll";
 import { trinketPoolProblem } from "./trinket-acquisition";
+import { isFortunateArmlet } from "./battle-fortunate-armlet";
 
 type Attack = PlayHeroSkillCommand | PlayHeroSkillTargetsCommand;
 type Definition = {
@@ -26,8 +27,19 @@ type Definition = {
   /** p013 姿态图标在 raw 行的 rot 误归，仍须完整卡面与已确认 front_icons 对应。 */
   frontIconId?: string;
   light?: "dark" | "solar";
+  freeInverted?: true;
 };
 const definitions: Record<HeroSkillTrinketId, Definition> = {
+  "trinket:p025": {
+    name: "Fortunate Armlet",
+    level: 2,
+    positive: "Acc+1 and Crit+1",
+    negative: "",
+    crit: 1,
+    accuracy: 1,
+    penalty: 0,
+    freeInverted: true,
+  },
   "trinket:p006": {
     name: "Critical Stone",
     level: 1,
@@ -286,30 +298,33 @@ function readOffers(
       card.inverted_half.name !== rule.name ||
       card.upright_half.printed_rotation !== 0 ||
       card.inverted_half.printed_rotation !== 180 ||
-      !(rule.light
-        ? lightFacesMatch(card, rule.light)
-        : exactLine(
-            card.upright_half.effect_lines,
-            rule.positive,
-            rule.frontIconId ? undefined : rule.icon,
-          ) &&
-          (!rule.frontIconId ||
-            (card.front_icons.filter((i) => i.key?.startsWith("stance_")).length === 1 &&
-              card.front_icons.some(
-                (i) =>
-                  i.iconId === rule.frontIconId &&
-                  i.key === rule.icon &&
-                  ["confirmed", "confirmed_rulebook"].includes(i.naming),
-              ))) &&
-          exactLine(
-            card.inverted_half.effect_lines,
-            rule.negative,
-            rule.invertedNotInStance ? rule.icon : undefined,
-          ))
+      !(rule.freeInverted
+        ? isFortunateArmlet(card)
+        : rule.light
+          ? lightFacesMatch(card, rule.light)
+          : exactLine(
+              card.upright_half.effect_lines,
+              rule.positive,
+              rule.frontIconId ? undefined : rule.icon,
+            ) &&
+            (!rule.frontIconId ||
+              (card.front_icons.filter((i) => i.key?.startsWith("stance_")).length === 1 &&
+                card.front_icons.some(
+                  (i) =>
+                    i.iconId === rule.frontIconId &&
+                    i.key === rule.icon &&
+                    ["confirmed", "confirmed_rulebook"].includes(i.naming),
+                ))) &&
+            exactLine(
+              card.inverted_half.effect_lines,
+              rule.negative,
+              rule.invertedNotInStance ? rule.icon : undefined,
+            ))
     )
       return { problem: `${rule.name} 的已核实卡面发生变化，保留停点（R-048）` };
     if (
       b.usedTrinketIds?.includes(id) ||
+      (item.face === "inverted" && rule.freeInverted) ||
       (item.face === "upright" && rule.stance && actor.stance !== rule.stance) ||
       (item.face === "inverted" && actor.stance === rule.invertedNotInStance)
     )
@@ -320,8 +335,10 @@ function readOffers(
       if (low ? b.light > 3 : b.light < 3) continue;
     }
     if (
-      !skill.printed_labels.some(
-        (l) => l.label === (item.face === "upright" && rule.crit ? "Crit" : "Acc"),
+      !skill.printed_labels.some((l) =>
+        rule.freeInverted
+          ? l.label === "Crit" || l.label === "Acc"
+          : l.label === (item.face === "upright" && rule.crit ? "Crit" : "Acc"),
       )
     )
       continue;
@@ -386,7 +403,7 @@ function present(
         .filter((o) => !selected.includes(o.cardId))
         .map((o) => ({
           id: o.cardId,
-          label: `${o.name}：${o.noDamage ? "命中目标但不造成伤害" : o.crit ? `Crit+${o.crit}` : `Acc${o.accuracy > 0 ? "+" : ""}${o.accuracy}`}（${o.face === "upright" ? "正面→反面" : "反面→正面"}）`,
+          label: `${o.name}：${o.noDamage ? "命中目标但不造成伤害" : [o.accuracy ? `Acc${o.accuracy > 0 ? "+" : ""}${o.accuracy}` : "", o.crit ? `Crit+${o.crit}` : ""].filter(Boolean).join("、")}（${o.face === "upright" ? "正面→反面" : "反面→正面"}）`,
         })),
     ],
   };

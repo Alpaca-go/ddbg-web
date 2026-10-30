@@ -89,6 +89,8 @@ import { consumeResolveProvision } from "./resolve-trigger";
 import { lootTreasureChest, resolveBattleTrinketChoice } from "./battle-trinket";
 import { chooseHeroTrinket } from "./battle-trinket-ability";
 import { chooseAttackTrinkets } from "./battle-attack-trinkets";
+import { useTrinket } from "./battle-fortunate-armlet";
+import type { UseTrinketCommand } from "./battle-fortunate-armlet";
 import { hideAndHeal } from "./battle-hide-and-heal";
 import { interactLoot, resolveLootChoice } from "./loot";
 import { chooseStartingProvision, startWithProvisions } from "./starting-provisions";
@@ -166,6 +168,7 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 };
 
 export type Command =
+  | UseTrinketCommand
   | SetDungeonStancesCommand
   | SetHamletStancesCommand
   | { readonly type: "prepareReplacementHero" }
@@ -657,6 +660,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return startWithProvisions(state);
   if (command.type === "resolveShuffles") return applyBattleShuffles(state);
   if (state.battle?.shuffleIntents.length) return rejectBattleCommand(state, "请先结算位移意图");
+  if (command.type === "useTrinket") return useTrinket(state, command);
   if (command.type === "lootTreasureChest") return lootTreasureChest(state, command.actorId);
   if (command.type === "hideAndHeal") return hideAndHeal(state, command.actorId);
   if (command.type === "interactLoot") return interactLoot(state, command.actorId);

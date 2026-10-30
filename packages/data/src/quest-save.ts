@@ -141,6 +141,7 @@ export const savedCommandSchema = z.union([
   }),
   z.strictObject({ type: z.literal("resolveChoice"), choiceId: id, optionId: id }),
   z.strictObject({ type: z.literal("ping"), message: z.string() }),
+  z.strictObject({ type: z.literal("useTrinket"), ...actor, cardId: z.literal("trinket:p025") }),
   z.strictObject({
     type: z.literal("useProvision"),
     provisionId: id,
