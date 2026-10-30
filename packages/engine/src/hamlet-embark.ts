@@ -24,6 +24,8 @@ import {
 } from "./boss/face-the-threat-embark-runtime";
 import { FACE_THE_THREAT_QUEST_ID, isFaceTheThreatQuestId } from "./boss/quest-bridge";
 
+import { placeFaceTheThreatRooms } from "./boss/edge-room-placement";
+
 type Hero = DungeonState["heroes"][number];
 
 function shuffleIds(ids: readonly string[], seed: number, cursor: number) {
@@ -302,7 +304,12 @@ export function offerNextQuest(state: GameState): ApplyResult {
 }
 
 /** 选定任务后布置新地牢：保留战役资源，应用临时技能，游商陈列洗回，进入开局补给（R12/R33/R34）。 */
-export function chooseNextQuest(state: GameState, choiceId: string, optionId: string): ApplyResult {
+export function chooseNextQuest(
+  state: GameState,
+  choiceId: string,
+  optionId: string,
+  bossEdgeRooms = true,
+): ApplyResult {
   const reason = embarkProblem(state, true),
     d = state.dungeon!,
     pending = d.pending;
@@ -346,7 +353,15 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
   const kinds = distribution.counts.flatMap((c) => Array.from({ length: c.count }, () => c.kind));
   if (kinds.length !== slots.length || parsedLayout.unresolvedMarkers?.length)
     return rejectBattleCommand(state, "下一任务地图/代币不一致，未出征（R-046）");
-  const shuffled = shuffleKinds(kinds, state.seed, expanded.cursor);
+  let shuffled;
+  try {
+    shuffled =
+      faceEmbark.kind === "ok" && bossEdgeRooms
+        ? placeFaceTheThreatRooms(parsedLayout, kinds, state.seed, expanded.cursor)
+        : shuffleKinds(kinds, state.seed, expanded.cursor);
+  } catch (error) {
+    return rejectBattleCommand(state, error instanceof Error ? error.message : "Boss 房间布置失败");
+  }
   const priorDiscarded = d.discardedQuests ?? [];
   const newlyDiscarded = [
     d.questSummary!.questId,
@@ -445,13 +460,23 @@ export function chooseNextQuest(state: GameState, choiceId: string, optionId: st
       deck: [...d.hamlet!.deck],
       permanentlyRemoved: [...d.hamlet!.permanentlyRemoved],
     },
-    ...(faceEmbark.kind === "ok" ? { faceTheThreatEmbarkPlan: faceEmbark.plan } : {}),
+    ...(faceEmbark.kind === "ok"
+      ? {
+          faceTheThreatEmbarkPlan: bossEdgeRooms
+            ? {
+                ...faceEmbark.plan,
+                roomPlacement: "edgeRoomsR30" as const,
+                layoutWiringHold: "R30 边缘房代币已布置；Boss 专属战斗房间生产绑定仍 hold（R-048）",
+              }
+            : faceEmbark.plan,
+        }
+      : {}),
   } satisfies DungeonState;
   const lightNote = d.nextQuestStartingLight === 4 ? "；Unsettling Darkness起始光照4" : "";
   const merchantNote = d.nextQuestProvisionFaceChoice ? "；Traveling Merchants待改骰" : "";
   const faceNote =
     faceEmbark.kind === "ok"
-      ? `；Face the Threat→${faceEmbark.plan.resolvedScriptId}（${faceEmbark.plan.combatEntry.combatMonsterCardId}；layout hold）`
+      ? `；Face the Threat→${faceEmbark.plan.resolvedScriptId}（${faceEmbark.plan.combatEntry.combatMonsterCardId}；${bossEdgeRooms ? "R30 边缘房已布置；专属战斗房间仍 hold" : "layout hold"}）`
       : "";
   return {
     state: { ...state, dungeon: next },

@@ -21,7 +21,8 @@ export type StoredFaceTheThreatEmbarkPlan = {
   readonly questId: typeof FACE_THE_THREAT_QUEST_ID;
   readonly combatEntry: BossCombatEntryRefs;
   readonly rulesRef: readonly string[];
-  readonly layoutWiringHold: typeof FACE_EMBARK_LAYOUT_WIRING_HOLD;
+  readonly layoutWiringHold: string;
+  readonly roomPlacement?: "edgeRoomsR30";
 };
 
 export type FaceTheThreatEmbarkResolve =

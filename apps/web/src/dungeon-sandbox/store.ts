@@ -25,7 +25,11 @@ export const useDungeonStore = create<{
   questStart: null,
   dispatch: (command) =>
     set((s) => {
-      const recorded: Command = { ...command, allTrinkets: true };
+      const recorded: Command = {
+        ...command,
+        allTrinkets: true,
+        ...(command.type === "resolveChoice" ? { bossEdgeRooms: true } : {}),
+      };
       const result = applyCommand(s.game, recorded);
       return {
         game: result.state,

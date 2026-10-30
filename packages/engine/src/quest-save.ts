@@ -23,7 +23,14 @@ function canonical(value: unknown): string {
   return JSON.stringify(sort(value));
 }
 function replay(start: QuestStart, commands: readonly Command[], sources: CoreQuestSources) {
-  let game = createCoreDungeonQuest(start.seed, start.questId, start.mode, start.party, sources);
+  let game = createCoreDungeonQuest(
+    start.seed,
+    start.questId,
+    start.mode,
+    start.party,
+    sources,
+    start.bossEdgeRooms ?? false,
+  );
   let events: readonly GameEvent[] = [];
   for (const [index, command] of commands.entries()) {
     const result = applyCommand(game, command);

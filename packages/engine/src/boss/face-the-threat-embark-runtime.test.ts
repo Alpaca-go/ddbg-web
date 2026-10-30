@@ -1,3 +1,4 @@
+import { edgeRoomNodeIds } from "./edge-room-placement";
 import { beforeEach, describe, expect, it } from "vitest";
 import { applyCommand, type Command, type GameState } from "../command";
 import { chooseNextQuest } from "../hamlet-embark";
@@ -212,6 +213,29 @@ describe("Face the Threat 出征 applyCommand 最小运行时", () => {
     expect(offered.state.dungeon!.nextQuestOffers).not.toContain(FACE_THE_THREAT_QUEST_ID);
   });
 
+  it("新日志标记按 R30 布置边缘房，旧无标记日志保留原结果", () => {
+    const game = hamletReadyForFaceEmbark();
+    const command = {
+      type: "resolveChoice" as const,
+      choiceId: game.dungeon!.pending!.id,
+      optionId: FACE_THE_THREAT_QUEST_ID,
+    };
+    const snapshot = JSON.stringify(game);
+    const current = applyCommand(game, { ...command, bossEdgeRooms: true });
+    expect(current.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(current.state.dungeon!.faceTheThreatEmbarkPlan?.roomPlacement).toBe("edgeRoomsR30");
+    expect(edgeRoomNodeIds(current.state.dungeon!.layout)).toContain(
+      current.state.dungeon!.rooms.find((r) => r.kind === "objective")!.id,
+    );
+    expect(current).toEqual(
+      applyCommand(JSON.parse(snapshot), { ...command, bossEdgeRooms: true }),
+    );
+    const legacy = applyCommand(game, command);
+    expect(legacy).toEqual(chooseNextQuest(game, command.choiceId, command.optionId, false));
+    expect(legacy.state.dungeon!.faceTheThreatEmbarkPlan?.roomPlacement).toBeUndefined();
+    expect(JSON.stringify(game)).toBe(snapshot);
+  });
+
   it("chooseNextQuest：钩子 ok 写入 faceTheThreatEmbarkPlan", () => {
     const base = hamletReadyForFaceEmbark();
     const cursorBefore = base.dungeon!.cursor;
@@ -220,7 +244,7 @@ describe("Face the Threat 出征 applyCommand 最小运行时", () => {
     const plan = readStoredFaceTheThreatEmbarkPlan(result.state.dungeon);
     expect(plan?.resolvedScriptId).toBe(NECROMANCER_I_SCRIPT_ID);
     expect(plan?.combatEntry.combatMonsterCardId).toBe(NECROMANCER_I_COMBAT_MONSTER_CARD_ID);
-    expect(plan?.layoutWiringHold).toMatch(/R-121/);
+    expect(plan?.layoutWiringHold).toMatch(/R30/);
     expect(result.state.dungeon!.phase).toBe("awaitingProvisions");
     expect(result.state.dungeon!.cursor).toBeGreaterThan(cursorBefore);
     expect(result.events.at(-1)?.message).toMatch(/Face the Threat→/);

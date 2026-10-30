@@ -113,6 +113,7 @@ export function DungeonQuest() {
       beginTask(game, {
         seed,
         questId: selectedQuest.id,
+        bossEdgeRooms: true,
         mode,
         party: party.map((hero) => ({ ...hero, skillIds: [...hero.skillIds] })),
       });
