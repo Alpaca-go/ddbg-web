@@ -51,6 +51,10 @@ import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
 import { beginHeroTrinketWindow } from "./battle-trinket-ability";
 import type { HeroTrinketAttack } from "./battle-trinket-ability";
+import type {
+  HeroSkillTrinketWindow,
+  HeroSkillTrinketId,
+} from "../../data/src/hero-skill-trinkets";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
 export type BattleEntity = PassiveHolder &
@@ -102,7 +106,7 @@ export type BattleArea = {
 export type PlayHeroSkillCommand = {
   readonly type: "playHeroSkill";
   /** 新网页宣告启用 R26 窗口；旧日志缺此字段时保留原来的直接结算。 */
-  readonly trinketWindow?: true;
+  readonly trinketWindow?: HeroSkillTrinketWindow;
   readonly actorId: string;
   readonly targetId: string;
   readonly skillId: string;
@@ -191,6 +195,17 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | {
+        readonly type: "heroAttackTrinkets";
+        readonly choice: PendingChoice;
+        readonly command: PlayHeroSkillCommand | PlayHeroSkillTargetsCommand;
+        readonly roll: number;
+        readonly selected: readonly HeroSkillTrinketId[];
+        readonly offers: readonly {
+          readonly cardId: HeroSkillTrinketId;
+          readonly face: "upright" | "inverted";
+        }[];
+      }
     | {
         readonly type: "heroTrinket";
         readonly choice: PendingChoice;

@@ -4,6 +4,7 @@ import {
   readPrintedTargets,
   PROVISION_EFFECTS,
   isInvokingMonster,
+  HERO_SKILL_TRINKET_IDS,
 } from "@ddbg/engine";
 import type { Command, SkillStance, ProvisionEffect, GameState, GameEvent } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
@@ -816,14 +817,14 @@ export function BattleView({
                         : multiTarget
                           ? {
                               type: "playHeroSkillTargets",
-                              trinketWindow: true,
+                              trinketWindow: HERO_SKILL_TRINKET_IDS,
                               actorId: actor!.id,
                               targetIds: selectedIds,
                               skillId: skill!.id,
                             }
                           : {
                               type: "playHeroSkill",
-                              trinketWindow: true,
+                              trinketWindow: HERO_SKILL_TRINKET_IDS,
                               actorId: actor!.id,
                               targetId: selfTarget ? actor!.id : selectedTargetId,
                               skillId: skill!.id,

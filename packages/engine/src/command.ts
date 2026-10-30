@@ -88,6 +88,7 @@ import { moveHero } from "./battle-hero-movement";
 import { consumeResolveProvision } from "./resolve-trigger";
 import { lootTreasureChest, resolveBattleTrinketChoice } from "./battle-trinket";
 import { chooseHeroTrinket } from "./battle-trinket-ability";
+import { chooseAttackTrinkets } from "./battle-attack-trinkets";
 import { hideAndHeal } from "./battle-hide-and-heal";
 import { interactLoot, resolveLootChoice } from "./loot";
 import { chooseStartingProvision, startWithProvisions } from "./starting-provisions";
@@ -562,6 +563,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     if (pending.type === "necromancerSummon")
       return chooseNecromancerISummon(state, command.optionId);
     if (pending.type === "heroTrinket") return chooseHeroTrinket(state, command.optionId);
+    if (pending.type === "heroAttackTrinkets") return chooseAttackTrinkets(state, command.optionId);
     if (pending.type === "collectorSummon") return chooseCollectorISummon(state, command.optionId);
     if (pending.type === "shuffleReduction") return chooseBalancedShuffle(state, command.optionId);
     if (pending.type === "shuffleArea")

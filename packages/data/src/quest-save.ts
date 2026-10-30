@@ -1,9 +1,20 @@
 import { z } from "zod";
 import { basicQuests, type BasicQuestId } from "./basic-quests";
+import { HERO_SKILL_TRINKET_IDS } from "./hero-skill-trinkets";
 
 const id = z.string().min(1);
 const actor = { actorId: id };
 const shuffle = z.enum(["push", "pull"]);
+const trinketWindow = z
+  .union([
+    z.literal(true),
+    z
+      .array(z.enum(HERO_SKILL_TRINKET_IDS))
+      .min(1)
+      .max(HERO_SKILL_TRINKET_IDS.length)
+      .refine((ids) => new Set(ids).size === ids.length),
+  ])
+  .optional();
 const noPayload = z.strictObject({
   type: z.enum([
     "rollDungeonProvisions",
@@ -140,7 +151,7 @@ export const savedCommandSchema = z.union([
   z.strictObject({ type: z.literal("playHeroSkillEmptyArea"), ...actor, skillId: id, areaId: id }),
   z.strictObject({
     type: z.literal("playHeroSkill"),
-    trinketWindow: z.literal(true).optional(),
+    trinketWindow,
     ...actor,
     targetId: id,
     skillId: id,
@@ -149,7 +160,7 @@ export const savedCommandSchema = z.union([
   }),
   z.strictObject({
     type: z.literal("playHeroSkillTargets"),
-    trinketWindow: z.literal(true).optional(),
+    trinketWindow,
     ...actor,
     skillId: id,
     targetIds: z.array(id).min(1),

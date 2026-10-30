@@ -23,11 +23,12 @@ import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
 import { beginHeroTrinketWindow } from "./battle-trinket-ability";
 import type { HeroTrinketAttack } from "./battle-trinket-ability";
+import type { HeroSkillTrinketWindow } from "../../data/src/hero-skill-trinkets";
 import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./boss/swine-prince-i-combat-runtime";
 
 export type PlayHeroSkillTargetsCommand = {
   readonly type: "playHeroSkillTargets";
-  readonly trinketWindow?: true;
+  readonly trinketWindow?: HeroSkillTrinketWindow;
   readonly actorId: string;
   readonly skillId: string;
   readonly targetIds: readonly string[];
