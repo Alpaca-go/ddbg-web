@@ -160,7 +160,8 @@
   - [x] `naturalQuest` 按实际连接探索 / 返回；12 张 confirmed 八槽图路由回归、五张 I 级任务摘要与完整命令回放已接，见 `phase5-c010-natural-map-route-2026-10-29.md`。
   - [x] 修道院 / 墓地独立固定种子、公开姿态恢复与真实怪癖替换前置已接，见 `phase5-c010-natural-hamlet-fixtures-2026-10-30.md`；不代表所有旧村庄场景已恢复。
   - [x] 游商首次来访 / 再次出售独立自然前置、分级升级和正式网页目录回放已随 #381 合入 main `37a632d`，见 `phase5-c010-natural-nomad-fixtures-2026-10-30.md`。
-  - [x] Town Fair / Caregivers 独立自然种子、付费升级资金前置与网页目录回放已接，见 `phase5-c010-natural-event-fixtures-2026-10-30.md`；草稿 #382 待合入。
+  - [x] Town Fair / Caregivers 独立自然种子、付费升级资金前置与网页目录回放已随 #382 合入 main `b4440c6`，见 `phase5-c010-natural-event-fixtures-2026-10-30.md`。
+  - [x] 自然四房间 2XP 公会前置固定 seed11、公开恢复姿态与网页目录访问 / 付款 / 离开回放已接，见 `phase5-c010-natural-guild-fixture-2026-10-30.md`；待本刀 PR 合入，不代表其它 II 级旧场景已恢复。
 - **现状**：`docs/full-flow-l1-breakpoints-2026-10-27.md` B03/B06–B08/B12 等：回村壳 UX、摘要文案与真实 XP、死亡补位 UI、再出征 E2E  
 - **验收**：逐断点 PR；不夹带 Boss hold  
 - **依赖/阻塞**：无硬规则批（纯对齐）  
