@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, expect, it } from "vitest";
+import { beforeAll, expect, it } from "vitest";
 import { applyCommand } from "./command";
 import type { Command, GameEvent, GameState } from "./command";
 import { createQuestSave, loadQuestSave } from "./quest-save";
@@ -7,22 +7,16 @@ import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
 import { conditionPoolProblem } from "./conditions";
 import { trinketPoolProblem } from "./trinket-acquisition";
 import { coreQuestSources as sources } from "./test-helpers/core-quest";
-import { naturalAbbeyQuest } from "./test-helpers/abbey-quest";
 import { guildQuest } from "./test-helpers/guild-quest";
 import { naturalQuest } from "./test-helpers/natural-quest";
-import {
-  installGoldenMainCampaignQuestPool,
-  restoreCampaignQuestPool,
-} from "./test-helpers/golden-quest-pool";
+import { questsForCampaignLevel } from "../../data/src/basic-quests";
 
-let scout: ReturnType<typeof guildQuest>;
-let fundraiser: ReturnType<typeof naturalAbbeyQuest>;
+const prefixes = new Map<number, ReturnType<typeof guildQuest>>();
 beforeAll(() => {
-  installGoldenMainCampaignQuestPool();
-  scout = guildQuest(sources, 14);
-  fundraiser = naturalAbbeyQuest();
+  // 完整当前任务池、真实Scout四房间回村前缀；正常测试不搜索或注入候选 / 牌序。
+  expect(questsForCampaignLevel(2)).toHaveLength(5);
+  for (const seed of [0, 18, 35, 100]) prefixes.set(seed, guildQuest(sources, seed));
 }, 120000);
-afterAll(() => restoreCampaignQuestPool());
 
 /** 与既有II级出征测试相同的准备结束夹具；仅收束天数，不改资源/英雄/牌序。 */
 function preparationReady(game: GameState): GameState {
@@ -128,7 +122,9 @@ function journey(base: GameState, questId: "quest:p007" | "quest:p008") {
     record(state, c);
   };
   step({ type: "advanceCampaignLevel" }); // 明示沙盒Boss跳过，不算正式升幕。
+  const offerCursor = state.dungeon!.cursor;
   step({ type: "offerNextQuest" });
+  expect(state.dungeon!.cursor).toBe(offerCursor + 4); // 完整五张II级普通任务池洗牌。
   expect(state.dungeon!.nextQuestOffers).toContain(questId);
   step({ type: "resolveChoice", choiceId: state.dungeon!.pending!.id, optionId: questId });
   const run = naturalQuest(state.seed, questId, false, sources, 2, {
@@ -176,24 +172,52 @@ function conserved(s: GameState) {
   expect([...(p.remaining ?? []), ...p.discarded]).toHaveLength(53);
 }
 
-it.each(["quest:p007", "quest:p008"] as const)(
-  "seed14 %s：自然I/II混合遭遇胜利→提前退出→一次回村，检查点逐命令重放一致",
-  (questId) => {
+it.each([
+  {
+    seed: 0,
+    questId: "quest:p007",
+    monsters: [
+      "monster_medium:p050",
+      "monster_medium:p037",
+      "monster_medium:p004",
+      "monster_medium:p031",
+    ],
+    round: 3,
+    room: "E",
+    xp: 0,
+  },
+  {
+    seed: 18,
+    questId: "quest:p008",
+    monsters: [
+      "monster_medium:p007",
+      "monster_medium:p007",
+      "monster_medium:p024",
+      "monster_medium:p013",
+    ],
+    round: 4,
+    room: "A",
+    xp: 1,
+  },
+] as const)(
+  "seed$seed $questId：自然I/II混合遭遇胜利→提前退出→一次回村，检查点逐命令重放一致",
+  ({ seed, questId, monsters, round, room, xp }) => {
+    const scout = prefixes.get(seed)!;
     const before = structuredClone(scout.game),
       run = journey(scout.game, questId);
-    expect(run.battles).toEqual([
-      ["monster_medium:p053", "monster_medium:p004", "monster_medium:p004", "monster_medium:p004"],
-    ]);
+    expect(run.battles).toEqual([monsters]);
+    expect(
+      monsters.map((id) => sources.catalog.monsters.find((card) => card.id === id)!.level),
+    ).toEqual(expect.arrayContaining([1, 2]));
     expect(run.events.filter((e) => e.type === "battleFinished")).toEqual([
-      expect.objectContaining({ outcome: "victory", round: 3 }),
+      expect.objectContaining({ outcome: "victory", round }),
     ]);
-    expect(run.events.some((e) => e.type === "monsterSelfSkillResolved")).toBe(true);
+    // Rattler自身状态在独立seed35真实撤退路径验证，不要求胜利场景抽到同一怪物组合。
     expect(run.commands.some((c) => c.type === "rollDungeonExploration")).toBe(true);
     expect(run.commands.some((c) => c.type === "restDungeon")).toBe(true);
-    const xp = questId === "quest:p007" ? 0 : 1;
     expect(run.exited.dungeon!.questSummary).toMatchObject({
       questId,
-      clearedRoomIds: ["G"],
+      clearedRoomIds: [room],
       xpPerHero: xp,
       awarded: false,
     });
@@ -224,22 +248,77 @@ it.each(["quest:p007", "quest:p008"] as const)(
   60000,
 );
 
-it("seed2：真实Ghoul Howl/重复感染后战斗胜利，回村第四负面永久死亡停在补人门，不发XP/补给金", () => {
-  const run = journey(fundraiser.game, "quest:p007");
+it("seed35：Rattler真实自身Buff/Guard/Riposte后四轮撤退，零XP回村及检查点回放一致", () => {
+  const scout = prefixes.get(35)!;
+  const before = structuredClone(scout.game);
+  const run = journey(scout.game, "quest:p007");
+  expect(run.battles).toEqual([
+    ["monster_medium:p018", "monster_medium:p013", "monster_medium:p037", "monster_medium:p053"],
+  ]);
+  expect(run.events.filter((event) => event.type === "monsterSelfSkillResolved")).toEqual(
+    Array.from({ length: 2 }, () =>
+      expect.objectContaining({
+        skillId: "monster_medium:p053:skill1",
+        effects: [
+          { kind: "buff", duration: 2 },
+          { kind: "guard", duration: 1 },
+          { kind: "riposte", duration: 1 },
+        ],
+      }),
+    ),
+  );
+  expect(run.events.filter((event) => event.type === "battleFinished")).toEqual([
+    expect.objectContaining({ outcome: "retreat", round: 4 }),
+  ]);
+  expect(run.exited.dungeon!.questSummary).toMatchObject({
+    questId: "quest:p007",
+    clearedRoomIds: [],
+    xpPerHero: 0,
+    awarded: false,
+  });
+  const d = run.state.dungeon!,
+    payment = run.beforePayment.dungeon!;
+  expect(d).toMatchObject({
+    phase: "inHamlet",
+    hamletReturn: { phase: "complete" },
+    questSummary: { awarded: true },
+  });
+  expect(d.heroes.every((hero) => !hero.dead)).toBe(true);
+  expect(d.gold).toBe(payment.gold + payment.explorationSetup!.provisions.length);
+  expect(d.heroes.map((hero) => hero.xp)).toEqual(payment.heroes.map((hero) => hero.xp));
+  expect(d.stagecoachXp).toBe(payment.stagecoachXp);
+  expect(applyCommand(run.state, { type: "finishReturnToHamlet" }).state).toBe(run.state);
+  conserved(run.state);
+  replay(run);
+  expect(scout.game).toEqual(before);
+}, 60000);
+
+it("seed100：真实Ghoul Howl/重复感染后战斗胜利，回村第四负面永久死亡停在补人门，不发XP/补给金", () => {
+  const scout = prefixes.get(100)!;
+  const before = structuredClone(scout.game);
+  const run = journey(scout.game, "quest:p008");
   const d = run.state.dungeon!;
   expect(run.battles).toEqual([
-    ["monster_medium:p018", "monster_medium:p053", "monster_large:p003"],
+    ["monster_large:p003", "monster_medium:p034", "monster_medium:p024"],
   ]);
   expect(run.events.some((e) => e.type === "monsterTargetEffectsResolved")).toBe(true);
   expect(run.events.filter((e) => e.type === "diseaseAcquired").length).toBeGreaterThanOrEqual(4);
+  expect(
+    run.events.filter((event) => event.type === "diseaseAcquired" && event.quirkId),
+  ).toHaveLength(3);
   expect(run.events.some((e) => e.type === "battleFinished" && e.outcome === "victory")).toBe(true);
   expect(run.exited.dungeon!.heroes.every((h) => !h.dead)).toBe(true);
+  expect(run.exited.dungeon!.explorationSetup!.provisions.length).toBeGreaterThan(0);
+  expect(run.exited.dungeon!.heroes.find((hero) => hero.id === "hero-0")!.quirkIds).toHaveLength(3);
   expect(d).toMatchObject({
     phase: "awaitingReplacement",
     hamletReturn: { phase: "awaitingReplacement" },
     questSummary: { awarded: false },
   });
-  expect(d.heroes.some((h) => h.dead && h.deathReason === "madness")).toBe(true);
+  expect(d.heroes.find((hero) => hero.id === "hero-0")).toMatchObject({
+    dead: true,
+    deathReason: "madness",
+  });
   expect(d.gold).toBe(run.exited.dungeon!.gold);
   expect(d.heroes.map((h) => h.xp)).toEqual(run.exited.dungeon!.heroes.map((h) => h.xp));
   expect(d.stagecoachXp).toBe(run.exited.dungeon!.stagecoachXp);
@@ -247,24 +326,27 @@ it("seed2：真实Ghoul Howl/重复感染后战斗胜利，回村第四负面永
   expect(applyCommand(run.state, { type: "finishReturnToHamlet" }).state).toBe(run.state);
   conserved(run.state);
   replay(run);
+  expect(scout.game).toEqual(before);
 }, 120000);
 
 it("正式I级前缀可保存恢复；Boss跳过预览命令/伪造II级快照仍拒绝", () => {
-  const loaded = loadQuestSave(JSON.parse(JSON.stringify(scout.save)), sources);
-  expect(loaded.game).toEqual(scout.game);
-  const ready = preparationReady(loaded.game);
-  const advanced = ok(ready, { type: "advanceCampaignLevel" }).state;
-  expect(savedCommandSchema.safeParse({ type: "advanceCampaignLevel" }).success).toBe(false);
-  expect(() =>
-    createQuestSave(
-      scout.start,
-      [...scout.commands, { type: "advanceCampaignLevel" }],
-      advanced,
-      sources,
-    ),
-  ).toThrow();
-  expect(() =>
-    loadQuestSave({ ...scout.save, snapshot: JSON.parse(JSON.stringify(advanced)) }, sources),
-  ).toThrow("快照与回放不一致");
-  expect(loaded.game).toEqual(scout.game);
+  for (const scout of prefixes.values()) {
+    const loaded = loadQuestSave(JSON.parse(JSON.stringify(scout.save)), sources);
+    expect(loaded.game).toEqual(scout.game);
+    const ready = preparationReady(loaded.game);
+    const advanced = ok(ready, { type: "advanceCampaignLevel" }).state;
+    expect(savedCommandSchema.safeParse({ type: "advanceCampaignLevel" }).success).toBe(false);
+    expect(() =>
+      createQuestSave(
+        scout.start,
+        [...scout.commands, { type: "advanceCampaignLevel" }],
+        advanced,
+        sources,
+      ),
+    ).toThrow();
+    expect(() =>
+      loadQuestSave({ ...scout.save, snapshot: JSON.parse(JSON.stringify(advanced)) }, sources),
+    ).toThrow("快照与回放不一致");
+    expect(loaded.game).toEqual(scout.game);
+  }
 }, 60000);
