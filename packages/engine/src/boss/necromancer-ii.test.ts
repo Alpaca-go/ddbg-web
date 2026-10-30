@@ -21,10 +21,10 @@ describe("C-019 · Necromancer II 显式战斗脚本", () => {
     ensureCoreBossScriptsRegistered();
   });
 
-  it("两项威胁完成后，正式注册死灵法师 II；III 与缺实际威胁仍停点", () => {
+  it("两项威胁完成后，正式注册死灵法师 II；III 已注册，缺实际威胁仍停点", () => {
     expect(getBossScript(NECROMANCER_II_SCRIPT_ID)).toBe(necromancerIIBossScript);
     expect(resolveScriptIdForDescriptionCard("boss_ability:p002")).toBe(NECROMANCER_II_SCRIPT_ID);
-    expect(resolveScriptIdForDescriptionCard("boss_ability:p003")).toBeUndefined();
+    expect(resolveScriptIdForDescriptionCard("boss_ability:p003")).toBe("boss:ruins:necromancer:3");
     expect(runFaceTheThreatEmbarkForQuest({ questId: "quest:p019", campaignLevel: 2 }).status).toBe(
       "stub",
     );

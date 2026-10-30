@@ -6,7 +6,7 @@ import type { NormalizedMonsterLargeCard } from "./schema";
 const entrySchema = z.strictObject({
   id: z.string().regex(/^monster_large:p\d{3}$/),
   name: z.string().min(1),
-  level: z.union([z.literal(1), z.literal(2)]),
+  level: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   pages: z.array(z.int().positive()).min(1),
   speed: z.int().nonnegative(),
   stanceGroups: monsterStanceGroupsSchema,
@@ -97,6 +97,98 @@ export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
       },
       { stances: ["ranged", "support"], skill: 2 },
     ],
+  },
+  // Ruins II/III：独立核对 FRONT p006/007/009/010/012/013。
+  {
+    id: "monster_large:p006",
+    name: "Prophet",
+    level: 2,
+    pages: [6],
+    speed: 1,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_large:p007",
+    name: "Prophet",
+    level: 3,
+    pages: [7],
+    speed: 1,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_large:p009",
+    name: "Fanatic",
+    level: 2,
+    pages: [9],
+    speed: 2,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 2, skill: 1 },
+          { min: 3, max: 6, skill: 2 },
+          { min: 7, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_large:p010",
+    name: "Fanatic",
+    level: 3,
+    pages: [10],
+    speed: 3,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 2, skill: 1 },
+          { min: 3, max: 6, skill: 2 },
+          { min: 7, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_large:p012",
+    name: "Pyre",
+    level: 2,
+    pages: [12],
+    speed: 0,
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
+  },
+  {
+    id: "monster_large:p013",
+    name: "Pyre",
+    level: 3,
+    pages: [13],
+    speed: 0,
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
+  },
+  // Pyre I：完整 FRONT p011，无移动靴印，固定技能 1；本聊天批准自动命中。
+  {
+    id: "monster_large:p011",
+    name: "Pyre",
+    level: 1,
+    pages: [11],
+    speed: 0,
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
   },
 ]);
 

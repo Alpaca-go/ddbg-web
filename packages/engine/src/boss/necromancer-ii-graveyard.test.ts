@@ -247,7 +247,7 @@ describe("C-019 / R-125 · Haunted Graveyard", () => {
       ),
     ).toBe(false);
   });
-  it("公开升幕抽牌激活 II，描述卡与实际脚本一致；其它 II 仍保留停点", () => {
+  it("公开升幕抽牌激活 II，描述卡与实际脚本一致；其它 II 同样按独立脚本注册", () => {
     const outputs = Array.from({ length: 12 }, (_, seed) => {
       const base = createCoreDungeonQuest(
         seed,
@@ -268,12 +268,7 @@ describe("C-019 / R-125 · Haunted Graveyard", () => {
     expect(necro.activeBossThreatScriptId).toBe(NECROMANCER_II_SCRIPT_ID);
     expect(necro.unregisteredImminentThreatHold).toBeUndefined();
     expect(
-      outputs.some(
-        (d) =>
-          d.imminentThreatDescriptionCardId !== "boss_ability:p002" &&
-          !d.activeBossThreatScriptId &&
-          d.unregisteredImminentThreatHold,
-      ),
+      outputs.every((d) => d.activeBossThreatScriptId && !d.unregisteredImminentThreatHold),
     ).toBe(true);
   });
 });

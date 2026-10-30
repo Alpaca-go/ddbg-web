@@ -5,7 +5,7 @@ import type { NormalizedMonsterMediumCard } from "./schema";
 const entrySchema = z.strictObject({
   id: z.string().min(1),
   name: z.string().min(1),
-  level: z.union([z.literal(1), z.literal(2)]),
+  level: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   pages: z.array(z.int().positive()).min(1),
   speed: z.int().nonnegative(),
 });
@@ -39,6 +39,20 @@ export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
   { id: "monster_medium:p089", name: "Necromancer", level: 1, pages: [89], speed: 3 },
   // C-019：单独核对当前版 FRONT p090，三枚脚印；不向 III 推断。
   { id: "monster_medium:p090", name: "Necromancer", level: 2, pages: [90], speed: 3 },
+  // 当前版 FRONT p091 独立核图：III 级三枚脚印。
+  { id: "monster_medium:p091", name: "Necromancer", level: 3, pages: [91], speed: 3 },
+  // Ruins Boss II/III 与 Collected：逐页完整核图。
+  { id: "monster_medium:p093", name: "The Collector", level: 2, pages: [93], speed: 2 },
+  { id: "monster_medium:p094", name: "The Collector", level: 3, pages: [94], speed: 2 },
+  { id: "monster_medium:p095", name: "Collected Highwayman", level: 1, pages: [95], speed: 1 },
+  { id: "monster_medium:p096", name: "Collected Highwayman", level: 2, pages: [96], speed: 1 },
+  { id: "monster_medium:p097", name: "Collected Highwayman", level: 3, pages: [97], speed: 1 },
+  { id: "monster_medium:p098", name: "Collected Man-at-Arms", level: 1, pages: [98], speed: 1 },
+  { id: "monster_medium:p099", name: "Collected Man-at-Arms", level: 2, pages: [99], speed: 1 },
+  { id: "monster_medium:p100", name: "Collected Man-at-Arms", level: 3, pages: [100], speed: 1 },
+  { id: "monster_medium:p101", name: "Collected Vestal", level: 1, pages: [101], speed: 2 },
+  { id: "monster_medium:p102", name: "Collected Vestal", level: 2, pages: [102], speed: 2 },
+  { id: "monster_medium:p103", name: "Collected Vestal", level: 3, pages: [103], speed: 2 },
 ]);
 
 /** 仅生成管线加载人工获批映射；schema 可表达的值不代表已获批准。 */

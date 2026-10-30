@@ -1,3 +1,4 @@
+import { RUINS_BOSS_CATALOG_CARD_IDS } from "./boss/ruins-combat-levels";
 import { upgradeTrinketR127Metadata } from "./trinket-save-upgrade";
 import { questSaveSchema, questStartSchema } from "../../data/src/quest-save";
 import type { QuestSave, QuestStart } from "../../data/src/quest-save";
@@ -66,6 +67,18 @@ function replayCommands(commands: QuestSave["commands"]): Command[] {
     return command;
   });
 }
+function onlyAddedRuinsBossCards(old: GameState, restored: GameState): boolean {
+  const before = old.battle?.monsters,
+    after = restored.battle?.monsters;
+  return (
+    !!before &&
+    !!after &&
+    after.length >= before.length &&
+    before.every((c, i) => canonical(c) === canonical(after[i])) &&
+    after.slice(before.length).every((c) => RUINS_BOSS_CATALOG_CARD_IDS.has(c.id))
+  );
+}
+
 /** #186的购买待选仅新增出售按钮/提示；旧快照其他字段仍须逐项匹配回放。 */
 function upgradeNomadPrompt(snapshot: unknown, restored: GameState): unknown {
   const old = snapshot as GameState | null;
@@ -181,6 +194,9 @@ export function loadQuestSave(
               ...previous.battle,
               heroStats: restored.game.battle.heroStats,
               skills: restored.game.battle.skills,
+              ...(onlyAddedRuinsBossCards(previous, restored.game)
+                ? { monsters: restored.game.battle.monsters! }
+                : {}),
             },
           }
         : {}),

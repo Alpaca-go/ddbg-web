@@ -1,12 +1,8 @@
+import { ruinsCombatForScript, isRuinsCombatCard } from "./ruins-combat-levels";
 import type { BattleState } from "../battle";
 import type { GameState } from "../command";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
-import {
-  PROPHET_I_COMBAT_MONSTER_CARD_ID,
-  PROPHET_I_SCRIPT_ID,
-  PROPHET_ROOM_CARD_ID,
-  PROPHET_ROOM_D10_MARKERS,
-} from "./prophet-i";
+import { PROPHET_ROOM_CARD_ID, PROPHET_ROOM_D10_MARKERS } from "./prophet-i";
 
 /** 只验证已提供的逻辑区绑定；不从房间图片生成区域、坐标或邻接。 */
 export function readProphetIRoomD10Binding(state: GameState):
@@ -19,10 +15,9 @@ export function readProphetIRoomD10Binding(state: GameState):
   const battle = state.battle;
   if (
     !battle ||
-    resolveEncounterBossScriptId(state) !== PROPHET_I_SCRIPT_ID ||
+    !ruinsCombatForScript("prophet", resolveEncounterBossScriptId(state)) ||
     !battle.entities.some(
-      (e) =>
-        e.side === "monster" && !e.dead && e.monsterCardId === PROPHET_I_COMBAT_MONSTER_CARD_ID,
+      (e) => e.side === "monster" && !e.dead && isRuinsCombatCard("prophet", e.monsterCardId),
     )
   )
     return { status: "notApplicable" };

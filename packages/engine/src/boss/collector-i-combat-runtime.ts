@@ -1,3 +1,8 @@
+import {
+  RUINS_COMBAT_LEVELS,
+  ruinsCombatForScript,
+  isRuinsCombatCard,
+} from "./ruins-combat-levels";
 import type { BattleEntity, BattleState } from "../battle";
 import { distance, rejectBattleCommand } from "../battle";
 import type { ApplyResult, GameState } from "../command";
@@ -10,11 +15,7 @@ import { resolveEncounterBossScriptId } from "./encounter-rules";
 import {
   COLLECTOR_I_COLLECT_ALL_INITIATIVE_SHUFFLE_COUNT,
   COLLECTOR_I_COLLECT_ALL_PART_ORDER,
-  COLLECTOR_I_COMBAT_MONSTER_CARD_ID,
-  COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES,
-  COLLECTOR_I_SCRIPT_ID,
   collectorCollectedCardIds,
-  collectorCollectedPartCardId,
   collectorCollectedPartStance,
 } from "./collector-i";
 import { getBossScript } from "./registry";
@@ -28,7 +29,7 @@ export function readCollectorICollectAllPartPlan(
   script: BossScriptDefinition,
   part: CollectorCollectedPart,
 ): BossSummonOk["value"] | null {
-  if (script.id !== COLLECTOR_I_SCRIPT_ID) return null;
+  if (!ruinsCombatForScript("collector", script.id)) return null;
   const result = runBossHook(script, "summon", {
     scriptId: script.id,
     skillSlot: 0,
@@ -40,7 +41,7 @@ export function readCollectorICollectAllPartPlan(
 }
 
 export function readCollectorICollectAllEnabled(script: BossScriptDefinition): boolean {
-  if (script.id !== COLLECTOR_I_SCRIPT_ID) return false;
+  if (!ruinsCombatForScript("collector", script.id)) return false;
   const result = runBossHook(script, "collectAll", {
     scriptId: script.id,
     monsterEntityId: "collector",
@@ -54,15 +55,17 @@ function livingMonsters(battle: BattleState) {
 }
 
 function collectedEntities(battle: BattleState): readonly BattleEntity[] {
-  const ids = new Set(collectorCollectedCardIds());
+  const ids = new Set<string>(
+    RUINS_COMBAT_LEVELS.collector.flatMap((e) => Object.values(e.collected)),
+  );
   return livingMonsters(battle).filter(
     (entity) => entity.monsterCardId && ids.has(entity.monsterCardId),
   );
 }
 
 function collectorEntity(battle: BattleState): BattleEntity | undefined {
-  return livingMonsters(battle).find(
-    (entity) => entity.monsterCardId === COLLECTOR_I_COMBAT_MONSTER_CARD_ID,
+  return livingMonsters(battle).find((entity) =>
+    isRuinsCombatCard("collector", entity.monsterCardId),
   );
 }
 
@@ -100,28 +103,6 @@ function areaHasSpaceForCollected(battle: BattleState, areaId: string, width: 1 
   const area = battle.areas.find((entry) => entry.id === areaId);
   if (!area || !Number.isSafeInteger(area.capacity)) return false;
   return areaOccupancy(battle, areaId) + width <= area.capacity!;
-}
-
-/** R38–R39：仅 Collector I 在场（无 Collected 实体）时先攻堆补足至 4 张 monster 侧（1 印刷 + 3 Collect All 语义）。 */
-export function expandCollectorIInitiativeDeckSides(
-  deck: readonly InitiativeSide[],
-  battle: BattleState,
-  state: GameState,
-): InitiativeSide[] {
-  if (resolveEncounterBossScriptId(state) !== COLLECTOR_I_SCRIPT_ID) return [...deck];
-  const livingMonsters = battle.entities.filter(
-    (entity) => entity.side === "monster" && !entity.dead,
-  );
-  if (
-    livingMonsters.length !== 1 ||
-    livingMonsters[0]!.monsterCardId !== COLLECTOR_I_COMBAT_MONSTER_CARD_ID
-  ) {
-    return [...deck];
-  }
-  const monsterSides = deck.filter((side) => side === "monster").length;
-  const extra = COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES - monsterSides;
-  if (extra <= 0) return [...deck];
-  return [...deck, ...Array.from({ length: extra }, (): InitiativeSide => "monster")];
 }
 
 function occupancyExcluding(battle: BattleState, areaId: string, excludeEntityId?: string): number {
@@ -244,7 +225,7 @@ export function shuffleCollectorCollectAllInitiativeIntoDeck(
 ): GameState {
   const battle = state.battle;
   if (!battle?.encounter || count <= 0) return state;
-  if (resolveEncounterBossScriptId(state) !== COLLECTOR_I_SCRIPT_ID) return state;
+  if (!ruinsCombatForScript("collector", resolveEncounterBossScriptId(state))) return state;
   const shuffled = shuffleMonsterInitiativeIntoDeck(
     state.seed,
     battle.rngCursor,
@@ -272,7 +253,7 @@ export function collectorCollectAllShouldReplaceSkill(state: GameState, actorId:
   if (!script || !readCollectorICollectAllEnabled(script)) return false;
 
   const actor = battle.entities.find((entity) => entity.id === actorId);
-  if (!actor || actor.monsterCardId !== COLLECTOR_I_COMBAT_MONSTER_CARD_ID || actor.dead) {
+  if (!actor || !isRuinsCombatCard("collector", actor.monsterCardId) || actor.dead) {
     return false;
   }
 
@@ -288,6 +269,9 @@ function buildCollectedEntity(
   const dodge =
     (card as MonsterCardView & { readonly dodge?: number }).dodge ??
     (card as { readonly dodge?: number }).dodge ??
+    card.header_unlabeled_numbers?.find(
+      (n) => n.anchor.type === "beside_icon" && n.anchor.inside_icon?.key === "dodge",
+    )?.numeric ??
     0;
   return {
     id: `collected:${part}`,
@@ -318,7 +302,7 @@ export function applyCollectorCollectAll(
   const battle = state.battle!;
   const scriptId = resolveEncounterBossScriptId(state);
   const script = scriptId ? getBossScript(scriptId) : undefined;
-  if (!script || script.id !== COLLECTOR_I_SCRIPT_ID) {
+  if (!script || !ruinsCombatForScript("collector", script.id)) {
     return { state, events: [] };
   }
   if (
@@ -341,17 +325,17 @@ export function applyCollectorCollectAll(
         state,
         `Collect All：${part} 缺少有效显式姿态区域绑定（R-048；生产几何仍 hold）`,
       );
-    if (!readCollectedCard(battle, collectorCollectedPartCardId(part)))
+    if (!readCollectedCard(battle, ruinsCombatForScript("collector", script.id)!.collected[part]))
       return rejectBattleCommand(
         state,
-        `Collect All：缺少已核实 ${collectorCollectedPartCardId(part)}（R-048）`,
+        `Collect All：缺少已核实 ${ruinsCombatForScript("collector", script.id)!.collected[part]}（R-048）`,
       );
   }
   let nextBattle: BattleState = { ...battle, pending: null };
   const added: string[] = [];
 
   for (const part of COLLECTOR_I_COLLECT_ALL_PART_ORDER) {
-    const cardId = collectorCollectedPartCardId(part);
+    const cardId = ruinsCombatForScript("collector", script.id)!.collected[part];
     const plan = readCollectorICollectAllPartPlan(script, part);
     if (!plan || plan.summonMonsterCardId !== cardId) {
       return {
@@ -430,7 +414,10 @@ export function applyCollectorCollectAll(
       return { state, events: [{ type: "commandRefused", message: placement.message }] };
     }
     nextBattle = placement.battle;
-    const entity = buildCollectedEntity(part, card, placement.areaId, stance);
+    const rawEntity = buildCollectedEntity(part, card, placement.areaId, stance);
+    const entity = nextBattle.entities.some((e) => e.id === rawEntity.id)
+      ? { ...rawEntity, id: `${rawEntity.id}:${nextBattle.entities.length}` }
+      : rawEntity;
     const monsters = nextBattle.monsters?.some((entry) => entry.id === cardId)
       ? nextBattle.monsters
       : [...(nextBattle.monsters ?? []), card];
@@ -453,13 +440,8 @@ export function applyCollectorCollectAll(
     ...state,
     battle: { ...nextBattle, monsterAction: null },
   };
-  const monsterInDeck = nextState.battle!.encounter!.deck.filter(
-    (side) => side === "monster",
-  ).length;
-  const initiativeShuffle = Math.max(0, COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES - monsterInDeck);
-  if (initiativeShuffle > 0) {
-    nextState = shuffleCollectorCollectAllInitiativeIntoDeck(nextState, initiativeShuffle);
-  }
+  const initiativeShuffle = COLLECTOR_I_COLLECT_ALL_INITIATIVE_SHUFFLE_COUNT;
+  nextState = shuffleCollectorCollectAllInitiativeIntoDeck(nextState, initiativeShuffle);
 
   return finishTurn(nextState, actorId, [
     {

@@ -12,13 +12,11 @@ import {
   COLLECTOR_I_COLLECTED_VESTAL_CARD_ID,
   COLLECTOR_I_COLLECT_ALL_INITIATIVE_SHUFFLE_COUNT,
   COLLECTOR_I_COMBAT_MONSTER_CARD_ID,
-  COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES,
   COLLECTOR_I_SCRIPT_ID,
   bossQuestScriptId,
   clearBossScriptsForTest,
   collectorCollectAllShouldReplaceSkill,
   ensureCollectorIBossScriptRegistered,
-  expandCollectorIInitiativeDeckSides,
   getBossScript,
   readCollectorICollectAllEnabled,
   readCollectorICollectAllPartPlan,
@@ -284,28 +282,13 @@ describe("Collector I · 先攻 4 与 Collect All 洗入", () => {
     bossQuestScriptId[FACE_THE_THREAT_QUEST_ID] = COLLECTOR_I_SCRIPT_ID;
   });
 
-  it("仅 Collector 在场时 startRound 补足 4 张 monster 侧（1 印刷 + R39×3）", () => {
-    const base = collectorBattle();
-    const sides = expandCollectorIInitiativeDeckSides(
-      base.battle!.entities.filter((entity) => !entity.dead).map((entity) => entity.side),
-      base.battle!,
-      base,
-    );
-    expect(sides.filter((side) => side === "monster")).toHaveLength(
-      COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES,
-    );
-    expect(COLLECTOR_I_COLLECT_ALL_INITIATIVE_SHUFFLE_COUNT).toBe(3);
-  });
-
-  it("startBattle 写入 4 张 monster 先攻", () => {
+  it("R39：startBattle 只写入本体 1 张 monster 先攻", () => {
     const started = applyCommand(collectorBattle(), { type: "startBattle" });
     const deck = started.state.battle!.encounter!.deck;
-    expect(deck.filter((side) => side === "monster")).toHaveLength(
-      COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES,
-    );
+    expect(deck.filter((side) => side === "monster")).toHaveLength(1);
   });
 
-  it("Collect All 后当前牌堆补足至 4 张 monster 侧", () => {
+  it("Collect All 向当前牌堆恰好洗入 3 张 monster 侧", () => {
     let state = collectorBattle();
     state = applyCommand(state, { type: "startBattle" }).state;
     state = {
@@ -322,7 +305,8 @@ describe("Collector I · 先攻 4 与 Collect All 洗入", () => {
     const before = state.battle!.encounter!.deck.filter((side) => side === "monster").length;
     const result = applyCommand(state, { type: "prepareMonsterAction", actorId: "collector" });
     const after = result.state.battle!.encounter!.deck.filter((side) => side === "monster").length;
-    expect(after).toBe(COLLECTOR_I_FULL_MONSTER_INITIATIVE_SIDES);
+    expect(after - before).toBe(COLLECTOR_I_COLLECT_ALL_INITIATIVE_SHUFFLE_COUNT);
+    expect(result.state.battle!.rngCursor - state.battle!.rngCursor).toBe(3);
     expect(after).toBeGreaterThanOrEqual(before);
   });
 });
@@ -469,8 +453,8 @@ describe("C-016 · Collector 挤占选择与原子续接", () => {
     expect(new Set(done.state.battle!.entities.map((e) => e.id)).size).toBe(
       done.state.battle!.entities.length,
     );
-    expect(done.state.battle!.rngCursor).toBe(state.battle!.rngCursor + 4);
-    expect(done.state.battle!.encounter!.deck.filter((s) => s === "monster")).toHaveLength(4);
+    expect(done.state.battle!.rngCursor).toBe(state.battle!.rngCursor + 3);
+    expect(done.state.battle!.encounter!.deck.filter((s) => s === "monster")).toHaveLength(3);
     expect(done.events.filter((e) => e.type === "turnEnded")).toHaveLength(1);
     expect(done).toEqual(choose(choose(prepare(state), "collector", "b"), "collector", "c"));
     expect(state).toEqual(original);

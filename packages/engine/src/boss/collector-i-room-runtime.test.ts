@@ -124,7 +124,7 @@ describe("C-015 · Collector Room 三宝箱布置（R39、R-047/048/059）", () 
     expect(loot.available).toHaveLength(7);
     expect(loot.claimedIds).toEqual([]);
     expect(new Set([...loot.available, ...loot.placed].map((t) => t.id)).size).toBe(10);
-    expect(started.state.battle!.rngCursor).toBe(16); // 十枚宝箱洗牌9步 + 八张先攻7步。
+    expect(started.state.battle!.rngCursor).toBe(13); // 十枚宝箱洗牌9步 + 四英雄与本体共五张先攻4步。
     expect(started.state.battle!.entities).toEqual(initial.battle!.entities);
     const again = applyCommand(started.state, { type: "startBattle" });
     expect(again.events[0]!.type).toBe("commandRefused");
@@ -186,7 +186,7 @@ describe("C-015 · Collector Room 三宝箱布置（R39、R-047/048/059）", () 
     expect(started.battle!.loot!.available).toEqual([]);
     expect(started.battle!.loot!.claimedIds).toEqual(claimedIds);
     expect(started.battle!.loot!.placed.every((t) => !claimedIds.includes(t.id))).toBe(true);
-    expect(started.battle!.rngCursor).toBe(Math.max(remaining - 1, 0) + 7);
+    expect(started.battle!.rngCursor).toBe(Math.max(remaining - 1, 0) + 4);
   });
 
   it("同区三个宝箱逐枚拾取，每次只扣一行动；未拾取回池、已拾取不再出现", () => {

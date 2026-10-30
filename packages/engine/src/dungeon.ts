@@ -1,3 +1,4 @@
+import { higherRuinsScoutingStress } from "./boss/higher-ruins-threat";
 import { scoutTrinketReaction } from "./trinket-reactions";
 import {
   dungeonLayoutSchema,
@@ -45,6 +46,7 @@ export type DungeonCurioDraw = {
   readonly roomId?: string;
   readonly positiveRewardCursor?: number;
   readonly trinketApplied?: boolean;
+  readonly collectorTheftRoll?: number;
   readonly positiveQuirkApplied?: boolean;
   readonly provisionFace?: ProvisionFace | "wild";
   readonly diseasesApplied?: number;
@@ -105,6 +107,7 @@ export type DungeonState = {
     | "roomCurio"
     | "hamletConvert"
     | "hamletProvisions"
+    | "hamletThreat"
     | "hamletScout"
     | "hamletVapours"
     | "hamletDarkRitual"
@@ -120,6 +123,11 @@ export type DungeonState = {
   readonly deathChoiceCursor?: number;
   readonly buildingLevels?: BuildingLevels;
   readonly hamlet?: import("./hamlet-event").HamletEventState;
+  readonly higherThreatTheft?: {
+    readonly heroId: string;
+    readonly roll: number;
+    readonly building: string;
+  };
   readonly hamletStanceProposal?: readonly string[];
   /** 出征后保留的村庄事件牌堆，供下一轮回村续抽（R32/33）。 */
   readonly hamletMemory?: {
@@ -277,6 +285,7 @@ export type DungeonState = {
   readonly pressureSource?:
     | "freeTrinket"
     | "hamletVapours"
+    | "hamletThreat"
     | "hamletScout"
     | "hamletDarkRitual"
     | "scout"
@@ -526,7 +535,7 @@ export function applyDungeonCommand(
         let next = d;
         const events: GameEvent[] = [];
         for (const hero of d.heroes) {
-          const amount = scoutTrinketReaction(next, hero.id, 1);
+          const amount = scoutTrinketReaction(next, hero.id, 1 + higherRuinsScoutingStress(next));
           if (!amount) continue;
           const r = triggerDungeonPassive(next, state.seed, [hero.id], { type: "stress", amount });
           if (r.status === "refused") return r;

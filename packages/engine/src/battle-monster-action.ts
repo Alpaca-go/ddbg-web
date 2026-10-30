@@ -1,3 +1,4 @@
+import { isCollectedVestalCard } from "./boss/collected-vestal";
 import { isInvokingMonster, moveInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
@@ -134,10 +135,7 @@ export function prepareMonsterAction(
       pick = selectMonsterSkill(card, occupied, nextBattleRoll(state.seed, battle.rngCursor));
     }
     if (pick.status !== "selected") {
-      return rejectBattleCommand(
-        state,
-        pick.status === "refused" ? pick.reason : "选招骰表无效",
-      );
+      return rejectBattleCommand(state, pick.status === "refused" ? pick.reason : "选招骰表无效");
     }
     selected = pick;
   }
@@ -181,8 +179,11 @@ export function prepareMonsterAction(
       ],
     );
   }
+  const support = isCollectedVestalCard(card.id);
   const heroes: MonsterTargetHero[] = [];
-  for (const hero of battle.entities.filter((entry) => entry.side === "hero" && !entry.dead)) {
+  for (const hero of battle.entities.filter(
+    (entry) => entry.side === (support ? "monster" : "hero") && !entry.dead,
+  )) {
     if (
       !battle.areas.some((area) => area.id === actor.areaId) ||
       !battle.areas.some((area) => area.id === hero.areaId)
@@ -195,9 +196,9 @@ export function prepareMonsterAction(
       stance: hero.stance!,
       areaDistance,
       wounds: hero.wounds,
-      stress: hero.stress!,
-      markStacks: hero.markStacks ?? 0,
-      guard: hero.guard,
+      stress: support ? 0 : hero.stress!,
+      markStacks: support ? 0 : (hero.markStacks ?? 0),
+      guard: support ? false : hero.guard,
       dead: hero.dead,
     });
   }

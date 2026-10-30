@@ -1,3 +1,5 @@
+import { clearRuinsBossCompanions } from "./boss/ruins-boss-death";
+import { applyNecromancerIIIReanimation } from "./boss/necromancer-iii-reanimation";
 import { healingTrinketReaction } from "./trinket-reactions";
 import { rejectBattleCommand } from "./battle";
 import type { BattleEntity, BattleState } from "./battle";
@@ -41,7 +43,6 @@ import {
   expandProphetIInitiativeDeckSides,
   prophetShouldEnterActedIdsAfterTurn,
 } from "./boss/prophet-i-combat-runtime";
-import { expandCollectorIInitiativeDeckSides } from "./boss/collector-i-combat-runtime";
 import { readCollectorIRoomLootPlacement } from "./boss/collector-i-room-runtime";
 import { readProphetIRoomD10Binding } from "./boss/prophet-i-room-runtime";
 import {
@@ -125,7 +126,6 @@ function startRound(
     .map((entity) => entity.side);
   if (gameState) {
     deck = expandProphetIInitiativeDeckSides(deck, battle, gameState);
-    deck = expandCollectorIInitiativeDeckSides(deck, battle, gameState);
     deck = expandFanaticIInitiativeDeckSides(deck, battle, gameState);
   }
   const rng = createRng(seed);
@@ -378,10 +378,11 @@ export function encounterSkillProblem(
 export function removeCasualties(result: ApplyResult, ids: readonly string[]): ApplyResult {
   ({ result, ids } = clearNecromancerICompanions(result, ids));
   ({ result, ids } = clearFanaticIPyre(result, ids));
+  ({ result, ids } = clearRuinsBossCompanions(result, ids));
   const battle = result.state.battle!;
   const casualties = battle.entities.filter((entity) => entity.dead && ids.includes(entity.id));
   if (!casualties.length) return result;
-  return {
+  const removed: ApplyResult = {
     ...result,
     state: {
       ...result.state,
@@ -406,6 +407,7 @@ export function removeCasualties(result: ApplyResult, ids: readonly string[]): A
       })),
     ],
   };
+  return applyNecromancerIIIReanimation(removed, casualties);
 }
 
 export function endAfterCasualties(result: ApplyResult): ApplyResult | null {

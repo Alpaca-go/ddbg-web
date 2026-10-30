@@ -1,3 +1,5 @@
+import { isPyreCard, playPyreSkill } from "./boss/pyre-skill";
+import { isCollectedVestalCard, playCollectedVestalSkill } from "./boss/collected-vestal";
 import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { isInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand, writeResolution, skillTargetView } from "./battle";
@@ -54,6 +56,10 @@ export function playMonsterSkill(
   )
     return rejectBattleCommand(state, "必须使用本回合已保存的技能与英雄目标");
   const actor = battle.entities.find((entry) => entry.id === command.actorId);
+  if (isPyreCard(actor?.monsterCardId))
+    return playPyreSkill(state, command.actorId, command.targetId, command.skillSlot);
+  if (isCollectedVestalCard(actor?.monsterCardId))
+    return playCollectedVestalSkill(state, command.actorId, command.targetId, command.skillSlot);
   const target = battle.entities.find((entry) => entry.id === command.targetId);
   const card = battle.monsters?.find((entry) => entry.id === actor?.monsterCardId);
   if (

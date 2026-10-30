@@ -1,3 +1,4 @@
+import { RUINS_BOSS_CATALOG_CARD_IDS } from "../../packages/engine/src/boss/ruins-combat-levels";
 import { readFileSync } from "node:fs";
 import type { Plugin } from "vite";
 import {
@@ -214,6 +215,38 @@ export function battleDataPlugin(): Plugin {
             stanceSlots: card.type_position_tags.includes("Large") ? 2 : 1,
           };
         });
+      const bossIds = RUINS_BOSS_CATALOG_CARD_IDS;
+      const bossMonsters = currentQuest
+        ? [
+            ...normalizedMonsterMediumFileSchema.parse(read("monster_medium")).cards,
+            ...normalizedMonsterLargeFileSchema.parse(read("monster_large")).cards,
+          ]
+            .filter((c) => bossIds.has(c.id))
+            .map((c) => {
+              if (
+                !("skills" in c) ||
+                c.verification.unverified ||
+                c.speed === undefined ||
+                !c.stanceGroups
+              )
+                throw new Error(`Boss 战斗目录缺完整数据：${c.id}`);
+              const dodge = c.header_unlabeled_numbers.filter(
+                (n) =>
+                  n.anchor.type === "beside_icon" &&
+                  n.anchor.inside_icon?.key === "dodge" &&
+                  n.anchor.inside_icon.naming === "confirmed",
+              );
+              if (dodge.length !== 1 || !Number.isSafeInteger(dodge[0]!.numeric))
+                throw new Error(`Boss 缺 Dodge：${c.id}`);
+              return {
+                ...c,
+                dodge: dodge[0]!.numeric,
+                stanceSlots: c.type_position_tags.includes("Large") ? 2 : 1,
+              };
+            })
+        : [];
+      if (currentQuest && bossMonsters.length !== bossIds.size)
+        throw new Error("Boss 目录身份不齐");
       const tile = roomTileGeometryFileSchema
         .parse(read("room_tile_geometry"))
         .tiles.find(
@@ -238,7 +271,7 @@ export function battleDataPlugin(): Plugin {
         monsters.length !== monsterIds.size
       )
         throw new Error("战斗沙盒缺少获批卡牌，拒绝替换或补值（R-048）");
-      return `export const battleData = ${JSON.stringify({ conditions, heroStats, skills, monsters, resolveCards, deployment: tile.deployment, areas: roomTileBattleAreas(tile), tileName: tile.name })};`;
+      return `export const battleData = ${JSON.stringify({ conditions, heroStats, skills, monsters, ...(currentQuest ? { bossMonsters } : {}), resolveCards, deployment: tile.deployment, areas: roomTileBattleAreas(tile), tileName: tile.name })};`;
     },
   };
 }

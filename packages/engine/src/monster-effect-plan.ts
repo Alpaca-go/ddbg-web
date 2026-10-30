@@ -33,6 +33,9 @@ export function compileMonsterEffectPlan(
         case "status":
           token = `${effect.amount ?? ""}{${effect.kind}}${effect.duration}t`;
           break;
+        case "heal":
+          token = `{heal}${effect.amount}`;
+          break;
         case "stress":
           token = `{stress}+${effect.amount}`;
           break;
@@ -52,7 +55,12 @@ export function compileMonsterEffectPlan(
       return prefix + token;
     })
     .join("");
-  if (signatures.length !== 1 || signatures[0]!.replace(/,/g, "") !== plannedSignature)
+  if (
+    signatures.length !== 1 ||
+    signatures[0]!
+      .replace(/,/g, "")
+      .replace(/\{heal\}(?:\{heal\})?(\d+)(?:\{heal\})?/g, "{heal}$1") !== plannedSignature
+  )
     return refuse("怪物原语内容或作用范围与整行卡面不符（R-048）");
   const icons = new Map<string, Extract<SkillSegment, { type: "icon" }>>();
   for (const segment of view.effect_lines.flat()) {
@@ -64,6 +72,7 @@ export function compileMonsterEffectPlan(
   const lines: SkillSegment[][] = [];
   const statuses: NonNullable<HeroSkillCardView["verified_status_effects"]>[number][] = [];
   let stress: HeroSkillCardView["verified_target_stress"];
+  let selfHeal: HeroSkillCardView["verified_self_heal"];
   let bonus: HeroSkillCardView["verified_damage_bonus"];
   let selfLight = 0,
     targetLight = 0;
@@ -92,6 +101,13 @@ export function compileMonsterEffectPlan(
       if (scope === "self") line.push(text("Self"));
       const lineIndex = lines.length;
       switch (effect.type) {
+        case "heal":
+          if (effect.scope === "self") {
+            if (selfHeal) return refuse("怪物效果计划重复自身治疗原语");
+            selfHeal = { lineIndex, amount: effect.amount, source: "print_front" };
+          }
+          line.push(icon("heal"), text(String(effect.amount)));
+          break;
         case "status": {
           if (effect.amount !== undefined) line.push(text(String(effect.amount)));
           const segmentIndex = line.length;
@@ -145,6 +161,7 @@ export function compileMonsterEffectPlan(
       ...base,
       effect_lines: lines,
       verified_status_effects: statuses,
+      ...(selfHeal ? { verified_self_heal: selfHeal } : {}),
       ...(disease ? { verified_target_disease: true as const } : {}),
       ...(stress ? { verified_target_stress: stress } : {}),
       ...(bonus ? { verified_damage_bonus: bonus } : {}),

@@ -25,6 +25,18 @@ const expected = [
   ["monster_medium:p053", 3],
   ["monster_medium:p089", 3],
   ["monster_medium:p090", 3],
+  ["monster_medium:p091", 3],
+  ["monster_medium:p093", 2],
+  ["monster_medium:p094", 2],
+  ["monster_medium:p095", 1],
+  ["monster_medium:p096", 1],
+  ["monster_medium:p097", 1],
+  ["monster_medium:p098", 1],
+  ["monster_medium:p099", 1],
+  ["monster_medium:p100", 1],
+  ["monster_medium:p101", 2],
+  ["monster_medium:p102", 2],
+  ["monster_medium:p103", 2],
 ] as const;
 const originals = built.monster_medium.cards.map((card) => {
   const copy = structuredClone(card);
@@ -50,14 +62,21 @@ describe("获批中型怪物 Speed 入库（R24、R-001、R-048）", () => {
       expect(card.stanceGroups, id).toBeDefined();
       expect(card.verification.unverified, id).toBe(false);
     }
+    const largeSpeeds: Record<string, number> = {
+      p001: 1,
+      p002: 1,
+      p003: 2,
+      p006: 1,
+      p007: 1,
+      p008: 2,
+      p009: 2,
+      p010: 3,
+      p011: 0,
+      p012: 0,
+      p013: 0,
+    };
     for (const card of built.monster_large.cards)
-      expect(card.speed, card.id).toBe(
-        ["monster_large:p001", "monster_large:p002"].includes(card.id)
-          ? 1
-          : ["monster_large:p003", "monster_large:p008"].includes(card.id)
-            ? 2
-            : undefined,
-      );
+      expect(card.speed, card.id).toBe(largeSpeeds[card.id.replace("monster_large:", "")]);
     expect(loadNormalizedCorebox()).toEqual(built);
   });
 

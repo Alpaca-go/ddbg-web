@@ -13,7 +13,27 @@ export type BossBattleRules = {
   readonly campaignFailOnPartyWipe: boolean;
 };
 
+export type HigherRuinsThreat = {
+  readonly status: "ok";
+  readonly effect: "ruinsHigherThreat";
+  readonly kind:
+    | "reanimation"
+    | "scoutStress"
+    | "unholySpawnStress"
+    | "curioTheft"
+    | "campFour"
+    | "battleMarkAll"
+    | "hamletSkillDebuff"
+    | "hamletGoldTheft"
+    | "hamletTrinketTheft"
+    | "lynchMob";
+  readonly amount: number;
+  readonly sourceAbilityCardId: string;
+  readonly rulesRef: readonly string[];
+};
+
 export type BossThreatPassiveDungeonOk =
+  | HigherRuinsThreat
   | {
       readonly status: "ok";
       readonly effect: "firstBattleBoneCaptain";
@@ -81,6 +101,7 @@ export type BossThreatPassiveDungeonOk =
     };
 
 export type BossThreatPassiveHamletOk =
+  | HigherRuinsThreat
   | {
       readonly status: "ok";
       readonly effect: "firstDayGraveyardGuard";

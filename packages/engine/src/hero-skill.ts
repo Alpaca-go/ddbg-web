@@ -269,6 +269,11 @@ export type HeroSkillCardView = {
     readonly source: "print_front";
   };
   readonly effect_lines: readonly (readonly SkillSegment[])[];
+  readonly verified_self_heal?: {
+    readonly lineIndex: number;
+    readonly amount: number;
+    readonly source: "print_front";
+  };
   readonly verified_target_stress?: {
     readonly lineIndex: number;
     readonly amount: number;
@@ -804,6 +809,14 @@ function readImmediateStress(skill: HeroSkillCardView): ImmediateStress {
  */
 function readSelfHeal(skill: HeroSkillCardView): SelfHeal {
   const none: SelfHeal = { amount: 0, lineCount: 0 };
+  const confirmed = skill.verified_self_heal;
+  if (confirmed)
+    return confirmed.source === "print_front" &&
+      nonNegativeInteger(confirmed.amount) &&
+      skill.effect_lines[confirmed.lineIndex] &&
+      selfHealLine(skill.effect_lines[confirmed.lineIndex]!, confirmed.amount)
+      ? { amount: confirmed.amount, lineCount: 1 }
+      : none;
   const numerics: number[] = [];
   for (const item of skill.unlabeled_numbers) {
     if (item.anchor.type !== "beside_icon") continue;

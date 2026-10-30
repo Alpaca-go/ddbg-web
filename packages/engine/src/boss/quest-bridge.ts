@@ -1,3 +1,4 @@
+import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
 import { basicQuests, type BasicQuestId, type CampaignLevel } from "../../../data/src/basic-quests";
 import { readCampaignLevel } from "../hamlet-campaign";
 import { ensureCoreBossScriptsRegistered } from "./ensure-core-boss-scripts";
@@ -64,10 +65,12 @@ export function resolveBossScriptIdForQuest(
     ensureCoreBossScriptsRegistered();
     const active = context?.activeBossThreatScriptId;
     const entry = active ? getBossScript(active)?.combatEntry : undefined;
-    return level === 2 &&
-      active === "boss:ruins:necromancer:2" &&
-      context?.imminentThreatDescriptionCardId === "boss_ability:p002" &&
-      entry?.descriptionAbilityCardId === context.imminentThreatDescriptionCardId
+    const expected = Object.values(RUINS_COMBAT_LEVELS)
+      .flat()
+      .find((e) => e.script === active && e.script.endsWith(`:${level}`));
+    return expected &&
+      context?.imminentThreatDescriptionCardId === expected.description &&
+      entry?.descriptionAbilityCardId === expected.description
       ? active
       : undefined;
   }
@@ -76,7 +79,7 @@ export function resolveBossScriptIdForQuest(
   if (questId === FACE_THE_THREAT_QUEST_ID) {
     ensureCoreBossScriptsRegistered();
     const active = context?.activeBossThreatScriptId;
-    if (active === "boss:ruins:necromancer:2") return undefined;
+    if (active && !active.endsWith(":1")) return undefined;
     if (active && getBossScript(active)) return active;
     return faceTheThreatBossScriptByCampaignLevel[level];
   }

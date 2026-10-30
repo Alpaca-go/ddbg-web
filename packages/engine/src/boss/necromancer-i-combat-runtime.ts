@@ -17,9 +17,15 @@ import {
   NECROMANCER_II_SUMMON_MONSTER_CARD_ID,
 } from "./necromancer-ii";
 
+import {
+  NECROMANCER_III_COMBAT_MONSTER_CARD_ID,
+  NECROMANCER_III_SCRIPT_ID,
+  NECROMANCER_III_SUMMON_MONSTER_CARD_ID,
+} from "./necromancer-iii";
+
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 
-/** 两等级独立核实的卡引用；不从等级或同名卡推导。 */
+/** 三等级独立核实的卡引用；不从等级或同名卡推导。 */
 function necromancerCombat(state: GameState) {
   const id = resolveEncounterBossScriptId(state);
   if (id === NECROMANCER_I_SCRIPT_ID)
@@ -35,6 +41,13 @@ function necromancerCombat(state: GameState) {
       card: NECROMANCER_II_COMBAT_MONSTER_CARD_ID,
       summon: NECROMANCER_II_SUMMON_MONSTER_CARD_ID,
       summonName: "Bone Soldier",
+    };
+  if (id === NECROMANCER_III_SCRIPT_ID)
+    return {
+      id,
+      card: NECROMANCER_III_COMBAT_MONSTER_CARD_ID,
+      summon: NECROMANCER_III_SUMMON_MONSTER_CARD_ID,
+      summonName: "Bone Spearman",
     };
   return undefined;
 }
@@ -144,6 +157,7 @@ export function continueNecromancerISummon(
     }
   )?.header_unlabeled_numbers?.filter(
     (n) =>
+      n.anchor.type === "beside_icon" &&
       n.anchor.inside_icon?.key === "dodge" &&
       ["confirmed", "confirmed_rulebook"].includes(n.anchor.inside_icon.naming),
   );
@@ -157,11 +171,14 @@ export function continueNecromancerISummon(
     verifiedDodge! < 0 ||
     !card.resistances ||
     card.resistances.some((i) => !["confirmed", "confirmed_rulebook"].includes(i.naming)) ||
-    (boss.id === NECROMANCER_II_SCRIPT_ID &&
+    (boss.id !== NECROMANCER_I_SCRIPT_ID &&
       (!card.immunities ||
         card.immunities.some((i) => !["confirmed", "confirmed_rulebook"].includes(i.naming))))
   )
-    return rejectBattleCommand(state, "召唤缺少已核实 Bone Rabble / Bone Soldier 属性（R-048）");
+    return rejectBattleCommand(
+      state,
+      "召唤缺少已核实 Bone Rabble / Bone Soldier / Bone Spearman 属性（R-048）",
+    );
   if (
     battle.areas.some((a) => !Number.isSafeInteger(a.capacity)) ||
     !battle.areas.some((a) => a.id === areaId)
@@ -216,7 +233,7 @@ export function continueNecromancerISummon(
     entities = entities.map((e) => (e.id === id ? { ...e, areaId: destination } : e));
   }
   const summon: BattleEntity = {
-    id: `boss:necromancer:${boss.id === NECROMANCER_I_SCRIPT_ID ? "rabble" : "soldier"}:${battle.entities.length}`,
+    id: `boss:necromancer:${boss.id === NECROMANCER_I_SCRIPT_ID ? "rabble" : boss.id === NECROMANCER_II_SCRIPT_ID ? "soldier" : "spearman"}:${battle.entities.length}`,
     side: "monster",
     hero: null,
     monsterCardId: card.id,

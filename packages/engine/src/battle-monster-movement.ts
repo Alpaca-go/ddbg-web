@@ -1,3 +1,5 @@
+import { isPyreCard } from "./boss/pyre-skill";
+import { isCollectedVestalCard } from "./boss/collected-vestal";
 import { distance, rejectBattleCommand, skillTargetView } from "./battle";
 import type { BattleArea } from "./battle";
 import type { ApplyResult, GameState } from "./command";
@@ -223,7 +225,7 @@ export function moveMonsterToRange(
     actor.dead ||
     (actor.stanceSlots !== 1 && actor.stanceSlots !== 2) ||
     !target ||
-    target.side !== "hero" ||
+    (target.side !== "hero" && !(isCollectedVestalCard(card?.id) && target.side === "monster")) ||
     target.dead ||
     !card ||
     actor.life !== card.life
@@ -238,25 +240,28 @@ export function moveMonsterToRange(
   const minRange = range.kind === "exact" ? range.distance : range.min;
   const maxRange = range.kind === "exact" ? range.distance : range.max;
   // 复用纯技能校验，不掷骰或写伤害；预设印刷距离只用来排除未知数值 / 不支持效果。
-  const probe = resolveMonsterSkill(
-    card,
-    action.skillSlot,
-    {
-      actor: {
-        id: actor.id,
-        wounds: actor.wounds,
-        ...(actor.buffStacks === undefined ? {} : { buffStacks: actor.buffStacks }),
-        ...(actor.shuffleResist === undefined ? {} : { shuffleResist: actor.shuffleResist }),
-      },
-      target: skillTargetView(target, battle),
-      areaDistance: minRange,
-      light: battle.light,
-      shuffleChoice: "push",
-      guardedHeroOmitted:
-        !target.guard && battle.entities.some((e) => e.side === "hero" && !e.dead && e.guard),
-    },
-    1,
-  );
+  const probe =
+    isCollectedVestalCard(card.id) || isPyreCard(card.id)
+      ? { status: "resolved" as const }
+      : resolveMonsterSkill(
+          card,
+          action.skillSlot,
+          {
+            actor: {
+              id: actor.id,
+              wounds: actor.wounds,
+              ...(actor.buffStacks === undefined ? {} : { buffStacks: actor.buffStacks }),
+              ...(actor.shuffleResist === undefined ? {} : { shuffleResist: actor.shuffleResist }),
+            },
+            target: skillTargetView(target, battle),
+            areaDistance: minRange,
+            light: battle.light,
+            shuffleChoice: "push",
+            guardedHeroOmitted:
+              !target.guard && battle.entities.some((e) => e.side === "hero" && !e.dead && e.guard),
+          },
+          1,
+        );
   if (probe.status === "refused") return rejectBattleCommand(state, probe.reason);
   const heights = { low: 0, normal: 1, high: 2 };
   const targetArea = battle.areas.find((area) => area.id === target.areaId);

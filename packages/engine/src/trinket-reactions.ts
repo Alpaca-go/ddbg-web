@@ -479,7 +479,7 @@ export function scoutTrinketReaction(d: DungeonState, heroId: string, stress: nu
 export function defenceTrinketReaction(
   b: Scope,
   heroId: string,
-  roll: number,
+  roll: number | null,
   hitThreshold: number | null,
   original: "hit" | "crit" | "miss" | null,
 ): {
@@ -518,7 +518,11 @@ export function defenceTrinketReaction(
         id,
         label: CORE_TRINKET_BINDINGS[id].name + "：本次Dodge" + (n > 0 ? "+" : "") + n,
       });
-    if (outcome === "hit" && availableTrinket(b, heroId, "trinket:p017", "inverted"))
+    if (
+      roll !== null &&
+      outcome === "hit" &&
+      availableTrinket(b, heroId, "trinket:p017", "inverted")
+    )
       options.push({ id: "trinket:p017", label: "Book of Holiness：将本次命中变为暴击" });
     if (outcome === "hit" || outcome === "crit") {
       if (availableTrinket(b, heroId, "trinket:p022", "upright"))
@@ -534,14 +538,14 @@ export function defenceTrinketReaction(
       b,
       heroId,
       "defence",
-      "技能骰 d10=" + roll + "；选择防御/受击饰品",
+      (roll === null ? "自动命中，无技能骰" : "技能骰 d10=" + roll) + "；选择防御/受击饰品",
       options,
     );
     if (chosen === "continue") return { outcome, halve, statuses, hitThreshold: threshold };
     const dodge = applicable.find(([id]) => id === chosen);
     if (dodge) {
       threshold = threshold! - dodge[2];
-      if (outcome !== "crit") outcome = roll <= threshold ? "hit" : "miss";
+      if (outcome !== "crit") outcome = roll !== null && roll <= threshold ? "hit" : "miss";
     } else if (chosen === "trinket:p017") outcome = "crit";
     else if (chosen === "trinket:p022") halve = true;
     else statuses.push({ ...negative.find(([id]) => id === chosen)![1] });

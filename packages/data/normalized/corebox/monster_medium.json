@@ -9,8 +9,8 @@
  },
  "stats": {
   "cards": 54,
-  "verified": 45,
-  "unverified": 9
+  "verified": 54,
+  "unverified": 0
  },
  "cards": [
   {
@@ -49902,6 +49902,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 3,
    "resistances": [
     {
      "iconId": "91ca3fa960",
@@ -51279,6 +51280,33 @@
      }
     ]
    ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 3,
+       "skill": 1
+      },
+      {
+       "min": 4,
+       "max": 6,
+       "skill": 2
+      },
+      {
+       "min": 7,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    }
+   ],
    "back_texts": [
     [
      {
@@ -52122,7 +52150,20 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -52512,7 +52553,33 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{heal}{heal}9{target_effects}2{bleed}2t,{mark}2t"
+      ],
+      "effects": [
+       {
+        "type": "heal",
+        "scope": "self",
+        "amount": 9
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "bleed",
+        "duration": 2,
+        "amount": 2
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "mark",
+        "duration": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -53340,6 +53407,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [
     {
      "iconId": "1202a8c5f4",
@@ -53632,7 +53700,20 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -54022,7 +54103,33 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{heal}14{heal}{target_effects}2{bleed}2t,{mark}2t"
+      ],
+      "effects": [
+       {
+        "type": "heal",
+        "scope": "self",
+        "amount": 14
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "bleed",
+        "duration": 2,
+        "amount": 2
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "mark",
+        "duration": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -54298,6 +54405,28 @@
       "text": " 6-10 1-5"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    }
    ],
    "back_texts": [
     [
@@ -54850,6 +54979,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [
     {
      "iconId": "1202a8c5f4",
@@ -55142,7 +55272,20 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -55532,7 +55675,33 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{heal}18{heal}{target_effects}3{bleed}2t,{mark}2t"
+      ],
+      "effects": [
+       {
+        "type": "heal",
+        "scope": "self",
+        "amount": 18
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "bleed",
+        "duration": 2,
+        "amount": 3
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "mark",
+        "duration": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -55809,6 +55978,28 @@
      }
     ]
    ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    }
+   ],
    "back_texts": [
     [
      {
@@ -56033,13 +56224,13 @@
     {
      "iconId": "293f170eab",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_293f170eab",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-     "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+     "status": "confirmed",
+     "key": "stance_support_monster_slot",
+     "kind": "position",
+     "meaning_en": "Monster stance slot: Support (pillars)",
+     "meaning_zh": "怪物站位栏：支援（柱）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "6cee7f5b3b",
@@ -56101,23 +56292,22 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:293f170eab"
-    ]
+    "unverified": false,
+    "reasons": []
    },
-   "life": 1,
+   "life": 11,
    "life_icon": {
-    "iconId": "6cee7f5b3b",
+    "iconId": "6c0295c4e8",
     "in_dictionary": true,
     "status": "confirmed",
-    "key": "skill_number",
+    "key": "life",
     "kind": "other",
-    "meaning_en": "Skill ID",
-    "meaning_zh": "技能编号",
+    "meaning_en": "Life (HP) – number inside",
+    "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [],
    "immunities": [
     {
@@ -56399,7 +56589,22 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}1{bleed}2t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "bleed",
+        "duration": 2,
+        "amount": 1
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -56517,13 +56722,13 @@
       "icon": {
        "iconId": "293f170eab",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_293f170eab",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-       "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+       "status": "confirmed",
+       "key": "stance_support_monster_slot",
+       "kind": "position",
+       "meaning_en": "Monster stance slot: Support (pillars)",
+       "meaning_zh": "怪物站位栏：支援（柱）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -56549,6 +56754,17 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": [
     [
@@ -56774,13 +56990,13 @@
     {
      "iconId": "293f170eab",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_293f170eab",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-     "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+     "status": "confirmed",
+     "key": "stance_support_monster_slot",
+     "kind": "position",
+     "meaning_en": "Monster stance slot: Support (pillars)",
+     "meaning_zh": "怪物站位栏：支援（柱）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "6cee7f5b3b",
@@ -56842,23 +57058,22 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:293f170eab"
-    ]
+    "unverified": false,
+    "reasons": []
    },
-   "life": 1,
+   "life": 15,
    "life_icon": {
-    "iconId": "6cee7f5b3b",
+    "iconId": "6c0295c4e8",
     "in_dictionary": true,
     "status": "confirmed",
-    "key": "skill_number",
+    "key": "life",
     "kind": "other",
-    "meaning_en": "Skill ID",
-    "meaning_zh": "技能编号",
+    "meaning_en": "Life (HP) – number inside",
+    "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [],
    "immunities": [
     {
@@ -57140,7 +57355,22 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}2{bleed}2t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "bleed",
+        "duration": 2,
+        "amount": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -57258,13 +57488,13 @@
       "icon": {
        "iconId": "293f170eab",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_293f170eab",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-       "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+       "status": "confirmed",
+       "key": "stance_support_monster_slot",
+       "kind": "position",
+       "meaning_en": "Monster stance slot: Support (pillars)",
+       "meaning_zh": "怪物站位栏：支援（柱）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -57290,6 +57520,17 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": [
     [
@@ -57515,13 +57756,13 @@
     {
      "iconId": "293f170eab",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_293f170eab",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-     "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+     "status": "confirmed",
+     "key": "stance_support_monster_slot",
+     "kind": "position",
+     "meaning_en": "Monster stance slot: Support (pillars)",
+     "meaning_zh": "怪物站位栏：支援（柱）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "6cee7f5b3b",
@@ -57583,23 +57824,22 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:293f170eab"
-    ]
+    "unverified": false,
+    "reasons": []
    },
-   "life": 1,
+   "life": 21,
    "life_icon": {
-    "iconId": "6cee7f5b3b",
+    "iconId": "6c0295c4e8",
     "in_dictionary": true,
     "status": "confirmed",
-    "key": "skill_number",
+    "key": "life",
     "kind": "other",
-    "meaning_en": "Skill ID",
-    "meaning_zh": "技能编号",
+    "meaning_en": "Life (HP) – number inside",
+    "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [],
    "immunities": [
     {
@@ -57881,7 +58121,22 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}3{bleed}2t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "bleed",
+        "duration": 2,
+        "amount": 3
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -57999,13 +58254,13 @@
       "icon": {
        "iconId": "293f170eab",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_293f170eab",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-       "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+       "status": "confirmed",
+       "key": "stance_support_monster_slot",
+       "kind": "position",
+       "meaning_en": "Monster stance slot: Support (pillars)",
+       "meaning_zh": "怪物站位栏：支援（柱）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -58031,6 +58286,17 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": [
     [
@@ -58267,13 +58533,13 @@
     {
      "iconId": "293f170eab",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_293f170eab",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-     "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+     "status": "confirmed",
+     "key": "stance_support_monster_slot",
+     "kind": "position",
+     "meaning_en": "Monster stance slot: Support (pillars)",
+     "meaning_zh": "怪物站位栏：支援（柱）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "6cee7f5b3b",
@@ -58335,23 +58601,22 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:293f170eab"
-    ]
+    "unverified": false,
+    "reasons": []
    },
-   "life": 1,
+   "life": 12,
    "life_icon": {
-    "iconId": "6cee7f5b3b",
+    "iconId": "6c0295c4e8",
     "in_dictionary": true,
     "status": "confirmed",
-    "key": "skill_number",
+    "key": "life",
     "kind": "other",
-    "meaning_en": "Skill ID",
-    "meaning_zh": "技能编号",
+    "meaning_en": "Life (HP) – number inside",
+    "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [
     {
      "iconId": "784ec4fe7a",
@@ -58644,7 +58909,21 @@
         "text": " 1t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}1t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 1
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -58762,13 +59041,13 @@
       "icon": {
        "iconId": "293f170eab",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_293f170eab",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-       "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+       "status": "confirmed",
+       "key": "stance_support_monster_slot",
+       "kind": "position",
+       "meaning_en": "Monster stance slot: Support (pillars)",
+       "meaning_zh": "怪物站位栏：支援（柱）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -58794,6 +59073,17 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": [
     [
@@ -59030,13 +59320,13 @@
     {
      "iconId": "293f170eab",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_293f170eab",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-     "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+     "status": "confirmed",
+     "key": "stance_support_monster_slot",
+     "kind": "position",
+     "meaning_en": "Monster stance slot: Support (pillars)",
+     "meaning_zh": "怪物站位栏：支援（柱）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "6cee7f5b3b",
@@ -59098,23 +59388,22 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:293f170eab"
-    ]
+    "unverified": false,
+    "reasons": []
    },
-   "life": 1,
+   "life": 16,
    "life_icon": {
-    "iconId": "6cee7f5b3b",
+    "iconId": "6c0295c4e8",
     "in_dictionary": true,
     "status": "confirmed",
-    "key": "skill_number",
+    "key": "life",
     "kind": "other",
-    "meaning_en": "Skill ID",
-    "meaning_zh": "技能编号",
+    "meaning_en": "Life (HP) – number inside",
+    "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [
     {
      "iconId": "784ec4fe7a",
@@ -59407,7 +59696,21 @@
         "text": " 1t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}1t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 1
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -59525,13 +59828,13 @@
       "icon": {
        "iconId": "293f170eab",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_293f170eab",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-       "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+       "status": "confirmed",
+       "key": "stance_support_monster_slot",
+       "kind": "position",
+       "meaning_en": "Monster stance slot: Support (pillars)",
+       "meaning_zh": "怪物站位栏：支援（柱）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -59557,6 +59860,17 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": [
     [
@@ -59793,13 +60107,13 @@
     {
      "iconId": "293f170eab",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_293f170eab",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-     "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+     "status": "confirmed",
+     "key": "stance_support_monster_slot",
+     "kind": "position",
+     "meaning_en": "Monster stance slot: Support (pillars)",
+     "meaning_zh": "怪物站位栏：支援（柱）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "6cee7f5b3b",
@@ -59861,23 +60175,22 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:293f170eab"
-    ]
+    "unverified": false,
+    "reasons": []
    },
-   "life": 1,
+   "life": 22,
    "life_icon": {
-    "iconId": "6cee7f5b3b",
+    "iconId": "6c0295c4e8",
     "in_dictionary": true,
     "status": "confirmed",
-    "key": "skill_number",
+    "key": "life",
     "kind": "other",
-    "meaning_en": "Skill ID",
-    "meaning_zh": "技能编号",
+    "meaning_en": "Life (HP) – number inside",
+    "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [
     {
      "iconId": "784ec4fe7a",
@@ -60170,7 +60483,21 @@
         "text": " 1t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}1t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 1
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -60288,13 +60615,13 @@
       "icon": {
        "iconId": "293f170eab",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_293f170eab",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-       "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+       "status": "confirmed",
+       "key": "stance_support_monster_slot",
+       "kind": "position",
+       "meaning_en": "Monster stance slot: Support (pillars)",
+       "meaning_zh": "怪物站位栏：支援（柱）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -60320,6 +60647,17 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": [
     [
@@ -60578,13 +60916,13 @@
     {
      "iconId": "293f170eab",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_293f170eab",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-     "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+     "status": "confirmed",
+     "key": "stance_support_monster_slot",
+     "kind": "position",
+     "meaning_en": "Monster stance slot: Support (pillars)",
+     "meaning_zh": "怪物站位栏：支援（柱）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "6cee7f5b3b",
@@ -60646,23 +60984,22 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:293f170eab"
-    ]
+    "unverified": false,
+    "reasons": []
    },
-   "life": 1,
+   "life": 10,
    "life_icon": {
-    "iconId": "6cee7f5b3b",
+    "iconId": "6c0295c4e8",
     "in_dictionary": true,
     "status": "confirmed",
-    "key": "skill_number",
+    "key": "life",
     "kind": "other",
-    "meaning_en": "Skill ID",
-    "meaning_zh": "技能编号",
+    "meaning_en": "Life (HP) – number inside",
+    "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [
     {
      "iconId": "784ec4fe7a",
@@ -60976,7 +61313,26 @@
         "text": " 7"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{buff}2t,{heal}{heal}7"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "buff",
+        "duration": 2
+       },
+       {
+        "type": "heal",
+        "scope": "target",
+        "amount": 7
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -61094,13 +61450,13 @@
       "icon": {
        "iconId": "293f170eab",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_293f170eab",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-       "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+       "status": "confirmed",
+       "key": "stance_support_monster_slot",
+       "kind": "position",
+       "meaning_en": "Monster stance slot: Support (pillars)",
+       "meaning_zh": "怪物站位栏：支援（柱）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -61126,6 +61482,17 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": [
     [
@@ -61384,13 +61751,13 @@
     {
      "iconId": "293f170eab",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_293f170eab",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-     "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+     "status": "confirmed",
+     "key": "stance_support_monster_slot",
+     "kind": "position",
+     "meaning_en": "Monster stance slot: Support (pillars)",
+     "meaning_zh": "怪物站位栏：支援（柱）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "6cee7f5b3b",
@@ -61452,23 +61819,22 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:293f170eab"
-    ]
+    "unverified": false,
+    "reasons": []
    },
-   "life": 1,
+   "life": 14,
    "life_icon": {
-    "iconId": "6cee7f5b3b",
+    "iconId": "6c0295c4e8",
     "in_dictionary": true,
     "status": "confirmed",
-    "key": "skill_number",
+    "key": "life",
     "kind": "other",
-    "meaning_en": "Skill ID",
-    "meaning_zh": "技能编号",
+    "meaning_en": "Life (HP) – number inside",
+    "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [
     {
      "iconId": "784ec4fe7a",
@@ -61782,7 +62148,26 @@
         "text": " 9"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{buff}2t,{heal}{heal}9"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "buff",
+        "duration": 2
+       },
+       {
+        "type": "heal",
+        "scope": "target",
+        "amount": 9
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -61900,13 +62285,13 @@
       "icon": {
        "iconId": "293f170eab",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_293f170eab",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-       "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+       "status": "confirmed",
+       "key": "stance_support_monster_slot",
+       "kind": "position",
+       "meaning_en": "Monster stance slot: Support (pillars)",
+       "meaning_zh": "怪物站位栏：支援（柱）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -61932,6 +62317,17 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": [
     [
@@ -62190,13 +62586,13 @@
     {
      "iconId": "293f170eab",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_293f170eab",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-     "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+     "status": "confirmed",
+     "key": "stance_support_monster_slot",
+     "kind": "position",
+     "meaning_en": "Monster stance slot: Support (pillars)",
+     "meaning_zh": "怪物站位栏：支援（柱）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "6cee7f5b3b",
@@ -62258,23 +62654,22 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:293f170eab"
-    ]
+    "unverified": false,
+    "reasons": []
    },
-   "life": 1,
+   "life": 20,
    "life_icon": {
-    "iconId": "6cee7f5b3b",
+    "iconId": "6c0295c4e8",
     "in_dictionary": true,
     "status": "confirmed",
-    "key": "skill_number",
+    "key": "life",
     "kind": "other",
-    "meaning_en": "Skill ID",
-    "meaning_zh": "技能编号",
+    "meaning_en": "Life (HP) – number inside",
+    "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [
     {
      "iconId": "784ec4fe7a",
@@ -62580,7 +62975,26 @@
         }
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{buff}2t,{heal}11{heal}"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "buff",
+        "duration": 2
+       },
+       {
+        "type": "heal",
+        "scope": "target",
+        "amount": 11
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -62698,13 +63112,13 @@
       "icon": {
        "iconId": "293f170eab",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_293f170eab",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: support pillars box (orange fill, dark frame)",
-       "meaning_zh": "待确认图形：支援柱子框（橙色填充）",
+       "status": "confirmed",
+       "key": "stance_support_monster_slot",
+       "kind": "position",
+       "meaning_en": "Monster stance slot: Support (pillars)",
+       "meaning_zh": "怪物站位栏：支援（柱）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      },
      {
@@ -62730,6 +63144,17 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": [
     [

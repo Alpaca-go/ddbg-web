@@ -30,6 +30,7 @@ export const monsterEffectPlanSchema = z.strictObject({
     .array(
       z.discriminatedUnion("type", [
         status,
+        z.strictObject({ type: z.literal("heal"), scope, amount: z.int().positive() }),
         z.strictObject({
           type: z.literal("stress"),
           scope: z.literal("target"),
