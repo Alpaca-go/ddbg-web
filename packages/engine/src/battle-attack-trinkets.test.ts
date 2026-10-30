@@ -20,6 +20,7 @@ function fixture(
   face: "upright" | "inverted" = "upright",
   seed = 4,
   monsterId = "monster_medium:p001",
+  light = 5,
 ) {
   const catalog = coreQuestSources.catalog,
     skill = catalog.skills.find((s) => s.id === skillId)!;
@@ -75,7 +76,7 @@ function fixture(
   const initial = createBattleState(seed, {
     ...catalog,
     entities,
-    light: 5,
+    light,
     areas: [
       { id: "a", adjacent: ["b"], elevation: "normal", capacity: 8 },
       { id: "b", adjacent: ["a"], elevation: "normal", capacity: 8 },
@@ -494,4 +495,378 @@ it("无Crit栏的技能不提供正面，反面仅要求Acc且姿态适用", () 
   const opened = ok(applyCommand(back.state, back.command));
   expect(opened.pendingChoice!.options.map((o) => o.id)).toContain("trinket:p033");
   expect(choose(opened, "trinket:p033").state.battle!.trinkets!.held[0]!.face).toBe("upright");
+});
+
+it.each(["trinket:p021", "trinket:p026"] as const)(
+  "%s：光照2/3/4逐面边界，正面Crit+2、反面命中零伤害",
+  (id) => {
+    for (const light of [2, 3, 4]) {
+      for (const face of ["upright", "inverted"] as const) {
+        const allowed = (id === "trinket:p021") === (face === "upright") ? light <= 3 : light >= 3;
+        const { state, command } = fixture(
+          [id],
+          "aggressive",
+          "hero_skill:p001",
+          face,
+          0,
+          "monster_medium:p001",
+          light,
+        );
+        const initial = structuredClone(state);
+        const window = ok(applyCommand(state, command));
+        if (!allowed) {
+          expect(window.pendingChoice).toBeUndefined();
+          expect(window.state.battle!.trinkets!.held[0]!.face).toBe(face);
+          continue;
+        }
+        expect(window.state.battle!.rngCursor).toBe(0);
+        expect(window.state.battle!.entities).toEqual(state.battle.entities);
+        const skipped = choose(window, "continue");
+        expect(outcome(skipped)).toMatchObject({ roll: 3, resolution: { outcome: "hit" } });
+        const used = choose({ ...window, state: JSON.parse(JSON.stringify(window.state)) }, id);
+        expect(outcome(used)).toMatchObject({
+          roll: 3,
+          resolution:
+            face === "upright"
+              ? { outcome: "crit" }
+              : { outcome: "hit", damageDealt: 0, riposteDamage: null },
+        });
+        expect(used.state.battle!.trinkets!.held[0]!.face).toBe(
+          face === "upright" ? "inverted" : "upright",
+        );
+        expect(used.state.battle!.usedTrinketIds).toEqual([id]);
+        expect(used.state.battle!.rngCursor).toBe(1);
+        expect(used.state.battle!.encounter!.turn).toMatchObject({ actions: 1 });
+        expect(used.events.filter((e) => e.type === "trinketUsed")).toHaveLength(1);
+        expect(state).toEqual(initial);
+        // Crit0 + 光照1 + 饰品2=3，紧邻的骰4仍是普通命中。
+        if (face === "upright") {
+          const above = fixture(
+            [id],
+            "aggressive",
+            "hero_skill:p001",
+            face,
+            18,
+            "monster_medium:p001",
+            light,
+          );
+          expect(outcome(choose(ok(applyCommand(above.state, above.command)), id))).toMatchObject({
+            roll: 4,
+            resolution: { outcome: "hit" },
+          });
+        }
+      }
+    }
+  },
+);
+
+it("反面取消含Unholy加成的伤害与反弹，保留命中状态及光照效果", () => {
+  const run = fixture(
+    ["trinket:p021"],
+    "aggressive",
+    "hero_skill:p001",
+    "inverted",
+    18,
+    "monster_medium:p001",
+    3,
+  );
+  const state: GameState = {
+    ...run.state,
+    battle: {
+      ...run.state.battle,
+      entities: run.state.battle.entities.map((e) =>
+        e.id === "m" ? { ...e, protection: true, riposte: true } : e,
+      ),
+    },
+  };
+  const window = ok(applyCommand(state, run.command));
+  expect(outcome(choose(window, "continue"))).toMatchObject({
+    resolution: { damageDealt: 4, riposteDamage: 4 },
+  });
+  const used = choose(window, "trinket:p021");
+  expect(outcome(used)).toMatchObject({
+    resolution: { outcome: "hit", damageDealt: 0, riposteDamage: null },
+  });
+  expect(used.state.battle!.entities.find((e) => e.id === "h0")!.wounds).toBe(0);
+  expect(used.state.battle!.entities.find((e) => e.id === "m")!.wounds).toBe(0);
+  const status = fixture(
+    ["trinket:p021"],
+    "support",
+    "hero_skill:p091",
+    "inverted",
+    18,
+    "monster_medium:p001",
+    3,
+  );
+  const resolved = choose(ok(applyCommand(status.state, status.command)), "trinket:p021");
+  expect(outcome(resolved)).toMatchObject({ resolution: { outcome: "hit", damageDealt: 0 } });
+  expect(resolved.state.battle!.entities.find((e) => e.id === "m")!.statusStacks).toContainEqual({
+    kind: "stun",
+    remaining: 1,
+  });
+  expect(resolved.state.battle!.light).toBe(4);
+});
+
+it("先用命中石将落空改为命中，才提供反面零伤害；选择暂存且JSON续接不重掷", () => {
+  const run = fixture(
+    ["trinket:p021", "trinket:p001"],
+    "aggressive",
+    "hero_skill:p001",
+    "upright",
+    4,
+    "monster_medium:p001",
+    3,
+  );
+  const state: GameState = {
+    ...run.state,
+    battle: {
+      ...run.state.battle,
+      trinkets: {
+        ...run.state.battle.trinkets!,
+        held: run.state.battle.trinkets!.held.map((h) =>
+          h.cardId === "trinket:p021" ? { ...h, face: "inverted" } : h,
+        ),
+      },
+    },
+  };
+  const opened = ok(applyCommand(state, run.command));
+  expect(opened.pendingChoice!.options.map((o) => o.id)).toEqual(["continue", "trinket:p001"]);
+  const planned = choose(opened, "trinket:p001");
+  expect(planned.pendingChoice!.options.map((o) => o.id)).toEqual(["continue", "trinket:p021"]);
+  expect(planned.state.battle!.trinkets).toEqual(state.battle!.trinkets);
+  expect(planned.state.battle!.rngCursor).toBe(0);
+  const used = choose(
+    { ...planned, state: JSON.parse(JSON.stringify(planned.state)) },
+    "trinket:p021",
+  );
+  expect(outcome(used)).toMatchObject({ roll: 10, resolution: { outcome: "hit", damageDealt: 0 } });
+  expect(used.state.battle!.usedTrinketIds).toEqual(["trinket:p001", "trinket:p021"]);
+  expect(used.state.battle!.rngCursor).toBe(1);
+});
+
+it("若Acc惩罚会令已选零伤害失去命中条件，则不提供该无效组合", () => {
+  const { state, command } = fixture(
+    ["trinket:p021", "trinket:p006"],
+    "aggressive",
+    "hero_skill:p001",
+    "inverted",
+    2,
+    "monster_medium:p001",
+    3,
+  );
+  const opened = ok(applyCommand(state, command));
+  const zero = choose(opened, "trinket:p021");
+  expect(zero.pendingChoice).toBeUndefined();
+  expect(outcome(zero)).toMatchObject({ roll: 8, resolution: { outcome: "hit", damageDealt: 0 } });
+  expect(zero.state.battle!.usedTrinketIds).toEqual(["trinket:p021"]);
+  expect(zero.state.battle!.trinkets!.held.find((h) => h.cardId === "trinket:p006")!.face).toBe(
+    "inverted",
+  );
+  const miss = choose(opened, "trinket:p006");
+  expect(miss.pendingChoice).toBeUndefined();
+  expect(outcome(miss)).toMatchObject({ roll: 8, resolution: { outcome: "miss" } });
+  expect(miss.state.battle!.usedTrinketIds).toEqual(["trinket:p006"]);
+});
+
+it("反面多目标共骰仍为暴击、零伤害，只翻一次；纯状态技能不提供零伤害", () => {
+  const { state } = fixture(
+    ["trinket:p021"],
+    "defensive",
+    "hero_skill:p004",
+    "inverted",
+    7,
+    "monster_medium:p001",
+    3,
+  );
+  const opened = ok(
+    applyCommand(state, {
+      type: "playHeroSkillTargets",
+      actorId: "h0",
+      skillId: "hero_skill:p004",
+      targetIds: ["m", "m2"],
+      trinketWindow: HERO_SKILL_TRINKET_IDS,
+    }),
+  );
+  const used = choose(opened, "trinket:p021");
+  expect(used.events.find((e) => e.type === "heroSkillTargetsResolved")).toMatchObject({
+    roll: 1,
+    resolutions: [
+      expect.objectContaining({ outcome: "crit", damageDealt: 0 }),
+      expect.objectContaining({ outcome: "crit", damageDealt: 0 }),
+    ],
+  });
+  expect(
+    used.state
+      .battle!.entities.filter((e) => e.side === "monster")
+      .every((e) => e.wounds === 0 && !e.dead),
+  ).toBe(true);
+  expect(used.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress)).toEqual(
+    [2, 2, 2, 2],
+  );
+  expect(used.state.battle!.rngCursor).toBe(1);
+  expect(used.events.filter((e) => e.type === "trinketUsed")).toHaveLength(1);
+  const status = fixture(
+    ["trinket:p021"],
+    "aggressive",
+    "hero_skill:p028",
+    "inverted",
+    18,
+    "monster_medium:p001",
+    3,
+  );
+  expect(ok(applyCommand(status.state, status.command)).pendingChoice).toBeUndefined();
+});
+
+it("反面零伤害经过自身位移续接，仍保留目标推离、一次骰与翻面", () => {
+  const { state: initial, command } = fixture(
+    ["trinket:p026"],
+    "aggressive",
+    "hero_skill:p070",
+    "inverted",
+    18,
+    "monster_medium:p001",
+    3,
+  );
+  // 同区自身Push先选b，随后目标可从a向远离使用者的c移动。
+  const state: GameState = {
+    ...initial,
+    battle: {
+      ...initial.battle,
+      areas: [
+        { id: "a", adjacent: ["b", "c"], elevation: "normal", capacity: 8 },
+        { id: "b", adjacent: ["a"], elevation: "normal", capacity: 8 },
+        { id: "c", adjacent: ["a"], elevation: "normal", capacity: 8 },
+      ],
+    },
+  };
+  let used = choose(ok(applyCommand(state, command)), "trinket:p026");
+  expect(used.state.battle!.skillPrefix?.trinketAttack?.modifiers.dealNoDamage).toBe(true);
+  const events = [...used.events];
+  for (let n = 0; (used.state.battle!.shuffleIntents.length || used.pendingChoice) && n < 12; n++) {
+    used = used.pendingChoice
+      ? choose(used, used.pendingChoice.options[0]!.id)
+      : ok(applyCommand(used.state, { type: "resolveShuffles" }));
+    events.push(...used.events);
+  }
+  expect(used.state.battle!.skillPrefix).toBeNull();
+  expect(
+    events.find((e) => e.type === "heroSkillResolved" && e.phase === "afterOwn"),
+  ).toMatchObject({ roll: 4, resolution: { outcome: "hit", damageDealt: 0 } });
+  expect(used.state.battle!.entities.find((e) => e.id === "h0")!.areaId).toBe("b");
+  expect(used.state.battle!.entities.find((e) => e.id === "m")!.areaId).toBe("c");
+  expect(used.state.battle!.rngCursor).toBe(1);
+  expect(events.filter((e) => e.type === "trinketUsed")).toHaveLength(1);
+});
+
+it("多目标中先落空的目标不掩盖后面的命中；按当前共骰结果提供反面", () => {
+  const run = fixture(
+    ["trinket:p021", "trinket:p001"],
+    "defensive",
+    "hero_skill:p004",
+    "upright",
+    4,
+    "monster_medium:p001",
+    3,
+  );
+  const courtier = coreQuestSources.catalog.monsters.find((c) => c.id === "monster_medium:p004")!;
+  const state: GameState = {
+    ...run.state,
+    battle: {
+      ...run.state.battle,
+      entities: run.state.battle.entities.map((e) =>
+        e.id === "m2"
+          ? { ...e, monsterCardId: courtier.id, life: courtier.life, dodge: courtier.dodge! }
+          : e,
+      ),
+      trinkets: {
+        ...run.state.battle.trinkets!,
+        held: run.state.battle.trinkets!.held.map((h) =>
+          h.cardId === "trinket:p021" ? { ...h, face: "inverted" } : h,
+        ),
+      },
+    },
+  };
+  const opened = ok(
+    applyCommand(state, {
+      type: "playHeroSkillTargets",
+      actorId: "h0",
+      skillId: "hero_skill:p004",
+      targetIds: ["m2", "m"],
+      trinketWindow: HERO_SKILL_TRINKET_IDS,
+    }),
+  );
+  const planned = choose(opened, "trinket:p001");
+  expect(planned.pendingChoice!.options.map((o) => o.id)).toContain("trinket:p021");
+  const used = choose(planned, "trinket:p021");
+  expect(used.events.find((e) => e.type === "heroSkillTargetsResolved")).toMatchObject({
+    roll: 10,
+    resolutions: [
+      expect.objectContaining({ targetId: "m2", outcome: "miss", damageDealt: null }),
+      expect.objectContaining({ targetId: "m", outcome: "hit", damageDealt: 0 }),
+    ],
+  });
+  expect(used.state.battle!.rngCursor).toBe(1);
+});
+
+it("旧九张能力名单不启用护腕；比较符漂移、光照篡改的待选原子拒绝", () => {
+  const { state, command } = fixture(
+    ["trinket:p021"],
+    "aggressive",
+    "hero_skill:p001",
+    "inverted",
+    18,
+    "monster_medium:p001",
+    3,
+  );
+  const oldIds = [
+    "trinket:p006",
+    "trinket:p001",
+    "trinket:p002",
+    "trinket:p009",
+    "trinket:p014",
+    "trinket:p031",
+    "trinket:p032",
+    "trinket:p033",
+    "trinket:p034",
+  ] as const;
+  const legacy = { ...command, trinketWindow: oldIds };
+  expect(ok(applyCommand(state, legacy)).pendingChoice).toBeUndefined();
+  expect(savedCommandSchema.parse(legacy)).toEqual(legacy);
+  expect(savedCommandSchema.parse(command)).toEqual(command);
+  const broken: GameState = {
+    ...state,
+    battle: {
+      ...state.battle,
+      trinkets: {
+        ...state.battle.trinkets!,
+        cards: state.battle.trinkets!.cards.map((c) =>
+          c.id !== "trinket:p021"
+            ? c
+            : {
+                ...c,
+                upright_half: {
+                  ...c.upright_half,
+                  effect_lines: c.upright_half.effect_lines.map((l) =>
+                    l.map((s) =>
+                      s.type === "icon" && s.icon.key === "compare_lte"
+                        ? { ...s, icon: { ...s.icon, key: "compare_gte" } }
+                        : s,
+                    ),
+                  ),
+                },
+              },
+        ),
+      },
+    },
+  };
+  expect(applyCommand(broken, command).state).toBe(broken);
+  const window = ok(applyCommand(state, command));
+  const forged: GameState = { ...window.state, battle: { ...window.state.battle!, light: 2 } };
+  expect(
+    applyCommand(forged, {
+      type: "resolveChoice",
+      choiceId: window.pendingChoice!.id,
+      optionId: "trinket:p021",
+    }).state,
+  ).toBe(forged);
 });

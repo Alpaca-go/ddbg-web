@@ -578,6 +578,13 @@ export function playHeroSkill(
   }
   if (resolution.status === "refused")
     return rejectBattleCommand(state, resolution.reason ?? "技能拒绝结算");
+  if (trinketAttack?.preview)
+    return {
+      state,
+      events: [
+        { type: "heroSkillResolved", message: "饰品技能预览", actorId: actor.id, roll, resolution },
+      ],
+    };
   if (command.trinketWindow && !resume && !trinketAttack && roll !== null) {
     const window = beginHeroTrinketWindow(state, command, roll, skill, resolution);
     if (window) return window;

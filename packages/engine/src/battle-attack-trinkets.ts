@@ -14,7 +14,7 @@ import { trinketPoolProblem } from "./trinket-acquisition";
 type Attack = PlayHeroSkillCommand | PlayHeroSkillTargetsCommand;
 type Definition = {
   name: string;
-  level: 1 | 3;
+  level: 1 | 2 | 3;
   positive: string;
   negative: string;
   crit: number;
@@ -23,6 +23,7 @@ type Definition = {
   stance?: SkillStance;
   invertedNotInStance?: SkillStance;
   icon?: string;
+  light?: "dark" | "solar";
 };
 const definitions: Record<HeroSkillTrinketId, Definition> = {
   "trinket:p006": {
@@ -124,6 +125,26 @@ const definitions: Record<HeroSkillTrinketId, Definition> = {
     invertedNotInStance: "support",
     icon: "stance_support_lit",
   },
+  "trinket:p021": {
+    name: "Dark Bracer",
+    level: 2,
+    positive: "Crit+2",
+    negative: "Deal no Damage",
+    crit: 2,
+    accuracy: 0,
+    penalty: 0,
+    light: "dark",
+  },
+  "trinket:p026": {
+    name: "Solar Bracer",
+    level: 2,
+    positive: "Crit+2",
+    negative: "Deal no Damage",
+    crit: 2,
+    accuracy: 0,
+    penalty: 0,
+    light: "solar",
+  },
 };
 type Offer = {
   cardId: HeroSkillTrinketId;
@@ -131,7 +152,57 @@ type Offer = {
   name: string;
   crit: number;
   accuracy: number;
+  noDamage?: true;
 };
+// 分行和比较符半笔按规范化原样核对；完整印刷 p021/p026 决定各面 ≤/≥ 方向。
+function lightFacesMatch(card: NormalizedTrinketCard, light: "dark" | "solar") {
+  const halves = [card.upright_half, card.inverted_half];
+  if (
+    halves.some((h) =>
+      h.effect_lines
+        .flat()
+        .some(
+          (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+        ),
+    )
+  )
+    return false;
+  const tokens = halves.map((h) =>
+    h.effect_lines.map((l) => l.map((s) => (s.type === "text" ? s.text : `@${s.icon.key}`))),
+  );
+  const expected =
+    light === "dark"
+      ? [
+          [["Crit+2 if ", "@light", " ", "@compare_lte", " < 3"]],
+          [
+            ["@compare_gte", " <"],
+            ["When a Skill Hits the Target:"],
+            ["if ", "@light", " 3 Deal no ", "@damage", " ."],
+          ],
+        ]
+      : [
+          [
+            ["Crit+2 if ", "@light", " 3"],
+            ["@compare_lte", " <"],
+          ],
+          [
+            ["When a Skill Hits the Target:"],
+            ["if ", "@light", " ", "@compare_gte", " < 3 Deal no ", "@damage", " ."],
+          ],
+        ];
+  return JSON.stringify(tokens) === JSON.stringify(expected);
+}
+function modifiersFor(
+  offers: readonly Offer[],
+  selected: readonly HeroSkillTrinketId[],
+): HeroTrinketAttack["modifiers"] {
+  const used = offers.filter((o) => selected.includes(o.cardId));
+  return {
+    crit: used.reduce((sum, o) => sum + o.crit, 0),
+    accuracy: used.reduce((sum, o) => sum + o.accuracy, 0),
+    ...(used.some((o) => o.noDamage) ? { dealNoDamage: true } : {}),
+  };
+}
 function exactLine(
   lines: NormalizedTrinketCard["upright_half"]["effect_lines"],
   text: string,
@@ -150,7 +221,12 @@ function exactLine(
         ["confirmed", "confirmed_rulebook"].includes(glyph.icon.naming)))
   );
 }
-function readOffers(state: GameState, command: Attack): { offers: Offer[] } | { problem: string } {
+function readOffers(
+  state: GameState,
+  command: Attack,
+  roll: number,
+  selected: readonly HeroSkillTrinketId[] = [],
+): { offers: Offer[] } | { problem: string } {
   const b = state.battle!,
     ids = command.trinketWindow,
     actor = b.entities.find((e) => e.id === command.actorId);
@@ -196,12 +272,14 @@ function readOffers(state: GameState, command: Attack): { offers: Offer[] } | { 
       card.inverted_half.name !== rule.name ||
       card.upright_half.printed_rotation !== 0 ||
       card.inverted_half.printed_rotation !== 180 ||
-      !exactLine(card.upright_half.effect_lines, rule.positive, rule.icon) ||
-      !exactLine(
-        card.inverted_half.effect_lines,
-        rule.negative,
-        rule.invertedNotInStance ? rule.icon : undefined,
-      )
+      !(rule.light
+        ? lightFacesMatch(card, rule.light)
+        : exactLine(card.upright_half.effect_lines, rule.positive, rule.icon) &&
+          exactLine(
+            card.inverted_half.effect_lines,
+            rule.negative,
+            rule.invertedNotInStance ? rule.icon : undefined,
+          ))
     )
       return { problem: `${rule.name} 的已核实卡面发生变化，保留停点（R-048）` };
     if (
@@ -210,6 +288,11 @@ function readOffers(state: GameState, command: Attack): { offers: Offer[] } | { 
       (item.face === "inverted" && actor.stance === rule.invertedNotInStance)
     )
       continue;
+    if (rule.light) {
+      // p021：正面≤3、反面≥3；p026相反；光照3两面都适用。
+      const low = (rule.light === "dark") === (item.face === "upright");
+      if (low ? b.light > 3 : b.light < 3) continue;
+    }
     if (
       !skill.printed_labels.some(
         (l) => l.label === (item.face === "upright" && rule.crit ? "Crit" : "Acc"),
@@ -222,9 +305,42 @@ function readOffers(state: GameState, command: Attack): { offers: Offer[] } | { 
       name: rule.name,
       crit: item.face === "upright" ? rule.crit : 0,
       accuracy: item.face === "upright" ? rule.accuracy : rule.penalty,
+      ...(rule.light && item.face === "inverted" ? { noDamage: true as const } : {}),
     });
   }
-  return { offers };
+  if (selected.some((id) => !offers.some((o) => o.cardId === id)))
+    return { problem: "已选饰品不再适用，未翻面或结算技能" };
+  const hasDamageHit = (chosen: readonly HeroSkillTrinketId[]) => {
+    const attack: HeroTrinketAttack = {
+      roll,
+      modifiers: modifiersFor(offers, chosen),
+      preview: true,
+    };
+    const preview =
+      command.type === "playHeroSkill"
+        ? playHeroSkill(state, command, undefined, attack)
+        : playHeroSkillTargets(state, command, undefined, attack);
+    return preview.events.some((e) =>
+      e.type === "heroSkillResolved"
+        ? e.resolution.effect === "damage" &&
+          (e.resolution.outcome === "hit" || e.resolution.outcome === "crit")
+        : e.type === "heroSkillTargetsResolved" &&
+          e.resolutions.some(
+            (r) => r.effect === "damage" && (r.outcome === "hit" || r.outcome === "crit"),
+          ),
+    );
+  };
+  const selectedNoDamage = offers.some((o) => o.noDamage && selected.includes(o.cardId));
+  if (selectedNoDamage && !hasDamageHit(selected))
+    return { problem: "零伤害饰品需要技能命中目标，未翻面或结算技能" };
+  return {
+    offers: offers.filter(
+      (o) =>
+        selected.includes(o.cardId) ||
+        !(o.noDamage || selectedNoDamage) ||
+        hasDamageHit([...selected, o.cardId]),
+    ),
+  };
 }
 function present(
   state: GameState,
@@ -244,7 +360,7 @@ function present(
         .filter((o) => !selected.includes(o.cardId))
         .map((o) => ({
           id: o.cardId,
-          label: `${o.name}：${o.crit ? `Crit+${o.crit}` : `Acc${o.accuracy > 0 ? "+" : ""}${o.accuracy}`}（${o.face === "upright" ? "正面→反面" : "反面→正面"}）`,
+          label: `${o.name}：${o.noDamage ? "命中目标但不造成伤害" : o.crit ? `Crit+${o.crit}` : `Acc${o.accuracy > 0 ? "+" : ""}${o.accuracy}`}（${o.face === "upright" ? "正面→反面" : "反面→正面"}）`,
         })),
     ],
   };
@@ -281,7 +397,7 @@ export function beginAttackTrinketWindow(
     resolution.outcome === null
   )
     return null;
-  const available = readOffers(state, command);
+  const available = readOffers(state, command, roll);
   if ("problem" in available) return rejectBattleCommand(state, available.problem);
   return available.offers.length ? present(state, command, roll, available.offers, []) : null;
 }
@@ -290,7 +406,7 @@ export function chooseAttackTrinkets(state: GameState, optionId: string): ApplyR
   const b = state.battle!,
     p = b.pending;
   if (p?.type !== "heroAttackTrinkets") return rejectBattleCommand(state, "缺少饰品使用计划");
-  const available = readOffers(state, p.command);
+  const available = readOffers(state, p.command, p.roll, p.selected);
   if (
     "problem" in available ||
     p.roll !== nextBattleRoll(state.seed, b.rngCursor) ||
@@ -305,15 +421,15 @@ export function chooseAttackTrinkets(state: GameState, optionId: string): ApplyR
     return rejectBattleCommand(state, "饰品使用计划已失效，未翻面或结算技能");
   const selected =
     optionId === "continue" ? p.selected : [...p.selected, optionId as HeroSkillTrinketId];
-  if (optionId !== "continue" && available.offers.some((o) => !selected.includes(o.cardId)))
-    return present(state, p.command, p.roll, available.offers, selected);
-  const used = available.offers.filter((o) => selected.includes(o.cardId));
+  const planned =
+    optionId === "continue" ? available : readOffers(state, p.command, p.roll, selected);
+  if ("problem" in planned) return rejectBattleCommand(state, planned.problem);
+  if (optionId !== "continue" && planned.offers.some((o) => !selected.includes(o.cardId)))
+    return present(state, p.command, p.roll, planned.offers, selected);
+  const used = planned.offers.filter((o) => selected.includes(o.cardId));
   const attack: HeroTrinketAttack = {
     roll: p.roll,
-    modifiers: {
-      crit: used.reduce((sum, o) => sum + o.crit, 0),
-      accuracy: used.reduce((sum, o) => sum + o.accuracy, 0),
-    },
+    modifiers: modifiersFor(used, selected),
   };
   const next = {
     ...state,

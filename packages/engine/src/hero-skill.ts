@@ -416,7 +416,11 @@ export type SkillTargetState = PassiveHolder & {
 
 export type SkillCombatState = {
   /** R26：本次技能宣告后主动使用的饰品修正，不是常驻属性或 Buff。 */
-  readonly trinketModifiers?: { readonly crit: number; readonly accuracy: number };
+  readonly trinketModifiers?: {
+    readonly crit: number;
+    readonly accuracy: number;
+    readonly dealNoDamage?: boolean;
+  };
   /** 引擎内部续接：骰面阈值仍用声明时光照，自身效果不重复。 */
   readonly ownEffectsApplied?: true;
   readonly effectLight?: number;
@@ -2090,7 +2094,9 @@ function combatProblem(combat: SkillCombatState): string | null {
   if (
     combat.trinketModifiers &&
     (!Number.isSafeInteger(combat.trinketModifiers.crit) ||
-      !Number.isSafeInteger(combat.trinketModifiers.accuracy))
+      !Number.isSafeInteger(combat.trinketModifiers.accuracy) ||
+      (combat.trinketModifiers.dealNoDamage !== undefined &&
+        typeof combat.trinketModifiers.dealNoDamage !== "boolean"))
   )
     return "饰品修正必须是已核实整数（R26、R-048）";
   const target = combat.target;
@@ -2901,7 +2907,7 @@ function resolveSkill(
     } else {
       // 明确复核的条件伤害先加一次，再减半；Mark 堆数影响 Acc，不倍增 +2。
       // 其他类型修正 / Hard Skinned 缺值仍不加。
-      const baseDamage =
+      let baseDamage =
         amount +
         bonuses.reduce((total, bonus) => {
           if (target.side === sourceSide) return total;
@@ -2924,6 +2930,8 @@ function resolveSkill(
         }, 0);
       if (!Number.isSafeInteger(baseDamage))
         return refuse(skill, combat, "条件伤害总量超出安全整数范围");
+      // 护腕反面取消伤害总量；命中、暴击及其它目标效果仍按原结果处理（R26）。
+      if (combat.trinketModifiers?.dealNoDamage) baseDamage = 0;
       const skipProtection = ignoresProtection.targetLines > 0;
       const damage = resolveAttackDamage(
         target,
