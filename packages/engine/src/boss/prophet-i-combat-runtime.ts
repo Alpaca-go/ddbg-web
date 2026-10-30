@@ -1,3 +1,4 @@
+import { ruinsCombatForScript, isRuinsCombatCard } from "./ruins-combat-levels";
 import { applyBattleSkillStatuses } from "../battle-skill-status";
 import type { BattleEntity, BattleState } from "../battle";
 import type {
@@ -20,9 +21,7 @@ import { multiTargetHealthEffects, projectActorWounds } from "../skill-actor-hea
 import { runBossHook } from "./hooks";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 import {
-  PROPHET_I_COMBAT_MONSTER_CARD_ID,
   PROPHET_I_RUBBLE_SKILL_SLOT,
-  PROPHET_I_SCRIPT_ID,
   PROPHET_I_WOODEN_PEW_SUMMON_TOKEN_ID,
   prophetRoomMarkerForD10Roll,
   type ProphetRoomD10Marker,
@@ -52,8 +51,8 @@ export function expandProphetIInitiativeDeckSides(
   battle: BattleState,
   state: GameState,
 ): InitiativeSide[] {
-  if (resolveEncounterBossScriptId(state) !== PROPHET_I_SCRIPT_ID) return [...deck];
-  const script = getBossScript(PROPHET_I_SCRIPT_ID);
+  if (!ruinsCombatForScript("prophet", resolveEncounterBossScriptId(state))) return [...deck];
+  const script = getBossScript(resolveEncounterBossScriptId(state)!);
   const entry = script ? readBossCombatEntry(script) : undefined;
   if (!entry) return [...deck];
   if (!prophetEntity(battle)) return [...deck];
@@ -68,7 +67,7 @@ export function prophetSecondActionUsesDefaultSkillSelection(
   actorId: string,
 ): boolean {
   const actor = battle.entities.find((entity) => entity.id === actorId);
-  if (!actor || actor.dead || actor.monsterCardId !== PROPHET_I_COMBAT_MONSTER_CARD_ID) {
+  if (!actor || actor.dead || !isRuinsCombatCard("prophet", actor.monsterCardId)) {
     return false;
   }
   return prophetActionIndexBeforeTurn(battle) === PROPHET_I_SECOND_ACTION_INDEX;
@@ -80,12 +79,12 @@ export function prophetShouldEnterActedIdsAfterTurn(state: GameState, actorId: s
   if (!battle?.encounter) return true;
   const actor = battle.entities.find((entity) => entity.id === actorId);
   if (!actor || actor.side !== "monster") return true;
-  if (resolveEncounterBossScriptId(state) !== PROPHET_I_SCRIPT_ID) return true;
-  if (actor.monsterCardId !== PROPHET_I_COMBAT_MONSTER_CARD_ID) return true;
-  const script = getBossScript(PROPHET_I_SCRIPT_ID);
+  if (!ruinsCombatForScript("prophet", resolveEncounterBossScriptId(state))) return true;
+  if (!isRuinsCombatCard("prophet", actor.monsterCardId)) return true;
+  const script = getBossScript(resolveEncounterBossScriptId(state)!);
   if (!script) return true;
   const budget = defaultMonsterTurnActionCount(script, {
-    scriptId: PROPHET_I_SCRIPT_ID,
+    scriptId: script.id,
     monsterEntityId: actorId,
     round: battle.encounter.round,
   });
@@ -94,7 +93,7 @@ export function prophetShouldEnterActedIdsAfterTurn(state: GameState, actorId: s
 }
 
 export function readProphetICalamitousEnabled(script: BossScriptDefinition): boolean {
-  if (script.id !== PROPHET_I_SCRIPT_ID) return false;
+  if (!ruinsCombatForScript("prophet", script.id)) return false;
   const result = runBossHook(script, "calamitousPrognostication", {
     scriptId: script.id,
     monsterEntityId: "prophet",
@@ -108,7 +107,7 @@ export function readProphetICalamitousEnabled(script: BossScriptDefinition): boo
 }
 
 export function readProphetIRubbleEnabled(script: BossScriptDefinition): boolean {
-  if (script.id !== PROPHET_I_SCRIPT_ID) return false;
+  if (!ruinsCombatForScript("prophet", script.id)) return false;
   const result = runBossHook(script, "rubbleOfRuin", {
     scriptId: script.id,
     monsterEntityId: "prophet",
@@ -133,11 +132,11 @@ export function bumpProphetIActionRoundCount(state: GameState, actorId: string):
     !actor ||
     actor.side !== "monster" ||
     actor.dead ||
-    actor.monsterCardId !== PROPHET_I_COMBAT_MONSTER_CARD_ID
+    !isRuinsCombatCard("prophet", actor.monsterCardId)
   ) {
     return state;
   }
-  if (resolveEncounterBossScriptId(state) !== PROPHET_I_SCRIPT_ID) return state;
+  if (!ruinsCombatForScript("prophet", resolveEncounterBossScriptId(state))) return state;
   const count = battle.prophetActionsThisRound ?? 0;
   return { ...state, battle: { ...battle, prophetActionsThisRound: count + 1 } };
 }
@@ -146,7 +145,7 @@ export function readProphetIWwoodenPewPlan(
   script: BossScriptDefinition,
   pewIndex: ProphetWoodenPewIndex,
 ): BossSummonOk["value"] | null {
-  if (script.id !== PROPHET_I_SCRIPT_ID) return null;
+  if (!ruinsCombatForScript("prophet", script.id)) return null;
   const result = runBossHook(script, "summon", {
     scriptId: script.id,
     skillSlot: 0,
@@ -173,7 +172,7 @@ function prophetEntity(battle: BattleState) {
     (entity) =>
       entity.side === "monster" &&
       !entity.dead &&
-      entity.monsterCardId === PROPHET_I_COMBAT_MONSTER_CARD_ID,
+      isRuinsCombatCard("prophet", entity.monsterCardId),
   );
 }
 
@@ -190,7 +189,7 @@ export function prophetCalamitousShouldReplaceSkill(state: GameState, actorId: s
   if (!script || !readProphetICalamitousEnabled(script)) return false;
 
   const actor = battle.entities.find((entity) => entity.id === actorId);
-  if (!actor || actor.monsterCardId !== PROPHET_I_COMBAT_MONSTER_CARD_ID || actor.dead) {
+  if (!actor || !isRuinsCombatCard("prophet", actor.monsterCardId) || actor.dead) {
     return false;
   }
   // R38：第 1 行动必须尝试 Calamitous；缺表由结算入口拒绝，不能退回普通技能。
@@ -205,7 +204,7 @@ export function applyProphetCalamitousPrognostication(
   const battle = state.battle!;
   const scriptId = resolveEncounterBossScriptId(state);
   const script = scriptId ? getBossScript(scriptId) : undefined;
-  if (!script || script.id !== PROPHET_I_SCRIPT_ID) {
+  if (!script || !ruinsCombatForScript("prophet", script.id)) {
     return { state, events: [] };
   }
   if (!prophetEntity(battle)) return { state, events: [] };
@@ -289,7 +288,7 @@ export function prophetRubbleShouldReplaceSkill(state: GameState, actorId: strin
   if (!script || !readProphetIRubbleEnabled(script)) return false;
 
   const actor = battle.entities.find((entity) => entity.id === actorId);
-  if (!actor || actor.monsterCardId !== PROPHET_I_COMBAT_MONSTER_CARD_ID || actor.dead) {
+  if (!actor || !isRuinsCombatCard("prophet", actor.monsterCardId) || actor.dead) {
     return false;
   }
   return true;
@@ -310,7 +309,7 @@ export function applyProphetRubbleOfRuin(state: GameState, actorId: string): App
   const battle = state.battle!;
   const scriptId = resolveEncounterBossScriptId(state);
   const script = scriptId ? getBossScript(scriptId) : undefined;
-  if (!script || script.id !== PROPHET_I_SCRIPT_ID) {
+  if (!script || !ruinsCombatForScript("prophet", script.id)) {
     return { state, events: [] };
   }
   if (!prophetEntity(battle)) return { state, events: [] };

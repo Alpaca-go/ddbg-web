@@ -20,6 +20,11 @@ declare module "virtual:battle-data" {
       readonly name: string;
       readonly level: number;
     })[];
+    readonly bossMonsters?: readonly (MonsterCardView & {
+      readonly name: string;
+      readonly level: number;
+      readonly dodge: number;
+    })[];
     readonly monsters: readonly (Omit<MonsterCardView, "skills"> & {
       readonly name: string;
       readonly level: number;

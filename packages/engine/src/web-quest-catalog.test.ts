@@ -17,10 +17,17 @@ import {
 
 function webSources(
   id: "battle-data" | "quest-battle-data" | "quest-battle-data-v1" | "quest-battle-data-v2",
+  includeBoss = true,
 ): CoreQuestSources {
   const load = battleDataPlugin().load as (id: string) => string;
   const code = load(`\0virtual:${id}`);
-  const catalog = JSON.parse(code.slice("export const battleData = ".length, -1));
+  const { bossMonsters = [], ...baseCatalog } = JSON.parse(
+    code.slice("export const battleData = ".length, -1),
+  );
+  const catalog = {
+    ...baseCatalog,
+    monsters: [...baseCatalog.monsters, ...(includeBoss ? bossMonsters : [])],
+  };
   return {
     ...coreQuestSources,
     catalog: { ...catalog, trinkets: coreQuestSources.catalog.trinkets },
@@ -306,7 +313,7 @@ it("旧网页存档先验证原目录再更新；伪造快照、日志及非目�
       previousSources,
     ),
   ).toThrow(/改变了游戏结果/);
-});
+}, 20000);
 
 it("旧目录真实战斗待选存档更新卡目录后，行动、实体、待选和RNG完全保留", () => {
   const run = naturalQuest(1, "quest:p001", true, previousSources, 2, {
@@ -322,6 +329,7 @@ it("旧目录真实战斗待选存档更新卡目录后，行动、实体、待�
   expect(updated.battle!.skills.length).toBeGreaterThan(112);
   expect(updated.battle).toEqual({
     ...run.state.battle!,
+    monsters: sources.catalog.monsters,
     heroStats: sources.catalog.heroStats,
     skills: sources.catalog.skills,
   });

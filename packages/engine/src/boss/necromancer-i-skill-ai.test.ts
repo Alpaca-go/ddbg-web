@@ -11,6 +11,11 @@ import {
   ensureNecromancerIIBossScriptRegistered,
 } from "./necromancer-ii";
 
+import {
+  NECROMANCER_III_SCRIPT_ID,
+  ensureNecromancerIIIBossScriptRegistered,
+} from "./necromancer-iii";
+
 function cards<T>(file: string): T[] {
   return JSON.parse(
     readFileSync(new URL(`../../../data/normalized/corebox/${file}.json`, import.meta.url), "utf8"),
@@ -26,10 +31,16 @@ function ok(state: GameState, command: Command): ApplyResult {
   expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
   return result;
 }
-function setupLevel(slot = 3, attackRoll = 5, level: 1 | 2 = 1): GameState {
-  const necro = monsters.find((c) => c.id === `monster_medium:p0${level === 1 ? "89" : "90"}`)!;
+function setupLevel(slot = 3, attackRoll = 5, level: 1 | 2 | 3 = 1): GameState {
+  const necro = monsters.find((c) => c.id === `monster_medium:p0${88 + level}`)!;
   const rabble = monsters.find(
-    (c) => c.id === (level === 1 ? "monster_medium:p040" : "monster_medium:p001"),
+    (c) =>
+      c.id ===
+      (level === 1
+        ? "monster_medium:p040"
+        : level === 2
+          ? "monster_medium:p001"
+          : "monster_medium:p013"),
   )!;
   const seed = 7;
   const cursor = Array.from({ length: 2000 }, (_, i) => i).find(
@@ -100,8 +111,14 @@ function setupLevel(slot = 3, attackRoll = 5, level: 1 | 2 = 1): GameState {
       cursor: 0,
       questDistribution: { questId: "quest:p019" },
       campaignLevel: level,
-      imminentThreatDescriptionCardId: level === 1 ? "boss_ability:p001" : "boss_ability:p002",
-      activeBossThreatScriptId: level === 1 ? NECROMANCER_I_SCRIPT_ID : NECROMANCER_II_SCRIPT_ID,
+      imminentThreatDescriptionCardId:
+        level === 1 ? "boss_ability:p001" : level === 2 ? "boss_ability:p002" : "boss_ability:p003",
+      activeBossThreatScriptId:
+        level === 1
+          ? NECROMANCER_I_SCRIPT_ID
+          : level === 2
+            ? NECROMANCER_II_SCRIPT_ID
+            : NECROMANCER_III_SCRIPT_ID,
     } as unknown as NonNullable<GameState["dungeon"]>,
     battle: {
       ...initial.battle!,
@@ -139,15 +156,20 @@ const targets = (result: ApplyResult) =>
   );
 const heroes = (state: GameState) => state.battle!.entities.filter((e) => e.side === "hero");
 
-describe.each([1, 2] as const)("C-012/019 · Necromancer %i 卡面选招与三招公开命令", (level) => {
+describe.each([1, 2, 3] as const)("C-012/019 · Necromancer %i 卡面选招与三招公开命令", (level) => {
   beforeEach(() => {
     if (level === 2) ensureNecromancerIIBossScriptRegistered();
+    if (level === 3) ensureNecromancerIIIBossScriptRegistered();
   });
-  const necro = monsters.find(
-    (c) => c.id === (level === 1 ? "monster_medium:p089" : "monster_medium:p090"),
-  )!;
+  const necro = monsters.find((c) => c.id === `monster_medium:p0${88 + level}`)!;
   const rabble = monsters.find(
-    (c) => c.id === (level === 1 ? "monster_medium:p040" : "monster_medium:p001"),
+    (c) =>
+      c.id ===
+      (level === 1
+        ? "monster_medium:p040"
+        : level === 2
+          ? "monster_medium:p001"
+          : "monster_medium:p013"),
   )!;
   const setup = (slot = 3, roll = 5) => setupLevel(slot, roll, level);
   const summoned = (state: GameState) =>
@@ -184,8 +206,8 @@ describe.each([1, 2] as const)("C-012/019 · Necromancer %i 卡面选招与三�
       expect(summoned(result.state)[0]).toMatchObject({
         areaId: "a",
         stance: "defensive",
-        life: level === 1 ? 6 : 7,
-        dodge: 0,
+        life: level === 1 ? 6 : level === 2 ? 7 : 15,
+        dodge: level === 3 ? 1 : 0,
       });
       expect(result.state.battle!.rngCursor).toBe(state.battle!.rngCursor + 3);
       expect(result.events.filter((e) => e.type === "turnEnded")).toHaveLength(1);

@@ -1,6 +1,6 @@
+import { ruinsCombatForScript, isRuinsCombatCard } from "./ruins-combat-levels";
 import type { GameState } from "../command";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
-import { COLLECTOR_I_COMBAT_MONSTER_CARD_ID, COLLECTOR_I_SCRIPT_ID } from "./collector-i";
 
 /** R39 / room:p012：三个宝箱在同一个指定区域；不是 Collect All 的三种召唤落区。 */
 export const COLLECTOR_ROOM_CARD_ID = "room:p012" as const;
@@ -15,10 +15,9 @@ export function readCollectorIRoomLootPlacement(
   const battle = state.battle;
   if (
     !battle ||
-    resolveEncounterBossScriptId(state) !== COLLECTOR_I_SCRIPT_ID ||
+    !ruinsCombatForScript("collector", resolveEncounterBossScriptId(state)) ||
     !battle.entities.some(
-      (e) =>
-        e.side === "monster" && !e.dead && e.monsterCardId === COLLECTOR_I_COMBAT_MONSTER_CARD_ID,
+      (e) => e.side === "monster" && !e.dead && isRuinsCombatCard("collector", e.monsterCardId),
     )
   )
     return { status: "notApplicable" };

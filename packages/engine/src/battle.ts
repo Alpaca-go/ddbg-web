@@ -145,6 +145,9 @@ export type BattleSetup = {
   readonly lootAreas?: readonly string[];
   /** Collector Room 三箱所在逻辑区；仅由获批几何绑定。生产目录未批时留空，测试夹具显式传入。 */
   readonly collectorRoomLootAreaId?: string;
+  readonly monsterStanceAreas?: Readonly<
+    Partial<Record<"aggressive" | "defensive" | "ranged" | "support", string>>
+  >;
   /** Collector 固定姿态对应的板块区域；显式逻辑区绑定，不从英雄当前位置推断几何。 */
   readonly collectorCollectedStanceAreas?: Readonly<
     Partial<Record<"defensive" | "ranged" | "support", string>>
@@ -174,6 +177,7 @@ export type BattleState = BattleSetup & {
   readonly trinketRuntime?: import("./trinket-reactions").TrinketRuntime;
   /** R-028：任一角色的新回合开始时清空；每件饰品各自计数。 */
   readonly usedTrinketIds?: readonly string[];
+  readonly reanimationUsed?: true;
   readonly oneBodyPools?: Readonly<Record<string, OneBodyLifePool>>;
   readonly lootChestUsed?: true;
   /** Prophet · Wooden Pew 区域标记（不占容量、非可选目标；room 代币）。 */

@@ -37,6 +37,7 @@ export type HamletEventState = {
   readonly heroOrder: readonly string[];
   readonly actedHeroes?: readonly string[];
   readonly visitedBuildings?: readonly string[];
+  readonly higherThreatVisits?: Readonly<Record<string, string>>;
   /** 当前游商访问已经出售一件；访问结束删除，后续访问重新计数。 */
   readonly nomadSold?: true;
   readonly guildUpgrades?: number;

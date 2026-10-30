@@ -6,7 +6,7 @@ import type { NormalizedMonsterMediumCard } from "./schema";
 const entrySchema = z.strictObject({
   id: z.string().min(1),
   name: z.string().min(1),
-  level: z.union([z.literal(1), z.literal(2)]),
+  level: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   pages: z.array(z.int().positive()).min(1),
   stanceGroups: monsterStanceGroupsSchema,
 });
@@ -285,6 +285,117 @@ export const verifiedMonsterStances = z.array(entrySchema).parse([
         ],
       },
     ],
+  },
+  // 当前版 FRONT p091 独立核图：III 级四姿态完整 d10 表。
+  {
+    id: "monster_medium:p091",
+    name: "Necromancer",
+    level: 3,
+    pages: [91],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 3, skill: 1 },
+          { min: 4, max: 6, skill: 2 },
+          { min: 7, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
+  // Ruins Boss II/III 与 Collected：逐页完整核图。
+  {
+    id: "monster_medium:p093",
+    name: "The Collector",
+    level: 2,
+    pages: [93],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_medium:p094",
+    name: "The Collector",
+    level: 3,
+    pages: [94],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_medium:p095",
+    name: "Collected Highwayman",
+    level: 1,
+    pages: [95],
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
+  },
+  {
+    id: "monster_medium:p096",
+    name: "Collected Highwayman",
+    level: 2,
+    pages: [96],
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
+  },
+  {
+    id: "monster_medium:p097",
+    name: "Collected Highwayman",
+    level: 3,
+    pages: [97],
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
+  },
+  {
+    id: "monster_medium:p098",
+    name: "Collected Man-at-Arms",
+    level: 1,
+    pages: [98],
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
+  },
+  {
+    id: "monster_medium:p099",
+    name: "Collected Man-at-Arms",
+    level: 2,
+    pages: [99],
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
+  },
+  {
+    id: "monster_medium:p100",
+    name: "Collected Man-at-Arms",
+    level: 3,
+    pages: [100],
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
+  },
+  {
+    id: "monster_medium:p101",
+    name: "Collected Vestal",
+    level: 1,
+    pages: [101],
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
+  },
+  {
+    id: "monster_medium:p102",
+    name: "Collected Vestal",
+    level: 2,
+    pages: [102],
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
+  },
+  {
+    id: "monster_medium:p103",
+    name: "Collected Vestal",
+    level: 3,
+    pages: [103],
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
   },
 ]);
 

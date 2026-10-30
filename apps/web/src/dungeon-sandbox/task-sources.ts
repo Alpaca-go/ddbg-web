@@ -23,9 +23,20 @@ export const legacyTaskSources: CoreQuestSources = {
   monsters: monsterPoolFileSchema.parse(rawMonsterPool).cards,
 };
 
+const { bossMonsters = [], ...preBossQuestBattleData } = questBattleData;
+
+/** 加入 Boss 目录前的可信正式来源；只用于严格旧档验证。 */
+export const preBossTaskSources: CoreQuestSources = {
+  ...legacyTaskSources,
+  catalog: { ...legacyTaskSources.catalog, ...preBossQuestBattleData },
+};
+
 export const taskSources: CoreQuestSources = {
   ...legacyTaskSources,
-  catalog: { ...legacyTaskSources.catalog, ...questBattleData },
+  catalog: {
+    ...preBossTaskSources.catalog,
+    monsters: [...preBossQuestBattleData.monsters, ...bossMonsters],
+  },
 };
 
 export const previousTaskSources: CoreQuestSources = {

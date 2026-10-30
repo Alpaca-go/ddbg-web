@@ -10,9 +10,12 @@ import { resolveBattlePressure } from "./pressure";
 import { endAfterCasualties, newlyDefeatedIds, removeCasualties } from "./encounter";
 
 /** 环境原语的状态视图；不是卡牌、技能骰或攻击命令，不产生反击。 */
-function pitResolution(entity: BattleEntity): HeroSkillResolution {
+export function fixedDamageResolution(
+  entity: BattleEntity,
+  skillId = "area:spikedPit",
+): HeroSkillResolution {
   return {
-    skillId: "area:spikedPit",
+    skillId,
     targetId: entity.id,
     status: "resolved",
     reason: null,
@@ -55,7 +58,7 @@ export function applySpikedPit(state: GameState, entityId: string): ApplyResult 
     return null;
   if (!Number.isSafeInteger(entity.life) || entity.life! <= 0)
     return rejectBattleCommand(state, "Spiked Pit伤害需要已核实Life（R-048）");
-  const resolution = pitResolution(entity);
+  const resolution = fixedDamageResolution(entity);
   const damage = resolveAttackDamage(entity, 3, false, entity.protection === true).damageDealt;
   const entities =
     entity.side === "monster"

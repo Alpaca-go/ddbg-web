@@ -76,7 +76,7 @@ export function resolveFaceTheThreatOfferAtNextQuest(state: GameState): FaceTheT
   const d = state.dungeon;
   if (!d?.questSummary?.awarded) return { kind: "notApplicable" };
   const campaignLevel = readCampaignLevel(d);
-  if (campaignLevel !== 1 && campaignLevel !== 2) return { kind: "notApplicable" };
+  if (![1, 2, 3].includes(campaignLevel)) return { kind: "notApplicable" };
   if (campaignLevel === 1 && !d.activeBossThreatScriptId) return { kind: "notApplicable" };
   if (
     countCompletedRegularQuestsAtCampaignLevel(d, campaignLevel) <

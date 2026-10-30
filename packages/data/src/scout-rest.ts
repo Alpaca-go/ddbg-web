@@ -11,6 +11,7 @@ export const scoutRestSchema = z
   .strictObject({
     questId: z.enum(wiredQuestIds),
     used: z.boolean(),
+    restPointOverride: z.literal(4).optional(),
     plan: z
       .strictObject({
         mode: z.enum(["collective", "equal"]),
@@ -29,7 +30,7 @@ export const scoutRestSchema = z
   .superRefine((rest, ctx) => {
     const spend = rest.plan?.spend ?? [];
     const total = spend.reduce((n, s) => n + s.heal + s.stress, 0);
-    const budget = restPoints(rest.questId);
+    const budget = rest.restPointOverride ?? restPoints(rest.questId);
     if (
       total > budget ||
       (rest.used ? total !== budget : total === budget) ||

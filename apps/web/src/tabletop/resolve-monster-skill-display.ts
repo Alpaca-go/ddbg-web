@@ -1,13 +1,20 @@
+import { battleData as questBattleData } from "virtual:quest-battle-data";
 import type { PreparedMonsterAction } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
 import type { TabletopMonsterPreparedSkill } from "./tabletop-detail-types";
 
 export function monsterCardName(monsterCardId: string): string {
-  return battleData.monsters.find((m) => m.id === monsterCardId)?.name ?? monsterCardId;
+  return (
+    [...battleData.monsters, ...(questBattleData.bossMonsters ?? [])].find(
+      (m) => m.id === monsterCardId,
+    )?.name ?? monsterCardId
+  );
 }
 
 export function resolveMonsterSkillName(monsterCardId: string, skillSlot: number): string {
-  const card = battleData.monsters.find((m) => m.id === monsterCardId);
+  const card = [...battleData.monsters, ...(questBattleData.bossMonsters ?? [])].find(
+    (m) => m.id === monsterCardId,
+  );
   const skill = card?.skills.find((s) => s.slot === skillSlot);
   return skill?.name ?? `技能位 ${skillSlot}`;
 }

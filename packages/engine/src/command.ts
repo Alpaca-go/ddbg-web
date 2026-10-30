@@ -1,3 +1,5 @@
+import { applyHigherRuinsHamlet, chooseHigherRuinsTheft } from "./boss/higher-ruins-hamlet";
+import { applyHigherRuinsBattleSpawn } from "./boss/higher-ruins-threat";
 import { useCoreTrinket } from "./core-trinket-free";
 import type { UseCoreTrinketCommand } from "./core-trinket-free";
 import { runTrinketCommand } from "./trinket-reactions";
@@ -394,6 +396,7 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (state.dungeon?.higherThreatTheft) return chooseHigherRuinsTheft(state, command);
   if (command.type === "useCoreTrinket") return useCoreTrinket(state, command);
   if (state.dungeon?.pending?.id.startsWith("hamlet-haunted:"))
     return command.type === "resolveChoice"
@@ -726,7 +729,10 @@ function applyCommandCore(state: GameState, command: Command): ApplyResult {
     return command.type === "resolveChoice"
       ? chooseReplacementPreparation(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先完成替补英雄准备（R31）");
-  const dispatched = dispatchCommand(state, command);
+  const dispatched = applyHigherRuinsBattleSpawn(
+    state,
+    applyHigherRuinsHamlet(state, command, dispatchCommand(state, command)),
+  );
   const result = dispatched.events.some((e) => e.type === "commandRefused")
     ? dispatched
     : continueDeathEstates(dispatched);

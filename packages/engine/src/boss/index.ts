@@ -271,7 +271,6 @@ export {
 export {
   applyCollectorCollectAll,
   collectorCollectAllShouldReplaceSkill,
-  expandCollectorIInitiativeDeckSides,
   isCollectorCollectedMonsterCardId,
   readCollectorICollectAllEnabled,
   readCollectorICollectAllPartPlan,
@@ -363,3 +362,11 @@ export {
   resolveBossScriptIdForQuest,
 } from "./quest-bridge";
 export type { BossQuestScriptContext } from "./quest-bridge";
+
+export {
+  ensureNecromancerIIIBossScriptRegistered,
+  necromancerIIIBossScript,
+  NECROMANCER_III_SCRIPT_ID,
+  NECROMANCER_III_COMBAT_MONSTER_CARD_ID,
+  NECROMANCER_III_SUMMON_MONSTER_CARD_ID,
+} from "./necromancer-iii";

@@ -1,3 +1,4 @@
+import { attachVerifiedCollectedLife } from "./verified-collected-life";
 import type { IconDictionary } from "../dictionary/schema";
 import type {
   HeroSkillCard,
@@ -427,7 +428,9 @@ function buildMonsterMedium(
       attachVerifiedMonsterDamage(
         attachVerifiedMonsterStress(
           attachVerifiedMonsterProtection(
-            attachVerifiedMonsterSpeeds(attachVerifiedMonsterStances(cards)),
+            attachVerifiedMonsterSpeeds(
+              attachVerifiedMonsterStances(attachVerifiedCollectedLife(cards)),
+            ),
           ),
         ),
       ),

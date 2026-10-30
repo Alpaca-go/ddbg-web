@@ -371,7 +371,7 @@ describe("R-126：II 级死灵法师幕末 offer 限定切片", () => {
     expect(mismatched.state).toBe(changedThreat);
   });
 
-  it("幕末夹具从公开升幕抽牌衔接：p002 激活后可 offer，其它真实抽牌保留停点", () => {
+  it("幕末夹具从公开升幕抽牌衔接：各 II 级真实威胁激活后均可 offer", () => {
     const fixture = iiActEndFixture();
     const {
       activeBossThreatScriptId: _active,
@@ -389,16 +389,11 @@ describe("R-126：II 级死灵法师幕末 offer 限定切片", () => {
       const threat = drawn.state.dungeon!;
       descriptions.add(threat.imminentThreatDescriptionCardId!);
       const offered = applyCommand(drawn.state, { type: "offerNextQuest" });
-      if (threat.imminentThreatDescriptionCardId === "boss_ability:p002") {
-        expect(threat.activeBossThreatScriptId).toBe(NECROMANCER_II_SCRIPT_ID);
-        expect(offered.events.filter((e) => e.type === "commandRefused")).toEqual([]);
-        expect(offered.state.dungeon!.nextQuestOffers).toEqual([FACE_THE_THREAT_QUEST_ID]);
-        expect(offered.state.dungeon!.cursor).toBe(threat.cursor);
-      } else {
-        expect(threat.unregisteredImminentThreatHold).toBeTruthy();
-        expect(offered.events.some((e) => e.type === "commandRefused")).toBe(true);
-        expect(offered.state).toBe(drawn.state);
-      }
+      expect(threat.activeBossThreatScriptId).toBeTruthy();
+      expect(threat.unregisteredImminentThreatHold).toBeUndefined();
+      expect(offered.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+      expect(offered.state.dungeon!.nextQuestOffers).toEqual([FACE_THE_THREAT_QUEST_ID]);
+      expect(offered.state.dungeon!.cursor).toBe(threat.cursor);
     }
     expect(descriptions.has("boss_ability:p002")).toBe(true);
     expect(descriptions.size).toBe(3);
@@ -410,7 +405,7 @@ describe("R-126：II 级死灵法师幕末 offer 限定切片", () => {
     [NECROMANCER_II_SCRIPT_ID, "boss_ability:p008"],
     [NECROMANCER_II_SCRIPT_ID, "boss_ability:p001"],
     [PROPHET_I_SCRIPT_ID, "boss_ability:p002"],
-    ["boss:ruins:prophet:2", "boss_ability:p008"],
+    ["boss:ruins:prophet:2", "boss_ability:p009"],
   ] as const)("幕末威胁 %s / %s 无法匹配时原子拒绝，不抽普通任务", (active, description) => {
     const fixture = iiActEndFixture();
     const {
@@ -462,7 +457,7 @@ describe("R-126：II 级死灵法师幕末 offer 限定切片", () => {
     expect(applyCommand(unawarded, { type: "offerNextQuest" }).state).toBe(unawarded);
   });
 
-  it("III 级不新增强制 offer 或 Boss 映射", () => {
+  it("III 级拒绝错级威胁，实际同级威胁可强制 offer", () => {
     const fixture = iiActEndFixture();
     const levelThree: GameState = {
       ...fixture,
@@ -474,10 +469,23 @@ describe("R-126：II 级死灵法师幕末 offer 限定切片", () => {
       },
     };
     expect(countCompletedRegularQuestsAtCampaignLevel(levelThree.dungeon!, 3)).toBe(2);
-    expect(resolveFaceTheThreatOfferAtNextQuest(levelThree).kind).toBe("notApplicable");
+    expect(resolveFaceTheThreatOfferAtNextQuest(levelThree).kind).toBe("refused");
     expect(shouldForceFaceTheThreatOfferAtNextQuest(levelThree)).toBe(false);
     expect(resolveFaceTheThreatEmbarkForChoose(levelThree, FACE_THE_THREAT_QUEST_ID).kind).toBe(
       "refused",
     );
+    const matched = {
+      ...levelThree,
+      dungeon: {
+        ...levelThree.dungeon!,
+        activeBossThreatScriptId: "boss:ruins:necromancer:3" as const,
+        imminentThreatDescriptionCardId: "boss_ability:p003",
+        trinkets: createTrinketPool(normalizedTrinketFileSchema.parse(trinkets).cards, 3),
+      },
+    };
+    expect(resolveFaceTheThreatOfferAtNextQuest(matched).kind).toBe("ok");
+    const offered = applyCommand(matched, { type: "offerNextQuest" });
+    expect(offered.state.dungeon!.nextQuestOffers).toEqual([FACE_THE_THREAT_QUEST_ID]);
+    expect(offered.state.dungeon!.cursor).toBe(matched.dungeon.cursor);
   });
 });

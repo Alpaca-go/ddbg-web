@@ -1,3 +1,8 @@
+import {
+  RUINS_COMBAT_LEVELS,
+  ruinsCombatForScript,
+  isRuinsCombatCard,
+} from "./ruins-combat-levels";
 import { distance, type BattleEntity, type BattleState } from "../battle";
 import type { ApplyResult, GameState } from "../command";
 import { finishTurn } from "../encounter";
@@ -6,13 +11,13 @@ import type { MonsterCardView } from "../monster-skill";
 import { defaultMonsterTurnActionCount, runBossHook } from "./hooks";
 import { readBossCombatEntry } from "./combat-entry";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
-import {
-  FANATIC_I_COMBAT_MONSTER_CARD_ID,
-  FANATIC_I_PYRE_MONSTER_CARD_ID,
-  FANATIC_I_SCRIPT_ID,
-} from "./fanatic-i";
 import { getBossScript } from "./registry";
 import type { BossScriptDefinition, BossSummonOk } from "./types";
+
+function pyreCardId(battle: BattleState) {
+  const boss = battle.entities.find((e) => isRuinsCombatCard("fanatic", e.monsterCardId));
+  return RUINS_COMBAT_LEVELS.fanatic.find((e) => e.card === boss?.monsterCardId)?.pyre;
+}
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 
@@ -20,18 +25,18 @@ const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 export function clearFanaticIPyre(result: ApplyResult, ids: readonly string[]) {
   const battle = result.state.battle!;
   if (
-    resolveEncounterBossScriptId(result.state) !== FANATIC_I_SCRIPT_ID ||
+    !ruinsCombatForScript("fanatic", resolveEncounterBossScriptId(result.state)) ||
     !battle.entities.some(
       (e) =>
         e.side === "monster" &&
-        e.monsterCardId === FANATIC_I_COMBAT_MONSTER_CARD_ID &&
+        isRuinsCombatCard("fanatic", e.monsterCardId) &&
         e.dead &&
         ids.includes(e.id),
     )
   )
     return { result, ids };
   const pyres = battle.entities.filter(
-    (e) => e.side === "monster" && e.monsterCardId === FANATIC_I_PYRE_MONSTER_CARD_ID && !e.dead,
+    (e) => e.side === "monster" && e.monsterCardId === pyreCardId(battle) && !e.dead,
   );
   if (!pyres.length) return { result, ids };
   return {
@@ -61,8 +66,8 @@ export function expandFanaticIInitiativeDeckSides(
   battle: BattleState,
   state: GameState,
 ): InitiativeSide[] {
-  if (resolveEncounterBossScriptId(state) !== FANATIC_I_SCRIPT_ID) return [...deck];
-  const script = getBossScript(FANATIC_I_SCRIPT_ID);
+  if (!ruinsCombatForScript("fanatic", resolveEncounterBossScriptId(state))) return [...deck];
+  const script = getBossScript(resolveEncounterBossScriptId(state)!);
   const entry = script ? readBossCombatEntry(script) : undefined;
   if (!entry) return [...deck];
   const livingMonsters = battle.entities.filter(
@@ -70,10 +75,7 @@ export function expandFanaticIInitiativeDeckSides(
   );
   if (livingMonsters.length !== 2) return [...deck];
   const cardIds = new Set(livingMonsters.map((entity) => entity.monsterCardId));
-  if (
-    !cardIds.has(FANATIC_I_COMBAT_MONSTER_CARD_ID) ||
-    !cardIds.has(FANATIC_I_PYRE_MONSTER_CARD_ID)
-  ) {
+  if (!cardIds.has(entry.combatMonsterCardId) || !cardIds.has(pyreCardId(battle))) {
     return [...deck];
   }
   const monsterSides = deck.filter((side) => side === "monster").length;
@@ -85,7 +87,7 @@ export function expandFanaticIInitiativeDeckSides(
 export function readFanaticIPyreBattleStartPlan(
   script: BossScriptDefinition,
 ): BossSummonOk["value"] | null {
-  if (script.id !== FANATIC_I_SCRIPT_ID) return null;
+  if (!ruinsCombatForScript("fanatic", script.id)) return null;
   const result = runBossHook(script, "summon", {
     scriptId: script.id,
     skillSlot: 0,
@@ -96,7 +98,7 @@ export function readFanaticIPyreBattleStartPlan(
 }
 
 export function readFanaticISentenceRenderedEnabled(script: BossScriptDefinition): boolean {
-  if (script.id !== FANATIC_I_SCRIPT_ID) return false;
+  if (!ruinsCombatForScript("fanatic", script.id)) return false;
   const result = runBossHook(script, "sentenceRendered", {
     scriptId: script.id,
     monsterEntityId: "fanatic",
@@ -106,7 +108,7 @@ export function readFanaticISentenceRenderedEnabled(script: BossScriptDefinition
 }
 
 export function readFanaticIPitTossEnabled(script: BossScriptDefinition): boolean {
-  if (script.id !== FANATIC_I_SCRIPT_ID) return false;
+  if (!ruinsCombatForScript("fanatic", script.id)) return false;
   const result = runBossHook(script, "pitToss", {
     scriptId: script.id,
     monsterEntityId: "fanatic",
@@ -121,12 +123,12 @@ export function fanaticShouldEnterActedIdsAfterTurn(state: GameState, actorId: s
   if (!battle?.encounter) return true;
   const actor = battle.entities.find((entity) => entity.id === actorId);
   if (!actor || actor.side !== "monster") return true;
-  if (resolveEncounterBossScriptId(state) !== FANATIC_I_SCRIPT_ID) return true;
-  if (actor.monsterCardId !== FANATIC_I_COMBAT_MONSTER_CARD_ID) return true;
-  const script = getBossScript(FANATIC_I_SCRIPT_ID);
+  if (!ruinsCombatForScript("fanatic", resolveEncounterBossScriptId(state))) return true;
+  if (!isRuinsCombatCard("fanatic", actor.monsterCardId)) return true;
+  const script = getBossScript(resolveEncounterBossScriptId(state)!);
   if (!script) return true;
   const budget = defaultMonsterTurnActionCount(script, {
-    scriptId: FANATIC_I_SCRIPT_ID,
+    scriptId: script.id,
     monsterEntityId: actorId,
     round: battle.encounter.round,
   });
@@ -138,8 +140,8 @@ export function bumpFanaticIActionRoundCount(state: GameState, actorId: string):
   const battle = state.battle;
   if (!battle?.encounter) return state;
   const actor = battle.entities.find((entity) => entity.id === actorId);
-  if (!actor || actor.monsterCardId !== FANATIC_I_COMBAT_MONSTER_CARD_ID) return state;
-  if (resolveEncounterBossScriptId(state) !== FANATIC_I_SCRIPT_ID) return state;
+  if (!actor || !isRuinsCombatCard("fanatic", actor.monsterCardId)) return state;
+  if (!ruinsCombatForScript("fanatic", resolveEncounterBossScriptId(state))) return state;
   const count = battle.fanaticActionsThisRound ?? 0;
   return { ...state, battle: { ...battle, fanaticActionsThisRound: count + 1 } };
 }
@@ -149,14 +151,12 @@ function livingMonsters(battle: BattleState) {
 }
 
 function pyreEntity(battle: BattleState): BattleEntity | undefined {
-  return livingMonsters(battle).find(
-    (entity) => entity.monsterCardId === FANATIC_I_PYRE_MONSTER_CARD_ID,
-  );
+  return livingMonsters(battle).find((entity) => entity.monsterCardId === pyreCardId(battle));
 }
 
 function fanaticEntity(battle: BattleState): BattleEntity | undefined {
-  return livingMonsters(battle).find(
-    (entity) => entity.monsterCardId === FANATIC_I_COMBAT_MONSTER_CARD_ID,
+  return livingMonsters(battle).find((entity) =>
+    isRuinsCombatCard("fanatic", entity.monsterCardId),
   );
 }
 
@@ -173,7 +173,7 @@ export function pyreAreaHasSpaceForHero(battle: BattleState, pyre: BattleEntity)
 }
 
 function readPyreCard(battle: BattleState): MonsterCardView | null {
-  const card = battle.monsters?.find((entry) => entry.id === FANATIC_I_PYRE_MONSTER_CARD_ID);
+  const card = battle.monsters?.find((entry) => entry.id === pyreCardId(battle));
   if (!card || card.verification.unverified) return null;
   if (!Number.isInteger(card.life) || card.life < 0) return null;
   return card;
@@ -205,14 +205,14 @@ export function applyFanaticIPyreBattleStart(state: GameState): ApplyResult {
   const d = state.dungeon;
   if (!battle || !d) return { state, events: [] };
   const scriptId = resolveEncounterBossScriptId(state);
-  if (scriptId !== FANATIC_I_SCRIPT_ID) return { state, events: [] };
-  const script = getBossScript(scriptId);
+  if (!ruinsCombatForScript("fanatic", scriptId)) return { state, events: [] };
+  const script = getBossScript(scriptId!);
   if (!script) return { state, events: [] };
   if (!fanaticEntity(battle)) return { state, events: [] };
   if (pyreEntity(battle)) return { state, events: [] };
 
   const plan = readFanaticIPyreBattleStartPlan(script);
-  if (!plan || plan.summonMonsterCardId !== FANATIC_I_PYRE_MONSTER_CARD_ID) {
+  if (!plan || plan.summonMonsterCardId !== pyreCardId(battle)) {
     return { state, events: [] };
   }
   const fixedStance = plan.fixedStance ?? "ranged";
@@ -339,7 +339,7 @@ export function fanaticSentenceRenderedShouldReplaceSkill(
   if (!script || !readFanaticISentenceRenderedEnabled(script)) return false;
 
   const actor = battle.entities.find((entity) => entity.id === actorId);
-  if (!actor || actor.monsterCardId !== FANATIC_I_COMBAT_MONSTER_CARD_ID || actor.dead) {
+  if (!actor || !isRuinsCombatCard("fanatic", actor.monsterCardId) || actor.dead) {
     return false;
   }
 

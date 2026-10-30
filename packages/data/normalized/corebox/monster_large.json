@@ -8870,7 +8870,26 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}2t,{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 2
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -9152,7 +9171,22 @@
         "text": " 3t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}1{blight}3t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 3,
+        "amount": 1
+       }
+      ]
+     }
     },
     {
      "slot": 3,
@@ -10203,6 +10237,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [],
    "immunities": [
     {
@@ -10530,7 +10565,26 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}2t,{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 2
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -10812,7 +10866,22 @@
         "text": " 3t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}2{blight}3t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 3,
+        "amount": 2
+       }
+      ]
+     }
     },
     {
      "slot": 3,
@@ -11256,6 +11325,28 @@
       }
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    }
    ],
    "back_texts": [
     [
@@ -11863,6 +11954,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [],
    "immunities": [
     {
@@ -12190,7 +12282,26 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}2t,{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 2
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -12472,7 +12583,22 @@
         "text": " 3t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}3{blight}3t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 3,
+        "amount": 3
+       }
+      ]
+     }
     },
     {
      "slot": 3,
@@ -12916,6 +13042,28 @@
       }
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    }
    ],
    "back_texts": [
     [
@@ -15916,6 +16064,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [
     {
      "iconId": "303efb0a59",
@@ -16327,7 +16476,26 @@
         "text": " +2"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{buff}3t{target_effects}{stress}+2"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "self",
+        "kind": "buff",
+        "duration": 3
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 2
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -16645,7 +16813,32 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}1t,{shuffle}Push2,{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 1
+       },
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "push",
+        "distance": 2
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     },
     {
      "slot": 3,
@@ -16927,7 +17120,20 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -17309,6 +17515,33 @@
       "text": " 2 3-6"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 2,
+       "skill": 1
+      },
+      {
+       "min": 3,
+       "max": 6,
+       "skill": 2
+      },
+      {
+       "min": 7,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    }
    ],
    "back_texts": [
     [
@@ -18081,6 +18314,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 3,
    "resistances": [
     {
      "iconId": "303efb0a59",
@@ -18492,7 +18726,26 @@
         "text": " +2"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{buff}3t{target_effects}{stress}+2"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "self",
+        "kind": "buff",
+        "duration": 3
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 2
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -18810,7 +19063,32 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}1t,{shuffle}Push2,{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 1
+       },
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "push",
+        "distance": 2
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     },
     {
      "slot": 3,
@@ -19092,7 +19370,20 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -19475,6 +19766,33 @@
      }
     ]
    ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 2,
+       "skill": 1
+      },
+      {
+       "min": 3,
+       "max": 6,
+       "skill": 2
+      },
+      {
+       "min": 7,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    }
+   ],
    "back_texts": [
     [
      {
@@ -19827,6 +20145,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 0,
    "resistances": [],
    "immunities": [
     {
@@ -20224,6 +20543,17 @@
       }
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": [
     [
@@ -20577,6 +20907,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 0,
    "resistances": [],
    "immunities": [
     {
@@ -20974,6 +21305,17 @@
       }
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": [
     [
@@ -21327,6 +21669,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 0,
    "resistances": [],
    "immunities": [
     {
@@ -21724,6 +22067,17 @@
       }
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": [
     [

@@ -35,6 +35,7 @@ export type MonsterCardView = {
   readonly type_position_tags?: readonly string[];
   readonly id: string;
   readonly life: number;
+  readonly header_unlabeled_numbers?: HeroSkillCardView["unlabeled_numbers"];
   readonly verification: { readonly unverified: boolean };
   readonly skills: readonly MonsterSkillView[];
   /** 只接收已核实分组；旧卡缺失时选招函数拒绝，不解析 footer_lines。 */

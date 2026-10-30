@@ -11,8 +11,8 @@ const originals = built.monster_medium.cards.map((card) => {
 });
 
 describe("获批怪物姿态映射入库（2026-10-09）", () => {
-  it.each(["monster_medium:p089", "monster_medium:p090"])(
-    "C-012/019：%s 生成与入库一致，不向 III 推断字段",
+  it.each(["monster_medium:p089", "monster_medium:p090", "monster_medium:p091"])(
+    "C-012/019：%s 独立核图生成与入库一致",
     (id) => {
       const committed = JSON.parse(
         readFileSync(
@@ -21,17 +21,24 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
         ),
       ).cards.find((c: { id: string }) => c.id === id);
       expect(built.monster_medium.cards.find((c) => c.id === id)).toEqual(committed);
-      for (const id of ["monster_medium:p091"]) {
-        const card = built.monster_medium.cards.find((c) => c.id === id)!;
-        expect("speed" in card).toBe(false);
-        expect("stanceGroups" in card).toBe(false);
-      }
     },
   );
   it("十四个I级与三张II级获批普通卡接入生成层，大型L1–3已获批", () => {
     const approvedIds = [
       "monster_medium:p089",
       "monster_medium:p090",
+      "monster_medium:p091",
+      "monster_medium:p093",
+      "monster_medium:p094",
+      "monster_medium:p095",
+      "monster_medium:p096",
+      "monster_medium:p097",
+      "monster_medium:p098",
+      "monster_medium:p099",
+      "monster_medium:p100",
+      "monster_medium:p101",
+      "monster_medium:p102",
+      "monster_medium:p103",
       "monster_medium:p001",
       "monster_medium:p004",
       "monster_medium:p007",
@@ -63,6 +70,13 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
           "monster_large:p002",
           "monster_large:p003",
           "monster_large:p008",
+          "monster_large:p006",
+          "monster_large:p007",
+          "monster_large:p009",
+          "monster_large:p010",
+          "monster_large:p011",
+          "monster_large:p012",
+          "monster_large:p013",
         ].includes(card.id),
       );
     expect(loadNormalizedCorebox()).toEqual(built);

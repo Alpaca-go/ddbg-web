@@ -1,3 +1,5 @@
+import { ensureHigherRuinsBossScriptsRegistered } from "./ruins-higher";
+import { ensureNecromancerIIIBossScriptRegistered } from "./necromancer-iii";
 import { ensureCollectorIBossScriptRegistered } from "./collector-i";
 import { ensureFanaticIBossScriptRegistered } from "./fanatic-i";
 import { ensureFleshIBossScriptRegistered } from "./flesh-i";
@@ -10,6 +12,8 @@ import { ensureSwinePrinceIBossScriptRegistered } from "./swine-prince-i";
 
 /** 注册当前已核实的核心盒 / Weald / Warrens / Cove Boss 脚本（无 face-the-threat 钩子依赖）。 */
 export function ensureCoreBossScriptsRegistered(): void {
+  ensureHigherRuinsBossScriptsRegistered();
+  ensureNecromancerIIIBossScriptRegistered();
   ensureNecromancerIBossScriptRegistered();
   ensureNecromancerIIBossScriptRegistered();
   ensureProphetIBossScriptRegistered();

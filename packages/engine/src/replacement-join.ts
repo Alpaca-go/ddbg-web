@@ -159,6 +159,7 @@ export function joinPreparedReplacements(state: GameState): ApplyResult {
   let continued: ApplyResult;
   const asState = () => ({ ...state, dungeon: next });
   switch (resume) {
+    case "hamletThreat":
     case "hamletTrinket": {
       if (!next.hamlet || !next.hamletReturn) return refuse("缺少村庄饰品补人续接记录");
       const inherit = (id: string) => prepared.find((p) => p.deadHeroId === id)?.hero.id ?? id;

@@ -1,3 +1,4 @@
+import { curioRewardTheft } from "./boss/higher-ruins-threat";
 import { curioCatalogSchema, isNegativeCurioEffect } from "../../data/src/curio";
 import type { ApplyResult, GameEvent, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
@@ -179,6 +180,17 @@ export function resolveCurioRows(state: GameState): ApplyResult {
     const holder = d.heroes.find((h) => h.id === hero.id)!;
     if (holder.dead) return complete(state, d, events);
     const effect = effects[i]!;
+    if (effect.type === "gold" || effect.type === "drawTrinket") {
+      d = curioRewardTheft(d, state.seed);
+      if ((d.curio!.active!.collectorTheftRoll ?? 10) <= 5) {
+        advance(i + 1);
+        events.push({
+          type: "dungeonUpdated",
+          message: "Already Collected：本卡金币与饰品奖励被收藏家取走",
+        });
+        continue;
+      }
+    }
     if (effect.type === "gold") {
       const gold = d.gold + effect.amount;
       d = { ...d, gold, ...(d.lootPool ? { lootPool: { ...d.lootPool, gold } } : {}) };

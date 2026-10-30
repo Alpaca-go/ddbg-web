@@ -175,6 +175,15 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
         : continueDungeonTrap(roomState);
     return { ...continued, events: [...events, ...continued.events] };
   }
+  if (d.pressureSource === "hamletThreat") {
+    d = {
+      ...d,
+      phase: d.heroes.some((h) => h.dead) ? "awaitingReplacement" : "inHamlet",
+      pending: null,
+      ...(d.heroes.some((h) => h.dead) ? { replacementResume: "hamletThreat" as const } : {}),
+    };
+    return { state: { ...state, dungeon: d }, events };
+  }
   if (d.heroes.some((h) => h.dead)) {
     d = {
       ...d,
