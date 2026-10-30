@@ -3,15 +3,19 @@ import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
 import reduceDistribution from "../../data/normalized/corebox/reduce_to_rubble_distribution.json";
 import { savedCommandSchema } from "../../data/src/quest-save";
 import clearDistribution from "../../data/normalized/corebox/clear_the_path_distribution.json";
-import { basicQuests } from "../../data/src/basic-quests";
+import { basicQuests, questsForCampaignLevel } from "../../data/src/basic-quests";
 import { dungeonQuestSummarySchema } from "../../data/src/quest-summary";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { naturalAbbeyQuest } from "./test-helpers/abbey-quest";
+import { guildQuest } from "./test-helpers/guild-quest";
+import { coreQuestSources } from "./test-helpers/core-quest";
+import { loadQuestSave } from "./quest-save";
 
-let baseline: ReturnType<typeof naturalAbbeyQuest>;
+let baseline: ReturnType<typeof guildQuest>;
 beforeAll(() => {
-  baseline = naturalAbbeyQuest();
+  // 独立seed6自然四房间回村；完整II级池实际抽到p008/p007，不注入候选或缩减牌池。
+  baseline = guildQuest(coreQuestSources, 6);
 }, 30000);
 
 function ok(game: GameState, command: Command) {
@@ -45,6 +49,53 @@ function preparationReady(game: GameState): GameState {
     },
   };
 }
+
+it("seed6真实I级前缀可保存恢复；完整五张II级池按实际RNG抽到两张目标任务", () => {
+  expect(baseline.start.seed).toBe(6);
+  expect(baseline.game.dungeon!.gold).toBe(40);
+  expect(baseline.game.dungeon!.heroes.map((hero) => [hero.dead ?? false, hero.xp])).toEqual(
+    Array.from({ length: 4 }, () => [false, 2]),
+  );
+  expect(loadQuestSave(JSON.parse(JSON.stringify(baseline.save)), coreQuestSources).game).toEqual(
+    baseline.game,
+  );
+  // 收束准备日是明示夹具；以下沙盒推进 / 抽选不属于正式命令存档。
+  const ready = preparationReady(baseline.game);
+  const advanced = ok(ready, { type: "advanceCampaignLevel" });
+  const before = structuredClone(advanced);
+  expect(advanced.dungeon!.discardedQuests).toEqual(
+    expect.arrayContaining(questsForCampaignLevel(1).map((quest) => quest.id)),
+  );
+  const pool = questsForCampaignLevel(2).map((quest) => quest.id);
+  expect(pool).toEqual(["quest:p006", "quest:p007", "quest:p008", "quest:p009", "quest:p010"]);
+  const offered = ok(advanced, { type: "offerNextQuest" });
+  expect(offered.dungeon!.nextQuestOffers).toEqual(["quest:p008", "quest:p007"]);
+  expect(offered.dungeon!.pending!.options.map((option) => option.id)).toEqual(
+    offered.dungeon!.nextQuestOffers,
+  );
+  expect(offered.dungeon!.cursor).toBe(advanced.dungeon!.cursor + pool.length - 1);
+  expect(advanced).toEqual(before);
+}, 30000);
+
+it("旧修道院seed123没有抽到Clear the Path时仍原子拒绝，不补入未抽到的同级任务", () => {
+  const old = naturalAbbeyQuest();
+  const advanced = ok(preparationReady(old.game), { type: "advanceCampaignLevel" });
+  const offered = ok(advanced, { type: "offerNextQuest" });
+  expect(offered.dungeon!.nextQuestOffers).toContain("quest:p008");
+  expect(offered.dungeon!.nextQuestOffers).not.toContain("quest:p007");
+  const before = structuredClone(offered);
+  const result = applyCommand(offered, {
+    type: "resolveChoice",
+    choiceId: offered.dungeon!.pending!.id,
+    optionId: "quest:p007",
+  });
+  expect(result.state).toBe(offered);
+  expect(result.events).toContainEqual({
+    type: "commandRefused",
+    message: "下一任务选择无效或已过期",
+  });
+  expect(offered).toEqual(before);
+}, 30000);
 
 it("Reduce to Rubble II 房间构成与 I 级已核对图标映射一致（R-038 / R-048）", () => {
   expect(reduceDistribution).toEqual({
