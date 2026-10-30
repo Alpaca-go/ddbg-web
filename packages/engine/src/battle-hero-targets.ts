@@ -170,6 +170,19 @@ export function playHeroSkillTargets(
       state,
       failed.resolution.reason ?? "多目标效果未完整支持，整次拒绝（R-048）",
     );
+  if (trinketAttack?.preview)
+    return {
+      state,
+      events: [
+        {
+          type: "heroSkillTargetsResolved",
+          message: "饰品技能预览",
+          actorId: actor.id,
+          roll,
+          resolutions: effects.map((e) => e.resolution),
+        },
+      ],
+    };
   if (command.trinketWindow && !resume && !trinketAttack && roll !== null) {
     const window = beginHeroTrinketWindow(state, command, roll, skill, effects[0]!.resolution);
     if (window) return window;

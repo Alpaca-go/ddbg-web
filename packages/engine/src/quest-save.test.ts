@@ -50,6 +50,17 @@ it("自然任务含真实战斗的日志可恢复到摘要，牌池、金币、X
   for (const trinketWindow of [
     true,
     ["trinket:p006", "trinket:p001", "trinket:p002", "trinket:p009", "trinket:p014"],
+    [
+      "trinket:p006",
+      "trinket:p001",
+      "trinket:p002",
+      "trinket:p009",
+      "trinket:p014",
+      "trinket:p031",
+      "trinket:p032",
+      "trinket:p033",
+      "trinket:p034",
+    ],
     HERO_SKILL_TRINKET_IDS,
   ] as const) {
     const flagged: Command[] = run.commands.map((command, index) =>

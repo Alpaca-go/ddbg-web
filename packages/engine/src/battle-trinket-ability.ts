@@ -13,6 +13,8 @@ type Attack = PlayHeroSkillCommand | PlayHeroSkillTargetsCommand;
 export type HeroTrinketAttack = {
   readonly roll: number;
   readonly modifiers: NonNullable<SkillCombatState["trinketModifiers"]>;
+  /** 内部预览只返回技能结果，不消费骰、行动或提交效果。 */
+  readonly preview?: true;
 };
 
 function stone(state: GameState, actorId: string) {
