@@ -557,7 +557,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     `共享金币：${nomad.game.dungeon!.gold - 4}`,
   );
   await page.screenshot({ path: testInfo.outputPath("nomad-purchase-saved.png"), fullPage: true });
-  // 真实命令：Hellion移出游商看守人，Highwayman买给Crusader，次日Crusader出售。
+  // 真实命令：Crusader首日购买并装备，另一天游商未封锁时再次来访出售。
   await page.evaluate(
     (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
     JSON.stringify(nomadSale.save),
