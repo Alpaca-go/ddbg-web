@@ -4,9 +4,9 @@ import { naturalAbbeyQuest } from "./abbey-quest";
 import { coreQuestSources } from "./core-quest";
 import { createQuestSave } from "../quest-save";
 
-/** 真实seed2提前退出/零XP回村；前三天按公开命令准备，第四天游商未封锁。 */
+/** seed68 真实回村，用公开准备日行动到第四天的游商窗口，不消费修道院服务。 */
 export function nomadQuest(catalog = coreQuestSources.catalog) {
-  const journey = naturalAbbeyQuest(catalog),
+  const journey = naturalAbbeyQuest(catalog, 68),
     commands = [...journey.commands];
   let game = journey.game;
   const step = (command: Command) => {
@@ -16,20 +16,19 @@ export function nomadQuest(catalog = coreQuestSources.catalog) {
     commands.push(command);
     game = result.state;
   };
-  step({
-    type: "visitHamletBuilding",
-    actorId: "hero-0",
-    serviceId: "graveyardVirtue",
-    quirkIds: [],
-  });
-  step({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
-  step({ type: "visitHamletBuilding", actorId: "hero-2", serviceId: "tavern3", quirkIds: [] });
-  step({ type: "useHamletSkill", actorId: "hero-3", skill: "chant" });
-  step({ type: "rollHamletCaretaker" });
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 3; i++) {
     step({ type: "useHamletSkill", actorId: "hero-0", skill: "zealousSpeech" });
     step({ type: "rollHamletCaretaker" });
   }
+  const h = game.dungeon!.hamlet!;
+  if (
+    h.day !== 4 ||
+    h.phase !== "heroActions" ||
+    h.blockedBuildings.includes("nomadWagon") ||
+    h.blockedBuildings.includes("tavern") ||
+    game.dungeon!.gold < 5
+  )
+    throw new Error("游商自然场景前置漂移：需要第四天游商和酒馆可用及交易费用，不能覆盖封锁");
   const sources = { ...coreQuestSources, catalog };
   return {
     game,

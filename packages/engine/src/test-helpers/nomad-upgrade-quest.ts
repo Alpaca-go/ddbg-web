@@ -4,7 +4,7 @@ import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreQuestSources } from "./core-quest";
 import { nomadQuest } from "./nomad-quest";
 
-/** 自然seed2回村；不升级修道院，将实际金币用于游商升级，不注入金币/牌序。 */
+/** 自然seed68回村；不升级修道院，将实际金币用于游商升级，不注入金币/牌序。 */
 export function nomadUpgradeQuest(level: 2 | 3, catalog = coreQuestSources.catalog) {
   const base = nomadQuest(catalog),
     start = base.start;
@@ -20,7 +20,8 @@ export function nomadUpgradeQuest(level: 2 | 3, catalog = coreQuestSources.catal
     game = r.state;
     commands.push(c);
   };
-  for (const c of base.commands) if (c.type !== "upgradeHamletBuilding") step(c);
+  for (const c of base.commands)
+    if (c.type !== "upgradeHamletBuilding" || c.building !== "abbey") step(c);
   for (let i = 1; i < level; i++) step({ type: "upgradeHamletBuilding", building: "nomadWagon" });
   return { start, commands, game };
 }

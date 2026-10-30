@@ -119,10 +119,23 @@ it("陈列不筛未核实卡，但拒绝购买；下一天/买空不补货，地
   const original = baseline.game,
     d = original.dungeon!,
     pool = d.trinkets!;
-  const unknown = pool.cards.find((c) => c.verification.unverified)!;
-  // 明示牌序夹具，完整14张守恒且未知卡实际陈列，不冒称自然抽牌。
+  // I 级正式目录已全部核实；显式构造未核实卡与牌序，独立覆盖拒绝购买边界。
+  const unknown = {
+    ...pool.cards[0]!,
+    verification: { unverified: true, reasons: ["测试夹具：待核实饰品"] },
+  };
   const order = [unknown.id, ...pool.cards.map((c) => c.id).filter((id) => id !== unknown.id)];
-  const fixture = { ...original, dungeon: { ...d, trinkets: { ...pool, deck: order } } };
+  const fixture = {
+    ...original,
+    dungeon: {
+      ...d,
+      trinkets: {
+        ...pool,
+        cards: pool.cards.map((card) => (card.id === unknown.id ? unknown : card)),
+        deck: order,
+      },
+    },
+  };
   const shop = ok(fixture, visit);
   expect(shop.dungeon!.trinkets!.display).toContain(unknown.id);
   expect(shop.dungeon!.pending!.options.some((o) => o.id === `buy:${unknown.id}`)).toBe(false);
