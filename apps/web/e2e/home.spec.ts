@@ -26,7 +26,7 @@ test("首页：四人建队可开始任务，旧沙盒与桌面预览保留入�
   await page.goto("/");
   await expect(page.getByLabel("任务卡", { exact: true })).toHaveCount(0);
   await page.getByRole("button", { name: "前往出征准备", exact: true }).click();
-  await expect(page.getByTestId("tabletop-detail-hero")).toBeVisible();
+  await expect(page.getByTestId("tabletop-detail")).toHaveCount(0);
   for (const width of [1280, 1920]) {
     await page.setViewportSize({ width, height: width === 1280 ? 800 : 1080 });
     const layout = await page.getByTestId("tabletop-party").evaluate((party) => ({
@@ -38,6 +38,7 @@ test("首页：四人建队可开始任务，旧沙盒与桌面预览保留入�
     expect(layout.rows.every((bottom) => bottom <= layout.bottom)).toBe(true);
     expect(layout.overflow).toBe(false);
     await page.getByTestId("tabletop-hero-row-hero-0").click();
+    await expect(page.getByTestId("tabletop-detail-hero")).toBeVisible();
     await expect(page.getByTestId("tabletop-detail")).toBeInViewport();
     await page.keyboard.press("Escape");
   }
@@ -67,7 +68,7 @@ test("首页：四人建队可开始任务，旧沙盒与桌面预览保留入�
     "aria-current",
     "step",
   );
-  await expect(page.getByRole("heading", { name: questName, exact: true })).toBeVisible();
+  await expect(page.getByTestId("quest-card-readonly-name")).toHaveText(questName);
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
   const pending = page.getByTestId("dungeon-pending-choice");
