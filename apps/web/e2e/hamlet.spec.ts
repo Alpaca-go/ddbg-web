@@ -1,8 +1,11 @@
 import { expect, test } from "@playwright/test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { naturalAbbeyQuest } from "../../../packages/engine/src/test-helpers/abbey-quest";
-import type { ApplyResult } from "../../../packages/engine/src/command";
+import type {
+  naturalAbbeyQuest,
+  naturalGraveyardQuest,
+} from "../../../packages/engine/src/test-helpers/abbey-quest";
+import type { ApplyResult, Command } from "../../../packages/engine/src/command";
 import type { QuestSave } from "../../../packages/data/src/quest-save";
 import type { caregiversQuest } from "../../../packages/engine/src/test-helpers/caregivers-quest";
 import type { townFairQuest } from "../../../packages/engine/src/test-helpers/town-fair-quest";
@@ -14,9 +17,25 @@ import type { guildQuest } from "../../../packages/engine/src/test-helpers/guild
 import type { twoQuestGuildPath } from "../../../packages/engine/src/test-helpers/two-quest-guild";
 import type { nomadUpgradeQuest } from "../../../packages/engine/src/test-helpers/nomad-upgrade-quest";
 
-test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存刷新", async ({
-  page,
-}, testInfo) => {
+// 同文件顺序执行、共享只读自然前置；准备与三条路径各保留原180秒限时。
+test.describe.configure({ mode: "default" });
+test.setTimeout(180_000);
+let journey: ReturnType<typeof naturalAbbeyQuest>, result: ApplyResult;
+let graveyard: ReturnType<typeof naturalGraveyardQuest>;
+let abbeyReplacementSave: QuestSave, abbeyReplacement: ApplyResult;
+let medicalSave: QuestSave;
+let caregivers: ReturnType<typeof caregiversQuest>;
+let townFair: ReturnType<typeof townFairQuest>, fairResult: ApplyResult;
+let funded: ReturnType<typeof paidUpgradeQuest>;
+let labor: ReturnType<typeof laborQuest>;
+let nomad: ReturnType<typeof nomadQuest>;
+let nomadSale: ReturnType<typeof nomadSaleQuest>;
+let guild: ReturnType<typeof guildQuest>;
+let naturalGuild: ReturnType<typeof twoQuestGuildPath>;
+let higherNomad: ReturnType<typeof nomadUpgradeQuest>, higherNomadSave: QuestSave;
+let replacementSave: QuestSave;
+
+test.beforeAll(async () => {
   test.setTimeout(180_000);
   // Vite处理引擎的TS/JSON模块，与浏览器一致；不改引擎的纯TS依赖。
   const server = await createServer({
@@ -24,18 +43,6 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     optimizeDeps: { noDiscovery: true },
     server: { middlewareMode: true },
   });
-  let journey: ReturnType<typeof naturalAbbeyQuest>, result: ApplyResult;
-  let medicalSave: QuestSave;
-  let caregivers: ReturnType<typeof caregiversQuest>;
-  let townFair: ReturnType<typeof townFairQuest>, fairResult: ApplyResult;
-  let funded: ReturnType<typeof paidUpgradeQuest>;
-  let labor: ReturnType<typeof laborQuest>;
-  let nomad: ReturnType<typeof nomadQuest>;
-  let nomadSale: ReturnType<typeof nomadSaleQuest>;
-  let guild: ReturnType<typeof guildQuest>;
-  let naturalGuild: ReturnType<typeof twoQuestGuildPath>;
-  let higherNomad: ReturnType<typeof nomadUpgradeQuest>, higherNomadSave: QuestSave;
-  let replacementSave: QuestSave;
   try {
     const helpers = await server.ssrLoadModule(
       fileURLToPath(
@@ -57,6 +64,10 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
       ),
     );
     journey = helpers.naturalAbbeyQuest({
+      ...battleData,
+      trinkets: sourceHelpers.coreQuestSources.catalog.trinkets,
+    });
+    graveyard = helpers.naturalGraveyardQuest({
       ...battleData,
       trinkets: sourceHelpers.coreQuestSources.catalog.trinkets,
     });
@@ -226,9 +237,69 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
       serviceId: "abbeyPositiveQuirk",
       quirkIds: [],
     });
+    // hero-0首次访问会自动完成。第四怪癖待选独立走hero-2跨日真实访问，不注入持牌。
+    let abbeyGame = journey.game;
+    const abbeyCommands = [...journey.commands];
+    const abbeyStep = (command: Command) => {
+      const next = engine.applyCommand(abbeyGame, command);
+      expect(
+        next.events.filter((event: { type: string }) => event.type === "commandRefused"),
+      ).toEqual([]);
+      abbeyGame = next.state;
+      abbeyCommands.push(command);
+    };
+    const spendFirstAction = () => {
+      const command = (["survivalist1", "tavern3", "heal5", "graveyardVirtue"] as const)
+        .map((serviceId) => ({
+          type: "visitHamletBuilding" as const,
+          actorId: "hero-0",
+          serviceId,
+          quirkIds: [],
+        }))
+        .find(
+          (command) =>
+            !engine
+              .applyCommand(abbeyGame, command)
+              .events.some((event: { type: string }) => event.type === "commandRefused"),
+        );
+      expect(command).toBeDefined();
+      abbeyStep(command!);
+    };
+    const abbeyVisit: Command = {
+      type: "visitHamletBuilding",
+      actorId: "hero-2",
+      serviceId: "abbeyPositiveQuirk",
+      quirkIds: [],
+    };
+    expect(abbeyGame.dungeon!.heroes[2]!.quirkIds).toHaveLength(2);
+    spendFirstAction();
+    abbeyStep({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
+    abbeyStep(abbeyVisit);
+    expect(abbeyGame.dungeon!.pending).toBeNull();
+    expect(abbeyGame.dungeon!.heroes[2]!.quirkIds).toHaveLength(3);
+    abbeyStep({ type: "useHamletSkill", actorId: "hero-3", skill: "chant" });
+    abbeyStep({ type: "rollHamletCaretaker" });
+    while (abbeyGame.dungeon!.hamlet!.blockedBuildings.includes("abbey")) {
+      expect(abbeyGame.dungeon!.hamlet!.remainingDays).toBeGreaterThan(1);
+      abbeyStep({ type: "useHamletSkill", actorId: "hero-0", skill: "zealousSpeech" });
+      abbeyStep({ type: "rollHamletCaretaker" });
+    }
+    spendFirstAction();
+    abbeyStep({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
+    abbeyReplacementSave = saveModule.createQuestSave(journey.start, abbeyCommands, abbeyGame, {
+      ...sourceHelpers.coreQuestSources,
+      catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
+    });
+    abbeyReplacement = engine.applyCommand(abbeyGame, abbeyVisit);
+    expect(abbeyReplacement.pendingChoice?.actorId).toBe("hero-2");
   } finally {
     await server.close();
   }
+});
+
+test("Phase 4：修道院首次获得与第四怪癖待选、奖励和Chant跨日保存刷新", async ({
+  page,
+}, testInfo) => {
   // 安装由真实完整命令生成、经回放核验的存档；不安装任意游戏快照。
   await page.goto("/?phase=3&play=1");
   await page.evaluate(
@@ -243,27 +314,28 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await page
     .getByRole("button", { name: "修道院 II：获得 1 张正面怪癖（3 金）", exact: true })
     .click();
-  expect(result.pendingChoice).toBeDefined();
+  expect(result.pendingChoice).toBeUndefined();
   await expect(
     page.getByText("修道院获得第四怪癖：选择替换已有正面怪癖，或弃置新卡", { exact: true }),
-  ).toBeVisible();
+  ).toHaveCount(0);
   await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${gold - 3}`);
-  await expect(page.getByLabel("村庄行动").getByRole("button")).toHaveCount(0);
-  await expect(page.getByRole("button", { name: "升级酒馆（20 金）", exact: true })).toBeDisabled();
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   await expect(page.getByRole("status")).toContainText("已保存到本机");
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
   await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${gold - 3}`);
-  const discard = result.pendingChoice!.options.find((o) => o.label.includes("弃置新卡"))!;
-  await page.getByRole("button", { name: discard.label, exact: true }).click();
-  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
-  await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${gold - 3}`);
-  await expect(page.getByRole("button", { name: discard.label, exact: true })).toHaveCount(0);
-  await page.screenshot({ path: testInfo.outputPath("abbey-choice-complete.png"), fullPage: true });
-  await page.getByRole("button", { name: "保存进度", exact: true }).click();
-  await page.reload();
-  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  expect(
+    await page.evaluate(
+      () =>
+        JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon.heroes[0]
+          .quirkIds,
+    ),
+  ).toEqual(result.state.dungeon!.heroes[0]!.quirkIds);
+  await page.screenshot({
+    path: testInfo.outputPath("abbey-first-quirk-saved.png"),
+    fullPage: true,
+  });
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
   await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${gold - 3}`);
   await page.getByRole("button", { name: "Intimidate：移出当天看守人", exact: true }).click();
@@ -291,7 +363,51 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${gold - 6}`);
   await expect(page.getByTestId("next-quest-provisions")).toContainText("hero-2 +2");
   await page.screenshot({ path: testInfo.outputPath("vestal-chant-saved.png"), fullPage: true });
-  // 同一冒烟追加真实seed10事件路径，未注入疾病或状态。
+  // 独立自然跨日路径：第四怪癖冻结、付款后保存刷新、弃新卡后只完成hero-2的行动。
+  await page.evaluate(
+    (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
+    JSON.stringify(abbeyReplacementSave),
+  );
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page
+    .getByRole("button", { name: "修道院 II：获得 1 张正面怪癖（3 金）", exact: true })
+    .click();
+  await expect(
+    page.getByText("修道院获得第四怪癖：选择替换已有正面怪癖，或弃置新卡", { exact: true }),
+  ).toBeVisible();
+  await expect(page.getByLabel("村庄行动").getByRole("button")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "升级酒馆（20 金）", exact: true })).toBeDisabled();
+  const replacementGold = abbeyReplacement.state.dungeon!.gold;
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${replacementGold}`);
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  const discard = abbeyReplacement.pendingChoice!.options.find((option) =>
+    option.label.includes("弃置新卡"),
+  )!;
+  await page.getByRole("button", { name: discard.label, exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*VESTAL/);
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${replacementGold}`);
+  await expect(page.getByRole("button", { name: discard.label, exact: true })).toHaveCount(0);
+  await page.getByRole("button", { name: "保存进度", exact: true }).click();
+  const replaced = await page.evaluate(
+    () => JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon,
+  );
+  expect(replaced.heroes[2].quirkIds).toEqual(abbeyReplacement.state.dungeon!.heroes[2]!.quirkIds);
+  expect(replaced.heroes[2].combat.quirkIds).toEqual(replaced.heroes[2].quirkIds);
+  expect(replaced.conditions.quirkDiscard).toContain(discard.id);
+  expect(replaced.cursor).toBe(abbeyReplacement.state.dungeon!.cursor);
+  await page.reload();
+  await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*VESTAL/);
+  await expect(page.getByTestId("dungeon-gold")).toHaveText(`共享金币：${replacementGold}`);
+  await page.screenshot({ path: testInfo.outputPath("abbey-choice-complete.png"), fullPage: true });
+});
+
+test("Phase 4：自然村庄事件、付费驿站升级与跨日封锁保存刷新", async ({ page }, testInfo) => {
+  await page.goto("/?phase=3&play=1");
+  // 真实seed10事件路径，未注入疾病或状态。
   await page.evaluate(
     (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
     JSON.stringify(medicalSave),
@@ -483,10 +599,14 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     path: testInfo.outputPath("labor-force-day2-saved.png"),
     fullPage: true,
   });
-  // 真实seed2任务提前退出/零XP回村日志：首次墓地访问免费获得美德，刷新不重复抽卡。
+});
+
+test("Phase 4：墓地、自然交易与公会升级、旧替补存档迁移保存刷新", async ({ page }, testInfo) => {
+  await page.goto("/?phase=3&play=1");
+  // 墓地用独立seed3完整回村日志；修道院seed123首日墓地被封锁，不能复用。
   await page.evaluate(
     (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
-    JSON.stringify(journey.save),
+    JSON.stringify(graveyard.save),
   );
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
@@ -495,7 +615,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
     .click();
   await expect(page.getByTestId("hamlet-virtues")).toContainText("hero-0");
   await expect(page.getByTestId("dungeon-gold")).toHaveText(
-    `共享金币：${journey.game.dungeon!.gold}`,
+    `共享金币：${graveyard.game.dungeon!.gold}`,
   );
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
@@ -517,7 +637,7 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await page.getByRole("button", { name: "Sharpen Spear：自身 Buff 5t", exact: true }).click();
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HIGHWAYMAN/);
   await expect(page.getByTestId("dungeon-gold")).toHaveText(
-    `共享金币：${journey.game.dungeon!.gold}`,
+    `共享金币：${graveyard.game.dungeon!.gold}`,
   );
   await expect(
     page.getByRole("button", { name: "Intimidate：移出当天看守人", exact: true }),
@@ -695,18 +815,30 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
   await page.screenshot({ path: testInfo.outputPath("guild-smite-saved.png"), fullPage: true });
   // 两任务自然4XP：升级英雄II时的待选、离开公会、补满四技能及刷新恢复。
+  const guildActor = naturalGuild.actorId;
+  const guildHero = naturalGuild.game.dungeon!.heroes.find((hero) => hero.id === guildActor)!;
+  const guildStats = naturalGuild.game.dungeon!.battleCatalog!.heroStats;
+  const guildStat = guildStats.find((stat) => stat.id === guildHero.heroStatId)!;
+  const levelTwoStat = guildStats.find((stat) => stat.name === guildStat.name && stat.level === 2)!;
+  const nextGuildId = naturalGuild.game.dungeon!.hamlet!.heroOrder[1]!;
+  const nextGuildHero = naturalGuild.game.dungeon!.heroes.find((hero) => hero.id === nextGuildId)!;
+  const nextGuildStat = guildStats.find((stat) => stat.id === nextGuildHero.heroStatId)!;
+  expect(guildHero.xp).toBe(4);
   await page.evaluate(
     (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
     JSON.stringify(naturalGuild.save),
   );
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await expect(page.getByTestId("hamlet-event")).toContainText(
+    new RegExp(`当前行动英雄：\\s*${guildStat.name}`),
+  );
   await page.getByRole("button", { name: "访问公会：永久升级英雄/技能", exact: true }).click();
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
   await page.getByRole("button", { name: "永久升级英雄 I→II（4 XP，2金）", exact: true }).click();
-  await expect(page.getByTestId("guild-skills")).toContainText("hero-0 HL2 XP 0");
+  await expect(page.getByTestId("guild-skills")).toContainText(`${guildActor} HL2 XP 0`);
   await expect(page.getByTestId("dungeon-gold")).toHaveText(
     `共享金币：${naturalGuild.game.dungeon!.gold - 2}`,
   );
@@ -714,23 +846,26 @@ test("Phase 4：真实任务村庄怪癖、Survivalist奖励与Chant次日保存
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
   await page.getByRole("button", { name: "结束公会访问", exact: true }).click();
-  await page.getByTestId("set-skills-hero-0").click();
+  await page.getByTestId(`set-skills-${guildActor}`).click();
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   const levelTwo = await page.evaluate(
     () => JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon,
   );
-  expect(levelTwo.heroes[0]).toMatchObject({
-    heroStatId: "hero_stat:p001:back",
+  const upgradedHero = levelTwo.heroes.find((hero: { id: string }) => hero.id === guildActor);
+  expect(upgradedHero).toMatchObject({
+    heroStatId: levelTwoStat.id,
     level: 2,
-    life: 24,
+    life: levelTwoStat.life,
     xp: 0,
   });
-  expect(levelTwo.heroes[0].skillIds).toHaveLength(4);
+  expect(upgradedHero.skillIds).toHaveLength(4);
   expect(levelTwo.stagecoachXp).toBe(4);
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
-  await expect(page.getByTestId("guild-skills")).toContainText("hero-0 HL2 XP 0");
-  await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*HELLION/);
+  await expect(page.getByTestId("guild-skills")).toContainText(`${guildActor} HL2 XP 0`);
+  await expect(page.getByTestId("hamlet-event")).toContainText(
+    new RegExp(`当前行动英雄：\\s*${nextGuildStat.name}`),
+  );
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   expect(
     await page.evaluate(
