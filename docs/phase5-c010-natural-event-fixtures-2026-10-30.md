@@ -8,6 +8,14 @@
 - Caregivers 固定 seed1，按恢复后的姿态依次处理 hero-0 / hero-1 / hero-2；hero-3 无怪癖，不产生空选择。真实移除 Thin Blooded（负面）与 Skilled Gambler（正面），最后一人跳过；校验逐段持牌 / combat 同步、弃牌、RNG、准备日与正式存档。
 - 同步既有村庄冒烟中的队列、持牌和升级前置；新增正式网页目录下三类场景及事件 / 升级前后的命令回放载入验证。本刀不是阶段末尾，没有新增正式 Playwright 用例。
 
-六个相关文件共 20 项专项通过；最终实现的全量 Vitest、已有村庄冒烟和其它质量检查完成后补记实际结果。
+草稿 [PR #382](https://github.com/Alpaca-go/ddbg-web/pull/382)，实现提交 `7b65b2b`。
+
+六个相关文件共 20 项专项通过。typecheck、build、修改文件 ESLint / Prettier 与 `git diff --check` 通过；全仓 lint 仍受既有 Swine / Flesh 五项错误及本地未跟踪缓存脚本影响。
+
+固定实现内容的全量 Vitest（maxWorkers=2）：256 文件通过 / 14 失败，1947 用例通过 / 12 失败 / 16 跳过。与 #381 的完整日志逐失败文件比较，Town Fair、Caregivers、Labor Force 三个文件恢复，没有新增失败文件；原驿站用例及新增网页目录检查也在全量通过。剩余失败涉及旧 Guild / II 级任务前置、替补旅程、自然全灭搜索、补给用例及规范化快照漂移，保留实际失败，不放宽超时或改成跳过。
+
+本机 Chrome 通道的临时诊断已实际操作三个修改片段：Caregivers 跨待选保存刷新、Town Fair 结算保存刷新、驿站支付20金后保存刷新均通过；临时脚本和本机浏览器配置已移回私有缓存，不提交。完整原有村庄冒烟仍失败，准备阶段已越过旧 Caregivers seed14 停点，随后在旧 Guild 场景 `awaitingReplacement` 停住，尚未进入页面；不将片段验证等同于完整冒烟通过。
+
+实现 head `7b65b2b` 的远端主检查仍止于 Swine / Flesh 五项 lint 错误；远端冒烟 10 项通过 / 7 项失败，村庄停点与本机相同。
 
 C-010 总项保留。未改产品引擎、卡牌数据、UI 或存档格式；未扩展 R-121、其它 II/III Boss、正式升幕、最暗或 Phase 6。搜索脚本、图片和本地缓存不提交。
