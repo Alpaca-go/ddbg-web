@@ -196,12 +196,47 @@ it("I级、缺钱、封锁、越序、坏牌池、耗尽与非法参数原子拒
 });
 it("真实Fundraiser命令路径支付服务、待选与选择完成后均可存档回放", () => {
   const journey = naturalAbbeyQuest();
-  const game = journey.game;
+  let game = journey.game;
+  const commands = [...journey.commands];
+  const step = (command: Command) => {
+    const result = ok(game, command);
+    commands.push(command);
+    game = result.state;
+  };
+  const spendFirstAction = () => {
+    const command = (["survivalist1", "tavern3", "heal5", "graveyardVirtue"] as const)
+      .map((serviceId) => ({
+        type: "visitHamletBuilding" as const,
+        actorId: "hero-0",
+        serviceId,
+        quirkIds: [],
+      }))
+      .find((c) => !applyCommand(game, c).events.some((e) => e.type === "commandRefused"));
+    expect(command).toBeDefined();
+    step(command!);
+  };
+  // hero-2 自然带两张怪癖；第一次正常获得第三张，再跨日访问以触发真实替换待选。
+  const targetVisit: Command = { ...visit, actorId: "hero-2" };
+  expect(game.dungeon!.heroes[2]!.quirkIds).toHaveLength(2);
+  spendFirstAction();
+  step({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
+  step(targetVisit);
+  expect(game.dungeon!.heroes[2]!.quirkIds).toHaveLength(3);
+  expect(game.dungeon!.pending).toBeNull();
+  step({ type: "useHamletSkill", actorId: "hero-3", skill: "chant" });
+  step({ type: "rollHamletCaretaker" });
+  while (game.dungeon!.hamlet!.blockedBuildings.includes("abbey")) {
+    step({ type: "useHamletSkill", actorId: "hero-0", skill: "zealousSpeech" });
+    expect(game.dungeon!.hamlet!.phase).toBe("awaitingCaretaker");
+    step({ type: "rollHamletCaretaker" });
+  }
+  spendFirstAction();
+  step({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
   expect(game.dungeon!.hamlet!.last).toBe("hamlet_event:p013");
-  const r = ok(game, visit);
+  const r = ok(game, targetVisit);
   expect(r.pendingChoice).toBeDefined();
-  const commands = [...journey.commands, visit];
-  const save = createQuestSave(journey.start, commands, r.state, coreQuestSources);
+  const paidCommands = [...commands, targetVisit];
+  const save = createQuestSave(journey.start, paidCommands, r.state, coreQuestSources);
   const loaded = loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game;
   expect(loaded).toEqual(r.state);
   const choice: Command = {
@@ -214,13 +249,13 @@ it("真实Fundraiser命令路径支付服务、待选与选择完成后均可存
   expect(restoredChoice).toEqual(selected);
   expect(selected.state.dungeon!.gold).toBe(game.dungeon!.gold - 3);
   expect(selected.state.dungeon!.cursor).toBe(r.state.dungeon!.cursor);
-  expect(currentHamletHero(selected.state)!.id).toBe("hero-1");
-  expect(selected.state.dungeon!.heroes[0]!.combat!.quirkIds).toEqual(
-    selected.state.dungeon!.heroes[0]!.quirkIds,
+  expect(currentHamletHero(selected.state)!.id).toBe("hero-3");
+  expect(selected.state.dungeon!.heroes[2]!.combat!.quirkIds).toEqual(
+    selected.state.dungeon!.heroes[2]!.quirkIds,
   );
   const completed = createQuestSave(
     journey.start,
-    [...commands, choice],
+    [...paidCommands, choice],
     selected.state,
     coreQuestSources,
   );

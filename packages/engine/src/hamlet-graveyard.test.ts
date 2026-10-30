@@ -1,15 +1,15 @@
 import { beforeAll, expect, it } from "vitest";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
-import { naturalAbbeyQuest } from "./test-helpers/abbey-quest";
+import { naturalGraveyardQuest } from "./test-helpers/abbey-quest";
 import { coreQuestSources } from "./test-helpers/core-quest";
 import { createQuestSave, loadQuestSave } from "./quest-save";
 import { hamletActionOptions } from "./hamlet-actions";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 
-let baseline: ReturnType<typeof naturalAbbeyQuest>;
+let baseline: ReturnType<typeof naturalGraveyardQuest>;
 beforeAll(() => {
-  baseline = naturalAbbeyQuest();
+  baseline = naturalGraveyardQuest();
 }, 30000);
 const visit = (actorId = "hero-0"): Command => ({
   type: "visitHamletBuilding",
@@ -25,7 +25,7 @@ function ok(game: GameState, command: Command) {
   ).toBe(false);
   return result.state;
 }
-it("真实Fundraiser seed2回村，免费访问墓地抽美德，不归零压力、不治伤、不付钱；存档回放一致", () => {
+it("真实Fundraiser seed3回村，免费访问墓地抽美德，不归零压力、不治伤、不付钱；存档回放一致", () => {
   const game = baseline.game,
     d = game.dungeon!,
     before = structuredClone(game);
