@@ -1,3 +1,4 @@
+import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { distance, rejectBattleCommand, skillTargetView, writeResolution } from "./battle";
 import { healingForbidden } from "./battle-healing";
 import { applySkillHealth } from "./battle-health";
@@ -27,6 +28,7 @@ import type { HeroSkillTrinketWindow } from "../../data/src/hero-skill-trinkets"
 import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./boss/swine-prince-i-combat-runtime";
 
 export type PlayHeroSkillTargetsCommand = {
+  readonly damageStoneWindow?: true;
   readonly type: "playHeroSkillTargets";
   readonly trinketWindow?: HeroSkillTrinketWindow;
   readonly actorId: string;
@@ -222,12 +224,21 @@ export function playHeroSkillTargets(
       : { ...actorResult, actorWounds };
     return writeResolution(entity, actor.id, resolution.targetId, resolution, false);
   });
+  const damageStoneWindow = beginDamageStoneWindow(
+    state,
+    command,
+    roll,
+    healthEffects,
+    resume,
+    trinketAttack,
+  );
+  if (damageStoneWindow) return damageStoneWindow;
   const health = applySkillHealth(
     current,
     entities,
     {
       resolution: actorResult,
-      healthEffects,
+      healthEffects: damageStoneHealthEffects(resume, healthEffects),
     },
     state.seed,
     current.rngCursor + (resume || roll === null ? 0 : 1),

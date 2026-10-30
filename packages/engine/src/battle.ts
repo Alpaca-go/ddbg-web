@@ -1,3 +1,4 @@
+import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import {
   heroSkillUsesSelfTarget,
   needsHeroSkillShuffleChoice,
@@ -104,6 +105,7 @@ export type BattleArea = {
 };
 
 export type PlayHeroSkillCommand = {
+  readonly damageStoneWindow?: true;
   readonly type: "playHeroSkill";
   /** 新网页宣告启用 R26 窗口；旧日志缺此字段时保留原来的直接结算。 */
   readonly trinketWindow?: HeroSkillTrinketWindow;
@@ -195,6 +197,13 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | {
+        readonly type: "damageStone";
+        readonly choice: PendingChoice;
+        readonly prefix: SkillPrefix;
+        readonly heroId: string;
+        readonly consumeRoll: boolean;
+      }
     | {
         readonly type: "heroAttackTrinkets";
         readonly choice: PendingChoice;
@@ -606,10 +615,19 @@ export function playHeroSkill(
       heroSkillUsesSelfTarget(skill, command.face),
     ),
   );
+  const damageStoneWindow = beginDamageStoneWindow(
+    state,
+    command,
+    roll,
+    effects.healthEffects,
+    resume,
+    trinketAttack,
+  );
+  if (damageStoneWindow) return damageStoneWindow;
   const health = applySkillHealth(
     current,
     entities,
-    effects,
+    { ...effects, healthEffects: damageStoneHealthEffects(resume, effects.healthEffects) },
     state.seed,
     current.rngCursor + (resume || roll === null ? 0 : 1),
     actor.id,

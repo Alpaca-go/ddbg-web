@@ -35,26 +35,29 @@ function replay(start: QuestStart, commands: readonly Command[], sources: CoreQu
 function replayCommands(commands: QuestSave["commands"]): Command[] {
   return commands.map((command): Command => {
     if (command.type === "playHeroSkill") {
-      const { face, shuffleChoice, trinketWindow, ...base } = command;
+      const { face, shuffleChoice, trinketWindow, damageStoneWindow, ...base } = command;
       return {
         ...base,
+        ...(damageStoneWindow === undefined ? {} : { damageStoneWindow }),
         ...(face === undefined ? {} : { face }),
         ...(trinketWindow === undefined ? {} : { trinketWindow }),
         ...(shuffleChoice === undefined ? {} : { shuffleChoice }),
       };
     }
     if (command.type === "playHeroSkillTargets") {
-      const { shuffleChoice, trinketWindow, ...base } = command;
+      const { shuffleChoice, trinketWindow, damageStoneWindow, ...base } = command;
       return {
         ...base,
+        ...(damageStoneWindow === undefined ? {} : { damageStoneWindow }),
         ...(shuffleChoice === undefined ? {} : { shuffleChoice }),
         ...(trinketWindow === undefined ? {} : { trinketWindow }),
       };
     }
     if (command.type === "playMonsterSkill") {
-      const { shuffleChoice, shuffleChoices, ...base } = command;
+      const { shuffleChoice, shuffleChoices, damageStoneWindow, ...base } = command;
       return {
         ...base,
+        ...(damageStoneWindow === undefined ? {} : { damageStoneWindow }),
         ...(shuffleChoice === undefined ? {} : { shuffleChoice }),
         ...(shuffleChoices === undefined ? {} : { shuffleChoices }),
       };

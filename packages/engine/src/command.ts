@@ -1,3 +1,4 @@
+import { chooseDamageStone } from "./battle-damage-stone";
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { drawHamletEvent, rollHamletCaretaker, chooseMedicalBreakthrough } from "./hamlet-event";
 import { chooseCaregiversConvention } from "./hamlet-caregivers";
@@ -565,6 +566,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     }
     if (pending.type === "necromancerSummon")
       return chooseNecromancerISummon(state, command.optionId);
+    if (pending.type === "damageStone") return chooseDamageStone(state, command.optionId);
     if (pending.type === "heroTrinket") return chooseHeroTrinket(state, command.optionId);
     if (pending.type === "heroAttackTrinkets") return chooseAttackTrinkets(state, command.optionId);
     if (pending.type === "collectorSummon") return chooseCollectorISummon(state, command.optionId);

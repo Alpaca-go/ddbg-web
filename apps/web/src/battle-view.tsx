@@ -861,6 +861,7 @@ export function BattleView({
                         : multiTarget
                           ? {
                               type: "playHeroSkillTargets",
+                              damageStoneWindow: true,
                               trinketWindow: HERO_SKILL_TRINKET_IDS,
                               actorId: actor!.id,
                               targetIds: selectedIds,
@@ -868,6 +869,7 @@ export function BattleView({
                             }
                           : {
                               type: "playHeroSkill",
+                              damageStoneWindow: true,
                               trinketWindow: HERO_SKILL_TRINKET_IDS,
                               actorId: actor!.id,
                               targetId: selfTarget ? actor!.id : selectedTargetId,
@@ -929,6 +931,7 @@ export function BattleView({
                       onClick={() =>
                         send({
                           type: "playMonsterSkill",
+                          damageStoneWindow: true,
                           actorId: actor!.id,
                           targetId: action.targetId,
                           skillSlot: action.skillSlot,

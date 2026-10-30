@@ -1,3 +1,4 @@
+import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { isInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand, writeResolution, skillTargetView } from "./battle";
 import { applySkillHealth } from "./battle-health";
@@ -22,6 +23,7 @@ import { beforeTargetShuffle } from "./battle-target-pressure";
 
 /** 调用方手动指定已选技能 / 单个目标；不执行姿态选招、目标 AI 或移动。 */
 export type PlayMonsterSkillCommand = {
+  readonly damageStoneWindow?: true;
   readonly type: "playMonsterSkill";
   readonly actorId: string;
   readonly targetId: string;
@@ -162,10 +164,18 @@ export function playMonsterSkill(
     const updated = writeResolution(entry, actor.id, target.id, result.resolution, false);
     return entry.id === actor.id ? { ...updated, dead: result.actorDead } : updated;
   });
+  const damageStoneWindow = beginDamageStoneWindow(
+    state,
+    command,
+    roll,
+    effects.healthEffects,
+    resume,
+  );
+  if (damageStoneWindow) return damageStoneWindow;
   const health = applySkillHealth(
     current,
     entities,
-    effects,
+    { ...effects, healthEffects: damageStoneHealthEffects(resume, effects.healthEffects) },
     state.seed,
     current.rngCursor + Number(!resume),
   );

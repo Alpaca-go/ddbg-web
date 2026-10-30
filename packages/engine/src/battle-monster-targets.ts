@@ -1,3 +1,4 @@
+import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { distance, rejectBattleCommand, skillTargetView, writeResolution } from "./battle";
 import type { BattleEntity } from "./battle";
 import { applySkillHealth } from "./battle-health";
@@ -190,12 +191,14 @@ export function playMonsterSkillTargets(
     );
     return entity.id === actor.id ? { ...updated, dead: actorDead } : updated;
   });
+  const damageStoneWindow = beginDamageStoneWindow(state, command, roll, healthEffects, resume);
+  if (damageStoneWindow) return damageStoneWindow;
   const health = applySkillHealth(
     current,
     entities,
     {
       resolution: representative,
-      healthEffects,
+      healthEffects: damageStoneHealthEffects(resume, healthEffects),
     },
     state.seed,
     current.rngCursor + Number(!resume),

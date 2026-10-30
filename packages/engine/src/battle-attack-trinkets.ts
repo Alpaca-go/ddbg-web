@@ -230,7 +230,7 @@ function lightFacesMatch(card: NormalizedTrinketCard, light: "dark" | "solar") {
         ];
   return JSON.stringify(tokens) === JSON.stringify(expected);
 }
-function damageStoneFacesMatch(card: NormalizedTrinketCard) {
+export function damageStoneFacesMatch(card: NormalizedTrinketCard) {
   return (
     [card.upright_half, card.inverted_half].every((h) =>
       h.effect_lines

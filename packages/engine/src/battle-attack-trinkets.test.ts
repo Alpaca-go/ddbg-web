@@ -1,3 +1,5 @@
+import { nextBattleRoll } from "./battle-roll";
+import type { PlayMonsterSkillCommand } from "./battle-monster";
 import { expect, it } from "vitest";
 import rawTrinkets from "../../data/normalized/corebox/trinket.json";
 import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
@@ -1362,4 +1364,226 @@ it("Damage Stone卡面漂移拒绝；与Critical Stone同技能暴击叠加仍�
   };
   expect(applyCommand(drift, command).events[0]!.type).toBe("commandRefused");
   expect(applyCommand(drift, command).state).toEqual(drift);
+});
+
+function reverseFixture(seed = 7) {
+  const { state } = fixture([damageStone], "aggressive", "hero_skill:p001", "inverted", seed);
+  return {
+    ...state,
+    battle: {
+      ...state.battle!,
+      encounter: {
+        round: 1,
+        deck: ["hero" as const],
+        actedIds: [],
+        turn: { type: "monster" as const, actorId: "m" },
+      },
+      entities: state.battle!.entities.map((e) =>
+        e.id === "h0" ? { ...e, wounds: 1 } : e.id === "m" ? { ...e, areaId: "b" } : e,
+      ),
+    },
+  };
+}
+const incoming = {
+  type: "playMonsterSkill" as const,
+  actorId: "m",
+  targetId: "h0",
+  skillSlot: 1,
+  damageStoneWindow: true as const,
+};
+it("Damage Stone反面怪物攻击：可放弃；正伤害和额外2伤口同批，JSON续接不重掷", () => {
+  const state = reverseFixture();
+  const original = JSON.stringify(state);
+  const open = ok(applyCommand(state, incoming));
+  expect(open.pendingChoice?.actorId).toBe("h0");
+  expect(open.state.battle!.rngCursor).toBe(0);
+  expect(open.state.battle!.entities[0]!.wounds).toBe(1);
+  const skip = choose(open, "continue");
+  const use = choose({ ...open, state: JSON.parse(JSON.stringify(open.state)) }, damageStone);
+  expect(use.state.battle!.entities[0]!.wounds).toBe(skip.state.battle!.entities[0]!.wounds + 2);
+  expect(use.events.filter((e) => e.type === "trinketUsed")).toHaveLength(1);
+  expect(use.state.battle!.trinkets!.held[0]!.face).toBe("upright");
+  expect(skip.state.battle!.trinkets!.held[0]!.face).toBe("inverted");
+  expect(use.state.battle!.rngCursor).toBe(skip.state.battle!.rngCursor);
+  expect(JSON.stringify(state)).toBe(original);
+  expect(savedCommandSchema.parse(incoming)).toEqual(incoming);
+  expect(applyCommand(open.state, { type: "finishMonsterTurn", actorId: "m" }).state).toBe(
+    open.state,
+  );
+});
+it("Damage Stone旧怪物命令无窗口，落空/已用/未持有均不提供", () => {
+  const state = reverseFixture();
+  const legacy: PlayMonsterSkillCommand = {
+    type: incoming.type,
+    actorId: incoming.actorId,
+    targetId: incoming.targetId,
+    skillSlot: incoming.skillSlot,
+  };
+  expect(ok(applyCommand(state, legacy)).pendingChoice).toBeUndefined();
+  const used = { ...state, battle: { ...state.battle, usedTrinketIds: [damageStone] } };
+  expect(ok(applyCommand(used, incoming)).pendingChoice).toBeUndefined();
+  const miss = {
+    ...state,
+    seed: 4,
+    battle: {
+      ...state.battle,
+      entities: state.battle.entities.map((e) => (e.id === "h0" ? { ...e, dodge: 20 } : e)),
+    },
+  };
+  expect(ok(applyCommand(miss, incoming)).pendingChoice).toBeUndefined();
+});
+it("Damage Stone额外伤口不受Protection减半，死门仍走同一个种子骰", () => {
+  const state = reverseFixture();
+  const guarded = {
+    ...state,
+    battle: {
+      ...state.battle,
+      entities: state.battle.entities.map((e) => (e.id === "h0" ? { ...e, protection: true } : e)),
+    },
+  };
+  const open = ok(applyCommand(guarded, incoming));
+  const skip = choose(open, "continue"),
+    paid = choose(open, damageStone);
+  expect(paid.state.battle!.entities[0]!.wounds - skip.state.battle!.entities[0]!.wounds).toBe(2);
+  const door = {
+    ...state,
+    battle: {
+      ...state.battle,
+      entities: state.battle.entities.map((e) => (e.id === "h0" ? { ...e, wounds: e.life! } : e)),
+    },
+  };
+  const window = ok(applyCommand(door, incoming));
+  const dead = choose(window, damageStone);
+  expect(dead.state.battle!.rngCursor).toBe(2);
+  expect(
+    dead.events.filter((e) => e.type === "heroHealthResolved" && e.entityId === "h0"),
+  ).toHaveLength(1);
+  expect(
+    choose({ ...window, state: JSON.parse(JSON.stringify(window.state)) }, damageStone),
+  ).toEqual(dead);
+});
+
+it("Damage Stone反面也能响应英雄攻击遭遇的Riposte，落地只加一次2伤口", () => {
+  const { state, command } = fixture([damageStone], "aggressive", "hero_skill:p001", "inverted", 7);
+  const b = {
+    ...state,
+    battle: {
+      ...state.battle!,
+      entities: state.battle!.entities.map((e) => (e.id === "m" ? { ...e, riposte: true } : e)),
+    },
+  };
+  const open = ok(applyCommand(b, { ...command, damageStoneWindow: true }));
+  expect(open.pendingChoice!.actorId).toBe("h0");
+  const skip = choose(open, "continue"),
+    use = choose(open, damageStone);
+  expect(use.state.battle!.entities[0]!.wounds).toBe(skip.state.battle!.entities[0]!.wounds + 2);
+  expect(use.state.battle!.encounter!.turn).toMatchObject({ type: "hero", actions: 1 });
+  expect(use.events.filter((e) => e.type === "trinketUsed")).toHaveLength(1);
+});
+it("Damage Stone群攻只给持有者额外2伤口；共用原骰、不重复伤害", () => {
+  const { state } = fixture(
+    [damageStone],
+    "aggressive",
+    "hero_skill:p001",
+    "inverted",
+    7,
+    "monster_medium:p013",
+  );
+  const b = {
+    ...state,
+    battle: {
+      ...state.battle!,
+      encounter: {
+        round: 1,
+        deck: ["hero" as const],
+        actedIds: [],
+        turn: { type: "monster" as const, actorId: "m" },
+      },
+      entities: state.battle!.entities.map((e) => (e.id === "m" ? { ...e, areaId: "b" } : e)),
+    },
+  };
+  const open = ok(applyCommand(b, { ...incoming, skillSlot: 2 }));
+  const skip = choose(open, "continue"),
+    paid = choose(open, damageStone);
+  expect(paid.state.battle!.entities[0]!.wounds - skip.state.battle!.entities[0]!.wounds).toBe(2);
+  expect(paid.state.battle!.entities[1]!.wounds).toBe(skip.state.battle!.entities[1]!.wounds);
+  expect(paid.events.filter((e) => e.type === "monsterSkillTargetsResolved")).toHaveLength(1);
+  expect(paid.state.battle!.rngCursor).toBe(skip.state.battle!.rngCursor);
+});
+it("Damage Stone反面拒绝伪造骰、持有状态和重复续接", () => {
+  const open = ok(applyCommand(reverseFixture(), incoming));
+  const state = open.state,
+    b = state.battle!,
+    p = b.pending!;
+  if (p.type !== "damageStone") throw Error("missing choice");
+  for (const changed of [
+    { ...b, rngCursor: b.rngCursor + 1 },
+    { ...b, pending: { ...p, prefix: { ...p.prefix, roll: 10 } } },
+    {
+      ...b,
+      trinkets: {
+        ...b.trinkets!,
+        held: b.trinkets!.held.map((h) => ({ ...h, face: "upright" as const })),
+      },
+    },
+  ]) {
+    const s = { ...state, battle: changed };
+    expect(
+      applyCommand(s, { type: "resolveChoice", choiceId: p.choice.id, optionId: damageStone })
+        .state,
+    ).toEqual(s);
+  }
+  const done = choose(open, damageStone);
+  expect(
+    applyCommand(done.state, {
+      type: "resolveChoice",
+      choiceId: p.choice.id,
+      optionId: damageStone,
+    }).state,
+  ).toBe(done.state);
+});
+
+it("Damage Stone正反面循环：正面加伤翻面，下一角色回合解除限次后反面翻回", () => {
+  const { state, command } = fixture([damageStone], "aggressive", "hero_skill:p004", "upright", 7);
+  const front = choose(ok(applyCommand(state, command)), damageStone);
+  expect(front.state.battle!.trinkets!.held[0]!.face).toBe("inverted");
+  const changed = ok(
+    applyCommand(front.state, { type: "changeStance", actorId: "h0", direction: "backward" }),
+  );
+  const next = ok(applyCommand(changed.state, { type: "drawInitiative" }));
+  expect(next.state.battle!.usedTrinketIds).toEqual([]);
+  const turn = next.state.battle!.encounter!.turn;
+  if (turn.type !== "monster") throw Error("expected monster");
+  const open = ok(applyCommand(next.state, { ...incoming, actorId: turn.actorId }));
+  const back = choose(open, damageStone);
+  expect(back.state.battle!.trinkets!.held[0]!.face).toBe("upright");
+});
+
+it("Damage Stone自身位移之后才开受伤窗口，续接不重掷或重复自身效果", () => {
+  const first = ok(applyCommand(reverseFixture(), { ...incoming, skillSlot: 2 }));
+  expect(first.state.battle!.shuffleIntents.length).toBeGreaterThan(0);
+  const open = ok(applyCommand(first.state, { type: "resolveShuffles" }));
+  expect(open.state.battle!.pending?.type).toBe("damageStone");
+  const paid = choose(open, damageStone);
+  expect(paid.state.battle!.rngCursor).toBe(open.state.battle!.rngCursor);
+  expect(paid.state.battle!.entities.find((e) => e.id === "m")!.areaId).toBe("a");
+});
+it("Damage Stone承受伤口致死只掷一次死门，卡翻面并走既有死亡收尾", () => {
+  let seed = 0;
+  while (nextBattleRoll(seed, 0) > 9 || nextBattleRoll(seed, 1) > 3) seed++;
+  const state = reverseFixture(seed);
+  const door = {
+    ...state,
+    battle: {
+      ...state.battle,
+      entities: state.battle.entities.map((e) => (e.id === "h0" ? { ...e, wounds: e.life! } : e)),
+    },
+  };
+  const paid = choose(ok(applyCommand(door, incoming)), damageStone);
+  expect(paid.state.battle!.entities.find((e) => e.id === "h0")!.dead).toBe(true);
+  expect(paid.state.battle!.rngCursor).toBe(2);
+  expect(paid.state.battle!.trinkets!.held[0]!.face).toBe("upright");
+  expect(paid.events.some((e) => e.type === "heroHealthResolved" && e.resolution.deathblow)).toBe(
+    true,
+  );
 });
