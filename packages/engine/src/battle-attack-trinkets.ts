@@ -14,17 +14,20 @@ import { trinketPoolProblem } from "./trinket-acquisition";
 type Attack = PlayHeroSkillCommand | PlayHeroSkillTargetsCommand;
 type Definition = {
   name: string;
+  level: 1 | 3;
   positive: string;
   negative: string;
   crit: number;
   accuracy: number;
   penalty: number;
   stance?: SkillStance;
+  invertedNotInStance?: SkillStance;
   icon?: string;
 };
 const definitions: Record<HeroSkillTrinketId, Definition> = {
   "trinket:p006": {
     name: "Critical Stone",
+    level: 1,
     positive: "Crit+2",
     negative: "Acc-2",
     crit: 2,
@@ -33,6 +36,7 @@ const definitions: Record<HeroSkillTrinketId, Definition> = {
   },
   "trinket:p001": {
     name: "Accuracy Stone",
+    level: 1,
     positive: "Acc+1",
     negative: "Acc-1",
     crit: 0,
@@ -41,6 +45,7 @@ const definitions: Record<HeroSkillTrinketId, Definition> = {
   },
   "trinket:p002": {
     name: "Archer’s Ring",
+    level: 1,
     positive: "Acc+2 when in ",
     negative: "Acc-1",
     crit: 0,
@@ -51,6 +56,7 @@ const definitions: Record<HeroSkillTrinketId, Definition> = {
   },
   "trinket:p009": {
     name: "Sage’s Book",
+    level: 1,
     positive: "Acc+2 when in ",
     negative: "Acc-1",
     crit: 0,
@@ -61,6 +67,7 @@ const definitions: Record<HeroSkillTrinketId, Definition> = {
   },
   "trinket:p014": {
     name: "Warrior’s Cap",
+    level: 1,
     positive: "Acc+2 when in ",
     negative: "Acc-1",
     crit: 0,
@@ -68,6 +75,54 @@ const definitions: Record<HeroSkillTrinketId, Definition> = {
     penalty: -1,
     stance: "defensive",
     icon: "stance_defensive_lit",
+  },
+  "trinket:p031": {
+    name: "Sniper’s Ring",
+    level: 3,
+    positive: "Crit+4 if in ",
+    negative: "Acc-2 if not in ",
+    crit: 4,
+    accuracy: 0,
+    penalty: -2,
+    stance: "ranged",
+    invertedNotInStance: "ranged",
+    icon: "stance_ranged_lit",
+  },
+  "trinket:p032": {
+    name: "Warrior’s Ring",
+    level: 3,
+    positive: "Crit+4 if in ",
+    negative: "Acc-2 if not in ",
+    crit: 4,
+    accuracy: 0,
+    penalty: -2,
+    stance: "aggressive",
+    invertedNotInStance: "aggressive",
+    icon: "stance_aggressive_lit",
+  },
+  "trinket:p033": {
+    name: "Defender’s Ring",
+    level: 3,
+    positive: "Crit+4 if in ",
+    negative: "Acc-2 if not in ",
+    crit: 4,
+    accuracy: 0,
+    penalty: -2,
+    stance: "defensive",
+    invertedNotInStance: "defensive",
+    icon: "stance_defensive_lit",
+  },
+  "trinket:p034": {
+    name: "Scholar’s Ring",
+    level: 3,
+    positive: "Crit+4 if in ",
+    negative: "Acc-2 if not in ",
+    crit: 4,
+    accuracy: 0,
+    penalty: -2,
+    stance: "support",
+    invertedNotInStance: "support",
+    icon: "stance_support_lit",
   },
 };
 type Offer = {
@@ -136,18 +191,23 @@ function readOffers(state: GameState, command: Attack): { offers: Offer[] } | { 
       rule = definitions[id];
     if (
       card.name !== rule.name ||
-      card.level !== 1 ||
+      card.level !== rule.level ||
       card.upright_half.name !== rule.name ||
       card.inverted_half.name !== rule.name ||
       card.upright_half.printed_rotation !== 0 ||
       card.inverted_half.printed_rotation !== 180 ||
       !exactLine(card.upright_half.effect_lines, rule.positive, rule.icon) ||
-      !exactLine(card.inverted_half.effect_lines, rule.negative)
+      !exactLine(
+        card.inverted_half.effect_lines,
+        rule.negative,
+        rule.invertedNotInStance ? rule.icon : undefined,
+      )
     )
       return { problem: `${rule.name} 的已核实卡面发生变化，保留停点（R-048）` };
     if (
       b.usedTrinketIds?.includes(id) ||
-      (item.face === "upright" && rule.stance && actor.stance !== rule.stance)
+      (item.face === "upright" && rule.stance && actor.stance !== rule.stance) ||
+      (item.face === "inverted" && actor.stance === rule.invertedNotInStance)
     )
       continue;
     if (

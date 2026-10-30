@@ -5,6 +5,10 @@ export const HERO_SKILL_TRINKET_IDS = [
   "trinket:p002",
   "trinket:p009",
   "trinket:p014",
+  "trinket:p031",
+  "trinket:p032",
+  "trinket:p033",
+  "trinket:p034",
 ] as const;
 export type HeroSkillTrinketId = (typeof HERO_SKILL_TRINKET_IDS)[number];
 /** true 保留 #390 仅 Critical Stone I 的既有行为。 */
