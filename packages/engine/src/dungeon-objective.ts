@@ -1,3 +1,4 @@
+import { prepareBossObjectiveRoom } from "./boss/objective-room-entry";
 import { basicQuests, readBasicQuest } from "../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
@@ -63,10 +64,7 @@ export function prepareObjectiveRoomBattle(state: GameState): ApplyResult | null
   const room = d.rooms.find((r) => r.id === d.position);
   if (room?.kind !== "objective") return null;
   if (d.faceTheThreatEmbarkPlan?.roomPlacement === "edgeRoomsR30")
-    return refuse(
-      state,
-      "Face the Threat 目标房须使用对应 Boss 专属房间；正式几何/生产绑定仍待接入，不能改抽普通房间（R30 / R-048）",
-    );
+    return prepareBossObjectiveRoom(state);
   const aside = readSetAsideRoomCardId(d);
   const c = d.roomCards;
   if (!c || !roomCatalogSchema.safeParse(c.cards).success)

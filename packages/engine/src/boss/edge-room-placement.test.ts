@@ -90,11 +90,15 @@ it("新 p019 入口 JSON 存档复原；旧无标记入口保持原布局与 RNG
       expect(d.faceTheThreatEmbarkPlan?.layoutWiringHold).toContain("边缘房代币已布置");
       const entered = {
         ...game,
-        dungeon: { ...d, position: d.rooms.find((r) => r.kind === "objective")!.id },
+        dungeon: {
+          ...d,
+          phase: "awaitingRoom" as const,
+          position: d.rooms.find((r) => r.kind === "objective")!.id,
+        },
       };
       const result = prepareObjectiveRoomBattle(entered)!;
-      expect(result.state).toBe(entered);
-      expect(result.events[0]).toMatchObject({ type: "commandRefused" });
+      expect(result.state.dungeon!.roomCards!.active?.cardId).toBe("room:p010");
+      expect(result.events[0]).toMatchObject({ type: "dungeonUpdated" });
     }
     const tampered = {
       ...save,
