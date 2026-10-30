@@ -158,11 +158,12 @@ it("真实任务用真实金币升级II，Intimidate解除封锁后购买两颗�
     serviceId: "abbeyPositiveQuirk",
     quirkIds: [],
   });
-  step({
-    type: "resolveChoice",
-    choiceId: game.dungeon!.pending!.id,
-    optionId: game.dungeon!.pending!.options.at(-1)!.id,
-  });
+  while (game.dungeon!.pending)
+    step({
+      type: "resolveChoice",
+      choiceId: game.dungeon!.pending!.id,
+      optionId: game.dungeon!.pending!.options.at(-1)!.id,
+    });
   expect(applyCommand(game, visit(2, "hero-2")).state).toBe(game);
   step({ type: "useHamletSkill", actorId: "hero-1", skill: "intimidate" });
   const cursor = game.dungeon!.cursor,

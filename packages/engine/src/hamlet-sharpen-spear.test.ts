@@ -1,7 +1,7 @@
 import { beforeAll, expect, it } from "vitest";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
-import { naturalAbbeyQuest } from "./test-helpers/abbey-quest";
+import { naturalAbbeyQuest, naturalGraveyardQuest } from "./test-helpers/abbey-quest";
 import { coreQuestSources } from "./test-helpers/core-quest";
 import { createQuestSave, loadQuestSave } from "./quest-save";
 import { hamletActionOptions } from "./hamlet-actions";
@@ -152,9 +152,10 @@ it("错误身份/未核实属性/II级/坏状态/越序原子拒绝；只给当�
   } as GameState;
   expect(applyCommand(broken, sharpen).state).toBe(broken);
 });
-it("真实seed2回村→墓地→Sharpen Spear→酒馆→Chant→次日/准备结束保存回放，Buff5t保持", () => {
-  let game = baseline.game;
-  const commands = [...baseline.commands];
+it("真实seed3回村→墓地→Sharpen Spear→酒馆→Chant→次日/准备结束保存回放，Buff5t保持", () => {
+  const journey = naturalGraveyardQuest();
+  let game = journey.game;
+  const commands = [...journey.commands];
   const step = (c: Command) => {
     commands.push(c);
     game = ok(game, c);
@@ -175,7 +176,7 @@ it("真实seed2回村→墓地→Sharpen Spear→酒馆→Chant→次日/准备�
     { kind: "buff", remaining: 3 },
   ]);
   step({ type: "rollHamletCaretaker" });
-  const save = createQuestSave(baseline.start, commands, game, coreQuestSources);
+  const save = createQuestSave(journey.start, commands, game, coreQuestSources);
   expect(loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game).toEqual(game);
   for (let day = 0; day < 3; day++) {
     step({ type: "useHamletSkill", actorId: "hero-0", skill: "zealousSpeech" });
@@ -183,6 +184,6 @@ it("真实seed2回村→墓地→Sharpen Spear→酒馆→Chant→次日/准备�
   }
   expect(game.dungeon!.hamlet!.phase).toBe("preparationComplete");
   expect(game.dungeon!.heroes[1]!.statusStacks).toEqual(stacks);
-  const final = createQuestSave(baseline.start, commands, game, coreQuestSources);
+  const final = createQuestSave(journey.start, commands, game, coreQuestSources);
   expect(loadQuestSave(JSON.parse(JSON.stringify(final)), coreQuestSources).game).toEqual(game);
 }, 30000);

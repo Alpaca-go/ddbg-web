@@ -32,6 +32,15 @@ function fixture(): GameState {
     ...game,
     dungeon: {
       ...d,
+      // 明示纯技能夹具：排除新自然种子的怪癖 / 疾病修正，并归还对应牌池。
+      conditions: {
+        ...d.conditions!,
+        quirkDiscard: [...d.conditions!.quirkDiscard, ...d.heroes.flatMap((h) => h.quirkIds ?? [])],
+        diseaseDiscard: [
+          ...d.conditions!.diseaseDiscard,
+          ...d.heroes.flatMap((h) => (h.diseaseId ? [h.diseaseId] : [])),
+        ],
+      },
       hamlet: {
         ...d.hamlet!,
         heroOrder: ["hero-3", "hero-0", "hero-1", "hero-2"],
@@ -41,6 +50,9 @@ function fixture(): GameState {
       heroes: d.heroes.map((h) => ({
         ...h,
         stress: 8,
+        quirkIds: [],
+        diseaseId: null,
+        ...(h.combat ? { combat: { ...h.combat, quirkIds: [], diseaseId: null } } : {}),
         statusStacks: [{ kind: "buff", remaining: 2 }],
       })),
     },
@@ -152,11 +164,12 @@ it("真实任务村庄顺序完成Pray/Chant、次日与准备结束都保存回
       serviceId: "abbeyPositiveQuirk",
       quirkIds: [],
     });
-    step({
-      type: "resolveChoice",
-      choiceId: game.dungeon!.pending!.id,
-      optionId: game.dungeon!.pending!.options.at(-1)!.id,
-    });
+    while (game.dungeon!.pending)
+      step({
+        type: "resolveChoice",
+        choiceId: game.dungeon!.pending!.id,
+        optionId: game.dungeon!.pending!.options.at(-1)!.id,
+      });
     step({ type: "useHamletSkill", actorId: "hero-1", skill: "intimidate" });
     step({ type: "visitHamletBuilding", actorId: "hero-2", serviceId: "tavern3", quirkIds: [] });
     const before = game.dungeon!;
