@@ -303,3 +303,5 @@ export type {
 export { dungeonMonsterPoolThrough, combatCardIdForPoolInstance } from "./monster-pool-runtime";
 export { isHauntedGraveyardGuard } from "./boss/necromancer-ii-graveyard";
 export { HERO_SKILL_TRINKET_IDS } from "../../data/src/hero-skill-trinkets";
+
+export { FREE_TRINKET_IDS, isFreeTrinketId, freeTrinketUseProblem } from "./battle-free-trinkets";

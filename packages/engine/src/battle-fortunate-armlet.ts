@@ -1,3 +1,5 @@
+import { isFreeTrinketId, useFreeTrinket } from "./battle-free-trinkets";
+import type { FreeTrinketId } from "./battle-free-trinkets";
 import type { NormalizedTrinketCard } from "../../data/src/normalize/schema";
 import { rejectBattleCommand } from "./battle";
 import { triggerBattlePassive } from "./battle-passive";
@@ -10,7 +12,7 @@ export const FORTUNATE_ARMLET_ID = "trinket:p025";
 export type UseTrinketCommand = {
   readonly type: "useTrinket";
   readonly actorId: string;
-  readonly cardId: typeof FORTUNATE_ARMLET_ID;
+  readonly cardId: typeof FORTUNATE_ARMLET_ID | FreeTrinketId;
 };
 
 /** R26 / 印刷 p025：逐半面绑定，不由 verification 推断能力。 */
@@ -88,6 +90,8 @@ export function fortunateArmletUseProblem(state: GameState, actorId: string): st
 }
 
 export function useTrinket(state: GameState, command: UseTrinketCommand): ApplyResult {
+  if (isFreeTrinketId(command.cardId))
+    return useFreeTrinket(state, { ...command, cardId: command.cardId });
   if (command.cardId !== FORTUNATE_ARMLET_ID)
     return rejectBattleCommand(state, "该饰品的独立使用能力尚未接通（R-048）");
   const problem = fortunateArmletUseProblem(state, command.actorId);
