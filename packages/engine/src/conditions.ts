@@ -1,3 +1,5 @@
+import { availableTrinket, spendTrinket, trinketChoice } from "./trinket-reactions";
+import type { TrinketScope } from "./trinket-reactions";
 import { diseaseCardSchema } from "../../data/src/disease";
 import type { DiseaseCard } from "../../data/src/disease";
 import { normalizedQuirkCardSchema } from "../../data/src/normalize/schema";
@@ -170,6 +172,7 @@ export function gainDisease<T extends ConditionHero>(
   heroId: string,
   seed: number,
   cursor: number,
+  scope?: TrinketScope,
 ):
   | { readonly status: "refused"; readonly reason: string }
   | {
@@ -230,6 +233,40 @@ export function gainDisease<T extends ConditionHero>(
     nextPool = acquired.pool;
     nextHeroes = [...acquired.heroes];
     nextCursor = acquired.cursor;
+  }
+
+  if (
+    scope &&
+    availableTrinket(scope, heroId, "trinket:p016", "upright") &&
+    !nextHeroes.find((h) => h.id === heroId)!.dead
+  ) {
+    if (replaceOptions) {
+      const selected = trinketChoice(
+        scope,
+        heroId,
+        "disease-quirk",
+        "先按R27替换正面怪癖，再选择是否弃掉新疾病",
+        replaceOptions.map((id) => ({ id, label: id })),
+        true,
+      );
+      const replaced = replaceConditionQuirk(nextPool, nextHeroes, selected);
+      if (replaced.status === "refused") return replaced;
+      nextPool = replaced.pool;
+      nextHeroes = [...replaced.heroes];
+      replaceOptions = undefined;
+    }
+    const selected = trinketChoice(
+      scope,
+      heroId,
+      "disease",
+      "已获得疾病 " + diseaseId + "：Book of Constitution 可立即弃掉新疾病（R-130）",
+      [{ id: "trinket:p016", label: "弃掉新疾病并翻面；不撤销R27的替换和负面怪癖" }],
+    );
+    if (selected === "trinket:p016") {
+      nextPool = { ...nextPool, diseaseDiscard: [...nextPool.diseaseDiscard, diseaseId] };
+      nextHeroes = nextHeroes.map((h) => (h.id === heroId ? { ...h, diseaseId: null } : h));
+      spendTrinket(scope, heroId, "trinket:p016");
+    }
   }
   return {
     status: "resolved",

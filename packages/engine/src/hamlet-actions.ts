@@ -1,3 +1,4 @@
+import { healingTrinketReaction } from "./trinket-reactions";
 import type { ApplyResult, GameState, PendingChoice } from "./command";
 import type { DungeonState } from "./dungeon";
 import { rejectBattleCommand } from "./battle";
@@ -318,9 +319,14 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
           type: "heal",
           amount: passiveHeal(
             updated,
-            service.building === "sanitarium"
-              ? effectiveHamletSanitariumHealAmount(next, service.amount)
-              : service.amount,
+            healingTrinketReaction(
+              next,
+              undefined,
+              updated.id,
+              service.building === "sanitarium"
+                ? effectiveHamletSanitariumHealAmount(next, service.amount)
+                : service.amount,
+            ),
           ),
         },
       );

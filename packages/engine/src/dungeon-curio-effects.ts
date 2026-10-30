@@ -253,7 +253,7 @@ export function resolveCurioRows(state: GameState): ApplyResult {
       }
       const acquired =
         effect.type === "drawDisease"
-          ? gainDisease(d.conditions!, d.heroes, hero.id, state.seed, d.cursor)
+          ? gainDisease(d.conditions!, d.heroes, hero.id, state.seed, d.cursor, d)
           : (effect.polarity === "positive" ? gainPositiveQuirk : gainNegativeQuirk)(
               d.conditions!,
               d.heroes,

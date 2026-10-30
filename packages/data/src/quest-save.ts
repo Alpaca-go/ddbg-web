@@ -1,7 +1,10 @@
+import { CORE_TRINKET_IDS } from "./core-trinket-bindings";
 import { z } from "zod";
 import { basicQuests, type BasicQuestId } from "./basic-quests";
 import { HERO_SKILL_TRINKET_IDS } from "./hero-skill-trinkets";
 
+const commandObject = <S extends z.ZodRawShape>(shape: S) =>
+  z.strictObject({ ...shape, allTrinkets: z.literal(true).optional() });
 const id = z.string().min(1);
 const actor = { actorId: id };
 const shuffle = z.enum(["push", "pull"]);
@@ -15,7 +18,7 @@ const trinketWindow = z
       .refine((ids) => new Set(ids).size === ids.length),
   ])
   .optional();
-const noPayload = z.strictObject({
+const noPayload = commandObject({
   type: z.enum([
     "rollDungeonProvisions",
     "prepareReplacementHero",
@@ -46,22 +49,23 @@ const noPayload = z.strictObject({
 });
 /** 存档仅允许公开命令的完整参数，不接受状态注入或额外字段。 */
 export const savedCommandSchema = z.union([
-  z.strictObject({
+  commandObject({ type: z.literal("useCoreTrinket"), ...actor, cardId: z.enum(CORE_TRINKET_IDS) }),
+  commandObject({
     type: z.enum(["setDungeonStances", "setHamletStances"]),
     heroIds: z
       .array(id)
       .length(4)
       .refine((ids) => new Set(ids).size === 4),
   }),
-  z.strictObject({ type: z.literal("visitGuild"), ...actor }),
-  z.strictObject({
+  commandObject({ type: z.literal("visitGuild"), ...actor }),
+  commandObject({
     type: z.literal("setEquippedSkills"),
     ...actor,
     skillIds: z.array(id).min(3).max(5),
   }),
-  z.strictObject({ type: z.literal("visitBlacksmith"), ...actor, skillId: id }),
-  z.strictObject({ type: z.literal("visitNomadWagon"), ...actor }),
-  z.strictObject({
+  commandObject({ type: z.literal("visitBlacksmith"), ...actor, skillId: id }),
+  commandObject({ type: z.literal("visitNomadWagon"), ...actor }),
+  commandObject({
     type: z.literal("upgradeHamletBuilding"),
     building: z.enum([
       "abbey",
@@ -73,7 +77,7 @@ export const savedCommandSchema = z.union([
       "nomadWagon",
     ]),
   }),
-  z.strictObject({
+  commandObject({
     type: z.literal("visitHamletBuilding"),
     ...actor,
     serviceId: z.enum([
@@ -102,13 +106,13 @@ export const savedCommandSchema = z.union([
     ]),
     quirkIds: z.array(id).max(2),
   }),
-  z.strictObject({
+  commandObject({
     type: z.literal("useHamletSkill"),
     ...actor,
     skill: z.enum(["experimentalVapours", "darkRitual"]),
     targetId: id,
   }),
-  z.strictObject({
+  commandObject({
     type: z.literal("useHamletSkill"),
     ...actor,
     skill: z.enum([
@@ -122,7 +126,7 @@ export const savedCommandSchema = z.union([
     ]),
   }),
   noPayload,
-  z.strictObject({
+  commandObject({
     type: z.enum([
       "lootTreasureChest",
       "hideAndHeal",
@@ -133,15 +137,15 @@ export const savedCommandSchema = z.union([
     ]),
     ...actor,
   }),
-  z.strictObject({ type: z.literal("moveHero"), ...actor, path: z.array(id).min(1) }),
-  z.strictObject({
+  commandObject({ type: z.literal("moveHero"), ...actor, path: z.array(id) }),
+  commandObject({
     type: z.literal("changeStance"),
     ...actor,
     direction: z.enum(["forward", "backward"]),
   }),
-  z.strictObject({ type: z.literal("resolveChoice"), choiceId: id, optionId: id }),
-  z.strictObject({ type: z.literal("ping"), message: z.string() }),
-  z.strictObject({
+  commandObject({ type: z.literal("resolveChoice"), choiceId: id, optionId: id }),
+  commandObject({ type: z.literal("ping"), message: z.string() }),
+  commandObject({
     type: z.literal("useTrinket"),
     ...actor,
     cardId: z.enum([
@@ -158,16 +162,17 @@ export const savedCommandSchema = z.union([
       "trinket:p038",
     ]),
   }),
-  z.strictObject({
+  commandObject({
     type: z.literal("useProvision"),
     provisionId: id,
     targetId: id,
     effect: z.enum(["heal", "clearBleed", "clearBlight", "reduceStress", "raiseLight"]),
   }),
-  z.strictObject({ type: z.literal("setupForwardCamp"), provisionId: id }),
-  z.strictObject({ type: z.literal("playHeroSkillEmptyArea"), ...actor, skillId: id, areaId: id }),
-  z.strictObject({
+  commandObject({ type: z.literal("setupForwardCamp"), provisionId: id }),
+  commandObject({ type: z.literal("playHeroSkillEmptyArea"), ...actor, skillId: id, areaId: id }),
+  commandObject({
     type: z.literal("playHeroSkill"),
+    damageStoneWindow: z.literal(true).optional(),
     trinketWindow,
     ...actor,
     targetId: id,
@@ -175,16 +180,18 @@ export const savedCommandSchema = z.union([
     face: z.enum(["front", "back"]).optional(),
     shuffleChoice: shuffle.optional(),
   }),
-  z.strictObject({
+  commandObject({
     type: z.literal("playHeroSkillTargets"),
+    damageStoneWindow: z.literal(true).optional(),
     trinketWindow,
     ...actor,
     skillId: id,
     targetIds: z.array(id).min(1),
     shuffleChoice: shuffle.optional(),
   }),
-  z.strictObject({
+  commandObject({
     type: z.literal("playMonsterSkill"),
+    damageStoneWindow: z.literal(true).optional(),
     ...actor,
     targetId: id,
     skillSlot: z.int().positive(),

@@ -1,3 +1,5 @@
+import { settleFreeTrinket } from "./trinket-lifecycle";
+import { crownTrinketReaction } from "./trinket-reactions";
 import type { ApplyResult, GameEvent, GameState } from "./command";
 import { resolvePressure } from "./pressure";
 import { createRng, rollD10 } from "./rng";
@@ -82,7 +84,19 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
       if (d.heroes.find((h) => h.id === hero.id)!.dead) continue;
     }
     let cursor = d.cursor;
-    decision = resolvePressure(10, false, null, roll, passiveVirtueThreshold(hero));
+    decision = resolvePressure(
+      10,
+      false,
+      null,
+      roll,
+      crownTrinketReaction(
+        d,
+        hero.id,
+        roll,
+        passiveVirtueThreshold(hero),
+        d.explorationSetup?.light ?? 5,
+      ),
+    );
     if (decision.type !== "draw") return blocked("意志骰结果无效");
     const role = decision.role;
     const existing = d.resolveDecks[role];
@@ -114,6 +128,19 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
       cardId,
       message: "探索首次意志检定：抽取意志卡，压力归零（R28）；不触发战斗回合效果",
     });
+  }
+  if (d.pressureSource === "freeTrinket" && d.freeTrinketResume) {
+    const { freeTrinketResume: resume, pressureSource: _source, ...rest } = d;
+    void _source;
+    const continued = settleFreeTrinket({
+      ...state,
+      dungeon: {
+        ...rest,
+        phase: resume.phase,
+        ...(resume.pressureSource ? { pressureSource: resume.pressureSource } : {}),
+      },
+    });
+    return { ...continued, events: [...events, ...continued.events] };
   }
   if (d.pressureSource === "hamletScout") {
     const continued = completeScoutAheadAction({ ...state, dungeon: d });

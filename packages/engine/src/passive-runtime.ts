@@ -93,6 +93,7 @@ export function applyPassiveHero<T extends PassiveHero>(
     readonly probe?: boolean;
     readonly healingForbidden?: boolean;
     readonly omitStress?: boolean;
+    readonly healingReaction?: (amount: number) => number;
   } = {},
 ):
   | { status: "refused"; reason: string }
@@ -142,7 +143,12 @@ export function applyPassiveHero<T extends PassiveHero>(
     });
   const healthEffects = [
     ...(plan?.heal && !options.healingForbidden
-      ? [{ type: "heal" as const, amount: passiveHeal(original, plan.heal) }]
+      ? [
+          {
+            type: "heal" as const,
+            amount: passiveHeal(original, options.healingReaction?.(plan.heal) ?? plan.heal),
+          },
+        ]
       : []),
     ...(woundAmounts.length ? [{ type: "wounds" as const, amounts: woundAmounts }] : []),
   ];

@@ -17,6 +17,7 @@ import type { HeroTrinketAttack } from "./battle-trinket-ability";
 
 /** R20：声明快照只保留一次；后续命令沿用骰面，当前实体保留已支付效果。 */
 export type SkillPrefix = {
+  readonly damageStoneResponse?: { readonly heroId: string; readonly use: boolean };
   readonly original: BattleState;
   readonly command: PlayHeroSkillCommand | PlayHeroSkillTargetsCommand | PlayMonsterSkillCommand;
   readonly roll: number | null;

@@ -1,3 +1,4 @@
+import { healingTrinketReaction } from "./trinket-reactions";
 import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import { resolveHeroHealth } from "./hero-health";
@@ -62,7 +63,10 @@ export function useDungeonProvision(state: GameState, command: UseProvisionComma
       return rejectBattleCommand(state, "补给治疗缺已核实Life / 伤口（R-048）");
     const health = resolveHeroHealth(
       { life: target.life, wounds: target.wounds, dead: false },
-      { type: "heal", amount: passiveHeal(target, 1) },
+      {
+        type: "heal",
+        amount: passiveHeal(target, healingTrinketReaction(d, target.id, target.id, 1)),
+      },
     );
     if (health.status !== "resolved") return rejectBattleCommand(state, "补给治疗数据无效");
     updated = { ...target, wounds: health.state.wounds };

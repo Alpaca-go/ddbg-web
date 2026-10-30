@@ -1,3 +1,4 @@
+import { speedTrinketReaction } from "./trinket-reactions";
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
 import { finishTurn, removeCasualties, endAfterCasualties, newlyDefeatedIds } from "./encounter";
@@ -49,10 +50,17 @@ export function moveHero(state: GameState, command: MoveHeroCommand): ApplyResul
     return rejectBattleCommand(state, "移动需要关联已核实 Speed 的英雄属性面（R-048）");
   if (
     !Array.isArray(command.path) ||
-    command.path.length === 0 ||
-    command.path.length > stat.speed!
+    (!command.path.length && !battle.trinketRuntime) ||
+    command.path.length > heroMovePathLimit(state, actor.id)
   )
-    return rejectBattleCommand(state, "路径必须包含移动区域且步数不得超过 Speed");
+    return rejectBattleCommand(state, "移动路径无效或超过所有可用速度修正");
+  const speed = speedTrinketReaction(battle, actor.id, stat.speed!);
+  if (
+    !Array.isArray(command.path) ||
+    (command.path.length === 0 && !battle.trinketRuntime) ||
+    command.path.length > speed
+  )
+    return rejectBattleCommand(state, "移动路径步数不得超过本次 Speed（R18、R-132）");
   let from = actor.areaId;
   for (const id of command.path) {
     if (!battle.areas.find((area) => area.id === from)?.adjacent.includes(id))
@@ -119,5 +127,21 @@ export function moveHero(state: GameState, command: MoveHeroCommand): ApplyResul
     (turn.actions === 1 || removed.state.battle!.entities.find((e) => e.id === actor.id)!.dead
       ? finishTurn(removed.state, actor.id, removed.events)
       : removed)
+  );
+}
+
+/** UI只展示潜在路径上限；是否使用Speed Stone仍由PendingChoice决定。 */
+export function heroMovePathLimit(state: GameState, actorId: string): number {
+  const b = state.battle,
+    actor = b?.entities.find((e) => e.id === actorId),
+    stat = b?.heroStats?.find((s) => s.id === actor?.heroStatId);
+  if (!b || !actor || !Number.isSafeInteger(stat?.speed)) return 0;
+  return (
+    stat!.speed! +
+    Number(
+      !!b.trinkets?.held.some(
+        (h) => h.heroId === actorId && h.cardId === "trinket:p010" && h.face === "upright",
+      ) && !b.usedTrinketIds?.includes("trinket:p010"),
+    )
   );
 }

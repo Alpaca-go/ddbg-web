@@ -1,3 +1,4 @@
+import { healingTrinketReaction } from "./trinket-reactions";
 import { rejectBattleCommand } from "./battle";
 import type { BattleEntity, BattleState } from "./battle";
 import type {
@@ -202,7 +203,10 @@ export function finishTurn(
   const actor = original.entities.find((entity) => entity.id === actorId)!;
   const area = original.areas.find((area) => area.id === actor.areaId);
   if (!actor.dead && actor.side === "hero" && area?.endTurnHeal === 3) {
-    const effect = { type: "heal" as const, amount: passiveHeal(actor, 3) };
+    const effect = {
+      type: "heal" as const,
+      amount: passiveHeal(actor, healingTrinketReaction(original, undefined, actor.id, 3)),
+    };
     const health = resolveHeroHealth(
       { life: actor.life!, wounds: actor.wounds, dead: actor.dead },
       effect,
@@ -638,6 +642,7 @@ export function recordMonsterSkill(
         hero.id,
         result.state.seed,
         next.rngCursor,
+        next,
       );
       if (acquired.status === "refused") return rejectBattleCommand(result.state, acquired.reason);
       next = {

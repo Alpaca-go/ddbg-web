@@ -1,3 +1,4 @@
+import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { isInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand, writeResolution, skillTargetView } from "./battle";
 import { applySkillHealth } from "./battle-health";
@@ -22,6 +23,7 @@ import { beforeTargetShuffle } from "./battle-target-pressure";
 
 /** 调用方手动指定已选技能 / 单个目标；不执行姿态选招、目标 AI 或移动。 */
 export type PlayMonsterSkillCommand = {
+  readonly damageStoneWindow?: true;
   readonly type: "playMonsterSkill";
   readonly actorId: string;
   readonly targetId: string;
@@ -150,22 +152,44 @@ export function playMonsterSkill(
   const roll = resume ? resume.roll! : nextBattleRoll(state.seed, battle.rngCursor);
   const current = resume ? state.battle! : battle;
   const effectCombat = resume ? afterMonsterOwnCombat(combat, current) : combat;
-  const result = resolveMonsterSkill(card, command.skillSlot, effectCombat, roll);
+  let result = resolveMonsterSkill(card, command.skillSlot, effectCombat, roll);
   if (result.status === "refused") return rejectBattleCommand(state, result.reason);
-  const effects = resolveMonsterSkillEffects(card, command.skillSlot, effectCombat, roll);
+  let effects = resolveMonsterSkillEffects(card, command.skillSlot, effectCombat, roll);
   if (effects.status === "refused") return rejectBattleCommand(state, effects.reason);
   if (!resume) {
     const own = beginSkillOwnEffects(state, command, roll, effects);
     if (own) return own;
   }
+  if (current.trinketRuntime) {
+    effects = resolveMonsterSkillEffects(
+      card,
+      command.skillSlot,
+      { ...effectCombat, trinketScope: current },
+      roll,
+    );
+    if (effects.status === "refused") return rejectBattleCommand(state, effects.reason);
+    result = {
+      ...result,
+      resolution: effects.resolution,
+      actorDead: (effects.resolution.actorWounds ?? 0) >= card.life,
+    };
+  }
   const entities = current.entities.map((entry) => {
     const updated = writeResolution(entry, actor.id, target.id, result.resolution, false);
     return entry.id === actor.id ? { ...updated, dead: result.actorDead } : updated;
   });
+  const damageStoneWindow = beginDamageStoneWindow(
+    state,
+    command,
+    roll,
+    effects.healthEffects,
+    resume,
+  );
+  if (damageStoneWindow) return damageStoneWindow;
   const health = applySkillHealth(
     current,
     entities,
-    effects,
+    { ...effects, healthEffects: damageStoneHealthEffects(resume, effects.healthEffects) },
     state.seed,
     current.rngCursor + Number(!resume),
   );

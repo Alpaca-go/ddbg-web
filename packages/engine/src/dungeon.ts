@@ -1,10 +1,11 @@
+import { scoutTrinketReaction } from "./trinket-reactions";
 import {
   dungeonLayoutSchema,
   roomDistributionEmbarkBlockReason,
   roomDistributionSchema,
 } from "../../data/src/dungeon-layout";
 import type { DungeonLayout, RoomDistribution } from "../../data/src/dungeon-layout";
-import type { ApplyResult, GameState, PendingChoice } from "./command";
+import type { ApplyResult, GameState, PendingChoice, GameEvent } from "./command";
 import { createRng } from "./rng";
 import { expandRoomDistributionForEmbark } from "./room-distribution-expand";
 import type { ResolveCard } from "./pressure";
@@ -88,7 +89,12 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  readonly trinketRuntime?: import("./trinket-reactions").TrinketRuntime;
   /** 保存死亡发生的流程，补人只续接已付费的步骤，不重新执行入口。 */
+  readonly freeTrinketResume?: {
+    readonly phase: DungeonState["phase"];
+    readonly pressureSource?: DungeonState["pressureSource"];
+  };
   readonly replacementResume?:
     | "scout"
     | "ready"
@@ -101,7 +107,8 @@ export type DungeonState = {
     | "hamletProvisions"
     | "hamletScout"
     | "hamletVapours"
-    | "hamletDarkRitual";
+    | "hamletDarkRitual"
+    | "hamletTrinket";
   readonly replacementPreparation?: import("./replacement-preparation").ReplacementPreparation;
   readonly preparedReplacements?: readonly import("./replacement-preparation").PreparedReplacement[];
   readonly replacementChoiceCursor?: number;
@@ -268,6 +275,7 @@ export type DungeonState = {
     | "inHamlet"
     | "awaitingCurio";
   readonly pressureSource?:
+    | "freeTrinket"
     | "hamletVapours"
     | "hamletScout"
     | "hamletDarkRitual"
@@ -514,12 +522,19 @@ export function applyDungeonCommand(
     if (d.pending.id.startsWith("dungeon-scout:")) {
       if (command.optionId === "decline")
         return finish({ ...d, pending: null }, "取消侦察，未支付压力");
-      const passive = triggerDungeonPassive(
-        d,
-        state.seed,
-        d.heroes.map((h) => h.id),
-        { type: "stress", amount: 1 },
-      );
+      const passive = (() => {
+        let next = d;
+        const events: GameEvent[] = [];
+        for (const hero of d.heroes) {
+          const amount = scoutTrinketReaction(next, hero.id, 1);
+          if (!amount) continue;
+          const r = triggerDungeonPassive(next, state.seed, [hero.id], { type: "stress", amount });
+          if (r.status === "refused") return r;
+          next = r.dungeon;
+          events.push(...r.events);
+        }
+        return { status: "resolved" as const, dungeon: next, events };
+      })();
       if (passive.status === "refused") return refuse(passive.reason);
       const heroes = passive.dungeon.heroes;
       d = passive.dungeon;

@@ -1,3 +1,4 @@
+import { healingTrinketReaction } from "./trinket-reactions";
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { rejectBattleCommand } from "./battle";
@@ -94,7 +95,10 @@ export function useDarkRitual(state: GameState, actor: Hero, targetId: string): 
   const subject: Hero = actor.id === target.id ? stressed.hero : target;
   const health = resolveHeroHealth(
     { life: subject.life!, wounds: subject.wounds!, dead: false },
-    { type: "heal", amount: passiveHeal(subject, row.heal) },
+    {
+      type: "heal",
+      amount: passiveHeal(subject, healingTrinketReaction(d, actor.id, subject.id, row.heal)),
+    },
   );
   if (health.status !== "resolved") return rejectBattleCommand(state, "Dark Ritual治疗状态无效");
 

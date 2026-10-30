@@ -1,3 +1,4 @@
+import { healingTrinketReaction } from "./trinket-reactions";
 import type { ApplyResult, GameEvent, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import { conditionPoolProblem } from "./conditions";
@@ -81,7 +82,18 @@ export function endTurnOldAbbey(
           },
         ],
       };
-    const effect = { type: "heal" as const, amount: passiveHeal(live, positive * live.heroLevel!) };
+    const effect = {
+      type: "heal" as const,
+      amount: passiveHeal(
+        live,
+        healingTrinketReaction(
+          result.state.battle!,
+          undefined,
+          live.id,
+          positive * live.heroLevel!,
+        ),
+      ),
+    };
     const health = resolveHeroHealth(
       { life: live.life!, wounds: live.wounds, dead: live.dead },
       effect,

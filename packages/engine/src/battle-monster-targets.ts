@@ -1,3 +1,4 @@
+import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { distance, rejectBattleCommand, skillTargetView, writeResolution } from "./battle";
 import type { BattleEntity } from "./battle";
 import { applySkillHealth } from "./battle-health";
@@ -158,17 +159,22 @@ export function playMonsterSkillTargets(
         targets.map((target) => target.id),
       ),
     );
-  const effects = resolve(roll);
+  let effects = resolve(roll);
   const failure = invalid(effects);
   if (failure)
     return rejectBattleCommand(
       state,
       failure.status === "refused" ? failure.reason : "多目标效果不完整，整次拒绝（R-048）",
     );
-  const results = effects.filter((e) => e.status === "resolved");
+  let results = effects.filter((e) => e.status === "resolved");
   if (!resume) {
     const own = beginSkillOwnEffects(state, command, roll, results[0]!, results);
     if (own) return own;
+  }
+  if (current.trinketRuntime) {
+    contexts = contexts.map((c) => ({ ...c, trinketScope: current }));
+    effects = resolve(roll);
+    results = effects.filter((e) => e.status === "resolved");
   }
   const resolutions = results.map((e) => e.resolution);
   const representative = resolutions.find((r) => r.outcome === "crit") ?? resolutions[0]!;
@@ -190,12 +196,14 @@ export function playMonsterSkillTargets(
     );
     return entity.id === actor.id ? { ...updated, dead: actorDead } : updated;
   });
+  const damageStoneWindow = beginDamageStoneWindow(state, command, roll, healthEffects, resume);
+  if (damageStoneWindow) return damageStoneWindow;
   const health = applySkillHealth(
     current,
     entities,
     {
       resolution: representative,
-      healthEffects,
+      healthEffects: damageStoneHealthEffects(resume, healthEffects),
     },
     state.seed,
     current.rngCursor + Number(!resume),

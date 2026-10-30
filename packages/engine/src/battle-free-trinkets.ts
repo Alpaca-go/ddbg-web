@@ -98,7 +98,7 @@ const definitions = {
         ],
         ["from all Heroes"],
       ],
-      [["Gain a ", "@trinket_picture"]],
+      [["Gain a ", "@draw_negative_quirk"]],
     ],
   },
 } as const;

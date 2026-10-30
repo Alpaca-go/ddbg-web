@@ -1,3 +1,4 @@
+import { defenceTrinketReaction } from "./trinket-reactions";
 import type { HeroHealthEffect } from "./hero-health";
 import { statusStackProblem } from "./status";
 import type { StatusEffect, StatusStack } from "./status";
@@ -415,11 +416,14 @@ export type SkillTargetState = PassiveHolder & {
 };
 
 export type SkillCombatState = {
+  readonly trinketHealingMetadata?: true;
+  readonly trinketScope?: import("./battle").BattleState;
   /** R26：本次技能宣告后主动使用的饰品修正，不是常驻属性或 Buff。 */
   readonly trinketModifiers?: {
     readonly crit: number;
     readonly accuracy: number;
     readonly dealNoDamage?: boolean;
+    readonly damage?: number;
   };
   /** 引擎内部续接：骰面阈值仍用声明时光照，自身效果不重复。 */
   readonly ownEffectsApplied?: true;
@@ -505,6 +509,7 @@ export type SkillForm = "beast" | "human";
 
 /** 已命名生命效果的发生顺序；不能从最终伤口差值逆推（R20、R29）。 */
 export type SkillHealthEffect = {
+  readonly rawHealing?: number;
   readonly entityId: string;
   readonly side: SkillTargetSide;
   readonly source: "selfHeal" | "selfWound" | "targetHeal" | "attack" | "riposte" | "passiveStress";
@@ -593,6 +598,7 @@ export type HeroSkillResolution = {
   readonly skipped: readonly SkippedSkillEffect[];
   readonly actorStatusEffects?: readonly StatusEffect[];
   readonly targetStatusEffects?: readonly StatusEffect[];
+  readonly targetTrinketStatusEffects?: readonly StatusEffect[];
   readonly actorLightDelta?: number;
   readonly targetLightDelta?: number;
 };
@@ -2093,7 +2099,10 @@ function targetCountProblem(skill: HeroSkillCardView, combat: SkillCombatState):
 function combatProblem(combat: SkillCombatState): string | null {
   if (
     combat.trinketModifiers &&
-    (!Number.isSafeInteger(combat.trinketModifiers.crit) ||
+    ((combat.trinketModifiers.damage !== undefined &&
+      (!Number.isSafeInteger(combat.trinketModifiers.damage) ||
+        combat.trinketModifiers.damage < 0)) ||
+      !Number.isSafeInteger(combat.trinketModifiers.crit) ||
       !Number.isSafeInteger(combat.trinketModifiers.accuracy) ||
       (combat.trinketModifiers.dealNoDamage !== undefined &&
         typeof combat.trinketModifiers.dealNoDamage !== "boolean"))
@@ -2753,6 +2762,11 @@ function resolveSkill(
     outcome = roll <= hitThreshold ? "hit" : "miss";
   }
 
+  const trinketDefence =
+    combat.trinketScope && sourceSide !== target.side && target.side === "hero"
+      ? defenceTrinketReaction(combat.trinketScope, target.id, roll, hitThreshold, outcome)
+      : { outcome, halve: false, statuses: [] };
+  outcome = trinketDefence.outcome;
   let wounds = target.wounds;
   let printedAmount: number | null = null;
   let damageDealt: number | null = null;
@@ -2848,6 +2862,9 @@ function resolveSkill(
       entityId: combat.actor!.id,
       side: sourceSide,
       source: "selfHeal",
+      ...(combat.trinketHealingMetadata || combat.trinketScope
+        ? { rawHealing: selfHeal.amount + paired.heal }
+        : {}),
       effect: { type: "heal", amount },
     });
   }
@@ -2900,6 +2917,7 @@ function resolveSkill(
         entityId: target.id,
         side: target.side,
         source: "targetHeal",
+        ...(combat.trinketHealingMetadata || combat.trinketScope ? { rawHealing: amount } : {}),
         effect: { type: "heal", amount: healed },
       });
       // Self 的治疗落在使用者身上。上面已经要求两份伤口一开始相同。
@@ -2909,6 +2927,7 @@ function resolveSkill(
       // 其他类型修正 / Hard Skinned 缺值仍不加。
       let baseDamage =
         amount +
+        (combat.trinketModifiers?.damage ?? 0) +
         bonuses.reduce((total, bonus) => {
           if (target.side === sourceSide) return total;
           const matched =
@@ -2938,6 +2957,7 @@ function resolveSkill(
         baseDamage,
         outcome === "crit",
         target.protection === true && !skipProtection,
+        trinketDefence.halve,
       );
       const { beforeProtection } = damage;
       damageDealt = damage.damageDealt;
@@ -2982,6 +3002,9 @@ function resolveSkill(
       entityId: target.id,
       side: target.side,
       source: "targetHeal",
+      ...(combat.trinketHealingMetadata || combat.trinketScope
+        ? { rawHealing: support!.heal }
+        : {}),
       effect: { type: "heal", amount: healed },
     });
   }
@@ -3052,6 +3075,9 @@ function resolveSkill(
     wounds,
     actorWounds,
     targetDead,
+    ...(trinketDefence.statuses.length
+      ? { targetTrinketStatusEffects: trinketDefence.statuses }
+      : {}),
     targetBleedCleared: conditionsCleared,
     targetBlightCleared: conditionsCleared,
     actorBleedCleared,

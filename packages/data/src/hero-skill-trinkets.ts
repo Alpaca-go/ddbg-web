@@ -1,6 +1,7 @@
 /** 技能命令记录当时支持的饰品身份，后续扩充不改变旧日志的窗口。 */
 export const HERO_SKILL_TRINKET_IDS = [
   "trinket:p006",
+  "trinket:p007",
   "trinket:p001",
   "trinket:p002",
   "trinket:p009",

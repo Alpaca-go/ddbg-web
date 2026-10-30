@@ -1,3 +1,4 @@
+import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { distance, rejectBattleCommand, skillTargetView, writeResolution } from "./battle";
 import { healingForbidden } from "./battle-healing";
 import { applySkillHealth } from "./battle-health";
@@ -27,6 +28,7 @@ import type { HeroSkillTrinketWindow } from "../../data/src/hero-skill-trinkets"
 import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./boss/swine-prince-i-combat-runtime";
 
 export type PlayHeroSkillTargetsCommand = {
+  readonly damageStoneWindow?: true;
   readonly type: "playHeroSkillTargets";
   readonly trinketWindow?: HeroSkillTrinketWindow;
   readonly actorId: string;
@@ -73,6 +75,7 @@ export function playHeroSkillTargets(
     : !living.some((e) => e.side === "monster" && e.guard) &&
       battle.entities.some((e) => e.side === "monster" && !e.dead && e.guard);
   let contexts: SkillCombatState[] = living.map((target) => ({
+    ...(battle.trinketRuntime ? { trinketHealingMetadata: true as const } : {}),
     ...((resume?.trinketAttack ?? trinketAttack)
       ? { trinketModifiers: (resume?.trinketAttack ?? trinketAttack)!.modifiers }
       : {}),
@@ -163,7 +166,7 @@ export function playHeroSkillTargets(
   const current = resume ? state.battle! : battle;
   if (resume)
     contexts = contexts.map((context) => afterHeroOwnCombat(context, current, command.targetIds));
-  const effects = resolve(roll ?? 1);
+  let effects = resolve(roll ?? 1);
   const failed = unsupported(effects);
   if (failed)
     return rejectBattleCommand(
@@ -190,6 +193,10 @@ export function playHeroSkillTargets(
   if (!resume) {
     const own = beginSkillOwnEffects(state, command, roll, effects[0]!, effects, trinketAttack);
     if (own) return own;
+  }
+  if (current.trinketRuntime) {
+    contexts = contexts.map((c) => ({ ...c, trinketScope: current }));
+    effects = resolve(roll ?? 1);
   }
   const resolutions = effects.map((e) => e.resolution);
   const actorResult = resolutions.find((r) => r.outcome === "crit") ?? resolutions[0]!;
@@ -222,12 +229,21 @@ export function playHeroSkillTargets(
       : { ...actorResult, actorWounds };
     return writeResolution(entity, actor.id, resolution.targetId, resolution, false);
   });
+  const damageStoneWindow = beginDamageStoneWindow(
+    state,
+    command,
+    roll,
+    healthEffects,
+    resume,
+    trinketAttack,
+  );
+  if (damageStoneWindow) return damageStoneWindow;
   const health = applySkillHealth(
     current,
     entities,
     {
       resolution: actorResult,
-      healthEffects,
+      healthEffects: damageStoneHealthEffects(resume, healthEffects),
     },
     state.seed,
     current.rngCursor + (resume || roll === null ? 0 : 1),

@@ -1235,10 +1235,10 @@
         "iconId": "22c0a26f50",
         "in_dictionary": true,
         "status": "confirmed",
-        "key": "trinket_stat_glyph",
+        "key": "dodge",
         "kind": "other",
-        "meaning_en": "Trinket stat glyph (Speed Stone) – possibly Speed",
-        "meaning_zh": "饰品属性图标（速度石）– 可能为速度",
+        "meaning_en": "Dodge",
+        "meaning_zh": "闪避",
         "value": null,
         "naming": "confirmed"
        }
@@ -1316,10 +1316,10 @@
      "iconId": "22c0a26f50",
      "in_dictionary": true,
      "status": "confirmed",
-     "key": "trinket_stat_glyph",
+     "key": "dodge",
      "kind": "other",
-     "meaning_en": "Trinket stat glyph (Speed Stone) – possibly Speed",
-     "meaning_zh": "饰品属性图标（速度石）– 可能为速度",
+     "meaning_en": "Dodge",
+     "meaning_zh": "闪避",
      "value": null,
      "naming": "confirmed"
     },
@@ -2245,7 +2245,21 @@
      [
       {
        "type": "text",
-       "text": "When you suffer a"
+       "text": "When you suffer a "
+      },
+      {
+       "type": "icon",
+       "icon": {
+        "iconId": "96dfcd2af2",
+        "in_dictionary": true,
+        "status": "confirmed",
+        "key": "disease",
+        "kind": "other",
+        "meaning_en": "Disease",
+        "meaning_zh": "疾病",
+        "value": null,
+        "naming": "confirmed"
+       }
       }
      ],
      [
@@ -2695,10 +2709,10 @@
         "iconId": "22c0a26f50",
         "in_dictionary": true,
         "status": "confirmed",
-        "key": "trinket_stat_glyph",
+        "key": "dodge",
         "kind": "other",
-        "meaning_en": "Trinket stat glyph (Speed Stone) – possibly Speed",
-        "meaning_zh": "饰品属性图标（速度石）– 可能为速度",
+        "meaning_en": "Dodge",
+        "meaning_zh": "闪避",
         "value": null,
         "naming": "confirmed"
        }
@@ -2733,10 +2747,10 @@
         "iconId": "206c655597",
         "in_dictionary": true,
         "status": "confirmed",
-        "key": "compare_lte",
+        "key": "compare_gte",
         "kind": "other",
-        "meaning_en": "Less-than comparison (trinket light condition)",
-        "meaning_zh": "小于比较符（饰品光照条件）",
+        "meaning_en": "Greater-than-or-equal comparison (Camouflage Cloak light condition)",
+        "meaning_zh": "大于等于比较符（Camouflage Cloak 光照条件）",
         "value": null,
         "naming": "confirmed"
        }
@@ -2796,10 +2810,10 @@
      "iconId": "22c0a26f50",
      "in_dictionary": true,
      "status": "confirmed",
-     "key": "trinket_stat_glyph",
+     "key": "dodge",
      "kind": "other",
-     "meaning_en": "Trinket stat glyph (Speed Stone) – possibly Speed",
-     "meaning_zh": "饰品属性图标（速度石）– 可能为速度",
+     "meaning_en": "Dodge",
+     "meaning_zh": "闪避",
      "value": null,
      "naming": "confirmed"
     },
@@ -2818,10 +2832,10 @@
      "iconId": "206c655597",
      "in_dictionary": true,
      "status": "confirmed",
-     "key": "compare_lte",
+     "key": "compare_gte",
      "kind": "other",
-     "meaning_en": "Less-than comparison (trinket light condition)",
-     "meaning_zh": "小于比较符（饰品光照条件）",
+     "meaning_en": "Greater-than-or-equal comparison (Camouflage Cloak light condition)",
+     "meaning_zh": "大于等于比较符（Camouflage Cloak 光照条件）",
      "value": null,
      "naming": "confirmed"
     },
@@ -4657,10 +4671,10 @@
         "iconId": "22c0a26f50",
         "in_dictionary": true,
         "status": "confirmed",
-        "key": "trinket_stat_glyph",
+        "key": "dodge",
         "kind": "other",
-        "meaning_en": "Trinket stat glyph (Speed Stone) – possibly Speed",
-        "meaning_zh": "饰品属性图标（速度石）– 可能为速度",
+        "meaning_en": "Dodge",
+        "meaning_zh": "闪避",
         "value": null,
         "naming": "confirmed"
        }
@@ -4720,10 +4734,10 @@
      "iconId": "22c0a26f50",
      "in_dictionary": true,
      "status": "confirmed",
-     "key": "trinket_stat_glyph",
+     "key": "dodge",
      "kind": "other",
-     "meaning_en": "Trinket stat glyph (Speed Stone) – possibly Speed",
-     "meaning_zh": "饰品属性图标（速度石）– 可能为速度",
+     "meaning_en": "Dodge",
+     "meaning_zh": "闪避",
      "value": null,
      "naming": "confirmed"
     },
@@ -6296,10 +6310,10 @@
         "iconId": "b7d0cfd524",
         "in_dictionary": true,
         "status": "confirmed",
-        "key": "trinket_picture",
+        "key": "draw_negative_quirk",
         "kind": "other",
-        "meaning_en": "Trinket picture (likely art)",
-        "meaning_zh": "饰品插图（疑似插画）",
+        "meaning_en": "Draw a Negative Quirk",
+        "meaning_zh": "抽负面怪癖",
         "value": null,
         "naming": "confirmed"
        }
@@ -6401,10 +6415,10 @@
      "iconId": "b7d0cfd524",
      "in_dictionary": true,
      "status": "confirmed",
-     "key": "trinket_picture",
+     "key": "draw_negative_quirk",
      "kind": "other",
-     "meaning_en": "Trinket picture (likely art)",
-     "meaning_zh": "饰品插图（疑似插画）",
+     "meaning_en": "Draw a Negative Quirk",
+     "meaning_zh": "抽负面怪癖",
      "value": null,
      "naming": "confirmed"
     },

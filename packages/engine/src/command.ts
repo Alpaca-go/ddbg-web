@@ -1,3 +1,7 @@
+import { useCoreTrinket } from "./core-trinket-free";
+import type { UseCoreTrinketCommand } from "./core-trinket-free";
+import { runTrinketCommand } from "./trinket-reactions";
+import { chooseDamageStone } from "./battle-damage-stone";
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import { drawHamletEvent, rollHamletCaretaker, chooseMedicalBreakthrough } from "./hamlet-event";
 import { chooseCaregiversConvention } from "./hamlet-caregivers";
@@ -104,6 +108,7 @@ import type {
 } from "./battle-monster-action";
 
 export type GameState = {
+  readonly trinketChoice?: import("./trinket-reactions").TrinketContinuation;
   readonly seed: number;
   readonly notes: readonly string[];
   readonly battle?: BattleState;
@@ -167,7 +172,9 @@ export type HeroSkillEmptyAreaResolvedEvent = {
   readonly roll: number | null;
 };
 
-export type Command =
+export type Command = BaseCommand & { readonly allTrinkets?: true | undefined };
+type BaseCommand =
+  | UseCoreTrinketCommand
   | UseTrinketCommand
   | SetDungeonStancesCommand
   | SetHamletStancesCommand
@@ -387,6 +394,7 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (command.type === "useCoreTrinket") return useCoreTrinket(state, command);
   if (state.dungeon?.pending?.id.startsWith("hamlet-haunted:"))
     return command.type === "resolveChoice"
       ? chooseHauntedGraveyard(state, command.choiceId, command.optionId)
@@ -565,6 +573,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     }
     if (pending.type === "necromancerSummon")
       return chooseNecromancerISummon(state, command.optionId);
+    if (pending.type === "allTrinkets") return rejectBattleCommand(state, "饰品续接上下文缺失");
+    if (pending.type === "damageStone") return chooseDamageStone(state, command.optionId);
     if (pending.type === "heroTrinket") return chooseHeroTrinket(state, command.optionId);
     if (pending.type === "heroAttackTrinkets") return chooseAttackTrinkets(state, command.optionId);
     if (pending.type === "collectorSummon") return chooseCollectorISummon(state, command.optionId);
@@ -680,6 +690,9 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
 
 /** 任一后续规则拒绝时，整次命令回滚骰子、行动和事件。 */
 export function applyCommand(state: GameState, command: Command): ApplyResult {
+  return runTrinketCommand(state, command, applyCommandCore);
+}
+function applyCommandCore(state: GameState, command: Command): ApplyResult {
   const heroes = state.battle
     ? state.battle.entities.filter((e) => e.side === "hero")
     : (state.dungeon?.heroes ?? []);

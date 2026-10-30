@@ -250,3 +250,117 @@ it("Zealous Speech非首个行动原子拒绝；Busy Week逐日仍不掷骰且�
   expect(game.dungeon!.heroes.map((h) => h.stress)).toEqual([0, 0, 0, 0]);
   expect(game.dungeon!.hamlet!.remainingDays).toBe(0);
 });
+
+import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
+import rawTrinkets from "../../data/normalized/corebox/trinket.json";
+import { coreTrinketFreeProblem } from "./core-trinket-free";
+import { prepareTestReplacement } from "./test-helpers/replacement";
+const trinketCards = normalizedTrinketFileSchema.parse(rawTrinkets).cards;
+function withTrinket(id: string, face: "upright" | "inverted" = "upright"): GameState {
+  const initial = fixture(),
+    d = initial.dungeon!,
+    pool = d.trinkets!;
+  const card = trinketCards.find((c) => c.id === id)!;
+  return {
+    ...initial,
+    dungeon: {
+      ...d,
+      trinkets: {
+        ...pool,
+        cards: [
+          ...pool.cards,
+          ...trinketCards.filter(
+            (c) => c.level === card.level && !pool.cards.some((old) => old.id === c.id),
+          ),
+        ],
+        ...(card.level !== pool.level
+          ? {
+              inactive: [
+                ...(pool.inactive ?? []),
+                { level: card.level as 1 | 2 | 3, deck: null, discard: [] },
+              ],
+            }
+          : {}),
+        held: [{ cardId: id, heroId: "hero-0", face }],
+      },
+    },
+  };
+}
+it("R-133村庄免费治疗不占行动，光照与Food能力不可使用", () => {
+  const initial = withTrinket("trinket:p030"),
+    before = initial.dungeon!.hamlet;
+  const result = ok(initial, { type: "useCoreTrinket", actorId: "hero-0", cardId: "trinket:p030" });
+  expect(result.dungeon!.heroes[0]!.wounds).toBe(3);
+  expect(result.dungeon!.phase).toBe("inHamlet");
+  expect(result.dungeon!.hamlet).toEqual(before);
+  for (const [id, face] of [
+    ["trinket:p028", "upright"],
+    ["trinket:p035", "upright"],
+    ["trinket:p015", "upright"],
+    ["trinket:p029", "inverted"],
+    ["trinket:p037", "inverted"],
+  ] as const)
+    expect(coreTrinketFreeProblem(withTrinket(id, face), "hero-0", id)).toContain("村庄");
+});
+it("R-133村庄饰品压力检定后保留准备阶段与当天行动", () => {
+  const initial = withTrinket("trinket:p030", "inverted");
+  const state = {
+    ...initial,
+    dungeon: {
+      ...initial.dungeon!,
+      heroes: initial.dungeon!.heroes.map((h, i) => (i ? h : { ...h, stress: 8 })),
+    },
+  };
+  const result = ok(state, { type: "useCoreTrinket", actorId: "hero-0", cardId: "trinket:p030" });
+  expect(result.dungeon!.heroes[0]!.resolveTested).toBe(true);
+  expect(result.dungeon!.phase).toBe("inHamlet");
+  expect(result.dungeon!.hamlet).toEqual(initial.dungeon!.hamlet);
+  expect(result.dungeon!.freeTrinketResume).toBeUndefined();
+});
+it("R-133建筑治疗提供Bloodcourse Necklace，选择前不扣金币或行动", () => {
+  const initial = withTrinket("trinket:p023");
+  const state = {
+    ...initial,
+    dungeon: {
+      ...initial.dungeon!,
+      hamlet: { ...initial.dungeon!.hamlet!, blockedBuildings: [], caretaker: null },
+    },
+  };
+  const open = applyCommand(state, { ...visit("hero-0", "heal5"), allTrinkets: true });
+  expect(open.pendingChoice?.options.some((o) => o.id === "trinket:p023")).toBe(true);
+  expect(open.state.dungeon!.gold).toBe(state.dungeon!.gold);
+  const paid = applyCommand(open.state, {
+    type: "resolveChoice",
+    choiceId: open.pendingChoice!.id,
+    optionId: "trinket:p023",
+    allTrinkets: true,
+  });
+  expect(paid.events.some((e) => e.type === "commandRefused")).toBe(false);
+  expect(paid.state.dungeon!.heroes[0]!.wounds).toBe(3);
+  expect(paid.state.dungeon!.hamlet!.actedHeroes).toEqual(["hero-0"]);
+});
+it.each([false, true])("R-134村庄死亡替补继承原行动使用状态=%s，天数不变", (acted) => {
+  const initial = withTrinket("trinket:p030", "inverted"),
+    d = initial.dungeon!;
+  const state = {
+    ...initial,
+    dungeon: {
+      ...d,
+      heroes: d.heroes.map((h, i) =>
+        i ? h : { ...h, stress: 8, resolveTested: true, resolveCardId: d.resolveCards[0]!.id },
+      ),
+      hamlet: { ...d.hamlet!, actedHeroes: acted ? ["hero-0"] : [] },
+    },
+  };
+  const dead = ok(state, { type: "useCoreTrinket", actorId: "hero-0", cardId: "trinket:p030" });
+  expect(dead.dungeon!.replacementResume).toBe("hamletTrinket");
+  expect(dead.dungeon!.hamletReturn!.phase).toBe("awaitingReplacement");
+  const prepared = prepareTestReplacement(dead),
+    newId = prepared.dungeon!.preparedReplacements![0]!.hero.id;
+  const joined = ok(prepared, { type: "joinPreparedReplacements" });
+  expect(joined.dungeon!.hamlet!.heroOrder[0]).toBe(newId);
+  expect(joined.dungeon!.hamlet!.actedHeroes).toEqual(acted ? [newId] : []);
+  expect(joined.dungeon!.hamlet!.day).toBe(d.hamlet!.day);
+  expect(joined.dungeon!.hamlet!.remainingDays).toBe(d.hamlet!.remainingDays);
+  expect(joined.dungeon!.phase).toBe("inHamlet");
+});

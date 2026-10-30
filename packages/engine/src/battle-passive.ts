@@ -1,3 +1,4 @@
+import { healingTrinketReaction } from "./trinket-reactions";
 import type { BattleState } from "./battle";
 import type { GameEvent } from "./command";
 import { readHeroPassiveDefence } from "./battle-skill-status";
@@ -52,7 +53,11 @@ export function triggerBattlePassive(
       next.light,
       next.provisions,
       readHeroPassiveDefence(next, hero),
-      { ...options, healingForbidden: healingForbidden(next, id) },
+      {
+        ...options,
+        healingForbidden: healingForbidden(next, id),
+        healingReaction: (amount) => healingTrinketReaction(next, undefined, id, amount),
+      },
     );
     if (applied.status === "refused") return applied;
     next = {

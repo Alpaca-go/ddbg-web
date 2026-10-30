@@ -1,3 +1,4 @@
+import { healingTrinketReaction } from "./trinket-reactions";
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { rejectBattleCommand } from "./battle";
@@ -46,7 +47,10 @@ export function applyTownFair(state: GameState): ApplyResult {
       );
     const health = resolveHeroHealth(
       { life: hero.life, wounds: hero.wounds, dead: false },
-      { type: "heal", amount: passiveHeal(hero, 2 * hero.level!) },
+      {
+        type: "heal",
+        amount: passiveHeal(hero, healingTrinketReaction(d, undefined, hero.id, 2 * hero.level!)),
+      },
     );
     if (health.status !== "resolved")
       return rejectBattleCommand(

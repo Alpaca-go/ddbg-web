@@ -1,3 +1,4 @@
+import { healingTrinketReaction } from "./trinket-reactions";
 import type { DungeonState } from "./dungeon";
 import type { GameEvent } from "./command";
 import { applyPassiveHero } from "./passive-runtime";
@@ -27,10 +28,17 @@ export function triggerDungeonPassive(
       trigger,
       seed,
       next.cursor,
-      next.pressureSource === "hamletScout" ? 5 : (next.explorationSetup?.light ?? 5),
+      next.phase === "inHamlet" ||
+        next.freeTrinketResume?.phase === "inHamlet" ||
+        next.pressureSource?.startsWith("hamlet")
+        ? 5
+        : (next.explorationSetup?.light ?? 5),
       next.explorationSetup?.provisions,
       defence,
-      options,
+      {
+        ...options,
+        healingReaction: (amount) => healingTrinketReaction(next, undefined, id, amount),
+      },
     );
     if (applied.status === "refused") return applied;
     next = {
