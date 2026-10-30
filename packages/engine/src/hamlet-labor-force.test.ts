@@ -2,7 +2,7 @@ import { beforeAll, expect, it } from "vitest";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { laborQuest } from "./test-helpers/labor-quest";
-import { townFairQuest } from "./test-helpers/town-fair-quest";
+import { paidUpgradeQuest } from "./test-helpers/natural-scout-return";
 import { coreQuestSources } from "./test-helpers/core-quest";
 import { createQuestSave, loadQuestSave } from "./quest-save";
 import { upgradableBuildings } from "./hamlet-buildings";
@@ -180,8 +180,8 @@ it("真实公开命令免费升驿站，跨日保存刷新不重复发放或永�
   expect(game.dungeon!.hamlet!.permanentlyRemoved).toEqual(["hamlet_event:p006"]);
   expect(game.dungeon!.hamlet!.weekBlockedBuildings).toEqual(["stagecoach"]);
 });
-it("真实Scout Ahead seed64回村22金可付费升铁匠/游商各10金；最高级/缺钱原子拒绝并可存档", () => {
-  const journey = townFairQuest(),
+it("真实Scout Ahead seed6回村30金可付费升铁匠/游商各10金；最高级/缺钱原子拒绝并可存档", () => {
+  const journey = paidUpgradeQuest(),
     commands = [...journey.commands];
   let game = journey.game;
   for (const building of ["blacksmith", "nomadWagon"] as const) {
@@ -201,7 +201,7 @@ it("真实Scout Ahead seed64回村22金可付费升铁匠/游商各10金；最�
       applyCommand({ ...iii, dungeon: { ...iii.dungeon!, gold: 9 } }, command).events[0]!.type,
     ).toBe("commandRefused");
   }
-  expect(game.dungeon!.gold).toBe(2);
+  expect(game.dungeon!.gold).toBe(10);
   const save = createQuestSave(journey.start, commands, game, coreQuestSources);
   expect(loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game).toEqual(game);
 }, 30000);

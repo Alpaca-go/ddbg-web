@@ -1,35 +1,13 @@
 import { applyCommand } from "../command";
-import type { Command } from "../command";
 import { coreQuestSources } from "./core-quest";
-import { naturalParty, naturalQuest } from "./natural-quest";
-import { createQuestSave } from "../quest-save";
+import { naturalScoutReturn } from "./natural-scout-return";
 
-/** 完整Scout Ahead seed64自然任务及回村；保存于Town Fair抽牌前，无状态/持牌注入。 */
+/** seed40 完整任务与回村，停在自然 Town Fair 抽牌前；不搜索 / 注入牌序。 */
 export function townFairQuest(sources = coreQuestSources) {
-  const journey = naturalQuest(64, "quest:p001", false, sources);
-  let game = journey.state;
-  const commands: Command[] = [...journey.commands];
-  const start = {
-    seed: 64,
-    questId: "quest:p001" as const,
-    mode: "radiant" as const,
-    party: naturalParty.map((hero) => ({ ...hero, skillIds: [...hero.skillIds] })),
-  };
-  const step = (command: Command) => {
-    const result = applyCommand(game, command);
-    const refused = result.events.find((event) => event.type === "commandRefused");
-    if (refused) throw new Error(refused.message);
-    commands.push(command);
-    game = result.state;
-    return result;
-  };
-  let result = step({ type: "beginReturnToHamlet" });
-  while (result.pendingChoice)
-    result = step({
-      type: "resolveChoice",
-      choiceId: result.pendingChoice.id,
-      optionId: result.pendingChoice.options[0]!.id,
-    });
-  step({ type: "finishReturnToHamlet" });
-  return { game, commands, start, save: createQuestSave(start, commands, game, sources) };
+  const journey = naturalScoutReturn(40, sources);
+  // 只预检不可变状态的下一条公开命令，实际状态 / 游标和日志仍停在事件前。
+  const preview = applyCommand(journey.game, { type: "drawHamletEvent" });
+  if (preview.state.dungeon!.hamlet!.last !== "hamlet_event:p007")
+    throw new Error("seed40 未自然抽到 Town Fair，不能替换事件牌序");
+  return journey;
 }

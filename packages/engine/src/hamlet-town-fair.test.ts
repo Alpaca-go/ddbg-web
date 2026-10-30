@@ -19,7 +19,7 @@ function fair(game: GameState) {
   expect(result.state.dungeon!.hamlet!.last).toBe("hamlet_event:p007");
   return result.state;
 }
-it("真实seed64任务回村自然抽到Town Fair，全体恢复后洗回并开启一天；保存刷新不重复发放", () => {
+it("真实seed40任务回村自然抽到Town Fair，全体恢复后洗回并开启一天；保存刷新不重复发放", () => {
   const original = baseline.game,
     before = structuredClone(original),
     d = original.dungeon!;
