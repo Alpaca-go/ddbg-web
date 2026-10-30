@@ -385,8 +385,11 @@ export function naturalQuest(
         if (
           activeQuestId === "quest:p003" &&
           state.dungeon!.pending?.id.startsWith("dungeon-fundraiser:")
-        )
-          choose("give:20");
+        ) {
+          const options = state.dungeon!.pending!.options;
+          // 提前退出时可能不足20金；只从引擎实际提供的捐献选项中选择。
+          choose(options.some((option) => option.id === "give:20") ? "give:20" : options[0]!.id);
+        }
         return { initial, state, commands, events, stopReason: null };
       }
     }
