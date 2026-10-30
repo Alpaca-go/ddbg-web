@@ -21,9 +21,7 @@ export function readSetAsideRoomCardId(d: DungeonState): string | undefined {
 
 export function readObjectiveRecoveryActions(d: DungeonState): number | undefined {
   const quest = readBasicQuest(d.questDistribution);
-  return quest && "objectiveRecoveryActions" in quest
-    ? quest.objectiveRecoveryActions
-    : undefined;
+  return quest && "objectiveRecoveryActions" in quest ? quest.objectiveRecoveryActions : undefined;
 }
 
 /** 出征旁置任务房间牌，随机遭遇堆只洗其余八张（R15、QUEST p4）。 */
@@ -64,13 +62,20 @@ export function prepareObjectiveRoomBattle(state: GameState): ApplyResult | null
   const d = state.dungeon!;
   const room = d.rooms.find((r) => r.id === d.position);
   if (room?.kind !== "objective") return null;
+  if (d.faceTheThreatEmbarkPlan?.roomPlacement === "edgeRoomsR30")
+    return refuse(
+      state,
+      "Face the Threat 目标房须使用对应 Boss 专属房间；正式几何/生产绑定仍待接入，不能改抽普通房间（R30 / R-048）",
+    );
   const aside = readSetAsideRoomCardId(d);
   const c = d.roomCards;
   if (!c || !roomCatalogSchema.safeParse(c.cards).success)
     return refuse(state, "需要完整核心盒房间目录（R-048）");
   if (c.active) return refuse(state, "该房间牌已记录；不能重抽（R15）");
   if (aside) {
-    const card = c.cards.find((entry) => entry.id === aside && entry.location === "ruins" && !entry.boss);
+    const card = c.cards.find(
+      (entry) => entry.id === aside && entry.location === "ruins" && !entry.boss,
+    );
     if (!card) return refuse(state, "旁置目标房间牌不在遗迹目录中（R-048）");
     const selected = readRoomTile(card);
     const blockedReason =
@@ -93,7 +98,9 @@ export function prepareObjectiveRoomBattle(state: GameState): ApplyResult | null
           },
         },
       },
-      events: [{ type: "dungeonUpdated", message: `目标房使用旁置 ${card.name}：${blockedReason}` }],
+      events: [
+        { type: "dungeonUpdated", message: `目标房使用旁置 ${card.name}：${blockedReason}` },
+      ],
     };
   }
   return null;
@@ -113,13 +120,11 @@ export function beginDungeonObjectiveRoom(state: GameState): ApplyResult {
     d.mustLeaveRoomId === d.position
   )
     return refuse(state, "需要未清理的目标房与有效停点（R15）");
-  if (!recovery)
-    return refuse(state, "该任务目标房拾取规则尚未接线；不能假定已清理（R-048）");
+  if (!recovery) return refuse(state, "该任务目标房拾取规则尚未接线；不能假定已清理（R-048）");
   if (!active || active.kind !== "objective" || active.roomId !== d.position || active.completed)
     return refuse(state, "目标房须先赢得守卫战，再花费行动拾取任务目标（R15、QUEST p4）");
   const remaining = active.actionsRemaining ?? 0;
-  if (remaining <= 0)
-    return refuse(state, "目标拾取已完成或状态无效");
+  if (remaining <= 0) return refuse(state, "目标拾取已完成或状态无效");
   const heroes = d.heroes.filter((h) => !h.dead);
   if (!heroes.length) return refuse(state, "没有存活英雄可拾取目标");
   const pending = {
@@ -130,11 +135,7 @@ export function beginDungeonObjectiveRoom(state: GameState): ApplyResult {
       label: `${h.id} 花费 1 行动拾取`,
     })),
   };
-  return finish(
-    state,
-    { ...d, decision: d.decision + 1, pending },
-    "等待英雄拾取任务目标",
-  );
+  return finish(state, { ...d, decision: d.decision + 1, pending }, "等待英雄拾取任务目标");
 }
 
 export function chooseObjectiveRecovery(
@@ -192,7 +193,10 @@ export function chooseObjectiveRecovery(
   );
 }
 
-export function objectiveRoomResolutionAfterVictory(d: DungeonState, roomId: string): DungeonState["roomResolution"] {
+export function objectiveRoomResolutionAfterVictory(
+  d: DungeonState,
+  roomId: string,
+): DungeonState["roomResolution"] {
   const recovery = readObjectiveRecoveryActions(d);
   if (!recovery) return undefined;
   return {
@@ -205,7 +209,10 @@ export function objectiveRoomResolutionAfterVictory(d: DungeonState, roomId: str
   };
 }
 
-export function objectiveRoomClearsOnVictory(d: DungeonState, roomKind: string | undefined): boolean {
+export function objectiveRoomClearsOnVictory(
+  d: DungeonState,
+  roomKind: string | undefined,
+): boolean {
   if (roomKind !== "objective") return true;
   return readObjectiveRecoveryActions(d) === undefined;
 }

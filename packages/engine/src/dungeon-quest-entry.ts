@@ -15,6 +15,8 @@ import { embarkSkillAllowed, isFormalHeroRosterPendingAttributes } from "./forma
 import { FACE_THE_THREAT_QUEST_ID } from "./boss/quest-bridge";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "./boss/face-the-threat-embark-runtime";
 
+import { placeFaceTheThreatRooms } from "./boss/edge-room-placement";
+
 export type CoreQuestSources = {
   readonly catalog: DungeonBattleCatalog;
   readonly resolveCards: readonly ResolveCard[];
@@ -39,11 +41,10 @@ export function createCoreDungeonQuest(
   mode: DungeonState["mode"],
   party: QuestParty,
   sources: CoreQuestSources,
+  bossEdgeRooms = true,
 ) {
   const quest = basicQuests.find((quest) => quest.id === questId);
-  const sandboxEmbarkOk =
-    quest &&
-    (quest.level === 1 || ("bossQuest" in quest && quest.bossQuest));
+  const sandboxEmbarkOk = quest && (quest.level === 1 || ("bossQuest" in quest && quest.bossQuest));
   if (
     !sandboxEmbarkOk ||
     !Number.isInteger(seed) ||
@@ -139,8 +140,33 @@ export function createCoreDungeonQuest(
       ? { campaignLevel: 1, activeBossThreatScriptId: dungeon.activeBossThreatScriptId }
       : { campaignLevel: 1 },
   );
+  const placed = bossEdgeRooms
+    ? placeFaceTheThreatRooms(
+        layout,
+        dungeon.questDistribution!.counts.flatMap((c) =>
+          Array.from({ length: c.count }, () => c.kind),
+        ),
+        seed,
+        0,
+      )
+    : null;
   return {
     ...game,
-    dungeon: { ...dungeon, faceTheThreatEmbarkPlan: plan },
+    dungeon: {
+      ...dungeon,
+      ...(placed
+        ? {
+            cursor: placed.cursor,
+            rooms: dungeon.rooms.map((r, i) => ({ ...r, kind: placed.tokens[i]! })),
+          }
+        : {}),
+      faceTheThreatEmbarkPlan: bossEdgeRooms
+        ? {
+            ...plan,
+            roomPlacement: "edgeRoomsR30" as const,
+            layoutWiringHold: "R30 边缘房代币已布置；Boss 专属战斗房间生产绑定仍 hold（R-048）",
+          }
+        : plan,
+    },
   };
 }

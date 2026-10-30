@@ -143,7 +143,12 @@ export const savedCommandSchema = z.union([
     ...actor,
     direction: z.enum(["forward", "backward"]),
   }),
-  commandObject({ type: z.literal("resolveChoice"), choiceId: id, optionId: id }),
+  commandObject({
+    type: z.literal("resolveChoice"),
+    choiceId: id,
+    optionId: id,
+    bossEdgeRooms: z.boolean().optional(),
+  }),
   commandObject({ type: z.literal("ping"), message: z.string() }),
   commandObject({
     type: z.literal("useTrinket"),
@@ -199,12 +204,12 @@ export const savedCommandSchema = z.union([
     shuffleChoices: z.record(id, shuffle).optional(),
   }),
 ]);
-const phase3QuestIds = basicQuests.filter((q) => q.level === 1).map((q) => q.id) as [
-  BasicQuestId,
-  ...BasicQuestId[],
-];
+const phase3QuestIds = basicQuests
+  .filter((q) => q.level === 1 || q.id === "quest:p019")
+  .map((q) => q.id) as [BasicQuestId, ...BasicQuestId[]];
 
 export const questStartSchema = z.strictObject({
+  bossEdgeRooms: z.boolean().optional(),
   seed: z.int().min(0).max(0xffffffff),
   questId: z.enum(phase3QuestIds),
   mode: z.enum(["standard", "radiant"]),

@@ -221,6 +221,8 @@ type BaseCommand =
       readonly type: "resolveChoice";
       readonly choiceId: string;
       readonly optionId: string;
+      /** 缺标记为旧日志洗牌；网页新命令显式 true。 */
+      readonly bossEdgeRooms?: boolean | undefined;
     }
   | {
       readonly type: "ping";
@@ -414,7 +416,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "prepareReplacementHero") return beginReplacementPreparation(state);
   if (state.dungeon?.pending?.id.startsWith("hamlet-next-quest:"))
     return command.type === "resolveChoice"
-      ? chooseNextQuest(state, command.choiceId, command.optionId)
+      ? chooseNextQuest(state, command.choiceId, command.optionId, command.bossEdgeRooms ?? false)
       : rejectBattleCommand(state, "请先选择下一任务");
   if (command.type === "offerNextQuest") return offerNextQuest(state);
   if (command.type === "advanceCampaignLevel") return advanceCampaignLevel(state);
