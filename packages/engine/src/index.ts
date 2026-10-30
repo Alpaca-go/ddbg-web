@@ -9,6 +9,7 @@ export {
 } from "./corridor-tile-catalog";
 export type { CorridorLayoutBinding } from "./corridor-tile-catalog";
 export { createTrinketPool } from "./trinket-acquisition";
+export { fortunateArmletUseProblem, FORTUNATE_ARMLET_ID } from "./battle-fortunate-armlet";
 export type { TrinketPool } from "./trinket-acquisition";
 export { createDungeonSandbox } from "./dungeon";
 export type {

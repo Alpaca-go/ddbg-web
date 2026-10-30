@@ -10,6 +10,7 @@ import { createBattleState } from "./battle";
 import type { BattleEntity, PlayHeroSkillCommand } from "./battle";
 import type { SkillStance } from "./hero-skill";
 import { coreQuestSources } from "./test-helpers/core-quest";
+import { fortunateArmletUseProblem } from "./battle-fortunate-armlet";
 
 const cards = normalizedTrinketFileSchema.parse(rawTrinkets).cards;
 // 明示战斗机制夹具；完整牌池、技能和属性均来自目录，不冒称自然获得路径。
@@ -127,6 +128,322 @@ const choose = (window: ApplyResult, optionId: string) =>
     }),
   );
 const outcome = (result: ApplyResult) => result.events.find((e) => e.type === "heroSkillResolved");
+
+const armlet = "trinket:p025" as const;
+const useArmlet = { type: "useTrinket", actorId: "h0", cardId: armlet } as const;
+it.each([
+  [4, "miss", "hit"], // d10=10：Smite Acc9，+1才命中。
+  [7, "hit", "crit"], // d10=1：Smite Crit0，+1才暴击。
+] as const)("Fortunate Armlet同时提供Acc+1与Crit+1：seed%s", (seed, before, after) => {
+  const { state, command } = fixture([armlet], "aggressive", "hero_skill:p001", "upright", seed);
+  const opened = ok(applyCommand(state, command));
+  expect(opened.pendingChoice!.options[1]!.label).toContain("Acc+1、Crit+1");
+  expect(outcome(choose(opened, "continue"))!.resolution.outcome).toBe(before);
+  const used = choose({ ...opened, state: JSON.parse(JSON.stringify(opened.state)) }, armlet);
+  expect(outcome(used)!.resolution.outcome).toBe(after);
+  expect(used.state.battle!.rngCursor).toBe(1);
+  expect(used.state.battle!.trinkets!.held[0]!.face).toBe("inverted");
+  expect(used.state.battle!.encounter!.turn).toMatchObject({ actions: 1 });
+  expect(applyCommand(used.state, useArmlet).state).toBe(used.state);
+});
+
+it("Fortunate Armlet多饰品/多目标共骰，只翻一次，旧十二张名单不新增选项", () => {
+  const { state, command } = fixture([armlet, "trinket:p006"], "aggressive", "hero_skill:p004");
+  const opened = ok(
+    applyCommand(state, { ...command, type: "playHeroSkillTargets", targetIds: ["m", "m2"] }),
+  );
+  const planned = choose(opened, armlet);
+  expect(planned.state.battle!.trinkets!.held.every((h) => h.face === "upright")).toBe(true);
+  const used = choose(planned, "trinket:p006");
+  expect(used.events.find((e) => e.type === "heroSkillTargetsResolved")).toMatchObject({
+    roll: 10,
+    resolutions: [
+      expect.objectContaining({ outcome: "hit" }),
+      expect.objectContaining({ outcome: "hit" }),
+    ],
+  });
+  expect(used.events.filter((e) => e.type === "trinketUsed")).toHaveLength(2);
+  expect(used.state.battle!.rngCursor).toBe(1);
+  const single = fixture([armlet]);
+  const old = HERO_SKILL_TRINKET_IDS.filter((id) => id !== armlet);
+  for (const trinketWindow of [undefined, true, old] as const) {
+    const { trinketWindow: _window, ...legacy } = single.command;
+    void _window;
+    expect(
+      ok(applyCommand(single.state, { ...legacy, ...(trinketWindow ? { trinketWindow } : {}) }))
+        .pendingChoice,
+    ).toBeUndefined();
+  }
+  expect(savedCommandSchema.parse(useArmlet)).toEqual(useArmlet);
+  expect(savedCommandSchema.safeParse({ ...useArmlet, cardId: "trinket:p006" }).success).toBe(
+    false,
+  );
+});
+
+it("Fortunate Armlet反面免费加压，不改技能骰/行动，下一角色回合才能再用", () => {
+  const { state } = fixture([armlet], "aggressive", "hero_skill:p001", "inverted");
+  const before = structuredClone(state);
+  const result = ok(applyCommand(state, useArmlet));
+  expect(fortunateArmletUseProblem(state, "h0")).toBeNull();
+  const parsed = savedCommandSchema.parse(useArmlet);
+  if (parsed.type !== "useTrinket") throw new Error("饰品命令类型漂移");
+  expect(result).toEqual(applyCommand(JSON.parse(JSON.stringify(state)), parsed));
+  expect(result.state.battle!.entities.find((e) => e.id === "h0")!.stress).toBe(4);
+  expect(result.state.battle!.trinkets!.held[0]!.face).toBe("upright");
+  expect(result.state.battle!.usedTrinketIds).toEqual([armlet]);
+  expect(result.state.battle!.rngCursor).toBe(state.battle.rngCursor);
+  expect(result.state.battle!.encounter).toEqual(state.battle.encounter);
+  expect(result.events.filter((e) => e.type === "trinketUsed")).toHaveLength(1);
+  expect(applyCommand(result.state, useArmlet).state).toBe(result.state);
+  expect(state).toEqual(before);
+  const first = ok(
+    applyCommand(result.state, {
+      type: "playHeroSkill",
+      actorId: "h0",
+      targetId: "m",
+      skillId: "hero_skill:p001",
+      trinketWindow: HERO_SKILL_TRINKET_IDS,
+    }),
+  );
+  const second = ok(
+    applyCommand(first.state, {
+      type: "playHeroSkill",
+      actorId: "h0",
+      targetId: "m2",
+      skillId: "hero_skill:p007",
+      trinketWindow: HERO_SKILL_TRINKET_IDS,
+    }),
+  );
+  expect(first.pendingChoice).toBeUndefined();
+  expect(second.state.battle!.encounter!.turn).toEqual({ type: "awaitingInitiative" });
+  const next = ok(applyCommand(second.state, { type: "drawInitiative" }));
+  expect(next.state.battle!.usedTrinketIds).toEqual([]);
+});
+
+it("Fortunate Armlet无Crit栏仍可加Acc；自身位移待选沿用原骰和两项修正", () => {
+  const status = fixture([armlet], "aggressive", "hero_skill:p028", "upright", 4);
+  const opened = ok(applyCommand(status.state, status.command));
+  expect(opened.pendingChoice!.options.map((o) => o.id)).toContain(armlet);
+  expect(outcome(choose(opened, armlet))!.resolution.outcome).toBe("hit");
+  const { state: initial, command } = fixture(
+    [armlet],
+    "aggressive",
+    "hero_skill:p070",
+    "upright",
+    18,
+  );
+  const state: GameState = {
+    ...initial,
+    battle: {
+      ...initial.battle,
+      areas: [
+        { id: "a", adjacent: ["b", "c"], elevation: "normal", capacity: 8 },
+        { id: "b", adjacent: ["a"], elevation: "normal", capacity: 8 },
+        { id: "c", adjacent: ["a"], elevation: "normal", capacity: 8 },
+      ],
+    },
+  };
+  let result = choose(ok(applyCommand(state, command)), armlet);
+  expect(result.state.battle!.skillPrefix?.trinketAttack?.modifiers).toMatchObject({
+    accuracy: 1,
+    crit: 1,
+  });
+  const events = [...result.events];
+  for (
+    let i = 0;
+    (result.pendingChoice || result.state.battle!.shuffleIntents.length) && i < 12;
+    i++
+  ) {
+    result = result.pendingChoice
+      ? choose(
+          { ...result, state: JSON.parse(JSON.stringify(result.state)) },
+          result.pendingChoice.options[0]!.id,
+        )
+      : ok(applyCommand(result.state, { type: "resolveShuffles" }));
+    events.push(...result.events);
+  }
+  expect(result.state.battle!.skillPrefix).toBeNull();
+  expect(result.state.battle!.rngCursor).toBe(1);
+  expect(events.filter((e) => e.type === "trinketUsed")).toHaveLength(1);
+  expect(
+    events.find((e) => e.type === "heroSkillResolved" && e.phase === "afterOwn"),
+  ).toMatchObject({ roll: 4, resolution: { outcome: "hit" } });
+});
+
+it("Fortunate Armlet反面经低光和Nervous加压，意志/心脏病及牌堆缺失沿原收尾", () => {
+  const { state } = fixture([armlet], "aggressive", "hero_skill:p001", "inverted");
+  const nervous: GameState = {
+    ...state,
+    battle: {
+      ...state.battle,
+      light: 2,
+      entities: state.battle.entities.map((e) =>
+        e.id === "h0" ? { ...e, quirkIds: ["quirk:p028"] } : e,
+      ),
+    },
+  };
+  expect(
+    ok(applyCommand(nervous, useArmlet)).state.battle!.entities.find((e) => e.id === "h0")!.stress,
+  ).toBe(6);
+  const atNine: GameState = {
+    ...state,
+    battle: {
+      ...state.battle,
+      resolveCards: coreQuestSources.resolveCards,
+      entities: state.battle.entities.map((e) => (e.id === "h0" ? { ...e, stress: 9 } : e)),
+    },
+  };
+  const tested = ok(applyCommand(atNine, useArmlet));
+  const hero = tested.state.battle!.entities.find((e) => e.id === "h0")!;
+  expect(hero).toMatchObject({ stress: 0, resolveTested: true, dead: false });
+  expect(tested.events.some((e) => e.type === "resolveTested")).toBe(true);
+  const dies: GameState = {
+    ...atNine,
+    battle: {
+      ...tested.state.battle!,
+      entities: tested.state.battle!.entities.map((e) => (e.id === "h0" ? { ...e, stress: 9 } : e)),
+      trinkets: state.battle.trinkets!,
+      usedTrinketIds: [],
+    },
+  };
+  const dead = ok(applyCommand(dies, useArmlet));
+  expect(dead.state.battle!.entities.find((e) => e.id === "h0")!.dead).toBe(true);
+  expect(dead.events.some((e) => e.type === "heartAttack")).toBe(true);
+  expect(dead.state.battle!.encounter!.turn).not.toMatchObject({ type: "hero", actorId: "h0" });
+  const targeted: GameState = {
+    ...dies,
+    battle: {
+      ...dies.battle!,
+      encounter: { ...dies.battle!.encounter!, turn: { type: "monster", actorId: "m" } },
+      monsterAction: {
+        actorId: "m",
+        targetId: "h0",
+        skillSlot: 1,
+        selectionRoll: null,
+        positioned: true,
+      },
+    },
+  };
+  // 不制造已定目标死亡后既不能攻击又不能重新选招的状态；未接续接保持原子停点。
+  expect(applyCommand(targeted, useArmlet).state).toBe(targeted);
+  const missing: GameState = { ...atNine, battle: { ...atNine.battle!, resolveCards: [] } };
+  expect(applyCommand(missing, useArmlet).state).toBe(missing);
+});
+
+it("Fortunate Armlet反面可在他人及已定位怪物回合使用，不能插入未完成结算", () => {
+  const { state, command } = fixture([armlet], "aggressive", "hero_skill:p001", "inverted");
+  const other: GameState = {
+    ...state,
+    battle: {
+      ...state.battle,
+      encounter: {
+        ...state.battle.encounter,
+        turn: { type: "hero", actorId: "h1", actions: 2, usedSkillIds: [] },
+      },
+    },
+  };
+  expect(ok(applyCommand(other, useArmlet)).state.battle!.encounter).toEqual(
+    other.battle!.encounter,
+  );
+  const monster: GameState = {
+    ...state,
+    battle: {
+      ...state.battle,
+      encounter: { ...state.battle.encounter, turn: { type: "monster", actorId: "m" } },
+      monsterAction: {
+        actorId: "m",
+        skillSlot: 1,
+        selectionRoll: null,
+        targetId: "h1",
+        positioned: true,
+      },
+    },
+  };
+  expect(ok(applyCommand(monster, useArmlet)).state.battle!.monsterAction).toEqual(
+    monster.battle!.monsterAction,
+  );
+  const positive = fixture([armlet]);
+  const pending = ok(applyCommand(positive.state, positive.command)).state;
+  for (const invalid of [
+    positive.state,
+    pending,
+    { ...monster, battle: { ...monster.battle!, monsterAction: null } },
+    { ...state, battle: { ...state.battle, usedTrinketIds: [armlet] } },
+    {
+      ...state,
+      battle: {
+        ...state.battle,
+        shuffleIntents: [
+          { entityId: "h0", relativeToId: "m", move: { direction: "push" as const, distance: 1 } },
+        ],
+      },
+    },
+    {
+      ...state,
+      battle: {
+        ...state.battle,
+        entities: state.battle.entities.map((e) => (e.id === "h0" ? { ...e, dead: true } : e)),
+      },
+    },
+  ])
+    expect(applyCommand(invalid, useArmlet).state).toBe(invalid);
+  expect(applyCommand(state, { ...useArmlet, actorId: "h1" }).state).toBe(state);
+  expect(ok(applyCommand(state, command)).pendingChoice).toBeUndefined();
+});
+
+it("Fortunate Armlet正反面卡面漂移均拒绝，不消费骰、翻面或压力", () => {
+  for (const face of ["upright", "inverted"] as const) {
+    const { state, command } = fixture([armlet], "aggressive", "hero_skill:p001", face);
+    const card = state.battle.trinkets!.cards.find((c) => c.id === armlet)!;
+    const glyph = card.inverted_half.effect_lines[0]![0]!;
+    if (glyph.type !== "icon") throw new Error("缺压力图标");
+    for (const changed of [
+      {
+        ...card,
+        upright_half: {
+          ...card.upright_half,
+          effect_lines: [[{ type: "text" as const, text: "Acc+2 and Crit+1" }]],
+        },
+      },
+      {
+        ...card,
+        inverted_half: {
+          ...card.inverted_half,
+          effect_lines: [
+            [
+              { ...glyph, icon: { ...glyph.icon, key: "damage" } },
+              { type: "text" as const, text: " +1" },
+            ],
+          ],
+        },
+      },
+      {
+        ...card,
+        inverted_half: {
+          ...card.inverted_half,
+          effect_lines: [
+            [
+              { ...glyph, icon: { ...glyph.icon, naming: "unverified" as const } },
+              { type: "text" as const, text: " +1" },
+            ],
+          ],
+        },
+      },
+    ]) {
+      const broken: GameState = {
+        ...state,
+        battle: {
+          ...state.battle,
+          trinkets: {
+            ...state.battle.trinkets!,
+            cards: state.battle.trinkets!.cards.map((c) => (c.id === armlet ? changed : c)),
+          },
+        },
+      };
+      expect(applyCommand(broken, face === "upright" ? command : useArmlet).state).toBe(broken);
+    }
+  }
+});
 
 it.each([
   ["trinket:p001", "aggressive", "hero_skill:p001"],
