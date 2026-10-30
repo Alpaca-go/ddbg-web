@@ -23,6 +23,8 @@ type Definition = {
   stance?: SkillStance;
   invertedNotInStance?: SkillStance;
   icon?: string;
+  /** p013 姿态图标在 raw 行的 rot 误归，仍须完整卡面与已确认 front_icons 对应。 */
+  frontIconId?: string;
   light?: "dark" | "solar";
 };
 const definitions: Record<HeroSkillTrinketId, Definition> = {
@@ -76,6 +78,18 @@ const definitions: Record<HeroSkillTrinketId, Definition> = {
     penalty: -1,
     stance: "defensive",
     icon: "stance_defensive_lit",
+  },
+  "trinket:p013": {
+    name: "Warrior’s Bracer",
+    level: 1,
+    positive: "Acc+2 Acc when in",
+    negative: "Acc-1",
+    crit: 0,
+    accuracy: 2,
+    penalty: -1,
+    stance: "aggressive",
+    icon: "stance_aggressive_lit",
+    frontIconId: "fe18ec5b80",
   },
   "trinket:p031": {
     name: "Sniper’s Ring",
@@ -274,7 +288,19 @@ function readOffers(
       card.inverted_half.printed_rotation !== 180 ||
       !(rule.light
         ? lightFacesMatch(card, rule.light)
-        : exactLine(card.upright_half.effect_lines, rule.positive, rule.icon) &&
+        : exactLine(
+            card.upright_half.effect_lines,
+            rule.positive,
+            rule.frontIconId ? undefined : rule.icon,
+          ) &&
+          (!rule.frontIconId ||
+            (card.front_icons.filter((i) => i.key?.startsWith("stance_")).length === 1 &&
+              card.front_icons.some(
+                (i) =>
+                  i.iconId === rule.frontIconId &&
+                  i.key === rule.icon &&
+                  ["confirmed", "confirmed_rulebook"].includes(i.naming),
+              ))) &&
           exactLine(
             card.inverted_half.effect_lines,
             rule.negative,
