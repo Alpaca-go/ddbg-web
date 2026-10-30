@@ -6,6 +6,7 @@ import type { ApplyResult, GameState } from "./command";
 import type { HeroSkillCardView, HeroSkillResolution, SkillCombatState } from "./hero-skill";
 import { trinketPoolProblem } from "./trinket-acquisition";
 import { nextBattleRoll } from "./battle-roll";
+import { beginAttackTrinketWindow } from "./battle-attack-trinkets";
 
 const CRITICAL_STONE = "trinket:p006";
 type Attack = PlayHeroSkillCommand | PlayHeroSkillTargetsCommand;
@@ -53,6 +54,8 @@ export function beginHeroTrinketWindow(
   skill: HeroSkillCardView,
   resolution: HeroSkillResolution,
 ): ApplyResult | null {
+  if (command.trinketWindow !== undefined && command.trinketWindow !== true)
+    return beginAttackTrinketWindow(state, command, roll, resolution);
   const b = state.battle!;
   if (
     b.encounter?.turn.type !== "hero" ||

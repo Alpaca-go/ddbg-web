@@ -42,7 +42,7 @@
 | 任务卡 19 张 | enabled；I 级战役池 5 张自然路径已有（`full-flow-l1-breakpoints-2026-10-27.md`）；细节 hold 仍归任务卡 |
 | 村庄事件 | 16/16 已接 |
 | Curio I 级主路径 | R-064 全池可完成获得选择；§3 三项停点已接（#318）；见 `docs/r048-curio-remaining-2026-10-28.md` |
-| Trinket verification | **38/38** `unverified=false`（`docs/trinket-verification-2026-10-28.md`）；**主动能力运行时未接** |
+| Trinket verification | **38/38** `unverified=false`（`docs/trinket-verification-2026-10-28.md`）；#390 已接 Critical Stone I 的持有者技能能力，命中饰品四张见 C-005 本刀待合入项 |
 | Provision 辅助卡 map | `player_aid:p001` / `p005` 双面桌面 reference 已接；**D6 dice_net raster 未批** |
 | Room Tile 遗迹 | **9** 面 geometryVerified+usable + print map（p001 + p002–p005 正反）；p006–p012 / 最暗无几何批 |
 | Disease / Quirk / Virtue·Affliction | 引擎有接线；**桌面卡图刻意未展** |
@@ -113,9 +113,10 @@
 
 #### C-005 · Trinket 主动能力 / 战斗·探索效果运行时
 
-- [ ] C-005 总项未完成；本刀先接规则书 R26 明确给出的 Critical Stone I。
-  - [x] `trinket:p006`：单 / 多目标技能掷骰后选择使用，正面 Crit+2 / 反面 Acc−2、交替翻面、每角色回合限一次、自身位移续接与网页待选已接；新命令标记兼容旧日志。见 `phase5-c005-critical-stone-2026-10-30.md`；待本刀 PR 合入。
-- **现状**：verification 38/38 已收；Critical Stone I / G-10 已有最小能力运行时，其它饰品、战斗外能力与未裁定正反面仍未收齐。
+- [ ] C-005 总项未完成；按规则书 R26 及已核实卡面逐张接能力。
+  - [x] `trinket:p006`：单 / 多目标技能掷骰后选择使用，正面 Crit+2 / 反面 Acc−2、交替翻面、每角色回合限一次、自身位移续接与网页待选已接；新命令标记兼容旧日志。见 `phase5-c005-critical-stone-2026-10-30.md`；#390 已合入 main `f3efdf7`。
+  - [x] 本刀待合入：Accuracy Stone / Archer’s Ring / Sage’s Book / Warrior’s Cap（`p001/p002/p009/p014`）正反面命中修正与姿态条件；同次技能可逐件选择，每件独立限次，共用原骰；命令记录能力名单以固定旧回放。见 `phase5-c005-accuracy-trinkets-2026-10-30.md`。
+- **现状**：verification 38/38 已收；主干 1/38 张已接持有者技能主动能力，本刀再接 4 张，合入后为 5/38。此计数不代表完整战斗 / 探索能力验收；其余饰品、战斗外能力与未裁定正反面仍未收齐。
 - **验收**：按卡面/词典 confirmed 逐效果接线 + 单测；正反面语义未裁定处标待确认  
 - **依赖/阻塞**：能力阶段设计与个案裁定  
 - **归口**：核心包  
