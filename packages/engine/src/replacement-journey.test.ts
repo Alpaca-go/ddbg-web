@@ -1,4 +1,5 @@
-import { afterAll, beforeAll, expect, it } from "vitest";
+import { expect, it } from "vitest";
+import { questsForCampaignLevel } from "../../data/src/basic-quests";
 import { battleDataPlugin } from "../../../apps/web/battle-data-plugin";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
@@ -8,17 +9,67 @@ import { naturalParty, naturalQuest } from "./test-helpers/natural-quest";
 import { currentHamletHero, hamletActionOptions } from "./hamlet-actions";
 import { createQuestSave, loadQuestSave } from "./quest-save";
 import { replacementHeroCandidates } from "./hero-death-estate";
-import { replacementJourneySeed } from "./test-helpers/replacement-journey-seed";
-import {
-  installGoldenMainCampaignQuestPool,
-  restoreCampaignQuestPool,
-} from "./test-helpers/golden-quest-pool";
 
-beforeAll(() => installGoldenMainCampaignQuestPool());
-afterAll(() => restoreCampaignQuestPool());
+// 完整当前目录、公开命令与独立固定种子；不搜索种子或注入资源 / 牌序。
+const journeys = [
+  {
+    label: "清剿腐蚀",
+    seed: 14,
+    nextQuestId: "quest:p002",
+    offers: ["quest:p002", "quest:p004"],
+    stress: [3, 7],
+    quirk: "Nervous",
+    blacksmith: false,
+    blight: true,
+    medicine: false,
+    skill: "hero_skill:p127",
+    summary: { xpPerHero: 1, stagecoachXp: 1 },
+  },
+  {
+    label: "捐款腐蚀与治疗、支付升级后不捐献",
+    seed: 47,
+    nextQuestId: "quest:p003",
+    offers: ["quest:p003", "quest:p002"],
+    stress: [3, 6],
+    quirk: "Off Guard",
+    blacksmith: true,
+    blight: true,
+    medicine: true,
+    skill: "hero_skill:p127",
+    summary: {
+      earlyLeave: false,
+      objectiveMet: true,
+      lairClearedCount: 1,
+      donatedGold: 0,
+      xpPerHero: 0,
+      stagecoachXp: 0,
+    },
+  },
+  {
+    label: "捐款目标未达成、提前退出",
+    seed: 41,
+    nextQuestId: "quest:p003",
+    offers: ["quest:p003", "quest:p005"],
+    stress: [2, 5],
+    quirk: "Shocker",
+    blacksmith: false,
+    blight: false,
+    medicine: false,
+    skill: "hero_skill:p136",
+    summary: {
+      earlyLeave: true,
+      objectiveMet: false,
+      lairClearedCount: 0,
+      donatedGold: 0,
+      xpPerHero: 0,
+      stagecoachXp: 0,
+    },
+  },
+] as const;
 
-for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
-  it(`正式瘟疫医生替补：回村能力→${nextQuestId}自然战斗→再次回村与完整存档`, () => {
+for (const fixture of journeys) {
+  const { seed, nextQuestId } = fixture;
+  it(`正式瘟疫医生替补：${fixture.label}→再次回村与完整存档`, () => {
     const load = battleDataPlugin().load as (id: string) => string;
     const code = load("\0virtual:quest-battle-data");
     const catalog = JSON.parse(code.slice("export const battleData = ".length, -1));
@@ -27,7 +78,7 @@ for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
       catalog: { ...catalog, trinkets: coreQuestSources.catalog.trinkets },
       resolveCards: catalog.resolveCards,
     };
-    const seed = replacementJourneySeed(sources, nextQuestId);
+    expect(questsForCampaignLevel(1)).toHaveLength(5);
     const run = naturalQuest(seed, "quest:p001", true, sources, 2, {
       observe(game) {
         if (!game.battle && game.dungeon!.phase === "ready" && game.dungeon!.position !== "S")
@@ -84,6 +135,14 @@ for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
     step({ type: "beginReturnToHamlet" });
     settle();
     step({ type: "finishReturnToHamlet" });
+    if (fixture.blacksmith) {
+      const beforeUpgrade = game.dungeon!;
+      expect(beforeUpgrade.buildingLevels?.blacksmith ?? 1).toBe(1);
+      step({ type: "upgradeHamletBuilding", building: "blacksmith" });
+      expect(game.dungeon!.gold).toBe(beforeUpgrade.gold - 10);
+      expect(game.dungeon!.buildingLevels?.blacksmith).toBe(2);
+      expect(game.dungeon!.cursor).toBe(beforeUpgrade.cursor);
+    }
     saved();
     step({ type: "drawHamletEvent" });
     settle();
@@ -113,13 +172,14 @@ for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
     });
     const healed = game.dungeon!.heroes.find((h) => h.id === "hero-1")!;
     expect(before.wounds).toBe(2);
+    expect(before.stress).toBe(fixture.stress[0]);
     expect(healed.wounds).toBe(0);
     expect(
       game
         .dungeon!.conditions!.quirks.filter((q) => before.quirkIds?.includes(q.id))
         .map((q) => q.name),
-    ).toEqual(["Nervous"]);
-    expect(healed.stress).toBe(7);
+    ).toEqual([fixture.quirk]);
+    expect(healed.stress).toBe(fixture.stress[1]);
     saved();
     while (game.dungeon!.hamlet!.phase !== "preparationComplete") {
       if (game.dungeon!.hamlet!.phase === "awaitingCaretaker")
@@ -129,8 +189,10 @@ for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
     step({ type: "setHamletStances", heroIds: ["hero-0", "hero-1", doctor.id, "hero-3"] });
     expect(game.dungeon!.pending).toBeNull();
     saved();
+    const offerCursor = game.dungeon!.cursor;
     step({ type: "offerNextQuest" });
-    expect(game.dungeon!.nextQuestOffers).toContain(nextQuestId);
+    expect(game.dungeon!.cursor).toBe(offerCursor + 3);
+    expect(game.dungeon!.nextQuestOffers).toEqual(fixture.offers);
     choose(nextQuestId);
     expect(game.dungeon!.heroes.find((h) => h.id === doctor.id)).toMatchObject({
       heroStatId: doctor.heroStatId,
@@ -143,11 +205,20 @@ for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
     let sawBattle = false,
       sawDoctor = false,
       sawBlight = false;
+    const donationOptions: string[][] = [];
     const second = naturalQuest(seed, nextQuestId, true, sources, 2, {
       continueFrom: game,
       exitAfterBattles: 1,
       observe(snapshot, command) {
         continued.push(command);
+        if (
+          command.type === "summarizeDungeonQuest" &&
+          snapshot.dungeon!.pending?.id.startsWith("dungeon-fundraiser:")
+        ) {
+          donationOptions.push(snapshot.dungeon!.pending.options.map((o) => o.id));
+          expect(snapshot.dungeon!.gold).toBe(11);
+          observations.push({ snapshot, log: [...commands, ...continued] });
+        }
         const doctorBlight =
           command.type === "playHeroSkill" &&
           command.actorId === doctor.id &&
@@ -171,13 +242,13 @@ for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
     expect(second.stopReason).toBeNull();
     expect(sawBattle).toBe(true);
     expect(sawDoctor).toBe(true);
-    expect(sawBlight).toBe(nextQuestId === "quest:p002");
+    expect(sawBlight).toBe(fixture.blight);
     expect(
       second.events.flatMap((e) =>
         e.type === "heroSkillResolved" && e.actorId === doctor.id ? [e.resolution.skillId] : [],
       ),
-    ).toContain("hero_skill:p127");
-    if (nextQuestId === "quest:p003")
+    ).toContain(fixture.skill);
+    if (fixture.medicine)
       expect(
         second.events.some(
           (e) =>
@@ -188,6 +259,16 @@ for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
             e.resolution.outcome === "hit",
         ),
       ).toBe(true);
+    expect(donationOptions).toEqual(
+      fixture.blacksmith ? [[...Array.from({ length: 12 }, (_, n) => `give:${n}`), "cancel"]] : [],
+    );
+    expect(
+      second.commands.flatMap((c) =>
+        c.type === "resolveChoice" && c.choiceId.startsWith("dungeon-fundraiser:")
+          ? [c.optionId]
+          : [],
+      ),
+    ).toEqual(fixture.blacksmith ? ["give:0"] : []);
     expect(second.events.some((e) => e.type === "battleFinished" && e.outcome === "victory")).toBe(
       true,
     );
@@ -195,22 +276,17 @@ for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
     game = second.state;
     for (const checkpoint of observations) saved(checkpoint.snapshot, checkpoint.log);
     saved();
-    expect(game.dungeon!.questSummary).toMatchObject(
-      nextQuestId === "quest:p002"
-        ? { questId: nextQuestId, xpPerHero: 1, stagecoachXp: 1, awarded: false }
-        : {
-            questId: nextQuestId,
-            earlyLeave: true,
-            objectiveMet: false,
-            donatedGold: 0,
-            xpPerHero: 0,
-            awarded: false,
-          },
-    );
+    expect(game.dungeon!.questSummary).toMatchObject({
+      questId: nextQuestId,
+      awarded: false,
+      ...fixture.summary,
+    });
     step({ type: "beginReturnToHamlet" });
     settle();
     step({ type: "finishReturnToHamlet" });
     expect(game.dungeon!.heroes).toHaveLength(4);
+    expect(game.dungeon!.heroes.every((h) => !h.dead)).toBe(true);
+    if (fixture.blacksmith) expect(game.dungeon!.buildingLevels?.blacksmith).toBe(2);
     expect(game.dungeon!.deadHeroNames).toHaveLength(1);
     expect(game.dungeon!.waitingHeroTokens).toBe(1);
     expect(
@@ -236,10 +312,10 @@ for (const nextQuestId of ["quest:p002", "quest:p003"] as const) {
     );
     expect(game.dungeon!.heroes.find((h) => h.id === doctor.id)?.skillIds).toEqual(doctor.skillIds);
     expect(game.dungeon!.heroes.find((h) => h.id === doctor.id)?.xp).toBe(
-      nextQuestId === "quest:p002" ? 1 : 0,
+      fixture.summary.xpPerHero,
     );
     const finalSave = saved();
-    // 从真实战斗待选和瘟疫医生施加腐蚀后的存档执行剩余公开命令，验证跨战斗/回村续接。
+    // 从真实战斗 / 技能 / 捐献待选存档执行剩余公开命令，验证跨战斗与回村续接。
     for (const checkpoint of observations) {
       let restored = loadQuestSave(saved(checkpoint.snapshot, checkpoint.log), sources).game;
       for (const command of commands.slice(checkpoint.log.length)) {

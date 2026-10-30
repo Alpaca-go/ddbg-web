@@ -164,7 +164,8 @@
   - [x] 自然四房间 2XP 公会前置固定 seed11、公开恢复姿态与网页目录访问 / 付款 / 离开回放已随 #383 合入 main `c4734d3`，见 `phase5-c010-natural-guild-fixture-2026-10-30.md`。
   - [x] 村庄三条完整冒烟已随 #384 合入 main `c051ada`，本机 / 远端均通过，见 `phase5-c010-natural-hamlet-smoke-2026-10-30.md`；不代表 C-010 总项或连续战役已完成。
   - [x] II 级双任务抽选测试已随 #385 合入 main `cd8cc29`，独立固定 seed6 并保留完整池与未抽到目标时的拒绝，见 `phase5-c010-ii-offer-fixture-2026-10-30.md`。
-  - [x] II 级自然战斗回放已对齐完整池的固定种子，含两任务混合遭遇胜利、Rattler 自身效果撤退与 Ghoul 回村死亡停点，见 `phase5-c010-ii-replay-fixtures-2026-10-30.md`；待本刀 PR 合入，仍含准备结束夹具及沙盒升幕，不代表正式 II 战役验收。
+  - [x] II 级自然战斗回放已随 #386 合入 main `bb13bfd`，含两任务混合遭遇胜利、Rattler 自身效果撤退与 Ghoul 回村死亡停点，见 `phase5-c010-ii-replay-fixtures-2026-10-30.md`；仍含准备结束夹具及沙盒升幕，不代表正式 II 战役验收。
+  - [x] 瘟疫医生自然补员旅程已对齐完整池的三个固定种子，分别保留清剿腐蚀、捐款腐蚀与治疗、目标未达成提前退出，并验证真实支付后 11 金的捐献待选与正式存档续跑，见 `phase5-c010-replacement-journey-fixtures-2026-10-30.md`；待本刀 PR 合入，不代表 C-010 总项完成。
 - **现状**：`docs/full-flow-l1-breakpoints-2026-10-27.md` B03/B06–B08/B12 等：回村壳 UX、摘要文案与真实 XP、死亡补位 UI、再出征 E2E  
 - **验收**：逐断点 PR；不夹带 Boss hold  
 - **依赖/阻塞**：无硬规则批（纯对齐）  
