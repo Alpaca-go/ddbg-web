@@ -1,3 +1,4 @@
+import { CoreTrinketActions } from "../../core-trinket-actions";
 import { useState } from "react";
 import {
   canLeaveDungeon,
@@ -199,6 +200,7 @@ export function FormalTabletopScoutingPanel({
 
   return (
     <div className="tt-scouting-tabletop panel">
+      <CoreTrinketActions game={game} send={dispatch} />
       <div className="tt-scouting-tabletop__decisions" data-testid="dungeon-exploration-decisions">
         <DungeonStanceOrder game={game} dispatch={dispatch} />
         {d.mustLeaveRoomId === d.position && (

@@ -1,3 +1,4 @@
+import { healingTrinketReaction } from "./trinket-reactions";
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState, GameEvent } from "./command";
 import type { BattleState } from "./battle";
@@ -142,7 +143,13 @@ export function beginResolveTurn(result: ApplyResult, actorId: string): ApplyRes
     }
     const healthEffect =
       effect.type === "heal"
-        ? { type: "heal" as const, amount: passiveHeal(actor, effect.amount * actor.heroLevel!) }
+        ? {
+            type: "heal" as const,
+            amount: passiveHeal(
+              actor,
+              healingTrinketReaction(next, undefined, actor.id, effect.amount * actor.heroLevel!),
+            ),
+          }
         : { type: "wounds" as const, amounts: [effect.amount * actor.heroLevel!] };
     const health = resolveSeededHeroHealth(
       {

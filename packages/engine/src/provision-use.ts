@@ -1,3 +1,4 @@
+import { healingTrinketReaction } from "./trinket-reactions";
 import { healingForbidden } from "./battle-healing";
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
@@ -61,7 +62,10 @@ export function useProvision(state: GameState, command: UseProvisionCommand): Ap
       return rejectBattleCommand(state, "补给治疗缺已核实 Life（R-048）");
     const health = resolveHeroHealth(
       { life: target.life, wounds: target.wounds, dead: target.dead },
-      { type: "heal", amount: passiveHeal(target, 1) },
+      {
+        type: "heal",
+        amount: passiveHeal(target, healingTrinketReaction(battle, target.id, target.id, 1)),
+      },
     );
     if (health.status !== "resolved")
       return rejectBattleCommand(

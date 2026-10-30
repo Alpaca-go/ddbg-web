@@ -1,3 +1,4 @@
+import { upgradeTrinketR127Metadata } from "./trinket-save-upgrade";
 import { questSaveSchema, questStartSchema } from "../../data/src/quest-save";
 import type { QuestSave, QuestStart } from "../../data/src/quest-save";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
@@ -123,7 +124,13 @@ export function loadQuestSave(
   const save = parsed.data;
   const commands = replayCommands(save.commands);
   const restored = replay(save.start, commands, sources);
-  if (canonical(restored.game) !== canonical(upgradeNomadPrompt(save.snapshot, restored.game))) {
+  const restoredKey = canonical(restored.game);
+  let snapshotKey = canonical(upgradeNomadPrompt(save.snapshot, restored.game));
+  if (restoredKey !== snapshotKey)
+    snapshotKey = canonical(
+      upgradeNomadPrompt(upgradeTrinketR127Metadata(save.snapshot), restored.game),
+    );
+  if (restoredKey !== snapshotKey) {
     if (!previousSources)
       throw new Error("存档快照与回放不一致，或游戏数据版本已变化；未替换当前进度");
     // 仅由调用方提供可信旧目录；先完整验证旧快照，再允许目录字段更新。

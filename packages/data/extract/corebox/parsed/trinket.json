@@ -9,7 +9,7 @@
   "cards": 38,
   "ok": 38,
   "failed": 0,
-  "success_rate": 1.0
+  "success_rate": 1
  },
  "failures": [],
  "cards": [
@@ -436,7 +436,7 @@
     "name": "Book of Constitution",
     "level": 2,
     "effect_lines_raw": [
-     "When you suffer a",
+     "When you suffer a {icon:96dfcd2af2}",
      "discard it immediately"
     ],
     "printed_rotation": 0

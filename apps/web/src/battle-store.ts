@@ -166,10 +166,11 @@ export const useBattleStore = create<BattleStore>((set) => ({
   notice: "请开始战斗，再抽取先攻。",
   dispatch: (command) =>
     set((store) => {
-      const result = applyCommand(store.game, command);
+      const recorded: Command = { ...command, allTrinkets: true };
+      const result = applyCommand(store.game, recorded);
       return {
         game: result.state,
-        commands: [...store.commands, command],
+        commands: [...store.commands, recorded],
         events: [...store.events, ...result.events],
         notice: result.pendingChoice?.prompt ?? result.events.at(-1)?.message ?? "命令已处理。",
       };

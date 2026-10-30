@@ -1,3 +1,5 @@
+import { campingTrinketReaction } from "./trinket-exploration-reactions";
+import { healingTrinketReaction } from "./trinket-reactions";
 import { restPoints, scoutRestSchema } from "../../data/src/scout-rest";
 import type { ScoutRest } from "../../data/src/scout-rest";
 import type { ApplyResult, GameState, PendingChoice } from "./command";
@@ -148,7 +150,10 @@ export function restDungeon(
     const s = plan.spend[i]!;
     const health = resolveHeroHealth(
       { life: h.life!, wounds: h.wounds!, dead: false },
-      { type: "heal", amount: s.heal > 0 ? passiveHeal(h, s.heal) : 0 },
+      {
+        type: "heal",
+        amount: s.heal > 0 ? passiveHeal(h, healingTrinketReaction(d, undefined, h.id, s.heal)) : 0,
+      },
     );
     if (health.status !== "resolved") return refuse("英雄恢复校验失败，未消耗柴火");
     const stress = Math.max(
@@ -168,5 +173,10 @@ export function restDungeon(
     null,
     "休息完成：按分配恢复Life / 压力，弃置柴火（R15）；金币、光照、补给与RNG不变",
   );
-  return { ...result, state: { ...result.state, dungeon: { ...result.state.dungeon!, heroes } } };
+  const camping = campingTrinketReaction({ ...result.state.dungeon!, heroes }, state.seed);
+  return {
+    ...result,
+    state: { ...result.state, dungeon: camping.dungeon },
+    events: [...result.events, ...camping.events],
+  };
 }

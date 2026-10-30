@@ -1,13 +1,12 @@
-import { isFreeTrinketId, freeTrinketUseProblem } from "@ddbg/engine";
+import { CoreTrinketActions } from "./core-trinket-actions";
 import { useState } from "react";
 import {
   heroSkillUsesSelfTarget,
+  heroMovePathLimit,
   readPrintedTargets,
   PROVISION_EFFECTS,
   isInvokingMonster,
   HERO_SKILL_TRINKET_IDS,
-  fortunateArmletUseProblem,
-  FORTUNATE_ARMLET_ID,
 } from "@ddbg/engine";
 import type { Command, SkillStance, ProvisionEffect, GameState, GameEvent } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
@@ -487,47 +486,7 @@ export function BattleView({
               免费使用补给
             </button>
           </fieldset>
-          {battle.trinkets?.held
-            .filter((h) => h.cardId === FORTUNATE_ARMLET_ID)
-            .map((h) => (
-              <fieldset
-                key={h.cardId}
-                data-action-group="provisions"
-                disabled={frozen || !!fortunateArmletUseProblem(game, h.heroId)}
-              >
-                <legend>饰品 · {entityName(h.heroId)}</legend>
-                <button
-                  onClick={() =>
-                    send({ type: "useTrinket", actorId: h.heroId, cardId: FORTUNATE_ARMLET_ID })
-                  }
-                >
-                  Fortunate Armlet：压力 +1，翻回正面
-                </button>
-              </fieldset>
-            ))}
-          {battle.trinkets?.held
-            .filter((h) => isFreeTrinketId(h.cardId))
-            .map((h) => (
-              <fieldset
-                key={h.cardId}
-                data-action-group="provisions"
-                disabled={
-                  frozen ||
-                  (isFreeTrinketId(h.cardId) && !!freeTrinketUseProblem(game, h.heroId, h.cardId))
-                }
-              >
-                <legend>饰品 · {entityName(h.heroId)}</legend>
-                <button
-                  onClick={() => {
-                    if (isFreeTrinketId(h.cardId))
-                      send({ type: "useTrinket", actorId: h.heroId, cardId: h.cardId });
-                  }}
-                >
-                  使用 {battle.trinkets!.cards.find((c) => c.id === h.cardId)?.name}（
-                  {h.face === "upright" ? "正面" : "反面"}）
-                </button>
-              </fieldset>
-            ))}
+          <CoreTrinketActions game={game} send={send} />
           {!turn && (
             <button disabled={frozen} onClick={() => send({ type: "startBattle" })}>
               开始战斗
@@ -605,7 +564,7 @@ export function BattleView({
                   {adjacent.map((id) => (
                     <button
                       key={id}
-                      disabled={path.length >= (stat?.speed ?? 0)}
+                      disabled={path.length >= heroMovePathLimit(game, actor!.id)}
                       onClick={() => setPath([...path, id])}
                     >
                       前往 {id}
@@ -614,10 +573,10 @@ export function BattleView({
                 </div>
                 <div className="button-row">
                   <button
-                    disabled={!path.length}
+                    disabled={!!turn.mustMove && !path.length}
                     onClick={() => send({ type: "moveHero", actorId: actor!.id, path })}
                   >
-                    确认移动
+                    {path.length ? "确认移动" : "原地移动（花1行动）"}
                   </button>
                   <button disabled={!path.length} onClick={() => setPath([])}>
                     清空路径

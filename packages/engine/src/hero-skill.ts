@@ -1,3 +1,4 @@
+import { defenceTrinketReaction } from "./trinket-reactions";
 import type { HeroHealthEffect } from "./hero-health";
 import { statusStackProblem } from "./status";
 import type { StatusEffect, StatusStack } from "./status";
@@ -415,6 +416,8 @@ export type SkillTargetState = PassiveHolder & {
 };
 
 export type SkillCombatState = {
+  readonly trinketHealingMetadata?: true;
+  readonly trinketScope?: import("./battle").BattleState;
   /** R26：本次技能宣告后主动使用的饰品修正，不是常驻属性或 Buff。 */
   readonly trinketModifiers?: {
     readonly crit: number;
@@ -506,6 +509,7 @@ export type SkillForm = "beast" | "human";
 
 /** 已命名生命效果的发生顺序；不能从最终伤口差值逆推（R20、R29）。 */
 export type SkillHealthEffect = {
+  readonly rawHealing?: number;
   readonly entityId: string;
   readonly side: SkillTargetSide;
   readonly source: "selfHeal" | "selfWound" | "targetHeal" | "attack" | "riposte" | "passiveStress";
@@ -594,6 +598,7 @@ export type HeroSkillResolution = {
   readonly skipped: readonly SkippedSkillEffect[];
   readonly actorStatusEffects?: readonly StatusEffect[];
   readonly targetStatusEffects?: readonly StatusEffect[];
+  readonly targetTrinketStatusEffects?: readonly StatusEffect[];
   readonly actorLightDelta?: number;
   readonly targetLightDelta?: number;
 };
@@ -2757,6 +2762,11 @@ function resolveSkill(
     outcome = roll <= hitThreshold ? "hit" : "miss";
   }
 
+  const trinketDefence =
+    combat.trinketScope && sourceSide !== target.side && target.side === "hero"
+      ? defenceTrinketReaction(combat.trinketScope, target.id, roll, hitThreshold, outcome)
+      : { outcome, halve: false, statuses: [] };
+  outcome = trinketDefence.outcome;
   let wounds = target.wounds;
   let printedAmount: number | null = null;
   let damageDealt: number | null = null;
@@ -2852,6 +2862,9 @@ function resolveSkill(
       entityId: combat.actor!.id,
       side: sourceSide,
       source: "selfHeal",
+      ...(combat.trinketHealingMetadata || combat.trinketScope
+        ? { rawHealing: selfHeal.amount + paired.heal }
+        : {}),
       effect: { type: "heal", amount },
     });
   }
@@ -2904,6 +2917,7 @@ function resolveSkill(
         entityId: target.id,
         side: target.side,
         source: "targetHeal",
+        ...(combat.trinketHealingMetadata || combat.trinketScope ? { rawHealing: amount } : {}),
         effect: { type: "heal", amount: healed },
       });
       // Self 的治疗落在使用者身上。上面已经要求两份伤口一开始相同。
@@ -2943,6 +2957,7 @@ function resolveSkill(
         baseDamage,
         outcome === "crit",
         target.protection === true && !skipProtection,
+        trinketDefence.halve,
       );
       const { beforeProtection } = damage;
       damageDealt = damage.damageDealt;
@@ -2987,6 +3002,9 @@ function resolveSkill(
       entityId: target.id,
       side: target.side,
       source: "targetHeal",
+      ...(combat.trinketHealingMetadata || combat.trinketScope
+        ? { rawHealing: support!.heal }
+        : {}),
       effect: { type: "heal", amount: healed },
     });
   }
@@ -3057,6 +3075,9 @@ function resolveSkill(
     wounds,
     actorWounds,
     targetDead,
+    ...(trinketDefence.statuses.length
+      ? { targetTrinketStatusEffects: trinketDefence.statuses }
+      : {}),
     targetBleedCleared: conditionsCleared,
     targetBlightCleared: conditionsCleared,
     actorBleedCleared,

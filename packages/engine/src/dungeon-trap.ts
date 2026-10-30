@@ -1,3 +1,10 @@
+import {
+  defenceTrinketReaction,
+  damageTrinketReaction,
+  statusCharmReaction,
+} from "./trinket-reactions";
+import { applyPassiveStatus } from "./passive-runtime";
+import { readHeroPassiveDefence } from "./battle-skill-status";
 import { approvedHeroStats } from "../../data/src/normalize/hero-stat";
 import type { ApplyResult, GameEvent, GameState } from "./command";
 import { resolveAttackDamage } from "./attack-damage";
@@ -62,8 +69,15 @@ export function resolveDungeonTrap(state: GameState, rollId: string, heroId: str
     Number(config.light === 5) +
     2 * Number(hasQuirk(hero, "Quick Reflexes")) -
     2 * Number(hasQuirk(hero, "Slow Reflexes"));
-  const critical = roll <= 2;
-  const hit = critical || roll <= 8 - dodge;
+  const defence = defenceTrinketReaction(
+    d,
+    heroId,
+    roll,
+    8 - dodge,
+    roll <= 2 ? "crit" : roll <= 8 - dodge ? "hit" : "miss",
+  );
+  const critical = defence.outcome === "crit";
+  const hit = critical || defence.outcome === "hit";
   let changed = { ...d, cursor: d.cursor + 1 };
   const events: GameEvent[] = [];
   const apply = (input: PassiveInput): string | null => {
@@ -95,6 +109,7 @@ export function resolveDungeonTrap(state: GameState, rollId: string, heroId: str
       (critical ? 4 : 2) * config.dungeonLevel,
       critical,
       protection,
+      defence.halve,
     ).damageDealt;
     const triggers: PassiveInput[] = [
       ...(damage > 0
@@ -102,7 +117,10 @@ export function resolveDungeonTrap(state: GameState, rollId: string, heroId: str
             {
               type: "stress" as const,
               amount: 0,
-              woundAmounts: [damage, ...passiveDamageWounds(hero)],
+              woundAmounts: damageTrinketReaction(changed, heroId, [
+                damage,
+                ...passiveDamageWounds(hero),
+              ]),
             },
             "damageTaken" as const,
             ...(critical ? ["criticalDamage" as const] : []),
@@ -117,6 +135,28 @@ export function resolveDungeonTrap(state: GameState, rollId: string, heroId: str
   } else if (!cancelled && hasQuirk(hero, "Evasive")) {
     const problem = apply({ type: "stress", amount: -1 });
     if (problem) return refuse(problem);
+  }
+  const live = changed.heroes.find((h) => h.id === heroId)!;
+  if (!live.dead && defence.statuses.length) {
+    const effects = statusCharmReaction(changed, heroId, heroId, "self", defence.statuses, false);
+    let next = live;
+    for (const effect of effects) {
+      const applied = applyPassiveStatus(
+        next,
+        effect,
+        "self",
+        changed.battleCatalog ? readHeroPassiveDefence(changed.battleCatalog, next) : undefined,
+      );
+      if (applied.status === "refused") return refuse(applied.reason);
+      next = applied.hero;
+      changed = { ...changed, heroes: changed.heroes.map((h) => (h.id === heroId ? next : h)) };
+      if (applied.wounds.length) {
+        const problem = apply({ type: "stress", amount: 0, woundAmounts: applied.wounds });
+        if (problem) return refuse(problem);
+        next = changed.heroes.find((h) => h.id === heroId)!;
+      }
+      if (next.dead) break;
+    }
   }
   const result = completeDungeonHazard(
     state,

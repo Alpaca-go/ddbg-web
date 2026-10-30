@@ -152,13 +152,27 @@ export function playMonsterSkill(
   const roll = resume ? resume.roll! : nextBattleRoll(state.seed, battle.rngCursor);
   const current = resume ? state.battle! : battle;
   const effectCombat = resume ? afterMonsterOwnCombat(combat, current) : combat;
-  const result = resolveMonsterSkill(card, command.skillSlot, effectCombat, roll);
+  let result = resolveMonsterSkill(card, command.skillSlot, effectCombat, roll);
   if (result.status === "refused") return rejectBattleCommand(state, result.reason);
-  const effects = resolveMonsterSkillEffects(card, command.skillSlot, effectCombat, roll);
+  let effects = resolveMonsterSkillEffects(card, command.skillSlot, effectCombat, roll);
   if (effects.status === "refused") return rejectBattleCommand(state, effects.reason);
   if (!resume) {
     const own = beginSkillOwnEffects(state, command, roll, effects);
     if (own) return own;
+  }
+  if (current.trinketRuntime) {
+    effects = resolveMonsterSkillEffects(
+      card,
+      command.skillSlot,
+      { ...effectCombat, trinketScope: current },
+      roll,
+    );
+    if (effects.status === "refused") return rejectBattleCommand(state, effects.reason);
+    result = {
+      ...result,
+      resolution: effects.resolution,
+      actorDead: (effects.resolution.actorWounds ?? 0) >= card.life,
+    };
   }
   const entities = current.entities.map((entry) => {
     const updated = writeResolution(entry, actor.id, target.id, result.resolution, false);

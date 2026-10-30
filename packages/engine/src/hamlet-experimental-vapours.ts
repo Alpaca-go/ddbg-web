@@ -1,3 +1,4 @@
+import { healingTrinketReaction } from "./trinket-reactions";
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { rejectBattleCommand } from "./battle";
@@ -71,7 +72,10 @@ export function useExperimentalVapours(
     );
   const health = resolveHeroHealth(
     { life: target.life!, wounds: target.wounds!, dead: false },
-    { type: "heal", amount: passiveHeal(target, row.heal) },
+    {
+      type: "heal",
+      amount: passiveHeal(target, healingTrinketReaction(d, actor.id, target.id, row.heal)),
+    },
   );
   if (health.status !== "resolved")
     return rejectBattleCommand(state, "Experimental Vapours治疗状态无效");

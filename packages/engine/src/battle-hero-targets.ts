@@ -75,6 +75,7 @@ export function playHeroSkillTargets(
     : !living.some((e) => e.side === "monster" && e.guard) &&
       battle.entities.some((e) => e.side === "monster" && !e.dead && e.guard);
   let contexts: SkillCombatState[] = living.map((target) => ({
+    ...(battle.trinketRuntime ? { trinketHealingMetadata: true as const } : {}),
     ...((resume?.trinketAttack ?? trinketAttack)
       ? { trinketModifiers: (resume?.trinketAttack ?? trinketAttack)!.modifiers }
       : {}),
@@ -165,7 +166,7 @@ export function playHeroSkillTargets(
   const current = resume ? state.battle! : battle;
   if (resume)
     contexts = contexts.map((context) => afterHeroOwnCombat(context, current, command.targetIds));
-  const effects = resolve(roll ?? 1);
+  let effects = resolve(roll ?? 1);
   const failed = unsupported(effects);
   if (failed)
     return rejectBattleCommand(
@@ -192,6 +193,10 @@ export function playHeroSkillTargets(
   if (!resume) {
     const own = beginSkillOwnEffects(state, command, roll, effects[0]!, effects, trinketAttack);
     if (own) return own;
+  }
+  if (current.trinketRuntime) {
+    contexts = contexts.map((c) => ({ ...c, trinketScope: current }));
+    effects = resolve(roll ?? 1);
   }
   const resolutions = effects.map((e) => e.resolution);
   const actorResult = resolutions.find((r) => r.outcome === "crit") ?? resolutions[0]!;

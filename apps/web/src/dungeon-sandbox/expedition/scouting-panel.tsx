@@ -1,3 +1,4 @@
+import { CoreTrinketActions } from "../../core-trinket-actions";
 import { useState, type ReactNode } from "react";
 import {
   canLeaveDungeon,
@@ -130,6 +131,7 @@ export function ScoutingPanel({
         extraClass="quest-return-center"
         layout={layout}
       >
+        <CoreTrinketActions game={game} send={dispatch} />
         <QuestSummaryPanel
           game={game}
           dispatch={dispatch}
@@ -178,6 +180,7 @@ export function ScoutingPanel({
         extraClass="hamlet-phase-center"
         layout={layout}
       >
+        <CoreTrinketActions game={game} send={dispatch} />
         <HamletEventSection
           game={game}
           dispatch={dispatch}
@@ -270,6 +273,7 @@ export function ScoutingPanel({
           )
           .join("；") || "疾病 / 怪癖：无"}
       </p>
+      <CoreTrinketActions game={game} send={dispatch} />
       <div data-testid="dungeon-trinkets">
         <p>携带饰品：</p>
         {d.trinkets?.held.length ? (

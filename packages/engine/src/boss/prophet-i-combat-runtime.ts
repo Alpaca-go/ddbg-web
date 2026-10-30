@@ -1,3 +1,4 @@
+import { applyBattleSkillStatuses } from "../battle-skill-status";
 import type { BattleEntity, BattleState } from "../battle";
 import type {
   ApplyResult,
@@ -395,6 +396,7 @@ export function applyProphetRubbleOfRuin(state: GameState, actorId: string): App
           areaDistance,
           targetsInArea: targets.length,
           light: next.light,
+          ...(next.trinketRuntime ? { trinketScope: next } : {}),
           targetAreaLower: heights[actorArea.elevation] > heights[targetArea.elevation],
           // Special 直接攻击木长椅区域；该区全部存活英雄均已选中（R38–39）。
           guardedHeroOmitted: false,
@@ -437,6 +439,15 @@ export function applyProphetRubbleOfRuin(state: GameState, actorId: string): App
     if (health.status === "refused") {
       return { state, events: [{ type: "commandRefused", message: health.reason }] };
     }
+    const statuses = applyBattleSkillStatuses(
+      next,
+      health.entities,
+      actorId,
+      resolutions,
+      state.seed,
+      health.rngCursor,
+    );
+    if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
     pewAttacks += 1;
     const skillEvent: MonsterSkillTargetsResolvedEvent = {
       type: "monsterSkillTargetsResolved",
@@ -452,12 +463,12 @@ export function applyProphetRubbleOfRuin(state: GameState, actorId: string): App
         ...state,
         battle: {
           ...next,
-          entities: health.entities,
-          rngCursor: health.rngCursor,
+          entities: statuses.entities,
+          rngCursor: statuses.rngCursor,
           monsterAction: null,
         },
       },
-      events: [...events, skillEvent, ...health.events],
+      events: [...events, skillEvent, ...health.events, ...statuses.events],
     });
     const problem = pressure.events.find((event) => event.type === "commandRefused");
     if (problem) return rejectBattleCommand(state, problem.message);

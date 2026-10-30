@@ -91,6 +91,7 @@ export function beginDamageStoneWindow(
   resume?: SkillPrefix,
   trinketAttack?: HeroTrinketAttack,
 ): ApplyResult | null {
+  if (state.battle?.trinketRuntime) return null;
   if (
     !command.damageStoneWindow ||
     roll === null ||
@@ -164,6 +165,7 @@ export function chooseDamageStone(state: GameState, optionId: string): ApplyResu
   )
     return rejectBattleCommand(state, "Damage Stone骰游标已失效");
   const use = optionId === DAMAGE_STONE_ID;
+  if (use && b.trinketRuntime) b.trinketRuntime.spent.add(DAMAGE_STONE_ID);
   // 重算技能与原骰，不接受持久化待选中伪造的伤口结果。
   const prefix = { ...p.prefix, damageStoneResponse: { heroId: p.heroId, use } };
   const base = {

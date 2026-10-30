@@ -25,13 +25,14 @@ export const useDungeonStore = create<{
   questStart: null,
   dispatch: (command) =>
     set((s) => {
-      const result = applyCommand(s.game, command);
+      const recorded: Command = { ...command, allTrinkets: true };
+      const result = applyCommand(s.game, recorded);
       return {
         game: result.state,
         events: result.events,
         commands: result.events.some((e) => e.type === "commandRefused")
           ? s.commands
-          : [...s.commands, command],
+          : [...s.commands, recorded],
       };
     }),
   beginTask: (game, questStart) =>

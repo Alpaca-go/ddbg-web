@@ -1,3 +1,5 @@
+import { passiveHeal } from "./passive";
+import { healingTrinketReaction, damageTrinketReaction } from "./trinket-reactions";
 import type { BattleEntity, BattleState } from "./battle";
 import type { GameEvent } from "./command";
 import type { SkillEffectsResolution } from "./hero-skill";
@@ -40,6 +42,44 @@ export function applySkillHealth(
       (e) => !(e.side === "hero" && e.effect.type === "heal" && prevented.has(e.entityId)),
     ),
   };
+  if (battle.trinketRuntime)
+    skill = {
+      ...skill,
+      healthEffects: skill.healthEffects.map((e) =>
+        e.side !== "hero"
+          ? e
+          : e.effect.type === "heal"
+            ? {
+                ...e,
+                effect: {
+                  ...e.effect,
+                  amount: (() => {
+                    const amount = healingTrinketReaction(
+                      battle,
+                      e.source === "selfHeal" ? e.entityId : actorId,
+                      e.entityId,
+                      e.rawHealing ?? (e.effect.type === "heal" ? e.effect.amount : 0),
+                    );
+                    return e.rawHealing === undefined
+                      ? amount
+                      : passiveHeal(
+                          battle.entities.find((h) => h.id === e.entityId)!,
+                          amount,
+                        );
+                  })(),
+                },
+              }
+            : ["attack", "riposte"].includes(e.source)
+              ? {
+                  ...e,
+                  effect: {
+                    ...e.effect,
+                    amounts: damageTrinketReaction(battle, e.entityId, e.effect.amounts),
+                  },
+                }
+              : e,
+      ),
+    };
   const preventionEvents: GameEvent[] = [...prevented].map((entityId) => ({
     type: "healingPrevented",
     entityId,

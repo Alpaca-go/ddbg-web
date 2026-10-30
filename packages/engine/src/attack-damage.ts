@@ -7,10 +7,12 @@ export function resolveAttackDamage(
   baseDamage: number,
   critical: boolean,
   protection: boolean,
+  halveDamage = false,
 ) {
   const modified = Math.max(0, baseDamage - Number(hasQuirk(target, "On Guard")));
-  const beforeProtection =
+  const criticalDamage =
     critical && hasQuirk(target, "Hard Skinned") ? Math.ceil(modified / 2) : modified;
+  const beforeProtection = halveDamage ? Math.ceil(criticalDamage / 2) : criticalDamage;
   return {
     beforeProtection,
     damageDealt: protection ? Math.ceil(beforeProtection / 2) : beforeProtection,

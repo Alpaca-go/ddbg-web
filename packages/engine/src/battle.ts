@@ -171,6 +171,7 @@ export type OneBodyLifePool = {
 };
 
 export type BattleState = BattleSetup & {
+  readonly trinketRuntime?: import("./trinket-reactions").TrinketRuntime;
   /** R-028：任一角色的新回合开始时清空；每件饰品各自计数。 */
   readonly usedTrinketIds?: readonly string[];
   readonly oneBodyPools?: Readonly<Record<string, OneBodyLifePool>>;
@@ -197,6 +198,7 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | { readonly type: "allTrinkets"; readonly choice: PendingChoice }
     | {
         readonly type: "damageStone";
         readonly choice: PendingChoice;
@@ -511,6 +513,7 @@ export function playHeroSkill(
       .map((entity) => ({ ...entity, stress: entity.stress! }));
   const sameArea = actor.areaId === target.areaId;
   const context: SkillCombatState = {
+    ...(battle.trinketRuntime ? { trinketHealingMetadata: true as const } : {}),
     ...((resume?.trinketAttack ?? trinketAttack)
       ? { trinketModifiers: (resume?.trinketAttack ?? trinketAttack)!.modifiers }
       : {}),
@@ -600,11 +603,15 @@ export function playHeroSkill(
   }
   const current = resume ? state.battle! : battle;
   const effectCombat = resume ? afterHeroOwnCombat(combat, current) : combat;
-  const effects = resolveHeroSkillEffects(skill, effectCombat, roll ?? 1);
+  let effects = resolveHeroSkillEffects(skill, effectCombat, roll ?? 1);
   resolution = effects.resolution;
   if (!resume) {
     const own = beginSkillOwnEffects(state, command, roll, effects, undefined, trinketAttack);
     if (own) return own;
+  }
+  if (current.trinketRuntime) {
+    effects = resolveHeroSkillEffects(skill, { ...effectCombat, trinketScope: current }, roll ?? 1);
+    resolution = effects.resolution;
   }
   const entities = current.entities.map((entity) =>
     writeResolution(

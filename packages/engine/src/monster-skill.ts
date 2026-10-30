@@ -49,6 +49,7 @@ export type MonsterCardView = {
 /** 调用方已选定一个英雄目标；英雄 Life / 死门尚未接入。 */
 export type MonsterCombatState = Pick<
   SkillCombatState,
+  | "trinketScope"
   | "target"
   | "untargetedHeroesBesideTarget"
   | "shuffleChoice"
@@ -241,6 +242,7 @@ function resolveMonsterSkillInternal(
     view,
     {
       actor: combat.actor,
+      ...(combat.trinketScope ? { trinketScope: combat.trinketScope } : {}),
       target: combat.target,
       areaDistance: combat.areaDistance,
       targetsInArea: combat.targetsInArea ?? 1,

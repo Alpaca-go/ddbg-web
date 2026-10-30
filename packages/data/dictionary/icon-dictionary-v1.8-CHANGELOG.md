@@ -106,3 +106,7 @@ Kyries 批准 batch-08 里 `proposed_action` 为 categorize 的 79 条。这些 
 前 525 条与 v1.7 相同。confirmed + confirmed_rulebook + decor 的卡面出现次数：14,253 / 14,588（97.70%）。v1.7 是 14,016 / 14,588（96.08%）。
 
 v1.7 的变更说明仍在 `icon-dictionary-v1.7-CHANGELOG.md`。v1.6 的说明仍在 `icon-dictionary-v1.6-CHANGELOG.md`。v1.5 的说明仍在 `icon-dictionary-v1.5-CHANGELOG.md`。v1.4 的说明仍在 `icon-dictionary-v1.4-CHANGELOG.md`。v1.3 的说明仍在 `icon-dictionary-v1.3-CHANGELOG.md`。v1.2 的说明仍在 `icon-dictionary-v1.2-CHANGELOG.md`。v1.1 的说明仍在 `icon-dictionary-v1.1-CHANGELOG.md`。
+
+## 2026-10-30 / R-127 饰品效果复核
+
+Kyries 明确批准 22c0a26f50=Dodge；b7d0cfd524=抽负面怪癖；206c655597=Camouflage Cloak 光照 ≥3。三个条目保留原 ID / rank / 次数 / 空 value，status 仍 confirmed，source=kyries_review_2026-10-30，JSON / CSV 同步。p016 已确认疾病图标96dfcd2af2只补回 parsed 丢失的效果行，不改字典含义。afb3fe2d69仍为反面水晶插画。未修改其它词典条目或 raw。

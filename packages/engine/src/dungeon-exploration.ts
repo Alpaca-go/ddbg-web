@@ -1,3 +1,4 @@
+import { explorationTrinketReaction } from "./trinket-exploration-reactions";
 import die from "../../data/normalized/corebox/exploration_die.json";
 import { explorationDieSchema } from "../../data/src/exploration";
 import type { ApplyResult, GameState } from "./command";
@@ -189,9 +190,16 @@ export function applyDungeonExploration(
     return refuse(state, "选择不存在、已过期或无效");
   const rolls = e.rolls!;
   if (d.pending.id.startsWith("dungeon-die:")) {
-    const roll = rolls.find((r) => r.id === command.optionId)!;
+    const originalRoll = rolls.find((r) => r.id === command.optionId)!;
+    const roll = explorationTrinketReaction(d, originalRoll);
+    const activeDungeon =
+      roll === originalRoll
+        ? d
+        : { ...d, exploration: { ...e, rolls: rolls.map((r) => (r.id === roll.id ? roll : r)) } };
+    if (roll.resolved)
+      return complete(state, activeDungeon, roll.id, "Survival Guide：忽略探索危险（R26）");
     if (roll.face === "blank")
-      return complete(state, d, roll.id, "空白：无事发生，不触发 Curio（R-012）");
+      return complete(state, activeDungeon, roll.id, "空白：无事发生，不触发 Curio（R-012）");
     const required =
       roll.face === "hunger"
         ? "food"
@@ -213,7 +221,7 @@ export function applyDungeonExploration(
     return finish(
       state,
       {
-        ...d,
+        ...activeDungeon,
         decision: d.decision + 1,
         pending: {
           id: `dungeon-hazard:${d.decision}:${roll.id}`,

@@ -1,3 +1,4 @@
+import { crownTrinketReaction } from "./trinket-reactions";
 import type { BattleState } from "./battle";
 import type { ApplyResult, GameEvent } from "./command";
 import { rejectBattleCommand } from "./battle";
@@ -114,7 +115,19 @@ export function resolveBattlePressure(result: ApplyResult): ApplyResult {
       for (let i = rollCursor; i < battle.rngCursor; i++) rng.next();
       if (battle.entities.find((e) => e.id === original.id)!.dead) continue;
     }
-    const drawn = resolvePressure(10, false, null, roll, passiveVirtueThreshold(original));
+    const drawn = resolvePressure(
+      10,
+      false,
+      null,
+      roll,
+      crownTrinketReaction(
+        battle,
+        original.id,
+        roll,
+        passiveVirtueThreshold(original),
+        battle.light,
+      ),
+    );
     if (drawn.type !== "draw") return rejectBattleCommand(result.state, "意志检定状态无效");
     let cursor: number = battle.rngCursor;
     const existing: readonly string[] | undefined = battle.resolveDecks?.[drawn.role];

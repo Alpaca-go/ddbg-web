@@ -1,3 +1,4 @@
+import { statusCharmReaction } from "./trinket-reactions";
 import type { BattleEntity, BattleState } from "./battle";
 import type { HeroSkillResolution } from "./hero-skill";
 import { addStatusStack, STATUS_KINDS, statusProjection } from "./status";
@@ -87,6 +88,7 @@ export function applyBattleSkillStatuses(
     id: string,
     effects: readonly StatusEffect[],
     scope: "self" | "target",
+    causingActorId = actorId,
   ): string | null => {
     const entity = next.find((entry) => entry.id === id);
     const stat = battle.heroStats?.find((card) => card.id === entity?.heroStatId);
@@ -98,9 +100,21 @@ export function applyBattleSkillStatuses(
       !readHeroPassiveDefence(battle, entity)
     )
       return "英雄条件防御不符合限定审批（R-081），整次未提交";
-    if (!effects.length) return null;
-    if (!entity) return "状态效果接收者不存在";
+    if (!entity) return effects.length ? "状态效果接收者不存在" : null;
     if (entity.dead) return null;
+    if (seed !== undefined)
+      effects = statusCharmReaction(
+        battle,
+        causingActorId,
+        id,
+        scope,
+        effects,
+        scope === "target" &&
+          resolutions.some(
+            (r) => r.targetId === id && (r.outcome === "hit" || r.outcome === "crit"),
+          ),
+      );
+    if (!effects.length) return null;
     if (
       entity.statusStacks === undefined &&
       (entity.bleed.length ||
@@ -240,6 +254,13 @@ export function applyBattleSkillStatuses(
   for (const resolution of resolutions) {
     const problem = apply(resolution.targetId, resolution.targetStatusEffects ?? [], "target");
     if (problem) return { status: "refused", reason: problem };
+    const trinketProblem = apply(
+      resolution.targetId,
+      resolution.targetTrinketStatusEffects ?? [],
+      "self",
+      resolution.targetId,
+    );
+    if (trinketProblem) return { status: "refused", reason: trinketProblem };
   }
   let light = Math.max(0, Math.min(5, battle.light + (resolutions[0]?.actorLightDelta ?? 0)));
   const deltas = [

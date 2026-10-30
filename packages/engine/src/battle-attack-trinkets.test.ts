@@ -1,3 +1,4 @@
+import type { CoreTrinketId } from "../../data/src/core-trinket-bindings";
 import { nextBattleRoll } from "./battle-roll";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
 import { expect, it } from "vitest";
@@ -17,7 +18,7 @@ import { fortunateArmletUseProblem } from "./battle-fortunate-armlet";
 const cards = normalizedTrinketFileSchema.parse(rawTrinkets).cards;
 // 明示战斗机制夹具；完整牌池、技能和属性均来自目录，不冒称自然获得路径。
 function fixture(
-  ids: readonly HeroSkillTrinketId[],
+  ids: readonly (HeroSkillTrinketId | CoreTrinketId)[],
   stance: SkillStance = "aggressive",
   skillId = "hero_skill:p001",
   face: "upright" | "inverted" = "upright",
@@ -1585,5 +1586,108 @@ it("Damage Stone承受伤口致死只掷一次死门，卡翻面并走既有死�
   expect(paid.state.battle!.trinkets!.held[0]!.face).toBe("upright");
   expect(paid.events.some((e) => e.type === "heroHealthResolved" && e.resolution.deathblow)).toBe(
     true,
+  );
+});
+
+it.each([
+  ["trinket:p003", "bleed"],
+  ["trinket:p004", "blight"],
+  ["trinket:p008", "debuff"],
+  ["trinket:p011", "stun"],
+] as const)("%s正面可选追加状态，免疫/抗性沿既有规则", (cardId, kind) => {
+  const { state, command } = fixture(
+    [cardId],
+    "aggressive",
+    "hero_skill:p001",
+    "upright",
+    7,
+    "monster_medium:p024",
+  );
+  const open = ok(applyCommand(state, { ...command, allTrinkets: true }));
+  expect(open.pendingChoice!.options.some((o) => o.id === cardId)).toBe(true);
+  const before = JSON.stringify(state),
+    skip = choose(open, "continue");
+  const paid = choose({ ...open, state: JSON.parse(JSON.stringify(open.state)) }, cardId);
+  expect(paid.state.battle!.trinkets!.held[0]!.face).toBe("inverted");
+  expect(paid.events.filter((e) => e.type === "trinketUsed")).toHaveLength(1);
+  expect(
+    paid.state
+      .battle!.entities.find((e) => e.id === "m")!
+      .statusStacks!.some((s) => s.kind === kind),
+  ).toBe(true);
+  expect(skip.state.battle!.trinkets!.held[0]!.face).toBe("upright");
+  expect(JSON.stringify(state)).toBe(before);
+  expect(JSON.stringify(paid.state)).not.toContain("trinketRuntime");
+});
+
+it("流血护符反面：选择缩短正在施加的一个条件，不缩短所有条件", () => {
+  const { state, command } = fixture(
+    ["trinket:p003"],
+    "aggressive",
+    "hero_skill:p082",
+    "inverted",
+    7,
+    "monster_medium:p024",
+  );
+  const ready = {
+    ...state,
+    battle: {
+      ...state.battle!,
+      entities: state.battle!.entities.map((e) => (e.id === "m" ? { ...e, areaId: "a" } : e)),
+    },
+  };
+  const open = ok(applyCommand(ready, { ...command, allTrinkets: true }));
+  const option = open.pendingChoice!.options.find((o) => o.id.startsWith("trinket:p003:"))!;
+  expect(option).toBeDefined();
+  const paid = choose(open, option.id),
+    skip = choose(open, "continue");
+  const bleed = (s: GameState) =>
+    s.battle!.entities.find((e) => e.id === "m")!.statusStacks!.find((s) => s.kind === "bleed")!
+      .remaining;
+  expect(bleed(paid.state)).toBe(bleed(skip.state) - 1);
+  expect(paid.state.battle!.trinkets!.held[0]!.face).toBe("upright");
+});
+it.each([
+  ["trinket:p015", "bleed"],
+  ["trinket:p019", "stun"],
+  ["trinket:p023", "bleed"],
+] as const)("%s受击反面可选施加自身条件，使用后翻回正面", (id, kind) => {
+  const base = reverseFixture();
+  const pool = base.battle.trinkets!;
+  const b = {
+    ...base,
+    battle: {
+      ...base.battle,
+      trinkets: {
+        ...pool,
+        cards: [...pool.cards, ...cards.filter((c) => c.id === id)],
+        held: [{ cardId: id, heroId: "h0", face: "inverted" as const }],
+      },
+    },
+  };
+  const open = ok(applyCommand(b, { ...incoming, allTrinkets: true }));
+  const paid = choose(open, id);
+  expect(paid.state.battle!.trinkets!.held[0]!.face).toBe("upright");
+  expect(paid.state.battle!.entities[0]!.statusStacks!.some((s) => s.kind === kind)).toBe(true);
+});
+it("Protective Padlock按受击伤害减半，不减半同批额外伤口", () => {
+  const base = reverseFixture();
+  const pool = base.battle.trinkets!;
+  const state = {
+    ...base,
+    battle: {
+      ...base.battle,
+      trinkets: {
+        ...pool,
+        cards: [...pool.cards, ...cards.filter((c) => c.id === "trinket:p022")],
+        held: [{ cardId: "trinket:p022", heroId: "h0", face: "upright" as const }],
+      },
+    },
+  };
+  const open = ok(applyCommand(state, { ...incoming, allTrinkets: true }));
+  const skip = choose(open, "continue"),
+    paid = choose(open, "trinket:p022");
+  expect(paid.state.battle!.entities[0]!.wounds - 1).toBe(
+    Math.ceil((skip.state.battle!.entities[0]!.wounds - 1) / 2),
   );
 });
