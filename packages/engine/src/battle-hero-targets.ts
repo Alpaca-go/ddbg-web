@@ -21,10 +21,13 @@ import type { ApplyResult, GameState, HeroSkillTargetsResolvedEvent } from "./co
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
+import { beginHeroTrinketWindow } from "./battle-trinket-ability";
+import type { HeroTrinketAttack } from "./battle-trinket-ability";
 import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./boss/swine-prince-i-combat-runtime";
 
 export type PlayHeroSkillTargetsCommand = {
   readonly type: "playHeroSkillTargets";
+  readonly trinketWindow?: true;
   readonly actorId: string;
   readonly skillId: string;
   readonly targetIds: readonly string[];
@@ -36,6 +39,7 @@ export function playHeroSkillTargets(
   state: GameState,
   command: PlayHeroSkillTargetsCommand,
   resume?: SkillPrefix,
+  trinketAttack?: HeroTrinketAttack,
 ): ApplyResult {
   const battle = resume?.original ?? state.battle;
   if (!battle) return rejectBattleCommand(state, "尚未创建战斗沙盒");
@@ -68,6 +72,9 @@ export function playHeroSkillTargets(
     : !living.some((e) => e.side === "monster" && e.guard) &&
       battle.entities.some((e) => e.side === "monster" && !e.dead && e.guard);
   let contexts: SkillCombatState[] = living.map((target) => ({
+    ...((resume?.trinketAttack ?? trinketAttack)
+      ? { trinketModifiers: (resume?.trinketAttack ?? trinketAttack)!.modifiers }
+      : {}),
     actor,
     target: skillTargetView(target, battle),
     light: battle.light,
@@ -151,7 +158,7 @@ export function playHeroSkillTargets(
     ? resume.roll
     : probes[0]!.resolution.outcome === null
       ? null
-      : nextBattleRoll(state.seed, battle.rngCursor);
+      : (trinketAttack?.roll ?? nextBattleRoll(state.seed, battle.rngCursor));
   const current = resume ? state.battle! : battle;
   if (resume)
     contexts = contexts.map((context) => afterHeroOwnCombat(context, current, command.targetIds));
@@ -162,8 +169,12 @@ export function playHeroSkillTargets(
       state,
       failed.resolution.reason ?? "多目标效果未完整支持，整次拒绝（R-048）",
     );
+  if (command.trinketWindow && !resume && !trinketAttack && roll !== null) {
+    const window = beginHeroTrinketWindow(state, command, roll, skill, effects[0]!.resolution);
+    if (window) return window;
+  }
   if (!resume) {
-    const own = beginSkillOwnEffects(state, command, roll, effects[0]!, effects);
+    const own = beginSkillOwnEffects(state, command, roll, effects[0]!, effects, trinketAttack);
     if (own) return own;
   }
   const resolutions = effects.map((e) => e.resolution);
@@ -264,7 +275,11 @@ export function playHeroSkillTargets(
     },
     events: [event, ...pressure.events, ...statuses.events],
   };
-  const chained = chainSwinePrinceIEnragedDestructionAfterHeroSkill(result, battle.entities, actor.id);
+  const chained = chainSwinePrinceIEnragedDestructionAfterHeroSkill(
+    result,
+    battle.entities,
+    actor.id,
+  );
   return intents.length
     ? chained
     : recordEncounterSkill(

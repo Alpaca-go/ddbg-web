@@ -6,6 +6,10 @@ const pendingSteps: Record<
   NonNullable<BattleState["pending"]>["type"],
   { readonly label: string; readonly hint: string }
 > = {
+  heroTrinket: {
+    label: "等待饰品使用选择",
+    hint: "骰面已确定；选择使用饰品或直接结算技能。",
+  },
   collectorSummon: {
     label: "等待收藏家召唤挤占选择",
     hint: "选择角色与最近可用区域，完成 Collect All 召唤。",
