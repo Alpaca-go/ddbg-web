@@ -96,6 +96,7 @@ export function writeNormalizedCorebox(
     ["monster_pool.json", built.monster_pool],
     ["darkest_monster_pool.json", built.darkest_monster_pool],
     ["darkest_boss_content.json", built.darkest_boss_content],
+    ["absolute_nothingness_support.json", built.absolute_nothingness_support],
     ["darkest_boss_abilities.json", built.darkest_boss_abilities],
     ["ruins_boss_abilities.json", built.ruins_boss_abilities],
     ["quest_cards.json", built.quest_cards],

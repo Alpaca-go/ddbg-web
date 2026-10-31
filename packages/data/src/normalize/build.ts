@@ -1,5 +1,6 @@
 import { attachCoreHigherSkills } from "./core-higher-skills";
 import { buildDarkestBossContent } from "./darkest-boss-content";
+import { buildAbsoluteNothingnessSupport } from "./absolute-nothingness-support";
 import { buildDarkestBossAbilities } from "./darkest-boss-abilities";
 import { buildRuinsBossAbilities } from "./ruins-boss-abilities";
 import { buildQuestCards } from "./quest-cards";
@@ -99,6 +100,7 @@ export type NormalizedCorebox = {
   monster_pool: ReturnType<typeof buildMonsterPool>;
   darkest_monster_pool: ReturnType<typeof buildDarkestMonsterPool>;
   darkest_boss_content: ReturnType<typeof buildDarkestBossContent>;
+  absolute_nothingness_support: ReturnType<typeof buildAbsoluteNothingnessSupport>;
   darkest_boss_abilities: ReturnType<typeof buildDarkestBossAbilities>;
   ruins_boss_abilities: ReturnType<typeof buildRuinsBossAbilities>;
   quest_cards: ReturnType<typeof buildQuestCards>;
@@ -634,6 +636,13 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
   const lookup = createIconLookup(input.dictionary);
   const medium = buildMonsterMedium(input.monsterMedium, input.monsterMediumRaw, lookup);
   const large = buildMonsterLarge(input.monsterLarge, input.monsterLargeRaw, lookup);
+  const absolute_nothingness_support = buildAbsoluteNothingnessSupport(
+    medium,
+    large,
+    input.monsterMediumRaw,
+    input.monsterLargeRaw,
+    input.bossAbilitiesRaw,
+  );
   return {
     disease: buildDiseases(input.diseases, input.dictionary),
     hamlet_event: buildHamletEvents(input.hamletEvents),
@@ -644,8 +653,10 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       input.bossAbilitiesRaw,
       medium,
       large,
+      absolute_nothingness_support,
     ),
     darkest_boss_abilities: buildDarkestBossAbilities(input.bossAbilitiesRaw),
+    absolute_nothingness_support,
     ruins_boss_abilities: buildRuinsBossAbilities(input.bossAbilitiesRaw),
     quest_cards: buildQuestCards(input.questsRaw),
     stygian_rooms: buildStygianRooms(input.stygianRooms, input.rooms),

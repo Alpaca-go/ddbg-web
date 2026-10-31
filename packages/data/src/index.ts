@@ -164,6 +164,13 @@ export type {
 export * from "./room";
 export { buildRooms } from "./normalize/room";
 
+export {
+  absoluteNothingnessSupportSchema,
+  buildAbsoluteNothingnessSupport,
+  findAbsoluteNothingnessMonsterCards,
+  readAbsoluteNothingnessSupport,
+} from "./absolute-nothingness-support";
+export type { AbsoluteNothingnessSupport } from "./absolute-nothingness-support";
 export { darkestBossContentSchema, finalBattlePlanForQuest } from "./darkest-boss-content";
 export type { DarkestBossContent } from "./darkest-boss-content";
 export { darkestBossAbilitiesSchema, readDarkestBossAbility } from "./darkest-boss-abilities";

@@ -65,6 +65,9 @@ it("能力卡行动数、战斗卡名字与任务SPECIAL漂移拒绝，不按同
   const large = normalizedMonsterLargeFileSchema.parse(
     read("../../normalized/corebox/monster_large.json"),
   );
+  const mediumRaw = rawFileSchema.parse(read("../../extract/corebox/raw/monster_medium.json"));
+  const largeRaw = rawFileSchema.parse(read("../../extract/corebox/raw/monster_large.json"));
+  const absoluteNothingness = loadNormalizedCorebox().absolute_nothingness_support;
   const wrongActions = {
     ...abilities,
     cards: abilities.cards.map((c) =>
@@ -85,7 +88,9 @@ it("能力卡行动数、战斗卡名字与任务SPECIAL漂移拒绝，不按同
         : c,
     ),
   };
-  expect(() => buildDarkestBossContent(quests, wrongActions, medium, large)).toThrow();
+  expect(() =>
+    buildDarkestBossContent(quests, wrongActions, medium, large, absoluteNothingness),
+  ).toThrow();
   const wrongQuest = {
     ...quests,
     cards: quests.cards.map((c) =>
@@ -106,7 +111,9 @@ it("能力卡行动数、战斗卡名字与任务SPECIAL漂移拒绝，不按同
         : c,
     ),
   };
-  expect(() => buildDarkestBossContent(wrongQuest, abilities, medium, large)).toThrow();
+  expect(() =>
+    buildDarkestBossContent(wrongQuest, abilities, medium, large, absoluteNothingness),
+  ).toThrow();
   expect(
     darkestBossContentSchema.safeParse({
       ...file,
