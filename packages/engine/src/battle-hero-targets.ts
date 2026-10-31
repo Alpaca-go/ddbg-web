@@ -79,7 +79,7 @@ export function playHeroSkillTargets(
     ...((resume?.trinketAttack ?? trinketAttack)
       ? { trinketModifiers: (resume?.trinketAttack ?? trinketAttack)!.modifiers }
       : {}),
-    actor,
+    actor: actor.hero === "ABOMINATION" && !actor.form ? { ...actor, form: "human" } : actor,
     target: skillTargetView(target, battle),
     light: battle.light,
     areaDistance,

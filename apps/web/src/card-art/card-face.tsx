@@ -20,6 +20,7 @@ export function CardFace({
   selected = false,
   onSelect,
   disabled = false,
+  face = "front",
 }: {
   readonly skillId: string;
   readonly label?: string;
@@ -27,12 +28,13 @@ export function CardFace({
   readonly selected?: boolean;
   readonly onSelect?: () => void;
   readonly disabled?: boolean;
+  readonly face?: "front" | "back";
 }) {
   const printEntry = lookupPrintHeroSkillFace(skillId);
   const caption =
     label ??
     (printEntry
-      ? `${printEntry.name} ${LEVEL_ROMAN[printEntry.level - 1] ?? printEntry.level}`
+      ? `${face === "back" ? printEntry.name.replace("Transform to Beast", "Transform to Human") : printEntry.name} ${LEVEL_ROMAN[printEntry.level - 1] ?? printEntry.level}`
       : skillId);
   const [failed, setFailed] = useState(!printEntry);
 
@@ -48,7 +50,11 @@ export function CardFace({
   const body =
     printEntry && !failed ? (
       <img
-        src={cachedPrintHeroSkillUrl(printEntry)}
+        src={
+          face === "back"
+            ? cachedPrintHeroSkillUrl(printEntry).replace("_FRONT.pdf_", "_BACK.pdf_")
+            : cachedPrintHeroSkillUrl(printEntry)
+        }
         alt={caption}
         className="card-face__print"
         onError={() => setFailed(true)}

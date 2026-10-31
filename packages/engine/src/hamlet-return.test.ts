@@ -361,3 +361,32 @@ it("R-075回村Food令Stress Eater压力10，新意志立刻转换；补给不�
   expect(applyCommand(r.state, c).state).toBe(r.state);
   expect(ok(r.state, finish).state.dungeon!.gold).toBe(d.gold + 1);
 });
+it("R38 returning to Hamlet clears Beast form without applying Transform effects", () => {
+  const original = fixture();
+  const first = original.dungeon!.heroes[0]!;
+  const game = {
+    ...original,
+    dungeon: {
+      ...original.dungeon!,
+      heroes: original.dungeon!.heroes.map((h, i) =>
+        i === 0
+          ? {
+              ...h,
+              combat: {
+                ...h.combat!,
+                hero: "ABOMINATION",
+                form: "beast" as const,
+                wounds: h.wounds!,
+                stress: h.stress,
+              },
+            }
+          : h,
+      ),
+    },
+  };
+  const returned = ok(game, begin).state;
+  expect(returned.dungeon!.heroes[0]!.combat?.form).toBe("human");
+  expect(returned.dungeon!.heroes[0]!.wounds).toBe(first.wounds);
+  expect(returned.dungeon!.heroes[0]!.stress).toBe(first.stress);
+  expect(returned.dungeon!.heroes[0]!.statusStacks).toEqual([]);
+});

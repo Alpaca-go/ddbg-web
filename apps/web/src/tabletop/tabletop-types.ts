@@ -13,6 +13,7 @@ export type TabletopHeroTrinketSlot = {
 };
 
 export type TabletopHeroState = {
+  readonly form?: "human" | "beast";
   readonly id: string;
   /** 对应 `BattleEntity.hero` 职业名 */
   readonly hero: string;

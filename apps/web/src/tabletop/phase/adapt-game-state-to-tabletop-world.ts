@@ -75,6 +75,7 @@ function projectBattleHero(
   return {
     id: entity.id,
     hero: displayName(entity, ctx.options),
+    ...(entity.hero === "ABOMINATION" ? { form: entity.form ?? "human" } : {}),
     ...(entity.heroStatId ? { heroStatId: entity.heroStatId } : {}),
     wounds,
     life: life ?? 0,

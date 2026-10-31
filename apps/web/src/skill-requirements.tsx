@@ -17,11 +17,12 @@ export function SkillRequirements({ skill }: { readonly skill: HeroSkillCardView
     : targets.kind === "exact"
       ? `同一区域内最多 ${targets.max} 个目标`
       : "未核实";
+  const allAllies = ["hero_skill:p221", "hero_skill:p222"].includes(skill.id);
 
   return (
     <div className="muted" data-testid="skill-requirements">
       {!self && <p>卡面射程：{rangeLabel}</p>}
-      <p>卡面目标：{targetsLabel}</p>
+      <p>卡面目标：{allAllies ? "所有存活队友（跨区域）；自身效果同时结算" : targetsLabel}</p>
       {!self && (range.kind === "exact" || range.kind === "interval") && (
         <p>目标区域更低时，可额外选择射程上限 +1 的距离。</p>
       )}

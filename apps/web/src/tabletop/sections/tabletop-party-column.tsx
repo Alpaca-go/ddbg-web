@@ -169,6 +169,9 @@ export function TabletopPartyColumn({
               <div className="tt-hero-row__body">
                 <div className="tt-hero-row__title">
                   <span className="tt-hero-row__name">{hero.hero}</span>
+                  {hero.form && (
+                    <span className="muted">{hero.form === "beast" ? "兽形" : "人形"}</span>
+                  )}
                   <span className="tt-hero-row__level">
                     {hero.heroLevel > 0
                       ? (["I", "II", "III"][hero.heroLevel - 1] ?? hero.heroLevel)

@@ -517,11 +517,14 @@ export function playHeroSkill(
       .map((entity) => ({ ...entity, stress: entity.stress! }));
   const sameArea = actor.areaId === target.areaId;
   const context: SkillCombatState = {
+    allies: battle.entities
+      .filter((e) => e.side === "hero" && !e.dead && e.id !== actor.id)
+      .map((e) => ({ ...e, stress: e.stress! })),
     ...(battle.trinketRuntime ? { trinketHealingMetadata: true as const } : {}),
     ...((resume?.trinketAttack ?? trinketAttack)
       ? { trinketModifiers: (resume?.trinketAttack ?? trinketAttack)!.modifiers }
       : {}),
-    actor,
+    actor: actor.hero === "ABOMINATION" && !actor.form ? { ...actor, form: "human" } : actor,
     target: skillTargetView(target, battle),
     light: battle.light,
     targetAreaLower: elevations[actorArea.elevation] > elevations[targetArea.elevation],

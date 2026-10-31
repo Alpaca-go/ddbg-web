@@ -207,6 +207,7 @@ export function beginReturnToHamlet(state: GameState): ApplyResult {
               resolveCardId: null,
               resolveTested: false,
               statusStacks: [],
+              ...(h.combat.hero === "ABOMINATION" ? { form: "human" as const } : {}),
               ...statusProjection([], h.combat.innateProtection),
               bleed: [],
               blight: [],

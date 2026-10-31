@@ -1,4 +1,5 @@
 import { defenceTrinketReaction } from "./trinket-reactions";
+import { projectAbominationSkill } from "./abomination-skills";
 import type { HeroHealthEffect } from "./hero-health";
 import { statusStackProblem } from "./status";
 import type { StatusEffect, StatusStack } from "./status";
@@ -245,6 +246,14 @@ export type SkillSegment =
 
 /** 规范化英雄技能里这一层会读的字段。多出来的字段可以留在对象上。 */
 export type HeroSkillCardView = {
+  readonly verified_self_range?: true;
+  readonly verified_required_form?: SkillForm;
+  readonly verified_allies_stress?: number;
+  readonly verified_self_stress?: {
+    readonly lineIndex: number;
+    readonly amount: number;
+    readonly source: "print_front";
+  };
   readonly verified_target_disease?: true;
   readonly id: string;
   readonly hero: string | null;
@@ -421,6 +430,7 @@ export type SkillTargetState = PassiveHolder & {
 };
 
 export type SkillCombatState = {
+  readonly allies?: readonly SkillAreaHero[];
   readonly trinketHealingMetadata?: true;
   readonly trinketScope?: import("./battle").BattleState;
   /** R26：本次技能宣告后主动使用的饰品修正，不是常驻属性或 Buff。 */
@@ -770,6 +780,20 @@ type ConditionRemoval = {
  */
 function readImmediateStress(skill: HeroSkillCardView): ImmediateStress {
   const none: ImmediateStress = { self: 0, target: 0, lineCount: 0 };
+  const explicit = skill.verified_self_stress;
+  if (explicit) {
+    const line = skill.effect_lines[explicit.lineIndex];
+    const text = line
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s/g, "");
+    return text ===
+      `{self_effects}Self{stress}${explicit.amount > 0 ? "+" : ""}${explicit.amount}` &&
+      line?.every((s) => s.type === "text" || NAMED.has(s.icon.naming)) &&
+      Number.isSafeInteger(explicit.amount)
+      ? { self: explicit.amount, target: 0, lineCount: 1 }
+      : none;
+  }
   const numerics: number[] = [];
   for (const item of skill.unlabeled_numbers) {
     if (item.anchor.type !== "beside_icon") continue;
@@ -1554,6 +1578,8 @@ function formRequirementFromLine(line: readonly SkillSegment[]): SkillForm | nul
  * 没传入当前形态时不检查。
  */
 function formRequirementProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
+  if (skill.verified_required_form && combat.actor?.form !== skill.verified_required_form)
+    return "技能需要对应的憎恶形态（R38）";
   const required: SkillForm[] = [];
   for (const line of skill.effect_lines) {
     const form = formRequirementFromLine(line);
@@ -1614,6 +1640,12 @@ function selectFace(
   skill: HeroSkillCardView,
   face: "front" | "back",
 ): { ok: true; skill: HeroSkillCardView } | { ok: false; reason: string } {
+  try {
+    const projected = projectAbominationSkill(skill, face);
+    if (projected) return { ok: true, skill: projected };
+  } catch {
+    return { ok: false, reason: "憎恶技能身份、效果或背面与已核实卡面不符（R-048）" };
+  }
   if (face === "front") return { ok: true, skill };
   const back = skill.back_face_skill;
   if (back == null || !Array.isArray(back.lines)) {
@@ -1932,7 +1964,10 @@ function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): strin
   if ((skill as HeroSkillCardView & { readonly target?: string }).target === "Special") {
     return null;
   }
-  if (skill.verified_status_effects?.length && readsAsSelfTarget(skill))
+  if (
+    (skill.verified_self_range || skill.verified_status_effects?.length) &&
+    readsAsSelfTarget(skill)
+  )
     return combat.areaDistance === 0 && combat.actor?.id === combat.target.id
       ? null
       : "Self 技能只能作用于使用者自己";
@@ -2092,7 +2127,10 @@ export function readPrintedTargets(skill: HeroSkillCardView): PrintedTargets {
 function targetCountProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.targetsInArea === undefined) return null;
   if ((skill as HeroSkillCardView & { readonly target?: string }).target === "Special") return null;
-  if (skill.verified_status_effects?.length && readsAsSelfTarget(skill))
+  if (
+    (skill.verified_self_range || skill.verified_status_effects?.length) &&
+    readsAsSelfTarget(skill)
+  )
     return combat.targetsInArea === 1 && combat.actor?.id === combat.target.id
       ? null
       : "Self 技能只能选择使用者自己";
@@ -2379,9 +2417,23 @@ function resolveSkill(
   }
   const problem = combatProblem(combat);
   if (problem !== null) return refuse(skill, combat, problem);
-  const selected = selectFace(skill, combat.face ?? "front");
+  const selected = selectFace(
+    skill,
+    combat.face ??
+      ((skill.id === "hero_skill:p221" || skill.id === "hero_skill:p222") &&
+      combat.actor?.form === "beast"
+        ? "back"
+        : "front"),
+  );
   if (!selected.ok) return refuse(skill, combat, selected.reason);
   const active = selected.skill;
+  const allies =
+    active.verified_allies_stress === undefined ? null : readAreaHeroes(combat.allies, "所有队友");
+  if (
+    allies &&
+    (!allies.ok || allies.heroes === null || allies.heroes.some((h) => h.id === combat.actor?.id))
+  )
+    return refuse(skill, combat, "变身需要完整且不含自身的存活队友列表（R38）");
   const stance = sourceSide === "hero" ? stanceProblem(active, combat) : null;
   if (stance !== null) return refuse(skill, combat, stance);
   const formLimit = formRequirementProblem(active, combat);
@@ -2601,7 +2653,7 @@ function resolveSkill(
   // 没有伤害、治疗，但已经记上位移：仍要按 Acc 掷骰。变身和没有 Acc 的自身效果不掷。
   // 无 Acc / 无 printed_labels 的自身位移（如 Shadow Fade）与变身同类，不因 Push/Pull 强行要 Acc。
   const formOnly =
-    effect === null &&
+    (effect === null || active.verified_allies_stress !== undefined) &&
     shuffles.target === null &&
     statuses.target.length === 0 &&
     !support &&
@@ -2913,6 +2965,17 @@ function resolveSkill(
     healthEffects: [...healthEffects],
   };
 
+  if (allies?.ok && allies.heroes && active.verified_allies_stress !== undefined)
+    besideActorStress = combat.allies!.map((hero) => ({
+      ...hero,
+      stress: changeStress(
+        hero,
+        hero.stress,
+        active.verified_allies_stress!,
+        pressureLight,
+        "transformAllies",
+      ),
+    }));
   if ((effect === "damage" || effect === "heal") && outcome !== null && outcome !== "miss") {
     const amount = outcome === "crit" ? critAmount : hitAmount;
     if (amount === null) {

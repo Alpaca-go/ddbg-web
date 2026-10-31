@@ -6,6 +6,7 @@ import {
   previousTaskSources,
   sixHeroTaskSources,
   preBossTaskSources,
+  preAbominationTaskSources,
   taskSources,
 } from "./task-sources";
 
@@ -43,6 +44,7 @@ export function QuestSaveControls({ onLoad }: { onLoad?: () => void }) {
               const raw = localStorage.getItem(questSaveKey);
               if (!raw) throw new Error("本机还没有任务存档");
               const loaded = loadQuestSave(JSON.parse(raw), taskSources, [
+                preAbominationTaskSources,
                 preBossTaskSources,
                 sixHeroTaskSources,
                 previousTaskSources,
