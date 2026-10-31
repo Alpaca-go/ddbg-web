@@ -97,6 +97,7 @@ export function writeNormalizedCorebox(
     ["darkest_boss_content.json", built.darkest_boss_content],
     ["darkest_boss_abilities.json", built.darkest_boss_abilities],
     ["ruins_boss_abilities.json", built.ruins_boss_abilities],
+    ["quest_cards.json", built.quest_cards],
     ["room.json", built.room],
     ["curio.json", built.curio],
     ["hero_stat.json", built.hero_stat],

@@ -19,7 +19,9 @@ Kyries 本聊天要求把剩余工作分两类、记录估算并合入，然后�
 
 最暗九张 Boss/召唤物能力卡文字目录已合入 main `a20424b`，见 `phase5-darkest-boss-abilities-2026-10-31.md`；保留原始图标占位，全部不可战斗。
 
-当前续接：Ruins 四 Boss I–III 十二张能力卡双面文字接入规范化管线与查询，见 `phase5-ruins-boss-abilities-2026-10-31.md`；只提供数据，不改变现有战斗脚本。
+Ruins 四 Boss I–III 十二张能力卡双面文字已随 #407 合入 main `bfb0e68`，见 `phase5-ruins-boss-abilities-2026-10-31.md`；只提供数据，不改变现有战斗脚本。
+
+当前续接：核心盒十九张任务卡统一文字目录与出征定义交叉校验，见 `phase5-quest-card-catalog-2026-10-31.md`；保留SPECIAL原始图标，不新增规则执行器。
 
 ### A 类：尚未接入的数据／运行时
 
