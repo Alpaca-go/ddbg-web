@@ -185,6 +185,10 @@ export type DungeonState = {
   readonly startingProvisionOmittedIds?: readonly string[];
   /** Traveling Merchants 进行中：尚未改骰的英雄顺序。 */
   readonly provisionFaceChoiceRemaining?: readonly string[];
+  /** Warm Up the Halls（quest:p011）：开局补给掷完后每名英雄可改一颗为 Torch。 */
+  readonly warmUpStartingProvisionTorchChoice?: true;
+  /** Warm Up 改 Torch 进行中：尚未处理的英雄顺序。 */
+  readonly warmUpProvisionTorchRemaining?: readonly string[];
   readonly hamletReturn?: {
     readonly phase: "converting" | "provisions" | "awaitingReplacement" | "complete";
     readonly order: readonly string[];
