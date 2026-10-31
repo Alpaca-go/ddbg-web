@@ -22,6 +22,7 @@
 | --- | --- |
 | 映射纯函数 | `impendingDoomSkillSlotFromDie` / `impendingDoomSkillLabelFromDie`（`heart-of-darkness-impending-doom.ts`） |
 | Heart 怪物回合选招 | `applyHeartOfDarknessImpendingDoomSkill`：读 `battle.impendingDoomDie`，无骰/非法面值拒绝，按表调用 #456 的 `applyHeartOfDarknessKnowThis` / `Puncture` / `Dissolution` |
+| encounter AI | `prepareMonsterAction` → `heartOfDarknessImpendingDoomShouldReplaceSkill` → `applyHeartOfDarknessImpendingDoomFromEncounter`（`heart-of-darkness-combat-runtime.ts`） |
 | 落骰 | #451 不变：`startBattle`、`finishTurn`、`applyHeartOfDarknessImpendingDoomRoll` |
 
 效果线仍 hold（无 `verified_monster_effects` 则 Acc-only）。`combatReady` 仍 false。
@@ -32,5 +33,6 @@
 pnpm typecheck
 pnpm exec vitest run \
   packages/engine/src/boss/heart-of-darkness-impending-doom.test.ts \
-  packages/engine/src/boss/heart-of-darkness-skills-acc.test.ts
+  packages/engine/src/boss/heart-of-darkness-skills-acc.test.ts \
+  packages/engine/src/boss/heart-of-darkness-combat-runtime.test.ts
 ```
