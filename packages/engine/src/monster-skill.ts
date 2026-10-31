@@ -227,6 +227,25 @@ function resolveMonsterSkillInternal(
     void _stress;
     view = { ...base, effect_lines: [], verified_status_effects: [] };
   }
+  const ancestor2AccHold =
+    monster.id === "monster_large:p018" &&
+    skillSlot >= 1 &&
+    skillSlot <= 3 &&
+    !matches[0]!.verified_monster_effects;
+  if (ancestor2AccHold) {
+    const {
+      verified_target_stress: _stress,
+      verified_status_effects: _status,
+      verified_target_disease: _disease,
+      verified_damage_bonus: _bonus,
+      ...base
+    } = view;
+    void _stress;
+    void _status;
+    void _disease;
+    void _bonus;
+    view = { ...base, effect_lines: [], verified_status_effects: [] };
+  }
   const stats = view.stats_line!;
   if (
     !stats.some(
