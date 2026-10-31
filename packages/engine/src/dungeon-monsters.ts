@@ -9,6 +9,7 @@ import { isGuardedDungeonRoom } from "./dungeon-curio-room";
 import { allRuinsRoomCardIds } from "./dungeon-objective";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { firstBattleThreatDeck } from "./boss/necromancer-ii-army";
+import { questMonsterDeploymentHold } from "./quest-monster-deployment";
 
 /** R10、R16–17：完整 Common + Ruins（1..DL 累加）一次洗牌，真实抽牌后记录部署，不筛掉缺战斗字段的卡。 */
 export function prepareDungeonMonsters(state: GameState): ApplyResult {
@@ -36,6 +37,8 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
   )
     return refuse("需要已抽房间与可用板块的获批部署；不能替换房间或提前抽怪物（R-048）");
   const { deployment } = selected;
+  const questHold = questMonsterDeploymentHold(d);
+  if (questHold) return refuse(questHold);
   const roomIds = allRuinsRoomCardIds(d, active.cardId);
   if (
     roomIds.length !== 9 ||
