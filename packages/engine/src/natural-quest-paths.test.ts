@@ -8,11 +8,11 @@ import { coreQuestSources } from "./test-helpers/core-quest";
 import { allRuinsRoomCardIds } from "./dungeon-objective";
 
 it.each([
-  ["quest:p001", 1, ["B", "E", "G"], 15, ["victory"], false],
-  ["quest:p002", 1, ["E"], 15, ["victory"], false],
-  ["quest:p003", 3, ["B"], 20, ["victory"], true],
-  ["quest:p004", 1, ["G"], 10, ["victory"], false],
-  ["quest:p005", 1, ["E"], 15, ["victory"], false],
+  ["quest:p001", 1, ["B", "E", "G"], 35, ["victory"], false],
+  ["quest:p002", 1, ["E"], 35, ["victory"], false],
+  ["quest:p003", 3, ["B"], 40, ["victory"], true],
+  ["quest:p004", 1, ["G"], 30, ["victory"], false],
+  ["quest:p005", 1, ["E"], 35, ["victory"], false],
 ] as const)(
   "%s seed%i：真实起点→探索/战斗/休息/返回→离开摘要，完整池及命令回放",
   (questId, seed, cleared, gold, outcomes, backtracked) => {
@@ -51,7 +51,7 @@ it.each([
     expect(run.initial.dungeon).toMatchObject({
       position: "S",
       phase: "awaitingProvisions",
-      gold: 0,
+      gold: 20,
     });
     expect(run.initial.dungeon!.rooms.every((r) => !r.revealed && !r.cleared)).toBe(true);
     expect(d.monsterPool!.remaining).toHaveLength(42);
@@ -121,7 +121,7 @@ it("Fundraiser seed1：真实命令导致英雄死亡，保留状态／金币，
   expect(d.phase).toBe("awaitingReplacement");
   expect(d.heroes.filter((h) => h.dead).map((h) => h.id)).toEqual(["hero-0"]);
   expect(d.questSummary).toBeUndefined();
-  expect(d.gold).toBe(15);
+  expect(d.gold).toBe(35);
   expect(run.commands.reduce<GameState>((s, c) => applyCommand(s, c).state, run.initial)).toEqual(
     run.state,
   );

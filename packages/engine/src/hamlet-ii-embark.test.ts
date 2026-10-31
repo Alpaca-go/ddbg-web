@@ -52,7 +52,7 @@ function preparationReady(game: GameState): GameState {
 
 it("seed6真实I级前缀可保存恢复；完整五张II级池按实际RNG抽到两张目标任务", () => {
   expect(baseline.start.seed).toBe(6);
-  expect(baseline.game.dungeon!.gold).toBe(40);
+  expect(baseline.game.dungeon!.gold).toBe(60);
   expect(baseline.game.dungeon!.heroes.map((hero) => [hero.dead ?? false, hero.xp])).toEqual(
     Array.from({ length: 4 }, () => [false, 2]),
   );
@@ -77,8 +77,8 @@ it("seed6真实I级前缀可保存恢复；完整五张II级池按实际RNG抽�
   expect(advanced).toEqual(before);
 }, 30000);
 
-it("旧修道院seed123没有抽到Clear the Path时仍原子拒绝，不补入未抽到的同级任务", () => {
-  const old = naturalAbbeyQuest();
+it("旧修道院 seed162 没有抽到 Clear the Path 时仍原子拒绝，不补入未抽到的同级任务", () => {
+  const old = naturalAbbeyQuest(coreQuestSources.catalog, 162);
   const advanced = ok(preparationReady(old.game), { type: "advanceCampaignLevel" });
   const offered = ok(advanced, { type: "offerNextQuest" });
   expect(offered.dungeon!.nextQuestOffers).toContain("quest:p008");

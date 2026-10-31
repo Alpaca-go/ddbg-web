@@ -117,7 +117,7 @@ it.each(["standard", "radiant"] as const)(
       7 + count * 2 + rolls.filter((r) => r.face === "trap").length,
     );
     expect(state.dungeon!.explorationSetup!.provisions).toEqual(pool);
-    expect(state.dungeon!.gold).toBe(0);
+    expect(state.dungeon!.gold).toBe(mode === "standard" ? 10 : 20);
     for (const [face, effect] of [
       ["bandage", "heal"],
       ["potion", "reduceStress"],

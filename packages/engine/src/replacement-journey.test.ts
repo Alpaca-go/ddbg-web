@@ -216,7 +216,7 @@ for (const fixture of journeys) {
           snapshot.dungeon!.pending?.id.startsWith("dungeon-fundraiser:")
         ) {
           donationOptions.push(snapshot.dungeon!.pending.options.map((o) => o.id));
-          expect(snapshot.dungeon!.gold).toBe(11);
+          expect(snapshot.dungeon!.gold).toBe(31);
           observations.push({ snapshot, log: [...commands, ...continued] });
         }
         const doctorBlight =

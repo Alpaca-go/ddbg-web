@@ -12,7 +12,7 @@ it("固定种子以完整公开命令到达修道院前置，存档与首次服�
   expect(journey.start.seed).toBe(NATURAL_ABBEY_SEED);
   expect(d).toMatchObject({
     phase: "inHamlet",
-    gold: 33,
+    gold: 27,
     buildingLevels: { abbey: 2 },
     questSummary: { questId: "quest:p003", donatedGold: 0, xpPerHero: 0, awarded: true },
     hamlet: {
@@ -27,7 +27,7 @@ it("固定种子以完整公开命令到达修道院前置，存档与首次服�
   expect(d.hamlet!.actedHeroes ?? []).toEqual([]);
   expect(d.hamlet!.visitedBuildings ?? []).toEqual([]);
   expect(d.heroes.every((hero) => !hero.dead)).toBe(true);
-  expect(d.hamlet!.blockedBuildings).toEqual(["sanitarium", "graveyard"]);
+  expect(d.hamlet!.blockedBuildings).toEqual(["graveyard", "tavern"]);
   expect(loadQuestSave(JSON.parse(JSON.stringify(journey.save)), coreQuestSources).game).toEqual(
     journey.game,
   );
@@ -41,7 +41,7 @@ it("固定种子以完整公开命令到达修道院前置，存档与首次服�
   expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
   expect(result.pendingChoice).toBeUndefined();
   expect(result.state.dungeon!.heroes[0]!.quirkIds).toHaveLength(1);
-  expect(result.state.dungeon!.gold).toBe(30);
+  expect(result.state.dungeon!.gold).toBe(24);
   const saved = createQuestSave(
     journey.start,
     [...journey.commands, visit],

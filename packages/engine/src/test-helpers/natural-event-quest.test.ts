@@ -20,12 +20,12 @@ it("正式网页目录的事件 / 资金前置各自成立，事件和升级前�
     caregivers = caregiversQuest(sources),
     funded = paidUpgradeQuest(sources);
   expect(fair.start.seed).toBe(40);
-  expect(fair.game.dungeon!.gold).toBe(19);
+  expect(fair.game.dungeon!.gold).toBe(39);
   expect(fair.game.dungeon!.hamlet).toBeUndefined();
   expect(caregivers.game.dungeon!.hamlet!.active).toBe("hamlet_event:p012");
   expect(caregivers.game.dungeon!.pending!.actorId).toBe("hero-0");
   expect(funded.start.seed).toBe(6);
-  expect(funded.game.dungeon!.gold).toBe(30);
+  expect(funded.game.dungeon!.gold).toBe(50);
   const cases = [
     { journey: fair, command: { type: "drawHamletEvent" } as Command },
     {

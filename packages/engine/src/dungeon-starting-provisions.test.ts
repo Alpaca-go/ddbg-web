@@ -82,7 +82,7 @@ describe("地牢开局补给 R12 / R37", () => {
       expect(d.rooms).toEqual(initial.dungeon!.rooms);
       expect(d.heroes).toEqual(initial.dungeon!.heroes);
       expect(d.position).toBe("S");
-      expect(d.gold).toBe(0);
+      expect(d.gold).toBe(mode === "standard" ? 10 : 20);
       expect(log.reduce((s, c) => applyCommand(s, c).state, initial)).toEqual(result.state);
       expect(applyCommand(result.state, start).state).toBe(result.state);
       expect(

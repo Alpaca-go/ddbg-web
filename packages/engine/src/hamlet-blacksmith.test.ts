@@ -263,7 +263,11 @@ it("真实回村第一天购买Smite II记录，保存/刷新/跨日回放不重
   step(visit);
   save();
   step({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
-  step({ type: "visitHamletBuilding", actorId: "hero-2", serviceId: "tavern3", quirkIds: [] });
+  if (game.dungeon!.hamlet!.blockedBuildings.includes("tavern")) {
+    step({ type: "visitHamletBuilding", actorId: "hero-2", serviceId: "heal5", quirkIds: [] });
+  } else {
+    step({ type: "visitHamletBuilding", actorId: "hero-2", serviceId: "tavern3", quirkIds: [] });
+  }
   step({ type: "useHamletSkill", actorId: "hero-3", skill: "chant" });
   step({ type: "rollHamletCaretaker" });
   expect(game.dungeon!.gold).toBe(gold - 2);
