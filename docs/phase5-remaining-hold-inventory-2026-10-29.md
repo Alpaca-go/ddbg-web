@@ -103,7 +103,7 @@
 | **`summon(purpose:skill)` · Swine / Collector / Flesh** | Swine **Wilbur 开战** + **Enraged** + **Wilbur Mark AI** 已接；Wilbur 非 Mark 召唤仍 stub；Fanatic I 三招无召唤，已改为 `notApplicable`，从此 hold 行移出 | R38–R39 / Swine Prince；C-017 |
 | **Prophet I** room 卡→战斗区域几何 | 完整 d10 逻辑区绑定校验已接；缺表明确拒绝。C-014 已接每木长椅独立区域共骰、多目标生命 / 压力 / 死亡收尾，以及先知三张加普通伴战各一张先攻。**Prophet Room 生产几何仍 hold** | R19、R30、R38–R39 / R-048；`phase5-prophet-i-rubble-initiative-2026-10-29.md` |
 | **Collector** Room 几何绑定 | 三箱布置与 C-016 挤占选择 / 连续续接已接；召唤使用显式固定姿态区域绑定，怪物满区时玩家选移，不能把召唤物改放别区。**Collector Room 生产几何 / 落区绑定仍 hold**，缺绑定拒绝 | R31、R39 / R-034/047/048/059；`phase5-collector-i-displacement-2026-10-29.md` |
-| **Fanatic** Pyre 自身技能 | 本体三招 AI 与效果已接（C-017）；R39 的本体死亡移除 Pyre 已接。**Pyre 的 Burn the Heretic（无 Acc、99 伤害）仍 hold**，不称整场闭环 | G-05 / R39 / `monster_large:p011`；`phase5-fanatic-i-pyre-defeat-2026-10-29.md` |
+| **Fanatic** Pyre 自身技能 | 本体三招 AI 与效果已接（C-017）；R39 的本体死亡移除 Pyre 已接。**Burn the Heretic**（R-136）经 `playPyreSkill` + 公开 `prepareMonsterAction`/`playMonsterSkill` 已接；不称生产 Room 几何或自然战役闭环 | G-05 / R39 / R-136；[phase5-fanatic-i-pyre-burn-2026-11-01.md](phase5-fanatic-i-pyre-burn-2026-11-01.md) |
 | **Flesh** 战斗中途再召 Large | 仅遭遇开局 Guard；无 mid-battle spawn | R31 |
 | **Necromancer** 多级召唤 / 正式入场 | C-019 已接 II 级三招、Bone Soldier 召唤、死亡清场与两项威胁；III、Boss 房间及 R-121 生产入场仍未开 | `phase5-c019-necromancer-ii-graveyard-2026-10-29.md`；#375–#377 已合入 |
 | **`encounterRoundRetreatLimit` 生产路径** | C-018：已注册 Ruins I 四 Boss 共用的两条轮末路径已回归；未击败前禁止从探索离场。正式 Boss 房间入场和未映射脚本仍 hold | R30、R-044；`phase5-boss-retreat-boundary-2026-10-29.md` |
