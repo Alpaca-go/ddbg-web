@@ -168,3 +168,5 @@ export { darkestBossContentSchema, finalBattlePlanForQuest } from "./darkest-bos
 export type { DarkestBossContent } from "./darkest-boss-content";
 export { darkestBossAbilitiesSchema, readDarkestBossAbility } from "./darkest-boss-abilities";
 export type { DarkestBossAbilities } from "./darkest-boss-abilities";
+export { ruinsBossAbilitiesSchema, readRuinsBossAbility } from "./ruins-boss-abilities";
+export type { RuinsBossAbilities } from "./ruins-boss-abilities";
