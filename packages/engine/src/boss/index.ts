@@ -399,6 +399,13 @@ export {
   applyGestatingHeartSummon,
   type ApplyGestatingHeartSummonCommand,
 } from "./gestating-heart-summon";
+export {
+  ANCESTOR_1_MONSTER_CARD_ID,
+  TIME_HEALS_ALL_HEAL_AMOUNT,
+  TIME_HEALS_ALL_SKILL_SLOT,
+  applyAncestor1TimeHealsAll,
+  type ApplyAncestor1TimeHealsAllCommand,
+} from "./ancestor1-time-heals-all";
 export { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
 
 export {
