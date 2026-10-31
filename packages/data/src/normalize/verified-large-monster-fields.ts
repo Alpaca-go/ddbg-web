@@ -190,6 +190,24 @@ export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
     speed: 0,
     stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
   },
+  // 最终战 Ancestor 2 · FRONT p018；footer 与 Fanatic III（p010）同型 d10 分段 1–2 / 3–6 / 7–10 → slot 1–3。
+  {
+    id: "monster_large:p018",
+    name: "Ancestor 2",
+    level: 3,
+    pages: [18],
+    speed: 3,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 2, skill: 1 },
+          { min: 3, max: 6, skill: 2 },
+          { min: 7, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
 ]);
 
 export function attachVerifiedLargeMonsterFields(

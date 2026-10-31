@@ -471,6 +471,10 @@ export {
   type ApplyAncestor2UnmakeThemAllCommand,
 } from "./ancestor2-skills-acc";
 export {
+  ancestor2SkillAiShouldReplacePrepare,
+  applyAncestor2SkillFromStanceSelection,
+} from "./ancestor2-skill-ai";
+export {
   applyMammothCystBulgingGaze,
   applyMammothCystDigestion,
   MAMMOTH_BULGING_GAZE_SKILL_SLOT,
