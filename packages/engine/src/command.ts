@@ -103,6 +103,7 @@ import { consumeResolveProvision } from "./resolve-trigger";
 import { lootTreasureChest, resolveBattleTrinketChoice } from "./battle-trinket";
 import { chooseHeroTrinket } from "./battle-trinket-ability";
 import { chooseAttackTrinkets } from "./battle-attack-trinkets";
+import { chooseMonsterRetargetAfterFreeTrinket } from "./battle-monster-retarget";
 import { useTrinket } from "./battle-fortunate-armlet";
 import type { UseTrinketCommand } from "./battle-fortunate-armlet";
 import { hideAndHeal } from "./battle-hide-and-heal";
@@ -607,6 +608,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     if (pending.type === "necromancerSummon")
       return chooseNecromancerISummon(state, command.optionId);
     if (pending.type === "allTrinkets") return rejectBattleCommand(state, "饰品续接上下文缺失");
+    if (pending.type === "monsterRetarget")
+      return chooseMonsterRetargetAfterFreeTrinket(state, command.optionId);
     if (pending.type === "damageStone") return chooseDamageStone(state, command.optionId);
     if (pending.type === "heroTrinket") return chooseHeroTrinket(state, command.optionId);
     if (pending.type === "heroAttackTrinkets") return chooseAttackTrinkets(state, command.optionId);

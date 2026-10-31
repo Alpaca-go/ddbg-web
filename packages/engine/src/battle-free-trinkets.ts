@@ -4,11 +4,11 @@ import { rejectBattleCommand } from "./battle";
 import { triggerBattlePassive } from "./battle-passive";
 import { trinketPoolProblem } from "./trinket-acquisition";
 import { resolveBattlePressure } from "./pressure";
-import { endAfterCasualties, finishTurn, newlyDefeatedIds, removeCasualties } from "./encounter";
 import { resolveSeededHeroHealth } from "./hero-health";
 import { healingForbidden } from "./battle-healing";
 import { passiveHeal } from "./passive";
 import { statusProjection } from "./status";
+import { finalizeFreeTrinketDuringMonsterTurn } from "./battle-monster-retarget";
 
 // R26 / §11.2 / R-028；完整印刷 p015/017/018/027/028/030/035–038 逐面绑定。
 const definitions = {
@@ -182,7 +182,7 @@ export function freeTrinketUseProblem(
 }
 export function useFreeTrinket(
   state: GameState,
-  command: { actorId: string; cardId: FreeTrinketId },
+  command: { actorId: string; cardId: FreeTrinketId; allTrinkets?: true | undefined },
 ): ApplyResult {
   const { actorId, cardId } = command;
   const problem = freeTrinketUseProblem(state, actorId, cardId);
@@ -301,17 +301,10 @@ export function useFreeTrinket(
   const result = resolveBattlePressure({ state: { ...state, battle: b }, events });
   if (result.events.some((e) => e.type === "commandRefused"))
     return rejectBattleCommand(state, "饰品压力结算拒绝");
-  if (
-    turn.type === "monster" &&
-    result.state.battle!.entities.some((e) => e.id === before.monsterAction!.targetId && e.dead) &&
-    result.state.battle!.entities.some((e) => e.side === "hero" && !e.dead)
-  )
-    return rejectBattleCommand(state, "怪物已定目标死亡续接尚未接通");
-  const removed = removeCasualties(result, newlyDefeatedIds(before, result.state.battle!.entities));
-  const ended = endAfterCasualties(removed);
-  if (ended) return ended;
-  return turn.type === "hero" &&
-    removed.state.battle!.entities.find((e) => e.id === turn.actorId)!.dead
-    ? finishTurn(removed.state, turn.actorId, removed.events)
-    : removed;
+  return finalizeFreeTrinketDuringMonsterTurn(
+    state,
+    result,
+    before,
+    command.allTrinkets,
+  );
 }
