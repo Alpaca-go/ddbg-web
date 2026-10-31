@@ -25,6 +25,10 @@ import {
   hagIntoThePotShouldForceSkill,
   readHagIIntoThePotSkillSlot,
 } from "./boss/hag-i-combat-runtime";
+import {
+  applyHeartOfDarknessImpendingDoomFromEncounter,
+  heartOfDarknessImpendingDoomShouldReplaceSkill,
+} from "./boss/heart-of-darkness-combat-runtime";
 import { getBossScript } from "./boss/registry";
 import { resolveEncounterBossScriptId } from "./boss/encounter-rules";
 import { readMonsterSelfStatuses } from "./monster-self-status";
@@ -98,6 +102,9 @@ export function prepareMonsterAction(
   }
   if (fanaticSentenceRenderedShouldReplaceSkill(state, actor.id)) {
     return applyFanaticSentenceRendered(state, actor.id);
+  }
+  if (heartOfDarknessImpendingDoomShouldReplaceSkill(state, actor.id)) {
+    return applyHeartOfDarknessImpendingDoomFromEncounter(state, actor.id);
   }
   const forceWilburMark = swinePrinceIWilburMarkShouldForceSkill(state, actor.id);
   const forceIntoThePot = hagIntoThePotShouldForceSkill(state, actor.id);
