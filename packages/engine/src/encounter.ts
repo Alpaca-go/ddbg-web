@@ -55,6 +55,7 @@ import {
   expandFanaticIInitiativeDeckSides,
   fanaticShouldEnterActedIdsAfterTurn,
 } from "./boss/fanatic-i-combat-runtime";
+import { expandDarkestMidBossInitiativeDeckSides } from "./boss/darkest-mid-boss-deploy";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -127,6 +128,7 @@ function startRound(
   if (gameState) {
     deck = expandProphetIInitiativeDeckSides(deck, battle, gameState);
     deck = expandFanaticIInitiativeDeckSides(deck, battle, gameState);
+    deck = expandDarkestMidBossInitiativeDeckSides(deck, battle, gameState);
   }
   const rng = createRng(seed);
   for (let index = 0; index < battle.rngCursor; index += 1) rng.next();

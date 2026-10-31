@@ -74,7 +74,7 @@ describe("最暗中途 Boss 运行时接线", () => {
     } else {
       expect(deployment.supportMonsters).toEqual([]);
     }
-    expect(darkestMidBossDeploymentHold(deployed.state.dungeon!)).toContain("不能进入半场战斗");
+    expect(darkestMidBossDeploymentHold(deployed.state.dungeon!)).toContain("deployDarkestMidBoss");
     expect(resolveEncounterBossScriptId(deployed.state)).toBe(scriptId);
     expect(isBossEncounter(deployed.state)).toBe(true);
     expect(prepareDarkestMidBossDeployment(deployed.state)).toMatchObject({

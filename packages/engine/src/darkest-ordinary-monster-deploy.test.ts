@@ -92,7 +92,7 @@ describe("最暗普通房 26 牌堆部署", () => {
     expect(deployed.state.dungeon!.darkest!.ordinaryDeployment).toBeUndefined();
     expect(deployed.state.dungeon!.darkest!.monsterDeckRemaining).toBeUndefined();
     expect(deployed.state.dungeon!.darkest!.monsterDeck).toEqual(deckBefore);
-    expect(darkestMidBossDeploymentHold(deployed.state.dungeon!)).toContain("不能进入半场战斗");
+    expect(darkestMidBossDeploymentHold(deployed.state.dungeon!)).toContain("deployDarkestMidBoss");
     expect(prepareDarkestMidBossDeployment(deployed.state)).toMatchObject({
       events: [{ type: "commandRefused" }],
     });
