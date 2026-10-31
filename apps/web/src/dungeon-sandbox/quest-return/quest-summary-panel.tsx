@@ -90,7 +90,9 @@ export function QuestSummaryPanel({
                   ? "回村完成，进入村庄准备。"
                   : advanceRequired
                     ? "Boss已击败，先推进战役等级。"
-                    : "回村完成，等待村庄事件。"}
+                    : d.darkest
+                      ? "回村完成，开始最后四天准备。"
+                      : "回村完成，等待村庄事件。"}
               </p>
               {!d.hamlet && advanceRequired && (
                 <div data-testid="ruins-act-advance">
@@ -104,7 +106,13 @@ export function QuestSummaryPanel({
                 </div>
               )}
               {!d.hamlet && !advanceRequired && (
-                <button onClick={() => dispatch({ type: "drawHamletEvent" })}>抽村庄事件</button>
+                <button
+                  onClick={() =>
+                    dispatch({ type: d.darkest ? "beginFinalPreparation" : "drawHamletEvent" })
+                  }
+                >
+                  {d.darkest ? "开始最后四天准备" : "抽村庄事件"}
+                </button>
               )}
               <p>
                 驿站累计XP {d.stagecoachXp}；{d.heroes.map((h) => `${h.id} XP ${h.xp}`).join(" · ")}

@@ -56,18 +56,25 @@ export function HamletEventSection({
           )}
         </div>
       )}
-      <h3>{hamletCard!.name}</h3>
-      <p>
-        卡面准备天数：{hamletCard!.days ?? "0或3，须先完成事件选择"} · 村庄事件牌堆{" "}
-        {d.hamlet.deck.length} 张（核心池16张，永久移出 {d.hamlet.permanentlyRemoved.length} 张）
-      </p>
-      <p>
-        {hamletCard!.runtime === "townFair"
-          ? "每名英雄：压力 −3，治疗 2 × 自身英雄等级；相关怪癖修正照常生效。"
-          : hamletCard!.effectLines
-              .map((line) => line.replace(/\{icon:[a-f0-9]+\}/g, "［待核对图标］"))
-              .join(" ") || "本周没有额外事件效果。"}
-      </p>
+      <h3>{d.hamlet.finalPreparation ? "最后村庄准备" : hamletCard!.name}</h3>
+      {d.hamlet.finalPreparation ? (
+        <p>固定准备4天，不抽村庄事件。</p>
+      ) : (
+        <>
+          <p>
+            卡面准备天数：{hamletCard!.days ?? "0或3，须先完成事件选择"} · 村庄事件牌堆{" "}
+            {d.hamlet.deck.length} 张（核心池16张，永久移出 {d.hamlet.permanentlyRemoved.length}{" "}
+            张）
+          </p>
+          <p>
+            {hamletCard!.runtime === "townFair"
+              ? "每名英雄：压力 −3，治疗 2 × 自身英雄等级；相关怪癖修正照常生效。"
+              : hamletCard!.effectLines
+                  .map((line) => line.replace(/\{icon:[a-f0-9]+\}/g, "［待核对图标］"))
+                  .join(" ") || "本周没有额外事件效果。"}
+          </p>
+        </>
+      )}
       {d.hamlet.phase === "eventBlocked" && (
         <p>
           {pendingChoice?.id.startsWith("hamlet-medical:")
@@ -222,28 +229,31 @@ export function HamletEventSection({
           </p>
         </>
       )}
-      {d.hamlet.phase === "preparationComplete" && (
-        <>
-          <p>
-            准备天数已用完。可抽取下一任务（至多两张选一，未选永久弃置）；出征时应用铁匠临时技能并在开局掷奖励补给骰。战役等级{" "}
-            {d.campaignLevel ?? 1}。遗迹 I/II 幕击败 Boss 后须先推进战役等级，再进入村庄准备。
-          </p>
-          {!formal && (d.campaignLevel ?? 1) === 1 && (
+      {d.hamlet.phase === "preparationComplete" &&
+        (d.hamlet.finalPreparation ? (
+          <p>最后四天准备已完成。最终战尚未接通，保留当前队伍与准备结果。</p>
+        ) : (
+          <>
+            <p>
+              准备天数已用完。可抽取下一任务（至多两张选一，未选永久弃置）；出征时应用铁匠临时技能并在开局掷奖励补给骰。战役等级{" "}
+              {d.campaignLevel ?? 1}。遗迹 I/II 幕击败 Boss 后须先推进战役等级，再进入村庄准备。
+            </p>
+            {!formal && (d.campaignLevel ?? 1) === 1 && (
+              <button
+                data-testid="advance-campaign-level"
+                onClick={() => dispatch({ type: "advanceCampaignLevel" })}
+              >
+                沙盒预览 I→II（跳过未实现的 Boss，不支持正式存档）
+              </button>
+            )}
             <button
-              data-testid="advance-campaign-level"
-              onClick={() => dispatch({ type: "advanceCampaignLevel" })}
+              data-testid="offer-next-quest"
+              onClick={() => dispatch({ type: "offerNextQuest" })}
             >
-              沙盒预览 I→II（跳过未实现的 Boss，不支持正式存档）
+              抽取下一任务
             </button>
-          )}
-          <button
-            data-testid="offer-next-quest"
-            onClick={() => dispatch({ type: "offerNextQuest" })}
-          >
-            抽取下一任务
-          </button>
-        </>
-      )}
+          </>
+        ))}
     </section>
   );
 }

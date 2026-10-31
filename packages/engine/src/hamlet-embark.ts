@@ -157,6 +157,8 @@ function washNomadDisplay(
 function embarkProblem(state: GameState, allowPending: boolean): string | null {
   const d = state.dungeon,
     h = d?.hamlet;
+  if (h?.finalPreparation)
+    return "最后村庄准备后应进入最终战，不能重新抽普通任务；最终战尚未接线（R36）";
   if (
     !d ||
     state.battle ||
