@@ -265,8 +265,15 @@ export function HamletEventSection({
                 <p>
                   {sequence.progress.status === "complete"
                     ? "最终战全部形态完成。"
-                    : `当前形态：${sequence.current ? finalFormNames[sequence.current.id] : "—"}；等待已核实的Boss和房间部署。`}
+                    : sequence.progress.status === "fighting"
+                      ? `当前形态：${sequence.current ? finalFormNames[sequence.current.id] : "—"}；战斗中。`
+                      : `当前形态：${sequence.current ? finalFormNames[sequence.current.id] : "—"}；Ancestor Room 几何仍 hold，可部署占位开战骨架。`}
                 </p>
+                {sequence.progress.status === "awaitingDeployment" && sequence.current && (
+                  <button onClick={() => dispatch({ type: "deployFinalBattleForm" })}>
+                    部署当前形态（占位几何）
+                  </button>
+                )}
               </div>
             )}
           </div>
