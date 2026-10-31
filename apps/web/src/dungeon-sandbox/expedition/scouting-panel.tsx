@@ -351,8 +351,9 @@ export function ScoutingPanel({
                     {roomCard.name} · 遗迹 {roomCard.number}
                   </h3>
                   <p>
-                    完整遗迹房间牌池 9 张 · 余牌 {d.roomCards.deck!.length} · 已抽 1 张 · 印刷页{" "}
-                    {roomCard.source.page}
+                    完整遗迹房间牌池 9 张 · 普通牌堆
+                    {d.roomCards.deck === null ? "尚未洗牌" : `余 ${d.roomCards.deck.length} 张`} ·
+                    已抽 1 张 · 印刷页 {roomCard.source.page}
                   </p>
                   <p>地点与 Boss 分堆；效果栏保留原文和图标 ID，尚未执行。</p>
                 </div>

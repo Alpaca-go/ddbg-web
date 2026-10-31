@@ -4,6 +4,7 @@ import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { readRoomTile } from "./room-tile-selection";
 import { roomCatalogSchema } from "../../data/src/room";
+import { createRng } from "./rng";
 
 const refuse = (state: GameState, message: string): ApplyResult => ({
   state,
@@ -20,6 +21,13 @@ export function readSetAsideRoomCardId(d: DungeonState): string | undefined {
   return quest && "setAsideRoomCardId" in quest ? quest.setAsideRoomCardId : d.setAsideRoomCardId;
 }
 
+export function readSetAsideRoomCardIds(d: DungeonState): readonly string[] {
+  const quest = readBasicQuest(d.questDistribution);
+  if (quest && "setAsideRoomCardIds" in quest) return quest.setAsideRoomCardIds;
+  const single = readSetAsideRoomCardId(d);
+  return single ? [single] : [];
+}
+
 export function readObjectiveRecoveryActions(d: DungeonState): number | undefined {
   const quest = readBasicQuest(d.questDistribution);
   return quest && "objectiveRecoveryActions" in quest ? quest.objectiveRecoveryActions : undefined;
@@ -33,28 +41,34 @@ export function embarkSetAsideRoomCardId(questId: string): string | undefined {
 
 export function ruinsRoomDeckWithoutSetAside(
   cards: readonly { readonly id: string; readonly location: string; readonly boss?: boolean }[],
-  setAsideRoomCardId?: string,
+  setAsideRoomCardId?: string | readonly string[],
 ) {
   const pool = cards.filter((c) => c.location === "ruins" && !c.boss);
-  if (!setAsideRoomCardId) return pool.map((c) => c.id);
-  if (!pool.some((c) => c.id === setAsideRoomCardId) || pool.length !== 9)
+  const aside =
+    typeof setAsideRoomCardId === "string" ? [setAsideRoomCardId] : (setAsideRoomCardId ?? []);
+  if (!aside.length) return pool.map((c) => c.id);
+  if (
+    new Set(aside).size !== aside.length ||
+    aside.some((id) => !pool.some((c) => c.id === id)) ||
+    pool.length !== 9
+  )
     throw new Error("旁置房间牌需要完整九张遗迹普通房间目录（R-048）");
-  return pool.filter((c) => c.id !== setAsideRoomCardId).map((c) => c.id);
+  return pool.filter((c) => !aside.includes(c.id)).map((c) => c.id);
 }
 
 export function allRuinsRoomCardIds(
-  d: Pick<DungeonState, "roomCards" | "setAsideRoomCardId">,
+  d: Pick<DungeonState, "roomCards" | "setAsideRoomCardId" | "questDistribution">,
   activeCardId?: string,
 ) {
   const c = d.roomCards;
   if (!c) return [];
-  const aside = readSetAsideRoomCardId(d as DungeonState);
+  const aside = readSetAsideRoomCardIds(d as DungeonState);
   const active = activeCardId ?? c.active?.cardId;
   const defaultDeck = ruinsRoomDeckWithoutSetAside(c.cards, aside);
   const inDeck = c.deck ?? defaultDeck;
   const ids = [...inDeck, ...(c.discard ?? [])];
   if (active && !ids.includes(active)) ids.push(active);
-  if (aside && !ids.includes(aside)) ids.push(aside);
+  for (const id of aside) if (!ids.includes(id)) ids.push(id);
   return ids;
 }
 
@@ -65,16 +79,39 @@ export function prepareObjectiveRoomBattle(state: GameState): ApplyResult | null
   if (room?.kind !== "objective") return null;
   if (d.faceTheThreatEmbarkPlan?.roomPlacement === "edgeRoomsR30")
     return prepareBossObjectiveRoom(state);
-  const aside = readSetAsideRoomCardId(d);
+  const aside = readSetAsideRoomCardIds(d);
   const c = d.roomCards;
   if (!c || !roomCatalogSchema.safeParse(c.cards).success)
     return refuse(state, "需要完整核心盒房间目录（R-048）");
   if (c.active) return refuse(state, "该房间牌已记录；不能重抽（R15）");
-  if (aside) {
-    const card = c.cards.find(
-      (entry) => entry.id === aside && entry.location === "ruins" && !entry.boss,
+  if (aside.length) {
+    if (!Number.isSafeInteger(d.cursor) || d.cursor < 0)
+      return refuse(state, "随机游标无效，未选择目标房间（R-048）");
+    const candidates = aside.map((id) =>
+      c.cards.find((entry) => entry.id === id && entry.location === "ruins" && !entry.boss),
     );
-    if (!card) return refuse(state, "旁置目标房间牌不在遗迹目录中（R-048）");
+    if (candidates.some((card) => !card))
+      return refuse(state, "旁置目标房间牌不在遗迹目录中（R-048）");
+    const available = allRuinsRoomCardIds(d);
+    if (
+      available.length !== 9 ||
+      new Set(available).size !== 9 ||
+      available.some(
+        (id) => !c.cards.some((card) => card.id === id && card.location === "ruins" && !card.boss),
+      ) ||
+      (c.deck ?? []).some((id) => aside.includes(id)) ||
+      (c.discard ?? []).some((id) => aside.includes(id))
+    )
+      return refuse(state, "旁置目标房间与普通牌堆不守恒（R15、R-048）");
+    let cursor = d.cursor,
+      index = 0;
+    if (candidates.length > 1) {
+      const rng = createRng(state.seed);
+      for (let i = 0; i < cursor; i++) rng.next();
+      index = Math.floor(rng.next() * candidates.length);
+      cursor++;
+    }
+    const card = candidates[index]!;
     const selected = readRoomTile(card);
     const blockedReason =
       selected.status === "matched"
@@ -85,11 +122,12 @@ export function prepareObjectiveRoomBattle(state: GameState): ApplyResult | null
         ...state,
         dungeon: {
           ...d,
+          cursor,
           roomCards: {
             ...c,
             active: {
               roomId: room.id,
-              cardId: aside,
+              cardId: card.id,
               ...(selected.status === "matched" ? { tileId: selected.tile.id } : {}),
               blockedReason,
             },

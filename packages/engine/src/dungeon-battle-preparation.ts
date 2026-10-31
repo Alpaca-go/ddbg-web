@@ -8,7 +8,7 @@ import {
   allRuinsRoomCardIds,
   prepareObjectiveRoomBattle,
   ruinsRoomDeckWithoutSetAside,
-  readSetAsideRoomCardId,
+  readSetAsideRoomCardIds,
 } from "./dungeon-objective";
 
 /** R10、R15：遗迹普通房间完整洗牌，取顶牌再匹配板块；不替换未获批房间。 */
@@ -35,12 +35,15 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
   if (!c || !roomCatalogSchema.safeParse(c.cards).success)
     return refuse("需要完整核心盒房间目录，不能只装入已获批板块对应的牌（R10）");
   const pool = c.cards.filter((card) => card.location === "ruins" && !card.boss);
-  const defaultDeck = ruinsRoomDeckWithoutSetAside(c.cards, readSetAsideRoomCardId(d));
+  const aside = readSetAsideRoomCardIds(d);
+  const defaultDeck = ruinsRoomDeckWithoutSetAside(c.cards, aside);
   const available = allRuinsRoomCardIds(d);
   if (
     available.length !== 9 ||
     new Set(available).size !== 9 ||
     available.some((id) => !pool.some((card) => card.id === id)) ||
+    (c.deck ?? []).some((id) => aside.includes(id)) ||
+    (c.discard ?? []).some((id) => aside.includes(id)) ||
     (c.active && c.active.roomId !== d.position)
   )
     return refuse("遗迹房间牌池不守恒 / 活动房间不一致，保持原状态");

@@ -20,7 +20,7 @@ import {
   allRuinsRoomCardIds,
   objectiveRoomClearsOnVictory,
   objectiveRoomResolutionAfterVictory,
-  readSetAsideRoomCardId,
+  readSetAsideRoomCardIds,
 } from "./dungeon-objective";
 import { heroSkillSlotCount } from "./hero-loadout";
 import { readMonsterSelfStatuses } from "./monster-self-status";
@@ -495,7 +495,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
   const clearsRoom = victory && objectiveRoomClearsOnVictory(d, kind);
   const bonus = victory ? (kind === "treasure" ? 20 : fundraiser && kind === "lair" ? 10 : 0) : 0;
   const activeCardId = d.roomCards!.active!.cardId;
-  const setAside = readSetAsideRoomCardId(d);
+  const setAside = readSetAsideRoomCardIds(d);
   const { curioRoom: previousCurio, ...returnedDungeon } = d;
   const dungeonBase = clearedThreatId
     ? (() => {
@@ -544,10 +544,9 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
         roomCards: {
           ...d.roomCards!,
           active: null,
-          discard:
-            activeCardId === setAside
-              ? (d.roomCards!.discard ?? [])
-              : [...(d.roomCards!.discard ?? []), activeCardId],
+          discard: setAside.includes(activeCardId)
+            ? (d.roomCards!.discard ?? [])
+            : [...(d.roomCards!.discard ?? []), activeCardId],
         },
         ...(objectiveRecovery ? { roomResolution: objectiveRecovery } : {}),
         ...(bossQuestVictory ? { bossQuestVictory } : {}),
@@ -591,7 +590,10 @@ function partitionsValid(d: DungeonState): boolean {
     ...pool.active.monsters.map((m) => m.instanceId),
   ];
   const roomIds = allRuinsRoomCardIds(d, rooms.active.cardId);
+  const aside = readSetAsideRoomCardIds(d);
   return (
+    !(rooms.deck ?? []).some((id) => aside.includes(id)) &&
+    !(rooms.discard ?? []).some((id) => aside.includes(id)) &&
     ids.length === catalog.length &&
     new Set(ids).size === catalog.length &&
     ids.every((id) => catalog.some((c) => c.instanceId === id)) &&
