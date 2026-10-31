@@ -49,7 +49,7 @@ export const fanaticIBossScript: BossScriptDefinition = {
   displayName: "Fanatic I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "C-017 / R39：Fanatic I 三招骰表与完整效果已接；卡面无技能召唤（notApplicable）。Pyre / Sentence / Pit Toss / 先攻 4 沿用原运行时；Pyre 无 Acc 的 99 伤害技能仍 hold。",
+    "C-017 / R39：Fanatic I 三招骰表与完整效果已接；卡面无技能召唤（notApplicable）。Pyre Burn（R-136）经 prepareMonsterAction + playMonsterSkill → playPyreSkill；Sentence / Pit Toss / 先攻 4 沿用原运行时。",
   combatEntry: {
     descriptionAbilityCardId: FANATIC_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: FANATIC_I_COMBAT_ABILITY_CARD_ID,

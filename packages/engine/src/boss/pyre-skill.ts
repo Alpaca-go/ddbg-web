@@ -13,7 +13,7 @@ export function isPyreCard(id: string | undefined): boolean {
   return ["monster_large:p011", "monster_large:p012", "monster_large:p013"].includes(id ?? "");
 }
 
-/** 本聊天裁定：自动命中、不掷攻击骰；99 Damage 仍经防护、被动和死门。 */
+/** R-136：自动命中、不掷攻击骰；99 Damage 仍经防护、被动和死门（R-048 卡面字段）。 */
 export function playPyreSkill(
   state: GameState,
   actorId: string,
