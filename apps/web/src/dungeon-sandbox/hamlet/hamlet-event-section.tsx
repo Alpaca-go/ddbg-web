@@ -266,7 +266,7 @@ export function HamletEventSection({
                   {sequence.progress.status === "complete"
                     ? "最终战全部形态完成。"
                     : sequence.progress.status === "fighting"
-                      ? `当前形态：${sequence.current ? finalFormNames[sequence.current.id] : "—"}；战斗中。`
+                      ? `当前形态：${sequence.current ? finalFormNames[sequence.current.id] : "—"}；已部署，请在战斗面板点击「开始战斗」洗入先攻（占位几何）。`
                       : `当前形态：${sequence.current ? finalFormNames[sequence.current.id] : "—"}；Ancestor Room 几何仍 hold，可部署占位开战骨架。`}
                 </p>
                 {sequence.progress.status === "awaitingDeployment" && sequence.current && (

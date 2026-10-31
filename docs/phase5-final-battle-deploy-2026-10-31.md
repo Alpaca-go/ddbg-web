@@ -14,7 +14,7 @@
 
 - **Ancestor Room（room:p025）** 无 `room_tile_geometry` 获批条目；生产路径使用占位 stance 区域（无 `ancestorGlory`、非印刷邻接）。若将来入库 verified 部署，自动改用 `roomTileBattleAreas`。
 - 各形态 Boss 技能 AI、特殊能力、`startBattle` 后的完整回合验收仍 hold；未审核能力目录不打开。
-- 形态间先攻重洗、Stygian、自然战役全程存档验收、扩展 Boss：未接。
+- 形态间先攻重洗、Stygian、自然战役全程存档验收、扩展 Boss：未接（先攻 / 第 1 轮见 [initiative 切片](phase5-final-battle-initiative-2026-10-31.md)）。
 
 ## 待确认
 

@@ -1,5 +1,5 @@
 import { resolveExcavation } from "./darkest-excavation";
-import { prepareFinalBattleForms, finishFinalBattleForm } from "./boss/final-form-sequence";
+import { prepareFinalBattleForms, finishFinalBattleForm, finalBattleCombatActive } from "./boss/final-form-sequence";
 import { deployFinalBattleForm } from "./boss/final-battle-deploy";
 import { beginFinalPreparation, beginFinalBattleProvisions } from "./final-preparation";
 import { applyHigherRuinsHamlet, chooseHigherRuinsTheft } from "./boss/higher-ruins-hamlet";
@@ -502,7 +502,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       return chooseHamletQuirk(state, command.choiceId, command.optionId);
     if (command.type === "useProvision" && state.dungeon.hamletReturn.phase === "provisions")
       return useHamletProvision(state, command);
-    return rejectBattleCommand(state, "正在回村或已进入村庄，请完成当前回村步骤");
+    if (!finalBattleCombatActive(state))
+      return rejectBattleCommand(state, "正在回村或已进入村庄，请完成当前回村步骤");
   }
   if (state.dungeon?.phase === "awaitingScoutAhead")
     return command.type === "resolveChoice"

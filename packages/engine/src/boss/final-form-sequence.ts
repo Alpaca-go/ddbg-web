@@ -8,6 +8,16 @@ export type FinalFormSequence = {
   readonly status: "awaitingDeployment" | "fighting" | "complete";
 };
 
+/** 已部署且处于 inBattle；仍保留 hamletReturn 供形态计划读取，但须放行遭遇战命令。 */
+export function finalBattleCombatActive(state: GameState): boolean {
+  const d = state.dungeon;
+  return (
+    d?.finalFormSequence?.status === "fighting" &&
+    d.phase === "inBattle" &&
+    state.battle !== undefined
+  );
+}
+
 /** 进度只能是任务派生形态序列的前缀；不能跳过Heart或调换形态。 */
 export function readFinalFormSequence(state: GameState) {
   const d = state.dungeon,
