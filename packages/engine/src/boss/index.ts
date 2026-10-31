@@ -413,6 +413,13 @@ export {
   applyAncestor1PerfectReplication,
   type ApplyAncestor1PerfectReplicationCommand,
 } from "./ancestor1-perfect-replication";
+export {
+  IMPERFECT_REPRODUCTION_SKILL_SLOT,
+  IMPERFECT_REPRODUCTION_STRESS_AMOUNT,
+  IMPERFECT_REPRODUCTION_SUMMON_CARD_ID,
+  applyAncestor1ImperfectReproduction,
+  type ApplyAncestor1ImperfectReproductionCommand,
+} from "./ancestor1-imperfect-reproduction";
 export { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
 
 export {
