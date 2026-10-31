@@ -164,6 +164,7 @@ export { visitNomadWagon } from "./hamlet-nomad";
 export { blacksmithOptions } from "./hamlet-blacksmith";
 export { offerNextQuest } from "./hamlet-embark";
 export { advanceCampaignLevel, readCampaignLevel } from "./hamlet-campaign";
+export { buildRuinsActTransitionPlan } from "./act-transition-plan";
 export { visitGuild } from "./hamlet-guild";
 export {
   setEquippedSkills,
