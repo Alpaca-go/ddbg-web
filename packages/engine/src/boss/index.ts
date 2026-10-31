@@ -423,16 +423,20 @@ export {
 export {
   HEART_OF_DARKNESS_MONSTER_CARD_ID,
   applyHeartOfDarknessImpendingDoomRoll,
+  impendingDoomSkillLabelFromDie,
+  impendingDoomSkillSlotFromDie,
   type ApplyHeartOfDarknessImpendingDoomRollCommand,
 } from "./heart-of-darkness-impending-doom";
 export {
   applyHeartOfDarknessDissolution,
+  applyHeartOfDarknessImpendingDoomSkill,
   applyHeartOfDarknessKnowThis,
   applyHeartOfDarknessPuncture,
   DISSOLUTION_SKILL_SLOT,
   KNOW_THIS_SKILL_SLOT,
   PUNCTURE_SKILL_SLOT,
   type ApplyHeartOfDarknessDissolutionCommand,
+  type ApplyHeartOfDarknessImpendingDoomSkillCommand,
   type ApplyHeartOfDarknessKnowThisCommand,
   type ApplyHeartOfDarknessPunctureCommand,
 } from "./heart-of-darkness-skills-acc";

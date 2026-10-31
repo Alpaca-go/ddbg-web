@@ -7,7 +7,14 @@ import { finalPreparationFixture } from "../test-helpers/final-preparation";
 import {
   applyHeartOfDarknessImpendingDoomRoll,
   HEART_OF_DARKNESS_MONSTER_CARD_ID,
+  impendingDoomSkillSlotFromDie,
 } from "./heart-of-darkness-impending-doom";
+import {
+  applyHeartOfDarknessImpendingDoomSkill,
+  DISSOLUTION_SKILL_SLOT,
+  KNOW_THIS_SKILL_SLOT,
+  PUNCTURE_SKILL_SLOT,
+} from "./heart-of-darkness-skills-acc";
 import { GESTATING_HEART_MONSTER_CARD_ID } from "./gestating-heart-ichor";
 
 function prepared(questId: "quest:p016" | "quest:p017" | "quest:p018" = "quest:p016") {
@@ -179,4 +186,130 @@ it("applyCommand 路由显式落骰命令", () => {
   });
   expect(routed.events.some((event) => event.type === "commandRefused")).toBe(false);
   expect(routed.state.battle!.impendingDoomDie).toBeDefined();
+});
+
+const GOLDEN_D10_SLOTS: ReadonlyArray<readonly [number, 1 | 2 | 3]> = [
+  [1, 1],
+  [2, 1],
+  [3, 1],
+  [4, 1],
+  [5, 2],
+  [6, 2],
+  [7, 2],
+  [8, 3],
+  [9, 3],
+  [10, 3],
+];
+
+it.each(GOLDEN_D10_SLOTS)("R-139 黄金表：d10=%i → slot %i", (die, slot) => {
+  expect(impendingDoomSkillSlotFromDie(die)).toBe(slot);
+});
+
+it.each([0, 11, -1, 1.5, NaN])("非法 d10 面值拒绝映射", (die) => {
+  expect(impendingDoomSkillSlotFromDie(die)).toBeNull();
+});
+
+it("无 impendingDoomDie 拒绝 Impending Doom 选招", () => {
+  const fighting = heartOfDarknessFighting();
+  const { impendingDoomDie: _removed, ...battleWithoutDie } = fighting.battle!;
+  const onTurn = onHeartTurn({
+    ...fighting,
+    battle: battleWithoutDie,
+  });
+  const result = applyHeartOfDarknessImpendingDoomSkill(onTurn, heartEntity(onTurn).id);
+  expect(result.events.some((event) => event.type === "commandRefused")).toBe(true);
+});
+
+it("非法 impendingDoomDie 拒绝 Impending Doom 选招", () => {
+  const onTurn = onHeartTurn({
+    ...heartOfDarknessFighting(),
+    battle: {
+      ...heartOfDarknessFighting().battle!,
+      impendingDoomDie: 0,
+    },
+  });
+  const result = applyHeartOfDarknessImpendingDoomSkill(onTurn, heartEntity(onTurn).id);
+  expect(result.events.some((event) => event.type === "commandRefused")).toBe(true);
+});
+
+it("开战落骰后 Heart 回合按映射执行 Puncture（d10=5）", () => {
+  const fighting = heartOfDarknessFighting();
+  const hero = fighting.battle!.entities.find((entity) => entity.side === "hero")!;
+  let game = onHeartTurn({
+    ...fighting,
+    battle: {
+      ...fighting.battle!,
+      impendingDoomDie: 5,
+      entities: fighting.battle!.entities.map((entity) =>
+        entity.id === hero.id ? { ...entity, areaId: heartEntity(fighting).areaId } : entity,
+      ),
+    },
+  });
+  const result = applyHeartOfDarknessImpendingDoomSkill(game, heartEntity(game).id);
+  expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+  expect(
+    result.events.some(
+      (event) =>
+        event.type === "dungeonUpdated" &&
+        event.message.includes("d10=5 → Puncture") &&
+        event.message.includes(`slot ${PUNCTURE_SKILL_SLOT}`),
+    ),
+  ).toBe(true);
+  const skillEvent = result.events.find((event) => event.type === "monsterSkillResolved");
+  expect(skillEvent?.type).toBe("monsterSkillResolved");
+});
+
+it("行动后落骰覆盖后下一 Heart 回合按新面值选招（d10=8 → Dissolution）", () => {
+  const fighting = heartOfDarknessFighting();
+  const hero = fighting.battle!.entities.find((entity) => entity.side === "hero")!;
+  const cursor = fighting.battle!.rngCursor;
+  let game = onHeartTurn({
+    ...fighting,
+    battle: {
+      ...fighting.battle!,
+      impendingDoomDie: 8,
+      entities: fighting.battle!.entities.map((entity) =>
+        entity.id === hero.id ? { ...entity, areaId: heartEntity(fighting).areaId } : entity,
+      ),
+    },
+  });
+  const result = applyHeartOfDarknessImpendingDoomSkill(game, heartEntity(game).id);
+  expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+  expect(
+    result.events.some(
+      (event) =>
+        event.type === "dungeonUpdated" &&
+        event.message.includes("d10=8 → Dissolution") &&
+        event.message.includes(`slot ${DISSOLUTION_SKILL_SLOT}`),
+    ),
+  ).toBe(true);
+  const expectedNextDie = nextBattleRoll(fighting.seed, cursor + 1);
+  expect(result.state.battle!.impendingDoomDie).toBe(expectedNextDie);
+});
+
+it("applyCommand 路由 Impending Doom 选招", () => {
+  const fighting = heartOfDarknessFighting();
+  const hero = fighting.battle!.entities.find((entity) => entity.side === "hero")!;
+  const state = onHeartTurn({
+    ...fighting,
+    battle: {
+      ...fighting.battle!,
+      impendingDoomDie: 1,
+      entities: fighting.battle!.entities.map((entity) =>
+        entity.id === hero.id ? { ...entity, areaId: heartEntity(fighting).areaId } : entity,
+      ),
+    },
+  });
+  const result = applyCommand(state, {
+    type: "applyHeartOfDarknessImpendingDoomSkill",
+    actorId: heartEntity(state).id,
+  });
+  expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+  expect(
+    result.events.some(
+      (event) =>
+        event.type === "dungeonUpdated" &&
+        event.message.includes(`slot ${KNOW_THIS_SKILL_SLOT}`),
+    ),
+  ).toBe(true);
 });
