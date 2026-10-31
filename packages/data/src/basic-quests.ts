@@ -103,11 +103,13 @@ export const basicQuests = [
   {
     id: "quest:p006",
     name: "Disruption II",
+    /** R15 / QUEST p6: pick one of these set-aside rooms on each Objective entry. */
+    setAsideRoomCardIds: ["room:p004", "room:p008"] as const,
     level: 2 as const,
     restPoints: 12,
     xpKind: "objective" as const,
     roomsPerXp: 1,
-    maxRooms: 2,
+    maxRooms: 3,
     expeditionRegion: "ruins" as const,
     distribution: roomDistributionSchema.parse(disruption),
   },

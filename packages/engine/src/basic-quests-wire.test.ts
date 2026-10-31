@@ -23,7 +23,7 @@ const GOLDEN: Record<
 > = {
   "quest:p004": { restPoints: 8, xpKind: "objective", roomsPerXp: 1, maxRooms: 1, tokenTotal: 8 },
   "quest:p005": { restPoints: 12, xpKind: "curio", roomsPerXp: 1, maxRooms: 3, tokenTotal: 8 },
-  "quest:p006": { restPoints: 12, xpKind: "objective", roomsPerXp: 1, maxRooms: 2, tokenTotal: 8 },
+  "quest:p006": { restPoints: 12, xpKind: "objective", roomsPerXp: 1, maxRooms: 3, tokenTotal: 8 },
   "quest:p009": { restPoints: 8, xpKind: "objective", roomsPerXp: 1, maxRooms: 3, tokenTotal: 8 },
   "quest:p010": { restPoints: 12, xpKind: "objective", roomsPerXp: 1, maxRooms: 1, tokenTotal: 8 },
   "quest:p011": { restPoints: 4, xpKind: "dark", roomsPerXp: 1, maxRooms: 3, tokenTotal: 8 },

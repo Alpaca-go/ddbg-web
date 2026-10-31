@@ -532,8 +532,9 @@ export function FormalTabletopScoutingPanel({
               <details>
                 <summary>房间牌池与印刷转录（{roomCard.name}）</summary>
                 <p>
-                  完整遗迹房间牌池 9 张 · 余牌 {d.roomCards.deck!.length} · 印刷页{" "}
-                  {roomCard.source.page}
+                  完整遗迹房间牌池 9 张 · 普通牌堆
+                  {d.roomCards.deck === null ? "尚未洗牌" : `余 ${d.roomCards.deck.length} 张`} ·
+                  印刷页 {roomCard.source.page}
                 </p>
                 {active.tileId && selectedTile.status === "matched" && (
                   <p>
