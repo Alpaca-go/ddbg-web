@@ -12,7 +12,7 @@
 
 ## 仍 hold
 
-- Perfect Replication / Imperfect Reproduction 完整召唤、Reflections 先攻不移除、Absolute Nothingness、Swift Teleportation、Impending Doom、Pit Toss、Room Tile 正式几何、Phase 6。
+- Perfect / Imperfect Reproduction 完整执行、Reflections 先攻不移除、Absolute Nothingness、Swift Teleportation、Impending Doom、Pit Toss、Room Tile 正式几何、Phase 6。
 
 ## 验证
 

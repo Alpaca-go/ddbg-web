@@ -81,6 +81,7 @@ import {
 import { applyMammothCystSummonWhiteCell } from "./boss/darkest-mammoth-cyst-combat-runtime";
 import { applyGestatingHeartSummon } from "./boss/gestating-heart-summon";
 import { applyAncestor1TimeHealsAll } from "./boss/ancestor1-time-heals-all";
+import { applyAncestor1PerfectReplication } from "./boss/ancestor1-perfect-replication";
 import {
   resolveDungeonConditionChoice,
   resolveDungeonCurioProvisionChoice,
@@ -242,6 +243,7 @@ type BaseCommand =
   | { readonly type: "applyMammothCystSummonWhiteCell"; readonly actorId: string }
   | { readonly type: "applyGestatingHeartSummon"; readonly actorId: string }
   | { readonly type: "applyAncestor1TimeHealsAll"; readonly actorId: string }
+  | { readonly type: "applyAncestor1PerfectReplication"; readonly actorId: string }
   | MoveMonsterToRangeCommand
   | MoveHeroCommand
   | { readonly type: "resolveShuffles" }
@@ -733,6 +735,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return applyGestatingHeartSummon(state, command.actorId);
   if (command.type === "applyAncestor1TimeHealsAll")
     return applyAncestor1TimeHealsAll(state, command.actorId);
+  if (command.type === "applyAncestor1PerfectReplication")
+    return applyAncestor1PerfectReplication(state, command.actorId);
   if (command.type === "moveMonsterToRange") return moveMonsterToRange(state, command);
   if (command.type === "moveHero") return moveHero(state, command);
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);
