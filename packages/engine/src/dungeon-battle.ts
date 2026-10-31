@@ -1,7 +1,10 @@
 import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import { questMonsterDeploymentHold } from "./quest-monster-deployment";
+import { finishDarkestDungeonBattle } from "./darkest-finish-battle";
 import { darkestOrdinaryDeploymentHold } from "./darkest-ordinary-monster-deploy";
 import { darkestMidBossDeploymentHold } from "./boss/darkest-mid-boss-runtime";
+import { darkestMidBossCombatActive } from "./boss/darkest-mid-boss-deploy";
+import { darkestOrdinaryCombatActive } from "./darkest-ordinary-encounter-deploy";
 import {
   questMonsterDeploymentMatchesPlan,
   questMonsterOutsidePoolInstanceIds,
@@ -368,6 +371,8 @@ export function startDungeonBattle(state: GameState): ApplyResult {
 
 /** R25、R-059：仅完成的战斗可回传一次；R-068 / mutualWipeout 不发胜利或撤退奖励。 */
 export function finishDungeonBattle(state: GameState): ApplyResult {
+  if (darkestOrdinaryCombatActive(state) || darkestMidBossCombatActive(state))
+    return finishDarkestDungeonBattle(state);
   const d = state.dungeon,
     b = state.battle,
     active = d?.monsterPool?.active;
