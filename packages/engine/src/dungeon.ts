@@ -91,6 +91,11 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  readonly darkest?: {
+    readonly monsterPool: import("../../data/src/darkest-monster-pool").DarkestMonsterPoolFile;
+    readonly monsterDeck: readonly string[];
+    readonly excavation?: import("./darkest-excavation").Excavation;
+  };
   readonly trinketRuntime?: import("./trinket-reactions").TrinketRuntime;
   /** 保存死亡发生的流程，补人只续接已付费的步骤，不重新执行入口。 */
   readonly freeTrinketResume?: {

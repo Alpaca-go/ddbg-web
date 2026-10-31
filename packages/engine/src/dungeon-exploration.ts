@@ -74,7 +74,7 @@ export function continueDungeonExploration(result: ApplyResult): ApplyResult {
     } else {
       const to = d.exploration.to;
       const room = d.rooms.find((r) => r.id === to);
-      const cleared = room?.cleared || room?.kind === "empty";
+      const cleared = room?.cleared || (room?.kind === "empty" && !d.darkest);
       const forwardCamps = readBasicQuest(d.questDistribution)?.id === "quest:p012";
       next = finish(
         result.state,

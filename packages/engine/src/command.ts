@@ -1,3 +1,4 @@
+import { resolveExcavation } from "./darkest-excavation";
 import { applyHigherRuinsHamlet, chooseHigherRuinsTheft } from "./boss/higher-ruins-hamlet";
 import { applyHigherRuinsBattleSpawn } from "./boss/higher-ruins-threat";
 import { useCoreTrinket } from "./core-trinket-free";
@@ -398,6 +399,10 @@ export function createInitialState(seed: number): GameState {
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
 function dispatchCommand(state: GameState, command: Command): ApplyResult {
+  if (state.dungeon?.darkest?.excavation?.stage === "provisions")
+    return command.type === "resolveChoice"
+      ? resolveExcavation(state, command)
+      : rejectBattleCommand(state, "请先完成挖掘点补给选择（R36）");
   if (state.dungeon?.higherThreatTheft) return chooseHigherRuinsTheft(state, command);
   if (command.type === "useCoreTrinket") return useCoreTrinket(state, command);
   if (state.dungeon?.pending?.id.startsWith("hamlet-haunted:"))

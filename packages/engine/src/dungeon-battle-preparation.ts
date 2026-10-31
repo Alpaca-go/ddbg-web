@@ -1,3 +1,4 @@
+import { prepareDarkestRoom } from "./darkest-setup";
 import { roomCatalogSchema } from "../../data/src/room";
 import { readRoomTile } from "./room-tile-selection";
 import type { ApplyResult, GameState } from "./command";
@@ -28,6 +29,7 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
     !isGuardedDungeonRoom(d)
   )
     return refuse("需要未清理的 Lair / Treasure / Objective / 有守卫 Curio 战斗入口（R15）");
+  if (d.darkest) return prepareDarkestRoom(state);
   const objective = prepareObjectiveRoomBattle(state);
   if (objective) return objective;
   if (!c || !roomCatalogSchema.safeParse(c.cards).success)

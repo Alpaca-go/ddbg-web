@@ -117,7 +117,7 @@ export function completeDungeonBacktrack(state: GameState): ApplyResult {
   if (!node || node.kind === "unresolved") return refuse(state, "返回节点缺失或未核实");
   const room = node.kind === "room" ? d.rooms.find((r) => r.id === to) : undefined;
   if (node.kind === "room" && !room) return refuse(state, "返回房间代币记录缺失");
-  const cleared = !!room && (room.cleared || room.kind === "empty");
+  const cleared = !!room && (room.cleared || (room.kind === "empty" && !d.darkest));
   return {
     state: {
       ...state,

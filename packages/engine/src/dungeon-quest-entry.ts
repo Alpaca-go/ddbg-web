@@ -17,6 +17,8 @@ import { requireFaceTheThreatEmbarkPlanForSandbox } from "./boss/face-the-threat
 
 import { placeFaceTheThreatRooms } from "./boss/edge-room-placement";
 
+import { setupDarkestDungeon, isDarkestQuest } from "./darkest-setup";
+
 export type CoreQuestSources = {
   readonly catalog: DungeonBattleCatalog;
   readonly resolveCards: readonly ResolveCard[];
@@ -31,7 +33,7 @@ export type QuestParty = readonly {
 }[];
 
 /**
- * R12–17、R-038/048/065：已批准p1的单任务入口，无状态／代币注入，不代替战役选任务。
+ * R12–17/R35–36、R-038/048/065/121：单任务入口，无状态／代币注入，不代替战役选任务。
  * 开局四人须来自正式十八英雄目录（与替补白名单同一集合）。十一名核心盒 STAT 已核实可出征；
  * 其余七名扩展为建队印刷接线 + 占位属性或 art-only 技能，未核实效果按 R-048 拒绝。
  */
@@ -132,6 +134,7 @@ export function createCoreDungeonQuest(
     { ...sources.catalog, conditions, trinkets },
     true,
   );
+  if (isDarkestQuest(questId)) return setupDarkestDungeon(game);
   if (questId !== FACE_THE_THREAT_QUEST_ID) return game;
   const dungeon = game.dungeon;
   if (!dungeon) throw new Error("沙盒 p019 缺地牢状态");

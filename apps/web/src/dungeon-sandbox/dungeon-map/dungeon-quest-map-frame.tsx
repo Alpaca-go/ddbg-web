@@ -40,9 +40,7 @@ export function DungeonQuestMapFrame({
         {map.edges.map(([a, b]) => {
           const from = map.nodes.find((n) => n.id === a)!;
           const to = map.nodes.find((n) => n.id === b)!;
-          const corridorBinding = preview
-            ? undefined
-            : resolveQuestMapEdgeCorridor(map.id, a, b);
+          const corridorBinding = preview ? undefined : resolveQuestMapEdgeCorridor(map.id, a, b);
           return (
             <line
               key={`${a}-${b}`}
@@ -148,7 +146,9 @@ export function DungeonQuestMapFrame({
                   ? room.cleared
                     ? "已清理 · 无代币"
                     : room.revealed
-                      ? roomKindLabels[room.kind]
+                      ? d.darkest && room.kind === "empty"
+                        ? "挖掘点"
+                        : roomKindLabels[room.kind]
                       : "未揭示"
                   : n.kind === "dot"
                     ? "灰点"
