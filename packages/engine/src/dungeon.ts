@@ -102,6 +102,8 @@ export type DungeonState = {
       readonly roomId: string;
       readonly resolvedScriptId: import("./boss/types").BossScriptId;
       readonly monsters: readonly import("./spawn").SpawnPlacement[];
+      /** 目录 supportCardIds 身份占位；verified: false，不计入 Boss 遭遇判定。 */
+      readonly supportMonsters: readonly import("./spawn").SpawnPlacement[];
       readonly supportCardIds: readonly string[];
       readonly blockedReason: string;
     };

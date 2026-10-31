@@ -62,6 +62,18 @@ describe("最暗中途 Boss 运行时接线", () => {
     expect(deployment.monsters.map((m) => m.cardId).sort()).toEqual(
       [...(deployed.state.dungeon!.darkest!.bossEncounterPlan!.actorCardIds)].sort(),
     );
+    const planSupport = deployed.state.dungeon!.darkest!.bossEncounterPlan!.supportCardIds;
+    if (planSupport.length) {
+      expect(deployment.supportMonsters.map((m) => m.cardId).sort()).toEqual([...planSupport].sort());
+      for (const support of deployment.supportMonsters) {
+        expect(support.verified).toBe(false);
+        expect(support.areaId).toMatch(/^darkest-mid-boss-/);
+      }
+      expect(deployment.blockedReason).toContain("已记录身份");
+      expect(deployment.blockedReason).not.toContain("未部署");
+    } else {
+      expect(deployment.supportMonsters).toEqual([]);
+    }
     expect(darkestMidBossDeploymentHold(deployed.state.dungeon!)).toContain("不能进入半场战斗");
     expect(resolveEncounterBossScriptId(deployed.state)).toBe(scriptId);
     expect(isBossEncounter(deployed.state)).toBe(true);
