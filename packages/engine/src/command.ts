@@ -1,4 +1,5 @@
 import { resolveExcavation } from "./darkest-excavation";
+import { prepareFinalBattleForms, finishFinalBattleForm } from "./boss/final-form-sequence";
 import { beginFinalPreparation, beginFinalBattleProvisions } from "./final-preparation";
 import { applyHigherRuinsHamlet, chooseHigherRuinsTheft } from "./boss/higher-ruins-hamlet";
 import { applyHigherRuinsBattleSpawn } from "./boss/higher-ruins-threat";
@@ -202,6 +203,7 @@ type BaseCommand =
   | { readonly type: "drawHamletEvent" }
   | { readonly type: "beginFinalPreparation" }
   | { readonly type: "beginFinalBattleProvisions" }
+  | { readonly type: "prepareFinalBattleForms" }
   | { readonly type: "offerNextQuest" }
   | { readonly type: "advanceCampaignLevel" }
   | { readonly type: "advanceRuinsAct" }
@@ -487,6 +489,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return applyHamletAction(state, command);
   if (command.type === "drawHamletEvent") return drawHamletEvent(state);
   if (command.type === "beginFinalPreparation") return beginFinalPreparation(state);
+  if (command.type === "prepareFinalBattleForms") return prepareFinalBattleForms(state);
   if (command.type === "beginFinalBattleProvisions") return beginFinalBattleProvisions(state);
   if (command.type === "rollHamletCaretaker") return rollHamletCaretaker(state);
   if (command.type === "beginReturnToHamlet") return beginReturnToHamlet(state);
@@ -708,6 +711,9 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
 
 /** 任一后续规则拒绝时，整次命令回滚骰子、行动和事件。 */
 export function applyCommand(state: GameState, command: Command): ApplyResult {
+  if (command.type === "prepareFinalBattleForms") return prepareFinalBattleForms(state);
+  if (state.dungeon?.finalFormSequence && command.type === "finishDungeonBattle")
+    return finishFinalBattleForm(state);
   if (state.dungeon?.finalBattleProvisions) {
     if (
       state.dungeon.finalBattleProvisions === "awaiting" &&
