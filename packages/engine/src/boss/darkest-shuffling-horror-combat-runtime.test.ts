@@ -10,9 +10,12 @@ import {
   ensureDarkestMidBossScriptsRegistered,
 } from "./darkest-mid-boss-scripts";
 import {
+  applyShufflingHorrorEchoingDisassembly,
   applyShufflingHorrorUndulations,
   DARKEST_MID_BOSS_HERO_STANCE_AREAS,
+  DARKEST_MID_BOSS_MONSTER_STANCE_AREAS,
   SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID,
+  SHUFFLING_HORROR_ECHOING_SUMMON_CARD_IDS,
 } from "./darkest-shuffling-horror-combat-runtime";
 import { bossQuestScriptId } from "./quest-bridge";
 
@@ -28,6 +31,39 @@ const horrorCard: MonsterCardView = {
   skills: [],
   typeTags: ["Eldritch"],
 } as MonsterCardView;
+
+const cultistCard: MonsterCardView = {
+  id: "monster_medium:p072",
+  name: "Cultist Priest",
+  life: 26,
+  dodge: 15,
+  speed: 1,
+  verification: { unverified: false, reasons: [] },
+  skills: [],
+  typeTags: ["Eldritch"],
+  type_position_tags: ["Eldritch", "Beast", "Back"],
+} as MonsterCardView;
+
+const growthCard: MonsterCardView = {
+  id: "monster_medium:p075",
+  name: "Malignant Growth",
+  life: 28,
+  dodge: 0,
+  speed: 1,
+  verification: { unverified: false, reasons: [] },
+  skills: [],
+  typeTags: ["Eldritch"],
+  type_position_tags: ["Eldritch", "Front"],
+} as MonsterCardView;
+
+function monsterStanceAreas() {
+  return Object.values(DARKEST_MID_BOSS_MONSTER_STANCE_AREAS).map((id, index, list) => ({
+    id,
+    elevation: "normal" as const,
+    capacity: 4,
+    adjacent: [list[index - 1], list[index + 1]].filter(Boolean) as string[],
+  }));
+}
 
 function horrorDungeon(): GameState["dungeon"] {
   return {
@@ -83,16 +119,8 @@ function horrorBattle(seed = 7, heroIds = ["h0", "h1", "h2", "h3"]): GameState {
   return {
     ...createBattleState(seed, {
       entities: [...heroes, horror],
-      monsters: [horrorCard],
-      areas: [
-        ...areas,
-        {
-          id: "darkest-mid-boss-aggressive",
-          elevation: "normal",
-          capacity: 4,
-          adjacent: [],
-        },
-      ],
+      monsters: [horrorCard, cultistCard, growthCard],
+      areas: [...areas, ...monsterStanceAreas()],
       light: 4,
       skills: [],
       heroStats: [],
@@ -178,5 +206,167 @@ describe("Shuffling Horror · Undulations", () => {
     );
     const card = abilities.cards.find((entry: { id: string }) => entry.id === "boss_ability:p033");
     expect(card?.combatReady).toBe(false);
+  });
+});
+
+describe("Shuffling Horror · Echoing Disassembly", () => {
+  beforeEach(() => {
+    ensureDarkestMidBossScriptsRegistered();
+    bossQuestScriptId["quest:p016"] = DARKEST_SHUFFLING_HORROR_SCRIPT_ID;
+  });
+
+  it("空槽召唤 Cultist Priest 与 Malignant Growth", () => {
+    const result = applyShufflingHorrorEchoingDisassembly(onHorrorTurn(horrorBattle()), "horror");
+    expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+    const monsters = result.state.battle!.entities.filter(
+      (entity) => entity.side === "monster" && !entity.dead,
+    );
+    expect(monsters).toHaveLength(3);
+    for (const cardId of SHUFFLING_HORROR_ECHOING_SUMMON_CARD_IDS) {
+      const entity = monsters.find((entry) => entry.monsterCardId === cardId);
+      expect(entity?.life).toBe(cardId === "monster_medium:p072" ? 26 : 28);
+      expect(entity?.stanceSlots).toBe(1);
+    }
+    expect(result.state.battle!.encounter!.turn.type).not.toBe("monster");
+  });
+
+  it("已在场则跳过对应召唤物", () => {
+    const base = onHorrorTurn(horrorBattle());
+    const withPriest: GameState = {
+      ...base,
+      battle: {
+        ...base.battle!,
+        entities: [
+          ...base.battle!.entities,
+          {
+            id: "priest",
+            side: "monster",
+            hero: null,
+            monsterCardId: "monster_medium:p072",
+            life: 26,
+            dodge: 15,
+            areaId: DARKEST_MID_BOSS_MONSTER_STANCE_AREAS.defensive,
+            stance: "defensive",
+            stanceSlots: 1,
+            wounds: 0,
+            skillIds: [],
+            guard: false,
+            dead: false,
+            bleed: [],
+            blight: [],
+          },
+        ],
+      },
+    };
+    const result = applyShufflingHorrorEchoingDisassembly(withPriest, "horror");
+    expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+    expect(
+      result.events.find((event) => event.type === "dungeonUpdated")?.message,
+    ).toContain("跳过已在场 monster_medium:p072");
+    expect(
+      result.state.battle!.entities.filter(
+        (entity) => entity.monsterCardId === "monster_medium:p075" && !entity.dead,
+      ),
+    ).toHaveLength(1);
+  });
+
+  it("怪物姿态轨已满则拒绝", () => {
+    const base = onHorrorTurn(horrorBattle());
+    const filled: GameState = {
+      ...base,
+      battle: {
+        ...base.battle!,
+        entities: [
+          ...base.battle!.entities,
+          {
+            id: "filler-a",
+            side: "monster",
+            hero: null,
+            monsterCardId: "monster_medium:p001",
+            life: 7,
+            dodge: 0,
+            areaId: DARKEST_MID_BOSS_MONSTER_STANCE_AREAS.defensive,
+            stance: "defensive",
+            stanceSlots: 1,
+            wounds: 0,
+            skillIds: [],
+            guard: false,
+            dead: false,
+            bleed: [],
+            blight: [],
+          },
+          {
+            id: "filler-b",
+            side: "monster",
+            hero: null,
+            monsterCardId: "monster_medium:p002",
+            life: 7,
+            dodge: 0,
+            areaId: DARKEST_MID_BOSS_MONSTER_STANCE_AREAS.ranged,
+            stance: "ranged",
+            stanceSlots: 1,
+            wounds: 0,
+            skillIds: [],
+            guard: false,
+            dead: false,
+            bleed: [],
+            blight: [],
+          },
+          {
+            id: "filler-c",
+            side: "monster",
+            hero: null,
+            monsterCardId: "monster_medium:p003",
+            life: 7,
+            dodge: 0,
+            areaId: DARKEST_MID_BOSS_MONSTER_STANCE_AREAS.support,
+            stance: "support",
+            stanceSlots: 1,
+            wounds: 0,
+            skillIds: [],
+            guard: false,
+            dead: false,
+            bleed: [],
+            blight: [],
+          },
+        ],
+      },
+    };
+    const result = applyShufflingHorrorEchoingDisassembly(filled, "horror");
+    expect(result.events.some((event) => event.type === "commandRefused")).toBe(true);
+  });
+
+  it("拒绝非 Horror 实体与非 p016 脚本", () => {
+    const state = onHorrorTurn(horrorBattle());
+    expect(
+      applyShufflingHorrorEchoingDisassembly(state, "h0").events.some(
+        (event) => event.type === "commandRefused",
+      ),
+    ).toBe(true);
+    expect(
+      applyShufflingHorrorEchoingDisassembly(
+        {
+          ...state,
+          dungeon: {
+            ...state.dungeon!,
+            questDistribution: { questId: "quest:p017", source: "fixture", counts: [] },
+          },
+        },
+        "horror",
+      ).events.some((event) => event.type === "commandRefused"),
+    ).toBe(true);
+  });
+
+  it("显式命令经 applyCommand 接线", () => {
+    const result = applyCommand(onHorrorTurn(horrorBattle()), {
+      type: "applyShufflingHorrorEchoingDisassembly",
+      actorId: "horror",
+    });
+    expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+    expect(
+      result.events.some(
+        (event) => event.type === "dungeonUpdated" && event.message.includes("Echoing Disassembly"),
+      ),
+    ).toBe(true);
   });
 });

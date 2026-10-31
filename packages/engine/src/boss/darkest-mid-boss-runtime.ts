@@ -63,7 +63,7 @@ function supportDeployedHoldSummary(supportMonsters: readonly SpawnPlacement[]):
 
 function darkestMidBossWiringHold(questId: StoredDarkestBossEncounterPlan["questId"]): string {
   if (questId === "quest:p016") {
-    return "Undulations 已接（显式 applyShufflingHorrorUndulations）；Echoing Disassembly / 召唤执行 / Room Tile 几何 / combatReady 仍 hold";
+    return "Undulations + Echoing Disassembly 召唤已接（显式 applyShufflingHorrorUndulations / applyShufflingHorrorEchoingDisassembly）；Room Tile 正式几何 / combatReady / 完整 AI 仍 hold";
   }
   return "专属 Room Tile 几何、印刷部署与技能执行未获批（combatReady: false）";
 }
