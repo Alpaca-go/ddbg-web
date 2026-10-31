@@ -1,0 +1,179 @@
+{
+ "schema": "ddbg-darkest-monster-pool-v1",
+ "source": {
+  "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_monsters_medium_FRONT.pdf",
+  "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_monsters_medium_BACK.pdf"
+ },
+ "cards": [
+  {
+   "id": "monster_medium:p063",
+   "combatCardId": "monster_medium:p063",
+   "name": "Ascended Brawler",
+   "location": "darkestDungeon",
+   "level": 3,
+   "pages": [
+    63,
+    64,
+    65
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ],
+   "battleReady": false
+  },
+  {
+   "id": "monster_medium:p066",
+   "combatCardId": "monster_medium:p066",
+   "name": "Ascended Witch",
+   "location": "darkestDungeon",
+   "level": 3,
+   "pages": [
+    66,
+    67,
+    68
+   ],
+   "edge": "back",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ],
+   "battleReady": false
+  },
+  {
+   "id": "monster_medium:p069",
+   "combatCardId": "monster_medium:p069",
+   "name": "Rapturous Cultist",
+   "location": "darkestDungeon",
+   "level": 3,
+   "pages": [
+    69,
+    70,
+    71
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ],
+   "battleReady": false
+  },
+  {
+   "id": "monster_medium:p072",
+   "combatCardId": "monster_medium:p072",
+   "name": "Cultist Priest",
+   "location": "darkestDungeon",
+   "level": 3,
+   "pages": [
+    72,
+    73,
+    74
+   ],
+   "edge": "back",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ],
+   "battleReady": false
+  },
+  {
+   "id": "monster_medium:p075",
+   "combatCardId": "monster_medium:p075",
+   "name": "Malignant Growth",
+   "location": "darkestDungeon",
+   "level": 3,
+   "pages": [
+    75,
+    76,
+    77
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ],
+   "battleReady": false
+  },
+  {
+   "id": "monster_medium:p078",
+   "combatCardId": "monster_medium:p078",
+   "name": "Flesh Hound",
+   "location": "darkestDungeon",
+   "level": 3,
+   "pages": [
+    78,
+    79
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ],
+   "battleReady": false
+  },
+  {
+   "id": "monster_medium:p080",
+   "combatCardId": "monster_medium:p080",
+   "name": "Polyp",
+   "location": "darkestDungeon",
+   "level": 3,
+   "pages": [
+    80,
+    81,
+    82
+   ],
+   "edge": "back",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ],
+   "battleReady": false
+  },
+  {
+   "id": "monster_medium:p083",
+   "combatCardId": "monster_medium:p083",
+   "name": "Antibody",
+   "location": "darkestDungeon",
+   "level": 3,
+   "pages": [
+    83,
+    84,
+    85
+   ],
+   "edge": "front",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ],
+   "battleReady": false
+  },
+  {
+   "id": "monster_medium:p086",
+   "combatCardId": "monster_medium:p086",
+   "name": "Defensive Growth",
+   "location": "darkestDungeon",
+   "level": 3,
+   "pages": [
+    86,
+    87,
+    88
+   ],
+   "edge": "back",
+   "stanceSlots": 1,
+   "missingBattleFields": [
+    "speed",
+    "stanceGroups"
+   ],
+   "battleReady": false
+  }
+ ]
+}

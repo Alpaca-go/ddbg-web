@@ -1,3 +1,4 @@
+import { buildDarkestMonsterPool } from "./darkest-monster-pool";
 import { attachVerifiedCollectedLife } from "./verified-collected-life";
 import type { IconDictionary } from "../dictionary/schema";
 import type {
@@ -90,6 +91,7 @@ export type NormalizedCorebox = {
   hamlet_event: ReturnType<typeof buildHamletEvents>;
   disease: ReturnType<typeof buildDiseases>;
   monster_pool: ReturnType<typeof buildMonsterPool>;
+  darkest_monster_pool: ReturnType<typeof buildDarkestMonsterPool>;
   room: ReturnType<typeof buildRooms>;
   curio: ReturnType<typeof buildCurios>;
   hero_stat: NormalizedHeroStatFile;
@@ -622,6 +624,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
     disease: buildDiseases(input.diseases, input.dictionary),
     hamlet_event: buildHamletEvents(input.hamletEvents),
     monster_pool: buildMonsterPool(input.monsterMediumRaw, medium, large),
+    darkest_monster_pool: buildDarkestMonsterPool(input.monsterMediumRaw, medium),
     room: buildRooms(input.rooms),
     curio: buildCurios(input.curios, input.dictionary),
     hero_stat: (() => {
