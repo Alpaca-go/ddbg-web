@@ -20,6 +20,22 @@ function livingHeart(battle: BattleState) {
   );
 }
 
+/** boss_ability:p037 + `monster_large:p020` 页脚 Stance/Skill Eligibility（R-139）。 */
+export function impendingDoomSkillSlotFromDie(die: number): 1 | 2 | 3 | null {
+  if (!Number.isInteger(die) || die < 1 || die > 10) return null;
+  if (die <= 4) return 1;
+  if (die <= 7) return 2;
+  return 3;
+}
+
+export function impendingDoomSkillLabelFromDie(die: number): "Know This" | "Puncture" | "Dissolution" | null {
+  const slot = impendingDoomSkillSlotFromDie(die);
+  if (slot === 1) return "Know This";
+  if (slot === 2) return "Puncture";
+  if (slot === 3) return "Dissolution";
+  return null;
+}
+
 function rollImpendingDoomDie(
   battle: BattleState,
   seed: number,
@@ -31,7 +47,7 @@ function rollImpendingDoomDie(
     events: [
       {
         type: "dungeonUpdated",
-        message: `Heart of Darkness · Impending Doom：落位 d10=${die}（boss_ability:p037；技能映射与执行 hold）`,
+        message: `Heart of Darkness · Impending Doom：落位 d10=${die}（boss_ability:p037；下回合按 R-139 映射选招）`,
       },
     ],
   };

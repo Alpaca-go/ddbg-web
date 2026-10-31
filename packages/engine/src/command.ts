@@ -93,6 +93,7 @@ import {
 } from "./boss/ancestor2-skills-acc";
 import {
   applyHeartOfDarknessDissolution,
+  applyHeartOfDarknessImpendingDoomSkill,
   applyHeartOfDarknessKnowThis,
   applyHeartOfDarknessPuncture,
 } from "./boss/heart-of-darkness-skills-acc";
@@ -272,6 +273,7 @@ type BaseCommand =
   | { readonly type: "applyAncestor1PerfectReplication"; readonly actorId: string }
   | { readonly type: "applyAncestor1ImperfectReproduction"; readonly actorId: string }
   | { readonly type: "applyHeartOfDarknessImpendingDoomRoll"; readonly actorId: string }
+  | { readonly type: "applyHeartOfDarknessImpendingDoomSkill"; readonly actorId: string }
   | { readonly type: "applyAncestor2SwiftTeleportation"; readonly actorId: string }
   | { readonly type: "applyAncestor2DeployAbsoluteNothingness" }
   | { readonly type: "applyAncestor2RefashionThem"; readonly actorId: string }
@@ -785,6 +787,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return applyAncestor1ImperfectReproduction(state, command.actorId);
   if (command.type === "applyHeartOfDarknessImpendingDoomRoll")
     return applyHeartOfDarknessImpendingDoomRoll(state, command.actorId);
+  if (command.type === "applyHeartOfDarknessImpendingDoomSkill")
+    return applyHeartOfDarknessImpendingDoomSkill(state, command.actorId);
   if (command.type === "applyAncestor2SwiftTeleportation")
     return applyAncestor2SwiftTeleportation(state, command.actorId);
   if (command.type === "applyAncestor2DeployAbsoluteNothingness")

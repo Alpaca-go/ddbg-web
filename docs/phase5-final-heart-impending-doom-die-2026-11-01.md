@@ -1,6 +1,6 @@
 # 最终战 Heart of Darkness · Impending Doom 骰子落位
 
-相对 #450（Imperfect Reproduction）与 [final-battle initiative 切片](phase5-final-battle-initiative-2026-10-31.md)：只接通 **boss_ability:p037** 首句与第二句中的 **d10 落位**，不执行 Know This / Puncture / Dissolution，不改 `combatReady`。
+相对 #450（Imperfect Reproduction）与 [final-battle initiative 切片](phase5-final-battle-initiative-2026-10-31.md)：接通 **boss_ability:p037** 的 **d10 落位**；**d10→技能映射**见 [Impending Doom 技能映射](phase5-final-heart-impending-doom-skill-map-2026-11-01.md) 与 **R-139**。不改 `combatReady`。
 
 ## 规则来源
 
@@ -21,13 +21,13 @@
 
 ## hold / 未接
 
-- **d10 → 技能映射**：Know This / Puncture / Dissolution 卡面均为 range **0–10**，能力卡未印明确分段表；**不得自造 1–3 映射**。
-- 按落位骰 **自动或手动执行** 上述技能、Absolute Nothingness、Swift Teleportation、Pit Toss、Room Tile 几何、Phase 6、完整 Heart AI。
-- `combatReady: true` 前的完整 Boss 运行时。
+- 三招 **效果线**（压力/光照等）至 `verified_monster_effects` 入库前不结算。
+- ~~**d10 → 技能映射**~~ → 已接（R-139、[技能映射文档](phase5-final-heart-impending-doom-skill-map-2026-11-01.md)）。
+- Absolute Nothingness、Swift Teleportation、Pit Toss、Room Tile 几何、Phase 6、完整 Heart AI（`combatReady: true` 前）。
 
 ## 待确认
 
-- **Q**：Impending Doom 的 d10 面值与三技能 range 0–10 的对应关系（官方规则书 / 卡面核对后写入 `docs/rulings.md`）。
+- ~~**Q**：Impending Doom 的 d10 面值与三技能 range 0–10 的对应关系~~ → **R-139** 已裁定。
 
 ## 验证
 

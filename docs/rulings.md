@@ -1799,3 +1799,17 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**：Kyries 本聊天选择“允许弃掉已有补给，腾位后领取奖励”。保留已掷本颗结果，玩家选择弃已有一颗后加入；Wild 再选择面，不重掷、不超过16。四名英雄各一次，奖励步骤完成后进行免费8点休息；原柴火保留（R36）。本条仅处理挖掘点溢出，不扩散其它奖励源。
 - **依据**：官方 R12 补给池上限16、R36 Excavation Site；Kyries 本聊天明确回复。
 - **状态**：Kyries 已确认。
+
+### R-139
+
+- **编号**：R-139
+- **日期**：2026-10-31（UTC）
+- **问题**：Heart of Darkness · Impending Doom（`boss_ability:p037`）提前掷的 d10 如何对应 Know This / Puncture / Dissolution？与卡面射程 0–10、Ancestor2 传送骰有何区别？
+- **裁定**：
+  - **出处**：能力卡 `boss_ability:p037` 第二句「corresponding Skill」；战斗卡 `monster_large:p020` 页脚 **Stance/Skill Eligibility** d10 区间表（按 **R-015** 读卡脚 d10 区间→技能编号）；官方规则书约 p41 说明该骰为**提前掷的选招骰**（下次 Heart 回合使用），不是攻击骰。
+  - **映射**（整数 d10，1–10）：**1–4 → Know This（slot 1）**；**5–7 → Puncture（slot 2）**；**8–10 → Dissolution（slot 3）**。
+  - **边界**：三招卡面 **range 0–10** 是**射程**（`verified_range`），不是 Impending Doom 映射表；**勿**与 Ancestor2 · Swift Teleportation（`boss_ability:p035`）行动内 d10→姿态传送（1–3/4–6/7–9/10 不传送）混用。
+  - **引擎**：开战与 Heart 每次行动结束覆盖 `battle.impendingDoomDie`（#451）；Heart 怪物回合用 `applyHeartOfDarknessImpendingDoomSkill` 读落位骰并调用 #456 Acc 命令；无骰或非法面值拒绝。
+- **依据 / 出处**：Kyries 2026-10-31 批准确认；印刷 `boss_ability:p037`、`monster_large:p020` 页脚、规则书 p41；R-001、R-015、R-048。
+- **关联**：#451、#456；[phase5-final-heart-impending-doom-skill-map-2026-11-01.md](phase5-final-heart-impending-doom-skill-map-2026-11-01.md)。
+- **状态**：Kyries 已确认。

@@ -5,6 +5,8 @@ import { selectMonsterTarget, type MonsterTargetHero } from "../monster-target";
 import { readMonsterAttackView } from "../monster-skill";
 import {
   HEART_OF_DARKNESS_MONSTER_CARD_ID,
+  impendingDoomSkillLabelFromDie,
+  impendingDoomSkillSlotFromDie,
 } from "./heart-of-darkness-impending-doom";
 import { readFinalFormSequence } from "./final-form-sequence";
 
@@ -151,6 +153,47 @@ export function applyHeartOfDarknessDissolution(state: GameState, actorId: strin
   return runHeartOfDarknessSkillAcc(state, actorId, DISSOLUTION_SKILL_SLOT, "Dissolution");
 }
 
+/**
+ * 读取 `battle.impendingDoomDie`，按 R-139 映射执行 Know This / Puncture / Dissolution（Acc 路径）。
+ */
+export function applyHeartOfDarknessImpendingDoomSkill(
+  state: GameState,
+  actorId: string,
+): ApplyResult {
+  const resolved = resolveHeartOfDarknessActor(state, actorId, "Impending Doom 选招");
+  if ("events" in resolved) return resolved;
+  const die = resolved.battle.impendingDoomDie;
+  if (die === undefined)
+    return rejectBattleCommand(
+      state,
+      "Impending Doom 尚无落位骰（须开战或上回合 Heart 行动后落骰；boss_ability:p037）",
+    );
+  const slot = impendingDoomSkillSlotFromDie(die);
+  const label = impendingDoomSkillLabelFromDie(die);
+  if (slot === null || label === null)
+    return rejectBattleCommand(
+      state,
+      `Impending Doom 落位骰面值非法：${String(die)}（须为整数 1–10；R-139）`,
+    );
+  const played =
+    slot === KNOW_THIS_SKILL_SLOT
+      ? applyHeartOfDarknessKnowThis(state, actorId)
+      : slot === PUNCTURE_SKILL_SLOT
+        ? applyHeartOfDarknessPuncture(state, actorId)
+        : applyHeartOfDarknessDissolution(state, actorId);
+  if (played.events.some((event) => event.type === "commandRefused")) return played;
+  return {
+    ...played,
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: `Heart of Darkness · Impending Doom：d10=${die} → ${label}（slot ${slot}；boss_ability:p037 / R-139）`,
+      },
+      ...played.events,
+    ],
+  };
+}
+
 export type ApplyHeartOfDarknessKnowThisCommand = {
   readonly type: "applyHeartOfDarknessKnowThis";
   readonly actorId: string;
@@ -163,5 +206,10 @@ export type ApplyHeartOfDarknessPunctureCommand = {
 
 export type ApplyHeartOfDarknessDissolutionCommand = {
   readonly type: "applyHeartOfDarknessDissolution";
+  readonly actorId: string;
+};
+
+export type ApplyHeartOfDarknessImpendingDoomSkillCommand = {
+  readonly type: "applyHeartOfDarknessImpendingDoomSkill";
   readonly actorId: string;
 };
