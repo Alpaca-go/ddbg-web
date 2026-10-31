@@ -6,9 +6,11 @@ import { trinketPoolProblem } from "./trinket-acquisition";
 import { resolveBattlePressure } from "./pressure";
 import { resolveSeededHeroHealth } from "./hero-health";
 import { healingForbidden } from "./battle-healing";
-import { passiveHeal } from "./passive";
+import { passiveDamageWounds, passiveHeal } from "./passive";
 import { statusProjection } from "./status";
 import { finalizeFreeTrinketDuringMonsterTurn } from "./battle-monster-retarget";
+import { resolveAttackDamage } from "./attack-damage";
+import { damageTrinketReaction } from "./trinket-reactions";
 
 // R26 / §11.2 / R-028；完整印刷 p015/017/018/027/028/030/035–038 逐面绑定。
 const definitions = {
@@ -104,6 +106,19 @@ const definitions = {
 } as const;
 export type FreeTrinketId = keyof typeof definitions;
 export const FREE_TRINKET_IDS = Object.keys(definitions) as FreeTrinketId[];
+/** 反面在角色回合间隙可 `useTrinket`；与 core-trinket-free `freeFaces` 主动面一致。 */
+export const FREE_TRINKET_INVERTED_ACTIVE_USE = [
+  "trinket:p027",
+  "trinket:p030",
+  "trinket:p036",
+  "trinket:p037",
+] as const satisfies readonly FreeTrinketId[];
+/** 反面已在受击/防御窗（defenceTrinketReaction）接通，不接受独立 useTrinket。 */
+export const FREE_TRINKET_INVERTED_DEFENCE_REACTION = [
+  "trinket:p015",
+  "trinket:p017",
+  "trinket:p018",
+] as const satisfies readonly FreeTrinketId[];
 export function isFreeTrinketId(id: string): id is FreeTrinketId {
   return Object.hasOwn(definitions, id);
 }
@@ -168,8 +183,12 @@ export function freeTrinketUseProblem(
     held = pool.held.find((h) => h.cardId === id && h.heroId === actorId);
   if (!card || !matches(card, id)) return "饰品卡面发生变化（R-048）";
   if (!held || b.usedTrinketIds?.includes(id)) return "未持有或本角色回合已使用（R26、R-028）";
-  if (held.face === "inverted" && !["trinket:p027", "trinket:p030", "trinket:p037"].includes(id))
-    return "此反面所需时点尚未接通（R-048）";
+  if (held.face === "inverted") {
+    if ((FREE_TRINKET_INVERTED_DEFENCE_REACTION as readonly string[]).includes(id))
+      return "此反面在受击防御窗选用，不可用独立命令（R26、R-048）";
+    if (!(FREE_TRINKET_INVERTED_ACTIVE_USE as readonly string[]).includes(id))
+      return "此反面所需时点尚未接通（R-048）";
+  }
   if (held.face === "upright") {
     if ((id === "trinket:p028" && b.light > 3) || (id === "trinket:p035" && b.light < 3))
       return "光照不满足卡面条件";
@@ -279,6 +298,28 @@ export function useFreeTrinket(
     }
   }
   if (!upright && cardId === "trinket:p037") b = { ...b, light: Math.max(0, b.light - 2) };
+  if (!upright && cardId === "trinket:p036") {
+    const hero = b.entities.find((e) => e.id === actorId)!;
+    const damage = resolveAttackDamage(hero, 6, false, false).damageDealt;
+    const wounds =
+      damage > 0 ? damageTrinketReaction(b, actorId, [damage, ...passiveDamageWounds(hero)]) : [];
+    if (wounds.length) {
+      const paid = triggerBattlePassive(b, state.seed, [actorId], {
+        type: "stress",
+        amount: 0,
+        woundAmounts: wounds,
+      });
+      if (paid.status === "refused") return rejectBattleCommand(state, paid.reason);
+      b = paid.battle;
+      events.push(...paid.events);
+    }
+    if (damage > 0 && !b.entities.find((e) => e.id === actorId)!.dead) {
+      const taken = triggerBattlePassive(b, state.seed, [actorId], "damageTaken");
+      if (taken.status === "refused") return rejectBattleCommand(state, taken.reason);
+      b = taken.battle;
+      events.push(...taken.events);
+    }
+  }
   b = {
     ...b,
     usedTrinketIds: [...(b.usedTrinketIds ?? []), cardId],
