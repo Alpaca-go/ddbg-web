@@ -1,4 +1,5 @@
 import { RUINS_BOSS_CATALOG_CARD_IDS } from "../../packages/engine/src/boss/ruins-combat-levels";
+import { coreHigherSkillAvailable } from "../../packages/engine/src/core-higher-skill-catalog";
 import { readFileSync } from "node:fs";
 import type { Plugin } from "vite";
 import {
@@ -122,6 +123,8 @@ export function battleDataPlugin(): Plugin {
           skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
       }
       const allHeroSkills = normalizedHeroSkillFileSchema.parse(read("hero_skill")).cards;
+      if (currentQuest)
+        for (const card of allHeroSkills) if (coreHigherSkillAvailable(card)) skillIds.add(card.id);
       if (graveOccultist) {
         for (const hero of [
           "JESTER",

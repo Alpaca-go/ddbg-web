@@ -1,0 +1,1631 @@
+[
+  {
+    "id": "hero_skill:p044",
+    "name": "Collect Bounty",
+    "level": 2,
+    "original": ["{target_effects} {damage} +2 vs Humans", "{damage} +3 vs {mark}"],
+    "lines": ["{target_effects} {damage} +2 vs Humans", "{target_effects} {damage} +3 vs {mark}"],
+    "flags": {
+      "verified_damage_bonuses": [
+        {
+          "lineIndex": 0,
+          "amount": 2,
+          "condition": "human",
+          "source": "print_front"
+        },
+        {
+          "lineIndex": 1,
+          "amount": 3,
+          "condition": "marked",
+          "source": "print_front"
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p045",
+    "name": "Collect Bounty",
+    "level": 3,
+    "original": ["{target_effects} {damage} +2 vs Humans", "{damage} +3 vs {mark}"],
+    "lines": ["{target_effects} {damage} +2 vs Humans", "{target_effects} {damage} +3 vs {mark}"],
+    "flags": {
+      "verified_damage_bonuses": [
+        {
+          "lineIndex": 0,
+          "amount": 2,
+          "condition": "human",
+          "source": "print_front"
+        },
+        {
+          "lineIndex": 1,
+          "amount": 3,
+          "condition": "marked",
+          "source": "print_front"
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p047",
+    "name": "Mark for Death",
+    "level": 2,
+    "original": ["{target_effects} {mark} 3t, {debuff} 2t", "{self_effects} Self {buff} 3t"],
+    "lines": ["{target_effects} {mark} 3t, {debuff} 2t", "{self_effects} Self {buff} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "mark",
+          "duration": 3
+        },
+        {
+          "lineIndex": 0,
+          "segmentIndex": 4,
+          "scope": "target",
+          "kind": "debuff",
+          "duration": 2
+        },
+        {
+          "lineIndex": 1,
+          "segmentIndex": 2,
+          "scope": "self",
+          "kind": "buff",
+          "duration": 3
+        }
+      ],
+      "verified_range": {
+        "min": 0,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p050",
+    "name": "Come Hither",
+    "level": 2,
+    "original": ["{target_effects} {mark} 2t, {shuffle} Pull 2"],
+    "lines": ["{target_effects} {mark} 2t, {shuffle} Pull 2"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "mark",
+          "duration": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p051",
+    "name": "Come Hither",
+    "level": 3,
+    "original": ["{target_effects} {mark} 3t, {shuffle} Pull 2"],
+    "lines": ["{target_effects} {mark} 3t, {shuffle} Pull 2"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "mark",
+          "duration": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p053",
+    "name": "Uppercut",
+    "level": 2,
+    "original": ["{target_effects} {stun} 1t, {shuffle} Push 2"],
+    "lines": ["{target_effects} {stun} 1t, {shuffle} Push 2"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p054",
+    "name": "Uppercut",
+    "level": 3,
+    "original": ["{target_effects} {stun} 1t, {shuffle} Push 2"],
+    "lines": ["{target_effects} {stun} 1t, {shuffle} Push 2"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p056",
+    "name": "Flashbang",
+    "level": 2,
+    "original": ["{target_effects} {stun} 1t, {shuffle} Push 2 or {shuffle} Pull 2"],
+    "lines": ["{target_effects} {stun} 1t, {shuffle} Push 2 or {shuffle} Pull 2"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 1
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p057",
+    "name": "Flashbang",
+    "level": 3,
+    "original": ["{target_effects} {stun} 1t, {shuffle} Push 3 or {shuffle} Pull 3"],
+    "lines": ["{target_effects} {stun} 1t, {shuffle} Push 3 or {shuffle} Pull 3"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 1
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p059",
+    "name": "Finish Him",
+    "level": 2,
+    "original": ["{target_effects} {damage} +3 vs {stun}"],
+    "lines": ["{target_effects} {damage} +3 vs {stun}"],
+    "flags": {
+      "verified_damage_bonus": {
+        "lineIndex": 0,
+        "amount": 3,
+        "condition": "stunned",
+        "source": "print_front"
+      },
+      "verified_range": {
+        "min": 0,
+        "max": 1,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p060",
+    "name": "Finish Him",
+    "level": 3,
+    "original": ["{target_effects} {damage} +4 vs {stun}"],
+    "lines": ["{target_effects} {damage} +4 vs {stun}"],
+    "flags": {
+      "verified_damage_bonus": {
+        "lineIndex": 0,
+        "amount": 4,
+        "condition": "stunned",
+        "source": "print_front"
+      },
+      "verified_range": {
+        "min": 0,
+        "max": 1,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p062",
+    "name": "Caltrops",
+    "level": 2,
+    "original": ["{target_effects} 3 {bleed} 2t, {debuff} 2t"],
+    "lines": ["{target_effects} 3 {bleed} 2t, {debuff} 2t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "bleed",
+          "duration": 2,
+          "amount": 3
+        },
+        {
+          "lineIndex": 0,
+          "segmentIndex": 4,
+          "scope": "target",
+          "kind": "debuff",
+          "duration": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p110",
+    "name": "Harvest",
+    "level": 2,
+    "original": ["{target_effects} 2 {bleed} 3t"],
+    "lines": ["{target_effects} 2 {bleed} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "bleed",
+          "duration": 3,
+          "amount": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p111",
+    "name": "Harvest",
+    "level": 3,
+    "original": ["{target_effects} 3 {bleed} 3t"],
+    "lines": ["{target_effects} 3 {bleed} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "bleed",
+          "duration": 3,
+          "amount": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p116",
+    "name": "Solo",
+    "level": 2,
+    "original": ["{target_effects} {stun} 1t", "{self_effects} Self {buff} 2t, {shuffle} Pull 2"],
+    "lines": ["{target_effects} {stun} 1t", "{self_effects} Self {buff} 2t, {shuffle} Pull 2"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 1
+        },
+        {
+          "lineIndex": 1,
+          "segmentIndex": 2,
+          "scope": "self",
+          "kind": "buff",
+          "duration": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p117",
+    "name": "Solo",
+    "level": 3,
+    "original": ["{target_effects} {stun} 2t", "{self_effects} Self {buff} 3t, {shuffle} Pull 2"],
+    "lines": ["{target_effects} {stun} 2t", "{self_effects} Self {buff} 3t, {shuffle} Pull 2"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 2
+        },
+        {
+          "lineIndex": 1,
+          "segmentIndex": 2,
+          "scope": "self",
+          "kind": "buff",
+          "duration": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p119",
+    "name": "Battle Ballad",
+    "level": 2,
+    "original": [
+      "{range} 1 {target_hero} {target_hero} {target_hero}",
+      "{self_effects} Self {buff} 3t",
+      "{target_effects} {buff} 3t"
+    ],
+    "lines": [
+      "{range} 1 {target_hero} {target_hero} {target_hero}",
+      "{self_effects} Self {buff} 3t",
+      "{target_effects} {buff} 3t"
+    ],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 1,
+          "segmentIndex": 2,
+          "scope": "self",
+          "kind": "buff",
+          "duration": 3
+        },
+        {
+          "lineIndex": 2,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "buff",
+          "duration": 3
+        }
+      ],
+      "verified_target_header": {
+        "lineIndex": 0,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p120",
+    "name": "Battle Ballad",
+    "level": 3,
+    "original": [
+      "{range} 1 {target_hero} {target_hero} {target_hero}",
+      "{self_effects} Self {buff} 4t",
+      "{target_effects} {buff} 4t"
+    ],
+    "lines": [
+      "{range} 1 {target_hero} {target_hero} {target_hero}",
+      "{self_effects} Self {buff} 4t",
+      "{target_effects} {buff} 4t"
+    ],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 1,
+          "segmentIndex": 2,
+          "scope": "self",
+          "kind": "buff",
+          "duration": 4
+        },
+        {
+          "lineIndex": 2,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "buff",
+          "duration": 4
+        }
+      ],
+      "verified_target_header": {
+        "lineIndex": 0,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p125",
+    "name": "Slice Off",
+    "level": 2,
+    "original": ["{target_effects} 3 {bleed} 2t"],
+    "lines": ["{target_effects} 3 {bleed} 2t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "bleed",
+          "duration": 2,
+          "amount": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p126",
+    "name": "Slice Off",
+    "level": 3,
+    "original": ["{target_effects} 3 {bleed} 3t"],
+    "lines": ["{target_effects} 3 {bleed} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "bleed",
+          "duration": 3,
+          "amount": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p128",
+    "name": "Noxious Blast",
+    "level": 2,
+    "original": ["{target_effects} 4 {blight} 3t, {debuff} 1t"],
+    "lines": ["{target_effects} 4 {blight} 3t, {debuff} 1t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "blight",
+          "duration": 3,
+          "amount": 4
+        },
+        {
+          "lineIndex": 0,
+          "segmentIndex": 4,
+          "scope": "target",
+          "kind": "debuff",
+          "duration": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p129",
+    "name": "Noxious Blast",
+    "level": 3,
+    "original": ["{target_effects} 4 {blight} 3t, {debuff} 2t"],
+    "lines": ["{target_effects} 4 {blight} 3t, {debuff} 2t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "blight",
+          "duration": 3,
+          "amount": 4
+        },
+        {
+          "lineIndex": 0,
+          "segmentIndex": 4,
+          "scope": "target",
+          "kind": "debuff",
+          "duration": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p131",
+    "name": "Plague Grenade",
+    "level": 2,
+    "original": ["{target_effects} 3 {blight} 3t"],
+    "lines": ["{target_effects} 3 {blight} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "blight",
+          "duration": 3,
+          "amount": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p132",
+    "name": "Plague Grenade",
+    "level": 3,
+    "original": ["{target_effects} 3 {blight} 3t"],
+    "lines": ["{target_effects} 3 {blight} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "blight",
+          "duration": 3,
+          "amount": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p134",
+    "name": "Blinding Gas",
+    "level": 2,
+    "original": ["{target_effects} {stun} 1t"],
+    "lines": ["{target_effects} {stun} 1t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 1
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p135",
+    "name": "Blinding Gas",
+    "level": 3,
+    "original": ["{target_effects} {stun} 1t"],
+    "lines": ["{target_effects} {stun} 1t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 1
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p137",
+    "name": "Incision",
+    "level": 2,
+    "original": ["{target_effects} 2 {bleed} 3t"],
+    "lines": ["{target_effects} 2 {bleed} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "bleed",
+          "duration": 3,
+          "amount": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p138",
+    "name": "Incision",
+    "level": 3,
+    "original": ["{target_effects} 3 {bleed} 3t"],
+    "lines": ["{target_effects} 3 {bleed} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "bleed",
+          "duration": 3,
+          "amount": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p143",
+    "name": "Emboldening Vapours",
+    "level": 2,
+    "original": [
+      "{range} 1 {target_hero}",
+      "{self_effects} Self {buff} 3t",
+      "{target_effects} {buff} 3t"
+    ],
+    "lines": [
+      "{range} 1 {target_hero}",
+      "{self_effects} Self {buff} 3t",
+      "{target_effects} {buff} 3t"
+    ],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 1,
+          "segmentIndex": 2,
+          "scope": "self",
+          "kind": "buff",
+          "duration": 3
+        },
+        {
+          "lineIndex": 2,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "buff",
+          "duration": 3
+        }
+      ],
+      "verified_target_header": {
+        "lineIndex": 0,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p144",
+    "name": "Emboldening Vapours",
+    "level": 3,
+    "original": [
+      "{range} 1 {target_hero}",
+      "{self_effects} Self {buff} 4t",
+      "{target_effects} {buff} 4t"
+    ],
+    "lines": [
+      "{range} 1 {target_hero}",
+      "{self_effects} Self {buff} 4t",
+      "{target_effects} {buff} 4t"
+    ],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 1,
+          "segmentIndex": 2,
+          "scope": "self",
+          "kind": "buff",
+          "duration": 4
+        },
+        {
+          "lineIndex": 2,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "buff",
+          "duration": 4
+        }
+      ],
+      "verified_target_header": {
+        "lineIndex": 0,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p146",
+    "name": "Disorienting Blast",
+    "level": 2,
+    "original": ["{target_effects} {shuffle} Push 2 or Pull 2", "{stun} 1t"],
+    "lines": ["{target_effects} {shuffle} Push 2 or Pull 2", "{stun} 1t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 1,
+          "segmentIndex": 0,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 1,
+          "scopeLineIndex": 0
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p147",
+    "name": "Disorienting Blast",
+    "level": 3,
+    "original": ["{target_effects} {shuffle} Push 2 or Pull 2", "{stun} 1t"],
+    "lines": ["{target_effects} {shuffle} Push 2 or Pull 2", "{stun} 1t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 1,
+          "segmentIndex": 0,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 1,
+          "scopeLineIndex": 0
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p149",
+    "name": "Sniper Shot",
+    "level": 2,
+    "original": ["{target_effects} {damage} +5 vs {mark}"],
+    "lines": ["{target_effects} {damage} +5 vs {mark}"],
+    "flags": {
+      "verified_damage_bonus": {
+        "lineIndex": 0,
+        "amount": 5,
+        "condition": "marked",
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p150",
+    "name": "Sniper Shot",
+    "level": 3,
+    "original": ["{target_effects} {damage} +9 vs {mark}"],
+    "lines": ["{target_effects} {damage} +9 vs {mark}"],
+    "flags": {
+      "verified_damage_bonus": {
+        "lineIndex": 0,
+        "amount": 9,
+        "condition": "marked",
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p152",
+    "name": "Suppressive Fire",
+    "level": 2,
+    "original": ["{target_effects} {debuff} 2t"],
+    "lines": ["{target_effects} {debuff} 2t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "debuff",
+          "duration": 2
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p153",
+    "name": "Suppressive Fire",
+    "level": 3,
+    "original": ["{target_effects} {debuff} 3t"],
+    "lines": ["{target_effects} {debuff} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "debuff",
+          "duration": 3
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p155",
+    "name": "Sniper’s Mark",
+    "level": 2,
+    "original": ["{target_effects} {mark} 3t"],
+    "lines": ["{target_effects} {mark} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "mark",
+          "duration": 3
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p156",
+    "name": "Sniper’s Mark",
+    "level": 3,
+    "original": ["{target_effects} {mark} 4t"],
+    "lines": ["{target_effects} {mark} 4t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "mark",
+          "duration": 4
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p161",
+    "name": "Blindfire",
+    "level": 2,
+    "original": ["{self_effects} Self {shuffle} Push 2"],
+    "lines": ["{self_effects} Self {shuffle} Push 2"],
+    "flags": {
+      "verified_range": {
+        "min": 0,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p162",
+    "name": "Blindfire",
+    "level": 3,
+    "original": ["{self_effects} Self {shuffle} Push 2"],
+    "lines": ["{self_effects} Self {shuffle} Push 2"],
+    "flags": {
+      "verified_range": {
+        "min": 0,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p164",
+    "name": "Battlefield Bandage",
+    "level": 2,
+    "original": ["{self_effects} Self {buff} 2t"],
+    "lines": ["{self_effects} Self {buff} 2t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "self",
+          "kind": "buff",
+          "duration": 2
+        }
+      ],
+      "verified_range": {
+        "min": 0,
+        "max": 1,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p165",
+    "name": "Battlefield Bandage",
+    "level": 3,
+    "original": ["{self_effects} Self {buff} 2t"],
+    "lines": ["{self_effects} Self {buff} 2t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "self",
+          "kind": "buff",
+          "duration": 2
+        }
+      ],
+      "verified_range": {
+        "min": 0,
+        "max": 1,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p167",
+    "name": "Rallying Flare",
+    "level": 2,
+    "original": [
+      "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",
+      "{target_monster} : {debuff} 2t"
+    ],
+    "lines": [
+      "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",
+      "{target_monster} : {debuff} 2t"
+    ],
+    "flags": {
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p168",
+    "name": "Rallying Flare",
+    "level": 3,
+    "original": [
+      "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",
+      "{target_monster} : {debuff} 2t"
+    ],
+    "lines": [
+      "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",
+      "{target_monster} : {debuff} 2t"
+    ],
+    "flags": {
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p173",
+    "name": "Lunge",
+    "level": 2,
+    "original": [
+      "{self_effects} Self {shuffle} Pull 2",
+      "{target_effects} {damage} +4 vs {blight}"
+    ],
+    "lines": ["{self_effects} Self {shuffle} Pull 2", "{target_effects} {damage} +4 vs {blight}"],
+    "flags": {
+      "verified_damage_bonus": {
+        "lineIndex": 1,
+        "amount": 4,
+        "condition": "blighted",
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p174",
+    "name": "Lunge",
+    "level": 3,
+    "original": [
+      "{self_effects} Self {shuffle} Pull 2",
+      "{target_effects} {damage} +6 vs {blight}"
+    ],
+    "lines": ["{self_effects} Self {shuffle} Pull 2", "{target_effects} {damage} +6 vs {blight}"],
+    "flags": {
+      "verified_damage_bonus": {
+        "lineIndex": 1,
+        "amount": 6,
+        "condition": "blighted",
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p176",
+    "name": "Flashing Daggers",
+    "level": 2,
+    "original": ["{target_effects} {debuff} 1t"],
+    "lines": ["{target_effects} {debuff} 1t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "debuff",
+          "duration": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p177",
+    "name": "Flashing Daggers",
+    "level": 3,
+    "original": ["{target_effects} {debuff} 2t"],
+    "lines": ["{target_effects} {debuff} 2t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "debuff",
+          "duration": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p179",
+    "name": "Shadow Fade",
+    "level": 2,
+    "original": ["{range} Self", "{self_effects} Self {buff} 3t, {shuffle} Push 2"],
+    "lines": ["{range} Self", "{self_effects} Self {buff} 3t, {shuffle} Push 2"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 1,
+          "segmentIndex": 2,
+          "scope": "self",
+          "kind": "buff",
+          "duration": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p180",
+    "name": "Shadow Fade",
+    "level": 3,
+    "original": ["{range} Self", "{self_effects} Self {buff} 4t, {shuffle} Push 2"],
+    "lines": ["{range} Self", "{self_effects} Self {buff} 4t, {shuffle} Push 2"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 1,
+          "segmentIndex": 2,
+          "scope": "self",
+          "kind": "buff",
+          "duration": 4
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p182",
+    "name": "Throw Dagger",
+    "level": 2,
+    "original": ["{target_effects} {damage} +2 vs {blight}", "{damage} +3 vs {mark}"],
+    "lines": ["{target_effects} {damage} +2 vs {blight}", "{target_effects} {damage} +3 vs {mark}"],
+    "flags": {
+      "verified_damage_bonuses": [
+        {
+          "lineIndex": 0,
+          "amount": 2,
+          "condition": "blighted",
+          "source": "print_front"
+        },
+        {
+          "lineIndex": 1,
+          "amount": 3,
+          "condition": "marked",
+          "source": "print_front"
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p183",
+    "name": "Throw Dagger",
+    "level": 3,
+    "original": ["{target_effects} {damage} +3 vs {blight}", "{damage} +4 vs {mark}"],
+    "lines": ["{target_effects} {damage} +3 vs {blight}", "{target_effects} {damage} +4 vs {mark}"],
+    "flags": {
+      "verified_damage_bonuses": [
+        {
+          "lineIndex": 0,
+          "amount": 3,
+          "condition": "blighted",
+          "source": "print_front"
+        },
+        {
+          "lineIndex": 1,
+          "amount": 4,
+          "condition": "marked",
+          "source": "print_front"
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p185",
+    "name": "Poison Dart",
+    "level": 2,
+    "original": ["{target_effects} 3 {blight} 3t"],
+    "lines": ["{target_effects} 3 {blight} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "blight",
+          "duration": 3,
+          "amount": 3
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p186",
+    "name": "Poison Dart",
+    "level": 3,
+    "original": ["{target_effects} 4 {blight} 3t"],
+    "lines": ["{target_effects} 4 {blight} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "blight",
+          "duration": 3,
+          "amount": 4
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p188",
+    "name": "Toxin Trickery",
+    "level": 2,
+    "original": [
+      "{range} 1 {target_hero}",
+      "{self_effects} Self {buff} 2t,",
+      "{target_effects} {buff} 2t,",
+      "Remove {bleed} {blight}",
+      "Remove {bleed} {blight}"
+    ],
+    "lines": [
+      "{range} 1 {target_hero}",
+      "{self_effects} Self {buff} 2t,",
+      "{target_effects} {buff} 2t,",
+      "Remove {bleed} {blight}",
+      "Remove {bleed} {blight}"
+    ],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 1,
+          "segmentIndex": 2,
+          "scope": "self",
+          "kind": "buff",
+          "duration": 2
+        },
+        {
+          "lineIndex": 2,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "buff",
+          "duration": 2
+        }
+      ],
+      "verified_target_header": {
+        "lineIndex": 0,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p189",
+    "name": "Toxin Trickery",
+    "level": 3,
+    "original": [
+      "{range} 1 {target_hero} {target_hero}",
+      "{self_effects} Self {buff} 2t,",
+      "{target_effects} {buff} 2t,",
+      "Remove {bleed} {blight}",
+      "Remove {bleed} {blight}"
+    ],
+    "lines": [
+      "{range} 1 {target_hero} {target_hero}",
+      "{self_effects} Self {buff} 2t,",
+      "{target_effects} {buff} 2t,",
+      "Remove {bleed} {blight}",
+      "Remove {bleed} {blight}"
+    ],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 1,
+          "segmentIndex": 2,
+          "scope": "self",
+          "kind": "buff",
+          "duration": 2
+        },
+        {
+          "lineIndex": 2,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "buff",
+          "duration": 2
+        }
+      ],
+      "verified_target_header": {
+        "lineIndex": 0,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p191",
+    "name": "Sacrificial Stab",
+    "level": 2,
+    "original": ["{target_effects} {damage} +2 vs Eldritch"],
+    "lines": ["{target_effects} {damage} +2 vs Eldritch"],
+    "flags": {
+      "verified_damage_bonus": {
+        "lineIndex": 0,
+        "amount": 2,
+        "condition": "eldritch",
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p192",
+    "name": "Sacrificial Stab",
+    "level": 3,
+    "original": ["{target_effects} {damage} +3 vs Eldritch"],
+    "lines": ["{target_effects} {damage} +3 vs Eldritch"],
+    "flags": {
+      "verified_damage_bonus": {
+        "lineIndex": 0,
+        "amount": 3,
+        "condition": "eldritch",
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p194",
+    "name": "Abyssal Artillery",
+    "level": 2,
+    "original": ["{target_effects} {damage} +2 vs Eldritch"],
+    "lines": ["{target_effects} {damage} +2 vs Eldritch"],
+    "flags": {
+      "verified_damage_bonus": {
+        "lineIndex": 0,
+        "amount": 2,
+        "condition": "eldritch",
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p195",
+    "name": "Abyssal Artillery",
+    "level": 3,
+    "original": ["{target_effects} {damage} +3 vs Eldritch"],
+    "lines": ["{target_effects} {damage} +3 vs Eldritch"],
+    "flags": {
+      "verified_damage_bonus": {
+        "lineIndex": 0,
+        "amount": 3,
+        "condition": "eldritch",
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p197",
+    "name": "Weakening Curse",
+    "level": 2,
+    "original": ["{target_effects} {debuff} 3t"],
+    "lines": ["{target_effects} {debuff} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "debuff",
+          "duration": 3
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p198",
+    "name": "Weakening Curse",
+    "level": 3,
+    "original": ["{target_effects} {debuff} 4t"],
+    "lines": ["{target_effects} {debuff} 4t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "debuff",
+          "duration": 4
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p200",
+    "name": "Wyrd Reconstruction",
+    "level": 2,
+    "original": ["{target_effects} 1 {bleed} 3t"],
+    "lines": ["{target_effects} 1 {bleed} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "bleed",
+          "duration": 3,
+          "amount": 1
+        }
+      ],
+      "verified_range": {
+        "min": 0,
+        "max": 1,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p201",
+    "name": "Wyrd Reconstruction",
+    "level": 3,
+    "original": ["{target_effects} 2 {bleed} 2t"],
+    "lines": ["{target_effects} 2 {bleed} 2t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "bleed",
+          "duration": 2,
+          "amount": 2
+        }
+      ],
+      "verified_range": {
+        "min": 0,
+        "max": 1,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p203",
+    "name": "Vulnerability Hex",
+    "level": 2,
+    "original": ["{target_effects} {mark} 3t"],
+    "lines": ["{target_effects} {mark} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "mark",
+          "duration": 3
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p204",
+    "name": "Vulnerability Hex",
+    "level": 3,
+    "original": ["{target_effects} {mark} 4t"],
+    "lines": ["{target_effects} {mark} 4t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "mark",
+          "duration": 4
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p206",
+    "name": "Hands from the Abyss",
+    "level": 2,
+    "original": ["{target_effects} {stun} 2t, {light} -1"],
+    "lines": ["{target_effects} {stun} 2t, {light} -1"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p207",
+    "name": "Hands from the Abyss",
+    "level": 3,
+    "original": ["{target_effects} {stun} 3t, {light} -1"],
+    "lines": ["{target_effects} {stun} 3t, {light} -1"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p212",
+    "name": "Manacles",
+    "level": 2,
+    "original": ["{target_effects} {stun} 1t"],
+    "lines": ["{target_effects} {stun} 1t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p213",
+    "name": "Manacles",
+    "level": 3,
+    "original": ["{target_effects} {stun} 1t"],
+    "lines": ["{target_effects} {stun} 1t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "stun",
+          "duration": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "hero_skill:p215",
+    "name": "Beast’s Bile",
+    "level": 2,
+    "original": ["{target_effects} 2 {blight} 3t"],
+    "lines": ["{target_effects} 2 {blight} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "blight",
+          "duration": 3,
+          "amount": 2
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p216",
+    "name": "Beast’s Bile",
+    "level": 3,
+    "original": ["{target_effects} 3 {blight} 3t"],
+    "lines": ["{target_effects} 3 {blight} 3t"],
+    "flags": {
+      "verified_status_effects": [
+        {
+          "lineIndex": 0,
+          "segmentIndex": 2,
+          "scope": "target",
+          "kind": "blight",
+          "duration": 3,
+          "amount": 3
+        }
+      ],
+      "verified_range": {
+        "min": 1,
+        "max": 2,
+        "source": "print_front"
+      }
+    }
+  },
+  {
+    "id": "hero_skill:p107",
+    "name": "Dirk Stab",
+    "level": 2,
+    "original": ["{self_effects} Self {shuffle} Pull 1,", "Ignores {guard}"],
+    "lines": ["{self_effects} Self {shuffle} Pull 1", "Ignores {guard}"],
+    "flags": {}
+  },
+  {
+    "id": "hero_skill:p108",
+    "name": "Dirk Stab",
+    "level": 3,
+    "original": ["{self_effects} Self {shuffle} Pull 1,", "Ignores {guard}"],
+    "lines": ["{self_effects} Self {shuffle} Pull 1", "Ignores {guard}"],
+    "flags": {}
+  }
+]
