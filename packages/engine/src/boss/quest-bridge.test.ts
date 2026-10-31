@@ -6,14 +6,22 @@ import {
   isBossQuestId,
   NECROMANCER_I_SCRIPT_ID,
   resolveBossScriptIdForQuest,
+  DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
+  DARKEST_TEMPLARS_SCRIPT_ID,
+  DARKEST_MAMMOTH_CYST_SCRIPT_ID,
 } from "./index";
 
 describe("Boss 任务 → 脚本映射（quest-bridge）", () => {
-  it("最暗 Boss 任务在脚本未落地前不编造 script id", () => {
+  it("最暗 Boss 任务映射已注册脚本 id", () => {
+    const expected = {
+      "quest:p016": DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
+      "quest:p017": DARKEST_TEMPLARS_SCRIPT_ID,
+      "quest:p018": DARKEST_MAMMOTH_CYST_SCRIPT_ID,
+    } as const;
     for (const id of ["quest:p016", "quest:p017", "quest:p018"] as const) {
       expect(isBossQuestId(id)).toBe(true);
-      expect(bossQuestScriptId[id]).toBeUndefined();
-      expect(resolveBossScriptIdForQuest(id)).toBeUndefined();
+      expect(bossQuestScriptId[id]).toBe(expected[id]);
+      expect(resolveBossScriptIdForQuest(id)).toBe(expected[id]);
     }
   });
 

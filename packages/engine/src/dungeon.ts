@@ -95,6 +95,16 @@ export type DungeonState = {
     readonly monsterPool: import("../../data/src/darkest-monster-pool").DarkestMonsterPoolFile;
     readonly monsterDeck: readonly string[];
     readonly excavation?: import("./darkest-excavation").Excavation;
+    /** 目标房 prepareDungeonBattle 后：专属房间 + Boss 脚本身份（A-4）。 */
+    readonly bossEncounterPlan?: import("./boss/darkest-mid-boss-runtime").StoredDarkestBossEncounterPlan;
+    /** prepareDungeonMonsters 后：Boss 战斗卡身份占位部署；combatReady 仍为 false。 */
+    readonly bossDeployment?: {
+      readonly roomId: string;
+      readonly resolvedScriptId: import("./boss/types").BossScriptId;
+      readonly monsters: readonly import("./spawn").SpawnPlacement[];
+      readonly supportCardIds: readonly string[];
+      readonly blockedReason: string;
+    };
   };
   readonly trinketRuntime?: import("./trinket-reactions").TrinketRuntime;
   /** 保存死亡发生的流程，补人只续接已付费的步骤，不重新执行入口。 */

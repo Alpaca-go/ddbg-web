@@ -9,6 +9,10 @@ import { isGuardedDungeonRoom } from "./dungeon-curio-room";
 import { allRuinsRoomCardIds } from "./dungeon-objective";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { firstBattleThreatDeck } from "./boss/necromancer-ii-army";
+import {
+  darkestMidBossDeploymentHold,
+  prepareDarkestMidBossDeployment,
+} from "./boss/darkest-mid-boss-runtime";
 import { questMonsterDeploymentHold } from "./quest-monster-deployment";
 import { prepareQuestMonsterDeployment } from "./quest-monster-spawn";
 
@@ -26,6 +30,13 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
     state,
     events: [{ type: "commandRefused", message }],
   });
+  if (d.darkest) {
+    const darkestDeploy = prepareDarkestMidBossDeployment(state);
+    if (darkestDeploy) return darkestDeploy;
+    const hold = darkestMidBossDeploymentHold(d);
+    if (hold) return refuse(hold);
+    return refuse("最暗普通房间怪物部署与 Room Tile 几何仍 hold；目标房须先 prepareDungeonBattle（R-048）");
+  }
   if (
     d.phase !== "awaitingRoom" ||
     d.pending ||

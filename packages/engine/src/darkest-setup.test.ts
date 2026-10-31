@@ -173,9 +173,13 @@ it("最暗普通/目标房都保留正确房间牌，缺几何不替换为Ruins�
       ).toBe("darkestDungeon");
       expect(result.state.dungeon!.cursor).toBe(d.cursor);
       expect(applyCommand(result.state, { type: "prepareDungeonBattle" }).state).toBe(result.state);
-      expect(applyCommand(result.state, { type: "prepareDungeonMonsters" }).state).toBe(
-        result.state,
-      );
+      const monsters = applyCommand(result.state, { type: "prepareDungeonMonsters" });
+      if (kind === "objective") {
+        expect(monsters.state.dungeon!.darkest!.bossDeployment?.monsters.length).toBeGreaterThan(0);
+        expect(monsters.events.some((e) => e.type === "commandRefused")).toBe(false);
+      } else {
+        expect(monsters.state).toBe(result.state);
+      }
     }
   }
 });
