@@ -50,9 +50,52 @@ function readMonsterSpawnMeta(
   };
 }
 
-function supportSummary(supportCardIds: readonly string[]): string {
+function supportPlanHoldSummary(supportCardIds: readonly string[]): string {
   if (!supportCardIds.length) return "";
   return `；目录召唤物 ${supportCardIds.join("、")} 未部署（combatReady: false）`;
+}
+
+function supportDeployedHoldSummary(supportMonsters: readonly SpawnPlacement[]): string {
+  if (!supportMonsters.length) return "";
+  const ids = supportMonsters.map((monster) => monster.cardId).join("、");
+  return `；支持怪 ${ids} 已记录身份（verified: false；技能召唤执行 hold）`;
+}
+
+const SUPPORT_STANCE_FALLBACK: readonly SkillStance[] = [
+  "defensive",
+  "ranged",
+  "support",
+  "aggressive",
+];
+
+function buildDarkestMidBossSupportPlacements(
+  state: GameState,
+  questId: StoredDarkestBossEncounterPlan["questId"],
+  supportCardIds: readonly string[],
+  actorStances: readonly SkillStance[],
+  refuse: (message: string) => ApplyResult,
+): SpawnPlacement[] | ApplyResult {
+  const usedStances = new Set(actorStances);
+  const supportMonsters: SpawnPlacement[] = [];
+  for (const [index, cardId] of supportCardIds.entries()) {
+    const meta = readMonsterSpawnMeta(state, cardId);
+    if (!meta)
+      return refuse(`${cardId} 缺少目录前后排/占格，不能伪造支持怪部署（R-048）`);
+    const stance =
+      SUPPORT_STANCE_FALLBACK.find((entry) => !usedStances.has(entry)) ??
+      SUPPORT_STANCE_FALLBACK[index % SUPPORT_STANCE_FALLBACK.length]!;
+    usedStances.add(stance);
+    supportMonsters.push({
+      instanceId: `darkest-mid-boss-support:${questId}:${index}`,
+      cardId,
+      edge: meta.edge,
+      stanceSlots: meta.stanceSlots,
+      verified: false,
+      stance,
+      areaId: PLACEHOLDER_AREAS[stance],
+    });
+  }
+  return supportMonsters;
 }
 
 /** R36 / R39–41：目标房绑定专属房间与 Boss 脚本；几何与战斗仍 hold。 */
@@ -104,7 +147,7 @@ export function prepareDarkestObjectiveBossRoom(state: GameState): ApplyResult |
   const actorLabel = encounter.actors
     .map((actor) => `${actor.cardId}（${actor.stance}）`)
     .join("、");
-  const blockedReason = `${card.name} 已绑定 ${scriptId}：${actorLabel}${supportSummary(encounter.supportCardIds)}；${wiringHold}。保留原牌，不改抽遗迹房间（R36 / R-048）。`;
+  const blockedReason = `${card.name} 已绑定 ${scriptId}：${actorLabel}${supportPlanHoldSummary(encounter.supportCardIds)}；${wiringHold}。保留原牌，不改抽遗迹房间（R36 / R-048）。`;
   return {
     state: {
       ...state,
@@ -140,7 +183,11 @@ export function darkestMidBossDeploymentHold(d: DungeonState): string | undefine
   if (!encounter || encounter.combatReady) return undefined;
   const label = plan.resolvedScriptId;
   if (darkestBossDeploymentMatchesPlan(d, plan)) {
-    return `${label} 目标房已记录 Boss 身份（${plan.actorCardIds.join("、")}）；${plan.wiringHold}，不能进入半场战斗（R-048）。`;
+    const deployment = d.darkest?.bossDeployment;
+    const supportHold = deployment?.supportMonsters.length
+      ? supportDeployedHoldSummary(deployment.supportMonsters)
+      : supportPlanHoldSummary(plan.supportCardIds);
+    return `${label} 目标房已记录 Boss 身份（${plan.actorCardIds.join("、")}）${supportHold}；${plan.wiringHold}，不能进入半场战斗（R-048）。`;
   }
   return `${label} 目标房须按目录部署 ${plan.actorCardIds.join("、")}；不能用最暗 26 张牌堆随机遭遇替代（R36 / R-048）。`;
 }
@@ -182,7 +229,16 @@ export function prepareDarkestMidBossDeployment(state: GameState): ApplyResult |
       areaId: PLACEHOLDER_AREAS[actor.stance],
     });
   }
-  const blockedReason = `${plan.resolvedScriptId} 已部署 ${monsters.map((m) => m.cardId).join("、")}${supportSummary(plan.supportCardIds)}；${plan.wiringHold}，不能进入半场战斗（R-048）。`;
+  const supportBuilt = buildDarkestMidBossSupportPlacements(
+    state,
+    plan.questId,
+    plan.supportCardIds,
+    encounter.actors.map((actor) => actor.stance),
+    refuse,
+  );
+  if ("events" in supportBuilt) return supportBuilt;
+  const supportMonsters = supportBuilt;
+  const blockedReason = `${plan.resolvedScriptId} 已部署 ${monsters.map((m) => m.cardId).join("、")}${supportDeployedHoldSummary(supportMonsters)}；${plan.wiringHold}，不能进入半场战斗（R-048）。`;
   return {
     state: {
       ...state,
@@ -194,6 +250,7 @@ export function prepareDarkestMidBossDeployment(state: GameState): ApplyResult |
             roomId: d.position,
             resolvedScriptId: plan.resolvedScriptId,
             monsters,
+            supportMonsters,
             supportCardIds: plan.supportCardIds,
             blockedReason,
           },
