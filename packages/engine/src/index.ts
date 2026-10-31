@@ -309,3 +309,8 @@ export { FREE_TRINKET_IDS, isFreeTrinketId, freeTrinketUseProblem } from "./batt
 export { coreTrinketFreeActions, coreTrinketFreeProblem } from "./core-trinket-free";
 
 export { heroMovePathLimit } from "./battle-hero-movement";
+
+export {
+  darkestBossVictoryAfterEncounter,
+  readFinalBattlePlanAfterDarkestVictory,
+} from "./boss/darkest-content";

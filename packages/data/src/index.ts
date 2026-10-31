@@ -163,3 +163,6 @@ export type {
 
 export * from "./room";
 export { buildRooms } from "./normalize/room";
+
+export { darkestBossContentSchema, finalBattlePlanForQuest } from "./darkest-boss-content";
+export type { DarkestBossContent } from "./darkest-boss-content";

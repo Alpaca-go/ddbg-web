@@ -1,0 +1,134 @@
+{
+ "schema": "ddbg-darkest-boss-content-v1",
+ "source": {
+  "abilities": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+  "quests": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf"
+ },
+ "encounters": [
+  {
+   "questId": "quest:p016",
+   "roomCardId": "room:p023",
+   "actors": [
+    {
+     "cardId": "monster_large:p017",
+     "abilityCardId": "boss_ability:p033",
+     "stance": "aggressive",
+     "initiativeCards": 2,
+     "actionsPerRound": 2
+    }
+   ],
+   "supportCardIds": [
+    "monster_medium:p072",
+    "monster_medium:p075"
+   ],
+   "supportAbilityCardIds": [],
+   "skipFinalForm": "ancestor2",
+   "combatReady": false
+  },
+  {
+   "questId": "quest:p017",
+   "roomCardId": "room:p022",
+   "actors": [
+    {
+     "cardId": "monster_large:p015",
+     "abilityCardId": "boss_ability:p028",
+     "stance": "aggressive",
+     "initiativeCards": 2,
+     "actionsPerRound": 2
+    },
+    {
+     "cardId": "monster_large:p014",
+     "abilityCardId": "boss_ability:p026",
+     "stance": "ranged",
+     "initiativeCards": 2,
+     "actionsPerRound": 2
+    }
+   ],
+   "supportCardIds": [],
+   "supportAbilityCardIds": [],
+   "skipFinalForm": "ancestor1",
+   "combatReady": false
+  },
+  {
+   "questId": "quest:p018",
+   "roomCardId": "room:p024",
+   "actors": [
+    {
+     "cardId": "monster_large:p016",
+     "abilityCardId": "boss_ability:p030",
+     "stance": "aggressive",
+     "initiativeCards": 2,
+     "actionsPerRound": 2
+    }
+   ],
+   "supportCardIds": [
+    "monster_medium:p104"
+   ],
+   "supportAbilityCardIds": [
+    "boss_ability:p031"
+   ],
+   "skipFinalForm": "gestatingHeart",
+   "combatReady": false
+  }
+ ],
+ "finalBattle": {
+  "roomCardId": "room:p025",
+  "preparationDays": 4,
+  "drawHamletEvent": false,
+  "exploration": false,
+  "rollProvisions": true,
+  "forms": [
+   {
+    "id": "ancestor1",
+    "actor": {
+     "cardId": "monster_medium:p105",
+     "abilityCardId": "boss_ability:p034",
+     "stance": "aggressive",
+     "initiativeCards": 4,
+     "actionsPerRound": "special"
+    },
+    "supportCardIds": [
+     "monster_medium:p106",
+     "monster_medium:p109"
+    ],
+    "combatReady": false
+   },
+   {
+    "id": "ancestor2",
+    "actor": {
+     "cardId": "monster_large:p018",
+     "abilityCardId": "boss_ability:p035",
+     "stance": "aggressive",
+     "initiativeCards": 2,
+     "actionsPerRound": 2
+    },
+    "supportCardIds": [],
+    "combatReady": false
+   },
+   {
+    "id": "gestatingHeart",
+    "actor": {
+     "cardId": "monster_large:p019",
+     "abilityCardId": "boss_ability:p036",
+     "stance": "aggressive",
+     "initiativeCards": 1,
+     "actionsPerRound": 1
+    },
+    "supportCardIds": [],
+    "combatReady": false
+   },
+   {
+    "id": "heartOfDarkness",
+    "actor": {
+     "cardId": "monster_large:p020",
+     "abilityCardId": "boss_ability:p037",
+     "stance": "aggressive",
+     "initiativeCards": 2,
+     "actionsPerRound": 2
+    },
+    "supportCardIds": [],
+    "combatReady": false
+   }
+  ]
+ }
+}

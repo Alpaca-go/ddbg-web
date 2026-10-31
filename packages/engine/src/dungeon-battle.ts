@@ -1,3 +1,4 @@
+import { darkestBossVictoryAfterEncounter } from "./boss/darkest-content";
 import { readRoomTile } from "./room-tile-selection";
 import { readDungeonQuestProgress } from "./dungeon-quest";
 import { readCampaignLevel } from "./hamlet-campaign";
@@ -454,7 +455,9 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
     victory &&
     questId &&
     isBossQuestId(questId) &&
-    (clearedThreatId !== undefined || resolveEncounterBossScriptId(state) !== undefined)
+    (clearedThreatId !== undefined ||
+      resolveEncounterBossScriptId(state) !== undefined ||
+      darkestBossVictoryAfterEncounter(state))
       ? (true as const)
       : undefined;
   const heroes = d.heroes.map((hero) => {

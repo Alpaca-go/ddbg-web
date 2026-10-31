@@ -22,6 +22,8 @@ function readJson(relativePath: string): unknown {
 /** 读词典、parsed 和 raw，生成卡牌与独立的获批板块几何。 */
 export function loadNormalizedCorebox(): NormalizedCorebox {
   return buildNormalizedCorebox({
+    questsRaw: rawFileSchema.parse(readJson("extract/corebox/raw/quest.json")),
+    bossAbilitiesRaw: rawFileSchema.parse(readJson("extract/corebox/raw/boss_ability.json")),
     hamletEvents: rawFileSchema.parse(readJson("extract/corebox/raw/hamlet_event.json")),
     diseases: rawFileSchema.parse(readJson("extract/corebox/raw/disease.json")),
     rooms: rawFileSchema.parse(readJson("extract/corebox/raw/room.json")),
@@ -92,6 +94,7 @@ export function writeNormalizedCorebox(
     ["disease.json", built.disease],
     ["monster_pool.json", built.monster_pool],
     ["darkest_monster_pool.json", built.darkest_monster_pool],
+    ["darkest_boss_content.json", built.darkest_boss_content],
     ["room.json", built.room],
     ["curio.json", built.curio],
     ["hero_stat.json", built.hero_stat],
