@@ -32,6 +32,10 @@ import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
 import { ceaseThreatForBossCombat, encounterForcesRetreatAfterRound } from "./boss/encounter-rules";
 import { applyBossThreatMarkedForDeathOnBattleStart } from "./boss/threat-passive-runtime";
+import {
+  applyHeartOfDarknessImpendingDoomOnBattleStart,
+  bumpHeartOfDarknessImpendingDoomAfterAction,
+} from "./boss/heart-of-darkness-impending-doom";
 import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "./boss/flesh-i-combat-runtime";
 import { applySwinePrinceIWilburBattleStart } from "./boss/swine-prince-i-combat-runtime";
@@ -297,6 +301,7 @@ export function finishTurn(
   state = bumpProphetIActionRoundCount(state, actorId);
   state = bumpHagIActionRoundCount(state, actorId);
   state = bumpFanaticIActionRoundCount(state, actorId);
+  state = bumpHeartOfDarknessImpendingDoomAfterAction(state, actorId);
   const battle = state.battle!;
   const encounter = battle.encounter!;
   const actedIds =
@@ -849,25 +854,39 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
           ...cauldron.events,
         ],
       };
-    const collectorLoot = readCollectorIRoomLootPlacement(cauldron.state);
+    const impendingDoom = applyHeartOfDarknessImpendingDoomOnBattleStart(cauldron.state);
+    if (impendingDoom.events.some((entry) => entry.type === "commandRefused"))
+      return {
+        state,
+        events: [
+          ...marked.events,
+          ...pyre.events,
+          ...oneBody.events,
+          ...wilbur.events,
+          ...cauldron.events,
+          ...impendingDoom.events,
+        ],
+      };
+    const collectorLoot = readCollectorIRoomLootPlacement(impendingDoom.state);
     if (collectorLoot.status === "refused")
       return rejectBattleCommand(state, collectorLoot.message);
     const deployed = placeBattleLoot(
-      cauldron.state.battle!,
+      impendingDoom.state.battle!,
       state.seed,
       collectorLoot.status === "ready" ? collectorLoot.placements : undefined,
     );
     if (!deployed)
       return rejectBattleCommand(state, "战利品池必须保留十枚真实实例的可用 / 已拾取分区");
-    const next = startRound(state.seed, deployed, 1, cauldron.state);
+    const next = startRound(state.seed, deployed, 1, impendingDoom.state);
     return {
-      state: { ...cauldron.state, battle: next },
+      state: { ...impendingDoom.state, battle: next },
       events: [
         ...marked.events,
         ...pyre.events,
         ...oneBody.events,
         ...wilbur.events,
         ...cauldron.events,
+        ...impendingDoom.events,
         ...(collectorLoot.status === "ready"
           ? [
               {
