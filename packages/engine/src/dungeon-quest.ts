@@ -28,6 +28,10 @@ export function readDungeonQuestProgress(d: DungeonState) {
     count: rooms.data.filter((r) => r.kind === kind).length,
   }));
   const storedDistribution = d.questDistribution;
+  // R-120：p019 的卡牌 level=3 是占位；正式出征已记录实际战役等级。
+  // 未记录 campaignLevel 的旧沙盒保留原占位等级，以免改变既有入口快照。
+  const dungeonLevel =
+    quest.id === "quest:p019" && d.campaignLevel !== undefined ? d.campaignLevel : quest.level;
   if (
     !storedDistribution ||
     !storedDistributionMatchesQuest(storedDistribution, quest.distribution) ||
@@ -45,7 +49,10 @@ export function readDungeonQuestProgress(d: DungeonState) {
     d.monsterPool?.active ||
     d.curio?.active ||
     d.pendingCurioDraw ||
-    (d.explorationSetup && d.explorationSetup.dungeonLevel !== quest.level) ||
+    (quest.id === "quest:p019" &&
+      d.campaignLevel !== undefined &&
+      ![1, 2, 3].includes(d.campaignLevel)) ||
+    (d.explorationSetup && d.explorationSetup.dungeonLevel !== dungeonLevel) ||
     d.exploration?.rolls?.some((r) => !r.resolved) ||
     (d.roomResolution && !d.roomResolution.completed)
   )
