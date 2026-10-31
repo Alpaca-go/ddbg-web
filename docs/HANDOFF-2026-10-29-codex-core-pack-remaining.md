@@ -27,7 +27,9 @@ Ruins 四 Boss I–III 十二张能力卡双面文字已随 #407 合入 main `bf
 
 A-2 的 I→II、II→III 池切换数据计划已随 #410 合入 main `8f0772b`，见 `phase5-act-transition-data-2026-10-31.md`。
 
-当前续接：升幕状态校验与计划读取，见 `phase5-act-transition-readiness-2026-10-31.md`；绑定Boss任务胜利/XP/回村和出征身份，不代表正式升幕执行、池守恒或存档已完成。
+升幕状态校验与计划读取已随 #411 合入 main `0854b335`，见 `phase5-act-transition-readiness-2026-10-31.md`；绑定Boss任务胜利/XP/回村和出征身份。
+
+当前续接：升幕怪物/饰品池实际切换与守恒，见 `phase5-act-transition-pools-2026-10-31.md`；保留永久移除与持牌。尚未执行威胁抽取/洗牌、等级更新、正式命令或存档，A-2未完成。
 
 ### A 类：尚未接入的数据／运行时
 
