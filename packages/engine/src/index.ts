@@ -167,6 +167,8 @@ export { advanceCampaignLevel, readCampaignLevel } from "./hamlet-campaign";
 export { buildRuinsActTransitionPlan } from "./act-transition-plan";
 export { readRuinsActTransitionReadiness } from "./act-transition-readiness";
 export type { RuinsActTransitionReadiness } from "./act-transition-readiness";
+export { switchRuinsActPools } from "./act-transition-pools";
+export type { ActPoolSwitch } from "./act-transition-pools";
 export { visitGuild } from "./hamlet-guild";
 export {
   setEquippedSkills,
