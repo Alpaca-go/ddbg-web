@@ -48,3 +48,37 @@ export function beginFinalPreparation(state: GameState): ApplyResult {
     ],
   };
 }
+
+/** 只准备最终战补给；不生成未获批Boss，不清除已完成任务历史。 */
+export function beginFinalBattleProvisions(state: GameState): ApplyResult {
+  const d = state.dungeon;
+  if (
+    !d ||
+    state.battle ||
+    d.pending ||
+    d.finalBattleProvisions ||
+    !d.hamlet?.finalPreparation ||
+    d.hamlet.phase !== "preparationComplete" ||
+    d.hamlet.remainingDays !== 0 ||
+    d.hamlet.preparationDays !== 4 ||
+    !readFinalBattlePlanAfterDarkestVictory(d) ||
+    !d.explorationSetup ||
+    d.explorationSetup.provisions.length ||
+    d.startingProvisionChoices?.length ||
+    d.nextQuestProvisionFaceChoice ||
+    d.nextQuestLostShipment ||
+    !Number.isSafeInteger(d.cursor) ||
+    d.cursor < 0 ||
+    d.heroes.some((h) => h.dead)
+  )
+    return rejectBattleCommand(state, "须完成最后四天准备且补给池为空，才能准备最终战补给（R36）");
+  return {
+    state: { ...state, dungeon: { ...d, finalBattleProvisions: "awaiting" } },
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: "最终战前仍掷补给；补给结算完成后等待最终战部署，不进入探索（R36）",
+      },
+    ],
+  };
+}

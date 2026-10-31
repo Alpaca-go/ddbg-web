@@ -45,6 +45,14 @@ test("最暗胜利后最后四天准备：不展示事件卡，不误入普通�
     page.getByText("最后四天准备已完成。最终战尚未接通，保留当前队伍与准备结果。", { exact: true }),
   ).toBeVisible();
   await expect(page.getByRole("button", { name: "抽取下一任务", exact: true })).toHaveCount(0);
+  await page.getByRole("button", { name: "准备最终战补给", exact: true }).click();
+  await page.getByRole("button", { name: "掷最终战补给骰", exact: true }).click();
+  for (let i = 0; i < 16; i++) {
+    if (await page.getByText("最终战补给已就绪，等待开战。", { exact: true }).isVisible()) break;
+    await page.getByRole("button", { name: "火把", exact: true }).click();
+  }
+  await expect(page.getByText("最终战补给已就绪，等待开战。", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "掷最终战补给骰", exact: true })).toHaveCount(0);
   const result = await page.evaluate(async () => {
     const moduleUrl = "/src/dungeon-sandbox/store.ts";
     const { useDungeonStore } = await import(/* @vite-ignore */ moduleUrl);
@@ -53,10 +61,14 @@ test("最暗胜利后最后四天准备：不展示事件卡，不误入普通�
       commands: commands.map((c: { type: string }) => c.type),
       memory: game.dungeon.hamletMemory,
       cursor: game.dungeon.cursor,
+      provisions: game.dungeon.explorationSetup.provisions.length,
+      phase: game.dungeon.phase,
     };
   });
   expect(result.commands.filter((c: string) => c === "beginFinalPreparation")).toHaveLength(1);
   expect(result.commands).not.toContain("drawHamletEvent");
   expect(result.memory).toEqual(game.dungeon!.hamletMemory);
+  expect(result.provisions).toBe(8);
+  expect(result.phase).toBe("inHamlet");
   expect(errors).toEqual([]);
 });
