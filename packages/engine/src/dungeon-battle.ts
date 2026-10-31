@@ -1,5 +1,7 @@
 import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import { questMonsterDeploymentHold } from "./quest-monster-deployment";
+import { darkestOrdinaryDeploymentHold } from "./darkest-ordinary-monster-deploy";
+import { darkestMidBossDeploymentHold } from "./boss/darkest-mid-boss-runtime";
 import {
   questMonsterDeploymentMatchesPlan,
   questMonsterOutsidePoolInstanceIds,
@@ -62,6 +64,10 @@ export function startDungeonBattle(state: GameState): ApplyResult {
   const active = d?.monsterPool?.active;
   const room = d?.rooms.find((r) => r.id === d.position);
   const refuse = (message: string) => rejectBattleCommand(state, message);
+  if (d?.darkest) {
+    const darkestHold = darkestOrdinaryDeploymentHold(d) ?? darkestMidBossDeploymentHold(d);
+    if (darkestHold) return refuse(darkestHold);
+  }
   if (
     !d ||
     state.battle ||

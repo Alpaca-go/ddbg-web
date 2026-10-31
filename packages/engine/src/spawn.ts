@@ -14,6 +14,7 @@ export type SpawnPlacement = SpawnCard & { readonly stance: SkillStance; readonl
 export function spawnMonsters(
   deck: readonly SpawnCard[],
   starts: Readonly<Record<SkillStance, string>>,
+  options?: { readonly allowUnverified?: boolean },
 ):
   | { type: "refused"; reason: string }
   | {
@@ -23,13 +24,15 @@ export function spawnMonsters(
       remaining: readonly SpawnCard[];
       drawn: number;
     } {
+  const allowUnverified = options?.allowUnverified === true;
   if (
     new Set(deck.map((card) => card.instanceId)).size !== deck.length ||
     deck.some(
       (card) =>
         !card.instanceId ||
         !card.cardId ||
-        card.verified !== true ||
+        (!allowUnverified && card.verified !== true) ||
+        (allowUnverified && typeof card.verified !== "boolean") ||
         ![1, 2].includes(card.stanceSlots) ||
         !["front", "back"].includes(card.edge),
     ) ||
