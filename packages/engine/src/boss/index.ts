@@ -390,6 +390,11 @@ export {
   SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID,
   SHUFFLING_HORROR_ECHOING_SUMMON_CARD_IDS,
 } from "./darkest-shuffling-horror-combat-runtime";
+export {
+  applyMammothCystSummonWhiteCell,
+  MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
+  MAMMOTH_CYST_WHITE_CELL_SUMMON_CARD_ID,
+} from "./darkest-mammoth-cyst-combat-runtime";
 
 export {
   ensureNecromancerIIIBossScriptRegistered,

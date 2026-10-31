@@ -65,6 +65,9 @@ function darkestMidBossWiringHold(questId: StoredDarkestBossEncounterPlan["quest
   if (questId === "quest:p016") {
     return "Undulations + Echoing Disassembly 召唤已接（显式 applyShufflingHorrorUndulations / applyShufflingHorrorEchoingDisassembly）；Room Tile 正式几何 / combatReady / 完整 AI 仍 hold";
   }
+  if (questId === "quest:p018") {
+    return "Summon White Cell Stalk 已接（显式 applyMammothCystSummonWhiteCell）；White Cell Teleport / Pit Toss / Room Tile 几何 / combatReady / 完整 AI 仍 hold";
+  }
   return "专属 Room Tile 几何、印刷部署与技能执行未获批（combatReady: false）";
 }
 

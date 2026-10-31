@@ -81,4 +81,21 @@ describe("最暗中途 Boss 运行时接线", () => {
       events: [{ type: "commandRefused" }],
     });
   });
+
+  it("quest:p018 wiringHold 含 Summon White Cell 已接", () => {
+    const game = createCoreDungeonQuest(7, "quest:p018", "radiant", coreParty, coreQuestSources);
+    const d = game.dungeon!;
+    const room = d.rooms.find((r) => r.kind === "objective")!;
+    const bound = ok(
+      {
+        ...game,
+        dungeon: { ...d, phase: "awaitingRoom", position: room.id },
+      },
+      { type: "prepareDungeonBattle" },
+    );
+    expect(bound.state.dungeon!.darkest!.bossEncounterPlan!.wiringHold).toContain(
+      "Summon White Cell Stalk 已接",
+    );
+    expect(bound.state.dungeon!.darkest!.bossEncounterPlan!.wiringHold).toContain("Teleport");
+  });
 });

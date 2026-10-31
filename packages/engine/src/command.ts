@@ -78,6 +78,7 @@ import {
   applyShufflingHorrorEchoingDisassembly,
   applyShufflingHorrorUndulations,
 } from "./boss/darkest-shuffling-horror-combat-runtime";
+import { applyMammothCystSummonWhiteCell } from "./boss/darkest-mammoth-cyst-combat-runtime";
 import {
   resolveDungeonConditionChoice,
   resolveDungeonCurioProvisionChoice,
@@ -236,6 +237,7 @@ type BaseCommand =
   | PrepareMonsterActionCommand
   | { readonly type: "applyShufflingHorrorUndulations"; readonly actorId: string }
   | { readonly type: "applyShufflingHorrorEchoingDisassembly"; readonly actorId: string }
+  | { readonly type: "applyMammothCystSummonWhiteCell"; readonly actorId: string }
   | MoveMonsterToRangeCommand
   | MoveHeroCommand
   | { readonly type: "resolveShuffles" }
@@ -721,6 +723,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return applyShufflingHorrorUndulations(state, command.actorId);
   if (command.type === "applyShufflingHorrorEchoingDisassembly")
     return applyShufflingHorrorEchoingDisassembly(state, command.actorId);
+  if (command.type === "applyMammothCystSummonWhiteCell")
+    return applyMammothCystSummonWhiteCell(state, command.actorId);
   if (command.type === "moveMonsterToRange") return moveMonsterToRange(state, command);
   if (command.type === "moveHero") return moveHero(state, command);
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);
