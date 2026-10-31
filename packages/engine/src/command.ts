@@ -92,6 +92,11 @@ import {
   applyAncestor2UnmakeThemAll,
 } from "./boss/ancestor2-skills-acc";
 import {
+  applyHeartOfDarknessDissolution,
+  applyHeartOfDarknessKnowThis,
+  applyHeartOfDarknessPuncture,
+} from "./boss/heart-of-darkness-skills-acc";
+import {
   resolveDungeonConditionChoice,
   resolveDungeonCurioProvisionChoice,
   resolveDungeonTrinketChoice,
@@ -260,6 +265,9 @@ type BaseCommand =
   | { readonly type: "applyAncestor2RefashionThem"; readonly actorId: string }
   | { readonly type: "applyAncestor2UnmakeThemAll"; readonly actorId: string }
   | { readonly type: "applyAncestor2EmbraceFutility"; readonly actorId: string }
+  | { readonly type: "applyHeartOfDarknessKnowThis"; readonly actorId: string }
+  | { readonly type: "applyHeartOfDarknessPuncture"; readonly actorId: string }
+  | { readonly type: "applyHeartOfDarknessDissolution"; readonly actorId: string }
   | MoveMonsterToRangeCommand
   | MoveHeroCommand
   | { readonly type: "resolveShuffles" }
@@ -767,6 +775,12 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return applyAncestor2UnmakeThemAll(state, command.actorId);
   if (command.type === "applyAncestor2EmbraceFutility")
     return applyAncestor2EmbraceFutility(state, command.actorId);
+  if (command.type === "applyHeartOfDarknessKnowThis")
+    return applyHeartOfDarknessKnowThis(state, command.actorId);
+  if (command.type === "applyHeartOfDarknessPuncture")
+    return applyHeartOfDarknessPuncture(state, command.actorId);
+  if (command.type === "applyHeartOfDarknessDissolution")
+    return applyHeartOfDarknessDissolution(state, command.actorId);
   if (command.type === "moveMonsterToRange") return moveMonsterToRange(state, command);
   if (command.type === "moveHero") return moveHero(state, command);
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);
