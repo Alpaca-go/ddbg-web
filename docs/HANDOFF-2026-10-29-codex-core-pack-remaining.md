@@ -33,7 +33,9 @@ A-2 的 I→II、II→III 池切换数据计划已随 #410 合入 main `8f0772b`
 
 公开命令 `advanceRuinsAct` 已随 #413 合入 main `6b53b029`，组合状态/池校验、威胁抽取、洗牌与等级更新，支持命令存档schema，见 `phase5-advance-ruins-act-2026-10-31.md`。
 
-当前续接：网页回村升幕入口与村庄事件顺序闸门，见 `phase5-act-advance-web-2026-10-31.md`；机制夹具浏览器冒烟已通过，不表示自然Boss战或完整跨幕日志/存档已验收，A-2不声明全完。
+网页回村升幕入口与村庄事件顺序闸门已随 #414 合入 main `92511602`，见 `phase5-act-advance-web-2026-10-31.md`；机制夹具浏览器冒烟已通过，不表示自然Boss战或完整跨幕日志/存档已验收。
+
+当前续接：开局 `establishImminentThreat` 严格存档白名单与四Boss/自然任务回放，见 `phase5-initial-threat-save-2026-10-31.md`；补齐真实战役前缀的日志能力，尚未新增初始威胁网页入口，A-2不声明全完。
 
 ### A 类：尚未接入的数据／运行时
 
