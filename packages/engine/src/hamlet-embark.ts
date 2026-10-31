@@ -1,3 +1,4 @@
+import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import { asQuestMapPairingQuest, basicQuests } from "../../data/src/basic-quests";
 import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";
 import { questsForCampaignLevel } from "./campaign-quest-pool";
@@ -89,7 +90,8 @@ export function applyTemporarySkillUpgrades(
         !temporary ||
         temporary.verification.unverified ||
         temporary.name !== original.name ||
-        temporary.hero !== stat?.name ||
+        !skillBelongsToFormalHero(stat?.name ?? "", temporary) ||
+        !skillBelongsToFormalHero(stat?.name ?? "", original) ||
         ![2, 3].includes(temporary.level) ||
         temporary.level < original.level
       )

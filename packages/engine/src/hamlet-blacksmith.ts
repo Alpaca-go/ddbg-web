@@ -1,3 +1,4 @@
+import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import { currentHamletHero, finishHamletAction } from "./hamlet-actions";
@@ -29,7 +30,7 @@ function options(state: GameState) {
     const original = d.battleCatalog!.skills.find((c) => c.id === id);
     const upgraded = d.battleCatalog!.skills.filter(
       (c) =>
-        c.hero === stat.name &&
+        skillBelongsToFormalHero(stat.name ?? "", c) &&
         c.name === original?.name &&
         c.level === level &&
         !c.verification.unverified,
@@ -37,7 +38,7 @@ function options(state: GameState) {
     if (
       !original ||
       !original.name ||
-      original.hero !== stat.name ||
+      !skillBelongsToFormalHero(stat.name ?? "", original) ||
       ![1, 2, 3].includes(original.level) ||
       original.level > level ||
       hero.permanentlyRemovedSkillIds?.includes(original.id) ||
@@ -104,7 +105,10 @@ export function visitBlacksmith(state: GameState, command: BlacksmithCommand): A
           (c) =>
             c.id === u.temporarySkillId &&
             c.name === d.battleCatalog!.skills.find((c) => c.id === u.originalSkillId)?.name &&
-            c.hero === d.battleCatalog!.heroStats.find((c) => c.id === hero.heroStatId)?.name &&
+            skillBelongsToFormalHero(
+              d.battleCatalog!.heroStats.find((c) => c.id === hero.heroStatId)?.name ?? "",
+              c,
+            ) &&
             [2, 3].includes(c.level) &&
             !c.verification.unverified,
         ),

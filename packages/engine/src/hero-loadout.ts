@@ -1,3 +1,4 @@
+import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import type { DungeonBattleCatalog, DungeonState } from "./dungeon";
@@ -26,7 +27,11 @@ export function ownedHeroSkills(
     ...new Set(
       catalog.skills
         .filter(
-          (s) => s.hero === stat.name && s.level === 1 && s.name && !s.verification.unverified,
+          (s) =>
+            skillBelongsToFormalHero(stat.name!, s) &&
+            s.level === 1 &&
+            s.name &&
+            !s.verification.unverified,
         )
         .map((s) => s.name!),
     ),
@@ -40,7 +45,7 @@ export function ownedHeroSkills(
     while (level <= 3) {
       const matches = catalog.skills.filter(
         (s) =>
-          s.hero === stat.name &&
+          skillBelongsToFormalHero(stat.name!, s) &&
           s.name === name &&
           s.level === level &&
           !s.verification.unverified,

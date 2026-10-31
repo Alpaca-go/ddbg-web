@@ -1,3 +1,4 @@
+import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import type { ApplyResult, GameState, PendingChoice } from "./command";
 import type { DungeonState } from "./dungeon";
 import { rejectBattleCommand } from "./battle";
@@ -79,7 +80,7 @@ function upgrades(state: GameState, hero: Hero) {
         : owned.flatMap((old) => {
             const next = catalog.skills.filter(
               (s) =>
-                s.hero === old.hero &&
+                skillBelongsToFormalHero(stat?.name ?? "", s) &&
                 s.name === old.name &&
                 s.level === old.level + 1 &&
                 !s.verification.unverified &&

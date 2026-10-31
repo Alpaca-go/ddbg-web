@@ -1,4 +1,6 @@
 import { nextBattleRoll } from "./encounter";
+import { createCoreDungeonQuest } from "./dungeon-quest-entry";
+import { coreParty } from "./test-helpers/core-quest";
 import rawTrinkets from "../../data/normalized/corebox/trinket.json";
 import { createTrinketPool, drawTrinket, chooseTrinket } from "./trinket-acquisition";
 import rawCurios from "../../data/normalized/corebox/curio.json";
@@ -119,6 +121,77 @@ function deploy(seed: number): GameState {
   const s = applyCommand(setup(seed), { type: "prepareDungeonBattle" }).state;
   return applyCommand(s, { type: "prepareDungeonMonsters" }).state;
 }
+it.each(["hero_skill:p221", "hero_skill:p222"])(
+  "Abomination永久升级%s通过真实房间战斗入场",
+  (id) => {
+    const prepared = deploy(35),
+      d = prepared.dungeon!;
+    // 明示英雄装备夹具；保留真实全量房间/怪物牌池与部署。
+    const party = [
+      {
+        ...coreParty[0]!,
+        heroStatId: "hero_stat:p021:front",
+        skillIds: ["hero_skill:p211", "hero_skill:p214", "hero_skill:p220"],
+      },
+      ...coreParty.slice(1),
+    ];
+    const actual = createCoreDungeonQuest(
+      35,
+      "quest:p001",
+      "radiant",
+      party,
+      coreQuestSources,
+    ).dungeon!;
+    const hero = {
+      ...actual.heroes[0]!,
+      skillIds: ["hero_skill:p211", "hero_skill:p214", id],
+      permanentlyRemovedSkillIds:
+        id === "hero_skill:p221" ? ["hero_skill:p220"] : ["hero_skill:p220", "hero_skill:p221"],
+    };
+    const state = {
+      ...prepared,
+      dungeon: {
+        ...d,
+        battleCatalog: { ...d.battleCatalog!, heroStats: actual.battleCatalog!.heroStats },
+        heroes: [hero, ...d.heroes.slice(1)],
+      },
+    };
+    const entered = applyCommand(state, { type: "startDungeonBattle" });
+    expect(entered.state.battle, JSON.stringify(entered.events)).toBeDefined();
+    expect(entered.state.battle!.entities.find((e) => e.id === "hero-0")!.skillIds).toContain(id);
+    const temporary = {
+      ...state,
+      dungeon: {
+        ...state.dungeon!,
+        heroes: [
+          {
+            ...hero,
+            permanentlyRemovedSkillIds: [],
+            nextQuestSkillUpgrades: [{ originalSkillId: "hero_skill:p220", temporarySkillId: id }],
+          },
+          ...d.heroes.slice(1),
+        ],
+      },
+    };
+    const borrowed = applyCommand(temporary, { type: "startDungeonBattle" });
+    expect(borrowed.state.battle, JSON.stringify(borrowed.events)).toBeDefined();
+    expect(borrowed.state.battle!.entities.find((e) => e.id === "hero-0")!.skillIds).toContain(id);
+    const forged = {
+      ...temporary,
+      dungeon: {
+        ...temporary.dungeon,
+        heroes: [
+          {
+            ...temporary.dungeon.heroes[0]!,
+            nextQuestSkillUpgrades: [{ originalSkillId: "hero_skill:p001", temporarySkillId: id }],
+          },
+          ...d.heroes.slice(1),
+        ],
+      },
+    };
+    expect(applyCommand(forged, { type: "startDungeonBattle" }).state).toBe(forged);
+  },
+);
 it("Guild后的II/III级装备技能可进入真实房间战斗，永久移除的旧卡不能重新装备", () => {
   const prepared = deploy(35),
     d = prepared.dungeon!;

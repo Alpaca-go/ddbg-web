@@ -1,3 +1,5 @@
+import { skillBelongsToFormalHero } from "./formal-roster-catalog";
+import { applyTemporarySkillUpgrades, restoreTemporarySkillUpgrades } from "./hamlet-embark";
 import { darkestBossVictoryAfterEncounter } from "./boss/darkest-content";
 import { readRoomTile } from "./room-tile-selection";
 import { readDungeonQuestProgress } from "./dungeon-quest";
@@ -75,6 +77,29 @@ export function startDungeonBattle(state: GameState): ApplyResult {
   if (!partitionsValid(d)) return refuse("房间 / 怪物牌池不守恒，拒绝战斗交接");
   const heroes: BattleEntity[] = [];
   for (const hero of d.heroes) {
+    const plans = hero.nextQuestSkillUpgrades;
+    if (
+      plans !== undefined &&
+      (!Array.isArray(plans) ||
+        plans.some(
+          (p) =>
+            !p || typeof p.originalSkillId !== "string" || typeof p.temporarySkillId !== "string",
+        ))
+    )
+      return refuse(`${hero.id} 的临时技能计划无效（R34）`);
+    if (plans?.length) {
+      const original = {
+        ...hero,
+        skillIds: restoreTemporarySkillUpgrades([hero])[0]!.skillIds ?? [],
+      };
+      const reapplied = applyTemporarySkillUpgrades([original], d.battleCatalog);
+      if (
+        !ownedHeroSkills(original, d.battleCatalog) ||
+        !("heroes" in reapplied) ||
+        JSON.stringify(reapplied.heroes[0]!.skillIds) !== JSON.stringify(hero.skillIds)
+      )
+        return refuse(`${hero.id} 的临时技能与拥有原卡不符（R34、R-048）`);
+    }
     const stat = stats.find((s) => s.id === hero.heroStatId);
     const selected = hero.skillIds?.map((id) => skills.find((s) => s.id === id));
     const slots = heroSkillSlotCount(stat?.level ?? 0);
@@ -94,24 +119,25 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       selected.some(
         (s) =>
           !s ||
-          s.hero !== stat.name ||
+          !skillBelongsToFormalHero(stat.name ?? "", s) ||
           ![1, 2, 3].includes(s.level) ||
           s.verification.unverified ||
           hero.permanentlyRemovedSkillIds?.includes(s.id) ||
-          Array.from({ length: s.level - 1 }, (_, i) => i + 1).some((level) => {
-            const previous = skills.filter(
-              (c) =>
-                c.hero === s.hero &&
-                c.name === s.name &&
-                c.level === level &&
-                !c.verification.unverified,
-            );
-            return (
-              !s.name ||
-              previous.length !== 1 ||
-              !hero.permanentlyRemovedSkillIds?.includes(previous[0]!.id)
-            );
-          }),
+          (!plans?.some((p) => p.temporarySkillId === s.id) &&
+            Array.from({ length: s.level - 1 }, (_, i) => i + 1).some((level) => {
+              const previous = skills.filter(
+                (c) =>
+                  skillBelongsToFormalHero(stat.name ?? "", c) &&
+                  c.name === s.name &&
+                  c.level === level &&
+                  !c.verification.unverified,
+              );
+              return (
+                !s.name ||
+                previous.length !== 1 ||
+                !hero.permanentlyRemovedSkillIds?.includes(previous[0]!.id)
+              );
+            })),
       )
     )
       return refuse(`${hero.id} 缺少获批属性或${slots || "2+HL"}个有效装备技能（R-048、R-051）`);
