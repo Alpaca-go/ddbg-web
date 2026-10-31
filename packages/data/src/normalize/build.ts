@@ -1,4 +1,5 @@
 import { buildDarkestBossContent } from "./darkest-boss-content";
+import { buildDarkestBossAbilities } from "./darkest-boss-abilities";
 import { buildDarkestMonsterPool } from "./darkest-monster-pool";
 import { attachVerifiedCollectedLife } from "./verified-collected-life";
 import type { IconDictionary } from "../dictionary/schema";
@@ -94,6 +95,7 @@ export type NormalizedCorebox = {
   monster_pool: ReturnType<typeof buildMonsterPool>;
   darkest_monster_pool: ReturnType<typeof buildDarkestMonsterPool>;
   darkest_boss_content: ReturnType<typeof buildDarkestBossContent>;
+  darkest_boss_abilities: ReturnType<typeof buildDarkestBossAbilities>;
   room: ReturnType<typeof buildRooms>;
   curio: ReturnType<typeof buildCurios>;
   hero_stat: NormalizedHeroStatFile;
@@ -635,6 +637,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       medium,
       large,
     ),
+    darkest_boss_abilities: buildDarkestBossAbilities(input.bossAbilitiesRaw),
     room: buildRooms(input.rooms),
     curio: buildCurios(input.curios, input.dictionary),
     hero_stat: (() => {

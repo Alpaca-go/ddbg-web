@@ -1,0 +1,143 @@
+{
+ "schema": "ddbg-darkest-boss-abilities-v1",
+ "cards": [
+  {
+   "id": "boss_ability:p026",
+   "name": "Templar Warlord",
+   "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+   "sourcePage": 26,
+   "actionsPerRound": 2,
+   "textLines": [],
+   "combatReady": false
+  },
+  {
+   "id": "boss_ability:p028",
+   "name": "Templar Impaler",
+   "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+   "sourcePage": 28,
+   "actionsPerRound": 2,
+   "textLines": [
+    "Pit Toss: When the Templar Impaler",
+    "hits a Hero with his Body Slam Skill,",
+    "roll a {icon:d91e56a591} to see which Pit Area",
+    "he’ll throw them into. If the Area",
+    "has no space, ignore this effect."
+   ],
+   "combatReady": false
+  },
+  {
+   "id": "boss_ability:p030",
+   "name": "Mammoth Cyst",
+   "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+   "sourcePage": 30,
+   "actionsPerRound": 2,
+   "textLines": [
+    "Summon {icon:ab045955ed} : If there is no White",
+    "Cell Stalk in play, instead of using a",
+    "Skill, Mammoth Cyst will {icon:ab045955ed} one."
+   ],
+   "combatReady": false
+  },
+  {
+   "id": "boss_ability:p031",
+   "name": "White Cell Stalk",
+   "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+   "sourcePage": 31,
+   "actionsPerRound": 2,
+   "textLines": [
+    "Teleport: When it hits a Hero",
+    "with the Teleport Skill, roll a {icon:d91e56a591}",
+    "to see where they’ll land."
+   ],
+   "combatReady": false
+  },
+  {
+   "id": "boss_ability:p033",
+   "name": "Shuffling Horror",
+   "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+   "sourcePage": 33,
+   "actionsPerRound": 2,
+   "textLines": [
+    "Undulations: When the Shuffling Horror",
+    "uses this Skill, shuffle all Hero Stance",
+    "Cards together and put them back into",
+    "place at random, starting from the front.",
+    "Echoing Disassembly: If not all",
+    "Stance Slots for Monsters are filled,",
+    "Shuffling Horror will use this Skill. This",
+    "will summon a Cultist Priest (unless",
+    "it’s already in play) and Malignant",
+    "Growth (unless it’s already in play)."
+   ],
+   "combatReady": false
+  },
+  {
+   "id": "boss_ability:p034",
+   "name": "Ancestor 1st Form",
+   "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+   "sourcePage": 34,
+   "actionsPerRound": "special",
+   "textLines": [
+    "Time Heals All: If all Monster Stances",
+    "are occupied, during his turn, the",
+    "Ancestor will use the Time Heals All",
+    "Skill. Otherwise, he will take actions",
+    "until all Monster Stances are full.",
+    "Reflections: The Reflections have {icon:1d1884bc2a}",
+    "at all times. When a Imperfect",
+    "Reflection dies, the Ancestor",
+    "suffers 10 {icon:b4f3f42fe4} ."
+   ],
+   "combatReady": false
+  },
+  {
+   "id": "boss_ability:p035",
+   "name": "Ancestor 2nd Form",
+   "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+   "sourcePage": 35,
+   "actionsPerRound": 2,
+   "textLines": [
+    "Swift Teleportation: After the",
+    "Ancestor finishes an action, roll",
+    "a {icon:d91e56a591} to see where he teleports",
+    "to: 1-3 {icon:ba58ec175e} Area, 4-6 {icon:f53b3fb732} Area, 7-9",
+    "{icon:3af899ff70} Area, 10 no teleportation.",
+    "Absolute Nothingness: The Absolute",
+    "Nothingness are untargetable but they",
+    "still occupy one space in their Areas."
+   ],
+   "combatReady": false
+  },
+  {
+   "id": "boss_ability:p036",
+   "name": "Gestating Heart",
+   "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+   "sourcePage": 36,
+   "actionsPerRound": 1,
+   "textLines": [
+    "Ichor: Each time a Hero deals",
+    "damage to the Gestating Heart,",
+    "they {icon:7f0a59a7a0} {icon:910a0c12fe} 2 and suffer 2 {icon:90558ded71} 3t.",
+    "Summon {icon:ab045955ed} : {icon:ab045955ed} a random",
+    "Darkest Dungeon Monster."
+   ],
+   "combatReady": false
+  },
+  {
+   "id": "boss_ability:p037",
+   "name": "Heart of Darkness",
+   "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+   "sourcePage": 37,
+   "actionsPerRound": 2,
+   "textLines": [
+    "Impending Doom: At the start",
+    "of Battle and each time Heart",
+    "of Darkness finishes an action,",
+    "roll a {icon:d91e56a591} and place it next to its",
+    "card. Next time its turn comes,",
+    "it’ll use the corresponding Skill."
+   ],
+   "combatReady": false
+  }
+ ]
+}
