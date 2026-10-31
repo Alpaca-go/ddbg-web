@@ -130,5 +130,7 @@ it("真实Scout Ahead seed6回村用30金升级II，保存刷新不重复发放/
   expect(restored.dungeon!.hamlet).toEqual(before.hamlet);
   expect(restored.dungeon!.heroes).toEqual(before.heroes);
   expect(restored.dungeon!.cursor).toBe(before.cursor);
-  expect(applyCommand(restored, upgrade).state).toBe(restored); // 剩余10金，不能再升级
+  const afterSecond = applyCommand(restored, upgrade);
+  expect(afterSecond.state.dungeon!.gold).toBe(before.gold - 40);
+  expect(applyCommand(afterSecond.state, upgrade).state).toBe(afterSecond.state);
 }, 30000);

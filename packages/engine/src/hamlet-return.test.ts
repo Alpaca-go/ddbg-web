@@ -326,7 +326,7 @@ it("真实起点领完八补给即可提前离开回村，未战斗宝箱池首�
   r = ok(r.state, { type: "summarizeDungeonQuest" });
   expect(r.state.dungeon!.lootPool).toBeUndefined();
   const returned = complete(r.state).state.dungeon!;
-  expect(returned.gold).toBe(8);
+  expect(returned.gold).toBe(28);
   expect(returned.stagecoachXp).toBe(0);
   expect(returned.lootPool!.available).toHaveLength(10);
   expect(returned.heroes.map((h) => h.xp)).toEqual([0, 0, 0, 0]);

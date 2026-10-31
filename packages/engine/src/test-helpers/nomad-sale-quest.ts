@@ -22,21 +22,43 @@ export function nomadSaleQuest(catalog = coreQuestSources.catalog) {
   };
   const purchaseDay = game.dungeon!.hamlet!.day;
   step({ type: "visitNomadWagon", actorId: "hero-0" });
+  const held = game.dungeon!.trinkets!.held;
+  const buyOption = game.dungeon!.pending!.options.find(
+    (o) =>
+      o.id.startsWith("buy:") &&
+      !held.some((entry) => o.id === `buy:${entry.cardId}`),
+  );
+  if (!buyOption) throw new Error("游商出售前置没有可购买的未持饰品");
   step({
     type: "resolveChoice",
     choiceId: game.dungeon!.pending!.id,
-    optionId: game.dungeon!.pending!.options.find((o) => o.id.startsWith("buy:"))!.id,
+    optionId: buyOption.id,
   });
   const purchasedId = game.dungeon!.trinkets!.incoming!.cardId;
-  step({ type: "resolveChoice", choiceId: game.dungeon!.pending!.id, optionId: "equip:hero-0" });
+  const equipHero =
+    game.dungeon!.pending!.options.find((o) => o.id === "equip:hero-0") &&
+    game.dungeon!.trinkets!.held.filter((h) => h.heroId === "hero-0").length < 2
+      ? "hero-0"
+      : (["hero-1", "hero-2", "hero-3"] as const).find((id) =>
+          game.dungeon!.pending!.options.some((o) => o.id === `equip:${id}`),
+        ) ?? "hero-0";
+  step({
+    type: "resolveChoice",
+    choiceId: game.dungeon!.pending!.id,
+    optionId: `equip:${equipHero}`,
+  });
   if (
     !game.dungeon!.trinkets!.held.some(
-      (held) => held.cardId === purchasedId && held.heroId === "hero-0",
+      (held) => held.cardId === purchasedId && held.heroId === equipHero,
     )
   )
     throw new Error("游商出售前置未装备刚购买的饰品");
   step({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
-  step({ type: "visitHamletBuilding", actorId: "hero-2", serviceId: "tavern3", quirkIds: [] });
+  if (game.dungeon!.hamlet!.blockedBuildings.includes("tavern")) {
+    step({ type: "visitHamletBuilding", actorId: "hero-2", serviceId: "heal5", quirkIds: [] });
+  } else {
+    step({ type: "visitHamletBuilding", actorId: "hero-2", serviceId: "tavern3", quirkIds: [] });
+  }
   step({ type: "useHamletSkill", actorId: "hero-3", skill: "chant" });
   step({ type: "rollHamletCaretaker" });
   while (game.dungeon!.hamlet!.blockedBuildings.includes("nomadWagon")) {

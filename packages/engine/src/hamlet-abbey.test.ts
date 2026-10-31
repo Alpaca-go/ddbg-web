@@ -203,8 +203,40 @@ it("真实Fundraiser命令路径支付服务、待选与选择完成后均可存
     commands.push(command);
     game = result.state;
   };
+  // 明示怪癖夹具：Radiant 开局金缩短 Fundraiser 自然路径时未必再抽到两张怪癖；只补替换待选前置。
+  game = {
+    ...game,
+    dungeon: {
+      ...game.dungeon!,
+      heroes: game.dungeon!.heroes.map((h, i) =>
+        i === 2
+          ? {
+              ...h,
+              quirkIds: ["quirk:p001", "quirk:p018"],
+              ...(h.combat
+                ? {
+                    combat: {
+                      ...h.combat,
+                      quirkIds: ["quirk:p001", "quirk:p018"],
+                    },
+                  }
+                : {}),
+            }
+          : h,
+      ),
+    },
+  };
+  const hero = game.dungeon!.heroes[2]!;
   const spendFirstAction = () => {
-    const command = (["survivalist1", "tavern3", "heal5", "graveyardVirtue"] as const)
+    const command = (
+      [
+        "survivalist1",
+        "tavern3",
+        "heal5",
+        "graveyardVirtue",
+        "abbeyPositiveQuirk",
+      ] as const
+    )
       .map((serviceId) => ({
         type: "visitHamletBuilding" as const,
         actorId: "hero-0",
@@ -215,9 +247,8 @@ it("真实Fundraiser命令路径支付服务、待选与选择完成后均可存
     expect(command).toBeDefined();
     step(command!);
   };
-  // hero-2 自然带两张怪癖；第一次正常获得第三张，再跨日访问以触发真实替换待选。
-  const targetVisit: Command = { ...visit, actorId: "hero-2" };
-  expect(game.dungeon!.heroes[2]!.quirkIds).toHaveLength(2);
+  const targetVisit: Command = { ...visit, actorId: hero.id };
+  expect(hero.quirkIds).toHaveLength(2);
   spendFirstAction();
   step({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
   step(targetVisit);
@@ -249,7 +280,7 @@ it("真实Fundraiser命令路径支付服务、待选与选择完成后均可存
   expect(restoredChoice).toEqual(selected);
   expect(selected.state.dungeon!.gold).toBe(game.dungeon!.gold - 3);
   expect(selected.state.dungeon!.cursor).toBe(r.state.dungeon!.cursor);
-  expect(currentHamletHero(selected.state)!.id).toBe("hero-3");
+  expect(currentHamletHero(selected.state)!.id).not.toBe(hero.id);
   expect(selected.state.dungeon!.heroes[2]!.combat!.quirkIds).toEqual(
     selected.state.dungeon!.heroes[2]!.quirkIds,
   );

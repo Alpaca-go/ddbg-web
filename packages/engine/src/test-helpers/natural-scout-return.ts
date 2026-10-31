@@ -45,7 +45,7 @@ export function naturalScoutReturn(seed: number, sources = coreQuestSources) {
   return { game, commands, start, save: createQuestSave(start, commands, game, sources) };
 }
 
-/** seed6 真实回村的30金，用于20金付费升级；不依赖抽到某一村庄事件。 */
+/** seed6 真实回村的50金（含 Radiant 开局20），用于20金付费升级；不依赖抽到某一村庄事件。 */
 export function paidUpgradeQuest(sources = coreQuestSources) {
   const journey = naturalScoutReturn(6, sources);
   if (journey.game.dungeon!.gold < 20) throw new Error("付费升级自然场景缺少20金，不能注入资金");

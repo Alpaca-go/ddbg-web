@@ -16,7 +16,7 @@ it.each(basicQuests.filter((q) => q.level === 1))(
       expect(d.position).toBe("S");
       expect(d.visited).toEqual(["S"]);
       expect(d.phase).toBe("awaitingProvisions");
-      expect(d.gold).toBe(0);
+      expect(d.gold).toBe(mode === "standard" ? 10 : 20);
       expect(d.rooms.every((r) => !r.revealed && !r.cleared)).toBe(true);
       expect(
         d.heroes.every(
@@ -58,6 +58,27 @@ it.each(basicQuests.filter((q) => q.level === 1))(
     }
   },
 );
+
+it.each([
+  ["standard", 10],
+  ["radiant", 20],
+] as const)("createCoreDungeonQuest %s 开局金 %i", (mode, gold) => {
+  const game = createCoreDungeonQuest(31, "quest:p001", mode, coreParty, coreQuestSources);
+  expect(game.dungeon!.gold).toBe(gold);
+});
+
+it("createCoreDungeonQuest 仍拒绝 Stygian", () => {
+  expect(() =>
+    createCoreDungeonQuest(
+      1,
+      "quest:p001",
+      "stygian" as "standard",
+      coreParty,
+      coreQuestSources,
+    ),
+  ).toThrow();
+});
+
 it("拒绝重复英雄／姿态／技能、越级技能、缩减来源与非法种子", () => {
   const start = (party = coreParty, sources = coreQuestSources, seed = 1) =>
     createCoreDungeonQuest(seed, "quest:p001", "standard", party, sources);

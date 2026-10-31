@@ -35,7 +35,7 @@ it("正式网页目录的四房间2XP公会场景：访问、付款、结束均�
     checkSave();
   };
   expect(baseline.start.seed).toBe(11);
-  expect(game.dungeon!.gold).toBe(26);
+  expect(game.dungeon!.gold).toBe(46);
   expect(game.dungeon!.questSummary).toMatchObject({
     questId: "quest:p001",
     xpPerHero: 2,
@@ -57,7 +57,7 @@ it("正式网页目录的四房间2XP公会场景：访问、付款、结束均�
     choiceId: game.dungeon!.pending!.id,
     optionId: "upgrade:hero_skill:p001",
   });
-  expect(game.dungeon!.gold).toBe(25);
+  expect(game.dungeon!.gold).toBe(45);
   expect(game.dungeon!.heroes[0]).toMatchObject({
     level: 1,
     xp: 0,

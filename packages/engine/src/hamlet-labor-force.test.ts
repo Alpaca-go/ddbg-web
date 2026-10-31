@@ -201,7 +201,7 @@ it("真实Scout Ahead seed6回村30金可付费升铁匠/游商各10金；最高
       applyCommand({ ...iii, dungeon: { ...iii.dungeon!, gold: 9 } }, command).events[0]!.type,
     ).toBe("commandRefused");
   }
-  expect(game.dungeon!.gold).toBe(10);
+  expect(game.dungeon!.gold).toBe(30);
   const save = createQuestSave(journey.start, commands, game, coreQuestSources);
   expect(loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game).toEqual(game);
 }, 30000);

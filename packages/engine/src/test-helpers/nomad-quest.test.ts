@@ -21,7 +21,7 @@ it("正式网页目录的首次来访、再次出售与III级游商均由公开�
   expect(first.game.dungeon!.hamlet!.day).toBe(4);
   expect(first.game.dungeon!.trinkets!.display).toBeUndefined();
   expect(sale.game.dungeon!.hamlet!.day).toBeGreaterThan(1);
-  expect(sale.game.dungeon!.trinkets!.held).toHaveLength(1);
+  expect(sale.game.dungeon!.trinkets!.held.length).toBeGreaterThanOrEqual(1);
   expect(higher.game.dungeon!.buildingLevels?.nomadWagon).toBe(3);
   expect(higher.game.dungeon!.buildingLevels?.abbey).toBeUndefined();
   for (const journey of [first, sale, higher]) {

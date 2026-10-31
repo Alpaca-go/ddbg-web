@@ -373,6 +373,11 @@ export type DungeonCommand =
   | { readonly type: "resolveDungeonRoom" }
   | { readonly type: "resolveDungeonPressure" };
 
+/** 规则书 / plan.md：Standard 开局 10 金、Radiant 20 金；Stygian 未开放。 */
+export function startingGoldForMode(mode: "standard" | "radiant"): number {
+  return mode === "radiant" ? 20 : 10;
+}
+
 /** 固定地图/任务首切片沙盒。当前位置可注入，以测试房间结算后的侦察接口；不是战役布置。 */
 export function createDungeonSandbox(
   seed: number,
@@ -449,7 +454,7 @@ export function createDungeonSandbox(
       heroes: heroes.map((h) => ({ ...h })),
       resolveCards: resolveCards.map((c) => ({ ...c, verification: { ...c.verification } })),
       resolveDecks: {},
-      gold: 0,
+      gold: startingProvisions ? startingGoldForMode(mode) : 0,
       ...(battleCatalog ? { battleCatalog } : {}),
       ...(battleCatalog?.conditions ? { conditions: battleCatalog.conditions } : {}),
       ...(battleCatalog?.trinkets ? { trinkets: battleCatalog.trinkets } : {}),

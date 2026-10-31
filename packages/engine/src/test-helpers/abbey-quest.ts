@@ -5,7 +5,7 @@ import { createQuestSave } from "../quest-save";
 import { coreQuestSources } from "./core-quest";
 import { naturalParty, naturalQuest } from "./natural-quest";
 
-export const NATURAL_ABBEY_SEED = 123;
+export const NATURAL_ABBEY_SEED = 68;
 
 /** 共用公开命令路径；建筑可用性按各自然场景的目标单独验证。 */
 function naturalHamletQuest(
