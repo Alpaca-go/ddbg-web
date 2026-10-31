@@ -9,8 +9,8 @@
  },
  "stats": {
   "cards": 35,
-  "verified": 28,
-  "unverified": 7
+  "verified": 35,
+  "unverified": 0
  },
  "cards": [
   {
@@ -841,13 +841,13 @@
       "icon": {
        "iconId": "c3727c7056",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_c3727c7056",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: yellow cracked human figure",
-       "meaning_zh": "待确认图形：黄色裂缝人形",
+       "status": "confirmed",
+       "key": "dodge",
+       "kind": "other",
+       "meaning_en": "Dodge",
+       "meaning_zh": "闪避",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      }
     ],
@@ -955,13 +955,13 @@
     {
      "iconId": "c3727c7056",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_c3727c7056",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: yellow cracked human figure",
-     "meaning_zh": "待确认图形：黄色裂缝人形",
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge",
+     "meaning_zh": "闪避",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "e847e28998",
@@ -1031,10 +1031,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:c3727c7056"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -1306,13 +1304,13 @@
       "icon": {
        "iconId": "9ce4169551",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_9ce4169551",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: grey \"+2\" value badge",
-       "meaning_zh": "待确认图形：灰底「+2」数值徽章",
-       "value": null,
-       "naming": "unverified"
+       "status": "confirmed",
+       "key": "value_badge",
+       "kind": "other",
+       "meaning_en": "Value badge +2 (on dodge icon)",
+       "meaning_zh": "数值徽章 +2（叠在闪避图标上）",
+       "value": 2,
+       "naming": "confirmed"
       }
      },
      {
@@ -1361,13 +1359,13 @@
     {
      "iconId": "9ce4169551",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_9ce4169551",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: grey \"+2\" value badge",
-     "meaning_zh": "待确认图形：灰底「+2」数值徽章",
-     "value": null,
-     "naming": "unverified"
+     "status": "confirmed",
+     "key": "value_badge",
+     "kind": "other",
+     "meaning_en": "Value badge +2 (on dodge icon)",
+     "meaning_zh": "数值徽章 +2（叠在闪避图标上）",
+     "value": 2,
+     "naming": "confirmed"
     },
     {
      "iconId": "7a472f5d6f",
@@ -1382,10 +1380,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:9ce4169551"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -2451,13 +2447,13 @@
       "icon": {
        "iconId": "269d523c85",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_269d523c85",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: red chalice or goblet",
-       "meaning_zh": "待确认图形：红色圣杯或高脚杯",
+       "status": "confirmed",
+       "key": "curio",
+       "kind": "other",
+       "meaning_en": "Curio (exploration marker)",
+       "meaning_zh": "奇物（探索标记）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      }
     ],
@@ -2565,13 +2561,13 @@
     {
      "iconId": "269d523c85",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_269d523c85",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red chalice or goblet",
-     "meaning_zh": "待确认图形：红色圣杯或高脚杯",
+     "status": "confirmed",
+     "key": "curio",
+     "kind": "other",
+     "meaning_en": "Curio (exploration marker)",
+     "meaning_zh": "奇物（探索标记）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "e847e28998",
@@ -2641,10 +2637,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:269d523c85"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -2806,13 +2800,13 @@
       "icon": {
        "iconId": "72efe52ca5",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_72efe52ca5",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: ten-sided die showing 10, with a large \"1\" beside it",
-       "meaning_zh": "待确认图形：十面骰显示 10，旁边大号「1」",
-       "value": null,
-       "naming": "unverified"
+       "status": "confirmed",
+       "key": "d10",
+       "kind": "dice_face",
+       "meaning_en": "d10 die face result 1",
+       "meaning_zh": "十面骰面结果 1",
+       "value": 1,
+       "naming": "confirmed"
       }
      }
     ],
@@ -2920,13 +2914,13 @@
     {
      "iconId": "72efe52ca5",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_72efe52ca5",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: ten-sided die showing 10, with a large \"1\" beside it",
-     "meaning_zh": "待确认图形：十面骰显示 10，旁边大号「1」",
-     "value": null,
-     "naming": "unverified"
+     "status": "confirmed",
+     "key": "d10",
+     "kind": "dice_face",
+     "meaning_en": "d10 die face result 1",
+     "meaning_zh": "十面骰面结果 1",
+     "value": 1,
+     "naming": "confirmed"
     },
     {
      "iconId": "e847e28998",
@@ -2996,10 +2990,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:72efe52ca5"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -4583,13 +4575,13 @@
       "icon": {
        "iconId": "52e99dee17",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_52e99dee17",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: grey \"-2\" value badge",
-       "meaning_zh": "待确认图形：灰底「-2」数值徽章",
-       "value": null,
-       "naming": "unverified"
+       "status": "confirmed",
+       "key": "value_badge",
+       "kind": "other",
+       "meaning_en": "Value badge −2 (on dodge icon)",
+       "meaning_zh": "数值徽章 −2（叠在闪避图标上）",
+       "value": -2,
+       "naming": "confirmed"
       }
      },
      {
@@ -4638,13 +4630,13 @@
     {
      "iconId": "52e99dee17",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_52e99dee17",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: grey \"-2\" value badge",
-     "meaning_zh": "待确认图形：灰底「-2」数值徽章",
-     "value": null,
-     "naming": "unverified"
+     "status": "confirmed",
+     "key": "value_badge",
+     "kind": "other",
+     "meaning_en": "Value badge −2 (on dodge icon)",
+     "meaning_zh": "数值徽章 −2（叠在闪避图标上）",
+     "value": -2,
+     "naming": "confirmed"
     },
     {
      "iconId": "7a472f5d6f",
@@ -4659,10 +4651,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:52e99dee17"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -5606,13 +5596,13 @@
       "icon": {
        "iconId": "269d523c85",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_269d523c85",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: red chalice or goblet",
-       "meaning_zh": "待确认图形：红色圣杯或高脚杯",
+       "status": "confirmed",
+       "key": "curio",
+       "kind": "other",
+       "meaning_en": "Curio (exploration marker)",
+       "meaning_zh": "奇物（探索标记）",
        "value": null,
-       "naming": "unverified"
+       "naming": "confirmed"
       }
      }
     ],
@@ -5709,13 +5699,13 @@
     {
      "iconId": "269d523c85",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_269d523c85",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red chalice or goblet",
-     "meaning_zh": "待确认图形：红色圣杯或高脚杯",
+     "status": "confirmed",
+     "key": "curio",
+     "kind": "other",
+     "meaning_en": "Curio (exploration marker)",
+     "meaning_zh": "奇物（探索标记）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "09f92af544",
@@ -5785,10 +5775,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:269d523c85"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {
@@ -5816,13 +5804,13 @@
       "icon": {
        "iconId": "adcab0541a",
        "in_dictionary": true,
-       "status": "needs_review",
-       "key": "pending_adcab0541a",
-       "kind": "",
-       "meaning_en": "Unconfirmed glyph: ten-sided die showing 10, with a large \"10\" beside it",
-       "meaning_zh": "待确认图形：十面骰显示 10，旁边大号「10」",
-       "value": null,
-       "naming": "unverified"
+       "status": "confirmed",
+       "key": "d10",
+       "kind": "dice_face",
+       "meaning_en": "d10 die face result 10",
+       "meaning_zh": "十面骰面结果 10",
+       "value": 10,
+       "naming": "confirmed"
       }
      }
     ],
@@ -5867,13 +5855,13 @@
     {
      "iconId": "adcab0541a",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_adcab0541a",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: ten-sided die showing 10, with a large \"10\" beside it",
-     "meaning_zh": "待确认图形：十面骰显示 10，旁边大号「10」",
-     "value": null,
-     "naming": "unverified"
+     "status": "confirmed",
+     "key": "d10",
+     "kind": "dice_face",
+     "meaning_en": "d10 die face result 10",
+     "meaning_zh": "十面骰面结果 10",
+     "value": 10,
+     "naming": "confirmed"
     },
     {
      "iconId": "09f92af544",
@@ -5899,10 +5887,8 @@
     }
    ],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:adcab0541a"
-    ]
+    "unverified": false,
+    "reasons": []
    }
   },
   {

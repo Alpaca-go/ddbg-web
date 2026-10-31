@@ -29,7 +29,11 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
         if (
           !skill.verified_monster_effects ||
           skill.target === "Self" ||
-          skill.verified_monster_effects.effects.some((e) => e.type === "disease")
+          skill.verified_monster_effects.effects.some((e) => e.type === "disease") ||
+          skill.verified_monster_effects.effects.every(
+            (e) =>
+              e.type === "heal" || (e.type === "status" && e.kind === "buff" && e.scope === "target"),
+          )
         )
           continue;
         const attack = readMonsterAttackView(card, skill.slot);
@@ -50,7 +54,7 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
         }
         checked++;
       }
-    expect(checked).toBe(28); // 原25项攻击 + Fanatic I 三招。
+    expect(checked).toBe(53); // 含 Fanatic I、Collector 等；排除 Collected Vestal 纯治疗；+ A-01 Warlord Revelation。
     expect(cards).toEqual(before);
   });
   it("注解数值 / 范围或原始行漂移原子拒绝，不能靠更新签名放行", () => {

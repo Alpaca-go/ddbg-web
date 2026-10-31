@@ -9,8 +9,8 @@
  },
  "stats": {
   "cards": 20,
-  "verified": 18,
-  "unverified": 2
+  "verified": 20,
+  "unverified": 0
  },
  "cards": [
   {
@@ -23458,7 +23458,20 @@
         "text": " +2"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+2"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
@@ -27870,13 +27883,13 @@
     {
      "iconId": "8707d5d8cf",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_8707d5d8cf",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: skull with a red down arrow",
-     "meaning_zh": "待确认图形：颅骨加红色下箭头",
+     "status": "confirmed",
+     "key": "summon",
+     "kind": "other",
+     "meaning_en": "Summon",
+     "meaning_zh": "召唤",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "a84ac4c016",
@@ -28136,10 +28149,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:8707d5d8cf"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "life": 109,
    "life_icon": {
@@ -28800,13 +28811,13 @@
         "icon": {
          "iconId": "8707d5d8cf",
          "in_dictionary": true,
-         "status": "needs_review",
-         "key": "pending_8707d5d8cf",
-         "kind": "",
-         "meaning_en": "Unconfirmed glyph: skull with a red down arrow",
-         "meaning_zh": "待确认图形：颅骨加红色下箭头",
+         "status": "confirmed",
+         "key": "summon",
+         "kind": "other",
+         "meaning_en": "Summon",
+         "meaning_zh": "召唤",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        }
       ]
@@ -29020,13 +29031,13 @@
         "icon": {
          "iconId": "8707d5d8cf",
          "in_dictionary": true,
-         "status": "needs_review",
-         "key": "pending_8707d5d8cf",
-         "kind": "",
-         "meaning_en": "Unconfirmed glyph: skull with a red down arrow",
-         "meaning_zh": "待确认图形：颅骨加红色下箭头",
+         "status": "confirmed",
+         "key": "summon",
+         "kind": "other",
+         "meaning_en": "Summon",
+         "meaning_zh": "召唤",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        }
       ]
@@ -30070,6 +30081,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 3,
    "resistances": [],
    "immunities": [
     {
@@ -31369,7 +31381,6 @@
      }
     ]
    ],
-   "speed": 3,
    "stanceGroups": [
     {
      "stances": [
@@ -31535,13 +31546,13 @@
     {
      "iconId": "8707d5d8cf",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_8707d5d8cf",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: skull with a red down arrow",
-     "meaning_zh": "待确认图形：颅骨加红色下箭头",
+     "status": "confirmed",
+     "key": "summon",
+     "kind": "other",
+     "meaning_en": "Summon",
+     "meaning_zh": "召唤",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "a38154c523",
@@ -31702,10 +31713,8 @@
    ],
    "issues": [],
    "verification": {
-    "unverified": true,
-    "reasons": [
-     "icon:8707d5d8cf"
-    ]
+    "unverified": false,
+    "reasons": []
    },
    "life": 100,
    "life_icon": {
@@ -31809,13 +31818,13 @@
         "icon": {
          "iconId": "8707d5d8cf",
          "in_dictionary": true,
-         "status": "needs_review",
-         "key": "pending_8707d5d8cf",
-         "kind": "",
-         "meaning_en": "Unconfirmed glyph: skull with a red down arrow",
-         "meaning_zh": "待确认图形：颅骨加红色下箭头",
+         "status": "confirmed",
+         "key": "summon",
+         "kind": "other",
+         "meaning_en": "Summon",
+         "meaning_zh": "召唤",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        }
       ]
@@ -31865,13 +31874,13 @@
         "icon": {
          "iconId": "8707d5d8cf",
          "in_dictionary": true,
-         "status": "needs_review",
-         "key": "pending_8707d5d8cf",
-         "kind": "",
-         "meaning_en": "Unconfirmed glyph: skull with a red down arrow",
-         "meaning_zh": "待确认图形：颅骨加红色下箭头",
+         "status": "confirmed",
+         "key": "summon",
+         "kind": "other",
+         "meaning_en": "Summon",
+         "meaning_zh": "召唤",
          "value": null,
-         "naming": "unverified"
+         "naming": "confirmed"
         }
        }
       ]
@@ -32850,11 +32859,6 @@
      "slot": 1,
      "name": "Know This",
      "target": "Crowded",
-     "verified_range": {
-      "min": 0,
-      "max": 10,
-      "source": "print_front"
-     },
      "printed_labels": [
       {
        "label": "Crit",
@@ -33173,11 +33177,6 @@
      "slot": 2,
      "name": "Puncture",
      "target": "Closest",
-     "verified_range": {
-      "min": 0,
-      "max": 10,
-      "source": "print_front"
-     },
      "printed_labels": [
       {
        "label": "Crit",
@@ -33442,11 +33441,6 @@
      "slot": 3,
      "name": "Dissolution",
      "target": "Furthest",
-     "verified_range": {
-      "min": 0,
-      "max": 10,
-      "source": "print_front"
-     },
      "printed_labels": [
       {
        "label": "Crit",

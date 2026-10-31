@@ -117,6 +117,7 @@ export function runDarkestMidBossSkillAcc(
       },
     },
   };
+  const skillPlan = card.skills.find((entry) => entry.slot === skillSlot)?.verified_monster_effects;
   const played = playMonsterSkill(prepared, {
     type: "playMonsterSkill",
     actorId: actor.id,
@@ -124,12 +125,13 @@ export function runDarkestMidBossSkillAcc(
     targetId: targetPick.targetId,
   });
   if (played.events.some((event) => event.type === "commandRefused")) return played;
+  const effectNote = skillPlan ? "含 verified 效果线" : "效果线 hold";
   return {
     ...played,
     events: [
       {
         type: "dungeonUpdated",
-        message: `${ctx.bossLabel} · ${skillLabel}：Acc 最小结算（slot ${skillSlot}；目标 ${targetPick.targetId}；效果线 hold；${ctx.abilityRef}）`,
+        message: `${ctx.bossLabel} · ${skillLabel}：Acc 最小结算（slot ${skillSlot}；目标 ${targetPick.targetId}；${effectNote}；${ctx.abilityRef}）`,
       },
       ...played.events,
     ],
