@@ -382,6 +382,11 @@ export {
   darkestMidBossCombatActive,
   expandDarkestMidBossInitiativeDeckSides,
 } from "./darkest-mid-boss-deploy";
+export {
+  applyShufflingHorrorUndulations,
+  DARKEST_MID_BOSS_HERO_STANCE_AREAS,
+  SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID,
+} from "./darkest-shuffling-horror-combat-runtime";
 
 export {
   ensureNecromancerIIIBossScriptRegistered,

@@ -74,6 +74,7 @@ import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
 import { recordMonsterSkill } from "./encounter";
 import { chooseNecromancerISummon } from "./boss/necromancer-i-combat-runtime";
 import { chooseCollectorISummon } from "./boss/collector-i-combat-runtime";
+import { applyShufflingHorrorUndulations } from "./boss/darkest-shuffling-horror-combat-runtime";
 import {
   resolveDungeonConditionChoice,
   resolveDungeonCurioProvisionChoice,
@@ -230,6 +231,7 @@ type BaseCommand =
   | PlayHeroSkillTargetsCommand
   | PlayMonsterSkillCommand
   | PrepareMonsterActionCommand
+  | { readonly type: "applyShufflingHorrorUndulations"; readonly actorId: string }
   | MoveMonsterToRangeCommand
   | MoveHeroCommand
   | { readonly type: "resolveShuffles" }
@@ -711,6 +713,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "hideAndHeal") return hideAndHeal(state, command.actorId);
   if (command.type === "interactLoot") return interactLoot(state, command.actorId);
   if (command.type === "prepareMonsterAction") return prepareMonsterAction(state, command);
+  if (command.type === "applyShufflingHorrorUndulations")
+    return applyShufflingHorrorUndulations(state, command.actorId);
   if (command.type === "moveMonsterToRange") return moveMonsterToRange(state, command);
   if (command.type === "moveHero") return moveHero(state, command);
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);
