@@ -30,6 +30,7 @@ import { visitBlacksmith } from "./hamlet-blacksmith";
 import { visitGuild, chooseGuild } from "./hamlet-guild";
 import { offerNextQuest, chooseNextQuest } from "./hamlet-embark";
 import { advanceCampaignLevel } from "./hamlet-campaign";
+import { advanceRuinsAct } from "./advance-ruins-act";
 import { setActiveBossThreat } from "./boss/set-active-boss-threat";
 import {
   chooseHauntedGraveyard,
@@ -200,6 +201,7 @@ type BaseCommand =
   | { readonly type: "drawHamletEvent" }
   | { readonly type: "offerNextQuest" }
   | { readonly type: "advanceCampaignLevel" }
+  | { readonly type: "advanceRuinsAct" }
   | SetActiveBossThreatCommand
   | EstablishImminentThreatCommand
   | DrawImminentThreatAfterActAdvanceCommand
@@ -425,6 +427,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       : rejectBattleCommand(state, "请先选择下一任务");
   if (command.type === "offerNextQuest") return offerNextQuest(state);
   if (command.type === "advanceCampaignLevel") return advanceCampaignLevel(state);
+  if (command.type === "advanceRuinsAct") return advanceRuinsAct(state);
   if (command.type === "establishImminentThreat") return establishImminentThreat(state, command);
   if (command.type === "drawImminentThreatAfterActAdvance")
     return drawImminentThreatAfterActAdvance(state, command);
