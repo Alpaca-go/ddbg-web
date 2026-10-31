@@ -25,7 +25,9 @@ Ruins 四 Boss I–III 十二张能力卡双面文字已随 #407 合入 main `bf
 
 十七张 Stygian 房间卡文字与 R-036 非Boss替换关系已随 #409 合入 main `75019b3`，见 `phase5-stygian-room-data-2026-10-31.md`；只补数据，不开启困难模式、Phase 6 运行时或批准几何。
 
-当前续接：A-2 的 I→II、II→III 池切换数据计划，见 `phase5-act-transition-data-2026-10-31.md`；整合现有威胁/任务/怪物/饰品目录，不代表正式升幕执行与存档已完成。
+A-2 的 I→II、II→III 池切换数据计划已随 #410 合入 main `8f0772b`，见 `phase5-act-transition-data-2026-10-31.md`。
+
+当前续接：升幕状态校验与计划读取，见 `phase5-act-transition-readiness-2026-10-31.md`；绑定Boss任务胜利/XP/回村和出征身份，不代表正式升幕执行、池守恒或存档已完成。
 
 ### A 类：尚未接入的数据／运行时
 
