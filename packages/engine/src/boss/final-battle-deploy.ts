@@ -117,8 +117,14 @@ function spawnFormMonsters(
   const actor = spawnOne(form.actor.cardId, form.actor.stance, `final-${form.id}-actor`);
   if ("events" in actor) return actor;
   spawned.push(actor);
+  const usedStances = new Set<SkillStance>([form.actor.stance]);
+  const fallbackStances: SkillStance[] = ["defensive", "ranged", "support", "aggressive"];
   for (const [index, cardId] of form.supportCardIds.entries()) {
-    const support = spawnOne(cardId, "support", `final-${form.id}-support-${index}`);
+    const stance =
+      fallbackStances.find((entry) => !usedStances.has(entry)) ??
+      fallbackStances[index % fallbackStances.length]!;
+    usedStances.add(stance);
+    const support = spawnOne(cardId, stance, `final-${form.id}-support-${index}`);
     if ("events" in support) return support;
     spawned.push(support);
   }
