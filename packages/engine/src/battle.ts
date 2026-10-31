@@ -47,6 +47,7 @@ import type { PassiveHolder } from "./passive";
 import { cancelSkillAfterRoll } from "./battle-passive";
 import { withFleshOneBodyPoolState } from "./boss/flesh-i-combat-runtime";
 import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./boss/swine-prince-i-combat-runtime";
+import { chainGestatingHeartIchorAfterHeroSkill } from "./boss/gestating-heart-ichor";
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
@@ -705,8 +706,8 @@ export function playHeroSkill(
     },
     events: [skillEvent, ...pressure.events, ...statuses.events],
   };
-  const chained = chainSwinePrinceIEnragedDestructionAfterHeroSkill(
-    result,
+  const chained = chainGestatingHeartIchorAfterHeroSkill(
+    chainSwinePrinceIEnragedDestructionAfterHeroSkill(result, battle.entities, actor.id),
     battle.entities,
     actor.id,
   );
