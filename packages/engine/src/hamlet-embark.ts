@@ -129,7 +129,7 @@ export function restoreTemporarySkillUpgrades(heroes: readonly Hero[]): readonly
   });
 }
 
-function washNomadDisplay(
+export function washNomadDisplay(
   pool: NonNullable<DungeonState["trinkets"]>,
   seed: number,
   cursor: number,

@@ -1,6 +1,9 @@
 import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import { readFinalBattlePlanAfterDarkestVictory } from "./boss/darkest-content";
+import { applyTemporarySkillUpgrades, washNomadDisplay } from "./hamlet-embark";
+import { ownedHeroSkills, heroSkillSlotCount } from "./hero-loadout";
+import { trinketPoolProblem } from "./trinket-acquisition";
 
 /** R36：最后一次村庄固定四天，不抽取、洗牌或消费村庄事件。 */
 export function beginFinalPreparation(state: GameState): ApplyResult {
@@ -72,12 +75,48 @@ export function beginFinalBattleProvisions(state: GameState): ApplyResult {
     d.heroes.some((h) => h.dead)
   )
     return rejectBattleCommand(state, "须完成最后四天准备且补给池为空，才能准备最终战补给（R36）");
+  if (
+    !d.battleCatalog ||
+    !d.trinkets ||
+    d.trinkets.incoming ||
+    d.heroes.length !== 4 ||
+    new Set(d.heroes.map((h) => h.id)).size !== 4 ||
+    d.heroes.some(
+      (h) =>
+        !h.level ||
+        ![1, 2, 3].includes(h.level) ||
+        h.skillIds?.length !== heroSkillSlotCount(h.level) ||
+        !ownedHeroSkills(h, d.battleCatalog!),
+    )
+  )
+    return rejectBattleCommand(
+      state,
+      "最终战出征需要完整英雄装备、真实持有技能与无待分配饰品（R-048/R-051）",
+    );
+  const problem = trinketPoolProblem(d.trinkets, d.heroes);
+  if (problem) return rejectBattleCommand(state, problem);
+  const applied = applyTemporarySkillUpgrades(d.heroes, d.battleCatalog);
+  if ("reason" in applied) return rejectBattleCommand(state, applied.reason);
+  const washed = washNomadDisplay(d.trinkets, state.seed, d.cursor);
+  const washedProblem = trinketPoolProblem(washed.pool, applied.heroes);
+  if (washedProblem || !Number.isSafeInteger(washed.cursor))
+    return rejectBattleCommand(state, washedProblem ?? "最终战出征随机游标无效");
   return {
-    state: { ...state, dungeon: { ...d, finalBattleProvisions: "awaiting" } },
+    state: {
+      ...state,
+      dungeon: {
+        ...d,
+        heroes: applied.heroes,
+        trinkets: washed.pool,
+        cursor: washed.cursor,
+        finalBattleProvisions: "awaiting",
+      },
+    },
     events: [
       {
         type: "dungeonUpdated",
-        message: "最终战前仍掷补给；补给结算完成后等待最终战部署，不进入探索（R36）",
+        message:
+          "最终战出征：临时技能已装备，游商陈列已洗回；等待掷补给，不进入探索（R33/R34/R36）",
       },
     ],
   };
