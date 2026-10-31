@@ -35,11 +35,11 @@ A-2 的 I→II、II→III 池切换数据计划已随 #410 合入 main `8f0772b`
 
 网页回村升幕入口与村庄事件顺序闸门已随 #414 合入 main `92511602`，见 `phase5-act-advance-web-2026-10-31.md`；机制夹具浏览器冒烟已通过，不表示自然Boss战或完整跨幕日志/存档已验收。
 
-当前续接：开局 `establishImminentThreat` 严格存档白名单与四Boss/自然任务回放，见 `phase5-initial-threat-save-2026-10-31.md`；补齐真实战役前缀的日志能力，尚未新增初始威胁网页入口，A-2不声明全完。
+当前续接：开局 `establishImminentThreat` 严格存档白名单与四Boss/自然任务回放，见 `phase5-initial-threat-save-2026-10-31.md`；补齐真实战役前缀的日志能力，初始威胁网页入口已在本轮接入，见 `phase5-initial-threat-web-2026-10-31.md`；A-2仍不声明全完。
 
 A-6 本轮接入进展：核心 II/III 154 张中141张进入网页战役目录（此前56张、本次85张）；仍有3张转录/审批问题与10张憎恶特殊效果尚未实现，A-6不声明完成。见 `phase5-a6-hero-higher-skills-2026-10-31.md`。
 
-A-6 最新续接：#416 已合入 main `d88a97fc`；其余10张憎恶 II/III 已在本轮实现，当前目录151/154张，仅 p044/p048/p063 按 Kyries 指示保留核对/裁定。见 `phase5-a6-abomination-skills-2026-10-31.md`；先前13张缺口属历史状态。
+A-6 最新续接：#417 已合入 main `a1bfbdc5`；其余10张憎恶 II/III 已实现，当前目录151/154张，仅 p044/p048/p063 按 Kyries 指示保留核对/裁定。见 `phase5-a6-abomination-skills-2026-10-31.md`；先前13张缺口属历史状态。
 
 ### A 类：尚未接入的数据／运行时
 

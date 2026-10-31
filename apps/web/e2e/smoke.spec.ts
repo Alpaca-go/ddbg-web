@@ -1,3 +1,4 @@
+import { establishInitialThreatIfShown } from "./initial-threat-setup";
 import { expect, test, type Page } from "@playwright/test";
 
 async function stanceLabelForChip(chip: ReturnType<Page["locator"]>): Promise<string> {
@@ -314,6 +315,7 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await page.getByRole("button", { name: "进入地牢", exact: true }).click();
   const forward = page.getByRole("button", { name: "VESTAL 前移", exact: true });
   await expect(forward).toBeDisabled();
+  await establishInitialThreatIfShown(page);
   await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
   while (await page.getByRole("button", { name: "火把", exact: true }).count())
     await page.getByRole("button", { name: "火把", exact: true }).click();

@@ -1,3 +1,4 @@
+import { establishInitialThreatIfShown } from "./initial-threat-setup";
 import { expect, test } from "@playwright/test";
 
 test("首页：四人建队可开始任务，旧沙盒与桌面预览保留入口", async ({ page }) => {
@@ -25,6 +26,8 @@ test("首页：四人建队可开始任务，旧沙盒与桌面预览保留入�
   await expect(page.getByTestId("turn-status")).toHaveText("尚未开始");
   await page.goto("/");
   await expect(page.getByLabel("任务卡", { exact: true })).toHaveCount(0);
+  // Radiant guarantees provision choices; the UI layout check must not depend on random Wild faces.
+  await page.getByTestId("embark-mode-radiant").click();
   await page.getByRole("button", { name: "前往出征准备", exact: true }).click();
   await expect(page.getByTestId("tabletop-detail")).toHaveCount(0);
   for (const width of [1280, 1920]) {
@@ -70,6 +73,7 @@ test("首页：四人建队可开始任务，旧沙盒与桌面预览保留入�
   );
   await expect(page.getByTestId("quest-card-readonly-name")).toHaveText(questName);
   await page.setViewportSize({ width: 1280, height: 800 });
+  await establishInitialThreatIfShown(page);
   await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
   const pending = page.getByTestId("dungeon-pending-choice");
   const prompt = await pending.locator("p").first().innerText();
