@@ -1,4 +1,5 @@
 import { skillBelongsToFormalHero } from "./formal-roster-catalog";
+import { questMonsterDeploymentHold } from "./quest-monster-deployment";
 import { applyTemporarySkillUpgrades, restoreTemporarySkillUpgrades } from "./hamlet-embark";
 import { darkestBossVictoryAfterEncounter } from "./boss/darkest-content";
 import { readRoomTile } from "./room-tile-selection";
@@ -73,6 +74,8 @@ export function startDungeonBattle(state: GameState): ApplyResult {
   )
     return refuse("需要已核实房间与真实怪物部署，不能创建独立沙盒替代");
   const { tile, deployment } = selected;
+  const questHold = questMonsterDeploymentHold(d);
+  if (questHold) return refuse(questHold);
   const { heroStats: stats, skills, monsters } = d.battleCatalog;
   if (!partitionsValid(d)) return refuse("房间 / 怪物牌池不守恒，拒绝战斗交接");
   const heroes: BattleEntity[] = [];
