@@ -1,8 +1,33 @@
 import { bossFlatQuestSummarySchema } from "../../data/src/quest-summary";
 import { buildRuinsActTransitionPlan } from "./act-transition-plan";
 import type { GameState } from "./command";
+import type { DungeonState } from "./dungeon";
 import { RUINS_COMBAT_LEVELS } from "./boss/ruins-combat-levels";
 import { countCompletedRegularQuestsAtCampaignLevel } from "./boss/face-the-threat-embark-runtime";
+
+/** 当前p019结算是否仍待I→II/II→III升幕；成功命令会清除旧出征绑定。 */
+export function requiresRuinsActAdvance(d: DungeonState): boolean {
+  const level = d.campaignLevel ?? 1;
+  if (
+    d.questSummary?.questId !== "quest:p019" ||
+    !d.bossQuestVictory ||
+    (level !== 1 && level !== 2)
+  )
+    return false;
+  if (level === 1) return true;
+  const defeated = d.defeatedRuinsBossIdentities ?? [];
+  const advanced =
+    defeated.length === 1 &&
+    !d.faceTheThreatEmbarkPlan &&
+    !d.bossCombatThreatCeased &&
+    Object.entries(RUINS_COMBAT_LEVELS).some(
+      ([boss, entries]) =>
+        boss !== defeated[0] &&
+        entries[1].script === d.activeBossThreatScriptId &&
+        entries[1].description === d.imminentThreatDescriptionCardId,
+    );
+  return !advanced;
+}
 
 export type RuinsActTransitionReadiness =
   | { readonly kind: "blocked"; readonly reason: string }

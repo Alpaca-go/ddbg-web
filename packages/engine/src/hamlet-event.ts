@@ -20,6 +20,7 @@ import { applyLostShipment } from "./hamlet-lost-shipment";
 import { mergeHamletCaretakerBlockedWithBossThreat } from "./boss/threat-campaign";
 import { applyBossThreatBlackSheepBeforeHamletEvent } from "./boss/threat-passive-runtime";
 import { beginHauntedGraveyard } from "./boss/necromancer-ii-graveyard";
+import { requiresRuinsActAdvance } from "./act-transition-readiness";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;
 export type HamletEventState = {
@@ -73,6 +74,8 @@ export function currentHamletEvent(state: GameState): HamletEventCard | undefine
 /** R32/33：首轮洗满16张；后续出征后从hamletMemory续抽。未接通卡保留原入牌，不能改概率或先启用准备天数。 */
 export function drawHamletEvent(state: GameState): ApplyResult {
   const d = state.dungeon;
+  if (d && requiresRuinsActAdvance(d))
+    return rejectBattleCommand(state, "请先推进战役等级，再抽村庄事件（R35）");
   if (
     !d ||
     state.battle ||

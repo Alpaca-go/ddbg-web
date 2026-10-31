@@ -7,6 +7,8 @@ import {
   upgradeHamletBuilding,
   ownedHeroSkills,
   heroSkillSlotCount,
+  requiresRuinsActAdvance,
+  readRuinsActTransitionReadiness,
 } from "@ddbg/engine";
 import { buildingLabels } from "../labels";
 import { HamletEventSection } from "../hamlet/hamlet-event-section";
@@ -21,6 +23,8 @@ export function QuestSummaryPanel({
 }: DungeonViewProps & { pendingChoice: PendingChoice | null | undefined }) {
   const d = game.dungeon!;
   const quest = readBasicQuest(d.questDistribution);
+  const advanceRequired = requiresRuinsActAdvance(d);
+  const readiness = advanceRequired ? readRuinsActTransitionReadiness(game) : null;
   if (!(d.phase === "exited" || d.hamletReturn)) return null;
   return (
     <div data-testid="dungeon-quest-summary">
@@ -62,7 +66,8 @@ export function QuestSummaryPanel({
           {d.hamletReturn.phase === "awaitingReplacement" && (
             <>
               <p>
-                有英雄永久死亡：先完成死者饰品与驿站替补准备，全部齐备后入队；XP 尚未发放（R29/R31）。
+                有英雄永久死亡：先完成死者饰品与驿站替补准备，全部齐备后入队；XP
+                尚未发放（R29/R31）。
               </p>
               <ReplacementHeroActions game={game} dispatch={dispatch} />
             </>
@@ -80,8 +85,25 @@ export function QuestSummaryPanel({
           )}
           {d.hamletReturn.phase === "complete" && (
             <>
-              <p>{d.hamlet ? "回村完成，进入村庄准备。" : "回村完成，等待村庄事件。"}</p>
-              {!d.hamlet && (
+              <p>
+                {d.hamlet
+                  ? "回村完成，进入村庄准备。"
+                  : advanceRequired
+                    ? "Boss已击败，先推进战役等级。"
+                    : "回村完成，等待村庄事件。"}
+              </p>
+              {!d.hamlet && advanceRequired && (
+                <div data-testid="ruins-act-advance">
+                  <button
+                    disabled={!!pendingChoice || readiness?.kind !== "ready"}
+                    onClick={() => dispatch({ type: "advanceRuinsAct" })}
+                  >
+                    推进战役至{(d.campaignLevel ?? 1) + 1}级
+                  </button>
+                  {readiness?.kind === "blocked" && <p role="status">{readiness.reason}</p>}
+                </div>
+              )}
+              {!d.hamlet && !advanceRequired && (
                 <button onClick={() => dispatch({ type: "drawHamletEvent" })}>抽村庄事件</button>
               )}
               <p>
@@ -114,8 +136,9 @@ export function QuestSummaryPanel({
                 </p>
               )}
               <p data-testid="stagecoach-tokens">
-                驿站等待英雄代币：{stagecoachWaitingTokens(d) ?? "数据无效"} 枚（战役余额，每名替补消耗
-                1 枚）。升至 II / III 级各增加 1 枚上限；村庄英雄行动中驿站不作为可访问建筑，升级见上方按钮（R33）。
+                驿站等待英雄代币：{stagecoachWaitingTokens(d) ?? "数据无效"}{" "}
+                枚（战役余额，每名替补消耗 1 枚）。升至 II / III 级各增加 1
+                枚上限；村庄英雄行动中驿站不作为可访问建筑，升级见上方按钮（R33）。
               </p>
               <p data-testid="next-quest-provisions">
                 下次任务奖励补给骰：

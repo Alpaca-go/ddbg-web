@@ -226,7 +226,7 @@ export function HamletEventSection({
         <>
           <p>
             准备天数已用完。可抽取下一任务（至多两张选一，未选永久弃置）；出征时应用铁匠临时技能并在开局掷奖励补给骰。战役等级{" "}
-            {d.campaignLevel ?? 1}。正式升幕仍待 Boss 胜利与新威胁流程接通。
+            {d.campaignLevel ?? 1}。遗迹 I/II 幕击败 Boss 后须先推进战役等级，再进入村庄准备。
           </p>
           {!formal && (d.campaignLevel ?? 1) === 1 && (
             <button

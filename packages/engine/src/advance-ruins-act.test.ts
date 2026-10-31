@@ -8,6 +8,7 @@ import { drawImminentThreatAfterActAdvance } from "./boss/establish-imminent-thr
 import type { DungeonState } from "./dungeon";
 import { createQuestSave } from "./quest-save";
 import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
+import { requiresRuinsActAdvance } from "./act-transition-readiness";
 
 const command = { type: "advanceRuinsAct" } as const;
 it("公开命令两级四Boss原子升幕，先抽威胁再洗完整怪物池，重复调用拒绝", () => {
@@ -39,12 +40,15 @@ it("公开命令两级四Boss原子升幕，先抽威胁再洗完整怪物池，
         { type: "drawImminentThreatAfterActAdvance" },
       );
       const before = structuredClone(state);
+      expect(requiresRuinsActAdvance(state.dungeon!)).toBe(true);
+      expect(applyCommand(state, { type: "drawHamletEvent" }).state).toBe(state);
       const result = applyCommand(state, command);
       expect(
         result.events.some((e) => e.type === "commandRefused"),
         JSON.stringify(result.events),
       ).toBe(false);
       expect(result.state.dungeon?.campaignLevel).toBe(target);
+      expect(requiresRuinsActAdvance(result.state.dungeon!)).toBe(false);
       expect(result.state.dungeon?.monsterPool?.remaining).toHaveLength(level === 1 ? 53 : 62);
       expect(result.state.dungeon?.trinkets?.level).toBe(target);
       expect(result.state.dungeon?.discardedQuests).toHaveLength(level * 5);
