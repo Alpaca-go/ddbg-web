@@ -41,7 +41,8 @@ export function readDungeonQuestProgress(d: DungeonState) {
     rooms.data.some(
       (r) =>
         !slots.includes(r.id) ||
-        (r.cleared && (!r.revealed || r.kind === "trap" || r.kind === "dark")),
+        (r.cleared &&
+          (!r.revealed || r.kind === "trap" || (r.kind === "dark" && quest.id !== "quest:p011"))),
     ) ||
     layout.data.unresolvedMarkers?.length ||
     layout.data.nodes.some((n) => n.kind === "unresolved") ||

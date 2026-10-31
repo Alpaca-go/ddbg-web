@@ -158,6 +158,7 @@ export {
 } from "./formal-roster-catalog";
 export { createQuestSave, loadQuestSave } from "./quest-save";
 export { currentHamletEvent, caretakerBuilding } from "./hamlet-event";
+export { warmUpDarkRoomNeedsTorch } from "./dungeon-light";
 export { readFinalFormSequence } from "./boss/final-form-sequence";
 export type { QuestStart } from "../../data/src/quest-save";
 export { currentHamletHero, hamletActionOptions } from "./hamlet-actions";
