@@ -1,5 +1,11 @@
 import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import { questMonsterDeploymentHold } from "./quest-monster-deployment";
+import {
+  questMonsterDeploymentMatchesPlan,
+  questMonsterOutsidePoolInstanceIds,
+  readQuestMonsterPlanAtRoom,
+  readQuestMonsterStatBonuses,
+} from "./quest-monster-spawn";
 import { applyTemporarySkillUpgrades, restoreTemporarySkillUpgrades } from "./hamlet-embark";
 import { darkestBossVictoryAfterEncounter } from "./boss/darkest-content";
 import { readRoomTile } from "./room-tile-selection";
@@ -189,9 +195,18 @@ export function startDungeonBattle(state: GameState): ApplyResult {
     )
       return refuse(`${spawn.cardId} 的完整战斗字段待核实；保留真实部署，不重抽（R-048）`);
     const identity = d.monsterPool!.cards.find((entry) => entry.combatCardId === spawn.cardId);
+    const questPlan = readQuestMonsterPlanAtRoom(d);
+    const questSpawned =
+      questPlan &&
+      questMonsterDeploymentMatchesPlan(d, questPlan) &&
+      readQuestMonsterStatBonuses(d, spawn.cardId);
+    const allowPrintedLevel =
+      questSpawned &&
+      questPlan!.printedMonsterLevel !== null &&
+      card.level === questPlan!.printedMonsterLevel;
     if (
       card.level !== identity?.level ||
-      card.level > d.explorationSetup.dungeonLevel ||
+      (!allowPrintedLevel && card.level > d.explorationSetup.dungeonLevel) ||
       (card.level !== 1 && !hasApprovedHigherMonsterFields(card))
     )
       return refuse(`${card.name} 的等级 / 高等级限定批准不符，保留部署（R-082、R-083、R-048）`);
@@ -249,13 +264,14 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       if (probe.resolution.targetDisease && !d.conditions)
         return refuse("真实疾病技能需要完整疾病 / 怪癖目录，保留部署，不进入半场战斗（R27）");
     }
+    const statBonuses = readQuestMonsterStatBonuses(d, spawn.cardId);
     const spawnedMonster = {
       id: spawn.instanceId,
       side: "monster" as const,
       hero: null,
       monsterCardId: card.id,
-      life: card.life,
-      dodge: card.dodge,
+      life: card.life + (statBonuses?.lifeBonus ?? 0),
+      dodge: card.dodge + (statBonuses?.dodgeBonus ?? 0),
       areaId: spawn.areaId,
       stance: spawn.stance,
       stanceSlots: spawn.stanceSlots,
@@ -613,18 +629,20 @@ function partitionsValid(d: DungeonState): boolean {
   const level = d.explorationSetup?.dungeonLevel ?? readCampaignLevel(d);
   if (![1, 2, 3].includes(level)) return false;
   const catalog = dungeonMonsterPoolThrough(pool, level);
+  const outside = questMonsterOutsidePoolInstanceIds(d);
   const ids = [
     ...(pool.remaining ?? []),
     ...pool.discarded,
     ...pool.active.monsters.map((m) => m.instanceId),
   ];
+  const expectedCount = catalog.length + outside.length;
   const roomIds = allRuinsRoomCardIds(d, rooms.active.cardId);
   const aside = readSetAsideRoomCardIds(d);
   return (
     !(rooms.deck ?? []).some((id) => aside.includes(id)) &&
     !(rooms.discard ?? []).some((id) => aside.includes(id)) &&
-    ids.length === catalog.length &&
-    new Set(ids).size === catalog.length &&
+    ids.length === expectedCount &&
+    new Set(ids).size === expectedCount &&
     ids.every((id) => catalog.some((c) => c.instanceId === id)) &&
     pool.active.monsters.every((m) =>
       catalog.some(
