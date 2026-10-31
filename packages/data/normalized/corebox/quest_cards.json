@@ -1,0 +1,639 @@
+{
+ "schema": "ddbg-quest-cards-v1",
+ "cards": [
+  {
+   "id": "quest:p001",
+   "name": "Scout Ahead",
+   "level": 1,
+   "restPoints": 8,
+   "printedLines": [
+    "{icon:96c024d2c6} I {icon:f2d3273b1d}",
+    "8 Scout Ahead",
+    "The estate has remained secret",
+    "for far too long...",
+    "Thus, it was the rightful owner’s decision",
+    "to send you on a mission to scout ahead.",
+    "Who knew what horrors lurked in the",
+    "shadows though?",
+    "XP",
+    "1 Xp/ 2 Rooms cleared.",
+    "{icon:6f701b5f5f} 2 {icon:25bc58381e} 1 {icon:d07a10730a} {icon:a2e7f1dd7b} 2",
+    "{icon:6e6012866a} 2 {icon:ee1e8eadcd} 1"
+   ],
+   "specialRuleLines": [],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 1
+   }
+  },
+  {
+   "id": "quest:p002",
+   "name": "Wipe ‘Em Out",
+   "level": 1,
+   "restPoints": 12,
+   "printedLines": [
+    "{icon:96c024d2c6} I {icon:f2d3273b1d}",
+    "12 Wipe ‘Em Out",
+    "The Monsters’ unholy presence",
+    "tainted the very opulent halls of",
+    "this estate, casting dark shadows over its",
+    "ruins. Thus, your orders were quite clear:",
+    "“Slay them all!”",
+    "XP",
+    "1 Xp/ Lair cleared.",
+    "{icon:6f701b5f5f} 2 {icon:25bc58381e} 1",
+    "{icon:6e6012866a} 3 {icon:ee1e8eadcd} 2"
+   ],
+   "specialRuleLines": [],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 2
+   }
+  },
+  {
+   "id": "quest:p003",
+   "name": "Fundraiser",
+   "level": 1,
+   "restPoints": 8,
+   "printedLines": [
+    "{icon:96c024d2c6} I {icon:f2d3273b1d}",
+    "8",
+    "Fundraiser",
+    "Wealth brings wealth, and to",
+    "this estate’s noble destitute",
+    "family this was only but a",
+    "saying. However, the owner was adamant",
+    "that various riches could be found in the",
+    "ruins: “Venture through the ruins and",
+    "take back what was ours! Bring wealth",
+    "and glory back to our noble family!”",
+    "SPECIAL RULES",
+    "One Lair Room must be cleared",
+    "as the minimum Quest goal.",
+    "Clearing Lairs awards 10 {icon:fb419f48c4} .",
+    "XP",
+    "After the Quest is over, you can",
+    "give any amount of Gold to the",
+    "Heir, gaining 1 Xp/20 {icon:08a25c05cf} given.",
+    "{icon:6f701b5f5f} 1 {icon:feea73ac43} 2 {icon:ecd1d4820d} {icon:a2e7f1dd7b} 1",
+    "{icon:6e6012866a} 2 {icon:ee1e8eadcd} 2"
+   ],
+   "specialRuleLines": [
+    "One Lair Room must be cleared",
+    "as the minimum Quest goal.",
+    "Clearing Lairs awards 10 {icon:fb419f48c4} ."
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 3
+   }
+  },
+  {
+   "id": "quest:p004",
+   "name": "Dem Bones",
+   "level": 1,
+   "restPoints": 8,
+   "printedLines": [
+    "{icon:96c024d2c6} I {icon:f2d3273b1d}",
+    "8",
+    "Dem Bones",
+    "A revered ancestor was laid to rest",
+    "in the ruins, their sacred bones left",
+    "untouched. But what is dead should",
+    "remain as such. Thus, the noble duty fell upon",
+    "your shoulders - to retrieve them, lest they fall",
+    "prey to the dark taint of the land.",
+    "SPECIAL RULES",
+    "Objective Rooms are {icon:700c7def3e} 7 . A Hero",
+    "must spend 2 actions in the {icon:0fd119772a} Area",
+    "to recover the bones. Set aside the",
+    "room {icon:700c7def3e} 7 at the start of the quest;",
+    "you will not use it in other meetings.",
+    "Objective Rooms are cleared only",
+    "if the bones have been collected.",
+    "XP",
+    "1 Xp/ Bone collected.",
+    "{icon:7d43c83ef2} 3 {icon:6f701b5f5f} 1 {icon:d07a10730a} {icon:a2e7f1dd7b} 1",
+    "{icon:c736bcb48e} 1 {icon:6e6012866a} 1 {icon:ee1e8eadcd} 1"
+   ],
+   "specialRuleLines": [
+    "Objective Rooms are {icon:700c7def3e} 7 . A Hero",
+    "must spend 2 actions in the {icon:0fd119772a} Area",
+    "to recover the bones. Set aside the",
+    "room {icon:700c7def3e} 7 at the start of the quest;",
+    "you will not use it in other meetings.",
+    "Objective Rooms are cleared only",
+    "if the bones have been collected."
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 4
+   }
+  },
+  {
+   "id": "quest:p005",
+   "name": "Rising Threat",
+   "level": 1,
+   "restPoints": 12,
+   "printedLines": [
+    "{icon:96c024d2c6} I {icon:f2d3273b1d}",
+    "12 Rising Threat",
+    "Time passes and the demons",
+    "grow stronger, casting a heavier",
+    "shadow upon your very existence. That’s why",
+    "you were tasked to enter the ruins and cull",
+    "their numbers, putting them to the sword...",
+    "SPECIAL RULES",
+    "Curio Rooms always have Battles.",
+    "When spawning Monsters in Curio",
+    "Rooms, draw 1 Level 2 Monster.",
+    "XP",
+    "1 Xp/ Curio Room cleared.",
+    "{icon:6f701b5f5f} 2 {icon:25bc58381e} 1 {icon:feea73ac43} 3",
+    "{icon:ecd1d4820d} {icon:723d85db03} 1 {icon:ee1e8eadcd} 1"
+   ],
+   "specialRuleLines": [
+    "Curio Rooms always have Battles.",
+    "When spawning Monsters in Curio",
+    "Rooms, draw 1 Level 2 Monster."
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 5
+   }
+  },
+  {
+   "id": "quest:p006",
+   "name": "Disruption",
+   "level": 2,
+   "restPoints": 12,
+   "printedLines": [
+    "{icon:96c024d2c6} II {icon:f2d3273b1d}",
+    "12 Disruption",
+    "As the cult’s ominous rituals",
+    "taint the halls of the ruins, dark",
+    "gods begin to converge over the estate.",
+    "This cannot be left unanswered.",
+    "Delve deep into their lair and put an end to",
+    "the cultists’ rituals once and for all!",
+    "SPECIAL RULES",
+    "Objective Rooms are Rooms {icon:700c7def3e} 4",
+    "& {icon:700c7def3e} 8 . Pick one at random each",
+    "time you enter. Set them aside when",
+    "you start the Quest; you won’t use",
+    "them during other encounters.",
+    "XP",
+    "1 Xp/ Objective Room cleared.",
+    "{icon:7d43c83ef2} 3 {icon:25bc58381e} 2",
+    "{icon:d07a10730a} {icon:f698b6fd6c} 2 {icon:6e6012866a} 1"
+   ],
+   "specialRuleLines": [
+    "Objective Rooms are Rooms {icon:700c7def3e} 4",
+    "& {icon:700c7def3e} 8 . Pick one at random each",
+    "time you enter. Set them aside when",
+    "you start the Quest; you won’t use",
+    "them during other encounters."
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 6
+   }
+  },
+  {
+   "id": "quest:p007",
+   "name": "Clear the Path",
+   "level": 2,
+   "restPoints": 8,
+   "printedLines": [
+    "{icon:96c024d2c6} II {icon:f2d3273b1d}",
+    "8 Clear the Path",
+    "The path ahead in the ruins is",
+    "littered by fearsome terrors and",
+    "the nightmarish cult. Put an end to them,",
+    "clear the path once and for all!",
+    "XP",
+    "1 Xp/ 2 Rooms cleared.",
+    "{icon:25bc58381e} 1 {icon:d07a10730a} {icon:a2e7f1dd7b} 2 {icon:c736bcb48e} 2",
+    "{icon:6e6012866a} 2 {icon:ee1e8eadcd} 1"
+   ],
+   "specialRuleLines": [],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 7
+   }
+  },
+  {
+   "id": "quest:p008",
+   "name": "Reduce to Rubble",
+   "level": 2,
+   "restPoints": 12,
+   "printedLines": [
+    "{icon:96c024d2c6} II {icon:f2d3273b1d}",
+    "12 Reduce to Rubble",
+    "Their numbers have increased",
+    "as they infest more Rooms,",
+    "turning them into lairs. This must be",
+    "stopped lest the entire ruins get overrun by",
+    "these Monsters.",
+    "Enter the ruins and ransack their hideouts,",
+    "make them pay for what they’ve caused.",
+    "XP",
+    "1 Xp/ Lair Room cleared.",
+    "{icon:25bc58381e} 1 {icon:d07a10730a} {icon:f698b6fd6c} 2",
+    "{icon:6e6012866a} 3 {icon:ee1e8eadcd} 2"
+   ],
+   "specialRuleLines": [],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 8
+   }
+  },
+  {
+   "id": "quest:p009",
+   "name": "Break Them",
+   "level": 2,
+   "restPoints": 8,
+   "printedLines": [
+    "{icon:96c024d2c6} II {icon:f2d3273b1d}",
+    "8 Break Them",
+    "Thin their numbers. Nothing",
+    "can be achieved if their leaders",
+    "remain intact.",
+    "Thus, you’re tasked to find them and",
+    "eradicate them once and for all.",
+    "SPECIAL RULES",
+    "In Objective Rooms, spawn",
+    "1 Bone Bearer (Level III)",
+    "XP",
+    "1 Xp/ Objective Room cleared.",
+    "{icon:7d43c83ef2} 3 {icon:6f701b5f5f} 2",
+    "{icon:d07a10730a} {icon:f698b6fd6c} 1 {icon:ee1e8eadcd} 2"
+   ],
+   "specialRuleLines": [
+    "In Objective Rooms, spawn",
+    "1 Bone Bearer (Level III)"
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 9
+   }
+  },
+  {
+   "id": "quest:p010",
+   "name": "Purify the Fountains",
+   "level": 2,
+   "restPoints": 12,
+   "printedLines": [
+    "{icon:96c024d2c6} II {icon:f2d3273b1d}",
+    "12 Purify the Fountains",
+    "Those once majestic works are",
+    "turned to odious cesspools. Save",
+    "them, purify them, deliver them from evil!",
+    "SPECIAL RULES",
+    "Objective Rooms are {icon:700c7def3e} 3 . Add 3 {icon:dd2d2467ec}",
+    "to your starting Provisions if possible.",
+    "When in an Objective Room, the Healing",
+    "Fountain does not function unless a",
+    "Hero spends 2 actions and 1 {icon:dd2d2467ec} when",
+    "there to purify it. Objective Rooms are",
+    "cleared only if the Healing Fountain",
+    "has been purified. Set aside the room",
+    "{icon:700c7def3e} 3 at the start of the quest; you",
+    "will not use it in other meetings.",
+    "XP",
+    "1 Xp/ Fountain Purified.",
+    "{icon:7d43c83ef2} 3 {icon:25bc58381e} 2 {icon:d07a10730a} {icon:a2e7f1dd7b} 1",
+    "{icon:c736bcb48e} 1 {icon:ee1e8eadcd} 1"
+   ],
+   "specialRuleLines": [
+    "Objective Rooms are {icon:700c7def3e} 3 . Add 3 {icon:dd2d2467ec}",
+    "to your starting Provisions if possible.",
+    "When in an Objective Room, the Healing",
+    "Fountain does not function unless a",
+    "Hero spends 2 actions and 1 {icon:dd2d2467ec} when",
+    "there to purify it. Objective Rooms are",
+    "cleared only if the Healing Fountain",
+    "has been purified. Set aside the room",
+    "{icon:700c7def3e} 3 at the start of the quest; you",
+    "will not use it in other meetings."
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 10
+   }
+  },
+  {
+   "id": "quest:p011",
+   "name": "Warm Up the Halls",
+   "level": 3,
+   "restPoints": 4,
+   "printedLines": [
+    "{icon:96c024d2c6} III {icon:f2d3273b1d}",
+    "4 Warm Up the Halls",
+    "The dark recesses of the ruins",
+    "house even more sinister and",
+    "potent shadows. We must light up the hall’s",
+    "torches, bringing light and warmth, courage",
+    "and hope. Thus you are tasked, with torches",
+    "in hand and a righteous purpose.",
+    "SPECIAL RULES",
+    "After rolling for Provisions, each Hero",
+    "may turn one of them into a {icon:edd5bed33f} .",
+    "Use a {icon:edd5bed33f} in Dark Rooms to",
+    "light them up (in addition to its",
+    "standard effect) and clear them.",
+    "XP",
+    "1 Xp/ Dark Room luminated.",
+    "{icon:25bc58381e} 3 {icon:feea73ac43} 2",
+    "{icon:6e6012866a} 2 {icon:ee1e8eadcd} 1"
+   ],
+   "specialRuleLines": [
+    "After rolling for Provisions, each Hero",
+    "may turn one of them into a {icon:edd5bed33f} .",
+    "Use a {icon:edd5bed33f} in Dark Rooms to",
+    "light them up (in addition to its",
+    "standard effect) and clear them."
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 11
+   }
+  },
+  {
+   "id": "quest:p012",
+   "name": "Forward Camps",
+   "level": 3,
+   "restPoints": 8,
+   "printedLines": [
+    "{icon:96c024d2c6} III {icon:f2d3273b1d}",
+    "8 Forward Camps",
+    "Your biggest expedition to the",
+    "Darkest Dungeon will only",
+    "succeed if you set up some forward camps.",
+    "Venture deep into the ruins and set up",
+    "those camps, lest you fall prey to tiredness",
+    "and darkness.",
+    "SPECIAL RULES",
+    "Use a {icon:edd5bed33f} or a {icon:58a22b11c6} in Empty Rooms",
+    "to set up forwards camps. To set",
+    "up this Dungeon, use 3 Empty",
+    "Rooms and randomize non-",
+    "Objective rooms for the rest.",
+    "XP",
+    "1 Xp/ Set up camp.",
+    "{icon:6f701b5f5f} 3 {icon:25bc58381e} ? {icon:feea73ac43} ?",
+    "{icon:c736bcb48e} ? {icon:6e6012866a} ? {icon:ee1e8eadcd} ?"
+   ],
+   "specialRuleLines": [
+    "Use a {icon:edd5bed33f} or a {icon:58a22b11c6} in Empty Rooms",
+    "to set up forwards camps. To set",
+    "up this Dungeon, use 3 Empty",
+    "Rooms and randomize non-",
+    "Objective rooms for the rest."
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 12
+   }
+  },
+  {
+   "id": "quest:p013",
+   "name": "They Are Back",
+   "level": 3,
+   "restPoints": 8,
+   "printedLines": [
+    "{icon:96c024d2c6} III {icon:f2d3273b1d}",
+    "8 They Are Back",
+    "Treachery will never rest, even",
+    "unto death. For recent reports",
+    "have shown that a group of undead",
+    "soldiers roam the ruins’ halls. They bear",
+    "the arms and insignia of an old band of",
+    "turncoats. ‘Tis only a matter of vengeance,",
+    "as the owner has asked you to find them",
+    "and eradicate them, once and for all!",
+    "SPECIAL RULES",
+    "In Objective Room spawn",
+    "a Bone Captain who has",
+    "+20 Life and +2 Dodge",
+    "XP",
+    "1 Xp/ Objective Room cleared.",
+    "{icon:7d43c83ef2} 3 {icon:6f701b5f5f} 1 {icon:0fd90af65e} {icon:a2e7f1dd7b} 1",
+    "{icon:feea73ac43} 1 {icon:ee1e8eadcd} 2"
+   ],
+   "specialRuleLines": [
+    "In Objective Room spawn",
+    "a Bone Captain who has",
+    "+20 Life and +2 Dodge"
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 13
+   }
+  },
+  {
+   "id": "quest:p014",
+   "name": "Creeping Darkness",
+   "level": 3,
+   "restPoints": 8,
+   "printedLines": [
+    "{icon:96c024d2c6} III {icon:f2d3273b1d}",
+    "8 Creeping Darkness",
+    "An abyssal influence is",
+    "spreading among the ruins,",
+    "beckoning more followers into undeath",
+    "and eternal servitude. Nothing can be done",
+    "unless their numbers are reduced, for the",
+    "undead never tire and will never cease to",
+    "threaten your very existence.",
+    "SPECIAL RULES",
+    "Whenever an Unholy Monster is",
+    "spawned, Heroes suffer {icon:1a8139fc55} +1 each.",
+    "XP",
+    "1 Xp/ 2 Rooms cleared.",
+    "{icon:6f701b5f5f} 1 {icon:25bc58381e} 1 {icon:d07a10730a} {icon:a2e7f1dd7b} 2",
+    "{icon:c736bcb48e} 1 {icon:6e6012866a} 2 {icon:ee1e8eadcd} 1"
+   ],
+   "specialRuleLines": [
+    "Whenever an Unholy Monster is",
+    "spawned, Heroes suffer {icon:1a8139fc55} +1 each."
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 14
+   }
+  },
+  {
+   "id": "quest:p015",
+   "name": "The Threat is Real",
+   "level": 3,
+   "restPoints": 8,
+   "printedLines": [
+    "{icon:96c024d2c6} III {icon:f2d3273b1d}",
+    "8 The Threat is Real",
+    "The gates of oblivion have",
+    "opened, spouting forth horrible",
+    "nightmares that call the ruins their lair.",
+    "Enter those dens, obliterate their denizens",
+    "and deliver these halls from evil!",
+    "SPECIAL RULES",
+    "Do not spawn any",
+    "Level 1 Monsters in Lairs",
+    "XP",
+    "1 Xp/ Lair cleared.",
+    "{icon:25bc58381e} 2 {icon:c736bcb48e} 1",
+    "{icon:5281dfacce} {icon:f698b6fd6c} 3 {icon:ee1e8eadcd} 2"
+   ],
+   "specialRuleLines": [
+    "Do not spawn any",
+    "Level 1 Monsters in Lairs"
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 15
+   }
+  },
+  {
+   "id": "quest:p016",
+   "name": "We Are The Flame",
+   "level": 3,
+   "restPoints": 20,
+   "printedLines": [
+    "{icon:96c024d2c6} III {icon:21bef16313}",
+    "20 We Are The Flame",
+    "SPECIAL RULES",
+    "The Boss for this Quest is",
+    "Shuffling Horror. Defeating",
+    "Shuffling Horror will prevent the",
+    "Ancestor using its 2nd Form.",
+    "XP",
+    "3 Xp",
+    "{icon:7d43c83ef2} 1 {icon:6f701b5f5f} 3 {icon:25bc58381e} 3",
+    "{icon:d07a10730a} {icon:5790845c5c} 3 {icon:6e6012866a} 3 {icon:ee1e8eadcd} 3"
+   ],
+   "specialRuleLines": [
+    "The Boss for this Quest is",
+    "Shuffling Horror. Defeating",
+    "Shuffling Horror will prevent the",
+    "Ancestor using its 2nd Form."
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 16
+   }
+  },
+  {
+   "id": "quest:p017",
+   "name": "Light the Way",
+   "level": 3,
+   "restPoints": 20,
+   "printedLines": [
+    "{icon:96c024d2c6} III {icon:21bef16313}",
+    "20",
+    "Light the Way",
+    "SPECIAL RULES",
+    "The Boss for this Quest is Templar",
+    "Impaler and Templar Warlord.",
+    "Defeating Templar Impaler and",
+    "Templar Warlord will prevent the",
+    "Ancestor using its 1st Form.",
+    "XP",
+    "3 Xp",
+    "{icon:7d43c83ef2} 1 {icon:6f701b5f5f} 3 {icon:25bc58381e} 3",
+    "{icon:d07a10730a} {icon:5790845c5c} 3 {icon:6e6012866a} 3 {icon:ee1e8eadcd} 3"
+   ],
+   "specialRuleLines": [
+    "The Boss for this Quest is Templar",
+    "Impaler and Templar Warlord.",
+    "Defeating Templar Impaler and",
+    "Templar Warlord will prevent the",
+    "Ancestor using its 1st Form."
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 17
+   }
+  },
+  {
+   "id": "quest:p018",
+   "name": "Belly of the Beast",
+   "level": 3,
+   "restPoints": 20,
+   "printedLines": [
+    "{icon:96c024d2c6} III {icon:21bef16313}",
+    "20 Belly of the Beast",
+    "SPECIAL RULES",
+    "The Boss for this Quest is Mammoth",
+    "Cyst (+ White Cell Stalk).",
+    "Defeating Mammoth Cyst (+ White",
+    "Cell Stalk) will prevent the Ancestor",
+    "using its Gestating Heart form.",
+    "XP",
+    "3 Xp",
+    "{icon:7d43c83ef2} 1 {icon:6f701b5f5f} 3 {icon:25bc58381e} 3",
+    "{icon:d07a10730a} {icon:5790845c5c} 3 {icon:6e6012866a} 3 {icon:ee1e8eadcd} 3"
+   ],
+   "specialRuleLines": [
+    "The Boss for this Quest is Mammoth",
+    "Cyst (+ White Cell Stalk).",
+    "Defeating Mammoth Cyst (+ White",
+    "Cell Stalk) will prevent the Ancestor",
+    "using its Gestating Heart form."
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 18
+   }
+  },
+  {
+   "id": "quest:p019",
+   "name": "Face the Threat!",
+   "level": null,
+   "restPoints": 12,
+   "printedLines": [
+    "12 Face the Threat!",
+    "The Threat has shown itself.",
+    "Now is the time to strike! Find",
+    "its lair and eradicate it.",
+    "SPECIAL RULES",
+    "Set up this Dungeon according",
+    "to the Boss Quest rules. You",
+    "can’t return to the Hamlet",
+    "before you defeat the Boss!",
+    "XP",
+    "3 Xp",
+    "{icon:7d43c83ef2} 1 {icon:6f701b5f5f} 1 {icon:25bc58381e} 2 {icon:d07a10730a} {icon:f698b6fd6c} 1",
+    "{icon:c736bcb48e} 1 {icon:6e6012866a} 1 {icon:ee1e8eadcd} 1"
+   ],
+   "specialRuleLines": [
+    "Set up this Dungeon according",
+    "to the Boss Quest rules. You",
+    "can’t return to the Hamlet",
+    "before you defeat the Boss!"
+   ],
+   "source": {
+    "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf",
+    "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_quests_BACK.pdf",
+    "page": 19
+   }
+  }
+ ]
+}

@@ -170,3 +170,5 @@ export { darkestBossAbilitiesSchema, readDarkestBossAbility } from "./darkest-bo
 export type { DarkestBossAbilities } from "./darkest-boss-abilities";
 export { ruinsBossAbilitiesSchema, readRuinsBossAbility } from "./ruins-boss-abilities";
 export type { RuinsBossAbilities } from "./ruins-boss-abilities";
+export { questCardsSchema, readQuestCard } from "./quest-cards";
+export type { QuestCards } from "./quest-cards";
