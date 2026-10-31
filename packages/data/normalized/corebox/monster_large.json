@@ -32822,6 +32822,11 @@
      "slot": 1,
      "name": "Know This",
      "target": "Crowded",
+     "verified_range": {
+      "min": 0,
+      "max": 10,
+      "source": "print_front"
+     },
      "printed_labels": [
       {
        "label": "Crit",
@@ -33140,6 +33145,11 @@
      "slot": 2,
      "name": "Puncture",
      "target": "Closest",
+     "verified_range": {
+      "min": 0,
+      "max": 10,
+      "source": "print_front"
+     },
      "printed_labels": [
       {
        "label": "Crit",
@@ -33404,6 +33414,11 @@
      "slot": 3,
      "name": "Dissolution",
      "target": "Furthest",
+     "verified_range": {
+      "min": 0,
+      "max": 10,
+      "source": "print_front"
+     },
      "printed_labels": [
       {
        "label": "Crit",

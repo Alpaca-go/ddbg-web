@@ -227,12 +227,12 @@ function resolveMonsterSkillInternal(
     void _stress;
     view = { ...base, effect_lines: [], verified_status_effects: [] };
   }
-  const ancestor2AccHold =
-    monster.id === "monster_large:p018" &&
+  const finalFormBossAccHold =
+    (monster.id === "monster_large:p018" || monster.id === "monster_large:p020") &&
     skillSlot >= 1 &&
     skillSlot <= 3 &&
     !matches[0]!.verified_monster_effects;
-  if (ancestor2AccHold) {
+  if (finalFormBossAccHold) {
     const {
       verified_target_stress: _stress,
       verified_status_effects: _status,

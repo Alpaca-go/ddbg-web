@@ -263,6 +263,14 @@ const normalizedMonsterSkillSchema = z.strictObject({
   name: z.string().min(1),
   target: z.string().min(1).nullable(),
   ...skillStatFields,
+  verified_range: z
+    .strictObject({
+      min: z.int().nonnegative(),
+      max: z.int().nonnegative(),
+      source: z.literal("print_front"),
+    })
+    .refine((range) => range.min <= range.max)
+    .optional(),
   lines: lineListSchema,
   verified_monster_effects: monsterEffectPlanSchema.optional(),
 });

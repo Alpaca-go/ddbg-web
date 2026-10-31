@@ -426,6 +426,17 @@ export {
   type ApplyHeartOfDarknessImpendingDoomRollCommand,
 } from "./heart-of-darkness-impending-doom";
 export {
+  applyHeartOfDarknessDissolution,
+  applyHeartOfDarknessKnowThis,
+  applyHeartOfDarknessPuncture,
+  DISSOLUTION_SKILL_SLOT,
+  KNOW_THIS_SKILL_SLOT,
+  PUNCTURE_SKILL_SLOT,
+  type ApplyHeartOfDarknessDissolutionCommand,
+  type ApplyHeartOfDarknessKnowThisCommand,
+  type ApplyHeartOfDarknessPunctureCommand,
+} from "./heart-of-darkness-skills-acc";
+export {
   ABSOLUTE_NOTHINGNESS_DODGE,
   ABSOLUTE_NOTHINGNESS_LIFE,
   ABSOLUTE_NOTHINGNESS_MONSTER_CARD_ID,
