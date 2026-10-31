@@ -28,7 +28,7 @@ import { applyPassiveHero } from "./passive-runtime";
 import { endTurnOldAbbey } from "./battle-old-abbey";
 import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
-import { encounterForcesRetreatAfterRound } from "./boss/encounter-rules";
+import { ceaseThreatForBossCombat, encounterForcesRetreatAfterRound } from "./boss/encounter-rules";
 import { applyBossThreatMarkedForDeathOnBattleStart } from "./boss/threat-passive-runtime";
 import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "./boss/flesh-i-combat-runtime";
@@ -812,7 +812,7 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     const prophetBinding = readProphetIRoomD10Binding(state);
     if (prophetBinding.status === "refused")
       return rejectBattleCommand(state, prophetBinding.message);
-    const marked = applyBossThreatMarkedForDeathOnBattleStart(state);
+    const marked = applyBossThreatMarkedForDeathOnBattleStart(ceaseThreatForBossCombat(state));
     if (marked.events.some((entry) => entry.type === "commandRefused"))
       return { state, events: marked.events };
     const pyre = applyFanaticIPyreBattleStart(marked.state);

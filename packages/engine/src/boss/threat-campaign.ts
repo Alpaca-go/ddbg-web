@@ -22,9 +22,16 @@ export function readActiveBossThreatScriptId(d: DungeonState): BossScriptId | un
   return d.activeBossThreatScriptId;
 }
 
+/** R30：威胁面生效身份；与保留作胜利清场的 Boss 身份分开。 */
+export function readEffectiveBossThreatScriptId(d: DungeonState): BossScriptId | undefined {
+  return d.activeBossThreatScriptId === d.bossCombatThreatCeased
+    ? undefined
+    : d.activeBossThreatScriptId;
+}
+
 export function bossThreatHamletBlockedBuildings(d: DungeonState): readonly string[] {
   ensureCoreBossScriptsRegistered();
-  const scriptId = readActiveBossThreatScriptId(d);
+  const scriptId = readEffectiveBossThreatScriptId(d);
   if (!scriptId) return [];
   return hamletBuildingsBlockedByBossThreat(scriptId, getBossScript(scriptId));
 }
@@ -45,9 +52,7 @@ export function syncHamletBlockedBuildingsForBossThreat(
 ): HamletEventState {
   const threat = bossThreatHamletBlockedBuildings(d);
   const base = stripKnownBossThreatBlocks(hamlet.blockedBuildings);
-  const withCaretaker = hamlet.caretaker
-    ? [...new Set([...base, hamlet.caretaker])]
-    : base;
+  const withCaretaker = hamlet.caretaker ? [...new Set([...base, hamlet.caretaker])] : base;
   return {
     ...hamlet,
     blockedBuildings: [...new Set([...withCaretaker, ...threat])],
