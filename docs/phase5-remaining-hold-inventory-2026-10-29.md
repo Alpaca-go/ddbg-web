@@ -1,5 +1,7 @@
 # Phase 5：Boss / 迫近威胁剩余 hold 清点（2026-10-29 · tip `3b50f2e`）
 
+> **2026-11-01 增量**：可接 **A** 候选（非 hold 接线）见 [phase5-a5-remaining-a-candidates-2026-11-01.md](./phase5-a5-remaining-a-candidates-2026-11-01.md)（基线 tip `93119fd6`）。本文 §2–§3 在 #428–#459 / Ruins II·III 合入后**部分过时**（如「其它 Ruins II/III 未注册」、最暗/最终战 Acc 壳、Pyre `playPyreSkill`）；hold **语义**仍以 §3 为准，已接事实以该 A-5 盘点 §0 为准，勿在两处重复维护长表。
+
 > **基线**：`main` @ `300ba3b`（#362 Prophet 先攻 3）。  
 > **范围**：对照引擎与单测**重新清点**已接 vs 仍 hold；**不**接线新运行时。  
 > **规则**：R-001；卡面 id R-048；R-121 / R-122 / Rising Threat 等只标归口。  
