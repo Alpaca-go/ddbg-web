@@ -406,6 +406,13 @@ export {
   applyAncestor1TimeHealsAll,
   type ApplyAncestor1TimeHealsAllCommand,
 } from "./ancestor1-time-heals-all";
+export {
+  PERFECT_REPLICATION_LIGHT_DELTA,
+  PERFECT_REPLICATION_SKILL_SLOT,
+  PERFECT_REPLICATION_SUMMON_CARD_ID,
+  applyAncestor1PerfectReplication,
+  type ApplyAncestor1PerfectReplicationCommand,
+} from "./ancestor1-perfect-replication";
 export { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
 
 export {
