@@ -1,5 +1,6 @@
 import { resolveExcavation } from "./darkest-excavation";
 import { prepareFinalBattleForms, finishFinalBattleForm } from "./boss/final-form-sequence";
+import { deployFinalBattleForm } from "./boss/final-battle-deploy";
 import { beginFinalPreparation, beginFinalBattleProvisions } from "./final-preparation";
 import { applyHigherRuinsHamlet, chooseHigherRuinsTheft } from "./boss/higher-ruins-hamlet";
 import { applyHigherRuinsBattleSpawn } from "./boss/higher-ruins-threat";
@@ -205,6 +206,7 @@ type BaseCommand =
   | { readonly type: "beginFinalPreparation" }
   | { readonly type: "beginFinalBattleProvisions" }
   | { readonly type: "prepareFinalBattleForms" }
+  | { readonly type: "deployFinalBattleForm" }
   | { readonly type: "offerNextQuest" }
   | { readonly type: "advanceCampaignLevel" }
   | { readonly type: "advanceRuinsAct" }
@@ -707,7 +709,11 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "playHeroSkillTargets") return playHeroSkillTargets(state, command);
   if (command.type === "playHeroSkillEmptyArea") return playHeroSkillEmptyArea(state, command);
   if (command.type === "playMonsterSkill") return playMonsterSkill(state, command);
-  if (command.type !== "ping") return applyEncounterCommand(state, command);
+  if (command.type !== "ping") {
+    if (command.type === "deployFinalBattleForm")
+      return rejectBattleCommand(state, "部署命令须于村庄最终战停点执行（R36）");
+    return applyEncounterCommand(state, command);
+  }
   return {
     state: { ...state, notes: [...state.notes, command.message] },
     events: [{ type: "pong", message: command.message }],
@@ -717,6 +723,13 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
 /** 任一后续规则拒绝时，整次命令回滚骰子、行动和事件。 */
 export function applyCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "prepareFinalBattleForms") return prepareFinalBattleForms(state);
+  if (command.type === "deployFinalBattleForm") return deployFinalBattleForm(state);
+  if (
+    state.dungeon?.finalFormSequence?.status === "fighting" &&
+    state.battle &&
+    command.type !== "finishDungeonBattle"
+  )
+    return runTrinketCommand(state, command, applyCommandCore);
   if (state.dungeon?.finalFormSequence && command.type === "finishDungeonBattle")
     return finishFinalBattleForm(state);
   if (state.dungeon?.finalBattleProvisions) {
@@ -725,7 +738,12 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
       (command.type === "rollDungeonProvisions" || command.type === "resolveChoice")
     )
       return setupDungeonProvisions(state, command);
-    return rejectBattleCommand(state, "最终战补给准备中或已完成；最终战部署尚未接通（R36）");
+    if (state.dungeon.finalFormSequence)
+      return rejectBattleCommand(
+        state,
+        "最终战形态流程中；请部署当前形态或使用已接战斗命令，不能走普通村庄/探索流程（R36）",
+      );
+    return rejectBattleCommand(state, "最终战补给准备中或已完成；须先建立形态流程（R36）");
   }
   if (command.type === "beginFinalBattleProvisions") return beginFinalBattleProvisions(state);
   return runTrinketCommand(state, command, applyCommandCore);

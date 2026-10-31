@@ -1,6 +1,5 @@
 import { expect, it } from "vitest";
 import { applyCommand, type GameState } from "../command";
-import { createBattleState, type BattleEntity } from "../battle";
 import { finalPreparationFixture } from "../test-helpers/final-preparation";
 import { readFinalFormSequence } from "./final-form-sequence";
 import { savedCommandSchema } from "../../../data/src/quest-save";
@@ -30,48 +29,15 @@ function prepared(questId: "quest:p016" | "quest:p017" | "quest:p018") {
 }
 function victory(game: GameState): GameState {
   const sequence = readFinalFormSequence(game)!;
-  const hero: BattleEntity = {
-    id: "h",
-    side: "hero",
-    hero: "CRUSADER",
-    areaId: "logical",
-    life: 30,
-    wounds: 7,
-    stress: 6,
-    dodge: 0,
-    guard: false,
-    dead: false,
-    bleed: [],
-    blight: [],
-    skillIds: [],
-    stance: "defensive",
-  };
-  const boss: BattleEntity = {
-    ...hero,
-    id: "boss",
-    side: "monster",
-    hero: null,
-    dead: true,
-    monsterCardId: sequence.current!.actor.cardId,
-  };
-  const battle = createBattleState(game.seed, {
-    entities: [],
-    areas: [{ id: "logical", adjacent: [], capacity: 8, elevation: "normal" }],
-    skills: [],
-    light: 4,
-  }).battle!;
+  const deployed = applyCommand(game, { type: "deployFinalBattleForm" }).state;
+  expect(deployed.dungeon!.finalFormSequence!.status).toBe("fighting");
   return {
-    ...game,
-    dungeon: {
-      ...game.dungeon!,
-      finalFormSequence: {
-        ...game.dungeon!.finalFormSequence!,
-        status: "fighting",
-      },
-    },
+    ...deployed,
     battle: {
-      ...battle,
-      entities: [hero, boss],
+      ...deployed.battle!,
+      entities: deployed.battle!.entities.map((e) =>
+        e.monsterCardId === sequence.current!.actor.cardId ? { ...e, dead: true } : e,
+      ),
       encounter: {
         round: 7,
         deck: [],

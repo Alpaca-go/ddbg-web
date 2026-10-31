@@ -30,7 +30,7 @@ export function darkestBossVictoryAfterEncounter(state: GameState): boolean {
 /** 只生成准备计划；不跳过回村、发XP或替玩家启动未接入的最终战。 */
 export function readFinalBattlePlanAfterDarkestVictory(d: DungeonState) {
   if (
-    d.phase !== "inHamlet" ||
+    !["inHamlet", "inBattle"].includes(d.phase) ||
     !d.darkest ||
     !d.bossQuestVictory ||
     !d.questSummary?.awarded ||
