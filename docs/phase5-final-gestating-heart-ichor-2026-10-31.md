@@ -1,6 +1,6 @@
 # Gestating Heart · Ichor 反击（最小）
 
-依据 `boss_ability:p036` 原文：「Ichor: Each time a Hero deals damage to the Gestating Heart, they {heal} 2 and suffer 2 {blight} 3t.」图标字典 v1.8（R-001）：治疗 2、Blight 强度 2、持续 3 回合。Summon random Darkest Dungeon Monster **hold**（R-048）。
+依据 `boss_ability:p036` 原文：「Ichor: Each time a Hero deals damage to the Gestating Heart, they {heal} 2 and suffer 2 {blight} 3t.」图标字典 v1.8（R-001）：治疗 2、Blight 强度 2、持续 3 回合。Summon 见 `docs/phase5-final-gestating-heart-summon-2026-10-31.md`（#445 之后单独 PR）。
 
 ## 本刀接通
 
@@ -11,7 +11,7 @@
 
 ## 仍 hold
 
-- Summon random Darkest Dungeon Monster、Heart of Darkness Impending Doom / Absolute Nothingness / Time Heals All、Ancestor 2 传送、Pit Toss、Room Tile 几何、Gestating Heart 完整 AI、Phase 6。
+- Heart of Darkness Impending Doom / Absolute Nothingness / Time Heals All、Ancestor 2 传送、Pit Toss、Room Tile 几何、Gestating Heart 完整 AI、Phase 6。
 
 ## 验证
 
