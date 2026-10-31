@@ -9,11 +9,19 @@ import {
   heroSkillSlotCount,
   visitNomadWagon,
   isHauntedGraveyardGuard,
+  readFinalFormSequence,
 } from "@ddbg/engine";
 import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
 import { buildingLabels } from "../labels";
 import type { DungeonViewProps } from "../view-props";
 import type { PendingChoice } from "@ddbg/engine";
+
+const finalFormNames = {
+  ancestor1: "Ancestor 1st Form",
+  ancestor2: "Ancestor 2nd Form",
+  gestatingHeart: "Gestating Heart",
+  heartOfDarkness: "Heart of Darkness",
+};
 
 export function HamletEventSection({
   game,
@@ -23,6 +31,7 @@ export function HamletEventSection({
 }: DungeonViewProps & { pendingChoice: PendingChoice | null | undefined }) {
   const d = game.dungeon!;
   const hamletCard = currentHamletEvent(game);
+  const sequence = readFinalFormSequence(game);
   if (!d.hamlet) return null;
   const guarding = isHauntedGraveyardGuard(d, currentHamletHero(game)?.id);
   const guardHero = d.heroes.find((h) => h.id === d.hamlet!.hauntedGraveyard?.guardHeroId);
@@ -244,6 +253,22 @@ export function HamletEventSection({
               </button>
             )}
             {d.finalBattleProvisions === "ready" && <p>最终战补给已就绪，等待开战。</p>}
+            {d.finalBattleProvisions === "ready" && !d.finalFormSequence && (
+              <button onClick={() => dispatch({ type: "prepareFinalBattleForms" })}>
+                准备最终战形态流程
+              </button>
+            )}
+            {sequence && (
+              <div aria-label="最终战形态流程">
+                <p>形态顺序：{sequence.forms.map((f) => finalFormNames[f.id]).join(" → ")}</p>
+                <p>跳过形态：{finalFormNames[sequence.skippedForm]}</p>
+                <p>
+                  {sequence.progress.status === "complete"
+                    ? "最终战全部形态完成。"
+                    : `当前形态：${sequence.current ? finalFormNames[sequence.current.id] : "—"}；等待已核实的Boss和房间部署。`}
+                </p>
+              </div>
+            )}
           </div>
         ) : (
           <>

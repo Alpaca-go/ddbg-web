@@ -82,6 +82,16 @@ test("最暗胜利后最后四天准备：不展示事件卡，不误入普通�
     await page.getByRole("button", { name: "火把", exact: true }).click();
   }
   await expect(page.getByText("最终战补给已就绪，等待开战。", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "准备最终战形态流程", exact: true }).click();
+  await expect(
+    page.getByText("形态顺序：Ancestor 1st Form → Gestating Heart → Heart of Darkness", {
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(page.getByText("跳过形态：Ancestor 2nd Form", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "准备最终战形态流程", exact: true })).toHaveCount(
+    0,
+  );
   await expect(page.getByRole("button", { name: "掷最终战补给骰", exact: true })).toHaveCount(0);
   const result = await page.evaluate(async () => {
     const moduleUrl = "/src/dungeon-sandbox/store.ts";
