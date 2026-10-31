@@ -6,11 +6,11 @@
 
 - 最终战 `ancestor1` 且 `finalFormSequence.status === "fighting"` 时，在 `removeCasualties` 链上登记 Imperfect Reflection（`monster_medium:p109`）新死亡：若仍有存活 Ancestor 1（`monster_medium:p105`），对其施加 **10** 点伤口（`wounds >= life` 走既有怪物死亡判定；反噬致死则同一 casualty 批继续处理）。
 - 部署仍由既有 `deployFinalBattleForm` 登记 Actor + Reflections 支援；**未**改 `combatReady`。
+- Reflections Guard 常驻见 [`phase5-final-ancestor1-reflections-guard-2026-10-31.md`](phase5-final-ancestor1-reflections-guard-2026-10-31.md)。
 
 ## 仍 hold
 
-- Reflections「have {icon} at all times」Guard 图标语义未解析。
-- Time Heals All、Ancestor 2 Swift Teleportation、Gestating Heart Ichor、Pit Toss、Room Tile 几何、Reflections 先攻不移除、Perfect Reflection 其它规则、完整 AI、Phase 6。
+- Time Heals All（已另 PR 接通）、Ancestor 2 Swift Teleportation、Gestating Heart Ichor、Pit Toss、Room Tile 几何、Reflections 先攻不移除、Perfect Reflection 其它规则、完整 AI、Phase 6。
 
 ## 验证
 

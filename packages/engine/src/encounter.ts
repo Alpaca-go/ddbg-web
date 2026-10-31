@@ -1,4 +1,5 @@
 import { applyAncestor1ImperfectReflectionDeath } from "./boss/ancestor1-reflections-death";
+import { withAncestor1ReflectionsGuardState } from "./boss/ancestor1-reflections-guard";
 import { clearRuinsBossCompanions } from "./boss/ruins-boss-death";
 import { applyNecromancerIIIReanimation } from "./boss/necromancer-iii-reanimation";
 import { healingTrinketReaction } from "./trinket-reactions";
@@ -385,7 +386,10 @@ export function removeCasualties(result: ApplyResult, ids: readonly string[]): A
   ({ result, ids } = applyAncestor1ImperfectReflectionDeath(result, ids));
   const battle = result.state.battle!;
   const casualties = battle.entities.filter((entity) => entity.dead && ids.includes(entity.id));
-  if (!casualties.length) return result;
+  if (!casualties.length) {
+    const guardedState = withAncestor1ReflectionsGuardState(result.state);
+    return guardedState === result.state ? result : { ...result, state: guardedState };
+  }
   const removed: ApplyResult = {
     ...result,
     state: {
@@ -411,7 +415,9 @@ export function removeCasualties(result: ApplyResult, ids: readonly string[]): A
       })),
     ],
   };
-  return applyNecromancerIIIReanimation(removed, casualties);
+  const guardedState = withAncestor1ReflectionsGuardState(removed.state);
+  const guarded = guardedState === removed.state ? removed : { ...removed, state: guardedState };
+  return applyNecromancerIIIReanimation(guarded, casualties);
 }
 
 export function endAfterCasualties(result: ApplyResult): ApplyResult | null {
