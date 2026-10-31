@@ -20,4 +20,4 @@
 
 验证：5文件19条目录、形态、目标边界、A-3建局/自然存档及摘要测试，另3文件51条既有战斗/威胁/旧档回归通过，共70条；typecheck、build、本次文件 ESLint/Prettier 通过。全仓既有失败沿 #400 保留，本刀不声明全仓全绿。
 
-限制：全部 `combatReady: false`。未注册未完成的最暗 Boss 脚本，不以数据引用解锁战斗。召唤/传送/Pit Toss/Reflections/Impending Doom、完整先攻与形态切换、最终村庄执行和战斗几何/部署均待后续。原始印刷美术及核对页面不提交。
+限制：全部 `combatReady: false`。未注册未完成的最暗 Boss 脚本，不以数据引用解锁战斗。召唤/传送/Pit Toss/Impending Doom、Reflections Guard「at all times」与先攻不移除、Time Heals All、完整先攻与形态切换、最终村庄执行和战斗几何/部署均待后续。**已接**：Ancestor 1 Reflections 中 Imperfect Reflection 死亡 → Ancestor 10 伤口（见 `phase5-final-ancestor1-reflections-2026-10-31.md`）。原始印刷美术及核对页面不提交。
