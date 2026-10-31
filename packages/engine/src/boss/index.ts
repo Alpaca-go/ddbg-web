@@ -425,6 +425,12 @@ export {
   applyHeartOfDarknessImpendingDoomRoll,
   type ApplyHeartOfDarknessImpendingDoomRollCommand,
 } from "./heart-of-darkness-impending-doom";
+export {
+  ANCESTOR_2_MONSTER_CARD_ID,
+  applyAncestor2SwiftTeleportation,
+  swiftTeleportStanceFromDie,
+  type ApplyAncestor2SwiftTeleportationCommand,
+} from "./ancestor2-swift-teleportation";
 export { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
 
 export {
