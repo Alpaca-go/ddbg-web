@@ -85,6 +85,7 @@ import { applyAncestor1PerfectReplication } from "./boss/ancestor1-perfect-repli
 import { applyAncestor1ImperfectReproduction } from "./boss/ancestor1-imperfect-reproduction";
 import { applyHeartOfDarknessImpendingDoomRoll } from "./boss/heart-of-darkness-impending-doom";
 import { applyAncestor2SwiftTeleportation } from "./boss/ancestor2-swift-teleportation";
+import { applyAncestor2DeployAbsoluteNothingness } from "./boss/ancestor2-absolute-nothingness";
 import {
   resolveDungeonConditionChoice,
   resolveDungeonCurioProvisionChoice,
@@ -250,6 +251,7 @@ type BaseCommand =
   | { readonly type: "applyAncestor1ImperfectReproduction"; readonly actorId: string }
   | { readonly type: "applyHeartOfDarknessImpendingDoomRoll"; readonly actorId: string }
   | { readonly type: "applyAncestor2SwiftTeleportation"; readonly actorId: string }
+  | { readonly type: "applyAncestor2DeployAbsoluteNothingness" }
   | MoveMonsterToRangeCommand
   | MoveHeroCommand
   | { readonly type: "resolveShuffles" }
@@ -749,6 +751,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return applyHeartOfDarknessImpendingDoomRoll(state, command.actorId);
   if (command.type === "applyAncestor2SwiftTeleportation")
     return applyAncestor2SwiftTeleportation(state, command.actorId);
+  if (command.type === "applyAncestor2DeployAbsoluteNothingness")
+    return applyAncestor2DeployAbsoluteNothingness(state);
   if (command.type === "moveMonsterToRange") return moveMonsterToRange(state, command);
   if (command.type === "moveHero") return moveHero(state, command);
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);
