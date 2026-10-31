@@ -166,3 +166,5 @@ export { buildRooms } from "./normalize/room";
 
 export { darkestBossContentSchema, finalBattlePlanForQuest } from "./darkest-boss-content";
 export type { DarkestBossContent } from "./darkest-boss-content";
+export { darkestBossAbilitiesSchema, readDarkestBossAbility } from "./darkest-boss-abilities";
+export type { DarkestBossAbilities } from "./darkest-boss-abilities";
