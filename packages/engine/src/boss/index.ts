@@ -383,9 +383,12 @@ export {
   expandDarkestMidBossInitiativeDeckSides,
 } from "./darkest-mid-boss-deploy";
 export {
+  applyShufflingHorrorEchoingDisassembly,
   applyShufflingHorrorUndulations,
   DARKEST_MID_BOSS_HERO_STANCE_AREAS,
+  DARKEST_MID_BOSS_MONSTER_STANCE_AREAS,
   SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID,
+  SHUFFLING_HORROR_ECHOING_SUMMON_CARD_IDS,
 } from "./darkest-shuffling-horror-combat-runtime";
 
 export {
