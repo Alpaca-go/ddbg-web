@@ -91,6 +91,7 @@ export function writeNormalizedCorebox(
     ["hamlet_event.json", built.hamlet_event],
     ["disease.json", built.disease],
     ["monster_pool.json", built.monster_pool],
+    ["darkest_monster_pool.json", built.darkest_monster_pool],
     ["room.json", built.room],
     ["curio.json", built.curio],
     ["hero_stat.json", built.hero_stat],
