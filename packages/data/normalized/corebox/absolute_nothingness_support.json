@@ -1,0 +1,29 @@
+{
+ "schema": "ddbg-absolute-nothingness-support-v1",
+ "status": "pending_monster_card",
+ "expectedName": "Absolute Nothingness",
+ "miniatureCount": 3,
+ "bossActorCardId": "monster_large:p018",
+ "abilityCardId": "boss_ability:p035",
+ "supportCardIds": [],
+ "placements": [
+  "monster_defense",
+  "monster_ranged",
+  "monster_support"
+ ],
+ "combatReady": false,
+ "sources": {
+  "rules": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_RULES.pdf",
+  "bossAbility": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+  "bossAbilityPage": 35,
+  "monsterMediumPdf": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_monsters_medium_FRONT.pdf",
+  "monsterLargePdf": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_140x140_monster_large_FRONT.pdf",
+  "searchedMediumPages": "1-111",
+  "searchedLargePages": "1-20"
+ },
+ "notes": [
+  "官方规则 R40 / boss_ability:p035：3 枚 Absolute Nothingness 棋子各占怪物防御/远程/支援区域一格，不可被选为目标。",
+  "核心盒规则书组件表为「3x Absolute Nothingness」棋子，非 Monster & Boss Cards 168 张之一；对照 Reflections 有独立 medium 战斗卡。",
+  "待确认（Q-AN-001）：若后续在 medium/large PDF 发现独立战斗卡，经 raw→normalize 入库后本目录可转为 linked 并写入 supportCardIds。"
+ ]
+}

@@ -1,5 +1,6 @@
 import type { RawFile } from "../extract/raw";
 import { darkestBossContentSchema } from "../darkest-boss-content";
+import type { AbsoluteNothingnessSupport } from "../absolute-nothingness-support";
 import type { NormalizedMonsterMediumFile, NormalizedMonsterLargeFile } from "./schema";
 
 /** 仅录入R39–41明确的先攻/行动数量与卡牌身份，不补未审Speed/选招/几何。 */
@@ -8,6 +9,7 @@ export function buildDarkestBossContent(
   abilities: RawFile,
   medium: NormalizedMonsterMediumFile,
   large: NormalizedMonsterLargeFile,
+  absoluteNothingness: AbsoluteNothingnessSupport,
 ) {
   const actor = (
     cardId: string,
@@ -120,7 +122,7 @@ export function buildDarkestBossContent(
         {
           id: "ancestor2",
           actor: actor("monster_large:p018", 35, "Ancestor 2nd Form", "aggressive", 2, 2),
-          supportCardIds: [],
+          supportCardIds: absoluteNothingness.supportCardIds,
           combatReady: false,
         },
         {
