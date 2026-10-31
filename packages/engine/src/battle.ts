@@ -194,6 +194,8 @@ export type BattleState = BattleSetup & {
   readonly hagActionsThisRound?: number;
   /** Fanatic I：本战斗轮内已完成的 Fanatic 行动次数（G-05 / 先攻 3 张配合）。 */
   readonly fanaticActionsThisRound?: number;
+  /** 最终战 Heart of Darkness · Impending Doom 当前落位 d10（1–10；boss_ability:p037）。 */
+  readonly impendingDoomDie?: number;
   readonly skillPrefix?: SkillPrefix | null;
   readonly encounter?: EncounterState;
   readonly rngCursor: number;

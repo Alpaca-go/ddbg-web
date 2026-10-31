@@ -420,6 +420,11 @@ export {
   applyAncestor1ImperfectReproduction,
   type ApplyAncestor1ImperfectReproductionCommand,
 } from "./ancestor1-imperfect-reproduction";
+export {
+  HEART_OF_DARKNESS_MONSTER_CARD_ID,
+  applyHeartOfDarknessImpendingDoomRoll,
+  type ApplyHeartOfDarknessImpendingDoomRollCommand,
+} from "./heart-of-darkness-impending-doom";
 export { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
 
 export {
