@@ -3,8 +3,11 @@ import type { DungeonState } from "./dungeon";
 import { nextProvisionFace, PROVISION_FACES, PROVISION_LABELS } from "./loot";
 import type { ProvisionFace } from "./loot";
 import { beginTravelingMerchantsChoice } from "./hamlet-traveling-merchants";
-import { beginScoutAheadReveal, scoutAheadPlanProblem } from "./hamlet-scout-ahead";
-import { applyBossThreatStressOnDungeonEntry } from "./boss/threat-passive-runtime";
+import {
+  beginWarmUpProvisionTorchChoice,
+  finishStartingProvisionsToExploration,
+} from "./warm-up-starting-provisions";
+import { scoutAheadPlanProblem } from "./hamlet-scout-ahead";
 import { readFinalBattlePlanAfterDarkestVictory } from "./boss/darkest-content";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
@@ -216,36 +219,18 @@ export function setupDungeonProvisions(
         events: [...events, ...merchant.events],
       };
     }
-    const ready: ApplyResult = {
-      state: {
-        ...state,
-        dungeon: {
-          ...completed,
-          pending: null,
-          decision: next.decision + 1,
-          phase: "ready",
-        },
-      },
-      events: [
-        ...events,
-        {
-          type: "dungeonUpdated" as const,
-          message: "开局补给已入公共池，可以开始探索（R12/R-041）",
-        },
-      ],
-    };
-    const revealed = beginScoutAheadReveal(ready.state);
-    const entryThreat = applyBossThreatStressOnDungeonEntry(revealed.state);
-    if (entryThreat.events.some((e) => e.type === "commandRefused")) {
-      return {
-        ...entryThreat,
-        events: [...ready.events, ...revealed.events, ...entryThreat.events],
-      };
+    if (completed.warmUpStartingProvisionTorchChoice) {
+      const warmUp = beginWarmUpProvisionTorchChoice(
+        { ...state, dungeon: { ...completed, pending: null } },
+        events,
+      );
+      return warmUp;
     }
-    return {
-      ...entryThreat,
-      events: [...ready.events, ...revealed.events, ...entryThreat.events],
-    };
+    return finishStartingProvisionsToExploration(
+      { ...state, dungeon: { ...completed, pending: null } },
+      events,
+      "开局补给已入公共池，可以开始探索（R12/R-041）",
+    );
   };
   const provisions = d.explorationSetup.provisions;
   if (command.type === "rollDungeonProvisions") {

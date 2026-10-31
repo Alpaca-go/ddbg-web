@@ -447,6 +447,7 @@ export function chooseNextQuest(
     ...(d.stagecoachXp !== undefined ? { stagecoachXp: d.stagecoachXp } : {}),
     ...(d.waitingHeroTokens !== undefined ? { waitingHeroTokens: d.waitingHeroTokens } : {}),
     ...(d.nextQuestProvisionFaceChoice ? { nextQuestProvisionFaceChoice: true as const } : {}),
+    ...(quest.id === "quest:p011" ? { warmUpStartingProvisionTorchChoice: true as const } : {}),
     ...(d.nextQuestPartyProvisionDice !== undefined
       ? { nextQuestPartyProvisionDice: d.nextQuestPartyProvisionDice }
       : {}),
@@ -478,6 +479,8 @@ export function chooseNextQuest(
   } satisfies DungeonState;
   const lightNote = d.nextQuestStartingLight === 4 ? "；Unsettling Darkness起始光照4" : "";
   const merchantNote = d.nextQuestProvisionFaceChoice ? "；Traveling Merchants待改骰" : "";
+  const warmUpNote =
+    quest.id === "quest:p011" ? "；Warm Up the Halls待开局改Torch（QUEST p11）" : "";
   const faceNote =
     faceEmbark.kind === "ok"
       ? `；Face the Threat→${faceEmbark.plan.resolvedScriptId}（${faceEmbark.plan.combatEntry.combatMonsterCardId}；${bossEdgeRooms ? "R30 边缘房已布置；专属战斗房间仍 hold" : "layout hold"}）`
@@ -487,7 +490,7 @@ export function chooseNextQuest(
     events: [
       {
         type: "dungeonUpdated",
-        message: `出征 ${quest.name}：临时技能已装备，游商陈列已洗回，等待开局补给（R12/R33/R34）；未选/已完成任务永久弃置${lightNote}${merchantNote}${faceNote}`,
+        message: `出征 ${quest.name}：临时技能已装备，游商陈列已洗回，等待开局补给（R12/R33/R34）；未选/已完成任务永久弃置${lightNote}${merchantNote}${warmUpNote}${faceNote}`,
       },
     ],
   };

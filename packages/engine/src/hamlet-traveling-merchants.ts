@@ -4,7 +4,8 @@ import { completeHamletEvent, hamletEventCompletionProblem } from "./hamlet-even
 import { PROVISION_FACES, PROVISION_LABELS } from "./loot";
 import type { ProvisionFace } from "./loot";
 import type { DungeonState } from "./dungeon";
-import { beginScoutAheadReveal } from "./hamlet-scout-ahead";
+import { heroStartingProvisionIds } from "./starting-provision-hero-ids";
+import { proceedAfterProvisionFaceChoices } from "./warm-up-starting-provisions";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 
@@ -39,22 +40,9 @@ export function applyTravelingMerchants(state: GameState): ApplyResult {
   };
 }
 
-function heroProvisionIds(d: DungeonState, heroId: string) {
-  const hero = d.heroes.find((h) => h.id === heroId);
-  if (!hero?.stance || !STANCES.includes(hero.stance)) return [];
-  const provisions = d.explorationSetup?.provisions ?? [];
-  return provisions
-    .filter(
-      (p) =>
-        p.id.startsWith(`dungeon-starting-provision:${hero.stance}:`) ||
-        p.id.startsWith(`dungeon-bonus-provision:${heroId}:`),
-    )
-    .map((p) => p.id);
-}
-
 function merchantOptions(d: DungeonState, heroId: string) {
   return [
-    ...heroProvisionIds(d, heroId).flatMap((id) =>
+    ...heroStartingProvisionIds(d, heroId).flatMap((id) =>
       PROVISION_FACES.map((face) => ({
         id: `set:${id}:${face}`,
         label: `将 ${id} 改为${PROVISION_LABELS[face]}`,
@@ -95,20 +83,15 @@ function continueTravelingMerchants(state: GameState): ApplyResult {
     const { nextQuestProvisionFaceChoice: _flag, provisionFaceChoiceRemaining: _rem, ...rest } = d;
     void _flag;
     void _rem;
-    const ready: ApplyResult = {
-      state: {
-        ...state,
-        dungeon: { ...rest, pending: null, phase: "ready", decision: d.decision + 1 },
-      },
-      events: [
+    return proceedAfterProvisionFaceChoices(
+      { ...state, dungeon: rest },
+      [
         {
           type: "dungeonUpdated",
-          message: "Traveling Merchants改骰结束，可以开始探索（卡面p8、R12）",
+          message: "Traveling Merchants改骰结束（卡面p8、R12）",
         },
       ],
-    };
-    const revealed = beginScoutAheadReveal(ready.state);
-    return { ...revealed, events: [...ready.events, ...revealed.events] };
+    );
   }
   const pending = {
     id: `dungeon-traveling-merchants:${d.decision}`,
@@ -151,7 +134,7 @@ export function chooseTravelingMerchants(
   let provisions = d.explorationSetup!.provisions;
   if (optionId !== "skip") {
     const match = /^set:(.+):(food|bandage|potion|torch|tool)$/.exec(optionId);
-    if (!match || !heroProvisionIds(d, heroId).includes(match[1]!))
+    if (!match || !heroStartingProvisionIds(d, heroId).includes(match[1]!))
       return rejectBattleCommand(state, "改骰目标不是当前英雄的开局补给");
     const face = match[2] as ProvisionFace;
     provisions = provisions.map((p) => (p.id === match[1] ? { ...p, face } : p));

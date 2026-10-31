@@ -14,6 +14,7 @@ import { chooseFeast } from "./hamlet-feast";
 import { chooseLaborForce } from "./hamlet-labor-force";
 import { chooseGuildTraining, chooseMilitiaTraining } from "./hamlet-guild-training";
 import { chooseTravelingMerchants } from "./hamlet-traveling-merchants";
+import { chooseWarmUpProvisionTorch } from "./warm-up-starting-provisions";
 import { chooseScoutAheadReveal } from "./hamlet-scout-ahead";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { continueDeathEstates, chooseDeathTrinket } from "./hero-death-estate";
@@ -509,6 +510,10 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return command.type === "resolveChoice"
       ? chooseTravelingMerchants(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先完成Traveling Merchants改骰选择");
+  if (state.dungeon?.pending?.id.startsWith("dungeon-warm-up-provision-torch:"))
+    return command.type === "resolveChoice"
+      ? chooseWarmUpProvisionTorch(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先完成Warm Up the Halls开局改Torch（QUEST p11）");
   if (command.type === "rollDungeonProvisions" || state.dungeon?.phase === "awaitingProvisions")
     return command.type === "rollDungeonProvisions" || command.type === "resolveChoice"
       ? setupDungeonProvisions(state, command)
