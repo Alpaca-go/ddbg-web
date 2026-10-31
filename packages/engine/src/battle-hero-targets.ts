@@ -27,6 +27,7 @@ import type { HeroTrinketAttack } from "./battle-trinket-ability";
 import type { HeroSkillTrinketWindow } from "../../data/src/hero-skill-trinkets";
 import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./boss/swine-prince-i-combat-runtime";
 import { chainGestatingHeartIchorAfterHeroSkill } from "./boss/gestating-heart-ichor";
+import { absoluteNothingnessTargetRefusal } from "./boss/ancestor2-absolute-nothingness";
 
 export type PlayHeroSkillTargetsCommand = {
   readonly damageStoneWindow?: true;
@@ -64,6 +65,10 @@ export function playHeroSkillTargets(
   const targets = command.targetIds.map((id) => battle.entities.find((e) => e.id === id));
   if (!targets.length || ids.size !== targets.length || targets.some((e) => !e || e.dead))
     return rejectBattleCommand(state, "须选择非空、不重复且存活的目标（R19）");
+  for (const target of targets) {
+    const untargetable = absoluteNothingnessTargetRefusal(target);
+    if (untargetable) return rejectBattleCommand(state, untargetable);
+  }
   const living = targets.filter((e) => e !== undefined);
   const targetArea = battle.areas.find((a) => a.id === living[0]!.areaId);
   const actorArea = battle.areas.find((a) => a.id === actor.areaId)!;

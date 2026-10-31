@@ -49,6 +49,12 @@ import { withFleshOneBodyPoolState } from "./boss/flesh-i-combat-runtime";
 import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./boss/swine-prince-i-combat-runtime";
 import { chainGestatingHeartIchorAfterHeroSkill } from "./boss/gestating-heart-ichor";
 import { withAncestor1ReflectionsGuardEntities } from "./boss/ancestor1-reflections-guard";
+import {
+  ABSOLUTE_NOTHINGNESS_DODGE,
+  ABSOLUTE_NOTHINGNESS_LIFE,
+  absoluteNothingnessTargetRefusal,
+  isAbsoluteNothingnessMonsterCardId,
+} from "./boss/ancestor2-absolute-nothingness";
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
@@ -71,6 +77,8 @@ export type BattleEntity = PassiveHolder &
     /** 怪物占姿态格数，必须由已核实数据提供；先攻接入时不猜大型与否。 */
     readonly stanceSlots?: 1 | 2;
     readonly monsterCardId?: string;
+    /** boss_ability:p035 · Absolute Nothingness 等不可被选为技能目标（仍占姿态位）。 */
+    readonly untargetable?: true;
     /** The Flesh · One Body 共享 Life 池标识；同池实体 wounds / life 由运行时同步。 */
     readonly oneBodyPoolId?: string;
     readonly heroStatId?: string;
@@ -401,9 +409,22 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
         throw new Error("英雄 Life 必须关联匹配的已核实属性面，伤口不得超过 Life（R-048、R29）");
     }
     if (entity.monsterCardId !== undefined) {
-      const card = setup.monsters?.find((entry) => entry.id === entity.monsterCardId);
-      if (entity.side !== "monster" || !card || card.life !== entity.life)
-        throw new Error("怪物实体必须关联已知卡牌，Life 与规范化卡一致（R-048）");
+      if (isAbsoluteNothingnessMonsterCardId(entity.monsterCardId)) {
+        if (
+          entity.side !== "monster" ||
+          entity.life !== ABSOLUTE_NOTHINGNESS_LIFE ||
+          entity.dodge !== ABSOLUTE_NOTHINGNESS_DODGE ||
+          entity.untargetable !== true ||
+          (entity.stanceSlots ?? 1) !== 1
+        )
+          throw new Error(
+            "Absolute Nothingness 合成实体须 wiki Life/Dodge、untargetable 与 1 格占位（R-048）",
+          );
+      } else {
+        const card = setup.monsters?.find((entry) => entry.id === entity.monsterCardId);
+        if (entity.side !== "monster" || !card || card.life !== entity.life)
+          throw new Error("怪物实体必须关联已知卡牌，Life 与规范化卡一致（R-048）");
+      }
     }
     const integer = (value: number) => Number.isInteger(value) && value >= 0;
     if (
@@ -499,6 +520,8 @@ export function playHeroSkill(
   if (!actor || actor.side !== "hero" || actor.dead || !target || target.dead || !skill) {
     return rejectBattleCommand(state, "使用者、目标或技能不存在 / 不可用");
   }
+  const untargetable = absoluteNothingnessTargetRefusal(target);
+  if (untargetable) return rejectBattleCommand(state, untargetable);
   if (!actor.skillIds.includes(skill.id) || (skill.hero !== null && actor.hero !== skill.hero)) {
     return rejectBattleCommand(state, "使用者没有装备这张英雄技能");
   }

@@ -426,6 +426,19 @@ export {
   type ApplyHeartOfDarknessImpendingDoomRollCommand,
 } from "./heart-of-darkness-impending-doom";
 export {
+  ABSOLUTE_NOTHINGNESS_DODGE,
+  ABSOLUTE_NOTHINGNESS_LIFE,
+  ABSOLUTE_NOTHINGNESS_MONSTER_CARD_ID,
+  absoluteNothingnessSyntheticMonsterCard,
+  absoluteNothingnessTargetRefusal,
+  appendAbsoluteNothingnessSupportEntities,
+  applyAncestor2DeployAbsoluteNothingness,
+  ensureAbsoluteNothingnessMonsterCatalog,
+  isAbsoluteNothingnessEntity,
+  isAbsoluteNothingnessMonsterCardId,
+  type ApplyAncestor2DeployAbsoluteNothingnessCommand,
+} from "./ancestor2-absolute-nothingness";
+export {
   ANCESTOR_2_MONSTER_CARD_ID,
   applyAncestor2SwiftTeleportation,
   swiftTeleportStanceFromDie,

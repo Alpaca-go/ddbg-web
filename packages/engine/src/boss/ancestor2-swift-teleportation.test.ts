@@ -11,6 +11,17 @@ import {
   swiftTeleportStanceFromDie,
 } from "./ancestor2-swift-teleportation";
 import { ANCESTOR_1_MONSTER_CARD_ID } from "./ancestor1-time-heals-all";
+import { isAbsoluteNothingnessEntity } from "./ancestor2-absolute-nothingness";
+
+function withoutAbsoluteNothingness(game: GameState): GameState {
+  return {
+    ...game,
+    battle: {
+      ...game.battle!,
+      entities: game.battle!.entities.filter((entity) => !isAbsoluteNothingnessEntity(entity)),
+    },
+  };
+}
 
 function prepared(questId: "quest:p016" | "quest:p017" | "quest:p018" = "quest:p017") {
   const base = finalPreparationFixture(questId);
@@ -36,7 +47,7 @@ function ancestor2Deployed(): GameState {
 }
 
 function ancestor2Fighting(): GameState {
-  const deployed = ancestor2Deployed();
+  const deployed = withoutAbsoluteNothingness(ancestor2Deployed());
   expect(readFinalFormSequence(deployed)!.current!.combatReady).toBe(false);
   return applyCommand(deployed, { type: "startBattle" }).state;
 }

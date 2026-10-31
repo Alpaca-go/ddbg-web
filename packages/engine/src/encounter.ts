@@ -37,6 +37,7 @@ import {
   bumpHeartOfDarknessImpendingDoomAfterAction,
 } from "./boss/heart-of-darkness-impending-doom";
 import { bumpAncestor2SwiftTeleportationAfterAction } from "./boss/ancestor2-swift-teleportation";
+import { isAbsoluteNothingnessEntity } from "./boss/ancestor2-absolute-nothingness";
 import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "./boss/flesh-i-combat-runtime";
 import { applySwinePrinceIWilburBattleStart } from "./boss/swine-prince-i-combat-runtime";
@@ -772,9 +773,18 @@ export function completeTurnStart(result: ApplyResult, actorId: string): ApplyRe
   );
   return (
     endAfterCasualties(removed) ??
-    (status.entity.dead || (actor.side === "monster" && status.stunned)
-      ? finishTurn(removed.state, actorId, removed.events)
-      : removed)
+    (isAbsoluteNothingnessEntity(status.entity)
+      ? finishTurn(removed.state, actorId, [
+          ...removed.events,
+          {
+            type: "dungeonUpdated",
+            message:
+              "Absolute Nothingness 无战斗行动，自动结束怪物回合（boss_ability:p035；wiki 占位）",
+          },
+        ])
+      : status.entity.dead || (actor.side === "monster" && status.stunned)
+        ? finishTurn(removed.state, actorId, removed.events)
+        : removed)
   );
 }
 
@@ -801,6 +811,7 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     for (const side of ["hero", "monster"] as const) {
       const occupied = new Set<number>();
       for (const entity of living.filter((entry) => entry.side === side)) {
+        if (side === "monster" && isAbsoluteNothingnessEntity(entity)) continue;
         const width = side === "hero" ? 1 : entity.stanceSlots;
         const position = STANCES.indexOf(entity.stance!);
         if (position < 0 || (width !== 1 && width !== 2) || position + width > 4)

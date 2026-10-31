@@ -4,6 +4,7 @@ import {
   rejectBattleCommand,
   type BattleArea,
   type BattleEntity,
+  type BattleState,
 } from "../battle";
 import { roomTileBattleAreas } from "../battle-monster-movement";
 import { createLootState } from "../loot";
@@ -19,6 +20,9 @@ import {
   withAncestor1ReflectionsGuardState,
 } from "./ancestor1-reflections-guard";
 import { readFinalBattlePlanAfterDarkestVictory } from "./darkest-content";
+import {
+  appendAbsoluteNothingnessSupportEntities,
+} from "./ancestor2-absolute-nothingness";
 import roomCatalog from "../../../data/normalized/corebox/room_tile_geometry.json";
 import roomCards from "../../../data/normalized/corebox/room.json";
 import { roomFileSchema } from "../../../data/src/room";
@@ -243,9 +247,32 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
   const geometryNote = approvedAreas
     ? "Ancestor Room 已批几何"
     : "Ancestor Room（room:p025）几何与印刷部署仍 hold；使用占位区域，不写入 ancestorGlory（R-048）";
-  const monsters = d.battleCatalog.monsters;
-  const spawned = spawnFormMonsters(sequence.current, monsters, refuse);
-  if (!Array.isArray(spawned)) return spawned;
+  let monsters: readonly MonsterCardView[] = d.battleCatalog.monsters;
+  const spawnedResult = spawnFormMonsters(sequence.current, monsters, refuse);
+  if (!Array.isArray(spawnedResult)) return spawnedResult;
+  let spawnedMonsters: BattleEntity[] = [...spawnedResult];
+  let nothingnessDeployMessage = "";
+  if (sequence.current.id === "ancestor2") {
+    const draftBattle: BattleState = {
+      entities: spawnedMonsters,
+      areas,
+      skills: d.battleCatalog.skills,
+      monsters,
+      light: d.explorationSetup?.light ?? 4,
+      heroStats: d.battleCatalog.heroStats,
+      rngCursor: 0,
+      choiceCursor: state.battle?.choiceCursor ?? d.decision,
+      monsterAction: null,
+      pending: null,
+      shuffleIntents: [],
+      shuffleContinuation: null,
+    };
+    const appended = appendAbsoluteNothingnessSupportEntities(draftBattle);
+    monsters = appended.monsters;
+    spawnedMonsters = appended.entities.filter((entity) => entity.side === "monster");
+    if (appended.placed.length)
+      nothingnessDeployMessage = `；Absolute Nothingness ${appended.placed.length}/3（${appended.placed.join("、")}；boss_ability:p035）`;
+  }
 
   if (!state.battle) {
     const heroes = buildHeroEntities(state, refuse);
@@ -256,7 +283,7 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
         ...(d.trinkets ? { trinkets: d.trinkets } : {}),
         ...(d.conditions ? { conditions: d.conditions } : {}),
         heroStats: d.battleCatalog.heroStats,
-        entities: [...heroes, ...spawned],
+        entities: [...heroes, ...spawnedMonsters],
         skills: d.battleCatalog.skills,
         monsters,
         areas,
@@ -284,7 +311,7 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
         events: [
           {
             type: "dungeonUpdated",
-            message: `${geometryNote}；已登记 ${sequence.current.id} Boss 实体，等待 startBattle，不宣称形态技能已可玩（R36、R-048）`,
+            message: `${geometryNote}；已登记 ${sequence.current.id} Boss 实体${nothingnessDeployMessage}，等待 startBattle，不宣称形态技能已可玩（R36、R-048）`,
           },
         ],
       };
@@ -317,8 +344,9 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
       },
       battle: {
         ...battleBase,
+        monsters,
         areas,
-        entities: [...heroes, ...spawned],
+        entities: [...heroes, ...spawnedMonsters],
         pending: null,
         shuffleIntents: [],
       },
@@ -326,7 +354,7 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
     events: [
       {
         type: "dungeonUpdated",
-        message: `${geometryNote}；同一 BattleState 续接 ${sequence.current.id}，清除上一形态怪物并等待 startBattle（R-035、R-048）`,
+        message: `${geometryNote}；同一 BattleState 续接 ${sequence.current.id}${nothingnessDeployMessage}，清除上一形态怪物并等待 startBattle（R-035、R-048）`,
       },
     ],
   };
