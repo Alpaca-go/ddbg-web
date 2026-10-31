@@ -2,6 +2,7 @@ import { resolveExcavation } from "./darkest-excavation";
 import { prepareFinalBattleForms, finishFinalBattleForm, finalBattleCombatActive } from "./boss/final-form-sequence";
 import { deployFinalBattleForm } from "./boss/final-battle-deploy";
 import { deployDarkestMidBoss } from "./boss/darkest-mid-boss-deploy";
+import { deployDarkestOrdinaryEncounter } from "./darkest-ordinary-encounter-deploy";
 import { beginFinalPreparation, beginFinalBattleProvisions } from "./final-preparation";
 import { applyHigherRuinsHamlet, chooseHigherRuinsTheft } from "./boss/higher-ruins-hamlet";
 import { applyHigherRuinsBattleSpawn } from "./boss/higher-ruins-threat";
@@ -209,6 +210,7 @@ type BaseCommand =
   | { readonly type: "prepareFinalBattleForms" }
   | { readonly type: "deployFinalBattleForm" }
   | { readonly type: "deployDarkestMidBoss" }
+  | { readonly type: "deployDarkestOrdinaryEncounter" }
   | { readonly type: "offerNextQuest" }
   | { readonly type: "advanceCampaignLevel" }
   | { readonly type: "advanceRuinsAct" }
@@ -717,6 +719,11 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       return rejectBattleCommand(state, "部署命令须于村庄最终战停点执行（R36）");
     if (command.type === "deployDarkestMidBoss")
       return rejectBattleCommand(state, "deployDarkestMidBoss 须于最暗 Boss 目标房停点执行（R36）");
+    if (command.type === "deployDarkestOrdinaryEncounter")
+      return rejectBattleCommand(
+        state,
+        "deployDarkestOrdinaryEncounter 须于最暗普通房停点执行（R36）",
+      );
     return applyEncounterCommand(state, command);
   }
   return {
@@ -730,6 +737,7 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "prepareFinalBattleForms") return prepareFinalBattleForms(state);
   if (command.type === "deployFinalBattleForm") return deployFinalBattleForm(state);
   if (command.type === "deployDarkestMidBoss") return deployDarkestMidBoss(state);
+  if (command.type === "deployDarkestOrdinaryEncounter") return deployDarkestOrdinaryEncounter(state);
   if (
     state.dungeon?.finalFormSequence?.status === "fighting" &&
     state.battle &&

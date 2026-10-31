@@ -80,9 +80,10 @@ export function darkestOrdinaryDeploymentHold(d: DungeonState): string | undefin
   if (room?.kind === "objective") return undefined;
   const deployment = d.darkest.ordinaryDeployment;
   if (darkestOrdinaryDeploymentMatches(d)) {
+    const identity = deployment!.monsters.map((m) => m.cardId).join("、");
     return (
       deployment!.blockedReason ||
-      "最暗普通遭遇已记录身份；battleReady: false 与 Room Tile 几何未获批，不能进入半场战斗（R-048）。"
+      `最暗普通遭遇已记录身份（${identity}）；可 deployDarkestOrdinaryEncounter 进入 BattleState 后显式 startBattle 洗先攻；battleReady: false 与 Room Tile 几何未获批，不可用 startDungeonBattle（R-048）。`
     );
   }
   const active = d.roomCards?.active;
@@ -132,7 +133,7 @@ export function prepareDarkestOrdinaryMonsterDeployment(state: GameState): Apply
     .map((monster) => `${monster.instanceId}→${monster.cardId}`)
     .join("、");
   const missing = missingBattleSummary(pool, spawned.monsters);
-  const blockedReason = `${missing}已从 26 张最暗牌堆抽 ${spawned.drawn} 张（${identitySummary}）；占位 areaId 非获批板块；battleReady: false，Room Tile 几何未获批，不能进入半场战斗（R-048）。部署顺序已记录；不重抽，房间未清理，未发奖励。`;
+  const blockedReason = `${missing}已从 26 张最暗牌堆抽 ${spawned.drawn} 张（${identitySummary}）；可 deployDarkestOrdinaryEncounter 后 startBattle；占位 areaId 非获批板块；battleReady: false，Room Tile 几何未获批，不可用 startDungeonBattle（R-048）。部署顺序已记录；不重抽，房间未清理，未发奖励。`;
   return {
     state: {
       ...state,
