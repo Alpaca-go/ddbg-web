@@ -315,7 +315,13 @@ export { dungeonMonsterPoolThrough, combatCardIdForPoolInstance } from "./monste
 export { isHauntedGraveyardGuard } from "./boss/necromancer-ii-graveyard";
 export { HERO_SKILL_TRINKET_IDS } from "../../data/src/hero-skill-trinkets";
 
-export { FREE_TRINKET_IDS, isFreeTrinketId, freeTrinketUseProblem } from "./battle-free-trinkets";
+export {
+  FREE_TRINKET_IDS,
+  FREE_TRINKET_INVERTED_ACTIVE_USE,
+  FREE_TRINKET_INVERTED_DEFENCE_REACTION,
+  isFreeTrinketId,
+  freeTrinketUseProblem,
+} from "./battle-free-trinkets";
 
 export { coreTrinketFreeActions, coreTrinketFreeProblem } from "./core-trinket-free";
 

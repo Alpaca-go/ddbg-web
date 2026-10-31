@@ -1,4 +1,9 @@
-import { FREE_TRINKET_IDS, freeTrinketUseProblem } from "./battle-free-trinkets";
+import {
+  FREE_TRINKET_IDS,
+  FREE_TRINKET_INVERTED_ACTIVE_USE,
+  FREE_TRINKET_INVERTED_DEFENCE_REACTION,
+  freeTrinketUseProblem,
+} from "./battle-free-trinkets";
 import type { FreeTrinketId } from "./battle-free-trinkets";
 import { expect, it } from "vitest";
 import rawTrinkets from "../../data/normalized/corebox/trinket.json";
@@ -7,11 +12,13 @@ import { HERO_SKILL_TRINKET_IDS } from "../../data/src/hero-skill-trinkets";
 import type { HeroSkillTrinketId } from "../../data/src/hero-skill-trinkets";
 import { savedCommandSchema } from "../../data/src/quest-save";
 import { applyCommand } from "./command";
-import type { GameState } from "./command";
+import type { ApplyResult, GameState, Command } from "./command";
 import { createBattleState } from "./battle";
 import type { BattleEntity, PlayHeroSkillCommand } from "./battle";
 import type { SkillStance } from "./hero-skill";
 import { coreQuestSources } from "./test-helpers/core-quest";
+import { trinketBattle } from "./test-helpers/trinket-battle";
+import { nextBattleRoll } from "./battle-roll";
 
 const cards = normalizedTrinketFileSchema.parse(rawTrinkets).cards;
 // 明示战斗机制夹具；完整牌池、技能和属性均来自目录，不冒称自然获得路径。
@@ -178,14 +185,97 @@ it.each([
   expect(r.state).toEqual(s);
   expect(r.events[0]!.type).toBe("commandRefused");
 });
-it.each(["trinket:p027", "trinket:p030", "trinket:p037"] as const)("%s 已开放反面", (id) => {
+it.each(["trinket:p027", "trinket:p030", "trinket:p037", "trinket:p036"] as const)(
+  "%s 已开放反面主动使用",
+  (id) => {
   const s = ready(id, "inverted");
-  s.battle.entities = s.battle.entities.map((e) => ({ ...e, stress: 3 }));
+  s.battle.entities = s.battle.entities.map((e) => ({ ...e, stress: 3, wounds: id === "trinket:p036" ? 0 : e.wounds }));
   const r = use(s, id);
   expect(r.events.filter((e) => e.type === "commandRefused")).toEqual([]);
   expect(r.state.battle!.trinkets!.held[0]!.face).toBe("upright");
   if (id === "trinket:p037") expect(r.state.battle!.light).toBe(1);
+  else if (id === "trinket:p036") expect(r.state.battle!.entities[0]!.wounds).toBeGreaterThan(0);
   else expect(r.state.battle!.entities[0]!.stress).toBe(id === "trinket:p030" ? 5 : 4);
+  },
+);
+it.each(FREE_TRINKET_INVERTED_DEFENCE_REACTION)(
+  "%s 反面在受击窗接通，useTrinket 明确拒绝",
+  (id) => {
+    const s = ready(id, "inverted");
+    expect(freeTrinketUseProblem(s, "h0", id)).toContain("受击防御窗");
+    expect(use(s, id).events[0]!.type).toBe("commandRefused");
+  },
+);
+it("Book of Sanity 反面 useTrinket 与 core 路径一致支付 6 非攻击伤害", () => {
+  const s = ready("trinket:p036", "inverted");
+  s.battle.entities = s.battle.entities.map((e) =>
+    e.id === "h0" ? { ...e, wounds: 0, protection: true } : e,
+  );
+  expect(use(s, "trinket:p036").state.battle!.entities[0]!.wounds).toBe(6);
+});
+function ok(r: ApplyResult) {
+  expect(r.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  return r;
+}
+function choose(r: ApplyResult, id: string) {
+  return ok(
+    applyCommand(r.state, {
+      type: "resolveChoice",
+      choiceId: r.pendingChoice!.id,
+      optionId: id,
+      allTrinkets: true,
+    }),
+  );
+}
+function seedForRoll(roll: number) {
+  let seed = 0;
+  while (nextBattleRoll(seed, 0) !== roll) seed++;
+  return seed;
+}
+function monsterTurn(id: FreeTrinketId, face: "upright" | "inverted", roll = 3) {
+  const seed = seedForRoll(roll),
+    { state } = trinketBattle([id], "aggressive", "hero_skill:p001", face, seed);
+  return {
+    ...state,
+    battle: {
+      ...state.battle!,
+      resolveCards: coreQuestSources.resolveCards,
+      light: 3,
+      encounter: {
+        round: 1,
+        deck: ["hero" as const],
+        actedIds: [],
+        turn: { type: "monster" as const, actorId: "m" },
+      },
+      entities: state.battle!.entities.map((h) => (h.id === "m" ? { ...h, areaId: "b" } : h)),
+    },
+  };
+}
+const monsterAttack: Command = {
+  type: "playMonsterSkill",
+  actorId: "m",
+  targetId: "h0",
+  skillSlot: 1,
+  allTrinkets: true,
+};
+it("Bloodthirst Ring 反面受击可选 3 Bleed 2t", () => {
+  const open = ok(applyCommand(monsterTurn("trinket:p015", "inverted"), monsterAttack));
+  const paid = choose(open, "trinket:p015");
+  expect(paid.state.battle!.trinkets!.held[0]!.face).toBe("upright");
+  expect(paid.state.battle!.entities[0]!.statusStacks!.some((s) => s.kind === "bleed")).toBe(true);
+});
+it("Book of Holiness 反面把命中变为暴击", () => {
+  const paid = choose(ok(applyCommand(monsterTurn("trinket:p017", "inverted"), monsterAttack)), "trinket:p017");
+  expect(paid.events.find((e) => e.type === "monsterSkillResolved")!.resolution.outcome).toBe("crit");
+});
+it("Book of Relaxation 反面 Dodge-2 在防御窗生效", () => {
+  const initial = monsterTurn("trinket:p018", "inverted"),
+    threshold = 9 - initial.battle!.entities[0]!.dodge;
+  const paid = choose(
+    ok(applyCommand({ ...initial, seed: seedForRoll(threshold + 1) }, monsterAttack)),
+    "trinket:p018",
+  );
+  expect(paid.events.find((e) => e.type === "monsterSkillResolved")!.resolution.outcome).toBe("hit");
 });
 it.each(FREE_TRINKET_IDS)("%s 卡面漂移拒绝", (id) => {
   const s = ready(id);
@@ -244,12 +334,15 @@ it("Cleansing移除五类全部堆、保留保护与增益，不影响怪物", (
   }
   expect(r.state.battle!.entities.find((e) => e.side === "monster")!.statusStacks).toEqual(stacks);
 });
-it("旧反面和未开放反面明确拒绝，不提供虚假翻面", () => {
+it("仍 hold 的反面拒绝 useTrinket，不提供虚假翻面", () => {
   for (const id of FREE_TRINKET_IDS.filter(
-    (id) => !["trinket:p027", "trinket:p030", "trinket:p037"].includes(id),
+    (id) =>
+      !(FREE_TRINKET_INVERTED_ACTIVE_USE as readonly string[]).includes(id) &&
+      !(FREE_TRINKET_INVERTED_DEFENCE_REACTION as readonly string[]).includes(id),
   )) {
     const s = ready(id, "inverted");
     expect(use(s, id).state).toEqual(s);
     expect(use(s, id).events[0]!.type).toBe("commandRefused");
+    expect(freeTrinketUseProblem(s, "h0", id)).toContain("尚未接通");
   }
 });
