@@ -143,6 +143,8 @@ export type DungeonState = {
    * spec §2.3 R11：威胁被动在 Boss 被击败前持续生效。
    */
   readonly activeBossThreatScriptId?: import("./boss/types").BossScriptId;
+  /** R30：Boss 开战翻至战斗面；保留身份用于胜利清场，但该身份的威胁被动已停止。 */
+  readonly bossCombatThreatCeased?: import("./boss/types").BossScriptId;
   /** Army of the Dead：本趟地牢的首次战斗已开始；新任务不继承。 */
   readonly necromancerIIArmyUsed?: true;
   /** Face the Threat 出征钩子 ok 后写入（`chooseNextQuest` / 沙盒 p019）；R-121 布局仍 hold。 */

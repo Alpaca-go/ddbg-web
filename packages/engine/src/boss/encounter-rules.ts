@@ -53,3 +53,20 @@ export function encounterForcesRetreatAfterRound(state: GameState, round: number
 export function isBossEncounter(state: GameState): boolean {
   return resolveEncounterBossBattleRules(state) !== undefined;
 }
+
+/** R30：新正式出征在 Boss 开战前翻能力卡；旧无标记日志保留原回放。 */
+export function ceaseThreatForBossCombat(state: GameState): GameState {
+  const d = state.dungeon;
+  const plan = d?.faceTheThreatEmbarkPlan;
+  if (plan?.roomPlacement !== "edgeRoomsR30") return state;
+  const scriptId = resolveEncounterBossScriptId(state);
+  if (
+    !d ||
+    !scriptId ||
+    scriptId !== plan.resolvedScriptId ||
+    scriptId !== d.activeBossThreatScriptId ||
+    d.bossCombatThreatCeased === scriptId
+  )
+    return state;
+  return { ...state, dungeon: { ...d, bossCombatThreatCeased: scriptId } };
+}

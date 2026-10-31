@@ -1,3 +1,6 @@
+import { readActiveBossThreatScript } from "./threat-passive-runtime";
+import { clearedBossThreatScriptIdAfterVictory } from "./threat-campaign";
+import { requireFaceTheThreatEmbarkPlanForSandbox } from "./face-the-threat-embark-runtime";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { createBattleState, type BattleEntity, type BattleSetup } from "../battle";
@@ -512,4 +515,90 @@ it.each([1, 2, 3])("Pyre %i：自动命中无攻击骰，Protection 减伤与死
     skillSlot: 1,
   });
   expect(again.state.battle!.rngCursor).toBe(atDoor.battle.rngCursor + 1);
+});
+
+// 明示逻辑区机制夹具；不是获批 Boss 房间几何或自然战役验收。
+function modernBossFixture(script: string): GameState {
+  const state = fixture(script);
+  const d = state.dungeon!;
+  return {
+    ...state,
+    dungeon: {
+      ...d,
+      faceTheThreatEmbarkPlan: {
+        ...requireFaceTheThreatEmbarkPlanForSandbox(d),
+        roomPlacement: "edgeRoomsR30",
+      },
+    },
+  };
+}
+
+it.each(Object.values(RUINS_COMBAT_LEVELS).flat())(
+  "R30 $script：开战停止威胁面，保留战斗身份及击败判定",
+  (row) => {
+    const state = modernBossFixture(row.script);
+    const before = JSON.stringify(state);
+    expect(readActiveBossThreatScript(state.dungeon!)).toBeDefined();
+    const started = ok(state, { type: "startBattle" });
+    expect(started.state.dungeon!.bossCombatThreatCeased).toBe(row.script);
+    expect(started.state.dungeon!.activeBossThreatScriptId).toBe(row.script);
+    expect(readActiveBossThreatScript(started.state.dungeon!)).toBeUndefined();
+    expect(JSON.stringify(state)).toBe(before);
+    expect(started).toEqual(ok(JSON.parse(before), { type: "startBattle" }));
+    const defeated: GameState = {
+      ...started.state,
+      battle: {
+        ...started.state.battle!,
+        entities: started.state.battle!.entities.map((e) =>
+          e.id === "boss" ? { ...e, dead: true } : e,
+        ),
+        encounter: {
+          ...started.state.battle!.encounter!,
+          turn: { type: "finished", outcome: "victory" },
+        },
+      },
+    };
+    expect(clearedBossThreatScriptIdAfterVictory(defeated)).toBe(row.script);
+  },
+);
+
+it("R30：狂信者 III 本体战不叠威胁 Mark/Debuff；普通守卫战与旧日志保持生效", () => {
+  const script = "boss:ruins:fanatic:3";
+  const state = modernBossFixture(script);
+  const current = ok(state, { type: "startBattle" }).state;
+  expect(
+    current
+      .battle!.entities.filter((e) => e.side === "hero")
+      .every((e) => !(e.statusStacks ?? []).some((s) => s.kind === "mark" || s.kind === "debuff")),
+  ).toBe(true);
+  const legacy = ok(fixture(script), { type: "startBattle" }).state;
+  expect(legacy.dungeon!.bossCombatThreatCeased).toBeUndefined();
+  expect(legacy.battle!.entities.some((e) => e.side === "hero" && (e.markStacks ?? 0) > 0)).toBe(
+    true,
+  );
+  const guard: GameState = {
+    ...state,
+    battle: {
+      ...state.battle!,
+      entities: state.battle!.entities.map((e) =>
+        e.id === "boss" ? { ...e, monsterCardId: "monster_medium:p001", stanceSlots: 1 } : e,
+      ),
+    },
+  };
+  const normal = ok(guard, { type: "startBattle" }).state;
+  expect(normal.dungeon!.bossCombatThreatCeased).toBeUndefined();
+  expect(normal.battle!.entities.some((e) => e.side === "hero" && (e.markStacks ?? 0) > 0)).toBe(
+    true,
+  );
+});
+
+it("开战后续缺收藏家绑定时整次拒绝，翻面标记与 RNG 均回滚", () => {
+  const state = modernBossFixture("boss:ruins:collector:2");
+  const { collectorRoomLootAreaId: _loot, ...battle } = state.battle!;
+  void _loot;
+  const bad = { ...state, battle };
+  const result = applyCommand(bad, { type: "startBattle" });
+  expect(result.events[0]?.type).toBe("commandRefused");
+  expect(result.state).toBe(bad);
+  expect(result.state.dungeon!.bossCombatThreatCeased).toBeUndefined();
 });

@@ -12,7 +12,7 @@ import { addStatusStack, STATUS_KINDS, statusProjection } from "../status";
 import type { StatusKind, StatusStack } from "../status";
 import { ensureCoreBossScriptsRegistered } from "./ensure-core-boss-scripts";
 import { getBossScript } from "./registry";
-import { readActiveBossThreatScriptId } from "./threat-campaign";
+import { readEffectiveBossThreatScriptId } from "./threat-campaign";
 import {
   beastMonsterDamageBonusFromBossThreat,
   blackSheepStressDeltaFromBossThreat,
@@ -43,7 +43,7 @@ export const CREEPING_SICKNESS_HAMLET_BUILDINGS = [
 ] as const;
 
 export function readActiveBossThreatScript(d: DungeonState): BossScriptDefinition | undefined {
-  const scriptId = readActiveBossThreatScriptId(d);
+  const scriptId = readEffectiveBossThreatScriptId(d);
   if (!scriptId) return undefined;
   ensureCoreBossScriptsRegistered();
   const script = getBossScript(scriptId);
