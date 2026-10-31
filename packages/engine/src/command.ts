@@ -97,6 +97,18 @@ import {
   applyHeartOfDarknessPuncture,
 } from "./boss/heart-of-darkness-skills-acc";
 import {
+  applyTemplarImpalerBodySlam,
+  applyTemplarImpalerRevelation,
+  applyTemplarImpalerTorment,
+  applyTemplarWarlordRevelation,
+  applyTemplarWarlordStingerShot,
+  applyTemplarWarlordTorment,
+} from "./boss/darkest-templars-skills-acc";
+import {
+  applyMammothCystBulgingGaze,
+  applyMammothCystDigestion,
+} from "./boss/darkest-mammoth-cyst-skills-acc";
+import {
   resolveDungeonConditionChoice,
   resolveDungeonCurioProvisionChoice,
   resolveDungeonTrinketChoice,
@@ -268,6 +280,14 @@ type BaseCommand =
   | { readonly type: "applyHeartOfDarknessKnowThis"; readonly actorId: string }
   | { readonly type: "applyHeartOfDarknessPuncture"; readonly actorId: string }
   | { readonly type: "applyHeartOfDarknessDissolution"; readonly actorId: string }
+  | { readonly type: "applyTemplarImpalerTorment"; readonly actorId: string }
+  | { readonly type: "applyTemplarImpalerBodySlam"; readonly actorId: string }
+  | { readonly type: "applyTemplarImpalerRevelation"; readonly actorId: string }
+  | { readonly type: "applyTemplarWarlordTorment"; readonly actorId: string }
+  | { readonly type: "applyTemplarWarlordStingerShot"; readonly actorId: string }
+  | { readonly type: "applyTemplarWarlordRevelation"; readonly actorId: string }
+  | { readonly type: "applyMammothCystBulgingGaze"; readonly actorId: string }
+  | { readonly type: "applyMammothCystDigestion"; readonly actorId: string }
   | MoveMonsterToRangeCommand
   | MoveHeroCommand
   | { readonly type: "resolveShuffles" }
@@ -781,6 +801,22 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return applyHeartOfDarknessPuncture(state, command.actorId);
   if (command.type === "applyHeartOfDarknessDissolution")
     return applyHeartOfDarknessDissolution(state, command.actorId);
+  if (command.type === "applyTemplarImpalerTorment")
+    return applyTemplarImpalerTorment(state, command.actorId);
+  if (command.type === "applyTemplarImpalerBodySlam")
+    return applyTemplarImpalerBodySlam(state, command.actorId);
+  if (command.type === "applyTemplarImpalerRevelation")
+    return applyTemplarImpalerRevelation(state, command.actorId);
+  if (command.type === "applyTemplarWarlordTorment")
+    return applyTemplarWarlordTorment(state, command.actorId);
+  if (command.type === "applyTemplarWarlordStingerShot")
+    return applyTemplarWarlordStingerShot(state, command.actorId);
+  if (command.type === "applyTemplarWarlordRevelation")
+    return applyTemplarWarlordRevelation(state, command.actorId);
+  if (command.type === "applyMammothCystBulgingGaze")
+    return applyMammothCystBulgingGaze(state, command.actorId);
+  if (command.type === "applyMammothCystDigestion")
+    return applyMammothCystDigestion(state, command.actorId);
   if (command.type === "moveMonsterToRange") return moveMonsterToRange(state, command);
   if (command.type === "moveHero") return moveHero(state, command);
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);

@@ -63,12 +63,12 @@ function supportDeployedHoldSummary(supportMonsters: readonly SpawnPlacement[]):
 
 function darkestMidBossWiringHold(questId: StoredDarkestBossEncounterPlan["questId"]): string {
   if (questId === "quest:p016") {
-    return "Undulations + Echoing Disassembly 召唤已接（显式 applyShufflingHorrorUndulations / applyShufflingHorrorEchoingDisassembly）；Room Tile 正式几何 / combatReady / 完整 AI 仍 hold";
+    return "Undulations + Echoing Disassembly 召唤已接；Lacerate Acc 卡级 unverified 见 shuffling-horror-skills-acc 文档；Room Tile 正式几何 / combatReady / 完整 AI 仍 hold";
   }
   if (questId === "quest:p018") {
-    return "Summon White Cell Stalk 已接（显式 applyMammothCystSummonWhiteCell）；White Cell Teleport / Pit Toss / Room Tile 几何 / combatReady / 完整 AI 仍 hold";
+    return "Summon White Cell Stalk + Bulging Gaze/Digestion Acc 最小结算已接；White Cell Teleport / Revivify / Room Tile 几何 / combatReady / 完整 AI 仍 hold";
   }
-  return "专属 Room Tile 几何、印刷部署与技能执行未获批（combatReady: false）";
+  return "Templars Torment/Body Slam/Revelation/Stinger Shot Acc 最小结算已接；Pit Toss / Room Tile 几何 / combatReady / 完整 AI 仍 hold";
 }
 
 const STANCE_ORDER: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
