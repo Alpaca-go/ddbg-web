@@ -105,6 +105,15 @@ export type DungeonState = {
       readonly supportCardIds: readonly string[];
       readonly blockedReason: string;
     };
+    /** 普通遭遇抽牌后余牌 / 弃牌；monsterDeck 为任务入口洗牌结果。 */
+    readonly monsterDeckRemaining?: readonly string[];
+    readonly monsterDeckDiscarded?: readonly string[];
+    /** 非目标房 prepareDungeonMonsters：26 张牌堆身份记录；battleReady 仍为 false。 */
+    readonly ordinaryDeployment?: {
+      readonly roomId: string;
+      readonly monsters: readonly import("./spawn").SpawnPlacement[];
+      readonly blockedReason: string;
+    };
   };
   readonly trinketRuntime?: import("./trinket-reactions").TrinketRuntime;
   /** 保存死亡发生的流程，补人只续接已付费的步骤，不重新执行入口。 */

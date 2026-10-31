@@ -13,6 +13,10 @@ import {
   darkestMidBossDeploymentHold,
   prepareDarkestMidBossDeployment,
 } from "./boss/darkest-mid-boss-runtime";
+import {
+  darkestOrdinaryDeploymentHold,
+  prepareDarkestOrdinaryMonsterDeployment,
+} from "./darkest-ordinary-monster-deploy";
 import { questMonsterDeploymentHold } from "./quest-monster-deployment";
 import { prepareQuestMonsterDeployment } from "./quest-monster-spawn";
 
@@ -33,7 +37,9 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
   if (d.darkest) {
     const darkestDeploy = prepareDarkestMidBossDeployment(state);
     if (darkestDeploy) return darkestDeploy;
-    const hold = darkestMidBossDeploymentHold(d);
+    const ordinaryDeploy = prepareDarkestOrdinaryMonsterDeployment(state);
+    if (ordinaryDeploy) return ordinaryDeploy;
+    const hold = darkestMidBossDeploymentHold(d) ?? darkestOrdinaryDeploymentHold(d);
     if (hold) return refuse(hold);
     return refuse("最暗普通房间怪物部署与 Room Tile 几何仍 hold；目标房须先 prepareDungeonBattle（R-048）");
   }
