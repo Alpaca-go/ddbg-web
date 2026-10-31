@@ -327,8 +327,11 @@ it("Fortunate Armlet反面经低光和Nervous加压，意志/心脏病及牌堆�
       },
     },
   };
-  // 不制造已定目标死亡后既不能攻击又不能重新选招的状态；未接续接保持原子停点。
-  expect(applyCommand(targeted, useArmlet).state).toBe(targeted);
+  // 旧命令无 allTrinkets 仍原子拒绝；新命令走重选续接（见 battle-monster-retarget.test.ts）。
+  expect(applyCommand(targeted, useArmlet).events[0]).toMatchObject({
+    type: "commandRefused",
+    message: expect.stringContaining("尚未接通"),
+  });
   const missing: GameState = { ...atNine, battle: { ...atNine.battle!, resolveCards: [] } };
   expect(applyCommand(missing, useArmlet).state).toBe(missing);
 });

@@ -23,7 +23,7 @@ import { healingForbidden } from "./battle-healing";
 import { changeDungeonLight } from "./dungeon-light";
 import { dungeonProvisionWindow } from "./dungeon-provision-window";
 import { statusProjection } from "./status";
-import { endAfterCasualties, finishTurn, newlyDefeatedIds, removeCasualties } from "./encounter";
+import { finalizeFreeTrinketDuringMonsterTurn } from "./battle-monster-retarget";
 
 export type UseCoreTrinketCommand = {
   readonly type: "useCoreTrinket";
@@ -482,26 +482,15 @@ export function useCoreTrinket(state: GameState, command: UseCoreTrinketCommand)
   }
   spendTrinket(scope, actorId, cardId);
   if (current.battle) {
-    let result = resolveBattlePressure({ state: current, events });
-    if (
-      state.battle!.encounter!.turn.type === "monster" &&
-      result.state.battle!.entities.some(
-        (e) => e.id === state.battle!.monsterAction!.targetId && e.dead,
-      ) &&
-      result.state.battle!.entities.some((e) => e.side === "hero" && !e.dead)
-    )
-      return rejectBattleCommand(state, "怪物已定目标死亡续接尚未接通");
-    result = removeCasualties(
+    const result = resolveBattlePressure({ state: current, events });
+    if (result.events.some((e) => e.type === "commandRefused"))
+      return rejectBattleCommand(state, "饰品压力结算拒绝");
+    return finalizeFreeTrinketDuringMonsterTurn(
+      state,
       result,
-      newlyDefeatedIds(state.battle!, result.state.battle!.entities),
+      state.battle!,
+      (command as UseCoreTrinketCommand & { allTrinkets?: true }).allTrinkets,
     );
-    const ended = endAfterCasualties(result);
-    if (ended) return ended;
-    const turn = state.battle!.encounter!.turn;
-    return turn.type === "hero" &&
-      result.state.battle!.entities.find((h) => h.id === turn.actorId)!.dead
-      ? finishTurn(result.state, turn.actorId, result.events)
-      : result;
   }
   if (current.dungeon!.heroes.some((h) => h.stress === 10 && !h.dead)) {
     const r = resolveDungeonPressure({

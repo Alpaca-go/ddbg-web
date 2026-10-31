@@ -83,6 +83,10 @@ const pendingSteps: Record<
     label: "等待怪物挤占选择",
     hint: "选择被挤出的角色及其去处，再继续当前怪物回合。",
   },
+  monsterRetarget: {
+    label: "等待重选怪物攻击目标",
+    hint: "原攻击目标已死亡，选择新的合法英雄目标以继续本次攻击。",
+  },
 };
 
 export function battleStep(battle: BattleState): { readonly label: string; readonly hint: string } {

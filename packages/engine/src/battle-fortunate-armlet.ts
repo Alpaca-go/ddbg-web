@@ -4,8 +4,8 @@ import type { NormalizedTrinketCard } from "../../data/src/normalize/schema";
 import { rejectBattleCommand } from "./battle";
 import { triggerBattlePassive } from "./battle-passive";
 import type { ApplyResult, GameState } from "./command";
-import { endAfterCasualties, finishTurn, newlyDefeatedIds, removeCasualties } from "./encounter";
 import { resolveBattlePressure } from "./pressure";
+import { finalizeFreeTrinketDuringMonsterTurn } from "./battle-monster-retarget";
 import { trinketPoolProblem } from "./trinket-acquisition";
 
 export const FORTUNATE_ARMLET_ID = "trinket:p025";
@@ -89,15 +89,17 @@ export function fortunateArmletUseProblem(state: GameState, actorId: string): st
   return null;
 }
 
-export function useTrinket(state: GameState, command: UseTrinketCommand): ApplyResult {
+export function useTrinket(
+  state: GameState,
+  command: UseTrinketCommand & { allTrinkets?: true | undefined },
+): ApplyResult {
   if (isFreeTrinketId(command.cardId))
     return useFreeTrinket(state, { ...command, cardId: command.cardId });
   if (command.cardId !== FORTUNATE_ARMLET_ID)
     return rejectBattleCommand(state, "该饰品的独立使用能力尚未接通（R-048）");
   const problem = fortunateArmletUseProblem(state, command.actorId);
   if (problem) return rejectBattleCommand(state, problem);
-  const b = state.battle!,
-    turn = b.encounter!.turn;
+  const b = state.battle!;
   const paid = triggerBattlePassive(b, state.seed, [command.actorId], {
     type: "stress",
     amount: 1,
@@ -129,17 +131,5 @@ export function useTrinket(state: GameState, command: UseTrinketCommand): ApplyR
     ],
   });
   if (pressure.events.some((e) => e.type === "commandRefused")) return pressure;
-  if (
-    turn.type === "monster" &&
-    pressure.state.battle!.entities.some((e) => e.id === b.monsterAction!.targetId && e.dead) &&
-    pressure.state.battle!.entities.some((e) => e.side === "hero" && !e.dead)
-  )
-    return rejectBattleCommand(state, "已定怪物目标死亡后的技能续接尚未接通，未使用饰品（R-048）");
-  const removed = removeCasualties(pressure, newlyDefeatedIds(b, pressure.state.battle!.entities));
-  const ended = endAfterCasualties(removed);
-  if (ended) return ended;
-  return turn.type === "hero" &&
-    removed.state.battle!.entities.find((e) => e.id === turn.actorId)!.dead
-    ? finishTurn(removed.state, turn.actorId, removed.events)
-    : removed;
+  return finalizeFreeTrinketDuringMonsterTurn(state, pressure, b, command.allTrinkets);
 }

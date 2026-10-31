@@ -303,6 +303,7 @@ export type BattleState = BattleSetup & {
         readonly choice: PendingChoice;
         readonly to: string;
       }
+    | import("./battle-monster-retarget").MonsterRetargetPending
     | {
         readonly type: "shuffleReduction";
         readonly choice: PendingChoice;
