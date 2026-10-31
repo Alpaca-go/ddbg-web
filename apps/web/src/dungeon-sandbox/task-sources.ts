@@ -39,6 +39,18 @@ export const taskSources: CoreQuestSources = {
   },
 };
 
+/** #416's fixed 141-card higher catalog, for strict validation before upgrading catalog fields. */
+const abominationHigherAdded = new Set(
+  [218, 219, 221, 222, 224, 225, 227, 228, 230, 231].map((p) => `hero_skill:p${p}`),
+);
+export const preAbominationTaskSources: CoreQuestSources = {
+  ...taskSources,
+  catalog: {
+    ...taskSources.catalog,
+    skills: taskSources.catalog.skills.filter((c) => !abominationHigherAdded.has(c.id)),
+  },
+};
+
 export const previousTaskSources: CoreQuestSources = {
   ...legacyTaskSources,
   catalog: { ...legacyTaskSources.catalog, ...previousQuestBattleData },

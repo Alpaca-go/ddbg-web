@@ -2746,7 +2746,7 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p221 与 p222 也只换成兽形，不把治疗整数扣掉", () => {
+  it("hero_skill:p221 与 p222 保留源数字，拒绝缺形态/队友与错误目标的旧上下文", () => {
     const second = card("hero_skill:p221");
     expect(second.name).toBe("Transform to Beast");
     expect(second.level).toBe(2);
@@ -2774,20 +2774,7 @@ describe("resolveHeroSkill", () => {
         },
         10,
       ),
-    ).toMatchObject({
-      status: "resolved",
-      outcome: null,
-      effect: null,
-      printedAmount: null,
-      wounds: 2,
-      actorWounds: 6,
-      actorStress: 1,
-      targetStress: 8,
-      actorForm: "beast",
-      actorBleedCleared: false,
-      actorBlightCleared: false,
-      skipped: [{ code: "effect_lines" }],
-    });
+    ).toMatchObject({ status: "refused" });
 
     const third = card("hero_skill:p222");
     expect(third.name).toBe("Transform to Beast");
@@ -2809,19 +2796,7 @@ describe("resolveHeroSkill", () => {
         },
         1,
       ),
-    ).toMatchObject({
-      status: "resolved",
-      outcome: null,
-      effect: null,
-      wounds: 1,
-      actorWounds: 3,
-      actorStress: 7,
-      targetStress: 0,
-      actorForm: "beast",
-      actorBleedCleared: false,
-      actorBlightCleared: false,
-      skipped: [{ code: "effect_lines" }],
-    });
+    ).toMatchObject({ status: "refused" });
   });
 
   it("hero_skill:p220 背面 Transform to Human 不掷骰，只记下换成人形", () => {
@@ -2958,19 +2933,7 @@ describe("resolveHeroSkill", () => {
         },
         10,
       ),
-    ).toMatchObject({
-      status: "resolved",
-      outcome: null,
-      effect: null,
-      wounds: 2,
-      actorWounds: 6,
-      actorStress: 1,
-      targetStress: 8,
-      actorForm: "human",
-      actorBleedCleared: false,
-      actorBlightCleared: false,
-      skipped: [{ code: "effect_lines" }],
-    });
+    ).toMatchObject({ status: "refused" });
 
     const third = card("hero_skill:p222");
     expect(third.back_face_skill?.name).toBe("Transform to Human");
@@ -2992,17 +2955,7 @@ describe("resolveHeroSkill", () => {
         },
         1,
       ),
-    ).toMatchObject({
-      status: "resolved",
-      outcome: null,
-      wounds: 1,
-      actorWounds: 3,
-      actorStress: 7,
-      targetStress: 0,
-      actorForm: "human",
-      actorBleedCleared: false,
-      actorBlightCleared: false,
-    });
+    ).toMatchObject({ status: "refused" });
 
     expect(
       use(
@@ -3486,7 +3439,7 @@ describe("resolveHeroSkill", () => {
       use(
         "hero_skill:p218",
         {
-          actor: { id: "abomination", wounds: 7, stress: 6 },
+          actor: { form: "human", id: "abomination", wounds: 7, stress: 6 },
           target: { id: "abomination", side: "hero", wounds: 7, dodge: 0, stress: 6 },
         },
         10,
@@ -3506,7 +3459,7 @@ describe("resolveHeroSkill", () => {
       use(
         "hero_skill:p218",
         {
-          actor: { id: "abomination", wounds: 7, stress: 6 },
+          actor: { form: "human", id: "abomination", wounds: 7, stress: 6 },
           target: { id: "abomination", side: "hero", wounds: 7, dodge: 20, stress: 6 },
         },
         1,
@@ -3538,7 +3491,7 @@ describe("resolveHeroSkill", () => {
       use(
         "hero_skill:p219",
         {
-          actor: { id: "abomination", wounds: 9, stress: 1 },
+          actor: { form: "human", id: "abomination", wounds: 9, stress: 1 },
           target: { id: "abomination", side: "hero", wounds: 9, dodge: 0, stress: 1 },
         },
         10,
@@ -3556,7 +3509,7 @@ describe("resolveHeroSkill", () => {
       use(
         "hero_skill:p219",
         {
-          actor: { id: "abomination", wounds: 3, stress: 10 },
+          actor: { form: "human", id: "abomination", wounds: 3, stress: 10 },
           target: { id: "abomination", side: "hero", wounds: 3, dodge: 20, stress: 10 },
         },
         1,
@@ -3573,7 +3526,7 @@ describe("resolveHeroSkill", () => {
       use(
         "hero_skill:p219",
         {
-          actor: { id: "abomination", wounds: 3, stress: 10 },
+          actor: { form: "human", id: "abomination", wounds: 3, stress: 10 },
           target: { id: "abomination", side: "hero", wounds: 3, dodge: 20, stress: 10 },
         },
         10,
@@ -9493,7 +9446,7 @@ describe("resolveHeroSkill", () => {
       targetStress: null,
     });
 
-    // Rage II 的加压力仍是 null。光照 1、掷 2 暴击、伤害 16，压力只减到 3。
+    // Rage II 原 numeric 保留 null；已核实 +1 在光照1按R-002加为2，暴击再减1。
     const rageTwo = card("hero_skill:p227");
     expect(rageTwo.name).toBe("Rage");
     expect(rageTwo.level).toBe(2);
@@ -9506,15 +9459,19 @@ describe("resolveHeroSkill", () => {
       rageTwo.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
     ).toEqual(["+1"]);
     expect(
-      use("hero_skill:p227", { actor: abomination, target: soldier, light: 1 }, 2),
+      use(
+        "hero_skill:p227",
+        { actor: { ...abomination, form: "beast" }, target: soldier, light: 1 },
+        2,
+      ),
     ).toMatchObject({
       status: "resolved",
       outcome: "crit",
       printedAmount: 16,
       damageDealt: 16,
       wounds: 17,
-      actorStress: 3,
-      skipped: [{ code: "effect_lines" }],
+      actorStress: 5,
+      skipped: [],
     });
 
     // Rake I：自身增益 2t 和压力 +1 写在一行，两个 numeric 都是 null。

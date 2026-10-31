@@ -73,6 +73,16 @@ export function TabletopActionDock({
                     >
                       <CardFace
                         skillId={skillId}
+                        face={
+                          activeHero.form === "beast" &&
+                          ["hero_skill:p221", "hero_skill:p222"].includes(skillId)
+                            ? "back"
+                            : "front"
+                        }
+                        {...(activeHero.form === "beast" &&
+                        ["hero_skill:p221", "hero_skill:p222"].includes(skillId)
+                          ? { label: "Transform to Human" }
+                          : {})}
                         size="sm"
                         selected={selected}
                         onSelect={() => onSelectSkill(selected ? null : skillId)}

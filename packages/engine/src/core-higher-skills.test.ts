@@ -36,9 +36,9 @@ it("Mark II self Buff3t survives a miss; Caltrops II applies Bleed3 for 2t and D
     { kind: "debuff", duration: 2 },
   ]);
 });
-it("154 core higher cards are partitioned into 141 available and 13 explicit holds", () => {
-  expect(cards).toHaveLength(141);
-  expect(Object.keys(CORE_HIGHER_SKILL_HOLDS)).toHaveLength(13);
+it("154 core higher cards are partitioned into 151 available and 3 explicit holds", () => {
+  expect(cards).toHaveLength(151);
+  expect(Object.keys(CORE_HIGHER_SKILL_HOLDS)).toHaveLength(3);
   const load = battleDataPlugin().load as (id: string) => string;
   const catalog = JSON.parse(
     load("\0virtual:quest-battle-data").slice("export const battleData = ".length, -1),
@@ -64,7 +64,13 @@ it.each(cards)("$id $name: all d10 faces resolve every effect line deterministic
   const range = readPrintedRange(card),
     targets = readPrintedTargets(card);
   const combat = {
-    actor: { id: "h", wounds: 5, stress: 3 },
+    actor: {
+      id: "h",
+      wounds: 5,
+      stress: 3,
+      form: (["Rake", "Rage", "Slam"].includes(raw.name) ? "beast" : "human") as "beast" | "human",
+    },
+    allies: [],
     target: {
       id: self ? "h" : "t",
       side: friendly ? ("hero" as const) : ("monster" as const),
@@ -104,9 +110,9 @@ it.each(
     (s) =>
       s.attributesVerified &&
       s.level === raw.level &&
-      [raw.hero, "CRUSADER", "VESTAL", "HELLION"].includes(s.name),
+      [raw.hero ?? "ABOMINATION", "CRUSADER", "VESTAL", "HELLION"].includes(s.name),
   );
-  const actor = stats.find((s) => s.name === raw.hero)!;
+  const actor = stats.find((s) => s.name === (raw.hero ?? "ABOMINATION"))!;
   const order = [actor, ...stats.filter((s) => s.id !== actor.id)].slice(0, 4);
   const common = { wounds: 0, guard: false, dead: false, bleed: [], blight: [], statusStacks: [] };
   const entities: BattleEntity[] = order.map((s, i) => ({
@@ -122,7 +128,12 @@ it.each(
     areaId: i === 0 ? "a" : area,
     stance: i === 0 ? stance : (["support", "ranged", "defensive"] as const)[i - 1]!,
     skillIds: i === 0 ? [raw.id] : [],
-    ...(s.name === "ABOMINATION" ? { form: "human" as const } : {}),
+    ...(s.name === "ABOMINATION"
+      ? {
+          form: (["Rake", "Rage", "Slam"].includes(raw.name) ? "beast" : "human") as
+            "beast" | "human",
+        }
+      : {}),
   }));
   const monster = data.monster_medium.cards.find((c) => c.id === "monster_medium:p001")!;
   if (!("life" in monster)) throw new Error("Expected verified monster attributes");

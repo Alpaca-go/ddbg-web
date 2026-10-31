@@ -380,9 +380,13 @@ describe("英雄多目标命令（R19–20、R-024、R-025、R-031、R-048）", 
         line.filter((segment) => segment.type !== "text" || !segment.text.includes("1t")),
       ),
     };
-    for (const skill of [statusSkill, missingDuration]) {
+    for (const skill of [missingDuration]) {
       const state = change(setup(skill), "actor", { stance: "ranged" });
-      expect(refused(state, command(skill)).events[0]?.message).toContain("多目标");
+      expect(refused(state, command(skill)).events[0]?.message).toContain("持续时间");
     }
+    const available = change(setup(statusSkill), "actor", { stance: "ranged" });
+    expect(
+      applyCommand(available, command(statusSkill)).events.some((e) => e.type === "commandRefused"),
+    ).toBe(false);
   });
 });

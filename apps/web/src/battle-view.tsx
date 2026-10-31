@@ -87,6 +87,10 @@ export function BattleView({
   const frozen = !!pending || battle.shuffleIntents.length > 0;
   const actorSkills = battleData.skills.filter((s) => actor?.skillIds.includes(s.id));
   const skill = actorSkills.find((s) => s.id === skillId) ?? actorSkills[0];
+  const skillBack =
+    actor?.form === "beast" && skill && ["hero_skill:p221", "hero_skill:p222"].includes(skill.id)
+      ? skill.back_face_skill
+      : null;
   const printedTargets = skill ? readPrintedTargets(skill) : undefined;
   const maxTargets = printedTargets?.kind === "exact" ? printedTargets.max : 1;
   const multiTarget = maxTargets > 1;
@@ -652,6 +656,12 @@ export function BattleView({
                     >
                       <CardFace
                         skillId={s.id}
+                        face={
+                          actor?.form === "beast" &&
+                          ["hero_skill:p221", "hero_skill:p222"].includes(s.id)
+                            ? "back"
+                            : "front"
+                        }
                         size="sm"
                         selected={skill?.id === s.id}
                         disabled={formal && turn.usedSkillIds.includes(s.id)}
@@ -846,15 +856,26 @@ export function BattleView({
                   data-action-group="skills"
                   className="tt-battle-skill-detail"
                 >
-                  <summary hidden={!formal}>技能详情 · {skill.name}</summary>
-                  <CardFace skillId={skill.id} size="md" />
+                  <summary hidden={!formal}>技能详情 · {skillBack?.name ?? skill.name}</summary>
+                  <CardFace
+                    skillId={skill.id}
+                    size="md"
+                    face={
+                      actor?.form === "beast" &&
+                      ["hero_skill:p221", "hero_skill:p222"].includes(skill.id)
+                        ? "back"
+                        : "front"
+                    }
+                  />
                   <SkillCardText
-                    name={skill.name}
+                    name={skillBack?.name ?? skill.name}
                     level={skill.level}
                     lines={
-                      skill.stats_line
-                        ? [skill.stats_line, ...skill.effect_lines]
-                        : skill.effect_lines
+                      skillBack
+                        ? skillBack.lines
+                        : skill.stats_line
+                          ? [skill.stats_line, ...skill.effect_lines]
+                          : skill.effect_lines
                     }
                   />
                 </details>
