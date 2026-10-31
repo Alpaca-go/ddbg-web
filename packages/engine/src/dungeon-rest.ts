@@ -1,3 +1,4 @@
+import { finishExcavationRest } from "./darkest-excavation";
 import { higherRuinsThreat } from "./boss/higher-ruins-threat";
 import { campingTrinketReaction } from "./trinket-exploration-reactions";
 import { healingTrinketReaction } from "./trinket-reactions";
@@ -10,7 +11,10 @@ import { resolveHeroHealth } from "./hero-health";
 import { passiveHeal, passiveStress } from "./passive";
 
 function effectiveRestPoints(d: DungeonState, id: Parameters<typeof restPoints>[0]) {
-  return higherRuinsThreat(d, "dungeon")?.kind === "campFour" ? 4 : restPoints(id);
+  return (
+    d.rest?.restPointOverride ??
+    (higherRuinsThreat(d, "dungeon")?.kind === "campFour" ? 4 : restPoints(id))
+  );
 }
 
 function restContext(state: GameState): DungeonState | null {
@@ -43,7 +47,8 @@ function restContext(state: GameState): DungeonState | null {
   if (
     progress.status !== "matched" ||
     progress.quest.id !== d.rest!.questId ||
-    !progress.clearedRoomIds.includes(d.position)
+    (!progress.clearedRoomIds.includes(d.position) &&
+      !(d.darkest?.excavation?.stage === "rest" && d.darkest.excavation.roomId === d.position))
   )
     return null;
   if (d.rest!.plan && d.rest!.plan.spend.some((s, i) => s.heroId !== d.heroes[i]!.id)) return null;
@@ -184,9 +189,9 @@ export function restDungeon(
     "休息完成：按分配恢复Life / 压力，弃置柴火（R15）；金币、光照、补给与RNG不变",
   );
   const camping = campingTrinketReaction({ ...result.state.dungeon!, heroes }, state.seed);
-  return {
+  return finishExcavationRest({
     ...result,
     state: { ...result.state, dungeon: camping.dungeon },
     events: [...result.events, ...camping.events],
-  };
+  });
 }

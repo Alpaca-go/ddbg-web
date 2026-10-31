@@ -318,6 +318,15 @@ export function ScoutingPanel({
             抽房间牌并匹配战斗板块
           </button>
         )}
+      {d.darkest &&
+        d.phase === "awaitingRoom" &&
+        !pendingChoice &&
+        currentRoom?.kind === "empty" &&
+        !currentRoom.cleared && (
+          <button onClick={() => dispatch({ type: "resolveDungeonRoom" })}>
+            结算挖掘点：补给与免费休息
+          </button>
+        )}
       {d.phase === "awaitingRoom" &&
         !pendingChoice &&
         currentRoom?.kind === "objective" &&
@@ -473,7 +482,7 @@ export function ScoutingPanel({
       )}
       <p data-testid="dungeon-firewood">
         {quest?.name ?? "任务"} 柴火：
-        {d.rest?.used
+        {(d.darkest?.excavation?.originalRest ?? d.rest)?.used
           ? "已弃置"
           : d.rest
             ? `可用（${restPoints(d.rest.questId)}点）`

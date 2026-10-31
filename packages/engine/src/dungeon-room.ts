@@ -1,3 +1,4 @@
+import { resolveExcavation } from "./darkest-excavation";
 import type { ApplyResult, GameEvent, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { triggerDungeonPassive } from "./dungeon-passive";
@@ -20,6 +21,7 @@ const finish = (state: GameState, dungeon: DungeonState, message: string): Apply
 export function beginDungeonRoom(state: GameState): ApplyResult {
   const d = state.dungeon!;
   const room = d.rooms.find((r) => r.id === d.position);
+  if (d.darkest && room?.kind === "empty" && !room.cleared) return resolveExcavation(state);
   if (room?.kind === "curio") return beginDungeonCurioRoom(state);
   if (room?.kind === "objective" && !room.cleared) return beginDungeonObjectiveRoom(state);
   if (d.phase !== "awaitingRoom" || d.pending || (d.roomResolution && !d.roomResolution.completed))

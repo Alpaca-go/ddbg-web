@@ -11,7 +11,7 @@ export const scoutRestSchema = z
   .strictObject({
     questId: z.enum(wiredQuestIds),
     used: z.boolean(),
-    restPointOverride: z.literal(4).optional(),
+    restPointOverride: z.union([z.literal(4), z.literal(8)]).optional(),
     plan: z
       .strictObject({
         mode: z.enum(["collective", "equal"]),
