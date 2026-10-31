@@ -172,5 +172,7 @@ export { ruinsBossAbilitiesSchema, readRuinsBossAbility } from "./ruins-boss-abi
 export type { RuinsBossAbilities } from "./ruins-boss-abilities";
 export { questCardsSchema, readQuestCard } from "./quest-cards";
 export type { QuestCards } from "./quest-cards";
+export { readQuestMonsterPlan } from "./quest-monster-plan";
+export type { QuestMonsterPlan } from "./quest-monster-plan";
 export { stygianRoomsSchema, readStygianRoomReplacement } from "./stygian-rooms";
 export type { StygianRooms } from "./stygian-rooms";
