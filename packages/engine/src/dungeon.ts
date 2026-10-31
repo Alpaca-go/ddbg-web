@@ -128,6 +128,8 @@ export type DungeonState = {
   readonly deathChoiceCursor?: number;
   readonly buildingLevels?: BuildingLevels;
   readonly hamlet?: import("./hamlet-event").HamletEventState;
+  /** R36 最终战前补给；独立于探索，不伪造新任务/地图。 */
+  readonly finalBattleProvisions?: "awaiting" | "ready";
   readonly higherThreatTheft?: {
     readonly heroId: string;
     readonly roll: number;

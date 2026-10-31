@@ -1,5 +1,5 @@
 import { resolveExcavation } from "./darkest-excavation";
-import { beginFinalPreparation } from "./final-preparation";
+import { beginFinalPreparation, beginFinalBattleProvisions } from "./final-preparation";
 import { applyHigherRuinsHamlet, chooseHigherRuinsTheft } from "./boss/higher-ruins-hamlet";
 import { applyHigherRuinsBattleSpawn } from "./boss/higher-ruins-threat";
 import { useCoreTrinket } from "./core-trinket-free";
@@ -201,6 +201,7 @@ type BaseCommand =
   | { readonly type: "finishReturnToHamlet" }
   | { readonly type: "drawHamletEvent" }
   | { readonly type: "beginFinalPreparation" }
+  | { readonly type: "beginFinalBattleProvisions" }
   | { readonly type: "offerNextQuest" }
   | { readonly type: "advanceCampaignLevel" }
   | { readonly type: "advanceRuinsAct" }
@@ -486,6 +487,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return applyHamletAction(state, command);
   if (command.type === "drawHamletEvent") return drawHamletEvent(state);
   if (command.type === "beginFinalPreparation") return beginFinalPreparation(state);
+  if (command.type === "beginFinalBattleProvisions") return beginFinalBattleProvisions(state);
   if (command.type === "rollHamletCaretaker") return rollHamletCaretaker(state);
   if (command.type === "beginReturnToHamlet") return beginReturnToHamlet(state);
   if (command.type === "finishReturnToHamlet") return finishReturnToHamlet(state);
@@ -706,6 +708,15 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
 
 /** 任一后续规则拒绝时，整次命令回滚骰子、行动和事件。 */
 export function applyCommand(state: GameState, command: Command): ApplyResult {
+  if (state.dungeon?.finalBattleProvisions) {
+    if (
+      state.dungeon.finalBattleProvisions === "awaiting" &&
+      (command.type === "rollDungeonProvisions" || command.type === "resolveChoice")
+    )
+      return setupDungeonProvisions(state, command);
+    return rejectBattleCommand(state, "最终战补给准备中或已完成；最终战部署尚未接通（R36）");
+  }
+  if (command.type === "beginFinalBattleProvisions") return beginFinalBattleProvisions(state);
   return runTrinketCommand(state, command, applyCommandCore);
 }
 function applyCommandCore(state: GameState, command: Command): ApplyResult {

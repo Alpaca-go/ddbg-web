@@ -5,6 +5,7 @@ import type { ProvisionFace } from "./loot";
 import { beginTravelingMerchantsChoice } from "./hamlet-traveling-merchants";
 import { beginScoutAheadReveal, scoutAheadPlanProblem } from "./hamlet-scout-ahead";
 import { applyBossThreatStressOnDungeonEntry } from "./boss/threat-passive-runtime";
+import { readFinalBattlePlanAfterDarkestVictory } from "./boss/darkest-content";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 
@@ -24,29 +25,33 @@ export function setupDungeonProvisions(
   command: Extract<Command, { type: "rollDungeonProvisions" | "resolveChoice" }>,
 ): ApplyResult {
   const d = state.dungeon;
+  const final = d?.finalBattleProvisions === "awaiting";
   const refuse = (): ApplyResult => ({
     state,
     events: [{ type: "commandRefused", message: "地牢开局补给上下文或选择无效（R12）" }],
   });
   if (
     !d ||
+    (final && !readFinalBattlePlanAfterDarkestVictory(d)) ||
     scoutAheadPlanProblem(d.nextQuestRoomReveals) ||
     state.battle ||
-    d.phase !== "awaitingProvisions" ||
+    (final
+      ? d.phase !== "inHamlet" ||
+        !d.hamlet?.finalPreparation ||
+        d.hamlet.phase !== "preparationComplete"
+      : d.phase !== "awaitingProvisions") ||
     !d.explorationSetup ||
     ![4, 5].includes(d.explorationSetup.light) ||
     !Number.isSafeInteger(d.cursor) ||
     d.cursor < 0 ||
     !Number.isSafeInteger(d.cursor + 16) ||
     (d.mode !== "standard" && d.mode !== "radiant") ||
-    d.layout.nodes.find((n) => n.id === d.position)?.kind !== "start" ||
+    (!final && d.layout.nodes.find((n) => n.id === d.position)?.kind !== "start") ||
     d.heroes.length !== 4 ||
     new Set(d.heroes.map((h) => h.id)).size !== 4 ||
     d.heroes.some((h) => !h.id || h.dead) ||
     STANCES.some((stance) => d.heroes.filter((h) => h.stance === stance).length !== 1) ||
-    d.exploration ||
-    d.questSummary ||
-    d.rooms.some((r) => r.revealed || r.cleared)
+    (!final && (d.exploration || d.questSummary || d.rooms.some((r) => r.revealed || r.cleared)))
   )
     return refuse();
   const omitted = d.startingProvisionOmittedIds ?? [];
@@ -172,7 +177,7 @@ export function setupDungeonProvisions(
             ...next,
             pending,
             decision: next.decision + 1,
-            phase: "awaitingProvisions",
+            phase: final ? "inHamlet" : "awaitingProvisions",
           },
         },
         events,
@@ -181,6 +186,26 @@ export function setupDungeonProvisions(
     }
     const { startingProvisionOmittedIds: _omitted, ...completed } = next;
     void _omitted;
+    if (final)
+      return {
+        state: {
+          ...state,
+          dungeon: {
+            ...completed,
+            pending: null,
+            phase: "inHamlet",
+            finalBattleProvisions: "ready",
+            decision: next.decision + 1,
+          },
+        },
+        events: [
+          ...events,
+          {
+            type: "dungeonUpdated",
+            message: "最终战补给已入公共池；等待最终战部署，不进入地牢探索（R36）",
+          },
+        ],
+      };
     if (completed.nextQuestProvisionFaceChoice) {
       const merchant = beginTravelingMerchantsChoice({
         ...state,

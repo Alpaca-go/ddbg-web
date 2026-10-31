@@ -231,7 +231,20 @@ export function HamletEventSection({
       )}
       {d.hamlet.phase === "preparationComplete" &&
         (d.hamlet.finalPreparation ? (
-          <p>最后四天准备已完成。最终战尚未接通，保留当前队伍与准备结果。</p>
+          <div>
+            <p>最后四天准备已完成。最终战尚未接通，保留当前队伍与准备结果。</p>
+            {!d.finalBattleProvisions && (
+              <button onClick={() => dispatch({ type: "beginFinalBattleProvisions" })}>
+                准备最终战补给
+              </button>
+            )}
+            {d.finalBattleProvisions === "awaiting" && !pendingChoice && (
+              <button onClick={() => dispatch({ type: "rollDungeonProvisions" })}>
+                掷最终战补给骰
+              </button>
+            )}
+            {d.finalBattleProvisions === "ready" && <p>最终战补给已就绪，等待开战。</p>}
+          </div>
         ) : (
           <>
             <p>
