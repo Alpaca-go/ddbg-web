@@ -141,6 +141,7 @@ export const savedCommandSchema = z.union([
       "interactLoot",
       "finishMonsterTurn",
       "prepareMonsterAction",
+      "applyShufflingHorrorUndulations",
       "moveMonsterToRange",
     ]),
     ...actor,

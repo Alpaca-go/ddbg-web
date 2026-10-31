@@ -61,6 +61,13 @@ function supportDeployedHoldSummary(supportMonsters: readonly SpawnPlacement[]):
   return `；支持怪 ${ids} 已记录身份（verified: false；技能召唤执行 hold）`;
 }
 
+function darkestMidBossWiringHold(questId: StoredDarkestBossEncounterPlan["questId"]): string {
+  if (questId === "quest:p016") {
+    return "Undulations 已接（显式 applyShufflingHorrorUndulations）；Echoing Disassembly / 召唤执行 / Room Tile 几何 / combatReady 仍 hold";
+  }
+  return "专属 Room Tile 几何、印刷部署与技能执行未获批（combatReady: false）";
+}
+
 const STANCE_ORDER: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
 function occupiedStanceIndexes(
@@ -155,7 +162,7 @@ export function prepareDarkestObjectiveBossRoom(state: GameState): ApplyResult |
   const expectedName = ROOM_NAMES[encounter.roomCardId];
   if (!card || card.name !== expectedName)
     return refuse("最暗 Boss 专属房间身份不一致，未替换普通房间（R-048）");
-  const wiringHold = "专属 Room Tile 几何、印刷部署与技能执行未获批（combatReady: false）";
+  const wiringHold = darkestMidBossWiringHold(darkestQuestId);
   const plan: StoredDarkestBossEncounterPlan = {
     resolvedScriptId: scriptId,
     questId: darkestQuestId,
