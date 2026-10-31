@@ -1,3 +1,4 @@
+import { establishInitialThreatIfShown } from "./initial-threat-setup";
 import { expect, test } from "@playwright/test";
 import { mkdirSync } from "node:fs";
 import { join } from "node:path";
@@ -13,6 +14,7 @@ test("UX-02A：正式探索地图优先布局与顶栏资源", async ({ page }, 
   await page.getByTestId("embark-mode-radiant").click();
   await click("前往出征准备");
   await click("进入地牢");
+  await establishInitialThreatIfShown(page);
   await click("掷开局补给骰");
   const choice = page.getByTestId("dungeon-pending-choice");
   for (let step = 0; step < 40; step++) {

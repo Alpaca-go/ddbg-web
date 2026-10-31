@@ -1,4 +1,5 @@
 import type { GameState } from "@ddbg/engine";
+import { needsInitialThreat } from "../../dungeon-sandbox/initial-threat";
 import { requiresRuinsActAdvance } from "@ddbg/engine";
 
 /** 与引擎 phase / 子状态一一对应的步骤文案（原 dungeon-checkpoint 逻辑）。 */
@@ -40,6 +41,7 @@ export function dungeonFlowStep(game: GameState): string {
     return `${d.exploration.from} → ${d.exploration.to} · 每人 ${d.exploration.dicePerHero} 骰 · 等待危险结算，队伍尚未移动`;
   }
   if (d.phase === "awaitingProvisions" || (d.startingProvisionChoices?.length ?? 0) > 0) {
+    if (needsInitialThreat(d)) return "入口：先确定迫近威胁，再领取开局补给";
     return "入口：领取开局补给后进入探索";
   }
   if (d.hamlet) {

@@ -1,3 +1,4 @@
+import { establishInitialThreatIfShown } from "./initial-threat-setup";
 import { expect, test } from "@playwright/test";
 
 test("最暗任务：16房建局、开局补给及本机存档恢复", async ({ page }) => {
@@ -8,6 +9,7 @@ test("最暗任务：16房建局、开局补给及本机存档恢复", async ({ 
   await page.getByLabel("任务卡", { exact: true }).selectOption("quest:p016");
   await page.getByRole("button", { name: "进入地牢", exact: true }).click();
   await expect(page.getByTestId("quest-card-readonly-name")).toHaveText("We Are The Flame");
+  await establishInitialThreatIfShown(page);
   await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
   const pending = page.getByTestId("dungeon-pending-choice");
   for (let i = 0; i < 12 && (await pending.count()); i++) {

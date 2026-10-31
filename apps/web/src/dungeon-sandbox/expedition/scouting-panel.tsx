@@ -1,3 +1,4 @@
+import { ExpeditionStartActions } from "./expedition-start-actions";
 import { CoreTrinketActions } from "../../core-trinket-actions";
 import { useState, type ReactNode } from "react";
 import {
@@ -216,12 +217,12 @@ export function ScoutingPanel({
           <QuestCardField quests={[activeQuest]} questId={activeQuest.id} readOnly />
         </div>
         <DungeonStanceOrder game={game} dispatch={dispatch} />
-        <button
-          disabled={!!pendingChoice}
-          onClick={() => dispatch({ type: "rollDungeonProvisions" })}
-        >
-          掷开局补给骰
-        </button>
+        <ExpeditionStartActions
+          dungeon={d}
+          formal={formal}
+          pending={!!pendingChoice}
+          dispatch={dispatch}
+        />
         {pendingBlock}
         <p data-testid="dungeon-provision-count">
           公共补给（{d.explorationSetup?.provisions.length ?? 0}/16）
@@ -434,12 +435,12 @@ export function ScoutingPanel({
         </p>
       )}
       {d.phase === "awaitingProvisions" && (
-        <button
-          disabled={!!pendingChoice}
-          onClick={() => dispatch({ type: "rollDungeonProvisions" })}
-        >
-          掷开局补给骰
-        </button>
+        <ExpeditionStartActions
+          dungeon={d}
+          formal={formal}
+          pending={!!pendingChoice}
+          dispatch={dispatch}
+        />
       )}
       <button
         disabled={!!pendingChoice || d.phase !== "ready" || d.mustLeaveRoomId === d.position}

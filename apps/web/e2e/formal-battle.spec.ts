@@ -1,3 +1,4 @@
+import { establishInitialThreatIfShown } from "./initial-threat-setup";
 import { expect, test } from "@playwright/test";
 
 test("S2/S3：正式同页战斗与底栏技能、分页和移动", async ({ page }, testInfo) => {
@@ -19,6 +20,7 @@ test("S2/S3：正式同页战斗与底栏技能、分页和移动", async ({ pag
   await page.getByTestId("embark-mode-radiant").click();
   await click("前往出征准备");
   await click("进入地牢");
+  await establishInitialThreatIfShown(page);
   await click("掷开局补给骰");
   const choice = page.getByTestId("dungeon-pending-choice");
   for (let step = 0; step < 100; step++) {

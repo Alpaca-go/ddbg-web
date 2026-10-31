@@ -1,3 +1,4 @@
+import { establishInitialThreatIfShown } from "./initial-threat-setup";
 import { expect, test } from "@playwright/test";
 
 test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", async ({ page }, testInfo) => {
@@ -27,6 +28,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
       await expect(page.getByRole("heading", { name: name!, exact: true })).toBeVisible();
       await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（0/16）");
     }
+    await establishInitialThreatIfShown(page);
     await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
     if (id === "quest:p001") {
       const choices = await page.getByRole("button", { name: "火把", exact: true }).count();
@@ -77,6 +79,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await page.getByTestId("embark-mode-radiant").click();
   await page.getByRole("button", { name: "前往出征准备", exact: true }).click();
   await page.getByRole("button", { name: "进入地牢", exact: true }).click();
+  await establishInitialThreatIfShown(page);
   await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
   while (await page.getByRole("button", { name: "火把", exact: true }).count())
     await page.getByRole("button", { name: "火把", exact: true }).click();
@@ -117,6 +120,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await page.getByTestId("embark-mode-radiant").click();
   await page.getByRole("button", { name: "前往出征准备", exact: true }).click();
   await page.getByRole("button", { name: "进入地牢", exact: true }).click();
+  await establishInitialThreatIfShown(page);
   await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
   while (await page.getByRole("button", { name: "火把", exact: true }).count())
     await page.getByRole("button", { name: "火把", exact: true }).click();
@@ -172,6 +176,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
       .click();
     await expect(page.getByTestId("dungeon-node-S")).toContainText("队伍");
     await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeDisabled();
+    await establishInitialThreatIfShown(page);
     await page.getByRole("button", { name: "掷开局补给骰", exact: true }).click();
     let choices = 0;
     while (await page.getByRole("button", { name: "绷带", exact: true }).count()) {

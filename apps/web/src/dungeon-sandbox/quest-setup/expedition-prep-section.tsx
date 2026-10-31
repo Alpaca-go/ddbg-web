@@ -29,7 +29,7 @@ export function ExpeditionPrepSection({
         </div>
       </header>
       <QuestCardField quests={quests} questId={questId} onQuestIdChange={onQuestIdChange} />
-      <p>可选身份与技能已在建队阶段确定。出征后先完成开局补给（八颗），再进入遗迹探索。</p>
+      <p>新遗迹战役先确定迫近威胁，再完成开局补给（八颗）；后续任务沿用战役威胁。</p>
       {error && <p role="alert">{error}</p>}
       <div className="expedition-prep-actions">
         <button type="button" onClick={onBack} disabled={embarking}>

@@ -1,3 +1,4 @@
+import { ExpeditionStartActions } from "./expedition-start-actions";
 import { CoreTrinketActions } from "../../core-trinket-actions";
 import { useState } from "react";
 import {
@@ -339,12 +340,12 @@ export function FormalTabletopScoutingPanel({
             </button>
           )}
         {d.phase === "awaitingProvisions" && (
-          <button
-            disabled={!!pendingChoice}
-            onClick={() => dispatch({ type: "rollDungeonProvisions" })}
-          >
-            掷开局补给骰
-          </button>
+          <ExpeditionStartActions
+            dungeon={d}
+            formal={true}
+            pending={!!pendingChoice}
+            dispatch={dispatch}
+          />
         )}
         <button
           disabled={!!pendingChoice || d.phase !== "ready" || d.mustLeaveRoomId === d.position}
