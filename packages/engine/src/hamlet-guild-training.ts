@@ -1,3 +1,4 @@
+import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import { completeHamletEvent, hamletEventCompletionProblem } from "./hamlet-event";
@@ -31,7 +32,10 @@ function skillUpgrades(state: GameState, heroId: string) {
   return owned.flatMap((old) => {
     const next = d.battleCatalog!.skills.filter(
       (s) =>
-        s.hero === old.hero &&
+        skillBelongsToFormalHero(
+          d.battleCatalog!.heroStats.find((c) => c.id === hero.heroStatId)!.name!,
+          s,
+        ) &&
         s.name === old.name &&
         s.level === old.level + 1 &&
         !s.verification.unverified &&
@@ -196,7 +200,10 @@ export function chooseGuildTraining(
                 s.id === u.temporarySkillId &&
                 !s.verification.unverified &&
                 [2, 3].includes(s.level) &&
-                s.hero === selected.old.hero &&
+                skillBelongsToFormalHero(
+                  d.battleCatalog!.heroStats.find((c) => c.id === hero.heroStatId)!.name!,
+                  s,
+                ) &&
                 s.name === d.battleCatalog!.skills.find((c) => c.id === u.originalSkillId)?.name,
             ),
         ))

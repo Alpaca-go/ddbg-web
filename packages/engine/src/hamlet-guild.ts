@@ -1,3 +1,4 @@
+import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import { currentHamletHero, finishHamletAction } from "./hamlet-actions";
@@ -56,7 +57,11 @@ function problem(state: GameState) {
       (id) =>
         hero.skillIds!.includes(id) ||
         !d.battleCatalog!.skills.some(
-          (s) => s.id === id && s.hero === stat.name && s.level < 3 && !s.verification.unverified,
+          (s) =>
+            s.id === id &&
+            skillBelongsToFormalHero(stat.name!, s) &&
+            s.level < 3 &&
+            !s.verification.unverified,
         ),
     )
     ? "公会缺已核实英雄/技能、有效个人XP或永久移除记录（R-004、R-048）"
@@ -70,7 +75,10 @@ function skillUpgrades(state: GameState) {
   return owned.flatMap((old) => {
     const next = d.battleCatalog!.skills.filter(
       (s) =>
-        s.hero === old.hero &&
+        skillBelongsToFormalHero(
+          d.battleCatalog!.heroStats.find((c) => c.id === hero.heroStatId)!.name!,
+          s,
+        ) &&
         s.name === old.name &&
         s.level === old.level + 1 &&
         !s.verification.unverified &&
@@ -187,7 +195,10 @@ function applySkillUpgrade(state: GameState, optionId: string): ApplyResult {
               s.id === u.temporarySkillId &&
               !s.verification.unverified &&
               [2, 3].includes(s.level) &&
-              s.hero === selected.old.hero &&
+              skillBelongsToFormalHero(
+                d.battleCatalog!.heroStats.find((c) => c.id === hero.heroStatId)!.name!,
+                s,
+              ) &&
               s.name === d.battleCatalog!.skills.find((c) => c.id === u.originalSkillId)?.name,
           ),
       ))

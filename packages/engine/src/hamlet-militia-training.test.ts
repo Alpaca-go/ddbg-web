@@ -60,6 +60,52 @@ const start = {
   mode: "radiant" as const,
   party: coreParty.map((h) => ({ ...h, skillIds: [...h.skillIds] })),
 };
+it("Abomination自然返村抽Militia免费升级Transform，待选和升级后正式存档均可回放", () => {
+  const party = coreParty.map((h, i) =>
+    i === 0
+      ? {
+          ...h,
+          heroStatId: "hero_stat:p021:front",
+          skillIds: ["hero_skill:p211", "hero_skill:p214", "hero_skill:p220"],
+        }
+      : { ...h, skillIds: [...h.skillIds] },
+  );
+  let game = createCoreDungeonQuest(seed, "quest:p001", "radiant", party, sources);
+  const commands: Command[] = [];
+  const step = (c: Command) => {
+    commands.push(c);
+    game = ok(game, c).state;
+  };
+  const verifySave = () =>
+    expect(
+      loadQuestSave(
+        JSON.parse(JSON.stringify(createQuestSave({ ...start, party }, commands, game, sources))),
+        sources,
+      ).game,
+    ).toEqual(game);
+  step({ type: "rollDungeonProvisions" });
+  const pending = () => game.dungeon!.pending;
+  while (pending()) step(choose(game, pending()!.options[0]!.id));
+  step({ type: "leaveDungeon" });
+  step(choose(game, "agree"));
+  step({ type: "summarizeDungeonQuest" });
+  step({ type: "beginReturnToHamlet" });
+  step({ type: "finishReturnToHamlet" });
+  step({ type: "drawHamletEvent" });
+  expect(game.dungeon!.hamlet!.active).toBe("hamlet_event:p016");
+  step(choose(game, "train"));
+  verifySave();
+  const gold = game.dungeon!.gold,
+    xp = game.dungeon!.heroes.map((h) => h.xp);
+  step(choose(game, "upgrade:hero_skill:p220"));
+  expect(game.dungeon!.heroes[0]!.skillIds).toContain("hero_skill:p221");
+  expect(ownedHeroSkills(game.dungeon!.heroes[0]!, game.dungeon!.battleCatalog!)).toHaveLength(7);
+  verifySave();
+  while (pending()) step(choose(game, pending()!.options[0]!.id));
+  expect(game.dungeon!.gold).toBe(gold);
+  expect(game.dungeon!.heroes.map((h) => h.xp)).toEqual(xp);
+  verifySave();
+}, 30000);
 function roundTrip(game: GameState, commands: Command[]) {
   return loadQuestSave(
     JSON.parse(JSON.stringify(createQuestSave(start, commands, game, sources))),
