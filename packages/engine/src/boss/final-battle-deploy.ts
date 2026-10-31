@@ -1,5 +1,10 @@
 import type { ApplyResult, GameState } from "../command";
-import { createBattleState, rejectBattleCommand, type BattleArea, type BattleEntity } from "../battle";
+import {
+  createBattleState,
+  rejectBattleCommand,
+  type BattleArea,
+  type BattleEntity,
+} from "../battle";
 import { roomTileBattleAreas } from "../battle-monster-movement";
 import { createLootState } from "../loot";
 import type { SkillStance } from "../hero-skill";
@@ -9,6 +14,10 @@ import { heroSkillSlotCount } from "../hero-loadout";
 import { ownedHeroSkills } from "../hero-loadout";
 import { statusProjection } from "../status";
 import { readFinalFormSequence } from "./final-form-sequence";
+import {
+  isAncestor1ReflectionMonsterCardId,
+  withAncestor1ReflectionsGuardState,
+} from "./ancestor1-reflections-guard";
 import { readFinalBattlePlanAfterDarkestVictory } from "./darkest-content";
 import roomCatalog from "../../../data/normalized/corebox/room_tile_geometry.json";
 import roomCards from "../../../data/normalized/corebox/room.json";
@@ -35,7 +44,12 @@ const SKELETON_STANCE_AREAS = {
 export const FINAL_BATTLE_MONSTER_STANCE_AREAS = SKELETON_STANCE_AREAS.monster;
 
 function skeletonBattleAreas(): BattleArea[] {
-  const ids = [...new Set([...Object.values(SKELETON_STANCE_AREAS.hero), ...Object.values(SKELETON_STANCE_AREAS.monster)])];
+  const ids = [
+    ...new Set([
+      ...Object.values(SKELETON_STANCE_AREAS.hero),
+      ...Object.values(SKELETON_STANCE_AREAS.monster),
+    ]),
+  ];
   return ids.map((id, index) => ({
     id,
     capacity: 4,
@@ -88,14 +102,14 @@ function spawnFormMonsters(
     id: string,
   ): ApplyResult | BattleEntity => {
     const card = monsters.find((entry) => entry.id === cardId) as
-      | (MonsterCardView & { readonly dodge?: number })
-      | undefined;
+      (MonsterCardView & { readonly dodge?: number }) | undefined;
     if (!card || !("skills" in card) || card.life === undefined)
       return refuse(`${cardId} 缺少 Life 或战斗目录条目，不能伪造 Boss 部署（R-048）`);
     if (form.combatReady)
       return refuse(`${cardId} 的完整战斗字段尚未批准，combatReady 仍为 false（R-048）`);
     const dodge = readMonsterDodge(card);
     if (dodge === undefined) return refuse(`${cardId} 缺少已核实 Dodge，保留 hold（R-048）`);
+    const reflectionsGuard = form.id === "ancestor1" && isAncestor1ReflectionMonsterCardId(card.id);
     return {
       id,
       side: "monster",
@@ -108,10 +122,11 @@ function spawnFormMonsters(
       stanceSlots: stanceSlots(card),
       wounds: 0,
       skillIds: [],
-      guard: false,
+      guard: reflectionsGuard,
       dead: false,
       bleed: [],
       blight: [],
+      ...(reflectionsGuard ? { statusStacks: [] as const } : {}),
       ...(card.innateProtection === undefined
         ? {}
         : { innateProtection: card.innateProtection, protection: card.innateProtection }),
@@ -134,7 +149,10 @@ function spawnFormMonsters(
   return spawned;
 }
 
-function buildHeroEntities(state: GameState, refuse: (message: string) => ApplyResult): BattleEntity[] | ApplyResult {
+function buildHeroEntities(
+  state: GameState,
+  refuse: (message: string) => ApplyResult,
+): BattleEntity[] | ApplyResult {
   const d = state.dungeon!;
   const { heroStats: stats, skills, monsters: _monsters } = d.battleCatalog!;
   void _monsters;
@@ -249,7 +267,7 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
         provisionWindows: true,
       }).battle!;
       return {
-        state: {
+        state: withAncestor1ReflectionsGuardState({
           ...state,
           dungeon: {
             ...d,
@@ -262,7 +280,7 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
             choiceCursor: d.decision,
             resolveDecks: d.resolveDecks,
           },
-        },
+        }),
         events: [
           {
             type: "dungeonUpdated",
@@ -271,20 +289,26 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
         ],
       };
     } catch (error) {
-      return refuse(`最终战开战交接无效：${error instanceof Error ? error.message : String(error)}`);
+      return refuse(
+        `最终战开战交接无效：${error instanceof Error ? error.message : String(error)}`,
+      );
     }
   }
 
   const heroes = state.battle.entities.filter((entity) => entity.side === "hero");
   if (heroes.length !== 4 || heroes.some((entity) => entity.dead))
     return refuse("形态间续战须保留四名存活英雄，不休息、不回村（R-035）");
-  const { encounter: _encounter, pending: _pending, shuffleIntents: _shuffles, ...battleBase } =
-    state.battle;
+  const {
+    encounter: _encounter,
+    pending: _pending,
+    shuffleIntents: _shuffles,
+    ...battleBase
+  } = state.battle;
   void _encounter;
   void _pending;
   void _shuffles;
   return {
-    state: {
+    state: withAncestor1ReflectionsGuardState({
       ...state,
       dungeon: {
         ...d,
@@ -298,7 +322,7 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
         pending: null,
         shuffleIntents: [],
       },
-    },
+    }),
     events: [
       {
         type: "dungeonUpdated",

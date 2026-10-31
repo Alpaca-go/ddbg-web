@@ -1,12 +1,12 @@
 import type { ApplyResult } from "../command";
+import { IMPERFECT_REFLECTION_MONSTER_CARD_ID } from "./ancestor1-reflections-guard";
 import { readFinalFormSequence } from "./final-form-sequence";
 
-const IMPERFECT_REFLECTION_CARD = "monster_medium:p109";
 const ANCESTOR_1_CARD = "monster_medium:p105";
 /** boss_ability:p034 Reflections 卡面明文。 */
 const IMPERFECT_DEATH_ANCESTOR_WOUNDS = 10;
 
-/** boss_ability:p034 Reflections：Imperfect Reflection 死亡时存活 Ancestor 1 承受 10 伤口（R-048：Guard at all times hold）。 */
+/** boss_ability:p034 Reflections：Imperfect Reflection 死亡时存活 Ancestor 1 承受 10 伤口。 */
 export function applyAncestor1ImperfectReflectionDeath(
   result: ApplyResult,
   ids: readonly string[],
@@ -23,7 +23,7 @@ export function applyAncestor1ImperfectReflectionDeath(
   const imperfectDied = battle.entities.some(
     (entity) =>
       entity.side === "monster" &&
-      entity.monsterCardId === IMPERFECT_REFLECTION_CARD &&
+      entity.monsterCardId === IMPERFECT_REFLECTION_MONSTER_CARD_ID &&
       entity.dead &&
       ids.includes(entity.id),
   );

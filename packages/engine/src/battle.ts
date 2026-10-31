@@ -48,6 +48,7 @@ import { cancelSkillAfterRoll } from "./battle-passive";
 import { withFleshOneBodyPoolState } from "./boss/flesh-i-combat-runtime";
 import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./boss/swine-prince-i-combat-runtime";
 import { chainGestatingHeartIchorAfterHeroSkill } from "./boss/gestating-heart-ichor";
+import { withAncestor1ReflectionsGuardEntities } from "./boss/ancestor1-reflections-guard";
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
@@ -661,7 +662,8 @@ export function playHeroSkill(
     pressure.state.battle!.rngCursor,
   );
   if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
-  const casualtyIds = newlyDefeatedIds(battle, statuses.entities);
+  const guardedEntities = withAncestor1ReflectionsGuardEntities(pressure.state, statuses.entities);
+  const casualtyIds = newlyDefeatedIds(battle, guardedEntities);
   const shuffleIntents = [...current.shuffleIntents];
   if (resolution.actorShuffle)
     shuffleIntents.push({
@@ -684,8 +686,8 @@ export function playHeroSkill(
     resolution,
   };
   const syncedBattle = withFleshOneBodyPoolState(
-    { ...pressure.state.battle!, entities: statuses.entities },
-    statuses.entities,
+    { ...pressure.state.battle!, entities: guardedEntities },
+    guardedEntities,
   );
   const result: ApplyResult = {
     state: {

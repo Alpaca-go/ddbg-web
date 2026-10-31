@@ -41,9 +41,11 @@ it("未建立形态流程或补给未就绪时拒绝部署", () => {
     },
     { type: "prepareFinalBattleForms" },
   ).state;
-  expect(applyCommand(forms, { type: "deployFinalBattleForm" }).events.some((e) => e.type === "commandRefused")).toBe(
-    false,
-  );
+  expect(
+    applyCommand(forms, { type: "deployFinalBattleForm" }).events.some(
+      (e) => e.type === "commandRefused",
+    ),
+  ).toBe(false);
 });
 
 it("首形态部署进入 fighting 并登记 Boss 实体，不重复部署", () => {
@@ -54,7 +56,9 @@ it("首形态部署进入 fighting 并登记 Boss 实体，不重复部署", () 
   expect(sequence.progress.status).toBe("fighting");
   expect(game.battle).toBeDefined();
   expect(game.dungeon!.phase).toBe("inBattle");
-  expect(game.battle!.entities.some((e) => e.monsterCardId === sequence.current!.actor.cardId)).toBe(true);
+  expect(
+    game.battle!.entities.some((e) => e.monsterCardId === sequence.current!.actor.cardId),
+  ).toBe(true);
   expect(game.battle!.areas.every((a) => !a.ancestorGlory)).toBe(true);
   expect(result.events[0]?.type === "dungeonUpdated" && result.events[0].message).toContain("hold");
   expect(applyCommand(game, { type: "deployFinalBattleForm" }).state).toBe(game);
@@ -67,6 +71,13 @@ it("Ancestor 1 登记 Reflections 支援实体", () => {
   const game = prepared("quest:p016").state;
   const ids = game.battle!.entities.filter((e) => e.side === "monster").map((e) => e.monsterCardId);
   expect(ids).toEqual(["monster_medium:p105", "monster_medium:p106", "monster_medium:p109"]);
+  const reflections = game.battle!.entities.filter(
+    (e) => e.monsterCardId === "monster_medium:p106" || e.monsterCardId === "monster_medium:p109",
+  );
+  expect(reflections.every((e) => e.guard)).toBe(true);
+  expect(game.battle!.entities.find((e) => e.monsterCardId === "monster_medium:p105")!.guard).toBe(
+    false,
+  );
 });
 
 it("存档白名单包含 deployFinalBattleForm", () => {
