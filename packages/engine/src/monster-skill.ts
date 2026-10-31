@@ -227,12 +227,19 @@ function resolveMonsterSkillInternal(
     void _stress;
     view = { ...base, effect_lines: [], verified_status_effects: [] };
   }
-  const finalFormBossAccHold =
-    (monster.id === "monster_large:p018" || monster.id === "monster_large:p020") &&
+  const bossAccOnlyCardIds = new Set([
+    "monster_large:p014",
+    "monster_large:p015",
+    "monster_large:p016",
+    "monster_large:p018",
+    "monster_large:p020",
+  ]);
+  const bossAccOnlyEffectHold =
+    bossAccOnlyCardIds.has(monster.id) &&
     skillSlot >= 1 &&
     skillSlot <= 3 &&
     !matches[0]!.verified_monster_effects;
-  if (finalFormBossAccHold) {
+  if (bossAccOnlyEffectHold) {
     const {
       verified_target_stress: _stress,
       verified_status_effects: _status,

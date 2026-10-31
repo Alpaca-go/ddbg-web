@@ -466,6 +466,34 @@ export {
   type ApplyAncestor2RefashionThemCommand,
   type ApplyAncestor2UnmakeThemAllCommand,
 } from "./ancestor2-skills-acc";
+export {
+  applyMammothCystBulgingGaze,
+  applyMammothCystDigestion,
+  MAMMOTH_BULGING_GAZE_SKILL_SLOT,
+  MAMMOTH_DIGESTION_SKILL_SLOT,
+  type ApplyMammothCystBulgingGazeCommand,
+  type ApplyMammothCystDigestionCommand,
+} from "./darkest-mammoth-cyst-skills-acc";
+export {
+  applyTemplarImpalerBodySlam,
+  applyTemplarImpalerRevelation,
+  applyTemplarImpalerTorment,
+  applyTemplarWarlordRevelation,
+  applyTemplarWarlordStingerShot,
+  applyTemplarWarlordTorment,
+  TEMPLAR_BODY_SLAM_SKILL_SLOT,
+  TEMPLAR_IMPALER_MONSTER_CARD_ID,
+  TEMPLAR_REVELATION_SKILL_SLOT,
+  TEMPLAR_STINGER_SHOT_SKILL_SLOT,
+  TEMPLAR_TORMENT_SKILL_SLOT,
+  TEMPLAR_WARLORD_MONSTER_CARD_ID,
+  type ApplyTemplarImpalerBodySlamCommand,
+  type ApplyTemplarImpalerRevelationCommand,
+  type ApplyTemplarImpalerTormentCommand,
+  type ApplyTemplarWarlordRevelationCommand,
+  type ApplyTemplarWarlordStingerShotCommand,
+  type ApplyTemplarWarlordTormentCommand,
+} from "./darkest-templars-skills-acc";
 export { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
 
 export {
