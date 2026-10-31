@@ -44,6 +44,7 @@ it("只附加已核实大型卡，参考卡与其他卡不补值；不修改输�
     "monster_large:p011",
     "monster_large:p012",
     "monster_large:p013",
+    "monster_large:p018",
   ]);
   const reference = built.monster_medium.cards.find((c) => c.id === "monster_medium:p030")!;
   expect("speed" in reference).toBe(false);

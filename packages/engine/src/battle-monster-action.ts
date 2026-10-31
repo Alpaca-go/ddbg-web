@@ -8,6 +8,10 @@ import {
   fanaticSentenceRenderedShouldReplaceSkill,
 } from "./boss/fanatic-i-combat-runtime";
 import {
+  ancestor2SkillAiShouldReplacePrepare,
+  applyAncestor2SkillFromStanceSelection,
+} from "./boss/ancestor2-skill-ai";
+import {
   applyCollectorCollectAll,
   collectorCollectAllShouldReplaceSkill,
 } from "./boss/collector-i-combat-runtime";
@@ -98,6 +102,9 @@ export function prepareMonsterAction(
   }
   if (fanaticSentenceRenderedShouldReplaceSkill(state, actor.id)) {
     return applyFanaticSentenceRendered(state, actor.id);
+  }
+  if (ancestor2SkillAiShouldReplacePrepare(state, actor.id)) {
+    return applyAncestor2SkillFromStanceSelection(state, actor.id);
   }
   const forceWilburMark = swinePrinceIWilburMarkShouldForceSkill(state, actor.id);
   const forceIntoThePot = hagIntoThePotShouldForceSkill(state, actor.id);
