@@ -54,7 +54,8 @@ describe("最暗普通房 26 牌堆部署", () => {
     expect(deployment.monsters.every((m) => m.verified === false)).toBe(true);
     expect(deployment.monsters.every((m) => m.areaId.startsWith("darkest-ordinary-"))).toBe(true);
     expect(deployment.blockedReason).toContain("battleReady: false");
-    expect(deployment.blockedReason).toContain("不能进入半场战斗");
+    expect(deployment.blockedReason).toContain("deployDarkestOrdinaryEncounter");
+    expect(deployment.blockedReason).toContain("不可用 startDungeonBattle");
     const ids = [
       ...(darkest.monsterDeckRemaining ?? []),
       ...(darkest.monsterDeckDiscarded ?? []),
@@ -62,7 +63,7 @@ describe("最暗普通房 26 牌堆部署", () => {
     ];
     expect(ids.sort()).toEqual([...darkest.monsterDeck].sort());
     expect(new Set(ids).size).toBe(26);
-    expect(darkestOrdinaryDeploymentHold(d)).toContain("不能进入半场战斗");
+    expect(darkestOrdinaryDeploymentHold(d)).toContain("deployDarkestOrdinaryEncounter");
     expect(prepareDarkestOrdinaryMonsterDeployment(deployed.state)).toMatchObject({
       events: [{ type: "commandRefused" }],
     });
@@ -73,7 +74,7 @@ describe("最暗普通房 26 牌堆部署", () => {
     expect(battle.state).toBe(deployed.state);
     expect(battle.events[0]).toMatchObject({
       type: "commandRefused",
-      message: expect.stringContaining("不能进入半场战斗"),
+      message: expect.stringContaining("startDungeonBattle"),
     });
   });
 
