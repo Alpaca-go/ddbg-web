@@ -1,3 +1,4 @@
+import { applyAncestor1ImperfectReflectionDeath } from "./boss/ancestor1-reflections-death";
 import { clearRuinsBossCompanions } from "./boss/ruins-boss-death";
 import { applyNecromancerIIIReanimation } from "./boss/necromancer-iii-reanimation";
 import { healingTrinketReaction } from "./trinket-reactions";
@@ -381,6 +382,7 @@ export function removeCasualties(result: ApplyResult, ids: readonly string[]): A
   ({ result, ids } = clearNecromancerICompanions(result, ids));
   ({ result, ids } = clearFanaticIPyre(result, ids));
   ({ result, ids } = clearRuinsBossCompanions(result, ids));
+  ({ result, ids } = applyAncestor1ImperfectReflectionDeath(result, ids));
   const battle = result.state.battle!;
   const casualties = battle.entities.filter((entity) => entity.dead && ids.includes(entity.id));
   if (!casualties.length) return result;
