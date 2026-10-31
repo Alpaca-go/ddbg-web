@@ -36,6 +36,7 @@ import {
   applyHeartOfDarknessImpendingDoomOnBattleStart,
   bumpHeartOfDarknessImpendingDoomAfterAction,
 } from "./boss/heart-of-darkness-impending-doom";
+import { bumpAncestor2SwiftTeleportationAfterAction } from "./boss/ancestor2-swift-teleportation";
 import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "./boss/flesh-i-combat-runtime";
 import { applySwinePrinceIWilburBattleStart } from "./boss/swine-prince-i-combat-runtime";
@@ -302,6 +303,7 @@ export function finishTurn(
   state = bumpHagIActionRoundCount(state, actorId);
   state = bumpFanaticIActionRoundCount(state, actorId);
   state = bumpHeartOfDarknessImpendingDoomAfterAction(state, actorId);
+  state = bumpAncestor2SwiftTeleportationAfterAction(state, actorId);
   const battle = state.battle!;
   const encounter = battle.encounter!;
   const actedIds =
