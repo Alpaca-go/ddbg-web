@@ -21,7 +21,9 @@ Kyries 本聊天要求把剩余工作分两类、记录估算并合入，然后�
 
 Ruins 四 Boss I–III 十二张能力卡双面文字已随 #407 合入 main `bfb0e68`，见 `phase5-ruins-boss-abilities-2026-10-31.md`；只提供数据，不改变现有战斗脚本。
 
-当前续接：核心盒十九张任务卡统一文字目录与出征定义交叉校验，见 `phase5-quest-card-catalog-2026-10-31.md`；保留SPECIAL原始图标，不新增规则执行器。
+核心盒十九张任务卡统一文字目录与出征定义交叉校验已随 #408 合入 main `b7e7eea`，见 `phase5-quest-card-catalog-2026-10-31.md`；保留SPECIAL原始图标，不新增规则执行器。
+
+当前续接：十七张 Stygian 房间卡文字与 R-036 非Boss替换关系接入规范化管线，见 `phase5-stygian-room-data-2026-10-31.md`；只补数据，不开启困难模式、Phase 6 运行时或批准几何。
 
 ### A 类：尚未接入的数据／运行时
 
