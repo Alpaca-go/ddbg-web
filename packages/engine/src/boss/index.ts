@@ -444,6 +444,17 @@ export {
   swiftTeleportStanceFromDie,
   type ApplyAncestor2SwiftTeleportationCommand,
 } from "./ancestor2-swift-teleportation";
+export {
+  applyAncestor2EmbraceFutility,
+  applyAncestor2RefashionThem,
+  applyAncestor2UnmakeThemAll,
+  EMBRACE_FUTILITY_SKILL_SLOT,
+  REFASHION_THEM_SKILL_SLOT,
+  UNMAKE_THEM_ALL_SKILL_SLOT,
+  type ApplyAncestor2EmbraceFutilityCommand,
+  type ApplyAncestor2RefashionThemCommand,
+  type ApplyAncestor2UnmakeThemAllCommand,
+} from "./ancestor2-skills-acc";
 export { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
 
 export {

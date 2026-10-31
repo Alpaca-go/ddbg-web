@@ -87,6 +87,11 @@ import { applyHeartOfDarknessImpendingDoomRoll } from "./boss/heart-of-darkness-
 import { applyAncestor2SwiftTeleportation } from "./boss/ancestor2-swift-teleportation";
 import { applyAncestor2DeployAbsoluteNothingness } from "./boss/ancestor2-absolute-nothingness";
 import {
+  applyAncestor2EmbraceFutility,
+  applyAncestor2RefashionThem,
+  applyAncestor2UnmakeThemAll,
+} from "./boss/ancestor2-skills-acc";
+import {
   resolveDungeonConditionChoice,
   resolveDungeonCurioProvisionChoice,
   resolveDungeonTrinketChoice,
@@ -252,6 +257,9 @@ type BaseCommand =
   | { readonly type: "applyHeartOfDarknessImpendingDoomRoll"; readonly actorId: string }
   | { readonly type: "applyAncestor2SwiftTeleportation"; readonly actorId: string }
   | { readonly type: "applyAncestor2DeployAbsoluteNothingness" }
+  | { readonly type: "applyAncestor2RefashionThem"; readonly actorId: string }
+  | { readonly type: "applyAncestor2UnmakeThemAll"; readonly actorId: string }
+  | { readonly type: "applyAncestor2EmbraceFutility"; readonly actorId: string }
   | MoveMonsterToRangeCommand
   | MoveHeroCommand
   | { readonly type: "resolveShuffles" }
@@ -753,6 +761,12 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return applyAncestor2SwiftTeleportation(state, command.actorId);
   if (command.type === "applyAncestor2DeployAbsoluteNothingness")
     return applyAncestor2DeployAbsoluteNothingness(state);
+  if (command.type === "applyAncestor2RefashionThem")
+    return applyAncestor2RefashionThem(state, command.actorId);
+  if (command.type === "applyAncestor2UnmakeThemAll")
+    return applyAncestor2UnmakeThemAll(state, command.actorId);
+  if (command.type === "applyAncestor2EmbraceFutility")
+    return applyAncestor2EmbraceFutility(state, command.actorId);
   if (command.type === "moveMonsterToRange") return moveMonsterToRange(state, command);
   if (command.type === "moveHero") return moveHero(state, command);
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);
