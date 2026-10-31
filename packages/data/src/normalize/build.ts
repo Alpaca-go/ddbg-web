@@ -1,3 +1,4 @@
+import { attachCoreHigherSkills } from "./core-higher-skills";
 import { buildDarkestBossContent } from "./darkest-boss-content";
 import { buildDarkestBossAbilities } from "./darkest-boss-abilities";
 import { buildRuinsBossAbilities } from "./ruins-boss-abilities";
@@ -695,12 +696,14 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       const file = buildHeroSkills(parsed, raw, lookup);
       return normalizedHeroSkillFileSchema.parse({
         ...file,
-        cards: attachVerifiedRallyingFlare(
-          attachVerifiedBountyStatuses(
-            attachVerifiedHeroSupport(
-              attachVerifiedHeroDamage(
-                attachVerifiedHeroRanges(
-                  attachVerifiedHeroStatuses(attachVerifiedHeroLayout(file.cards)),
+        cards: attachCoreHigherSkills(
+          attachVerifiedRallyingFlare(
+            attachVerifiedBountyStatuses(
+              attachVerifiedHeroSupport(
+                attachVerifiedHeroDamage(
+                  attachVerifiedHeroRanges(
+                    attachVerifiedHeroStatuses(attachVerifiedHeroLayout(file.cards)),
+                  ),
                 ),
               ),
             ),

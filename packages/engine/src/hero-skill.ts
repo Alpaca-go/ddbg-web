@@ -2031,14 +2031,14 @@ function readTargetIconCounts(skill: HeroSkillCardView): {
       header.source !== "print_front" ||
       skill.stats_line !== null ||
       skill.printed_labels.length !== 0 ||
-      skill.effect_lines.length !== 2 ||
-      text !== "{range}0{target_hero}" ||
+      skill.effect_lines.length < 2 ||
+      !/^\{range\}[0-2](?:\{target_hero\}){1,3}$/.test(text ?? "") ||
       !skill.verified_status_effects?.length ||
-      skill.verified_status_effects.some((e) => e.lineIndex !== 1 || e.scope !== "target") ||
+      skill.verified_status_effects.some((e) => e.lineIndex < 1) ||
       line?.some((s) => s.type === "icon" && !NAMED.has(s.icon.naming))
     )
       return { hero: 0, monster: 0, heroOrMonster: 0 };
-    return { hero: 1, monster: 0, heroOrMonster: 0 };
+    return countNamedTargets(lineTargetIcons(line!));
   }
   // p019 的射程 / 目标行被提取到 effect_lines；只读逐卡复核注解对应的已确认行。
   if (skill.verified_rallying_flare) {
@@ -3122,6 +3122,7 @@ function resolveSkill(
         formChange.lineCount +
         statuses.lineCount +
         bonuses.length +
+        (rallyingFlare ? 1 : 0) +
         (extraStress ? 1 : 0) +
         (active.verified_target_header ? 1 : 0) +
         (support ? 2 : 0),

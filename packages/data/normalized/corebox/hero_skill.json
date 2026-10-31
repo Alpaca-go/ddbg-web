@@ -19288,6 +19288,20 @@
    "back_level": 1
   },
   {
+   "verified_damage_bonuses": [
+    {
+     "lineIndex": 0,
+     "amount": 2,
+     "condition": "human",
+     "source": "print_front"
+    },
+    {
+     "lineIndex": 1,
+     "amount": 3,
+     "condition": "marked",
+     "source": "print_front"
+    }
+   ],
    "id": "hero_skill:p044",
    "pages": [
     44
@@ -19453,6 +19467,24 @@
      }
     ],
     [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
      {
       "type": "icon",
       "icon": {
@@ -19834,6 +19866,20 @@
    "back_level": 2
   },
   {
+   "verified_damage_bonuses": [
+    {
+     "lineIndex": 0,
+     "amount": 2,
+     "condition": "human",
+     "source": "print_front"
+    },
+    {
+     "lineIndex": 1,
+     "amount": 3,
+     "condition": "marked",
+     "source": "print_front"
+    }
+   ],
    "id": "hero_skill:p045",
    "pages": [
     45
@@ -19988,6 +20034,24 @@
      }
     ],
     [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
      {
       "type": "icon",
       "icon": {
@@ -21006,6 +21070,29 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "mark",
+     "duration": 3
+    },
+    {
+     "lineIndex": 0,
+     "segmentIndex": 4,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 2
+    },
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -21071,6 +21158,11 @@
      "text": "Acc 11"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -22294,6 +22386,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "mark",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -22750,6 +22851,15 @@
       "text": " Pull 2"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "mark",
+     "duration": 3
+    }
    ],
    "top_row_icons": [
     {
@@ -23663,6 +23773,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -24119,6 +24238,15 @@
       "text": " Push 2"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
    ],
    "top_row_icons": [
     {
@@ -24952,6 +25080,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -25017,6 +25154,11 @@
      "text": "Acc 11"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -25327,6 +25469,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -25392,6 +25543,11 @@
      "text": "Acc 12"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -26194,6 +26350,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 3,
+    "condition": "stunned",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -26327,6 +26489,11 @@
      "text": " 8"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -26667,6 +26834,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 4,
+    "condition": "stunned",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -26800,6 +26973,11 @@
      "text": " 9"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -27682,6 +27860,23 @@
       "text": " 2t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 2,
+     "amount": 3
+    },
+    {
+     "lineIndex": 0,
+     "segmentIndex": 4,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 2
+    }
    ],
    "top_row_icons": [
     {
@@ -48888,7 +49083,7 @@
      },
      {
       "type": "text",
-      "text": " Pull 1,"
+      "text": " Pull 1"
      }
     ],
     [
@@ -49338,7 +49533,7 @@
      },
      {
       "type": "text",
-      "text": " Pull 1,"
+      "text": " Pull 1"
      }
     ],
     [
@@ -50305,6 +50500,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 3,
+     "amount": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -50790,6 +50995,16 @@
       "text": " 3t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 3,
+     "amount": 3
+    }
    ],
    "top_row_icons": [
     {
@@ -52962,6 +53177,22 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    },
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -53386,6 +53617,22 @@
       "text": " Pull 2"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 2
+    },
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 3
+    }
    ],
    "top_row_icons": [
     {
@@ -54315,6 +54562,26 @@
      }
     ]
    ],
+   "verified_target_header": {
+    "lineIndex": 0,
+    "source": "print_front"
+   },
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 3
+    },
+    {
+     "lineIndex": 2,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "buff",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -54801,6 +55068,26 @@
       "text": " 4t"
      }
     ]
+   ],
+   "verified_target_header": {
+    "lineIndex": 0,
+    "source": "print_front"
+   },
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 4
+    },
+    {
+     "lineIndex": 2,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "buff",
+     "duration": 4
+    }
    ],
    "top_row_icons": [
     {
@@ -57067,6 +57354,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 2,
+     "amount": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -57523,6 +57820,16 @@
       "text": " 3t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 3,
+     "amount": 3
+    }
    ],
    "top_row_icons": [
     {
@@ -58529,6 +58836,23 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "blight",
+     "duration": 3,
+     "amount": 4
+    },
+    {
+     "lineIndex": 0,
+     "segmentIndex": 4,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -59033,6 +59357,23 @@
       "text": " 2t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "blight",
+     "duration": 3,
+     "amount": 4
+    },
+    {
+     "lineIndex": 0,
+     "segmentIndex": 4,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 2
+    }
    ],
    "top_row_icons": [
     {
@@ -59987,6 +60328,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "blight",
+     "duration": 3,
+     "amount": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -60472,6 +60823,16 @@
       "text": " 3t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "blight",
+     "duration": 3,
+     "amount": 3
+    }
    ],
    "top_row_icons": [
     {
@@ -61240,6 +61601,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -61305,6 +61675,11 @@
      "text": "Acc 11"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -61568,6 +61943,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -61633,6 +62017,11 @@
      "text": "Acc 14"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -62402,6 +62791,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 3,
+     "amount": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -62858,6 +63257,16 @@
       "text": " 3t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 3,
+     "amount": 3
+    }
    ],
    "top_row_icons": [
     {
@@ -65544,6 +65953,26 @@
      }
     ]
    ],
+   "verified_target_header": {
+    "lineIndex": 0,
+    "source": "print_front"
+   },
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 3
+    },
+    {
+     "lineIndex": 2,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "buff",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -65972,6 +66401,26 @@
       "text": " 4t"
      }
     ]
+   ],
+   "verified_target_header": {
+    "lineIndex": 0,
+    "source": "print_front"
+   },
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 4
+    },
+    {
+     "lineIndex": 2,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "buff",
+     "duration": 4
+    }
    ],
    "top_row_icons": [
     {
@@ -66674,6 +67123,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "scopeLineIndex": 0,
+     "segmentIndex": 0,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -66739,6 +67198,11 @@
      "text": "Acc 10"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -67022,6 +67486,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "scopeLineIndex": 0,
+     "segmentIndex": 0,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -67087,6 +67561,11 @@
      "text": "Acc 12"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -67867,6 +68346,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 5,
+    "condition": "marked",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -68340,6 +68825,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 9,
+    "condition": "marked",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -69245,6 +69736,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -69396,6 +69896,11 @@
      "text": " 3"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -69712,6 +70217,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -69863,6 +70377,11 @@
      "text": " 4"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -70454,6 +70973,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "mark",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -70519,6 +71047,11 @@
      "text": "Acc 11"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -70771,6 +71304,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "mark",
+     "duration": 4
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -70836,6 +71378,11 @@
      "text": "Acc 12"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -73154,6 +73701,11 @@
      "text": " 6"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -73573,6 +74125,11 @@
      "text": " 8"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -74363,6 +74920,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -74532,6 +75098,11 @@
      "text": " 5"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -74859,6 +75430,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -75028,6 +75608,11 @@
      "text": " 7"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -78884,6 +79469,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 1,
+    "amount": 4,
+    "condition": "blighted",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -79417,6 +80008,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 1,
+    "amount": 6,
+    "condition": "blighted",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -80264,6 +80861,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -80730,6 +81336,15 @@
       "text": " 2t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 2
+    }
    ],
    "top_row_icons": [
     {
@@ -81523,6 +82138,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -81857,6 +82481,15 @@
       "text": " Push 2"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 4
+    }
    ],
    "top_row_icons": [
     {
@@ -82660,6 +83293,20 @@
    "back_level": 1
   },
   {
+   "verified_damage_bonuses": [
+    {
+     "lineIndex": 0,
+     "amount": 2,
+     "condition": "blighted",
+     "source": "print_front"
+    },
+    {
+     "lineIndex": 1,
+     "amount": 3,
+     "condition": "marked",
+     "source": "print_front"
+    }
+   ],
    "id": "hero_skill:p182",
    "pages": [
     182
@@ -82818,6 +83465,24 @@
      }
     ],
     [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
      {
       "type": "icon",
       "icon": {
@@ -82985,6 +83650,11 @@
      "text": " 6"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -83208,6 +83878,20 @@
    "back_level": 2
   },
   {
+   "verified_damage_bonuses": [
+    {
+     "lineIndex": 0,
+     "amount": 3,
+     "condition": "blighted",
+     "source": "print_front"
+    },
+    {
+     "lineIndex": 1,
+     "amount": 4,
+     "condition": "marked",
+     "source": "print_front"
+    }
+   ],
    "id": "hero_skill:p183",
    "pages": [
     183
@@ -83366,6 +84050,24 @@
      }
     ],
     [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
      {
       "type": "icon",
       "icon": {
@@ -83533,6 +84235,11 @@
      "text": " 7"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -84351,6 +85058,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "blight",
+     "duration": 3,
+     "amount": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -84484,6 +85201,11 @@
      "text": " 3"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -84808,6 +85530,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "blight",
+     "duration": 3,
+     "amount": 4
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -84941,6 +85673,11 @@
      "text": " 3"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -85750,6 +86487,26 @@
      }
     ]
    ],
+   "verified_target_header": {
+    "lineIndex": 0,
+    "source": "print_front"
+   },
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 2
+    },
+    {
+     "lineIndex": 2,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "buff",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -86316,6 +87073,26 @@
       }
      }
     ]
+   ],
+   "verified_target_header": {
+    "lineIndex": 0,
+    "source": "print_front"
+   },
+   "verified_status_effects": [
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "buff",
+     "duration": 2
+    },
+    {
+     "lineIndex": 2,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "buff",
+     "duration": 2
+    }
    ],
    "top_row_icons": [
     {
@@ -87190,6 +87967,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 2,
+    "condition": "eldritch",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -87638,6 +88421,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 3,
+    "condition": "eldritch",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -88558,6 +89347,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 2,
+    "condition": "eldritch",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -89035,6 +89830,12 @@
      }
     ]
    ],
+   "verified_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 3,
+    "condition": "eldritch",
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -89943,6 +90744,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -90076,6 +90886,11 @@
      "text": " 3"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -90381,6 +91196,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "debuff",
+     "duration": 4
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -90514,6 +91338,11 @@
      "text": " 3"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -91357,6 +92186,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 3,
+     "amount": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -91526,6 +92365,11 @@
      "text": " 5"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -91872,6 +92716,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "bleed",
+     "duration": 2,
+     "amount": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -92041,6 +92895,11 @@
      "text": " 6"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -92789,6 +93648,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "mark",
+     "duration": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -92922,6 +93790,11 @@
      "text": " 2"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -93217,6 +94090,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "mark",
+     "duration": 4
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -93350,6 +94232,11 @@
      "text": " 2"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -94136,6 +95023,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -94630,6 +95526,15 @@
       "text": " -1"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 3
+    }
    ],
    "top_row_icons": [
     {
@@ -96784,6 +97689,15 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -97233,6 +98147,15 @@
       "text": " 1t"
      }
     ]
+   ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "stun",
+     "duration": 1
+    }
    ],
    "top_row_icons": [
     {
@@ -98210,6 +99133,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "blight",
+     "duration": 3,
+     "amount": 2
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -98372,6 +99305,11 @@
      "text": " 3"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "895cbc2e41",
@@ -98718,6 +99656,16 @@
      }
     ]
    ],
+   "verified_status_effects": [
+    {
+     "lineIndex": 0,
+     "segmentIndex": 2,
+     "scope": "target",
+     "kind": "blight",
+     "duration": 3,
+     "amount": 3
+    }
+   ],
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -98880,6 +99828,11 @@
      "text": " 4"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "895cbc2e41",
