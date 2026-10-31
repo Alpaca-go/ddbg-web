@@ -1,0 +1,423 @@
+{
+ "schema": "ddbg-ruins-boss-abilities-v1",
+ "textOnly": true,
+ "cards": [
+  {
+   "id": "boss_ability:p004",
+   "bossId": "necromancer",
+   "name": "Necromancer",
+   "level": 1,
+   "actionsPerRound": 1,
+   "sourcePage": 4,
+   "front": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "textLines": [
+     "Summoning {icon:ab045955ed} : When a Monster",
+     "is {icon:ab045955ed} , the Monster miniature is",
+     "placed on the Target Area, and",
+     "a new Monster Initiative Card is",
+     "shuffled into the Initiative Deck.",
+     "If all Stances are occupied, the",
+     "Summoning does not take effect."
+    ]
+   },
+   "back": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_BACK.pdf",
+    "textLines": [
+     "This is Unholy!",
+     "After Battles, remove",
+     "any non-unholy Monsters",
+     "permanently from the game.",
+     "Unsettling Silhouettes",
+     "Graveyard is blocked."
+    ]
+   }
+  },
+  {
+   "id": "boss_ability:p005",
+   "bossId": "necromancer",
+   "name": "Necromancer",
+   "level": 2,
+   "actionsPerRound": 1,
+   "sourcePage": 5,
+   "front": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "textLines": [
+     "Summoning {icon:ab045955ed} : When a Monster",
+     "is {icon:ab045955ed} , the Monster miniature is",
+     "placed on the Target Area, and",
+     "a new Monster Initiative Card is",
+     "shuffled into the Initiative Deck.",
+     "If all Stances are occupied, the",
+     "Summoning does not take effect."
+    ]
+   },
+   "back": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_BACK.pdf",
+    "textLines": [
+     "Army of the Dead",
+     "At the start of the first Battle",
+     "in this Dungeon, spawn a Bone",
+     "Captain as the first Monster.",
+     "Haunted Graveyard",
+     "On the first preparation",
+     "day, Heroes roll a {icon:c52055721d} . The",
+     "Hero with the lowest roll is",
+     "forced to spend the first day",
+     "visiting the Graveyard for",
+     "guard duty. They can use the",
+     "Graveyard’s effect as normal."
+    ]
+   }
+  },
+  {
+   "id": "boss_ability:p006",
+   "bossId": "necromancer",
+   "name": "Necromancer",
+   "level": 3,
+   "actionsPerRound": 1,
+   "sourcePage": 6,
+   "front": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "textLines": [
+     "Summoning {icon:ab045955ed} : When a Monster",
+     "is {icon:ab045955ed} , the Monster miniature is",
+     "placed on the Target Area, and",
+     "a new Monster Initiative Card is",
+     "shuffled into the Initiative Deck.",
+     "If all Stances are occupied, the",
+     "Summoning does not take effect."
+    ]
+   },
+   "back": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_BACK.pdf",
+    "textLines": [
+     "Reanimation",
+     "Immediately respawn the first",
+     "non-large Monster that dies",
+     "in each Battle. Place it in the",
+     "corresponding Area on the",
+     "board. If there is no space",
+     "available, ignore this effect.",
+     "The Restless Dead",
+     "On the first preparation",
+     "day, Heroes roll a {icon:c52055721d} . The",
+     "Hero with the lowest roll is",
+     "forced to spend the first day",
+     "visiting the Graveyard for",
+     "guard duty. They can’t use the",
+     "Graveyard’s effect though."
+    ]
+   }
+  },
+  {
+   "id": "boss_ability:p010",
+   "bossId": "prophet",
+   "name": "Prophet",
+   "level": 1,
+   "actionsPerRound": 3,
+   "sourcePage": 10,
+   "front": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "textLines": [
+     "Calamitous Prognostication: On",
+     "his first turn each round, instead of",
+     "using a Skill, the Prophet rolls 4 {icon:d91e56a591}",
+     "and places the 4 Wooden Pews in the",
+     "corresponding Areas on the board.",
+     "Rubble of Ruin: On his third turn",
+     "each round, the Prophet uses his",
+     "Rubble of Ruin Skill, targeting all",
+     "Areas with Wooden Pews. Roll an",
+     "attack for each pew seperately."
+    ]
+   },
+   "back": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_BACK.pdf",
+    "textLines": [
+     "Visions of a Torturous End",
+     "When entering the Dungeon,",
+     "each Hero suffers {icon:33b2d5bc22} +2.",
+     "Visions of Past Deeds",
+     "The Tavern recovers {icon:dd86508746} -1."
+    ]
+   }
+  },
+  {
+   "id": "boss_ability:p011",
+   "bossId": "prophet",
+   "name": "Prophet",
+   "level": 2,
+   "actionsPerRound": 3,
+   "sourcePage": 11,
+   "front": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "textLines": [
+     "Calamitous Prognostication: On",
+     "his first turn each round, instead of",
+     "using a Skill, the Prophet rolls 4 {icon:d91e56a591}",
+     "and places the 4 Wooden Pews in the",
+     "corresponding Areas on the board.",
+     "Rubble of Ruin: On his third turn",
+     "each round, the Prophet uses his",
+     "Rubble of Ruin Skill, targeting all",
+     "Areas with Wooden Pews. Roll an",
+     "attack for each pew seperately."
+    ]
+   },
+   "back": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_BACK.pdf",
+    "textLines": [
+     "Convoluted Farsight",
+     "When scouting, Heroes",
+     "suffer {icon:33b2d5bc22} +1.",
+     "Visions of a Bleak Future",
+     "The Tavern recovers {icon:dd86508746} -2."
+    ]
+   }
+  },
+  {
+   "id": "boss_ability:p012",
+   "bossId": "prophet",
+   "name": "Prophet",
+   "level": 3,
+   "actionsPerRound": 3,
+   "sourcePage": 12,
+   "front": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "textLines": [
+     "Calamitous Prognostication: On",
+     "his first turn each round, instead of",
+     "using a Skill, the Prophet rolls 4 {icon:d91e56a591}",
+     "and places the 4 Wooden Pews in the",
+     "corresponding Areas on the board.",
+     "Rubble of Ruin: On his third turn",
+     "each round, the Prophet uses his",
+     "Rubble of Ruin Skill, targeting all",
+     "Areas with Wooden Pews. Roll an",
+     "attack for each pew seperately."
+    ]
+   },
+   "back": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_BACK.pdf",
+    "textLines": [
+     "Fear of the Beyond",
+     "Whenever an unholy Monster",
+     "is spawned in Battle, each",
+     "Hero suffers {icon:33b2d5bc22} +1.",
+     "Visions of Doom",
+     "The Tavern recovers {icon:dd86508746} -3."
+    ]
+   }
+  },
+  {
+   "id": "boss_ability:p016",
+   "bossId": "collector",
+   "name": "Collector",
+   "level": 1,
+   "actionsPerRound": 1,
+   "sourcePage": 16,
+   "front": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "textLines": [
+     "Collect All: At the start of his turn,",
+     "if there are no Collected in play, the",
+     "Collector, instead of using a Skill, will",
+     "summon a Collected Man-At-Arms in",
+     "{icon:ba58ec175e} , a Collected Highwayman in {icon:f53b3fb732} ,",
+     "and a Collected Vestal in {icon:3af899ff70} . Place",
+     "their miniatures in the corresponding",
+     "Areas on the board. If there is no",
+     "space for a Collected, place them in",
+     "the closest Area with enough space."
+    ]
+   },
+   "back": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_BACK.pdf",
+    "textLines": [
+     "Taken Away",
+     "Don’t draw Curio cards",
+     "in Curio Rooms.",
+     "Missing Artefacts",
+     "The Nomad Wagon is blocked."
+    ]
+   }
+  },
+  {
+   "id": "boss_ability:p017",
+   "bossId": "collector",
+   "name": "Collector",
+   "level": 2,
+   "actionsPerRound": 1,
+   "sourcePage": 17,
+   "front": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "textLines": [
+     "Collect All: At the start of his turn,",
+     "if there are no Collected in play, the",
+     "Collector, instead of using a Skill, will",
+     "summon a Collected Man-At-Arms in",
+     "{icon:ba58ec175e} , a Collected Highwayman in {icon:f53b3fb732} ,",
+     "and a Collected Vestal in {icon:3af899ff70} . Place",
+     "their miniatures in the corresponding",
+     "Areas on the board. If there is no",
+     "space for a Collected, place them in",
+     "the closest Area with enough space."
+    ]
+   },
+   "back": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_BACK.pdf",
+    "textLines": [
+     "Already Collected",
+     "When a Curio awards Gold and/",
+     "or Trinket, roll a {icon:d91e56a591} . On a roll",
+     "of 1-5, the Gold and Trinket has",
+     "already been collected by the",
+     "Collector (Heroes don’t gain it).",
+     "Lust for Gold",
+     "At the end of each day, roll a {icon:c52055721d} .",
+     "If the roll matches a building with",
+     "a Hero in it, the Caretaker will",
+     "steal 1 {icon:c52055721d} Gold from the party."
+    ]
+   }
+  },
+  {
+   "id": "boss_ability:p018",
+   "bossId": "collector",
+   "name": "Collector",
+   "level": 3,
+   "actionsPerRound": 1,
+   "sourcePage": 18,
+   "front": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "textLines": [
+     "Collect All: At the start of his turn,",
+     "if there are no Collected in play, the",
+     "Collector, instead of using a Skill, will",
+     "summon a Collected Man-At-Arms in",
+     "{icon:ba58ec175e} , a Collected Highwayman in {icon:f53b3fb732} ,",
+     "and a Collected Vestal in {icon:3af899ff70} . Place",
+     "their miniatures in the corresponding",
+     "Areas on the board. If there is no",
+     "space for a Collected, place them in",
+     "the closest Area with enough space."
+    ]
+   },
+   "back": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_BACK.pdf",
+    "textLines": [
+     "Missing Supplies",
+     "Camping always gives",
+     "4 Rest Points.",
+     "Shinies!",
+     "At the end of each day, roll",
+     "a {icon:c52055721d} . If the roll matches a",
+     "building with a Hero in it, the",
+     "Caretaker will steal a Trinket",
+     "from the Hero (player’s choice)."
+    ]
+   }
+  },
+  {
+   "id": "boss_ability:p022",
+   "bossId": "fanatic",
+   "name": "Fanatic",
+   "level": 1,
+   "actionsPerRound": 3,
+   "sourcePage": 22,
+   "front": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "textLines": [
+     "Sentence Rendered: If the Pyre",
+     "is in play and there is space in its",
+     "Area, at the start of his turn, instead",
+     "of using a Skill, the Fanatic will",
+     "move towards the closest Hero. If",
+     "he reaches their Area, he will toss",
+     "them into the Area with the Pyre."
+    ]
+   },
+   "back": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_BACK.pdf",
+    "textLines": [
+     "Marked for Death",
+     "When Battle starts, all",
+     "Heroes roll a {icon:d91e56a591} . The Hero",
+     "or Heroes who rolled the",
+     "lowest suffer {icon:192ea1fea9} 2t.",
+     "The Black Sheep",
+     "When in the Hamlet, before",
+     "revealing an event, each",
+     "Hero rolls a {icon:c52055721d} . The Hero",
+     "or Heroes who rolled the",
+     "lowest suffer {icon:e69ea078da} 4t."
+    ]
+   }
+  },
+  {
+   "id": "boss_ability:p023",
+   "bossId": "fanatic",
+   "name": "Fanatic",
+   "level": 2,
+   "actionsPerRound": 3,
+   "sourcePage": 23,
+   "front": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "textLines": [
+     "Sentence Rendered: If the Pyre",
+     "is in play and there is space in its",
+     "Area, at the start of his turn, instead",
+     "of using a Skill, the Fanatic will",
+     "move towards the closest Hero. If",
+     "he reaches their Area, he will toss",
+     "them into the Area with the Pyre."
+    ]
+   },
+   "back": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_BACK.pdf",
+    "textLines": [
+     "Heretic’s Mark",
+     "When Battle starts, all",
+     "Heroes suffer {icon:192ea1fea9} 3t.",
+     "Sinful Acts",
+     "Every time a Hero uses a",
+     "Hamlet Skill, they suffer {icon:1a42e12a78} 4t."
+    ]
+   }
+  },
+  {
+   "id": "boss_ability:p024",
+   "bossId": "fanatic",
+   "name": "Fanatic",
+   "level": 3,
+   "actionsPerRound": 3,
+   "sourcePage": 24,
+   "front": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "textLines": [
+     "Sentence Rendered: If the Pyre",
+     "is in play and there is space in its",
+     "Area, at the start of his turn, instead",
+     "of using a Skill, the Fanatic will",
+     "move towards the closest Hero. If",
+     "he reaches their Area, he will toss",
+     "them into the Area with the Pyre."
+    ]
+   },
+   "back": {
+    "sourceFile": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_70_120_Boss_Abilities_BACK.pdf",
+    "textLines": [
+     "Fanatic’s Mark",
+     "When Battle starts, all Heroes",
+     "suffer {icon:192ea1fea9} 2t and {icon:2bc58148bf} 2t.",
+     "Lynch Mob",
+     "At the end of each day, roll a {icon:c52055721d} .",
+     "The Hero on the corresponding",
+     "building (if any) suffers {icon:945357953a} {icon:2f6d009754}",
+     "per Hero Level and {icon:9f4a5ccfb2} +2."
+    ]
+   }
+  }
+ ]
+}
