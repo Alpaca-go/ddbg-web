@@ -1,5 +1,7 @@
 # DDBG「核心包余下全部工作」交接清单（给 Codex）
 
+> **最新接手入口（2026-10-31）**：Kyries要求交给Grok Bot。请先读 [Codex → Grok Bot交接](HANDOFF-TO-GROK-2026-10-31.md)，包含#420–#427最终状态、后续建议及hold。本文下部历史切片不能替代该最新入口。
+
 > **日期**：2026-10-29（Asia/Shanghai）  
 > **接手方**：Codex（一条一事、一任务一 PR）  
 > **发出方**：Grok Bot（Kyries 当面：把核心包余下工作列全，给 Codex 逐条做）  
