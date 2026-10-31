@@ -1,3 +1,4 @@
+import { buildDarkestBossContent } from "./darkest-boss-content";
 import { buildDarkestMonsterPool } from "./darkest-monster-pool";
 import { attachVerifiedCollectedLife } from "./verified-collected-life";
 import type { IconDictionary } from "../dictionary/schema";
@@ -92,6 +93,7 @@ export type NormalizedCorebox = {
   disease: ReturnType<typeof buildDiseases>;
   monster_pool: ReturnType<typeof buildMonsterPool>;
   darkest_monster_pool: ReturnType<typeof buildDarkestMonsterPool>;
+  darkest_boss_content: ReturnType<typeof buildDarkestBossContent>;
   room: ReturnType<typeof buildRooms>;
   curio: ReturnType<typeof buildCurios>;
   hero_stat: NormalizedHeroStatFile;
@@ -106,6 +108,8 @@ export type NormalizedCorebox = {
 };
 
 export type NormalizedCoreboxInput = {
+  questsRaw: RawFile;
+  bossAbilitiesRaw: RawFile;
   hamletEvents: RawFile;
   diseases: RawFile;
   rooms: RawFile;
@@ -625,6 +629,12 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
     hamlet_event: buildHamletEvents(input.hamletEvents),
     monster_pool: buildMonsterPool(input.monsterMediumRaw, medium, large),
     darkest_monster_pool: buildDarkestMonsterPool(input.monsterMediumRaw, medium),
+    darkest_boss_content: buildDarkestBossContent(
+      input.questsRaw,
+      input.bossAbilitiesRaw,
+      medium,
+      large,
+    ),
     room: buildRooms(input.rooms),
     curio: buildCurios(input.curios, input.dictionary),
     hero_stat: (() => {

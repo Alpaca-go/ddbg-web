@@ -1,3 +1,4 @@
+import { readDarkestBossEncounter } from "./boss/darkest-content";
 import poolFile from "../../data/normalized/corebox/darkest_monster_pool.json";
 import trinketFile from "../../data/normalized/corebox/trinket.json";
 import {
@@ -131,9 +132,8 @@ export function prepareDarkestRoom(state: GameState): ApplyResult {
   });
   if (cards.active) return refuse("最暗房间已记录，不能重抽");
   const objective = d.rooms.find((r) => r.id === d.position)?.kind === "objective";
-  const boss = { "quest:p016": "room:p023", "quest:p017": "room:p022", "quest:p018": "room:p024" };
   const cardId = objective
-    ? boss[d.questDistribution!.questId as keyof typeof boss]
+    ? readDarkestBossEncounter(d.questDistribution?.questId)?.roomCardId
     : cards.deck?.[0];
   const card = cards.cards.find(
     (c) => c.id === cardId && c.location === "darkestDungeon" && c.boss === objective,
