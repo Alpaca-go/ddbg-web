@@ -54,26 +54,21 @@ function fixture(questId: string, kind: "objective" | "empty" = "objective"): Ga
 it.each([
   ["quest:p009", "Bone Bearer", "III级"],
   ["quest:p013", "Bone Captain", "生命+20、闪避+2"],
-])("%s 指定生成未接线时原子拒绝普通抽牌，重复及JSON往返不消耗RNG", (id, name, detail) => {
-  const state = fixture(id),
-    before = structuredClone(state);
-  const command = { type: "prepareDungeonMonsters" } as const;
-  const result = applyCommand(state, command);
-  expect(result.state).toBe(state);
-  expect(result.events).toEqual([
-    { type: "commandRefused", message: expect.stringContaining(name) },
-  ]);
-  expect(result.events[0]!.message).toContain(detail);
-  expect(result.events[0]!.message).toContain("不能用普通随机遭遇替代");
-  expect(state).toEqual(before);
-  expect(state.dungeon!.monsterPool!.active).toBeNull();
-  expect(applyCommand(state, command)).toEqual(result);
-  expect(applyCommand(JSON.parse(JSON.stringify(state)), command)).toEqual(result);
+])("%s 任务指定生成后重复 prepare 与 JSON 往返不消耗 RNG", (id, name) => {
+  const state = fixture(id);
+  const deployed = applyCommand(state, { type: "prepareDungeonMonsters" });
+  expect(deployed.state.dungeon!.monsterPool!.active?.monsters[0]?.cardId).toBeTruthy();
+  expect(deployed.state.dungeon!.cursor).toBe(state.dungeon!.cursor);
+  const repeat = applyCommand(deployed.state, { type: "prepareDungeonMonsters" });
+  expect(repeat.events[0]).toMatchObject({ type: "commandRefused" });
+  expect(
+    applyCommand(JSON.parse(JSON.stringify(deployed.state)), { type: "prepareDungeonMonsters" }),
+  ).toEqual(repeat);
+  expect(deployed.state.dungeon!.monsterPool!.active!.blockedReason).toContain(name);
 });
 
 it.each(["quest:p009", "quest:p013"])("%s 已存在普通部署也不能绕过入场检查", (id) => {
   const base = fixture(id);
-  // 模拟旧快照在目标房存有普通部署：入场必须在装备/奖励结算之前拒绝。
   const state = {
     ...base,
     dungeon: {
@@ -87,7 +82,7 @@ it.each(["quest:p009", "quest:p013"])("%s 已存在普通部署也不能绕过�
   const result = applyCommand(state, { type: "startDungeonBattle" });
   expect(result.state).toBe(state);
   expect(result.events).toEqual([
-    { type: "commandRefused", message: expect.stringContaining("任务指定生成尚未接线") },
+    { type: "commandRefused", message: expect.stringContaining("不能用普通随机遭遇替代") },
   ]);
   expect(result.state.battle).toBeUndefined();
 });
