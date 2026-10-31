@@ -8,6 +8,7 @@ import {
   readRoomTile,
   PROVISION_EFFECTS,
   dungeonProvisionWindow,
+  warmUpDarkRoomNeedsTorch,
 } from "@ddbg/engine";
 import type { PendingChoice } from "@ddbg/engine";
 import { readBasicQuest } from "../../../../../packages/data/src/basic-quests";
@@ -583,7 +584,7 @@ export function ScoutingPanel({
             )),
           )}
       </fieldset>
-      {d.explorationSetup!.light < 5 &&
+      {(d.explorationSetup!.light < 5 || warmUpDarkRoomNeedsTorch(d)) &&
         d
           .explorationSetup!.provisions.filter((p) => p.face === "torch")
           .map((p) => (
