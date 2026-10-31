@@ -165,7 +165,10 @@ export { blacksmithOptions } from "./hamlet-blacksmith";
 export { offerNextQuest } from "./hamlet-embark";
 export { advanceCampaignLevel, readCampaignLevel } from "./hamlet-campaign";
 export { buildRuinsActTransitionPlan } from "./act-transition-plan";
-export { readRuinsActTransitionReadiness } from "./act-transition-readiness";
+export {
+  readRuinsActTransitionReadiness,
+  requiresRuinsActAdvance,
+} from "./act-transition-readiness";
 export type { RuinsActTransitionReadiness } from "./act-transition-readiness";
 export { switchRuinsActPools } from "./act-transition-pools";
 export type { ActPoolSwitch } from "./act-transition-pools";

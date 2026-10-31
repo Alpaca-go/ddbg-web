@@ -1,4 +1,5 @@
 import type { GameState } from "@ddbg/engine";
+import { requiresRuinsActAdvance } from "@ddbg/engine";
 
 /** 与引擎 phase / 子状态一一对应的步骤文案（原 dungeon-checkpoint 逻辑）。 */
 export function dungeonFlowStep(game: GameState): string {
@@ -7,6 +8,7 @@ export function dungeonFlowStep(game: GameState): string {
   const currentRoom = d.rooms?.find((r) => r.id === d.position);
   if (d.hamletReturn) {
     if (d.hamletReturn.phase === "complete") {
+      if (!d.hamlet && requiresRuinsActAdvance(d)) return "Boss已击败；等待推进战役等级";
       if (d.hamlet?.phase === "preparationComplete") return "村庄准备完成；可抽取下一任务";
       if (d.hamlet) return "村庄准备进行中";
       return "回村完成；等待村庄事件";
