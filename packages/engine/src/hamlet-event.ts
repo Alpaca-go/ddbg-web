@@ -24,6 +24,7 @@ import { requiresRuinsActAdvance } from "./act-transition-readiness";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;
 export type HamletEventState = {
+  readonly finalPreparation?: true;
   readonly deck: readonly string[];
   readonly permanentlyRemoved: readonly string[];
   readonly active: string | null;
@@ -74,6 +75,7 @@ export function currentHamletEvent(state: GameState): HamletEventCard | undefine
 /** R32/33：首轮洗满16张；后续出征后从hamletMemory续抽。未接通卡保留原入牌，不能改概率或先启用准备天数。 */
 export function drawHamletEvent(state: GameState): ApplyResult {
   const d = state.dungeon;
+  if (d?.darkest) return rejectBattleCommand(state, "最暗地牢之后固定准备4天，不抽村庄事件（R36）");
   if (d && requiresRuinsActAdvance(d))
     return rejectBattleCommand(state, "请先推进战役等级，再抽村庄事件（R35）");
   if (

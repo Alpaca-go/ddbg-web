@@ -1,4 +1,5 @@
 import { resolveExcavation } from "./darkest-excavation";
+import { beginFinalPreparation } from "./final-preparation";
 import { applyHigherRuinsHamlet, chooseHigherRuinsTheft } from "./boss/higher-ruins-hamlet";
 import { applyHigherRuinsBattleSpawn } from "./boss/higher-ruins-threat";
 import { useCoreTrinket } from "./core-trinket-free";
@@ -199,6 +200,7 @@ type BaseCommand =
   | { readonly type: "beginReturnToHamlet" }
   | { readonly type: "finishReturnToHamlet" }
   | { readonly type: "drawHamletEvent" }
+  | { readonly type: "beginFinalPreparation" }
   | { readonly type: "offerNextQuest" }
   | { readonly type: "advanceCampaignLevel" }
   | { readonly type: "advanceRuinsAct" }
@@ -483,6 +485,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "visitHamletBuilding" || command.type === "useHamletSkill")
     return applyHamletAction(state, command);
   if (command.type === "drawHamletEvent") return drawHamletEvent(state);
+  if (command.type === "beginFinalPreparation") return beginFinalPreparation(state);
   if (command.type === "rollHamletCaretaker") return rollHamletCaretaker(state);
   if (command.type === "beginReturnToHamlet") return beginReturnToHamlet(state);
   if (command.type === "finishReturnToHamlet") return finishReturnToHamlet(state);
