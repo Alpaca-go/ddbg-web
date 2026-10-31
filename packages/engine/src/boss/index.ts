@@ -395,6 +395,11 @@ export {
   MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
   MAMMOTH_CYST_WHITE_CELL_SUMMON_CARD_ID,
 } from "./darkest-mammoth-cyst-combat-runtime";
+export {
+  applyGestatingHeartSummon,
+  type ApplyGestatingHeartSummonCommand,
+} from "./gestating-heart-summon";
+export { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
 
 export {
   ensureNecromancerIIIBossScriptRegistered,

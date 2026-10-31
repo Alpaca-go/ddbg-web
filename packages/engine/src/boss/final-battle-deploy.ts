@@ -31,6 +31,9 @@ const SKELETON_STANCE_AREAS = {
   },
 } as const;
 
+/** 与 `deployFinalBattleForm` 占位几何一致；Ancestor Room 未批时 Summon 等同使用（R-048）。 */
+export const FINAL_BATTLE_MONSTER_STANCE_AREAS = SKELETON_STANCE_AREAS.monster;
+
 function skeletonBattleAreas(): BattleArea[] {
   const ids = [...new Set([...Object.values(SKELETON_STANCE_AREAS.hero), ...Object.values(SKELETON_STANCE_AREAS.monster)])];
   return ids.map((id, index) => ({
