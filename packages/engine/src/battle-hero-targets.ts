@@ -26,6 +26,7 @@ import { beginHeroTrinketWindow } from "./battle-trinket-ability";
 import type { HeroTrinketAttack } from "./battle-trinket-ability";
 import type { HeroSkillTrinketWindow } from "../../data/src/hero-skill-trinkets";
 import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./boss/swine-prince-i-combat-runtime";
+import { chainGestatingHeartIchorAfterHeroSkill } from "./boss/gestating-heart-ichor";
 
 export type PlayHeroSkillTargetsCommand = {
   readonly damageStoneWindow?: true;
@@ -305,8 +306,8 @@ export function playHeroSkillTargets(
     },
     events: [event, ...pressure.events, ...statuses.events],
   };
-  const chained = chainSwinePrinceIEnragedDestructionAfterHeroSkill(
-    result,
+  const chained = chainGestatingHeartIchorAfterHeroSkill(
+    chainSwinePrinceIEnragedDestructionAfterHeroSkill(result, battle.entities, actor.id),
     battle.entities,
     actor.id,
   );
