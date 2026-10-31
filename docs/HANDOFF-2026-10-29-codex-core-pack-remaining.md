@@ -29,7 +29,9 @@ A-2 的 I→II、II→III 池切换数据计划已随 #410 合入 main `8f0772b`
 
 升幕状态校验与计划读取已随 #411 合入 main `0854b335`，见 `phase5-act-transition-readiness-2026-10-31.md`；绑定Boss任务胜利/XP/回村和出征身份。
 
-当前续接：升幕怪物/饰品池实际切换与守恒，见 `phase5-act-transition-pools-2026-10-31.md`；保留永久移除与持牌。尚未执行威胁抽取/洗牌、等级更新、正式命令或存档，A-2未完成。
+升幕怪物/饰品池实际切换与守恒已随 #412 合入 main `7d2fc92b`，见 `phase5-act-transition-pools-2026-10-31.md`。
+
+当前续接：公开命令 `advanceRuinsAct` 组合状态/池校验、威胁抽取、洗牌与等级更新，支持命令存档schema，见 `phase5-advance-ruins-act-2026-10-31.md`；尚未接网页入口或完成自然跨幕存档/浏览器验收，A-2不声明全完。
 
 ### A 类：尚未接入的数据／运行时
 
