@@ -1,9 +1,12 @@
 import type { GameState } from "../command";
 import { readBossCombatEntry } from "./combat-entry";
+import { readDarkestMidBossDeployedCardIds } from "./darkest-mid-boss-runtime";
+import { readDarkestMidBossRequiredCombatCardIds } from "./darkest-mid-boss-scripts";
 import { ensureCoreBossScriptsRegistered } from "./necromancer-i";
 import { getBossScript } from "./registry";
 import { encounterRoundRetreatLimit } from "./rules";
 import { isBossQuestId, resolveBossScriptIdForQuest } from "./quest-bridge";
+import { isDarkestQuest } from "../darkest-setup";
 import type { BossBattleRules, BossScriptId } from "./types";
 
 function deployedMonsterCardIds(state: GameState): readonly string[] {
@@ -12,9 +15,22 @@ function deployedMonsterCardIds(state: GameState): readonly string[] {
     .map((entity) => entity.monsterCardId!);
   if (fromBattle?.length) return fromBattle;
   const d = state.dungeon;
+  const darkest = readDarkestMidBossDeployedCardIds(d);
+  if (darkest.length) return darkest;
   const active = d?.monsterPool?.active;
   if (active && active.roomId === d?.position) return active.monsters.map((spawn) => spawn.cardId);
   return [];
+}
+
+function deployedIncludesBossActors(state: GameState, scriptId: BossScriptId): boolean {
+  const questId = state.dungeon?.questDistribution?.questId;
+  const deployed = deployedMonsterCardIds(state);
+  if (questId && isDarkestQuest(questId)) {
+    const required = readDarkestMidBossRequiredCombatCardIds(questId);
+    return required.length > 0 && required.every((cardId) => deployed.includes(cardId));
+  }
+  const bossCardId = readBossCombatEntry(getBossScript(scriptId))?.combatMonsterCardId;
+  return !!bossCardId && deployed.includes(bossCardId);
 }
 
 /**
@@ -31,10 +47,8 @@ export function resolveEncounterBossScriptId(state: GameState): BossScriptId | u
   const scriptId = resolveBossScriptIdForQuest(questId, state.dungeon);
   if (!scriptId) return undefined;
   const script = getBossScript(scriptId);
-  const bossCardId = readBossCombatEntry(script)?.combatMonsterCardId;
-  if (!script || !bossCardId) return undefined;
-  const deployed = deployedMonsterCardIds(state);
-  if (!deployed.includes(bossCardId)) return undefined;
+  if (!script?.combatEntry) return undefined;
+  if (!deployedIncludesBossActors(state, scriptId)) return undefined;
   return scriptId;
 }
 

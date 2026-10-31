@@ -1,4 +1,5 @@
 import { readDarkestBossEncounter } from "./boss/darkest-content";
+import { prepareDarkestObjectiveBossRoom } from "./boss/darkest-mid-boss-runtime";
 import poolFile from "../../data/normalized/corebox/darkest_monster_pool.json";
 import trinketFile from "../../data/normalized/corebox/trinket.json";
 import {
@@ -13,7 +14,7 @@ import { switchTrinketDungeonLevel } from "./trinket-acquisition";
 import { createRng } from "./rng";
 import type { GameState, ApplyResult } from "./command";
 
-export function isDarkestQuest(id: string | undefined): boolean {
+export function isDarkestQuest(id: string | undefined): id is "quest:p016" | "quest:p017" | "quest:p018" {
   return ["quest:p016", "quest:p017", "quest:p018"].includes(id ?? "");
 }
 
@@ -131,6 +132,8 @@ export function prepareDarkestRoom(state: GameState): ApplyResult {
     events: [{ type: "commandRefused", message }],
   });
   if (cards.active) return refuse("最暗房间已记录，不能重抽");
+  const objectiveRoom = prepareDarkestObjectiveBossRoom(state);
+  if (objectiveRoom) return objectiveRoom;
   const objective = d.rooms.find((r) => r.id === d.position)?.kind === "objective";
   const cardId = objective
     ? readDarkestBossEncounter(d.questDistribution?.questId)?.roomCardId

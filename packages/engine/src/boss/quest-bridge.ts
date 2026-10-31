@@ -2,6 +2,11 @@ import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
 import { basicQuests, type BasicQuestId, type CampaignLevel } from "../../../data/src/basic-quests";
 import { readCampaignLevel } from "../hamlet-campaign";
 import { ensureCoreBossScriptsRegistered } from "./ensure-core-boss-scripts";
+import {
+  DARKEST_MAMMOTH_CYST_SCRIPT_ID,
+  DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
+  DARKEST_TEMPLARS_SCRIPT_ID,
+} from "./darkest-mid-boss-scripts";
 import { getBossScript } from "./registry";
 import type { BossScriptId } from "./types";
 
@@ -21,11 +26,15 @@ export function isBossQuestId(questId: string): questId is BasicQuestId {
  *
  * | questId     | 印刷 Boss（p16–18 SPECIAL） | 脚本 |
  * |-------------|------------------------------|------|
- * | quest:p016  | Shuffling Horror             | 待脚本 |
- * | quest:p017  | Templars                     | 待脚本 |
- * | quest:p018  | Mammoth Cyst                 | 待脚本 |
+ * | quest:p016  | Shuffling Horror             | boss:darkest:shuffling-horror |
+ * | quest:p017  | Templars                     | boss:darkest:templars           |
+ * | quest:p018  | Mammoth Cyst                 | boss:darkest:mammoth-cyst       |
  */
-export const bossQuestScriptId: Partial<Record<BasicQuestId, BossScriptId>> = {};
+export const bossQuestScriptId: Partial<Record<BasicQuestId, BossScriptId>> = {
+  "quest:p016": DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
+  "quest:p017": DARKEST_TEMPLARS_SCRIPT_ID,
+  "quest:p018": DARKEST_MAMMOTH_CYST_SCRIPT_ID,
+};
 
 /**
  * quest:p019 **Face the Threat!** 随战役等级对应 Ruins Boss **等级**（规则书 §2.1 / §14.1、R35）；

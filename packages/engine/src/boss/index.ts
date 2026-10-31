@@ -362,6 +362,21 @@ export {
   resolveBossScriptIdForQuest,
 } from "./quest-bridge";
 export type { BossQuestScriptContext } from "./quest-bridge";
+export {
+  ensureDarkestMidBossScriptsRegistered,
+  DARKEST_MAMMOTH_CYST_SCRIPT_ID,
+  DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
+  DARKEST_TEMPLARS_SCRIPT_ID,
+  darkestMidBossScriptIdForQuest,
+  readDarkestMidBossRequiredCombatCardIds,
+} from "./darkest-mid-boss-scripts";
+export {
+  darkestMidBossDeploymentHold,
+  prepareDarkestMidBossDeployment,
+  prepareDarkestObjectiveBossRoom,
+  readDarkestMidBossDeployedCardIds,
+  type StoredDarkestBossEncounterPlan,
+} from "./darkest-mid-boss-runtime";
 
 export {
   ensureNecromancerIIIBossScriptRegistered,
