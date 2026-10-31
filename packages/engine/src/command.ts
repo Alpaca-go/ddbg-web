@@ -1,6 +1,7 @@
 import { resolveExcavation } from "./darkest-excavation";
 import { prepareFinalBattleForms, finishFinalBattleForm, finalBattleCombatActive } from "./boss/final-form-sequence";
 import { deployFinalBattleForm } from "./boss/final-battle-deploy";
+import { deployDarkestMidBoss } from "./boss/darkest-mid-boss-deploy";
 import { beginFinalPreparation, beginFinalBattleProvisions } from "./final-preparation";
 import { applyHigherRuinsHamlet, chooseHigherRuinsTheft } from "./boss/higher-ruins-hamlet";
 import { applyHigherRuinsBattleSpawn } from "./boss/higher-ruins-threat";
@@ -207,6 +208,7 @@ type BaseCommand =
   | { readonly type: "beginFinalBattleProvisions" }
   | { readonly type: "prepareFinalBattleForms" }
   | { readonly type: "deployFinalBattleForm" }
+  | { readonly type: "deployDarkestMidBoss" }
   | { readonly type: "offerNextQuest" }
   | { readonly type: "advanceCampaignLevel" }
   | { readonly type: "advanceRuinsAct" }
@@ -713,6 +715,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type !== "ping") {
     if (command.type === "deployFinalBattleForm")
       return rejectBattleCommand(state, "部署命令须于村庄最终战停点执行（R36）");
+    if (command.type === "deployDarkestMidBoss")
+      return rejectBattleCommand(state, "deployDarkestMidBoss 须于最暗 Boss 目标房停点执行（R36）");
     return applyEncounterCommand(state, command);
   }
   return {
@@ -725,6 +729,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
 export function applyCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "prepareFinalBattleForms") return prepareFinalBattleForms(state);
   if (command.type === "deployFinalBattleForm") return deployFinalBattleForm(state);
+  if (command.type === "deployDarkestMidBoss") return deployDarkestMidBoss(state);
   if (
     state.dungeon?.finalFormSequence?.status === "fighting" &&
     state.battle &&

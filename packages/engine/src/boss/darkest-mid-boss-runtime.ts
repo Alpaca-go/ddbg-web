@@ -61,30 +61,50 @@ function supportDeployedHoldSummary(supportMonsters: readonly SpawnPlacement[]):
   return `；支持怪 ${ids} 已记录身份（verified: false；技能召唤执行 hold）`;
 }
 
-const SUPPORT_STANCE_FALLBACK: readonly SkillStance[] = [
-  "defensive",
-  "ranged",
-  "support",
-  "aggressive",
-];
+const STANCE_ORDER: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
+
+function occupiedStanceIndexes(
+  placements: readonly Pick<SpawnPlacement, "stance" | "stanceSlots">[],
+): Set<number> {
+  const occupied = new Set<number>();
+  for (const placement of placements) {
+    const start = STANCE_ORDER.indexOf(placement.stance);
+    for (let slot = start; slot < start + placement.stanceSlots; slot += 1) occupied.add(slot);
+  }
+  return occupied;
+}
+
+function pickOpenStance(occupied: Set<number>, width: 1 | 2): SkillStance | undefined {
+  for (const stance of STANCE_ORDER) {
+    const start = STANCE_ORDER.indexOf(stance);
+    if (start + width > STANCE_ORDER.length) continue;
+    let fits = true;
+    for (let slot = start; slot < start + width; slot += 1) {
+      if (occupied.has(slot)) fits = false;
+    }
+    if (fits) return stance;
+  }
+  return undefined;
+}
 
 function buildDarkestMidBossSupportPlacements(
   state: GameState,
   questId: StoredDarkestBossEncounterPlan["questId"],
   supportCardIds: readonly string[],
-  actorStances: readonly SkillStance[],
+  actorPlacements: readonly SpawnPlacement[],
   refuse: (message: string) => ApplyResult,
 ): SpawnPlacement[] | ApplyResult {
-  const usedStances = new Set(actorStances);
+  const occupied = occupiedStanceIndexes(actorPlacements);
   const supportMonsters: SpawnPlacement[] = [];
   for (const [index, cardId] of supportCardIds.entries()) {
     const meta = readMonsterSpawnMeta(state, cardId);
     if (!meta)
       return refuse(`${cardId} 缺少目录前后排/占格，不能伪造支持怪部署（R-048）`);
-    const stance =
-      SUPPORT_STANCE_FALLBACK.find((entry) => !usedStances.has(entry)) ??
-      SUPPORT_STANCE_FALLBACK[index % SUPPORT_STANCE_FALLBACK.length]!;
-    usedStances.add(stance);
+    const stance = pickOpenStance(occupied, meta.stanceSlots);
+    if (!stance)
+      return refuse(`${cardId} 无可用姿态轨占位（Large Boss 占格后 R-048 拒绝重叠）`);
+    const start = STANCE_ORDER.indexOf(stance);
+    for (let slot = start; slot < start + meta.stanceSlots; slot += 1) occupied.add(slot);
     supportMonsters.push({
       instanceId: `darkest-mid-boss-support:${questId}:${index}`,
       cardId,
@@ -164,7 +184,7 @@ export function prepareDarkestObjectiveBossRoom(state: GameState): ApplyResult |
   };
 }
 
-function darkestBossDeploymentMatchesPlan(
+export function darkestBossDeploymentMatchesPlan(
   d: DungeonState,
   plan: StoredDarkestBossEncounterPlan,
 ): boolean {
@@ -187,7 +207,7 @@ export function darkestMidBossDeploymentHold(d: DungeonState): string | undefine
     const supportHold = deployment?.supportMonsters.length
       ? supportDeployedHoldSummary(deployment.supportMonsters)
       : supportPlanHoldSummary(plan.supportCardIds);
-    return `${label} 目标房已记录 Boss 身份（${plan.actorCardIds.join("、")}）${supportHold}；${plan.wiringHold}，不能进入半场战斗（R-048）。`;
+    return `${label} 目标房已记录 Boss 身份（${plan.actorCardIds.join("、")}）${supportHold}；可 deployDarkestMidBoss 进入 BattleState 后显式 startBattle 洗先攻；${plan.wiringHold}，不可用 startDungeonBattle（R-048）。`;
   }
   return `${label} 目标房须按目录部署 ${plan.actorCardIds.join("、")}；不能用最暗 26 张牌堆随机遭遇替代（R36 / R-048）。`;
 }
@@ -233,12 +253,12 @@ export function prepareDarkestMidBossDeployment(state: GameState): ApplyResult |
     state,
     plan.questId,
     plan.supportCardIds,
-    encounter.actors.map((actor) => actor.stance),
+    monsters,
     refuse,
   );
   if ("events" in supportBuilt) return supportBuilt;
   const supportMonsters = supportBuilt;
-  const blockedReason = `${plan.resolvedScriptId} 已部署 ${monsters.map((m) => m.cardId).join("、")}${supportDeployedHoldSummary(supportMonsters)}；${plan.wiringHold}，不能进入半场战斗（R-048）。`;
+  const blockedReason = `${plan.resolvedScriptId} 已部署 ${monsters.map((m) => m.cardId).join("、")}${supportDeployedHoldSummary(supportMonsters)}；可 deployDarkestMidBoss 后 startBattle；${plan.wiringHold}（R-048）。`;
   return {
     state: {
       ...state,

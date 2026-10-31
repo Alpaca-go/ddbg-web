@@ -377,6 +377,11 @@ export {
   readDarkestMidBossDeployedCardIds,
   type StoredDarkestBossEncounterPlan,
 } from "./darkest-mid-boss-runtime";
+export {
+  deployDarkestMidBoss,
+  darkestMidBossCombatActive,
+  expandDarkestMidBossInitiativeDeckSides,
+} from "./darkest-mid-boss-deploy";
 
 export {
   ensureNecromancerIIIBossScriptRegistered,
