@@ -42,7 +42,9 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
     if (ordinaryDeploy) return ordinaryDeploy;
     const hold = darkestMidBossDeploymentHold(d) ?? darkestOrdinaryDeploymentHold(d);
     if (hold) return refuse(hold);
-    return refuse("最暗普通房间怪物部署与 Room Tile 几何仍 hold；目标房须先 prepareDungeonBattle（R-048）");
+    return refuse(
+      "最暗普通房间怪物部署与 Room Tile 几何仍 hold；目标房须先 prepareDungeonBattle（R-048）",
+    );
   }
   if (
     d.phase !== "awaitingRoom" ||
@@ -99,9 +101,12 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
   }
   const threatDeck = firstBattleThreatDeck(d, deck);
   if (threatDeck.status === "refused") return refuse(threatDeck.reason);
-  const spawned = spawnMonsters(threatDeck.deck, deployment.monsters, {
-    skipSpawn: threatIsRealNoL1LairSkipSpawn(d, room, pool.cards),
-  });
+  const skipSpawn = threatIsRealNoL1LairSkipSpawn(d, room, pool.cards);
+  const spawned = spawnMonsters(
+    threatDeck.deck,
+    deployment.monsters,
+    skipSpawn ? { skipSpawn } : {},
+  );
   if (spawned.type === "refused") return refuse(spawned.reason);
   if (spawned.monsters.reduce((n, m) => n + m.stanceSlots, 0) !== 4)
     return refuse("牌堆未填满四姿态，不提交半场部署");

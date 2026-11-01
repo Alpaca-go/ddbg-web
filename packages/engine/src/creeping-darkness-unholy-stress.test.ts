@@ -103,8 +103,10 @@ function withEncounter(state: GameState): GameState {
     battle: {
       ...state.battle!,
       encounter: {
-        turn: { type: "awaitingAction", actorId: "h0" },
+        turn: { type: "hero", actorId: "h0", actions: 2, usedSkillIds: [] },
         round: 1,
+        deck: [],
+        actedIds: [],
       },
     },
   };
@@ -146,15 +148,23 @@ function spawnMonster(after: GameState, id: string, monsterCardId: string): Appl
 describe("A-07 Creeping Darkness III · Unholy spawn 压力（quest:p014）", () => {
   it("初始部署：每只 Unholy 各触发一次全队 +1；非 Unholy 不计", () => {
     const before = withEncounter(
-      battleFixture(CREEPING_DARKNESS_III_QUEST_ID, [UNHOLY_CARD_ID, NON_UNHOLY_CARD_ID, UNHOLY_CARD_ID]),
+      battleFixture(CREEPING_DARKNESS_III_QUEST_ID, [
+        UNHOLY_CARD_ID,
+        NON_UNHOLY_CARD_ID,
+        UNHOLY_CARD_ID,
+      ]),
     );
     const initial = { state: before, events: [] as ApplyResult["events"] };
-    const applied = applyCreepingDarknessUnholySpawnStress({ ...before, battle: undefined }, initial);
-    expect(applied.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress)).toEqual([
-      2, 2, 2, 2,
-    ]);
+    const { battle: _battle, ...withoutBattle } = before;
+    void _battle;
+    const applied = applyCreepingDarknessUnholySpawnStress(withoutBattle, initial);
     expect(
-      applied.events.some((e) => e.type === "dungeonUpdated" && e.message.includes("Creeping Darkness III")),
+      applied.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress),
+    ).toEqual([2, 2, 2, 2]);
+    expect(
+      applied.events.some(
+        (e) => e.type === "dungeonUpdated" && e.message.includes("Creeping Darkness III"),
+      ),
     ).toBe(true);
   });
 
@@ -164,14 +174,14 @@ describe("A-07 Creeping Darkness III · Unholy spawn 压力（quest:p014）", ()
     );
     const afterUnholy = spawnMonster(started, "spawn-unholy", UNHOLY_CARD_ID);
     const spawned = applyCreepingDarknessUnholySpawnStress(started, afterUnholy);
-    expect(spawned.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress)).toEqual([
-      1, 1, 1, 1,
-    ]);
+    expect(
+      spawned.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress),
+    ).toEqual([1, 1, 1, 1]);
     const afterHuman = spawnMonster(spawned.state, "spawn-human", NON_UNHOLY_CARD_ID);
     const neutral = applyCreepingDarknessUnholySpawnStress(spawned.state, afterHuman);
-    expect(neutral.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress)).toEqual([
-      1, 1, 1, 1,
-    ]);
+    expect(
+      neutral.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress),
+    ).toEqual([1, 1, 1, 1]);
   });
 
   it("非 quest:p014 任务：相同 Unholy 生成不触发", () => {
@@ -179,26 +189,26 @@ describe("A-07 Creeping Darkness III · Unholy spawn 压力（quest:p014）", ()
     const after = spawnMonster(started, "spawn-unholy", UNHOLY_CARD_ID);
     const applied = applyCreepingDarknessUnholySpawnStress(started, after);
     expect(applied).toBe(after);
-    expect(applied.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress)).toEqual([
-      0, 0, 0, 0,
-    ]);
+    expect(
+      applied.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress),
+    ).toEqual([0, 0, 0, 0]);
   });
 
   it("公开 applyCommand · startBattle 路径在 p014 下对初始 Unholy 生效", () => {
     const state = battleFixture(CREEPING_DARKNESS_III_QUEST_ID, [UNHOLY_CARD_ID]);
     const result = applyCommand(state, { type: "startBattle" });
     expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
-    expect(result.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress)).toEqual([
-      1, 1, 1, 1,
-    ]);
+    expect(
+      result.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress),
+    ).toEqual([1, 1, 1, 1]);
   });
 
   it("公开 applyCommand · startBattle 在非 p014 下不改动压力", () => {
     const state = battleFixture("quest:p005", [UNHOLY_CARD_ID]);
     const result = applyCommand(state, { type: "startBattle" });
     expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
-    expect(result.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress)).toEqual([
-      0, 0, 0, 0,
-    ]);
+    expect(
+      result.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress),
+    ).toEqual([0, 0, 0, 0]);
   });
 });

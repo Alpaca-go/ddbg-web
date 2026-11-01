@@ -251,7 +251,7 @@ type BaseCommand =
   | { readonly type: "beginFinalPreparation" }
   | { readonly type: "beginFinalBattleProvisions" }
   | { readonly type: "prepareFinalBattleForms" }
-  | { readonly type: "deployFinalBattleForm"; readonly startBattle?: true }
+  | { readonly type: "deployFinalBattleForm"; readonly startBattle?: true | undefined }
   | { readonly type: "deployDarkestMidBoss" }
   | { readonly type: "deployDarkestOrdinaryEncounter" }
   | { readonly type: "offerNextQuest" }

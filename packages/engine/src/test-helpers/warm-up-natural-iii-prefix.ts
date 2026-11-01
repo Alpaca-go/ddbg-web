@@ -2,7 +2,7 @@ import { applyCommand } from "../command";
 import type { Command, GameState } from "../command";
 import { currentHamletHero } from "../hamlet-actions";
 import { RUINS_BOSS_IDENTITIES, type RuinsBossIdentity } from "../boss/threat-description-catalog";
-import type { BasicQuestId } from "../../../data/src/basic-quests";
+import { basicQuests, type BasicQuestId } from "../../../data/src/basic-quests";
 import { coreParty, coreQuestSources } from "./core-quest";
 import { guildQuest } from "./guild-quest";
 import { ruinsActInitial, ruinsActReadyFixture } from "./ruins-act";
@@ -89,11 +89,7 @@ function finishWarmUpTorchChoices(game: GameState, log: Command[]) {
     const pending = state.dungeon!.pending!;
     const torch = pending.options.find((o) => o.id.startsWith("torch:"));
     const optionId = torch?.id ?? "skip";
-    state = step(
-      state,
-      { type: "resolveChoice", choiceId: pending.id, optionId },
-      log,
-    );
+    state = step(state, { type: "resolveChoice", choiceId: pending.id, optionId }, log);
   }
   return state;
 }
@@ -160,6 +156,8 @@ export function warmUpNaturalIiiEmbarkJourneyForBoss(
   if (!offers.includes("quest:p011")) throw new Error(`III 候选项不含 p011：${offers.join(",")}`);
   const alternateOffer = offers.find((id) => id !== "quest:p011");
   if (!alternateOffer) throw new Error("III 候选项缺少与 p011 配对的另一张任务");
+  const alternateQuest = basicQuests.find((quest) => quest.id === alternateOffer);
+  if (!alternateQuest) throw new Error("候选任务不在已知目录中");
 
   game = step(
     game,
@@ -187,13 +185,13 @@ export function warmUpNaturalIiiEmbarkJourneyForBoss(
     mode: "radiant",
     party: coreParty.map((hero) => ({ ...hero, skillIds: [...hero.skillIds] })),
   };
-  let save: ReturnType<typeof createQuestSave> | null = null;
+  let save: ReturnType<typeof createQuestSave> | null;
   try {
     save = createQuestSave(start, commands, game, coreQuestSources);
   } catch {
     save = null;
   }
-  return { seed, boss, actReady, alternateOffer, commands, game, start, save };
+  return { seed, boss, actReady, alternateOffer: alternateQuest.id, commands, game, start, save };
 }
 
 export function warmUpNaturalIiiEmbarkJourney(
@@ -221,8 +219,7 @@ export function warmUpFreeIiiEmbarkChoice(
   let game = step(journey.actReady, { type: "advanceRuinsAct" }, commands);
   game = hamletAfterActAdvance(game, commands);
   game = step(game, { type: "offerNextQuest" }, commands);
-  if (!game.dungeon!.nextQuestOffers!.includes(questId))
-    throw new Error(`候选项不含 ${questId}`);
+  if (!game.dungeon!.nextQuestOffers!.includes(questId)) throw new Error(`候选项不含 ${questId}`);
   return step(
     game,
     {
