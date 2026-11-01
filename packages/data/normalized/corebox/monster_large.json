@@ -33054,6 +33054,11 @@
        }
       ]
      ],
+     "verified_range": {
+      "min": 0,
+      "max": 10,
+      "source": "print_front"
+     },
      "lines": [
       [
        {
@@ -33259,7 +33264,25 @@
         "text": " -1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+3,{light}-1"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 3
+       },
+       {
+        "type": "light",
+        "scope": "target",
+        "amount": -1
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -33372,6 +33395,11 @@
        }
       ]
      ],
+     "verified_range": {
+      "min": 0,
+      "max": 10,
+      "source": "print_front"
+     },
      "lines": [
       [
        {
@@ -33654,6 +33682,11 @@
        }
       ]
      ],
+     "verified_range": {
+      "min": 0,
+      "max": 10,
+      "source": "print_front"
+     },
      "lines": [
       [
        {
