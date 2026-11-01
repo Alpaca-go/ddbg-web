@@ -125,12 +125,16 @@ it("monster_large:p017 三招印刷 Acc；卡级 verified（icon 8707d5d8cf→su
   ]);
 });
 
-it("Lacerate slot 1：Closest · range 1 · Acc 11；无 verified_monster_effects", () => {
+it("Lacerate slot 1：Closest · range 1 · Acc 11 · verified bleed 3/3t", () => {
   const card = shufflingHorrorCard();
   const skill = card.skills.find((entry) => entry.slot === SHUFFLING_HORROR_LACERATE_SKILL_SLOT)!;
   expect(skill.name).toBe("Lacerate");
   expect(skill.target).toBe("Closest");
-  expect(skill.verified_monster_effects).toBeUndefined();
+  expect(skill.verified_monster_effects).toEqual({
+    source: "print_front",
+    signatures: ["{target_effects}3{bleed}3t"],
+    effects: [{ type: "status", scope: "target", kind: "bleed", amount: 3, duration: 3 }],
+  });
   expect(skill.printed_labels).toEqual([
     { label: "Crit", raw: "Crit 1", value: 1 },
     { label: "Acc", raw: "Acc 11", value: 11 },
@@ -159,7 +163,7 @@ describe("Shuffling Horror Lacerate Acc 最小结算", () => {
     expect(readDarkestBossEncounter("quest:p016")!.combatReady).toBe(false);
   });
 
-  it("Lacerate · Closest 1 · 命中仅 Acc/Crit/伤害（效果线 hold）", () => {
+  it("Lacerate · Closest 1 · 命中 3 流血 3t", () => {
     const base = fighting();
     const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
     const card = base.dungeon!.battleCatalog!.monsters.find(
@@ -167,8 +171,8 @@ describe("Shuffling Horror Lacerate Acc 最小结算", () => {
     )!;
     expect(
       card.skills.find((skill) => skill.slot === SHUFFLING_HORROR_LACERATE_SKILL_SLOT)
-        ?.verified_monster_effects,
-    ).toBeUndefined();
+        ?.verified_monster_effects?.effects,
+    ).toEqual([{ type: "status", scope: "target", kind: "bleed", amount: 3, duration: 3 }]);
 
     let cursor = 0;
     while (nextBattleRoll(base.seed, cursor) !== 5) cursor += 1;
@@ -182,7 +186,7 @@ describe("Shuffling Horror Lacerate Acc 最小结算", () => {
         rngCursor: cursor,
         light: 5,
         entities: game.battle!.entities.map((entity) =>
-          entity.side === "hero" ? { ...entity, dodge: 0, bleed: [] } : entity,
+          entity.side === "hero" ? { ...entity, dodge: 0 } : entity,
         ),
       },
     };
@@ -190,21 +194,53 @@ describe("Shuffling Horror Lacerate Acc 最小结算", () => {
     expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
     expect(
       result.events.some(
-        (event) =>
-          event.type === "dungeonUpdated" &&
-          event.message.includes("Lacerate") &&
-          event.message.includes("效果线 hold"),
+        (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
       ),
     ).toBe(true);
     const skillEvent = result.events.find((event) => event.type === "monsterSkillResolved");
     expect(skillEvent?.type).toBe("monsterSkillResolved");
     if (skillEvent?.type === "monsterSkillResolved") {
       expect(skillEvent.resolution.outcome).toBe("hit");
+      expect(skillEvent.resolution.targetStatusEffects ?? []).toEqual([
+        { kind: "bleed", amount: 3, duration: 3 },
+      ]);
       const target = result.state.battle!.entities.find(
         (entity) => entity.id === skillEvent.resolution.targetId,
       )!;
-      expect(target.bleed ?? []).toHaveLength(0);
+      expect(target.statusStacks).toEqual([{ kind: "bleed", amount: 3, remaining: 3 }]);
     }
+  });
+
+  it("Lacerate · 落空无流血", () => {
+    const base = fighting();
+    const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
+    let cursor = 0;
+    while (nextBattleRoll(base.seed, cursor) !== 10) cursor += 1;
+    const patch = Object.fromEntries(heroes.map((hero) => [hero.id, HERO_SUP]));
+    let game = onHorrorTurn(withHeroAreas(base, patch));
+    const actor = horror(game);
+    game = {
+      ...game,
+      battle: {
+        ...game.battle!,
+        rngCursor: cursor,
+        entities: game.battle!.entities.map((entity) =>
+          entity.side === "hero" ? { ...entity, dodge: 30 } : entity,
+        ),
+      },
+    };
+    const result = applyShufflingHorrorLacerate(game, actor.id);
+    const skillEvent = result.events.find((event) => event.type === "monsterSkillResolved");
+    expect(skillEvent?.type).toBe("monsterSkillResolved");
+    if (skillEvent?.type === "monsterSkillResolved") {
+      expect(skillEvent.resolution.outcome).toBe("miss");
+      expect(skillEvent.resolution.targetStatusEffects ?? []).toEqual([]);
+    }
+    expect(
+      result.state.battle!.entities.filter((entity) => entity.side === "hero").every(
+        (entity) => (entity.statusStacks ?? []).length === 0,
+      ),
+    ).toBe(true);
   });
 
   it("非 Shuffling Horror 遭遇拒绝", () => {
