@@ -36412,7 +36412,20 @@
         "text": " 9"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{damage_or_heal_combined_marker}{heal}9"
+      ],
+      "effects": [
+       {
+        "type": "heal",
+        "scope": "target",
+        "amount": 9
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [

@@ -13,6 +13,15 @@ const entries: readonly {
   effects: MonsterEffectPlan["effects"];
 }[] = [
   {
+    id: "monster_medium:p069",
+    name: "Rapturous Cultist",
+    level: 3,
+    pages: [69, 70, 71],
+    slot: 2,
+    signature: "{target_effects}{damage_or_heal_combined_marker}{heal}9",
+    effects: [{ type: "heal", scope: "target", amount: 9 }],
+  },
+  {
     id: "monster_medium:p086",
     name: "Defensive Growth",
     level: 3,

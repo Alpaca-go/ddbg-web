@@ -62,6 +62,7 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
         if (
           !skill.verified_monster_effects ||
           skill.target === "Self" ||
+          skill.lines.flat().some((s) => s.type === "icon" && s.icon.key === "target_monster") ||
           skill.verified_monster_effects.effects.some((e) => e.type === "disease") ||
           skill.verified_monster_effects.effects.every(
             (e) =>
