@@ -2,7 +2,7 @@ import { isPyreCard, playPyreSkill } from "./boss/pyre-skill";
 import { isCollectedVestalCard, playCollectedVestalSkill } from "./boss/collected-vestal";
 import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { isInvokingMonster } from "./battle-invocation";
-import { distance, rejectBattleCommand, writeResolution, skillTargetView } from "./battle";
+import { distance, rejectBattleCommand, writeResolution, skillTargetView, type BattleEntity } from "./battle";
 import { applySkillHealth } from "./battle-health";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { playMonsterSkillTargets } from "./battle-monster-targets";
@@ -22,6 +22,102 @@ import type { ShuffleIntent } from "./shuffle";
 import { beginSkillOwnEffects, afterMonsterOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
+import type { MonsterCardView } from "./monster-skill";
+import type { HeroSkillCardView } from "./hero-skill";
+import { resolveMonsterAttackEffects } from "./hero-skill";
+
+/** Self 目标、无英雄目标：不掷攻击骰，走 verified 自身效果（R19–20 / R-048）。 */
+function playMonsterSelfSkill(
+  state: GameState,
+  command: PlayMonsterSkillCommand,
+  actor: BattleEntity,
+  card: MonsterCardView,
+  view: HeroSkillCardView,
+  resume?: SkillPrefix,
+): ApplyResult {
+  const battle = resume?.original ?? state.battle!;
+  const combat: MonsterCombatState = {
+    actor: {
+      id: actor.id,
+      wounds: actor.wounds,
+      ...(actor.buffStacks === undefined ? {} : { buffStacks: actor.buffStacks }),
+      ...(actor.shuffleResist === undefined ? {} : { shuffleResist: actor.shuffleResist }),
+    },
+    target: skillTargetView(actor, battle),
+    areaDistance: 0,
+    light: battle.light,
+    targetAreaLower: false,
+    guardedHeroOmitted: false,
+    untargetedHeroesBesideTarget: [],
+    threatFlatDamageBonus: monsterCombatThreatDamageBonus(state.dungeon, card),
+  };
+  const roll = resume ? resume.roll! : nextBattleRoll(state.seed, battle.rngCursor);
+  let effects = resolveMonsterAttackEffects(view, combat, roll);
+  if (effects.resolution.status === "refused")
+    return rejectBattleCommand(state, effects.resolution.reason ?? "Self 怪物技能拒绝");
+  if (effects.resolution.skipped.length)
+    return rejectBattleCommand(state, "怪物完整效果尚未接入，整次拒绝（R-048）");
+  if (!resume) {
+    const own = beginSkillOwnEffects(state, command, roll, effects);
+    if (own) return own;
+  }
+  const current = resume ? state.battle! : battle;
+  const effectCombat = resume ? afterMonsterOwnCombat(combat, current) : combat;
+  effects = resolveMonsterAttackEffects(view, effectCombat, roll);
+  if (effects.resolution.status === "refused")
+    return rejectBattleCommand(state, effects.resolution.reason ?? "Self 怪物技能拒绝");
+  const result = effects.resolution;
+  const entities = current.entities.map((entry) =>
+    writeResolution(entry, actor.id, actor.id, result, true),
+  );
+  const health = applySkillHealth(
+    current,
+    entities,
+    effects,
+    state.seed,
+    current.rngCursor + Number(!resume),
+    actor.id,
+  );
+  if (health.status === "refused") return rejectBattleCommand(state, health.reason);
+  const statuses = applyBattleSkillStatuses(
+    { ...current, entities: health.entities, rngCursor: health.rngCursor },
+    health.entities,
+    actor.id,
+    [result],
+    state.seed,
+    health.rngCursor,
+  );
+  if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
+  const actorDead = (statuses.entities.find((entry) => entry.id === actor.id)?.wounds ?? 0) >= card.life;
+  const event: MonsterSkillResolvedEvent = {
+    type: "monsterSkillResolved",
+    message: "Self 怪物技能已结算",
+    actorId: actor.id,
+    skillSlot: command.skillSlot,
+    roll,
+    actorDead,
+    resolution: result,
+  };
+  const applied: ApplyResult = {
+    state: {
+      ...state,
+      battle: {
+        ...current,
+        pending: null,
+        monsterAction: null,
+        rngCursor: statuses.rngCursor,
+        entities: statuses.entities.map((entry) =>
+          entry.id === actor.id ? { ...entry, dead: actorDead } : entry,
+        ),
+        light: statuses.light,
+        shuffleIntents: [],
+        shuffleContinuation: null,
+      },
+    },
+    events: [event, ...health.events, ...statuses.events],
+  };
+  return recordMonsterSkill(applied, event, newlyDefeatedIds(battle, statuses.entities));
+}
 
 /** 调用方手动指定已选技能 / 单个目标；不执行姿态选招、目标 AI 或移动。 */
 export type PlayMonsterSkillCommand = {
@@ -60,22 +156,22 @@ export function playMonsterSkill(
     return playPyreSkill(state, command.actorId, command.targetId, command.skillSlot);
   if (isCollectedVestalCard(actor?.monsterCardId))
     return playCollectedVestalSkill(state, command.actorId, command.targetId, command.skillSlot);
-  const target = battle.entities.find((entry) => entry.id === command.targetId);
   const card = battle.monsters?.find((entry) => entry.id === actor?.monsterCardId);
-  if (
-    !actor ||
-    actor.side !== "monster" ||
-    actor.dead ||
-    !target ||
-    target.side !== "hero" ||
-    target.dead ||
-    !card
-  )
-    return rejectBattleCommand(state, "怪物、英雄目标或已关联怪物卡不可用");
+  if (!actor || actor.side !== "monster" || actor.dead || !card)
+    return rejectBattleCommand(state, "怪物或已关联怪物卡不可用");
   if (actor.life !== card.life)
     return rejectBattleCommand(state, "怪物 Life 与规范化卡不一致（R-048）");
   const attack = readMonsterAttackView(card, command.skillSlot);
   if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
+  const skillEntry = card.skills.find((entry) => entry.slot === command.skillSlot);
+  if (skillEntry?.target === "Self") {
+    if (command.targetId !== command.actorId)
+      return rejectBattleCommand(state, "Self 怪物技能只能以使用者自身为目标（R-048）");
+    return playMonsterSelfSkill(state, command, actor, card, attack.view, resume);
+  }
+  const target = battle.entities.find((entry) => entry.id === command.targetId);
+  if (!target || target.side !== "hero" || target.dead)
+    return rejectBattleCommand(state, "怪物、英雄目标或已关联怪物卡不可用");
   const count = readPrintedTargets(attack.view);
   if (count.kind === "exact" && count.max > 1)
     return playMonsterSkillTargets(state, command, actor, target, card, count.max, resume);

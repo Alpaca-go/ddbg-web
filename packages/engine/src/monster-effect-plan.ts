@@ -59,6 +59,7 @@ export function compileMonsterEffectPlan(
     signatures.length !== 1 ||
     signatures[0]!
       .replace(/,/g, "")
+      .replace(/\{damage_or_heal_combined_marker\}(\d+)\{heal\}/g, "{heal}$1")
       .replace(/\{heal\}(?:\{heal\})?(\d+)(?:\{heal\})?/g, "{heal}$1") !== plannedSignature
   )
     return refuse("怪物原语内容或作用范围与整行卡面不符（R-048）");

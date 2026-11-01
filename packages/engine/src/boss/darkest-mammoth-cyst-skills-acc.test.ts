@@ -6,8 +6,10 @@ import { nextBattleRoll } from "../battle-roll";
 import {
   applyMammothCystBulgingGaze,
   applyMammothCystDigestion,
+  applyMammothCystRevivify,
   MAMMOTH_BULGING_GAZE_SKILL_SLOT,
   MAMMOTH_DIGESTION_SKILL_SLOT,
+  MAMMOTH_REVIVIFY_SKILL_SLOT,
 } from "./darkest-mammoth-cyst-skills-acc";
 import { MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID } from "./darkest-mammoth-cyst-combat-runtime";
 import { readDarkestBossEncounter } from "./darkest-content";
@@ -279,6 +281,86 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     }
   });
 
+  it("Revivify · Self · buff 2t + 治疗 15", () => {
+    const base = fighting();
+    const card = base.dungeon!.battleCatalog!.monsters.find(
+      (entry) => entry.id === MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
+    )!;
+    expect(
+      card.skills.find((skill) => skill.slot === MAMMOTH_REVIVIFY_SKILL_SLOT)?.verified_monster_effects
+        ?.effects,
+    ).toEqual([
+      { type: "status", scope: "self", kind: "buff", duration: 2 },
+      { type: "heal", scope: "self", amount: 15 },
+    ]);
+
+    let game = onMammothTurn(base);
+    const actor = mammoth(game);
+    game = {
+      ...game,
+      battle: {
+        ...game.battle!,
+        entities: game.battle!.entities.map((entity) =>
+          entity.id === actor.id ? { ...entity, wounds: 40 } : entity,
+        ),
+      },
+    };
+    const result = applyMammothCystRevivify(game, actor.id);
+    expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+    const resolved = result.events.find((event) => event.type === "monsterSkillResolved");
+    expect(resolved?.type).toBe("monsterSkillResolved");
+    const updated = result.state.battle!.entities.find((entity) => entity.id === actor.id)!;
+    expect(updated.wounds).toBe(25);
+    expect(updated.statusStacks).toEqual([{ kind: "buff", remaining: 2 }]);
+    expect(
+      result.events.some(
+        (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
+      ),
+    ).toBe(true);
+  });
+
+  it("Revivify · 非 Mammoth 回合 / 错误实体拒绝", () => {
+    const game = onMammothTurn(fighting());
+    const hero = game.battle!.entities.find((entity) => entity.side === "hero")!;
+    expect(
+      applyMammothCystRevivify(game, hero.id).events.some((event) => event.type === "commandRefused"),
+    ).toBe(true);
+    const heroTurn: GameState = {
+      ...game,
+      battle: {
+        ...game.battle!,
+        encounter: {
+          round: 1,
+          deck: ["hero", "monster"],
+          actedIds: [],
+          turn: { type: "hero", actorId: hero.id, actions: 1, usedSkillIds: [] },
+        },
+      },
+    };
+    expect(
+      applyMammothCystRevivify(heroTurn, mammoth(heroTurn).id).events.some(
+        (event) => event.type === "commandRefused",
+      ),
+    ).toBe(true);
+  });
+
+  it("applyCommand · applyMammothCystRevivify", () => {
+    let state = onMammothTurn(fighting());
+    const actor = mammoth(state);
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        entities: state.battle!.entities.map((entity) =>
+          entity.id === actor.id ? { ...entity, wounds: 10 } : entity,
+        ),
+      },
+    };
+    const result = applyCommand(state, { type: "applyMammothCystRevivify", actorId: actor.id });
+    expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+    expect(result.state.battle!.entities.find((entity) => entity.id === actor.id)!.wounds).toBe(0);
+  });
+
   it("Revivify slot 3 无 Acc 伤害：不接 Acc 命令", () => {
     const card = fighting().dungeon!.battleCatalog!.monsters.find(
       (entry) => entry.id === MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
@@ -395,6 +477,9 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     );
     expect(card.skills.find((skill) => skill.slot === MAMMOTH_DIGESTION_SKILL_SLOT)?.name).toBe(
       "Digestion",
+    );
+    expect(card.skills.find((skill) => skill.slot === MAMMOTH_REVIVIFY_SKILL_SLOT)?.name).toBe(
+      "Revivify",
     );
   });
 });

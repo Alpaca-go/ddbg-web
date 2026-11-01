@@ -66,7 +66,7 @@ function darkestMidBossWiringHold(questId: StoredDarkestBossEncounterPlan["quest
     return "Undulations + Echoing Disassembly 召唤已接；Lacerate Acc 卡级 unverified 见 shuffling-horror-skills-acc 文档；Room Tile 正式几何 / combatReady / 完整 AI 仍 hold";
   }
   if (questId === "quest:p018") {
-    return "Summon White Cell Stalk + Bulging Gaze/Digestion Acc 最小结算已接；White Cell Teleport / Revivify / Room Tile 几何 / combatReady / 完整 AI 仍 hold";
+    return "Summon White Cell Stalk + Bulging Gaze/Digestion Acc + Revivify Self 最小结算已接；White Cell Teleport / Room Tile 几何 / combatReady / 完整 AI 仍 hold";
   }
   return "Templars Torment/Body Slam/Revelation/Stinger Shot Acc 最小结算已接；Pit Toss / Room Tile 几何 / combatReady / 完整 AI 仍 hold";
 }
