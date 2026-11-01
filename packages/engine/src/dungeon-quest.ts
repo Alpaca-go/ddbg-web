@@ -148,7 +148,7 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
   }
   if (quest.xpKind === "flat") {
     if (!d.bossQuestVictory) {
-      return refuse("须击败 Boss 后方可生成定额 XP 摘要（R-122）；最暗 p016–p018 击败判定仍 hold");
+      return refuse("须确认目标 Boss 全部击败后方可生成定额 XP 摘要（R-122）");
     }
     if (quest.flatXp !== 3) {
       return refuse("Boss 定额 XP 与 R-122 不一致，待确认");
