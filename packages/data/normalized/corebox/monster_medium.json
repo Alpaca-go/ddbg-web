@@ -67509,7 +67509,33 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{damage}+3vs{mark},2{bleed}3t,",
+       "{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "damageBonus",
+        "condition": "marked",
+        "amount": 3
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "bleed",
+        "duration": 3,
+        "amount": 2
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     },
     {
      "slot": 2,

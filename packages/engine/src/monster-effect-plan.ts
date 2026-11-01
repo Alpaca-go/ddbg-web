@@ -56,8 +56,9 @@ export function compileMonsterEffectPlan(
     })
     .join("");
   if (
-    signatures.length !== 1 ||
-    signatures[0]!
+    signatures.length === 0 ||
+    signatures
+      .join("")
       .replace(/,/g, "")
       .replace(/PitToss/g, "") // Templar Body Slam · boss_ability:p028 几何 B hold，印刷文字仅签名守门
       .replace(/\{summon\}/g, "") // Echoing Disassembly / Necromancer 等 · summon 几何 hold，图标仅签名守门
