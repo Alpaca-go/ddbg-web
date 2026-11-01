@@ -19,6 +19,7 @@ import {
 } from "./darkest-ordinary-monster-deploy";
 import { questMonsterDeploymentHold } from "./quest-monster-deployment";
 import { prepareQuestMonsterDeployment } from "./quest-monster-spawn";
+import { threatIsRealNoL1LairSkipSpawn } from "./threat-is-real-no-l1-lair";
 
 /** R10、R16–17：完整 Common + Ruins（1..DL 累加）一次洗牌，真实抽牌后记录部署，不筛掉缺战斗字段的卡。 */
 export function prepareDungeonMonsters(state: GameState): ApplyResult {
@@ -98,7 +99,9 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
   }
   const threatDeck = firstBattleThreatDeck(d, deck);
   if (threatDeck.status === "refused") return refuse(threatDeck.reason);
-  const spawned = spawnMonsters(threatDeck.deck, deployment.monsters);
+  const spawned = spawnMonsters(threatDeck.deck, deployment.monsters, {
+    skipSpawn: threatIsRealNoL1LairSkipSpawn(d, room, pool.cards),
+  });
   if (spawned.type === "refused") return refuse(spawned.reason);
   if (spawned.monsters.reduce((n, m) => n + m.stanceSlots, 0) !== 4)
     return refuse("牌堆未填满四姿态，不提交半场部署");

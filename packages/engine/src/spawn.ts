@@ -14,7 +14,11 @@ export type SpawnPlacement = SpawnCard & { readonly stance: SkillStance; readonl
 export function spawnMonsters(
   deck: readonly SpawnCard[],
   starts: Readonly<Record<SkillStance, string>>,
-  options?: { readonly allowUnverified?: boolean },
+  options?: {
+    readonly allowUnverified?: boolean;
+    /** 为 true 时消耗牌序但不落位（实例进入 remaining，R-048 守恒）。 */
+    readonly skipSpawn?: (card: SpawnCard) => boolean;
+  },
 ):
   | { type: "refused"; reason: string }
   | {
@@ -41,6 +45,7 @@ export function spawnMonsters(
     return { type: "refused", reason: "生成需要唯一实例、已核实前后排 / 占格和起点（R-048）" };
   let placed: { card: SpawnCard; position: number }[] = [];
   const discarded: SpawnCard[] = [];
+  const skippedCards: SpawnCard[] = [];
   let drawn = 0;
   const occupied = () =>
     new Set(
@@ -63,9 +68,14 @@ export function spawnMonsters(
       ? position
       : undefined;
   };
+  const skipSpawn = options?.skipSpawn;
   for (const card of deck) {
     if (occupied().size === 4) break;
     drawn++;
+    if (skipSpawn?.(card)) {
+      skippedCards.push(card);
+      continue;
+    }
     let position = destination(card);
     if (position === undefined && card.stanceSlots === 2) {
       const lastSmall = placed.map((entry) => entry.card.stanceSlots).lastIndexOf(1);
@@ -98,7 +108,7 @@ export function spawnMonsters(
       areaId: starts[STANCES[entry.position]!],
     })),
     discarded,
-    remaining: deck.slice(drawn),
+    remaining: [...skippedCards, ...deck.slice(drawn)],
     drawn,
   };
 }
