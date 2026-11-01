@@ -2,6 +2,7 @@ import { expect, it } from "vitest";
 import { applyCommand, type GameState } from "../command";
 import { readFinalFormSequence } from "./final-form-sequence";
 import { finalPreparationFixture } from "../test-helpers/final-preparation";
+import { savedCommandSchema } from "../../../data/src/quest-save";
 
 function prepared(questId: "quest:p016" | "quest:p017" | "quest:p018" = "quest:p016") {
   const base = finalPreparationFixture(questId);
@@ -24,6 +25,32 @@ function started(game: GameState) {
   expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
   return result.state;
 }
+it("部署并开始：与显式两命令状态一致，旧存档仍按旧入口，不重置 RNG", () => {
+  const base = prepared();
+  const { battle: _battle, ...without } = base;
+  void _battle;
+  const state: GameState = {
+    ...without,
+    dungeon: {
+      ...base.dungeon!,
+      finalFormSequence: { ...base.dungeon!.finalFormSequence!, status: "awaitingDeployment" },
+    },
+  };
+  const command = { type: "deployFinalBattleForm", startBattle: true } as const;
+  expect(savedCommandSchema.parse(command)).toEqual(command);
+  expect(savedCommandSchema.parse({ type: "deployFinalBattleForm" })).toEqual({
+    type: "deployFinalBattleForm",
+  });
+  expect(
+    savedCommandSchema.safeParse({ type: "deployFinalBattleForm", startBattle: false }).success,
+  ).toBe(false);
+  const two = started(applyCommand(state, { type: "deployFinalBattleForm" }).state);
+  const one = applyCommand(state, command);
+  expect(one.events.some((e) => e.type === "commandRefused")).toBe(false);
+  expect(one.state).toEqual(two);
+  expect(applyCommand(state, command)).toEqual(one);
+  expect(one.state.battle!.rngCursor).toBeGreaterThan(state.dungeon!.cursor);
+});
 
 it("部署后 startBattle 重洗先攻并进入第 1 轮 awaitingInitiative", () => {
   const game = prepared("quest:p016");

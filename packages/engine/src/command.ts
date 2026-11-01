@@ -1,5 +1,9 @@
 import { resolveExcavation } from "./darkest-excavation";
-import { prepareFinalBattleForms, finishFinalBattleForm, finalBattleCombatActive } from "./boss/final-form-sequence";
+import {
+  prepareFinalBattleForms,
+  finishFinalBattleForm,
+  finalBattleCombatActive,
+} from "./boss/final-form-sequence";
 import { deployFinalBattleForm } from "./boss/final-battle-deploy";
 import { deployDarkestMidBoss } from "./boss/darkest-mid-boss-deploy";
 import { deployDarkestOrdinaryEncounter } from "./darkest-ordinary-encounter-deploy";
@@ -247,7 +251,7 @@ type BaseCommand =
   | { readonly type: "beginFinalPreparation" }
   | { readonly type: "beginFinalBattleProvisions" }
   | { readonly type: "prepareFinalBattleForms" }
-  | { readonly type: "deployFinalBattleForm" }
+  | { readonly type: "deployFinalBattleForm"; readonly startBattle?: true }
   | { readonly type: "deployDarkestMidBoss" }
   | { readonly type: "deployDarkestOrdinaryEncounter" }
   | { readonly type: "offerNextQuest" }
@@ -857,9 +861,18 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
 /** 任一后续规则拒绝时，整次命令回滚骰子、行动和事件。 */
 export function applyCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "prepareFinalBattleForms") return prepareFinalBattleForms(state);
-  if (command.type === "deployFinalBattleForm") return deployFinalBattleForm(state);
+  if (command.type === "deployFinalBattleForm") {
+    const deployed = deployFinalBattleForm(state);
+    if (!command.startBattle || deployed.events.some((e) => e.type === "commandRefused"))
+      return deployed;
+    const started = applyEncounterCommand(deployed.state, { type: "startBattle" });
+    if (started.events.some((e) => e.type === "commandRefused"))
+      return { state, events: started.events };
+    return { ...started, events: [...deployed.events, ...started.events] };
+  }
   if (command.type === "deployDarkestMidBoss") return deployDarkestMidBoss(state);
-  if (command.type === "deployDarkestOrdinaryEncounter") return deployDarkestOrdinaryEncounter(state);
+  if (command.type === "deployDarkestOrdinaryEncounter")
+    return deployDarkestOrdinaryEncounter(state);
   if (
     state.dungeon?.finalFormSequence?.status === "fighting" &&
     state.battle &&
