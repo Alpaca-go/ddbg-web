@@ -1,5 +1,9 @@
 import { isPyreCard, playPyreSkill } from "./boss/pyre-skill";
-import { isCollectedVestalCard, playCollectedVestalSkill } from "./boss/collected-vestal";
+import {
+  isCollectedVestalCard,
+  isBoneBearerRally,
+  playCollectedVestalSkill,
+} from "./boss/collected-vestal";
 import { playWhiteCellReconstitute } from "./boss/white-cell-stalk";
 import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { isInvokingMonster } from "./battle-invocation";
@@ -164,7 +168,10 @@ export function playMonsterSkill(
     return playWhiteCellReconstitute(state, command.actorId, command.targetId, command.skillSlot);
   if (isPyreCard(actor?.monsterCardId))
     return playPyreSkill(state, command.actorId, command.targetId, command.skillSlot);
-  if (isCollectedVestalCard(actor?.monsterCardId))
+  if (
+    isCollectedVestalCard(actor?.monsterCardId) ||
+    isBoneBearerRally(actor?.monsterCardId, command.skillSlot)
+  )
     return playCollectedVestalSkill(state, command.actorId, command.targetId, command.skillSlot);
   const card = battle.monsters?.find((entry) => entry.id === actor?.monsterCardId);
   if (!actor || actor.side !== "monster" || actor.dead || !card)
@@ -261,7 +268,13 @@ export function playMonsterSkill(
       pendingChoice: choice,
     };
   }
-  const roll = resume ? resume.roll! : nextBattleRoll(state.seed, battle.rngCursor);
+  // R19 Note：已核实 Wicked Surge 无 Acc，不消费攻击骰。
+  const noAttackRoll = card.id === "monster_medium:p016" && command.skillSlot === 1;
+  const roll = noAttackRoll
+    ? 1
+    : resume
+      ? resume.roll!
+      : nextBattleRoll(state.seed, battle.rngCursor);
   const current = resume ? state.battle! : battle;
   const effectCombat = resume ? afterMonsterOwnCombat(combat, current) : combat;
   let result = resolveMonsterSkill(card, command.skillSlot, effectCombat, roll);
@@ -269,7 +282,7 @@ export function playMonsterSkill(
   let effects = resolveMonsterSkillEffects(card, command.skillSlot, effectCombat, roll);
   if (effects.status === "refused") return rejectBattleCommand(state, effects.reason);
   if (!resume) {
-    const own = beginSkillOwnEffects(state, command, roll, effects);
+    const own = beginSkillOwnEffects(state, command, noAttackRoll ? null : roll, effects);
     if (own) return own;
   }
   if (current.trinketRuntime) {
@@ -303,7 +316,7 @@ export function playMonsterSkill(
     entities,
     { ...effects, healthEffects: damageStoneHealthEffects(resume, effects.healthEffects) },
     state.seed,
-    current.rngCursor + Number(!resume),
+    current.rngCursor + Number(!resume && !noAttackRoll),
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
   const pressure = beforeTargetShuffle(state, current, health, [result.resolution]);
@@ -327,7 +340,7 @@ export function playMonsterSkill(
     message: "已选怪物攻击已结算",
     actorId: actor.id,
     skillSlot: command.skillSlot,
-    roll,
+    roll: noAttackRoll ? null : roll,
     actorDead: result.actorDead,
     resolution: result.resolution,
   };

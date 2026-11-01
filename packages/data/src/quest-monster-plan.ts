@@ -9,7 +9,7 @@ export type QuestMonsterPlan = {
   readonly lifeBonus: number;
   readonly dodgeBonus: number;
   readonly source: { readonly file: string; readonly page: number };
-  readonly combatReady: false;
+  readonly combatReady: boolean;
 };
 
 /** QUEST p9/p13 明文生成要求；不推断额外生成/替换、牌堆去向或部署顺序。 */
@@ -37,6 +37,6 @@ export function readQuestMonsterPlan(
     lifeBonus: bearer ? 0 : 20,
     dodgeBonus: bearer ? 0 : 2,
     source: { file: card.source.front, page: card.source.page },
-    combatReady: false,
+    combatReady: true,
   };
 }

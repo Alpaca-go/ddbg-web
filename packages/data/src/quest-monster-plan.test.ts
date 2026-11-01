@@ -11,7 +11,7 @@ it("读取跨级指定怪物和任务属性加成，保留卡面未指定等级�
     lifeBonus: 0,
     dodgeBonus: 0,
     source: { page: 9 },
-    combatReady: false,
+    combatReady: true,
   });
   expect(readQuestMonsterPlan(file, "quest:p013")).toMatchObject({
     monsterName: "Bone Captain",
@@ -19,7 +19,7 @@ it("读取跨级指定怪物和任务属性加成，保留卡面未指定等级�
     lifeBonus: 20,
     dodgeBonus: 2,
     source: { page: 13 },
-    combatReady: false,
+    combatReady: true,
   });
   expect(readQuestMonsterPlan(file, "quest:p005")).toBeUndefined();
   expect(readQuestMonsterPlan(file, "quest:p999")).toBeUndefined();

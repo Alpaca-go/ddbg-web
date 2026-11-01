@@ -42,6 +42,7 @@ import type { StatusEffect } from "./status";
 import { readBasicQuest } from "../../data/src/basic-quests";
 import { stagecoachWaitingTokens, recoveryBuildingLevel } from "./hamlet-buildings";
 import { ownedHeroSkills } from "./hero-loadout";
+import { isBoneBearerRally, boneBearerRallyProblem } from "./boss/collected-vestal";
 import { dungeonMonsterPoolThrough } from "./monster-pool-runtime";
 import {
   applyBossThreatAfterBattleToPool,
@@ -228,6 +229,11 @@ export function startDungeonBattle(state: GameState): ApplyResult {
     )
       return refuse(`${card.name} 缺少获批抗性栏，不能猜Shuffle防御（R-048）`);
     for (const skill of card.skills) {
+      if (isBoneBearerRally(card.id, skill.slot)) {
+        const problem = boneBearerRallyProblem(card);
+        if (problem) return refuse(problem);
+        continue;
+      }
       const self = readMonsterSelfStatuses(card, skill.slot);
       if (self.status === "refused") return refuse(`${card.name}：${self.reason}`);
       if (self.status === "ready") {
@@ -312,7 +318,10 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       heroStats: stats,
       entities: [...heroes, ...entities],
       skills,
-      monsters,
+      monsters: monsters.map((card) => {
+        const bonus = readQuestMonsterStatBonuses(d, card.id);
+        return bonus?.lifeBonus ? { ...card, life: card.life + bonus.lifeBonus } : card;
+      }),
       areas: roomTileBattleAreas(tile),
       light: d.explorationSetup.light,
       provisions: d.explorationSetup.provisions,
@@ -655,12 +664,16 @@ function partitionsValid(d: DungeonState): boolean {
     !(rooms.discard ?? []).some((id) => aside.includes(id)) &&
     ids.length === expectedCount &&
     new Set(ids).size === expectedCount &&
-    ids.every((id) => catalog.some((c) => c.instanceId === id)) &&
-    pool.active.monsters.every((m) =>
-      catalog.some(
-        (c) =>
-          c.instanceId === m.instanceId && c.cardId === m.cardId && c.stanceSlots === m.stanceSlots,
-      ),
+    ids.every((id) => outside.includes(id) || catalog.some((c) => c.instanceId === id)) &&
+    pool.active.monsters.every(
+      (m) =>
+        outside.includes(m.instanceId) ||
+        catalog.some(
+          (c) =>
+            c.instanceId === m.instanceId &&
+            c.cardId === m.cardId &&
+            c.stanceSlots === m.stanceSlots,
+        ),
     ) &&
     roomIds.length === 9 &&
     new Set(roomIds).size === 9 &&

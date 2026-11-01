@@ -12,6 +12,27 @@ const entries: readonly {
   signature: string | readonly string[];
   effects: MonsterEffectPlan["effects"];
 }[] = [
+  {
+    id: "monster_medium:p016",
+    name: "Bone Bearer",
+    level: 3,
+    pages: [16, 17],
+    slot: 1,
+    signature: "{target_effects}{debuff}2t,{stress}+1",
+    effects: [
+      { type: "status", scope: "target", kind: "debuff", duration: 2 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
+  {
+    id: "monster_medium:p016",
+    name: "Bone Bearer",
+    level: 3,
+    pages: [16, 17],
+    slot: 2,
+    signature: "{self_effects}Self{shuffle}Push1",
+    effects: [{ type: "shuffle", scope: "self", direction: "push", distance: 1 }],
+  },
   // R-140：仅此招将原始 shuffle_resist + Pull 2 裁定为目标 Pull2。
   {
     id: "monster_medium:p066",

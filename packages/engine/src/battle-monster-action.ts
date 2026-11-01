@@ -1,4 +1,4 @@
-import { isCollectedVestalCard } from "./boss/collected-vestal";
+import { isCollectedVestalCard, isBoneBearerRally } from "./boss/collected-vestal";
 import { isInvokingMonster, moveInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
@@ -193,7 +193,7 @@ export function prepareMonsterAction(
       ],
     );
   }
-  const support = isCollectedVestalCard(card.id);
+  const support = isCollectedVestalCard(card.id) || isBoneBearerRally(card.id, selected.skillSlot);
   const heroes: MonsterTargetHero[] = [];
   for (const hero of battle.entities.filter(
     (entry) => entry.side === (support ? "monster" : "hero") && !entry.dead,

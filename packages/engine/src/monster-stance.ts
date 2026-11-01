@@ -2,7 +2,9 @@ import type { SkillStance } from "./hero-skill";
 
 export type MonsterStanceGroup = {
   readonly stances: readonly SkillStance[];
+  readonly unavailable?: true;
 } & (
+  | { readonly unavailable: true; readonly skill?: never; readonly rollTable?: never }
   | { readonly skill: number; readonly rollTable?: never }
   | {
       readonly skill?: never;
@@ -66,6 +68,11 @@ export function selectMonsterSkill(
     )
       return refused("姿态分组必须相邻且不能重复（R-015）");
     group.stances.forEach((stance) => seen.add(stance));
+    if (group.unavailable === true) {
+      if (group.skill !== undefined || group.rollTable !== undefined)
+        return refused("不可选姿态不得同时指定技能或骰表");
+      continue;
+    }
     if (group.skill !== undefined) {
       if (group.rollTable !== undefined || !skillExists(group.skill))
         return refused("固定选招必须只引用一个卡上唯一存在的技能");
@@ -93,8 +100,9 @@ export function selectMonsterSkill(
   if (seen.size !== 4) return refused("姿态分组必须完整覆盖四种姿态（R-048）");
   const stance = stances[occupied[0]!]!;
   const group = groups.find((entry) => entry.stances.includes(stance))!;
+  if (group.unavailable === true) return refused("当前印刷姿态没有可用技能（R-142）");
   if (group.skill !== undefined) return { status: "selected", skillSlot: group.skill, roll: null };
   if (roll === undefined) return { status: "needsRoll", stance };
-  const row = group.rollTable.find((entry) => roll >= entry.min && roll <= entry.max)!;
+  const row = group.rollTable!.find((entry) => roll >= entry.min && roll <= entry.max)!;
   return { status: "selected", skillSlot: row.skill, roll };
 }

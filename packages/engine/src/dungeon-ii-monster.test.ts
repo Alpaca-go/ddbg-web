@@ -3,9 +3,7 @@ import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../data/normalized/corebox/clear_the_path_distribution.json";
 import trinkets from "../../data/normalized/corebox/trinket.json";
 import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
-import {
-  RUINS_DL2_APPROVED_HIGHER_COMBAT_IDS,
-} from "../../data/src/normalize/ruins-pool-admission";
+import { RUINS_DL2_APPROVED_HIGHER_COMBAT_IDS } from "../../data/src/normalize/ruins-pool-admission";
 import { hasApprovedHigherMonsterFields } from "../../data/src/normalize/verified-monster-entry";
 import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
 import { coreParty, coreQuestSources as sources } from "./test-helpers/core-quest";
@@ -219,6 +217,7 @@ it("R-082/083 普通卡与 C-019 死灵法师 II 限定字段获批，其余 II/
       (
         [
           ...RUINS_DL2_APPROVED_HIGHER_COMBAT_IDS,
+          "monster_medium:p016",
           "monster_medium:p090", // C-019 Boss 战斗卡
           "monster_medium:p091",
           "monster_medium:p093",

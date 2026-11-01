@@ -3,6 +3,7 @@ import { z } from "zod";
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 const slot = z.int().min(1).max(3);
 const group = z.union([
+  z.strictObject({ stances: z.array(z.enum(stances)).min(1), unavailable: z.literal(true) }),
   z.strictObject({ stances: z.array(z.enum(stances)).min(1), skill: slot }),
   z.strictObject({
     stances: z.array(z.enum(stances)).min(1),
