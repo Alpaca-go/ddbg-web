@@ -262,7 +262,12 @@ function resolveMonsterSkillInternal(
         segment.icon.key === "damage" &&
         ["confirmed", "confirmed_rulebook"].includes(segment.icon.naming),
     ) &&
-    !(attack.necromancerSummon && skillSlot === 3)
+    !(attack.necromancerSummon && skillSlot === 3) &&
+    !(
+      monster.id === "monster_medium:p086" &&
+      skillSlot === 3 &&
+      matches[0]!.verified_monster_effects?.effects.every((e) => e.type === "stress")
+    )
   ) {
     return refused("当前怪物攻击需要已命名的 damage，支援与纯状态技能尚未接入（R-048）");
   }
