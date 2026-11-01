@@ -686,6 +686,19 @@ const entries: readonly {
     signature: "{target_effects}3{blight}2t",
     effects: [{ type: "status", scope: "target", kind: "blight", amount: 3, duration: 2 }],
   },
+  // A-01：`monster_large:p018` slot 2 Unmake Them All · FRONT p018（R-001 / R-048）。
+  {
+    id: "monster_large:p018",
+    name: "Ancestor 2",
+    level: 3,
+    pages: [18],
+    slot: 2,
+    signature: "{target_effects}2{bleed}4t,{stress}+1",
+    effects: [
+      { type: "status", scope: "target", kind: "bleed", amount: 2, duration: 4 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
 ];
 
 export function attachVerifiedMonsterEffects(
