@@ -13,6 +13,15 @@ const entries: readonly {
   effects: MonsterEffectPlan["effects"];
 }[] = [
   {
+    id: "monster_medium:p069",
+    name: "Rapturous Cultist",
+    level: 3,
+    pages: [69, 70, 71],
+    slot: 1,
+    signature: "{self_effects}Self{guard}1t",
+    effects: [{ type: "status", scope: "self", kind: "guard", duration: 1 }],
+  },
+  {
     id: "monster_medium:p066",
     name: "Ascended Witch",
     level: 3,

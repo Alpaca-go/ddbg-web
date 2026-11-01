@@ -36185,7 +36185,21 @@
         "text": " 1t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{guard}1t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "self",
+        "kind": "guard",
+        "duration": 1
+       }
+      ]
+     }
     },
     {
      "slot": 2,
