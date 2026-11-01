@@ -17,6 +17,22 @@ import {
 
 const IMPERFECT = IMPERFECT_REFLECTION_MONSTER_CARD_ID;
 const PERFECT = PERFECT_REFLECTION_MONSTER_CARD_ID;
+it("R31 Perfect Reflection 洗入当前剩余先攻，当轮可用且不变输入", () => {
+  const base = onAncestorTurn(ancestor1Fighting());
+  const state = {
+    ...base,
+    battle: {
+      ...base.battle!,
+      encounter: { ...base.battle!.encounter!, deck: ["hero" as const, "hero" as const] },
+    },
+  };
+  const before = structuredClone(state);
+  const result = applyAncestor1PerfectReplication(state, ancestor(state).id);
+  expect(result.state.battle!.encounter!.deck.filter((s) => s === "monster")).toHaveLength(1);
+  expect(result.state.battle!.rngCursor).toBe(state.battle.rngCursor + 1);
+  expect(applyAncestor1PerfectReplication(state, ancestor(state).id)).toEqual(result);
+  expect(state).toEqual(before);
+});
 
 function ancestor1Deployed(): GameState {
   const base = finalPreparationFixture("quest:p016");

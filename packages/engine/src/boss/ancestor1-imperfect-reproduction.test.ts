@@ -18,6 +18,23 @@ import {
 
 const IMPERFECT = IMPERFECT_REFLECTION_MONSTER_CARD_ID;
 const PERFECT = PERFECT_REFLECTION_MONSTER_CARD_ID;
+it("R31 Imperfect Reflection 洗入当前剩余先攻，原子拒绝不消耗 RNG", () => {
+  const base = onAncestorTurn(ancestor1Fighting());
+  const state = {
+    ...base,
+    battle: {
+      ...base.battle!,
+      encounter: { ...base.battle!.encounter!, deck: ["hero" as const, "hero" as const] },
+    },
+  };
+  const before = structuredClone(state);
+  const result = applyAncestor1ImperfectReproduction(state, ancestor(state).id);
+  expect(result.state.battle!.encounter!.deck.filter((s) => s === "monster")).toHaveLength(1);
+  expect(result.state.battle!.rngCursor).toBe(state.battle.rngCursor + 1);
+  const refused = applyAncestor1ImperfectReproduction(state, "wrong");
+  expect(refused.state).toBe(state);
+  expect(state).toEqual(before);
+});
 
 function ancestor1Deployed(): GameState {
   const base = finalPreparationFixture("quest:p016");
