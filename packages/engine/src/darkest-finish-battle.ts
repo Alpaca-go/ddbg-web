@@ -1,7 +1,6 @@
 import { darkestBossVictoryAfterEncounter } from "./boss/darkest-content";
 import { darkestMidBossCombatActive } from "./boss/darkest-mid-boss-deploy";
 import { isBossQuestId } from "./boss/quest-bridge";
-import { resolveEncounterBossScriptId } from "./boss/encounter-rules";
 import { clearedBossThreatScriptIdAfterVictory } from "./boss/threat-campaign";
 import { rejectBattleCommand } from "./battle";
 import { createLootState } from "./loot";
@@ -68,7 +67,11 @@ function finishOrdinaryDeck(
   const encounterIds = deployment.monsters.map((monster) => monster.instanceId);
   const remaining = [...(d.darkest!.monsterDeckRemaining ?? [])];
   const discarded = [...(d.darkest!.monsterDeckDiscarded ?? [])];
-  if (victory) return { monsterDeckRemaining: remaining, monsterDeckDiscarded: [...discarded, ...encounterIds] };
+  if (victory)
+    return {
+      monsterDeckRemaining: remaining,
+      monsterDeckDiscarded: [...discarded, ...encounterIds],
+    };
   return { monsterDeckRemaining: [...remaining, ...encounterIds], monsterDeckDiscarded: discarded };
 }
 
@@ -94,8 +97,7 @@ export function finishDarkestDungeonBattle(state: GameState): ApplyResult {
     loot.placed.length
   )
     return reject(state, "战斗尚未完成或仍有待选 / 全灭停点，不能回传奖励（R25、Q-52）");
-  if (wipedOut)
-    return reject(state, "最暗任务英雄全灭交接待确认，保持停点（R25、R-048）");
+  if (wipedOut) return reject(state, "最暗任务英雄全灭交接待确认，保持停点（R25、R-048）");
   if (
     !Number.isSafeInteger(b.rngCursor) ||
     b.rngCursor < d.cursor ||
@@ -112,7 +114,10 @@ export function finishDarkestDungeonBattle(state: GameState): ApplyResult {
     )
   )
     return reject(state, "战后英雄 / RNG 交接不一致，保持原状态");
-  if (turn.type === "finished" && b.entities.every((entity) => entity.side !== "hero" || entity.dead))
+  if (
+    turn.type === "finished" &&
+    b.entities.every((entity) => entity.side !== "hero" || entity.dead)
+  )
     return reject(state, "英雄全灭不能伪装成胜利或第四轮撤退；保持全灭停点（R25/R-068）");
   if (ordinary) {
     if (!darkestOrdinaryDeploymentMatches(d))
@@ -125,19 +130,17 @@ export function finishDarkestDungeonBattle(state: GameState): ApplyResult {
   }
   if (midBoss) {
     const deck = d.darkest!.monsterDeck;
-    if (deck.length !== 26 || new Set(deck).size !== 26) return reject(state, "最暗 26 张牌堆缺失，不能回传");
+    if (deck.length !== 26 || new Set(deck).size !== 26)
+      return reject(state, "最暗 26 张牌堆缺失，不能回传");
   }
 
   const victory = turn.type === "finished" && turn.outcome === "victory";
+  if (midBoss && victory && !darkestBossVictoryAfterEncounter(state))
+    return reject(state, "最暗目标 Boss 未全部确认击败，不能清理任务目标或记录胜利（R36 / R-122）");
   const questId = d.questDistribution?.questId;
   const clearedThreatId = clearedBossThreatScriptIdAfterVictory(state);
   const bossQuestVictory =
-    victory &&
-    questId &&
-    isBossQuestId(questId) &&
-    (clearedThreatId !== undefined ||
-      resolveEncounterBossScriptId(state) !== undefined ||
-      darkestBossVictoryAfterEncounter(state))
+    victory && questId && isBossQuestId(questId) && darkestBossVictoryAfterEncounter(state)
       ? (true as const)
       : undefined;
   const heroes = syncHeroesFromBattle(d, state);
