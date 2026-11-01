@@ -8,7 +8,7 @@ import {
 } from "./ancestor2-swift-teleportation";
 import { readFinalFormSequence } from "./final-form-sequence";
 
-/** `monster_large:p018` · boss_ability:p035 三招 Acc/Crit/伤害（效果线 hold 至 verified_monster_effects）。 */
+/** `monster_large:p018` · boss_ability:p035 三招 Acc/Crit/伤害（slot 2 效果线已 verified；其余 hold）。 */
 export const REFASHION_THEM_SKILL_SLOT = 1;
 export const UNMAKE_THEM_ALL_SKILL_SLOT = 2;
 export const EMBRACE_FUTILITY_SKILL_SLOT = 3;
@@ -120,6 +120,7 @@ function runAncestor2SkillAcc(
       },
     },
   };
+  const skillPlan = card.skills.find((entry) => entry.slot === skillSlot)?.verified_monster_effects;
   const played = playMonsterSkill(prepared, {
     type: "playMonsterSkill",
     actorId: actor.id,
@@ -127,12 +128,13 @@ function runAncestor2SkillAcc(
     targetId: targetPick.targetId,
   });
   if (played.events.some((event) => event.type === "commandRefused")) return played;
+  const effectNote = skillPlan ? "含 verified 效果线" : "效果线 hold";
   return {
     ...played,
     events: [
       {
         type: "dungeonUpdated",
-        message: `Ancestor 2 · ${skillLabel}：Acc 最小结算（slot ${skillSlot}；目标 ${targetPick.targetId}；效果线 hold；boss_ability:p035）`,
+        message: `Ancestor 2 · ${skillLabel}：Acc 最小结算（slot ${skillSlot}；目标 ${targetPick.targetId}；${effectNote}；boss_ability:p035）`,
       },
       ...played.events,
     ],

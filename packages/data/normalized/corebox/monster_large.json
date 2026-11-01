@@ -30766,7 +30766,27 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}2{bleed}4t,{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "bleed",
+        "duration": 4,
+        "amount": 2
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     },
     {
      "slot": 3,
