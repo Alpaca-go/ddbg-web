@@ -66,6 +66,41 @@ it("首形态部署进入 fighting 并登记 Boss 实体，不重复部署", () 
     applyCommand(game, { type: "deployFinalBattleForm" }),
   );
 });
+it("最终战接受可恢复原卡的铁匠临时升级，拒绝伪造拥有的升级", () => {
+  const deployed = prepared().state;
+  const { battle: _battle, ...without } = deployed;
+  void _battle;
+  const make = (originalSkillId: string): GameState => ({
+    ...without,
+    dungeon: {
+      ...deployed.dungeon!,
+      finalFormSequence: { ...deployed.dungeon!.finalFormSequence!, status: "awaitingDeployment" },
+      heroes: deployed.dungeon!.heroes.map((h, i) =>
+        i
+          ? h
+          : {
+              ...h,
+              skillIds: h.skillIds!.map((id) =>
+                id === "hero_skill:p001" ? "hero_skill:p003" : id,
+              ),
+              nextQuestSkillUpgrades: [{ originalSkillId, temporarySkillId: "hero_skill:p003" }],
+            },
+      ),
+    },
+  });
+  const accepted = applyCommand(make("hero_skill:p001"), {
+    type: "deployFinalBattleForm",
+    startBattle: true,
+  });
+  expect(accepted.events.some((e) => e.type === "commandRefused")).toBe(false);
+  expect(accepted.state.battle!.entities.find((e) => e.id === "hero-0")!.skillIds).toContain(
+    "hero_skill:p003",
+  );
+  const state = make("hero_skill:p004");
+  expect(applyCommand(state, { type: "deployFinalBattleForm", startBattle: true }).state).toBe(
+    state,
+  );
+});
 
 it("Ancestor 1 登记 Reflections 支援实体", () => {
   const game = prepared("quest:p016").state;

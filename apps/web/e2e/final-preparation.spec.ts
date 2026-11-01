@@ -93,9 +93,14 @@ test("最暗胜利后最后四天准备：不展示事件卡，不误入普通�
     0,
   );
   await expect(page.getByRole("button", { name: "掷最终战补给骰", exact: true })).toHaveCount(0);
-  await page.getByRole("button", { name: "部署当前形态（占位几何）", exact: true }).click();
-  await expect(page.getByText("Ancestor 1st Form", { exact: true })).toBeVisible();
-  await expect(page.getByText("战斗中。", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "部署并开始当前形态", exact: true }).click();
+  const deploymentEvents = await page.evaluate(async () => {
+    const moduleUrl = "/src/dungeon-sandbox/store.ts";
+    const { useDungeonStore } = await import(/* @vite-ignore */ moduleUrl);
+    return useDungeonStore.getState().events;
+  });
+  expect(deploymentEvents.filter((e: { type: string }) => e.type === "commandRefused")).toEqual([]);
+  await expect(page.getByRole("button", { name: "抽取先攻", exact: true })).toBeVisible();
   const result = await page.evaluate(async () => {
     const moduleUrl = "/src/dungeon-sandbox/store.ts";
     const { useDungeonStore } = await import(/* @vite-ignore */ moduleUrl);
@@ -108,6 +113,8 @@ test("最暗胜利后最后四天准备：不展示事件卡，不误入普通�
       phase: game.dungeon.phase,
       finalStatus: game.dungeon.finalFormSequence?.status,
       hasBattle: Boolean(game.battle),
+      initiative: game.battle?.encounter?.turn.type,
+      initiativeCards: game.battle?.encounter?.deck.length,
       skills: game.dungeon.heroes[0].skillIds,
       display: game.dungeon.trinkets.display,
       trinketDeck: game.dungeon.trinkets.deck.length,
@@ -124,6 +131,8 @@ test("最暗胜利后最后四天准备：不展示事件卡，不误入普通�
   expect(result.commands.filter((c: string) => c === "deployFinalBattleForm")).toHaveLength(1);
   expect(result.finalStatus).toBe("fighting");
   expect(result.hasBattle).toBe(true);
+  expect(result.initiative).toBe("awaitingInitiative");
+  expect(result.initiativeCards).toBeGreaterThan(0);
   expect(result.phase).toBe("inBattle");
   expect(errors).toEqual([]);
 });
