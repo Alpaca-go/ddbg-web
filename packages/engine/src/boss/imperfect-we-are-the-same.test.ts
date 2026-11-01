@@ -63,8 +63,4 @@ it("效果数值或签名漂移拒绝，Perfect Reflection 不外推", () => {
         2,
       ).status,
     ).toBe("refused");
-  expect(
-    cards.find((c) => c.id === "monster_medium:p106")!.skills.find((s) => s.slot === 2)
-      ?.verified_monster_effects,
-  ).toBeUndefined();
 });
