@@ -324,33 +324,43 @@ it("Speed Stone正面允许比原Speed多一格的合法路径", () => {
     paid = choose(open, "trinket:p010");
   expect(paid.state.battle!.entities[0]!.areaId).toBe(path.at(-1));
 });
-it.each(["trinket:p028", "trinket:p035"] as const)(
-  "%s反面在公开意志骰后降低美德机会，不重掷",
-  (id) => {
-    const initial = battle(["trinket:p027", id], "inverted", seedForRoll(2));
-    const state = {
-      ...initial,
-      battle: {
-        ...initial.battle,
-        light: 3,
-        entities: initial.battle.entities.map((h) => (h.id === "h0" ? { ...h, stress: 9 } : h)),
-      },
-    };
-    const open = use(state, "trinket:p027");
-    expect(open.pendingChoice?.options.some((o) => o.id === id)).toBe(true);
-    const paid = choose(open, id),
-      skip = choose(open, "continue");
-    expect(paid.events.find((e) => e.type === "resolveTested")!.roll).toBe(
-      skip.events.find((e) => e.type === "resolveTested")!.roll,
-    );
-    const card = (r: ApplyResult) =>
-      r.state.battle!.resolveCards!.find(
-        (c) => c.id === r.state.battle!.entities[0]!.resolveCardId,
-      )!.role;
-    expect(card(skip)).toBe("virtue");
-    expect(card(paid)).toBe("affliction");
-  },
-);
+it.each([
+  ["trinket:p028", false],
+  ["trinket:p035", false],
+  ["trinket:p028", true],
+  ["trinket:p035", true],
+] as const)("%s反面在公开意志骰后降低美德机会，legacy=%s，不重掷", (id, legacy) => {
+  const initial = battle(["trinket:p027", id], "inverted", seedForRoll(2));
+  const state = {
+    ...initial,
+    battle: {
+      ...initial.battle,
+      light: 3,
+      entities: initial.battle.entities.map((h) => (h.id === "h0" ? { ...h, stress: 9 } : h)),
+    },
+  };
+  const open = legacy
+    ? ok(
+        applyCommand(state, {
+          type: "useTrinket",
+          actorId: "h0",
+          cardId: "trinket:p027",
+          allTrinkets: true,
+        }),
+      )
+    : use(state, "trinket:p027");
+  expect(open.pendingChoice?.options.some((o) => o.id === id)).toBe(true);
+  const paid = choose(open, id),
+    skip = choose(open, "continue");
+  expect(paid.events.find((e) => e.type === "resolveTested")!.roll).toBe(
+    skip.events.find((e) => e.type === "resolveTested")!.roll,
+  );
+  const card = (r: ApplyResult) =>
+    r.state.battle!.resolveCards!.find((c) => c.id === r.state.battle!.entities[0]!.resolveCardId)!
+      .role;
+  expect(card(skip)).toBe("virtue");
+  expect(card(paid)).toBe("affliction");
+});
 function exploreScene(
   id: CoreTrinketId,
   face: "upright" | "inverted",

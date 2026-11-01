@@ -354,7 +354,9 @@ it("仍 hold 的反面拒绝 useTrinket，不提供虚假翻面", () => {
     const s = ready(id, "inverted");
     expect(use(s, id).state).toEqual(s);
     expect(use(s, id).events[0]!.type).toBe("commandRefused");
-    expect(freeTrinketUseProblem(s, "h0", id)).toContain("尚未接通");
+    expect(freeTrinketUseProblem(s, "h0", id)).toContain(
+      id === "trinket:p028" || id === "trinket:p035" ? "意志骰结果确定前" : "尚未接通",
+    );
   }
 });
 it("Cleansing Crystal 反面旧命令复用 core 怪癖路径，确定性与缺池拒绝一致", () => {
