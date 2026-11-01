@@ -131,15 +131,26 @@ it("heartOfDarkness 形态 combatReady 仍为 false", () => {
   expect(readFinalFormSequence(heartOfDarknessDeployed())!.current!.combatReady).toBe(false);
 });
 
-it("Know This · Crowded 选最拥挤区英雄", () => {
+it("Know This · Crowded 选最拥挤区英雄 · 命中 +3 压力与光照 −1", () => {
   const fighting = heartOfDarknessFighting();
   const heroes = fighting.battle!.entities.filter((entity) => entity.side === "hero");
+  const card = fighting.dungeon!.battleCatalog!.monsters.find(
+    (entry) => entry.id === HEART_OF_DARKNESS_MONSTER_CARD_ID,
+  )!;
+  expect(
+    card.skills.find((skill) => skill.slot === KNOW_THIS_SKILL_SLOT)?.verified_monster_effects?.effects,
+  ).toEqual([
+    { type: "stress", scope: "target", amount: 3 },
+    { type: "light", scope: "target", amount: -1 },
+  ]);
+
+  let cursor = 0;
+  while (nextBattleRoll(fighting.seed, cursor) !== 5) cursor += 1;
   const crowdedArea = HERO_SUPPORT;
   const patch = Object.fromEntries(
     heroes.map((hero, index) => [hero.id, index < 2 ? crowdedArea : HERO_RANGED]),
   );
-  const game = onHeartTurn(withHeroAreas(fighting, patch));
-  const card = game.battle!.monsters!.find((entry) => entry.id === HEART_OF_DARKNESS_MONSTER_CARD_ID)!;
+  let game = onHeartTurn(withHeroAreas(fighting, patch));
   const rows = heroTargetRows(game);
   const picked = selectMonsterTarget(
     {
@@ -168,14 +179,95 @@ it("Know This · Crowded 选最拥挤区英雄", () => {
       (entity) => entity.side === "hero" && entity.areaId === crowdedArea,
     ).length,
   ).toBe(2);
+  const crowdedHeroes = game.battle!.entities.filter(
+    (entity) => entity.side === "hero" && entity.areaId === crowdedArea,
+  );
+  const stressBefore = Object.fromEntries(crowdedHeroes.map((hero) => [hero.id, hero.stress ?? 0]));
+  game = {
+    ...game,
+    battle: {
+      ...game.battle!,
+      rngCursor: cursor,
+      light: 5,
+      entities: game.battle!.entities.map((entity) =>
+        crowdedHeroes.some((hero) => hero.id === entity.id)
+          ? { ...entity, dodge: 0, stress: stressBefore[entity.id]! }
+          : entity,
+      ),
+    },
+  };
 
   const result = applyHeartOfDarknessKnowThis(game, heart(game).id);
   expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
   expect(
+    result.events.some((event) => event.type === "monsterSkillTargetsResolved"),
+  ).toBe(true);
+  const skillEvent = result.events.find((event) => event.type === "monsterSkillTargetsResolved");
+  expect(skillEvent?.type).toBe("monsterSkillTargetsResolved");
+  if (skillEvent?.type === "monsterSkillTargetsResolved") {
+    expect(skillEvent.resolutions.every((resolution) => resolution.outcome === "hit")).toBe(true);
+    for (const resolution of skillEvent.resolutions) {
+      expect(resolution.targetStress).toBe(3);
+      expect(resolution.targetLightDelta).toBe(-1);
+    }
+  }
+  for (const hero of crowdedHeroes) {
+    expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress).toBe(
+      stressBefore[hero.id]! + 3,
+    );
+  }
+  expect(result.state.battle!.light).toBe(3);
+  expect(
     result.events.some(
-      (event) => event.type === "monsterSkillResolved" || event.type === "monsterSkillTargetsResolved",
+      (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
     ),
   ).toBe(true);
+});
+
+it("Know This · 落空无压力/光照", () => {
+  const fighting = heartOfDarknessFighting();
+  const heroes = fighting.battle!.entities.filter((entity) => entity.side === "hero");
+  let cursor = 0;
+  while (nextBattleRoll(fighting.seed, cursor) !== 10) cursor += 1;
+  const crowdedArea = HERO_SUPPORT;
+  const patch = Object.fromEntries(
+    heroes.map((hero, index) => [hero.id, index < 2 ? crowdedArea : HERO_RANGED]),
+  );
+  let game = onHeartTurn(withHeroAreas(fighting, patch));
+  const crowdedHeroes = game.battle!.entities.filter(
+    (entity) => entity.side === "hero" && entity.areaId === crowdedArea,
+  );
+  const stressBefore = Object.fromEntries(crowdedHeroes.map((hero) => [hero.id, hero.stress ?? 0]));
+  game = {
+    ...game,
+    battle: {
+      ...game.battle!,
+      rngCursor: cursor,
+      light: 5,
+      entities: game.battle!.entities.map((entity) =>
+        crowdedHeroes.some((hero) => hero.id === entity.id)
+          ? { ...entity, dodge: 30, stress: stressBefore[entity.id]! }
+          : entity,
+      ),
+    },
+  };
+
+  const result = applyHeartOfDarknessKnowThis(game, heart(game).id);
+  const skillEvent = result.events.find((event) => event.type === "monsterSkillTargetsResolved");
+  expect(skillEvent?.type).toBe("monsterSkillTargetsResolved");
+  if (skillEvent?.type === "monsterSkillTargetsResolved") {
+    expect(skillEvent.resolutions.every((resolution) => resolution.outcome === "miss")).toBe(true);
+    for (const resolution of skillEvent.resolutions) {
+      expect(resolution.targetStress).toBe(0);
+      expect(resolution.targetLightDelta ?? 0).toBe(0);
+    }
+  }
+  expect(result.state.battle!.light).toBe(5);
+  for (const hero of crowdedHeroes) {
+    expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress).toBe(
+      stressBefore[hero.id]!,
+    );
+  }
 });
 
 it("Puncture · Closest 须同区", () => {

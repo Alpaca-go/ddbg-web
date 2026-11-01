@@ -28,6 +28,7 @@ import { attachVerifiedMonsterSpeeds } from "./verified-monster-speeds";
 import { attachVerifiedLargeMonsterFields } from "./verified-large-monster-fields";
 import { attachVerifiedMonsterProtection } from "./verified-monster-protection";
 import { attachVerifiedMonsterEffects } from "./verified-monster-effects";
+import { attachVerifiedHeartOfDarknessSkillRanges } from "./verified-heart-of-darkness-ranges";
 import { attachVerifiedMonsterStress } from "./verified-monster-stress";
 import { attachVerifiedMonsterDamage } from "./verified-monster-damage";
 import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
@@ -476,7 +477,9 @@ function buildMonsterLarge(
     },
     stats: cardStats(cards),
     cards: attachVerifiedMonsterEffects(
-      attachVerifiedMonsterProtection(attachVerifiedLargeMonsterFields(cards), true),
+      attachVerifiedHeartOfDarknessSkillRanges(
+        attachVerifiedMonsterProtection(attachVerifiedLargeMonsterFields(cards), true),
+      ),
       true,
     ),
   });

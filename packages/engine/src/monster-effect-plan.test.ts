@@ -41,12 +41,19 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
         if (attack.status !== "ready") throw new Error(attack.reason);
         const range = readPrintedRange(attack.view),
           targets = readPrintedTargets(attack.view);
-        if (range.kind !== "exact" || targets.kind !== "exact") throw new Error("缺少射程 / 目标");
+        if (targets.kind !== "exact") throw new Error("缺少射程 / 目标");
+        const areaDistance =
+          range.kind === "exact"
+            ? range.distance
+            : range.kind === "interval"
+              ? range.min
+              : null;
+        if (areaDistance === null) throw new Error("缺少射程 / 目标");
         for (const roll of [1, 5, 10]) {
           const result = resolveMonsterSkill(
             card,
             skill.slot,
-            { ...combat, areaDistance: range.distance, targetsInArea: targets.max },
+            { ...combat, areaDistance, targetsInArea: targets.max },
             roll,
           );
           expect(result.status, `${card.id}/${skill.slot}/${roll}`).toBe("resolved");
@@ -54,7 +61,7 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
         }
         checked++;
       }
-    expect(checked).toBe(58); // 含 Fanatic I、Collector 等；排除 Collected Vestal 纯治疗；+ A-01 Warlord Stinger Shot / Revelation / Impaler Revelation / Mammoth Digestion / Bulging Gaze / Ancestor2 Unmake Them All。
+    expect(checked).toBe(59); // 含 Fanatic I、Collector 等；排除 Collected Vestal 纯治疗；+ A-01 Warlord Stinger Shot / Revelation / Impaler Revelation / Mammoth Digestion / Bulging Gaze / Ancestor2 Unmake Them All / HoD Know This。
     expect(cards).toEqual(before);
   });
   it("注解数值 / 范围或原始行漂移原子拒绝，不能靠更新签名放行", () => {

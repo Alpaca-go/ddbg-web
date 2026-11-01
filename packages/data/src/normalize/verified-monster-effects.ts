@@ -699,6 +699,19 @@ const entries: readonly {
       { type: "stress", scope: "target", amount: 1 },
     ],
   },
+  // A-01：`monster_large:p020` slot 1 Know This · FRONT p020（R-001 / R-048）。
+  {
+    id: "monster_large:p020",
+    name: "Heart of Darkness",
+    level: 3,
+    pages: [20],
+    slot: 1,
+    signature: "{target_effects}{stress}+3,{light}-1",
+    effects: [
+      { type: "stress", scope: "target", amount: 3 },
+      { type: "light", scope: "target", amount: -1 },
+    ],
+  },
 ];
 
 export function attachVerifiedMonsterEffects(
