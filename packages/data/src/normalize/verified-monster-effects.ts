@@ -13,6 +13,15 @@ const entries: readonly {
   effects: MonsterEffectPlan["effects"];
 }[] = [
   {
+    id: "monster_medium:p078",
+    name: "Flesh Hound",
+    level: 3,
+    pages: [78, 79],
+    slot: 1,
+    signature: "{target_effects}{stress}+1",
+    effects: [{ type: "stress", scope: "target", amount: 1 }],
+  },
+  {
     id: "monster_medium:p075",
     name: "Malignant Growth",
     level: 3,
