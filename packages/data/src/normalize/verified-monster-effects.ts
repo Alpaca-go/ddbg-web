@@ -713,6 +713,20 @@ const entries: readonly {
       { type: "stress", scope: "target", amount: 1 },
     ],
   },
+  // A-01：`monster_large:p018` slot 3 Embrace Futility · FRONT p018（R-001 / R-048）。
+  {
+    id: "monster_large:p018",
+    name: "Ancestor 2",
+    level: 3,
+    pages: [18],
+    slot: 3,
+    signature: "{target_effects}{debuff}2t,{stress}+2,{shuffle}Push2",
+    effects: [
+      { type: "status", scope: "target", kind: "debuff", duration: 2 },
+      { type: "stress", scope: "target", amount: 2 },
+      { type: "shuffle", scope: "target", direction: "push", distance: 2 },
+    ],
+  },
   // A-01：`monster_large:p020` slot 1 Know This · FRONT p020（R-001 / R-048）。
   {
     id: "monster_large:p020",

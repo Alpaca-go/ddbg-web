@@ -31111,7 +31111,32 @@
         "text": " Push 2"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{debuff}2t,{stress}+2,{shuffle}Push2"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "debuff",
+        "duration": 2
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 2
+       },
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "push",
+        "distance": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [

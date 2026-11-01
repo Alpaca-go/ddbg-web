@@ -372,14 +372,39 @@ it("Unmake Them All · 落空无流血/压力", () => {
   ).toBe(stressBefore);
 });
 
-it("Embrace Futility · Closest 0 须同区", () => {
+it("Embrace Futility · Closest 0 同区命中 · debuff 2t + 2 压力 + Push 2", () => {
   const fighting = ancestor2Fighting();
   const hero = fighting.battle!.entities.find((entity) => entity.side === "hero")!;
-  const game = onAncestorTurn(
+  const card = fighting.dungeon!.battleCatalog!.monsters.find(
+    (entry) => entry.id === ANCESTOR_2_MONSTER_CARD_ID,
+  )!;
+  expect(
+    card.skills.find((skill) => skill.slot === EMBRACE_FUTILITY_SKILL_SLOT)?.verified_monster_effects
+      ?.effects,
+  ).toEqual([
+    { type: "status", scope: "target", kind: "debuff", duration: 2 },
+    { type: "stress", scope: "target", amount: 2 },
+    { type: "shuffle", scope: "target", direction: "push", distance: 2 },
+  ]);
+
+  let cursor = 0;
+  while (nextBattleRoll(fighting.seed, cursor) !== 5) cursor += 1;
+  let game = onAncestorTurn(
     withHeroAreas(fighting, { [hero.id]: ancestor(fighting).areaId }),
   );
   const placed = game.battle!.entities.find((entity) => entity.id === hero.id)!;
   expect(distance(game.battle!.areas, ancestor(game).areaId, placed.areaId)).toBe(0);
+  const stressBefore = placed.stress ?? 0;
+  game = {
+    ...game,
+    battle: {
+      ...game.battle!,
+      rngCursor: cursor,
+      entities: game.battle!.entities.map((entity) =>
+        entity.id === hero.id ? { ...entity, dodge: 0, stress: stressBefore } : entity,
+      ),
+    },
+  };
 
   const result = applyAncestor2EmbraceFutility(game, ancestor(game).id);
   expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
@@ -387,7 +412,68 @@ it("Embrace Futility · Closest 0 须同区", () => {
   expect(skillEvent?.type).toBe("monsterSkillResolved");
   if (skillEvent?.type === "monsterSkillResolved") {
     expect(skillEvent.resolution.targetId).toBe(hero.id);
+    expect(skillEvent.resolution.outcome).toBe("hit");
+    expect(skillEvent.resolution.targetStatusEffects ?? []).toEqual([
+      { kind: "debuff", duration: 2 },
+    ]);
+    expect(skillEvent.resolution.targetStress).toBe(2);
+    expect(skillEvent.resolution.targetShuffle).toEqual({ direction: "push", distance: 2 });
   }
+  expect(
+    result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks,
+  ).toEqual([{ kind: "debuff", remaining: 2 }]);
+  expect(
+    result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress,
+  ).toBe(stressBefore + 2);
+  expect(result.state.battle!.shuffleIntents).toHaveLength(1);
+  expect(result.state.battle!.shuffleIntents[0]).toMatchObject({
+    entityId: hero.id,
+    move: { direction: "push", distance: 2 },
+  });
+  expect(
+    result.events.some(
+      (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
+    ),
+  ).toBe(true);
+});
+
+it("Embrace Futility · 落空无 debuff/压力/Push", () => {
+  const fighting = ancestor2Fighting();
+  const hero = fighting.battle!.entities.find((entity) => entity.side === "hero")!;
+  let cursor = 0;
+  while (nextBattleRoll(fighting.seed, cursor) !== 10) cursor += 1;
+  let game = onAncestorTurn(
+    withHeroAreas(fighting, { [hero.id]: ancestor(fighting).areaId }),
+  );
+  const stressBefore = hero.stress ?? 0;
+  game = {
+    ...game,
+    battle: {
+      ...game.battle!,
+      rngCursor: cursor,
+      entities: game.battle!.entities.map((entity) =>
+        entity.id === hero.id ? { ...entity, dodge: 30, stress: stressBefore } : entity,
+      ),
+    },
+  };
+
+  const result = applyAncestor2EmbraceFutility(game, ancestor(game).id);
+  expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+  const skillEvent = result.events.find((event) => event.type === "monsterSkillResolved");
+  expect(skillEvent?.type).toBe("monsterSkillResolved");
+  if (skillEvent?.type === "monsterSkillResolved") {
+    expect(skillEvent.resolution.outcome).toBe("miss");
+    expect(skillEvent.resolution.targetStatusEffects ?? []).toEqual([]);
+    expect(skillEvent.resolution.targetStress).toBe(0);
+    expect(skillEvent.resolution.targetShuffle ?? null).toBeNull();
+  }
+  expect(
+    result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks ?? [],
+  ).toEqual([]);
+  expect(
+    result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress,
+  ).toBe(stressBefore);
+  expect(result.state.battle!.shuffleIntents ?? []).toEqual([]);
 });
 
 it("Acc 失手：高 Dodge + 低骰可复现", () => {
@@ -484,15 +570,25 @@ it("回归：finishTurn 仍触发 Swift Teleportation 落骰", () => {
   const fighting = ancestor2Fighting();
   const hero = fighting.battle!.entities.find((entity) => entity.side === "hero")!;
   let cursor = 0;
-  while (nextBattleRoll(fighting.seed, cursor) === 10) cursor += 1;
+  while (nextBattleRoll(fighting.seed, cursor) !== 10) cursor += 1;
   const expectedDie = nextBattleRoll(fighting.seed, cursor + 1);
   let game = onAncestorTurn(
     withHeroAreas(fighting, { [hero.id]: ancestor(fighting).areaId }),
   );
-  game = { ...game, battle: { ...game.battle!, rngCursor: cursor } };
+  game = {
+    ...game,
+    battle: {
+      ...game.battle!,
+      rngCursor: cursor,
+      entities: game.battle!.entities.map((entity) =>
+        entity.id === hero.id ? { ...entity, dodge: 30 } : entity,
+      ),
+    },
+  };
   const before = ancestor(game);
   const result = applyAncestor2EmbraceFutility(game, ancestor(game).id);
   expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+  expect(result.state.battle!.shuffleIntents ?? []).toEqual([]);
   expect(result.state.battle!.encounter!.turn.type).not.toBe("monster");
   expect(result.state.battle!.rngCursor).toBeGreaterThanOrEqual(cursor + 2);
   if (expectedDie >= 1 && expectedDie <= 3) {
