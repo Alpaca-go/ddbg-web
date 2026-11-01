@@ -42072,7 +42072,28 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}3{blight}3t,{mark}2t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 3,
+        "amount": 3
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "mark",
+        "duration": 2
+       }
+      ]
+     }
     },
     {
      "slot": 2,
