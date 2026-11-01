@@ -64259,7 +64259,27 @@
         "text": " Push 2"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{debuff}2t,{shuffle}Push2"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "debuff",
+        "duration": 2
+       },
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "push",
+        "distance": 2
+       }
+      ]
+     }
     },
     {
      "slot": 3,

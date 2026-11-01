@@ -21,6 +21,39 @@ const combat = {
   light: 5,
 };
 describe("怪物复合效果原语（R20–21 / R27–28）", () => {
+  it("White Cell Displace 命中减益 2t / Push2，落空不施加效果；Teleport 保持未接", () => {
+    const card = byId("monster_medium:p104");
+    const context = { ...combat, areaDistance: 1 };
+    expect(card.skills.find((s) => s.slot === 2)?.verified_monster_effects?.effects).toEqual([
+      { type: "status", scope: "target", kind: "debuff", duration: 2 },
+      { type: "shuffle", scope: "target", direction: "push", distance: 2 },
+    ]);
+    expect(resolveMonsterSkill(card, 2, context, 5)).toMatchObject({
+      status: "resolved",
+      resolution: {
+        outcome: "hit",
+        targetStatusEffects: [{ kind: "debuff", duration: 2 }],
+        targetShuffle: { direction: "push", distance: 2 },
+        skipped: [],
+      },
+    });
+    expect(
+      resolveMonsterSkill(
+        card,
+        2,
+        {
+          ...context,
+          target: { ...combat.target, dodge: 30 },
+        },
+        10,
+      ),
+    ).toMatchObject({
+      status: "resolved",
+      resolution: { outcome: "miss", targetStatusEffects: [] },
+    });
+    expect(card.skills.find((s) => s.slot === 3)?.verified_monster_effects).toBeUndefined();
+    expect(resolveMonsterSkill(card, 2, { ...context, areaDistance: 2 }, 5).status).toBe("refused");
+  });
   it("所有有计划且不含疾病的真实 I/II 级攻击技能完整结算，原始数据保持不变", () => {
     const before = structuredClone(cards);
     let checked = 0;
@@ -32,7 +65,8 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
           skill.verified_monster_effects.effects.some((e) => e.type === "disease") ||
           skill.verified_monster_effects.effects.every(
             (e) =>
-              e.type === "heal" || (e.type === "status" && e.kind === "buff" && e.scope === "target"),
+              e.type === "heal" ||
+              (e.type === "status" && e.kind === "buff" && e.scope === "target"),
           )
         )
           continue;
@@ -43,11 +77,7 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
           targets = readPrintedTargets(attack.view);
         if (targets.kind !== "exact") throw new Error("缺少射程 / 目标");
         const areaDistance =
-          range.kind === "exact"
-            ? range.distance
-            : range.kind === "interval"
-              ? range.min
-              : null;
+          range.kind === "exact" ? range.distance : range.kind === "interval" ? range.min : null;
         if (areaDistance === null) throw new Error("缺少射程 / 目标");
         for (const roll of [1, 5, 10]) {
           const result = resolveMonsterSkill(
@@ -61,7 +91,7 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
         }
         checked++;
       }
-    expect(checked).toBe(66); // 含 Fanatic I、Collector 等；排除 Collected Vestal 纯治疗、Self 目标；+ A-01 Warlord Stinger Shot / Revelation / Impaler Body Slam / Revelation / Mammoth Digestion / Bulging Gaze / Ancestor2 Refashion Them / Unmake Them All / Embrace Futility / HoD Know This / HoD Puncture / HoD Dissolution / Shuffling Horror Lacerate / Echoing Disassembly。
+    expect(checked).toBe(67); // 含 Fanatic I、Collector 等；排除 Collected Vestal 纯治疗、Self 目标；+ A-01 Warlord Stinger Shot / Revelation / Impaler Body Slam / Revelation / Mammoth Digestion / Bulging Gaze / Ancestor2 Refashion Them / Unmake Them All / Embrace Futility / HoD Know This / HoD Puncture / HoD Dissolution / Shuffling Horror Lacerate / Echoing Disassembly。
     expect(cards).toEqual(before);
   });
   it("Mammoth Revivify · Self verified 效果 compile 就绪", () => {

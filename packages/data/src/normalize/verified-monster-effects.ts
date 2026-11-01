@@ -12,6 +12,19 @@ const entries: readonly {
   signature: string;
   effects: MonsterEffectPlan["effects"];
 }[] = [
+  // K-001：White Cell Stalk Displace · FRONT p104（R-001 / R-048）。
+  {
+    id: "monster_medium:p104",
+    name: "White Cell Stalk",
+    level: 3,
+    pages: [104],
+    slot: 2,
+    signature: "{target_effects}{debuff}2t,{shuffle}Push2",
+    effects: [
+      { type: "status", scope: "target", kind: "debuff", duration: 2 },
+      { type: "shuffle", scope: "target", direction: "push", distance: 2 },
+    ],
+  },
   // C-017：Fanatic I 三招；不含召唤图标。R20–21 / monster_large_FRONT p008。
   {
     id: "monster_large:p008",
