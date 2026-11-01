@@ -38992,7 +38992,22 @@
         "text": " 3t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}2{bleed}3t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "bleed",
+        "duration": 3,
+        "amount": 2
+       }
+      ]
+     }
     },
     {
      "slot": 2,
