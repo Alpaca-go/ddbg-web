@@ -138,6 +138,6 @@ describe("Prophet I Boss 脚本", () => {
       skillSlot: 2,
       purpose: "skill",
     });
-    expect(skillSummon.status).toBe("stub");
+    expect(skillSummon.status).toBe("notApplicable");
   });
 });

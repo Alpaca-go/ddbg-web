@@ -6,6 +6,7 @@ import type {
   BossRubbleOfRuinOk,
   BossScriptDefinition,
   BossSummonOk,
+  BossSummonResult,
   BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
   ProphetWoodenPewIndex,
@@ -128,10 +129,16 @@ export const prophetIBossScript: BossScriptDefinition = {
     faceTheThreatEmbark: defaultFaceTheThreatEmbarkHook,
     bossSlotPlacement: defaultBossSlotPlacementHook,
     monsterTurnActionCount: () => ({ status: "ok", value: 3 }),
-    summon: (ctx): BossSummonOk | { status: "stub"; message: string; hold?: string } => {
+    summon: (ctx): BossSummonResult => {
       if (ctx.purpose === "calamitousWoodenPew" && ctx.woodenPewIndex !== undefined) {
         return woodenPewSummon(ctx.woodenPewIndex);
       }
+      if (ctx.purpose === "skill" && [1, 2, 3].includes(ctx.skillSlot))
+        return {
+          status: "notApplicable",
+          message: "Prophet 的印刷技能不含召唤；Wooden Pew 走独立能力入口。",
+          rulesRef: ["R39", "monster_large:p005", "boss_ability:p010"],
+        };
       return {
         status: "stub",
         message: "Prophet I：怪物技能召唤未接",
