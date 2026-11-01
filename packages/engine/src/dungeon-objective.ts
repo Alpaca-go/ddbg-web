@@ -33,6 +33,19 @@ export function readObjectiveRecoveryActions(d: DungeonState): number | undefine
   return quest && "objectiveRecoveryActions" in quest ? quest.objectiveRecoveryActions : undefined;
 }
 
+export function readObjectiveRecoveryStepLabel(d: DungeonState): string {
+  const quest = readBasicQuest(d.questDistribution);
+  return quest && "objectiveRecoveryStepLabel" in quest
+    ? quest.objectiveRecoveryStepLabel
+    : "完成任务目标";
+}
+
+function objectiveRecoveryQuestRef(d: DungeonState): string {
+  const id = readBasicQuest(d.questDistribution)?.id;
+  const page = id?.match(/^quest:p0?(\d+)$/)?.[1];
+  return page ? `QUEST p${Number(page)}` : "任务卡 SPECIAL";
+}
+
 /** 出征旁置任务房间牌，随机遭遇堆只洗其余八张（R15、QUEST p4）。 */
 export function embarkSetAsideRoomCardId(questId: string): string | undefined {
   const quest = basicQuests.find((q) => q.id === questId);
@@ -158,20 +171,25 @@ export function beginDungeonObjectiveRoom(state: GameState): ApplyResult {
     return refuse(state, "需要未清理的目标房与有效停点（R15）");
   if (!recovery) return refuse(state, "该任务目标房拾取规则尚未接线；不能假定已清理（R-048）");
   if (!active || active.kind !== "objective" || active.roomId !== d.position || active.completed)
-    return refuse(state, "目标房须先赢得守卫战，再花费行动拾取任务目标（R15、QUEST p4）");
+    return refuse(
+      state,
+      `目标房须先赢得守卫战，再花费行动${readObjectiveRecoveryStepLabel(d)}（R15、${objectiveRecoveryQuestRef(d)}）`,
+    );
   const remaining = active.actionsRemaining ?? 0;
   if (remaining <= 0) return refuse(state, "目标拾取已完成或状态无效");
   const heroes = d.heroes.filter((h) => !h.dead);
   if (!heroes.length) return refuse(state, "没有存活英雄可拾取目标");
+  const step = readObjectiveRecoveryStepLabel(d);
+  const questRef = objectiveRecoveryQuestRef(d);
   const pending = {
     id: `dungeon-objective-recover:${d.decision}`,
-    prompt: `目标房 ${d.position}：选择 1 名英雄花费 1 行动拾取骨骸（剩余 ${remaining} / ${recovery}，QUEST p4）`,
+    prompt: `目标房 ${d.position}：选择 1 名英雄花费 1 行动${step}（剩余 ${remaining} / ${recovery}，${questRef}）`,
     options: heroes.map((h) => ({
       id: h.id,
-      label: `${h.id} 花费 1 行动拾取`,
+      label: `${h.id} 花费 1 行动${step}`,
     })),
   };
-  return finish(state, { ...d, decision: d.decision + 1, pending }, "等待英雄拾取任务目标");
+  return finish(state, { ...d, decision: d.decision + 1, pending }, "等待英雄完成任务目标");
 }
 
 export function chooseObjectiveRecovery(
@@ -197,13 +215,15 @@ export function chooseObjectiveRecovery(
   if (!hero || hero.dead) return refuse(state, "英雄无效或已死亡");
   const remaining = (active.actionsRemaining ?? 0) - 1;
   if (remaining < 0) return refuse(state, "目标拾取行动已用尽");
+  const step = readObjectiveRecoveryStepLabel(d);
+  const questRef = objectiveRecoveryQuestRef(d);
   if (remaining > 0) {
     const nextPending = {
       id: `dungeon-objective-recover:${d.decision}`,
-      prompt: `目标房 ${d.position}：再花费 1 行动拾取骨骸（剩余 ${remaining} / ${recovery}）`,
+      prompt: `目标房 ${d.position}：再花费 1 行动${step}（剩余 ${remaining} / ${recovery}，${questRef}）`,
       options: d.heroes
         .filter((h) => !h.dead)
-        .map((h) => ({ id: h.id, label: `${h.id} 花费 1 行动拾取` })),
+        .map((h) => ({ id: h.id, label: `${h.id} 花费 1 行动${step}` })),
     };
     return finish(
       state,
@@ -213,7 +233,7 @@ export function chooseObjectiveRecovery(
         pending: nextPending,
         roomResolution: { ...active, actionsRemaining: remaining },
       },
-      `${hero.id} 已花费 1 行动拾取骨骸（${recovery - remaining}/${recovery}）`,
+      `${hero.id} 已花费 1 行动${step}（${recovery - remaining}/${recovery}）`,
     );
   }
   return finish(
@@ -225,7 +245,7 @@ export function chooseObjectiveRecovery(
       roomResolution: { ...active, actionsRemaining: 0, completed: true },
       rooms: d.rooms.map((r) => (r.id === d.position ? { ...r, cleared: true } : r)),
     },
-    `${hero.id} 完成拾取，目标房 ${d.position} 已清理（QUEST p4）`,
+    `${hero.id} 完成${step}，目标房 ${d.position} 已清理（${questRef}）`,
   );
 }
 

@@ -87,6 +87,7 @@ export const basicQuests = [
     setAsideRoomCardId: "room:p007" as const,
     /** 任务卡 SPECIAL RULES：英雄须在区域内花费 2 行动拾取骨骸后目标房才算清理。 */
     objectiveRecoveryActions: 2 as const,
+    objectiveRecoveryStepLabel: "拾取骨骸" as const,
     distribution: roomDistributionSchema.parse(demBones),
   },
   {
@@ -155,6 +156,11 @@ export const basicQuests = [
     roomsPerXp: 1,
     maxRooms: 1,
     expeditionRegion: "ruins" as const,
+    /** QUEST p10：开局旁置 room 3（Healing Fountain），同 Dem Bones 旁置 room 7（R15、规格书 §5.1）。 */
+    setAsideRoomCardId: "room:p003" as const,
+    /** 任务卡 SPECIAL：须花费 2 行动净化喷泉后目标房才算清理（1×{icon:dd2d2467ec} 待图标确认，hold）。 */
+    objectiveRecoveryActions: 2 as const,
+    objectiveRecoveryStepLabel: "净化喷泉" as const,
     distribution: roomDistributionSchema.parse(purifyTheFountains),
   },
   {
