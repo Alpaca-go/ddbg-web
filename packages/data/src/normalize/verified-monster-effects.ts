@@ -650,6 +650,16 @@ const entries: readonly {
     signature: "{target_effects}{stress}+2",
     effects: [{ type: "stress", scope: "target", amount: 2 }],
   },
+  // A-01：`monster_large:p016` slot 2 Digestion · FRONT p016（R-001 / R-048）。
+  {
+    id: "monster_large:p016",
+    name: "Mammoth Cyst",
+    level: 3,
+    pages: [16],
+    slot: 2,
+    signature: "{target_effects}3{blight}2t",
+    effects: [{ type: "status", scope: "target", kind: "blight", amount: 3, duration: 2 }],
+  },
 ];
 
 export function attachVerifiedMonsterEffects(

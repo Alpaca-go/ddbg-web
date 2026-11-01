@@ -26922,7 +26922,22 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}3{blight}2t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 2,
+        "amount": 3
+       }
+      ]
+     }
     },
     {
      "slot": 3,
