@@ -2639,6 +2639,7 @@ function resolveSkill(
         shuffles.target === null &&
         statuses.lineCount === 0 &&
         !support &&
+        !extraStress &&
         !active.verified_rallying_flare
       ) {
         return refuse(skill, combat, "stats_line 没有已命名的 damage 或 heal");
@@ -2658,6 +2659,7 @@ function resolveSkill(
     shuffles.target === null &&
     statuses.target.length === 0 &&
     !support &&
+    !extraStress &&
     (shuffles.self === null || active.printed_labels.length === 0);
   const selfTarget =
     readsAsSelfTarget(active) ||

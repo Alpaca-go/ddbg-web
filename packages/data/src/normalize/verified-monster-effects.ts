@@ -13,6 +13,15 @@ const entries: readonly {
   effects: MonsterEffectPlan["effects"];
 }[] = [
   {
+    id: "monster_medium:p086",
+    name: "Defensive Growth",
+    level: 3,
+    pages: [86, 87, 88],
+    slot: 3,
+    signature: "{target_effects}{stress}+2",
+    effects: [{ type: "stress", scope: "target", amount: 2 }],
+  },
+  {
     id: "monster_medium:p083",
     name: "Antibody",
     level: 3,
