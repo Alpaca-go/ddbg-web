@@ -17,6 +17,18 @@ const entries: readonly {
     name: "Flesh Hound",
     level: 3,
     pages: [78, 79],
+    slot: 3,
+    signature: "{target_effects}{stun}1t,{shuffle}Pull2",
+    effects: [
+      { type: "status", scope: "target", kind: "stun", duration: 1 },
+      { type: "shuffle", scope: "target", direction: "pull", distance: 2 },
+    ],
+  },
+  {
+    id: "monster_medium:p078",
+    name: "Flesh Hound",
+    level: 3,
+    pages: [78, 79],
     slot: 2,
     signature: "{self_effects}Self{shuffle}Pull2",
     effects: [{ type: "shuffle", scope: "self", direction: "pull", distance: 2 }],
