@@ -17,6 +17,15 @@ const entries: readonly {
     name: "Polyp",
     level: 3,
     pages: [80, 81, 82],
+    slot: 2,
+    signature: "{self_effects}Self{shuffle}Push2",
+    effects: [{ type: "shuffle", scope: "self", direction: "push", distance: 2 }],
+  },
+  {
+    id: "monster_medium:p080",
+    name: "Polyp",
+    level: 3,
+    pages: [80, 81, 82],
     slot: 1,
     signature: "{target_effects}3{blight}3t,{mark}2t",
     effects: [
