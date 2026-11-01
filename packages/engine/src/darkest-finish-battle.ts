@@ -1,7 +1,6 @@
 import { darkestBossVictoryAfterEncounter } from "./boss/darkest-content";
 import { darkestMidBossCombatActive } from "./boss/darkest-mid-boss-deploy";
 import { isBossQuestId } from "./boss/quest-bridge";
-import { clearedBossThreatScriptIdAfterVictory } from "./boss/threat-campaign";
 import { rejectBattleCommand } from "./battle";
 import { createLootState } from "./loot";
 import { awaitDungeonRoomCurio } from "./dungeon-curio-room";
@@ -138,7 +137,6 @@ export function finishDarkestDungeonBattle(state: GameState): ApplyResult {
   if (midBoss && victory && !darkestBossVictoryAfterEncounter(state))
     return reject(state, "最暗目标 Boss 未全部确认击败，不能清理任务目标或记录胜利（R36 / R-122）");
   const questId = d.questDistribution?.questId;
-  const clearedThreatId = clearedBossThreatScriptIdAfterVictory(state);
   const bossQuestVictory =
     victory && questId && isBossQuestId(questId) && darkestBossVictoryAfterEncounter(state)
       ? (true as const)
