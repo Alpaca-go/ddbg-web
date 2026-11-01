@@ -391,6 +391,11 @@ export {
   SHUFFLING_HORROR_ECHOING_SUMMON_CARD_IDS,
 } from "./darkest-shuffling-horror-combat-runtime";
 export {
+  applyShufflingHorrorLacerate,
+  SHUFFLING_HORROR_LACERATE_SKILL_SLOT,
+  type ApplyShufflingHorrorLacerateCommand,
+} from "./darkest-shuffling-horror-skills-acc";
+export {
   applyMammothCystSummonWhiteCell,
   MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
   MAMMOTH_CYST_WHITE_CELL_SUMMON_CARD_ID,

@@ -231,6 +231,7 @@ function resolveMonsterSkillInternal(
     "monster_large:p014",
     "monster_large:p015",
     "monster_large:p016",
+    "monster_large:p017",
     "monster_large:p018",
     "monster_large:p020",
   ]);
