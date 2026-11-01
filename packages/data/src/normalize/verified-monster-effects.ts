@@ -13,6 +13,15 @@ const entries: readonly {
   effects: MonsterEffectPlan["effects"];
 }[] = [
   {
+    id: "monster_medium:p083",
+    name: "Antibody",
+    level: 3,
+    pages: [83, 84, 85],
+    slot: 1,
+    signature: "{target_effects}{stun}1t",
+    effects: [{ type: "status", scope: "target", kind: "stun", duration: 1 }],
+  },
+  {
     id: "monster_medium:p080",
     name: "Polyp",
     level: 3,
