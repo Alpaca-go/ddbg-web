@@ -3,6 +3,9 @@ import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../data/normalized/corebox/clear_the_path_distribution.json";
 import trinkets from "../../data/normalized/corebox/trinket.json";
 import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
+import {
+  RUINS_DL2_APPROVED_HIGHER_COMBAT_IDS,
+} from "../../data/src/normalize/ruins-pool-admission";
 import { hasApprovedHigherMonsterFields } from "../../data/src/normalize/verified-monster-entry";
 import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
 import { coreParty, coreQuestSources as sources } from "./test-helpers/core-quest";
@@ -213,14 +216,30 @@ it("R-082/083 普通卡与 C-019 死灵法师 II 限定字段获批，其余 II/
   }
   for (const card of sources.catalog.monsters.filter((c) => c.level > 1))
     expect(hasApprovedHigherMonsterFields(card), card.id).toBe(
-      [
-        spearman.id,
-        "monster_medium:p050",
-        "monster_medium:p053",
-        "monster_medium:p090", // C-019 Boss 战斗卡；不加入下方普通怪物池。
-        "monster_large:p001",
-        "monster_large:p003",
-      ].includes(card.id),
+      (
+        [
+          ...RUINS_DL2_APPROVED_HIGHER_COMBAT_IDS,
+          "monster_medium:p090", // C-019 Boss 战斗卡
+          "monster_medium:p091",
+          "monster_medium:p093",
+          "monster_medium:p094",
+          "monster_medium:p096",
+          "monster_medium:p097",
+          "monster_medium:p099",
+          "monster_medium:p100",
+          "monster_medium:p102",
+          "monster_medium:p103",
+          "monster_large:p006",
+          "monster_large:p007",
+          "monster_large:p008",
+          "monster_large:p009",
+          "monster_large:p010",
+          "monster_large:p011",
+          "monster_large:p012",
+          "monster_large:p013",
+          "monster_large:p018",
+        ] as readonly string[]
+      ).includes(card.id),
     );
   expect(
     sources.monsters.filter((c) => c.level === 2 && !c.missingBattleFields.length).map((c) => c.id),

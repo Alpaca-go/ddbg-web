@@ -5,6 +5,7 @@ import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import { coreQuestSources } from "./test-helpers/core-quest";
 import { naturalParty } from "./test-helpers/natural-quest";
+import { isSkillAdmissionRefusal } from "./dungeon-battle-admission";
 
 /** I 级战役出征池（`questsForCampaignLevel(1)` 非 Boss 子集）。 */
 const CAMPAIGN_L1_QUESTS: readonly BasicQuestId[] = [
@@ -19,19 +20,6 @@ const GUARDED_KINDS = ["treasure", "lair", "objective"] as const;
 type GuardedKind = (typeof GUARDED_KINDS)[number] | "curio";
 
 const SEEDS_PER_QUEST = 120;
-
-function isSkillAdmissionRefusal(message: string): boolean {
-  return (
-    message.includes("尚未接入") ||
-    message.includes("完整效果") ||
-    message.includes("完整战斗字段") ||
-    message.includes("技能射程") ||
-    message.includes("目标尚未完整接入") ||
-    message.includes("真实疾病技能需要完整疾病") ||
-    message.includes("怪物自身效果尚未接入") ||
-    message.includes("怪物完整效果尚未接入")
-  );
-}
 
 function guardedBattleFixture(
   questId: BasicQuestId,

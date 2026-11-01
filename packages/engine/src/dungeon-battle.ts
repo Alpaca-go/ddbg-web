@@ -213,6 +213,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       questSpawned &&
       questPlan!.printedMonsterLevel !== null &&
       card.level === questPlan!.printedMonsterLevel;
+    // C-008 / R-082–083：level>1 须 hasApprovedHigherMonsterFields；DL 累加牌堆内 II 已批五组见 ruins-pool-admission。
     if (
       card.level !== identity?.level ||
       (!allowPrintedLevel && card.level > d.explorationSetup.dungeonLevel) ||
