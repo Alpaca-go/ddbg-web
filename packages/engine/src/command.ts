@@ -6,6 +6,7 @@ import { deployDarkestOrdinaryEncounter } from "./darkest-ordinary-encounter-dep
 import { beginFinalPreparation, beginFinalBattleProvisions } from "./final-preparation";
 import { applyHigherRuinsHamlet, chooseHigherRuinsTheft } from "./boss/higher-ruins-hamlet";
 import { applyHigherRuinsBattleSpawn } from "./boss/higher-ruins-threat";
+import { applyCreepingDarknessUnholySpawnStress } from "./creeping-darkness-unholy-stress";
 import { useCoreTrinket } from "./core-trinket-free";
 import type { UseCoreTrinketCommand } from "./core-trinket-free";
 import { runTrinketCommand } from "./trinket-reactions";
@@ -917,9 +918,12 @@ function applyCommandCore(state: GameState, command: Command): ApplyResult {
     return command.type === "resolveChoice"
       ? chooseReplacementPreparation(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先完成替补英雄准备（R31）");
-  const dispatched = applyHigherRuinsBattleSpawn(
+  const dispatched = applyCreepingDarknessUnholySpawnStress(
     state,
-    applyHigherRuinsHamlet(state, command, dispatchCommand(state, command)),
+    applyHigherRuinsBattleSpawn(
+      state,
+      applyHigherRuinsHamlet(state, command, dispatchCommand(state, command)),
+    ),
   );
   const result = dispatched.events.some((e) => e.type === "commandRefused")
     ? dispatched
