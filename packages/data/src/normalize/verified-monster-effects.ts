@@ -13,6 +13,23 @@ const entries: readonly {
   effects: MonsterEffectPlan["effects"];
 }[] = [
   {
+    id: "monster_medium:p063",
+    name: "Ascended Brawler",
+    level: 3,
+    pages: [63, 64, 65],
+    slot: 1,
+    signature: [
+      "{self_effects}Self{shuffle}Pull1{target_effects}2{bleed}3t,{debuff}1t,",
+      "{damage}+3vs{mark}",
+    ],
+    effects: [
+      { type: "shuffle", scope: "self", direction: "pull", distance: 1 },
+      { type: "status", scope: "target", kind: "bleed", duration: 3, amount: 2 },
+      { type: "status", scope: "target", kind: "debuff", duration: 1 },
+      { type: "damageBonus", condition: "marked", amount: 3 },
+    ],
+  },
+  {
     id: "monster_large:p001",
     name: "Bone Captain",
     level: 2,
