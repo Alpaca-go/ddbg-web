@@ -10,9 +10,10 @@ const quests = ["quest:p016", "quest:p017", "quest:p018"] as const;
 
 function ok(game: GameState, command: Parameters<typeof applyCommand>[1]) {
   const result = applyCommand(game, command);
-  expect(result.events.some((e) => e.type === "commandRefused"), JSON.stringify(result.events)).toBe(
-    false,
-  );
+  expect(
+    result.events.some((e) => e.type === "commandRefused"),
+    JSON.stringify(result.events),
+  ).toBe(false);
   return result;
 }
 
@@ -107,29 +108,47 @@ function midBossVictory(game: GameState) {
 }
 
 describe("最暗 finishDungeonBattle", () => {
-  it.each(quests)("%s：普通房胜利 → ready、清 ordinaryDeployment、遭遇牌入弃且 26 守恒", (questId) => {
-    const before = startedOrdinary(questId);
-    const deploymentIds = before.dungeon!.darkest!.ordinaryDeployment!.monsters.map(
-      (monster) => monster.instanceId,
-    );
-    const remainingBefore = [...(before.dungeon!.darkest!.monsterDeckRemaining ?? [])];
-    const discardedBefore = before.dungeon!.darkest!.monsterDeckDiscarded ?? [];
-    const finished = ok(terminalVictory(before), { type: "finishDungeonBattle" }).state;
-    expect(finished.battle).toBeUndefined();
-    expect(finished.dungeon!.phase).toBe("ready");
-    expect(finished.dungeon!.darkest!.ordinaryDeployment).toBeUndefined();
-    expect(finished.dungeon!.darkest!.monsterDeckRemaining).toEqual(remainingBefore);
-    expect(finished.dungeon!.darkest!.monsterDeckDiscarded).toEqual([
-      ...discardedBefore,
-      ...deploymentIds,
-    ]);
-    const ids = [
-      ...(finished.dungeon!.darkest!.monsterDeckRemaining ?? []),
-      ...(finished.dungeon!.darkest!.monsterDeckDiscarded ?? []),
-    ].sort();
-    expect(ids).toEqual([...finished.dungeon!.darkest!.monsterDeck].sort());
-    expect(applyCommand(finished, { type: "finishDungeonBattle" }).state).toBe(finished);
+  it.each(quests)("%s 缺失或仍存活的目标 Boss 不可仅凭脚本绑定冒充击败", (questId) => {
+    const base = midBossVictory(startedMidBoss(questId));
+    const target = readDarkestBossEncounter(questId)!.actors[0]!.cardId;
+    for (const entities of [
+      base.battle!.entities.filter((e) => e.monsterCardId !== target),
+      base.battle!.entities.map((e) =>
+        e.monsterCardId === target ? { ...e, dead: false, wounds: 0 } : e,
+      ),
+    ]) {
+      const state = { ...base, battle: { ...base.battle!, entities } };
+      const result = applyCommand(state, { type: "finishDungeonBattle" });
+      expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
+      expect(result.state).toBe(state);
+    }
   });
+  it.each(quests)(
+    "%s：普通房胜利 → ready、清 ordinaryDeployment、遭遇牌入弃且 26 守恒",
+    (questId) => {
+      const before = startedOrdinary(questId);
+      const deploymentIds = before.dungeon!.darkest!.ordinaryDeployment!.monsters.map(
+        (monster) => monster.instanceId,
+      );
+      const remainingBefore = [...(before.dungeon!.darkest!.monsterDeckRemaining ?? [])];
+      const discardedBefore = before.dungeon!.darkest!.monsterDeckDiscarded ?? [];
+      const finished = ok(terminalVictory(before), { type: "finishDungeonBattle" }).state;
+      expect(finished.battle).toBeUndefined();
+      expect(finished.dungeon!.phase).toBe("ready");
+      expect(finished.dungeon!.darkest!.ordinaryDeployment).toBeUndefined();
+      expect(finished.dungeon!.darkest!.monsterDeckRemaining).toEqual(remainingBefore);
+      expect(finished.dungeon!.darkest!.monsterDeckDiscarded).toEqual([
+        ...discardedBefore,
+        ...deploymentIds,
+      ]);
+      const ids = [
+        ...(finished.dungeon!.darkest!.monsterDeckRemaining ?? []),
+        ...(finished.dungeon!.darkest!.monsterDeckDiscarded ?? []),
+      ].sort();
+      expect(ids).toEqual([...finished.dungeon!.darkest!.monsterDeck].sort());
+      expect(applyCommand(finished, { type: "finishDungeonBattle" }).state).toBe(finished);
+    },
+  );
 
   it("普通房撤退：遭遇牌回到余牌、mustLeaveRoomId", () => {
     const before = startedOrdinary("quest:p016");
@@ -147,20 +166,23 @@ describe("最暗 finishDungeonBattle", () => {
     ]);
   });
 
-  it.each(quests)("%s：中途 Boss 胜利 → 26 堆不变、清 bossDeployment、bossQuestVictory", (questId) => {
-    const before = startedMidBoss(questId);
-    const deckSnapshot = before.dungeon!.darkest!.monsterDeck;
-    const finished = ok(midBossVictory(before), { type: "finishDungeonBattle" }).state;
-    expect(finished.battle).toBeUndefined();
-    expect(finished.dungeon!.phase).toBe("ready");
-    expect(finished.dungeon!.darkest!.bossDeployment).toBeUndefined();
-    expect(finished.dungeon!.darkest!.monsterDeck).toEqual(deckSnapshot);
-    expect(finished.dungeon!.darkest!.monsterDeckRemaining).toBe(
-      before.dungeon!.darkest!.monsterDeckRemaining,
-    );
-    expect(finished.dungeon!.bossQuestVictory).toBe(true);
-    expect(readDarkestBossEncounter(questId)!.actors.length).toBeGreaterThan(0);
-  });
+  it.each(quests)(
+    "%s：中途 Boss 胜利 → 26 堆不变、清 bossDeployment、bossQuestVictory",
+    (questId) => {
+      const before = startedMidBoss(questId);
+      const deckSnapshot = before.dungeon!.darkest!.monsterDeck;
+      const finished = ok(midBossVictory(before), { type: "finishDungeonBattle" }).state;
+      expect(finished.battle).toBeUndefined();
+      expect(finished.dungeon!.phase).toBe("ready");
+      expect(finished.dungeon!.darkest!.bossDeployment).toBeUndefined();
+      expect(finished.dungeon!.darkest!.monsterDeck).toEqual(deckSnapshot);
+      expect(finished.dungeon!.darkest!.monsterDeckRemaining).toBe(
+        before.dungeon!.darkest!.monsterDeckRemaining,
+      );
+      expect(finished.dungeon!.bossQuestVictory).toBe(true);
+      expect(readDarkestBossEncounter(questId)!.actors.length).toBeGreaterThan(0);
+    },
+  );
 
   it("中途 Boss 撤退：不记 bossQuestVictory、26 堆不变", () => {
     const before = startedMidBoss("quest:p017");
