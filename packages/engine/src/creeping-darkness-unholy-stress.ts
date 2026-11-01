@@ -39,6 +39,7 @@ export function applyCreepingDarknessUnholySpawnStress(
       e.side === "monster" &&
       !e.dead &&
       !old.has(e.id) &&
+      e.monsterCardId !== undefined &&
       monsterHasUnholyTag(b!, e.monsterCardId),
   );
   if (!spawned.length) return result;
