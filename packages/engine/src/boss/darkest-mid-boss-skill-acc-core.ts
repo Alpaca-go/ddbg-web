@@ -33,12 +33,7 @@ function resolveMidBossActor(
       `${skillLabel} 须于 ${ctx.bossLabel} 怪物回合执行（${ctx.abilityRef}）`,
     );
   const actor = battle.entities.find((entity) => entity.id === actorId);
-  if (
-    !actor ||
-    actor.side !== "monster" ||
-    actor.dead ||
-    actor.monsterCardId !== ctx.monsterCardId
-  )
+  if (!actor || actor.side !== "monster" || actor.dead || actor.monsterCardId !== ctx.monsterCardId)
     return rejectBattleCommand(state, `仅 ${ctx.bossLabel} 实体可执行 ${skillLabel}（R-048）`);
   if (actor.life === undefined)
     return rejectBattleCommand(state, `${ctx.bossLabel} 缺少 Life（R-048）`);
@@ -125,7 +120,11 @@ export function runDarkestMidBossSkillAcc(
     targetId: targetPick.targetId,
   });
   if (played.events.some((event) => event.type === "commandRefused")) return played;
-  const effectNote = skillPlan ? "含 verified 效果线" : "效果线 hold";
+  const effectNote = skillPlan
+    ? "含 verified 效果线"
+    : card.skills.find((entry) => entry.slot === skillSlot)?.effect_lines.length === 0
+      ? "已核实卡面无附加效果"
+      : "效果线 hold";
   return {
     ...played,
     events: [
