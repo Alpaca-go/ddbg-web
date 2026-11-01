@@ -35246,7 +35246,26 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{shuffle_resist}Pull2,{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "pull",
+        "distance": 2
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
