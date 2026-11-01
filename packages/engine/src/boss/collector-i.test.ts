@@ -133,6 +133,6 @@ describe("Collector I Boss 脚本", () => {
       skillSlot: 1,
       purpose: "skill",
     });
-    expect(skillSummon.status).toBe("stub");
+    expect(skillSummon.status).toBe("notApplicable");
   });
 });

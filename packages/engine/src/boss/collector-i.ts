@@ -5,6 +5,7 @@ import type {
   BossCollectAllOk,
   BossScriptDefinition,
   BossSummonOk,
+  BossSummonResult,
   BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
   CollectorCollectedPart,
@@ -123,10 +124,16 @@ export const collectorIBossScript: BossScriptDefinition = {
     faceTheThreatEmbark: defaultFaceTheThreatEmbarkHook,
     bossSlotPlacement: defaultBossSlotPlacementHook,
     monsterTurnActionCount: () => ({ status: "ok", value: 1 }),
-    summon: (ctx): BossSummonOk | { status: "stub"; message: string; hold?: string } => {
+    summon: (ctx): BossSummonResult => {
       if (ctx.purpose === "collectAllPart" && ctx.collectedPart) {
         return collectAllPartSummon(ctx.collectedPart);
       }
+      if (ctx.purpose === "skill" && [1, 2].includes(ctx.skillSlot))
+        return {
+          status: "notApplicable",
+          message: "Collector 的印刷技能不含召唤；Collect All 走独立能力入口。",
+          rulesRef: ["R39", "monster_medium:p092", "boss_ability:p016"],
+        };
       return {
         status: "stub",
         message: "Collector I：怪物技能召唤未接",
