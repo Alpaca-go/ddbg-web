@@ -725,6 +725,20 @@ const entries: readonly {
       { type: "stress", scope: "target", amount: 1 },
     ],
   },
+  // A-01：`monster_large:p020` slot 3 Dissolution · FRONT p020（R-001 / R-048）。
+  {
+    id: "monster_large:p020",
+    name: "Heart of Darkness",
+    level: 3,
+    pages: [20],
+    slot: 3,
+    signature: "{target_effects}{stun}1t,3{blight}3t,{stress}+1",
+    effects: [
+      { type: "status", scope: "target", kind: "stun", duration: 1 },
+      { type: "status", scope: "target", kind: "blight", amount: 3, duration: 3 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
 ];
 
 export function attachVerifiedMonsterEffects(
