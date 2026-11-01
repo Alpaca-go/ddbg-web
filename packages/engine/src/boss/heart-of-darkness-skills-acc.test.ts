@@ -359,15 +359,41 @@ it("Puncture · 落空无流血/压力", () => {
   );
 });
 
-it("Dissolution · Furthest 选最远英雄", () => {
+it("Dissolution · Furthest 选最远英雄 · 命中 Stun 1t + 3 Blight 3t + 1 压力", () => {
   const fighting = heartOfDarknessFighting();
   const heroes = fighting.battle!.entities.filter((entity) => entity.side === "hero");
+  const card = fighting.dungeon!.battleCatalog!.monsters.find(
+    (entry) => entry.id === HEART_OF_DARKNESS_MONSTER_CARD_ID,
+  )!;
+  expect(
+    card.skills.find((skill) => skill.slot === DISSOLUTION_SKILL_SLOT)?.verified_monster_effects
+      ?.effects,
+  ).toEqual([
+    { type: "status", scope: "target", kind: "stun", duration: 1 },
+    { type: "status", scope: "target", kind: "blight", amount: 3, duration: 3 },
+    { type: "stress", scope: "target", amount: 1 },
+  ]);
+
+  let cursor = 0;
+  while (nextBattleRoll(fighting.seed, cursor) !== 5) cursor += 1;
   const patch = Object.fromEntries(heroes.map((hero) => [hero.id, HERO_RANGED]));
   let game = onHeartTurn(withHeroAreas(fighting, patch));
   const near = heroes[0]!;
   game = withHeroAreas(game, { [near.id]: HERO_SUPPORT });
   const furthestDistance = Math.max(...heroTargetRows(game).map((row) => row.areaDistance ?? -1));
   const expected = heroTargetRows(game).filter((row) => row.areaDistance === furthestDistance)[0]!;
+  const targetBefore = game.battle!.entities.find((entity) => entity.id === expected.id)!;
+  const stressBefore = targetBefore.stress ?? 0;
+  game = {
+    ...game,
+    battle: {
+      ...game.battle!,
+      rngCursor: cursor,
+      entities: game.battle!.entities.map((entity) =>
+        entity.id === expected.id ? { ...entity, dodge: 0, stress: stressBefore } : entity,
+      ),
+    },
+  };
 
   const result = applyHeartOfDarknessDissolution(game, heart(game).id);
   expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
@@ -375,7 +401,66 @@ it("Dissolution · Furthest 选最远英雄", () => {
   expect(skillEvent?.type).toBe("monsterSkillResolved");
   if (skillEvent?.type === "monsterSkillResolved") {
     expect(skillEvent.resolution.targetId).toBe(expected.id);
+    expect(skillEvent.resolution.outcome).toBe("hit");
+    expect(skillEvent.resolution.targetStatusEffects ?? []).toEqual([
+      { kind: "stun", duration: 1 },
+      { kind: "blight", amount: 3, duration: 3 },
+    ]);
+    expect(skillEvent.resolution.targetStress).toBe(1);
   }
+  expect(result.state.battle!.entities.find((entity) => entity.id === expected.id)!.statusStacks).toEqual([
+    { kind: "stun", remaining: 1 },
+    { kind: "blight", amount: 3, remaining: 3 },
+  ]);
+  expect(result.state.battle!.entities.find((entity) => entity.id === expected.id)!.stress).toBe(
+    stressBefore + 1,
+  );
+  expect(
+    result.events.some(
+      (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
+    ),
+  ).toBe(true);
+});
+
+it("Dissolution · 落空无 Stun/Blight/压力", () => {
+  const fighting = heartOfDarknessFighting();
+  const heroes = fighting.battle!.entities.filter((entity) => entity.side === "hero");
+  let cursor = 0;
+  while (nextBattleRoll(fighting.seed, cursor) !== 10) cursor += 1;
+  const patch = Object.fromEntries(heroes.map((hero) => [hero.id, HERO_RANGED]));
+  let game = onHeartTurn(withHeroAreas(fighting, patch));
+  const near = heroes[0]!;
+  game = withHeroAreas(game, { [near.id]: HERO_SUPPORT });
+  const furthestDistance = Math.max(...heroTargetRows(game).map((row) => row.areaDistance ?? -1));
+  const expected = heroTargetRows(game).filter((row) => row.areaDistance === furthestDistance)[0]!;
+  const stressBefore =
+    game.battle!.entities.find((entity) => entity.id === expected.id)!.stress ?? 0;
+  game = {
+    ...game,
+    battle: {
+      ...game.battle!,
+      rngCursor: cursor,
+      entities: game.battle!.entities.map((entity) =>
+        entity.id === expected.id ? { ...entity, dodge: 30, stress: stressBefore } : entity,
+      ),
+    },
+  };
+
+  const result = applyHeartOfDarknessDissolution(game, heart(game).id);
+  const skillEvent = result.events.find((event) => event.type === "monsterSkillResolved");
+  expect(skillEvent?.type).toBe("monsterSkillResolved");
+  if (skillEvent?.type === "monsterSkillResolved") {
+    expect(skillEvent.resolution.targetId).toBe(expected.id);
+    expect(skillEvent.resolution.outcome).toBe("miss");
+    expect(skillEvent.resolution.targetStatusEffects ?? []).toEqual([]);
+    expect(skillEvent.resolution.targetStress).toBe(0);
+  }
+  expect(
+    result.state.battle!.entities.find((entity) => entity.id === expected.id)!.statusStacks ?? [],
+  ).toEqual([]);
+  expect(result.state.battle!.entities.find((entity) => entity.id === expected.id)!.stress).toBe(
+    stressBefore,
+  );
 });
 
 it("Acc 失手：高 Dodge + 低骰可复现", () => {
