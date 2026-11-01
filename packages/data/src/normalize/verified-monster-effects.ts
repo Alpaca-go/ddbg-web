@@ -17,6 +17,19 @@ const entries: readonly {
     name: "Cultist Priest",
     level: 3,
     pages: [72, 73, 74],
+    slot: 2,
+    signature: ["{target_effects}3{bleed}3t,{stress}+2,", "{damage}+5vs{mark}"],
+    effects: [
+      { type: "status", scope: "target", kind: "bleed", duration: 3, amount: 3 },
+      { type: "stress", scope: "target", amount: 2 },
+      { type: "damageBonus", condition: "marked", amount: 5 },
+    ],
+  },
+  {
+    id: "monster_medium:p072",
+    name: "Cultist Priest",
+    level: 3,
+    pages: [72, 73, 74],
     slot: 1,
     signature: "{target_effects}{debuff}1t,{stress}+1",
     effects: [
