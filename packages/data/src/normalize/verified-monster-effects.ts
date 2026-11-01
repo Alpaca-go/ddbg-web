@@ -712,6 +712,19 @@ const entries: readonly {
       { type: "light", scope: "target", amount: -1 },
     ],
   },
+  // A-01：`monster_large:p020` slot 2 Puncture · FRONT p020（R-001 / R-048）。
+  {
+    id: "monster_large:p020",
+    name: "Heart of Darkness",
+    level: 3,
+    pages: [20],
+    slot: 2,
+    signature: "{target_effects}3{bleed}3t,{stress}+1",
+    effects: [
+      { type: "status", scope: "target", kind: "bleed", amount: 3, duration: 3 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
 ];
 
 export function attachVerifiedMonsterEffects(
