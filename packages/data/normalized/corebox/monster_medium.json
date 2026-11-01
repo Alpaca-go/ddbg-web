@@ -63995,7 +63995,26 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{heal}14{heal},{buff}2t"
+      ],
+      "effects": [
+       {
+        "type": "heal",
+        "scope": "target",
+        "amount": 14
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "buff",
+        "duration": 2
+       }
+      ]
+     }
     },
     {
      "slot": 2,
