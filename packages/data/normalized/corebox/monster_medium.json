@@ -44485,7 +44485,21 @@
         "text": " 3t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{buff}3t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "buff",
+        "duration": 3
+       }
+      ]
+     }
     },
     {
      "slot": 2,
