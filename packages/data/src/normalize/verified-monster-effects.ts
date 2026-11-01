@@ -650,6 +650,19 @@ const entries: readonly {
     signature: "{target_effects}{stress}+2",
     effects: [{ type: "stress", scope: "target", amount: 2 }],
   },
+  // A-01：`monster_large:p016` slot 1 Bulging Gaze · FRONT p016（R-001 / R-048）。
+  {
+    id: "monster_large:p016",
+    name: "Mammoth Cyst",
+    level: 3,
+    pages: [16],
+    slot: 1,
+    signature: "{target_effects}{debuff}1t,{stress}+1",
+    effects: [
+      { type: "status", scope: "target", kind: "debuff", duration: 1 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
   // A-01：`monster_large:p016` slot 2 Digestion · FRONT p016（R-001 / R-048）。
   {
     id: "monster_large:p016",

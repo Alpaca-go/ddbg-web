@@ -82,20 +82,110 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     expect(readDarkestBossEncounter("quest:p018")!.combatReady).toBe(false);
   });
 
-  it("Bulging Gaze · Crowded", () => {
+  it("Bulging Gaze · Crowded · 命中 debuff 1t + 压力 +1", () => {
     const base = fighting();
     const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
+    const card = base.dungeon!.battleCatalog!.monsters.find(
+      (entry) => entry.id === MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
+    )!;
+    expect(
+      card.skills.find((skill) => skill.slot === MAMMOTH_BULGING_GAZE_SKILL_SLOT)?.verified_monster_effects
+        ?.effects,
+    ).toEqual([
+      { type: "status", scope: "target", kind: "debuff", duration: 1 },
+      { type: "stress", scope: "target", amount: 1 },
+    ]);
+
+    let cursor = 0;
+    while (nextBattleRoll(base.seed, cursor) !== 5) cursor += 1;
     const patch = Object.fromEntries(heroes.map((hero) => [hero.id, HERO_SUP]));
-    const game = onMammothTurn(withHeroAreas(base, patch));
-    const result = applyMammothCystBulgingGaze(game, mammoth(game).id);
-    const refused = result.events.filter((e) => e.type === "commandRefused");
-    expect(refused, JSON.stringify(refused)).toEqual([]);
+    let game = onMammothTurn(withHeroAreas(base, patch));
+    const actor = mammoth(game);
+    const stressBefore = Object.fromEntries(
+      heroes.map((hero) => [hero.id, hero.stress ?? 0]),
+    );
+    game = {
+      ...game,
+      battle: {
+        ...game.battle!,
+        rngCursor: cursor,
+        light: 5,
+        entities: game.battle!.entities.map((entity) =>
+          entity.side === "hero" ? { ...entity, dodge: 0 } : entity,
+        ),
+      },
+    };
+    const result = applyMammothCystBulgingGaze(game, actor.id);
+    expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+    const skillEvent = result.events.find((event) => event.type === "monsterSkillTargetsResolved");
+    expect(skillEvent?.type).toBe("monsterSkillTargetsResolved");
+    if (skillEvent?.type === "monsterSkillTargetsResolved") {
+      expect(skillEvent.resolutions.every((resolution) => resolution.outcome === "hit")).toBe(true);
+      expect(
+        skillEvent.resolutions.every((resolution) =>
+          (resolution.targetStatusEffects ?? []).some(
+            (effect) => effect.kind === "debuff" && effect.duration === 1,
+          ),
+        ),
+      ).toBe(true);
+      expect(skillEvent.resolutions.every((resolution) => resolution.targetStress === 1)).toBe(true);
+    }
+    for (const hero of heroes.slice(0, 2)) {
+      expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks).toEqual([
+        { kind: "debuff", remaining: 1 },
+      ]);
+      expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress).toBe(
+        stressBefore[hero.id]! + 1,
+      );
+    }
     expect(
       result.events.some(
-        (event) =>
-          event.type === "monsterSkillResolved" || event.type === "monsterSkillTargetsResolved",
+        (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
       ),
     ).toBe(true);
+  });
+
+  it("Bulging Gaze · 落空无 debuff/压力", () => {
+    const base = fighting();
+    const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
+    let cursor = 0;
+    while (nextBattleRoll(base.seed, cursor) !== 10) cursor += 1;
+    const patch = Object.fromEntries(heroes.map((hero) => [hero.id, HERO_SUP]));
+    let game = onMammothTurn(withHeroAreas(base, patch));
+    const actor = mammoth(game);
+    const stressBefore = Object.fromEntries(
+      heroes.map((hero) => [hero.id, hero.stress ?? 0]),
+    );
+    game = {
+      ...game,
+      battle: {
+        ...game.battle!,
+        rngCursor: cursor,
+        entities: game.battle!.entities.map((entity) =>
+          entity.side === "hero" ? { ...entity, dodge: 30 } : entity,
+        ),
+      },
+    };
+    const result = applyMammothCystBulgingGaze(game, actor.id);
+    const skillEvent = result.events.find((event) => event.type === "monsterSkillTargetsResolved");
+    expect(skillEvent?.type).toBe("monsterSkillTargetsResolved");
+    if (skillEvent?.type === "monsterSkillTargetsResolved") {
+      expect(skillEvent.resolutions.every((resolution) => resolution.outcome === "miss")).toBe(true);
+      expect(
+        skillEvent.resolutions.every(
+          (resolution) => (resolution.targetStatusEffects ?? []).length === 0,
+        ),
+      ).toBe(true);
+      expect(skillEvent.resolutions.every((resolution) => resolution.targetStress === 0)).toBe(true);
+    }
+    for (const hero of heroes) {
+      expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks ?? []).toEqual(
+        [],
+      );
+      expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress).toBe(
+        stressBefore[hero.id],
+      );
+    }
   });
 
   it("Digestion · Crowded · 命中 3 枯萎 2t", () => {
@@ -230,6 +320,37 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     expect(
       applyMammothCystBulgingGaze(wrong, mammoth(wrong).id).events.some(
         (event) => event.type === "commandRefused",
+      ),
+    ).toBe(true);
+  });
+
+  it("applyCommand · applyMammothCystBulgingGaze", () => {
+    const base = fighting();
+    const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
+    let cursor = 0;
+    while (nextBattleRoll(base.seed, cursor) !== 5) cursor += 1;
+    const patch = Object.fromEntries(heroes.map((hero) => [hero.id, HERO_SUP]));
+    let state = onMammothTurn(withHeroAreas(base, patch));
+    const actor = mammoth(state);
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        rngCursor: cursor,
+        light: 5,
+        entities: state.battle!.entities.map((entity) =>
+          entity.side === "hero" ? { ...entity, dodge: 0 } : entity,
+        ),
+      },
+    };
+    const result = applyCommand(state, {
+      type: "applyMammothCystBulgingGaze",
+      actorId: actor.id,
+    });
+    expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+    expect(
+      result.events.some(
+        (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
       ),
     ).toBe(true);
   });
