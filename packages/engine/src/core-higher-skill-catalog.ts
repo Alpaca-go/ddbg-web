@@ -1,9 +1,6 @@
 /** Core box II/III gaps; absent cards must not become purchasable through the web catalog. */
-export const CORE_HIGHER_SKILL_HOLDS = {
-  44: "Collect Bounty II: transcribed Acc 1O has no numeric threshold (R-048)",
-  48: "Mark for Death III: orange icon requires card-specific approval (R-089)",
-  63: "Caltrops III: orange icon requires card-specific approval (R-089)",
-} as const;
+/** R-141：最后三张已逐卡确认；保留显式停点表以便未来新增真实缺口。 */
+export const CORE_HIGHER_SKILL_HOLDS: Readonly<Record<number, string>> = {};
 
 export function coreHigherSkillAvailable(card: { id: string; level: number }): boolean {
   const match = /^hero_skill:p(\d{3})$/.exec(card.id);

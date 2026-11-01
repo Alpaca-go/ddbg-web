@@ -36,9 +36,9 @@ it("Mark II self Buff3t survives a miss; Caltrops II applies Bleed3 for 2t and D
     { kind: "debuff", duration: 2 },
   ]);
 });
-it("154 core higher cards are partitioned into 151 available and 3 explicit holds", () => {
-  expect(cards).toHaveLength(151);
-  expect(Object.keys(CORE_HIGHER_SKILL_HOLDS)).toHaveLength(3);
+it("154 core higher cards are partitioned into 154 available and no explicit holds", () => {
+  expect(cards).toHaveLength(154);
+  expect(Object.keys(CORE_HIGHER_SKILL_HOLDS)).toHaveLength(0);
   const load = battleDataPlugin().load as (id: string) => string;
   const catalog = JSON.parse(
     load("\0virtual:quest-battle-data").slice("export const battleData = ".length, -1),
