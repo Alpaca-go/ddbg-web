@@ -17,6 +17,18 @@ const entries: readonly {
     name: "Defensive Growth",
     level: 3,
     pages: [86, 87, 88],
+    slot: 2,
+    signature: "{self_effects}Self{shuffle}Push2{target_effects}{heal}17{heal}",
+    effects: [
+      { type: "shuffle", scope: "self", direction: "push", distance: 2 },
+      { type: "heal", scope: "target", amount: 17 },
+    ],
+  },
+  {
+    id: "monster_medium:p086",
+    name: "Defensive Growth",
+    level: 3,
+    pages: [86, 87, 88],
     slot: 1,
     signature: "{target_effects}{buff}3t",
     effects: [{ type: "status", scope: "target", kind: "buff", duration: 3 }],
