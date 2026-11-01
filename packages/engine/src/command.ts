@@ -78,6 +78,7 @@ import {
   applyShufflingHorrorEchoingDisassembly,
   applyShufflingHorrorUndulations,
 } from "./boss/darkest-shuffling-horror-combat-runtime";
+import { applyShufflingHorrorLacerate } from "./boss/darkest-shuffling-horror-skills-acc";
 import { applyMammothCystSummonWhiteCell } from "./boss/darkest-mammoth-cyst-combat-runtime";
 import { applyGestatingHeartSummon } from "./boss/gestating-heart-summon";
 import { applyAncestor1TimeHealsAll } from "./boss/ancestor1-time-heals-all";
@@ -268,6 +269,7 @@ type BaseCommand =
   | PrepareMonsterActionCommand
   | { readonly type: "applyShufflingHorrorUndulations"; readonly actorId: string }
   | { readonly type: "applyShufflingHorrorEchoingDisassembly"; readonly actorId: string }
+  | { readonly type: "applyShufflingHorrorLacerate"; readonly actorId: string }
   | { readonly type: "applyMammothCystSummonWhiteCell"; readonly actorId: string }
   | { readonly type: "applyGestatingHeartSummon"; readonly actorId: string }
   | { readonly type: "applyAncestor1TimeHealsAll"; readonly actorId: string }
@@ -777,6 +779,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return applyShufflingHorrorUndulations(state, command.actorId);
   if (command.type === "applyShufflingHorrorEchoingDisassembly")
     return applyShufflingHorrorEchoingDisassembly(state, command.actorId);
+  if (command.type === "applyShufflingHorrorLacerate")
+    return applyShufflingHorrorLacerate(state, command.actorId);
   if (command.type === "applyMammothCystSummonWhiteCell")
     return applyMammothCystSummonWhiteCell(state, command.actorId);
   if (command.type === "applyGestatingHeartSummon")

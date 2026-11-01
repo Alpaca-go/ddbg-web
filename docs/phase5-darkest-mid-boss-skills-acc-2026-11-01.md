@@ -41,9 +41,9 @@ Summon White Cell 仍用 `applyMammothCystSummonWhiteCell`。
 
 ### Shuffling Horror（`boss_ability:p033`）
 
-- 卡级 **unverified**：通用 `playMonsterSkill` / Acc 切片在核实前拒绝（R-048）。
+- 卡级 **verified**（A-10 清除 `8707d5d8cf`）。
 - slot 2–3 与 boss_ability 一致，继续 **Undulations / Echoing Disassembly** 专用命令，不重复 Acc 模块。
-- slot 1 **Lacerate**：待卡级 verification 与词典 batch 清除 `8707d5d8cf` 后再开显式 Acc 命令（同 Gestating Heart 调查结论格式）。
+- slot 1 **Lacerate**：`applyShufflingHorrorLacerate`（Acc-only；bleed 效果线 hold → A-01）。
 
 ## 验证
 

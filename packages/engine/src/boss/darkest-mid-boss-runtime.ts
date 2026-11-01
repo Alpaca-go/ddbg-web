@@ -63,7 +63,7 @@ function supportDeployedHoldSummary(supportMonsters: readonly SpawnPlacement[]):
 
 function darkestMidBossWiringHold(questId: StoredDarkestBossEncounterPlan["questId"]): string {
   if (questId === "quest:p016") {
-    return "Undulations + Echoing Disassembly 召唤已接；Lacerate Acc 卡级 unverified 见 shuffling-horror-skills-acc 文档；Room Tile 正式几何 / combatReady / 完整 AI 仍 hold";
+    return "Undulations + Echoing Disassembly 召唤 + Lacerate Acc 最小结算已接；Room Tile 正式几何 / combatReady / 完整 AI 仍 hold";
   }
   if (questId === "quest:p018") {
     return "Summon White Cell Stalk + Bulging Gaze/Digestion Acc + Revivify Self 最小结算已接；White Cell Teleport / Room Tile 几何 / combatReady / 完整 AI 仍 hold";
