@@ -41,7 +41,7 @@ it("落空无状态，超出印刷射程拒绝", () => {
   expect(resolveMonsterSkill(card, 1, { ...combat, areaDistance: 2 }, 5).status).toBe("refused");
 });
 
-it("计划持续时间漂移拒绝，不外推另一招", () => {
+it("计划持续时间漂移拒绝", () => {
   const skill = card.skills.find((s) => s.slot === 1)!;
   const plan = skill.verified_monster_effects!;
   expect(
@@ -61,5 +61,4 @@ it("计划持续时间漂移拒绝，不外推另一招", () => {
       1,
     ).status,
   ).toBe("refused");
-  expect(card.skills.find((s) => s.slot === 2)?.verified_monster_effects).toBeUndefined();
 });

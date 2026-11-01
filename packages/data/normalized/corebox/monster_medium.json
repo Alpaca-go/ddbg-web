@@ -69161,7 +69161,20 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
