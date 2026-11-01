@@ -12,6 +12,19 @@ const entries: readonly {
   signature: string;
   effects: MonsterEffectPlan["effects"];
 }[] = [
+  // K-002：Imperfect Reflection It Chooses · FRONT p109（R-001 / R-048）。
+  {
+    id: "monster_medium:p109",
+    name: "Imperfect Reflection",
+    level: 3,
+    pages: [109, 110, 111],
+    slot: 1,
+    signature: "{target_effects}{mark}2t,{stun}1t",
+    effects: [
+      { type: "status", scope: "target", kind: "mark", duration: 2 },
+      { type: "status", scope: "target", kind: "stun", duration: 1 },
+    ],
+  },
   // K-001：White Cell Stalk Reconstitute · FRONT p104（R-001 / R-048）。
   {
     id: "monster_medium:p104",
