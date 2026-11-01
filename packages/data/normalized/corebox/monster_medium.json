@@ -45674,6 +45674,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 3,
    "resistances": [
     {
      "iconId": "91ca3fa960",
@@ -47015,15 +47016,6 @@
      }
     ]
    ],
-   "back_texts": [
-    [
-     {
-      "type": "text",
-      "text": "I"
-     }
-    ]
-   ],
-   "speed": 3,
    "stanceGroups": [
     {
      "stances": [
@@ -47050,6 +47042,14 @@
       }
      ]
     }
+   ],
+   "back_texts": [
+    [
+     {
+      "type": "text",
+      "text": "I"
+     }
+    ]
    ]
   },
   {
@@ -47770,6 +47770,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 3,
    "resistances": [
     {
      "iconId": "91ca3fa960",
@@ -49147,15 +49148,6 @@
      }
     ]
    ],
-   "back_texts": [
-    [
-     {
-      "type": "text",
-      "text": "II"
-     }
-    ]
-   ],
-   "speed": 3,
    "stanceGroups": [
     {
      "stances": [
@@ -49182,6 +49174,14 @@
       }
      ]
     }
+   ],
+   "back_texts": [
+    [
+     {
+      "type": "text",
+      "text": "II"
+     }
+    ]
    ]
   },
   {

@@ -4847,13 +4847,13 @@
     {
      "iconId": "3deae1ab2a",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_3deae1ab2a",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red card with mask emblem",
-     "meaning_zh": "待确认图形：带面具纹章的红色卡牌",
+     "status": "confirmed",
+     "key": "quirk",
+     "kind": "other",
+     "meaning_en": "Positive or negative Quirk (quirk card glyph)",
+     "meaning_zh": "正面或负面怪癖（怪癖卡图形）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "c3daa80da5",
@@ -4892,7 +4892,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:3deae1ab2a",
      "icon:8cbe7d6703"
     ]
    }
@@ -5048,13 +5047,13 @@
     {
      "iconId": "3deae1ab2a",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_3deae1ab2a",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red card with mask emblem",
-     "meaning_zh": "待确认图形：带面具纹章的红色卡牌",
+     "status": "confirmed",
+     "key": "quirk",
+     "kind": "other",
+     "meaning_en": "Positive or negative Quirk (quirk card glyph)",
+     "meaning_zh": "正面或负面怪癖（怪癖卡图形）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "c3daa80da5",
@@ -5093,7 +5092,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:3deae1ab2a",
      "icon:f912c18659"
     ]
    }
@@ -5272,13 +5270,13 @@
     {
      "iconId": "3deae1ab2a",
      "in_dictionary": true,
-     "status": "needs_review",
-     "key": "pending_3deae1ab2a",
-     "kind": "",
-     "meaning_en": "Unconfirmed glyph: red card with mask emblem",
-     "meaning_zh": "待确认图形：带面具纹章的红色卡牌",
+     "status": "confirmed",
+     "key": "quirk",
+     "kind": "other",
+     "meaning_en": "Positive or negative Quirk (quirk card glyph)",
+     "meaning_zh": "正面或负面怪癖（怪癖卡图形）",
      "value": null,
-     "naming": "unverified"
+     "naming": "confirmed"
     },
     {
      "iconId": "c3daa80da5",
@@ -5317,7 +5315,6 @@
    "verification": {
     "unverified": true,
     "reasons": [
-     "icon:3deae1ab2a",
      "icon:f912c18659"
     ]
    }

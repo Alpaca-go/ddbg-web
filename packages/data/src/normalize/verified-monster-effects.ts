@@ -630,6 +630,16 @@ const entries: readonly {
       { type: "heal", scope: "target", amount: 11 },
     ],
   },
+  // A-01：`monster_large:p014` slot 3 Revelation · FRONT p014（R-001 / R-048）。
+  {
+    id: "monster_large:p014",
+    name: "Templar Warlord",
+    level: 3,
+    pages: [14],
+    slot: 3,
+    signature: "{target_effects}{stress}+2",
+    effects: [{ type: "stress", scope: "target", amount: 2 }],
+  },
 ];
 
 export function attachVerifiedMonsterEffects(
