@@ -67755,7 +67755,20 @@
         "text": " +2"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+2"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
