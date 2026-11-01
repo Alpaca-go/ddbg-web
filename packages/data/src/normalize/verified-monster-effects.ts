@@ -13,6 +13,18 @@ const entries: readonly {
   effects: MonsterEffectPlan["effects"];
 }[] = [
   {
+    id: "monster_medium:p072",
+    name: "Cultist Priest",
+    level: 3,
+    pages: [72, 73, 74],
+    slot: 1,
+    signature: "{target_effects}{debuff}1t,{stress}+1",
+    effects: [
+      { type: "status", scope: "target", kind: "debuff", duration: 1 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
+  {
     id: "monster_medium:p069",
     name: "Rapturous Cultist",
     level: 3,
