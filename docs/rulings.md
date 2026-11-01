@@ -1813,3 +1813,12 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据 / 出处**：Kyries 2026-10-31 批准确认；印刷 `boss_ability:p037`、`monster_large:p020` 页脚、规则书 p41；R-001、R-015、R-048。
 - **关联**：#451、#456；[phase5-final-heart-impending-doom-skill-map-2026-11-01.md](phase5-final-heart-impending-doom-skill-map-2026-11-01.md)。
 - **状态**：Kyries 已确认。
+### R-140
+
+- **编号**：R-140
+- **日期**：2026-11-02（Asia/Shanghai）
+- **问题**：Ascended Witch Fate’s Pull（monster_medium:p066 slot 3；FRONT p066–68）原始效果行含 shuffle_resist 图标（ed2299539e）与 Pull 2，如何结算？
+- **裁定**：按“目标 Pull 2、压力 +1”实现。仅此招的该印刷组合进行上下文映射；不变更词典在抗性/免疫栏等其它位置的含义，不外推其它卡。
+- **依据**：Kyries 在查看本地原卡截图后明确回复“就按‘目标 Pull 2、压力 +1’实现”；R-001 / R-048。
+- **关联**：Q-128（已确认）；K-004。
+- **状态**：Kyries 已确认。

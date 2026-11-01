@@ -21,6 +21,11 @@ export function compileMonsterEffectPlan(
   );
   if (JSON.stringify(signatures) !== JSON.stringify(plan.signatures))
     return refuse("怪物效果计划与卡面整行不符（R-048）");
+  // R-140：仅此招上下文映射，保留原始词典及签名。
+  const witchPull =
+    view.id === "monster_medium:p066:skill3" &&
+    signatures.length === 1 &&
+    signatures[0] === "{target_effects}{shuffle_resist}Pull2,{stress}+1";
   let previousScope = "";
   const plannedSignature = plan.effects
     .map((effect) => {
@@ -59,6 +64,7 @@ export function compileMonsterEffectPlan(
     signatures.length === 0 ||
     signatures
       .join("")
+      .replace(/\{shuffle_resist\}/g, witchPull ? "{shuffle}" : "{shuffle_resist}")
       .replace(/,/g, "")
       .replace(/PitToss/g, "") // Templar Body Slam · boss_ability:p028 几何 B hold，印刷文字仅签名守门
       .replace(/\{summon\}/g, "") // Echoing Disassembly / Necromancer 等 · summon 几何 hold，图标仅签名守门
@@ -73,6 +79,10 @@ export function compileMonsterEffectPlan(
     if (!segment.icon.key || !["confirmed", "confirmed_rulebook"].includes(segment.icon.naming))
       return refuse("怪物效果包含未确认图标（R-048）");
     icons.set(segment.icon.key, segment);
+  }
+  if (witchPull) {
+    const original = icons.get("shuffle_resist")!;
+    icons.set("shuffle", { ...original, icon: { ...original.icon, key: "shuffle" } });
   }
   const lines: SkillSegment[][] = [];
   const statuses: NonNullable<HeroSkillCardView["verified_status_effects"]>[number][] = [];

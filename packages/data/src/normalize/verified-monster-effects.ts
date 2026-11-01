@@ -12,6 +12,19 @@ const entries: readonly {
   signature: string | readonly string[];
   effects: MonsterEffectPlan["effects"];
 }[] = [
+  // R-140：仅此招将原始 shuffle_resist + Pull 2 裁定为目标 Pull2。
+  {
+    id: "monster_medium:p066",
+    name: "Ascended Witch",
+    level: 3,
+    pages: [66, 67, 68],
+    slot: 3,
+    signature: "{target_effects}{shuffle_resist}Pull2,{stress}+1",
+    effects: [
+      { type: "shuffle", scope: "target", direction: "pull", distance: 2 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
   {
     id: "monster_medium:p086",
     name: "Defensive Growth",
