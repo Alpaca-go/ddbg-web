@@ -14,7 +14,7 @@
 
 ## 未接 / 仍属 A-7
 
-- 自然 III 级升幕出征到 p011 的完整战役 / 存档回放验收（仍用明示夹具或 partial embark，不扩大 `createCoreDungeonQuest` 白名单）。
+- 从首次出征到 II/III 幕末的 **完整自然 Boss 战役命令日志** 写入 `quest:p019` 正式存档（#413 升幕段仍以回村边界夹具 + 命令重放验收；见 [A-08 切片](phase5-a08-warm-up-natural-iii-replay-2026-11-01.md)）。
 - 网页专用 UI（沿用通用 `pendingChoice` 即可操作）。
 
 ## 待确认（未自行裁定）
