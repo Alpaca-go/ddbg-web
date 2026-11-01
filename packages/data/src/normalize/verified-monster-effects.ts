@@ -17,6 +17,18 @@ const entries: readonly {
     name: "Ascended Witch",
     level: 3,
     pages: [66, 67, 68],
+    slot: 2,
+    signature: "{target_effects}{shuffle}Push2,{stress}+1",
+    effects: [
+      { type: "shuffle", scope: "target", direction: "push", distance: 2 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
+  {
+    id: "monster_medium:p066",
+    name: "Ascended Witch",
+    level: 3,
+    pages: [66, 67, 68],
     slot: 1,
     signature: "{target_effects}{stress}+2,{light}-1,{mark}2t",
     effects: [
