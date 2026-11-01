@@ -61,8 +61,19 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
         }
         checked++;
       }
-    expect(checked).toBe(63); // 含 Fanatic I、Collector 等；排除 Collected Vestal 纯治疗；+ A-01 Warlord Stinger Shot / Revelation / Impaler Revelation / Mammoth Digestion / Bulging Gaze / Ancestor2 Refashion Them / Unmake Them All / Embrace Futility / HoD Know This / HoD Puncture / HoD Dissolution。
+    expect(checked).toBe(63); // 含 Fanatic I、Collector 等；排除 Collected Vestal 纯治疗、Self 目标；+ A-01 Warlord Stinger Shot / Revelation / Impaler Revelation / Mammoth Digestion / Bulging Gaze / Ancestor2 Refashion Them / Unmake Them All / Embrace Futility / HoD Know This / HoD Puncture / HoD Dissolution。
     expect(cards).toEqual(before);
+  });
+  it("Mammoth Revivify · Self verified 效果 compile 就绪", () => {
+    const card = byId("monster_large:p016");
+    const skill = card.skills.find((entry) => entry.slot === 3)!;
+    expect(skill.target).toBe("Self");
+    expect(skill.verified_monster_effects?.effects).toEqual([
+      { type: "status", scope: "self", kind: "buff", duration: 2 },
+      { type: "heal", scope: "self", amount: 15 },
+    ]);
+    const attack = readMonsterAttackView(card, 3);
+    expect(attack.status, attack.status === "refused" ? attack.reason : "").toBe("ready");
   });
   it("注解数值 / 范围或原始行漂移原子拒绝，不能靠更新签名放行", () => {
     const card = structuredClone(byId("monster_medium:p034"));

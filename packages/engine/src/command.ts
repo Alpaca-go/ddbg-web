@@ -108,6 +108,7 @@ import {
 import {
   applyMammothCystBulgingGaze,
   applyMammothCystDigestion,
+  applyMammothCystRevivify,
 } from "./boss/darkest-mammoth-cyst-skills-acc";
 import {
   resolveDungeonConditionChoice,
@@ -290,6 +291,7 @@ type BaseCommand =
   | { readonly type: "applyTemplarWarlordRevelation"; readonly actorId: string }
   | { readonly type: "applyMammothCystBulgingGaze"; readonly actorId: string }
   | { readonly type: "applyMammothCystDigestion"; readonly actorId: string }
+  | { readonly type: "applyMammothCystRevivify"; readonly actorId: string }
   | MoveMonsterToRangeCommand
   | MoveHeroCommand
   | { readonly type: "resolveShuffles" }
@@ -821,6 +823,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return applyMammothCystBulgingGaze(state, command.actorId);
   if (command.type === "applyMammothCystDigestion")
     return applyMammothCystDigestion(state, command.actorId);
+  if (command.type === "applyMammothCystRevivify")
+    return applyMammothCystRevivify(state, command.actorId);
   if (command.type === "moveMonsterToRange") return moveMonsterToRange(state, command);
   if (command.type === "moveHero") return moveHero(state, command);
   if (command.type === "playHeroSkill") return playHeroSkill(state, command);

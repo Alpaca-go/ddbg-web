@@ -1965,8 +1965,9 @@ function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): strin
     return null;
   }
   if (
-    (skill.verified_self_range || skill.verified_status_effects?.length) &&
-    readsAsSelfTarget(skill)
+    ((skill.verified_self_range || skill.verified_status_effects?.length) &&
+      readsAsSelfTarget(skill)) ||
+    (skill as HeroSkillCardView & { readonly target?: string }).target === "Self"
   )
     return combat.areaDistance === 0 && combat.actor?.id === combat.target.id
       ? null
@@ -2658,7 +2659,9 @@ function resolveSkill(
     statuses.target.length === 0 &&
     !support &&
     (shuffles.self === null || active.printed_labels.length === 0);
-  const selfTarget = readsAsSelfTarget(active);
+  const selfTarget =
+    readsAsSelfTarget(active) ||
+    (active as HeroSkillCardView & { readonly target?: string | null }).target === "Self";
   const targetCounts = readTargetIconCounts(active);
   const printedTargets = readPrintedTargets(active);
   const targets = new Set<"target_hero" | "target_monster">();
@@ -2713,7 +2716,7 @@ function resolveSkill(
     if (actor === undefined) {
       return refuse(skill, combat, "技能目标写的是 Self，但没有使用者（规则书第 19 页）");
     }
-    if (target.side !== "hero" || target.id !== actor.id) {
+    if (target.side !== sourceSide || target.id !== actor.id) {
       return refuse(skill, combat, "技能目标写的是 Self，只能结算使用者自己（规则书第 19 页）");
     }
     if (target.wounds !== actor.wounds) {
@@ -2738,6 +2741,7 @@ function resolveSkill(
   if (
     !formOnly &&
     !support &&
+    !selfTarget &&
     accThreshold === null &&
     !(statuses.target.length && active.printed_labels.length === 0)
   ) {
@@ -2746,10 +2750,10 @@ function resolveSkill(
   const needsAmount = effect === "damage" || effect === "heal";
   const critAmount = needsAmount ? amountBesideLabel(active, "Crit") : null;
   const hitAmount = needsAmount ? amountBesideLabel(active, "Acc") : null;
-  if (needsAmount && critAmount === null) {
+  if (!selfTarget && needsAmount && critAmount === null) {
     return refuse(skill, combat, "Crit 旁边没有恰好一个非负整数");
   }
-  if (needsAmount && hitAmount === null) {
+  if (!selfTarget && needsAmount && hitAmount === null) {
     return refuse(skill, combat, "Acc 旁边没有恰好一个非负整数");
   }
   if ((stress.self !== 0 || paired.stress !== 0) && combat.actor?.stress === undefined) {

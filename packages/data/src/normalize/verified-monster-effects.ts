@@ -686,6 +686,19 @@ const entries: readonly {
     signature: "{target_effects}3{blight}2t",
     effects: [{ type: "status", scope: "target", kind: "blight", amount: 3, duration: 2 }],
   },
+  // A-01 / A-06：`monster_large:p016` slot 3 Revivify · FRONT p016（R-001 / R-048）。
+  {
+    id: "monster_large:p016",
+    name: "Mammoth Cyst",
+    level: 3,
+    pages: [16],
+    slot: 3,
+    signature: "{self_effects}Self{buff}2t,{damage_or_heal_combined_marker}15{heal}",
+    effects: [
+      { type: "status", scope: "self", kind: "buff", duration: 2 },
+      { type: "heal", scope: "self", amount: 15 },
+    ],
+  },
   // A-01：`monster_large:p018` slot 1 Refashion Them · FRONT p018（R-001 / R-048）。
   {
     id: "monster_large:p018",

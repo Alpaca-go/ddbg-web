@@ -27166,7 +27166,26 @@
         }
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{buff}2t,{damage_or_heal_combined_marker}15{heal}"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "self",
+        "kind": "buff",
+        "duration": 2
+       },
+       {
+        "type": "heal",
+        "scope": "self",
+        "amount": 15
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [

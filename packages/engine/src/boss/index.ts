@@ -477,10 +477,13 @@ export {
 export {
   applyMammothCystBulgingGaze,
   applyMammothCystDigestion,
+  applyMammothCystRevivify,
   MAMMOTH_BULGING_GAZE_SKILL_SLOT,
   MAMMOTH_DIGESTION_SKILL_SLOT,
+  MAMMOTH_REVIVIFY_SKILL_SLOT,
   type ApplyMammothCystBulgingGazeCommand,
   type ApplyMammothCystDigestionCommand,
+  type ApplyMammothCystRevivifyCommand,
 } from "./darkest-mammoth-cyst-skills-acc";
 export {
   applyTemplarImpalerBodySlam,
