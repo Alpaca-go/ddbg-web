@@ -630,6 +630,19 @@ const entries: readonly {
       { type: "heal", scope: "target", amount: 11 },
     ],
   },
+  // A-01：`monster_large:p014` slot 2 Stinger Shot · FRONT p014（R-001 / R-048）。
+  {
+    id: "monster_large:p014",
+    name: "Templar Warlord",
+    level: 3,
+    pages: [14],
+    slot: 2,
+    signature: "{target_effects}3{blight}3t,{debuff}2t",
+    effects: [
+      { type: "status", scope: "target", kind: "blight", amount: 3, duration: 3 },
+      { type: "status", scope: "target", kind: "debuff", duration: 2 },
+    ],
+  },
   // A-01：`monster_large:p014` slot 3 Revelation · FRONT p014（R-001 / R-048）。
   {
     id: "monster_large:p014",
