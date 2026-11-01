@@ -242,7 +242,14 @@ export function runTrinketCommand(
         { key: p.choice.id.slice("trinket|".length), optionId: command.optionId },
       ];
   }
-  if (!root.allTrinkets && root.type !== "useCoreTrinket") return dispatch(state, command);
+  const crystalLegacy =
+    root.type === "useTrinket" &&
+    root.cardId === "trinket:p038" &&
+    original.battle?.trinkets?.held.some(
+      (h) => h.cardId === root.cardId && h.heroId === root.actorId && h.face === "inverted",
+    );
+  if (!root.allTrinkets && root.type !== "useCoreTrinket" && !crystalLegacy)
+    return dispatch(state, command);
   const runtime: TrinketRuntime = {
     cursor: 0,
     epoch:
