@@ -236,6 +236,23 @@ describe("规范化核心盒", () => {
     }
   });
 
+  it("monster_large icon 8707d5d8cf 为 summon/confirmed，p017/p019 卡级 verified", () => {
+    expect(built.monster_large.stats).toEqual({ cards: 20, verified: 20, unverified: 0 });
+    for (const id of ["monster_large:p017", "monster_large:p019"] as const) {
+      const card = built.monster_large.cards.find((entry) => entry.id === id);
+      expect(card?.verification).toEqual({ unverified: false, reasons: [] });
+    }
+    const summonIcons = iconsNamed(
+      built.monster_large,
+      (icon) => icon.iconId === "8707d5d8cf",
+    );
+    expect(summonIcons.length).toBeGreaterThan(0);
+    for (const icon of summonIcons) {
+      expect(icon.naming).toBe("confirmed");
+      expect(icon.key).toBe("summon");
+    }
+  });
+
   it("核心盒 38 张饰品 verification 与词典 v1.8 Q-47 批一致", () => {
     expect(built.trinket.cards).toHaveLength(38);
     expect(built.trinket.stats.verified).toBe(38);
