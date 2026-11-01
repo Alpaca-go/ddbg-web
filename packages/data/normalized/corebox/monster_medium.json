@@ -43480,7 +43480,21 @@
         "text": " 1t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}1t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 1
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
