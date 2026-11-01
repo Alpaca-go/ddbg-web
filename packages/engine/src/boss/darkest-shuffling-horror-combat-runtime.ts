@@ -1,8 +1,12 @@
-import { rejectBattleCommand, type BattleEntity, type BattleState } from "../battle";
+import { distance, rejectBattleCommand, type BattleEntity, type BattleState } from "../battle";
 import type { ApplyResult, GameState } from "../command";
 import { finishTurn } from "../encounter";
 import type { SkillStance } from "../hero-skill";
+import { readPrintedTargets } from "../hero-skill";
 import type { MonsterCardView } from "../monster-skill";
+import { readMonsterAttackView } from "../monster-skill";
+import { selectMonsterTarget, type MonsterTargetHero } from "../monster-target";
+import { passiveStress } from "../passive";
 import { createRng } from "../rng";
 import { readBossCombatEntry } from "./combat-entry";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
@@ -11,12 +15,114 @@ import { DARKEST_SHUFFLING_HORROR_SCRIPT_ID } from "./darkest-mid-boss-scripts";
 
 export const SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID = "monster_large:p017" as const;
 
+export const SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT = 3 as const;
+export const SHUFFLING_HORROR_ECHOING_STRESS_AMOUNT = 2 as const;
+export const SHUFFLING_HORROR_ECHOING_LIGHT_DELTA = -1 as const;
+
 export const SHUFFLING_HORROR_ECHOING_SUMMON_CARD_IDS = [
   "monster_medium:p072",
   "monster_medium:p075",
 ] as const;
 
 const STANCE_ORDER: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
+const heroStances = STANCE_ORDER;
+
+function clampBattleLight(light: number): number {
+  return Math.max(0, Math.min(5, light + SHUFFLING_HORROR_ECHOING_LIGHT_DELTA));
+}
+
+function selectEchoingDisassemblyPrimaryTarget(
+  state: GameState,
+  battle: BattleState,
+  actor: BattleEntity,
+): { readonly targetId: string; readonly areaId: string } | ApplyResult {
+  const card = readMonsterCard(state, battle, actor.monsterCardId!);
+  if (!card) return rejectBattleCommand(state, "Echoing Disassembly 战斗目录缺失（R-048）");
+  const attack = readMonsterAttackView(card, SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT);
+  if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
+  const heroes: MonsterTargetHero[] = [];
+  for (const hero of battle.entities.filter((entry) => entry.side === "hero" && !entry.dead)) {
+    if (
+      !battle.areas.some((area) => area.id === actor.areaId) ||
+      !battle.areas.some((area) => area.id === hero.areaId)
+    )
+      return rejectBattleCommand(state, "角色区域不在已核实几何内（R-048）");
+    heroes.push({
+      id: hero.id,
+      areaId: hero.areaId,
+      stance: hero.stance!,
+      areaDistance: distance(battle.areas, actor.areaId, hero.areaId),
+      wounds: hero.wounds,
+      stress: hero.stress!,
+      markStacks: hero.markStacks ?? 0,
+      guard: hero.guard,
+      dead: hero.dead,
+    });
+  }
+  const picked = selectMonsterTarget(
+    {
+      verification: card.verification,
+      skills: card.skills.map((skill) => ({ slot: skill.slot, target: skill.target ?? null })),
+    },
+    SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT,
+    heroes,
+  );
+  if (picked.status === "refused") return rejectBattleCommand(state, picked.reason);
+  if (picked.status === "noFiniteTarget")
+    return rejectBattleCommand(
+      state,
+      "Echoing Disassembly：无卡面目标优先级下的有限距离英雄（R-048）",
+    );
+  const primary = battle.entities.find((entry) => entry.id === picked.targetId);
+  if (!primary?.areaId)
+    return rejectBattleCommand(state, "Echoing Disassembly：Crowded 目标缺少区域（R-048）");
+  return { targetId: picked.targetId, areaId: primary.areaId };
+}
+
+function crowdedStressTargets(
+  battle: BattleState,
+  areaId: string,
+  max: number,
+): BattleEntity[] {
+  const candidates = battle.entities.filter(
+    (entity) => entity.side === "hero" && !entity.dead && entity.areaId === areaId,
+  );
+  return [...candidates]
+    .sort(
+      (a, b) =>
+        Number(b.guard) - Number(a.guard) ||
+        heroStances.indexOf(a.stance!) - heroStances.indexOf(b.stance!),
+    )
+    .slice(0, max);
+}
+
+function applyEchoingDisassemblyTargetEffects(
+  state: GameState,
+  battle: BattleState,
+  actor: BattleEntity,
+): { readonly battle: BattleState } | ApplyResult {
+  const card = readMonsterCard(state, battle, actor.monsterCardId!);
+  if (!card?.skills.find((entry) => entry.slot === SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT)
+    ?.verified_monster_effects)
+    return { battle };
+  const targetPick = selectEchoingDisassemblyPrimaryTarget(state, battle, actor);
+  if ("events" in targetPick) return targetPick;
+  const attack = readMonsterAttackView(card, SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT);
+  if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
+  const printedTargets = readPrintedTargets(attack.view);
+  if (printedTargets.kind !== "exact")
+    return rejectBattleCommand(state, "Echoing Disassembly 缺少已核实目标数（R-048）");
+  const stressedIds = new Set(
+    crowdedStressTargets(battle, targetPick.areaId, printedTargets.max).map((hero) => hero.id),
+  );
+  const light = clampBattleLight(battle.light);
+  const entities = battle.entities.map((entity) => {
+    if (!stressedIds.has(entity.id)) return entity;
+    const delta = passiveStress(entity, SHUFFLING_HORROR_ECHOING_STRESS_AMOUNT, battle.light);
+    return { ...entity, stress: (entity.stress ?? 0) + delta.amount };
+  });
+  return { battle: { ...battle, entities, light } };
+}
 
 export const DARKEST_MID_BOSS_HERO_STANCE_AREAS: Readonly<Record<SkillStance, string>> = {
   aggressive: "darkest-mid-boss-hero-aggressive",
@@ -217,11 +323,17 @@ export function applyShufflingHorrorEchoingDisassembly(
   const resolved = shufflingHorrorActor(state, actorId, "Echoing Disassembly");
   if ("events" in resolved) return resolved;
   let battle = resolved.battle;
+  const { actor } = resolved;
+  const lightBefore = battle.light;
   if (allMonsterStanceSlotsFilled(battle))
     return rejectBattleCommand(
       state,
       "Echoing Disassembly：怪物姿态轨已满，不能使用该技能（boss_ability:p033）",
     );
+
+  const effectApplied = applyEchoingDisassemblyTargetEffects(state, battle, actor);
+  if ("events" in effectApplied) return effectApplied;
+  battle = effectApplied.battle;
 
   const occupied = occupiedMonsterStanceIndexes(battle);
   const summoned: string[] = [];
@@ -281,6 +393,9 @@ export function applyShufflingHorrorEchoingDisassembly(
   const parts = [
     summoned.length ? `召唤 ${summoned.join("、")}` : undefined,
     skipped.length ? `跳过已在场 ${skipped.join("、")}` : undefined,
+    battle.light !== lightBefore
+      ? `Torch ${SHUFFLING_HORROR_ECHOING_LIGHT_DELTA}（${battle.light}）`
+      : undefined,
   ].filter(Boolean);
   const nextBattle = {
     ...battle,

@@ -15,22 +15,27 @@ import {
   DARKEST_MID_BOSS_HERO_STANCE_AREAS,
   DARKEST_MID_BOSS_MONSTER_STANCE_AREAS,
   SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID,
+  SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT,
+  SHUFFLING_HORROR_ECHOING_LIGHT_DELTA,
+  SHUFFLING_HORROR_ECHOING_STRESS_AMOUNT,
   SHUFFLING_HORROR_ECHOING_SUMMON_CARD_IDS,
 } from "./darkest-shuffling-horror-combat-runtime";
 import { bossQuestScriptId } from "./quest-bridge";
 
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
-const horrorCard: MonsterCardView = {
-  id: SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID,
-  name: "Shuffling Horror",
-  life: 109,
-  dodge: 0,
-  speed: 1,
-  verification: { unverified: true, reasons: ["fixture"] },
-  skills: [],
-  typeTags: ["Eldritch"],
-} as MonsterCardView;
+function loadShufflingHorrorCard(): MonsterCardView {
+  const large = JSON.parse(
+    readFileSync(new URL("../../../data/normalized/corebox/monster_large.json", import.meta.url), {
+      encoding: "utf8",
+    }),
+  ) as { cards: MonsterCardView[] };
+  const card = large.cards.find((entry) => entry.id === SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID);
+  if (!card) throw new Error("monster_large:p017 missing from normalized catalog");
+  return card;
+}
+
+const horrorCard: MonsterCardView = loadShufflingHorrorCard();
 
 const cultistCard: MonsterCardView = {
   id: "monster_medium:p072",
@@ -228,6 +233,55 @@ describe("Shuffling Horror · Echoing Disassembly", () => {
       expect(entity?.stanceSlots).toBe(1);
     }
     expect(result.state.battle!.encounter!.turn.type).not.toBe("monster");
+  });
+
+  it("Crowded 区英雄 +2 压力、Torch −1，与召唤并存", () => {
+    const base = onHorrorTurn(horrorBattle());
+    const crowdedArea = DARKEST_MID_BOSS_HERO_STANCE_AREAS.aggressive;
+    const patch = Object.fromEntries(
+      base.battle!.entities
+        .filter((entity) => entity.side === "hero")
+        .map((hero, index) => [hero.id, index < 2 ? crowdedArea : DARKEST_MID_BOSS_HERO_STANCE_AREAS.ranged]),
+    );
+    const game: GameState = {
+      ...base,
+      battle: {
+        ...base.battle!,
+        light: 4,
+        entities: base.battle!.entities.map((entity) =>
+          entity.side === "hero" && patch[entity.id]
+            ? { ...entity, areaId: patch[entity.id]!, stress: 1 }
+            : entity,
+        ),
+      },
+    };
+    expect(
+      horrorCard.skills.find((skill) => skill.slot === SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT)
+        ?.verified_monster_effects?.effects,
+    ).toEqual([
+      { type: "stress", scope: "target", amount: SHUFFLING_HORROR_ECHOING_STRESS_AMOUNT },
+      { type: "light", scope: "target", amount: SHUFFLING_HORROR_ECHOING_LIGHT_DELTA },
+    ]);
+    const crowdedHeroes = game.battle!.entities.filter(
+      (entity) => entity.side === "hero" && entity.areaId === crowdedArea,
+    );
+    expect(crowdedHeroes).toHaveLength(2);
+    const result = applyShufflingHorrorEchoingDisassembly(game, "horror");
+    expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+    for (const hero of crowdedHeroes) {
+      expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress).toBe(
+        1 + SHUFFLING_HORROR_ECHOING_STRESS_AMOUNT,
+      );
+    }
+    expect(result.state.battle!.light).toBe(4 + SHUFFLING_HORROR_ECHOING_LIGHT_DELTA);
+    expect(
+      result.events.find((event) => event.type === "dungeonUpdated")?.message,
+    ).toContain("Torch -1");
+    expect(
+      result.state.battle!.entities.filter(
+        (entity) => entity.monsterCardId === "monster_medium:p075" && !entity.dead,
+      ),
+    ).toHaveLength(1);
   });
 
   it("已在场则跳过对应召唤物", () => {
