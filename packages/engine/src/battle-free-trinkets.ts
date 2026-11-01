@@ -186,6 +186,8 @@ export function freeTrinketUseProblem(
   if (!card || !matches(card, id)) return "饰品卡面发生变化（R-048）";
   if (!held || b.usedTrinketIds?.includes(id)) return "未持有或本角色回合已使用（R26、R-028）";
   if (held.face === "inverted") {
+    if (id === "trinket:p028" || id === "trinket:p035")
+      return "此反面须在意志骰结果确定前的饰品选择中使用，不接受免费翻面（R26）";
     if ((FREE_TRINKET_INVERTED_DEFENCE_REACTION as readonly string[]).includes(id))
       return "此反面在受击防御窗选用，不可用独立命令（R26、R-048）";
     if (!(FREE_TRINKET_INVERTED_ACTIVE_USE as readonly string[]).includes(id))
