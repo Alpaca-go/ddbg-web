@@ -13,6 +13,7 @@ import type { MonsterCardView } from "../monster-skill";
 import { skillBelongsToFormalHero } from "../formal-roster-catalog";
 import { heroSkillSlotCount } from "../hero-loadout";
 import { ownedHeroSkills } from "../hero-loadout";
+import { applyTemporarySkillUpgrades, restoreTemporarySkillUpgrades } from "../hamlet-embark";
 import { statusProjection } from "../status";
 import { readFinalFormSequence } from "./final-form-sequence";
 import {
@@ -20,9 +21,7 @@ import {
   withAncestor1ReflectionsGuardState,
 } from "./ancestor1-reflections-guard";
 import { readFinalBattlePlanAfterDarkestVictory } from "./darkest-content";
-import {
-  appendAbsoluteNothingnessSupportEntities,
-} from "./ancestor2-absolute-nothingness";
+import { appendAbsoluteNothingnessSupportEntities } from "./ancestor2-absolute-nothingness";
 import roomCatalog from "../../../data/normalized/corebox/room_tile_geometry.json";
 import roomCards from "../../../data/normalized/corebox/room.json";
 import { roomFileSchema } from "../../../data/src/room";
@@ -162,6 +161,29 @@ function buildHeroEntities(
   void _monsters;
   const heroes: BattleEntity[] = [];
   for (const hero of d.heroes) {
+    const plans = hero.nextQuestSkillUpgrades;
+    if (
+      plans !== undefined &&
+      (!Array.isArray(plans) ||
+        plans.some(
+          (p) =>
+            !p || typeof p.originalSkillId !== "string" || typeof p.temporarySkillId !== "string",
+        ))
+    )
+      return refuse(`${hero.id} 的临时技能计划无效（R34）`);
+    if (plans?.length) {
+      const original = {
+        ...hero,
+        skillIds: restoreTemporarySkillUpgrades([hero])[0]!.skillIds ?? [],
+      };
+      const reapplied = applyTemporarySkillUpgrades([original], d.battleCatalog!);
+      if (
+        !ownedHeroSkills(original, d.battleCatalog!) ||
+        !("heroes" in reapplied) ||
+        JSON.stringify(reapplied.heroes[0]!.skillIds) !== JSON.stringify(hero.skillIds)
+      )
+        return refuse(`${hero.id} 的临时技能与拥有原卡不符（R34、R-048）`);
+    }
     const stat = stats.find((entry) => entry.id === hero.heroStatId);
     const selected = hero.skillIds?.map((id) => skills.find((skill) => skill.id === id));
     const slots = heroSkillSlotCount(stat?.level ?? 0);
@@ -185,7 +207,7 @@ function buildHeroEntities(
           ![1, 2, 3].includes(skill.level) ||
           skill.verification.unverified,
       ) ||
-      !ownedHeroSkills(hero, d.battleCatalog!)
+      (!plans?.length && !ownedHeroSkills(hero, d.battleCatalog!))
     )
       return refuse(`${hero.id} 缺少获批属性或有效装备技能，不能进入最终战（R-048、R-051）`);
     heroes.push({
