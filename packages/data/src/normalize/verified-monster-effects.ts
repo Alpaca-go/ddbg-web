@@ -12,6 +12,16 @@ const entries: readonly {
   signature: string;
   effects: MonsterEffectPlan["effects"];
 }[] = [
+  // K-002：Imperfect Reflection We Are the Same · FRONT p109–111。
+  {
+    id: "monster_medium:p109",
+    name: "Imperfect Reflection",
+    level: 3,
+    pages: [109, 110, 111],
+    slot: 2,
+    signature: "{target_effects}{stress}+1",
+    effects: [{ type: "stress", scope: "target", amount: 1 }],
+  },
   // K-002：Imperfect Reflection It Chooses · FRONT p109（R-001 / R-048）。
   {
     id: "monster_medium:p109",
