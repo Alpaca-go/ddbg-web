@@ -11,6 +11,7 @@ import { statusProjection } from "./status";
 import { finalizeFreeTrinketDuringMonsterTurn } from "./battle-monster-retarget";
 import { resolveAttackDamage } from "./attack-damage";
 import { damageTrinketReaction } from "./trinket-reactions";
+import { useCoreTrinket } from "./core-trinket-free";
 
 // R26 / §11.2 / R-028；完整印刷 p015/017/018/027/028/030/035–038 逐面绑定。
 const definitions = {
@@ -112,6 +113,7 @@ export const FREE_TRINKET_INVERTED_ACTIVE_USE = [
   "trinket:p030",
   "trinket:p036",
   "trinket:p037",
+  "trinket:p038",
 ] as const satisfies readonly FreeTrinketId[];
 /** 反面已在受击/防御窗（defenceTrinketReaction）接通，不接受独立 useTrinket。 */
 export const FREE_TRINKET_INVERTED_DEFENCE_REACTION = [
@@ -206,6 +208,15 @@ export function useFreeTrinket(
   const { actorId, cardId } = command;
   const problem = freeTrinketUseProblem(state, actorId, cardId);
   if (problem) return rejectBattleCommand(state, problem);
+  if (
+    command.cardId === "trinket:p038" &&
+    state.battle!.trinkets!.held.find((h) => h.cardId === command.cardId)?.face === "inverted"
+  )
+    return useCoreTrinket(state, {
+      type: "useCoreTrinket",
+      actorId: command.actorId,
+      cardId: command.cardId,
+    });
   const before = state.battle!,
     turn = before.encounter!.turn;
   let b = before;
@@ -342,10 +353,5 @@ export function useFreeTrinket(
   const result = resolveBattlePressure({ state: { ...state, battle: b }, events });
   if (result.events.some((e) => e.type === "commandRefused"))
     return rejectBattleCommand(state, "饰品压力结算拒绝");
-  return finalizeFreeTrinketDuringMonsterTurn(
-    state,
-    result,
-    before,
-    command.allTrinkets,
-  );
+  return finalizeFreeTrinketDuringMonsterTurn(state, result, before, command.allTrinkets);
 }
