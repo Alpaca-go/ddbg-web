@@ -9,9 +9,22 @@ const entries: readonly {
   level?: 1 | 2 | 3;
   pages: number[];
   slot: number;
-  signature: string;
+  signature: string | readonly string[];
   effects: MonsterEffectPlan["effects"];
 }[] = [
+  {
+    id: "monster_medium:p106",
+    name: "Perfect Reflection",
+    level: 3,
+    pages: [106, 107, 108],
+    slot: 1,
+    signature: ["{target_effects}{damage}+3vs{mark},2{bleed}3t,", "{stress}+1"],
+    effects: [
+      { type: "damageBonus", condition: "marked", amount: 3 },
+      { type: "status", scope: "target", kind: "bleed", amount: 2, duration: 3 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
   {
     id: "monster_medium:p106",
     name: "Perfect Reflection",
@@ -902,18 +915,24 @@ export function attachVerifiedMonsterEffects(
     if (
       !skill ||
       card.skills.filter((s) => s.slot === entry.slot).length !== 1 ||
-      skill.effect_lines.length !== 1 ||
-      skill.effect_lines[0]!.some(
-        (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
-      )
+      skill.effect_lines.length !==
+        (typeof entry.signature === "string" ? 1 : entry.signature.length) ||
+      skill.effect_lines
+        .flat()
+        .some(
+          (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+        )
     )
       throw new Error(`怪物效果行未核实：${entry.id}/${entry.slot}`);
-    const signature = skill.effect_lines[0]!.map((s) =>
-      s.type === "text" ? s.text : `{${s.icon.key}}`,
-    )
-      .join("")
-      .replace(/\s+/g, "");
-    if (signature !== entry.signature) throw new Error(`怪物效果行漂移：${entry.id}/${entry.slot}`);
+    const signatures = skill.effect_lines.map((line) =>
+      line
+        .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+        .join("")
+        .replace(/\s+/g, ""),
+    );
+    const expected = typeof entry.signature === "string" ? [entry.signature] : entry.signature;
+    if (JSON.stringify(signatures) !== JSON.stringify(expected))
+      throw new Error(`怪物效果行漂移：${entry.id}/${entry.slot}`);
   }
   return cards.map((card) => {
     if (!("skills" in card)) return card;
@@ -926,7 +945,8 @@ export function attachVerifiedMonsterEffects(
               ...skill,
               verified_monster_effects: {
                 source: "print_front" as const,
-                signatures: [entry.signature],
+                signatures:
+                  typeof entry.signature === "string" ? [entry.signature] : [...entry.signature],
                 effects: entry.effects,
               },
             }
