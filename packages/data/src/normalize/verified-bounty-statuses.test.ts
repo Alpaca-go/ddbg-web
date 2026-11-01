@@ -15,6 +15,27 @@ const effects = (card: typeof mark) =>
     duration,
     "amount" in rest ? rest.amount : null,
   ]);
+it("R-141 三张高等级卡逐卡核图，来源漂移不放行", () => {
+  const bounty = cards.find((c) => c.id === "hero_skill:p044")!;
+  expect(bounty.printed_labels).toContainEqual({ label: "Acc", raw: "Acc 1O", value: 10 });
+  expect(bounty.unlabeled_numbers).toContainEqual({
+    text: "8",
+    numeric: 8,
+    anchor: { type: "printed_label", label: "Acc" },
+  });
+  expect(effects(cards.find((c) => c.id === "hero_skill:p048")!)).toEqual([
+    ["target", "mark", 3, null],
+    ["target", "debuff", 3, null],
+    ["self", "buff", 3, null],
+  ]);
+  expect(effects(cards.find((c) => c.id === "hero_skill:p063")!)).toEqual([
+    ["target", "bleed", 3, 3],
+    ["target", "debuff", 3, null],
+  ]);
+  const bad = structuredClone(cards);
+  bad.find((c) => c.id === bounty.id)!.printed_labels.find((l) => l.label === "Acc")!.value = 11;
+  expect(() => attachVerifiedBountyStatuses(bad)).toThrow(/R-141/);
+});
 it("R-089两卡完整状态黄金值；Mark射程0–2、Caltrops伤害数字不混入Bleed", () => {
   expect(effects(mark)).toEqual([
     ["target", "mark", 3, null],
@@ -57,7 +78,12 @@ it("生成可重复且不突变、不触碰其余五张I技能或其他卡", () 
   expect(again).toEqual(cards);
   expect(cards).toEqual(before);
   for (const [i, c] of cards.entries())
-    if (![mark.id, caltrops.id].includes(c.id)) expect(again[i]).toBe(c);
+    if (
+      ![mark.id, caltrops.id, "hero_skill:p044", "hero_skill:p048", "hero_skill:p063"].includes(
+        c.id,
+      )
+    )
+      expect(again[i]).toBe(c);
   expect(file).toEqual(
     JSON.parse(
       readFileSync(new URL("../../normalized/corebox/hero_skill.json", import.meta.url), "utf8"),

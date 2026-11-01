@@ -144,12 +144,12 @@ describe("规范化核心盒", () => {
     ]);
 
     const bounty = built.hero_skill.cards.find((card) => card.id === "hero_skill:p044");
-    expect(bounty?.printed_labels).toContainEqual({ label: "Acc", raw: "Acc 1O", value: null });
+    expect(bounty?.printed_labels).toContainEqual({ label: "Acc", raw: "Acc 1O", value: 10 });
     expect(
       bounty?.unlabeled_numbers.some(
         (item) => item.anchor.type === "printed_label" && item.anchor.label === "Acc",
       ),
-    ).toBe(false);
+    ).toBe(true);
   });
 
   it("pending_ 图标保持未验证，已合并图标用目标含义", () => {
@@ -242,10 +242,7 @@ describe("规范化核心盒", () => {
       const card = built.monster_large.cards.find((entry) => entry.id === id);
       expect(card?.verification).toEqual({ unverified: false, reasons: [] });
     }
-    const summonIcons = iconsNamed(
-      built.monster_large,
-      (icon) => icon.iconId === "8707d5d8cf",
-    );
+    const summonIcons = iconsNamed(built.monster_large, (icon) => icon.iconId === "8707d5d8cf");
     expect(summonIcons.length).toBeGreaterThan(0);
     for (const icon of summonIcons) {
       expect(icon.naming).toBe("confirmed");
