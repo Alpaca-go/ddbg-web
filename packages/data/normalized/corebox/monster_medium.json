@@ -44758,7 +44758,26 @@
         }
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{shuffle}Push2{target_effects}{heal}17{heal}"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "push",
+        "distance": 2
+       },
+       {
+        "type": "heal",
+        "scope": "target",
+        "amount": 17
+       }
+      ]
+     }
     },
     {
      "slot": 3,
