@@ -40615,7 +40615,21 @@
         "text": " Pull 2"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{shuffle}Pull2"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "pull",
+        "distance": 2
+       }
+      ]
+     }
     },
     {
      "slot": 3,
