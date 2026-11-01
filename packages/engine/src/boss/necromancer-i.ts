@@ -46,7 +46,7 @@ export const necromancerIBossScript: BossScriptDefinition = {
   displayName: "Necromancer I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "C-011 / R38：I 级死亡清场、前两招已选技能召唤 Bone Rabble + 当前轮先攻已接；卡面自动选招与 Six Feet Under 留 C-012，II/III 未开。",
+    "C-011 / C-012 / R38：I 级死亡清场、卡面自动选招、三招含 Six Feet Under、命中召唤 Bone Rabble 与当前轮先攻已接；II/III 由独立脚本处理。生产房间几何与 R-121 入口仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: NECROMANCER_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: NECROMANCER_I_COMBAT_ABILITY_CARD_ID,
