@@ -49,10 +49,10 @@ it("monster_large:p019 仅 slot 1 Dispersion，无 Acc/Crit/伤害/目标/射程
   );
 });
 
-it("p019 卡级 unverified 含 summon 图标；p018/p020 为 verified 且各有三招 Acc 标签", () => {
+it("p019 卡级 verified（icon 8707d5d8cf→summon）；p018/p020 仍为 verified 且各有三招 Acc 标签", () => {
   const cards = loadLargeCards();
   const heart = cards.find((c) => c.id === GESTATING_HEART_MONSTER_CARD_ID)!;
-  expect(heart.verification).toEqual({ unverified: true, reasons: ["icon:8707d5d8cf"] });
+  expect(heart.verification).toEqual({ unverified: false, reasons: [] });
 
   for (const id of ["monster_large:p018", "monster_large:p020"] as const) {
     const boss = cards.find((c) => c.id === id)!;
@@ -61,18 +61,12 @@ it("p019 卡级 unverified 含 summon 图标；p018/p020 为 verified 且各有�
   }
 });
 
-it("Dispersion：readMonsterAttackView 就绪但 resolveMonsterSkill 缺 damage；verified 后仍拒绝 Acc 路径", () => {
+it("Dispersion：readMonsterAttackView 就绪；verified 后 resolveMonsterSkill 仍缺 damage 路径", () => {
   const card = gestatingHeartCard();
   const attack = readMonsterAttackView(card, 1);
   expect(attack.status).toBe("ready");
 
   expect(resolveMonsterSkill(card, 1, minimalCombat, 4)).toMatchObject({
-    status: "refused",
-    reason: "未验证的怪物卡不结算（R-048）",
-  });
-
-  const verified: MonsterCardView = { ...card, verification: { unverified: false } };
-  expect(resolveMonsterSkill(verified, 1, minimalCombat, 4)).toMatchObject({
     status: "refused",
     reason: expect.stringContaining("damage"),
   });
