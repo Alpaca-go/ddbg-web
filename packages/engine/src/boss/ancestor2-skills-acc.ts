@@ -8,7 +8,7 @@ import {
 } from "./ancestor2-swift-teleportation";
 import { readFinalFormSequence } from "./final-form-sequence";
 
-/** `monster_large:p018` · boss_ability:p035 三招 Acc/Crit/伤害（slot 2 效果线已 verified；其余 hold）。 */
+/** `monster_large:p018` · boss_ability:p035 三招 Acc/Crit/伤害（slot 1/2 效果线已 verified；slot 3 hold）。 */
 export const REFASHION_THEM_SKILL_SLOT = 1;
 export const UNMAKE_THEM_ALL_SKILL_SLOT = 2;
 export const EMBRACE_FUTILITY_SKILL_SLOT = 3;

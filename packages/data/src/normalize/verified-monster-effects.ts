@@ -686,6 +686,20 @@ const entries: readonly {
     signature: "{target_effects}3{blight}2t",
     effects: [{ type: "status", scope: "target", kind: "blight", amount: 3, duration: 2 }],
   },
+  // A-01：`monster_large:p018` slot 1 Refashion Them · FRONT p018（R-001 / R-048）。
+  {
+    id: "monster_large:p018",
+    name: "Ancestor 2",
+    level: 3,
+    pages: [18],
+    slot: 1,
+    signature: "{target_effects}3{bleed}3t,{stress}+1,{light}-1",
+    effects: [
+      { type: "status", scope: "target", kind: "bleed", amount: 3, duration: 3 },
+      { type: "stress", scope: "target", amount: 1 },
+      { type: "light", scope: "target", amount: -1 },
+    ],
+  },
   // A-01：`monster_large:p018` slot 2 Unmake Them All · FRONT p018（R-001 / R-048）。
   {
     id: "monster_large:p018",
