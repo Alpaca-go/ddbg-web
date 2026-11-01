@@ -12,6 +12,19 @@ const entries: readonly {
   signature: string;
   effects: MonsterEffectPlan["effects"];
 }[] = [
+  // K-001：White Cell Stalk Reconstitute · FRONT p104（R-001 / R-048）。
+  {
+    id: "monster_medium:p104",
+    name: "White Cell Stalk",
+    level: 3,
+    pages: [104],
+    slot: 1,
+    signature: "{target_effects}{heal}14{heal},{buff}2t",
+    effects: [
+      { type: "heal", scope: "target", amount: 14 },
+      { type: "status", scope: "target", kind: "buff", duration: 2 },
+    ],
+  },
   // K-001：White Cell Stalk Displace · FRONT p104（R-001 / R-048）。
   {
     id: "monster_medium:p104",
