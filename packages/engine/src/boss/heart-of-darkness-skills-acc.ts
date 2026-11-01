@@ -10,7 +10,7 @@ import {
 } from "./heart-of-darkness-impending-doom";
 import { readFinalFormSequence } from "./final-form-sequence";
 
-/** `monster_large:p020` · boss_ability:p037 三招 Acc/Crit/伤害（效果线 hold 至 verified_monster_effects）。 */
+/** `monster_large:p020` · boss_ability:p037 三招 Acc/Crit/伤害（slot 1–2 效果线已 verified；slot 3 hold）。 */
 export const KNOW_THIS_SKILL_SLOT = 1;
 export const PUNCTURE_SKILL_SLOT = 2;
 export const DISSOLUTION_SKILL_SLOT = 3;
