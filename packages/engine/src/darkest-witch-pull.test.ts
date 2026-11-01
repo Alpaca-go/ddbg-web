@@ -33,7 +33,7 @@ it("R-140 Fate’s Pull 命中 Pull2 与压力1；落空无位移或压力", () 
   });
   expect(card).toEqual(before);
   const icon = card.skills[2]!.effect_lines.flat().find(
-    (s) => s.type === "icon" && s.icon.iconId === "ed2299539e",
+    (s) => s.type === "icon" && s.icon.key === "shuffle_resist",
   );
   expect(icon?.type === "icon" && icon.icon.key).toBe("shuffle_resist");
 });
