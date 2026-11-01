@@ -2,6 +2,7 @@ import { expect, it, describe } from "vitest";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
 import { applyCommand, type Command, type GameState } from "../command";
+import { nextBattleRoll } from "../battle-roll";
 import {
   applyMammothCystBulgingGaze,
   applyMammothCystDigestion,
@@ -97,19 +98,95 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     ).toBe(true);
   });
 
-  it("Digestion · Crowded", () => {
+  it("Digestion · Crowded · 命中 3 枯萎 2t", () => {
     const base = fighting();
     const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
+    const card = base.dungeon!.battleCatalog!.monsters.find(
+      (entry) => entry.id === MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
+    )!;
+    expect(
+      card.skills.find((skill) => skill.slot === MAMMOTH_DIGESTION_SKILL_SLOT)?.verified_monster_effects
+        ?.effects,
+    ).toEqual([
+      { type: "status", scope: "target", kind: "blight", amount: 3, duration: 2 },
+    ]);
+
+    let cursor = 0;
+    while (nextBattleRoll(base.seed, cursor) !== 5) cursor += 1;
     const patch = Object.fromEntries(heroes.map((hero) => [hero.id, HERO_SUP]));
-    const game = onMammothTurn(withHeroAreas(base, patch));
-    const result = applyMammothCystDigestion(game, mammoth(game).id);
+    let game = onMammothTurn(withHeroAreas(base, patch));
+    const actor = mammoth(game);
+    game = {
+      ...game,
+      battle: {
+        ...game.battle!,
+        rngCursor: cursor,
+        light: 5,
+        entities: game.battle!.entities.map((entity) =>
+          entity.side === "hero" ? { ...entity, dodge: 0 } : entity,
+        ),
+      },
+    };
+    const result = applyMammothCystDigestion(game, actor.id);
     expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+    const skillEvent = result.events.find((event) => event.type === "monsterSkillTargetsResolved");
+    expect(skillEvent?.type).toBe("monsterSkillTargetsResolved");
+    if (skillEvent?.type === "monsterSkillTargetsResolved") {
+      expect(skillEvent.resolutions.every((resolution) => resolution.outcome === "hit")).toBe(true);
+      expect(
+        skillEvent.resolutions.every((resolution) =>
+          (resolution.targetStatusEffects ?? []).some(
+            (effect) => effect.kind === "blight" && effect.amount === 3 && effect.duration === 2,
+          ),
+        ),
+      ).toBe(true);
+    }
+    for (const hero of heroes.slice(0, 2)) {
+      expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks).toEqual([
+        { kind: "blight", amount: 3, remaining: 2 },
+      ]);
+    }
     expect(
       result.events.some(
-        (event) =>
-          event.type === "monsterSkillResolved" || event.type === "monsterSkillTargetsResolved",
+        (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
       ),
     ).toBe(true);
+  });
+
+  it("Digestion · 落空无枯萎", () => {
+    const base = fighting();
+    const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
+    let cursor = 0;
+    while (nextBattleRoll(base.seed, cursor) !== 10) cursor += 1;
+    const patch = Object.fromEntries(heroes.map((hero) => [hero.id, HERO_SUP]));
+    let game = onMammothTurn(withHeroAreas(base, patch));
+    const actor = mammoth(game);
+    game = {
+      ...game,
+      battle: {
+        ...game.battle!,
+        rngCursor: cursor,
+        entities: game.battle!.entities.map((entity) =>
+          entity.side === "hero" ? { ...entity, dodge: 30 } : entity,
+        ),
+      },
+    };
+    const result = applyMammothCystDigestion(game, actor.id);
+    const skillEvent = result.events.find((event) => event.type === "monsterSkillTargetsResolved");
+    expect(skillEvent?.type).toBe("monsterSkillTargetsResolved");
+    if (skillEvent?.type === "monsterSkillTargetsResolved") {
+      expect(skillEvent.resolutions.every((resolution) => resolution.outcome === "miss")).toBe(true);
+      expect(
+        skillEvent.resolutions.every(
+          (resolution) => (resolution.targetStatusEffects ?? []).length === 0,
+        ),
+      ).toBe(true);
+    }
+    for (const hero of heroes) {
+      expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks ?? []).toEqual(
+        [],
+      );
+    }
   });
 
   it("Revivify slot 3 无 Acc 伤害：不接 Acc 命令", () => {
@@ -157,16 +234,35 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     ).toBe(true);
   });
 
-  it("applyCommand 白名单", () => {
+  it("applyCommand · applyMammothCystDigestion", () => {
     const base = fighting();
     const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
+    let cursor = 0;
+    while (nextBattleRoll(base.seed, cursor) !== 5) cursor += 1;
     const patch = Object.fromEntries(heroes.map((hero) => [hero.id, HERO_SUP]));
-    const state = onMammothTurn(withHeroAreas(base, patch));
+    let state = onMammothTurn(withHeroAreas(base, patch));
+    const actor = mammoth(state);
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        rngCursor: cursor,
+        light: 5,
+        entities: state.battle!.entities.map((entity) =>
+          entity.side === "hero" ? { ...entity, dodge: 0 } : entity,
+        ),
+      },
+    };
     const result = applyCommand(state, {
       type: "applyMammothCystDigestion",
-      actorId: mammoth(state).id,
+      actorId: actor.id,
     });
     expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+    expect(
+      result.events.some(
+        (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
+      ),
+    ).toBe(true);
   });
 
   it("卡面 slot 常量", () => {
