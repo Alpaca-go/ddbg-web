@@ -699,6 +699,16 @@ const entries: readonly {
       { type: "heal", scope: "self", amount: 15 },
     ],
   },
+  // A-01：`monster_large:p017` slot 1 Lacerate · FRONT p017（R-001 / R-048）。
+  {
+    id: "monster_large:p017",
+    name: "Shuffling Horror",
+    level: 3,
+    pages: [17],
+    slot: 1,
+    signature: "{target_effects}3{bleed}3t",
+    effects: [{ type: "status", scope: "target", kind: "bleed", amount: 3, duration: 3 }],
+  },
   // A-01：`monster_large:p018` slot 1 Refashion Them · FRONT p018（R-001 / R-048）。
   {
     id: "monster_large:p018",

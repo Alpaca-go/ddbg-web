@@ -61,7 +61,7 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
         }
         checked++;
       }
-    expect(checked).toBe(63); // 含 Fanatic I、Collector 等；排除 Collected Vestal 纯治疗、Self 目标；+ A-01 Warlord Stinger Shot / Revelation / Impaler Revelation / Mammoth Digestion / Bulging Gaze / Ancestor2 Refashion Them / Unmake Them All / Embrace Futility / HoD Know This / HoD Puncture / HoD Dissolution。
+    expect(checked).toBe(64); // 含 Fanatic I、Collector 等；排除 Collected Vestal 纯治疗、Self 目标；+ A-01 Warlord Stinger Shot / Revelation / Impaler Revelation / Mammoth Digestion / Bulging Gaze / Ancestor2 Refashion Them / Unmake Them All / Embrace Futility / HoD Know This / HoD Puncture / HoD Dissolution / Shuffling Horror Lacerate。
     expect(cards).toEqual(before);
   });
   it("Mammoth Revivify · Self verified 效果 compile 就绪", () => {
