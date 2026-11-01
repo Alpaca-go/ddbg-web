@@ -17,6 +17,15 @@ const entries: readonly {
     name: "Ascended Brawler",
     level: 3,
     pages: [63, 64, 65],
+    slot: 2,
+    signature: "{self_effects}Self{shuffle}Pull1",
+    effects: [{ type: "shuffle", scope: "self", direction: "pull", distance: 1 }],
+  },
+  {
+    id: "monster_medium:p063",
+    name: "Ascended Brawler",
+    level: 3,
+    pages: [63, 64, 65],
     slot: 1,
     signature: [
       "{self_effects}Self{shuffle}Pull1{target_effects}2{bleed}3t,{debuff}1t,",
