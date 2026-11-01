@@ -42563,7 +42563,21 @@
         "text": " Push 2"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{shuffle}Push2"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "push",
+        "distance": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
