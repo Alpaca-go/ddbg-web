@@ -6,6 +6,7 @@ import { nextBattleRoll } from "../battle-roll";
 import { selectMonsterTarget } from "../monster-target";
 import {
   applyTemplarImpalerBodySlam,
+  applyTemplarImpalerRevelation,
   applyTemplarImpalerTorment,
   applyTemplarWarlordRevelation,
   applyTemplarWarlordStingerShot,
@@ -231,6 +232,96 @@ describe("Templars Acc 最小结算", () => {
     );
   });
 
+  it("Impaler Revelation · Closest 1 · 命中 +2 压力", () => {
+    const base = fighting();
+    const hero = base.battle!.entities.find((entity) => entity.side === "hero")!;
+    const impaler = monsterByCard(base, TEMPLAR_IMPALER_MONSTER_CARD_ID);
+    const card = base.dungeon!.battleCatalog!.monsters.find(
+      (entry) => entry.id === TEMPLAR_IMPALER_MONSTER_CARD_ID,
+    )!;
+    expect(
+      card.skills.find((skill) => skill.slot === TEMPLAR_REVELATION_SKILL_SLOT)?.verified_monster_effects
+        ?.effects,
+    ).toEqual([{ type: "stress", scope: "target", amount: 2 }]);
+
+    let cursor = 0;
+    while (nextBattleRoll(base.seed, cursor) !== 5) cursor += 1;
+    const stressBefore = hero.stress ?? 0;
+    let game = onMonsterTurn(
+      withHeroAreas(base, { [hero.id]: HERO_SUP }),
+      TEMPLAR_IMPALER_MONSTER_CARD_ID,
+    );
+    game = {
+      ...game,
+      battle: {
+        ...game.battle!,
+        rngCursor: cursor,
+        light: 5,
+        entities: game.battle!.entities.map((entity) => {
+          if (entity.id === hero.id) return { ...entity, dodge: 0, stress: stressBefore };
+          if (entity.id === impaler.id)
+            return { ...entity, areaId: "darkest-mid-boss-aggressive" };
+          return entity;
+        }),
+      },
+    };
+    const result = applyTemplarImpalerRevelation(game, impaler.id);
+    expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+    const skillEvent = result.events.find((event) => event.type === "monsterSkillResolved");
+    expect(skillEvent?.type).toBe("monsterSkillResolved");
+    if (skillEvent?.type === "monsterSkillResolved") {
+      expect(skillEvent.resolution.outcome).toBe("hit");
+      expect(skillEvent.resolution.targetStress).toBe(2);
+    }
+    expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress).toBe(
+      stressBefore + 2,
+    );
+    expect(
+      result.events.some(
+        (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
+      ),
+    ).toBe(true);
+  });
+
+  it("Impaler Revelation · 落空无压力效果", () => {
+    const base = fighting();
+    const hero = base.battle!.entities.find((entity) => entity.side === "hero")!;
+    const impaler = monsterByCard(base, TEMPLAR_IMPALER_MONSTER_CARD_ID);
+    let cursor = 0;
+    while (nextBattleRoll(base.seed, cursor) !== 10) cursor += 1;
+    const stressBefore = hero.stress ?? 0;
+    let game = onMonsterTurn(
+      withHeroAreas(base, { [hero.id]: HERO_SUP }),
+      TEMPLAR_IMPALER_MONSTER_CARD_ID,
+    );
+    game = {
+      ...game,
+      battle: {
+        ...game.battle!,
+        rngCursor: cursor,
+        entities: game.battle!.entities.map((entity) => {
+          if (entity.id === hero.id) return { ...entity, dodge: 30, stress: stressBefore };
+          if (entity.id === impaler.id)
+            return { ...entity, areaId: "darkest-mid-boss-aggressive" };
+          return entity;
+        }),
+      },
+    };
+    const result = applyTemplarImpalerRevelation(
+      game,
+      monsterByCard(game, TEMPLAR_IMPALER_MONSTER_CARD_ID).id,
+    );
+    const skillEvent = result.events.find((event) => event.type === "monsterSkillResolved");
+    expect(skillEvent?.type).toBe("monsterSkillResolved");
+    if (skillEvent?.type === "monsterSkillResolved") {
+      expect(skillEvent.resolution.outcome).toBe("miss");
+      expect(skillEvent.resolution.targetStress).toBe(0);
+    }
+    expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress).toBe(
+      stressBefore,
+    );
+  });
+
   it("Acc 失手可复现", () => {
     const base = fighting();
     const hero = base.battle!.entities.find((entity) => entity.side === "hero")!;
@@ -287,6 +378,30 @@ describe("Templars Acc 最小结算", () => {
     const result = applyCommand(state, {
       type: "applyTemplarWarlordRevelation",
       actorId: warlord.id,
+    });
+    expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+  });
+
+  it("applyCommand · applyTemplarImpalerRevelation", () => {
+    const base = fighting();
+    const hero = base.battle!.entities.find((entity) => entity.side === "hero")!;
+    const impaler = monsterByCard(base, TEMPLAR_IMPALER_MONSTER_CARD_ID);
+    let state = onMonsterTurn(
+      withHeroAreas(base, { [hero.id]: HERO_SUP }),
+      TEMPLAR_IMPALER_MONSTER_CARD_ID,
+    );
+    state = {
+      ...state,
+      battle: {
+        ...state.battle!,
+        entities: state.battle!.entities.map((entity) =>
+          entity.id === impaler.id ? { ...entity, areaId: "darkest-mid-boss-aggressive" } : entity,
+        ),
+      },
+    };
+    const result = applyCommand(state, {
+      type: "applyTemplarImpalerRevelation",
+      actorId: impaler.id,
     });
     expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
   });

@@ -640,6 +640,16 @@ const entries: readonly {
     signature: "{target_effects}{stress}+2",
     effects: [{ type: "stress", scope: "target", amount: 2 }],
   },
+  // A-01：`monster_large:p015` slot 3 Revelation · FRONT p015（R-001 / R-048）。
+  {
+    id: "monster_large:p015",
+    name: "Templar Impaler",
+    level: 3,
+    pages: [15],
+    slot: 3,
+    signature: "{target_effects}{stress}+2",
+    effects: [{ type: "stress", scope: "target", amount: 2 }],
+  },
 ];
 
 export function attachVerifiedMonsterEffects(
