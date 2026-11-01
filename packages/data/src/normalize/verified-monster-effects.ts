@@ -13,6 +13,18 @@ const entries: readonly {
   effects: MonsterEffectPlan["effects"];
 }[] = [
   {
+    id: "monster_medium:p080",
+    name: "Polyp",
+    level: 3,
+    pages: [80, 81, 82],
+    slot: 1,
+    signature: "{target_effects}3{blight}3t,{mark}2t",
+    effects: [
+      { type: "status", scope: "target", kind: "blight", duration: 3, amount: 3 },
+      { type: "status", scope: "target", kind: "mark", duration: 2 },
+    ],
+  },
+  {
     id: "monster_medium:p078",
     name: "Flesh Hound",
     level: 3,
