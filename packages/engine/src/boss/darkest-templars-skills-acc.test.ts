@@ -106,23 +106,61 @@ describe("Templars Acc 最小结算", () => {
     ).toBe(true);
   });
 
-  it("Impaler Body Slam · Closest 1", () => {
+  it("Impaler Body Slam · Closest 1 · 命中 stun 2t（Pit Toss 印刷 hold）", () => {
     const base = fighting();
     const hero = base.battle!.entities.find((entity) => entity.side === "hero")!;
-    const game = onMonsterTurn(
+    const impaler = monsterByCard(base, TEMPLAR_IMPALER_MONSTER_CARD_ID);
+    const card = base.dungeon!.battleCatalog!.monsters.find(
+      (entry) => entry.id === TEMPLAR_IMPALER_MONSTER_CARD_ID,
+    )!;
+    expect(
+      card.skills.find((skill) => skill.slot === TEMPLAR_BODY_SLAM_SKILL_SLOT)?.verified_monster_effects
+        ?.effects,
+    ).toEqual([{ type: "status", scope: "target", kind: "stun", duration: 2 }]);
+    expect(
+      card.skills.find((skill) => skill.slot === TEMPLAR_BODY_SLAM_SKILL_SLOT)?.verified_monster_effects
+        ?.signatures,
+    ).toEqual(["{target_effects}{stun}2t,PitToss"]);
+
+    let cursor = 0;
+    while (nextBattleRoll(base.seed, cursor) !== 5) cursor += 1;
+    let game = onMonsterTurn(
       withHeroAreas(base, { [hero.id]: HERO_SUP }),
       TEMPLAR_IMPALER_MONSTER_CARD_ID,
     );
-    const result = applyTemplarImpalerBodySlam(
-      game,
-      monsterByCard(game, TEMPLAR_IMPALER_MONSTER_CARD_ID).id,
-    );
+    game = {
+      ...game,
+      battle: {
+        ...game.battle!,
+        rngCursor: cursor,
+        light: 5,
+        entities: game.battle!.entities.map((entity) => {
+          if (entity.id === hero.id) return { ...entity, dodge: 0 };
+          if (entity.id === impaler.id)
+            return { ...entity, areaId: "darkest-mid-boss-aggressive" };
+          return entity;
+        }),
+      },
+    };
+    const result = applyTemplarImpalerBodySlam(game, impaler.id);
     expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
     const skillEvent = result.events.find((event) => event.type === "monsterSkillResolved");
     expect(skillEvent?.type).toBe("monsterSkillResolved");
     if (skillEvent?.type === "monsterSkillResolved") {
       expect(skillEvent.resolution.targetId).toBe(hero.id);
+      expect(skillEvent.resolution.outcome).toBe("hit");
+      expect(skillEvent.resolution.targetStatusEffects ?? []).toEqual([
+        { kind: "stun", duration: 2 },
+      ]);
     }
+    expect(
+      result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks,
+    ).toEqual([{ kind: "stun", remaining: 1 }]);
+    expect(
+      result.events.some(
+        (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
+      ),
+    ).toBe(true);
   });
 
   it("Warlord Stinger Shot · Furthest 2 内 · 命中 3 枯萎 3t + debuff 2t", () => {
@@ -398,7 +436,7 @@ describe("Templars Acc 最小结算", () => {
     );
   });
 
-  it("Acc 失手可复现", () => {
+  it("Acc 失手可复现 · Body Slam 无 stun", () => {
     const base = fighting();
     const hero = base.battle!.entities.find((entity) => entity.side === "hero")!;
     const impaler = monsterByCard(base, TEMPLAR_IMPALER_MONSTER_CARD_ID);
@@ -428,10 +466,14 @@ describe("Templars Acc 最小结算", () => {
     expect(skillEvent?.type).toBe("monsterSkillResolved");
     if (skillEvent?.type === "monsterSkillResolved") {
       expect(skillEvent.resolution.outcome).toBe("miss");
+      expect(skillEvent.resolution.targetStatusEffects ?? []).toEqual([]);
     }
     expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.wounds).toBe(
       woundsBefore,
     );
+    expect(
+      result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks ?? [],
+    ).toEqual([]);
   });
 
   it("applyCommand · applyTemplarWarlordRevelation", () => {

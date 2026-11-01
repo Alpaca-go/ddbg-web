@@ -25031,7 +25031,21 @@
         "text": " 2t ,  Pit Toss"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}2t,PitToss"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 2
+       }
+      ]
+     }
     },
     {
      "slot": 3,

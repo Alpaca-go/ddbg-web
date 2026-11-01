@@ -653,6 +653,16 @@ const entries: readonly {
     signature: "{target_effects}{stress}+2",
     effects: [{ type: "stress", scope: "target", amount: 2 }],
   },
+  // A-01：`monster_large:p015` slot 2 Body Slam · FRONT p015（R-001 / R-048；Pit Toss 印刷文字仅签名，几何 hold）。
+  {
+    id: "monster_large:p015",
+    name: "Templar Impaler",
+    level: 3,
+    pages: [15],
+    slot: 2,
+    signature: "{target_effects}{stun}2t,PitToss",
+    effects: [{ type: "status", scope: "target", kind: "stun", duration: 2 }],
+  },
   // A-01：`monster_large:p015` slot 3 Revelation · FRONT p015（R-001 / R-048）。
   {
     id: "monster_large:p015",

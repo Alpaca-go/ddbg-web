@@ -59,6 +59,7 @@ export function compileMonsterEffectPlan(
     signatures.length !== 1 ||
     signatures[0]!
       .replace(/,/g, "")
+      .replace(/PitToss/g, "") // Templar Body Slam · boss_ability:p028 几何 B hold，印刷文字仅签名守门
       .replace(/\{damage_or_heal_combined_marker\}(\d+)\{heal\}/g, "{heal}$1")
       .replace(/\{heal\}(?:\{heal\})?(\d+)(?:\{heal\})?/g, "{heal}$1") !== plannedSignature
   )
