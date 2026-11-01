@@ -125,13 +125,39 @@ describe("Templars Acc 最小结算", () => {
     }
   });
 
-  it("Warlord Stinger Shot · Furthest 2 内", () => {
+  it("Warlord Stinger Shot · Furthest 2 内 · 命中 3 枯萎 3t + debuff 2t", () => {
     const base = fighting();
     const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
     const warlord = monsterByCard(base, TEMPLAR_WARLORD_MONSTER_CARD_ID);
-    const patch = Object.fromEntries(heroes.map((hero, index) => [hero.id, index === 0 ? MON_AGG : "darkest-mid-boss-defensive"]));
-    const game = onMonsterTurn(withHeroAreas(base, patch), TEMPLAR_WARLORD_MONSTER_CARD_ID);
+    const card = base.dungeon!.battleCatalog!.monsters.find(
+      (entry) => entry.id === TEMPLAR_WARLORD_MONSTER_CARD_ID,
+    )!;
+    expect(
+      card.skills.find((skill) => skill.slot === TEMPLAR_STINGER_SHOT_SKILL_SLOT)?.verified_monster_effects
+        ?.effects,
+    ).toEqual([
+      { type: "status", scope: "target", kind: "blight", amount: 3, duration: 3 },
+      { type: "status", scope: "target", kind: "debuff", duration: 2 },
+    ]);
+
+    let cursor = 0;
+    while (nextBattleRoll(base.seed, cursor) !== 5) cursor += 1;
+    const patch = Object.fromEntries(
+      heroes.map((hero, index) => [hero.id, index === 0 ? MON_AGG : "darkest-mid-boss-defensive"]),
+    );
     const furthestHero = heroes.find((hero) => patch[hero.id] === MON_AGG)!;
+    let game = onMonsterTurn(withHeroAreas(base, patch), TEMPLAR_WARLORD_MONSTER_CARD_ID);
+    game = {
+      ...game,
+      battle: {
+        ...game.battle!,
+        rngCursor: cursor,
+        light: 5,
+        entities: game.battle!.entities.map((entity) =>
+          entity.id === furthestHero.id ? { ...entity, dodge: 0 } : entity,
+        ),
+      },
+    };
 
     const result = applyTemplarWarlordStingerShot(game, warlord.id);
     expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
@@ -139,7 +165,57 @@ describe("Templars Acc 最小结算", () => {
     expect(skillEvent?.type).toBe("monsterSkillResolved");
     if (skillEvent?.type === "monsterSkillResolved") {
       expect(skillEvent.resolution.targetId).toBe(furthestHero.id);
+      expect(skillEvent.resolution.outcome).toBe("hit");
+      expect(skillEvent.resolution.targetStatusEffects ?? []).toEqual([
+        { kind: "blight", amount: 3, duration: 3 },
+        { kind: "debuff", duration: 2 },
+      ]);
     }
+    expect(
+      result.state.battle!.entities.find((entity) => entity.id === furthestHero.id)!.statusStacks,
+    ).toEqual([
+      { kind: "blight", amount: 3, remaining: 3 },
+      { kind: "debuff", remaining: 2 },
+    ]);
+    expect(
+      result.events.some(
+        (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
+      ),
+    ).toBe(true);
+  });
+
+  it("Warlord Stinger Shot · 落空无枯萎/debuff", () => {
+    const base = fighting();
+    const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
+    const warlord = monsterByCard(base, TEMPLAR_WARLORD_MONSTER_CARD_ID);
+    let cursor = 0;
+    while (nextBattleRoll(base.seed, cursor) !== 10) cursor += 1;
+    const patch = Object.fromEntries(
+      heroes.map((hero, index) => [hero.id, index === 0 ? MON_AGG : "darkest-mid-boss-defensive"]),
+    );
+    const furthestHero = heroes.find((hero) => patch[hero.id] === MON_AGG)!;
+    let game = onMonsterTurn(withHeroAreas(base, patch), TEMPLAR_WARLORD_MONSTER_CARD_ID);
+    game = {
+      ...game,
+      battle: {
+        ...game.battle!,
+        rngCursor: cursor,
+        entities: game.battle!.entities.map((entity) =>
+          entity.id === furthestHero.id ? { ...entity, dodge: 30 } : entity,
+        ),
+      },
+    };
+    const result = applyTemplarWarlordStingerShot(game, warlord.id);
+    const skillEvent = result.events.find((event) => event.type === "monsterSkillResolved");
+    expect(skillEvent?.type).toBe("monsterSkillResolved");
+    if (skillEvent?.type === "monsterSkillResolved") {
+      expect(skillEvent.resolution.outcome).toBe("miss");
+      expect(skillEvent.resolution.targetStatusEffects ?? []).toEqual([]);
+    }
+    expect(
+      result.state.battle!.entities.find((entity) => entity.id === furthestHero.id)!.statusStacks ??
+        [],
+    ).toEqual([]);
   });
 
   it("Warlord Revelation · Closest 1 · 命中 +2 压力", () => {

@@ -54,7 +54,7 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
         }
         checked++;
       }
-    expect(checked).toBe(56); // 含 Fanatic I、Collector 等；排除 Collected Vestal 纯治疗；+ A-01 Warlord / Impaler Revelation / Mammoth Digestion / Bulging Gaze。
+    expect(checked).toBe(57); // 含 Fanatic I、Collector 等；排除 Collected Vestal 纯治疗；+ A-01 Warlord Stinger Shot / Revelation / Impaler Revelation / Mammoth Digestion / Bulging Gaze。
     expect(cards).toEqual(before);
   });
   it("注解数值 / 范围或原始行漂移原子拒绝，不能靠更新签名放行", () => {
