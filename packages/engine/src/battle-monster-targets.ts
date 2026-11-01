@@ -149,7 +149,13 @@ export function playMonsterSkillTargets(
       pendingChoice: choice,
     };
   }
-  const roll = resume ? resume.roll! : nextBattleRoll(state.seed, battle.rngCursor);
+  // R19 Note：已核实 Wicked Surge 无 Acc，不消费攻击骰。
+  const noAttackRoll = card.id === "monster_medium:p016" && command.skillSlot === 1;
+  const roll = noAttackRoll
+    ? 1
+    : resume
+      ? resume.roll!
+      : nextBattleRoll(state.seed, battle.rngCursor);
   const current = resume ? state.battle! : battle;
   if (resume)
     contexts = contexts.map((context) =>
@@ -168,7 +174,13 @@ export function playMonsterSkillTargets(
     );
   let results = effects.filter((e) => e.status === "resolved");
   if (!resume) {
-    const own = beginSkillOwnEffects(state, command, roll, results[0]!, results);
+    const own = beginSkillOwnEffects(
+      state,
+      command,
+      noAttackRoll ? null : roll,
+      results[0]!,
+      results,
+    );
     if (own) return own;
   }
   if (current.trinketRuntime) {
@@ -206,7 +218,7 @@ export function playMonsterSkillTargets(
       healthEffects: damageStoneHealthEffects(resume, healthEffects),
     },
     state.seed,
-    current.rngCursor + Number(!resume),
+    current.rngCursor + Number(!resume && !noAttackRoll),
   );
   if (health.status === "refused") return rejectBattleCommand(state, health.reason);
   const pressure = beforeTargetShuffle(state, current, health, resolutions);
@@ -229,7 +241,7 @@ export function playMonsterSkillTargets(
     message: "怪物多目标攻击已共用一次掷骰结算",
     actorId: actor.id,
     skillSlot: command.skillSlot,
-    roll,
+    roll: noAttackRoll ? null : roll,
     actorDead,
     resolutions,
   };

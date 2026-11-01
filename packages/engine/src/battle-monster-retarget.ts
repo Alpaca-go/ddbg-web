@@ -1,4 +1,4 @@
-import { isCollectedVestalCard } from "./boss/collected-vestal";
+import { isCollectedVestalCard, isBoneBearerRally } from "./boss/collected-vestal";
 import { isPyreCard } from "./boss/pyre-skill";
 import { distance, rejectBattleCommand } from "./battle";
 import type { BattleEntity, BattleState } from "./battle";
@@ -36,7 +36,11 @@ export function legalMonsterRetargetHeroIds(
   const card = battle.monsters?.find((entry) => entry.id === actor?.monsterCardId);
   if (!actor || actor.side !== "monster" || actor.dead || !card)
     return { status: "refused", reason: "怪物或关联卡不可用（R-048）" };
-  if (isPyreCard(card.id) || isCollectedVestalCard(card.id))
+  if (
+    isPyreCard(card.id) ||
+    isCollectedVestalCard(card.id) ||
+    isBoneBearerRally(card.id, action.skillSlot)
+  )
     return { status: "refused", reason: "该怪物攻击不支持重选目标（R-048）" };
   const attack = readMonsterAttackView(card, action.skillSlot);
   if (attack.status === "refused") return { status: "refused", reason: attack.reason };
@@ -91,10 +95,7 @@ function skipMonsterAttackAfterDeadTarget(
   const actor = battle.entities.find((entry) => entry.id === action.actorId)!;
   const card = battle.monsters!.find((entry) => entry.id === actor.monsterCardId)!;
   const skill = card.skills.find((entry) => entry.slot === action.skillSlot)!;
-  const removed = removeCasualties(
-    { state, events },
-    newlyDefeatedIds(before, battle.entities),
-  );
+  const removed = removeCasualties({ state, events }, newlyDefeatedIds(before, battle.entities));
   const ended = endAfterCasualties(removed);
   if (ended) return ended;
   const finished = applyEncounterCommand(
@@ -141,7 +142,8 @@ export function finalizeFreeTrinketDuringMonsterTurn(
   allTrinkets: boolean | undefined,
 ): ApplyResult {
   const turn = before.encounter!.turn;
-  if (!monsterTargetDeadWithLivingAllies(input.state)) return finishFreeTrinketTurn(input, before, turn);
+  if (!monsterTargetDeadWithLivingAllies(input.state))
+    return finishFreeTrinketTurn(input, before, turn);
   if (!allTrinkets) return rejectBattleCommand(original, LEGACY_REFUSAL);
   const battle = input.state.battle!;
   const action = battle.monsterAction!;
@@ -209,8 +211,7 @@ export function chooseMonsterRetargetAfterFreeTrinket(
   const continued = prefix
     ? playMonsterSkill(removed.state, playCommand, prefix)
     : playMonsterSkill(removed.state, playCommand);
-  if (continued.events.some((event) => event.type === "commandRefused"))
-    return continued;
+  if (continued.events.some((event) => event.type === "commandRefused")) return continued;
   return { ...continued, events: [...removed.events, ...continued.events] };
 }
 

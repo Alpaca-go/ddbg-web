@@ -14,6 +14,8 @@ const entrySchema = z.strictObject({
 // docs/monster-speed-review-2026-10-09.md §2–3、§6；R24、R-001、R-048。
 // 只按获批 id 附加，不统计图标、不填图标 null、不跨同名 / 等级推断。
 export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
+  // R-142：两枚脚印；黄色3是Dodge，不是Speed。
+  { id: "monster_medium:p016", name: "Bone Bearer", level: 3, pages: [16, 17], speed: 2 },
   { id: "monster_medium:p001", name: "Bone Soldier", level: 1, pages: [1, 2, 3], speed: 1 },
   { id: "monster_medium:p004", name: "Bone Courtier", level: 1, pages: [4, 5, 6], speed: 3 },
   { id: "monster_medium:p007", name: "Bone Arbalist", level: 1, pages: [7, 8, 9], speed: 2 },

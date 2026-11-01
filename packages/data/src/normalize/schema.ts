@@ -323,7 +323,12 @@ const monsterCardSchema = z
   })
   .superRefine((card, ctx) => {
     for (const group of card.stanceGroups ?? []) {
-      const slots = "skill" in group ? [group.skill] : group.rollTable.map((row) => row.skill);
+      const slots =
+        "unavailable" in group
+          ? []
+          : "skill" in group
+            ? [group.skill]
+            : group.rollTable.map((row) => row.skill);
       if (slots.some((slot) => card.skills.filter((skill) => skill.slot === slot).length !== 1))
         ctx.addIssue({
           code: "custom",

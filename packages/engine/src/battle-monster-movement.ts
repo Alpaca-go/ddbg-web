@@ -1,5 +1,5 @@
 import { isPyreCard } from "./boss/pyre-skill";
-import { isCollectedVestalCard } from "./boss/collected-vestal";
+import { isCollectedVestalCard, isBoneBearerRally } from "./boss/collected-vestal";
 import { distance, rejectBattleCommand, skillTargetView } from "./battle";
 import type { BattleArea } from "./battle";
 import type { ApplyResult, GameState } from "./command";
@@ -225,7 +225,11 @@ export function moveMonsterToRange(
     actor.dead ||
     (actor.stanceSlots !== 1 && actor.stanceSlots !== 2) ||
     !target ||
-    (target.side !== "hero" && !(isCollectedVestalCard(card?.id) && target.side === "monster")) ||
+    (target.side !== "hero" &&
+      !(
+        (isCollectedVestalCard(card?.id) || isBoneBearerRally(card?.id, action.skillSlot)) &&
+        target.side === "monster"
+      )) ||
     target.dead ||
     !card ||
     actor.life !== card.life
@@ -241,7 +245,9 @@ export function moveMonsterToRange(
   const maxRange = range.kind === "exact" ? range.distance : range.max;
   // 复用纯技能校验，不掷骰或写伤害；预设印刷距离只用来排除未知数值 / 不支持效果。
   const probe =
-    isCollectedVestalCard(card.id) || isPyreCard(card.id)
+    isCollectedVestalCard(card.id) ||
+    isBoneBearerRally(card.id, action.skillSlot) ||
+    isPyreCard(card.id)
       ? { status: "resolved" as const }
       : resolveMonsterSkill(
           card,

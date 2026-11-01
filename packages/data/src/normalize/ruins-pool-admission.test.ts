@@ -1,10 +1,7 @@
 import { expect, it } from "vitest";
 import medium from "../../normalized/corebox/monster_medium.json";
 import large from "../../normalized/corebox/monster_large.json";
-import {
-  normalizedMonsterMediumFileSchema,
-  normalizedMonsterLargeFileSchema,
-} from "./schema";
+import { normalizedMonsterMediumFileSchema, normalizedMonsterLargeFileSchema } from "./schema";
 import {
   RUINS_DL2_APPROVED_HIGHER_COMBAT_IDS,
   ruinsPoolAdmissionRows,
@@ -27,7 +24,7 @@ it("DL2 牌堆：全部 II 级战斗卡均在 R-083 已批子集内", () => {
   }
 });
 
-it("DL3 牌堆：新增 III 级池卡缺 Speed/选招，hasApprovedHigherMonsterFields 为 false", () => {
+it("DL3 牌堆：R-142 只新增 Bone Bearer，其余三种仍缺 Speed/选招", () => {
   const rows = ruinsPoolAdmissionRows(monsters, 3);
   const level3 = rows.filter((row) => row.poolLevel === 3);
   expect(level3.map((r) => r.combatCardId).sort()).toEqual([
@@ -37,6 +34,12 @@ it("DL3 牌堆：新增 III 级池卡缺 Speed/选招，hasApprovedHigherMonster
     "monster_medium:p059",
   ]);
   for (const row of level3) {
+    if (row.combatCardId === "monster_medium:p016") {
+      expect(row.missingBattleFields).toEqual([]);
+      expect(row.hasApprovedHigherMonsterFields).toBe(true);
+      expect(row.catalogHasSpeedStance).toBe(true);
+      continue;
+    }
     expect(row.missingBattleFields).toEqual(["speed", "stanceGroups"]);
     expect(row.hasApprovedHigherMonsterFields).toBe(false);
     expect(row.catalogHasSpeedStance).toBe(false);

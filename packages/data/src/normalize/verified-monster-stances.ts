@@ -16,6 +16,31 @@ const entrySchema = z.strictObject({
 // 页码均为当前版核心盒 monsters_medium_FRONT.pdf，不跨同名 / 等级推断。
 export const verifiedMonsterStances = z.array(entrySchema).parse([
   {
+    id: "monster_medium:p016",
+    name: "Bone Bearer",
+    level: 3,
+    pages: [16, 17],
+    stanceGroups: [
+      { stances: ["aggressive"], skill: 2 },
+      { stances: ["ranged"], unavailable: true },
+      {
+        stances: ["defensive"],
+        rollTable: [
+          { min: 1, max: 4, skill: 1 },
+          { min: 5, max: 7, skill: 2 },
+          { min: 8, max: 10, skill: 3 },
+        ],
+      },
+      {
+        stances: ["support"],
+        rollTable: [
+          { min: 1, max: 6, skill: 1 },
+          { min: 7, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
+  {
     id: "monster_medium:p001",
     name: "Bone Soldier",
     level: 1,

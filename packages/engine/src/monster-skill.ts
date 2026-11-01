@@ -264,6 +264,11 @@ function resolveMonsterSkillInternal(
     ) &&
     !(attack.necromancerSummon && skillSlot === 3) &&
     !(
+      monster.id === "monster_medium:p016" &&
+      skillSlot === 1 &&
+      matches[0]!.verified_monster_effects
+    ) &&
+    !(
       monster.id === "monster_medium:p086" &&
       skillSlot === 3 &&
       matches[0]!.verified_monster_effects?.effects.every((e) => e.type === "stress")

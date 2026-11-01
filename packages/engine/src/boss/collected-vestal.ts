@@ -3,12 +3,41 @@ import { distance, rejectBattleCommand } from "../battle";
 import { readMonsterAttackView } from "../monster-skill";
 import { finishTurn } from "../encounter";
 import { addStatusStack, statusProjection } from "../status";
+import type { MonsterCardView } from "../monster-skill";
 
 export function isCollectedVestalCard(id: string | undefined): boolean {
   return ["monster_medium:p101", "monster_medium:p102", "monster_medium:p103"].includes(id ?? "");
 }
+export function isBoneBearerRally(id: string | undefined, slot: number): boolean {
+  return id === "monster_medium:p016" && slot === 3;
+}
+/** FRONT p016–17：All 是全治疗，不伪造固定治疗数值。 */
+export function boneBearerRallyProblem(card: MonsterCardView): string | undefined {
+  const skill = card.skills.find((s) => s.slot === 3);
+  const signature = skill?.effect_lines.map((l) =>
+    l
+      .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, ""),
+  );
+  if (
+    card.id !== "monster_medium:p016" ||
+    card.verification.unverified ||
+    skill?.name !== "Unholy Rally" ||
+    skill.target !== "Most Wounded" ||
+    skill.printed_labels.length ||
+    JSON.stringify(signature) !== '["{target_effects}{buff}2t,{heal}All{heal}"]' ||
+    skill.effect_lines
+      .flat()
+      .some(
+        (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+      )
+  )
+    return "Bone Bearer Unholy Rally 完整印刷效果漂移（R-048）";
+  return undefined;
+}
 
-/** R20/R24：无 Acc 的友方治疗不伪造攻击骰；只接受完整核图后的三张卡。 */
+/** R20/R24：无 Acc 的友方治疗不伪造攻击骰；只接受已核实的 Vestal 与 Bone Bearer。 */
 export function playCollectedVestalSkill(
   state: GameState,
   actorId: string,
@@ -22,12 +51,12 @@ export function playCollectedVestalSkill(
   if (
     !actor ||
     actor.dead ||
-    !isCollectedVestalCard(card?.id) ||
+    !(isCollectedVestalCard(card?.id) || isBoneBearerRally(card?.id, slot)) ||
     !card ||
     !target ||
     target.dead ||
     target.side !== "monster" ||
-    slot !== 1 ||
+    (!isBoneBearerRally(card.id, slot) && slot !== 1) ||
     b.encounter?.turn.type !== "monster" ||
     b.encounter.turn.actorId !== actorId
   )
@@ -46,11 +75,14 @@ export function playCollectedVestalSkill(
     destination = b.areas.find((a) => a.id === target.areaId);
   const reach =
     2 + Number(origin && destination && heights[origin.elevation] > heights[destination.elevation]);
+  const bearer = isBoneBearerRally(card.id, slot);
+  if (bearer && boneBearerRallyProblem(card))
+    return rejectBattleCommand(state, boneBearerRallyProblem(card)!);
   const plan = card.skills[0]?.verified_monster_effects;
   const heal = plan?.effects.find((e) => e.type === "heal");
   if (
     attack.status !== "ready" ||
-    !heal ||
+    (!bearer && !heal) ||
     range === null ||
     range > reach ||
     actor.life !== card.life
@@ -66,7 +98,7 @@ export function playCollectedVestalSkill(
     e.id === targetId
       ? {
           ...e,
-          wounds: Math.max(0, e.wounds - heal.amount),
+          wounds: bearer ? 0 : Math.max(0, e.wounds - heal!.amount),
           statusStacks: stacks,
           ...statusProjection(stacks, e.innateProtection),
         }
@@ -75,7 +107,7 @@ export function playCollectedVestalSkill(
   return finishTurn({ ...state, battle: { ...b, entities, monsterAction: null } }, actorId, [
     {
       type: "dungeonUpdated",
-      message: `${actorId} Headache → ${targetId}：治疗 ${heal.amount}，Buff 2t；无攻击骰（R20/R24）`,
+      message: `${actorId} ${bearer ? "Unholy Rally" : "Headache"} → ${targetId}：治疗 ${bearer ? "全部伤口" : heal!.amount}，Buff 2t；无攻击骰（R20/R24）`,
     },
   ]);
 }

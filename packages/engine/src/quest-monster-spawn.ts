@@ -63,7 +63,21 @@ export function questMonsterOutsidePoolInstanceIds(d: DungeonState): readonly st
   if (!level || !pool || ![1, 2, 3].includes(level)) return [];
   const catalog = dungeonMonsterPoolThrough(pool, level);
   const catalogIds = new Set(catalog.map((entry) => entry.instanceId));
-  return active.monsters.map((m) => m.instanceId).filter((id) => !catalogIds.has(id));
+  const specified =
+    plan.printedMonsterLevel === null ? [] : ruinsMonsterPool(pool.cards, plan.printedMonsterLevel);
+  if (!questMonsterDeploymentMatchesPlan(d, plan)) return [];
+  return active.monsters
+    .filter(
+      (m) =>
+        !catalogIds.has(m.instanceId) &&
+        specified.some(
+          (c) =>
+            c.instanceId === m.instanceId &&
+            c.cardId === m.cardId &&
+            c.stanceSlots === m.stanceSlots,
+        ),
+    )
+    .map((m) => m.instanceId);
 }
 
 export function questMonsterDeploymentMatchesPlan(
@@ -89,7 +103,7 @@ export function prepareQuestMonsterDeployment(
 ): ApplyResult | undefined {
   const d = state.dungeon!;
   const plan = readQuestMonsterPlanAtRoom(d);
-  if (!plan || plan.combatReady) return undefined;
+  if (!plan) return undefined;
   const pool = d.monsterPool!;
   const dungeonLevel = d.explorationSetup!.dungeonLevel;
   const refuse = (message: string): ApplyResult => ({
@@ -125,16 +139,18 @@ export function prepareQuestMonsterDeployment(
     return refuse("怪物牌堆不守恒，不能推进任务指定生成");
   const missing = poolCard.missingBattleFields.length
     ? `待核实战斗字段：${poolCard.missingBattleFields
-        .map((field) => ({ speed: "移动值", stanceGroups: "姿态选招", unverifiedIcons: "未确认图标" })[field])
+        .map(
+          (field) =>
+            ({ speed: "移动值", stanceGroups: "姿态选招", unverifiedIcons: "未确认图标" })[field],
+        )
         .join(" / ")}。`
     : "";
   const bonus =
     plan.lifeBonus || plan.dodgeBonus
       ? `任务加成 Life +${plan.lifeBonus}、Dodge +${plan.dodgeBonus}；`
       : "";
-  const level =
-    plan.printedMonsterLevel === null ? "" : ` ${plan.printedMonsterLevel} 级`;
-  const blockedReason = `${bonus}${missing}任务指定已部署${level} ${plan.monsterName}；combatReady 仍为 false，不能进入半场战斗。不洗牌、不填满四姿态、不推断额外生成（QUEST p${plan.source.page}、R-048）。`;
+  const level = plan.printedMonsterLevel === null ? "" : ` ${plan.printedMonsterLevel} 级`;
+  const blockedReason = `${bonus}${missing}任务指定已部署${level} ${plan.monsterName}；按已批字段检查后入场。不洗牌、不填满四姿态、不推断额外生成（QUEST p${plan.source.page}、R-142）。`;
   const active = d.roomCards!.active!;
   return {
     state: {

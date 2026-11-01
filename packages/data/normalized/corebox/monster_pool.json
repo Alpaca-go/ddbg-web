@@ -104,10 +104,7 @@
    ],
    "edge": "back",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ]
+   "missingBattleFields": []
   },
   {
    "id": "monster_medium:p018",

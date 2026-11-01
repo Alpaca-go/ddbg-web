@@ -7850,6 +7850,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [
     {
      "iconId": "1fd9f6ec6d",
@@ -8127,7 +8128,26 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{debuff}2t,{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "debuff",
+        "duration": 2
+       },
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -8355,7 +8375,21 @@
         "text": " Push 1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{shuffle}Push1"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "push",
+        "distance": 1
+       }
+      ]
+     }
     },
     {
      "slot": 3,
@@ -8944,6 +8978,59 @@
       "text": " 7-10 1-6"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive"
+     ],
+     "skill": 2
+    },
+    {
+     "stances": [
+      "ranged"
+     ],
+     "unavailable": true
+    },
+    {
+     "stances": [
+      "defensive"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 4,
+       "skill": 1
+      },
+      {
+       "min": 5,
+       "max": 7,
+       "skill": 2
+      },
+      {
+       "min": 8,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    },
+    {
+     "stances": [
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 6,
+       "skill": 1
+      },
+      {
+       "min": 7,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    }
    ],
    "back_texts": []
   },

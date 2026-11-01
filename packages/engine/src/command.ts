@@ -203,7 +203,7 @@ export type MonsterSkillResolvedEvent = {
   readonly message: string;
   readonly actorId: string;
   readonly skillSlot: number;
-  readonly roll: number;
+  readonly roll: number | null;
   readonly actorDead: boolean;
   readonly resolution: HeroSkillResolution;
 };
