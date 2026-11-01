@@ -13,6 +13,15 @@ const entries: readonly {
   effects: MonsterEffectPlan["effects"];
 }[] = [
   {
+    id: "monster_medium:p075",
+    name: "Malignant Growth",
+    level: 3,
+    pages: [75, 76, 77],
+    slot: 1,
+    signature: "{target_effects}2{bleed}3t",
+    effects: [{ type: "status", scope: "target", kind: "bleed", duration: 3, amount: 2 }],
+  },
+  {
     id: "monster_medium:p072",
     name: "Cultist Priest",
     level: 3,
