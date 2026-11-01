@@ -34675,7 +34675,31 @@
         "text": " 2t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+2,{light}-1,{mark}2t"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 2
+       },
+       {
+        "type": "light",
+        "scope": "target",
+        "amount": -1
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "mark",
+        "duration": 2
+       }
+      ]
+     }
     },
     {
      "slot": 2,

@@ -13,6 +13,19 @@ const entries: readonly {
   effects: MonsterEffectPlan["effects"];
 }[] = [
   {
+    id: "monster_medium:p066",
+    name: "Ascended Witch",
+    level: 3,
+    pages: [66, 67, 68],
+    slot: 1,
+    signature: "{target_effects}{stress}+2,{light}-1,{mark}2t",
+    effects: [
+      { type: "stress", scope: "target", amount: 2 },
+      { type: "light", scope: "target", amount: -1 },
+      { type: "status", scope: "target", kind: "mark", duration: 2 },
+    ],
+  },
+  {
     id: "monster_medium:p063",
     name: "Ascended Brawler",
     level: 3,
