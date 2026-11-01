@@ -13,6 +13,24 @@ const entries: readonly {
   effects: MonsterEffectPlan["effects"];
 }[] = [
   {
+    id: "monster_large:p001",
+    name: "Bone Captain",
+    level: 2,
+    pages: [1],
+    slot: 1,
+    signature: "{target_effects}{shuffle}Push1",
+    effects: [{ type: "shuffle", scope: "target", direction: "push", distance: 1 }],
+  },
+  {
+    id: "monster_medium:p013",
+    name: "Bone Spearman",
+    level: 2,
+    pages: [13, 14, 15],
+    slot: 1,
+    signature: "{target_effects}{shuffle}Push1",
+    effects: [{ type: "shuffle", scope: "target", direction: "push", distance: 1 }],
+  },
+  {
     id: "monster_medium:p106",
     name: "Perfect Reflection",
     level: 3,

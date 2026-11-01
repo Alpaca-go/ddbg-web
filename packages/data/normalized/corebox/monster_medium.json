@@ -6712,7 +6712,21 @@
         "text": " Push 1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{shuffle}Push1"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "push",
+        "distance": 1
+       }
+      ]
+     }
     },
     {
      "slot": 2,
