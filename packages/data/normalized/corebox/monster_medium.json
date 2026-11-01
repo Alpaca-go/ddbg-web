@@ -40893,7 +40893,27 @@
         "text": " Pull 2"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}1t,{shuffle}Pull2"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 1
+       },
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "pull",
+        "distance": 2
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
