@@ -1,3 +1,14 @@
+vi.mock("virtual:quest-battle-data", () => ({
+  battleData: {
+    bossMonsters: [
+      {
+        id: "monster_large:p018",
+        name: "Ancestor 2",
+        skills: [{ slot: 3, name: "Embrace Futility" }],
+      },
+    ],
+  },
+}));
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
 import type { BattleEntity, GameState, MonsterCardView, SkillStance } from "@ddbg/engine";

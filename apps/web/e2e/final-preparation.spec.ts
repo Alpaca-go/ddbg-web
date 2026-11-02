@@ -42,7 +42,7 @@ test("最暗胜利后最后四天准备：不展示事件卡，不误入普通�
     await page.getByRole("button", { name: /Zealous Speech/ }).click();
   }
   await expect(
-    page.getByText("最后四天准备已完成。最终战尚未接通，保留当前队伍与准备结果。", { exact: true }),
+    page.getByText("最后四天准备已完成。继续准备最终战补给与形态。", { exact: true }),
   ).toBeVisible();
   await expect(page.getByRole("button", { name: "抽取下一任务", exact: true })).toHaveCount(0);
   // 显式已付铁匠计划/游商陈列夹具；不声称此测试自然购买服务。
