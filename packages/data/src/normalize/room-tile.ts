@@ -1,3 +1,4 @@
+import { approvedHallOfAscension, hallOfAscensionSchema } from "./hall-of-ascension";
 import { z } from "zod";
 import type { RawFile } from "../extract/raw";
 import { iconIdSchema } from "../extract/common";
@@ -118,6 +119,7 @@ export const roomTileGeometrySchema = z.union([
   tortureChamberSchema,
   approvedExtraRuinsTileSchema,
   poolOfRebirthSchema,
+  hallOfAscensionSchema,
 ]);
 
 export const roomTileGeometryFileSchema = z
@@ -210,6 +212,7 @@ export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
     approvedTortureChamber,
     ...approvedExtraRuinsTiles,
     approvedPoolOfRebirth,
+    approvedHallOfAscension,
   ];
   for (const tile of tiles) {
     const matches = raw.cards.filter((card) => card.id === tile.rawId);
