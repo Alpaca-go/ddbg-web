@@ -87,7 +87,7 @@ export function returnPoolRebirthCards(
     ...(hero.diseaseId && hero.diseaseId === target.diseaseId ? { diseaseId: null } : {}),
     ...(hero.quirkIds ? { quirkIds: hero.quirkIds.filter((id) => !quirks.includes(id)) } : {}),
     ...(hero.resolveCardId && hero.resolveCardId === target.resolveCardId
-      ? { resolveCardId: undefined }
+      ? { resolveCardId: undefined, resolveTested: false }
       : {}),
   });
   const nextHeroes = [

@@ -7,6 +7,8 @@ import { trinketPoolProblem, switchTrinketDungeonLevel } from "./trinket-acquisi
 import type { FallenHero } from "./fallen-heroes";
 import rawTrinkets from "../../data/normalized/corebox/trinket.json";
 import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
+import { resolvePressure } from "./pressure";
+import type { BattleEntity } from "./battle";
 
 function fixture() {
   const d = createCoreDungeonQuest(
@@ -76,6 +78,25 @@ it("其他持有者只交还指定实体牌，保留无关牌与英雄数据", (
           resolveTested: true,
         },
   );
+  const owner = heroes[0]!;
+  const combat: BattleEntity = {
+    id: owner.id,
+    side: "hero",
+    hero: "HELLION",
+    areaId: "F",
+    wounds: 2,
+    dodge: 0,
+    dead: false,
+    guard: false,
+    skillIds: [],
+    bleed: [],
+    blight: [],
+    diseaseId: owner.diseaseId!,
+    quirkIds: owner.quirkIds!,
+    resolveCardId: owner.resolveCardId!,
+    resolveTested: true,
+  };
+  heroes[0] = { ...owner, combat };
   const pools = {
     ...input.pools,
     trinkets: {
@@ -94,6 +115,18 @@ it("其他持有者只交还指定实体牌，保留无关牌与英雄数据", (
     quirkIds: [extraQuirk],
   });
   expect(result.heroes[0]!.resolveCardId).toBeUndefined();
+  expect(result.heroes[0]!.resolveTested).toBe(false);
+  expect(result.heroes[0]!.combat).toMatchObject({
+    wounds: 2,
+    diseaseId: null,
+    quirkIds: [extraQuirk],
+    resolveCardId: null,
+    resolveTested: false,
+  });
+  expect(result.heroes.at(-1)!.resolveTested).toBe(true);
+  expect(resolvePressure(10, result.heroes[0]!.resolveTested!, null)).toEqual({
+    type: "needsRoll",
+  });
   expect(result.pools.trinkets!.held).toEqual(input.fallen.trinkets);
   expect({ heroes, pools }).toEqual(before);
 });
