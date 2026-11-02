@@ -7,7 +7,7 @@ import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 
 const cards = loadNormalizedCorebox().hero_skill.cards;
 
-it("Poison Dart I / Shadow Fade I / Toxin Trickery I 完整状态黄金值；II/III 不外推", () => {
+it("Poison Dart I / Shadow Fade I / Toxin Trickery I 完整状态黄金值；II/III已有独立注解", () => {
   expect(cards.find((c) => c.id === "hero_skill:p184")!.verified_status_effects).toEqual([
     { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "blight", amount: 2, duration: 3 },
   ]);
@@ -18,7 +18,7 @@ it("Poison Dart I / Shadow Fade I / Toxin Trickery I 完整状态黄金值；II/
     { lineIndex: 1, segmentIndex: 2, scope: "self", kind: "buff", duration: 2 },
   ]);
   for (const id of ["hero_skill:p185", "hero_skill:p179", "hero_skill:p188"] as const)
-    expect(cards.find((c) => c.id === id)!.verified_status_effects).toBeUndefined();
+    expect(cards.find((c) => c.id === id)!.verified_status_effects).toBeDefined();
   expect(attachVerifiedHeroStatuses(cards)).toEqual(cards);
 });
 

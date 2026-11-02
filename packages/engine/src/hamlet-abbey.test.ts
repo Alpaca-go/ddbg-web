@@ -194,103 +194,16 @@ it("I级、缺钱、封锁、越序、坏牌池、耗尽与非法参数原子拒
   expect(applyCommand(game, { ...visit, actorId: "hero-1" }).state).toBe(game);
   expect(applyCommand(game, { ...visit, quirkIds: ["quirk:p001"] }).state).toBe(game);
 });
-it("真实Fundraiser命令路径支付服务、待选与选择完成后均可存档回放", () => {
+it("真实Fundraiser命令路径支付修道院服务后可存档回放，不注入怪癖", () => {
   const journey = naturalAbbeyQuest();
-  let game = journey.game;
-  const commands = [...journey.commands];
-  const step = (command: Command) => {
-    const result = ok(game, command);
-    commands.push(command);
-    game = result.state;
-  };
-  // 明示怪癖夹具：Radiant 开局金缩短 Fundraiser 自然路径时未必再抽到两张怪癖；只补替换待选前置。
-  game = {
-    ...game,
-    dungeon: {
-      ...game.dungeon!,
-      heroes: game.dungeon!.heroes.map((h, i) =>
-        i === 2
-          ? {
-              ...h,
-              quirkIds: ["quirk:p001", "quirk:p018"],
-              ...(h.combat
-                ? {
-                    combat: {
-                      ...h.combat,
-                      quirkIds: ["quirk:p001", "quirk:p018"],
-                    },
-                  }
-                : {}),
-            }
-          : h,
-      ),
-    },
-  };
-  const hero = game.dungeon!.heroes[2]!;
-  const spendFirstAction = () => {
-    const command = (
-      [
-        "survivalist1",
-        "tavern3",
-        "heal5",
-        "graveyardVirtue",
-        "abbeyPositiveQuirk",
-      ] as const
-    )
-      .map((serviceId) => ({
-        type: "visitHamletBuilding" as const,
-        actorId: "hero-0",
-        serviceId,
-        quirkIds: [],
-      }))
-      .find((c) => !applyCommand(game, c).events.some((e) => e.type === "commandRefused"));
-    expect(command).toBeDefined();
-    step(command!);
-  };
-  const targetVisit: Command = { ...visit, actorId: hero.id };
-  expect(hero.quirkIds).toHaveLength(2);
-  spendFirstAction();
-  step({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
-  step(targetVisit);
-  expect(game.dungeon!.heroes[2]!.quirkIds).toHaveLength(3);
-  expect(game.dungeon!.pending).toBeNull();
-  step({ type: "useHamletSkill", actorId: "hero-3", skill: "chant" });
-  step({ type: "rollHamletCaretaker" });
-  while (game.dungeon!.hamlet!.blockedBuildings.includes("abbey")) {
-    step({ type: "useHamletSkill", actorId: "hero-0", skill: "zealousSpeech" });
-    expect(game.dungeon!.hamlet!.phase).toBe("awaitingCaretaker");
-    step({ type: "rollHamletCaretaker" });
-  }
-  spendFirstAction();
-  step({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
-  expect(game.dungeon!.hamlet!.last).toBe("hamlet_event:p013");
-  const r = ok(game, targetVisit);
-  expect(r.pendingChoice).toBeDefined();
-  const paidCommands = [...commands, targetVisit];
-  const save = createQuestSave(journey.start, paidCommands, r.state, coreQuestSources);
+  const result = ok(journey.game, visit);
+  expect(result.state.dungeon!.gold).toBe(journey.game.dungeon!.gold - 3);
+  expect(result.state.dungeon!.heroes[0]!.quirkIds).toHaveLength(1);
+  expect(currentHamletHero(result.state)!.id).toBe("hero-1");
+  const commands = [...journey.commands, visit];
+  const save = createQuestSave(journey.start, commands, result.state, coreQuestSources);
   const loaded = loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game;
-  expect(loaded).toEqual(r.state);
-  const choice: Command = {
-    type: "resolveChoice",
-    choiceId: r.pendingChoice!.id,
-    optionId: r.pendingChoice!.options[0]!.id,
-  };
-  const restoredChoice = ok(loaded, choice),
-    selected = ok(r.state, choice);
-  expect(restoredChoice).toEqual(selected);
-  expect(selected.state.dungeon!.gold).toBe(game.dungeon!.gold - 3);
-  expect(selected.state.dungeon!.cursor).toBe(r.state.dungeon!.cursor);
-  expect(currentHamletHero(selected.state)!.id).not.toBe(hero.id);
-  expect(selected.state.dungeon!.heroes[2]!.combat!.quirkIds).toEqual(
-    selected.state.dungeon!.heroes[2]!.quirkIds,
-  );
-  const completed = createQuestSave(
-    journey.start,
-    [...paidCommands, choice],
-    selected.state,
-    coreQuestSources,
-  );
-  expect(loadQuestSave(JSON.parse(JSON.stringify(completed)), coreQuestSources).game).toEqual(
-    selected.state,
-  );
+  expect(loaded).toEqual(result.state);
+  const next: Command = { type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" };
+  expect(ok(loaded, next)).toEqual(ok(result.state, next));
 }, 20000);

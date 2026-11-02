@@ -6,7 +6,7 @@ import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 
 const cards = loadNormalizedCorebox().hero_skill.cards;
 
-it("Occ I：Sacrificial Stab / Abyssal Artillery Eldritch +1；II/III 不外推", () => {
+it("Occ I：Sacrificial Stab / Abyssal Artillery Eldritch +1；II/III已有独立注解", () => {
   for (const id of ["hero_skill:p190", "hero_skill:p193"] as const) {
     expect(cards.find((c) => c.id === id)!.verified_damage_bonus).toEqual({
       lineIndex: 0,
@@ -16,7 +16,7 @@ it("Occ I：Sacrificial Stab / Abyssal Artillery Eldritch +1；II/III 不外推"
     });
   }
   for (const id of ["hero_skill:p191", "hero_skill:p194"] as const)
-    expect(cards.find((c) => c.id === id)!.verified_damage_bonus).toBeUndefined();
+    expect(cards.find((c) => c.id === id)!.verified_damage_bonus).toBeDefined();
   expect(attachVerifiedHeroDamage(cards)).toEqual(cards);
 });
 

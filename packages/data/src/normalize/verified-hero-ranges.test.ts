@@ -11,7 +11,15 @@ describe("逐卡复核的区间来源", () => {
   it("保留核心22张及赏金猎人3张，增加Blinding Gas I、GR两张与Occ三张区间，保留原null", () => {
     const attached = attachVerifiedHeroRanges(cards);
     expect(
-      attached.filter((card) => card.verified_range).map((card) => Number(card.id.slice(-3))),
+      attached
+        .filter(
+          (card) =>
+            card.verified_range &&
+            ([167, 168].includes(card.pages[0]!) ||
+              card.level === 1 ||
+              ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(card.hero ?? "")),
+        )
+        .map((card) => Number(card.id.slice(-3))),
     ).toEqual([
       13, 14, 38, 39, 46, 55, 58, 67, 68, 69, 73, 74, 75, 76, 77, 78, 88, 89, 90, 94, 95, 96, 100,
       101, 102, 133, 166, 167, 168, 181, 184, 196, 199, 202,

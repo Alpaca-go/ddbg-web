@@ -272,7 +272,7 @@ it("Vapours缺失或篡改目标行注解、射程/目标图标或状态行均�
     if (field === "source") changed.verified_target_header = { lineIndex: 0, source: "guess" };
     if (field === "index") changed.verified_target_header = { lineIndex: 1, source: "print_front" };
     const lines = structuredClone(skill.effect_lines).map((l) => [...l]);
-    if (field === "range") lines[0]![1] = { type: "text", text: " 1 " };
+    if (field === "range") lines[0]![1] = { type: "text", text: " 9 " };
     if (field === "target" || field === "naming") {
       const s = lines[0]![2]!;
       if (s.type === "icon")

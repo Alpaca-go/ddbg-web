@@ -62,7 +62,7 @@ describe("Phase 5 Boss 框架骨架", () => {
     expect(isBossQuestId("quest:p001")).toBe(false);
     expect(resolveBossScriptIdForQuest("quest:p019")).toBe(NECROMANCER_I_SCRIPT_ID);
     expect(resolveBossScriptIdForQuest("quest:p019", { campaignLevel: 2 })).toBeUndefined();
-    expect(resolveBossScriptIdForQuest("quest:p016")).toBeUndefined();
+    expect(resolveBossScriptIdForQuest("quest:p016")).toBe("boss:darkest:shuffling-horror");
   });
 
   it("注册表拒绝静默覆盖不同定义", () => {

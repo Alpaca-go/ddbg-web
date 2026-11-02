@@ -171,7 +171,7 @@ it("真实任务村庄顺序完成Pray/Chant、次日与准备结束都保存回
         optionId: game.dungeon!.pending!.options.at(-1)!.id,
       });
     step({ type: "useHamletSkill", actorId: "hero-1", skill: "intimidate" });
-    step({ type: "visitHamletBuilding", actorId: "hero-2", serviceId: "tavern3", quirkIds: [] });
+    step({ type: "visitHamletBuilding", actorId: "hero-2", serviceId: "heal5", quirkIds: [] });
     const before = game.dungeon!;
     step(skill(name));
     expect(game.dungeon!.hamlet!.phase).toBe("awaitingCaretaker");

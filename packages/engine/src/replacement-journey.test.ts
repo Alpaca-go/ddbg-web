@@ -209,6 +209,7 @@ for (const fixture of journeys) {
     const second = naturalQuest(seed, nextQuestId, true, sources, 2, {
       continueFrom: game,
       exitAfterBattles: 1,
+      fundraiserDonation: 0,
       observe(snapshot, command) {
         continued.push(command);
         if (
@@ -260,7 +261,7 @@ for (const fixture of journeys) {
         ),
       ).toBe(true);
     expect(donationOptions).toEqual(
-      fixture.blacksmith ? [[...Array.from({ length: 12 }, (_, n) => `give:${n}`), "cancel"]] : [],
+      fixture.blacksmith ? [[...Array.from({ length: 32 }, (_, n) => `give:${n}`), "cancel"]] : [],
     );
     expect(
       second.commands.flatMap((c) =>

@@ -20,7 +20,7 @@ it("Emboldening Vapours I完整黄金注解，四姿态、无Acc/Crit，保留�
   ]);
   expect(card.unlabeled_numbers.find((n) => n.text === "3t")?.numeric).toBeNull();
   for (const p of [143, 144])
-    expect(cards.find((c) => c.pages[0] === p)!.verified_status_effects).toBeUndefined();
+    expect(cards.find((c) => c.pages[0] === p)!.verified_status_effects).toBeDefined();
   const before = structuredClone(cards);
   expect(attachVerifiedHeroStatuses(cards)).toEqual(cards);
   expect(cards).toEqual(before);

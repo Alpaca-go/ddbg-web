@@ -17,7 +17,7 @@ const rows = [
   ],
 ] as const;
 
-it.each(rows)("%s完整状态黄金值；Nt原numeric保留null，II/III级不外推", (id, expected) => {
+it.each(rows)("%s完整状态黄金值；Nt原numeric保留null，II/III已有独立注解", (id, expected) => {
   const card = cards.find((c) => c.id === id)!;
   expect(card.verified_status_effects).toEqual(expected);
   expect(
@@ -26,7 +26,7 @@ it.each(rows)("%s完整状态黄金值；Nt原numeric保留null，II/III级不�
   for (const offset of [1, 2])
     expect(
       cards.find((c) => c.pages[0] === card.pages[0]! + offset)!.verified_status_effects,
-    ).toBeUndefined();
+    ).toBeDefined();
 });
 
 it.each(rows)("%s限定身份、整行数值和所有图标命名；漂移/缺失/重复卡拒绝，重复生成不突变", (id) => {

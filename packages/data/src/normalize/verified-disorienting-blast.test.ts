@@ -4,7 +4,7 @@ import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 const cards = loadNormalizedCorebox().hero_skill.cards;
 const id = "hero_skill:p145";
 
-it("Disorienting Blast I保留原始两行与Nt null，限定目标续行黄金注解，不向II/III外推", () => {
+it("Disorienting Blast I保留原始两行与Nt null，限定目标续行黄金注解，高等级由独立注解覆盖", () => {
   const card = cards.find((c) => c.id === id)!;
   expect(card.verified_status_effects).toEqual([
     {
@@ -27,7 +27,7 @@ it("Disorienting Blast I保留原始两行与Nt null，限定目标续行黄金�
   ).toEqual(["{target_effects} {shuffle} Push 2 or Pull 2", "{stun} 1t"]);
   expect(card.unlabeled_numbers.find((n) => n.text === "1t")?.numeric).toBeNull();
   for (const p of [146, 147])
-    expect(cards.find((c) => c.pages[0] === p)!.verified_status_effects).toBeUndefined();
+    expect(cards.find((c) => c.pages[0] === p)!.verified_status_effects).toBeDefined();
   const before = structuredClone(cards);
   expect(attachVerifiedHeroStatuses(cards)).toEqual(cards);
   expect(cards).toEqual(before);

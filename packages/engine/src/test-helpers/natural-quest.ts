@@ -23,6 +23,8 @@ export const naturalParty = coreParty.map((hero, index) => ({
   skillIds: equipped[index]!,
 }));
 export type NaturalQuestOptions = {
+  /** 显式玩家捐款选择；缺省仍优先给20金，仅从实际选项选择。 */
+  readonly fundraiserDonation?: number;
   /** Wipe ‘Em Out：至少清理多少间巢穴才离开（默认 1）。 */
   readonly wipeLairs?: number;
   /** 从已出征状态续跑（awaitingProvisions / ready），不新建任务入口。 */
@@ -386,9 +388,12 @@ export function naturalQuest(
           activeQuestId === "quest:p003" &&
           state.dungeon!.pending?.id.startsWith("dungeon-fundraiser:")
         ) {
-          const options = state.dungeon!.pending!.options;
+          const donations = state.dungeon!.pending!.options;
           // 提前退出时可能不足20金；只从引擎实际提供的捐献选项中选择。
-          choose(options.some((option) => option.id === "give:20") ? "give:20" : options[0]!.id);
+          const preferred = `give:${options.fundraiserDonation ?? 20}`;
+          choose(
+            donations.some((option) => option.id === preferred) ? preferred : donations[0]!.id,
+          );
         }
         return { initial, state, commands, events, stopReason: null };
       }
