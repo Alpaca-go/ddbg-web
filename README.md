@@ -6,6 +6,8 @@
 
 ## 开发
 
+当前核心盒处于战役收口阶段。最新实现、PR 依赖、验证结果和生产几何/战斗字段停点见 [2026-11-02 收口记录](docs/phase5-core-campaign-closeout-2026-11-02.md)。下方较早日期的进度补记保留为历史，不覆盖这份记录。
+
 Node.js `24.21.0`（`.nvmrc`）和 pnpm `12.9.1`（根目录 `packageManager`）。
 
 ```bash
@@ -19,7 +21,7 @@ pnpm test:e2e   # Playwright 冒烟
 pnpm build
 ```
 
-`pnpm dev` 打开普通遭遇战沙盒；`/?phase=3` 打开地牢探索沙盒，`/?phase=3&play=1` 打开三张基础任务的正式入口。
+`pnpm dev` 默认打开正式建队与战役入口；`/?phase=3&play=1` 是同一正式入口。`/?phase=3` 打开地牢调试沙盒，`/?view=battle` 打开战斗调试沙盒，`/?view=tabletop` 保留桌面 mock 原型。
 
 ### 本地卡图缓存（可选）
 
