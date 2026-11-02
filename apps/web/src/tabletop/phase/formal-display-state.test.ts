@@ -1,6 +1,18 @@
+vi.mock("virtual:quest-battle-data", () => ({
+  battleData: {
+    bossMonsters: [
+      {
+        id: "monster_large:p018",
+        name: "Ancestor 2",
+        skills: [{ slot: 3, name: "Embrace Futility" }],
+      },
+    ],
+  },
+}));
 import { expect, it, vi } from "vitest";
 import { createTabletopInitialState } from "../tabletop-initial-state";
 import { formalDetailIsValid } from "./formal-display-state";
+import { monsterCardName, resolveMonsterSkillName } from "../resolve-monster-skill-display";
 import type { FlowPhaseId } from "./flow-phase";
 import type { TabletopDetailTargetKind } from "../tabletop-detail-types";
 
@@ -31,4 +43,11 @@ it.each<[TabletopDetailTargetKind, string | null, FlowPhaseId, boolean]>([
   const before = structuredClone(state);
   expect(formalDetailIsValid(state, phase)).toBe(valid);
   expect(state).toEqual(before);
+});
+
+it("最终战 Boss 的名称和技能从正式目录读取，未知身份仍显示 ID", () => {
+  expect(monsterCardName("monster_large:p018")).toBe("Ancestor 2");
+  expect(resolveMonsterSkillName("monster_large:p018", 3)).toBe("Embrace Futility");
+  expect(monsterCardName("unknown")).toBe("unknown");
+  expect(resolveMonsterSkillName("unknown", 3)).toBe("技能位 3");
 });

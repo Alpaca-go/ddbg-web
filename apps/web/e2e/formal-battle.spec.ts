@@ -179,9 +179,21 @@ test("S2/S3：正式同页战斗与底栏技能、分页和移动", async ({ pag
       }
       const stance = dock.getByRole("tab", { name: "换姿态", exact: true });
       if ((await stance.isVisible()) && (await stance.isEnabled())) await stance.click();
+      const stanceActions = dock
+        .getByRole("button", { name: /^(向前换姿态|向后换姿态)$/ })
+        .and(page.locator(":enabled"));
+      if ((await stance.isEnabled()) && (await stanceActions.count()) === 0) {
+        await dock.getByRole("tab", { name: "移动", exact: true }).click();
+        await dock
+          .getByRole("button", { name: /^前往 / })
+          .first()
+          .click();
+        await dock.getByRole("button", { name: "确认移动", exact: true }).click();
+        continue;
+      }
       await page
         .getByRole("button", {
-          name: /^(结算位移|抽取先攻|向前换姿态|向后换姿态|怪物选招与选目标|按 The Invokers 移动|怪物选招／执行自身技能|怪物移动到射程|结算怪物技能)$/,
+          name: /^(准备驿站替补|让\d名替补入队并继续|结算位移|抽取先攻|向前换姿态|向后换姿态|怪物选招与选目标|按 The Invokers 移动|怪物选招／执行自身技能|怪物移动到射程|结算怪物技能)$/,
         })
         .and(page.locator(":enabled"))
         .first()

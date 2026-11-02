@@ -10,6 +10,7 @@ import {
 } from "@ddbg/engine";
 import type { Command, SkillStance, ProvisionEffect, GameState, GameEvent } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
+import { battleData as questBattleData } from "virtual:quest-battle-data";
 import type { SandboxLayout } from "./battle-store";
 import { battleStep } from "./battle-step";
 import { BattleEntityCardThumb } from "./card-art/battle-entity-card-thumb";
@@ -63,7 +64,9 @@ export function BattleView({
   const [provisionTargetId, setProvisionTargetId] = useState("hero-0");
   const [provisionEffect, setProvisionEffect] = useState<ProvisionEffect>("heal");
   const battle = game.battle!;
-  const roomTileId = resolveBattleRoomTileId(game, battle.roomName ?? battleData.tileName);
+  const displayData = formal ? questBattleData : battleData;
+  const displayMonsters = [...displayData.monsters, ...(displayData.bossMonsters ?? [])];
+  const roomTileId = resolveBattleRoomTileId(game, battle.roomName ?? displayData.tileName);
   const turn = battle.encounter?.turn;
   const step = game.dungeon?.campaignFailure
     ? { label: "战役失败", hint: "驿站等待英雄不足，无法补齐队伍（R9/R25/R33）。" }
@@ -85,7 +88,9 @@ export function BattleView({
     battle.pending?.type === "shuffleArea" || battle.pending?.type === "monsterMove";
   const shuffled = battle.shuffleIntents[0];
   const frozen = !!pending || battle.shuffleIntents.length > 0;
-  const actorSkills = battleData.skills.filter((s) => actor?.skillIds.includes(s.id));
+  const actorSkills = displayData.skills
+    .filter((s) => actor?.skillIds.includes(s.id) && battle.skills.some((c) => c.id === s.id))
+    .map((s) => ({ ...s, ...battle.skills.find((c) => c.id === s.id)! }));
   const skill = actorSkills.find((s) => s.id === skillId) ?? actorSkills[0];
   const skillBack =
     actor?.form === "beast" && skill && ["hero_skill:p221", "hero_skill:p222"].includes(skill.id)
@@ -121,7 +126,7 @@ export function BattleView({
     );
   };
   const action = battle.monsterAction;
-  const monsterCard = battleData.monsters.find((m) => m.id === actor?.monsterCardId);
+  const monsterCard = displayMonsters.find((m) => m.id === actor?.monsterCardId);
   const monsterSkill = monsterCard?.skills.find((s) => s.slot === action?.skillSlot);
   const entityName = (id: string) => {
     const entity = battle.entities.find((e) => e.id === id);
@@ -132,8 +137,8 @@ export function BattleView({
       duplicates.length > 1 ? ` #${duplicates.findIndex((other) => other.id === id) + 1}` : "";
     return (
       entity?.hero ??
-      (battleData.monsters.find((m) => m.id === entity?.monsterCardId)?.name
-        ? `${battleData.monsters.find((m) => m.id === entity?.monsterCardId)!.name}${instance}`
+      (displayMonsters.find((m) => m.id === entity?.monsterCardId)?.name
+        ? `${displayMonsters.find((m) => m.id === entity?.monsterCardId)!.name}${instance}`
         : id)
     );
   };
@@ -142,8 +147,8 @@ export function BattleView({
     setPath([]);
   };
   const skillName = (id: string) =>
-    battleData.skills.find((s) => s.id === id)?.name ??
-    battleData.monsters
+    displayData.skills.find((s) => s.id === id)?.name ??
+    displayMonsters
       .flatMap((m) => m.skills.map((s) => ({ id: `${m.id}:skill${s.slot}`, name: s.name })))
       .find((s) => s.id === id)?.name ??
     id;
@@ -164,7 +169,7 @@ export function BattleView({
             : "等待抽取先攻";
   const endpoint = path.at(-1) ?? actor?.areaId;
   const adjacent = battle.areas.find((a) => a.id === endpoint)?.adjacent ?? [];
-  const stat = battleData.heroStats.find((s) => s.id === actor?.heroStatId);
+  const stat = displayData.heroStats.find((s) => s.id === actor?.heroStatId);
   const provision =
     battle.provisions?.find((item) => item.id === provisionId) ??
     battle.provisions?.find((item) => item.face !== "tool") ??
@@ -301,7 +306,7 @@ export function BattleView({
       <div className="workspace">
         <section className="panel board" aria-label="区域板">
           <h2>
-            {battle.roomName ?? battleData.tileName} <small>区域邻接视图</small>
+            {battle.roomName ?? displayData.tileName} <small>区域邻接视图</small>
           </h2>
           <p className="muted">
             区域卡片顺序不表示空间相邻；移动使用本房间下列已核实连接，不能穿过黑墙或空隙。
@@ -316,7 +321,7 @@ export function BattleView({
           )}
           <BattleRoomTileBoard
             {...(roomTileId ? { roomTileId } : {})}
-            tileLabel={battle.roomName ?? battleData.tileName}
+            tileLabel={battle.roomName ?? displayData.tileName}
           >
             {battle.areas.map((area) => {
               const occupants = battle.entities.filter((e) => !e.dead && e.areaId === area.id);
@@ -929,7 +934,7 @@ export function BattleView({
             <>
               <MonsterCardFace monsterCardId={monsterCard.id} size="md" />
               <SkillCardText
-                name={monsterSkill.name}
+                name={monsterSkill.name ?? `技能位 ${monsterSkill.slot}`}
                 level={monsterCard.level}
                 lines={monsterSkill.lines}
               />
@@ -970,7 +975,7 @@ export function BattleView({
               <ResolveEventDetails
                 event={event}
                 entityName={entityName}
-                cards={battleData.resolveCards}
+                cards={displayData.resolveCards}
               />
               {(event.type === "heroSkillResolved" ||
                 event.type === "monsterSkillResolved" ||

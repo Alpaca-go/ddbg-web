@@ -1,3 +1,14 @@
+vi.mock("virtual:quest-battle-data", () => ({
+  battleData: {
+    bossMonsters: [
+      {
+        id: "monster_large:p018",
+        name: "Ancestor 2",
+        skills: [{ slot: 3, name: "Embrace Futility" }],
+      },
+    ],
+  },
+}));
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 

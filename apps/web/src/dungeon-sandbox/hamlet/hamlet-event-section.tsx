@@ -241,7 +241,7 @@ export function HamletEventSection({
       {d.hamlet.phase === "preparationComplete" &&
         (d.hamlet.finalPreparation ? (
           <div>
-            <p>最后四天准备已完成。最终战尚未接通，保留当前队伍与准备结果。</p>
+            <p>最后四天准备已完成。继续准备最终战补给与形态。</p>
             {!d.finalBattleProvisions && (
               <button onClick={() => dispatch({ type: "beginFinalBattleProvisions" })}>
                 准备最终战补给
