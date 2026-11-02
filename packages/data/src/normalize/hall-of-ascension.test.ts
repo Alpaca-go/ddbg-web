@@ -36,15 +36,15 @@ it("R-153：BACK p9独立面可再生，L容量3，两处高地及三个宝箱�
   ).toEqual(["F-H", "G-J", "H-L"]);
 });
 
-it("升级运行时未开放，不能仅凭获批几何进入战斗", () => {
+it("完整升级交互开放，几何/部署漂移不能绕过校验", () => {
   expect(
     selectRoomTile(
       rooms.cards.find((c) => c.id === "room:p015"),
       geometry,
     ).status,
-  ).toBe("refused");
+  ).toBe("matched");
   for (const patch of [
-    { usable: true },
+    { usable: false },
     { areas: approvedHallOfAscension.areas.map((a) => (a.id === "L" ? { ...a, capacity: 4 } : a)) },
     { edges: approvedHallOfAscension.edges.slice(1) },
     { deployment: { ...approvedHallOfAscension.deployment, lootAreas: ["A", "C"] } },
@@ -61,7 +61,7 @@ it("B区效果绑定Room p15截图对应卡文；来源、压力图标或文字�
   expect(() => assertHallOfAscensionEffectSource(raw)).not.toThrow();
   expect(approvedHallOfAscension.specialRegions[0]).toMatchObject({
     areaId: "B",
-    runtimeReady: false,
+    runtimeReady: true,
     status: "confirmed",
   });
   for (const kind of ["page", "text", "icon"] as const) {

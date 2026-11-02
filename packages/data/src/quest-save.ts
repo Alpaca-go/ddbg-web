@@ -141,6 +141,7 @@ export const savedCommandSchema = z.union([
     type: z.enum([
       "lootTreasureChest",
       "hideAndHeal",
+      "hallAscension",
       "interactLoot",
       "finishMonsterTurn",
       "prepareMonsterAction",

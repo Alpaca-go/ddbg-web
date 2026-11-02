@@ -1,7 +1,7 @@
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { rejectBattleCommand } from "./battle";
-import { ownedHeroSkills, heroSkillSlotCount } from "./hero-loadout";
+import { ownedHeroSkills, questHeroSkillCount } from "./hero-loadout";
 import { conditionPoolProblem } from "./conditions";
 import { trinketPoolProblem } from "./trinket-acquisition";
 import { resolveDungeonPressure } from "./dungeon-pressure";
@@ -93,7 +93,7 @@ export function joinPreparedReplacements(state: GameState): ApplyResult {
           h.stress > 10)) ||
       !Number.isSafeInteger(h.xp ?? (reserved ? 0 : undefined)) ||
       h.xp! < 0 ||
-      h.skillIds?.length !== heroSkillSlotCount(stat.level) ||
+      h.skillIds?.length !== questHeroSkillCount(h) ||
       !ownedHeroSkills(h, catalog) ||
       (!reserved && d.deadHeroNames?.includes(stat.name))
     )

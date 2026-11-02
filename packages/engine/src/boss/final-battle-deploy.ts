@@ -11,7 +11,7 @@ import { createLootState } from "../loot";
 import type { SkillStance } from "../hero-skill";
 import type { MonsterCardView } from "../monster-skill";
 import { skillBelongsToFormalHero } from "../formal-roster-catalog";
-import { heroSkillSlotCount } from "../hero-loadout";
+import { questHeroSkillCount } from "../hero-loadout";
 import { ownedHeroSkills } from "../hero-loadout";
 import { applyTemporarySkillUpgrades, restoreTemporarySkillUpgrades } from "../hamlet-embark";
 import { statusProjection } from "../status";
@@ -186,7 +186,7 @@ function buildHeroEntities(
     }
     const stat = stats.find((entry) => entry.id === hero.heroStatId);
     const selected = hero.skillIds?.map((id) => skills.find((skill) => skill.id === id));
-    const slots = heroSkillSlotCount(stat?.level ?? 0);
+    const slots = questHeroSkillCount(hero);
     if (
       !stat ||
       !stat.attributesVerified ||
