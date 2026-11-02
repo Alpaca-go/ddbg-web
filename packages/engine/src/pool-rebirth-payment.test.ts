@@ -189,7 +189,7 @@ it("存活者支付，已有死者不付款；低光照追加压力仍沿用被�
   expect(result.dungeon.heroes.slice(0, 4).map((h) => h.stress)).toEqual([2, 5, 5, 5]);
 });
 
-it("四名付款者都心脏病死亡也完整记录，不自行判战役失败或执行驿站招募", () => {
+it("R-151四名付款者都心脏病死亡仍准备原牌归还，不自行判战役失败或执行驿站招募", () => {
   const input = fixture(),
     d = input.dungeon!;
   const cards = d.resolveCards.filter((c) => c.role === "affliction");
@@ -211,6 +211,8 @@ it("四名付款者都心脏病死亡也完整记录，不自行判战役失败�
   expect(result.events.filter((e) => e.type === "heartAttack")).toHaveLength(4);
   expect(result.dungeon.heroes.slice(0, 4).every((h) => h.dead)).toBe(true);
   expect(result.dungeon.fallenHeroes).toHaveLength(5);
+  expect(result.recipientId).toBe("fallen");
+  expect(result.dungeon.heroes.at(-1)).toEqual(d.fallenHeroes![0]!.hero);
   expect(result.dungeon.waitingHeroTokens).toBe(d.waitingHeroTokens);
   expect(result.dungeon.campaignFailure).toBeUndefined();
 });
