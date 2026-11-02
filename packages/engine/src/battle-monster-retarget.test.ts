@@ -18,7 +18,11 @@ const choose = (result: ReturnType<typeof applyCommand>, optionId: string) =>
     optionId,
   });
 
-function monsterTargeted(seed = 0, held: Parameters<typeof trinketBattle>[0], face: "upright" | "inverted" = "inverted") {
+function monsterTargeted(
+  seed = 0,
+  held: Parameters<typeof trinketBattle>[0],
+  face: "upright" | "inverted" = "inverted",
+) {
   const { state } = trinketBattle(held, "aggressive", "hero_skill:p001", face, seed);
   return {
     ...state,
@@ -26,7 +30,7 @@ function monsterTargeted(seed = 0, held: Parameters<typeof trinketBattle>[0], fa
       ...state.battle!,
       resolveCards: coreQuestSources.resolveCards,
       entities: state.battle!.entities.map((e) =>
-        e.id === "h0" ? { ...e, stress: 9 } : e.id === "m" ? { ...e, areaId: "a" } : e,
+        e.id === "h0" ? { ...e, stress: 9 } : e.id === "m" ? { ...e, areaId: "b" } : e,
       ),
       encounter: {
         round: 1,
@@ -55,7 +59,7 @@ it("目标死亡且 allTrinkets：重选后续接攻击，饰品已翻面", () =
         e.id === "h0"
           ? { ...e, wounds: e.life!, stress: 0, areaId: "a" }
           : e.id === "m"
-            ? { ...e, areaId: "a" }
+            ? { ...e, areaId: "b" }
             : e,
       ),
     },
@@ -78,16 +82,18 @@ it("目标死亡且 allTrinkets：重选后续接攻击，饰品已翻面", () =
   expect(continued.events.some((e) => e.type === "monsterSkillResolved")).toBe(true);
   expect(continued.state.battle!.monsterAction).toBeNull();
   expect(continued.state.battle!.entities.find((e) => e.id === "h0")!.dead).toBe(true);
-  expect(applyCommand(before, {
-    type: "useCoreTrinket",
-    actorId: "h0",
-    cardId: "trinket:p036",
-  }).events[0]).toMatchObject({ type: "commandRefused", message: LEGACY_REFUSAL });
+  expect(
+    applyCommand(before, {
+      type: "useCoreTrinket",
+      actorId: "h0",
+      cardId: "trinket:p036",
+    }).events[0],
+  ).toMatchObject({ type: "commandRefused", message: LEGACY_REFUSAL });
 });
 
 it("Book of Sanity 反面：JSON 续接不重掷怪物攻击骰", () => {
   let seed = 0;
-  while (nextBattleRoll(seed, 0) !== 5) seed++;
+  while (nextBattleRoll(seed, 0) > 3 || nextBattleRoll(seed, 1) !== 5) seed++;
   const base = monsterTargeted(seed, ["trinket:p036"], "inverted");
   const state = {
     ...base,
@@ -124,7 +130,7 @@ it("无合法重选目标时跳过怪物攻击并收尾", () => {
       ],
       entities: base.battle!.entities.map((e) =>
         e.id === "h0"
-          ? { ...e, wounds: e.life! - 6, stress: 0, areaId: "a" }
+          ? { ...e, wounds: e.life!, stress: 0, areaId: "a" }
           : e.id === "h1"
             ? { ...e, areaId: "c" }
             : e.id === "m"

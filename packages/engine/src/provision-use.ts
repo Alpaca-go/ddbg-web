@@ -156,5 +156,10 @@ export function useProvision(state: GameState, command: UseProvisionCommand): Ap
     return finishTurn(removed.state, turn.actorId, removed.events);
   const threat = applyBossThreatStressOnProvisionUse(removed.state, target.id);
   if (threat.events.some((e) => e.type === "commandRefused")) return threat;
-  return { ...threat, events: [...removed.events, ...threat.events] };
+  const pending = threat.state.battle?.pending;
+  return {
+    ...threat,
+    events: [...removed.events, ...threat.events],
+    ...(pending ? { pendingChoice: pending.choice } : {}),
+  };
 }
