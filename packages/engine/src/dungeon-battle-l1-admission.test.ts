@@ -1,4 +1,4 @@
-import { expect, it } from "vitest";
+import { afterAll, expect, it } from "vitest";
 import { applyCommand } from "./command";
 import type { GameState } from "./command";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
@@ -21,16 +21,10 @@ type GuardedKind = (typeof GUARDED_KINDS)[number] | "curio";
 
 const SEEDS_PER_QUEST = 120;
 
-function guardedBattleFixture(
-  questId: BasicQuestId,
-  seed: number,
-  kind: GuardedKind,
-  position = "D",
-): GameState {
-  let state = createCoreDungeonQuest(seed, questId, "radiant", naturalParty, coreQuestSources);
-  const d = state.dungeon!;
-  state = {
-    ...state,
+function guardedBattleFixture(initial: GameState, kind: GuardedKind, position = "D"): GameState {
+  const d = initial.dungeon!;
+  return {
+    ...initial,
     dungeon: {
       ...d,
       phase: "awaitingRoom",
@@ -43,7 +37,6 @@ function guardedBattleFixture(
         : {}),
     },
   };
-  return state;
 }
 
 type AdmissionAttempt =
@@ -73,33 +66,50 @@ function attemptStartDungeonBattle(state: GameState): AdmissionAttempt {
   return { status: "skipped", stage: "prepareDungeonMonsters" };
 }
 
-it(
-  "I 级五任务守卫战入口：随机部署后 startDungeonBattle 不因未接怪物技能硬拒（B02）",
-  { timeout: 180_000 },
-  () => {
-    const skillRefusals: {
-      questId: BasicQuestId;
-      seed: number;
-      kind: GuardedKind;
-      message: string;
-    }[] = [];
-    let admitted = 0;
-    let skipped = 0;
+const totals = { admitted: 0, skipped: 0 };
 
-    for (const questId of CAMPAIGN_L1_QUESTS) {
-      for (const kind of [...GUARDED_KINDS, "curio"] as const) {
-        for (let seed = 1; seed <= SEEDS_PER_QUEST; seed++) {
-          const attempt = attemptStartDungeonBattle(guardedBattleFixture(questId, seed, kind));
+for (const questId of CAMPAIGN_L1_QUESTS) {
+  it(
+    `${questId} 守卫战入口：120 种子 × 四房型不因未接怪物技能拒绝（B02）`,
+    { timeout: 180_000 },
+    () => {
+      const skillRefusals: {
+        questId: BasicQuestId;
+        seed: number;
+        kind: GuardedKind;
+        message: string;
+      }[] = [];
+      let admitted = 0;
+      let skipped = 0;
+
+      for (let seed = 1; seed <= SEEDS_PER_QUEST; seed++) {
+        // 同种子起点不可变：四种房型共享起点，仍执行全部 2400 次真实准入命令。
+        const initial = createCoreDungeonQuest(
+          seed,
+          questId,
+          "radiant",
+          naturalParty,
+          coreQuestSources,
+        );
+        for (const kind of [...GUARDED_KINDS, "curio"] as const) {
+          const attempt = attemptStartDungeonBattle(guardedBattleFixture(initial, kind));
           if (attempt.status === "admitted") admitted++;
           else if (attempt.status === "skipped") skipped++;
           else skillRefusals.push({ questId, seed, kind, message: attempt.message });
         }
       }
-    }
+      const totalAttempts = (GUARDED_KINDS.length + 1) * SEEDS_PER_QUEST;
+      expect(skillRefusals, JSON.stringify(skillRefusals.slice(0, 8), null, 2)).toEqual([]);
+      expect(admitted + skipped).toBe(totalAttempts);
+      totals.admitted += admitted;
+      totals.skipped += skipped;
+    },
+  );
+}
 
-    const totalAttempts = CAMPAIGN_L1_QUESTS.length * (GUARDED_KINDS.length + 1) * SEEDS_PER_QUEST;
-    expect(skillRefusals, JSON.stringify(skillRefusals.slice(0, 8), null, 2)).toEqual([]);
-    expect(admitted + skipped).toBe(totalAttempts);
-    expect(admitted).toBeGreaterThan(500);
-  },
-);
+afterAll(() => {
+  expect(totals.admitted + totals.skipped).toBe(
+    CAMPAIGN_L1_QUESTS.length * (GUARDED_KINDS.length + 1) * SEEDS_PER_QUEST,
+  );
+  expect(totals.admitted).toBeGreaterThan(500);
+});
