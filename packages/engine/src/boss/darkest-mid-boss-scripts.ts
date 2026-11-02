@@ -25,8 +25,7 @@ const DISPLAY: Record<DarkestQuestId, string> = {
 function buildDarkestMidBossScript(questId: DarkestQuestId): BossScriptDefinition {
   const encounter = readDarkestBossEncounter(questId)!;
   const primary = encounter.actors[0]!;
-  const actions =
-    primary.actionsPerRound === "special" ? undefined : primary.actionsPerRound;
+  const actions = primary.actionsPerRound === "special" ? undefined : primary.actionsPerRound;
   const id = SCRIPT_BY_QUEST[questId];
   if (primary.actionsPerRound === "special")
     throw new Error(`最暗中途 Boss 脚本不应为 Special 行动数：${questId}`);

@@ -118,7 +118,8 @@ it("显式命令：4–6 落 ranged 区", () => {
   let game = ancestor2Fighting();
   game = withBattleRngCursor(onAncestorTurn(game), 0);
   let cursor = 0;
-  while (nextBattleRoll(game.seed, cursor) < 4 || nextBattleRoll(game.seed, cursor) > 6) cursor += 1;
+  while (nextBattleRoll(game.seed, cursor) < 4 || nextBattleRoll(game.seed, cursor) > 6)
+    cursor += 1;
   game = withBattleRngCursor(game, cursor);
 
   const result = applyAncestor2SwiftTeleportation(game, ancestor(game).id);
@@ -148,7 +149,8 @@ it("显式命令：10 不移动", () => {
 it("大型怪 7–9 support 姿态轨无连续空位时不移动", () => {
   let game = ancestor2Fighting();
   let cursor = 0;
-  while (nextBattleRoll(game.seed, cursor) < 7 || nextBattleRoll(game.seed, cursor) > 9) cursor += 1;
+  while (nextBattleRoll(game.seed, cursor) < 7 || nextBattleRoll(game.seed, cursor) > 9)
+    cursor += 1;
   game = withBattleRngCursor(onAncestorTurn(game), cursor);
   const before = ancestor(game);
 

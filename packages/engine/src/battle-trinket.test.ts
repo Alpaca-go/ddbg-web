@@ -16,9 +16,7 @@ const basePool = coreQuestSources.catalog.trinkets!;
 const poolMarkUnverified = (cardId: string, pool: TrinketPool): TrinketPool => ({
   ...pool,
   cards: pool.cards.map((c) =>
-    c.id === cardId
-      ? { ...c, verification: { unverified: true, reasons: ["test-fixture"] } }
-      : c,
+    c.id === cardId ? { ...c, verification: { unverified: true, reasons: ["test-fixture"] } } : c,
   ),
 });
 // 真实获批整面；人工设置当前英雄回合，仅用于交互规则测试。

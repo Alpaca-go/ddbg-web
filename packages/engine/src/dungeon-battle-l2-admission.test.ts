@@ -49,7 +49,10 @@ function guardedBattleFixture(
 
 type AdmissionAttempt =
   | { readonly status: "admitted" }
-  | { readonly status: "skipped"; readonly stage: "prepareDungeonBattle" | "prepareDungeonMonsters" }
+  | {
+      readonly status: "skipped";
+      readonly stage: "prepareDungeonBattle" | "prepareDungeonMonsters";
+    }
   | { readonly status: "skillRefused"; readonly message: string }
   | { readonly status: "levelRefused"; readonly message: string }
   | { readonly status: "otherRefused"; readonly message: string };
@@ -72,8 +75,12 @@ function attemptStartDungeonBattle(state: GameState): AdmissionAttempt {
 
 function scanCampaign(campaignLevel: 2 | 3) {
   const quests = questsForCampaignLevel(campaignLevel);
-  const levelRefusals: { questId: BasicQuestId; seed: number; kind: GuardedKind; message: string }[] =
-    [];
+  const levelRefusals: {
+    questId: BasicQuestId;
+    seed: number;
+    kind: GuardedKind;
+    message: string;
+  }[] = [];
   const skillRefusals: typeof levelRefusals = [];
   let admitted = 0;
   let skipped = 0;
@@ -102,13 +109,17 @@ function scanCampaign(campaignLevel: 2 | 3) {
   return { quests, admitted, skipped, levelRefusals, skillRefusals };
 }
 
-it("II 级五任务守卫战：已批高等级不因 level>1 无批准硬拒；未批仍保留部署语义", {
-  timeout: 240_000,
-}, () => {
-  const { levelRefusals, admitted } = scanCampaign(2);
-  expect(levelRefusals, JSON.stringify(levelRefusals.slice(0, 8), null, 2)).toEqual([]);
-  expect(admitted).toBeGreaterThan(80);
-});
+it(
+  "II 级五任务守卫战：已批高等级不因 level>1 无批准硬拒；未批仍保留部署语义",
+  {
+    timeout: 240_000,
+  },
+  () => {
+    const { levelRefusals, admitted } = scanCampaign(2);
+    expect(levelRefusals, JSON.stringify(levelRefusals.slice(0, 8), null, 2)).toEqual([]);
+    expect(admitted).toBeGreaterThan(80);
+  },
+);
 
 it("DL3 牌堆：未批 Bone Bearer 部署仍因完整战斗字段拒战并保留真实部署", () => {
   const heroes = coreParty.map((hero, index) => {

@@ -70,11 +70,7 @@ function areaOccupancy(battle: BattleState, areaId: string): number {
     .reduce((sum, entity) => sum + (entity.side === "hero" ? 1 : entity.stanceSlots!), 0);
 }
 
-function areaHasSpaceForSummon(
-  battle: BattleState,
-  areaId: string,
-  width: 1 | 2,
-): boolean {
+function areaHasSpaceForSummon(battle: BattleState, areaId: string, width: 1 | 2): boolean {
   const area = battle.areas.find((entry) => entry.id === areaId);
   if (!area || !Number.isSafeInteger(area.capacity)) return false;
   return areaOccupancy(battle, areaId) + width <= area.capacity!;

@@ -6,13 +6,13 @@
 
 ## 候选与取舍
 
-| 卡 | 招 | 效果线 | 本刀 |
-| --- | --- | --- | --- |
-| `p015` Impaler | Revelation | `{target_effects}{stress}+2`（图标均 confirmed） | **接** |
-| `p015` Impaler | Torment / Body Slam | 多效果 / **Pit Toss** 文字 | hold（B 几何 / 未入库） |
-| `p014` Warlord | Torment / Stinger | 无 / 多效果未入库 | #464 已接 Revelation；余招 hold |
-| `p016`–`p020` | 各 Acc 壳三招 | 压力/光照/流血/位移等 | hold |
-| `p017` Shuffling | Lacerate | 卡级 unverified | A-10 / A-11 |
+| 卡               | 招                  | 效果线                                           | 本刀                            |
+| ---------------- | ------------------- | ------------------------------------------------ | ------------------------------- |
+| `p015` Impaler   | Revelation          | `{target_effects}{stress}+2`（图标均 confirmed） | **接**                          |
+| `p015` Impaler   | Torment / Body Slam | 多效果 / **Pit Toss** 文字                       | hold（B 几何 / 未入库）         |
+| `p014` Warlord   | Torment / Stinger   | 无 / 多效果未入库                                | #464 已接 Revelation；余招 hold |
+| `p016`–`p020`    | 各 Acc 壳三招       | 压力/光照/流血/位移等                            | hold                            |
+| `p017` Shuffling | Lacerate            | 卡级 unverified                                  | A-10 / A-11                     |
 
 依据：`monster_large` FRONT **p015**、[phase5-a01-warlord-revelation-effects-2026-11-01.md](phase5-a01-warlord-revelation-effects-2026-11-01.md) 同签名模式、`docs/phase5-a5-remaining-a-candidates-2026-11-01.md` §1 A-01；规则 R-001 / R-048。
 

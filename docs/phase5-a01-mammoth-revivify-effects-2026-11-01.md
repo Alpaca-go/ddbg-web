@@ -6,11 +6,11 @@
 
 ## 候选与取舍
 
-| 卡 | 招 | 效果线 | 本刀 |
-| --- | --- | --- | --- |
-| `p016` Mammoth | Revivify | `{self_effects}Self{buff}2t,{heal}15`（印刷 `{damage_or_heal_combined_marker}15{heal}`） | **接** |
-| `p016` Mammoth | Bulging Gaze / Digestion | Acc + 目标效果 | #464–#466 已合 |
-| White Cell / Pit Toss 等 | — | — | hold |
+| 卡                       | 招                       | 效果线                                                                                   | 本刀           |
+| ------------------------ | ------------------------ | ---------------------------------------------------------------------------------------- | -------------- |
+| `p016` Mammoth           | Revivify                 | `{self_effects}Self{buff}2t,{heal}15`（印刷 `{damage_or_heal_combined_marker}15{heal}`） | **接**         |
+| `p016` Mammoth           | Bulging Gaze / Digestion | Acc + 目标效果                                                                           | #464–#466 已合 |
+| White Cell / Pit Toss 等 | —                        | —                                                                                        | hold           |
 
 依据：`monster_large` FRONT **p016** slot 3 · target **Self**、无 Acc/Crit 伤害行；对齐 Collector 自疗 + 状态 verified 计划写法；规则 R-001 / R-048。
 

@@ -20,9 +20,10 @@ const HERO_SUP = "darkest-mid-boss-hero-support";
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);
-  expect(result.events.some((e) => e.type === "commandRefused"), JSON.stringify(result.events)).toBe(
-    false,
-  );
+  expect(
+    result.events.some((e) => e.type === "commandRefused"),
+    JSON.stringify(result.events),
+  ).toBe(false);
   return result;
 }
 
@@ -91,8 +92,8 @@ describe("Mammoth Cyst Acc 最小结算", () => {
       (entry) => entry.id === MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === MAMMOTH_BULGING_GAZE_SKILL_SLOT)?.verified_monster_effects
-        ?.effects,
+      card.skills.find((skill) => skill.slot === MAMMOTH_BULGING_GAZE_SKILL_SLOT)
+        ?.verified_monster_effects?.effects,
     ).toEqual([
       { type: "status", scope: "target", kind: "debuff", duration: 1 },
       { type: "stress", scope: "target", amount: 1 },
@@ -103,9 +104,7 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     const patch = Object.fromEntries(heroes.map((hero) => [hero.id, HERO_SUP]));
     let game = onMammothTurn(withHeroAreas(base, patch));
     const actor = mammoth(game);
-    const stressBefore = Object.fromEntries(
-      heroes.map((hero) => [hero.id, hero.stress ?? 0]),
-    );
+    const stressBefore = Object.fromEntries(heroes.map((hero) => [hero.id, hero.stress ?? 0]));
     game = {
       ...game,
       battle: {
@@ -130,12 +129,14 @@ describe("Mammoth Cyst Acc 最小结算", () => {
           ),
         ),
       ).toBe(true);
-      expect(skillEvent.resolutions.every((resolution) => resolution.targetStress === 1)).toBe(true);
+      expect(skillEvent.resolutions.every((resolution) => resolution.targetStress === 1)).toBe(
+        true,
+      );
     }
     for (const hero of heroes.slice(0, 2)) {
-      expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks).toEqual([
-        { kind: "debuff", remaining: 1 },
-      ]);
+      expect(
+        result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks,
+      ).toEqual([{ kind: "debuff", remaining: 1 }]);
       expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress).toBe(
         stressBefore[hero.id]! + 1,
       );
@@ -155,9 +156,7 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     const patch = Object.fromEntries(heroes.map((hero) => [hero.id, HERO_SUP]));
     let game = onMammothTurn(withHeroAreas(base, patch));
     const actor = mammoth(game);
-    const stressBefore = Object.fromEntries(
-      heroes.map((hero) => [hero.id, hero.stress ?? 0]),
-    );
+    const stressBefore = Object.fromEntries(heroes.map((hero) => [hero.id, hero.stress ?? 0]));
     game = {
       ...game,
       battle: {
@@ -172,18 +171,22 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     const skillEvent = result.events.find((event) => event.type === "monsterSkillTargetsResolved");
     expect(skillEvent?.type).toBe("monsterSkillTargetsResolved");
     if (skillEvent?.type === "monsterSkillTargetsResolved") {
-      expect(skillEvent.resolutions.every((resolution) => resolution.outcome === "miss")).toBe(true);
+      expect(skillEvent.resolutions.every((resolution) => resolution.outcome === "miss")).toBe(
+        true,
+      );
       expect(
         skillEvent.resolutions.every(
           (resolution) => (resolution.targetStatusEffects ?? []).length === 0,
         ),
       ).toBe(true);
-      expect(skillEvent.resolutions.every((resolution) => resolution.targetStress === 0)).toBe(true);
+      expect(skillEvent.resolutions.every((resolution) => resolution.targetStress === 0)).toBe(
+        true,
+      );
     }
     for (const hero of heroes) {
-      expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks ?? []).toEqual(
-        [],
-      );
+      expect(
+        result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks ?? [],
+      ).toEqual([]);
       expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress).toBe(
         stressBefore[hero.id],
       );
@@ -197,11 +200,9 @@ describe("Mammoth Cyst Acc 最小结算", () => {
       (entry) => entry.id === MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === MAMMOTH_DIGESTION_SKILL_SLOT)?.verified_monster_effects
-        ?.effects,
-    ).toEqual([
-      { type: "status", scope: "target", kind: "blight", amount: 3, duration: 2 },
-    ]);
+      card.skills.find((skill) => skill.slot === MAMMOTH_DIGESTION_SKILL_SLOT)
+        ?.verified_monster_effects?.effects,
+    ).toEqual([{ type: "status", scope: "target", kind: "blight", amount: 3, duration: 2 }]);
 
     let cursor = 0;
     while (nextBattleRoll(base.seed, cursor) !== 5) cursor += 1;
@@ -234,9 +235,9 @@ describe("Mammoth Cyst Acc 最小结算", () => {
       ).toBe(true);
     }
     for (const hero of heroes.slice(0, 2)) {
-      expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks).toEqual([
-        { kind: "blight", amount: 3, remaining: 2 },
-      ]);
+      expect(
+        result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks,
+      ).toEqual([{ kind: "blight", amount: 3, remaining: 2 }]);
     }
     expect(
       result.events.some(
@@ -267,7 +268,9 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     const skillEvent = result.events.find((event) => event.type === "monsterSkillTargetsResolved");
     expect(skillEvent?.type).toBe("monsterSkillTargetsResolved");
     if (skillEvent?.type === "monsterSkillTargetsResolved") {
-      expect(skillEvent.resolutions.every((resolution) => resolution.outcome === "miss")).toBe(true);
+      expect(skillEvent.resolutions.every((resolution) => resolution.outcome === "miss")).toBe(
+        true,
+      );
       expect(
         skillEvent.resolutions.every(
           (resolution) => (resolution.targetStatusEffects ?? []).length === 0,
@@ -275,9 +278,9 @@ describe("Mammoth Cyst Acc 最小结算", () => {
       ).toBe(true);
     }
     for (const hero of heroes) {
-      expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks ?? []).toEqual(
-        [],
-      );
+      expect(
+        result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks ?? [],
+      ).toEqual([]);
     }
   });
 
@@ -287,8 +290,8 @@ describe("Mammoth Cyst Acc 最小结算", () => {
       (entry) => entry.id === MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === MAMMOTH_REVIVIFY_SKILL_SLOT)?.verified_monster_effects
-        ?.effects,
+      card.skills.find((skill) => skill.slot === MAMMOTH_REVIVIFY_SKILL_SLOT)
+        ?.verified_monster_effects?.effects,
     ).toEqual([
       { type: "status", scope: "self", kind: "buff", duration: 2 },
       { type: "heal", scope: "self", amount: 15 },
@@ -323,7 +326,9 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     const game = onMammothTurn(fighting());
     const hero = game.battle!.entities.find((entity) => entity.side === "hero")!;
     expect(
-      applyMammothCystRevivify(game, hero.id).events.some((event) => event.type === "commandRefused"),
+      applyMammothCystRevivify(game, hero.id).events.some(
+        (event) => event.type === "commandRefused",
+      ),
     ).toBe(true);
     const heroTurn: GameState = {
       ...game,
@@ -372,18 +377,23 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     const attack = readMonsterAttackView(card!, 3);
     expect(attack.status).toBe("ready");
     expect(
-      resolveMonsterSkill(card!, 3, {
-        actor: { id: "m", wounds: 0, shuffleResist: true },
-        target: {
-          id: "h0",
-          side: "hero",
-          wounds: 0,
-          stress: 0,
-          dodge: 0,
-          markStacks: 0,
+      resolveMonsterSkill(
+        card!,
+        3,
+        {
+          actor: { id: "m", wounds: 0, shuffleResist: true },
+          target: {
+            id: "h0",
+            side: "hero",
+            wounds: 0,
+            stress: 0,
+            dodge: 0,
+            markStacks: 0,
+          },
+          areaDistance: 0,
         },
-        areaDistance: 0,
-      }, 4),
+        4,
+      ),
     ).toMatchObject({
       status: "refused",
       reason: expect.stringContaining("damage"),

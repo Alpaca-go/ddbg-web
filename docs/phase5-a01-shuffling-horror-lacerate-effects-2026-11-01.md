@@ -6,18 +6,18 @@
 
 ## 卡面身份
 
-| 字段 | 印刷值 |
-| --- | --- |
-| id | `monster_large:p017` |
-| name | Shuffling Horror |
-| level | 3 |
-| pages | [17] |
+| 字段   | 印刷值                                         |
+| ------ | ---------------------------------------------- |
+| id     | `monster_large:p017`                           |
+| name   | Shuffling Horror                               |
+| level  | 3                                              |
+| pages  | [17]                                           |
 | slot 1 | Lacerate · Closest · range 1 · Acc 11 · Crit 1 |
 
 ## 效果线（实测 `effect_lines`）
 
-| 签名 | effects |
-| --- | --- |
+| 签名                         | effects                                                                        |
+| ---------------------------- | ------------------------------------------------------------------------------ |
 | `{target_effects}3{bleed}3t` | `[{ type: "status", scope: "target", kind: "bleed", amount: 3, duration: 3 }]` |
 
 图标 `target_effects`（a38154c523）、`bleed`（784ec4fe7a）均为 **confirmed**。

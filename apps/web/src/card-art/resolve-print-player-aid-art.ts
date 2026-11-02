@@ -43,26 +43,22 @@ export function lookupPrintPlayerAidFace(
 }
 
 export function lookupProvisionPlayerAidFront():
-  | (PrintPlayerAidArtCard & { faceEntry: PrintPlayerAidFaceEntry })
-  | undefined {
+  (PrintPlayerAidArtCard & { faceEntry: PrintPlayerAidFaceEntry }) | undefined {
   return lookupPrintPlayerAidFace(PROVISION_PLAYER_AID_ID, "front");
 }
 
 export function lookupExplorationPlayerAidBack():
-  | (PrintPlayerAidArtCard & { faceEntry: PrintPlayerAidFaceEntry })
-  | undefined {
+  (PrintPlayerAidArtCard & { faceEntry: PrintPlayerAidFaceEntry }) | undefined {
   return lookupPrintPlayerAidFace(PROVISION_PLAYER_AID_ID, "back");
 }
 
 export function lookupRoomsPlayerAidFront():
-  | (PrintPlayerAidArtCard & { faceEntry: PrintPlayerAidFaceEntry })
-  | undefined {
+  (PrintPlayerAidArtCard & { faceEntry: PrintPlayerAidFaceEntry }) | undefined {
   return lookupPrintPlayerAidFace(ROOMS_PLAYER_AID_ID, "front");
 }
 
 export function lookupConditionsPlayerAidBack():
-  | (PrintPlayerAidArtCard & { faceEntry: PrintPlayerAidFaceEntry })
-  | undefined {
+  (PrintPlayerAidArtCard & { faceEntry: PrintPlayerAidFaceEntry }) | undefined {
   return lookupPrintPlayerAidFace(ROOMS_PLAYER_AID_ID, "back");
 }
 

@@ -15,9 +15,10 @@ const quests = ["quest:p016", "quest:p017", "quest:p018"] as const;
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);
-  expect(result.events.some((e) => e.type === "commandRefused"), JSON.stringify(result.events)).toBe(
-    false,
-  );
+  expect(
+    result.events.some((e) => e.type === "commandRefused"),
+    JSON.stringify(result.events),
+  ).toBe(false);
   return result;
 }
 

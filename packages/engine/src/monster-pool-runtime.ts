@@ -9,7 +9,9 @@ export type MonsterPoolDeckState = {
 /** 战役怪物牌堆实例（扣除 Boss 威胁永久移出的战斗卡 id，catalog 仍保留完整 24 张）。 */
 export function dungeonMonsterPoolThrough(pool: MonsterPoolDeckState, maxLevel: number) {
   const removed = new Set(pool.permanentlyRemovedCombatCardIds ?? []);
-  return ruinsMonsterPoolThrough(pool.cards, maxLevel).filter((entry) => !removed.has(entry.cardId));
+  return ruinsMonsterPoolThrough(pool.cards, maxLevel).filter(
+    (entry) => !removed.has(entry.cardId),
+  );
 }
 
 export function combatCardIdForPoolInstance(

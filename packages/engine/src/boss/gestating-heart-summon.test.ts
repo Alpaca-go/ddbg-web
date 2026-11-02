@@ -168,9 +168,9 @@ it("怪物姿态轨无空槽则拒绝", () => {
   void heartEntity;
   const result = applyGestatingHeartSummon(filled, heart(filled).id);
   expect(result.events.some((event) => event.type === "commandRefused")).toBe(true);
-  expect(
-    result.events.find((event) => event.type === "commandRefused")?.message,
-  ).toContain("无可用怪物姿态占位");
+  expect(result.events.find((event) => event.type === "commandRefused")?.message).toContain(
+    "无可用怪物姿态占位",
+  );
 });
 
 it("非 gestatingHeart 形态或非 Heart 回合拒绝", () => {
@@ -250,7 +250,8 @@ it("显式命令经 applyCommand 接线", () => {
   expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
   expect(
     result.events.some(
-      (event) => event.type === "dungeonUpdated" && event.message.includes("Gestating Heart · Summon"),
+      (event) =>
+        event.type === "dungeonUpdated" && event.message.includes("Gestating Heart · Summon"),
     ),
   ).toBe(true);
 });

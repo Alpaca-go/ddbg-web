@@ -6,13 +6,13 @@
 
 ## 候选与取舍
 
-| 卡 | 招 | 效果线 | 本刀 |
-| --- | --- | --- | --- |
-| `p016` Mammoth | Bulging Gaze | `{target_effects}{debuff}1t,{stress}+1`（debuff 变体图标 id `91ca3fa960`，key 仍为 confirmed `debuff`） | **接** |
-| `p016` Mammoth | Digestion | 3 blight 2t | #466 已合 |
-| `p016` Mammoth | Revivify | Self、非 Acc | A-06 / 另刀 |
-| `p014`–`p015` | Torment / Stinger / Body Slam 等 | 多效果 / Pit Toss | hold |
-| `p017`–`p020` | 各 Acc 壳三招 | 组合效果 | hold |
+| 卡             | 招                               | 效果线                                                                                                  | 本刀        |
+| -------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------- | ----------- |
+| `p016` Mammoth | Bulging Gaze                     | `{target_effects}{debuff}1t,{stress}+1`（debuff 变体图标 id `91ca3fa960`，key 仍为 confirmed `debuff`） | **接**      |
+| `p016` Mammoth | Digestion                        | 3 blight 2t                                                                                             | #466 已合   |
+| `p016` Mammoth | Revivify                         | Self、非 Acc                                                                                            | A-06 / 另刀 |
+| `p014`–`p015`  | Torment / Stinger / Body Slam 等 | 多效果 / Pit Toss                                                                                       | hold        |
+| `p017`–`p020`  | 各 Acc 壳三招                    | 组合效果                                                                                                | hold        |
 
 依据：`monster_large` FRONT **p016**、[phase5-a01-mammoth-digestion-effects-2026-11-01.md](phase5-a01-mammoth-digestion-effects-2026-11-01.md) 同模式；对齐 Ghoul slot 1 debuff+stress 写法；规则 R-001 / R-048。
 

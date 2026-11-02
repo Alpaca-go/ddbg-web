@@ -4,34 +4,16 @@ import {
   NECROMANCER_I_DESCRIPTION_ABILITY_CARD_ID,
   NECROMANCER_I_SCRIPT_ID,
 } from "./necromancer-i";
-import {
-  PROPHET_I_DESCRIPTION_ABILITY_CARD_ID,
-  PROPHET_I_SCRIPT_ID,
-} from "./prophet-i";
-import {
-  HAG_I_DESCRIPTION_ABILITY_CARD_ID,
-  HAG_I_SCRIPT_ID,
-} from "./hag-i";
+import { PROPHET_I_DESCRIPTION_ABILITY_CARD_ID, PROPHET_I_SCRIPT_ID } from "./prophet-i";
+import { HAG_I_DESCRIPTION_ABILITY_CARD_ID, HAG_I_SCRIPT_ID } from "./hag-i";
 import {
   SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
   SWINE_PRINCE_I_SCRIPT_ID,
 } from "./swine-prince-i";
-import {
-  FLESH_I_DESCRIPTION_ABILITY_CARD_ID,
-  FLESH_I_SCRIPT_ID,
-} from "./flesh-i";
-import {
-  SIREN_I_DESCRIPTION_ABILITY_CARD_ID,
-  SIREN_I_SCRIPT_ID,
-} from "./siren-i";
-import {
-  COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
-  COLLECTOR_I_SCRIPT_ID,
-} from "./collector-i";
-import {
-  FANATIC_I_DESCRIPTION_ABILITY_CARD_ID,
-  FANATIC_I_SCRIPT_ID,
-} from "./fanatic-i";
+import { FLESH_I_DESCRIPTION_ABILITY_CARD_ID, FLESH_I_SCRIPT_ID } from "./flesh-i";
+import { SIREN_I_DESCRIPTION_ABILITY_CARD_ID, SIREN_I_SCRIPT_ID } from "./siren-i";
+import { COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID, COLLECTOR_I_SCRIPT_ID } from "./collector-i";
+import { FANATIC_I_DESCRIPTION_ABILITY_CARD_ID, FANATIC_I_SCRIPT_ID } from "./fanatic-i";
 import { getBossScript, listBossScripts } from "./registry";
 import type { BossScriptId } from "./types";
 

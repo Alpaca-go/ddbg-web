@@ -6,13 +6,13 @@
 
 ## 候选与取舍
 
-| 卡 | 招 | 效果线 | 本刀 |
-| --- | --- | --- | --- |
-| `p020` Heart of Darkness | Know This | `{target_effects} {stress} +3 , {light} -1`（图标均 confirmed） | **接** |
-| `p020` Heart of Darkness | Puncture | 伤害为主 | hold |
-| `p020` Heart of Darkness | Dissolution | 伤害为主 | hold |
-| `p018` Ancestor 2 | Refashion Them / Embrace Futility | 多效果 | hold |
-| 中途 Boss / Revivify | — | — | hold |
+| 卡                       | 招                                | 效果线                                                          | 本刀   |
+| ------------------------ | --------------------------------- | --------------------------------------------------------------- | ------ |
+| `p020` Heart of Darkness | Know This                         | `{target_effects} {stress} +3 , {light} -1`（图标均 confirmed） | **接** |
+| `p020` Heart of Darkness | Puncture                          | 伤害为主                                                        | hold   |
+| `p020` Heart of Darkness | Dissolution                       | 伤害为主                                                        | hold   |
+| `p018` Ancestor 2        | Refashion Them / Embrace Futility | 多效果                                                          | hold   |
+| 中途 Boss / Revivify     | —                                 | —                                                               | hold   |
 
 依据：`monster_large` FRONT **p020**、`docs/phase5-final-heart-skills-acc-2026-11-01.md`；规则 R-001 / R-048。
 

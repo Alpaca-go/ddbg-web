@@ -96,9 +96,7 @@ describe("ReplacementHeroActions", () => {
         ],
       },
     };
-    const html = renderToStaticMarkup(
-      <ReplacementHeroActions game={game} dispatch={() => ({})} />,
-    );
+    const html = renderToStaticMarkup(<ReplacementHeroActions game={game} dispatch={() => ({})} />);
     expect(html).toContain("让1名替补入队并继续");
   });
 });

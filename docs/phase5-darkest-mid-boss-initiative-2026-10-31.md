@@ -6,11 +6,11 @@
 
 ## 已接
 
-| 步骤 | 命令 | 效果 |
-| ---- | ---- | ---- |
-| 1 | `prepareDungeonBattle` / `prepareDungeonMonsters` | 不变：绑定专属房间 + 记录 actors / support 身份（#432/#434） |
-| 2 | **`deployDarkestMidBoss`** | `awaitingRoom` → `inBattle`；创建占位 `BattleState`（`darkest-mid-boss-*` / `darkest-mid-boss-hero-*` 区域）；写入 actors + support 怪物实体骨架（Life/Dodge 来自目录）；**不**改 `combatReady` |
-| 3 | **`startBattle`** | 与普通遭遇战相同洗先攻；`expandDarkestMidBossInitiativeDeckSides` 按脚本 **actors 先攻合计**补额外套 `monster` 侧；第 1 轮 `awaitingInitiative` |
+| 步骤 | 命令                                              | 效果                                                                                                                                                                                            |
+| ---- | ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | `prepareDungeonBattle` / `prepareDungeonMonsters` | 不变：绑定专属房间 + 记录 actors / support 身份（#432/#434）                                                                                                                                    |
+| 2    | **`deployDarkestMidBoss`**                        | `awaitingRoom` → `inBattle`；创建占位 `BattleState`（`darkest-mid-boss-*` / `darkest-mid-boss-hero-*` 区域）；写入 actors + support 怪物实体骨架（Life/Dodge 来自目录）；**不**改 `combatReady` |
+| 3    | **`startBattle`**                                 | 与普通遭遇战相同洗先攻；`expandDarkestMidBossInitiativeDeckSides` 按脚本 **actors 先攻合计**补额外套 `monster` 侧；第 1 轮 `awaitingInitiative`                                                 |
 
 - **Boss 边界不变**：`isBossEncounter` / `resolveEncounterBossScriptId` / `readDarkestMidBossRequiredCombatCardIds` / 胜利谓词仍只认 **actors**；support 仅占实体位、不参与额外套牌计数。
 - **hold 文案**：`darkestMidBossDeploymentHold` / 部署 `blockedReason` 改为提示 `deployDarkestMidBoss` + `startBattle`；仍拒绝 `startDungeonBattle` 与普通 26 牌堆路径。

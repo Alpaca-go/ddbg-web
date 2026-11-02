@@ -10,20 +10,20 @@
 
 ## 映射（R-139）
 
-| d10 | 技能 | Slot |
-| --- | --- | --- |
-| 1–4 | Know This | 1 |
-| 5–7 | Puncture | 2 |
-| 8–10 | Dissolution | 3 |
+| d10  | 技能        | Slot |
+| ---- | ----------- | ---- |
+| 1–4  | Know This   | 1    |
+| 5–7  | Puncture    | 2    |
+| 8–10 | Dissolution | 3    |
 
 ## 本刀接通
 
-| 行为 | 实现 |
-| --- | --- |
-| 映射纯函数 | `impendingDoomSkillSlotFromDie` / `impendingDoomSkillLabelFromDie`（`heart-of-darkness-impending-doom.ts`） |
+| 行为               | 实现                                                                                                                                                                    |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 映射纯函数         | `impendingDoomSkillSlotFromDie` / `impendingDoomSkillLabelFromDie`（`heart-of-darkness-impending-doom.ts`）                                                             |
 | Heart 怪物回合选招 | `applyHeartOfDarknessImpendingDoomSkill`：读 `battle.impendingDoomDie`，无骰/非法面值拒绝，按表调用 #456 的 `applyHeartOfDarknessKnowThis` / `Puncture` / `Dissolution` |
-| encounter AI | `prepareMonsterAction` → `heartOfDarknessImpendingDoomShouldReplaceSkill` → `applyHeartOfDarknessImpendingDoomFromEncounter`（`heart-of-darkness-combat-runtime.ts`） |
-| 落骰 | #451 不变：`startBattle`、`finishTurn`、`applyHeartOfDarknessImpendingDoomRoll` |
+| encounter AI       | `prepareMonsterAction` → `heartOfDarknessImpendingDoomShouldReplaceSkill` → `applyHeartOfDarknessImpendingDoomFromEncounter`（`heart-of-darkness-combat-runtime.ts`）   |
+| 落骰               | #451 不变：`startBattle`、`finishTurn`、`applyHeartOfDarknessImpendingDoomRoll`                                                                                         |
 
 效果线仍 hold（无 `verified_monster_effects` 则 Acc-only）。`combatReady` 仍 false。
 

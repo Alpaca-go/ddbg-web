@@ -13,9 +13,7 @@ import {
   MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
   MAMMOTH_CYST_WHITE_CELL_SUMMON_CARD_ID,
 } from "./darkest-mammoth-cyst-combat-runtime";
-import {
-  DARKEST_MID_BOSS_MONSTER_STANCE_AREAS,
-} from "./darkest-shuffling-horror-combat-runtime";
+import { DARKEST_MID_BOSS_MONSTER_STANCE_AREAS } from "./darkest-shuffling-horror-combat-runtime";
 import { bossQuestScriptId } from "./quest-bridge";
 
 const mammothCard: MonsterCardView = {
@@ -138,8 +136,7 @@ describe("Mammoth Cyst · Summon White Cell Stalk", () => {
     const result = applyMammothCystSummonWhiteCell(onMammothTurn(mammothBattle()), "mammoth");
     expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
     const stalk = result.state.battle!.entities.find(
-      (entity) =>
-        entity.monsterCardId === MAMMOTH_CYST_WHITE_CELL_SUMMON_CARD_ID && !entity.dead,
+      (entity) => entity.monsterCardId === MAMMOTH_CYST_WHITE_CELL_SUMMON_CARD_ID && !entity.dead,
     );
     expect(stalk?.life).toBe(16);
     expect(stalk?.dodge).toBe(4);
@@ -149,14 +146,11 @@ describe("Mammoth Cyst · Summon White Cell Stalk", () => {
   });
 
   it("已在场存活 Stalk 则拒绝", () => {
-    const result = applyMammothCystSummonWhiteCell(
-      onMammothTurn(mammothBattle(true)),
-      "mammoth",
-    );
+    const result = applyMammothCystSummonWhiteCell(onMammothTurn(mammothBattle(true)), "mammoth");
     expect(result.events.some((event) => event.type === "commandRefused")).toBe(true);
-    expect(
-      result.events.find((event) => event.type === "commandRefused")?.message,
-    ).toContain("instead of using a Skill");
+    expect(result.events.find((event) => event.type === "commandRefused")?.message).toContain(
+      "instead of using a Skill",
+    );
   });
 
   it("怪物姿态轨无空槽则拒绝", () => {

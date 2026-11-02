@@ -6,13 +6,13 @@
 
 ## 候选与取舍
 
-| 卡 | 招 | 效果线 | 本刀 |
-| --- | --- | --- | --- |
-| `p018` Ancestor 2 | Unmake Them All | `{target_effects} 2 {bleed} 4t , {stress} +1`（图标均 confirmed） | **接** |
-| `p018` Ancestor 2 | Refashion Them | 流血 + 光照 + debuff 三效果 | hold |
-| `p018` Ancestor 2 | Embrace Futility | 含 Push | hold |
-| `p020` HoD | Know This | 等同线 bleed+stress | 建议下一刀 |
-| 中途 Boss / 其他最终战招 | — | — | hold |
+| 卡                       | 招               | 效果线                                                            | 本刀       |
+| ------------------------ | ---------------- | ----------------------------------------------------------------- | ---------- |
+| `p018` Ancestor 2        | Unmake Them All  | `{target_effects} 2 {bleed} 4t , {stress} +1`（图标均 confirmed） | **接**     |
+| `p018` Ancestor 2        | Refashion Them   | 流血 + 光照 + debuff 三效果                                       | hold       |
+| `p018` Ancestor 2        | Embrace Futility | 含 Push                                                           | hold       |
+| `p020` HoD               | Know This        | 等同线 bleed+stress                                               | 建议下一刀 |
+| 中途 Boss / 其他最终战招 | —                | —                                                                 | hold       |
 
 依据：`monster_large` FRONT **p018**、`docs/phase5-final-ancestor2-skills-acc-2026-11-01.md`；规则 R-001 / R-048。
 

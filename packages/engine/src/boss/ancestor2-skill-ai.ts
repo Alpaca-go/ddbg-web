@@ -11,9 +11,7 @@ import {
   REFASHION_THEM_SKILL_SLOT,
   UNMAKE_THEM_ALL_SKILL_SLOT,
 } from "./ancestor2-skills-acc";
-import {
-  ANCESTOR_2_MONSTER_CARD_ID,
-} from "./ancestor2-swift-teleportation";
+import { ANCESTOR_2_MONSTER_CARD_ID } from "./ancestor2-swift-teleportation";
 import { readFinalFormSequence } from "./final-form-sequence";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
@@ -28,9 +26,7 @@ export function ancestor2SkillAiShouldReplacePrepare(state: GameState, actorId: 
   if (!ancestor2Fighting(state)) return false;
   const actor = state.battle?.entities.find((entity) => entity.id === actorId);
   return (
-    actor?.side === "monster" &&
-    !actor.dead &&
-    actor.monsterCardId === ANCESTOR_2_MONSTER_CARD_ID
+    actor?.side === "monster" && !actor.dead && actor.monsterCardId === ANCESTOR_2_MONSTER_CARD_ID
   );
 }
 
@@ -41,10 +37,15 @@ function skillLabelFromSlot(slot: number): string | null {
   return null;
 }
 
-function applyAncestor2SkillBySlot(state: GameState, actorId: string, skillSlot: number): ApplyResult {
+function applyAncestor2SkillBySlot(
+  state: GameState,
+  actorId: string,
+  skillSlot: number,
+): ApplyResult {
   if (skillSlot === REFASHION_THEM_SKILL_SLOT) return applyAncestor2RefashionThem(state, actorId);
   if (skillSlot === UNMAKE_THEM_ALL_SKILL_SLOT) return applyAncestor2UnmakeThemAll(state, actorId);
-  if (skillSlot === EMBRACE_FUTILITY_SKILL_SLOT) return applyAncestor2EmbraceFutility(state, actorId);
+  if (skillSlot === EMBRACE_FUTILITY_SKILL_SLOT)
+    return applyAncestor2EmbraceFutility(state, actorId);
   return rejectBattleCommand(
     state,
     `Ancestor 2 姿态选招 slot ${skillSlot} 非 Acc 三招（1–3；boss_ability:p035 / R-048）`,
@@ -112,8 +113,7 @@ export function applyAncestor2SkillFromStanceSelection(
   const played = applyAncestor2SkillBySlot(rolledState, actorId, pick.skillSlot);
   if (played.events.some((event) => event.type === "commandRefused")) return played;
 
-  const rollNote =
-    pick.roll === null ? "固定选招" : `选招 d10=${pick.roll}`;
+  const rollNote = pick.roll === null ? "固定选招" : `选招 d10=${pick.roll}`;
   return {
     ...played,
     events: [

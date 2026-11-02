@@ -169,9 +169,7 @@ export function TabletopExpeditionCenterStage({
             )}
           </div>
         </div>
-        <p className="tt-center-caption muted">
-          2 张任务卡并排 · 补给参考卡 · QuestMap 预览
-        </p>
+        <p className="tt-center-caption muted">2 张任务卡并排 · 补给参考卡 · QuestMap 预览</p>
       </div>
       <div className="tt-map__stacks tt-map__stacks--explore">
         <TabletopCardStack label="任务" count={8} aspect="room" testId="tabletop-deck-quest" />

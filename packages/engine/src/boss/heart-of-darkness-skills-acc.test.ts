@@ -5,9 +5,7 @@ import { distance } from "../battle";
 import { selectMonsterTarget } from "../monster-target";
 import { readFinalFormSequence } from "./final-form-sequence";
 import { finalPreparationFixture } from "../test-helpers/final-preparation";
-import {
-  HEART_OF_DARKNESS_MONSTER_CARD_ID,
-} from "./heart-of-darkness-impending-doom";
+import { HEART_OF_DARKNESS_MONSTER_CARD_ID } from "./heart-of-darkness-impending-doom";
 import {
   applyHeartOfDarknessDissolution,
   applyHeartOfDarknessKnowThis,
@@ -98,10 +96,7 @@ function onHeartTurn(state: GameState): GameState {
   };
 }
 
-function withHeroAreas(
-  state: GameState,
-  patch: Readonly<Record<string, string>>,
-): GameState {
+function withHeroAreas(state: GameState, patch: Readonly<Record<string, string>>): GameState {
   return {
     ...state,
     battle: {
@@ -138,7 +133,8 @@ it("Know This · Crowded 选最拥挤区英雄 · 命中 +3 压力与光照 −1
     (entry) => entry.id === HEART_OF_DARKNESS_MONSTER_CARD_ID,
   )!;
   expect(
-    card.skills.find((skill) => skill.slot === KNOW_THIS_SKILL_SLOT)?.verified_monster_effects?.effects,
+    card.skills.find((skill) => skill.slot === KNOW_THIS_SKILL_SLOT)?.verified_monster_effects
+      ?.effects,
   ).toEqual([
     { type: "stress", scope: "target", amount: 3 },
     { type: "light", scope: "target", amount: -1 },
@@ -199,9 +195,7 @@ it("Know This · Crowded 选最拥挤区英雄 · 命中 +3 压力与光照 −1
 
   const result = applyHeartOfDarknessKnowThis(game, heart(game).id);
   expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
-  expect(
-    result.events.some((event) => event.type === "monsterSkillTargetsResolved"),
-  ).toBe(true);
+  expect(result.events.some((event) => event.type === "monsterSkillTargetsResolved")).toBe(true);
   const skillEvent = result.events.find((event) => event.type === "monsterSkillTargetsResolved");
   expect(skillEvent?.type).toBe("monsterSkillTargetsResolved");
   if (skillEvent?.type === "monsterSkillTargetsResolved") {
@@ -277,7 +271,8 @@ it("Puncture · Closest 须同区 · 命中 3 流血 3t + 1 压力", () => {
     (entry) => entry.id === HEART_OF_DARKNESS_MONSTER_CARD_ID,
   )!;
   expect(
-    card.skills.find((skill) => skill.slot === PUNCTURE_SKILL_SLOT)?.verified_monster_effects?.effects,
+    card.skills.find((skill) => skill.slot === PUNCTURE_SKILL_SLOT)?.verified_monster_effects
+      ?.effects,
   ).toEqual([
     { type: "status", scope: "target", kind: "bleed", amount: 3, duration: 3 },
     { type: "stress", scope: "target", amount: 1 },
@@ -312,9 +307,9 @@ it("Puncture · Closest 须同区 · 命中 3 流血 3t + 1 压力", () => {
     ]);
     expect(skillEvent.resolution.targetStress).toBe(1);
   }
-  expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks).toEqual([
-    { kind: "bleed", amount: 3, remaining: 3 },
-  ]);
+  expect(
+    result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks,
+  ).toEqual([{ kind: "bleed", amount: 3, remaining: 3 }]);
   expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress).toBe(
     stressBefore + 1,
   );
@@ -408,7 +403,9 @@ it("Dissolution · Furthest 选最远英雄 · 命中 Stun 1t + 3 Blight 3t + 1 
     ]);
     expect(skillEvent.resolution.targetStress).toBe(1);
   }
-  expect(result.state.battle!.entities.find((entity) => entity.id === expected.id)!.statusStacks).toEqual([
+  expect(
+    result.state.battle!.entities.find((entity) => entity.id === expected.id)!.statusStacks,
+  ).toEqual([
     { kind: "stun", remaining: 1 },
     { kind: "blight", amount: 3, remaining: 3 },
   ]);

@@ -4,11 +4,7 @@ import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
 import { applyCommand, type Command, type GameState } from "../command";
 import { nextBattleRoll } from "../battle-roll";
-import {
-  readMonsterAttackView,
-  resolveMonsterSkill,
-  type MonsterCardView,
-} from "../monster-skill";
+import { readMonsterAttackView, resolveMonsterSkill, type MonsterCardView } from "../monster-skill";
 import { SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID } from "./darkest-shuffling-horror-combat-runtime";
 import {
   applyShufflingHorrorLacerate,
@@ -29,7 +25,9 @@ function loadLargeCards(): MonsterCardView[] {
 }
 
 function shufflingHorrorCard(): MonsterCardView {
-  const card = loadLargeCards().find((entry) => entry.id === SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID);
+  const card = loadLargeCards().find(
+    (entry) => entry.id === SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID,
+  );
   expect(card).toBeDefined();
   return card!;
 }
@@ -52,9 +50,10 @@ const RANGE_REFUSAL = "目标区域与使用者的距离不是卡面印的射程
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);
-  expect(result.events.some((e) => e.type === "commandRefused"), JSON.stringify(result.events)).toBe(
-    false,
-  );
+  expect(
+    result.events.some((e) => e.type === "commandRefused"),
+    JSON.stringify(result.events),
+  ).toBe(false);
   return result;
 }
 
@@ -237,9 +236,9 @@ describe("Shuffling Horror Lacerate Acc 最小结算", () => {
       expect(skillEvent.resolution.targetStatusEffects ?? []).toEqual([]);
     }
     expect(
-      result.state.battle!.entities.filter((entity) => entity.side === "hero").every(
-        (entity) => (entity.statusStacks ?? []).length === 0,
-      ),
+      result.state
+        .battle!.entities.filter((entity) => entity.side === "hero")
+        .every((entity) => (entity.statusStacks ?? []).length === 0),
     ).toBe(true);
   });
 

@@ -6,11 +6,11 @@
 
 ## 卡面字段（`monster_large:p018`）
 
-| Slot | 名称 | 目标 | 射程 | Acc | Crit | 伤害（stats 行） |
-|------|------|------|------|-----|------|------------------|
-| 1 | Refashion Them | Crowded | 1 | 12 | 2 | 16 / 9（双目标图标） |
-| 2 | Unmake Them All | Furthest | 2 | 12 | 1 | 8 / 4 |
-| 3 | Embrace Futility | Closest | 0 | 12 | 0 | 4 / 2 |
+| Slot | 名称             | 目标     | 射程 | Acc | Crit | 伤害（stats 行）     |
+| ---- | ---------------- | -------- | ---- | --- | ---- | -------------------- |
+| 1    | Refashion Them   | Crowded  | 1    | 12  | 2    | 16 / 9（双目标图标） |
+| 2    | Unmake Them All  | Furthest | 2    | 12  | 1    | 8 / 4                |
+| 3    | Embrace Futility | Closest  | 0    | 12  | 0    | 4 / 2                |
 
 ## 本刀接通
 

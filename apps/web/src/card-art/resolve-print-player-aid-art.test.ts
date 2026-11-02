@@ -60,9 +60,9 @@ describe("print player aid art map", () => {
     expect(lookupConditionsPlayerAidBack()?.faceEntry.pngRel).toMatch(
       /PLAYER_AIDS_BACK\.pdf_p005\.png$/,
     );
-    expect(lookupPrintPlayerAidFace(PROVISION_PLAYER_AID_ID, "back")?.faceEntry.primaryPdf).toContain(
-      "PLAYER_AIDS_BACK",
-    );
+    expect(
+      lookupPrintPlayerAidFace(PROVISION_PLAYER_AID_ID, "back")?.faceEntry.primaryPdf,
+    ).toContain("PLAYER_AIDS_BACK");
   });
 
   it("lists only dice_net as pending confirmation", () => {

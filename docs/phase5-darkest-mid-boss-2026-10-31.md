@@ -6,11 +6,11 @@
 
 ## 已接
 
-| 任务 | 脚本 id | 专属房间 | 目录主体 |
-| ---- | ------- | -------- | -------- |
+| 任务       | 脚本 id                         | 专属房间  | 目录主体                                                        |
+| ---------- | ------------------------------- | --------- | --------------------------------------------------------------- |
 | quest:p016 | `boss:darkest:shuffling-horror` | room:p023 | Shuffling Horror + 支持卡引用 Cultist Priest / Malignant Growth |
-| quest:p017 | `boss:darkest:templars` | room:p022 | Templar Impaler + Templar Warlord |
-| quest:p018 | `boss:darkest:mammoth-cyst` | room:p024 | Mammoth Cyst + White Cell Stalk 能力引用 |
+| quest:p017 | `boss:darkest:templars`         | room:p022 | Templar Impaler + Templar Warlord                               |
+| quest:p018 | `boss:darkest:mammoth-cyst`     | room:p024 | Mammoth Cyst + White Cell Stalk 能力引用                        |
 
 - **身份注册**：`ensureDarkestMidBossScriptsRegistered` + `bossQuestScriptId` 静态映射；`combatEntry` 来自内容目录（先攻合计、主战斗卡/能力卡 id）。
 - **目标房 `prepareDungeonBattle`**：`prepareDarkestObjectiveBossRoom` 绑定专属房间牌，写入 `darkest.bossEncounterPlan` 与 `roomCards.active` 停点。

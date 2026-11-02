@@ -51,9 +51,9 @@ it("Ancestor 2 形态部署自动写入最多 3 枚 Absolute Nothingness", () =>
   expect(pieces.every((e) => e.untargetable === true)).toBe(true);
   expect(pieces.every((e) => e.monsterCardId === ABSOLUTE_NOTHINGNESS_MONSTER_CARD_ID)).toBe(true);
   expect(pieces.every((e) => e.stanceSlots === 1)).toBe(true);
-  expect(
-    game.battle!.monsters!.some((c) => c.id === ABSOLUTE_NOTHINGNESS_MONSTER_CARD_ID),
-  ).toBe(true);
+  expect(game.battle!.monsters!.some((c) => c.id === ABSOLUTE_NOTHINGNESS_MONSTER_CARD_ID)).toBe(
+    true,
+  );
   expect(
     game.battle!.monsters!.find((c) => c.id === ABSOLUTE_NOTHINGNESS_MONSTER_CARD_ID)!
       .type_position_tags,
@@ -68,7 +68,11 @@ it("姿态位被占时部分部署，显式命令可 idempotent 拒绝无新位"
       ...game.battle!,
       entities: game.battle!.entities.map((entity) =>
         entity.monsterCardId === ANCESTOR_2_MONSTER_CARD_ID
-          ? { ...entity, stance: "defensive" as const, areaId: FINAL_BATTLE_MONSTER_STANCE_AREAS.defensive }
+          ? {
+              ...entity,
+              stance: "defensive" as const,
+              areaId: FINAL_BATTLE_MONSTER_STANCE_AREAS.defensive,
+            }
           : entity,
       ),
     },

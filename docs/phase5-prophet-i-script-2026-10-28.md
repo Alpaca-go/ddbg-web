@@ -26,13 +26,13 @@
 
 ## 仍待确认 / hold（本 PR 未收）
 
-| 项                                                                 | 说明                                                         |
-| ------------------------------------------------------------------ | ------------------------------------------------------------ |
-| 进地牢 +2 压力、酒馆 −1 恢复 **写入** `dungeon` / `hamlet-actions` | **已接**（见 `phase5-threat-passive-runtime-2026-10-28.md`） |
+| 项                                                                 | 说明                                                                                                                                  |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
+| 进地牢 +2 压力、酒馆 −1 恢复 **写入** `dungeon` / `hamlet-actions` | **已接**（见 `phase5-threat-passive-runtime-2026-10-28.md`）                                                                          |
 | Wooden Pew、Calamitous Prognostication、Rubble of Ruin 完整 AI     | Calamitous + Rubble + **第 2 行动默认选招** + **先攻 3 张** 最小运行时已接；room→战斗板几何 / 同区多目标 Rubble / 多怪伴战先攻仍 hold |
-| quest:p019 / Face the Threat → 脚本 id                             | `defaultFaceTheThreatEmbarkHook` **ok**；`chooseNextQuest` 写 `faceTheThreatEmbarkPlan`（R-121 仍 hold） |
-| **R-121** Boss 位                                                  | `defaultBossSlotPlacementHook` 校验 **ok**；RNG 洗牌写入 hold                                            |
-| Prophet II/III、Collector、Fanatic                                 | 未注册                                                       |
+| quest:p019 / Face the Threat → 脚本 id                             | `defaultFaceTheThreatEmbarkHook` **ok**；`chooseNextQuest` 写 `faceTheThreatEmbarkPlan`（R-121 仍 hold）                              |
+| **R-121** Boss 位                                                  | `defaultBossSlotPlacementHook` 校验 **ok**；RNG 洗牌写入 hold                                                                         |
+| Prophet II/III、Collector、Fanatic                                 | 未注册                                                                                                                                |
 
 ## 印刷 / 数据映射
 

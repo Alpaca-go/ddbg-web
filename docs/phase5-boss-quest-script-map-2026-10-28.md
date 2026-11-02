@@ -4,13 +4,13 @@
 
 ## 映射表
 
-| 来源 | questId | 脚本 id | 状态 |
-|------|---------|---------|------|
-| 静态 `bossQuestScriptId` | quest:p016 | — | 待脚本（印刷 Boss：Shuffling Horror，spec §2.3 / QUEST p16） |
-| 静态 | quest:p017 | — | 待脚本（Templars，p17） |
-| 静态 | quest:p018 | — | 待脚本（Mammoth Cyst，p18） |
-| 运行时 `faceTheThreatBossScriptByCampaignLevel` | quest:p019 @ CL **I** | `boss:ruins:necromancer:1` | **已接**（#331 注册） |
-| 同上 | quest:p019 @ CL II / III | — | 待脚本（Necromancer II/III 与其余 Ruins Boss） |
+| 来源                                            | questId                  | 脚本 id                    | 状态                                                         |
+| ----------------------------------------------- | ------------------------ | -------------------------- | ------------------------------------------------------------ |
+| 静态 `bossQuestScriptId`                        | quest:p016               | —                          | 待脚本（印刷 Boss：Shuffling Horror，spec §2.3 / QUEST p16） |
+| 静态                                            | quest:p017               | —                          | 待脚本（Templars，p17）                                      |
+| 静态                                            | quest:p018               | —                          | 待脚本（Mammoth Cyst，p18）                                  |
+| 运行时 `faceTheThreatBossScriptByCampaignLevel` | quest:p019 @ CL **I**    | `boss:ruins:necromancer:1` | **已接**（#331 注册）                                        |
+| 同上                                            | quest:p019 @ CL II / III | —                          | 待脚本（Necromancer II/III 与其余 Ruins Boss）               |
 
 ## 证据与语义
 

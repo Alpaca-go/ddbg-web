@@ -55,8 +55,7 @@ const cards = ENABLED.map(({ id, design, reviewVerdict }) => {
   }
   const frontPage = card.faces.front.page;
   const frontPdf = card.faces.front.file.split("/").pop();
-  const title =
-    card.faces.front.spans?.find((s) => s.t && s.font === "DwarvenAxeBB")?.t ?? id;
+  const title = card.faces.front.spans?.find((s) => s.t && s.font === "DwarvenAxeBB")?.t ?? id;
   return {
     id,
     name: title,
@@ -75,8 +74,7 @@ const cards = ENABLED.map(({ id, design, reviewVerdict }) => {
         printPage: card.faces.back.page,
         primaryPdf: backPdfFromFront(frontPdf),
         cropMethod: "trimbox",
-        textSnippet:
-          card.faces.back.spans?.find((s) => s.t && s.font === "DwarvenAxeBB")?.t ?? "",
+        textSnippet: card.faces.back.spans?.find((s) => s.t && s.font === "DwarvenAxeBB")?.t ?? "",
       },
     },
     matchMethod: "page_order_and_raw_id",
@@ -92,8 +90,7 @@ const map = {
     geometry: "TrimBox 70×120mm = 198.43×340.16pt (same deck as 70×120 quest cards, R-048)",
     trimBoxPt: TRIM,
     exportScript: "tools/pipeline/scripts/export-print-card-art.mjs",
-    rulesRef:
-      "docs/spec/core-rules-spec-v0.2.md §18.1–18.4 AID-Prov/Expl/Rooms/Cond; R-049",
+    rulesRef: "docs/spec/core-rules-spec-v0.2.md §18.1–18.4 AID-Prov/Expl/Rooms/Cond; R-049",
     reviewedAt: "2026-10-28",
     notes: [
       "player_aid:p001 FRONT p1 = Provisions；BACK p1 = Exploration（各 4 副本同面）。",

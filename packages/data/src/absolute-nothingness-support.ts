@@ -45,8 +45,8 @@ export function findAbsoluteNothingnessMonsterCards(
   medium: NormalizedMonsterMediumFile,
   large: NormalizedMonsterLargeFile,
 ) {
-  return [...medium.cards, ...large.cards].filter(
-    (c) => "card_kind" in c && c.card_kind === "large_monster_reference"
+  return [...medium.cards, ...large.cards].filter((c) =>
+    "card_kind" in c && c.card_kind === "large_monster_reference"
       ? false
       : c.name === ABSOLUTE_NOTHINGNESS_PRINTED_NAME,
   );
@@ -66,17 +66,14 @@ function assertBossAbilityP035(abilities: RawFile) {
     throw new Error("Absolute Nothingness 能力卡 boss_ability:p035 与印刷转录不符");
 }
 
-function validateLinkedCard(
-  cardId: string,
-  mediumRaw: RawFile,
-  largeRaw: RawFile,
-) {
+function validateLinkedCard(cardId: string, mediumRaw: RawFile, largeRaw: RawFile) {
   const raw = [...mediumRaw.cards, ...largeRaw.cards].find((c) => c.id === cardId);
   if (!raw || raw.source_set !== "base")
     throw new Error(`Absolute Nothingness 战斗卡来源缺失：${cardId}`);
   const front = raw.faces.front;
-  const expectedFile =
-    cardId.startsWith("monster_large:") ? MONSTER_LARGE_SOURCE : MONSTER_MEDIUM_SOURCE;
+  const expectedFile = cardId.startsWith("monster_large:")
+    ? MONSTER_LARGE_SOURCE
+    : MONSTER_MEDIUM_SOURCE;
   if (front.file !== expectedFile)
     throw new Error(`Absolute Nothingness 战斗卡来源 PDF 漂移：${cardId}`);
   const pageFromId = Number(cardId.split(":p")[1]?.split(":")[0]);
@@ -98,8 +95,7 @@ export function buildAbsoluteNothingnessSupport(
   if (ids.length > 1) throw new Error("Absolute Nothingness 怪物卡 identity 重复");
 
   for (const card of matches) {
-    if (card.level !== 3)
-      throw new Error(`Absolute Nothingness 等级与最终战不符：${card.id}`);
+    if (card.level !== 3) throw new Error(`Absolute Nothingness 等级与最终战不符：${card.id}`);
     validateLinkedCard(card.id, mediumRaw, largeRaw);
   }
 

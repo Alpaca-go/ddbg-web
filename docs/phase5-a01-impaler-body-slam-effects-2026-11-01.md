@@ -6,13 +6,13 @@
 
 ## 候选与取舍
 
-| 卡 | 招 | 效果线 | 本刀 |
-| --- | --- | --- | --- |
-| `p015` Impaler | Body Slam | `{target_effects}{stun}2t,PitToss`（图标 confirmed；Pit Toss 为印刷文字） | **接 stun** |
-| `p015` Impaler | Torment | 空 / 未核实效果行 | hold |
-| `p015` Impaler | Revelation | `{stress}+2` | #464 已合 |
-| `p014` Warlord | Torment / Stinger | 多效果 / 未入库 | hold / #463 已接 Stinger |
-| Pit Toss 几何 | `boss_ability:p028` d10→尖刺坑 | 规则 R39 | **B hold**（本刀不位移） |
+| 卡             | 招                             | 效果线                                                                    | 本刀                     |
+| -------------- | ------------------------------ | ------------------------------------------------------------------------- | ------------------------ |
+| `p015` Impaler | Body Slam                      | `{target_effects}{stun}2t,PitToss`（图标 confirmed；Pit Toss 为印刷文字） | **接 stun**              |
+| `p015` Impaler | Torment                        | 空 / 未核实效果行                                                         | hold                     |
+| `p015` Impaler | Revelation                     | `{stress}+2`                                                              | #464 已合                |
+| `p014` Warlord | Torment / Stinger              | 多效果 / 未入库                                                           | hold / #463 已接 Stinger |
+| Pit Toss 几何  | `boss_ability:p028` d10→尖刺坑 | 规则 R39                                                                  | **B hold**（本刀不位移） |
 
 依据：`monster_large` FRONT **p015**、[phase5-a01-impaler-revelation-effects-2026-11-01.md](phase5-a01-impaler-revelation-effects-2026-11-01.md)、`docs/phase5-a5-remaining-a-candidates-2026-11-01.md` §1 A-01；规则 R-001 / R-048。
 

@@ -5,12 +5,8 @@ import type { SkillStance } from "../hero-skill";
 import type { MonsterCardView } from "../monster-skill";
 import { readBossCombatEntry } from "./combat-entry";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
-import {
-  DARKEST_MAMMOTH_CYST_SCRIPT_ID,
-} from "./darkest-mid-boss-scripts";
-import {
-  DARKEST_MID_BOSS_MONSTER_STANCE_AREAS,
-} from "./darkest-shuffling-horror-combat-runtime";
+import { DARKEST_MAMMOTH_CYST_SCRIPT_ID } from "./darkest-mid-boss-scripts";
+import { DARKEST_MID_BOSS_MONSTER_STANCE_AREAS } from "./darkest-shuffling-horror-combat-runtime";
 import { getBossScript } from "./registry";
 
 export const MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID = "monster_large:p016" as const;
@@ -34,7 +30,10 @@ function mammothCystActor(
   const battle = state.battle;
   if (!battle) return rejectBattleCommand(state, "尚未创建战斗沙盒");
   if (!isMammothCystMidBossBattle(state))
-    return rejectBattleCommand(state, `${skillLabel} 仅适用于 Mammoth Cyst 最暗中途 Boss 战（R-048）`);
+    return rejectBattleCommand(
+      state,
+      `${skillLabel} 仅适用于 Mammoth Cyst 最暗中途 Boss 战（R-048）`,
+    );
   const script = getBossScript(DARKEST_MAMMOTH_CYST_SCRIPT_ID);
   const entry = script ? readBossCombatEntry(script) : undefined;
   if (!entry || entry.combatMonsterCardId !== MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID)
@@ -86,10 +85,10 @@ function readMonsterCard(
   cardId: string,
 ): (MonsterCardView & { readonly dodge?: number; readonly life?: number }) | undefined {
   const fromBattle = battle.monsters?.find((entry) => entry.id === cardId);
-  if (fromBattle) return fromBattle as MonsterCardView & { readonly dodge?: number; readonly life?: number };
+  if (fromBattle)
+    return fromBattle as MonsterCardView & { readonly dodge?: number; readonly life?: number };
   return state.dungeon?.battleCatalog?.monsters.find((entry) => entry.id === cardId) as
-    | (MonsterCardView & { readonly dodge?: number; readonly life?: number })
-    | undefined;
+    (MonsterCardView & { readonly dodge?: number; readonly life?: number }) | undefined;
 }
 
 function readMonsterSpawnMeta(
@@ -130,8 +129,7 @@ export function applyMammothCystSummonWhiteCell(state: GameState, actorId: strin
 
   const cardId = MAMMOTH_CYST_WHITE_CELL_SUMMON_CARD_ID;
   const meta = readMonsterSpawnMeta(state, battle, cardId);
-  if (!meta)
-    return rejectBattleCommand(state, `${cardId} 缺少目录占格，不能伪造召唤（R-048）`);
+  if (!meta) return rejectBattleCommand(state, `${cardId} 缺少目录占格，不能伪造召唤（R-048）`);
   const occupied = occupiedMonsterStanceIndexes(battle);
   const stance = pickOpenMonsterStance(occupied, meta.stanceSlots);
   if (!stance)

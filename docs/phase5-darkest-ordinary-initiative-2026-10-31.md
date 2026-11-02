@@ -6,11 +6,11 @@
 
 ## 已接
 
-| 步骤 | 命令 | 效果 |
-| ---- | ---- | ---- |
-| 1 | `prepareDungeonBattle` / `prepareDungeonMonsters` | 不变：非目标房从 26 张牌堆抽身份（#433） |
-| 2 | **`deployDarkestOrdinaryEncounter`** | `awaitingRoom` → `inBattle`；占位 `BattleState`（`darkest-ordinary-*` / `darkest-ordinary-hero-*`）；四姿态实体来自已抽 `ordinaryDeployment`（Life/Dodge 来自目录，缺则拒）；**不**改 `battleReady` |
-| 3 | **`startBattle`** | 与普通遭遇相同洗先攻（每实体 1 侧，**不**用 mid-boss actors 额外套牌）；第 1 轮 `awaitingInitiative` |
+| 步骤 | 命令                                              | 效果                                                                                                                                                                                                |
+| ---- | ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1    | `prepareDungeonBattle` / `prepareDungeonMonsters` | 不变：非目标房从 26 张牌堆抽身份（#433）                                                                                                                                                            |
+| 2    | **`deployDarkestOrdinaryEncounter`**              | `awaitingRoom` → `inBattle`；占位 `BattleState`（`darkest-ordinary-*` / `darkest-ordinary-hero-*`）；四姿态实体来自已抽 `ordinaryDeployment`（Life/Dodge 来自目录，缺则拒）；**不**改 `battleReady` |
+| 3    | **`startBattle`**                                 | 与普通遭遇相同洗先攻（每实体 1 侧，**不**用 mid-boss actors 额外套牌）；第 1 轮 `awaitingInitiative`                                                                                                |
 
 - **隔离**：目标房仍 `prepareDarkestMidBossDeployment` / `deployDarkestMidBoss`；`deployDarkestOrdinaryEncounter` 拒绝 objective 房与 Boss 部署房。
 - **hold 文案**：`darkestOrdinaryDeploymentHold` / 部署 `blockedReason` 提示 `deployDarkestOrdinaryEncounter` + `startBattle`；仍拒绝 `startDungeonBattle`。

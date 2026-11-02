@@ -6,10 +6,10 @@
 
 ## 已接
 
-| 路径 | 识别 | 战后 |
-| ---- | ---- | ---- |
-| **普通最暗房** | `darkestOrdinaryCombatActive` | 清 `ordinaryDeployment`；**胜利**时遭遇实例 id 并入 `monsterDeckDiscarded`；**撤退**时遭遇 id 回到 `monsterDeckRemaining`；26 张守恒 |
-| **中途 Boss** | `darkestMidBossCombatActive` | 清 `bossDeployment`；**不**读写 `monsterDeckRemaining` / `discarded` / `monsterDeck`；actors 全灭且 victory 时仍走 `bossQuestVictory` / `darkestBossVictoryAfterEncounter` |
+| 路径           | 识别                          | 战后                                                                                                                                                                       |
+| -------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **普通最暗房** | `darkestOrdinaryCombatActive` | 清 `ordinaryDeployment`；**胜利**时遭遇实例 id 并入 `monsterDeckDiscarded`；**撤退**时遭遇 id 回到 `monsterDeckRemaining`；26 张守恒                                       |
+| **中途 Boss**  | `darkestMidBossCombatActive`  | 清 `bossDeployment`；**不**读写 `monsterDeckRemaining` / `discarded` / `monsterDeck`；actors 全灭且 victory 时仍走 `bossQuestVictory` / `darkestBossVictoryAfterEncounter` |
 
 - **入口**：`finishDungeonBattle` 在检测到最暗半场时转 `finishDarkestDungeonBattle`，**不**再要求 `monsterPool.active` 或 Ruins `partitionsValid`。
 - **共用**：英雄/补给/RNG/房间牌弃置、宝藏 +20、撤退 `mustLeaveRoomId`、Curio 续接与 Ruins 同构；不含 Ruins 威胁洗回 `monsterPool`。

@@ -6,12 +6,12 @@
 
 ## 候选与取舍
 
-| 卡 | 招 | 效果线 | 本刀 |
-| --- | --- | --- | --- |
-| `p017` Shuffling Horror | Echoing Disassembly | `{target_effects}{stress}+2,{light}-1,{summon}`（图标 confirmed） | **接 stress + light** |
-| `p017` Shuffling Horror | Undulations | 姿态洗混 | 既有几何命令，本刀不重复 |
-| `p017` Shuffling Horror | Lacerate | `{target_effects}3{bleed}3t` | #478 已合 |
-| summon 名单 / 姿态占位 | Cultist Priest + Malignant Growth | boss_ability:p033 | **保留**既有 `applyShufflingHorrorEchoingDisassembly` 召唤逻辑 |
+| 卡                      | 招                                | 效果线                                                            | 本刀                                                           |
+| ----------------------- | --------------------------------- | ----------------------------------------------------------------- | -------------------------------------------------------------- |
+| `p017` Shuffling Horror | Echoing Disassembly               | `{target_effects}{stress}+2,{light}-1,{summon}`（图标 confirmed） | **接 stress + light**                                          |
+| `p017` Shuffling Horror | Undulations                       | 姿态洗混                                                          | 既有几何命令，本刀不重复                                       |
+| `p017` Shuffling Horror | Lacerate                          | `{target_effects}3{bleed}3t`                                      | #478 已合                                                      |
+| summon 名单 / 姿态占位  | Cultist Priest + Malignant Growth | boss_ability:p033                                                 | **保留**既有 `applyShufflingHorrorEchoingDisassembly` 召唤逻辑 |
 
 依据：`monster_large` FRONT **p017**、[phase5-a11-shuffling-horror-lacerate-acc-2026-11-01.md](phase5-a11-shuffling-horror-lacerate-acc-2026-11-01.md)、[phase5-a01-hod-know-this-effects-2026-11-01.md](phase5-a01-hod-know-this-effects-2026-11-01.md)（Crowded 压力 + 全局 Torch）；规则 R-001 / R-048。
 

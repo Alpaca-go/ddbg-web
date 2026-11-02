@@ -4,11 +4,11 @@
 
 ## 盘点（`monster_large` + 已接运行时）
 
-| 任务 | 主体卡 | verification | Acc 攻击招 | 本刀 |
-|------|--------|--------------|-----------|------|
-| quest:p016 | `monster_large:p017` Shuffling Horror | **unverified**（`icon:8707d5d8cf`） | Lacerate / Undulations / Echoing Disassembly 均有 Acc 行 | **不接** Lacerate Acc 命令；Undulations / Echoing 仍用既有几何命令；文档 + `shuffling-horror-skills-acc.test.ts` |
-| quest:p017 | `p015` Impaler + `p014` Warlord | verified | 各 3 招 Acc（Impaler Body Slam 等） | `darkest-templars-skills-acc.ts` + 显式命令 |
-| quest:p018 | `monster_large:p016` Mammoth Cyst | verified | Bulging Gaze / Digestion（Acc 12）；Revivify Self 无 Acc 伤害 | `darkest-mammoth-cyst-skills-acc.ts`（不含 Revivify） |
+| 任务       | 主体卡                                | verification                        | Acc 攻击招                                                    | 本刀                                                                                                             |
+| ---------- | ------------------------------------- | ----------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| quest:p016 | `monster_large:p017` Shuffling Horror | **unverified**（`icon:8707d5d8cf`） | Lacerate / Undulations / Echoing Disassembly 均有 Acc 行      | **不接** Lacerate Acc 命令；Undulations / Echoing 仍用既有几何命令；文档 + `shuffling-horror-skills-acc.test.ts` |
+| quest:p017 | `p015` Impaler + `p014` Warlord       | verified                            | 各 3 招 Acc（Impaler Body Slam 等）                           | `darkest-templars-skills-acc.ts` + 显式命令                                                                      |
+| quest:p018 | `monster_large:p016` Mammoth Cyst     | verified                            | Bulging Gaze / Digestion（Acc 12）；Revivify Self 无 Acc 伤害 | `darkest-mammoth-cyst-skills-acc.ts`（不含 Revivify）                                                            |
 
 `combatReady` 全程 **false**；Pit Toss / White Cell Teleport / Room Tile 几何 **hold**。
 
@@ -20,22 +20,22 @@
 
 ### Templars（`boss_ability:p028` / `p026`）
 
-| 实体 | Slot | 技能 | 目标 |
-|------|------|------|------|
-| Impaler | 1 | Torment | Crowded |
-| Impaler | 2 | Body Slam | Closest（Pit Toss 命中后几何 **hold**） |
-| Impaler | 3 | Revelation | Closest |
-| Warlord | 1 | Torment | Crowded |
-| Warlord | 2 | Stinger Shot | Furthest |
-| Warlord | 3 | Revelation | Closest |
+| 实体    | Slot | 技能         | 目标                                    |
+| ------- | ---- | ------------ | --------------------------------------- |
+| Impaler | 1    | Torment      | Crowded                                 |
+| Impaler | 2    | Body Slam    | Closest（Pit Toss 命中后几何 **hold**） |
+| Impaler | 3    | Revelation   | Closest                                 |
+| Warlord | 1    | Torment      | Crowded                                 |
+| Warlord | 2    | Stinger Shot | Furthest                                |
+| Warlord | 3    | Revelation   | Closest                                 |
 
 ### Mammoth Cyst（`boss_ability:p029`）
 
-| Slot | 技能 | 目标 | Acc |
-|------|------|------|-----|
-| 1 | Bulging Gaze | Crowded | 12 |
-| 2 | Digestion | Crowded | 12 |
-| 3 | Revivify | Self | —（不接 Acc 路径） |
+| Slot | 技能         | 目标    | Acc                |
+| ---- | ------------ | ------- | ------------------ |
+| 1    | Bulging Gaze | Crowded | 12                 |
+| 2    | Digestion    | Crowded | 12                 |
+| 3    | Revivify     | Self    | —（不接 Acc 路径） |
 
 Summon White Cell 仍用 `applyMammothCystSummonWhiteCell`。
 

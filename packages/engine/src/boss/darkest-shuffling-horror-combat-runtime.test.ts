@@ -166,9 +166,9 @@ describe("Shuffling Horror · Undulations", () => {
       const hero = heroes.find((entry) => entry.stance === stance);
       expect(hero?.areaId).toBe(DARKEST_MID_BOSS_HERO_STANCE_AREAS[stance]);
     }
-    expect(
-      result.events.find((event) => event.type === "dungeonUpdated")?.message,
-    ).toContain("h2→h1→h3→h0");
+    expect(result.events.find((event) => event.type === "dungeonUpdated")?.message).toContain(
+      "h2→h1→h3→h0",
+    );
     expect(result.state.battle!.encounter!.turn.type).not.toBe("monster");
   });
 
@@ -239,9 +239,12 @@ describe("Shuffling Horror · Echoing Disassembly", () => {
     const base = onHorrorTurn(horrorBattle());
     const crowdedArea = DARKEST_MID_BOSS_HERO_STANCE_AREAS.aggressive;
     const patch = Object.fromEntries(
-      base.battle!.entities
-        .filter((entity) => entity.side === "hero")
-        .map((hero, index) => [hero.id, index < 2 ? crowdedArea : DARKEST_MID_BOSS_HERO_STANCE_AREAS.ranged]),
+      base
+        .battle!.entities.filter((entity) => entity.side === "hero")
+        .map((hero, index) => [
+          hero.id,
+          index < 2 ? crowdedArea : DARKEST_MID_BOSS_HERO_STANCE_AREAS.ranged,
+        ]),
     );
     const game: GameState = {
       ...base,
@@ -256,8 +259,9 @@ describe("Shuffling Horror · Echoing Disassembly", () => {
       },
     };
     expect(
-      horrorCard.skills.find((skill) => skill.slot === SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT)
-        ?.verified_monster_effects?.effects,
+      horrorCard.skills.find(
+        (skill) => skill.slot === SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT,
+      )?.verified_monster_effects?.effects,
     ).toEqual([
       { type: "stress", scope: "target", amount: SHUFFLING_HORROR_ECHOING_STRESS_AMOUNT },
       { type: "light", scope: "target", amount: SHUFFLING_HORROR_ECHOING_LIGHT_DELTA },
@@ -274,9 +278,9 @@ describe("Shuffling Horror · Echoing Disassembly", () => {
       );
     }
     expect(result.state.battle!.light).toBe(4 + SHUFFLING_HORROR_ECHOING_LIGHT_DELTA);
-    expect(
-      result.events.find((event) => event.type === "dungeonUpdated")?.message,
-    ).toContain("Torch -1");
+    expect(result.events.find((event) => event.type === "dungeonUpdated")?.message).toContain(
+      "Torch -1",
+    );
     expect(
       result.state.battle!.entities.filter(
         (entity) => entity.monsterCardId === "monster_medium:p075" && !entity.dead,
@@ -314,9 +318,9 @@ describe("Shuffling Horror · Echoing Disassembly", () => {
     };
     const result = applyShufflingHorrorEchoingDisassembly(withPriest, "horror");
     expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
-    expect(
-      result.events.find((event) => event.type === "dungeonUpdated")?.message,
-    ).toContain("跳过已在场 monster_medium:p072");
+    expect(result.events.find((event) => event.type === "dungeonUpdated")?.message).toContain(
+      "跳过已在场 monster_medium:p072",
+    );
     expect(
       result.state.battle!.entities.filter(
         (entity) => entity.monsterCardId === "monster_medium:p075" && !entity.dead,

@@ -7,9 +7,7 @@ import type { SkillStance } from "../hero-skill";
 import type { MonsterCardView } from "../monster-skill";
 import { createRng } from "../rng";
 import { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
-import {
-  GESTATING_HEART_MONSTER_CARD_ID,
-} from "./gestating-heart-ichor";
+import { GESTATING_HEART_MONSTER_CARD_ID } from "./gestating-heart-ichor";
 import { readFinalFormSequence } from "./final-form-sequence";
 
 const STANCE_ORDER: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
@@ -36,7 +34,10 @@ function gestatingHeartActor(
   const battle = state.battle;
   if (!battle?.encounter) return rejectBattleCommand(state, "尚未进入战斗回合");
   if (!summonActive(state))
-    return rejectBattleCommand(state, "Summon 仅适用于最终战 Gestating Heart 形态（boss_ability:p036）");
+    return rejectBattleCommand(
+      state,
+      "Summon 仅适用于最终战 Gestating Heart 形态（boss_ability:p036）",
+    );
   const turn = battle.encounter.turn;
   if (turn?.type !== "monster" || turn.actorId !== actorId)
     return rejectBattleCommand(
@@ -84,10 +85,10 @@ function readMonsterCard(
   cardId: string,
 ): (MonsterCardView & { readonly dodge?: number; readonly life?: number }) | undefined {
   const fromBattle = battle.monsters?.find((entry) => entry.id === cardId);
-  if (fromBattle) return fromBattle as MonsterCardView & { readonly dodge?: number; readonly life?: number };
+  if (fromBattle)
+    return fromBattle as MonsterCardView & { readonly dodge?: number; readonly life?: number };
   return state.dungeon?.battleCatalog?.monsters.find((entry) => entry.id === cardId) as
-    | (MonsterCardView & { readonly dodge?: number; readonly life?: number })
-    | undefined;
+    (MonsterCardView & { readonly dodge?: number; readonly life?: number }) | undefined;
 }
 
 function readMonsterDodge(card: MonsterCardView & { readonly dodge?: number }): number | undefined {
@@ -103,10 +104,7 @@ function readPoolStanceSlots(cardId: string): 1 | 2 {
   return entry?.stanceSlots ?? 1;
 }
 
-function summonablePoolCardIds(
-  state: GameState,
-  battle: BattleState,
-): readonly string[] {
+function summonablePoolCardIds(state: GameState, battle: BattleState): readonly string[] {
   return DARKEST_SUMMON_POOL_CARD_IDS.filter((cardId) => {
     const card = readMonsterCard(state, battle, cardId);
     if (!card || !Number.isInteger(card.life) || card.life < 1) return false;
@@ -147,10 +145,7 @@ export function applyGestatingHeartSummon(state: GameState, actorId: string): Ap
   const stanceSlots = readPoolStanceSlots(picked.cardId);
   const stance = pickOpenMonsterStance(occupied, stanceSlots);
   if (!stance)
-    return rejectBattleCommand(
-      state,
-      "Summon：无可用怪物姿态占位（final-monster-* 占位；R-048）",
-    );
+    return rejectBattleCommand(state, "Summon：无可用怪物姿态占位（final-monster-* 占位；R-048）");
 
   const card = readMonsterCard(state, battle, picked.cardId);
   if (!card || !Number.isInteger(card.life) || card.life < 1)

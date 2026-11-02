@@ -14,32 +14,32 @@
 
 ## 盘点 · DL2 池（`verification.unverified !== true` 且 `hasApprovedHigherMonsterFields`）
 
-| combatCardId | 名称 | 池 level | 批准依据 |
-| --- | --- | --- | --- |
-| `monster_medium:p013` | Bone Spearman | 2 | R-082 |
-| `monster_medium:p050` | Gargoyle | 2 | R-083 + Protection |
-| `monster_medium:p053` | Rattler | 2 | R-083；自身状态技能已接（C-010 seed35） |
-| `monster_large:p001` | Bone Captain | 2 | R-083 |
-| `monster_large:p003` | Ghoul | 2 | R-083；感染线 C-010 seed100 |
+| combatCardId          | 名称          | 池 level | 批准依据                                |
+| --------------------- | ------------- | -------- | --------------------------------------- |
+| `monster_medium:p013` | Bone Spearman | 2        | R-082                                   |
+| `monster_medium:p050` | Gargoyle      | 2        | R-083 + Protection                      |
+| `monster_medium:p053` | Rattler       | 2        | R-083；自身状态技能已接（C-010 seed35） |
+| `monster_large:p001`  | Bone Captain  | 2        | R-083                                   |
+| `monster_large:p003`  | Ghoul         | 2        | R-083；感染线 C-010 seed100             |
 
 牌堆内 **无**「catalog 已 verified 但未进 `hasApprovedHigherMonsterFields`」的 II 级身份。
 
 ## 盘点 · DL3 池（仍拒 · 代表例）
 
-| combatCardId | 名称 | 拒战主因（实测/字段） |
-| --- | --- | --- |
-| `monster_medium:p016` | Bone Bearer | 缺 Speed/stanceGroups → `…完整战斗字段待核实；保留真实部署…` |
-| `monster_medium:p056` | Brigand Raider | 同上 |
-| `monster_medium:p059` | Brigand Hunter | 同上 |
-| `monster_large:p004` | Adder | 同上 |
+| combatCardId          | 名称           | 拒战主因（实测/字段）                                        |
+| --------------------- | -------------- | ------------------------------------------------------------ |
+| `monster_medium:p016` | Bone Bearer    | 缺 Speed/stanceGroups → `…完整战斗字段待核实；保留真实部署…` |
+| `monster_medium:p056` | Brigand Raider | 同上                                                         |
+| `monster_medium:p059` | Brigand Hunter | 同上                                                         |
+| `monster_large:p004`  | Adder          | 同上                                                         |
 
 若将来 B-7 批核上述卡，仍须逐 skill 通过 `readMonsterAttackView` / `resolveMonsterSkillEffects`（`effect_lines` skip 仍拒），与 I 级 B02 / `isSkillAdmissionRefusal` 政策一致。
 
 ## 两类缺口（与 HANDOFF C-008 对齐）
 
-| 类型 | 现状 | 本刀 |
-| --- | --- | --- |
-| 池子抽到 **未批** 高等级 | DL3 四身份：字段闸门 | 回归锁定文案；不硬开 |
+| 类型                        | 现状                                        | 本刀                                                              |
+| --------------------------- | ------------------------------------------- | ----------------------------------------------------------------- |
+| 池子抽到 **未批** 高等级    | DL3 四身份：字段闸门                        | 回归锁定文案；不硬开                                              |
 | **已批** 仍因技能 effect 拒 | DL2 混合部署可能出现（如 L1 怪未接 effect） | II 扫描允许 `skillRefused`，**禁止**「等级 / 高等级限定批准不符」 |
 
 ## 代码触点

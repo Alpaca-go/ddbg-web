@@ -39,11 +39,7 @@ export function swiftTeleportStanceFromDie(die: number): SkillStance | null {
   return null;
 }
 
-function canOccupyMonsterStance(
-  occupied: Set<number>,
-  width: 1 | 2,
-  stance: SkillStance,
-): boolean {
+function canOccupyMonsterStance(occupied: Set<number>, width: 1 | 2, stance: SkillStance): boolean {
   const start = STANCE_ORDER.indexOf(stance);
   if (start < 0 || start + width > STANCE_ORDER.length) return false;
   for (let slot = start; slot < start + width; slot += 1) {
@@ -73,7 +69,11 @@ function applySwiftTeleportToStance(
   battle: BattleState,
   actor: BattleEntity,
   stance: SkillStance,
-): { readonly battle: BattleState; readonly moved: boolean; readonly events: readonly GameEvent[] } {
+): {
+  readonly battle: BattleState;
+  readonly moved: boolean;
+  readonly events: readonly GameEvent[];
+} {
   const width = (actor.stanceSlots ?? 1) as 1 | 2;
   const occupied = occupiedMonsterStanceIndexes(battle, actor.id);
   if (!canOccupyMonsterStance(occupied, width, stance)) {
@@ -132,10 +132,7 @@ function resolveAncestor2ActorForSwiftTeleport(
   return { battle, actor };
 }
 
-function runSwiftTeleportation(
-  state: GameState,
-  actorId: string,
-): ApplyResult {
+function runSwiftTeleportation(state: GameState, actorId: string): ApplyResult {
   const resolved = resolveAncestor2ActorForSwiftTeleport(state, actorId);
   if ("events" in resolved) return resolved;
   const { battle, actor } = resolved;

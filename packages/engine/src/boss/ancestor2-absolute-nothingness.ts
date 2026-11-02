@@ -110,9 +110,7 @@ function buildNothingnessEntity(
  * boss_ability:p035：按 `absolute_nothingness_support.json` 固定落位（防御 / 远程 / 支援各 1），
  * 以占位 areaId 是否已有怪物为准；区域已满则跳过（可部分部署）。不使用 Gestating Heart 随机池 RNG。
  */
-export function appendAbsoluteNothingnessSupportEntities(
-  battle: BattleState,
-): {
+export function appendAbsoluteNothingnessSupportEntities(battle: BattleState): {
   readonly entities: readonly BattleEntity[];
   readonly monsters: readonly MonsterCardView[];
   readonly placed: readonly NothingnessPlacement[];
@@ -126,7 +124,10 @@ export function appendAbsoluteNothingnessSupportEntities(
       )
     )
       continue;
-    if (livingMonsters(nextBattle).filter(isAbsoluteNothingnessEntity).length >= SUPPORT.miniatureCount)
+    if (
+      livingMonsters(nextBattle).filter(isAbsoluteNothingnessEntity).length >=
+      SUPPORT.miniatureCount
+    )
       break;
     const entity = buildNothingnessEntity(placement, nextBattle);
     if (!entity) continue;

@@ -4,10 +4,10 @@
 
 ## 已映射（有 geometry 证据）
 
-| 范围 | 说明 |
-| --- | --- |
-| `room_tile:p001` | Ritual Chamber，FRONT p1（R-054 / R-055） |
-| `room_tile:p002:back` … `room_tile:p005:front` | R-065 批次遗迹 2–5 共 8 面 |
+| 范围                                           | 说明                                      |
+| ---------------------------------------------- | ----------------------------------------- |
+| `room_tile:p001`                               | Ritual Chamber，FRONT p1（R-054 / R-055） |
+| `room_tile:p002:back` … `room_tile:p005:front` | R-065 批次遗迹 2–5 共 8 面                |
 
 共 **9** 条；与 `geometryVerified=true` 且 `usable=true` 的生产目录一致。
 

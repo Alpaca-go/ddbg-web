@@ -35,7 +35,10 @@ const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "s
 function cards<T>(file: string): T[] {
   return (
     JSON.parse(
-      readFileSync(new URL(`../../../data/normalized/corebox/${file}.json`, import.meta.url), "utf8"),
+      readFileSync(
+        new URL(`../../../data/normalized/corebox/${file}.json`, import.meta.url),
+        "utf8",
+      ),
     ) as { cards: T[] }
   ).cards;
 }
@@ -57,7 +60,9 @@ function verifiedMonsterCard(id: string, life: number, width: 1 | 2 = 1): Monste
 
 const princeLife = 84;
 const wilburLife = 12;
-const soldier = cards<MonsterCardView>("monster_medium").find((card) => card.id === "monster_medium:p001")!;
+const soldier = cards<MonsterCardView>("monster_medium").find(
+  (card) => card.id === "monster_medium:p001",
+)!;
 const smite = cards<HeroSkillCardView>("hero_skill").find((card) => card.id === "hero_skill:p001")!;
 const heroProfiles = cards<NonNullable<BattleSetup["heroStats"]>[number]>("hero_stat").filter(
   (card) => card.attributesVerified && card.level === 1,
@@ -375,7 +380,9 @@ describe("Swine Prince I · Enraged Destruction 最小运行时", () => {
     ).toBe(true);
     const wilburAfter = played.state.battle!.entities.find((entity) => entity.id === wilbur.id)!;
     expect(wilburAfter.wounds).toBeGreaterThan(wilbur.wounds);
-    const heroWoundsAfter = played.state.battle!.entities.find((entity) => entity.id === "h0")!.wounds;
+    const heroWoundsAfter = played.state.battle!.entities.find(
+      (entity) => entity.id === "h0",
+    )!.wounds;
     expect(heroWoundsAfter).toBeGreaterThanOrEqual(heroWoundsBefore);
   });
 });
@@ -390,13 +397,13 @@ describe("Swine Prince I · Wilbur Mark AI 最小运行时", () => {
     const script = getBossScript(SWINE_PRINCE_I_SCRIPT_ID)!;
     expect(readSwinePrinceIWilburMarkEnabled(script)).toBe(true);
     expect(readSwinePrinceIWilburMarkSkillSlot(script)).toBe(SWINE_PRINCE_I_WILBUR_MARK_SKILL_SLOT);
-    expect(
-      runBossHook(script, "wilburMark", { scriptId: SWINE_PRINCE_I_SCRIPT_ID }),
-    ).toMatchObject({
-      status: "ok",
-      effect: "forceMarkSkillWhilePrinceAlive",
-      skillSlot: 1,
-    });
+    expect(runBossHook(script, "wilburMark", { scriptId: SWINE_PRINCE_I_SCRIPT_ID })).toMatchObject(
+      {
+        status: "ok",
+        effect: "forceMarkSkillWhilePrinceAlive",
+        skillSlot: 1,
+      },
+    );
   });
 
   it("Prince 存活且 Wilbur 怪物回合时应强制 Mark 选招", () => {

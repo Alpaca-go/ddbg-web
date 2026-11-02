@@ -11,27 +11,29 @@ export const corridorPortSchema = z.strictObject({
   y: z.number(),
 });
 
-export const corridorTileSchema = z.strictObject({
-  id: z.string().min(1),
-  rawId: z.string().min(1),
-  /** 板块右上印刷编号（若有）；与连接口 label 分开。 */
-  sheetNumber: z.int().positive().nullable(),
-  source: z.strictObject({
-    file: z.literal("DD_COREBOX_TILES_FRONT.pdf"),
-    page: z.int().min(6).max(14),
-    face: z.literal("front"),
-  }),
-  review: z.enum(["pending", "confirmed"]),
-  geometryVerified: z.literal(false),
-  ports: z.array(corridorPortSchema),
-  /** 段内邻接 / 灰点 / 容量：无 Kyries 批准表，保持空。 */
-  segments: z.array(z.never()).length(0),
-  pendingReasons: z.array(z.string().min(1)).min(1),
-}).superRefine((tile, ctx) => {
-  if (tile.ports.length === 0 && tile.sheetNumber == null) {
-    ctx.addIssue({ code: "custom", message: "须至少有 sheetNumber 或一个连接口 span" });
-  }
-});
+export const corridorTileSchema = z
+  .strictObject({
+    id: z.string().min(1),
+    rawId: z.string().min(1),
+    /** 板块右上印刷编号（若有）；与连接口 label 分开。 */
+    sheetNumber: z.int().positive().nullable(),
+    source: z.strictObject({
+      file: z.literal("DD_COREBOX_TILES_FRONT.pdf"),
+      page: z.int().min(6).max(14),
+      face: z.literal("front"),
+    }),
+    review: z.enum(["pending", "confirmed"]),
+    geometryVerified: z.literal(false),
+    ports: z.array(corridorPortSchema),
+    /** 段内邻接 / 灰点 / 容量：无 Kyries 批准表，保持空。 */
+    segments: z.array(z.never()).length(0),
+    pendingReasons: z.array(z.string().min(1)).min(1),
+  })
+  .superRefine((tile, ctx) => {
+    if (tile.ports.length === 0 && tile.sheetNumber == null) {
+      ctx.addIssue({ code: "custom", message: "须至少有 sheetNumber 或一个连接口 span" });
+    }
+  });
 
 export const corridorTileGeometryFileSchema = z
   .strictObject({
