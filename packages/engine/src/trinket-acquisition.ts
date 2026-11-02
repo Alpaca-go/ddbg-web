@@ -4,6 +4,8 @@ import { createRng } from "./rng";
 
 type Hero = { readonly id: string; readonly level?: number; readonly dead?: boolean };
 export type TrinketPool = {
+  /** R-147：仅作持牌/容量校验；行动入口仍只接受在队heroes。 */
+  readonly reservedHeroes?: readonly Hero[];
   readonly level: 1 | 2 | 3;
   readonly cards: readonly NormalizedTrinketCard[];
   readonly deck: readonly string[] | null;
@@ -73,6 +75,7 @@ function trinketCardOk(card: NormalizedTrinketCard, expectedLevel?: number) {
 export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): string | null {
   if (
     !pool ||
+    (pool.reservedHeroes !== undefined && !Array.isArray(pool.reservedHeroes)) ||
     ![1, 2, 3].includes(pool.level) ||
     !Array.isArray(pool.cards) ||
     !Array.isArray(pool.discard) ||
@@ -116,17 +119,20 @@ export function trinketPoolProblem(pool: TrinketPool, heroes: readonly Hero[]): 
     foreignIds.some((id) => !foreignCards.some((c) => c.id === id && trinketCardOk(c)))
   )
     return "饰品需要完整等级牌堆及获批身份，不能修改概率（R-048）";
+  const holders = [...heroes, ...(pool.reservedHeroes ?? [])];
   if (
-    heroes.some((h) => !h || !h.id || !Number.isInteger(h.level) || h.level! < 1 || h.level! > 3) ||
-    new Set(heroes.map((h) => h.id)).size !== heroes.length ||
+    holders.some(
+      (h) => !h || !h.id || !Number.isInteger(h.level) || h.level! < 1 || h.level! > 3,
+    ) ||
+    new Set(holders.map((h) => h.id)).size !== holders.length ||
     pool.held.some(
       (c) =>
         !c ||
-        !heroes.some((h) => h.id === c.heroId) ||
+        !holders.some((h) => h.id === c.heroId) ||
         !["upright", "inverted"].includes(c.face) ||
         !pool.cards.some((card) => card.id === c.cardId && !card.verification.unverified),
     ) ||
-    heroes.some((h) => pool.held.filter((c) => c.heroId === h.id).length > h.level!) ||
+    holders.some((h) => pool.held.filter((c) => c.heroId === h.id).length > h.level!) ||
     (pool.incoming &&
       (!heroes.some((h) => h.id === pool.incoming!.actorId && !h.dead) ||
         ![...canonical, ...archivedIds].includes(pool.incoming.cardId)))
@@ -198,6 +204,7 @@ export function switchTrinketDungeonLevel(
     return { reason: "已装备的上一级饰品缺失或未核实，不能切换地牢饰品等级（R-048）" };
   return {
     ...next,
+    ...(pool.reservedHeroes ? { reservedHeroes: pool.reservedHeroes } : {}),
     cards: [...next.cards, ...pool.cards.filter((c) => c.level !== level)],
     inactive: [
       ...(pool.inactive ?? []).filter((p) => p.level !== level),

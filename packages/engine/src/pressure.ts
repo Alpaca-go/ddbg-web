@@ -1,4 +1,5 @@
 import { crownTrinketReaction } from "./trinket-reactions";
+import { resolveHolders } from "./stagecoach-holdings";
 import type { BattleState } from "./battle";
 import type { ApplyResult, GameEvent } from "./command";
 import { rejectBattleCommand } from "./battle";
@@ -137,13 +138,21 @@ export function resolveBattlePressure(result: ApplyResult): ApplyResult {
         existing.some(
           (id) =>
             !catalog.some((card) => card.id === id && card.role === drawn.role) ||
-            battle!.entities.some((entity) => entity.resolveCardId === id),
+            resolveHolders(result.state.dungeon ?? {}, battle!.entities).some(
+              (entity) => entity.resolveCardId === id,
+            ),
         ))
     )
       return rejectBattleCommand(result.state, "意志牌堆重复、含未知卡或已分配卡");
     const deck: string[] = existing
       ? [...existing]
-      : catalog.filter((card) => card.role === drawn.role).map((card) => card.id);
+      : catalog
+          .filter(
+            (card) =>
+              card.role === drawn.role &&
+              !result.state.dungeon?.stagecoachHeroes?.some((h) => h.resolveCardId === card.id),
+          )
+          .map((card) => card.id);
     if (!existing) {
       for (let index = deck.length - 1; index > 0; index--) {
         const other = Math.floor(rng.next() * (index + 1));

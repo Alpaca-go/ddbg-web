@@ -9,6 +9,8 @@ import { QUIRK_NAMES } from "./passive";
 import type { PassiveHolder } from "./passive";
 
 export type ConditionPool = {
+  /** R-147：驿站英雄真实持牌；计入守恒，不参与队伍行动或抽牌。 */
+  readonly reservedHeroes?: readonly ConditionHero[];
   readonly diseases: readonly DiseaseCard[];
   readonly quirks: readonly NormalizedQuirkCard[];
   readonly diseaseDeck: readonly string[] | null;
@@ -44,6 +46,7 @@ export function conditionPoolProblem(
 ): string | null {
   if (
     !pool ||
+    (pool.reservedHeroes !== undefined && !isArray(pool.reservedHeroes)) ||
     !isArray(pool.diseases) ||
     !isArray(pool.quirks) ||
     !isArray(pool.diseaseDiscard) ||
@@ -54,8 +57,9 @@ export function conditionPoolProblem(
     !isArray(heroes)
   )
     return "疾病 / 怪癖池或英雄数组无效";
+  const holders = [...heroes, ...(pool.reservedHeroes ?? [])];
   if (
-    Array.from(heroes).some(
+    Array.from(holders).some(
       (h) =>
         !h ||
         typeof h.id !== "string" ||
@@ -66,7 +70,7 @@ export function conditionPoolProblem(
           (typeof h.diseaseId !== "string" || !h.diseaseId)) ||
         (h.quirkIds !== undefined && !isArray(h.quirkIds)),
     ) ||
-    new Set(heroes.map((h) => h.id)).size !== heroes.length
+    new Set(holders.map((h) => h.id)).size !== holders.length
   )
     return "英雄持牌身份、死亡状态或怪癖数组无效 / 重复";
   if (
@@ -88,15 +92,15 @@ export function conditionPoolProblem(
   )
     return "疾病 / 怪癖需要完整官方目录，身份、页码或数值无效（R26–28、R-048）";
   if (
-    heroes.some(
+    holders.some(
       (h) =>
         (h.quirkIds?.length ?? 0) > 3 ||
         h.quirkIds?.some((id) => !pool.quirks.some((c) => c.id === id)),
     )
   )
     return "英雄怪癖未知或超过三张（R26）";
-  const heldDiseases = heroes.flatMap((h) => (h.diseaseId ? [h.diseaseId] : []));
-  const heldQuirks = heroes.flatMap((h) => h.quirkIds ?? []);
+  const heldDiseases = holders.flatMap((h) => (h.diseaseId ? [h.diseaseId] : []));
+  const heldQuirks = holders.flatMap((h) => h.quirkIds ?? []);
   const negativeIds = pool.quirks.filter((c) => c.polarity === "negative").map((c) => c.id);
   const positiveIds = pool.quirks.filter((c) => c.polarity === "positive").map((c) => c.id);
   const partitions = [
@@ -213,7 +217,11 @@ export function gainDisease<T extends ConditionHero>(
     pool.diseaseDeck,
     pool.diseases
       .map((c) => c.id)
-      .filter((id) => !heroes.some((h) => h.diseaseId === id) && !pool.diseaseDiscard.includes(id)),
+      .filter(
+        (id) =>
+          ![...heroes, ...(pool.reservedHeroes ?? [])].some((h) => h.diseaseId === id) &&
+          !pool.diseaseDiscard.includes(id),
+      ),
   );
   const diseaseId = diseaseDeck.shift();
   if (!diseaseId) return { status: "refused", reason: "疾病堆耗尽，未擅自洗回弃牌（R32）" };
@@ -316,7 +324,7 @@ export function gainNegativeQuirk<T extends ConditionHero>(
         .filter(
           (c) =>
             c.polarity === "negative" &&
-            !heroes.some((h) => h.quirkIds?.includes(c.id)) &&
+            ![...heroes, ...(pool.reservedHeroes ?? [])].some((h) => h.quirkIds?.includes(c.id)) &&
             !pool.quirkDiscard.includes(c.id),
         )
         .map((c) => c.id)),
@@ -435,7 +443,7 @@ export function gainPositiveQuirk<T extends ConditionHero>(
         .filter(
           (c) =>
             c.polarity === "positive" &&
-            !heroes.some((h) => h.quirkIds?.includes(c.id)) &&
+            ![...heroes, ...(pool.reservedHeroes ?? [])].some((h) => h.quirkIds?.includes(c.id)) &&
             !pool.quirkDiscard.includes(c.id),
         )
         .map((c) => c.id)),

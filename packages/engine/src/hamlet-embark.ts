@@ -382,6 +382,7 @@ export function chooseNextQuest(
     cursor: shuffled.cursor,
     position: "S" as const,
     heroes: applied.heroes,
+    ...(d.stagecoachHeroes ? { stagecoachHeroes: d.stagecoachHeroes } : {}),
     resolveCards: d.resolveCards,
     resolveDecks: d.resolveDecks,
     gold: d.gold,

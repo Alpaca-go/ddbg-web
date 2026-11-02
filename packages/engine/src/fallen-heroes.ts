@@ -4,6 +4,8 @@ import type { TrinketPool } from "./trinket-acquisition";
 
 /** 死亡时的历史记录，不是当前共享牌持有者；仅供R-147/R-148重生池复活。 */
 export type FallenHero = {
+  /** 档案保留为历史；本次死亡已经由重生池复活，不能重复领取。 */
+  readonly revived?: true;
   readonly hero: DungeonState["heroes"][number];
   readonly trinkets: TrinketPool["held"];
 };

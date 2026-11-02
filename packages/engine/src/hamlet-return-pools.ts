@@ -79,7 +79,8 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
     discard.length
       ? shuffle([...(deck ?? available.filter((id) => !discard.includes(id))), ...discard])
       : deck;
-  const held = d.heroes.flatMap((h) => h.quirkIds ?? []);
+  const holders = [...d.heroes, ...(conditions.reservedHeroes ?? [])];
+  const held = holders.flatMap((h) => h.quirkIds ?? []);
   const quirkIds = (polarity: "positive" | "negative") =>
     conditions.quirks
       .filter((c) => c.polarity === polarity && !held.includes(c.id))
@@ -126,7 +127,7 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
   const diseaseDeck = recycle(
     conditions.diseaseDeck,
     conditions.diseaseDiscard,
-    conditions.diseases.filter((c) => !d.heroes.some((h) => h.diseaseId === c.id)).map((c) => c.id),
+    conditions.diseases.filter((c) => !holders.some((h) => h.diseaseId === c.id)).map((c) => c.id),
   );
   const roomDeck = recycle(rooms.deck, rooms.discard ?? [], roomIds);
   const availableLoot = loot.claimedIds.length

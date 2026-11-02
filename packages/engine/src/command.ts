@@ -1,4 +1,5 @@
 import type { MonsterSupportResolvedEvent } from "./battle-monster-support";
+import { stagecoachHoldingsProblem } from "./stagecoach-holdings";
 import { resolveExcavation } from "./darkest-excavation";
 import {
   prepareFinalBattleForms,
@@ -861,6 +862,19 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
 
 /** 任一后续规则拒绝时，整次命令回滚骰子、行动和事件。 */
 export function applyCommand(state: GameState, command: Command): ApplyResult {
+  const d = state.dungeon;
+  if (d && (d.stagecoachHeroes || d.conditions?.reservedHeroes || d.trinkets?.reservedHeroes)) {
+    const problem =
+      stagecoachHoldingsProblem(d) ??
+      (state.battle
+        ? stagecoachHoldingsProblem({
+            ...d,
+            conditions: state.battle.conditions ?? d.conditions,
+            trinkets: state.battle.trinkets ?? d.trinkets,
+          })
+        : null);
+    if (problem) return rejectBattleCommand(state, problem);
+  }
   if (command.type === "prepareFinalBattleForms") return prepareFinalBattleForms(state);
   if (command.type === "deployFinalBattleForm") {
     const deployed = deployFinalBattleForm(state);
