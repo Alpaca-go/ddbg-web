@@ -4,6 +4,7 @@ dist/
 .pnpm-store/
 *.tsbuildinfo
 .vite/
+.cache/
 coverage/
 playwright-report/
 test-results/
