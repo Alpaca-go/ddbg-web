@@ -157,7 +157,7 @@ describe("技能的有序生命效果接纯死门结算（R20、R21、R29）", (
 
   it("自身目标只治疗一次；Battle Heal 超额治疗仍到零", () => {
     const self: SkillCombatState = {
-      actor: { id: "abomination", wounds: 7, stress: 3 },
+      actor: { id: "abomination", wounds: 7, stress: 3, form: "human" },
       target: { id: "abomination", side: "hero", wounds: 7, dodge: 0, stress: 3 },
     };
     const result = resolveHeroSkillEffects(card("p218"), self, 10);

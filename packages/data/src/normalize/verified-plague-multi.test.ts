@@ -21,8 +21,10 @@ it.each(rows)("%s完整卡面黄金值，保留Nt null及高等级边界", (id, 
   }
   for (const offset of [1, 2]) {
     const higher = cards.find((c) => c.pages[0] === card.pages[0]! + offset)!;
-    expect(higher.verified_status_effects).toBeUndefined();
-    expect(higher.verified_range).toBeUndefined();
+    expect(higher.verified_status_effects).toBeDefined();
+    if (id.endsWith("133"))
+      expect(higher.verified_range).toEqual({ min: 1, max: 2, source: "print_front" });
+    else expect(higher.verified_range).toBeUndefined();
   }
 });
 

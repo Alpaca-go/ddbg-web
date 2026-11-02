@@ -7,7 +7,7 @@ import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 const cards = loadNormalizedCorebox().hero_skill.cards;
 const card = cards.find((c) => c.id === "hero_skill:p043")!;
 
-it("Collect Bounty I完整目标框两条件黄金值，继承原标记且不向II/III扩散", () => {
+it("Collect Bounty I完整目标框两条件黄金值，继承原标记且高等级由独立注解覆盖", () => {
   expect(card.verified_damage_bonuses).toEqual([
     { lineIndex: 0, amount: 1, condition: "human", source: "print_front" },
     { lineIndex: 1, amount: 2, condition: "marked", source: "print_front" },
@@ -26,7 +26,7 @@ it("Collect Bounty I完整目标框两条件黄金值，继承原标记且不向
   for (const text of ["+1", "+2"])
     expect(card.unlabeled_numbers.find((n) => n.text === text)?.numeric).toBeNull();
   for (const id of ["hero_skill:p044", "hero_skill:p045"])
-    expect(cards.find((c) => c.id === id)!.verified_damage_bonuses).toBeUndefined();
+    expect(cards.find((c) => c.id === id)!.verified_damage_bonuses).toBeDefined();
 });
 
 it("完整来源/版面漂移拒绝，schema拒绝重复或冲突伤害注解", () => {

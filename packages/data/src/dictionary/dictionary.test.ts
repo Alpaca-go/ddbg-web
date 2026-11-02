@@ -47,9 +47,8 @@ const MIXED_START_RANKS = [127, 132, 258, 259, 379] as const;
 
 /** 2026-10-26 Q-47 batch：历史 batch 里曾留下的 rank，现已 confirmed。 */
 const Q47_RESOLVED_RANKS = new Set([
-  216, 379, 478, 603, 642, 714, 715,
-  232, 307, 315, 323, 640, 666, 687, 702, 726, 746, 775, 799, 800, 809, 831, 845, 855,
-  868, 910, 911, 912,
+  216, 379, 478, 603, 642, 714, 715, 232, 307, 315, 323, 640, 666, 687, 702, 726, 746, 775, 799,
+  800, 809, 831, 845, 855, 868, 910, 911, 912,
 ]);
 
 /** v1.2 批准的 31 条。合并行应与目标的含义、status、key、kind、value 相同。 */
@@ -1003,6 +1002,16 @@ describe("图标词典 v1.8", () => {
     }
 
     for (const rank of V17_CATEGORIZE) {
+      // R-127：原 r955 已按完整卡面更正为抽负面怪癖。
+      if (rank === 955) {
+        expect(byRank.get(rank)).toMatchObject({
+          iconId: "b7d0cfd524",
+          key: "draw_negative_quirk",
+          status: "confirmed",
+          source: "kyries_review_2026-10-30",
+        });
+        continue;
+      }
       const icon = byRank.get(rank);
       expect(icon?.status).toBe("confirmed");
       expect(icon?.key).toBe("trinket_picture");

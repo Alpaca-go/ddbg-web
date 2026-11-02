@@ -501,7 +501,18 @@ describe("resolveHeroSkill", () => {
     expect(bounty.name).toBe("Collect Bounty");
     expect(bounty.level).toBe(2);
     expect(bounty.verification.unverified).toBe(false);
-    expect(use("hero_skill:p044", target("monster", 1, 0), 5)).toMatchObject({
+    expect(
+      resolveHeroSkill(
+        {
+          ...bounty,
+          printed_labels: bounty.printed_labels.map((label) =>
+            label.label === "Acc" ? { ...label, value: null } : label,
+          ),
+        },
+        target("monster", 1, 0),
+        5,
+      ),
+    ).toMatchObject({
       status: "refused",
       reason: "Acc 标签没有非负整数阈值",
       wounds: 1,

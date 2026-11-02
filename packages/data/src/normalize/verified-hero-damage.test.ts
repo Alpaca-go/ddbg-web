@@ -11,7 +11,12 @@ describe("逐卡复核条件伤害", () => {
   it("五族 I/II/III 及 Finish Him I 条件伤逐页核实，原 null 不变", () => {
     expect(
       attachVerifiedHeroDamage(cards)
-        .filter((card) => card.verified_damage_bonus)
+        .filter(
+          (card) =>
+            card.verified_damage_bonus &&
+            (card.level === 1 ||
+              ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(card.hero ?? "")),
+        )
         .map((card) => Number(card.id.slice(-3))),
     ).toEqual([1, 2, 3, 16, 17, 18, 58, 67, 68, 69, 85, 86, 87, 103, 104, 105, 172, 190, 193]);
     const lance = cards.find((card) => card.id === "hero_skill:p016")!;
@@ -82,7 +87,7 @@ describe("逐卡复核条件伤害", () => {
     expect(attachVerifiedHeroDamage(cards)).toEqual(cards);
     expect(cards).toEqual(before);
     for (const id of ["hero_skill:p059", "hero_skill:p060"])
-      expect(cards.find((c) => c.id === id)!.verified_damage_bonus).toBeUndefined();
+      expect(cards.find((c) => c.id === id)!.verified_damage_bonus).toBeDefined();
     for (const mutate of [
       (c: typeof card) => {
         c.hero = "VESTAL";

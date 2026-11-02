@@ -25,6 +25,7 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
   );
   it("十四个I级与三张II级获批普通卡接入生成层，大型L1–3已获批", () => {
     const approvedIds = [
+      "monster_medium:p016",
       "monster_medium:p089",
       "monster_medium:p090",
       "monster_medium:p091",
@@ -66,6 +67,7 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
     for (const card of built.monster_large.cards)
       expect(card.stanceGroups !== undefined, card.id).toBe(
         [
+          "monster_large:p018",
           "monster_large:p001",
           "monster_large:p002",
           "monster_large:p003",
@@ -107,7 +109,7 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
   });
 
   it("映射重复 / 未知 id、非技能卡、卡名 / 等级 / 页码漂移均报错", () => {
-    const first = verifiedMonsterStances[0]!;
+    const first = verifiedMonsterStances.find((e) => e.id === "monster_medium:p001")!;
     expect(() => attachVerifiedMonsterStances(originals, [first, first])).toThrow("重复");
     expect(() => attachVerifiedMonsterStances(originals, [{ ...first, id: "missing" }])).toThrow(
       "唯一存在",
@@ -125,7 +127,7 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
   });
 
   it("入库不能绕过技能唯一引用和姿态 / 骰表校验", () => {
-    const first = verifiedMonsterStances[0]!;
+    const first = verifiedMonsterStances.find((e) => e.id === "monster_medium:p001")!;
     for (const stanceGroups of [
       [{ stances: ["aggressive"], skill: 1 }],
       [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 3 }],

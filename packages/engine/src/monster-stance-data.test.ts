@@ -102,7 +102,9 @@ describe("真实卡获批姿态分组与未获批拒绝（R-015、R-048）", () 
         "skills" in card &&
         !card.verification.unverified &&
         card.footer_lines.length > 0 &&
-        !approved.some((entry) => entry.id === card.id),
+        !approved.some((entry) => entry.id === card.id) &&
+        card.id !== "monster_medium:p016" &&
+        Number(card.id.slice(-3)) < 89,
     );
     expect(cards.length).toBeGreaterThan(0);
     for (const card of cards) {

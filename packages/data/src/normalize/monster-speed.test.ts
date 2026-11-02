@@ -6,6 +6,7 @@ import { loadNormalizedCorebox } from "./write";
 const built = loadNormalizedCorebox();
 // 独立预期：首批六条 2026-10-10，新四张普通卡 2026-10-12 部分批准，不从映射反推。
 const expected = [
+  ["monster_medium:p016", 2],
   ["monster_medium:p001", 1],
   ["monster_medium:p004", 3],
   ["monster_medium:p007", 2],
@@ -63,6 +64,7 @@ describe("获批中型怪物 Speed 入库（R24、R-001、R-048）", () => {
       expect(card.verification.unverified, id).toBe(false);
     }
     const largeSpeeds: Record<string, number> = {
+      p018: 3,
       p001: 1,
       p002: 1,
       p003: 2,
