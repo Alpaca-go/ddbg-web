@@ -1,5 +1,6 @@
 import { RUINS_BOSS_CATALOG_CARD_IDS } from "./boss/ruins-combat-levels";
 import { upgradeTrinketR127Metadata } from "./trinket-save-upgrade";
+import { upgradeFallenHeroSnapshot } from "./fallen-heroes";
 import { questSaveSchema, questStartSchema } from "../../data/src/quest-save";
 import type { QuestSave, QuestStart } from "../../data/src/quest-save";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
@@ -145,10 +146,15 @@ export function loadQuestSave(
   const commands = replayCommands(save.commands);
   const restored = replay(save.start, commands, sources);
   const restoredKey = canonical(restored.game);
-  let snapshotKey = canonical(upgradeNomadPrompt(save.snapshot, restored.game));
+  let snapshotKey = canonical(
+    upgradeFallenHeroSnapshot(upgradeNomadPrompt(save.snapshot, restored.game), restored.game),
+  );
   if (restoredKey !== snapshotKey)
     snapshotKey = canonical(
-      upgradeNomadPrompt(upgradeTrinketR127Metadata(save.snapshot), restored.game),
+      upgradeFallenHeroSnapshot(
+        upgradeNomadPrompt(upgradeTrinketR127Metadata(save.snapshot), restored.game),
+        restored.game,
+      ),
     );
   if (restoredKey !== snapshotKey) {
     if (!previousSources)

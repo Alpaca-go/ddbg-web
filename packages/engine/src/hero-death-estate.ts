@@ -3,6 +3,7 @@ import type { DungeonState } from "./dungeon";
 import { rejectBattleCommand } from "./battle";
 import { discardHeldTrinket, trinketPoolProblem } from "./trinket-acquisition";
 import { releaseDeadHeroCards } from "./hero-death-cards";
+import { captureFallenHeroes } from "./fallen-heroes";
 import { isFormalHeroName } from "./formal-heroes";
 import { verifiedLevel1CombatSkillsForHero } from "./formal-roster-catalog";
 
@@ -87,8 +88,10 @@ function estateOptions(state: GameState) {
 
 /** 每条成功命令后记录死亡并插入饰品选择；原战斗/探索待选保留在原处。 */
 export function continueDeathEstates(result: ApplyResult): ApplyResult {
-  result = releaseDeadHeroCards(result);
-  if (result.events.some((e) => e.type === "commandRefused")) return result;
+  const original = result;
+  result = releaseDeadHeroCards(captureFallenHeroes(result));
+  if (result.events.some((e) => e.type === "commandRefused"))
+    return { ...result, state: original.state };
   const state = result.state;
   if (!state.dungeon) return result;
   const { d, heroes, stats } = context(state);
