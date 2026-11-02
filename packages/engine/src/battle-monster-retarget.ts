@@ -60,11 +60,7 @@ export function legalMonsterRetargetHeroIds(
     const steps = distance(battle.areas, actor.areaId, hero.areaId);
     const maxWithHigh =
       maxRange + (heights[actorArea.elevation] > heights[targetArea.elevation] ? 1 : 0);
-    return (
-      steps !== null &&
-      steps <= maxWithHigh &&
-      (steps >= minRange || (minRange <= 1 && steps === 0))
-    );
+    return steps !== null && steps <= maxWithHigh && steps >= minRange;
   };
   let ids = living.filter(inRange).map((entry) => entry.id);
   if (targetSpec.max > 1) {
