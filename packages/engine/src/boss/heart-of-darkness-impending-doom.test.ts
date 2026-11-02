@@ -211,7 +211,8 @@ it.each([0, 11, -1, 1.5, NaN])("非法 d10 面值拒绝映射", (die) => {
 
 it("无 impendingDoomDie 拒绝 Impending Doom 选招", () => {
   const fighting = heartOfDarknessFighting();
-  const { impendingDoomDie: _removed, ...battleWithoutDie } = fighting.battle!;
+  const battleWithoutDie = { ...fighting.battle! };
+  delete battleWithoutDie.impendingDoomDie;
   const onTurn = onHeartTurn({
     ...fighting,
     battle: battleWithoutDie,
@@ -235,7 +236,7 @@ it("非法 impendingDoomDie 拒绝 Impending Doom 选招", () => {
 it("开战落骰后 Heart 回合按映射执行 Puncture（d10=5）", () => {
   const fighting = heartOfDarknessFighting();
   const hero = fighting.battle!.entities.find((entity) => entity.side === "hero")!;
-  let game = onHeartTurn({
+  const game = onHeartTurn({
     ...fighting,
     battle: {
       ...fighting.battle!,
@@ -263,7 +264,7 @@ it("行动后落骰覆盖后下一 Heart 回合按新面值选招（d10=8 → Di
   const fighting = heartOfDarknessFighting();
   const hero = fighting.battle!.entities.find((entity) => entity.side === "hero")!;
   const cursor = fighting.battle!.rngCursor;
-  let game = onHeartTurn({
+  const game = onHeartTurn({
     ...fighting,
     battle: {
       ...fighting.battle!,
@@ -308,8 +309,7 @@ it("applyCommand 路由 Impending Doom 选招", () => {
   expect(
     result.events.some(
       (event) =>
-        event.type === "dungeonUpdated" &&
-        event.message.includes(`slot ${KNOW_THIS_SKILL_SLOT}`),
+        event.type === "dungeonUpdated" && event.message.includes(`slot ${KNOW_THIS_SKILL_SLOT}`),
     ),
   ).toBe(true);
 });

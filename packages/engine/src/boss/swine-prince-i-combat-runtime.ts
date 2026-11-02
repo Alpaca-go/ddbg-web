@@ -4,7 +4,11 @@ import { skillTargetView, writeResolution, distance } from "../battle";
 import { applySkillHealth } from "../battle-health";
 import { nextBattleRoll } from "../encounter";
 import type { MonsterCardView } from "../monster-skill";
-import { readMonsterAttackView, resolveMonsterSkill, resolveMonsterSkillEffects } from "../monster-skill";
+import {
+  readMonsterAttackView,
+  resolveMonsterSkill,
+  resolveMonsterSkillEffects,
+} from "../monster-skill";
 import { runBossHook } from "./hooks";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 import {
@@ -60,9 +64,7 @@ export function readSwinePrinceIWilburMarkEnabled(script: BossScriptDefinition):
   );
 }
 
-export function readSwinePrinceIWilburMarkSkillSlot(
-  script: BossScriptDefinition,
-): number | null {
+export function readSwinePrinceIWilburMarkSkillSlot(script: BossScriptDefinition): number | null {
   if (!readSwinePrinceIWilburMarkEnabled(script)) return null;
   const result = runBossHook(script, "wilburMark", { scriptId: script.id });
   if (result.status !== "ok") return null;
@@ -70,10 +72,7 @@ export function readSwinePrinceIWilburMarkSkillSlot(
 }
 
 /** Prince 仍在场且 Wilbur 轮到行动 → 强制 Mark 技能 slot，不走姿态骰表。 */
-export function swinePrinceIWilburMarkShouldForceSkill(
-  state: GameState,
-  actorId: string,
-): boolean {
+export function swinePrinceIWilburMarkShouldForceSkill(state: GameState, actorId: string): boolean {
   const battle = state.battle;
   if (!battle?.encounter || battle.monsterAction) return false;
   const turn = battle.encounter.turn;
@@ -307,7 +306,9 @@ export function applySwinePrinceIEnragedDestruction(
   if (prince.life !== card.life) {
     return {
       state,
-      events: [{ type: "commandRefused", message: "Enraged Destruction：Prince Life 不一致（R-048）" }],
+      events: [
+        { type: "commandRefused", message: "Enraged Destruction：Prince Life 不一致（R-048）" },
+      ],
     };
   }
 
@@ -330,9 +331,7 @@ export function applySwinePrinceIEnragedDestruction(
     };
   }
   const areaDistance =
-    prince.areaId === offender.areaId
-      ? 0
-      : distance(battle.areas, prince.areaId, offender.areaId);
+    prince.areaId === offender.areaId ? 0 : distance(battle.areas, prince.areaId, offender.areaId);
   if (areaDistance === null) {
     return {
       state,
@@ -389,7 +388,7 @@ export function applySwinePrinceIEnragedDestruction(
     };
   }
 
-  let entities = battle.entities.map((entry) => {
+  const entities = battle.entities.map((entry) => {
     const updated = writeResolution(entry, prince.id, offender.id, resolved.resolution, false);
     return entry.id === prince.id ? { ...updated, dead: resolved.actorDead } : updated;
   });

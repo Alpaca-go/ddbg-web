@@ -1,9 +1,8 @@
-import { rejectBattleCommand, skillTargetView, type BattleEntity, type BattleState } from "../battle";
+import { rejectBattleCommand, type BattleEntity, type BattleState } from "../battle";
 import { playMonsterSkill } from "../battle-monster";
 import type { ApplyResult, GameState } from "../command";
 import { readMonsterAttackView } from "../monster-skill";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
-import type { BossScriptId } from "./types";
 import type { DarkestMidBossSkillAccContext } from "./darkest-mid-boss-skill-acc-core";
 
 function resolveMidBossSelfActor(
@@ -26,12 +25,7 @@ function resolveMidBossSelfActor(
       `${skillLabel} 须于 ${ctx.bossLabel} 怪物回合执行（${ctx.abilityRef}）`,
     );
   const actor = battle.entities.find((entity) => entity.id === actorId);
-  if (
-    !actor ||
-    actor.side !== "monster" ||
-    actor.dead ||
-    actor.monsterCardId !== ctx.monsterCardId
-  )
+  if (!actor || actor.side !== "monster" || actor.dead || actor.monsterCardId !== ctx.monsterCardId)
     return rejectBattleCommand(state, `仅 ${ctx.bossLabel} 实体可执行 ${skillLabel}（R-048）`);
   if (actor.life === undefined)
     return rejectBattleCommand(state, `${ctx.bossLabel} 缺少 Life（R-048）`);
@@ -57,7 +51,11 @@ export function runDarkestMidBossSkillSelf(
     return rejectBattleCommand(state, `${skillLabel} 卡面目标不是 Self（R-048）`);
   const attack = readMonsterAttackView(card, skillSlot);
   if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
-  if (attack.view.stats_line?.some((segment) => segment.type === "text" && segment.text.includes("Acc")))
+  if (
+    attack.view.stats_line?.some(
+      (segment) => segment.type === "text" && segment.text.includes("Acc"),
+    )
+  )
     return rejectBattleCommand(state, `${skillLabel} 不是无 Acc 的 Self 效果技能（R-048）`);
 
   const prepared: GameState = {

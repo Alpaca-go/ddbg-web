@@ -65,8 +65,6 @@ it("能力卡行动数、战斗卡名字与任务SPECIAL漂移拒绝，不按同
   const large = normalizedMonsterLargeFileSchema.parse(
     read("../../normalized/corebox/monster_large.json"),
   );
-  const mediumRaw = rawFileSchema.parse(read("../../extract/corebox/raw/monster_medium.json"));
-  const largeRaw = rawFileSchema.parse(read("../../extract/corebox/raw/monster_large.json"));
   const absoluteNothingness = loadNormalizedCorebox().absolute_nothingness_support;
   const wrongActions = {
     ...abilities,

@@ -2,9 +2,7 @@ import { expect, it } from "vitest";
 import { applyCommand, type GameState } from "../command";
 import { readFinalFormSequence } from "./final-form-sequence";
 import { finalPreparationFixture } from "../test-helpers/final-preparation";
-import {
-  HEART_OF_DARKNESS_MONSTER_CARD_ID,
-} from "./heart-of-darkness-impending-doom";
+import { HEART_OF_DARKNESS_MONSTER_CARD_ID } from "./heart-of-darkness-impending-doom";
 import {
   DISSOLUTION_SKILL_SLOT,
   KNOW_THIS_SKILL_SLOT,
@@ -119,7 +117,8 @@ it("prepareMonsterAction：Heart 回合走 Impending Doom 映射（d10=5 → Pun
 
 it("prepareMonsterAction：无 impendingDoomDie 拒绝（与显式选招一致）", () => {
   const fighting = heartOfDarknessFighting();
-  const { impendingDoomDie: _removed, ...battleWithoutDie } = fighting.battle!;
+  const battleWithoutDie = { ...fighting.battle! };
+  delete battleWithoutDie.impendingDoomDie;
   const game = onHeartTurn({ ...fighting, battle: battleWithoutDie });
   const result = applyCommand(game, {
     type: "prepareMonsterAction",
@@ -147,8 +146,7 @@ it("prepareMonsterAction：d10=1 → Know This（slot 1）", () => {
   expect(
     result.events.some(
       (event) =>
-        event.type === "dungeonUpdated" &&
-        event.message.includes(`slot ${KNOW_THIS_SKILL_SLOT}`),
+        event.type === "dungeonUpdated" && event.message.includes(`slot ${KNOW_THIS_SKILL_SLOT}`),
     ),
   ).toBe(true);
 });
@@ -163,8 +161,7 @@ it("prepareMonsterAction：d10=10 → Dissolution（slot 3）", () => {
   expect(
     result.events.some(
       (event) =>
-        event.type === "dungeonUpdated" &&
-        event.message.includes(`slot ${DISSOLUTION_SKILL_SLOT}`),
+        event.type === "dungeonUpdated" && event.message.includes(`slot ${DISSOLUTION_SKILL_SLOT}`),
     ),
   ).toBe(true);
 });

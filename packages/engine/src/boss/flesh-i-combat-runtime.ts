@@ -4,11 +4,8 @@ import type { MonsterCardView } from "../monster-skill";
 import { runBossHook } from "./hooks";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 import {
-  FLESH_I_BONE_MONSTER_CARD_ID,
-  FLESH_I_BUTT_MONSTER_CARD_ID,
   FLESH_I_COMBAT_MONSTER_CARD_ID,
   FLESH_I_HEAD_MONSTER_CARD_ID,
-  FLESH_I_HEART_MONSTER_CARD_ID,
   FLESH_I_ONE_BODY_POOL_ID,
   FLESH_I_ONE_BODY_PART_ORDER,
   FLESH_I_SCRIPT_ID,
@@ -112,10 +109,7 @@ export function reconcileFleshOneBodyPools(
   if (flesh.length === 0) return entities;
   const maxWounds = Math.max(...flesh.map((entity) => entity.wounds));
   const stored = battle.oneBodyPools?.[FLESH_I_ONE_BODY_POOL_ID];
-  const life =
-    stored?.life ??
-    flesh.find((entity) => entity.life !== undefined)?.life ??
-    null;
+  const life = stored?.life ?? flesh.find((entity) => entity.life !== undefined)?.life ?? null;
   if (life === null) return entities;
   const pool = { life, wounds: maxWounds };
   const dead = pool.wounds >= pool.life;
@@ -201,7 +195,7 @@ export function applyFleshIOneBodyBattleStart(state: GameState): ApplyResult {
   let nextBattle = battle;
   const added: string[] = [];
   const poolLife = headCard.life;
-  let poolWounds = Math.max(...existing.map((entity) => entity.wounds));
+  const poolWounds = Math.max(...existing.map((entity) => entity.wounds));
 
   for (const part of FLESH_I_ONE_BODY_PART_ORDER) {
     const cardId = fleshOneBodyPartCardId(part);
@@ -317,10 +311,7 @@ export function applyFleshIOneBodyBattleStart(state: GameState): ApplyResult {
 }
 
 /** 每轮开始 morph：随机部位表未核实，拒绝且不消耗 RNG。 */
-export function applyFleshOneBodyMorphAtRoundStart(
-  state: GameState,
-  round: number,
-): ApplyResult {
+export function applyFleshOneBodyMorphAtRoundStart(state: GameState, round: number): ApplyResult {
   if (round <= 1) return { state, events: [] };
   const scriptId = resolveEncounterBossScriptId(state);
   if (scriptId !== FLESH_I_SCRIPT_ID) return { state, events: [] };

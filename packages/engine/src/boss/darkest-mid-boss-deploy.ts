@@ -7,7 +7,6 @@ import {
   type BattleState,
 } from "../battle";
 import { createLootState } from "../loot";
-import type { SkillStance } from "../hero-skill";
 import type { SkillTargetSide } from "../hero-skill";
 import type { MonsterCardView } from "../monster-skill";
 import { skillBelongsToFormalHero } from "../formal-roster-catalog";
@@ -81,8 +80,7 @@ function spawnDeployedMonster(
   refuse: (message: string) => ApplyResult,
 ): BattleEntity | ApplyResult {
   const card = monsters.find((entry) => entry.id === spawn.cardId) as
-    | (MonsterCardView & { readonly dodge?: number; readonly life?: number })
-    | undefined;
+    (MonsterCardView & { readonly dodge?: number; readonly life?: number }) | undefined;
   if (!card || !("skills" in card) || card.life === undefined)
     return refuse(`${spawn.cardId} 缺少 Life 或战斗目录条目，不能伪造 Boss 部署（R-048）`);
   if (encounter.combatReady)
@@ -111,7 +109,10 @@ function spawnDeployedMonster(
   };
 }
 
-function buildHeroEntities(state: GameState, refuse: (message: string) => ApplyResult): BattleEntity[] | ApplyResult {
+function buildHeroEntities(
+  state: GameState,
+  refuse: (message: string) => ApplyResult,
+): BattleEntity[] | ApplyResult {
   const d = state.dungeon!;
   const { heroStats: stats, skills, monsters: _monsters } = d.battleCatalog!;
   void _monsters;
@@ -264,7 +265,9 @@ export function deployDarkestMidBoss(state: GameState): ApplyResult {
       ],
     };
   } catch (error) {
-    return refuse(`最暗 Boss 开战交接无效：${error instanceof Error ? error.message : String(error)}`);
+    return refuse(
+      `最暗 Boss 开战交接无效：${error instanceof Error ? error.message : String(error)}`,
+    );
   }
 }
 
