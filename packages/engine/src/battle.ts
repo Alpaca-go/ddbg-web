@@ -1,3 +1,4 @@
+import type { MonsterSupportResolvedEvent } from "./battle-monster-support";
 import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import {
   heroSkillUsesSelfTarget,
@@ -331,6 +332,7 @@ export type BattleState = BattleSetup & {
   readonly shufflePassiveIds?: readonly string[];
   /** 位移完成后再记录行动 / 死亡补位，不能重复执行技能或重复扣行动。 */
   readonly shuffleContinuation:
+    | MonsterSupportResolvedEvent
     | (HeroSkillEmptyAreaResolvedEvent & {
         readonly targetIds?: never;
         readonly casualtyIds?: readonly string[];

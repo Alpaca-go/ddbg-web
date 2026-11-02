@@ -1,3 +1,4 @@
+import { isDarkestSupportSkill } from "./battle-monster-support";
 import { isCollectedVestalCard, isBoneBearerRally } from "./boss/collected-vestal";
 import { isInvokingMonster, moveInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand } from "./battle";
@@ -193,7 +194,10 @@ export function prepareMonsterAction(
       ],
     );
   }
-  const support = isCollectedVestalCard(card.id) || isBoneBearerRally(card.id, selected.skillSlot);
+  const support =
+    isCollectedVestalCard(card.id) ||
+    isBoneBearerRally(card.id, selected.skillSlot) ||
+    isDarkestSupportSkill(card.id, selected.skillSlot);
   const heroes: MonsterTargetHero[] = [];
   for (const hero of battle.entities.filter(
     (entry) => entry.side === (support ? "monster" : "hero") && !entry.dead,
@@ -203,6 +207,16 @@ export function prepareMonsterAction(
       !battle.areas.some((area) => area.id === hero.areaId)
     )
       return rejectBattleCommand(state, "角色区域不在已核实几何内（R-048）");
+    if (isDarkestSupportSkill(card.id, selected.skillSlot) && hero.id === actor.id) {
+      const attack = readMonsterAttackView(card, selected.skillSlot);
+      if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
+      const range = readPrintedRange(attack.view);
+      if (
+        (range.kind === "exact" && range.distance > 0) ||
+        (range.kind === "interval" && range.min > 0)
+      )
+        continue;
+    }
     const areaDistance = distance(battle.areas, actor.areaId, hero.areaId);
     heroes.push({
       id: hero.id,
