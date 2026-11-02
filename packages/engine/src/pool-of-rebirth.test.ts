@@ -45,7 +45,7 @@ function setup(changes: Partial<BattleEntity> = {}, light = 5, seed = 1): GameSt
     blight: [],
     ...(i ? {} : changes),
   }));
-  // 机制夹具：只开启区域效果以测公开回合命令；生产面仍usable=false。
+  // 独立区域机制夹具；公开清场复活由pool-rebirth-flow场景覆盖。
   const created = createBattleState(seed, {
     heroStats: JSON.parse(JSON.stringify(stats)) as NonNullable<BattleSetup["heroStats"]>,
     entities: [
@@ -104,10 +104,10 @@ const end = (s: GameState) =>
 const healed = (r: ReturnType<typeof end>) =>
   r.events.filter((e) => e.type === "heroHealthResolved").filter((e) => e.effect.type === "heal");
 
-it("R-146区域实现不解除生产面/整房复活停点，仅F区投影", () => {
-  expect(tile.usable).toBe(false);
-  expect(tile.specialRoomEffect.runtimeReady).toBe(false);
-  expect(roomTileBattleAreas(tile).some((a) => a.poolOfRebirth)).toBe(false);
+it("生产面开放后仅F区投影重生池区域效果，关闭面时不投影", () => {
+  expect(tile.usable).toBe(true);
+  expect(tile.specialRoomEffect.runtimeReady).toBe(true);
+  expect(roomTileBattleAreas({ ...tile, usable: false }).some((a) => a.poolOfRebirth)).toBe(false);
   expect(
     roomTileBattleAreas({ ...tile, usable: true })
       .filter((a) => a.poolOfRebirth)

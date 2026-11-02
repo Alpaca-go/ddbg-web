@@ -148,6 +148,7 @@ export type DungeonState = {
   readonly fallenHeroes?: readonly import("./fallen-heroes").FallenHero[];
   /** R-147：复活后在驿站等待的完整英雄；不占当前四人队伍或等待代币。 */
   readonly stagecoachHeroes?: readonly DungeonState["heroes"][number][];
+  readonly poolRebirthRooms?: readonly import("./pool-rebirth-flow").PoolRebirthRoom[];
   /** 独立于原流程待选：处置死者饰品后恢复原待选。 */
   readonly deathTrinketChoice?: PendingChoice;
   readonly deathChoiceCursor?: number;

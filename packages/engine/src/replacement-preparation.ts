@@ -7,7 +7,11 @@ import { replacementHeroCandidates } from "./hero-death-estate";
 import { ownedHeroSkills, heroSkillSlotCount } from "./hero-loadout";
 
 type Hero = DungeonState["heroes"][number];
-export type PreparedReplacement = { readonly deadHeroId: string; readonly hero: Hero };
+export type PreparedReplacement = {
+  readonly deadHeroId: string;
+  readonly hero: Hero;
+  readonly source?: "stagecoach";
+};
 export type ReplacementPreparation = {
   readonly deadHeroId: string;
   readonly stage: "hero" | "upgrades" | "skills";
@@ -64,6 +68,12 @@ function deadHeroes(state: GameState) {
 function candidates(state: GameState) {
   return replacementHeroCandidates(state.dungeon!);
 }
+function revivedCandidates(state: GameState) {
+  const d = state.dungeon!;
+  return (d.stagecoachHeroes ?? []).filter(
+    (h) => !h.dead && !(d.preparedReplacements ?? []).some((p) => p.hero.id === h.id),
+  );
+}
 function upgrades(state: GameState, hero: Hero) {
   const catalog = state.dungeon!.battleCatalog!,
     stat = catalog.heroStats.find((s) => s.id === hero.heroStatId);
@@ -92,10 +102,16 @@ function upgrades(state: GameState, hero: Hero) {
 }
 function options(state: GameState, draft: Draft): PendingChoice["options"] {
   if (draft.stage === "hero")
-    return candidates(state).map((s) => ({
-      id: s.id,
-      label: `选择 ${s.name} I（继承${state.dungeon!.stagecoachXp ?? 0} XP，消耗1枚等待代币）`,
-    }));
+    return [
+      ...(stagecoachWaitingTokens(state.dungeon!)! > 0 ? candidates(state) : []).map((s) => ({
+        id: s.id,
+        label: `选择 ${s.name} I（继承${state.dungeon!.stagecoachXp ?? 0} XP，消耗1枚等待代币）`,
+      })),
+      ...revivedCandidates(state).map((h) => ({
+        id: `stagecoach:${h.id}`,
+        label: `让复活的 ${state.dungeon!.battleCatalog!.heroStats.find((s) => s.id === h.heroStatId)!.name} 补位（保留等级/技能/XP/持牌，不消耗等待代币）`,
+      })),
+    ];
   const hero = draft.hero!;
   if (draft.stage === "skills")
     return (ownedHeroSkills(hero, state.dungeon!.battleCatalog!) ?? [])
@@ -169,12 +185,12 @@ export function beginReplacementPreparation(state: GameState): ApplyResult {
     )
   )
     return rejectBattleCommand(state, "需有已登记、饰品处置完成且尚未准备替补的死者（R31）");
-  if (stagecoachWaitingTokens(d) === 0)
+  if (stagecoachWaitingTokens(d) === 0 && !revivedCandidates(state).length)
     return {
       state: { ...state, dungeon: { ...d, campaignFailure: "noWaitingHeroes" } },
       events: [{ type: "dungeonUpdated", message: "没有等待英雄代币可移除，战役失败（R33）" }],
     };
-  if (!candidates(state).length)
+  if (!candidates(state).length && !revivedCandidates(state).length)
     return rejectBattleCommand(
       state,
       "当前获批可用英雄目录不足，保持停点；未扣代币、未判战役失败（R-048）",
@@ -205,6 +221,31 @@ export function chooseReplacementPreparation(
   )
     return rejectBattleCommand(state, "替补准备选择无效、过期或资源不足，未扣资源");
   if (p.stage === "hero") {
+    if (optionId.startsWith("stagecoach:")) {
+      const hero = revivedCandidates(state).find((h) => `stagecoach:${h.id}` === optionId);
+      if (!hero) return rejectBattleCommand(state, "复活英雄已不可用");
+      const { replacementPreparation: _preparation, ...remaining } = d;
+      void _preparation;
+      return {
+        state: {
+          ...state,
+          dungeon: {
+            ...remaining,
+            preparedReplacements: [
+              ...(d.preparedReplacements ?? []),
+              { deadHeroId: p.deadHeroId, hero, source: "stagecoach" },
+            ],
+          },
+        },
+        events: [
+          {
+            type: "dungeonUpdated",
+            message:
+              "复活英雄准备补位：不消耗等待代币，保留原等级、XP、技能与实体牌（R-147–149、R-152）",
+          },
+        ],
+      };
+    }
     const stat = candidates(state).find((s) => s.id === optionId),
       tokens = stagecoachWaitingTokens(d)!;
     if (!stat || tokens < 1) return rejectBattleCommand(state, "候选已不可用或代币不足");

@@ -69,7 +69,7 @@ it("R-144：独立最暗编号1、12区容量/高地、14通路/9角点及八姿
   expect(raw).toEqual(before);
 });
 
-it("星形绑定对应Room效果行，区域与整房效果分开；运行时仍不可战", () => {
+it("星形绑定对应Room效果行，区域与整房效果完整开放", () => {
   expect(approvedPoolOfRebirth.unresolvedMarkers).toEqual([]);
   expect(approvedPoolOfRebirth.effectSource.page).toBe(14);
   expect(approvedPoolOfRebirth.specialRegions[0]).toMatchObject({
@@ -81,18 +81,18 @@ it("星形绑定对应Room效果行，区域与整房效果分开；运行时仍
     "{icon:731f6665d0} 3 per Negative Quirk.",
   );
   expect(approvedPoolOfRebirth.specialRoomEffect.printedText).toContain("to revive a dead Hero");
-  expect(approvedPoolOfRebirth.specialRoomEffect.runtimeReady).toBe(false);
+  expect(approvedPoolOfRebirth.specialRoomEffect.runtimeReady).toBe(true);
   const room = roomFile.cards.find((r) => r.id === "room:p014")!;
-  expect(selectRoomTile(room, geometryFile)).toEqual({
-    status: "refused",
-    reason: expect.stringContaining("已入库"),
+  expect(selectRoomTile(room, geometryFile)).toMatchObject({
+    status: "matched",
+    tile: { roomId: "room:p014" },
   });
-  expect(geometryFile.tiles.filter((t) => t.usable)).toHaveLength(9);
+  expect(geometryFile.tiles.filter((t) => t.usable)).toHaveLength(10);
 });
 
 it("不允许改变容量、边、部署、未确认标记或绕过usable停点", () => {
   for (const patch of [
-    { usable: true },
+    { usable: false },
     { specialRegions: [] },
     { effectSource: { ...approvedPoolOfRebirth.effectSource, page: 9 } },
     { areas: approvedPoolOfRebirth.areas.map((a) => (a.id === "F" ? { ...a, capacity: 4 } : a)) },

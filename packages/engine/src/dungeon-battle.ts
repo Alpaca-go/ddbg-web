@@ -1,5 +1,6 @@
 import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import { questMonsterDeploymentHold } from "./quest-monster-deployment";
+import { deployDarkestOrdinaryEncounter } from "./darkest-ordinary-encounter-deploy";
 import { finishDarkestDungeonBattle } from "./darkest-finish-battle";
 import { darkestOrdinaryDeploymentHold } from "./darkest-ordinary-monster-deploy";
 import { darkestMidBossDeploymentHold } from "./boss/darkest-mid-boss-runtime";
@@ -69,6 +70,12 @@ export function startDungeonBattle(state: GameState): ApplyResult {
   const room = d?.rooms.find((r) => r.id === d.position);
   const refuse = (message: string) => rejectBattleCommand(state, message);
   if (d?.darkest) {
+    if (
+      selected.status === "matched" &&
+      d.darkest.ordinaryDeployment &&
+      selected.tile.roomId === "room:p014"
+    )
+      return deployDarkestOrdinaryEncounter(state);
     const darkestHold = darkestOrdinaryDeploymentHold(d) ?? darkestMidBossDeploymentHold(d);
     if (darkestHold) return refuse(darkestHold);
   }

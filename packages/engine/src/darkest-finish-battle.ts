@@ -17,6 +17,7 @@ import { darkestOrdinaryCombatActive } from "./darkest-ordinary-encounter-deploy
 import { darkestOrdinaryDeploymentMatches } from "./darkest-ordinary-monster-deploy";
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
+import { registerPoolRebirthClear } from "./pool-rebirth-flow";
 
 function reject(state: GameState, message: string): ApplyResult {
   return rejectBattleCommand(state, message);
@@ -162,7 +163,7 @@ export function finishDarkestDungeonBattle(state: GameState): ApplyResult {
   void _ordinary;
   void _boss;
 
-  const result: ApplyResult = {
+  let result: ApplyResult = {
     state: {
       ...outside,
       dungeon: {
@@ -221,6 +222,7 @@ export function finishDarkestDungeonBattle(state: GameState): ApplyResult {
     ],
   };
 
+  result = registerPoolRebirthClear(result, activeCardId, victory);
   if (midBoss && deckBefore) {
     const after = result.state.dungeon!.darkest!.monsterDeck;
     if (

@@ -11,6 +11,8 @@ import { monsterPoolFileSchema } from "../../../../packages/data/src/monster-poo
 import rawTrinkets from "../../../../packages/data/normalized/corebox/trinket.json";
 import { normalizedTrinketFileSchema } from "../../../../packages/data/src/normalize/schema";
 import { curios } from "./dungeon-data";
+import darkestPool from "../../../../packages/data/normalized/corebox/darkest_monster_pool.json";
+const darkestIds = new Set(darkestPool.cards.map((c) => c.combatCardId));
 
 export const legacyTaskSources: CoreQuestSources = {
   catalog: {
@@ -28,7 +30,11 @@ const { bossMonsters = [], ...preBossQuestBattleData } = questBattleData;
 /** 加入 Boss 目录前的可信正式来源；只用于严格旧档验证。 */
 export const preBossTaskSources: CoreQuestSources = {
   ...legacyTaskSources,
-  catalog: { ...legacyTaskSources.catalog, ...preBossQuestBattleData },
+  catalog: {
+    ...legacyTaskSources.catalog,
+    ...preBossQuestBattleData,
+    monsters: preBossQuestBattleData.monsters.filter((c) => !darkestIds.has(c.id)),
+  },
 };
 
 export const taskSources: CoreQuestSources = {
@@ -39,6 +45,13 @@ export const taskSources: CoreQuestSources = {
   },
 };
 
+export const preDarkestTaskSources: CoreQuestSources = {
+  ...taskSources,
+  catalog: {
+    ...taskSources.catalog,
+    monsters: taskSources.catalog.monsters.filter((c) => !darkestIds.has(c.id)),
+  },
+};
 /** #416's fixed 141-card higher catalog, for strict validation before upgrading catalog fields. */
 const abominationHigherAdded = new Set(
   [218, 219, 221, 222, 224, 225, 227, 228, 230, 231].map((p) => `hero_skill:p${p}`),
@@ -48,6 +61,7 @@ export const preAbominationTaskSources: CoreQuestSources = {
   catalog: {
     ...taskSources.catalog,
     skills: taskSources.catalog.skills.filter((c) => !abominationHigherAdded.has(c.id)),
+    monsters: preDarkestTaskSources.catalog.monsters,
   },
 };
 

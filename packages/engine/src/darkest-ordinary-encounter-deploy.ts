@@ -16,6 +16,8 @@ import type { SpawnPlacement } from "./spawn";
 import type { DungeonState } from "./dungeon";
 import { isDarkestQuest } from "./darkest-setup";
 import { darkestOrdinaryDeploymentMatches } from "./darkest-ordinary-monster-deploy";
+import { readRoomTile } from "./room-tile-selection";
+import { roomTileBattleAreas } from "./battle-monster-movement";
 
 const SKELETON_STANCE_AREAS = {
   hero: {
@@ -201,18 +203,35 @@ export function deployDarkestOrdinaryEncounter(state: GameState): ApplyResult {
   }
   const heroes = buildHeroEntities(state, refuse);
   if (!Array.isArray(heroes)) return heroes;
+  const selected = readRoomTile(
+    d.roomCards!.cards.find((c) => c.id === d.roomCards!.active!.cardId),
+    d.roomCards!.active!.tileId,
+  );
+  if (d.roomCards!.active!.tileId && selected.status !== "matched")
+    return refuse("房间记录板块未通过生产目录校验");
   const geometryNote =
-    "专属 Room Tile 几何与 Speed/选招仍 hold；使用 darkest-ordinary-* 占位区域（R-048）";
+    selected.status === "matched"
+      ? `${selected.tile.name}：使用获批几何和部署`
+      : "专属 Room Tile 几何仍hold；使用 darkest-ordinary-* 占位区域（R-048）";
   try {
     const battle = createBattleState(state.seed, {
       roomName: roomLabel(d),
       ...(d.trinkets ? { trinkets: d.trinkets } : {}),
       ...(d.conditions ? { conditions: d.conditions } : {}),
       heroStats: d.battleCatalog.heroStats,
-      entities: [...heroes, ...spawned],
+      entities: [
+        ...heroes.map((h) =>
+          selected.status === "matched"
+            ? { ...h, areaId: selected.deployment.heroes[h.stance!] }
+            : h,
+        ),
+        ...spawned,
+      ],
       skills: d.battleCatalog.skills,
       monsters,
-      areas: skeletonBattleAreas(),
+      areas:
+        selected.status === "matched" ? roomTileBattleAreas(selected.tile) : skeletonBattleAreas(),
+      ...(selected.status === "matched" ? { lootAreas: selected.deployment.lootAreas } : {}),
       light: d.explorationSetup?.light ?? 4,
       provisions: d.explorationSetup?.provisions ?? [],
       resolveCards: d.resolveCards,
@@ -229,7 +248,10 @@ export function deployDarkestOrdinaryEncounter(state: GameState): ApplyResult {
             ...d.roomCards!,
             active: {
               ...d.roomCards!.active!,
-              blockedReason: `${deployment.blockedReason}；已 deployDarkestOrdinaryEncounter，等待 startBattle（battleReady: false）`,
+              blockedReason:
+                selected.status === "matched"
+                  ? "房间已布置，可以开始战斗。"
+                  : `${deployment.blockedReason}；已 deployDarkestOrdinaryEncounter，等待 startBattle（battleReady: false）`,
             },
           },
         },
