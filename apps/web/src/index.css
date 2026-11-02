@@ -187,6 +187,10 @@ small {
   gap: 1rem;
   align-items: start;
 }
+.workspace > .board {
+  min-width: 0;
+  overflow: auto;
+}
 .panel {
   border: 1px solid #3b3931;
   border-radius: 6px;

@@ -19,6 +19,9 @@ test("B12：回村结算后抽取下一任务并进入第二任务开局补给",
     );
     const code = plugin.battleDataPlugin().load("\0virtual:quest-battle-data");
     const battleData = JSON.parse(code.slice("export const battleData = ".length, -1));
+    // 与 taskSources 一致：Boss 并入怪物目录，不保留虚拟模块的辅助字段。
+    battleData.monsters = [...battleData.monsters, ...(battleData.bossMonsters ?? [])];
+    delete battleData.bossMonsters;
     const sourceHelpers = await server.ssrLoadModule(
       fileURLToPath(
         new URL("../../../packages/engine/src/test-helpers/core-quest.ts", import.meta.url),
@@ -48,7 +51,7 @@ test("B12：回村结算后抽取下一任务并进入第二任务开局补给",
   );
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
 
-  await expect(page.getByTestId("formal-dungeon-phase-center")).toBeVisible();
+  await expect(page.getByTestId("tabletop-view")).toHaveAttribute("data-phase", "hamlet");
   await expect(page.getByTestId("hamlet-event")).toContainText("准备天数已用完");
   await expect(page.getByTestId("offer-next-quest")).toBeVisible();
 
@@ -59,7 +62,7 @@ test("B12：回村结算后抽取下一任务并进入第二任务开局补给",
   const questLabel = (await questButton.innerText()).trim();
   await questButton.click();
 
-  await expect(page.getByTestId("formal-dungeon-phase-center")).toBeVisible();
+  await expect(page.getByTestId("tabletop-view")).toHaveAttribute("data-phase", "expeditionPrep");
   await expect(page.getByTestId("expedition-prep-center")).toBeVisible();
   await expect(page.getByRole("button", { name: "掷开局补给骰", exact: true })).toBeVisible();
   await expect(page.getByTestId("phase-crumb-expeditionPrep")).toHaveAttribute(
