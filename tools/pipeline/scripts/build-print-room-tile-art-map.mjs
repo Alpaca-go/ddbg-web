@@ -54,8 +54,8 @@ const map = {
   },
   tiles,
   pendingConfirmation: [
-    "Mapped: 9 geometryVerified Ruins faces (room_tile_geometry rooms 1–5, FRONT/BACK pages only).",
-    "Not mapped: Ruins p006–p012 faces and all Darkest Dungeon / other location tiles (no approved geometry).",
+    `Mapped: ${tiles.length} geometryVerified faces from the approved room_tile_geometry catalog.`,
+    "Other faces remain unmapped until their individual geometry is approved (R-048).",
     "PNG binaries gitignored; local cache required for battle underlay art.",
   ],
 };

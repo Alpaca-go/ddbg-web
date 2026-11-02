@@ -13,9 +13,17 @@ describe("print room tile art map", () => {
   it("maps geometry-verified tiles to manual face cache paths", () => {
     const meta = roomTileArtMapMeta();
     expect(meta.schema).toBe("ddbg.print-room-tile-art-map.v1");
-    expect(meta.tileCount).toBe(9);
+    expect(meta.tileCount).toBe(11);
     expect(meta.faceManualDir).toBe(ROOM_TILE_FACE_MANUAL_DIR);
-    expect(printMap.tiles).toHaveLength(9);
+    expect(printMap.tiles).toHaveLength(11);
+    const hall = lookupRoomTileArt("room_tile:p009:back");
+    expect(hall).toMatchObject({
+      name: "Hall of Ascension",
+      printPage: 9,
+      primaryPdf: "DD_COREBOX_TILES_BACK.pdf",
+      face: "back",
+      facePngRel: "manual/room-tile-faces/room_tile-p009-back.png",
+    });
 
     const fountain = lookupRoomTileArt("room_tile:p002:front");
     expect(fountain?.name).toBe("Healing Fountain");

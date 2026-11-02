@@ -37,7 +37,7 @@ import {
   objectiveRoomResolutionAfterVictory,
   readSetAsideRoomCardIds,
 } from "./dungeon-objective";
-import { heroSkillSlotCount } from "./hero-loadout";
+import { heroSkillSlotCount, questHeroSkillCount } from "./hero-loadout";
 import { readMonsterSelfStatuses } from "./monster-self-status";
 import type { StatusEffect } from "./status";
 import { readBasicQuest } from "../../data/src/basic-quests";
@@ -140,8 +140,8 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       hero.dead ||
       hero.wounds === undefined ||
       !selected ||
-      selected.length !== slots ||
-      new Set(hero.skillIds).size !== slots ||
+      selected.length !== questHeroSkillCount(hero) ||
+      new Set(hero.skillIds).size !== questHeroSkillCount(hero) ||
       selected.some(
         (s) =>
           !s ||

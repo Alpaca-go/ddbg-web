@@ -16,6 +16,17 @@ export function heroTrinketSlotCount(level: number) {
   return level;
 }
 
+/** R-155：仅允许升华大厅记录的空槽，不放宽其它英雄的装备数。 */
+export function questHeroSkillCount(hero: {
+  readonly level?: number;
+  readonly hallAscensionVacantSlots?: number;
+}) {
+  const vacant = hero.hallAscensionVacantSlots ?? 0;
+  return Number.isSafeInteger(vacant) && vacant >= 0 && vacant <= (hero.level ?? 0) - 1
+    ? heroSkillSlotCount(hero.level ?? 0) - vacant
+    : -1;
+}
+
 /** 由永久移除阶梯推导当前拥有的 7 张技能（含未装备）；不把 catalog 全量当作持有。 */
 export function ownedHeroSkills(
   hero: Pick<Hero, "heroStatId" | "skillIds" | "permanentlyRemovedSkillIds">,
@@ -132,6 +143,7 @@ export function setEquippedSkills(
   const skillIds = [...command.skillIds];
   const updated = {
     ...hero,
+    ...(hero.hallAscensionVacantSlots !== undefined ? { hallAscensionVacantSlots: 0 } : {}),
     skillIds,
     ...(hero.combat ? { combat: { ...hero.combat, skillIds } } : {}),
   };

@@ -95,6 +95,7 @@ export type BattleEntity = PassiveHolder &
   };
 
 export type BattleArea = {
+  readonly hallOfAscension?: true;
   readonly hideAndHeal?: true;
   readonly lootTheChest?: true;
   readonly invokerGoal?: true;
@@ -258,6 +259,7 @@ export type BattleState = BattleSetup & {
         readonly resolved: MonsterSkillResolvedEvent;
         readonly casualtyIds: readonly string[];
       }
+    | { readonly type: "hallAscension"; readonly actorId: string; readonly choice: PendingChoice }
     | { readonly type: "trinketReward"; readonly actorId: string; readonly choice: PendingChoice }
     | { readonly type: "invokerMove"; readonly actorId: string; readonly choice: PendingChoice }
     | {
@@ -365,10 +367,9 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
   }
   if (
     setup.lootAreas &&
-    (!unique(setup.lootAreas) ||
-      setup.lootAreas.some((id) => !setup.areas.some((area) => area.id === id)))
+    setup.lootAreas.some((id) => !setup.areas.some((area) => area.id === id))
   ) {
-    throw new Error("宝箱标记必须是唯一的已知区域");
+    throw new Error("宝箱标记必须引用已知区域；同区可有多个独立代币");
   }
   if (
     !Number.isInteger(seed) ||

@@ -46,7 +46,7 @@ const tileShape = z.strictObject({
   }),
   ruling: z.literal("R-153"),
   geometryVerified: z.literal(true),
-  usable: z.literal(false),
+  usable: z.literal(true),
   effectSource: z.strictObject({
     roomId: z.literal("room:p015"),
     file: z.literal(ROOM_FRONT),
@@ -60,7 +60,7 @@ const tileShape = z.strictObject({
       effect: z.literal("hallOfAscensionUpgrade"),
       status: z.literal("confirmed"),
       printedText: z.string(),
-      runtimeReady: z.literal(false),
+      runtimeReady: z.literal(true),
     }),
   ),
   deployment: z.strictObject({
@@ -101,7 +101,7 @@ const tileShape = z.strictObject({
   ),
 });
 
-// R-153：几何及卡文对应获批；升级运行时尚未开放。
+// R-153–155：几何、费用、重复使用与新增空槽已接通。
 export const approvedHallOfAscension = tileShape.parse({
   id: "room_tile:p009:back",
   rawId: "dungeon_tile:p009",
@@ -116,7 +116,7 @@ export const approvedHallOfAscension = tileShape.parse({
   },
   ruling: "R-153",
   geometryVerified: true,
-  usable: false,
+  usable: true,
   effectSource: {
     roomId: "room:p015",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
@@ -131,7 +131,7 @@ export const approvedHallOfAscension = tileShape.parse({
       status: "confirmed",
       printedText:
         "{icon:0fd119772a} : Heroes can spend 2 actions here and suffer {icon:9b00e692ba} +3 to instantly upgrade themselves or one of their Skills.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
   ],
   deployment: {

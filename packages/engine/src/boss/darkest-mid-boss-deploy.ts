@@ -10,7 +10,7 @@ import { createLootState } from "../loot";
 import type { SkillTargetSide } from "../hero-skill";
 import type { MonsterCardView } from "../monster-skill";
 import { skillBelongsToFormalHero } from "../formal-roster-catalog";
-import { heroSkillSlotCount } from "../hero-loadout";
+import { questHeroSkillCount } from "../hero-loadout";
 import { ownedHeroSkills } from "../hero-loadout";
 import { statusProjection } from "../status";
 import type { SpawnPlacement } from "../spawn";
@@ -120,7 +120,7 @@ function buildHeroEntities(
   for (const hero of d.heroes) {
     const stat = stats.find((entry) => entry.id === hero.heroStatId);
     const selected = hero.skillIds?.map((id) => skills.find((skill) => skill.id === id));
-    const slots = heroSkillSlotCount(stat?.level ?? 0);
+    const slots = questHeroSkillCount(hero);
     if (
       !stat ||
       !stat.attributesVerified ||

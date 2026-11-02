@@ -2518,7 +2518,7 @@
    },
    "ruling": "R-153",
    "geometryVerified": true,
-   "usable": false,
+   "usable": true,
    "effectSource": {
     "roomId": "room:p015",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
@@ -2532,7 +2532,7 @@
      "effect": "hallOfAscensionUpgrade",
      "status": "confirmed",
      "printedText": "{icon:0fd119772a} : Heroes can spend 2 actions here and suffer {icon:9b00e692ba} +3 to instantly upgrade themselves or one of their Skills.",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "deployment": {

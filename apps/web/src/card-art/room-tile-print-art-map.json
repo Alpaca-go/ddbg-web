@@ -2,7 +2,7 @@
   "schema": "ddbg.print-room-tile-art-map.v1",
   "source": {
     "geometry": "packages/data/normalized/corebox/room_tile_geometry.json",
-    "tileCount": 9,
+    "tileCount": 11,
     "exportScript": "tools/pipeline/print-card-art/export_room_tile_faces.py",
     "notes": [
       "facePngRel paths are relative to .cache/print-card-art/ (DDBG_PRINT_CARD_ART_CACHE).",
@@ -111,11 +111,33 @@
       "matchMethod": "geometry_source_trim_page",
       "reviewVerdict": "R-065",
       "areaIds": ["O1", "O2", "O3", "O4", "O5", "O6", "O7", "O8", "O9"]
+    },
+    {
+      "tileId": "room_tile:p009:front",
+      "name": "Pool of Rebirth",
+      "facePngRel": "manual/room-tile-faces/room_tile-p009-front.png",
+      "printPage": 9,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-144",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
+    },
+    {
+      "tileId": "room_tile:p009:back",
+      "name": "Hall of Ascension",
+      "facePngRel": "manual/room-tile-faces/room_tile-p009-back.png",
+      "printPage": 9,
+      "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
+      "face": "back",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-153",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
     }
   ],
   "pendingConfirmation": [
-    "Mapped: 9 geometryVerified Ruins faces (room_tile_geometry rooms 1–5, FRONT/BACK pages only).",
-    "Not mapped: Ruins p006–p012 faces and all Darkest Dungeon / other location tiles (no approved geometry).",
+    "Mapped: 11 geometryVerified faces from the approved room_tile_geometry catalog.",
+    "Other faces remain unmapped until their individual geometry is approved (R-048).",
     "PNG binaries gitignored; local cache required for battle underlay art."
   ]
 }

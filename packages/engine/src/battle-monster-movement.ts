@@ -59,6 +59,16 @@ export function roomTileBattleAreas(tile: {
     ...area,
     ...(tile.usable === true &&
     tile.specialRegions?.some(
+      (r) =>
+        r.areaId === area.id &&
+        r.effect === "hallOfAscensionUpgrade" &&
+        r.status === "confirmed" &&
+        r.runtimeReady,
+    )
+      ? { hallOfAscension: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
       (region) =>
         region.areaId === area.id &&
         region.effect === "poolOfRebirth" &&

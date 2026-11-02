@@ -6,6 +6,10 @@ const pendingSteps: Record<
   NonNullable<BattleState["pending"]>["type"],
   { readonly label: string; readonly hint: string }
 > = {
+  hallAscension: {
+    label: "等待升华升级选择",
+    hint: "选择升级英雄或一项技能；确认后支付行动、压力及对应XP/金币。",
+  },
   damageStone: {
     label: "等待受伤饰品选择",
     hint: "骰面已确定；选择是否使用Damage Stone反面，再结算伤害。",
