@@ -64,10 +64,13 @@ it("Spiked最终十五通路、两墙、无角点；Treasure T4-T5为墙，均�
   });
   expect(treasure.edges.some((e) => !e.blocked && (e.from === "T4" || e.to === "T4"))).toBe(false);
 });
-it("所有九面几何已入库且可战；其他核心盒面未被批准", () => {
-  expect(file.tiles).toHaveLength(9);
+it("遗迹九面仍可战；R-144最暗单面只入库，不扩大可战池", () => {
+  expect(file.tiles).toHaveLength(10);
   expect(file.tiles.filter((t) => t.usable)).toHaveLength(9);
-  expect(file.tiles.map((t) => t.number).sort((a, b) => a - b)).toEqual([
-    1, 2, 3, 4, 5, 6, 7, 8, 9,
-  ]);
+  expect(
+    file.tiles
+      .filter((t) => t.location === "ruins")
+      .map((t) => t.number)
+      .sort((a, b) => a - b),
+  ).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 });
