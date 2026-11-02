@@ -6,6 +6,6 @@
 
 新增BattleArea标志只由已确认且runtimeReady的poolOfRebirth区域投影；生产tile仍usable=false，因此不会因单个区域实现而开放占位战斗。测试显式使用区域机制夹具，不声称自然任务或生产房间已可战。
 
-区域runtimeReady改为true；整房specialRoomEffect仍为false。清场复活需要独立英雄选择、全队支付和死亡名单/驿站处理，本批不猜复活后的状态或名单转换，不修改这些流程。
+区域runtimeReady改为true；整房specialRoomEffect仍为false。清场复活需要独立英雄选择、全队支付和死亡名单/驿站处理。后续R-147已明确本卡复活完整继承、等待英雄代币不增加；实体牌已被他人持有的冲突另待Q-130。本批不实现清场复活，不修改死亡回收或名单转换流程。
 
 专项覆盖0–3个负面、一次性压力/治疗修正、先死门再意志、心脏病/死门死亡取消治疗、区域隔离、怪物不触发、缺池原子拒绝、禁疗和JSON确定性回放。与Old Abbey及数据回归通过，新增区域测试12条；最终全量382文件/2964测全部通过。Node24.21.0/pnpm12.9.1下typecheck、lint、build通过。没有UI/可战准入改动，不新增Playwright路径。
