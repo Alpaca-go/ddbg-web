@@ -207,7 +207,7 @@ export function prepareMonsterAction(
       !battle.areas.some((area) => area.id === hero.areaId)
     )
       return rejectBattleCommand(state, "角色区域不在已核实几何内（R-048）");
-    if (support && hero.id === actor.id) {
+    if (isDarkestSupportSkill(card.id, selected.skillSlot) && hero.id === actor.id) {
       const attack = readMonsterAttackView(card, selected.skillSlot);
       if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
       const range = readPrintedRange(attack.view);
