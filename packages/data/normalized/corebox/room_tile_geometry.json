@@ -2227,7 +2227,7 @@
      "effect": "poolOfRebirth",
      "status": "confirmed",
      "printedText": "{icon:62d166a84f} : Heroes ending their turn here suffer {icon:9b00e692ba} +1 and {icon:731f6665d0} 3 per Negative Quirk.",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "specialRoomEffect": {

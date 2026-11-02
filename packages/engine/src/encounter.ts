@@ -28,6 +28,7 @@ import { gainDisease } from "./conditions";
 import { applyBattleSkillStatuses, readHeroPassiveDefence } from "./battle-skill-status";
 import { applyPassiveHero } from "./passive-runtime";
 import { endTurnOldAbbey } from "./battle-old-abbey";
+import { endTurnPoolOfRebirth } from "./battle-pool-of-rebirth";
 import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
 import { ceaseThreatForBossCombat, encounterForcesRetreatAfterRound } from "./boss/encounter-rules";
@@ -288,6 +289,17 @@ export function finishTurn(
       return abbey;
     state = abbey.state;
     events = abbey.events;
+  }
+  const pool = endTurnPoolOfRebirth(state, actorId, events);
+  if (pool) {
+    if (
+      pool.events.some((event) => event.type === "commandRefused") ||
+      pool.state.battle!.encounter?.turn.type === "halted" ||
+      pool.state.battle!.encounter?.turn.type === "finished"
+    )
+      return pool;
+    state = pool.state;
+    events = pool.events;
   }
   const spiked = endTurnSpikedPit(state, actorId, events);
   if (spiked) {

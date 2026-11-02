@@ -68,7 +68,7 @@ const tileShape = z.strictObject({
       effect: z.literal("poolOfRebirth"),
       status: z.literal("confirmed"),
       printedText: z.string(),
-      runtimeReady: z.literal(false),
+      runtimeReady: z.literal(true),
     }),
   ),
   specialRoomEffect: z.strictObject({ printedText: z.string(), runtimeReady: z.literal(false) }),
@@ -110,7 +110,7 @@ const tileShape = z.strictObject({
   ),
 });
 
-// R-144几何与部署；R-145绑定房间卡效果文字，运行时仍未开放。
+// R-144几何、R-145卡文来源、R-146区域结算；整房复活仍未开放。
 export const approvedPoolOfRebirth = tileShape.parse({
   id: "room_tile:p009:front",
   rawId: "dungeon_tile:p009",
@@ -130,7 +130,7 @@ export const approvedPoolOfRebirth = tileShape.parse({
       effect: "poolOfRebirth",
       status: "confirmed",
       printedText: poolOfRebirthEffectLines.slice(0, 2).join(" "),
-      runtimeReady: false,
+      runtimeReady: true,
     },
   ],
   specialRoomEffect: {
