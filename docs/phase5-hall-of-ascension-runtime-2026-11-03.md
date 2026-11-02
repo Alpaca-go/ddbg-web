@@ -12,4 +12,6 @@
 
 当前核心盒25张具名战斗房间中，11张几何获批且usable，尚缺14张几何。其它房间、Boss几何与最暗怪物battleReady停点不随本卡解除。
 
-验证：升级与空槽专项测试通过，Playwright关键路径1/1通过并已检查本机截图；最终全量与质量闸门结果将在运行结束后补记。
+验证：Node24.21.0/pnpm12.9.1下，本机typecheck、全仓lint、build及Playwright关键路径1/1通过，已目视检查截图。升级专项7测与后续战斗/回村补槽集成测试通过。本机首轮全量3009/3012通过，两条旧场景超过默认5秒超时，另一个底图映射旧数量断言修正为11；三个文件复查9/9通过。四worker复跑出现重场景超时后转为单worker，未修改测试断言或仓库超时配置来掩盖问题。
+
+固定代码提交`edc814d943d144d1153e16b5d55bfcafb51ac071`的[GitHub Actions检查](https://github.com/Alpaca-go/ddbg-web/actions/runs/41485615519)已全部通过：390文件/3012测全绿（632.68秒），typecheck/lint/build通过，完整Playwright smoke通过。确认CI全量结果后停止本机重复的串行运行，不将该次中止的本机运行记录为通过。
