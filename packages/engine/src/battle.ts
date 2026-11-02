@@ -102,6 +102,8 @@ export type BattleArea = {
   readonly spikedPit?: true;
   readonly circleOfPower?: true;
   readonly feelingThePresence?: true;
+  /** Pool of Rebirth房间卡限定的F区回合结束效果；不按星标外观推断。 */
+  readonly poolOfRebirth?: true;
   readonly ancestorGlory?: true;
   readonly healingForbidden?: true;
   readonly endTurnHeal?: 3;

@@ -75,7 +75,7 @@ it("星形绑定对应Room效果行，区域与整房效果分开；运行时仍
   expect(approvedPoolOfRebirth.specialRegions[0]).toMatchObject({
     areaId: "F",
     effect: "poolOfRebirth",
-    runtimeReady: false,
+    runtimeReady: true,
   });
   expect(approvedPoolOfRebirth.specialRegions[0]!.printedText).toContain(
     "{icon:731f6665d0} 3 per Negative Quirk.",
