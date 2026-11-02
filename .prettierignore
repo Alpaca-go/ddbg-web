@@ -24,3 +24,5 @@ packages/data/normalized/corebox
 tools/pipeline/extract-print/UPSTREAM.md
 tools/pipeline/extract-print/REPORT.md
 tools/pipeline/extract-print/scripts
+
+.cache

@@ -20,16 +20,16 @@ import {
 import { readDarkestBossEncounter } from "./darkest-content";
 import { ensureDarkestMidBossScriptsRegistered } from "./darkest-mid-boss-scripts";
 
-const HERO_AGG = "darkest-mid-boss-hero-aggressive";
 const HERO_RNG = "darkest-mid-boss-hero-ranged";
 const HERO_SUP = "darkest-mid-boss-hero-support";
 const MON_AGG = "darkest-mid-boss-aggressive";
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);
-  expect(result.events.some((e) => e.type === "commandRefused"), JSON.stringify(result.events)).toBe(
-    false,
-  );
+  expect(
+    result.events.some((e) => e.type === "commandRefused"),
+    JSON.stringify(result.events),
+  ).toBe(false);
   return result;
 }
 
@@ -96,7 +96,10 @@ describe("Templars Acc 最小结算", () => {
       heroes.map((hero, index) => [hero.id, index < 2 ? HERO_RNG : HERO_SUP]),
     );
     const game = onMonsterTurn(withHeroAreas(base, patch), TEMPLAR_IMPALER_MONSTER_CARD_ID);
-    const result = applyTemplarImpalerTorment(game, monsterByCard(game, TEMPLAR_IMPALER_MONSTER_CARD_ID).id);
+    const result = applyTemplarImpalerTorment(
+      game,
+      monsterByCard(game, TEMPLAR_IMPALER_MONSTER_CARD_ID).id,
+    );
     expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
     expect(
       result.events.some(
@@ -114,12 +117,12 @@ describe("Templars Acc 最小结算", () => {
       (entry) => entry.id === TEMPLAR_IMPALER_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === TEMPLAR_BODY_SLAM_SKILL_SLOT)?.verified_monster_effects
-        ?.effects,
+      card.skills.find((skill) => skill.slot === TEMPLAR_BODY_SLAM_SKILL_SLOT)
+        ?.verified_monster_effects?.effects,
     ).toEqual([{ type: "status", scope: "target", kind: "stun", duration: 2 }]);
     expect(
-      card.skills.find((skill) => skill.slot === TEMPLAR_BODY_SLAM_SKILL_SLOT)?.verified_monster_effects
-        ?.signatures,
+      card.skills.find((skill) => skill.slot === TEMPLAR_BODY_SLAM_SKILL_SLOT)
+        ?.verified_monster_effects?.signatures,
     ).toEqual(["{target_effects}{stun}2t,PitToss"]);
 
     let cursor = 0;
@@ -136,8 +139,7 @@ describe("Templars Acc 最小结算", () => {
         light: 5,
         entities: game.battle!.entities.map((entity) => {
           if (entity.id === hero.id) return { ...entity, dodge: 0 };
-          if (entity.id === impaler.id)
-            return { ...entity, areaId: "darkest-mid-boss-aggressive" };
+          if (entity.id === impaler.id) return { ...entity, areaId: "darkest-mid-boss-aggressive" };
           return entity;
         }),
       },
@@ -171,8 +173,8 @@ describe("Templars Acc 最小结算", () => {
       (entry) => entry.id === TEMPLAR_WARLORD_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === TEMPLAR_STINGER_SHOT_SKILL_SLOT)?.verified_monster_effects
-        ?.effects,
+      card.skills.find((skill) => skill.slot === TEMPLAR_STINGER_SHOT_SKILL_SLOT)
+        ?.verified_monster_effects?.effects,
     ).toEqual([
       { type: "status", scope: "target", kind: "blight", amount: 3, duration: 3 },
       { type: "status", scope: "target", kind: "debuff", duration: 2 },
@@ -264,8 +266,8 @@ describe("Templars Acc 最小结算", () => {
       (entry) => entry.id === TEMPLAR_WARLORD_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === TEMPLAR_REVELATION_SKILL_SLOT)?.verified_monster_effects
-        ?.effects,
+      card.skills.find((skill) => skill.slot === TEMPLAR_REVELATION_SKILL_SLOT)
+        ?.verified_monster_effects?.effects,
     ).toEqual([{ type: "stress", scope: "target", amount: 2 }]);
 
     let cursor = 0;
@@ -283,8 +285,7 @@ describe("Templars Acc 最小结算", () => {
         light: 5,
         entities: game.battle!.entities.map((entity) => {
           if (entity.id === hero.id) return { ...entity, dodge: 0, stress: stressBefore };
-          if (entity.id === warlord.id)
-            return { ...entity, areaId: "darkest-mid-boss-aggressive" };
+          if (entity.id === warlord.id) return { ...entity, areaId: "darkest-mid-boss-aggressive" };
           return entity;
         }),
       },
@@ -325,8 +326,7 @@ describe("Templars Acc 最小结算", () => {
         rngCursor: cursor,
         entities: game.battle!.entities.map((entity) => {
           if (entity.id === hero.id) return { ...entity, dodge: 30, stress: stressBefore };
-          if (entity.id === warlord.id)
-            return { ...entity, areaId: "darkest-mid-boss-aggressive" };
+          if (entity.id === warlord.id) return { ...entity, areaId: "darkest-mid-boss-aggressive" };
           return entity;
         }),
       },
@@ -354,8 +354,8 @@ describe("Templars Acc 最小结算", () => {
       (entry) => entry.id === TEMPLAR_IMPALER_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === TEMPLAR_REVELATION_SKILL_SLOT)?.verified_monster_effects
-        ?.effects,
+      card.skills.find((skill) => skill.slot === TEMPLAR_REVELATION_SKILL_SLOT)
+        ?.verified_monster_effects?.effects,
     ).toEqual([{ type: "stress", scope: "target", amount: 2 }]);
 
     let cursor = 0;
@@ -373,8 +373,7 @@ describe("Templars Acc 最小结算", () => {
         light: 5,
         entities: game.battle!.entities.map((entity) => {
           if (entity.id === hero.id) return { ...entity, dodge: 0, stress: stressBefore };
-          if (entity.id === impaler.id)
-            return { ...entity, areaId: "darkest-mid-boss-aggressive" };
+          if (entity.id === impaler.id) return { ...entity, areaId: "darkest-mid-boss-aggressive" };
           return entity;
         }),
       },
@@ -415,8 +414,7 @@ describe("Templars Acc 最小结算", () => {
         rngCursor: cursor,
         entities: game.battle!.entities.map((entity) => {
           if (entity.id === hero.id) return { ...entity, dodge: 30, stress: stressBefore };
-          if (entity.id === impaler.id)
-            return { ...entity, areaId: "darkest-mid-boss-aggressive" };
+          if (entity.id === impaler.id) return { ...entity, areaId: "darkest-mid-boss-aggressive" };
           return entity;
         }),
       },
@@ -439,7 +437,6 @@ describe("Templars Acc 最小结算", () => {
   it("Acc 失手可复现 · Body Slam 无 stun", () => {
     const base = fighting();
     const hero = base.battle!.entities.find((entity) => entity.side === "hero")!;
-    const impaler = monsterByCard(base, TEMPLAR_IMPALER_MONSTER_CARD_ID);
     let cursor = 0;
     while (nextBattleRoll(base.seed, cursor) !== 10) cursor += 1;
     let game = onMonsterTurn(
@@ -579,12 +576,27 @@ describe("Templars Acc 最小结算", () => {
       warlord!.skills.find((skill) => skill.slot === TEMPLAR_STINGER_SHOT_SKILL_SLOT)?.name,
     ).toBe("Stinger Shot");
     const cardView = card;
-    const heroes = [{ id: "h0", areaId: HERO_RNG, stance: "aggressive" as const, areaDistance: 2, wounds: 0, stress: 0, markStacks: 0, guard: false, dead: false }];
+    const heroes = [
+      {
+        id: "h0",
+        areaId: HERO_RNG,
+        stance: "aggressive" as const,
+        areaDistance: 2,
+        wounds: 0,
+        stress: 0,
+        markStacks: 0,
+        guard: false,
+        dead: false,
+      },
+    ];
     expect(
       selectMonsterTarget(
         {
           verification: cardView.verification,
-          skills: cardView.skills.map((skill) => ({ slot: skill.slot, target: skill.target ?? null })),
+          skills: cardView.skills.map((skill) => ({
+            slot: skill.slot,
+            target: skill.target ?? null,
+          })),
         },
         TEMPLAR_TORMENT_SKILL_SLOT,
         heroes,

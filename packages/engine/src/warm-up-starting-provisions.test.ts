@@ -1,6 +1,4 @@
 import { describe, expect, it } from "vitest";
-import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
-import distribution from "../../data/normalized/corebox/warm_up_the_halls_distribution.json";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { createDungeonSandbox } from "./dungeon";
@@ -64,7 +62,8 @@ describe("Warm Up the Halls 开局改 Torch（QUEST p11）", () => {
         warmUpStartingProvisionTorchChoice: true,
       },
     };
-    let { game, log } = finishStartingProvisions(initial);
+    const { game: started, log } = finishStartingProvisions(initial);
+    let game = started;
     expect(game.dungeon!.pending!.id.startsWith("dungeon-warm-up-provision-torch:")).toBe(true);
     expect(game.dungeon!.warmUpProvisionTorchRemaining).toEqual(["h0", "h1", "h2", "h3"]);
     let converted = false;

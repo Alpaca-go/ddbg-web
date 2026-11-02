@@ -5,12 +5,8 @@ import { distance } from "../battle";
 import { selectMonsterTarget } from "../monster-target";
 import { readFinalFormSequence } from "./final-form-sequence";
 import { finalPreparationFixture } from "../test-helpers/final-preparation";
-import {
-  FINAL_BATTLE_MONSTER_STANCE_AREAS,
-} from "./final-battle-deploy";
-import {
-  ANCESTOR_2_MONSTER_CARD_ID,
-} from "./ancestor2-swift-teleportation";
+import { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
+import { ANCESTOR_2_MONSTER_CARD_ID } from "./ancestor2-swift-teleportation";
 import { isAbsoluteNothingnessEntity } from "./ancestor2-absolute-nothingness";
 import {
   applyAncestor2EmbraceFutility,
@@ -83,10 +79,7 @@ function onAncestorTurn(state: GameState): GameState {
   };
 }
 
-function withHeroAreas(
-  state: GameState,
-  patch: Readonly<Record<string, string>>,
-): GameState {
+function withHeroAreas(state: GameState, patch: Readonly<Record<string, string>>): GameState {
   return {
     ...state,
     battle: {
@@ -103,7 +96,6 @@ function withHeroAreas(
 function heroTargetRows(state: GameState) {
   const battle = state.battle!;
   const actor = ancestor(state);
-  const card = battle.monsters!.find((entry) => entry.id === actor.monsterCardId)!;
   return battle.entities
     .filter((entry) => entry.side === "hero" && !entry.dead)
     .map((hero) => ({
@@ -187,9 +179,7 @@ it("Refashion Them · Crowded 选最拥挤区英雄 · 命中 3 流血 3t + 1 �
 
   const result = applyAncestor2RefashionThem(game, ancestor(game).id);
   expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
-  expect(
-    result.events.some((event) => event.type === "monsterSkillTargetsResolved"),
-  ).toBe(true);
+  expect(result.events.some((event) => event.type === "monsterSkillTargetsResolved")).toBe(true);
   const skillEvent = result.events.find((event) => event.type === "monsterSkillTargetsResolved");
   expect(skillEvent?.type).toBe("monsterSkillTargetsResolved");
   if (skillEvent?.type === "monsterSkillTargetsResolved") {
@@ -203,8 +193,9 @@ it("Refashion Them · Crowded 选最拥挤区英雄 · 命中 3 流血 3t + 1 �
     }
   }
   for (const hero of crowdedHeroes) {
-    const stacks = result.state.battle!.entities.find((entity) => entity.id === hero.id)!
-      .statusStacks;
+    const stacks = result.state.battle!.entities.find(
+      (entity) => entity.id === hero.id,
+    )!.statusStacks;
     expect(stacks).toEqual([expect.objectContaining({ kind: "bleed", amount: 3 })]);
     expect([2, 3]).toContain(stacks![0]!.remaining);
     expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress).toBe(
@@ -321,9 +312,9 @@ it("Unmake Them All · Furthest 选最远英雄 · 命中 2 流血 4t + 1 压力
   expect(
     result.state.battle!.entities.find((entity) => entity.id === expected.id)!.statusStacks,
   ).toEqual([{ kind: "bleed", amount: 2, remaining: 3 }]);
-  expect(
-    result.state.battle!.entities.find((entity) => entity.id === expected.id)!.stress,
-  ).toBe(stressBefore + 1);
+  expect(result.state.battle!.entities.find((entity) => entity.id === expected.id)!.stress).toBe(
+    stressBefore + 1,
+  );
   expect(
     result.events.some(
       (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
@@ -367,9 +358,9 @@ it("Unmake Them All · 落空无流血/压力", () => {
   expect(
     result.state.battle!.entities.find((entity) => entity.id === expected.id)!.statusStacks ?? [],
   ).toEqual([]);
-  expect(
-    result.state.battle!.entities.find((entity) => entity.id === expected.id)!.stress,
-  ).toBe(stressBefore);
+  expect(result.state.battle!.entities.find((entity) => entity.id === expected.id)!.stress).toBe(
+    stressBefore,
+  );
 });
 
 it("Embrace Futility · Closest 0 同区命中 · debuff 2t + 2 压力 + Push 2", () => {
@@ -379,8 +370,8 @@ it("Embrace Futility · Closest 0 同区命中 · debuff 2t + 2 压力 + Push 2"
     (entry) => entry.id === ANCESTOR_2_MONSTER_CARD_ID,
   )!;
   expect(
-    card.skills.find((skill) => skill.slot === EMBRACE_FUTILITY_SKILL_SLOT)?.verified_monster_effects
-      ?.effects,
+    card.skills.find((skill) => skill.slot === EMBRACE_FUTILITY_SKILL_SLOT)
+      ?.verified_monster_effects?.effects,
   ).toEqual([
     { type: "status", scope: "target", kind: "debuff", duration: 2 },
     { type: "stress", scope: "target", amount: 2 },
@@ -389,9 +380,7 @@ it("Embrace Futility · Closest 0 同区命中 · debuff 2t + 2 压力 + Push 2"
 
   let cursor = 0;
   while (nextBattleRoll(fighting.seed, cursor) !== 5) cursor += 1;
-  let game = onAncestorTurn(
-    withHeroAreas(fighting, { [hero.id]: ancestor(fighting).areaId }),
-  );
+  let game = onAncestorTurn(withHeroAreas(fighting, { [hero.id]: ancestor(fighting).areaId }));
   const placed = game.battle!.entities.find((entity) => entity.id === hero.id)!;
   expect(distance(game.battle!.areas, ancestor(game).areaId, placed.areaId)).toBe(0);
   const stressBefore = placed.stress ?? 0;
@@ -422,9 +411,9 @@ it("Embrace Futility · Closest 0 同区命中 · debuff 2t + 2 压力 + Push 2"
   expect(
     result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks,
   ).toEqual([{ kind: "debuff", remaining: 2 }]);
-  expect(
-    result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress,
-  ).toBe(stressBefore + 2);
+  expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress).toBe(
+    stressBefore + 2,
+  );
   expect(result.state.battle!.shuffleIntents).toHaveLength(1);
   expect(result.state.battle!.shuffleIntents[0]).toMatchObject({
     entityId: hero.id,
@@ -442,9 +431,7 @@ it("Embrace Futility · 落空无 debuff/压力/Push", () => {
   const hero = fighting.battle!.entities.find((entity) => entity.side === "hero")!;
   let cursor = 0;
   while (nextBattleRoll(fighting.seed, cursor) !== 10) cursor += 1;
-  let game = onAncestorTurn(
-    withHeroAreas(fighting, { [hero.id]: ancestor(fighting).areaId }),
-  );
+  let game = onAncestorTurn(withHeroAreas(fighting, { [hero.id]: ancestor(fighting).areaId }));
   const stressBefore = hero.stress ?? 0;
   game = {
     ...game,
@@ -470,9 +457,9 @@ it("Embrace Futility · 落空无 debuff/压力/Push", () => {
   expect(
     result.state.battle!.entities.find((entity) => entity.id === hero.id)!.statusStacks ?? [],
   ).toEqual([]);
-  expect(
-    result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress,
-  ).toBe(stressBefore);
+  expect(result.state.battle!.entities.find((entity) => entity.id === hero.id)!.stress).toBe(
+    stressBefore,
+  );
   expect(result.state.battle!.shuffleIntents ?? []).toEqual([]);
 });
 
@@ -572,9 +559,7 @@ it("回归：finishTurn 仍触发 Swift Teleportation 落骰", () => {
   let cursor = 0;
   while (nextBattleRoll(fighting.seed, cursor) !== 10) cursor += 1;
   const expectedDie = nextBattleRoll(fighting.seed, cursor + 1);
-  let game = onAncestorTurn(
-    withHeroAreas(fighting, { [hero.id]: ancestor(fighting).areaId }),
-  );
+  let game = onAncestorTurn(withHeroAreas(fighting, { [hero.id]: ancestor(fighting).areaId }));
   game = {
     ...game,
     battle: {
