@@ -1,3 +1,4 @@
+import type { MonsterSupportResolvedEvent } from "./battle-monster-support";
 import { resolveExcavation } from "./darkest-excavation";
 import {
   prepareFinalBattleForms,
@@ -315,6 +316,7 @@ type BaseCommand =
     };
 
 export type GameEvent =
+  | MonsterSupportResolvedEvent
   | {
       readonly type: "trinketUsed";
       readonly actorId: string;

@@ -33,7 +33,11 @@ it.each(cases)(
   "$id / $slot 友方最小纯结算、越界与漂移原子拒绝",
   ({ id, slot, wounds, statuses, move }) => {
     const card = cards.find((c) => c.id === id)!;
-    const context = { targetSide: "monster" as const, targetWounds: 20, areaDistance: 0 };
+    const context = {
+      targetSide: "monster" as const,
+      targetWounds: 20,
+      areaDistance: id === "monster_medium:p086" ? 1 : 0,
+    };
     const before = structuredClone(card);
     const result = resolveDarkestMonsterSupport(card, slot, context);
     expect(result).toEqual({

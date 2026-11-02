@@ -1,3 +1,4 @@
+import { isDarkestSupportSkill, playDarkestSupportSkill } from "./battle-monster-support";
 import { isPyreCard, playPyreSkill } from "./boss/pyre-skill";
 import {
   isCollectedVestalCard,
@@ -166,6 +167,8 @@ export function playMonsterSkill(
   const actor = battle.entities.find((entry) => entry.id === command.actorId);
   if (actor?.monsterCardId === "monster_medium:p104" && command.skillSlot === 1)
     return playWhiteCellReconstitute(state, command.actorId, command.targetId, command.skillSlot);
+  if (isDarkestSupportSkill(actor?.monsterCardId, command.skillSlot))
+    return playDarkestSupportSkill(state, command.actorId, command.targetId, command.skillSlot);
   if (isPyreCard(actor?.monsterCardId))
     return playPyreSkill(state, command.actorId, command.targetId, command.skillSlot);
   if (

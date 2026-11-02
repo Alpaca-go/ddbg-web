@@ -1,3 +1,4 @@
+import { completeMonsterSupport } from "./battle-monster-support";
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameEvent, GameState, PendingChoice } from "./command";
 import { recordEncounterSkill, recordMonsterSkill } from "./encounter";
@@ -138,7 +139,9 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
           continuation.type === "heroSkillEmptyAreaResolved"
             ? continuation.actorId
             : intent.entityId === continuation.actorId
-              ? (continuation.shuffleChooserId ?? continuation.resolution.targetId)
+              ? continuation.type === "monsterSupportResolved"
+                ? continuation.targetId
+                : (continuation.shuffleChooserId ?? continuation.resolution.targetId)
               : intent.entityId,
         options: result.options.map((id) => ({ id, label: `区域 ${id}` })),
       };
@@ -196,6 +199,28 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
       events: [...events, ...passive.events],
     });
   }
+  if (continuation.type === "monsterSupportResolved") {
+    const passive = triggerBattlePassive(
+      next,
+      state.seed,
+      next.shufflePassiveIds ?? [],
+      "shuffled",
+    );
+    if (passive.status === "refused") return rejectBattleCommand(state, passive.reason);
+    const completed = completeMonsterSupport(
+      {
+        ...state,
+        battle: {
+          ...passive.battle,
+          pending: null,
+          shuffleContinuation: null,
+          shufflePassiveIds: [],
+        },
+      },
+      continuation,
+    );
+    return { ...completed, events: [...events, ...passive.events, ...completed.events] };
+  }
   if (continuation.type === "heroSkillEmptyAreaResolved") {
     const passive = triggerBattlePassive(
       next,
@@ -224,6 +249,8 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
     events,
   };
   const completed = next.shuffleContinuation ?? continuation;
+  if (completed.type === "monsterSupportResolved")
+    return completeMonsterSupport(final.state, completed);
   return completed.type === "heroSkillResolved" || completed.type === "heroSkillEmptyAreaResolved"
     ? recordEncounterSkill(final, completed, [
         ...(completed.casualtyIds ?? []),

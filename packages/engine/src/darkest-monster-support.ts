@@ -48,6 +48,7 @@ export function resolveDarkestMonsterSupport(
   const range = readPrintedRange(attack.view);
   if (
     range.kind !== "exact" ||
+    context.areaDistance < range.distance ||
     context.areaDistance > range.distance + Number(context.targetAreaLower === true)
   )
     return refuse("友方目标不在印刷射程内（R24）");

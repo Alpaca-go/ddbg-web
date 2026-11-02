@@ -1,3 +1,4 @@
+import { isDarkestSupportSkill } from "./battle-monster-support";
 import { isPyreCard } from "./boss/pyre-skill";
 import { isCollectedVestalCard, isBoneBearerRally } from "./boss/collected-vestal";
 import { distance, rejectBattleCommand, skillTargetView } from "./battle";
@@ -227,7 +228,9 @@ export function moveMonsterToRange(
     !target ||
     (target.side !== "hero" &&
       !(
-        (isCollectedVestalCard(card?.id) || isBoneBearerRally(card?.id, action.skillSlot)) &&
+        (isCollectedVestalCard(card?.id) ||
+          isBoneBearerRally(card?.id, action.skillSlot) ||
+          isDarkestSupportSkill(card?.id, action.skillSlot)) &&
         target.side === "monster"
       )) ||
     target.dead ||
@@ -246,6 +249,7 @@ export function moveMonsterToRange(
   // 复用纯技能校验，不掷骰或写伤害；预设印刷距离只用来排除未知数值 / 不支持效果。
   const probe =
     isCollectedVestalCard(card.id) ||
+    isDarkestSupportSkill(card.id, action.skillSlot) ||
     isBoneBearerRally(card.id, action.skillSlot) ||
     isPyreCard(card.id)
       ? { status: "resolved" as const }
