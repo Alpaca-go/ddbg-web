@@ -612,6 +612,15 @@ export function BattleView({
                   Loot the Chest（2行动，本场一次）
                 </button>
               )}
+              {battle.areas.find((area) => area.id === actor!.areaId)?.hallOfAscension && (
+                <button
+                  data-action-group="loot"
+                  disabled={!heroTurn || turn.mustMove || turn.actions < 2}
+                  onClick={() => send({ type: "hallAscension", actorId: actor!.id })}
+                >
+                  升华（2行动、压力+3，另付XP/金币）
+                </button>
+              )}
               {battle.areas.find((area) => area.id === actor!.areaId)?.hideAndHeal && (
                 <button
                   data-action-group="loot"

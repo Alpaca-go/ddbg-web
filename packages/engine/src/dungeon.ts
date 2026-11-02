@@ -248,6 +248,8 @@ export type DungeonState = {
   readonly heroes: readonly (PassiveHero & {
     readonly id: string;
     readonly stress: number;
+    /** R-155：战斗中升级新增槽留空，回村换装后清除。 */
+    readonly hallAscensionVacantSlots?: number;
     readonly xp?: number;
     readonly permanentlyRemovedSkillIds?: readonly string[];
     /** 村庄购买的下次任务奖励骰；开局按R-041掷出，非当前补给池。 */

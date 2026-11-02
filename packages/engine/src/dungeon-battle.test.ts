@@ -50,6 +50,7 @@ import { VERIFIED_REMAINING_AFTER_FOUR_PREP } from "./test-helpers/verified-repl
 import { readRoomTile } from "./room-tile-selection";
 import { endAfterCasualties } from "./encounter";
 import { replacementHeroCandidates } from "./hero-death-estate";
+import { hallAscensionFixture } from "./test-helpers/hall-ascension";
 
 const stats = normalizedHeroStatFileSchema
   .parse(statsFile)
@@ -121,6 +122,44 @@ function deploy(seed: number): GameState {
   const s = applyCommand(setup(seed), { type: "prepareDungeonBattle" }).state;
   return applyCommand(s, { type: "prepareDungeonMonsters" }).state;
 }
+it("R-155：升华升级后带新增空槽进入下一场真实房间战斗；无记录少装备仍拒绝", () => {
+  const opened = applyCommand(hallAscensionFixture(), { type: "hallAscension", actorId: "hero-0" });
+  const upgraded = applyCommand(opened.state, {
+    type: "resolveChoice",
+    choiceId: opened.pendingChoice!.id,
+    optionId: "hero",
+  });
+  const actual = upgraded.state.dungeon!.heroes[0]!;
+  const prepared = deploy(35);
+  // 明示战后英雄/下一房部署夹具，独立验证真实战斗入口，不伪造自然战役或存档。
+  const state = {
+    ...prepared,
+    dungeon: {
+      ...prepared.dungeon!,
+      battleCatalog: {
+        ...prepared.dungeon!.battleCatalog!,
+        heroStats: coreQuestSources.catalog.heroStats,
+      },
+      heroes: [actual, ...prepared.dungeon!.heroes.slice(1)],
+    },
+  };
+  const entered = applyCommand(state, { type: "startDungeonBattle" });
+  expect(entered.state.battle, JSON.stringify(entered.events)).toBeDefined();
+  expect(entered.state.battle!.entities.find((e) => e.id === actual.id)).toMatchObject({
+    heroLevel: 2,
+    skillIds: actual.skillIds,
+  });
+  const forged = {
+    ...state,
+    dungeon: {
+      ...state.dungeon,
+      heroes: state.dungeon.heroes.map((h) =>
+        h.id === actual.id ? { ...h, hallAscensionVacantSlots: 0 } : h,
+      ),
+    },
+  };
+  expect(applyCommand(forged, { type: "startDungeonBattle" }).state).toBe(forged);
+});
 it.each(["hero_skill:p221", "hero_skill:p222"])(
   "Abomination永久升级%s通过真实房间战斗入场",
   (id) => {

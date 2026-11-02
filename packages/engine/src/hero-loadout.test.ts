@@ -36,6 +36,36 @@ function fixture(xp = 6): GameState {
     },
   };
 }
+it("R-155：回村补齐升级空槽后清除记录，任务中仍禁止换装", () => {
+  const original = fixture(),
+    d = original.dungeon!,
+    old = d.heroes[0]!;
+  const stat = d.battleCatalog!.heroStats.find(
+    (s) =>
+      s.name === d.battleCatalog!.heroStats.find((c) => c.id === old.heroStatId)!.name &&
+      s.level === 2,
+  )!;
+  const h = {
+    ...old,
+    heroStatId: stat.id,
+    level: 2,
+    heroLevel: 2,
+    life: stat.life,
+    hallAscensionVacantSlots: 1,
+  };
+  const s = { ...original, dungeon: { ...d, heroes: [h, ...d.heroes.slice(1)] } };
+  const skills = ownedHeroSkills(h, d.battleCatalog!)!
+    .slice(0, 4)
+    .map((c) => c.id);
+  const result = applyCommand(s, { type: "setEquippedSkills", actorId: h.id, skillIds: skills });
+  expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+  expect(result.state.dungeon!.heroes[0]!.hallAscensionVacantSlots).toBe(0);
+  expect(result.state.dungeon!.heroes[0]!.skillIds).toHaveLength(4);
+  const quest = { ...s, dungeon: { ...s.dungeon, phase: "ready" as const } };
+  expect(
+    applyCommand(quest, { type: "setEquippedSkills", actorId: h.id, skillIds: skills }).state,
+  ).toBe(quest);
+});
 
 it("R-051槽数与拥有七技能推导：永久移除阶梯指向当前拥有卡，含未装备", () => {
   expect(heroSkillSlotCount(1)).toBe(3);

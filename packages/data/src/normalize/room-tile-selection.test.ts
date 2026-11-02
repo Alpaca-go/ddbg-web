@@ -28,7 +28,8 @@ it("同编号的最暗地牢、Boss与其他待审核面不按页码或名称兜
   expect(selectRoomTile(card("room:p003"), catalog).status).toBe("matched");
   expect(selectRoomTile(card("room:p007"), catalog).status).toBe("matched");
   expect(selectRoomTile(card("room:p014"), catalog).status).toBe("matched");
-  for (const id of ["room:p010", "room:p015"])
+  expect(selectRoomTile(card("room:p015"), catalog).status).toBe("matched");
+  for (const id of ["room:p010", "room:p016"])
     expect(selectRoomTile(card(id), catalog).status).toBe("refused");
   expect(selectRoomTile({ ...card("room:p014"), name: "Ritual Chamber" }, catalog).status).toBe(
     "refused",

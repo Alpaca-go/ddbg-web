@@ -1,5 +1,7 @@
 # Hall of Ascension 几何核对与入库
 
+2026-11-03进展：R-154/155已补充费用、重复使用与新增空槽裁定，完整升级交互已接通；本面usable=true、runtimeReady=true。下文为几何入库时的历史验收，当前运行时与最终检查见[升级交互交付](phase5-hall-of-ascension-runtime-2026-11-03.md)。
+
 状态：Kyries 已逐项确认，L 容量修正为3；Q-134 已解决，记为 R-153。几何与卡文来源入库，usable=false。基线 main `24bb6467`（#547）。
 
 来源：当前版 `DD_COREBOX_TILES_BACK.pdf` p9，印刷最暗编号2；配套 `DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf` p15，`room:p015`。已目视查看完整板块与房间卡的本机印刷缓存。依据核心规则 R16–18、R25，R-021、R-048；印刷图只提供布局和卡文，不补规则。
