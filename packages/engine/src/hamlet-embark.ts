@@ -456,6 +456,7 @@ export function chooseNextQuest(
       ? { nextQuestRoomReveals: d.nextQuestRoomReveals }
       : {}),
     ...(d.deadHeroNames ? { deadHeroNames: d.deadHeroNames } : {}),
+    ...(d.fallenHeroes ? { fallenHeroes: d.fallenHeroes } : {}),
     ...(d.deathChoiceCursor !== undefined ? { deathChoiceCursor: d.deathChoiceCursor } : {}),
     ...(d.replacementChoiceCursor !== undefined
       ? { replacementChoiceCursor: d.replacementChoiceCursor }

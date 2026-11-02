@@ -49,6 +49,18 @@ it("自然全灭命令日志→正式存档往返；驿站III余额4可准备并
   const restored = loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game;
   expect(restored).toEqual(prepared);
 
+  // 旧快照没有死亡档案时，只从相同公开命令重建；显式伪造档案不得修复。
+  expect(prepared.dungeon!.fallenHeroes).toHaveLength(4);
+  const legacy = JSON.parse(JSON.stringify(save));
+  delete legacy.snapshot.dungeon.fallenHeroes;
+  expect(loadQuestSave(legacy, coreQuestSources).game).toEqual(prepared);
+  const forgedArchive = JSON.parse(JSON.stringify(save));
+  forgedArchive.snapshot.dungeon.fallenHeroes[0].hero.xp += 1;
+  expect(() => loadQuestSave(forgedArchive, coreQuestSources)).toThrow("快照与回放不一致");
+  const forgedState = JSON.parse(JSON.stringify(legacy));
+  forgedState.snapshot.dungeon.cursor += 1;
+  expect(() => loadQuestSave(forgedState, coreQuestSources)).toThrow("快照与回放不一致");
+
   // 从全灭停点起逐条公开准备命令回放，与正式存档一致。
   let replay: GameState = JSON.parse(JSON.stringify(awaiting));
   const prepCommands = commands.slice(
@@ -62,6 +74,7 @@ it("自然全灭命令日志→正式存档往返；驿站III余额4可准备并
   expect(replay).toEqual(prepared);
 
   const joined = applyCommand(prepared, { type: "joinPreparedReplacements" }).state;
+  expect(joined.dungeon!.fallenHeroes).toEqual(prepared.dungeon!.fallenHeroes);
   expect(joined.dungeon!.heroes.every((h) => !h.dead)).toBe(true);
   expect(joined.dungeon!.heroes.map((h) => h.heroStatId).sort()).toEqual(
     [...VERIFIED_EXTRA_IDS].sort(),
