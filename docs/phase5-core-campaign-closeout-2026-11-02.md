@@ -15,7 +15,7 @@ PR 依次以前一分支为 base；没有合并到 main。
 | [#535](https://github.com/Alpaca-go/ddbg-web/pull/535) | 已批准高等级卡面与自然任务/存档回归基线                                |
 | [#536](https://github.com/Alpaca-go/ddbg-web/pull/536) | 最终战待选不再被已完成回村记录截获                                     |
 | [#537](https://github.com/Alpaca-go/ddbg-web/pull/537) | 既有源码与文档的机械格式清理                                           |
-| 当前分支 `codex/core-admission-test-runtime`           | 保留2400次准入检查，按五任务分组并共享不可变起点；附最终验证与剩余停点 |
+| [#538](https://github.com/Alpaca-go/ddbg-web/pull/538) | 保留2400次准入检查，按五任务分组并共享不可变起点；附最终验证与剩余停点 |
 
 ## 1–5 当前边界
 
