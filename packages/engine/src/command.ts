@@ -573,13 +573,12 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "rollHamletCaretaker") return rollHamletCaretaker(state);
   if (command.type === "beginReturnToHamlet") return beginReturnToHamlet(state);
   if (command.type === "finishReturnToHamlet") return finishReturnToHamlet(state);
-  if (state.dungeon?.hamletReturn) {
+  if (state.dungeon?.hamletReturn && !finalBattleCombatActive(state)) {
     if (command.type === "resolveChoice")
       return chooseHamletQuirk(state, command.choiceId, command.optionId);
     if (command.type === "useProvision" && state.dungeon.hamletReturn.phase === "provisions")
       return useHamletProvision(state, command);
-    if (!finalBattleCombatActive(state))
-      return rejectBattleCommand(state, "正在回村或已进入村庄，请完成当前回村步骤");
+    return rejectBattleCommand(state, "正在回村或已进入村庄，请完成当前回村步骤");
   }
   if (state.dungeon?.phase === "awaitingScoutAhead")
     return command.type === "resolveChoice"

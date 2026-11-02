@@ -4,16 +4,10 @@ import { nextBattleRoll } from "../battle-roll";
 import { selectMonsterSkill } from "../monster-stance";
 import { readFinalFormSequence } from "./final-form-sequence";
 import { finalPreparationFixture } from "../test-helpers/final-preparation";
-import {
-  ANCESTOR_2_MONSTER_CARD_ID,
-} from "./ancestor2-swift-teleportation";
+import { ANCESTOR_2_MONSTER_CARD_ID } from "./ancestor2-swift-teleportation";
 import { isAbsoluteNothingnessEntity } from "./ancestor2-absolute-nothingness";
-import {
-  applyAncestor2SkillFromStanceSelection,
-} from "./ancestor2-skill-ai";
-import {
-  EMBRACE_FUTILITY_SKILL_SLOT,
-} from "./ancestor2-skills-acc";
+import { applyAncestor2SkillFromStanceSelection } from "./ancestor2-skill-ai";
+import { EMBRACE_FUTILITY_SKILL_SLOT } from "./ancestor2-skills-acc";
 
 function ok(state: GameState, command: Command): ApplyResult {
   const result = applyCommand(state, command);
@@ -126,7 +120,7 @@ it("prepareMonsterAction · slot 3 走 Acc 显式命令并完成回合（含 Swi
   game = alignSelectionRoll(game, 3);
   const cursorBefore = game.battle!.rngCursor;
   const before = structuredClone(game);
-  const result = ok(game, { type: "prepareMonsterAction", actorId: ancestor(game).id });
+  let result = ok(game, { type: "prepareMonsterAction", actorId: ancestor(game).id });
   expect(game).toEqual(before);
   expect(
     result.events.some(
@@ -142,7 +136,26 @@ it("prepareMonsterAction · slot 3 走 Acc 显式命令并完成回合（含 Swi
         event.type === "monsterSkillResolved" || event.type === "monsterSkillTargetsResolved",
     ),
   ).toBe(true);
-  expect(result.events.some((event) => event.type === "turnEnded")).toBe(true);
+  const events = [...result.events];
+  for (
+    let step = 0;
+    (result.pendingChoice || result.state.battle!.shuffleIntents.length) && step < 30;
+    step++
+  ) {
+    result = ok(
+      JSON.parse(JSON.stringify(result.state)),
+      result.pendingChoice
+        ? {
+            type: "resolveChoice",
+            choiceId: result.pendingChoice.id,
+            optionId: result.pendingChoice.options[0]!.id,
+          }
+        : { type: "resolveShuffles" },
+    );
+    events.push(...result.events);
+  }
+  expect(result.pendingChoice).toBeUndefined();
+  expect(events.some((event) => event.type === "turnEnded")).toBe(true);
   expect(result.state.battle!.rngCursor).toBeGreaterThan(cursorBefore + 1);
   expect(result.state.battle!.encounter!.turn.type).not.toBe("monster");
   expect(readFinalFormSequence(result.state)!.current!.combatReady).toBe(false);
