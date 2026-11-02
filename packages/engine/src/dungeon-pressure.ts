@@ -1,4 +1,5 @@
 import { settleFreeTrinket } from "./trinket-lifecycle";
+import { resolveHolders } from "./stagecoach-holdings";
 import { crownTrinketReaction } from "./trinket-reactions";
 import type { ApplyResult, GameEvent, GameState } from "./command";
 import { resolvePressure } from "./pressure";
@@ -31,7 +32,9 @@ export function resolveDungeonPressure(
     ["virtue", "affliction"].some((role) => catalog.filter((c) => c.role === role).length !== 5)
   )
     return blocked("压力已支付；等待完整获批五美德 / 五苦难牌堆（R-048），未掷骰");
-  const assigned = d.heroes.flatMap((h) => (h.resolveCardId ? [h.resolveCardId] : []));
+  const assigned = resolveHolders(d, d.heroes).flatMap((h) =>
+    h.resolveCardId ? [h.resolveCardId] : [],
+  );
   if (
     new Set(assigned).size !== assigned.length ||
     assigned.some((id) => !catalog.some((c) => c.id === id))
@@ -106,7 +109,10 @@ export function resolveDungeonPressure(
     const deck = existing
       ? [...existing]
       : catalog
-          .filter((c) => c.role === role && !d.heroes.some((h) => h.resolveCardId === c.id))
+          .filter(
+            (c) =>
+              c.role === role && !resolveHolders(d, d.heroes).some((h) => h.resolveCardId === c.id),
+          )
           .map((c) => c.id);
     if (!existing)
       for (let i = deck.length - 1; i > 0; i--) {

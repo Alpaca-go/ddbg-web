@@ -1,4 +1,5 @@
 import type { ApplyResult, GameState, GameEvent } from "./command";
+import { resolveHolders } from "./stagecoach-holdings";
 import type { DungeonState } from "./dungeon";
 import { rejectBattleCommand } from "./battle";
 import { recoverHamletPools } from "./hamlet-return-pools";
@@ -167,7 +168,9 @@ export function beginReturnToHamlet(state: GameState): ApplyResult {
     )
   )
     return rejectBattleCommand(state, "回村缺完整意志牌池或当前姿态（R-048）");
-  const held = d.heroes.flatMap((h) => (h.resolveCardId ? [h.resolveCardId] : []));
+  const held = resolveHolders(d, d.heroes).flatMap((h) =>
+    h.resolveCardId ? [h.resolveCardId] : [],
+  );
   if (
     new Set(held).size !== held.length ||
     held.some((id) => !d.resolveCards.some((c) => c.id === id)) ||
@@ -217,7 +220,9 @@ export function beginReturnToHamlet(state: GameState): ApplyResult {
     })),
     trinkets: {
       ...next.trinkets!,
-      held: next.trinkets!.held.map((t) => ({ ...t, face: "upright" })),
+      held: next.trinkets!.held.map((t) =>
+        next.stagecoachHeroes?.some((h) => h.id === t.heroId) ? t : { ...t, face: "upright" },
+      ),
     },
     hamletReturn: {
       phase: "converting",
@@ -234,7 +239,11 @@ export function beginReturnToHamlet(state: GameState): ApplyResult {
         .map((h) => h.id),
     },
   };
-  next = recycleResolve(next, held, state.seed);
+  next = recycleResolve(
+    next,
+    d.heroes.flatMap((h) => (h.resolveCardId ? [h.resolveCardId] : [])),
+    state.seed,
+  );
   return convertResolve({
     state: { ...state, dungeon: next },
     events: [
@@ -252,7 +261,9 @@ function recycleResolve(d: DungeonState, held: readonly string[], seed: number):
   for (let i = 0; i < next.cursor; i++) rng.next();
   for (const role of ["affliction", "virtue"] as const) {
     if (!d.resolveCards.some((c) => c.role === role && held.includes(c.id))) continue;
-    const deck = d.resolveCards.filter((c) => c.role === role).map((c) => c.id);
+    const deck = d.resolveCards
+      .filter((c) => c.role === role && !d.stagecoachHeroes?.some((h) => h.resolveCardId === c.id))
+      .map((c) => c.id);
     let cursor = next.cursor;
     for (let i = deck.length - 1; i > 0; i--) {
       const j = Math.floor(rng.next() * (i + 1));

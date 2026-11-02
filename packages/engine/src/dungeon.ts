@@ -146,6 +146,8 @@ export type DungeonState = {
   readonly deadHeroNames?: readonly string[];
   /** 回收/遗产分配前保存；历史记录不占当前共享牌，供重生池完整继承。 */
   readonly fallenHeroes?: readonly import("./fallen-heroes").FallenHero[];
+  /** R-147：复活后在驿站等待的完整英雄；不占当前四人队伍或等待代币。 */
+  readonly stagecoachHeroes?: readonly DungeonState["heroes"][number][];
   /** 独立于原流程待选：处置死者饰品后恢复原待选。 */
   readonly deathTrinketChoice?: PendingChoice;
   readonly deathChoiceCursor?: number;

@@ -26,7 +26,7 @@ function syncCombat(heroes: DungeonState["heroes"]): DungeonState["heroes"] {
   );
 }
 
-type PreparedRebirth = {
+export type PreparedRebirth = {
   readonly status: "prepared";
   /** 已结算支付、尚未归还原牌的四人状态；后续奖励策略可使用，不重新掷骰。 */
   readonly paymentDungeon: DungeonState;
@@ -46,7 +46,7 @@ export function preparePoolRebirthPayment(
 ): PreparedRebirth | { readonly status: "refused"; readonly reason: string } {
   const refuse = (reason: string) => ({ status: "refused" as const, reason });
   const d = state.dungeon;
-  const matches = d?.fallenHeroes?.filter((f) => f.hero.id === fallenHeroId) ?? [];
+  const matches = d?.fallenHeroes?.filter((f) => f.hero.id === fallenHeroId && !f.revived) ?? [];
   if (
     !d ||
     state.battle ||
@@ -70,7 +70,7 @@ export function preparePoolRebirthPayment(
   const name = d.battleCatalog?.heroStats.find((s) => s.id === fallen.hero.heroStatId)?.name;
   if (
     !name ||
-    d.heroes.some(
+    [...d.heroes, ...(d.stagecoachHeroes ?? [])].some(
       (h) =>
         !h.dead && d.battleCatalog?.heroStats.find((s) => s.id === h.heroStatId)?.name === name,
     )

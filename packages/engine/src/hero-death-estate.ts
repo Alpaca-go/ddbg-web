@@ -36,6 +36,9 @@ export function replacementHeroCandidates(d: DungeonState) {
   const catalog = d.battleCatalog;
   if (!catalog) return [];
   const unavailable = new Set([
+    ...(d.stagecoachHeroes ?? []).flatMap((h) =>
+      catalog.heroStats.filter((s) => s.id === h.heroStatId).map((s) => s.name),
+    ),
     ...(d.deadHeroNames ?? []),
     ...(d.preparedReplacements ?? []).flatMap((p) =>
       catalog.heroStats.filter((s) => s.id === p.hero.heroStatId).map((s) => s.name),

@@ -2,9 +2,13 @@ import type { FallenHero } from "./fallen-heroes";
 import type { DungeonState } from "./dungeon";
 import { conditionPoolProblem } from "./conditions";
 import { trinketPoolProblem } from "./trinket-acquisition";
+import { stagecoachProjections, stagecoachHoldingsProblem } from "./stagecoach-holdings";
 
 type Hero = DungeonState["heroes"][number];
-type Pools = Pick<DungeonState, "conditions" | "trinkets" | "resolveCards" | "resolveDecks">;
+type Pools = Pick<
+  DungeonState,
+  "conditions" | "trinkets" | "resolveCards" | "resolveDecks" | "stagecoachHeroes"
+>;
 type Result =
   | { readonly status: "refused"; readonly reason: string }
   | { readonly status: "resolved"; readonly heroes: readonly Hero[]; readonly pools: Pools };
@@ -43,6 +47,36 @@ export function returnPoolRebirthCards(
   heroes: readonly Hero[],
   pools: Pools,
 ): Result {
+  const problem = stagecoachHoldingsProblem({ ...pools, heroes });
+  if (problem) return { status: "refused", reason: problem };
+  if (!pools.stagecoachHeroes?.length) return returnCards(fallen, heroes, pools);
+  const { reservedHeroes: _conditions, ...conditions } = pools.conditions!;
+  const { reservedHeroes: _trinkets, ...trinkets } = pools.trinkets!;
+  void _conditions;
+  void _trinkets;
+  const result = returnCards(fallen, [...heroes, ...pools.stagecoachHeroes], {
+    ...pools,
+    conditions,
+    trinkets,
+  });
+  if (result.status === "refused") return result;
+  const stagecoachHeroes = result.heroes.filter((h) =>
+    pools.stagecoachHeroes!.some((old) => old.id === h.id),
+  );
+  const projections = stagecoachProjections(stagecoachHeroes);
+  return {
+    ...result,
+    heroes: result.heroes.filter((h) => !stagecoachHeroes.some((r) => r.id === h.id)),
+    pools: {
+      ...result.pools,
+      stagecoachHeroes,
+      conditions: { ...result.pools.conditions!, reservedHeroes: projections.conditions },
+      trinkets: { ...result.pools.trinkets!, reservedHeroes: projections.trinkets },
+    },
+  };
+}
+
+function returnCards(fallen: FallenHero, heroes: readonly Hero[], pools: Pools): Result {
   const refuse = (reason: string): Result => ({ status: "refused", reason });
   const target = fallen.hero;
   const existing = heroes.find((h) => h.id === target.id);

@@ -2,6 +2,7 @@ import type { ApplyResult } from "./command";
 import { rejectBattleCommand } from "./battle";
 import { conditionPoolProblem } from "./conditions";
 import { createRng } from "./rng";
+import { resolveHolders } from "./stagecoach-holdings";
 
 /** R31、R-091：实时死者持有的共享卡立即洗回；不回收其他弃牌、不转换怪癖。 */
 export function releaseDeadHeroCards(result: ApplyResult): ApplyResult {
@@ -34,7 +35,7 @@ export function releaseDeadHeroCards(result: ApplyResult): ApplyResult {
     if (problem) return refuse(problem);
   }
   const cards = b?.resolveCards ?? d.resolveCards;
-  const held = heroes.flatMap((h) => (h.resolveCardId ? [h.resolveCardId] : []));
+  const held = resolveHolders(d, heroes).flatMap((h) => (h.resolveCardId ? [h.resolveCardId] : []));
   if (resolves.length) {
     if (
       cards.length !== 10 ||
@@ -70,8 +71,9 @@ export function releaseDeadHeroCards(result: ApplyResult): ApplyResult {
   };
   if (conditions && (diseases.length || quirks.length)) {
     const pool = conditions;
-    const heldDiseases = heroes.flatMap((h) => (h.diseaseId ? [h.diseaseId] : []));
-    const heldQuirks = heroes.flatMap((h) => h.quirkIds ?? []);
+    const holders = [...heroes, ...(pool.reservedHeroes ?? [])];
+    const heldDiseases = holders.flatMap((h) => (h.diseaseId ? [h.diseaseId] : []));
+    const heldQuirks = holders.flatMap((h) => h.quirkIds ?? []);
     if (diseases.length)
       conditions = {
         ...conditions,

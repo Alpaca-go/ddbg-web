@@ -1,5 +1,6 @@
 import type { DungeonState } from "./dungeon";
 import { createRng } from "./rng";
+import { resolveHolders } from "./stagecoach-holdings";
 
 /** R-091 风格：把一张意志卡洗回对应角色牌堆（美德→美德堆，苦难→苦难堆）。 */
 function returnResolveToRoleDeck(
@@ -13,7 +14,7 @@ function returnResolveToRoleDeck(
   const card = d.resolveCards.find((c) => c.id === cardId);
   if (!card || (card.role !== "virtue" && card.role !== "affliction"))
     return { status: "refused", reason: "墓地归还意志卡不在完整获批牌池（R-048）" };
-  const held = d.heroes.flatMap((h) =>
+  const held = resolveHolders(d, d.heroes).flatMap((h) =>
     h.id !== heroId && h.resolveCardId ? [h.resolveCardId] : [],
   );
   if (held.includes(cardId))
@@ -92,7 +93,9 @@ export function grantGraveyardVirtue(
     !Number.isSafeInteger(working.cursor + 4)
   )
     return { status: "refused", reason: "墓地缺完整获批五美德/五苦难牌池或有效RNG游标（R-048）" };
-  const held = working.heroes.flatMap((h) => (h.resolveCardId ? [h.resolveCardId] : []));
+  const held = resolveHolders(working, working.heroes).flatMap((h) =>
+    h.resolveCardId ? [h.resolveCardId] : [],
+  );
   if (
     new Set(held).size !== held.length ||
     held.some((id) => !cards.some((c) => c.id === id)) ||
