@@ -17,9 +17,10 @@ const quests = [
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);
-  expect(result.events.some((e) => e.type === "commandRefused"), JSON.stringify(result.events)).toBe(
-    false,
-  );
+  expect(
+    result.events.some((e) => e.type === "commandRefused"),
+    JSON.stringify(result.events),
+  ).toBe(false);
   return result;
 }
 
@@ -52,8 +53,9 @@ describe("最暗中途 Boss deployDarkestMidBoss / startBattle", () => {
       expect(game.battle!.encounter).toBeUndefined();
       const actorIds = readDarkestMidBossRequiredCombatCardIds(questId);
       expect(
-        game.battle!.entities.filter((e) => e.side === "monster" && actorIds.includes(e.monsterCardId!))
-          .length,
+        game.battle!.entities.filter(
+          (e) => e.side === "monster" && actorIds.includes(e.monsterCardId!),
+        ).length,
       ).toBe(actorIds.length);
       const afterStart = started(base);
       expect(afterStart.battle!.encounter).toEqual({
@@ -70,9 +72,11 @@ describe("最暗中途 Boss deployDarkestMidBoss / startBattle", () => {
 
   it("重复 deployDarkestMidBoss 拒绝", () => {
     const game = ok(deployed("quest:p016"), { type: "deployDarkestMidBoss" }).state;
-    expect(applyCommand(game, { type: "deployDarkestMidBoss" }).events.some((e) => e.type === "commandRefused")).toBe(
-      true,
-    );
+    expect(
+      applyCommand(game, { type: "deployDarkestMidBoss" }).events.some(
+        (e) => e.type === "commandRefused",
+      ),
+    ).toBe(true);
   });
 
   it("未 prepareDungeonMonsters 不能 deployDarkestMidBoss / startBattle", () => {
@@ -83,10 +87,14 @@ describe("最暗中途 Boss deployDarkestMidBoss / startBattle", () => {
       { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
       { type: "prepareDungeonBattle" },
     ).state;
-    expect(applyCommand(bound, { type: "deployDarkestMidBoss" }).events.some((e) => e.type === "commandRefused")).toBe(
-      true,
-    );
-    expect(applyCommand(bound, { type: "startBattle" }).events.some((e) => e.type === "commandRefused")).toBe(true);
+    expect(
+      applyCommand(bound, { type: "deployDarkestMidBoss" }).events.some(
+        (e) => e.type === "commandRefused",
+      ),
+    ).toBe(true);
+    expect(
+      applyCommand(bound, { type: "startBattle" }).events.some((e) => e.type === "commandRefused"),
+    ).toBe(true);
   });
 
   it("drawInitiative 在最暗 Boss inBattle 下可续接", () => {

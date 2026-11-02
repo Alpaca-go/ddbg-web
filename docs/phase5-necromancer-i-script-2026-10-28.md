@@ -24,15 +24,15 @@
 
 ## 仍待确认 / hold（本 PR 未收）
 
-| 项                                                        | 说明                                                                 |
-| --------------------------------------------------------- | -------------------------------------------------------------------- |
+| 项                                                        | 说明                                                                                                                              |
+| --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | quest:p019 / 各幕 **Face the Threat** → 具体 Boss 脚本 id | `resolveBossScriptIdForQuest` + `defaultFaceTheThreatEmbarkHook` **ok**；出征见 `face-the-threat-embark-runtime`（R-121 仍 hold） |
-| **定威胁** / Imminent Threat / 升幕                       | 战役层未存 active Boss；村庄威胁未自动写入 `hamlet.blockedBuildings` |
-| **R-121** Boss 位「目标 + 2 随机」                        | `bossSlotPlacement` stub                                             |
-| **R-122** Boss XP 回村                                    | 仍归任务卡 hold                                                      |
-| 战斗后永久移出 **写入 monsterPool / 存档 S7**             | helper 仅算 cardId；持久化未接                                       |
-| Necromancer 死亡后移除其他怪物、完整召唤流程              | R38 文案在 `notes`；encounter / spawn hold                           |
-| `encounterRoundRetreatLimit` 接入 `encounter.ts`          | 留给后续 PR                                                          |
+| **定威胁** / Imminent Threat / 升幕                       | 战役层未存 active Boss；村庄威胁未自动写入 `hamlet.blockedBuildings`                                                              |
+| **R-121** Boss 位「目标 + 2 随机」                        | `bossSlotPlacement` stub                                                                                                          |
+| **R-122** Boss XP 回村                                    | 仍归任务卡 hold                                                                                                                   |
+| 战斗后永久移出 **写入 monsterPool / 存档 S7**             | helper 仅算 cardId；持久化未接                                                                                                    |
+| Necromancer 死亡后移除其他怪物、完整召唤流程              | R38 文案在 `notes`；encounter / spawn hold                                                                                        |
+| `encounterRoundRetreatLimit` 接入 `encounter.ts`          | 留给后续 PR                                                                                                                       |
 
 ## 任务卡与数据映射（当前）
 

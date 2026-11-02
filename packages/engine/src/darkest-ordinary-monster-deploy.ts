@@ -40,11 +40,14 @@ function spawnCardsForDeck(
   return cards;
 }
 
-function deckConservationError(d: DungeonState, next: {
-  readonly remaining: readonly string[];
-  readonly discarded: readonly string[];
-  readonly activeIds: readonly string[];
-}): string | undefined {
+function deckConservationError(
+  d: DungeonState,
+  next: {
+    readonly remaining: readonly string[];
+    readonly discarded: readonly string[];
+    readonly activeIds: readonly string[];
+  },
+): string | undefined {
   const base = d.darkest!.monsterDeck;
   if (base.length !== 26 || new Set(base).size !== 26) return "最暗怪物牌堆不守恒，不能重新抽牌";
   const ids = [...next.remaining, ...next.discarded, ...next.activeIds];
@@ -109,7 +112,9 @@ export function prepareDarkestOrdinaryMonsterDeployment(state: GameState): Apply
     return refuse("最暗普通房间入口缺完整房间目录（R-048）");
   const active = catalog.active;
   if (!active || active.roomId !== d.position || active.tileId)
-    return refuse("需要已绑定的最暗普通房间牌（无获批 Room Tile）；不能替换房间或提前抽怪物（R-048）");
+    return refuse(
+      "需要已绑定的最暗普通房间牌（无获批 Room Tile）；不能替换房间或提前抽怪物（R-048）",
+    );
   if (d.darkest.ordinaryDeployment)
     return refuse("本场最暗遭遇已记录或牌堆状态不一致；不能重抽 / 重洗 / 发奖励");
   if (d.darkest.bossDeployment && d.darkest.bossDeployment.roomId === d.position)

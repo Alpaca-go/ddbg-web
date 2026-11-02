@@ -79,11 +79,7 @@ function selectEchoingDisassemblyPrimaryTarget(
   return { targetId: picked.targetId, areaId: primary.areaId };
 }
 
-function crowdedStressTargets(
-  battle: BattleState,
-  areaId: string,
-  max: number,
-): BattleEntity[] {
+function crowdedStressTargets(battle: BattleState, areaId: string, max: number): BattleEntity[] {
   const candidates = battle.entities.filter(
     (entity) => entity.side === "hero" && !entity.dead && entity.areaId === areaId,
   );
@@ -102,8 +98,10 @@ function applyEchoingDisassemblyTargetEffects(
   actor: BattleEntity,
 ): { readonly battle: BattleState } | ApplyResult {
   const card = readMonsterCard(state, battle, actor.monsterCardId!);
-  if (!card?.skills.find((entry) => entry.slot === SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT)
-    ?.verified_monster_effects)
+  if (
+    !card?.skills.find((entry) => entry.slot === SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT)
+      ?.verified_monster_effects
+  )
     return { battle };
   const targetPick = selectEchoingDisassemblyPrimaryTarget(state, battle, actor);
   if ("events" in targetPick) return targetPick;
@@ -154,7 +152,8 @@ function livingHeroes(battle: BattleState): BattleEntity[] {
     )
     .sort(
       (a, b) =>
-        STANCE_ORDER.indexOf(a.stance!) - STANCE_ORDER.indexOf(b.stance!) || a.id.localeCompare(b.id),
+        STANCE_ORDER.indexOf(a.stance!) - STANCE_ORDER.indexOf(b.stance!) ||
+        a.id.localeCompare(b.id),
     );
 }
 
@@ -170,7 +169,10 @@ function shufflingHorrorActor(
   const battle = state.battle;
   if (!battle) return rejectBattleCommand(state, "尚未创建战斗沙盒");
   if (!isShufflingHorrorMidBossBattle(state))
-    return rejectBattleCommand(state, `${skillLabel} 仅适用于 Shuffling Horror 最暗中途 Boss 战（R-048）`);
+    return rejectBattleCommand(
+      state,
+      `${skillLabel} 仅适用于 Shuffling Horror 最暗中途 Boss 战（R-048）`,
+    );
   const script = getBossScript(DARKEST_SHUFFLING_HORROR_SCRIPT_ID);
   const entry = script ? readBossCombatEntry(script) : undefined;
   if (!entry || entry.combatMonsterCardId !== SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID)
@@ -247,10 +249,10 @@ function readMonsterCard(
   cardId: string,
 ): (MonsterCardView & { readonly dodge?: number; readonly life?: number }) | undefined {
   const fromBattle = battle.monsters?.find((entry) => entry.id === cardId);
-  if (fromBattle) return fromBattle as MonsterCardView & { readonly dodge?: number; readonly life?: number };
+  if (fromBattle)
+    return fromBattle as MonsterCardView & { readonly dodge?: number; readonly life?: number };
   return state.dungeon?.battleCatalog?.monsters.find((entry) => entry.id === cardId) as
-    | (MonsterCardView & { readonly dodge?: number; readonly life?: number })
-    | undefined;
+    (MonsterCardView & { readonly dodge?: number; readonly life?: number }) | undefined;
 }
 
 function readMonsterSpawnMeta(
@@ -282,8 +284,7 @@ export function applyShufflingHorrorUndulations(state: GameState, actorId: strin
   if ("events" in resolved) return resolved;
   const { battle } = resolved;
   const heroes = livingHeroes(battle);
-  if (!heroes.length)
-    return rejectBattleCommand(state, "Undulations：场上无可用英雄姿态（R-048）");
+  if (!heroes.length) return rejectBattleCommand(state, "Undulations：场上无可用英雄姿态（R-048）");
   const { order, cursor } = shuffleHeroIds(
     state.seed,
     battle.rngCursor,
@@ -347,8 +348,7 @@ export function applyShufflingHorrorEchoingDisassembly(
       continue;
     }
     const meta = readMonsterSpawnMeta(state, battle, cardId);
-    if (!meta)
-      return rejectBattleCommand(state, `${cardId} 缺少目录占格，不能伪造召唤（R-048）`);
+    if (!meta) return rejectBattleCommand(state, `${cardId} 缺少目录占格，不能伪造召唤（R-048）`);
     const stance = pickOpenMonsterStance(occupied, meta.stanceSlots);
     if (!stance) {
       return rejectBattleCommand(

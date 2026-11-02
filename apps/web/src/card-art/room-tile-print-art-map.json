@@ -22,18 +22,7 @@
       "face": "front",
       "matchMethod": "geometry_source_trim_page",
       "reviewVerdict": "R-054",
-      "areaIds": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J"
-      ]
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
     },
     {
       "tileId": "room_tile:p002:back",
@@ -44,16 +33,7 @@
       "face": "back",
       "matchMethod": "geometry_source_trim_page",
       "reviewVerdict": "R-048",
-      "areaIds": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H"
-      ]
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H"]
     },
     {
       "tileId": "room_tile:p002:front",
@@ -64,18 +44,7 @@
       "face": "front",
       "matchMethod": "geometry_source_trim_page",
       "reviewVerdict": "R-065",
-      "areaIds": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J"
-      ]
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
     },
     {
       "tileId": "room_tile:p003:front",
@@ -86,17 +55,7 @@
       "face": "front",
       "matchMethod": "geometry_source_trim_page",
       "reviewVerdict": "R-065",
-      "areaIds": [
-        "L1",
-        "L2",
-        "L3",
-        "L4",
-        "L5",
-        "L6",
-        "L7",
-        "L8",
-        "L9"
-      ]
+      "areaIds": ["L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9"]
     },
     {
       "tileId": "room_tile:p003:back",
@@ -107,20 +66,7 @@
       "face": "back",
       "matchMethod": "geometry_source_trim_page",
       "reviewVerdict": "R-066",
-      "areaIds": [
-        "S1",
-        "S2",
-        "S3",
-        "S4",
-        "S5",
-        "S6",
-        "S7",
-        "S8",
-        "S9",
-        "S10",
-        "S11",
-        "S12"
-      ]
+      "areaIds": ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12"]
     },
     {
       "tileId": "room_tile:p004:back",
@@ -131,17 +77,7 @@
       "face": "back",
       "matchMethod": "geometry_source_trim_page",
       "reviewVerdict": "R-065",
-      "areaIds": [
-        "T1",
-        "T2",
-        "T3",
-        "T4",
-        "T5",
-        "T6",
-        "T7",
-        "T8",
-        "T9"
-      ]
+      "areaIds": ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9"]
     },
     {
       "tileId": "room_tile:p004:front",
@@ -152,17 +88,7 @@
       "face": "front",
       "matchMethod": "geometry_source_trim_page",
       "reviewVerdict": "R-065",
-      "areaIds": [
-        "A1",
-        "A2",
-        "A3",
-        "A4",
-        "A5",
-        "A6",
-        "A7",
-        "A8",
-        "A9"
-      ]
+      "areaIds": ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"]
     },
     {
       "tileId": "room_tile:p005:back",
@@ -173,18 +99,7 @@
       "face": "back",
       "matchMethod": "geometry_source_trim_page",
       "reviewVerdict": "R-065",
-      "areaIds": [
-        "I1",
-        "I2",
-        "I3",
-        "I4",
-        "I5",
-        "I6",
-        "I7",
-        "I8",
-        "I9",
-        "I10"
-      ]
+      "areaIds": ["I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I9", "I10"]
     },
     {
       "tileId": "room_tile:p005:front",
@@ -195,17 +110,7 @@
       "face": "front",
       "matchMethod": "geometry_source_trim_page",
       "reviewVerdict": "R-065",
-      "areaIds": [
-        "O1",
-        "O2",
-        "O3",
-        "O4",
-        "O5",
-        "O6",
-        "O7",
-        "O8",
-        "O9"
-      ]
+      "areaIds": ["O1", "O2", "O3", "O4", "O5", "O6", "O7", "O8", "O9"]
     }
   ],
   "pendingConfirmation": [

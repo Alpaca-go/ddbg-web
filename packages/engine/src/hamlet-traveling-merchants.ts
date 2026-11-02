@@ -83,15 +83,12 @@ function continueTravelingMerchants(state: GameState): ApplyResult {
     const { nextQuestProvisionFaceChoice: _flag, provisionFaceChoiceRemaining: _rem, ...rest } = d;
     void _flag;
     void _rem;
-    return proceedAfterProvisionFaceChoices(
-      { ...state, dungeon: rest },
-      [
-        {
-          type: "dungeonUpdated",
-          message: "Traveling Merchants改骰结束（卡面p8、R12）",
-        },
-      ],
-    );
+    return proceedAfterProvisionFaceChoices({ ...state, dungeon: rest }, [
+      {
+        type: "dungeonUpdated",
+        message: "Traveling Merchants改骰结束（卡面p8、R12）",
+      },
+    ]);
   }
   const pending = {
     id: `dungeon-traveling-merchants:${d.decision}`,

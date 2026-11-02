@@ -6,31 +6,31 @@
 
 ## 缺口调查
 
-| 状态（收口前） | 数量 | 卡页 |
-| --- | ---: | --- |
-| 已 verified | 25 | 除下表外 |
-| 未 verified | 13 | p009、p010、p012、p014、p015、p016、p018、p019、p021、p023、p026、p028、p035 |
+| 状态（收口前） | 数量 | 卡页                                                                         |
+| -------------- | ---: | ---------------------------------------------------------------------------- |
+| 已 verified    |   25 | 除下表外                                                                     |
+| 未 verified    |   13 | p009、p010、p012、p014、p015、p016、p018、p019、p021、p023、p026、p028、p035 |
 
 每张未 verified 卡的 `verification.reasons` 均为 `icon:<hash>`，无其它原因（无未命名数字、无缺页等）。对应 iconId 在词典 v1.8 中仍为 `needs_review` / `pending_*`，而 **Kyries Q-47 批（2026-10-26）** 已在 `icon-dictionary-v1.8-CHANGELOG.md` 与 `dictionary.test.ts` 中批准为 `confirmed`——规范化 JSON 未随词典重跑，造成 drift。
 
 ## 规则与证据
 
 - **R-001**：只认官方规则书 + `docs/rulings.md`；本刀不新增裁定。
-- **R-048**：图标须词典 `confirmed` / `confirmed_rulebook` 才可消 `unverified`；不发明比较符或 stat  glyph 含义。
+- **R-048**：图标须词典 `confirmed` / `confirmed_rulebook` 才可消 `unverified`；不发明比较符或 stat glyph 含义。
 - **词典**：`packages/data/dictionary/icon-dictionary-v1.8.json` + CHANGELOG batch / batch-2（`kyries_review_2026-10-26`）。
 - **数量**：extract 对账 38 张、I/II/III = 14/12/12（`extract/corebox/reports/reconciliation.md`）。
 - **印刷来源**：各 icon notes 指向 `DD_EN_COREBOX_CARDS_44x68_TRINKETS_FRONT.pdf` 对应页（见 CHANGELOG 行）。
 
 ### 本批消 verification 的 icon 摘要
 
-| iconId | 批准 key | 主要卡面 |
-| --- | --- | --- |
-| `c80192cfcc` / `032fd6cccd` | `trinket_picture` | Sage's Book 等 |
-| `003b470410` | `dodge` | Speed Stone、Book of Relaxation |
-| `a08da49488` / `66254314c8` | `trinket_picture` / `hunger` | Survival Guide、Warrior's Cap |
-| `a64616e9c5` | `bleed` | Bloodthirst Ring、Bloodcourse Medallion |
-| `c1d74de856` / `ed3b7ac902` / `206c655597` | `compare_lte` | 光照 `< 3` 条件笔画 |
-| `b3f370e3ec` / `8c829e3754` / `599b5b0881` / `be2e32545a` | `compare_gte` | 光照 `> 3` 条件笔画 |
+| iconId                                                    | 批准 key                     | 主要卡面                                |
+| --------------------------------------------------------- | ---------------------------- | --------------------------------------- |
+| `c80192cfcc` / `032fd6cccd`                               | `trinket_picture`            | Sage's Book 等                          |
+| `003b470410`                                              | `dodge`                      | Speed Stone、Book of Relaxation         |
+| `a08da49488` / `66254314c8`                               | `trinket_picture` / `hunger` | Survival Guide、Warrior's Cap           |
+| `a64616e9c5`                                              | `bleed`                      | Bloodthirst Ring、Bloodcourse Medallion |
+| `c1d74de856` / `ed3b7ac902` / `206c655597`                | `compare_lte`                | 光照 `< 3` 条件笔画                     |
+| `b3f370e3ec` / `8c829e3754` / `599b5b0881` / `be2e32545a` | `compare_gte`                | 光照 `> 3` 条件笔画                     |
 
 词典仍 **唯一** `needs_review`：`9b1134d0b0`（rank 335，area d10 teleport），不在任何饰品卡面。
 

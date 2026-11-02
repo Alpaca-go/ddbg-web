@@ -6,11 +6,11 @@
 
 ## 候选与取舍
 
-| 卡 | 招 | 效果线 | 本刀 |
-| --- | --- | --- | --- |
-| `p018` Ancestor 2 | Embrace Futility | `{target_effects}{debuff}2t,{stress}+2,{shuffle}Push2`（图标均 confirmed） | **接** |
-| `p018` Ancestor 2 | Refashion Them / Unmake Them All | 多效果 | 已接（前两刀） |
-| `p020` HoD 余招 / Gestating Heart / Pit Toss 等 | — | — | hold |
+| 卡                                              | 招                               | 效果线                                                                     | 本刀           |
+| ----------------------------------------------- | -------------------------------- | -------------------------------------------------------------------------- | -------------- |
+| `p018` Ancestor 2                               | Embrace Futility                 | `{target_effects}{debuff}2t,{stress}+2,{shuffle}Push2`（图标均 confirmed） | **接**         |
+| `p018` Ancestor 2                               | Refashion Them / Unmake Them All | 多效果                                                                     | 已接（前两刀） |
+| `p020` HoD 余招 / Gestating Heart / Pit Toss 等 | —                                | —                                                                          | hold           |
 
 依据：`monster_large` FRONT **p018**、`docs/phase5-a01-ancestor2-refashion-them-effects-2026-11-01.md`；规则 R-001 / R-048。
 

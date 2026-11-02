@@ -14,7 +14,9 @@ import { switchTrinketDungeonLevel } from "./trinket-acquisition";
 import { createRng } from "./rng";
 import type { GameState, ApplyResult } from "./command";
 
-export function isDarkestQuest(id: string | undefined): id is "quest:p016" | "quest:p017" | "quest:p018" {
+export function isDarkestQuest(
+  id: string | undefined,
+): id is "quest:p016" | "quest:p017" | "quest:p018" {
   return ["quest:p016", "quest:p017", "quest:p018"].includes(id ?? "");
 }
 

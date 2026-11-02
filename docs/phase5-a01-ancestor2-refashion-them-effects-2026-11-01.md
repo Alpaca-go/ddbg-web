@@ -6,12 +6,12 @@
 
 ## 候选与取舍
 
-| 卡 | 招 | 效果线 | 本刀 |
-| --- | --- | --- | --- |
-| `p018` Ancestor 2 | Refashion Them | `{target_effects} 3 {bleed} 3t , {stress} +1 , {light} -1`（图标均 confirmed） | **接** |
-| `p018` Ancestor 2 | Unmake Them All | bleed + stress | 已接（上一刀） |
-| `p018` Ancestor 2 | Embrace Futility | 含 Push | hold |
-| 中途 Boss / 其他最终战招 | — | — | hold |
+| 卡                       | 招               | 效果线                                                                         | 本刀           |
+| ------------------------ | ---------------- | ------------------------------------------------------------------------------ | -------------- |
+| `p018` Ancestor 2        | Refashion Them   | `{target_effects} 3 {bleed} 3t , {stress} +1 , {light} -1`（图标均 confirmed） | **接**         |
+| `p018` Ancestor 2        | Unmake Them All  | bleed + stress                                                                 | 已接（上一刀） |
+| `p018` Ancestor 2        | Embrace Futility | 含 Push                                                                        | hold           |
+| 中途 Boss / 其他最终战招 | —                | —                                                                              | hold           |
 
 依据：`monster_large` FRONT **p018**、`docs/phase5-a01-ancestor2-unmake-them-all-effects-2026-11-01.md`；规则 R-001 / R-048。卡面无 debuff（旧文档误写已废弃）。
 

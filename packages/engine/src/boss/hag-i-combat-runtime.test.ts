@@ -34,7 +34,10 @@ const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "s
 function cards<T>(file: string): T[] {
   return (
     JSON.parse(
-      readFileSync(new URL(`../../../data/normalized/corebox/${file}.json`, import.meta.url), "utf8"),
+      readFileSync(
+        new URL(`../../../data/normalized/corebox/${file}.json`, import.meta.url),
+        "utf8",
+      ),
     ) as { cards: T[] }
   ).cards;
 }
@@ -61,7 +64,9 @@ function verifiedMonsterCard(id: string, life: number, width: 1 | 2 = 1): Monste
 const hagLife = 60;
 const cauldronLife = 100;
 const cauldronFullLife = 120;
-const soldier = cards<MonsterCardView>("monster_medium").find((card) => card.id === "monster_medium:p001")!;
+const soldier = cards<MonsterCardView>("monster_medium").find(
+  (card) => card.id === "monster_medium:p001",
+)!;
 const markSkillTemplate = soldier.skills.find((skill) => skill.slot === 1)!;
 const intoThePotSkill = {
   ...markSkillTemplate,
@@ -74,7 +79,11 @@ const hagCard: MonsterCardView = {
   skills: [intoThePotSkill],
 };
 const cauldronCard = verifiedMonsterCard(HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID, cauldronLife, 2);
-const cauldronFullCard = verifiedMonsterCard(HAG_I_CAULDRON_FULL_MONSTER_CARD_ID, cauldronFullLife, 2);
+const cauldronFullCard = verifiedMonsterCard(
+  HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
+  cauldronFullLife,
+  2,
+);
 
 function hagBossDungeon(): GameState["dungeon"] {
   return {
@@ -262,7 +271,9 @@ describe("Hag I · Into the Pot! / Cauldron Full 最小运行时", () => {
   it("applyHagICauldronEmptyToFullMorph 切换卡面", () => {
     const state = hagBattleWithCauldron();
     const result = applyHagICauldronEmptyToFullMorph(state, "hag", HAG_I_INTO_THE_POT_SKILL_SLOT);
-    const cauldron = result.state.battle!.entities.find((entity) => entity.id === "boss:hag:cauldron-empty");
+    const cauldron = result.state.battle!.entities.find(
+      (entity) => entity.id === "boss:hag:cauldron-empty",
+    );
     expect(cauldron).toMatchObject({
       monsterCardId: HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
       life: cauldronFullLife,
@@ -293,7 +304,9 @@ describe("Hag I · Into the Pot! / Cauldron Full 最小运行时", () => {
     });
     const playRefused = resolved.events.find((event) => event.type === "commandRefused");
     expect(playRefused, playRefused?.message).toBeUndefined();
-    const cauldron = resolved.state.battle!.entities.find((entity) => entity.id === "boss:hag:cauldron-empty");
+    const cauldron = resolved.state.battle!.entities.find(
+      (entity) => entity.id === "boss:hag:cauldron-empty",
+    );
     expect(cauldron?.monsterCardId).toBe(HAG_I_CAULDRON_FULL_MONSTER_CARD_ID);
   });
 });

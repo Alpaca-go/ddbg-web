@@ -69,13 +69,7 @@ it.each([
 
 it("createCoreDungeonQuest 仍拒绝 Stygian", () => {
   expect(() =>
-    createCoreDungeonQuest(
-      1,
-      "quest:p001",
-      "stygian" as "standard",
-      coreParty,
-      coreQuestSources,
-    ),
+    createCoreDungeonQuest(1, "quest:p001", "stygian" as "standard", coreParty, coreQuestSources),
   ).toThrow();
 });
 

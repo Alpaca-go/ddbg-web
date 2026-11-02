@@ -15,9 +15,7 @@ import { statusProjection } from "./status";
 import type { SpawnPlacement } from "./spawn";
 import type { DungeonState } from "./dungeon";
 import { isDarkestQuest } from "./darkest-setup";
-import {
-  darkestOrdinaryDeploymentMatches,
-} from "./darkest-ordinary-monster-deploy";
+import { darkestOrdinaryDeploymentMatches } from "./darkest-ordinary-monster-deploy";
 
 const SKELETON_STANCE_AREAS = {
   hero: {
@@ -64,8 +62,7 @@ function spawnDeployedMonster(
   refuse: (message: string) => ApplyResult,
 ): BattleEntity | ApplyResult {
   const card = monsters.find((entry) => entry.id === spawn.cardId) as
-    | (MonsterCardView & { readonly dodge?: number; readonly life?: number })
-    | undefined;
+    (MonsterCardView & { readonly dodge?: number; readonly life?: number }) | undefined;
   if (!card || !("skills" in card) || card.life === undefined)
     return refuse(`${spawn.cardId} 缺少 Life 或战斗目录条目，不能伪造最暗普通部署（R-048）`);
   const poolCard = pool.cards.find((entry) => entry.combatCardId === spawn.cardId);
@@ -95,7 +92,10 @@ function spawnDeployedMonster(
   };
 }
 
-function buildHeroEntities(state: GameState, refuse: (message: string) => ApplyResult): BattleEntity[] | ApplyResult {
+function buildHeroEntities(
+  state: GameState,
+  refuse: (message: string) => ApplyResult,
+): BattleEntity[] | ApplyResult {
   const d = state.dungeon!;
   const { heroStats: stats, skills, monsters: _monsters } = d.battleCatalog!;
   void _monsters;
@@ -188,7 +188,9 @@ export function deployDarkestOrdinaryEncounter(state: GameState): ApplyResult {
     d.heroes.some((hero) => hero.dead) ||
     d.roomCards?.active?.roomId !== d.position
   )
-    return refuse("须在已记录最暗普通 26 牌堆部署的非目标房 awaitingRoom 执行 deployDarkestOrdinaryEncounter（R36）");
+    return refuse(
+      "须在已记录最暗普通 26 牌堆部署的非目标房 awaitingRoom 执行 deployDarkestOrdinaryEncounter（R36）",
+    );
   const monsters = d.battleCatalog.monsters;
   const pool = d.darkest.monsterPool;
   const spawned: BattleEntity[] = [];

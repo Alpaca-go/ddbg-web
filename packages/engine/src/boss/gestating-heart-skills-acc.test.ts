@@ -1,11 +1,7 @@
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { GESTATING_HEART_MONSTER_CARD_ID } from "./gestating-heart-ichor";
-import {
-  readMonsterAttackView,
-  resolveMonsterSkill,
-  type MonsterCardView,
-} from "../monster-skill";
+import { readMonsterAttackView, resolveMonsterSkill, type MonsterCardView } from "../monster-skill";
 
 function loadLargeCards(): MonsterCardView[] {
   const large = JSON.parse(
@@ -44,9 +40,9 @@ it("monster_large:p019 仅 slot 1 Dispersion，无 Acc/Crit/伤害/目标/射程
   expect(skill.name).toBe("Dispersion");
   expect(skill.target).toBeNull();
   expect(skill.printed_labels).toEqual([]);
-  expect(skill.lines.some((line) => line.some((s) => s.type === "icon" && s.icon.key === "damage"))).toBe(
-    false,
-  );
+  expect(
+    skill.lines.some((line) => line.some((s) => s.type === "icon" && s.icon.key === "damage")),
+  ).toBe(false);
 });
 
 it("p019 卡级 verified（icon 8707d5d8cf→summon）；p018/p020 仍为 verified 且各有三招 Acc 标签", () => {
@@ -57,7 +53,9 @@ it("p019 卡级 verified（icon 8707d5d8cf→summon）；p018/p020 仍为 verifi
   for (const id of ["monster_large:p018", "monster_large:p020"] as const) {
     const boss = cards.find((c) => c.id === id)!;
     expect(boss.verification.unverified).toBe(false);
-    expect(boss.skills.filter((s) => s.printed_labels.some((l) => l.label === "Acc"))).toHaveLength(3);
+    expect(boss.skills.filter((s) => s.printed_labels.some((l) => l.label === "Acc"))).toHaveLength(
+      3,
+    );
   }
 });
 

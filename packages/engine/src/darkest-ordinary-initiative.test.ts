@@ -7,9 +7,10 @@ const quests = ["quest:p016", "quest:p017", "quest:p018"] as const;
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);
-  expect(result.events.some((e) => e.type === "commandRefused"), JSON.stringify(result.events)).toBe(
-    false,
-  );
+  expect(
+    result.events.some((e) => e.type === "commandRefused"),
+    JSON.stringify(result.events),
+  ).toBe(false);
   return result;
 }
 
@@ -51,7 +52,9 @@ describe("最暗普通房 deployDarkestOrdinaryEncounter / startBattle", () => {
       expect(game.dungeon!.phase).toBe("inBattle");
       expect(game.battle!.encounter).toBeUndefined();
       expect(
-        game.battle!.entities.filter((e) => e.side === "monster").reduce((n, e) => n + (e.stanceSlots ?? 1), 0),
+        game
+          .battle!.entities.filter((e) => e.side === "monster")
+          .reduce((n, e) => n + (e.stanceSlots ?? 1), 0),
       ).toBe(4);
       const deckAfter = [
         ...(game.dungeon!.darkest!.monsterDeckRemaining ?? []),
@@ -94,9 +97,9 @@ describe("最暗普通房 deployDarkestOrdinaryEncounter / startBattle", () => {
         (e) => e.type === "commandRefused",
       ),
     ).toBe(true);
-    expect(applyCommand(bound, { type: "startBattle" }).events.some((e) => e.type === "commandRefused")).toBe(
-      true,
-    );
+    expect(
+      applyCommand(bound, { type: "startBattle" }).events.some((e) => e.type === "commandRefused"),
+    ).toBe(true);
   });
 
   it("目标房不能走普通 deploy 路径", () => {
@@ -115,9 +118,11 @@ describe("最暗普通房 deployDarkestOrdinaryEncounter / startBattle", () => {
         (e) => e.type === "commandRefused",
       ),
     ).toBe(true);
-    expect(applyCommand(midDeployed, { type: "deployDarkestMidBoss" }).events.some((e) => e.type === "commandRefused")).toBe(
-      false,
-    );
+    expect(
+      applyCommand(midDeployed, { type: "deployDarkestMidBoss" }).events.some(
+        (e) => e.type === "commandRefused",
+      ),
+    ).toBe(false);
   });
 
   it("drawInitiative 在最暗普通 inBattle 下可续接", () => {
@@ -129,6 +134,8 @@ describe("最暗普通房 deployDarkestOrdinaryEncounter / startBattle", () => {
 
   it("存档白名单包含 deployDarkestOrdinaryEncounter", async () => {
     const { savedCommandSchema } = await import("../../data/src/quest-save");
-    expect(savedCommandSchema.safeParse({ type: "deployDarkestOrdinaryEncounter" }).success).toBe(true);
+    expect(savedCommandSchema.safeParse({ type: "deployDarkestOrdinaryEncounter" }).success).toBe(
+      true,
+    );
   });
 });

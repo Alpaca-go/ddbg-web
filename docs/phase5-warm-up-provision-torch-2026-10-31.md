@@ -19,13 +19,13 @@
 
 ## 待确认（未自行裁定）
 
-| 编号 | 问题 | 当前实现 |
-| --- | --- | --- |
+| 编号      | 问题                                | 当前实现                                              |
+| --------- | ----------------------------------- | ----------------------------------------------------- |
 | Q-WARM-01 | 同趟 Merchants + Warm Up 的先后顺序 | Merchants 完成后 Warm Up（与既有 Merchants 测试兼容） |
-| Q-WARM-02 | R-041 奖励骰是否可改为 Torch | **纳入**该英雄 `dungeon-bonus-provision:*` |
-| Q-WARM-03 | Radiant 第二颗自选面是否算「them」 | **纳入**已入池的常规姿态骰 |
-| Q-WARM-04 | 逐英雄顺序 | 姿态轨 Aggressive→Support（对齐 Merchants） |
-| Q-WARM-05 | 是否必须改一颗 | **可选**；每英雄均有「不改为 Torch」 |
+| Q-WARM-02 | R-041 奖励骰是否可改为 Torch        | **纳入**该英雄 `dungeon-bonus-provision:*`            |
+| Q-WARM-03 | Radiant 第二颗自选面是否算「them」  | **纳入**已入池的常规姿态骰                            |
+| Q-WARM-04 | 逐英雄顺序                          | 姿态轨 Aggressive→Support（对齐 Merchants）           |
+| Q-WARM-05 | 是否必须改一颗                      | **可选**；每英雄均有「不改为 Torch」                  |
 
 依据：已入库 `quest_cards.json` `quest:p011` 卡文、R-045（Dark 房 Torch 例外语境）、R12/R-041 补给流程。不新增 FAQ；不发明数值。
 

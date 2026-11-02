@@ -6,11 +6,11 @@
 
 ## 已接
 
-| 任务 | Boss 主体（actors） | supportCardIds（目录） |
-| ---- | ------------------- | ---------------------- |
-| quest:p016 | Shuffling Horror | Cultist Priest、Malignant Growth |
-| quest:p017 | Templar Impaler + Warlord | （无） |
-| quest:p018 | Mammoth Cyst | White Cell Stalk |
+| 任务       | Boss 主体（actors）       | supportCardIds（目录）           |
+| ---------- | ------------------------- | -------------------------------- |
+| quest:p016 | Shuffling Horror          | Cultist Priest、Malignant Growth |
+| quest:p017 | Templar Impaler + Warlord | （无）                           |
+| quest:p018 | Mammoth Cyst              | White Cell Stalk                 |
 
 - **`prepareDarkestMidBossDeployment`**：除 Boss 棋子外，按目录追加 `supportMonsters: SpawnPlacement[]`。
   - 前后排 / 占格来自 `battleCatalog.monsters[].type_position_tags`；缺字段 → R-048 拒绝。

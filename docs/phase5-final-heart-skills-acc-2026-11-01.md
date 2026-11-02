@@ -6,11 +6,11 @@
 
 ## 卡面字段（`monster_large:p020`）
 
-| Slot | 名称 | 目标 | 射程 | Acc | Crit | 伤害（stats 行） |
-|------|------|------|------|-----|------|------------------|
-| 1 | Know This | Crowded | 0–10（`verified_range`） | 12 | 1 | 3 / 2（四目标图标） |
-| 2 | Puncture | Closest | 0–10（`verified_range`） | 12 | 2 | 18 / 14 |
-| 3 | Dissolution | Furthest | 0–10（`verified_range`） | 12 | 2 | 18 / 14 |
+| Slot | 名称        | 目标     | 射程                     | Acc | Crit | 伤害（stats 行）    |
+| ---- | ----------- | -------- | ------------------------ | --- | ---- | ------------------- |
+| 1    | Know This   | Crowded  | 0–10（`verified_range`） | 12  | 1    | 3 / 2（四目标图标） |
+| 2    | Puncture    | Closest  | 0–10（`verified_range`） | 12  | 2    | 18 / 14             |
+| 3    | Dissolution | Furthest | 0–10（`verified_range`） | 12  | 2    | 18 / 14             |
 
 Life **250**；Dodge **3**（卡面 footer）。
 

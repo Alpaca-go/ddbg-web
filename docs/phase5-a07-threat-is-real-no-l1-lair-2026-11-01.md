@@ -10,13 +10,13 @@
 
 ## 已接
 
-| 条目 | 实现 |
-| --- | --- |
-| 任务门控 | 仅 `dungeon.questDistribution.questId === quest:p015` |
-| 房间门控 | 仅 `room.kind === "lair"` |
-| 等级判定 | 怪物池卡 `MonsterPoolCard.level`（`instanceId` 页码 → 池卡，R17） |
+| 条目     | 实现                                                                                                                 |
+| -------- | -------------------------------------------------------------------------------------------------------------------- |
+| 任务门控 | 仅 `dungeon.questDistribution.questId === quest:p015`                                                                |
+| 房间门控 | 仅 `room.kind === "lair"`                                                                                            |
+| 等级判定 | 怪物池卡 `MonsterPoolCard.level`（`instanceId` 页码 → 池卡，R17）                                                    |
 | 生成路径 | `prepareDungeonMonsters` → `spawnMonsters` 的 `skipSpawn`：跳过 Level 1 实例不落位，牌序仍前进（守恒进 `remaining`） |
-| 接线 | `packages/engine/src/threat-is-real-no-l1-lair.ts`；`dungeon-monsters.ts` 传入 skip |
+| 接线     | `packages/engine/src/threat-is-real-no-l1-lair.ts`；`dungeon-monsters.ts` 传入 skip                                  |
 
 ## 未接 / 范围外
 
@@ -28,8 +28,8 @@
 
 ## Q-xx
 
-| 编号 | 说明 |
-| --- | --- |
+| 编号                     | 说明                                                                                                                    |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
 | Q-p015-lair-deck-exhaust | 若洗牌后连续 Level 1 实例在 Lair 中不足以填满四姿态，`prepareDungeonMonsters` 按既有惯例 **拒绝命令**，不重洗、不换房。 |
 
 ## 验证

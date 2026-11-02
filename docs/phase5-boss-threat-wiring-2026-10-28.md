@@ -5,12 +5,12 @@
 
 ## 状态字段
 
-| 字段                                                  | 位置           | 含义                                                                                                                                           |
-| ----------------------------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 字段                                                  | 位置           | 含义                                                                                                                                                                                  |
+| ----------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `dungeon.activeBossThreatScriptId`                    | `DungeonState` | 当前激活迫近威胁（Boss 脚本 id）。**正式**：`establishImminentThreat` / `drawImminentThreatAfterActAdvance`；**沙盒**：`setActiveBossThreat`（同 `applyActiveBossThreatToDungeon`）。 |
-| `dungeon.imminentThreatDescriptionCardId`             | `DungeonState` | 最近一次 Imminent Threat 抽到的 Boss Description 卡 id                                                                                         |
-| `dungeon.defeatedRuinsBossIdentities`                 | `DungeonState` | 已击败 Ruins Boss，升幕抽牌时排除（§2.2）                                                                                                      |
-| `dungeon.monsterPool.permanentlyRemovedCombatCardIds` | 怪物池         | Unsettling Silhouettes 等威胁永久移出的**战斗怪物卡 id**；`cards` 仍保留完整 24 张 catalog。                                                   |
+| `dungeon.imminentThreatDescriptionCardId`             | `DungeonState` | 最近一次 Imminent Threat 抽到的 Boss Description 卡 id                                                                                                                                |
+| `dungeon.defeatedRuinsBossIdentities`                 | `DungeonState` | 已击败 Ruins Boss，升幕抽牌时排除（§2.2）                                                                                                                                             |
+| `dungeon.monsterPool.permanentlyRemovedCombatCardIds` | 怪物池         | Unsettling Silhouettes 等威胁永久移出的**战斗怪物卡 id**；`cards` 仍保留完整 24 张 catalog。                                                                                          |
 
 ## 已接线路径
 
@@ -35,12 +35,12 @@
 
 ## 待确认 / hold
 
-| 项                                  | 说明                                         |
-| ----------------------------------- | -------------------------------------------- |
+| 项                                  | 说明                                                                                    |
+| ----------------------------------- | --------------------------------------------------------------------------------------- |
 | `faceTheThreatEmbark`               | #343 钩子 ok；#349/#350 已接 `chooseNextQuest` / 幕末 p019 offer（R-121 边缘房仍 hold） |
-| 升幕 §2.2 步骤 2–5                  | 与 `advanceCampaignLevel` 沙盒预览未合并     |
-| 永久移出的怪物                      | **不**在清除威胁时恢复（规则为永久移出游戏） |
-| R-121 / R-122 / encounter Boss 轮数 | 仍 hold                                      |
+| 升幕 §2.2 步骤 2–5                  | 与 `advanceCampaignLevel` 沙盒预览未合并                                                |
+| 永久移出的怪物                      | **不**在清除威胁时恢复（规则为永久移出游戏）                                            |
+| R-121 / R-122 / encounter Boss 轮数 | 仍 hold                                                                                 |
 
 总表：[phase5-remaining-hold-inventory-2026-10-29.md](./phase5-remaining-hold-inventory-2026-10-29.md)（tip `3b50f2e`）。
 

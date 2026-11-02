@@ -6,39 +6,39 @@
 
 ## 1. 核心盒依据
 
-| 项 | 证据 |
-| --- | --- |
-| 区域 | Ruins Boss（spec §2.3、§14.5 表；`threat-description-catalog` `fanatic` → `boss_ability:p019–p021`） |
-| 印刷集 | `boss_ability:p019` `source_set: "base"`；`monster_large:p008` 在 `normalized/corebox/` |
-| 任务 / 房间 | `quest:p019` Face the Threat；`room:p013` Fanatic Room（数据已有，本刀不接进幕） |
+| 项          | 证据                                                                                                 |
+| ----------- | ---------------------------------------------------------------------------------------------------- |
+| 区域        | Ruins Boss（spec §2.3、§14.5 表；`threat-description-catalog` `fanatic` → `boss_ability:p019–p021`） |
+| 印刷集      | `boss_ability:p019` `source_set: "base"`；`monster_large:p008` 在 `normalized/corebox/`              |
+| 任务 / 房间 | `quest:p019` Face the Threat；`room:p013` Fanatic Room（数据已有，本刀不接进幕）                     |
 
 ## 2. 本 PR 交付
 
-| 项 | 值 |
-| --- | --- |
-| 脚本 id | `boss:ruins:fanatic:1` |
-| Description | `boss_ability:p019`（Boss Abilities FRONT p19） |
-| 战斗 + 威胁双面 | `boss_ability:p022`（p22） |
-| 战斗怪物 | `monster_large:p008`（Fanatic I · Human · Front · Large） |
-| Pyre（战斗布置） | `monster_large:p011`（**已接** `startBattle` → Pyre 远程姿态 + 对应区域） |
-| 地牢威胁 | **Marked for Death I**：开战全体 d10、最低者 Mark 2t（确认图标 `192ea1fea9`）→ **已接** `startBattle` |
-| 村庄威胁 | **The Black Sheep I**：揭示事件前全体 d10、最低 +4 压力 → **已接**（`drawHamletEvent` / `phase5-threat-passive-runtime-2026-10-28.md`） |
-| 先攻 / 行动 | 先攻 4（Fanatic 3 + Pyre 1，spec §14.5）、`ACTIONS / Round: 3`（卡面 extract） |
-| Sentence Rendered | **已接** 最小运行时（`boss_ability:p022` / spec §14.5 R39） |
-| Pit Toss | **已接** 同区丢入 Pyre 区域（`pitToss` 钩子；boss_ability 文案 toss，非 Templar d10 尖刺坑） |
-| 先攻 4 洗入 | **已接** `expandFanaticIInitiativeDeckSides`（2 实体 + 2 补足 = 4 monster 侧；spec §14.5 R39） |
-| C-017 更新 | 本体三招骰表 / Speed / 完整效果与目标 AI 已接；无技能召唤，`purpose:skill` 返回 `notApplicable`。Pyre 独立技能 / 死亡移除仍 hold，见 `phase5-fanatic-i-skill-ai-2026-10-29.md` |
+| 项                | 值                                                                                                                                                                             |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 脚本 id           | `boss:ruins:fanatic:1`                                                                                                                                                         |
+| Description       | `boss_ability:p019`（Boss Abilities FRONT p19）                                                                                                                                |
+| 战斗 + 威胁双面   | `boss_ability:p022`（p22）                                                                                                                                                     |
+| 战斗怪物          | `monster_large:p008`（Fanatic I · Human · Front · Large）                                                                                                                      |
+| Pyre（战斗布置）  | `monster_large:p011`（**已接** `startBattle` → Pyre 远程姿态 + 对应区域）                                                                                                      |
+| 地牢威胁          | **Marked for Death I**：开战全体 d10、最低者 Mark 2t（确认图标 `192ea1fea9`）→ **已接** `startBattle`                                                                          |
+| 村庄威胁          | **The Black Sheep I**：揭示事件前全体 d10、最低 +4 压力 → **已接**（`drawHamletEvent` / `phase5-threat-passive-runtime-2026-10-28.md`）                                        |
+| 先攻 / 行动       | 先攻 4（Fanatic 3 + Pyre 1，spec §14.5）、`ACTIONS / Round: 3`（卡面 extract）                                                                                                 |
+| Sentence Rendered | **已接** 最小运行时（`boss_ability:p022` / spec §14.5 R39）                                                                                                                    |
+| Pit Toss          | **已接** 同区丢入 Pyre 区域（`pitToss` 钩子；boss_ability 文案 toss，非 Templar d10 尖刺坑）                                                                                   |
+| 先攻 4 洗入       | **已接** `expandFanaticIInitiativeDeckSides`（2 实体 + 2 补足 = 4 monster 侧；spec §14.5 R39）                                                                                 |
+| C-017 更新        | 本体三招骰表 / Speed / 完整效果与目标 AI 已接；无技能召唤，`purpose:skill` 返回 `notApplicable`。Pyre 独立技能 / 死亡移除仍 hold，见 `phase5-fanatic-i-skill-ai-2026-10-29.md` |
 
 定威胁：`resolveScriptIdForDescriptionCard("boss_ability:p019")` → 挂 `activeBossThreatScriptId`；不再写 `unregisteredImminentThreatHold`。
 
 ## 3. Ruins I 级四 Boss 脚本（本 PR 后）
 
-| 脚本 id | 描述卡 |
-| --- | --- |
-| `boss:ruins:necromancer:1` | `boss_ability:p001` |
-| `boss:ruins:prophet:1` | `boss_ability:p007` |
-| `boss:ruins:collector:1` | `boss_ability:p013` |
-| `boss:ruins:fanatic:1` | `boss_ability:p019` **（本 PR）** |
+| 脚本 id                    | 描述卡                            |
+| -------------------------- | --------------------------------- |
+| `boss:ruins:necromancer:1` | `boss_ability:p001`               |
+| `boss:ruins:prophet:1`     | `boss_ability:p007`               |
+| `boss:ruins:collector:1`   | `boss_ability:p013`               |
+| `boss:ruins:fanatic:1`     | `boss_ability:p019` **（本 PR）** |
 
 Ruins **II/III** 描述卡（`p002`/`p003` 等）仍无脚本 → 升幕抽牌可 hold。
 

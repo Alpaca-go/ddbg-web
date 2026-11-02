@@ -11,22 +11,22 @@ R41 / `boss_ability:p036` 也只描述 **Ichor** 与 **Summon**，未列出对�
 
 ## 卡面字段（`monster_large:p019`）
 
-| Slot | 名称 | Acc | Crit | 伤害 | 目标 | 射程 |
-|------|------|-----|------|------|------|------|
-| 1 | Dispersion | — | — | — | `null` | — |
-| 2 | — | — | — | — | — | — |
-| 3 | — | — | — | — | — | — |
+| Slot | 名称       | Acc | Crit | 伤害 | 目标   | 射程 |
+| ---- | ---------- | --- | ---- | ---- | ------ | ---- |
+| 1    | Dispersion | —   | —    | —    | `null` | —    |
+| 2    | —          | —   | —    | —    | —      | —    |
+| 3    | —          | —   | —    | —    | —      | —    |
 
 - `skills` 数组长度 **1**；`printed_labels` / 攻击 `lines` 无 Crit/Acc/range/damage 图标行。
 - 卡级：`life` 100，`header_unlabeled_numbers` Dodge **3**；`verification.unverified: true`，`reasons: ["icon:8707d5d8cf"]`（规范化层仍标 `pending_8707d5d8cf` / `needs_review`，词典 v1.8 已 `confirmed` · `key=summon`）。
 
 ## 对比（同 PDF 大型 Boss 邻页）
 
-| 卡 | 攻击技能数 | 示例 |
-|----|------------|------|
-| `monster_large:p018` | 3 | Refashion Them / Unmake Them All / Embrace Futility（均有 Acc 12 等） |
-| `monster_large:p019` | 0（Acc 线） | 仅 Dispersion（召唤） |
-| `monster_large:p020` | 3 | Know This / Puncture / Dissolution |
+| 卡                   | 攻击技能数  | 示例                                                                  |
+| -------------------- | ----------- | --------------------------------------------------------------------- |
+| `monster_large:p018` | 3           | Refashion Them / Unmake Them All / Embrace Futility（均有 Acc 12 等） |
+| `monster_large:p019` | 0（Acc 线） | 仅 Dispersion（召唤）                                                 |
+| `monster_large:p020` | 3           | Know This / Puncture / Dissolution                                    |
 
 ## `playMonsterSkill` 与 icon 8707d5d8cf
 

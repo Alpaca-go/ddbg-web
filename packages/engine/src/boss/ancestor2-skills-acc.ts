@@ -3,9 +3,7 @@ import { playMonsterSkill } from "../battle-monster";
 import type { ApplyResult, GameState } from "../command";
 import { selectMonsterTarget, type MonsterTargetHero } from "../monster-target";
 import { readMonsterAttackView } from "../monster-skill";
-import {
-  ANCESTOR_2_MONSTER_CARD_ID,
-} from "./ancestor2-swift-teleportation";
+import { ANCESTOR_2_MONSTER_CARD_ID } from "./ancestor2-swift-teleportation";
 import { readFinalFormSequence } from "./final-form-sequence";
 
 /** `monster_large:p018` · boss_ability:p035 三招 Acc/Crit/伤害（slot 1/2/3 效果线均已 verified）。 */
@@ -44,8 +42,7 @@ function resolveAncestor2Actor(
     actor.monsterCardId !== ANCESTOR_2_MONSTER_CARD_ID
   )
     return rejectBattleCommand(state, `仅 Ancestor 2 实体可执行 ${skillLabel}（R-048）`);
-  if (actor.life === undefined)
-    return rejectBattleCommand(state, "Ancestor 2 缺少 Life（R-048）");
+  if (actor.life === undefined) return rejectBattleCommand(state, "Ancestor 2 缺少 Life（R-048）");
   return { battle, actor };
 }
 

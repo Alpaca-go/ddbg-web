@@ -25,7 +25,13 @@ const WARLORD_CTX = {
 } as const;
 
 export function applyTemplarImpalerTorment(state: GameState, actorId: string): ApplyResult {
-  return runDarkestMidBossSkillAcc(state, actorId, TEMPLAR_TORMENT_SKILL_SLOT, "Torment", IMPALER_CTX);
+  return runDarkestMidBossSkillAcc(
+    state,
+    actorId,
+    TEMPLAR_TORMENT_SKILL_SLOT,
+    "Torment",
+    IMPALER_CTX,
+  );
 }
 
 export function applyTemplarImpalerBodySlam(state: GameState, actorId: string): ApplyResult {
@@ -49,7 +55,13 @@ export function applyTemplarImpalerRevelation(state: GameState, actorId: string)
 }
 
 export function applyTemplarWarlordTorment(state: GameState, actorId: string): ApplyResult {
-  return runDarkestMidBossSkillAcc(state, actorId, TEMPLAR_TORMENT_SKILL_SLOT, "Torment", WARLORD_CTX);
+  return runDarkestMidBossSkillAcc(
+    state,
+    actorId,
+    TEMPLAR_TORMENT_SKILL_SLOT,
+    "Torment",
+    WARLORD_CTX,
+  );
 }
 
 export function applyTemplarWarlordStingerShot(state: GameState, actorId: string): ApplyResult {

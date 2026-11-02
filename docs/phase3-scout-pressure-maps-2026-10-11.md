@@ -20,22 +20,22 @@
 
 数据文件 `packages/data/normalized/corebox/dungeon_layouts.json`。S 是队伍图案起点；房间 A–P 按从上到下、同排从左到右标注，X / Y 是独立走廊节点。百分比坐标用于绘图，不是规则距离。原 p1 文件保留，测试锁定其与汇总文件一致。
 
-| FRONT / BACK 页 | 房间槽 | 连接段 | 灰点 / 未解释标记        | 连接清单                                                                                      |
-| --------------- | ------ | ------ | ------------------------ | --------------------------------------------------------------------------------------------- |
-| 1               | 8      | 8      | 无                       | S-G、G-F、F-C、G-H、G-D、D-E、D-A、A-B                                                        |
-| 2               | 8      | 8      | 无                       | A-B、A-D、B-E、C-D、C-F、F-H、D-G、G-S                                                        |
-| 3               | 8      | 10     | X / Y 各三岔             | A-X、X-D、X-E、B-D、D-Y、Y-C、Y-G、D-F、F-S、E-H                                              |
-| 4               | 8      | 10     | X 三岔                   | A-C、C-X、X-B、X-G、C-E、E-D、E-F、F-G、D-H、E-S                                              |
-| 5               | 8      | 10     | X 三岔                   | A-B、B-X、X-C、X-F、C-D、B-E、F-G、G-H、D-H、F-S                                              |
-| 6               | 8      | 11     | X 两段                   | A-C、B-C、C-X、X-E、C-D、D-G、B-F、S-F、F-G、G-H、H-E                                         |
-| 7               | 8      | 10     | 无                       | A-D、D-F、F-G、G-S、S-B、B-C、C-E、E-H、E-S、S-D                                              |
-| 8               | 8      | 8      | 无                       | S-G、G-D、G-F、G-H、F-C、C-A、H-E、E-B                                                        |
-| 9               | 8      | 9      | X 四岔                   | A-X、X-B、X-C、X-F、F-H、B-E、E-D、D-G、E-S                                                   |
-| 10              | 8      | 11     | X / Y 各四岔             | A-B、A-X、B-Y、C-X、X-D、X-F、D-Y、Y-E、Y-H、D-G、G-S                                         |
+| FRONT / BACK 页 | 房间槽 | 连接段 | 灰点 / 未解释标记                 | 连接清单                                                                                      |
+| --------------- | ------ | ------ | --------------------------------- | --------------------------------------------------------------------------------------------- |
+| 1               | 8      | 8      | 无                                | S-G、G-F、F-C、G-H、G-D、D-E、D-A、A-B                                                        |
+| 2               | 8      | 8      | 无                                | A-B、A-D、B-E、C-D、C-F、F-H、D-G、G-S                                                        |
+| 3               | 8      | 10     | X / Y 各三岔                      | A-X、X-D、X-E、B-D、D-Y、Y-C、Y-G、D-F、F-S、E-H                                              |
+| 4               | 8      | 10     | X 三岔                            | A-C、C-X、X-B、X-G、C-E、E-D、E-F、F-G、D-H、E-S                                              |
+| 5               | 8      | 10     | X 三岔                            | A-B、B-X、X-C、X-F、C-D、B-E、F-G、G-H、D-H、F-S                                              |
+| 6               | 8      | 11     | X 两段                            | A-C、B-C、C-X、X-E、C-D、D-G、B-F、S-F、F-G、G-H、H-E                                         |
+| 7               | 8      | 10     | 无                                | A-D、D-F、F-G、G-S、S-B、B-C、C-E、E-H、E-S、S-D                                              |
+| 8               | 8      | 8      | 无                                | S-G、G-D、G-F、G-H、F-C、C-A、H-E、E-B                                                        |
+| 9               | 8      | 9      | X 四岔                            | A-X、X-B、X-C、X-F、F-H、B-E、E-D、D-G、E-S                                                   |
+| 10              | 8      | 11     | X / Y 各四岔                      | A-B、A-X、B-Y、C-X、X-D、X-F、D-Y、Y-E、Y-H、D-G、G-S                                         |
 | 11              | 16     | 19     | 灰点 X（R-114），特殊槽 A / B / G | A-D、B-C、C-X、X-D、X-E、D-F、E-F、F-G、E-I、I-L、H-K、J-K、K-L、L-M、M-N、K-O、O-S、S-P、P-M |
-| 12              | 16     | 17     | 特殊槽 A / C / D         | A-B、B-C、B-E、D-E、E-G、F-G、G-H、F-J、H-L、I-J、J-K、K-L、L-M、I-N、K-O、M-P、O-S           |
-| 13              | 8      | 8      | 无                       | S-A、A-B、B-C、S-D、D-E、E-H、D-G、G-F                                                        |
-| 14              | 8      | 8      | 无                       | A-B、B-C、C-E、E-S、D-G、G-S、H-S、H-F                                                        |
+| 12              | 16     | 17     | 特殊槽 A / C / D                  | A-B、B-C、B-E、D-E、E-G、F-G、G-H、F-J、H-L、I-J、J-K、K-L、L-M、I-N、K-O、M-P、O-S           |
+| 13              | 8      | 8      | 无                                | S-A、A-B、B-C、S-D、D-E、E-H、D-G、G-F                                                        |
+| 14              | 8      | 8      | 无                                | A-B、B-C、C-E、E-S、D-G、G-S、H-S、H-F                                                        |
 
 首切片“灰点必须恰好两段”的 schema 假设与实际 p3 / p4 / p5 / p9 / p10 不符，已修正为至少两段，允许三岔与四岔。侦察只看当前节点的直接邻室，不跨越灰点；灰点不能侦察（R14、R-046）。这不是新规则裁定，而是按印刷图修正数据约束。
 

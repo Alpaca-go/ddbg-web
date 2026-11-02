@@ -84,7 +84,12 @@ const wilburMarkHook = (): BossWilburMarkOk => ({
   effect: "forceMarkSkillWhilePrinceAlive",
   skillSlot: SWINE_PRINCE_I_WILBUR_MARK_SKILL_SLOT,
   sourceAbilityCardId: SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID,
-  rulesRef: ["R39", "spec:§14.5", SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID, SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID],
+  rulesRef: [
+    "R39",
+    "spec:§14.5",
+    SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID,
+    SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
+  ],
 });
 
 export const swinePrinceIBossScript: BossScriptDefinition = {

@@ -14,9 +14,10 @@ function hamletAfterCaretaker(seed = 41) {
   let game = createCoreDungeonQuest(seed, "quest:p001", "radiant", coreParty, coreQuestSources);
   const step = (command: Parameters<typeof applyCommand>[1]) => {
     const r = applyCommand(game, command);
-    expect(r.events.some((e) => e.type === "commandRefused"), JSON.stringify(r.events)).toBe(
-      false,
-    );
+    expect(
+      r.events.some((e) => e.type === "commandRefused"),
+      JSON.stringify(r.events),
+    ).toBe(false);
     game = r.state;
     return r;
   };

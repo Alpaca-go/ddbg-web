@@ -111,14 +111,14 @@ Kyries 手打效果义 vs 印刷效果行（`FRONT_V2` / q60-review / normalized
 
 ## Tile 几何 / 部署备忘（非本清单勾选主体）
 
-| 项目                                 | 现状                                                          | 是否还需眼                           |
-| ------------------------------------ | ------------------------------------------------------------- | ------------------------------------ |
-| `room_tile:p001` Ritual Chamber 几何 | `geometryVerified=true`（R-054）                              | 精确区域 polygon 仍未标（bbox≠轮廓） |
-| `room_tile:p001` 部署                | `usable=true`，`printReview=verified`（R-055）                | 本页已 verified；不自动推广到其他板  |
-| 其余 Room Tile                       | TILES_FRONT 共 14 页；规范化几何目前仅 1 条                   | 是：p2–14 几何 + 部署                |
+| 项目                                 | 现状                                                                            | 是否还需眼                           |
+| ------------------------------------ | ------------------------------------------------------------------------------- | ------------------------------------ |
+| `room_tile:p001` Ritual Chamber 几何 | `geometryVerified=true`（R-054）                                                | 精确区域 polygon 仍未标（bbox≠轮廓） |
+| `room_tile:p001` 部署                | `usable=true`，`printReview=verified`（R-055）                                  | 本页已 verified；不自动推广到其他板  |
+| 其余 Room Tile                       | TILES_FRONT 共 14 页；规范化几何目前仅 1 条                                     | 是：p2–14 几何 + 部署                |
 | QuestMap 布局                        | 14 页 `review: confirmed`（R-065 / R-123 / R-118 / R-119）；Q-45 边缘房等仍延后 | Q-59 / Q-63 等仍待裁定               |
-| Q-59 起点侦察、光照表、陷阱缩写      | 仍待确认                                                      | 是                                   |
-| 容纳图标词典缺口                     | 部分 occupancy value=null / 未收录                            | 是（不因几何批准而命名）             |
+| Q-59 起点侦察、光照表、陷阱缩写      | 仍待确认                                                                        | 是                                   |
+| 容纳图标词典缺口                     | 部分 occupancy value=null / 未收录                                              | 是（不因几何批准而命名）             |
 
 ---
 

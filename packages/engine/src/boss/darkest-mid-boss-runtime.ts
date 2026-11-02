@@ -108,11 +108,9 @@ function buildDarkestMidBossSupportPlacements(
   const supportMonsters: SpawnPlacement[] = [];
   for (const [index, cardId] of supportCardIds.entries()) {
     const meta = readMonsterSpawnMeta(state, cardId);
-    if (!meta)
-      return refuse(`${cardId} 缺少目录前后排/占格，不能伪造支持怪部署（R-048）`);
+    if (!meta) return refuse(`${cardId} 缺少目录前后排/占格，不能伪造支持怪部署（R-048）`);
     const stance = pickOpenStance(occupied, meta.stanceSlots);
-    if (!stance)
-      return refuse(`${cardId} 无可用姿态轨占位（Large Boss 占格后 R-048 拒绝重叠）`);
+    if (!stance) return refuse(`${cardId} 无可用姿态轨占位（Large Boss 占格后 R-048 拒绝重叠）`);
     const start = STANCE_ORDER.indexOf(stance);
     for (let slot = start; slot < start + meta.stanceSlots; slot += 1) occupied.add(slot);
     supportMonsters.push({
@@ -201,7 +199,10 @@ export function darkestBossDeploymentMatchesPlan(
   const deployment = d.darkest?.bossDeployment;
   if (!deployment || deployment.roomId !== d.position) return false;
   if (deployment.resolvedScriptId !== plan.resolvedScriptId) return false;
-  const deployed = deployment.monsters.map((monster) => monster.cardId).sort().join(",");
+  const deployed = deployment.monsters
+    .map((monster) => monster.cardId)
+    .sort()
+    .join(",");
   const expected = [...plan.actorCardIds].sort().join(",");
   return deployed === expected;
 }
@@ -241,8 +242,7 @@ export function prepareDarkestMidBossDeployment(state: GameState): ApplyResult |
     active.cardId !== plan.roomCardId
   )
     return refuse("需要已绑定的最暗 Boss 房间牌与目标房（R36）");
-  if (d.darkest.bossDeployment)
-    return refuse("最暗 Boss 部署已记录；不能重抽 / 重洗 / 发奖励");
+  if (d.darkest.bossDeployment) return refuse("最暗 Boss 部署已记录；不能重抽 / 重洗 / 发奖励");
   const encounter = readDarkestBossEncounter(plan.questId);
   if (!encounter) return refuse("最暗 Boss 内容目录缺失（R36）");
   const monsters: SpawnPlacement[] = [];

@@ -90,9 +90,10 @@ function protectedPage(page: number) {
   };
   return choose(ordered, "use:p4").state;
 }
-function resolveCurioPendingChoice(
-  pending: { id: string; options: readonly { id: string }[] },
-): string {
+function resolveCurioPendingChoice(pending: {
+  id: string;
+  options: readonly { id: string }[];
+}): string {
   if (pending.id.startsWith("dungeon-trinket:")) {
     const equip = pending.options.find((o) => o.id.startsWith("equip:"));
     if (equip) return equip.id;

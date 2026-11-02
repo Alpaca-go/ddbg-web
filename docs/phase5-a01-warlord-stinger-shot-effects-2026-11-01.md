@@ -6,14 +6,14 @@
 
 ## 候选与取舍
 
-| 卡 | 招 | 效果线 | 本刀 |
-| --- | --- | --- | --- |
-| `p014` Warlord | Stinger Shot | `{target_effects} 3 {blight} 3t , {debuff} 2t`（图标均 confirmed） | **接** |
-| `p014` Warlord | Revelation | `{stress}+2` | #464 已合 |
-| `p014` Warlord | Torment | 效果线空 | hold |
-| `p015` Impaler | Body Slam | 含 **Pit Toss** 文字与眩晕 | B 几何 hold |
-| `p016`–`p020` | 各 Acc 壳余招 | 组合效果 / Revivify | hold |
-| `p017` Shuffling | Lacerate | 卡级 unverified | A-10 / A-11 |
+| 卡               | 招            | 效果线                                                             | 本刀        |
+| ---------------- | ------------- | ------------------------------------------------------------------ | ----------- |
+| `p014` Warlord   | Stinger Shot  | `{target_effects} 3 {blight} 3t , {debuff} 2t`（图标均 confirmed） | **接**      |
+| `p014` Warlord   | Revelation    | `{stress}+2`                                                       | #464 已合   |
+| `p014` Warlord   | Torment       | 效果线空                                                           | hold        |
+| `p015` Impaler   | Body Slam     | 含 **Pit Toss** 文字与眩晕                                         | B 几何 hold |
+| `p016`–`p020`    | 各 Acc 壳余招 | 组合效果 / Revivify                                                | hold        |
+| `p017` Shuffling | Lacerate      | 卡级 unverified                                                    | A-10 / A-11 |
 
 依据：`monster_large` FRONT **p014**、`docs/phase5-a5-remaining-a-candidates-2026-11-01.md` §1 A-01；规则 R-001 / R-048。
 

@@ -4,12 +4,12 @@
 
 ## 本刀
 
-| 行为 | 实现 |
-| --- | --- |
-| 怪物回合选招 | `prepareMonsterAction` 在 `ancestor2` + `monster_large:p018` 时调用 `applyAncestor2SkillFromStanceSelection` |
-| 选招数据 | `verified-large-monster-fields` 入库 p018：`speed: 3`，四姿态共用 d10 表 1–2→slot1 / 3–6→slot2 / 7–10→slot3（卡面 footer 与 Fanatic III 同型） |
-| 执行 | 映射后走 `applyAncestor2RefashionThem` / `UnmakeThemAll` / `EmbraceFutility`（Acc-only，效果线仍 hold） |
-| 行动结束 | 仍经 `recordMonsterSkill` → `finishTurn` → `bumpAncestor2SwiftTeleportationAfterAction` |
+| 行为         | 实现                                                                                                                                           |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 怪物回合选招 | `prepareMonsterAction` 在 `ancestor2` + `monster_large:p018` 时调用 `applyAncestor2SkillFromStanceSelection`                                   |
+| 选招数据     | `verified-large-monster-fields` 入库 p018：`speed: 3`，四姿态共用 d10 表 1–2→slot1 / 3–6→slot2 / 7–10→slot3（卡面 footer 与 Fanatic III 同型） |
+| 执行         | 映射后走 `applyAncestor2RefashionThem` / `UnmakeThemAll` / `EmbraceFutility`（Acc-only，效果线仍 hold）                                        |
+| 行动结束     | 仍经 `recordMonsterSkill` → `finishTurn` → `bumpAncestor2SwiftTeleportationAfterAction`                                                        |
 
 ## 仍 hold
 

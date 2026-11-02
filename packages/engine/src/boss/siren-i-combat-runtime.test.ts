@@ -25,7 +25,10 @@ import {
 function cards<T>(file: string): T[] {
   return (
     JSON.parse(
-      readFileSync(new URL(`../../../data/normalized/corebox/${file}.json`, import.meta.url), "utf8"),
+      readFileSync(
+        new URL(`../../../data/normalized/corebox/${file}.json`, import.meta.url),
+        "utf8",
+      ),
     ) as { cards: T[] }
   ).cards;
 }
@@ -45,7 +48,9 @@ function verifiedMonsterCard(id: string, life: number, width: 1 | 2 = 1): Monste
   } as MonsterCardView;
 }
 
-const soldier = cards<MonsterCardView>("monster_medium").find((card) => card.id === "monster_medium:p001")!;
+const soldier = cards<MonsterCardView>("monster_medium").find(
+  (card) => card.id === "monster_medium:p001",
+)!;
 const smite = cards<HeroSkillCardView>("hero_skill").find((card) => card.id === "hero_skill:p001")!;
 const heroProfiles = cards<NonNullable<import("../battle").BattleSetup["heroStats"]>[number]>(
   "hero_stat",

@@ -4,22 +4,22 @@
 
 ## 本刀接通
 
-| 卡牌 | 反面 | 路径 | 说明 |
-| --- | --- | --- | --- |
-| Bloodthirst Ring p015 | When hit: Suffer 3 Bleed 2t | `defenceTrinketReaction`（受击/防御窗） | 与 Damage Stone 受伤反面同类；`useTrinket` 拒绝并提示在防御窗选用 |
-| Book of Holiness p017 | Turn a hit against you into a Crit. | `defenceTrinketReaction` → `outcome = "crit"` | 生产路径已在 `trinket-reactions.ts`；本刀补 battle-free 拒绝文案与回归测 |
-| Book of Relaxation p018 | `@dodge -2`（印刷 **−2**） | `defenceTrinketReaction` Dodge 修正 | 与 Speed Stone 反面同类，**非**角色回合间隙主动 `@stress` 对称；不在 `freeFaces` / `useTrinket` 主动白名单 |
-| Book of Sanity p036 | Suffer damage 6 | 角色回合间隙 `useTrinket` + `useCoreTrinket` | 对齐 `core-trinket-free.ts` inverted 分支（R-128 非攻击伤害、Protection 不减半） |
+| 卡牌                    | 反面                                | 路径                                          | 说明                                                                                                       |
+| ----------------------- | ----------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Bloodthirst Ring p015   | When hit: Suffer 3 Bleed 2t         | `defenceTrinketReaction`（受击/防御窗）       | 与 Damage Stone 受伤反面同类；`useTrinket` 拒绝并提示在防御窗选用                                          |
+| Book of Holiness p017   | Turn a hit against you into a Crit. | `defenceTrinketReaction` → `outcome = "crit"` | 生产路径已在 `trinket-reactions.ts`；本刀补 battle-free 拒绝文案与回归测                                   |
+| Book of Relaxation p018 | `@dodge -2`（印刷 **−2**）          | `defenceTrinketReaction` Dodge 修正           | 与 Speed Stone 反面同类，**非**角色回合间隙主动 `@stress` 对称；不在 `freeFaces` / `useTrinket` 主动白名单 |
+| Book of Sanity p036     | Suffer damage 6                     | 角色回合间隙 `useTrinket` + `useCoreTrinket`  | 对齐 `core-trinket-free.ts` inverted 分支（R-128 非攻击伤害、Protection 不减半）                           |
 
 `battle-free-trinkets.ts` 导出 `FREE_TRINKET_INVERTED_ACTIVE_USE` 与 `FREE_TRINKET_INVERTED_DEFENCE_REACTION`，与 `core-trinket-free.ts` 的 `freeFaces` 主动面一致；受击窗反面不再误标「尚未接通」。
 
 ## 仍 hold（本刀未做）
 
-| 卡牌 | 原因 |
-| --- | --- |
+| 卡牌                                 | 原因                                                                                                      |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------- |
 | Dark Crown / Solar Crown p028 / p035 | 「When the result is determined」意志结果窗：虽有 virtue 饰品钩子，与自由十张 UI/命令边界未在本刀统一验收 |
-| Cleansing Crystal p038 反面 | Gain negative quirk：获得怪癖窗未按 R-048 接 battle-free 独立命令（core 路径另有实现，本切片不扩） |
-| Recovery Charm / Candle p030 / p037 | 战斗外专用入口（inverted 主动在 hamlet/探索已走 core；battle-free 不重复） |
+| Cleansing Crystal p038 反面          | Gain negative quirk：获得怪癖窗未按 R-048 接 battle-free 独立命令（core 路径另有实现，本切片不扩）        |
+| Recovery Charm / Candle p030 / p037  | 战斗外专用入口（inverted 主动在 hamlet/探索已走 core；battle-free 不重复）                                |
 
 ## 非目标
 

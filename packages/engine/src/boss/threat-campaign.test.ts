@@ -20,9 +20,10 @@ function hamletJourney(seed = 40) {
   let game = createCoreDungeonQuest(seed, "quest:p001", "radiant", coreParty, coreQuestSources);
   const step = (command: Command) => {
     const r = applyCommand(game, command);
-    expect(r.events.some((e) => e.type === "commandRefused"), JSON.stringify(r.events)).toBe(
-      false,
-    );
+    expect(
+      r.events.some((e) => e.type === "commandRefused"),
+      JSON.stringify(r.events),
+    ).toBe(false);
     game = r.state;
     return r;
   };
@@ -48,9 +49,10 @@ function hamletJourney(seed = 40) {
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);
-  expect(result.events.some((e) => e.type === "commandRefused"), JSON.stringify(result.events)).toBe(
-    false,
-  );
+  expect(
+    result.events.some((e) => e.type === "commandRefused"),
+    JSON.stringify(result.events),
+  ).toBe(false);
   return result.state;
 }
 
@@ -172,7 +174,6 @@ describe("Boss 威胁被动战役接线（Necromancer I）", () => {
     } as unknown as GameState;
     expect(clearedBossThreatScriptIdAfterVictory(state)).toBe(NECROMANCER_I_SCRIPT_ID);
   });
-
 
   it("syncHamletBlockedBuildingsForBossThreat 幂等", () => {
     const hamlet = {

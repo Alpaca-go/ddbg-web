@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { cachedPrintCurioUrl, lookupPrintCurioFace } from "./resolve-print-curio-art";
-import {
-  cachedPrintPlayerAidUrl,
-  lookupPrintPlayerAidFace,
-} from "./resolve-print-player-aid-art";
+import { cachedPrintPlayerAidUrl, lookupPrintPlayerAidFace } from "./resolve-print-player-aid-art";
 import { cachedPrintQuestUrl, lookupPrintQuestFace } from "./resolve-print-quest-art";
 import { cachedPrintTrinketUrl, lookupPrintTrinketFace } from "./resolve-print-trinket-art";
 

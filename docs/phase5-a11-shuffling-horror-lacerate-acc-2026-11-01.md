@@ -11,13 +11,13 @@
 
 ## 卡面（`monster_large:p017` slot 1）
 
-| 字段 | 印刷值 |
-| --- | --- |
-| 名称 | Lacerate |
-| 目标 | Closest |
-| 射程 | 1 |
-| Acc | 11 |
-| Crit | 1 |
+| 字段   | 印刷值                                                               |
+| ------ | -------------------------------------------------------------------- |
+| 名称   | Lacerate                                                             |
+| 目标   | Closest                                                              |
+| 射程   | 1                                                                    |
+| Acc    | 11                                                                   |
+| Crit   | 1                                                                    |
 | 效果线 | `{target_effects} 3 bleed 3t`（**未**接 `verified_monster_effects`） |
 
 Undulations（slot 2）/ Echoing Disassembly（slot 3）仍走 `applyShufflingHorrorUndulations` / `applyShufflingHorrorEchoingDisassembly`，本刀不重复 Acc 模块。

@@ -138,7 +138,11 @@ describe("The Flesh I · One Body 最小运行时", () => {
 
   it("共享 Life：任一部位受伤同步到全池", () => {
     const battle = fleshBattle().battle!;
-    const withParts = applyFleshIOneBodyBattleStart({ battle, seed: 1, dungeon: fleshBossDungeon() } as GameState);
+    const withParts = applyFleshIOneBodyBattleStart({
+      battle,
+      seed: 1,
+      dungeon: fleshBossDungeon(),
+    } as GameState);
     expect(withParts.events.some((event) => event.type === "commandRefused")).toBe(false);
     const entities = withParts.state.battle!.entities.map((entity) =>
       entity.id === "flesh:bone" ? { ...entity, wounds: 5 } : entity,

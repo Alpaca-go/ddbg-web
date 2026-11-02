@@ -24,7 +24,10 @@ const largeRaw = rawFileSchema.parse(read("../../extract/corebox/raw/monster_lar
 const abilities = rawFileSchema.parse(read("../../extract/corebox/raw/boss_ability.json"));
 
 const built = buildAbsoluteNothingnessSupport(medium, large, mediumRaw, largeRaw, abilities);
-const target = new URL("../../normalized/corebox/absolute_nothingness_support.json", import.meta.url);
+const target = new URL(
+  "../../normalized/corebox/absolute_nothingness_support.json",
+  import.meta.url,
+);
 if (process.env.WRITE_ABSOLUTE_NOTHINGNESS === "1")
   writeFileSync(target, `${JSON.stringify(built, null, 1)}\n`);
 const file = absoluteNothingnessSupportSchema.parse(JSON.parse(readFileSync(target, "utf8")));
@@ -37,7 +40,9 @@ it("核心盒怪物 PDF 无 Absolute Nothingness 战斗卡；目录为 pending �
   expect(built.supportCardIds).toEqual([]);
   expect(built.abilityCardId).toBe("boss_ability:p035");
   expect(built.combatReady).toBe(false);
-  expect(readAbsoluteNothingnessSupport(built).notes.join(" ")).toContain("3x Absolute Nothingness");
+  expect(readAbsoluteNothingnessSupport(built).notes.join(" ")).toContain(
+    "3x Absolute Nothingness",
+  );
 });
 
 it("ancestor2 形态 supportCardIds 与 Absolute Nothingness 目录一致（当前皆为空）", () => {

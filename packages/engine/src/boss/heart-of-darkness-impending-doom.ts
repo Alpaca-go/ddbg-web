@@ -28,7 +28,9 @@ export function impendingDoomSkillSlotFromDie(die: number): 1 | 2 | 3 | null {
   return 3;
 }
 
-export function impendingDoomSkillLabelFromDie(die: number): "Know This" | "Puncture" | "Dissolution" | null {
+export function impendingDoomSkillLabelFromDie(
+  die: number,
+): "Know This" | "Puncture" | "Dissolution" | null {
   const slot = impendingDoomSkillSlotFromDie(die);
   if (slot === 1) return "Know This";
   if (slot === 2) return "Puncture";
@@ -98,7 +100,10 @@ function heartActorForRoll(
  * 显式命令：Heart 结束一次行动后覆盖 `impendingDoomDie`（不执行对应技能、不代替 finishTurn）。
  * 常规怪物技能路径在 `finishTurn` 对 Heart 实体也会调用同等落骰。
  */
-export function applyHeartOfDarknessImpendingDoomRoll(state: GameState, actorId: string): ApplyResult {
+export function applyHeartOfDarknessImpendingDoomRoll(
+  state: GameState,
+  actorId: string,
+): ApplyResult {
   const resolved = heartActorForRoll(state, actorId);
   if ("events" in resolved) return resolved;
   const rolled = rollImpendingDoomDie(resolved.battle, state.seed);

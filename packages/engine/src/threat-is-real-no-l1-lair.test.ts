@@ -53,7 +53,10 @@ describe("A-07 The Threat is Real III · Lair 不生成 Level 1（quest:p015）"
       if (!attempt.ok) continue;
       successes++;
       const levels = deployedLevels(attempt.deployed!.state);
-      expect(levels.every((level) => level !== 1), `seed ${seed}: ${levels.join(",")}`).toBe(true);
+      expect(
+        levels.every((level) => level !== 1),
+        `seed ${seed}: ${levels.join(",")}`,
+      ).toBe(true);
     }
     expect(successes).toBeGreaterThan(50);
   });

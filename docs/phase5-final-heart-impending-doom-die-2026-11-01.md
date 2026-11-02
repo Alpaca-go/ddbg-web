@@ -10,12 +10,12 @@
 
 ## 已接
 
-| 行为 | 实现 |
-| --- | --- |
-| 开战落骰 | `startBattle` 链 `applyHeartOfDarknessImpendingDoomOnBattleStart`：仅 `finalFormSequence.current.id === "heartOfDarkness"` 且 `status === "fighting"`；消费 `battle.rngCursor` 一次后进入第 1 轮先攻洗牌。 |
-| 行动结束落骰 | `finishTurn` 对 `monster_large:p020` 实体调用 `bumpHeartOfDarknessImpendingDoomAfterAction`；覆盖 `battle.impendingDoomDie`（1–10）。 |
-| 显式命令 | `applyHeartOfDarknessImpendingDoomRoll`：Heart 怪物回合、仅落骰，不代替 `finishTurn`（供测试与尚未走 `finishTurn` 的 Boss 行动路径）。 |
-| 状态字段 | `BattleState.impendingDoomDie?: number`（1–10）。 |
+| 行为         | 实现                                                                                                                                                                                                       |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 开战落骰     | `startBattle` 链 `applyHeartOfDarknessImpendingDoomOnBattleStart`：仅 `finalFormSequence.current.id === "heartOfDarkness"` 且 `status === "fighting"`；消费 `battle.rngCursor` 一次后进入第 1 轮先攻洗牌。 |
+| 行动结束落骰 | `finishTurn` 对 `monster_large:p020` 实体调用 `bumpHeartOfDarknessImpendingDoomAfterAction`；覆盖 `battle.impendingDoomDie`（1–10）。                                                                      |
+| 显式命令     | `applyHeartOfDarknessImpendingDoomRoll`：Heart 怪物回合、仅落骰，不代替 `finishTurn`（供测试与尚未走 `finishTurn` 的 Boss 行动路径）。                                                                     |
+| 状态字段     | `BattleState.impendingDoomDie?: number`（1–10）。                                                                                                                                                          |
 
 **「一次行动」与引擎**：当前 Heart 技能执行 hold，最接近的通用钩子是怪物行动管线结束时的 `finishTurn(actorId)`（与 Gestating Heart · Summon、Ancestor 1 · Time Heals All 相同）。显式命令与 `finishTurn` 共用同一 RNG 落骰函数；同一行动不应两者各调用一次。
 

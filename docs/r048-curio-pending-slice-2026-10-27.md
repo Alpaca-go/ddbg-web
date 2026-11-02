@@ -4,11 +4,11 @@ Kyries 批准清 **B09 §3** 三项停点（见 `docs/b09-curio-verified-breakpo
 
 ## 三项对照
 
-| §3 条目 | 结论 | 依据 | 引擎 / 测试 |
-| --- | --- | --- | --- |
-| 词典降级或 `rows[].effect === null` | **已接（停点模板）** | R-048、Q-60（R-064 已解决效果行；运行时仍须挡未知行） | `resolveCurioRows` → `blockedReason` 含 `R-048 / Q-60 停点模板`；`dungeon-curio.test.ts`（未知行 p1、转录丢失 p21） |
-| 未获批饰品卡面主动装备 | **已接（弃新卡完成）** | R-048；R-035 饰品获得流程 | `trinketOptions` 对 `verification.unverified` 仅 `discard-new`；`awaitTrinket` 文案；`dungeon-curio.test.ts` p5 |
-| Q-61 地牢内 Curio 抽空洗回 | **已接（拒抽 + 不洗回）** | R-068（Q-61 confirmed）；回村洗回仍 R32 | `drawDungeonCurio` 在 `deck.length === 0` 时 `commandRefused`；`r048-curio-pending.test.ts`、`dungeon-curio.test.ts` 牌池守恒 |
+| §3 条目                             | 结论                      | 依据                                                  | 引擎 / 测试                                                                                                                   |
+| ----------------------------------- | ------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| 词典降级或 `rows[].effect === null` | **已接（停点模板）**      | R-048、Q-60（R-064 已解决效果行；运行时仍须挡未知行） | `resolveCurioRows` → `blockedReason` 含 `R-048 / Q-60 停点模板`；`dungeon-curio.test.ts`（未知行 p1、转录丢失 p21）           |
+| 未获批饰品卡面主动装备              | **已接（弃新卡完成）**    | R-048；R-035 饰品获得流程                             | `trinketOptions` 对 `verification.unverified` 仅 `discard-new`；`awaitTrinket` 文案；`dungeon-curio.test.ts` p5               |
+| Q-61 地牢内 Curio 抽空洗回          | **已接（拒抽 + 不洗回）** | R-068（Q-61 confirmed）；回村洗回仍 R32               | `drawDungeonCurio` 在 `deck.length === 0` 时 `commandRefused`；`r048-curio-pending.test.ts`、`dungeon-curio.test.ts` 牌池守恒 |
 
 ## §4 停点（饰品 verification，2026-10-28）
 
