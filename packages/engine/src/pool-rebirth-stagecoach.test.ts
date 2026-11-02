@@ -349,6 +349,18 @@ it("R-151全队付款死亡后仍把目标英雄复活入驿站，不额外扣�
   expect(result.dungeon.campaignFailure).toBeUndefined();
 });
 
+it("存储不会覆盖已有的房间Curio奖励续接", () => {
+  const { transaction } = fixture();
+  const heroes = transaction.dungeon.heroes.map((h, i) => (i ? h : { ...h, dead: true }));
+  const stored = storePoolRebirthInStagecoach({
+    ...transaction,
+    dungeon: { ...transaction.dungeon, heroes, replacementResume: "roomCurio" },
+  });
+  expect(stored.status).toBe("resolved");
+  if (stored.status !== "resolved") return;
+  expect(stored.dungeon.replacementResume).toBe("roomCurio");
+});
+
 it("自然任务结束态注入驿站后，公开回村只重置队员饰品与意志，不清除驿站持牌", () => {
   const { d } = fixture();
   const completed = naturalQuest(1, "quest:p001").state;

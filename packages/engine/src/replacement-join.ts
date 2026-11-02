@@ -12,6 +12,7 @@ import { resumeHamletConversion, settleHamletProvisions } from "./hamlet-return"
 import { finishHamletAction } from "./hamlet-actions";
 import { completeExperimentalVapoursAction } from "./hamlet-experimental-vapours";
 import { completeDarkRitualAction } from "./hamlet-dark-ritual";
+import { stagecoachProjections } from "./stagecoach-holdings";
 
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 /** R31、R-039、R-092：战后才入队；新英雄不继承死者未完成的个人效果。 */
@@ -57,32 +58,44 @@ export function joinPreparedReplacements(state: GameState): ApplyResult {
   )
     return refuse("死亡登记/姿态/替补对应关系无效，或共享卡尚未回收（R31、R-091）");
   const names = alive.map((h) => catalog.heroStats.find((s) => s.id === h.heroStatId)?.name);
-  for (const { hero: h } of prepared) {
+  for (const { hero: h, source } of prepared) {
     const stat = catalog.heroStats.find((s) => s.id === h.heroStatId);
+    const reserved =
+      source === "stagecoach" ? d.stagecoachHeroes?.find((r) => r.id === h.id) : undefined;
+    if (source === "stagecoach" && (!reserved || JSON.stringify(reserved) !== JSON.stringify(h)))
+      return refuse("复活英雄的驿站记录已变化或不存在，不能重复入队");
     if (
       !stat?.attributesVerified ||
       !h.attributesVerified ||
       h.level !== stat.level ||
-      h.heroLevel !== stat.level ||
+      (h.heroLevel ?? (reserved ? h.level : undefined)) !== stat.level ||
       h.life !== stat.life ||
       ![1, 2, 3].includes(stat.level) ||
       !h.id ||
       d.heroes.some((old) => old.id === h.id) ||
       h.dead ||
-      h.wounds !== 0 ||
-      h.stress !== 0 ||
-      h.diseaseId ||
-      h.quirkIds?.length ||
-      h.resolveCardId ||
-      h.resolveTested ||
-      h.combat ||
-      h.statusStacks?.length ||
-      h.nextQuestSkillUpgrades?.length ||
-      !Number.isSafeInteger(h.xp) ||
+      (!reserved &&
+        (h.wounds !== 0 ||
+          h.stress !== 0 ||
+          h.diseaseId ||
+          h.quirkIds?.length ||
+          h.resolveCardId ||
+          h.resolveTested ||
+          h.combat ||
+          h.statusStacks?.length ||
+          h.nextQuestSkillUpgrades?.length)) ||
+      (reserved &&
+        (!Number.isInteger(h.wounds) ||
+          h.wounds! < 0 ||
+          h.wounds! > h.life! ||
+          !Number.isInteger(h.stress) ||
+          h.stress < 0 ||
+          h.stress > 10)) ||
+      !Number.isSafeInteger(h.xp ?? (reserved ? 0 : undefined)) ||
       h.xp! < 0 ||
       h.skillIds?.length !== heroSkillSlotCount(stat.level) ||
       !ownedHeroSkills(h, catalog) ||
-      d.deadHeroNames?.includes(stat.name)
+      (!reserved && d.deadHeroNames?.includes(stat.name))
     )
       return refuse("替补属性/技能/初始状态无效或英雄本战役已死亡（R-039、R-048）");
     names.push(stat.name);
@@ -108,8 +121,25 @@ export function joinPreparedReplacements(state: GameState): ApplyResult {
     stance: stances[i]!,
     ...(h.combat ? { combat: { ...h.combat, stance: stances[i]! } } : {}),
   }));
-  if (d.conditions) {
-    const problem = conditionPoolProblem(d.conditions, heroes);
+  const joinedIds = new Set(
+    prepared.filter((p) => p.source === "stagecoach").map((p) => p.hero.id),
+  );
+  const stagecoachHeroes = (d.stagecoachHeroes ?? []).filter((h) => !joinedIds.has(h.id));
+  const projection = stagecoachProjections(stagecoachHeroes);
+  const conditions = d.conditions && {
+    ...d.conditions,
+    ...(d.conditions.reservedHeroes ? { reservedHeroes: projection.conditions } : {}),
+  };
+  const trinkets = d.trinkets && {
+    ...d.trinkets,
+    ...(d.trinkets.reservedHeroes ? { reservedHeroes: projection.trinkets } : {}),
+  };
+  if (conditions) {
+    const problem = conditionPoolProblem(conditions, heroes);
+    if (problem) return refuse(problem);
+  }
+  if (trinkets) {
+    const problem = trinketPoolProblem(trinkets, heroes);
     if (problem) return refuse(problem);
   }
   const { preparedReplacements: _prepared, replacementResume: resume, ...rest } = d;
@@ -117,6 +147,22 @@ export function joinPreparedReplacements(state: GameState): ApplyResult {
   let next: DungeonState = {
     ...rest,
     heroes,
+    ...(d.stagecoachHeroes ? { stagecoachHeroes } : {}),
+    ...(conditions ? { conditions } : {}),
+    ...(trinkets ? { trinkets } : {}),
+    ...(joinedIds.size
+      ? {
+          deadHeroNames:
+            d.deadHeroNames?.filter(
+              (name) =>
+                !prepared.some(
+                  (p) =>
+                    p.source === "stagecoach" &&
+                    catalog.heroStats.find((s) => s.id === p.hero.heroStatId)?.name === name,
+                ),
+            ) ?? [],
+        }
+      : {}),
     ...(d.exploration?.rolls
       ? {
           exploration: {

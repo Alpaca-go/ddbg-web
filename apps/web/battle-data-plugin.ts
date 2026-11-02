@@ -1,4 +1,5 @@
 import { RUINS_BOSS_CATALOG_CARD_IDS } from "../../packages/engine/src/boss/ruins-combat-levels";
+import { darkestMonsterPoolFileSchema } from "../../packages/data/src/darkest-monster-pool";
 import { coreHigherSkillAvailable } from "../../packages/engine/src/core-higher-skill-catalog";
 import { readFileSync } from "node:fs";
 import type { Plugin } from "vite";
@@ -189,6 +190,9 @@ export function battleDataPlugin(): Plugin {
         "monster_medium:p034",
         "monster_medium:p037",
       ]);
+      if (currentQuest)
+        for (const card of darkestMonsterPoolFileSchema.parse(read("darkest_monster_pool")).cards)
+          monsterIds.add(card.combatCardId);
       const monsters = [
         ...normalizedMonsterMediumFileSchema.parse(read("monster_medium")).cards,
         ...normalizedMonsterLargeFileSchema.parse(read("monster_large")).cards,

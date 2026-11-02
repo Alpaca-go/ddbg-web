@@ -8,6 +8,7 @@ import type { DungeonState } from "./dungeon";
 import { isDarkestQuest } from "./darkest-setup";
 import type { SkillStance } from "./hero-skill";
 import { spawnMonsters, type SpawnCard, type SpawnPlacement } from "./spawn";
+import { readRoomTile } from "./room-tile-selection";
 
 const PLACEHOLDER_AREAS: Readonly<Record<SkillStance, string>> = {
   aggressive: "darkest-ordinary-aggressive",
@@ -111,7 +112,7 @@ export function prepareDarkestOrdinaryMonsterDeployment(state: GameState): Apply
   if (!catalog || !roomCatalogSchema.safeParse(catalog.cards).success)
     return refuse("最暗普通房间入口缺完整房间目录（R-048）");
   const active = catalog.active;
-  if (!active || active.roomId !== d.position || active.tileId)
+  if (!active || active.roomId !== d.position)
     return refuse(
       "需要已绑定的最暗普通房间牌（无获批 Room Tile）；不能替换房间或提前抽怪物（R-048）",
     );
@@ -125,7 +126,16 @@ export function prepareDarkestOrdinaryMonsterDeployment(state: GameState): Apply
   const deckCards = spawnCardsForDeck(pool, baseRemaining);
   if (!deckCards || deckCards.length !== baseRemaining.length)
     return refuse("最暗怪物牌堆身份缺失，不能伪造遭遇（R-048）");
-  const spawned = spawnMonsters(deckCards, PLACEHOLDER_AREAS, { allowUnverified: true });
+  const selected = readRoomTile(
+    catalog.cards.find((c) => c.id === active.cardId),
+    active.tileId,
+  );
+  if (active.tileId && selected.status !== "matched") return refuse("已记录板块与获批几何不一致");
+  const spawned = spawnMonsters(
+    deckCards,
+    selected.status === "matched" ? selected.deployment.monsters : PLACEHOLDER_AREAS,
+    { allowUnverified: true },
+  );
   if (spawned.type === "refused") return refuse(spawned.reason);
   if (spawned.monsters.reduce((count, monster) => count + monster.stanceSlots, 0) !== 4)
     return refuse("牌堆未填满四姿态，不提交最暗普通部署");
@@ -138,7 +148,10 @@ export function prepareDarkestOrdinaryMonsterDeployment(state: GameState): Apply
     .map((monster) => `${monster.instanceId}→${monster.cardId}`)
     .join("、");
   const missing = missingBattleSummary(pool, spawned.monsters);
-  const blockedReason = `${missing}已从 26 张最暗牌堆抽 ${spawned.drawn} 张（${identitySummary}）；可 deployDarkestOrdinaryEncounter 后 startBattle；占位 areaId 非获批板块；battleReady: false，Room Tile 几何未获批，不可用 startDungeonBattle（R-048）。部署顺序已记录；不重抽，房间未清理，未发奖励。`;
+  const blockedReason =
+    selected.status === "matched"
+      ? `${missing}${selected.tile.name}：已抽取并按获批区域布置怪物，可以进入房间战斗。`
+      : `${missing}已从 26 张最暗牌堆抽 ${spawned.drawn} 张（${identitySummary}）；可 deployDarkestOrdinaryEncounter 后 startBattle；占位 areaId 非获批板块；battleReady: false，Room Tile 几何未获批，不可用 startDungeonBattle（R-048）。部署顺序已记录；不重抽，房间未清理，未发奖励。`;
   return {
     state: {
       ...state,

@@ -1,4 +1,5 @@
 import { RUINS_BOSS_CATALOG_CARD_IDS } from "./boss/ruins-combat-levels";
+import darkestPool from "../../data/normalized/corebox/darkest_monster_pool.json";
 import { upgradeTrinketR127Metadata } from "./trinket-save-upgrade";
 import { upgradeFallenHeroSnapshot } from "./fallen-heroes";
 import { questSaveSchema, questStartSchema } from "../../data/src/quest-save";
@@ -75,15 +76,22 @@ function replayCommands(commands: QuestSave["commands"]): Command[] {
     return command;
   });
 }
-function onlyAddedRuinsBossCards(old: GameState, restored: GameState): boolean {
+function onlyAddedApprovedMonsterCards(old: GameState, restored: GameState): boolean {
   const before = old.battle?.monsters,
     after = restored.battle?.monsters;
   return (
     !!before &&
     !!after &&
     after.length >= before.length &&
-    before.every((c, i) => canonical(c) === canonical(after[i])) &&
-    after.slice(before.length).every((c) => RUINS_BOSS_CATALOG_CARD_IDS.has(c.id))
+    new Set(after.map((c) => c.id)).size === after.length &&
+    canonical(after.filter((c) => before.some((old) => old.id === c.id))) === canonical(before) &&
+    after
+      .filter((c) => !before.some((old) => old.id === c.id))
+      .every(
+        (c) =>
+          RUINS_BOSS_CATALOG_CARD_IDS.has(c.id) ||
+          darkestPool.cards.some((entry) => entry.combatCardId === c.id),
+      )
   );
 }
 
@@ -207,7 +215,7 @@ export function loadQuestSave(
               ...previous.battle,
               heroStats: restored.game.battle.heroStats,
               skills: restored.game.battle.skills,
-              ...(onlyAddedRuinsBossCards(previous, restored.game)
+              ...(onlyAddedApprovedMonsterCards(previous, restored.game)
                 ? { monsters: restored.game.battle.monsters! }
                 : {}),
             },

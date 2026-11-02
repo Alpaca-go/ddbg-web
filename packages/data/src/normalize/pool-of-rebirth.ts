@@ -54,7 +54,7 @@ const tileShape = z.strictObject({
   }),
   ruling: z.literal("R-144"),
   geometryVerified: z.literal(true),
-  usable: z.literal(false),
+  usable: z.literal(true),
   effectSource: z.strictObject({
     roomId: z.literal("room:p014"),
     file: z.literal(ROOM_FRONT),
@@ -71,7 +71,7 @@ const tileShape = z.strictObject({
       runtimeReady: z.literal(true),
     }),
   ),
-  specialRoomEffect: z.strictObject({ printedText: z.string(), runtimeReady: z.literal(false) }),
+  specialRoomEffect: z.strictObject({ printedText: z.string(), runtimeReady: z.literal(true) }),
   deployment: z.strictObject({
     printReview: z.literal("verified"),
     heroes: placements,
@@ -110,7 +110,7 @@ const tileShape = z.strictObject({
   ),
 });
 
-// R-144几何、R-145卡文来源、R-146区域结算；整房复活仍未开放。
+// R-144–152：获批几何、区域结算及一次性清场复活/免费补位已接通。
 export const approvedPoolOfRebirth = tileShape.parse({
   id: "room_tile:p009:front",
   rawId: "dungeon_tile:p009",
@@ -121,7 +121,7 @@ export const approvedPoolOfRebirth = tileShape.parse({
   source: { file: "DD_COREBOX_TILES_FRONT.pdf", page: 9, face: "front" },
   ruling: "R-144",
   geometryVerified: true,
-  usable: false,
+  usable: true,
   effectSource: { roomId: "room:p014", file: ROOM_FRONT, page: 14, ruling: "R-145" },
   specialRegions: [
     {
@@ -135,7 +135,7 @@ export const approvedPoolOfRebirth = tileShape.parse({
   ],
   specialRoomEffect: {
     printedText: poolOfRebirthEffectLines.slice(2).join(" "),
-    runtimeReady: false,
+    runtimeReady: true,
   },
   deployment: {
     printReview: "verified",

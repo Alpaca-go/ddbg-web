@@ -2213,7 +2213,7 @@
    },
    "ruling": "R-144",
    "geometryVerified": true,
-   "usable": false,
+   "usable": true,
    "effectSource": {
     "roomId": "room:p014",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
@@ -2232,7 +2232,7 @@
    ],
    "specialRoomEffect": {
     "printedText": "Special Room Effect: Once the Room is cleared, Heroes can suffer {icon:df38279161} +4 each, to revive a dead Hero and place them in the Stagecoach.",
-    "runtimeReady": false
+    "runtimeReady": true
    },
    "deployment": {
     "printReview": "verified",

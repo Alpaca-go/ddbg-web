@@ -375,9 +375,15 @@ export function ScoutingPanel({
                 </p>
               )}
               <p role="status">{active.blockedReason}</p>
-              {active.tileId && !d.monsterPool?.active && (
-                <button onClick={() => dispatch({ type: "prepareDungeonMonsters" })}>
-                  从完整 42 张怪物池抽牌并记录部署
+              {active.tileId &&
+                !(d.darkest ? d.darkest.ordinaryDeployment : d.monsterPool?.active) && (
+                  <button onClick={() => dispatch({ type: "prepareDungeonMonsters" })}>
+                    {d.darkest ? "布置房间怪物" : "从完整 42 张怪物池抽牌并记录部署"}
+                  </button>
+                )}
+              {active.tileId && d.darkest?.ordinaryDeployment && (
+                <button onClick={() => dispatch({ type: "startDungeonBattle" })}>
+                  进入房间战斗
                 </button>
               )}
               {d.monsterPool?.active && (

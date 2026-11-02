@@ -1,25 +1,30 @@
 import { useState } from "react";
 import { createQuestSave, loadQuestSave } from "@ddbg/engine";
 import { useDungeonStore } from "./store";
+import { questSaveKey, writeLocalQuestSave, decodeLocalQuestSave } from "./quest-save-storage";
 import {
   legacyTaskSources,
   previousTaskSources,
   sixHeroTaskSources,
   preBossTaskSources,
   preAbominationTaskSources,
+  preDarkestTaskSources,
   taskSources,
 } from "./task-sources";
-
-const questSaveKey = "ddbg.core-quest.save.v1";
 
 export function QuestSaveControls({ onLoad }: { onLoad?: () => void }) {
   const { game, commands, questStart, restoreTask } = useDungeonStore();
   const [notice, setNotice] = useState("");
-  const run = (action: () => void) => {
+  const [busy, setBusy] = useState(false);
+  const run = async (action: () => Promise<void>) => {
+    if (busy) return;
+    setBusy(true);
     try {
-      action();
+      await action();
     } catch (error) {
       setNotice(error instanceof Error ? error.message : "存档操作失败，原进度保持不变");
+    } finally {
+      setBusy(false);
     }
   };
   return (
@@ -27,10 +32,11 @@ export function QuestSaveControls({ onLoad }: { onLoad?: () => void }) {
       <div className="button-row">
         {questStart && (
           <button
+            disabled={busy}
             onClick={() =>
-              run(() => {
+              run(async () => {
                 const save = createQuestSave(questStart, commands, game, taskSources);
-                localStorage.setItem(questSaveKey, JSON.stringify(save));
+                await writeLocalQuestSave(JSON.stringify(save));
                 setNotice("已保存到本机，可刷新后读取继续。");
               })
             }
@@ -39,11 +45,16 @@ export function QuestSaveControls({ onLoad }: { onLoad?: () => void }) {
           </button>
         )}
         <button
+          disabled={busy}
           onClick={() =>
-            run(() => {
+            run(async () => {
               const raw = localStorage.getItem(questSaveKey);
               if (!raw) throw new Error("本机还没有任务存档");
-              const loaded = loadQuestSave(JSON.parse(raw), taskSources, [
+              const json = await decodeLocalQuestSave(raw);
+              if (useDungeonStore.getState().game !== game)
+                throw new Error("读取期间进度已变化，请再次读取存档");
+              const loaded = loadQuestSave(JSON.parse(json), taskSources, [
+                preDarkestTaskSources,
                 preAbominationTaskSources,
                 preBossTaskSources,
                 sixHeroTaskSources,

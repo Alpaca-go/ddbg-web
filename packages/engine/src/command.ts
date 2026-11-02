@@ -1,5 +1,6 @@
 import type { MonsterSupportResolvedEvent } from "./battle-monster-support";
 import { stagecoachHoldingsProblem } from "./stagecoach-holdings";
+import { continuePoolRebirth, choosePoolRebirth } from "./pool-rebirth-flow";
 import { resolveExcavation } from "./darkest-excavation";
 import {
   prepareFinalBattleForms,
@@ -938,10 +939,19 @@ function applyCommandCore(state: GameState, command: Command): ApplyResult {
         ? chooseDeathTrinket(state, command.choiceId, command.optionId)
         : rejectBattleCommand(state, "请先处置死者饰品（R31）");
     const refused = result.events.find((event) => event.type === "commandRefused");
-    return refused ? rejectBattleCommand(state, refused.message) : result;
+    return refused ? rejectBattleCommand(state, refused.message) : continuePoolRebirth(result);
   }
   if (state.dungeon?.campaignFailure)
     return rejectBattleCommand(state, "驿站等待英雄不足，战役已失败（R9/R25/R33）");
+  if (state.dungeon?.pending?.id.startsWith("pool-rebirth:")) {
+    const chosen =
+      command.type === "resolveChoice"
+        ? choosePoolRebirth(state, command.choiceId, command.optionId)
+        : rejectBattleCommand(state, "请先完成重生池复活或放弃选择");
+    return chosen.events.some((e) => e.type === "commandRefused")
+      ? chosen
+      : continuePoolRebirth(continueDeathEstates(chosen));
+  }
   if (state.dungeon?.replacementPreparation)
     return command.type === "resolveChoice"
       ? chooseReplacementPreparation(state, command.choiceId, command.optionId)
@@ -955,7 +965,7 @@ function applyCommandCore(state: GameState, command: Command): ApplyResult {
   );
   const result = dispatched.events.some((e) => e.type === "commandRefused")
     ? dispatched
-    : continueDeathEstates(dispatched);
+    : continuePoolRebirth(continueDeathEstates(dispatched));
   const refused = result.events.find((event) => event.type === "commandRefused");
   return refused ? rejectBattleCommand(state, refused.message) : result;
 }

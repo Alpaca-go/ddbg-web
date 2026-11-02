@@ -1,4 +1,5 @@
 import { readDarkestBossEncounter } from "./boss/darkest-content";
+import { readRoomTile } from "./room-tile-selection";
 import { prepareDarkestObjectiveBossRoom } from "./boss/darkest-mid-boss-runtime";
 import poolFile from "../../data/normalized/corebox/darkest_monster_pool.json";
 import trinketFile from "../../data/normalized/corebox/trinket.json";
@@ -144,7 +145,11 @@ export function prepareDarkestRoom(state: GameState): ApplyResult {
     (c) => c.id === cardId && c.location === "darkestDungeon" && c.boss === objective,
   );
   if (!card) return refuse("最暗房间堆已空或专属房间身份缺失（R36）");
-  const blockedReason = `${card.name}：最暗房间几何与战斗部署待审核；已记录原牌，不改抽遗迹房间（R-048）`;
+  const selected = readRoomTile(card);
+  const blockedReason =
+    selected.status === "matched"
+      ? `${card.name}：已匹配获批板块；下一步从最暗26张牌堆部署怪物`
+      : `${card.name}：最暗房间几何与战斗部署待审核；已记录原牌，不改抽遗迹房间（R-048）`;
   return {
     state: {
       ...state,
@@ -153,7 +158,12 @@ export function prepareDarkestRoom(state: GameState): ApplyResult {
         roomCards: {
           ...cards,
           deck: objective ? cards.deck : cards.deck!.slice(1),
-          active: { roomId: d.position, cardId: card.id, blockedReason },
+          active: {
+            roomId: d.position,
+            cardId: card.id,
+            blockedReason,
+            ...(selected.status === "matched" ? { tileId: selected.tile.id } : {}),
+          },
         },
       },
     },
