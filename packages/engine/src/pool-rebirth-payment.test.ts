@@ -89,6 +89,12 @@ it("压力10完成意志检定后才取回原卡，并按R-149清除付款人检
   expect(result.status).toBe("prepared");
   if (result.status !== "prepared") return;
   expect(result.events.filter((e) => e.type === "resolveTested")).toHaveLength(1);
+  expect(result.paymentDungeon.heroes).toHaveLength(4);
+  expect(result.paymentDungeon.heroes[0]).toMatchObject({
+    resolveCardId: drawn,
+    resolveTested: true,
+    stress: 0,
+  });
   expect(result.dungeon.heroes[0]).toMatchObject({ stress: 0, resolveTested: false });
   expect(result.dungeon.heroes[0]!.resolveCardId).toBeUndefined();
   expect(result.dungeon.heroes.at(-1)).toMatchObject({ resolveCardId: drawn, resolveTested: true });

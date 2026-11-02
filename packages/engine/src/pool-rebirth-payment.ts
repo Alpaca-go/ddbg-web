@@ -28,6 +28,9 @@ function syncCombat(heroes: DungeonState["heroes"]): DungeonState["heroes"] {
 
 type PreparedRebirth = {
   readonly status: "prepared";
+  /** 已结算支付、尚未归还原牌的四人状态；后续奖励策略可使用，不重新掷骰。 */
+  readonly paymentDungeon: DungeonState;
+  readonly paymentEvents: readonly GameEvent[];
   /** 暂存事务包含原队伍及目标档案；不能直接写入公开GameState或当成五人队伍。 */
   readonly dungeon: DungeonState;
   readonly recipientId: string;
@@ -106,6 +109,8 @@ export function preparePoolRebirthPayment(
   const heroes = syncCombat(returned.heroes);
   return {
     status: "prepared",
+    paymentDungeon: afterPayment,
+    paymentEvents: [...paid.events, ...released.events],
     recipientId: fallenHeroId,
     dungeon: { ...afterPayment, ...returned.pools, heroes },
     events: [
