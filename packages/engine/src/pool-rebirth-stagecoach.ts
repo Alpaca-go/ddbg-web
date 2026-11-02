@@ -52,6 +52,9 @@ export function storePoolRebirthInStagecoach(
   const next: DungeonState = {
     ...d,
     heroes,
+    ...(heroes.some((h) => h.dead)
+      ? { phase: "awaitingReplacement" as const, replacementResume: "ready" as const }
+      : {}),
     stagecoachHeroes,
     conditions: { ...d.conditions, reservedHeroes: projection.conditions },
     trinkets: {

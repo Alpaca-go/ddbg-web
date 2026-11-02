@@ -312,6 +312,7 @@ it("复活当前死者时保留原四人队伍的死亡槽，驿站英雄使用�
   if (result.status !== "resolved") return;
   expect(result.dungeon.heroes).toHaveLength(4);
   expect(result.dungeon.heroes[0]).toEqual(state.dungeon.heroes[0]);
+  expect(result.dungeon.phase).toBe("awaitingReplacement");
   expect(result.dungeon.stagecoachHeroes![0]!.id).not.toBe(old.id);
   expect(stagecoachHoldingsProblem(result.dungeon)).toBeNull();
 });
@@ -339,6 +340,10 @@ it("R-151全队付款死亡后仍把目标英雄复活入驿站，不额外扣�
   expect(result.status).toBe("resolved");
   if (result.status !== "resolved") return;
   expect(result.dungeon.heroes.every((h) => h.dead)).toBe(true);
+  expect(result.dungeon).toMatchObject({
+    phase: "awaitingReplacement",
+    replacementResume: "ready",
+  });
   expect(result.dungeon.stagecoachHeroes![0]!.dead).toBe(false);
   expect(result.dungeon.waitingHeroTokens).toBe(d.waitingHeroTokens);
   expect(result.dungeon.campaignFailure).toBeUndefined();
