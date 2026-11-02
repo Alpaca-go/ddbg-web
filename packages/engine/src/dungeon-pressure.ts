@@ -13,12 +13,15 @@ import { completeExperimentalVapoursAction } from "./hamlet-experimental-vapours
 import { completeDarkRitualAction } from "./hamlet-dark-ritual";
 
 /** R28：侦察支付压力后恢复；沿英雄数组顺序，完整牌堆与 RNG 游标属于本次地牢。 */
-export function resolveDungeonPressure(state: GameState): ApplyResult {
+export function resolveDungeonPressure(
+  state: GameState,
+  options: { readonly settleOnly?: true } = {},
+): ApplyResult {
   let d = state.dungeon!;
   const events: GameEvent[] = [];
   const blocked = (message: string): ApplyResult => ({
     state,
-    events: [{ type: "dungeonUpdated", message }],
+    events: [{ type: options.settleOnly ? "commandRefused" : "dungeonUpdated", message }],
   });
   const catalog = d.resolveCards;
   if (
@@ -129,6 +132,8 @@ export function resolveDungeonPressure(state: GameState): ApplyResult {
       message: "探索首次意志检定：抽取意志卡，压力归零（R28）；不触发战斗回合效果",
     });
   }
+  // 内部事务只结算意志，不进入侦察/房间/村庄续接；失败由调用方整笔回滚。
+  if (options.settleOnly) return { state: { ...state, dungeon: d }, events };
   if (d.pressureSource === "freeTrinket" && d.freeTrinketResume) {
     const { freeTrinketResume: resume, pressureSource: _source, ...rest } = d;
     void _source;
