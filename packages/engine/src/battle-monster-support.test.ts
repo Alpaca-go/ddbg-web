@@ -105,7 +105,7 @@ it("自身 Push 分岔前不治疗；JSON 续接后治疗一次并结束回合",
   expect(result.state.battle!.encounter!.turn.type).not.toBe("monster");
 });
 
-it("错误阵营、射程与效果签名漂移均原子拒绝，不开放生产姿态表", () => {
+it("错误阵营、射程与效果签名漂移均原子拒绝，R-143字段不改变效果校验", () => {
   const state = ready("monster_medium:p086", 1);
   const command = { type: "playMonsterSkill", actorId: "m", targetId: "m2", skillSlot: 1 } as const;
   const sameArea: GameState = {
@@ -131,6 +131,15 @@ it("错误阵营、射程与效果签名漂移均原子拒绝，不开放生产�
     expect(game).toEqual(before);
   }
   const card = cards.find((c) => c.id === "monster_medium:p086")!;
-  expect(card.stanceGroups).toBeUndefined();
-  expect(card.speed).toBeUndefined();
+  expect(card.stanceGroups).toEqual([
+    {
+      stances: ["aggressive", "defensive", "ranged", "support"],
+      rollTable: [
+        { min: 1, max: 3, skill: 1 },
+        { min: 4, max: 6, skill: 2 },
+        { min: 7, max: 10, skill: 3 },
+      ],
+    },
+  ]);
+  expect(card.speed).toBe(2);
 });

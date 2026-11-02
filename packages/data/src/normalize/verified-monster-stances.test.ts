@@ -25,6 +25,15 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
   );
   it("十四个I级与三张II级获批普通卡接入生成层，大型L1–3已获批", () => {
     const approvedIds = [
+      "monster_medium:p063",
+      "monster_medium:p066",
+      "monster_medium:p069",
+      "monster_medium:p072",
+      "monster_medium:p075",
+      "monster_medium:p078",
+      "monster_medium:p080",
+      "monster_medium:p083",
+      "monster_medium:p086",
       "monster_medium:p016",
       "monster_medium:p089",
       "monster_medium:p090",
@@ -106,6 +115,20 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
       unverified: true,
       reasons: ["icon:pending"],
     });
+  });
+
+  it("拒绝覆盖既有冲突分组，重复附加相同获批分组保持幂等", () => {
+    const first = verifiedMonsterStances.find((e) => e.id === "monster_medium:p001")!;
+    const attached = attachVerifiedMonsterStances(originals);
+    expect(attachVerifiedMonsterStances(attached)).toEqual(attached);
+    const before = structuredClone(attached);
+    // 两种技能都真实存在；冲突不能靠结构/技能引用校验发现。
+    const conflict = {
+      ...first,
+      stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 2 }],
+    };
+    expect(() => attachVerifiedMonsterStances(attached, [conflict])).toThrow("既有分组冲突");
+    expect(attached).toEqual(before);
   });
 
   it("映射重复 / 未知 id、非技能卡、卡名 / 等级 / 页码漂移均报错", () => {

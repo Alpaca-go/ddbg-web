@@ -6,6 +6,15 @@ import { loadNormalizedCorebox } from "./write";
 const built = loadNormalizedCorebox();
 // 独立预期：首批六条 2026-10-10，新四张普通卡 2026-10-12 部分批准，不从映射反推。
 const expected = [
+  ["monster_medium:p063", 2],
+  ["monster_medium:p066", 2],
+  ["monster_medium:p069", 3],
+  ["monster_medium:p072", 2],
+  ["monster_medium:p075", 1],
+  ["monster_medium:p078", 3],
+  ["monster_medium:p080", 3],
+  ["monster_medium:p083", 2],
+  ["monster_medium:p086", 2],
   ["monster_medium:p016", 2],
   ["monster_medium:p001", 1],
   ["monster_medium:p004", 3],

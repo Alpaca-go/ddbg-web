@@ -40,12 +40,7 @@ it("九种26张最暗普通怪物可再生，独立牌组不混入Common/Ruins�
   expect(
     built.cards.every((c) => c.level === 3 && c.location === "darkestDungeon" && !c.battleReady),
   ).toBe(true);
-  expect(
-    built.cards.every(
-      (c) =>
-        c.missingBattleFields.includes("speed") && c.missingBattleFields.includes("stanceGroups"),
-    ),
-  ).toBe(true);
+  expect(built.cards.every((c) => c.missingBattleFields.length === 0)).toBe(true);
   expect(instances.every((c) => !("verified" in c))).toBe(true);
   expect(JSON.stringify({ raw, medium })).toBe(before);
 });
