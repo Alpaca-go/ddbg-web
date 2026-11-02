@@ -41,6 +41,7 @@ import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
 import { attachVerifiedRallyingFlare } from "./verified-rallying-flare";
 import { approvedResolveLookup } from "./approved-resolve-icons";
 import { buildRoomTileGeometry } from "./room-tile";
+import { assertPoolOfRebirthEffectSource } from "./pool-of-rebirth";
 import type { RoomTileGeometryFile } from "./room-tile";
 import { buildCorridorTileGeometry } from "./corridor-tile";
 import type { CorridorTileGeometryFile } from "./corridor-tile";
@@ -725,7 +726,10 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
         ),
       });
     })(),
-    room_tile_geometry: buildRoomTileGeometry(input.roomTiles),
+    room_tile_geometry: (() => {
+      assertPoolOfRebirthEffectSource(input.rooms);
+      return buildRoomTileGeometry(input.roomTiles);
+    })(),
     corridor_tile_geometry: buildCorridorTileGeometry(input.roomTiles),
     monster_medium: medium,
     monster_large: large,

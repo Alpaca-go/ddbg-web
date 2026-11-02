@@ -1851,3 +1851,22 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：当前版怪物FRONT M63–88，九种身份首张完整卡与26份Speed栏/页脚核图；官方规则书R24、R-015、R-001 / R-048。
 - **边界**：只批准九种怪物的上述字段，不批准房间几何，不解除battleReady:false，不将占位部署视为生产随机遭遇，不外推其它卡。
 - **状态**：Kyries 已确认。
+
+### R-144
+
+- **编号**：R-144
+- **日期**：2026-11-02（Asia/Shanghai）
+- **裁定**：Kyries 明确回复“确认本面几何和部署”。批准 Pool of Rebirth（room:p014；最暗编号1）当前版 TILES FRONT p9 的12区容量、G高地、14条通路、9组仅角点及八姿态部署，具体按[核对表](phase5-pool-of-rebirth-geometry-review-2026-11-02.md)入库。
+- **依据**：当前印刷整页及A–L区域标字核图；R16/R17部署、R18容量、R25高地、R-021邻接；R-001 / R-048。
+- **边界**：仅批准本面几何与部署。F区星形标记4591aebebd语义仍未确认，不套用其它房间的cornered；usable保持false。房间特殊效果、清理后复活、最暗遭遇生产准入及其它板块未随本次批准。
+- **状态**：Kyries 已确认。
+
+### R-145
+
+- **编号**：R-145
+- **日期**：2026-11-02（Asia/Shanghai）
+- **裁定**：Kyries 确认：板块上的星标效果必须查对应的 `DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf` 房间卡；不同颜色也逐面查对应卡，不按星形外观全局解释为Damage、cornered或其它效果。Pool of Rebirth 的 TILES FRONT p9 对应 ROOMS FRONT p14，F区星标绑定该卡区域效果。
+- **卡面**：区域效果原文为“Heroes ending their turn here suffer {Stress} +1 and {Heal} 3 per Negative Quirk.”。清场后的整房特殊效果另列：英雄可各承受Stress+4以复活一名死去英雄并放入Stagecoach。两段不混为同一个区域触发器。
+- **依据**：Kyries 明确说明p9→p14并提供当前卡面效果截图；当前印刷房间卡p14、已确认Stress/Heal图标；R-001 / R-048。
+- **边界**：本次确认来源对应与效果文字；保留原文限定范围，不据此猜测复合结算顺序、复活资格/状态或开战准入。暂保留区域及整房效果runtimeReady=false、usable=false；不修改全局星标词典。后续其它板块逐面匹配地点、编号、房间身份及卡文。
+- **状态**：Kyries 已确认。R-144中星标语义待确认项由本条的房间卡绑定补充。
