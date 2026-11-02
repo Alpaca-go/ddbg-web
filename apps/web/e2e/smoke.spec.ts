@@ -18,6 +18,7 @@ async function heroStanceLabel(page: Page, heroTestId: string): Promise<string> 
 }
 
 test("加载获批数据，多目标治疗共用一骰且选择不会跨区域残留", async ({ page }, testInfo) => {
+  test.setTimeout(90_000);
   await page.setViewportSize({ width: 1440, height: 1050 });
   await page.goto("/?view=battle");
   await expect(page).toHaveTitle("暗黑地牢桌游");

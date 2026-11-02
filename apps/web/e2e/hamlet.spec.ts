@@ -57,6 +57,9 @@ test.beforeAll(async () => {
     );
     const code = plugin.battleDataPlugin().load("\0virtual:quest-battle-data");
     const battleData = JSON.parse(code.slice("export const battleData = ".length, -1));
+    // 与 taskSources 一致：Boss 并入怪物目录，不保留虚拟模块的辅助字段。
+    battleData.monsters = [...battleData.monsters, ...(battleData.bossMonsters ?? [])];
+    delete battleData.bossMonsters;
     // 同一正式网页目录：只读取获批卡，不把引擎测试的更大目录写入浏览器存档。
     const sourceHelpers = await server.ssrLoadModule(
       fileURLToPath(
@@ -271,21 +274,17 @@ test.beforeAll(async () => {
       serviceId: "abbeyPositiveQuirk",
       quirkIds: [],
     };
-    expect(abbeyGame.dungeon!.heroes[2]!.quirkIds).toHaveLength(2);
-    spendFirstAction();
-    abbeyStep({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
-    abbeyStep(abbeyVisit);
-    expect(abbeyGame.dungeon!.pending).toBeNull();
-    expect(abbeyGame.dungeon!.heroes[2]!.quirkIds).toHaveLength(3);
-    abbeyStep({ type: "useHamletSkill", actorId: "hero-3", skill: "chant" });
-    abbeyStep({ type: "rollHamletCaretaker" });
-    while (abbeyGame.dungeon!.hamlet!.blockedBuildings.includes("abbey")) {
-      expect(abbeyGame.dungeon!.hamlet!.remainingDays).toBeGreaterThan(1);
-      abbeyStep({ type: "useHamletSkill", actorId: "hero-0", skill: "zealousSpeech" });
+    for (let day = 0; day < 4; day++) {
+      expect(abbeyGame.dungeon!.heroes[2]!.quirkIds).toHaveLength(day);
+      spendFirstAction();
+      abbeyStep({ type: "useHamletSkill", actorId: "hero-1", skill: "intimidate" });
+      expect(abbeyGame.dungeon!.hamlet!.blockedBuildings).not.toContain("abbey");
+      if (day === 3) break;
+      abbeyStep(abbeyVisit);
+      expect(abbeyGame.dungeon!.pending).toBeNull();
+      abbeyStep({ type: "useHamletSkill", actorId: "hero-3", skill: "chant" });
       abbeyStep({ type: "rollHamletCaretaker" });
     }
-    spendFirstAction();
-    abbeyStep({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
     abbeyReplacementSave = saveModule.createQuestSave(journey.start, abbeyCommands, abbeyGame, {
       ...sourceHelpers.coreQuestSources,
       catalog: { ...battleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
@@ -525,7 +524,7 @@ test("Phase 4：自然村庄事件、付费驿站升级与跨日封锁保存刷�
   await page.getByRole("button", { name: "开始首日看守人", exact: true }).click();
   await expect(page.getByTestId("hamlet-event")).toContainText("准备 1 天");
   await page.screenshot({ path: testInfo.outputPath("town-fair-saved.png"), fullPage: true });
-  // 独立真实seed6回村：30金足够支付驿站升级，不依赖Town Fair场景的金币。
+  // 独立真实seed6回村：任务收入加Radiant初始金币足够支付驿站升级，不依赖Town Fair场景的金币。
   await page.evaluate(
     (save) => localStorage.setItem("ddbg.core-quest.save.v1", save),
     JSON.stringify(funded.save),
@@ -547,7 +546,7 @@ test("Phase 4：自然村庄事件、付费驿站升级与跨日封锁保存刷�
     `共享金币：${funded.game.dungeon!.gold - 20}`,
   );
   await expect(actorLabel).toHaveText(currentActor);
-  await expect(page.getByRole("button", { name: "升级驿站（20 金）", exact: true })).toBeDisabled();
+  await expect(page.getByRole("button", { name: "升级驿站（20 金）", exact: true })).toBeEnabled();
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();

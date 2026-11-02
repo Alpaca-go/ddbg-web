@@ -15,17 +15,20 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     await page.getByLabel("任务卡", { exact: true }).selectOption(id!);
     if (id === "quest:p003") await expect(page.getByText(/最多捐献60金币、获得3XP/)).toBeVisible();
     await page.getByRole("button", { name: "进入地牢", exact: true }).click();
-    await expect(page.getByRole("heading", { name: name!, exact: true })).toBeVisible();
+    await expect(
+      page.getByTestId("quest-card-readonly-name").filter({ hasText: name! }),
+    ).toBeVisible();
     await expect(page.getByLabel("侦察测试布置")).toHaveCount(0);
     await expect(page.getByRole("button", { name: "重置标准模式" })).toHaveCount(0);
-    await expect(page.getByTestId("dungeon-node-S")).toContainText("队伍");
     await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（0/16）");
     if (id === "quest:p001") {
       await page.getByRole("button", { name: "保存进度", exact: true }).click();
       await expect(page.getByRole("status")).toContainText("已保存到本机");
       await page.reload();
       await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
-      await expect(page.getByRole("heading", { name: name!, exact: true })).toBeVisible();
+      await expect(
+        page.getByTestId("quest-card-readonly-name").filter({ hasText: name! }),
+      ).toBeVisible();
       await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（0/16）");
     }
     await establishInitialThreatIfShown(page);
@@ -41,6 +44,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     }
     while (await page.getByRole("button", { name: "火把", exact: true }).count())
       await page.getByRole("button", { name: "火把", exact: true }).click();
+    await expect(page.getByTestId("dungeon-node-S")).toContainText("队伍");
     await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（8/16）");
     await expect(page.getByRole("button", { name: "选择下一段探索" })).toBeEnabled();
     if (id === "quest:p001") {
@@ -51,23 +55,25 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
       await expect(page.getByTestId("hamlet-return")).toContainText("状态已移除");
       await page.getByRole("button", { name: "兑换剩余补给并完成回村", exact: true }).click();
       await expect(page.getByTestId("hamlet-return")).toContainText("回村完成");
-      await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：8");
+      await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：28");
       await page.getByRole("button", { name: "抽村庄事件", exact: true }).click();
-      await expect(page.getByTestId("hamlet-event")).toContainText("Militia Training");
-      await expect(page.getByTestId("hamlet-event")).toContainText("全员各免费升级一项I级技能");
+      await expect(page.getByTestId("hamlet-event")).toContainText("Busy Week");
+      await expect(page.getByTestId("hamlet-event")).toContainText(
+        "Do not place the Caretaker anywhere this week.",
+      );
       await expect(page.getByRole("button", { name: "开始首日看守人", exact: true })).toHaveCount(
-        0,
+        1,
       );
       await page.getByRole("button", { name: "保存进度", exact: true }).click();
       await page.reload();
       await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
-      await expect(page.getByTestId("hamlet-event")).toContainText("Militia Training");
+      await expect(page.getByTestId("hamlet-event")).toContainText("Busy Week");
       await expect(page.getByTestId("dungeon-provision-count")).toHaveText("公共补给（0/16）");
       await page.getByRole("button", { name: "保存进度", exact: true }).click();
       await page.reload();
       await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
       await expect(page.getByTestId("hamlet-return")).toContainText("回村完成");
-      await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：8");
+      await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：28");
     }
     if (id === "quest:p003")
       await page.screenshot({
@@ -93,18 +99,18 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     "开始首日看守人",
   ])
     await page.getByRole("button", { name, exact: true }).click();
-  await expect(page.getByTestId("hamlet-event")).toContainText("General Repairs");
+  await expect(page.getByTestId("hamlet-event")).toContainText("Medical Breakthrough");
   await expect(page.getByTestId("hamlet-event")).toContainText("当前第 1 天");
   await expect(page.getByTestId("hamlet-event")).toContainText("CRUSADER");
   await expect(page.getByTestId("hamlet-buildings")).toContainText("疗养院 I");
   await expect(
     page.getByRole("button", { name: "升级疗养院（20 金）", exact: true }),
-  ).toBeDisabled();
+  ).toBeEnabled();
   await expect(
     page.getByRole("button", { name: "酒馆 I：压力 −3（1 金）", exact: true }),
-  ).toHaveCount(0);
+  ).toHaveCount(1);
   await page.getByRole("button", { name: "疗养院 I：治疗 5（1 金）", exact: true }).click();
-  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：7");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：27");
   await expect(page.getByTestId("hamlet-event")).toContainText("HELLION");
   await page.getByRole("button", { name: "Intimidate：移出当天看守人", exact: true }).click();
   await expect(page.getByTestId("hamlet-event")).toContainText("HIGHWAYMAN");
@@ -112,10 +118,10 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
-  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：7");
+  await expect(page.getByTestId("dungeon-gold")).toHaveText("共享金币：27");
   await expect(page.getByTestId("hamlet-event")).toContainText("HIGHWAYMAN");
   await page.screenshot({ path: testInfo.outputPath("hamlet-caretaker.png"), fullPage: true });
-  // 真实同种子新任务从首日开始，Crusader技能走完四天，不注入状态或补金币。
+  // 真实同种子新任务从首日开始，Crusader技能走完三天，不注入状态或补金币。
   await page.goto("/?phase=3&play=1&seed=40");
   await page.getByTestId("embark-mode-radiant").click();
   await page.getByRole("button", { name: "前往出征准备", exact: true }).click();
@@ -134,11 +140,11 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     "开始首日看守人",
   ])
     await page.getByRole("button", { name, exact: true }).click();
-  for (let day = 1; day <= 4; day++) {
+  for (let day = 1; day <= 3; day++) {
     await page
       .getByRole("button", { name: "Zealous Speech：全体压力 −5，结束当天", exact: true })
       .click();
-    if (day < 4)
+    if (day < 3)
       await page.getByRole("button", { name: `开始第 ${day + 1} 天看守人`, exact: true }).click();
   }
   await expect(page.getByTestId("hamlet-event")).toContainText("准备天数已用完");
@@ -313,7 +319,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByRole("button", { name: "选择下一段探索", exact: true })).toHaveCount(0);
   await page.getByRole("button", { name: "生成任务结算摘要", exact: true }).click();
   await expect(page.getByTestId("dungeon-quest-summary")).toContainText(
-    "Scout Ahead I · 清理 2 / 6 间",
+    "Scout Ahead I · 清理 2 / 3 间",
   );
   await expect(page.getByTestId("dungeon-quest-summary")).toContainText("每名英雄待发 1 XP");
   await expect(page.getByTestId("dungeon-quest-summary")).toContainText("驿站待发 1 XP");
@@ -382,7 +388,7 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     await expect(page.getByTestId("dungeon-node-D")).toContainText("巢穴");
     await page.getByRole("button", { name: "抽房间牌并匹配战斗板块" }).click();
     const card = page.getByTestId("dungeon-room-card");
-    await expect(card).toContainText("完整遗迹房间牌池 9 张 · 余牌 8 · 已抽 1 张");
+    await expect(card).toContainText("完整遗迹房间牌池 9 张 · 普通牌堆余 8 张 · 已抽 1 张");
     await expect(card).toContainText(
       fixture === "roomApproved" ? "已匹配 Ritual Chamber" : "已匹配 Treasure Chamber",
     );
@@ -974,7 +980,7 @@ test("侦察压力 10 完成意志检定；已有意志卡直接心脏病停场"
   await page.screenshot({ path: testInfo.outputPath("dungeon-dark-room.png"), fullPage: true });
 });
 
-test("实际地图灰点遮挡，红边地图保留未解释标记且仅预览", async ({ page }, testInfo) => {
+test("实际地图灰点遮挡，已确认最暗地图展示Boss位且仅预览", async ({ page }, testInfo) => {
   await page.goto("/?phase=3");
   await page.getByLabel("地图页码").selectOption("3");
   await expect(page.getByTestId("dungeon-node-X")).toContainText("灰点");
@@ -982,11 +988,11 @@ test("实际地图灰点遮挡，红边地图保留未解释标记且仅预览",
   await page.getByRole("button", { name: "全员同意", exact: true }).click();
   await expect(page.getByTestId("dungeon-node-D")).toContainText("未揭示");
   await page.getByLabel("地图页码").selectOption("11");
-  await expect(page.getByTestId("dungeon-node-X")).toContainText("待确认");
+  await expect(page.getByTestId("dungeon-node-X")).toContainText("灰点");
   await expect(page.getByRole("heading", { name: "侦察流程", exact: true })).toHaveCount(0);
   await page.screenshot({ path: testInfo.outputPath("map11-preview.png"), fullPage: true });
   await page.getByLabel("地图页码").selectOption("12");
-  await expect(page.getByTestId("dungeon-node-A")).toContainText("待确认");
+  await expect(page.getByTestId("dungeon-node-A")).toContainText("Boss 位");
   await page.screenshot({ path: testInfo.outputPath("map12-preview.png"), fullPage: true });
   await page.getByLabel("地图页码").selectOption("1");
   await expect(page.getByTestId("dungeon-pressure")).toContainText("hero-0 压力 0");
