@@ -15,6 +15,134 @@ const entrySchema = z.strictObject({
 // docs/monster-stance-review-2026-10-09.md §3–4、§7；R-015、R-048。
 // 页码均为当前版核心盒 monsters_medium_FRONT.pdf，不跨同名 / 等级推断。
 export const verifiedMonsterStances = z.array(entrySchema).parse([
+  // R-143：2026-11-02 九种最暗普通怪字段逐卡确认；不解除生产几何停点。
+  {
+    id: "monster_medium:p063",
+    name: "Ascended Brawler",
+    level: 3,
+    pages: [63, 64, 65],
+    stanceGroups: [
+      { stances: ["aggressive", "defensive"], skill: 1 },
+      { stances: ["ranged"], unavailable: true },
+      { stances: ["support"], skill: 2 },
+    ],
+  },
+  {
+    id: "monster_medium:p066",
+    name: "Ascended Witch",
+    level: 3,
+    pages: [66, 67, 68],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 3, skill: 1 },
+          { min: 4, max: 7, skill: 2 },
+          { min: 8, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_medium:p069",
+    name: "Rapturous Cultist",
+    level: 3,
+    pages: [69, 70, 71],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 6, skill: 1 },
+          { min: 7, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_medium:p072",
+    name: "Cultist Priest",
+    level: 3,
+    pages: [72, 73, 74],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 6, skill: 1 },
+          { min: 7, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_medium:p075",
+    name: "Malignant Growth",
+    level: 3,
+    pages: [75, 76, 77],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_medium:p078",
+    name: "Flesh Hound",
+    level: 3,
+    pages: [78, 79],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 3 },
+        ],
+      },
+      { stances: ["support"], skill: 2 },
+    ],
+  },
+  {
+    id: "monster_medium:p080",
+    name: "Polyp",
+    level: 3,
+    pages: [80, 81, 82],
+    stanceGroups: [
+      { stances: ["aggressive"], skill: 2 },
+      {
+        stances: ["defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_medium:p083",
+    name: "Antibody",
+    level: 3,
+    pages: [83, 84, 85],
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
+  },
+  {
+    id: "monster_medium:p086",
+    name: "Defensive Growth",
+    level: 3,
+    pages: [86, 87, 88],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 3, skill: 1 },
+          { min: 4, max: 6, skill: 2 },
+          { min: 7, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
   {
     id: "monster_medium:p016",
     name: "Bone Bearer",
@@ -444,6 +572,11 @@ export function attachVerifiedMonsterStances(
       JSON.stringify(card.pages) !== JSON.stringify(entry.pages)
     )
       throw new Error(`姿态映射的卡名 / 等级 / 页码不符：${entry.id}`);
+    if (
+      card.stanceGroups !== undefined &&
+      JSON.stringify(card.stanceGroups) !== JSON.stringify(entry.stanceGroups)
+    )
+      throw new Error(`姿态映射与既有分组冲突：${entry.id}`);
   }
   const byId = new Map(approved.map((entry) => [entry.id, entry.stanceGroups]));
   return cards.map((card) => {

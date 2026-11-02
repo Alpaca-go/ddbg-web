@@ -18,10 +18,7 @@
    ],
    "edge": "front",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ],
+   "missingBattleFields": [],
    "battleReady": false
   },
   {
@@ -37,10 +34,7 @@
    ],
    "edge": "back",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ],
+   "missingBattleFields": [],
    "battleReady": false
   },
   {
@@ -56,10 +50,7 @@
    ],
    "edge": "front",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ],
+   "missingBattleFields": [],
    "battleReady": false
   },
   {
@@ -75,10 +66,7 @@
    ],
    "edge": "back",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ],
+   "missingBattleFields": [],
    "battleReady": false
   },
   {
@@ -94,10 +82,7 @@
    ],
    "edge": "front",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ],
+   "missingBattleFields": [],
    "battleReady": false
   },
   {
@@ -112,10 +97,7 @@
    ],
    "edge": "front",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ],
+   "missingBattleFields": [],
    "battleReady": false
   },
   {
@@ -131,10 +113,7 @@
    ],
    "edge": "back",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ],
+   "missingBattleFields": [],
    "battleReady": false
   },
   {
@@ -150,10 +129,7 @@
    ],
    "edge": "front",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ],
+   "missingBattleFields": [],
    "battleReady": false
   },
   {
@@ -169,10 +145,7 @@
    ],
    "edge": "back",
    "stanceSlots": 1,
-   "missingBattleFields": [
-    "speed",
-    "stanceGroups"
-   ],
+   "missingBattleFields": [],
    "battleReady": false
   }
  ]

@@ -104,6 +104,10 @@ describe("真实卡获批姿态分组与未获批拒绝（R-015、R-048）", () 
         card.footer_lines.length > 0 &&
         !approved.some((entry) => entry.id === card.id) &&
         card.id !== "monster_medium:p016" &&
+        // R-143九种最暗怪另有360次黄金选招核对；其余卡仍须缺分组拒绝。
+        !["063", "066", "069", "072", "075", "078", "080", "083", "086"].some(
+          (page) => card.id === `monster_medium:p${page}`,
+        ) &&
         Number(card.id.slice(-3)) < 89,
     );
     expect(cards.length).toBeGreaterThan(0);

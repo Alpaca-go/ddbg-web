@@ -14,6 +14,16 @@ const entrySchema = z.strictObject({
 // docs/monster-speed-review-2026-10-09.md §2–3、§6；R24、R-001、R-048。
 // 只按获批 id 附加，不统计图标、不填图标 null、不跨同名 / 等级推断。
 export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
+  // R-143：2026-11-02 九种最暗普通怪字段逐卡确认；不解除生产几何停点。
+  { id: "monster_medium:p063", name: "Ascended Brawler", level: 3, pages: [63, 64, 65], speed: 2 },
+  { id: "monster_medium:p066", name: "Ascended Witch", level: 3, pages: [66, 67, 68], speed: 2 },
+  { id: "monster_medium:p069", name: "Rapturous Cultist", level: 3, pages: [69, 70, 71], speed: 3 },
+  { id: "monster_medium:p072", name: "Cultist Priest", level: 3, pages: [72, 73, 74], speed: 2 },
+  { id: "monster_medium:p075", name: "Malignant Growth", level: 3, pages: [75, 76, 77], speed: 1 },
+  { id: "monster_medium:p078", name: "Flesh Hound", level: 3, pages: [78, 79], speed: 3 },
+  { id: "monster_medium:p080", name: "Polyp", level: 3, pages: [80, 81, 82], speed: 3 },
+  { id: "monster_medium:p083", name: "Antibody", level: 3, pages: [83, 84, 85], speed: 2 },
+  { id: "monster_medium:p086", name: "Defensive Growth", level: 3, pages: [86, 87, 88], speed: 2 },
   // R-142：两枚脚印；黄色3是Dodge，不是Speed。
   { id: "monster_medium:p016", name: "Bone Bearer", level: 3, pages: [16, 17], speed: 2 },
   { id: "monster_medium:p001", name: "Bone Soldier", level: 1, pages: [1, 2, 3], speed: 1 },

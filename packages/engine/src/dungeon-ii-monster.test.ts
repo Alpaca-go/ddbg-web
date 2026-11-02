@@ -218,6 +218,16 @@ it("R-082/083 普通卡与 C-019 死灵法师 II 限定字段获批，其余 II/
         [
           ...RUINS_DL2_APPROVED_HIGHER_COMBAT_IDS,
           "monster_medium:p016",
+          // R-143仅字段审批；不将最暗牌组混入Ruins普通池。
+          "monster_medium:p063",
+          "monster_medium:p066",
+          "monster_medium:p069",
+          "monster_medium:p072",
+          "monster_medium:p075",
+          "monster_medium:p078",
+          "monster_medium:p080",
+          "monster_medium:p083",
+          "monster_medium:p086",
           "monster_medium:p090", // C-019 Boss 战斗卡
           "monster_medium:p091",
           "monster_medium:p093",
