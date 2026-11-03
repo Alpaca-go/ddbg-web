@@ -161,13 +161,11 @@ export const approvedEldritchVault = tileShape.parse({
       ["G", "293f170eab", "monster_support_start"],
     ].map(([areaId, iconId, semantic]) => ({ areaId, iconId, semantic, status: "confirmed" })),
   },
-  areas: "ABCDEFGHI"
-    .split("")
-    .map((id) => ({
-      id,
-      capacity: "ACFI".includes(id) ? 4 : 2,
-      elevation: "BDEGH".includes(id) ? "high" : "normal",
-    })),
+  areas: "ABCDEFGHI".split("").map((id) => ({
+    id,
+    capacity: "ACFI".includes(id) ? 4 : 2,
+    elevation: "BDEGH".includes(id) ? "high" : "normal",
+  })),
   edges: ["A-B", "B-E", "C-D", "D-E", "E-G", "E-H", "F-G", "H-I"].map((pair) => ({
     from: pair[0],
     to: pair[2],
