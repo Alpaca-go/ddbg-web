@@ -1,3 +1,4 @@
+import { NecromancerRoomActions, necromancerRoomEntryVisible } from "./necromancer-room-actions";
 import { ExpeditionStartActions } from "./expedition-start-actions";
 import { CoreTrinketActions } from "../../core-trinket-actions";
 import { useState } from "react";
@@ -241,10 +242,12 @@ export function FormalTabletopScoutingPanel({
                         已匹配 {selectedTile.tile.name}，{selectedTile.tile.areas.length} 个区域。
                       </p>
                     )}
-                    <p role="status">{active.blockedReason}</p>
+                    {!necromancerRoomEntryVisible(d) && <p role="status">{active.blockedReason}</p>}
+                    <NecromancerRoomActions dungeon={d} dispatch={dispatch} />
                   </div>
                 </div>
-                {active.tileId &&
+                {!roomCard.boss &&
+                  active.tileId &&
                   !(d.darkest ? d.darkest.ordinaryDeployment : d.monsterPool?.active) && (
                     <button onClick={() => dispatch({ type: "prepareDungeonMonsters" })}>
                       {d.darkest ? "布置房间怪物" : "从完整 42 张怪物池抽牌并记录部署"}

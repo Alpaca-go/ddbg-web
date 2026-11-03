@@ -1,3 +1,4 @@
+import { NecromancerRoomActions, necromancerRoomEntryVisible } from "./necromancer-room-actions";
 import { ExpeditionStartActions } from "./expedition-start-actions";
 import { CoreTrinketActions } from "../../core-trinket-actions";
 import { useState, type ReactNode } from "react";
@@ -374,8 +375,10 @@ export function ScoutingPanel({
                   {[...new Set(Object.values(selectedTile.deployment.monsters))].join(" / ")}。
                 </p>
               )}
-              <p role="status">{active.blockedReason}</p>
-              {active.tileId &&
+              {!necromancerRoomEntryVisible(d) && <p role="status">{active.blockedReason}</p>}
+              <NecromancerRoomActions dungeon={d} dispatch={dispatch} />
+              {!roomCard.boss &&
+                active.tileId &&
                 !(d.darkest ? d.darkest.ordinaryDeployment : d.monsterPool?.active) && (
                   <button onClick={() => dispatch({ type: "prepareDungeonMonsters" })}>
                     {d.darkest ? "布置房间怪物" : "从完整 42 张怪物池抽牌并记录部署"}
