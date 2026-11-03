@@ -1,3 +1,4 @@
+import { assertShufflingHorrorRoomSource } from "./shuffling-horror-room";
 import { assertTemplarsRoomEffectSource } from "./templars-room";
 import { assertTempleOfTheChosenEffectSource } from "./temple-of-the-chosen";
 import { assertEvilEyeEffectSource } from "./evil-eye";
@@ -744,6 +745,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       assertEvilEyeEffectSource(input.rooms);
       assertTempleOfTheChosenEffectSource(input.rooms);
       assertTemplarsRoomEffectSource(input.rooms);
+      assertShufflingHorrorRoomSource(input.rooms);
       return buildRoomTileGeometry(input.roomTiles);
     })(),
     corridor_tile_geometry: buildCorridorTileGeometry(input.roomTiles),

@@ -2111,3 +2111,19 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：Kyries明确修正C/G/I/M部署并确认“其他正确”；R-001 / R-048、核心规则R16–18、R25。
 - **边界**：仅批准图面与卡文来源；不推定数字区间的掷骰用途，不开放Boss参战或Pit Toss。尖刺触发与Boss运行时准入另行核实。
 - **状态**：Q-145 已解决。
+
+
+### Q-146
+
+- **日期**：2026-11-03（Asia/Shanghai）
+- **问题**：Shuffling Horror Room（最暗地牢10，TILES BACK p13 / ROOMS FRONT p23）逐面几何与部署。
+- **状态**：Kyries 已回复“核对通过”，见 R-163。
+
+### R-163
+
+- **编号**：R-163
+- **日期**：2026-11-03（Asia/Shanghai）
+- **裁定**：批准[Shuffling Horror Room完整审核稿](phase5-shuffling-horror-room-geometry-review-2026-11-03.md)：A–I容量2、3、2、3、3、3、3、3、3，仅A/C高地。英雄Aggressive G、Defensive I、Ranged I、Support B；怪物Aggressive H、Defensive H、Ranged D、Support C。通路A-D、B-E、C-F、D-E、D-G、E-F、F-I、G-H、H-I；仅角点B-D、B-F、D-H、F-H，无额外阻挡、宝箱或特殊交互标记；配套room卡无额外效果文字。
+- **依据**：Kyries查看审核稿与原图后回复“核对通过”；R-001 / R-048，核心规则R16–18、R25。
+- **边界**：几何批准不代表Boss技能、召唤或完整运行时已获准参战；保持usable=false，准入另行核实。
+- **状态**：Q-146 已解决。
