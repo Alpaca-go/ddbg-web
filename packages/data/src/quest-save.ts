@@ -142,6 +142,7 @@ export const savedCommandSchema = z.union([
       "lootTreasureChest",
       "hideAndHeal",
       "hallAscension",
+      "eldritchVault",
       "interactLoot",
       "finishMonsterTurn",
       "prepareMonsterAction",

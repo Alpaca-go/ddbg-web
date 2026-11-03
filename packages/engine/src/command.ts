@@ -152,6 +152,7 @@ import { chooseMonsterRetargetAfterFreeTrinket } from "./battle-monster-retarget
 import { useTrinket } from "./battle-fortunate-armlet";
 import type { UseTrinketCommand } from "./battle-fortunate-armlet";
 import { beginHallAscension, chooseHallAscension } from "./battle-hall-ascension";
+import { beginEldritchVault } from "./battle-eldritch-vault";
 import { hideAndHeal } from "./battle-hide-and-heal";
 import { interactLoot, resolveLootChoice } from "./loot";
 import { chooseStartingProvision, startWithProvisions } from "./starting-provisions";
@@ -270,6 +271,7 @@ type BaseCommand =
   | UseProvisionCommand
   | { readonly type: "lootTreasureChest"; readonly actorId: string }
   | { readonly type: "hallAscension"; readonly actorId: string }
+  | { readonly type: "eldritchVault"; readonly actorId: string }
   | { readonly type: "hideAndHeal"; readonly actorId: string }
   | { readonly type: "interactLoot"; readonly actorId: string }
   | EncounterCommand
@@ -784,6 +786,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "useTrinket") return useTrinket(state, command);
   if (command.type === "lootTreasureChest") return lootTreasureChest(state, command.actorId);
   if (command.type === "hallAscension") return beginHallAscension(state, command.actorId);
+  if (command.type === "eldritchVault") return beginEldritchVault(state, command.actorId);
   if (command.type === "hideAndHeal") return hideAndHeal(state, command.actorId);
   if (command.type === "interactLoot") return interactLoot(state, command.actorId);
   if (command.type === "prepareMonsterAction") return prepareMonsterAction(state, command);

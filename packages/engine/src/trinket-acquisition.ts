@@ -267,6 +267,66 @@ export function drawTrinket(
   };
 }
 
+export function withTrinketLevelPartition(
+  pool: TrinketPool,
+  level: 1 | 2 | 3,
+  catalog: readonly NormalizedTrinketCard[],
+): TrinketPool {
+  if (trinketDeck(pool, level)) return pool;
+  const cards = [
+    ...pool.cards,
+    ...catalog.filter((c) => c.level === level && !pool.cards.some((old) => old.id === c.id)),
+  ];
+  const inactive = pool.inactive?.some((p) => p.level === level)
+    ? pool.inactive
+    : [...(pool.inactive ?? []), { level, deck: null, discard: [] }];
+  return { ...pool, cards, inactive };
+}
+
+/** R-156：从指定等级牌堆抽 1 张；不依赖当前地牢饰品等级（R35）。 */
+export function drawTrinketAtLevel(
+  pool: TrinketPool,
+  heroes: readonly Hero[],
+  actorId: string,
+  level: 1 | 2 | 3,
+  seed: number,
+  cursor: number,
+  catalog?: readonly NormalizedTrinketCard[],
+) {
+  const prepared = catalog ? withTrinketLevelPartition(pool, level, catalog) : pool;
+  const problem = trinketPoolProblem(prepared, heroes);
+  if (
+    problem ||
+    prepared.incoming ||
+    !heroes.some((h) => h.id === actorId && !h.dead) ||
+    !Number.isSafeInteger(seed) ||
+    !Number.isSafeInteger(cursor) ||
+    cursor < 0
+  )
+    return {
+      status: "refused" as const,
+      reason: problem ?? "饰品抽取需要有效英雄、RNG 且没有待选入牌",
+    };
+  const partition = trinketDeck(prepared, level);
+  if (!partition)
+    return { status: "refused" as const, reason: `缺少 ${level} 级完整饰品牌堆（R-048）` };
+  let deck = [...partition.deck];
+  const rng = createRng(seed);
+  for (let i = 0; i < cursor; i++) rng.next();
+  let nextCursor = cursor;
+  if (partition.unshuffled)
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(rng.next() * (i + 1));
+      [deck[i], deck[j]] = [deck[j]!, deck[i]!];
+      nextCursor++;
+    }
+  const cardId = deck.shift();
+  if (!cardId)
+    return { status: "refused" as const, reason: "饰品牌堆耗尽，未擅自洗回弃牌（R32）" };
+  const nextPool = setTrinketDeck({ ...prepared, incoming: { cardId, actorId } }, level, deck);
+  return { status: "resolved" as const, pool: nextPool, cursor: nextCursor };
+}
+
 export function trinketOptions(pool: TrinketPool, heroes: readonly Hero[]) {
   const options: { id: string; label: string; action: Action }[] = [];
   if (!pool.incoming || trinketPoolProblem(pool, heroes)) return options;

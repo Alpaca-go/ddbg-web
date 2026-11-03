@@ -191,6 +191,26 @@ export function roomTileBattleAreas(tile: {
     tile.specialRegions?.some(
       (r) =>
         r.areaId === area.id &&
+        r.effect === "toxicVapors" &&
+        r.status === "confirmed" &&
+        r.runtimeReady,
+    )
+      ? { toxicVapors: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (r) =>
+        r.areaId === area.id &&
+        r.effect === "eldritchVaultTrinkets" &&
+        r.status === "confirmed" &&
+        r.runtimeReady,
+    )
+      ? { eldritchVaultTrinkets: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (r) =>
+        r.areaId === area.id &&
         r.effect === "healingWaters" &&
         r.status === "confirmed" &&
         r.runtimeReady,

@@ -44,7 +44,7 @@ const tileShape = z.strictObject({
   }),
   ruling: z.literal("R-157"),
   geometryVerified: z.literal(true),
-  usable: z.literal(false),
+  usable: z.literal(true),
   effectSource: z.strictObject({
     roomId: z.literal("room:p017"),
     file: z.literal(ROOM_FRONT),
@@ -58,7 +58,7 @@ const tileShape = z.strictObject({
       effect: z.literal("toxicVapors"),
       status: z.literal("confirmed"),
       printedText: z.string(),
-      runtimeReady: z.literal(false),
+      runtimeReady: z.literal(true),
     }),
   ),
   deployment: z.strictObject({
@@ -99,7 +99,7 @@ const tileShape = z.strictObject({
   ),
 });
 
-// R-157：含Kyries修正的D/F部署；Toxic Vapors运行时未接通。
+// R-157：含 Kyries 修正的 D/F 部署；Toxic Vapors 站立 Acc −3 已接通。
 export const approvedToxicChamber = tileShape.parse({
   id: "room_tile:p010:back",
   rawId: "dungeon_tile:p010",
@@ -114,7 +114,7 @@ export const approvedToxicChamber = tileShape.parse({
   },
   ruling: "R-157",
   geometryVerified: true,
-  usable: false,
+  usable: true,
   effectSource: {
     roomId: "room:p017",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
@@ -128,7 +128,7 @@ export const approvedToxicChamber = tileShape.parse({
       effect: "toxicVapors",
       status: "confirmed",
       printedText: "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "B",
@@ -136,7 +136,7 @@ export const approvedToxicChamber = tileShape.parse({
       effect: "toxicVapors",
       status: "confirmed",
       printedText: "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "C",
@@ -144,7 +144,7 @@ export const approvedToxicChamber = tileShape.parse({
       effect: "toxicVapors",
       status: "confirmed",
       printedText: "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "E",
@@ -152,7 +152,7 @@ export const approvedToxicChamber = tileShape.parse({
       effect: "toxicVapors",
       status: "confirmed",
       printedText: "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
   ],
   deployment: {

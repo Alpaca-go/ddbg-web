@@ -71,22 +71,16 @@ it("R-157：BACK p10独立面、10区容量/高地、修正D/F部署与四个宝
   expect(tile.specialRegions.map((r) => r.areaId)).toEqual(["A", "B", "C", "E"]);
 });
 
-it("几何获批不开放Toxic Vapors交互；容量、部署、边和来源漂移拒绝", () => {
-  expect(tile.specialRegions[0]).toMatchObject({
-    areaId: "A",
-    effect: "toxicVapors",
-    status: "confirmed",
-    runtimeReady: false,
-  });
+it("R-157：Toxic Vapors 就绪后 selectRoomTile 返回 matched；几何漂移仍拒绝", () => {
+  expect(tile.usable).toBe(true);
+  expect(tile.specialRegions.every((r) => r.runtimeReady)).toBe(true);
   expect(
     selectRoomTile(
       rooms.cards.find((c) => c.id === "room:p017"),
       geometry,
     ),
-  ).toMatchObject({ status: "refused" });
+  ).toMatchObject({ status: "matched" });
   for (const patch of [
-    { usable: true },
-    { specialRegions: [{ ...tile.specialRegions[0], runtimeReady: true }] },
     { areas: tile.areas.map((a) => (a.id === "E" ? { ...a, capacity: 4 } : a)) },
     { edges: tile.edges.slice(1) },
     {
