@@ -384,6 +384,14 @@ export function BattleView({
                   {area.hideAndHeal && (
                     <p>Hide and Heal：本区无怪物时，花1行动、压力+2，存活后移除全部伤口。</p>
                   )}
+                  {area.evilGaze && (
+                    <p>
+                      {battle.evilEyeDestroyed
+                        ? "Evil Gaze：眼睛已摧毁，本场不再触发。"
+                        : "Evil Gaze：结束回合获得负面怪癖；花2行动摧毁眼睛，获得正面怪癖并全体压力−5。"}
+                    </p>
+                  )}
+                  {area.staringEyes && <p>Staring Eyes：英雄结束回合压力+2。</p>}
                   {area.circleOfPower && <p>Circle of Power：怪物在本区结束回合治疗4。</p>}
                   {area.endTurnHeal === 3 && (
                     <p className="muted">Healing Waters：英雄结束回合治疗 3</p>
@@ -612,6 +620,16 @@ export function BattleView({
                   Loot the Chest（2行动，本场一次）
                 </button>
               )}
+              {battle.areas.find((area) => area.id === actor!.areaId)?.evilGaze &&
+                !battle.evilEyeDestroyed && (
+                  <button
+                    data-action-group="loot"
+                    disabled={!heroTurn || turn.mustMove || turn.actions < 2}
+                    onClick={() => send({ type: "destroyEvilEye", actorId: actor!.id })}
+                  >
+                    摧毁眼睛（2行动，正面怪癖、全体压力−5）
+                  </button>
+                )}
               {battle.areas.find((area) => area.id === actor!.areaId)?.hallOfAscension && (
                 <button
                   data-action-group="loot"

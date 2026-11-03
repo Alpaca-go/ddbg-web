@@ -44,7 +44,10 @@ describe("最暗普通房 26 牌堆部署", () => {
     const game = createCoreDungeonQuest(7, questId, "radiant", coreParty, coreQuestSources);
     const battlePrep = preparedOrdinary(game);
     const d0 = game.dungeon!;
-    expect(battlePrep.state.dungeon!.roomCards!.active!.tileId).toBeUndefined();
+    expect(battlePrep.state.dungeon!.roomCards!.active).toMatchObject({
+      cardId: "room:p020",
+      tileId: "room_tile:p012",
+    });
     expect(battlePrep.state.dungeon!.cursor).toBe(d0.cursor);
     const deployed = ok(battlePrep.state, { type: "prepareDungeonMonsters" });
     const d = deployed.state.dungeon!;
@@ -53,10 +56,9 @@ describe("最暗普通房 26 牌堆部署", () => {
     expect(deployment.roomId).toBe(d.position);
     expect(deployment.monsters.reduce((n, m) => n + m.stanceSlots, 0)).toBe(4);
     expect(deployment.monsters.every((m) => m.verified === false)).toBe(true);
-    expect(deployment.monsters.every((m) => m.areaId.startsWith("darkest-ordinary-"))).toBe(true);
-    expect(deployment.blockedReason).toContain("battleReady: false");
-    expect(deployment.blockedReason).toContain("deployDarkestOrdinaryEncounter");
-    expect(deployment.blockedReason).toContain("不可用 startDungeonBattle");
+    expect(deployment.monsters.every((m) => m.areaId === "C")).toBe(true);
+    expect(deployment.blockedReason).toContain("Evil Eye");
+    expect(deployment.blockedReason).toContain("按获批区域布置怪物");
     const ids = [
       ...(darkest.monsterDeckRemaining ?? []),
       ...(darkest.monsterDeckDiscarded ?? []),
@@ -64,7 +66,7 @@ describe("最暗普通房 26 牌堆部署", () => {
     ];
     expect(ids.sort()).toEqual([...darkest.monsterDeck].sort());
     expect(new Set(ids).size).toBe(26);
-    expect(darkestOrdinaryDeploymentHold(d)).toContain("deployDarkestOrdinaryEncounter");
+    expect(darkestOrdinaryDeploymentHold(d)).toBe(deployment.blockedReason);
     expect(prepareDarkestOrdinaryMonsterDeployment(deployed.state)).toMatchObject({
       events: [{ type: "commandRefused" }],
     });
@@ -73,9 +75,16 @@ describe("最暗普通房 26 牌堆部署", () => {
     );
     const battle = applyCommand(deployed.state, { type: "startDungeonBattle" });
     expect(battle.state).toBe(deployed.state);
+    const admitted = ok(deployed.state, { type: "deployDarkestOrdinaryEncounter" });
+    expect(admitted.state.battle!.areas.find((a) => a.id === "E")?.evilGaze).toBe(true);
+    expect(
+      admitted.state
+        .battle!.entities.filter((e) => e.side === "hero")
+        .every((e) => e.areaId === "G"),
+    ).toBe(true);
     expect(battle.events[0]).toMatchObject({
       type: "commandRefused",
-      message: expect.stringContaining("startDungeonBattle"),
+      message: deployment.blockedReason,
     });
   });
 

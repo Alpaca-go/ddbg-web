@@ -129,7 +129,7 @@ it("25张具名Room均有唯一获批几何，八张Boss仍拒绝普通战斗入
     new Set(rooms.cards.map((c) => c.id)),
   );
   expect(geometry.tiles.every((t) => t.geometryVerified)).toBe(true);
-  expect(geometry.tiles.filter((t) => t.usable)).toHaveLength(15);
+  expect(geometry.tiles.filter((t) => t.usable)).toHaveLength(16);
   const bosses = rooms.cards.filter((c) => c.boss);
   expect(bosses).toHaveLength(8);
   for (const card of bosses) {

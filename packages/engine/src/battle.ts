@@ -95,6 +95,8 @@ export type BattleEntity = PassiveHolder &
   };
 
 export type BattleArea = {
+  readonly evilGaze?: true;
+  readonly staringEyes?: true;
   readonly hallOfAscension?: true;
   readonly hideAndHeal?: true;
   readonly lootTheChest?: true;
@@ -202,6 +204,7 @@ export type BattleState = BattleSetup & {
   readonly reanimationUsed?: true;
   readonly oneBodyPools?: Readonly<Record<string, OneBodyLifePool>>;
   readonly lootChestUsed?: true;
+  readonly evilEyeDestroyed?: true;
   /** R-156：Vault 抽牌队列中尚未处理的 III 级饰品 id。 */
   readonly eldritchVaultDrawsRemaining?: number;
   readonly eldritchVaultReward?: true;
@@ -269,6 +272,13 @@ export type BattleState = BattleSetup & {
         readonly choice: PendingChoice;
         readonly resolved: MonsterSkillResolvedEvent;
         readonly casualtyIds: readonly string[];
+      }
+    | {
+        readonly type: "evilEyeQuirk";
+        readonly destroyed: boolean;
+        readonly actorId: string;
+        readonly choice: PendingChoice;
+        readonly events: readonly GameEvent[];
       }
     | { readonly type: "hallAscension"; readonly actorId: string; readonly choice: PendingChoice }
     | { readonly type: "trinketReward"; readonly actorId: string; readonly choice: PendingChoice }

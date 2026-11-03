@@ -151,6 +151,7 @@ import { chooseAttackTrinkets } from "./battle-attack-trinkets";
 import { chooseMonsterRetargetAfterFreeTrinket } from "./battle-monster-retarget";
 import { useTrinket } from "./battle-fortunate-armlet";
 import type { UseTrinketCommand } from "./battle-fortunate-armlet";
+import { chooseEvilEyeQuirk, destroyEvilEye } from "./battle-evil-eye";
 import { beginHallAscension, chooseHallAscension } from "./battle-hall-ascension";
 import { beginEldritchVault } from "./battle-eldritch-vault";
 import { hideAndHeal } from "./battle-hide-and-heal";
@@ -270,6 +271,7 @@ type BaseCommand =
   | PlayHeroSkillEmptyAreaCommand
   | UseProvisionCommand
   | { readonly type: "lootTreasureChest"; readonly actorId: string }
+  | { readonly type: "destroyEvilEye"; readonly actorId: string }
   | { readonly type: "hallAscension"; readonly actorId: string }
   | { readonly type: "eldritchVault"; readonly actorId: string }
   | { readonly type: "hideAndHeal"; readonly actorId: string }
@@ -729,6 +731,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     }
     if (pending.type === "resolveProvision")
       return consumeResolveProvision(state, command.optionId);
+    if (pending.type === "evilEyeQuirk") return chooseEvilEyeQuirk(state, command.optionId);
     if (pending.type === "hallAscension") return chooseHallAscension(state, command.optionId);
     if (pending.type === "trinketReward")
       return resolveBattleTrinketChoice(state, command.optionId);
@@ -785,6 +788,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (state.battle?.shuffleIntents.length) return rejectBattleCommand(state, "请先结算位移意图");
   if (command.type === "useTrinket") return useTrinket(state, command);
   if (command.type === "lootTreasureChest") return lootTreasureChest(state, command.actorId);
+  if (command.type === "destroyEvilEye") return destroyEvilEye(state, command.actorId);
   if (command.type === "hallAscension") return beginHallAscension(state, command.actorId);
   if (command.type === "eldritchVault") return beginEldritchVault(state, command.actorId);
   if (command.type === "hideAndHeal") return hideAndHeal(state, command.actorId);

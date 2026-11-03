@@ -61,7 +61,7 @@ const tileShape = z.strictObject({
   }),
   ruling: z.literal("R-160"),
   geometryVerified: z.literal(true),
-  usable: z.literal(false),
+  usable: z.literal(true),
   effectSource: z.strictObject({
     roomId: z.literal("room:p020"),
     file: z.literal(ROOM_FRONT),
@@ -76,7 +76,7 @@ const tileShape = z.strictObject({
       effect: z.enum(["evilGaze", "staringEyes"]),
       status: z.literal("confirmed"),
       printedText: z.string(),
-      runtimeReady: z.literal(false),
+      runtimeReady: z.literal(true),
     }),
   ),
   deployment: z.strictObject({
@@ -117,7 +117,7 @@ const tileShape = z.strictObject({
   ),
 });
 
-// R-160：区域字母与印刷A/B星标分开记录；特殊效果运行时未接通。
+// R-160：区域字母与印刷A/B星标分开记录；特殊效果按R-170接通。
 export const approvedEvilEye = tileShape.parse({
   id: "room_tile:p012",
   rawId: "dungeon_tile:p012",
@@ -132,7 +132,7 @@ export const approvedEvilEye = tileShape.parse({
   },
   ruling: "R-160",
   geometryVerified: true,
-  usable: false,
+  usable: true,
   effectSource: {
     roomId: "room:p020",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
@@ -148,7 +148,7 @@ export const approvedEvilEye = tileShape.parse({
       status: "confirmed",
       printedText:
         "{icon:62d166a84f} A Evil Gaze: Heroes ending their turn here take a Negative Quirk. A Hero can spend 2 actions here to destroy the Eye to gain a Positive Quirk and all Heroes also gain {icon:9d58d3d431} -5.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "A",
@@ -158,7 +158,7 @@ export const approvedEvilEye = tileShape.parse({
       status: "confirmed",
       printedText:
         "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "D",
@@ -168,7 +168,7 @@ export const approvedEvilEye = tileShape.parse({
       status: "confirmed",
       printedText:
         "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "H",
@@ -178,7 +178,7 @@ export const approvedEvilEye = tileShape.parse({
       status: "confirmed",
       printedText:
         "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "I",
@@ -188,7 +188,7 @@ export const approvedEvilEye = tileShape.parse({
       status: "confirmed",
       printedText:
         "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
   ],
   deployment: {

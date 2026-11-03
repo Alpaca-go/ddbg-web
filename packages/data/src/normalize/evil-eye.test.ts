@@ -62,23 +62,23 @@ it("R-160：FRONT p12九区、部署与印刷A/B星标可确定性生成", () =>
   expect(tile.specialRegions[1]!.printedText).toContain("{icon:9d58d3d431} +2.");
 });
 
-it("几何获批不开放橙星效果交互；容量、部署、边和来源漂移拒绝", () => {
+it("运行时开放橙星效果交互；容量、部署、边和来源漂移拒绝", () => {
   expect(tile.specialRegions[0]).toMatchObject({
     areaId: "E",
     printedLabel: "A",
     effect: "evilGaze",
     status: "confirmed",
-    runtimeReady: false,
+    runtimeReady: true,
   });
   expect(
     selectRoomTile(
       rooms.cards.find((c) => c.id === "room:p020"),
       geometry,
     ),
-  ).toMatchObject({ status: "refused" });
+  ).toMatchObject({ status: "matched" });
   for (const patch of [
-    { usable: true },
-    { specialRegions: [{ ...tile.specialRegions[0], runtimeReady: true }] },
+    { usable: false },
+    { specialRegions: [{ ...tile.specialRegions[0], runtimeReady: false }] },
     { areas: tile.areas.map((a) => (a.id === "E" ? { ...a, capacity: 4 } : a)) },
     { edges: tile.edges.slice(1) },
     {

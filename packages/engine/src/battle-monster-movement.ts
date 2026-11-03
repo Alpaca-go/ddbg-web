@@ -1,3 +1,4 @@
+import { withTeleporterAdjacency } from "./battle-teleporters";
 import { isDarkestSupportSkill } from "./battle-monster-support";
 import { isPyreCard } from "./boss/pyre-skill";
 import { isCollectedVestalCard, isBoneBearerRally } from "./boss/collected-vestal";
@@ -61,6 +62,26 @@ export function roomTileBattleAreas(tile: {
   if (tile.geometryVerified !== true) throw new Error("房间几何尚未核实（R-048）");
   const areas = tile.areas.map((area) => ({
     ...area,
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (r) =>
+        r.areaId === area.id &&
+        r.effect === "evilGaze" &&
+        r.status === "confirmed" &&
+        r.runtimeReady,
+    )
+      ? { evilGaze: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (r) =>
+        r.areaId === area.id &&
+        r.effect === "staringEyes" &&
+        r.status === "confirmed" &&
+        r.runtimeReady,
+    )
+      ? { staringEyes: true as const }
+      : {}),
     ...(tile.usable === true &&
     tile.specialRegions?.some(
       (r) =>

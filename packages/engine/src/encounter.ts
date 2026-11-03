@@ -31,6 +31,7 @@ import { endTurnOldAbbey } from "./battle-old-abbey";
 import { endTurnPoolOfRebirth } from "./battle-pool-of-rebirth";
 import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
+import { endTurnEvilEye } from "./battle-evil-eye";
 import { endTurnEldritchPower } from "./battle-eldritch-power";
 import { ceaseThreatForBossCombat, encounterForcesRetreatAfterRound } from "./boss/encounter-rules";
 import { applyBossThreatMarkedForDeathOnBattleStart } from "./boss/threat-passive-runtime";
@@ -204,6 +205,7 @@ export function finishTurn(
   state: GameState,
   actorId: string,
   events: readonly GameEvent[],
+  evilEyeResolved = false,
 ): ApplyResult {
   const small = displaceSmallForHero(state, actorId, events);
   if (small) {
@@ -312,6 +314,17 @@ export function finishTurn(
       return spiked;
     state = spiked.state;
     events = spiked.events;
+  }
+  const eye = evilEyeResolved ? null : endTurnEvilEye(state, actorId, events);
+  if (eye) {
+    if (
+      eye.pendingChoice ||
+      eye.events.some((e) => e.type === "commandRefused") ||
+      ["halted", "finished"].includes(eye.state.battle!.encounter!.turn.type)
+    )
+      return eye;
+    state = eye.state;
+    events = eye.events;
   }
   const eldritch = endTurnEldritchPower(state, actorId, events);
   if (eldritch) {
