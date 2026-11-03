@@ -106,6 +106,12 @@ it("正式目录补入Necromancer I后，旧目录存档仍先严格验证再升
   expect(taskSources.catalog.monsters.some((c) => c.id === "monster_medium:p089")).toBe(true);
   const saved = createQuestSave(start, [], previous, preNecromancerTaskSources);
   const loaded = loadQuestSave(saved, taskSources, [preNecromancerTaskSources]);
+  const oldSetup = JSON.parse(JSON.stringify(saved));
+  delete oldSetup.snapshot.dungeon.campaignLevel;
+  oldSetup.snapshot.dungeon.explorationSetup.dungeonLevel = 3;
+  expect(loadQuestSave(oldSetup, taskSources, [preNecromancerTaskSources]).game).toEqual(
+    loaded.game,
+  );
   expect(loaded.game).toEqual(
     createCoreDungeonQuest(2, start.questId, start.mode, start.party, taskSources, true),
   );
