@@ -1,0 +1,15 @@
+# Necromancer I胜利交接
+
+问题：R-172真实部署不生成普通monsterPool.active；原finishDungeonBattle要求存在普通遭遇，因此Boss已胜利仍不能回传。新增只识别R-172专属房间/板块的Necromancer I交接分支，其它普通、最暗及Boss入口不变。
+
+依据核心R30/R35/R38、R-091/R-122及R-166/172：只有真实I级目标房、战役及地牢等级相符、Boss死亡且所有伴战怪物已退出、至少一英雄存活、无待选/未处置战利品时才接受胜利。错房、错级、仍有活怪、撤退、全灭、英雄身份漂移或RNG倒退均原子拒绝。失败/全灭的专属交接仍保留停点。
+
+成功后清理已揭示目标房，回传英雄伤口/压力/姿态/持牌/状态、金币、补给与RNG，清除迫近威胁并记入击败历史，设置既有bossQuestVictory。Boss房间牌及召唤物不属于普通九房/怪物实例牌池：不把它们塞回普通池，不重洗普通牌，不额外消耗RNG或发金币/XP。
+
+沿用已有替补、离开确认和回村摘要流程；有英雄阵亡时停在awaitingReplacement。现有R-122流程在回村时支付每名英雄/驿站各3XP，本次未改其实现或UI。重复finishDungeonBattle或重复回村付款均拒绝。
+
+验证：相关8文件102测通过（新增6测），覆盖真实技能触发Boss死亡及R38伴战退出、牌池守恒、输入不变/JSON重放、状态回传、拒绝回滚、阵亡替补与现有回村3XP只付一次。Boss起点和濒死伤口是明确机制夹具，不声称从自然任务起点打完77Life或完成正式存档闭环。Node24.21.0/pnpm12.9.1下typecheck/lint/build通过。
+
+边界：仅Necromancer I胜利交接。不改combatReady、任务白名单或room:p010的usable=false，不接其它Boss/等级、Stygian、失败全灭结算或前端按钮；目录仍17/25。非阶段末，未新增浏览器冒烟路径，现有完整Playwright由CI复核。
+
+固定代码提交`6dfe52f8`的[GitHub Actions检查](https://github.com/Alpaca-go/ddbg-web/actions/runs/41638755342)全部通过：完整单元/场景测试、typecheck、lint、build及完整Playwright smoke全绿。其后仅补本文验证记录，不修改代码。
