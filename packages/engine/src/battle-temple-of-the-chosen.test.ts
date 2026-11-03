@@ -9,6 +9,8 @@ import { roomEffectFixture } from "./test-helpers/room-effects";
 import { applyCommand } from "./command";
 import type { GameState } from "./command";
 import { readRoomTile } from "./room-tile-selection";
+import { hallAscensionFixture } from "./test-helpers/hall-ascension";
+import { endTurnRiteOfTheChosen } from "./battle-temple-of-the-chosen";
 
 function setup(areaId = "A", wounds = 8): GameState {
   const state = roomEffectFixture(roomTileBattleAreas(tile));
@@ -125,4 +127,40 @@ it("后续英雄压力预检拒绝时，怪物治疗、先前压力和RNG全部�
   expect(r.state).toBe(unknown);
   expect(r.events).toHaveLength(1);
   expect(r.events[0]!.type).toBe("commandRefused");
+});
+
+it("R-091：真实地牢持牌死亡先留档并洗回，再结算下一英雄压力", () => {
+  const s = hallAscensionFixture({
+    stress: 9,
+    resolveTested: true,
+    resolveCardId: resolveFile.cards[0]!.id,
+  });
+  const b = s.battle!;
+  const result = endTurnRiteOfTheChosen(
+    {
+      ...s,
+      battle: {
+        ...b,
+        areas: roomTileBattleAreas(tile),
+        entities: b.entities.map((e) => ({ ...e, areaId: e.side === "monster" ? "A" : "F" })),
+      },
+    },
+    "m",
+    [],
+  )!;
+  expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+  const returned = result.events.findIndex(
+    (e) => e.type === "dungeonUpdated" && e.message.includes("立即洗回"),
+  );
+  const next = result.events.findIndex(
+    (e) => e.type === "areaStressResolved" && e.actorId === "hero-1",
+  );
+  expect(returned).toBeGreaterThan(-1);
+  expect(returned).toBeLessThan(next);
+  expect(
+    result.state.dungeon!.fallenHeroes!.find((e) => e.hero.id === "hero-0")!.hero.resolveCardId,
+  ).toBe(resolveFile.cards[0]!.id);
+  expect(
+    result.state.battle!.entities.find((e) => e.id === "hero-0")!.resolveCardId,
+  ).toBeUndefined();
 });

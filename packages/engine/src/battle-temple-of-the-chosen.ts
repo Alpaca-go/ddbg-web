@@ -4,6 +4,8 @@ import { conditionPoolProblem } from "./conditions";
 import { triggerBattlePassive } from "./battle-passive";
 import { resolveBattlePressure } from "./pressure";
 import { endAfterCasualties, newlyDefeatedIds, removeCasualties } from "./encounter";
+import { captureFallenHeroes } from "./fallen-heroes";
+import { releaseDeadHeroCards } from "./hero-death-cards";
 
 /** R-161/171：橙星A的怪物回合结束，先治疗全体怪物，再逐名结算英雄压力。 */
 export function endTurnRiteOfTheChosen(
@@ -86,6 +88,9 @@ export function endTurnRiteOfTheChosen(
     });
     if (pressure.events.some((e) => e.type === "commandRefused")) return pressure;
     result = removeCasualties(pressure, newlyDefeatedIds(live, pressure.state.battle!.entities));
+    // R-091：先归还死者共享卡，再处理下一名英雄可能发生的意志抽牌。
+    result = releaseDeadHeroCards(captureFallenHeroes(result));
+    if (result.events.some((e) => e.type === "commandRefused")) return result;
     const ended = endAfterCasualties(result);
     if (ended) return ended;
   }
