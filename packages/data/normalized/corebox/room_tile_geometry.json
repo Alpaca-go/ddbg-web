@@ -3646,6 +3646,314 @@
     }
    ],
    "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p012",
+   "rawId": "dungeon_tile:p012",
+   "roomId": "room:p020",
+   "location": "darkestDungeon",
+   "number": 7,
+   "name": "Evil Eye",
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 12,
+    "face": "front"
+   },
+   "ruling": "R-160",
+   "geometryVerified": true,
+   "usable": false,
+   "effectSource": {
+    "roomId": "room:p020",
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+    "page": 20,
+    "ruling": "R-160"
+   },
+   "specialRegions": [
+    {
+     "areaId": "E",
+     "iconId": "4591aebebd",
+     "printedLabel": "A",
+     "effect": "evilGaze",
+     "status": "confirmed",
+     "printedText": "{icon:62d166a84f} A Evil Gaze: Heroes ending their turn here take a Negative Quirk. A Hero can spend 2 actions here to destroy the Eye to gain a Positive Quirk and all Heroes also gain {icon:9d58d3d431} -5.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "A",
+     "iconId": "4591aebebd",
+     "printedLabel": "B",
+     "effect": "staringEyes",
+     "status": "confirmed",
+     "printedText": "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "D",
+     "iconId": "4591aebebd",
+     "printedLabel": "B",
+     "effect": "staringEyes",
+     "status": "confirmed",
+     "printedText": "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "H",
+     "iconId": "4591aebebd",
+     "printedLabel": "B",
+     "effect": "staringEyes",
+     "status": "confirmed",
+     "printedText": "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "I",
+     "iconId": "4591aebebd",
+     "printedLabel": "B",
+     "effect": "staringEyes",
+     "status": "confirmed",
+     "printedText": "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
+     "runtimeReady": false
+    }
+   ],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "G",
+     "defensive": "G",
+     "ranged": "G",
+     "support": "G"
+    },
+    "monsters": {
+     "aggressive": "C",
+     "defensive": "C",
+     "ranged": "C",
+     "support": "C"
+    },
+    "lootAreas": [
+     "A",
+     "I"
+    ],
+    "markers": [
+     {
+      "areaId": "G",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "I",
+     "capacity": 2,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "A"
+    },
+    {
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "A"
+    },
+    {
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "B"
+    },
+    {
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "B"
+    },
+    {
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "C"
+    },
+    {
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "D"
+    },
+    {
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "D"
+    },
+    {
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "E"
+    },
+    {
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "E"
+    },
+    {
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "F"
+    },
+    {
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "G"
+    },
+    {
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "H"
+    },
+    {
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "A"
+    },
+    {
+     "to": "D",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "B"
+    },
+    {
+     "to": "F",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "B"
+    },
+    {
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "C"
+    },
+    {
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "D"
+    },
+    {
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "E"
+    },
+    {
+     "to": "I",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "E"
+    },
+    {
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "F"
+    }
+   ],
+   "unresolvedMarkers": []
   }
  ]
 }
