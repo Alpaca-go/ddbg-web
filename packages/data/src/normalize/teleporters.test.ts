@@ -55,22 +55,24 @@ it("R-159：BACK p11独立面、四组实体连接与四个橙星可确定性生
   ).toBe(true);
 });
 
-it("几何获批不开放橙星效果交互；容量、部署、边和来源漂移拒绝", () => {
+it("R-159：完整运行时开放参战；容量、部署、边和来源漂移拒绝", () => {
+  expect(tile.usable).toBe(true);
+  expect(tile.specialRegions.every((r) => r.runtimeReady)).toBe(true);
   expect(tile.specialRegions[0]).toMatchObject({
     areaId: "A",
     effect: "teleporters",
     status: "confirmed",
-    runtimeReady: false,
+    runtimeReady: true,
   });
   expect(
     selectRoomTile(
       rooms.cards.find((c) => c.id === "room:p019"),
       geometry,
     ),
-  ).toMatchObject({ status: "refused" });
+  ).toMatchObject({ status: "matched" });
   for (const patch of [
-    { usable: true },
-    { specialRegions: [{ ...tile.specialRegions[0], runtimeReady: true }] },
+    { usable: false },
+    { specialRegions: tile.specialRegions.map((r) => ({ ...r, runtimeReady: false })) },
     { areas: tile.areas.map((a) => (a.id === "E" ? { ...a, capacity: 4 } : a)) },
     { edges: tile.edges.slice(1) },
     {

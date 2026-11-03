@@ -59,7 +59,7 @@ export function roomTileBattleAreas(tile: {
   }[];
 }): readonly BattleArea[] {
   if (tile.geometryVerified !== true) throw new Error("房间几何尚未核实（R-048）");
-  return tile.areas.map((area) => ({
+  const areas = tile.areas.map((area) => ({
     ...area,
     ...(tile.usable === true &&
     tile.specialRegions?.some(
@@ -223,6 +223,16 @@ export function roomTileBattleAreas(tile: {
       : {}),
     ...(tile.usable === true &&
     tile.specialRegions?.some(
+      (region) =>
+        region.areaId === area.id &&
+        region.effect === "teleporters" &&
+        region.status === "confirmed" &&
+        region.runtimeReady,
+    )
+      ? { teleporter: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
       (r) =>
         r.areaId === area.id &&
         r.effect === "healingWaters" &&
@@ -249,6 +259,7 @@ export function roomTileBattleAreas(tile: {
       .map((edge) => (edge.from === area.id ? edge.to : edge.from))
       .sort(),
   }));
+  return withTeleporterAdjacency(areas);
 }
 type BattleAreaWithoutEdges = Omit<BattleArea, "adjacent">;
 

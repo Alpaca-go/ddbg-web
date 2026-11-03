@@ -112,6 +112,8 @@ export type BattleArea = {
   readonly eldritchVaultTrinkets?: true;
   /** R-158：Eldritch Power Chamber 橙星区。 */
   readonly eldritchPower?: true;
+  /** R-159：Teleporters 橙星区 A/C/F/H。 */
+  readonly teleporter?: true;
   readonly healingForbidden?: true;
   readonly endTurnHeal?: 3;
   /** 已复核 Cornered；只接明确印刷值，不给未命名特殊标记补值。 */
