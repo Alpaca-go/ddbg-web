@@ -45,11 +45,22 @@ export const taskSources: CoreQuestSources = {
   },
 };
 
+/** 接通Necromancer I真实部署前的固定目录，用于严格验证既有存档。 */
+export const preNecromancerTaskSources: CoreQuestSources = {
+  ...taskSources,
+  catalog: {
+    ...taskSources.catalog,
+    monsters: taskSources.catalog.monsters.filter((c) => c.id !== "monster_medium:p089"),
+  },
+};
+
 export const preDarkestTaskSources: CoreQuestSources = {
   ...taskSources,
   catalog: {
     ...taskSources.catalog,
-    monsters: taskSources.catalog.monsters.filter((c) => !darkestIds.has(c.id)),
+    monsters: taskSources.catalog.monsters.filter(
+      (c) => !darkestIds.has(c.id) && c.id !== "monster_medium:p089",
+    ),
   },
 };
 /** #416's fixed 141-card higher catalog, for strict validation before upgrading catalog fields. */

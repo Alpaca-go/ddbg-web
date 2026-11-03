@@ -319,6 +319,15 @@ export function naturalQuest(
         (kind === "curio" && state.dungeon!.curioRoom?.stage === "guarded")
       ) {
         step({ type: "prepareDungeonBattle" });
+        if (
+          state.dungeon!.roomCards!.active!.cardId === "room:p010" &&
+          state.dungeon!.activeBossThreatScriptId === "boss:ruins:necromancer:1"
+        ) {
+          step({ type: "deployNecromancerI" });
+          fight();
+          if (state.dungeon!.campaignFailure) return;
+          continue;
+        }
         if (!state.dungeon!.roomCards!.active!.tileId) throw new Error("unready tile");
         step({ type: "prepareDungeonMonsters" });
         step({ type: "startDungeonBattle" });
@@ -339,6 +348,8 @@ export function naturalQuest(
   try {
     const activeQuestId = (state.dungeon!.questDistribution?.questId ?? questId) as BasicQuestId;
     const activeQuest = basicQuests.find((q) => q.id === activeQuestId)!;
+    if (activeQuestId === "quest:p019" && !state.dungeon!.imminentThreatDescriptionCardId)
+      step({ type: "establishImminentThreat" });
     if (dungeonPhase() === "awaitingProvisions") {
       step({ type: "rollDungeonProvisions" });
       settle();
@@ -356,6 +367,8 @@ export function naturalQuest(
       if (!route.backtrack) step({ type: "rollDungeonExploration" });
       settle();
       room();
+      if (state.dungeon!.campaignFailure)
+        return { initial, state, commands, events, stopReason: null };
       if (options.preferWipeout && dungeonPhase() === "awaitingReplacement")
         return { initial, state, commands, events, stopReason: null };
       const d = state.dungeon!;
@@ -369,17 +382,19 @@ export function naturalQuest(
       const cleared = d.rooms.filter((r) => r.cleared),
         lairs = cleared.filter((r) => r.kind === "lair");
       const done =
-        options.exitAfterBattles !== undefined
-          ? events.filter((e) => e.type === "battleFinished").length >= options.exitAfterBattles
-          : activeQuest.xpKind === "all"
-            ? cleared.length >= scoutRooms && won > 0
-            : activeQuest.xpKind === "lair"
-              ? lairs.length >= wipeLairs
-              : activeQuest.xpKind === "objective"
-                ? cleared.filter((r) => r.kind === "objective").length >= 1
-                : activeQuest.xpKind === "curio"
-                  ? cleared.filter((r) => r.kind === "curio").length >= 1
-                  : lairs.length > 0 && d.gold >= 20;
+        activeQuestId === "quest:p019"
+          ? d.bossQuestVictory === true
+          : options.exitAfterBattles !== undefined
+            ? events.filter((e) => e.type === "battleFinished").length >= options.exitAfterBattles
+            : activeQuest.xpKind === "all"
+              ? cleared.length >= scoutRooms && won > 0
+              : activeQuest.xpKind === "lair"
+                ? lairs.length >= wipeLairs
+                : activeQuest.xpKind === "objective"
+                  ? cleared.filter((r) => r.kind === "objective").length >= 1
+                  : activeQuest.xpKind === "curio"
+                    ? cleared.filter((r) => r.kind === "curio").length >= 1
+                    : lairs.length > 0 && d.gold >= 20;
       if (done) {
         step({ type: "leaveDungeon" });
         choose("agree");

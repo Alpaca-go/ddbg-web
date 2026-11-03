@@ -127,7 +127,11 @@ export function createCoreDungeonQuest(
     "S",
     heroes,
     sources.resolveCards,
-    { dungeonLevel: quest!.level, light: 5, provisions: [] },
+    {
+      dungeonLevel: questId === FACE_THE_THREAT_QUEST_ID ? 1 : quest!.level,
+      light: 5,
+      provisions: [],
+    },
     sources.curios,
     sources.rooms,
     sources.monsters,
@@ -157,6 +161,7 @@ export function createCoreDungeonQuest(
     ...game,
     dungeon: {
       ...dungeon,
+      campaignLevel: 1 as const,
       ...(placed
         ? {
             cursor: placed.cursor,
