@@ -44,3 +44,5 @@ ROOMS FRONT p17的橙色星标卡文：
 - 已录入独立schema与规范化JSON，并补来源/容量/部署/连接/宝箱/星标漂移拒绝测试。
 
 验证：已目视完整原图、配套room卡和标字图。Node24.21.0/pnpm12.9.1下规范化56文件188测通过，覆盖确定性再生、来源不变、修正后的D/F部署、独立四宝箱、四个橙星和不可提前开放参战；全仓typecheck、lint、build通过。生产数据只增加本面，不改引擎或UI；当前25张具名房间中13张几何获批、11张可参战，尚缺12张几何。非阶段收尾，不新增Playwright路径。全量单元/场景与smoke等待CI结果。
+
+最终验证：[PR #551](https://github.com/Alpaca-go/ddbg-web/pull/551)的固定代码`a2c389adca40d35283877b0a48d459b8a498ef21`已在[CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/41569490406)全部通过：全仓typecheck、lint、全量单元/场景测试、build及Playwright smoke均成功。后续提交仅补此验证记录。
