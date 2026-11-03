@@ -1,3 +1,7 @@
+import { assertFanaticRoomSource } from "./fanatic-room";
+import { assertCollectorRoomSource } from "./collector-room";
+import { assertProphetRoomSource } from "./prophet-room";
+import { assertNecromancerRoomSource } from "./necromancer-room";
 import { assertAncestorRoomSource } from "./ancestor-room";
 import { assertMammothCystRoomSource } from "./mammoth-cyst-room";
 import { assertShufflingHorrorRoomSource } from "./shuffling-horror-room";
@@ -750,6 +754,10 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       assertShufflingHorrorRoomSource(input.rooms);
       assertMammothCystRoomSource(input.rooms);
       assertAncestorRoomSource(input.rooms);
+      assertNecromancerRoomSource(input.rooms);
+      assertProphetRoomSource(input.rooms);
+      assertCollectorRoomSource(input.rooms);
+      assertFanaticRoomSource(input.rooms);
       return buildRoomTileGeometry(input.roomTiles);
     })(),
     corridor_tile_geometry: buildCorridorTileGeometry(input.roomTiles),
