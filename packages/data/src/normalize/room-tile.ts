@@ -1,3 +1,8 @@
+import {
+  approvedTemplarsRoom,
+  templarsRoomSchema,
+  assertTemplarsRoomTileLabels,
+} from "./templars-room";
 import { approvedTempleOfTheChosen, templeOfTheChosenSchema } from "./temple-of-the-chosen";
 import { approvedEvilEye, evilEyeSchema, assertEvilEyeTileLabels } from "./evil-eye";
 import { approvedTeleporters, teleportersSchema } from "./teleporters";
@@ -132,6 +137,7 @@ export const roomTileGeometrySchema = z.union([
   teleportersSchema,
   evilEyeSchema,
   templeOfTheChosenSchema,
+  templarsRoomSchema,
 ]);
 
 export const roomTileGeometryFileSchema = z
@@ -220,6 +226,7 @@ export const approvedRoomTileGeometry = ritualChamberSchema.parse({
 /** 不解析颜色 / 图标计数 / footer；未获批 raw 页不输出几何。 */
 export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
   assertEvilEyeTileLabels(raw);
+  assertTemplarsRoomTileLabels(raw);
   const tiles = [
     approvedRoomTileGeometry,
     approvedTortureChamber,
@@ -232,6 +239,7 @@ export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
     approvedTeleporters,
     approvedEvilEye,
     approvedTempleOfTheChosen,
+    approvedTemplarsRoom,
   ];
   for (const tile of tiles) {
     const matches = raw.cards.filter((card) => card.id === tile.rawId);
