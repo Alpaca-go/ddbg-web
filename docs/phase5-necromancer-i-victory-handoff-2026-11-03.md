@@ -8,6 +8,8 @@
 
 沿用已有替补、离开确认和回村摘要流程；有英雄阵亡时停在awaitingReplacement。现有R-122流程在回村时支付每名英雄/驿站各3XP，本次未改其实现或UI。重复finishDungeonBattle或重复回村付款均拒绝。
 
-验证：相关8文件102测通过（新增6测），覆盖真实技能触发Boss死亡及R38伴战退出、牌池守恒、输入不变/JSON重放、状态回传、拒绝回滚、阵亡替补与现有回村3XP只付一次。Boss起点和濒死伤口是明确机制夹具，不声称从自然任务起点打完77Life或完成正式存档闭环。Node24.21.0/pnpm12.9.1下typecheck/lint/build及完整CI另行核验。
+验证：相关8文件102测通过（新增6测），覆盖真实技能触发Boss死亡及R38伴战退出、牌池守恒、输入不变/JSON重放、状态回传、拒绝回滚、阵亡替补与现有回村3XP只付一次。Boss起点和濒死伤口是明确机制夹具，不声称从自然任务起点打完77Life或完成正式存档闭环。Node24.21.0/pnpm12.9.1下typecheck/lint/build通过。
 
 边界：仅Necromancer I胜利交接。不改combatReady、任务白名单或room:p010的usable=false，不接其它Boss/等级、Stygian、失败全灭结算或前端按钮；目录仍17/25。非阶段末，未新增浏览器冒烟路径，现有完整Playwright由CI复核。
+
+固定代码提交`6dfe52f8`的[GitHub Actions检查](https://github.com/Alpaca-go/ddbg-web/actions/runs/41638755342)全部通过：完整单元/场景测试、typecheck、lint、build及完整Playwright smoke全绿。其后仅补本文验证记录，不修改代码。
