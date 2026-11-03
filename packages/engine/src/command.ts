@@ -8,6 +8,7 @@ import {
   finalBattleCombatActive,
 } from "./boss/final-form-sequence";
 import { deployFinalBattleForm } from "./boss/final-battle-deploy";
+import { deployNecromancerI } from "./boss/necromancer-i-deploy";
 import { deployDarkestMidBoss } from "./boss/darkest-mid-boss-deploy";
 import { deployDarkestOrdinaryEncounter } from "./darkest-ordinary-encounter-deploy";
 import { beginFinalPreparation, beginFinalBattleProvisions } from "./final-preparation";
@@ -258,6 +259,7 @@ type BaseCommand =
   | { readonly type: "beginFinalBattleProvisions" }
   | { readonly type: "prepareFinalBattleForms" }
   | { readonly type: "deployFinalBattleForm"; readonly startBattle?: true | undefined }
+  | { readonly type: "deployNecromancerI" }
   | { readonly type: "deployDarkestMidBoss" }
   | { readonly type: "deployDarkestOrdinaryEncounter" }
   | { readonly type: "offerNextQuest" }
@@ -648,6 +650,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       ? resolveDungeonConditionChoice(state, command.optionId)
       : rejectBattleCommand(state, "请先完成地牢疾病 / 怪癖替换选择");
   }
+  if (command.type === "deployNecromancerI") return deployNecromancerI(state);
   if (command.type === "startDungeonBattle") return startDungeonBattle(state);
   if (command.type === "finishDungeonBattle") return finishDungeonBattle(state);
   if (command.type === "useProvision" && state.dungeon && !state.battle)
