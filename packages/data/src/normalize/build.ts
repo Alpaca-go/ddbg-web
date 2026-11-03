@@ -1,3 +1,4 @@
+import { assertAncestorRoomSource } from "./ancestor-room";
 import { assertMammothCystRoomSource } from "./mammoth-cyst-room";
 import { assertShufflingHorrorRoomSource } from "./shuffling-horror-room";
 import { assertTemplarsRoomEffectSource } from "./templars-room";
@@ -748,6 +749,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       assertTemplarsRoomEffectSource(input.rooms);
       assertShufflingHorrorRoomSource(input.rooms);
       assertMammothCystRoomSource(input.rooms);
+      assertAncestorRoomSource(input.rooms);
       return buildRoomTileGeometry(input.roomTiles);
     })(),
     corridor_tile_geometry: buildCorridorTileGeometry(input.roomTiles),

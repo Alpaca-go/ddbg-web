@@ -1,3 +1,4 @@
+import { approvedAncestorRoom, ancestorRoomSchema } from "./ancestor-room";
 import {
   approvedMammothCystRoom,
   mammothCystRoomSchema,
@@ -150,6 +151,7 @@ export const roomTileGeometrySchema = z.union([
   templarsRoomSchema,
   shufflingHorrorRoomSchema,
   mammothCystRoomSchema,
+  ancestorRoomSchema,
 ]);
 
 export const roomTileGeometryFileSchema = z
@@ -256,6 +258,7 @@ export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
     approvedTemplarsRoom,
     approvedShufflingHorrorRoom,
     approvedMammothCystRoom,
+    approvedAncestorRoom,
   ];
   for (const tile of tiles) {
     const matches = raw.cards.filter((card) => card.id === tile.rawId);

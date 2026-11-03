@@ -5042,6 +5042,275 @@
     }
    ],
    "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p014:back",
+   "rawId": "dungeon_tile:p014",
+   "roomId": "room:p025",
+   "location": "darkestDungeon",
+   "number": 12,
+   "name": "Ancestor Room",
+   "source": {
+    "file": "DD_COREBOX_TILES_BACK.pdf",
+    "page": 14,
+    "face": "back"
+   },
+   "ruling": "R-165",
+   "geometryVerified": true,
+   "usable": false,
+   "effectSource": {
+    "roomId": "room:p025",
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+    "page": 25,
+    "ruling": "R-165"
+   },
+   "specialRegions": [],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "K",
+     "defensive": "I",
+     "ranged": "K",
+     "support": "C"
+    },
+    "monsters": {
+     "aggressive": "E",
+     "defensive": "B",
+     "ranged": "A",
+     "support": "J"
+    },
+    "lootAreas": [],
+    "markers": [
+     {
+      "areaId": "K",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "K",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "J",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "I",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "J",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "K",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "K",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "J",
+     "to": "K",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "D",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "J",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "unresolvedMarkers": []
   }
  ]
 }

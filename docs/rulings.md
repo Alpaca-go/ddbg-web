@@ -2143,3 +2143,19 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：Kyries明确回复“J容量是2，L容量是2，其他都核对通过”；R-001 / R-048，核心规则R16–18、R25。
 - **边界**：仅批准图面与room卡无额外效果文字的来源；不推定紫星效果或数字掷骰用途，不开放Boss参战、召唤或传送运行时。
 - **状态**：Q-147已解决。
+
+
+### Q-148
+
+- **日期**：2026-11-03（Asia/Shanghai）
+- **问题**：Ancestor Room（最暗地牢12，TILES BACK p14 / ROOMS FRONT p25）逐面几何与部署。
+- **状态**：Kyries回复“核对通过”，见R-165。
+
+### R-165
+
+- **编号**：R-165
+- **日期**：2026-11-03（Asia/Shanghai）
+- **裁定**：批准[Ancestor Room完整审核稿](phase5-ancestor-room-geometry-review-2026-11-03.md)：A–K容量3、4、2、3、3、3、3、3、2、4、3，均普通地形。英雄Aggressive K、Defensive I、Ranged K、Support C；怪物Aggressive E、Defensive B、Ranged A、Support J。18条通路按审核稿，D-E及H-J为共享边；仅角点B-D、E-J，无额外阻挡、宝箱或特殊标记；room卡无额外效果文字。
+- **依据**：Kyries查看审核稿及原图后回复“核对通过”；R-001 / R-048，核心规则R16–18、R25。
+- **边界**：仅批准图面，不批准最终战形态切换、召唤、战斗开局或先攻处理；Boss运行时准入另行核实，保持usable=false。
+- **状态**：Q-148已解决。
