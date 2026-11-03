@@ -24,9 +24,11 @@ export function ReplacementHeroActions({
     <div data-testid="replacement-hero-actions">
       {d.campaignFailure && (
         <p className="tt-alert" role="status">
-          {d.campaignFailure === "insufficientWaitingHeroes"
-            ? "英雄全灭，驿站等待英雄不足四人，战役失败（R9/R25）。"
-            : "等待英雄代币耗尽，战役失败（R33）。"}
+          {d.campaignFailure === "bossQuestHeroesDefeated"
+            ? "Boss任务英雄全灭，战役失败（R-044）。"
+            : d.campaignFailure === "insufficientWaitingHeroes"
+              ? "英雄全灭，驿站等待英雄不足四人，战役失败（R9/R25）。"
+              : "等待英雄代币耗尽，战役失败（R33）。"}
         </p>
       )}
       {d.heroes.some(

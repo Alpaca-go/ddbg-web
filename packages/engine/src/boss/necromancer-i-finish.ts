@@ -14,8 +14,8 @@ export function necromancerIRealCombatActive(state: GameState): boolean {
   );
 }
 
-/** R30/R38：Boss胜利交接不借用普通怪物牌池，也不重洗九张普通房间牌。 */
-export function finishNecromancerIVictory(state: GameState): ApplyResult {
+/** R-044/R30/R38：Boss胜负交接不借用普通怪物牌池，也不重洗九张普通房间牌。 */
+export function finishNecromancerIBattle(state: GameState): ApplyResult {
   const d = state.dungeon;
   const b = state.battle;
   const active = d?.roomCards?.active;
@@ -23,6 +23,7 @@ export function finishNecromancerIVictory(state: GameState): ApplyResult {
   const plan = d?.faceTheThreatEmbarkPlan;
   const turn = b?.encounter?.turn;
   const loot = b?.loot ?? b?.lootPool;
+  const wipedOut = turn?.type === "halted" && turn.reason === "heroesDefeated";
   const refuse = (message: string) => rejectBattleCommand(state, message);
   if (
     !d ||
@@ -43,8 +44,7 @@ export function finishNecromancerIVictory(state: GameState): ApplyResult {
     d.monsterPool?.active ||
     !d.explorationSetup ||
     d.explorationSetup.dungeonLevel !== 1 ||
-    turn?.type !== "finished" ||
-    turn.outcome !== "victory" ||
+    (!wipedOut && (turn?.type !== "finished" || turn.outcome !== "victory")) ||
     d.pending ||
     b.pending ||
     state.trinketChoice ||
@@ -56,7 +56,7 @@ export function finishNecromancerIVictory(state: GameState): ApplyResult {
     loot.gold < 0
   )
     return refuse(
-      "需要R-172真实部署的Necromancer I已完成胜利、无待选及未处置战利品；失败/全灭交接仍保留停点（R30/R38）",
+      "需要R-172真实部署的Necromancer I胜利或英雄全灭、无待选及未处置战利品（R-044/R30/R38）",
     );
   const bosses = b.entities.filter(
     (e) => e.side === "monster" && e.monsterCardId === NECROMANCER_I_COMBAT_MONSTER_CARD_ID,
@@ -65,10 +65,6 @@ export function finishNecromancerIVictory(state: GameState): ApplyResult {
   if (
     bosses.length !== 1 ||
     bosses[0]!.id !== "boss:necromancer:1" ||
-    !bosses[0]!.dead ||
-    b.entities.some((e) => e.side === "monster" && !e.dead) ||
-    !heroes.some((e) => !e.dead) ||
-    clearedBossThreatScriptIdAfterVictory(state) !== NECROMANCER_I_SCRIPT_ID ||
     heroes.length !== 4 ||
     d.heroes.length !== 4 ||
     new Set(heroes.map((h) => h.id)).size !== 4 ||
@@ -91,8 +87,34 @@ export function finishNecromancerIVictory(state: GameState): ApplyResult {
     )
   )
     return refuse(
-      "Necromancer I胜利事实、英雄或RNG交接不一致，不清理房间、不记录奖励（R30/R38、R-048）",
+      "Necromancer I身份、英雄或RNG交接不一致，不清理房间、不记录奖励（R30/R38、R-048）",
     );
+  if (wipedOut) {
+    if (
+      heroes.some((e) => !e.dead) ||
+      !b.entities.some((e) => e.side === "monster" && !e.dead) ||
+      turn.monstersDefeated === true ||
+      d.bossQuestVictory
+    )
+      return refuse("英雄全灭事实不一致；双方全灭保留停点，不推定战役失败（R-044/R-068）");
+    return {
+      state: { ...state, dungeon: { ...d, campaignFailure: "bossQuestHeroesDefeated" } },
+      events: [
+        {
+          type: "dungeonUpdated",
+          message:
+            "Necromancer I战斗英雄全灭，战役失败；保留战场，不消耗替补、不清房、不发奖励（R-044）",
+        },
+      ],
+    };
+  }
+  if (
+    !bosses[0]!.dead ||
+    b.entities.some((e) => e.side === "monster" && !e.dead) ||
+    !heroes.some((e) => !e.dead) ||
+    clearedBossThreatScriptIdAfterVictory(state) !== NECROMANCER_I_SCRIPT_ID
+  )
+    return refuse("Necromancer I胜利事实不一致，不清理房间、不记录奖励（R30/R38）");
   const returned = d.heroes.map((hero) => {
     const e = heroes.find((h) => h.id === hero.id)!;
     return {
