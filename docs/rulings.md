@@ -2143,3 +2143,79 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：Kyries明确回复“J容量是2，L容量是2，其他都核对通过”；R-001 / R-048，核心规则R16–18、R25。
 - **边界**：仅批准图面与room卡无额外效果文字的来源；不推定紫星效果或数字掷骰用途，不开放Boss参战、召唤或传送运行时。
 - **状态**：Q-147已解决。
+
+
+### Q-148
+
+- **日期**：2026-11-03（Asia/Shanghai）
+- **问题**：Ancestor Room（最暗地牢12，TILES BACK p14 / ROOMS FRONT p25）逐面几何与部署。
+- **状态**：Kyries回复“核对通过”，见R-165。
+
+### R-165
+
+- **编号**：R-165
+- **日期**：2026-11-03（Asia/Shanghai）
+- **裁定**：批准[Ancestor Room完整审核稿](phase5-ancestor-room-geometry-review-2026-11-03.md)：A–K容量3、4、2、3、3、3、3、3、2、4、3，均普通地形。英雄Aggressive K、Defensive I、Ranged K、Support C；怪物Aggressive E、Defensive B、Ranged A、Support J。18条通路按审核稿，D-E及H-J为共享边；仅角点B-D、E-J，无额外阻挡、宝箱或特殊标记；room卡无额外效果文字。
+- **依据**：Kyries查看审核稿及原图后回复“核对通过”；R-001 / R-048，核心规则R16–18、R25。
+- **边界**：仅批准图面，不批准最终战形态切换、召唤、战斗开局或先攻处理；Boss运行时准入另行核实，保持usable=false。
+- **状态**：Q-148已解决。
+
+### Q-149
+
+- **日期**：2026-11-03（Asia/Shanghai）
+- **问题**：Necromancer Room（遗迹10，TILES BACK p6 / ROOMS FRONT p10）逐面几何、容量、地形与部署，见[审核稿](phase5-necromancer-room-geometry-review-2026-11-03.md)。
+- **状态**：Kyries修正E容量为3，其余审核通过，见R-166。
+
+### R-166
+
+- **编号**：R-166
+- **日期**：2026-11-03（Asia/Shanghai）
+- **裁定**：批准[Necromancer Room审核稿](phase5-necromancer-room-geometry-review-2026-11-03.md)，E容量修正为3；A–H容量3、4、3、4、3、2、4、2。A为高地，其余普通；英雄四姿态G，怪物仅Aggressive A。11条共享边、6组角点按审核稿；无额外阻挡、宝箱或星标，room卡无额外效果文字。
+- **依据**：Kyries明确回复“E容量是3，其他审核通过”；R-001、R-048、R-021，核心规则R16–18、R25。
+- **边界**：只批准图面，不补造怪物其余三姿态部署；Boss运行时准入另行核实，保持usable=false。
+- **状态**：Q-149已解决。
+
+### Q-150
+
+- **日期**：2026-11-03（Asia/Shanghai）
+- **问题**：Prophet Room（遗迹11，TILES FRONT p6 / ROOMS FRONT p11）几何、容量与部署，见[审核稿](phase5-prophet-room-geometry-review-2026-11-03.md)。
+- **状态**：Kyries回复“审核通过”，见R-167。
+
+### R-167
+
+- **编号**：R-167
+- **日期**：2026-11-03（Asia/Shanghai）
+- **裁定**：批准[Prophet Room审核稿](phase5-prophet-room-geometry-review-2026-11-03.md)：A–H容量4、3、3、3、3、4、3、3，均普通地形。英雄Aggressive C、Support D、Ranged/Defensive H；怪物仅Aggressive E。12条共享边含D-H及F-H；仅角点A-E、B-F、C-E。橙色标记A=1–2、B=3、C=4、D=5、E=6、F=7–8、G=9、H=10；无宝箱或额外阻挡，room卡无额外效果文字。
+- **依据**：Kyries回复“审核通过”；R-001、R-048、R-021，核心规则R16–18、R25。
+- **边界**：只批准图面，不补其余怪物姿态；不批准落石、掷骰表或Boss运行时准入，保持usable=false。
+- **状态**：Q-150已解决。
+
+### Q-151
+
+- **日期**：2026-11-03（Asia/Shanghai）
+- **问题**：Collector Room（遗迹12，TILES BACK p7 / ROOMS FRONT p12）几何、容量、部署与三宝箱，见[审核稿](phase5-collector-room-geometry-review-2026-11-03.md)。
+- **状态**：Kyries回复“核对通过”，见R-168。
+
+### R-168
+
+- **编号**：R-168
+- **日期**：2026-11-03（Asia/Shanghai）
+- **裁定**：批准[Collector Room审核稿](phase5-collector-room-geometry-review-2026-11-03.md)：A–H容量2、3、3、2、2、2、2、3，均普通地形。英雄Aggressive/Support H、Ranged/Defensive B；怪物Aggressive C、Defensive G、Ranged E、Support A。7条共享边、3组角点按审核稿；F有三个独立宝箱标记，各带白色叹号；无额外阻挡或星标，room卡无额外效果文字。
+- **依据**：Kyries回复“核对通过”；R-001、R-048、R-021，核心规则R16–18、R25。
+- **边界**：仅批准图面与宝箱数量，不推定叹号特殊奖励含义；Boss准入、宝箱交互和奖励运行时另行核实，保持usable=false。
+- **状态**：Q-151已解决。
+
+### Q-152
+
+- **日期**：2026-11-03（Asia/Shanghai）
+- **问题**：Fanatic Room（遗迹13，TILES FRONT p7 / ROOMS FRONT p13）几何、容量、高地与部署，见[审核稿](phase5-fanatic-room-geometry-review-2026-11-03.md)。
+- **状态**：Kyries回复“核对通过”，见R-169。
+
+### R-169
+
+- **编号**：R-169
+- **日期**：2026-11-03（Asia/Shanghai）
+- **裁定**：批准[Fanatic Room审核稿](phase5-fanatic-room-geometry-review-2026-11-03.md)：A–I容量3、3、3、4、3、4、3、3、3；B为高地，其余普通。英雄Aggressive/Ranged H、Defensive A、Support C；怪物Aggressive/Defensive B、Ranged/Support E。12条共享边及6组角点按审核稿；D/F保持独立折区，A-E及C-E不相连也非仅角点；无宝箱、星标、编号标记或额外阻挡，room卡无额外效果文字。
+- **依据**：Kyries回复“核对通过”；R-001、R-048、R-021，核心规则R16–18、R25。
+- **边界**：仅批准图面，不据篝火或囚笼插画推定效果；Fanatic/Pyre、Boss部署及准入另行核实，保持usable=false。
+- **状态**：Q-152已解决，核心盒25张Room均已获批几何。

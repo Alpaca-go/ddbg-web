@@ -5042,6 +5042,1204 @@
     }
    ],
    "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p014:back",
+   "rawId": "dungeon_tile:p014",
+   "roomId": "room:p025",
+   "location": "darkestDungeon",
+   "number": 12,
+   "name": "Ancestor Room",
+   "source": {
+    "file": "DD_COREBOX_TILES_BACK.pdf",
+    "page": 14,
+    "face": "back"
+   },
+   "ruling": "R-165",
+   "geometryVerified": true,
+   "usable": false,
+   "effectSource": {
+    "roomId": "room:p025",
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+    "page": 25,
+    "ruling": "R-165"
+   },
+   "specialRegions": [],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "K",
+     "defensive": "I",
+     "ranged": "K",
+     "support": "C"
+    },
+    "monsters": {
+     "aggressive": "E",
+     "defensive": "B",
+     "ranged": "A",
+     "support": "J"
+    },
+    "lootAreas": [],
+    "markers": [
+     {
+      "areaId": "K",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "K",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "J",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "I",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "J",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "K",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "K",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "J",
+     "to": "K",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "D",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "J",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p006:back",
+   "rawId": "dungeon_tile:p006",
+   "roomId": "room:p010",
+   "location": "ruins",
+   "number": 10,
+   "name": "Necromancer Room",
+   "source": {
+    "file": "DD_COREBOX_TILES_BACK.pdf",
+    "page": 6,
+    "face": "back"
+   },
+   "ruling": "R-166",
+   "geometryVerified": true,
+   "usable": false,
+   "effectSource": {
+    "roomId": "room:p010",
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+    "page": 10,
+    "ruling": "R-166"
+   },
+   "specialRegions": [],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "G",
+     "defensive": "G",
+     "ranged": "G",
+     "support": "G"
+    },
+    "monsters": {
+     "aggressive": "A"
+    },
+    "lootAreas": [],
+    "markers": [
+     {
+      "areaId": "G",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 3,
+     "elevation": "high"
+    },
+    {
+     "id": "B",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 2,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "D",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p006:front",
+   "rawId": "dungeon_tile:p006",
+   "roomId": "room:p011",
+   "location": "ruins",
+   "number": 11,
+   "name": "Prophet Room",
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 6,
+    "face": "front"
+   },
+   "ruling": "R-167",
+   "geometryVerified": true,
+   "usable": false,
+   "effectSource": {
+    "roomId": "room:p011",
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+    "page": 11,
+    "ruling": "R-167"
+   },
+   "specialRegions": [],
+   "printedMarkers": [
+    {
+     "areaId": "A",
+     "iconId": "99be282315",
+     "color": "orange",
+     "printedRange": "1-2",
+     "status": "confirmed"
+    },
+    {
+     "areaId": "B",
+     "iconId": "99be282315",
+     "color": "orange",
+     "printedRange": "3",
+     "status": "confirmed"
+    },
+    {
+     "areaId": "C",
+     "iconId": "99be282315",
+     "color": "orange",
+     "printedRange": "4",
+     "status": "confirmed"
+    },
+    {
+     "areaId": "D",
+     "iconId": "99be282315",
+     "color": "orange",
+     "printedRange": "5",
+     "status": "confirmed"
+    },
+    {
+     "areaId": "E",
+     "iconId": "99be282315",
+     "color": "orange",
+     "printedRange": "6",
+     "status": "confirmed"
+    },
+    {
+     "areaId": "F",
+     "iconId": "99be282315",
+     "color": "orange",
+     "printedRange": "7-8",
+     "status": "confirmed"
+    },
+    {
+     "areaId": "G",
+     "iconId": "99be282315",
+     "color": "orange",
+     "printedRange": "9",
+     "status": "confirmed"
+    },
+    {
+     "areaId": "H",
+     "iconId": "99be282315",
+     "color": "orange",
+     "printedRange": "10",
+     "status": "confirmed"
+    }
+   ],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "C",
+     "defensive": "H",
+     "ranged": "H",
+     "support": "D"
+    },
+    "monsters": {
+     "aggressive": "E"
+    },
+    "lootAreas": [],
+    "markers": [
+     {
+      "areaId": "C",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "F",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p007:back",
+   "rawId": "dungeon_tile:p007",
+   "roomId": "room:p012",
+   "location": "ruins",
+   "number": 12,
+   "name": "Collector Room",
+   "source": {
+    "file": "DD_COREBOX_TILES_BACK.pdf",
+    "page": 7,
+    "face": "back"
+   },
+   "ruling": "R-168",
+   "geometryVerified": true,
+   "usable": false,
+   "effectSource": {
+    "roomId": "room:p012",
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+    "page": 12,
+    "ruling": "R-168"
+   },
+   "specialRegions": [],
+   "printedLoot": {
+    "areaId": "F",
+    "count": 3,
+    "iconId": "f9f205b9e1",
+    "overlayIconId": "6c5de8d976",
+    "printedOverlay": "!",
+    "runtimeReady": false
+   },
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "H",
+     "defensive": "B",
+     "ranged": "B",
+     "support": "H"
+    },
+    "monsters": {
+     "aggressive": "C",
+     "defensive": "G",
+     "ranged": "E",
+     "support": "A"
+    },
+    "lootAreas": [
+     "F",
+     "F",
+     "F"
+    ],
+    "markers": [
+     {
+      "areaId": "H",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "F",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p007:front",
+   "rawId": "dungeon_tile:p007",
+   "roomId": "room:p013",
+   "location": "ruins",
+   "number": 13,
+   "name": "Fanatic Room",
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 7,
+    "face": "front"
+   },
+   "ruling": "R-169",
+   "geometryVerified": true,
+   "usable": false,
+   "effectSource": {
+    "roomId": "room:p013",
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+    "page": 13,
+    "ruling": "R-169"
+   },
+   "specialRegions": [],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "H",
+     "defensive": "A",
+     "ranged": "H",
+     "support": "C"
+    },
+    "monsters": {
+     "aggressive": "B",
+     "defensive": "B",
+     "ranged": "E",
+     "support": "E"
+    },
+    "lootAreas": [],
+    "markers": [
+     {
+      "areaId": "H",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 3,
+     "elevation": "high"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "I",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "D",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "F",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "I",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "unresolvedMarkers": []
   }
  ]
 }

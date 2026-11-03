@@ -6,7 +6,7 @@ import { finishTurn } from "./encounter";
 import { triggerBattlePassive } from "./battle-passive";
 import { pressureCasualties, resolveBattlePressure } from "./pressure";
 import { endAfterCasualties, removeCasualties } from "./encounter";
-import { drawNextEldritchVaultTrinket } from "./battle-eldritch-vault";
+import { clearEldritchVaultReward, drawNextEldritchVaultTrinket } from "./battle-eldritch-vault";
 
 const heroes = (battle: BattleState) =>
   battle.entities
@@ -64,10 +64,7 @@ function continueVaultDraws(state: GameState, actorId: string, events: GameEvent
     const next = drawNextEldritchVaultTrinket(state, actorId);
     return { ...next, events: [...events, ...next.events] };
   }
-  const cleared = {
-    ...state,
-    battle: { ...b, eldritchVaultDrawsRemaining: undefined, eldritchVaultReward: undefined },
-  };
+  const cleared = clearEldritchVaultReward(state);
   const turn = b.encounter?.turn;
   return turn?.type === "hero" && turn.actions === 0
     ? finishTurn(cleared, actorId, events)
@@ -144,7 +141,7 @@ export function resolveBattleTrinketChoice(state: GameState, optionId: string): 
   const option = trinketOptions(b.trinkets, heroes(b)).find((o) => o.id === optionId);
   const chosen = chooseTrinket(b.trinkets, heroes(b), optionId);
   if (chosen.status === "refused") return rejectBattleCommand(state, chosen.reason);
-  let next = { ...state, battle: { ...b, trinkets: chosen.pool, pending: null } };
+  let next: GameState = { ...state, battle: { ...b, trinkets: chosen.pool, pending: null } };
   const events: GameEvent[] = [
     {
       type: "roomInteractionResolved",
@@ -184,7 +181,7 @@ export function resolveBattleTrinketChoice(state: GameState, optionId: string): 
     });
     const refused = pressure.events.find((e) => e.type === "commandRefused");
     if (refused) return rejectBattleCommand(state, refused.message);
-    let result = removeCasualties(pressure, pressureCasualties(b, pressure));
+    const result = removeCasualties(pressure, pressureCasualties(b, pressure));
     const ended = endAfterCasualties(result);
     if (ended) return ended;
     next = result.state;

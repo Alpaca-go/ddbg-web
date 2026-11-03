@@ -310,7 +310,7 @@ export function drawTrinketAtLevel(
   const partition = trinketDeck(prepared, level);
   if (!partition)
     return { status: "refused" as const, reason: `缺少 ${level} 级完整饰品牌堆（R-048）` };
-  let deck = [...partition.deck];
+  const deck = [...partition.deck];
   const rng = createRng(seed);
   for (let i = 0; i < cursor; i++) rng.next();
   let nextCursor = cursor;
@@ -321,8 +321,7 @@ export function drawTrinketAtLevel(
       nextCursor++;
     }
   const cardId = deck.shift();
-  if (!cardId)
-    return { status: "refused" as const, reason: "饰品牌堆耗尽，未擅自洗回弃牌（R32）" };
+  if (!cardId) return { status: "refused" as const, reason: "饰品牌堆耗尽，未擅自洗回弃牌（R32）" };
   const nextPool = setTrinketDeck({ ...prepared, incoming: { cardId, actorId } }, level, deck);
   return { status: "resolved" as const, pool: nextPool, cursor: nextCursor };
 }

@@ -64,12 +64,12 @@ it("Spiked最终十五通路、两墙、无角点；Treasure T4-T5为墙，均�
   });
   expect(treasure.edges.some((e) => !e.blocked && (e.from === "T4" || e.to === "T4"))).toBe(false);
 });
-it("遗迹九面保留，最暗只开放已完整接通的重生池", () => {
-  expect(file.tiles).toHaveLength(20);
+it("25面几何获批，遗迹九普通房与最暗既有四房可用", () => {
+  expect(file.tiles).toHaveLength(25);
   expect(file.tiles.filter((t) => t.usable)).toHaveLength(13);
   expect(
     file.tiles
-      .filter((t) => t.location === "ruins")
+      .filter((t) => t.location === "ruins" && t.usable)
       .map((t) => t.number)
       .sort((a, b) => a - b),
   ).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);

@@ -46,7 +46,7 @@ function vaultFixture(seed = 3): GameState {
   const s = createBattleState(seed, {
     ...coreQuestSources.catalog,
     roomName: tile.name,
-    trinkets: coreQuestSources.catalog.trinkets,
+    trinkets: coreQuestSources.catalog.trinkets!,
     resolveCards: coreQuestSources.resolveCards,
     skills: coreQuestSources.catalog.skills,
     light: 5,
@@ -108,7 +108,7 @@ it("R-156：花 2 行动按在场英雄数抽 III 级饰品；装备压力 +2", 
   });
   const opened = applyCommand(vaultFixture(), { type: "eldritchVault", actorId: "hero-0" });
   expect(opened.pendingChoice).toBeDefined();
-  expect(opened.state.battle!.encounter!.turn.actions).toBe(0);
+  expect(opened.state.battle!.encounter!.turn).toMatchObject({ type: "hero", actions: 0 });
   expect(opened.state.battle!.eldritchVaultReward).toBe(true);
   expect(opened.state.battle!.eldritchVaultDrawsRemaining).toBe(3);
   const equip = applyCommand(opened.state, {
@@ -119,4 +119,21 @@ it("R-156：花 2 行动按在场英雄数抽 III 级饰品；装备压力 +2", 
   const hero = equip.state.battle!.entities.find((e) => e.id === "hero-0")!;
   expect(hero.stress).toBe(2);
   expect(equip.state.battle!.pending?.type).toBe("trinketReward");
+});
+
+it("R-156：逐个处置全部饰品后移除Vault临时字段，不能重复处置", () => {
+  let result = applyCommand(vaultFixture(), { type: "eldritchVault", actorId: "hero-0" });
+  for (let count = 0; count < 4; count++) {
+    const choice = result.pendingChoice!;
+    expect(choice).toBeDefined();
+    result = applyCommand(result.state, {
+      type: "resolveChoice",
+      choiceId: choice.id,
+      optionId: "discard-new",
+    });
+  }
+  expect(result.state.battle).not.toHaveProperty("eldritchVaultDrawsRemaining");
+  expect(result.state.battle).not.toHaveProperty("eldritchVaultReward");
+  expect(result.state.battle?.pending).toBeNull();
+  expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
 });

@@ -1,3 +1,12 @@
+import { approvedFanaticRoom, fanaticRoomSchema, assertFanaticTileLabels } from "./fanatic-room";
+import {
+  approvedCollectorRoom,
+  collectorRoomSchema,
+  assertCollectorTileLabels,
+} from "./collector-room";
+import { approvedProphetRoom, prophetRoomSchema, assertProphetTileLabels } from "./prophet-room";
+import { approvedNecromancerRoom, necromancerRoomSchema } from "./necromancer-room";
+import { approvedAncestorRoom, ancestorRoomSchema } from "./ancestor-room";
 import {
   approvedMammothCystRoom,
   mammothCystRoomSchema,
@@ -150,6 +159,11 @@ export const roomTileGeometrySchema = z.union([
   templarsRoomSchema,
   shufflingHorrorRoomSchema,
   mammothCystRoomSchema,
+  ancestorRoomSchema,
+  necromancerRoomSchema,
+  prophetRoomSchema,
+  collectorRoomSchema,
+  fanaticRoomSchema,
 ]);
 
 export const roomTileGeometryFileSchema = z
@@ -237,6 +251,9 @@ export const approvedRoomTileGeometry = ritualChamberSchema.parse({
 
 /** 不解析颜色 / 图标计数 / footer；未获批 raw 页不输出几何。 */
 export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
+  assertProphetTileLabels(raw);
+  assertCollectorTileLabels(raw);
+  assertFanaticTileLabels(raw);
   assertEvilEyeTileLabels(raw);
   assertTemplarsRoomTileLabels(raw);
   assertShufflingHorrorTileLabels(raw);
@@ -256,6 +273,11 @@ export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
     approvedTemplarsRoom,
     approvedShufflingHorrorRoom,
     approvedMammothCystRoom,
+    approvedAncestorRoom,
+    approvedNecromancerRoom,
+    approvedProphetRoom,
+    approvedCollectorRoom,
+    approvedFanaticRoom,
   ];
   for (const tile of tiles) {
     const matches = raw.cards.filter((card) => card.id === tile.rawId);

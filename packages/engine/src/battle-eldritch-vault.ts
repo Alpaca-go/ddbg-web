@@ -65,6 +65,7 @@ export function beginEldritchVault(state: GameState, actorId: string): ApplyResu
   );
   if (drawn.status === "refused") return rejectBattleCommand(state, drawn.reason);
   const turn = b.encounter!.turn;
+  if (turn.type !== "hero") return rejectBattleCommand(state, "Vault需要当前英雄回合");
   return openBattleTrinketChoice(
     {
       ...state,
@@ -94,10 +95,7 @@ export function drawNextEldritchVaultTrinket(state: GameState, actorId: string):
   const remaining = b.eldritchVaultDrawsRemaining ?? 0;
   if (!remaining || !b.eldritchVaultReward)
     return {
-      state: {
-        ...state,
-        battle: { ...b, eldritchVaultDrawsRemaining: undefined, eldritchVaultReward: undefined },
-      },
+      state: clearEldritchVaultReward(state),
       events: [],
     };
   const drawn = drawTrinketAtLevel(
@@ -124,4 +122,11 @@ export function drawNextEldritchVaultTrinket(state: GameState, actorId: string):
     `Eldritch Vault：继续处理抽到的 III 级饰品（剩余 ${remaining} 张）；装备承受压力 +2`,
     [],
   );
+}
+
+export function clearEldritchVaultReward(state: GameState): GameState {
+  if (!state.battle) return state;
+  const { eldritchVaultDrawsRemaining, eldritchVaultReward, ...battle } = state.battle;
+  if (eldritchVaultDrawsRemaining === undefined && eldritchVaultReward === undefined) return state;
+  return { ...state, battle };
 }
