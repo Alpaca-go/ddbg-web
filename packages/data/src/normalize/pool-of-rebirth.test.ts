@@ -87,7 +87,7 @@ it("星形绑定对应Room效果行，区域与整房效果完整开放", () => 
     status: "matched",
     tile: { roomId: "room:p014" },
   });
-  expect(geometryFile.tiles.filter((t) => t.usable)).toHaveLength(16);
+  expect(geometryFile.tiles.filter((t) => t.usable)).toHaveLength(17);
 });
 
 it("不允许改变容量、边、部署、未确认标记或绕过usable停点", () => {

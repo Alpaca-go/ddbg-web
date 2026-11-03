@@ -95,6 +95,7 @@ export type BattleEntity = PassiveHolder &
   };
 
 export type BattleArea = {
+  readonly riteOfTheChosen?: true;
   readonly evilGaze?: true;
   readonly staringEyes?: true;
   readonly hallOfAscension?: true;

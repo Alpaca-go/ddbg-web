@@ -68,22 +68,22 @@ it("R-161：BACK p12完整几何、A高地、八姿态部署和两个独立宝�
   );
 });
 
-it("几何获批不开放橙星效果交互；容量、部署、边和来源漂移拒绝", () => {
+it("运行时开放橙星效果交互；容量、部署、边和来源漂移拒绝", () => {
   expect(tile.specialRegions[0]).toMatchObject({
     areaId: "A",
     effect: "riteOfTheChosen",
     status: "confirmed",
-    runtimeReady: false,
+    runtimeReady: true,
   });
   expect(
     selectRoomTile(
       rooms.cards.find((c) => c.id === "room:p021"),
       geometry,
     ),
-  ).toMatchObject({ status: "refused" });
+  ).toMatchObject({ status: "matched" });
   for (const patch of [
-    { usable: true },
-    { specialRegions: [{ ...tile.specialRegions[0], runtimeReady: true }] },
+    { usable: false },
+    { specialRegions: [{ ...tile.specialRegions[0], runtimeReady: false }] },
     { areas: tile.areas.map((a) => (a.id === "E" ? { ...a, capacity: 4 } : a)) },
     { edges: tile.edges.slice(1) },
     { areas: tile.areas.map((a) => (a.id === "A" ? { ...a, elevation: "normal" } : a)) },
