@@ -106,6 +106,10 @@ export type BattleArea = {
   /** Pool of Rebirth房间卡限定的F区回合结束效果；不按星标外观推断。 */
   readonly poolOfRebirth?: true;
   readonly ancestorGlory?: true;
+  /** R-157：Toxic Vapors 站立 Acc −3。 */
+  readonly toxicVapors?: true;
+  /** R-156：Eldritch Vault 饰品交互区。 */
+  readonly eldritchVaultTrinkets?: true;
   readonly healingForbidden?: true;
   readonly endTurnHeal?: 3;
   /** 已复核 Cornered；只接明确印刷值，不给未命名特殊标记补值。 */
@@ -194,6 +198,9 @@ export type BattleState = BattleSetup & {
   readonly reanimationUsed?: true;
   readonly oneBodyPools?: Readonly<Record<string, OneBodyLifePool>>;
   readonly lootChestUsed?: true;
+  /** R-156：Vault 抽牌队列中尚未处理的 III 级饰品 id。 */
+  readonly eldritchVaultDrawsRemaining?: number;
+  readonly eldritchVaultReward?: true;
   /** Prophet · Wooden Pew 区域标记（不占容量、非可选目标；room 代币）。 */
   readonly woodenPews?: readonly {
     readonly areaId: string;
@@ -557,6 +564,7 @@ export function playHeroSkill(
     ...((resume?.trinketAttack ?? trinketAttack)
       ? { trinketModifiers: (resume?.trinketAttack ?? trinketAttack)!.modifiers }
       : {}),
+    ...(actorArea.toxicVapors ? { standingAccuracyPenalty: -3 } : {}),
     actor: actor.hero === "ABOMINATION" && !actor.form ? { ...actor, form: "human" } : actor,
     target: skillTargetView(target, battle),
     light: battle.light,

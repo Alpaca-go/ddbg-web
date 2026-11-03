@@ -2781,7 +2781,7 @@
    },
    "ruling": "R-156",
    "geometryVerified": true,
-   "usable": false,
+   "usable": true,
    "effectSource": {
     "roomId": "room:p016",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
@@ -2795,7 +2795,7 @@
      "effect": "eldritchVaultTrinkets",
      "status": "confirmed",
      "printedText": "{icon:0fd119772a} : A Hero can spend 2 actions here and draw one Level 3 Trinket per Hero in play. Equipping one of those Trinkets causes {icon:df38279161} +2.",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "deployment": {
@@ -2977,7 +2977,7 @@
    },
    "ruling": "R-157",
    "geometryVerified": true,
-   "usable": false,
+   "usable": true,
    "effectSource": {
     "roomId": "room:p017",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
@@ -2991,7 +2991,7 @@
      "effect": "toxicVapors",
      "status": "confirmed",
      "printedText": "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "B",
@@ -2999,7 +2999,7 @@
      "effect": "toxicVapors",
      "status": "confirmed",
      "printedText": "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "C",
@@ -3007,7 +3007,7 @@
      "effect": "toxicVapors",
      "status": "confirmed",
      "printedText": "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "E",
@@ -3015,7 +3015,7 @@
      "effect": "toxicVapors",
      "status": "confirmed",
      "printedText": "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "deployment": {

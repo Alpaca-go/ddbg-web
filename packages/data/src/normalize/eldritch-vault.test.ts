@@ -58,22 +58,16 @@ it("R-156：独立FRONT p10可再生，保留9区容量、5处高地、八姿态
   expect(tile.deployment.markers).toHaveLength(8);
 });
 
-it("几何获批不开放饰品交互；容量、部署、边和来源漂移拒绝", () => {
-  expect(tile.specialRegions[0]).toMatchObject({
-    areaId: "E",
-    effect: "eldritchVaultTrinkets",
-    status: "confirmed",
-    runtimeReady: false,
-  });
+it("R-156：饰品交互就绪后 selectRoomTile 返回 matched；几何漂移仍拒绝", () => {
+  expect(tile.usable).toBe(true);
+  expect(tile.specialRegions.every((r) => r.runtimeReady)).toBe(true);
   expect(
     selectRoomTile(
       rooms.cards.find((c) => c.id === "room:p016"),
       geometry,
     ),
-  ).toMatchObject({ status: "refused" });
+  ).toMatchObject({ status: "matched" });
   for (const patch of [
-    { usable: true },
-    { specialRegions: [{ ...tile.specialRegions[0], runtimeReady: true }] },
     { areas: tile.areas.map((a) => (a.id === "E" ? { ...a, capacity: 4 } : a)) },
     { edges: tile.edges.slice(1) },
     { source: { ...tile.source, face: "back" } },

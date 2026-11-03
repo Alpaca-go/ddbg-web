@@ -85,6 +85,7 @@ export function playHeroSkillTargets(
     ...((resume?.trinketAttack ?? trinketAttack)
       ? { trinketModifiers: (resume?.trinketAttack ?? trinketAttack)!.modifiers }
       : {}),
+    ...(actorArea.toxicVapors ? { standingAccuracyPenalty: -3 } : {}),
     actor: actor.hero === "ABOMINATION" && !actor.form ? { ...actor, form: "human" } : actor,
     target: skillTargetView(target, battle),
     light: battle.light,

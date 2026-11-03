@@ -440,6 +440,8 @@ export type SkillCombatState = {
     readonly dealNoDamage?: boolean;
     readonly damage?: number;
   };
+  /** R-157：站立区域 Acc 修正（如 Toxic Vapors −3）；不与饰品宣告修正混用。 */
+  readonly standingAccuracyPenalty?: number;
   /** 引擎内部续接：骰面阈值仍用声明时光照，自身效果不重复。 */
   readonly ownEffectsApplied?: true;
   readonly effectLight?: number;
@@ -2811,6 +2813,7 @@ function resolveSkill(
       ? null
       : accThreshold +
         (combat.trinketModifiers?.accuracy ?? 0) +
+        (combat.standingAccuracyPenalty ?? 0) +
         enemyMarkStacks +
         lowerAreaAcc -
         target.dodge -

@@ -66,7 +66,7 @@ it("Spiked最终十五通路、两墙、无角点；Treasure T4-T5为墙，均�
 });
 it("遗迹九面保留，最暗只开放已完整接通的重生池", () => {
   expect(file.tiles).toHaveLength(14);
-  expect(file.tiles.filter((t) => t.usable)).toHaveLength(11);
+  expect(file.tiles.filter((t) => t.usable)).toHaveLength(13);
   expect(
     file.tiles
       .filter((t) => t.location === "ruins")

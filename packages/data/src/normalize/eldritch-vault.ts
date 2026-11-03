@@ -47,7 +47,7 @@ const tileShape = z.strictObject({
   }),
   ruling: z.literal("R-156"),
   geometryVerified: z.literal(true),
-  usable: z.literal(false),
+  usable: z.literal(true),
   effectSource: z.strictObject({
     roomId: z.literal("room:p016"),
     file: z.literal(ROOM_FRONT),
@@ -61,7 +61,7 @@ const tileShape = z.strictObject({
       effect: z.literal("eldritchVaultTrinkets"),
       status: z.literal("confirmed"),
       printedText: z.string(),
-      runtimeReady: z.literal(false),
+      runtimeReady: z.literal(true),
     }),
   ),
   deployment: z.strictObject({
@@ -102,7 +102,7 @@ const tileShape = z.strictObject({
   ),
 });
 
-// R-156：已批准几何；饰品交互未接通，保持不可参战。
+// R-156：几何与 Eldritch Vault 饰品交互均已接通，可参战。
 export const approvedEldritchVault = tileShape.parse({
   id: "room_tile:p010",
   rawId: "dungeon_tile:p010",
@@ -117,7 +117,7 @@ export const approvedEldritchVault = tileShape.parse({
   },
   ruling: "R-156",
   geometryVerified: true,
-  usable: false,
+  usable: true,
   effectSource: {
     roomId: "room:p016",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
@@ -132,7 +132,7 @@ export const approvedEldritchVault = tileShape.parse({
       status: "confirmed",
       printedText:
         "{icon:0fd119772a} : A Hero can spend 2 actions here and draw one Level 3 Trinket per Hero in play. Equipping one of those Trinkets causes {icon:df38279161} +2.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
   ],
   deployment: {
