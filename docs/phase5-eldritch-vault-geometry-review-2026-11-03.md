@@ -43,3 +43,5 @@ ROOMS FRONT p16：
 - 已入库独立schema、规范化JSON和针对性校验；特殊效果运行时未完整实现前保持 `usable=false`、`runtimeReady=false`。
 
 验证：原图、配套卡、字母标注已目视检查；规范化55文件184测通过，覆盖确定性再生、不修改来源、容量/部署/边/效果来源漂移拒绝，以及不可提前开放参战。当前25张具名房间中12张几何获批、11张可用，尚缺13张几何。未修改引擎或UI入口，非阶段收尾，不新增Playwright路径。全仓检查结果另补。
+
+本机检查：Node24.21.0/pnpm12.9.1下新增4测、全仓typecheck、lint、build通过。最初全量误用系统Node24.20.0，391文件3016测中3014通过，Warm Up自然I级前缀存档与task-sources旧目录快照各一条超过默认5秒；不记为全量通过。并发任务结束后，用Node24.21.0单worker复跑这两个文件7/7通过，未改默认超时或测试断言。[PR #550](https://github.com/Alpaca-go/ddbg-web/pull/550)；固定代码`95f84e25ee21f7b6092716eef1fc43bb555bdee7`的[CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/41562863651)已全部通过：全仓typecheck、lint、全量测试、build和Playwright smoke均成功。后续提交仅补本文档验证记录。
