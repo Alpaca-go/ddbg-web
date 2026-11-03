@@ -6,6 +6,7 @@ import { resolveBattlePressure } from "./pressure";
 import { triggerBattlePassive } from "./battle-passive";
 import { isSmallMonster } from "./battle-small";
 import { clearAncestorConditions } from "./battle-ancestor";
+import { applyHeroTeleporterMoveStress } from "./battle-teleporters";
 
 export type MoveHeroCommand = {
   readonly type: "moveHero";
@@ -115,7 +116,12 @@ export function moveHero(state: GameState, command: MoveHeroCommand): ApplyResul
       message: mustMove ? "消耗移动行动，下一行动必须离开无空间区域" : "消耗移动行动，只改变区域",
     },
   ];
-  const pressure = resolveBattlePressure({ state: next, events: [...events, ...passive.events] });
+  const teleporter = applyHeroTeleporterMoveStress(next, actor.id, command.path, [
+    ...events,
+    ...passive.events,
+  ]);
+  if (teleporter.events.some((e) => e.type === "commandRefused")) return teleporter;
+  const pressure = resolveBattlePressure(teleporter);
   if (pressure.events.some((e) => e.type === "commandRefused")) return pressure;
   const removed = removeCasualties(
     pressure,

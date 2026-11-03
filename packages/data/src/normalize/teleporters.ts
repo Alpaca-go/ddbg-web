@@ -47,7 +47,7 @@ const tileShape = z.strictObject({
   }),
   ruling: z.literal("R-159"),
   geometryVerified: z.literal(true),
-  usable: z.literal(false),
+  usable: z.literal(true),
   effectSource: z.strictObject({
     roomId: z.literal("room:p019"),
     file: z.literal(ROOM_FRONT),
@@ -61,7 +61,7 @@ const tileShape = z.strictObject({
       effect: z.literal("teleporters"),
       status: z.literal("confirmed"),
       printedText: z.string(),
-      runtimeReady: z.literal(false),
+      runtimeReady: z.literal(true),
     }),
   ),
   deployment: z.strictObject({
@@ -102,7 +102,7 @@ const tileShape = z.strictObject({
   ),
 });
 
-// R-159：已批准实体几何与橙星卡文来源；传送运行时未接通。
+// R-159：逐面几何已批准；橙星虚拟邻接与英雄穿过压力已接通。
 export const approvedTeleporters = tileShape.parse({
   id: "room_tile:p011:back",
   rawId: "dungeon_tile:p011",
@@ -117,7 +117,7 @@ export const approvedTeleporters = tileShape.parse({
   },
   ruling: "R-159",
   geometryVerified: true,
-  usable: false,
+  usable: true,
   effectSource: {
     roomId: "room:p019",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
@@ -132,7 +132,7 @@ export const approvedTeleporters = tileShape.parse({
       status: "confirmed",
       printedText:
         "Characters can move and attack between {icon:f9fbe7ebd2} Areas. Heroes moving through a {icon:340d4a530a} Area suffer {icon:df38279161} +1.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "C",
@@ -141,7 +141,7 @@ export const approvedTeleporters = tileShape.parse({
       status: "confirmed",
       printedText:
         "Characters can move and attack between {icon:f9fbe7ebd2} Areas. Heroes moving through a {icon:340d4a530a} Area suffer {icon:df38279161} +1.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "F",
@@ -150,7 +150,7 @@ export const approvedTeleporters = tileShape.parse({
       status: "confirmed",
       printedText:
         "Characters can move and attack between {icon:f9fbe7ebd2} Areas. Heroes moving through a {icon:340d4a530a} Area suffer {icon:df38279161} +1.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "H",
@@ -159,7 +159,7 @@ export const approvedTeleporters = tileShape.parse({
       status: "confirmed",
       printedText:
         "Characters can move and attack between {icon:f9fbe7ebd2} Areas. Heroes moving through a {icon:340d4a530a} Area suffer {icon:df38279161} +1.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
   ],
   deployment: {
