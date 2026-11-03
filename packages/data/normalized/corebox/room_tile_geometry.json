@@ -3243,7 +3243,7 @@
    },
    "ruling": "R-158",
    "geometryVerified": true,
-   "usable": false,
+   "usable": true,
    "effectSource": {
     "roomId": "room:p018",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
@@ -3257,7 +3257,7 @@
      "effect": "eldritchPower",
      "status": "confirmed",
      "printedText": "When Monsters need to move into range distance, they always move towards Area {icon:a74b9dc080} . If a Monster ends its turn in {icon:a74b9dc080} Area, Heroes take {icon:8d4bbe5e11} 5 each.",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "deployment": {
@@ -3373,82 +3373,82 @@
    ],
    "edges": [
     {
+     "from": "A",
      "to": "B",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "A"
+     "blocked": false
     },
     {
+     "from": "A",
      "to": "D",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "A"
+     "blocked": false
     },
     {
+     "from": "B",
      "to": "C",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "B"
+     "blocked": false
     },
     {
+     "from": "B",
      "to": "E",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "B"
+     "blocked": false
     },
     {
+     "from": "C",
      "to": "E",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "C"
+     "blocked": false
     },
     {
+     "from": "C",
      "to": "F",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "C"
+     "blocked": false
     },
     {
+     "from": "D",
      "to": "E",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "D"
+     "blocked": false
     },
     {
+     "from": "D",
      "to": "G",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "D"
+     "blocked": false
     },
     {
+     "from": "E",
      "to": "F",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "E"
+     "blocked": false
     },
     {
+     "from": "F",
      "to": "H",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "F"
+     "blocked": false
     },
     {
+     "from": "G",
      "to": "H",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "G"
+     "blocked": false
     },
     {
+     "from": "A",
      "to": "E",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "A"
+     "blocked": false
     },
     {
+     "from": "B",
      "to": "D",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "B"
+     "blocked": false
     }
    ],
    "unresolvedMarkers": []
@@ -3621,28 +3621,28 @@
    ],
    "edges": [
     {
+     "from": "A",
      "to": "D",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "A"
+     "blocked": false
     },
     {
+     "from": "B",
      "to": "C",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "B"
+     "blocked": false
     },
     {
+     "from": "E",
      "to": "H",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "E"
+     "blocked": false
     },
     {
+     "from": "F",
      "to": "G",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "F"
+     "blocked": false
     }
    ],
    "unresolvedMarkers": []
@@ -3833,124 +3833,124 @@
    ],
    "edges": [
     {
+     "from": "A",
      "to": "B",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "A"
+     "blocked": false
     },
     {
+     "from": "A",
      "to": "D",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "A"
+     "blocked": false
     },
     {
+     "from": "B",
      "to": "C",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "B"
+     "blocked": false
     },
     {
+     "from": "B",
      "to": "E",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "B"
+     "blocked": false
     },
     {
+     "from": "C",
      "to": "F",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "C"
+     "blocked": false
     },
     {
+     "from": "D",
      "to": "E",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "D"
+     "blocked": false
     },
     {
+     "from": "D",
      "to": "G",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "D"
+     "blocked": false
     },
     {
+     "from": "E",
      "to": "F",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "E"
+     "blocked": false
     },
     {
+     "from": "E",
      "to": "H",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "E"
+     "blocked": false
     },
     {
+     "from": "F",
      "to": "I",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "F"
+     "blocked": false
     },
     {
+     "from": "G",
      "to": "H",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "G"
+     "blocked": false
     },
     {
+     "from": "H",
      "to": "I",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "H"
+     "blocked": false
     },
     {
+     "from": "A",
      "to": "E",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "A"
+     "blocked": false
     },
     {
+     "from": "B",
      "to": "D",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "B"
+     "blocked": false
     },
     {
+     "from": "B",
      "to": "F",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "B"
+     "blocked": false
     },
     {
+     "from": "C",
      "to": "E",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "C"
+     "blocked": false
     },
     {
+     "from": "D",
      "to": "H",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "D"
+     "blocked": false
     },
     {
+     "from": "E",
      "to": "G",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "E"
+     "blocked": false
     },
     {
+     "from": "E",
      "to": "I",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "E"
+     "blocked": false
     },
     {
+     "from": "F",
      "to": "H",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "F"
+     "blocked": false
     }
    ],
    "unresolvedMarkers": []
@@ -4099,94 +4099,94 @@
    ],
    "edges": [
     {
+     "from": "A",
      "to": "B",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "A"
+     "blocked": false
     },
     {
+     "from": "A",
      "to": "C",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "A"
+     "blocked": false
     },
     {
+     "from": "A",
      "to": "D",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "A"
+     "blocked": false
     },
     {
+     "from": "B",
      "to": "C",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "B"
+     "blocked": false
     },
     {
+     "from": "B",
      "to": "F",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "B"
+     "blocked": false
     },
     {
+     "from": "C",
      "to": "D",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "C"
+     "blocked": false
     },
     {
+     "from": "C",
      "to": "E",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "C"
+     "blocked": false
     },
     {
+     "from": "D",
      "to": "H",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "D"
+     "blocked": false
     },
     {
+     "from": "E",
      "to": "G",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "E"
+     "blocked": false
     },
     {
+     "from": "F",
      "to": "G",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "F"
+     "blocked": false
     },
     {
+     "from": "G",
      "to": "H",
      "cornerOnly": false,
-     "blocked": false,
-     "from": "G"
+     "blocked": false
     },
     {
+     "from": "B",
      "to": "E",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "B"
+     "blocked": false
     },
     {
+     "from": "D",
      "to": "E",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "D"
+     "blocked": false
     },
     {
+     "from": "E",
      "to": "F",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "E"
+     "blocked": false
     },
     {
+     "from": "E",
      "to": "H",
      "cornerOnly": true,
-     "blocked": false,
-     "from": "E"
+     "blocked": false
     }
    ],
    "unresolvedMarkers": []

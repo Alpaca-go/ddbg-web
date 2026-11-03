@@ -61,22 +61,23 @@ it("R-158：FRONT p11完整几何与八姿态部署可确定性生成", () => {
   expect(tile.specialRegions[0]!.printedText).toContain("Heroes take {icon:8d4bbe5e11} 5 each.");
 });
 
-it("几何获批不开放橙星效果交互；容量、部署、边和来源漂移拒绝", () => {
+it("R-158：完整运行时开放参战；容量、部署、边和来源漂移拒绝", () => {
+  expect(tile.usable).toBe(true);
   expect(tile.specialRegions[0]).toMatchObject({
     areaId: "C",
     effect: "eldritchPower",
     status: "confirmed",
-    runtimeReady: false,
+    runtimeReady: true,
   });
   expect(
     selectRoomTile(
       rooms.cards.find((c) => c.id === "room:p018"),
       geometry,
     ),
-  ).toMatchObject({ status: "refused" });
+  ).toMatchObject({ status: "matched" });
   for (const patch of [
-    { usable: true },
-    { specialRegions: [{ ...tile.specialRegions[0], runtimeReady: true }] },
+    { usable: false },
+    { specialRegions: [{ ...tile.specialRegions[0], runtimeReady: false }] },
     { areas: tile.areas.map((a) => (a.id === "E" ? { ...a, capacity: 4 } : a)) },
     { edges: tile.edges.slice(1) },
     {

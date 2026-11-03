@@ -46,7 +46,7 @@ const tileShape = z.strictObject({
   }),
   ruling: z.literal("R-158"),
   geometryVerified: z.literal(true),
-  usable: z.literal(false),
+  usable: z.literal(true),
   effectSource: z.strictObject({
     roomId: z.literal("room:p018"),
     file: z.literal(ROOM_FRONT),
@@ -60,7 +60,7 @@ const tileShape = z.strictObject({
       effect: z.literal("eldritchPower"),
       status: z.literal("confirmed"),
       printedText: z.string(),
-      runtimeReady: z.literal(false),
+      runtimeReady: z.literal(true),
     }),
   ),
   deployment: z.strictObject({
@@ -101,7 +101,7 @@ const tileShape = z.strictObject({
   ),
 });
 
-// R-158：逐面几何已批准；橙星特殊效果运行时未接通。
+// R-158：逐面几何已批准；橙星移动偏好与回合结束伤害已接通。
 export const approvedEldritchPowerChamber = tileShape.parse({
   id: "room_tile:p011",
   rawId: "dungeon_tile:p011",
@@ -116,7 +116,7 @@ export const approvedEldritchPowerChamber = tileShape.parse({
   },
   ruling: "R-158",
   geometryVerified: true,
-  usable: false,
+  usable: true,
   effectSource: {
     roomId: "room:p018",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
@@ -131,7 +131,7 @@ export const approvedEldritchPowerChamber = tileShape.parse({
       status: "confirmed",
       printedText:
         "When Monsters need to move into range distance, they always move towards Area {icon:a74b9dc080} . If a Monster ends its turn in {icon:a74b9dc080} Area, Heroes take {icon:8d4bbe5e11} 5 each.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
   ],
   deployment: {
