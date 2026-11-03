@@ -39,4 +39,6 @@ ROOMS FRONT p18卡文分为两句：怪物需要移动至射程距离时，总�
 - Q-140 已解决：Kyries 已确认A–H容量、普通地形、双方四姿态部署、11条通路、两组仅角点、A的两个宝箱及C橙星与room卡文对应。
 - 已录入独立schema、规范化JSON与来源/几何漂移校验；完整特殊效果运行时未接通前不开放参战。
 
-验证：已目视完整tile、配套room卡及标字图；本次录入生产几何与卡文来源，不改引擎或UI。规范化57文件192测通过，覆盖确定性再生及来源、部署、连接、宝箱与星标漂移拒绝；全仓typecheck、lint、build通过。全量单元/场景测试运行中。当前25张具名房间中14张几何获批、11张可参战。非阶段收尾，不新增Playwright路径。
+验证：已目视完整tile、配套room卡及标字图；本次录入生产几何与卡文来源，不改引擎或UI。规范化57文件192测通过，覆盖确定性再生及来源、部署、连接、宝箱与星标漂移拒绝；全仓typecheck、lint、build通过。本地全量3024测中3022项通过、两条既有引擎场景超过5000ms；两文件以单worker、20000ms上限单独复查，9项全部通过。当前25张具名房间中14张几何获批、11张可参战。非阶段收尾，不新增Playwright路径。
+
+最终验证：[PR #552](https://github.com/Alpaca-go/ddbg-web/pull/552) 固定代码 `48fbe446aee8d0e59beabd57cf40a7feb2327173` 的 [CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/41574035806) 全部通过：typecheck、lint、全量单元/场景测试、build、印刷管线Python测试与Playwright smoke均成功。后续提交仅补文档验证记录。
