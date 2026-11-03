@@ -1,3 +1,4 @@
+import { approvedTeleporters, teleportersSchema } from "./teleporters";
 import { approvedEldritchPowerChamber, eldritchPowerChamberSchema } from "./eldritch-power-chamber";
 import { approvedToxicChamber, toxicChamberSchema } from "./toxic-chamber";
 import { approvedEldritchVault, eldritchVaultSchema } from "./eldritch-vault";
@@ -126,6 +127,7 @@ export const roomTileGeometrySchema = z.union([
   eldritchVaultSchema,
   toxicChamberSchema,
   eldritchPowerChamberSchema,
+  teleportersSchema,
 ]);
 
 export const roomTileGeometryFileSchema = z
@@ -222,6 +224,7 @@ export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
     approvedEldritchVault,
     approvedToxicChamber,
     approvedEldritchPowerChamber,
+    approvedTeleporters,
   ];
   for (const tile of tiles) {
     const matches = raw.cards.filter((card) => card.id === tile.rawId);
