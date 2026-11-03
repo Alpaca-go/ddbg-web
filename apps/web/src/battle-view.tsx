@@ -384,6 +384,12 @@ export function BattleView({
                   {area.hideAndHeal && (
                     <p>Hide and Heal：本区无怪物时，花1行动、压力+2，存活后移除全部伤口。</p>
                   )}
+                  {area.riteOfTheChosen && (
+                    <p>
+                      Rite of the
+                      Chosen：怪物在此结束回合，全体怪物治疗5；各英雄压力+1，并按自身负面怪癖数追加压力。
+                    </p>
+                  )}
                   {area.circleOfPower && <p>Circle of Power：怪物在本区结束回合治疗4。</p>}
                   {area.endTurnHeal === 3 && (
                     <p className="muted">Healing Waters：英雄结束回合治疗 3</p>

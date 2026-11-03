@@ -48,7 +48,7 @@ const tileShape = z.strictObject({
   }),
   ruling: z.literal("R-161"),
   geometryVerified: z.literal(true),
-  usable: z.literal(false),
+  usable: z.literal(true),
   effectSource: z.strictObject({
     roomId: z.literal("room:p021"),
     file: z.literal(ROOM_FRONT),
@@ -62,7 +62,7 @@ const tileShape = z.strictObject({
       effect: z.literal("riteOfTheChosen"),
       status: z.literal("confirmed"),
       printedText: z.string(),
-      runtimeReady: z.literal(false),
+      runtimeReady: z.literal(true),
     }),
   ),
   deployment: z.strictObject({
@@ -118,7 +118,7 @@ export const approvedTempleOfTheChosen = tileShape.parse({
   },
   ruling: "R-161",
   geometryVerified: true,
-  usable: false,
+  usable: true,
   effectSource: {
     roomId: "room:p021",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
@@ -133,7 +133,7 @@ export const approvedTempleOfTheChosen = tileShape.parse({
       status: "confirmed",
       printedText:
         "{icon:62d166a84f} Rite of the Chosen: When a Monster ends its turn here, all Monsters {icon:731f6665d0} 5 and Heroes {icon:df38279161} +1 plus an additional {icon:9b00e692ba} +1 / Negative Quirk.",
-      runtimeReady: false,
+      runtimeReady: true,
     },
   ],
   deployment: {

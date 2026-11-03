@@ -66,7 +66,7 @@ it("Spiked最终十五通路、两墙、无角点；Treasure T4-T5为墙，均�
 });
 it("25面几何获批，遗迹九普通房与最暗已开放普通面可用", () => {
   expect(file.tiles).toHaveLength(25);
-  expect(file.tiles.filter((t) => t.usable)).toHaveLength(16);
+  expect(file.tiles.filter((t) => t.usable)).toHaveLength(17);
   expect(
     file.tiles
       .filter((t) => t.location === "ruins" && t.usable)

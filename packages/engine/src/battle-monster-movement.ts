@@ -66,6 +66,16 @@ export function roomTileBattleAreas(tile: {
     tile.specialRegions?.some(
       (r) =>
         r.areaId === area.id &&
+        r.effect === "riteOfTheChosen" &&
+        r.status === "confirmed" &&
+        r.runtimeReady,
+    )
+      ? { riteOfTheChosen: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
+      (r) =>
+        r.areaId === area.id &&
         r.effect === "evilGaze" &&
         r.status === "confirmed" &&
         r.runtimeReady,
