@@ -17,7 +17,12 @@ vi.mock("virtual:quest-battle-data-v2", async () => ({
   battleData: await catalog("quest-battle-data-v2"),
 }));
 import { createCoreDungeonQuest, createQuestSave, loadQuestSave } from "@ddbg/engine";
-import { preAbominationTaskSources, preDarkestTaskSources, taskSources } from "./task-sources";
+import {
+  preAbominationTaskSources,
+  preDarkestTaskSources,
+  preNecromancerTaskSources,
+  taskSources,
+} from "./task-sources";
 import {
   naturalParty,
   naturalQuest,
@@ -53,9 +58,10 @@ it("#416 catalog snapshots are validated against fixed old sources before upgrad
 });
 
 it("网页补入最暗九种怪物后，旧真实战斗存档仅迁移可信目录，玩家状态篡改仍拒绝", () => {
-  expect(taskSources.catalog.monsters.length - preDarkestTaskSources.catalog.monsters.length).toBe(
-    9,
-  );
+  expect(
+    preNecromancerTaskSources.catalog.monsters.length -
+      preDarkestTaskSources.catalog.monsters.length,
+  ).toBe(9);
   const prefix = naturalQuest(1, "quest:p001", true, preDarkestTaskSources, 2, {
     observe(state) {
       if (state.battle) throw Error("battle-prefix");
@@ -77,3 +83,39 @@ it("网页补入最暗九种怪物后，旧真实战斗存档仅迁移可信目�
   forged.snapshot.battle.entities[0].wounds++;
   expect(() => loadQuestSave(forged, taskSources, [preDarkestTaskSources])).toThrow();
 }, 30000);
+
+it("正式目录补入Necromancer I后，旧目录存档仍先严格验证再升级", () => {
+  const start = {
+    seed: 2,
+    questId: "quest:p019",
+    mode: "radiant",
+    party: naturalParty,
+    bossEdgeRooms: true,
+  } as const;
+  const previous = createCoreDungeonQuest(
+    2,
+    start.questId,
+    start.mode,
+    start.party,
+    preNecromancerTaskSources,
+    true,
+  );
+  expect(
+    preNecromancerTaskSources.catalog.monsters.some((c) => c.id === "monster_medium:p089"),
+  ).toBe(false);
+  expect(taskSources.catalog.monsters.some((c) => c.id === "monster_medium:p089")).toBe(true);
+  const saved = createQuestSave(start, [], previous, preNecromancerTaskSources);
+  const loaded = loadQuestSave(saved, taskSources, [preNecromancerTaskSources]);
+  const oldSetup = JSON.parse(JSON.stringify(saved));
+  delete oldSetup.snapshot.dungeon.campaignLevel;
+  oldSetup.snapshot.dungeon.explorationSetup.dungeonLevel = 3;
+  expect(loadQuestSave(oldSetup, taskSources, [preNecromancerTaskSources]).game).toEqual(
+    loaded.game,
+  );
+  expect(loaded.game).toEqual(
+    createCoreDungeonQuest(2, start.questId, start.mode, start.party, taskSources, true),
+  );
+  const forged = JSON.parse(JSON.stringify(saved));
+  forged.snapshot.dungeon.gold++;
+  expect(() => loadQuestSave(forged, taskSources, [preNecromancerTaskSources])).toThrow();
+});

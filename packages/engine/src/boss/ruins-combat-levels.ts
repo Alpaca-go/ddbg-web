@@ -117,7 +117,7 @@ export function isRuinsCombatCard(identity: RuinsCombatIdentity, id: string | un
 export const RUINS_BOSS_CATALOG_CARD_IDS = new Set<string>([
   ...Object.values(RUINS_COMBAT_LEVELS)
     .flat()
-    .filter((r) => !r.script.endsWith(":1"))
+    .filter((r) => !r.script.endsWith(":1") || r.card === "monster_medium:p089")
     .map((r) => r.card),
   ...RUINS_COMBAT_LEVELS.collector.flatMap((r) => Object.values(r.collected)),
   ...RUINS_COMBAT_LEVELS.fanatic.map((r) => r.pyre),

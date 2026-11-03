@@ -24,7 +24,12 @@ function canonical(value: unknown): string {
   };
   return JSON.stringify(sort(value));
 }
-function replay(start: QuestStart, commands: readonly Command[], sources: CoreQuestSources) {
+function replay(
+  start: QuestStart,
+  commands: readonly Command[],
+  sources: CoreQuestSources,
+  legacyFaceSetup = false,
+) {
   let game = createCoreDungeonQuest(
     start.seed,
     start.questId,
@@ -33,6 +38,15 @@ function replay(start: QuestStart, commands: readonly Command[], sources: CoreQu
     sources,
     start.bossEdgeRooms ?? false,
   );
+  // 固定旧入口：p019曾错误沿用目录DL3，且未写战役等级；仅用于严格校验旧档。
+  if (legacyFaceSetup && start.questId === "quest:p019" && game.dungeon?.explorationSetup) {
+    const { campaignLevel: _level, ...d } = game.dungeon;
+    void _level;
+    game = {
+      ...game,
+      dungeon: { ...d, explorationSetup: { ...d.explorationSetup!, dungeonLevel: 3 } },
+    };
+  }
   let events: readonly GameEvent[] = [];
   for (const [index, command] of commands.entries()) {
     const result = applyCommand(game, command);
@@ -164,6 +178,31 @@ export function loadQuestSave(
         restored.game,
       ),
     );
+  const oldSetup = (save.snapshot as GameState | null)?.dungeon;
+  if (
+    restoredKey !== snapshotKey &&
+    save.start.questId === "quest:p019" &&
+    oldSetup?.campaignLevel === undefined &&
+    oldSetup?.explorationSetup?.dungeonLevel === 3
+  ) {
+    try {
+      const legacy = replay(save.start, commands, sources, true).game;
+      const d = legacy.dungeon!;
+      const upgraded = {
+        ...legacy,
+        dungeon: {
+          ...d,
+          campaignLevel: 1,
+          explorationSetup: { ...d.explorationSetup!, dungeonLevel: 1 },
+        },
+      };
+      // 不允许借入口修正改变玩家、牌池、待选或RNG；仅两项入口字段可变。
+      if (canonical(legacy) === canonical(save.snapshot) && canonical(upgraded) === restoredKey)
+        snapshotKey = restoredKey;
+    } catch {
+      // 旧日志不能重放，继续既有严格拒绝/可信旧目录流程。
+    }
+  }
   if (restoredKey !== snapshotKey) {
     if (!previousSources)
       throw new Error("存档快照与回放不一致，或游戏数据版本已变化；未替换当前进度");
