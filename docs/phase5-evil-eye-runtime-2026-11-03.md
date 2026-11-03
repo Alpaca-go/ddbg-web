@@ -6,4 +6,10 @@
 
 本面usable/runtimeReady开放，当前25面几何获批、16面可用。同步已有数量断言，补齐主线roomTileBattleAreas缺失的withTeleporterAdjacency导入。未提交任何美术。
 
-验证：专项11测与网页毁眼冒烟1/1通过；build通过。全仓类型检查、干净检出lint与完整单测继续核验。原工作区lint受未跟踪交接稿格式和UTF-16核图JSON阻塞，保留原文件，不将其混入本PR。浏览器使用明示整面交互夹具，不宣称自然战役已走通。
+验证：Node24.21.0/pnpm12.9.1下，Evil Eye数据/引擎12测及真实最暗部署6测通过；与神殿联合专项共28测通过，网页毁眼冒烟1/1通过。typecheck、干净检出lint、build通过。固定代码提交527e9830的CI另核验完整单测与全部浏览器冒烟。
+
+旧部署场景曾要求固定种子抽到Evil Eye后仍无tileId；现改为验证room:p020绑定room_tile:p012、怪物C/英雄G真实部署与26张守恒，仍拒绝绕过既有最暗部署入口。原工作区lint受未跟踪交接稿格式和UTF-16核图JSON阻塞，干净检出通过，未修改或提交用户稿件。浏览器使用明示整面交互夹具，不宣称自然战役已走通。
+
+本机早期全量运行混入两个文件的旧版本，记录为3096通过、4失败，不记作整轮全绿；这两个文件的最终固定版本已在上述28测中复核通过，完整结果以固定代码CI为准。
+
+固定代码提交`527e9830`的[GitHub Actions检查](https://github.com/Alpaca-go/ddbg-web/actions/runs/41625915876)已全部通过：typecheck/lint/test/build和完整Playwright smoke全绿。其后仅补本文验证记录，不修改代码。
