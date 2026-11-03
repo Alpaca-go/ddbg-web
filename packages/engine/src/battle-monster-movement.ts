@@ -9,6 +9,10 @@ import { readPrintedRange, readPrintedTargets } from "./hero-skill";
 import { readMonsterAttackView, resolveMonsterSkill } from "./monster-skill";
 import { isSmallMonster } from "./battle-small";
 import { clearAncestorConditions } from "./battle-ancestor";
+import {
+  preferEldritchPowerMoveOptions,
+  scoreEldritchPowerApproachSteps,
+} from "./battle-eldritch-power";
 
 export type MoveMonsterToRangeCommand = {
   readonly type: "moveMonsterToRange";
@@ -209,6 +213,16 @@ export function roomTileBattleAreas(tile: {
       : {}),
     ...(tile.usable === true &&
     tile.specialRegions?.some(
+      (region) =>
+        region.areaId === area.id &&
+        region.effect === "eldritchPower" &&
+        region.status === "confirmed" &&
+        region.runtimeReady,
+    )
+      ? { eldritchPower: true as const }
+      : {}),
+    ...(tile.usable === true &&
+    tile.specialRegions?.some(
       (r) =>
         r.areaId === area.id &&
         r.effect === "healingWaters" &&
@@ -361,14 +375,22 @@ export function moveMonsterToRange(
       (!isSmallMonster(battle, actor) &&
         living.some((e) => e.areaId === area.id && isSmallMonster(battle, e)));
     const legal = reachable.filter(canEnd);
-    options = legal.filter(inRange).map((area) => area.id);
+    options = [
+      ...preferEldritchPowerMoveOptions(
+        battle.areas,
+        origin.id,
+        legal.filter(inRange).map((area) => area.id),
+      ),
+    ];
     if (options.length === 0) {
       skipped = true;
       // 满员的几何出手位仍参与靠近评分；容量只限制本次最终落点。
       const scored = legal.map((area) => ({
         id: area.id,
-        steps: Math.min(
-          ...firing.map((goal) => distance(battle.areas, area.id, goal.id) ?? Infinity),
+        steps: scoreEldritchPowerApproachSteps(
+          battle.areas,
+          area.id,
+          firing.map((goal) => goal.id),
         ),
       }));
       const best = Math.min(...scored.map((area) => area.steps));
@@ -377,7 +399,7 @@ export function moveMonsterToRange(
       options = scored.filter((area) => area.steps === best).map((area) => area.id);
     }
   }
-  options.sort();
+  options = [...preferEldritchPowerMoveOptions(battle.areas, origin.id, options)].sort();
   if (chosenArea !== undefined && !options.includes(chosenArea))
     return rejectBattleCommand(state, "选择的怪物移动落点无效");
   if (chosenArea === undefined && options.length > 1) {

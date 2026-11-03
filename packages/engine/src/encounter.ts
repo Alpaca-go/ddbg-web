@@ -31,6 +31,7 @@ import { endTurnOldAbbey } from "./battle-old-abbey";
 import { endTurnPoolOfRebirth } from "./battle-pool-of-rebirth";
 import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
+import { endTurnEldritchPower } from "./battle-eldritch-power";
 import { ceaseThreatForBossCombat, encounterForcesRetreatAfterRound } from "./boss/encounter-rules";
 import { applyBossThreatMarkedForDeathOnBattleStart } from "./boss/threat-passive-runtime";
 import {
@@ -311,6 +312,17 @@ export function finishTurn(
       return spiked;
     state = spiked.state;
     events = spiked.events;
+  }
+  const eldritch = endTurnEldritchPower(state, actorId, events);
+  if (eldritch) {
+    if (
+      eldritch.events.some((event) => event.type === "commandRefused") ||
+      eldritch.state.battle!.encounter?.turn.type === "halted" ||
+      eldritch.state.battle!.encounter?.turn.type === "finished"
+    )
+      return eldritch;
+    state = eldritch.state;
+    events = eldritch.events;
   }
   state = bumpProphetIActionRoundCount(state, actorId);
   state = bumpHagIActionRoundCount(state, actorId);

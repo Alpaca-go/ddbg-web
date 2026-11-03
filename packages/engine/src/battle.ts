@@ -110,6 +110,8 @@ export type BattleArea = {
   readonly toxicVapors?: true;
   /** R-156：Eldritch Vault 饰品交互区。 */
   readonly eldritchVaultTrinkets?: true;
+  /** R-158：Eldritch Power Chamber 橙星区。 */
+  readonly eldritchPower?: true;
   readonly healingForbidden?: true;
   readonly endTurnHeal?: 3;
   /** 已复核 Cornered；只接明确印刷值，不给未命名特殊标记补值。 */
