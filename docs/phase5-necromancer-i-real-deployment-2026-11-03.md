@@ -10,4 +10,6 @@
 
 边界：仅I级真实部署；不改combatReady或任务白名单。普通选择继续拒绝Boss，room:p010保持usable=false，因此目录仍17/25可用；这不是Boss房整体收口。II/III、其它Boss与Stygian继续保留停点。
 
-验证：相关7文件87测通过（新增7测），包含真实部署、先攻、不限四轮、保留状态、拒绝回滚、JSON重放、既有技能召唤和几何漂移检查。Node24.21.0/pnpm12.9.1下typecheck/lint/build与完整CI另行核验。非阶段末收尾，不新增浏览器冒烟路径；现有全量Playwright由CI核验。
+验证：相关7文件87测通过（新增7测），包含真实部署、先攻、不限四轮、保留状态、拒绝回滚、JSON重放、既有技能召唤和几何漂移检查。Node24.21.0/pnpm12.9.1下typecheck/lint/build通过。非阶段末收尾，不新增浏览器冒烟路径；现有全量Playwright由CI核验。
+
+固定代码提交`b6cd738f`的[GitHub Actions检查](https://github.com/Alpaca-go/ddbg-web/actions/runs/41632262725)全部通过：完整单元/场景测试、typecheck、lint、build及完整Playwright smoke全绿。其后仅补本文验证记录，不修改代码。
