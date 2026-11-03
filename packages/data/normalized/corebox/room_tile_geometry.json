@@ -3661,7 +3661,7 @@
    },
    "ruling": "R-160",
    "geometryVerified": true,
-   "usable": false,
+   "usable": true,
    "effectSource": {
     "roomId": "room:p020",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
@@ -3676,7 +3676,7 @@
      "effect": "evilGaze",
      "status": "confirmed",
      "printedText": "{icon:62d166a84f} A Evil Gaze: Heroes ending their turn here take a Negative Quirk. A Hero can spend 2 actions here to destroy the Eye to gain a Positive Quirk and all Heroes also gain {icon:9d58d3d431} -5.",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "A",
@@ -3685,7 +3685,7 @@
      "effect": "staringEyes",
      "status": "confirmed",
      "printedText": "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "D",
@@ -3694,7 +3694,7 @@
      "effect": "staringEyes",
      "status": "confirmed",
      "printedText": "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "H",
@@ -3703,7 +3703,7 @@
      "effect": "staringEyes",
      "status": "confirmed",
      "printedText": "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "I",
@@ -3712,7 +3712,7 @@
      "effect": "staringEyes",
      "status": "confirmed",
      "printedText": "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "deployment": {

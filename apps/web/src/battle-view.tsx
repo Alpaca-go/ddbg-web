@@ -612,6 +612,16 @@ export function BattleView({
                   Loot the Chest（2行动，本场一次）
                 </button>
               )}
+              {battle.areas.find((area) => area.id === actor!.areaId)?.evilGaze &&
+                !battle.evilEyeDestroyed && (
+                  <button
+                    data-action-group="loot"
+                    disabled={!heroTurn || turn.mustMove || turn.actions < 2}
+                    onClick={() => send({ type: "destroyEvilEye", actorId: actor!.id })}
+                  >
+                    摧毁眼睛（2行动，正面怪癖、全体压力−5）
+                  </button>
+                )}
               {battle.areas.find((area) => area.id === actor!.areaId)?.hallOfAscension && (
                 <button
                   data-action-group="loot"
