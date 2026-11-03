@@ -2766,6 +2766,202 @@
     }
    ],
    "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p010",
+   "rawId": "dungeon_tile:p010",
+   "roomId": "room:p016",
+   "location": "darkestDungeon",
+   "number": 3,
+   "name": "Eldritch Vault",
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 10,
+    "face": "front"
+   },
+   "ruling": "R-156",
+   "geometryVerified": true,
+   "usable": false,
+   "effectSource": {
+    "roomId": "room:p016",
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+    "page": 16,
+    "ruling": "R-156"
+   },
+   "specialRegions": [
+    {
+     "areaId": "E",
+     "iconId": "0d13b745be",
+     "effect": "eldritchVaultTrinkets",
+     "status": "confirmed",
+     "printedText": "{icon:0fd119772a} : A Hero can spend 2 actions here and draw one Level 3 Trinket per Hero in play. Equipping one of those Trinkets causes {icon:df38279161} +2.",
+     "runtimeReady": false
+    }
+   ],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "C",
+     "defensive": "F",
+     "ranged": "I",
+     "support": "A"
+    },
+    "monsters": {
+     "aggressive": "H",
+     "defensive": "B",
+     "ranged": "D",
+     "support": "G"
+    },
+    "lootAreas": [],
+    "markers": [
+     {
+      "areaId": "C",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 2,
+     "elevation": "high"
+    },
+    {
+     "id": "C",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 2,
+     "elevation": "high"
+    },
+    {
+     "id": "E",
+     "capacity": 2,
+     "elevation": "high"
+    },
+    {
+     "id": "F",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 2,
+     "elevation": "high"
+    },
+    {
+     "id": "H",
+     "capacity": 2,
+     "elevation": "high"
+    },
+    {
+     "id": "I",
+     "capacity": 4,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    }
+   ],
+   "unresolvedMarkers": []
   }
  ]
 }
