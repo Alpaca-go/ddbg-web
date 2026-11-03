@@ -4190,6 +4190,372 @@
     }
    ],
    "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p013:front",
+   "rawId": "dungeon_tile:p013",
+   "roomId": "room:p022",
+   "location": "darkestDungeon",
+   "number": 9,
+   "name": "Templars Room",
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 13,
+    "face": "front"
+   },
+   "ruling": "R-162",
+   "geometryVerified": true,
+   "usable": false,
+   "effectSource": {
+    "roomId": "room:p022",
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+    "page": 22,
+    "ruling": "R-162"
+   },
+   "specialRegions": [
+    {
+     "areaId": "B",
+     "iconId": "6e67687564",
+     "effect": "spikes",
+     "status": "confirmed",
+     "printedText": "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
+     "printedRange": "1-2",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "E",
+     "iconId": "6e67687564",
+     "effect": "spikes",
+     "status": "confirmed",
+     "printedText": "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
+     "printedRange": "3-4",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "H",
+     "iconId": "6e67687564",
+     "effect": "spikes",
+     "status": "confirmed",
+     "printedText": "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
+     "printedRange": "5-6",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "K",
+     "iconId": "6e67687564",
+     "effect": "spikes",
+     "status": "confirmed",
+     "printedText": "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
+     "printedRange": "7-8",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "N",
+     "iconId": "6e67687564",
+     "effect": "spikes",
+     "status": "confirmed",
+     "printedText": "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
+     "printedRange": "9-10",
+     "runtimeReady": false
+    }
+   ],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "I",
+     "defensive": "F",
+     "ranged": "G",
+     "support": "F"
+    },
+    "monsters": {
+     "aggressive": "M",
+     "defensive": "M",
+     "ranged": "C",
+     "support": "C"
+    },
+    "lootAreas": [],
+    "markers": [
+     {
+      "areaId": "I",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "M",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "M",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 1,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 1,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 1,
+     "elevation": "normal"
+    },
+    {
+     "id": "I",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "J",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "K",
+     "capacity": 1,
+     "elevation": "normal"
+    },
+    {
+     "id": "L",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "M",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "N",
+     "capacity": 1,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "L",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I",
+     "to": "L",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "J",
+     "to": "K",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "L",
+     "to": "M",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "L",
+     "to": "N",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "M",
+     "to": "N",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "F",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "L",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "unresolvedMarkers": []
   }
  ]
 }

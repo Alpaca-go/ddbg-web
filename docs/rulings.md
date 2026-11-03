@@ -2095,3 +2095,19 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：Kyries 查看标字图及[审核稿](phase5-temple-of-the-chosen-geometry-review-2026-11-03.md)后回复“核对通过”；R-001 / R-048、核心规则R16–18、R25与R-021。
 - **边界**：批准本面图面与卡文来源，不补负面怪癖计数范围、治疗上限、触发顺序等运行时细节。特殊效果完整运行时未接通前保持不可参战。
 - **状态**：Q-144 已解决。
+
+
+### Q-145
+
+- **日期**：2026-11-03（Asia/Shanghai）
+- **问题**：Templars Room（最暗地牢9，TILES FRONT p13 / ROOMS FRONT p22）的逐面几何、部署及尖刺区卡文对应。
+- **状态**：Kyries 修正四处部署后确认其余正确，见 R-162。
+
+### R-162
+
+- **编号**：R-162
+- **日期**：2026-11-03（Asia/Shanghai）
+- **裁定**：批准[Templars Room审核稿](phase5-templars-room-geometry-review-2026-11-03.md)，A–N容量依次2、1、2、4、1、4、2、1、3、4、1、4、2、1，均普通地形，无宝箱。英雄Aggressive I、Defensive F、Ranged G、Support F；怪物Aggressive M、Defensive M、Ranged C、Support C。22条共享边与4组仅角点按审核稿，无额外阻挡。B/E/H/K/N五个尖刺区分别保留印刷编号1–2、3–4、5–6、7–8、9–10，并关联Spikes原文。
+- **依据**：Kyries明确修正C/G/I/M部署并确认“其他正确”；R-001 / R-048、核心规则R16–18、R25。
+- **边界**：仅批准图面与卡文来源；不推定数字区间的掷骰用途，不开放Boss参战或Pit Toss。尖刺触发与Boss运行时准入另行核实。
+- **状态**：Q-145 已解决。
