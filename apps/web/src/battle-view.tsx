@@ -536,9 +536,11 @@ export function BattleView({
             )}
           {game.dungeon?.campaignFailure && (
             <p>
-              {game.dungeon.campaignFailure === "insufficientWaitingHeroes"
-                ? "英雄全灭，驿站等待英雄不足四人，战役失败（R9/R25）。"
-                : "等待英雄代币耗尽，战役失败（R33）。"}
+              {game.dungeon.campaignFailure === "bossQuestHeroesDefeated"
+                ? "Boss任务英雄全灭，战役失败（R-044）。"
+                : game.dungeon.campaignFailure === "insufficientWaitingHeroes"
+                  ? "英雄全灭，驿站等待英雄不足四人，战役失败（R9/R25）。"
+                  : "等待英雄代币耗尽，战役失败（R33）。"}
             </p>
           )}
           {!!game.dungeon?.preparedReplacements?.length && <p>替补已准备，等待战斗结束后入队。</p>}

@@ -1,6 +1,6 @@
 import {
   necromancerIRealCombatActive,
-  finishNecromancerIVictory,
+  finishNecromancerIBattle,
 } from "./boss/necromancer-i-finish";
 import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import { questMonsterDeploymentHold } from "./quest-monster-deployment";
@@ -392,7 +392,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
 
 /** R25、R-059：仅完成的战斗可回传一次；R-068 / mutualWipeout 不发胜利或撤退奖励。 */
 export function finishDungeonBattle(state: GameState): ApplyResult {
-  if (necromancerIRealCombatActive(state)) return finishNecromancerIVictory(state);
+  if (necromancerIRealCombatActive(state)) return finishNecromancerIBattle(state);
   if (darkestOrdinaryCombatActive(state) || darkestMidBossCombatActive(state))
     return finishDarkestDungeonBattle(state);
   const d = state.dungeon,

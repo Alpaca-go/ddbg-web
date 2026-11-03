@@ -956,7 +956,12 @@ function applyCommandCore(state: GameState, command: Command): ApplyResult {
     return refused ? rejectBattleCommand(state, refused.message) : continuePoolRebirth(result);
   }
   if (state.dungeon?.campaignFailure)
-    return rejectBattleCommand(state, "驿站等待英雄不足，战役已失败（R9/R25/R33）");
+    return rejectBattleCommand(
+      state,
+      state.dungeon.campaignFailure === "bossQuestHeroesDefeated"
+        ? "Boss任务英雄全灭，战役已失败（R-044）"
+        : "驿站等待英雄不足，战役已失败（R9/R25/R33）",
+    );
   if (state.dungeon?.pending?.id.startsWith("pool-rebirth:")) {
     const chosen =
       command.type === "resolveChoice"

@@ -1,3 +1,4 @@
+import { continueDeathEstates } from "../hero-death-estate";
 import { expect, it } from "vitest";
 import { applyCommand } from "../command";
 import type { Command, GameState } from "../command";
@@ -263,4 +264,115 @@ it("交接后沿用离开确认和R-122回村流程，仅回村支付一次3XP",
   expect(state.dungeon!.heroes.map((h) => h.xp)).toEqual(before.heroes.map((h) => (h.xp ?? 0) + 3));
   expect(state.dungeon!.stagecoachXp).toBe((before.stagecoachXp ?? 0) + 3);
   expect(applyCommand(state, { type: "finishReturnToHamlet" }).state).toBe(state);
+});
+function defeated(): GameState {
+  const s = deployed(),
+    b = s.battle!;
+  // 明示全灭终态夹具；单场死亡检测由 encounter-health 测试覆盖。
+  const halted: GameState = {
+    ...s,
+    battle: {
+      ...b,
+      entities: b.entities.map((e) =>
+        e.side === "hero" ? { ...e, dead: true, wounds: e.life! } : e,
+      ),
+      encounter: {
+        ...b.encounter!,
+        turn: { type: "halted", reason: "heroesDefeated", monstersDefeated: false },
+      },
+    },
+  };
+  return continueDeathEstates({ state: halted, events: [] }).state;
+}
+
+it.each([0, 4])(
+  "R-044：驿站有%s人时真实Boss全灭仍战役失败，不消耗替补或发奖",
+  (waitingHeroTokens) => {
+    const initial = defeated();
+    const s = { ...initial, dungeon: { ...initial.dungeon!, waitingHeroTokens } },
+      before = structuredClone(s);
+    const result = ok(s, finish);
+    expect(result.state).toEqual({
+      ...s,
+      dungeon: { ...s.dungeon!, campaignFailure: "bossQuestHeroesDefeated" },
+    });
+    expect(result.state.battle).toBe(s.battle);
+    expect(s).toEqual(before);
+    expect(result).toEqual(applyCommand(JSON.parse(JSON.stringify(s)), finish));
+    for (const command of [
+      finish,
+      { type: "prepareReplacementHero" },
+      { type: "leaveDungeon" },
+      { type: "startBattle" },
+      { type: "finishReturnToHamlet" },
+    ] as const) {
+      const refused = applyCommand(result.state, command);
+      expect(refused.state).toBe(result.state);
+      expect(refused.events[0]).toMatchObject({
+        type: "commandRefused",
+        message: expect.stringContaining("R-044"),
+      });
+    }
+  },
+);
+
+it("R-068：双方全灭、伪造全灭/撤退与错误身份不触发Boss战役失败", () => {
+  const s = defeated(),
+    b = s.battle!,
+    d = s.dungeon!;
+  const variants: GameState[] = [
+    {
+      ...s,
+      battle: {
+        ...b,
+        encounter: {
+          ...b.encounter!,
+          turn: { type: "halted", reason: "mutualWipeout", monstersDefeated: true },
+        },
+      },
+    },
+    { ...s, battle: { ...b, entities: b.entities.map((e) => ({ ...e, dead: true })) } },
+    {
+      ...s,
+      battle: {
+        ...b,
+        entities: b.entities.map((e) => (e.id === "hero-0" ? { ...e, dead: false } : e)),
+      },
+    },
+    {
+      ...s,
+      battle: {
+        ...b,
+        encounter: { ...b.encounter!, turn: { type: "finished", outcome: "retreat" } },
+      },
+    },
+    { ...s, dungeon: { ...d, campaignLevel: 2 } },
+    { ...s, dungeon: { ...d, activeBossThreatScriptId: "boss:ruins:prophet:1" } },
+    { ...s, battle: { ...b, rngCursor: -1 } },
+    {
+      ...s,
+      battle: {
+        ...b,
+        entities: b.entities.map((e) => (e.id === "hero-0" ? { ...e, heroStatId: "wrong" } : e)),
+      },
+    },
+    {
+      ...s,
+      battle: {
+        ...b,
+        shuffleIntents: [
+          {
+            entityId: "hero-0",
+            move: { direction: "push", distance: 1 },
+            relativeToId: "boss:necromancer:1",
+          },
+        ],
+      },
+    },
+  ];
+  for (const state of variants) {
+    const result = applyCommand(state, finish);
+    expect(result.state).toBe(state);
+    expect(result.events[0]!.type).toBe("commandRefused");
+  }
 });
