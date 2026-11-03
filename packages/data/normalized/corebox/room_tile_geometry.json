@@ -3452,6 +3452,200 @@
     }
    ],
    "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p011:back",
+   "rawId": "dungeon_tile:p011",
+   "roomId": "room:p019",
+   "location": "darkestDungeon",
+   "number": 6,
+   "name": "Teleporters",
+   "source": {
+    "file": "DD_COREBOX_TILES_BACK.pdf",
+    "page": 11,
+    "face": "back"
+   },
+   "ruling": "R-159",
+   "geometryVerified": true,
+   "usable": false,
+   "effectSource": {
+    "roomId": "room:p019",
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+    "page": 19,
+    "ruling": "R-159"
+   },
+   "specialRegions": [
+    {
+     "areaId": "A",
+     "iconId": "4591aebebd",
+     "effect": "teleporters",
+     "status": "confirmed",
+     "printedText": "Characters can move and attack between {icon:f9fbe7ebd2} Areas. Heroes moving through a {icon:340d4a530a} Area suffer {icon:df38279161} +1.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "C",
+     "iconId": "4591aebebd",
+     "effect": "teleporters",
+     "status": "confirmed",
+     "printedText": "Characters can move and attack between {icon:f9fbe7ebd2} Areas. Heroes moving through a {icon:340d4a530a} Area suffer {icon:df38279161} +1.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "F",
+     "iconId": "4591aebebd",
+     "effect": "teleporters",
+     "status": "confirmed",
+     "printedText": "Characters can move and attack between {icon:f9fbe7ebd2} Areas. Heroes moving through a {icon:340d4a530a} Area suffer {icon:df38279161} +1.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "H",
+     "iconId": "4591aebebd",
+     "effect": "teleporters",
+     "status": "confirmed",
+     "printedText": "Characters can move and attack between {icon:f9fbe7ebd2} Areas. Heroes moving through a {icon:340d4a530a} Area suffer {icon:df38279161} +1.",
+     "runtimeReady": false
+    }
+   ],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "G",
+     "defensive": "D",
+     "ranged": "B",
+     "support": "E"
+    },
+    "monsters": {
+     "aggressive": "A",
+     "defensive": "F",
+     "ranged": "H",
+     "support": "C"
+    },
+    "lootAreas": [
+     "C",
+     "F"
+    ],
+    "markers": [
+     {
+      "areaId": "G",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "A"
+    },
+    {
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "B"
+    },
+    {
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "E"
+    },
+    {
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "F"
+    }
+   ],
+   "unresolvedMarkers": []
   }
  ]
 }

@@ -2050,3 +2050,18 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **日期**：2026-11-03（Asia/Shanghai）
 - **问题**：Eldritch Vault 按人数抽多张 III 级饰品时，是否必须全部处置、可否重复交互、压力 +2 是否仅作用于装备者？
 - **状态**：待 Kyries 确认；运行时先按 R-156 卡文接通逐张饰品获得流，仅 `equip` 对装备者 +2 压力，见 [phase5-vault-toxic-runtime-2026-11-03.md](phase5-vault-toxic-runtime-2026-11-03.md)。
+
+### Q-142
+
+- **日期**：2026-11-03（Asia/Shanghai）
+- **问题**：Teleporters（最暗地牢6，TILES BACK p11 / ROOMS FRONT p19）的逐面几何、部署及橙星卡文对应；临时审核稿编号Q-141因main已有同号问题顺延。
+- **状态**：Kyries 已明确回复“核对通过”，见 R-159。
+
+### R-159
+
+- **编号**：R-159
+- **日期**：2026-11-03（Asia/Shanghai）
+- **裁定**：批准 Teleporters 完整审核稿：A–H容量依次3、2、3、2、2、3、2、3，均普通地形。英雄Aggressive G、Defensive D、Ranged B、Support E；怪物Aggressive A、Defensive F、Ranged H、Support C。实体通路A-D、B-C、E-H、F-G，无仅角点或额外阻挡；C/F各一宝箱。A/C/F/H橙星对应房间卡文：角色可在橙星区域之间移动和攻击；英雄穿过橙星区域承受压力+1。
+- **依据**：Kyries 查看标字图及[审核稿](phase5-teleporters-geometry-review-2026-11-03.md)后回复“核对通过”；R-001 / R-048、核心规则R16–18、R25与R-021。
+- **边界**：橙星卡文对应不混为实体通路；不在本次几何批准中补移动消耗、射程、视线或压力触发次数等未决运行时细节。特殊效果完整运行时未接通前保持不可参战。
+- **状态**：Q-142 已解决。

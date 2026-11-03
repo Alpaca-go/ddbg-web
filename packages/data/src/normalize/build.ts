@@ -1,3 +1,4 @@
+import { assertTeleportersEffectSource } from "./teleporters";
 import { assertEldritchPowerChamberEffectSource } from "./eldritch-power-chamber";
 import { assertToxicChamberEffectSource } from "./toxic-chamber";
 import { assertEldritchVaultEffectSource } from "./eldritch-vault";
@@ -736,6 +737,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       assertEldritchVaultEffectSource(input.rooms);
       assertToxicChamberEffectSource(input.rooms);
       assertEldritchPowerChamberEffectSource(input.rooms);
+      assertTeleportersEffectSource(input.rooms);
       return buildRoomTileGeometry(input.roomTiles);
     })(),
     corridor_tile_geometry: buildCorridorTileGeometry(input.roomTiles),
