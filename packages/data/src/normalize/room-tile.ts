@@ -1,4 +1,9 @@
 import {
+  approvedMammothCystRoom,
+  mammothCystRoomSchema,
+  assertMammothCystTileLabels,
+} from "./mammoth-cyst-room";
+import {
   approvedShufflingHorrorRoom,
   shufflingHorrorRoomSchema,
   assertShufflingHorrorTileLabels,
@@ -144,6 +149,7 @@ export const roomTileGeometrySchema = z.union([
   templeOfTheChosenSchema,
   templarsRoomSchema,
   shufflingHorrorRoomSchema,
+  mammothCystRoomSchema,
 ]);
 
 export const roomTileGeometryFileSchema = z
@@ -234,6 +240,7 @@ export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
   assertEvilEyeTileLabels(raw);
   assertTemplarsRoomTileLabels(raw);
   assertShufflingHorrorTileLabels(raw);
+  assertMammothCystTileLabels(raw);
   const tiles = [
     approvedRoomTileGeometry,
     approvedTortureChamber,
@@ -248,6 +255,7 @@ export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
     approvedTempleOfTheChosen,
     approvedTemplarsRoom,
     approvedShufflingHorrorRoom,
+    approvedMammothCystRoom,
   ];
   for (const tile of tiles) {
     const matches = raw.cards.filter((card) => card.id === tile.rawId);
