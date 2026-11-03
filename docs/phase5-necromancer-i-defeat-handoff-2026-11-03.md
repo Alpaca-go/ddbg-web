@@ -9,3 +9,7 @@ R-044（核心规则书 R9/R25/R30–31/R35）规定：Boss任务英雄全灭即
 验证：胜利/全灭交接9测通过（含驿站0/4人两种情况）；普通战后交接和单场死亡检测原有56测通过。typecheck和build通过，ESLint全仓通过。完整lint受原有未跟踪交接稿格式及UTF-16几何导出JSON阻塞，未修改这些本地文件；版本控制内文件另行检查格式。
 
 范围仅Necromancer I真实Boss战全灭交接；不扩展其它Boss或等级、不改combatReady/任务白名单/room:p010 usable、不实现双方全灭裁定。非阶段末，未新增Playwright路径。
+
+## 完整验证补记
+
+Node 24.21.0 / pnpm 12.9.1：`pnpm test --maxWorkers=2 --testTimeout=30000`完整通过，412个测试文件、3116项测试全绿。固定代码7c6d84be的[CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/41642938353)中typecheck、完整lint及Playwright smoke已通过；其余步骤以该检查最终状态为准。
