@@ -1,3 +1,4 @@
+import { assertToxicChamberEffectSource } from "./toxic-chamber";
 import { assertEldritchVaultEffectSource } from "./eldritch-vault";
 import { attachCoreHigherSkills } from "./core-higher-skills";
 import { buildDarkestBossContent } from "./darkest-boss-content";
@@ -732,6 +733,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       assertPoolOfRebirthEffectSource(input.rooms);
       assertHallOfAscensionEffectSource(input.rooms);
       assertEldritchVaultEffectSource(input.rooms);
+      assertToxicChamberEffectSource(input.rooms);
       return buildRoomTileGeometry(input.roomTiles);
     })(),
     corridor_tile_geometry: buildCorridorTileGeometry(input.roomTiles),

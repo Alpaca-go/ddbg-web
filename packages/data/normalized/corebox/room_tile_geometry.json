@@ -2962,6 +2962,272 @@
     }
    ],
    "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p010:back",
+   "rawId": "dungeon_tile:p010",
+   "roomId": "room:p017",
+   "location": "darkestDungeon",
+   "number": 4,
+   "name": "Toxic Chamber",
+   "source": {
+    "file": "DD_COREBOX_TILES_BACK.pdf",
+    "page": 10,
+    "face": "back"
+   },
+   "ruling": "R-157",
+   "geometryVerified": true,
+   "usable": false,
+   "effectSource": {
+    "roomId": "room:p017",
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+    "page": 17,
+    "ruling": "R-157"
+   },
+   "specialRegions": [
+    {
+     "areaId": "A",
+     "iconId": "4591aebebd",
+     "effect": "toxicVapors",
+     "status": "confirmed",
+     "printedText": "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "B",
+     "iconId": "4591aebebd",
+     "effect": "toxicVapors",
+     "status": "confirmed",
+     "printedText": "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "C",
+     "iconId": "4591aebebd",
+     "effect": "toxicVapors",
+     "status": "confirmed",
+     "printedText": "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "E",
+     "iconId": "4591aebebd",
+     "effect": "toxicVapors",
+     "status": "confirmed",
+     "printedText": "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
+     "runtimeReady": false
+    }
+   ],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "J",
+     "defensive": "H",
+     "ranged": "J",
+     "support": "H"
+    },
+    "monsters": {
+     "aggressive": "D",
+     "defensive": "G",
+     "ranged": "F",
+     "support": "F"
+    },
+    "lootAreas": [
+     "B",
+     "B",
+     "E",
+     "E"
+    ],
+    "markers": [
+     {
+      "areaId": "J",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "J",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 2,
+     "elevation": "high"
+    },
+    {
+     "id": "G",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "I",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "J",
+     "capacity": 2,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "I",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "D",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "I",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "I",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "unresolvedMarkers": []
   }
  ]
 }

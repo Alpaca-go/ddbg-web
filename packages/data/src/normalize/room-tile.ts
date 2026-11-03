@@ -1,3 +1,4 @@
+import { approvedToxicChamber, toxicChamberSchema } from "./toxic-chamber";
 import { approvedEldritchVault, eldritchVaultSchema } from "./eldritch-vault";
 import { approvedHallOfAscension, hallOfAscensionSchema } from "./hall-of-ascension";
 import { z } from "zod";
@@ -122,6 +123,7 @@ export const roomTileGeometrySchema = z.union([
   poolOfRebirthSchema,
   hallOfAscensionSchema,
   eldritchVaultSchema,
+  toxicChamberSchema,
 ]);
 
 export const roomTileGeometryFileSchema = z
@@ -216,6 +218,7 @@ export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
     approvedPoolOfRebirth,
     approvedHallOfAscension,
     approvedEldritchVault,
+    approvedToxicChamber,
   ];
   for (const tile of tiles) {
     const matches = raw.cards.filter((card) => card.id === tile.rawId);

@@ -2013,3 +2013,19 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：Kyries在查看本面标字图、容量/部署表、连接表与星标效果后明确回复“通过”；详见[审核稿](phase5-eldritch-vault-geometry-review-2026-11-03.md)。
 - **边界**：仅批准本面图面与效果来源，不外推其它面或补充饰品分配、装备时机、重复使用等规则。几何可入库，特殊效果运行时未完成前保持不可参战。
 - **状态**：Q-138已解决。
+
+### Q-139
+
+- **日期**：2026-11-03（Asia/Shanghai）
+- **问题**：Toxic Chamber（最暗地牢4，TILES BACK p10 / ROOMS FRONT p17）的逐面几何、部署和Toxic Vapors区域对应。
+- **候选**：见[审核稿](phase5-toxic-chamber-geometry-review-2026-11-03.md)：10区，仅F高地；10条通路、4组仅角点，B/E各两个宝箱；A/B/C/E橙色星标对应英雄站立时Acc −3。容量与八姿态部署按完整表核对。
+- **状态**：Kyries修正D/F部署后确认其余正确，见R-157。
+
+### R-157
+
+- **编号**：R-157
+- **日期**：2026-11-03（Asia/Shanghai）
+- **裁定**：批准Toxic Chamber（最暗地牢4，TILES BACK p10 / ROOMS FRONT p17）的完整审核稿，修正怪物部署为Aggressive D、Defensive G、Ranged F、Support F；英雄Aggressive/Ranged J、Defensive/Support H。A–J容量依次2、4、2、4、2、2、4、2、3、2，仅F高地。通路A-B、A-D、B-C、C-G、D-H、E-F、F-I、G-J、H-I、I-J；仅角点B-D、B-G、D-I、G-I，无额外阻挡。宝箱B/E各两个；橙星A/B/C/E对应Toxic Vapors：站在此处的英雄Acc −3。
+- **依据**：Kyries明确回复“D应该是怪物Aggressive，F应该是怪物Ranged／Support，其他正确”；见[本面审核稿](phase5-toxic-chamber-geometry-review-2026-11-03.md)。
+- **边界**：本次批准图面与效果来源，不外推其它面或未决运行时边界。Toxic Vapors完整运行时未接通前，几何可入库但不可参战。
+- **状态**：Q-139已解决。
