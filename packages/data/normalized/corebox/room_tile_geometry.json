@@ -3954,6 +3954,242 @@
     }
    ],
    "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p012:back",
+   "rawId": "dungeon_tile:p012",
+   "roomId": "room:p021",
+   "location": "darkestDungeon",
+   "number": 8,
+   "name": "Temple of the Chosen",
+   "source": {
+    "file": "DD_COREBOX_TILES_BACK.pdf",
+    "page": 12,
+    "face": "back"
+   },
+   "ruling": "R-161",
+   "geometryVerified": true,
+   "usable": false,
+   "effectSource": {
+    "roomId": "room:p021",
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+    "page": 21,
+    "ruling": "R-161"
+   },
+   "specialRegions": [
+    {
+     "areaId": "A",
+     "iconId": "4591aebebd",
+     "effect": "riteOfTheChosen",
+     "status": "confirmed",
+     "printedText": "{icon:62d166a84f} Rite of the Chosen: When a Monster ends its turn here, all Monsters {icon:731f6665d0} 5 and Heroes {icon:df38279161} +1 plus an additional {icon:9b00e692ba} +1 / Negative Quirk.",
+     "runtimeReady": false
+    }
+   ],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "F",
+     "defensive": "F",
+     "ranged": "F",
+     "support": "F"
+    },
+    "monsters": {
+     "aggressive": "E",
+     "defensive": "G",
+     "ranged": "C",
+     "support": "A"
+    },
+    "lootAreas": [
+     "E",
+     "E"
+    ],
+    "markers": [
+     {
+      "areaId": "F",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 4,
+     "elevation": "high"
+    },
+    {
+     "id": "B",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "A"
+    },
+    {
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "A"
+    },
+    {
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "A"
+    },
+    {
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "B"
+    },
+    {
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "B"
+    },
+    {
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "C"
+    },
+    {
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "C"
+    },
+    {
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "D"
+    },
+    {
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "E"
+    },
+    {
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "F"
+    },
+    {
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "G"
+    },
+    {
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "B"
+    },
+    {
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "D"
+    },
+    {
+     "to": "F",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "E"
+    },
+    {
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "E"
+    }
+   ],
+   "unresolvedMarkers": []
   }
  ]
 }
