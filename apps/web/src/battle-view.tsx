@@ -390,6 +390,14 @@ export function BattleView({
                       Chosen：怪物在此结束回合，全体怪物治疗5；各英雄压力+1，并按自身负面怪癖数追加压力。
                     </p>
                   )}
+                  {area.evilGaze && (
+                    <p>
+                      {battle.evilEyeDestroyed
+                        ? "Evil Gaze：眼睛已摧毁，本场不再触发。"
+                        : "Evil Gaze：结束回合获得负面怪癖；花2行动摧毁眼睛，获得正面怪癖并全体压力−5。"}
+                    </p>
+                  )}
+                  {area.staringEyes && <p>Staring Eyes：英雄结束回合压力+2。</p>}
                   {area.circleOfPower && <p>Circle of Power：怪物在本区结束回合治疗4。</p>}
                   {area.endTurnHeal === 3 && (
                     <p className="muted">Healing Waters：英雄结束回合治疗 3</p>

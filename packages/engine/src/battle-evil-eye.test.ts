@@ -9,7 +9,6 @@ import { applyCommand } from "./command";
 import type { GameState } from "./command";
 import { roomEffectFixture } from "./test-helpers/room-effects";
 import { conditionPoolProblem } from "./conditions";
-import { finishTurn } from "./encounter";
 import { readRoomTile } from "./room-tile-selection";
 const setup = (quirkIds: readonly string[] = [], areaId = "E") =>
   roomEffectFixture(roomTileBattleAreas(tile), { quirkIds, areaId });
@@ -109,22 +108,9 @@ it("毁眼支付两行动、正面怪癖与全体减压；E关闭，凝视区保
     result.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.stress),
   ).toEqual([1, 1, 1, 1]);
   expect(hero(end(result.state).state).quirkIds).toHaveLength(1);
-  const onB = {
-    ...result.state,
-    battle: {
-      ...result.state.battle!,
-      entities: result.state.battle!.entities.map((e) =>
-        e.id === "h0" ? { ...e, areaId: "A", quirkIds: [] } : e,
-      ),
-    },
-  };
-  // 单独调用结束钩子，避免清除持牌破坏公开命令入口的守恒检查。
-  const watched = finishTurn(
-    { ...onB, battle: { ...onB.battle!, conditions: setup().battle!.conditions! } },
-    "h0",
-    [],
-  );
-  expect(hero(watched.state).stress).toBe(3);
+  const onB = setup([], "A");
+  const watched = end({ ...onB, battle: { ...onB.battle!, evilEyeDestroyed: true } });
+  expect(hero(watched.state).stress).toBe(2);
 });
 it("毁眼的第四正面允许弃新卡，完成后减压且不抽负面；重复/错位/缺行动拒绝", () => {
   const opened = destroy(setup(["quirk:p001", "quirk:p002", "quirk:p003"]));
@@ -157,4 +143,55 @@ it("毁眼的第四正面允许弃新卡，完成后减压且不抽负面；重�
     },
   };
   expect(destroy(short).state).toBe(short);
+});
+
+it("怪癖堆耗尽时，毁眼费用/标记/压力及结束回合状态全部回滚", () => {
+  for (const positive of [true, false]) {
+    const s = setup(),
+      b = s.battle!,
+      pool = b.conditions!;
+    const exhausted = {
+      ...s,
+      battle: {
+        ...b,
+        conditions: {
+          ...pool,
+          ...(positive ? { positiveDeck: [] } : { negativeDeck: [] }),
+          quirkDiscard: pool.quirks
+            .filter((q) => q.polarity === (positive ? "positive" : "negative"))
+            .map((q) => q.id),
+        },
+      },
+    };
+    const result = positive
+      ? destroy(exhausted)
+      : applyCommand(exhausted, { type: "changeStance", actorId: "h0", direction: "backward" });
+    if (positive) expect(result.state).toBe(exhausted);
+    // 负面触发使用最后一个行动，确保实际走到结束回合。
+    if (!positive) {
+      const last = {
+        ...exhausted,
+        battle: {
+          ...exhausted.battle,
+          encounter: {
+            ...b.encounter!,
+            turn: {
+              type: "hero" as const,
+              actorId: "h0",
+              actions: 1,
+              usedSkillIds: [],
+              mustMove: false,
+            },
+          },
+        },
+      };
+      const failed = applyCommand(last, {
+        type: "changeStance",
+        actorId: "h0",
+        direction: "backward",
+      });
+      expect(failed.state).toBe(last);
+      expect(failed.events[0]!.type).toBe("commandRefused");
+    } else expect(result.events[0]!.type).toBe("commandRefused");
+  }
 });
