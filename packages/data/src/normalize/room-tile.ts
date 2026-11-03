@@ -1,4 +1,9 @@
 import {
+  approvedShufflingHorrorRoom,
+  shufflingHorrorRoomSchema,
+  assertShufflingHorrorTileLabels,
+} from "./shuffling-horror-room";
+import {
   approvedTemplarsRoom,
   templarsRoomSchema,
   assertTemplarsRoomTileLabels,
@@ -138,6 +143,7 @@ export const roomTileGeometrySchema = z.union([
   evilEyeSchema,
   templeOfTheChosenSchema,
   templarsRoomSchema,
+  shufflingHorrorRoomSchema,
 ]);
 
 export const roomTileGeometryFileSchema = z
@@ -227,6 +233,7 @@ export const approvedRoomTileGeometry = ritualChamberSchema.parse({
 export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
   assertEvilEyeTileLabels(raw);
   assertTemplarsRoomTileLabels(raw);
+  assertShufflingHorrorTileLabels(raw);
   const tiles = [
     approvedRoomTileGeometry,
     approvedTortureChamber,
@@ -240,6 +247,7 @@ export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
     approvedEvilEye,
     approvedTempleOfTheChosen,
     approvedTemplarsRoom,
+    approvedShufflingHorrorRoom,
   ];
   for (const tile of tiles) {
     const matches = raw.cards.filter((card) => card.id === tile.rawId);
