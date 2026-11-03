@@ -3228,6 +3228,230 @@
     }
    ],
    "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:p011",
+   "rawId": "dungeon_tile:p011",
+   "roomId": "room:p018",
+   "location": "darkestDungeon",
+   "number": 5,
+   "name": "Eldritch Power Chamber",
+   "source": {
+    "file": "DD_COREBOX_TILES_FRONT.pdf",
+    "page": 11,
+    "face": "front"
+   },
+   "ruling": "R-158",
+   "geometryVerified": true,
+   "usable": false,
+   "effectSource": {
+    "roomId": "room:p018",
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
+    "page": 18,
+    "ruling": "R-158"
+   },
+   "specialRegions": [
+    {
+     "areaId": "C",
+     "iconId": "4591aebebd",
+     "effect": "eldritchPower",
+     "status": "confirmed",
+     "printedText": "When Monsters need to move into range distance, they always move towards Area {icon:a74b9dc080} . If a Monster ends its turn in {icon:a74b9dc080} Area, Heroes take {icon:8d4bbe5e11} 5 each.",
+     "runtimeReady": false
+    }
+   ],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "G",
+     "defensive": "G",
+     "ranged": "C",
+     "support": "C"
+    },
+    "monsters": {
+     "aggressive": "E",
+     "defensive": "E",
+     "ranged": "A",
+     "support": "F"
+    },
+    "lootAreas": [
+     "A",
+     "A"
+    ],
+    "markers": [
+     {
+      "areaId": "G",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "A"
+    },
+    {
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "A"
+    },
+    {
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "B"
+    },
+    {
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "B"
+    },
+    {
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "C"
+    },
+    {
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "C"
+    },
+    {
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "D"
+    },
+    {
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "D"
+    },
+    {
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "E"
+    },
+    {
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "F"
+    },
+    {
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false,
+     "from": "G"
+    },
+    {
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "A"
+    },
+    {
+     "to": "D",
+     "cornerOnly": true,
+     "blocked": false,
+     "from": "B"
+    }
+   ],
+   "unresolvedMarkers": []
   }
  ]
 }
