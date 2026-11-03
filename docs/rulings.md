@@ -2029,3 +2029,18 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：Kyries明确回复“D应该是怪物Aggressive，F应该是怪物Ranged／Support，其他正确”；见[本面审核稿](phase5-toxic-chamber-geometry-review-2026-11-03.md)。
 - **边界**：本次批准图面与效果来源，不外推其它面或未决运行时边界。Toxic Vapors完整运行时未接通前，几何可入库但不可参战。
 - **状态**：Q-139已解决。
+
+### Q-140
+
+- **日期**：2026-11-03（Asia/Shanghai）
+- **问题**：Eldritch Power Chamber（最暗地牢5，TILES FRONT p11 / ROOMS FRONT p18）的逐面几何、部署与橙星卡文对应。
+- **状态**：Kyries 已明确回复“审核结果通过”，见 R-158。
+
+### R-158
+
+- **编号**：R-158
+- **日期**：2026-11-03（Asia/Shanghai）
+- **裁定**：批准 Eldritch Power Chamber 完整审核稿：A–H容量依次2、3、4、3、3、4、4、3，均普通地形。英雄Aggressive/Defensive G、Ranged/Support C；怪物Aggressive/Defensive E、Ranged A、Support F。通路A-B、A-D、B-C、B-E、C-E、C-F、D-E、D-G、E-F、F-H、G-H；仅角点A-E、B-D，无额外阻挡；A有两个独立宝箱。C橙星对应：怪物需要移动至射程距离时朝橙星区域移动；怪物在橙星区域结束其回合，每名英雄受到5点伤害。
+- **依据**：Kyries 查看标字图及[审核稿](phase5-eldritch-power-chamber-geometry-review-2026-11-03.md)后回复“审核结果通过”；R-001 / R-048、核心规则R16–18、R25与R-021。
+- **边界**：批准本面图面及卡文来源，不外推其它面或未决路径选择、伤害减免等运行时细节。特殊效果完整运行时未接通前保持不可参战。
+- **状态**：Q-140 已解决。
