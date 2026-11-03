@@ -1,3 +1,4 @@
+import { approvedEldritchVault, eldritchVaultSchema } from "./eldritch-vault";
 import { approvedHallOfAscension, hallOfAscensionSchema } from "./hall-of-ascension";
 import { z } from "zod";
 import type { RawFile } from "../extract/raw";
@@ -120,6 +121,7 @@ export const roomTileGeometrySchema = z.union([
   approvedExtraRuinsTileSchema,
   poolOfRebirthSchema,
   hallOfAscensionSchema,
+  eldritchVaultSchema,
 ]);
 
 export const roomTileGeometryFileSchema = z
@@ -213,6 +215,7 @@ export function buildRoomTileGeometry(raw: RawFile): RoomTileGeometryFile {
     ...approvedExtraRuinsTiles,
     approvedPoolOfRebirth,
     approvedHallOfAscension,
+    approvedEldritchVault,
   ];
   for (const tile of tiles) {
     const matches = raw.cards.filter((card) => card.id === tile.rawId);

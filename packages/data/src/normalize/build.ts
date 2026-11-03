@@ -1,3 +1,4 @@
+import { assertEldritchVaultEffectSource } from "./eldritch-vault";
 import { attachCoreHigherSkills } from "./core-higher-skills";
 import { buildDarkestBossContent } from "./darkest-boss-content";
 import { buildAbsoluteNothingnessSupport } from "./absolute-nothingness-support";
@@ -730,6 +731,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
     room_tile_geometry: (() => {
       assertPoolOfRebirthEffectSource(input.rooms);
       assertHallOfAscensionEffectSource(input.rooms);
+      assertEldritchVaultEffectSource(input.rooms);
       return buildRoomTileGeometry(input.roomTiles);
     })(),
     corridor_tile_geometry: buildCorridorTileGeometry(input.roomTiles),
