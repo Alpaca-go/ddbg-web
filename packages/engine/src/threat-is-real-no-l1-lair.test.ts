@@ -59,7 +59,8 @@ describe("A-07 The Threat is Real III · Lair 不生成 Level 1（quest:p015）"
       ).toBe(true);
     }
     expect(successes).toBeGreaterThan(50);
-  });
+    // 完整遍历400个战役种子；保留覆盖，在CI上给实际部署场景独立时间预算。
+  }, 20_000);
 
   it("quest:p015 · 非 lair（treasure）：仍可出现 Level 1", () => {
     let sawLevel1 = false;
