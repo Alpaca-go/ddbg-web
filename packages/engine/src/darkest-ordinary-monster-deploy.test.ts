@@ -88,24 +88,47 @@ describe("最暗普通房 26 牌堆部署", () => {
     });
   });
 
-  it.each(quests)("%s：目标房仍走 mid-boss，不消费 26 张牌堆", (questId) => {
-    const game = createCoreDungeonQuest(7, questId, "radiant", coreParty, coreQuestSources);
+  it.each(["quest:p016", "quest:p018"] as const)(
+    "%s：目标房仍走 mid-boss，不消费 26 张牌堆",
+    (questId) => {
+      const game = createCoreDungeonQuest(7, questId, "radiant", coreParty, coreQuestSources);
+      const d = game.dungeon!;
+      const room = d.rooms.find((entry) => entry.kind === "objective")!;
+      const battlePrep = ok(
+        { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
+        { type: "prepareDungeonBattle" },
+      );
+      expect(battlePrep.state.dungeon!.darkest!.bossEncounterPlan).toBeTruthy();
+      const deckBefore = battlePrep.state.dungeon!.darkest!.monsterDeck;
+      const deployed = ok(battlePrep.state, { type: "prepareDungeonMonsters" });
+      expect(deployed.state.dungeon!.darkest!.bossDeployment?.monsters.length).toBeGreaterThan(0);
+      expect(deployed.state.dungeon!.darkest!.ordinaryDeployment).toBeUndefined();
+      expect(deployed.state.dungeon!.darkest!.monsterDeckRemaining).toBeUndefined();
+      expect(deployed.state.dungeon!.darkest!.monsterDeck).toEqual(deckBefore);
+      expect(darkestMidBossDeploymentHold(deployed.state.dungeon!)).toContain("deployDarkestMidBoss");
+      expect(prepareDarkestMidBossDeployment(deployed.state)).toMatchObject({
+        events: [{ type: "commandRefused" }],
+      });
+    },
+  );
+
+  it("quest:p017：目标房走 deployTemplarsI，prepareDungeonMonsters 拒绝", () => {
+    const game = createCoreDungeonQuest(7, "quest:p017", "radiant", coreParty, coreQuestSources);
     const d = game.dungeon!;
     const room = d.rooms.find((entry) => entry.kind === "objective")!;
     const battlePrep = ok(
       { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
       { type: "prepareDungeonBattle" },
     );
-    expect(battlePrep.state.dungeon!.darkest!.bossEncounterPlan).toBeTruthy();
     const deckBefore = battlePrep.state.dungeon!.darkest!.monsterDeck;
-    const deployed = ok(battlePrep.state, { type: "prepareDungeonMonsters" });
-    expect(deployed.state.dungeon!.darkest!.bossDeployment?.monsters.length).toBeGreaterThan(0);
-    expect(deployed.state.dungeon!.darkest!.ordinaryDeployment).toBeUndefined();
-    expect(deployed.state.dungeon!.darkest!.monsterDeckRemaining).toBeUndefined();
+    expect(
+      applyCommand(battlePrep.state, { type: "prepareDungeonMonsters" }).events.some(
+        (e) => e.type === "commandRefused",
+      ),
+    ).toBe(true);
+    expect(darkestMidBossDeploymentHold(battlePrep.state.dungeon!)).toContain("deployTemplarsI");
+    const deployed = ok(battlePrep.state, { type: "deployTemplarsI" });
+    expect(deployed.state.dungeon!.darkest!.bossDeployment).toBeUndefined();
     expect(deployed.state.dungeon!.darkest!.monsterDeck).toEqual(deckBefore);
-    expect(darkestMidBossDeploymentHold(deployed.state.dungeon!)).toContain("deployDarkestMidBoss");
-    expect(prepareDarkestMidBossDeployment(deployed.state)).toMatchObject({
-      events: [{ type: "commandRefused" }],
-    });
   });
 });
