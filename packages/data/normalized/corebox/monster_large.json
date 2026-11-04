@@ -22789,6 +22789,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [
     {
      "iconId": "303efb0a59",
@@ -23964,6 +23965,49 @@
      }
     ]
    ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 2,
+       "skill": 1
+      },
+      {
+       "min": 3,
+       "max": 4,
+       "skill": 2
+      },
+      {
+       "min": 5,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    },
+    {
+     "stances": [
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    }
+   ],
    "back_texts": [
     [
      {
@@ -24626,6 +24670,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 2,
    "resistances": [
     {
      "iconId": "303efb0a59",
@@ -25757,6 +25802,49 @@
       }
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 2,
+       "skill": 1
+      },
+      {
+       "min": 3,
+       "max": 4,
+       "skill": 2
+      },
+      {
+       "min": 5,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    },
+    {
+     "stances": [
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    }
    ],
    "back_texts": [
     [

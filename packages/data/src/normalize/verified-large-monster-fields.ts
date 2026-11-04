@@ -207,6 +207,55 @@ export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
     speed: 0,
     stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
   },
+  // R-181：Templar Warlord / Impaler · FRONT p014/p015；两枚靴印 Speed 2；进攻 1–2/3–4/5–10，其余姿态 1–5/6–10。
+  {
+    id: "monster_large:p014",
+    name: "Templar Warlord",
+    level: 3,
+    pages: [14],
+    speed: 2,
+    stanceGroups: [
+      {
+        stances: ["aggressive"],
+        rollTable: [
+          { min: 1, max: 2, skill: 1 },
+          { min: 3, max: 4, skill: 2 },
+          { min: 5, max: 10, skill: 3 },
+        ],
+      },
+      {
+        stances: ["defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_large:p015",
+    name: "Templar Impaler",
+    level: 3,
+    pages: [15],
+    speed: 2,
+    stanceGroups: [
+      {
+        stances: ["aggressive"],
+        rollTable: [
+          { min: 1, max: 2, skill: 1 },
+          { min: 3, max: 4, skill: 2 },
+          { min: 5, max: 10, skill: 3 },
+        ],
+      },
+      {
+        stances: ["defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
   // 最终战 Ancestor 2 · FRONT p018；footer 与 Fanatic III（p010）同型 d10 分段 1–2 / 3–6 / 7–10 → slot 1–3。
   {
     id: "monster_large:p018",
