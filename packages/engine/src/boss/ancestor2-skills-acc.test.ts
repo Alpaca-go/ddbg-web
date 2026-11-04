@@ -19,6 +19,8 @@ import {
 
 const HERO_SUPPORT = "C";
 const HERO_RANGED = "K";
+/** R-165 生产几何：`F` 与怪物区 `E` 相邻、容量 3；Refashion Them 卡面射程为 1。 */
+const HERO_CROWDED = "F";
 
 function withoutAbsoluteNothingness(game: GameState): GameState {
   return {
@@ -126,7 +128,7 @@ it("Refashion Them · Crowded 选最拥挤区英雄 · 命中 3 流血 3t + 1 �
 
   let cursor = 0;
   while (nextBattleRoll(fighting.seed, cursor) !== 5) cursor += 1;
-  const crowdedArea = HERO_SUPPORT;
+  const crowdedArea = HERO_CROWDED;
   const patch = Object.fromEntries(
     heroes.map((hero, index) => [hero.id, index < 2 ? crowdedArea : HERO_RANGED]),
   );
@@ -215,7 +217,7 @@ it("Refashion Them · 落空无流血/压力/光照", () => {
   const heroes = fighting.battle!.entities.filter((entity) => entity.side === "hero");
   let cursor = 0;
   while (nextBattleRoll(fighting.seed, cursor) !== 10) cursor += 1;
-  const crowdedArea = HERO_SUPPORT;
+  const crowdedArea = HERO_CROWDED;
   const patch = Object.fromEntries(
     heroes.map((hero, index) => [hero.id, index < 2 ? crowdedArea : HERO_RANGED]),
   );
@@ -309,9 +311,10 @@ it("Unmake Them All · Furthest 选最远英雄 · 命中 2 流血 4t + 1 压力
     ]);
     expect(skillEvent.resolution.targetStress).toBe(1);
   }
+  // 规格书 §7.1：Nt 状态按 N 枚代币放入独立一堆；目标英雄尚未行动，本回合不扣。
   expect(
     result.state.battle!.entities.find((entity) => entity.id === expected.id)!.statusStacks,
-  ).toEqual([{ kind: "bleed", amount: 2, remaining: 3 }]);
+  ).toEqual([{ kind: "bleed", amount: 2, remaining: 4 }]);
   expect(result.state.battle!.entities.find((entity) => entity.id === expected.id)!.stress).toBe(
     stressBefore + 1,
   );

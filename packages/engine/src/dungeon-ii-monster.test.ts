@@ -238,6 +238,10 @@ it("R-082/083 普通卡与 C-019 死灵法师 II 限定字段获批，其余 II/
           "monster_medium:p100",
           "monster_medium:p102",
           "monster_medium:p103",
+          // R-187：最终战 Ancestor 1 / Reflections 三张已核实战斗卡入目录。
+          "monster_medium:p105",
+          "monster_medium:p106",
+          "monster_medium:p109",
           "monster_large:p006",
           "monster_large:p007",
           "monster_large:p008",
@@ -251,6 +255,8 @@ it("R-082/083 普通卡与 C-019 死灵法师 II 限定字段获批，其余 II/
           "monster_large:p016",
           "monster_large:p017",
           "monster_large:p018",
+          "monster_large:p019",
+          "monster_large:p020",
         ] as readonly string[]
       ).includes(card.id),
     );

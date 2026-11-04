@@ -17,6 +17,8 @@ import {
 
 const HERO_SUPPORT = "C";
 const HERO_RANGED = "K";
+/** R-165 生产几何：`F` 与怪物区 `E` 相邻、容量 3。 */
+const HERO_CROWDED = "F";
 
 function prepared(questId: "quest:p016" | "quest:p017" | "quest:p018" = "quest:p016") {
   const base = finalPreparationFixture(questId);
@@ -371,10 +373,12 @@ it("Dissolution · Furthest 选最远英雄 · 命中 Stun 1t + 3 Blight 3t + 1 
 
   let cursor = 0;
   while (nextBattleRoll(fighting.seed, cursor) !== 5) cursor += 1;
-  const patch = Object.fromEntries(heroes.map((hero) => [hero.id, HERO_RANGED]));
+  // Hellion（hero-1）在 `K`（距 `E` 2）成为唯一最远目标；余人靠近 `F`（距 1）。
+  // 该目标不带卡面 Stun 抗性，才能验收 Dissolution 的 1t Stun；抗性抵消另测（R-033）。
+  const patch = Object.fromEntries(
+    heroes.map((hero, index) => [hero.id, index === 1 ? HERO_RANGED : HERO_CROWDED]),
+  );
   let game = onHeartTurn(withHeroAreas(fighting, patch));
-  const near = heroes[0]!;
-  game = withHeroAreas(game, { [near.id]: HERO_SUPPORT });
   const furthestDistance = Math.max(...heroTargetRows(game).map((row) => row.areaDistance ?? -1));
   const expected = heroTargetRows(game).filter((row) => row.areaDistance === furthestDistance)[0]!;
   const targetBefore = game.battle!.entities.find((entity) => entity.id === expected.id)!;
@@ -417,6 +421,42 @@ it("Dissolution · Furthest 选最远英雄 · 命中 Stun 1t + 3 Blight 3t + 1 
       (event) => event.type === "dungeonUpdated" && event.message.includes("含 verified 效果线"),
     ),
   ).toBe(true);
+});
+
+it("Dissolution · 目标带卡面 Stun 抗性时 1t Stun 不放代币（R-033）", () => {
+  const fighting = heartOfDarknessFighting();
+  const heroes = fighting.battle!.entities.filter((entity) => entity.side === "hero");
+  const crusader = heroes.find((hero) => hero.heroStatId === "hero_stat:p001:front")!;
+  let cursor = 0;
+  while (nextBattleRoll(fighting.seed, cursor) !== 5) cursor += 1;
+  // 唯一最远目标仍是 Crusader；其卡面条件抗性为 Stun（1t − 1 = 0，R-033）。
+  const patch = Object.fromEntries(
+    heroes.map((hero) => [hero.id, hero.id === crusader.id ? HERO_RANGED : HERO_CROWDED]),
+  );
+  let game = onHeartTurn(withHeroAreas(fighting, patch));
+  const expected = heroTargetRows(game).find((row) => row.id === crusader.id)!;
+  expect(expected.areaDistance).toBe(2);
+  const stressBefore =
+    game.battle!.entities.find((entity) => entity.id === expected.id)!.stress ?? 0;
+  game = {
+    ...game,
+    battle: {
+      ...game.battle!,
+      rngCursor: cursor,
+      entities: game.battle!.entities.map((entity) =>
+        entity.id === expected.id ? { ...entity, dodge: 0, stress: stressBefore } : entity,
+      ),
+    },
+  };
+
+  const result = applyHeartOfDarknessDissolution(game, heart(game).id);
+  expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
+  expect(
+    result.state.battle!.entities.find((entity) => entity.id === expected.id)!.statusStacks,
+  ).toEqual([{ kind: "blight", amount: 3, remaining: 3 }]);
+  expect(result.state.battle!.entities.find((entity) => entity.id === expected.id)!.stress).toBe(
+    stressBefore + 1,
+  );
 });
 
 it("Dissolution · 落空无 Stun/Blight/压力", () => {
