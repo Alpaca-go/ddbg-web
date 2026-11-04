@@ -81,12 +81,17 @@ function deployedMidBoss(questId: (typeof quests)[number]) {
     { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
     { type: "prepareDungeonBattle" },
   );
+  if (questId === "quest:p017") return battlePrep.state;
   return ok(battlePrep.state, { type: "prepareDungeonMonsters" }).state;
 }
 
 function startedMidBoss(questId: (typeof quests)[number]) {
   const base = deployedMidBoss(questId);
-  const withBattle = ok(base, { type: "deployDarkestMidBoss" }).state;
+  const deploy =
+    questId === "quest:p017"
+      ? ({ type: "deployTemplarsI" } as const)
+      : ({ type: "deployDarkestMidBoss" } as const);
+  const withBattle = ok(base, deploy).state;
   return ok(withBattle, { type: "startBattle" }).state;
 }
 

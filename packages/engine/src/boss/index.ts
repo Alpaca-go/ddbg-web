@@ -382,6 +382,7 @@ export {
   darkestMidBossCombatActive,
   expandDarkestMidBossInitiativeDeckSides,
 } from "./darkest-mid-boss-deploy";
+export { deployTemplarsI, templarsProductionCombatActive } from "./templars-i-deploy";
 export {
   applyShufflingHorrorEchoingDisassembly,
   applyShufflingHorrorUndulations,

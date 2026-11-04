@@ -20,9 +20,12 @@ import {
 import { readDarkestBossEncounter } from "./darkest-content";
 import { ensureDarkestMidBossScriptsRegistered } from "./darkest-mid-boss-scripts";
 
-const HERO_RNG = "darkest-mid-boss-hero-ranged";
-const HERO_SUP = "darkest-mid-boss-hero-support";
-const MON_AGG = "darkest-mid-boss-aggressive";
+const HERO_RNG = "G";
+const HERO_SUP = "F";
+const HERO_NEAR_IMPALER = "L";
+const MON_AGG = "M";
+const MON_RANGED = "C";
+const HERO_FURTHEST_FROM_WARLORD = "I";
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);
@@ -42,12 +45,12 @@ function deployed() {
     { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
     { type: "prepareDungeonBattle" },
   );
-  return ok(battlePrep.state, { type: "prepareDungeonMonsters" }).state;
+  return ok(battlePrep.state, { type: "deployTemplarsI" }).state;
 }
 
 function fighting(): GameState {
-  const base = ok(deployed(), { type: "deployDarkestMidBoss" }).state;
-  return ok(base, { type: "startBattle" }).state;
+  const base = ok(deployed(), { type: "startBattle" }).state;
+  return base;
 }
 
 function monsterByCard(state: GameState, cardId: string) {
@@ -92,9 +95,7 @@ describe("Templars Acc 最小结算", () => {
   it("Impaler Torment · Crowded（range 2 内）", () => {
     const base = fighting();
     const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
-    const patch = Object.fromEntries(
-      heroes.map((hero, index) => [hero.id, index < 2 ? HERO_RNG : HERO_SUP]),
-    );
+    const patch = Object.fromEntries(heroes.map((hero) => [hero.id, HERO_FURTHEST_FROM_WARLORD]));
     const game = onMonsterTurn(withHeroAreas(base, patch), TEMPLAR_IMPALER_MONSTER_CARD_ID);
     const result = applyTemplarImpalerTorment(
       game,
@@ -128,7 +129,7 @@ describe("Templars Acc 最小结算", () => {
     let cursor = 0;
     while (nextBattleRoll(base.seed, cursor) !== 5) cursor += 1;
     let game = onMonsterTurn(
-      withHeroAreas(base, { [hero.id]: HERO_SUP }),
+      withHeroAreas(base, { [hero.id]: HERO_NEAR_IMPALER }),
       TEMPLAR_IMPALER_MONSTER_CARD_ID,
     );
     game = {
@@ -139,7 +140,7 @@ describe("Templars Acc 最小结算", () => {
         light: 5,
         entities: game.battle!.entities.map((entity) => {
           if (entity.id === hero.id) return { ...entity, dodge: 0 };
-          if (entity.id === impaler.id) return { ...entity, areaId: "darkest-mid-boss-aggressive" };
+          if (entity.id === impaler.id) return { ...entity, areaId: MON_AGG };
           return entity;
         }),
       },
@@ -183,9 +184,12 @@ describe("Templars Acc 最小结算", () => {
     let cursor = 0;
     while (nextBattleRoll(base.seed, cursor) !== 5) cursor += 1;
     const patch = Object.fromEntries(
-      heroes.map((hero, index) => [hero.id, index === 0 ? MON_AGG : "darkest-mid-boss-defensive"]),
+      heroes.map((hero, index) => [
+        hero.id,
+        index === 0 ? HERO_FURTHEST_FROM_WARLORD : HERO_SUP,
+      ]),
     );
-    const furthestHero = heroes.find((hero) => patch[hero.id] === MON_AGG)!;
+    const furthestHero = heroes.find((hero) => patch[hero.id] === HERO_FURTHEST_FROM_WARLORD)!;
     let game = onMonsterTurn(withHeroAreas(base, patch), TEMPLAR_WARLORD_MONSTER_CARD_ID);
     game = {
       ...game,
@@ -231,9 +235,12 @@ describe("Templars Acc 最小结算", () => {
     let cursor = 0;
     while (nextBattleRoll(base.seed, cursor) !== 10) cursor += 1;
     const patch = Object.fromEntries(
-      heroes.map((hero, index) => [hero.id, index === 0 ? MON_AGG : "darkest-mid-boss-defensive"]),
+      heroes.map((hero, index) => [
+        hero.id,
+        index === 0 ? HERO_FURTHEST_FROM_WARLORD : HERO_SUP,
+      ]),
     );
-    const furthestHero = heroes.find((hero) => patch[hero.id] === MON_AGG)!;
+    const furthestHero = heroes.find((hero) => patch[hero.id] === HERO_FURTHEST_FROM_WARLORD)!;
     let game = onMonsterTurn(withHeroAreas(base, patch), TEMPLAR_WARLORD_MONSTER_CARD_ID);
     game = {
       ...game,
@@ -285,7 +292,7 @@ describe("Templars Acc 最小结算", () => {
         light: 5,
         entities: game.battle!.entities.map((entity) => {
           if (entity.id === hero.id) return { ...entity, dodge: 0, stress: stressBefore };
-          if (entity.id === warlord.id) return { ...entity, areaId: "darkest-mid-boss-aggressive" };
+          if (entity.id === warlord.id) return { ...entity, areaId: MON_RANGED };
           return entity;
         }),
       },
@@ -326,7 +333,7 @@ describe("Templars Acc 最小结算", () => {
         rngCursor: cursor,
         entities: game.battle!.entities.map((entity) => {
           if (entity.id === hero.id) return { ...entity, dodge: 30, stress: stressBefore };
-          if (entity.id === warlord.id) return { ...entity, areaId: "darkest-mid-boss-aggressive" };
+          if (entity.id === warlord.id) return { ...entity, areaId: MON_RANGED };
           return entity;
         }),
       },
@@ -362,7 +369,7 @@ describe("Templars Acc 最小结算", () => {
     while (nextBattleRoll(base.seed, cursor) !== 5) cursor += 1;
     const stressBefore = hero.stress ?? 0;
     let game = onMonsterTurn(
-      withHeroAreas(base, { [hero.id]: HERO_SUP }),
+      withHeroAreas(base, { [hero.id]: HERO_NEAR_IMPALER }),
       TEMPLAR_IMPALER_MONSTER_CARD_ID,
     );
     game = {
@@ -373,7 +380,7 @@ describe("Templars Acc 最小结算", () => {
         light: 5,
         entities: game.battle!.entities.map((entity) => {
           if (entity.id === hero.id) return { ...entity, dodge: 0, stress: stressBefore };
-          if (entity.id === impaler.id) return { ...entity, areaId: "darkest-mid-boss-aggressive" };
+          if (entity.id === impaler.id) return { ...entity, areaId: MON_AGG };
           return entity;
         }),
       },
@@ -404,7 +411,7 @@ describe("Templars Acc 最小结算", () => {
     while (nextBattleRoll(base.seed, cursor) !== 10) cursor += 1;
     const stressBefore = hero.stress ?? 0;
     let game = onMonsterTurn(
-      withHeroAreas(base, { [hero.id]: HERO_SUP }),
+      withHeroAreas(base, { [hero.id]: HERO_NEAR_IMPALER }),
       TEMPLAR_IMPALER_MONSTER_CARD_ID,
     );
     game = {
@@ -414,7 +421,7 @@ describe("Templars Acc 最小结算", () => {
         rngCursor: cursor,
         entities: game.battle!.entities.map((entity) => {
           if (entity.id === hero.id) return { ...entity, dodge: 30, stress: stressBefore };
-          if (entity.id === impaler.id) return { ...entity, areaId: "darkest-mid-boss-aggressive" };
+          if (entity.id === impaler.id) return { ...entity, areaId: MON_AGG };
           return entity;
         }),
       },
@@ -440,7 +447,7 @@ describe("Templars Acc 最小结算", () => {
     let cursor = 0;
     while (nextBattleRoll(base.seed, cursor) !== 10) cursor += 1;
     let game = onMonsterTurn(
-      withHeroAreas(base, { [hero.id]: HERO_SUP }),
+      withHeroAreas(base, { [hero.id]: HERO_NEAR_IMPALER }),
       TEMPLAR_IMPALER_MONSTER_CARD_ID,
     );
     game = {
@@ -486,7 +493,7 @@ describe("Templars Acc 最小结算", () => {
       battle: {
         ...state.battle!,
         entities: state.battle!.entities.map((entity) =>
-          entity.id === warlord.id ? { ...entity, areaId: "darkest-mid-boss-aggressive" } : entity,
+          entity.id === warlord.id ? { ...entity, areaId: MON_RANGED } : entity,
         ),
       },
     };
@@ -502,7 +509,7 @@ describe("Templars Acc 最小结算", () => {
     const hero = base.battle!.entities.find((entity) => entity.side === "hero")!;
     const impaler = monsterByCard(base, TEMPLAR_IMPALER_MONSTER_CARD_ID);
     let state = onMonsterTurn(
-      withHeroAreas(base, { [hero.id]: HERO_SUP }),
+      withHeroAreas(base, { [hero.id]: HERO_NEAR_IMPALER }),
       TEMPLAR_IMPALER_MONSTER_CARD_ID,
     );
     state = {
@@ -510,7 +517,7 @@ describe("Templars Acc 最小结算", () => {
       battle: {
         ...state.battle!,
         entities: state.battle!.entities.map((entity) =>
-          entity.id === impaler.id ? { ...entity, areaId: "darkest-mid-boss-aggressive" } : entity,
+          entity.id === impaler.id ? { ...entity, areaId: MON_AGG } : entity,
         ),
       },
     };
@@ -549,7 +556,7 @@ describe("Templars Acc 最小结算", () => {
     const hero = base.battle!.entities.find((entity) => entity.side === "hero")!;
     const impaler = monsterByCard(base, TEMPLAR_IMPALER_MONSTER_CARD_ID);
     const state = onMonsterTurn(
-      withHeroAreas(base, { [hero.id]: HERO_SUP }),
+      withHeroAreas(base, { [hero.id]: HERO_NEAR_IMPALER }),
       TEMPLAR_IMPALER_MONSTER_CARD_ID,
     );
     const result = applyCommand(state, {

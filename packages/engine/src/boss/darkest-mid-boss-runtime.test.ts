@@ -31,6 +31,8 @@ function ok(game: GameState, command: Command) {
   return result;
 }
 
+const placeholderQuests = quests.filter(([id]) => id !== "quest:p017");
+
 describe("最暗中途 Boss 运行时接线", () => {
   it("注册脚本并与 quest-bridge 映射一致", () => {
     ensureDarkestMidBossScriptsRegistered();
@@ -41,7 +43,7 @@ describe("最暗中途 Boss 运行时接线", () => {
     }
   });
 
-  it.each(quests)(
+  it.each(placeholderQuests)(
     "目标房：绑定专属房间 → 部署 Boss 身份 → Boss 遭遇判定（%s）",
     (questId, scriptId, roomCardId) => {
       const game = createCoreDungeonQuest(7, questId, "radiant", coreParty, coreQuestSources);
@@ -86,6 +88,26 @@ describe("最暗中途 Boss 运行时接线", () => {
       });
     },
   );
+
+  it("quest:p017 绑房后须 deployTemplarsI，prepareDungeonMonsters 占位部署拒绝", () => {
+    const game = createCoreDungeonQuest(7, "quest:p017", "radiant", coreParty, coreQuestSources);
+    const d = game.dungeon!;
+    const room = d.rooms.find((r) => r.kind === "objective")!;
+    const bound = ok(
+      { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
+      { type: "prepareDungeonBattle" },
+    );
+    expect(bound.state.dungeon!.roomCards!.active!.blockedReason).toContain("deployTemplarsI");
+    expect(
+      applyCommand(bound.state, { type: "prepareDungeonMonsters" }).events.some(
+        (e) => e.type === "commandRefused",
+      ),
+    ).toBe(true);
+    expect(darkestMidBossDeploymentHold(bound.state.dungeon!)).toContain("deployTemplarsI");
+    const deployed = ok(bound.state, { type: "deployTemplarsI" });
+    expect(resolveEncounterBossScriptId(deployed.state)).toBe(DARKEST_TEMPLARS_SCRIPT_ID);
+    expect(isBossEncounter(deployed.state)).toBe(true);
+  });
 
   it("quest:p018 wiringHold 含 Summon White Cell 已接", () => {
     const game = createCoreDungeonQuest(7, "quest:p018", "radiant", coreParty, coreQuestSources);

@@ -68,7 +68,7 @@ function darkestMidBossWiringHold(questId: StoredDarkestBossEncounterPlan["quest
   if (questId === "quest:p018") {
     return "Summon White Cell Stalk + Bulging Gaze/Digestion Acc + Revivify Self 最小结算已接；White Cell Teleport / Room Tile 几何 / combatReady / 完整 AI 仍 hold";
   }
-  return "Templars Torment/Body Slam/Revelation/Stinger Shot Acc 最小结算已接；Pit Toss / Room Tile 几何 / combatReady / 完整 AI 仍 hold";
+  return "Templars Torment/Body Slam/Revelation/Stinger Shot Acc 最小结算已接；生产部署 deployTemplarsI（R-162/R-180）；Pit Toss / Spikes / 完整 AI 仍 hold";
 }
 
 const STANCE_ORDER: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
@@ -175,7 +175,11 @@ export function prepareDarkestObjectiveBossRoom(state: GameState): ApplyResult |
   const actorLabel = encounter.actors
     .map((actor) => `${actor.cardId}（${actor.stance}）`)
     .join("、");
-  const blockedReason = `${card.name} 已绑定 ${scriptId}：${actorLabel}${supportPlanHoldSummary(encounter.supportCardIds)}；${wiringHold}。保留原牌，不改抽遗迹房间（R36 / R-048）。`;
+  const blockedReason = `${card.name} 已绑定 ${scriptId}：${actorLabel}${supportPlanHoldSummary(encounter.supportCardIds)}；${
+    darkestQuestId === "quest:p017"
+      ? "下一步 deployTemplarsI（R-180）"
+      : wiringHold
+  }。保留原牌，不改抽遗迹房间（R36 / R-048）。`;
   return {
     state: {
       ...state,
@@ -220,6 +224,9 @@ export function darkestMidBossDeploymentHold(d: DungeonState): string | undefine
       : supportPlanHoldSummary(plan.supportCardIds);
     return `${label} 目标房已记录 Boss 身份（${plan.actorCardIds.join("、")}）${supportHold}；可 deployDarkestMidBoss 进入 BattleState 后显式 startBattle 洗先攻；${plan.wiringHold}，不可用 startDungeonBattle（R-048）。`;
   }
+  if (plan.questId === "quest:p017") {
+    return `${label} 目标房下一步 deployTemplarsI → startBattle（R-180）；${plan.wiringHold}，不可用 startDungeonBattle / prepareDungeonMonsters 占位部署（R-048）。`;
+  }
   return `${label} 目标房须按目录部署 ${plan.actorCardIds.join("、")}；不能用最暗 26 张牌堆随机遭遇替代（R36 / R-048）。`;
 }
 
@@ -243,6 +250,8 @@ export function prepareDarkestMidBossDeployment(state: GameState): ApplyResult |
   )
     return refuse("需要已绑定的最暗 Boss 房间牌与目标房（R36）");
   if (d.darkest.bossDeployment) return refuse("最暗 Boss 部署已记录；不能重抽 / 重洗 / 发奖励");
+  if (plan.questId === "quest:p017")
+    return refuse("Templars 目标房须 deployTemplarsI 按 R-162 获批几何部署（R-180）");
   const encounter = readDarkestBossEncounter(plan.questId);
   if (!encounter) return refuse("最暗 Boss 内容目录缺失（R36）");
   const monsters: SpawnPlacement[] = [];

@@ -32,11 +32,18 @@ function deployed(questId: (typeof quests)[number][0]) {
     { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
     { type: "prepareDungeonBattle" },
   );
+  if (questId === "quest:p017") return battlePrep.state;
   return ok(battlePrep.state, { type: "prepareDungeonMonsters" }).state;
 }
 
-function started(game: GameState) {
-  const withBattle = ok(game, { type: "deployDarkestMidBoss" }).state;
+function midBossDeploy(questId: (typeof quests)[number][0]): Command {
+  return questId === "quest:p017"
+    ? ({ type: "deployTemplarsI" } as const)
+    : ({ type: "deployDarkestMidBoss" } as const);
+}
+
+function started(game: GameState, questId: (typeof quests)[number][0]) {
+  const withBattle = ok(game, midBossDeploy(questId)).state;
   const result = applyCommand(withBattle, { type: "startBattle" });
   expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
   return result.state;
@@ -48,7 +55,7 @@ describe("最暗中途 Boss deployDarkestMidBoss / startBattle", () => {
     (questId, _scriptId, deckSize) => {
       const base = deployed(questId);
       expect(base.battle).toBeUndefined();
-      const game = ok(base, { type: "deployDarkestMidBoss" }).state;
+      const game = ok(base, midBossDeploy(questId)).state;
       expect(game.dungeon!.phase).toBe("inBattle");
       expect(game.battle!.encounter).toBeUndefined();
       const actorIds = readDarkestMidBossRequiredCombatCardIds(questId);
@@ -57,7 +64,7 @@ describe("最暗中途 Boss deployDarkestMidBoss / startBattle", () => {
           (e) => e.side === "monster" && actorIds.includes(e.monsterCardId!),
         ).length,
       ).toBe(actorIds.length);
-      const afterStart = started(base);
+      const afterStart = started(base, questId);
       expect(afterStart.battle!.encounter).toEqual({
         round: 1,
         deck: expect.any(Array),
@@ -98,7 +105,7 @@ describe("最暗中途 Boss deployDarkestMidBoss / startBattle", () => {
   });
 
   it("drawInitiative 在最暗 Boss inBattle 下可续接", () => {
-    const game = started(deployed("quest:p017"));
+    const game = started(deployed("quest:p017"), "quest:p017");
     const drawn = applyCommand(game, { type: "drawInitiative" });
     expect(drawn.events.filter((e) => e.type === "commandRefused")).toEqual([]);
     expect(drawn.state.battle!.encounter!.turn.type).not.toBe("awaitingInitiative");
