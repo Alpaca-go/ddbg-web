@@ -25,7 +25,7 @@ export function readCollectorIRoomLootPlacement(
   if (!areaId || !battle.areas.some((a) => a.id === areaId))
     return {
       status: "refused",
-      message: "Collector Room 三宝箱缺少已核实的区域绑定（R39、R-048）；正式几何仍 hold",
+      message: "Collector Room 三宝箱缺少已核实的区域绑定（R39、R-168、R-175）",
     };
   const activeRoom = state.dungeon?.roomCards?.active?.cardId;
   if (activeRoom && activeRoom !== COLLECTOR_ROOM_CARD_ID)

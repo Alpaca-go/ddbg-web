@@ -8,9 +8,24 @@ import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "./face-the-threat-embark-runtime";
 import { COLLECTOR_I_SCRIPT_ID, COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID } from "./collector-i";
+import { closeBattleLoot } from "../loot";
 
 function apply(state: GameState, command: Command) {
   const result = applyCommand(state, command);
+  expect(result.events.filter((event) => event.type === "commandRefused")).toEqual([]);
+  return result.state;
+}
+
+function pickLoot(state: GameState, actorId: string): GameState {
+  let result = applyCommand(state, { type: "interactLoot", actorId });
+  while (result.pendingChoice) {
+    const choice = result.pendingChoice;
+    result = applyCommand(result.state, {
+      type: "resolveChoice",
+      choiceId: choice.id,
+      optionId: choice.options.find((option) => option.id === "gold" || option.id === "food")!.id,
+    });
+  }
   expect(result.events.filter((event) => event.type === "commandRefused")).toEqual([]);
   return result.state;
 }
@@ -204,7 +219,15 @@ it("R-175真实部署、三个F区宝箱及JSON命令续接", () => {
       },
     },
   };
-  expect(applyCommand(atLoot, { type: "interactLoot", actorId: actor.id }).state).toBe(atLoot);
+  const pickedState = pickLoot(atLoot, actor.id);
+  expect(pickedState.battle!.loot!.claimedIds).toHaveLength(1);
+  expect(pickedState.battle!.loot!.placed).toHaveLength(2);
+  expect(pickedState.battle!.encounter!.turn).toMatchObject({ type: "hero", actions: 1 });
+  const closed = closeBattleLoot(pickedState.battle!.loot)!;
+  expect(closed.claimedIds).toHaveLength(1);
+  expect(closed.placed).toEqual([]);
+  expect(closed.available).toHaveLength(9);
+  expect(new Set([...closed.available.map((t) => t.id), ...closed.claimedIds]).size).toBe(10);
 });
 
 it("首轮Collect All使用真实房间召唤区并洗入三张先攻", () => {

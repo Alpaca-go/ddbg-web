@@ -239,8 +239,6 @@ export function interactLoot(state: GameState, actorId: string): ApplyResult {
     actor.dead
   )
     return rejectBattleCommand(state, "拾取必须在当前英雄行动中，且不能跳过必须移动");
-  if (state.dungeon?.roomCards?.active?.tileId === "room_tile:p007:back")
-    return rejectBattleCommand(state, "Collector Room 宝箱交互与奖励待核实（R-168、R-175）");
   const token = battle.loot?.placed.find((token) => token.areaId === actor.areaId);
   if (
     !token ||
