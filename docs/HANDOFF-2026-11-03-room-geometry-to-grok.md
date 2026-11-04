@@ -1,5 +1,7 @@
 # 核心盒25张Room几何收口交接（给Grok Bot）
 
+> **2026-11-04 最新接手**：Kyries 已交给 DeepSeek Harness；请以 [HANDOFF-2026-11-04-core-pack-to-deepseek-harness.md](HANDOFF-2026-11-04-core-pack-to-deepseek-harness.md)（main tip `685a20b8`）为准，本文几何表仍有效但 usable/runtime 状态可能已过时。
+
 日期：2026-11-03（Asia/Shanghai）。接手方：Grok Bot。仓库：Alpaca-go/ddbg-web。本次用户指令是“狂热者房间完成后就合入，然后写一份交接文档给grok bot”。本文交接现状，不授权自动扩大后续规则实现范围。
 
 ## 已合入基线
