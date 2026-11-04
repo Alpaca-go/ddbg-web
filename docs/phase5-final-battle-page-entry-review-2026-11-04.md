@@ -1,6 +1,6 @@
 # 最终战形态正式目录待核对
 
-**R-187 待 Kyries 确认**（本 PR）。最终战生产部署见 **R-186**（[#595](https://github.com/Alpaca-go/ddbg-web/pull/595)）。Acc / 召唤 / Impending Doom 等最小运行时见既有 `ancestor*` / `gestating-heart-*` / `heart-of-darkness-*` 验收；本刀只接正式网页战斗目录与 `preFinalBattleBossCatalogTaskSources` 迁移。
+**R-187**（Kyries 确认 [#596](https://github.com/Alpaca-go/ddbg-web/pull/596)）。最终战生产部署见 **R-186**（[#595](https://github.com/Alpaca-go/ddbg-web/pull/595)）。Acc / 召唤 / Impending Doom 等最小运行时见既有 `ancestor*` / `gestating-heart-*` / `heart-of-darkness-*` 验收；本刀只接正式网页战斗目录与 `preFinalBattleBossCatalogTaskSources` 迁移。
 
 数据来源：`darkest_boss_content.finalBattle` 形态 id 与 card id；印刷 COREBOX `DD_EN_COREBOX_CARDS_70_120_monsters_medium_FRONT.pdf` p105–p111、`monsters_large_FRONT.pdf` p18–p20；已入库 raw footer OCR 与 R-139（Heart footer）。
 
