@@ -80,6 +80,7 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
           "monster_large:p001",
           "monster_large:p002",
           "monster_large:p003",
+          "monster_large:p005", // R-174 Prophet I
           "monster_large:p008",
           "monster_large:p006",
           "monster_large:p007",
