@@ -2260,3 +2260,10 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**：批准 Q-153 的 Prophet I 真实部署与八组骰点绑定：Boss 进攻/E；英雄进攻/C、辅助/D、远程与防御/H；1–2/A、3/B、4/C、5/D、6/E、7–8/F、9/G、10/H。部署后显式 startBattle，接既有三次行动、长椅和落石流程。
 - **依据**：Kyries 对具体方案明确回复“确认”；R-167 图面、规格书 §14.5 与核心 R38–R39。
 - **边界**：仅 Prophet I 专用部署及绑定，不修改 combatReady、任务白名单或 room:p011 usable=false；其它等级、正式页面与自然任务闭环分切片验收。
+
+### R-174
+
+- **日期**：2026-11-04（Asia/Shanghai）
+- **裁定**：Prophet I 战斗卡 monster_large:p005 的 Speed 为1；四姿态共用 d10 选招表：1–5 为 Eye on You（slot1），6–10 为 Fulminate（slot2）。首次与第三次行动继续由 R-173 长椅/落石规则替代。
+- **依据**：Kyries 对逐项卡图提案明确回复“确认，按卡图入库”；本地私有 COREBOX monster_large FRONT p005。
+- **边界**：仅此卡字段与正式目录接线，不扩大其它卡片审批、combatReady或任务白名单。
