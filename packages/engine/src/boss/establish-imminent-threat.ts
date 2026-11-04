@@ -1,3 +1,4 @@
+import { requireFaceTheThreatEmbarkPlanForSandbox } from "./face-the-threat-embark-runtime";
 import type { CampaignLevel } from "../../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "../command";
 import { rejectBattleCommand } from "../battle";
@@ -146,7 +147,33 @@ export function establishImminentThreat(
   const level = readCampaignLevel(d);
   if (level !== 1) return rejectBattleCommand(state, "战役开局定威胁须为战役 I 级（spec §2.4）");
   const pool = imminentThreatPoolForCampaign(1, []);
-  return applyImminentThreatDraw(state, pool, "spec §2.4 洗 4 张 I 级 Ruins Boss 描述卡抽 1 张");
+  const result = applyImminentThreatDraw(
+    state,
+    pool,
+    "spec §2.4 洗 4 张 I 级 Ruins Boss 描述卡抽 1 张",
+  );
+  const next = result.state.dungeon!;
+  if (
+    d.phase === "awaitingProvisions" &&
+    d.questDistribution?.questId === "quest:p019" &&
+    d.faceTheThreatEmbarkPlan &&
+    next.activeBossThreatScriptId
+  ) {
+    return {
+      ...result,
+      state: {
+        ...result.state,
+        dungeon: {
+          ...next,
+          faceTheThreatEmbarkPlan: {
+            ...d.faceTheThreatEmbarkPlan,
+            ...requireFaceTheThreatEmbarkPlanForSandbox(next),
+          },
+        },
+      },
+    };
+  }
+  return result;
 }
 
 export function drawImminentThreatAfterActAdvance(

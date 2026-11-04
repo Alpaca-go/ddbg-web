@@ -328,6 +328,15 @@ export function naturalQuest(
           if (state.dungeon!.campaignFailure) return;
           continue;
         }
+        if (
+          state.dungeon!.roomCards!.active!.cardId === "room:p011" &&
+          state.dungeon!.activeBossThreatScriptId === "boss:ruins:prophet:1"
+        ) {
+          step({ type: "deployProphetI" });
+          fight();
+          if (state.dungeon!.campaignFailure) return;
+          continue;
+        }
         if (!state.dungeon!.roomCards!.active!.tileId) throw new Error("unready tile");
         step({ type: "prepareDungeonMonsters" });
         step({ type: "startDungeonBattle" });

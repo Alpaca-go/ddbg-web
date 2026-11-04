@@ -16,7 +16,7 @@ vi.mock("virtual:quest-battle-data-v1", async () => ({
 vi.mock("virtual:quest-battle-data-v2", async () => ({
   battleData: await catalog("quest-battle-data-v2"),
 }));
-import { createCoreDungeonQuest, createQuestSave, loadQuestSave } from "@ddbg/engine";
+import { applyCommand, createCoreDungeonQuest, createQuestSave, loadQuestSave } from "@ddbg/engine";
 import {
   preAbominationTaskSources,
   preDarkestTaskSources,
@@ -157,3 +157,39 @@ it("Prophet I正式目录补齐后旧目录先严格验证，英雄篡改仍拒�
   forged.snapshot.dungeon.heroes[0].wounds++;
   expect(() => loadQuestSave(forged, taskSources, [preProphetTaskSources])).toThrow();
 });
+
+it("旧目录与旧占位计划组合存档仍须完整匹配，升级后严格拒绝篡改", () => {
+  const start = {
+    seed: 5,
+    questId: "quest:p019",
+    mode: "radiant",
+    party: naturalParty,
+    bossEdgeRooms: true,
+  } as const;
+  const initial = createCoreDungeonQuest(
+    5,
+    start.questId,
+    start.mode,
+    start.party,
+    preProphetTaskSources,
+    true,
+  );
+  const command = { type: "establishImminentThreat" } as const;
+  const game = applyCommand(initial, command).state;
+  const saved = JSON.parse(
+    JSON.stringify(createQuestSave(start, [command], game, preProphetTaskSources)),
+  );
+  saved.snapshot.dungeon.faceTheThreatEmbarkPlan = initial.dungeon!.faceTheThreatEmbarkPlan;
+  delete saved.snapshot.dungeon.campaignLevel;
+  saved.snapshot.dungeon.explorationSetup.dungeonLevel = 3;
+  const loaded = loadQuestSave(saved, taskSources, [preProphetTaskSources]);
+  expect(loaded.game.dungeon!.faceTheThreatEmbarkPlan!.resolvedScriptId).toBe(
+    "boss:ruins:prophet:1",
+  );
+  expect(
+    loaded.game.dungeon!.battleCatalog!.monsters.some((c) => c.id === "monster_large:p005"),
+  ).toBe(true);
+  const forged = structuredClone(saved);
+  forged.snapshot.dungeon.gold++;
+  expect(() => loadQuestSave(forged, taskSources, [preProphetTaskSources])).toThrow();
+}, 30000);
