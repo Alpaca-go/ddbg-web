@@ -89,6 +89,7 @@ describe("获批中型怪物 Speed 入库（R24、R-001、R-048）", () => {
       p013: 0,
       p014: 2,
       p015: 2,
+      p017: 1,
     };
     for (const card of built.monster_large.cards)
       expect(card.speed, card.id).toBe(largeSpeeds[card.id.replace("monster_large:", "")]);

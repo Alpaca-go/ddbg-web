@@ -45,6 +45,7 @@ export const taskSources: CoreQuestSources = {
   },
 };
 
+const shufflingHorrorCatalogId = "monster_large:p017" as const;
 const templarsCatalogIds = ["monster_large:p014", "monster_large:p015"] as const;
 
 /** 接通 Templars 正式目录前的固定来源。 */
@@ -54,6 +55,17 @@ export const preTemplarsTaskSources: CoreQuestSources = {
     ...taskSources.catalog,
     monsters: taskSources.catalog.monsters.filter(
       (c) => !(templarsCatalogIds as readonly string[]).includes(c.id),
+    ),
+  },
+};
+
+/** 接通 Shuffling Horror 正式目录前的固定来源。 */
+export const preShufflingHorrorTaskSources: CoreQuestSources = {
+  ...preTemplarsTaskSources,
+  catalog: {
+    ...preTemplarsTaskSources.catalog,
+    monsters: preTemplarsTaskSources.catalog.monsters.filter(
+      (c) => c.id !== shufflingHorrorCatalogId,
     ),
   },
 };

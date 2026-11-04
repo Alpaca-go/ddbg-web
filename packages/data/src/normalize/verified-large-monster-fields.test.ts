@@ -25,6 +25,14 @@ it("C-017：Fanatic I 生成结果与提交数据一致，三招完整效果均�
     2, 3, 1,
   ]);
 });
+it("R-183：Shuffling Horror 生成结果与提交数据一致", () => {
+  const committed = JSON.parse(
+    readFileSync(new URL("../../normalized/corebox/monster_large.json", import.meta.url), "utf8"),
+  );
+  const generated = built.monster_large.cards.find((c) => c.id === "monster_large:p017")!;
+  expect(generated).toEqual(committed.cards.find((c: { id: string }) => c.id === generated.id));
+  expect(generated.speed).toBe(1);
+});
 it("R-181：Templar Warlord / Impaler 生成结果与提交数据一致", () => {
   const committed = JSON.parse(
     readFileSync(new URL("../../normalized/corebox/monster_large.json", import.meta.url), "utf8"),
@@ -57,6 +65,7 @@ it("只附加已核实大型卡，参考卡与其他卡不补值；不修改输�
     "monster_large:p013",
     "monster_large:p014",
     "monster_large:p015",
+    "monster_large:p017",
     "monster_large:p018",
   ]);
   const reference = built.monster_medium.cards.find((c) => c.id === "monster_medium:p030")!;
@@ -140,6 +149,17 @@ it("身份漂移、重复映射、脏Speed、冲突与缺技能引用原子拒�
   ).toThrow("唯一存在");
 });
 
+it("R-183：Shuffling Horror Speed1、四姿态十骰面", () => {
+  const card = built.monster_large.cards.find((c) => c.id === "monster_large:p017")!;
+  expect(card.speed).toBe(1);
+  for (const stance of ["aggressive", "defensive", "ranged", "support"] as const) {
+    for (let roll = 1; roll <= 10; roll++)
+      expect(selectMonsterSkill(card as MonsterStanceCardView, [stance], roll)).toMatchObject({
+        status: "selected",
+        skillSlot: roll <= 7 ? 1 : 2,
+      });
+  }
+});
 it("R-174：Prophet I Speed1、四姿态十骰面及审批漂移守卫", () => {
   const card = built.monster_large.cards.find((c) => c.id === "monster_large:p005")!;
   expect(card.speed).toBe(1);
