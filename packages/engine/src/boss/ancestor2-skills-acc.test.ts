@@ -17,8 +17,8 @@ import {
   UNMAKE_THEM_ALL_SKILL_SLOT,
 } from "./ancestor2-skills-acc";
 
-const HERO_SUPPORT = "final-hero-support";
-const HERO_RANGED = "final-hero-ranged";
+const HERO_SUPPORT = "C";
+const HERO_RANGED = "K";
 
 function withoutAbsoluteNothingness(game: GameState): GameState {
   return {

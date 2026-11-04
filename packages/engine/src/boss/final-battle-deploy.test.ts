@@ -59,12 +59,42 @@ it("首形态部署进入 fighting 并登记 Boss 实体，不重复部署", () 
   expect(
     game.battle!.entities.some((e) => e.monsterCardId === sequence.current!.actor.cardId),
   ).toBe(true);
+  expect(game.battle!.areas).toHaveLength(11);
   expect(game.battle!.areas.every((a) => !a.ancestorGlory)).toBe(true);
-  expect(result.events[0]?.type === "dungeonUpdated" && result.events[0].message).toContain("hold");
+  expect(game.battle!.monsterStanceAreas).toEqual({
+    aggressive: "E",
+    defensive: "B",
+    ranged: "A",
+    support: "J",
+  });
+  expect(result.events[0]?.type === "dungeonUpdated" && result.events[0].message).toContain(
+    "R-186",
+  );
   expect(applyCommand(game, { type: "deployFinalBattleForm" }).state).toBe(game);
   expect(applyCommand(JSON.parse(JSON.stringify(game)), { type: "deployFinalBattleForm" })).toEqual(
     applyCommand(game, { type: "deployFinalBattleForm" }),
   );
+});
+
+it("R-186：英雄 K/I/K/C、Boss 按形态 stance 落 E/B/A/J", () => {
+  const game = prepared("quest:p016").state;
+  const sequence = readFinalFormSequence(game)!;
+  const heroes = game.battle!.entities.filter((e) => e.side === "hero");
+  expect(
+    heroes
+      .map(({ stance, areaId }) => ({ stance, areaId }))
+      .sort((a, b) => a.stance!.localeCompare(b.stance!)),
+  ).toEqual([
+    { stance: "aggressive", areaId: "K" },
+    { stance: "defensive", areaId: "I" },
+    { stance: "ranged", areaId: "K" },
+    { stance: "support", areaId: "C" },
+  ]);
+  const actor = game.battle!.entities.find(
+    (e) => e.monsterCardId === sequence.current!.actor.cardId,
+  )!;
+  expect(actor).toMatchObject({ stance: sequence.current!.actor.stance });
+  expect(["E", "B", "A", "J"]).toContain(actor.areaId);
 });
 it("最终战接受可恢复原卡的铁匠临时升级，拒绝伪造拥有的升级", () => {
   const deployed = prepared().state;

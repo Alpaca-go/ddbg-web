@@ -12,14 +12,14 @@
 
 ## 运行时行为
 
-| 项           | 实现                                                                                                                                                         |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 合成 id      | `support:absolute_nothingness`（`ABSOLUTE_NOTHINGNESS_MONSTER_CARD_ID`）                                                                                     |
-| 部署         | Ancestor 2 `deployFinalBattleForm` 后自动调用；亦可用 `applyAncestor2DeployAbsoluteNothingness`                                                              |
-| 落位         | 固定 `monster_defense` / `monster_ranged` / `monster_support` → 占位 `final-monster-*` 各 1；**按 areaId 是否已有怪物**判断空位（非 Gestating Heart 随机池） |
-| untargetable | 实体 `untargetable: true`；`playHeroSkill` / `playHeroSkillTargets` 拒绝                                                                                     |
-| 行动         | 无 AI / 技能；先攻轮到该实体时 `completeTurnStart` 自动 `finishTurn`                                                                                         |
-| 占位         | `stanceSlots: 1`；`startBattle` 姿态轨校验跳过 untargetable 棋子（仍占 areaId）                                                                              |
+| 项           | 实现                                                                                                                                                  |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 合成 id      | `support:absolute_nothingness`（`ABSOLUTE_NOTHINGNESS_MONSTER_CARD_ID`）                                                                              |
+| 部署         | Ancestor 2 `deployFinalBattleForm` 后自动调用；亦可用 `applyAncestor2DeployAbsoluteNothingness`                                                       |
+| 落位         | 固定 `monster_defense` / `monster_ranged` / `monster_support` → **R-165 B/A/J** 各 1；**按 areaId 是否已有怪物**判断空位（非 Gestating Heart 随机池） |
+| untargetable | 实体 `untargetable: true`；`playHeroSkill` / `playHeroSkillTargets` 拒绝                                                                              |
+| 行动         | 无 AI / 技能；先攻轮到该实体时 `completeTurnStart` 自动 `finishTurn`                                                                                  |
+| 占位         | `stanceSlots: 1`；`startBattle` 姿态轨校验跳过 untargetable 棋子（仍占 areaId）                                                                       |
 
 ## 明确 hold / 未接
 

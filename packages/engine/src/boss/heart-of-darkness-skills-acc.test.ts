@@ -15,8 +15,8 @@ import {
   PUNCTURE_SKILL_SLOT,
 } from "./heart-of-darkness-skills-acc";
 
-const HERO_SUPPORT = "final-hero-support";
-const HERO_RANGED = "final-hero-ranged";
+const HERO_SUPPORT = "C";
+const HERO_RANGED = "K";
 
 function prepared(questId: "quest:p016" | "quest:p017" | "quest:p018" = "quest:p016") {
   const base = finalPreparationFixture(questId);
