@@ -17,7 +17,7 @@
 
 Face the Threat **目标房**经 `prepareDungeonBattle` → `prepareBossObjectiveRoom` 写入专属房间牌（如 `room:p012`）并绑定 script / 战斗卡；**下一步**走专用 `deployCollectorI`（Necromancer / Prophet 同理 `deployNecromancerI` / `deployProphetI`），再 `startBattle`。绑定后 `blockedReason` 提示上述 deploy 命令，不再写「几何/交接尚未获批」类旧停点（I 级已接通部分）。
 
-**不是**靠翻 `combatReady`、`usable`、扩任务白名单或 `selectRoomTile` 进 Boss 房。`room:p012` 仍 `boss:true`，普通 tile 入口拒令；F 区 `usable=false` 不变。Fanatic、Collector II/III 等无 deploy 切片仍停生产战斗未获批。
+**不是**靠翻 `combatReady`、`usable`、扩任务白名单或 `selectRoomTile` 进 Boss 房。`room:p012` 仍 `boss:true`，普通 tile 入口拒令；F 区 `usable=false` 不变。Fanatic I 已接 **`deployFanaticI`**（R-169 / 拟 R-178，见 [phase5-fanatic-i-production-entry-review-2026-11-04.md](phase5-fanatic-i-production-entry-review-2026-11-04.md)）；Collector II/III 等无 deploy 切片仍停生产战斗未获批。
 
 详见 [phase5-boss-objective-room-entry-2026-10-31.md](phase5-boss-objective-room-entry-2026-10-31.md)。
 

@@ -250,7 +250,8 @@ export function applyFanaticIPyreBattleStart(state: GameState): ApplyResult {
     };
   }
 
-  const areaId = stanceAreaId(battle, "ranged");
+  const areaId =
+    battle.monsterStanceAreas?.ranged ?? stanceAreaId(battle, "ranged");
   if (!areaId || !battle.areas.some((area) => area.id === areaId)) {
     return {
       state,

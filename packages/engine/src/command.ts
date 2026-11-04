@@ -9,6 +9,7 @@ import {
 } from "./boss/final-form-sequence";
 import { deployFinalBattleForm } from "./boss/final-battle-deploy";
 import { deployCollectorI, deployProphetI } from "./boss/ruins-i-deploy";
+import { deployFanaticI } from "./boss/fanatic-i-deploy";
 import { deployNecromancerI } from "./boss/necromancer-i-deploy";
 import { deployDarkestMidBoss } from "./boss/darkest-mid-boss-deploy";
 import { deployDarkestOrdinaryEncounter } from "./darkest-ordinary-encounter-deploy";
@@ -263,6 +264,7 @@ type BaseCommand =
   | { readonly type: "deployNecromancerI" }
   | { readonly type: "deployCollectorI" }
   | { readonly type: "deployProphetI" }
+  | { readonly type: "deployFanaticI" }
   | { readonly type: "deployDarkestMidBoss" }
   | { readonly type: "deployDarkestOrdinaryEncounter" }
   | { readonly type: "offerNextQuest" }
@@ -655,6 +657,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   }
   if (command.type === "deployCollectorI") return deployCollectorI(state);
   if (command.type === "deployProphetI") return deployProphetI(state);
+  if (command.type === "deployFanaticI") return deployFanaticI(state);
   if (command.type === "deployNecromancerI") return deployNecromancerI(state);
   if (command.type === "startDungeonBattle") return startDungeonBattle(state);
   if (command.type === "finishDungeonBattle") return finishDungeonBattle(state);

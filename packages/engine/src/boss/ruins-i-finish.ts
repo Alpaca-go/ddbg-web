@@ -31,6 +31,16 @@ const realBossDefinitions = {
     label: "Collector I",
     ruling: "R-175",
   },
+  fanatic: {
+    script: "boss:ruins:fanatic:1",
+    card: "monster_large:p008",
+    description: "boss_ability:p019",
+    room: "room:p013",
+    tile: "room_tile:p007:front",
+    entity: "boss:fanatic:1",
+    label: "Fanatic I",
+    ruling: "R-169",
+  },
 } as const;
 type Identity = keyof typeof realBossDefinitions;
 import { clearedBossThreatScriptIdAfterVictory } from "./threat-campaign";
