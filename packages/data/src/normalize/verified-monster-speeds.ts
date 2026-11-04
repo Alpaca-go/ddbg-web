@@ -66,6 +66,22 @@ export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
   { id: "monster_medium:p101", name: "Collected Vestal", level: 1, pages: [101], speed: 2 },
   { id: "monster_medium:p102", name: "Collected Vestal", level: 2, pages: [102], speed: 2 },
   { id: "monster_medium:p103", name: "Collected Vestal", level: 3, pages: [103], speed: 2 },
+  // R-187：最终战 Ancestor 1 / Reflections · FRONT p105 / p106 / p109。
+  { id: "monster_medium:p105", name: "Ancestor 1", level: 3, pages: [105], speed: 3 },
+  {
+    id: "monster_medium:p106",
+    name: "Perfect Reflection",
+    level: 3,
+    pages: [106, 107, 108],
+    speed: 2,
+  },
+  {
+    id: "monster_medium:p109",
+    name: "Imperfect Reflection",
+    level: 3,
+    pages: [109, 110, 111],
+    speed: 1,
+  },
 ]);
 
 /** 仅生成管线加载人工获批映射；schema 可表达的值不代表已获批准。 */

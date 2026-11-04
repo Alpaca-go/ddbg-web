@@ -25,6 +25,7 @@ import {
   preTemplarsTaskSources,
   preShufflingHorrorTaskSources,
   preMammothCystTaskSources,
+  preFinalBattleBossCatalogTaskSources,
   preCollectorTaskSources,
   preNecromancerTaskSources,
   taskSources,
@@ -336,6 +337,91 @@ it("R-185 Mammoth Cyst 正式卡字段、旧目录严格迁移和篡改拒绝", 
   );
   save.snapshot.dungeon.gold++;
   expect(() => loadQuestSave(save, taskSources, [preMammothCystTaskSources])).toThrow();
+});
+
+const ancestor1StanceExpect = {
+  speed: 3,
+  stanceGroups: [
+    {
+      stances: ["aggressive", "defensive", "ranged", "support"],
+      rollTable: [
+        { min: 1, max: 3, skill: 1 },
+        { min: 4, max: 10, skill: 2 },
+      ],
+    },
+  ],
+};
+
+const heartOfDarknessStanceExpect = {
+  speed: 0,
+  stanceGroups: [
+    {
+      stances: ["aggressive", "defensive", "ranged", "support"],
+      rollTable: [
+        { min: 1, max: 4, skill: 1 },
+        { min: 5, max: 7, skill: 2 },
+        { min: 8, max: 10, skill: 3 },
+      ],
+    },
+  ],
+};
+
+it("R-187 最终战形态正式卡字段、旧目录严格迁移和篡改拒绝", () => {
+  for (const id of [
+    "monster_medium:p105",
+    "monster_medium:p106",
+    "monster_medium:p109",
+    "monster_large:p018",
+    "monster_large:p019",
+    "monster_large:p020",
+  ] as const) {
+    expect(taskSources.catalog.monsters.find((c) => c.id === id)).toBeDefined();
+  }
+  expect(taskSources.catalog.monsters.find((c) => c.id === "monster_medium:p105")).toMatchObject(
+    ancestor1StanceExpect,
+  );
+  expect(taskSources.catalog.monsters.find((c) => c.id === "monster_large:p020")).toMatchObject(
+    heartOfDarknessStanceExpect,
+  );
+  expect(preFinalBattleBossCatalogTaskSources.catalog.monsters).toEqual(
+    preMammothCystTaskSources.catalog.monsters.filter(
+      (c) =>
+        ![
+          "monster_medium:p105",
+          "monster_medium:p106",
+          "monster_medium:p109",
+          "monster_large:p018",
+          "monster_large:p019",
+          "monster_large:p020",
+        ].includes(c.id),
+    ),
+  );
+  expect(
+    preMammothCystTaskSources.catalog.monsters.some((c) => c.id === "monster_large:p018"),
+  ).toBe(true);
+  const start = {
+    seed: 2,
+    questId: "quest:p019",
+    mode: "radiant",
+    party: naturalParty,
+    bossEdgeRooms: true,
+  } as const;
+  const oldGame = createCoreDungeonQuest(
+    2,
+    start.questId,
+    start.mode,
+    start.party,
+    preFinalBattleBossCatalogTaskSources,
+    true,
+  );
+  const save = JSON.parse(
+    JSON.stringify(createQuestSave(start, [], oldGame, preFinalBattleBossCatalogTaskSources)),
+  );
+  expect(loadQuestSave(save, taskSources, [preFinalBattleBossCatalogTaskSources]).game).toEqual(
+    createCoreDungeonQuest(2, start.questId, start.mode, start.party, taskSources, true),
+  );
+  save.snapshot.dungeon.gold++;
+  expect(() => loadQuestSave(save, taskSources, [preFinalBattleBossCatalogTaskSources])).toThrow();
 });
 
 it("R-183 Shuffling Horror 正式卡字段、旧目录严格迁移和篡改拒绝", () => {

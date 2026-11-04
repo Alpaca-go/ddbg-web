@@ -2300,8 +2300,21 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：批准最终战在 R-165 房间（`room:p025` / `room_tile:p014:back`）的 **`deployFinalBattleForm`** 生产部署与形态间续接。四英雄按 R-165 落 **K/I/K/C**，各形态 Boss 与支持卡按目录 stance 落 **E/B/A/J**；十一区邻接经 `roomTileBattleAreas` 写入 BattleState，**不**经 `selectRoomTile` 或探索 tile 白名单。保留英雄状态与 RNG 游标，部署不掷骰；显式 **`startBattle`** 仍洗先攻。`room_tile` 与 `darkest_boss_content` 的 **`usable` / `combatReady` 保持 false**（无 `ancestorGlory` 等特殊区运行时）。
-- **依据**：Kyries 待确认本 PR；R-165 图面、[审核稿](phase5-ancestor-room-geometry-review-2026-11-03.md)、[生产入口审核稿](phase5-final-battle-production-entry-review-2026-11-04.md)、核心 R36/R-035、对标 R-184 / R-182。
+- **依据**：Kyries 确认 [#595](https://github.com/Alpaca-go/ddbg-web/pull/595) 与 R-186；R-165 图面、[审核稿](phase5-ancestor-room-geometry-review-2026-11-03.md)、[生产入口审核稿](phase5-final-battle-production-entry-review-2026-11-04.md)、核心 R36/R-035、对标 R-184 / R-182。
 - **边界**：限最终战形态流程（`finalBattleProvisions` + `finalFormSequence`）；不修改任务白名单、自然战役严格存档、形态技能完整 AI、Stygian、扩展包。
+
+### R-187
+
+- **日期**：2026-11-04（Asia/Shanghai）
+- **裁定**：最终战形态战斗卡 Speed 与四姿态选招表如下（印刷 COREBOX monsters_medium FRONT p105–p111、monsters_large FRONT p18–p20；`darkest_boss_content.finalBattle` 同 id）：
+  - **Ancestor 1** `monster_medium:p105`：Speed **3**；四姿态 d10 **1–3 → slot 1**（Perfect Replication）、**4–10 → slot 2**（Imperfect Reproduction）；slot 3 Time Heals All 由 `boss_ability:p034` 与专用运行时处理，**不**写入姿态骰表。
+  - **Perfect Reflection** `monster_medium:p106`：Speed **2**；四姿态 **1–5 / 6–10 → slot 1–2**。
+  - **Imperfect Reflection** `monster_medium:p109`：Speed **1**；四姿态 **1–5 / 6–10 → slot 1–2**。
+  - **Ancestor 2** `monster_large:p018`：Speed **3**；四姿态 **1–2 / 3–6 / 7–10 → slot 1–3**（与既有 verified 一致）。
+  - **Gestating Heart** `monster_large:p019`：卡面**无**移动靴印，Speed **0**；四姿态固定 **slot 1**（Dispersion）；Ichor 与随机召唤走 `boss_ability:p036` 与专用运行时。
+  - **Heart of Darkness** `monster_large:p020`：卡面**无**移动靴印，Speed **0**；四姿态 footer **1–4 / 5–7 / 8–10 → slot 1–3**（与 **R-139** Impending Doom 映射一致；Impending Doom 仍走专用落骰）。
+- **依据**：Kyries 待确认本 PR；核心 R24、R-015、R-139；[字段核对稿](phase5-final-battle-page-entry-review-2026-11-04.md)；部署 R-186（[#595](https://github.com/Alpaca-go/ddbg-web/pull/595)）。
+- **边界**：仅此六张卡字段与正式 `bossMonsters` 目录及 `preFinalBattleBossCatalogTaskSources` 迁移。不修改 `combatReady`、任务白名单或 R-186 部署几何；Absolute Nothingness / 完整 AI / 自然存档分切片。
 
 ### R-185
 
