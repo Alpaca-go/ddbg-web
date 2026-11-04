@@ -346,6 +346,15 @@ export function naturalQuest(
           if (state.dungeon!.campaignFailure) return;
           continue;
         }
+        if (
+          state.dungeon!.roomCards!.active!.cardId === "room:p013" &&
+          state.dungeon!.activeBossThreatScriptId === "boss:ruins:fanatic:1"
+        ) {
+          step({ type: "deployFanaticI" });
+          fight();
+          if (state.dungeon!.campaignFailure) return;
+          continue;
+        }
         if (!state.dungeon!.roomCards!.active!.tileId) throw new Error("unready tile");
         step({ type: "prepareDungeonMonsters" });
         step({ type: "startDungeonBattle" });
