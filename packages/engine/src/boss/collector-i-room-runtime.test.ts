@@ -136,7 +136,7 @@ describe("C-015 · Collector Room 三宝箱布置（R39、R-047/048/059）", () 
     const result = applyCommand(initial, { type: "startBattle" });
     expect(result.events[0]).toMatchObject({
       type: "commandRefused",
-      message: expect.stringContaining("R-048"),
+      message: expect.stringContaining("R-168"),
     });
     expect(result.state).toBe(initial);
     expect(result.state.battle!.rngCursor).toBe(0);

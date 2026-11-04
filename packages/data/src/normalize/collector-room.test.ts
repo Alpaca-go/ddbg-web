@@ -50,7 +50,7 @@ it("R-168：八区与三独立宝箱可确定性生成，保持Boss准入关闭"
     areaId: "F",
     count: 3,
     printedOverlay: "!",
-    runtimeReady: false,
+    runtimeReady: true,
   });
   expect(tile.specialRegions).toEqual([]);
   expect(

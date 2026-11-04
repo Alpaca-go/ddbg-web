@@ -68,7 +68,7 @@ const tileShape = z.strictObject({
     iconId: z.literal("f9f205b9e1"),
     overlayIconId: z.literal("6c5de8d976"),
     printedOverlay: z.literal("!"),
-    runtimeReady: z.literal(false),
+    runtimeReady: z.literal(true),
   }),
   deployment: z.strictObject({
     printReview: z.literal("verified"),
@@ -108,7 +108,7 @@ const tileShape = z.strictObject({
   ),
 });
 
-// R-168仅批准图面，Boss运行时准入仍单独核实。
+// R-168图面；F区三宝箱交互见 R-177。Boss准入与 room usable 仍单独核实。
 export const approvedCollectorRoom = tileShape.parse({
   id: "room_tile:p007:back",
   rawId: "dungeon_tile:p007",
@@ -128,7 +128,7 @@ export const approvedCollectorRoom = tileShape.parse({
     iconId: "f9f205b9e1",
     overlayIconId: "6c5de8d976",
     printedOverlay: "!",
-    runtimeReady: false,
+    runtimeReady: true,
   },
   deployment: {
     printReview: "verified",

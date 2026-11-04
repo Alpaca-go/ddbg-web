@@ -2208,7 +2208,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **日期**：2026-11-03（Asia/Shanghai）
 - **裁定**：批准[Collector Room审核稿](phase5-collector-room-geometry-review-2026-11-03.md)：A–H容量2、3、3、2、2、2、2、3，均普通地形。英雄Aggressive/Support H、Ranged/Defensive B；怪物Aggressive C、Defensive G、Ranged E、Support A。7条共享边、3组角点按审核稿；F有三个独立宝箱标记，各带白色叹号；无额外阻挡或星标，room卡无额外效果文字。
 - **依据**：Kyries回复“核对通过”；R-001、R-048、R-021，核心规则R16–18、R25。
-- **边界**：仅批准图面与宝箱数量，不推定叹号特殊奖励含义；Boss准入、宝箱交互和奖励运行时另行核实，保持usable=false。
+- **边界**：仅批准图面与宝箱数量，不推定叹号特殊奖励含义；Boss 准入仍另行核实，保持 usable=false。F 区宝箱交互与奖励见 R-177。
 - **状态**：Q-151已解决。
 
 ### Q-152
@@ -2273,7 +2273,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：批准 Collector I 在 R-168 房间的专用部署。Boss 初始进攻/C，英雄进攻与辅助/H、防御与远程/B。Collect All 的防御、远程、辅助召唤物分别放 G、E、A。显式开始战斗时在 F 布置三个独立宝箱，沿用 R-047 有限牌池。
 - **依据**：Kyries 对部署方案回复“确认”。R-168 图面、核心 R31/R39、规格书 §14.4–14.5、R-034。
-- **边界**：限 I 级 Face the Threat 的实际 Collector 威胁与专属目标房。宝箱交互和奖励仍待核实，沿用既有任务白名单、combatReady 与 room:p012 usable=false。
+- **边界**：限 I 级 Face the Threat 的实际 Collector 威胁与专属目标房。F 区宝箱交互与奖励见 R-177；沿用既有任务白名单、combatReady 与 room:p012 usable=false。
 
 ### R-176
 
@@ -2281,3 +2281,10 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**：Collector I 战斗卡 `monster_medium:p092` 的 Speed 为 2。四姿态共用 d10 选招表，1–5 为 Show Collection（slot 1），6–10 为 Life Steal（slot 2）。
 - **依据**：Kyries 对 Q-154 回复“确认”。核心 R24、印刷 COREBOX 怪物中卡正面第 92 页及[字段核对稿](phase5-collector-i-page-entry-review-2026-11-04.md)。
 - **边界**：仅此卡字段与正式目录。Collect All 仍按核心 R39 与规格书 §14.5 接管相应行动。
+
+### R-177
+
+- **日期**：2026-11-04（Asia/Shanghai）
+- **裁定**：批准 Collector Room（R-168）F 区三个独立宝箱的交互与奖励运行时：英雄在同区、当前行动中可 `interactLoot` 翻开并结算，奖励种类与 R-047 十枚有限堆一致（含 R-059 补给池满 16 时的保留 / 选项限制）；白色叹号仅图面外观，不赋予额外或特殊奖励。未拾取箱在战斗结束仍按 R-047 / R-059 归还未拾取代币至本次地牢可用堆；已拾取 `claimedIds` 不再出现。
+- **依据**：Kyries 令继续接通宝箱交互；核心 R18、R39；规格书战利品翻面；R-168、R-175、R-047、R-059；R-001 / R-048。
+- **边界**：不修改 `combatReady`、任务白名单或 `room:p012 usable=false`；不推定叹号语义；Collector II/III 与其余 Boss 分切片。
