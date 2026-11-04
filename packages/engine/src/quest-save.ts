@@ -29,6 +29,7 @@ function replay(
   commands: readonly Command[],
   sources: CoreQuestSources,
   legacyFaceSetup = false,
+  legacyFacePlan = false,
 ) {
   let game = createCoreDungeonQuest(
     start.seed,
@@ -49,10 +50,13 @@ function replay(
   }
   let events: readonly GameEvent[] = [];
   for (const [index, command] of commands.entries()) {
+    const oldPlan = game.dungeon?.faceTheThreatEmbarkPlan;
     const result = applyCommand(game, command);
     const refused = result.events.find((e) => e.type === "commandRefused");
     if (refused) throw new Error(`存档第${index + 1}条命令无法回放：${refused.message}`);
     game = result.state;
+    if (legacyFacePlan && command.type === "establishImminentThreat" && oldPlan && game.dungeon)
+      game = { ...game, dungeon: { ...game.dungeon, faceTheThreatEmbarkPlan: oldPlan } };
     events = result.events;
   }
   return { game, events };
@@ -178,29 +182,38 @@ export function loadQuestSave(
         restored.game,
       ),
     );
-  const oldSetup = (save.snapshot as GameState | null)?.dungeon;
-  if (
-    restoredKey !== snapshotKey &&
-    save.start.questId === "quest:p019" &&
-    oldSetup?.campaignLevel === undefined &&
-    oldSetup?.explorationSetup?.dungeonLevel === 3
-  ) {
-    try {
-      const legacy = replay(save.start, commands, sources, true).game;
-      const d = legacy.dungeon!;
-      const upgraded = {
-        ...legacy,
-        dungeon: {
-          ...d,
-          campaignLevel: 1,
-          explorationSetup: { ...d.explorationSetup!, dungeonLevel: 1 },
-        },
-      };
-      // 不允许借入口修正改变玩家、牌池、待选或RNG；仅两项入口字段可变。
-      if (canonical(legacy) === canonical(save.snapshot) && canonical(upgraded) === restoredKey)
-        snapshotKey = restoredKey;
-    } catch {
-      // 旧日志不能重放，继续既有严格拒绝/可信旧目录流程。
+  if (restoredKey !== snapshotKey && save.start.questId === "quest:p019") {
+    const previousDungeon = (save.snapshot as GameState | null)?.dungeon;
+    const oldSetup =
+      previousDungeon?.campaignLevel === undefined &&
+      previousDungeon?.explorationSetup?.dungeonLevel === 3;
+    const oldPlan =
+      commands.some((c) => c.type === "establishImminentThreat") &&
+      canonical(previousDungeon?.faceTheThreatEmbarkPlan) !==
+        canonical(restored.game.dungeon?.faceTheThreatEmbarkPlan);
+    if (oldSetup || oldPlan) {
+      try {
+        const legacy = replay(save.start, commands, sources, oldSetup, oldPlan).game;
+        const d = legacy.dungeon!;
+        const upgraded = {
+          ...legacy,
+          dungeon: {
+            ...d,
+            ...(oldSetup
+              ? { campaignLevel: 1, explorationSetup: { ...d.explorationSetup!, dungeonLevel: 1 } }
+              : {}),
+            ...(oldPlan
+              ? { faceTheThreatEmbarkPlan: restored.game.dungeon!.faceTheThreatEmbarkPlan }
+              : {}),
+          },
+        };
+        // 旧日志必须先完整匹配；仅固定入口字段/占位计划可升级，玩家、待选与RNG仍逐项相等。
+        if (canonical(legacy) === canonical(save.snapshot) && canonical(upgraded) === restoredKey) {
+          snapshotKey = restoredKey;
+        }
+      } catch {
+        /* 无法严格重放的旧日志继续拒绝或尝试可信旧目录。 */
+      }
     }
   }
   if (restoredKey !== snapshotKey) {

@@ -85,7 +85,7 @@ it("Necromancer I从任务起点自然探索、击败与回村；战斗中及回
   expect(applyCommand(game, { type: "finishReturnToHamlet" }).state).toBe(game);
 }, 120000);
 
-it("旧p019入口快照仅迁移DL3占位与缺失战役等级；金币或RNG篡改仍拒绝", () => {
+function legacyFaceSave() {
   const start = {
     seed: 2,
     questId: "quest:p019",
@@ -104,14 +104,21 @@ it("旧p019入口快照仅迁移DL3占位与缺失战役等级；金币或RNG篡
   const legacy = JSON.parse(JSON.stringify(createQuestSave(start, [], game, coreQuestSources)));
   delete legacy.snapshot.dungeon.campaignLevel;
   legacy.snapshot.dungeon.explorationSetup.dungeonLevel = 3;
+  return { start, game, legacy };
+}
+
+it("旧p019入口快照仅迁移DL3占位与缺失战役等级", () => {
+  const { start, game, legacy } = legacyFaceSave();
   const loaded = loadQuestSave(legacy, coreQuestSources);
   expect(loaded.game).toEqual(game);
   expect(createQuestSave(start, loaded.commands, loaded.game, coreQuestSources).snapshot).toEqual(
     JSON.parse(JSON.stringify(game)),
   );
-  for (const field of ["gold", "cursor"] as const) {
-    const forged = structuredClone(legacy);
-    forged.snapshot.dungeon[field]++;
-    expect(() => loadQuestSave(forged, coreQuestSources)).toThrow();
-  }
+});
+
+it.each(["gold", "cursor"] as const)("旧p019快照篡改%s仍拒绝", (field) => {
+  const { legacy } = legacyFaceSave();
+  const forged = structuredClone(legacy);
+  forged.snapshot.dungeon[field]++;
+  expect(() => loadQuestSave(forged, coreQuestSources)).toThrow();
 });
