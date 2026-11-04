@@ -41,4 +41,4 @@
 
 ## 验证
 
-部署、先知既有运行时与死灵法师部署共 3 文件 46 测通过，含 7 条先知部署场景。JSON 验证是机制夹具续接，不代表从任务起点严格存档自然回放。类型、lint、构建与远端完整检查结果待补。
+部署、先知既有运行时与死灵法师部署共 3 文件 46 测通过，含 7 条先知部署场景。JSON 验证是机制夹具续接，不代表从任务起点严格存档自然回放。本地 typecheck、变动文件 ESLint/Prettier 与 build 均通过。固定代码提交 `e1bd9c3` 的[完整 CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/41748851588)全部通过：全量单元/场景、typecheck、全仓 lint、build、Python 工具测试与完整 Playwright smoke；push 与 PR 两套检查均全绿。之后仅补本文验证记录。
