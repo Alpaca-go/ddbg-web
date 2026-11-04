@@ -45,6 +45,7 @@ export const taskSources: CoreQuestSources = {
   },
 };
 
+const mammothCystCatalogId = "monster_large:p016" as const;
 const shufflingHorrorCatalogId = "monster_large:p017" as const;
 const templarsCatalogIds = ["monster_large:p014", "monster_large:p015"] as const;
 
@@ -66,6 +67,17 @@ export const preShufflingHorrorTaskSources: CoreQuestSources = {
     ...preTemplarsTaskSources.catalog,
     monsters: preTemplarsTaskSources.catalog.monsters.filter(
       (c) => c.id !== shufflingHorrorCatalogId,
+    ),
+  },
+};
+
+/** 接通 Mammoth Cyst 正式目录前的固定来源。 */
+export const preMammothCystTaskSources: CoreQuestSources = {
+  ...preShufflingHorrorTaskSources,
+  catalog: {
+    ...preShufflingHorrorTaskSources.catalog,
+    monsters: preShufflingHorrorTaskSources.catalog.monsters.filter(
+      (c) => c.id !== mammothCystCatalogId,
     ),
   },
 };

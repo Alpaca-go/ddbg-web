@@ -256,6 +256,24 @@ export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
       },
     ],
   },
+  // R-185：Mammoth Cyst · FRONT p016；一枚靴印 Speed 1；四姿态 Fanatic 同型 footer：1–4 / 5–8 / 9–10 → slot 1–3（含 Revivify；White Cell 召唤/替换行动走 boss_ability 与专用运行时）。
+  {
+    id: "monster_large:p016",
+    name: "Mammoth Cyst",
+    level: 3,
+    pages: [16],
+    speed: 1,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 4, skill: 1 },
+          { min: 5, max: 8, skill: 2 },
+          { min: 9, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
   // R-183：Shuffling Horror · FRONT p017；一枚靴印 Speed 1；四姿态共用 d10 1–7 / 8–10 → slot 1–2（slot 3 Echoing 走 boss_ability，不进选招表）。
   {
     id: "monster_large:p017",
