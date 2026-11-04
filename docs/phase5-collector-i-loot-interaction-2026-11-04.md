@@ -1,6 +1,6 @@
 # Collector Room 宝箱交互与翻开奖励（R-177）
 
-日期：2026-11-04。基线：main @ R-175 部署合入后。Kyries 令接通 R-168 F 区三宝箱交互，裁定见 **R-177**。
+日期：2026-11-04。基线：main @ [#578](https://github.com/Alpaca-go/ddbg-web/pull/578)（R-177）合入后。Kyries 令接通 R-168 F 区三宝箱交互，裁定见 **R-177**。总览见 [HANDOFF-2026-11-04-collector-i.md](HANDOFF-2026-11-04-collector-i.md)。
 
 ## 范围
 
@@ -10,7 +10,7 @@
 
 ## 不在本刀
 
-- `combatReady`、任务白名单、`room:p012 usable=false`、Collector II/III、Fanatic、正式页面 / 自然存档（#577 切片）。
+- `combatReady`、任务白名单、`room:p012` / `room_tile:p007:back` 的 `usable=false`、普通 `selectRoomTile` 进房、Collector II/III、Fanatic（正式页面 / 自然存档已由 #577 合入）。
 
 ## 验证
 

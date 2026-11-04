@@ -58,7 +58,10 @@ it("R-168：八区与三独立宝箱可确定性生成，保持Boss准入关闭"
       rooms.cards.find((c) => c.id === "room:p012"),
       geometry,
     ),
-  ).toMatchObject({ status: "refused" });
+  ).toMatchObject({
+    status: "refused",
+    reason: "Boss房间留对应阶段，不开放普通战斗入口",
+  });
 });
 
 it("拒绝共享边改角点、C-H误通行、怪物姿态、容量及准入漂移", () => {
