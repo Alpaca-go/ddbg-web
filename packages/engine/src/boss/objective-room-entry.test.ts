@@ -54,9 +54,17 @@ it("四 Boss I–III 按实际威胁绑定专属房间；不抽普通牌、不�
         cardId: ids[family],
       });
       expect(after.roomCards!.active!.tileId).toBeUndefined();
-      expect(after.roomCards!.active!.blockedReason).toContain(
-        RUINS_COMBAT_LEVELS[family][level - 1]!.card,
-      );
+      const reason = after.roomCards!.active!.blockedReason!;
+      expect(reason).toContain(RUINS_COMBAT_LEVELS[family][level - 1]!.card);
+      if (family !== "fanatic" && level === 1)
+        expect(reason).toContain(
+          {
+            necromancer: "deployNecromancerI",
+            prophet: "deployProphetI",
+            collector: "deployCollectorI",
+          }[family],
+        );
+      else expect(reason).toContain("生产战斗尚未获批接通");
       expect(after).toEqual({
         ...before,
         roomCards: { ...before.roomCards!, active: after.roomCards!.active },
