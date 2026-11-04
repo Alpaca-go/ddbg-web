@@ -110,7 +110,7 @@ export const collectorIBossScript: BossScriptDefinition = {
   displayName: "Collector I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R39 / C-015：三宝箱同区布置已接 startBattle，缺少获批区域绑定则拒绝；Collector Room 生产几何仍 hold。Collect All / 先攻洗入 / 最近区域挤占沿用原运行时。",
+    "R39 / C-015：R-175 真实部署与 F 区三宝箱已接；room:p012 usable=false 与宝箱交互/奖励仍 hold（R-168、R-175）。Collect All / 先攻洗入 / 最近区域挤占沿用原运行时。",
   combatEntry: {
     descriptionAbilityCardId: COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: COLLECTOR_I_COMBAT_ABILITY_CARD_ID,
