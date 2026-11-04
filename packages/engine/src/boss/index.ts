@@ -387,6 +387,7 @@ export {
   deployShufflingHorrorI,
   shufflingHorrorProductionCombatActive,
 } from "./shuffling-horror-i-deploy";
+export { deployMammothCystI, mammothCystProductionCombatActive } from "./mammoth-cyst-i-deploy";
 export {
   applyShufflingHorrorEchoingDisassembly,
   applyShufflingHorrorUndulations,

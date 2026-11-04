@@ -30,6 +30,7 @@ import {
 } from "./darkest-mid-boss-scripts";
 import { shufflingHorrorProductionCombatActive } from "./shuffling-horror-i-deploy";
 import { templarsProductionCombatActive } from "./templars-i-deploy";
+import { mammothCystProductionCombatActive } from "./mammoth-cyst-i-deploy";
 
 const MID_BOSS_SCRIPT_IDS = new Set([
   DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
@@ -199,6 +200,10 @@ export function deployDarkestMidBoss(state: GameState): ApplyResult {
     );
   if (plan?.questId === "quest:p017")
     return refuse("Templars 须使用 deployTemplarsI（R-180），不用 deployDarkestMidBoss 占位几何");
+  if (plan?.questId === "quest:p018")
+    return refuse(
+      "Mammoth Cyst 须使用 deployMammothCystI（R-184），不用 deployDarkestMidBoss 占位几何",
+    );
   if (
     !d?.darkest ||
     !plan ||
@@ -308,6 +313,7 @@ export function expandDarkestMidBossInitiativeDeckSides(
 export function darkestMidBossCombatActive(state: GameState): boolean {
   if (shufflingHorrorProductionCombatActive(state)) return true;
   if (templarsProductionCombatActive(state)) return true;
+  if (mammothCystProductionCombatActive(state)) return true;
   const d = state.dungeon;
   if (!d?.darkest?.bossDeployment || d.phase !== "inBattle" || !state.battle) return false;
   const plan = d.darkest.bossEncounterPlan;

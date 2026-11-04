@@ -188,6 +188,16 @@ it("最暗普通/目标房都保留正确房间牌，缺几何不替换为Ruins�
         expect(deployed.state.battle!.entities.filter((e) => e.side === "monster")).toHaveLength(2);
         continue;
       }
+      if (kind === "objective" && quest === "quest:p018") {
+        expect(
+          applyCommand(result.state, { type: "prepareDungeonMonsters" }).events.some(
+            (e) => e.type === "commandRefused",
+          ),
+        ).toBe(true);
+        const deployed = ok(result.state, { type: "deployMammothCystI" });
+        expect(deployed.state.battle!.entities.filter((e) => e.side === "monster")).toHaveLength(1);
+        continue;
+      }
       const monsters = ok(result.state, { type: "prepareDungeonMonsters" });
       if (kind === "objective") {
         expect(monsters.state.dungeon!.darkest!.bossDeployment?.monsters.length).toBeGreaterThan(0);

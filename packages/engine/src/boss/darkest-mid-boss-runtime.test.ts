@@ -8,10 +8,7 @@ import {
   DARKEST_TEMPLARS_SCRIPT_ID,
   ensureDarkestMidBossScriptsRegistered,
 } from "./darkest-mid-boss-scripts";
-import {
-  darkestMidBossDeploymentHold,
-  prepareDarkestMidBossDeployment,
-} from "./darkest-mid-boss-runtime";
+import { darkestMidBossDeploymentHold } from "./darkest-mid-boss-runtime";
 import { isBossEncounter, resolveEncounterBossScriptId } from "./encounter-rules";
 import { getBossScript } from "./registry";
 import { bossQuestScriptId, resolveBossScriptIdForQuest } from "./quest-bridge";
@@ -31,8 +28,6 @@ function ok(game: GameState, command: Command) {
   return result;
 }
 
-const placeholderQuests = quests.filter(([id]) => id === "quest:p018");
-
 describe("最暗中途 Boss 运行时接线", () => {
   it("注册脚本并与 quest-bridge 映射一致", () => {
     ensureDarkestMidBossScriptsRegistered();
@@ -42,52 +37,6 @@ describe("最暗中途 Boss 运行时接线", () => {
       expect(getBossScript(scriptId)?.combatEntry?.combatMonsterCardId).toBeTruthy();
     }
   });
-
-  it.each(placeholderQuests)(
-    "目标房：绑定专属房间 → 部署 Boss 身份 → Boss 遭遇判定（%s）",
-    (questId, scriptId, roomCardId) => {
-      const game = createCoreDungeonQuest(7, questId, "radiant", coreParty, coreQuestSources);
-      const d = game.dungeon!;
-      const room = d.rooms.find((r) => r.kind === "objective")!;
-      const battlePrep = ok(
-        {
-          ...game,
-          dungeon: { ...d, phase: "awaitingRoom", position: room.id },
-        },
-        { type: "prepareDungeonBattle" },
-      );
-      expect(battlePrep.state.dungeon!.darkest!.bossEncounterPlan?.resolvedScriptId).toBe(scriptId);
-      expect(battlePrep.state.dungeon!.roomCards!.active!.cardId).toBe(roomCardId);
-      expect(battlePrep.state.dungeon!.roomCards!.active!.blockedReason).toContain("combatReady");
-      const deployed = ok(battlePrep.state, { type: "prepareDungeonMonsters" });
-      const deployment = deployed.state.dungeon!.darkest!.bossDeployment!;
-      expect(deployment.monsters.map((m) => m.cardId).sort()).toEqual(
-        [...deployed.state.dungeon!.darkest!.bossEncounterPlan!.actorCardIds].sort(),
-      );
-      const planSupport = deployed.state.dungeon!.darkest!.bossEncounterPlan!.supportCardIds;
-      if (planSupport.length) {
-        expect(deployment.supportMonsters.map((m) => m.cardId).sort()).toEqual(
-          [...planSupport].sort(),
-        );
-        for (const support of deployment.supportMonsters) {
-          expect(support.verified).toBe(false);
-          expect(support.areaId).toMatch(/^darkest-mid-boss-/);
-        }
-        expect(deployment.blockedReason).toContain("已记录身份");
-        expect(deployment.blockedReason).not.toContain("未部署");
-      } else {
-        expect(deployment.supportMonsters).toEqual([]);
-      }
-      expect(darkestMidBossDeploymentHold(deployed.state.dungeon!)).toContain(
-        "deployDarkestMidBoss",
-      );
-      expect(resolveEncounterBossScriptId(deployed.state)).toBe(scriptId);
-      expect(isBossEncounter(deployed.state)).toBe(true);
-      expect(prepareDarkestMidBossDeployment(deployed.state)).toMatchObject({
-        events: [{ type: "commandRefused" }],
-      });
-    },
-  );
 
   it("quest:p016 绑房后须 deployShufflingHorrorI，prepareDungeonMonsters 占位部署拒绝", () => {
     const game = createCoreDungeonQuest(7, "quest:p016", "radiant", coreParty, coreQuestSources);
@@ -131,6 +80,26 @@ describe("最暗中途 Boss 运行时接线", () => {
     expect(isBossEncounter(deployed.state)).toBe(true);
   });
 
+  it("quest:p018 绑房后须 deployMammothCystI，prepareDungeonMonsters 占位部署拒绝", () => {
+    const game = createCoreDungeonQuest(7, "quest:p018", "radiant", coreParty, coreQuestSources);
+    const d = game.dungeon!;
+    const room = d.rooms.find((r) => r.kind === "objective")!;
+    const bound = ok(
+      { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
+      { type: "prepareDungeonBattle" },
+    );
+    expect(bound.state.dungeon!.roomCards!.active!.blockedReason).toContain("deployMammothCystI");
+    expect(
+      applyCommand(bound.state, { type: "prepareDungeonMonsters" }).events.some(
+        (e) => e.type === "commandRefused",
+      ),
+    ).toBe(true);
+    expect(darkestMidBossDeploymentHold(bound.state.dungeon!)).toContain("deployMammothCystI");
+    const deployed = ok(bound.state, { type: "deployMammothCystI" });
+    expect(resolveEncounterBossScriptId(deployed.state)).toBe(DARKEST_MAMMOTH_CYST_SCRIPT_ID);
+    expect(isBossEncounter(deployed.state)).toBe(true);
+  });
+
   it("quest:p018 wiringHold 含 Summon White Cell 已接", () => {
     const game = createCoreDungeonQuest(7, "quest:p018", "radiant", coreParty, coreQuestSources);
     const d = game.dungeon!;
@@ -143,8 +112,10 @@ describe("最暗中途 Boss 运行时接线", () => {
       { type: "prepareDungeonBattle" },
     );
     expect(bound.state.dungeon!.darkest!.bossEncounterPlan!.wiringHold).toContain(
+      "deployMammothCystI",
+    );
+    expect(bound.state.dungeon!.darkest!.bossEncounterPlan!.wiringHold).toContain(
       "Summon White Cell Stalk",
     );
-    expect(bound.state.dungeon!.darkest!.bossEncounterPlan!.wiringHold).toContain("Teleport");
   });
 });

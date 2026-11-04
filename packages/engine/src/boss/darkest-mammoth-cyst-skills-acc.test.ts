@@ -16,7 +16,7 @@ import { readDarkestBossEncounter } from "./darkest-content";
 import { ensureDarkestMidBossScriptsRegistered } from "./darkest-mid-boss-scripts";
 import { readMonsterAttackView, resolveMonsterSkill } from "../monster-skill";
 
-const HERO_SUP = "darkest-mid-boss-hero-support";
+const HERO_SUP = "K";
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);
@@ -36,11 +36,11 @@ function deployed() {
     { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
     { type: "prepareDungeonBattle" },
   );
-  return ok(battlePrep.state, { type: "prepareDungeonMonsters" }).state;
+  return ok(battlePrep.state, { type: "deployMammothCystI" }).state;
 }
 
 function fighting(): GameState {
-  const base = ok(deployed(), { type: "deployDarkestMidBoss" }).state;
+  const base = deployed();
   return ok(base, { type: "startBattle" }).state;
 }
 
