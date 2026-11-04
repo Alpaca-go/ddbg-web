@@ -4,11 +4,12 @@ import type { CoreQuestSources } from "../dungeon-quest-entry";
 import type { BasicQuestId } from "../../../data/src/basic-quests";
 import { currentHamletHero, hamletActionOptions } from "../hamlet-actions";
 import { naturalQuest, type NaturalQuestOptions } from "./natural-quest";
+import { playNaturalBattle } from "./natural-battle";
 
 export type NaturalFinalBattleOptions = NaturalQuestOptions & {
   readonly questId?: BasicQuestId;
   /** `deployed`：含 `deployFinalBattleForm`；`battleStarted`：再含 `startBattle`。默认仅到 `prepareFinalBattleForms`。 */
-  readonly through?: "deploymentReady" | "deployed" | "battleStarted";
+  readonly through?: "deploymentReady" | "deployed" | "battleStarted" | "campaignVictory";
 };
 
 /** 最暗任务自然胜利回村 → 最后四天 → 最终战补给与形态 → 可选部署/开战；仅公开命令。 */
@@ -40,6 +41,12 @@ export function naturalFinalBattle(
     pending.options[0]!.id;
   const settle = () => {
     for (let guard = 0; guard < 200; guard++) {
+      while (state.dungeon?.deathTrinketChoice)
+        step({
+          type: "resolveChoice",
+          choiceId: state.dungeon.deathTrinketChoice.id,
+          optionId: "discard",
+        });
       const pending = choice();
       if (pending) {
         step({
@@ -82,9 +89,15 @@ export function naturalFinalBattle(
   if (state.dungeon!.finalBattleProvisions !== "ready") throw new Error("最终战补给未就绪");
   step({ type: "prepareFinalBattleForms" });
   const through = options.through ?? "deploymentReady";
-  if (through !== "deploymentReady") {
-    step({ type: "deployFinalBattleForm" });
-    if (through === "battleStarted") step({ type: "startBattle" });
+  if (through !== "deploymentReady") step({ type: "deployFinalBattleForm" });
+  if (through === "battleStarted") step({ type: "startBattle" });
+  if (through === "campaignVictory") {
+    for (let form = 0; form < 4; form++) {
+      playNaturalBattle({ state: () => state, step, settle });
+      if (state.dungeon!.campaignVictory) break;
+      step({ type: "deployFinalBattleForm" });
+    }
+    if (!state.dungeon!.campaignVictory) throw new Error("四形态未打到战役胜利");
   }
   return { initial: initialRun.initial, state, commands, events, questId, seed };
 }
