@@ -145,7 +145,7 @@ export function applyGestatingHeartSummon(state: GameState, actorId: string): Ap
   const stanceSlots = readPoolStanceSlots(picked.cardId);
   const stance = pickOpenMonsterStance(occupied, stanceSlots);
   if (!stance)
-    return rejectBattleCommand(state, "Summon：无可用怪物姿态占位（final-monster-* 占位；R-048）");
+    return rejectBattleCommand(state, "Summon：无可用怪物姿态占位（R-165 E/B/A/J；R-048）");
 
   const card = readMonsterCard(state, battle, picked.cardId);
   if (!card || !Number.isInteger(card.life) || card.life < 1)

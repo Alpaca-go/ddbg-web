@@ -2,7 +2,6 @@ import type { ApplyResult, GameState } from "../command";
 import {
   createBattleState,
   rejectBattleCommand,
-  type BattleArea,
   type BattleEntity,
   type BattleState,
 } from "../battle";
@@ -23,42 +22,25 @@ import {
 import { readFinalBattlePlanAfterDarkestVictory } from "./darkest-content";
 import { appendAbsoluteNothingnessSupportEntities } from "./ancestor2-absolute-nothingness";
 import roomCatalog from "../../../data/normalized/corebox/room_tile_geometry.json";
-import roomCards from "../../../data/normalized/corebox/room.json";
-import { roomFileSchema } from "../../../data/src/room";
+import {
+  ancestorRoomSchema,
+  approvedAncestorRoom,
+} from "../../../data/src/normalize/ancestor-room";
 import { roomTileGeometryFileSchema } from "../../../data/src/normalize/room-tile";
 
-/** Ancestor Room（room:p025）板块几何与印刷部署未获批；占位区域不绑定 ancestorGlory 或已批 map（R-048）。 */
-const SKELETON_STANCE_AREAS = {
-  hero: {
-    aggressive: "final-hero-aggressive",
-    defensive: "final-hero-defensive",
-    ranged: "final-hero-ranged",
-    support: "final-hero-support",
-  },
-  monster: {
-    aggressive: "final-monster-aggressive",
-    defensive: "final-monster-defensive",
-    ranged: "final-monster-ranged",
-    support: "final-monster-support",
-  },
-} as const;
+const ANCESTOR_ROOM_TILE_ID = "room_tile:p014:back" as const;
 
-/** 与 `deployFinalBattleForm` 占位几何一致；Ancestor Room 未批时 Summon 等同使用（R-048）。 */
-export const FINAL_BATTLE_MONSTER_STANCE_AREAS = SKELETON_STANCE_AREAS.monster;
+/** R-165 / R-186：`deployFinalBattleForm` 与最终战 Summon / Nothingness 等共用的印刷怪物姿态区。 */
+export const FINAL_BATTLE_MONSTER_STANCE_AREAS = approvedAncestorRoom.deployment.monsters;
 
-function skeletonBattleAreas(): BattleArea[] {
-  const ids = [
-    ...new Set([
-      ...Object.values(SKELETON_STANCE_AREAS.hero),
-      ...Object.values(SKELETON_STANCE_AREAS.monster),
-    ]),
-  ];
-  return ids.map((id, index) => ({
-    id,
-    capacity: 4,
-    elevation: "normal" as const,
-    adjacent: [ids[index - 1], ids[index + 1]].filter(Boolean) as string[],
-  }));
+const FINAL_BATTLE_HERO_STANCE_AREAS = approvedAncestorRoom.deployment.heroes;
+
+function readAncestorRoomProductionTile(): typeof approvedAncestorRoom | undefined {
+  const catalog = roomTileGeometryFileSchema.parse(roomCatalog);
+  const tile = catalog.tiles.find((entry) => entry.id === ANCESTOR_ROOM_TILE_ID);
+  const parsed = ancestorRoomSchema.safeParse(tile);
+  if (!parsed.success || parsed.data.usable !== false) return undefined;
+  return parsed.data;
 }
 
 function readMonsterDodge(card: MonsterCardView & { readonly dodge?: number }): number | undefined {
@@ -71,25 +53,6 @@ function readMonsterDodge(card: MonsterCardView & { readonly dodge?: number }): 
 
 function stanceSlots(card: MonsterCardView): 1 | 2 {
   return card.id.startsWith("monster_large:") ? 2 : 1;
-}
-
-function readApprovedAncestorRoomAreas(): BattleArea[] | undefined {
-  const cards = roomFileSchema.parse(roomCards).cards;
-  const card = cards.find((entry) => entry.id === "room:p025");
-  const catalog = roomTileGeometryFileSchema.parse(roomCatalog);
-  if (!card) return undefined;
-  const matches = catalog.tiles.filter(
-    (tile) =>
-      tile.roomId === card.id &&
-      tile.location === card.location &&
-      tile.number === card.number &&
-      tile.geometryVerified &&
-      tile.deployment?.printReview === "verified" &&
-      !tile.unresolvedMarkers.length &&
-      tile.usable,
-  );
-  if (matches.length !== 1) return undefined;
-  return [...roomTileBattleAreas(matches[0]!)];
 }
 
 function spawnFormMonsters(
@@ -120,7 +83,7 @@ function spawnFormMonsters(
       monsterCardId: card.id,
       life: card.life,
       dodge,
-      areaId: SKELETON_STANCE_AREAS.monster[stance!],
+      areaId: FINAL_BATTLE_MONSTER_STANCE_AREAS[stance!],
       stance,
       stanceSlots: stanceSlots(card),
       wounds: 0,
@@ -223,7 +186,7 @@ function buildHeroEntities(
       life: stat.life,
       skillIds: hero.skillIds!,
       stance: hero.stance,
-      areaId: SKELETON_STANCE_AREAS.hero[hero.stance],
+      areaId: FINAL_BATTLE_HERO_STANCE_AREAS[hero.stance],
       wounds: hero.wounds,
       stress: hero.stress,
       dodge: stat.dodge,
@@ -244,7 +207,7 @@ function buildHeroEntities(
   return heroes;
 }
 
-/** R36/R-048：awaitingDeployment → fighting；Ancestor Room 几何 hold 时用占位区域与 Boss 骨架实体。 */
+/** R36 / R-186：awaitingDeployment → fighting；Ancestor Room R-165 十一区与印刷姿态部署（tile usable 仍 false）。 */
 export function deployFinalBattleForm(state: GameState): ApplyResult {
   const d = state.dungeon;
   const sequence = readFinalFormSequence(state);
@@ -264,11 +227,13 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
     return refuse("须在完成最终战补给与形态流程后，于 awaitingDeployment 部署当前形态（R36）");
   if (state.battle && sequence.progress.completedForms.length === 0)
     return refuse("首形态开战前不能保留其它战斗沙盒（R36）");
-  const approvedAreas = readApprovedAncestorRoomAreas();
-  const areas = approvedAreas ?? skeletonBattleAreas();
-  const geometryNote = approvedAreas
-    ? "Ancestor Room 已批几何"
-    : "Ancestor Room（room:p025）几何与印刷部署仍 hold；使用占位区域，不写入 ancestorGlory（R-048）";
+  const tile = readAncestorRoomProductionTile();
+  if (!tile)
+    return refuse("Ancestor Room（room:p025 / room_tile:p014:back）R-165 获批几何无效（R-186）");
+  const areas = [...roomTileBattleAreas(tile)];
+  const deployment = tile.deployment;
+  const geometryNote =
+    "Ancestor Room 已按 R-186 部署：十一区 R-165，英雄 K/I/K/C、怪物 E/B/A/J；tile usable 仍 false、无 ancestorGlory 运行时";
   let monsters: readonly MonsterCardView[] = d.battleCatalog.monsters;
   const spawnedResult = spawnFormMonsters(sequence.current, monsters, refuse);
   if (!Array.isArray(spawnedResult)) return spawnedResult;
@@ -288,6 +253,7 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
       pending: null,
       shuffleIntents: [],
       shuffleContinuation: null,
+      monsterStanceAreas: deployment.monsters,
     };
     const appended = appendAbsoluteNothingnessSupportEntities(draftBattle);
     monsters = appended.monsters;
@@ -309,6 +275,7 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
         skills: d.battleCatalog.skills,
         monsters,
         areas,
+        monsterStanceAreas: deployment.monsters,
         light: d.explorationSetup?.light ?? 4,
         provisions: d.explorationSetup?.provisions ?? [],
         resolveCards: d.resolveCards,
@@ -368,6 +335,7 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
         ...battleBase,
         monsters,
         areas,
+        monsterStanceAreas: deployment.monsters,
         entities: [...heroes, ...spawnedMonsters],
         pending: null,
         shuffleIntents: [],

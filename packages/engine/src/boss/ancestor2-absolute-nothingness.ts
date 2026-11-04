@@ -108,7 +108,7 @@ function buildNothingnessEntity(
 
 /**
  * boss_ability:p035：按 `absolute_nothingness_support.json` 固定落位（防御 / 远程 / 支援各 1），
- * 以占位 areaId 是否已有怪物为准；区域已满则跳过（可部分部署）。不使用 Gestating Heart 随机池 RNG。
+ * 以 R-165 印刷怪物姿态 areaId 是否已有怪物为准；区域已满则跳过（可部分部署）。不使用 Gestating Heart 随机池 RNG。
  */
 export function appendAbsoluteNothingnessSupportEntities(battle: BattleState): {
   readonly entities: readonly BattleEntity[];
@@ -154,7 +154,7 @@ export function applyAncestor2DeployAbsoluteNothingness(state: GameState): Apply
   if (!placed.length)
     return rejectBattleCommand(
       state,
-      "Absolute Nothingness：无可用怪物姿态位或已全部部署（final-monster-*；R-048）",
+      "Absolute Nothingness：无可用怪物姿态位或已全部部署（R-165 E/B/A/J；R-048）",
     );
   return {
     state: {

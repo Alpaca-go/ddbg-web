@@ -97,7 +97,7 @@ it("空槽随机召唤最暗怪物并 finishTurn", () => {
   expect(summoned).toHaveLength(1);
   expect(summoned[0]!.life).toBeGreaterThan(0);
   expect(summoned[0]!.dodge).toBeGreaterThanOrEqual(0);
-  expect(summoned[0]!.areaId).toMatch(/^final-monster-/);
+  expect(summoned[0]!.areaId).toMatch(/^[A-K]$/);
   expect(result.state.battle!.encounter!.turn.type).not.toBe("monster");
   expect(result.state.battle!.rngCursor).toBeGreaterThan(before.battle!.rngCursor);
 });
