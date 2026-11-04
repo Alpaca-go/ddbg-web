@@ -12,10 +12,10 @@
 
 ## 卡面（印刷 / 已核实）
 
-| 技能 | Acc | Crit | 射程 | 目标 | 伤害 | verified 效果 |
-| ---- | --- | ---- | ---- | ---- | ---- | ------------- |
-| Show Collection | 9 | 0 | 1 | Crowded | 1–2 | 目标 +1 压力 |
-| Life Steal | 8 | 1 | 2 | Crowded | 5–9 | Self 治疗 9；目标 2 流血 2t + Mark 2t |
+| 技能            | Acc | Crit | 射程 | 目标    | 伤害 | verified 效果                         |
+| --------------- | --- | ---- | ---- | ------- | ---- | ------------------------------------- |
+| Show Collection | 9   | 0    | 1    | Crowded | 1–2  | 目标 +1 压力                          |
+| Life Steal      | 8   | 1    | 2    | Crowded | 5–9  | Self 治疗 9；目标 2 流血 2t + Mark 2t |
 
 缺 `verified_monster_effects` 或 damage 命名时 **`playMonsterSkill` 整次拒绝**（R-048），不猜补数；Crowded 多目标数以卡面 `target_hero` 图标为准，不自推定。
 

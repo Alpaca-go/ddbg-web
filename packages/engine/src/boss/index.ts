@@ -384,6 +384,10 @@ export {
 } from "./darkest-mid-boss-deploy";
 export { deployTemplarsI, templarsProductionCombatActive } from "./templars-i-deploy";
 export {
+  deployShufflingHorrorI,
+  shufflingHorrorProductionCombatActive,
+} from "./shuffling-horror-i-deploy";
+export {
   applyShufflingHorrorEchoingDisassembly,
   applyShufflingHorrorUndulations,
   DARKEST_MID_BOSS_HERO_STANCE_AREAS,

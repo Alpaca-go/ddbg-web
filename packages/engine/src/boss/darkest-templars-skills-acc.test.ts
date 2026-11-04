@@ -184,10 +184,7 @@ describe("Templars Acc 最小结算", () => {
     let cursor = 0;
     while (nextBattleRoll(base.seed, cursor) !== 5) cursor += 1;
     const patch = Object.fromEntries(
-      heroes.map((hero, index) => [
-        hero.id,
-        index === 0 ? HERO_FURTHEST_FROM_WARLORD : HERO_SUP,
-      ]),
+      heroes.map((hero, index) => [hero.id, index === 0 ? HERO_FURTHEST_FROM_WARLORD : HERO_SUP]),
     );
     const furthestHero = heroes.find((hero) => patch[hero.id] === HERO_FURTHEST_FROM_WARLORD)!;
     let game = onMonsterTurn(withHeroAreas(base, patch), TEMPLAR_WARLORD_MONSTER_CARD_ID);
@@ -235,10 +232,7 @@ describe("Templars Acc 最小结算", () => {
     let cursor = 0;
     while (nextBattleRoll(base.seed, cursor) !== 10) cursor += 1;
     const patch = Object.fromEntries(
-      heroes.map((hero, index) => [
-        hero.id,
-        index === 0 ? HERO_FURTHEST_FROM_WARLORD : HERO_SUP,
-      ]),
+      heroes.map((hero, index) => [hero.id, index === 0 ? HERO_FURTHEST_FROM_WARLORD : HERO_SUP]),
     );
     const furthestHero = heroes.find((hero) => patch[hero.id] === HERO_FURTHEST_FROM_WARLORD)!;
     let game = onMonsterTurn(withHeroAreas(base, patch), TEMPLAR_WARLORD_MONSTER_CARD_ID);

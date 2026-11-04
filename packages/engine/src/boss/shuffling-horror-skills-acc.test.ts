@@ -13,7 +13,7 @@ import {
 import { readDarkestBossEncounter } from "./darkest-content";
 import { ensureDarkestMidBossScriptsRegistered } from "./darkest-mid-boss-scripts";
 
-const HERO_SUP = "darkest-mid-boss-hero-support";
+const HERO_SUP = "G";
 
 function loadLargeCards(): MonsterCardView[] {
   const large = JSON.parse(
@@ -66,11 +66,11 @@ function deployed() {
     { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
     { type: "prepareDungeonBattle" },
   );
-  return ok(battlePrep.state, { type: "prepareDungeonMonsters" }).state;
+  return ok(battlePrep.state, { type: "deployShufflingHorrorI" }).state;
 }
 
 function fighting(): GameState {
-  const base = ok(deployed(), { type: "deployDarkestMidBoss" }).state;
+  const base = deployed();
   return ok(base, { type: "startBattle" }).state;
 }
 

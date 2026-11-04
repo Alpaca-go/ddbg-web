@@ -13,11 +13,11 @@
 
 ## 卡面（I 级 / 已核实）
 
-| 卡 | 技能 | Speed | 目标 | 射程 | Acc/Crit | verified 效果 |
-| -- | ---- | ----- | ---- | ---- | -------- | ------------- |
-| p098 MAA | Head Knocker | 1 | Closest | 1 | 9 / 0 | Stun 1t |
-| p095 Highwayman | Headhunt | 1 | Furthest | 2 | 9 / 1 | 流血 1·2t |
-| p101 Vestal | Headache | 2 | Most Wounded（友方） | 2 | 无 Acc | Buff 2t + 治疗 7 |
+| 卡              | 技能         | Speed | 目标                 | 射程 | Acc/Crit | verified 效果    |
+| --------------- | ------------ | ----- | -------------------- | ---- | -------- | ---------------- |
+| p098 MAA        | Head Knocker | 1     | Closest              | 1    | 9 / 0    | Stun 1t          |
+| p095 Highwayman | Headhunt     | 1     | Furthest             | 2    | 9 / 1    | 流血 1·2t        |
+| p101 Vestal     | Headache     | 2     | Most Wounded（友方） | 2    | 无 Acc   | Buff 2t + 治疗 7 |
 
 缺 `verified_monster_effects` 或 attack 视图未就绪时 **`playMonsterSkill` 整次拒绝**（R-048）。
 

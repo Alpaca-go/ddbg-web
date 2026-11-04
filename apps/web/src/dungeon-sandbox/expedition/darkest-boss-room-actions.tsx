@@ -30,6 +30,15 @@ export function DarkestBossRoomActions({
 
 const entries = [
   {
+    id: "shuffling-horror",
+    name: "Shuffling Horror",
+    roomName: "Shuffling Horror Room",
+    room: "room:p023",
+    quest: "quest:p016",
+    script: "boss:darkest:shuffling-horror",
+    command: "deployShufflingHorrorI",
+  },
+  {
     id: "templars",
     name: "Templars",
     roomName: "Templars Room",
@@ -41,14 +50,11 @@ const entries = [
 ] as const;
 
 function darkestBossRoomEntry(d: DungeonState) {
-  if (
-    !d.darkest ||
-    d.phase !== "awaitingRoom" ||
-    d.roomCards?.active?.tileId !== undefined ||
-    d.questDistribution?.questId !== "quest:p017"
-  )
+  if (!d.darkest || d.phase !== "awaitingRoom" || d.roomCards?.active?.tileId !== undefined)
     return undefined;
   const plan = d.darkest.bossEncounterPlan;
+  const questId = d.questDistribution?.questId;
+  if (questId !== "quest:p016" && questId !== "quest:p017") return undefined;
   return entries.find(
     (e) =>
       d.roomCards?.active?.cardId === e.room &&

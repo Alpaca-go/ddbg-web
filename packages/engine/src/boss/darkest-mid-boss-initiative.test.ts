@@ -10,7 +10,7 @@ import {
 import { readDarkestMidBossRequiredCombatCardIds } from "./darkest-mid-boss-scripts";
 
 const quests = [
-  ["quest:p016", DARKEST_SHUFFLING_HORROR_SCRIPT_ID, 8] as const,
+  ["quest:p016", DARKEST_SHUFFLING_HORROR_SCRIPT_ID, 6] as const,
   ["quest:p017", DARKEST_TEMPLARS_SCRIPT_ID, 8] as const,
   ["quest:p018", DARKEST_MAMMOTH_CYST_SCRIPT_ID, 7] as const,
 ];
@@ -32,14 +32,14 @@ function deployed(questId: (typeof quests)[number][0]) {
     { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
     { type: "prepareDungeonBattle" },
   );
-  if (questId === "quest:p017") return battlePrep.state;
+  if (questId === "quest:p016" || questId === "quest:p017") return battlePrep.state;
   return ok(battlePrep.state, { type: "prepareDungeonMonsters" }).state;
 }
 
 function midBossDeploy(questId: (typeof quests)[number][0]): Command {
-  return questId === "quest:p017"
-    ? ({ type: "deployTemplarsI" } as const)
-    : ({ type: "deployDarkestMidBoss" } as const);
+  if (questId === "quest:p016") return { type: "deployShufflingHorrorI" } as const;
+  if (questId === "quest:p017") return { type: "deployTemplarsI" } as const;
+  return { type: "deployDarkestMidBoss" } as const;
 }
 
 function started(game: GameState, questId: (typeof quests)[number][0]) {
@@ -49,9 +49,9 @@ function started(game: GameState, questId: (typeof quests)[number][0]) {
   return result.state;
 }
 
-describe("最暗中途 Boss deployDarkestMidBoss / startBattle", () => {
+describe("最暗中途 Boss 专用 deploy / startBattle", () => {
   it.each(quests)(
-    "p016–p018：部署 → deployDarkestMidBoss → startBattle → awaitingInitiative（%s）",
+    "p016–p018：部署 → 专用 deploy → startBattle → awaitingInitiative（%s）",
     (questId, _scriptId, deckSize) => {
       const base = deployed(questId);
       expect(base.battle).toBeUndefined();
@@ -78,7 +78,7 @@ describe("最暗中途 Boss deployDarkestMidBoss / startBattle", () => {
   );
 
   it("重复 deployDarkestMidBoss 拒绝", () => {
-    const game = ok(deployed("quest:p016"), { type: "deployDarkestMidBoss" }).state;
+    const game = ok(deployed("quest:p018"), { type: "deployDarkestMidBoss" }).state;
     expect(
       applyCommand(game, { type: "deployDarkestMidBoss" }).events.some(
         (e) => e.type === "commandRefused",
