@@ -1,6 +1,6 @@
 # Collector I 自然任务与严格存档
 
-基线：`codex/collector-i-page-entry-review`（#577）。依据 R-175/R-176、R-168、R-122、R-044 与核心 R39、规格书 §14.5。
+基线：main @ [#577](https://github.com/Alpaca-go/ddbg-web/pull/577) / [#578](https://github.com/Alpaca-go/ddbg-web/pull/578)。依据 R-175/R-176/R-177、R-168、R-122、R-044 与核心 R39、规格书 §14.5。总览 [HANDOFF-2026-11-04-collector-i.md](HANDOFF-2026-11-04-collector-i.md)。
 
 `naturalQuest` 在 `room:p012` 且威胁为 `boss:ruins:collector:1` 时选择公开 `deployCollectorI`，与 Prophet / Necromancer 专用分支一致，仅 test-helpers 驱动。
 
@@ -12,4 +12,4 @@
 
 验证：引擎自然路径 2 测、自然存档浏览器 1 条；与 #577 既有部署/页面/目录测一并交由 PR CI。
 
-范围：单任务 p019 自然入口到胜利回村；不含从三次普通任务取得 Boss 任务、II/III、宝箱翻开奖励、`combatReady` / 任务白名单 / `room:p012 usable` 改动。
+范围：单任务 p019 自然入口到胜利回村；不含从三次普通任务取得 Boss 任务、II/III、F 区宝箱翻开（R-177 已另接）、`combatReady` / 任务白名单 / `room:p012` 与 `room_tile:p007:back` 的 `usable=false` / 普通 `selectRoomTile` 改动。
