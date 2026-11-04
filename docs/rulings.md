@@ -2296,10 +2296,9 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：Kyries 确认 [#583](https://github.com/Alpaca-go/ddbg-web/pull/583) 与 R-178；R-169 图面、[审核稿](phase5-fanatic-i-production-entry-review-2026-11-04.md)、核心 R39、规格书 §14.5、对标 R-175。
 - **边界**：限 I 级 Face the Threat 的实际 Fanatic 威胁与专属目标房；不修改 `combatReady`、任务白名单或 `room:p013` / 获批 tile 的 `usable=false`；不经 `selectRoomTile` 进 Boss 房；Fanatic II/III 与其余 Boss 分切片。
 
-### R-179（待确认）
+### R-179
 
 - **日期**：2026-11-04（Asia/Shanghai）
-- **状态**：待 Kyries 确认（拟 R-179；本 PR 按 C-017 印刷证据接入正式目录，测试名标注待确认）
-- **裁定（提案）**：Fanatic I 战斗卡 `monster_large:p008` 的 Speed 为 2。四姿态共用 d10 选招表：1–2 为 slot 1（Righteous Condemnation），3–6 为 slot 2（Strike the Heretic），7–10 为 slot 3（Fury of the Righteous）。
-- **依据**：C-017、`verified-large-monster-fields`、印刷 COREBOX 怪物大卡正面第 8 页及[字段核对稿](phase5-fanatic-i-page-entry-review-2026-11-04.md)。
-- **边界**：仅此卡进入网页正式 `bossMonsters` 目录；Pyre 仍仅开战布置；Sentence / Pit Toss / 先攻 4 沿用既有运行时。
+- **裁定**：Fanatic I 战斗卡 `monster_large:p008` 的 Speed 为 2。四姿态共用 d10 选招表：1–2 为 slot 1（Righteous Condemnation），3–6 为 slot 2（Strike the Heretic），7–10 为 slot 3（Fury of the Righteous）。
+- **依据**：Kyries 确认 [#584](https://github.com/Alpaca-go/ddbg-web/pull/584) 与 R-179。C-017、核心 R24、印刷 COREBOX 怪物大卡正面第 8 页及[字段核对稿](phase5-fanatic-i-page-entry-review-2026-11-04.md)。
+- **边界**：仅此卡字段与正式目录。Pyre 仍仅开战布置；Sentence / Pit Toss / 先攻 4 沿用既有运行时。

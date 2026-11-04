@@ -207,7 +207,7 @@ it("R-176 Collector I 正式卡字段、旧目录严格迁移和篡改拒绝", (
   expect(() => loadQuestSave(save, taskSources, [preCollectorTaskSources])).toThrow();
 }, 30000);
 
-it("待确认（拟 R-179）Fanatic I 正式卡字段、旧目录严格迁移和篡改拒绝", () => {
+it("R-179 Fanatic I 正式卡字段、旧目录严格迁移和篡改拒绝", () => {
   expect(taskSources.catalog.monsters.find((c) => c.id === "monster_large:p008")).toMatchObject({
     speed: 2,
     stanceGroups: [
