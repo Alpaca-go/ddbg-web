@@ -1,6 +1,6 @@
 # Collector I 正式部署待确认方案
 
-日期：2026-11-04。基线：main `df994058`（#574）。状态：提案，尚未批准运行时准入。
+日期：2026-11-04。基线：main `df994058`（#574）。Kyries 已确认部署方案，见 R-175。
 
 Prophet I 已完成真实部署、胜负回村、正式页面与单任务自然存档闭环。下一个建议切片为 Collector I 真实部署，先保持与此前相同的小 PR 边界。
 
@@ -8,7 +8,7 @@ Prophet I 已完成真实部署、胜负回村、正式页面与单任务自然�
 
 仅战役 I 级 Face the Threat、实际威胁为 `boss:ruins:collector:1`、描述卡 `boss_ability:p013`、战斗卡 `monster_medium:p092`、目标房 `room:p012` 时开放专用部署。保留战役英雄状态、装备、共享牌池与 RNG 游标；部署不掷骰，之后显式 `startBattle`。
 
-使用 R-168 获批八区与七条共享边。英雄按姿态放置：进攻/辅助 H，防御/远程 B。建议 Collector 初始进攻姿态、棋子 C；此项作为待确认部署方案，不能从几何审批自动推导为运行时授权。
+使用 R-168 获批八区与七条共享边。英雄按姿态放置，进攻和辅助在 H，防御和远程在 B。Collector 初始为进攻姿态，棋子放 C。
 
 将既有 Collect All 运行时的召唤区域绑定为：Collected Man-at-Arms 防御/G、Highwayman 远程/E、Vestal 辅助/A。召唤顺序、区域挤占、当前轮洗入三张先攻沿用规格书 §14.4–14.5（核心 R31/R39）、R-034 与既有实现，不改数值。
 
@@ -24,4 +24,4 @@ Prophet I 已完成真实部署、胜负回村、正式页面与单任务自然�
 
 胜负/回村、正式页面、自然任务严格存档另分 PR。正式目录还须逐项核对 Collector 和三种 Collected 的字段审批，缺少确认的字段不猜测补齐。
 
-保持 `combatReady`、任务白名单及 `room:p012 usable=false`。不开放 II/III、其它 Boss、Phase 6 或宝箱奖励。R-168 明确要求 Boss 准入另行核实，收到本方案确认后再记录裁定与实现。
+本切片沿用 `combatReady`、任务白名单及 `room:p012 usable=false`。部署命令仅用于 Collector I 的专属目标房。
