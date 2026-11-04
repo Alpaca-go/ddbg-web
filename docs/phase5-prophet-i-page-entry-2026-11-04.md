@@ -8,6 +8,6 @@
 
 正式 Boss 目录补入 p005，新增 preProphetTaskSources 保留旧可信目录；更早 preNecromancer/preDarkest/preAbomination 来源仍排除新卡。页面读取先严格验证旧目录再升级，不绕过快照回放或允许英雄状态变化。
 
-验证：规范化再生8测通过；目录迁移、卡面字段、先知部署与战后交接共4文件26测通过；两条浏览器冒烟使用网页实际 taskSources 目录，覆盖标准模式部署/开战/胜利交接、Radiant部署/开战/全灭失败，含错级按钮隐藏与无页面异常。冒烟明确采用目标房入口和战斗终态夹具，不声称自然打完Boss、自然11任务战役或严格存档自然回放。类型、lint、build与完整CI最终结果待补。
+验证：规范化再生8测通过；目录迁移、卡面字段、先知部署与战后交接共4文件26测通过；两条浏览器冒烟使用网页实际 taskSources 目录，覆盖标准模式部署/开战/胜利交接、Radiant部署/开战/全灭失败，含错级按钮隐藏与无页面异常。冒烟明确采用目标房入口和战斗终态夹具，不声称自然打完Boss、自然11任务战役或严格存档自然回放。本地 typecheck、变动文件 ESLint/Prettier 与 build 通过。首次全量发现两条旧审批断言未纳入 p005，已按 R-174 更新；相关两文件15测通过。固定提交 `deba598` 的[完整 CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/41755564896)全绿：全量单元/场景、typecheck、全仓 lint、build、Python 工具测试与完整 Playwright smoke。之后仅补本文记录。
 
 范围：本刀完成正式页面入口和必要目录/旧档兼容。自然任务到胜利回村的命令日志及严格存档浏览器闭环另做切片；不修改任务白名单、combatReady或room:p011 usable=false。卡图仅在本地私有缓存，无美术提交。
