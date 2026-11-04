@@ -33,7 +33,7 @@ const start = { type: "startBattle" } as const;
 
 it("R-184：十二区部署、Boss 进攻/H、四英雄均 K、JSON 续接", () => {
   const source = atObjective();
-  expect(readDarkestBossEncounter("quest:p018")!.combatReady).toBe(false);
+  expect(readDarkestBossEncounter("quest:p018")!.combatReady).toBe(true);
   expect(
     applyCommand(source, { type: "prepareDungeonMonsters" }).events.some(
       (e) => e.type === "commandRefused",

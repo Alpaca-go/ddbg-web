@@ -142,8 +142,7 @@ export function deployMammothCystI(state: GameState): ApplyResult {
   )
     return refuse("需要已绑定 Mammoth Cyst 专属目标房、bossEncounterPlan 与四英雄（R-184）");
   const encounter = readDarkestBossEncounter("quest:p018");
-  if (!encounter || encounter.combatReady)
-    return refuse("Mammoth Cyst 内容目录缺失或 combatReady 未保持 false（R-048）");
+  if (!encounter) return refuse("Mammoth Cyst 内容目录缺失（R-048）");
   const card = d.roomCards!.cards.find((c) => c.id === active.cardId);
   const tile = mammothCystRoomSchema.safeParse(
     geometry.tiles.find((t) => t.roomId === active.cardId),
@@ -228,7 +227,7 @@ export function deployMammothCystI(state: GameState): ApplyResult {
       provisionWindows: true,
     }).battle!;
     const message =
-      "Mammoth Cyst 已按 R-184 部署：Boss 进攻/H，四英雄均 K；等待显式 startBattle 洗先攻（combatReady: false；开战不预置 White Cell）。";
+      "Mammoth Cyst 已按 R-184 部署：Boss 进攻/H，四英雄均 K；等待显式 startBattle 洗先攻（combatReady: true；开战不预置 White Cell）。";
     return {
       state: {
         ...state,

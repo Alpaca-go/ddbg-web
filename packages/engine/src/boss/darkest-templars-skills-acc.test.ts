@@ -88,8 +88,8 @@ function withHeroAreas(state: GameState, patch: Readonly<Record<string, string>>
 }
 
 describe("Templars Acc 最小结算", () => {
-  it("encounter combatReady 仍为 false", () => {
-    expect(readDarkestBossEncounter("quest:p017")!.combatReady).toBe(false);
+  it("encounter combatReady 已批准为 true", () => {
+    expect(readDarkestBossEncounter("quest:p017")!.combatReady).toBe(true);
   });
 
   it("Impaler Torment · Crowded（range 2 内）", () => {

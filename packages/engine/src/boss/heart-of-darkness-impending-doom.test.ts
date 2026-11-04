@@ -71,7 +71,7 @@ function heartOfDarknessFighting(): GameState {
   const deployed = heartOfDarknessDeployed();
   const sequence = readFinalFormSequence(deployed)!;
   expect(sequence.current!.id).toBe("heartOfDarkness");
-  expect(sequence.current!.combatReady).toBe(false);
+  expect(sequence.current!.combatReady).toBe(true);
   return applyCommand(deployed, { type: "startBattle" }).state;
 }
 
@@ -97,9 +97,9 @@ function onHeartTurn(state: GameState): GameState {
   };
 }
 
-it("heartOfDarkness 形态 combatReady 仍为 false", () => {
+it("heartOfDarkness 形态 combatReady 已批准为 true", () => {
   const sequence = readFinalFormSequence(heartOfDarknessDeployed())!;
-  expect(sequence.current!.combatReady).toBe(false);
+  expect(sequence.current!.combatReady).toBe(true);
 });
 
 it("startBattle 写入 impendingDoomDie 并消费 rngCursor", () => {

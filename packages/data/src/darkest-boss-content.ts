@@ -32,7 +32,7 @@ export const darkestBossContentSchema = z
           supportCardIds: z.array(z.string()),
           supportAbilityCardIds: z.array(z.string()),
           skipFinalForm: finalFormIdSchema,
-          combatReady: z.literal(false),
+          combatReady: z.boolean(),
         }),
       )
       .length(3),
@@ -48,7 +48,7 @@ export const darkestBossContentSchema = z
             id: finalFormIdSchema,
             actor,
             supportCardIds: z.array(z.string()),
-            combatReady: z.literal(false),
+            combatReady: z.boolean(),
           }),
         )
         .length(4),

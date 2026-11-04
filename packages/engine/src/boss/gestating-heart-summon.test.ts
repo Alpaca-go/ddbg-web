@@ -52,7 +52,7 @@ function gestatingHeartFighting(): GameState {
   const deployed = gestatingHeartDeployed();
   const sequence = readFinalFormSequence(deployed)!;
   expect(sequence.current!.id).toBe("gestatingHeart");
-  expect(sequence.current!.combatReady).toBe(false);
+  expect(sequence.current!.combatReady).toBe(true);
   return applyCommand(deployed, { type: "startBattle" }).state;
 }
 
@@ -79,9 +79,9 @@ function onHeartTurn(state: GameState, rngCursor = 0): GameState {
   };
 }
 
-it("gestatingHeart 形态 combatReady 仍为 false", () => {
+it("gestatingHeart 形态 combatReady 已批准为 true", () => {
   const sequence = readFinalFormSequence(gestatingHeartDeployed())!;
-  expect(sequence.current!.combatReady).toBe(false);
+  expect(sequence.current!.combatReady).toBe(true);
 });
 
 it("空槽随机召唤最暗怪物并 finishTurn", () => {
@@ -256,7 +256,7 @@ it("显式命令经 applyCommand 接线", () => {
   ).toBe(true);
 });
 
-it("boss_ability:p036 combatReady 仍为 false", () => {
+it("boss_ability:p036 combatReady 已批准为 true", () => {
   const abilities = JSON.parse(
     readFileSync(
       new URL("../../../data/normalized/corebox/darkest_boss_abilities.json", import.meta.url),
@@ -264,5 +264,5 @@ it("boss_ability:p036 combatReady 仍为 false", () => {
     ),
   );
   const card = abilities.cards.find((entry: { id: string }) => entry.id === "boss_ability:p036");
-  expect(card?.combatReady).toBe(false);
+  expect(card?.combatReady).toBe(true);
 });

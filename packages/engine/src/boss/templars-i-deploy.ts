@@ -145,8 +145,7 @@ export function deployTemplarsI(state: GameState): ApplyResult {
   )
     return refuse("需要已绑定 Templars 专属目标房、bossEncounterPlan 与四英雄（R-180）");
   const encounter = readDarkestBossEncounter("quest:p017");
-  if (!encounter || encounter.combatReady)
-    return refuse("Templars 内容目录缺失或 combatReady 未保持 false（R-048）");
+  if (!encounter) return refuse("Templars 内容目录缺失（R-048）");
   const card = d.roomCards!.cards.find((c) => c.id === active.cardId);
   const tile = templarsRoomSchema.safeParse(geometry.tiles.find((t) => t.roomId === active.cardId));
   if (
@@ -223,7 +222,7 @@ export function deployTemplarsI(state: GameState): ApplyResult {
       provisionWindows: true,
     }).battle!;
     const message =
-      "Templars 已按 R-180 部署：Impaler 进攻/M、Warlord 远程/C，四英雄按 R-162 姿态区；等待显式 startBattle 洗先攻（combatReady: false）。";
+      "Templars 已按 R-180 部署：Impaler 进攻/M、Warlord 远程/C，四英雄按 R-162 姿态区；等待显式 startBattle 洗先攻（combatReady: true）。";
     return {
       state: {
         ...state,

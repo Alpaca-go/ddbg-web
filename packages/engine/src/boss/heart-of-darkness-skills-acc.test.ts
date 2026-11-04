@@ -124,8 +124,8 @@ function heroTargetRows(state: GameState) {
     }));
 }
 
-it("heartOfDarkness 形态 combatReady 仍为 false", () => {
-  expect(readFinalFormSequence(heartOfDarknessDeployed())!.current!.combatReady).toBe(false);
+it("heartOfDarkness 形态 combatReady 已批准为 true", () => {
+  expect(readFinalFormSequence(heartOfDarknessDeployed())!.current!.combatReady).toBe(true);
 });
 
 it("Know This · Crowded 选最拥挤区英雄 · 命中 +3 压力与光照 −1", () => {

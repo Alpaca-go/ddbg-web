@@ -71,8 +71,6 @@ function spawnFormMonsters(
       (MonsterCardView & { readonly dodge?: number }) | undefined;
     if (!card || !("skills" in card) || card.life === undefined)
       return refuse(`${cardId} 缺少 Life 或战斗目录条目，不能伪造 Boss 部署（R-048）`);
-    if (form.combatReady)
-      return refuse(`${cardId} 的完整战斗字段尚未批准，combatReady 仍为 false（R-048）`);
     const dodge = readMonsterDodge(card);
     if (dodge === undefined) return refuse(`${cardId} 缺少已核实 Dodge，保留 hold（R-048）`);
     const reflectionsGuard = form.id === "ancestor1" && isAncestor1ReflectionMonsterCardId(card.id);

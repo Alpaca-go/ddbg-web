@@ -39,7 +39,7 @@ export function buildDarkestBossAbilities(raw: RawFile) {
         sourcePage: page,
         actionsPerRound,
         textLines: lines.slice(lines.indexOf(label) + 1),
-        combatReady: false,
+        combatReady: true,
       };
     }),
   });

@@ -122,9 +122,9 @@ function killImperfectReflection(state: GameState): ApplyResult {
   return removeCasualties({ state: next, events: [] }, [target.id]);
 }
 
-it("ancestor1 形态 combatReady 仍为 false", () => {
+it("ancestor1 形态 combatReady 已批准为 true", () => {
   const sequence = readFinalFormSequence(ancestor1Deployed())!;
-  expect(sequence.current!.combatReady).toBe(false);
+  expect(sequence.current!.combatReady).toBe(true);
 });
 
 it("空槽召唤 Perfect Reflection、Torch −1、Guard 并 finishTurn", () => {

@@ -173,7 +173,7 @@ export function applyMammothCystSummonWhiteCell(state: GameState, actorId: strin
   return finishTurn({ ...state, battle: nextBattle }, actorId, [
     {
       type: "dungeonUpdated",
-      message: `Mammoth Cyst · Summon White Cell Stalk：召唤 ${cardId}（boss_ability:p030；占位区域 / combatReady 仍 hold）`,
+      message: `Mammoth Cyst · Summon White Cell Stalk：召唤 ${cardId}（boss_ability:p030；占位区域 / combatReady 已批准）`,
     },
   ]);
 }

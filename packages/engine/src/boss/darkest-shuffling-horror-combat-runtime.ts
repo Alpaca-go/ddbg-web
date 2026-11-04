@@ -311,7 +311,7 @@ export function applyShufflingHorrorUndulations(state: GameState, actorId: strin
   return finishTurn({ ...state, battle: nextBattle }, actorId, [
     {
       type: "dungeonUpdated",
-      message: `Shuffling Horror · Undulations：${order.join("→")} 自 front 重排英雄姿态（boss_ability:p033；Room Tile / combatReady 仍 hold）`,
+      message: `Shuffling Horror · Undulations：${order.join("→")} 自 front 重排英雄姿态（boss_ability:p033；Room Tile / combatReady 已批准）`,
     },
   ]);
 }
@@ -406,7 +406,7 @@ export function applyShufflingHorrorEchoingDisassembly(
   return finishTurn({ ...state, battle: nextBattle }, actorId, [
     {
       type: "dungeonUpdated",
-      message: `Shuffling Horror · Echoing Disassembly：${parts.join("；")}（boss_ability:p033；占位区域 / combatReady 仍 hold）`,
+      message: `Shuffling Horror · Echoing Disassembly：${parts.join("；")}（boss_ability:p033；占位区域 / combatReady 已批准）`,
     },
   ]);
 }

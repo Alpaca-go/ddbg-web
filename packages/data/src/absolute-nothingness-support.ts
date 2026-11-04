@@ -26,7 +26,7 @@ export const absoluteNothingnessSupportSchema = z.strictObject({
     z.literal("monster_ranged"),
     z.literal("monster_support"),
   ]),
-  combatReady: z.literal(false),
+  combatReady: z.boolean(),
   sources: z.strictObject({
     rules: z.literal("02_DD_CARDS_COREBOX/DD_EN_COREBOX_RULES.pdf"),
     bossAbility: z.literal(BOSS_ABILITY_SOURCE),
@@ -114,7 +114,7 @@ export function buildAbsoluteNothingnessSupport(
       abilityCardId: "boss_ability:p035",
       supportCardIds: [],
       placements: ["monster_defense", "monster_ranged", "monster_support"],
-      combatReady: false,
+      combatReady: true,
       sources: {
         rules: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_RULES.pdf",
         bossAbility: BOSS_ABILITY_SOURCE,
@@ -140,7 +140,7 @@ export function buildAbsoluteNothingnessSupport(
     abilityCardId: "boss_ability:p035",
     supportCardIds: ids,
     placements: ["monster_defense", "monster_ranged", "monster_support"],
-    combatReady: false,
+    combatReady: true,
     sources: {
       rules: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_RULES.pdf",
       bossAbility: BOSS_ABILITY_SOURCE,

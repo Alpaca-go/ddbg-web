@@ -86,8 +86,6 @@ function spawnDeployedMonster(
     (MonsterCardView & { readonly dodge?: number; readonly life?: number }) | undefined;
   if (!card || !("skills" in card) || card.life === undefined)
     return refuse(`${spawn.cardId} 缺少 Life 或战斗目录条目，不能伪造 Boss 部署（R-048）`);
-  if (encounter.combatReady)
-    return refuse(`${spawn.cardId} 的完整战斗字段尚未批准，combatReady 仍为 false（R-048）`);
   const dodge = readMonsterDodge(card);
   if (dodge === undefined) return refuse(`${spawn.cardId} 缺少已核实 Dodge，保留 hold（R-048）`);
   return {
@@ -259,7 +257,7 @@ export function deployDarkestMidBoss(state: GameState): ApplyResult {
             ...d.roomCards!,
             active: {
               ...d.roomCards!.active!,
-              blockedReason: `${deployment.blockedReason}；已 deployDarkestMidBoss，等待 startBattle（combatReady: false）`,
+              blockedReason: `${deployment.blockedReason}；已 deployDarkestMidBoss，等待 startBattle（combatReady: true）`,
             },
           },
         },

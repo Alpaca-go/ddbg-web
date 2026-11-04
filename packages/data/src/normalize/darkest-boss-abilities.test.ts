@@ -22,7 +22,7 @@ it("九张能力卡经规范化管线可再生，保留Special和原始图标而
   expect(readDarkestBossAbility(built, "boss_ability:p036")?.textLines.join(" ")).toContain(
     "{icon:90558ded71}",
   );
-  expect(built.cards.every((c) => !c.combatReady)).toBe(true);
+  expect(built.cards.every((c) => c.combatReady)).toBe(true);
   expect(readDarkestBossAbility(built, "boss_ability:p001")).toBeUndefined();
   const copy = readDarkestBossAbility(built, "boss_ability:p033")!;
   copy.textLines.length = 0;

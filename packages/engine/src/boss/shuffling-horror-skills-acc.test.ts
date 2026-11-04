@@ -158,8 +158,8 @@ it("Undulations / Echoing Disassembly 已有几何命令；generic resolve 不�
 });
 
 describe("Shuffling Horror Lacerate Acc 最小结算", () => {
-  it("encounter combatReady 仍为 false", () => {
-    expect(readDarkestBossEncounter("quest:p016")!.combatReady).toBe(false);
+  it("encounter combatReady 已批准为 true", () => {
+    expect(readDarkestBossEncounter("quest:p016")!.combatReady).toBe(true);
   });
 
   it("Lacerate · Closest 1 · 命中 3 流血 3t", () => {

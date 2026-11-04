@@ -144,8 +144,7 @@ export function deployShufflingHorrorI(state: GameState): ApplyResult {
   )
     return refuse("需要已绑定 Shuffling Horror 专属目标房、bossEncounterPlan 与四英雄（R-182）");
   const encounter = readDarkestBossEncounter("quest:p016");
-  if (!encounter || encounter.combatReady)
-    return refuse("Shuffling Horror 内容目录缺失或 combatReady 未保持 false（R-048）");
+  if (!encounter) return refuse("Shuffling Horror 内容目录缺失（R-048）");
   const card = d.roomCards!.cards.find((c) => c.id === active.cardId);
   const tile = shufflingHorrorRoomSchema.safeParse(
     geometry.tiles.find((t) => t.roomId === active.cardId),
@@ -228,7 +227,7 @@ export function deployShufflingHorrorI(state: GameState): ApplyResult {
       provisionWindows: true,
     }).battle!;
     const message =
-      "Shuffling Horror 已按 R-182 部署：Boss 进攻/H，四英雄按 R-163 姿态区；等待显式 startBattle 洗先攻（combatReady: false）。";
+      "Shuffling Horror 已按 R-182 部署：Boss 进攻/H，四英雄按 R-163 姿态区；等待显式 startBattle 洗先攻（combatReady: true）。";
     return {
       state: {
         ...state,

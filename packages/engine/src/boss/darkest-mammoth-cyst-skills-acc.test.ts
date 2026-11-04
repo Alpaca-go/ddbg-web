@@ -81,8 +81,8 @@ function withHeroAreas(state: GameState, patch: Readonly<Record<string, string>>
 }
 
 describe("Mammoth Cyst Acc 最小结算", () => {
-  it("encounter combatReady 仍为 false", () => {
-    expect(readDarkestBossEncounter("quest:p018")!.combatReady).toBe(false);
+  it("encounter combatReady 已批准为 true", () => {
+    expect(readDarkestBossEncounter("quest:p018")!.combatReady).toBe(true);
   });
 
   it("Bulging Gaze · Crowded · 命中 debuff 1t + 压力 +1", () => {

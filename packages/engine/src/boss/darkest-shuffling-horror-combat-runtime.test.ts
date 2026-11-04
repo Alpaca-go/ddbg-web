@@ -202,7 +202,7 @@ describe("Shuffling Horror · Undulations", () => {
     ).toBe(true);
   });
 
-  it("boss_ability:p033 combatReady 仍为 false", () => {
+  it("boss_ability:p033 combatReady 已批准为 true", () => {
     const abilities = JSON.parse(
       readFileSync(
         new URL("../../../data/normalized/corebox/darkest_boss_abilities.json", import.meta.url),
@@ -210,7 +210,7 @@ describe("Shuffling Horror · Undulations", () => {
       ),
     );
     const card = abilities.cards.find((entry: { id: string }) => entry.id === "boss_ability:p033");
-    expect(card?.combatReady).toBe(false);
+    expect(card?.combatReady).toBe(true);
   });
 });
 
