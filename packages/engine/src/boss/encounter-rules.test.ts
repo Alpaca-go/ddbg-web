@@ -3,6 +3,7 @@ import { describe, expect, it, beforeEach } from "vitest";
 import { createBattleState, type BattleEntity } from "../battle";
 import { applyCommand, type GameState } from "../command";
 import { applyEncounterCommand } from "../encounter";
+import { finalPreparationFixture } from "../test-helpers/final-preparation";
 import type { SkillStance, HeroSkillCardView } from "../hero-skill";
 import type { EncounterCommand } from "../encounter";
 import {
@@ -291,4 +292,30 @@ describe("C-018 · Ruins 四 Boss 的公开命令轮末边界", () => {
       });
     });
   }
+});
+
+describe("最终战轮数", () => {
+  it("最终战形态战斗不受第 4 轮撤退限制（R-044 / R36）", () => {
+    const base = finalPreparationFixture("quest:p016");
+    const begun = applyCommand(base, { type: "beginFinalPreparation" }).state;
+    const ready: GameState = {
+      ...begun,
+      dungeon: {
+        ...begun.dungeon!,
+        finalBattleProvisions: "ready",
+        hamlet: {
+          ...begun.dungeon!.hamlet!,
+          phase: "preparationComplete",
+          remainingDays: 0,
+          day: 4,
+        },
+      },
+    };
+    const deployed = applyCommand(applyCommand(ready, { type: "prepareFinalBattleForms" }).state, {
+      type: "deployFinalBattleForm",
+    }).state;
+    expect(deployed.dungeon!.finalFormSequence!.status).toBe("fighting");
+    expect(encounterForcesRetreatAfterRound(deployed, 4)).toBe(false);
+    expect(encounterForcesRetreatAfterRound(deployed, 99)).toBe(false);
+  });
 });
