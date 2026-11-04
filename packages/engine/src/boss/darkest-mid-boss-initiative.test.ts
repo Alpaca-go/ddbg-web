@@ -12,7 +12,7 @@ import { readDarkestMidBossRequiredCombatCardIds } from "./darkest-mid-boss-scri
 const quests = [
   ["quest:p016", DARKEST_SHUFFLING_HORROR_SCRIPT_ID, 6] as const,
   ["quest:p017", DARKEST_TEMPLARS_SCRIPT_ID, 8] as const,
-  ["quest:p018", DARKEST_MAMMOTH_CYST_SCRIPT_ID, 7] as const,
+  ["quest:p018", DARKEST_MAMMOTH_CYST_SCRIPT_ID, 6] as const,
 ];
 
 function ok(game: GameState, command: Command) {
@@ -32,13 +32,15 @@ function deployed(questId: (typeof quests)[number][0]) {
     { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
     { type: "prepareDungeonBattle" },
   );
-  if (questId === "quest:p016" || questId === "quest:p017") return battlePrep.state;
+  if (questId === "quest:p016" || questId === "quest:p017" || questId === "quest:p018")
+    return battlePrep.state;
   return ok(battlePrep.state, { type: "prepareDungeonMonsters" }).state;
 }
 
 function midBossDeploy(questId: (typeof quests)[number][0]): Command {
   if (questId === "quest:p016") return { type: "deployShufflingHorrorI" } as const;
   if (questId === "quest:p017") return { type: "deployTemplarsI" } as const;
+  if (questId === "quest:p018") return { type: "deployMammothCystI" } as const;
   return { type: "deployDarkestMidBoss" } as const;
 }
 
@@ -77,10 +79,10 @@ describe("最暗中途 Boss 专用 deploy / startBattle", () => {
     },
   );
 
-  it("重复 deployDarkestMidBoss 拒绝", () => {
-    const game = ok(deployed("quest:p018"), { type: "deployDarkestMidBoss" }).state;
+  it("重复 deployMammothCystI 拒绝", () => {
+    const game = ok(deployed("quest:p018"), { type: "deployMammothCystI" }).state;
     expect(
-      applyCommand(game, { type: "deployDarkestMidBoss" }).events.some(
+      applyCommand(game, { type: "deployMammothCystI" }).events.some(
         (e) => e.type === "commandRefused",
       ),
     ).toBe(true);

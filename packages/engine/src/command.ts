@@ -12,6 +12,7 @@ import { deployCollectorI, deployProphetI } from "./boss/ruins-i-deploy";
 import { deployFanaticI } from "./boss/fanatic-i-deploy";
 import { deployTemplarsI } from "./boss/templars-i-deploy";
 import { deployShufflingHorrorI } from "./boss/shuffling-horror-i-deploy";
+import { deployMammothCystI } from "./boss/mammoth-cyst-i-deploy";
 import { deployNecromancerI } from "./boss/necromancer-i-deploy";
 import { deployDarkestMidBoss } from "./boss/darkest-mid-boss-deploy";
 import { deployDarkestOrdinaryEncounter } from "./darkest-ordinary-encounter-deploy";
@@ -269,6 +270,7 @@ type BaseCommand =
   | { readonly type: "deployFanaticI" }
   | { readonly type: "deployTemplarsI" }
   | { readonly type: "deployShufflingHorrorI" }
+  | { readonly type: "deployMammothCystI" }
   | { readonly type: "deployDarkestMidBoss" }
   | { readonly type: "deployDarkestOrdinaryEncounter" }
   | { readonly type: "offerNextQuest" }
@@ -665,6 +667,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "deployNecromancerI") return deployNecromancerI(state);
   if (command.type === "deployTemplarsI") return deployTemplarsI(state);
   if (command.type === "deployShufflingHorrorI") return deployShufflingHorrorI(state);
+  if (command.type === "deployMammothCystI") return deployMammothCystI(state);
   if (command.type === "startDungeonBattle") return startDungeonBattle(state);
   if (command.type === "finishDungeonBattle") return finishDungeonBattle(state);
   if (command.type === "useProvision" && state.dungeon && !state.battle)
@@ -916,6 +919,7 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
   }
   if (command.type === "deployTemplarsI") return deployTemplarsI(state);
   if (command.type === "deployShufflingHorrorI") return deployShufflingHorrorI(state);
+  if (command.type === "deployMammothCystI") return deployMammothCystI(state);
   if (command.type === "deployDarkestMidBoss") return deployDarkestMidBoss(state);
   if (command.type === "deployDarkestOrdinaryEncounter")
     return deployDarkestOrdinaryEncounter(state);

@@ -47,6 +47,15 @@ const entries = [
     script: "boss:darkest:templars",
     command: "deployTemplarsI",
   },
+  {
+    id: "mammoth-cyst",
+    name: "Mammoth Cyst",
+    roomName: "Mammoth Cyst Room",
+    room: "room:p024",
+    quest: "quest:p018",
+    script: "boss:darkest:mammoth-cyst",
+    command: "deployMammothCystI",
+  },
 ] as const;
 
 function darkestBossRoomEntry(d: DungeonState) {
@@ -54,7 +63,8 @@ function darkestBossRoomEntry(d: DungeonState) {
     return undefined;
   const plan = d.darkest.bossEncounterPlan;
   const questId = d.questDistribution?.questId;
-  if (questId !== "quest:p016" && questId !== "quest:p017") return undefined;
+  if (questId !== "quest:p016" && questId !== "quest:p017" && questId !== "quest:p018")
+    return undefined;
   return entries.find(
     (e) =>
       d.roomCards?.active?.cardId === e.room &&

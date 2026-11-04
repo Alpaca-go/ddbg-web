@@ -66,7 +66,7 @@ function darkestMidBossWiringHold(questId: StoredDarkestBossEncounterPlan["quest
     return "Undulations + Echoing Disassembly 召唤 + Lacerate Acc 最小结算已接；生产部署 deployShufflingHorrorI（R-163/R-182）；Echoing 完整召唤 / 完整 AI 仍 hold";
   }
   if (questId === "quest:p018") {
-    return "Summon White Cell Stalk + Bulging Gaze/Digestion Acc + Revivify Self 最小结算已接；White Cell Teleport / Room Tile 几何 / combatReady / 完整 AI 仍 hold";
+    return "Summon White Cell Stalk + Bulging Gaze/Digestion Acc + Revivify Self 最小结算已接；生产部署 deployMammothCystI（R-164/R-184）；White Cell Teleport / 完整 AI 仍 hold";
   }
   return "Templars Torment/Body Slam/Revelation/Stinger Shot Acc 最小结算已接；生产部署 deployTemplarsI（R-162/R-180）；Pit Toss / Spikes / 完整 AI 仍 hold";
 }
@@ -180,7 +180,9 @@ export function prepareDarkestObjectiveBossRoom(state: GameState): ApplyResult |
       ? "下一步 deployShufflingHorrorI（R-182）"
       : darkestQuestId === "quest:p017"
         ? "下一步 deployTemplarsI（R-180）"
-        : wiringHold
+        : darkestQuestId === "quest:p018"
+          ? "下一步 deployMammothCystI（R-184）"
+          : wiringHold
   }。保留原牌，不改抽遗迹房间（R36 / R-048）。`;
   return {
     state: {
@@ -232,6 +234,9 @@ export function darkestMidBossDeploymentHold(d: DungeonState): string | undefine
   if (plan.questId === "quest:p017") {
     return `${label} 目标房下一步 deployTemplarsI → startBattle（R-180）；${plan.wiringHold}，不可用 startDungeonBattle / prepareDungeonMonsters 占位部署（R-048）。`;
   }
+  if (plan.questId === "quest:p018") {
+    return `${label} 目标房下一步 deployMammothCystI → startBattle（R-184）；${plan.wiringHold}，不可用 startDungeonBattle / prepareDungeonMonsters 占位部署（R-048）。`;
+  }
   return `${label} 目标房须按目录部署 ${plan.actorCardIds.join("、")}；不能用最暗 26 张牌堆随机遭遇替代（R36 / R-048）。`;
 }
 
@@ -261,6 +266,8 @@ export function prepareDarkestMidBossDeployment(state: GameState): ApplyResult |
     );
   if (plan.questId === "quest:p017")
     return refuse("Templars 目标房须 deployTemplarsI 按 R-162 获批几何部署（R-180）");
+  if (plan.questId === "quest:p018")
+    return refuse("Mammoth Cyst 目标房须 deployMammothCystI 按 R-164 获批几何部署（R-184）");
   const encounter = readDarkestBossEncounter(plan.questId);
   if (!encounter) return refuse("最暗 Boss 内容目录缺失（R36）");
   const monsters: SpawnPlacement[] = [];

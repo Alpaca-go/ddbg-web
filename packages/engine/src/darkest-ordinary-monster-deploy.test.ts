@@ -88,26 +88,33 @@ describe("最暗普通房 26 牌堆部署", () => {
     });
   });
 
-  it.each(["quest:p018"] as const)("%s：目标房仍走 mid-boss，不消费 26 张牌堆", (questId) => {
-    const game = createCoreDungeonQuest(7, questId, "radiant", coreParty, coreQuestSources);
-    const d = game.dungeon!;
-    const room = d.rooms.find((entry) => entry.kind === "objective")!;
-    const battlePrep = ok(
-      { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
-      { type: "prepareDungeonBattle" },
-    );
-    expect(battlePrep.state.dungeon!.darkest!.bossEncounterPlan).toBeTruthy();
-    const deckBefore = battlePrep.state.dungeon!.darkest!.monsterDeck;
-    const deployed = ok(battlePrep.state, { type: "prepareDungeonMonsters" });
-    expect(deployed.state.dungeon!.darkest!.bossDeployment?.monsters.length).toBeGreaterThan(0);
-    expect(deployed.state.dungeon!.darkest!.ordinaryDeployment).toBeUndefined();
-    expect(deployed.state.dungeon!.darkest!.monsterDeckRemaining).toBeUndefined();
-    expect(deployed.state.dungeon!.darkest!.monsterDeck).toEqual(deckBefore);
-    expect(darkestMidBossDeploymentHold(deployed.state.dungeon!)).toContain("deployDarkestMidBoss");
-    expect(prepareDarkestMidBossDeployment(deployed.state)).toMatchObject({
-      events: [{ type: "commandRefused" }],
-    });
-  });
+  it.each(["quest:p018"] as const)(
+    "%s：目标房走 deployMammothCystI，prepareDungeonMonsters 拒绝",
+    (questId) => {
+      const game = createCoreDungeonQuest(7, questId, "radiant", coreParty, coreQuestSources);
+      const d = game.dungeon!;
+      const room = d.rooms.find((entry) => entry.kind === "objective")!;
+      const battlePrep = ok(
+        { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
+        { type: "prepareDungeonBattle" },
+      );
+      const deckBefore = battlePrep.state.dungeon!.darkest!.monsterDeck;
+      expect(
+        applyCommand(battlePrep.state, { type: "prepareDungeonMonsters" }).events.some(
+          (e) => e.type === "commandRefused",
+        ),
+      ).toBe(true);
+      expect(darkestMidBossDeploymentHold(battlePrep.state.dungeon!)).toContain(
+        "deployMammothCystI",
+      );
+      const deployed = ok(battlePrep.state, { type: "deployMammothCystI" });
+      expect(deployed.state.dungeon!.darkest!.bossDeployment).toBeUndefined();
+      expect(deployed.state.dungeon!.darkest!.monsterDeck).toEqual(deckBefore);
+      expect(prepareDarkestMidBossDeployment(deployed.state)).toMatchObject({
+        events: [{ type: "commandRefused" }],
+      });
+    },
+  );
 
   it("quest:p016：目标房走 deployShufflingHorrorI，prepareDungeonMonsters 拒绝", () => {
     const game = createCoreDungeonQuest(7, "quest:p016", "radiant", coreParty, coreQuestSources);
