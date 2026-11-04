@@ -21,6 +21,7 @@ import {
   preAbominationTaskSources,
   preDarkestTaskSources,
   preProphetTaskSources,
+  preCollectorTaskSources,
   preNecromancerTaskSources,
   taskSources,
 } from "./task-sources";
@@ -122,9 +123,9 @@ it("正式目录补入Necromancer I后，旧目录存档仍先严格验证再升
 });
 
 it("Prophet I正式目录补齐后旧目录先严格验证，英雄篡改仍拒绝", () => {
-  expect(taskSources.catalog.monsters.length - preProphetTaskSources.catalog.monsters.length).toBe(
-    1,
-  );
+  expect(
+    preCollectorTaskSources.catalog.monsters.length - preProphetTaskSources.catalog.monsters.length,
+  ).toBe(1);
   expect(preProphetTaskSources.catalog.monsters.some((c) => c.id === "monster_large:p005")).toBe(
     false,
   );
@@ -157,6 +158,50 @@ it("Prophet I正式目录补齐后旧目录先严格验证，英雄篡改仍拒�
   forged.snapshot.dungeon.heroes[0].wounds++;
   expect(() => loadQuestSave(forged, taskSources, [preProphetTaskSources])).toThrow();
 });
+
+it("R-176 Collector I 正式卡字段、旧目录严格迁移和篡改拒绝", () => {
+  expect(taskSources.catalog.monsters.find((c) => c.id === "monster_medium:p092")).toMatchObject({
+    speed: 2,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  });
+  expect(preCollectorTaskSources.catalog.monsters).toEqual(
+    taskSources.catalog.monsters.filter((c) => c.id !== "monster_medium:p092"),
+  );
+  expect(preProphetTaskSources.catalog.monsters.some((c) => c.id === "monster_medium:p092")).toBe(
+    false,
+  );
+  const start = {
+    seed: 2,
+    questId: "quest:p019",
+    mode: "radiant",
+    party: naturalParty,
+    bossEdgeRooms: true,
+  } as const;
+  const oldGame = createCoreDungeonQuest(
+    2,
+    start.questId,
+    start.mode,
+    start.party,
+    preCollectorTaskSources,
+    true,
+  );
+  const save = JSON.parse(
+    JSON.stringify(createQuestSave(start, [], oldGame, preCollectorTaskSources)),
+  );
+  expect(loadQuestSave(save, taskSources, [preCollectorTaskSources]).game).toEqual(
+    createCoreDungeonQuest(2, start.questId, start.mode, start.party, taskSources, true),
+  );
+  save.snapshot.dungeon.gold++;
+  expect(() => loadQuestSave(save, taskSources, [preCollectorTaskSources])).toThrow();
+}, 30000);
 
 it("旧目录与旧占位计划组合存档仍须完整匹配，升级后严格拒绝篡改", () => {
   const start = {

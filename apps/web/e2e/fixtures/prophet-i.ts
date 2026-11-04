@@ -6,12 +6,20 @@ import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../../packages/e
 
 /** 显式目标房入口夹具，不声称从自然战役获得Boss任务。 */
 export function prophetRoomFixture(mode: "standard" | "radiant"): GameState {
+  return ruinsRoomFixture(mode, "prophet");
+}
+
+export function ruinsRoomFixture(
+  mode: "standard" | "radiant",
+  boss: "prophet" | "collector",
+): GameState {
   const s = createCoreDungeonQuest(17, "quest:p019", mode, coreParty, taskSources, true);
   const d = s.dungeon!;
   const context = {
     campaignLevel: 1 as const,
-    activeBossThreatScriptId: "boss:ruins:prophet:1" as const,
-    imminentThreatDescriptionCardId: "boss_ability:p007",
+    activeBossThreatScriptId: `boss:ruins:${boss}:1` as const,
+    imminentThreatDescriptionCardId:
+      boss === "collector" ? "boss_ability:p013" : "boss_ability:p007",
   };
   return {
     ...s,

@@ -456,6 +456,22 @@ export const verifiedMonsterStances = z.array(entrySchema).parse([
       },
     ],
   },
+  // R-176：Collector I 四姿态共用右侧选招表。
+  {
+    id: "monster_medium:p092",
+    name: "The Collector",
+    level: 1,
+    pages: [92],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
   // Ruins Boss II/III 与 Collected：逐页完整核图。
   {
     id: "monster_medium:p093",

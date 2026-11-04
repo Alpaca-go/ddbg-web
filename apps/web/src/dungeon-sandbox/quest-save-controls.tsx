@@ -9,6 +9,7 @@ import {
   preBossTaskSources,
   preAbominationTaskSources,
   preDarkestTaskSources,
+  preCollectorTaskSources,
   preProphetTaskSources,
   preNecromancerTaskSources,
   taskSources,
@@ -56,6 +57,7 @@ export function QuestSaveControls({ onLoad }: { onLoad?: () => void }) {
               if (useDungeonStore.getState().game !== game)
                 throw new Error("读取期间进度已变化，请再次读取存档");
               const loaded = loadQuestSave(JSON.parse(json), taskSources, [
+                preCollectorTaskSources,
                 preProphetTaskSources,
                 preNecromancerTaskSources,
                 preDarkestTaskSources,

@@ -64,6 +64,7 @@ export function BattleView({
   const [provisionTargetId, setProvisionTargetId] = useState("hero-0");
   const [provisionEffect, setProvisionEffect] = useState<ProvisionEffect>("heal");
   const battle = game.battle!;
+  const collectorLootPending = game.dungeon?.roomCards?.active?.tileId === "room_tile:p007:back";
   const displayData = formal ? questBattleData : battleData;
   const displayMonsters = [...displayData.monsters, ...(displayData.bossMonsters ?? [])];
   const roomTileId = resolveBattleRoomTileId(game, battle.roomName ?? displayData.tileName);
@@ -405,7 +406,7 @@ export function BattleView({
                   {battle.loot?.placed.some((token) => token.areaId === area.id) && (
                     <p>
                       宝箱 ×{battle.loot.placed.filter((token) => token.areaId === area.id).length}
-                      ：可在同区花一个行动拾取一枚
+                      {collectorLootPending ? "（拾取待确认）" : "：可在同区花一个行动拾取一枚"}
                     </p>
                   )}
                   {battle.woodenPews?.some((pew) => pew.areaId === area.id) && (
@@ -613,7 +614,10 @@ export function BattleView({
                   战利品 · 金币 {battle.loot?.gold ?? 0} · 补给 {battle.provisions?.length ?? 0}/16
                 </legend>
                 <button
-                  disabled={!battle.loot?.placed.some((token) => token.areaId === actor?.areaId)}
+                  disabled={
+                    collectorLootPending ||
+                    !battle.loot?.placed.some((token) => token.areaId === actor?.areaId)
+                  }
                   onClick={() => send({ type: "interactLoot", actorId: actor!.id })}
                 >
                   拾取同区宝箱

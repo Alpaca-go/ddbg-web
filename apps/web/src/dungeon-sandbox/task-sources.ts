@@ -45,12 +45,21 @@ export const taskSources: CoreQuestSources = {
   },
 };
 
-/** 接通Prophet I正式目录前的固定来源。 */
-export const preProphetTaskSources: CoreQuestSources = {
+/** 接通 Collector I 正式目录前的固定来源。 */
+export const preCollectorTaskSources: CoreQuestSources = {
   ...taskSources,
   catalog: {
     ...taskSources.catalog,
-    monsters: taskSources.catalog.monsters.filter((c) => c.id !== "monster_large:p005"),
+    monsters: taskSources.catalog.monsters.filter((c) => c.id !== "monster_medium:p092"),
+  },
+};
+
+/** 接通Prophet I正式目录前的固定来源。 */
+export const preProphetTaskSources: CoreQuestSources = {
+  ...preCollectorTaskSources,
+  catalog: {
+    ...preCollectorTaskSources.catalog,
+    monsters: preCollectorTaskSources.catalog.monsters.filter((c) => c.id !== "monster_large:p005"),
   },
 };
 
@@ -67,9 +76,7 @@ export const preDarkestTaskSources: CoreQuestSources = {
   ...taskSources,
   catalog: {
     ...taskSources.catalog,
-    monsters: taskSources.catalog.monsters.filter(
-      (c) => !darkestIds.has(c.id) && !["monster_medium:p089", "monster_large:p005"].includes(c.id),
-    ),
+    monsters: preNecromancerTaskSources.catalog.monsters.filter((c) => !darkestIds.has(c.id)),
   },
 };
 /** #416's fixed 141-card higher catalog, for strict validation before upgrading catalog fields. */
