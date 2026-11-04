@@ -12,7 +12,10 @@ import type { PlayHeroSkillCommand } from "../battle";
 import type { PlayHeroSkillTargetsCommand } from "../battle-hero-targets";
 import { nextNaturalRoute } from "./natural-route";
 import { isBossQuestId } from "../boss/quest-bridge";
-import { DARKEST_TEMPLARS_SCRIPT_ID } from "../boss/darkest-mid-boss-scripts";
+import {
+  DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
+  DARKEST_TEMPLARS_SCRIPT_ID,
+} from "../boss/darkest-mid-boss-scripts";
 
 const equipped = [
   ["hero_skill:p001", "hero_skill:p004", "hero_skill:p016"],
@@ -366,6 +369,16 @@ export function naturalQuest(
           state.dungeon!.darkest?.bossEncounterPlan?.resolvedScriptId === DARKEST_TEMPLARS_SCRIPT_ID
         ) {
           step({ type: "deployTemplarsI" });
+          fight();
+          if (state.dungeon!.campaignFailure) return;
+          continue;
+        }
+        if (
+          state.dungeon!.roomCards!.active!.cardId === "room:p023" &&
+          state.dungeon!.darkest?.bossEncounterPlan?.resolvedScriptId ===
+            DARKEST_SHUFFLING_HORROR_SCRIPT_ID
+        ) {
+          step({ type: "deployShufflingHorrorI" });
           fight();
           if (state.dungeon!.campaignFailure) return;
           continue;
