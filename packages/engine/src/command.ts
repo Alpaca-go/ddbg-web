@@ -913,6 +913,9 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
       state,
       "战役已胜利（R9、R41）：最终战全部形态已击败，终局不接受进一步命令",
     );
+  /** R-044：最终战英雄全灭 = 战役失败，同为终局，拒绝任何续战/换形态命令。 */
+  if (d?.finalFormSequence && d.campaignFailure)
+    return rejectBattleCommand(state, "战役已失败（R-044）：最终战不再接受部署、战斗或结算命令");
   if (command.type === "prepareFinalBattleForms") return prepareFinalBattleForms(state);
   if (command.type === "deployFinalBattleForm") {
     const deployed = deployFinalBattleForm(state);

@@ -68,16 +68,27 @@ export function finishFinalBattleForm(state: GameState): ApplyResult {
   const d = state.dungeon,
     b = state.battle,
     sequence = readFinalFormSequence(state);
-  const turn = b?.encounter?.turn;
-  const bosses =
-    b?.entities.filter(
-      (e) => e.side === "monster" && e.monsterCardId === sequence?.current?.actor.cardId,
-    ) ?? [];
+  if (!d || !b || !sequence?.current || sequence.progress.status !== "fighting")
+    return rejectBattleCommand(
+      state,
+      "须确认当前最终战形态实际被击败；不能凭普通战胜利推进（R36）",
+    );
+  const turn = b.encounter?.turn;
+  // R-044：Boss 战（含最终战）任何一场战斗英雄全灭 = 战役失败，不是形态推进。
+  if (turn?.type === "halted" && turn.reason === "heroesDefeated")
+    return {
+      state: { ...state, dungeon: { ...d, campaignFailure: "bossQuestHeroesDefeated" } },
+      events: [
+        {
+          type: "dungeonUpdated",
+          message: "最终战英雄全灭：战役失败（R-044）；不补人、不撤退、不推进下一形态",
+        },
+      ],
+    };
+  const bosses = b.entities.filter(
+    (e) => e.side === "monster" && e.monsterCardId === sequence.current!.actor.cardId,
+  );
   if (
-    !d ||
-    !b ||
-    !sequence?.current ||
-    sequence.progress.status !== "fighting" ||
     d.finalBattleProvisions !== "ready" ||
     d.pending ||
     b.pending ||
