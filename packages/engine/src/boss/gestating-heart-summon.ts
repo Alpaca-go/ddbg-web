@@ -194,3 +194,35 @@ export type ApplyGestatingHeartSummonCommand = {
   readonly type: "applyGestatingHeartSummon";
   readonly actorId: string;
 };
+
+/** 最终战 Gestating Heart 怪物回合：其唯一技能 Dispersion 的效果线是 Summon，由本模块接管选招。 */
+export function gestatingHeartSkillAiShouldReplacePrepare(
+  state: GameState,
+  actorId: string,
+): boolean {
+  if (!summonActive(state)) return false;
+  const actor = state.battle?.entities.find((entity) => entity.id === actorId);
+  return (
+    actor?.side === "monster" &&
+    !actor.dead &&
+    actor.monsterCardId === GESTATING_HEART_MONSTER_CARD_ID
+  );
+}
+
+/**
+ * 自动选招：`monster_large:p019` slot 1 Dispersion 的卡面效果只有 Summon。
+ * 有可用姿态位 → 走既有随机召唤；无位或召唤被拒 → 本回合结束并记录原因，不发明替代效果（R-048）。
+ */
+export function applyGestatingHeartDispersion(state: GameState, actorId: string): ApplyResult {
+  const resolved = gestatingHeartActor(state, actorId);
+  if ("events" in resolved) return resolved;
+  const summon = applyGestatingHeartSummon(state, actorId);
+  const refused = summon.events.find((event) => event.type === "commandRefused");
+  if (!refused || refused.type !== "commandRefused") return summon;
+  return finishTurn(state, actorId, [
+    {
+      type: "dungeonUpdated",
+      message: `Gestating Heart · Dispersion：召唤未执行（${refused.message}），本回合结束（R-048）`,
+    },
+  ]);
+}
