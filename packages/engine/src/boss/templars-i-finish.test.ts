@@ -62,7 +62,11 @@ it("Templars 生产路径全灭仍 R-048 停点", () => {
       ),
       encounter: {
         ...s.battle!.encounter!,
-        turn: { type: "halted" as const, reason: "heroesDefeated" as const, monstersDefeated: false },
+        turn: {
+          type: "halted" as const,
+          reason: "heroesDefeated" as const,
+          monstersDefeated: false,
+        },
       },
     },
   };

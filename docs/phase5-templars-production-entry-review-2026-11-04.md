@@ -9,16 +9,16 @@
 
 ## 证据
 
-| 项 | 来源 |
-| --- | --- |
-| 十四区与部署落点 | R-162、`packages/data/src/normalize/templars-room.ts` |
-| 专用 deploy 与 finish | **R-180**、[rulings.md](rulings.md#r-180) |
-| Impaler 进攻 / Warlord 远程 | `darkest_boss_content.json` quest:p017、`docs/spec` R39 |
-| 先攻 8（各 Templar 2×2） | `darkest-mid-boss-deploy.ts` · `expandDarkestMidBossInitiativeDeckSides` |
-| 命令与存档 schema | `deployTemplarsI`、`quest-save.ts` |
-| 绑房文案 | `darkest-mid-boss-runtime.ts` · `deployTemplarsI` |
-| 胜负交接 | `darkest-finish-battle.ts` · `darkestMidBossCombatActive` / `templarsProductionCombatActive` |
-| 沙盒按钮 | `darkest-boss-room-actions.tsx`（仅 Templars） |
+| 项                          | 来源                                                                                         |
+| --------------------------- | -------------------------------------------------------------------------------------------- |
+| 十四区与部署落点            | R-162、`packages/data/src/normalize/templars-room.ts`                                        |
+| 专用 deploy 与 finish       | **R-180**、[rulings.md](rulings.md#r-180)                                                    |
+| Impaler 进攻 / Warlord 远程 | `darkest_boss_content.json` quest:p017、`docs/spec` R39                                      |
+| 先攻 8（各 Templar 2×2）    | `darkest-mid-boss-deploy.ts` · `expandDarkestMidBossInitiativeDeckSides`                     |
+| 命令与存档 schema           | `deployTemplarsI`、`quest-save.ts`                                                           |
+| 绑房文案                    | `darkest-mid-boss-runtime.ts` · `deployTemplarsI`                                            |
+| 胜负交接                    | `darkest-finish-battle.ts` · `darkestMidBossCombatActive` / `templarsProductionCombatActive` |
+| 沙盒按钮                    | `darkest-boss-room-actions.tsx`（仅 Templars）                                               |
 
 ## 实现要点
 

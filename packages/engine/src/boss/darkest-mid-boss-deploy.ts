@@ -28,6 +28,7 @@ import {
   DARKEST_TEMPLARS_SCRIPT_ID,
   readDarkestMidBossRequiredCombatCardIds,
 } from "./darkest-mid-boss-scripts";
+import { shufflingHorrorProductionCombatActive } from "./shuffling-horror-i-deploy";
 import { templarsProductionCombatActive } from "./templars-i-deploy";
 
 const MID_BOSS_SCRIPT_IDS = new Set([
@@ -192,6 +193,10 @@ export function deployDarkestMidBoss(state: GameState): ApplyResult {
   const plan = d?.darkest?.bossEncounterPlan;
   const deployment = d?.darkest?.bossDeployment;
   const refuse = (message: string) => rejectBattleCommand(state, message);
+  if (plan?.questId === "quest:p016")
+    return refuse(
+      "Shuffling Horror 须使用 deployShufflingHorrorI（R-182），不用 deployDarkestMidBoss 占位几何",
+    );
   if (plan?.questId === "quest:p017")
     return refuse("Templars 须使用 deployTemplarsI（R-180），不用 deployDarkestMidBoss 占位几何");
   if (
@@ -301,6 +306,7 @@ export function expandDarkestMidBossInitiativeDeckSides(
 }
 
 export function darkestMidBossCombatActive(state: GameState): boolean {
+  if (shufflingHorrorProductionCombatActive(state)) return true;
   if (templarsProductionCombatActive(state)) return true;
   const d = state.dungeon;
   if (!d?.darkest?.bossDeployment || d.phase !== "inBattle" || !state.battle) return false;

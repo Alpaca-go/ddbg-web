@@ -98,7 +98,9 @@ function buildHeroEntities(
   return heroes;
 }
 
-function templarsPlanMatches(d: NonNullable<GameState["dungeon"]>): StoredDarkestBossEncounterPlan | undefined {
+function templarsPlanMatches(
+  d: NonNullable<GameState["dungeon"]>,
+): StoredDarkestBossEncounterPlan | undefined {
   const plan = d.darkest?.bossEncounterPlan;
   if (
     !plan ||
@@ -161,9 +163,13 @@ export function deployTemplarsI(state: GameState): ApplyResult {
   const spawned: BattleEntity[] = [];
   for (const [index, actor] of encounter.actors.entries()) {
     const bossCard = monsters.find((entry) => entry.id === actor.cardId) as
-      | (MonsterCardView & { readonly life?: number; readonly dodge?: number })
-      | undefined;
-    if (!bossCard || !("skills" in bossCard) || !Number.isSafeInteger(bossCard.life) || bossCard.life! <= 0)
+      (MonsterCardView & { readonly life?: number; readonly dodge?: number }) | undefined;
+    if (
+      !bossCard ||
+      !("skills" in bossCard) ||
+      !Number.isSafeInteger(bossCard.life) ||
+      bossCard.life! <= 0
+    )
       return refuse(`${actor.cardId} 缺少 Life 或战斗目录条目（R-048）`);
     const dodge = readMonsterDodge(bossCard);
     if (dodge === undefined) return refuse(`${actor.cardId} 缺少已核实 Dodge（R-048）`);
@@ -239,9 +245,7 @@ export function deployTemplarsI(state: GameState): ApplyResult {
       events: [{ type: "dungeonUpdated", message }],
     };
   } catch (error) {
-    return refuse(
-      `Templars 部署无效：${error instanceof Error ? error.message : String(error)}`,
-    );
+    return refuse(`Templars 部署无效：${error instanceof Error ? error.message : String(error)}`);
   }
 }
 

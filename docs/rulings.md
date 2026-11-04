@@ -2296,6 +2296,13 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：Kyries 确认 [#583](https://github.com/Alpaca-go/ddbg-web/pull/583) 与 R-178；R-169 图面、[审核稿](phase5-fanatic-i-production-entry-review-2026-11-04.md)、核心 R39、规格书 §14.5、对标 R-175。
 - **边界**：限 I 级 Face the Threat 的实际 Fanatic 威胁与专属目标房；不修改 `combatReady`、任务白名单或 `room:p013` / 获批 tile 的 `usable=false`；不经 `selectRoomTile` 进 Boss 房；Fanatic II/III 与其余 Boss 分切片。
 
+### R-182
+
+- **日期**：2026-11-04（Asia/Shanghai）
+- **裁定**：批准 Shuffling Horror（quest:p016）在 R-163 房间（`room:p023` / `room_tile:p013:back`）的专用部署与生产胜负交接。公开命令 **`deployShufflingHorrorI`**：`monster_large:p017` 初始进攻/**H**，四英雄按 R-163 获批姿态区部署；保留英雄状态与 RNG 游标，部署不掷骰。显式 **`startBattle`** 洗先攻（目录 `initiativeCards: 2`、单 Boss 实体，经 `expandDarkestMidBossInitiativeDeckSides` 补全 monster 侧张数；开战不预置 support 召唤物）。**`finishDungeonBattle`** 沿用最暗中途 Boss 共用交接（`finishDarkestDungeonBattle`），记录 `bossQuestVictory` 与目标房清理；英雄全灭仍走 R-048 停点。
+- **依据**：Kyries 待确认本 PR；R-163 图面、[审核稿](phase5-shuffling-horror-room-geometry-review-2026-11-03.md)、核心 R36/R39、规格书 §14.x、对标 R-180 / R-178。
+- **边界**：限 quest:p016 最暗目标房；不修改 `darkest_boss_content.combatReady`、任务白名单或 `room_tile` 的 `usable=false`；不经 `selectRoomTile` 或 `prepareDungeonMonsters` 占位 `darkest-mid-boss-*` 进 Shuffling Horror 战；Echoing / Undulations 完整生产、Mammoth / Templars 与其余 Boss 分切片。
+
 ### R-181
 
 - **日期**：2026-11-04（Asia/Shanghai）

@@ -106,13 +106,16 @@ describe("最暗普通房 deployDarkestOrdinaryEncounter / startBattle", () => {
     const game = createCoreDungeonQuest(7, "quest:p016", "radiant", coreParty, coreQuestSources);
     const d = game.dungeon!;
     const room = d.rooms.find((entry) => entry.kind === "objective")!;
-    const midDeployed = ok(
-      ok(
-        { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
-        { type: "prepareDungeonBattle" },
-      ).state,
-      { type: "prepareDungeonMonsters" },
+    const bound = ok(
+      { ...game, dungeon: { ...d, phase: "awaitingRoom", position: room.id } },
+      { type: "prepareDungeonBattle" },
     ).state;
+    expect(
+      applyCommand(bound, { type: "prepareDungeonMonsters" }).events.some(
+        (e) => e.type === "commandRefused",
+      ),
+    ).toBe(true);
+    const midDeployed = ok(bound, { type: "deployShufflingHorrorI" }).state;
     expect(
       applyCommand(midDeployed, { type: "deployDarkestOrdinaryEncounter" }).events.some(
         (e) => e.type === "commandRefused",
@@ -122,7 +125,7 @@ describe("最暗普通房 deployDarkestOrdinaryEncounter / startBattle", () => {
       applyCommand(midDeployed, { type: "deployDarkestMidBoss" }).events.some(
         (e) => e.type === "commandRefused",
       ),
-    ).toBe(false);
+    ).toBe(true);
   });
 
   it("drawInitiative 在最暗普通 inBattle 下可续接", () => {

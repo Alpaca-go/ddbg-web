@@ -173,6 +173,16 @@ it("最暗普通/目标房都保留正确房间牌，缺几何不替换为Ruins�
       ).toBe("darkestDungeon");
       expect(result.state.dungeon!.cursor).toBe(d.cursor);
       expect(applyCommand(result.state, { type: "prepareDungeonBattle" }).state).toBe(result.state);
+      if (kind === "objective" && quest === "quest:p016") {
+        expect(
+          applyCommand(result.state, { type: "prepareDungeonMonsters" }).events.some(
+            (e) => e.type === "commandRefused",
+          ),
+        ).toBe(true);
+        const deployed = ok(result.state, { type: "deployShufflingHorrorI" });
+        expect(deployed.state.battle!.entities.filter((e) => e.side === "monster")).toHaveLength(1);
+        continue;
+      }
       if (kind === "objective" && quest === "quest:p017") {
         const deployed = ok(result.state, { type: "deployTemplarsI" });
         expect(deployed.state.battle!.entities.filter((e) => e.side === "monster")).toHaveLength(2);

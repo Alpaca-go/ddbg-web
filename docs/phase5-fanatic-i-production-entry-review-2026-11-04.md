@@ -9,15 +9,15 @@
 
 ## 证据
 
-| 项 | 来源 |
-| --- | --- |
-| 房间几何九区、B 高地、部署落点 | R-169、`packages/data/src/normalize/fanatic-room.ts` |
-| 专用部署与生产 finish | **R-178**、[rulings.md](rulings.md#r-178) |
-| Fanatic 进攻 / Pyre 远程开局 | R39、规格书 §14.5、`fanatic-i.ts` · `summon(battleStartPyre)` |
-| 先攻 4（Fanatic 3 + Pyre 1） | `fanatic-i-combat-runtime.ts` · `expandFanaticIInitiativeDeckSides` |
-| 专用命令与存档 schema | `deployFanaticI`、`quest-save.ts` |
-| 目标房绑定文案 | `objective-room-entry.ts` · `deployFanaticI` |
-| 胜负交接 | `ruins-i-finish.ts` · `fanatic` 身份 |
+| 项                             | 来源                                                                |
+| ------------------------------ | ------------------------------------------------------------------- |
+| 房间几何九区、B 高地、部署落点 | R-169、`packages/data/src/normalize/fanatic-room.ts`                |
+| 专用部署与生产 finish          | **R-178**、[rulings.md](rulings.md#r-178)                           |
+| Fanatic 进攻 / Pyre 远程开局   | R39、规格书 §14.5、`fanatic-i.ts` · `summon(battleStartPyre)`       |
+| 先攻 4（Fanatic 3 + Pyre 1）   | `fanatic-i-combat-runtime.ts` · `expandFanaticIInitiativeDeckSides` |
+| 专用命令与存档 schema          | `deployFanaticI`、`quest-save.ts`                                   |
+| 目标房绑定文案                 | `objective-room-entry.ts` · `deployFanaticI`                        |
+| 胜负交接                       | `ruins-i-finish.ts` · `fanatic` 身份                                |
 
 ## 实现要点
 
