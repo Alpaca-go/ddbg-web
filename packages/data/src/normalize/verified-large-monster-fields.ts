@@ -256,6 +256,23 @@ export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
       },
     ],
   },
+  // R-183：Shuffling Horror · FRONT p017；一枚靴印 Speed 1；四姿态共用 d10 1–7 / 8–10 → slot 1–2（slot 3 Echoing 走 boss_ability，不进选招表）。
+  {
+    id: "monster_large:p017",
+    name: "Shuffling Horror",
+    level: 3,
+    pages: [17],
+    speed: 1,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 7, skill: 1 },
+          { min: 8, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
   // 最终战 Ancestor 2 · FRONT p018；footer 与 Fanatic III（p010）同型 d10 分段 1–2 / 3–6 / 7–10 → slot 1–3。
   {
     id: "monster_large:p018",

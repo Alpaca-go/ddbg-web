@@ -92,6 +92,7 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
           "monster_large:p013",
           "monster_large:p014",
           "monster_large:p015",
+          "monster_large:p017",
         ].includes(card.id),
       );
     expect(loadNormalizedCorebox()).toEqual(built);

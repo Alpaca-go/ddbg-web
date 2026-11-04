@@ -23,6 +23,7 @@ import {
   preProphetTaskSources,
   preFanaticTaskSources,
   preTemplarsTaskSources,
+  preShufflingHorrorTaskSources,
   preCollectorTaskSources,
   preNecromancerTaskSources,
   taskSources,
@@ -273,6 +274,54 @@ const templarsStanceExpect = {
     },
   ],
 };
+
+const shufflingHorrorStanceExpect = {
+  speed: 1,
+  stanceGroups: [
+    {
+      stances: ["aggressive", "defensive", "ranged", "support"],
+      rollTable: [
+        { min: 1, max: 7, skill: 1 },
+        { min: 8, max: 10, skill: 2 },
+      ],
+    },
+  ],
+};
+
+it("R-183 Shuffling Horror 正式卡字段、旧目录严格迁移和篡改拒绝", () => {
+  expect(taskSources.catalog.monsters.find((c) => c.id === "monster_large:p017")).toMatchObject(
+    shufflingHorrorStanceExpect,
+  );
+  expect(preShufflingHorrorTaskSources.catalog.monsters).toEqual(
+    preTemplarsTaskSources.catalog.monsters.filter((c) => c.id !== "monster_large:p017"),
+  );
+  expect(preTemplarsTaskSources.catalog.monsters.some((c) => c.id === "monster_large:p017")).toBe(
+    true,
+  );
+  const start = {
+    seed: 2,
+    questId: "quest:p019",
+    mode: "radiant",
+    party: naturalParty,
+    bossEdgeRooms: true,
+  } as const;
+  const oldGame = createCoreDungeonQuest(
+    2,
+    start.questId,
+    start.mode,
+    start.party,
+    preShufflingHorrorTaskSources,
+    true,
+  );
+  const save = JSON.parse(
+    JSON.stringify(createQuestSave(start, [], oldGame, preShufflingHorrorTaskSources)),
+  );
+  expect(loadQuestSave(save, taskSources, [preShufflingHorrorTaskSources]).game).toEqual(
+    createCoreDungeonQuest(2, start.questId, start.mode, start.party, taskSources, true),
+  );
+  save.snapshot.dungeon.gold++;
+  expect(() => loadQuestSave(save, taskSources, [preShufflingHorrorTaskSources])).toThrow();
+});
 
 it("R-181 Templars 正式卡字段、旧目录严格迁移和篡改拒绝", () => {
   for (const id of ["monster_large:p014", "monster_large:p015"] as const) {
