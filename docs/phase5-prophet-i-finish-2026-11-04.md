@@ -1,0 +1,13 @@
+# Prophet I 胜负与回村交接
+
+基线：main `e2dcd37c`（#571）。依据 R-173、R-044、R-068、R-122 与规格书 §14.4–14.5（核心 R30/R38）。
+
+Prophet I 专用部署没有普通怪物牌池 active 实例，原 finishDungeonBattle 因而拒绝战后回传。将 Necromancer I 已有交接实现提取为两个明确身份的共享入口，原 Necromancer 导出保持兼容；仅为 room:p011 / room_tile:p006:front 增加 Prophet I 分派。
+
+胜利必须核对实际威胁、战斗中威胁已停止、I级出征计划、真实目标房、唯一对应 Boss 死亡、所有怪物死亡、存活英雄、英雄身份、RNG 游标和待选/战利品状态。成功后回传英雄状态、牌池、补给与金币，清理目标、清除威胁、记录 prophet 击败并标记 bossQuestVictory。普通房间及怪物牌池保持原样，不在战斗交接发 XP；沿用离开确认、摘要与回村时一次性支付 3 XP。
+
+英雄全灭且仍有怪物存活时，沿用 R-044 战役失败：保留战场，不清房、不发奖、不消耗替补。双方全灭、撤退、伪造终态和未处置待选保留拒绝。局部阵亡在胜利交接后沿用既有替补停点。
+
+验证：先知部署、先知交接、原死灵法师交接共 3 文件 25 测通过；新增先知 9 个场景。胜利测试明确使用濒死 Boss / 英雄攻击回合夹具，经真实英雄技能触发死亡；全灭测试明确使用终态夹具，JSON 测试为机制续接，不声称自然打完 Boss 或从任务起点严格存档回放。本地 typecheck、变动文件 ESLint/Prettier、build 通过。固定代码提交 `10a2599` 的[完整 CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/41751124071)全绿：完整单元/场景、typecheck、全仓 lint、build、Python 工具测试及完整 Playwright smoke；之后仅补本文验证记录。
+
+范围：仅引擎交接；正式页面和自然任务严格存档回放另做切片。未开放其它 Boss/等级，不修改 combatReady、任务白名单或 room:p011 usable=false。非阶段末尾，本刀无新增浏览器路径，完整既有冒烟由 CI 验证。
