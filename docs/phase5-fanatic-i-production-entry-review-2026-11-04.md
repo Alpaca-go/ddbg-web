@@ -5,7 +5,7 @@
 ## 范围
 
 - **本刀**：I 级 Face the Threat、`room:p013` + `deployFanaticI` → 显式 `startBattle`（R39 开战 Pyre）→ `finishDungeonBattle` 最小胜负回村；对标 Collector I 的 R-175 专用部署模式。
-- **不做**：Fanatic II/III、翻 `room:p013` / `room_tile` 的 `usable`、扩大 `createCoreDungeonQuest` 白名单、`combatReady`、自然任务 Playwright（正式目录见 `phase5-fanatic-i-page-entry-review-2026-11-04.md`）。
+- **不做**：Fanatic II/III、翻 `room:p013` / `room_tile` 的 `usable`、扩大 `createCoreDungeonQuest` 白名单、`combatReady`、自然任务 Playwright（正式目录见 `phase5-fanatic-i-page-entry-review-2026-11-04.md`）。自然任务严格存档见 [phase5-fanatic-i-natural-save-2026-11-04.md](phase5-fanatic-i-natural-save-2026-11-04.md)（本 PR 另刀）。
 
 ## 证据
 
@@ -32,5 +32,5 @@
 
 ## 已知限制
 
-- 正式目录 / 页面部署冒烟见本 PR 对标 #577；自然任务严格存档 replay 仍另刀。
+- 正式目录 / 页面部署冒烟见 #583 对标 #577；自然任务严格存档见 [phase5-fanatic-i-natural-save-2026-11-04.md](phase5-fanatic-i-natural-save-2026-11-04.md)。
 - Fanatic II/III 仍走 higher ruins 夹具，不经 `deployFanaticI`。
