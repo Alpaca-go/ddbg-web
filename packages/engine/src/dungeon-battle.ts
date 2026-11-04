@@ -394,6 +394,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
 /** R25、R-059：仅完成的战斗可回传一次；R-068 / mutualWipeout 不发胜利或撤退奖励。 */
 export function finishDungeonBattle(state: GameState): ApplyResult {
   if (ruinsIRealCombatActive(state, "prophet")) return finishRuinsIBattle(state, "prophet");
+  if (ruinsIRealCombatActive(state, "collector")) return finishRuinsIBattle(state, "collector");
   if (necromancerIRealCombatActive(state)) return finishNecromancerIBattle(state);
   if (darkestOrdinaryCombatActive(state) || darkestMidBossCombatActive(state))
     return finishDarkestDungeonBattle(state);
