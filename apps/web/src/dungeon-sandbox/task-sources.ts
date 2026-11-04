@@ -82,6 +82,26 @@ export const preMammothCystTaskSources: CoreQuestSources = {
   },
 };
 
+const finalBattleBossCatalogIds = [
+  "monster_medium:p105",
+  "monster_medium:p106",
+  "monster_medium:p109",
+  "monster_large:p018",
+  "monster_large:p019",
+  "monster_large:p020",
+] as const;
+
+/** 接通最终战形态正式 bossMonsters 目录前的固定来源。 */
+export const preFinalBattleBossCatalogTaskSources: CoreQuestSources = {
+  ...preMammothCystTaskSources,
+  catalog: {
+    ...preMammothCystTaskSources.catalog,
+    monsters: preMammothCystTaskSources.catalog.monsters.filter(
+      (c) => !(finalBattleBossCatalogIds as readonly string[]).includes(c.id),
+    ),
+  },
+};
+
 /** 接通 Fanatic I 正式目录前的固定来源。 */
 export const preFanaticTaskSources: CoreQuestSources = {
   ...preTemplarsTaskSources,

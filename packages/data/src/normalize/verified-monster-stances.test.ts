@@ -67,6 +67,9 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
       "monster_medium:p013",
       "monster_medium:p050",
       "monster_medium:p053",
+      "monster_medium:p105",
+      "monster_medium:p106",
+      "monster_medium:p109",
     ];
     expect(verifiedMonsterStances.map((entry) => entry.id).sort()).toEqual(approvedIds.sort());
     for (const card of built.monster_medium.cards) {
@@ -94,6 +97,9 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
           "monster_large:p015",
           "monster_large:p016",
           "monster_large:p017",
+          "monster_large:p018",
+          "monster_large:p019",
+          "monster_large:p020",
         ].includes(card.id),
       );
     expect(loadNormalizedCorebox()).toEqual(built);

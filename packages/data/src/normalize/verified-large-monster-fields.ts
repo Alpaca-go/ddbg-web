@@ -309,6 +309,33 @@ export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
       },
     ],
   },
+  // R-187：Gestating Heart · FRONT p019；卡面无移动靴印 Speed 0；仅 slot 1 Dispersion，四姿态固定 skill 1（Ichor / 随机召唤走 boss_ability 与专用运行时）。
+  {
+    id: "monster_large:p019",
+    name: "Gestating Heart",
+    level: 3,
+    pages: [19],
+    speed: 0,
+    stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
+  },
+  // R-187：Heart of Darkness · FRONT p020；卡面无移动靴印 Speed 0；四姿态 footer 1–4 / 5–7 / 8–10 → slot 1–3（与 R-139 Impending Doom 映射一致；Impending Doom 仍走专用落骰）。
+  {
+    id: "monster_large:p020",
+    name: "Heart of Darkness",
+    level: 3,
+    pages: [20],
+    speed: 0,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 4, skill: 1 },
+          { min: 5, max: 7, skill: 2 },
+          { min: 8, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
 ]);
 
 export function attachVerifiedLargeMonsterFields(

@@ -76,6 +76,8 @@ it("只附加已核实大型卡，参考卡与其他卡不补值；不修改输�
     "monster_large:p016",
     "monster_large:p017",
     "monster_large:p018",
+    "monster_large:p019",
+    "monster_large:p020",
   ]);
   const reference = built.monster_medium.cards.find((c) => c.id === "monster_medium:p030")!;
   expect("speed" in reference).toBe(false);
@@ -180,6 +182,30 @@ it("R-183：Shuffling Horror Speed1、四姿态十骰面", () => {
         status: "selected",
         skillSlot: roll <= 7 ? 1 : 2,
       });
+  }
+});
+it("R-187：Gestating Heart Speed0、四姿态固定 Dispersion", () => {
+  const card = built.monster_large.cards.find((c) => c.id === "monster_large:p019")!;
+  expect(card.speed).toBe(0);
+  for (const stance of ["aggressive", "defensive", "ranged", "support"] as const) {
+    for (let roll = 1; roll <= 10; roll++)
+      expect(selectMonsterSkill(card as MonsterStanceCardView, [stance], roll)).toMatchObject({
+        status: "selected",
+        skillSlot: 1,
+      });
+  }
+});
+it("R-187：Heart of Darkness Speed0、四姿态十骰面", () => {
+  const card = built.monster_large.cards.find((c) => c.id === "monster_large:p020")!;
+  expect(card.speed).toBe(0);
+  for (const stance of ["aggressive", "defensive", "ranged", "support"] as const) {
+    for (let roll = 1; roll <= 10; roll++) {
+      const slot = roll <= 4 ? 1 : roll <= 7 ? 2 : 3;
+      expect(selectMonsterSkill(card as MonsterStanceCardView, [stance], roll)).toMatchObject({
+        status: "selected",
+        skillSlot: slot,
+      });
+    }
   }
 });
 it("R-174：Prophet I Speed1、四姿态十骰面及审批漂移守卫", () => {

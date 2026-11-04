@@ -566,6 +566,54 @@ export const verifiedMonsterStances = z.array(entrySchema).parse([
     pages: [103],
     stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
   },
+  // R-187：Ancestor 1 · FRONT p105；四姿态 footer 1–3 / 4–10 → slot 1–2（slot 3 Time Heals All 走 boss_ability:p034，不进骰表）。
+  {
+    id: "monster_medium:p105",
+    name: "Ancestor 1",
+    level: 3,
+    pages: [105],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 3, skill: 1 },
+          { min: 4, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  // R-187：Perfect Reflection · FRONT p106–108；四姿态 1–5 / 6–10 → slot 1–2。
+  {
+    id: "monster_medium:p106",
+    name: "Perfect Reflection",
+    level: 3,
+    pages: [106, 107, 108],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  // R-187：Imperfect Reflection · FRONT p109–111；四姿态 1–5 / 6–10 → slot 1–2。
+  {
+    id: "monster_medium:p109",
+    name: "Imperfect Reflection",
+    level: 3,
+    pages: [109, 110, 111],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
 ]);
 
 /** 仅生成管线加载获批映射；结构验证不替代人工批准。 */
