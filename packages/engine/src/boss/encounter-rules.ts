@@ -60,6 +60,8 @@ export function resolveEncounterBossBattleRules(state: GameState): BossBattleRul
 
 /** 与 `encounter.ts` 轮末分支共用：达到上限则被迫撤退。 */
 export function encounterForcesRetreatAfterRound(state: GameState, round: number): boolean {
+  // R-044 / R36：最终战属 Boss 战，不计轮数、没有逃跑；此时 quest 分发仍是 p018，不能套普通第 4 轮撤退。
+  if (state.dungeon?.finalFormSequence?.status === "fighting") return false;
   const limit = encounterRoundRetreatLimit(resolveEncounterBossBattleRules(state));
   return limit !== null && round >= limit;
 }
