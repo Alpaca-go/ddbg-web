@@ -1,0 +1,44 @@
+# Prophet I 正式部署与骰点绑定待确认方案
+
+日期：2026-11-04。基线：main `1fd4439d`（#570）。状态：Kyries 已确认 Q-153，记录为 R-173；本切片已实现。
+
+## 已确认并实现的行为
+
+1. 仅战役 I 级的 Face the Threat，实际迫近威胁为 Prophet I（描述卡 `boss_ability:p007`、战斗卡 `monster_large:p005`）、目标房已绑定 `room:p011` 时，允许专用命令部署。
+2. 使用 R-167 的真实八区和十二条通路；Boss 初始进攻姿态在 E。英雄保留各自姿态：Aggressive 在 C、Support 在 D、Ranged 与 Defensive 在 H。保留战役伤口、压力、状态、装备及共享牌池。
+3. 将 R-167 的橙色编号用于现有 `prophetRoomD10AreaTable`：
+
+| d10 | 区域 |
+| --- | ---- |
+| 1–2 | A    |
+| 3   | B    |
+| 4   | C    |
+| 5   | D    |
+| 6   | E    |
+| 7–8 | F    |
+| 9   | G    |
+| 10  | H    |
+
+4. 部署不掷骰、不发奖励；显式 `startBattle` 洗先攻。沿用规格书 §14.5（核心规则 R38–R39）：先知每轮三次行动，第一次掷四颗 d10 放四张 Wooden Pew，第二次沿用卡面选招，第三次执行 Rubble of Ruin，每张长椅分别掷骰。复用已有能力结算，不重新定义落石数值。
+
+## 确认依据
+
+`docs/rulings.md` 的 R-167 明确限定：“不批准落石、掷骰表或Boss运行时准入”。R-172 的运行时批准只涉及 Necromancer I。现有先知运行时能够接收逻辑骰点绑定，但没有正式部署命令把获批图面接入；不能将几何批准自动扩大为本次运行时批准。
+
+## 本条 PR 范围
+
+仅接真实部署、八组骰点绑定和命令存档 schema。验证真实区域/容量/邻接、状态继承、无额外 RNG、严格入口拒绝、显式开战、第一/第三行动与 JSON 命令续接。保持 `room:p011 usable=false`，普通房间选择仍拒绝 Boss；不扩大任务白名单或其它等级准入。
+
+后续再分 PR 完成胜负/回村、正式页面及自然任务严格存档回放；不以部署夹具宣称完整战役贯通。
+
+## 本次核对结果
+
+- R-167 已有完整几何、英雄部署、Boss 进攻部署及八组橙色编号。
+- `prophet-i-room-runtime.ts` 已有八组完整性及区域存在检查。
+- `prophet-i-combat-runtime.ts` 已有四骰放置、三次行动及逐长椅落石结算。
+- `prophet-i.ts` 已定义三张先攻与三次行动；相关旧文案仍写生产几何 hold，接线时应改成实际剩余边界。
+- 新增公开命令 deployProphetI 与存档 schema；从严格校验过的图面标记生成骰点表。
+
+## 验证
+
+部署、先知既有运行时与死灵法师部署共 3 文件 46 测通过，含 7 条先知部署场景。JSON 验证是机制夹具续接，不代表从任务起点严格存档自然回放。本地 typecheck、变动文件 ESLint/Prettier 与 build 均通过。固定代码提交 `e1bd9c3` 的[完整 CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/41748851588)全部通过：全量单元/场景、typecheck、全仓 lint、build、Python 工具测试与完整 Playwright smoke；push 与 PR 两套检查均全绿。之后仅补本文验证记录。
