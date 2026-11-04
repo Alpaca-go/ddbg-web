@@ -234,7 +234,8 @@ export function setupDungeonProvisions(
   };
   const provisions = d.explorationSetup.provisions;
   if (command.type === "rollDungeonProvisions") {
-    if (d.pending || d.startingProvisionChoices || provisions.length) return refuse();
+    if (d.pending || (d.startingProvisionChoices?.length ?? 0) || provisions.length)
+      return refuse();
     const pool: { id: string; face: ProvisionFace }[] = [];
     const choices: { id: string; actorId: string }[] = [];
     const events: GameEvent[] = [];

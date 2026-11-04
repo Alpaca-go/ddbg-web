@@ -2313,7 +2313,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   - **Ancestor 2** `monster_large:p018`：Speed **3**；四姿态 **1–2 / 3–6 / 7–10 → slot 1–3**（与既有 verified 一致）。
   - **Gestating Heart** `monster_large:p019`：卡面**无**移动靴印，Speed **0**；四姿态固定 **slot 1**（Dispersion）；Ichor 与随机召唤走 `boss_ability:p036` 与专用运行时。
   - **Heart of Darkness** `monster_large:p020`：卡面**无**移动靴印，Speed **0**；四姿态 footer **1–4 / 5–7 / 8–10 → slot 1–3**（与 **R-139** Impending Doom 映射一致；Impending Doom 仍走专用落骰）。
-- **依据**：Kyries 待确认本 PR；核心 R24、R-015、R-139；[字段核对稿](phase5-final-battle-page-entry-review-2026-11-04.md)；部署 R-186（[#595](https://github.com/Alpaca-go/ddbg-web/pull/595)）。
+- **依据**：Kyries 确认 [#596](https://github.com/Alpaca-go/ddbg-web/pull/596)；核心 R24、R-015、R-139；[字段核对稿](phase5-final-battle-page-entry-review-2026-11-04.md)；部署 R-186（[#595](https://github.com/Alpaca-go/ddbg-web/pull/595)）。自然任务与严格存档边界见 [phase5-final-battle-natural-save-2026-11-04.md](phase5-final-battle-natural-save-2026-11-04.md)（**Q-xxx 待确认**）。
 - **边界**：仅此六张卡字段与正式 `bossMonsters` 目录及 `preFinalBattleBossCatalogTaskSources` 迁移。不修改 `combatReady`、任务白名单或 R-186 部署几何；Absolute Nothingness / 完整 AI / 自然存档分切片。
 
 ### R-185

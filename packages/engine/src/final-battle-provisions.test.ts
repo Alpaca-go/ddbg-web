@@ -108,3 +108,13 @@ it("四天未完成或已存在补给不能启动；命令加入存档白名单"
   expect(applyCommand(bad, { type: "beginFinalBattleProvisions" }).state).toBe(bad);
   expect(savedCommandSchema.safeParse({ type: "beginFinalBattleProvisions" }).success).toBe(true);
 });
+it("最终战掷补给不因空 startingProvisionChoices 数组误拒", () => {
+  const initial = ready(23, "radiant");
+  const withStale = {
+    ...initial,
+    dungeon: { ...initial.dungeon!, startingProvisionChoices: [] },
+  };
+  let game = ok(withStale, { type: "beginFinalBattleProvisions" });
+  game = ok(game, { type: "rollDungeonProvisions" });
+  expect(game.dungeon!.finalBattleProvisions).toBe("awaiting");
+});
