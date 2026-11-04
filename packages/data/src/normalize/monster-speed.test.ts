@@ -48,6 +48,10 @@ const expected = [
   ["monster_medium:p101", 2],
   ["monster_medium:p102", 2],
   ["monster_medium:p103", 2],
+  // R-187：最终战 Ancestor 1 / Perfect Reflection / Imperfect Reflection（#596 入目录）。
+  ["monster_medium:p105", 3],
+  ["monster_medium:p106", 2],
+  ["monster_medium:p109", 1],
 ] as const;
 const originals = built.monster_medium.cards.map((card) => {
   const copy = structuredClone(card);
@@ -91,6 +95,9 @@ describe("获批中型怪物 Speed 入库（R24、R-001、R-048）", () => {
       p015: 2,
       p016: 1,
       p017: 1,
+      // R-187：最终战 Gestating Heart / Heart of Darkness 卡面无移动靴印，Speed 0。
+      p019: 0,
+      p020: 0,
     };
     for (const card of built.monster_large.cards)
       expect(card.speed, card.id).toBe(largeSpeeds[card.id.replace("monster_large:", "")]);
