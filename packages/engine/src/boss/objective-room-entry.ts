@@ -13,6 +13,28 @@ const rooms = {
   fanatic: { id: "room:p013", name: "Fanatic Room" },
 } as const;
 
+const RUINS_I_DEPLOY_COMMAND = {
+  necromancer: "deployNecromancerI",
+  prophet: "deployProphetI",
+  collector: "deployCollectorI",
+} as const satisfies Partial<Record<keyof typeof rooms, string>>;
+
+function ruinsBossObjectiveBlockedReason(
+  cardName: string,
+  scriptId: string,
+  combatMonsterCardId: string,
+  family: keyof typeof rooms,
+): string {
+  const binding = `${cardName} 已绑定 ${scriptId}（${combatMonsterCardId}）`;
+  const tail = "保留房间牌，不能改抽普通房间（R30 / R-048）。";
+  const deploy =
+    family !== "fanatic" && scriptId.endsWith(":1")
+      ? RUINS_I_DEPLOY_COMMAND[family as keyof typeof RUINS_I_DEPLOY_COMMAND]
+      : undefined;
+  if (deploy) return `${binding}；下一步专用 ${deploy}，${tail}`;
+  return `${binding}；专属房间几何、印刷部署及生产战斗尚未获批接通，${tail}`;
+}
+
 /** R30：目标房使用实际 Boss 的专属房间，不抽普通房间牌、不消费 RNG。 */
 export function prepareBossObjectiveRoom(state: GameState): ApplyResult {
   const d = state.dungeon!;
@@ -55,7 +77,12 @@ export function prepareBossObjectiveRoom(state: GameState): ApplyResult {
   const card = catalog.cards.find((c) => c.id === expected.id);
   if (!card || !card.boss || card.location !== "ruins" || card.name !== expected.name)
     return refuse("对应 Boss 专属房间身份不一致，未替换普通房间（R-048）");
-  const blockedReason = `${card.name} 已绑定 ${scriptId}（${registered.combatMonsterCardId}）；专属房间几何、印刷部署及生产战斗交接尚未获批接通，保留房间牌，不能改抽普通房间（R30 / R-048）。`;
+  const blockedReason = ruinsBossObjectiveBlockedReason(
+    card.name,
+    scriptId,
+    registered.combatMonsterCardId,
+    family,
+  );
   return {
     state: {
       ...state,

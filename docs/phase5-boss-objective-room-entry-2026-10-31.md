@@ -13,6 +13,8 @@
 
 本刀将 `prepareDungeonBattle` 的新 Face the Threat 目标房停点推进到专属房间牌：核对当前等级、实际迫近威胁、已注册脚本、出征计划中的战斗卡 / 能力卡 / 行动与先攻数量，然后写入对应 `roomCards.active`。现有网页房间展示直接显示正确房间卡及具体缺项。全过程不洗普通房间牌、不消费 RNG、不生成普通怪物、不发奖励、不清理目标房。重复命令原子拒绝，不允许换房重抽；没有 tileId，因此部署与开战仍拒绝。
 
+**官方路径（R30 / R-048）**：Face the Threat 目标房经 `prepareDungeonBattle`（`prepareBossObjectiveRoom`）绑定专属 Boss 房间牌与 script / 战斗卡身份后，`blockedReason` 指向下一步专用 `deployNecromancerI` / `deployProphetI` / `deployCollectorI`（仅遗迹 I 级已接通）；Fanatic 与 II/III 仍停「生产战斗尚未获批」。不靠改 `combatReady`、`usable`、任务白名单或 `selectRoomTile` 放行 Boss 战。
+
 仅对 `roomPlacement: edgeRoomsR30` 的新计划生效。旧无标记日志和普通房间流程不变；不改存档格式或几何目录，不绕过普通 `readRoomTile` 对 Boss 的保护。
 
 验证：4 文件 / 11 条相关测试通过（循环覆盖四 Boss I–III 的十二种绑定、JSON 续接、输入不可变、缺目录 / 房间名漂移 / 错级 / 篡改计划拒绝、重复准备与越过部署拒绝）；typecheck、build、本次文件 ESLint / Prettier 通过。另 3 文件 / 25 条存档、旧档回放与幕末出征回归通过。全库 lint 与全量测试的既有失败沿 #400 记录，本刀不声明全库全绿。
