@@ -21,12 +21,22 @@ const realBossDefinitions = {
     label: "Prophet I",
     ruling: "R-173",
   },
+  collector: {
+    script: "boss:ruins:collector:1",
+    card: "monster_medium:p092",
+    description: "boss_ability:p013",
+    room: "room:p012",
+    tile: "room_tile:p007:back",
+    entity: "boss:collector:1",
+    label: "Collector I",
+    ruling: "R-175",
+  },
 } as const;
 type Identity = keyof typeof realBossDefinitions;
 import { clearedBossThreatScriptIdAfterVictory } from "./threat-campaign";
 import { recordRuinsBossDefeatOnThreatCleared } from "./establish-imminent-threat";
 
-/** 仅识别R-172/173的专用真实部署；其它遭遇继续原入口。 */
+/** 仅识别有专用部署的遗迹 I 级 Boss 房。 */
 export function ruinsIRealCombatActive(state: GameState, identity: Identity): boolean {
   const boss = realBossDefinitions[identity];
   return (

@@ -1,6 +1,8 @@
 import { expect, it } from "vitest";
 import { savedCommandSchema } from "../../../data/src/quest-save";
 import { applyCommand } from "../command";
+import { nextBattleRoll } from "../battle-roll";
+import { endAfterCasualties } from "../encounter";
 import type { Command, GameState } from "../command";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
@@ -35,6 +37,9 @@ function atObjective() {
         ...d,
         ...threat,
         phase: "awaitingRoom",
+        rooms: d.rooms.map((room) =>
+          room.kind === "objective" ? { ...room, revealed: true } : room,
+        ),
         position: d.rooms.find((room) => room.kind === "objective")!.id,
         heroes: d.heroes.map((hero, i) => (i === 0 ? { ...hero, wounds: 2, stress: 1 } : hero)),
         faceTheThreatEmbarkPlan: {
@@ -48,6 +53,110 @@ function atObjective() {
 }
 
 const deploy = { type: "deployCollectorI" } as const;
+const finish = { type: "finishDungeonBattle" } as const;
+
+it("Collector I 胜利归还三个宝箱并回村只结算一次 XP", () => {
+  const started = apply(apply(atObjective(), deploy), { type: "startBattle" });
+  const b = started.battle!;
+  const boss = b.entities.find((e) => e.id === "boss:collector:1")!;
+  const cursor = Array.from({ length: 100 }, (_, i) => b.rngCursor + i).find(
+    (i) => nextBattleRoll(started.seed, i) === 1,
+  )!;
+  const prepared: GameState = {
+    ...started,
+    battle: {
+      ...b,
+      rngCursor: cursor,
+      entities: b.entities.map((e) =>
+        e.id === boss.id
+          ? { ...e, wounds: e.life! - 1 }
+          : e.id === "hero-0"
+            ? { ...e, areaId: "C" }
+            : e,
+      ),
+      encounter: {
+        ...b.encounter!,
+        turn: { type: "hero", actorId: "hero-0", actions: 1, usedSkillIds: [] },
+      },
+    },
+  };
+  const won = apply(prepared, {
+    type: "playHeroSkill",
+    actorId: "hero-0",
+    targetId: boss.id,
+    skillId: "hero_skill:p001",
+  });
+  expect(won.battle!.encounter!.turn).toEqual({ type: "finished", outcome: "victory" });
+  const survivor = {
+    ...won,
+    battle: {
+      ...won.battle!,
+      entities: [
+        ...won.battle!.entities,
+        { ...boss, id: "collected", monsterCardId: "monster_medium:p098" },
+      ],
+    },
+  };
+  expect(applyCommand(survivor, finish).state).toBe(survivor);
+  let state = apply(won, finish);
+  const returned = state.dungeon!;
+  expect(returned.bossQuestVictory).toBe(true);
+  expect(returned.activeBossThreatScriptId).toBeUndefined();
+  expect(returned.defeatedRuinsBossIdentities).toEqual(["collector"]);
+  expect(returned.monsterPool).toEqual(started.dungeon!.monsterPool);
+  expect(returned.rooms.find((room) => room.id === returned.position)!.cleared).toBe(true);
+  expect(returned.lootPool!.placed).toEqual([]);
+  expect(returned.lootPool!.available.map(({ id }) => id).sort()).toEqual(
+    b.lootPool!.available.map(({ id }) => id).sort(),
+  );
+  expect(returned.gold).toBe(started.dungeon!.gold);
+  const exit = applyCommand(state, { type: "leaveDungeon" });
+  state = apply(exit.state, {
+    type: "resolveChoice",
+    choiceId: exit.pendingChoice!.id,
+    optionId: "agree",
+  });
+  for (const type of [
+    "summarizeDungeonQuest",
+    "beginReturnToHamlet",
+    "finishReturnToHamlet",
+  ] as const)
+    state = apply(state, { type });
+  expect(state.dungeon!.phase).toBe("inHamlet");
+  expect(state.dungeon!.heroes.map((hero) => hero.xp)).toEqual(
+    returned.heroes.map((hero) => (hero.xp ?? 0) + 3),
+  );
+  expect(state.dungeon!.stagecoachXp).toBe((returned.stagecoachXp ?? 0) + 3);
+  expect(applyCommand(state, { type: "finishReturnToHamlet" }).state).toBe(state);
+});
+
+it("Collector I 战英雄全灭触发 R-044 并保留战场", () => {
+  const started = apply(apply(atObjective(), deploy), { type: "startBattle" });
+  const b = started.battle!;
+  const halted = endAfterCasualties({
+    state: {
+      ...started,
+      battle: {
+        ...b,
+        entities: b.entities.map((e) =>
+          e.side === "hero" ? { ...e, dead: true, wounds: e.life! } : e,
+        ),
+      },
+    },
+    events: [],
+  })!.state;
+  const after = apply(halted, finish);
+  expect(after.battle).toBe(halted.battle);
+  expect(after.dungeon).toMatchObject({
+    campaignFailure: "bossQuestHeroesDefeated",
+    phase: "inBattle",
+    rooms: halted.dungeon!.rooms,
+    heroes: halted.dungeon!.heroes,
+    gold: halted.dungeon!.gold,
+    activeBossThreatScriptId: COLLECTOR_I_SCRIPT_ID,
+  });
+  expect(after.dungeon!.fallenHeroes).toHaveLength(4);
+});
 
 it("R-175真实部署、三个F区宝箱及JSON命令续接", () => {
   const source = atObjective();
