@@ -38,6 +38,7 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
       "monster_medium:p089",
       "monster_medium:p090",
       "monster_medium:p091",
+      "monster_medium:p092",
       "monster_medium:p093",
       "monster_medium:p094",
       "monster_medium:p095",

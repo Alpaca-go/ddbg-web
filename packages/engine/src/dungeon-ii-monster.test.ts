@@ -246,6 +246,8 @@ it("R-082/083 普通卡与 C-019 死灵法师 II 限定字段获批，其余 II/
           "monster_large:p011",
           "monster_large:p012",
           "monster_large:p013",
+          "monster_large:p014",
+          "monster_large:p015",
           "monster_large:p018",
         ] as readonly string[]
       ).includes(card.id),

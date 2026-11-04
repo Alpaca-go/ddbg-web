@@ -36,6 +36,7 @@ const expected = [
   ["monster_medium:p089", 3],
   ["monster_medium:p090", 3],
   ["monster_medium:p091", 3],
+  ["monster_medium:p092", 2],
   ["monster_medium:p093", 2],
   ["monster_medium:p094", 2],
   ["monster_medium:p095", 1],
@@ -86,6 +87,8 @@ describe("获批中型怪物 Speed 入库（R24、R-001、R-048）", () => {
       p011: 0,
       p012: 0,
       p013: 0,
+      p014: 2,
+      p015: 2,
     };
     for (const card of built.monster_large.cards)
       expect(card.speed, card.id).toBe(largeSpeeds[card.id.replace("monster_large:", "")]);

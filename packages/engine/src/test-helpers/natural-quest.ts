@@ -11,6 +11,8 @@ import { moveHero } from "../battle-hero-movement";
 import type { PlayHeroSkillCommand } from "../battle";
 import type { PlayHeroSkillTargetsCommand } from "../battle-hero-targets";
 import { nextNaturalRoute } from "./natural-route";
+import { isBossQuestId } from "../boss/quest-bridge";
+import { DARKEST_TEMPLARS_SCRIPT_ID } from "../boss/darkest-mid-boss-scripts";
 
 const equipped = [
   ["hero_skill:p001", "hero_skill:p004", "hero_skill:p016"],
@@ -304,8 +306,12 @@ export function naturalQuest(
   };
   /** 经闭包读回 phase，避免 step 重赋值后仍被收窄为 ready。 */
   const dungeonPhase = () => state.dungeon!.phase;
+  const currentQuestId = () =>
+    (state.dungeon!.questDistribution?.questId ?? questId) as BasicQuestId;
   const room = () => {
+    if (isBossQuestId(currentQuestId()) && state.dungeon!.bossQuestVictory === true) return;
     for (let count = 0; count < 20; count++) {
+      if (isBossQuestId(currentQuestId()) && state.dungeon!.bossQuestVictory === true) return;
       settle();
       const phase = dungeonPhase();
       if (phase === "ready") return;
@@ -351,6 +357,15 @@ export function naturalQuest(
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:fanatic:1"
         ) {
           step({ type: "deployFanaticI" });
+          fight();
+          if (state.dungeon!.campaignFailure) return;
+          continue;
+        }
+        if (
+          state.dungeon!.roomCards!.active!.cardId === "room:p022" &&
+          state.dungeon!.darkest?.bossEncounterPlan?.resolvedScriptId === DARKEST_TEMPLARS_SCRIPT_ID
+        ) {
+          step({ type: "deployTemplarsI" });
           fight();
           if (state.dungeon!.campaignFailure) return;
           continue;
@@ -408,20 +423,19 @@ export function naturalQuest(
       ).length;
       const cleared = d.rooms.filter((r) => r.cleared),
         lairs = cleared.filter((r) => r.kind === "lair");
-      const done =
-        activeQuestId === "quest:p019"
-          ? d.bossQuestVictory === true
-          : options.exitAfterBattles !== undefined
-            ? events.filter((e) => e.type === "battleFinished").length >= options.exitAfterBattles
-            : activeQuest.xpKind === "all"
-              ? cleared.length >= scoutRooms && won > 0
-              : activeQuest.xpKind === "lair"
-                ? lairs.length >= wipeLairs
-                : activeQuest.xpKind === "objective"
-                  ? cleared.filter((r) => r.kind === "objective").length >= 1
-                  : activeQuest.xpKind === "curio"
-                    ? cleared.filter((r) => r.kind === "curio").length >= 1
-                    : lairs.length > 0 && d.gold >= 20;
+      const done = isBossQuestId(activeQuestId)
+        ? d.bossQuestVictory === true
+        : options.exitAfterBattles !== undefined
+          ? events.filter((e) => e.type === "battleFinished").length >= options.exitAfterBattles
+          : activeQuest.xpKind === "all"
+            ? cleared.length >= scoutRooms && won > 0
+            : activeQuest.xpKind === "lair"
+              ? lairs.length >= wipeLairs
+              : activeQuest.xpKind === "objective"
+                ? cleared.filter((r) => r.kind === "objective").length >= 1
+                : activeQuest.xpKind === "curio"
+                  ? cleared.filter((r) => r.kind === "curio").length >= 1
+                  : lairs.length > 0 && d.gold >= 20;
       if (done) {
         step({ type: "leaveDungeon" });
         choose("agree");
