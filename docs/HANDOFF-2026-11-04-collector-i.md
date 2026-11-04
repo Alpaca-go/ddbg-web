@@ -10,6 +10,7 @@
 - **R-176**（#577）：印刷第 92 页的 Speed 2 和四姿态共用选招表写入正式目录。1–5 为 Show Collection，6–10 为 Life Steal。三个 Collected 原已在正式目录。
 - 正式目标房可 **`deployCollectorI` 部署**并开始战斗，战后可返回地图；战斗中可在 F 区同区翻开拾取宝箱（与引擎一致）。加入 Collector I 前的 `preCollectorTaskSources` 只用于旧档完整重放，验证成功后才升级目录。更早的 Prophet、Necromancer 和 Darkest 目录继续按各自基线重放。
 - **R-176 战斗深化（Show Collection / Life Steal）**：场上无 Collected 仍 Collect All；有 Collected 时走 d10 选招并经 `playMonsterSkill` 结算 Acc/Crit/伤害/Crowded 与 `verified_monster_effects`。验收见 [phase5-collector-i-skills-acc-2026-11-04.md](phase5-collector-i-skills-acc-2026-11-04.md) 与 `collector-i-skills-acc.test.ts`。
+- **Collected I 三技能闭环（p098/p095/p101）**：Collect All 后 G/E/A 真实目录卡经 `prepareMonsterAction` / `moveMonsterToRange` / `playMonsterSkill`（Headache 友方无攻击骰）可结算；G/E/A 挤占与三枚 Collected 先攻侧推进见 [phase5-collector-i-collected-skills-acc-2026-11-04.md](phase5-collector-i-collected-skills-acc-2026-11-04.md) 与 `collector-i-collected-skills-acc.test.ts`。
 - 自然任务：种子 467、p019、Radiant，从任务起点经 `establishImminentThreat` 抽到 Collector，公开命令探索至部署/开战/胜利回村；部署与开战检查点及回村存档严格回放。详见 [phase5-collector-i-natural-save-2026-11-04.md](phase5-collector-i-natural-save-2026-11-04.md)。
 
 ## 仍 hold（文档刀不改运行时准入）
@@ -28,7 +29,7 @@ R-168 白色叹号**不推定额外规则语义**；F 区交互与有限堆奖�
 ## 接手入口
 
 - [R-168、R-175、R-176、R-177](rulings.md) 和[卡面核对](phase5-collector-i-page-entry-review-2026-11-04.md)。
-- [专用部署](../packages/engine/src/boss/ruins-i-deploy.ts)、[胜负交接](../packages/engine/src/boss/ruins-i-finish.ts)、[Collector 场景](../packages/engine/src/boss/collector-i-deploy.test.ts)、[Show Collection / Life Steal 验收](../packages/engine/src/boss/collector-i-skills-acc.test.ts)、[宝箱运行时](../packages/engine/src/boss/collector-i-room-runtime.test.ts)。
+- [专用部署](../packages/engine/src/boss/ruins-i-deploy.ts)、[胜负交接](../packages/engine/src/boss/ruins-i-finish.ts)、[Collector 场景](../packages/engine/src/boss/collector-i-deploy.test.ts)、[Show Collection / Life Steal 验收](../packages/engine/src/boss/collector-i-skills-acc.test.ts)、[Collected 三技能闭环](../packages/engine/src/boss/collector-i-collected-skills-acc.test.ts)、[宝箱运行时](../packages/engine/src/boss/collector-i-room-runtime.test.ts)。
 - [正式目录及兼容来源](../apps/web/src/dungeon-sandbox/task-sources.ts)、[目录和迁移测试](../apps/web/src/dungeon-sandbox/task-sources.test.ts)、[页面冒烟](../apps/web/e2e/collector-i.spec.ts)。
 
 ## 验证
