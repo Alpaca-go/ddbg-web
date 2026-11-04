@@ -5,6 +5,7 @@ import { naturalQuest, naturalParty } from "../test-helpers/natural-quest";
 import { createCoreDungeonQuest, type CoreQuestSources } from "../dungeon-quest-entry";
 import { createQuestSave, loadQuestSave } from "../quest-save";
 import type { GameState, Command } from "../command";
+import { DARKEST_BOSS_CATALOG_CARD_IDS } from "./darkest-boss-catalog";
 import { RUINS_BOSS_CATALOG_CARD_IDS } from "./ruins-combat-levels";
 
 const load = battleDataPlugin().load as (id: string) => string;
@@ -23,7 +24,7 @@ const current: CoreQuestSources = {
 
 it("网页正式目录包含全部 Ruins II/III 与召唤物；普通遭遇目录与旧目录完全相同", () => {
   expect(new Set(bossMonsters.map((c: { id: string }) => c.id))).toEqual(
-    RUINS_BOSS_CATALOG_CARD_IDS,
+    new Set([...RUINS_BOSS_CATALOG_CARD_IDS, ...DARKEST_BOSS_CATALOG_CARD_IDS]),
   );
   expect(previous.catalog.monsters.map((c) => c.id)).toEqual(
     catalog.monsters.map((c: { id: string }) => c.id),

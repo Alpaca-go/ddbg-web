@@ -22,6 +22,7 @@ import {
   preDarkestTaskSources,
   preProphetTaskSources,
   preFanaticTaskSources,
+  preTemplarsTaskSources,
   preCollectorTaskSources,
   preNecromancerTaskSources,
   taskSources,
@@ -222,7 +223,7 @@ it("R-179 Fanatic I 正式卡字段、旧目录严格迁移和篡改拒绝", () 
     ],
   });
   expect(preFanaticTaskSources.catalog.monsters).toEqual(
-    taskSources.catalog.monsters.filter((c) => c.id !== "monster_large:p008"),
+    preTemplarsTaskSources.catalog.monsters.filter((c) => c.id !== "monster_large:p008"),
   );
   expect(preCollectorTaskSources.catalog.monsters.some((c) => c.id === "monster_large:p008")).toBe(
     false,
@@ -250,6 +251,66 @@ it("R-179 Fanatic I 正式卡字段、旧目录严格迁移和篡改拒绝", () 
   );
   save.snapshot.dungeon.gold++;
   expect(() => loadQuestSave(save, taskSources, [preFanaticTaskSources])).toThrow();
+}, 30000);
+
+const templarsStanceExpect = {
+  speed: 2,
+  stanceGroups: [
+    {
+      stances: ["aggressive"],
+      rollTable: [
+        { min: 1, max: 2, skill: 1 },
+        { min: 3, max: 4, skill: 2 },
+        { min: 5, max: 10, skill: 3 },
+      ],
+    },
+    {
+      stances: ["defensive", "ranged", "support"],
+      rollTable: [
+        { min: 1, max: 5, skill: 1 },
+        { min: 6, max: 10, skill: 2 },
+      ],
+    },
+  ],
+};
+
+it("R-181 Templars 正式卡字段、旧目录严格迁移和篡改拒绝", () => {
+  for (const id of ["monster_large:p014", "monster_large:p015"] as const) {
+    expect(taskSources.catalog.monsters.find((c) => c.id === id)).toMatchObject(
+      templarsStanceExpect,
+    );
+  }
+  expect(preTemplarsTaskSources.catalog.monsters).toEqual(
+    taskSources.catalog.monsters.filter(
+      (c) => c.id !== "monster_large:p014" && c.id !== "monster_large:p015",
+    ),
+  );
+  expect(preFanaticTaskSources.catalog.monsters.some((c) => c.id === "monster_large:p014")).toBe(
+    false,
+  );
+  const start = {
+    seed: 2,
+    questId: "quest:p019",
+    mode: "radiant",
+    party: naturalParty,
+    bossEdgeRooms: true,
+  } as const;
+  const oldGame = createCoreDungeonQuest(
+    2,
+    start.questId,
+    start.mode,
+    start.party,
+    preTemplarsTaskSources,
+    true,
+  );
+  const save = JSON.parse(
+    JSON.stringify(createQuestSave(start, [], oldGame, preTemplarsTaskSources)),
+  );
+  expect(loadQuestSave(save, taskSources, [preTemplarsTaskSources]).game).toEqual(
+    createCoreDungeonQuest(2, start.questId, start.mode, start.party, taskSources, true),
+  );
+  save.snapshot.dungeon.gold++;
+  expect(() => loadQuestSave(save, taskSources, [preTemplarsTaskSources])).toThrow();
 }, 30000);
 
 it("旧目录与旧占位计划组合存档仍须完整匹配，升级后严格拒绝篡改", () => {

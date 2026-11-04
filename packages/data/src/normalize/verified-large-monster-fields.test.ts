@@ -25,6 +25,16 @@ it("C-017：Fanatic I 生成结果与提交数据一致，三招完整效果均�
     2, 3, 1,
   ]);
 });
+it("R-181：Templar Warlord / Impaler 生成结果与提交数据一致", () => {
+  const committed = JSON.parse(
+    readFileSync(new URL("../../normalized/corebox/monster_large.json", import.meta.url), "utf8"),
+  );
+  for (const id of ["monster_large:p014", "monster_large:p015"] as const) {
+    const generated = built.monster_large.cards.find((c) => c.id === id)!;
+    expect(generated).toEqual(committed.cards.find((c: { id: string }) => c.id === id));
+    expect(generated.speed).toBe(2);
+  }
+});
 it("只附加已核实大型卡，参考卡与其他卡不补值；不修改输入或其他字段", () => {
   const before = structuredClone(originals),
     actual = attachVerifiedLargeMonsterFields(originals);
@@ -45,6 +55,8 @@ it("只附加已核实大型卡，参考卡与其他卡不补值；不修改输�
     "monster_large:p011",
     "monster_large:p012",
     "monster_large:p013",
+    "monster_large:p014",
+    "monster_large:p015",
     "monster_large:p018",
   ]);
   const reference = built.monster_medium.cards.find((c) => c.id === "monster_medium:p030")!;

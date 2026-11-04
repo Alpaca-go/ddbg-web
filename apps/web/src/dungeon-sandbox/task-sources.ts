@@ -45,12 +45,25 @@ export const taskSources: CoreQuestSources = {
   },
 };
 
-/** 接通 Fanatic I 正式目录前的固定来源。 */
-export const preFanaticTaskSources: CoreQuestSources = {
+const templarsCatalogIds = ["monster_large:p014", "monster_large:p015"] as const;
+
+/** 接通 Templars 正式目录前的固定来源。 */
+export const preTemplarsTaskSources: CoreQuestSources = {
   ...taskSources,
   catalog: {
     ...taskSources.catalog,
-    monsters: taskSources.catalog.monsters.filter((c) => c.id !== "monster_large:p008"),
+    monsters: taskSources.catalog.monsters.filter(
+      (c) => !(templarsCatalogIds as readonly string[]).includes(c.id),
+    ),
+  },
+};
+
+/** 接通 Fanatic I 正式目录前的固定来源。 */
+export const preFanaticTaskSources: CoreQuestSources = {
+  ...preTemplarsTaskSources,
+  catalog: {
+    ...preTemplarsTaskSources.catalog,
+    monsters: preTemplarsTaskSources.catalog.monsters.filter((c) => c.id !== "monster_large:p008"),
   },
 };
 

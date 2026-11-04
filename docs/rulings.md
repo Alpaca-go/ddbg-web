@@ -2296,11 +2296,18 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：Kyries 确认 [#583](https://github.com/Alpaca-go/ddbg-web/pull/583) 与 R-178；R-169 图面、[审核稿](phase5-fanatic-i-production-entry-review-2026-11-04.md)、核心 R39、规格书 §14.5、对标 R-175。
 - **边界**：限 I 级 Face the Threat 的实际 Fanatic 威胁与专属目标房；不修改 `combatReady`、任务白名单或 `room:p013` / 获批 tile 的 `usable=false`；不经 `selectRoomTile` 进 Boss 房；Fanatic II/III 与其余 Boss 分切片。
 
+### R-181
+
+- **日期**：2026-11-04（Asia/Shanghai）
+- **裁定**：Templar Warlord `monster_large:p014` 与 Templar Impaler `monster_large:p015` 的 Speed 均为 2。两卡共用姿态选招表：进攻姿态 d10 1–2 → slot 1（Torment），3–4 → slot 2（Body Slam / Stinger Shot），5–10 → slot 3（Revelation）；防御、远程、辅助姿态 d10 1–5 → slot 1，6–10 → slot 2。
+- **依据**：Kyries 待确认本 PR；核心 R24、印刷 COREBOX 怪物大卡 FRONT p014–p015 及[字段核对稿](phase5-templars-page-entry-review-2026-11-04.md)；部署 R-180。
+- **边界**：仅此两卡字段与正式 `bossMonsters` 目录及 `preTemplarsTaskSources` 迁移。Pit Toss / Spikes / 完整 AI 与其余最暗 Boss 分切片。
+
 ### R-180
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：批准 Templars（quest:p017）在 R-162 房间（`room:p022` / `room_tile:p013:front`）的专用部署与生产胜负交接。公开命令 **`deployTemplarsI`**：Templar Impaler 进攻/M、Templar Warlord 远程/C，四英雄按 R-162 获批姿态区部署；保留英雄状态与 RNG 游标，部署不掷骰。显式 **`startBattle`** 洗先攻（两只 Templar 各 2 张实体先攻，共 8 monster 侧，沿用 `expandDarkestMidBossInitiativeDeckSides`）。**`finishDungeonBattle`** 沿用最暗中途 Boss 共用交接（`finishDarkestDungeonBattle`），记录 `bossQuestVictory` 与目标房清理；英雄全灭仍走 R-048 停点。
-- **依据**：Kyries 待确认本 PR；R-162 图面、[审核稿](phase5-templars-room-geometry-review-2026-11-03.md)、核心 R36/R39、规格书 §14.x、对标 R-178 / R-175。
+- **依据**：Kyries 确认 [#586](https://github.com/Alpaca-go/ddbg-web/pull/586) 与 R-180；R-162 图面、[审核稿](phase5-templars-room-geometry-review-2026-11-03.md)、核心 R36/R39、规格书 §14.x、对标 R-178 / R-175。
 - **边界**：限 quest:p017 最暗目标房；不修改 `darkest_boss_content.combatReady`、任务白名单或 `room_tile` 的 `usable=false`；不经 `selectRoomTile` 或 `prepareDungeonMonsters` 占位 `darkest-mid-boss-*` 进 Templars 战；Pit Toss / Spikes / Shuffling Horror / Mammoth 与其余 Boss 分切片。
 
 ### R-179

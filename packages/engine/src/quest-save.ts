@@ -1,3 +1,4 @@
+import { DARKEST_BOSS_CATALOG_CARD_IDS } from "./boss/darkest-boss-catalog";
 import { RUINS_BOSS_CATALOG_CARD_IDS } from "./boss/ruins-combat-levels";
 import darkestPool from "../../data/normalized/corebox/darkest_monster_pool.json";
 import { upgradeTrinketR127Metadata } from "./trinket-save-upgrade";
@@ -108,6 +109,7 @@ function onlyAddedApprovedMonsterCards(old: GameState, restored: GameState): boo
       .every(
         (c) =>
           RUINS_BOSS_CATALOG_CARD_IDS.has(c.id) ||
+          DARKEST_BOSS_CATALOG_CARD_IDS.has(c.id) ||
           darkestPool.cards.some((entry) => entry.combatCardId === c.id),
       )
   );
