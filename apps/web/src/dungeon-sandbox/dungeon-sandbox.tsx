@@ -7,7 +7,7 @@ import { DungeonHeader } from "./expedition/dungeon-header";
 import { QuestMapPanel } from "./dungeon-map/quest-map-panel";
 import { ScoutingPanel } from "./expedition/scouting-panel";
 import { FormalDungeonExplorationView } from "./formal/formal-dungeon-exploration-view";
-import { CampaignVictoryPanel } from "./quest-return/campaign-victory-panel";
+import { CampaignVictoryPanel, campaignRestartUrl } from "./quest-return/campaign-victory-panel";
 
 /** Formal non-battle dungeon phases share the tabletop center shell (exploration, return, hamlet, prep). */
 function isFormalDungeonTabletopExploration(game: GameState, formal: boolean): boolean {
@@ -20,7 +20,13 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
     useDungeonStore();
   const d = game.dungeon!;
   /** R9/R41 战役胜利是终局：替换战斗/探索台面，避免停在无命令可用的战场。 */
-  if (d.campaignVictory) return <CampaignVictoryPanel game={game} />;
+  if (d.campaignVictory)
+    return (
+      <CampaignVictoryPanel
+        game={game}
+        onNewCampaign={() => window.location.assign(campaignRestartUrl(window.location.href))}
+      />
+    );
   const pendingChoice = d.deathTrinketChoice ?? d.replacementPreparation?.choice ?? d.pending;
   const hamletPhase = Boolean(d.hamlet);
   const questReturnPhase = Boolean(d.hamletReturn || d.phase === "exited");
