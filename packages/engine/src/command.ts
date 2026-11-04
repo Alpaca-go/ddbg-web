@@ -907,6 +907,12 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
         : null);
     if (problem) return rejectBattleCommand(state, problem);
   }
+  /** R9/R41：Heart of Darkness 被击败即战役胜利；终局不再接受命令，避免胜利后被改写。 */
+  if (d?.campaignVictory)
+    return rejectBattleCommand(
+      state,
+      "战役已胜利（R9、R41）：最终战全部形态已击败，终局不接受进一步命令",
+    );
   if (command.type === "prepareFinalBattleForms") return prepareFinalBattleForms(state);
   if (command.type === "deployFinalBattleForm") {
     const deployed = deployFinalBattleForm(state);

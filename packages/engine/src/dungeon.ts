@@ -143,6 +143,8 @@ export type DungeonState = {
   readonly replacementChoiceCursor?: number;
   readonly campaignFailure?:
     "noWaitingHeroes" | "insufficientWaitingHeroes" | "bossQuestHeroesDefeated";
+  /** R9/R41：第 4 幕击败 Heart of Darkness = 战役胜利；终局态，不再接受命令。 */
+  readonly campaignVictory?: true;
   /** R31：按英雄身份永久排除，不按临时实体id或等级属性面去重。 */
   readonly deadHeroNames?: readonly string[];
   /** 回收/遗产分配前保存；历史记录不占当前共享牌，供重生池完整继承。 */

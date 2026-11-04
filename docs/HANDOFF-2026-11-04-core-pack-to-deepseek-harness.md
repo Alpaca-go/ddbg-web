@@ -73,7 +73,7 @@ tip 上上述四面 **`room_tile_geometry.usable: true`**（仅该面 runtime �
 
 ### 3.2 未覆盖（禁止在 PR 里「宣称战役已通」）
 
-- 多形态 **`finishDungeonBattle` 胜利链**、形态间完整续战与自然路径 **战役胜利回村**。
+- **胜利后回村（R32）或开新战役**：终局本身已接（`campaignVictory` + 结局面板，见 R-188 与 [切片](phase5-final-battle-victory-2026-11-04.md)），但停在结算，不提供回村/新战役。
 - Ancestor 2 / Gestating Heart / Heart of Darkness **完整 Boss AI** 与 **`combatReady: true` 运行时**。
 - **`ancestorGlory`** 等特殊区完整运行时（R-165 / R-186 边界：tile **`usable: false`** 时不激活 BattleArea 特殊区）。
 - 铁匠 / 游商深度购买（自然路径仅消费任务历史中的 `nextQuestProvisionDice` 等）。
