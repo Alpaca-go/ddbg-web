@@ -395,6 +395,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
 export function finishDungeonBattle(state: GameState): ApplyResult {
   if (ruinsIRealCombatActive(state, "prophet")) return finishRuinsIBattle(state, "prophet");
   if (ruinsIRealCombatActive(state, "collector")) return finishRuinsIBattle(state, "collector");
+  if (ruinsIRealCombatActive(state, "fanatic")) return finishRuinsIBattle(state, "fanatic");
   if (necromancerIRealCombatActive(state)) return finishNecromancerIBattle(state);
   if (darkestOrdinaryCombatActive(state) || darkestMidBossCombatActive(state))
     return finishDarkestDungeonBattle(state);

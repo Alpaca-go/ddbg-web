@@ -17,6 +17,7 @@ const RUINS_I_DEPLOY_COMMAND = {
   necromancer: "deployNecromancerI",
   prophet: "deployProphetI",
   collector: "deployCollectorI",
+  fanatic: "deployFanaticI",
 } as const satisfies Partial<Record<keyof typeof rooms, string>>;
 
 function ruinsBossObjectiveBlockedReason(
@@ -27,10 +28,9 @@ function ruinsBossObjectiveBlockedReason(
 ): string {
   const binding = `${cardName} 已绑定 ${scriptId}（${combatMonsterCardId}）`;
   const tail = "保留房间牌，不能改抽普通房间（R30 / R-048）。";
-  const deploy =
-    family !== "fanatic" && scriptId.endsWith(":1")
-      ? RUINS_I_DEPLOY_COMMAND[family as keyof typeof RUINS_I_DEPLOY_COMMAND]
-      : undefined;
+  const deploy = scriptId.endsWith(":1")
+    ? RUINS_I_DEPLOY_COMMAND[family as keyof typeof RUINS_I_DEPLOY_COMMAND]
+    : undefined;
   if (deploy) return `${binding}；下一步专用 ${deploy}，${tail}`;
   return `${binding}；专属房间几何、印刷部署及生产战斗尚未获批接通，${tail}`;
 }
