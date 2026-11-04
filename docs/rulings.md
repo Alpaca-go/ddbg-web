@@ -2300,7 +2300,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：Shuffling Horror 战斗卡 `monster_large:p017` 的 Speed 为 1。四姿态共用 d10 选招表：1–7 为 slot 1（Lacerate），8–10 为 slot 2（Undulations）。slot 3（Echoing Disassembly）由 `boss_ability:p033` 与专用运行时处理，不写入姿态骰表。
-- **依据**：Kyries 待确认本 PR；核心 R24、印刷 COREBOX 怪物大卡 FRONT p017 及[字段核对稿](phase5-shuffling-horror-page-entry-review-2026-11-04.md)；部署 R-182（[#589](https://github.com/Alpaca-go/ddbg-web/pull/589)）。
+- **依据**：Kyries 确认 [#590](https://github.com/Alpaca-go/ddbg-web/pull/590)；核心 R24、印刷 COREBOX 怪物大卡 FRONT p017 及[字段核对稿](phase5-shuffling-horror-page-entry-review-2026-11-04.md)；部署 R-182（[#589](https://github.com/Alpaca-go/ddbg-web/pull/589)）。
 - **边界**：仅此卡字段与正式 `bossMonsters` 目录及 `preShufflingHorrorTaskSources` 迁移。Echoing / Undulations 深化、Mammoth / Templars 与其余 Boss 分切片。
 
 ### R-182
