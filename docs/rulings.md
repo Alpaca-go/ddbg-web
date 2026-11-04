@@ -2296,11 +2296,18 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：Kyries 确认 [#583](https://github.com/Alpaca-go/ddbg-web/pull/583) 与 R-178；R-169 图面、[审核稿](phase5-fanatic-i-production-entry-review-2026-11-04.md)、核心 R39、规格书 §14.5、对标 R-175。
 - **边界**：限 I 级 Face the Threat 的实际 Fanatic 威胁与专属目标房；不修改 `combatReady`、任务白名单或 `room:p013` / 获批 tile 的 `usable=false`；不经 `selectRoomTile` 进 Boss 房；Fanatic II/III 与其余 Boss 分切片。
 
+### R-185
+
+- **日期**：2026-11-04（Asia/Shanghai）
+- **裁定**：Mammoth Cyst 战斗卡 `monster_large:p016` 的 Speed 为 1。四姿态共用 d10 选招表：1–4 为 slot 1（Bulging Gaze），5–8 为 slot 2（Digestion），9–10 为 slot 3（Revivify）。slot 3 虽为 Self 技能，但卡面 footer 与 Fanatic 同型分段表写入姿态骰表；White Cell 召唤与 boss_ability 替换行动仍走专用运行时，不另改表。
+- **依据**：Kyries 待确认本 PR；核心 R24、印刷 COREBOX 怪物大卡 FRONT p016 及[字段核对稿](phase5-mammoth-cyst-page-entry-review-2026-11-04.md)；部署 R-184（[#592](https://github.com/Alpaca-go/ddbg-web/pull/592)）。
+- **边界**：仅此卡字段与正式 `bossMonsters` 目录及 `preMammothCystTaskSources` 迁移。White Cell Teleport / 紫星运行时 / 完整 AI 与其余最暗 Boss 分切片。
+
 ### R-184
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：批准 Mammoth Cyst（quest:p018）在 R-164 房间（`room:p024` / `room_tile:p014:front`）的专用部署与生产胜负交接。公开命令 **`deployMammothCystI`**：`monster_large:p016` 初始进攻/**H**，四英雄按 R-164 均落 **K**；保留英雄状态与 RNG 游标，部署不掷骰。显式 **`startBattle`** 洗先攻（目录 `initiativeCards: 2`、单 Boss 实体，经 `expandDarkestMidBossInitiativeDeckSides` 补全 monster 侧张数；开战不预置 `monster_medium:p104` White Cell）。**`finishDungeonBattle`** 沿用最暗中途 Boss 共用交接（`finishDarkestDungeonBattle`），记录 `bossQuestVictory` 与目标房清理；英雄全灭仍走 R-048 停点。
-- **依据**：Kyries 待确认本 PR；R-164 图面、[审核稿](phase5-mammoth-cyst-production-entry-review-2026-11-04.md)、核心 R36/R39、规格书 §14.x、对标 R-182 / R-180。
+- **依据**：Kyries 确认 [#592](https://github.com/Alpaca-go/ddbg-web/pull/592) 与 R-184；R-164 图面、[审核稿](phase5-mammoth-cyst-production-entry-review-2026-11-04.md)、核心 R36/R39、规格书 §14.x、对标 R-182 / R-180。
 - **边界**：限 quest:p018 最暗目标房；不修改 `darkest_boss_content.combatReady`、任务白名单或 `room_tile` 的 `usable=false`；不经 `selectRoomTile` 或 `prepareDungeonMonsters` 占位 `darkest-mid-boss-*` 进 Mammoth Cyst 战；White Cell Teleport / 紫星运行时 / 完整 AI 与其余 Boss 分切片。
 
 ### R-183

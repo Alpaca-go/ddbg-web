@@ -24,6 +24,7 @@ import {
   preFanaticTaskSources,
   preTemplarsTaskSources,
   preShufflingHorrorTaskSources,
+  preMammothCystTaskSources,
   preCollectorTaskSources,
   preNecromancerTaskSources,
   taskSources,
@@ -275,6 +276,20 @@ const templarsStanceExpect = {
   ],
 };
 
+const mammothCystStanceExpect = {
+  speed: 1,
+  stanceGroups: [
+    {
+      stances: ["aggressive", "defensive", "ranged", "support"],
+      rollTable: [
+        { min: 1, max: 4, skill: 1 },
+        { min: 5, max: 8, skill: 2 },
+        { min: 9, max: 10, skill: 3 },
+      ],
+    },
+  ],
+};
+
 const shufflingHorrorStanceExpect = {
   speed: 1,
   stanceGroups: [
@@ -287,6 +302,41 @@ const shufflingHorrorStanceExpect = {
     },
   ],
 };
+
+it("R-185 Mammoth Cyst 正式卡字段、旧目录严格迁移和篡改拒绝", () => {
+  expect(taskSources.catalog.monsters.find((c) => c.id === "monster_large:p016")).toMatchObject(
+    mammothCystStanceExpect,
+  );
+  expect(preMammothCystTaskSources.catalog.monsters).toEqual(
+    preShufflingHorrorTaskSources.catalog.monsters.filter((c) => c.id !== "monster_large:p016"),
+  );
+  expect(
+    preShufflingHorrorTaskSources.catalog.monsters.some((c) => c.id === "monster_large:p016"),
+  ).toBe(true);
+  const start = {
+    seed: 2,
+    questId: "quest:p019",
+    mode: "radiant",
+    party: naturalParty,
+    bossEdgeRooms: true,
+  } as const;
+  const oldGame = createCoreDungeonQuest(
+    2,
+    start.questId,
+    start.mode,
+    start.party,
+    preMammothCystTaskSources,
+    true,
+  );
+  const save = JSON.parse(
+    JSON.stringify(createQuestSave(start, [], oldGame, preMammothCystTaskSources)),
+  );
+  expect(loadQuestSave(save, taskSources, [preMammothCystTaskSources]).game).toEqual(
+    createCoreDungeonQuest(2, start.questId, start.mode, start.party, taskSources, true),
+  );
+  save.snapshot.dungeon.gold++;
+  expect(() => loadQuestSave(save, taskSources, [preMammothCystTaskSources])).toThrow();
+});
 
 it("R-183 Shuffling Horror 正式卡字段、旧目录严格迁移和篡改拒绝", () => {
   expect(taskSources.catalog.monsters.find((c) => c.id === "monster_large:p017")).toMatchObject(

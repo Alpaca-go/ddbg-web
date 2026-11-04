@@ -26497,6 +26497,7 @@
     "value": null,
     "naming": "confirmed"
    },
+   "speed": 1,
    "resistances": [
     {
      "iconId": "303efb0a59",
@@ -27706,6 +27707,33 @@
       "text": " 2 5-8"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 4,
+       "skill": 1
+      },
+      {
+       "min": 5,
+       "max": 8,
+       "skill": 2
+      },
+      {
+       "min": 9,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    }
    ],
    "back_texts": [
     [
