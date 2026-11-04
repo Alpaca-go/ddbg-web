@@ -23,7 +23,7 @@
    ],
    "supportAbilityCardIds": [],
    "skipFinalForm": "ancestor2",
-   "combatReady": false
+   "combatReady": true
   },
   {
    "questId": "quest:p017",
@@ -47,7 +47,7 @@
    "supportCardIds": [],
    "supportAbilityCardIds": [],
    "skipFinalForm": "ancestor1",
-   "combatReady": false
+   "combatReady": true
   },
   {
    "questId": "quest:p018",
@@ -68,7 +68,7 @@
     "boss_ability:p031"
    ],
    "skipFinalForm": "gestatingHeart",
-   "combatReady": false
+   "combatReady": true
   }
  ],
  "finalBattle": {
@@ -91,7 +91,7 @@
      "monster_medium:p106",
      "monster_medium:p109"
     ],
-    "combatReady": false
+    "combatReady": true
    },
    {
     "id": "ancestor2",
@@ -103,7 +103,7 @@
      "actionsPerRound": 2
     },
     "supportCardIds": [],
-    "combatReady": false
+    "combatReady": true
    },
    {
     "id": "gestatingHeart",
@@ -115,7 +115,7 @@
      "actionsPerRound": 1
     },
     "supportCardIds": [],
-    "combatReady": false
+    "combatReady": true
    },
    {
     "id": "heartOfDarkness",
@@ -127,7 +127,7 @@
      "actionsPerRound": 2
     },
     "supportCardIds": [],
-    "combatReady": false
+    "combatReady": true
    }
   ]
  }

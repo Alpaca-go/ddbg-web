@@ -14,7 +14,7 @@ export const darkestBossAbilitiesSchema = z
           sourcePage: z.int().positive(),
           actionsPerRound: z.union([z.int().positive(), z.literal("special")]),
           textLines: z.array(z.string()),
-          combatReady: z.literal(false),
+          combatReady: z.boolean(),
         }),
       )
       .length(9),

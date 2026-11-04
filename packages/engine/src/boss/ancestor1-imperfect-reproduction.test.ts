@@ -129,9 +129,9 @@ function mostStressedHero(state: GameState) {
   return [...heroes].sort((a, b) => b.stress! - a.stress! || a.id.localeCompare(b.id))[0]!;
 }
 
-it("ancestor1 形态 combatReady 仍为 false", () => {
+it("ancestor1 形态 combatReady 已批准为 true", () => {
   const sequence = readFinalFormSequence(ancestor1Deployed())!;
-  expect(sequence.current!.combatReady).toBe(false);
+  expect(sequence.current!.combatReady).toBe(true);
 });
 
 it("空槽召唤 Imperfect Reflection、Most Stressed 压力 +2、Guard 并 finishTurn", () => {

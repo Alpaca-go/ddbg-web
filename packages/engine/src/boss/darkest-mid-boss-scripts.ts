@@ -35,7 +35,7 @@ function buildDarkestMidBossScript(questId: DarkestQuestId): BossScriptDefinitio
     questIds: [questId],
     rules: DEFAULT_BOSS_BATTLE_RULES,
     notes:
-      "A-4 中途最暗 Boss：身份与先攻/行动数来自 darkest_boss_content；技能/召唤/几何 combatReady: false。",
+      "A-4 中途最暗 Boss：身份与先攻/行动数来自 darkest_boss_content；技能/召唤/几何 combatReady: true。",
     combatEntry: {
       descriptionAbilityCardId: primary.abilityCardId,
       combatAbilityCardId: primary.abilityCardId,

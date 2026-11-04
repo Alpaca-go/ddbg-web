@@ -100,9 +100,9 @@ function withWounds(state: GameState, cardId: string, wounds: number): GameState
   };
 }
 
-it("ancestor1 形态 combatReady 仍为 false", () => {
+it("ancestor1 形态 combatReady 已批准为 true", () => {
   const sequence = readFinalFormSequence(ancestor1Deployed())!;
-  expect(sequence.current!.combatReady).toBe(false);
+  expect(sequence.current!.combatReady).toBe(true);
 });
 
 it("满槽时对 Most Wounded 友方治疗 10 并 finishTurn", () => {

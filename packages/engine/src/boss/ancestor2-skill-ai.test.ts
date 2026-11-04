@@ -158,7 +158,7 @@ it("prepareMonsterAction · slot 3 走 Acc 显式命令并完成回合（含 Swi
   expect(events.some((event) => event.type === "turnEnded")).toBe(true);
   expect(result.state.battle!.rngCursor).toBeGreaterThan(cursorBefore + 1);
   expect(result.state.battle!.encounter!.turn.type).not.toBe("monster");
-  expect(readFinalFormSequence(result.state)!.current!.combatReady).toBe(false);
+  expect(readFinalFormSequence(result.state)!.current!.combatReady).toBe(true);
 });
 
 it("非 ancestor2 形态拒绝 applyAncestor2SkillFromStanceSelection", () => {

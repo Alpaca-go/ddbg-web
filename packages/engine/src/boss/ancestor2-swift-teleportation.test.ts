@@ -48,7 +48,7 @@ function ancestor2Deployed(): GameState {
 
 function ancestor2Fighting(): GameState {
   const deployed = withoutAbsoluteNothingness(ancestor2Deployed());
-  expect(readFinalFormSequence(deployed)!.current!.combatReady).toBe(false);
+  expect(readFinalFormSequence(deployed)!.current!.combatReady).toBe(true);
   return applyCommand(deployed, { type: "startBattle" }).state;
 }
 
@@ -84,9 +84,9 @@ function withBattleRngCursor(state: GameState, cursor: number): GameState {
   };
 }
 
-it("ancestor2 形态 combatReady 仍为 false", () => {
+it("ancestor2 形态 combatReady 已批准为 true", () => {
   const sequence = readFinalFormSequence(ancestor2Deployed())!;
-  expect(sequence.current!.combatReady).toBe(false);
+  expect(sequence.current!.combatReady).toBe(true);
 });
 
 it("swiftTeleportStanceFromDie 映射 1–3/4–6/7–9/10", () => {

@@ -129,7 +129,7 @@ it("只有已胜利、已发XP并完成回村才提供最终战准备计划；�
   };
   const plan = readFinalBattlePlanAfterDarkestVictory(ready)!;
   expect(plan.forms.map((f) => f.id)).toEqual(["ancestor1", "gestatingHeart", "heartOfDarkness"]);
-  expect(plan.forms.every((f) => !f.combatReady)).toBe(true);
+  expect(plan.forms.every((f) => f.combatReady)).toBe(true);
   expect(
     readFinalBattlePlanAfterDarkestVictory({
       ...ready,

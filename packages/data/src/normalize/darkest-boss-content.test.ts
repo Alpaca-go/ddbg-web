@@ -18,7 +18,7 @@ it("三任务Boss与四最终形态可再生；初始先攻分别2/4/2，特殊�
     2, 4, 2,
   ]);
   expect(file.finalBattle.forms[0]!.actor.actionsPerRound).toBe("special");
-  expect(file.finalBattle.forms.every((f) => !f.combatReady)).toBe(true);
+  expect(file.finalBattle.forms.every((f) => f.combatReady)).toBe(true);
 });
 
 it("p16取消二形态、p17取消一形态、p18取消孕育之心；最终形态不可跳，保留同一房间与4天准备", () => {

@@ -49,10 +49,10 @@ function ancestor(state: GameState) {
   return state.battle!.entities.find((entity) => entity.monsterCardId === ANCESTOR)!;
 }
 
-it("ancestor1 形态 combatReady 仍为 false", () => {
+it("ancestor1 形态 combatReady 已批准为 true", () => {
   const sequence = readFinalFormSequence(ancestor1Deployed())!;
   expect(sequence.current!.id).toBe("ancestor1");
-  expect(sequence.current!.combatReady).toBe(false);
+  expect(sequence.current!.combatReady).toBe(true);
 });
 
 it("Imperfect Reflection 死亡 → 存活 Ancestor +10 伤口", () => {

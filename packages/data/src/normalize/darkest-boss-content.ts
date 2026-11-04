@@ -52,7 +52,7 @@ export function buildDarkestBossContent(
       supportCardIds: ["monster_medium:p072", "monster_medium:p075"],
       supportAbilityCardIds: [],
       skipFinalForm: "ancestor2",
-      combatReady: false,
+      combatReady: true,
     },
     {
       questId: "quest:p017",
@@ -64,7 +64,7 @@ export function buildDarkestBossContent(
       supportCardIds: [],
       supportAbilityCardIds: [],
       skipFinalForm: "ancestor1",
-      combatReady: false,
+      combatReady: true,
     },
     {
       questId: "quest:p018",
@@ -75,7 +75,7 @@ export function buildDarkestBossContent(
         actor("monster_medium:p104", 31, "White Cell Stalk", "aggressive", 2, 2).abilityCardId,
       ],
       skipFinalForm: "gestatingHeart",
-      combatReady: false,
+      combatReady: true,
     },
   ];
   for (const e of encounters) {
@@ -117,25 +117,25 @@ export function buildDarkestBossContent(
           id: "ancestor1",
           actor: actor("monster_medium:p105", 34, "Ancestor 1st Form", "aggressive", 4, "special"),
           supportCardIds: ["monster_medium:p106", "monster_medium:p109"],
-          combatReady: false,
+          combatReady: true,
         },
         {
           id: "ancestor2",
           actor: actor("monster_large:p018", 35, "Ancestor 2nd Form", "aggressive", 2, 2),
           supportCardIds: absoluteNothingness.supportCardIds,
-          combatReady: false,
+          combatReady: true,
         },
         {
           id: "gestatingHeart",
           actor: actor("monster_large:p019", 36, "Gestating Heart", "aggressive", 1, 1),
           supportCardIds: [],
-          combatReady: false,
+          combatReady: true,
         },
         {
           id: "heartOfDarkness",
           actor: actor("monster_large:p020", 37, "Heart of Darkness", "aggressive", 2, 2),
           supportCardIds: [],
-          combatReady: false,
+          combatReady: true,
         },
       ],
     },

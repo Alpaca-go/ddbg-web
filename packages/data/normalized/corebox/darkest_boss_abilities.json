@@ -8,7 +8,7 @@
    "sourcePage": 26,
    "actionsPerRound": 2,
    "textLines": [],
-   "combatReady": false
+   "combatReady": true
   },
   {
    "id": "boss_ability:p028",
@@ -23,7 +23,7 @@
     "he’ll throw them into. If the Area",
     "has no space, ignore this effect."
    ],
-   "combatReady": false
+   "combatReady": true
   },
   {
    "id": "boss_ability:p030",
@@ -36,7 +36,7 @@
     "Cell Stalk in play, instead of using a",
     "Skill, Mammoth Cyst will {icon:ab045955ed} one."
    ],
-   "combatReady": false
+   "combatReady": true
   },
   {
    "id": "boss_ability:p031",
@@ -49,7 +49,7 @@
     "with the Teleport Skill, roll a {icon:d91e56a591}",
     "to see where they’ll land."
    ],
-   "combatReady": false
+   "combatReady": true
   },
   {
    "id": "boss_ability:p033",
@@ -69,7 +69,7 @@
     "it’s already in play) and Malignant",
     "Growth (unless it’s already in play)."
    ],
-   "combatReady": false
+   "combatReady": true
   },
   {
    "id": "boss_ability:p034",
@@ -88,7 +88,7 @@
     "Reflection dies, the Ancestor",
     "suffers 10 {icon:b4f3f42fe4} ."
    ],
-   "combatReady": false
+   "combatReady": true
   },
   {
    "id": "boss_ability:p035",
@@ -106,7 +106,7 @@
     "Nothingness are untargetable but they",
     "still occupy one space in their Areas."
    ],
-   "combatReady": false
+   "combatReady": true
   },
   {
    "id": "boss_ability:p036",
@@ -121,7 +121,7 @@
     "Summon {icon:ab045955ed} : {icon:ab045955ed} a random",
     "Darkest Dungeon Monster."
    ],
-   "combatReady": false
+   "combatReady": true
   },
   {
    "id": "boss_ability:p037",
@@ -137,7 +137,7 @@
     "card. Next time its turn comes,",
     "it’ll use the corresponding Skill."
    ],
-   "combatReady": false
+   "combatReady": true
   }
  ]
 }

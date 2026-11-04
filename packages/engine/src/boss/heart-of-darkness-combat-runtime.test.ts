@@ -63,7 +63,7 @@ function heartOfDarknessDeployed(): GameState {
 function heartOfDarknessFighting(): GameState {
   const deployed = heartOfDarknessDeployed();
   expect(readFinalFormSequence(deployed)!.current!.id).toBe("heartOfDarkness");
-  expect(readFinalFormSequence(deployed)!.current!.combatReady).toBe(false);
+  expect(readFinalFormSequence(deployed)!.current!.combatReady).toBe(true);
   return applyCommand(deployed, { type: "startBattle" }).state;
 }
 

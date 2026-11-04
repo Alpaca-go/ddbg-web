@@ -74,13 +74,13 @@ tip 上上述四面 **`room_tile_geometry.usable: true`**（仅该面 runtime �
 ### 3.2 未覆盖（禁止在 PR 里「宣称战役已通」）
 
 - **胜利后回村（R32）**：终局已接（`campaignVictory` + 结局面板 + 开新战役，见 R-188 与 [切片](phase5-final-battle-victory-2026-11-04.md)）；Kyries 2026-11-04 明确打完最终 BOSS 游戏结束，**不回村**。
-- Ancestor 2 / Gestating Heart / Heart of Darkness **完整 Boss AI** 与 **`combatReady: true` 运行时**。
-- **`ancestorGlory`** 等特殊区完整运行时（R-165 / R-186 边界：tile **`usable: false`** 时不激活 BattleArea 特殊区）。
+- Ancestor 2 与 Heart of Darkness 的**自动选招**已接；**Ancestor 1 三招与 Gestating Heart 召唤仍需显式命令**，按 [combatReady 切片](phase5-combatready-2026-11-04.md)的后续清单补。
+- **`ancestorGlory`** 属 Tomb of Ancestor（`room:p007`），已实现并有测试；最终战房间无该特殊区。
 - 铁匠 / 游商深度购买（自然路径仅消费任务历史中的 `nextQuestProvisionDice` 等）。
 
 ### 3.3 准入事实（tip · 勿照抄 Nov 3 几何表当 runtime 表）
 
-- **`darkest_boss_content` / 最终战相关 encounter 的 `combatReady` 仍全部为 `false`**（R-048）。**否定**：「Ancestor 几何 / 部署接好后就能改 `combatReady: true`」——**错误**；改 `true` 须 **Kyries 明示**（项目口头 hold **K-H08**，与 R-048 一致）。
+- **`combatReady` 已按 R-189 全量放开为 `true`**（17 处：3 条遭遇 + 最终战四形态 + 9 张 Boss 能力 + 1 张 Absolute Nothingness 支援；Kyries 2026-11-04 授权，实测后再修）。口头 hold **K-H08 已解除**；`usable` 未变。
 - **`room_tile:p014:back`（Ancestor Room）`usable: false`** 保持不变；R-186 生产 deploy **不依赖** `usable: true`（对标 R-184 Mammoth）。
 - 核心盒 **25 张**具名 room 几何 **`geometryVerified: true`**（#560）；`room_tile_geometry.json` 在 tip 上 **`usable: true` 17 面 / `usable: false` 8 面**（8 面均为 Boss 相关面，含 Ancestor back）。Evil Eye / Temple 等最暗普通面已为 **true**；八张 Boss 房面仍为 **false**。
 

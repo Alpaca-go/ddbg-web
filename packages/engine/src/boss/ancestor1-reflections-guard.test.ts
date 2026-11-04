@@ -47,10 +47,10 @@ function ancestorEntity(state: GameState) {
   return state.battle!.entities.find((entity) => entity.monsterCardId === ANCESTOR)!;
 }
 
-it("deploy 后 Reflections 有 Guard、Ancestor 无；combatReady 仍为 false", () => {
+it("deploy 后 Reflections 有 Guard、Ancestor 无；combatReady 已批准为 true", () => {
   const game = ancestor1Deployed();
   const sequence = readFinalFormSequence(game)!;
-  expect(sequence.current!.combatReady).toBe(false);
+  expect(sequence.current!.combatReady).toBe(true);
   expect(
     reflectionEntities(game).every((entity) => entity.guard && entity.statusStacks !== undefined),
   ).toBe(true);

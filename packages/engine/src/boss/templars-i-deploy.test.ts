@@ -36,7 +36,7 @@ const start = { type: "startBattle" } as const;
 
 it("R-180：十四区部署、Impaler M / Warlord C、四英雄 R-162 区、JSON 续接", () => {
   const source = atObjective();
-  expect(readDarkestBossEncounter("quest:p017")!.combatReady).toBe(false);
+  expect(readDarkestBossEncounter("quest:p017")!.combatReady).toBe(true);
   expect(
     applyCommand(source, { type: "prepareDungeonMonsters" }).events.some(
       (e) => e.type === "commandRefused",

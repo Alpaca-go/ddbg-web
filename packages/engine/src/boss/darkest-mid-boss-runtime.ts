@@ -52,7 +52,7 @@ function readMonsterSpawnMeta(
 
 function supportPlanHoldSummary(supportCardIds: readonly string[]): string {
   if (!supportCardIds.length) return "";
-  return `；目录召唤物 ${supportCardIds.join("、")} 未部署（combatReady: false）`;
+  return `；目录召唤物 ${supportCardIds.join("、")} 未部署`;
 }
 
 function supportDeployedHoldSummary(supportMonsters: readonly SpawnPlacement[]): string {
@@ -219,7 +219,7 @@ export function darkestMidBossDeploymentHold(d: DungeonState): string | undefine
   const plan = d.darkest?.bossEncounterPlan;
   if (!plan || !isDarkestQuest(plan.questId)) return undefined;
   const encounter = readDarkestBossEncounter(plan.questId);
-  if (!encounter || encounter.combatReady) return undefined;
+  if (!encounter) return undefined;
   const label = plan.resolvedScriptId;
   if (darkestBossDeploymentMatchesPlan(d, plan)) {
     const deployment = d.darkest?.bossDeployment;

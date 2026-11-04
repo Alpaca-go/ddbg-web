@@ -107,8 +107,8 @@ function heroTargetRows(state: GameState) {
     }));
 }
 
-it("ancestor2 形态 combatReady 仍为 false", () => {
-  expect(readFinalFormSequence(ancestor2Deployed())!.current!.combatReady).toBe(false);
+it("ancestor2 形态 combatReady 已批准为 true", () => {
+  expect(readFinalFormSequence(ancestor2Deployed())!.current!.combatReady).toBe(true);
 });
 
 it("Refashion Them · Crowded 选最拥挤区英雄 · 命中 3 流血 3t + 1 压力与光照 −1", () => {

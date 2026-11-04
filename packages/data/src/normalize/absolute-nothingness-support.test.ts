@@ -39,7 +39,7 @@ it("核心盒怪物 PDF 无 Absolute Nothingness 战斗卡；目录为 pending �
   expect(built.status).toBe("pending_monster_card");
   expect(built.supportCardIds).toEqual([]);
   expect(built.abilityCardId).toBe("boss_ability:p035");
-  expect(built.combatReady).toBe(false);
+  expect(built.combatReady).toBe(true);
   expect(readAbsoluteNothingnessSupport(built).notes.join(" ")).toContain(
     "3x Absolute Nothingness",
   );

@@ -254,7 +254,7 @@ describe("Mammoth Cyst · Summon White Cell Stalk", () => {
     ).toBe(true);
   });
 
-  it("boss_ability:p030 combatReady 仍为 false", () => {
+  it("boss_ability:p030 combatReady 已批准为 true", () => {
     const abilities = JSON.parse(
       readFileSync(
         new URL("../../../data/normalized/corebox/darkest_boss_abilities.json", import.meta.url),
@@ -262,6 +262,6 @@ describe("Mammoth Cyst · Summon White Cell Stalk", () => {
       ),
     );
     const card = abilities.cards.find((entry: { id: string }) => entry.id === "boss_ability:p030");
-    expect(card?.combatReady).toBe(false);
+    expect(card?.combatReady).toBe(true);
   });
 });

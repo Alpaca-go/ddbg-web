@@ -2324,6 +2324,14 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **边界**：仅终局态与结局面板。胜利后回村（R32）或新战役、`combatReady`、`ancestorGlory`、完整 Boss AI、Stygian 与扩展包均不在本裁定内（**Q-xxx 待确认**）。
 - **补充（2026-11-04，Kyries）**：打完最终 BOSS 游戏即结束，胜利**不回村**；结局面板改为提供「开新战役」入口（回到出征设置页）。边界中的「新战役」一项自此解除，回村仍不开放。
 
+### R-189
+
+- **日期**：2026-11-04（Asia/Shanghai）
+- **裁定**：Kyries 授权把最暗 / 最终战相关 **17 处 `combatReady` 改为 `true`**（`darkest_boss_content` 7 条：三条遭遇 + 最终战四形态；`darkest_boss_abilities` 9 张；`absolute_nothingness_support` 1 张），并移除「`combatReady` 为 true 时拒绝部署」的旧反守卫；schema 由 `z.literal(false)` 改为 `z.boolean()`，保留发现问题后回退 false 的能力。理由：核心包开发完毕后由 Kyries 做大量实测，再按实际表现修正。
+- **范围**：仅准入声明、schema 与部署守卫；不改 `usable`、任务白名单、生产几何、技能效果线或 AI 行为。`ancestorGlory` 属 Tomb of Ancestor（`room:p007`，已实现并有测试），不在本裁定内。
+- **依据**：Kyries 2026-11-04 指示（[#602](https://github.com/Alpaca-go/ddbg-web/pull/602)）；R-048 的准入原则；[切片记录](phase5-combatready-2026-11-04.md)。
+- **边界**：`combatReady: true` 表示「允许进入生产战斗」，**不等于**四形态 AI 已全部自动。Ancestor 1 的三招与 Gestating Heart 的召唤目前仍需显式命令，按切片文档的后续 PR 补；本裁定不批准 Phase 6、Stygian 或扩展包。
+
 ### R-185
 
 - **日期**：2026-11-04（Asia/Shanghai）
