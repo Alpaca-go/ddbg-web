@@ -58,7 +58,7 @@ function atObjective() {
 const deploy = { type: "deployFanaticI" } as const;
 const start = { type: "startBattle" } as const;
 
-it("R-169 / 拟 R-178：真实九区部署、Fanatic 进攻 B、无额外 RNG、显式 startBattle 写入 Pyre/E", () => {
+it("R-178：真实九区部署、Fanatic 进攻 B、无额外 RNG、显式 startBattle 写入 Pyre/E", () => {
   const source = atObjective();
   const deployed = apply(source, deploy);
   const b = deployed.battle!;

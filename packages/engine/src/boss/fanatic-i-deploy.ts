@@ -87,7 +87,7 @@ function buildHeroEntities(
   return heroes;
 }
 
-/** R-169 / 拟 R-178：I 级 Fanatic 真实几何部署；对标 R-175，不开放 selectRoomTile 或 combatReady。 */
+/** R-169 / R-178：I 级 Fanatic 真实几何部署；对标 R-175，不开放 selectRoomTile 或 combatReady。 */
 export function deployFanaticI(state: GameState): ApplyResult {
   const d = state.dungeon;
   const plan = d?.faceTheThreatEmbarkPlan;
@@ -123,7 +123,7 @@ export function deployFanaticI(state: GameState): ApplyResult {
     d.heroes.length !== 4 ||
     new Set(d.heroes.map((h) => h.stance)).size !== 4
   )
-    return refuse("需要已绑定 Fanatic I 专属目标房、真实出征计划和四英雄（R-169、拟 R-178）");
+    return refuse("需要已绑定 Fanatic I 专属目标房、真实出征计划和四英雄（R-178）");
   const id = resolveBossScriptIdForQuest("quest:p019", d);
   const entry = id ? getBossScript(id)?.combatEntry : undefined;
   if (
@@ -131,7 +131,7 @@ export function deployFanaticI(state: GameState): ApplyResult {
     !entry ||
     (Object.keys(entry) as (keyof typeof entry)[]).some((k) => entry[k] !== plan.combatEntry[k])
   )
-    return refuse("Fanatic I 出征战斗卡与实际威胁不一致（R30、R39、拟 R-178）");
+    return refuse("Fanatic I 出征战斗卡与实际威胁不一致（R30、R39、R-178）");
   const card = d.roomCards!.cards.find((c) => c.id === active.cardId);
   const tile = fanaticRoomSchema.safeParse(geometry.tiles.find((t) => t.roomId === active.cardId));
   if (
@@ -141,7 +141,7 @@ export function deployFanaticI(state: GameState): ApplyResult {
     card.location !== "ruins" ||
     !tile.success
   )
-    return refuse("Fanatic Room 身份或获批几何无效（R-169、拟 R-178）");
+    return refuse("Fanatic Room 身份或获批几何无效（R-169、R-178）");
   const monsters = d.battleCatalog.monsters;
   const boss = monsters.find((c) => c.id === FANATIC_I_COMBAT_MONSTER_CARD_ID);
   const pyre = monsters.find((c) => c.id === FANATIC_I_PYRE_MONSTER_CARD_ID);
@@ -205,7 +205,7 @@ export function deployFanaticI(state: GameState): ApplyResult {
       provisionWindows: true,
     }).battle!;
     const message =
-      "Fanatic I 已按 R-169 / 拟 R-178 部署：Boss 进攻姿态/B，四英雄按姿态部署；Pyre 由 startBattle 写入远程/E；等待显式 startBattle 洗先攻。";
+      "Fanatic I 已按 R-178 部署：Boss 进攻姿态/B，四英雄按 R-169 姿态区部署；Pyre 由 startBattle 写入远程/E；等待显式 startBattle 洗先攻。";
     return {
       state: {
         ...state,

@@ -1,6 +1,6 @@
-# Fanatic I 正式部署入口审核（拟 R-178）
+# Fanatic I 正式部署入口审核（R-178）
 
-日期：2026-11-04。基线：main @ Fanatic I 战斗运行时与 R-169 几何已合入后。
+日期：2026-11-04。基线：main @ Fanatic I 战斗运行时与 R-169 几何已合入后。**Kyries 已确认 R-178**（[#583](https://github.com/Alpaca-go/ddbg-web/pull/583)）。
 
 ## 范围
 
@@ -12,6 +12,7 @@
 | 项 | 来源 |
 | --- | --- |
 | 房间几何九区、B 高地、部署落点 | R-169、`packages/data/src/normalize/fanatic-room.ts` |
+| 专用部署与生产 finish | **R-178**、[rulings.md](rulings.md#r-178) |
 | Fanatic 进攻 / Pyre 远程开局 | R39、规格书 §14.5、`fanatic-i.ts` · `summon(battleStartPyre)` |
 | 先攻 4（Fanatic 3 + Pyre 1） | `fanatic-i-combat-runtime.ts` · `expandFanaticIInitiativeDeckSides` |
 | 专用命令与存档 schema | `deployFanaticI`、`quest-save.ts` |
@@ -28,10 +29,6 @@
 
 - `fanatic-i-deploy.test.ts`：准入拒绝、九区/Fanatic B/无 Pyre 直至 startBattle/Pyre E/JSON 续接。
 - `fanatic-i-finish.test.ts`：胜利清房与全灭 R-044 停点（显式夹具，不声称自然战役）。
-
-## 待确认（拟 R-178）
-
-Kyries 尚未在 `docs/rulings.md` 正文批准 **Fanatic I 专用部署与生产胜负交接** 裁定号。本 PR 代码与文档引用 **R-169、R39、对标 R-175**，并标 **拟 R-178**；合并前需拍板或改号。
 
 ## 已知限制
 

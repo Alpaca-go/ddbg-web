@@ -2288,3 +2288,10 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**：批准 Collector Room（R-168）F 区三个独立宝箱的交互与奖励运行时：英雄在同区、当前行动中可 `interactLoot` 翻开并结算，奖励种类与 R-047 十枚有限堆一致（含 R-059 补给池满 16 时的保留 / 选项限制）；白色叹号仅图面外观，不赋予额外或特殊奖励。未拾取箱在战斗结束仍按 R-047 / R-059 归还未拾取代币至本次地牢可用堆；已拾取 `claimedIds` 不再出现。
 - **依据**：Kyries 令继续接通宝箱交互；核心 R18、R39；规格书战利品翻面；R-168、R-175、R-047、R-059；R-001 / R-048。
 - **边界**：不修改 `combatReady`、任务白名单或 `room:p012 usable=false`；不推定叹号语义；Collector II/III 与其余 Boss 分切片。
+
+### R-178
+
+- **日期**：2026-11-04（Asia/Shanghai）
+- **裁定**：批准 Fanatic I 在 R-169 房间（`room:p013` / `room_tile:p007:front`）的专用部署与生产胜负交接。公开命令 **`deployFanaticI`**：Boss 初始进攻/B，四英雄按 R-169 获批姿态区部署；保留英雄状态与 RNG 游标，部署不掷骰。显式 **`startBattle`** 时经 **`monsterStanceAreas.ranged`** 将 Pyre 落 **E**（R39 开战布置）。**`finishDungeonBattle`** 沿用遗迹 I 级共用交接，清除威胁、记录 Fanatic 击败并清理目标房；英雄全灭仍走 R-044。
+- **依据**：Kyries 确认 [#583](https://github.com/Alpaca-go/ddbg-web/pull/583) 与 R-178；R-169 图面、[审核稿](phase5-fanatic-i-production-entry-review-2026-11-04.md)、核心 R39、规格书 §14.5、对标 R-175。
+- **边界**：限 I 级 Face the Threat 的实际 Fanatic 威胁与专属目标房；不修改 `combatReady`、任务白名单或 `room:p013` / 获批 tile 的 `usable=false`；不经 `selectRoomTile` 进 Boss 房；Fanatic II/III 与其余 Boss 分切片。

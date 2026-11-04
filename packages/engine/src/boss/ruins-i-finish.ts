@@ -39,7 +39,7 @@ const realBossDefinitions = {
     tile: "room_tile:p007:front",
     entity: "boss:fanatic:1",
     label: "Fanatic I",
-    ruling: "R-169",
+    ruling: "R-178",
   },
 } as const;
 type Identity = keyof typeof realBossDefinitions;
