@@ -31,7 +31,7 @@
 ## 后续切片（依此顺序）
 
 1. ~~Ancestor 1 自动选招~~：已完成，见 [Ancestor 1 自动选招](phase5-ancestor1-skill-ai-2026-11-04.md)。
-2. Gestating Heart 召唤：把 `applyGestatingHeartSummon` 接到其回合（触发条件按 `boss_ability:p036` 文本，待与 Kyries 核一次）。
+2. ~~Gestating Heart 召唤~~：已完成，见 [Gestating Heart 自动召唤](phase5-gestating-heart-summon-2026-11-05.md)。
 3. 四形态端到端自然回放：一场真正打完的连续战斗（不再用「判死」夹具），验收后写入严格存档。
 
 ## 验证

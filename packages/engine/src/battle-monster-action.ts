@@ -17,6 +17,10 @@ import {
   applyAncestor1SkillFromStanceSelection,
 } from "./boss/ancestor1-skill-ai";
 import {
+  applyGestatingHeartDispersion,
+  gestatingHeartSkillAiShouldReplacePrepare,
+} from "./boss/gestating-heart-summon";
+import {
   applyCollectorCollectAll,
   collectorCollectAllShouldReplaceSkill,
 } from "./boss/collector-i-combat-runtime";
@@ -126,6 +130,9 @@ export function prepareMonsterAction(
   }
   if (ancestor1SkillAiShouldReplacePrepare(state, actor.id)) {
     return applyAncestor1SkillFromStanceSelection(state, actor.id);
+  }
+  if (gestatingHeartSkillAiShouldReplacePrepare(state, actor.id)) {
+    return applyGestatingHeartDispersion(state, actor.id);
   }
   const forceWilburMark = swinePrinceIWilburMarkShouldForceSkill(state, actor.id);
   const forceIntoThePot = hagIntoThePotShouldForceSkill(state, actor.id);
