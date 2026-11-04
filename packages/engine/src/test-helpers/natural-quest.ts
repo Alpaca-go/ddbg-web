@@ -1,16 +1,12 @@
 import { applyCommand } from "../command";
-import type { ApplyResult, Command, GameEvent, GameState, PendingChoice } from "../command";
+import type { Command, GameEvent, GameState, PendingChoice } from "../command";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { basicQuests } from "../../../data/src/basic-quests";
 import type { BasicQuestId } from "../../../data/src/basic-quests";
 import { coreParty, coreQuestSources } from "./core-quest";
 import { canRestDungeon } from "../dungeon-rest";
-import { distance, playHeroSkill } from "../battle";
-import { playHeroSkillTargets } from "../battle-hero-targets";
-import { moveHero } from "../battle-hero-movement";
-import type { PlayHeroSkillCommand } from "../battle";
-import type { PlayHeroSkillTargetsCommand } from "../battle-hero-targets";
 import { nextNaturalRoute } from "./natural-route";
+import { playNaturalBattle } from "./natural-battle";
 import { isBossQuestId } from "../boss/quest-bridge";
 import {
   DARKEST_MAMMOTH_CYST_SCRIPT_ID,
@@ -139,175 +135,11 @@ export function naturalQuest(
     }
     throw new Error("choice loop");
   };
-  const preview = (s: GameState, command: PlayHeroSkillCommand | PlayHeroSkillTargetsCommand) =>
-    command.type === "playHeroSkill" ? playHeroSkill(s, command) : playHeroSkillTargets(s, command);
-  const score = (s: GameState, r: ApplyResult) => {
-    if (r.events.some((e) => e.type === "commandRefused")) return -Infinity;
-    let total = 0;
-    for (const before of s.battle!.entities) {
-      const after = r.state.battle!.entities.find((e) => e.id === before.id)!;
-      total +=
-        before.side === "monster"
-          ? Math.min(after.wounds, after.life!) -
-            Math.min(before.wounds, before.life!) +
-            (after.dead && !before.dead ? 8 : 0)
-          : (before.wounds - after.wounds) * 0.65 - (after.dead && !before.dead ? 1000 : 0);
-    }
-    for (const e of r.events) {
-      if (
-        (e.type === "heroSkillResolved" || e.type === "heroSkillTargetsResolved") &&
-        e.phase === "ownPending"
-      )
-        total += (e.type === "heroSkillResolved" ? [e.resolution] : e.resolutions).reduce(
-          (n, r) => n + (r.damageDealt ?? 0),
-          0,
-        );
-    }
-    return total;
-  };
-  const attacks = (s: GameState) => {
-    const b = s.battle!,
-      turn = b.encounter!.turn;
-    if (turn.type !== "hero") return [];
-    const actor = b.entities.find((e) => e.id === turn.actorId)!;
-    const candidates: {
-      command: PlayHeroSkillCommand | PlayHeroSkillTargetsCommand;
-      score: number;
-    }[] = [];
-    for (const skillId of actor.skillIds)
-      for (const face of ["front", "back"] as const) {
-        for (const target of b.entities.filter((e) => !e.dead)) {
-          const command: PlayHeroSkillCommand = {
-            type: "playHeroSkill",
-            actorId: actor.id,
-            skillId,
-            face,
-            targetId: target.id,
-          };
-          const r = preview(s, command);
-          candidates.push({ command, score: score(s, r) });
-        }
-        for (const area of b.areas)
-          for (const side of ["hero", "monster"] as const) {
-            const ids = b.entities
-              .filter((e) => !e.dead && e.areaId === area.id && e.side === side)
-              .map((e) => e.id);
-            if (ids.length < 2) continue;
-            const command: PlayHeroSkillTargetsCommand = {
-              type: "playHeroSkillTargets",
-              actorId: actor.id,
-              skillId,
-              targetIds: ids,
-            };
-            candidates.push({ command, score: score(s, preview(s, command)) });
-          }
-      }
-    return candidates.sort((a, b) => b.score - a.score);
-  };
-  const fight = () => {
-    step({ type: "startBattle" });
-    for (let count = 0; count < 500; count++) {
-      settle();
-      const b = state.battle!,
-        t = b.encounter!.turn;
-      if (t.type === "finished") {
-        if (options.preferWipeout)
-          throw new Error(
-            `preferWipeout 期望 heroesDefeated，实为 finished/${t.outcome}（第${b.encounter!.round}轮）`,
-          );
-        step({ type: "finishDungeonBattle" });
-        settle();
-        return;
-      }
-      if (t.type === "halted") {
-        if (
-          options.preferWipeout &&
-          (t.reason === "heroesDefeated" || t.reason === "mutualWipeout")
-        ) {
-          settle();
-          step({ type: "finishDungeonBattle" });
-          settle();
-          return;
-        }
-        throw new Error(`battle halted: ${t.reason}`);
-      }
-      if (t.type === "awaitingInitiative") {
-        step({ type: "drawInitiative" });
-        continue;
-      }
-      if (b.shuffleIntents.length) {
-        step({ type: "resolveShuffles" });
-        continue;
-      }
-      if (t.type === "monster") {
-        const action = b.monsterAction;
-        if (!action) step({ type: "prepareMonsterAction", actorId: t.actorId });
-        else if (!action.positioned) step({ type: "moveMonsterToRange", actorId: t.actorId });
-        else
-          step({
-            type: "playMonsterSkill",
-            actorId: t.actorId,
-            targetId: action.targetId,
-            skillSlot: action.skillSlot,
-          });
-        continue;
-      }
-      if (options.preferWipeout) {
-        const actor = b.entities.find((e) => e.id === t.actorId)!;
-        step({
-          type: "changeStance",
-          actorId: actor.id,
-          direction: actor.stance === "aggressive" ? "backward" : "forward",
-        });
-        continue;
-      }
-      const direct = attacks(state)[0];
-      if (direct && direct.score > 0) {
-        step(direct.command);
-        continue;
-      }
-      const actor = b.entities.find((e) => e.id === t.actorId)!,
-        stat = b.heroStats!.find((s) => s.id === actor.heroStatId)!;
-      const paths = new Map<string, string[]>([[actor.areaId, []]]);
-      for (const [id, path] of paths) {
-        if (path.length >= stat.speed!) continue;
-        for (const next of b.areas.find((a) => a.id === id)!.adjacent)
-          if (!paths.has(next)) paths.set(next, [...path, next]);
-      }
-      const moves = [...paths.values()]
-        .filter((p) => p.length)
-        .map((path) => {
-          const command = { type: "moveHero" as const, actorId: actor.id, path },
-            r = moveHero(state, command);
-          const refused = r.events.some((e) => e.type === "commandRefused");
-          const followUp = !refused && t.actions > 1 ? (attacks(r.state)[0]?.score ?? 0) : 0;
-          return {
-            command,
-            r,
-            score: refused
-              ? -Infinity
-              : (Number.isFinite(followUp) ? followUp : 0) * 0.8 -
-                Math.min(
-                  ...b.entities
-                    .filter((e) => e.side === "monster" && !e.dead)
-                    .map((e) => distance(b.areas, path[path.length - 1]!, e.areaId) ?? 100),
-                ) *
-                  0.01,
-          };
-        })
-        .sort((a, b) => b.score - a.score);
-      if (moves[0] && Number.isFinite(moves[0].score)) {
-        step(moves[0].command);
-        continue;
-      }
-      step({
-        type: "changeStance",
-        actorId: actor.id,
-        direction: actor.stance === "aggressive" ? "backward" : "forward",
-      });
-    }
-    throw new Error("battle loop");
-  };
+  const fight = () =>
+    playNaturalBattle(
+      { state: () => state, step, settle },
+      options.preferWipeout ? { preferWipeout: true } : {},
+    );
   /** 经闭包读回 phase，避免 step 重赋值后仍被收窄为 ready。 */
   const dungeonPhase = () => state.dungeon!.phase;
   const currentQuestId = () =>
