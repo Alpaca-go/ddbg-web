@@ -220,7 +220,7 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
     !readFinalBattlePlanAfterDarkestVictory(d) ||
     !d.battleCatalog ||
     d.heroes.length !== 4 ||
-    d.heroes.some((hero) => hero.dead)
+    (sequence.progress.completedForms.length === 0 && d.heroes.some((hero) => hero.dead))
   )
     return refuse("须在完成最终战补给与形态流程后，于 awaitingDeployment 部署当前形态（R36）");
   if (state.battle && sequence.progress.completedForms.length === 0)
@@ -310,8 +310,9 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
   }
 
   const heroes = state.battle.entities.filter((entity) => entity.side === "hero");
-  if (heroes.length !== 4 || heroes.some((entity) => entity.dead))
-    return refuse("形态间续战须保留四名存活英雄，不休息、不回村（R-035）");
+  // R-044：最终战各形态之间不补人；阵亡英雄保留为阵亡实体继续续战，只要求四名英雄实体仍在场。
+  if (heroes.length !== 4)
+    return refuse("形态间续战须保留原四名英雄实体（阵亡者不补人；R-035、R-044）");
   const {
     encounter: _encounter,
     pending: _pending,

@@ -854,7 +854,12 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
       return { ...started, events: [...pressure.events, ...started.events] };
     }
     const living = battle.entities.filter((entity) => !entity.dead);
-    if (living.filter((entity) => entity.side === "hero").length !== 4)
+    const livingHeroes = living.filter((entity) => entity.side === "hero").length;
+    // R-044：最终战各形态之间不补人，阵亡者不参与先攻；只要求至少一名英雄存活。
+    if (state.dungeon?.finalFormSequence?.status === "fighting") {
+      if (livingHeroes === 0)
+        return rejectBattleCommand(state, "最终战全员阵亡，不能开始下一形态（R-044）");
+    } else if (livingHeroes !== 4)
       return rejectBattleCommand(state, "普通遭遇战需要 4 名存活英雄（R16）");
     for (const side of ["hero", "monster"] as const) {
       const occupied = new Set<number>();
