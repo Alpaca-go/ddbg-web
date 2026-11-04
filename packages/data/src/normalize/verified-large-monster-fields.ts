@@ -98,6 +98,23 @@ export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
       { stances: ["ranged", "support"], skill: 2 },
     ],
   },
+  // R-174：Kyries核对Prophet I卡图，Speed1，四姿态1–5/6–10。
+  {
+    id: "monster_large:p005",
+    name: "Prophet",
+    level: 1,
+    pages: [5],
+    speed: 1,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
   // Ruins II/III：独立核对 FRONT p006/007/009/010/012/013。
   {
     id: "monster_large:p006",

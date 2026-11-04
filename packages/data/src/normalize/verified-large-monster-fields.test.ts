@@ -36,6 +36,7 @@ it("只附加已核实大型卡，参考卡与其他卡不补值；不修改输�
     "monster_large:p001",
     "monster_large:p002",
     "monster_large:p003",
+    "monster_large:p005",
     "monster_large:p006",
     "monster_large:p007",
     "monster_large:p008",
@@ -125,4 +126,16 @@ it("身份漂移、重复映射、脏Speed、冲突与缺技能引用原子拒�
       ),
     ),
   ).toThrow("唯一存在");
+});
+
+it("R-174：Prophet I Speed1、四姿态十骰面及审批漂移守卫", () => {
+  const card = built.monster_large.cards.find((c) => c.id === "monster_large:p005")!;
+  expect(card.speed).toBe(1);
+  for (const stance of ["aggressive", "defensive", "ranged", "support"] as const) {
+    for (let roll = 1; roll <= 10; roll++)
+      expect(selectMonsterSkill(card as MonsterStanceCardView, [stance], roll)).toMatchObject({
+        status: "selected",
+        skillSlot: roll <= 5 ? 1 : 2,
+      });
+  }
 });

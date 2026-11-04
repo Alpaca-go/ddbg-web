@@ -20,6 +20,7 @@ import { createCoreDungeonQuest, createQuestSave, loadQuestSave } from "@ddbg/en
 import {
   preAbominationTaskSources,
   preDarkestTaskSources,
+  preProphetTaskSources,
   preNecromancerTaskSources,
   taskSources,
 } from "./task-sources";
@@ -118,4 +119,41 @@ it("正式目录补入Necromancer I后，旧目录存档仍先严格验证再升
   const forged = JSON.parse(JSON.stringify(saved));
   forged.snapshot.dungeon.gold++;
   expect(() => loadQuestSave(forged, taskSources, [preNecromancerTaskSources])).toThrow();
+});
+
+it("Prophet I正式目录补齐后旧目录先严格验证，英雄篡改仍拒绝", () => {
+  expect(taskSources.catalog.monsters.length - preProphetTaskSources.catalog.monsters.length).toBe(
+    1,
+  );
+  expect(preProphetTaskSources.catalog.monsters.some((c) => c.id === "monster_large:p005")).toBe(
+    false,
+  );
+  expect(taskSources.catalog.monsters.some((c) => c.id === "monster_large:p005")).toBe(true);
+  expect(
+    preNecromancerTaskSources.catalog.monsters.some((c) => c.id === "monster_large:p005"),
+  ).toBe(false);
+  const start = {
+    seed: 2,
+    questId: "quest:p019",
+    mode: "radiant",
+    party: naturalParty,
+    bossEdgeRooms: true,
+  } as const;
+  const previous = createCoreDungeonQuest(
+    2,
+    start.questId,
+    start.mode,
+    start.party,
+    preProphetTaskSources,
+    true,
+  );
+  const saved = createQuestSave(start, [], previous, preProphetTaskSources);
+  expect(() => loadQuestSave(saved, taskSources)).toThrow();
+  const loaded = loadQuestSave(saved, taskSources, [preProphetTaskSources]);
+  expect(loaded.game).toEqual(
+    createCoreDungeonQuest(2, start.questId, start.mode, start.party, taskSources, true),
+  );
+  const forged = JSON.parse(JSON.stringify(saved));
+  forged.snapshot.dungeon.heroes[0].wounds++;
+  expect(() => loadQuestSave(forged, taskSources, [preProphetTaskSources])).toThrow();
 });

@@ -45,12 +45,21 @@ export const taskSources: CoreQuestSources = {
   },
 };
 
+/** 接通Prophet I正式目录前的固定来源。 */
+export const preProphetTaskSources: CoreQuestSources = {
+  ...taskSources,
+  catalog: {
+    ...taskSources.catalog,
+    monsters: taskSources.catalog.monsters.filter((c) => c.id !== "monster_large:p005"),
+  },
+};
+
 /** 接通Necromancer I真实部署前的固定目录，用于严格验证既有存档。 */
 export const preNecromancerTaskSources: CoreQuestSources = {
   ...taskSources,
   catalog: {
-    ...taskSources.catalog,
-    monsters: taskSources.catalog.monsters.filter((c) => c.id !== "monster_medium:p089"),
+    ...preProphetTaskSources.catalog,
+    monsters: preProphetTaskSources.catalog.monsters.filter((c) => c.id !== "monster_medium:p089"),
   },
 };
 
@@ -59,7 +68,7 @@ export const preDarkestTaskSources: CoreQuestSources = {
   catalog: {
     ...taskSources.catalog,
     monsters: taskSources.catalog.monsters.filter(
-      (c) => !darkestIds.has(c.id) && c.id !== "monster_medium:p089",
+      (c) => !darkestIds.has(c.id) && !["monster_medium:p089", "monster_large:p005"].includes(c.id),
     ),
   },
 };

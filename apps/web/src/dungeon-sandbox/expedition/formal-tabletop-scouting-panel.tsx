@@ -1,4 +1,4 @@
-import { NecromancerRoomActions, necromancerRoomEntryVisible } from "./necromancer-room-actions";
+import { RuinsBossRoomActions, ruinsBossRoomEntryVisible } from "./ruins-boss-room-actions";
 import { ExpeditionStartActions } from "./expedition-start-actions";
 import { CoreTrinketActions } from "../../core-trinket-actions";
 import { useState } from "react";
@@ -242,8 +242,8 @@ export function FormalTabletopScoutingPanel({
                         已匹配 {selectedTile.tile.name}，{selectedTile.tile.areas.length} 个区域。
                       </p>
                     )}
-                    {!necromancerRoomEntryVisible(d) && <p role="status">{active.blockedReason}</p>}
-                    <NecromancerRoomActions dungeon={d} dispatch={dispatch} />
+                    {!ruinsBossRoomEntryVisible(d) && <p role="status">{active.blockedReason}</p>}
+                    <RuinsBossRoomActions dungeon={d} dispatch={dispatch} />
                   </div>
                 </div>
                 {!roomCard.boss &&
