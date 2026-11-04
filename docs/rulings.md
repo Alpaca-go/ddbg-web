@@ -2300,7 +2300,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：Mammoth Cyst 战斗卡 `monster_large:p016` 的 Speed 为 1。四姿态共用 d10 选招表：1–4 为 slot 1（Bulging Gaze），5–8 为 slot 2（Digestion），9–10 为 slot 3（Revivify）。slot 3 虽为 Self 技能，但卡面 footer 与 Fanatic 同型分段表写入姿态骰表；White Cell 召唤与 boss_ability 替换行动仍走专用运行时，不另改表。
-- **依据**：Kyries 待确认本 PR；核心 R24、印刷 COREBOX 怪物大卡 FRONT p016 及[字段核对稿](phase5-mammoth-cyst-page-entry-review-2026-11-04.md)；部署 R-184（[#592](https://github.com/Alpaca-go/ddbg-web/pull/592)）。
+- **依据**：Kyries 确认 [#593](https://github.com/Alpaca-go/ddbg-web/pull/593)；核心 R24、印刷 COREBOX 怪物大卡 FRONT p016 及[字段核对稿](phase5-mammoth-cyst-page-entry-review-2026-11-04.md)；部署 R-184（[#592](https://github.com/Alpaca-go/ddbg-web/pull/592)）。自然任务与严格存档见 [phase5-mammoth-cyst-natural-save-2026-11-04.md](phase5-mammoth-cyst-natural-save-2026-11-04.md)。
 - **边界**：仅此卡字段与正式 `bossMonsters` 目录及 `preMammothCystTaskSources` 迁移。White Cell Teleport / 紫星运行时 / 完整 AI 与其余最暗 Boss 分切片。
 
 ### R-184
