@@ -30,7 +30,7 @@
 
 ## 后续切片（依此顺序）
 
-1. Ancestor 1 自动选招：按 `boss_ability:p034` 文本（怪物姿态全满 → Time Heals All；否则行动直到姿态填满），把 Perfect / Imperfect Replication 接进 `prepareMonsterAction` 的替换 hook。
+1. ~~Ancestor 1 自动选招~~：已完成，见 [Ancestor 1 自动选招](phase5-ancestor1-skill-ai-2026-11-04.md)。
 2. Gestating Heart 召唤：把 `applyGestatingHeartSummon` 接到其回合（触发条件按 `boss_ability:p036` 文本，待与 Kyries 核一次）。
 3. 四形态端到端自然回放：一场真正打完的连续战斗（不再用「判死」夹具），验收后写入严格存档。
 

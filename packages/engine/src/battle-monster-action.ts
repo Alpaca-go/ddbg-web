@@ -13,6 +13,10 @@ import {
   applyAncestor2SkillFromStanceSelection,
 } from "./boss/ancestor2-skill-ai";
 import {
+  ancestor1SkillAiShouldReplacePrepare,
+  applyAncestor1SkillFromStanceSelection,
+} from "./boss/ancestor1-skill-ai";
+import {
   applyCollectorCollectAll,
   collectorCollectAllShouldReplaceSkill,
 } from "./boss/collector-i-combat-runtime";
@@ -119,6 +123,9 @@ export function prepareMonsterAction(
   }
   if (ancestor2SkillAiShouldReplacePrepare(state, actor.id)) {
     return applyAncestor2SkillFromStanceSelection(state, actor.id);
+  }
+  if (ancestor1SkillAiShouldReplacePrepare(state, actor.id)) {
+    return applyAncestor1SkillFromStanceSelection(state, actor.id);
   }
   const forceWilburMark = swinePrinceIWilburMarkShouldForceSkill(state, actor.id);
   const forceIntoThePot = hagIntoThePotShouldForceSkill(state, actor.id);
