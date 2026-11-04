@@ -5,6 +5,7 @@ import { trinketPoolProblem } from "./trinket-acquisition";
 import { createLootState } from "./loot";
 import { curioCatalogSchema } from "../../data/src/curio";
 import { roomCatalogSchema } from "../../data/src/room";
+import { basicQuests } from "../../data/src/basic-quests";
 
 /** R32 a：只把弃牌洗回对应堆；保留持牌，不缩减目录或偷偷补缺牌。 */
 export function recoverHamletPools(d: DungeonState, seed: number) {
@@ -31,17 +32,25 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
   const problem =
     conditionPoolProblem(conditions, d.heroes) ?? trinketPoolProblem(trinkets, d.heroes);
   if (problem) return refuse(problem);
-  const roomIds = rooms.cards.filter((c) => c.location === "ruins" && !c.boss).map((c) => c.id);
+  const questId = d.questDistribution?.questId;
+  const region = basicQuests.find((q) => q.id === questId)?.expeditionRegion ?? ("ruins" as const);
+  const roomIds =
+    region === "ruins"
+      ? rooms.cards.filter((c) => c.location === "ruins" && !c.boss).map((c) => c.id)
+      : rooms.cards.filter((c) => c.location === region).map((c) => c.id);
   const conserved = (all: readonly string[], parts: readonly string[]) =>
     parts.length === all.length &&
     new Set(parts).size === all.length &&
     parts.every((id) => all.includes(id));
+  const pool = [...(rooms.deck ?? (region === "ruins" ? roomIds : [])), ...(rooms.discard ?? [])];
+  const poolConserved =
+    pool.length === new Set(pool).size && pool.every((id) => roomIds.includes(id));
   if (
     !conserved(
       curio.cards.map((c) => c.id),
       [...(curio.deck ?? curio.cards.map((c) => c.id)), ...curio.discard],
     ) ||
-    !conserved(roomIds, [...(rooms.deck ?? roomIds), ...(rooms.discard ?? [])])
+    (region === "ruins" ? !conserved(roomIds, pool) : !poolConserved)
   )
     return refuse("Curio或遗迹房间牌池不守恒，未回收（R32）");
   const tokens = createLootState().available;
@@ -129,7 +138,7 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
     conditions.diseaseDiscard,
     conditions.diseases.filter((c) => !holders.some((h) => h.diseaseId === c.id)).map((c) => c.id),
   );
-  const roomDeck = recycle(rooms.deck, rooms.discard ?? [], roomIds);
+  const roomDeck = recycle(rooms.deck, rooms.discard ?? [], region === "ruins" ? roomIds : pool);
   const availableLoot = loot.claimedIds.length
     ? shuffle([...loot.available, ...loot.claimedIds.map((id) => tokens.find((t) => t.id === id)!)])
     : loot.available;
