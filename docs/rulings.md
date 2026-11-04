@@ -2267,3 +2267,10 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**：Prophet I 战斗卡 monster_large:p005 的 Speed 为1；四姿态共用 d10 选招表：1–5 为 Eye on You（slot1），6–10 为 Fulminate（slot2）。首次与第三次行动继续由 R-173 长椅/落石规则替代。
 - **依据**：Kyries 对逐项卡图提案明确回复“确认，按卡图入库”；本地私有 COREBOX monster_large FRONT p005。
 - **边界**：仅此卡字段与正式目录接线，不扩大其它卡片审批、combatReady或任务白名单。
+
+### R-175
+
+- **日期**：2026-11-04（Asia/Shanghai）
+- **裁定**：批准 Collector I 在 R-168 房间的专用部署。Boss 初始进攻/C，英雄进攻与辅助/H、防御与远程/B。Collect All 的防御、远程、辅助召唤物分别放 G、E、A。显式开始战斗时在 F 布置三个独立宝箱，沿用 R-047 有限牌池。
+- **依据**：Kyries 对部署方案回复“确认”。R-168 图面、核心 R31/R39、规格书 §14.4–14.5、R-034。
+- **边界**：限 I 级 Face the Threat 的实际 Collector 威胁与专属目标房。宝箱交互和奖励仍待核实，沿用既有任务白名单、combatReady 与 room:p012 usable=false。
