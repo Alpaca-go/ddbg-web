@@ -45,6 +45,14 @@ const entries = [
     script: "boss:ruins:prophet:1",
     command: "deployProphetI",
   },
+  {
+    id: "collector",
+    name: "Collector I",
+    roomName: "Collector Room",
+    room: "room:p012",
+    script: "boss:ruins:collector:1",
+    command: "deployCollectorI",
+  },
 ] as const;
 function bossRoomEntry(d: DungeonState) {
   if (

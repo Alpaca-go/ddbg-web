@@ -119,7 +119,8 @@ export const RUINS_BOSS_CATALOG_CARD_IDS = new Set<string>([
     .flat()
     .filter(
       (r) =>
-        !r.script.endsWith(":1") || ["monster_medium:p089", "monster_large:p005"].includes(r.card),
+        !r.script.endsWith(":1") ||
+        ["monster_medium:p089", "monster_large:p005", "monster_medium:p092"].includes(r.card),
     )
     .map((r) => r.card),
   ...RUINS_COMBAT_LEVELS.collector.flatMap((r) => Object.values(r.collected)),

@@ -54,6 +54,7 @@ export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
   // 当前版 FRONT p091 独立核图：III 级三枚脚印。
   { id: "monster_medium:p091", name: "Necromancer", level: 3, pages: [91], speed: 3 },
   // Ruins Boss II/III 与 Collected：逐页完整核图。
+  { id: "monster_medium:p092", name: "The Collector", level: 1, pages: [92], speed: 2 },
   { id: "monster_medium:p093", name: "The Collector", level: 2, pages: [93], speed: 2 },
   { id: "monster_medium:p094", name: "The Collector", level: 3, pages: [94], speed: 2 },
   { id: "monster_medium:p095", name: "Collected Highwayman", level: 1, pages: [95], speed: 1 },

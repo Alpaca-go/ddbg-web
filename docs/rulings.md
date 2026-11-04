@@ -2274,3 +2274,10 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**：批准 Collector I 在 R-168 房间的专用部署。Boss 初始进攻/C，英雄进攻与辅助/H、防御与远程/B。Collect All 的防御、远程、辅助召唤物分别放 G、E、A。显式开始战斗时在 F 布置三个独立宝箱，沿用 R-047 有限牌池。
 - **依据**：Kyries 对部署方案回复“确认”。R-168 图面、核心 R31/R39、规格书 §14.4–14.5、R-034。
 - **边界**：限 I 级 Face the Threat 的实际 Collector 威胁与专属目标房。宝箱交互和奖励仍待核实，沿用既有任务白名单、combatReady 与 room:p012 usable=false。
+
+### R-176
+
+- **日期**：2026-11-04（Asia/Shanghai）
+- **裁定**：Collector I 战斗卡 `monster_medium:p092` 的 Speed 为 2。四姿态共用 d10 选招表，1–5 为 Show Collection（slot 1），6–10 为 Life Steal（slot 2）。
+- **依据**：Kyries 对 Q-154 回复“确认”。核心 R24、印刷 COREBOX 怪物中卡正面第 92 页及[字段核对稿](phase5-collector-i-page-entry-review-2026-11-04.md)。
+- **边界**：仅此卡字段与正式目录。Collect All 仍按核心 R39 与规格书 §14.5 接管相应行动。
