@@ -34,6 +34,12 @@ import {
   applyHeartOfDarknessImpendingDoomFromEncounter,
   heartOfDarknessImpendingDoomShouldReplaceSkill,
 } from "./boss/heart-of-darkness-combat-runtime";
+import {
+  applyMammothCystRevivify,
+  MAMMOTH_REVIVIFY_SKILL_SLOT,
+} from "./boss/darkest-mammoth-cyst-skills-acc";
+import { MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID } from "./boss/darkest-mammoth-cyst-combat-runtime";
+import { mammothCystProductionCombatActive } from "./boss/mammoth-cyst-i-deploy";
 import { getBossScript } from "./boss/registry";
 import { resolveEncounterBossScriptId } from "./boss/encounter-rules";
 import { readMonsterSelfStatuses } from "./monster-self-status";
@@ -153,6 +159,23 @@ export function prepareMonsterAction(
       return rejectBattleCommand(state, pick.status === "refused" ? pick.reason : "选招骰表无效");
     }
     selected = pick;
+  }
+
+  if (
+    mammothCystProductionCombatActive(state) &&
+    card.id === MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID &&
+    selected.skillSlot === MAMMOTH_REVIVIFY_SKILL_SLOT
+  ) {
+    return applyMammothCystRevivify(
+      {
+        ...state,
+        battle: {
+          ...battle,
+          rngCursor: battle.rngCursor + (needsRoll ? 1 : 0),
+        },
+      },
+      actor.id,
+    );
   }
 
   const self = readMonsterSelfStatuses(card, selected.skillSlot);

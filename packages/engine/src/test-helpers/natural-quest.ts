@@ -13,6 +13,7 @@ import type { PlayHeroSkillTargetsCommand } from "../battle-hero-targets";
 import { nextNaturalRoute } from "./natural-route";
 import { isBossQuestId } from "../boss/quest-bridge";
 import {
+  DARKEST_MAMMOTH_CYST_SCRIPT_ID,
   DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
   DARKEST_TEMPLARS_SCRIPT_ID,
 } from "../boss/darkest-mid-boss-scripts";
@@ -379,6 +380,16 @@ export function naturalQuest(
             DARKEST_SHUFFLING_HORROR_SCRIPT_ID
         ) {
           step({ type: "deployShufflingHorrorI" });
+          fight();
+          if (state.dungeon!.campaignFailure) return;
+          continue;
+        }
+        if (
+          state.dungeon!.roomCards!.active!.cardId === "room:p024" &&
+          state.dungeon!.darkest?.bossEncounterPlan?.resolvedScriptId ===
+            DARKEST_MAMMOTH_CYST_SCRIPT_ID
+        ) {
+          step({ type: "deployMammothCystI" });
           fight();
           if (state.dungeon!.campaignFailure) return;
           continue;
