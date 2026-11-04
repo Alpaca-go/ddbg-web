@@ -2246,3 +2246,17 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**：在R-166获批Necromancer Room几何上，先接Necromancer I真实部署：Boss初始进攻姿态、区域A，四英雄区域G。
 - **依据**：Kyries对本切片明确回复“确认，先做 Necromancer I 真实部署”；R-166图面与核心R30/R38。
 - **边界**：仅I级真实部署，不修改combatReady，不扩大任务白名单，不开放其它Boss/等级或Phase 6。房间usable=false与完整Boss准入停点保持，普通房间选择仍拒绝Boss。
+
+### Q-153
+
+- **日期**：2026-11-04（Asia/Shanghai）
+- **问题**：是否批准 Prophet I 在 R-167 真实几何上的专用部署（Boss 进攻/E；英雄 Aggressive/C、Support/D、Ranged 与 Defensive/H），并将橙色编号映射为现有放长椅/落石运行时的骰点表：1–2/A、3/B、4/C、5/D、6/E、7–8/F、9/G、10/H？详见[具体方案](phase5-prophet-i-production-entry-review-2026-11-04.md)。
+- **依据**：R-167 仅批准图面，明确保留掷骰表与 Boss 运行时准入；规格书 §14.5、核心 R38–R39 已记载先知三次行动及长椅/落石流程。
+- **状态**：Kyries 回复“确认”，见 R-173。
+
+### R-173
+
+- **日期**：2026-11-04（Asia/Shanghai）
+- **裁定**：批准 Q-153 的 Prophet I 真实部署与八组骰点绑定：Boss 进攻/E；英雄进攻/C、辅助/D、远程与防御/H；1–2/A、3/B、4/C、5/D、6/E、7–8/F、9/G、10/H。部署后显式 startBattle，接既有三次行动、长椅和落石流程。
+- **依据**：Kyries 对具体方案明确回复“确认”；R-167 图面、规格书 §14.5 与核心 R38–R39。
+- **边界**：仅 Prophet I 专用部署及绑定，不修改 combatReady、任务白名单或 room:p011 usable=false；其它等级、正式页面与自然任务闭环分切片验收。

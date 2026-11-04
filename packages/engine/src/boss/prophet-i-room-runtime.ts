@@ -25,7 +25,7 @@ export function readProphetIRoomD10Binding(state: GameState):
   if (!Array.isArray(table) || table.length !== PROPHET_ROOM_D10_MARKERS.length)
     return {
       status: "refused",
-      message: "Prophet Room 缺少完整八组 d10 区域绑定（R38、R-048；生产几何仍 hold）",
+      message: "Prophet Room 缺少完整八组 d10 区域绑定（R38、R-048；生产部署须R-173完整绑定）",
     };
   const expected = new Set<string>(PROPHET_ROOM_D10_MARKERS);
   const seen = new Set<string>();
