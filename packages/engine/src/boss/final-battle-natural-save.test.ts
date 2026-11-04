@@ -78,6 +78,10 @@ it("最终战从 p018 自然路径至首形态部署与开战；检查点严格�
   const forged = JSON.parse(JSON.stringify(saved));
   forged.snapshot.dungeon.cursor++;
   expect(() => loadQuestSave(forged, coreQuestSources)).toThrow();
+  // 战役胜利只由命令回放派生：快照里伪造 campaignVictory 必须被严格校验拦下。
+  const forgedVictory = JSON.parse(JSON.stringify(saved));
+  forgedVictory.snapshot.dungeon.campaignVictory = true;
+  expect(() => loadQuestSave(forgedVictory, coreQuestSources)).toThrow();
   expect(applyCommand(game, { type: "startBattle" }).state).toBe(game);
 }, 180000);
 

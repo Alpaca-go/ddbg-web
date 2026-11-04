@@ -104,13 +104,14 @@ export function finishFinalBattleForm(state: GameState): ApplyResult {
           completedForms,
           status: complete ? "complete" : "awaitingDeployment",
         },
+        ...(complete ? { campaignVictory: true as const } : {}),
       },
     },
     events: [
       {
         type: "dungeonUpdated",
         message: complete
-          ? "Heart of Darkness已击败，最终战全部形态完成（R36）"
+          ? "Heart of Darkness已击败，最终战全部形态完成：战役胜利（R9、R41）"
           : "当前形态已击败，战斗暂停等待下一形态部署；不休息、不恢复、不重排姿态（R36、R-035）",
       },
     ],

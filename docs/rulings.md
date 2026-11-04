@@ -2316,6 +2316,13 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：Kyries 确认 [#596](https://github.com/Alpaca-go/ddbg-web/pull/596)；核心 R24、R-015、R-139；[字段核对稿](phase5-final-battle-page-entry-review-2026-11-04.md)；部署 R-186（[#595](https://github.com/Alpaca-go/ddbg-web/pull/595)）。自然任务与严格存档边界见 [phase5-final-battle-natural-save-2026-11-04.md](phase5-final-battle-natural-save-2026-11-04.md)（**Q-xxx 待确认**）。
 - **边界**：仅此六张卡字段与正式 `bossMonsters` 目录及 `preFinalBattleBossCatalogTaskSources` 迁移。不修改 `combatReady`、任务白名单或 R-186 部署几何；Absolute Nothingness / 完整 AI / 自然存档分切片。
 
+### R-188
+
+- **日期**：2026-11-04（Asia/Shanghai）
+- **裁定**：最终战第 4 形态 **Heart of Darkness** 被击败（`finishDungeonBattle` → `finishFinalBattleForm` 完成全部形态）= **战役胜利**（R9、R41；规格书 §14.7「击败 = 赢得游戏」）。`dungeon.campaignVictory: true` 为终局态：此后 `applyCommand` 一律拒绝，不再接受部署、战斗、结算或回村命令。存档沿用「起点 + 命令日志 + 快照校验」，终局由回放派生，**不新增存档字段**；快照伪造 `campaignVictory` 由严格校验拒绝。网页在终局整屏显示战役胜利面板，不进入村庄，也不开放新战役。
+- **依据**：Kyries 点名「开 B1」（[#600](https://github.com/Alpaca-go/ddbg-web/pull/600)）；核心 R9 / R41；规格书 §1 胜利定义、§14.7；[切片记录](phase5-final-battle-victory-2026-11-04.md)。
+- **边界**：仅终局态与结局面板。胜利后回村（R32）或新战役、`combatReady`、`ancestorGlory`、完整 Boss AI、Stygian 与扩展包均不在本裁定内（**Q-xxx 待确认**）。
+
 ### R-185
 
 - **日期**：2026-11-04（Asia/Shanghai）
