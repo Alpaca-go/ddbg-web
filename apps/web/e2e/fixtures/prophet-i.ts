@@ -11,15 +11,19 @@ export function prophetRoomFixture(mode: "standard" | "radiant"): GameState {
 
 export function ruinsRoomFixture(
   mode: "standard" | "radiant",
-  boss: "prophet" | "collector",
+  boss: "prophet" | "collector" | "fanatic",
 ): GameState {
   const s = createCoreDungeonQuest(17, "quest:p019", mode, coreParty, taskSources, true);
   const d = s.dungeon!;
+  const descriptionByBoss = {
+    prophet: "boss_ability:p007",
+    collector: "boss_ability:p013",
+    fanatic: "boss_ability:p019",
+  } as const;
   const context = {
     campaignLevel: 1 as const,
     activeBossThreatScriptId: `boss:ruins:${boss}:1` as const,
-    imminentThreatDescriptionCardId:
-      boss === "collector" ? "boss_ability:p013" : "boss_ability:p007",
+    imminentThreatDescriptionCardId: descriptionByBoss[boss],
   };
   return {
     ...s,
