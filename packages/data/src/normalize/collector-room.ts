@@ -108,7 +108,7 @@ const tileShape = z.strictObject({
   ),
 });
 
-// R-168图面；F区三宝箱交互见 R-176。Boss准入与 room usable 仍单独核实。
+// R-168图面；F区三宝箱交互见 R-177。Boss准入与 room usable 仍单独核实。
 export const approvedCollectorRoom = tileShape.parse({
   id: "room_tile:p007:back",
   rawId: "dungeon_tile:p007",

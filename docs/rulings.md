@@ -2275,7 +2275,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：Kyries 对部署方案回复“确认”。R-168 图面、核心 R31/R39、规格书 §14.4–14.5、R-034。
 - **边界**：限 I 级 Face the Threat 的实际 Collector 威胁与专属目标房。F 区宝箱交互与奖励见 R-177；沿用既有任务白名单、combatReady 与 room:p012 usable=false。
 
-### R-176
+### R-177
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：Collector I 战斗卡 `monster_medium:p092` 的 Speed 为 2。四姿态共用 d10 选招表，1–5 为 Show Collection（slot 1），6–10 为 Life Steal（slot 2）。
