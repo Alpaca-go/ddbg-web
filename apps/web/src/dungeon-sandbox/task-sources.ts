@@ -45,12 +45,21 @@ export const taskSources: CoreQuestSources = {
   },
 };
 
-/** 接通 Collector I 正式目录前的固定来源。 */
-export const preCollectorTaskSources: CoreQuestSources = {
+/** 接通 Fanatic I 正式目录前的固定来源。 */
+export const preFanaticTaskSources: CoreQuestSources = {
   ...taskSources,
   catalog: {
     ...taskSources.catalog,
-    monsters: taskSources.catalog.monsters.filter((c) => c.id !== "monster_medium:p092"),
+    monsters: taskSources.catalog.monsters.filter((c) => c.id !== "monster_large:p008"),
+  },
+};
+
+/** 接通 Collector I 正式目录前的固定来源。 */
+export const preCollectorTaskSources: CoreQuestSources = {
+  ...preFanaticTaskSources,
+  catalog: {
+    ...preFanaticTaskSources.catalog,
+    monsters: preFanaticTaskSources.catalog.monsters.filter((c) => c.id !== "monster_medium:p092"),
   },
 };
 
