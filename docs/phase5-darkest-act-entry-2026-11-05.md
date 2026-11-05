@@ -63,3 +63,7 @@ pnpm typecheck
 - **严格存档未覆盖**：`QuestStart` 仍只有 seed/quest/mode/party，III→最暗不能单独 `createQuestSave`；本切片以公开命令回放与机制夹具验收。
 - **未接**：最暗中途 Boss 特殊机制（Templars 尖刺/Pit Toss、Shuffling Echoing/Undulations 完整召唤、Mammoth White Cell Teleport/紫星）、最终准备门槛收紧、战役级存档与全链自然回放。
 - 不改 `readFinalBattlePlanAfterDarkestVictory`：它只看「最暗 Boss 胜利 + 已发 XP + 回村完成」，在单最暗任务结构下不再需要三连顺序校验；后续仍可与最终准备门槛一起收紧。
+
+## 后续（2026-11-06）
+
+固定提供 p016 已由 **R-192** 取代为「3 张最暗任务随机抽 1 张」，见[最暗任务随机抽 1 张](phase5-darkest-quest-draw-2026-11-06.md)。本文其余边界（严格存档、Boss 机制、浏览器冒烟）仍然有效。

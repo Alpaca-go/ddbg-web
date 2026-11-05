@@ -285,14 +285,14 @@ export function HamletEventSection({
           <>
             <p>
               第 4 幕：Act III Boss 已击败、村庄阶段已结束。按 §14.7.3 本幕只打<strong>一张</strong>
-              最暗任务；本切片固定提供 p016 We Are The Flame（随机 1/3 抽签待接，Q-155）。
+              最暗任务，从 p016–p018 随机抽 1 张（不是 2 选 1）；抽到的任务决定最终战取消哪个形态。
             </p>
             <button
               data-testid="enter-darkest-dungeon"
               disabled={!!pendingChoice}
               onClick={() => dispatch({ type: "enterDarkestDungeon" })}
             >
-              进入最暗地牢（p016 We Are The Flame）
+              进入最暗地牢（随机抽 1 张最暗任务）
             </button>
           </>
         ) : (

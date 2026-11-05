@@ -2,11 +2,17 @@ import { describe, expect, it } from "vitest";
 import { savedCommandSchema } from "../../data/src/quest-save";
 import { applyCommand, type Command, type GameState } from "./command";
 import {
-  DARKEST_ENTRY_FIXED_QUEST_ID,
+  DARKEST_QUEST_IDS,
   darkestActEntryPending,
   readDarkestDungeonEntryReadiness,
 } from "./darkest-entry";
 import { actThreeCompleteFixture } from "./test-helpers/act-three-complete";
+
+const SKIPPED_FORM_BY_QUEST = {
+  "quest:p016": "Ancestor 2nd Form",
+  "quest:p017": "Ancestor 1st Form",
+  "quest:p018": "Gestating Heart",
+} as const;
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);
@@ -25,42 +31,55 @@ function refused(game: GameState, command: Command) {
   return (event as { message: string }).message;
 }
 
-function enteredFixture() {
-  const base = actThreeCompleteFixture();
+function enteredFixture(seed = 1) {
+  const base = actThreeCompleteFixture("necromancer", seed);
   const entered = ok(base, { type: "enterDarkestDungeon" });
   return { base, entered };
 }
 
-describe("第 4 幕最暗入口（§14.7.1 / §14.7.3 / R-191）", () => {
-  it("机制夹具：Act III Boss 胜利+回村+村庄阶段结束后固定提供 p016，且不抽普通任务", () => {
+function drawnQuestId(entered: ReturnType<typeof enteredFixture>["entered"]) {
+  const options = entered.state.dungeon!.pending!.options;
+  expect(options).toHaveLength(1);
+  return options[0]!.id;
+}
+
+function drawForSeed(seed: number) {
+  return drawnQuestId(enteredFixture(seed).entered);
+}
+
+describe("第 4 幕最暗入口（§14.7.1 / §14.7.3 / R-191 / R-192）", () => {
+  it("机制夹具：Act III Boss 胜利+回村+村庄阶段结束后随机抽 1 张，且不抽普通任务", () => {
     const base = actThreeCompleteFixture();
     expect(darkestActEntryPending(base.dungeon!)).toBe(true);
-    expect(readDarkestDungeonEntryReadiness(base)).toEqual({
-      kind: "ok",
-      questId: DARKEST_ENTRY_FIXED_QUEST_ID,
-    });
+    expect(readDarkestDungeonEntryReadiness(base)).toEqual({ kind: "ok" });
     const { entered } = enteredFixture();
     const d = entered.state.dungeon!;
     expect(entered.pendingChoice).toEqual(d.pending);
     expect(d.pending!.id).toBe(`hamlet-next-quest:${base.dungeon!.decision}`);
-    expect(d.pending!.options).toEqual([{ id: "quest:p016", label: "We Are The Flame" }]);
-    expect(d.nextQuestOffers).toEqual(["quest:p016"]);
-    // 固定提供不抽卡：不消耗 RNG。
-    expect(d.cursor).toBe(base.dungeon!.cursor);
+    const questId = drawnQuestId(entered);
+    expect(DARKEST_QUEST_IDS).toContain(questId);
+    expect(d.nextQuestOffers).toEqual([questId]);
+    expect(d.pending!.prompt).toContain("不是 2 选 1");
+    expect(d.pending!.prompt).toContain(
+      SKIPPED_FORM_BY_QUEST[questId as keyof typeof SKIPPED_FORM_BY_QUEST],
+    );
+    // 抽签消费 2 步 RNG（3 张牌洗混），其余状态不变。
+    expect(d.cursor).toBe(base.dungeon!.cursor + 2);
     expect(base.dungeon!.pending).toBeNull();
   });
 
-  it("确认后走 chooseNextQuest：16 房、唯一目标在三 Boss 位、最暗怪物池与 III 级房间/饰品", () => {
+  it("抽到的任务决定出征与最终形态取消；确认后仍走最暗布置", () => {
     const { base, entered } = enteredFixture();
+    const questId = drawnQuestId(entered);
     const pending = entered.pendingChoice!;
     const result = ok(entered.state, {
       type: "resolveChoice",
       choiceId: pending.id,
-      optionId: "quest:p016",
+      optionId: questId,
     });
     const d = result.state.dungeon!;
     expect(d.phase).toBe("awaitingProvisions");
-    expect(d.questDistribution!.questId).toBe("quest:p016");
+    expect(d.questDistribution!.questId).toBe(questId);
     expect(d.campaignLevel).toBe(3);
     expect(d.explorationSetup!.dungeonLevel).toBe(3);
     expect(d.rooms).toHaveLength(16);
@@ -87,13 +106,24 @@ describe("第 4 幕最暗入口（§14.7.1 / §14.7.3 / R-191）", () => {
     expect(rolled.state.dungeon!.phase).toBe("awaitingProvisions");
   });
 
+  it("抽签覆盖三张最暗任务，且同种子同游标结果一致", () => {
+    const seen = new Set<string>();
+    for (let seed = 0; seed < 24; seed++) {
+      const first = drawForSeed(seed);
+      expect(drawForSeed(seed)).toBe(first);
+      seen.add(first);
+    }
+    expect([...seen].sort()).toEqual([...DARKEST_QUEST_IDS].sort());
+  });
+
   it("同一状态与命令序列结果一致（不因入口重放 RNG）", () => {
     const left = enteredFixture();
     const right = enteredFixture();
+    const questId = drawnQuestId(left.entered);
     const command = {
       type: "resolveChoice" as const,
       choiceId: left.entered.pendingChoice!.id,
-      optionId: "quest:p016",
+      optionId: questId,
     };
     expect(ok(left.entered.state, command)).toEqual(ok(right.entered.state, command));
   });
@@ -113,7 +143,7 @@ describe("第 4 幕最暗入口（§14.7.1 / §14.7.3 / R-191）", () => {
     const embarked = ok(entered.state, {
       type: "resolveChoice",
       choiceId: pending.id,
-      optionId: "quest:p016",
+      optionId: pending.options[0]!.id,
     });
     expect(refused(embarked.state, { type: "enterDarkestDungeon" })).toContain(
       "已在最暗地牢任务中",

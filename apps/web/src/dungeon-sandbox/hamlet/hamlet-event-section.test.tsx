@@ -23,29 +23,33 @@ function markup() {
   );
 }
 
-it("III 幕后村庄准备完成：只提供最暗入口，点击后可完成 p016 出征", () => {
+it("III 幕后村庄准备完成：只提供最暗入口，点击后随机抽 1 张并完成最暗出征", () => {
   const previous = useDungeonStore.getState();
   try {
     useDungeonStore.setState({ game: actThreeCompleteFixture(), commands: [], events: [] });
     const before = markup();
     expect(before).toContain('data-testid="enter-darkest-dungeon"');
-    expect(before).toContain("We Are The Flame");
+    expect(before).toContain("随机抽 1 张最暗任务");
     expect(before).not.toContain('data-testid="offer-next-quest"');
     expect(dungeonFlowStep(useDungeonStore.getState().game)).toContain("进入最暗地牢");
 
     useDungeonStore.getState().dispatch({ type: "enterDarkestDungeon" });
     const pending = useDungeonStore.getState().game.dungeon!.pending!;
-    expect(pending.options).toEqual([{ id: "quest:p016", label: "We Are The Flame" }]);
+    expect(pending.options).toHaveLength(1);
+    const questId = pending.options[0]!.id;
+    expect(["quest:p016", "quest:p017", "quest:p018"]).toContain(questId);
+    expect(pending.prompt).toContain("不是 2 选 1");
+    expect(pending.prompt).toContain("取消最终战的");
     expect(useDungeonStore.getState().commands).toHaveLength(1);
 
     useDungeonStore.getState().dispatch({
       type: "resolveChoice",
       choiceId: pending.id,
-      optionId: "quest:p016",
+      optionId: questId,
     });
     const d = useDungeonStore.getState().game.dungeon!;
     expect(d.phase).toBe("awaitingProvisions");
-    expect(d.questDistribution!.questId).toBe("quest:p016");
+    expect(d.questDistribution!.questId).toBe(questId);
     expect(d.rooms).toHaveLength(16);
     expect(d.darkest?.monsterDeck).toHaveLength(26);
     expect(d.trinkets!.level).toBe(3);

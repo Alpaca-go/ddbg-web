@@ -2,20 +2,27 @@ import { basicQuests } from "../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import type { DungeonState } from "./dungeon";
+import { createRng } from "./rng";
+import { readDarkestBossEncounter } from "./boss/darkest-content";
 import { readCampaignLevel } from "./hamlet-campaign";
 
 /**
  * 规格书 §14.7.3：第 4 幕只打 **1** 张最暗任务（p016–p018 随机抽 1 张，不是 2 选 1），
  * 由它取消最终战的一个形态，之后直接进入最后村庄 + 最终战；不是 p016→p017→p018 三连（R-191）。
- *
- * 本切片按 R-191 固定提供 p016；随机 1/3 抽签尚未接线（Q-155），
- * 未裁定前不得把 p016–p018 塞回普通 2 选 1 池，也不得改成三连。
  */
-export const DARKEST_ENTRY_FIXED_QUEST_ID = "quest:p016" as const;
+export const DARKEST_QUEST_IDS = ["quest:p016", "quest:p017", "quest:p018"] as const;
+export type DarkestQuestId = (typeof DARKEST_QUEST_IDS)[number];
+
+/** 印刷形态名（英文卡面；本文件的文案是中文 UI + 英文卡名）。 */
+const SKIPPED_FORM_LABELS = {
+  ancestor1: "Ancestor 1st Form",
+  ancestor2: "Ancestor 2nd Form",
+  gestatingHeart: "Gestating Heart",
+  heartOfDarkness: "Heart of Darkness",
+} as const;
 
 export type DarkestDungeonEntryReadiness =
-  | { readonly kind: "blocked"; readonly reason: string }
-  | { readonly kind: "ok"; readonly questId: typeof DARKEST_ENTRY_FIXED_QUEST_ID };
+  { readonly kind: "blocked"; readonly reason: string } | { readonly kind: "ok" };
 
 /**
  * Act III Boss 已结算并回村：第 4 幕入口的公共前置（只读取，不消费 RNG）。
@@ -34,7 +41,21 @@ export function darkestActEntryPending(d: DungeonState): boolean {
   );
 }
 
-/** 读取第 4 幕入口条件；只返回结论，不改状态、不消费 RNG。 */
+/** R-192：3 张最暗任务洗混后取首张；命令无载荷，种子 + 游标即可重放。 */
+function drawDarkestQuest(seed: number, cursor: number) {
+  if (!Number.isSafeInteger(seed) || !Number.isSafeInteger(cursor) || cursor < 0)
+    throw new Error("最暗任务抽签需要有效种子与RNG游标（R-192）");
+  const rng = createRng(seed);
+  for (let i = 0; i < cursor; i++) rng.next();
+  const deck: DarkestQuestId[] = [...DARKEST_QUEST_IDS];
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(rng.next() * (i + 1));
+    [deck[i], deck[j]] = [deck[j]!, deck[i]!];
+  }
+  return { questId: deck[0]!, cursor: cursor + deck.length - 1 };
+}
+
+/** 读取第 4 幕入口条件；只返回结论，不改状态、不消费 RNG、不提前抽卡。 */
 export function readDarkestDungeonEntryReadiness(state: GameState): DarkestDungeonEntryReadiness {
   const blocked = (reason: string): DarkestDungeonEntryReadiness => ({ kind: "blocked", reason });
   const d = state.dungeon;
@@ -54,24 +75,36 @@ export function readDarkestDungeonEntryReadiness(state: GameState): DarkestDunge
     return blocked("最暗地牢出征需要四名存活英雄（§2.4）");
   if (!d.battleCatalog || !d.conditions || !d.trinkets || !d.roomCards)
     return blocked("最暗地牢出征需要完整牌池与战斗目录（R-048）");
-  return { kind: "ok", questId: DARKEST_ENTRY_FIXED_QUEST_ID };
+  return { kind: "ok" };
 }
 
 /**
- * §14.7.1 / §14.7.3：Act III Boss 后的村庄阶段结束，唯一任务候选是最暗任务。
- * 固定提供 p016（不抽卡、不消耗 RNG）；确认后仍走 `chooseNextQuest` 的出征校验。
+ * §14.7.1 / §14.7.3 / R-192：Act III Boss 后的村庄阶段结束，唯一任务候选是从 3 张最暗任务
+ * 随机抽出的 1 张（公开抽卡，不是 2 选 1）。确认后仍走 `chooseNextQuest` 的出征校验与最暗布置。
  */
 export function enterDarkestDungeon(state: GameState): ApplyResult {
   const readiness = readDarkestDungeonEntryReadiness(state);
   if (readiness.kind === "blocked") return rejectBattleCommand(state, readiness.reason);
   const d = state.dungeon!;
-  const quest = basicQuests.find((entry) => entry.id === readiness.questId);
+  let drawn: ReturnType<typeof drawDarkestQuest>;
+  try {
+    drawn = drawDarkestQuest(state.seed, d.cursor);
+  } catch (error) {
+    return rejectBattleCommand(
+      state,
+      error instanceof Error ? error.message : "最暗任务抽签失败（R-192）",
+    );
+  }
+  const quest = basicQuests.find((entry) => entry.id === drawn.questId);
   if (!quest) return rejectBattleCommand(state, "最暗任务卡缺失，未进入最暗地牢（R-048）");
+  const encounter = readDarkestBossEncounter(drawn.questId);
+  const skipped = encounter ? SKIPPED_FORM_LABELS[encounter.skipFinalForm] : undefined;
+  if (!skipped)
+    return rejectBattleCommand(state, "最暗任务缺少最终形态取消数据，未进入最暗地牢（R-048）");
   const pending = {
     id: `hamlet-next-quest:${d.decision}`,
     actorId: "party",
-    prompt:
-      "第 4 幕：进入最暗地牢任务（§14.7.3 随机 1/3 尚未接线，本切片固定 p016 We Are The Flame；不抽普通任务卡）",
+    prompt: `第 4 幕：最暗地牢任务随机抽 1 张（不是 2 选 1）——${quest.name}；本任务取消最终战的 ${skipped} 形态（§14.7.3 / R-192）`,
     options: [{ id: quest.id, label: quest.name }],
   };
   return {
@@ -79,6 +112,7 @@ export function enterDarkestDungeon(state: GameState): ApplyResult {
       ...state,
       dungeon: {
         ...d,
+        cursor: drawn.cursor,
         pending,
         decision: d.decision + 1,
         nextQuestOffers: [quest.id],
@@ -87,7 +121,7 @@ export function enterDarkestDungeon(state: GameState): ApplyResult {
     events: [
       {
         type: "dungeonUpdated",
-        message: `最暗地牢入口：固定提供 ${quest.name}（§14.7.3 / R-191；随机 1/3 抽签见 Q-155）`,
+        message: `最暗地牢入口：随机抽到 ${quest.name}（取消最终战 ${skipped}；§14.7.3 / R-192）`,
       },
     ],
     pendingChoice: pending,
