@@ -271,6 +271,46 @@ describe("威胁被动运行时接线", () => {
     expect(delta.every((d) => d === 0 || d === 4)).toBe(true);
   });
 
+  it("Fanatic I：Black Sheep 把压力顶到 10 后仍在 inHamlet 抽村庄事件（R32）", () => {
+    let game = createCoreDungeonQuest(906, "quest:p001", "standard", coreParty, coreQuestSources);
+    let result = applyCommand(game, { type: "rollDungeonProvisions" });
+    expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+    game = result.state;
+    while (result.pendingChoice) {
+      result = applyCommand(game, {
+        type: "resolveChoice",
+        choiceId: result.pendingChoice.id,
+        optionId: result.pendingChoice.options[0]!.id,
+      });
+      game = result.state;
+    }
+    result = applyCommand(game, { type: "leaveDungeon" });
+    game = ok(result.state, {
+      type: "resolveChoice",
+      choiceId: result.pendingChoice!.id,
+      optionId: "agree",
+    });
+    for (const type of [
+      "summarizeDungeonQuest",
+      "beginReturnToHamlet",
+      "finishReturnToHamlet",
+    ] as const)
+      game = ok(game, { type });
+    game = ok(game, { type: "setActiveBossThreat", scriptId: FANATIC_I_SCRIPT_ID });
+    game = {
+      ...game,
+      dungeon: {
+        ...game.dungeon!,
+        heroes: game.dungeon!.heroes.map((hero) => ({ ...hero, stress: 9 })),
+      },
+    };
+
+    const drawn = applyCommand(game, { type: "drawHamletEvent" });
+    expect(drawn.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(drawn.state.dungeon!.phase).toBe("inHamlet");
+    expect(drawn.state.dungeon!.hamlet?.active ?? drawn.state.dungeon!.hamlet?.last).toBeTruthy();
+  });
+
   it("Fanatic I：The Black Sheep helper 可单独调用", () => {
     let game = createCoreDungeonQuest(907, "quest:p001", "standard", coreParty, coreQuestSources);
     game = ok(game, { type: "setActiveBossThreat", scriptId: FANATIC_I_SCRIPT_ID });

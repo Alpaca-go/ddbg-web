@@ -111,6 +111,10 @@ export function drawHamletEvent(state: GameState): ApplyResult {
   }
   state = blackSheep.state;
   const blackSheepEvents = blackSheep.events;
+  // R32：Black Sheep 等威胁压力若触发意志检定/替换，先把压力结算交给玩家；
+  // 在非 inHamlet 相位抽牌会让 Supply Run 等 deferred 事件拒绝结算。
+  if (blackSheep.pendingChoice || state.dungeon?.pending || state.dungeon?.phase !== "inHamlet")
+    return { ...blackSheep, events: blackSheepEvents };
   const dAfterSheep = state.dungeon!;
   const drawn = memory
       ? { deck: [...source], cursor: dAfterSheep.cursor }
