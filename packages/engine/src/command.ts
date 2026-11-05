@@ -10,6 +10,8 @@ import {
 import { deployFinalBattleForm } from "./boss/final-battle-deploy";
 import {
   deployCollectorI,
+  deployCollectorII,
+  deployCollectorIII,
   deployProphetI,
   deployProphetII,
   deployProphetIII,
@@ -277,6 +279,8 @@ type BaseCommand =
   | { readonly type: "deployNecromancerII" }
   | { readonly type: "deployNecromancerIII" }
   | { readonly type: "deployCollectorI" }
+  | { readonly type: "deployCollectorII" }
+  | { readonly type: "deployCollectorIII" }
   | { readonly type: "deployProphetI" }
   | { readonly type: "deployProphetII" }
   | { readonly type: "deployProphetIII" }
@@ -675,6 +679,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       : rejectBattleCommand(state, "请先完成地牢疾病 / 怪癖替换选择");
   }
   if (command.type === "deployCollectorI") return deployCollectorI(state);
+  if (command.type === "deployCollectorII") return deployCollectorII(state);
+  if (command.type === "deployCollectorIII") return deployCollectorIII(state);
   if (command.type === "deployProphetI") return deployProphetI(state);
   if (command.type === "deployProphetII") return deployProphetII(state);
   if (command.type === "deployProphetIII") return deployProphetIII(state);
