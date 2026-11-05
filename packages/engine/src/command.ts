@@ -16,7 +16,7 @@ import {
   deployProphetII,
   deployProphetIII,
 } from "./boss/ruins-i-deploy";
-import { deployFanaticI } from "./boss/fanatic-i-deploy";
+import { deployFanaticI, deployFanaticII, deployFanaticIII } from "./boss/fanatic-i-deploy";
 import { deployTemplarsI } from "./boss/templars-i-deploy";
 import { deployShufflingHorrorI } from "./boss/shuffling-horror-i-deploy";
 import { deployMammothCystI } from "./boss/mammoth-cyst-i-deploy";
@@ -285,6 +285,8 @@ type BaseCommand =
   | { readonly type: "deployProphetII" }
   | { readonly type: "deployProphetIII" }
   | { readonly type: "deployFanaticI" }
+  | { readonly type: "deployFanaticII" }
+  | { readonly type: "deployFanaticIII" }
   | { readonly type: "deployTemplarsI" }
   | { readonly type: "deployShufflingHorrorI" }
   | { readonly type: "deployMammothCystI" }
@@ -685,6 +687,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "deployProphetII") return deployProphetII(state);
   if (command.type === "deployProphetIII") return deployProphetIII(state);
   if (command.type === "deployFanaticI") return deployFanaticI(state);
+  if (command.type === "deployFanaticII") return deployFanaticII(state);
+  if (command.type === "deployFanaticIII") return deployFanaticIII(state);
   if (command.type === "deployNecromancerI") return deployNecromancerI(state);
   if (command.type === "deployNecromancerII") return deployNecromancerII(state);
   if (command.type === "deployNecromancerIII") return deployNecromancerIII(state);

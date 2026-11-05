@@ -119,6 +119,24 @@ const entries = [
     script: "boss:ruins:fanatic:1",
     command: "deployFanaticI",
   },
+  {
+    id: "fanatic-2",
+    level: 2,
+    name: "Fanatic II",
+    roomName: "Fanatic Room",
+    room: "room:p013",
+    script: "boss:ruins:fanatic:2",
+    command: "deployFanaticII",
+  },
+  {
+    id: "fanatic-3",
+    level: 3,
+    name: "Fanatic III",
+    roomName: "Fanatic Room",
+    room: "room:p013",
+    script: "boss:ruins:fanatic:3",
+    command: "deployFanaticIII",
+  },
 ] as const;
 function bossRoomEntry(d: DungeonState) {
   if (

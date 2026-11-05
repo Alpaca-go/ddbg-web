@@ -18,6 +18,8 @@ import {
   collectorIIIRealCombatActive,
   finishCollectorIIIBattle,
 } from "./boss/collector-iii-finish";
+import { fanaticIIRealCombatActive, finishFanaticIIBattle } from "./boss/fanatic-ii-finish";
+import { fanaticIIIRealCombatActive, finishFanaticIIIBattle } from "./boss/fanatic-iii-finish";
 import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import { questMonsterDeploymentHold } from "./quest-monster-deployment";
 import { deployDarkestOrdinaryEncounter } from "./darkest-ordinary-encounter-deploy";
@@ -414,6 +416,8 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
   if (collectorIIIRealCombatActive(state)) return finishCollectorIIIBattle(state);
   if (collectorIIRealCombatActive(state)) return finishCollectorIIBattle(state);
   if (ruinsIRealCombatActive(state, "collector")) return finishRuinsIBattle(state, "collector");
+  if (fanaticIIIRealCombatActive(state)) return finishFanaticIIIBattle(state);
+  if (fanaticIIRealCombatActive(state)) return finishFanaticIIBattle(state);
   if (ruinsIRealCombatActive(state, "fanatic")) return finishRuinsIBattle(state, "fanatic");
   if (necromancerIIIRealCombatActive(state)) return finishNecromancerIIIBattle(state);
   if (necromancerIIRealCombatActive(state)) return finishNecromancerIIBattle(state);
