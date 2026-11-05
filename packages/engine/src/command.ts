@@ -8,7 +8,12 @@ import {
   finalBattleCombatActive,
 } from "./boss/final-form-sequence";
 import { deployFinalBattleForm } from "./boss/final-battle-deploy";
-import { deployCollectorI, deployProphetI } from "./boss/ruins-i-deploy";
+import {
+  deployCollectorI,
+  deployProphetI,
+  deployProphetII,
+  deployProphetIII,
+} from "./boss/ruins-i-deploy";
 import { deployFanaticI } from "./boss/fanatic-i-deploy";
 import { deployTemplarsI } from "./boss/templars-i-deploy";
 import { deployShufflingHorrorI } from "./boss/shuffling-horror-i-deploy";
@@ -273,6 +278,8 @@ type BaseCommand =
   | { readonly type: "deployNecromancerIII" }
   | { readonly type: "deployCollectorI" }
   | { readonly type: "deployProphetI" }
+  | { readonly type: "deployProphetII" }
+  | { readonly type: "deployProphetIII" }
   | { readonly type: "deployFanaticI" }
   | { readonly type: "deployTemplarsI" }
   | { readonly type: "deployShufflingHorrorI" }
@@ -669,6 +676,8 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   }
   if (command.type === "deployCollectorI") return deployCollectorI(state);
   if (command.type === "deployProphetI") return deployProphetI(state);
+  if (command.type === "deployProphetII") return deployProphetII(state);
+  if (command.type === "deployProphetIII") return deployProphetIII(state);
   if (command.type === "deployFanaticI") return deployFanaticI(state);
   if (command.type === "deployNecromancerI") return deployNecromancerI(state);
   if (command.type === "deployNecromancerII") return deployNecromancerII(state);

@@ -69,6 +69,8 @@ it("四 Boss I–III 按实际威胁绑定专属房间；不抽普通牌、不�
         expect(reason).toContain("deployNecromancerII");
       else if (family === "necromancer" && level === 3)
         expect(reason).toContain("deployNecromancerIII");
+      else if (family === "prophet" && level === 2) expect(reason).toContain("deployProphetII");
+      else if (family === "prophet" && level === 3) expect(reason).toContain("deployProphetIII");
       else expect(reason).toContain("生产战斗尚未获批接通");
       expect(after).toEqual({
         ...before,

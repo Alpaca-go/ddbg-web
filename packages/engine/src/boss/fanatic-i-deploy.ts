@@ -11,17 +11,15 @@ import { statusProjection } from "../status";
 import { createLootState } from "../loot";
 import { getBossScript } from "./registry";
 import { resolveBossScriptIdForQuest } from "./quest-bridge";
-import {
-  FANATIC_I_SCRIPT_ID,
-  FANATIC_I_COMBAT_MONSTER_CARD_ID,
-  FANATIC_I_DESCRIPTION_ABILITY_CARD_ID,
-  FANATIC_I_PYRE_MONSTER_CARD_ID,
-} from "./fanatic-i";
+import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
+
+const ROMAN = { 1: "I", 2: "II", 3: "III" } as const;
 
 function buildHeroEntities(
   state: GameState,
   refuse: (message: string) => ApplyResult,
   areas: Record<NonNullable<BattleEntity["stance"]>, string>,
+  label: string,
 ): BattleEntity[] | ApplyResult {
   const d = state.dungeon!;
   const { heroStats: stats, skills } = d.battleCatalog!;
@@ -52,7 +50,7 @@ function buildHeroEntities(
       ) ||
       !ownedHeroSkills(hero, d.battleCatalog!)
     )
-      return refuse(`${hero.id} 缺少获批属性或有效装备技能，不能部署 Fanatic I（R-048、R-051）`);
+      return refuse(`${hero.id} 缺少获批属性或有效装备技能，不能部署 ${label}（R-048、R-051）`);
     heroes.push({
       ...hero.combat,
       diseaseId: hero.diseaseId ?? null,
@@ -87,8 +85,24 @@ function buildHeroEntities(
   return heroes;
 }
 
-/** R-169 / R-178：I 级 Fanatic 真实几何部署；对标 R-175，不开放 selectRoomTile 或 combatReady。 */
 export function deployFanaticI(state: GameState): ApplyResult {
+  return deployFanatic(state, 1);
+}
+export function deployFanaticII(state: GameState): ApplyResult {
+  return deployFanatic(state, 2);
+}
+export function deployFanaticIII(state: GameState): ApplyResult {
+  return deployFanatic(state, 3);
+}
+
+function deployFanatic(state: GameState, level: 1 | 2 | 3): ApplyResult {
+  const row = RUINS_COMBAT_LEVELS.fanatic[(level - 1) as 0 | 1 | 2];
+  const scriptId = row.script;
+  const descriptionId = row.description;
+  const bossCardId = row.card;
+  const pyreCardId = row.pyre;
+  const bossName = `Fanatic ${ROMAN[level]}`;
+  const ruling = level === 1 ? "R-178" : "R-136 / R-169 几何 / R-178 模式";
   const d = state.dungeon;
   const plan = d?.faceTheThreatEmbarkPlan;
   const active = d?.roomCards?.active;
@@ -108,30 +122,31 @@ export function deployFanaticI(state: GameState): ApplyResult {
     d.decision < 0 ||
     d.monsterPool?.active ||
     !["standard", "radiant"].includes(d.mode) ||
-    d.campaignLevel !== 1 ||
+    d.campaignLevel !== level ||
     d.questDistribution?.questId !== "quest:p019" ||
-    d.activeBossThreatScriptId !== FANATIC_I_SCRIPT_ID ||
-    d.imminentThreatDescriptionCardId !== FANATIC_I_DESCRIPTION_ABILITY_CARD_ID ||
+    d.activeBossThreatScriptId !== scriptId ||
+    d.imminentThreatDescriptionCardId !== descriptionId ||
     plan?.questId !== "quest:p019" ||
-    plan.resolvedScriptId !== FANATIC_I_SCRIPT_ID ||
+    plan.resolvedScriptId !== scriptId ||
     plan.roomPlacement !== "edgeRoomsR30" ||
     active?.roomId !== d.position ||
     active.cardId !== "room:p013" ||
     active.tileId !== undefined ||
     !d.battleCatalog ||
     !d.explorationSetup ||
+    d.explorationSetup.dungeonLevel !== level ||
     d.heroes.length !== 4 ||
     new Set(d.heroes.map((h) => h.stance)).size !== 4
   )
-    return refuse("需要已绑定 Fanatic I 专属目标房、真实出征计划和四英雄（R-178）");
+    return refuse(`需要已绑定 ${bossName} 专属目标房、真实出征计划和四英雄（${ruling}）`);
   const id = resolveBossScriptIdForQuest("quest:p019", d);
   const entry = id ? getBossScript(id)?.combatEntry : undefined;
   if (
-    id !== FANATIC_I_SCRIPT_ID ||
+    id !== scriptId ||
     !entry ||
     (Object.keys(entry) as (keyof typeof entry)[]).some((k) => entry[k] !== plan.combatEntry[k])
   )
-    return refuse("Fanatic I 出征战斗卡与实际威胁不一致（R30、R39、R-178）");
+    return refuse(`${bossName} 出征战斗卡与实际威胁不一致（R30、R39、${ruling}）`);
   const card = d.roomCards!.cards.find((c) => c.id === active.cardId);
   const tile = fanaticRoomSchema.safeParse(geometry.tiles.find((t) => t.roomId === active.cardId));
   if (
@@ -143,8 +158,8 @@ export function deployFanaticI(state: GameState): ApplyResult {
   )
     return refuse("Fanatic Room 身份或获批几何无效（R-169、R-178）");
   const monsters = d.battleCatalog.monsters;
-  const boss = monsters.find((c) => c.id === FANATIC_I_COMBAT_MONSTER_CARD_ID);
-  const pyre = monsters.find((c) => c.id === FANATIC_I_PYRE_MONSTER_CARD_ID);
+  const boss = monsters.find((c) => c.id === bossCardId);
+  const pyre = monsters.find((c) => c.id === pyreCardId);
   if (
     !boss ||
     !pyre ||
@@ -155,13 +170,13 @@ export function deployFanaticI(state: GameState): ApplyResult {
     !Number.isSafeInteger(pyre.life) ||
     pyre.life! <= 0
   )
-    return refuse("缺少 Fanatic I 或 Pyre 真实战斗卡（R39、R-048）");
+    return refuse(`缺少 ${bossName} 或 Pyre 真实战斗卡（R39、R-048）`);
   const dodge = boss.header_unlabeled_numbers?.find(
     (n) => n.anchor.type === "beside_icon" && n.anchor.inside_icon?.key === "dodge",
   )?.numeric;
   if (!Number.isSafeInteger(dodge) || dodge! < 0)
-    return refuse("Fanatic I 缺少已核实 Dodge（R-048）");
-  const heroes = buildHeroEntities(state, refuse, tile.data.deployment.heroes);
+    return refuse(`${bossName} 缺少已核实 Dodge（R-048）`);
+  const heroes = buildHeroEntities(state, refuse, tile.data.deployment.heroes, bossName);
   if (!Array.isArray(heroes)) return heroes;
   const deployment = tile.data.deployment;
   try {
@@ -173,7 +188,7 @@ export function deployFanaticI(state: GameState): ApplyResult {
       entities: [
         ...heroes,
         {
-          id: "boss:fanatic:1",
+          id: `boss:fanatic:${level}`,
           side: "monster",
           hero: null,
           monsterCardId: boss.id,
@@ -204,8 +219,7 @@ export function deployFanaticI(state: GameState): ApplyResult {
       lootPool: { ...(d.lootPool ?? createLootState()), gold: d.gold },
       provisionWindows: true,
     }).battle!;
-    const message =
-      "Fanatic I 已按 R-178 部署：Boss 进攻姿态/B，四英雄按 R-169 姿态区部署；Pyre 由 startBattle 写入远程/E；等待显式 startBattle 洗先攻。";
+    const message = `${bossName} 已按 ${ruling} 部署：Boss 进攻姿态/B，四英雄按 R-169 姿态区部署；Pyre 由 startBattle 写入远程/E；等待显式 startBattle 洗先攻。`;
     return {
       state: {
         ...state,
@@ -227,6 +241,6 @@ export function deployFanaticI(state: GameState): ApplyResult {
       events: [{ type: "dungeonUpdated", message }],
     };
   } catch (e) {
-    return refuse("Fanatic I 部署无效：" + (e instanceof Error ? e.message : String(e)));
+    return refuse(`${bossName} 部署无效：` + (e instanceof Error ? e.message : String(e)));
   }
 }

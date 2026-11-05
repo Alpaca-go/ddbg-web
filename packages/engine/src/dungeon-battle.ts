@@ -11,6 +11,8 @@ import {
   necromancerIIIRealCombatActive,
   finishNecromancerIIIBattle,
 } from "./boss/necromancer-iii-finish";
+import { prophetIIRealCombatActive, finishProphetIIBattle } from "./boss/prophet-ii-finish";
+import { prophetIIIRealCombatActive, finishProphetIIIBattle } from "./boss/prophet-iii-finish";
 import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import { questMonsterDeploymentHold } from "./quest-monster-deployment";
 import { deployDarkestOrdinaryEncounter } from "./darkest-ordinary-encounter-deploy";
@@ -401,6 +403,8 @@ export function startDungeonBattle(state: GameState): ApplyResult {
 
 /** R25、R-059：仅完成的战斗可回传一次；R-068 / mutualWipeout 不发胜利或撤退奖励。 */
 export function finishDungeonBattle(state: GameState): ApplyResult {
+  if (prophetIIIRealCombatActive(state)) return finishProphetIIIBattle(state);
+  if (prophetIIRealCombatActive(state)) return finishProphetIIBattle(state);
   if (ruinsIRealCombatActive(state, "prophet")) return finishRuinsIBattle(state, "prophet");
   if (ruinsIRealCombatActive(state, "collector")) return finishRuinsIBattle(state, "collector");
   if (ruinsIRealCombatActive(state, "fanatic")) return finishRuinsIBattle(state, "fanatic");
