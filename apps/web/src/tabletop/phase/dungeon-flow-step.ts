@@ -1,6 +1,6 @@
 import type { GameState } from "@ddbg/engine";
 import { needsInitialThreat } from "../../dungeon-sandbox/initial-threat";
-import { requiresRuinsActAdvance } from "@ddbg/engine";
+import { darkestActEntryPending, requiresRuinsActAdvance } from "@ddbg/engine";
 
 /** 与引擎 phase / 子状态一一对应的步骤文案（原 dungeon-checkpoint 逻辑）。 */
 export function dungeonFlowStep(game: GameState): string {
@@ -10,7 +10,10 @@ export function dungeonFlowStep(game: GameState): string {
   if (d.hamletReturn) {
     if (d.hamletReturn.phase === "complete") {
       if (!d.hamlet && requiresRuinsActAdvance(d)) return "Boss已击败；等待推进战役等级";
-      if (d.hamlet?.phase === "preparationComplete") return "村庄准备完成；可抽取下一任务";
+      if (d.hamlet?.phase === "preparationComplete")
+        return darkestActEntryPending(d)
+          ? "村庄准备完成；第 4 幕进入最暗地牢"
+          : "村庄准备完成；可抽取下一任务";
       if (d.hamlet) return "村庄准备进行中";
       return "回村完成；等待村庄事件";
     }
@@ -45,7 +48,10 @@ export function dungeonFlowStep(game: GameState): string {
     return "入口：领取开局补给后进入探索";
   }
   if (d.hamlet) {
-    if (d.hamlet.phase === "preparationComplete") return "村庄准备完成；可抽取下一任务";
+    if (d.hamlet.phase === "preparationComplete")
+      return darkestActEntryPending(d)
+        ? "村庄准备完成；第 4 幕进入最暗地牢"
+        : "村庄准备完成；可抽取下一任务";
     if (d.hamlet.phase === "awaitingCaretaker") return "村庄：等待掷看守人";
     if (d.hamlet.phase === "heroActions") return "村庄：英雄按姿态顺序访问建筑";
     if (d.hamlet.phase === "eventBlocked") return "村庄：等待事件选择";

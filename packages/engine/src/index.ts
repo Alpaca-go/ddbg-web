@@ -175,6 +175,13 @@ export type { RuinsActTransitionReadiness } from "./act-transition-readiness";
 export { switchRuinsActPools } from "./act-transition-pools";
 export type { ActPoolSwitch } from "./act-transition-pools";
 export { advanceRuinsAct } from "./advance-ruins-act";
+export {
+  DARKEST_ENTRY_FIXED_QUEST_ID,
+  darkestActEntryPending,
+  enterDarkestDungeon,
+  readDarkestDungeonEntryReadiness,
+} from "./darkest-entry";
+export type { DarkestDungeonEntryReadiness } from "./darkest-entry";
 export { visitGuild } from "./hamlet-guild";
 export {
   setEquippedSkills,

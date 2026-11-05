@@ -24,6 +24,8 @@ import {
   resolveFaceTheThreatOfferAtNextQuest,
 } from "./boss/face-the-threat-embark-runtime";
 import { FACE_THE_THREAT_QUEST_ID, isFaceTheThreatQuestId } from "./boss/quest-bridge";
+import { darkestActEntryPending } from "./darkest-entry";
+import { isDarkestQuest, setupDarkestDungeon } from "./darkest-setup";
 
 import { placeFaceTheThreatRooms } from "./boss/edge-room-placement";
 
@@ -230,6 +232,13 @@ export function offerNextQuest(state: GameState): ApplyResult {
     (discarded.includes(current) && currentQuest.level === campaignLevel)
   )
     return rejectBattleCommand(state, "上一任务弃置记录无效，未抽下一任务（R-037）");
+
+  // §14.7.1 / §14.7.3 / R-191：Act III Boss 后不再抽普通任务或 2 选 1，唯一入口是最暗地牢。
+  if (darkestActEntryPending(d))
+    return rejectBattleCommand(
+      state,
+      "第 4 幕只打一张最暗任务：Act III Boss 后的村庄阶段结束后用「进入最暗地牢」入口（§14.7.1/§14.7.3 / R-191），不再抽普通任务",
+    );
 
   const faceOffer = resolveFaceTheThreatOfferAtNextQuest(state);
   if (faceOffer.kind === "refused") return faceOffer.result;
@@ -479,6 +488,27 @@ export function chooseNextQuest(
         }
       : {}),
   } satisfies DungeonState;
+  if (isDarkestQuest(quest.id)) {
+    // R36 / R-121 / R-191：最暗任务换 16 房图、三 Boss 位、最暗怪物池与 III 级房间牌堆。
+    let darkest: GameState;
+    try {
+      darkest = setupDarkestDungeon({ ...state, dungeon: next }, { startCursor: next.cursor });
+    } catch (error) {
+      return rejectBattleCommand(
+        state,
+        error instanceof Error ? error.message : "最暗地牢布置失败（R-048）",
+      );
+    }
+    return {
+      state: darkest,
+      events: [
+        {
+          type: "dungeonUpdated",
+          message: `出征 ${quest.name}：最暗地牢布置完成（16 房间、3 Boss 位、最暗怪物池；R36/R-121）；第 4 幕只此一张最暗任务（§14.7.3 / R-191）`,
+        },
+      ],
+    };
+  }
   const lightNote = d.nextQuestStartingLight === 4 ? "；Unsettling Darkness起始光照4" : "";
   const merchantNote = d.nextQuestProvisionFaceChoice ? "；Traveling Merchants待改骰" : "";
   const warmUpNote =

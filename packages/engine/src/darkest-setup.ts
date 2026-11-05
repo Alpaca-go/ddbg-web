@@ -21,10 +21,16 @@ export function isDarkestQuest(
   return ["quest:p016", "quest:p017", "quest:p018"].includes(id ?? "");
 }
 
-/** R36 / R-121：两图随机取一；Objective+两枚随机非目标先洗入三个 Boss 位。 */
-export function placeDarkestRooms(seed: number, kinds: readonly RoomTokenKind[]) {
+/**
+ * R36 / R-121：两图随机取一；Objective+两枚随机非目标先洗入三个 Boss 位。
+ * `startCursor` 供自然战役续接既有 RNG 游标；沙盒入口沿用 0。
+ */
+export function placeDarkestRooms(seed: number, kinds: readonly RoomTokenKind[], startCursor = 0) {
+  if (!Number.isSafeInteger(startCursor) || startCursor < 0)
+    throw new Error("最暗布置需要非负整数RNG游标");
   const rng = createRng(seed);
-  let cursor = 0;
+  for (let i = 0; i < startCursor; i++) rng.next();
+  let cursor = startCursor;
   const shuffle = <T>(items: readonly T[]): T[] => {
     const out = [...items];
     for (let i = out.length - 1; i > 0; i--) {
@@ -79,7 +85,10 @@ export function placeDarkestRooms(seed: number, kinds: readonly RoomTokenKind[])
 }
 
 /** 新最暗任务入口；旧地点牌组退出使用，Curio/条件牌组继续沿用。 */
-export function setupDarkestDungeon(game: GameState): GameState {
+export function setupDarkestDungeon(
+  game: GameState,
+  options: { readonly startCursor?: number } = {},
+): GameState {
   const d = game.dungeon!;
   if (
     !isDarkestQuest(d.questDistribution?.questId) ||
@@ -91,6 +100,7 @@ export function setupDarkestDungeon(game: GameState): GameState {
   const placed = placeDarkestRooms(
     game.seed,
     d.questDistribution!.counts.flatMap((c) => Array.from({ length: c.count }, () => c.kind)),
+    options.startCursor ?? 0,
   );
   const monsterPool = darkestMonsterPoolFileSchema.parse(poolFile);
   const instances = placed.shuffle(darkestDungeonMonsterInstances(monsterPool));

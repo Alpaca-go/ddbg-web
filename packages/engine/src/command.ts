@@ -62,6 +62,7 @@ import { visitGuild, chooseGuild } from "./hamlet-guild";
 import { offerNextQuest, chooseNextQuest } from "./hamlet-embark";
 import { advanceCampaignLevel } from "./hamlet-campaign";
 import { advanceRuinsAct } from "./advance-ruins-act";
+import { enterDarkestDungeon } from "./darkest-entry";
 import { setActiveBossThreat } from "./boss/set-active-boss-threat";
 import {
   chooseHauntedGraveyard,
@@ -295,6 +296,7 @@ type BaseCommand =
   | { readonly type: "offerNextQuest" }
   | { readonly type: "advanceCampaignLevel" }
   | { readonly type: "advanceRuinsAct" }
+  | { readonly type: "enterDarkestDungeon" }
   | SetActiveBossThreatCommand
   | EstablishImminentThreatCommand
   | DrawImminentThreatAfterActAdvanceCommand
@@ -552,6 +554,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "offerNextQuest") return offerNextQuest(state);
   if (command.type === "advanceCampaignLevel") return advanceCampaignLevel(state);
   if (command.type === "advanceRuinsAct") return advanceRuinsAct(state);
+  if (command.type === "enterDarkestDungeon") return enterDarkestDungeon(state);
   if (command.type === "establishImminentThreat") return establishImminentThreat(state, command);
   if (command.type === "drawImminentThreatAfterActAdvance")
     return drawImminentThreatAfterActAdvance(state, command);

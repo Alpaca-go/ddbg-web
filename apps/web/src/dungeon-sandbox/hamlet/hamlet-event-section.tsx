@@ -10,6 +10,7 @@ import {
   visitNomadWagon,
   isHauntedGraveyardGuard,
   readFinalFormSequence,
+  readDarkestDungeonEntryReadiness,
 } from "@ddbg/engine";
 import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
 import { buildingLabels } from "../labels";
@@ -32,6 +33,7 @@ export function HamletEventSection({
   const d = game.dungeon!;
   const hamletCard = currentHamletEvent(game);
   const sequence = readFinalFormSequence(game);
+  const darkestEntry = readDarkestDungeonEntryReadiness(game);
   if (!d.hamlet) return null;
   const guarding = isHauntedGraveyardGuard(d, currentHamletHero(game)?.id);
   const guardHero = d.heroes.find((h) => h.id === d.hamlet!.hauntedGraveyard?.guardHeroId);
@@ -279,6 +281,20 @@ export function HamletEventSection({
               </div>
             )}
           </div>
+        ) : darkestEntry.kind === "ok" ? (
+          <>
+            <p>
+              第 4 幕：Act III Boss 已击败、村庄阶段已结束。按 §14.7.3 本幕只打<strong>一张</strong>
+              最暗任务；本切片固定提供 p016 We Are The Flame（随机 1/3 抽签待接，Q-155）。
+            </p>
+            <button
+              data-testid="enter-darkest-dungeon"
+              disabled={!!pendingChoice}
+              onClick={() => dispatch({ type: "enterDarkestDungeon" })}
+            >
+              进入最暗地牢（p016 We Are The Flame）
+            </button>
+          </>
         ) : (
           <>
             <p>

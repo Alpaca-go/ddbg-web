@@ -75,6 +75,7 @@ export const savedCommandSchema = z.union([
   commandObject({ type: z.literal("beginFinalPreparation") }),
   commandObject({ type: z.literal("establishImminentThreat") }),
   commandObject({ type: z.literal("advanceRuinsAct") }),
+  commandObject({ type: z.literal("enterDarkestDungeon") }),
   commandObject({ type: z.literal("useCoreTrinket"), ...actor, cardId: z.enum(CORE_TRINKET_IDS) }),
   commandObject({
     type: z.enum(["setDungeonStances", "setHamletStances"]),
