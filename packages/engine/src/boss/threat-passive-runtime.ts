@@ -273,7 +273,8 @@ export function applyBossThreatBlackSheepBeforeHamletEvent(state: GameState): Ap
     { ...state, dungeon: { ...d, cursor } },
     losers,
     stressDelta,
-    "exploration",
+    // R32：村庄内压力检定须回 inHamlet；"exploration" 会把 phase 打成 awaitingHazards。
+    "hamletThreat",
     `迫近威胁 · The Black Sheep：d10 ${rollSummary}，最低 ${lowest} 压力 +${stressDelta}（${script.displayName}）`,
   );
   return stressed;
