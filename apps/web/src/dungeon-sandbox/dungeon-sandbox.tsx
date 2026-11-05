@@ -8,6 +8,7 @@ import { QuestMapPanel } from "./dungeon-map/quest-map-panel";
 import { ScoutingPanel } from "./expedition/scouting-panel";
 import { FormalDungeonExplorationView } from "./formal/formal-dungeon-exploration-view";
 import { CampaignVictoryPanel, campaignRestartUrl } from "./quest-return/campaign-victory-panel";
+import { CampaignDefeatPanel } from "./quest-return/campaign-defeat-panel";
 
 /** Formal non-battle dungeon phases share the tabletop center shell (exploration, return, hamlet, prep). */
 function isFormalDungeonTabletopExploration(game: GameState, formal: boolean): boolean {
@@ -23,6 +24,14 @@ export function DungeonSandbox({ formal = false }: { formal?: boolean } = {}) {
   if (d.campaignVictory)
     return (
       <CampaignVictoryPanel
+        game={game}
+        onNewCampaign={() => window.location.assign(campaignRestartUrl(window.location.href))}
+      />
+    );
+  /** R9/R25/R33/R-044 战役失败也是终局：与胜利面板对称，给「开新战役」。 */
+  if (d.campaignFailure)
+    return (
+      <CampaignDefeatPanel
         game={game}
         onNewCampaign={() => window.location.assign(campaignRestartUrl(window.location.href))}
       />
