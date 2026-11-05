@@ -225,6 +225,24 @@ export function naturalQuest(
           continue;
         }
         if (
+          state.dungeon!.roomCards!.active!.cardId === "room:p012" &&
+          state.dungeon!.activeBossThreatScriptId === "boss:ruins:collector:2"
+        ) {
+          step({ type: "deployCollectorII" });
+          fight();
+          if (state.dungeon!.campaignFailure) return;
+          continue;
+        }
+        if (
+          state.dungeon!.roomCards!.active!.cardId === "room:p012" &&
+          state.dungeon!.activeBossThreatScriptId === "boss:ruins:collector:3"
+        ) {
+          step({ type: "deployCollectorIII" });
+          fight();
+          if (state.dungeon!.campaignFailure) return;
+          continue;
+        }
+        if (
           state.dungeon!.roomCards!.active!.cardId === "room:p013" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:fanatic:1"
         ) {
