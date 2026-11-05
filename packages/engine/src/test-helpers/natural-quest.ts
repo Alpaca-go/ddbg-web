@@ -252,6 +252,24 @@ export function naturalQuest(
           continue;
         }
         if (
+          state.dungeon!.roomCards!.active!.cardId === "room:p013" &&
+          state.dungeon!.activeBossThreatScriptId === "boss:ruins:fanatic:2"
+        ) {
+          step({ type: "deployFanaticII" });
+          fight();
+          if (state.dungeon!.campaignFailure) return;
+          continue;
+        }
+        if (
+          state.dungeon!.roomCards!.active!.cardId === "room:p013" &&
+          state.dungeon!.activeBossThreatScriptId === "boss:ruins:fanatic:3"
+        ) {
+          step({ type: "deployFanaticIII" });
+          fight();
+          if (state.dungeon!.campaignFailure) return;
+          continue;
+        }
+        if (
           state.dungeon!.roomCards!.active!.cardId === "room:p022" &&
           state.dungeon!.darkest?.bossEncounterPlan?.resolvedScriptId === DARKEST_TEMPLARS_SCRIPT_ID
         ) {

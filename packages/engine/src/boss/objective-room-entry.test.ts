@@ -74,6 +74,8 @@ it("四 Boss I–III 按实际威胁绑定专属房间；不抽普通牌、不�
       else if (family === "collector" && level === 2) expect(reason).toContain("deployCollectorII");
       else if (family === "collector" && level === 3)
         expect(reason).toContain("deployCollectorIII");
+      else if (family === "fanatic" && level === 2) expect(reason).toContain("deployFanaticII");
+      else if (family === "fanatic" && level === 3) expect(reason).toContain("deployFanaticIII");
       else expect(reason).toContain("生产战斗尚未获批接通");
       expect(after).toEqual({
         ...before,

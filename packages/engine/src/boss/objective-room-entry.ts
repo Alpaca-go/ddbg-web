@@ -20,18 +20,20 @@ const RUINS_I_DEPLOY_COMMAND = {
   fanatic: "deployFanaticI",
 } as const satisfies Partial<Record<keyof typeof rooms, string>>;
 
-/** II 级已接 Necromancer / Prophet / Collector；其余仍保留停点。 */
+/** II 级已接 Necromancer / Prophet / Collector / Fanatic。 */
 const RUINS_II_DEPLOY_COMMAND = {
   necromancer: "deployNecromancerII",
   prophet: "deployProphetII",
   collector: "deployCollectorII",
+  fanatic: "deployFanaticII",
 } as const satisfies Partial<Record<keyof typeof rooms, string>>;
 
-/** III 级已接 Necromancer / Prophet / Collector；其余仍保留停点。 */
+/** III 级已接 Necromancer / Prophet / Collector / Fanatic。 */
 const RUINS_III_DEPLOY_COMMAND = {
   necromancer: "deployNecromancerIII",
   prophet: "deployProphetIII",
   collector: "deployCollectorIII",
+  fanatic: "deployFanaticIII",
 } as const satisfies Partial<Record<keyof typeof rooms, string>>;
 
 function ruinsBossObjectiveBlockedReason(
