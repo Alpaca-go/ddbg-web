@@ -55,6 +55,7 @@ export const savedCommandSchema = z.union([
     startBattle: z.literal(true).optional(),
   }),
   commandObject({ type: z.literal("deployNecromancerI") }),
+  commandObject({ type: z.literal("deployNecromancerII") }),
   commandObject({ type: z.literal("deployCollectorI") }),
   commandObject({ type: z.literal("deployFanaticI") }),
   commandObject({ type: z.literal("deployTemplarsI") }),

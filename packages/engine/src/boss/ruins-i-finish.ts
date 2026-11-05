@@ -43,23 +43,51 @@ const realBossDefinitions = {
   },
 } as const;
 type Identity = keyof typeof realBossDefinitions;
+
+/** R-166 几何 + R-172 模式：Necromancer II 沿用同一房间与四英雄姿态。 */
+const necromancerII = {
+  script: "boss:ruins:necromancer:2",
+  card: "monster_medium:p090",
+  description: "boss_ability:p002",
+  room: "room:p010",
+  tile: "room_tile:p006:back",
+  entity: "boss:necromancer:2",
+  label: "Necromancer II",
+  ruling: "R-166/172",
+} as const;
+
+function bossDefinition(identity: Identity, level: 1 | 2) {
+  if (level === 1) return realBossDefinitions[identity];
+  return identity === "necromancer" ? necromancerII : undefined;
+}
 import { clearedBossThreatScriptIdAfterVictory } from "./threat-campaign";
 import { recordRuinsBossDefeatOnThreatCleared } from "./establish-imminent-threat";
 
-/** 仅识别有专用部署的遗迹 I 级 Boss 房。 */
-export function ruinsIRealCombatActive(state: GameState, identity: Identity): boolean {
-  const boss = realBossDefinitions[identity];
+/** 识别有专用部署的遗迹 Boss 房；默认 I 级，可显式指定 II 级。 */
+export function ruinsIRealCombatActive(
+  state: GameState,
+  identity: Identity,
+  level: 1 | 2 = 1,
+): boolean {
+  const boss = bossDefinition(identity, level);
+  if (!boss) return false;
   return (
     state.battle !== undefined &&
     state.dungeon?.phase === "inBattle" &&
+    state.dungeon.activeBossThreatScriptId === boss.script &&
     state.dungeon.roomCards?.active?.cardId === boss.room &&
     state.dungeon.roomCards.active.tileId === boss.tile
   );
 }
 
 /** R-044/R30/R38：Boss胜负交接不借用普通怪物牌池，也不重洗九张普通房间牌。 */
-export function finishRuinsIBattle(state: GameState, identity: Identity): ApplyResult {
-  const boss = realBossDefinitions[identity];
+export function finishRuinsIBattle(
+  state: GameState,
+  identity: Identity,
+  level: 1 | 2 = 1,
+): ApplyResult {
+  const boss = bossDefinition(identity, level);
+  if (!boss) return rejectBattleCommand(state, "该遗迹 Boss 等级尚无专用部署（R-048）");
   const d = state.dungeon;
   const b = state.battle;
   const active = d?.roomCards?.active;
@@ -72,8 +100,8 @@ export function finishRuinsIBattle(state: GameState, identity: Identity): ApplyR
   if (
     !d ||
     !b ||
-    !ruinsIRealCombatActive(state, identity) ||
-    d.campaignLevel !== 1 ||
+    !ruinsIRealCombatActive(state, identity, level) ||
+    d.campaignLevel !== level ||
     d.questDistribution?.questId !== "quest:p019" ||
     d.activeBossThreatScriptId !== boss.script ||
     d.bossCombatThreatCeased !== boss.script ||
@@ -87,7 +115,7 @@ export function finishRuinsIBattle(state: GameState, identity: Identity): ApplyR
     !room.revealed ||
     d.monsterPool?.active ||
     !d.explorationSetup ||
-    d.explorationSetup.dungeonLevel !== 1 ||
+    d.explorationSetup.dungeonLevel !== level ||
     (!wipedOut && (turn?.type !== "finished" || turn.outcome !== "victory")) ||
     d.pending ||
     b.pending ||

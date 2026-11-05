@@ -2388,3 +2388,10 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**：Fanatic I 战斗卡 `monster_large:p008` 的 Speed 为 2。四姿态共用 d10 选招表：1–2 为 slot 1（Righteous Condemnation），3–6 为 slot 2（Strike the Heretic），7–10 为 slot 3（Fury of the Righteous）。
 - **依据**：Kyries 确认 [#584](https://github.com/Alpaca-go/ddbg-web/pull/584) 与 R-179。C-017、核心 R24、印刷 COREBOX 怪物大卡正面第 8 页及[字段核对稿](phase5-fanatic-i-page-entry-review-2026-11-04.md)。
 - **边界**：仅此卡字段与正式目录。Pyre 仍仅开战布置；Sentence / Pit Toss / 先攻 4 沿用既有运行时。
+
+### Q-154
+
+- **日期**：2026-11-05（Asia/Shanghai）
+- **问题**：Necromancer II 的 Army of the Dead（`boss_ability:p005` 背面）在「地牢首场战斗就是 Boss 战」时，Bone Captain 是否加入该场 Boss 战？若加入，落在哪个怪物姿态/区域，先攻如何洗入？
+- **暂定**：正常 `startDungeonBattle` 首战仍按既有 `firstBattleThreatDeck` 与 `firstBattleThreatEntry` 生成并消费；`deployNecromancerII` 不自行加入 Bone Captain，也不伪造落点或先攻。
+- **状态**：待 Kyries 确认；不影响 II 级生产入口与胜负交接，但 Boss-first 路径在裁定前保持此边界。
