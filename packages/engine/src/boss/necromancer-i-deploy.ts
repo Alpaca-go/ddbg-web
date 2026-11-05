@@ -23,8 +23,14 @@ import {
   NECROMANCER_II_DESCRIPTION_ABILITY_CARD_ID,
   NECROMANCER_II_SUMMON_MONSTER_CARD_ID,
 } from "./necromancer-ii";
+import {
+  NECROMANCER_III_SCRIPT_ID,
+  NECROMANCER_III_COMBAT_MONSTER_CARD_ID,
+  NECROMANCER_III_DESCRIPTION_ABILITY_CARD_ID,
+  NECROMANCER_III_SUMMON_MONSTER_CARD_ID,
+} from "./necromancer-iii";
 
-type NecromancerLevel = 1 | 2;
+type NecromancerLevel = 1 | 2 | 3;
 
 const DEPLOY_LEVELS = {
   1: {
@@ -44,6 +50,15 @@ const DEPLOY_LEVELS = {
     entity: "boss:necromancer:2",
     label: "Necromancer II",
     ruling: "R-166 几何 / R-172 模式",
+  },
+  3: {
+    script: NECROMANCER_III_SCRIPT_ID,
+    card: NECROMANCER_III_COMBAT_MONSTER_CARD_ID,
+    summon: NECROMANCER_III_SUMMON_MONSTER_CARD_ID,
+    description: NECROMANCER_III_DESCRIPTION_ABILITY_CARD_ID,
+    entity: "boss:necromancer:3",
+    label: "Necromancer III",
+    ruling: "R-135 / R-166 几何 / R-172 模式",
   },
 } as const;
 
@@ -261,4 +276,9 @@ export function deployNecromancerI(state: GameState): ApplyResult {
 /** R-166 几何 + R-172 模式：Necromancer II 生产入口。 */
 export function deployNecromancerII(state: GameState): ApplyResult {
   return deployNecromancer(state, 2);
+}
+
+/** R-135 / R-166 / R-172：Necromancer III 生产入口。 */
+export function deployNecromancerIII(state: GameState): ApplyResult {
+  return deployNecromancer(state, 3);
 }

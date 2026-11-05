@@ -56,9 +56,22 @@ const necromancerII = {
   ruling: "R-166/172",
 } as const;
 
-function bossDefinition(identity: Identity, level: 1 | 2) {
+/** R-135 / R-166 几何 + R-172 模式：Necromancer III 沿用同一房间与四英雄姿态。 */
+const necromancerIII = {
+  script: "boss:ruins:necromancer:3",
+  card: "monster_medium:p091",
+  description: "boss_ability:p003",
+  room: "room:p010",
+  tile: "room_tile:p006:back",
+  entity: "boss:necromancer:3",
+  label: "Necromancer III",
+  ruling: "R-135/166/172",
+} as const;
+
+function bossDefinition(identity: Identity, level: 1 | 2 | 3) {
   if (level === 1) return realBossDefinitions[identity];
-  return identity === "necromancer" ? necromancerII : undefined;
+  if (level === 2) return identity === "necromancer" ? necromancerII : undefined;
+  return identity === "necromancer" ? necromancerIII : undefined;
 }
 import { clearedBossThreatScriptIdAfterVictory } from "./threat-campaign";
 import { recordRuinsBossDefeatOnThreatCleared } from "./establish-imminent-threat";
@@ -67,7 +80,7 @@ import { recordRuinsBossDefeatOnThreatCleared } from "./establish-imminent-threa
 export function ruinsIRealCombatActive(
   state: GameState,
   identity: Identity,
-  level: 1 | 2 = 1,
+  level: 1 | 2 | 3 = 1,
 ): boolean {
   const boss = bossDefinition(identity, level);
   if (!boss) return false;
@@ -84,7 +97,7 @@ export function ruinsIRealCombatActive(
 export function finishRuinsIBattle(
   state: GameState,
   identity: Identity,
-  level: 1 | 2 = 1,
+  level: 1 | 2 | 3 = 1,
 ): ApplyResult {
   const boss = bossDefinition(identity, level);
   if (!boss) return rejectBattleCommand(state, "该遗迹 Boss 等级尚无专用部署（R-048）");

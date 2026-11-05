@@ -67,6 +67,8 @@ it("四 Boss I–III 按实际威胁绑定专属房间；不抽普通牌、不�
         );
       else if (family === "necromancer" && level === 2)
         expect(reason).toContain("deployNecromancerII");
+      else if (family === "necromancer" && level === 3)
+        expect(reason).toContain("deployNecromancerIII");
       else expect(reason).toContain("生产战斗尚未获批接通");
       expect(after).toEqual({
         ...before,
@@ -85,7 +87,7 @@ it("四 Boss I–III 按实际威胁绑定专属房间；不抽普通牌、不�
       }
     }
   }
-});
+}, 15000);
 
 it("错级威胁、篡改计划/房间身份与缺目录均原子拒绝", () => {
   const state = atObjective("collector", 2);

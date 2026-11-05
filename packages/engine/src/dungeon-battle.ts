@@ -7,6 +7,10 @@ import {
   necromancerIIRealCombatActive,
   finishNecromancerIIBattle,
 } from "./boss/necromancer-ii-finish";
+import {
+  necromancerIIIRealCombatActive,
+  finishNecromancerIIIBattle,
+} from "./boss/necromancer-iii-finish";
 import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import { questMonsterDeploymentHold } from "./quest-monster-deployment";
 import { deployDarkestOrdinaryEncounter } from "./darkest-ordinary-encounter-deploy";
@@ -400,6 +404,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
   if (ruinsIRealCombatActive(state, "prophet")) return finishRuinsIBattle(state, "prophet");
   if (ruinsIRealCombatActive(state, "collector")) return finishRuinsIBattle(state, "collector");
   if (ruinsIRealCombatActive(state, "fanatic")) return finishRuinsIBattle(state, "fanatic");
+  if (necromancerIIIRealCombatActive(state)) return finishNecromancerIIIBattle(state);
   if (necromancerIIRealCombatActive(state)) return finishNecromancerIIBattle(state);
   if (necromancerIRealCombatActive(state)) return finishNecromancerIBattle(state);
   if (darkestOrdinaryCombatActive(state) || darkestMidBossCombatActive(state))
