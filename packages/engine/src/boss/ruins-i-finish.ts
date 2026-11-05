@@ -1,82 +1,51 @@
 import type { ApplyResult, GameState } from "../command";
 import { rejectBattleCommand } from "../battle";
-const realBossDefinitions = {
-  necromancer: {
-    script: "boss:ruins:necromancer:1",
-    card: "monster_medium:p089",
-    description: "boss_ability:p001",
-    room: "room:p010",
-    tile: "room_tile:p006:back",
-    entity: "boss:necromancer:1",
-    label: "Necromancer I",
-    ruling: "R-172",
-  },
-  prophet: {
-    script: "boss:ruins:prophet:1",
-    card: "monster_large:p005",
-    description: "boss_ability:p007",
-    room: "room:p011",
-    tile: "room_tile:p006:front",
-    entity: "boss:prophet:1",
-    label: "Prophet I",
-    ruling: "R-173",
-  },
-  collector: {
-    script: "boss:ruins:collector:1",
-    card: "monster_medium:p092",
-    description: "boss_ability:p013",
-    room: "room:p012",
-    tile: "room_tile:p007:back",
-    entity: "boss:collector:1",
-    label: "Collector I",
-    ruling: "R-175",
-  },
-  fanatic: {
-    script: "boss:ruins:fanatic:1",
-    card: "monster_large:p008",
-    description: "boss_ability:p019",
-    room: "room:p013",
-    tile: "room_tile:p007:front",
-    entity: "boss:fanatic:1",
-    label: "Fanatic I",
-    ruling: "R-178",
-  },
-} as const;
-type Identity = keyof typeof realBossDefinitions;
-
-/** R-166 几何 + R-172 模式：Necromancer II 沿用同一房间与四英雄姿态。 */
-const necromancerII = {
-  script: "boss:ruins:necromancer:2",
-  card: "monster_medium:p090",
-  description: "boss_ability:p002",
-  room: "room:p010",
-  tile: "room_tile:p006:back",
-  entity: "boss:necromancer:2",
-  label: "Necromancer II",
-  ruling: "R-166/172",
-} as const;
-
-/** R-135 / R-166 几何 + R-172 模式：Necromancer III 沿用同一房间与四英雄姿态。 */
-const necromancerIII = {
-  script: "boss:ruins:necromancer:3",
-  card: "monster_medium:p091",
-  description: "boss_ability:p003",
-  room: "room:p010",
-  tile: "room_tile:p006:back",
-  entity: "boss:necromancer:3",
-  label: "Necromancer III",
-  ruling: "R-135/166/172",
-} as const;
-
-function bossDefinition(identity: Identity, level: 1 | 2 | 3) {
-  if (level === 1) return realBossDefinitions[identity];
-  if (level === 2) return identity === "necromancer" ? necromancerII : undefined;
-  return identity === "necromancer" ? necromancerIII : undefined;
-}
+import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
 import { clearedBossThreatScriptIdAfterVictory } from "./threat-campaign";
 import { recordRuinsBossDefeatOnThreatCleared } from "./establish-imminent-threat";
 
-/** 识别有专用部署的遗迹 Boss 房；默认 I 级，可显式指定 II 级。 */
+type Identity = keyof typeof RUINS_COMBAT_LEVELS;
+
+const ROOMS = {
+  necromancer: { room: "room:p010", tile: "room_tile:p006:back" },
+  prophet: { room: "room:p011", tile: "room_tile:p006:front" },
+  collector: { room: "room:p012", tile: "room_tile:p007:back" },
+  fanatic: { room: "room:p013", tile: "room_tile:p007:front" },
+} as const;
+
+const NAMES = {
+  necromancer: "Necromancer",
+  prophet: "Prophet",
+  collector: "Collector",
+  fanatic: "Fanatic",
+} as const;
+
+const ROMAN = { 1: "I", 2: "II", 3: "III" } as const;
+
+/** I 级沿用已批 R；II/III 沿用同族几何与 I 级部署模式。 */
+const RULINGS: Record<Identity, readonly [string, string, string]> = {
+  necromancer: ["R-172", "R-166 几何 / R-172 模式", "R-135 / R-166 几何 / R-172 模式"],
+  prophet: ["R-173", "R-167 几何 / R-173 模式", "R-167 几何 / R-173 模式"],
+  collector: ["R-175", "R-168 几何 / R-175 模式", "R-168 几何 / R-175 模式"],
+  fanatic: ["R-178", "R-169 几何 / R-178 模式", "R-169 几何 / R-178 模式"],
+};
+
+function bossDefinition(identity: Identity, level: 1 | 2 | 3) {
+  const row = RUINS_COMBAT_LEVELS[identity][(level - 1) as 0 | 1 | 2];
+  const room = ROOMS[identity];
+  return {
+    script: row.script,
+    card: row.card,
+    description: row.description,
+    room: room.room,
+    tile: room.tile,
+    entity: `boss:${identity}:${level}`,
+    label: `${NAMES[identity]} ${ROMAN[level]}`,
+    ruling: RULINGS[identity][(level - 1) as 0 | 1 | 2],
+  };
+}
+
+/** 识别有专用部署的遗迹 Boss 房；默认 I 级，可显式指定 II/III 级。 */
 export function ruinsIRealCombatActive(
   state: GameState,
   identity: Identity,

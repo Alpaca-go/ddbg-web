@@ -12,18 +12,7 @@ import { statusProjection } from "../status";
 import { createLootState } from "../loot";
 import { getBossScript } from "./registry";
 import { resolveBossScriptIdForQuest } from "./quest-bridge";
-import {
-  PROPHET_I_SCRIPT_ID,
-  PROPHET_I_COMBAT_MONSTER_CARD_ID,
-  PROPHET_I_DESCRIPTION_ABILITY_CARD_ID,
-} from "./prophet-i";
-
-import {
-  COLLECTOR_I_SCRIPT_ID,
-  COLLECTOR_I_COMBAT_MONSTER_CARD_ID,
-  COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
-  collectorCollectedCardIds,
-} from "./collector-i";
+import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
 
 function buildHeroEntities(
   state: GameState,
@@ -95,27 +84,58 @@ function buildHeroEntities(
   return heroes;
 }
 
-/** R-167/173：只接I级Boss真实几何部署；不开放普通房间选择或修改combatReady。 */
+type Family = "prophet" | "collector";
+
+const FAMILY = {
+  prophet: {
+    name: "Prophet",
+    roomId: "room:p011",
+    roomName: "Prophet Room",
+    ruling: "R-173",
+    geometry: "R-167",
+  },
+  collector: {
+    name: "Collector",
+    roomId: "room:p012",
+    roomName: "Collector Room",
+    ruling: "R-175",
+    geometry: "R-168",
+  },
+} as const;
+
+const ROMAN = { 1: "I", 2: "II", 3: "III" } as const;
+
 export function deployProphetI(state: GameState): ApplyResult {
-  return deployRuinsBossI(state, false);
+  return deployRuinsBoss(state, "prophet", 1);
+}
+export function deployProphetII(state: GameState): ApplyResult {
+  return deployRuinsBoss(state, "prophet", 2);
+}
+export function deployProphetIII(state: GameState): ApplyResult {
+  return deployRuinsBoss(state, "prophet", 3);
 }
 
 export function deployCollectorI(state: GameState): ApplyResult {
-  return deployRuinsBossI(state, true);
+  return deployRuinsBoss(state, "collector", 1);
+}
+export function deployCollectorII(state: GameState): ApplyResult {
+  return deployRuinsBoss(state, "collector", 2);
+}
+export function deployCollectorIII(state: GameState): ApplyResult {
+  return deployRuinsBoss(state, "collector", 3);
 }
 
-function deployRuinsBossI(state: GameState, collector: boolean): ApplyResult {
-  const scriptId = collector ? COLLECTOR_I_SCRIPT_ID : PROPHET_I_SCRIPT_ID;
-  const descriptionId = collector
-    ? COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID
-    : PROPHET_I_DESCRIPTION_ABILITY_CARD_ID;
-  const monsterId = collector
-    ? COLLECTOR_I_COMBAT_MONSTER_CARD_ID
-    : PROPHET_I_COMBAT_MONSTER_CARD_ID;
-  const roomId = collector ? "room:p012" : "room:p011";
-  const roomName = collector ? "Collector Room" : "Prophet Room";
-  const bossName = collector ? "Collector I" : "Prophet I";
-  const ruling = collector ? "R-175" : "R-173";
+function deployRuinsBoss(state: GameState, family: Family, level: 1 | 2 | 3): ApplyResult {
+  const meta = FAMILY[family];
+  const row = RUINS_COMBAT_LEVELS[family][(level - 1) as 0 | 1 | 2];
+  const scriptId = row.script;
+  const descriptionId = row.description;
+  const monsterId = row.card;
+  const roomId = meta.roomId;
+  const roomName = meta.roomName;
+  const bossName = `${meta.name} ${ROMAN[level]}`;
+  const ruling = level === 1 ? meta.ruling : `${meta.geometry} 几何 / ${meta.ruling} 模式`;
+  const collector = family === "collector";
   const d = state.dungeon;
   const plan = d?.faceTheThreatEmbarkPlan;
   const active = d?.roomCards?.active;
@@ -135,7 +155,7 @@ function deployRuinsBossI(state: GameState, collector: boolean): ApplyResult {
     d.decision < 0 ||
     d.monsterPool?.active ||
     !["standard", "radiant"].includes(d.mode) ||
-    d.campaignLevel !== 1 ||
+    d.campaignLevel !== level ||
     d.questDistribution?.questId !== "quest:p019" ||
     d.activeBossThreatScriptId !== scriptId ||
     d.imminentThreatDescriptionCardId !== descriptionId ||
@@ -147,6 +167,7 @@ function deployRuinsBossI(state: GameState, collector: boolean): ApplyResult {
     active.tileId !== undefined ||
     !d.battleCatalog ||
     !d.explorationSetup ||
+    d.explorationSetup.dungeonLevel !== level ||
     d.heroes.length !== 4 ||
     new Set(d.heroes.map((h) => h.stance)).size !== 4
   )
@@ -181,10 +202,11 @@ function deployRuinsBossI(state: GameState, collector: boolean): ApplyResult {
   )?.numeric;
   if (!Number.isSafeInteger(dodge) || dodge! < 0)
     return refuse(`${bossName}缺少已核实Dodge（R-048）`);
+  const collectedIds = collector && "collected" in row ? Object.values(row.collected) : [];
   if (
     collector &&
     (boss.verification.unverified ||
-      collectorCollectedCardIds().some(
+      collectedIds.some(
         (id) =>
           !monsters.some(
             (c) =>
@@ -195,7 +217,7 @@ function deployRuinsBossI(state: GameState, collector: boolean): ApplyResult {
           ),
       ))
   )
-    return refuse("Collector I 或 Collected 缺少获批战斗卡（R39、R-048）");
+    return refuse(`${bossName} 或 Collected 缺少获批战斗卡（R39、R-048）`);
   const heroes = buildHeroEntities(state, refuse, tile.deployment.heroes, bossName);
   if (!Array.isArray(heroes)) return heroes;
   try {
@@ -207,7 +229,7 @@ function deployRuinsBossI(state: GameState, collector: boolean): ApplyResult {
       entities: [
         ...heroes,
         {
-          id: collector ? "boss:collector:1" : "boss:prophet:1",
+          id: `boss:${family}:${level}`,
           side: "monster",
           hero: null,
           monsterCardId: boss.id,
@@ -237,8 +259,8 @@ function deployRuinsBossI(state: GameState, collector: boolean): ApplyResult {
       provisionWindows: true,
     }).battle!;
     const message = collector
-      ? "Collector I已按R-175部署，等待开始战斗。"
-      : "Prophet I已按R-173部署：Boss进攻姿态/E，英雄按姿态部署C/D/H；等待显式startBattle洗先攻。完整Boss准入与combatReady停点保持。";
+      ? `${bossName} 已按 ${ruling} 部署，等待开始战斗。`
+      : `${bossName} 已按 ${ruling} 部署：Boss 进攻姿态/E，英雄按姿态部署 C/D/H；等待显式 startBattle 洗先攻。完整 Boss 准入与 combatReady 停点保持。`;
     return {
       state: {
         ...state,
