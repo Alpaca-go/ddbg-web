@@ -1,7 +1,7 @@
 import type { DungeonState } from "@ddbg/engine";
 import type { DungeonDispatch } from "../view-props";
 
-/** 页面只提供已接通的I级专属入口；完整准入检查仍由引擎执行。 */
+/** 页面只提供已接通的 I/II 级专属入口；完整准入检查仍由引擎执行。 */
 export function RuinsBossRoomActions({
   dungeon: d,
   dispatch,
@@ -31,6 +31,7 @@ export function RuinsBossRoomActions({
 const entries = [
   {
     id: "necromancer",
+    level: 1,
     name: "Necromancer I",
     roomName: "Necromancer Room",
     room: "room:p010",
@@ -38,7 +39,17 @@ const entries = [
     command: "deployNecromancerI",
   },
   {
+    id: "necromancer-2",
+    level: 2,
+    name: "Necromancer II",
+    roomName: "Necromancer Room",
+    room: "room:p010",
+    script: "boss:ruins:necromancer:2",
+    command: "deployNecromancerII",
+  },
+  {
     id: "prophet",
+    level: 1,
     name: "Prophet I",
     roomName: "Prophet Room",
     room: "room:p011",
@@ -47,6 +58,7 @@ const entries = [
   },
   {
     id: "collector",
+    level: 1,
     name: "Collector I",
     roomName: "Collector Room",
     room: "room:p012",
@@ -55,6 +67,7 @@ const entries = [
   },
   {
     id: "fanatic",
+    level: 1,
     name: "Fanatic I",
     roomName: "Fanatic Room",
     room: "room:p013",
@@ -67,12 +80,12 @@ function bossRoomEntry(d: DungeonState) {
     d.phase !== "awaitingRoom" ||
     d.roomCards?.active?.tileId !== undefined ||
     d.questDistribution?.questId !== "quest:p019" ||
-    d.campaignLevel !== 1 ||
     !["standard", "radiant"].includes(d.mode)
   )
     return undefined;
   return entries.find(
     (e) =>
+      d.campaignLevel === e.level &&
       d.roomCards?.active?.cardId === e.room &&
       d.activeBossThreatScriptId === e.script &&
       d.faceTheThreatEmbarkPlan?.resolvedScriptId === e.script,
