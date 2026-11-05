@@ -13,7 +13,11 @@ import { deployFanaticI } from "./boss/fanatic-i-deploy";
 import { deployTemplarsI } from "./boss/templars-i-deploy";
 import { deployShufflingHorrorI } from "./boss/shuffling-horror-i-deploy";
 import { deployMammothCystI } from "./boss/mammoth-cyst-i-deploy";
-import { deployNecromancerI, deployNecromancerII } from "./boss/necromancer-i-deploy";
+import {
+  deployNecromancerI,
+  deployNecromancerII,
+  deployNecromancerIII,
+} from "./boss/necromancer-i-deploy";
 import { deployDarkestMidBoss } from "./boss/darkest-mid-boss-deploy";
 import { deployDarkestOrdinaryEncounter } from "./darkest-ordinary-encounter-deploy";
 import { beginFinalPreparation, beginFinalBattleProvisions } from "./final-preparation";
@@ -266,6 +270,7 @@ type BaseCommand =
   | { readonly type: "deployFinalBattleForm"; readonly startBattle?: true | undefined }
   | { readonly type: "deployNecromancerI" }
   | { readonly type: "deployNecromancerII" }
+  | { readonly type: "deployNecromancerIII" }
   | { readonly type: "deployCollectorI" }
   | { readonly type: "deployProphetI" }
   | { readonly type: "deployFanaticI" }
@@ -667,6 +672,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "deployFanaticI") return deployFanaticI(state);
   if (command.type === "deployNecromancerI") return deployNecromancerI(state);
   if (command.type === "deployNecromancerII") return deployNecromancerII(state);
+  if (command.type === "deployNecromancerIII") return deployNecromancerIII(state);
   if (command.type === "deployTemplarsI") return deployTemplarsI(state);
   if (command.type === "deployShufflingHorrorI") return deployShufflingHorrorI(state);
   if (command.type === "deployMammothCystI") return deployMammothCystI(state);

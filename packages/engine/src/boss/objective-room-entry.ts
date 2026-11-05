@@ -25,6 +25,11 @@ const RUINS_II_DEPLOY_COMMAND = {
   necromancer: "deployNecromancerII",
 } as const satisfies Partial<Record<keyof typeof rooms, string>>;
 
+/** III 级仅 Necromancer 已接生产入口；其余仍保留停点。 */
+const RUINS_III_DEPLOY_COMMAND = {
+  necromancer: "deployNecromancerIII",
+} as const satisfies Partial<Record<keyof typeof rooms, string>>;
+
 function ruinsBossObjectiveBlockedReason(
   cardName: string,
   scriptId: string,
@@ -37,7 +42,9 @@ function ruinsBossObjectiveBlockedReason(
     ? RUINS_I_DEPLOY_COMMAND[family as keyof typeof RUINS_I_DEPLOY_COMMAND]
     : scriptId.endsWith(":2")
       ? RUINS_II_DEPLOY_COMMAND[family as keyof typeof RUINS_II_DEPLOY_COMMAND]
-      : undefined;
+      : scriptId.endsWith(":3")
+        ? RUINS_III_DEPLOY_COMMAND[family as keyof typeof RUINS_III_DEPLOY_COMMAND]
+        : undefined;
   if (deploy) return `${binding}；下一步专用 ${deploy}，${tail}`;
   return `${binding}；专属房间几何、印刷部署及生产战斗尚未获批接通，${tail}`;
 }

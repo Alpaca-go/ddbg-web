@@ -180,6 +180,15 @@ export function naturalQuest(
           continue;
         }
         if (
+          state.dungeon!.roomCards!.active!.cardId === "room:p010" &&
+          state.dungeon!.activeBossThreatScriptId === "boss:ruins:necromancer:3"
+        ) {
+          step({ type: "deployNecromancerIII" });
+          fight();
+          if (state.dungeon!.campaignFailure) return;
+          continue;
+        }
+        if (
           state.dungeon!.roomCards!.active!.cardId === "room:p011" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:prophet:1"
         ) {

@@ -1,7 +1,7 @@
 import type { DungeonState } from "@ddbg/engine";
 import type { DungeonDispatch } from "../view-props";
 
-/** 页面只提供已接通的 I/II 级专属入口；完整准入检查仍由引擎执行。 */
+/** 页面只提供已接通的 I/II/III 级专属入口；完整准入检查仍由引擎执行。 */
 export function RuinsBossRoomActions({
   dungeon: d,
   dispatch,
@@ -46,6 +46,15 @@ const entries = [
     room: "room:p010",
     script: "boss:ruins:necromancer:2",
     command: "deployNecromancerII",
+  },
+  {
+    id: "necromancer-3",
+    level: 3,
+    name: "Necromancer III",
+    roomName: "Necromancer Room",
+    room: "room:p010",
+    script: "boss:ruins:necromancer:3",
+    command: "deployNecromancerIII",
   },
   {
     id: "prophet",

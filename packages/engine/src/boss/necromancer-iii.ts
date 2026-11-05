@@ -6,16 +6,19 @@ import type { BossScriptDefinition } from "./types";
 export const NECROMANCER_III_SCRIPT_ID = "boss:ruins:necromancer:3" as const;
 export const NECROMANCER_III_COMBAT_MONSTER_CARD_ID = "monster_medium:p091" as const;
 export const NECROMANCER_III_SUMMON_MONSTER_CARD_ID = "monster_medium:p013" as const;
+/** p003 为 III 级描述/威胁面；p006 为战斗面。 */
+export const NECROMANCER_III_DESCRIPTION_ABILITY_CARD_ID = "boss_ability:p003" as const;
+export const NECROMANCER_III_COMBAT_ABILITY_CARD_ID = "boss_ability:p006" as const;
 
-/** R38 / 当前版 FRONT p091：三招、复活与墓地守卫；正式房间仍归 R-121。 */
+/** R38 / 当前版 FRONT p091：三招、复活与墓地守卫；正式房间由 deployNecromancerIII 接 R-166。 */
 export const necromancerIIIBossScript: BossScriptDefinition = {
   id: NECROMANCER_III_SCRIPT_ID,
   displayName: "Necromancer III",
   rules: DEFAULT_BOSS_BATTLE_RULES,
-  notes: "三招、Bone Spearman、Reanimation 与首日墓地守卫已接；正式房间仍 hold。",
+  notes: "三招、Bone Spearman、Reanimation 与首日墓地守卫已接；正式房间见 R-166 生产入口。",
   combatEntry: {
-    descriptionAbilityCardId: "boss_ability:p003",
-    combatAbilityCardId: "boss_ability:p006",
+    descriptionAbilityCardId: NECROMANCER_III_DESCRIPTION_ABILITY_CARD_ID,
+    combatAbilityCardId: NECROMANCER_III_COMBAT_ABILITY_CARD_ID,
     combatMonsterCardId: NECROMANCER_III_COMBAT_MONSTER_CARD_ID,
     printedInitiativeCards: 1,
     printedActionsPerRound: 1,
@@ -28,13 +31,13 @@ export const necromancerIIIBossScript: BossScriptDefinition = {
       effect: "ruinsHigherThreat",
       kind: "reanimation",
       amount: 1,
-      sourceAbilityCardId: "boss_ability:p006",
+      sourceAbilityCardId: NECROMANCER_III_COMBAT_ABILITY_CARD_ID,
       rulesRef: ["R11", "R31", "boss_ability:p006"],
     }),
     threatPassiveHamlet: () => ({
       status: "ok",
       effect: "firstDayGraveyardGuard",
-      sourceAbilityCardId: "boss_ability:p006",
+      sourceAbilityCardId: NECROMANCER_III_COMBAT_ABILITY_CARD_ID,
       rulesRef: ["R33", "R-125", "boss_ability:p006"],
     }),
     monsterTurnActionCount: () => ({ status: "ok", value: 1 }),
