@@ -346,6 +346,16 @@ const entries: readonly {
       { type: "shuffle", scope: "target", direction: "push", distance: 2 },
     ],
   },
+  // K-001 / R-195：White Cell Stalk Teleport · FRONT p104（`boss_ability:p031`）。
+  {
+    id: "monster_medium:p104",
+    name: "White Cell Stalk",
+    level: 3,
+    pages: [104],
+    slot: 3,
+    signature: "{target_effects}{stress}+2,Teleport",
+    effects: [{ type: "stress", scope: "target", amount: 2 }],
+  },
   // C-017：Fanatic I 三招；不含召唤图标。R20–21 / monster_large_FRONT p008。
   {
     id: "monster_large:p008",

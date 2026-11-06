@@ -33,6 +33,7 @@ import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
 import { clearTemplarsSpikesTurnTracking } from "./battle-templars-spikes";
 import { chainTemplarImpalerBodySlamPitTossAfterMonsterSkill } from "./boss/templars-pit-toss";
+import { chainWhiteCellTeleportAfterMonsterSkill } from "./boss/mammoth-cyst-teleport";
 import { endTurnRiteOfTheChosen } from "./battle-temple-of-the-chosen";
 import { endTurnEvilEye } from "./battle-evil-eye";
 import { endTurnEldritchPower } from "./battle-eldritch-power";
@@ -788,7 +789,8 @@ export function recordMonsterSkill(
     return finishTurn(withPitToss.state, resolved.actorId, withPitToss.events);
   }
   const withPitToss = chainTemplarImpalerBodySlamPitTossAfterMonsterSkill(morphed, resolved);
-  return finishTurn(withPitToss.state, resolved.actorId, withPitToss.events);
+  const withTeleport = chainWhiteCellTeleportAfterMonsterSkill(withPitToss, resolved);
+  return finishTurn(withTeleport.state, resolved.actorId, withTeleport.events);
 }
 
 /** 意志触发（含待选补给）完成后，只执行一次压力、状态与死亡收尾。 */

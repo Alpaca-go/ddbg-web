@@ -66,7 +66,7 @@ function darkestMidBossWiringHold(questId: StoredDarkestBossEncounterPlan["quest
     return "Undulations + Echoing Disassembly 召唤 + Lacerate Acc 最小结算已接；生产部署 deployShufflingHorrorI（R-163/R-182）；Echoing 完整召唤 / 完整 AI 仍 hold";
   }
   if (questId === "quest:p018") {
-    return "Summon White Cell Stalk + Bulging Gaze/Digestion Acc + Revivify Self 最小结算已接；生产部署 deployMammothCystI（R-164/R-184）；White Cell Teleport / 完整 AI 仍 hold";
+    return "Summon White Cell Stalk + Bulging Gaze/Digestion Acc + Revivify Self 最小结算已接；White Cell Teleport 已接（R-195）；生产部署 deployMammothCystI（R-164/R-184）；完整 AI 仍 hold";
   }
   return "Templars Torment/Body Slam/Revelation/Stinger Shot Acc 最小结算已接；生产部署 deployTemplarsI（R-162/R-180）；Spikes / Pit Toss 已接（R-193）；完整 AI 仍 hold";
 }

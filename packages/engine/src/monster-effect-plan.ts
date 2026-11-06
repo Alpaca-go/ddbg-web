@@ -67,6 +67,7 @@ export function compileMonsterEffectPlan(
       .replace(/\{shuffle_resist\}/g, witchPull ? "{shuffle}" : "{shuffle_resist}")
       .replace(/,/g, "")
       .replace(/PitToss/g, "") // Templar Body Slam · boss_ability:p028 Pit Toss 由运行时（R-193），印刷整行仅签名守门
+      .replace(/Teleport/g, "") // White Cell Stalk · boss_ability:p031 Teleport 落点由运行时（R-195），印刷整行仅签名守门
       .replace(/\{summon\}/g, "") // Echoing Disassembly / Necromancer 等 · summon 几何 hold，图标仅签名守门
       .replace(/\{damage_or_heal_combined_marker\}(?=\{heal\})/g, "")
       .replace(/\{damage_or_heal_combined_marker\}(\d+)\{heal\}/g, "{heal}$1")

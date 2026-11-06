@@ -21,7 +21,7 @@ const combat = {
   light: 5,
 };
 describe("怪物复合效果原语（R20–21 / R27–28）", () => {
-  it("White Cell Displace 命中减益 2t / Push2，落空不施加效果；Teleport 保持未接", () => {
+  it("White Cell Displace 命中减益 2t / Push2；Teleport 命中 +2 压力（落点走专用运行时）", () => {
     const card = byId("monster_medium:p104");
     const context = { ...combat, areaDistance: 1 };
     expect(card.skills.find((s) => s.slot === 2)?.verified_monster_effects?.effects).toEqual([
@@ -51,7 +51,13 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
       status: "resolved",
       resolution: { outcome: "miss", targetStatusEffects: [] },
     });
-    expect(card.skills.find((s) => s.slot === 3)?.verified_monster_effects).toBeUndefined();
+    expect(card.skills.find((s) => s.slot === 3)?.verified_monster_effects?.effects).toEqual([
+      { type: "stress", scope: "target", amount: 2 },
+    ]);
+    expect(resolveMonsterSkill(card, 3, { ...context, areaDistance: 2 }, 5)).toMatchObject({
+      status: "resolved",
+      resolution: { outcome: "hit", targetStress: 2 },
+    });
     expect(resolveMonsterSkill(card, 2, { ...context, areaDistance: 2 }, 5).status).toBe("refused");
   });
   it("所有有计划且不含疾病的真实 I/II 级攻击技能完整结算，原始数据保持不变", () => {
@@ -94,7 +100,7 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
         }
         checked++;
       }
-    expect(checked).toBe(92); // 含 Fanatic I、Collector 等；排除 Collected Vestal 纯治疗、Self 目标；+ A-01 Warlord Stinger Shot / Revelation / Impaler Body Slam / Revelation / Mammoth Digestion / Bulging Gaze / Ancestor2 Refashion Them / Unmake Them All / Embrace Futility / HoD Know This / HoD Puncture / HoD Dissolution / Shuffling Horror Lacerate / Echoing Disassembly。
+    expect(checked).toBe(93); // 含 Fanatic I、Collector 等；排除 Collected Vestal 纯治疗、Self 目标；+ A-01 Warlord Stinger Shot / Revelation / Impaler Body Slam / Revelation / Mammoth Digestion / Bulging Gaze / Ancestor2 Refashion Them / Unmake Them All / Embrace Futility / HoD Know This / HoD Puncture / HoD Dissolution / Shuffling Horror Lacerate / Echoing Disassembly / White Cell Teleport（R-195 纯压力行）。
     expect(cards).toEqual(before);
   });
   it("Mammoth Revivify · Self verified 效果 compile 就绪", () => {

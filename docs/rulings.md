@@ -2469,7 +2469,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **问题**：Mammoth Cyst 的 White Cell Teleport 与紫星落点。已确认卡文：`boss_ability:p031`「Teleport: When it hits a Hero with the Teleport Skill, roll a d10 to see where they'll land.」；房间卡 p24 无额外效果文字；紫星 A=1–2、C=3–4、B=5–6、G=7–8、I=9–10。
 - **待确认**：① d10 1–10 与紫星区的对应是否按印刷编号直读；② 落点区域已满或没有空间时的处理（是否套用 R-034 的召唤挤占/英雄移位规则）；③ Teleport 技能本身是否另有伤害或压力（卡面技能文本尚未逐字核）；④ White Cell Stalk 被击败或换位后传送是否失效。
 - **暂定**：保持 hold（White Cell 召唤、Revivify、Bulging Gaze/Digestion 最小结算保留）；`deployMammothCystI` 生产部署不变。
-- **状态**：待 Kyries 确认；确认后按 R-164 几何接线。
+- **状态**：已裁定 → **R-195**（2026-11-07）；d10 按印刷编号直读、满员按 §6.7 截断、卡面只有 +2 压力。
 
 ### Q-158
 
@@ -2501,6 +2501,31 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **问题**：9 张走廊板块 `geometryVerified=false`，`corridor_layout_bindings` 为空。
 - **待确认**：逐面几何标注与绑定审核（与房间板块同流程）；确认前走廊只沿用现有布局，不改绑定。
 - **暂定**：保持 `geometryVerified=false`，不自行推定走廊形状/连接。
+- **状态**：待 Kyries 确认。
+
+### R-195
+
+- **编号**：R-195
+- **日期**：2026-11-07（Asia/Shanghai）
+- **问题**：Q-157：White Cell Stalk 的 Teleport（`monster_medium:p104` slot 3 / `boss_ability:p031`）与 Mammoth Cyst Room 紫星落点的运行时。
+- **裁定**（本项目裁定）：
+  1. **d10 落点**：紫星印刷编号直读——**1–2→A、3–4→C、5–6→B、7–8→G、9–10→I**（R-164 图面 A=1–2、C=3–4、B=5–6、G=7–8、I=9–10）。
+  2. **触发**：Teleport 技能（射程 2、Furthest、Acc 12）**命中**英雄后掷 d10；落空不传送，技能的目标效果（+2 压力）也只在命中时结算。
+  3. **效果**：卡面只有 `{target_effects}{stress}+2, Teleport`；命中 +2 压力（走既有怪物压力结算），**没有额外伤害**；传送只移动英雄所在区域，**不移动姿态轨**。
+  4. **满员 / 已在落点**：落点区域没有空位时按规格书 §6.7「被位移的角色不能放进满员区域，区域上的移动在那里截断」——英雄停在原区域、姿态轨不变；**不套用 R-034 的召唤挤占**。英雄已在该区则不移动。
+  5. **RNG**：d10 在技能自身掷骰之后消费 1 次战斗骰；同种子同命令同结果。
+- **依据 / 出处**：`boss_ability:p031`「Teleport: When it hits a Hero with the Teleport Skill, roll a d10 to see where they'll land.」；`monster_medium` FRONT p104（射程 2 / Furthest / Acc 12 / `{stress}+2, Teleport`）；`ROOMS FRONT p24`（紫星）；规格书 §6.7 / §6.8（R-021）、R-164；Kyries 2026-11-07「继续推 Q-157」。
+- **关联待确认**：无（Q-157 关闭）。
+- **状态**：已裁定。
+- **切片**：[phase5-mammoth-teleport-2026-11-07.md](phase5-mammoth-teleport-2026-11-07.md)。
+- **边界**：不实现完整 AI / 自动选招；`usable` 仍为 false，生产仍经 `deployMammothCystI`；不改 `combatReady`、任务白名单或其它紫星效果。
+
+### Q-162
+
+- **日期**：2026-11-07（Asia/Shanghai）
+- **问题**：Q-156 接入尖刺/Pit Toss 后，`templars-i-natural-save.test.ts` 的固定种子 5075 在自然策略下不再获胜；该 PR 在 ≤20000 的种子搜索内未找到必胜路径，测试已 `it.skip`，自然存档验收暂时缺位。
+- **暂定**：保持 skip；不为绿灯调整自然策略或挑选有利种子（R-190）。定向单测见 `templars-spikes-pit-toss.test.ts`。
+- **待确认**：① 接受 skip，后续用合法玩家策略或人工记录补回自然存档验收；② 批准改用新的固定种子（须说明不是为绿灯挑选）；③ 把该验收改成「记录该输入会输」的断言。
 - **状态**：待 Kyries 确认。
 
 

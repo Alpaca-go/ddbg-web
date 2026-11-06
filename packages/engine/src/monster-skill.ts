@@ -272,6 +272,12 @@ function resolveMonsterSkillInternal(
       monster.id === "monster_medium:p086" &&
       skillSlot === 3 &&
       matches[0]!.verified_monster_effects?.effects.every((e) => e.type === "stress")
+    ) &&
+    !(
+      // R-195：White Cell Stalk · Teleport 印刷行只有 +2 压力，落点由专用运行时处理。
+      monster.id === "monster_medium:p104" &&
+      skillSlot === 3 &&
+      matches[0]!.verified_monster_effects?.effects.every((e) => e.type === "stress")
     )
   ) {
     return refused("当前怪物攻击需要已命名的 damage，支援与纯状态技能尚未接入（R-048）");
