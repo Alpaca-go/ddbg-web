@@ -2442,4 +2442,53 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **切片**：[phase5-campaign-save-model-2026-11-06.md](phase5-campaign-save-model-2026-11-06.md)。
 - **边界**：本裁定不改变回放语义、不新增快照信任、不实现按任务分段存档；II/III 的**验收**仍需一条完整 Act I 自然链，当前自然策略在 R-190 下会因驿站替补耗尽而输，属后续工作。
 
+### Q-156
+
+- **日期**：2026-11-06（Asia/Shanghai）
+- **问题**：Templars 尖刺区与 Pit Toss 的运行时规则。已确认卡文：`boss_ability:p028`「Pit Toss: When the Templar Impaler hits a Hero with his Body Slam Skill, roll a d10 to see which Pit Area he'll throw them into. If the Area has no space, ignore this effect.」；房间卡 p22 Spikes「Heroes〔Shuffle 位移图标〕or ending their move here take 5〔伤害〕and Bleed 3 3t」；橙星区 B=1–2、E=3–4、H=5–6、K=7–8、N=9–10。
+- **待确认**：① 橙星印刷编号是否就是 d10 的 1–10 落点映射（d10 1–2→B、3–4→E、5–6→H、7–8→K、9–10→N）；② 尖刺触发边界：主动进入 / 被 Push·Pull·Shuffle 位移进入 / 移动结束停在此处，各结算一次还是每次移动都结算；③ 尖刺伤害是否就对英雄 5 伤 + Bleed 3（3t）、是否可按常规抗性/免疫处理；④ Pit Toss 的「Area has no space → ignore」是否指不移动、仍照常结算 Body Slam 的伤害与位移。
+- **暂定**：保持 hold（`room_tile:p013:front` 的 B/E/H/K/N `runtimeReady=false`，Pit Toss 未接）；只保留 `deployTemplarsI` 与既有最小结算，不猜落点/触发。
+- **状态**：待 Kyries 确认；确认后按 R-162 几何接线。
+
+### Q-157
+
+- **日期**：2026-11-06（Asia/Shanghai）
+- **问题**：Mammoth Cyst 的 White Cell Teleport 与紫星落点。已确认卡文：`boss_ability:p031`「Teleport: When it hits a Hero with the Teleport Skill, roll a d10 to see where they'll land.」；房间卡 p24 无额外效果文字；紫星 A=1–2、C=3–4、B=5–6、G=7–8、I=9–10。
+- **待确认**：① d10 1–10 与紫星区的对应是否按印刷编号直读；② 落点区域已满或没有空间时的处理（是否套用 R-034 的召唤挤占/英雄移位规则）；③ Teleport 技能本身是否另有伤害或压力（卡面技能文本尚未逐字核）；④ White Cell Stalk 被击败或换位后传送是否失效。
+- **暂定**：保持 hold（White Cell 召唤、Revivify、Bulging Gaze/Digestion 最小结算保留）；`deployMammothCystI` 生产部署不变。
+- **状态**：待 Kyries 确认；确认后按 R-164 几何接线。
+
+### Q-158
+
+- **日期**：2026-11-06（Asia/Shanghai）
+- **问题**：最暗中途 Boss 的自动选招 / AI 范围。现状：Shuffling Horror 的 Undulations 与 Echoing Disassembly 有显式公开命令与最小结算（含既有召唤 Cultist Priest / Malignant Growth 逻辑），Templars / Mammoth 的技能也要玩家/测试显式驱动。
+- **待确认**：① 核心盒 v1 是否要求中途 Boss「自动选招」（按姿态 d10 表自动执行），还是保持显式命令；② Echoing 召唤的完整范围（姿态轨未满时的召唤次数、召唤物落区、先攻洗入）是否已由 R-183 / R-034 覆盖，还是另有卡面细节待核。
+- **暂定**：保持显式命令；`combatReady: true` 只表示允许进入生产战斗，不等于 AI 已完成（R-189）。
+- **状态**：待 Kyries 确认（范围问题，不涉及数值）。
+
+### Q-159
+
+- **日期**：2026-11-06（Asia/Shanghai）
+- **问题**：DL3 三张普通怪 Brigand Raider、Brigand Hunter、Adder 仍缺 `speed` / `stanceGroups`（`monster_pool.json`）。
+- **待确认**：请 Kyries 逐卡核对印刷面的 Speed 与四姿态选招分组/d10 区间；确认后按 R-048 入库，不猜数值。
+- **暂定**：保持缺失；相关遭遇不进入生产随机池，也不补默认值。
+- **状态**：待 Kyries 确认。
+
+### Q-160
+
+- **日期**：2026-11-06（Asia/Shanghai）
+- **问题**：任务 SPECIAL 仍有 hold：Rising Threat 只有分布数据、没有运行时；Purify 的圣水图标/交互待核实；Dem Bones 的绿区/目标标记几何按交接停点。
+- **待确认**：三项是否纳入核心盒 v1，以及各自的卡文/图标含义与几何；确认前不实现。
+- **暂定**：保持 hold；任务卡可出征，但 SPECIAL 不结算。
+- **状态**：待 Kyries 确认。
+
+### Q-161
+
+- **日期**：2026-11-06（Asia/Shanghai）
+- **问题**：9 张走廊板块 `geometryVerified=false`，`corridor_layout_bindings` 为空。
+- **待确认**：逐面几何标注与绑定审核（与房间板块同流程）；确认前走廊只沿用现有布局，不改绑定。
+- **暂定**：保持 `geometryVerified=false`，不自行推定走廊形状/连接。
+- **状态**：待 Kyries 确认。
+
+
 
