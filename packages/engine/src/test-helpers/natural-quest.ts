@@ -40,6 +40,11 @@ export type NaturalQuestOptions = {
    * 再公开 finishDungeonBattle。仍只走公开命令，不注入 dead:true。
    */
   readonly preferWipeout?: boolean;
+  /**
+   * 探索中英雄阵亡时按公开命令完成驿站替补（prepareReplacementHero → 选择 → 入队）。
+   * 供跨任务的战役级回放使用；默认关闭以保持既有单任务场景不变，也不改战斗策略。
+   */
+  readonly handleDeaths?: boolean;
 };
 
 /** 测试用固定决策驱动，不进入产品；只执行公开命令，不修改任何游戏状态／牌序。 */
@@ -118,6 +123,12 @@ export function naturalQuest(
           choiceId: state.dungeon.deathTrinketChoice.id,
           optionId: "discard",
         });
+      while (options.handleDeaths && state.dungeon?.replacementPreparation)
+        step({
+          type: "resolveChoice",
+          choiceId: state.dungeon.replacementPreparation.choice.id,
+          optionId: state.dungeon.replacementPreparation.choice.options[0]!.id,
+        });
       const p = choice();
       if (p) {
         choose(pick(p));
@@ -152,6 +163,18 @@ export function naturalQuest(
       const phase = dungeonPhase();
       if (phase === "ready") return;
       if (options.preferWipeout && phase === "awaitingReplacement") return;
+      if (options.handleDeaths && phase === "awaitingReplacement") {
+        // 公开替补流程：先准备，再选升级，最后入队；等待英雄代币仍由引擎判定。
+        for (let guard = 0; guard < 10 && dungeonPhase() === "awaitingReplacement"; guard++) {
+          step(
+            state.dungeon!.preparedReplacements?.length
+              ? { type: "joinPreparedReplacements" }
+              : { type: "prepareReplacementHero" },
+          );
+          settle();
+        }
+        continue;
+      }
       if (phase !== "awaitingRoom") throw new Error(`dungeon halted ${phase}`);
       const kind = state.dungeon!.rooms.find((r) => r.id === state.dungeon!.position)!.kind;
       if (

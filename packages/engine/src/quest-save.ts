@@ -7,6 +7,7 @@ import { questSaveSchema, questStartSchema } from "../../data/src/quest-save";
 import type { QuestSave, QuestStart } from "../../data/src/quest-save";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import type { CoreQuestSources } from "./dungeon-quest-entry";
+import { readCampaignLevel } from "./hamlet-campaign";
 import { applyCommand } from "./command";
 import type { Command, GameEvent, GameState } from "./command";
 
@@ -154,11 +155,14 @@ export function createQuestSave(
     format: "ddbg-core-quest",
     version: 1,
     rulesVersion: "core-quest-2026-10-14",
+    campaignLevel: readCampaignLevel(game.dungeon ?? {}),
     start: questStartSchema.parse(start),
     commands,
     snapshot: JSON.parse(JSON.stringify(game)),
   });
   const restored = replay(save.start, replayCommands(save.commands), sources);
+  if (save.campaignLevel !== readCampaignLevel(restored.game.dungeon ?? {}))
+    throw new Error("战役等级与任务入口及命令日志不一致，未保存");
   if (canonical(restored.game) !== canonical(save.snapshot))
     throw new Error("当前状态与任务入口及命令日志不一致，未保存");
   return save;
@@ -173,6 +177,11 @@ export function loadQuestSave(
   const save = parsed.data;
   const commands = replayCommands(save.commands);
   const restored = replay(save.start, commands, sources);
+  if (
+    save.campaignLevel !== undefined &&
+    save.campaignLevel !== readCampaignLevel(restored.game.dungeon ?? {})
+  )
+    throw new Error("存档声明的战役等级与回放不一致；未替换当前进度");
   const restoredKey = canonical(restored.game);
   let snapshotKey = canonical(
     upgradeFallenHeroSnapshot(upgradeNomadPrompt(save.snapshot, restored.game), restored.game),
