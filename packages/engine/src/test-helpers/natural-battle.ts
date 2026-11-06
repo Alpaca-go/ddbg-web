@@ -4,6 +4,7 @@ import { playHeroSkillTargets } from "../battle-hero-targets";
 import type { PlayHeroSkillCommand } from "../battle";
 import type { PlayHeroSkillTargetsCommand } from "../battle-hero-targets";
 import type { ApplyResult, Command, GameState } from "../command";
+import { templarsProductionCombatActive } from "../boss/templars-i-deploy";
 
 export type NaturalBattleDriver = {
   readonly state: () => GameState;
@@ -163,18 +164,23 @@ export function playNaturalBattle(
           r = moveHero(state, command);
         const refused = r.events.some((e) => e.type === "commandRefused");
         const followUp = !refused && t.actions > 1 ? (attacks(r.state)[0]?.score ?? 0) : 0;
+        const dest = path[path.length - 1]!;
+        const spikeEnd =
+          templarsProductionCombatActive(state) &&
+          !!b.areas.find((a) => a.id === dest)?.templarsSpikes;
         return {
           command,
           r,
-          score: refused
-            ? -Infinity
-            : (Number.isFinite(followUp) ? followUp : 0) * 0.8 -
-              Math.min(
-                ...b.entities
-                  .filter((e) => e.side === "monster" && !e.dead)
-                  .map((e) => distance(b.areas, path[path.length - 1]!, e.areaId) ?? 100),
-              ) *
-                0.01,
+          score:
+            refused || spikeEnd
+              ? -Infinity
+              : (Number.isFinite(followUp) ? followUp : 0) * 0.8 -
+                Math.min(
+                  ...b.entities
+                    .filter((e) => e.side === "monster" && !e.dead)
+                    .map((e) => distance(b.areas, dest, e.areaId) ?? 100),
+                ) *
+                  0.01,
         };
       })
       .sort((a, b) => b.score - a.score);

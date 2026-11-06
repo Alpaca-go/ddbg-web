@@ -18,6 +18,11 @@ import type { PlayMonsterSkillCommand } from "./battle-monster";
 import { beginSkillOwnEffects, afterMonsterOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
+import {
+  TEMPLAR_BODY_SLAM_SKILL_SLOT,
+  TEMPLAR_IMPALER_MONSTER_CARD_ID,
+} from "./boss/darkest-templars-skills-acc";
+import { templarsProductionCombatActive } from "./boss/templars-i-deploy";
 
 const stances = ["aggressive", "defensive", "ranged", "support"];
 
@@ -255,6 +260,12 @@ export function playMonsterSkillTargets(
   for (const r of resolutions)
     if (r.targetShuffle)
       intents.push({ entityId: r.targetId, relativeToId: actor.id, move: r.targetShuffle });
+  const deferTemplarsPitToss =
+    templarsProductionCombatActive(state) &&
+    intents.length > 0 &&
+    actor.monsterCardId === TEMPLAR_IMPALER_MONSTER_CARD_ID &&
+    command.skillSlot === TEMPLAR_BODY_SLAM_SKILL_SLOT &&
+    representative.outcome !== "miss";
   const casualtyIds = newlyDefeatedIds(battle, statuses.entities);
   const continuation = {
     ...event,
@@ -274,6 +285,7 @@ export function playMonsterSkillTargets(
         entities: statuses.entities,
         light: statuses.light,
         rngCursor: statuses.rngCursor,
+        ...(deferTemplarsPitToss ? { deferTemplarsPitToss: true as const } : {}),
         shuffleIntents: intents,
         shuffleContinuation: intents.length ? continuation : null,
       },

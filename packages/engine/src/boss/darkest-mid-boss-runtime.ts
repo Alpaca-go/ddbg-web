@@ -68,7 +68,7 @@ function darkestMidBossWiringHold(questId: StoredDarkestBossEncounterPlan["quest
   if (questId === "quest:p018") {
     return "Summon White Cell Stalk + Bulging Gaze/Digestion Acc + Revivify Self 最小结算已接；生产部署 deployMammothCystI（R-164/R-184）；White Cell Teleport / 完整 AI 仍 hold";
   }
-  return "Templars Torment/Body Slam/Revelation/Stinger Shot Acc 最小结算已接；生产部署 deployTemplarsI（R-162/R-180）；Pit Toss / Spikes / 完整 AI 仍 hold";
+  return "Templars Torment/Body Slam/Revelation/Stinger Shot Acc 最小结算已接；生产部署 deployTemplarsI（R-162/R-180）；Spikes / Pit Toss 已接（R-193）；完整 AI 仍 hold";
 }
 
 const STANCE_ORDER: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];

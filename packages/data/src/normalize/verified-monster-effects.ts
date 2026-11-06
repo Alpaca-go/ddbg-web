@@ -987,7 +987,7 @@ const entries: readonly {
     signature: "{target_effects}{stress}+2",
     effects: [{ type: "stress", scope: "target", amount: 2 }],
   },
-  // A-01：`monster_large:p015` slot 2 Body Slam · FRONT p015（R-001 / R-048；Pit Toss 印刷文字仅签名，几何 hold）。
+  // A-01：`monster_large:p015` slot 2 Body Slam · FRONT p015（R-001 / R-048；Pit Toss 签名见 R-193）。
   {
     id: "monster_large:p015",
     name: "Templar Impaler",

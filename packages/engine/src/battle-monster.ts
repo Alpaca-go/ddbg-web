@@ -24,6 +24,11 @@ import { nextBattleRoll, newlyDefeatedIds, recordMonsterSkill } from "./encounte
 import { monsterCombatThreatDamageBonus } from "./boss/threat-passive-runtime";
 import { chainSirenIHighTidePelagicAfterMonsterSkill } from "./boss/siren-i-combat-runtime";
 import {
+  TEMPLAR_BODY_SLAM_SKILL_SLOT,
+  TEMPLAR_IMPALER_MONSTER_CARD_ID,
+} from "./boss/darkest-templars-skills-acc";
+import { templarsProductionCombatActive } from "./boss/templars-i-deploy";
+import {
   needsMonsterSkillShuffleChoice,
   resolveMonsterSkill,
   resolveMonsterSkillEffects,
@@ -360,6 +365,12 @@ export function playMonsterSkill(
       relativeToId: actor.id,
       move: result.resolution.targetShuffle,
     });
+  const deferTemplarsPitToss =
+    templarsProductionCombatActive(state) &&
+    intents.length > 0 &&
+    actor.monsterCardId === TEMPLAR_IMPALER_MONSTER_CARD_ID &&
+    command.skillSlot === TEMPLAR_BODY_SLAM_SKILL_SLOT &&
+    result.resolution.outcome !== "miss";
   const applied: ApplyResult = {
     state: {
       ...state,
@@ -370,6 +381,7 @@ export function playMonsterSkill(
         rngCursor: statuses.rngCursor,
         entities: statuses.entities,
         light: statuses.light,
+        ...(deferTemplarsPitToss ? { deferTemplarsPitToss: true as const } : {}),
         shuffleIntents: intents,
         shuffleContinuation: intents.length
           ? {

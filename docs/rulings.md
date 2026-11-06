@@ -2421,7 +2421,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   4. 本裁定取代 R-191 第 3 条的「固定提供 p016」与 Q-155 的暂定；R-191 的「第 4 幕只打 1 张、无三连」结构不变。
 - **依据**：Kyries 2026-11-06 指示「合入，然后继续」；规格书 §14.7.3 / §15 L1 QuestSelect；R-191；Q-155 关闭。
 - **切片**：[phase5-darkest-quest-draw-2026-11-06.md](phase5-darkest-quest-draw-2026-11-06.md)。
-- **边界**：不改最暗任务数据、最终战形态流程或存档模型；p017/p018 的目标 Boss 特殊机制（Templars 尖刺/Pit Toss、Mammoth White Cell Teleport 等）仍 hold。
+- **边界**：不改最暗任务数据、最终战形态流程或存档模型；p017/p018 的目标 Boss 特殊机制中 Mammoth White Cell Teleport 等仍 hold；Templars 尖刺/Pit Toss 见 **R-193**。
 
 ### Q-155
 
@@ -2430,7 +2430,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **暂定**：本切片按 R-191 固定提供 p016（不抽卡、不消耗 RNG）。随机 1/3 抽签留到下一刀；预计仍在「Act III Boss 后村庄阶段结束」时一次性抽取，写入严格存档命令日志，并在确认窗口明示抽到的任务与它将取消的形态。
 - **状态**：已裁定 → **R-192**（2026-11-06）；p016–p018 均可作为第 4 幕唯一生产入口。
 
-### R-193
+### R-194
 
 - **日期**：2026-11-06（Asia/Shanghai）
 - **问题**：战役进行到 II/III 级（含 III→最暗）时，`QuestStart` 只有 seed/quest/mode/party、没有战役等级；能否为中途状态做严格存档？等级字段应放在起点还是存档上？
@@ -2442,13 +2442,26 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **切片**：[phase5-campaign-save-model-2026-11-06.md](phase5-campaign-save-model-2026-11-06.md)。
 - **边界**：本裁定不改变回放语义、不新增快照信任、不实现按任务分段存档；II/III 的**验收**仍需一条完整 Act I 自然链，当前自然策略在 R-190 下会因驿站替补耗尽而输，属后续工作。
 
+### R-193
+
+- **编号**：R-193
+- **日期**：2026-11-06（Asia/Shanghai）
+- **问题**：Templars Room（`room:p022` / `room_tile:p013:front`）橙星尖刺区 Spikes 与 Templar Impaler「Pit Toss」（`boss_ability:p028`）的运行时。
+- **裁定**（本项目裁定）：
+  1. **橙星 d10 落点**：印刷编号直读为 d10 落点，**1–2→B、3–4→E、5–6→H、7–8→K、9–10→N**（与 B/E/H/K/N 五坑几何一致，R-162）。
+  2. **尖刺触发**：仅 **「被位移进入」**（含 Push·Pull·Shuffle 等技能位移路径终点落坑）或 **「移动结束停在此处」**（英雄执行 Move 行动，路径终点为该坑）两种场合；**同一场合只结算一次**。主动走进不另结；路径仅经过坑而不以坑为终点不另结。**站立／回合路过**未在上述两场合内则不另结。
+  3. **尖刺效果**：对英雄 **5 伤 + Bleed 3（3t）**；按**常规抗性 / 免疫**处理（与技能攻击同源的环境伤害结算路径）。
+  4. **Pit Toss**：Body Slam **命中**后掷 d10→按 ① 落入对应橙星坑；**不结算**尖刺区的 Spikes 伤害；Body Slam 本身的命中伤害与卡面目标效果（如 Stun）照常。**若坑区已满（`capacity` 无空位）则 ignore：英雄不移动**，Body Slam 伤害与效果仍结。
+- **依据 / 出处**：Kyries 2026-11-06 裁定（本对话）；几何 **R-162**；卡面引用见 Q-156 题干。
+- **关联待确认**：无（Q-156 关闭）
+- **状态**：已裁定
+- **切片说明**：数据 `room_tile:p013:front` 五区 `runtimeReady=true` 供 Spikes 投影；`usable` 仍为 false（生产仍经 `deployTemplarsI`，不经 `selectRoomTile` 普适入口）；引擎对 Templars 面单独投影 `templarsSpikes` 与 Pit Toss 链。
+
 ### Q-156
 
 - **日期**：2026-11-06（Asia/Shanghai）
 - **问题**：Templars 尖刺区与 Pit Toss 的运行时规则。已确认卡文：`boss_ability:p028`「Pit Toss: When the Templar Impaler hits a Hero with his Body Slam Skill, roll a d10 to see which Pit Area he'll throw them into. If the Area has no space, ignore this effect.」；房间卡 p22 Spikes「Heroes〔Shuffle 位移图标〕or ending their move here take 5〔伤害〕and Bleed 3 3t」；橙星区 B=1–2、E=3–4、H=5–6、K=7–8、N=9–10。
-- **待确认**：① 橙星印刷编号是否就是 d10 的 1–10 落点映射（d10 1–2→B、3–4→E、5–6→H、7–8→K、9–10→N）；② 尖刺触发边界：主动进入 / 被 Push·Pull·Shuffle 位移进入 / 移动结束停在此处，各结算一次还是每次移动都结算；③ 尖刺伤害是否就对英雄 5 伤 + Bleed 3（3t）、是否可按常规抗性/免疫处理；④ Pit Toss 的「Area has no space → ignore」是否指不移动、仍照常结算 Body Slam 的伤害与位移。
-- **暂定**：保持 hold（`room_tile:p013:front` 的 B/E/H/K/N `runtimeReady=false`，Pit Toss 未接）；只保留 `deployTemplarsI` 与既有最小结算，不猜落点/触发。
-- **状态**：待 Kyries 确认；确认后按 R-162 几何接线。
+- **状态**：已裁定 → **R-193**（2026-11-06）
 
 ### Q-157
 

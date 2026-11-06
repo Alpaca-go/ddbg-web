@@ -260,7 +260,7 @@ export const questSaveSchema = z.strictObject({
   version: z.literal(1),
   rulesVersion: z.literal("core-quest-2026-10-14"),
   /**
-   * 保存时的战役等级（R-193）。v1 旧档缺省；新档必写，读档时须与回放结果一致。
+   * 保存时的战役等级（R-194）。v1 旧档缺省；新档必写，读档时须与回放结果一致。
    * 等级不改变回放：`start` 仍是战役起点，命令日志覆盖整段战役。
    */
   campaignLevel: z.union([z.literal(1), z.literal(2), z.literal(3)]).optional(),

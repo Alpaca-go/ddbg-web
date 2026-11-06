@@ -82,7 +82,11 @@ it("拒绝旧部署、尖刺编号/区域、容量、连接与提前开放漂移
       },
     },
     { specialRegions: tile.specialRegions.slice(1) },
-    { specialRegions: tile.specialRegions.map((r) => ({ ...r, runtimeReady: true })) },
+    {
+      specialRegions: tile.specialRegions.map((r, i) =>
+        i === 0 ? { ...r, runtimeReady: false } : r,
+      ),
+    },
     { specialRegions: tile.specialRegions.map((r) => ({ ...r, printedRange: "1-10" })) },
     { areas: tile.areas.map((a) => (a.id === "B" ? { ...a, capacity: 2 } : a)) },
     { edges: tile.edges.slice(1) },
