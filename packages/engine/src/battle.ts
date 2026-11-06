@@ -103,6 +103,8 @@ export type BattleArea = {
   readonly lootTheChest?: true;
   readonly invokerGoal?: true;
   readonly invokingAbyss?: true;
+  /** R-193：Templars Room 橙星尖刺坑（B/E/H/K/N）；仅英雄。 */
+  readonly templarsSpikes?: true;
   readonly spikedPit?: true;
   readonly circleOfPower?: true;
   readonly feelingThePresence?: true;
@@ -373,6 +375,12 @@ export type BattleState = BattleSetup & {
         readonly casualtyIds?: readonly string[];
       })
     | null;
+  /**
+   * Templars 尖刺：本英雄回合内已结算过的场合键（含 reason + 路径等，R-193）。
+   */
+  readonly templarsSpikesResolvedThisTurn?: ReadonlySet<string>;
+  /** Impaler Body Slam 含 shuffle 意图：Pit Toss 延至 shuffle 完结后的 recordMonsterSkill（R-193）。 */
+  readonly deferTemplarsPitToss?: true;
 };
 
 export function createBattleState(seed: number, setup: BattleSetup): GameState {

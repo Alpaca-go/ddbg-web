@@ -2,11 +2,13 @@ import { speedTrinketReaction } from "./trinket-reactions";
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
 import { finishTurn, removeCasualties, endAfterCasualties, newlyDefeatedIds } from "./encounter";
+import { finishTurnWithTemplarsSpikes } from "./battle-templars-spikes";
 import { resolveBattlePressure } from "./pressure";
 import { triggerBattlePassive } from "./battle-passive";
 import { isSmallMonster } from "./battle-small";
 import { clearAncestorConditions } from "./battle-ancestor";
 import { applyHeroTeleporterMoveStress } from "./battle-teleporters";
+import { templarsProductionCombatActive } from "./boss/templars-i-deploy";
 
 export type MoveHeroCommand = {
   readonly type: "moveHero";
@@ -123,15 +125,40 @@ export function moveHero(state: GameState, command: MoveHeroCommand): ApplyResul
   if (teleporter.events.some((e) => e.type === "commandRefused")) return teleporter;
   const pressure = resolveBattlePressure(teleporter);
   if (pressure.events.some((e) => e.type === "commandRefused")) return pressure;
-  const removed = removeCasualties(
+  let removed = removeCasualties(
     pressure,
     newlyDefeatedIds(battle, pressure.state.battle!.entities),
   );
+  const heroAfterMove = removed.state.battle!.entities.find((e) => e.id === actor.id)!;
+  const destArea = removed.state.battle!.areas.find((a) => a.id === heroAfterMove.areaId);
+  /** R-193：Templars 房内移动结束停在尖刺区时结算（与 shuffle 进入并列；沙盒图虽有同名格也不误伤）。 */
+  if (
+    templarsProductionCombatActive(removed.state) &&
+    !heroAfterMove.dead &&
+    command.path.length > 0 &&
+    destArea?.templarsSpikes === true
+  ) {
+    const spikes = finishTurnWithTemplarsSpikes(
+      removed.state,
+      actor.id,
+      removed.events,
+      command.path.join(">"),
+    );
+    if (spikes) {
+      if (
+        spikes.events.some((e) => e.type === "commandRefused") ||
+        spikes.state.battle!.encounter?.turn.type === "halted" ||
+        spikes.state.battle!.encounter?.turn.type === "finished"
+      )
+        return spikes;
+      removed = { state: spikes.state, events: spikes.events };
+    }
+  }
   const ended = endAfterCasualties(removed);
   return (
     ended ??
     (turn.actions === 1 || removed.state.battle!.entities.find((e) => e.id === actor.id)!.dead
-      ? finishTurn(removed.state, actor.id, removed.events)
+      ? finishTurn(removed.state, actor.id, removed.events, false)
       : removed)
   );
 }

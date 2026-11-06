@@ -9,6 +9,7 @@ import { hasQuirk } from "./passive";
 import { ancestorGlory, clearAncestorConditions } from "./battle-ancestor";
 import { resumeSkillOwnEffects } from "./battle-own-effects";
 import { applySpikedPit } from "./battle-spiked-pit";
+import { applyTemplarsSpikes } from "./battle-templars-spikes";
 import { readHeroPassiveDefence } from "./battle-skill-status";
 
 /** R27：持有 Balanced 的英雄决定是否少移 1；不改变原技能骰或其他位移意图。 */
@@ -178,11 +179,31 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
       stanceSteps: result.stanceSteps,
     });
     next = { ...next, entities: clearAncestorConditions(next.areas, next.entities) };
-    const pit = applySpikedPit({ ...state, battle: next }, intent.entityId);
+    let pitState: GameState = { ...state, battle: next };
+    const pit = applySpikedPit(pitState, intent.entityId);
     if (pit) {
       if (pit.events.some((event) => event.type === "commandRefused")) return pit;
       next = pit.state.battle!;
+      pitState = { ...state, battle: next };
       events.push(...pit.events);
+    }
+    const shuffledHero = pitState.battle!.entities.find((entry) => entry.id === intent.entityId);
+    if (
+      shuffledHero &&
+      shuffledHero.side === "hero" &&
+      !shuffledHero.dead &&
+      result.path.length > 0 &&
+      pitState.battle!.areas.find((a) => a.id === shuffledHero.areaId)?.templarsSpikes
+    ) {
+      const spikes = applyTemplarsSpikes(pitState, intent.entityId, {
+        reason: "shuffleIntoSpikes",
+        dedupeKey: result.path.join(">"),
+      });
+      if (spikes) {
+        if (spikes.events.some((event) => event.type === "commandRefused")) return spikes;
+        next = spikes.state.battle!;
+        events.push(...spikes.events);
+      }
     }
     choices = [];
   }

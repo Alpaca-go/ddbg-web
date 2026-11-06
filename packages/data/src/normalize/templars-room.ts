@@ -71,7 +71,7 @@ const tileShape = z.strictObject({
       status: z.literal("confirmed"),
       printedText: z.string(),
       printedRange: z.string(),
-      runtimeReady: z.literal(false),
+      runtimeReady: z.literal(true),
     }),
   ),
   deployment: z.strictObject({
@@ -112,7 +112,7 @@ const tileShape = z.strictObject({
   ),
 });
 
-// R-162：几何及卡文来源获批；尖刺与Boss运行时准入另行核实。
+// R-162：几何及卡文来源获批；尖刺运行时见 R-193。
 export const approvedTemplarsRoom = tileShape.parse({
   id: "room_tile:p013:front",
   rawId: "dungeon_tile:p013",
@@ -143,7 +143,7 @@ export const approvedTemplarsRoom = tileShape.parse({
       printedText:
         "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
       printedRange: "1-2",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "E",
@@ -153,7 +153,7 @@ export const approvedTemplarsRoom = tileShape.parse({
       printedText:
         "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
       printedRange: "3-4",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "H",
@@ -163,7 +163,7 @@ export const approvedTemplarsRoom = tileShape.parse({
       printedText:
         "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
       printedRange: "5-6",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "K",
@@ -173,7 +173,7 @@ export const approvedTemplarsRoom = tileShape.parse({
       printedText:
         "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
       printedRange: "7-8",
-      runtimeReady: false,
+      runtimeReady: true,
     },
     {
       areaId: "N",
@@ -183,7 +183,7 @@ export const approvedTemplarsRoom = tileShape.parse({
       printedText:
         "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
       printedRange: "9-10",
-      runtimeReady: false,
+      runtimeReady: true,
     },
   ],
   deployment: {

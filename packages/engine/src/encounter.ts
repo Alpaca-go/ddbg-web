@@ -31,6 +31,8 @@ import { endTurnOldAbbey } from "./battle-old-abbey";
 import { endTurnPoolOfRebirth } from "./battle-pool-of-rebirth";
 import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
+import { clearTemplarsSpikesTurnTracking } from "./battle-templars-spikes";
+import { chainTemplarImpalerBodySlamPitTossAfterMonsterSkill } from "./boss/templars-pit-toss";
 import { endTurnRiteOfTheChosen } from "./battle-temple-of-the-chosen";
 import { endTurnEvilEye } from "./battle-evil-eye";
 import { endTurnEldritchPower } from "./battle-eldritch-power";
@@ -772,11 +774,35 @@ export function recordMonsterSkill(
     ...(resolved.actorDead ? [resolved.actorId] : []),
   ]);
   const morphed = chainHagICauldronFullAfterIntoThePot(removed, resolved);
-  return endAfterCasualties(morphed) ?? finishTurn(morphed.state, resolved.actorId, morphed.events);
+  const ended = endAfterCasualties(morphed);
+  if (ended) return ended;
+  const post = morphed.state.battle!;
+  if (post.shuffleIntents.length > 0 || post.shuffleContinuation !== null) return morphed;
+  if (post.deferTemplarsPitToss === true) {
+    const battleRest = { ...post };
+    delete battleRest.deferTemplarsPitToss;
+    const withPitToss = chainTemplarImpalerBodySlamPitTossAfterMonsterSkill(
+      { ...morphed, state: { ...morphed.state, battle: battleRest } },
+      resolved,
+    );
+    return finishTurn(withPitToss.state, resolved.actorId, withPitToss.events);
+  }
+  const withPitToss = chainTemplarImpalerBodySlamPitTossAfterMonsterSkill(morphed, resolved);
+  return finishTurn(withPitToss.state, resolved.actorId, withPitToss.events);
 }
 
 /** 意志触发（含待选补给）完成后，只执行一次压力、状态与死亡收尾。 */
 export function completeTurnStart(result: ApplyResult, actorId: string): ApplyResult {
+  const turnActor = result.state.battle!.entities.find((entity) => entity.id === actorId);
+  if (turnActor?.side === "hero" && result.state.battle!.templarsSpikesResolvedThisTurn?.size) {
+    result = {
+      ...result,
+      state: {
+        ...result.state,
+        battle: clearTemplarsSpikesTurnTracking(result.state.battle!),
+      },
+    };
+  }
   const before = result.state.battle!;
   const pressure = resolveBattlePressure(result);
   if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;

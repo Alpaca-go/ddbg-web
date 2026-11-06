@@ -34,6 +34,7 @@ export type MonsterPositionedEvent = {
 /** 只投影获批几何；不读取 usable=false 板块的出生 / 交互标记（R-048、R-054）。 */
 export function roomTileBattleAreas(tile: {
   readonly geometryVerified: boolean;
+  readonly id?: string;
   readonly usable?: boolean;
   readonly specialRegions?: readonly {
     readonly areaId: string;
@@ -161,6 +162,16 @@ export function roomTileBattleAreas(tile: {
         region.runtimeReady,
     )
       ? { spikedPit: true as const }
+      : {}),
+    ...((tile.usable === true || tile.id === "room_tile:p013:front") &&
+    tile.specialRegions?.some(
+      (region) =>
+        region.areaId === area.id &&
+        region.effect === "spikes" &&
+        region.status === "confirmed" &&
+        region.runtimeReady,
+    )
+      ? { templarsSpikes: true as const }
       : {}),
     ...(tile.usable === true &&
     tile.specialRegions?.some(
