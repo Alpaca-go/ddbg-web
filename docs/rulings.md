@@ -2499,9 +2499,25 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **答复（2026-11-07，Kyries）**：
   - **Rising Threat**：① Curio 房战斗等价于现有 Curio 守卫战路径；② 是，抽 **1 只 II 级怪**；③ 先抽怪开战，再结算 Curio。
   - **Purify**：① `dd2d2467ec` 待确认（我方识别：**Potion 药水补给**，见核对稿）；② 补给池满时仍先拿 3 个任务道具，再丢弃超出上限的部分；这 3 个是**初始携带、不可丢弃**的任务补给，否则目标房无法净化；③ 净化复用现有行动计数/交互；④ 旁置「需要」（现有 `room:p003` 旁置实现）。
-  - **Dem Bones**：① 目标房 room 7 = `DD_COREBOX_TILES_FRONT.pdf` p4；绿星在**第二行第一格**（按现有几何为 **A4**，容量 3，防御/支援的怪物起始格）；② 2 行动、任意顺序；③ 任意英雄均可取骨，骨头取完再移除；④ 旁置语义待确认（见下）。
-- **待澄清**：Purify 的 `dd2d2467ec` 是否确认命名为 Potion；Dem Bones 的 room 7 旁置是否与 Purify 同语义（开局移出、不进其它遭遇、只在目标房使用）。
-- **状态**：待 Kyries 确认（余下两点）。
+  - **Dem Bones**：① 目标房 room 7 = `DD_COREBOX_TILES_FRONT.pdf` p4；绿星在**第二行第一格**（按现有几何为 **A4**，容量 3，防御/支援的怪物起始格）；② 2 行动、任意顺序；③ 任意英雄均可取骨，骨头取完再移除；④ 旁置与 Purify 同语义（`room:p007`）。
+- **已确认（R-197）**：`dd2d2467ec` = Potion；Dem Bones 的 room 7 旁置与 Purify 同语义。
+- **状态**：已裁定 → **R-197**（Kyries 2026-11-07 确认）。
+
+### R-197
+
+- **编号**：R-197
+- **日期**：2026-11-07（Asia/Shanghai）
+- **问题**：Q-160：三条任务 SPECIAL（Rising Threat / Purify the Fountains / Dem Bones）的运行时语义，以及 `dd2d2467ec` 图标身份。
+- **裁定**（Kyries 2026-11-07 确认）：
+  1. **图标 `dd2d2467ec` = Potion（药水补给）**：词典 `group: "potion"`、仅任务卡出现；本作补给面只有 Food / Bandage / Potion / Torch / Tool / Wild（规格书 §5.2、I-31–I-33），无 Holy Water。确认后可把该图标标为 Potion（provision）。
+  2. **Rising Threat（`quest:p005`）**：Curio 房战斗等价于现有 Curio 守卫战路径；**抽 1 只 II 级怪**；**先抽怪开战，再结算 Curio**。
+  3. **Purify the Fountains（`quest:p010`）**：开局携带 **3 个不可丢弃的任务药水**（Potion）；补给池满时**先拿再丢弃超出上限的部分**；净化 = **2 行动 + 1 药水**，复用现有行动计数/交互；目标房旁置 `room:p003`（需要）。
+  4. **Dem Bones（`quest:p004`）**：目标房 room 7 = TILES FRONT p4；绿区 = **A4**（第二行第一格，容量 3，防御/支援的怪物起始格，与 `Ancestor's Glory` 同区）；**2 行动任意顺序**；**任意英雄**均可取骨；**骨头取完再移除**；room 7 旁置与 Purify 同语义（`room:p007`）。
+- **依据 / 出处**：Kyries 2026-11-07 聊天确认；QUEST p4 / p5 / p10；规格书 §5.2；R-065（Tomb of Ancestor A4 / Ancestor's Glory）、R-048。
+- **关联待确认**：无（Q-160 关闭）。
+- **状态**：已裁定。
+- **切片**：[phase5-task-special-review-2026-11-07.md](phase5-task-special-review-2026-11-07.md)；三项运行时待实现（Rising Threat / Purify / Dem Bones）。
+- **边界**：只接 SPECIAL 运行时与目标房清理判定；不动 `usable` / `combatReady` / 任务白名单；不猜额外数值或图标语义。
 
 ### Q-161
 
