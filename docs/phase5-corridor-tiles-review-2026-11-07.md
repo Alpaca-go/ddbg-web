@@ -1,36 +1,22 @@
-# 走廊板块几何核对稿（Q-161）
+# Q-161 核对：p6–p14 里 8 页是房间板块，p008 待确认（2026-11-07）
 
-状态：待 Kyries 确认。9 张 `corridor_tile:p006`–`p014` 全部 `review: pending`、`geometryVerified: false`、`segments: []`；`corridor_layout_bindings.json` 的 `bindings` 为空。
+**结论（Kyries 2026-11-07 确认）**：`DD_COREBOX_TILES_FRONT.pdf` **p6、p7、p9–p14** 是 **8 页 Boss 房间板块**（16 面，属已核实的 25 面），不是走廊板块。`corridor_tile_geometry.json` 里对应这 8 页的 `ports`（1-2、3、4、5、6、7-8、9、10）是 **Prophet Room 的 Wooden Pews d10 区域标记**（词典 `096ea91bb9`），不是走廊出口。
 
-来源：`DD_COREBOX_TILES_FRONT.pdf` p6–p14（front）。只读缓存，不入库。
+**唯一例外：p008**。它没有对应的 `room_tile_geometry` 面，原始 span 是 **1、2、3、4、5、6、7、8、9**（9 个编号），可能是走廊/交叉口或其它组件，待 Kyries 看一眼 p8 卡面确认。
 
-## 逐面待确认
+## 25 张房间板块状态
 
-| 板块                 | 页  | 已入库连接口标签            | 区域数 | 共享边 | 仅角点 | 灰点（必须停留） | 容量 / 其它 |
-| -------------------- | --- | --------------------------- | ------ | ------ | ------ | ---------------- | ----------- |
-| `corridor_tile:p006` | p6  | 1-2、3、4、5、6、7-8、9、10 | ?      | ?      | ?      | ?                | ?           |
-| `corridor_tile:p007` | p7  | （无）                      | ?      | ?      | ?      | ?                | ?           |
-| `corridor_tile:p008` | p8  | 1、2、3、4、5、6、7、8、9   | ?      | ?      | ?      | ?                | ?           |
-| `corridor_tile:p009` | p9  | （无）                      | ?      | ?      | ?      | ?                | ?           |
-| `corridor_tile:p010` | p10 | （无）                      | ?      | ?      | ?      | ?                | ?           |
-| `corridor_tile:p011` | p11 | （无）                      | ?      | ?      | ?      | ?                | ?           |
-| `corridor_tile:p012` | p12 | （无）                      | ?      | ?      | ?      | ?                | ?           |
-| `corridor_tile:p013` | p13 | 1-2、3-4、5-6、7-8、9-10    | ?      | ?      | ?      | ?                | ?           |
-| `corridor_tile:p014` | p14 | 1-2、3-4、5-6、7-8、9-10    | ?      | ?      | ?      | ?                | ?           |
+- 25 面全部 `geometryVerified: true`，均有各自裁定（R-054 / R-065 / R-066 / R-144 / R-153 / R-156–R-169）。
+- 17 面 `usable=true`（普通房间与已开运行时房间）；8 面 Boss 房间 `usable=false` 是既有标记（Boss 走专属部署与 R-162–R-169 切片），不是几何缺口。
 
-## 缺口说明
+## Prophet Room（p006）复核
 
-- 目前每张只有「连接口标签 + bbox 中心」这批 span 可证的数据；**没有区域、共享边、仅角点、灰点、容量**。
-- `pendingReasons` 记录：段内通道 / 灰点 / 容量未批（Q-45 / R-046）；QuestMap 边 ↔ 板块实例映射未批，引擎探索仍用抽象边。
-- `corridor_layout_bindings.json` 仅 `{ schema, review: "pending", bindings: [] }`。
+- 容量：1-2=4、3=3、4=3、5=3、6=3、7-8=4、9=3、10=3 → A4/B3/C3/D3/E3/F4/G3/H3，一致。
+- 部署：4=英雄 aggressive、5=英雄 support、6=怪物 aggressive、10=英雄 ranged+defensive → C/D/E/H，一致。
+- 11 条共享边与 3 条角点（1-2↔6、3↔7-8、4↔6）与 R-167 一致；**5↔10（D–H）共享边经确认存在**，数据保持不变。
 
-## 确认后录入方式
+## 处置
 
-1. 按房间板块流程逐面标注：区域（含容量/高低地）、共享边、仅角点、灰点、走廊端点与朝向。
-2. 写入 `corridor_tile_geometry.json` 的 `segments`，把 `review` / `geometryVerified` 改为 confirmed/true。
-3. 再补 `corridor_layout_bindings.json` 的 QuestMap 边 ↔ 板块实例映射（R-116 目前只批了 QuestMap，不批走廊绑定）。
-4. 不改引擎探索路径；绑定接线单独切片。
-
-## 现状影响
-
-- 探索仍按抽象边推进，走廊板块只影响展示与后续绑定；未确认前不推定形状、连接或灰点。
+- p006、p007、p009–p014 的走廊提取作废；不按走廊补几何、不改引擎探索或 QuestMap 绑定。
+- p008 待确认后再决定：若为走廊/交叉口，另开 Q 建来源与几何；若为房间，补 room tile。
+- `corridor_layout_bindings.json` 仍为空；在 p008 定性前不建绑定。
