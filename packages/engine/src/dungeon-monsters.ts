@@ -5,7 +5,8 @@ import { readRoomTile } from "./room-tile-selection";
 import type { ApplyResult, GameState } from "./command";
 import { createRng } from "./rng";
 import { spawnMonsters } from "./spawn";
-import { isGuardedDungeonRoom } from "./dungeon-curio-room";
+import { curioRoomGuardBattleActive, isGuardedDungeonRoom } from "./dungeon-curio-room";
+import { prepareCurioRoomGuardMonsters } from "./curio-room-guard";
 import { allRuinsRoomCardIds } from "./dungeon-objective";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { firstBattleThreatDeck } from "./boss/necromancer-ii-army";
@@ -58,6 +59,9 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
   )
     return refuse("需要已抽房间与可用板块的获批部署；不能替换房间或提前抽怪物（R-048）");
   const { deployment } = selected;
+  if (curioRoomGuardBattleActive(d)) {
+    return prepareCurioRoomGuardMonsters(state, deployment.monsters);
+  }
   const questSpawn = prepareQuestMonsterDeployment(state, deployment.monsters);
   if (questSpawn) return questSpawn;
   const questHold = questMonsterDeploymentHold(d);

@@ -1,5 +1,7 @@
 import { curioCatalogSchema } from "../../data/src/curio";
+import { readBasicQuest } from "../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "./command";
+import type { DungeonState } from "./dungeon";
 import { createRng, rollD10 } from "./rng";
 import { drawDungeonCurio, resolveDungeonCurio } from "./dungeon-curio";
 import { triggerDungeonPassive } from "./dungeon-passive";
@@ -13,6 +15,25 @@ const refuse = (state: GameState, message: string): ApplyResult => ({
   state,
   events: [{ type: "commandRefused", message }],
 });
+
+/** R-197 / QUEST p5：Rising Threat 的 Curio 房必有守卫，守卫战只抽 1 只 II 级怪。 */
+export function readCurioRoomAlwaysGuarded(d: DungeonState): { readonly level: 2 } | null {
+  const quest = readBasicQuest(d.questDistribution);
+  if (!quest || !("curioRoomsAlwaysGuarded" in quest) || quest.curioRoomsAlwaysGuarded !== true)
+    return null;
+  return { level: quest.curioRoomGuardMonsterLevel };
+}
+
+/** 当前是否正处在「任务强制守卫」的 Curio 房守卫战。 */
+export function curioRoomGuardBattleActive(d: DungeonState): boolean {
+  const room = d.rooms.find((r) => r.id === d.position);
+  return (
+    room?.kind === "curio" &&
+    d.curioRoom?.roomId === d.position &&
+    d.curioRoom.stage === "guarded" &&
+    readCurioRoomAlwaysGuarded(d) !== null
+  );
+}
 
 /** R15 / §5.7：守卫骰只掷一次；未守卫及胜利分支共用完整 Curio 堆。 */
 export function beginDungeonCurioRoom(state: GameState): ApplyResult {
@@ -31,17 +52,22 @@ export function beginDungeonCurioRoom(state: GameState): ApplyResult {
     d.heroes.some((h) => h.dead)
   )
     return refuse(state, "需要未结算 Curio 房间与完整牌池；守卫骰不能重掷（R15）");
+  const forced = readCurioRoomAlwaysGuarded(d);
   const rng = createRng(state.seed);
   for (let i = 0; i < d.cursor; i++) rng.next();
-  const guardRoll = rollD10(rng);
-  const guarded = guardRoll <= 5;
+  const guardRoll = forced ? null : rollD10(rng);
+  const guarded = forced !== null || guardRoll! <= 5;
   const next: GameState = {
     ...state,
     dungeon: {
       ...d,
-      cursor: d.cursor + 1,
+      cursor: forced ? d.cursor : d.cursor + 1,
       rooms: d.rooms.map((r) => (r.id === d.position && !guarded ? { ...r, cleared: true } : r)),
-      curioRoom: { roomId: d.position, guardRoll, stage: guarded ? "guarded" : "reward" },
+      curioRoom: {
+        roomId: d.position,
+        guardRoll: guardRoll ?? 0,
+        stage: guarded ? "guarded" : "reward",
+      },
     },
   };
   const result = guarded
@@ -54,7 +80,9 @@ export function beginDungeonCurioRoom(state: GameState): ApplyResult {
     events: [
       {
         type: "dungeonUpdated",
-        message: `Curio 房间守卫骰 ${guardRoll}：${guarded ? "有守卫，须战斗胜利" : "无守卫，选择处理英雄"}（R15）`,
+        message: forced
+          ? "Rising Threat：Curio 房必有守卫（R-197），不掷守卫骰；守卫战只抽 1 只 II 级怪"
+          : `Curio 房间守卫骰 ${guardRoll}：${guarded ? "有守卫，须战斗胜利" : "无守卫，选择处理英雄"}（R15）`,
       },
       ...result.events,
     ],

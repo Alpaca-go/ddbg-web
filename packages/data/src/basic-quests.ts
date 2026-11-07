@@ -99,6 +99,9 @@ export const basicQuests = [
     roomsPerXp: 1,
     maxRooms: 3,
     expeditionRegion: "ruins" as const,
+    /** R-197 / QUEST p5：Curio 房必有守卫战；守卫生成只抽 1 只 II 级怪。 */
+    curioRoomsAlwaysGuarded: true as const,
+    curioRoomGuardMonsterLevel: 2 as const,
     distribution: roomDistributionSchema.parse(risingThreat),
   },
   {
