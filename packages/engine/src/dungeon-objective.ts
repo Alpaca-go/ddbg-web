@@ -73,6 +73,19 @@ export function embarkSetAsideRoomCardId(questId: string): string | undefined {
   return quest && "setAsideRoomCardId" in quest ? quest.setAsideRoomCardId : undefined;
 }
 
+/** R15：出征时把本任务的旁置目标房从上一任务带回的洗牌堆里摘掉，其他牌序原样保留。 */
+export function roomCardsForQuest(
+  roomCards: NonNullable<DungeonState["roomCards"]>,
+  questId: string,
+): NonNullable<DungeonState["roomCards"]> {
+  const aside = embarkSetAsideRoomCardId(questId);
+  return {
+    ...roomCards,
+    ...(aside && roomCards.deck ? { deck: roomCards.deck.filter((id) => id !== aside) } : {}),
+    active: null,
+  };
+}
+
 export function ruinsRoomDeckWithoutSetAside(
   cards: readonly { readonly id: string; readonly location: string; readonly boss?: boolean }[],
   setAsideRoomCardId?: string | readonly string[],

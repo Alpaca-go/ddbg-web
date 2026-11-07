@@ -19,6 +19,7 @@ import { heroSkillSlotCount } from "./hero-loadout";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { scoutAheadPlanProblem } from "./hamlet-scout-ahead";
 import { expandRoomDistributionForEmbark } from "./room-distribution-expand";
+import { roomCardsForQuest } from "./dungeon-objective";
 import {
   resolveFaceTheThreatEmbarkForChoose,
   resolveFaceTheThreatOfferAtNextQuest,
@@ -414,7 +415,8 @@ export function chooseNextQuest(
     battleCatalog: d.battleCatalog!,
     conditions: d.conditions!,
     trinkets: washed.pool,
-    roomCards: { ...d.roomCards!, active: null },
+    // R15：本任务的旁置目标房不进洗牌堆；其余牌序沿用带回的牌堆。
+    roomCards: roomCardsForQuest(d.roomCards!, quest.id),
     monsterPool: {
       ...d.monsterPool!,
       active: null,

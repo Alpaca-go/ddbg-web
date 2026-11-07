@@ -6,6 +6,7 @@ import { createLootState } from "./loot";
 import { curioCatalogSchema } from "../../data/src/curio";
 import { roomCatalogSchema } from "../../data/src/room";
 import { basicQuests } from "../../data/src/basic-quests";
+import { readSetAsideRoomCardIds, ruinsRoomDeckWithoutSetAside } from "./dungeon-objective";
 
 /** R32 a：只把弃牌洗回对应堆；保留持牌，不缩减目录或偷偷补缺牌。 */
 export function recoverHamletPools(d: DungeonState, seed: number) {
@@ -42,7 +43,17 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
     parts.length === all.length &&
     new Set(parts).size === all.length &&
     parts.every((id) => all.includes(id));
-  const pool = [...(rooms.deck ?? (region === "ruins" ? roomIds : [])), ...(rooms.discard ?? [])];
+  // R15 / R32：旁置目标房不进洗牌堆，但仍在九张遗迹目录里；回收时把旁置牌补回守恒等式。
+  const asides = region === "ruins" ? readSetAsideRoomCardIds(d) : [];
+  const deck =
+    region === "ruins"
+      ? (rooms.deck ?? ruinsRoomDeckWithoutSetAside(rooms.cards, asides))
+      : rooms.deck;
+  const pool = [
+    ...(deck ?? (region === "ruins" ? roomIds : [])),
+    ...(rooms.discard ?? []),
+    ...asides,
+  ];
   const poolConserved =
     pool.length === new Set(pool).size && pool.every((id) => roomIds.includes(id));
   if (
@@ -139,6 +150,11 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
     conditions.diseases.filter((c) => !holders.some((h) => h.diseaseId === c.id)).map((c) => c.id),
   );
   const roomDeck = recycle(rooms.deck, rooms.discard ?? [], region === "ruins" ? roomIds : pool);
+  // R15 / R32：旁置目标房在回村后放回洗牌堆，下一任务出征时再摘掉。
+  const groundedDeck =
+    roomDeck === null || roomDeck === undefined
+      ? roomDeck
+      : [...roomDeck, ...asides.filter((id) => !roomDeck.includes(id))];
   const availableLoot = loot.claimedIds.length
     ? shuffle([...loot.available, ...loot.claimedIds.map((id) => tokens.find((t) => t.id === id)!)])
     : loot.available;
@@ -162,7 +178,7 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
         quirkDiscard: [],
         diseaseDiscard: [],
       },
-      roomCards: { ...rooms, deck: roomDeck ?? null, discard: [] },
+      roomCards: { ...rooms, deck: groundedDeck ?? null, discard: [] },
       lootPool: { ...loot, available: availableLoot, claimedIds: [] },
     },
   };

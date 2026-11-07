@@ -10,8 +10,10 @@ import {
   allRuinsRoomCardIds,
   objectiveRoomBattleAreas,
   objectiveRoomClearsOnVictory,
+  roomCardsForQuest,
   ruinsRoomDeckWithoutSetAside,
 } from "./dungeon-objective";
+import { recoverHamletPools } from "./hamlet-return-pools";
 
 const purifyQuest = basicQuests.find((q) => q.id === "quest:p010")!;
 
@@ -127,6 +129,26 @@ it("Purify the Fountains II 出征旁置 room:p003，遭遇堆守恒八张", () 
   expect(ids).toHaveLength(9);
   expect(new Set(ids).size).toBe(9);
   expect(ruinsRoomDeckWithoutSetAside(d.roomCards!.cards, "room:p003")).toHaveLength(8);
+});
+
+it("出征摘掉旁置牌、回村放回：连续战役里目标房与牌堆都守恒（R15 / R32）", () => {
+  const game = purifyFountainsFixture(2);
+  const d = game.dungeon!;
+  const full = allRuinsRoomCardIds(d);
+  const carried = {
+    ...d,
+    roomCards: { ...d.roomCards!, deck: full, discard: [] },
+  };
+  const embarked = roomCardsForQuest(carried.roomCards!, "quest:p010");
+  expect(embarked.deck).toHaveLength(8);
+  expect(embarked.deck).not.toContain("room:p003");
+  // 普通任务不动带回的牌序。
+  expect(roomCardsForQuest(carried.roomCards!, "quest:p001").deck).toEqual(full);
+  // 目标房战斗：deck 8 + 旁置 1 = 9，回村守恒且旁置放回牌堆。
+  const materialized = { ...carried, roomCards: { ...embarked, discard: [] } };
+  const recovered = recoverHamletPools(materialized, 7);
+  expect(recovered.status).toBe("resolved");
+  if (recovered.status === "resolved") expect(recovered.dungeon.roomCards!.deck).toHaveLength(9);
 });
 
 it("Purify 目标房的 Healing Waters 净化前不生效；普通房间的同一板块仍生效（R-197）", () => {
