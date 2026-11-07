@@ -185,4 +185,74 @@ describe("R-193 Templars Spikes & Pit Toss", () => {
     expect(h.areaId).toBe("B");
     expect(h.wounds).toBeGreaterThan(0);
   });
+
+  it("Pit Toss 命中且坑区有空位：英雄落入对应尖刺坑，且不结算尖刺伤害", () => {
+    const base = fighting();
+    const impaler = monsterByCard(base, TEMPLAR_IMPALER_MONSTER_CARD_ID);
+    const heroes = base.battle!.entities.filter((e) => e.side === "hero");
+    const target = heroes[0]!;
+    const away = ["A", "D", "F", "G"];
+    let game: GameState = {
+      ...base,
+      battle: {
+        ...base.battle!,
+        encounter: {
+          round: 1,
+          deck: [],
+          actedIds: [],
+          turn: { type: "monster", actorId: impaler.id },
+        },
+        monsterAction: {
+          actorId: impaler.id,
+          skillSlot: TEMPLAR_BODY_SLAM_SKILL_SLOT,
+          targetId: target.id,
+          selectionRoll: null,
+        },
+        entities: base.battle!.entities.map((e) => {
+          if (e.id === target.id) return { ...e, areaId: "L" };
+          if (e.side === "hero") {
+            const idx = heroes.filter((h) => h.id !== target.id).indexOf(e);
+            return { ...e, areaId: away[idx] ?? e.areaId };
+          }
+          return e;
+        }),
+      },
+    };
+    const seed = game.seed;
+    let cursor = game.battle!.rngCursor;
+    let found = -1;
+    for (let attempt = 0; attempt < 500; attempt += 1) {
+      const rAtk = nextBattleRoll(seed, cursor);
+      if (rAtk >= 2 && rAtk <= 9) {
+        found = cursor;
+        break;
+      }
+      cursor += 1;
+    }
+    expect(found).toBeGreaterThanOrEqual(0);
+    game = { ...game, battle: { ...game.battle!, rngCursor: found } };
+    const command = {
+      type: "playMonsterSkill",
+      actorId: impaler.id,
+      targetId: target.id,
+      skillSlot: TEMPLAR_BODY_SLAM_SKILL_SLOT,
+      shuffleChoice: "push",
+    } as const;
+    const played = ok(game, command);
+    const rPit = nextBattleRoll(seed, found + 1);
+    const expectedArea =
+      rPit <= 2 ? "B" : rPit <= 4 ? "E" : rPit <= 6 ? "H" : rPit <= 8 ? "K" : "N";
+    const after = played.state.battle!.entities.find((e) => e.id === target.id)!;
+    expect(after.areaId).toBe(expectedArea);
+    expect(
+      played.events.some((e) => e.type === "passiveTriggered" && e.trigger === "templarsSpikes"),
+    ).toBe(false);
+    expect(
+      played.events.some(
+        (e) => e.type === "dungeonUpdated" && e.message.includes(`d10=${rPit}→${expectedArea}`),
+      ),
+    ).toBe(true);
+    // 同状态同命令可重复得到相同结果（R-193 的 d10 只消费一次种子化战斗骰）。
+    expect(ok(game, command).state).toEqual(played.state);
+  });
 });
