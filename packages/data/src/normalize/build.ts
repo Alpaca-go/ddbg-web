@@ -52,6 +52,7 @@ import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 import { attachVerifiedHeroSupport } from "./verified-hero-support";
 import { attachVerifiedHeroLayout } from "./verified-hero-layout";
 import { attachVerifiedWarrensLeperHigher } from "./verified-warrens-leper-higher";
+import { attachVerifiedWarrensAntiquarianHigher } from "./verified-warrens-antiquarian-higher";
 import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
 import { attachVerifiedRallyingFlare } from "./verified-rallying-flare";
 import { approvedResolveLookup } from "./approved-resolve-icons";
@@ -731,7 +732,9 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
                 attachVerifiedHeroDamage(
                   attachVerifiedHeroRanges(
                     attachVerifiedHeroStatuses(
-                      attachVerifiedWarrensLeperHigher(attachVerifiedHeroLayout(file.cards)),
+                      attachVerifiedWarrensAntiquarianHigher(
+                        attachVerifiedWarrensLeperHigher(attachVerifiedHeroLayout(file.cards)),
+                      ),
                     ),
                   ),
                 ),
