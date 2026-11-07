@@ -132,7 +132,6 @@ function moltSetup(seed: number): GameState {
         stance: "defensive" as const,
         stanceSlots: 2,
         areaId: "b",
-        guard: false,
         dead: false,
         statusStacks: stacks,
         ...statusProjection(stacks),
