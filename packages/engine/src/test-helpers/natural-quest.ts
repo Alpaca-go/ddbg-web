@@ -45,6 +45,10 @@ export type NaturalQuestOptions = {
    * 供跨任务的战役级回放使用；默认关闭以保持既有单任务场景不变，也不改战斗策略。
    */
   readonly handleDeaths?: boolean;
+  /** 遗物偏好：保守打法（击杀优先、避免英雄掉血），只给玩家策略链用，不改自然默认。 */
+  readonly survival?: boolean;
+  /** 玩家策略：每间房后按这个「伤口 + 压力」阈值决定休息（默认 12，与既有自然策略一致）。 */
+  readonly restThreshold?: number;
 };
 
 /** 测试用固定决策驱动，不进入产品；只执行公开命令，不修改任何游戏状态／牌序。 */
@@ -149,7 +153,7 @@ export function naturalQuest(
   const fight = () =>
     playNaturalBattle(
       { state: () => state, step, settle },
-      options.preferWipeout ? { preferWipeout: true } : {},
+      options.preferWipeout ? { preferWipeout: true } : options.survival ? { survival: true } : {},
     );
   /** 经闭包读回 phase，避免 step 重赋值后仍被收窄为 ready。 */
   const dungeonPhase = () => state.dungeon!.phase;
@@ -365,7 +369,10 @@ export function naturalQuest(
       if (options.preferWipeout && dungeonPhase() === "awaitingReplacement")
         return { initial, state, commands, events, stopReason: null };
       const d = state.dungeon!;
-      if (canRestDungeon(state) && d.heroes.reduce((n, h) => n + h.stress + h.wounds!, 0) > 12) {
+      if (
+        canRestDungeon(state) &&
+        d.heroes.reduce((n, h) => n + h.stress + h.wounds!, 0) > (options.restThreshold ?? 12)
+      ) {
         step({ type: "restDungeon" });
         settle();
       }

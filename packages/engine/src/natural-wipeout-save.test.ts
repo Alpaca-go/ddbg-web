@@ -91,4 +91,4 @@ it("自然全灭命令日志→正式存档往返；驿站III余额4可准备并
   expect(loadQuestSave(JSON.parse(JSON.stringify(afterJoin)), coreQuestSources).game).toEqual(
     joined,
   );
-}, 120000);
+}, 240000);

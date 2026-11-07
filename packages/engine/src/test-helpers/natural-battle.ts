@@ -19,8 +19,9 @@ export type NaturalBattleDriver = {
  */
 export function playNaturalBattle(
   driver: NaturalBattleDriver,
-  options: { readonly preferWipeout?: boolean } = {},
+  options: { readonly preferWipeout?: boolean; readonly survival?: boolean } = {},
 ): void {
+  const survival = options.survival === true;
   const preview = (s: GameState, command: PlayHeroSkillCommand | PlayHeroSkillTargetsCommand) =>
     command.type === "playHeroSkill" ? playHeroSkill(s, command) : playHeroSkillTargets(s, command);
   const score = (s: GameState, r: ApplyResult) => {
@@ -32,8 +33,9 @@ export function playNaturalBattle(
         before.side === "monster"
           ? Math.min(after.wounds, after.life!) -
             Math.min(before.wounds, before.life!) +
-            (after.dead && !before.dead ? 8 : 0)
-          : (before.wounds - after.wounds) * 0.65 - (after.dead && !before.dead ? 1000 : 0);
+            (after.dead && !before.dead ? (survival ? 40 : 8) : 0)
+          : (before.wounds - after.wounds) * (survival ? 1.6 : 0.65) -
+            (after.dead && !before.dead ? (survival ? 3000 : 1000) : 0);
     }
     for (const e of r.events) {
       if (

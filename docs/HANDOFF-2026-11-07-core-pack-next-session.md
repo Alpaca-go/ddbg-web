@@ -21,9 +21,9 @@ pnpm typecheck
 pnpm test --maxWorkers=2 --testTimeout=30000   # 全量约 20 分钟
 ```
 
-基线（旁置房牌堆修复后）：**457 个测试文件 / 3309 通过 / 1 跳过**（skip 是 Q-162 的 Templars 自然存档；R-198 前为 456 / 3302）。
+基线（玩家策略链后）：**458 个测试文件 / 3310 通过 / 1 跳过**（skip 是 Q-162 的 Templars 自然存档；R-198 前为 456 / 3302）。
 
-已知 Windows 长场景超时：`packages/engine/src/quest-save.test.ts` 的自然回放有自带的 20000ms 上限，并行时偶发超时，单独跑会过——不是回归。
+已知 Windows 长场景超时：`packages/engine/src/quest-save.test.ts` 的自然回放有自带的 20000ms 上限，并行时偶发超时，单独跑会过——不是回归。`natural-wipeout-save.test.ts` 同类：单独跑约 84s，并行全量下会撞 120s 上限（2026-11-07 放宽到 240s）。
 
 Playwright 浏览器版本本机不匹配（需要 chromium 1243，本机 1234），**e2e 跑不了**；网页路径用组件测试覆盖。
 
@@ -65,7 +65,8 @@ R-194 的模型已就绪（`createQuestSave` 写 `campaignLevel` 并校验回放
 - 顺带修了两个旁置目标房（p004 / p010）相关的真 bug：
   1. 出征沿用上一任务的 `deck/discard` 时没把本任务的旁置牌摘掉，导致第二个任务若是旁置目标房，目标房战斗被拒「旁置目标房间与普通牌堆不守恒」；现在 `roomCardsForQuest` 只摘旁置牌，其他牌序不动。
   2. 回村守恒等式没把旁置牌算回去（牌堆落成 8 张时误拒「Curio或遗迹房间牌池不守恒」）；现在 `recoverHamletPools` 把旁置牌补回等式并放回牌堆（下一任务再摘）。
-- **仍到不了 Act II**：这些种子里自然策略最多 1 场胜利（其余撤退/全灭），`quest:p019` 的 offer 没出现，3 个普通任务后一级任务抽空。按 R-190 不挑种子，保持 hold；要推进需要合法玩家策略或人工逐日记录。
+- **玩家策略（Kyries 2026-11-07 批准）**：威胁前置 + 清剿优先（p001→p005，有 p019 必打）+ 保守战斗打分 + 每房「伤口+压力 > 6」休息 + 回村先治疗。seed 2 下两场普通任务胜利后 **`quest:p019` 正常进入 offer**（Boss offer 与威胁持续都验证了），链到开局补给停点；新增 `player-strategy-act-i.test.ts` 固定这条链（只到 offer，不打 Boss），细节见 `docs/phase5-player-strategy-act-i-2026-11-07.md`。
+- **仍到不了 Act II**：同一条链打 fanatic I Boss 时死一人、驿站耗尽 → 战役失败。Boss 战需要专门的战术（集火/控场），属于新的工作量；跨幕存档验收仍 hold。
 
 ### 4.4 其它 hold
 
