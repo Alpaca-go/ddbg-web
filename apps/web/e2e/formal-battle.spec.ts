@@ -179,6 +179,14 @@ test("S2/S3：正式同页战斗与底栏技能、分页和移动", async ({ pag
       }
       const stance = dock.getByRole("tab", { name: "换姿态", exact: true });
       if ((await stance.isVisible()) && (await stance.isEnabled())) await stance.click();
+      // Phase 6：怪物回合优先走「一键自动回合」（含选招/定位/目标）；需要落点选择时下一轮回合先点待选。
+      const autoTurn = page
+        .getByRole("button", { name: /^(怪物自动回合|自动完成怪物回合)$/ })
+        .and(page.locator(":enabled"));
+      if (await autoTurn.count()) {
+        await autoTurn.first().click();
+        continue;
+      }
       const stanceActions = dock
         .getByRole("button", { name: /^(向前换姿态|向后换姿态)$/ })
         .and(page.locator(":enabled"));

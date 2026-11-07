@@ -88,12 +88,12 @@ R-194 的模型已就绪（`createQuestSave` 写 `campaignLevel` 并校验回放
 - Treasure T4–T5：**已确认保持 `blocked: true`**（Kyries 2026-11-07），旧交接稿的「可通行」作废，不改数据。
 - **e2e 已恢复可跑**（本机 Chromium 1234 + 环境变量，见 §2）。`dungeon.spec` 已从 880 行连跑拆成 10 条；本地默认串行 + 重试一次。最新全量（55 条）：53 通过 / 1 flaky / 1 skip / 0 失败，约 17 分钟；`templars-i-save` 按 Q-162 skip。细节见 `docs/phase5-e2e-local-run-2026-11-08.md`。
 
-### 4.5 Phase 6：中途 Boss 自动回合 —— 引擎已完成，UI 待接
+### 4.5 Phase 6：中途 Boss 自动回合 —— 已完成（引擎 + 战斗 UI）
 
 - 新增 `autoMonsterTurn` 命令：按姿态 d10 自动选招 → 定位 → 按目标优先级选目标 → 施放；玩家该选的（怪物落点、位移方向）返回 `pendingChoice`，不替玩家选。
 - 覆盖 Templars I / Shuffling Horror / Mammoth Cyst；Mammoth Revivify 走自身技能分支；显式 `apply*` 命令保留。
+- 战斗 UI 已在怪物回合控制区接「怪物自动回合 / 自动完成怪物回合」按钮（`apps/web/src/battle-view.tsx`）；`formal-battle` e2e 优先走这条路径并通过。
 - 测试 `monster-auto-turn.test.ts`（5 条）+ 存档 schema 已允许该命令。切片见 `docs/phase6-boss-auto-turn-2026-11-08.md`。
-- **待接**：战斗 UI 的「自动回合」按钮（S4 暂停中，可单独开小切片）。
 
 ## 5. 关键文件地图
 

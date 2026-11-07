@@ -928,6 +928,15 @@ export function BattleView({
           )}
           {turn?.type === "monster" && !frozen && (
             <div className="monster-controls">
+              {!isInvokingMonster(battle, actor!.id) &&
+                battle.monsters?.find((c) => c.id === actor?.monsterCardId)?.stanceGroups && (
+                  <button
+                    onClick={() => send({ type: "autoMonsterTurn", actorId: actor!.id })}
+                    title="按姿态 d10 自动选招、定位并结算；需要你选落点时会停下来"
+                  >
+                    {action ? "自动完成怪物回合" : "怪物自动回合"}
+                  </button>
+                )}
               {!action && (
                 <button onClick={() => send({ type: "prepareMonsterAction", actorId: actor!.id })}>
                   {isInvokingMonster(battle, actor!.id)

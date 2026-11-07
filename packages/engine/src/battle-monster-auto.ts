@@ -48,6 +48,8 @@ export function autoMonsterTurn(state: GameState, command: AutoMonsterTurnComman
     current = moved.state;
     if (current.battle?.pending)
       return { state: current, events, pendingChoice: current.battle.pending.choice };
+    // 不可达 / 无出手位时，定位步骤会直接跳过并结束回合，不再有 monsterAction。
+    if (!current.battle?.monsterAction) return { state: current, events };
   }
 
   const action2 = current.battle!.monsterAction;
