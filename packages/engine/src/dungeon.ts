@@ -232,6 +232,8 @@ export type DungeonState = {
     readonly guardRoll: number;
     readonly stage: "guarded" | "reward" | "drawing" | "completed";
     readonly heroId?: string;
+    /** R-197：任务强制守卫抽到的 II 级怪（不在本层怪物池 catalog 内时按 outside 处理）。 */
+    readonly guardInstanceId?: string;
   };
   readonly startingProvisionChoices?: readonly { readonly id: string; readonly actorId: string }[];
   readonly rest?: ScoutRest;

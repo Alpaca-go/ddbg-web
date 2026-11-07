@@ -36,6 +36,7 @@ import {
 } from "./quest-monster-spawn";
 import { applyTemporarySkillUpgrades, restoreTemporarySkillUpgrades } from "./hamlet-embark";
 import { darkestBossVictoryAfterEncounter } from "./boss/darkest-content";
+import { readCurioRoomAlwaysGuarded } from "./dungeon-curio-room";
 import { readRoomTile } from "./room-tile-selection";
 import { readDungeonQuestProgress } from "./dungeon-quest";
 import { readCampaignLevel } from "./hamlet-campaign";
@@ -243,10 +244,16 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       questSpawned &&
       questPlan!.printedMonsterLevel !== null &&
       card.level === questPlan!.printedMonsterLevel;
+    // R-197 / QUEST p5：Rising Threat 强制守卫抽到的 II 级怪可高于本地牢等级（仅该实例）。
+    const curioGuardSpawn =
+      d.curioRoom?.guardInstanceId === spawn.instanceId &&
+      d.curioRoom.roomId === d.position &&
+      d.curioRoom.stage === "guarded" &&
+      readCurioRoomAlwaysGuarded(d) !== null;
     // C-008 / R-082–083：level>1 须 hasApprovedHigherMonsterFields；DL 累加牌堆内 II 已批五组见 ruins-pool-admission。
     if (
       card.level !== identity?.level ||
-      (!allowPrintedLevel && card.level > d.explorationSetup.dungeonLevel) ||
+      (!allowPrintedLevel && !curioGuardSpawn && card.level > d.explorationSetup.dungeonLevel) ||
       (card.level !== 1 && !hasApprovedHigherMonsterFields(card))
     )
       return refuse(`${card.name} 的等级 / 高等级限定批准不符，保留部署（R-082、R-083、R-048）`);
@@ -541,11 +548,12 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
         ],
       };
   }
+  const outsideIds = new Set(questMonsterOutsidePoolInstanceIds(d));
   const ids = [
     ...(pool.remaining ?? []),
     ...pool.discarded,
     ...active.monsters.map((m) => m.instanceId),
-  ];
+  ].filter((instanceId) => !outsideIds.has(instanceId));
   const threatPool = applyBossThreatAfterBattleToPool(d, pool, active.monsters, ids);
   pool = threatPool.pool;
   const shuffledIds = [...threatPool.instanceIds];

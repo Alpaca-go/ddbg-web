@@ -46,7 +46,7 @@ it("R-197：只有 Rising Threat 的 Curio 房强制守卫", () => {
   expect(readCurioRoomAlwaysGuarded(setup(1, scout).dungeon!)).toBeNull();
 });
 
-it("Rising Threat：进入 Curio 房不掷守卫骰、必有守卫；守卫战只抽 1 只 II 级怪", () => {
+it("Rising Threat：进入 Curio 房不掷守卫骰、必有守卫；守卫战包含 1 只 II 级怪并补满四姿态", () => {
   for (let seed = 1; seed <= 300; seed += 1) {
     const base = setup(seed, risingThreat);
     const enteredResult = applyCommand(base, { type: "resolveDungeonRoom" });
@@ -69,16 +69,19 @@ it("Rising Threat：进入 Curio 房不掷守卫骰、必有守卫；守卫战�
     if (spawned.events.some((event) => event.type === "commandRefused")) continue;
     const guardPool = spawned.state.dungeon!.monsterPool!;
     const monsters = guardPool.active!.monsters;
-    expect(monsters).toHaveLength(1);
-    const card = pool.find((entry) => entry.combatCardId === monsters[0]!.cardId)!;
-    expect(card.level).toBe(2);
-    expect(spawned.state.dungeon!.cursor).toBe(room.dungeon!.cursor + 1);
+    expect(monsters.reduce((sum, monster) => sum + monster.stanceSlots, 0)).toBe(4);
+    const guard = monsters.find(
+      (monster) => pool.find((entry) => entry.combatCardId === monster.cardId)?.level === 2,
+    );
+    expect(guard).toBeDefined();
+    expect(spawned.state.dungeon!.curioRoom!.guardInstanceId).toBe(guard!.instanceId);
+    expect(spawned.state.dungeon!.cursor).toBeGreaterThan(room.dungeon!.cursor);
     expect(
       spawned.events.some(
         (event) =>
           event.type === "dungeonUpdated" &&
-          event.message.includes("只抽 1 只 II 级怪") &&
-          event.message.includes(monsters[0]!.cardId),
+          event.message.includes("包含 1 只 II 级怪") &&
+          event.message.includes(guard!.cardId),
       ),
     ).toBe(true);
     const ids = [
@@ -87,7 +90,7 @@ it("Rising Threat：进入 Curio 房不掷守卫骰、必有守卫；守卫战�
       ...monsters.map((monster) => monster.instanceId),
     ];
     expect(new Set(ids).size).toBe(ids.length);
-    expect(guardPool.remaining).not.toContain(monsters[0]!.instanceId);
+    expect(guardPool.remaining).not.toContain(guard!.instanceId);
     return;
   }
   expect.fail("未找到可用的 Rising Threat Curio 房守卫种子");

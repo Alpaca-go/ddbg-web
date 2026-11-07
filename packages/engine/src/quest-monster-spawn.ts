@@ -53,20 +53,28 @@ function questMonsterSpawnCard(
   return candidates.find((entry) => entry.instanceId === picked) ?? candidates[0];
 }
 
-/** 任务指定实例不在当前 DL 牌堆内时，仅出现在 active，不计入 remaining。 */
+/** 任务指定实例 / R-197 Curio 守卫不在当前 DL 牌堆内时，仅出现在 active，不计入 remaining。 */
 export function questMonsterOutsidePoolInstanceIds(d: DungeonState): readonly string[] {
-  const plan = readQuestMonsterPlanAtRoom(d);
   const active = d.monsterPool?.active;
-  if (!plan || !active || active.roomId !== d.position) return [];
+  if (!active || active.roomId !== d.position) return [];
   const level = d.explorationSetup?.dungeonLevel;
   const pool = d.monsterPool;
   if (!level || !pool || ![1, 2, 3].includes(level)) return [];
   const catalog = dungeonMonsterPoolThrough(pool, level);
   const catalogIds = new Set(catalog.map((entry) => entry.instanceId));
+  const guard = d.curioRoom?.guardInstanceId;
+  const guardOutside =
+    guard &&
+    d.curioRoom?.roomId === d.position &&
+    active.monsters.some((monster) => monster.instanceId === guard) &&
+    !catalogIds.has(guard)
+      ? [guard]
+      : [];
+  const plan = readQuestMonsterPlanAtRoom(d);
+  if (!plan || !questMonsterDeploymentMatchesPlan(d, plan)) return guardOutside;
   const specified =
     plan.printedMonsterLevel === null ? [] : ruinsMonsterPool(pool.cards, plan.printedMonsterLevel);
-  if (!questMonsterDeploymentMatchesPlan(d, plan)) return [];
-  return active.monsters
+  const specifiedOutside = active.monsters
     .filter(
       (m) =>
         !catalogIds.has(m.instanceId) &&
@@ -78,6 +86,7 @@ export function questMonsterOutsidePoolInstanceIds(d: DungeonState): readonly st
         ),
     )
     .map((m) => m.instanceId);
+  return [...specifiedOutside, ...guardOutside];
 }
 
 export function questMonsterDeploymentMatchesPlan(
