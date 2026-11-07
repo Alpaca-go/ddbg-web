@@ -18,8 +18,13 @@
 ```bash
 pnpm install                     # 依赖已装则跳过
 pnpm typecheck
-pnpm test --maxWorkers=2 --testTimeout=30000   # 全量约 20 分钟
+pnpm exec vitest run <改动相关的测试文件>   # 每次改动只跑相关文件，几秒到一两分钟
+pnpm test:changed                # 改动面较大时：只跑受改动影响的测试
+pnpm test --maxWorkers=2 --testTimeout=30000   # 全量约 20 分钟，只在收尾/里程碑或用户要求时跑
 ```
+
+**不要每次改动都跑全量 `pnpm test`**（2026-11-07 教训：一次 18–29 分钟，改几轮就一小时起步）。
+默认闸门是 `pnpm typecheck` + 相关测试 + 改动文件的 eslint/prettier；全量留到一批工作收尾时跑一次。
 
 基线（玩家策略链后）：**458 个测试文件 / 3310 通过 / 1 跳过**（skip 是 Q-162 的 Templars 自然存档；R-198 前为 456 / 3302）。
 
@@ -65,8 +70,8 @@ R-194 的模型已就绪（`createQuestSave` 写 `campaignLevel` 并校验回放
 - 顺带修了两个旁置目标房（p004 / p010）相关的真 bug：
   1. 出征沿用上一任务的 `deck/discard` 时没把本任务的旁置牌摘掉，导致第二个任务若是旁置目标房，目标房战斗被拒「旁置目标房间与普通牌堆不守恒」；现在 `roomCardsForQuest` 只摘旁置牌，其他牌序不动。
   2. 回村守恒等式没把旁置牌算回去（牌堆落成 8 张时误拒「Curio或遗迹房间牌池不守恒」）；现在 `recoverHamletPools` 把旁置牌补回等式并放回牌堆（下一任务再摘）。
-- **玩家策略（Kyries 2026-11-07 批准）**：威胁前置 + 清剿优先（p001→p005，有 p019 必打）+ 保守战斗打分 + 每房「伤口+压力 > 6」休息 + 回村先治疗。seed 2 下两场普通任务胜利后 **`quest:p019` 正常进入 offer**（Boss offer 与威胁持续都验证了），链到开局补给停点；新增 `player-strategy-act-i.test.ts` 固定这条链（只到 offer，不打 Boss），细节见 `docs/phase5-player-strategy-act-i-2026-11-07.md`。
-- **仍到不了 Act II**：同一条链打 fanatic I Boss 时死一人、驿站耗尽 → 战役失败。Boss 战需要专门的战术（集火/控场），属于新的工作量；跨幕存档验收仍 hold。
+- **玩家策略（Kyries 2026-11-07 批准）**：威胁前置 + 清剿优先（p001→p005，有 p019 必打）+ 保守战斗打分 + 每房「伤口+压力 > 6」休息 + 回村先治疗。seed 2 下两场普通任务胜利后 **`quest:p019` 正常进入 offer**（Boss offer 与威胁持续都验证了）；`player-strategy-act-i.test.ts` 固定在 seed 2 上跑「两场普通任务 → p019 offer → Boss 任务内探索/战斗到合法终局」，只断言**没有引擎拒绝/卡死**，不判断输赢。细节见 `docs/phase5-player-strategy-act-i-2026-11-07.md`。
+- **Boss 输赢不再作为测试目标（Kyries 2026-11-07）**：那是玩家的决策。自动化只保证正常流程没有冲突；因此 level 2/3 存档验收不再依赖「打赢 Act I Boss」，继续 hold，等真实玩家链或后续需要时再补。
 
 ### 4.4 其它 hold
 
@@ -100,7 +105,8 @@ R-194 的模型已就绪（`createQuestSave` 写 `campaignLevel` 并校验回放
 - **R-048**：不猜图标/数值/规则；卡面数字与图标必须来自已确认数据。
 - **数据重生成**：`$env:WRITE_NORMALIZED='1'; pnpm exec vitest run packages/data/src/normalize/normalize.test.ts`（会重写 `normalized/corebox/*.json`；只提交有意的 diff）。
 - 控制台中文可能乱码，读文件用 read / grep 工具，别用 cat。
-- `pnpm test` 全量约 20 分钟，别在等待时重复跑。
+- **测试节奏**：每次改动跑 `pnpm typecheck` + 相关测试文件 + 改动文件的 eslint/prettier；改动面大用 `pnpm test:changed`；`pnpm test` 全量只在收尾/里程碑或用户要求时跑，别每次改动都跑。
+- **Boss 输赢不是测试目标**：Boss 战是玩家决策，自动化只验证正常流程没有引擎拒绝/卡死/异常。
 
 ## 7. 未跟踪文件（保留，不要提交）
 

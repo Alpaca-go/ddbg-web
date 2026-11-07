@@ -168,6 +168,8 @@ export function naturalQuest(
       if (phase === "ready") return;
       if (options.preferWipeout && phase === "awaitingReplacement") return;
       if (options.handleDeaths && phase === "awaitingReplacement") {
+        // 战役已失败时不再准备替补；继续发命令只会得到「战役已失败」的拒绝。
+        if (state.dungeon!.campaignFailure) return;
         // 公开替补流程：先准备，再选升级，最后入队；等待英雄代币仍由引擎判定。
         for (let guard = 0; guard < 10 && dungeonPhase() === "awaitingReplacement"; guard++) {
           step(

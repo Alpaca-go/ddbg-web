@@ -13,13 +13,13 @@
 ## 结果
 
 - `seed 2`：p001 胜利、p002 胜利 → 两个普通任务后 **`quest:p019` 正常进入 next-quest offer**（威胁 `boss:ruins:fanatic:1`），链停在开局补给完成（`phase: ready`）。
-- 继续打 fanatic I 时死一人、驿站等待英雄不足 → 战役失败。Boss 战需要专门战术（集火/控场/道具），不在本切片范围。
+- 继续跑 p019 任务：能正常探索、战斗到合法终局（可能因驿站耗尽而战役失败）。**输赢是玩家决策，不作为测试目标**；测试只断言没有引擎拒绝/卡死、至少打完一场战斗。
 
 ## 实现
 
 - `packages/engine/src/test-helpers/natural-battle.ts`：新增 `survival` 打分选项（默认关闭，自然策略不变）。
-- `packages/engine/src/test-helpers/natural-quest.ts`：新增 `survival` 与 `restThreshold` 选项（默认关闭/12）。
-- `packages/engine/src/player-strategy-act-i.test.ts`：固定上述策略与 seed 2，断言两个普通任务后 p019 进入 offer、威胁持续、开局补给停点。
+- `packages/engine/src/test-helpers/natural-quest.ts`：新增 `survival` 与 `restThreshold` 选项（默认关闭/12）；战役已失败时不再尝试准备替补。
+- `packages/engine/src/player-strategy-act-i.test.ts`：固定上述策略与 seed 2，断言两个普通任务后 p019 进入 offer、威胁持续，并跑到 p019 任务的合法终局且无引擎冲突。
 
 ## 边界
 

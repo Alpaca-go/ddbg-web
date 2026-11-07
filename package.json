@@ -14,6 +14,7 @@
     "lint": "eslint . && prettier --check .",
     "format": "prettier --write .",
     "test": "vitest run",
+    "test:changed": "vitest run --changed",
     "test:e2e": "pnpm --filter @ddbg/web test:e2e"
   },
   "devDependencies": {

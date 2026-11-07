@@ -146,11 +146,26 @@ function playerStrategyActI(seed: number) {
   throw new Error("Act I 链未走完");
 }
 
-it("玩家策略链：Act I 两个普通任务后 p019 进入 offer（seed 2）", () => {
+it("玩家策略链：两个普通任务后 p019 进入 offer，Boss 流程无引擎冲突（seed 2）", () => {
   const run = playerStrategyActI(2);
   expect(run.quests).toEqual(["quest:p001", "quest:p002"]);
   expect(run.offers).toContain("quest:p019");
   expect(run.game.dungeon!.phase).toBe("ready");
   expect(run.game.dungeon!.questDistribution!.questId).toBe("quest:p019");
   expect(run.game.dungeon!.activeBossThreatScriptId).toBe("boss:ruins:fanatic:1");
+
+  // Boss 战输赢是玩家决策，不是本测试目标；这里只要求正常流程没有引擎拒绝 / 卡死。
+  const boss = naturalQuest(2, "quest:p019", true, sources, 4, {
+    continueFrom: run.game,
+    handleDeaths: true,
+    survival: true,
+    restThreshold: 6,
+  });
+  expect(boss.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  if (boss.stopReason)
+    expect(boss.stopReason, boss.stopReason).toMatch(
+      /heroesDefeated|战役已失败|awaitingReplacement/,
+    );
+  // 至少打完一场战斗；输赢与是否走到 Boss 房都交给玩家决策。
+  expect(boss.events.some((event) => event.type === "battleFinished")).toBe(true);
 }, 120000);
