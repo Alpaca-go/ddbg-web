@@ -220,8 +220,9 @@ describe("Shuffling Horror · Echoing Disassembly", () => {
     bossQuestScriptId["quest:p016"] = DARKEST_SHUFFLING_HORROR_SCRIPT_ID;
   });
 
-  it("空槽召唤 Cultist Priest 与 Malignant Growth", () => {
-    const result = applyShufflingHorrorEchoingDisassembly(onHorrorTurn(horrorBattle()), "horror");
+  it("空槽召唤 Cultist Priest 与 Malignant Growth，并各洗入 1 张先攻卡", () => {
+    const before = onHorrorTurn(horrorBattle());
+    const result = applyShufflingHorrorEchoingDisassembly(before, "horror");
     expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
     const monsters = result.state.battle!.entities.filter(
       (entity) => entity.side === "monster" && !entity.dead,
@@ -233,6 +234,13 @@ describe("Shuffling Horror · Echoing Disassembly", () => {
       expect(entity?.stanceSlots).toBe(1);
     }
     expect(result.state.battle!.encounter!.turn.type).not.toBe("monster");
+    // R-034 #5：每只召唤物 1 张先攻卡（side 牌）洗入当前牌堆；同状态重放一致。
+    expect(result.state.battle!.encounter!.deck).toEqual(["monster", "monster"]);
+    expect(result.state.battle!.rngCursor).toBe(before.battle!.rngCursor + 2);
+    expect(result.events.find((event) => event.type === "dungeonUpdated")?.message).toContain(
+      "先攻 +2",
+    );
+    expect(applyShufflingHorrorEchoingDisassembly(before, "horror").state).toEqual(result.state);
   });
 
   it("Crowded 区英雄 +2 压力、Torch −1，与召唤并存", () => {
@@ -326,6 +334,8 @@ describe("Shuffling Horror · Echoing Disassembly", () => {
         (entity) => entity.monsterCardId === "monster_medium:p075" && !entity.dead,
       ),
     ).toHaveLength(1);
+    // 只召唤 1 只 → 只洗入 1 张先攻卡。
+    expect(result.state.battle!.encounter!.deck).toHaveLength(1);
   });
 
   it("怪物姿态轨已满则拒绝", () => {

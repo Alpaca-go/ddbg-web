@@ -341,6 +341,7 @@ export function applyShufflingHorrorEchoingDisassembly(
   const skipped: string[] = [];
   const entities = [...battle.entities];
   let choiceSerial = battle.choiceCursor;
+  let rngCursor = battle.rngCursor;
 
   for (const cardId of SHUFFLING_HORROR_ECHOING_SUMMON_CARD_IDS) {
     if (monsterInPlay(battle, cardId)) {
@@ -390,8 +391,22 @@ export function applyShufflingHorrorEchoingDisassembly(
     battle = { ...battle, entities };
   }
 
+  // R-034 #5 / R31：每只被召唤的怪物洗 1 张先攻卡进当前先攻牌堆（本战斗为 side 牌），当轮即可行动。
+  if (summoned.length && battle.encounter) {
+    const deck = [...battle.encounter.deck];
+    const rng = createRng(state.seed);
+    for (let index = 0; index < rngCursor; index += 1) rng.next();
+    for (let count = 0; count < summoned.length; count += 1) {
+      const at = Math.floor(rng.next() * (deck.length + 1));
+      deck.splice(at, 0, "monster" as const);
+      rngCursor += 1;
+    }
+    battle = { ...battle, encounter: { ...battle.encounter, deck }, rngCursor };
+  }
+
   const parts = [
     summoned.length ? `召唤 ${summoned.join("、")}` : undefined,
+    summoned.length ? `先攻 +${summoned.length}（R-034）` : undefined,
     skipped.length ? `跳过已在场 ${skipped.join("、")}` : undefined,
     battle.light !== lightBefore
       ? `Torch ${SHUFFLING_HORROR_ECHOING_LIGHT_DELTA}（${battle.light}）`
@@ -401,6 +416,7 @@ export function applyShufflingHorrorEchoingDisassembly(
     ...battle,
     entities,
     choiceCursor: choiceSerial,
+    rngCursor,
     monsterAction: null,
   };
   return finishTurn({ ...state, battle: nextBattle }, actorId, [
