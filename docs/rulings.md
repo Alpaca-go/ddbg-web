@@ -2582,8 +2582,13 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   - **Brigand Hunter**：1 Blanket Fire（Crowded；Crit 1；2t、+1）、2 Rushed Shot（Closest 0；Crit 1；Push 1）。
   - **Adder**：1 Adder's Fang（Furthest 2；Crit 1；3 3；4t）、2 Paralyzing Quills（Closest 1；Crit 1；1t）、3 Molt（Self；2t；Remove）。
 - **待确认**：三张卡每个技能的效果原语（伤害 / 暴击 / 命中、状态、Shuffle、Self 效果）与数值；确认前保持拒战，不猜效果（R-048）。
+- **补（2026-11-07）**：按规格书 §6.5「Crit X [n] / Acc Y [m]」——每行两个 damage 图标分别是**暴击伤害**与**普通伤害**，可直接读出，不再有歧义：
+  - **Brigand Raider**：1 Slice and Dice（Crowded0，2 目标）Crit 2 / 暴伤 **11**，Acc 10 / 普伤 **7**，目标 **Debuff 2t**；2 Shank（Closest0）Crit 1 / **16**，Acc 10 / **10**，目标 **Bleed 3，2t**；3 Harmless Poke（Furthest1）Crit 0 / **12**，Acc 7 / **8**，自身 **Buff 2t + Pull 1**。
+  - **Brigand Hunter**：1 Blanket Fire（Range 2 / Crowded，4 目标）Crit 1 / **8**，Acc 10 / **5**，目标 **Debuff 2t、Stress +1**；2 Rushed Shot（Closest0）Crit 1 / **11**，Acc 9 / **7**，自身 **Push 1**。
+  - **Adder**：1 Adder's Fang（Furthest2）Crit 1 / **5**，Acc 10 / **3**，目标 **Blight 3，4t**；2 Paralyzing Quills（Closest1）Crit 1 / **10**，Acc 10 / **7**，目标 **Stun 1t**；3 Molt（Self）自身 **Buff 2t、Heal 9、Remove Bleed + Blight**。
+- **待确认**：以上 8 条是否照此接线（数值与效果一起）；确认后写入 `verified_monster_effects` 并重跑准入。
 - **暂定**：字段已入库但不入半场战斗；`dungeon-battle-l2-admission.test.ts` 已记录该边界。
-- **状态**：待 Kyries 确认。
+- **状态**：待 Kyries 确认（补全数值后）。
 
 
 
