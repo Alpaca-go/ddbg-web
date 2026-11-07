@@ -7,7 +7,10 @@ it("R-200：Warrens Antiquarian 高等级逐卡覆盖签名", () => {
   const cases: Array<{ id: string; line: number; sig: string }> = [
     { id: "hero_skill:p302", line: 0, sig: "{range} Self" },
     { id: "hero_skill:p302", line: 1, sig: "{self_effects} Self {buff} 3t, {shuffle} Push 2" },
-    { id: "hero_skill:p311", line: 1, sig: "{self_effects} Self {buff} 2t" },
+    { id: "hero_skill:p305", line: 0, sig: "{target_effects} {stun} 1t, {debuff} 2t" },
+    { id: "hero_skill:p308", line: 0, sig: "{self_effects} Self {heal} 2" },
+    { id: "hero_skill:p311", line: 1, sig: "{target_effects} {buff} 2t" },
+    { id: "hero_skill:p314", line: 1, sig: "{target_effects} {guard} 3t, {protection} 2t, {mark} 2t" },
   ];
   for (const { id, line, sig } of cases) {
     const card = data.hero_skill.cards.find((c) => c.id === id)!;

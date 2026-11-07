@@ -2687,42 +2687,42 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据 / 出处**：Warrens Leper p290/p291；R-200；R-048。
 - **状态**：Kyries 已确认（2026-11-08）
 
-### Q-167
+### Q-167（已关闭）
 
 - **编号**：Q-167
 - **日期**：2026-11-08
-- **问题**：Antiquarian **Flashpowder II/III** 效果行：I 级印刷 `{blight} 1t`（`98edfaca0a`），II 级为 `{bleed} 1t`（`c22f085b95`），III 级提取为 `{target_effects} {target_effects} 2t`（第二枚 `b6afaa4d7b` 疑似状态误提）。应按枯萎、流血或待确认图标分别读数？
-- **暂定**：不接线；审计红。
-- **状态**：待 Kyries 确认
+- **问题**：Antiquarian **Flashpowder II/III** 效果行误提 blight/bleed/`target_effects`。
+- **裁定**（Kyries 2026-11-08）：II/III 均为目标 **眩晕 + Debuff**（II：Stun 1t + Debuff 2t；III：Stun 2t + Debuff 2t）。逐卡覆盖 icon key，不改全局词典。
+- **状态**：Kyries 已确认（2026-11-08）
 
-### Q-168
+### Q-168（已关闭）
 
 - **编号**：Q-168
 - **日期**：2026-11-08
-- **问题**：Antiquarian **Get Down! III** 含「Push 1 or Push 2」；引擎现有 `readShuffles` 不支持双 Push 距离选择。
-- **暂定**：不猜距离；审计红。
-- **状态**：待 Kyries 确认
+- **问题**：Antiquarian **Get Down!** 自身位移；III 含「Push 1 or Push 2」。
+- **裁定**（Kyries 2026-11-08）：I/II **固定自身 Push 2**；III **Push 1 或 Push 2 自选**。引擎最小支持：`SkillCombatState.shufflePushDistance` + `readVerifiedStatusEffects` 消费「Push N or Push M」同行。
+- **状态**：Kyries 已确认（2026-11-08）
 
-### Q-169
+### Q-169（已关闭）
 
 - **编号**：Q-169
 - **日期**：2026-11-08
-- **问题**：Antiquarian **Fortifying Vapours II/III** 自身效果行 `{stress} 3t`（接在 Heal 后）语义：压力增减、持续回合 Buff，或其它？
-- **暂定**：stats 行 heal 标记已按 `damage_or_heal_combined_marker` 逐卡覆盖；自身 `{stress} 3t` 不接入引擎；审计红。
-- **状态**：待 Kyries 确认
+- **问题**：Fortifying Vapours 自身 `{stress} 3t` 误读。
+- **裁定**（Kyries 2026-11-08）：I/II/III 均为 **自身 Heal + Buff**（I：Heal 1 + Buff 2t；II：Heal 2 + Buff 3t；III：Heal 4 + Buff 3t）。stats 目标治疗行保留；去掉误 stress 行。
+- **状态**：Kyries 已确认（2026-11-08）
 
-### Q-170
+### Q-170（已关闭）
 
 - **编号**：Q-170
 - **日期**：2026-11-08
-- **问题**：Antiquarian **Invigorating Vapours III** 头行 `{range} 0 {target_hero_or_monster}×3`：一个区域内可选几名、阵营规则？
-- **暂定**：不接线；审计红。
-- **状态**：待 Kyries 确认
+- **问题**：Invigorating Vapours 头行混阵营图标。
+- **裁定**（Kyries 2026-11-08）：头盔 = **队友**；本技能对 **1/2/3 名队友**施加 Buff **2/3/4t**（I/II/III）；无自身 Debuff 行。
+- **状态**：Kyries 已确认（2026-11-08）
 
-### Q-171
+### Q-171（已关闭）
 
 - **编号**：Q-171
 - **日期**：2026-11-08
-- **问题**：Antiquarian **Protect Me I–III** 效果行：`9ffbd6087a` 词典为 `{light}`，卡面疑似 Guard/折角箭头（同 Q-164）；`8d4bbe5e11`/`92104a3c6b`/`b2e9d87127` 与 III 行 `b6afaa4d7b` 混用。
-- **暂定**：不猜 Guard/位移/标记组合；审计红。
-- **状态**：待 Kyries 确认
+- **问题**：Protect Me 效果行图标误读。
+- **裁定**（Kyries 2026-11-08）：目标 **守护（Guard）+ 防护（Protection）+ Mark**（II：3t/2t/2t；III：3t/3t/1t）。`9ffbd6087a` 本卡覆盖为 `guard`，不入光照。
+- **状态**：Kyries 已确认（2026-11-08）

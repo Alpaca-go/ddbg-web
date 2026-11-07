@@ -488,6 +488,10 @@ export type SkillCombatState = {
    */
   readonly shuffleChoice?: "push" | "pull";
   /**
+   * 卡面「Push N or Push M」（同一方向两个距离）时自选距离（Q-168，Get Down! III）。
+   */
+  readonly shufflePushDistance?: number;
+  /**
    * 目标所在区域是否比使用者低（规则书第 25 页：高地 > 普通 > 低地）。
    * 为真时命中阈值 +1，并把单个整数射程的上限再加 1，原距离仍可选（R-022）。
    * 不传或为假都不加，从低打高也没有惩罚。已复核区间按 R-022 上限 +1。
@@ -2256,6 +2260,12 @@ function combatProblem(combat: SkillCombatState): string | null {
   ) {
     return "Push 或 Pull 的方向必须是 push 或 pull";
   }
+  if (
+    combat.shufflePushDistance !== undefined &&
+    (!Number.isInteger(combat.shufflePushDistance) || combat.shufflePushDistance < 1)
+  ) {
+    return "自选 Push 距离必须是正整数";
+  }
 
   const beside = readAreaHeroes(combat.heroesBesideActor, "使用者身边的英雄");
   if (!beside.ok) return beside.reason;
@@ -2571,7 +2581,11 @@ function resolveSkill(
           : "枯萎条件伤害缺少合法的当前状态堆（R-048）",
       );
   }
-  const statusesRead = readVerifiedStatusEffects(active, combat.shuffleChoice);
+  const statusesRead = readVerifiedStatusEffects(
+    active,
+    combat.shuffleChoice,
+    combat.shufflePushDistance,
+  );
   if (statusesRead.status === "refused") return refuse(skill, combat, statusesRead.reason);
   let statuses = statusesRead;
   if (statuses.self.length && combat.actor === undefined)
