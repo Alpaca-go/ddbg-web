@@ -614,6 +614,41 @@ export const verifiedMonsterStances = z.array(entrySchema).parse([
       },
     ],
   },
+  // R-196：Brigand Raider · FRONT p056–58。进攻+防御 1–7→技能2、8–10→技能1；远程 1–5→2、6–10→1；支援固定技能3。
+  {
+    id: "monster_medium:p056",
+    name: "Brigand Raider",
+    level: 3,
+    pages: [56, 57, 58],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive"],
+        rollTable: [
+          { min: 1, max: 7, skill: 2 },
+          { min: 8, max: 10, skill: 1 },
+        ],
+      },
+      {
+        stances: ["ranged"],
+        rollTable: [
+          { min: 1, max: 5, skill: 2 },
+          { min: 6, max: 10, skill: 1 },
+        ],
+      },
+      { stances: ["support"], skill: 3 },
+    ],
+  },
+  // R-196：Brigand Hunter · FRONT p059–61。进攻固定技能2；防御/远程/支援固定技能1。
+  {
+    id: "monster_medium:p059",
+    name: "Brigand Hunter",
+    level: 3,
+    pages: [59, 60, 61],
+    stanceGroups: [
+      { stances: ["aggressive"], skill: 2 },
+      { stances: ["defensive", "ranged", "support"], skill: 1 },
+    ],
+  },
 ]);
 
 /** 仅生成管线加载获批映射；结构验证不替代人工批准。 */

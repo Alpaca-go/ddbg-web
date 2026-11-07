@@ -62,6 +62,7 @@ it("只附加已核实大型卡，参考卡与其他卡不补值；不修改输�
     "monster_large:p001",
     "monster_large:p002",
     "monster_large:p003",
+    "monster_large:p004",
     "monster_large:p005",
     "monster_large:p006",
     "monster_large:p007",
@@ -134,6 +135,28 @@ it("R-083 Captain/Ghoul四姿态全部骰面符合独立印刷表，大型取占
       skillSlot: id.endsWith("p001") ? 2 : 1,
     });
   }
+});
+it("R-196 Adder（大卡 p004）Speed 1 与三组选招表已入库", () => {
+  const card = built.monster_large.cards.find((c) => c.id === "monster_large:p004")!;
+  expect(card.speed).toBe(1);
+  expect(card.stanceGroups).toEqual([
+    {
+      stances: ["aggressive"],
+      rollTable: [
+        { min: 1, max: 5, skill: 1 },
+        { min: 6, max: 10, skill: 2 },
+      ],
+    },
+    {
+      stances: ["defensive", "ranged"],
+      rollTable: [
+        { min: 1, max: 3, skill: 1 },
+        { min: 4, max: 7, skill: 2 },
+        { min: 8, max: 10, skill: 3 },
+      ],
+    },
+    { stances: ["support"], skill: 1 },
+  ]);
 });
 it("身份漂移、重复映射、脏Speed、冲突与缺技能引用原子拒绝", () => {
   const entry = verifiedLargeMonsterFields.find((e) => e.id === "monster_large:p002")!;

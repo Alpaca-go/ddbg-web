@@ -242,6 +242,10 @@ it("R-082/083 普通卡与 C-019 死灵法师 II 限定字段获批，其余 II/
           "monster_medium:p105",
           "monster_medium:p106",
           "monster_medium:p109",
+          // R-196：DL3 Brigand Raider / Brigand Hunter / Adder 字段获批。
+          "monster_medium:p056",
+          "monster_medium:p059",
+          "monster_large:p004",
           "monster_large:p006",
           "monster_large:p007",
           "monster_large:p008",

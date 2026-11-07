@@ -52,6 +52,9 @@ const expected = [
   ["monster_medium:p105", 3],
   ["monster_medium:p106", 2],
   ["monster_medium:p109", 1],
+  // R-196：DL3 Brigand Raider / Brigand Hunter（Kyries 2026-11-07 确认）。
+  ["monster_medium:p056", 2],
+  ["monster_medium:p059", 2],
 ] as const;
 const originals = built.monster_medium.cards.map((card) => {
   const copy = structuredClone(card);
@@ -82,6 +85,7 @@ describe("获批中型怪物 Speed 入库（R24、R-001、R-048）", () => {
       p001: 1,
       p002: 1,
       p003: 2,
+      p004: 1, // R-196 Adder（pool 参考卡 medium p62）
       p005: 1, // R-174 Prophet I
       p006: 1,
       p007: 1,

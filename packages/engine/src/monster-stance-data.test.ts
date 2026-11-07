@@ -69,6 +69,17 @@ const approved = [
     id: "monster_medium:p013",
     slots: [[2, 2, 2, 2, 2, 1, 1, 1, 1, 1], [2, 2, 2, 2, 2, 1, 1, 1, 1, 1], 1, 1],
   },
+  // R-196：DL3 Brigand Raider / Brigand Hunter（Kyries 2026-11-07 确认）。
+  {
+    id: "monster_medium:p056",
+    slots: [
+      [2, 2, 2, 2, 2, 2, 2, 1, 1, 1],
+      [2, 2, 2, 2, 2, 2, 2, 1, 1, 1],
+      [2, 2, 2, 2, 2, 1, 1, 1, 1, 1],
+      3,
+    ],
+  },
+  { id: "monster_medium:p059", slots: [2, 1, 1, 1] },
 ];
 
 describe("真实卡获批姿态分组与未获批拒绝（R-015、R-048）", () => {

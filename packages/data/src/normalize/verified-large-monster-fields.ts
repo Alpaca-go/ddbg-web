@@ -336,6 +336,32 @@ export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
       },
     ],
   },
+  // R-196：Adder · 大卡 FRONT p4（pool 参考卡 medium p62）。Speed 1；进攻 1–5→1、6–10→2；防御+远程 1–3→1、4–7→2、8–10→3；支援固定 1。
+  {
+    id: "monster_large:p004",
+    name: "Adder",
+    level: 3,
+    pages: [4],
+    speed: 1,
+    stanceGroups: [
+      {
+        stances: ["aggressive"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+      {
+        stances: ["defensive", "ranged"],
+        rollTable: [
+          { min: 1, max: 3, skill: 1 },
+          { min: 4, max: 7, skill: 2 },
+          { min: 8, max: 10, skill: 3 },
+        ],
+      },
+      { stances: ["support"], skill: 1 },
+    ],
+  },
 ]);
 
 export function attachVerifiedLargeMonsterFields(

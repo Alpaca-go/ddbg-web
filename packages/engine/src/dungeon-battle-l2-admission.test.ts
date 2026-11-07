@@ -121,7 +121,7 @@ it(
   },
 );
 
-it("DL3 牌堆：未批 Bone Bearer 部署仍因完整战斗字段拒战并保留真实部署", () => {
+it("DL3 牌堆：字段齐全后按技能效果/缺字段拒战，均保留真实部署", () => {
   const heroes = coreParty.map((hero, index) => {
     const stat = coreQuestSources.catalog.heroStats.find((s) => s.id === hero.heroStatId)!;
     return {
@@ -179,8 +179,41 @@ it("DL3 牌堆：未批 Bone Bearer 部署仍因完整战斗字段拒战并保�
     )
       continue;
     const battle = applyCommand(deployed.state, { type: "startDungeonBattle" });
-    expect(battle.state).toBe(deployed.state);
-    expect(battle.events).toEqual([
+    const refusal = battle.events.find((event) => event.type === "commandRefused");
+    if (refusal) {
+      // R-196 只补 Speed / 选招；DL3 三张普通怪的技能效果尚未逐招接入（R-048）。
+      expect(battle.state).toBe(deployed.state);
+      expect(battle.events).toEqual([
+        expect.objectContaining({
+          type: "commandRefused",
+          message: expect.stringMatching(/完整效果尚未接入.*保留部署/),
+        }),
+      ]);
+    } else {
+      expect(battle.state.battle?.encounter?.turn.type).toBe("awaitingInitiative");
+    }
+    // 合成缺字段（从全部已部署怪移除 speed）：仍按 R-048 拒战并保留真实部署，不重抽。
+    const deployedIds = new Set(
+      deployed.state.dungeon!.monsterPool!.active!.monsters.map((monster) => monster.cardId),
+    );
+    const stripped: GameState = {
+      ...deployed.state,
+      dungeon: {
+        ...deployed.state.dungeon!,
+        battleCatalog: {
+          ...deployed.state.dungeon!.battleCatalog!,
+          monsters: deployed.state.dungeon!.battleCatalog!.monsters.map((card) => {
+            if (!deployedIds.has(card.id)) return card;
+            const { speed: _speed, ...rest } = card;
+            void _speed;
+            return rest;
+          }),
+        },
+      },
+    };
+    const refused = applyCommand(stripped, { type: "startDungeonBattle" });
+    expect(refused.state).toBe(stripped);
+    expect(refused.events).toEqual([
       expect.objectContaining({
         type: "commandRefused",
         message: expect.stringMatching(/完整战斗字段.*保留真实部署/),

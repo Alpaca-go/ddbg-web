@@ -82,6 +82,9 @@ export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
     pages: [109, 110, 111],
     speed: 1,
   },
+  // R-196：DL3 Brigand Raider / Brigand Hunter（Kyries 2026-11-07 逐卡确认；三页同卡，按页范围记录）。
+  { id: "monster_medium:p056", name: "Brigand Raider", level: 3, pages: [56, 57, 58], speed: 2 },
+  { id: "monster_medium:p059", name: "Brigand Hunter", level: 3, pages: [59, 60, 61], speed: 2 },
 ]);
 
 /** 仅生成管线加载人工获批映射；schema 可表达的值不代表已获批准。 */

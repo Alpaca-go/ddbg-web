@@ -24,7 +24,7 @@ it("DL2 牌堆：全部 II 级战斗卡均在 R-083 已批子集内", () => {
   }
 });
 
-it("DL3 牌堆：R-142 只新增 Bone Bearer，其余三种仍缺 Speed/选招", () => {
+it("DL3 牌堆：R-142 Bone Bearer + R-196 Brigand Raider/Hunter/Adder 字段齐全", () => {
   const rows = ruinsPoolAdmissionRows(monsters, 3);
   const level3 = rows.filter((row) => row.poolLevel === 3);
   expect(level3.map((r) => r.combatCardId).sort()).toEqual([
@@ -34,14 +34,9 @@ it("DL3 牌堆：R-142 只新增 Bone Bearer，其余三种仍缺 Speed/选招",
     "monster_medium:p059",
   ]);
   for (const row of level3) {
-    if (row.combatCardId === "monster_medium:p016") {
-      expect(row.missingBattleFields).toEqual([]);
-      expect(row.hasApprovedHigherMonsterFields).toBe(true);
-      expect(row.catalogHasSpeedStance).toBe(true);
-      continue;
-    }
-    expect(row.missingBattleFields).toEqual(["speed", "stanceGroups"]);
-    expect(row.hasApprovedHigherMonsterFields).toBe(false);
-    expect(row.catalogHasSpeedStance).toBe(false);
+    expect(row.missingBattleFields, row.combatCardId).toEqual([]);
+    expect(row.hasApprovedHigherMonsterFields, row.combatCardId).toBe(true);
+    expect(row.catalogHasSpeedStance, row.combatCardId).toBe(true);
+    expect(row.catalogUnverified, row.combatCardId).toBe(false);
   }
 });

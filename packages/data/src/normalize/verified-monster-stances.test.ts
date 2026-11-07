@@ -67,6 +67,8 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
       "monster_medium:p013",
       "monster_medium:p050",
       "monster_medium:p053",
+      "monster_medium:p056",
+      "monster_medium:p059",
       "monster_medium:p105",
       "monster_medium:p106",
       "monster_medium:p109",
@@ -84,6 +86,7 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
           "monster_large:p001",
           "monster_large:p002",
           "monster_large:p003",
+          "monster_large:p004", // R-196 Adder
           "monster_large:p005", // R-174 Prophet I
           "monster_large:p008",
           "monster_large:p006",
@@ -103,6 +106,36 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
         ].includes(card.id),
       );
     expect(loadNormalizedCorebox()).toEqual(built);
+  });
+
+  it("R-196 DL3 Brigand Raider / Hunter 的 Speed 与选招表按 Kyries 确认入库", () => {
+    const raider = built.monster_medium.cards.find((c) => c.id === "monster_medium:p056")!;
+    if (!("skills" in raider)) throw new Error("monster_medium:p056");
+    expect(raider.speed).toBe(2);
+    expect(raider.stanceGroups).toEqual([
+      {
+        stances: ["aggressive", "defensive"],
+        rollTable: [
+          { min: 1, max: 7, skill: 2 },
+          { min: 8, max: 10, skill: 1 },
+        ],
+      },
+      {
+        stances: ["ranged"],
+        rollTable: [
+          { min: 1, max: 5, skill: 2 },
+          { min: 6, max: 10, skill: 1 },
+        ],
+      },
+      { stances: ["support"], skill: 3 },
+    ]);
+    const hunter = built.monster_medium.cards.find((c) => c.id === "monster_medium:p059")!;
+    if (!("skills" in hunter)) throw new Error("monster_medium:p059");
+    expect(hunter.speed).toBe(2);
+    expect(hunter.stanceGroups).toEqual([
+      { stances: ["aggressive"], skill: 2 },
+      { stances: ["defensive", "ranged", "support"], skill: 1 },
+    ]);
   });
 
   it("附加分组只增加该字段，保留 footer、null 数字、验证状态与输入", () => {

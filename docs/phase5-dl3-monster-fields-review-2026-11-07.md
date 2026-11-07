@@ -1,28 +1,27 @@
 # DL3 普通怪字段核对稿（Q-159）
 
-状态：待 Kyries 确认。三张卡在 `monster_pool.json` 的 `missingBattleFields` 均为 `["speed","stanceGroups"]`；确认前相关遭遇不进入生产随机池、不补默认值。
+状态：**已确认（Kyries 2026-11-07）→ R-196**；三张卡的 Speed/选招已入库，`monster_pool.json` 的 `missingBattleFields` 已清空。
 
 来源：本地私有印刷缓存 COREBOX 怪物**中卡** FRONT p056–61（Brigand Raider / Brigand Hunter）与**大卡** FRONT p4（Adder）。只读缓存，不入库。
 
-## 待确认字段
+## 确认结果（R-196）
 
-| 卡             | pool id               | 战斗卡                | 印刷页                                  | 排 / 占格 | Speed（靴印数） | 进攻 | 防御 | 远程 | 支援 |
-| -------------- | --------------------- | --------------------- | --------------------------------------- | --------- | --------------- | ---- | ---- | ---- | ---- |
-| Brigand Raider | `monster_medium:p056` | `monster_medium:p056` | medium FRONT p056–58（同卡 I–III 级面） | front / 1 | ?               | ?    | ?    | ?    | ?    |
-| Brigand Hunter | `monster_medium:p059` | `monster_medium:p059` | medium FRONT p059–61（同卡 I–III 级面） | back / 1  | ?               | ?    | ?    | ?    | ?    |
-| Adder          | `monster_medium:p062` | `monster_large:p004`  | large FRONT p4；pool 参考卡 medium p62  | front / 2 | ?               | ?    | ?    | ?    | ?    |
+| 卡             | pool id               | 战斗卡                | 印刷页                                  | 排 / 占格 | Speed | 进攻              | 防御                       | 远程                       | 支援    |
+| -------------- | --------------------- | --------------------- | --------------------------------------- | --------- | ----- | ----------------- | -------------------------- | -------------------------- | ------- |
+| Brigand Raider | `monster_medium:p056` | `monster_medium:p056` | medium FRONT p056–58（同卡 I–III 级面） | front / 1 | 2     | 1–7→技2；8–10→技1 | 1–7→技2；8–10→技1          | 1–5→技2；6–10→技1          | 固定技3 |
+| Brigand Hunter | `monster_medium:p059` | `monster_medium:p059` | medium FRONT p059–61（同卡 I–III 级面） | back / 1  | 2     | 固定技2           | 固定技1                    | 固定技1                    | 固定技1 |
+| Adder          | `monster_medium:p062` | `monster_large:p004`  | large FRONT p4；pool 参考卡 medium p62  | front / 2 | 1     | 1–5→技1；6–10→技2 | 1–3→技1；4–7→技2；8–10→技3 | 1–3→技1；4–7→技2；8–10→技3 | 固定技1 |
 
-> Adder 的战斗卡是**大型卡**（`monster_large:p004`，2 格）；字段以 large FRONT p4 为准，pool 的 `p062` 只是参考卡。
+> Adder 的战斗卡是**大型卡**（`monster_large:p004`，2 格）；字段以 large FRONT p4 为准，pool 的 `p062` 只是参考卡。防御与远程共用同一张 d10 表（表中两列相同）。
 
-## 逐卡确认方式
+## 入库位置
 
-1. **Speed**：数卡面头部的移动靴印数量；不要把黄色 Dodge 数字当 Speed（R-142 有先例更正）。
-2. **四姿态选招**：按卡面 footer 的 d10 分段，分别填「进攻 / 防御 / 远程 / 支援」的 slot 编号或 `不可选`；四姿态共用一张表时写「四姿态共用」并给出分段。
-3. **不补默认值**：未确认的槽保持缺失；确认后按 R-143 / R-082 等既有模式写入 `packages/data/src/normalize/verified-monster-speeds.ts` 与 `verified-monster-stances.ts`，再重生成 `monster_pool.json`（`missingBattleFields` 应清空）。
-4. 卡面若同时有「不可选」姿态与 d10 表，按现有 `stanceGroups` 结构（`unavailable: true` / `rollTable`）记录。
+- Speed：`packages/data/src/normalize/verified-monster-speeds.ts`（p056、p059）；Adder 在 `verified-large-monster-fields.ts`。
+- 选招：`verified-monster-stances.ts`（p056、p059）；Adder 在 `verified-large-monster-fields.ts`（大型卡同时带 speed + stanceGroups）。
+- `monster_pool.json`：三行 `missingBattleFields` 已从 `["speed","stanceGroups"]` 清空。
+- 回归测试：`monster-speed.test.ts`、`verified-monster-stances.test.ts`、`verified-large-monster-fields.test.ts`、`ruins-pool-admission.test.ts` 已按 R-196 更新并新增定向断言。
 
-## 现状与影响
+## 边界
 
-- `monster_pool.json`：三张卡均 `location: "common"`、`level: 3`；Adder 的 `combatCardId` 指向 `monster_large:p004`、`stanceSlots: 2`。
-- 仅缺字段不阻塞数据校验；生产随机遭遇因 `missingBattleFields` 非空而保持不可用。
-- 本稿只列待确认项，不含任何猜测数值。
+- 只补这三张卡的字段；不改遭遇几何、生产准入白名单或其它卡，不解除 Boss/房间停点。
+- **字段齐全不等于可进入半场战斗**：三张卡的技能效果尚未逐招接入，`startDungeonBattle` 仍按 R-048 拒战（`Brigand Raider 技能 1 的完整效果尚未接入…`）；`dungeon-battle-l2-admission.test.ts` 已记录该边界。
