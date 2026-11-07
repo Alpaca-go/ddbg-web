@@ -2519,6 +2519,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **切片**：[phase5-task-special-review-2026-11-07.md](phase5-task-special-review-2026-11-07.md)、[phase5-rising-threat-2026-11-07.md](phase5-rising-threat-2026-11-07.md)、[phase5-purify-fountains-2026-11-07.md](phase5-purify-fountains-2026-11-07.md)。
 - **实现状态**：Rising Threat（Curio 房强制守卫 + 1 只 II 级怪）与 Purify（3 个任务药水 + 净化耗 1 个）已接线；Dem Bones 既有「2 行动、任意英雄、完成后清理」已符合，绿区 A4 与 Ancestor's Glory 同区已记录，无需改代码。
 - **待确认**：Purify 补给满 16 时，「丢弃哪些既有补给」当前按池尾自动丢弃；若须玩家选择，另开 Q。
+- **补（2026-11-07，Kyries 确认）**：目标房里的 **Healing Fountain 净化前不生效**——`startDungeonBattle` 用 `objectiveRoomBattleAreas` 裁掉本任务旁置目标房的 `endTurnHeal`，普通房间的同一板块仍按 R-065 触发 `Healing Waters`（治疗 3）。「常规效果是否整体重做」不在本裁定范围，保持 R-065 现状。
 - **边界**：只接 SPECIAL 运行时与目标房清理判定；不动 `usable` / `combatReady` / 任务白名单；不猜额外数值或图标语义。
 
 ### Q-161

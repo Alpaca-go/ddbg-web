@@ -1,6 +1,7 @@
 import { prepareBossObjectiveRoom } from "./boss/objective-room-entry";
 import { basicQuests, readBasicQuest } from "../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "./command";
+import type { BattleArea } from "./battle";
 import type { DungeonState } from "./dungeon";
 import { readRoomTile } from "./room-tile-selection";
 import { roomCatalogSchema } from "../../data/src/room";
@@ -39,6 +40,25 @@ export function readObjectiveRecoveryStepLabel(d: DungeonState): string {
   return quest && "objectiveRecoveryStepLabel" in quest
     ? quest.objectiveRecoveryStepLabel
     : "完成任务目标";
+}
+
+/**
+ * QUEST p10 / R-197：目标房里的 Healing Fountain 在净化前不生效。
+ * 只在「当前场地就是本任务旁置的目标房」时裁掉 `Healing Waters`（回合结束治疗），
+ * 普通房间的同一板块仍按 R-065 生效。
+ */
+export function objectiveRoomBattleAreas(
+  areas: readonly BattleArea[],
+  d: DungeonState,
+): readonly BattleArea[] {
+  const aside = readSetAsideRoomCardId(d);
+  if (aside === undefined || d.roomCards?.active?.cardId !== aside) return areas;
+  return areas.map((area) => {
+    if (area.endTurnHeal === undefined) return area;
+    const { endTurnHeal: _heal, ...rest } = area;
+    void _heal;
+    return rest;
+  });
 }
 
 function objectiveRecoveryQuestRef(d: DungeonState): string {

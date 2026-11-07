@@ -56,6 +56,7 @@ import { statusProjection } from "./status";
 import { isGuardedDungeonRoom, awaitDungeonRoomCurio } from "./dungeon-curio-room";
 import {
   allRuinsRoomCardIds,
+  objectiveRoomBattleAreas,
   objectiveRoomClearsOnVictory,
   objectiveRoomResolutionAfterVictory,
   readSetAsideRoomCardIds,
@@ -358,7 +359,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
         const bonus = readQuestMonsterStatBonuses(d, card.id);
         return bonus?.lifeBonus ? { ...card, life: card.life + bonus.lifeBonus } : card;
       }),
-      areas: roomTileBattleAreas(tile),
+      areas: objectiveRoomBattleAreas(roomTileBattleAreas(tile), d),
       light: d.explorationSetup.light,
       provisions: d.explorationSetup.provisions,
       resolveCards: d.resolveCards,

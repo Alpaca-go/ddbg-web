@@ -21,7 +21,7 @@ pnpm typecheck
 pnpm test --maxWorkers=2 --testTimeout=30000   # 全量约 20 分钟
 ```
 
-基线（R-199 后）：**457 个测试文件 / 3307 通过 / 1 跳过**（skip 是 Q-162 的 Templars 自然存档；R-198 前为 456 / 3302）。
+基线（R-199 / Purify 补记后）：**457 个测试文件 / 3308 通过 / 1 跳过**（skip 是 Q-162 的 Templars 自然存档；R-198 前为 456 / 3302）。
 
 已知 Windows 长场景超时：`packages/engine/src/quest-save.test.ts` 的自然回放有自带的 20000ms 上限，并行时偶发超时，单独跑会过——不是回归。
 
@@ -55,14 +55,23 @@ Playwright 浏览器版本本机不匹配（需要 chromium 1243，本机 1234�
 
 ### 4.3 II/III 战役存档验收
 
-R-194 的模型已就绪（`createQuestSave` 写 `campaignLevel` 并校验回放），跨任务验收在 `packages/engine/src/campaign-quest-save.test.ts` 已过。缺的是**合法的 Act I 自然链**：自然策略在 R-190 下会输（等替补耗尽），不能为绿灯调策略/种子。需要：人工逐日记录一条合法 Act I 路径，或批准一套玩家策略。
+R-194 的模型已就绪（`createQuestSave` 写 `campaignLevel` 并校验回放），跨任务验收在 `packages/engine/src/campaign-quest-save.test.ts` 已过。
+
+**机制夹具不能替代自然链**（2026-11-07 核实）：`createQuestSave` 会从 `start`（战役第一任务）重放整条命令日志，`advanceRuinsAct` 之前的状态必须真的由这些命令产生；`ruinsActReadyFixture` 这类合成状态无法通过 `canonical` 比对，只能用于状态级测试，不能用来伪造 level 2/3 存档。
+
+**实测自然链的两个非战斗停点**（2026-11-07，seed 2/3/5/7/11，未调策略/种子）：
+
+1. 带替补的村庄阶段会卡在 `heroActions`：所有英雄都 `acted` 但 `currentHamletHero` 为空、`hamletActionOptions` 也空（`replacement-6` 无法结束行动）。
+2. 多任务链后，旁置目标房战斗被拒：「旁置目标房间与普通牌堆不守恒（R15、R-048）」（seed 2 第二轮）。
+
+两条都还没裁定是 bug 还是 hold；先修哪条决定自然链能否走到 Act II（2 普通任务 + 击败遗迹 Boss + `advanceRuinsAct`）。
 
 ### 4.4 其它 hold
 
-- Purify 的 **治疗泉常规效果**（未净化不生效）仍 hold，见 `docs/phase5-a07-purify-set-aside-2026-11-01.md`。
+- Purify 的 **治疗泉常规效果**：已按 R-197 补记——目标房净化前不触发 `Healing Waters`（`objectiveRoomBattleAreas` 裁掉 `endTurnHeal`），普通房间仍按 R-065 治疗 3；不整体重做常规效果。
 - Purify 池满 16 时「丢弃哪些既有补给」目前按**池尾自动丢弃**；若须玩家选择，另开 Q。
 - Templars 自然存档 skip 已定（Q-162），不要恢复。
-- 旧 P2「Treasure T4–T5 口径冲突」（仓内 `blocked: true`，旧交接稿称可通行）仍**未确认**，需要 Kyries 拍板。
+- Treasure T4–T5：**已确认保持 `blocked: true`**（Kyries 2026-11-07），旧交接稿的「可通行」作废，不改数据。
 
 ## 5. 关键文件地图
 

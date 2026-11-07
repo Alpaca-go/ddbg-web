@@ -8,6 +8,7 @@ import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
 import type { GameState } from "./command";
 import {
   allRuinsRoomCardIds,
+  objectiveRoomBattleAreas,
   objectiveRoomClearsOnVictory,
   ruinsRoomDeckWithoutSetAside,
 } from "./dungeon-objective";
@@ -126,6 +127,24 @@ it("Purify the Fountains II 出征旁置 room:p003，遭遇堆守恒八张", () 
   expect(ids).toHaveLength(9);
   expect(new Set(ids).size).toBe(9);
   expect(ruinsRoomDeckWithoutSetAside(d.roomCards!.cards, "room:p003")).toHaveLength(8);
+});
+
+it("Purify 目标房的 Healing Waters 净化前不生效；普通房间的同一板块仍生效（R-197）", () => {
+  const game = purifyFountainsFixture(2);
+  const d = game.dungeon!;
+  const areas = [
+    { id: "G", adjacent: [], elevation: "normal" as const, capacity: 3, endTurnHeal: 3 as const },
+  ];
+  // 活动房间牌 = 本任务旁置的 room:p003：目标房净化前不触发回合结束治疗。
+  const objective = {
+    ...d,
+    roomCards: { ...d.roomCards!, active: { ...d.roomCards!.active!, cardId: "room:p003" } },
+  };
+  expect(objectiveRoomBattleAreas(areas, objective)).toEqual([
+    { id: "G", adjacent: [], elevation: "normal", capacity: 3 },
+  ]);
+  // 活动房间牌不是旁置牌时保持 R-065 的常规效果。
+  expect(objectiveRoomBattleAreas(areas, d)[0]!.endTurnHeal).toBe(3);
 });
 
 it("Purify 目标房守卫战胜利不直接清理，须两次净化行动", () => {
