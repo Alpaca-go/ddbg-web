@@ -2516,7 +2516,9 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据 / 出处**：Kyries 2026-11-07 聊天确认；QUEST p4 / p5 / p10；规格书 §5.2；R-065（Tomb of Ancestor A4 / Ancestor's Glory）、R-048。
 - **关联待确认**：无（Q-160 关闭）。
 - **状态**：已裁定。
-- **切片**：[phase5-task-special-review-2026-11-07.md](phase5-task-special-review-2026-11-07.md)；三项运行时待实现（Rising Threat / Purify / Dem Bones）。
+- **切片**：[phase5-task-special-review-2026-11-07.md](phase5-task-special-review-2026-11-07.md)、[phase5-rising-threat-2026-11-07.md](phase5-rising-threat-2026-11-07.md)、[phase5-purify-fountains-2026-11-07.md](phase5-purify-fountains-2026-11-07.md)。
+- **实现状态**：Rising Threat（Curio 房强制守卫 + 1 只 II 级怪）与 Purify（3 个任务药水 + 净化耗 1 个）已接线；Dem Bones 既有「2 行动、任意英雄、完成后清理」已符合，绿区 A4 与 Ancestor's Glory 同区已记录，无需改代码。
+- **待确认**：Purify 补给满 16 时，「丢弃哪些既有补给」当前按池尾自动丢弃；若须玩家选择，另开 Q。
 - **边界**：只接 SPECIAL 运行时与目标房清理判定；不动 `usable` / `combatReady` / 任务白名单；不猜额外数值或图标语义。
 
 ### Q-161

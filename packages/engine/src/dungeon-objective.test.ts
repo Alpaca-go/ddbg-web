@@ -148,6 +148,14 @@ it("Purify 目标房守卫战胜利不直接清理，须两次净化行动", () 
         actionsRemaining: 2,
         completed: false,
       },
+      // R-197：Purify 净化需任务药水；fixture 补 3 颗。
+      explorationSetup: {
+        ...s.dungeon!.explorationSetup!,
+        provisions: [0, 1, 2].map((index) => ({
+          id: `dungeon-quest-provision:potion:${index}`,
+          face: "potion" as const,
+        })),
+      },
     },
   };
   expect(objectiveRoomClearsOnVictory(s.dungeon!, "objective")).toBe(false);
@@ -160,6 +168,11 @@ it("Purify 目标房守卫战胜利不直接清理，须两次净化行动", () 
     optionId: "hero-0",
   }).state;
   expect(s.dungeon!.roomResolution!.actionsRemaining).toBe(1);
+  expect(
+    s.dungeon!.explorationSetup!.provisions.filter((provision) =>
+      provision.id.startsWith("dungeon-quest-provision:"),
+    ),
+  ).toHaveLength(2);
   expect(s.dungeon!.rooms.find((r) => r.id === objectiveId)!.cleared).not.toBe(true);
   s = applyCommand(s, { type: "resolveDungeonRoom" }).state;
   s = applyCommand(s, {

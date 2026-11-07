@@ -5,6 +5,7 @@ import type { DungeonState } from "./dungeon";
 import { readRoomTile } from "./room-tile-selection";
 import { roomCatalogSchema } from "../../data/src/room";
 import { createRng } from "./rng";
+import { isQuestProvisionId, readObjectiveRecoveryProvision } from "./quest-provisions";
 
 const refuse = (state: GameState, message: string): ApplyResult => ({
   state,
@@ -217,6 +218,20 @@ export function chooseObjectiveRecovery(
   if (remaining < 0) return refuse(state, "目标拾取行动已用尽");
   const step = readObjectiveRecoveryStepLabel(d);
   const questRef = objectiveRecoveryQuestRef(d);
+  // R-197 / QUEST p10：首次净化额外消耗 1 个任务药水（不可丢弃）。
+  const recoveryProvision = readObjectiveRecoveryProvision(d);
+  let provisions = d.explorationSetup?.provisions ?? [];
+  if (recoveryProvision && (active.actionsRemaining ?? 0) === recovery) {
+    const index = provisions.findIndex(
+      (provision) => isQuestProvisionId(provision.id) && provision.face === recoveryProvision,
+    );
+    if (index < 0) return refuse(state, `目标房${step}需要 1 个任务药水（R-197）`);
+    provisions = provisions.filter((_, position) => position !== index);
+  }
+  const withProvisions = (dungeon: DungeonState): DungeonState =>
+    recoveryProvision && dungeon.explorationSetup
+      ? { ...dungeon, explorationSetup: { ...dungeon.explorationSetup, provisions } }
+      : dungeon;
   if (remaining > 0) {
     const nextPending = {
       id: `dungeon-objective-recover:${d.decision}`,
@@ -227,24 +242,24 @@ export function chooseObjectiveRecovery(
     };
     return finish(
       state,
-      {
+      withProvisions({
         ...d,
         decision: d.decision + 1,
         pending: nextPending,
         roomResolution: { ...active, actionsRemaining: remaining },
-      },
+      }),
       `${hero.id} 已花费 1 行动${step}（${recovery - remaining}/${recovery}）`,
     );
   }
   return finish(
     state,
-    {
+    withProvisions({
       ...d,
       pending: null,
       phase: d.heroes.some((h) => h.dead) ? "awaitingReplacement" : "ready",
       roomResolution: { ...active, actionsRemaining: 0, completed: true },
       rooms: d.rooms.map((r) => (r.id === d.position ? { ...r, cleared: true } : r)),
-    },
+    }),
     `${hero.id} 完成${step}，目标房 ${d.position} 已清理（${questRef}）`,
   );
 }

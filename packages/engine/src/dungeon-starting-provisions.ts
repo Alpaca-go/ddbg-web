@@ -7,6 +7,11 @@ import {
   beginWarmUpProvisionTorchChoice,
   finishStartingProvisionsToExploration,
 } from "./warm-up-starting-provisions";
+import {
+  addQuestStartingProvisions,
+  isQuestProvisionId,
+  readQuestStartingProvisions,
+} from "./quest-provisions";
 import { scoutAheadPlanProblem } from "./hamlet-scout-ahead";
 import { readFinalBattlePlanAfterDarkestVictory } from "./boss/darkest-content";
 
@@ -209,26 +214,46 @@ export function setupDungeonProvisions(
           },
         ],
       };
+    const questSpecs = readQuestStartingProvisions(completed);
+    const alreadyQuest = completed.explorationSetup!.provisions.some((provision) =>
+      isQuestProvisionId(provision.id),
+    );
+    const quested = alreadyQuest ? null : addQuestStartingProvisions(completed);
+    const questEvents: GameEvent[] =
+      quested && questSpecs.length
+        ? [
+            {
+              type: "dungeonUpdated",
+              message: `任务补给（R-197）：加入 ${questSpecs.reduce((sum, spec) => sum + spec.count, 0)} 个${questSpecs.map((spec) => PROVISION_LABELS[spec.face]).join("、")}（不可丢弃）${quested.discarded.length ? `；补给池已满 16，按顺序丢弃既有 ${quested.discarded.join("、")}` : ""}`,
+            },
+          ]
+        : [];
+    const questedDungeon: DungeonState = quested
+      ? {
+          ...completed,
+          explorationSetup: { ...completed.explorationSetup!, provisions: quested.provisions },
+        }
+      : completed;
     if (completed.nextQuestProvisionFaceChoice) {
       const merchant = beginTravelingMerchantsChoice({
         ...state,
-        dungeon: { ...completed, pending: null },
+        dungeon: { ...questedDungeon, pending: null },
       });
       return {
         ...merchant,
-        events: [...events, ...merchant.events],
+        events: [...events, ...questEvents, ...merchant.events],
       };
     }
     if (completed.warmUpStartingProvisionTorchChoice) {
       const warmUp = beginWarmUpProvisionTorchChoice(
-        { ...state, dungeon: { ...completed, pending: null } },
-        events,
+        { ...state, dungeon: { ...questedDungeon, pending: null } },
+        [...events, ...questEvents],
       );
       return warmUp;
     }
     return finishStartingProvisionsToExploration(
-      { ...state, dungeon: { ...completed, pending: null } },
-      events,
+      { ...state, dungeon: { ...questedDungeon, pending: null } },
+      [...events, ...questEvents],
       "开局补给已入公共池，可以开始探索（R12/R-041）",
     );
   };

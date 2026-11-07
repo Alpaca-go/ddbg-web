@@ -161,9 +161,12 @@ export const basicQuests = [
     expeditionRegion: "ruins" as const,
     /** QUEST p10：开局旁置 room 3（Healing Fountain），同 Dem Bones 旁置 room 7（R15、规格书 §5.1）。 */
     setAsideRoomCardId: "room:p003" as const,
-    /** 任务卡 SPECIAL：须花费 2 行动净化喷泉后目标房才算清理（1×{icon:dd2d2467ec} 待图标确认，hold）。 */
+    /** 任务卡 SPECIAL：须花费 2 行动净化喷泉后目标房才算清理（R-197：额外消耗 1 个任务药水）。 */
     objectiveRecoveryActions: 2 as const,
     objectiveRecoveryStepLabel: "净化喷泉" as const,
+    /** R-197：开局携带 3 个不可丢弃的任务药水（Potion）；净化额外耗 1 个。 */
+    questStartingProvisions: [{ face: "potion", count: 3 }] as const,
+    objectiveRecoveryProvision: "potion" as const,
     distribution: roomDistributionSchema.parse(purifyTheFountains),
   },
   {
