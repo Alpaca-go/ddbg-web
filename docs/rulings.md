@@ -2686,3 +2686,43 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**（Kyries 2026-11-08）：仅自身 Heal 9/12 + 压力 -1；**无 Buff、无 Shuffle**。`f18923574c` 本卡覆盖为 `{stress}`。
 - **依据 / 出处**：Warrens Leper p290/p291；R-200；R-048。
 - **状态**：Kyries 已确认（2026-11-08）
+
+### Q-167（已关闭）
+
+- **编号**：Q-167
+- **日期**：2026-11-08
+- **问题**：Antiquarian **Flashpowder II/III** 效果行误提 blight/bleed/`target_effects`。
+- **裁定**（Kyries 2026-11-08）：II/III 均为目标 **眩晕 + Debuff**（II：Stun 1t + Debuff 2t；III：Stun 2t + Debuff 2t）。逐卡覆盖 icon key，不改全局词典。
+- **状态**：Kyries 已确认（2026-11-08）
+
+### Q-168（已关闭）
+
+- **编号**：Q-168
+- **日期**：2026-11-08
+- **问题**：Antiquarian **Get Down!** 自身位移；III 含「Push 1 or Push 2」。
+- **裁定**（Kyries 2026-11-08）：I/II **固定自身 Push 2**；III **Push 1 或 Push 2 自选**。引擎最小支持：`SkillCombatState.shufflePushDistance` + `readVerifiedStatusEffects` 消费「Push N or Push M」同行。
+- **状态**：Kyries 已确认（2026-11-08）
+
+### Q-169（已关闭）
+
+- **编号**：Q-169
+- **日期**：2026-11-08
+- **问题**：Fortifying Vapours 自身 `{stress} 3t` 误读。
+- **裁定**（Kyries 2026-11-08）：I/II/III 均为 **自身 Heal + Buff**（I：Heal 1 + Buff 2t；II：Heal 2 + Buff 3t；III：Heal 4 + Buff 3t）。stats 目标治疗行保留；去掉误 stress 行。
+- **状态**：Kyries 已确认（2026-11-08）
+
+### Q-170（已关闭）
+
+- **编号**：Q-170
+- **日期**：2026-11-08
+- **问题**：Invigorating Vapours 头行混阵营图标。
+- **裁定**（Kyries 2026-11-08）：头盔 = **队友**；本技能对 **1/2/3 名队友**施加 Buff **2/3/4t**（I/II/III）；无自身 Debuff 行。
+- **状态**：Kyries 已确认（2026-11-08）
+
+### Q-171（已关闭）
+
+- **编号**：Q-171
+- **日期**：2026-11-08
+- **问题**：Protect Me 效果行图标误读。
+- **裁定**（Kyries 2026-11-08）：目标 **守护（Guard）+ 防护（Protection）+ Mark**（II：3t/2t/2t；III：3t/3t/1t）。`9ffbd6087a` 本卡覆盖为 `guard`，不入光照。
+- **状态**：Kyries 已确认（2026-11-08）

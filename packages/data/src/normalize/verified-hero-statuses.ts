@@ -12,7 +12,16 @@ type Entry = {
   headerSignature?: string;
   scopeLine?: { index: number; signature: string };
   effects: {
-    kind: "bleed" | "blight" | "stun" | "buff" | "mark" | "riposte" | "protection" | "debuff";
+    kind:
+      | "bleed"
+      | "blight"
+      | "stun"
+      | "buff"
+      | "mark"
+      | "riposte"
+      | "protection"
+      | "guard"
+      | "debuff";
     duration: number;
     amount?: number;
   }[];
@@ -917,6 +926,211 @@ const entries: readonly Entry[] = [
     scope: "target",
     signature: "{target_effects} {debuff} 3t",
     effects: [{ kind: "debuff", duration: 3 }],
+  },
+  // R-200 / Warrens Antiquarian I–III（TDH p298–p315）。
+  {
+    id: "hero_skill:p298",
+    hero: "ANTIQUARIAN",
+    name: "Festering Vapours",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} 1 {bleed} 3t, {debuff} 2t",
+    effects: [
+      { kind: "bleed", amount: 1, duration: 3 },
+      { kind: "debuff", duration: 2 },
+    ],
+  },
+  {
+    id: "hero_skill:p301",
+    hero: "ANTIQUARIAN",
+    name: "Get Down!",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t, {shuffle} Push 2",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p304",
+    hero: "ANTIQUARIAN",
+    name: "Flashpowder",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {stun} 1t, {debuff} 1t",
+    effects: [
+      { kind: "stun", duration: 1 },
+      { kind: "debuff", duration: 1 },
+    ],
+  },
+  {
+    id: "hero_skill:p307",
+    hero: "ANTIQUARIAN",
+    name: "Fortifying Vapours",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p310",
+    hero: "ANTIQUARIAN",
+    name: "Invigorating Vapours",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    headerSignature: "{range} 0 {target_hero}",
+    signature: "{target_effects} {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p313",
+    hero: "ANTIQUARIAN",
+    name: "Protect Me",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    headerSignature: "{range} 1 {target_hero}",
+    signature: "{target_effects} {guard} 2t, {protection} 2t, {mark} 3t",
+    effects: [
+      { kind: "guard", duration: 2 },
+      { kind: "protection", duration: 2 },
+      { kind: "mark", duration: 3 },
+    ],
+  },
+  {
+    id: "hero_skill:p299",
+    name: "Festering Vapours",
+    level: 2,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} 2 {bleed} 3t, {debuff} 2t",
+    effects: [
+      { kind: "bleed", amount: 2, duration: 3 },
+      { kind: "debuff", duration: 2 },
+    ],
+  },
+  {
+    id: "hero_skill:p300",
+    name: "Festering Vapours",
+    level: 3,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} 3 {bleed} 3t, {debuff} 2t",
+    effects: [
+      { kind: "bleed", amount: 3, duration: 3 },
+      { kind: "debuff", duration: 2 },
+    ],
+  },
+  {
+    id: "hero_skill:p302",
+    name: "Get Down!",
+    level: 2,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 3t, {shuffle} Push 2",
+    effects: [{ kind: "buff", duration: 3 }],
+  },
+  {
+    id: "hero_skill:p303",
+    name: "Get Down!",
+    level: 3,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 4t, {shuffle} Push 1 or Push 2",
+    effects: [{ kind: "buff", duration: 4 }],
+  },
+  {
+    id: "hero_skill:p305",
+    name: "Flashpowder",
+    level: 2,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {stun} 1t, {debuff} 2t",
+    effects: [
+      { kind: "stun", duration: 1 },
+      { kind: "debuff", duration: 2 },
+    ],
+  },
+  {
+    id: "hero_skill:p306",
+    name: "Flashpowder",
+    level: 3,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {stun} 2t, {debuff} 2t",
+    effects: [
+      { kind: "stun", duration: 2 },
+      { kind: "debuff", duration: 2 },
+    ],
+  },
+  {
+    id: "hero_skill:p308",
+    name: "Fortifying Vapours",
+    level: 2,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 3t",
+    effects: [{ kind: "buff", duration: 3 }],
+  },
+  {
+    id: "hero_skill:p309",
+    name: "Fortifying Vapours",
+    level: 3,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 3t",
+    effects: [{ kind: "buff", duration: 3 }],
+  },
+  {
+    id: "hero_skill:p311",
+    name: "Invigorating Vapours",
+    level: 2,
+    lineIndex: 1,
+    scope: "target",
+    headerSignature: "{range} 0 {target_hero} {target_hero}",
+    signature: "{target_effects} {buff} 3t",
+    effects: [{ kind: "buff", duration: 3 }],
+  },
+  {
+    id: "hero_skill:p312",
+    name: "Invigorating Vapours",
+    level: 3,
+    lineIndex: 1,
+    scope: "target",
+    headerSignature: "{range} 0 {target_hero} {target_hero} {target_hero}",
+    signature: "{target_effects} {buff} 4t",
+    effects: [{ kind: "buff", duration: 4 }],
+  },
+  {
+    id: "hero_skill:p314",
+    name: "Protect Me",
+    level: 2,
+    lineIndex: 1,
+    scope: "target",
+    headerSignature: "{range} 1 {target_hero}",
+    signature: "{target_effects} {guard} 3t, {protection} 2t, {mark} 2t",
+    effects: [
+      { kind: "guard", duration: 3 },
+      { kind: "protection", duration: 2 },
+      { kind: "mark", duration: 2 },
+    ],
+  },
+  {
+    id: "hero_skill:p315",
+    name: "Protect Me",
+    level: 3,
+    lineIndex: 1,
+    scope: "target",
+    headerSignature: "{range} 1 {target_hero}",
+    signature: "{target_effects} {guard} 3t, {protection} 3t, {mark} 1t",
+    effects: [
+      { kind: "guard", duration: 3 },
+      { kind: "protection", duration: 3 },
+      { kind: "mark", duration: 1 },
+    ],
   },
 ];
 

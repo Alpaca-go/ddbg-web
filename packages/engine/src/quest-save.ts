@@ -66,13 +66,15 @@ function replay(
 function replayCommands(commands: QuestSave["commands"]): Command[] {
   return commands.map((command): Command => {
     if (command.type === "playHeroSkill") {
-      const { face, shuffleChoice, trinketWindow, damageStoneWindow, ...base } = command;
+      const { face, shuffleChoice, shufflePushDistance, trinketWindow, damageStoneWindow, ...base } =
+        command;
       return {
         ...base,
         ...(damageStoneWindow === undefined ? {} : { damageStoneWindow }),
         ...(face === undefined ? {} : { face }),
         ...(trinketWindow === undefined ? {} : { trinketWindow }),
         ...(shuffleChoice === undefined ? {} : { shuffleChoice }),
+        ...(shufflePushDistance === undefined ? {} : { shufflePushDistance }),
       };
     }
     if (command.type === "playHeroSkillTargets") {

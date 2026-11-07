@@ -72,6 +72,10 @@ const pendingSteps: Record<
     label: "等待推拉方向选择",
     hint: "选择推或拉，再继续位移结算。",
   },
+  shufflePushDistance: {
+    label: "等待 Push 距离选择",
+    hint: "选择 Push 1 或 Push 2，再继续技能结算。",
+  },
   shuffleReduction: {
     label: "等待 Balanced 位移选择",
     hint: "由持有 Balanced 的英雄选择保持距离或少移 1，再继续本次位移。",

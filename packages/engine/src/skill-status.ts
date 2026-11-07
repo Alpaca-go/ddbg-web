@@ -6,6 +6,7 @@ import type { StatusEffect } from "./status";
 export function readVerifiedStatusEffects(
   skill: HeroSkillCardView,
   shuffleChoice?: "push" | "pull",
+  shufflePushDistance?: number,
 ):
   | { readonly status: "refused"; readonly reason: string }
   | {
@@ -186,6 +187,21 @@ export function readVerifiedStatusEffects(
       if (shuffleChoice !== "push" && shuffleChoice !== "pull")
         return { status: "refused", reason: "目标状态同行位移尚需选择Push或Pull" };
       targetShuffle = { direction: shuffleChoice, distance };
+    } else if (
+      /^\{shuffle\}Push([1-9]\d*)orPush([1-9]\d*)$/.test(rest) &&
+      scope === "self" &&
+      selfShuffle === null
+    ) {
+      const match = /^\{shuffle\}Push(\d+)orPush(\d+)$/.exec(rest)!;
+      const a = Number(match[1]);
+      const b = Number(match[2]);
+      if (!Number.isSafeInteger(a) || !Number.isSafeInteger(b))
+        return { status: "refused", reason: "自身可选 Push 距离溢出" };
+      if (shufflePushDistance !== a && shufflePushDistance !== b)
+        return { status: "refused", reason: "自身 Push 距离须为卡面所列二选一（Q-168）" };
+      if (shufflePushDistance === undefined)
+        return { status: "refused", reason: "自身 Push 距离尚需选择（Q-168）" };
+      selfShuffle = { direction: "push", distance: shufflePushDistance };
     } else if (rest !== "")
       return { status: "refused", reason: "状态同行尚未完整支持，整次拒绝（R-048）" };
     for (const entry of group)

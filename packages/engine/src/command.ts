@@ -816,6 +816,12 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
         pending.type === "monsterMove" ? command.optionId : pending.to,
         pending.type === "monsterDisplace" ? command.optionId : undefined,
       );
+    if (pending.type === "shufflePushDistance") {
+      const dist = Number(command.optionId);
+      if (!Number.isInteger(dist) || dist < 1)
+        return rejectBattleCommand(state, "Push 距离无效");
+      return playHeroSkill(state, { ...pending.command, shufflePushDistance: dist });
+    }
     if (command.optionId !== "push" && command.optionId !== "pull")
       return rejectBattleCommand(state, "位移方向无效");
     if (pending.command.type === "playHeroSkillTargets")
