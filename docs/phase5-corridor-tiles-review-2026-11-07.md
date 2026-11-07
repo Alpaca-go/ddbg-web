@@ -21,5 +21,5 @@
 ## 处置
 
 - Q-161 关闭；`corridor_layout_bindings` 不建，探索仍用抽象边（R-116 只批了 QuestMap）。
-- `corridor_tile_geometry.json` 及 corridor-tile 生成器/测试为死数据，可另开一刀移除（本刀只记录结论）。
+- **清理已完成**：移除 `corridor_tile_geometry.json`、`normalize/corridor-tile.ts` 与其测试、engine catalog 的数据读取（只保留 `resolveQuestMapEdgeCorridor` 绑定查询）、web `corridor-tile-print-art-map.json` / `resolve-corridor-tile-art.ts` / 测试，以及 `dungeon-data.ts` 与 exploration art 的 corridor 引用。
 - PvP 地形与 Old Road 教程页不进入首版数据。

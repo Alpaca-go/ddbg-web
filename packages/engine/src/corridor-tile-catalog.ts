@@ -1,24 +1,12 @@
-import catalog from "../../data/normalized/corebox/corridor_tile_geometry.json";
 import bindings from "../../data/normalized/corebox/corridor_layout_bindings.json";
 import {
   corridorLayoutBindingFileSchema,
   resolveCorridorLayoutBinding,
   type CorridorLayoutBinding,
 } from "../../data/src/corridor-layout-bindings";
-import { corridorTileGeometryFileSchema } from "../../data/src/normalize/corridor-tile";
 
-const parsedCatalog = corridorTileGeometryFileSchema.parse(catalog);
+/** 核心盒无走廊板块（Q-161）；只保留 QuestMap 边 → 走廊实例绑定的查询。 */
 const parsedBindings = corridorLayoutBindingFileSchema.parse(bindings);
-
-const byId = new Map(parsedCatalog.tiles.map((tile) => [tile.id, tile]));
-
-export function readCorridorTileCatalog() {
-  return parsedCatalog;
-}
-
-export function lookupCorridorTile(corridorTileId: string) {
-  return byId.get(corridorTileId);
-}
 
 export function resolveQuestMapEdgeCorridor(
   layoutId: string,

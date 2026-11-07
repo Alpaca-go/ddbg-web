@@ -2530,7 +2530,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **核对稿**：[phase5-corridor-tiles-review-2026-11-07.md](phase5-corridor-tiles-review-2026-11-07.md)。
 - **查清（2026-11-07，Kyries）**：`corridor_tile:p006`、`p007`、`p009`–`p014`（TILES FRONT 对应页）实际是 **8 页 Boss 房间板块**（16 面，属已核实的 25 面；R-054 / R-065 / R-066 / R-144 / R-153 / R-156–R-169）；`ports` 数字 1-2、3、4、5、6、7-8、9、10 是 Prophet Room 的 **Wooden Pews d10 区域标记**（词典 `096ea91bb9`），不是走廊出口。p006 Prophet Room 复核：容量/部署/11 条共享边/3 条角点与 R-167 数据一致，D–H 共享边存在。
 - **定性（2026-11-07，Kyries）**：`TILES_FRONT p8` 与 `TILES_BACK p8` 是 **PvP 地形**（首版不做）；`TILES_BACK p1` 是 **Old Road 教程地图**（不做）。两个 PDF 共 **28 页**，减去这 3 页 = **25 页 = 25 张任务/房间板块**，与 `room_tile_geometry.json` 的 25 面一一对应。**核心盒没有走廊板块**。
-- **处置**：Q-161 关闭；`corridor_tile_geometry.json` 全部作废（8 页误标 + p008 为 PvP），引擎未使用；`corridor_layout_bindings` 不建，探索仍用抽象边（R-116 只批了 QuestMap）。可选清理：移除 corridor tile 数据/生成器/测试/引用，单独开一刀。
+- **处置**：Q-161 关闭；`corridor_tile_geometry.json` 全部作废（8 页误标 + p008 为 PvP），引擎未使用；`corridor_layout_bindings` 不建，探索仍用抽象边（R-116 只批了 QuestMap）。**清理已完成**：移除 `corridor_tile_geometry.json`、corridor-tile 生成器与测试、engine catalog 的数据读取（仅保留 QuestMap 绑定查询）、web corridor art 映射/解析器与 `dungeon-data` 引用。
 - **状态**：已关闭（2026-11-07）→ 误标 + PvP/教程页，无核心盒走廊板块。
 
 ### R-195

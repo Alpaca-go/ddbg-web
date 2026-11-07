@@ -110,12 +110,6 @@ export { loadNormalizedCorebox, writeNormalizedCorebox } from "./normalize/write
 export { roomTileGeometrySchema, roomTileGeometryFileSchema } from "./normalize/room-tile";
 export type { RoomTileGeometryFile } from "./normalize/room-tile";
 export {
-  corridorTileGeometryFileSchema,
-  corridorTileSchema,
-  buildCorridorTileGeometry,
-} from "./normalize/corridor-tile";
-export type { CorridorTileGeometryFile } from "./normalize/corridor-tile";
-export {
   corridorLayoutBindingFileSchema,
   corridorLayoutBindingSchema,
   lookupCorridorLayoutBinding,

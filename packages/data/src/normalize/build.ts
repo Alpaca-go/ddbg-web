@@ -58,8 +58,6 @@ import { buildRoomTileGeometry } from "./room-tile";
 import { assertHallOfAscensionEffectSource } from "./hall-of-ascension";
 import { assertPoolOfRebirthEffectSource } from "./pool-of-rebirth";
 import type { RoomTileGeometryFile } from "./room-tile";
-import { buildCorridorTileGeometry } from "./corridor-tile";
-import type { CorridorTileGeometryFile } from "./corridor-tile";
 import { buildHeroStats, normalizedHeroStatFileSchema } from "./hero-stat";
 import { buildWarrensHeroStats } from "./warrens-hero-stat";
 import { buildCoveHeroStats } from "./cove-hero-stat";
@@ -126,7 +124,6 @@ export type NormalizedCorebox = {
   curio: ReturnType<typeof buildCurios>;
   hero_stat: NormalizedHeroStatFile;
   room_tile_geometry: RoomTileGeometryFile;
-  corridor_tile_geometry: CorridorTileGeometryFile;
   hero_skill: NormalizedHeroSkillFile;
   monster_medium: NormalizedMonsterMediumFile;
   monster_large: NormalizedMonsterLargeFile;
@@ -760,7 +757,6 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       assertFanaticRoomSource(input.rooms);
       return buildRoomTileGeometry(input.roomTiles);
     })(),
-    corridor_tile_geometry: buildCorridorTileGeometry(input.roomTiles),
     monster_medium: medium,
     monster_large: large,
     trinket: buildTrinkets(input.trinkets, input.trinketRaw, lookup),
