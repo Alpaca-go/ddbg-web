@@ -197,7 +197,7 @@ export function readVerifiedStatusEffects(
   }
   // 无 Acc 自身卡的射程另占一行；只接受确切、已命名的 Self，不当作区域距离默认 0。
   const selfHeaders =
-    groups.size && skill.stats_line === null
+    skill.stats_line === null
       ? skill.effect_lines.filter(
           (line) =>
             line

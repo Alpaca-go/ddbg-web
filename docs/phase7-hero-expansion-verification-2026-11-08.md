@@ -63,6 +63,7 @@
 
 ## 已实现（2026-11-08）
 
+- **Leper II/III 首批 14 张**（本 PR）：逐卡覆盖 + `verified-hero-statuses` / `verified-warrens-leper-higher`；`leper-higher-skills` d10 审计 14/14 绿。待 Kyries：Q-163～Q-166。
 - **Antiquarian III STAT**：Life 15 / Dodge 3 / Speed 0；左栏 Blight 抗性；免疫 = 位移 + 疾病。`8510428636` 只在 `verified_higher_condition_defence` 注解，不写全局词典（Q-104 关闭，R-200）。
 - `warrens-hero-stat.ts` 增加该面并调用 `buildHigherHeroDefence`；`hero-higher-defence.ts` 增加批准行与 `kyries_review_2026-11-08`；normalized 已重生成；`battle-data-plugin` 属性计数 53→54。
 - 数据测试、`packages/data` 全量、engine `dungeon-battle`、`pnpm typecheck`、web build 均通过。

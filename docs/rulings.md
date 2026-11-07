@@ -2650,3 +2650,35 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **状态**：已裁定
 - **实现状态**：`warrens-hero-stat.ts` 增加 Antiquarian III；`hero-higher-defence.ts` 增加 `hero_stat:warrens:antiquarian:p002:front` 批准行与 `kyries_review_2026-11-08`；`normalized/corebox/hero_stat.json` 已重生成；`battle-data-plugin` 英雄属性计数 53→54。目录尚未切到 18 名 I–III。
 - **边界**：不改全局图标词典；不猜未确认图标；不在本裁定内完成 98 张扩展高等级技能接线。
+
+### Q-163
+
+- **编号**：Q-163
+- **日期**：2026-11-08
+- **问题**：Leper **Revenge II/III** 卡面 stats 仅 Crit/Acc，效果行此前误读 `heal` 前缀。除目标 Mark + Debuff 外，是否另有**伤害**或 **Buff**？「mark 和的 buff」是否指 Debuff？
+- **暂定**：本 PR 仅接线目标 Mark + Debuff（逐卡覆盖 `{heal}`→`{target_effects}`）；不结算伤害直至确认。
+- **状态**：待 Kyries 确认
+
+### Q-164
+
+- **编号**：Q-164
+- **日期**：2026-11-08
+- **问题**：Leper **Intimidate II/III** 效果行 0 印 `{buff} Self …t`；`{light} Ignores …` 除无视 Protection/Guard + 目标 Debuff 外是否还有其它效果？**自身 Buff 2t/1t 是否真实存在**？
+- **暂定**：本 PR 按卡面印 Buff + 拆分 Ignores 行（Protection / Guard）+ 目标 Debuff；`{light}` 行不额外命名。
+- **状态**：待 Kyries 确认
+
+### Q-165
+
+- **编号**：Q-165
+- **日期**：2026-11-08
+- **问题**：Leper **Withstand II/III** 除自身 Protection + 自身 Mark 外，是否另有 **Buff**（提取行中的 `{buff}` 标记）？
+- **暂定**：本 PR 仅接线 Protection + 自身 Mark；去掉误读 `{buff}` 字段时间不命名。
+- **状态**：待 Kyries 确认
+
+### Q-166
+
+- **编号**：Q-166
+- **日期**：2026-11-08
+- **问题**：Leper **Solemnity II/III** 是否仅 **自身 Heal 9/12 + 压力 -1**，无 Buff、无 Shuffle？
+- **暂定**：Kyries 2026-11-08 读数与本 PR 一致；`f18923574c` 逐卡按压力 -1，不写全局词典。
+- **状态**：待 Kyries 确认

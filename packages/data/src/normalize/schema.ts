@@ -169,6 +169,21 @@ const skillStatFields = {
       source: z.literal("print_front"),
     })
     .optional(),
+  verified_self_heal: z
+    .strictObject({
+      lineIndex: z.int().nonnegative(),
+      amount: z.int().nonnegative(),
+      source: z.literal("print_front"),
+    })
+    .optional(),
+  verified_self_stress: z
+    .strictObject({
+      lineIndex: z.int().nonnegative(),
+      amount: z.int(),
+      source: z.literal("print_front"),
+    })
+    .optional(),
+  verified_self_range: z.literal(true).optional(),
 };
 
 /** 逐卡对照完整页面后附加的 Nt；缺失不表示任何默认持续时间。 */
