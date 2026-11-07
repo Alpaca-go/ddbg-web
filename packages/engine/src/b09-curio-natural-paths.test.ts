@@ -1,12 +1,10 @@
 import { expect, it } from "vitest";
 import { naturalQuest } from "./test-helpers/natural-quest";
 
-// Q-19：位移终点切入大型怪两格之间仍是待裁定停点。Rising Threat 的 Curio 守卫战
-// （含 II 级大怪）在自然路径中会触达它；此处按已知 hold 容忍，其余拒绝仍视为失败。
-const KNOWN_HOLDS = ["Q-19"];
-
+// Q-19 由 R-199 关闭（2026-11-07）：位移终点切入大型怪的格位改为整块让位 + 级联，
+// 顶到轨道头尾则截断姿态位移。这里不再容忍任何 Q-19 停点。
 for (const questId of ["quest:p001", "quest:p005"] as const) {
-  it(`${questId} seeds 1-100：无未裁定 commandRefused`, () => {
+  it(`${questId} seeds 1-100：无 commandRefused`, () => {
     const failures: string[] = [];
     for (let seed = 1; seed <= 100; seed++) {
       try {
@@ -20,6 +18,6 @@ for (const questId of ["quest:p001", "quest:p005"] as const) {
         failures.push(`seed ${seed} throw: ${e instanceof Error ? e.message : String(e)}`);
       }
     }
-    expect(failures.filter((line) => !KNOWN_HOLDS.some((hold) => line.includes(hold)))).toEqual([]);
+    expect(failures).toEqual([]);
   }, 120000);
 }

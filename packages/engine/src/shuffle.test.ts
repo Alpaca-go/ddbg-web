@@ -216,7 +216,7 @@ describe("Push / Pull 位置纯结算（R21/R24、R-020、R-021、Q-19）", () =
     expect(resolved(resolveShuffle(setup, intent(0))).entities).toBe(setup.entities);
   });
 
-  it("大型怪不能被另一角色的位移终点拆开，保留 Q-19", () => {
+  it("位移终点切入大型怪的格位：整块让位；顶到轨道边界则姿态截断（R-199 / Q-19）", () => {
     const setup = {
       areas: line,
       entities: [
@@ -225,13 +225,52 @@ describe("Push / Pull 位置纯结算（R21/R24、R-020、R-021、Q-19）", () =
         entity("large", { stance: "defensive", stanceSlots: 2 }),
       ],
     };
-    expect(resolveShuffle(setup, intent())).toMatchObject({
-      status: "refused",
-      reason: expect.stringContaining("Q-19"),
-    });
+    // Push 1：大型怪只有向前让到 -1 才能腾出 defensive，顶到轨道头 → 整次姿态位移截断。
+    const truncated = resolved(resolveShuffle(setup, intent()));
+    expect(truncated).toMatchObject({ path: ["c"], areaSteps: 1, stanceSteps: 0 });
+    expect(truncated.entities.slice(1)).toMatchObject([
+      { stance: "aggressive" },
+      { stance: "defensive", stanceSlots: 2 },
+    ]);
+    // Push 2：大型怪整块顺移到 aggressive+defensive，目标落在 ranged。
     expect(resolved(resolveShuffle(setup, intent(2))).entities.slice(1)).toMatchObject([
       { stance: "ranged" },
       { stance: "aggressive", stanceSlots: 2 },
+    ]);
+    // Pull 1：大型怪向后让两格到 ranged+support（2,3），目标占 defensive。
+    expect(
+      resolved(
+        resolveShuffle(
+          {
+            areas: line,
+            entities: [
+              hero(),
+              entity("target", { stance: "ranged" }),
+              entity("large", { stanceSlots: 2 }),
+            ],
+          },
+          intent(1, "pull"),
+        ),
+      ).entities.slice(1),
+    ).toMatchObject([{ stance: "defensive" }, { stance: "ranged", stanceSlots: 2 }]);
+  });
+
+  it("大型怪让位级联顶到轨道边界时整次截断，不留下半格重叠（R-199）", () => {
+    const setup = {
+      areas: line,
+      entities: [
+        hero(),
+        entity("target", { stance: "defensive" }),
+        entity("large", { stance: "ranged", stanceSlots: 2 }),
+        entity("front", { stance: "aggressive" }),
+      ],
+    };
+    const result = resolved(resolveShuffle(setup, intent()));
+    expect(result).toMatchObject({ stanceSteps: 0 });
+    expect(result.entities.slice(1)).toMatchObject([
+      { stance: "defensive" },
+      { stance: "ranged", stanceSlots: 2 },
+      { stance: "aggressive" },
     ]);
   });
 

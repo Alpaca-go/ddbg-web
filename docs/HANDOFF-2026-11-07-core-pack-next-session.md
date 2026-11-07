@@ -21,7 +21,7 @@ pnpm typecheck
 pnpm test --maxWorkers=2 --testTimeout=30000   # 全量约 20 分钟
 ```
 
-基线（R-198 接线后）：**457 个测试文件 / 3306 通过 / 1 跳过**（skip 是 Q-162 的 Templars 自然存档；R-198 前为 456 / 3302）。
+基线（R-199 后）：**457 个测试文件 / 3307 通过 / 1 跳过**（skip 是 Q-162 的 Templars 自然存档；R-198 前为 456 / 3302）。
 
 已知 Windows 长场景超时：`packages/engine/src/quest-save.test.ts` 的自然回放有自带的 20000ms 上限，并行时偶发超时，单独跑会过——不是回归。
 
@@ -37,6 +37,7 @@ Playwright 浏览器版本本机不匹配（需要 chromium 1243，本机 1234�
 | Q-161 | 核心盒无走廊板块（p8=PvP、BACK p1=Old Road）；误提取数据已删 |
 | Q-162 | Templars 自然存档**保持 skip**（R-190：不为绿灯调策略/种子） |
 | Q-163 | DL3 八招一次接完（方案 2 + cleanse 原语）→ R-198             |
+| Q-19  | 大型怪让位：整块顺移 + 轨道边界截断 → R-199                  |
 
 ## 4. 当前待办（按建议顺序）
 
@@ -48,9 +49,9 @@ Playwright 浏览器版本本机不匹配（需要 chromium 1243，本机 1234�
 - `dungeon-battle-l2-admission.test.ts` 的 DL3 用例改为断言 admitted；新增 `dl3-monster-effects.test.ts`。
 - 仍需注意：cleanse 只接自身「Remove Bleed、Blight」整行；完整 AI / 自动选招仍归 Phase 6（Q-158）。
 
-### 4.2 Q-19：位移终点切入大型怪两格之间
+### 4.2 Q-19：位移终点切入大型怪两格之间 —— 已完成（R-199）
 
-Rising Threat 的 Curio 守卫战会自然触达这个**既有待裁定**停点。`b09-curio-natural-paths.test.ts` 现在按已知 hold 容忍 Q-19（其余拒绝仍失败）。需要 Kyries 给一个裁定（停在原区 / 顺移 / 拒绝），之后可收紧该测试并实现。
+裁定为**顺移**：同阵营角色按「插入」顺移，大型怪 2 格整块让位并同向级联，顶到轨道头/尾则这一次姿态位移截断（区域位移按 R-020 ④ 照常）。`shuffle.ts` 已改，`b09-curio-natural-paths.test.ts` 的 Q-19 容忍已去掉（p001 / p005 各 100 种子全通过）。切片见 `docs/phase5-q19-large-monster-stance-shift-2026-11-07.md`。
 
 ### 4.3 II/III 战役存档验收
 
@@ -76,7 +77,7 @@ R-194 的模型已就绪（`createQuestSave` 写 `campaignLevel` 并校验回放
 | Purify          | `packages/engine/src/quest-provisions.ts`、`dungeon-starting-provisions.ts`、`dungeon-provision-use.ts`、`dungeon-objective.ts`                                     |
 | 任务卡          | `packages/data/src/basic-quests.ts`（p004/p005/p010 的 SPECIAL 字段）                                                                                               |
 | 网页            | `apps/web/src/dungeon-sandbox/**`（hamlet 入口、失败面板、QUEST 面板）                                                                                              |
-| 裁定            | `docs/rulings.md`（R-191–R-197、Q-158–Q-163）                                                                                                                       |
+| 裁定            | `docs/rulings.md`（R-191–R-199、Q-158–Q-163）                                                                                                                       |
 
 切片记录（按时间）：`docs/phase5-darkest-act-entry-2026-11-05.md`、`phase5-darkest-quest-draw-2026-11-06.md`、`phase5-campaign-defeat-new-campaign-2026-11-06.md`、`phase5-campaign-save-model-2026-11-06.md`、`phase5-mammoth-teleport-2026-11-07.md`、`phase5-templars-spikes-review-2026-11-07.md`、`phase5-shuffling-horror-echoing-initiative-2026-11-07.md`、`phase5-dl3-monster-fields-review-2026-11-07.md`、`phase5-task-special-review-2026-11-07.md`、`phase5-rising-threat-2026-11-07.md`、`phase5-purify-fountains-2026-11-07.md`、`phase5-corridor-tiles-review-2026-11-07.md`。
 

@@ -126,19 +126,6 @@ export function resolveShuffle(
   const start = STANCES.indexOf(actor.stance!);
   const delta = intent.move.direction === "push" ? 1 : -1;
   const destination = Math.max(0, Math.min(4 - width(actor)!, start + delta * amount));
-  // 不把另一个大型怪拆成两段；部分重叠的顺移没有明确裁定，保留 Q-19。
-  if (
-    peers.some(
-      (peer) =>
-        peer.id !== actor.id &&
-        width(peer) === 2 &&
-        (delta > 0
-          ? destination + width(actor)! === STANCES.indexOf(peer.stance!) + 1
-          : destination === STANCES.indexOf(peer.stance!) + 1),
-    )
-  )
-    return refuse("位移终点切入另一大型怪的两格之间，需 Q-19 补充裁定");
-
   const graph = distances(areas, relativeAreaId);
   if (!graph.has(actor.areaId)) return refuse("被位移者与参照区域不连通");
   let current = actor.areaId;
@@ -164,21 +151,81 @@ export function resolveShuffle(
     path.push(current);
   }
   if (choices.length > path.length) return refuse("位移路径超过距离或截断点");
+  // R-199（Q-19）：同阵营角色按「插入」顺移；2 格大型怪整块让位并级联。
+  // 顶到轨道头尾时这一次姿态位移截断，区域位移按 R-020 ④ 独立照常结算。
+  const actorWidth = width(actor)!;
+  const displaced = new Set<string>();
+  for (const peer of peers) {
+    if (peer.id === actor.id) continue;
+    const position = STANCES.indexOf(peer.stance!);
+    if (
+      delta > 0
+        ? position >= start + actorWidth && position < destination + actorWidth
+        : position >= destination && position < start
+    )
+      displaced.add(peer.id);
+  }
+  type Placed = { readonly id: string; start: number; readonly size: number };
+  const placed: Placed[] = peers
+    .filter((peer) => peer.id !== actor.id)
+    .map((peer) => ({
+      id: peer.id,
+      start: STANCES.indexOf(peer.stance!) - (displaced.has(peer.id) ? delta * actorWidth : 0),
+      size: width(peer)!,
+    }));
+  const actorSlots: Placed = { id: actor.id, start: destination, size: actorWidth };
+  // 顺移方向：Push 让位者向轨道前段（-1），Pull 向后段（+1）。
+  const shiftStep = -delta;
+  const insideTrack = (block: Placed) =>
+    block.start >= 0 && block.start + block.size <= STANCES.length;
+  const collides = (a: Placed, b: Placed) =>
+    a.start < b.start + b.size && b.start < a.start + a.size;
+  let truncated = false;
+  for (let guard = 0; guard < 64; guard += 1) {
+    const hit = placed.find((block) => collides(block, actorSlots));
+    if (hit) {
+      hit.start += shiftStep;
+      if (!insideTrack(hit)) {
+        truncated = true;
+        break;
+      }
+      continue;
+    }
+    const pair = placed
+      .flatMap((a, index) => placed.slice(index + 1).map((b) => [a, b] as const))
+      .find(([a, b]) => collides(a, b));
+    if (!pair) break;
+    // 同一方向被挤压时，先让沿位移方向更靠前的那整块移动；顶到轨道边界就整次截断。
+    const [a, b] = pair;
+    const target = shiftStep < 0 ? (a.start <= b.start ? a : b) : a.start >= b.start ? a : b;
+    target.start += shiftStep;
+    if (!insideTrack(target)) {
+      truncated = true;
+      break;
+    }
+  }
+  if (
+    !truncated &&
+    [...placed, actorSlots].some((a, index) =>
+      [...placed, actorSlots].slice(index + 1).some((b) => collides(a, b)),
+    )
+  )
+    truncated = true;
   return {
     status: "resolved",
     entities: entities.map((entity) => {
       if (entity.id === actor.id)
-        return { ...entity, areaId: current, stance: STANCES[destination]! };
-      if (entity.dead || entity.side !== actor.side) return entity;
-      const position = STANCES.indexOf(entity.stance!);
-      const displaced =
-        delta > 0
-          ? position >= start + width(actor)! && position < destination + width(actor)!
-          : position >= destination && position < start;
-      return displaced ? { ...entity, stance: STANCES[position - delta * width(actor)!]! } : entity;
+        return {
+          ...entity,
+          areaId: current,
+          // 姿态被截断时保持原姿态；区域位移照常。
+          ...(truncated ? {} : { stance: STANCES[destination]! }),
+        };
+      const block = placed.find((entry) => entry.id === entity.id);
+      return block && !truncated ? { ...entity, stance: STANCES[block.start]! } : entity;
     }),
     path,
     areaSteps: path.length,
-    stanceSteps: Math.abs(destination - start),
+    stanceSteps: truncated ? 0 : Math.abs(destination - start),
   };
 }
