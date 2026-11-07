@@ -1682,19 +1682,6 @@ function readsAsSelfTarget(skill: HeroSkillCardView): boolean {
   const line = skill.stats_line;
   if (line === null) {
     if (
-      skill.verified_self_heal &&
-      skill.verified_self_range &&
-      skill.effect_lines.some(
-        (line) =>
-          line
-            .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
-            .join("")
-            .replace(/\s+/g, "") === "{range}Self" &&
-          line.every((s) => s.type === "text" || NAMED.has(s.icon.naming)),
-      )
-    )
-      return true;
-    if (
       !skill.verified_status_effects?.length ||
       skill.verified_status_effects.some((entry) => entry.scope !== "self")
     )
