@@ -2528,6 +2528,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **待确认**：逐面几何标注与绑定审核（与房间板块同流程）；确认前走廊只沿用现有布局，不改绑定。
 - **暂定**：保持 `geometryVerified=false`，不自行推定走廊形状/连接。
 - **核对稿**：[phase5-corridor-tiles-review-2026-11-07.md](phase5-corridor-tiles-review-2026-11-07.md)。
+- **逐面几何工作表**：[phase5-corridor-tiles-geometry-worksheet-2026-11-07.md](phase5-corridor-tiles-geometry-worksheet-2026-11-07.md)。
 - **状态**：待 Kyries 确认。
 
 ### R-195
