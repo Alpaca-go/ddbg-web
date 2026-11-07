@@ -2548,6 +2548,17 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **切片**：[phase5-dl3-monster-fields-review-2026-11-07.md](phase5-dl3-monster-fields-review-2026-11-07.md)（核对稿已按确认值填表）。
 - **边界**：只补三张卡的 Speed/选招与 `monster_pool` 的 `missingBattleFields`；不改遭遇几何、生产准入白名单或其它卡，不解除 Boss/房间停点。**字段齐全不等于可进半场战斗**：三张卡的技能效果尚未逐招接入，`startDungeonBattle` 仍按 R-048 拒战。
 
+### Q-163
+
+- **日期**：2026-11-07（Asia/Shanghai）
+- **问题**：R-196 补齐 DL3 三张普通怪的 Speed/选招后，`startDungeonBattle` 仍拒战——三张卡的技能效果尚未逐招核实（`Brigand Raider 技能 1 的完整效果尚未接入，保留部署，不进入半场战斗（R-048）`）。技能文本已入库：
+  - **Brigand Raider**：1 Slice and Dice（Crowded；Crit 2；2t）、2 Shank（Closest；Crit 1；2t）、3 Harmless Poke（Furthest 1；Crit 0；Push 1；2t）。
+  - **Brigand Hunter**：1 Blanket Fire（Crowded；Crit 1；2t、+1）、2 Rushed Shot（Closest 0；Crit 1；Push 1）。
+  - **Adder**：1 Adder's Fang（Furthest 2；Crit 1；3 3；4t）、2 Paralyzing Quills（Closest 1；Crit 1；1t）、3 Molt（Self；2t；Remove）。
+- **待确认**：三张卡每个技能的效果原语（伤害 / 暴击 / 命中、状态、Shuffle、Self 效果）与数值；确认前保持拒战，不猜效果（R-048）。
+- **暂定**：字段已入库但不入半场战斗；`dungeon-battle-l2-admission.test.ts` 已记录该边界。
+- **状态**：待 Kyries 确认。
+
 
 
 

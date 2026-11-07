@@ -24,4 +24,4 @@
 ## 边界
 
 - 只补这三张卡的字段；不改遭遇几何、生产准入白名单或其它卡，不解除 Boss/房间停点。
-- **字段齐全不等于可进入半场战斗**：三张卡的技能效果尚未逐招接入，`startDungeonBattle` 仍按 R-048 拒战（`Brigand Raider 技能 1 的完整效果尚未接入…`）；`dungeon-battle-l2-admission.test.ts` 已记录该边界。
+- **字段齐全不等于可进入半场战斗**：三张卡的技能效果尚未逐招接入，`startDungeonBattle` 仍按 R-048 拒战（`Brigand Raider 技能 1 的完整效果尚未接入…`）；`dungeon-battle-l2-admission.test.ts` 已记录该边界。技能的逐招效果核对另见 **Q-163**。
