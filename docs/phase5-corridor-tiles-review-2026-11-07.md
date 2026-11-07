@@ -1,5 +1,7 @@
 # 走廊板块几何核对稿（Q-161）
 
+**逐面核实工作表（证据表 / ports / span）** → [phase5-corridor-tiles-geometry-worksheet-2026-11-07.md](phase5-corridor-tiles-geometry-worksheet-2026-11-07.md)。
+
 状态：待 Kyries 确认。9 张 `corridor_tile:p006`–`p014` 全部 `review: pending`、`geometryVerified: false`、`segments: []`；`corridor_layout_bindings.json` 的 `bindings` 为空。
 
 来源：`DD_COREBOX_TILES_FRONT.pdf` p6–p14（front）。只读缓存，不入库。
