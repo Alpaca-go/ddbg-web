@@ -3,6 +3,7 @@ import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damag
 import {
   heroSkillUsesSelfTarget,
   needsHeroSkillShuffleChoice,
+  needsHeroSkillShufflePushDistance,
   resolveHeroSkill,
   resolveHeroSkillEffects,
   skillIgnoresGuard,
@@ -141,6 +142,8 @@ export type PlayHeroSkillCommand = {
   readonly skillId: string;
   readonly face?: "front" | "back";
   readonly shuffleChoice?: "push" | "pull";
+  /** Q-168：Get Down! III 等「Push 1 or Push 2」自选距离。 */
+  readonly shufflePushDistance?: number;
 };
 
 export type BattleSetup = {
@@ -334,6 +337,11 @@ export type BattleState = BattleSetup & {
         readonly command:
           PlayHeroSkillCommand | PlayHeroSkillTargetsCommand | PlayMonsterSkillCommand;
         readonly shuffleTargetId?: string;
+      }
+    | {
+        readonly type: "shufflePushDistance";
+        readonly choice: PendingChoice;
+        readonly command: PlayHeroSkillCommand;
       }
     | {
         readonly type: "monsterMove";
@@ -601,17 +609,31 @@ export function playHeroSkill(
         battle.entities.some((entity) => entity.side === "monster" && !entity.dead && entity.guard),
     ...(command.face ? { face: command.face } : {}),
     ...(command.shuffleChoice ? { shuffleChoice: command.shuffleChoice } : {}),
+    ...(command.shufflePushDistance !== undefined
+      ? { shufflePushDistance: command.shufflePushDistance }
+      : {}),
   };
   // 无 Acc 的自身效果不选目标区域；只有纯函数确认可直接结算才走此路径（R19）。
   const ownProbe = actor.id === target.id ? resolveHeroSkill(skill, context, 1) : null;
   const ownEffect = ownProbe?.outcome === null && ownProbe.status === "resolved";
   const combat = ownEffect ? context : { ...context, areaDistance, targetsInArea: 1 };
+  const pushDistancePair =
+    command.shufflePushDistance === undefined
+      ? needsHeroSkillShufflePushDistance(skill, command.face)
+      : null;
+  const needsPushDistance = pushDistancePair !== null;
   const needsChoice =
     command.shuffleChoice === undefined && needsHeroSkillShuffleChoice(skill, command.face);
-  // 先校验，拒绝或等待选择均不推进 RNG；方向选择必须在掷骰之前完成。
+  // 先校验，拒绝或等待选择均不推进 RNG；方向/距离选择必须在掷骰之前完成。
   const probe = resolveHeroSkill(
     skill,
-    { ...combat, ...(needsChoice ? { shuffleChoice: "push" as const } : {}) },
+    {
+      ...combat,
+      ...(needsChoice ? { shuffleChoice: "push" as const } : {}),
+      ...(needsPushDistance && pushDistancePair
+        ? { shufflePushDistance: pushDistancePair[0] }
+        : {}),
+    },
     1,
   );
   if (probe.status === "refused") return rejectBattleCommand(state, probe.reason ?? "技能拒绝结算");
@@ -627,6 +649,29 @@ export function playHeroSkill(
     return rejectBattleCommand(state, "Unholy Aura：此区域英雄不能治疗或被治疗（R-067）");
   const statusProbe = applyBattleSkillStatuses(battle, battle.entities, actor.id, [probe]);
   if (statusProbe.status === "refused") return rejectBattleCommand(state, statusProbe.reason);
+  if (needsPushDistance && pushDistancePair) {
+    const choice: PendingChoice = {
+      id: `shufflePushDistance:${battle.choiceCursor}:${actor.id}:${skill.id}:${target.id}`,
+      prompt: "选择自身 Push 距离",
+      actorId: actor.id,
+      options: [
+        { id: String(pushDistancePair[0]), label: `Push ${pushDistancePair[0]}` },
+        { id: String(pushDistancePair[1]), label: `Push ${pushDistancePair[1]}` },
+      ],
+    };
+    return {
+      state: {
+        ...state,
+        battle: {
+          ...battle,
+          choiceCursor: battle.choiceCursor + 1,
+          pending: { type: "shufflePushDistance", choice, command: { ...command } },
+        },
+      },
+      events: [],
+      pendingChoice: choice,
+    };
+  }
   if (needsChoice) {
     const choice: PendingChoice = {
       id: `shuffle:${battle.choiceCursor}:${actor.id}:${skill.id}:${target.id}`,

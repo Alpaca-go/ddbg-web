@@ -8,7 +8,13 @@ import {
 } from "./hero-skill";
 import type { HeroSkillCardView } from "./hero-skill";
 
-const ANTIQUARIAN_II_III_IDS = [
+const ANTIQUARIAN_HIGHER_IDS = [
+  "hero_skill:p298",
+  "hero_skill:p301",
+  "hero_skill:p304",
+  "hero_skill:p307",
+  "hero_skill:p310",
+  "hero_skill:p313",
   "hero_skill:p296",
   "hero_skill:p297",
   "hero_skill:p299",
@@ -27,13 +33,13 @@ const ANTIQUARIAN_II_III_IDS = [
 
 const data = loadNormalizedCorebox();
 const antiquarianHigherCards = data.hero_skill.cards.filter((card) =>
-  (ANTIQUARIAN_II_III_IDS as readonly string[]).includes(card.id),
+  (ANTIQUARIAN_HIGHER_IDS as readonly string[]).includes(card.id),
 );
 const clean = <T>(v: unknown): T => JSON.parse(JSON.stringify(v));
 
-it("R-200：Antiquarian II/III 共 14 张纳入 d10 审计集合", () => {
+it("R-200：Antiquarian I–III 裁定族 20 张纳入 d10 审计集合", () => {
   expect(antiquarianHigherCards.map((c) => c.id).sort()).toEqual(
-    [...ANTIQUARIAN_II_III_IDS].sort(),
+    [...ANTIQUARIAN_HIGHER_IDS].sort(),
   );
 });
 

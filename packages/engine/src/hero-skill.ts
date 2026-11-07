@@ -1330,6 +1330,33 @@ export function needsHeroSkillShuffleChoice(
   );
 }
 
+const SHUFFLE_PUSH_DISTANCE_TEXT = /Push\s+([1-9]\d*)\s+or\s+Push\s+([1-9]\d*)/;
+
+/** Q-168：自身效果行「Push N or Push M」须在进入 RNG 前选定距离。 */
+export function needsHeroSkillShufflePushDistance(
+  skill: HeroSkillCardView,
+  face: "front" | "back" = "front",
+): readonly [number, number] | null {
+  const selected = selectFace(skill, face);
+  if (!selected.ok) return null;
+  for (const line of selected.skill.effect_lines) {
+    const selfLine = line.some(
+      (s) => s.type === "icon" && s.icon.key === "self_effects" && NAMED.has(s.icon.naming),
+    );
+    if (!selfLine) continue;
+    for (const segment of line) {
+      if (segment.type !== "text") continue;
+      const matched = SHUFFLE_PUSH_DISTANCE_TEXT.exec(segment.text);
+      if (matched === null) continue;
+      const a = Number(matched[1]);
+      const b = Number(matched[2]);
+      if (!positiveInteger(a) || !positiveInteger(b) || a === b) return null;
+      return [a, b];
+    }
+  }
+  return null;
+}
+
 /** 合并使用者与自身目标的快照时，沿用纯函数的 Self 判定（R19）。 */
 export function heroSkillUsesSelfTarget(
   skill: HeroSkillCardView,

@@ -217,6 +217,7 @@ export const savedCommandSchema = z.union([
     skillId: id,
     face: z.enum(["front", "back"]).optional(),
     shuffleChoice: shuffle.optional(),
+    shufflePushDistance: z.int().positive().optional(),
   }),
   commandObject({
     type: z.literal("playHeroSkillTargets"),
