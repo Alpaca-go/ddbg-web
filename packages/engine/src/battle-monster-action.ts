@@ -2,6 +2,7 @@ import { isDarkestSupportSkill } from "./battle-monster-support";
 import { isCollectedVestalCard, isBoneBearerRally } from "./boss/collected-vestal";
 import { isInvokingMonster, moveInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand } from "./battle";
+import { statusProjection } from "./status";
 import type { ApplyResult, GameState } from "./command";
 import { applyEncounterCommand, nextBattleRoll, finishTurn } from "./encounter";
 import {
@@ -206,12 +207,30 @@ export function prepareMonsterAction(
       self.effects,
     );
     if (applied.status === "refused") return rejectBattleCommand(state, applied.reason);
+    // Q-163 / R21：自身治疗与 Remove 在同一路径、不掷命中，Remove 清空该状态的全部堆叠。
+    const entities = applied.entities.map((entity) => {
+      if (entity.id !== actor.id) return entity;
+      const wounds = Math.max(0, entity.wounds - (self.selfHeal ?? 0));
+      if (!self.cleanse) return wounds === entity.wounds ? entity : { ...entity, wounds };
+      const stacks = (entity.statusStacks ?? []).filter(
+        (stack) => stack.kind !== "bleed" && stack.kind !== "blight",
+      );
+      return {
+        ...entity,
+        wounds,
+        bleed: [] as readonly string[],
+        blight: [] as readonly string[],
+        ...(entity.statusStacks === undefined
+          ? {}
+          : { statusStacks: stacks, ...statusProjection(stacks, entity.innateProtection) }),
+      };
+    });
     return finishTurn(
       {
         ...state,
         battle: {
           ...battle,
-          entities: applied.entities,
+          entities,
           monsterAction: null,
           rngCursor: battle.rngCursor + (needsRoll ? 1 : 0),
         },
@@ -225,6 +244,8 @@ export function prepareMonsterAction(
           skillId: `${card.id}:skill${selected.skillSlot}`,
           selectionRoll: selected.roll,
           effects: self.effects,
+          ...(self.selfHeal === undefined ? {} : { selfHeal: self.selfHeal }),
+          ...(self.cleanse ? { cleanse: true as const } : {}),
           message: "怪物纯自身状态技能已生效；不掷攻击骰（R19–20/R24）",
         },
         ...applied.events,

@@ -1157,6 +1157,94 @@ const entries: readonly {
       { type: "stress", scope: "target", amount: 1 },
     ],
   },
+  // Q-163 / R-196：DL3 三张普通怪八招，逐招按 FRONT 面整行核实。
+  // Brigand Raider · COREBOX 怪物中卡 FRONT p056–58。
+  {
+    id: "monster_medium:p056",
+    name: "Brigand Raider",
+    level: 3,
+    pages: [56, 57, 58],
+    slot: 1,
+    signature: "{target_effects}{debuff}2t",
+    effects: [{ type: "status", scope: "target", kind: "debuff", duration: 2 }],
+  },
+  {
+    id: "monster_medium:p056",
+    name: "Brigand Raider",
+    level: 3,
+    pages: [56, 57, 58],
+    slot: 2,
+    signature: "{target_effects}3{bleed}2t",
+    effects: [{ type: "status", scope: "target", kind: "bleed", amount: 3, duration: 2 }],
+  },
+  {
+    id: "monster_medium:p056",
+    name: "Brigand Raider",
+    level: 3,
+    pages: [56, 57, 58],
+    slot: 3,
+    signature: "{self_effects}{self_plate}Self{buff}2t,{shuffle}Pull1",
+    effects: [
+      { type: "status", scope: "self", kind: "buff", duration: 2 },
+      { type: "shuffle", scope: "self", direction: "pull", distance: 1 },
+    ],
+  },
+  // Brigand Hunter · COREBOX 怪物中卡 FRONT p059–61。
+  {
+    id: "monster_medium:p059",
+    name: "Brigand Hunter",
+    level: 3,
+    pages: [59, 60, 61],
+    slot: 1,
+    signature: "{target_effects}{debuff}2t,{stress}+1",
+    effects: [
+      { type: "status", scope: "target", kind: "debuff", duration: 2 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
+  {
+    id: "monster_medium:p059",
+    name: "Brigand Hunter",
+    level: 3,
+    pages: [59, 60, 61],
+    slot: 2,
+    signature: "{self_effects}Self{shuffle}Push1",
+    effects: [{ type: "shuffle", scope: "self", direction: "push", distance: 1 }],
+  },
+  // Adder · COREBOX 怪物大卡 FRONT p004（战斗卡）。
+  {
+    id: "monster_large:p004",
+    name: "Adder",
+    level: 3,
+    pages: [4],
+    slot: 1,
+    signature: "{target_effects}3{blight}4t",
+    effects: [{ type: "status", scope: "target", kind: "blight", amount: 3, duration: 4 }],
+  },
+  {
+    id: "monster_large:p004",
+    name: "Adder",
+    level: 3,
+    pages: [4],
+    slot: 2,
+    signature: "{target_effects}{stun}1t",
+    effects: [{ type: "status", scope: "target", kind: "stun", duration: 1 }],
+  },
+  // Remove 行印刷的是 `blight_resist` 变体图标；cleanse 只接这一种整行（R21、R-048）。
+  {
+    id: "monster_large:p004",
+    name: "Adder",
+    level: 3,
+    pages: [4],
+    slot: 3,
+    signature:
+      "{self_effects}Self{buff}2t,{damage_or_heal_combined_marker}{heal}9,Remove:{blight_resist}{bleed}",
+    effects: [
+      { type: "status", scope: "self", kind: "buff", duration: 2 },
+      { type: "heal", scope: "self", amount: 9 },
+      { type: "cleanse", scope: "self", kinds: ["bleed", "blight"] },
+    ],
+  },
 ];
 
 export function attachVerifiedMonsterEffects(

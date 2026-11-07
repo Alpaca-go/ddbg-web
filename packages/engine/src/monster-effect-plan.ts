@@ -2,6 +2,31 @@ import { monsterEffectPlanSchema } from "../../data/src/monster-effects";
 import type { MonsterEffectPlan } from "../../data/src/monster-effects";
 import type { HeroSkillCardView, SkillSegment } from "./hero-skill";
 
+/** R21、Q-163：cleanse 的 Remove 行按卡面顺序归一为 bleed、blight 两枚图标。 */
+const CLEANSE_ORDER = ["bleed", "blight"] as const;
+
+/**
+ * 只改写「Remove[:]{kind}{kind}」这一种尾段：图标归一（Blight 的 Remove 行印刷的是
+ * `blight_resist` 变体）并按 CLEANSE_ORDER 排序。其他内容原样返回，交给比较拒绝。
+ */
+function canonicalRemoveSignature(signature: string): string {
+  const at = signature.indexOf("Remove");
+  if (at < 0) return signature;
+  const head = signature.slice(0, at);
+  const tail = signature.slice(at).replace(/^Remove:?/, "");
+  if (tail.replace(/\{[a-z_]+\}/g, "") !== "") return signature;
+  const keys = [...tail.matchAll(/\{([a-z_]+)\}/g)].map((match) => match[1]!);
+  if (
+    keys.length === 0 ||
+    keys.some((key) => !CLEANSE_ORDER.some((kind) => key === kind || key === `${kind}_resist`))
+  )
+    return signature;
+  const kinds = CLEANSE_ORDER.filter((kind) =>
+    keys.some((key) => key === kind || key === `${kind}_resist`),
+  );
+  return `${head}Remove${kinds.map((kind) => `{${kind}}`).join("")}`;
+}
+
 /** 原始整行签名守门，再把复合行拆成既有结算器支持的原语；不修改卡面数据。 */
 export function compileMonsterEffectPlan(
   view: HeroSkillCardView,
@@ -56,22 +81,30 @@ export function compileMonsterEffectPlan(
         case "disease":
           token = "{disease}";
           break;
+        case "cleanse":
+          token = `Remove${CLEANSE_ORDER.filter((kind) => effect.kinds.includes(kind))
+            .map((kind) => `{${kind}}`)
+            .join("")}`;
+          break;
       }
       return prefix + token;
     })
     .join("");
   if (
     signatures.length === 0 ||
-    signatures
-      .join("")
-      .replace(/\{shuffle_resist\}/g, witchPull ? "{shuffle}" : "{shuffle_resist}")
-      .replace(/,/g, "")
-      .replace(/PitToss/g, "") // Templar Body Slam · boss_ability:p028 Pit Toss 由运行时（R-193），印刷整行仅签名守门
-      .replace(/Teleport/g, "") // White Cell Stalk · boss_ability:p031 Teleport 落点由运行时（R-195），印刷整行仅签名守门
-      .replace(/\{summon\}/g, "") // Echoing Disassembly / Necromancer 等 · summon 几何 hold，图标仅签名守门
-      .replace(/\{damage_or_heal_combined_marker\}(?=\{heal\})/g, "")
-      .replace(/\{damage_or_heal_combined_marker\}(\d+)\{heal\}/g, "{heal}$1")
-      .replace(/\{heal\}(?:\{heal\})?(\d+)(?:\{heal\})?/g, "{heal}$1") !== plannedSignature
+    canonicalRemoveSignature(
+      signatures
+        .join("")
+        .replace(/\{shuffle_resist\}/g, witchPull ? "{shuffle}" : "{shuffle_resist}")
+        .replace(/\{self_plate\}/g, "") // 「Self」文字底板是版面装饰，不是效果原语
+        .replace(/,/g, "")
+        .replace(/PitToss/g, "") // Templar Body Slam · boss_ability:p028 Pit Toss 由运行时（R-193），印刷整行仅签名守门
+        .replace(/Teleport/g, "") // White Cell Stalk · boss_ability:p031 Teleport 落点由运行时（R-195），印刷整行仅签名守门
+        .replace(/\{summon\}/g, "") // Echoing Disassembly / Necromancer 等 · summon 几何 hold，图标仅签名守门
+        .replace(/\{damage_or_heal_combined_marker\}(?=\{heal\})/g, "")
+        .replace(/\{damage_or_heal_combined_marker\}(\d+)\{heal\}/g, "{heal}$1")
+        .replace(/\{heal\}(?:\{heal\})?(\d+)(?:\{heal\})?/g, "{heal}$1"),
+    ) !== canonicalRemoveSignature(plannedSignature)
   )
     return refuse("怪物原语内容或作用范围与整行卡面不符（R-048）");
   const icons = new Map<string, Extract<SkillSegment, { type: "icon" }>>();
@@ -93,6 +126,8 @@ export function compileMonsterEffectPlan(
   let selfLight = 0,
     targetLight = 0;
   let disease = false;
+  /** R21、Q-163：Remove 必须写回同一行自身状态，readVerifiedStatusEffects 才认得出。 */
+  let lastSelfStatusLine: number | null = null;
   const icon = (key: string): SkillSegment => {
     const found = icons.get(key);
     if (!found) throw new Error(`怪物效果缺少原始已确认图标 ${key}`);
@@ -128,6 +163,7 @@ export function compileMonsterEffectPlan(
           if (effect.amount !== undefined) line.push(text(String(effect.amount)));
           const segmentIndex = line.length;
           line.push(icon(effect.kind), text(`${effect.duration}t`));
+          if (scope === "self") lastSelfStatusLine = lineIndex;
           statuses.push({
             kind: effect.kind,
             scope,
@@ -154,6 +190,27 @@ export function compileMonsterEffectPlan(
             text(`${effect.direction === "push" ? "Push" : "Pull"} ${effect.distance}`),
           );
           break;
+        case "cleanse": {
+          // 目前只接卡面上的整行「Remove Bleed、Blight」；少一项或多一项都拒绝，不猜。
+          if (
+            scope !== "self" ||
+            lastSelfStatusLine === null ||
+            effect.kinds.length !== CLEANSE_ORDER.length
+          )
+            return refuse("cleanse 需要与自身状态同一行且同时移除 Bleed / Blight（R-048）");
+          const target = lines[lastSelfStatusLine];
+          if (!target) return refuse("cleanse 找不到自身状态行（R-048）");
+          target.push(text("Remove"));
+          for (const kind of CLEANSE_ORDER) {
+            const printed =
+              icons.get(kind) ?? (kind === "blight" ? icons.get("blight_resist") : undefined);
+            if (!printed) throw new Error(`怪物效果缺少 Remove 行的已确认 ${kind} 图标`);
+            if (!icons.has(kind))
+              icons.set(kind, { ...printed, icon: { ...printed.icon, key: kind } });
+            target.push(icons.get(kind)!);
+          }
+          continue;
+        }
       }
       lines.push(line);
     }

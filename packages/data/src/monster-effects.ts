@@ -49,6 +49,15 @@ export const monsterEffectPlanSchema = z.strictObject({
           amount: z.int().positive(),
         }),
         z.strictObject({ type: z.literal("disease"), scope: z.literal("target") }),
+        // R21、Q-163：Remove 行一次移除所列状态的全部堆叠；卡面只出现自身 Remove。
+        z.strictObject({
+          type: z.literal("cleanse"),
+          scope: z.literal("self"),
+          kinds: z
+            .array(z.enum(["bleed", "blight"]))
+            .min(1)
+            .refine((kinds) => new Set(kinds).size === kinds.length, "cleanse 状态种类不得重复"),
+        }),
       ]),
     )
     .min(1),

@@ -121,7 +121,7 @@ it(
   },
 );
 
-it("DL3 牌堆：字段齐全后按技能效果/缺字段拒战，均保留真实部署", () => {
+it("DL3 牌堆：八招接入后主怪部署可 admitted，合成缺字段仍拒战并保留真实部署", () => {
   const heroes = coreParty.map((hero, index) => {
     const stat = coreQuestSources.catalog.heroStats.find((s) => s.id === hero.heroStatId)!;
     return {
@@ -179,18 +179,24 @@ it("DL3 牌堆：字段齐全后按技能效果/缺字段拒战，均保留真�
     )
       continue;
     const battle = applyCommand(deployed.state, { type: "startDungeonBattle" });
-    const refusal = battle.events.find((event) => event.type === "commandRefused");
-    if (refusal) {
-      // R-196 只补 Speed / 选招；DL3 三张普通怪的技能效果尚未逐招接入（R-048）。
-      expect(battle.state).toBe(deployed.state);
-      expect(battle.events).toEqual([
-        expect.objectContaining({
-          type: "commandRefused",
-          message: expect.stringMatching(/完整效果尚未接入.*保留部署/),
-        }),
-      ]);
-    } else {
-      expect(battle.state.battle?.encounter?.turn.type).toBe("awaitingInitiative");
+    // Q-163：DL3 三张普通怪八招已逐招接入，字段齐全的部署不再因技能效果拒战。
+    expect(battle.events.find((event) => event.type === "commandRefused")).toBeUndefined();
+    expect(battle.state.dungeon?.phase).toBe("inBattle");
+    const started = applyCommand(battle.state, { type: "startBattle" });
+    expect(started.state.battle?.encounter?.turn.type).toBe("awaitingInitiative");
+    for (const [cardId, skills] of [
+      ["monster_medium:p056", 3],
+      ["monster_medium:p059", 2],
+      ["monster_large:p004", 3],
+    ] as const) {
+      const catalogCard = deployed.state.dungeon!.battleCatalog!.monsters.find(
+        (card) => card.id === cardId,
+      );
+      expect(catalogCard, cardId).toBeDefined();
+      expect(
+        catalogCard!.skills.filter((skill) => skill.verified_monster_effects).length,
+        cardId,
+      ).toBe(skills);
     }
     // 合成缺字段（从全部已部署怪移除 speed）：仍按 R-048 拒战并保留真实部署，不重抽。
     const deployedIds = new Set(

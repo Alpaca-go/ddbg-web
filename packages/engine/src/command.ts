@@ -478,6 +478,9 @@ export type GameEvent =
       readonly skillId: string;
       readonly selectionRoll: number | null;
       readonly effects: readonly import("./status").StatusEffect[];
+      /** Q-163：纯自身技能的治疗量与 Remove Bleed / Blight。 */
+      readonly selfHeal?: number;
+      readonly cleanse?: true;
       readonly message: string;
     }
   | MonsterPositionedEvent

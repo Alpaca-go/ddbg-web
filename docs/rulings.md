@@ -2588,7 +2588,28 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   - **Adder**：1 Adder's Fang（Furthest2）Crit 1 / **5**，Acc 10 / **3**，目标 **Blight 3，4t**；2 Paralyzing Quills（Closest1）Crit 1 / **10**，Acc 10 / **7**，目标 **Stun 1t**；3 Molt（Self）自身 **Buff 2t、Heal 9、Remove Bleed + Blight**。
 - **待确认**：以上 8 条是否照此接线（数值与效果一起）；确认后写入 `verified_monster_effects` 并重跑准入。
 - **暂定**：字段已入库但不入半场战斗；`dungeon-battle-l2-admission.test.ts` 已记录该边界。
-- **状态**：待 Kyries 确认（补全数值后）。
+- **核稿（2026-11-07，Kyries）**：选 **方案 2**（加 cleanse 原语，八招一次接完），**数值表按提案不变**。
+- **状态**：已裁定 → **R-198**（2026-11-07）。
+
+### R-198
+
+- **编号**：R-198
+- **日期**：2026-11-07（Asia/Shanghai）
+- **问题**：Q-163：DL3 三张普通怪（Brigand Raider / Brigand Hunter / Adder）八招技能效果的运行时接线，以及 Molt 的 Remove 行原语。
+- **裁定**（Kyries 2026-11-07 确认：方案 2、数值表不变）：
+  1. **八招一次接完**：Raider 三招、Hunter 两招、Adder 三招全部写入 `verified_monster_effects`；`startDungeonBattle` 不再按技能效果拒战。
+  2. **cleanse 原语**：`{ type: "cleanse", scope: "self", kinds: ["bleed", "blight"] }`；按 R21「移除状态 = 移除所有堆叠」清空所列状态的全部堆叠，只接卡面的整行 Remove。
+  3. **Molt 的图标归一**：Remove 行印刷的是 `blight_resist` 变体图标；按 R-140「仅本招上下文映射」把该位置归一为 Blight（保留原 `iconId` 与 `confirmed` 命名），原行仍逐字签名守门。
+  4. **数值**（规格书 §6.5：Crit X [暴伤] / Acc Y [普伤]）：
+     - Raider：1 Slice and Dice 暴伤 11 / 普伤 7、目标 Debuff 2t；2 Shank 16 / 10、目标 Bleed 3 2t；3 Harmless Poke 12 / 8、自身 Buff 2t + Pull 1。
+     - Hunter：1 Blanket Fire 8 / 5、目标 Debuff 2t + Stress 1；2 Rushed Shot 11 / 7、自身 Push 1。
+     - Adder：1 Adder's Fang 5 / 3、目标 Blight 3 4t；2 Paralyzing Quills 10 / 7、目标 Stun 1t；3 Molt 自身 Buff 2t + Heal 9 + Remove Bleed/Blight。
+- **依据 / 出处**：COREBOX 怪物中卡 FRONT p056–61、怪物大卡 FRONT p4；规格书 §6.5；R21、R-140、R-196、R-048；Kyries 2026-11-07「方案 2、数值不变」。
+- **关联待确认**：无（Q-163 关闭）。
+- **状态**：已裁定。
+- **切片**：[phase5-dl3-monster-effects-2026-11-07.md](phase5-dl3-monster-effects-2026-11-07.md)。
+- **实现状态**：`verified-monster-effects.ts` 写入 8 条并重生成 `normalized/corebox/*.json`；`monster-effect-plan.ts` 增加 `{self_plate}` 与 Remove 行签名归一、cleanse 编译；`monster-self-status.ts` 允许自身治疗 / Remove；`battle-monster-action.ts` 结算自身治疗与清空堆叠；`dungeon-battle-l2-admission.test.ts` 的 DL3 用例改为断言 admitted，新增 `dl3-monster-effects.test.ts`。
+- **边界**：不实现完整 AI / 自动选招；cleanse 只支持自身 Bleed+Blight 同一条 Remove 行（缺一项即拒绝）；不改自然策略或种子（R-190），不改遭遇几何、生产准入白名单或其它卡。
 
 
 

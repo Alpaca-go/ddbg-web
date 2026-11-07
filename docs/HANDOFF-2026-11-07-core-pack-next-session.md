@@ -10,7 +10,7 @@
 - 战役存档：模型与跨任务严格回放（R-194）；II/III 验收缺一条合法 Act I 自然链。
 - 中途 Boss：Templars 尖刺/Pit Toss（R-193）、Mammoth White Cell Teleport（R-195）、Shuffling Echoing 召唤 + 先攻洗入（R-034/R-197）均已接。
 - 任务 SPECIAL：Rising Threat、Purify 已接；Dem Bones 既有路径已符合（R-197）。
-- DL3 三张普通怪：Speed/选招已入库（R-196）；**技能效果尚未接**（Q-163）。
+- DL3 三张普通怪：Speed/选招已入库（R-196）；**八招技能效果已接**（R-198，Q-163 关闭）。
 - 走廊：核心盒没有走廊板块，误提取数据已删除（Q-161）。
 
 ## 2. 新 session 先跑什么
@@ -21,7 +21,7 @@ pnpm typecheck
 pnpm test --maxWorkers=2 --testTimeout=30000   # 全量约 20 分钟
 ```
 
-基线：**456 个测试文件 / 3302 通过 / 1 跳过**（skip 是 Q-162 的 Templars 自然存档）。
+基线（R-198 接线后）：**457 个测试文件 / 3306 通过 / 1 跳过**（skip 是 Q-162 的 Templars 自然存档；R-198 前为 456 / 3302）。
 
 已知 Windows 长场景超时：`packages/engine/src/quest-save.test.ts` 的自然回放有自带的 20000ms 上限，并行时偶发超时，单独跑会过——不是回归。
 
@@ -36,24 +36,17 @@ Playwright 浏览器版本本机不匹配（需要 chromium 1243，本机 1234�
 | Q-160 | 三条任务 SPECIAL + `dd2d2467ec`=Potion → R-197               |
 | Q-161 | 核心盒无走廊板块（p8=PvP、BACK p1=Old Road）；误提取数据已删 |
 | Q-162 | Templars 自然存档**保持 skip**（R-190：不为绿灯调策略/种子） |
+| Q-163 | DL3 八招一次接完（方案 2 + cleanse 原语）→ R-198             |
 
 ## 4. 当前待办（按建议顺序）
 
-### 4.1 Q-163：DL3 三怪技能效果（最优先）
+### 4.1 Q-163：DL3 三怪技能效果 —— 已完成（R-198）
 
-卡面数值已按规格书 §6.5 读出（Crit 阈值/暴伤、Acc 阈值/普伤），提案写在 `docs/rulings.md` 的 Q-163。**等 Kyries 确认后接线**：
+八招已按**方案 2** 接线（Raider 3 / Hunter 2 / Adder 3），新增 `cleanse` 原语承载 Molt 的 Remove 行；三张卡不再因技能效果拒战。切片与数值表见 `docs/phase5-dl3-monster-effects-2026-11-07.md`。
 
-- 方案 1：先接 **Raider + Hunter 六招**（Debuff/Bleed/Buff/Shuffle/Stress 全有现成原语），Adder 继续拒战。
-- 方案 2：加一个 **cleanse 原语**（`{type:"cleanse", scope:"self", kinds:["bleed","blight"]}`，按 R21「移除状态=移除所有堆叠」），八招一次接完（Molt 的 Remove 需要它）。
-
-接线位置：`packages/data/src/normalize/verified-monster-effects.ts` 加 `verified_monster_effects`，然后重跑准入：
-
-```bash
-pnpm exec vitest run packages/engine/src/dungeon-battle-l2-admission.test.ts \
-  packages/engine/src/monster-effect-plan.test.ts
-```
-
-`dungeon-battle-l2-admission.test.ts` 里「DL3 牌堆」用例当前断言**仍拒战**（技能效果未接），接线后要同步改。
+- `verified-monster-effects.ts` 写入 8 条，`normalized/corebox/*.json` 已重生成。
+- `dungeon-battle-l2-admission.test.ts` 的 DL3 用例改为断言 admitted；新增 `dl3-monster-effects.test.ts`。
+- 仍需注意：cleanse 只接自身「Remove Bleed、Blight」整行；完整 AI / 自动选招仍归 Phase 6（Q-158）。
 
 ### 4.2 Q-19：位移终点切入大型怪两格之间
 

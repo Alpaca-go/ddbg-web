@@ -832,8 +832,9 @@ function readImmediateStress(skill: HeroSkillCardView): ImmediateStress {
 /**
  * 只接受「Self + heal」这一条自身效果。治疗量必须是治疗图标内的非负整数，
  * 并且每条这种行和每一个这种数字对得上。组合标记可以待在行里，不拿它当治疗量。
+ * 怪物自身技能（Q-163 Molt）复用同一份读取，不另写一套治疗校验。
  */
-function readSelfHeal(skill: HeroSkillCardView): SelfHeal {
+export function readSelfHeal(skill: HeroSkillCardView): SelfHeal {
   const none: SelfHeal = { amount: 0, lineCount: 0 };
   const confirmed = skill.verified_self_heal;
   if (confirmed)

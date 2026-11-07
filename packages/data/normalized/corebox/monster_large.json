@@ -7071,7 +7071,22 @@
         "text": " 4t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}3{blight}4t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 4,
+        "amount": 3
+       }
+      ]
+     }
     },
     {
      "slot": 2,
@@ -7299,7 +7314,21 @@
         "text": " 1t"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stun}1t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 1
+       }
+      ]
+     }
     },
     {
      "slot": 3,
@@ -7542,7 +7571,34 @@
         }
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{buff}2t,{damage_or_heal_combined_marker}{heal}9,Remove:{blight_resist}{bleed}"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "self",
+        "kind": "buff",
+        "duration": 2
+       },
+       {
+        "type": "heal",
+        "scope": "self",
+        "amount": 9
+       },
+       {
+        "type": "cleanse",
+        "scope": "self",
+        "kinds": [
+         "bleed",
+         "blight"
+        ]
+       }
+      ]
+     }
     }
    ],
    "footer_lines": [
