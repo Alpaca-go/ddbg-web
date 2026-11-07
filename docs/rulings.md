@@ -2477,7 +2477,8 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **问题**：最暗中途 Boss 的自动选招 / AI 范围。现状：Shuffling Horror 的 Undulations 与 Echoing Disassembly 有显式公开命令与最小结算（含既有召唤 Cultist Priest / Malignant Growth 逻辑），Templars / Mammoth 的技能也要玩家/测试显式驱动。
 - **待确认**：① 核心盒 v1 是否要求中途 Boss「自动选招」（按姿态 d10 表自动执行），还是保持显式命令；② Echoing 召唤的完整范围（姿态轨未满时的召唤次数、召唤物落区、先攻洗入）是否已由 R-183 / R-034 覆盖，还是另有卡面细节待核。
 - **暂定**：保持显式命令；`combatReady: true` 只表示允许进入生产战斗，不等于 AI 已完成（R-189）。
-- **状态**：待 Kyries 确认（范围问题，不涉及数值）。
+- **决定（2026-11-07，Kyries）**：**核心盒 v1 保持显式命令**驱动中途 Boss 技能与召唤，不做自动选招/AI；自动选招归 Phase 6（后续阶段）。Echoing 召唤的「先攻卡洗入」已按 R-034 #5 接线（`phase5-shuffling-horror-echoing-initiative-2026-11-07.md`），其余选招仍由玩家/测试驱动。
+- **状态**：已确认（2026-11-07）→ 核心盒 v1 显式命令；AI 归 Phase 6。
 
 ### Q-159
 
@@ -2485,6 +2486,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **问题**：DL3 三张普通怪 Brigand Raider、Brigand Hunter、Adder 仍缺 `speed` / `stanceGroups`（`monster_pool.json`）。
 - **待确认**：请 Kyries 逐卡核对印刷面的 Speed 与四姿态选招分组/d10 区间；确认后按 R-048 入库，不猜数值。
 - **暂定**：保持缺失；相关遭遇不进入生产随机池，也不补默认值。
+- **核对稿**：[phase5-dl3-monster-fields-review-2026-11-07.md](phase5-dl3-monster-fields-review-2026-11-07.md)。
 - **状态**：待 Kyries 确认。
 
 ### Q-160
@@ -2493,6 +2495,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **问题**：任务 SPECIAL 仍有 hold：Rising Threat 只有分布数据、没有运行时；Purify 的圣水图标/交互待核实；Dem Bones 的绿区/目标标记几何按交接停点。
 - **待确认**：三项是否纳入核心盒 v1，以及各自的卡文/图标含义与几何；确认前不实现。
 - **暂定**：保持 hold；任务卡可出征，但 SPECIAL 不结算。
+- **核对稿**：[phase5-task-special-review-2026-11-07.md](phase5-task-special-review-2026-11-07.md)。
 - **状态**：待 Kyries 确认。
 
 ### Q-161
@@ -2501,6 +2504,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **问题**：9 张走廊板块 `geometryVerified=false`，`corridor_layout_bindings` 为空。
 - **待确认**：逐面几何标注与绑定审核（与房间板块同流程）；确认前走廊只沿用现有布局，不改绑定。
 - **暂定**：保持 `geometryVerified=false`，不自行推定走廊形状/连接。
+- **核对稿**：[phase5-corridor-tiles-review-2026-11-07.md](phase5-corridor-tiles-review-2026-11-07.md)。
 - **状态**：待 Kyries 确认。
 
 ### R-195
