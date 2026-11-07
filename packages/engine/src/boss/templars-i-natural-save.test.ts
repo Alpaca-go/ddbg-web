@@ -21,7 +21,7 @@ const preTemplarsSources = (): CoreQuestSources => ({
   },
 });
 
-/** 自然策略 + Q-156 尖刺后，固定种子 5075 在 ≤20000 有界搜索内未再找到必胜路径（待确认：是否需要换策略或新种子）。复现：`pnpm exec vitest run packages/engine/src/boss/templars-i-natural-save.test.ts -t natural`（去掉 skip 后）。针对性单测见 `templars-spikes-pit-toss.test.ts`。 */
+/** 自然策略 + Q-156 尖刺后，固定种子 5075 在 ≤20000 有界搜索内未再找到必胜路径；Q-162 已确认保持 skip（R-190：不为绿灯调策略/挑种子），后续以合法自然链补回。复现：`pnpm exec vitest run packages/engine/src/boss/templars-i-natural-save.test.ts -t natural`（去掉 skip 后）。针对性单测见 `templars-spikes-pit-toss.test.ts`。 */
 it.skip("Templars I从任务起点自然探索、击败与回村；战斗中及回村存档严格回放", () => {
   const start = {
     seed: 5075,
