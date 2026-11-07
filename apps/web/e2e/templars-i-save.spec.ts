@@ -2,7 +2,9 @@ import { expect, test } from "@playwright/test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
 
-test("自然 Templars I 任务存档：页面读取、开战、保存刷新后继续", async ({ page }) => {
+// Q-162：Templars 接入尖刺/Pit Toss 后自然策略无法取胜，unit 侧已 skip；e2e 同步保持 skip
+// （R-190：不为绿灯调策略或种子）。存档路径由 templars-i-finish / campaign-quest-save 等覆盖。
+test.skip("自然 Templars I 任务存档：页面读取、开战、保存刷新后继续", async ({ page }) => {
   test.setTimeout(120_000);
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
