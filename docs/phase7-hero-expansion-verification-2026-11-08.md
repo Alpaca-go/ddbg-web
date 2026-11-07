@@ -65,6 +65,7 @@
 
 - **Leper II/III 首批 14 张**（PR #618）：Q-163～Q-166 已关闭；`verified-warrens-leper-higher` + `verified-hero-statuses` 接线；**d10 审计 14/14 绿**。
 - **Antiquarian II/III 14 张**（PR #619）：Q-167～Q-171 已关闭；`verified-warrens-antiquarian-higher` + 引擎 `shufflePushDistance`（Q-168）；**d10 审计 14/14 绿**。
+- **Flagellant II/III 14 张 + 同族 L1 洗净 7 张**（本 PR）：Q-172～Q-175 已关闭；`verified-cove-flagellant-higher` + 引擎同行 Heal/无 Acc 治疗/Endure 队友压力；**d10 审计 21/21 绿**（含 L1 洗净族）。
 - **Antiquarian III STAT**：Life 15 / Dodge 3 / Speed 0；左栏 Blight 抗性；免疫 = 位移 + 疾病。`8510428636` 只在 `verified_higher_condition_defence` 注解，不写全局词典（Q-104 关闭，R-200）。
 - `warrens-hero-stat.ts` 增加该面并调用 `buildHigherHeroDefence`；`hero-higher-defence.ts` 增加批准行与 `kyries_review_2026-11-08`；normalized 已重生成；`battle-data-plugin` 属性计数 53→54。
 - 数据测试、`packages/data` 全量、engine `dungeon-battle`、`pnpm typecheck`、web build 均通过。

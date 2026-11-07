@@ -2726,3 +2726,35 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **问题**：Protect Me 效果行图标误读。
 - **裁定**（Kyries 2026-11-08）：目标 **守护（Guard）+ 防护（Protection）+ Mark**（II：3t/2t/2t；III：3t/3t/1t）。`9ffbd6087a` 本卡覆盖为 `guard`，不入光照。
 - **状态**：Kyries 已确认（2026-11-08）
+
+### Q-172（已关闭）
+
+- **编号**：Q-172
+- **日期**：2026-11-08
+- **问题**：Punish 条件行「if Flagellant has stun mark」是否结算。
+- **裁定**（Kyries 2026-11-08）：印刷条件行 **仅 `verified_effect_line_receipts` 签收**，不推断条件伤害/状态；攻击行按 stats 伤害 + 目标 Bleed 照常结算。
+- **状态**：Kyries 已确认（2026-11-08）
+
+### Q-173（已关闭）
+
+- **编号**：Q-173
+- **日期**：2026-11-08
+- **问题**：Suffer「Transfer all damage or blight to the Flagellant」转移语义。
+- **裁定**（Kyries 2026-11-08）：转移行 **签收 + 自身 Buff/Bleed/Mark** 按卡面接线；全量伤害/腐蚀转移 **不在本 PR 模拟战斗结算**（仅保证效果行消费与 R-048 拒绝）。
+- **状态**：Kyries 已确认（2026-11-08）
+
+### Q-174（已关闭）
+
+- **编号**：Q-174
+- **日期**：2026-11-08
+- **问题**：Exsanguinate III 目标行 OCR「3」前缀；Redeem 无 Acc/Crit 是否掷骰。
+- **裁定**（Kyries 2026-11-08）：III 目标为 **Stun 4t**（去掉误挂 Mark 的「3」）；Redeem 为 **无 stats 的友方治疗**（`verified_target_heal` + `verified_self_heal`），**不强制 Crit/Acc**。
+- **状态**：Kyries 已确认（2026-11-08）
+
+### Q-175（已关闭）
+
+- **编号**：Q-175
+- **日期**：2026-11-08
+- **问题**：Endure 第二行全队压力与 Self 射程头行。
+- **裁定**（Kyries 2026-11-08）：**自身压力 −1**（`verified_self_stress`）+ **所有队友压力 −1**（`verified_allies_stress`）+ **`{range} Self` 头行**（`verified_self_range`）；条件行签收，不猜 Buff。
+- **状态**：Kyries 已确认（2026-11-08）

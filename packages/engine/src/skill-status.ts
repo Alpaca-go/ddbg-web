@@ -202,6 +202,20 @@ export function readVerifiedStatusEffects(
       if (shufflePushDistance === undefined)
         return { status: "refused", reason: "自身 Push 距离尚需选择（Q-168）" };
       selfShuffle = { direction: "push", distance: shufflePushDistance };
+    } else if (/^\{heal\}[1-9]\d*$/.test(rest)) {
+      const amount = Number(rest.slice("{heal}".length));
+      const healAnn = skill.verified_self_heal;
+      if (
+        scope !== "self" ||
+        !healAnn ||
+        healAnn.source !== "print_front" ||
+        healAnn.lineIndex !== lineIndex ||
+        healAnn.amount !== amount
+      )
+        return {
+          status: "refused",
+          reason: "状态同行剩余治疗与 verified_self_heal 不符（R-048）",
+        };
     } else if (rest !== "")
       return { status: "refused", reason: "状态同行尚未完整支持，整次拒绝（R-048）" };
     for (const entry of group)

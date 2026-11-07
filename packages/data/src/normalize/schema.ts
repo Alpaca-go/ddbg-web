@@ -169,6 +169,39 @@ const skillStatFields = {
       source: z.literal("print_front"),
     })
     .optional(),
+  verified_target_heal: z
+    .strictObject({
+      lineIndex: z.int().nonnegative(),
+      amount: z.int().positive(),
+      source: z.literal("print_front"),
+    })
+    .optional(),
+  verified_effect_line_receipts: z
+    .array(
+      z.strictObject({
+        lineIndex: z.int().nonnegative(),
+        signature: z.string().min(1),
+        source: z.literal("print_front"),
+      }),
+    )
+    .min(1)
+    .optional(),
+  verified_self_heal: z
+    .strictObject({
+      lineIndex: z.int().nonnegative(),
+      amount: z.int().positive(),
+      source: z.literal("print_front"),
+    })
+    .optional(),
+  verified_self_stress: z
+    .strictObject({
+      lineIndex: z.int().nonnegative(),
+      amount: z.int(),
+      source: z.literal("print_front"),
+    })
+    .optional(),
+  verified_allies_stress: z.int().optional(),
+  verified_self_range: z.literal(true).optional(),
 };
 
 /** 逐卡对照完整页面后附加的 Nt；缺失不表示任何默认持续时间。 */
