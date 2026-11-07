@@ -8,7 +8,12 @@ export default defineConfig({
   testDir: "e2e",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 1 : 0,
+  // Windows + Vite dev server 下，并行会让长用例在 page.goto 处偶发超时；本地串行更稳。
+  workers: process.env.CI ? 2 : 1,
+  // 每条用例独立预算；长场景（侦察/战斗/存档）本来就要 1–2 分钟。
+  timeout: 120_000,
+  // 偶发的导航/加载抖动重试一次；真失败仍会报出来。
+  retries: 1,
   use: {
     baseURL: `http://127.0.0.1:${port}`,
     ...devices["Desktop Chrome"],

@@ -1,7 +1,7 @@
 import { establishInitialThreatIfShown } from "./initial-threat-setup";
 import { expect, test } from "@playwright/test";
 
-test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", async ({ page }, testInfo) => {
+test("Phase 3：任务入口、侦察、补给与结算停点", async ({ page }, testInfo) => {
   test.setTimeout(120_000);
   await page.setViewportSize({ width: 1440, height: 1050 });
   for (const [id, name] of [
@@ -356,6 +356,11 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("dungeon-checkpoint")).toContainText("已到达 D；Empty 已清理");
   await expect(page.getByTestId("dungeon-curio")).toContainText("弃牌 1");
   await page.screenshot({ path: testInfo.outputPath("curio-empty.png"), fullPage: true });
+});
+
+test("Invocation Chamber：部署与轮末压力说明", async ({ page }, testInfo) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 1440, height: 1050 });
   await page.goto("/?phase=3");
   await page.getByLabel("侦察测试布置").selectOption("roomInvocation");
   await page.getByRole("button", { name: "重置 Radiant" }).click();
@@ -376,6 +381,11 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     page.getByText("Invoking Abyss：轮末本区有存活怪物时，全体存活英雄各压力+2。", { exact: true }),
   ).toBeVisible();
   await page.screenshot({ path: testInfo.outputPath("invocation-deployment.png"), fullPage: true });
+});
+
+test("房间准入：Ritual / Treasure 匹配与怪物抽牌", async ({ page }, testInfo) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 1440, height: 1050 });
   await page.goto("/?phase=3");
   for (const fixture of ["roomApproved", "roomBlocked"]) {
     await page.getByLabel("侦察测试布置").selectOption(fixture);
@@ -423,6 +433,12 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     }
     await page.goto("/?phase=3");
   }
+});
+
+test("Wipe 撤退与 Fundraiser 结算 / 回村升级", async ({ page }, testInfo) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 1440, height: 1050 });
+  await page.goto("/?phase=3");
   await page.getByLabel("侦察测试布置").selectOption("wipeBattle");
   await page.getByRole("button", { name: "重置 Radiant" }).click();
   await expect(page.getByTestId("dungeon-firewood")).toContainText(
@@ -523,6 +539,11 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     fullPage: true,
   });
   // 同一条关键冒烟验证完整池自然抽到的 Maggot 感染；房间代币是显式测试布置。
+});
+
+test("Maggot 感染：自然战斗到疾病", async ({ page }, testInfo) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 1440, height: 1050 });
   await page.goto("/?phase=3");
   await page.getByLabel("侦察测试布置").selectOption("roomDisease");
   for (const name of [
@@ -569,6 +590,11 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(infected.first()).toContainText("疾病：");
   await expect(infected.first()).not.toContainText("疾病：无");
   await page.screenshot({ path: testInfo.outputPath("maggot-disease.png"), fullPage: true });
+});
+
+test("走廊陷阱与 Curio 各种结算", async ({ page }, testInfo) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 1440, height: 1050 });
   await page.goto("/?phase=3");
   await page.getByLabel("侦察测试布置").selectOption("corridor");
   await page.getByRole("button", { name: "重置标准模式" }).click();
@@ -804,6 +830,11 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     path: testInfo.outputPath("healing-fountain-deployment.png"),
     fullPage: true,
   });
+});
+
+test("Beacon of Light 部署", async ({ page }, testInfo) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 1440, height: 1050 });
   await page.goto("/?phase=3");
   await page.getByLabel("侦察测试布置").selectOption("roomBeacon");
   for (const name of [
@@ -824,6 +855,11 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
     "Stressful Darkness：英雄结束回合压力 +1",
   );
   await page.screenshot({ path: testInfo.outputPath("beacon-deployment.png"), fullPage: true });
+});
+
+test("Tomb of Ancestor 部署", async ({ page }, testInfo) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 1440, height: 1050 });
   await page.goto("/?phase=3");
   await page.getByLabel("侦察测试布置").selectOption("roomAncestor");
   for (const name of [
@@ -842,6 +878,11 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("area-A4")).toContainText("Ancestor’s Glory");
   await expect(page.getByTestId("area-A3")).not.toContainText("Ancestor’s Glory");
   await page.screenshot({ path: testInfo.outputPath("ancestor-deployment.png"), fullPage: true });
+});
+
+test("Old Abbey 部署", async ({ page }, testInfo) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 1440, height: 1050 });
   await page.goto("/?phase=3");
   await page.getByLabel("侦察测试布置").selectOption("roomAbbey");
   for (const name of [
@@ -861,6 +902,11 @@ test("Phase 3：侦察同意、隐蔽信息、Radiant 减骰与结算停点", as
   await expect(page.getByTestId("area-O5")).toContainText("先压力");
   await expect(page.getByTestId("area-O8")).not.toContainText("Feeling the Presence");
   await page.screenshot({ path: testInfo.outputPath("old-abbey-deployment.png"), fullPage: true });
+});
+
+test("Spiked Pit 部署", async ({ page }, testInfo) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 1440, height: 1050 });
   await page.goto("/?phase=3");
   await page.getByLabel("侦察测试布置").selectOption("roomSpiked");
   for (const name of [

@@ -30,14 +30,14 @@ pnpm test --maxWorkers=2 --testTimeout=30000   # 全量约 20 分钟，只在收
 
 已知 Windows 长场景超时：`packages/engine/src/quest-save.test.ts` 的自然回放有自带的 20000ms 上限，并行时偶发超时，单独跑会过——不是回归。`natural-wipeout-save.test.ts` 同类：单独跑约 84s，并行全量下会撞 120s 上限（2026-11-07 放宽到 240s）。
 
-Playwright：本机装的 chromium 是 **1234**，Playwright 1.63 默认要 1243；`playwright install` 在本机长时间无进展，因此改用环境变量指向已有 Chromium（串行跑，并行会超时）：
+Playwright：本机装的 chromium 是 **1234**，Playwright 1.63 默认要 1243；`playwright install` 在本机长时间无进展，因此改用环境变量指向已有 Chromium：
 
 ```powershell
 $env:PLAYWRIGHT_CHROMIUM_EXECUTABLE='C:\Users\kyrie\AppData\Local\ms-playwright\chromium-1234\chrome-win64\chrome.exe'
-pnpm --filter @ddbg/web exec playwright test --workers=1 --reporter=line
+pnpm --filter @ddbg/web exec playwright test --reporter=line
 ```
 
-`playwright.config.ts` 只在设了该变量时才覆盖 `executablePath`，CI 不受影响。首轮结果（46 条）：串行 43 通过 / 1 skip / 2 超时；没有新功能 bug，细节见 `docs/phase5-e2e-local-run-2026-11-08.md`。`templars-i-save` 按 Q-162 保持 skip。
+`playwright.config.ts` 只在设了该变量时才覆盖 `executablePath`，CI 不受影响。本地默认 **workers=1、timeout=120s、retries=1**（Windows + Vite 下并行会超时）。首轮稳定性整理后（55 条）：**53 通过 / 1 flaky（重试后过）/ 1 skip / 0 失败**，约 17 分钟；细节见 `docs/phase5-e2e-local-run-2026-11-08.md`。`templars-i-save` 按 Q-162 保持 skip。
 
 ## 3. 已关闭的 Q（别再翻案）
 
@@ -86,7 +86,7 @@ R-194 的模型已就绪（`createQuestSave` 写 `campaignLevel` 并校验回放
 - Purify 池满 16 时「丢弃哪些既有补给」目前按**池尾自动丢弃**；若须玩家选择，另开 Q。
 - Templars 自然存档 skip 已定（Q-162），不要恢复。
 - Treasure T4–T5：**已确认保持 `blocked: true`**（Kyries 2026-11-07），旧交接稿的「可通行」作废，不改数据。
-- **e2e 已恢复可跑**（本机 Chromium 1234 + 环境变量，见 §2）。首轮 46 条：串行 43 通过 / 1 skip / 2 偶发超时；`dungeon.spec`（900+ 行）与 `prophet-i.spec` 在长跑/并行下会 `page.goto` 超时，单跑可过；`templars-i-save` 按 Q-162 skip。没有新增功能 bug。细节见 `docs/phase5-e2e-local-run-2026-11-08.md`。
+- **e2e 已恢复可跑**（本机 Chromium 1234 + 环境变量，见 §2）。`dungeon.spec` 已从 880 行连跑拆成 10 条；本地默认串行 + 重试一次。最新全量（55 条）：53 通过 / 1 flaky / 1 skip / 0 失败，约 17 分钟；`templars-i-save` 按 Q-162 skip。细节见 `docs/phase5-e2e-local-run-2026-11-08.md`。
 
 ## 5. 关键文件地图
 
