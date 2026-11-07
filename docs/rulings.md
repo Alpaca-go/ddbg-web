@@ -2650,3 +2650,39 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **状态**：已裁定
 - **实现状态**：`warrens-hero-stat.ts` 增加 Antiquarian III；`hero-higher-defence.ts` 增加 `hero_stat:warrens:antiquarian:p002:front` 批准行与 `kyries_review_2026-11-08`；`normalized/corebox/hero_stat.json` 已重生成；`battle-data-plugin` 英雄属性计数 53→54。目录尚未切到 18 名 I–III。
 - **边界**：不改全局图标词典；不猜未确认图标；不在本裁定内完成 98 张扩展高等级技能接线。
+
+### Q-163（已关闭）
+
+- **编号**：Q-163
+- **日期**：2026-11-08
+- **问题**：Leper **Revenge II/III** 卡面 stats 仅 Crit/Acc，效果行此前误读 `heal`（`20ffe98e2d`）前缀。除目标 Mark + Debuff 外，是否另有伤害或 Buff？
+- **裁定**（Kyries 2026-11-08）：**没有伤害、没有其它 Buff**；效果 = 目标 Mark + Debuff（II 2t/2t，III 3t/3t）。行首误 `heal` 逐卡覆盖为 `{target_effects}`。stats 仅 Crit/Acc、无伤害数字：按 R-031，不造伤害；暴击仍走压力 −1（不另开 Q）。
+- **依据 / 出处**：Warrens Leper p284/p285 印刷件；R-200；R-048。
+- **状态**：Kyries 已确认（2026-11-08）
+
+### Q-164（已关闭）
+
+- **编号**：Q-164
+- **日期**：2026-11-08
+- **问题**：Leper **Intimidate II/III** 自身 Buff 是否真实？`{light}` 行是否另有光照效果？
+- **裁定**（Kyries 2026-11-08）：**没有 Buff**；自身 = Mark（`d4329c2a97` 本卡覆盖为 mark；II 2t / III 1t）。印刷 Ignores 行 = `[折角箭头] Ignores [目标效果] [目标效果] , [Debuff] Nt`：**Ignores** 无视 **Protection + Guard**（两个目标效果标记）；**Debuff Nt** 为**另一目标效果**（II 2t / III 3t）。`9ffbd6087a` 词典误为 light（Kyries 目视 = 折角箭头）：**禁止** light / 光照 ±；签名闸保留提取键，结算段拆为三行（Ignores+Protection / Ignores+Guard / 目标 Debuff），**不**把行首箭头接入引擎。保留 stats 真实伤害。
+- **依据 / 出处**：Warrens Leper p293/p294；R-200；R-048。
+- **状态**：Kyries 已确认（2026-11-08）
+
+### Q-165（已关闭）
+
+- **编号**：Q-165
+- **日期**：2026-11-08
+- **问题**：Leper **Withstand II/III** 是否另有 Buff？
+- **裁定**（Kyries 2026-11-08）：**没有额外 Buff**；自身 Protection（II 2t / III 3t）+ 自身 Mark（1t）。
+- **依据 / 出处**：Warrens Leper p287/p288；R-200。
+- **状态**：Kyries 已确认（2026-11-08）
+
+### Q-166（已关闭）
+
+- **编号**：Q-166
+- **日期**：2026-11-08
+- **问题**：Leper **Solemnity II/III** 是否仅自身 Heal + 压力 -1？
+- **裁定**（Kyries 2026-11-08）：仅自身 Heal 9/12 + 压力 -1；**无 Buff、无 Shuffle**。`f18923574c` 本卡覆盖为 `{stress}`。
+- **依据 / 出处**：Warrens Leper p290/p291；R-200；R-048。
+- **状态**：Kyries 已确认（2026-11-08）
