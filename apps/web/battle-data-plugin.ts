@@ -1,4 +1,4 @@
-import { DARKEST_BOSS_CATALOG_CARD_IDS } from "../../packages/engine/src/boss/darkest-boss-catalog";
+﻿import { DARKEST_BOSS_CATALOG_CARD_IDS } from "../../packages/engine/src/boss/darkest-boss-catalog";
 import { RUINS_BOSS_CATALOG_CARD_IDS } from "../../packages/engine/src/boss/ruins-combat-levels";
 import { darkestMonsterPoolFileSchema } from "../../packages/data/src/darkest-monster-pool";
 import { coreHigherSkillAvailable } from "../../packages/engine/src/core-higher-skill-catalog";
@@ -261,11 +261,11 @@ export function battleDataPlugin(): Plugin {
           (entry) => entry.id === "room_tile:p001" && entry.rawId === "dungeon_tile:p001",
         );
       const expectedHeroStats = graveOccultist
-        ? 53
+        ? 54
         : sixHeroQuest
-          ? 47
+          ? 48
           : fiveHeroQuest
-            ? 44
+            ? 45
             : questCatalog
               ? 35
               : 4;

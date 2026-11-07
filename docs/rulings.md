@@ -1044,7 +1044,8 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **编号**：Q-104
 - **问题**：TDH Hero STAT 免疫栏标题 `55a3fded25`、Antiquarian III 免疫 `8510428636`、II 背村庄行 `7034784ee1` 等未入词典或 needs_review。
 - **暂定**：R-104 按上表批准属性；未确认图标不命名、不猜效果；整卡 `verification` 可仍为 unverified。
-- **状态**：待 Kyries 确认
+- **处理**（2026-11-08，R-200）：Antiquarian III 免疫栏 = **位移 + 疾病**；`8510428636` 仅在本卡 `verified_higher_condition_defence` 注解为 Shuffle，`28b10f3fb7` 为 Disease；`8510428636` 仍**不**写入全局词典（沿用 R-105 / Plague Doctor III 的 per-card 模式）；`55a3fded25` 仍是标题装饰。
+- **状态**：已确认（R-200，2026-11-08）
 
 ### R-105
 
@@ -2633,3 +2634,19 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 
 
+
+### R-200
+
+- **编号**：R-200
+- **日期**：2026-11-08（Asia/Shanghai）
+- **问题**：Kyries 决定 18 名正式英雄都按核心内容对待；Musketeer 纳入；Antiquarian III STAT 与英雄技能图标语义待确认。
+- **裁定**（Kyries 2026-11-08）：
+  1. **18 名英雄一律按核心内容**（含 Leper / Antiquarian / Flagellant / Man-at-Arms / Houndmaster / Shieldbreaker / Musketeer）；**Musketeer 纳入，覆盖 R-008「首版不纳入」**。
+  2. **Antiquarian III STAT 入库**：Life 15 / Dodge 3 / Speed 0；左栏 Blight 抗性；免疫栏 = **位移 + 疾病**（`8510428636` → Shuffle，`28b10f3fb7` → Disease）。`8510428636` 仍不写入全局词典，只在本卡 `verified_higher_condition_defence` 注解（沿用 R-105 / Plague Doctor III 模式）。**Q-104 关闭**。
+  3. **英雄技能图标语义**：直角箭头**指向左 = 作用给自己**、**指向右 = 作用给选中目标**（规则书 p20）；**弧形箭头 + 数字 = 射程**（1 = 相邻地块，2 = 隔一个地块，无数字 = 0，只能当前地块）；**红色爪痕上的数字 = 伤害**；Protection / Guard 见 p21。
+  4. **扩展英雄 II/III 级技能（98 张）** 仍须逐卡核实范围/目标/状态注解；核实完成前不进入战斗目录（沿用 Q-158 / Phase 7 流程），不按图标顺序猜效果。
+- **依据 / 出处**：Kyries 2026-11-08 口述 + `DD_EN_COREBOX_RULES.pdf` p20–21；R-048（不猜规则/数值/图标）；R-008（被覆盖）。
+- **关联待确认**：无（Q-104 关闭）；98 张逐卡核实另见 `phase7-hero-expansion-verification-2026-11-08.md`。
+- **状态**：已裁定
+- **实现状态**：`warrens-hero-stat.ts` 增加 Antiquarian III；`hero-higher-defence.ts` 增加 `hero_stat:warrens:antiquarian:p002:front` 批准行与 `kyries_review_2026-11-08`；`normalized/corebox/hero_stat.json` 已重生成；`battle-data-plugin` 英雄属性计数 53→54。目录尚未切到 18 名 I–III。
+- **边界**：不改全局图标词典；不猜未确认图标；不在本裁定内完成 98 张扩展高等级技能接线。

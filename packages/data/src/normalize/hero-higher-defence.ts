@@ -12,6 +12,7 @@ export const higherHeroDefenceSchema = z.strictObject({
     "kyries_review_2026-10-17",
     "kyries_review_2026-10-18",
     "kyries_review_2026-10-24",
+    "kyries_review_2026-11-08",
   ]),
 });
 export type HigherHeroDefence = z.infer<typeof higherHeroDefenceSchema>;
@@ -213,6 +214,17 @@ export const higherHeroDefenceApprovals = [
     resistances: [["8db71542d2", "stun"]],
     immunities: [["40bb356305", "blight"]],
   },
+  {
+    // Q-104（2026-11-08）：Antiquarian III 免疫 = 位移 + 疾病；左栏 Blight 抗性。
+    id: "hero_stat:warrens:antiquarian:p002:front",
+    name: "ANTIQUARIAN",
+    level: 3,
+    resistances: [["40bb356305", "blight"]],
+    immunities: [
+      ["8510428636", "shuffle"],
+      ["28b10f3fb7", "disease"],
+    ],
+  },
 ] as const;
 export function approvedHigherDefence(id: string): HigherHeroDefence | undefined {
   const row = higherHeroDefenceApprovals.find((r) => r.id === id);
@@ -230,7 +242,9 @@ export function approvedHigherDefence(id: string): HigherHeroDefence | undefined
                 ? "kyries_review_2026-10-17"
                 : row.name === "BOUNTY HUNTER"
                   ? "kyries_review_2026-10-16"
-                  : "kyries_review_2026-10-15",
+                  : row.name === "ANTIQUARIAN"
+                    ? "kyries_review_2026-11-08"
+                    : "kyries_review_2026-10-15",
       }
     : undefined;
 }
@@ -280,6 +294,8 @@ export function buildHigherHeroDefence(
     .filter(
       (i) =>
         !i.decor &&
+        // TDH 免疫栏标题装饰，不是抗性/免疫（R-104 / Q-104）。
+        i.iconId !== "55a3fded25" &&
         (i.bbox[0] + i.bbox[2]) / 2 >= left &&
         (i.bbox[0] + i.bbox[2]) / 2 <= right &&
         (i.bbox[1] + i.bbox[3]) / 2 > bottom &&

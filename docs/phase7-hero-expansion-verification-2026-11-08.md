@@ -12,15 +12,15 @@
 
 ## 审计失败分类（98 张）
 
-| 失败原因 | 张数 |
-| --- | --- |
-| `effect_lines` 有未消费效果行 | 26 |
-| 纯辅助/自身技能，stats 行没有 damage/heal 目标注解 | 16 |
-| Musketeer 被 R-008 挡住 | 14 |
-| Self / All Allies 缺射程注解 | 13 |
-| 区间射程 `numeric = null`，缺 `verified_range` | 10 |
-| 缺目标图标注解 | 10 |
-| stats 行同时有英雄和怪物目标图标 | 1 |
+| 失败原因                                           | 张数 |
+| -------------------------------------------------- | ---- |
+| `effect_lines` 有未消费效果行                      | 26   |
+| 纯辅助/自身技能，stats 行没有 damage/heal 目标注解 | 16   |
+| Musketeer 被 R-008 挡住                            | 14   |
+| Self / All Allies 缺射程注解                       | 13   |
+| 区间射程 `numeric = null`，缺 `verified_range`     | 10   |
+| 缺目标图标注解                                     | 10   |
+| stats 行同时有英雄和怪物目标图标                   | 1    |
 
 ## Leper 试点（14 张）
 
@@ -28,40 +28,51 @@
 
 待确认（10 张，2026-11-08 Kyries 已给读数）：
 
-| 卡 | Kyries 读数 | 备注 |
-| --- | --- | --- |
-| p281 Purge II | 攻击目标；自身 Buff 2t；目标 Push 2 | 与数据一致 |
-| p282 Purge III | **19/12 是伤害**（不是治疗） | 数据里 `20ffe98e2d` 被记成 heal，需修正 |
-| p284 Revenge II | **没有 heal**；Mark 和 Debuff 给**目标** | 数据里行首 `{heal}` 是误读 |
-| p285 Revenge III | 同 II，3t | 同上 |
-| p287 Withstand II | Mark 给**自身** | 与建议一致 |
-| p288 Withstand III | 同 II，3t | 同上 |
-| p290 Solemnity II | **没有 Buff**；只有给自己 heal 9 和**压力 -1** | 数据里 `{shuffle}-1` 实为 stress −1 |
-| p291 Solemnity III | 同上，heal 12、压力 -1 | 同上 |
-| p293 Intimidate II | `Ignores` = 无视 **Protection**（受伤减半向上取整，规则书 p21）和 **Guard**（规则书 p21）；**另有单独的 Debuff 2t**，不属于 Ignores | 数据行结构需重读 |
-| p294 Intimidate III | 同 II，Debuff 3t | 同上 |
+| 卡                  | Kyries 读数                                                                                                                         | 备注                                    |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| p281 Purge II       | 攻击目标；自身 Buff 2t；目标 Push 2                                                                                                 | 与数据一致                              |
+| p282 Purge III      | **19/12 是伤害**（不是治疗）                                                                                                        | 数据里 `20ffe98e2d` 被记成 heal，需修正 |
+| p284 Revenge II     | **没有 heal**；Mark 和 Debuff 给**目标**                                                                                            | 数据里行首 `{heal}` 是误读              |
+| p285 Revenge III    | 同 II，3t                                                                                                                           | 同上                                    |
+| p287 Withstand II   | Mark 给**自身**                                                                                                                     | 与建议一致                              |
+| p288 Withstand III  | 同 II，3t                                                                                                                           | 同上                                    |
+| p290 Solemnity II   | **没有 Buff**；只有给自己 heal 9 和**压力 -1**                                                                                      | 数据里 `{shuffle}-1` 实为 stress −1     |
+| p291 Solemnity III  | 同上，heal 12、压力 -1                                                                                                              | 同上                                    |
+| p293 Intimidate II  | `Ignores` = 无视 **Protection**（受伤减半向上取整，规则书 p21）和 **Guard**（规则书 p21）；**另有单独的 Debuff 2t**，不属于 Ignores | 数据行结构需重读                        |
+| p294 Intimidate III | 同 II，Debuff 3t                                                                                                                    | 同上                                    |
 
-**关键规则（Kyries 2026-11-08）**：直角箭头**指向左 = 作用给自己**，**指向右 = 作用给选中目标**；见 `DD_EN_COREBOX_RULES.pdf` 第 20 页。
+**关键规则（Kyries 2026-11-08）**：
 
-## 图标数据问题（待确认）
+- 直角箭头**指向左 = 作用给自己**，**指向右 = 作用给选中目标**（规则书 p20）。
+- **弧形箭头 + 数字 = 射程**：1 = 相邻地块，2 = 隔一个地块，无数字 = 0（只能当前地块）；后面再跟 `Self` 表示只作用于自己。
+- **红色爪痕上的数字 = 伤害**（不是治疗）。
+- Protection（受伤减半向上取整）/ Guard（必须锁定守卫敌人）见规则书 p21。
 
-| iconId | 字典当前含义 | 冲突 |
-| --- | --- | --- |
-| `20ffe98e2d` | heal（治疗） | Purge III 的 19/12、Revenge 行首都被 Kyries 读成伤害/非治疗；Battle Heal 卡又确实用它表示治疗 → 疑似**逐卡提取错配**，不是全局字典错 |
-| `f18923574c` | shuffle（位移） | Solemnity 的 `-1` 被读成**压力 -1** |
-| `d4329c2a97` | buff（增益） | Solemnity 没有 Buff，该图标可能是别的标记 |
-| `1ff34c908b` | buff（增益） | 在 `{range} {icon} Self` 行里，疑似**直角箭头/自身标记**，不是 Buff |
-| `8fc8635162` | self_effects（自身效果标记） | 可能是**指向左的直角箭头**（作用于自己） |
-| `b6afaa4d7b` | target_effects（目标效果标记） | 可能是**指向右的直角箭头**（作用于选中目标） |
+## 图标数据问题（2026-11-08 已澄清一部分）
 
-处理方式建议：先按 Kyries 确认的箭头/图标语义修正这几张卡的**逐卡覆盖**（不动全局字典，先修 p282/p284/p285/p290/p291），再重跑审计；确认无回归后再决定是否更新字典与核心卡。
+| iconId       | 字典当前含义                   | 结论                                                                                                                              |
+| ------------ | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| `20ffe98e2d` | heal（治疗）                   | Battle Heal 确实用它表示治疗；Purge III / Revenge 的同一 hash 是**逐卡提取错配**，按卡面应读成伤害/非治疗。不改全局字典，逐卡覆盖 |
+| `f18923574c` | shuffle（位移）                | Solemnity 的 `-1` 按卡面是**压力 -1**；同为逐卡错配                                                                               |
+| `d4329c2a97` | buff（增益）                   | 实际是**弧形箭头（攻击范围）**，无数字 = 射程 0；字典待改                                                                         |
+| `1ff34c908b` | buff（增益）                   | 在 `{range} {icon} Self` 行里，疑为 Self 侧标记；待确认                                                                           |
+| `8fc8635162` | self_effects（自身效果标记）   | 疑为**指向左的直角箭头**                                                                                                          |
+| `b6afaa4d7b` | target_effects（目标效果标记） | 疑为**指向右的直角箭头**                                                                                                          |
+
+处理方式：先按 Kyries 读数做**逐卡覆盖**（不动全局字典，先修 p282/p284/p285/p290/p291），再重跑审计；确认无回归后再决定是否更新字典与核心卡。
+
+## 已实现（2026-11-08）
+
+- **Antiquarian III STAT**：Life 15 / Dodge 3 / Speed 0；左栏 Blight 抗性；免疫 = 位移 + 疾病。`8510428636` 只在 `verified_higher_condition_defence` 注解，不写全局词典（Q-104 关闭，R-200）。
+- `warrens-hero-stat.ts` 增加该面并调用 `buildHigherHeroDefence`；`hero-higher-defence.ts` 增加批准行与 `kyries_review_2026-11-08`；normalized 已重生成；`battle-data-plugin` 属性计数 53→54。
+- 数据测试、`packages/data` 全量、engine `dungeon-battle`、`pnpm typecheck`、web build 均通过。
 
 ## 确认后怎么接
 
 1. 在 `packages/data/src/normalize/verified-hero-statuses.ts` / `verified-hero-support.ts` / `verified-hero-ranges.ts` 增加 Leper 条目（带签名断言，签名不符即拒绝）。
 2. 对 p282/p284/p285/p290/p291 的 stats/效果行做逐卡修正（`verified_stat_line` 或等价覆盖），避免改动全局图标字典。
 3. 跑 `core-higher-skills` 审计（扩展为 18 名英雄的 II/III）。
-4. 通过后把目录切到「全部 18 名英雄 I–III」、清掉 84 张 art-only 占位、更新建队页文案与裁定（R-008 覆盖 + 新 R 记录）。
+4. 通过后把目录切到「全部 18 名英雄 I–III」、清掉 84 张 art-only 占位、更新建队页文案。
 5. 其余 6 名（Antiquarian / Flagellant / Man-at-Arms / Houndmaster / Shieldbreaker / Musketeer）按同一流程逐名做，每名一批提交。
 
 ## Antiquarian III 的免疫图标位置

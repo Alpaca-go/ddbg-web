@@ -7956,6 +7956,238 @@
    }
   },
   {
+   "rawId": "hero_stat:warrens:antiquarian:p002",
+   "face": "front",
+   "name": "ANTIQUARIAN",
+   "level": 3,
+   "life": 15,
+   "dodge": 3,
+   "speed": 0,
+   "id": "hero_stat:warrens:antiquarian:p002:front",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf",
+    "page": 31
+   },
+   "attributesVerified": true,
+   "approval": "kyries_review_2026-11-08",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "blight"
+    ],
+    "immunities": [
+     "shuffle",
+     "disease"
+    ],
+    "source": "print_front",
+    "approval": "kyries_review_2026-11-08"
+   },
+   "lines": [
+    "{icon:bb21119dee}",
+    "{icon:8466c441ea} III",
+    "{icon:23cc2e3363}",
+    "{icon:61fd969d50} ANTIQUARIAN",
+    "{icon:ea576f3383} {icon:7a472f5d6f} 3 {icon:9534ad5184}",
+    "15 {icon:4648c9e5ec} {icon:4648c9e5ec}",
+    "Resistances        Immunities {icon:55a3fded25}",
+    "{icon:61fd969d50}",
+    "{icon:40bb356305}",
+    "{icon:8510428636}",
+    "{icon:28b10f3fb7}",
+    "Hamlet Skill: Trinket Scrounge",
+    "Pay 5 {icon:a84ac4c016} and roll {icon:7616568d52} :",
+    "1-5: Draw 2 Trinkets",
+    "6-10: Draw 2 Trinkets",
+    "equal than the Hero",
+    "equal to the Hero Level",
+    "Level and pick one.",
+    "and keep them."
+   ],
+   "icons": [
+    {
+     "iconId": "bb21119dee",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_portrait",
+     "kind": "other",
+     "meaning_en": "Hero portrait: Crusader (hero stat card)",
+     "meaning_zh": "英雄头像：十字军（英雄属性卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8466c441ea",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "wound",
+     "kind": "damage_type",
+     "meaning_en": "Wound",
+     "meaning_zh": "创伤",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "23cc2e3363",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "ea576f3383",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "7a472f5d6f",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "dodge",
+     "kind": "other",
+     "meaning_en": "Dodge (value printed next)",
+     "meaning_zh": "闪避（后接数值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "9534ad5184",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "life",
+     "kind": "other",
+     "meaning_en": "Hero Life (max HP)",
+     "meaning_zh": "英雄生命值",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "55a3fded25",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "61fd969d50",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "hero_emblem",
+     "kind": "other",
+     "meaning_en": "Hero class emblem (hero card)",
+     "meaning_zh": "英雄职业徽记（英雄卡）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8510428636",
+     "in_dictionary": true,
+     "status": "unreviewed",
+     "key": "unknown_8510428636",
+     "kind": "",
+     "meaning_en": "",
+     "meaning_zh": "",
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "40bb356305",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "blight",
+     "kind": "status",
+     "meaning_en": "Blight (hero stat card, large)",
+     "meaning_zh": "枯萎（英雄属性卡，大）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "28b10f3fb7",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "disease",
+     "kind": "disease",
+     "meaning_en": "disease",
+     "meaning_zh": "疾病",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "a84ac4c016",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stress",
+     "kind": "stress",
+     "meaning_en": "Stress",
+     "meaning_zh": "压力",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "7616568d52",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "target_hero",
+     "kind": "target",
+     "meaning_en": "Target: Hero(es) (one icon per target)",
+     "meaning_zh": "目标：英雄（图标数=目标数）",
+     "value": null,
+     "naming": "confirmed"
+    }
+   ],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:8510428636"
+    ]
+   }
+  },
+  {
    "rawId": "hero_stat:cove:flagellant:p001",
    "face": "front",
    "name": "FLAGELLANT",

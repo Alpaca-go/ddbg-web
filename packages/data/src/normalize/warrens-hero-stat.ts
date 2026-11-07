@@ -4,6 +4,7 @@ import { levelSchema } from "../extract/common";
 import type { IconDictionary } from "../dictionary/schema";
 import { createIconLookup, finishVerification, noteIcon, resolveLines } from "./icons";
 import { normalizedIconSchema, verificationSchema } from "./schema";
+import { buildHigherHeroDefence, higherHeroDefenceSchema } from "./hero-higher-defence";
 
 const STAT_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf";
@@ -23,14 +24,14 @@ const warrensAttributesSchema = z.strictObject({
   speed: z.int().nonnegative(),
 });
 
-/** R-104：Warrens 两面 STAT（TDH 印刷 p28–31；与 Warrens 包 p1–4 同序，见 Q-103）。 */
+/** R-104 + Q-104（2026-11-08）：Warrens 三张 STAT；Antiquarian III 免疫 = 位移 + 疾病。 */
 export const approvedWarrensHeroStats = [
   ["hero_stat:warrens:leper:p001", "front", "LEPER", 1, 18, 0, 1],
   ["hero_stat:warrens:leper:p001", "back", "LEPER", 2, 25, 1, 1],
   ["hero_stat:warrens:leper:p002", "front", "LEPER", 3, 33, 2, 1],
   ["hero_stat:warrens:antiquarian:p001", "front", "ANTIQUARIAN", 1, 9, 1, 0],
   ["hero_stat:warrens:antiquarian:p001", "back", "ANTIQUARIAN", 2, 12, 2, 0],
-  // Antiquarian III 免疫栏含未确认图标（8510428636），待 Q-104；不写入 attributesVerified。
+  ["hero_stat:warrens:antiquarian:p002", "front", "ANTIQUARIAN", 3, 15, 3, 0],
 ].map(([rawId, face, name, level, life, dodge, speed]) =>
   warrensAttributesSchema.parse({ rawId, face, name, level, life, dodge, speed }),
 );
@@ -60,8 +61,9 @@ export const warrensHeroStatCardSchema = warrensAttributesSchema
       page: z.int().positive(),
     }),
     attributesVerified: z.literal(true),
-    approval: z.literal("kyries_review_2026-10-24"),
+    approval: z.enum(["kyries_review_2026-10-24", "kyries_review_2026-11-08"]),
     verified_condition_defence: warrensConditionDefenceSchema.optional(),
+    verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
     lines: z.array(z.string()),
     icons: z.array(normalizedIconSchema),
     verification: verificationSchema,
@@ -171,12 +173,13 @@ export function buildWarrensHeroStats(
       if (!joined.includes(`{icon:${defence.iconId}}`))
         throw new Error("Warrens 条件防御图标漂移（R-048）");
     }
+    const higherDefence = buildHigherHeroDefence(`${attributes.rawId}:${attributes.face}`, face);
     return warrensHeroStatCardSchema.parse({
       ...attributes,
       id: `${attributes.rawId}:${attributes.face}`,
       source: { file: face.file, page: face.page },
       attributesVerified: true,
-      approval: "kyries_review_2026-10-24",
+      approval: higherDefence ? "kyries_review_2026-11-08" : "kyries_review_2026-10-24",
       ...(defence
         ? {
             verified_condition_defence: {
@@ -187,6 +190,7 @@ export function buildWarrensHeroStats(
             },
           }
         : {}),
+      ...(higherDefence ? { verified_higher_condition_defence: higherDefence } : {}),
       lines: face.lines.map((line) => line.text),
       icons: icons.map((entry) => {
         const { bbox, ...icon } = entry;

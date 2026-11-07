@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+﻿import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../extract/raw";
 import { iconDictionarySchema } from "../dictionary/schema";
@@ -14,8 +14,8 @@ const raw = rawFileSchema.parse(json("extract/extension/warrens/raw/hero_stat.js
 const dictionary = iconDictionarySchema.parse(json("dictionary/icon-dictionary-v1.8.json"));
 const built = buildWarrensHeroStats(raw, dictionary);
 
-it("R-104：Leper / Antiquarian I–II 黄金值与条件防御；III Antiquarian 待 Q-104 不入库", () => {
-  expect(approvedWarrensHeroStats).toHaveLength(5);
+it("R-104 + Q-104：Leper / Antiquarian I–III 黄金值；Antiquarian III 免疫 = 位移 + 疾病", () => {
+  expect(approvedWarrensHeroStats).toHaveLength(6);
   expect(
     built.map((c) => [
       c.id,
@@ -32,6 +32,7 @@ it("R-104：Leper / Antiquarian I–II 黄金值与条件防御；III Antiquaria
     ["hero_stat:warrens:leper:p002:front", 3, 33, 2, 1, false, null],
     ["hero_stat:warrens:antiquarian:p001:front", 1, 9, 1, 0, false, null],
     ["hero_stat:warrens:antiquarian:p001:back", 2, 12, 2, 0, true, null],
+    ["hero_stat:warrens:antiquarian:p002:front", 3, 15, 3, 0, true, null],
   ]);
   for (const card of built) expect(warrensHeroStatCardSchema.safeParse(card).success).toBe(true);
 });
