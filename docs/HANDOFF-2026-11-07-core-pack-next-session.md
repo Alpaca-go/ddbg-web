@@ -8,7 +8,7 @@
 
 - 战役结构：III → 最暗入口、随机抽 1/3（R-191/R-192）。
 - 战役存档：模型与跨任务严格回放（R-194）；II/III 验收缺一条合法 Act I 自然链。
-- 中途 Boss：Templars 尖刺/Pit Toss（R-193）、Mammoth White Cell Teleport（R-195）、Shuffling Echoing 召唤 + 先攻洗入（R-034/R-197）均已接。
+- 中途 Boss：Templars 尖刺/Pit Toss（R-193）、Mammoth White Cell Teleport（R-195）、Shuffling Echoing 召唤 + 先攻洗入（R-034/R-197）均已接；**Phase 6 自动回合 `autoMonsterTurn` 已接**（2026-11-08，见 §4.5）。
 - 任务 SPECIAL：Rising Threat、Purify 已接；Dem Bones 既有路径已符合（R-197）。
 - DL3 三张普通怪：Speed/选招已入库（R-196）；**八招技能效果已接**（R-198，Q-163 关闭）。
 - 走廊：核心盒没有走廊板块，误提取数据已删除（Q-161）。
@@ -41,15 +41,15 @@ pnpm --filter @ddbg/web exec playwright test --reporter=line
 
 ## 3. 已关闭的 Q（别再翻案）
 
-| Q     | 结论                                                         |
-| ----- | ------------------------------------------------------------ |
-| Q-158 | 核心盒 v1 中途 Boss 保持**显式命令**，自动选招/AI 归 Phase 6 |
-| Q-159 | DL3 三怪 Speed/选招已入库 → R-196                            |
-| Q-160 | 三条任务 SPECIAL + `dd2d2467ec`=Potion → R-197               |
-| Q-161 | 核心盒无走廊板块（p8=PvP、BACK p1=Old Road）；误提取数据已删 |
-| Q-162 | Templars 自然存档**保持 skip**（R-190：不为绿灯调策略/种子） |
-| Q-163 | DL3 八招一次接完（方案 2 + cleanse 原语）→ R-198             |
-| Q-19  | 大型怪让位：整块顺移 + 轨道边界截断 → R-199                  |
+| Q     | 结论                                                                                                           |
+| ----- | -------------------------------------------------------------------------------------------------------------- |
+| Q-158 | 核心盒 v1 中途 Boss 保持**显式命令**，自动选招/AI 归 Phase 6；**Phase 6 已接 `autoMonsterTurn`（2026-11-08）** |
+| Q-159 | DL3 三怪 Speed/选招已入库 → R-196                                                                              |
+| Q-160 | 三条任务 SPECIAL + `dd2d2467ec`=Potion → R-197                                                                 |
+| Q-161 | 核心盒无走廊板块（p8=PvP、BACK p1=Old Road）；误提取数据已删                                                   |
+| Q-162 | Templars 自然存档**保持 skip**（R-190：不为绿灯调策略/种子）                                                   |
+| Q-163 | DL3 八招一次接完（方案 2 + cleanse 原语）→ R-198                                                               |
+| Q-19  | 大型怪让位：整块顺移 + 轨道边界截断 → R-199                                                                    |
 
 ## 4. 当前待办（按建议顺序）
 
@@ -88,20 +88,27 @@ R-194 的模型已就绪（`createQuestSave` 写 `campaignLevel` 并校验回放
 - Treasure T4–T5：**已确认保持 `blocked: true`**（Kyries 2026-11-07），旧交接稿的「可通行」作废，不改数据。
 - **e2e 已恢复可跑**（本机 Chromium 1234 + 环境变量，见 §2）。`dungeon.spec` 已从 880 行连跑拆成 10 条；本地默认串行 + 重试一次。最新全量（55 条）：53 通过 / 1 flaky / 1 skip / 0 失败，约 17 分钟；`templars-i-save` 按 Q-162 skip。细节见 `docs/phase5-e2e-local-run-2026-11-08.md`。
 
+### 4.5 Phase 6：中途 Boss 自动回合 —— 引擎已完成，UI 待接
+
+- 新增 `autoMonsterTurn` 命令：按姿态 d10 自动选招 → 定位 → 按目标优先级选目标 → 施放；玩家该选的（怪物落点、位移方向）返回 `pendingChoice`，不替玩家选。
+- 覆盖 Templars I / Shuffling Horror / Mammoth Cyst；Mammoth Revivify 走自身技能分支；显式 `apply*` 命令保留。
+- 测试 `monster-auto-turn.test.ts`（5 条）+ 存档 schema 已允许该命令。切片见 `docs/phase6-boss-auto-turn-2026-11-08.md`。
+- **待接**：战斗 UI 的「自动回合」按钮（S4 暂停中，可单独开小切片）。
+
 ## 5. 关键文件地图
 
-| 主题            | 文件                                                                                                                                                                |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 战役入口 / 抽签 | `packages/engine/src/darkest-entry.ts`、`hamlet-embark.ts`、`darkest-setup.ts`                                                                                      |
-| 战役存档        | `packages/engine/src/quest-save.ts`、`packages/data/src/quest-save.ts`、`campaign-quest-save.test.ts`                                                               |
-| 中途 Boss       | `packages/engine/src/boss/templars-*`、`mammoth-cyst-teleport.ts`、`darkest-shuffling-horror-combat-runtime.ts`、`darkest-mid-boss-runtime.ts`                      |
-| DL3 字段        | `packages/data/src/normalize/verified-monster-speeds.ts`、`verified-monster-stances.ts`、`verified-large-monster-fields.ts`、`normalized/corebox/monster_pool.json` |
-| DL3 技能        | `packages/data/src/normalize/verified-monster-effects.ts`、`packages/engine/src/monster-effect-plan.ts`、`monster-skill.ts`                                         |
-| Rising Threat   | `packages/engine/src/curio-room-guard.ts`、`dungeon-curio-room.ts`、`dungeon-monsters.ts`、`dungeon-battle.ts`                                                      |
-| Purify          | `packages/engine/src/quest-provisions.ts`、`dungeon-starting-provisions.ts`、`dungeon-provision-use.ts`、`dungeon-objective.ts`                                     |
-| 任务卡          | `packages/data/src/basic-quests.ts`（p004/p005/p010 的 SPECIAL 字段）                                                                                               |
-| 网页            | `apps/web/src/dungeon-sandbox/**`（hamlet 入口、失败面板、QUEST 面板）                                                                                              |
-| 裁定            | `docs/rulings.md`（R-191–R-199、Q-158–Q-163）                                                                                                                       |
+| 主题            | 文件                                                                                                                                                                                 |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 战役入口 / 抽签 | `packages/engine/src/darkest-entry.ts`、`hamlet-embark.ts`、`darkest-setup.ts`                                                                                                       |
+| 战役存档        | `packages/engine/src/quest-save.ts`、`packages/data/src/quest-save.ts`、`campaign-quest-save.test.ts`                                                                                |
+| 中途 Boss       | `packages/engine/src/boss/templars-*`、`mammoth-cyst-teleport.ts`、`darkest-shuffling-horror-combat-runtime.ts`、`darkest-mid-boss-runtime.ts`、`battle-monster-auto.ts`（自动回合） |
+| DL3 字段        | `packages/data/src/normalize/verified-monster-speeds.ts`、`verified-monster-stances.ts`、`verified-large-monster-fields.ts`、`normalized/corebox/monster_pool.json`                  |
+| DL3 技能        | `packages/data/src/normalize/verified-monster-effects.ts`、`packages/engine/src/monster-effect-plan.ts`、`monster-skill.ts`                                                          |
+| Rising Threat   | `packages/engine/src/curio-room-guard.ts`、`dungeon-curio-room.ts`、`dungeon-monsters.ts`、`dungeon-battle.ts`                                                                       |
+| Purify          | `packages/engine/src/quest-provisions.ts`、`dungeon-starting-provisions.ts`、`dungeon-provision-use.ts`、`dungeon-objective.ts`                                                      |
+| 任务卡          | `packages/data/src/basic-quests.ts`（p004/p005/p010 的 SPECIAL 字段）                                                                                                                |
+| 网页            | `apps/web/src/dungeon-sandbox/**`（hamlet 入口、失败面板、QUEST 面板）                                                                                                               |
+| 裁定            | `docs/rulings.md`（R-191–R-199、Q-158–Q-163）                                                                                                                                        |
 
 切片记录（按时间）：`docs/phase5-darkest-act-entry-2026-11-05.md`、`phase5-darkest-quest-draw-2026-11-06.md`、`phase5-campaign-defeat-new-campaign-2026-11-06.md`、`phase5-campaign-save-model-2026-11-06.md`、`phase5-mammoth-teleport-2026-11-07.md`、`phase5-templars-spikes-review-2026-11-07.md`、`phase5-shuffling-horror-echoing-initiative-2026-11-07.md`、`phase5-dl3-monster-fields-review-2026-11-07.md`、`phase5-task-special-review-2026-11-07.md`、`phase5-rising-threat-2026-11-07.md`、`phase5-purify-fountains-2026-11-07.md`、`phase5-corridor-tiles-review-2026-11-07.md`。
 

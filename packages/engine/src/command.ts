@@ -158,6 +158,8 @@ import { applyBattleShuffles, chooseBalancedShuffle } from "./battle-shuffle";
 import { playMonsterSkill } from "./battle-monster";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
 import { prepareMonsterAction } from "./battle-monster-action";
+import { autoMonsterTurn } from "./battle-monster-auto";
+import type { AutoMonsterTurnCommand } from "./battle-monster-auto";
 import { moveInvokingMonster } from "./battle-invocation";
 import { moveMonsterToRange } from "./battle-monster-movement";
 import type { MoveMonsterToRangeCommand, MonsterPositionedEvent } from "./battle-monster-movement";
@@ -315,6 +317,7 @@ type BaseCommand =
   | PlayHeroSkillTargetsCommand
   | PlayMonsterSkillCommand
   | PrepareMonsterActionCommand
+  | AutoMonsterTurnCommand
   | { readonly type: "applyShufflingHorrorUndulations"; readonly actorId: string }
   | { readonly type: "applyShufflingHorrorEchoingDisassembly"; readonly actorId: string }
   | { readonly type: "applyShufflingHorrorLacerate"; readonly actorId: string }
@@ -847,6 +850,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "hideAndHeal") return hideAndHeal(state, command.actorId);
   if (command.type === "interactLoot") return interactLoot(state, command.actorId);
   if (command.type === "prepareMonsterAction") return prepareMonsterAction(state, command);
+  if (command.type === "autoMonsterTurn") return autoMonsterTurn(state, command);
   if (command.type === "applyShufflingHorrorUndulations")
     return applyShufflingHorrorUndulations(state, command.actorId);
   if (command.type === "applyShufflingHorrorEchoingDisassembly")

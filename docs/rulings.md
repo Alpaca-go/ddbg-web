@@ -2478,6 +2478,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **待确认**：① 核心盒 v1 是否要求中途 Boss「自动选招」（按姿态 d10 表自动执行），还是保持显式命令；② Echoing 召唤的完整范围（姿态轨未满时的召唤次数、召唤物落区、先攻洗入）是否已由 R-183 / R-034 覆盖，还是另有卡面细节待核。
 - **暂定**：保持显式命令；`combatReady: true` 只表示允许进入生产战斗，不等于 AI 已完成（R-189）。
 - **决定（2026-11-07，Kyries）**：**核心盒 v1 保持显式命令**驱动中途 Boss 技能与召唤，不做自动选招/AI；自动选招归 Phase 6（后续阶段）。Echoing 召唤的「先攻卡洗入」已按 R-034 #5 接线（`phase5-shuffling-horror-echoing-initiative-2026-11-07.md`），其余选招仍由玩家/测试驱动。
+- **Phase 6 补记（2026-11-08）**：新增 `autoMonsterTurn` 命令，按已批准的姿态 d10 表自动选招、定位、按卡面目标优先级选目标并施放；玩家该做的选择（怪物落点、位移方向）以 `pendingChoice` 返回，不替玩家选。覆盖 Templars I / Shuffling Horror / Mammoth Cyst，显式 `apply*` 命令保留。切片：[phase6-boss-auto-turn-2026-11-08.md](phase6-boss-auto-turn-2026-11-08.md)。
 - **状态**：已确认（2026-11-07）→ 核心盒 v1 显式命令；AI 归 Phase 6。
 
 ### Q-159
