@@ -2759,3 +2759,19 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**（Kyries **真确认** 2026-11-08）：**自身与队友压力各 −1**（`verified_self_stress` + `verified_allies_stress`）。另有 stats：**临近一个队友**，I **射程 1** Acc **12** Crit **0**；II **射程 1–2** Acc **14** Crit **0**；III **射程 1–2** Acc **16** Crit **1**。不是「仅 Self 头行签收」。
 - **状态**：Kyries 真确认（2026-11-08）
 
+### Q-176（已关闭）
+
+- **编号**：Q-176
+- **日期**：2026-11-08
+- **问题**：Man-at-Arms **Retribution** I–III 自身行 `9d58d3d431` 误读为 `{stress} 2t`，与 `1ce58a493c`（词典 **Mark**）并存。
+- **裁定**（Kyries **真确认** 2026-11-08）：效果为**自身 Mark 2t + 反击（Riposte）**（I：2t；II/III：Riposte 3t，Mark 仍为 2t）。本卡将 `9d58d3d431` 覆盖为 `{mark}`、`1ce58a493c` 覆盖为 `{riposte}`，**拆行**并 `verified_status_effects` 接线；**非**压力行。
+- **状态**：Kyries 真确认（2026-11-08）
+
+### Q-177（已关闭）
+
+- **编号**：Q-177
+- **日期**：2026-11-08
+- **问题**：Man-at-Arms **Defender** I–III OCR：`a0290ad4ce`/`ac56561b87` 误为 Riposte + `{shuffle}`。
+- **裁定**（Kyries **真确认** 2026-11-08）：效果为**自身守护（Guard）+ 保护（Protection）**（I：**2t / 3t**；II：**2t / 2t**；III：**2t / 3t** 以卡面为准）。拆行、本卡覆盖 icon key，**不改全局词典**。
+- **状态**：Kyries 真确认（2026-11-08）
+

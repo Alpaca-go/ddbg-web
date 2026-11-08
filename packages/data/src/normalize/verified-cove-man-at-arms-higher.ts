@@ -174,28 +174,31 @@ function fixDefender(
   card: NormalizedHeroSkillCard,
   page: number,
   level: number,
-  riposteT: number,
-  shuffleT: number,
+  rawRiposteT: number,
+  rawShuffleT: number,
+  guardT: number,
+  protectionT: number,
 ) {
   assertMaa(card, page, "Defender", level);
   const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
   if (
     rawSigs[0] !== "{range}{buff}Self" ||
-    rawSigs[1] !== `{self_effects}{buff}Self{riposte}${riposteT}t,{shuffle}${shuffleT}t`
+    rawSigs[1] !==
+      `{self_effects}{buff}Self{riposte}${rawRiposteT}t,{shuffle}${rawShuffleT}t`
   )
     throw new Error(`${card.id} Defender 效果行漂移（R-048）`);
   const rangeIcon = iconFromCard(card, "range");
   const selfEffects = iconFromCard(card, "self_effects");
-  const riposte = iconFromCard(card, "riposte");
-  const pullMis = segmentOnCard(card, "ac56561b87");
-  const protection = iconFromPool(cards, "protection");
+  const riposteMis = segmentOnCard(card, "a0290ad4ce");
+  const shuffleMis = segmentOnCard(card, "ac56561b87");
+  iconFromPool(cards, "protection");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     stats_line: null,
     effect_lines: [
       [rangeIcon, text(" Self")],
-      [selfEffects, text(" Self "), riposte, text(` ${riposteT}t`)],
-      [selfEffects, text(" Self "), cloneKey(pullMis, "protection"), text(` ${shuffleT}t`)],
+      [selfEffects, text(" Self "), cloneKey(riposteMis, "guard"), text(` ${guardT}t`)],
+      [selfEffects, text(" Self "), cloneKey(shuffleMis, "protection"), text(` ${protectionT}t`)],
     ],
     unlabeled_numbers: [rangeZeroUnlabeled(rangeIcon), ...card.unlabeled_numbers],
     verified_self_range: true,
@@ -204,15 +207,15 @@ function fixDefender(
         lineIndex: 1,
         segmentIndex: 2,
         scope: "self",
-        kind: "riposte",
-        duration: riposteT,
+        kind: "guard",
+        duration: guardT,
       },
       {
         lineIndex: 2,
         segmentIndex: 2,
         scope: "self",
         kind: "protection",
-        duration: shuffleT,
+        duration: protectionT,
       },
     ],
   });
@@ -223,28 +226,36 @@ function fixRetribution(
   page: number,
   level: number,
   markT: number,
+  riposteT: number,
   expectedSelfRaw: string,
 ) {
   assertMaa(card, page, "Retribution", level);
   const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
   if (raw !== expectedSelfRaw) throw new Error(`${card.id} Retribution 效果行漂移（R-048）`);
   const selfEffects = iconFromCard(card, "self_effects");
-  const stress = iconFromPool([card], "stress");
-  const mark = iconFromCard(card, "mark");
+  const stressMis = segmentOnCard(card, "9d58d3d431");
+  const markMis = segmentOnCard(card, "1ce58a493c");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     effect_lines: [
-      [selfEffects, text(" Self "), stress, text(" 2t")],
-      [selfEffects, text(" Self "), mark, text(` ${markT}t`)],
+      [selfEffects, text(" Self "), cloneKey(stressMis, "mark"), text(` ${markT}t`)],
+      [selfEffects, text(" Self "), cloneKey(markMis, "riposte"), text(` ${riposteT}t`)],
     ],
     verified_range: { min: 1, max: 2, source: "print_front" },
     verified_status_effects: [
       {
-        lineIndex: 1,
+        lineIndex: 0,
         segmentIndex: 2,
         scope: "self",
         kind: "mark",
         duration: markT,
+      },
+      {
+        lineIndex: 1,
+        segmentIndex: 2,
+        scope: "self",
+        kind: "riposte",
+        duration: riposteT,
       },
     ],
   });
@@ -384,7 +395,7 @@ function fixBolster(
 
 /**
  * R-200：Man-at-Arms L1–III 技能族（TDH p232–252）逐卡覆盖；II/III 共 14 张 + 同族 L1 OCR 洗净。
- * Retribution 自身 `{stress} Nt` 见 Q-172（待 Kyries 确认），本 PR 只接线 Mark 与伤害层。
+ * Retribution / Defender 见 Q-176 / Q-177（Mark+Riposte、Guard+Protection）。
  */
 export function attachVerifiedCoveManAtArmsHigher(
   cards: readonly NormalizedHeroSkillCard[],
@@ -425,35 +436,17 @@ export function attachVerifiedCoveManAtArmsHigher(
       case "hero_skill:p240":
         return fixBellow(card, 240, 3, 3);
       case "hero_skill:p241":
-        return fixDefender(cards, card, 241, 1, 1, 2);
+        return fixDefender(cards, card, 241, 1, 1, 2, 2, 3);
       case "hero_skill:p242":
-        return fixDefender(cards, card, 242, 2, 2, 2);
+        return fixDefender(cards, card, 242, 2, 2, 2, 2, 2);
       case "hero_skill:p243":
-        return fixDefender(cards, card, 243, 3, 2, 3);
+        return fixDefender(cards, card, 243, 3, 2, 3, 2, 3);
       case "hero_skill:p244":
-        return fixRetribution(
-          card,
-          244,
-          1,
-          2,
-          "{self_effects}{buff}Self{stress}2t,{mark}2t",
-        );
+        return fixRetribution(card, 244, 1, 2, 2, "{self_effects}{buff}Self{stress}2t,{mark}2t");
       case "hero_skill:p245":
-        return fixRetribution(
-          card,
-          245,
-          2,
-          3,
-          "{self_effects}{buff}Self{stress}2t,{mark}3t",
-        );
+        return fixRetribution(card, 245, 2, 2, 3, "{self_effects}{buff}Self{stress}2t,{mark}3t");
       case "hero_skill:p246":
-        return fixRetribution(
-          card,
-          246,
-          3,
-          3,
-          "{self_effects}{buff}Self{stress}2t,{mark}3t",
-        );
+        return fixRetribution(card, 246, 3, 2, 3, "{self_effects}{buff}Self{stress}2t,{mark}3t");
       case "hero_skill:p247":
         return fixCommand(card, 247, 1, 1, 2);
       case "hero_skill:p248":

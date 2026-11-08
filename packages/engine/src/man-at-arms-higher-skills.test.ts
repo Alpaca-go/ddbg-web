@@ -8,7 +8,7 @@ import {
 } from "./hero-skill";
 import type { HeroSkillCardView } from "./hero-skill";
 
-/** Cove Man-at-Arms II/III 14 张（Crush 以外）；p244–p246 待 Q-172。 */
+/** Cove Man-at-Arms II/III 14 张（Crush 以外）；Retribution/Defender 见 Q-176/Q-177。 */
 const MAA_II_III_IDS = [
   "hero_skill:p233",
   "hero_skill:p234",
@@ -25,11 +25,6 @@ const MAA_II_III_IDS = [
   "hero_skill:p251",
   "hero_skill:p252",
 ] as const;
-
-const RETRIBUTION_PENDING_Q172 = new Set([
-  "hero_skill:p245",
-  "hero_skill:p246",
-]);
 
 const data = loadNormalizedCorebox();
 const maaHigherCards = data.hero_skill.cards.filter((card) =>
@@ -79,13 +74,8 @@ function combatFor(card: MaaCard) {
 it.each(maaHigherCards)("$id $name：Man-at-Arms d10 审计", (raw) => {
   const card = clean<MaaCard>(raw);
   const combat = combatFor(card);
-  const pending = RETRIBUTION_PENDING_Q172.has(card.id);
   for (let roll = 1; roll <= 10; roll++) {
     const r = resolveHeroSkillEffects(card, combat, roll);
-    if (pending) {
-      expect(r.resolution.skipped).toContainEqual({ code: "effect_lines" });
-      continue;
-    }
     expect(r.resolution.status, r.resolution.reason ?? raw.id).toBe("resolved");
     expect(r.resolution.skipped).not.toContainEqual({ code: "effect_lines" });
     expect(resolveHeroSkillEffects(card, combat, roll)).toEqual(r);

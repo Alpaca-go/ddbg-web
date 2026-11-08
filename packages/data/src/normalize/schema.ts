@@ -263,15 +263,6 @@ const heroSkillShared = {
     })
     .refine((range) => range.min <= range.max)
     .optional(),
-  verified_self_range: z.literal(true).optional(),
-  verified_self_stress: z
-    .strictObject({
-      lineIndex: z.int().nonnegative(),
-      amount: z.int(),
-      source: z.literal("print_front"),
-    })
-    .optional(),
-  verified_allies_stress: z.int().optional(),
   verified_rallying_flare: z
     .strictObject({
       cleanupLineIndex: z.literal(0),

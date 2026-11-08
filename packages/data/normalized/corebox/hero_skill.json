@@ -133850,7 +133850,7 @@
        "iconId": "a0290ad4ce",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "riposte",
+       "key": "guard",
        "kind": "status",
        "meaning_en": "Riposte",
        "meaning_zh": "反击",
@@ -133860,7 +133860,7 @@
      },
      {
       "type": "text",
-      "text": " 1t"
+      "text": " 2t"
      }
     ],
     [
@@ -133898,24 +133898,25 @@
      },
      {
       "type": "text",
-      "text": " 2t"
+      "text": " 3t"
      }
     ]
    ],
+   "verified_self_range": true,
    "verified_status_effects": [
     {
      "lineIndex": 1,
      "segmentIndex": 2,
      "scope": "self",
-     "kind": "riposte",
-     "duration": 1
+     "kind": "guard",
+     "duration": 2
     },
     {
      "lineIndex": 2,
      "segmentIndex": 2,
      "scope": "self",
      "kind": "protection",
-     "duration": 2
+     "duration": 3
     }
    ],
    "top_row_icons": [
@@ -133978,7 +133979,6 @@
     }
    ],
    "stats_line": null,
-   "verified_self_range": true,
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -134326,7 +134326,7 @@
        "iconId": "a0290ad4ce",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "riposte",
+       "key": "guard",
        "kind": "status",
        "meaning_en": "Riposte",
        "meaning_zh": "反击",
@@ -134378,12 +134378,13 @@
      }
     ]
    ],
+   "verified_self_range": true,
    "verified_status_effects": [
     {
      "lineIndex": 1,
      "segmentIndex": 2,
      "scope": "self",
-     "kind": "riposte",
+     "kind": "guard",
      "duration": 2
     },
     {
@@ -134454,7 +134455,6 @@
     }
    ],
    "stats_line": null,
-   "verified_self_range": true,
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -134802,7 +134802,7 @@
        "iconId": "a0290ad4ce",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "riposte",
+       "key": "guard",
        "kind": "status",
        "meaning_en": "Riposte",
        "meaning_zh": "反击",
@@ -134854,12 +134854,13 @@
      }
     ]
    ],
+   "verified_self_range": true,
    "verified_status_effects": [
     {
      "lineIndex": 1,
      "segmentIndex": 2,
      "scope": "self",
-     "kind": "riposte",
+     "kind": "guard",
      "duration": 2
     },
     {
@@ -134930,7 +134931,6 @@
     }
    ],
    "stats_line": null,
-   "verified_self_range": true,
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -135275,7 +135275,7 @@
        "iconId": "9d58d3d431",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "stress",
+       "key": "mark",
        "kind": "stress",
        "meaning_en": "Stress (amount follows)",
        "meaning_zh": "压力（后接数值）",
@@ -135313,7 +135313,7 @@
        "iconId": "1ce58a493c",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "mark",
+       "key": "riposte",
        "kind": "status",
        "meaning_en": "Mark",
        "meaning_zh": "标记",
@@ -135329,10 +135329,17 @@
    ],
    "verified_status_effects": [
     {
-     "lineIndex": 1,
+     "lineIndex": 0,
      "segmentIndex": 2,
      "scope": "self",
      "kind": "mark",
+     "duration": 2
+    },
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "riposte",
      "duration": 2
     }
    ],
@@ -135818,7 +135825,7 @@
        "iconId": "9d58d3d431",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "stress",
+       "key": "mark",
        "kind": "stress",
        "meaning_en": "Stress (amount follows)",
        "meaning_zh": "压力（后接数值）",
@@ -135856,7 +135863,7 @@
        "iconId": "1ce58a493c",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "mark",
+       "key": "riposte",
        "kind": "status",
        "meaning_en": "Mark",
        "meaning_zh": "标记",
@@ -135872,10 +135879,17 @@
    ],
    "verified_status_effects": [
     {
-     "lineIndex": 1,
+     "lineIndex": 0,
      "segmentIndex": 2,
      "scope": "self",
      "kind": "mark",
+     "duration": 2
+    },
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "riposte",
      "duration": 3
     }
    ],
@@ -136361,7 +136375,7 @@
        "iconId": "9d58d3d431",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "stress",
+       "key": "mark",
        "kind": "stress",
        "meaning_en": "Stress (amount follows)",
        "meaning_zh": "压力（后接数值）",
@@ -136399,7 +136413,7 @@
        "iconId": "1ce58a493c",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "mark",
+       "key": "riposte",
        "kind": "status",
        "meaning_en": "Mark",
        "meaning_zh": "标记",
@@ -136415,10 +136429,17 @@
    ],
    "verified_status_effects": [
     {
-     "lineIndex": 1,
+     "lineIndex": 0,
      "segmentIndex": 2,
      "scope": "self",
      "kind": "mark",
+     "duration": 2
+    },
+    {
+     "lineIndex": 1,
+     "segmentIndex": 2,
+     "scope": "self",
+     "kind": "riposte",
      "duration": 3
     }
    ],
@@ -138667,6 +138688,12 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": -1,
+    "source": "print_front"
+   },
+   "verified_allies_stress": -1,
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -138732,12 +138759,6 @@
      "text": "Crit 1 Acc 12"
     }
    ],
-   "verified_self_stress": {
-    "lineIndex": 0,
-    "amount": -1,
-    "source": "print_front"
-   },
-   "verified_allies_stress": -1,
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -139197,6 +139218,12 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": -1,
+    "source": "print_front"
+   },
+   "verified_allies_stress": -1,
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -139262,12 +139289,6 @@
      "text": "Crit 1 Acc 14"
     }
    ],
-   "verified_self_stress": {
-    "lineIndex": 0,
-    "amount": -1,
-    "source": "print_front"
-   },
-   "verified_allies_stress": -1,
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -139738,6 +139759,12 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": -1,
+    "source": "print_front"
+   },
+   "verified_allies_stress": -1,
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -139871,12 +139898,6 @@
      "text": " Crit 2 Acc 16"
     }
    ],
-   "verified_self_stress": {
-    "lineIndex": 0,
-    "amount": -1,
-    "source": "print_front"
-   },
-   "verified_allies_stress": -1,
    "front_icons": [
     {
      "iconId": "978f861dea",
