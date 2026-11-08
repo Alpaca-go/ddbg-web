@@ -1,4 +1,4 @@
-﻿import { applyCommand } from "../command";
+import { applyCommand } from "../command";
 import type { Command, GameEvent, GameState, PendingChoice } from "../command";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { basicQuests } from "../../../data/src/basic-quests";

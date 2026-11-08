@@ -1,4 +1,4 @@
-﻿import geometry from "../../../data/normalized/corebox/room_tile_geometry.json";
+import geometry from "../../../data/normalized/corebox/room_tile_geometry.json";
 import { shufflingHorrorRoomSchema } from "../../../data/src/normalize/shuffling-horror-room";
 import { roomCatalogSchema } from "../../../data/src/room";
 import { createBattleState, rejectBattleCommand } from "../battle";

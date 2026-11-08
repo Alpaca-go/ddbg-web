@@ -1,4 +1,4 @@
-﻿import { rejectBattleCommand, type BattleEntity, type BattleState } from "../battle";
+import { rejectBattleCommand, type BattleEntity, type BattleState } from "../battle";
 import type { ApplyResult, GameState } from "../command";
 import { finishTurn } from "../encounter";
 import type { SkillStance } from "../hero-skill";
