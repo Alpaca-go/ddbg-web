@@ -75,11 +75,12 @@ export function beginEldritchVault(state: GameState, actorId: string): ApplyResu
         rngCursor: drawn.cursor,
         eldritchVaultDrawsRemaining: heroCount - 1,
         eldritchVaultReward: true,
+        eldritchVaultStress: heroCount,
         encounter: { ...b.encounter!, turn: { ...turn, actions: turn.actions - 2 } },
       },
     },
     actorId,
-    `Eldritch Vault：按 ${heroCount} 名在场英雄各抽 1 张 III 级饰品；装备承受压力 +2`,
+    `Eldritch Vault：按 ${heroCount} 名在场英雄各抽 1 张 III 级饰品；使用承受压力 +${heroCount}，装备再 +2`,
     [
       {
         type: "roomInteractionResolved",
@@ -126,7 +127,13 @@ export function drawNextEldritchVaultTrinket(state: GameState, actorId: string):
 
 export function clearEldritchVaultReward(state: GameState): GameState {
   if (!state.battle) return state;
-  const { eldritchVaultDrawsRemaining, eldritchVaultReward, ...battle } = state.battle;
-  if (eldritchVaultDrawsRemaining === undefined && eldritchVaultReward === undefined) return state;
+  const { eldritchVaultDrawsRemaining, eldritchVaultReward, eldritchVaultStress, ...battle } =
+    state.battle;
+  if (
+    eldritchVaultDrawsRemaining === undefined &&
+    eldritchVaultReward === undefined &&
+    eldritchVaultStress === undefined
+  )
+    return state;
   return { ...state, battle };
 }

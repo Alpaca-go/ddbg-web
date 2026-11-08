@@ -48,6 +48,7 @@ import { isAbsoluteNothingnessEntity } from "./boss/ancestor2-absolute-nothingne
 import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "./boss/flesh-i-combat-runtime";
 import { applySwinePrinceIWilburBattleStart } from "./boss/swine-prince-i-combat-runtime";
+import { applyNecromancerIIArmyBattleStart } from "./boss/necromancer-ii-army";
 import {
   applyHagICauldronBattleStart,
   bumpHagIActionRoundCount,
@@ -936,7 +937,19 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
         state,
         events: [...marked.events, ...pyre.events, ...oneBody.events, ...wilbur.events],
       };
-    const cauldron = applyHagICauldronBattleStart(wilbur.state);
+    const army = applyNecromancerIIArmyBattleStart(wilbur.state);
+    if (army.events.some((entry) => entry.type === "commandRefused"))
+      return {
+        state,
+        events: [
+          ...marked.events,
+          ...pyre.events,
+          ...oneBody.events,
+          ...wilbur.events,
+          ...army.events,
+        ],
+      };
+    const cauldron = applyHagICauldronBattleStart(army.state);
     if (cauldron.events.some((entry) => entry.type === "commandRefused"))
       return {
         state,

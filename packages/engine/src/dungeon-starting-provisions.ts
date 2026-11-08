@@ -7,13 +7,10 @@ import {
   beginWarmUpProvisionTorchChoice,
   finishStartingProvisionsToExploration,
 } from "./warm-up-starting-provisions";
-import {
-  addQuestStartingProvisions,
-  isQuestProvisionId,
-  readQuestStartingProvisions,
-} from "./quest-provisions";
+import { isQuestProvisionId, questStartingProvisionOverflow } from "./quest-provisions";
 import { scoutAheadPlanProblem } from "./hamlet-scout-ahead";
 import { readFinalBattlePlanAfterDarkestVictory } from "./boss/darkest-content";
+import { rejectBattleCommand } from "./battle";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 
@@ -25,6 +22,97 @@ function baseProvisionIds() {
 
 function bonusProvisionId(heroId: string, index: number) {
   return `dungeon-bonus-provision:${heroId}:${index}`;
+}
+
+function finishQuestProvisionFlow(state: GameState, events: GameEvent[]): ApplyResult {
+  const d = state.dungeon!;
+  if (d.nextQuestProvisionFaceChoice) {
+    const merchant = beginTravelingMerchantsChoice({ ...state, dungeon: { ...d, pending: null } });
+    return { ...merchant, events: [...events, ...merchant.events] };
+  }
+  if (d.warmUpStartingProvisionTorchChoice) {
+    return beginWarmUpProvisionTorchChoice({ ...state, dungeon: { ...d, pending: null } }, events);
+  }
+  return finishStartingProvisionsToExploration(
+    { ...state, dungeon: { ...d, pending: null } },
+    events,
+    "开局补给已入公共池，可以开始探索（R12/R-041）",
+  );
+}
+
+function beginProvisionDiscard(state: GameState, events: GameEvent[]): ApplyResult {
+  const d = state.dungeon!;
+  const info = d.provisionDiscard;
+  if (!info) return rejectBattleCommand(state, "缺少待丢弃补给上下文（Q-142 / R-205）");
+  const options = d
+    .explorationSetup!.provisions.filter((provision) => !isQuestProvisionId(provision.id))
+    .map((provision) => ({ id: provision.id, label: PROVISION_LABELS[provision.face] }));
+  if (!options.length)
+    return rejectBattleCommand(state, "补给池已满但没有可丢弃的既有补给（R-205）");
+  const pending = {
+    id: `dungeon-provision-discard:${d.decision}`,
+    prompt: `补给池将超过 16：选择要丢弃的既有补给（还需 ${info.remaining} 个；任务补给不可丢弃）`,
+    options,
+  };
+  return {
+    state: { ...state, dungeon: { ...d, pending, decision: d.decision + 1 } },
+    events,
+    pendingChoice: pending,
+  };
+}
+
+/** R-205：任务补给溢出时由玩家选择丢弃哪些既有补给。 */
+export function chooseProvisionDiscard(
+  state: GameState,
+  choiceId: string,
+  optionId: string,
+): ApplyResult {
+  const d = state.dungeon;
+  const info = d?.provisionDiscard;
+  if (
+    !d ||
+    !info ||
+    d.pending?.id !== choiceId ||
+    !d.pending.options.some((option) => option.id === optionId)
+  )
+    return rejectBattleCommand(state, "丢弃补给的选择无效（R-205）");
+  const provisions = d.explorationSetup!.provisions.filter(
+    (provision) => provision.id !== optionId,
+  );
+  if (provisions.length === d.explorationSetup!.provisions.length)
+    return rejectBattleCommand(state, "选择的补给不在公共池中（R-205）");
+  const remaining = info.remaining - 1;
+  const nextDungeon = {
+    ...d,
+    explorationSetup: { ...d.explorationSetup!, provisions },
+    provisionDiscard: { ...info, remaining },
+  };
+  const nextState: GameState = { ...state, dungeon: nextDungeon };
+  const discardedEvent: GameEvent = {
+    type: "dungeonUpdated",
+    message: `补给池超过 16：丢弃既有补给 ${optionId}（R-205）`,
+  };
+  if (remaining > 0) return beginProvisionDiscard(nextState, [discardedEvent]);
+  const { provisionDiscard: _finishedDiscard, ...finishedDungeon } = nextDungeon;
+  void _finishedDiscard;
+  const finalState: GameState = {
+    ...nextState,
+    dungeon: {
+      ...finishedDungeon,
+      pending: null,
+      explorationSetup: {
+        ...nextDungeon.explorationSetup!,
+        provisions: [...provisions, ...info.questItems],
+      },
+    },
+  };
+  return finishQuestProvisionFlow(finalState, [
+    discardedEvent,
+    {
+      type: "dungeonUpdated",
+      message: `补给池已满 16：按玩家选择丢弃既有补给后加入任务补给（R-197 / R-205）`,
+    },
+  ]);
 }
 
 /** R12/R37：常规八颗；R-087掷前取消两颗。Wild/Radiant自选不消费RNG，R-041奖励逐颗加入至16。 */
@@ -214,48 +302,50 @@ export function setupDungeonProvisions(
           },
         ],
       };
-    const questSpecs = readQuestStartingProvisions(completed);
-    const alreadyQuest = completed.explorationSetup!.provisions.some((provision) =>
-      isQuestProvisionId(provision.id),
-    );
-    const quested = alreadyQuest ? null : addQuestStartingProvisions(completed);
-    const questEvents: GameEvent[] =
-      quested && questSpecs.length
-        ? [
-            {
-              type: "dungeonUpdated",
-              message: `任务补给（R-197）：加入 ${questSpecs.reduce((sum, spec) => sum + spec.count, 0)} 个${questSpecs.map((spec) => PROVISION_LABELS[spec.face]).join("、")}（不可丢弃）${quested.discarded.length ? `；补给池已满 16，按顺序丢弃既有 ${quested.discarded.join("、")}` : ""}`,
+    const questInfo = questStartingProvisionOverflow(completed);
+    if (questInfo.overflow > 0) {
+      return beginProvisionDiscard(
+        {
+          ...state,
+          dungeon: {
+            ...completed,
+            pending: null,
+            provisionDiscard: {
+              questItems: questInfo.questItems,
+              remaining: questInfo.overflow,
             },
-          ]
-        : [];
-    const questedDungeon: DungeonState = quested
+          },
+        },
+        [
+          ...events,
+          {
+            type: "dungeonUpdated",
+            message: `任务补给（R-197）：将加入 ${questInfo.questItems.length} 个；补给池将超过 16，需要丢弃 ${questInfo.overflow} 个既有补给（R-205）`,
+          },
+        ],
+      );
+    }
+    const questedDungeon: DungeonState = questInfo.questItems.length
       ? {
           ...completed,
-          explorationSetup: { ...completed.explorationSetup!, provisions: quested.provisions },
+          explorationSetup: {
+            ...completed.explorationSetup!,
+            provisions: [...questInfo.provisions, ...questInfo.questItems],
+          },
         }
       : completed;
-    if (completed.nextQuestProvisionFaceChoice) {
-      const merchant = beginTravelingMerchantsChoice({
-        ...state,
-        dungeon: { ...questedDungeon, pending: null },
-      });
-      return {
-        ...merchant,
-        events: [...events, ...questEvents, ...merchant.events],
-      };
-    }
-    if (completed.warmUpStartingProvisionTorchChoice) {
-      const warmUp = beginWarmUpProvisionTorchChoice(
-        { ...state, dungeon: { ...questedDungeon, pending: null } },
-        [...events, ...questEvents],
-      );
-      return warmUp;
-    }
-    return finishStartingProvisionsToExploration(
-      { ...state, dungeon: { ...questedDungeon, pending: null } },
-      [...events, ...questEvents],
-      "开局补给已入公共池，可以开始探索（R12/R-041）",
-    );
+    const questEvents: GameEvent[] = questInfo.questItems.length
+      ? [
+          {
+            type: "dungeonUpdated",
+            message: `任务补给（R-197）：加入 ${questInfo.questItems.length} 个（不可丢弃）`,
+          },
+        ]
+      : [];
+    return finishQuestProvisionFlow({ ...state, dungeon: { ...questedDungeon, pending: null } }, [
+      ...events,
+      ...questEvents,
+    ]);
   };
   const provisions = d.explorationSetup.provisions;
   if (command.type === "rollDungeonProvisions") {

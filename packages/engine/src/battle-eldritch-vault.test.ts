@@ -134,6 +134,8 @@ it("R-156：逐个处置全部饰品后移除Vault临时字段，不能重复处
   }
   expect(result.state.battle).not.toHaveProperty("eldritchVaultDrawsRemaining");
   expect(result.state.battle).not.toHaveProperty("eldritchVaultReward");
+  expect(result.state.battle).not.toHaveProperty("eldritchVaultStress");
+  expect(result.state.battle!.entities.find((entity) => entity.id === "hero-0")!.stress).toBe(4);
   expect(result.state.battle?.pending).toBeNull();
   expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
 });

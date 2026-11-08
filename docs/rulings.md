@@ -2395,7 +2395,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **日期**：2026-11-05（Asia/Shanghai）
 - **问题**：Necromancer II 的 Army of the Dead（`boss_ability:p005` 背面）在「地牢首场战斗就是 Boss 战」时，Bone Captain 是否加入该场 Boss 战？若加入，落在哪个怪物姿态/区域，先攻如何洗入？
 - **暂定**：正常 `startDungeonBattle` 首战仍按既有 `firstBattleThreatDeck` 与 `firstBattleThreatEntry` 生成并消费；`deployNecromancerII` 不自行加入 Bone Captain，也不伪造落点或先攻。
-- **状态**：待 Kyries 确认；不影响 II 级生产入口与胜负交接，但 Boss-first 路径在裁定前保持此边界。
+- **状态**：已确认（R-204，2026-11-08）；Bone Captain 加入首场 Boss 战并按 2 格姿态位落位。
 
 ### R-191
 
@@ -2853,3 +2853,48 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **关联待确认**：无（原 Q-xxx 关闭）。
 - **状态**：已裁定
 - **实现状态**：无代码改动；`final-battle-natural-save.test.ts` 保持首形态边界。
+
+### R-202
+
+- **编号**：R-202
+- **日期**：2026-11-08（Asia/Shanghai）
+- **问题**：Q-141 Eldritch Vault 多张 III 饰品的处置、压力与重复交互。
+- **裁定**（Kyries 2026-11-08 确认，按卡文）：使用者在使用 Vault 时先承受**在场英雄数**的压力；每张抽出的 III 饰品逐张全部处置；**装备**该饰品再 +2 压力（只给装备者）；同一次房间交互可重复（每次花 2 行动）。
+- **依据 / 出处**：卡文 `dd2d2467ec` / R-156；R-048。
+- **关联待确认**：无（Q-141 关闭）。
+- **状态**：已裁定
+- **实现状态**：`battle-eldritch-vault.ts` 记录 `eldritchVaultStress`，在最后一张抽牌处理完后通过 `triggerBattlePassive` + `resolveBattlePressure` 结算；`battle-eldritch-vault.test.ts` 增加压力断言。
+
+### R-203
+
+- **编号**：R-203
+- **日期**：2026-11-08（Asia/Shanghai）
+- **问题**：Q-145 Teleporters 橙星区的压力触发范围。
+- **裁定**（Kyries 2026-11-08 确认）：只统计英雄 `moveHero` 路径上的橙星区；含落点、不含起点；同一移动内同一橙星区重复经过逐次计；`shuffle` / `pull` / 怪物移动等非 `moveHero` 位移不触发。
+- **依据 / 出处**：R-159；卡文 `df38279161`；规则书 R16–R18。
+- **关联待确认**：无（Q-145 关闭）。
+- **状态**：已裁定
+- **实现状态**：`battle-teleporters.ts` 现有实现已符合，无代码改动；`battle-teleporters.test.ts` 覆盖。
+
+### R-204
+
+- **编号**：R-204
+- **日期**：2026-11-08（Asia/Shanghai）
+- **问题**：Q-154 Necromancer II「Army of the Dead」在“地牢首战就是 Boss 战”时，Bone Captain 是否加入、落位与先攻。
+- **裁定**（Kyries 2026-11-08 确认）：Boss-first 时 Bone Captain **加入该场 Boss 战**；放在第一个可用的 2 格怪物姿态位（Boss 通常占 aggressive，因此落 defensive），区域使用已获批的 `monsterStanceAreas`；`startRound` 按存活实体自动多洗入 1 张怪物先攻卡；没有合法 2 格姿态位时拒绝部署（R-048）。
+- **依据 / 出处**：R-036；`boss_ability:p005`；R-166（Necromancer Room 只印 Aggressive E）；R-048。
+- **关联待确认**：无（Q-154 关闭）。
+- **状态**：已裁定
+- **实现状态**：`necromancer-ii-army.ts` 新增 `applyNecromancerIIArmyBattleStart`，在 `startBattle` 链中、`startRound` 前加入；`necromancer-ii-deploy.test.ts` 覆盖。
+
+### R-205
+
+- **编号**：R-205
+- **日期**：2026-11-08（Asia/Shanghai）
+- **问题**：Purify 任务补给池满 16 时丢弃哪些补给。
+- **裁定**（Kyries 2026-11-08 确认）：任务补给（3 个药水）**不可丢弃**；加入后超过 16 时，由玩家从**既有补给**中选择要丢弃的道具（逐个选择），直到池回到 16；不再按池尾自动丢弃。
+- **依据 / 出处**：R-197；QUEST p10；R-041 的 16 上限。
+- **关联待确认**：无。
+- **状态**：已裁定
+- **实现状态**：`dungeon-starting-provisions.ts` 新增 `dungeon-provision-discard:` 待选与 `chooseProvisionDiscard`；`quest-p010-purify.test.ts` 覆盖；`quest-provisions.ts` 改为返回溢出信息。
+

@@ -361,6 +361,14 @@ export type DungeonState = {
   readonly visited?: readonly string[];
   readonly pending: PendingChoice | null;
   readonly decision: number;
+  /** R-205：任务补给超出 16 时，玩家选择丢弃后仍需加入的任务道具。 */
+  readonly provisionDiscard?: {
+    readonly questItems: readonly {
+      readonly id: string;
+      readonly face: "food" | "bandage" | "potion" | "torch" | "tool";
+    }[];
+    readonly remaining: number;
+  };
   readonly exploration: {
     readonly from: string;
     readonly to: string;

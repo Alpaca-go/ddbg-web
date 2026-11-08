@@ -64,11 +64,37 @@ function continueVaultDraws(state: GameState, actorId: string, events: GameEvent
     const next = drawNextEldritchVaultTrinket(state, actorId);
     return { ...next, events: [...events, ...next.events] };
   }
-  const cleared = clearEldritchVaultReward(state);
-  const turn = b.encounter?.turn;
+  const stress = b.eldritchVaultStress ?? 0;
+  let cleared = clearEldritchVaultReward(state);
+  let merged = events;
+  if (stress > 0) {
+    // Q-141：使用 Vault 的承受压力 = 在场英雄数；装备再 +2 由饰品选项处理。
+    const passive = triggerBattlePassive(cleared.battle!, cleared.seed, [actorId], {
+      type: "stress",
+      amount: stress,
+    });
+    if (passive.status === "refused") return rejectBattleCommand(state, passive.reason);
+    const pressure = resolveBattlePressure({
+      state: { ...cleared, battle: passive.battle },
+      events: [
+        ...events,
+        ...passive.events,
+        {
+          type: "areaStressResolved",
+          actorId,
+          message: `Eldritch Vault：使用房间承受压力 +${stress}（Q-141）`,
+        },
+      ],
+    });
+    if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
+    if (pressure.state.battle?.pending) return pressure;
+    cleared = pressure.state;
+    merged = [...pressure.events];
+  }
+  const turn = cleared.battle?.encounter?.turn;
   return turn?.type === "hero" && turn.actions === 0
-    ? finishTurn(cleared, actorId, events)
-    : { state: cleared, events };
+    ? finishTurn(cleared, actorId, merged)
+    : { state: cleared, events: merged };
 }
 
 /** R26、R-065：T5的两个行动在成功抽牌时只扣一次，每场只允许一次。 */

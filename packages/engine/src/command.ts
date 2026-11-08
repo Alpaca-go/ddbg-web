@@ -86,7 +86,7 @@ import type { SetEquippedSkillsCommand } from "./hero-loadout";
 import { applyDungeonCommand } from "./dungeon";
 import { summarizeDungeonQuest, resolveFundraiserGold } from "./dungeon-quest";
 import { restDungeon } from "./dungeon-rest";
-import { setupDungeonProvisions } from "./dungeon-starting-provisions";
+import { chooseProvisionDiscard, setupDungeonProvisions } from "./dungeon-starting-provisions";
 import { useDungeonProvision } from "./dungeon-provision-use";
 import { setupForwardCamp } from "./dungeon-forward-camp";
 import {
@@ -641,6 +641,10 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
     return command.type === "resolveChoice"
       ? chooseWarmUpProvisionTorch(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先完成Warm Up the Halls开局改Torch（QUEST p11）");
+  if (state.dungeon?.pending?.id.startsWith("dungeon-provision-discard:"))
+    return command.type === "resolveChoice"
+      ? chooseProvisionDiscard(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先选择要丢弃的既有补给（R-205）");
   if (command.type === "rollDungeonProvisions" || state.dungeon?.phase === "awaitingProvisions")
     return command.type === "rollDungeonProvisions" || command.type === "resolveChoice"
       ? setupDungeonProvisions(state, command)
@@ -818,8 +822,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
       );
     if (pending.type === "shufflePushDistance") {
       const dist = Number(command.optionId);
-      if (!Number.isInteger(dist) || dist < 1)
-        return rejectBattleCommand(state, "Push 距离无效");
+      if (!Number.isInteger(dist) || dist < 1) return rejectBattleCommand(state, "Push 距离无效");
       return playHeroSkill(state, { ...pending.command, shufflePushDistance: dist });
     }
     if (command.optionId !== "push" && command.optionId !== "pull")

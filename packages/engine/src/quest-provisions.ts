@@ -21,30 +21,35 @@ export function readObjectiveRecoveryProvision(d: DungeonState): ProvisionFace |
   return quest && "objectiveRecoveryProvision" in quest ? quest.objectiveRecoveryProvision : null;
 }
 
-/**
- * 把任务补给加入公共补给池（R-197 / QUEST p10）：先拿任务道具；
- * 超过 16 颗时丢弃既有池尾部的超出部分，任务道具保留。
- */
-export function addQuestStartingProvisions(d: DungeonState): {
-  readonly provisions: readonly { readonly id: string; readonly face: ProvisionFace }[];
-  readonly discarded: readonly string[];
-} {
-  const setup = d.explorationSetup;
-  const specs = readQuestStartingProvisions(d);
-  if (!setup || !specs.length) return { provisions: setup?.provisions ?? [], discarded: [] };
-  const existing = setup.provisions;
-  if (existing.some((provision) => isQuestProvisionId(provision.id)))
-    return { provisions: existing, discarded: [] };
-  const questItems = specs.flatMap((spec) =>
+/** 任务补给实体；同一 face 的多个道具用序号区分。 */
+export function questProvisionItems(
+  d: DungeonState,
+): readonly { readonly id: string; readonly face: ProvisionFace }[] {
+  return readQuestStartingProvisions(d).flatMap((spec) =>
     Array.from({ length: spec.count }, (_, index) => ({
       id: `${QUEST_PROVISION_PREFIX}${spec.face}:${index}`,
       face: spec.face,
     })),
   );
-  const overflow = Math.max(0, existing.length + questItems.length - 16);
-  const keep = existing.length - overflow;
+}
+
+/**
+ * 计算加入任务补给后的溢出数量。任务道具本身不可丢弃；超出 16 时由玩家
+ * 从既有补给中选择要丢弃的道具（Q-142 / R-205）。
+ */
+export function questStartingProvisionOverflow(d: DungeonState): {
+  readonly provisions: readonly { readonly id: string; readonly face: ProvisionFace }[];
+  readonly questItems: readonly { readonly id: string; readonly face: ProvisionFace }[];
+  readonly overflow: number;
+} {
+  const setup = d.explorationSetup;
+  const questItems = setup?.provisions.some((provision) => isQuestProvisionId(provision.id))
+    ? []
+    : questProvisionItems(d);
+  const provisions = setup?.provisions ?? [];
   return {
-    provisions: [...existing.slice(0, keep), ...questItems],
-    discarded: existing.slice(keep).map((provision) => provision.id),
+    provisions,
+    questItems,
+    overflow: Math.max(0, provisions.length + questItems.length - 16),
   };
 }

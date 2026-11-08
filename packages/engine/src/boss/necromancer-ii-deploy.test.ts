@@ -91,7 +91,7 @@ it("startBattle 保留 II 级威胁交接并洗入先攻；不误套 I 级脚本
   expect(started.dungeon!.bossCombatThreatCeased).toBe(NECROMANCER_II_SCRIPT_ID);
   expect(
     started.battle!.entities.filter((e) => e.side === "monster").map((e) => e.monsterCardId),
-  ).toEqual(["monster_medium:p090"]);
+  ).toEqual(["monster_medium:p090", "monster_large:p001"]);
 });
 
 it("拒绝 I 级战役、错威胁/错描述卡、错房与篡改出征战斗卡", () => {
@@ -120,4 +120,21 @@ it("拒绝 I 级战役、错威胁/错描述卡、错房与篡改出征战斗卡
     expect(r.state).toBe(bad);
     expect(r.events.some((e) => e.type === "commandRefused")).toBe(true);
   }
+});
+
+it("Q-154：首战即 Boss 战时 Bone Captain 加入（2 格姿态位）并多洗入 1 张先攻", () => {
+  const deployed = ok(atObjective(), command).state;
+  const started = ok(deployed, { type: "startBattle" }).state;
+  const b = started.battle!;
+  const captain = b.entities.find((entity) => entity.monsterCardId === "monster_large:p001");
+  expect(captain).toMatchObject({
+    side: "monster",
+    stance: "defensive",
+    stanceSlots: 2,
+    areaId: "A",
+    dead: false,
+  });
+  expect(b.entities.filter((entity) => entity.side === "monster")).toHaveLength(2);
+  expect(b.encounter!.deck).toHaveLength(6);
+  expect(started.dungeon!.necromancerIIArmyUsed).toBe(true);
 });

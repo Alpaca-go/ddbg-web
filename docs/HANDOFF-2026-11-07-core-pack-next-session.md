@@ -1,4 +1,4 @@
-﻿# 交接：核心盒收尾（2026-11-07）
+# 交接：核心盒收尾（2026-11-07）
 
 给新 session 的入口文档。写作时 `main` = `origin/main` = **`474e4203`**（本文件本身是紧随其后的一个提交）。工作区只有 6 个按约定保留的未跟踪文件（见 §7），不要提交。
 
@@ -83,7 +83,7 @@ R-194 的模型已就绪（`createQuestSave` 写 `campaignLevel` 并校验回放
 ### 4.4 其它 hold
 
 - Purify 的 **治疗泉常规效果**：已按 R-197 补记——目标房净化前不触发 `Healing Waters`（`objectiveRoomBattleAreas` 裁掉 `endTurnHeal`），普通房间仍按 R-065 治疗 3；不整体重做常规效果。
-- Purify 池满 16 时「丢弃哪些既有补给」目前按**池尾自动丢弃**；若须玩家选择，另开 Q。
+- Purify 池满 16 时由玩家从既有补给中逐个选择丢弃（R-205，2026-11-08）；任务药水不可丢弃。
 - Templars 自然存档 skip 已定（Q-162），不要恢复。
 - Treasure T4–T5：**已确认保持 `blocked: true`**（Kyries 2026-11-07），旧交接稿的「可通行」作废，不改数据。
 - **Stygian（2026-11-08）**：模式骨架已接（0 金 / Boss +1 Crit / UI 警告），17 张 Stygian 房间卡效果仍未接；见 `docs/phase6-stygian-skeleton-2026-11-08.md`。

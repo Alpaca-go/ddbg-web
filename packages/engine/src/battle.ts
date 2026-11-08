@@ -214,6 +214,8 @@ export type BattleState = BattleSetup & {
   /** R-156：Vault 抽牌队列中尚未处理的 III 级饰品 id。 */
   readonly eldritchVaultDrawsRemaining?: number;
   readonly eldritchVaultReward?: true;
+  /** Q-141：使用 Vault 时使用者要承受的压力（= 在场英雄数），在处理完抽牌后结算。 */
+  readonly eldritchVaultStress?: number;
   /** Prophet · Wooden Pew 区域标记（不占容量、非可选目标；room 代币）。 */
   readonly woodenPews?: readonly {
     readonly areaId: string;
@@ -934,3 +936,4 @@ export function resolveSkillStress(
   ].find((hero) => hero.id === entity.id);
   return nearby?.stress ?? stress;
 }
+

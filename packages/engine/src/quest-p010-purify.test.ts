@@ -46,10 +46,13 @@ function resolveAllChoices(result: { state: GameState; events: readonly GameEven
 } {
   let current = result;
   while (current.state.dungeon!.pending) {
+    const pending = current.state.dungeon!.pending;
     const command: Command = {
       type: "resolveChoice",
-      choiceId: current.state.dungeon!.pending.id,
-      optionId: "torch",
+      choiceId: pending.id,
+      optionId: pending.id.startsWith("dungeon-provision-discard:")
+        ? pending.options[0]!.id
+        : "torch",
     };
     const next = applyCommand(current.state, command);
     current = { state: next.state, events: [...current.events, ...next.events] };
@@ -193,4 +196,31 @@ it("R-197：没有任务药水时净化被拒绝且状态不变", () => {
   });
   expect(result.state).toBe(without);
   expect(result.events[0]!.type).toBe("commandRefused");
+});
+
+it("R-205：补给池满 16 时由玩家选择丢弃既有补给，任务药水不可丢弃", () => {
+  let result = applyCommand(embark(1, 8), { type: "rollDungeonProvisions" });
+  for (let guard = 0; guard < 20; guard++) {
+    const pending = result.state.dungeon!.pending;
+    if (!pending || pending.id.startsWith("dungeon-provision-discard:")) break;
+    result = applyCommand(result.state, {
+      type: "resolveChoice",
+      choiceId: pending.id,
+      optionId: "torch",
+    });
+  }
+  const pending = result.state.dungeon!.pending!;
+  expect(pending.id.startsWith("dungeon-provision-discard:")).toBe(true);
+  expect(pending.options.length).toBeGreaterThan(0);
+  expect(pending.options.every((option) => !option.id.startsWith(QUEST_PROVISION_PREFIX))).toBe(
+    true,
+  );
+  const before = result.state.dungeon!.explorationSetup!.provisions.length;
+  const after = applyCommand(result.state, {
+    type: "resolveChoice",
+    choiceId: pending.id,
+    optionId: pending.options[0]!.id,
+  });
+  expect(after.events.some((event) => event.type === "commandRefused")).toBe(false);
+  expect(after.state.dungeon!.explorationSetup!.provisions.length).toBe(before - 1);
 });
