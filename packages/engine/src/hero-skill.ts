@@ -3398,7 +3398,20 @@ function resolveSkill(
         (active.verified_target_header ? 1 : 0) +
         (support ? 2 : 0) +
         effectLineReceiptCount +
-        (targetHealAnn ? 1 : 0),
+        (targetHealAnn ? 1 : 0) +
+        (active.verified_allies_stress !== undefined &&
+        active.effect_lines.some((line) => {
+          const compact = line
+            .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+            .join("")
+            .replace(/\s/g, "");
+          const amount = active.verified_allies_stress!;
+          return (
+            compact === `{target_effects}{stress}${amount > 0 ? "+" : ""}${amount}`
+          );
+        })
+          ? 1
+          : 0),
     ),
     ...(statuses.lineCount || support
       ? {
