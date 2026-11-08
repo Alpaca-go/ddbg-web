@@ -55,6 +55,7 @@ import { attachVerifiedWarrensLeperHigher } from "./verified-warrens-leper-highe
 import { attachVerifiedWarrensAntiquarianHigher } from "./verified-warrens-antiquarian-higher";
 import { attachVerifiedCoveFlagellantHigher } from "./verified-cove-flagellant-higher";
 import { attachVerifiedCoveManAtArmsHigher } from "./verified-cove-man-at-arms-higher";
+import { attachVerifiedWealdHoundmasterHigher } from "./verified-weald-houndmaster-higher";
 import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
 import { attachVerifiedRallyingFlare } from "./verified-rallying-flare";
 import { approvedResolveLookup } from "./approved-resolve-icons";
@@ -734,10 +735,12 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
                 attachVerifiedHeroDamage(
                   attachVerifiedHeroRanges(
                     attachVerifiedHeroStatuses(
-                      attachVerifiedCoveManAtArmsHigher(
-                        attachVerifiedCoveFlagellantHigher(
-                          attachVerifiedWarrensAntiquarianHigher(
-                            attachVerifiedWarrensLeperHigher(attachVerifiedHeroLayout(file.cards)),
+                      attachVerifiedWealdHoundmasterHigher(
+                        attachVerifiedCoveManAtArmsHigher(
+                          attachVerifiedCoveFlagellantHigher(
+                            attachVerifiedWarrensAntiquarianHigher(
+                              attachVerifiedWarrensLeperHigher(attachVerifiedHeroLayout(file.cards)),
+                            ),
                           ),
                         ),
                       ),
