@@ -1,7 +1,7 @@
 import type { FormalHeroName } from "./formal-heroes";
 import { isFormalHeroName } from "./formal-heroes";
 
-/** 十一名核心盒已核实属性（与 normalized hero_stat 一致）；扩展七名为建队印刷接线 + 占位属性（R-048）。 */
+/** 十八名正式英雄属性均已核实（R-200；与 normalized hero_stat 一致）。 */
 export const FORMAL_HEROES_VERIFIED_ATTRIBUTES: readonly FormalHeroName[] = [
   "CRUSADER",
   "HELLION",
@@ -89,13 +89,6 @@ export const MUSKETEER_VERIFIED_SKILL_PAGE_BLOCKS = [
   { hero: "MUSKETEER" as const, startPage: 1, count: 21 },
 ] as const;
 
-const EXTENSION_SKILL_BLOCKS = [
-  { hero: "FLAGELLANT" as const, startPage: 274, count: 21 },
-  { hero: "MAN-AT-ARMS" as const, startPage: 295, count: 21 },
-  { hero: "HOUNDMASTER" as const, startPage: 316, count: 21 },
-  { hero: "SHIELDBREAKER" as const, startPage: 337, count: 21 },
-];
-
 export type FormalRosterHeroStat = {
   readonly id: string;
   readonly name: string;
@@ -106,35 +99,6 @@ export type FormalRosterHeroStat = {
   readonly attributesVerified: false;
   readonly rosterPendingConfirmation: true;
 };
-
-export type FormalRosterSkill = {
-  readonly id: string;
-  readonly hero: string;
-  readonly level: number;
-  readonly name: string;
-  readonly verification: { readonly unverified: true; readonly reasons: readonly string[] };
-  readonly rosterArtOnly: true;
-  readonly printed_labels: readonly [];
-  readonly unlabeled_numbers: readonly [];
-  readonly effect_lines: readonly [];
-  readonly stats_line: null;
-};
-
-function slug(hero: string) {
-  return hero.toLowerCase().replace(/\s+/g, "-");
-}
-
-function extensionLevel1SkillIds(hero: FormalHeroName): readonly string[] {
-  const block = EXTENSION_SKILL_BLOCKS.find((b) => b.hero === hero);
-  if (!block) return [];
-  const ids: string[] = [];
-  for (let i = 0; i < block.count; i += 1) {
-    if ((i % 3) + 1 !== 1) continue;
-    const printPage = block.startPage + i;
-    ids.push(`hero_skill:art:${slug(hero)}:p${String(printPage).padStart(3, "0")}`);
-  }
-  return ids;
-}
 
 export function formalRosterPendingHeroStats(): readonly FormalRosterHeroStat[] {
   const pending = [...EXTENSION_ROSTER_HEROES] as FormalHeroName[];
@@ -154,38 +118,13 @@ export function formalRosterPendingHeroStats(): readonly FormalRosterHeroStat[] 
   });
 }
 
-function rosterArtSkill(id: string, hero: string, level: number, slot: number): FormalRosterSkill {
-  return {
-    id,
-    hero,
-    level,
-    name: `Skill ${slot} (art-only)`,
-    verification: { unverified: true, reasons: ["roster-art-only"] },
-    rosterArtOnly: true,
-    printed_labels: [],
-    unlabeled_numbers: [],
-    effect_lines: [],
-    stats_line: null,
-  };
+/** R-200：扩展英雄 II/III 已核实，不再注入建队 art-only 占位技能。 */
+export function formalRosterArtOnlySkills(): readonly never[] {
+  return [];
 }
 
-export function formalRosterArtOnlySkills(): readonly FormalRosterSkill[] {
-  const out: FormalRosterSkill[] = [];
-  for (const block of EXTENSION_SKILL_BLOCKS) {
-    for (let i = 0; i < block.count; i += 1) {
-      const level = (i % 3) + 1;
-      const skillSlot = Math.floor(i / 3) + 1;
-      const printPage = block.startPage + i;
-      const id = `hero_skill:art:${slug(block.hero)}:p${String(printPage).padStart(3, "0")}`;
-      out.push(rosterArtSkill(id, block.hero, level, skillSlot));
-    }
-  }
-  return out;
-}
-
-export function formalRosterLevel1ArtSkillIds(hero: FormalHeroName): readonly string[] {
-  if (!(EXTENSION_ROSTER_HEROES as readonly string[]).includes(hero)) return [];
-  return extensionLevel1SkillIds(hero);
+export function formalRosterLevel1ArtSkillIds(_hero: FormalHeroName): readonly string[] {
+  return [];
 }
 
 export function isFormalRosterArtSkill(skill: {
@@ -234,9 +173,9 @@ export function embarkSkillAllowed(
     readonly rosterArtOnly?: boolean;
   },
 ): boolean {
+  if (isFormalRosterArtSkill(skill)) return false;
   if (!skillBelongsToFormalHero(heroName, skill) || skill.level !== 1) return false;
-  if (!skill.verification.unverified) return true;
-  return isFormalRosterArtSkill(skill) && isFormalHeroRosterPendingAttributes(heroName);
+  return !skill.verification.unverified;
 }
 
 export const FORMAL_PARTIAL_CORE_SKILL_HEROES = FORMAL_HEROES_PARTIAL_CORE_SKILLS;

@@ -59,7 +59,7 @@ it("正式名录列出十八名英雄；战斗技能未接线名单已空", () =
       .map((s) => s.name)
       .sort(),
   ).toEqual([...FORMAL_HERO_NAMES].sort());
-  expect(sources.catalog.heroStats).toHaveLength(53);
+  expect(sources.catalog.heroStats).toHaveLength(54);
 });
 
 it("开局可编入赏金猎人与瘟疫医生；存档往返一致", () => {

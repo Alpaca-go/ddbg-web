@@ -8,13 +8,8 @@ import {
   createConditionPool,
   roomTileBattleAreas,
   FORMAL_HERO_NAMES,
-  verifiedLevel1CombatSkillsForHero,
-  formalRosterArtOnlySkills,
   formalRosterPendingHeroStats,
-  WARRENS_VERIFIED_SKILL_PAGE_BLOCKS,
-  COVE_VERIFIED_SKILL_PAGE_BLOCKS,
-  WEALD_VERIFIED_SKILL_PAGE_BLOCKS,
-  MUSKETEER_VERIFIED_SKILL_PAGE_BLOCKS,
+  skillBelongsToFormalHero,
 } from "../../packages/engine/src/index";
 import { diseaseFileSchema } from "../../packages/data/src/disease";
 import { normalizedHeroStatFileSchema } from "../../packages/data/src/normalize/hero-stat";
@@ -128,47 +123,21 @@ export function battleDataPlugin(): Plugin {
       if (currentQuest)
         for (const card of allHeroSkills) if (coreHigherSkillAvailable(card)) skillIds.add(card.id);
       if (graveOccultist) {
-        for (const hero of [
-          "JESTER",
-          "ARBALEST",
-          "ABOMINATION",
-          "ANTIQUARIAN",
-          "LEPER",
-          "FLAGELLANT",
-          "MAN-AT-ARMS",
-          "HOUNDMASTER",
-          "SHIELDBREAKER",
-          "MUSKETEER",
-        ] as const) {
-          for (const card of verifiedLevel1CombatSkillsForHero(hero, allHeroSkills))
-            skillIds.add(card.id);
-        }
-        for (const block of WARRENS_VERIFIED_SKILL_PAGE_BLOCKS) {
-          for (let i = 0; i < block.count; i += 3) {
-            skillIds.add(`hero_skill:p${String(block.startPage + i).padStart(3, "0")}`);
-          }
-        }
-        for (const block of COVE_VERIFIED_SKILL_PAGE_BLOCKS) {
-          for (let i = 0; i < block.count; i += 3) {
-            skillIds.add(`hero_skill:p${String(block.startPage + i).padStart(3, "0")}`);
-          }
-        }
-        for (const block of WEALD_VERIFIED_SKILL_PAGE_BLOCKS) {
-          for (let i = 0; i < block.count; i += 3) {
-            skillIds.add(`hero_skill:p${String(block.startPage + i).padStart(3, "0")}`);
-          }
-        }
-        for (const block of MUSKETEER_VERIFIED_SKILL_PAGE_BLOCKS) {
-          for (let i = 0; i < block.count; i += 3) {
-            skillIds.add(`hero_skill:musketeer:p${String(block.startPage + i).padStart(3, "0")}`);
-          }
+        for (const card of allHeroSkills) {
+          if (card.verification.unverified) continue;
+          if (card.level !== 1 && !coreHigherSkillAvailable(card)) continue;
+          if (
+            !(catalogNames as readonly string[]).some((hero) =>
+              skillBelongsToFormalHero(hero, card),
+            )
+          )
+            continue;
+          skillIds.add(card.id);
         }
       }
-      const rosterArtSkills = graveOccultist ? formalRosterArtOnlySkills() : [];
-      const skills = [
-        ...allHeroSkills.filter((card) => skillIds.has(card.id) && !card.verification.unverified),
-        ...rosterArtSkills,
-      ];
+      const skills = allHeroSkills.filter(
+        (card) => skillIds.has(card.id) && !card.verification.unverified,
+      );
       const monsterIds = new Set([
         "monster_large:p003",
         "monster_medium:p053",
@@ -269,7 +238,7 @@ export function battleDataPlugin(): Plugin {
             : questCatalog
               ? 35
               : 4;
-      const expectedSkills = skillIds.size + rosterArtSkills.length;
+      const expectedSkills = skillIds.size;
       if (
         !tile ||
         !tile.usable ||
