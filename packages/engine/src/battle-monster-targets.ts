@@ -6,6 +6,7 @@ import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { multiTargetHealthEffects, projectActorWounds } from "./skill-actor-health";
 import type { ApplyResult, GameState, MonsterSkillTargetsResolvedEvent } from "./command";
 import { monsterCombatThreatDamageBonus } from "./boss/threat-passive-runtime";
+import { stygianBossCritApplies } from "./boss/stygian-boss-crit";
 import { newlyDefeatedIds, nextBattleRoll, recordMonsterSkill } from "./encounter";
 import {
   needsMonsterSkillShuffleChoice,
@@ -80,6 +81,7 @@ export function playMonsterSkillTargets(
       ? {}
       : { shuffleChoice: command.shuffleChoices?.[target.id] ?? command.shuffleChoice }),
     threatFlatDamageBonus: monsterCombatThreatDamageBonus(state.dungeon, card),
+    stygianBossCrit: stygianBossCritApplies(state.dungeon?.mode, card.id),
   }));
   const missingChoice = needsMonsterSkillShuffleChoice(card, command.skillSlot)
     ? contexts.find((c) => c.shuffleChoice === undefined)

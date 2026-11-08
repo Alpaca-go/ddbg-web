@@ -466,6 +466,8 @@ export type SkillCombatState = {
   };
   /** R-157：站立区域 Acc 修正（如 Toxic Vapors −3）；不与饰品宣告修正混用。 */
   readonly standingAccuracyPenalty?: number;
+  /** R-036 / R37：Stygian 下 Boss 技能 +1 Crit（仅由怪物战斗上下文传入）。 */
+  readonly stygianBossCrit?: boolean;
   /** 引擎内部续接：骰面阈值仍用声明时光照，自身效果不重复。 */
   readonly ownEffectsApplied?: true;
   readonly effectLight?: number;
@@ -2897,9 +2899,7 @@ function resolveSkill(
   // 有伤害、治疗或压力时，Crit 仍然必须是非负整数。
   if (!formOnly && effect !== null && critThreshold === null) {
     const nonCombatHealOnly =
-      targetHealAnn &&
-      active.printed_labels.length === 0 &&
-      active.stats_line === null;
+      targetHealAnn && active.printed_labels.length === 0 && active.stats_line === null;
     if (!nonCombatHealOnly) return refuse(skill, combat, "Crit 标签没有非负整数阈值");
   }
   if (
@@ -2989,6 +2989,7 @@ function resolveSkill(
         buffStacks +
         enemyDebuffStacks +
         lightCrit +
+        (combat.stygianBossCrit ? 1 : 0) +
         (combat.trinketModifiers?.crit ?? 0)
     )
       outcome = "crit";
@@ -3318,8 +3319,8 @@ function resolveSkill(
     targetStress = actorStress;
   }
 
-  let actorStatuses = combat.ownEffectsApplied ? [] : [...statuses.self];
-  let targetStatuses = emptyArea || outcome === "miss" ? [] : [...statuses.target];
+  const actorStatuses = combat.ownEffectsApplied ? [] : [...statuses.self];
+  const targetStatuses = emptyArea || outcome === "miss" ? [] : [...statuses.target];
   let transferTargetBleedCleared = false;
   let transferTargetBlightCleared = false;
   if (
@@ -3403,9 +3404,7 @@ function resolveSkill(
             .join("")
             .replace(/\s/g, "");
           const amount = active.verified_allies_stress!;
-          return (
-            compact === `{target_effects}{stress}${amount > 0 ? "+" : ""}${amount}`
-          );
+          return compact === `{target_effects}{stress}${amount > 0 ? "+" : ""}${amount}`;
         })
           ? 1
           : 0),
@@ -3422,3 +3421,4 @@ function resolveSkill(
     ...(includeHealthEffects ? { healthEffects, own } : {}),
   };
 }
+

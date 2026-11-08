@@ -66,6 +66,8 @@ export type MonsterCombatState = Pick<
   readonly guardedHeroOmitted?: boolean;
   /** 迫近威胁对英雄攻击的 flat 伤害加值（Beast / Eldritch）；由运行时从 `activeBossThreatScriptId` 合并。 */
   readonly threatFlatDamageBonus?: number;
+  /** R-036 / R37：Stygian 下 Boss 技能 +1 Crit。 */
+  readonly stygianBossCrit?: boolean;
 };
 
 export type MonsterSkillResolution = {

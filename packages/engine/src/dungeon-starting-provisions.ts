@@ -53,7 +53,7 @@ export function setupDungeonProvisions(
     !Number.isSafeInteger(d.cursor) ||
     d.cursor < 0 ||
     !Number.isSafeInteger(d.cursor + 16) ||
-    (d.mode !== "standard" && d.mode !== "radiant") ||
+    (d.mode !== "standard" && d.mode !== "radiant" && d.mode !== "stygian") ||
     (!final && d.layout.nodes.find((n) => n.id === d.position)?.kind !== "start") ||
     d.heroes.length !== 4 ||
     new Set(d.heroes.map((h) => h.id)).size !== 4 ||

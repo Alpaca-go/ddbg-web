@@ -29,6 +29,7 @@ it("Shuffling Horror I从任务起点自然探索、击败与回村；战斗中�
   const checkpoints: { state: GameState; count: number }[] = [];
   let count = 0;
   const run = naturalQuest(269, "quest:p016", false, coreQuestSources, 2, {
+    handleDeaths: true,
     observe(state, command) {
       count++;
       if (
@@ -130,3 +131,4 @@ it("preShufflingHorror旧目录须完整重放后升级；篡改拒绝", () => {
     expect(() => loadQuestSave(forged, coreQuestSources, [previous])).toThrow();
   }
 }, 30000);
+

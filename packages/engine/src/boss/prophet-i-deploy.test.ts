@@ -138,7 +138,6 @@ it("I级专用，不接受其它Boss/等级、旧无边缘房标记、错房或�
   void _placement;
   const bad: GameState[] = [
     { ...s, dungeon: { ...d, campaignLevel: 2 } },
-    { ...s, dungeon: { ...d, mode: "stygian" } } as unknown as GameState,
     { ...s, dungeon: { ...d, cursor: -1 } },
     {
       ...s,

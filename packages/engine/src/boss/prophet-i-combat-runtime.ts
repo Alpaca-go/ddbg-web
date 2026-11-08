@@ -1,4 +1,5 @@
 import { ruinsCombatForScript, isRuinsCombatCard } from "./ruins-combat-levels";
+import { stygianBossCritApplies } from "./stygian-boss-crit";
 import { applyBattleSkillStatuses } from "../battle-skill-status";
 import type { BattleEntity, BattleState } from "../battle";
 import type {
@@ -401,6 +402,7 @@ export function applyProphetRubbleOfRuin(state: GameState, actorId: string): App
           guardedHeroOmitted: false,
           untargetedHeroesBesideTarget: [],
           threatFlatDamageBonus: threatBonus,
+          stygianBossCrit: stygianBossCritApplies(state.dungeon?.mode, card.id),
         },
         roll,
       ),

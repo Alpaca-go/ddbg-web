@@ -42,6 +42,7 @@ import { beforeTargetShuffle } from "./battle-target-pressure";
 import type { MonsterCardView } from "./monster-skill";
 import type { HeroSkillCardView } from "./hero-skill";
 import { resolveMonsterAttackEffects } from "./hero-skill";
+import { stygianBossCritApplies } from "./boss/stygian-boss-crit";
 
 /** Self 目标、无英雄目标：不掷攻击骰，走 verified 自身效果（R19–20 / R-048）。 */
 function playMonsterSelfSkill(
@@ -67,6 +68,7 @@ function playMonsterSelfSkill(
     guardedHeroOmitted: false,
     untargetedHeroesBesideTarget: [],
     threatFlatDamageBonus: monsterCombatThreatDamageBonus(state.dungeon, card),
+    stygianBossCrit: stygianBossCritApplies(state.dungeon?.mode, card.id),
   };
   const roll = resume ? resume.roll! : nextBattleRoll(state.seed, battle.rngCursor);
   let effects = resolveMonsterAttackEffects(view, combat, roll);
@@ -231,6 +233,7 @@ export function playMonsterSkill(
       .map((entry) => ({ ...entry, stress: entry.stress! })),
     ...(command.shuffleChoice === undefined ? {} : { shuffleChoice: command.shuffleChoice }),
     threatFlatDamageBonus: monsterCombatThreatDamageBonus(state.dungeon, card),
+    stygianBossCrit: stygianBossCritApplies(state.dungeon?.mode, card.id),
   };
   const needsChoice =
     command.shuffleChoice === undefined && needsMonsterSkillShuffleChoice(card, command.skillSlot);

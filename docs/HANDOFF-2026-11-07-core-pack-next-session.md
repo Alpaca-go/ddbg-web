@@ -86,6 +86,7 @@ R-194 的模型已就绪（`createQuestSave` 写 `campaignLevel` 并校验回放
 - Purify 池满 16 时「丢弃哪些既有补给」目前按**池尾自动丢弃**；若须玩家选择，另开 Q。
 - Templars 自然存档 skip 已定（Q-162），不要恢复。
 - Treasure T4–T5：**已确认保持 `blocked: true`**（Kyries 2026-11-07），旧交接稿的「可通行」作废，不改数据。
+- **Stygian（2026-11-08）**：模式骨架已接（0 金 / Boss +1 Crit / UI 警告），17 张 Stygian 房间卡效果仍未接；见 `docs/phase6-stygian-skeleton-2026-11-08.md`。
 - **e2e 已恢复可跑**（本机 Chromium 1234 + 环境变量，见 §2）。`dungeon.spec` 已从 880 行连跑拆成 10 条；本地默认串行 + 重试一次。最新全量（55 条）：53 通过 / 1 flaky / 1 skip / 0 失败，约 17 分钟；`templars-i-save` 按 Q-162 skip。细节见 `docs/phase5-e2e-local-run-2026-11-08.md`。
 
 ### 4.5 Phase 6：中途 Boss 自动回合 —— 已完成（引擎 + 战斗 UI）

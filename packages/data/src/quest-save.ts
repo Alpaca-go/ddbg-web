@@ -246,7 +246,7 @@ export const questStartSchema = z.strictObject({
   bossEdgeRooms: z.boolean().optional(),
   seed: z.int().min(0).max(0xffffffff),
   questId: z.enum(phase3QuestIds),
-  mode: z.enum(["standard", "radiant"]),
+  mode: z.enum(["standard", "radiant", "stygian"]),
   party: z
     .array(
       z.strictObject({

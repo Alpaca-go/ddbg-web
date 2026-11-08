@@ -155,7 +155,7 @@ function deployNecromancer(state: GameState, level: NecromancerLevel): ApplyResu
     !Number.isSafeInteger(d.decision) ||
     d.decision < 0 ||
     d.monsterPool?.active ||
-    !["standard", "radiant"].includes(d.mode) ||
+    !["standard", "radiant", "stygian"].includes(d.mode) ||
     d.campaignLevel !== level ||
     d.questDistribution?.questId !== "quest:p019" ||
     d.activeBossThreatScriptId !== cfg.script ||

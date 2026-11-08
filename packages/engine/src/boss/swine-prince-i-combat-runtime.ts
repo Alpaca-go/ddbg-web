@@ -1,4 +1,5 @@
 import type { BattleEntity, BattleState } from "../battle";
+import { stygianBossCritApplies } from "./stygian-boss-crit";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../command";
 import { skillTargetView, writeResolution, distance } from "../battle";
 import { applySkillHealth } from "../battle-health";
@@ -369,6 +370,7 @@ export function applySwinePrinceIEnragedDestruction(
       )
       .map((entry) => ({ ...entry, stress: entry.stress! })),
     threatFlatDamageBonus: monsterCombatThreatDamageBonus(state.dungeon, card),
+    stygianBossCrit: stygianBossCritApplies(state.dungeon?.mode, card.id),
   };
 
   const resolved = resolveMonsterSkill(card, skillSlot, combat, roll);

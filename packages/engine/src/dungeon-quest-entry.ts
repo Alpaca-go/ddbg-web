@@ -52,7 +52,7 @@ export function createCoreDungeonQuest(
     !Number.isInteger(seed) ||
     seed < 0 ||
     seed > 0xffffffff ||
-    !["standard", "radiant"].includes(mode)
+    !["standard", "radiant", "stygian"].includes(mode)
   )
     throw new Error("请选择已接通的沙盒出征任务、模式及32位非负整数种子");
   if (

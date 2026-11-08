@@ -247,7 +247,7 @@ export type DungeonState = {
   readonly pendingCurioDraw?: { readonly rollId: string; readonly optionId: string };
   readonly conditions?: ConditionPool;
   readonly layout: DungeonLayout;
-  readonly mode: "standard" | "radiant";
+  readonly mode: "standard" | "radiant" | "stygian";
   readonly cursor: number;
   readonly position: string;
   readonly heroes: readonly (PassiveHero & {
@@ -385,9 +385,9 @@ export type DungeonCommand =
   | { readonly type: "resolveDungeonRoom" }
   | { readonly type: "resolveDungeonPressure" };
 
-/** 规则书 / plan.md：Standard 开局 10 金、Radiant 20 金；Stygian 未开放。 */
-export function startingGoldForMode(mode: "standard" | "radiant"): number {
-  return mode === "radiant" ? 20 : 10;
+/** 规则书：Standard 开局 10 金、Radiant 20 金、Stygian 0 金。 */
+export function startingGoldForMode(mode: "standard" | "radiant" | "stygian"): number {
+  return mode === "radiant" ? 20 : mode === "stygian" ? 0 : 10;
 }
 
 /** 固定地图/任务首切片沙盒。当前位置可注入，以测试房间结算后的侦察接口；不是战役布置。 */
@@ -422,7 +422,7 @@ export function createDungeonSandbox(
     throw new Error("地图含未解释标记，只能预览（R-048）");
   const tokens = distribution.counts.flatMap((c) => Array.from({ length: c.count }, () => c.kind));
   if (tokens.length !== slots.length) throw new Error("房间槽与任务代币总数不一致（R-046）");
-  if (mode !== "standard" && mode !== "radiant") throw new Error("本切片不开放 Stygian");
+  if (mode !== "standard" && mode !== "radiant" && mode !== "stygian") throw new Error("未知模式");
   if (!layout.nodes.some((n) => n.id === position)) throw new Error("当前位置不存在");
   if (
     startingProvisions &&

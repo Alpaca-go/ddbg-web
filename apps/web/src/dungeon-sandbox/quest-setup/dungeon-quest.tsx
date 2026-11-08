@@ -185,7 +185,22 @@ export function DungeonQuest() {
           >
             Radiant
           </button>
+          <button
+            type="button"
+            data-testid="embark-mode-stygian"
+            aria-pressed={mode === "stygian"}
+            onClick={() => setMode("stygian")}
+            title="Stygian：起始 0 金、Boss +1 Crit；17 张 Stygian 房间卡效果待接，暂用标准房间"
+          >
+            Stygian
+          </button>
         </div>
+        {mode === "stygian" && (
+          <p className="embark-roster-hint" data-testid="embark-stygian-warning">
+            Stygian 模式骨架：已接起始 0 金、Boss +1 Crit 与存档；17 张 Stygian
+            房间卡的效果尚未接入（R-036），当前房间仍按标准卡结算。
+          </p>
+        )}
       </header>
       <section className="panel">
         <form

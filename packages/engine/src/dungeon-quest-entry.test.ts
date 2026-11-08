@@ -67,10 +67,10 @@ it.each([
   expect(game.dungeon!.gold).toBe(gold);
 });
 
-it("createCoreDungeonQuest 仍拒绝 Stygian", () => {
-  expect(() =>
-    createCoreDungeonQuest(1, "quest:p001", "stygian" as "standard", coreParty, coreQuestSources),
-  ).toThrow();
+it("createCoreDungeonQuest 接受 Stygian：起始 0 金", () => {
+  const game = createCoreDungeonQuest(1, "quest:p001", "stygian", coreParty, coreQuestSources);
+  expect(game.dungeon!.mode).toBe("stygian");
+  expect(game.dungeon!.gold).toBe(0);
 });
 
 it("拒绝重复英雄／姿态／技能、越级技能、缩减来源与非法种子", () => {
