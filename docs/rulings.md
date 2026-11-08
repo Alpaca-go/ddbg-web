@@ -2799,3 +2799,35 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**（Kyries **真确认** 2026-11-08）：`763ad8e857` = **Stun**（**非** Debuff）；目标 **Stun 1t**（III 亦 1t）。逐卡覆盖，不改全局词典。
 - **状态**：Kyries 真确认（2026-11-08）
 
+### Q-181
+
+- **编号**：Q-181
+- **日期**：2026-11-08
+- **问题**：Shieldbreaker **Impale** I–III stats 射程 1 后四枚 `{icon:7616568d52}`（词典 **target_hero**）；同族攻击技能 Pierce 等为 `{target_monster}`。
+- **暂定**（本 PR 审计接线，R-048）：四枚头盔在 **Impale** 上逐卡覆写为 **target_monster**（图标数=区域内最多 4 个**敌方**目标）；不改全局词典。
+- **状态**：待 Kyries 确认
+
+### Q-182
+
+- **编号**：Q-182
+- **日期**：2026-11-08
+- **问题**：Shieldbreaker **Captivate** I–III 效果行「+N vs」后 OCR 为 `{damage}` 爪痕，非规则书常见的 Mark/Stun 条件图标。
+- **暂定**（本 PR）：按 L1–III 印刷 +2/+4 与桌游常见读法，条件伤接 **`stunned`**；流血行另列；**不**把 `92104a3c6b` 全局改为 `target_effects`。
+- **状态**：待 Kyries 确认
+
+### Q-183
+
+- **编号**：Q-183
+- **日期**：2026-11-08
+- **问题**：Shieldbreaker **Puncture** I–III 第三行 `{icon:9ffbd6087a} Ignores {target_effects} , {target_effects} Pull 1`（与 Leper Intimidate 同 hash 折角装饰）。
+- **暂定**（本 PR）：折角装饰**不入结算**；拆为 **Ignores {guard}** 与 **目标 Pull 1**；`Self` 行仅 `{self_effects} Self` 并 **effect_line_receipt** 签收。
+- **状态**：待 Kyries 确认
+
+### Q-184
+
+- **编号**：Q-184
+- **日期**：2026-11-08
+- **问题**：Shieldbreaker **Serpent Sway** I–III `{icon:1ce58a493c}` 与文案「Pull 1」并存（词典 **Mark**）；III 另有 `{icon:1e762d801a}` 与 Mark 2t 同行。
+- **暂定**（本 PR）：I–II Pull 语境下 `1ce58a493c` 覆写为 **shuffle Pull 1**（Protection 时长以卡面为准）；III 第二行 `1e762d801a`→`target_effects` + 目标 **Mark 2t**。
+- **状态**：待 Kyries 确认
+
