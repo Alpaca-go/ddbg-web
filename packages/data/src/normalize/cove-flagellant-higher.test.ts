@@ -5,8 +5,8 @@ import { lineSignature } from "./verified-hero-layout";
 it("R-200：Cove Flagellant 高等级逐卡覆盖签名", () => {
   const data = loadNormalizedCorebox();
   const cases: Array<{ id: string; line: number; sig: string }> = [
-    { id: "hero_skill:p261", line: 1, sig: "{target_effects}{stun} 4t" },
-    { id: "hero_skill:p268", line: 0, sig: "{range} Self" },
+    { id: "hero_skill:p261", line: 1, sig: "{target_effects} 3 {bleed} 4t" },
+    { id: "hero_skill:p268", line: 0, sig: "{self_effects} Self {stress} -1" },
     { id: "hero_skill:p265", line: 0, sig: "{range} 1 {target_hero}" },
   ];
   for (const { id, line, sig } of cases) {

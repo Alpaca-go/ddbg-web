@@ -140089,31 +140089,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "c7faf2bc86",
+       "iconId": "8d4bbe5e11",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "blight",
-       "kind": "status",
-       "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
-       "value": null,
-       "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "d4329c2a97",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "buff",
-       "kind": "status",
-       "meaning_en": "Buff",
-       "meaning_zh": "增益",
+       "key": "damage",
+       "kind": "damage_type",
+       "meaning_en": "Damage (value printed inside)",
+       "meaning_zh": "伤害（图标内数字为伤害值）",
        "value": null,
        "naming": "confirmed"
       }
@@ -140125,13 +140107,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "1fd9f6ec6d",
+       "iconId": "c22f085b95",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "stun",
+       "key": "bleed",
        "kind": "status",
-       "meaning_en": "Stun",
-       "meaning_zh": "眩晕",
+       "meaning_en": "Bleed (amount, duration follows)",
+       "meaning_zh": "流血（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -140143,13 +140125,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "b2102a1a20",
+       "iconId": "c7faf2bc86",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "mark",
+       "key": "blight",
        "kind": "status",
-       "meaning_en": "Mark",
-       "meaning_zh": "标记",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
        "value": null,
        "naming": "confirmed"
       }
@@ -140181,13 +140163,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "c7faf2bc86",
+       "iconId": "c22f085b95",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "blight",
+       "key": "bleed",
        "kind": "status",
-       "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_en": "Bleed (amount, duration follows)",
+       "meaning_zh": "流血（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -140216,19 +140198,17 @@
      }
     ]
    ],
-   "verified_effect_line_receipts": [
-    {
-     "lineIndex": 0,
-     "signature": "{blight} {buff} +2 if Flagellant has {stun} {mark} ,",
-     "source": "print_front"
-    }
-   ],
+   "verified_actor_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 2,
+    "source": "print_front"
+   },
    "verified_status_effects": [
     {
      "lineIndex": 1,
      "segmentIndex": 2,
      "scope": "target",
-     "kind": "blight",
+     "kind": "bleed",
      "duration": 2,
      "amount": 2
     },
@@ -140766,31 +140746,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "c7faf2bc86",
+       "iconId": "8d4bbe5e11",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "blight",
-       "kind": "status",
-       "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
-       "value": null,
-       "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "d4329c2a97",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "buff",
-       "kind": "status",
-       "meaning_en": "Buff",
-       "meaning_zh": "增益",
+       "key": "damage",
+       "kind": "damage_type",
+       "meaning_en": "Damage (value printed inside)",
+       "meaning_zh": "伤害（图标内数字为伤害值）",
        "value": null,
        "naming": "confirmed"
       }
@@ -140802,13 +140764,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "1fd9f6ec6d",
+       "iconId": "c22f085b95",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "stun",
+       "key": "bleed",
        "kind": "status",
-       "meaning_en": "Stun",
-       "meaning_zh": "眩晕",
+       "meaning_en": "Bleed (amount, duration follows)",
+       "meaning_zh": "流血（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -140820,13 +140782,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "b2102a1a20",
+       "iconId": "c7faf2bc86",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "mark",
+       "key": "blight",
        "kind": "status",
-       "meaning_en": "Mark",
-       "meaning_zh": "标记",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
        "value": null,
        "naming": "confirmed"
       }
@@ -140858,13 +140820,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "c7faf2bc86",
+       "iconId": "c22f085b95",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "blight",
+       "key": "bleed",
        "kind": "status",
-       "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_en": "Bleed (amount, duration follows)",
+       "meaning_zh": "流血（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -140893,19 +140855,17 @@
      }
     ]
    ],
-   "verified_effect_line_receipts": [
-    {
-     "lineIndex": 0,
-     "signature": "{blight} {buff} +2 if Flagellant has {stun} {mark} ,",
-     "source": "print_front"
-    }
-   ],
+   "verified_actor_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 2,
+    "source": "print_front"
+   },
    "verified_status_effects": [
     {
      "lineIndex": 1,
      "segmentIndex": 2,
      "scope": "target",
-     "kind": "blight",
+     "kind": "bleed",
      "duration": 3,
      "amount": 2
     },
@@ -141443,31 +141403,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "c7faf2bc86",
+       "iconId": "8d4bbe5e11",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "blight",
-       "kind": "status",
-       "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
-       "value": null,
-       "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "d4329c2a97",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "buff",
-       "kind": "status",
-       "meaning_en": "Buff",
-       "meaning_zh": "增益",
+       "key": "damage",
+       "kind": "damage_type",
+       "meaning_en": "Damage (value printed inside)",
+       "meaning_zh": "伤害（图标内数字为伤害值）",
        "value": null,
        "naming": "confirmed"
       }
@@ -141479,13 +141421,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "1fd9f6ec6d",
+       "iconId": "c22f085b95",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "stun",
+       "key": "bleed",
        "kind": "status",
-       "meaning_en": "Stun",
-       "meaning_zh": "眩晕",
+       "meaning_en": "Bleed (amount, duration follows)",
+       "meaning_zh": "流血（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -141497,13 +141439,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "b2102a1a20",
+       "iconId": "c7faf2bc86",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "mark",
+       "key": "blight",
        "kind": "status",
-       "meaning_en": "Mark",
-       "meaning_zh": "标记",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
        "value": null,
        "naming": "confirmed"
       }
@@ -141535,13 +141477,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "c7faf2bc86",
+       "iconId": "c22f085b95",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "blight",
+       "key": "bleed",
        "kind": "status",
-       "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_en": "Bleed (amount, duration follows)",
+       "meaning_zh": "流血（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -141570,19 +141512,17 @@
      }
     ]
    ],
-   "verified_effect_line_receipts": [
-    {
-     "lineIndex": 0,
-     "signature": "{blight} {buff} +2 if Flagellant has {stun} {mark} ,",
-     "source": "print_front"
-    }
-   ],
+   "verified_actor_damage_bonus": {
+    "lineIndex": 0,
+    "amount": 2,
+    "source": "print_front"
+   },
    "verified_status_effects": [
     {
      "lineIndex": 1,
      "segmentIndex": 2,
      "scope": "target",
-     "kind": "blight",
+     "kind": "bleed",
      "duration": 3,
      "amount": 3
     },
@@ -144137,19 +144077,15 @@
       "text": " 3, "
      },
      {
-      "type": "text",
-      "text": " 1 "
-     },
-     {
       "type": "icon",
       "icon": {
-       "iconId": "f18923574c",
+       "iconId": "3a60c92c83",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "bleed",
+       "key": "debuff",
        "kind": "status",
-       "meaning_en": "Shuffle: Push/Pull (forward)",
-       "meaning_zh": "位移：推/拉",
+       "meaning_en": "Debuff",
+       "meaning_zh": "减益",
        "value": null,
        "naming": "confirmed"
       }
@@ -144206,11 +144142,10 @@
    "verified_status_effects": [
     {
      "lineIndex": 0,
-     "segmentIndex": 5,
+     "segmentIndex": 4,
      "scope": "self",
-     "kind": "bleed",
-     "duration": 1,
-     "amount": 1
+     "kind": "debuff",
+     "duration": 1
     },
     {
      "lineIndex": 1,
@@ -144833,19 +144768,15 @@
       "text": " 5, "
      },
      {
-      "type": "text",
-      "text": " 1 "
-     },
-     {
       "type": "icon",
       "icon": {
-       "iconId": "f18923574c",
+       "iconId": "3a60c92c83",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "bleed",
+       "key": "debuff",
        "kind": "status",
-       "meaning_en": "Shuffle: Push/Pull (forward)",
-       "meaning_zh": "位移：推/拉",
+       "meaning_en": "Debuff",
+       "meaning_zh": "减益",
        "value": null,
        "naming": "confirmed"
       }
@@ -144902,11 +144833,10 @@
    "verified_status_effects": [
     {
      "lineIndex": 0,
-     "segmentIndex": 5,
+     "segmentIndex": 4,
      "scope": "self",
-     "kind": "bleed",
-     "duration": 1,
-     "amount": 1
+     "kind": "debuff",
+     "duration": 1
     },
     {
      "lineIndex": 1,
@@ -145529,19 +145459,15 @@
       "text": " 7, "
      },
      {
-      "type": "text",
-      "text": " 1 "
-     },
-     {
       "type": "icon",
       "icon": {
-       "iconId": "f18923574c",
+       "iconId": "3a60c92c83",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "bleed",
+       "key": "debuff",
        "kind": "status",
-       "meaning_en": "Shuffle: Push/Pull (forward)",
-       "meaning_zh": "位移：推/拉",
+       "meaning_en": "Debuff",
+       "meaning_zh": "减益",
        "value": null,
        "naming": "confirmed"
       }
@@ -145567,15 +145493,19 @@
       }
      },
      {
+      "type": "text",
+      "text": " 3 "
+     },
+     {
       "type": "icon",
       "icon": {
-       "iconId": "1fd9f6ec6d",
+       "iconId": "c22f085b95",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "stun",
+       "key": "bleed",
        "kind": "status",
-       "meaning_en": "Stun",
-       "meaning_zh": "眩晕",
+       "meaning_en": "Bleed (amount, duration follows)",
+       "meaning_zh": "流血（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -145594,18 +145524,18 @@
    "verified_status_effects": [
     {
      "lineIndex": 0,
-     "segmentIndex": 5,
+     "segmentIndex": 4,
      "scope": "self",
-     "kind": "bleed",
-     "duration": 1,
-     "amount": 1
+     "kind": "debuff",
+     "duration": 1
     },
     {
      "lineIndex": 1,
-     "segmentIndex": 1,
+     "segmentIndex": 2,
      "scope": "target",
-     "kind": "stun",
-     "duration": 4
+     "kind": "bleed",
+     "duration": 4,
+     "amount": 3
     }
    ],
    "top_row_icons": [
@@ -148018,29 +147948,7 @@
      },
      {
       "type": "text",
-      "text": " 3, "
-     },
-     {
-      "type": "text",
-      "text": " 1 "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "f18923574c",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "bleed",
-       "kind": "status",
-       "meaning_en": "Shuffle: Push/Pull (forward)",
-       "meaning_zh": "位移：推/拉",
-       "value": null,
-       "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " 1t"
+      "text": " 3"
      }
     ],
     [
@@ -148059,10 +147967,6 @@
       }
      },
      {
-      "type": "text",
-      "text": " "
-     },
-     {
       "type": "icon",
       "icon": {
        "iconId": "20ffe98e2d",
@@ -148078,7 +147982,7 @@
      },
      {
       "type": "text",
-      "text": " 3"
+      "text": "3"
      }
     ]
    ],
@@ -148096,16 +148000,6 @@
     "amount": 3,
     "source": "print_front"
    },
-   "verified_status_effects": [
-    {
-     "lineIndex": 1,
-     "segmentIndex": 5,
-     "scope": "self",
-     "kind": "bleed",
-     "duration": 1,
-     "amount": 1
-    }
-   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -148609,29 +148503,7 @@
      },
      {
       "type": "text",
-      "text": " 5, "
-     },
-     {
-      "type": "text",
-      "text": " 1 "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "f18923574c",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "bleed",
-       "kind": "status",
-       "meaning_en": "Shuffle: Push/Pull (forward)",
-       "meaning_zh": "位移：推/拉",
-       "value": null,
-       "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " 1t"
+      "text": " 5"
      }
     ],
     [
@@ -148650,10 +148522,6 @@
       }
      },
      {
-      "type": "text",
-      "text": " "
-     },
-     {
       "type": "icon",
       "icon": {
        "iconId": "20ffe98e2d",
@@ -148669,7 +148537,7 @@
      },
      {
       "type": "text",
-      "text": " 5"
+      "text": "5"
      }
     ]
    ],
@@ -148687,16 +148555,6 @@
     "amount": 5,
     "source": "print_front"
    },
-   "verified_status_effects": [
-    {
-     "lineIndex": 1,
-     "segmentIndex": 5,
-     "scope": "self",
-     "kind": "bleed",
-     "duration": 1,
-     "amount": 1
-    }
-   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -149200,29 +149058,7 @@
      },
      {
       "type": "text",
-      "text": " 7, "
-     },
-     {
-      "type": "text",
-      "text": " 1 "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "f18923574c",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "bleed",
-       "kind": "status",
-       "meaning_en": "Shuffle: Push/Pull (forward)",
-       "meaning_zh": "位移：推/拉",
-       "value": null,
-       "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " 1t"
+      "text": " 7"
      }
     ],
     [
@@ -149241,10 +149077,6 @@
       }
      },
      {
-      "type": "text",
-      "text": " "
-     },
-     {
       "type": "icon",
       "icon": {
        "iconId": "20ffe98e2d",
@@ -149260,7 +149092,7 @@
      },
      {
       "type": "text",
-      "text": " 7"
+      "text": "7"
      }
     ]
    ],
@@ -149278,16 +149110,6 @@
     "amount": 7,
     "source": "print_front"
    },
-   "verified_status_effects": [
-    {
-     "lineIndex": 1,
-     "segmentIndex": 5,
-     "scope": "self",
-     "kind": "bleed",
-     "duration": 1,
-     "amount": 1
-    }
-   ],
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -149692,13 +149514,13 @@
        "naming": "confirmed"
       }
      }
-    }
-   ],
-   "effect_lines": [
-    [
-     {
-      "type": "icon",
-      "icon": {
+    },
+    {
+     "text": "1",
+     "numeric": 1,
+     "anchor": {
+      "type": "beside_icon",
+      "left_icon": {
        "iconId": "3ab7e7544c",
        "in_dictionary": true,
        "status": "confirmed",
@@ -149708,13 +149530,12 @@
        "meaning_zh": "射程",
        "value": null,
        "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " Self"
+      },
+      "inside_icon": null
      }
-    ],
+    }
+   ],
+   "effect_lines": [
     [
      {
       "type": "icon",
@@ -149776,23 +149597,17 @@
    ],
    "verified_effect_line_receipts": [
     {
-     "lineIndex": 0,
-     "signature": "{range}Self",
-     "source": "print_front"
-    },
-    {
-     "lineIndex": 2,
+     "lineIndex": 1,
      "signature": "{stress}-1",
      "source": "print_front"
     }
    ],
    "verified_self_stress": {
-    "lineIndex": 1,
+    "lineIndex": 0,
     "amount": -1,
     "source": "print_front"
    },
    "verified_allies_stress": -1,
-   "verified_self_range": true,
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -149852,7 +149667,44 @@
      "naming": "confirmed"
     }
    ],
-   "stats_line": null,
+   "stats_line": [
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "3ab7e7544c",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "range",
+      "kind": "other",
+      "meaning_en": "Range",
+      "meaning_zh": "射程",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " 1 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "7616568d52",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_hero",
+      "kind": "target",
+      "meaning_en": "Target: Hero(es) (one icon per target)",
+      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " Crit 0 Acc 12"
+    }
+   ],
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -150175,13 +150027,13 @@
        "naming": "confirmed"
       }
      }
-    }
-   ],
-   "effect_lines": [
-    [
-     {
-      "type": "icon",
-      "icon": {
+    },
+    {
+     "text": "1-2",
+     "numeric": null,
+     "anchor": {
+      "type": "beside_icon",
+      "left_icon": {
        "iconId": "3ab7e7544c",
        "in_dictionary": true,
        "status": "confirmed",
@@ -150191,13 +150043,12 @@
        "meaning_zh": "射程",
        "value": null,
        "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " Self"
+      },
+      "inside_icon": null
      }
-    ],
+    }
+   ],
+   "effect_lines": [
     [
      {
       "type": "icon",
@@ -150259,23 +150110,17 @@
    ],
    "verified_effect_line_receipts": [
     {
-     "lineIndex": 0,
-     "signature": "{range}Self",
-     "source": "print_front"
-    },
-    {
-     "lineIndex": 2,
+     "lineIndex": 1,
      "signature": "{stress}-1",
      "source": "print_front"
     }
    ],
    "verified_self_stress": {
-    "lineIndex": 1,
+    "lineIndex": 0,
     "amount": -1,
     "source": "print_front"
    },
    "verified_allies_stress": -1,
-   "verified_self_range": true,
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -150335,7 +150180,49 @@
      "naming": "confirmed"
     }
    ],
-   "stats_line": null,
+   "stats_line": [
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "3ab7e7544c",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "range",
+      "kind": "other",
+      "meaning_en": "Range",
+      "meaning_zh": "射程",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " 1-2 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "7616568d52",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_hero",
+      "kind": "target",
+      "meaning_en": "Target: Hero(es) (one icon per target)",
+      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " Crit 0 Acc 14"
+    }
+   ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -150658,13 +150545,13 @@
        "naming": "confirmed"
       }
      }
-    }
-   ],
-   "effect_lines": [
-    [
-     {
-      "type": "icon",
-      "icon": {
+    },
+    {
+     "text": "1-2",
+     "numeric": null,
+     "anchor": {
+      "type": "beside_icon",
+      "left_icon": {
        "iconId": "3ab7e7544c",
        "in_dictionary": true,
        "status": "confirmed",
@@ -150674,13 +150561,12 @@
        "meaning_zh": "射程",
        "value": null,
        "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " Self"
+      },
+      "inside_icon": null
      }
-    ],
+    }
+   ],
+   "effect_lines": [
     [
      {
       "type": "icon",
@@ -150742,23 +150628,17 @@
    ],
    "verified_effect_line_receipts": [
     {
-     "lineIndex": 0,
-     "signature": "{range}Self",
-     "source": "print_front"
-    },
-    {
-     "lineIndex": 2,
+     "lineIndex": 1,
      "signature": "{stress}-1",
      "source": "print_front"
     }
    ],
    "verified_self_stress": {
-    "lineIndex": 1,
+    "lineIndex": 0,
     "amount": -1,
     "source": "print_front"
    },
    "verified_allies_stress": -1,
-   "verified_self_range": true,
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -150818,7 +150698,49 @@
      "naming": "confirmed"
     }
    ],
-   "stats_line": null,
+   "stats_line": [
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "3ab7e7544c",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "range",
+      "kind": "other",
+      "meaning_en": "Range",
+      "meaning_zh": "射程",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " 1-2 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "7616568d52",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_hero",
+      "kind": "target",
+      "meaning_en": "Target: Hero(es) (one icon per target)",
+      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " Crit 1 Acc 16"
+    }
+   ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -151178,13 +151100,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "8d4bbe5e11",
+       "iconId": "c22f085b95",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "damage",
-       "kind": "damage_type",
-       "meaning_en": "Damage (value printed inside)",
-       "meaning_zh": "伤害（图标内数字为伤害值）",
+       "key": "bleed",
+       "kind": "status",
+       "meaning_en": "Bleed (amount, duration follows)",
+       "meaning_zh": "流血（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -151196,13 +151118,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "98edfaca0a",
+       "iconId": "c7faf2bc86",
        "in_dictionary": true,
        "status": "confirmed",
        "key": "blight",
        "kind": "status",
-       "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
        "value": null,
        "naming": "confirmed"
       }
@@ -151293,11 +151215,6 @@
    },
    "verified_effect_line_receipts": [
     {
-     "lineIndex": 1,
-     "signature": "{target_effects} Transfer all {damage} or {blight}",
-     "source": "print_front"
-    },
-    {
      "lineIndex": 2,
      "signature": "{stress}",
      "source": "print_front"
@@ -151308,6 +151225,11 @@
      "source": "print_front"
     }
    ],
+   "verified_bleed_blight_transfer": {
+    "lineIndex": 1,
+    "signature": "{target_effects}Transferall{bleed}or{blight}",
+    "source": "print_front"
+   },
    "verified_status_effects": [
     {
      "lineIndex": 3,
@@ -151743,13 +151665,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "8d4bbe5e11",
+       "iconId": "c22f085b95",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "damage",
-       "kind": "damage_type",
-       "meaning_en": "Damage (value printed inside)",
-       "meaning_zh": "伤害（图标内数字为伤害值）",
+       "key": "bleed",
+       "kind": "status",
+       "meaning_en": "Bleed (amount, duration follows)",
+       "meaning_zh": "流血（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -151761,13 +151683,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "98edfaca0a",
+       "iconId": "c7faf2bc86",
        "in_dictionary": true,
        "status": "confirmed",
        "key": "blight",
        "kind": "status",
-       "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
        "value": null,
        "naming": "confirmed"
       }
@@ -151858,11 +151780,6 @@
    },
    "verified_effect_line_receipts": [
     {
-     "lineIndex": 1,
-     "signature": "{target_effects} Transfer all {damage} or {blight}",
-     "source": "print_front"
-    },
-    {
      "lineIndex": 2,
      "signature": "{stress}",
      "source": "print_front"
@@ -151873,6 +151790,11 @@
      "source": "print_front"
     }
    ],
+   "verified_bleed_blight_transfer": {
+    "lineIndex": 1,
+    "signature": "{target_effects}Transferall{bleed}or{blight}",
+    "source": "print_front"
+   },
    "verified_status_effects": [
     {
      "lineIndex": 3,
@@ -152308,13 +152230,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "8d4bbe5e11",
+       "iconId": "c22f085b95",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "damage",
-       "kind": "damage_type",
-       "meaning_en": "Damage (value printed inside)",
-       "meaning_zh": "伤害（图标内数字为伤害值）",
+       "key": "bleed",
+       "kind": "status",
+       "meaning_en": "Bleed (amount, duration follows)",
+       "meaning_zh": "流血（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -152326,13 +152248,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "98edfaca0a",
+       "iconId": "c7faf2bc86",
        "in_dictionary": true,
        "status": "confirmed",
        "key": "blight",
        "kind": "status",
-       "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
        "value": null,
        "naming": "confirmed"
       }
@@ -152423,11 +152345,6 @@
    },
    "verified_effect_line_receipts": [
     {
-     "lineIndex": 1,
-     "signature": "{target_effects} Transfer all {damage} or {blight}",
-     "source": "print_front"
-    },
-    {
      "lineIndex": 2,
      "signature": "{stress}",
      "source": "print_front"
@@ -152438,6 +152355,11 @@
      "source": "print_front"
     }
    ],
+   "verified_bleed_blight_transfer": {
+    "lineIndex": 1,
+    "signature": "{target_effects}Transferall{bleed}or{blight}",
+    "source": "print_front"
+   },
    "verified_status_effects": [
     {
      "lineIndex": 3,

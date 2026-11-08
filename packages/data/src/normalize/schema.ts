@@ -202,6 +202,20 @@ const skillStatFields = {
     .optional(),
   verified_allies_stress: z.int().optional(),
   verified_self_range: z.literal(true).optional(),
+  verified_actor_damage_bonus: z
+    .strictObject({
+      lineIndex: z.int().nonnegative(),
+      amount: z.int().positive(),
+      source: z.literal("print_front"),
+    })
+    .optional(),
+  verified_bleed_blight_transfer: z
+    .strictObject({
+      lineIndex: z.int().nonnegative(),
+      signature: z.string().min(1),
+      source: z.literal("print_front"),
+    })
+    .optional(),
 };
 
 /** 逐卡对照完整页面后附加的 Nt；缺失不表示任何默认持续时间。 */

@@ -318,6 +318,18 @@ export type HeroSkillCardView = {
   readonly verified_damage_bonuses?: readonly NonNullable<
     HeroSkillCardView["verified_damage_bonus"]
   >[];
+  /** Q-172 Punish：使用者自身有流血或腐蚀时额外伤害（卡面同行 +N）。 */
+  readonly verified_actor_damage_bonus?: {
+    readonly lineIndex: number;
+    readonly amount: number;
+    readonly source: "print_front";
+  };
+  /** Q-173 Suffer：将目标队友的流血/腐蚀堆转移到使用者。 */
+  readonly verified_bleed_blight_transfer?: {
+    readonly lineIndex: number;
+    readonly signature: string;
+    readonly source: "print_front";
+  };
   readonly verified_status_effects?: readonly (StatusEffect & {
     readonly scopeLineIndex?: number;
     readonly lineIndex: number;
@@ -388,6 +400,8 @@ export type SkillActorState = PassiveHolder & {
    * 不传当作 0。不从卡面回合数读堆数，也不在这里放新的增益或移除代币。
    */
   readonly buffStacks?: number;
+  /** Q-172：使用者当前流血/腐蚀堆，供自身条件加伤判定。 */
+  readonly statusStacks?: readonly StatusStack[];
   /**
    * 使用者现在的形态（规则书第 38 页）。背面印了「Beast Form Only」或
    * 「Human Form Only」时才核对。不传就不检查，也不从文字底板的词典说明里猜。
@@ -2108,6 +2122,9 @@ function readTargetIconCounts(skill: HeroSkillCardView): {
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
       .join("")
       .replace(/\s+/g, "");
+    const headerHealOnly =
+      skill.verified_target_heal !== undefined &&
+      (skill.verified_status_effects?.length ?? 0) === 0;
     if (
       header.lineIndex !== 0 ||
       header.source !== "print_front" ||
@@ -2115,8 +2132,9 @@ function readTargetIconCounts(skill: HeroSkillCardView): {
       skill.printed_labels.length !== 0 ||
       skill.effect_lines.length < 2 ||
       !/^\{range\}[0-2](?:\{target_hero\}){1,3}$/.test(text ?? "") ||
-      !skill.verified_status_effects?.length ||
-      skill.verified_status_effects.some((e) => e.lineIndex < 1) ||
+      (!headerHealOnly &&
+        (!skill.verified_status_effects?.length ||
+          skill.verified_status_effects.some((e) => e.lineIndex < 1))) ||
       line?.some((s) => s.type === "icon" && !NAMED.has(s.icon.naming))
     )
       return { hero: 0, monster: 0, heroOrMonster: 0 };
@@ -2500,6 +2518,48 @@ function resolveSkill(
 
   const target = combat.target;
   let effectLineReceiptCount = 0;
+  const actorBonus = active.verified_actor_damage_bonus;
+  if (actorBonus) {
+    const line = active.effect_lines[actorBonus.lineIndex];
+    const text = line
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, "");
+    if (
+      actorBonus.source !== "print_front" ||
+      !Number.isSafeInteger(actorBonus.lineIndex) ||
+      actorBonus.lineIndex < 0 ||
+      !Number.isSafeInteger(actorBonus.amount) ||
+      actorBonus.amount <= 0 ||
+      text !== `{damage}+${actorBonus.amount}ifFlagellanthas{bleed}{blight},` ||
+      line?.some(
+        (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+      )
+    )
+      return refuse(skill, combat, "使用者条件伤害注解与已确认卡面不符（Q-172，R-048）");
+  }
+  const statusTransfer = active.verified_bleed_blight_transfer;
+  if (statusTransfer) {
+    const line = active.effect_lines[statusTransfer.lineIndex];
+    const text = line
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, "");
+    if (
+      statusTransfer.source !== "print_front" ||
+      !Number.isSafeInteger(statusTransfer.lineIndex) ||
+      statusTransfer.lineIndex < 0 ||
+      text !== statusTransfer.signature.replace(/\s+/g, "") ||
+      line?.some(
+        (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+      )
+    )
+      return refuse(skill, combat, "流血/腐蚀转移注解与已确认卡面不符（Q-173，R-048）");
+    if (target.side !== "hero")
+      return refuse(skill, combat, "流血/腐蚀转移只能以队友为目标（Q-173）");
+    if (!Array.isArray(target.statusStacks) || statusStackProblem(target.statusStacks))
+      return refuse(skill, combat, "流血/腐蚀转移缺少合法的队友状态堆（Q-173）");
+  }
   for (const receipt of active.verified_effect_line_receipts ?? []) {
     const line = active.effect_lines[receipt.lineIndex];
     const sig = line
@@ -3120,6 +3180,13 @@ function resolveSkill(
       let baseDamage =
         amount +
         (combat.trinketModifiers?.damage ?? 0) +
+        (actorBonus &&
+        combat.actor &&
+        Array.isArray(combat.actor.statusStacks) &&
+        !statusStackProblem(combat.actor.statusStacks) &&
+        combat.actor.statusStacks.some((stack) => stack.kind === "bleed" || stack.kind === "blight")
+          ? actorBonus.amount
+          : 0) +
         bonuses.reduce((total, bonus) => {
           if (target.side === sourceSide) return total;
           const matched =
@@ -3254,6 +3321,29 @@ function resolveSkill(
     targetStress = actorStress;
   }
 
+  let actorStatuses = combat.ownEffectsApplied ? [] : [...statuses.self];
+  let targetStatuses = emptyArea || outcome === "miss" ? [] : [...statuses.target];
+  let transferTargetBleedCleared = false;
+  let transferTargetBlightCleared = false;
+  if (
+    statusTransfer &&
+    !emptyArea &&
+    outcome !== "miss" &&
+    target.side === "hero" &&
+    Array.isArray(target.statusStacks)
+  ) {
+    for (const stack of target.statusStacks) {
+      if (stack.kind !== "bleed" && stack.kind !== "blight") continue;
+      actorStatuses.push({
+        kind: stack.kind,
+        duration: stack.remaining,
+        ...(stack.amount === undefined ? {} : { amount: stack.amount }),
+      });
+      if (stack.kind === "bleed") transferTargetBleedCleared = true;
+      else transferTargetBlightCleared = true;
+    }
+  }
+
   return {
     skillId: skill.id,
     targetId: target.id,
@@ -3270,8 +3360,8 @@ function resolveSkill(
     ...(trinketDefence.statuses.length
       ? { targetTrinketStatusEffects: trinketDefence.statuses }
       : {}),
-    targetBleedCleared: conditionsCleared,
-    targetBlightCleared: conditionsCleared,
+    targetBleedCleared: conditionsCleared || transferTargetBleedCleared,
+    targetBlightCleared: conditionsCleared || transferTargetBlightCleared,
     actorBleedCleared,
     actorBlightCleared,
     actorShuffle: combat.ownEffectsApplied ? null : shuffles.self,
@@ -3301,6 +3391,8 @@ function resolveSkill(
         formChange.lineCount +
         statuses.lineCount +
         bonuses.length +
+        (actorBonus ? 1 : 0) +
+        (statusTransfer ? 1 : 0) +
         (rallyingFlare ? 1 : 0) +
         (extraStress ? 1 : 0) +
         (active.verified_target_header ? 1 : 0) +
@@ -3310,8 +3402,8 @@ function resolveSkill(
     ),
     ...(statuses.lineCount || support
       ? {
-          actorStatusEffects: combat.ownEffectsApplied ? [] : statuses.self,
-          targetStatusEffects: emptyArea || outcome === "miss" ? [] : statuses.target,
+          actorStatusEffects: actorStatuses,
+          targetStatusEffects: targetStatuses,
           actorLightDelta: combat.ownEffectsApplied ? 0 : statuses.selfLight,
           targetLightDelta:
             emptyArea || outcome === "miss" ? 0 : statuses.targetLight + (support?.light ?? 0),

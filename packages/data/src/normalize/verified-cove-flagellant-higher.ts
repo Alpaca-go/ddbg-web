@@ -94,37 +94,52 @@ function punishConditionalReceipt(card: NormalizedHeroSkillCard, lineIndex: numb
   };
 }
 
+function punishActorBonusLine(
+  pool: readonly NormalizedHeroSkillCard[],
+  bonus: number,
+): Segment[] {
+  const damage = iconFromPool(pool, "damage");
+  const bleed = iconFromPool(pool, "bleed");
+  const blight = iconFromPool(pool, "blight");
+  return [
+    damage,
+    text(` +${bonus} if Flagellant has `),
+    bleed,
+    text(" "),
+    blight,
+    text(" ,"),
+  ];
+}
+
 function fixPunishFamily(
   card: NormalizedHeroSkillCard,
   pool: readonly NormalizedHeroSkillCard[],
   page: number,
   level: number,
   expectedStats: string,
-  blightAmount: number,
-  blightT: number,
+  bleedAmount: number,
+  bleedT: number,
+  actorBonus: number,
 ) {
   assertFlagellant(card, page, "Punish", level);
   const targetEffects = iconFromPool(pool, "target_effects");
-  const blight = iconFromPool(pool, "blight");
+  const bleed = iconFromPool(pool, "bleed");
   const debuff = iconFromPool(pool, "debuff");
-  const condSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-  const condExpected = condSig.startsWith("{blight}{buff}");
-  if (!condExpected) throw new Error(`${card.id} Punish 条件行漂移（R-048）`);
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     stats_line: fixStatsDamageBuff(card, expectedStats),
     effect_lines: [
-      card.effect_lines[0]!,
+      punishActorBonusLine(pool, actorBonus),
       [
         targetEffects,
-        text(` ${blightAmount} `),
-        blight,
-        text(` ${blightT}t, `),
+        text(` ${bleedAmount} `),
+        bleed,
+        text(` ${bleedT}t, `),
         debuff,
         text(" 1t"),
       ],
     ],
-    verified_effect_line_receipts: [punishConditionalReceipt(card, 0)],
+    verified_actor_damage_bonus: { lineIndex: 0, amount: actorBonus, source: "print_front" },
   });
 }
 
@@ -159,8 +174,7 @@ function fixExsanguinate(
   page: number,
   level: number,
   selfHeal: number,
-  targetKind: "bleed" | "stun",
-  targetAmount: number,
+  targetBleed: number,
   targetT: number,
 ) {
   assertFlagellant(card, page, "Exsanguinate", level);
@@ -172,28 +186,13 @@ function fixExsanguinate(
   const selfEffects = iconFromCard(card, "self_effects");
   const heal = iconFromCard(card, "heal");
   const bleed = iconFromPool(pool, "bleed");
+  const debuff = iconFromPool(pool, "debuff");
   const targetEffects = iconFromPool(pool, "target_effects");
-  const targetStatus =
-    targetKind === "bleed" ? bleed : iconFromCard(card, "stun");
-  const bleedMis = segmentOnCard(card, "f18923574c");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     effect_lines: [
-      [
-        selfEffects,
-        text(" Self "),
-        heal,
-        text(` ${selfHeal}, `),
-        text(" 1 "),
-        cloneKey(bleedMis, "bleed"),
-        text(" 1t"),
-      ],
-      [
-        targetEffects,
-        ...(targetKind === "stun" ? [] : [text(` ${targetAmount} `)]),
-        targetStatus,
-        text(` ${targetT}t`),
-      ],
+      [selfEffects, text(" Self "), heal, text(` ${selfHeal}, `), debuff, text(" 1t")],
+      [targetEffects, text(` ${targetBleed} `), bleed, text(` ${targetT}t`)],
     ],
     verified_self_heal: { lineIndex: 0, amount: selfHeal, source: "print_front" },
   });
@@ -257,32 +256,45 @@ function fixEndure(
   card: NormalizedHeroSkillCard,
   pool: readonly NormalizedHeroSkillCard[],
   page: number,
-  level: number,
+  level: 1 | 2 | 3,
 ) {
   assertFlagellant(card, page, "Endure", level);
+  const spec = {
+    1: { crit: 0, acc: 12, range: "1" as const, interval: undefined },
+    2: { crit: 0, acc: 14, range: "1-2" as const, interval: { min: 1, max: 2 } as const },
+    3: { crit: 1, acc: 16, range: "1-2" as const, interval: { min: 1, max: 2 } as const },
+  }[level];
   const rangeIcon = iconFromPool(pool, "range");
+  const targetHero = iconFromPool(pool, "target_hero");
   const stressIcon = iconFromPool(pool, "stress");
   const selfEffects = iconFromCard(card, "self_effects");
   const artMis = segmentOnCard(card, "0fa747a534");
   const raw0 = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
   if (raw0 !== `{self_effects}{buff}Self{skill_art}-1`)
     throw new Error(`${card.id} Endure 自身行漂移（R-048）`);
+  const statsLine: Segment[] = [
+    rangeIcon,
+    text(` ${spec.range} `),
+    targetHero,
+    text(` Crit ${spec.crit} Acc ${spec.acc}`),
+  ];
   return normalizedHeroSkillCardSchema.parse({
     ...card,
-    stats_line: null,
+    printed_labels: [
+      { label: "Crit", raw: `Crit ${spec.crit}`, value: spec.crit },
+      { label: "Acc", raw: `Acc ${spec.acc}`, value: spec.acc },
+    ],
+    stats_line: statsLine,
     effect_lines: [
-      [rangeIcon, text(" Self")],
       [selfEffects, text(" Self "), cloneKey(artMis, "stress"), text(" -1")],
       [stressIcon, text(" -1")],
     ],
-    verified_self_stress: { lineIndex: 1, amount: -1, source: "print_front" },
+    verified_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
     verified_allies_stress: -1,
-    verified_self_range: true,
-    verified_effect_line_receipts: [
-      { lineIndex: 0, signature: "{range}Self", source: "print_front" },
-      { lineIndex: 2, signature: "{stress}-1", source: "print_front" },
-    ],
-    unlabeled_numbers: card.unlabeled_numbers.filter((n) => n.text !== "1" && n.text !== "1-2"),
+    verified_effect_line_receipts: [{ lineIndex: 1, signature: "{stress}-1", source: "print_front" }],
+    ...(spec.interval
+      ? { verified_range: { ...spec.interval, source: "print_front" as const } }
+      : {}),
   });
 }
 
@@ -299,22 +311,13 @@ function fixRedeem(
   const selfEffects = iconFromCard(card, "self_effects");
   const heal = iconFromPool(pool, "heal");
   const targetEffects = iconFromCard(card, "target_effects");
-  const bleedMis = segmentOnCard(card, "f18923574c");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     stats_line: null,
     effect_lines: [
       [rangeIcon, text(" 1 "), targetHero],
-      [
-        selfEffects,
-        text(" Self "),
-        heal,
-        text(` ${healAmount}, `),
-        text(" 1 "),
-        cloneKey(bleedMis, "bleed"),
-        text(" 1t"),
-      ],
-      [targetEffects, text(" "), heal, text(` ${healAmount}`)],
+      [selfEffects, text(" Self "), heal, text(` ${healAmount}`)],
+      [targetEffects, heal, text(String(healAmount))],
     ],
     verified_self_heal: { lineIndex: 1, amount: healAmount, source: "print_front" },
     verified_target_heal: { lineIndex: 2, amount: healAmount, source: "print_front" },
@@ -335,12 +338,17 @@ function fixSuffer(
   const selfEffects = iconFromCard(card, "self_effects");
   const buff = iconFromCard(card, "buff");
   const mark = iconFromPool(pool, "mark");
-  const transferSig = lineSignature(card.effect_lines[1]!).replace(/\s+/g, "");
-  if (
-    !transferSig.includes("{target_effects}") ||
-    !transferSig.includes("Transferall{damage}or{blight}")
-  )
-    throw new Error(`${card.id} Suffer 转移行漂移（R-048）`);
+  const bleed = iconFromPool(pool, "bleed");
+  const blight = iconFromPool(pool, "blight");
+  const targetEffects = iconFromPool(pool, "target_effects");
+  const transferLine: Segment[] = [
+    targetEffects,
+    text(" Transfer all "),
+    bleed,
+    text(" or "),
+    blight,
+  ];
+  const transferSignature = lineSignature(transferLine).replace(/\s+/g, "");
   const shuffleOrBleed = level === 3 ? segmentOnCard(card, "ac56561b87") : mark;
   const selfTail =
     level === 3
@@ -351,14 +359,18 @@ function fixSuffer(
     stats_line: null,
     effect_lines: [
       [rangeIcon, text(" 1 "), targetHero],
-      card.effect_lines[1]!,
+      transferLine,
       card.effect_lines[2]!,
       [selfEffects, text(" Self "), buff, ...selfTail],
       [text("to the Flagellant.")],
     ],
     verified_target_header: { lineIndex: 0, source: "print_front" },
+    verified_bleed_blight_transfer: {
+      lineIndex: 1,
+      signature: transferSignature,
+      source: "print_front",
+    },
     verified_effect_line_receipts: [
-      { lineIndex: 1, signature: lineSignature(card.effect_lines[1]!), source: "print_front" },
       { lineIndex: 2, signature: lineSignature(card.effect_lines[2]!), source: "print_front" },
       { lineIndex: 4, signature: "to the Flagellant.", source: "print_front" },
     ],
@@ -374,8 +386,13 @@ export function attachVerifiedCoveFlagellantHigher(
   return cards.map((card) => {
     switch (card.id) {
       case "hero_skill:p253":
-        return fixPunishFamily(card, cards, 253, 1,
+        return fixPunishFamily(
+          card,
+          cards,
+          253,
+          1,
           "{range} 1 {target_monster} Crit 1 {buff} 7 Acc 10 {buff} 4",
+          2,
           2,
           2,
         );
@@ -388,6 +405,7 @@ export function attachVerifiedCoveFlagellantHigher(
           "{range} 1 {target_monster} Crit 1 {buff} 9 Acc 11 {buff} 6",
           2,
           3,
+          2,
         );
       case "hero_skill:p255":
         return fixPunishFamily(
@@ -398,6 +416,7 @@ export function attachVerifiedCoveFlagellantHigher(
           "{range} 1 {target_monster} Crit 1 {buff} 12 Acc 12 {buff} 8",
           3,
           3,
+          2,
         );
       case "hero_skill:p256":
         return fixRainFamily(
@@ -430,11 +449,11 @@ export function attachVerifiedCoveFlagellantHigher(
           4,
         );
       case "hero_skill:p259":
-        return fixExsanguinate(card, cards, 259, 1, 3, "bleed", 2, 3);
+        return fixExsanguinate(card, cards, 259, 1, 3, 2, 3);
       case "hero_skill:p260":
-        return fixExsanguinate(card, cards, 260, 2, 5, "bleed", 3, 3);
+        return fixExsanguinate(card, cards, 260, 2, 5, 3, 3);
       case "hero_skill:p261":
-        return fixExsanguinate(card, cards, 261, 3, 7, "stun", 3, 4);
+        return fixExsanguinate(card, cards, 261, 3, 7, 3, 4);
       case "hero_skill:p262":
         return fixReclaim(
           card,
@@ -469,9 +488,11 @@ export function attachVerifiedCoveFlagellantHigher(
       case "hero_skill:p267":
         return fixRedeem(card, cards, 267, 3, 7);
       case "hero_skill:p268":
+        return fixEndure(card, cards, 268, 1);
       case "hero_skill:p269":
+        return fixEndure(card, cards, 269, 2);
       case "hero_skill:p270":
-        return fixEndure(card, cards, card.pages[0]!, card.level);
+        return fixEndure(card, cards, 270, 3);
       case "hero_skill:p271":
         return fixSuffer(card, cards, 271, 1, 2);
       case "hero_skill:p272":

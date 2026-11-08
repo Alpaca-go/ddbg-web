@@ -2731,30 +2731,30 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **编号**：Q-172
 - **日期**：2026-11-08
-- **问题**：Punish 条件行「if Flagellant has stun mark」是否结算。
-- **裁定**（Kyries 2026-11-08）：印刷条件行 **仅 `verified_effect_line_receipts` 签收**，不推断条件伤害/状态；攻击行按 stats 伤害 + 目标 Bleed 照常结算。
-- **状态**：Kyries 已确认（2026-11-08）
+- **问题**：Punish 条件行「if Flagellant has …」如何结算。
+- **裁定**（Kyries **真确认** 2026-11-08）：若苦修者**自身有流血或腐蚀**，攻击可**额外 +2 伤害**（`verified_actor_damage_bonus`，同行洗净为 `{damage}+NifFlagellanthas{bleed}{blight},`）。攻击行 stats 伤害照常；目标施加 **Bleed**（及印刷 Debuff），不是签收占位。
+- **状态**：Kyries 真确认（2026-11-08）
 
 ### Q-173（已关闭）
 
 - **编号**：Q-173
 - **日期**：2026-11-08
-- **问题**：Suffer「Transfer all damage or blight to the Flagellant」转移语义。
-- **裁定**（Kyries 2026-11-08）：转移行 **签收 + 自身 Buff/Bleed/Mark** 按卡面接线；全量伤害/腐蚀转移 **不在本 PR 模拟战斗结算**（仅保证效果行消费与 R-048 拒绝）。
-- **状态**：Kyries 已确认（2026-11-08）
+- **问题**：Suffer「Transfer all … to the Flagellant」转移语义。
+- **裁定**（Kyries **真确认** 2026-11-08）：选择**目标队友**，将其身上的**流血与腐蚀堆**转移到苦修者（`verified_bleed_blight_transfer`）；同时自身获得印刷 **Buff + Mark**（III 另接卡面 Bleed）。须在引擎结算转移并清空队友对应堆，不能只签收。
+- **状态**：Kyries 真确认（2026-11-08）
 
 ### Q-174（已关闭）
 
 - **编号**：Q-174
 - **日期**：2026-11-08
-- **问题**：Exsanguinate III 目标行 OCR「3」前缀；Redeem 无 Acc/Crit 是否掷骰。
-- **裁定**（Kyries 2026-11-08）：III 目标为 **Stun 4t**（去掉误挂 Mark 的「3」）；Redeem 为 **无 stats 的友方治疗**（`verified_target_heal` + `verified_self_heal`），**不强制 Crit/Acc**。
-- **状态**：Kyries 已确认（2026-11-08）
+- **问题**：Exsanguinate / Redeem 印刷误读。
+- **裁定**（Kyries **真确认** 2026-11-08）：**Exsanguinate** I/II/III：目标 **Bleed 2/3/3**，持续 **3/3/4t**；自身 **Heal 3/5/7 + Debuff 1t**（去掉误 OCR 的 Stun/自身 Bleed）。**Redeem**：**无 Acc/Crit** 的友方治疗 + 同等自身治疗（`verified_target_heal` / `verified_self_heal`）。
+- **状态**：Kyries 真确认（2026-11-08）
 
 ### Q-175（已关闭）
 
 - **编号**：Q-175
 - **日期**：2026-11-08
-- **问题**：Endure 第二行全队压力与 Self 射程头行。
-- **裁定**（Kyries 2026-11-08）：**自身压力 −1**（`verified_self_stress`）+ **所有队友压力 −1**（`verified_allies_stress`）+ **`{range} Self` 头行**（`verified_self_range`）；条件行签收，不猜 Buff。
-- **状态**：Kyries 已确认（2026-11-08）
+- **问题**：Endure 射程/命中与压力行。
+- **裁定**（Kyries **真确认** 2026-11-08）：**自身与队友压力各 −1**（`verified_self_stress` + `verified_allies_stress`）。另有 stats：**临近一个队友**，I **射程 1** Acc **12** Crit **0**；II **射程 1–2** Acc **14** Crit **0**；III **射程 1–2** Acc **16** Crit **1**。不是「仅 Self 头行签收」。
+- **状态**：Kyries 真确认（2026-11-08）
