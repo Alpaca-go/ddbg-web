@@ -162,9 +162,9 @@ export function DungeonQuest() {
           <h1>开局建队</h1>
           <p>正式十八英雄开局四人 · I级遗迹 · 单设备1–4人轮流操作</p>
           <p className="embark-roster-hint">
-            可选身份共 {FORMAL_HERO_NAMES.length} 名（与替补白名单一致）。十一名核心盒属性已核实；
-            其余七名扩展展示印刷 STAT/技能卡，属性占位或 art-only 技能，标「技能效果未接线」。缺
-            token/icon 不阻塞建队；未核实战斗效果按 R-048 拒绝，不发明数值。
+            可选身份共 {FORMAL_HERO_NAMES.length} 名（与替补白名单一致）。十八名属性与 I–III
+            级战斗技能均已核实接线（R-200）。缺 token/icon 不阻塞建队；未核实效果按 R-048
+            拒绝，不发明数值。
           </p>
           <a href="/?view=battle">打开战斗沙盒</a>
         </div>

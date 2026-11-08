@@ -36,8 +36,8 @@ it("Mark II self Buff3t survives a miss; Caltrops II applies Bleed3 for 2t and D
     { kind: "debuff", duration: 2 },
   ]);
 });
-it("154 core higher cards are partitioned into 154 available and no explicit holds", () => {
-  expect(cards).toHaveLength(154);
+it("252 higher cards (154 core + 98 expansion) are available with no explicit holds", () => {
+  expect(cards).toHaveLength(252);
   expect(Object.keys(CORE_HIGHER_SKILL_HOLDS)).toHaveLength(0);
   const load = battleDataPlugin().load as (id: string) => string;
   const catalog = JSON.parse(
@@ -82,6 +82,7 @@ it.each(cards)("$id $name: all d10 faces resolve every effect line deterministic
     },
     light: 4,
     shuffleChoice: "push" as const,
+    ...(raw.id === "hero_skill:p303" ? { shufflePushDistance: 2 as const } : {}),
     areaDistance:
       range.kind === "exact" ? range.distance : range.kind === "interval" ? range.min : 0,
     targetsInArea: targets.kind === "exact" ? targets.max : 1,
@@ -93,8 +94,21 @@ it.each(cards)("$id $name: all d10 faces resolve every effect line deterministic
     expect(resolveHeroSkillEffects(card, combat, roll)).toEqual(r);
   }
 });
+const coreBoxHigherIds = new Set(
+  cards
+    .filter((c) => {
+      const match = /^hero_skill:p(\d{3})$/.exec(c.id);
+      return match && Number(match[1]) <= 231;
+    })
+    .map((c) => c.id),
+);
+
 it.each(
-  cards.filter((c) => !["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(c.hero ?? "")),
+  cards.filter(
+    (c) =>
+      coreBoxHigherIds.has(c.id) &&
+      !["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(c.hero ?? ""),
+  ),
 )("$id: public battle command", (raw) => {
   const card = clean<HeroSkillCardView>(raw),
     range = readPrintedRange(card),

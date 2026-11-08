@@ -79,7 +79,7 @@
 1. 在 `packages/data/src/normalize/verified-hero-statuses.ts` / `verified-hero-support.ts` / `verified-hero-ranges.ts` 增加 Leper 条目（带签名断言，签名不符即拒绝）。
 2. 对 p282/p284/p285/p290/p291 的 stats/效果行做逐卡修正（`verified_stat_line` 或等价覆盖），避免改动全局图标字典。
 3. 跑 `core-higher-skills` 审计（扩展为 18 名英雄的 II/III）。
-4. 通过后把目录切到「全部 18 名英雄 I–III」、清掉 84 张 art-only 占位、更新建队页文案。
+4. ~~通过后把目录切到「全部 18 名英雄 I–III」、清掉 84 张 art-only 占位、更新建队页文案。~~ **已完成（§7.4 统一切目录 PR）**。
 5. 其余 6 名（Antiquarian / Flagellant / Man-at-Arms / Houndmaster / Shieldbreaker / Musketeer）按同一流程逐名做，每名一批提交。
 
 ## Antiquarian III 的免疫图标位置
