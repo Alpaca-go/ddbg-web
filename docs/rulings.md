@@ -2799,3 +2799,35 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**（Kyries **真确认** 2026-11-08）：`763ad8e857` = **Stun**（**非** Debuff）；目标 **Stun 1t**（III 亦 1t）。逐卡覆盖，不改全局词典。
 - **状态**：Kyries 真确认（2026-11-08）
 
+### Q-181（已确认）
+
+- **编号**：Q-181
+- **日期**：2026-11-08
+- **问题**：Shieldbreaker **Impale** I–III stats 射程 1 后四枚 `{icon:7616568d52}`；extract/词典误作**头盔** `target_hero` 且按图标数当目标上限。
+- **裁定**（Kyries **真确认** 2026-11-08）：印刷为四枚**红骷髅**（非头盔）；语义对照 `a396e95c00` 红骷髅 **target_monster** 路径（词典 v1.2 evidence）。**不按四图标数接目标上限**；本卡 stats 收成 **射程 1 + 一枚 target_monster**（Crowded 类读法，与 Bone Spearman Impale「Crowded」同类红骷髅族对照 `packages/data/normalized/corebox/monster_medium.json` Bone Spearman slot 2）。`7616568d52` **不**写入全局词典。证据：`packages/data/extract/extension/weald/raw/hero_skill.json` `hero_skill:p325`–`p327` front stats 行。
+- **状态**：Kyries 真确认（2026-11-08）
+
+### Q-182（已确认）
+
+- **编号**：Q-182
+- **日期**：2026-11-08
+- **问题**：Shieldbreaker **Captivate** I–III「+N vs」条件与副效果。
+- **裁定**（Kyries **真确认** 2026-11-08）：对**标记**目标额外伤害 **+2 / +4 / +4**（L1/L2/L3）；目标**腐蚀** **2 / 2 / 3** 层，**2 / 2 / 2** t。OCR 爪痕行拆为 `+N vs {mark}` + `{blight}`；**非** stunned。
+- **状态**：Kyries 真确认（2026-11-08）
+
+### Q-183（已确认）
+
+- **编号**：Q-183
+- **日期**：2026-11-08
+- **问题**：Shieldbreaker **Puncture** I–III 效果行结构。
+- **裁定**（Kyries **真确认** 2026-11-08）：`9ffbd6087a` 折角装饰不入结算。自身**退后 1**（Self **Pull 1**，印刷原文）；**Ignores Guard**；目标 **Pull 1**（同印刷 Pull 文案，非 Push）。
+- **状态**：Kyries 真确认（2026-11-08）
+
+### Q-184（已确认）
+
+- **编号**：Q-184
+- **日期**：2026-11-08
+- **问题**：Shieldbreaker **Serpent Sway** I–III。
+- **裁定**（Kyries **真确认** 2026-11-08）：**I/II** 仅自身：Protection **2t / 3t** + 退后 **Pull 1**（**非** Mark/shuffle 误接）。**III** 在自身同族效果外，**射程 1、1 名队友** **Protection 2t**（`stats` 头行 `target_hero`×1）。
+- **状态**：Kyries 真确认（2026-11-08）
+

@@ -66,6 +66,7 @@
 - **Leper II/III 首批 14 张**（PR #618）：Q-163～Q-166 已关闭；`verified-warrens-leper-higher` + `verified-hero-statuses` 接线；**d10 审计 14/14 绿**。
 - **Antiquarian II/III 14 张**（PR #619）：Q-167～Q-171 已关闭；`verified-warrens-antiquarian-higher` + 引擎 `shufflePushDistance`（Q-168）；**d10 审计 14/14 绿**。
 - **Flagellant II/III 14 张 + 同族 L1 洗净 7 张**（PR #620）：Q-172～Q-175 **Kyries 真确认**；`verified_actor_damage_bonus` / `verified_bleed_blight_transfer` / Endure stats（队友射程+Acc/Crit）；**d10 审计 21/21 绿**。
+- **Shieldbreaker II/III 14 张 + 同族 L1 洗净 7 张**：`verified-weald-shieldbreaker-higher`；Q-181～Q-184 **待 Kyries 确认**；**d10 审计 14/14 绿**（见 `docs/phase7-shieldbreaker-higher-2026-11-08.md`）。
 - **Man-at-Arms II/III 14 张**（PR #621）：`verified-cove-man-at-arms-higher`；Q-176/Q-177 已关闭（Retribution **Mark+Riposte**、Defender **Guard+Protection**）；**d10 审计 14/14 绿**。
 - **Houndmaster II/III 14 张 + L1 七族洗净**（PR #622）：`verified-weald-houndmaster-higher`；**d10 审计 14/14 绿**；**Q-178～Q-180** Kyries 真确认。
 - **Antiquarian III STAT**：Life 15 / Dodge 3 / Speed 0；左栏 Blight 抗性；免疫 = 位移 + 疾病。`8510428636` 只在 `verified_higher_condition_defence` 注解，不写全局词典（Q-104 关闭，R-200）。

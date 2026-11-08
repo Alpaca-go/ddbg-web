@@ -18,7 +18,9 @@ describe("逐卡复核条件伤害", () => {
               ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(card.hero ?? "")),
         )
         .map((card) => Number(card.id.slice(-3))),
-    ).toEqual([1, 2, 3, 16, 17, 18, 58, 67, 68, 69, 85, 86, 87, 103, 104, 105, 172, 190, 193]);
+    ).toEqual([
+      1, 2, 3, 16, 17, 18, 58, 67, 68, 69, 85, 86, 87, 103, 104, 105, 172, 190, 193, 331,
+    ]);
     const lance = cards.find((card) => card.id === "hero_skill:p016")!;
     expect(lance.verified_damage_bonus).toEqual({
       lineIndex: 1,
