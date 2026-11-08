@@ -2839,3 +2839,17 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**（Kyries 真确认 2026-11-08）：**Musketeer 与 Arbalest 技能完全一致**——仅图标与技能名称不同；**数值与效果全部相同**。Smokescreen 全等级（含 I）对齐 **Suppressive Fire** 对应等级（单一 **Debuff** 等）；Call the Shot 对齐 **Sniper's Mark**（**Mark**，非 Debuff）；余五族同对照表。`verified-musketeer-higher` + `musketeer-arbalest-parity.test.ts` 强制效果行与 `verified_*` 一致。
 - **状态**：Kyries 已确认（2026-11-08）
 
+
+### R-201
+
+- **编号**：R-201
+- **日期**：2026-11-08（Asia/Shanghai）
+- **问题**：最终战自然存档验收是否只到首形态部署/开战、不含四形态连续胜利。
+- **裁定**（Kyries 2026-11-08 确认；**测试范围**，不是游戏规则）：
+  1. 自然链/存档自动化验收覆盖 p018 自然路径至**首形态部署与开战**，并对检查点做严格回放；
+  2. **四形态连续胜利**不纳入自动化验收：Boss 输赢与战斗过程是玩家的决策，自动化只保证流程没有引擎拒绝/卡死/存档不一致（R-190）；
+  3. 不为此调整自然策略、种子或数值；需要时另开「最终战多形态自然链」切片。
+- **依据 / 出处**：R-190（不为绿灯调策略/种子）、Kyries 2026-11-07「Boss 输赢不是测试目标」、[phase5-final-battle-natural-save-2026-11-04.md](phase5-final-battle-natural-save-2026-11-04.md)。
+- **关联待确认**：无（原 Q-xxx 关闭）。
+- **状态**：已裁定
+- **实现状态**：无代码改动；`final-battle-natural-save.test.ts` 保持首形态边界。

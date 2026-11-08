@@ -1,4 +1,4 @@
-# 最终战自然任务与严格存档
+﻿# 最终战自然任务与严格存档
 
 基线：main @ R-186（[#595](https://github.com/Alpaca-go/ddbg-web/pull/595)）、R-187（Kyries 确认 [#596](https://github.com/Alpaca-go/ddbg-web/pull/596)）。依据 R-186、R-187、R-122、R-048 与核心 R36/R39、规格书 §14.x。生产入口见 [phase5-final-battle-production-entry-review-2026-11-04.md](phase5-final-battle-production-entry-review-2026-11-04.md)。
 
@@ -23,4 +23,4 @@ pnpm exec vitest run apps/web/e2e/final-battle-save.spec.ts
 pnpm typecheck && pnpm lint && pnpm test && pnpm build
 ```
 
-**Q-xxx（待 Kyries）**：是否将「最终战自然存档仅到首形态部署/开战、不含多形态胜利」写入正式裁定（本 PR 仅在本文档标明边界）。
+**已裁定（R-201，2026-11-08）**：最终战自然存档验收只覆盖 p018 自然路径到首形态部署/开战与检查点回放；四形态连续胜利不纳入自动化验收（Boss 输赢是玩家决策，R-190）。
