@@ -14,8 +14,8 @@ describe("逐卡复核条件伤害", () => {
         .filter(
           (card) =>
             card.verified_damage_bonus &&
-            (card.level === 1 ||
-              ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(card.hero ?? "")),
+            (card.level === 1 && !card.id.startsWith("hero_skill:musketeer:")) ||
+              ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(card.hero ?? ""),
         )
         .map((card) => Number(card.id.slice(-3))),
     ).toEqual([

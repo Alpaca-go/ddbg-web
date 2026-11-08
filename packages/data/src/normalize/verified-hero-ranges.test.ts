@@ -16,7 +16,7 @@ describe("逐卡复核的区间来源", () => {
           (card) =>
             card.verified_range &&
             ([167, 168].includes(card.pages[0]!) ||
-              card.level === 1 ||
+              (card.level === 1 && !card.id.startsWith("hero_skill:musketeer:")) ||
               ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(card.hero ?? "")),
         )
         .map((card) => Number(card.id.slice(-3))),

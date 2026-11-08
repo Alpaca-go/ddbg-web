@@ -6,13 +6,39 @@ const MONSTER_DEBUFF_SIGNATURE = "{target_monster} : {debuff} 2t";
 
 const ENTRIES: readonly {
   readonly id: string;
+  readonly hero: "ARBALEST" | "MUSKETEER";
+  readonly name: string;
   readonly level: number;
   readonly acc: number;
   readonly targetIcons: number;
 }[] = [
-  { id: "hero_skill:p166", level: 1, acc: 10, targetIcons: 2 },
-  { id: "hero_skill:p167", level: 2, acc: 11, targetIcons: 3 },
-  { id: "hero_skill:p168", level: 3, acc: 12, targetIcons: 4 },
+  { id: "hero_skill:p166", hero: "ARBALEST", name: "Rallying Flare", level: 1, acc: 10, targetIcons: 2 },
+  { id: "hero_skill:p167", hero: "ARBALEST", name: "Rallying Flare", level: 2, acc: 11, targetIcons: 3 },
+  { id: "hero_skill:p168", hero: "ARBALEST", name: "Rallying Flare", level: 3, acc: 12, targetIcons: 4 },
+  {
+    id: "hero_skill:musketeer:p019",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 1,
+    acc: 10,
+    targetIcons: 2,
+  },
+  {
+    id: "hero_skill:musketeer:p020",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 2,
+    acc: 11,
+    targetIcons: 3,
+  },
+  {
+    id: "hero_skill:musketeer:p021",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 3,
+    acc: 12,
+    targetIcons: 4,
+  },
 ];
 
 function signature(
@@ -43,9 +69,9 @@ export function attachVerifiedRallyingFlare(
     );
     const acc = card.printed_labels.find((l) => l.label === "Acc")?.value;
     if (
-      card.name !== "Rallying Flare" ||
+      card.name !== entry.name ||
       card.level !== entry.level ||
-      card.hero !== "ARBALEST" ||
+      card.hero !== entry.hero ||
       card.verification.unverified ||
       card.pages.length !== 1 ||
       card.pages[0] !== page ||

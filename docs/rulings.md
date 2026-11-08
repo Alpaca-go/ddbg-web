@@ -2831,3 +2831,11 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**（Kyries **真确认** 2026-11-08）：**I/II** 仅自身：Protection **2t / 3t** + 退后 **Pull 1**（**非** Mark/shuffle 误接）。**III** 在自身同族效果外，**射程 1、1 名队友** **Protection 2t**（`stats` 头行 `target_hero`×1）。
 - **状态**：Kyries 真确认（2026-11-08）
 
+### Q-185
+
+- **编号**：Q-185
+- **日期**：2026-11-08
+- **问题**：Musketeer **Smokescreen I** 效果行印刷为 `{mark}` + `{protection}` **1t**（`b2e9d87127` / `4fcb32ac31`），与 Arbalest **Suppressive Fire I** 的单一 `{debuff} 1t` 不同。II/III 经洗去 `462bd48a91`（skill_art OCR）后按 **Debuff 2t/3t** 接线（对照 Suppressive Fire II/III 结构）。
+- **待确认**：Smokescreen **I** 是否确为**目标 Mark 1t + Protection 1t**，抑或应读成单一 Debuff 1t？II/III Debuff 时长是否与 Suppressive Fire 一致？
+- **状态**：待 Kyries 确认
+
