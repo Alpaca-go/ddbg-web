@@ -1,4 +1,4 @@
-import { rejectBattleCommand, type BattleEntity, type BattleState } from "../battle";
+﻿import { rejectBattleCommand, type BattleEntity, type BattleState } from "../battle";
 import type { ApplyResult, GameState } from "../command";
 import { finishTurn } from "../encounter";
 import type { SkillStance } from "../hero-skill";
@@ -151,7 +151,7 @@ export function applyMammothCystSummonWhiteCell(state: GameState, actorId: strin
     monsterCardId: cardId,
     life: card.life,
     dodge,
-    areaId: DARKEST_MID_BOSS_MONSTER_STANCE_AREAS[stance],
+    areaId: battle.monsterStanceAreas?.[stance] ?? DARKEST_MID_BOSS_MONSTER_STANCE_AREAS[stance],
     stance,
     stanceSlots: meta.stanceSlots,
     wounds: 0,

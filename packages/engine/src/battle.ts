@@ -1,4 +1,4 @@
-import type { MonsterSupportResolvedEvent } from "./battle-monster-support";
+﻿import type { MonsterSupportResolvedEvent } from "./battle-monster-support";
 import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import {
   heroSkillUsesSelfTarget,

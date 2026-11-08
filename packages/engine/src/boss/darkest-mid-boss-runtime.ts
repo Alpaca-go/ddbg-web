@@ -63,12 +63,12 @@ function supportDeployedHoldSummary(supportMonsters: readonly SpawnPlacement[]):
 
 function darkestMidBossWiringHold(questId: StoredDarkestBossEncounterPlan["questId"]): string {
   if (questId === "quest:p016") {
-    return "Undulations + Echoing Disassembly 召唤（含先攻洗入，R-034）+ Lacerate Acc 已接；生产部署 deployShufflingHorrorI（R-163/R-182）；Echoing 自动选招 / 完整 AI 仍 hold";
+    return "Undulations + Echoing Disassembly 召唤（含先攻洗入，R-034）+ Lacerate Acc 已接；生产部署 deployShufflingHorrorI（R-163/R-182）；autoMonsterTurn 已接（Undulations 走专用运行时，召唤落真实 room tile 区域）；Echoing 仍走显式命令";
   }
   if (questId === "quest:p018") {
-    return "Summon White Cell Stalk + Bulging Gaze/Digestion Acc + Revivify Self 最小结算已接；White Cell Teleport 已接（R-195）；生产部署 deployMammothCystI（R-164/R-184）；完整 AI 仍 hold";
+    return "Summon White Cell Stalk + Bulging Gaze/Digestion Acc + Revivify Self 最小结算已接；White Cell Teleport 已接（R-195）；生产部署 deployMammothCystI（R-164/R-184）；autoMonsterTurn 已接；Summon White Cell 仍走显式能力命令";
   }
-  return "Templars Torment/Body Slam/Revelation/Stinger Shot Acc 最小结算已接；生产部署 deployTemplarsI（R-162/R-180）；Spikes / Pit Toss 已接（R-193）；完整 AI 仍 hold";
+  return "Templars Torment/Body Slam/Revelation/Stinger Shot Acc 最小结算已接；生产部署 deployTemplarsI（R-162/R-180）；Spikes / Pit Toss 已接（R-193）；autoMonsterTurn 已接（Pit Toss 仍由位移结算触发）";
 }
 
 const STANCE_ORDER: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];

@@ -1,4 +1,4 @@
-import { applyCommand } from "../command";
+﻿import { applyCommand } from "../command";
 import type { Command, GameEvent, GameState, PendingChoice } from "../command";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { basicQuests } from "../../../data/src/basic-quests";
@@ -160,9 +160,19 @@ export function naturalQuest(
   const currentQuestId = () =>
     (state.dungeon!.questDistribution?.questId ?? questId) as BasicQuestId;
   const room = () => {
-    if (isBossQuestId(currentQuestId()) && state.dungeon!.bossQuestVictory === true) return;
+    if (
+      isBossQuestId(currentQuestId()) &&
+      state.dungeon!.bossQuestVictory === true &&
+      dungeonPhase() !== "awaitingReplacement"
+    )
+      return;
     for (let count = 0; count < 20; count++) {
-      if (isBossQuestId(currentQuestId()) && state.dungeon!.bossQuestVictory === true) return;
+      if (
+        isBossQuestId(currentQuestId()) &&
+        state.dungeon!.bossQuestVictory === true &&
+        dungeonPhase() !== "awaitingReplacement"
+      )
+        return;
       settle();
       const phase = dungeonPhase();
       if (phase === "ready") return;

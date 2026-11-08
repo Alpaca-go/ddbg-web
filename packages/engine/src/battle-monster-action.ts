@@ -49,6 +49,12 @@ import {
 } from "./boss/darkest-mammoth-cyst-skills-acc";
 import { MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID } from "./boss/darkest-mammoth-cyst-combat-runtime";
 import { mammothCystProductionCombatActive } from "./boss/mammoth-cyst-i-deploy";
+import {
+  applyShufflingHorrorUndulations,
+  SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID,
+  SHUFFLING_HORROR_UNDULATIONS_SKILL_SLOT,
+} from "./boss/darkest-shuffling-horror-combat-runtime";
+import { shufflingHorrorProductionCombatActive } from "./boss/shuffling-horror-i-deploy";
 import { getBossScript } from "./boss/registry";
 import { resolveEncounterBossScriptId } from "./boss/encounter-rules";
 import { readMonsterSelfStatuses } from "./monster-self-status";
@@ -182,6 +188,24 @@ export function prepareMonsterAction(
     selected.skillSlot === MAMMOTH_REVIVIFY_SKILL_SLOT
   ) {
     return applyMammothCystRevivify(
+      {
+        ...state,
+        battle: {
+          ...battle,
+          rngCursor: battle.rngCursor + (needsRoll ? 1 : 0),
+        },
+      },
+      actor.id,
+    );
+  }
+
+  if (
+    shufflingHorrorProductionCombatActive(state) &&
+    card.id === SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID &&
+    selected.skillSlot === SHUFFLING_HORROR_UNDULATIONS_SKILL_SLOT
+  ) {
+    // Undulations 重排英雄姿态并可能移动区域；必须走专用运行时，不能按普通攻击结算。
+    return applyShufflingHorrorUndulations(
       {
         ...state,
         battle: {

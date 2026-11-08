@@ -94,6 +94,7 @@ R-194 的模型已就绪（`createQuestSave` 写 `campaignLevel` 并校验回放
 - 覆盖 Templars I / Shuffling Horror / Mammoth Cyst；Mammoth Revivify 走自身技能分支；显式 `apply*` 命令保留。
 - 战斗 UI 已在怪物回合控制区接「怪物自动回合 / 自动完成怪物回合」按钮（`apps/web/src/battle-view.tsx`）；`formal-battle` e2e 优先走这条路径并通过。
 - 测试 `monster-auto-turn.test.ts`（5 条）+ 存档 schema 已允许该命令。切片见 `docs/phase6-boss-auto-turn-2026-11-08.md`。
+- **2026-11-08 补**：中途 Boss 生产区域修复——Undulations 只洗姿态不移动区域；Echoing / Mammoth 召唤物改用 `monsterStanceAreas`；`prepareMonsterAction` 分派 Undulations，自动回合不再按普通技能结算。切片见 `docs/phase6-mid-boss-production-areas-2026-11-08.md`。
 
 ## 5. 关键文件地图
 

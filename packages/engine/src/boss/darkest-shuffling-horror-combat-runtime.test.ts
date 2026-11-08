@@ -157,14 +157,21 @@ describe("Shuffling Horror · Undulations", () => {
     bossQuestScriptId["quest:p016"] = DARKEST_SHUFFLING_HORROR_SCRIPT_ID;
   });
 
-  it("洗混后从 front（aggressive）起放回对应 hero 区域", () => {
-    const result = applyShufflingHorrorUndulations(onHorrorTurn(horrorBattle(7)), "horror");
+  it("洗混从 front（aggressive）起放回姿态，英雄区域不移动", () => {
+    const before = horrorBattle(7);
+    const areas = new Map(
+      before
+        .battle!.entities.filter((entity) => entity.side === "hero")
+        .map((entity) => [entity.id, entity.areaId]),
+    );
+    const result = applyShufflingHorrorUndulations(onHorrorTurn(before), "horror");
     expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
     const heroes = result.state.battle!.entities.filter((entity) => entity.side === "hero");
     expect(heroes).toHaveLength(4);
-    for (const stance of stances) {
-      const hero = heroes.find((entry) => entry.stance === stance);
-      expect(hero?.areaId).toBe(DARKEST_MID_BOSS_HERO_STANCE_AREAS[stance]);
+    const expected = { h2: "aggressive", h1: "defensive", h3: "ranged", h0: "support" } as const;
+    for (const hero of heroes) {
+      expect(hero.stance).toBe(expected[hero.id as keyof typeof expected]);
+      expect(hero.areaId).toBe(areas.get(hero.id));
     }
     expect(result.events.find((event) => event.type === "dungeonUpdated")?.message).toContain(
       "h2→h1→h3→h0",

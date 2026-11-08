@@ -74,6 +74,35 @@ it("R-184：十二区部署、Boss 进攻/H、四英雄均 K、JSON 续接", () 
   expect(savedCommandSchema.parse(JSON.parse(JSON.stringify(deploy)))).toEqual(deploy);
 });
 
+it("生产几何：Summon White Cell Stalk 落在 room tile 的怪物姿态区，不写占位区域", () => {
+  const started = apply(apply(atObjective(), deploy), start);
+  const boss = started.battle!.entities.find(
+    (entity) => entity.monsterCardId === MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
+  )!;
+  const state: GameState = {
+    ...started,
+    battle: {
+      ...started.battle!,
+      encounter: {
+        round: 1,
+        deck: ["hero", "monster"],
+        actedIds: [],
+        turn: { type: "monster", actorId: boss.id },
+      },
+    },
+  };
+  const result = applyCommand(state, {
+    type: "applyMammothCystSummonWhiteCell",
+    actorId: boss.id,
+  });
+  expect(result.events.filter((event) => event.type === "commandRefused")).toEqual([]);
+  const summoned = result.state.battle!.entities.find(
+    (entity) => entity.monsterCardId === "monster_medium:p104",
+  )!;
+  expect(summoned.areaId).toBe(started.battle!.monsterStanceAreas![summoned.stance!]);
+  expect(summoned.areaId).not.toMatch(/^darkest-mid-boss-/);
+});
+
 it("拒绝错任务、未绑房、占位 bossDeployment 与 deployDarkestMidBoss", () => {
   const state = atObjective();
   const d = state.dungeon!;

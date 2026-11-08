@@ -15,6 +15,7 @@ import { DARKEST_SHUFFLING_HORROR_SCRIPT_ID } from "./darkest-mid-boss-scripts";
 
 export const SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID = "monster_large:p017" as const;
 
+export const SHUFFLING_HORROR_UNDULATIONS_SKILL_SLOT = 2 as const;
 export const SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT = 3 as const;
 export const SHUFFLING_HORROR_ECHOING_STRESS_AMOUNT = 2 as const;
 export const SHUFFLING_HORROR_ECHOING_LIGHT_DELTA = -1 as const;
@@ -290,17 +291,14 @@ export function applyShufflingHorrorUndulations(state: GameState, actorId: strin
     battle.rngCursor,
     heroes.map((hero) => hero.id),
   );
-  const assignment = new Map<string, { readonly stance: SkillStance; readonly areaId: string }>();
+  // 卡文：洗混全部 Hero Stance Card（姿态），不移动英雄所在区域。
+  const assignment = new Map<string, SkillStance>();
   for (let index = 0; index < order.length; index += 1) {
-    const stance = STANCE_ORDER[index]!;
-    assignment.set(order[index]!, {
-      stance,
-      areaId: DARKEST_MID_BOSS_HERO_STANCE_AREAS[stance],
-    });
+    assignment.set(order[index]!, STANCE_ORDER[index]!);
   }
   const entities = battle.entities.map((entity) => {
     const next = assignment.get(entity.id);
-    return next ? { ...entity, stance: next.stance, areaId: next.areaId } : entity;
+    return next ? { ...entity, stance: next } : entity;
   });
   const nextBattle = {
     ...battle,
@@ -372,7 +370,7 @@ export function applyShufflingHorrorEchoingDisassembly(
       monsterCardId: cardId,
       life: card.life,
       dodge,
-      areaId: DARKEST_MID_BOSS_MONSTER_STANCE_AREAS[stance],
+      areaId: battle.monsterStanceAreas?.[stance] ?? DARKEST_MID_BOSS_MONSTER_STANCE_AREAS[stance],
       stance,
       stanceSlots: meta.stanceSlots,
       wounds: 0,

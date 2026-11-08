@@ -2,6 +2,7 @@ import { expect, it } from "vitest";
 import { savedCommandSchema } from "../../../data/src/quest-save";
 import { applyCommand } from "../command";
 import type { Command, GameState } from "../command";
+import { nextBattleRoll } from "../battle-roll";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
 import {
@@ -70,6 +71,62 @@ it("R-182：九区部署、Boss 进攻/H、四英雄 R-163 区、JSON 续接", (
     started,
   );
   expect(savedCommandSchema.parse(JSON.parse(JSON.stringify(deploy)))).toEqual(deploy);
+});
+
+function withMonsterTurn(state: GameState, actorId: string, rngCursor?: number): GameState {
+  return {
+    ...state,
+    battle: {
+      ...state.battle!,
+      ...(rngCursor === undefined ? {} : { rngCursor }),
+      encounter: {
+        round: 1,
+        deck: ["hero", "monster"],
+        actedIds: [],
+        turn: { type: "monster", actorId },
+      },
+    },
+  };
+}
+
+it("生产几何：Undulations 按房间姿态区重排英雄，Echoing 召唤物落在 room tile 区域", () => {
+  const started = apply(apply(atObjective(), deploy), start);
+  const boss = started.battle!.entities.find(
+    (entity) => entity.monsterCardId === SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID,
+  )!;
+  const heroAreas = new Map(
+    started
+      .battle!.entities.filter((entity) => entity.side === "hero")
+      .map((entity) => [entity.id, entity.areaId]),
+  );
+  const cursor = Array.from({ length: 500 }, (_, index) => index).find((value) => {
+    const roll = nextBattleRoll(started.seed, value);
+    return roll >= 8 && roll <= 10;
+  })!;
+  const prepared = applyCommand(withMonsterTurn(started, boss.id, cursor), {
+    type: "prepareMonsterAction",
+    actorId: boss.id,
+  });
+  expect(prepared.events.filter((event) => event.type === "commandRefused")).toEqual([]);
+  expect(prepared.events.some((event) => event.type === "dungeonUpdated")).toBe(true);
+  for (const hero of prepared.state.battle!.entities.filter((entity) => entity.side === "hero")) {
+    expect(hero.areaId).toBe(heroAreas.get(hero.id));
+    expect(hero.areaId).not.toMatch(/^darkest-mid-boss-/);
+  }
+
+  const echoing = applyCommand(withMonsterTurn(started, boss.id), {
+    type: "applyShufflingHorrorEchoingDisassembly",
+    actorId: boss.id,
+  });
+  expect(echoing.events.filter((event) => event.type === "commandRefused")).toEqual([]);
+  const summoned = echoing.state.battle!.entities.filter((entity) =>
+    entity.id.startsWith("shuffling-echoing:"),
+  );
+  expect(summoned.length).toBeGreaterThan(0);
+  for (const entity of summoned) {
+    expect(entity.areaId).toBe(started.battle!.monsterStanceAreas![entity.stance!]);
+    expect(entity.areaId).not.toMatch(/^darkest-mid-boss-/);
+  }
 });
 
 it("拒绝错任务、未绑房、占位 bossDeployment 与 deployDarkestMidBoss", () => {
