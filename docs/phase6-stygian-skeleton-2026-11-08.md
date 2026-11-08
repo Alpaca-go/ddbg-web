@@ -1,4 +1,4 @@
-﻿# Phase 6：Stygian 模式骨架（2026-11-08）
+# Phase 6：Stygian 模式骨架（2026-11-08）
 
 状态：**模式骨架已接**；17 张 Stygian 房间卡效果**未接**（R-036 / Q-10 的后续数据工作）。
 
@@ -14,7 +14,7 @@
 
 ## 未接（下一步）
 
-- **17 张 Stygian 房间卡的效果**：`packages/data/normalized/corebox/stygian_rooms.json` 目前只有 `printedLines`，没有结构化效果；现有房间效果按 Room Tile 几何标志实现，需要先加“按房间卡覆盖房间效果”的机制，再逐张实现：
+- **17 张 Stygian 房间卡的效果**：`packages/data/normalized/corebox/stygian_rooms.json` 目前只有 `printedLines`，没有结构化效果；现有房间效果按 Room Tile 几何标志实现，需要先加“按房间卡覆盖房间效果”的机制，再逐张实现。逐卡审核表见 [phase6-stygian-rooms-review-2026-11-08.md](phase6-stygian-rooms-review-2026-11-08.md)（待 Kyries 确认图标与数值）。
   - Ritual Chamber（Cornered）、Torture Chamber（Unholy Aura）、Healing Fountain（治疗 + 压力）、Spiked Pit（Circle of Power / Spiked Pit）、Beacon of Light（Stressful Darkness / Beacon）、Treasure Chamber、Tomb of Ancestor（Ancestor's Glory）、Invocation Chamber（The Invokers / Invoking Abyss）、Old Abbey（Feeling the Presence）、Pool of Rebirth、Hall of Ascension、Eldritch Vault、Toxic Chamber、Eldritch Power Chamber、Teleporters、Evil Eye、Temple of the Chosen。
 - **房间替换**：按 R-036 用 17 张 Stygian 卡替换同名的 Ruins 1–9 / 最暗地牢 1–8；Boss 房不替换。替换前 UI 警告保持，不宣称 Stygian 完整。
 - 部分数值/图标需要 Kyries 确认后再实现（R-048）。
