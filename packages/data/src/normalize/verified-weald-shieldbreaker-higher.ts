@@ -154,19 +154,20 @@ function fixPuncture(
   const selfEffects = iconFromCard(card, "self_effects");
   const shuffle = iconFromPool(cards, "shuffle");
   const targetEffects = iconFromPool(cards, "target_effects");
-  const guardMis = card.effect_lines[1]!.find(
+  const selfPullMis = card.effect_lines[0]!.find(
     (s): s is IconSegment => s.type === "icon" && s.icon.iconId === "b6afaa4d7b",
   );
-  if (!guardMis) throw new Error(`${card.id} Puncture Ignores 段缺失（R-048）`);
+  if (!selfPullMis) throw new Error(`${card.id} Puncture 自身 Pull 段缺失（R-048）`);
+  const targetIcons = card.effect_lines[1]!.filter(
+    (s): s is IconSegment => s.type === "icon" && s.icon.iconId === "b6afaa4d7b",
+  );
+  if (targetIcons.length < 2) throw new Error(`${card.id} Puncture Ignores/Pull 段缺失（R-048）`);
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     effect_lines: [
-      [selfEffects, text(" Self ")],
+      [selfEffects, text(" Self "), cloneKey(selfPullMis, "shuffle"), text(" Pull 1")],
+      [text("Ignores "), cloneKey(targetIcons[0]!, "guard")],
       [targetEffects, shuffle, text(" Pull 1")],
-      [text("Ignores "), cloneKey(guardMis, "guard")],
-    ],
-    verified_effect_line_receipts: [
-      { lineIndex: 0, signature: "{self_effects}Self", source: "print_front" },
     ],
     ...(rangeInterval
       ? {
@@ -243,10 +244,14 @@ function fixImpale(
   )
     throw new Error(`${card.id} Impale 效果行漂移（R-048）`);
   const targetMonster = iconFromPool(cards, "target_monster");
-  const statsLine = card.stats_line!.map((segment) => {
-    if (segment.type === "icon" && segment.icon.iconId === "7616568d52")
-      return cloneKey(segment, "target_monster");
-    return segment;
+  let impaleSkullKept = false;
+  const statsLine = card.stats_line!.flatMap((segment) => {
+    if (segment.type === "icon" && segment.icon.iconId === "7616568d52") {
+      if (impaleSkullKept) return [];
+      impaleSkullKept = true;
+      return [targetMonster];
+    }
+    return [segment];
   });
   const selfEffects = iconFromCard(card, "self_effects");
   const pushMis = segmentOnCard(card, "d4329c2a97");
@@ -322,8 +327,8 @@ function fixCaptivate(
   expectedStats: string,
   expectedEffRaw: string,
   bonus: number,
-  bleedAmt: number,
-  bleedT: number,
+  blightAmt: number,
+  blightT: number,
 ) {
   assertSb(card, page, "Captivate", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
@@ -332,21 +337,21 @@ function fixCaptivate(
   if (lineSignature(card.effect_lines[0]!).replace(/\s+/g, "") !== expectedEffRaw)
     throw new Error(`${card.id} Captivate 效果行漂移（R-048）`);
   const damage = iconFromPool(cards, "damage");
-  const stun = iconFromPool(cards, "stun");
+  const mark = iconFromPool(cards, "mark");
   const targetEffects = iconFromPool(cards, "target_effects");
-  const bleed = iconFromPool(cards, "bleed");
+  const blight = iconFromPool(cards, "blight");
   const stats = remapStatsDamageFromTargetEffects(card.stats_line!);
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     stats_line: stats,
     effect_lines: [
-      [targetEffects, damage, text(`+${bonus}vs`), stun],
-      [targetEffects, text(` ${bleedAmt} `), bleed, text(` ${bleedT}t`)],
+      [targetEffects, damage, text(`+${bonus}vs`), mark],
+      [targetEffects, text(` ${blightAmt} `), blight, text(` ${blightT}t`)],
     ],
     verified_damage_bonus: {
       lineIndex: 0,
       amount: bonus,
-      condition: "stunned",
+      condition: "marked",
       source: "print_front",
     },
     verified_status_effects: [
@@ -354,9 +359,9 @@ function fixCaptivate(
         lineIndex: 1,
         segmentIndex: 2,
         scope: "target",
-        kind: "bleed",
-        duration: bleedT,
-        amount: bleedAmt,
+        kind: "blight",
+        duration: blightT,
+        amount: blightAmt,
       },
     ],
   });
@@ -378,20 +383,14 @@ function fixSerpentSwaySelf(
   const rangeIcon = iconFromPool(cards, "range");
   const selfEffects = iconFromCard(card, "self_effects");
   const protection = iconFromCard(card, "protection");
-  const pullMis = segmentOnCard(card, "1ce58a493c");
+  const shuffle = iconFromPool(cards, "shuffle");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     stats_line: null,
     effect_lines: [
       [rangeIcon, text(" Self")],
-      [
-        selfEffects,
-        text(" Self "),
-        protection,
-        text(` ${protectionT}t, `),
-        cloneKey(pullMis, "shuffle"),
-        text(" Pull 1"),
-      ],
+      [selfEffects, text(" Self "), protection, text(` ${protectionT}t`)],
+      [selfEffects, text(" Self "), shuffle, text(" Pull 1")],
     ],
     unlabeled_numbers: [rangeZeroUnlabeled(rangeIcon), ...card.unlabeled_numbers],
     verified_self_range: true,
@@ -413,53 +412,46 @@ function fixSerpentSwayIii(
   page: number,
   expectedHeaderRaw: string,
   expectedSelfRaw: string,
-  expectedMarkRaw: string,
+  expectedAllyRaw: string,
 ) {
   assertSb(card, page, "Serpent Sway", 3);
   const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
   if (
     rawSigs[0] !== expectedHeaderRaw.replace(/\s+/g, "") ||
     rawSigs[1] !== expectedSelfRaw ||
-    rawSigs[2] !== expectedMarkRaw
+    rawSigs[2] !== expectedAllyRaw
   )
     throw new Error(`${card.id} Serpent Sway III 效果行漂移（R-048）`);
   const header = card.effect_lines[0]!;
-  const statsLine = header.map((segment) => {
-    if (segment.type === "icon" && segment.icon.iconId === "7616568d52")
-      return cloneKey(segment, "target_monster");
-    return segment;
-  });
   const selfEffects = iconFromCard(card, "self_effects");
-  const mark = iconFromCard(card, "mark");
-  const pullMis = segmentOnCard(card, "1ce58a493c");
+  const protection = iconFromCard(card, "protection");
+  const shuffle = iconFromPool(cards, "shuffle");
   const targetEffects = iconFromPool(cards, "target_effects");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
-    stats_line: statsLine,
+    stats_line: header,
     effect_lines: [
+      [selfEffects, text(" Self "), protection, text(" 3t")],
+      [selfEffects, text(" Self "), shuffle, text(" Pull 1")],
       [
-        selfEffects,
-        text(" Self "),
-        mark,
-        text(" 3t, "),
-        cloneKey(pullMis, "shuffle"),
-        text(" Pull 1"),
+        cloneKey(segmentOnCard(card, "1e762d801a"), "target_effects"),
+        protection,
+        text(" 2t"),
       ],
-      [cloneKey(segmentOnCard(card, "1e762d801a"), "target_effects"), mark, text(" 2t")],
     ],
     verified_status_effects: [
       {
         lineIndex: 0,
         segmentIndex: 2,
         scope: "self",
-        kind: "mark",
+        kind: "protection",
         duration: 3,
       },
       {
-        lineIndex: 1,
+        lineIndex: 2,
         segmentIndex: 1,
         scope: "target",
-        kind: "mark",
+        kind: "protection",
         duration: 2,
       },
     ],

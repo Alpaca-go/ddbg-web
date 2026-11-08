@@ -2799,35 +2799,35 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**（Kyries **真确认** 2026-11-08）：`763ad8e857` = **Stun**（**非** Debuff）；目标 **Stun 1t**（III 亦 1t）。逐卡覆盖，不改全局词典。
 - **状态**：Kyries 真确认（2026-11-08）
 
-### Q-181
+### Q-181（已确认）
 
 - **编号**：Q-181
 - **日期**：2026-11-08
-- **问题**：Shieldbreaker **Impale** I–III stats 射程 1 后四枚 `{icon:7616568d52}`（词典 **target_hero**）；同族攻击技能 Pierce 等为 `{target_monster}`。
-- **暂定**（本 PR 审计接线，R-048）：四枚头盔在 **Impale** 上逐卡覆写为 **target_monster**（图标数=区域内最多 4 个**敌方**目标）；不改全局词典。
-- **状态**：待 Kyries 确认
+- **问题**：Shieldbreaker **Impale** I–III stats 射程 1 后四枚 `{icon:7616568d52}`；extract/词典误作**头盔** `target_hero` 且按图标数当目标上限。
+- **裁定**（Kyries **真确认** 2026-11-08）：印刷为四枚**红骷髅**（非头盔）；语义对照 `a396e95c00` 红骷髅 **target_monster** 路径（词典 v1.2 evidence）。**不按四图标数接目标上限**；本卡 stats 收成 **射程 1 + 一枚 target_monster**（Crowded 类读法，与 Bone Spearman Impale「Crowded」同类红骷髅族对照 `packages/data/normalized/corebox/monster_medium.json` Bone Spearman slot 2）。`7616568d52` **不**写入全局词典。证据：`packages/data/extract/extension/weald/raw/hero_skill.json` `hero_skill:p325`–`p327` front stats 行。
+- **状态**：Kyries 真确认（2026-11-08）
 
-### Q-182
+### Q-182（已确认）
 
 - **编号**：Q-182
 - **日期**：2026-11-08
-- **问题**：Shieldbreaker **Captivate** I–III 效果行「+N vs」后 OCR 为 `{damage}` 爪痕，非规则书常见的 Mark/Stun 条件图标。
-- **暂定**（本 PR）：按 L1–III 印刷 +2/+4 与桌游常见读法，条件伤接 **`stunned`**；流血行另列；**不**把 `92104a3c6b` 全局改为 `target_effects`。
-- **状态**：待 Kyries 确认
+- **问题**：Shieldbreaker **Captivate** I–III「+N vs」条件与副效果。
+- **裁定**（Kyries **真确认** 2026-11-08）：对**标记**目标额外伤害 **+2 / +4 / +4**（L1/L2/L3）；目标**腐蚀** **2 / 2 / 3** 层，**2 / 2 / 2** t。OCR 爪痕行拆为 `+N vs {mark}` + `{blight}`；**非** stunned。
+- **状态**：Kyries 真确认（2026-11-08）
 
-### Q-183
+### Q-183（已确认）
 
 - **编号**：Q-183
 - **日期**：2026-11-08
-- **问题**：Shieldbreaker **Puncture** I–III 第三行 `{icon:9ffbd6087a} Ignores {target_effects} , {target_effects} Pull 1`（与 Leper Intimidate 同 hash 折角装饰）。
-- **暂定**（本 PR）：折角装饰**不入结算**；拆为 **Ignores {guard}** 与 **目标 Pull 1**；`Self` 行仅 `{self_effects} Self` 并 **effect_line_receipt** 签收。
-- **状态**：待 Kyries 确认
+- **问题**：Shieldbreaker **Puncture** I–III 效果行结构。
+- **裁定**（Kyries **真确认** 2026-11-08）：`9ffbd6087a` 折角装饰不入结算。自身**退后 1**（Self **Pull 1**，印刷原文）；**Ignores Guard**；目标 **Pull 1**（同印刷 Pull 文案，非 Push）。
+- **状态**：Kyries 真确认（2026-11-08）
 
-### Q-184
+### Q-184（已确认）
 
 - **编号**：Q-184
 - **日期**：2026-11-08
-- **问题**：Shieldbreaker **Serpent Sway** I–III `{icon:1ce58a493c}` 与文案「Pull 1」并存（词典 **Mark**）；III 另有 `{icon:1e762d801a}` 与 Mark 2t 同行。
-- **暂定**（本 PR）：I–II Pull 语境下 `1ce58a493c` 覆写为 **shuffle Pull 1**（Protection 时长以卡面为准）；III 第二行 `1e762d801a`→`target_effects` + 目标 **Mark 2t**。
-- **状态**：待 Kyries 确认
+- **问题**：Shieldbreaker **Serpent Sway** I–III。
+- **裁定**（Kyries **真确认** 2026-11-08）：**I/II** 仅自身：Protection **2t / 3t** + 退后 **Pull 1**（**非** Mark/shuffle 误接）。**III** 在自身同族效果外，**射程 1、1 名队友** **Protection 2t**（`stats` 头行 `target_hero`×1）。
+- **状态**：Kyries 真确认（2026-11-08）
 

@@ -154560,6 +154560,44 @@
      {
       "type": "text",
       "text": " Self "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "shuffle",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Pull 1"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Ignores "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "guard",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
      }
     ],
     [
@@ -154595,34 +154633,7 @@
       "type": "text",
       "text": " Pull 1"
      }
-    ],
-    [
-     {
-      "type": "text",
-      "text": "Ignores "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "b6afaa4d7b",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "guard",
-       "kind": "other",
-       "meaning_en": "Target Effects marker",
-       "meaning_zh": "目标效果标记",
-       "value": null,
-       "naming": "confirmed"
-      }
-     }
     ]
-   ],
-   "verified_effect_line_receipts": [
-    {
-     "lineIndex": 0,
-     "signature": "{self_effects}Self",
-     "source": "print_front"
-    }
    ],
    "top_row_icons": [
     {
@@ -155088,6 +155099,44 @@
      {
       "type": "text",
       "text": " Self "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "shuffle",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Pull 1"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Ignores "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "guard",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
      }
     ],
     [
@@ -155123,34 +155172,7 @@
       "type": "text",
       "text": " Pull 1"
      }
-    ],
-    [
-     {
-      "type": "text",
-      "text": "Ignores "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "b6afaa4d7b",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "guard",
-       "kind": "other",
-       "meaning_en": "Target Effects marker",
-       "meaning_zh": "目标效果标记",
-       "value": null,
-       "naming": "confirmed"
-      }
-     }
     ]
-   ],
-   "verified_effect_line_receipts": [
-    {
-     "lineIndex": 0,
-     "signature": "{self_effects}Self",
-     "source": "print_front"
-    }
    ],
    "top_row_icons": [
     {
@@ -155621,6 +155643,44 @@
      {
       "type": "text",
       "text": " Self "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "shuffle",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Pull 1"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Ignores "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "guard",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
      }
     ],
     [
@@ -155656,34 +155716,7 @@
       "type": "text",
       "text": " Pull 1"
      }
-    ],
-    [
-     {
-      "type": "text",
-      "text": "Ignores "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "b6afaa4d7b",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "guard",
-       "kind": "other",
-       "meaning_en": "Target Effects marker",
-       "meaning_zh": "目标效果标记",
-       "value": null,
-       "naming": "confirmed"
-      }
-     }
     ]
-   ],
-   "verified_effect_line_receipts": [
-    {
-     "lineIndex": 0,
-     "signature": "{self_effects}Self",
-     "source": "print_front"
-    }
    ],
    "top_row_icons": [
     {
@@ -158090,13 +158123,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
       "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -158106,54 +158139,12 @@
      "text": " "
     },
     {
-     "type": "icon",
-     "icon": {
-      "iconId": "7616568d52",
-      "in_dictionary": true,
-      "status": "confirmed",
-      "key": "target_monster",
-      "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
-      "value": null,
-      "naming": "confirmed"
-     }
-    },
-    {
      "type": "text",
      "text": " "
     },
     {
-     "type": "icon",
-     "icon": {
-      "iconId": "7616568d52",
-      "in_dictionary": true,
-      "status": "confirmed",
-      "key": "target_monster",
-      "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
-      "value": null,
-      "naming": "confirmed"
-     }
-    },
-    {
      "type": "text",
      "text": " "
-    },
-    {
-     "type": "icon",
-     "icon": {
-      "iconId": "7616568d52",
-      "in_dictionary": true,
-      "status": "confirmed",
-      "key": "target_monster",
-      "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
-      "value": null,
-      "naming": "confirmed"
-     }
     },
     {
      "type": "text",
@@ -158734,13 +158725,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
       "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -158750,54 +158741,12 @@
      "text": " "
     },
     {
-     "type": "icon",
-     "icon": {
-      "iconId": "7616568d52",
-      "in_dictionary": true,
-      "status": "confirmed",
-      "key": "target_monster",
-      "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
-      "value": null,
-      "naming": "confirmed"
-     }
-    },
-    {
      "type": "text",
      "text": " "
     },
     {
-     "type": "icon",
-     "icon": {
-      "iconId": "7616568d52",
-      "in_dictionary": true,
-      "status": "confirmed",
-      "key": "target_monster",
-      "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
-      "value": null,
-      "naming": "confirmed"
-     }
-    },
-    {
      "type": "text",
      "text": " "
-    },
-    {
-     "type": "icon",
-     "icon": {
-      "iconId": "7616568d52",
-      "in_dictionary": true,
-      "status": "confirmed",
-      "key": "target_monster",
-      "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
-      "value": null,
-      "naming": "confirmed"
-     }
     },
     {
      "type": "text",
@@ -159378,13 +159327,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
       "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -159394,54 +159343,12 @@
      "text": " "
     },
     {
-     "type": "icon",
-     "icon": {
-      "iconId": "7616568d52",
-      "in_dictionary": true,
-      "status": "confirmed",
-      "key": "target_monster",
-      "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
-      "value": null,
-      "naming": "confirmed"
-     }
-    },
-    {
      "type": "text",
      "text": " "
     },
     {
-     "type": "icon",
-     "icon": {
-      "iconId": "7616568d52",
-      "in_dictionary": true,
-      "status": "confirmed",
-      "key": "target_monster",
-      "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
-      "value": null,
-      "naming": "confirmed"
-     }
-    },
-    {
      "type": "text",
      "text": " "
-    },
-    {
-     "type": "icon",
-     "icon": {
-      "iconId": "7616568d52",
-      "in_dictionary": true,
-      "status": "confirmed",
-      "key": "target_monster",
-      "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
-      "value": null,
-      "naming": "confirmed"
-     }
     },
     {
      "type": "text",
@@ -161604,13 +161511,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "1fd9f6ec6d",
+       "iconId": "1ce58a493c",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "stun",
+       "key": "mark",
        "kind": "status",
-       "meaning_en": "Stun",
-       "meaning_zh": "眩晕",
+       "meaning_en": "Mark",
+       "meaning_zh": "标记",
        "value": null,
        "naming": "confirmed"
       }
@@ -161638,13 +161545,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "c22f085b95",
+       "iconId": "c7faf2bc86",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "bleed",
+       "key": "blight",
        "kind": "status",
-       "meaning_en": "Bleed (amount, duration follows)",
-       "meaning_zh": "流血（后接数值/回合）",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
        "value": null,
        "naming": "confirmed"
       }
@@ -161658,7 +161565,7 @@
    "verified_damage_bonus": {
     "lineIndex": 0,
     "amount": 2,
-    "condition": "stunned",
+    "condition": "marked",
     "source": "print_front"
    },
    "verified_status_effects": [
@@ -161666,7 +161573,7 @@
      "lineIndex": 1,
      "segmentIndex": 2,
      "scope": "target",
-     "kind": "bleed",
+     "kind": "blight",
      "duration": 2,
      "amount": 2
     }
@@ -162198,13 +162105,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "1fd9f6ec6d",
+       "iconId": "1ce58a493c",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "stun",
+       "key": "mark",
        "kind": "status",
-       "meaning_en": "Stun",
-       "meaning_zh": "眩晕",
+       "meaning_en": "Mark",
+       "meaning_zh": "标记",
        "value": null,
        "naming": "confirmed"
       }
@@ -162232,13 +162139,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "c22f085b95",
+       "iconId": "c7faf2bc86",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "bleed",
+       "key": "blight",
        "kind": "status",
-       "meaning_en": "Bleed (amount, duration follows)",
-       "meaning_zh": "流血（后接数值/回合）",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
        "value": null,
        "naming": "confirmed"
       }
@@ -162252,7 +162159,7 @@
    "verified_damage_bonus": {
     "lineIndex": 0,
     "amount": 4,
-    "condition": "stunned",
+    "condition": "marked",
     "source": "print_front"
    },
    "verified_status_effects": [
@@ -162260,7 +162167,7 @@
      "lineIndex": 1,
      "segmentIndex": 2,
      "scope": "target",
-     "kind": "bleed",
+     "kind": "blight",
      "duration": 2,
      "amount": 3
     }
@@ -162792,13 +162699,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "1fd9f6ec6d",
+       "iconId": "1ce58a493c",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "stun",
+       "key": "mark",
        "kind": "status",
-       "meaning_en": "Stun",
-       "meaning_zh": "眩晕",
+       "meaning_en": "Mark",
+       "meaning_zh": "标记",
        "value": null,
        "naming": "confirmed"
       }
@@ -162826,13 +162733,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "c22f085b95",
+       "iconId": "c7faf2bc86",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "bleed",
+       "key": "blight",
        "kind": "status",
-       "meaning_en": "Bleed (amount, duration follows)",
-       "meaning_zh": "流血（后接数值/回合）",
+       "meaning_en": "Blight",
+       "meaning_zh": "枯萎",
        "value": null,
        "naming": "confirmed"
       }
@@ -162846,7 +162753,7 @@
    "verified_damage_bonus": {
     "lineIndex": 0,
     "amount": 4,
-    "condition": "stunned",
+    "condition": "marked",
     "source": "print_front"
    },
    "verified_status_effects": [
@@ -162854,7 +162761,7 @@
      "lineIndex": 1,
      "segmentIndex": 2,
      "scope": "target",
-     "kind": "bleed",
+     "kind": "blight",
      "duration": 2,
      "amount": 3
     }
@@ -163330,18 +163237,38 @@
      },
      {
       "type": "text",
-      "text": " 2t, "
+      "text": " 2t"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "8fc8635162",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "self_effects",
+       "kind": "other",
+       "meaning_en": "Self Effects marker",
+       "meaning_zh": "自身效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Self "
      },
      {
       "type": "icon",
       "icon": {
-       "iconId": "1ce58a493c",
+       "iconId": "b034e44cb1",
        "in_dictionary": true,
        "status": "confirmed",
        "key": "shuffle",
        "kind": "status",
-       "meaning_en": "Mark",
-       "meaning_zh": "标记",
+       "meaning_en": "Shuffle: Push/Pull (variant)",
+       "meaning_zh": "位移：推/拉（变体）",
        "value": null,
        "naming": "confirmed"
       }
@@ -163760,18 +163687,38 @@
      },
      {
       "type": "text",
-      "text": " 3t, "
+      "text": " 3t"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "8fc8635162",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "self_effects",
+       "kind": "other",
+       "meaning_en": "Self Effects marker",
+       "meaning_zh": "自身效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Self "
      },
      {
       "type": "icon",
       "icon": {
-       "iconId": "1ce58a493c",
+       "iconId": "b034e44cb1",
        "in_dictionary": true,
        "status": "confirmed",
        "key": "shuffle",
        "kind": "status",
-       "meaning_en": "Mark",
-       "meaning_zh": "标记",
+       "meaning_en": "Shuffle: Push/Pull (variant)",
+       "meaning_zh": "位移：推/拉（变体）",
        "value": null,
        "naming": "confirmed"
       }
@@ -164186,31 +164133,51 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "b2e9d87127",
+       "iconId": "4fcb32ac31",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "mark",
+       "key": "protection",
        "kind": "status",
-       "meaning_en": "Mark",
-       "meaning_zh": "标记",
+       "meaning_en": "Protection",
+       "meaning_zh": "防护",
        "value": null,
        "naming": "confirmed"
       }
      },
      {
       "type": "text",
-      "text": " 3t, "
+      "text": " 3t"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "8fc8635162",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "self_effects",
+       "kind": "other",
+       "meaning_en": "Self Effects marker",
+       "meaning_zh": "自身效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Self "
      },
      {
       "type": "icon",
       "icon": {
-       "iconId": "1ce58a493c",
+       "iconId": "b034e44cb1",
        "in_dictionary": true,
        "status": "confirmed",
        "key": "shuffle",
        "kind": "status",
-       "meaning_en": "Mark",
-       "meaning_zh": "标记",
+       "meaning_en": "Shuffle: Push/Pull (variant)",
+       "meaning_zh": "位移：推/拉（变体）",
        "value": null,
        "naming": "confirmed"
       }
@@ -164238,13 +164205,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "b2e9d87127",
+       "iconId": "4fcb32ac31",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "mark",
+       "key": "protection",
        "kind": "status",
-       "meaning_en": "Mark",
-       "meaning_zh": "标记",
+       "meaning_en": "Protection",
+       "meaning_zh": "防护",
        "value": null,
        "naming": "confirmed"
       }
@@ -164260,14 +164227,14 @@
      "lineIndex": 0,
      "segmentIndex": 2,
      "scope": "self",
-     "kind": "mark",
+     "kind": "protection",
      "duration": 3
     },
     {
-     "lineIndex": 1,
+     "lineIndex": 2,
      "segmentIndex": 1,
      "scope": "target",
-     "kind": "mark",
+     "kind": "protection",
      "duration": 2
     }
    ],
@@ -164355,7 +164322,7 @@
       "iconId": "7616568d52",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_monster",
+      "key": "target_hero",
       "kind": "target",
       "meaning_en": "Target: Hero(es) (one icon per target)",
       "meaning_zh": "目标：英雄（图标数=目标数）",

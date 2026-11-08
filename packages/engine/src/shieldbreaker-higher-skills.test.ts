@@ -40,20 +40,22 @@ type SbCard = HeroSkillCardView & { readonly name: string; readonly level: numbe
 
 function combatFor(card: SbCard) {
   const self = heroSkillUsesSelfTarget(card);
-  const impale = card.name === "Impale";
   const serpentIii = card.id === "hero_skill:p336";
   const captivate = card.name === "Captivate";
   const range = readPrintedRange(card);
   const targets = readPrintedTargets(card);
   return {
     actor: { id: "h", wounds: 5, stress: 3, form: "human" as const },
-    allies: [],
+    allies: serpentIii
+      ? [{ id: "a1", side: "hero" as const, wounds: 5, stress: 3, dodge: 0, statusStacks: [] }]
+      : [],
     target: {
-      id: self ? "h" : "t",
-      side: self ? ("hero" as const) : ("monster" as const),
+      id: self ? "h" : serpentIii ? "a1" : "t",
+      side: self || serpentIii ? ("hero" as const) : ("monster" as const),
       wounds: 5,
       dodge: 0,
-      statusStacks: captivate ? [{ kind: "stun" as const, remaining: 2 }] : [],
+      statusStacks: captivate ? [{ kind: "mark" as const, remaining: 2 }] : [],
+      ...(self || serpentIii ? { stress: 3 } : {}),
       monsterTypeTags: ["Human", "Eldritch", "Unholy"],
     },
     light: 4,
@@ -64,14 +66,7 @@ function combatFor(card: SbCard) {
         : range.kind === "interval"
           ? range.min
           : 0,
-    targetsInArea:
-      targets.kind === "exact"
-        ? targets.max
-        : impale
-          ? 4
-          : serpentIii
-            ? 1
-            : 1,
+    targetsInArea: targets.kind === "exact" ? targets.max : 1,
   };
 }
 
