@@ -175378,12 +175378,6 @@
      }
     ]
    ],
-   "verified_damage_bonus": {
-    "lineIndex": 0,
-    "amount": 3,
-    "condition": "marked",
-    "source": "print_front"
-   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -176883,35 +176877,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "b2e9d87127",
+       "iconId": "3a60c92c83",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "mark",
+       "key": "debuff",
        "kind": "status",
-       "meaning_en": "Mark",
-       "meaning_zh": "标记",
-       "value": null,
-       "naming": "confirmed"
-      }
-     },
-     {
-      "type": "text",
-      "text": " 1t"
-     },
-     {
-      "type": "text",
-      "text": " "
-     },
-     {
-      "type": "icon",
-      "icon": {
-       "iconId": "4fcb32ac31",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "protection",
-       "kind": "status",
-       "meaning_en": "Protection",
-       "meaning_zh": "防护",
+       "meaning_en": "Debuff",
+       "meaning_zh": "减益",
        "value": null,
        "naming": "confirmed"
       }
@@ -176921,22 +176893,6 @@
       "text": " 1t"
      }
     ]
-   ],
-   "verified_status_effects": [
-    {
-     "lineIndex": 0,
-     "segmentIndex": 2,
-     "scope": "target",
-     "kind": "mark",
-     "duration": 1
-    },
-    {
-     "lineIndex": 0,
-     "segmentIndex": 5,
-     "scope": "target",
-     "kind": "protection",
-     "duration": 1
-    }
    ],
    "top_row_icons": [
     {
@@ -178451,7 +178407,7 @@
        "iconId": "f70a42e51f",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "debuff",
+       "key": "mark",
        "kind": "status",
        "meaning_en": "Debuff",
        "meaning_zh": "减益",
@@ -178464,15 +178420,6 @@
       "text": " 2t"
      }
     ]
-   ],
-   "verified_status_effects": [
-    {
-     "lineIndex": 0,
-     "segmentIndex": 2,
-     "scope": "target",
-     "kind": "debuff",
-     "duration": 2
-    }
    ],
    "top_row_icons": [
     {
@@ -178820,7 +178767,7 @@
        "iconId": "f70a42e51f",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "debuff",
+       "key": "mark",
        "kind": "status",
        "meaning_en": "Debuff",
        "meaning_zh": "减益",
@@ -178839,7 +178786,7 @@
      "lineIndex": 0,
      "segmentIndex": 2,
      "scope": "target",
-     "kind": "debuff",
+     "kind": "mark",
      "duration": 3
     }
    ],
@@ -179194,7 +179141,7 @@
        "iconId": "f70a42e51f",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "debuff",
+       "key": "mark",
        "kind": "status",
        "meaning_en": "Debuff",
        "meaning_zh": "减益",
@@ -179213,7 +179160,7 @@
      "lineIndex": 0,
      "segmentIndex": 2,
      "scope": "target",
-     "kind": "debuff",
+     "kind": "mark",
      "duration": 4
     }
    ],
@@ -179587,13 +179534,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "1fd9f6ec6d",
+       "iconId": "b6afaa4d7b",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "shuffle",
-       "kind": "status",
-       "meaning_en": "Stun",
-       "meaning_zh": "眩晕",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
        "value": null,
        "naming": "confirmed"
       }
@@ -179605,13 +179552,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "b6afaa4d7b",
+       "iconId": "1fd9f6ec6d",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "target_effects",
-       "kind": "other",
-       "meaning_en": "Target Effects marker",
-       "meaning_zh": "目标效果标记",
+       "key": "shuffle",
+       "kind": "status",
+       "meaning_en": "Stun",
+       "meaning_zh": "眩晕",
        "value": null,
        "naming": "confirmed"
       }
@@ -180139,13 +180086,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "1fd9f6ec6d",
+       "iconId": "b6afaa4d7b",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "shuffle",
-       "kind": "status",
-       "meaning_en": "Stun",
-       "meaning_zh": "眩晕",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
        "value": null,
        "naming": "confirmed"
       }
@@ -180157,13 +180104,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "b6afaa4d7b",
+       "iconId": "1fd9f6ec6d",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "target_effects",
-       "kind": "other",
-       "meaning_en": "Target Effects marker",
-       "meaning_zh": "目标效果标记",
+       "key": "shuffle",
+       "kind": "status",
+       "meaning_en": "Stun",
+       "meaning_zh": "眩晕",
        "value": null,
        "naming": "confirmed"
       }
@@ -180691,13 +180638,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "1fd9f6ec6d",
+       "iconId": "b6afaa4d7b",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "shuffle",
-       "kind": "status",
-       "meaning_en": "Stun",
-       "meaning_zh": "眩晕",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
        "value": null,
        "naming": "confirmed"
       }
@@ -180709,13 +180656,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "b6afaa4d7b",
+       "iconId": "1fd9f6ec6d",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "target_effects",
-       "kind": "other",
-       "meaning_en": "Target Effects marker",
-       "meaning_zh": "目标效果标记",
+       "key": "shuffle",
+       "kind": "status",
+       "meaning_en": "Stun",
+       "meaning_zh": "眩晕",
        "value": null,
        "naming": "confirmed"
       }
@@ -181373,11 +181320,6 @@
      "text": " 5"
     }
    ],
-   "verified_range": {
-    "min": 0,
-    "max": 2,
-    "source": "print_front"
-   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -182639,15 +182581,6 @@
       "text": " 2t"
      }
     ]
-   ],
-   "verified_status_effects": [
-    {
-     "lineIndex": 0,
-     "segmentIndex": 2,
-     "scope": "self",
-     "kind": "buff",
-     "duration": 2
-    }
    ],
    "top_row_icons": [
     {
@@ -184494,6 +184427,11 @@
      "text": "Acc 10"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "verified_rallying_flare": {
     "cleanupLineIndex": 0,
     "cleanupSignature": "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",

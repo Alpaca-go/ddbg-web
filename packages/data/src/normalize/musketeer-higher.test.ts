@@ -13,7 +13,12 @@ it("R-200：Musketeer 高等级逐卡覆盖签名", () => {
     {
       id: "hero_skill:musketeer:p007",
       line: 0,
-      sig: "{target_effects} {debuff} 2t",
+      sig: "{target_effects} {mark} 2t",
+    },
+    {
+      id: "hero_skill:musketeer:p004",
+      line: 0,
+      sig: "{target_effects} {debuff} 1t",
     },
     {
       id: "hero_skill:musketeer:p011",

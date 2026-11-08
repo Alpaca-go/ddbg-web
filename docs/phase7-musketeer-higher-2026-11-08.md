@@ -4,13 +4,19 @@
 
 `verified-musketeer-higher.ts` + `verified-hero-statuses`（Skeet Shot 怪物 Debuff 行）+ `verified-rallying-flare`（Skeet I–III）。
 
-## 与 Arbalest 差异
+## Q-185（Kyries 真确认）
 
-| Musketeer | Arbalest 对照 | 差异要点 |
-| --------- | ------------- | -------- |
-| Call the Shot | Sniper's Mark | 目标 **Debuff**（`f70a42e51f`），非 Mark |
-| Smokescreen I | Suppressive Fire I | **Q-185**：印刷 Mark+Protection vs Debuff |
-| 其余同族 | Sniper Shot / Bola / Blindfire / Bandage / Rallying Flare | 结构平行，OCR 洗净见 higher 文件 |
+Musketeer 与 Arbalest **数值与效果完全一致**，仅图标/名称不同。`musketeer-arbalest-parity.test.ts` 逐族 L1–III 对照效果行与 `verified_*`。
+
+| Musketeer | Arbalest |
+| --------- | -------- |
+| Aimed Shot | Sniper Shot |
+| Smokescreen | Suppressive Fire |
+| Call the Shot | Sniper's Mark |
+| Buckshot | Bola |
+| Sidearm | Blindfire |
+| Patch Up | Battlefield Bandage |
+| Skeet Shot | Rallying Flare |
 
 ## 引擎
 
