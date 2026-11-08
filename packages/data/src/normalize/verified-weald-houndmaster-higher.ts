@@ -85,6 +85,24 @@ function stressDeltaAnchor(stressIcon: IconSegment, amount: number) {
   };
 }
 
+/** 洗掉 OCR 射程/压力 beside 与 Rush 族误挂的 1ff34c908b，再由 verified 块重写。 */
+function stripHmOcrBesideNumbers(
+  numbers: NormalizedHeroSkillCard["unlabeled_numbers"],
+) {
+  return numbers.filter(
+    (n) =>
+      !(
+        n.anchor.type === "beside_icon" &&
+        (n.anchor.left_icon?.key === "range" || n.anchor.left_icon?.key === "stress") &&
+        n.anchor.inside_icon === null
+      ) &&
+      !(
+        n.anchor.type === "beside_icon" &&
+        n.anchor.inside_icon?.iconId === "1ff34c908b"
+      ),
+  );
+}
+
 function fixHoundsRush(
   card: NormalizedHeroSkillCard,
   page: number,
@@ -100,18 +118,18 @@ function fixHoundsRush(
     throw new Error(`${card.id} Hound's Rush 自身行漂移（R-048）`);
   if (lineSignature(card.effect_lines[1]!).replace(/\s+/g, "") !== expectedTargetRaw)
     throw new Error(`${card.id} Hound's Rush 目标行漂移（R-048）`);
-  const selfEffects = iconFromCard(card, "self_effects");
   const markMis = segmentOnCard(card, "d4329c2a97");
+  const selfArrow = cloneKey(segmentOnCard(card, "1ff34c908b"), "self_effects");
   const targetEffects = iconFromCard(card, "target_effects");
   const bleed = iconFromPool([card], "bleed");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     effect_lines: [
-      [selfEffects, text(" Self "), cloneKey(markMis, "mark"), text(` ${markT}t`)],
+      [selfArrow, text(" Self "), cloneKey(markMis, "buff"), text(` ${markT}t`)],
       [targetEffects, text(` ${bleedAmt} `), bleed, text(` ${bleedT}t`)],
     ],
     verified_status_effects: [
-      { lineIndex: 0, segmentIndex: 2, scope: "self", kind: "mark", duration: markT },
+      { lineIndex: 0, segmentIndex: 2, scope: "self", kind: "buff", duration: markT },
       {
         lineIndex: 1,
         segmentIndex: 2,
@@ -229,8 +247,8 @@ function fixCryHavoc(
   card: NormalizedHeroSkillCard,
   page: number,
   level: number,
+  allyCount: number,
   selfStress: number,
-  expectedStats: string | null,
   rawSigs: readonly [string, string],
 ) {
   assertHm(card, page, "Cry Havoc", level);
@@ -239,28 +257,45 @@ function fixCryHavoc(
     throw new Error(`${card.id} Cry Havoc 效果行漂移（R-048）`);
   const stressIcon = iconFromPool(cards, "stress");
   const selfEffects = iconFromCard(card, "self_effects");
-  const anchors = [stressDeltaAnchor(stressIcon, -1), stressDeltaAnchor(stressIcon, selfStress)];
-  let statsLine: Segment[] | null = card.stats_line;
-  if (expectedStats !== null) {
-    const rangeIcon = iconFromPool(cards, "range");
-    const targetHero = iconFromPool(cards, "target_hero");
-    const accLabel = card.printed_labels.find((l) => l.label === "Acc")?.raw ?? expectedStats;
-    statsLine = [rangeIcon, text(" 1 "), targetHero, text(" "), targetHero, text(` ${accLabel}`)];
+  const rangeIcon = iconFromPool(cards, "range");
+  const targetHero = iconFromPool(cards, "target_hero");
+  const accValue = card.printed_labels.find((l) => l.label === "Acc")?.value;
+  const accRaw = card.printed_labels.find((l) => l.label === "Acc")?.raw ?? `Acc ${accValue}`;
+  const statsHeader: Segment[] = [rangeIcon, text(" 1 ")];
+  for (let i = 0; i < allyCount; i += 1) {
+    if (i > 0) statsHeader.push(text(" "));
+    statsHeader.push(targetHero);
   }
-  const selfLine: Segment[] = [
-    selfEffects,
-    text(" Self "),
-    stressIcon,
-    text(` ${selfStress > 0 ? "+" : ""}${selfStress}`),
+  statsHeader.push(text(` ${accRaw}`));
+  const anchors = [
+    stressDeltaAnchor(stressIcon, -1),
+    stressDeltaAnchor(stressIcon, selfStress),
   ];
   return normalizedHeroSkillCardSchema.parse({
     ...card,
-    stats_line: statsLine,
+    stats_line: statsHeader,
     effect_lines: [
       [stressIcon, text(" -1")],
-      selfLine,
+      [
+        selfEffects,
+        text(" Self "),
+        stressIcon,
+        text(` ${selfStress > 0 ? "+" : ""}${selfStress}`),
+      ],
     ],
-    unlabeled_numbers: [...card.unlabeled_numbers, ...anchors],
+    unlabeled_numbers: [
+      ...stripHmOcrBesideNumbers(card.unlabeled_numbers),
+      ...anchors,
+      {
+        text: "1",
+        numeric: 1,
+        anchor: {
+          type: "beside_icon" as const,
+          left_icon: rangeIcon.icon,
+          inside_icon: null,
+        },
+      },
+    ],
     verified_self_stress: { lineIndex: 1, amount: selfStress, source: "print_front" },
     verified_allies_stress: -1,
     verified_effect_line_receipts: [{ lineIndex: 0, signature: "{stress}-1", source: "print_front" }],
@@ -394,7 +429,7 @@ function fixBlackjack(
 
 /**
  * R-200：Houndmaster II–III（p338–p357 中 14 张）+ 同技能族 L1 OCR 洗净（p337–p355 七族）。
- * Cry Havoc 压力行沿 Bolster/Endure 模式；Guard Dog / 1ff34c908b / Blackjack 763ad8 见 Q-178～Q-180。
+ * Q-178～Q-180 Kyries 已真确认：Rush 1ff34c908b=自身起效；Cry Havoc 压力行（非目标减益）；Blackjack=Stun。
  */
 export function attachVerifiedWealdHoundmasterHigher(
   cards: readonly NormalizedHeroSkillCard[],
@@ -417,7 +452,7 @@ export function attachVerifiedWealdHoundmasterHigher(
           card,
           338,
           2,
-          3,
+          2,
           2,
           2,
           "{self_effects}{buff}Self{buff}3t",
@@ -495,17 +530,17 @@ export function attachVerifiedWealdHoundmasterHigher(
           "{heal}{mark}3t,{debuff}3t",
         );
       case "hero_skill:p346":
-        return fixCryHavoc(cards, card, 346, 1, -1, "Acc9", [
+        return fixCryHavoc(cards, card, 346, 1, 2, -1, [
           "{target_effects}{buff}-1",
           "{self_effects}{buff}Self{buff}-1",
         ]);
       case "hero_skill:p347":
-        return fixCryHavoc(cards, card, 347, 2, -1, null, [
+        return fixCryHavoc(cards, card, 347, 2, 3, -1, [
           "{target_effects}{buff}-1",
           "{self_effects}{buff}Self{buff}-1",
         ]);
       case "hero_skill:p348":
-        return fixCryHavoc(cards, card, 348, 3, -2, null, [
+        return fixCryHavoc(cards, card, 348, 3, 3, -2, [
           "{target_effects}{buff}-1",
           "{self_effects}{buff}Self{buff}-2",
         ]);

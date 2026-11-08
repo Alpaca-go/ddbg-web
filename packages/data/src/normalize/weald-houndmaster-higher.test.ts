@@ -5,7 +5,7 @@ import { lineSignature } from "./verified-hero-layout";
 it("R-200：Houndmaster 高等级逐卡覆盖签名", () => {
   const data = loadNormalizedCorebox();
   const cases: Array<{ id: string; line: number; sig: string }> = [
-    { id: "hero_skill:p338", line: 0, sig: "{self_effects} Self {mark} 3t" },
+    { id: "hero_skill:p338", line: 0, sig: "{self_effects} Self {buff} 2t" },
     { id: "hero_skill:p341", line: 0, sig: "{target_effects} 2 {bleed} 2t" },
     { id: "hero_skill:p344", line: 0, sig: "{target_effects} {mark} 3t, {debuff} 2t" },
     { id: "hero_skill:p347", line: 1, sig: "{self_effects} Self {stress} -1" },

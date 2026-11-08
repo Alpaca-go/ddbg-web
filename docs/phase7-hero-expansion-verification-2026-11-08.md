@@ -67,7 +67,7 @@
 - **Antiquarian II/III 14 张**（PR #619）：Q-167～Q-171 已关闭；`verified-warrens-antiquarian-higher` + 引擎 `shufflePushDistance`（Q-168）；**d10 审计 14/14 绿**。
 - **Flagellant II/III 14 张 + 同族 L1 洗净 7 张**（PR #620）：Q-172～Q-175 **Kyries 真确认**；`verified_actor_damage_bonus` / `verified_bleed_blight_transfer` / Endure stats（队友射程+Acc/Crit）；**d10 审计 21/21 绿**。
 - **Man-at-Arms II/III 14 张**（PR #621）：`verified-cove-man-at-arms-higher`；Q-176/Q-177 已关闭（Retribution **Mark+Riposte**、Defender **Guard+Protection**）；**d10 审计 14/14 绿**。
-- **Houndmaster II/III 14 张 + L1 七族洗净**（本批）：`verified-weald-houndmaster-higher`；**d10 审计 14/14 绿**；待确认 **Q-178～Q-180**。
+- **Houndmaster II/III 14 张 + L1 七族洗净**（PR #622）：`verified-weald-houndmaster-higher`；**d10 审计 14/14 绿**；**Q-178～Q-180** Kyries 真确认。
 - **Antiquarian III STAT**：Life 15 / Dodge 3 / Speed 0；左栏 Blight 抗性；免疫 = 位移 + 疾病。`8510428636` 只在 `verified_higher_condition_defence` 注解，不写全局词典（Q-104 关闭，R-200）。
 - `warrens-hero-stat.ts` 增加该面并调用 `buildHigherHeroDefence`；`hero-higher-defence.ts` 增加批准行与 `kyries_review_2026-11-08`；normalized 已重生成；`battle-data-plugin` 属性计数 53→54。
 - 数据测试、`packages/data` 全量、engine `dungeon-battle`、`pnpm typecheck`、web build 均通过。

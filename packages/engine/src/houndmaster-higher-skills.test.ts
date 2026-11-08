@@ -54,7 +54,12 @@ function combatFor(card: HmCard) {
   return {
     actor: { id: "h", wounds: 5, stress: 3, form: "human" as const },
     allies: cryHavoc
-      ? [{ id: "a1", side: "hero" as const, wounds: 5, stress: 4, dodge: 0, statusStacks: [] }]
+      ? (card.level === 1
+          ? [{ id: "a1", side: "hero" as const, wounds: 5, stress: 4, dodge: 0, statusStacks: [] }]
+          : [
+              { id: "a1", side: "hero" as const, wounds: 5, stress: 4, dodge: 0, statusStacks: [] },
+              { id: "a2", side: "hero" as const, wounds: 5, stress: 5, dodge: 0, statusStacks: [] },
+            ])
       : [],
     target: {
       id: self || guardDog ? "h" : cryHavoc ? "a1" : "t",
@@ -69,7 +74,14 @@ function combatFor(card: HmCard) {
     shuffleChoice: "push" as const,
     areaDistance:
       range.kind === "exact" ? range.distance : range.kind === "interval" ? range.min : 0,
-    targetsInArea: targets.kind === "exact" ? targets.max : cryHavoc ? 2 : 1,
+    targetsInArea:
+      targets.kind === "exact"
+        ? targets.max
+        : cryHavoc
+          ? card.level === 1
+            ? 2
+            : 3
+          : 1,
   };
 }
 

@@ -164988,13 +164988,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "8fc8635162",
+       "iconId": "1ff34c908b",
        "in_dictionary": true,
        "status": "confirmed",
        "key": "self_effects",
-       "kind": "other",
-       "meaning_en": "Self Effects marker",
-       "meaning_zh": "自身效果标记",
+       "kind": "status",
+       "meaning_en": "Buff",
+       "meaning_zh": "增益",
        "value": null,
        "naming": "confirmed"
       }
@@ -165009,7 +165009,7 @@
        "iconId": "d4329c2a97",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "mark",
+       "key": "buff",
        "kind": "status",
        "meaning_en": "Buff",
        "meaning_zh": "增益",
@@ -165066,7 +165066,7 @@
      "lineIndex": 0,
      "segmentIndex": 2,
      "scope": "self",
-     "kind": "mark",
+     "kind": "buff",
      "duration": 2
     },
     {
@@ -165626,13 +165626,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "8fc8635162",
+       "iconId": "1ff34c908b",
        "in_dictionary": true,
        "status": "confirmed",
        "key": "self_effects",
-       "kind": "other",
-       "meaning_en": "Self Effects marker",
-       "meaning_zh": "自身效果标记",
+       "kind": "status",
+       "meaning_en": "Buff",
+       "meaning_zh": "增益",
        "value": null,
        "naming": "confirmed"
       }
@@ -165647,7 +165647,7 @@
        "iconId": "d4329c2a97",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "mark",
+       "key": "buff",
        "kind": "status",
        "meaning_en": "Buff",
        "meaning_zh": "增益",
@@ -165657,7 +165657,7 @@
      },
      {
       "type": "text",
-      "text": " 3t"
+      "text": " 2t"
      }
     ],
     [
@@ -165704,8 +165704,8 @@
      "lineIndex": 0,
      "segmentIndex": 2,
      "scope": "self",
-     "kind": "mark",
-     "duration": 3
+     "kind": "buff",
+     "duration": 2
     },
     {
      "lineIndex": 1,
@@ -166264,13 +166264,13 @@
      {
       "type": "icon",
       "icon": {
-       "iconId": "8fc8635162",
+       "iconId": "1ff34c908b",
        "in_dictionary": true,
        "status": "confirmed",
        "key": "self_effects",
-       "kind": "other",
-       "meaning_en": "Self Effects marker",
-       "meaning_zh": "自身效果标记",
+       "kind": "status",
+       "meaning_en": "Buff",
+       "meaning_zh": "增益",
        "value": null,
        "naming": "confirmed"
       }
@@ -166285,7 +166285,7 @@
        "iconId": "d4329c2a97",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "mark",
+       "key": "buff",
        "kind": "status",
        "meaning_en": "Buff",
        "meaning_zh": "增益",
@@ -166342,7 +166342,7 @@
      "lineIndex": 0,
      "segmentIndex": 2,
      "scope": "self",
-     "kind": "mark",
+     "kind": "buff",
      "duration": 3
     },
     {
@@ -169961,27 +169961,36 @@
      "anchor": {
       "type": "beside_icon",
       "left_icon": {
-       "iconId": "d4329c2a97",
+       "iconId": "c3daa80da5",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "buff",
-       "kind": "status",
-       "meaning_en": "Buff",
-       "meaning_zh": "增益",
+       "key": "stress",
+       "kind": "stress",
+       "meaning_en": "Stress (amount follows)",
+       "meaning_zh": "压力（后接数值）",
        "value": null,
        "naming": "confirmed"
       },
-      "inside_icon": {
-       "iconId": "1ff34c908b",
+      "inside_icon": null
+     }
+    },
+    {
+     "text": "-1",
+     "numeric": -1,
+     "anchor": {
+      "type": "beside_icon",
+      "left_icon": {
+       "iconId": "c3daa80da5",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "buff",
-       "kind": "status",
-       "meaning_en": "Buff",
-       "meaning_zh": "增益",
+       "key": "stress",
+       "kind": "stress",
+       "meaning_en": "Stress (amount follows)",
+       "meaning_zh": "压力（后接数值）",
        "value": null,
        "naming": "confirmed"
-      }
+      },
+      "inside_icon": null
      }
     },
     {
@@ -169997,44 +170006,6 @@
        "kind": "other",
        "meaning_en": "Range",
        "meaning_zh": "射程",
-       "value": null,
-       "naming": "confirmed"
-      },
-      "inside_icon": null
-     }
-    },
-    {
-     "text": "-1",
-     "numeric": -1,
-     "anchor": {
-      "type": "beside_icon",
-      "left_icon": {
-       "iconId": "c3daa80da5",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "stress",
-       "kind": "stress",
-       "meaning_en": "Stress (amount follows)",
-       "meaning_zh": "压力（后接数值）",
-       "value": null,
-       "naming": "confirmed"
-      },
-      "inside_icon": null
-     }
-    },
-    {
-     "text": "-1",
-     "numeric": -1,
-     "anchor": {
-      "type": "beside_icon",
-      "left_icon": {
-       "iconId": "c3daa80da5",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "stress",
-       "kind": "stress",
-       "meaning_en": "Stress (amount follows)",
-       "meaning_zh": "压力（后接数值）",
        "value": null,
        "naming": "confirmed"
       },
@@ -170536,27 +170507,36 @@
      "anchor": {
       "type": "beside_icon",
       "left_icon": {
-       "iconId": "d4329c2a97",
+       "iconId": "c3daa80da5",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "buff",
-       "kind": "status",
-       "meaning_en": "Buff",
-       "meaning_zh": "增益",
+       "key": "stress",
+       "kind": "stress",
+       "meaning_en": "Stress (amount follows)",
+       "meaning_zh": "压力（后接数值）",
        "value": null,
        "naming": "confirmed"
       },
-      "inside_icon": {
-       "iconId": "1ff34c908b",
+      "inside_icon": null
+     }
+    },
+    {
+     "text": "-1",
+     "numeric": -1,
+     "anchor": {
+      "type": "beside_icon",
+      "left_icon": {
+       "iconId": "c3daa80da5",
        "in_dictionary": true,
        "status": "confirmed",
-       "key": "buff",
-       "kind": "status",
-       "meaning_en": "Buff",
-       "meaning_zh": "增益",
+       "key": "stress",
+       "kind": "stress",
+       "meaning_en": "Stress (amount follows)",
+       "meaning_zh": "压力（后接数值）",
        "value": null,
        "naming": "confirmed"
-      }
+      },
+      "inside_icon": null
      }
     },
     {
@@ -170572,44 +170552,6 @@
        "kind": "other",
        "meaning_en": "Range",
        "meaning_zh": "射程",
-       "value": null,
-       "naming": "confirmed"
-      },
-      "inside_icon": null
-     }
-    },
-    {
-     "text": "-1",
-     "numeric": -1,
-     "anchor": {
-      "type": "beside_icon",
-      "left_icon": {
-       "iconId": "c3daa80da5",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "stress",
-       "kind": "stress",
-       "meaning_en": "Stress (amount follows)",
-       "meaning_zh": "压力（后接数值）",
-       "value": null,
-       "naming": "confirmed"
-      },
-      "inside_icon": null
-     }
-    },
-    {
-     "text": "-1",
-     "numeric": -1,
-     "anchor": {
-      "type": "beside_icon",
-      "left_icon": {
-       "iconId": "c3daa80da5",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "stress",
-       "kind": "stress",
-       "meaning_en": "Stress (amount follows)",
-       "meaning_zh": "压力（后接数值）",
        "value": null,
        "naming": "confirmed"
       },
@@ -170751,8 +170693,76 @@
    ],
    "stats_line": [
     {
+     "type": "icon",
+     "icon": {
+      "iconId": "3ab7e7544c",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "range",
+      "kind": "other",
+      "meaning_en": "Range",
+      "meaning_zh": "射程",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
      "type": "text",
-     "text": "Acc 10"
+     "text": " 1 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "7616568d52",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_hero",
+      "kind": "target",
+      "meaning_en": "Target: Hero(es) (one icon per target)",
+      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "7616568d52",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_hero",
+      "kind": "target",
+      "meaning_en": "Target: Hero(es) (one icon per target)",
+      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "7616568d52",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_hero",
+      "kind": "target",
+      "meaning_en": "Target: Hero(es) (one icon per target)",
+      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " Acc 10"
     }
    ],
    "front_icons": [
@@ -171067,54 +171077,6 @@
      }
     },
     {
-     "text": "-2",
-     "numeric": -2,
-     "anchor": {
-      "type": "beside_icon",
-      "left_icon": {
-       "iconId": "d4329c2a97",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "buff",
-       "kind": "status",
-       "meaning_en": "Buff",
-       "meaning_zh": "增益",
-       "value": null,
-       "naming": "confirmed"
-      },
-      "inside_icon": {
-       "iconId": "1ff34c908b",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "buff",
-       "kind": "status",
-       "meaning_en": "Buff",
-       "meaning_zh": "增益",
-       "value": null,
-       "naming": "confirmed"
-      }
-     }
-    },
-    {
-     "text": "1",
-     "numeric": 1,
-     "anchor": {
-      "type": "beside_icon",
-      "left_icon": {
-       "iconId": "3ab7e7544c",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "range",
-       "kind": "other",
-       "meaning_en": "Range",
-       "meaning_zh": "射程",
-       "value": null,
-       "naming": "confirmed"
-      },
-      "inside_icon": null
-     }
-    },
-    {
      "text": "-1",
      "numeric": -1,
      "anchor": {
@@ -171146,6 +171108,25 @@
        "kind": "stress",
        "meaning_en": "Stress (amount follows)",
        "meaning_zh": "压力（后接数值）",
+       "value": null,
+       "naming": "confirmed"
+      },
+      "inside_icon": null
+     }
+    },
+    {
+     "text": "1",
+     "numeric": 1,
+     "anchor": {
+      "type": "beside_icon",
+      "left_icon": {
+       "iconId": "3ab7e7544c",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "range",
+       "kind": "other",
+       "meaning_en": "Range",
+       "meaning_zh": "射程",
        "value": null,
        "naming": "confirmed"
       },
@@ -171287,8 +171268,76 @@
    ],
    "stats_line": [
     {
+     "type": "icon",
+     "icon": {
+      "iconId": "3ab7e7544c",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "range",
+      "kind": "other",
+      "meaning_en": "Range",
+      "meaning_zh": "射程",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
      "type": "text",
-     "text": "Acc 11"
+     "text": " 1 "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "7616568d52",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_hero",
+      "kind": "target",
+      "meaning_en": "Target: Hero(es) (one icon per target)",
+      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "7616568d52",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_hero",
+      "kind": "target",
+      "meaning_en": "Target: Hero(es) (one icon per target)",
+      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "7616568d52",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_hero",
+      "kind": "target",
+      "meaning_en": "Target: Hero(es) (one icon per target)",
+      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " Acc 11"
     }
    ],
    "front_icons": [
