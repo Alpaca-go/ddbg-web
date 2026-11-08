@@ -2477,9 +2477,6 @@ function resolveSkill(
   readonly healthEffects?: readonly SkillHealthEffect[];
   readonly own?: SkillEffectsResolution;
 } {
-  if (skill.hero !== null && skill.hero.trim().toLowerCase() === "musketeer") {
-    return refuse(skill, combat, "Musketeer 不在首版（R-008）");
-  }
   if (skill.verification.unverified) {
     return refuse(skill, combat, "未验证的技能不结算（R-048）");
   }
