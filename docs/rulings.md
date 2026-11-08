@@ -2775,3 +2775,27 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**（Kyries **真确认** 2026-11-08）：效果为**自身守护（Guard）+ 保护（Protection）**（I：**2t / 3t**；II：**2t / 2t**；III：**2t / 3t** 以卡面为准）。拆行、本卡覆盖 icon key，**不改全局词典**。
 - **状态**：Kyries 真确认（2026-11-08）
 
+### Q-178
+
+- **编号**：Q-178
+- **日期**：2026-11-08
+- **问题**：Houndmaster **Hound's Rush** I–III 自身行 `{icon:1ff34c908b}` 夹在 `{self_effects}` 与 `Self` 之间：词典为 `buff`，HANDOFF 疑为射程弧形箭头或 Self 侧标记。当前逐卡实现**去掉该行中该段**仅保留 `Self + mark`（见 `verified-weald-houndmaster-higher`）。
+- **处理**：待 Kyries 目视 TDH p337–339 确认是否应映射为 `{range}`、装饰丢弃，或另有状态。
+- **状态**：待 Kyries 确认
+
+### Q-179
+
+- **编号**：Q-179
+- **日期**：2026-11-08
+- **问题**：Houndmaster **Cry Havoc** I–III 首行 `{target_effects}{icon:d4329c2a97} -1`：按 **Bolster/Endure** 同族压力 −1 接入 `verified_allies_stress`，或应为**目标减益**（敌人 Acc 等）而非全队压力？
+- **处理**：待 Kyries 确认；III 自身行 −2、首行 −1 已按印刷字面接线。
+- **状态**：待 Kyries 确认
+
+### Q-180
+
+- **编号**：Q-180
+- **日期**：2026-11-08
+- **问题**：Houndmaster **Blackjack** I–III 目标行 `{icon:763ad8e857} 1t`：词典为 `buff`；本卡逐卡覆盖为 **Stun 1t**（同哈希在 BH I 级曾为 debuff 逐卡覆盖，R-089）。
+- **处理**：待 Kyries 确认 Stun vs Debuff；签名闸保留提取键 `buff` 漂移检测。
+- **状态**：待 Kyries 确认
+
