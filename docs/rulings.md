@@ -2726,3 +2726,35 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **问题**：Protect Me 效果行图标误读。
 - **裁定**（Kyries 2026-11-08）：目标 **守护（Guard）+ 防护（Protection）+ Mark**（II：3t/2t/2t；III：3t/3t/1t）。`9ffbd6087a` 本卡覆盖为 `guard`，不入光照。
 - **状态**：Kyries 已确认（2026-11-08）
+
+### Q-172（已关闭）
+
+- **编号**：Q-172
+- **日期**：2026-11-08
+- **问题**：Punish 条件行「if Flagellant has …」如何结算。
+- **裁定**（Kyries **真确认** 2026-11-08）：若苦修者**自身有流血或腐蚀**，攻击可**额外 +2 伤害**（`verified_actor_damage_bonus`，同行洗净为 `{damage}+NifFlagellanthas{bleed}{blight},`）。攻击行 stats 伤害照常；目标施加 **Bleed**（及印刷 Debuff），不是签收占位。
+- **状态**：Kyries 真确认（2026-11-08）
+
+### Q-173（已关闭）
+
+- **编号**：Q-173
+- **日期**：2026-11-08
+- **问题**：Suffer「Transfer all … to the Flagellant」转移语义。
+- **裁定**（Kyries **真确认** 2026-11-08）：选择**目标队友**，将其身上的**流血与腐蚀堆**转移到苦修者（`verified_bleed_blight_transfer`）；同时自身获得印刷 **Buff + Mark**（III 另接卡面 Bleed）。须在引擎结算转移并清空队友对应堆，不能只签收。
+- **状态**：Kyries 真确认（2026-11-08）
+
+### Q-174（已关闭）
+
+- **编号**：Q-174
+- **日期**：2026-11-08
+- **问题**：Exsanguinate / Redeem 印刷误读。
+- **裁定**（Kyries **真确认** 2026-11-08）：**Exsanguinate** I/II/III：目标 **Bleed 2/3/3**，持续 **3/3/4t**；自身 **Heal 3/5/7 + Debuff 1t**（去掉误 OCR 的 Stun/自身 Bleed）。**Redeem**：**无 Acc/Crit** 的友方治疗 + 同等自身治疗（`verified_target_heal` / `verified_self_heal`）。
+- **状态**：Kyries 真确认（2026-11-08）
+
+### Q-175（已关闭）
+
+- **编号**：Q-175
+- **日期**：2026-11-08
+- **问题**：Endure 射程/命中与压力行。
+- **裁定**（Kyries **真确认** 2026-11-08）：**自身与队友压力各 −1**（`verified_self_stress` + `verified_allies_stress`）。另有 stats：**临近一个队友**，I **射程 1** Acc **12** Crit **0**；II **射程 1–2** Acc **14** Crit **0**；III **射程 1–2** Acc **16** Crit **1**。不是「仅 Self 头行签收」。
+- **状态**：Kyries 真确认（2026-11-08）

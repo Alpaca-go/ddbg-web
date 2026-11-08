@@ -205,6 +205,11 @@ export function attachVerifiedHeroRanges(
         min: 1,
         max: 2,
       },
+      "hero_skill:p262": { name: "Reclaim", level: 1, min: 0, max: 1 },
+      "hero_skill:p263": { name: "Reclaim", level: 2, min: 0, max: 1 },
+      "hero_skill:p264": { name: "Reclaim", level: 3, min: 0, max: 1 },
+      "hero_skill:p269": { name: "Endure", level: 2, min: 1, max: 2 },
+      "hero_skill:p270": { name: "Endure", level: 3, min: 1, max: 2 },
     };
     const range = reviewed[card.id];
     if (!range) return card;

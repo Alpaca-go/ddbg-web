@@ -295,6 +295,16 @@ export type HeroSkillCardView = {
     readonly light: number;
     readonly source: "print_front";
   };
+  readonly verified_target_heal?: {
+    readonly lineIndex: number;
+    readonly amount: number;
+    readonly source: "print_front";
+  };
+  readonly verified_effect_line_receipts?: readonly {
+    readonly lineIndex: number;
+    readonly signature: string;
+    readonly source: "print_front";
+  }[];
   readonly verified_target_header?: {
     readonly lineIndex: 0;
     readonly source: "print_front";
@@ -308,6 +318,18 @@ export type HeroSkillCardView = {
   readonly verified_damage_bonuses?: readonly NonNullable<
     HeroSkillCardView["verified_damage_bonus"]
   >[];
+  /** Q-172 Punish：使用者自身有流血或腐蚀时额外伤害（卡面同行 +N）。 */
+  readonly verified_actor_damage_bonus?: {
+    readonly lineIndex: number;
+    readonly amount: number;
+    readonly source: "print_front";
+  };
+  /** Q-173 Suffer：将目标队友的流血/腐蚀堆转移到使用者。 */
+  readonly verified_bleed_blight_transfer?: {
+    readonly lineIndex: number;
+    readonly signature: string;
+    readonly source: "print_front";
+  };
   readonly verified_status_effects?: readonly (StatusEffect & {
     readonly scopeLineIndex?: number;
     readonly lineIndex: number;
@@ -378,6 +400,8 @@ export type SkillActorState = PassiveHolder & {
    * 不传当作 0。不从卡面回合数读堆数，也不在这里放新的增益或移除代币。
    */
   readonly buffStacks?: number;
+  /** Q-172：使用者当前流血/腐蚀堆，供自身条件加伤判定。 */
+  readonly statusStacks?: readonly StatusStack[];
   /**
    * 使用者现在的形态（规则书第 38 页）。背面印了「Beast Form Only」或
    * 「Human Form Only」时才核对。不传就不检查，也不从文字底板的词典说明里猜。
@@ -1712,12 +1736,7 @@ function selectFace(
 function readsAsSelfTarget(skill: HeroSkillCardView): boolean {
   const line = skill.stats_line;
   if (line === null) {
-    if (
-      !skill.verified_status_effects?.length ||
-      skill.verified_status_effects.some((entry) => entry.scope !== "self")
-    )
-      return false;
-    return skill.effect_lines.some(
+    const hasSelfRangeHeader = skill.effect_lines.some(
       (line) =>
         line
           .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
@@ -1725,6 +1744,13 @@ function readsAsSelfTarget(skill: HeroSkillCardView): boolean {
           .replace(/\s+/g, "") === "{range}Self" &&
         line.every((s) => s.type === "text" || NAMED.has(s.icon.naming)),
     );
+    if (skill.verified_self_range && hasSelfRangeHeader) return true;
+    if (
+      !skill.verified_status_effects?.length ||
+      skill.verified_status_effects.some((entry) => entry.scope !== "self")
+    )
+      return false;
+    return hasSelfRangeHeader;
   }
   let range = 0;
   let targetIcon = 0;
@@ -2096,6 +2122,9 @@ function readTargetIconCounts(skill: HeroSkillCardView): {
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
       .join("")
       .replace(/\s+/g, "");
+    const headerHealOnly =
+      skill.verified_target_heal !== undefined &&
+      (skill.verified_status_effects?.length ?? 0) === 0;
     if (
       header.lineIndex !== 0 ||
       header.source !== "print_front" ||
@@ -2103,8 +2132,9 @@ function readTargetIconCounts(skill: HeroSkillCardView): {
       skill.printed_labels.length !== 0 ||
       skill.effect_lines.length < 2 ||
       !/^\{range\}[0-2](?:\{target_hero\}){1,3}$/.test(text ?? "") ||
-      !skill.verified_status_effects?.length ||
-      skill.verified_status_effects.some((e) => e.lineIndex < 1) ||
+      (!headerHealOnly &&
+        (!skill.verified_status_effects?.length ||
+          skill.verified_status_effects.some((e) => e.lineIndex < 1))) ||
       line?.some((s) => s.type === "icon" && !NAMED.has(s.icon.naming))
     )
       return { hero: 0, monster: 0, heroOrMonster: 0 };
@@ -2487,6 +2517,90 @@ function resolveSkill(
   if (targetCount !== null) return refuse(skill, combat, targetCount);
 
   const target = combat.target;
+  let effectLineReceiptCount = 0;
+  const actorBonus = active.verified_actor_damage_bonus;
+  if (actorBonus) {
+    const line = active.effect_lines[actorBonus.lineIndex];
+    const text = line
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, "");
+    if (
+      actorBonus.source !== "print_front" ||
+      !Number.isSafeInteger(actorBonus.lineIndex) ||
+      actorBonus.lineIndex < 0 ||
+      !Number.isSafeInteger(actorBonus.amount) ||
+      actorBonus.amount <= 0 ||
+      text !== `{damage}+${actorBonus.amount}ifFlagellanthas{bleed}{blight},` ||
+      line?.some(
+        (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+      )
+    )
+      return refuse(skill, combat, "使用者条件伤害注解与已确认卡面不符（Q-172，R-048）");
+  }
+  const statusTransfer = active.verified_bleed_blight_transfer;
+  if (statusTransfer) {
+    const line = active.effect_lines[statusTransfer.lineIndex];
+    const text = line
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, "");
+    if (
+      statusTransfer.source !== "print_front" ||
+      !Number.isSafeInteger(statusTransfer.lineIndex) ||
+      statusTransfer.lineIndex < 0 ||
+      text !== statusTransfer.signature.replace(/\s+/g, "") ||
+      line?.some(
+        (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+      )
+    )
+      return refuse(skill, combat, "流血/腐蚀转移注解与已确认卡面不符（Q-173，R-048）");
+    if (target.side !== "hero")
+      return refuse(skill, combat, "流血/腐蚀转移只能以队友为目标（Q-173）");
+    if (!Array.isArray(target.statusStacks) || statusStackProblem(target.statusStacks))
+      return refuse(skill, combat, "流血/腐蚀转移缺少合法的队友状态堆（Q-173）");
+  }
+  for (const receipt of active.verified_effect_line_receipts ?? []) {
+    const line = active.effect_lines[receipt.lineIndex];
+    const sig = line
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, "");
+    if (
+      receipt.source !== "print_front" ||
+      !Number.isSafeInteger(receipt.lineIndex) ||
+      receipt.lineIndex < 0 ||
+      sig !== receipt.signature.replace(/\s+/g, "") ||
+      line?.some(
+        (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+      )
+    )
+      return refuse(skill, combat, "效果行签收与已确认卡面不符（R-048）");
+    effectLineReceiptCount += 1;
+  }
+  const targetHealAnn = active.verified_target_heal;
+  if (targetHealAnn) {
+    const line = active.effect_lines[targetHealAnn.lineIndex];
+    const text = line
+      ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, "");
+    if (
+      targetHealAnn.source !== "print_front" ||
+      !Number.isSafeInteger(targetHealAnn.lineIndex) ||
+      targetHealAnn.lineIndex < 0 ||
+      !Number.isSafeInteger(targetHealAnn.amount) ||
+      targetHealAnn.amount <= 0 ||
+      text !== `{target_effects}{heal}${targetHealAnn.amount}` ||
+      line?.some(
+        (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
+      )
+    )
+      return refuse(skill, combat, "友方治疗注解与已确认卡面不符（R-048）");
+    if (target.side !== "hero" || target.wounds === undefined) {
+      return refuse(skill, combat, "友方治疗缺少英雄伤口轨");
+    }
+  }
   const support = active.verified_target_support;
   if (support) {
     const line = active.effect_lines[support.lineIndex];
@@ -2671,7 +2785,9 @@ function resolveSkill(
     return refuse(skill, combat, "stats_line 同时有已命名的 damage 和 heal");
   }
   let effect: "damage" | "heal" | "stress" | null;
-  if (kinds.size === 0) {
+  if (kinds.size === 0 && targetHealAnn) {
+    effect = "heal";
+  } else if (kinds.size === 0) {
     if (stress.self === 0 && stress.target === 0) {
       if (
         formChange.form === null &&
@@ -2684,7 +2800,8 @@ function resolveSkill(
         statuses.lineCount === 0 &&
         !support &&
         !extraStress &&
-        !active.verified_rallying_flare
+        !active.verified_rallying_flare &&
+        !targetHealAnn
       ) {
         return refuse(skill, combat, "stats_line 没有已命名的 damage 或 heal");
       }
@@ -2782,24 +2899,30 @@ function resolveSkill(
   // 只有位移、没有伤害数字的技能可以不印 Crit。不把缺的阈值当成 0。
   // 有伤害、治疗或压力时，Crit 仍然必须是非负整数。
   if (!formOnly && effect !== null && critThreshold === null) {
-    return refuse(skill, combat, "Crit 标签没有非负整数阈值");
+    const nonCombatHealOnly =
+      targetHealAnn &&
+      active.printed_labels.length === 0 &&
+      active.stats_line === null;
+    if (!nonCombatHealOnly) return refuse(skill, combat, "Crit 标签没有非负整数阈值");
   }
   if (
     !formOnly &&
     !support &&
     !selfTarget &&
     accThreshold === null &&
-    !(statuses.target.length && active.printed_labels.length === 0)
+    !(statuses.target.length && active.printed_labels.length === 0) &&
+    !targetHealAnn
   ) {
     return refuse(skill, combat, "Acc 标签没有非负整数阈值");
   }
   const needsAmount = effect === "damage" || effect === "heal";
   const critAmount = needsAmount ? amountBesideLabel(active, "Crit") : null;
-  const hitAmount = needsAmount ? amountBesideLabel(active, "Acc") : null;
-  if (!selfTarget && needsAmount && critAmount === null) {
+  let hitAmount = needsAmount ? amountBesideLabel(active, "Acc") : null;
+  if (targetHealAnn && hitAmount === null) hitAmount = targetHealAnn.amount;
+  if (!selfTarget && needsAmount && critAmount === null && !targetHealAnn) {
     return refuse(skill, combat, "Crit 旁边没有恰好一个非负整数");
   }
-  if (!selfTarget && needsAmount && hitAmount === null) {
+  if (!selfTarget && needsAmount && hitAmount === null && !targetHealAnn) {
     return refuse(skill, combat, "Acc 旁边没有恰好一个非负整数");
   }
   if ((stress.self !== 0 || paired.stress !== 0) && combat.actor?.stress === undefined) {
@@ -2876,6 +2999,8 @@ function resolveSkill(
     else outcome = "miss";
   } else if (!emptyArea && !formOnly && hitThreshold !== null) {
     outcome = roll <= hitThreshold ? "hit" : "miss";
+  } else if (!emptyArea && targetHealAnn && effect === "heal") {
+    outcome = "hit";
   }
 
   const trinketDefence =
@@ -3055,6 +3180,13 @@ function resolveSkill(
       let baseDamage =
         amount +
         (combat.trinketModifiers?.damage ?? 0) +
+        (actorBonus &&
+        combat.actor &&
+        Array.isArray(combat.actor.statusStacks) &&
+        !statusStackProblem(combat.actor.statusStacks) &&
+        combat.actor.statusStacks.some((stack) => stack.kind === "bleed" || stack.kind === "blight")
+          ? actorBonus.amount
+          : 0) +
         bonuses.reduce((total, bonus) => {
           if (target.side === sourceSide) return total;
           const matched =
@@ -3189,6 +3321,29 @@ function resolveSkill(
     targetStress = actorStress;
   }
 
+  let actorStatuses = combat.ownEffectsApplied ? [] : [...statuses.self];
+  let targetStatuses = emptyArea || outcome === "miss" ? [] : [...statuses.target];
+  let transferTargetBleedCleared = false;
+  let transferTargetBlightCleared = false;
+  if (
+    statusTransfer &&
+    !emptyArea &&
+    outcome !== "miss" &&
+    target.side === "hero" &&
+    Array.isArray(target.statusStacks)
+  ) {
+    for (const stack of target.statusStacks) {
+      if (stack.kind !== "bleed" && stack.kind !== "blight") continue;
+      actorStatuses.push({
+        kind: stack.kind,
+        duration: stack.remaining,
+        ...(stack.amount === undefined ? {} : { amount: stack.amount }),
+      });
+      if (stack.kind === "bleed") transferTargetBleedCleared = true;
+      else transferTargetBlightCleared = true;
+    }
+  }
+
   return {
     skillId: skill.id,
     targetId: target.id,
@@ -3205,8 +3360,8 @@ function resolveSkill(
     ...(trinketDefence.statuses.length
       ? { targetTrinketStatusEffects: trinketDefence.statuses }
       : {}),
-    targetBleedCleared: conditionsCleared,
-    targetBlightCleared: conditionsCleared,
+    targetBleedCleared: conditionsCleared || transferTargetBleedCleared,
+    targetBlightCleared: conditionsCleared || transferTargetBlightCleared,
     actorBleedCleared,
     actorBlightCleared,
     actorShuffle: combat.ownEffectsApplied ? null : shuffles.self,
@@ -3236,15 +3391,19 @@ function resolveSkill(
         formChange.lineCount +
         statuses.lineCount +
         bonuses.length +
+        (actorBonus ? 1 : 0) +
+        (statusTransfer ? 1 : 0) +
         (rallyingFlare ? 1 : 0) +
         (extraStress ? 1 : 0) +
         (active.verified_target_header ? 1 : 0) +
-        (support ? 2 : 0),
+        (support ? 2 : 0) +
+        effectLineReceiptCount +
+        (targetHealAnn ? 1 : 0),
     ),
     ...(statuses.lineCount || support
       ? {
-          actorStatusEffects: combat.ownEffectsApplied ? [] : statuses.self,
-          targetStatusEffects: emptyArea || outcome === "miss" ? [] : statuses.target,
+          actorStatusEffects: actorStatuses,
+          targetStatusEffects: targetStatuses,
           actorLightDelta: combat.ownEffectsApplied ? 0 : statuses.selfLight,
           targetLightDelta:
             emptyArea || outcome === "miss" ? 0 : statuses.targetLight + (support?.light ?? 0),
