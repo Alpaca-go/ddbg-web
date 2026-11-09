@@ -2735,7 +2735,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**（Kyries **真确认** 2026-11-08）：若苦修者**自身有流血或腐蚀**，攻击可**额外 +2 伤害**（`verified_actor_damage_bonus`，同行洗净为 `{damage}+NifFlagellanthas{bleed}{blight},`）。攻击行 stats 伤害照常；目标施加 **Bleed**（及印刷 Debuff），不是签收占位。
 - **状态**：Kyries 真确认（2026-11-08）
 
-### Q-173（已关闭）
+### Q-173（转移有效，自身状态见 R-208）
 
 - **编号**：Q-173
 - **日期**：2026-11-08
@@ -2743,7 +2743,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**（Kyries **真确认** 2026-11-08）：选择**目标队友**，将其身上的**流血与腐蚀堆**转移到苦修者（`verified_bleed_blight_transfer`）；同时自身获得印刷 **Buff + Mark**（III 另接卡面 Bleed）。须在引擎结算转移并清空队友对应堆，不能只签收。
 - **状态**：Kyries 真确认（2026-11-08）
 
-### Q-174（已关闭）
+### Q-174（治疗有效，Redeem 追加自身减益见 R-208）
 
 - **编号**：Q-174
 - **日期**：2026-11-08
@@ -2912,4 +2912,10 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **问题**：部分英雄技能的目标头与射程区间在规范化后丢失或误读。
 - **裁定**：按交回的技能核对稿修正。Target Whistle I–III 射程 0–2；Lick Wounds I–III 的目标为 Self。Bellow、Hound’s Harry、Impale 各级同一区域内最多选 4 名敌人，Impale 此项取代 Q-181 的单目标上限。Beast’s Bile、Suppressive Fire、Sniper’s Mark、Blindfire、Battlefield Bandage I 保留卡面射程区间；火枪手对应技能按 Q-185 与弩手同步。
 - **依据**：核心规则书第 19 页、R-022、R-048；核心盒 SKILLS FRONT 第 151、154、160、163、214 页；The Darkest Heroes SKILLS FRONT 第 238–240、325–327、340–345、352–354 页。
+
+### R-208
+
+- **日期**：2026-11-10（Asia/Shanghai）
+- **裁定**：按 Kyries 交回的英雄技能核对稿，Rain of Sorrows I–III 在苦修者有流血或腐蚀时分别 +2/+3/+4 伤害，复用 Q-172 的条件。Reclaim I/II 自身流血 1、持续 3 回合。Redeem I–III 在双方治疗之外，自身减益 1 回合。Suffer I–III 保留 Q-173 的转移，自身标记分别持续 2/2/1 回合、增益分别持续 2/3/4 回合。
+- **依据**：交回核对稿苦修者表；The Darkest Heroes SKILLS FRONT 第 256–258、262–267、271–273 页；R-048、Q-172～Q-174。
 

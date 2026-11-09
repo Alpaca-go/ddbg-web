@@ -1286,8 +1286,8 @@ const entries: readonly Entry[] = [
     level: 1,
     lineIndex: 0,
     scope: "self",
-    signature: "{self_effects} Self {protection} 3t",
-    effects: [{ kind: "protection", duration: 3 }],
+    signature: "{self_effects} Self 1 {bleed} 3t",
+    effects: [{ kind: "bleed", amount: 1, duration: 3 }],
   },
   {
     id: "hero_skill:p263",
@@ -1295,8 +1295,8 @@ const entries: readonly Entry[] = [
     level: 2,
     lineIndex: 0,
     scope: "self",
-    signature: "{self_effects} Self {protection} 3t",
-    effects: [{ kind: "protection", duration: 3 }],
+    signature: "{self_effects} Self 1 {bleed} 3t",
+    effects: [{ kind: "bleed", amount: 1, duration: 3 }],
   },
   {
     id: "hero_skill:p264",
@@ -1314,7 +1314,7 @@ const entries: readonly Entry[] = [
     lineIndex: 3,
     scope: "self",
     headerSignature: "{range} 1 {target_hero}",
-    signature: "{self_effects} Self {buff} 2t, {mark} 2t",
+    signature: "{self_effects} Self {mark} 2t, {buff} 2t",
     effects: [
       { kind: "buff", duration: 2 },
       { kind: "mark", duration: 2 },
@@ -1327,10 +1327,10 @@ const entries: readonly Entry[] = [
     lineIndex: 3,
     scope: "self",
     headerSignature: "{range} 1 {target_hero}",
-    signature: "{self_effects} Self {buff} 2t, {mark} 3t",
+    signature: "{self_effects} Self {mark} 2t, {buff} 3t",
     effects: [
-      { kind: "buff", duration: 2 },
-      { kind: "mark", duration: 3 },
+      { kind: "mark", duration: 2 },
+      { kind: "buff", duration: 3 },
     ],
   },
   {
@@ -1340,10 +1340,10 @@ const entries: readonly Entry[] = [
     lineIndex: 3,
     scope: "self",
     headerSignature: "{range} 1 {target_hero}",
-    signature: "{self_effects} Self {buff} 1t, 1 {bleed} 4t",
+    signature: "{self_effects} Self {mark} 1t, {buff} 4t",
     effects: [
-      { kind: "buff", duration: 1 },
-      { kind: "bleed", amount: 1, duration: 4 },
+      { kind: "mark", duration: 1 },
+      { kind: "buff", duration: 4 },
     ],
   },
 ];
