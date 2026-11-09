@@ -58,6 +58,7 @@ it.each(cards)("$id $name: all d10 faces resolve every effect line deterministic
     self = heroSkillUsesSelfTarget(card);
   const friendly =
     self ||
+    (card.verified_target_stress?.amount ?? 0) < 0 ||
     (card.stats_line ?? card.effect_lines[0] ?? []).some(
       (s) => s.type === "icon" && s.icon.key === "target_hero",
     );

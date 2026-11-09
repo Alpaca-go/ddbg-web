@@ -170,7 +170,10 @@ describe("applyCommand 战斗沙盒（R19–21、R-024、R-031、R-048）", () =
       blight: [],
       statusStacks: [],
     });
-    const initial = createBattleState(1, { ...setup(skill, [actor]), heroStats: [stat] });
+    const initial = createBattleState(1, {
+      ...setup(skill, [actor]),
+      heroStats: JSON.parse(JSON.stringify([stat])),
+    });
     const result = applyCommand(initial, play(skill, "actor"));
     expect(result.events[0], JSON.stringify(result.events)).toMatchObject({
       type: "heroSkillResolved",
