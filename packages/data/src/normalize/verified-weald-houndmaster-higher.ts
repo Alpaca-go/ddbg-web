@@ -343,9 +343,6 @@ function fixLickWounds(
     throw new Error(`${card.id} Lick Wounds stats 漂移（R-048）`);
   const rangeIcon = iconFromCard(card, "range");
   const heal = iconFromPool([card], "heal");
-  const stats = card.stats_line!.map((segment) =>
-    segment.type === "icon" && segment.icon.key === "damage" ? cloneKey(segment, "heal") : segment,
-  );
   const critValue = card.printed_labels.find((l) => l.label === "Crit")?.value ?? 2;
   const accValue = card.printed_labels.find((l) => l.label === "Acc")?.value ?? 20;
   return normalizedHeroSkillCardSchema.parse({
