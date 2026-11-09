@@ -84,6 +84,24 @@ export function attachVerifiedHeroDamage(
       };
     }
     const reviewed = {
+      "hero_skill:p148": {
+        name: "Sniper Shot",
+        level: 1,
+        page: 148,
+        lineIndex: 0,
+        amount: 3,
+        condition: "marked",
+        suffix: "{mark}",
+      },
+      "hero_skill:musketeer:p001": {
+        name: "Aimed Shot",
+        level: 1,
+        page: 1,
+        lineIndex: 0,
+        amount: 3,
+        condition: "marked",
+        suffix: "{mark}",
+      },
       "hero_skill:p001": {
         name: "Smite",
         level: 1,

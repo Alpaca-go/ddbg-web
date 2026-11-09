@@ -2931,3 +2931,9 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**：补齐麻风病人 I 级已核对的效果。Purge 自身增益 2 回合；Revenge 目标标记 2 回合、减益 1 回合；Withstand 为 Self，自身防护与标记各 2 回合；Solemnity 为 Self，自身治疗 6、压力 −1。Intimidate I 与 II/III 的自身图标均为标记（2/2/1 回合），I 级同 Q-164 无视防护和守护，目标减益 1 回合。
 - **依据**：交回核对稿与 The Darkest Heroes SKILLS FRONT 第 280、283、286、289、292–294 页；R-048、Q-164～Q-166。Intimidate 自身列未填色的「增益」与印刷红色准星及 Q-164 冲突，采用已核实的标记。
 
+### R-211
+
+- **日期**：2026-11-10（Asia/Shanghai）
+- **裁定**：补齐核对稿已列明的 I 级效果。小丑 Dirk Stab 自身 Pull 1 且无视守护，Harvest 目标流血 2 持续 2 回合，Solo 自身增益 2 回合和 Pull 2、目标眩晕 1 回合，Battle Ballad 可选最多 2 名英雄且对自身与目标施加增益 2 回合，Slice Off 目标流血 3 持续 1 回合。弩手 Sniper Shot 对标记目标伤害 +3，Suppressive Fire 目标减益 1 回合，Sniper’s Mark 目标标记 2 回合，Battlefield Bandage 自身增益 2 回合。火枪手对应技能按 Q-185 对齐。
+- **依据**：交回核对稿小丑与弩手表、核心盒 SKILLS FRONT 第 106、109、115、118、124、148、151、154、163 页；R-048、Q-185。
+
