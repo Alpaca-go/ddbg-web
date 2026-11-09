@@ -1,5 +1,6 @@
 import { defenceTrinketReaction } from "./trinket-reactions";
 import { projectAbominationSkill } from "./abomination-skills";
+import { ABOMINATION_DOUBLE_FACED_SKILL_IDS } from "./formal-roster-catalog";
 import type { HeroHealthEffect } from "./hero-health";
 import { statusStackProblem } from "./status";
 import type { StatusEffect, StatusStack } from "./status";
@@ -2490,7 +2491,7 @@ function resolveSkill(
   const selected = selectFace(
     skill,
     combat.face ??
-      ((skill.id === "hero_skill:p221" || skill.id === "hero_skill:p222") &&
+      (Object.values(ABOMINATION_DOUBLE_FACED_SKILL_IDS).includes(skill.id) &&
       combat.actor?.form === "beast"
         ? "back"
         : "front"),
@@ -3421,4 +3422,3 @@ function resolveSkill(
     ...(includeHealthEffects ? { healthEffects, own } : {}),
   };
 }
-

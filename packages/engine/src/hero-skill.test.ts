@@ -221,7 +221,16 @@ function target(
 }
 
 function use(id: string, combat: SkillCombatState, roll: number): HeroSkillResolution {
-  return resolveHeroSkill(card(id), combat, roll);
+  const skill = card(id);
+  // 这些用例特意输入未附注解的旧转录。真实堕落者卡的投影由 abomination-skills.test.ts 验证。
+  if (
+    ["p211", "p214", "p217", "p220", "p223", "p226", "p229"].some(
+      (page) => id === `hero_skill:${page}`,
+    )
+  ) {
+    return { ...resolveHeroSkill({ ...skill, id: `${id}:legacy` }, combat, roll), skillId: id };
+  }
+  return resolveHeroSkill(skill, combat, roll);
 }
 
 /** 明确破损的输入夹具；真实 Zealous 已修复，仍要保证不能从技能名猜伤害。 */

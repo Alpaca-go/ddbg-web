@@ -11,7 +11,7 @@ const data = loadNormalizedCorebox();
 const clean = <T>(v: unknown): T => JSON.parse(JSON.stringify(v));
 const card = (page: number) =>
   clean<HeroSkillCardView>(data.hero_skill.cards.find((c) => c.id === `hero_skill:p${page}`)!);
-function fixture(level: 2 | 3 = 2) {
+function fixture(level: 1 | 2 | 3 = 2) {
   const names = ["ABOMINATION", "CRUSADER", "HELLION", "VESTAL"];
   const stats = data.hero_stat.cards.filter((c) => c.level === level && names.includes(c.name));
   const entities: BattleEntity[] = names.map((name, i) => {
@@ -48,13 +48,13 @@ function fixture(level: 2 | 3 = 2) {
     ],
   });
 }
-const transform = (level: 2 | 3 = 2): Command => ({
+const transform = (level: 1 | 2 | 3 = 2): Command => ({
   type: "playHeroSkill",
   actorId: "h0",
   targetId: "h0",
   skillId: `hero_skill:p${221 + level - 2}`,
 });
-it.each([2, 3] as const)(
+it.each([1, 2, 3] as const)(
   "Transform %i applies all allies across disconnected areas, no dice; automatic reverse uses the same card",
   (level) => {
     const before = fixture(level),
@@ -66,9 +66,9 @@ it.each([2, 3] as const)(
     expect(result.state.battle!.rngCursor).toBe(0);
     expect(result.state.battle!.entities[0]).toMatchObject({
       form: "beast",
-      wounds: level === 2 ? 2 : 0,
-      stress: 3,
-      statusStacks: [{ kind: "buff", remaining: 3 }],
+      wounds: 6 - 2 * level,
+      stress: level === 1 ? 5 : 3,
+      statusStacks: [{ kind: "buff", remaining: level === 1 ? 2 : 3 }],
     });
     expect(result.state.battle!.entities.slice(1).map((e) => e.stress)).toEqual([5, 5, 5]);
     const restored = clean<typeof before>(result.state);
@@ -77,23 +77,23 @@ it.each([2, 3] as const)(
     expect(reverse.events.filter((e) => e.type === "commandRefused")).toEqual([]);
     expect(reverse.state.battle!.entities[0]).toMatchObject({
       form: "human",
-      wounds: level === 2 ? 2 : 0,
-      stress: 2,
+      wounds: 6 - 2 * level,
+      stress: level === 1 ? 4 : 2,
     });
     expect(reverse.state.battle!.entities[0]!.statusStacks).toContainEqual({
       kind: "debuff",
-      remaining: level === 2 ? 2 : 1,
+      remaining: 4 - level,
     });
     expect(reverse.state.battle!.entities.slice(1).map((e) => e.stress)).toEqual([4, 4, 4]);
     expect(reverse.state.battle!.rngCursor).toBe(0);
     expect(before).toEqual(snapshot);
   },
 );
-it.each([218, 219])(
+it.each([217, 218, 219])(
   "Absolution p%i heals only its caster with printed critical/hit amounts",
   (page) => {
     const c = card(page),
-      amounts = page === 218 ? [6, 3] : [8, 4];
+      amounts = [2 * (page - 215), page - 215];
     for (const [roll, amount] of [
       [1, amounts[0]!],
       [5, amounts[1]!],
@@ -115,7 +115,7 @@ it.each([218, 219])(
     }
   },
 );
-it.each([224, 225, 227, 228, 230, 231])(
+it.each([223, 224, 225, 226, 227, 228, 229, 230, 231])(
   "p%i self stress survives a miss, and human form refuses without effects",
   (page) => {
     const c = card(page),
@@ -123,7 +123,7 @@ it.each([224, 225, 227, 228, 230, 231])(
         actor: { id: "h", wounds: 0, stress: 3, form: "beast" as const },
         target: { id: "m", side: "monster" as const, wounds: 0, dodge: 20 },
         light: 5,
-        areaDistance: page >= 230 ? 1 : 0,
+        areaDistance: page >= 229 ? 1 : 0,
         targetsInArea: page < 226 ? 2 : 1,
       };
     const r = resolveHeroSkillEffects(c, combat, 10).resolution;
@@ -132,7 +132,7 @@ it.each([224, 225, 227, 228, 230, 231])(
     expect(r.actorStress).toBe(4);
     expect(r.targetStatusEffects ?? []).toEqual([]);
     expect(r.actorStatusEffects ?? []).toEqual(page < 226 ? [{ kind: "buff", duration: 2 }] : []);
-    if (page >= 230) {
+    if (page >= 229) {
       expect(r.actorShuffle).toEqual({ direction: "pull", distance: 1 });
       expect(r.targetShuffle).toBeNull();
     }
@@ -271,7 +271,7 @@ it("Transform resolves remote allies reaching 10, keeps its self effects, and sp
   });
   expect(applyCommand(clean<typeof game>(game), transform())).toEqual(result);
 });
-it.each([230, 231])("Slam p%i preserves both scopes on a hit", (page) => {
+it.each([229, 230, 231])("Slam p%i preserves both scopes on a hit", (page) => {
   const r = resolveHeroSkillEffects(
     card(page),
     {
@@ -287,10 +287,10 @@ it.each([230, 231])("Slam p%i preserves both scopes on a hit", (page) => {
   expect(r.actorStress).toBe(4);
   expect(r.actorShuffle).toEqual({ direction: "pull", distance: 1 });
   expect(r.targetShuffle).toEqual({ direction: "push", distance: 2 });
-  expect(r.targetStatusEffects).toEqual([{ kind: "debuff", duration: 2 }]);
-  expect(r.damageDealt).toBe(page === 230 ? 9 : 12);
+  expect(r.targetStatusEffects).toEqual([{ kind: "debuff", duration: page === 229 ? 1 : 2 }]);
+  expect(r.damageDealt).toBe(page === 229 ? 7 : page === 230 ? 9 : 12);
 });
-it.each([212, 213, 215, 216])("Human-only p%i is unavailable in Beast form", (page) => {
+it.each([211, 212, 213, 214, 215, 216])("Human-only p%i is unavailable in Beast form", (page) => {
   const r = resolveHeroSkillEffects(
     card(page),
     {

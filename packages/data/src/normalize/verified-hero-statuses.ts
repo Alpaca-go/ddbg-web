@@ -21,6 +21,24 @@ type Entry = {
 
 // 完整印刷逐页核对：docs/phase2-four-core-skills-2026-10-11.md。
 const entries: readonly Entry[] = [
+  {
+    id: "hero_skill:p211",
+    name: "Manacles",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {stun} 1t",
+    effects: [{ kind: "stun", duration: 1 }],
+  },
+  {
+    id: "hero_skill:p214",
+    name: "Beast’s Bile",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} 2 {blight} 2t",
+    effects: [{ kind: "blight", amount: 2, duration: 2 }],
+  },
   // R-211：卡面文字已确认、一级运行时尚未读取的状态。
   {
     id: "hero_skill:p109",

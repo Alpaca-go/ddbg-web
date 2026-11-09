@@ -1,6 +1,7 @@
 import { CoreTrinketActions } from "./core-trinket-actions";
 import { useState } from "react";
 import {
+  ABOMINATION_DOUBLE_FACED_SKILL_IDS,
   heroSkillUsesSelfTarget,
   heroMovePathLimit,
   readPrintedTargets,
@@ -94,7 +95,9 @@ export function BattleView({
     .map((s) => ({ ...s, ...battle.skills.find((c) => c.id === s.id)! }));
   const skill = actorSkills.find((s) => s.id === skillId) ?? actorSkills[0];
   const skillBack =
-    actor?.form === "beast" && skill && ["hero_skill:p221", "hero_skill:p222"].includes(skill.id)
+    actor?.form === "beast" &&
+    skill &&
+    Object.values(ABOMINATION_DOUBLE_FACED_SKILL_IDS).includes(skill.id)
       ? skill.back_face_skill
       : null;
   const printedTargets = skill ? readPrintedTargets(skill) : undefined;
@@ -702,7 +705,7 @@ export function BattleView({
                         skillId={s.id}
                         face={
                           actor?.form === "beast" &&
-                          ["hero_skill:p221", "hero_skill:p222"].includes(s.id)
+                          Object.values(ABOMINATION_DOUBLE_FACED_SKILL_IDS).includes(s.id)
                             ? "back"
                             : "front"
                         }
@@ -906,7 +909,7 @@ export function BattleView({
                     size="md"
                     face={
                       actor?.form === "beast" &&
-                      ["hero_skill:p221", "hero_skill:p222"].includes(skill.id)
+                      Object.values(ABOMINATION_DOUBLE_FACED_SKILL_IDS).includes(skill.id)
                         ? "back"
                         : "front"
                     }

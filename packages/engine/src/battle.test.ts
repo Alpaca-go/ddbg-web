@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState, resolveHeroSkill } from "./index";
 import type { BattleEntity, BattleSetup, Command, HeroSkillCardView } from "./index";
+import { loadNormalizedCorebox } from "../../data/src/normalize/write";
 
 const file = JSON.parse(
   readFileSync(new URL("../../data/normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
@@ -156,12 +157,26 @@ describe("applyCommand 战斗沙盒（R19–21、R-024、R-031、R-048）", () =
     expect(second.state.battle?.entities[0]?.stress).toBe(0);
   });
 
-  it("已装备的 Transform 只写回形态，未命名治疗 / 压力不结算，也不消耗骰子", () => {
+  it("Transform I 结算自身治疗和压力，不消耗骰子（R-212）", () => {
     const skill = card("p220");
-    const initial = createBattleState(1, setup(skill, [hero(skill, { form: "human" })]));
+    const stat = loadNormalizedCorebox().hero_stat.cards.find(
+      (c) => c.id === "hero_stat:p021:front",
+    )!;
+    const actor = hero(skill, {
+      form: "human",
+      heroStatId: stat.id,
+      life: stat.life,
+      bleed: [],
+      blight: [],
+      statusStacks: [],
+    });
+    const initial = createBattleState(1, { ...setup(skill, [actor]), heroStats: [stat] });
     const result = applyCommand(initial, play(skill, "actor"));
-    expect(result.events[0]).toMatchObject({ type: "heroSkillResolved", roll: null });
-    expect(result.state.battle?.entities[0]).toMatchObject({ form: "beast", wounds: 4, stress: 5 });
+    expect(result.events[0], JSON.stringify(result.events)).toMatchObject({
+      type: "heroSkillResolved",
+      roll: null,
+    });
+    expect(result.state.battle?.entities[0]).toMatchObject({ form: "beast", wounds: 0, stress: 7 });
     expect(result.state.battle?.rngCursor).toBe(0);
   });
 

@@ -1,4 +1,9 @@
-import { heroSkillUsesSelfTarget, readPrintedRange, readPrintedTargets } from "@ddbg/engine";
+import {
+  ABOMINATION_DOUBLE_FACED_SKILL_IDS,
+  heroSkillUsesSelfTarget,
+  readPrintedRange,
+  readPrintedTargets,
+} from "@ddbg/engine";
 import type { HeroSkillCardView } from "@ddbg/engine";
 
 /** 只展示引擎已核实的卡面要求，不另行判定所选目标能否出手。 */
@@ -17,7 +22,7 @@ export function SkillRequirements({ skill }: { readonly skill: HeroSkillCardView
     : targets.kind === "exact"
       ? `同一区域内最多 ${targets.max} 个目标`
       : "未核实";
-  const allAllies = ["hero_skill:p221", "hero_skill:p222"].includes(skill.id);
+  const allAllies = Object.values(ABOMINATION_DOUBLE_FACED_SKILL_IDS).includes(skill.id);
 
   return (
     <div className="muted" data-testid="skill-requirements">
