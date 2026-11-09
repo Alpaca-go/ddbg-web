@@ -260,7 +260,7 @@ function fixCryHavoc(
     ...card,
     stats_line: statsHeader,
     effect_lines: [
-      [stressIcon, text(" -1")],
+      [iconFromPool(cards, "target_effects"), text(" "), stressIcon, text(" -1")],
       [selfEffects, text(" Self "), stressIcon, text(` ${selfStress > 0 ? "+" : ""}${selfStress}`)],
     ],
     unlabeled_numbers: [
@@ -277,10 +277,7 @@ function fixCryHavoc(
       },
     ],
     verified_self_stress: { lineIndex: 1, amount: selfStress, source: "print_front" },
-    verified_allies_stress: -1,
-    verified_effect_line_receipts: [
-      { lineIndex: 0, signature: "{stress}-1", source: "print_front" },
-    ],
+    verified_target_stress: { lineIndex: 0, amount: -1, source: "print_front" },
   });
 }
 

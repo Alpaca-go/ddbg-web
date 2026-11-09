@@ -258,13 +258,10 @@ function fixEndure(
     stats_line: statsLine,
     effect_lines: [
       [selfEffects, text(" Self "), cloneKey(artMis, "stress"), text(" -1")],
-      [stressIcon, text(" -1")],
+      [iconFromPool(pool, "target_effects"), text(" "), stressIcon, text(" -1")],
     ],
     verified_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-    verified_allies_stress: -1,
-    verified_effect_line_receipts: [
-      { lineIndex: 1, signature: "{stress}-1", source: "print_front" },
-    ],
+    verified_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
     ...(spec.interval
       ? { verified_range: { ...spec.interval, source: "print_front" as const } }
       : {}),

@@ -139124,12 +139124,16 @@
      }
     ]
    ],
+   "verified_target_stress": {
+    "lineIndex": 1,
+    "amount": -1,
+    "source": "print_front"
+   },
    "verified_self_stress": {
     "lineIndex": 0,
     "amount": -1,
     "source": "print_front"
    },
-   "verified_allies_stress": -1,
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -139654,12 +139658,16 @@
      }
     ]
    ],
+   "verified_target_stress": {
+    "lineIndex": 1,
+    "amount": -1,
+    "source": "print_front"
+   },
    "verified_self_stress": {
     "lineIndex": 0,
     "amount": -1,
     "source": "print_front"
    },
-   "verified_allies_stress": -1,
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -140195,12 +140203,16 @@
      }
     ]
    ],
+   "verified_target_stress": {
+    "lineIndex": 1,
+    "amount": -1,
+    "source": "print_front"
+   },
    "verified_self_stress": {
     "lineIndex": 0,
     "amount": -1,
     "source": "print_front"
    },
-   "verified_allies_stress": -1,
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -150310,6 +150322,24 @@
      {
       "type": "icon",
       "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
        "iconId": "c3daa80da5",
        "in_dictionary": true,
        "status": "confirmed",
@@ -150327,19 +150357,16 @@
      }
     ]
    ],
-   "verified_effect_line_receipts": [
-    {
-     "lineIndex": 1,
-     "signature": "{stress}-1",
-     "source": "print_front"
-    }
-   ],
+   "verified_target_stress": {
+    "lineIndex": 1,
+    "amount": -1,
+    "source": "print_front"
+   },
    "verified_self_stress": {
     "lineIndex": 0,
     "amount": -1,
     "source": "print_front"
    },
-   "verified_allies_stress": -1,
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -150823,6 +150850,24 @@
      {
       "type": "icon",
       "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
        "iconId": "c3daa80da5",
        "in_dictionary": true,
        "status": "confirmed",
@@ -150840,19 +150885,16 @@
      }
     ]
    ],
-   "verified_effect_line_receipts": [
-    {
-     "lineIndex": 1,
-     "signature": "{stress}-1",
-     "source": "print_front"
-    }
-   ],
+   "verified_target_stress": {
+    "lineIndex": 1,
+    "amount": -1,
+    "source": "print_front"
+   },
    "verified_self_stress": {
     "lineIndex": 0,
     "amount": -1,
     "source": "print_front"
    },
-   "verified_allies_stress": -1,
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -151341,6 +151383,24 @@
      {
       "type": "icon",
       "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
        "iconId": "c3daa80da5",
        "in_dictionary": true,
        "status": "confirmed",
@@ -151358,19 +151418,16 @@
      }
     ]
    ],
-   "verified_effect_line_receipts": [
-    {
-     "lineIndex": 1,
-     "signature": "{stress}-1",
-     "source": "print_front"
-    }
-   ],
+   "verified_target_stress": {
+    "lineIndex": 1,
+    "amount": -1,
+    "source": "print_front"
+   },
    "verified_self_stress": {
     "lineIndex": 0,
     "amount": -1,
     "source": "print_front"
    },
-   "verified_allies_stress": -1,
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -170468,6 +170525,24 @@
      {
       "type": "icon",
       "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
        "iconId": "c3daa80da5",
        "in_dictionary": true,
        "status": "confirmed",
@@ -170523,19 +170598,16 @@
      }
     ]
    ],
-   "verified_effect_line_receipts": [
-    {
-     "lineIndex": 0,
-     "signature": "{stress}-1",
-     "source": "print_front"
-    }
-   ],
+   "verified_target_stress": {
+    "lineIndex": 0,
+    "amount": -1,
+    "source": "print_front"
+   },
    "verified_self_stress": {
     "lineIndex": 1,
     "amount": -1,
     "source": "print_front"
    },
-   "verified_allies_stress": -1,
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -171014,6 +171086,24 @@
      {
       "type": "icon",
       "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
        "iconId": "c3daa80da5",
        "in_dictionary": true,
        "status": "confirmed",
@@ -171069,19 +171159,16 @@
      }
     ]
    ],
-   "verified_effect_line_receipts": [
-    {
-     "lineIndex": 0,
-     "signature": "{stress}-1",
-     "source": "print_front"
-    }
-   ],
+   "verified_target_stress": {
+    "lineIndex": 0,
+    "amount": -1,
+    "source": "print_front"
+   },
    "verified_self_stress": {
     "lineIndex": 1,
     "amount": -1,
     "source": "print_front"
    },
-   "verified_allies_stress": -1,
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -171589,6 +171676,24 @@
      {
       "type": "icon",
       "icon": {
+       "iconId": "b6afaa4d7b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "target_effects",
+       "kind": "other",
+       "meaning_en": "Target Effects marker",
+       "meaning_zh": "目标效果标记",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
        "iconId": "c3daa80da5",
        "in_dictionary": true,
        "status": "confirmed",
@@ -171644,19 +171749,16 @@
      }
     ]
    ],
-   "verified_effect_line_receipts": [
-    {
-     "lineIndex": 0,
-     "signature": "{stress}-1",
-     "source": "print_front"
-    }
-   ],
+   "verified_target_stress": {
+    "lineIndex": 0,
+    "amount": -1,
+    "source": "print_front"
+   },
    "verified_self_stress": {
     "lineIndex": 1,
     "amount": -2,
     "source": "print_front"
    },
-   "verified_allies_stress": -1,
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",

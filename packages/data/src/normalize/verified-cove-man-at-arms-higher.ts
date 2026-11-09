@@ -347,7 +347,7 @@ function fixBolster(
       ],
       unlabeled_numbers: [...card.unlabeled_numbers, ...anchors],
       verified_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-      verified_allies_stress: -1,
+      verified_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
     });
   }
   if (level === 3) {
@@ -368,7 +368,7 @@ function fixBolster(
       ],
       unlabeled_numbers: [...card.unlabeled_numbers, ...anchors],
       verified_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-      verified_allies_stress: -1,
+      verified_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
     });
   }
 
@@ -387,7 +387,7 @@ function fixBolster(
     ],
     unlabeled_numbers: [...card.unlabeled_numbers, ...anchors],
     verified_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-    verified_allies_stress: -1,
+    verified_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
   });
 }
 

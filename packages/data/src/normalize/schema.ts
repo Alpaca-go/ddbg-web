@@ -165,7 +165,7 @@ const skillStatFields = {
   verified_target_stress: z
     .strictObject({
       lineIndex: z.int().nonnegative(),
-      amount: z.int().positive(),
+      amount: z.int().refine((amount) => amount !== 0),
       source: z.literal("print_front"),
     })
     .optional(),

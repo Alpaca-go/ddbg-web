@@ -2644,9 +2644,10 @@ function resolveSkill(
       !Number.isSafeInteger(extraStress.lineIndex) ||
       extraStress.lineIndex < 0 ||
       !Number.isSafeInteger(extraStress.amount) ||
-      extraStress.amount <= 0 ||
+      extraStress.amount === 0 ||
       extraStress.source !== "print_front" ||
-      text !== `{target_effects}{stress}+${extraStress.amount}` ||
+      text !==
+        `{target_effects}{stress}${extraStress.amount > 0 ? "+" : ""}${extraStress.amount}` ||
       line?.some(
         (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
       )
@@ -2897,11 +2898,18 @@ function resolveSkill(
   const critThreshold = formOnly ? null : threshold(active, "Crit");
   const accThreshold = formOnly ? null : threshold(active, "Acc");
   // 只有位移、没有伤害数字的技能可以不印 Crit。不把缺的阈值当成 0。
-  // 有伤害、治疗或压力时，Crit 仍然必须是非负整数。
+  // 经核准仅印 Acc 的目标减压行按命中或未命中结算。
   if (!formOnly && effect !== null && critThreshold === null) {
     const nonCombatHealOnly =
       targetHealAnn && active.printed_labels.length === 0 && active.stats_line === null;
-    if (!nonCombatHealOnly) return refuse(skill, combat, "Crit 标签没有非负整数阈值");
+    const targetReliefWithoutCrit =
+      effect === "stress" &&
+      extraStress !== undefined &&
+      extraStress.amount < 0 &&
+      accThreshold !== null &&
+      active.printed_labels.every((label) => label.label !== "Crit");
+    if (!nonCombatHealOnly && !targetReliefWithoutCrit)
+      return refuse(skill, combat, "Crit 标签没有非负整数阈值");
   }
   if (
     !formOnly &&
