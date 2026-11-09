@@ -21,6 +21,57 @@ type Entry = {
 
 // 完整印刷逐页核对：docs/phase2-four-core-skills-2026-10-11.md。
 const entries: readonly Entry[] = [
+  {
+    id: "hero_skill:p280",
+    name: "Purge",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p283",
+    name: "Revenge",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {mark} 2t, {debuff} 1t",
+    effects: [
+      { kind: "mark", duration: 2 },
+      { kind: "debuff", duration: 1 },
+    ],
+  },
+  {
+    id: "hero_skill:p286",
+    name: "Withstand",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {protection} 2t, {mark} 2t",
+    effects: [
+      { kind: "protection", duration: 2 },
+      { kind: "mark", duration: 2 },
+    ],
+  },
+  {
+    id: "hero_skill:p292",
+    name: "Intimidate",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {mark} 2t",
+    effects: [{ kind: "mark", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p292",
+    name: "Intimidate",
+    level: 1,
+    lineIndex: 3,
+    scope: "target",
+    signature: "{target_effects} {debuff} 1t",
+    effects: [{ kind: "debuff", duration: 1 }],
+  },
   // 完整FRONT p184：目标 Blight 2·3t；仅 I 级。
   {
     id: "hero_skill:p184",

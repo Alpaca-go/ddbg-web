@@ -2925,3 +2925,9 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**：按 Kyries 交回的英雄技能核对稿修正下列状态与伤害。Festering Vapours I–III 施加腐蚀 2/2/3、持续 2/3/3 回合，再施加减益 1/2/2 回合。Fortifying Vapours 对目标施加增益 2/3/3 回合。Invigorating Vapours 保留 Q-170 的队友效果，自身增益 2/2/3 回合。Defender I 为守护 1 回合、防护 2 回合。Command I–III 对自身及目标均施加增益 2/2/3 回合。Hound’s Rush II 自身增益 3 回合。Adder’s Kiss I–III 施加腐蚀 2、持续 2/3/3 回合。Captivate 的命中与暴击数值按伤害结算。
 - **依据**：交回核对稿古物学家、持盾步兵、训犬师、破盾者表；The Darkest Heroes SKILLS FRONT 第 241、247–249、298–300、307–312、322–324、331–333、338 页；R-048、Q-169、Q-170、Q-177、Q-178、Q-182。
 
+### R-210
+
+- **日期**：2026-11-10（Asia/Shanghai）
+- **裁定**：补齐麻风病人 I 级已核对的效果。Purge 自身增益 2 回合；Revenge 目标标记 2 回合、减益 1 回合；Withstand 为 Self，自身防护与标记各 2 回合；Solemnity 为 Self，自身治疗 6、压力 −1。Intimidate I 与 II/III 的自身图标均为标记（2/2/1 回合），I 级同 Q-164 无视防护和守护，目标减益 1 回合。
+- **依据**：交回核对稿与 The Darkest Heroes SKILLS FRONT 第 280、283、286、289、292–294 页；R-048、Q-164～Q-166。Intimidate 自身列未填色的「增益」与印刷红色准星及 Q-164 冲突，采用已核实的标记。
+
