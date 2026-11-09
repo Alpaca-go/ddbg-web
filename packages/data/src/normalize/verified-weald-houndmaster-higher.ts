@@ -415,7 +415,7 @@ export function attachVerifiedWealdHoundmasterHigher(
           card,
           338,
           2,
-          2,
+          3,
           2,
           2,
           "{self_effects}{buff}Self{buff}3t",

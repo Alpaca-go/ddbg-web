@@ -10,7 +10,7 @@ it("R-200：Warrens Antiquarian 高等级逐卡覆盖签名", () => {
     { id: "hero_skill:p305", line: 0, sig: "{target_effects} {stun} 1t, {debuff} 2t" },
     { id: "hero_skill:p308", line: 0, sig: "{self_effects} Self {heal} 2" },
     { id: "hero_skill:p311", line: 1, sig: "{target_effects} {buff} 3t" },
-    { id: "hero_skill:p298", line: 0, sig: "{target_effects} 1 {bleed} 3t, {debuff} 2t" },
+    { id: "hero_skill:p298", line: 0, sig: "{target_effects} 2 {blight} 2t, {debuff} 1t" },
     { id: "hero_skill:p301", line: 0, sig: "{range} Self" },
     { id: "hero_skill:p304", line: 0, sig: "{target_effects} {stun} 1t, {debuff} 1t" },
     { id: "hero_skill:p307", line: 0, sig: "{self_effects} Self {heal} 1" },

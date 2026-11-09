@@ -8,10 +8,7 @@ function text(value: string): Segment {
   return { type: "text", text: value };
 }
 
-function iconFromPool(
-  cards: readonly NormalizedHeroSkillCard[],
-  key: string,
-): IconSegment {
+function iconFromPool(cards: readonly NormalizedHeroSkillCard[], key: string): IconSegment {
   for (const card of cards) {
     const pools = [
       ...(card.stats_line ?? []),
@@ -99,14 +96,7 @@ function fixGetDown(
     stats_line: null,
     effect_lines: [
       [rangeIcon, text(" Self")],
-      [
-        selfEffects,
-        text(" Self "),
-        buff,
-        text(` ${buffT}t, `),
-        shuffle,
-        text(` ${pushText}`),
-      ],
+      [selfEffects, text(" Self "), buff, text(` ${buffT}t, `), shuffle, text(` ${pushText}`)],
     ],
     unlabeled_numbers: [
       {
@@ -136,28 +126,31 @@ export function attachVerifiedWarrensAntiquarianHigher(
 
   return cards.map((card) => {
     switch (card.id) {
-      case "hero_skill:p298": {
-        assertAntiquarian(card, 298, "Festering Vapours", 1);
+      case "hero_skill:p298":
+      case "hero_skill:p299":
+      case "hero_skill:p300": {
+        const page = card.pages[0]!;
+        const level = page - 297;
+        assertAntiquarian(card, page, "Festering Vapours", level);
         const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-        if (raw !== "{damage}2{damage}2t,{bleed}1t")
-          throw new Error(`${card.id} Festering I 效果行漂移（R-048）`);
-        const line = card.effect_lines[0]!;
-        const misBleed = line.find((s) => s.type === "icon" && s.icon.key === "bleed");
-        const misDebuff = line.filter(
-          (s): s is IconSegment => s.type === "icon" && s.icon.key === "damage",
-        );
-        if (misBleed?.type !== "icon" || misDebuff.length < 2)
-          throw new Error(`${card.id} Festering I 状态段漂移`);
+        const expected =
+          level === 1
+            ? "{damage}2{damage}2t,{bleed}1t"
+            : `{target_effects}${level}{bleed}3t,{debuff}2t`;
+        if (raw !== expected) throw new Error(`${card.id} Festering 效果行漂移（R-048）`);
+        const amount = level === 3 ? 3 : 2;
+        const duration = level === 1 ? 2 : 3;
+        const debuffDuration = level === 1 ? 1 : 2;
         return normalizedHeroSkillCardSchema.parse({
           ...card,
           effect_lines: [
             [
               targetEffectsIcon,
-              text(" 1 "),
-              misBleed,
-              text(" 3t, "),
-              cloneKey(misDebuff[1]!, "debuff"),
-              text(" 2t"),
+              text(` ${amount} `),
+              iconFromPool(cards, "blight"),
+              text(` ${duration}t, `),
+              iconFromPool(cards, "debuff"),
+              text(` ${debuffDuration}t`),
             ],
           ],
         });
@@ -215,6 +208,7 @@ export function attachVerifiedWarrensAntiquarianHigher(
           effect_lines: [
             [selfEffects, text(" Self "), healIcon, text(" 1")],
             [selfEffects, text(" Self "), buff, text(" 2t")],
+            [targetEffectsIcon, text(" "), buff, text(" 2t")],
           ],
           unlabeled_numbers: [
             ...card.unlabeled_numbers,
@@ -249,6 +243,7 @@ export function attachVerifiedWarrensAntiquarianHigher(
           effect_lines: [
             [rangeIcon, text(" 0 "), targetHeroIcon],
             [targetEffectsIcon, text(" "), buff, text(" 2t")],
+            [iconFromCard(card, "self_effects"), text(" Self "), buff, text(" 2t")],
           ],
         });
       }
@@ -279,7 +274,15 @@ export function attachVerifiedWarrensAntiquarianHigher(
         });
       }
       case "hero_skill:p302":
-        return fixGetDown(card, 302, 2, 3, "Push 2", ["{range}{buff}Self", "{self_effects}{buff}Self{buff}3t,{shuffle}Push2"], rangeIcon);
+        return fixGetDown(
+          card,
+          302,
+          2,
+          3,
+          "Push 2",
+          ["{range}{buff}Self", "{self_effects}{buff}Self{buff}3t,{shuffle}Push2"],
+          rangeIcon,
+        );
       case "hero_skill:p303":
         return fixGetDown(
           card,
@@ -367,6 +370,7 @@ export function attachVerifiedWarrensAntiquarianHigher(
           effect_lines: [
             [selfEffects, text(" Self "), healIcon, text(` ${selfHeal}`)],
             [selfEffects, text(" Self "), buff, text(` ${buffT}t`)],
+            [targetEffectsIcon, text(" "), buff, text(` ${buffT}t`)],
           ],
           unlabeled_numbers: [
             ...card.unlabeled_numbers,
@@ -399,6 +403,7 @@ export function attachVerifiedWarrensAntiquarianHigher(
           effect_lines: [
             [rangeIcon, text(" 0 "), targetHeroIcon, text(" "), targetHeroIcon],
             [iconFromCard(card, "target_effects"), text(" "), buff, text(" 3t")],
+            [iconFromCard(card, "self_effects"), text(" Self "), buff, text(" 2t")],
           ],
         });
       }
@@ -417,8 +422,17 @@ export function attachVerifiedWarrensAntiquarianHigher(
           ...card,
           stats_line: null,
           effect_lines: [
-            [rangeIcon, text(" 0 "), targetHeroIcon, text(" "), targetHeroIcon, text(" "), targetHeroIcon],
+            [
+              rangeIcon,
+              text(" 0 "),
+              targetHeroIcon,
+              text(" "),
+              targetHeroIcon,
+              text(" "),
+              targetHeroIcon,
+            ],
             [iconFromCard(card, "target_effects"), text(" "), buff, text(" 4t")],
+            [iconFromCard(card, "self_effects"), text(" Self "), buff, text(" 3t")],
           ],
         });
       }

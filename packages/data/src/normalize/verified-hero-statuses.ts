@@ -13,15 +13,7 @@ type Entry = {
   scopeLine?: { index: number; signature: string };
   effects: {
     kind:
-      | "bleed"
-      | "blight"
-      | "stun"
-      | "buff"
-      | "mark"
-      | "riposte"
-      | "protection"
-      | "guard"
-      | "debuff";
+      "bleed" | "blight" | "stun" | "buff" | "mark" | "riposte" | "protection" | "guard" | "debuff";
     duration: number;
     amount?: number;
   }[];
@@ -965,10 +957,10 @@ const entries: readonly Entry[] = [
     level: 1,
     lineIndex: 0,
     scope: "target",
-    signature: "{target_effects} 1 {bleed} 3t, {debuff} 2t",
+    signature: "{target_effects} 2 {blight} 2t, {debuff} 1t",
     effects: [
-      { kind: "bleed", amount: 1, duration: 3 },
-      { kind: "debuff", duration: 2 },
+      { kind: "blight", amount: 2, duration: 2 },
+      { kind: "debuff", duration: 1 },
     ],
   },
   {
@@ -996,7 +988,33 @@ const entries: readonly Entry[] = [
   },
   {
     id: "hero_skill:p307",
-    hero: "ANTIQUARIAN",
+    name: "Fortifying Vapours",
+    level: 1,
+    lineIndex: 2,
+    scope: "target",
+    signature: "{target_effects} {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p308",
+    name: "Fortifying Vapours",
+    level: 2,
+    lineIndex: 2,
+    scope: "target",
+    signature: "{target_effects} {buff} 3t",
+    effects: [{ kind: "buff", duration: 3 }],
+  },
+  {
+    id: "hero_skill:p309",
+    name: "Fortifying Vapours",
+    level: 3,
+    lineIndex: 2,
+    scope: "target",
+    signature: "{target_effects} {buff} 3t",
+    effects: [{ kind: "buff", duration: 3 }],
+  },
+  {
+    id: "hero_skill:p307",
     name: "Fortifying Vapours",
     level: 1,
     lineIndex: 1,
@@ -1006,7 +1024,33 @@ const entries: readonly Entry[] = [
   },
   {
     id: "hero_skill:p310",
-    hero: "ANTIQUARIAN",
+    name: "Invigorating Vapours",
+    level: 1,
+    lineIndex: 2,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p311",
+    name: "Invigorating Vapours",
+    level: 2,
+    lineIndex: 2,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p312",
+    name: "Invigorating Vapours",
+    level: 3,
+    lineIndex: 2,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 3t",
+    effects: [{ kind: "buff", duration: 3 }],
+  },
+  {
+    id: "hero_skill:p310",
     name: "Invigorating Vapours",
     level: 1,
     lineIndex: 1,
@@ -1036,9 +1080,9 @@ const entries: readonly Entry[] = [
     level: 2,
     lineIndex: 0,
     scope: "target",
-    signature: "{target_effects} 2 {bleed} 3t, {debuff} 2t",
+    signature: "{target_effects} 2 {blight} 3t, {debuff} 2t",
     effects: [
-      { kind: "bleed", amount: 2, duration: 3 },
+      { kind: "blight", amount: 2, duration: 3 },
       { kind: "debuff", duration: 2 },
     ],
   },
@@ -1048,9 +1092,9 @@ const entries: readonly Entry[] = [
     level: 3,
     lineIndex: 0,
     scope: "target",
-    signature: "{target_effects} 3 {bleed} 3t, {debuff} 2t",
+    signature: "{target_effects} 3 {blight} 3t, {debuff} 2t",
     effects: [
-      { kind: "bleed", amount: 3, duration: 3 },
+      { kind: "blight", amount: 3, duration: 3 },
       { kind: "debuff", duration: 2 },
     ],
   },

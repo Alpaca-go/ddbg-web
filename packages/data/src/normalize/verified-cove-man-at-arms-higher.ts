@@ -279,6 +279,7 @@ function fixCommand(
   const selfEffects = iconFromCard(card, "self_effects");
   const targetEffects = iconFromCard(card, "target_effects");
   const stun = iconFromCard(card, "stun");
+  const buff = cloneKey(stun, "buff");
   const header: Segment[] = [rangeIcon, text(" 1 ")];
   for (let i = 0; i < targetCount; i += 1) {
     if (i > 0) header.push(text(" "));
@@ -289,8 +290,8 @@ function fixCommand(
     stats_line: null,
     effect_lines: [
       header,
-      [selfEffects, text(" Self "), stun, text(` ${stunT}t`)],
-      [targetEffects, text(" "), stun, text(` ${stunT}t`)],
+      [selfEffects, text(" Self "), buff, text(` ${stunT}t`)],
+      [targetEffects, text(" "), buff, text(` ${stunT}t`)],
     ],
     verified_target_header: { lineIndex: 0, source: "print_front" },
     verified_status_effects: [
@@ -298,14 +299,14 @@ function fixCommand(
         lineIndex: 1,
         segmentIndex: 2,
         scope: "self",
-        kind: "stun",
+        kind: "buff",
         duration: stunT,
       },
       {
         lineIndex: 2,
         segmentIndex: 2,
         scope: "target",
-        kind: "stun",
+        kind: "buff",
         duration: stunT,
       },
     ],
@@ -433,7 +434,7 @@ export function attachVerifiedCoveManAtArmsHigher(
       case "hero_skill:p240":
         return fixBellow(cards, card, 240, 3, 3);
       case "hero_skill:p241":
-        return fixDefender(cards, card, 241, 1, 1, 2, 2, 3);
+        return fixDefender(cards, card, 241, 1, 1, 2, 1, 2);
       case "hero_skill:p242":
         return fixDefender(cards, card, 242, 2, 2, 2, 2, 2);
       case "hero_skill:p243":
