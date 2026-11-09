@@ -2898,3 +2898,11 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **状态**：已裁定
 - **实现状态**：`dungeon-starting-provisions.ts` 新增 `dungeon-provision-discard:` 待选与 `chooseProvisionDiscard`；`quest-p010-purify.test.ts` 覆盖；`quest-provisions.ts` 改为返回溢出信息。
 
+### R-206
+
+- **日期**：2026-11-10（Asia/Shanghai）
+- **问题**：十八英雄技能卡的姿态与目录转录不一致。
+- **裁定**：按 Kyries 交回的《十八英雄技能逐卡审校 距离与目标核对稿》所需位置列和对应印刷卡面逐卡修正。堕落者的形态限制仍依卡面及规则书第 38 页。火枪手按 Q-185 与弩手对应技能的同等级姿态一致。
+- **依据**：核心规则书第 19 页；核心盒 SKILLS FRONT 第 211–231 页；The Darkest Heroes SKILLS FRONT 第 232–357 页；核心盒弩手 SKILLS FRONT 第 148–168 页。
+- **实现**：在规范化层按卡号修正已复核的姿态行。沿用已确认的姿态图标，原始提取和全局词典保持原样（R-048）。
+
