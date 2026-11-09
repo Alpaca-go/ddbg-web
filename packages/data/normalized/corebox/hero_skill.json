@@ -69454,6 +69454,11 @@
      "text": " 2"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -70755,6 +70760,11 @@
      "text": "Acc 10"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -73316,6 +73326,11 @@
      "text": " 5"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -74627,6 +74642,11 @@
      "text": " 4"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -98821,6 +98841,11 @@
      "text": " 2"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "895cbc2e41",
@@ -132427,13 +132452,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -132445,13 +132470,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -132463,13 +132488,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -132481,13 +132506,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -132930,13 +132955,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -132948,13 +132973,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -132966,13 +132991,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -132984,13 +133009,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -133433,13 +133458,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -133451,13 +133476,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -133469,13 +133494,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -133487,13 +133512,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -158139,12 +158164,54 @@
      "text": " "
     },
     {
-     "type": "text",
-     "text": " "
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
     },
     {
      "type": "text",
      "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
     },
     {
      "type": "text",
@@ -158741,12 +158808,54 @@
      "text": " "
     },
     {
-     "type": "text",
-     "text": " "
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
     },
     {
      "type": "text",
      "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
     },
     {
      "type": "text",
@@ -159343,12 +159452,54 @@
      "text": " "
     },
     {
-     "type": "text",
-     "text": " "
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
     },
     {
      "type": "text",
      "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
+    },
+    {
+     "type": "text",
+     "text": " "
+    },
+    {
+     "type": "icon",
+     "icon": {
+      "iconId": "a396e95c00",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "target_monster",
+      "kind": "target",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
+      "value": null,
+      "naming": "confirmed"
+     }
     },
     {
      "type": "text",
@@ -166779,13 +166930,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -166797,13 +166948,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -166815,13 +166966,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -166833,13 +166984,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -167386,13 +167537,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -167404,13 +167555,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -167422,13 +167573,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -167440,13 +167591,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -167993,13 +168144,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -168011,13 +168162,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -168029,13 +168180,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -168047,13 +168198,13 @@
     {
      "type": "icon",
      "icon": {
-      "iconId": "7616568d52",
+      "iconId": "a396e95c00",
       "in_dictionary": true,
       "status": "confirmed",
-      "key": "target_hero",
+      "key": "target_monster",
       "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
+      "meaning_en": "Target: Monster(s)",
+      "meaning_zh": "目标：怪物",
       "value": null,
       "naming": "confirmed"
      }
@@ -168419,8 +168570,8 @@
      }
     },
     {
-     "text": "0",
-     "numeric": 0,
+     "text": "0-2",
+     "numeric": null,
      "anchor": {
       "type": "beside_icon",
       "left_icon": {
@@ -168588,7 +168739,7 @@
     },
     {
      "type": "text",
-     "text": " 0 "
+     "text": " 0-2 "
     },
     {
      "type": "icon",
@@ -168609,6 +168760,11 @@
      "text": " Acc 10"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -168865,8 +169021,8 @@
      }
     },
     {
-     "text": "0",
-     "numeric": 0,
+     "text": "0-2",
+     "numeric": null,
      "anchor": {
       "type": "beside_icon",
       "left_icon": {
@@ -169034,7 +169190,7 @@
     },
     {
      "type": "text",
-     "text": " 0 "
+     "text": " 0-2 "
     },
     {
      "type": "icon",
@@ -169055,6 +169211,11 @@
      "text": " Acc 11"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -169300,8 +169461,8 @@
      }
     },
     {
-     "text": "0",
-     "numeric": 0,
+     "text": "0-2",
+     "numeric": null,
      "anchor": {
       "type": "beside_icon",
       "left_icon": {
@@ -169469,7 +169630,7 @@
     },
     {
      "type": "text",
-     "text": " 0 "
+     "text": " 0-2 "
     },
     {
      "type": "icon",
@@ -169490,6 +169651,11 @@
      "text": " Acc 12"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -172625,25 +172791,6 @@
       "type": "printed_label",
       "label": "Acc"
      }
-    },
-    {
-     "text": "0",
-     "numeric": 0,
-     "anchor": {
-      "type": "beside_icon",
-      "left_icon": {
-       "iconId": "3ab7e7544c",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "range",
-       "kind": "other",
-       "meaning_en": "Range",
-       "meaning_zh": "射程",
-       "value": null,
-       "naming": "confirmed"
-      },
-      "inside_icon": null
-     }
     }
    ],
    "effect_lines": [],
@@ -172718,24 +172865,6 @@
       "kind": "other",
       "meaning_en": "Range",
       "meaning_zh": "射程",
-      "value": null,
-      "naming": "confirmed"
-     }
-    },
-    {
-     "type": "text",
-     "text": " "
-    },
-    {
-     "type": "icon",
-     "icon": {
-      "iconId": "7616568d52",
-      "in_dictionary": true,
-      "status": "confirmed",
-      "key": "target_hero",
-      "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
       "value": null,
       "naming": "confirmed"
      }
@@ -173028,25 +173157,6 @@
       "type": "printed_label",
       "label": "Acc"
      }
-    },
-    {
-     "text": "0",
-     "numeric": 0,
-     "anchor": {
-      "type": "beside_icon",
-      "left_icon": {
-       "iconId": "3ab7e7544c",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "range",
-       "kind": "other",
-       "meaning_en": "Range",
-       "meaning_zh": "射程",
-       "value": null,
-       "naming": "confirmed"
-      },
-      "inside_icon": null
-     }
     }
    ],
    "effect_lines": [],
@@ -173121,24 +173231,6 @@
       "kind": "other",
       "meaning_en": "Range",
       "meaning_zh": "射程",
-      "value": null,
-      "naming": "confirmed"
-     }
-    },
-    {
-     "type": "text",
-     "text": " "
-    },
-    {
-     "type": "icon",
-     "icon": {
-      "iconId": "7616568d52",
-      "in_dictionary": true,
-      "status": "confirmed",
-      "key": "target_hero",
-      "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
       "value": null,
       "naming": "confirmed"
      }
@@ -173431,25 +173523,6 @@
       "type": "printed_label",
       "label": "Acc"
      }
-    },
-    {
-     "text": "0",
-     "numeric": 0,
-     "anchor": {
-      "type": "beside_icon",
-      "left_icon": {
-       "iconId": "3ab7e7544c",
-       "in_dictionary": true,
-       "status": "confirmed",
-       "key": "range",
-       "kind": "other",
-       "meaning_en": "Range",
-       "meaning_zh": "射程",
-       "value": null,
-       "naming": "confirmed"
-      },
-      "inside_icon": null
-     }
     }
    ],
    "effect_lines": [],
@@ -173524,24 +173597,6 @@
       "kind": "other",
       "meaning_en": "Range",
       "meaning_zh": "射程",
-      "value": null,
-      "naming": "confirmed"
-     }
-    },
-    {
-     "type": "text",
-     "text": " "
-    },
-    {
-     "type": "icon",
-     "icon": {
-      "iconId": "7616568d52",
-      "in_dictionary": true,
-      "status": "confirmed",
-      "key": "target_hero",
-      "kind": "target",
-      "meaning_en": "Target: Hero(es) (one icon per target)",
-      "meaning_zh": "目标：英雄（图标数=目标数）",
       "value": null,
       "naming": "confirmed"
      }
@@ -177045,6 +177100,11 @@
      "text": " 2"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -178486,6 +178546,11 @@
      "text": "Acc 10"
     }
    ],
+   "verified_range": {
+    "min": 1,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -181320,6 +181385,11 @@
      "text": " 5"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 2,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -182751,6 +182821,11 @@
      "text": " 4"
     }
    ],
+   "verified_range": {
+    "min": 0,
+    "max": 1,
+    "source": "print_front"
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",

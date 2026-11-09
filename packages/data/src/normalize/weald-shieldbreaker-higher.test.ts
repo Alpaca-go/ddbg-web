@@ -22,13 +22,9 @@ it("R-200：Shieldbreaker 高等级逐卡覆盖签名", () => {
   }
   const impale = data.hero_skill.cards.find((c) => c.id === "hero_skill:p325")!;
   expect(
-    impale.stats_line?.filter(
-      (s) => s.type === "icon" && s.icon.key === "target_monster",
-    ),
-  ).toHaveLength(1);
+    impale.stats_line?.filter((s) => s.type === "icon" && s.icon.key === "target_monster"),
+  ).toHaveLength(4);
   expect(
-    impale.stats_line?.filter(
-      (s) => s.type === "icon" && s.icon.iconId === "7616568d52",
-    ),
+    impale.stats_line?.filter((s) => s.type === "icon" && s.icon.iconId === "7616568d52"),
   ).toHaveLength(0);
 });

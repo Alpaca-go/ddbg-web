@@ -55,12 +55,7 @@ function segmentOnCard(card: NormalizedHeroSkillCard, iconId: string): IconSegme
   throw new Error(`${card.id} 缺少印刷段 iconId=${iconId}（R-048）`);
 }
 
-function assertHm(
-  card: NormalizedHeroSkillCard,
-  page: number,
-  name: string,
-  level: number,
-) {
+function assertHm(card: NormalizedHeroSkillCard, page: number, name: string, level: number) {
   if (
     card.id !== `hero_skill:p${page}` ||
     card.hero !== "HOUNDMASTER" ||
@@ -86,20 +81,14 @@ function stressDeltaAnchor(stressIcon: IconSegment, amount: number) {
 }
 
 /** 洗掉 OCR 射程/压力 beside 与 Rush 族误挂的 1ff34c908b，再由 verified 块重写。 */
-function stripHmOcrBesideNumbers(
-  numbers: NormalizedHeroSkillCard["unlabeled_numbers"],
-) {
+function stripHmOcrBesideNumbers(numbers: NormalizedHeroSkillCard["unlabeled_numbers"]) {
   return numbers.filter(
     (n) =>
       !(
         n.anchor.type === "beside_icon" &&
         (n.anchor.left_icon?.key === "range" || n.anchor.left_icon?.key === "stress") &&
         n.anchor.inside_icon === null
-      ) &&
-      !(
-        n.anchor.type === "beside_icon" &&
-        n.anchor.inside_icon?.iconId === "1ff34c908b"
-      ),
+      ) && !(n.anchor.type === "beside_icon" && n.anchor.inside_icon?.iconId === "1ff34c908b"),
   );
 }
 
@@ -143,6 +132,7 @@ function fixHoundsRush(
 }
 
 function fixHoundsHarry(
+  cards: readonly NormalizedHeroSkillCard[],
   card: NormalizedHeroSkillCard,
   page: number,
   level: number,
@@ -159,8 +149,12 @@ function fixHoundsHarry(
     throw new Error(`${card.id} Hound's Harry 效果行漂移（R-048）`);
   const targetEffects = iconFromCard(card, "target_effects");
   const bleed = iconFromPool([card], "bleed");
+  const targetMonster = iconFromPool(cards, "target_monster");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
+    stats_line: card.stats_line!.map((segment) =>
+      segment.type === "icon" && segment.icon.key === "target_hero" ? targetMonster : segment,
+    ),
     effect_lines: [[targetEffects, text(` ${bleedAmt} `), bleed, text(` ${bleedT}t`)]],
     verified_status_effects: [
       {
@@ -205,7 +199,7 @@ function fixTargetWhistle(
     ...card,
     stats_line: [
       rangeIcon,
-      text(" 0 "),
+      text(" 0-2 "),
       targetMonster,
       ...(accValue === undefined ? [] : [text(` Acc ${accValue}`)]),
     ],
@@ -216,8 +210,8 @@ function fixTargetWhistle(
           !(n.anchor.type === "beside_icon" && n.text === "0" && n.numeric === 0),
       ),
       {
-        text: "0",
-        numeric: 0,
+        text: "0-2",
+        numeric: null,
         anchor: {
           type: "beside_icon" as const,
           left_icon: rangeIcon.icon,
@@ -225,15 +219,9 @@ function fixTargetWhistle(
         },
       },
     ],
+    verified_range: { min: 0, max: 2, source: "print_front" },
     effect_lines: [
-      [
-        targetEffects,
-        text(" "),
-        mark,
-        text(` ${markT}t, `),
-        debuff,
-        text(` ${debuffT}t`),
-      ],
+      [targetEffects, text(" "), mark, text(` ${markT}t, `), debuff, text(` ${debuffT}t`)],
     ],
     verified_status_effects: [
       { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "mark", duration: markT },
@@ -267,21 +255,13 @@ function fixCryHavoc(
     statsHeader.push(targetHero);
   }
   statsHeader.push(text(` ${accRaw}`));
-  const anchors = [
-    stressDeltaAnchor(stressIcon, -1),
-    stressDeltaAnchor(stressIcon, selfStress),
-  ];
+  const anchors = [stressDeltaAnchor(stressIcon, -1), stressDeltaAnchor(stressIcon, selfStress)];
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     stats_line: statsHeader,
     effect_lines: [
       [stressIcon, text(" -1")],
-      [
-        selfEffects,
-        text(" Self "),
-        stressIcon,
-        text(` ${selfStress > 0 ? "+" : ""}${selfStress}`),
-      ],
+      [selfEffects, text(" Self "), stressIcon, text(` ${selfStress > 0 ? "+" : ""}${selfStress}`)],
     ],
     unlabeled_numbers: [
       ...stripHmOcrBesideNumbers(card.unlabeled_numbers),
@@ -298,7 +278,9 @@ function fixCryHavoc(
     ],
     verified_self_stress: { lineIndex: 1, amount: selfStress, source: "print_front" },
     verified_allies_stress: -1,
-    verified_effect_line_receipts: [{ lineIndex: 0, signature: "{stress}-1", source: "print_front" }],
+    verified_effect_line_receipts: [
+      { lineIndex: 0, signature: "{stress}-1", source: "print_front" },
+    ],
   });
 }
 
@@ -363,12 +345,9 @@ function fixLickWounds(
   if (statsSig !== expectedRawStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Lick Wounds stats 漂移（R-048）`);
   const rangeIcon = iconFromCard(card, "range");
-  const targetHero = iconFromCard(card, "target_hero");
   const heal = iconFromPool([card], "heal");
   const stats = card.stats_line!.map((segment) =>
-    segment.type === "icon" && segment.icon.key === "damage"
-      ? cloneKey(segment, "heal")
-      : segment,
+    segment.type === "icon" && segment.icon.key === "damage" ? cloneKey(segment, "heal") : segment,
   );
   const critValue = card.printed_labels.find((l) => l.label === "Crit")?.value ?? 2;
   const accValue = card.printed_labels.find((l) => l.label === "Acc")?.value ?? 20;
@@ -376,8 +355,6 @@ function fixLickWounds(
     ...card,
     stats_line: [
       rangeIcon,
-      text(" "),
-      targetHero,
       text(` Self Crit ${critValue} `),
       heal,
       text(` ${critHeal} Acc ${accValue} `),
@@ -385,18 +362,6 @@ function fixLickWounds(
       text(` ${accHeal}`),
     ],
     effect_lines: [],
-    unlabeled_numbers: [
-      ...card.unlabeled_numbers,
-      {
-        text: "0",
-        numeric: 0,
-        anchor: {
-          type: "beside_icon" as const,
-          left_icon: rangeIcon.icon,
-          inside_icon: null,
-        },
-      },
-    ],
     verified_self_range: true,
   });
 }
@@ -418,9 +383,7 @@ function fixBlackjack(
   const stunMis = segmentOnCard(card, "763ad8e857");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
-    effect_lines: [
-      [targetEffects, text(" "), cloneKey(stunMis, "stun"), text(" 1t")],
-    ],
+    effect_lines: [[targetEffects, text(" "), cloneKey(stunMis, "stun"), text(" 1t")]],
     verified_status_effects: [
       { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "stun", duration: 1 },
     ],
@@ -471,6 +434,7 @@ export function attachVerifiedWealdHoundmasterHigher(
         );
       case "hero_skill:p340":
         return fixHoundsHarry(
+          cards,
           card,
           340,
           1,
@@ -481,6 +445,7 @@ export function attachVerifiedWealdHoundmasterHigher(
         );
       case "hero_skill:p341":
         return fixHoundsHarry(
+          cards,
           card,
           341,
           2,
@@ -491,6 +456,7 @@ export function attachVerifiedWealdHoundmasterHigher(
         );
       case "hero_skill:p342":
         return fixHoundsHarry(
+          cards,
           card,
           342,
           3,
@@ -500,35 +466,11 @@ export function attachVerifiedWealdHoundmasterHigher(
           "{target_effects}3{bleed}2t",
         );
       case "hero_skill:p343":
-        return fixTargetWhistle(
-          card,
-          343,
-          1,
-          2,
-          1,
-          "Acc10",
-          "{target_effects}{mark}2t,{debuff}1t",
-        );
+        return fixTargetWhistle(card, 343, 1, 2, 1, "Acc10", "{target_effects}{mark}2t,{debuff}1t");
       case "hero_skill:p344":
-        return fixTargetWhistle(
-          card,
-          344,
-          2,
-          3,
-          2,
-          "Acc11",
-          "{heal}{mark}3t,{debuff}2t",
-        );
+        return fixTargetWhistle(card, 344, 2, 3, 2, "Acc11", "{heal}{mark}3t,{debuff}2t");
       case "hero_skill:p345":
-        return fixTargetWhistle(
-          card,
-          345,
-          3,
-          3,
-          3,
-          "Acc12",
-          "{heal}{mark}3t,{debuff}3t",
-        );
+        return fixTargetWhistle(card, 345, 3, 3, 3, "Acc12", "{heal}{mark}3t,{debuff}3t");
       case "hero_skill:p346":
         return fixCryHavoc(cards, card, 346, 1, 2, -1, [
           "{target_effects}{buff}-1",

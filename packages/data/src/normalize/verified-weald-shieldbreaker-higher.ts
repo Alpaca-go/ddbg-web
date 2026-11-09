@@ -55,12 +55,7 @@ function segmentOnCard(card: NormalizedHeroSkillCard, iconId: string): IconSegme
   throw new Error(`${card.id} 缺少印刷段 iconId=${iconId}（R-048）`);
 }
 
-function assertSb(
-  card: NormalizedHeroSkillCard,
-  page: number,
-  name: string,
-  level: number,
-) {
+function assertSb(card: NormalizedHeroSkillCard, page: number, name: string, level: number) {
   if (
     card.id !== `hero_skill:p${page}` ||
     card.hero !== "SHIELDBREAKER" ||
@@ -87,9 +82,7 @@ function rangeZeroUnlabeled(rangeIcon: IconSegment) {
 function remapStatsDamageFromTargetEffects(
   stats: NonNullable<NormalizedHeroSkillCard["stats_line"]>,
 ): Segment[] {
-  const damage = stats.find(
-    (s): s is IconSegment => s.type === "icon" && s.icon.key === "damage",
-  );
+  const damage = stats.find((s): s is IconSegment => s.type === "icon" && s.icon.key === "damage");
   return stats.map((segment) => {
     if (segment.type === "icon" && segment.icon.iconId === "b6afaa4d7b")
       return damage ? cloneKey(segment, "damage") : segment;
@@ -125,11 +118,7 @@ function fixPierce(
     ...card,
     effect_lines: [
       [selfEffects, text(" Self "), cloneKey(shuffleMis, "shuffle"), text(" Pull 1")],
-      [
-        cloneKey(healMis, "target_effects"),
-        text(" Ignores "),
-        protection,
-      ],
+      [cloneKey(healMis, "target_effects"), text(" Ignores "), protection],
     ],
   });
 }
@@ -200,9 +189,7 @@ function fixAddersKiss(
   const pushMis = segmentOnCard(card, "d4329c2a97");
   const shuffle = iconFromPool(cards, "shuffle");
   const targetEffects = iconFromCard(card, "target_effects");
-  const status = stunInsteadOfDebuff
-    ? iconFromCard(card, "stun")
-    : iconFromCard(card, "debuff");
+  const status = stunInsteadOfDebuff ? iconFromCard(card, "stun") : iconFromCard(card, "debuff");
   const duration = stunInsteadOfDebuff ? 3 : 2;
   return normalizedHeroSkillCardSchema.parse({
     ...card,
@@ -244,15 +231,9 @@ function fixImpale(
   )
     throw new Error(`${card.id} Impale 效果行漂移（R-048）`);
   const targetMonster = iconFromPool(cards, "target_monster");
-  let impaleSkullKept = false;
-  const statsLine = card.stats_line!.flatMap((segment) => {
-    if (segment.type === "icon" && segment.icon.iconId === "7616568d52") {
-      if (impaleSkullKept) return [];
-      impaleSkullKept = true;
-      return [targetMonster];
-    }
-    return [segment];
-  });
+  const statsLine = card.stats_line!.map((segment) =>
+    segment.type === "icon" && segment.icon.iconId === "7616568d52" ? targetMonster : segment,
+  );
   const selfEffects = iconFromCard(card, "self_effects");
   const pushMis = segmentOnCard(card, "d4329c2a97");
   const shuffle = iconFromPool(cards, "shuffle");
@@ -260,7 +241,7 @@ function fixImpale(
   const debuff = iconFromCard(card, "debuff");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
-    stats_line: statsLine.length ? statsLine : [targetMonster],
+    stats_line: statsLine,
     effect_lines: [
       [selfEffects, text(" Self "), cloneKey(pushMis, "shuffle"), text(" Push 1")],
       [targetEffects, debuff, text(` ${debuffT}t`)],
@@ -433,11 +414,7 @@ function fixSerpentSwayIii(
     effect_lines: [
       [selfEffects, text(" Self "), protection, text(" 3t")],
       [selfEffects, text(" Self "), shuffle, text(" Pull 1")],
-      [
-        cloneKey(segmentOnCard(card, "1e762d801a"), "target_effects"),
-        protection,
-        text(" 2t"),
-      ],
+      [cloneKey(segmentOnCard(card, "1e762d801a"), "target_effects"), protection, text(" 2t")],
     ],
     verified_status_effects: [
       {
