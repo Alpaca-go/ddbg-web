@@ -399,7 +399,7 @@ export function BattleView({
                   )}
                   {area.invokingAbyss && (
                     <p>
-                      Invoking Abyss：轮末本区有存活怪物时，全体存活英雄各压力 +
+                      Invoking Abyss：轮末本区有存活怪物时，全体存活英雄各压力+
                       {area.invokingAbyssStress ?? 2}。
                     </p>
                   )}
