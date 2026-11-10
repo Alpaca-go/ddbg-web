@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { finishTurn } from "../encounter";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
 import { applyCommand, type Command, type GameState } from "../command";
@@ -78,6 +79,33 @@ describe("最暗中途 Boss 专用 deploy / startBattle", () => {
       expect(applyCommand(afterStart, { type: "startBattle" }).state).toBe(afterStart);
     },
   );
+
+  it("R-218：Templars 每只各行动两次，第四张怪物牌后仍可轮到英雄", () => {
+    const game = started(deployed("quest:p017"), "quest:p017");
+    const { provisionWindows, ...battle } = game.battle!;
+    expect(provisionWindows).toBe(true);
+    const actors = battle.entities.filter((e) => e.side === "monster");
+    const actorIds = [actors[0]!.id, actors[0]!.id, actors[1]!.id, actors[1]!.id];
+    let state: GameState = {
+      ...game,
+      battle: {
+        ...battle,
+        encounter: {
+          ...battle.encounter!,
+          deck: ["monster", "monster", "monster", "monster", "hero"],
+        },
+      },
+    };
+    for (const actorId of actorIds) {
+      state = ok(state, { type: "drawInitiative" }).state;
+      expect(state.battle!.encounter!.turn).toEqual({ type: "monster", actorId });
+      const result = finishTurn(state, actorId, []);
+      expect(result.events.filter((event) => event.type === "commandRefused")).toEqual([]);
+      state = result.state;
+    }
+    expect(state.battle!.encounter!.actedIds).toEqual(actors.map((actor) => actor.id));
+    expect(state.battle!.encounter!.deck).toEqual(["hero"]);
+  });
 
   it("重复 deployMammothCystI 拒绝", () => {
     const game = ok(deployed("quest:p018"), { type: "deployMammothCystI" }).state;

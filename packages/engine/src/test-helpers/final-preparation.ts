@@ -27,3 +27,15 @@ export function finalPreparationFixture(
     },
   };
 }
+
+/** 机制夹具：移除支援位的 Reflection，单独测试阵亡腾出姿态后的召唤。 */
+export function withoutSupportReflection(state: GameState): GameState {
+  const battle = state.battle!;
+  return {
+    ...state,
+    battle: {
+      ...battle,
+      entities: battle.entities.filter((e) => !(e.side === "monster" && e.stance === "support")),
+    },
+  };
+}

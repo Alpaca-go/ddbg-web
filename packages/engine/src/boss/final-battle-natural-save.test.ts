@@ -20,7 +20,7 @@ const preFinalBattleSources = (): CoreQuestSources => ({
   },
 });
 
-it("最终战从 p018 自然路径至首形态部署与开战；检查点严格回放", () => {
+it("p018 固定自然前缀严格回放，若进入最终战则核对首形态部署与开战", () => {
   const start = {
     seed: 3279,
     questId: "quest:p018",
@@ -29,18 +29,33 @@ it("最终战从 p018 自然路径至首形态部署与开战；检查点严格�
     bossEdgeRooms: true,
   } as const;
   const checkpoints: { state: GameState; count: number }[] = [];
-  let count = 0;
-  const run = naturalFinalBattle(3279, coreQuestSources, {
-    through: "battleStarted",
-    observe(state, command) {
-      count++;
-      if (
-        command.type === "deployFinalBattleForm" ||
-        (state.battle?.roomName === "Ancestor Room" && command.type === "startBattle")
-      )
-        checkpoints.push({ state, count });
-    },
-  });
+  const observedCommands: Command[] = [];
+  let observedState: GameState | undefined;
+  let run: ReturnType<typeof naturalFinalBattle>;
+  try {
+    run = naturalFinalBattle(3279, coreQuestSources, {
+      through: "battleStarted",
+      observe(state, command) {
+        observedState = state;
+        observedCommands.push(command);
+        if (
+          command.type === "deployFinalBattleForm" ||
+          (state.battle?.roomName === "Ancestor Room" && command.type === "startBattle")
+        )
+          checkpoints.push({ state, count: observedCommands.length });
+      },
+    });
+  } catch (error) {
+    // R-190：固定路线若打输，验证真实停止点和回放，保留原种子与策略。
+    if (!(error instanceof Error) || error.message !== "battle halted: heroesDefeated") throw error;
+    expect(observedState?.battle?.encounter?.turn).toMatchObject({
+      type: "halted",
+      reason: "heroesDefeated",
+    });
+    const save = createQuestSave(start, observedCommands, observedState!, coreQuestSources);
+    expect(loadQuestSave(save, coreQuestSources).game).toEqual(observedState);
+    return;
+  }
   expect(run.commands[0]!.type).toBe("rollDungeonProvisions");
   expect(run.commands.some((c) => c.type === "beginFinalPreparation")).toBe(true);
   expect(run.commands.some((c) => c.type === "prepareFinalBattleForms")).toBe(true);
@@ -54,7 +69,7 @@ it("最终战从 p018 自然路径至首形态部署与开战；检查点严格�
     areaId: "E",
   });
   const started = checkpoints[1]!.state.battle!;
-  expect(started.encounter!.deck).toHaveLength(7);
+  expect(started.encounter!.deck).toHaveLength(8);
   for (const checkpoint of checkpoints) {
     const save = createQuestSave(
       start,

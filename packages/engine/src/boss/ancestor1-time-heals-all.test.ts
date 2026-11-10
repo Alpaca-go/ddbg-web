@@ -1,8 +1,10 @@
 import { expect, it } from "vitest";
 import { applyCommand, type GameState } from "../command";
 import { readFinalFormSequence } from "./final-form-sequence";
-import { finalPreparationFixture } from "../test-helpers/final-preparation";
-import { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
+import {
+  finalPreparationFixture,
+  withoutSupportReflection,
+} from "../test-helpers/final-preparation";
 import {
   ANCESTOR_1_MONSTER_CARD_ID,
   applyAncestor1TimeHealsAll,
@@ -59,42 +61,14 @@ function onAncestorTurn(state: GameState): GameState {
   };
 }
 
-function fillSupportStance(state: GameState): GameState {
-  return {
-    ...state,
-    battle: {
-      ...state.battle!,
-      entities: [
-        ...state.battle!.entities,
-        {
-          id: "fill-support",
-          side: "monster",
-          hero: null,
-          monsterCardId: "monster_medium:p072",
-          life: 26,
-          dodge: 3,
-          areaId: FINAL_BATTLE_MONSTER_STANCE_AREAS.support,
-          stance: "support",
-          stanceSlots: 1,
-          wounds: 0,
-          skillIds: [],
-          guard: false,
-          dead: false,
-          bleed: [],
-          blight: [],
-        },
-      ],
-    },
-  };
-}
-
 function withWounds(state: GameState, cardId: string, wounds: number): GameState {
+  const target = state.battle!.entities.find((entity) => entity.monsterCardId === cardId)!;
   return {
     ...state,
     battle: {
       ...state.battle!,
       entities: state.battle!.entities.map((entity) =>
-        entity.monsterCardId === cardId ? { ...entity, wounds } : entity,
+        entity.id === target.id ? { ...entity, wounds } : entity,
       ),
     },
   };
@@ -106,7 +80,7 @@ it("ancestor1 形态 combatReady 已批准为 true", () => {
 });
 
 it("满槽时对 Most Wounded 友方治疗 10 并 finishTurn", () => {
-  let game = onAncestorTurn(fillSupportStance(ancestor1Fighting()));
+  let game = onAncestorTurn(ancestor1Fighting());
   game = withWounds(withWounds(game, PERFECT, 12), IMPERFECT, 5);
   const perfectBefore = game.battle!.entities.find((entity) => entity.monsterCardId === PERFECT)!;
   const result = applyAncestor1TimeHealsAll(game, ancestor(game).id);
@@ -119,7 +93,7 @@ it("满槽时对 Most Wounded 友方治疗 10 并 finishTurn", () => {
 });
 
 it("怪物姿态轨有空槽则拒绝", () => {
-  const game = onAncestorTurn(ancestor1Fighting());
+  const game = onAncestorTurn(withoutSupportReflection(ancestor1Fighting()));
   const result = applyAncestor1TimeHealsAll(game, ancestor(game).id);
   expect(result.events.some((event) => event.type === "commandRefused")).toBe(true);
   expect(result.events.find((event) => event.type === "commandRefused")?.message).toContain(
@@ -128,7 +102,7 @@ it("怪物姿态轨有空槽则拒绝", () => {
 });
 
 it("非 ancestor1 形态或非 Ancestor 回合拒绝", () => {
-  const onTurn = onAncestorTurn(fillSupportStance(ancestor1Fighting()));
+  const onTurn = onAncestorTurn(ancestor1Fighting());
   const wrongForm: GameState = {
     ...onTurn,
     dungeon: {

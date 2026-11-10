@@ -122,7 +122,9 @@ export const darkestBossContentSchema = z
       file.finalBattle.forms.some(
         (f, i) =>
           JSON.stringify(f.supportCardIds) !==
-          JSON.stringify(i === 0 ? ["monster_medium:p106", "monster_medium:p109"] : []),
+          JSON.stringify(
+            i === 0 ? ["monster_medium:p106", "monster_medium:p109", "monster_medium:p106"] : [],
+          ),
       )
     )
       ctx.addIssue({ code: "custom", message: "Reflections 引用不一致" });

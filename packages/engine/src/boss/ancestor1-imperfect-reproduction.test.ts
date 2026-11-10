@@ -2,8 +2,10 @@ import { expect, it } from "vitest";
 import { applyCommand, type ApplyResult, type GameState } from "../command";
 import { removeCasualties } from "../encounter";
 import { readFinalFormSequence } from "./final-form-sequence";
-import { finalPreparationFixture } from "../test-helpers/final-preparation";
-import { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
+import {
+  finalPreparationFixture,
+  withoutSupportReflection,
+} from "../test-helpers/final-preparation";
 import { ANCESTOR_1_MONSTER_CARD_ID, applyAncestor1TimeHealsAll } from "./ancestor1-time-heals-all";
 import {
   IMPERFECT_REFLECTION_MONSTER_CARD_ID,
@@ -18,19 +20,19 @@ import {
 
 const IMPERFECT = IMPERFECT_REFLECTION_MONSTER_CARD_ID;
 const PERFECT = PERFECT_REFLECTION_MONSTER_CARD_ID;
-it("R31 Imperfect Reflection 洗入当前剩余先攻，原子拒绝不消耗 RNG", () => {
-  const base = onAncestorTurn(ancestor1Fighting());
+it("R31 Imperfect Reflection 替补时保留原先攻，原子拒绝不消耗 RNG", () => {
+  const base = onAncestorTurn(withoutSupportReflection(ancestor1Fighting()));
   const state = {
     ...base,
     battle: {
       ...base.battle!,
-      encounter: { ...base.battle!.encounter!, deck: ["hero" as const, "hero" as const] },
+      encounter: { ...base.battle!.encounter!, deck: ["monster" as const, "hero" as const] },
     },
   };
   const before = structuredClone(state);
   const result = applyAncestor1ImperfectReproduction(state, ancestor(state).id);
   expect(result.state.battle!.encounter!.deck.filter((s) => s === "monster")).toHaveLength(1);
-  expect(result.state.battle!.rngCursor).toBe(state.battle.rngCursor + 1);
+  expect(result.state.battle!.rngCursor).toBe(state.battle.rngCursor);
   const refused = applyAncestor1ImperfectReproduction(state, "wrong");
   expect(refused.state).toBe(state);
   expect(state).toEqual(before);
@@ -81,35 +83,6 @@ function onAncestorTurn(state: GameState): GameState {
   };
 }
 
-function fillSupportStance(state: GameState): GameState {
-  return {
-    ...state,
-    battle: {
-      ...state.battle!,
-      entities: [
-        ...state.battle!.entities,
-        {
-          id: "fill-support",
-          side: "monster",
-          hero: null,
-          monsterCardId: "monster_medium:p072",
-          life: 26,
-          dodge: 3,
-          areaId: FINAL_BATTLE_MONSTER_STANCE_AREAS.support,
-          stance: "support",
-          stanceSlots: 1,
-          wounds: 0,
-          skillIds: [],
-          guard: false,
-          dead: false,
-          bleed: [],
-          blight: [],
-        },
-      ],
-    },
-  };
-}
-
 function killImperfectReflection(state: GameState): ApplyResult {
   const target = state.battle!.entities.find((entity) => entity.monsterCardId === IMPERFECT)!;
   const next: GameState = {
@@ -135,7 +108,7 @@ it("ancestor1 形态 combatReady 已批准为 true", () => {
 });
 
 it("空槽召唤 Imperfect Reflection、Most Stressed 压力 +2、Guard 并 finishTurn", () => {
-  const fighting = ancestor1Fighting();
+  const fighting = withoutSupportReflection(ancestor1Fighting());
   const before = onAncestorTurn({
     ...fighting,
     battle: {
@@ -178,7 +151,7 @@ it("空槽召唤 Imperfect Reflection、Most Stressed 压力 +2、Guard 并 fini
 });
 
 it("怪物姿态轨满则拒绝", () => {
-  const game = onAncestorTurn(fillSupportStance(ancestor1Fighting()));
+  const game = onAncestorTurn(ancestor1Fighting());
   const result = applyAncestor1ImperfectReproduction(game, ancestor(game).id);
   expect(result.events.some((event) => event.type === "commandRefused")).toBe(true);
   expect(result.events.find((event) => event.type === "commandRefused")?.message).toContain(
@@ -233,7 +206,7 @@ it("回归 Reflections Imperfect 死亡反噬", () => {
 });
 
 it("回归 Perfect Replication 空槽召唤", () => {
-  const before = onAncestorTurn(ancestor1Fighting());
+  const before = onAncestorTurn(withoutSupportReflection(ancestor1Fighting()));
   const result = applyAncestor1PerfectReplication(before, ancestor(before).id);
   expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
   expect(
@@ -244,7 +217,7 @@ it("回归 Perfect Replication 空槽召唤", () => {
 });
 
 it("回归 Time Heals All 满槽治疗", () => {
-  let game = onAncestorTurn(fillSupportStance(ancestor1Fighting()));
+  let game = onAncestorTurn(ancestor1Fighting());
   const wounded = game.battle!.entities.find((entity) => entity.monsterCardId === PERFECT)!;
   game = {
     ...game,
@@ -260,7 +233,7 @@ it("回归 Time Heals All 满槽治疗", () => {
 });
 
 it("显式命令经 applyCommand 接线", () => {
-  const state = onAncestorTurn(ancestor1Fighting());
+  const state = onAncestorTurn(withoutSupportReflection(ancestor1Fighting()));
   const result = applyCommand(state, {
     type: "applyAncestor1ImperfectReproduction",
     actorId: ancestor(state).id,

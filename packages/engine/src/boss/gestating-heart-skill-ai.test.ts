@@ -94,7 +94,7 @@ it("有空姿态位：Dispersion 自动随机召唤并结束回合", () => {
   expect(
     result.state.battle!.entities.filter((entity) => entity.id.startsWith("gestating-summon:")),
   ).toHaveLength(1);
-  expect(result.state.battle!.rngCursor).toBe(cursorBefore + 1);
+  expect(result.state.battle!.rngCursor).toBe(cursorBefore + 2);
   expect(result.state.battle!.encounter!.turn).not.toMatchObject({
     type: "monster",
     actorId: heart(game).id,

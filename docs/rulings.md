@@ -2301,6 +2301,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：批准最终战在 R-165 房间（`room:p025` / `room_tile:p014:back`）的 **`deployFinalBattleForm`** 生产部署与形态间续接。四英雄按 R-165 落 **K/I/K/C**，各形态 Boss 与支持卡按目录 stance 落 **E/B/A/J**；十一区邻接经 `roomTileBattleAreas` 写入 BattleState，**不**经 `selectRoomTile` 或探索 tile 白名单。保留英雄状态与 RNG 游标，部署不掷骰；显式 **`startBattle`** 仍洗先攻。`room_tile` 与 `darkest_boss_content` 的 **`usable` / `combatReady` 保持 false**（无 `ancestorGlory` 等特殊区运行时）。
+- **补记**：Ancestor 首形态的三只 Reflection 与随机姿态部署见 R-217。
 - **依据**：Kyries 确认 [#595](https://github.com/Alpaca-go/ddbg-web/pull/595) 与 R-186；R-165 图面、[审核稿](phase5-ancestor-room-geometry-review-2026-11-03.md)、[生产入口审核稿](phase5-final-battle-production-entry-review-2026-11-04.md)、核心 R36/R-035、对标 R-184 / R-182。
 - **边界**：限最终战形态流程（`finalBattleProvisions` + `finalFormSequence`）；不修改任务白名单、自然战役严格存档、形态技能完整 AI、Stygian、扩展包。
 
@@ -2974,3 +2975,18 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **日期**：2026-11-10
 - **裁定**：Fundraiser I（QUEST FRONT p3）每清理一间巢穴获得 10 金币。至少清理一间后可向继承人捐献任意不超过共享余额的整数金币。每交 20 金币得 1 XP，英雄和驿站仍各封顶 3 XP，随回村发放。旧裁定的 60 金限制修订为只限制 XP 的换算，R-068 的最低目标与提前离开继续适用。
 - **依据**：Kyries 核准的任务与探索逐项核对稿、QUEST FRONT p3、核心规则书第 29 页、R-001、R-038、R-068。
+
+### R-217
+
+- **编号**：R-217
+- **日期**：2026-11-10
+- **裁定**：最终战 Ancestor 首形态主体放进攻。开场部署 2 只 Perfect Reflection、1 只 Imperfect Reflection，在防御、远程、支援三个空姿态随机落位。两只 Perfect 等价，用一次种子 RNG 等概率确定 Imperfect 的姿态。开场合计 4 张怪物先攻牌。
+- **依据**：Kyries 核准的任务与探索逐项核对稿、核心规则书第 40 页、R-001、R-186。最终战存档验收范围沿用 R-201。
+
+### R-218
+
+- **编号**：R-218
+- **日期**：2026-11-10
+- **裁定**：以核对稿与核心规则书第 39–41 页的先攻配置执行。最暗中段三个遭遇的本体各每轮行动 2 次。Ancestor 首形态每轮共 4 张怪物先攻，Reflection 阵亡或替补时不增减，已有行动的 Reflection 不再行动，余下怪物先攻由 Ancestor 承担。Ancestor 第二形态和 Heart of Darkness 各 2 张先攻、2 次行动。三只 Absolute Nothingness 各占一个区域容量，无先攻与行动。Gestating Heart 本体 1 次行动，Dispersion 成功召唤后立即洗入 1 张怪物先攻，召唤物当轮即可行动。
+- **依据**：Kyries 核准的任务与探索逐项核对稿、核心规则书第 39–41 页、R-001、R-034、R-217。Ancestor 首形态的固定四张为 R-034 的专属例外。
+- **验收**：R-201 的范围不扩。原 p018 种子 3279 与策略在新规则下止于中段 Boss 战全灭，验收该真实停止点可严格回放。最终战部署与行动次数由机制夹具独立核对（R-190）。
