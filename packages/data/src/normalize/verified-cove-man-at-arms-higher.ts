@@ -148,7 +148,6 @@ function fixBellow(
   if (statsSig !== expectedStats[level]) throw new Error(`${card.id} Bellow stats 漂移`);
   if (effSig !== `{target_effects}{debuff}${debuffT}t`)
     throw new Error(`${card.id} Bellow 效果行漂移`);
-  const debuff = iconFromCard(card, "debuff");
   const targetMonster = iconFromPool(cards, "target_monster");
   return normalizedHeroSkillCardSchema.parse({
     ...card,

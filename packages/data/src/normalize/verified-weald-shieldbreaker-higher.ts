@@ -80,7 +80,6 @@ function rangeZeroUnlabeled(rangeIcon: IconSegment) {
 }
 
 function fixPierce(
-  cards: readonly NormalizedHeroSkillCard[],
   card: NormalizedHeroSkillCard,
   page: number,
   level: number,
@@ -99,10 +98,8 @@ function fixPierce(
     throw new Error(`${card.id} Pierce 效果行漂移（R-048）`);
   const selfEffects = iconFromCard(card, "self_effects");
   const shuffleMis = segmentOnCard(card, "d4329c2a97");
-  const shuffle = iconFromPool(cards, "shuffle");
   const protection = iconFromCard(card, "protection");
   const healMis = segmentOnCard(card, "20ffe98e2d");
-  const targetEffects = iconFromPool(cards, "target_effects");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     effect_lines: [
@@ -176,7 +173,6 @@ function fixAddersKiss(
     throw new Error(`${card.id} Adder's Kiss 效果行漂移（R-048）`);
   const selfEffects = iconFromCard(card, "self_effects");
   const pushMis = segmentOnCard(card, "d4329c2a97");
-  const shuffle = iconFromPool(cards, "shuffle");
   const targetEffects = iconFromCard(card, "target_effects");
   const blight = iconFromPool(cards, "blight");
   return normalizedHeroSkillCardSchema.parse({
@@ -223,7 +219,6 @@ function fixImpale(
   );
   const selfEffects = iconFromCard(card, "self_effects");
   const pushMis = segmentOnCard(card, "d4329c2a97");
-  const shuffle = iconFromPool(cards, "shuffle");
   const targetEffects = iconFromCard(card, "target_effects");
   const debuff = iconFromCard(card, "debuff");
   return normalizedHeroSkillCardSchema.parse({
@@ -246,7 +241,6 @@ function fixImpale(
 }
 
 function fixExpose(
-  cards: readonly NormalizedHeroSkillCard[],
   card: NormalizedHeroSkillCard,
   page: number,
   level: number,
@@ -266,7 +260,6 @@ function fixExpose(
     throw new Error(`${card.id} Expose 效果行漂移（R-048）`);
   const selfEffects = iconFromCard(card, "self_effects");
   const pushMis = segmentOnCard(card, "d4329c2a97");
-  const shuffle = iconFromPool(cards, "shuffle");
   const targetEffects = iconFromCard(card, "target_effects");
   const debuff = iconFromCard(card, "debuff");
   return normalizedHeroSkillCardSchema.parse({
@@ -396,7 +389,6 @@ function fixSerpentSwayIii(
   const selfEffects = iconFromCard(card, "self_effects");
   const protection = iconFromCard(card, "protection");
   const shuffle = iconFromPool(cards, "shuffle");
-  const targetEffects = iconFromPool(cards, "target_effects");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     stats_line: header,
@@ -432,7 +424,6 @@ export function attachVerifiedWealdShieldbreakerHigher(
     switch (card.id) {
       case "hero_skill:p316":
         return fixPierce(
-          cards,
           card,
           316,
           1,
@@ -442,7 +433,6 @@ export function attachVerifiedWealdShieldbreakerHigher(
         );
       case "hero_skill:p317":
         return fixPierce(
-          cards,
           card,
           317,
           2,
@@ -452,7 +442,6 @@ export function attachVerifiedWealdShieldbreakerHigher(
         );
       case "hero_skill:p318":
         return fixPierce(
-          cards,
           card,
           318,
           3,
@@ -561,7 +550,6 @@ export function attachVerifiedWealdShieldbreakerHigher(
         );
       case "hero_skill:p328":
         return fixExpose(
-          cards,
           card,
           328,
           1,
@@ -572,7 +560,6 @@ export function attachVerifiedWealdShieldbreakerHigher(
         );
       case "hero_skill:p329":
         return fixExpose(
-          cards,
           card,
           329,
           2,
@@ -583,7 +570,6 @@ export function attachVerifiedWealdShieldbreakerHigher(
         );
       case "hero_skill:p330":
         return fixExpose(
-          cards,
           card,
           330,
           3,
