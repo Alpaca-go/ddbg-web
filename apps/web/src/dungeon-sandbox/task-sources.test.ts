@@ -19,6 +19,7 @@ vi.mock("virtual:quest-battle-data-v2", async () => ({
 import { applyCommand, createCoreDungeonQuest, createQuestSave, loadQuestSave } from "@ddbg/engine";
 import {
   preAbominationTaskSources,
+  preHeroStatReviewTaskSources,
   preDarkestTaskSources,
   preProphetTaskSources,
   preFanaticTaskSources,
@@ -35,6 +36,26 @@ import {
   naturalQuest,
 } from "../../../../packages/engine/src/test-helpers/natural-quest";
 import { coreParty } from "../../../../packages/engine/src/test-helpers/core-quest";
+it("R-215 仅在旧目录回放和新目录结果都匹配时更新旧存档", () => {
+  const start = {
+    seed: 1,
+    questId: "quest:p001" as const,
+    mode: "radiant" as const,
+    party: coreParty.map((hero) => ({ ...hero, skillIds: [...hero.skillIds] })),
+  };
+  const make = (sources: typeof taskSources) =>
+    createCoreDungeonQuest(start.seed, start.questId, start.mode, start.party, sources);
+  const before = make(preHeroStatReviewTaskSources);
+  const save = createQuestSave(start, [], before, preHeroStatReviewTaskSources);
+  expect(() => loadQuestSave(save, taskSources)).toThrow();
+  expect(loadQuestSave(save, taskSources, [preHeroStatReviewTaskSources]).game).toEqual(
+    make(taskSources),
+  );
+  const tampered = JSON.parse(JSON.stringify(save));
+  tampered.snapshot.dungeon.battleCatalog.heroStats[0].speed += 1;
+  expect(() => loadQuestSave(tampered, taskSources, [preHeroStatReviewTaskSources])).toThrow();
+});
+
 it("#416 catalog snapshots are validated against fixed old sources before upgrading; altered player state is refused", () => {
   expect(taskSources.catalog.skills.length - preAbominationTaskSources.catalog.skills.length).toBe(
     10,

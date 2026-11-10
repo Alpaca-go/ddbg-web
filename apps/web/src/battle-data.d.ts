@@ -42,6 +42,7 @@ declare module "virtual:battle-data" {
       readonly speed: number;
       readonly attributesVerified: boolean;
       readonly verified_condition_defence?: import("../../../packages/data/src/normalize/hero-stat").HeroConditionDefence;
+      readonly verified_higher_condition_defence?: import("../../../packages/data/src/normalize/hero-higher-defence").HigherHeroDefence;
       readonly level: number;
     }[];
   };

@@ -45,6 +45,42 @@ export const taskSources: CoreQuestSources = {
   },
 };
 
+/** R-215 之前的固定属性目录。只供旧档完整回放，绝不读取存档自带的属性作规则。 */
+export const preHeroStatReviewTaskSources: CoreQuestSources = {
+  ...taskSources,
+  catalog: {
+    ...taskSources.catalog,
+    heroStats: taskSources.catalog.heroStats.map((stat) => {
+      if (stat.verified_higher_condition_defence?.approval !== "kyries_review_2026-11-10")
+        return stat;
+      const { verified_higher_condition_defence: reviewed, ...old } = stat;
+      if (stat.id === "hero_stat:warrens:leper:p001:front")
+        return {
+          ...old,
+          verified_condition_defence: {
+            resistances: ["stun"],
+            immunities: [],
+            source: "print_front",
+            approval: "kyries_review_2026-10-24",
+          },
+        };
+      if (stat.id === "hero_stat:warrens:antiquarian:p002:front")
+        return {
+          ...old,
+          speed: 0,
+          verified_higher_condition_defence: {
+            ...reviewed,
+            resistances: ["blight"],
+            approval: "kyries_review_2026-11-08",
+          },
+        };
+      if (stat.name === "ANTIQUARIAN" || stat.name === "FLAGELLANT") return { ...old, speed: 0 };
+      if (stat.id === "hero_stat:cove:man-at-arms:p002:front") return { ...old, speed: 1 };
+      return old;
+    }),
+  },
+};
+
 const mammothCystCatalogId = "monster_large:p016" as const;
 const shufflingHorrorCatalogId = "monster_large:p017" as const;
 const templarsCatalogIds = ["monster_large:p014", "monster_large:p015"] as const;
