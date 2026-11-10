@@ -23,7 +23,7 @@ export function QuestGoalNotes({ quest }: { readonly quest: QuestCardOption }) {
         {quest.xpKind === "flat"
           ? `击败 Boss 并回村后每名英雄与驿站各固定 ${quest.flatXp ?? 3} XP（R-122）；摘要于离开地牢后生成，XP 于回村完成时发放。`
           : quest.xpKind === "gold"
-            ? "清理至少一间巢穴后，可每捐献20金币获得1XP，最多捐献60金币、获得3XP。"
+            ? "清理巢穴奖励10金币。至少清理一间后可捐献任意不超过余额的金币，每20金币获得1XP，最多3XP。"
             : quest.xpKind === "camp"
               ? "在已清理 Empty 房每次消耗 1 Torch 或 1 Shovel 设营获得 1XP，最多 3XP（R-113）。"
               : `每清理${quest.roomsPerXp ?? 1}${

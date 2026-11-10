@@ -105,6 +105,7 @@ export function ScoutingPanel({
         <FundraiserChoice
           key={pendingChoice.id}
           choice={pendingChoice}
+          availableGold={d.gold}
           choose={(optionId) =>
             dispatch({ type: "resolveChoice", choiceId: pendingChoice!.id, optionId })
           }
