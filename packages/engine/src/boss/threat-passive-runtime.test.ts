@@ -236,7 +236,7 @@ describe("威胁被动运行时接线", () => {
     expect("curioRoom" in skipped.state.dungeon!).toBe(false);
   });
 
-  it("Fanatic I：drawHamletEvent 前 The Black Sheep 对 d10 最低者 +4 压力", () => {
+  it("R-226：drawHamletEvent 前 The Black Sheep 对 d10 最低者施加减益 4t", () => {
     let game = createCoreDungeonQuest(906, "quest:p001", "standard", coreParty, coreQuestSources);
     let result = applyCommand(game, { type: "rollDungeonProvisions" });
     expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
@@ -264,14 +264,15 @@ describe("威胁被动运行时接线", () => {
     game = ok(game, { type: "setActiveBossThreat", scriptId: FANATIC_I_SCRIPT_ID });
     const before = game.dungeon!.heroes.map((h) => h.stress);
     game = ok(game, { type: "drawHamletEvent" });
-    const after = game.dungeon!.heroes.map((h) => h.stress);
-    expect(after.some((s, i) => s > before[i]!)).toBe(true);
-    const delta = after.map((s, i) => s - before[i]!);
-    expect(delta.filter((d) => d === 4).length).toBeGreaterThanOrEqual(1);
-    expect(delta.every((d) => d === 0 || d === 4)).toBe(true);
+    expect(game.dungeon!.heroes.map((h) => h.stress)).toEqual(before);
+    const debuffed = game.dungeon!.heroes.filter((h) =>
+      h.statusStacks?.some((stack) => stack.kind === "debuff" && stack.remaining === 4),
+    );
+    expect(debuffed.length).toBeGreaterThanOrEqual(1);
+    expect(game.dungeon!.phase).toBe("inHamlet");
   });
 
-  it("Fanatic I：Black Sheep 把压力顶到 10 后仍在 inHamlet 抽村庄事件（R32）", () => {
+  it("旧档：Black Sheep 把压力顶到 10 后仍在 inHamlet 抽村庄事件（R32）", () => {
     let game = createCoreDungeonQuest(906, "quest:p001", "standard", coreParty, coreQuestSources);
     let result = applyCommand(game, { type: "rollDungeonProvisions" });
     expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
@@ -305,16 +306,16 @@ describe("威胁被动运行时接线", () => {
       },
     };
 
-    const drawn = applyCommand(game, { type: "drawHamletEvent" });
+    const drawn = applyCommand(game, { type: "drawHamletEvent" }, true);
     expect(drawn.events.some((e) => e.type === "commandRefused")).toBe(false);
     expect(drawn.state.dungeon!.phase).toBe("inHamlet");
     expect(drawn.state.dungeon!.hamlet?.active ?? drawn.state.dungeon!.hamlet?.last).toBeTruthy();
   });
 
-  it("Fanatic I：The Black Sheep helper 可单独调用", () => {
+  it("旧档：The Black Sheep 可重放历史的压力 +4", () => {
     let game = createCoreDungeonQuest(907, "quest:p001", "standard", coreParty, coreQuestSources);
     game = ok(game, { type: "setActiveBossThreat", scriptId: FANATIC_I_SCRIPT_ID });
-    const result = applyBossThreatBlackSheepBeforeHamletEvent(game);
+    const result = applyBossThreatBlackSheepBeforeHamletEvent(game, true);
     expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
     expect(result.state.dungeon!.heroes.some((h) => h.stress === 4)).toBe(true);
   });

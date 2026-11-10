@@ -132,14 +132,14 @@ export function sanitariumHealLifeDeltaFromBossThreat(script: BossScriptDefiniti
   return passive.healDelta;
 }
 
-/** Fanatic I 等：揭示村庄事件前 d10 最低者额外压力；未接线 hamlet 事件路径时供调用方查询。 */
-export function blackSheepStressDeltaFromBossThreat(script: BossScriptDefinition): number {
+/** R-226：揭示村庄事件前 d10 最低者的减益时长。 */
+export function blackSheepDebuffTurnsFromBossThreat(script: BossScriptDefinition): number {
   const passive = runBossHook(script, "threatPassiveHamlet", {
     scriptId: script.id,
     side: "hamlet",
   }) as BossThreatPassiveHamletResult;
   if (passive.status !== "ok" || passive.effect !== "blackSheepBeforeHamletEvent") return 0;
-  return passive.stressDelta;
+  return passive.debuffTurns;
 }
 
 /** Flesh I 等：每日末未访建筑累积伤口；未接线 hamlet 日结束时供调用方查询。 */

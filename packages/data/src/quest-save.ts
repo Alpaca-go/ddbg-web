@@ -244,6 +244,7 @@ const phase3QuestIds = basicQuests
 
 export const questStartSchema = z.strictObject({
   bossEdgeRooms: z.boolean().optional(),
+  legacyCardReviewCommandCount: z.int().min(1).max(10000).optional(),
   seed: z.int().min(0).max(0xffffffff),
   questId: z.enum(phase3QuestIds),
   mode: z.enum(["standard", "radiant", "stygian"]),
@@ -260,7 +261,7 @@ export const questStartSchema = z.strictObject({
 export const questSaveSchema = z.strictObject({
   format: z.literal("ddbg-core-quest"),
   version: z.literal(1),
-  rulesVersion: z.literal("core-quest-2026-10-14"),
+  rulesVersion: z.enum(["core-quest-2026-10-14", "core-quest-r225-r227"]),
   /**
    * 保存时的战役等级（R-194）。v1 旧档缺省；新档必写，读档时须与回放结果一致。
    * 等级不改变回放：`start` 仍是战役起点，命令日志覆盖整段战役。

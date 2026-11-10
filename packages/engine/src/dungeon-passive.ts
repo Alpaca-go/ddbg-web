@@ -1,9 +1,32 @@
 import { healingTrinketReaction } from "./trinket-reactions";
 import type { DungeonState } from "./dungeon";
 import type { GameEvent } from "./command";
-import { applyPassiveHero } from "./passive-runtime";
+import { applyPassiveHero, applyPassiveStatus } from "./passive-runtime";
 import type { PassiveInput } from "./passive-runtime";
 import { readHeroPassiveDefence } from "./battle-skill-status";
+
+/** 村庄获得的减益沿既有英雄状态堆带入战斗。 */
+export function applyHamletThreatDebuff(
+  dungeon: DungeonState,
+  hero: DungeonState["heroes"][number],
+  duration: number,
+) {
+  const defence = dungeon.battleCatalog && readHeroPassiveDefence(dungeon.battleCatalog, hero);
+  const applied = applyPassiveStatus(hero, { kind: "debuff", duration }, "target", defence);
+  if (applied.status === "refused" || !applied.hero.combat) return applied;
+  const updated = applied.hero;
+  return {
+    ...applied,
+    hero: {
+      ...updated,
+      combat: {
+        ...applied.hero.combat,
+        statusStacks: updated.statusStacks!,
+        debuffStacks: updated.statusStacks!.filter((s) => s.kind === "debuff").length,
+      },
+    },
+  };
+}
 
 export function triggerDungeonPassive(
   dungeon: DungeonState,

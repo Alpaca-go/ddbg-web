@@ -532,7 +532,11 @@ export function createInitialState(seed: number): GameState {
  * Phase 2 单目标战斗沙盒；规则书第 19–21 页、R-024、R-031、R-048。
  * 等待位移方向 / 区域选择时冻结其他命令；区域选择不重掷骰子。
  */
-function dispatchCommand(state: GameState, command: Command): ApplyResult {
+function dispatchCommand(
+  state: GameState,
+  command: Command,
+  legacyCardReview: boolean,
+): ApplyResult {
   if (state.dungeon?.darkest?.excavation?.stage === "provisions")
     return command.type === "resolveChoice"
       ? resolveExcavation(state, command)
@@ -615,7 +619,7 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
   if (command.type === "upgradeHamletBuilding") return upgradeHamletBuilding(state, command);
   if (command.type === "visitHamletBuilding" || command.type === "useHamletSkill")
     return applyHamletAction(state, command);
-  if (command.type === "drawHamletEvent") return drawHamletEvent(state);
+  if (command.type === "drawHamletEvent") return drawHamletEvent(state, legacyCardReview);
   if (command.type === "beginFinalPreparation") return beginFinalPreparation(state);
   if (command.type === "prepareFinalBattleForms") return prepareFinalBattleForms(state);
   if (command.type === "beginFinalBattleProvisions") return beginFinalBattleProvisions(state);
@@ -939,7 +943,11 @@ function dispatchCommand(state: GameState, command: Command): ApplyResult {
 }
 
 /** 任一后续规则拒绝时，整次命令回滚骰子、行动和事件。 */
-export function applyCommand(state: GameState, command: Command): ApplyResult {
+export function applyCommand(
+  state: GameState,
+  command: Command,
+  replayLegacyCardReview = false,
+): ApplyResult {
   const d = state.dungeon;
   if (d && (d.stagecoachHeroes || d.conditions?.reservedHeroes || d.trinkets?.reservedHeroes)) {
     const problem =
@@ -983,7 +991,7 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
     state.battle &&
     command.type !== "finishDungeonBattle"
   )
-    return runTrinketCommand(state, command, applyCommandCore);
+    return runTrinketCommand(state, command, applyCommandCore, replayLegacyCardReview);
   if (state.dungeon?.finalFormSequence && command.type === "finishDungeonBattle")
     return finishFinalBattleForm(state);
   if (state.dungeon?.finalBattleProvisions) {
@@ -1000,9 +1008,13 @@ export function applyCommand(state: GameState, command: Command): ApplyResult {
     return rejectBattleCommand(state, "最终战补给准备中或已完成；须先建立形态流程（R36）");
   }
   if (command.type === "beginFinalBattleProvisions") return beginFinalBattleProvisions(state);
-  return runTrinketCommand(state, command, applyCommandCore);
+  return runTrinketCommand(state, command, applyCommandCore, replayLegacyCardReview);
 }
-function applyCommandCore(state: GameState, command: Command): ApplyResult {
+function applyCommandCore(
+  state: GameState,
+  command: Command,
+  legacyCardReview: boolean,
+): ApplyResult {
   const heroes = state.battle
     ? state.battle.entities.filter((e) => e.side === "hero")
     : (state.dungeon?.heroes ?? []);
@@ -1054,7 +1066,7 @@ function applyCommandCore(state: GameState, command: Command): ApplyResult {
     state,
     applyHigherRuinsBattleSpawn(
       state,
-      applyHigherRuinsHamlet(state, command, dispatchCommand(state, command)),
+      applyHigherRuinsHamlet(state, command, dispatchCommand(state, command, legacyCardReview)),
     ),
   );
   const result = dispatched.events.some((e) => e.type === "commandRefused")

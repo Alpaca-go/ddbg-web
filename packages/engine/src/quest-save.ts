@@ -27,6 +27,15 @@ function canonical(value: unknown): string {
   };
   return JSON.stringify(sort(value));
 }
+
+function canonicalReplay(game: GameState, legacySave: boolean): string {
+  if (!legacySave || !game.trinketChoice?.legacyCardReview) return canonical(game);
+  // 旧快照没有此标记，读档后保留它以续接已经打开的选择。
+  const { legacyCardReview: _legacy, ...trinketChoice } = game.trinketChoice;
+  void _legacy;
+  return canonical({ ...game, trinketChoice });
+}
+
 function replay(
   start: QuestStart,
   commands: readonly Command[],
@@ -54,7 +63,7 @@ function replay(
   let events: readonly GameEvent[] = [];
   for (const [index, command] of commands.entries()) {
     const oldPlan = game.dungeon?.faceTheThreatEmbarkPlan;
-    const result = applyCommand(game, command);
+    const result = applyCommand(game, command, index < (start.legacyCardReviewCommandCount ?? 0));
     const refused = result.events.find((e) => e.type === "commandRefused");
     if (refused) throw new Error(`存档第${index + 1}条命令无法回放：${refused.message}`);
     game = result.state;
@@ -177,12 +186,14 @@ export function createQuestSave(
   const save = questSaveSchema.parse({
     format: "ddbg-core-quest",
     version: 1,
-    rulesVersion: "core-quest-2026-10-14",
+    rulesVersion: "core-quest-r225-r227",
     campaignLevel: readCampaignLevel(game.dungeon ?? {}),
     start: questStartSchema.parse(start),
     commands,
     snapshot: JSON.parse(JSON.stringify(game)),
   });
+  if ((save.start.legacyCardReviewCommandCount ?? 0) > save.commands.length)
+    throw new Error("旧卡牌口径的命令范围超出日志，未保存");
   const restored = replay(save.start, replayCommands(save.commands), sources);
   if (save.campaignLevel !== readCampaignLevel(restored.game.dungeon ?? {}))
     throw new Error("战役等级与任务入口及命令日志不一致，未保存");
@@ -199,13 +210,23 @@ export function loadQuestSave(
   if (!parsed.success) throw new Error("存档格式、版本或命令参数不受支持");
   const save = parsed.data;
   const commands = replayCommands(save.commands);
-  const restored = replay(save.start, commands, sources);
+  const legacySave = save.rulesVersion === "core-quest-2026-10-14";
+  if (
+    (legacySave && save.start.legacyCardReviewCommandCount !== undefined) ||
+    (save.start.legacyCardReviewCommandCount ?? 0) > commands.length
+  )
+    throw new Error("旧卡牌口径的命令范围与存档版本或日志不一致");
+  const start =
+    legacySave && commands.length
+      ? { ...save.start, legacyCardReviewCommandCount: commands.length }
+      : save.start;
+  const restored = replay(start, commands, sources);
   if (
     save.campaignLevel !== undefined &&
     save.campaignLevel !== readCampaignLevel(restored.game.dungeon ?? {})
   )
     throw new Error("存档声明的战役等级与回放不一致；未替换当前进度");
-  const restoredKey = canonical(restored.game);
+  const restoredKey = canonicalReplay(restored.game, legacySave);
   const snapshot = upgradeFundraiserPrompt(save.snapshot);
   let snapshotKey = canonical(
     upgradeFallenHeroSnapshot(upgradeNomadPrompt(snapshot, restored.game), restored.game),
@@ -228,9 +249,9 @@ export function loadQuestSave(
         canonical(restored.game.dungeon?.faceTheThreatEmbarkPlan);
     if (oldSetup || oldPlan) {
       try {
-        const legacy = replay(save.start, commands, sources, oldSetup, oldPlan).game;
+        const legacy = replay(start, commands, sources, oldSetup, oldPlan).game;
         const d = legacy.dungeon!;
-        const upgraded = {
+        const upgraded: GameState = {
           ...legacy,
           dungeon: {
             ...d,
@@ -243,7 +264,10 @@ export function loadQuestSave(
           },
         };
         // 旧日志必须先完整匹配；仅固定入口字段/占位计划可升级，玩家、待选与RNG仍逐项相等。
-        if (canonical(legacy) === canonical(save.snapshot) && canonical(upgraded) === restoredKey) {
+        if (
+          canonicalReplay(legacy, legacySave) === canonical(save.snapshot) &&
+          canonicalReplay(upgraded, legacySave) === restoredKey
+        ) {
           snapshotKey = restoredKey;
         }
       } catch {
@@ -312,5 +336,5 @@ export function loadQuestSave(
     if (canonical(upgraded) !== canonical(restored.game))
       throw new Error("旧存档的目录更新改变了游戏结果；未替换当前进度");
   }
-  return { ...restored, start: save.start, commands };
+  return { ...restored, start, commands };
 }

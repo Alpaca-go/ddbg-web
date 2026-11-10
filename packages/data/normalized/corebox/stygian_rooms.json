@@ -65,6 +65,11 @@
     "can’t heal or be healed. Heroes ending",
     "their turn here suffer 1 {icon:d4c2a095b5} /Hero Level."
    ],
+   "reviewedEffect": {
+    "kind": "unholyAura",
+    "healingForbidden": true,
+    "endTurnWoundsPerHeroLevel": 1
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -369,6 +374,12 @@
     "to revive a dead Hero and place them",
     "in the Stagecoach."
    ],
+   "reviewedEffect": {
+    "kind": "poolOfRebirth",
+    "endTurnStressPerNegativeQuirk": 2,
+    "endTurnHealPerNegativeQuirk": 3,
+    "reviveStressPerHero": 4
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",

@@ -343,12 +343,18 @@ it("Speed Stone正面允许比原Speed多一格的合法路径", () => {
   expect(paid.state.battle!.entities[0]!.areaId).toBe(path.at(-1));
 });
 it.each([
-  ["trinket:p028", false, 2, false],
+  ["trinket:p028", false, 2, true],
   ["trinket:p028", false, 3, true],
-  ["trinket:p028", false, 4, true],
+  ["trinket:p028", false, 4, false],
+  ["trinket:p035", false, 2, false],
   ["trinket:p035", false, 3, true],
+  ["trinket:p035", false, 4, true],
+  ["trinket:p028", true, 2, true],
   ["trinket:p028", true, 3, true],
+  ["trinket:p028", true, 4, false],
+  ["trinket:p035", true, 2, false],
   ["trinket:p035", true, 3, true],
+  ["trinket:p035", true, 4, true],
 ] as const)("%s反面在意志骰窗口检查光照，legacy=%s，光照=%s", (id, legacy, light, eligible) => {
   const initial = battle(["trinket:p027", id], "inverted", seedForRoll(2));
   const state = {
@@ -384,6 +390,27 @@ it.each([
       .role;
   expect(card(skip)).toBe("virtue");
   expect(card(paid)).toBe("affliction");
+});
+it("旧档已打开的冠饰窗口沿用历史门槛完成本次选择", () => {
+  const id = "trinket:p028";
+  const initial = battle(["trinket:p027", id], "inverted", seedForRoll(2));
+  const state = {
+    ...initial,
+    battle: {
+      ...initial.battle,
+      light: 4,
+      entities: initial.battle.entities.map((hero) =>
+        hero.id === "h0" ? { ...hero, stress: 9 } : hero,
+      ),
+    },
+  };
+  const command = { type: "useCoreTrinket", actorId: "h0", cardId: "trinket:p027" } as const;
+  const pending = ok(applyCommand(state, command, true));
+  expect(pending.pendingChoice?.options.some((option) => option.id === id)).toBe(true);
+  expect(
+    choose(pending, id).events.some((event) => event.type === "trinketUsed" && event.cardId === id),
+  ).toBe(true);
+  expect(applyCommand(state, command).pendingChoice).toBeUndefined();
 });
 function exploreScene(
   id: CoreTrinketId,
