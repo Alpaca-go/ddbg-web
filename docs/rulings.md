@@ -859,6 +859,14 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **限定批准**：当前版Hamlet Event FRONT p1 Supply Run与p3 Lost Shipment效果位置的`d712688f15`＝补给骰；p9 Gypsy Trail效果位置的`08a25c05cf`＝金币；p10 The Feast效果位置的`d9009c6f91`＝伤口。The Feast的`9d58d3d431`沿既有压力语义不变。
 - **边界**：仅以上四张卡的指定效果位置，不推广到其他卡或全局词典，不自动批准运行时顺序或“fully restore”事件类型。完整卡面已逐页复核；实际效果运行时仍须另接。Militia Training的0/3天条件已由R-077批准，不重新请求。
 
+### R-224
+
+- **编号**：R-224
+- **日期**：2026-11-10
+- **核准**：HAMLET EVENTS FRONT p1–15 的准备天数依次为 2、2、4、3、3、3、1、2、2、1、3、2、4、3、2。Town Fair（p7）和 The Feast（p10）的一天来自左上角天数栏。Militia Training（p16）印问号，选择全体各升级一张 I 级技能时为 0 天，否则 3 天。
+- **效果边界**：Supply Run 下次出征额外获得 2 颗补给骰，Lost Shipment 下次出征少掷 2 颗。Gypsy Trail 仅在英雄出售饰品时多得 5 金币。The Feast 的每位英雄可选压力归零或伤口归零。Traveling Merchants 仅能改自己的一颗骰。In Good Spirits 的并列最高者各获得一个美德并将压力标记翻红。
+- **依据**：Kyries 确认的《村庄事件逐卡核对稿》、HAMLET EVENTS FRONT p1–16、核心规则书第 33 页、R-077、R-085、R-086、R-087、R-099。16 张效果与既有运行时相符。
+
 ### R-086
 
 - **日期 / 状态**：2026-10-16（UTC+8），Kyries本对话选择Q-89的A。
