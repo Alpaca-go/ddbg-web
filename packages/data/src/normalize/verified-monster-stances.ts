@@ -23,8 +23,7 @@ export const verifiedMonsterStances = z.array(entrySchema).parse([
     pages: [63, 64, 65],
     stanceGroups: [
       { stances: ["aggressive", "defensive"], skill: 1 },
-      { stances: ["ranged"], unavailable: true },
-      { stances: ["support"], skill: 2 },
+      { stances: ["ranged", "support"], skill: 2 },
     ],
   },
   {
@@ -150,17 +149,16 @@ export const verifiedMonsterStances = z.array(entrySchema).parse([
     pages: [16, 17],
     stanceGroups: [
       { stances: ["aggressive"], skill: 2 },
-      { stances: ["ranged"], unavailable: true },
       {
         stances: ["defensive"],
         rollTable: [
-          { min: 1, max: 4, skill: 1 },
-          { min: 5, max: 7, skill: 2 },
+          { min: 1, max: 4, skill: 2 },
+          { min: 5, max: 7, skill: 1 },
           { min: 8, max: 10, skill: 3 },
         ],
       },
       {
-        stances: ["support"],
+        stances: ["ranged", "support"],
         rollTable: [
           { min: 1, max: 6, skill: 1 },
           { min: 7, max: 10, skill: 3 },
@@ -261,8 +259,8 @@ export const verifiedMonsterStances = z.array(entrySchema).parse([
     level: 1,
     pages: [27, 28, 29],
     stanceGroups: [
-      { stances: ["aggressive", "defensive"], skill: 2 },
-      { stances: ["ranged", "support"], skill: 1 },
+      { stances: ["aggressive"], skill: 2 },
+      { stances: ["defensive", "ranged", "support"], skill: 1 },
     ],
   },
   {
@@ -647,6 +645,53 @@ export const verifiedMonsterStances = z.array(entrySchema).parse([
     stanceGroups: [
       { stances: ["aggressive"], skill: 2 },
       { stances: ["defensive", "ranged", "support"], skill: 1 },
+    ],
+  },
+  // R-214：White Cell Stalk 与两张 ADD_014 补印牌各按自己的卡号记录。
+  {
+    id: "monster_medium:p104",
+    name: "White Cell Stalk",
+    level: 3,
+    pages: [104],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 3, skill: 1 },
+          { min: 4, max: 7, skill: 2 },
+          { min: 8, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_medium:ADD_014:p001",
+    name: "Perfect Reflection",
+    level: 3,
+    pages: [1, 2],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  {
+    id: "monster_medium:ADD_014:p003",
+    name: "Imperfect Reflection",
+    level: 3,
+    pages: [3, 4],
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged", "support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 2 },
+        ],
+      },
     ],
   },
 ]);

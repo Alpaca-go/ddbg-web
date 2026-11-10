@@ -41,7 +41,7 @@ it("R-183：Shuffling Horror 生成结果与提交数据一致", () => {
   expect(generated).toEqual(committed.cards.find((c: { id: string }) => c.id === generated.id));
   expect(generated.speed).toBe(1);
 });
-it("R-181：Templar Warlord / Impaler 生成结果与提交数据一致", () => {
+it("R-214：Templar Warlord / Impaler 各有独立骰表", () => {
   const committed = JSON.parse(
     readFileSync(new URL("../../normalized/corebox/monster_large.json", import.meta.url), "utf8"),
   );
@@ -49,6 +49,21 @@ it("R-181：Templar Warlord / Impaler 生成结果与提交数据一致", () => 
     const generated = built.monster_large.cards.find((c) => c.id === id)!;
     expect(generated).toEqual(committed.cards.find((c: { id: string }) => c.id === id));
     expect(generated.speed).toBe(2);
+    const twoSkills = [1, 1, 1, 1, 1, 3, 3, 3, 3, 3];
+    const threeSkills = [1, 1, 3, 3, 2, 2, 2, 2, 2, 2];
+    const view = { ...generated, stanceGroups: generated.stanceGroups! };
+    const expected =
+      id === "monster_large:p014"
+        ? [twoSkills, twoSkills, threeSkills, threeSkills]
+        : [threeSkills, threeSkills, threeSkills, twoSkills];
+    const stances = ["aggressive", "defensive", "ranged", "support"] as const;
+    stances.forEach((stance, index) => {
+      for (let roll = 1; roll <= 10; roll++)
+        expect(selectMonsterSkill(view, [stance], roll)).toMatchObject({
+          status: "selected",
+          skillSlot: expected[index]![roll - 1],
+        });
+    });
   }
 });
 it("只附加已核实大型卡，参考卡与其他卡不补值；不修改输入或其他字段", () => {
@@ -113,7 +128,7 @@ it("L2全部姿态/d10按印刷表选招，大型两格取高优先姿态", () =
     skillSlot: 3,
   });
 });
-it("R-083 Captain/Ghoul四姿态全部骰面符合独立印刷表，大型取占用前姿态", () => {
+it("R-083、R-214 Captain/Ghoul四姿态全部骰面符合独立印刷表，大型取占用前姿态", () => {
   for (const [id, speed, a, s] of [
     ["monster_large:p001", 1, [1, 1, 1, 1, 1, 1, 2, 2, 2, 2], Array(10).fill(2)],
     ["monster_large:p003", 2, [1, 1, 1, 1, 2, 2, 2, 3, 3, 3], [2, 2, 2, 2, 2, 3, 3, 3, 3, 3]],
@@ -123,8 +138,7 @@ it("R-083 Captain/Ghoul四姿态全部骰面符合独立印刷表，大型取占
     expect(card.speed).toBe(speed);
     for (const stance of ["aggressive", "defensive", "ranged", "support"] as const)
       for (let roll = 1; roll <= 10; roll++) {
-        const expected =
-          stance === "support" || (id.endsWith("p001") && stance === "ranged") ? s : a;
+        const expected = stance === "ranged" || stance === "support" ? s : a;
         expect(selectMonsterSkill(view, [stance], roll)).toMatchObject({
           status: "selected",
           skillSlot: expected[roll - 1],
@@ -132,7 +146,7 @@ it("R-083 Captain/Ghoul四姿态全部骰面符合独立印刷表，大型取占
       }
     expect(selectMonsterSkill(view, ["support", "ranged"], 1)).toMatchObject({
       status: "selected",
-      skillSlot: id.endsWith("p001") ? 2 : 1,
+      skillSlot: 2,
     });
   }
 });

@@ -57,7 +57,7 @@ export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
     speed: 2,
     stanceGroups: [
       {
-        stances: ["aggressive", "defensive", "ranged"],
+        stances: ["aggressive", "defensive"],
         rollTable: [
           { min: 1, max: 4, skill: 1 },
           { min: 5, max: 7, skill: 2 },
@@ -65,7 +65,7 @@ export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
         ],
       },
       {
-        stances: ["support"],
+        stances: ["ranged", "support"],
         rollTable: [
           { min: 1, max: 5, skill: 2 },
           { min: 6, max: 10, skill: 3 },
@@ -207,7 +207,7 @@ export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
     speed: 0,
     stanceGroups: [{ stances: ["aggressive", "defensive", "ranged", "support"], skill: 1 }],
   },
-  // R-181：Templar Warlord / Impaler · FRONT p014/p015；两枚靴印 Speed 2；进攻 1–2/3–4/5–10，其余姿态 1–5/6–10。
+  // R-181 确认 Speed；R-214 按 L14、L15 各自的底栏修正选招。
   {
     id: "monster_large:p014",
     name: "Templar Warlord",
@@ -216,18 +216,18 @@ export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
     speed: 2,
     stanceGroups: [
       {
-        stances: ["aggressive"],
+        stances: ["aggressive", "defensive"],
         rollTable: [
-          { min: 1, max: 2, skill: 1 },
-          { min: 3, max: 4, skill: 2 },
-          { min: 5, max: 10, skill: 3 },
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 3 },
         ],
       },
       {
-        stances: ["defensive", "ranged", "support"],
+        stances: ["ranged", "support"],
         rollTable: [
-          { min: 1, max: 5, skill: 1 },
-          { min: 6, max: 10, skill: 2 },
+          { min: 1, max: 2, skill: 1 },
+          { min: 3, max: 4, skill: 3 },
+          { min: 5, max: 10, skill: 2 },
         ],
       },
     ],
@@ -240,18 +240,18 @@ export const verifiedLargeMonsterFields = z.array(entrySchema).parse([
     speed: 2,
     stanceGroups: [
       {
-        stances: ["aggressive"],
+        stances: ["aggressive", "defensive", "ranged"],
         rollTable: [
           { min: 1, max: 2, skill: 1 },
-          { min: 3, max: 4, skill: 2 },
-          { min: 5, max: 10, skill: 3 },
+          { min: 3, max: 4, skill: 3 },
+          { min: 5, max: 10, skill: 2 },
         ],
       },
       {
-        stances: ["defensive", "ranged", "support"],
+        stances: ["support"],
         rollTable: [
           { min: 1, max: 5, skill: 1 },
-          { min: 6, max: 10, skill: 2 },
+          { min: 6, max: 10, skill: 3 },
         ],
       },
     ],

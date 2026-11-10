@@ -59,13 +59,13 @@ function fixture(questId: string): GameState {
     },
   };
 }
-it("R-142 Bone Bearer 选招表含显式不可选远程，Unholy Rally 经公开 AI 全治疗且不耗攻击骰", () => {
+it("R-214 Bone Bearer 按四姿态选招，Unholy Rally 经公开 AI 全治疗且不耗攻击骰", () => {
   const base = fixture("quest:p009");
   const deployed = applyCommand(base, { type: "prepareDungeonMonsters" }).state;
   let state = applyCommand(deployed, { type: "startDungeonBattle" }).state;
   const card = state.battle!.monsters!.find((c) => c.id === "monster_medium:p016")!;
   expect(card.speed).toBe(2);
-  expect(selectMonsterSkill(card, ["ranged"]).status).toBe("refused");
+  expect(selectMonsterSkill(card, ["ranged"]).status).toBe("needsRoll");
   for (let roll = 1; roll <= 10; roll++) {
     expect(selectMonsterSkill(card, ["aggressive"], roll)).toMatchObject({
       status: "selected",
@@ -73,12 +73,13 @@ it("R-142 Bone Bearer 选招表含显式不可选远程，Unholy Rally 经公开
     });
     expect(selectMonsterSkill(card, ["defensive"], roll)).toMatchObject({
       status: "selected",
-      skillSlot: roll <= 4 ? 1 : roll <= 7 ? 2 : 3,
+      skillSlot: roll <= 4 ? 2 : roll <= 7 ? 1 : 3,
     });
-    expect(selectMonsterSkill(card, ["support"], roll)).toMatchObject({
-      status: "selected",
-      skillSlot: roll <= 6 ? 1 : 3,
-    });
+    for (const stance of ["ranged", "support"] as const)
+      expect(selectMonsterSkill(card, [stance], roll)).toMatchObject({
+        status: "selected",
+        skillSlot: roll <= 6 ? 1 : 3,
+      });
   }
   const actor = state.battle!.entities.find((e) => e.side === "monster")!;
   let cursor = state.battle!.rngCursor;

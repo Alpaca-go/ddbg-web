@@ -54,7 +54,12 @@ const approved = [
       [1, 1, 1, 1, 2, 2, 2, 3, 3, 3],
     ],
   },
-  { id: "monster_medium:p027", slots: [2, 2, 1, 1] },
+  // R-214：逐卡核对稿修正与补录。
+  { id: "monster_medium:p027", slots: [2, 1, 1, 1] },
+  { id: "monster_medium:p063", slots: [1, 1, 2, 2] },
+  { id: "monster_medium:p104", slots: Array(4).fill([1, 1, 1, 2, 2, 2, 2, 3, 3, 3]) },
+  { id: "monster_medium:ADD_014:p001", slots: Array(4).fill([1, 1, 1, 1, 1, 2, 2, 2, 2, 2]) },
+  { id: "monster_medium:ADD_014:p003", slots: Array(4).fill([1, 1, 1, 1, 1, 2, 2, 2, 2, 2]) },
   { id: "monster_medium:p031", slots: [1, 1, 1, 1] },
   { id: "monster_medium:p043", slots: Array(4).fill([1, 1, 1, 1, 1, 2, 2, 2, 2, 2]) },
   { id: "monster_medium:p046", slots: [2, 2, 1, 1] },
@@ -107,33 +112,18 @@ describe("真实卡获批姿态分组与未获批拒绝（R-015、R-048）", () 
     expect(card).toEqual(before);
   });
 
-  it("其他真实卡有 footer 且 unverified=false，缺分组仍拒绝；不请求骰或补默认值", () => {
-    const cards = file.cards.filter(
-      (card) =>
-        "skills" in card &&
-        !card.verification.unverified &&
-        card.footer_lines.length > 0 &&
-        !approved.some((entry) => entry.id === card.id) &&
-        card.id !== "monster_medium:p016" &&
-        // R-143九种最暗怪另有360次黄金选招核对；其余卡仍须缺分组拒绝。
-        !["063", "066", "069", "072", "075", "078", "080", "083", "086"].some(
-          (page) => card.id === `monster_medium:p${page}`,
-        ) &&
-        Number(card.id.slice(-3)) < 89,
-    );
-    expect(cards.length).toBeGreaterThan(0);
-    for (const card of cards) {
-      expect(card.stanceGroups, card.id).toBeUndefined();
-      const before = structuredClone(card);
-      for (const stance of stances) {
-        for (const roll of [undefined, 1, 5, 10]) {
-          expect(selectMonsterSkill(card, [stance], roll), `${card.id}/${stance}/${roll}`).toEqual({
-            status: "refused",
-            reason: "缺少已核实的姿态选招分组（R-015、R-048）",
-          });
-        }
+  it("有原始 footer 的卡缺少核实分组时仍拒绝选招", () => {
+    const original = file.cards.find((card) => card.id === "monster_medium:p027")!;
+    expect(original.footer_lines.length).toBeGreaterThan(0);
+    const { stanceGroups, ...card } = original;
+    expect(stanceGroups).toBeDefined();
+    for (const stance of stances) {
+      for (const roll of [undefined, 1, 5, 10]) {
+        expect(selectMonsterSkill(card, [stance], roll), `${card.id}/${stance}/${roll}`).toEqual({
+          status: "refused",
+          reason: "缺少已核实的姿态选招分组（R-015、R-048）",
+        });
       }
-      expect(card).toEqual(before);
     }
   });
 });

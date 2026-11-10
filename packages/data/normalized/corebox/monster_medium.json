@@ -8988,24 +8988,18 @@
     },
     {
      "stances": [
-      "ranged"
-     ],
-     "unavailable": true
-    },
-    {
-     "stances": [
       "defensive"
      ],
      "rollTable": [
       {
        "min": 1,
        "max": 4,
-       "skill": 1
+       "skill": 2
       },
       {
        "min": 5,
        "max": 7,
-       "skill": 2
+       "skill": 1
       },
       {
        "min": 8,
@@ -9016,6 +9010,7 @@
     },
     {
      "stances": [
+      "ranged",
       "support"
      ],
      "rollTable": [
@@ -15218,13 +15213,13 @@
    "stanceGroups": [
     {
      "stances": [
-      "aggressive",
-      "defensive"
+      "aggressive"
      ],
      "skill": 2
     },
     {
      "stances": [
+      "defensive",
       "ranged",
       "support"
      ],
@@ -33926,12 +33921,7 @@
     },
     {
      "stances": [
-      "ranged"
-     ],
-     "unavailable": true
-    },
-    {
-     "stances": [
+      "ranged",
       "support"
      ],
      "skill": 2
@@ -65641,6 +65631,33 @@
      }
     ]
    ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 3,
+       "skill": 1
+      },
+      {
+       "min": 4,
+       "max": 7,
+       "skill": 2
+      },
+      {
+       "min": 8,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    }
+   ],
    "back_texts": [
     [
      {
@@ -71899,6 +71916,28 @@
      }
     ]
    ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    }
+   ],
    "back_texts": [
     [
      {
@@ -73268,6 +73307,28 @@
       "text": " 6-10 1-5"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    }
    ],
    "back_texts": [
     [

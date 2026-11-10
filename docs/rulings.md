@@ -811,7 +811,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 ### R-083
 
 - **编号 / 日期**：R-083，2026-10-15（UTC+8）。
-- **限定批准**：Kyries对[四卡限定表](phase4-remaining-ii-review-2026-10-15.md)明确回复“批准四卡限定表”：Bone Captain II（大型L1、抽牌M12）Speed1，A/D骰表1(1–6)/2(7–10)，R/S固定2，无常驻Protection；Gargoyle II（M50–52）Speed3，A/D/R骰表1(1–6)/2(7–10)，S固定2，有常驻Protection；Rattler II（M53–55）Speed3，A/D/R骰表2(1–5)/1(6–10)，S骰表1(1–5)/3(6–10)，无常驻Protection；Ghoul II（大型L3、抽牌M49）Speed2，A/D/R骰表1(1–4)/2(5–7)/3(8–10)，S骰表2(1–5)/3(6–10)，有常驻Protection。
+- **限定批准**：Kyries对[四卡限定表](phase4-remaining-ii-review-2026-10-15.md)明确回复“批准四卡限定表”：Bone Captain II（大型L1、抽牌M12）Speed1，A/D骰表1(1–6)/2(7–10)，R/S固定2，无常驻Protection；Gargoyle II（M50–52）Speed3，A/D/R骰表1(1–6)/2(7–10)，S固定2，有常驻Protection；Rattler II（M53–55）Speed3，A/D/R骰表2(1–5)/1(6–10)，S骰表1(1–5)/3(6–10)，无常驻Protection；Ghoul II（大型L3、抽牌M49）Speed2，A/D/R骰表1(1–4)/2(5–7)/3(8–10)，S骰表2(1–5)/3(6–10)，有常驻Protection。 Ghoul 的姿态分组以 R-214 更正为准。
 - **依据 / 边界**：官方R24完整页面与上述当前版完整卡面。只限四个具体战斗卡id/等级/页组的Speed、完整选招和头部常驻Protection有无；不全局改词典、不外推其他等级，不等于完整技能均可执行。Rattler自身状态与Ghoul复合效果须另接运行时。Q-86，confirmed。
 
 ### R-084
@@ -1837,7 +1837,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **编号**：R-142
 - **日期**：2026-11-02（Asia/Shanghai）
-- **裁定**：Bone Bearer（monster_medium:p016，FRONT p016–17）Speed=2（右侧两枚脚印；黄色3为Dodge）；aggressive 固定技能2；defensive d10 1–4→1、5–7→2、8–10→3；ranged 不可选；support d10 1–6→1、7–10→3。早先提问 Speed=3 已被更正，以本次确认为准。
+- **裁定**：Bone Bearer（monster_medium:p016，FRONT p016–17）Speed=2（右侧两枚脚印；黄色3为Dodge）；aggressive 固定技能2；defensive d10 1–4→1、5–7→2、8–10→3；ranged 不可选；support d10 1–6→1、7–10→3。早先提问 Speed=3 已被更正，以本次确认为准。 选招表以 R-214 更正为准。
 - **任务准入**：开放 Break Them / They Are Back（quest:p009/p013）已按任务计划部署的指定怪物入场。保持单怪部署、不洗牌、不补满四姿态；p009 使用 III级 Bone Bearer；p013 Bone Captain 使用卡面 Life+20、Dodge+2。仍检查完整战斗字段、实例身份和牌池守恒，不能以普通随机遭遇替代。
 - **依据**：Kyries 对更正后的核图问题明确回复“确认更正字段并开放计划部署入场”；当前怪物 FRONT p016–17、QUEST p009/p013；R-001 / R-048。无 Acc 技能依官方规则书 R19 Note 直接生效，友方治疗依 R20/R24。
 - **边界**：只批准上述字段及两项计划部署，不外推其它怪物或任务，不开放其它 hold、核心任务生产白名单或 Phase 6。
@@ -1848,7 +1848,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **编号**：R-143
 - **日期**：2026-11-02（Asia/Shanghai）
-- **裁定**：Kyries 明确回复“确认以上九张字段”。最暗普通怪 monster_medium:p063/p066/p069/p072/p075/p078/p080/p083/p086 的 Speed、四姿态选招分组及 d10 区间，按 [逐卡核图表](phase5-darkest-monster-fields-review-2026-11-02.md) 入库。p063 的 ranged 为不可选，不补默认技能；Speed依次为2/2/3/2/1/3/3/2/2，不把黄色Dodge数字当Speed。
+- **裁定**：Kyries 明确回复“确认以上九张字段”。最暗普通怪 monster_medium:p063/p066/p069/p072/p075/p078/p080/p083/p086 的 Speed、四姿态选招分组及 d10 区间，按 [逐卡核图表](phase5-darkest-monster-fields-review-2026-11-02.md) 入库。p063 的远程姿态选招见 R-214 更正；Speed依次为2/2/3/2/1/3/3/2/2，不把黄色Dodge数字当Speed。
 - **依据**：当前版怪物FRONT M63–88，九种身份首张完整卡与26份Speed栏/页脚核图；官方规则书R24、R-015、R-001 / R-048。
 - **边界**：只批准九种怪物的上述字段，不批准房间几何，不解除battleReady:false，不将占位部署视为生产随机遭遇，不外推其它卡。
 - **状态**：Kyries 已确认。
@@ -2372,7 +2372,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### R-181
 
 - **日期**：2026-11-04（Asia/Shanghai）
-- **裁定**：Templar Warlord `monster_large:p014` 与 Templar Impaler `monster_large:p015` 的 Speed 均为 2。两卡共用姿态选招表：进攻姿态 d10 1–2 → slot 1（Torment），3–4 → slot 2（Body Slam / Stinger Shot），5–10 → slot 3（Revelation）；防御、远程、辅助姿态 d10 1–5 → slot 1，6–10 → slot 2。
+- **裁定**：Templar Warlord `monster_large:p014` 与 Templar Impaler `monster_large:p015` 的 Speed 均为 2。两卡共用姿态选招表：进攻姿态 d10 1–2 → slot 1（Torment），3–4 → slot 2（Body Slam / Stinger Shot），5–10 → slot 3（Revelation）；防御、远程、辅助姿态 d10 1–5 → slot 1，6–10 → slot 2。 两卡选招表以 R-214 各自的映射为准。
 - **依据**：Kyries 待确认本 PR；核心 R24、印刷 COREBOX 怪物大卡 FRONT p014–p015 及[字段核对稿](phase5-templars-page-entry-review-2026-11-04.md)；部署 R-180。
 - **边界**：仅此两卡字段与正式 `bossMonsters` 目录及 `preTemplarsTaskSources` 迁移。Pit Toss / Spikes / 完整 AI 与其余最暗 Boss 分切片。
 
@@ -2898,3 +2898,20 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **状态**：已裁定
 - **实现状态**：`dungeon-starting-provisions.ts` 新增 `dungeon-provision-discard:` 待选与 `chooseProvisionDiscard`；`quest-p010-purify.test.ts` 覆盖；`quest-provisions.ts` 改为返回溢出信息。
 
+
+### R-214
+
+- **编号**：R-214
+- **日期**：2026-11-10
+- **裁定**：按 Kyries 交回的怪物技能选招与目标数量核对稿更新下列卡号。技能号按印刷标签，区间两端均含。大型仍按所占两格中优先级较高的姿态读（R-015）。
+  - M p016 Bone Bearer：进攻固定 2；防御 1–4 → 2、5–7 → 1、8–10 → 3；远程和支援 1–6 → 1、7–10 → 3。修订 R-142 选招。
+  - M p027 Brigand Fusilier：进攻固定 2；防御、远程和支援固定 1。
+  - M p063 Ascended Brawler：进攻和防御固定 1；远程和支援固定 2。补正 R-143 的卡面字段。
+  - M p104 White Cell Stalk：四姿态 1–3 → 1、4–7 → 2、8–10 → 3。
+  - ADD_014 p1 Perfect Reflection、p3 Imperfect Reflection：两张补印卡各自记录四姿态 1–5 → 1、6–10 → 2。
+  - L p3 Ghoul：进攻和防御 1–4 → 1、5–7 → 2、8–10 → 3；远程和支援 1–5 → 2、6–10 → 3。修订 R-083 的姿态分组。
+  - L p14 Templar Warlord：进攻和防御 1–5 → 1、6–10 → 3；远程和支援 1–2 → 1、3–4 → 3、5–10 → 2。
+  - L p15 Templar Impaler：进攻、防御和远程 1–2 → 1、3–4 → 3、5–10 → 2；支援 1–5 → 1、6–10 → 3。两张 Templar 选招表取代 R-181 的共用表。
+- **依据**：交回的怪物技能选招与目标数量核对稿、上述印刷页、R-001、R-015、R-048。
+- **逐卡复核**：核对稿的单目标 ×1、复数目标、Self、Special 和 Heart of Darkness 三招 0–10 射程与既有数据一致。Ascended Witch 的 Fate’s Pull 按 R-140 结算，Adder 的 Molt 按 R-198／Q-163 结算。
+- **边界**：仅修正印刷选招字段。Boss 特殊行动继续走对应专用入口（R-190、R-201）。

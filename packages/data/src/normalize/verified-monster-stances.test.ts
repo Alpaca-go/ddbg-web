@@ -72,6 +72,9 @@ describe("获批怪物姿态映射入库（2026-10-09）", () => {
       "monster_medium:p105",
       "monster_medium:p106",
       "monster_medium:p109",
+      "monster_medium:p104",
+      "monster_medium:ADD_014:p001",
+      "monster_medium:ADD_014:p003",
     ];
     expect(verifiedMonsterStances.map((entry) => entry.id).sort()).toEqual(approvedIds.sort());
     for (const card of built.monster_medium.cards) {
